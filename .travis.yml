@@ -1,0 +1,5 @@
+language: objective-c
+osx_image: xcode8
+script: 
+- ./scripts/buildPrebidMobile.sh
+- ./scripts/testPrebidMobile.sh

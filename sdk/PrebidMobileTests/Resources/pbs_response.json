@@ -1,0 +1,37 @@
+{
+    "tid":"F3740584-220F-49F7-805C-A4845F22F400",
+    "status":"OK",
+    "bidder_status":[
+         {
+             "bidder":"appnexus",
+             "response_time_ms":27,
+             "num_bids":1
+         },
+         {
+             "bidder":"indexExchange",
+             "ad_unit":"HomeScreen",
+             "error":"Index doesn't support apps"
+         },
+         {
+             "bidder":"pubmatic",
+             "response_time_ms":33,
+             "no_bid":true
+         },
+         {
+             "bidder":"rubicon",
+             "response_time_ms":113
+         }
+    ],
+    "bids":[
+        {
+            "bid_id":"18e07dee61047f",
+            "code":"HomeScreen",
+            "creative_id":"29681110",
+            "bidder":"appnexus",
+            "price":0.5,
+            "width":300,
+            "height":250,
+            "cache_id":"2071cf11-085e-4c3c-9eb7-505341634676"
+        }
+    ]
+}
