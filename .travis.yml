@@ -2,6 +2,6 @@ language: objective-c
 osx_image: xcode8
 before_script: "./scripts/add-keys.sh"
 after_script: "./scripts/remove-key.sh"
-script: 
-- ./scripts/buildPrebidMobile.sh
-- ./scripts/testPrebidMobile.sh
+script:
+- "./scripts/buildPrebidMobile.sh"
+- "./scripts/testPrebidMobile.sh"
