@@ -61,7 +61,7 @@ static CGFloat const kRightMargin = 15;
 
     UISegmentedControl *adServerSegControl = [[UISegmentedControl alloc] initWithItems:@[kDFPAdServer, kMoPubAdServer]];
     adServerSegControl.selectedSegmentIndex = 0;
-    UISegmentedControl *adTypeSegControl = [[UISegmentedControl alloc] initWithItems:@[kBanner, kInterstitial, kVideo]];
+    UISegmentedControl *adTypeSegControl = [[UISegmentedControl alloc] initWithItems:@[kBanner, kInterstitial]];
     adTypeSegControl.selectedSegmentIndex = 0;
 
     UITextField *placementIdTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 120, 50)];
