@@ -46,7 +46,7 @@
     double width = [widthHeight[0] doubleValue];
     double height = [widthHeight[1] doubleValue];
     
-    _adContainerView = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - 320) / 2, 100, width, height)];
+    _adContainerView = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - width) / 2, 100, width, height)];
     [self.view addSubview:_adContainerView];
     
     if ([adServer isEqualToString:kMoPubAdServer]) {
