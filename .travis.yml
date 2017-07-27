@@ -1,5 +1,7 @@
 language: objective-c
 osx_image: xcode8
-script: 
-- ./scripts/buildPrebidMobile.sh
-- ./scripts/testPrebidMobile.sh
+before_script: "./scripts/add-keys.sh"
+after_script: "./scripts/remove-key.sh"
+script:
+- "./scripts/buildPrebidMobile.sh"
+- "./scripts/testPrebidMobile.sh"
