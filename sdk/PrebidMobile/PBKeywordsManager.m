@@ -29,9 +29,7 @@ NSString *__nonnull const PBKeywordsManagerPriceHbpbKey = @"hb_pb";
     static dispatch_once_t reservedKeysToken;
     static NSArray *keys;
     dispatch_once(&reservedKeysToken, ^{
-        keys = @[PBKeywordsManagerPreBidBidderCodeKey,
-                 PBKeywordsManagerPriceHbpbKey,
-                 PBKeywordsManagerPreBidCacheIdKey];
+        keys = @[PBKeywordsManagerPriceHbpbKey];
     });
     return keys;
 }

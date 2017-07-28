@@ -17,12 +17,15 @@
 #import "Constants.h"
 #import <GoogleMobileAds/DFPBannerView.h>
 #import "MPAdView.h"
+#import "MPBannerCustomEvent.h"
 #import "PrebidMobile/PrebidMobile.h"
+#import "PrebidMobileDFPMediationForFacebookDemand/PrebidMobileDFPMediationAdapter.h"
 
-@interface BannerTestsViewController () <GADBannerViewDelegate>
+@interface BannerTestsViewController () <GADBannerViewDelegate, MPAdViewDelegate, MPBannerCustomEventDelegate>
 
 @property (strong, nonatomic) MPAdView *mopubAdView;
 @property (strong, nonatomic) DFPBannerView *dfpAdView;
+@property (strong, nonatomic) GADBannerView *GADBannerView;
 @property (strong, nonatomic) UIView *adContainerView;
 @property (strong, nonatomic) NSDictionary *settings;
 
@@ -50,6 +53,7 @@
     [self.view addSubview:_adContainerView];
     
     if ([adServer isEqualToString:kMoPubAdServer]) {
+        
         _mopubAdView = [[MPAdView alloc] initWithAdUnitId:kMoPubBannerAdUnitId
                                                 size:CGSizeMake(width, height)];
         [_adContainerView addSubview:_mopubAdView];
@@ -84,6 +88,25 @@
 
 - (void)adView:(DFPBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
     NSLog(@"DFP: %@", NSStringFromSelector(_cmd));
+    NSLog(@"ERROR: %@", error);
+}
+//- (void)adViewDidReceiveAd:(GADBannerView *)view {
+//    NSLog(@"DFP: %@", NSStringFromSelector(_cmd));
+//}
+//
+//- (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
+//    NSLog(@"DFP: %@", NSStringFromSelector(_cmd));
+//    NSLog(@"ERROR: %@", error);
+//}
+
+- (void)adViewDidLoadAd:(MPAdView *)view {
+    NSLog(@"MoPub: %@", NSStringFromSelector(_cmd));
+    
+}
+
+- (void)adViewDidFailToLoadAd:(MPAdView *)view {
+    NSLog(@"MoPub: %@", NSStringFromSelector(_cmd));
+    
 }
 
 /*

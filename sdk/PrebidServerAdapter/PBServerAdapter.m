@@ -27,6 +27,8 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <UIKit/UIKit.h>
 #import <sys/utsname.h>
+#import <ifaddrs.h>
+#import <arpa/inet.h>
 
 static NSString *const kAPNAdServerResponseKeyNoBid = @"nobid";
 static NSString *const kAPNAdServerResponseKeyUUID = @"uuid";
@@ -68,16 +70,32 @@ static NSString *const kPrebidMobileVersion = @"0.0.1";
     }];
 }
 
+- (NSDictionary *)checkForRequestExtras {
+    NSMutableDictionary *requestExtras;
+    SEL getRequestExtras = NSSelectorFromString(@"getRequestExtras");
+    if (NSClassFromString(@"PBFacebookRequestExtras")) {
+        Class fbAdRequestExtrasClass = NSClassFromString(@"PBFacebookRequestExtras");
+        id fbAdRequestExtras = [[fbAdRequestExtrasClass alloc] init];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        requestExtras = [fbAdRequestExtras performSelector:getRequestExtras];
+#pragma clang diagnostic pop
+    }
+    return [requestExtras copy];
+}
+
 - (NSURLRequest *)buildRequestForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
     NSURL *url = [NSURL URLWithString:@"https://prebid.adnxs.com/pbs/v1/auction"];
     NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:url
-                                                                       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                                       cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                                    timeoutInterval:1000];
     [mutableRequest setHTTPMethod:@"POST"];
     NSError *error;
     NSData *postData = [NSJSONSerialization dataWithJSONObject:[self requestBodyForAdUnits:adUnits]
                                                        options:kNilOptions
                                                          error:&error];
+    NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
+    [mutableRequest setAllHTTPHeaderFields:headers];
     if (!error) {
         [mutableRequest setHTTPBody:postData];
         return [mutableRequest copy];
@@ -117,6 +135,7 @@ static NSString *const kPrebidMobileVersion = @"0.0.1";
     if (keywords) {
         requestDict[@"keywords"] = keywords;
     }
+    requestDict[@"is_debug"] = @(YES);
     
     NSMutableArray *adUnitConfigs = [[NSMutableArray alloc] init];
     for (PBAdUnit *adUnit in adUnits) {
@@ -135,7 +154,7 @@ static NSString *const kPrebidMobileVersion = @"0.0.1";
         [adUnitConfigs addObject:adUnitConfig];
     }
     requestDict[@"ad_units"] = adUnitConfigs;
-    
+
     return [requestDict copy];
 }
 
@@ -148,19 +167,23 @@ static NSString *const kPrebidMobileVersion = @"0.0.1";
     }
     
     PBTargetingParamsGender genderValue = [[PBTargetingParams sharedInstance] gender];
-    NSUInteger gender;
+    NSString *gender;
     switch (genderValue) {
         case PBTargetingParamsGenderMale:
-            gender = 1;
+            gender = @"M";
             break;
         case PBTargetingParamsGenderFemale:
-            gender = 2;
+            gender = @"F";
             break;
         default:
-            gender = 0;
+            gender = @"0";
             break;
     }
-    userDict[@"gender"] = @(gender);
+    userDict[@"gender"] = gender;
+    NSDictionary *requestExtras = [self checkForRequestExtras];
+    if (requestExtras[@"buyeruid"]) {
+        userDict[@"buyeruid"] = requestExtras[@"buyeruid"];
+    }
     
     NSString *language = [NSLocale preferredLanguages][0];
     if (language.length) {
@@ -203,6 +226,11 @@ static NSString *const kPrebidMobileVersion = @"0.0.1";
     }
     
     deviceDict[@"make"] = @"Apple";
+    deviceDict[@"os"] = @"iOS";
+    deviceDict[@"osv"] = [[UIDevice currentDevice] systemVersion];
+
+    deviceDict[@"h"] = @([[UIScreen mainScreen] bounds].size.height);
+    deviceDict[@"w"] = @([[UIScreen mainScreen] bounds].size.width);
     
     NSString *deviceModel = PBSDeviceModel();
     if (deviceModel) {
@@ -243,11 +271,40 @@ static NSString *const kPrebidMobileVersion = @"0.0.1";
     if (deviceId) {
         deviceDict[@"ifa"] = deviceId;
     }
+    deviceDict[@"ip"] = [self getIPAddress];
     
     NSInteger timeInMiliseconds = (NSInteger)[[NSDate date] timeIntervalSince1970];
     deviceDict[@"devtime"] = @(timeInMiliseconds);
     
     return [deviceDict copy];
+}
+
+// Get IP Address
+- (NSString *)getIPAddress {
+    NSString *address = @"error";
+    struct ifaddrs *interfaces = NULL;
+    struct ifaddrs *temp_addr = NULL;
+    int success = 0;
+    // retrieve the current interfaces - returns 0 on success
+    success = getifaddrs(&interfaces);
+    if (success == 0) {
+        // Loop through linked list of interfaces
+        temp_addr = interfaces;
+        while(temp_addr != NULL) {
+            if(temp_addr->ifa_addr->sa_family == AF_INET) {
+                // Check if interface is en0 which is the wifi connection on the iPhone
+                if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
+                    // Get NSString from C String
+                    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+                }
+            }
+            temp_addr = temp_addr->ifa_next;
+        }
+    }
+    // Free memory
+    freeifaddrs(interfaces);
+    return address;
+    
 }
 
 - (NSDictionary *)geo {
@@ -291,7 +348,7 @@ static NSString *const kPrebidMobileVersion = @"0.0.1";
         if (appId == nil) {
             appId = @"";
         }
-        return @{ @"bundle": appId };
+        return @{ @"bundle": appId, @"ver": kPrebidMobileVersion };
     }
 }
 

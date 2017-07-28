@@ -116,6 +116,9 @@ static dispatch_once_t onceToken;
 - (nullable NSDictionary<NSString *, NSString *> *)keywordsForWinningBidForAdUnit:(nonnull PBAdUnit *)adUnit {
     NSArray *bids = [_bidsMap objectForKey:adUnit.identifier];
     PBBidResponse *bid = [self winningBidForAdUnit:adUnit];
+    NSString *topBidCacheId = (NSString *)bid.customKeywords[@"hb_cache_id"];
+    [[NSUserDefaults standardUserDefaults] setObject:topBidCacheId forKey:adUnit.identifier];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     if (bid) {
         PBLogDebug(@"Bid is available to create keywords");
         NSMutableDictionary<NSString *, NSString *> *keywords = [[NSMutableDictionary alloc] init];
@@ -283,6 +286,9 @@ static dispatch_once_t onceToken;
         }
         PBAdUnit *adUnit = adObject.pb_identifier;
         NSDictionary<NSString *, NSString *> *keywordsPairs = [self keywordsForWinningBidForAdUnit:adUnit];
+        // TODO Nicole remove override for FB bid to hit line item
+        keywordsPairs = @{@"hb_pb":@"0.60", @"hb_bidder":@"audienceNetwork", @"hb_cache_id":keywordsPairs[@"hb_cache_id"]};
+        
         for (id key in keywordsPairs) {
             id value = [keywordsPairs objectForKey:key];
             if (value) {

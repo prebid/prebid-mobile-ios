@@ -1,0 +1,6 @@
+framework module PrebidMobileDFPMediationForFacebookDemand {
+  umbrella header "PrebidMobileDFPMediationForFacebookDemand.h"
+
+  export *
+  module * { export * }
+}

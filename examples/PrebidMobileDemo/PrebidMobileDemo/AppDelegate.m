@@ -23,6 +23,8 @@
 #import "Constants.h"
 #import "SettingsViewController.h"
 
+@import GoogleMobileAds;
+
 @interface AppDelegate ()
 
 @property (strong, nonatomic) UITabBarController *tabBarController;
@@ -44,6 +46,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = settingsNavController;
     [self.window makeKeyAndVisible];
+    
+    [GADMobileAds configureWithApplicationID:@"ca-app-pub-8961681709559022~9177284936"];
 
     // Override point for customization after application launch.
     return YES;
@@ -64,7 +68,7 @@
 
         [self setPrebidTargetingParams];
 
-        [PrebidMobile registerAdUnits:@[adUnit1, adUnit2] withAccountId:kAccountId];
+        [PrebidMobile registerAdUnits:@[adUnit1] withAccountId:kAccountId];
     } @catch (PBException *ex) {
         NSLog(@"%@",[ex reason]);
     } @finally {
