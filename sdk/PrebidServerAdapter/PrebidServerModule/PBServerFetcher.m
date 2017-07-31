@@ -19,7 +19,7 @@
 
 @interface PBServerFetcher ()
 
-@property (nonatomic, strong) NSMutableDictionary *requestTIDMap;
+@property (nonatomic, strong) NSMutableArray *requestTIDs;
 
 @end
 
@@ -43,14 +43,10 @@
                                                            options:kNilOptions
                                                              error:nil];
     // Map request tids to ad unit codes to check to make sure response lines up
-    if (self.requestTIDMap == nil) {
-        self.requestTIDMap = [[NSMutableDictionary alloc] init];
+    if (self.requestTIDs == nil) {
+        self.requestTIDs = [[NSMutableArray alloc] init];
     }
-    NSMutableArray *adUnitCodes = [[NSMutableArray alloc] init];
-    for (NSDictionary *adUnit in params[@"ad_units"]) {
-        [adUnitCodes addObject:adUnit[@"code"]];
-    }
-    [self.requestTIDMap setObject:params[@"tid"] forKey:[adUnitCodes copy]];
+    [self.requestTIDs addObject:params[@"tid"]];
 
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[[NSOperationQueue alloc] init]
@@ -87,14 +83,9 @@
             NSString *status = (NSString *)[response objectForKey:@"status"];
             if ([status isEqualToString:@"OK"]) {
                 // check to make sure the request tid matches the response tid
-                NSMutableArray *adUnitCodes = [[NSMutableArray alloc] init];
-                if ([[response objectForKey:@"bids"] isKindOfClass:[NSArray class]]) {
-                    for (NSDictionary *bid in (NSArray *)[response objectForKey:@"bids"]) {
-                        [adUnitCodes addObject:bid[@"code"]];
-                    }
-                }
-                NSString *requestTID = (NSString *)[self.requestTIDMap objectForKey:[adUnitCodes copy]];
-                if ([(NSString *)[response objectForKey:@"tid"] isEqualToString:requestTID]) {
+                NSString *responseTID = (NSString *)[response objectForKey:@"tid"];
+                if ([self.requestTIDs containsObject:responseTID]) {
+                    [self.requestTIDs removeObject:responseTID];
                     return [self mapBidsToAdUnits:response];
                 } else {
                     PBLogError(@"Response tid did not match request tid %@", response);
