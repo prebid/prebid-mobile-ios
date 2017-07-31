@@ -19,7 +19,7 @@
 
 @interface PBServerFetcher ()
 
-@property (nonatomic, strong) NSString *requestTID;
+@property (nonatomic, strong) NSMutableDictionary *requestTIDMap;
 
 @end
 
@@ -42,8 +42,16 @@
     NSDictionary *params = [NSJSONSerialization JSONObjectWithData:[request HTTPBody]
                                                            options:kNilOptions
                                                              error:nil];
-    self.requestTID = params[@"tid"];
-    
+    // Map request tids to ad unit codes to check to make sure response lines up
+    if (self.requestTIDMap == nil) {
+        self.requestTIDMap = [[NSMutableDictionary alloc] init];
+    }
+    NSMutableArray *adUnitCodes = [[NSMutableArray alloc] init];
+    for (NSDictionary *adUnit in params[@"ad_units"]) {
+        [adUnitCodes addObject:adUnit[@"code"]];
+    }
+    [self.requestTIDMap setObject:params[@"tid"] forKey:[adUnitCodes copy]];
+
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -79,7 +87,14 @@
             NSString *status = (NSString *)[response objectForKey:@"status"];
             if ([status isEqualToString:@"OK"]) {
                 // check to make sure the request tid matches the response tid
-                if ([(NSString *)[response objectForKey:@"tid"] isEqualToString:self.requestTID]) {
+                NSMutableArray *adUnitCodes = [[NSMutableArray alloc] init];
+                if ([[response objectForKey:@"bids"] isKindOfClass:[NSArray class]]) {
+                    for (NSDictionary *bid in (NSArray *)[response objectForKey:@"bids"]) {
+                        [adUnitCodes addObject:bid[@"code"]];
+                    }
+                }
+                NSString *requestTID = (NSString *)[self.requestTIDMap objectForKey:[adUnitCodes copy]];
+                if ([(NSString *)[response objectForKey:@"tid"] isEqualToString:requestTID]) {
                     return [self mapBidsToAdUnits:response];
                 } else {
                     PBLogError(@"Response tid did not match request tid %@", response);
