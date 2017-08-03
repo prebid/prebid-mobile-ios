@@ -24,7 +24,7 @@ Build Prebid Mobile from source code. After cloning the repo, from the root dire
 ./scripts/buildPrebidMobile.sh
 ```
 
-to output the PrebidMobileForDFP & PrebidMobileForMoPub frameworks.
+to output the Prebid Mobile framework.
 
 
 ## Test Prebid Mobile
