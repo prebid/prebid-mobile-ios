@@ -158,7 +158,7 @@ static NSString *const kPrebidMobileVersion = @"0.0.2";
             gender = @"F";
             break;
         default:
-            gender = @"0";
+            gender = @"O";
             break;
     }
     userDict[@"gender"] = gender;
