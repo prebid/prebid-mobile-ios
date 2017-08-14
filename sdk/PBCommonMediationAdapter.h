@@ -17,7 +17,8 @@
 
 @interface PBCommonMediationAdapter : NSObject
 
-- (instancetype)initWithCacheId:(NSString *)cacheId andBidder:(NSString *)bidder;
+@property (strong, nonatomic) NSString *cacheId;
+@property (strong, nonatomic) NSString *bidder;
 - (void)requestAdmAndLoadAd;
 
 @end

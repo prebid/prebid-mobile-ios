@@ -26,27 +26,24 @@ static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediati
               parameter:(NSString *)serverParameter
                   label:(NSString *)serverLabel
                 request:(GADCustomEventRequest *)request {
-    NSString *cacheId;
-    NSString *bidder;
     NSArray *keywords = request.userKeywords;
     for (NSString *keyword in keywords) {
         if ([keyword containsString:@"hb_cache_id"]) {
             NSArray *splitValue = [keyword componentsSeparatedByString:@":"];
-            cacheId = splitValue[1];
+            self.cacheId = splitValue[1];
         }
         if ([keyword containsString:@"hb_bidder"]) {
             NSArray *splitValue = [keyword componentsSeparatedByString:@":"];
-            bidder = splitValue[1];
+            self.bidder = splitValue[1];
         }
     }
-    //PBCommonMediationAdapter *commonMediationAdapter = [[PBCommonMediationAdapter alloc] initWithCacheId:cacheId andBidder:bidder];
     [self requestAdmAndLoadAd];
 }
 
 #pragma mark - PBDFPMediationDelegate methods
 
 - (void)didLoadAd:(UIView *)adView {
-    [adView setFrame:CGRectMake(0, 10, 300, 250)];
+    //[adView setFrame:CGRectMake(0, 10, 300, 250)];
     [self.delegate customEventBanner:self didReceiveAd:adView];
 }
 

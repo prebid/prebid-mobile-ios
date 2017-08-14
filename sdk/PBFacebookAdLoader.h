@@ -20,6 +20,6 @@
 
 - (void)fbLoadAd:(NSDictionary *)info;
 
-@property (nonatomic, weak) id<PBMediationAdapterDelegate> pbDelegate;
+@property (nonatomic, weak) id<PBMediationAdapterDelegate> delegate;
 
 @end

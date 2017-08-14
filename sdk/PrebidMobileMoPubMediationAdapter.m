@@ -41,8 +41,8 @@ static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/
             bidder = secondSplitValue[1];
         }
     }
-    PBCommonMediationAdapter *commonMediationAdapter = [[PBCommonMediationAdapter alloc] initWithCacheId:cacheId andBidder:bidder];
-    [commonMediationAdapter requestAdmAndLoadAd];
+    //PBCommonMediationAdapter *commonMediationAdapter = [[PBCommonMediationAdapter alloc] initWithCacheId:cacheId andBidder:bidder];
+    //[commonMediationAdapter requestAdmAndLoadAd];
 }
 
 #pragma mark - PBDFPMediationDelegate methods

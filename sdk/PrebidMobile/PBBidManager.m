@@ -116,9 +116,6 @@ static dispatch_once_t onceToken;
 - (nullable NSDictionary<NSString *, NSString *> *)keywordsForWinningBidForAdUnit:(nonnull PBAdUnit *)adUnit {
     NSArray *bids = [_bidsMap objectForKey:adUnit.identifier];
     PBBidResponse *bid = [self winningBidForAdUnit:adUnit];
-    NSString *topBidCacheId = (NSString *)bid.customKeywords[@"hb_cache_id"];
-    [[NSUserDefaults standardUserDefaults] setObject:topBidCacheId forKey:adUnit.identifier];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     if (bid) {
         PBLogDebug(@"Bid is available to create keywords");
         NSMutableDictionary<NSString *, NSString *> *keywords = [[NSMutableDictionary alloc] init];

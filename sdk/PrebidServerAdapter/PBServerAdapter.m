@@ -88,15 +88,13 @@ static NSString *const kPrebidMobileVersion = @"0.0.2";
 - (NSURLRequest *)buildRequestForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
     NSURL *url = [NSURL URLWithString:@"https://prebid.adnxs.com/pbs/v1/auction"];
     NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:url
-                                                                       cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                                       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                                    timeoutInterval:1000];
     [mutableRequest setHTTPMethod:@"POST"];
     NSError *error;
     NSData *postData = [NSJSONSerialization dataWithJSONObject:[self requestBodyForAdUnits:adUnits]
                                                        options:kNilOptions
                                                          error:&error];
-    NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
-    [mutableRequest setAllHTTPHeaderFields:headers];
     if (!error) {
         [mutableRequest setHTTPBody:postData];
         return [mutableRequest copy];
@@ -229,7 +227,6 @@ static NSString *const kPrebidMobileVersion = @"0.0.2";
     deviceDict[@"make"] = @"Apple";
     deviceDict[@"os"] = @"iOS";
     deviceDict[@"osv"] = [[UIDevice currentDevice] systemVersion];
-
     deviceDict[@"h"] = @([[UIScreen mainScreen] bounds].size.height);
     deviceDict[@"w"] = @([[UIScreen mainScreen] bounds].size.width);
     

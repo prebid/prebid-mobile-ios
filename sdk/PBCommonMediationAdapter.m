@@ -17,25 +17,10 @@
 
 static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/get?uuid=";
 
-@interface PBCommonMediationAdapter ()
-
-@property (strong, nonatomic) NSString *cacheId;
-@property (strong, nonatomic) NSString *bidder;
-
-@end
-
 @implementation PBCommonMediationAdapter
 
-- (instancetype)initWithCacheId:(NSString *)cacheId andBidder:(NSString *)bidder {
-    self = [super init];
-    if (self) {
-        self.cacheId = cacheId;
-        self.bidder = bidder;
-    }
-    return self;
-}
-
 - (void)requestAdmAndLoadAd {
+    // TODO nicole add back in
 //    NSString *cacheURL = [kPrebidCacheEndpoint stringByAppendingString:self.cacheId];
 //    
 //    NSMutableURLRequest *cacheRequest = [[NSMutableURLRequest alloc] init];
@@ -63,10 +48,11 @@ static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/
 - (void)loadAd:(NSDictionary *)responseDict {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    // TODO nicole add back in
     //if ([self.bidder isEqualToString:@"audienceNetwork"] && NSClassFromString(@"PBFacebookAdLoader")) {
         Class fbAdLoaderClass = NSClassFromString(@"PBFacebookAdLoader");
         id fbAdLoader = [[fbAdLoaderClass alloc] init];
-        SEL setDelegate = NSSelectorFromString(@"setPbDelegate:");
+        SEL setDelegate = NSSelectorFromString(@"setDelegate:");
         [fbAdLoader performSelector:setDelegate withObject:self];
         SEL fbLoadAd = NSSelectorFromString(@"fbLoadAd:");
         [fbAdLoader performSelector:fbLoadAd withObject:responseDict];
