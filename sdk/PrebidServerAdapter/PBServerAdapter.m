@@ -13,6 +13,12 @@
  limitations under the License.
  */
 
+#import <AdSupport/AdSupport.h>
+#import <CoreTelephony/CTCarrier.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <sys/utsname.h>
+#import <UIKit/UIKit.h>
+
 #import "PBBidResponse.h"
 #import "PBBidResponseDelegate.h"
 #import "PBLogging.h"
@@ -22,15 +28,10 @@
 #import "PBServerLocation.h"
 #import "PBServerReachability.h"
 #import "PBTargetingParams.h"
-#import <AdSupport/AdSupport.h>
-#import <CoreTelephony/CTCarrier.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import <UIKit/UIKit.h>
-#import <sys/utsname.h>
 
 static NSString *const kAPNAdServerResponseKeyNoBid = @"nobid";
 static NSString *const kAPNAdServerResponseKeyUUID = @"uuid";
-static NSString *const kPrebidMobileVersion = @"0.0.1";
+static NSString *const kPrebidMobileVersion = @"0.0.2";
 
 @interface PBServerAdapter ()
 
@@ -148,19 +149,19 @@ static NSString *const kPrebidMobileVersion = @"0.0.1";
     }
     
     PBTargetingParamsGender genderValue = [[PBTargetingParams sharedInstance] gender];
-    NSUInteger gender;
+    NSString *gender;
     switch (genderValue) {
         case PBTargetingParamsGenderMale:
-            gender = 1;
+            gender = @"M";
             break;
         case PBTargetingParamsGenderFemale:
-            gender = 2;
+            gender = @"F";
             break;
         default:
-            gender = 0;
+            gender = @"O";
             break;
     }
-    userDict[@"gender"] = @(gender);
+    userDict[@"gender"] = gender;
     
     NSString *language = [NSLocale preferredLanguages][0];
     if (language.length) {
@@ -203,6 +204,10 @@ static NSString *const kPrebidMobileVersion = @"0.0.1";
     }
     
     deviceDict[@"make"] = @"Apple";
+    deviceDict[@"os"] = @"iOS";
+    deviceDict[@"osv"] = [[UIDevice currentDevice] systemVersion];
+    deviceDict[@"h"] = @([[UIScreen mainScreen] bounds].size.height);
+    deviceDict[@"w"] = @([[UIScreen mainScreen] bounds].size.width);
     
     NSString *deviceModel = PBSDeviceModel();
     if (deviceModel) {
@@ -285,13 +290,13 @@ static NSString *const kPrebidMobileVersion = @"0.0.1";
 - (NSDictionary *)app {
     if ([[PBTargetingParams sharedInstance] itunesID] != nil) {
         NSString *itunesid = [[PBTargetingParams sharedInstance] itunesID];
-        return @{ @"appid": itunesid };
+        return @{ @"appid": itunesid, @"ver": kPrebidMobileVersion };
     } else {
         NSString *appId = [[NSBundle mainBundle] bundleIdentifier];
         if (appId == nil) {
             appId = @"";
         }
-        return @{ @"bundle": appId };
+        return @{ @"bundle": appId, @"ver": kPrebidMobileVersion };
     }
 }
 

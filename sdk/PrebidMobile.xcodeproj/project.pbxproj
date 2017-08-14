@@ -32,6 +32,7 @@
 		C281E1AD1EE5F2DA00F2F4A9 /* ANHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = C281E1A61EE5F2DA00F2F4A9 /* ANHTTPStubURLProtocol.m */; };
 		C281E1AE1EE5F2DA00F2F4A9 /* ANURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = C281E1A81EE5F2DA00F2F4A9 /* ANURLConnectionStub.m */; };
 		C281E1B21EE5F2E500F2F4A9 /* PBMockServerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = C281E1B11EE5F2E500F2F4A9 /* PBMockServerAdapter.m */; };
+		C29238D91F3E38D100217075 /* PBServerAdapterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C29238D81F3E38D100217075 /* PBServerAdapterTests.m */; };
 		C2B16E341EE1BEA6006304C0 /* PBBannerAdUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E261EE1BEA6006304C0 /* PBBannerAdUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2B16E351EE1BEA6006304C0 /* PBBannerAdUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B16E271EE1BEA6006304C0 /* PBBannerAdUnit.m */; };
 		C2B16E361EE1BEA6006304C0 /* PBBidManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E281EE1BEA6006304C0 /* PBBidManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -108,6 +109,7 @@
 		C281E1A81EE5F2DA00F2F4A9 /* ANURLConnectionStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANURLConnectionStub.m; sourceTree = "<group>"; };
 		C281E1B01EE5F2E500F2F4A9 /* PBMockServerAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMockServerAdapter.h; sourceTree = "<group>"; };
 		C281E1B11EE5F2E500F2F4A9 /* PBMockServerAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMockServerAdapter.m; sourceTree = "<group>"; };
+		C29238D81F3E38D100217075 /* PBServerAdapterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBServerAdapterTests.m; sourceTree = "<group>"; };
 		C2B16E1B1EE1BE69006304C0 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2B16E1F1EE1BE69006304C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2B16E261EE1BEA6006304C0 /* PBBannerAdUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBannerAdUnit.h; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				C281E1951EE5F2AD00F2F4A9 /* PBBidManagerTests.m */,
 				C281E1961EE5F2AD00F2F4A9 /* PBBidResponseTests.m */,
 				C281E1981EE5F2AD00F2F4A9 /* PBTargetingParamsTests.m */,
+				C29238D81F3E38D100217075 /* PBServerAdapterTests.m */,
 			);
 			path = PrebidMobileCoreTests;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				C281E1AD1EE5F2DA00F2F4A9 /* ANHTTPStubURLProtocol.m in Sources */,
 				C281E1B21EE5F2E500F2F4A9 /* PBMockServerAdapter.m in Sources */,
 				C281E19B1EE5F2AD00F2F4A9 /* PBBidResponseTests.m in Sources */,
+				C29238D91F3E38D100217075 /* PBServerAdapterTests.m in Sources */,
 				C281E19D1EE5F2AD00F2F4A9 /* PBTargetingParamsTests.m in Sources */,
 				C281E1991EE5F2AD00F2F4A9 /* PBAdUnitTests.m in Sources */,
 				C281E19A1EE5F2AD00F2F4A9 /* PBBidManagerTests.m in Sources */,
