@@ -13,6 +13,12 @@
  limitations under the License.
  */
 
+#import <AdSupport/AdSupport.h>
+#import <CoreTelephony/CTCarrier.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import <sys/utsname.h>
+#import <UIKit/UIKit.h>
+
 #import "PBBidResponse.h"
 #import "PBBidResponseDelegate.h"
 #import "PBLogging.h"
@@ -22,17 +28,12 @@
 #import "PBServerLocation.h"
 #import "PBServerReachability.h"
 #import "PBTargetingParams.h"
-#import <AdSupport/AdSupport.h>
-#import <CoreTelephony/CTCarrier.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import <UIKit/UIKit.h>
-#import <sys/utsname.h>
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 
 static NSString *const kAPNAdServerResponseKeyNoBid = @"nobid";
 static NSString *const kAPNAdServerResponseKeyUUID = @"uuid";
-static NSString *const kPrebidMobileVersion = @"0.0.1";
+static NSString *const kPrebidMobileVersion = @"0.0.2";
 
 @interface PBServerAdapter ()
 
@@ -176,7 +177,7 @@ static NSString *const kPrebidMobileVersion = @"0.0.1";
             gender = @"F";
             break;
         default:
-            gender = @"0";
+            gender = @"O";
             break;
     }
     userDict[@"gender"] = gender;
@@ -184,7 +185,7 @@ static NSString *const kPrebidMobileVersion = @"0.0.1";
     if (requestExtras[@"buyeruid"]) {
         userDict[@"buyeruid"] = requestExtras[@"buyeruid"];
     }
-    
+
     NSString *language = [NSLocale preferredLanguages][0];
     if (language.length) {
         userDict[@"language"] = language;
@@ -271,7 +272,7 @@ static NSString *const kPrebidMobileVersion = @"0.0.1";
     if (deviceId) {
         deviceDict[@"ifa"] = deviceId;
     }
-    deviceDict[@"ip"] = [self getIPAddress];
+    //deviceDict[@"ip"] = [self getIPAddress];
     
     NSInteger timeInMiliseconds = (NSInteger)[[NSDate date] timeIntervalSince1970];
     deviceDict[@"devtime"] = @(timeInMiliseconds);
@@ -342,7 +343,7 @@ static NSString *const kPrebidMobileVersion = @"0.0.1";
 - (NSDictionary *)app {
     if ([[PBTargetingParams sharedInstance] itunesID] != nil) {
         NSString *itunesid = [[PBTargetingParams sharedInstance] itunesID];
-        return @{ @"appid": itunesid };
+        return @{ @"appid": itunesid, @"ver": kPrebidMobileVersion };
     } else {
         NSString *appId = [[NSBundle mainBundle] bundleIdentifier];
         if (appId == nil) {

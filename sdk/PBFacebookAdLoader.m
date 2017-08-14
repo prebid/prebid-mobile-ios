@@ -14,7 +14,7 @@
  */
 
 #import "PBFacebookAdLoader.h"
-#import <FBAudienceNetwork/FBAudienceNetwork.h>
+@import FBAudienceNetwork;
 
 @interface PBFacebookAdLoader () <FBAdViewDelegate>
 
@@ -47,7 +47,7 @@
         return;
     }
 
-    //[FBAdSettings setLogLevel:FBAdLogLevelVerbose];
+    [FBAdSettings setLogLevel:FBAdLogLevelVerbose];
     //[FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
     self.fbAdView = [[FBAdView alloc] initWithPlacementID:@"1995257847363113_1997038003851764" adSize:kFBAdSizeHeight250Rectangle rootViewController:(UIViewController *)[NSObject new]];
     self.fbAdView.frame = CGRectMake(0, 20, self.fbAdView.bounds.size.width, self.fbAdView.bounds.size.height);
