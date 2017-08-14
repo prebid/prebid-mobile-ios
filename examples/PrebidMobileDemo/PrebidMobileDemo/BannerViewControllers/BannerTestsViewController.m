@@ -20,8 +20,9 @@
 #import "MPBannerCustomEvent.h"
 #import "PrebidMobile/PrebidMobile.h"
 #import "PrebidMobileDFPMediationForFacebookDemand/PrebidMobileDFPMediationAdapter.h"
+@import FBAudienceNetwork;
 
-@interface BannerTestsViewController () <GADBannerViewDelegate, MPAdViewDelegate, MPBannerCustomEventDelegate>
+@interface BannerTestsViewController () <GADBannerViewDelegate, MPAdViewDelegate, MPBannerCustomEventDelegate, FBAdViewDelegate>
 
 @property (strong, nonatomic) MPAdView *mopubAdView;
 @property (strong, nonatomic) DFPBannerView *dfpAdView;
@@ -73,11 +74,33 @@
             [_dfpAdView loadRequest:[DFPRequest request]];
         }];
     }
+    
+//    FBAdView *adView = [[FBAdView alloc] initWithPlacementID:@"1995257847363113_1997038003851764"
+//                                                      adSize:kFBAdSizeHeight250Rectangle
+//                                          rootViewController:(UIViewController *)[NSObject new]];
+//    adView.frame = CGRectMake(0, 20, adView.bounds.size.width, adView.bounds.size.height);
+//    adView.delegate = self;
+//    NSString *bidPayload = @"{\"type\":\"ID\",\"bid_id\":\"4401013946958491377\",\"placement_id\":\"1995257847363113_1997038003851764\",\"sdk_version\":\"4.25.0-appnexus.bidding\",\"device_id\":\"87ECBA49-908A-428F-9DE7-4B9CED4F486C\",\"template\":7,\"payload\":\"null\"}";
+//    
+//    [adView loadAdWithBidPayload:bidPayload];
+//    //[adView loadAd];
+//    UIView *testView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 250)];
+//    [testView addSubview:adView];
+//    [_adContainerView addSubview:testView];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error {
+    NSLog(@"Ad failed to load: %i", (int)error.code);
+}
+
+- (void)adViewDidLoad:(FBAdView *)adView {
+    [adView setFrame:CGRectMake(0, 10, 300, 250)];
+    NSLog(@"Ad was loaded and ready to be displayed");
 }
 
 #pragma mark - GADBannerViewDelegate methods

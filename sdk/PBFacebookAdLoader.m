@@ -25,34 +25,46 @@
 @implementation PBFacebookAdLoader
 
 - (void)fbLoadAd:(NSDictionary *)info {
-    NSString *bidPayload = (NSString *)info[@"adm"];
+    //NSString *bidPayload = (NSString *)info[@"adm"];
     // TODO nicole remove
-    //NSString *bidPayload = @"{\"type\":\"ID\",\"bid_id\":\"4401013946958491377\",\"placement_id\":\"1995257847363113_1997038003851764\",\"sdk_version\":\"4.25.0-appnexus.bidding\",\"device_id\":\"87ECBA49-908A-428F-9DE7-4B9CED4F486C\",\"template\":6,\"payload\":\"null\"}";
+    NSString *bidPayload = @"{\"type\":\"ID\",\"bid_id\":\"4401013946958491377\",\"placement_id\":\"1995257847363113_1997038003851764\",\"sdk_version\":\"4.25.0-appnexus.bidding\",\"device_id\":\"87ECBA49-908A-428F-9DE7-4B9CED4F486C\",\"template\":7,\"payload\":\"null\"}";
 
     CGFloat width = [(NSString *)info[@"width"] floatValue];
     CGFloat height = [(NSString *)info[@"height"] floatValue];
     CGSize adSize = CGSizeMake(width, height);
 
     FBAdSize fbAdSize;
-    if (CGSizeEqualToSize(adSize, kFBAdSize320x50.size)) {
-        fbAdSize = kFBAdSize320x50;
-    } else if (adSize.height == kFBAdSizeHeight250Rectangle.size.height) {
-        fbAdSize = kFBAdSizeHeight250Rectangle;
-    } else if (adSize.height == kFBAdSizeHeight90Banner.size.height) {
-        fbAdSize = kFBAdSizeHeight90Banner;
-    } else if (adSize.height == kFBAdSizeHeight50Banner.size.height) {
-        fbAdSize = kFBAdSizeHeight50Banner;
-    } else {
-        //[self.pbDelegate ad:nil didFailWithError:nil];
-        return;
-    }
+//    if (CGSizeEqualToSize(adSize, kFBAdSize320x50.size)) {
+//        fbAdSize = kFBAdSize320x50;
+//    } else if (adSize.height == kFBAdSizeHeight250Rectangle.size.height) {
+//        fbAdSize = kFBAdSizeHeight250Rectangle;
+//    } else if (adSize.height == kFBAdSizeHeight90Banner.size.height) {
+//        fbAdSize = kFBAdSizeHeight90Banner;
+//    } else if (adSize.height == kFBAdSizeHeight50Banner.size.height) {
+//        fbAdSize = kFBAdSizeHeight50Banner;
+//    } else {
+//        //[self.pbDelegate ad:nil didFailWithError:nil];
+//        return;
+//    }
 
     [FBAdSettings setLogLevel:FBAdLogLevelVerbose];
-    //[FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
-    self.fbAdView = [[FBAdView alloc] initWithPlacementID:@"1995257847363113_1997038003851764" adSize:kFBAdSizeHeight250Rectangle rootViewController:(UIViewController *)[NSObject new]];
-    self.fbAdView.frame = CGRectMake(0, 20, self.fbAdView.bounds.size.width, self.fbAdView.bounds.size.height);
-    self.fbAdView.delegate = self;
-    [self.fbAdView loadAdWithBidPayload:bidPayload];
+//    //[FBAdSettings addTestDevice:[FBAdSettings testDeviceHash]];
+//    self.fbAdView = [[FBAdView alloc] initWithPlacementID:@"1995257847363113_1997038003851764" adSize:kFBAdSizeHeight250Rectangle rootViewController:(UIViewController *)[NSObject new]];
+//    self.fbAdView.frame = CGRectMake(0, 20, self.fbAdView.bounds.size.width, self.fbAdView.bounds.size.height);
+//    self.fbAdView.delegate = self;
+//    [self.fbAdView loadAdWithBidPayload:bidPayload];
+    
+    FBAdView *adView = [[FBAdView alloc] initWithPlacementID:@"1995257847363113_1997038003851764"
+                                                      adSize:kFBAdSizeHeight250Rectangle
+                                          rootViewController:(UIViewController *)[NSObject new]];
+    adView.frame = CGRectMake(0, 20, adView.bounds.size.width, adView.bounds.size.height);
+    adView.delegate = self;
+    [adView loadAdWithBidPayload:bidPayload];
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    UIView *topView = window.rootViewController.view;
+    [topView addSubview:adView];
+    [self.pbDelegate didLoadAd:adView];
+    //[adView loadAd];
 }
 
 #pragma mark FBAdViewDelegate methods
@@ -63,6 +75,7 @@
 }
 
 - (void)adViewDidLoad:(FBAdView *)adView {
+    NSLog(@"Ad was loaded and ready to be displayed22");
     NSLog(@"Facebook mediated ad did load.");
     [self.pbDelegate didLoadAd:adView];
 }

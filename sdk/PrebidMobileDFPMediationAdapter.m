@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-#import "PBCommonMediationAdapter.h"
 #import "PrebidMobileDFPMediationAdapter.h"
 
 static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediationAdapter";
@@ -40,13 +39,14 @@ static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediati
             bidder = splitValue[1];
         }
     }
-    PBCommonMediationAdapter *commonMediationAdapter = [[PBCommonMediationAdapter alloc] initWithCacheId:cacheId andBidder:bidder];
-    [commonMediationAdapter requestAdmAndLoadAd];
+    //PBCommonMediationAdapter *commonMediationAdapter = [[PBCommonMediationAdapter alloc] initWithCacheId:cacheId andBidder:bidder];
+    [self requestAdmAndLoadAd];
 }
 
 #pragma mark - PBDFPMediationDelegate methods
 
 - (void)didLoadAd:(UIView *)adView {
+    [adView setFrame:CGRectMake(0, 10, 300, 250)];
     [self.delegate customEventBanner:self didReceiveAd:adView];
 }
 

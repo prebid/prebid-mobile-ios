@@ -36,26 +36,26 @@ static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/
 }
 
 - (void)requestAdmAndLoadAd {
-    NSString *cacheURL = [kPrebidCacheEndpoint stringByAppendingString:self.cacheId];
-    
-    NSMutableURLRequest *cacheRequest = [[NSMutableURLRequest alloc] init];
-    [cacheRequest setHTTPMethod:@"GET"];
-    [cacheRequest setURL:[NSURL URLWithString:cacheURL]];
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:cacheRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200) {
-            NSError *parseError = nil;
-            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
-            [self loadAd:responseDictionary];
-            NSLog(@"The response is - %@",responseDictionary);
-        } else {
-            NSLog(@"ERROR");
-        }
-    }];
-    [dataTask resume];
+//    NSString *cacheURL = [kPrebidCacheEndpoint stringByAppendingString:self.cacheId];
+//    
+//    NSMutableURLRequest *cacheRequest = [[NSMutableURLRequest alloc] init];
+//    [cacheRequest setHTTPMethod:@"GET"];
+//    [cacheRequest setURL:[NSURL URLWithString:cacheURL]];
+//    
+//    NSURLSession *session = [NSURLSession sharedSession];
+//    
+//    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:cacheRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+//        if (httpResponse.statusCode == 200) {
+//            NSError *parseError = nil;
+//            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
+//            [self loadAd:responseDictionary];
+//            NSLog(@"The response is - %@",responseDictionary);
+//        } else {
+//            NSLog(@"ERROR");
+//        }
+//    }];
+//    [dataTask resume];
     
     [self loadAd:@{}];
 }
@@ -63,14 +63,14 @@ static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/
 - (void)loadAd:(NSDictionary *)responseDict {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    if ([self.bidder isEqualToString:@"audienceNetwork"] && NSClassFromString(@"PBFacebookAdLoader")) {
+    //if ([self.bidder isEqualToString:@"audienceNetwork"] && NSClassFromString(@"PBFacebookAdLoader")) {
         Class fbAdLoaderClass = NSClassFromString(@"PBFacebookAdLoader");
         id fbAdLoader = [[fbAdLoaderClass alloc] init];
         SEL setDelegate = NSSelectorFromString(@"setPbDelegate:");
         [fbAdLoader performSelector:setDelegate withObject:self];
         SEL fbLoadAd = NSSelectorFromString(@"fbLoadAd:");
         [fbAdLoader performSelector:fbLoadAd withObject:responseDict];
-    }
+    //}
 #pragma clang diagnostic pop
 }
 

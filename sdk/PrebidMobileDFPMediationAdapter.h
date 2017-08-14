@@ -17,7 +17,8 @@
 @import GoogleMobileAds;
 
 #import "PBMediationAdapterDelegate.h"
+#import "PBCommonMediationAdapter.h"
 
-@interface PrebidMobileDFPMediationAdapter : NSObject<GADCustomEventBanner, PBMediationAdapterDelegate>
+@interface PrebidMobileDFPMediationAdapter : PBCommonMediationAdapter<GADCustomEventBanner, PBMediationAdapterDelegate>
 
 @end
