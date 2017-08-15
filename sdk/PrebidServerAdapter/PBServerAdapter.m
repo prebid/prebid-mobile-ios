@@ -78,7 +78,9 @@ static NSString *const kPrebidMobileVersion = @"0.0.2";
         Class fbAdSettingsClass = NSClassFromString(@"FBAdSettings");
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        buyerUID = [fbAdSettingsClass performSelector:getBidderTokenSel];
+        if ([fbAdSettingsClass respondsToSelector:getBidderTokenSel]) {
+            buyerUID = [fbAdSettingsClass performSelector:getBidderTokenSel];
+        }
 #pragma clang diagnostic pop
     }
     return buyerUID;
