@@ -26,33 +26,84 @@ static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediati
               parameter:(NSString *)serverParameter
                   label:(NSString *)serverLabel
                 request:(GADCustomEventRequest *)request {
-    NSArray *keywords = request.userKeywords;
-    for (NSString *keyword in keywords) {
-        if ([keyword containsString:@"hb_cache_id"]) {
-            NSArray *splitValue = [keyword componentsSeparatedByString:@":"];
-            self.cacheId = splitValue[1];
-        }
-        if ([keyword containsString:@"hb_bidder"]) {
-            NSArray *splitValue = [keyword componentsSeparatedByString:@":"];
-            self.bidder = splitValue[1];
-        }
-    }
-    [self requestAdmAndLoadAd];
+//    NSArray *keywords = request.userKeywords;
+//    for (NSString *keyword in keywords) {
+//        if ([keyword containsString:@"hb_cache_id"]) {
+//            NSArray *splitValue = [keyword componentsSeparatedByString:@":"];
+//            self.cacheId = splitValue[1];
+//        }
+//        if ([keyword containsString:@"hb_bidder"]) {
+//            NSArray *splitValue = [keyword componentsSeparatedByString:@":"];
+//            self.bidder = splitValue[1];
+//        }
+//    }
+//    [self requestAdmAndLoadAd];
+    
+    [FBAdSettings setLogLevel:FBAdLogLevelVerbose];
+    NSString *bidPayload = @"{\"type\":\"ID\",\"bid_id\":\"4401013946958491377\",\"placement_id\":\"1995257847363113_1997038003851764\",\"sdk_version\":\"4.25.0-appnexus.bidding\",\"device_id\":\"87ECBA49-908A-428F-9DE7-4B9CED4F486C\",\"template\":7,\"payload\":\"null\"}";
+    
+    FBAdView *adView = [[FBAdView alloc] initWithPlacementID:@"1995257847363113_1997038003851764"
+                                                      adSize:kFBAdSizeHeight250Rectangle
+                                          rootViewController:(UIViewController *)[NSObject new]];
+    adView.frame = CGRectMake(0, 0, adView.bounds.size.width, adView.bounds.size.height);
+    adView.delegate = self;
+    NSLog(@"delegate = %@", adView.delegate);
+    [adView disableAutoRefresh];
+    CGRect fbAdFrame = adView.frame;
+    fbAdFrame.size = CGSizeMake(300, 250);
+    adView.frame = fbAdFrame;
+    [adView loadAdWithBidPayload:bidPayload];
+    
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    UIView *topView = window.rootViewController.view;
+    [topView addSubview:adView];
 }
 
-#pragma mark - PBDFPMediationDelegate methods
+//#pragma mark - PBDFPMediationDelegate methods
+//
+//- (void)didLoadAd:(UIView *)adView {
+//    //[adView setFrame:CGRectMake(0, 10, 300, 250)];
+//    [self.delegate customEventBanner:self didReceiveAd:adView];
+//}
+//
+//- (void)ad:(UIView *)adView didFailWithError:(NSError *)error {
+//    [self.delegate customEventBanner:self didFailAd:error];
+//}
+//
+//- (void)didClickAd:(UIView *)adView {
+//    [self.delegate customEventBannerWasClicked:self];
+//}
 
-- (void)didLoadAd:(UIView *)adView {
-    //[adView setFrame:CGRectMake(0, 10, 300, 250)];
+#pragma mark FBAdViewDelegate methods
+
+- (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error {
+    NSLog(@"Facebook mediated ad failed to load with error: %@", error);
+    //[self.delegate ad:adView didFailWithError:error];
+}
+
+- (void)adViewDidLoad:(FBAdView *)adView {
+    NSLog(@"Ad was loaded and ready to be displayed22");
+    NSLog(@"Facebook mediated ad did load.");
     [self.delegate customEventBanner:self didReceiveAd:adView];
 }
 
-- (void)ad:(UIView *)adView didFailWithError:(NSError *)error {
-    [self.delegate customEventBanner:self didFailAd:error];
+- (void)adViewWillLogImpression:(FBAdView *)adView {
+    NSLog(@"Facebook mediated ad will log impression.");
+    //[self.delegate trackImpression];
 }
 
-- (void)didClickAd:(UIView *)adView {
-    [self.delegate customEventBannerWasClicked:self];
+- (void)adViewDidClick:(FBAdView *)adView {
+    NSLog(@"Facebook mediated ad did click.");
+    //[self.delegate didClickAd:adView];
+}
+
+- (void)adViewDidFinishHandlingClick:(FBAdView *)adView {
+    NSLog(@"Facebook mediated ad did finish handling click.");
+    //[self.delegate didFinishHandlingClick:adView];
+}
+
+- (UIViewController *)viewControllerForPresentingModalView {
+    return [self.delegate viewControllerForPresentingModalView];
 }
 
 //#pragma mark - Custom Event for Interstitials
