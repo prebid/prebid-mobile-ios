@@ -20,12 +20,6 @@
 		C23FCCEF1EE5E41E00CFFEF0 /* PBLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C23FCCED1EE5E41E00CFFEF0 /* PBLogManager.m */; };
 		C24B78C41EE7467E0045B454 /* NSObject+Prebid.h in Headers */ = {isa = PBXBuildFile; fileRef = C24B78C21EE7467E0045B454 /* NSObject+Prebid.h */; };
 		C24B78C51EE7467E0045B454 /* NSObject+Prebid.m in Sources */ = {isa = PBXBuildFile; fileRef = C24B78C31EE7467E0045B454 /* NSObject+Prebid.m */; };
-		C2521E441F310F3200492C9B /* PrebidMobileMoPubMediationForFacebookDemand.h in Headers */ = {isa = PBXBuildFile; fileRef = C2521E421F310F3200492C9B /* PrebidMobileMoPubMediationForFacebookDemand.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C2521E481F310F3B00492C9B /* PrebidMobileMoPubMediationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = C2521E381F310E5000492C9B /* PrebidMobileMoPubMediationAdapter.h */; };
-		C2521E491F310F3B00492C9B /* PrebidMobileMoPubMediationAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = C2521E391F310E5000492C9B /* PrebidMobileMoPubMediationAdapter.m */; };
-		C256243E1F326C5900A2EE45 /* PBCommonMediationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = C2289AF61F3220ED003501F6 /* PBCommonMediationAdapter.h */; };
-		C256243F1F326C5900A2EE45 /* PBCommonMediationAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = C2289AF71F3220ED003501F6 /* PBCommonMediationAdapter.m */; };
-		C25624401F326C5900A2EE45 /* PBMediationAdapterDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F7CB161F2FB53100FEC637 /* PBMediationAdapterDelegate.h */; };
 		C281E1811EE5EAF700F2F4A9 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B16E1B1EE1BE69006304C0 /* PrebidMobile.framework */; };
 		C281E1991EE5F2AD00F2F4A9 /* PBAdUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C281E1941EE5F2AD00F2F4A9 /* PBAdUnitTests.m */; };
 		C281E19A1EE5F2AD00F2F4A9 /* PBBidManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C281E1951EE5F2AD00F2F4A9 /* PBBidManagerTests.m */; };
@@ -73,13 +67,8 @@
 		C2B1747A1EE1E3C3006304C0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B174791EE1E3C3006304C0 /* UIKit.framework */; };
 		C2B1747C1EE1E3C9006304C0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B1747B1EE1E3C9006304C0 /* SystemConfiguration.framework */; };
 		C2B1747E1EE1E3CE006304C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B1747D1EE1E3CE006304C0 /* QuartzCore.framework */; };
-		C2F7CAF81F2BDA0B00FEC637 /* PrebidMobileDFPMediationForFacebookDemand.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F7CAF61F2BDA0B00FEC637 /* PrebidMobileDFPMediationForFacebookDemand.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C2F7CAFC1F2BDA1200FEC637 /* PrebidMobileDFPMediationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F7CAE21F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C2F7CAFD1F2BDA1200FEC637 /* PrebidMobileDFPMediationAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F7CAE31F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.m */; };
-		C2F7CAFE1F2BDA1500FEC637 /* PBFacebookAdLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F7CAE61F2BD96D00FEC637 /* PBFacebookAdLoader.h */; };
-		C2F7CAFF1F2BDA1500FEC637 /* PBFacebookAdLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F7CAE71F2BD96D00FEC637 /* PBFacebookAdLoader.m */; };
-		C2F7CB001F2BDA1500FEC637 /* PBFacebookRequestExtras.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F7CAE81F2BD97B00FEC637 /* PBFacebookRequestExtras.h */; };
-		C2F7CB011F2BDA1500FEC637 /* PBFacebookRequestExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F7CAE91F2BD97B00FEC637 /* PBFacebookRequestExtras.m */; };
+		C2B91ABB1F438C30009F75C8 /* PrebidMobileDFPMediationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F7CAE21F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.h */; };
+		C2B91ABC1F438C30009F75C8 /* PrebidMobileDFPMediationAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F7CAE31F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,8 +82,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C2289AF61F3220ED003501F6 /* PBCommonMediationAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBCommonMediationAdapter.h; sourceTree = "<group>"; };
-		C2289AF71F3220ED003501F6 /* PBCommonMediationAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBCommonMediationAdapter.m; sourceTree = "<group>"; };
 		C23386D01EE5DBFB002FD404 /* PrebidMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMobile.h; sourceTree = "<group>"; };
 		C23386D11EE5DBFB002FD404 /* PrebidMobile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMobile.m; sourceTree = "<group>"; };
 		C23386D41EE5DC95002FD404 /* PBAdUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBAdUnit.h; sourceTree = "<group>"; };
@@ -110,9 +97,6 @@
 		C24B78C31EE7467E0045B454 /* NSObject+Prebid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Prebid.m"; sourceTree = "<group>"; };
 		C2521E381F310E5000492C9B /* PrebidMobileMoPubMediationAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMobileMoPubMediationAdapter.h; sourceTree = "<group>"; };
 		C2521E391F310E5000492C9B /* PrebidMobileMoPubMediationAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidMobileMoPubMediationAdapter.m; sourceTree = "<group>"; };
-		C2521E401F310F3200492C9B /* PrebidMobileMoPubMediationForFacebookDemand.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobileMoPubMediationForFacebookDemand.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C2521E421F310F3200492C9B /* PrebidMobileMoPubMediationForFacebookDemand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMobileMoPubMediationForFacebookDemand.h; sourceTree = "<group>"; };
-		C2521E431F310F3200492C9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C281E17C1EE5EAF700F2F4A9 /* PrebidMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C281E1941EE5F2AD00F2F4A9 /* PBAdUnitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBAdUnitTests.m; sourceTree = "<group>"; };
 		C281E1951EE5F2AD00F2F4A9 /* PBBidManagerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBBidManagerTests.m; sourceTree = "<group>"; };
@@ -170,27 +154,14 @@
 		C2B174791EE1E3C3006304C0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C2B1747B1EE1E3C9006304C0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C2B1747D1EE1E3CE006304C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C2B91AB31F438C10009F75C8 /* PrebidMobileDFPMediationAdapter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobileDFPMediationAdapter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2B91AB61F438C10009F75C8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = PrebidMobileDFPMediationAdapter/Info.plist; sourceTree = "<group>"; };
 		C2F7CAE21F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMobileDFPMediationAdapter.h; sourceTree = "<group>"; };
 		C2F7CAE31F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMobileDFPMediationAdapter.m; sourceTree = "<group>"; };
-		C2F7CAE61F2BD96D00FEC637 /* PBFacebookAdLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBFacebookAdLoader.h; sourceTree = "<group>"; };
-		C2F7CAE71F2BD96D00FEC637 /* PBFacebookAdLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBFacebookAdLoader.m; sourceTree = "<group>"; };
-		C2F7CAE81F2BD97B00FEC637 /* PBFacebookRequestExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBFacebookRequestExtras.h; sourceTree = "<group>"; };
-		C2F7CAE91F2BD97B00FEC637 /* PBFacebookRequestExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBFacebookRequestExtras.m; sourceTree = "<group>"; };
-		C2F7CAF41F2BDA0B00FEC637 /* PrebidMobileDFPMediationForFacebookDemand.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobileDFPMediationForFacebookDemand.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C2F7CAF61F2BDA0B00FEC637 /* PrebidMobileDFPMediationForFacebookDemand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMobileDFPMediationForFacebookDemand.h; sourceTree = "<group>"; };
-		C2F7CAF71F2BDA0B00FEC637 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C2F7CB161F2FB53100FEC637 /* PBMediationAdapterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMediationAdapterDelegate.h; sourceTree = "<group>"; };
 		EFD3C940519B957467FE94E6 /* libPods-PrebidMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C2521E3C1F310F3200492C9B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C281E1791EE5EAF700F2F4A9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -215,7 +186,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C2F7CAF01F2BDA0B00FEC637 /* Frameworks */ = {
+		C2B91AAF1F438C10009F75C8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -225,15 +196,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C2521E411F310F3200492C9B /* PrebidMobileMoPubMediationForFacebookDemand */ = {
-			isa = PBXGroup;
-			children = (
-				C2521E421F310F3200492C9B /* PrebidMobileMoPubMediationForFacebookDemand.h */,
-				C2521E431F310F3200492C9B /* Info.plist */,
-			);
-			path = PrebidMobileMoPubMediationForFacebookDemand;
-			sourceTree = "<group>";
-		};
 		C281E17D1EE5EAF700F2F4A9 /* PrebidMobileTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,8 +258,6 @@
 				C2B16E881EE1BF1A006304C0 /* PrebidServerAdapter */,
 				C2F7CAE01F2BD90D00FEC637 /* PrebidMobileMediationAdapters */,
 				C281E17D1EE5EAF700F2F4A9 /* PrebidMobileTests */,
-				C2F7CAF51F2BDA0B00FEC637 /* PrebidMobileDFPMediationForFacebookDemand */,
-				C2521E411F310F3200492C9B /* PrebidMobileMoPubMediationForFacebookDemand */,
 				C2B16EA21EE1BF8A006304C0 /* Frameworks */,
 				C2B16E1C1EE1BE69006304C0 /* Products */,
 			);
@@ -308,8 +268,7 @@
 			children = (
 				C2B16E1B1EE1BE69006304C0 /* PrebidMobile.framework */,
 				C281E17C1EE5EAF700F2F4A9 /* PrebidMobileTests.xctest */,
-				C2F7CAF41F2BDA0B00FEC637 /* PrebidMobileDFPMediationForFacebookDemand.framework */,
-				C2521E401F310F3200492C9B /* PrebidMobileMoPubMediationForFacebookDemand.framework */,
+				C2B91AB31F438C10009F75C8 /* PrebidMobileDFPMediationAdapter.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -419,53 +378,20 @@
 				C2521E391F310E5000492C9B /* PrebidMobileMoPubMediationAdapter.m */,
 				C2F7CAE21F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.h */,
 				C2F7CAE31F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.m */,
-				C2289AF61F3220ED003501F6 /* PBCommonMediationAdapter.h */,
-				C2289AF71F3220ED003501F6 /* PBCommonMediationAdapter.m */,
-				C2F7CB161F2FB53100FEC637 /* PBMediationAdapterDelegate.h */,
-				C2F7CAE11F2BD92200FEC637 /* FacebookDemand */,
+				C2B91AB61F438C10009F75C8 /* Info.plist */,
 			);
 			name = PrebidMobileMediationAdapters;
-			sourceTree = "<group>";
-		};
-		C2F7CAE11F2BD92200FEC637 /* FacebookDemand */ = {
-			isa = PBXGroup;
-			children = (
-				C2F7CAE61F2BD96D00FEC637 /* PBFacebookAdLoader.h */,
-				C2F7CAE71F2BD96D00FEC637 /* PBFacebookAdLoader.m */,
-				C2F7CAE81F2BD97B00FEC637 /* PBFacebookRequestExtras.h */,
-				C2F7CAE91F2BD97B00FEC637 /* PBFacebookRequestExtras.m */,
-			);
-			name = FacebookDemand;
-			sourceTree = "<group>";
-		};
-		C2F7CAF51F2BDA0B00FEC637 /* PrebidMobileDFPMediationForFacebookDemand */ = {
-			isa = PBXGroup;
-			children = (
-				C2F7CAF61F2BDA0B00FEC637 /* PrebidMobileDFPMediationForFacebookDemand.h */,
-				C2F7CAF71F2BDA0B00FEC637 /* Info.plist */,
-			);
-			path = PrebidMobileDFPMediationForFacebookDemand;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		C2521E3D1F310F3200492C9B /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C2521E441F310F3200492C9B /* PrebidMobileMoPubMediationForFacebookDemand.h in Headers */,
-				C2521E481F310F3B00492C9B /* PrebidMobileMoPubMediationAdapter.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C2B16E181EE1BE69006304C0 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				C2B16E391EE1BEA6006304C0 /* PBException.h in Headers */,
 				C2B16E341EE1BEA6006304C0 /* PBBannerAdUnit.h in Headers */,
-				C25624401F326C5900A2EE45 /* PBMediationAdapterDelegate.h in Headers */,
 				C2B16E481EE1BEB6006304C0 /* PBBidResponse.h in Headers */,
 				C2B16E381EE1BEA6006304C0 /* PBBidResponseDelegate.h in Headers */,
 				C2B16E3F1EE1BEA6006304C0 /* PBTargetingParams.h in Headers */,
@@ -482,42 +408,20 @@
 				C2B16E9F1EE1BF1A006304C0 /* PBServerReachability.h in Headers */,
 				C2B16E9D1EE1BF1A006304C0 /* PBServerLocation.h in Headers */,
 				C2B16E981EE1BF1A006304C0 /* PBServerFetcher.h in Headers */,
-				C256243E1F326C5900A2EE45 /* PBCommonMediationAdapter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C2F7CAF11F2BDA0B00FEC637 /* Headers */ = {
+		C2B91AB01F438C10009F75C8 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2F7CAFC1F2BDA1200FEC637 /* PrebidMobileDFPMediationAdapter.h in Headers */,
-				C2F7CAFE1F2BDA1500FEC637 /* PBFacebookAdLoader.h in Headers */,
-				C2F7CAF81F2BDA0B00FEC637 /* PrebidMobileDFPMediationForFacebookDemand.h in Headers */,
-				C2F7CB001F2BDA1500FEC637 /* PBFacebookRequestExtras.h in Headers */,
+				C2B91ABB1F438C30009F75C8 /* PrebidMobileDFPMediationAdapter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		C2521E3F1F310F3200492C9B /* PrebidMobileMoPubMediationForFacebookDemand */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C2521E451F310F3200492C9B /* Build configuration list for PBXNativeTarget "PrebidMobileMoPubMediationForFacebookDemand" */;
-			buildPhases = (
-				C2521E3B1F310F3200492C9B /* Sources */,
-				C2521E3C1F310F3200492C9B /* Frameworks */,
-				C2521E3D1F310F3200492C9B /* Headers */,
-				C2521E3E1F310F3200492C9B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = PrebidMobileMoPubMediationForFacebookDemand;
-			productName = PrebidMobileMoPubMediationForFacebookDemand;
-			productReference = C2521E401F310F3200492C9B /* PrebidMobileMoPubMediationForFacebookDemand.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		C281E17B1EE5EAF700F2F4A9 /* PrebidMobileTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C281E1861EE5EAF700F2F4A9 /* Build configuration list for PBXNativeTarget "PrebidMobileTests" */;
@@ -554,22 +458,22 @@
 			productReference = C2B16E1B1EE1BE69006304C0 /* PrebidMobile.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		C2F7CAF31F2BDA0B00FEC637 /* PrebidMobileDFPMediationForFacebookDemand */ = {
+		C2B91AB21F438C10009F75C8 /* PrebidMobileDFPMediationAdapter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C2F7CAF91F2BDA0B00FEC637 /* Build configuration list for PBXNativeTarget "PrebidMobileDFPMediationForFacebookDemand" */;
+			buildConfigurationList = C2B91AB81F438C11009F75C8 /* Build configuration list for PBXNativeTarget "PrebidMobileDFPMediationAdapter" */;
 			buildPhases = (
-				C2F7CAEF1F2BDA0B00FEC637 /* Sources */,
-				C2F7CAF01F2BDA0B00FEC637 /* Frameworks */,
-				C2F7CAF11F2BDA0B00FEC637 /* Headers */,
-				C2F7CAF21F2BDA0B00FEC637 /* Resources */,
+				C2B91AAE1F438C10009F75C8 /* Sources */,
+				C2B91AAF1F438C10009F75C8 /* Frameworks */,
+				C2B91AB01F438C10009F75C8 /* Headers */,
+				C2B91AB11F438C10009F75C8 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = PrebidMobileDFPMediationForFacebookDemand;
-			productName = PrebidMobileDFPMediationForFacebookDemand;
-			productReference = C2F7CAF41F2BDA0B00FEC637 /* PrebidMobileDFPMediationForFacebookDemand.framework */;
+			name = PrebidMobileDFPMediationAdapter;
+			productName = PrebidMobileDFPMediationAdapter;
+			productReference = C2B91AB31F438C10009F75C8 /* PrebidMobileDFPMediationAdapter.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -581,11 +485,6 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Nicole Hedley";
 				TargetAttributes = {
-					C2521E3F1F310F3200492C9B = {
-						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = HR94J6TSB3;
-						ProvisioningStyle = Automatic;
-					};
 					C281E17B1EE5EAF700F2F4A9 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = HR94J6TSB3;
@@ -596,7 +495,7 @@
 						DevelopmentTeam = HR94J6TSB3;
 						ProvisioningStyle = Automatic;
 					};
-					C2F7CAF31F2BDA0B00FEC637 = {
+					C2B91AB21F438C10009F75C8 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = HR94J6TSB3;
 						ProvisioningStyle = Automatic;
@@ -617,20 +516,12 @@
 			targets = (
 				C2B16E1A1EE1BE69006304C0 /* PrebidMobile */,
 				C281E17B1EE5EAF700F2F4A9 /* PrebidMobileTests */,
-				C2F7CAF31F2BDA0B00FEC637 /* PrebidMobileDFPMediationForFacebookDemand */,
-				C2521E3F1F310F3200492C9B /* PrebidMobileMoPubMediationForFacebookDemand */,
+				C2B91AB21F438C10009F75C8 /* PrebidMobileDFPMediationAdapter */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C2521E3E1F310F3200492C9B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C281E17A1EE5EAF700F2F4A9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -648,7 +539,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C2F7CAF21F2BDA0B00FEC637 /* Resources */ = {
+		C2B91AB11F438C10009F75C8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -658,14 +549,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C2521E3B1F310F3200492C9B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C2521E491F310F3B00492C9B /* PrebidMobileMoPubMediationAdapter.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C281E1781EE5EAF700F2F4A9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -698,7 +581,6 @@
 				C2B16E9E1EE1BF1A006304C0 /* PBServerLocation.m in Sources */,
 				C2B16E351EE1BEA6006304C0 /* PBBannerAdUnit.m in Sources */,
 				C23386D71EE5DC95002FD404 /* PBAdUnit.m in Sources */,
-				C256243F1F326C5900A2EE45 /* PBCommonMediationAdapter.m in Sources */,
 				C24B78C51EE7467E0045B454 /* NSObject+Prebid.m in Sources */,
 				C2B16E581EE1BEC4006304C0 /* NSString+Extension.m in Sources */,
 				C2B16E3A1EE1BEA6006304C0 /* PBException.m in Sources */,
@@ -710,13 +592,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C2F7CAEF1F2BDA0B00FEC637 /* Sources */ = {
+		C2B91AAE1F438C10009F75C8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2F7CAFD1F2BDA1200FEC637 /* PrebidMobileDFPMediationAdapter.m in Sources */,
-				C2F7CB011F2BDA1500FEC637 /* PBFacebookRequestExtras.m in Sources */,
-				C2F7CAFF1F2BDA1500FEC637 /* PBFacebookAdLoader.m in Sources */,
+				C2B91ABC1F438C30009F75C8 /* PrebidMobileDFPMediationAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,52 +611,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		C2521E461F310F3200492C9B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = HR94J6TSB3;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
-				INFOPLIST_FILE = PrebidMobileMoPubMediationForFacebookDemand/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
-				MACH_O_TYPE = staticlib;
-				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidMobileMoPubMediationForFacebookDemand;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
-			};
-			name = Debug;
-		};
-		C2521E471F310F3200492C9B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = HR94J6TSB3;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
-				INFOPLIST_FILE = PrebidMobileMoPubMediationForFacebookDemand/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
-				MACH_O_TYPE = staticlib;
-				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidMobileMoPubMediationForFacebookDemand;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
-			};
-			name = Release;
-		};
 		C281E1841EE5EAF700F2F4A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -941,7 +775,7 @@
 			};
 			name = Release;
 		};
-		C2F7CAFA1F2BDA0B00FEC637 /* Debug */ = {
+		C2B91AB91F438C11009F75C8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
@@ -950,25 +784,22 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/../externallibs/**",
-				);
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
-				INFOPLIST_FILE = PrebidMobileDFPMediationForFacebookDemand/Info.plist;
+				FRAMEWORK_SEARCH_PATHS = "${PROJECT_DIR}/../externallibs/**";
+				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../externallibs/**";
+				INFOPLIST_FILE = PrebidMobileDFPMediationAdapter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
+				LIBRARY_SEARCH_PATHS = "${PROJECT_DIR}/../externallibs/**";
 				MACH_O_TYPE = staticlib;
-				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidMobileDFPMediationForFacebookDemand;
+				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidMobileDFPMediationAdapter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../externallibs/**";
 			};
 			name = Debug;
 		};
-		C2F7CAFB1F2BDA0B00FEC637 /* Release */ = {
+		C2B91ABA1F438C11009F75C8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
@@ -977,36 +808,24 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/../externallibs/**",
-				);
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
-				INFOPLIST_FILE = PrebidMobileDFPMediationForFacebookDemand/Info.plist;
+				FRAMEWORK_SEARCH_PATHS = "${PROJECT_DIR}/../externallibs/**";
+				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../externallibs/**";
+				INFOPLIST_FILE = PrebidMobileDFPMediationAdapter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
+				LIBRARY_SEARCH_PATHS = "${PROJECT_DIR}/../externallibs/**";
 				MACH_O_TYPE = staticlib;
-				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidMobileDFPMediationForFacebookDemand;
+				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidMobileDFPMediationAdapter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../externallibs/**";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C2521E451F310F3200492C9B /* Build configuration list for PBXNativeTarget "PrebidMobileMoPubMediationForFacebookDemand" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C2521E461F310F3200492C9B /* Debug */,
-				C2521E471F310F3200492C9B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		C281E1861EE5EAF700F2F4A9 /* Build configuration list for PBXNativeTarget "PrebidMobileTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1034,14 +853,13 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C2F7CAF91F2BDA0B00FEC637 /* Build configuration list for PBXNativeTarget "PrebidMobileDFPMediationForFacebookDemand" */ = {
+		C2B91AB81F438C11009F75C8 /* Build configuration list for PBXNativeTarget "PrebidMobileDFPMediationAdapter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C2F7CAFA1F2BDA0B00FEC637 /* Debug */,
-				C2F7CAFB1F2BDA0B00FEC637 /* Release */,
+				C2B91AB91F438C11009F75C8 /* Debug */,
+				C2B91ABA1F438C11009F75C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

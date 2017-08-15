@@ -71,18 +71,17 @@ static NSString *const kPrebidMobileVersion = @"0.0.2";
     }];
 }
 
-- (NSDictionary *)checkForRequestExtras {
-    NSMutableDictionary *requestExtras;
-    SEL getRequestExtras = NSSelectorFromString(@"getRequestExtras");
-    if (NSClassFromString(@"PBFacebookRequestExtras")) {
-        Class fbAdRequestExtrasClass = NSClassFromString(@"PBFacebookRequestExtras");
-        id fbAdRequestExtras = [[fbAdRequestExtrasClass alloc] init];
+- (NSString *)getFBBuyerUID {
+    NSString *buyerUID = @"";
+    SEL getBidderTokenSel = NSSelectorFromString(@"bidderToken");
+    if (NSClassFromString(@"FBAdSettings")) {
+        Class fbAdSettingsClass = NSClassFromString(@"FBAdSettings");
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        requestExtras = [fbAdRequestExtras performSelector:getRequestExtras];
+        buyerUID = [fbAdSettingsClass performSelector:getBidderTokenSel];
 #pragma clang diagnostic pop
     }
-    return [requestExtras copy];
+    return buyerUID;
 }
 
 - (NSURLRequest *)buildRequestForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
@@ -179,10 +178,7 @@ static NSString *const kPrebidMobileVersion = @"0.0.2";
             break;
     }
     userDict[@"gender"] = gender;
-    NSDictionary *requestExtras = [self checkForRequestExtras];
-    if (requestExtras[@"buyeruid"]) {
-        userDict[@"buyeruid"] = requestExtras[@"buyeruid"];
-    }
+    userDict[@"buyeruid"] = [self getFBBuyerUID];
 
     NSString *language = [NSLocale preferredLanguages][0];
     if (language.length) {

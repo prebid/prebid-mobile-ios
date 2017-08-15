@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C2289AF41F3118A5003501F6 /* PrebidMobileMoPubMediationForFacebookDemand.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2521E4E1F31185200492C9B /* PrebidMobileMoPubMediationForFacebookDemand.framework */; };
 		C23386CB1EE5DAC9002FD404 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C23386CA1EE5DAA7002FD404 /* PrebidMobile.framework */; };
 		C23386CC1EE5DAC9002FD404 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C23386CA1EE5DAA7002FD404 /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C2521E4F1F31185200492C9B /* PrebidMobileMoPubMediationForFacebookDemand.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C2521E4E1F31185200492C9B /* PrebidMobileMoPubMediationForFacebookDemand.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C268CA911EA65FD7008656F2 /* pbm_basic.feature in Resources */ = {isa = PBXBuildFile; fileRef = C268CA871EA65FD7008656F2 /* pbm_basic.feature */; };
 		C268CA921EA65FD7008656F2 /* pbm_basic.rb in Resources */ = {isa = PBXBuildFile; fileRef = C268CA891EA65FD7008656F2 /* pbm_basic.rb */; };
 		C268CA931EA65FD7008656F2 /* 01_launch.rb in Resources */ = {isa = PBXBuildFile; fileRef = C268CA8B1EA65FD7008656F2 /* 01_launch.rb */; };
@@ -74,9 +72,10 @@
 		C273CAC21E832494003EF1AB /* VideoTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C273CAC11E832494003EF1AB /* VideoTestsViewController.m */; };
 		C2B91AA51F41FC7D009F75C8 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B91AA41F41FC7D009F75C8 /* GoogleMobileAds.framework */; };
 		C2B91AA71F41FC86009F75C8 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B91AA61F41FC86009F75C8 /* FBAudienceNetwork.framework */; };
+		C2B91AC01F438CDC009F75C8 /* PrebidMobileDFPMediationAdapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B91ABF1F438C44009F75C8 /* PrebidMobileDFPMediationAdapter.framework */; };
+		C2B91AC11F438CDC009F75C8 /* PrebidMobileDFPMediationAdapter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C2B91ABF1F438C44009F75C8 /* PrebidMobileDFPMediationAdapter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C2E809731E95425D00DC7732 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E809721E95425D00DC7732 /* SettingsViewController.m */; };
 		C2E8097D1E95899800DC7732 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E8097C1E95899800DC7732 /* Constants.m */; };
-		C2F7CB0B1F2F7B6300FEC637 /* PrebidMobileDFPMediationForFacebookDemand.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C2F7CB0A1F2F7B0600FEC637 /* PrebidMobileDFPMediationForFacebookDemand.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C2F7CB131F2F832000FEC637 /* PrebidMobileDFPMediationForFacebookDemand.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2F7CB121F2F832000FEC637 /* PrebidMobileDFPMediationForFacebookDemand.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,13 +94,6 @@
 			remoteGlobalIDString = C2B16E1A1EE1BE69006304C0;
 			remoteInfo = PrebidMobile;
 		};
-		C2521E4D1F31185200492C9B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C2521E401F310F3200492C9B;
-			remoteInfo = PrebidMobileMoPubMediationForFacebookDemand;
-		};
 		C268EAF01F279ABC00752F71 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */;
@@ -116,19 +108,19 @@
 			remoteGlobalIDString = C273C8041E82DAAD003EF1AB;
 			remoteInfo = PrebidMobileDemo;
 		};
-		C2F7CB091F2F7B0600FEC637 /* PBXContainerItemProxy */ = {
+		C2B91ABE1F438C44009F75C8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = C2F7CAF41F2BDA0B00FEC637;
-			remoteInfo = PrebidMobileDFPMediationForFacebookDemand;
+			remoteGlobalIDString = C2B91AB31F438C10009F75C8;
+			remoteInfo = PrebidMobileDFPMediationAdapter;
 		};
-		C2F7CB0C1F2F7BA700FEC637 /* PBXContainerItemProxy */ = {
+		C2B91AC21F438CDC009F75C8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = C2F7CAF31F2BDA0B00FEC637;
-			remoteInfo = PrebidMobileDFPMediationForFacebookDemand;
+			remoteGlobalIDString = C2B91AB21F438C10009F75C8;
+			remoteInfo = PrebidMobileDFPMediationAdapter;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -139,8 +131,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C2521E4F1F31185200492C9B /* PrebidMobileMoPubMediationForFacebookDemand.framework in Embed Frameworks */,
-				C2F7CB0B1F2F7B6300FEC637 /* PrebidMobileDFPMediationForFacebookDemand.framework in Embed Frameworks */,
+				C2B91AC11F438CDC009F75C8 /* PrebidMobileDFPMediationAdapter.framework in Embed Frameworks */,
 				C23386CC1EE5DAC9002FD404 /* PrebidMobile.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -571,6 +562,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2B91AC01F438CDC009F75C8 /* PrebidMobileDFPMediationAdapter.framework in Frameworks */,
 				C273CAB21E83149D003EF1AB /* MobileCoreServices.framework in Frameworks */,
 				C273CAB01E831487003EF1AB /* GLKit.framework in Frameworks */,
 				C273CAAE1E83146F003EF1AB /* CoreMotion.framework in Frameworks */,
@@ -588,7 +580,6 @@
 				C273CAA91E831442003EF1AB /* SafariServices.framework in Frameworks */,
 				C273CAAA1E831442003EF1AB /* StoreKit.framework in Frameworks */,
 				C2F7CB131F2F832000FEC637 /* PrebidMobileDFPMediationForFacebookDemand.framework in Frameworks */,
-				C2289AF41F3118A5003501F6 /* PrebidMobileMoPubMediationForFacebookDemand.framework in Frameworks */,
 				C273CAAB1E831442003EF1AB /* SystemConfiguration.framework in Frameworks */,
 				C273CAAC1E831442003EF1AB /* UIKit.framework in Frameworks */,
 				C273CA8D1E831404003EF1AB /* CoreFoundation.framework in Frameworks */,
@@ -618,8 +609,7 @@
 			children = (
 				C23386CA1EE5DAA7002FD404 /* PrebidMobile.framework */,
 				C268EAF11F279ABC00752F71 /* PrebidMobileTests.xctest */,
-				C2F7CB0A1F2F7B0600FEC637 /* PrebidMobileDFPMediationForFacebookDemand.framework */,
-				C2521E4E1F31185200492C9B /* PrebidMobileMoPubMediationForFacebookDemand.framework */,
+				C2B91ABF1F438C44009F75C8 /* PrebidMobileDFPMediationAdapter.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1324,8 +1314,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				C2F7CB0D1F2F7BA700FEC637 /* PBXTargetDependency */,
 				C23386CE1EE5DAC9002FD404 /* PBXTargetDependency */,
+				C2B91AC31F438CDC009F75C8 /* PBXTargetDependency */,
 			);
 			name = PrebidMobileDemo;
 			productName = PrebidMobileDemo;
@@ -1405,13 +1395,6 @@
 			remoteRef = C23386C91EE5DAA7002FD404 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C2521E4E1F31185200492C9B /* PrebidMobileMoPubMediationForFacebookDemand.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = PrebidMobileMoPubMediationForFacebookDemand.framework;
-			remoteRef = C2521E4D1F31185200492C9B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		C268EAF11F279ABC00752F71 /* PrebidMobileTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
@@ -1419,11 +1402,11 @@
 			remoteRef = C268EAF01F279ABC00752F71 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C2F7CB0A1F2F7B0600FEC637 /* PrebidMobileDFPMediationForFacebookDemand.framework */ = {
+		C2B91ABF1F438C44009F75C8 /* PrebidMobileDFPMediationAdapter.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = PrebidMobileDFPMediationForFacebookDemand.framework;
-			remoteRef = C2F7CB091F2F7B0600FEC637 /* PBXContainerItemProxy */;
+			path = PrebidMobileDFPMediationAdapter.framework;
+			remoteRef = C2B91ABE1F438C44009F75C8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1512,10 +1495,10 @@
 			target = C273C8041E82DAAD003EF1AB /* PrebidMobileDemo */;
 			targetProxy = C273C81F1E82DAAE003EF1AB /* PBXContainerItemProxy */;
 		};
-		C2F7CB0D1F2F7BA700FEC637 /* PBXTargetDependency */ = {
+		C2B91AC31F438CDC009F75C8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = PrebidMobileDFPMediationForFacebookDemand;
-			targetProxy = C2F7CB0C1F2F7BA700FEC637 /* PBXContainerItemProxy */;
+			name = PrebidMobileDFPMediationAdapter;
+			targetProxy = C2B91AC21F438CDC009F75C8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

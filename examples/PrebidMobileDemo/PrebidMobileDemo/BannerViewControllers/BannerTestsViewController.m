@@ -22,7 +22,7 @@
 #import "PrebidMobileDFPMediationForFacebookDemand/PrebidMobileDFPMediationAdapter.h"
 @import FBAudienceNetwork;
 
-@interface BannerTestsViewController () <GADBannerViewDelegate, MPAdViewDelegate, MPBannerCustomEventDelegate, FBAdViewDelegate>
+@interface BannerTestsViewController () <GADBannerViewDelegate, MPAdViewDelegate, MPBannerCustomEventDelegate>
 
 @property (strong, nonatomic) MPAdView *mopubAdView;
 @property (strong, nonatomic) DFPBannerView *dfpAdView;
@@ -94,14 +94,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error {
-    NSLog(@"Ad failed to load: %i", (int)error.code);
-}
-
-- (void)adViewDidLoad:(FBAdView *)adView {
-    [adView setFrame:CGRectMake(0, 10, 300, 250)];
-    NSLog(@"Ad was loaded and ready to be displayed");
-}
+//- (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error {
+//    NSLog(@"Ad failed to load: %i", (int)error.code);
+//}
+//
+//- (void)adViewDidLoad:(FBAdView *)adView {
+//    [adView setFrame:CGRectMake(0, 10, 300, 250)];
+//    NSLog(@"Ad was loaded and ready to be displayed");
+//}
 
 #pragma mark - GADBannerViewDelegate methods
 

@@ -15,148 +15,167 @@
 
 #import "PrebidMobileDFPMediationAdapter.h"
 
+struct FBAdSize {
+    CGSize size;
+};
+
 static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediationAdapter";
+static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/get?uuid=";
+
+@interface PrebidMobileDFPMediationAdapter()
+
+@property (strong, nonatomic) NSString *cacheId;
+@property (strong, nonatomic) NSString *bidder;
+
+@end
 
 @implementation PrebidMobileDFPMediationAdapter
 
 @synthesize delegate;
-@synthesize viewControllerForPresentingModalView;
 
 - (void)requestBannerAd:(GADAdSize)adSize
               parameter:(NSString *)serverParameter
                   label:(NSString *)serverLabel
                 request:(GADCustomEventRequest *)request {
-//    NSArray *keywords = request.userKeywords;
-//    for (NSString *keyword in keywords) {
-//        if ([keyword containsString:@"hb_cache_id"]) {
-//            NSArray *splitValue = [keyword componentsSeparatedByString:@":"];
-//            self.cacheId = splitValue[1];
-//        }
-//        if ([keyword containsString:@"hb_bidder"]) {
-//            NSArray *splitValue = [keyword componentsSeparatedByString:@":"];
-//            self.bidder = splitValue[1];
-//        }
-//    }
-//    [self requestAdmAndLoadAd];
-    
-    [FBAdSettings setLogLevel:FBAdLogLevelVerbose];
-    NSString *bidPayload = @"{\"type\":\"ID\",\"bid_id\":\"4401013946958491377\",\"placement_id\":\"1995257847363113_1997038003851764\",\"sdk_version\":\"4.25.0-appnexus.bidding\",\"device_id\":\"87ECBA49-908A-428F-9DE7-4B9CED4F486C\",\"template\":7,\"payload\":\"null\"}";
-    
-    FBAdView *adView = [[FBAdView alloc] initWithPlacementID:@"1995257847363113_1997038003851764"
-                                                      adSize:kFBAdSizeHeight250Rectangle
-                                          rootViewController:(UIViewController *)[NSObject new]];
-    adView.frame = CGRectMake(0, 0, adView.bounds.size.width, adView.bounds.size.height);
-    adView.delegate = self;
-    NSLog(@"delegate = %@", adView.delegate);
-    [adView disableAutoRefresh];
-    CGRect fbAdFrame = adView.frame;
-    fbAdFrame.size = CGSizeMake(300, 250);
-    adView.frame = fbAdFrame;
-    [adView loadAdWithBidPayload:bidPayload];
-    
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    UIView *topView = window.rootViewController.view;
-    [topView addSubview:adView];
+    NSArray *keywords = request.userKeywords;
+    for (NSString *keyword in keywords) {
+        if ([keyword containsString:@"hb_cache_id"]) {
+            NSArray *splitValue = [keyword componentsSeparatedByString:@":"];
+            self.cacheId = splitValue[1];
+        }
+        if ([keyword containsString:@"hb_bidder"]) {
+            NSArray *splitValue = [keyword componentsSeparatedByString:@":"];
+            self.bidder = splitValue[1];
+            // TODO nicole remove override
+            self.bidder = @"audienceNetwork";
+        }
+    }
+    [self requestAdmAndLoadAd];
 }
 
-//#pragma mark - PBDFPMediationDelegate methods
-//
-//- (void)didLoadAd:(UIView *)adView {
-//    //[adView setFrame:CGRectMake(0, 10, 300, 250)];
-//    [self.delegate customEventBanner:self didReceiveAd:adView];
-//}
-//
-//- (void)ad:(UIView *)adView didFailWithError:(NSError *)error {
-//    [self.delegate customEventBanner:self didFailAd:error];
-//}
-//
-//- (void)didClickAd:(UIView *)adView {
-//    [self.delegate customEventBannerWasClicked:self];
-//}
+- (void)requestAdmAndLoadAd {
+    // TODO nicole add back in
+    NSString *cacheURL = [kPrebidCacheEndpoint stringByAppendingString:self.cacheId];
+
+    NSMutableURLRequest *cacheRequest = [[NSMutableURLRequest alloc] init];
+    [cacheRequest setHTTPMethod:@"GET"];
+    [cacheRequest setURL:[NSURL URLWithString:cacheURL]];
+
+    NSURLSession *session = [NSURLSession sharedSession];
+
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:cacheRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (httpResponse.statusCode == 200) {
+            NSError *parseError = nil;
+            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
+            //TODO nicole switch out real code
+            //[self loadAd:responseDictionary];
+            NSLog(@"The response is - %@",responseDictionary);
+        } else {
+            NSLog(@"ERROR");
+        }
+    }];
+    [dataTask resume];
+    // TODO nicole remove below code
+    [self loadAd:@{}];
+}
+
+- (NSString *)parsePlacementIdFromBidPayload:(NSString *)bidPayload {
+    NSError *jsonError;
+    NSData *objectData = [bidPayload dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:objectData
+                                                         options:NSJSONReadingMutableContainers
+                                                           error:&jsonError];
+    return [json objectForKey:@"placement_id"];
+}
+
+- (void)loadAd:(NSDictionary *)responseDict {
+    // TODO nicole remove bid payload override
+    NSString *bidPayload = @"{\"type\":\"ID\",\"bid_id\":\"4401013946958491377\",\"placement_id\":\"1995257847363113_1997038003851764\",\"sdk_version\":\"4.25.0-appnexus.bidding\",\"device_id\":\"87ECBA49-908A-428F-9DE7-4B9CED4F486C\",\"template\":7,\"payload\":\"null\"}";
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    if ([self.bidder isEqualToString:@"audienceNetwork"]) {
+        // TODO nicole add this back in
+        //NSString *bidPayload = (NSString *)responseDict[@"adm"];
+        //CGFloat width = [(NSString *)responseDict[@"width"] floatValue];
+        //CGFloat height = [(NSString *)responseDict[@"height"] floatValue];
+        //CGSize adSize = CGSizeMake(width, height);
+
+        // TODO nicole validate adSize against FBAdSize
+
+        // Load FBAdView using reflection so we can load the ad properly in the FBAudienceNetwork SDK
+        Class fbAdViewClass = NSClassFromString(@"FBAdView");
+        SEL initMethodSel = NSSelectorFromString(@"initWithPlacementID:adSize:rootViewController:");
+        id fbAdViewObj = [fbAdViewClass alloc];
+        NSMethodSignature *methSig = [fbAdViewObj methodSignatureForSelector:initMethodSel];
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methSig];
+
+        [invocation setSelector:initMethodSel];
+        [invocation setTarget:fbAdViewObj];
+
+        // Set arguments for init method
+        NSString *placementId = [self parsePlacementIdFromBidPayload:bidPayload];
+        struct FBAdSize fbAdSize;
+        fbAdSize.size = CGSizeMake(-1, 250);
+        UIViewController *vc = (UIViewController *)[NSObject new];
+
+        [invocation setArgument:&placementId atIndex:2];
+        [invocation setArgument:&fbAdSize atIndex:3];
+        [invocation setArgument:&vc atIndex:4];
+
+        // Invoke init method and use temp result to avoid crash later
+        [invocation invoke];
+        id __unsafe_unretained tempResultSet;
+        [invocation getReturnValue: &tempResultSet];
+        id result = tempResultSet;
+
+        // Set selector variables for other methods we need to call on FBAdView
+        SEL setDelegateSel = NSSelectorFromString(@"setDelegate:");
+        SEL loadAdSel = NSSelectorFromString(@"loadAdWithBidPayload:");
+        SEL disableAutoRefreshSel = NSSelectorFromString(@"disableAutoRefresh");
+
+        // Set up FBAdView and loadAdWithBidPayload
+        [result performSelector:setDelegateSel withObject:self];
+        [result performSelector:disableAutoRefreshSel];
+        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+        UIView *topView = window.rootViewController.view;
+        [topView addSubview:result];
+        [result performSelector:loadAdSel withObject:bidPayload];
+    } else {
+            
+    }
+#pragma clang diagnostic pop
+}
 
 #pragma mark FBAdViewDelegate methods
-
-- (void)adView:(FBAdView *)adView didFailWithError:(NSError *)error {
+- (void)adView:(UIView *)adView didFailWithError:(NSError *)error {
     NSLog(@"Facebook mediated ad failed to load with error: %@", error);
-    //[self.delegate ad:adView didFailWithError:error];
+    [self.delegate customEventBanner:self didFailAd:error];
 }
 
-- (void)adViewDidLoad:(FBAdView *)adView {
+- (void)adViewDidLoad:(UIView *)adView {
     NSLog(@"Ad was loaded and ready to be displayed22");
     NSLog(@"Facebook mediated ad did load.");
+    [adView setFrame:CGRectMake(0, 10, 300, 250)];
     [self.delegate customEventBanner:self didReceiveAd:adView];
+    adView = nil;
 }
 
-- (void)adViewWillLogImpression:(FBAdView *)adView {
+- (void)adViewWillLogImpression:(UIView *)adView {
     NSLog(@"Facebook mediated ad will log impression.");
-    //[self.delegate trackImpression];
 }
 
-- (void)adViewDidClick:(FBAdView *)adView {
+- (void)adViewDidClick:(UIView *)adView {
     NSLog(@"Facebook mediated ad did click.");
-    //[self.delegate didClickAd:adView];
+    [self.delegate customEventBannerWasClicked:self];
 }
 
-- (void)adViewDidFinishHandlingClick:(FBAdView *)adView {
+- (void)adViewDidFinishHandlingClick:(UIView *)adView {
     NSLog(@"Facebook mediated ad did finish handling click.");
-    //[self.delegate didFinishHandlingClick:adView];
 }
 
 - (UIViewController *)viewControllerForPresentingModalView {
     return [self.delegate viewControllerForPresentingModalView];
 }
-
-//#pragma mark - Custom Event for Interstitials
-//
-//- (void)requestInterstitialAdWithParameter:(NSString *)serverParameter
-//                                     label:(NSString *)serverLabel
-//                                   request:(GADCustomEventRequest *)request {
-////    self.interstitial = [[SampleInterstitial alloc] init];
-////    self.interstitial.delegate = self;
-////    self.interstitial.adUnit = serverParameter;
-////    SampleAdRequest *adRequest = [[SampleAdRequest alloc] init];
-////    adRequest.testMode = request.isTesting;
-////    adRequest.keywords = request.userKeywords;
-////    [self.interstitial fetchAd:adRequest];
-//}
-
-/// Constant for Sample Ad Network custom event error domain.
-//static NSString *const customEventErrorDomain = @"com.google.CustomEvent";
-//
-//// Sent when an interstitial ad has loaded.
-//- (void)interstitialDidLoad:(SampleInterstitial *)interstitial {
-//    [self.delegate customEventInterstitialDidReceiveAd:self];
-//}
-//
-//// Sent when an interstitial ad has failed to load.
-//- (void)interstitial:(SampleInterstitial *)interstitial
-//didFailToLoadAdWithErrorCode:(SampleErrorCode)errorCode {
-//    NSError *error = [NSError errorWithDomain:customEventErrorDomain
-//                                         code:errorCode
-//                                     userInfo:nil];
-//    [self.delegate customEventInterstitial:self didFailAd:error];
-//}
-//
-//// Sent when an interstitial is about to be shown.
-//- (void)interstitialWillPresentScreen:(SampleInterstitial *)interstitial {
-//    [self.delegate customEventInterstitialWillPresent:self];
-//}
-//
-//// Sent when an interstitial is about to be dismissed.
-//- (void)interstitialWillDismissScreen:(SampleInterstitial *)interstitial {
-//    [self.delegate customEventInterstitialWillDismiss:self];
-//}
-//
-//// Sent when an interstitial has been dismissed.
-//- (void)interstitialDidDismissScreen:(SampleInterstitial *)interstitial {
-//    [self.delegate customEventInterstitialDidDismiss:self];
-//}
-//
-//// Sent when an interstitial is clicked and an external application is launched.
-//- (void)interstitialWillLeaveApplication:(SampleInterstitial *)interstitial {
-//    [self.delegate customEventInterstitialWasClicked:self];
-//    [self.delegate customEventInterstitialWillLeaveApplication:self];
-//}
-
 
 @end

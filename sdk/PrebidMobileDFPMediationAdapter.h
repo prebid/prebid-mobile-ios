@@ -15,11 +15,9 @@
 
 @import Foundation;
 @import GoogleMobileAds;
-#import <FBAudienceNetwork/FBAudienceNetwork.h>
 
-#import "PBMediationAdapterDelegate.h"
-#import "PBCommonMediationAdapter.h"
+@protocol FBAdViewDelegate;
 
-@interface PrebidMobileDFPMediationAdapter : PBCommonMediationAdapter<GADCustomEventBanner, PBMediationAdapterDelegate, FBAdViewDelegate>
+@interface PrebidMobileDFPMediationAdapter : NSObject<GADCustomEventBanner, FBAdViewDelegate>
 
 @end
