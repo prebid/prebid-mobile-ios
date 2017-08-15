@@ -67,7 +67,7 @@
 		C2B1747A1EE1E3C3006304C0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B174791EE1E3C3006304C0 /* UIKit.framework */; };
 		C2B1747C1EE1E3C9006304C0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B1747B1EE1E3C9006304C0 /* SystemConfiguration.framework */; };
 		C2B1747E1EE1E3CE006304C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B1747D1EE1E3CE006304C0 /* QuartzCore.framework */; };
-		C2B91ABB1F438C30009F75C8 /* PrebidMobileDFPMediationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F7CAE21F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.h */; };
+		C2B91ABB1F438C30009F75C8 /* PrebidMobileDFPMediationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F7CAE21F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2B91ABC1F438C30009F75C8 /* PrebidMobileDFPMediationAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F7CAE31F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.m */; };
 /* End PBXBuildFile section */
 

@@ -19,7 +19,7 @@
 #import "MPAdView.h"
 #import "MPBannerCustomEvent.h"
 #import "PrebidMobile/PrebidMobile.h"
-#import "PrebidMobileDFPMediationForFacebookDemand/PrebidMobileDFPMediationAdapter.h"
+#import "PrebidMobileDFPMediationAdapter/PrebidMobileDFPMediationAdapter.h"
 @import FBAudienceNetwork;
 
 @interface BannerTestsViewController () <GADBannerViewDelegate, MPAdViewDelegate, MPBannerCustomEventDelegate>

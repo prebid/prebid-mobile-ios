@@ -1,0 +1,6 @@
+framework module PrebidMobileDFPMediationAdapter {
+  umbrella header "PrebidMobileDFPMediationAdapter.h"
+
+  export *
+  module * { export * }
+}
