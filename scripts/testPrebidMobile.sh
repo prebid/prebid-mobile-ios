@@ -25,4 +25,9 @@ make ipa
 echo "Running integration tests"
 
 gem install xamarin-test-cloud
-test-cloud submit Products/ipa/PrebidMobileDemo.ipa 435c130f3f6ff5256d19a790c21dd653 --devices 9f82ba1c --series "master" --locale "en_US" --app-name "AppNexus.PrebidMobileDemo" --user nhedley@appnexus.com
+if [ "$TRAVIS_EVENT_TYPE" == "pull_request" ]; then
+test-cloud submit Products/ipa/PrebidMobileDemo.ipa 435c130f3f6ff5256d19a790c21dd653 --devices "$XAMARIN_DEVICES_ID_PR" --series "master" --locale "en_US" --app-name "AppNexus.PrebidMobileDemo" --user nhedley@appnexus.com
+fi
+if [ "$TRAVIS_EVENT_TYPE" == "cron" ]; then
+test-cloud submit Products/ipa/PrebidMobileDemo.ipa 435c130f3f6ff5256d19a790c21dd653 --devices "$XAMARIN_DEVICES_ID_CRON" --series "master" --locale "en_US" --app-name "AppNexus.PrebidMobileDemo" --user nhedley@appnexus.com
+fi
