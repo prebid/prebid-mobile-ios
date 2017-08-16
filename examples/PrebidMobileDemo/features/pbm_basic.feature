@@ -14,4 +14,4 @@ Scenario: Test MoPub Scenarios
     And I touch "Banner"
     And I touch the "See Ad" button
     And I wait for 4 seconds
-    Then I should see an AppNexus ad
+    Then I should see an AppNexus ad in WKWebView

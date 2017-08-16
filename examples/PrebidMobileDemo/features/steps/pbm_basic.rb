@@ -47,3 +47,8 @@ Then(/^I should see an AppNexus ad$/) do
     res = query("webView css:'body'")
     expect(res[0]["textContent"].include? "showAdFromCacheId").to be_truthy
 end
+
+Then(/^I should see an AppNexus ad in WKWebView$/) do
+    res = query("WKWebView css:'body'")
+    expect(res[0]["textContent"].include? "showAdFromCacheId").to be_truthy
+end
