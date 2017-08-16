@@ -159,7 +159,7 @@ static const NSUInteger kIndexPathItemIndex = 1;
 
         // Get positioning information from the server.
         self.positioningSource = [[MPInstanceProvider sharedProvider] buildNativePositioningSource];
-        __typeof__(self) __weak weakSelf = self;
+        __weak __typeof__(self) weakSelf = self;
         [self.positioningSource loadPositionsWithAdUnitIdentifier:self.adUnitID completionHandler:^(MPAdPositioning *positioning, NSError *error) {
             __typeof__(self) strongSelf = weakSelf;
 

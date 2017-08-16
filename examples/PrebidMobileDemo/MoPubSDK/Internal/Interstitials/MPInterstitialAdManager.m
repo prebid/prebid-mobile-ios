@@ -98,9 +98,15 @@
 
 - (void)presentInterstitialFromViewController:(UIViewController *)controller
 {
-    if (self.ready) {
-        [self.adapter showInterstitialFromViewController:controller];
+    // Don't allow the ad to be shown if it isn't ready.
+    if (!self.ready) {
+        // We don't want to remotely log this event -- it's simply for publisher troubleshooting -- so use NSLog
+        // rather than MPLog.
+        NSLog(@"Interstitial ad view is not ready to be shown");
+        return;
     }
+
+    [self.adapter showInterstitialFromViewController:controller];
 }
 
 - (CLLocation *)location

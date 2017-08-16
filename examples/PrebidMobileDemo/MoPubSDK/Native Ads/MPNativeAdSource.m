@@ -9,8 +9,9 @@
 #import "MPNativeAd.h"
 #import "MPNativeAdRequestTargeting.h"
 #import "MPNativeAdSourceQueue.h"
+#import "MPConstants.h"
 
-static NSTimeInterval const kCacheTimeoutInterval = 900; //15 minutes
+static NSTimeInterval const kCacheTimeoutInterval = MOPUB_ADS_EXPIRATION_INTERVAL;
 
 @interface MPNativeAdSource () <MPNativeAdSourceQueueDelegate>
 

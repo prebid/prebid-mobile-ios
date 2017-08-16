@@ -117,7 +117,7 @@
 - (void)interstitialRewardedVideoEnded
 {
     MPLogInfo(@"MoPub rewarded video finished playing.");
-    [self.delegate rewardedVideoShouldRewardUserForCustomEvent:self reward:[self configuration].rewardedVideoReward];
+    [self.delegate rewardedVideoShouldRewardUserForCustomEvent:self reward:[self configuration].selectedReward];
 }
 
 #pragma mark - MPPrivateRewardedVideoCustomEventDelegate

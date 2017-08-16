@@ -79,7 +79,32 @@
 + (BOOL)hasAdAvailableForAdUnitID:(NSString *)adUnitID;
 
 /**
+ * Returns an array of rewards that are available for the given ad unit ID.
+ */
++ (NSArray *)availableRewardsForAdUnitID:(NSString *)adUnitID;
+
+/**
+ * The currently selected reward that will be awarded to the user upon completion of the ad. By default,
+ * this corresponds to the first reward in `availableRewardsForAdUnitID:`.
+ */
++ (MPRewardedVideoReward *)selectedRewardForAdUnitID:(NSString *)adUnitID;
+
+/**
  * Plays a rewarded video ad.
+ *
+ * @param adUnitID The ad unit ID associated with the video ad you wish to play.
+ * @param viewController The view controller that will present the rewarded video ad.
+ * @param reward A reward selected from `availableRewardsForAdUnitID:` to award the user upon successful completion of the ad.
+ * This value should not be `nil`.
+ *
+ * @warning **Important**: You should not attempt to play the rewarded video unless `+hasAdAvailableForAdUnitID:` indicates that an
+ * ad is available for playing or you have received the `[-rewardedVideoAdDidLoadForAdUnitID:]([MPRewardedVideoDelegate rewardedVideoAdDidLoadForAdUnitID:])`
+ * message.
+ */
++ (void)presentRewardedVideoAdForAdUnitID:(NSString *)adUnitID fromViewController:(UIViewController *)viewController withReward:(MPRewardedVideoReward *)reward;
+
+/**
+ * Plays a rewarded video ad, automatically selecting the first available reward in `availableRewardsForAdUnitID:`.
  *
  * @param adUnitID The ad unit ID associated with the video ad you wish to play.
  * @param viewController The view controller that will present the rewarded video ad.
@@ -88,7 +113,7 @@
  * ad is available for playing or you have received the `[-rewardedVideoAdDidLoadForAdUnitID:]([MPRewardedVideoDelegate rewardedVideoAdDidLoadForAdUnitID:])`
  * message.
  */
-+ (void)presentRewardedVideoAdForAdUnitID:(NSString *)adUnitID fromViewController:(UIViewController *)viewController;
++ (void)presentRewardedVideoAdForAdUnitID:(NSString *)adUnitID fromViewController:(UIViewController *)viewController __deprecated_msg("use presentRewardedVideoAdForAdUnitID:fromViewController:withReward: instead.");
 
 @end
 
