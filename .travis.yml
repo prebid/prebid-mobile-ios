@@ -1,5 +1,7 @@
 language: objective-c
 osx_image: xcode8
+env:
+- XAMARIN_DEVICES_ID_PR=9f82ba1c XAMARIN_DEVICES_ID_CRON=67582786
 before_script: "./scripts/add-keys.sh"
 after_script: "./scripts/remove-key.sh"
 script:
