@@ -5,7 +5,7 @@ Scenario: Test DFP Scenarios
     When I touch "DFP"
     And I touch "Banner"
     And I touch the "See Ad" button
-    And I wait for 2 seconds
+    And I wait for 4 seconds
     Then I should see an AppNexus ad
 
 Scenario: Test MoPub Scenarios
@@ -13,5 +13,5 @@ Scenario: Test MoPub Scenarios
     When I touch "MoPub"
     And I touch "Banner"
     And I touch the "See Ad" button
-    And I wait for 2 seconds
+    And I wait for 4 seconds
     Then I should see an AppNexus ad
