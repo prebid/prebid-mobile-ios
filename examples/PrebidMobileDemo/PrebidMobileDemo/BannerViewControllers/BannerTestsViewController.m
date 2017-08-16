@@ -19,7 +19,7 @@
 #import "MPAdView.h"
 #import "PrebidMobile/PrebidMobile.h"
 
-@interface BannerTestsViewController () <GADBannerViewDelegate>
+@interface BannerTestsViewController () <GADBannerViewDelegate, MPAdViewDelegate>
 
 @property (strong, nonatomic) MPAdView *mopubAdView;
 @property (strong, nonatomic) DFPBannerView *dfpAdView;
@@ -38,6 +38,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     NSString *adServer = [self.settings objectForKey:kAdServer];
     self.title = [adServer stringByAppendingString:@" Banner"];
     
@@ -51,7 +55,8 @@
     
     if ([adServer isEqualToString:kMoPubAdServer]) {
         _mopubAdView = [[MPAdView alloc] initWithAdUnitId:kMoPubBannerAdUnitId
-                                                size:CGSizeMake(width, height)];
+                                                     size:CGSizeMake(width, height)];
+        _mopubAdView.delegate = self;
         [_adContainerView addSubview:_mopubAdView];
         
         [PrebidMobile setBidKeywordsOnAdObject:self.mopubAdView withAdUnitId:kAdUnit1Id withTimeout:600 completionHandler:^{
@@ -62,7 +67,7 @@
         _dfpAdView.adUnitID = kDFPBannerAdUnitId;
         _dfpAdView.rootViewController = self;
         _dfpAdView.delegate = self;
-
+        
         [_adContainerView addSubview:_dfpAdView];
         
         [PrebidMobile setBidKeywordsOnAdObject:_dfpAdView withAdUnitId:kAdUnit1Id withTimeout:600 completionHandler:^{
@@ -84,6 +89,12 @@
 
 - (void)adView:(DFPBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
     NSLog(@"DFP: %@", NSStringFromSelector(_cmd));
+}
+
+#pragma mark MPAdViewDelegate
+
+- (UIViewController *)viewControllerForPresentingModalView {
+    return self;
 }
 
 /*

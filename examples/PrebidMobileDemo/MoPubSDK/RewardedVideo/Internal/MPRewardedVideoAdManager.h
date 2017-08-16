@@ -23,6 +23,17 @@
 @property (nonatomic, strong) NSArray *mediationSettings;
 @property (nonatomic, copy) NSString *customerId;
 
+/**
+ * An array of rewards that are available for the rewarded ad that can be selected when presenting the ad.
+ */
+@property (nonatomic, readonly) NSArray *availableRewards;
+
+/**
+ * The currently selected reward that will be awarded to the user upon completion of the ad. By default,
+ * this corresponds to the first reward in `availableRewards`.
+ */
+@property (nonatomic, readonly) MPRewardedVideoReward *selectedReward;
+
 - (instancetype)initWithAdUnitID:(NSString *)adUnitID delegate:(id<MPRewardedVideoAdManagerDelegate>)delegate;
 
 /**
@@ -52,11 +63,21 @@
 - (BOOL)hasAdAvailable;
 
 /**
- * Plays a rewarded video ad.
+ * Plays a rewarded video ad, choosing the first reward from `availableRewards` to award the user.
  *
  * @param viewController Presents the rewarded video ad from viewController.
  */
-- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController;
+- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController __deprecated_msg("use presentRewardedVideoAdFromViewController:withReward: instead.");
+
+/**
+ * Plays a rewarded video ad.
+ *
+ * @param viewController Presents the rewarded video ad from viewController.
+ * @param reward A reward chosen from `availableRewards` to award the user upon completion.
+ * This value should not be `nil`. If the reward that is passed in did not come from `availableRewards`,
+ * this method will not present the rewarded ad and invoke `rewardedVideoDidFailToPlayForAdManager:error:`.
+ */
+- (void)presentRewardedVideoAdFromViewController:(UIViewController *)viewController withReward:(MPRewardedVideoReward *)reward;
 
 /**
  * This method is called when another ad unit has played a rewarded video from the same network this ad manager's custom event

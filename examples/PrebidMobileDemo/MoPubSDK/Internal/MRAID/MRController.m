@@ -134,7 +134,7 @@ static NSString *const kMRAIDCommandResize = @"resize";
     self.isAdLoading = YES;
     self.adRequiresPrecaching = configuration.precacheRequired;
     self.isAdVastVideoPlayer = configuration.isVastVideoPlayer;
-    self.shouldUseUIWebView = self.isAdVastVideoPlayer || self.adConfiguration.forceUIWebView;
+    self.shouldUseUIWebView = self.isAdVastVideoPlayer;
 
     MPWebView *webView = [self buildMRAIDWebViewWithFrame:self.mraidDefaultAdFrame
                                            forceUIWebView:self.shouldUseUIWebView];

@@ -63,7 +63,7 @@ const NSTimeInterval kDefaultCountdownTimerIntervalInSeconds = 30;
     if (!self.userRewarded && (hasElasped || configuration.rewardedPlayableShouldRewardOnClick)) {
         MPLogInfo(@"MoPub rewarded playable user rewarded.");
 
-        [self.delegate rewardedVideoShouldRewardUserForCustomEvent:self reward:configuration.rewardedVideoReward];
+        [self.delegate rewardedVideoShouldRewardUserForCustomEvent:self reward:configuration.selectedReward];
         self.userRewarded = YES;
     }
 }
@@ -98,7 +98,7 @@ const NSTimeInterval kDefaultCountdownTimerIntervalInSeconds = 30;
         self.timerView = [[MPCountdownTimerView alloc] initWithFrame:viewController.view.bounds duration:self.countdownDuration];
         [self.interstitial.view addSubview:self.timerView];
 
-        typeof(self) __weak weakSelf = self;
+        __weak __typeof__(self) weakSelf = self;
         [self.timerView startWithTimerCompletion:^(BOOL hasElapsed) {
             [weakSelf rewardUserWithConfiguration:self.configuration timerHasElapsed:hasElapsed];
             [weakSelf showCloseButton];

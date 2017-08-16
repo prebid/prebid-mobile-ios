@@ -23,6 +23,7 @@ extern NSString *const kVideoConfigKey;
 extern NSString *const kVASTVideoKey;
 extern NSString *const kNativeVideoAdConfigKey;
 extern NSString *const kAdDAAIconImageKey;
+extern NSString *const kAdDAAIconUIImageKey;
 extern NSString *const kDAAIconImageName;
 extern NSString *const kDAAIconTapDestinationURL;
 extern NSString *const kImpressionTrackerURLsKey;

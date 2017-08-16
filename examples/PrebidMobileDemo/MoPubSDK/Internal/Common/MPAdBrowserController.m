@@ -11,7 +11,7 @@
 #import "MPLogEvent.h"
 #import "MPLogEventRecorder.h"
 #import "MPAdConfiguration.h"
-#import "MPAPIEndPoints.h"
+#import "MPAPIEndpoints.h"
 #import "NSBundle+MPAdditions.h"
 
 static NSString * const kAdBrowserControllerNibName = @"MPAdBrowserController";

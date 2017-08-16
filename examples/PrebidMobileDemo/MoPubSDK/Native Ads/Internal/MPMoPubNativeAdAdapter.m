@@ -76,9 +76,18 @@ static const CGFloat kMoPubRequiredViewVisibilityPercentage = 0.5;
         }
 
         // Add the DAA icon settings to our properties dictionary.
-        NSString * daaIconImagePath = MPResourcePathForResource(kDAAIconImageName);
-        if (daaIconImagePath != nil) {
+        // Path will not change, so load path and image statically.
+        static NSString *daaIconImagePath = nil;
+        static UIImage *daaIconImage = nil;
+        if (!daaIconImagePath || !daaIconImage) {
+            daaIconImagePath = MPResourcePathForResource(kDAAIconImageName);
+            daaIconImage = daaIconImagePath ? [UIImage imageWithContentsOfFile:daaIconImagePath] : nil;
+        }
+        if (daaIconImagePath) {
             [properties setObject:daaIconImagePath forKey:kAdDAAIconImageKey];
+        }
+        if (daaIconImage) {
+            [properties setObject:daaIconImage forKey:kAdDAAIconUIImageKey];
         }
 
         _destinationDisplayAgent = [[MPCoreInstanceProvider sharedProvider] buildMPAdDestinationDisplayAgentWithDelegate:self];

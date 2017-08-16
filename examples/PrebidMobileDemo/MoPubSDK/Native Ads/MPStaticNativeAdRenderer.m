@@ -46,7 +46,7 @@ const CGFloat MPNativeViewDynamicDimension = -1.0;
     MPNativeAdRendererConfiguration *config = [[MPNativeAdRendererConfiguration alloc] init];
     config.rendererClass = [self class];
     config.rendererSettings = rendererSettings;
-    config.supportedCustomEvents = @[@"MPMoPubNativeCustomEvent", @"FacebookNativeCustomEvent", @"FlurryNativeCustomEvent", @"InMobiNativeCustomEvent", @"MillennialNativeCustomEvent"];
+    config.supportedCustomEvents = @[@"MPMoPubNativeCustomEvent", @"FacebookNativeCustomEvent", @"InMobiNativeCustomEvent", @"MillennialNativeCustomEvent"];
 
     return config;
 }
