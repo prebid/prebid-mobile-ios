@@ -18,6 +18,8 @@
 		C23FCCEB1EE5E3F500CFFEF0 /* PBLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = C23FCCE91EE5E3F500CFFEF0 /* PBLogging.m */; };
 		C23FCCEE1EE5E41E00CFFEF0 /* PBLogManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C23FCCEC1EE5E41E00CFFEF0 /* PBLogManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C23FCCEF1EE5E41E00CFFEF0 /* PBLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C23FCCED1EE5E41E00CFFEF0 /* PBLogManager.m */; };
+		C2452AD91F4F539D00452762 /* PBFacebookAdLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = C2452AD71F4F539D00452762 /* PBFacebookAdLoader.h */; };
+		C2452ADA1F4F539D00452762 /* PBFacebookAdLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C2452AD81F4F539D00452762 /* PBFacebookAdLoader.m */; };
 		C24B78C41EE7467E0045B454 /* NSObject+Prebid.h in Headers */ = {isa = PBXBuildFile; fileRef = C24B78C21EE7467E0045B454 /* NSObject+Prebid.h */; };
 		C24B78C51EE7467E0045B454 /* NSObject+Prebid.m in Sources */ = {isa = PBXBuildFile; fileRef = C24B78C31EE7467E0045B454 /* NSObject+Prebid.m */; };
 		C281E1811EE5EAF700F2F4A9 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B16E1B1EE1BE69006304C0 /* PrebidMobile.framework */; };
@@ -93,6 +95,8 @@
 		C23FCCEC1EE5E41E00CFFEF0 /* PBLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBLogManager.h; sourceTree = "<group>"; };
 		C23FCCED1EE5E41E00CFFEF0 /* PBLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBLogManager.m; sourceTree = "<group>"; };
 		C23FCD501EE5EA6D00CFFEF0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		C2452AD71F4F539D00452762 /* PBFacebookAdLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBFacebookAdLoader.h; sourceTree = "<group>"; };
+		C2452AD81F4F539D00452762 /* PBFacebookAdLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBFacebookAdLoader.m; sourceTree = "<group>"; };
 		C24B78C21EE7467E0045B454 /* NSObject+Prebid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Prebid.h"; sourceTree = "<group>"; };
 		C24B78C31EE7467E0045B454 /* NSObject+Prebid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Prebid.m"; sourceTree = "<group>"; };
 		C2521E381F310E5000492C9B /* PrebidMobileMoPubMediationAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMobileMoPubMediationAdapter.h; sourceTree = "<group>"; };
@@ -196,6 +200,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C2452AD61F4F534200452762 /* PrebidMobileDemandSDKLoaders */ = {
+			isa = PBXGroup;
+			children = (
+				C2452AD71F4F539D00452762 /* PBFacebookAdLoader.h */,
+				C2452AD81F4F539D00452762 /* PBFacebookAdLoader.m */,
+			);
+			name = PrebidMobileDemandSDKLoaders;
+			sourceTree = "<group>";
+		};
 		C281E17D1EE5EAF700F2F4A9 /* PrebidMobileTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,6 +391,7 @@
 				C2521E391F310E5000492C9B /* PrebidMobileMoPubMediationAdapter.m */,
 				C2F7CAE21F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.h */,
 				C2F7CAE31F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.m */,
+				C2452AD61F4F534200452762 /* PrebidMobileDemandSDKLoaders */,
 				C2B91AB61F438C10009F75C8 /* Info.plist */,
 			);
 			name = PrebidMobileMediationAdapters;
@@ -415,6 +429,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2452AD91F4F539D00452762 /* PBFacebookAdLoader.h in Headers */,
 				C2B91ABB1F438C30009F75C8 /* PrebidMobileDFPMediationAdapter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -597,6 +612,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2B91ABC1F438C30009F75C8 /* PrebidMobileDFPMediationAdapter.m in Sources */,
+				C2452ADA1F4F539D00452762 /* PBFacebookAdLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -860,6 +876,7 @@
 				C2B91ABA1F438C11009F75C8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

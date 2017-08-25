@@ -34,4 +34,13 @@
                      withTimeout:(int)timeoutInMilliseconds
                completionHandler:(nullable void (^)(void))handler;
 
+/**
+ * An enumeration object that holds different types of sdk demand sources available to be configured
+ */
+typedef NS_ENUM(NSInteger, PBDemandSourceType) {
+    PBDemandSourceFacebook
+};
+
++ (void)enableDemandSources:(nonnull NSArray<NSNumber *> *)demandSources;
+
 @end

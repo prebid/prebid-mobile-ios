@@ -35,6 +35,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSLog(@"WHAT IS HERE");
     [self enablePrebidLogs];
     [self setupPrebidAndRegisterAdUnits];
 
@@ -68,6 +69,7 @@
 
         [self setPrebidTargetingParams];
 
+        [PrebidMobile enableDemandSources:@[@(PBDemandSourceFacebook)]];
         [PrebidMobile registerAdUnits:@[adUnit1] withAccountId:kAccountId];
     } @catch (PBException *ex) {
         NSLog(@"%@",[ex reason]);

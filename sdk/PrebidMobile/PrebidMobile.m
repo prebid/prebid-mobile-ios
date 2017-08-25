@@ -50,4 +50,24 @@
                                                completionHandler:completionHandler];
 }
 
++ (void)enableDemandSources:(nonnull NSArray<NSNumber *> *)demandSources {
+    for (NSNumber *demandSource in demandSources) {
+        [self makeAssertationsForDemandSource:demandSource];
+        //NSAssert([demandSource isKindOfClass:[NSNumber class]], @"Your demand source isn't implemented properly");
+    }
+}
+
++ (void)makeAssertationsForDemandSource:(NSNumber *)demandSource {
+    switch ([demandSource intValue]) {
+        case PBDemandSourceFacebook:
+            //[self assertAudienceNetworkSDKExists];
+            assert(NSClassFromString(@"FBAdView") != nil);
+            break;
+    }
+}
+
+//+ (void)assertAudienceNetworkSDKExists {
+//    
+//}
+
 @end
