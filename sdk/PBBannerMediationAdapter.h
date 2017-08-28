@@ -13,11 +13,17 @@
  limitations under the License.
  */
 
-@import Foundation;
-@import GoogleMobileAds;
+#import <UIKit/UIKit.h>
 
-@protocol PBBannerMediationAdapterDelegate;
+@protocol PBBannerMediationAdapterDelegate<NSObject>
 
-@interface PrebidMobileDFPMediationAdapter : NSObject<GADCustomEventBanner, PBBannerMediationAdapterDelegate>
+@property(nonatomic, readonly) UIViewController *viewControllerForPresentingModalView;
+
+@optional
+- (void)didLoadAd:(UIView *)adView;
+- (void)ad:(UIView *)adView didFailWithError:(NSError *)error;
+- (void)trackImpression;
+- (void)didClickAd:(UIView *)adView;
+- (void)didFinishHandlingClick:(UIView *)adView;
 
 @end

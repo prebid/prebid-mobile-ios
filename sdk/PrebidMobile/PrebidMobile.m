@@ -14,6 +14,7 @@
  */
 
 #import "PBBidManager.h"
+#import "PBConstants.h"
 #import "PrebidMobile.h"
 
 @implementation PrebidMobile
@@ -53,21 +54,31 @@
 + (void)enableDemandSources:(nonnull NSArray<NSNumber *> *)demandSources {
     for (NSNumber *demandSource in demandSources) {
         [self makeAssertationsForDemandSource:demandSource];
-        //NSAssert([demandSource isKindOfClass:[NSNumber class]], @"Your demand source isn't implemented properly");
     }
 }
 
 + (void)makeAssertationsForDemandSource:(NSNumber *)demandSource {
     switch ([demandSource intValue]) {
         case PBDemandSourceFacebook:
-            //[self assertAudienceNetworkSDKExists];
-            assert(NSClassFromString(@"FBAdView") != nil);
+            [self assertAudienceNetworkSDKExists];
             break;
     }
 }
 
-//+ (void)assertAudienceNetworkSDKExists {
-//    
-//}
+// In order for fb demand integration to work
+// these classes and methods must exist in the FB SDK
++ (void)assertAudienceNetworkSDKExists {
+    Class fbAdViewClass = NSClassFromString(kFBAdViewClassName);
+    assert(fbAdViewClass != nil);
+    id fbAdViewObj = [fbAdViewClass alloc];
+    SEL initMethodSel = NSSelectorFromString(kFBAdViewInitMethodSelName);
+    SEL setDelegateSel = NSSelectorFromString(kFBAdViewSetDelegateSelName);
+    SEL disableAutoRefreshSel = NSSelectorFromString(kFBAdViewDisableAutoRefreshSelName);
+    SEL loadAdWithBidPayloadSel = NSSelectorFromString(kFBAdViewLoadAdWithBidPayloadSelName);
+    assert([fbAdViewObj respondsToSelector:initMethodSel]);
+    assert([fbAdViewObj respondsToSelector:setDelegateSel]);
+    assert([fbAdViewObj respondsToSelector:disableAutoRefreshSel]);
+    assert([fbAdViewObj respondsToSelector:loadAdWithBidPayloadSel]);
+}
 
 @end

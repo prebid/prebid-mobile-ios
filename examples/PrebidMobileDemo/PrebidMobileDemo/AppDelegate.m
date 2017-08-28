@@ -35,7 +35,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSLog(@"WHAT IS HERE");
     [self enablePrebidLogs];
     [self setupPrebidAndRegisterAdUnits];
 

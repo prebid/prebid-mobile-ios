@@ -13,11 +13,14 @@
  limitations under the License.
  */
 
-@import Foundation;
-@import GoogleMobileAds;
+#import <Foundation/Foundation.h>
 
-@protocol PBBannerMediationAdapterDelegate;
+@interface PBConstants : NSObject
 
-@interface PrebidMobileDFPMediationAdapter : NSObject<GADCustomEventBanner, PBBannerMediationAdapterDelegate>
+extern NSString *const kFBAdViewClassName;
+extern NSString *const kFBAdViewInitMethodSelName;
+extern NSString *const kFBAdViewLoadAdWithBidPayloadSelName;
+extern NSString *const kFBAdViewSetDelegateSelName;
+extern NSString *const kFBAdViewDisableAutoRefreshSelName;
 
 @end

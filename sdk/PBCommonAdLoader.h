@@ -13,11 +13,15 @@
  limitations under the License.
  */
 
-@import Foundation;
-@import GoogleMobileAds;
+#import <Foundation/Foundation.h>
+#import "PBBannerMediationAdapter.h"
 
-@protocol PBBannerMediationAdapterDelegate;
+@interface PBCommonAdLoader : NSObject
 
-@interface PrebidMobileDFPMediationAdapter : NSObject<GADCustomEventBanner, PBBannerMediationAdapterDelegate>
+@property (nonatomic, weak) id<PBBannerMediationAdapterDelegate> delegate;
+@property (nonatomic, strong) UIView *adView;
+
+- (instancetype)initWithDelegate:(id<PBBannerMediationAdapterDelegate>)delegate;
+- (void)loadAd:(NSDictionary *)info;
 
 @end
