@@ -59,10 +59,10 @@
         } else if (imageURL) {
             MPLogDebug(@"Cache miss on %@. Re-downloading...", imageURL);
 
-            __weak typeof(self) weakSelf = self;
+            __weak __typeof__(self) weakSelf = self;
             [self.imageDownloadQueue addDownloadImageURLs:@[imageURL]
                                           completionBlock:^(NSArray *errors) {
-                                              __strong typeof(self) strongSelf = weakSelf;
+                                              __strong __typeof__(self) strongSelf = weakSelf;
                                               if (strongSelf) {
                                                   if (errors.count == 0) {
                                                       UIImage *image = [UIImage imageWithData:[[MPNativeCache sharedCache] retrieveDataForKey:imageURL.absoluteString]];

@@ -19,7 +19,7 @@
 
 @interface PBServerFetcher ()
 
-@property (nonatomic, strong) NSString *requestTID;
+@property (nonatomic, strong) NSMutableArray *requestTIDs;
 
 @end
 
@@ -42,8 +42,12 @@
     NSDictionary *params = [NSJSONSerialization JSONObjectWithData:[request HTTPBody]
                                                            options:kNilOptions
                                                              error:nil];
-    self.requestTID = params[@"tid"];
-    
+    // Map request tids to ad unit codes to check to make sure response lines up
+    if (self.requestTIDs == nil) {
+        self.requestTIDs = [[NSMutableArray alloc] init];
+    }
+    [self.requestTIDs addObject:params[@"tid"]];
+
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -79,7 +83,9 @@
             NSString *status = (NSString *)[response objectForKey:@"status"];
             if ([status isEqualToString:@"OK"]) {
                 // check to make sure the request tid matches the response tid
-                if ([(NSString *)[response objectForKey:@"tid"] isEqualToString:self.requestTID]) {
+                NSString *responseTID = (NSString *)[response objectForKey:@"tid"];
+                if ([self.requestTIDs containsObject:responseTID]) {
+                    [self.requestTIDs removeObject:responseTID];
                     return [self mapBidsToAdUnits:response];
                 } else {
                     PBLogError(@"Response tid did not match request tid %@", response);

@@ -12,6 +12,12 @@
 #import "MPAdBrowserController.h"
 #import "MPStoreKitProvider.h"
 
+typedef NS_ENUM(NSInteger, MOPUBDisplayAgentType) {
+    MOPUBDisplayAgentTypeInApp = 0,
+    MOPUBDisplayAgentTypeNativeSafari,
+    MOPUBDisplayAgentTypeSafariViewController
+};
+
 @protocol MPAdDestinationDisplayAgentDelegate;
 
 @interface MPAdDestinationDisplayAgent : NSObject <MPProgressOverlayViewDelegate,
@@ -22,6 +28,7 @@
 @property (nonatomic, weak) id<MPAdDestinationDisplayAgentDelegate> delegate;
 
 + (MPAdDestinationDisplayAgent *)agentWithDelegate:(id<MPAdDestinationDisplayAgentDelegate>)delegate;
++ (BOOL)shouldUseSafariViewController;
 - (void)displayDestinationForURL:(NSURL *)URL;
 - (void)cancel;
 

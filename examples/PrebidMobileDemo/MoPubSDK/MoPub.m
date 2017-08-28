@@ -11,6 +11,7 @@
 #import "MPGeolocationProvider.h"
 #import "MPRewardedVideo.h"
 #import "MPIdentityProvider.h"
+#import "MOPUBExperimentProvider.h"
 
 @interface MoPub ()
 
@@ -43,6 +44,11 @@
 - (void)setFrequencyCappingIdUsageEnabled:(BOOL)frequencyCappingIdUsageEnabled
 {
     [MPIdentityProvider setFrequencyCappingIdUsageEnabled:frequencyCappingIdUsageEnabled];
+}
+
+- (void)setClickthroughDisplayAgentType:(MOPUBDisplayAgentType)displayAgentType
+{
+    [MOPUBExperimentProvider setDisplayAgentType:displayAgentType];
 }
 
 - (BOOL)frequencyCappingIdUsageEnabled

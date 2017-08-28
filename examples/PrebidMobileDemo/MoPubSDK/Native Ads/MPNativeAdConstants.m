@@ -20,6 +20,7 @@ NSString *const kVideoConfigKey = @"videoconfig";
 NSString *const kVASTVideoKey = @"video";
 NSString *const kNativeVideoAdConfigKey = @"nativevideoadconfig";
 NSString *const kAdDAAIconImageKey = @"daaicon";
+NSString *const kAdDAAIconUIImageKey = @"daaiconuiimage";
 NSString *const kDAAIconImageName = @"MPDAAIcon.png";
 NSString *const kDAAIconTapDestinationURL = @"https://www.mopub.com/optout";
 NSString *const kImpressionTrackerURLsKey = @"imptracker";
