@@ -16,7 +16,7 @@
 #import <XCTest/XCTest.h>
 #import "PBServerAdapter.h"
 
-static NSString *const kPrebidMobileVersion = @"0.0.2";
+static NSString *const kPrebidMobileVersion = @"0.0.3";
 
 @interface PBServerAdapter (Testing)
 
