@@ -15,6 +15,7 @@
 
 #import "AppDelegate.h"
 
+//#import <PrebidMobile/PrebidMobileDemandSDKLoadSettings.h>
 #import <PrebidMobile/PBBannerAdUnit.h>
 #import <PrebidMobile/PBException.h>
 #import <PrebidMobile/PBInterstitialAdUnit.h>
@@ -68,7 +69,7 @@
 
         [self setPrebidTargetingParams];
 
-        [PrebidMobile enableDemandSources:@[@(PBDemandSourceFacebook)]];
+        //[PrebidMobileDemandSDKLoadSettings enableDemandSources:@[@(PBDemandSourceFacebook)]];
         [PrebidMobile registerAdUnits:@[adUnit1] withAccountId:kAccountId];
     } @catch (PBException *ex) {
         NSLog(@"%@",[ex reason]);

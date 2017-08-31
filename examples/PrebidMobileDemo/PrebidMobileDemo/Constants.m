@@ -45,7 +45,7 @@ NSString *const kDFPInterstitialAdUnitId = @"/19968336/PriceCheck_Interstitial";
 #pragma mark - Prebid Mobile constants
 NSString *const kAccountId = @"aecd6ef7-b992-4e99-9bb8-65e2d984e1dd";
 //NSString *const kAdUnit1ConfigId = @"85d6101f-8e05-43d4-bf9d-3c8c4615d942";
-NSString *const kAdUnit1ConfigId = @"eebc307d-7f76-45d6-a7a7-68985169b138";
+NSString *const kAdUnit1ConfigId = @"7767e961-6ead-45e0-856e-d82c75010dd7";
 NSString *const kAdUnit2ConfigId = @"eebc307d-7f76-45d6-a7a7-68985169b138";
 
 NSString *const kAdUnit1Id = @"5d748364ee9c46a2b112892fc3551b6f";

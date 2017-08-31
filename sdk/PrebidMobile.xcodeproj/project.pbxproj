@@ -77,6 +77,10 @@
 		C2F543781F548D6800C8F14D /* PBCommonAdLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F543761F548D6800C8F14D /* PBCommonAdLoader.h */; };
 		C2F543791F548D6800C8F14D /* PBCommonAdLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F543771F548D6800C8F14D /* PBCommonAdLoader.m */; };
 		C2F5437B1F54905700C8F14D /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B16E1B1EE1BE69006304C0 /* PrebidMobile.framework */; };
+		C2F543801F57578400C8F14D /* PrebidMobileDemandSDKLoadSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F5437E1F57578400C8F14D /* PrebidMobileDemandSDKLoadSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C2F543811F57578400C8F14D /* PrebidMobileDemandSDKLoadSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F5437F1F57578400C8F14D /* PrebidMobileDemandSDKLoadSettings.m */; };
+		C2F543841F5759C200C8F14D /* PrebidMobileDFPInterstitialMediationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F543821F5759C200C8F14D /* PrebidMobileDFPInterstitialMediationAdapter.h */; };
+		C2F543851F5759C200C8F14D /* PrebidMobileDFPInterstitialMediationAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F543831F5759C200C8F14D /* PrebidMobileDFPInterstitialMediationAdapter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +173,10 @@
 		C2F543741F548C9C00C8F14D /* PBBannerMediationAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBannerMediationAdapter.h; sourceTree = "<group>"; };
 		C2F543761F548D6800C8F14D /* PBCommonAdLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBCommonAdLoader.h; sourceTree = "<group>"; };
 		C2F543771F548D6800C8F14D /* PBCommonAdLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBCommonAdLoader.m; sourceTree = "<group>"; };
+		C2F5437E1F57578400C8F14D /* PrebidMobileDemandSDKLoadSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMobileDemandSDKLoadSettings.h; sourceTree = "<group>"; };
+		C2F5437F1F57578400C8F14D /* PrebidMobileDemandSDKLoadSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMobileDemandSDKLoadSettings.m; sourceTree = "<group>"; };
+		C2F543821F5759C200C8F14D /* PrebidMobileDFPInterstitialMediationAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMobileDFPInterstitialMediationAdapter.h; sourceTree = "<group>"; };
+		C2F543831F5759C200C8F14D /* PrebidMobileDFPInterstitialMediationAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMobileDFPInterstitialMediationAdapter.m; sourceTree = "<group>"; };
 		C2F7CAE21F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMobileDFPMediationAdapter.h; sourceTree = "<group>"; };
 		C2F7CAE31F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMobileDFPMediationAdapter.m; sourceTree = "<group>"; };
 		EFD3C940519B957467FE94E6 /* libPods-PrebidMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -404,8 +412,12 @@
 				C2F543741F548C9C00C8F14D /* PBBannerMediationAdapter.h */,
 				C2F7CAE21F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.h */,
 				C2F7CAE31F2BD93D00FEC637 /* PrebidMobileDFPMediationAdapter.m */,
+				C2F543821F5759C200C8F14D /* PrebidMobileDFPInterstitialMediationAdapter.h */,
+				C2F543831F5759C200C8F14D /* PrebidMobileDFPInterstitialMediationAdapter.m */,
 				C2452AD61F4F534200452762 /* PrebidMobileDemandSDKLoaders */,
 				C2B91AB61F438C10009F75C8 /* Info.plist */,
+				C2F5437E1F57578400C8F14D /* PrebidMobileDemandSDKLoadSettings.h */,
+				C2F5437F1F57578400C8F14D /* PrebidMobileDemandSDKLoadSettings.m */,
 			);
 			name = PrebidMobileMediationAdapters;
 			sourceTree = "<group>";
@@ -422,6 +434,7 @@
 				C2B16E481EE1BEB6006304C0 /* PBBidResponse.h in Headers */,
 				C2F543751F548C9C00C8F14D /* PBBannerMediationAdapter.h in Headers */,
 				C2B16E381EE1BEA6006304C0 /* PBBidResponseDelegate.h in Headers */,
+				C2F543801F57578400C8F14D /* PrebidMobileDemandSDKLoadSettings.h in Headers */,
 				C2B16E3F1EE1BEA6006304C0 /* PBTargetingParams.h in Headers */,
 				C23FCCEA1EE5E3F500CFFEF0 /* PBLogging.h in Headers */,
 				C2F543701F5479A300C8F14D /* PBFacebookAdLoader.h in Headers */,
@@ -446,6 +459,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2F543841F5759C200C8F14D /* PrebidMobileDFPInterstitialMediationAdapter.h in Headers */,
 				C2B91ABB1F438C30009F75C8 /* PrebidMobileDFPMediationAdapter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -616,6 +630,7 @@
 				C2B16E351EE1BEA6006304C0 /* PBBannerAdUnit.m in Sources */,
 				C23386D71EE5DC95002FD404 /* PBAdUnit.m in Sources */,
 				C24B78C51EE7467E0045B454 /* NSObject+Prebid.m in Sources */,
+				C2F543811F57578400C8F14D /* PrebidMobileDemandSDKLoadSettings.m in Sources */,
 				C2B16E581EE1BEC4006304C0 /* NSString+Extension.m in Sources */,
 				C2B16E3A1EE1BEA6006304C0 /* PBException.m in Sources */,
 				C2B16E491EE1BEB6006304C0 /* PBBidResponse.m in Sources */,
@@ -631,6 +646,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2B91ABC1F438C30009F75C8 /* PrebidMobileDFPMediationAdapter.m in Sources */,
+				C2F543851F5759C200C8F14D /* PrebidMobileDFPInterstitialMediationAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

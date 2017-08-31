@@ -44,8 +44,6 @@ static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/
         if ([keyword containsString:@"hb_bidder"]) {
             NSArray *splitValue = [keyword componentsSeparatedByString:@":"];
             self.bidder = splitValue[1];
-            // TODO nicole remove override
-            self.bidder = @"audienceNetwork";
         }
     }
     [self requestAdmAndLoadAd];
@@ -67,7 +65,7 @@ static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/
             NSError *parseError = nil;
             NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
             //TODO nicole switch out real code
-            //[self loadAd:responseDictionary];
+            [self loadAd:responseDictionary];
             NSLog(@"The response is - %@",responseDictionary);
         } else {
             NSLog(@"Error retrieving data from the cache");
@@ -75,7 +73,7 @@ static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/
     }];
     [dataTask resume];
     // TODO nicole remove below code
-    [self loadAd:@{}];
+    //[self loadAd:@{}];
 }
 
 - (void)loadAd:(NSDictionary *)responseDict {

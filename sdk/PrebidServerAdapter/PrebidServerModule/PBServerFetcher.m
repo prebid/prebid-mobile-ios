@@ -38,7 +38,7 @@
 }
 
 - (void)makeBidRequest:(NSURLRequest *)request withCompletionHandler:(void (^)(NSDictionary *, NSError *))completionHandler {
-    PBLogDebug(@"Bid request to appnexus: %@ params: %@", request.URL.absoluteString, [[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding]);
+    PBLogDebug(@"Bid request to Prebid Server: %@ params: %@", request.URL.absoluteString, [[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding]);
     NSDictionary *params = [NSJSONSerialization JSONObjectWithData:[request HTTPBody]
                                                            options:kNilOptions
                                                              error:nil];
@@ -52,7 +52,7 @@
                                        queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
                                if (response != nil && data.length > 0) {
-                                   PBLogDebug(@"Bid response from appnexus: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                                   PBLogDebug(@"Bid response from Prebid Server: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                                    NSDictionary *adUnitToBids = [self processData:data];
                                    dispatch_async(dispatch_get_main_queue(), ^{
                                        completionHandler(adUnitToBids, nil);

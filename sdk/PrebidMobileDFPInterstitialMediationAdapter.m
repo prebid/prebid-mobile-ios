@@ -13,12 +13,8 @@
  limitations under the License.
  */
 
-@import Foundation;
-@import GoogleMobileAds;
+#import "PrebidMobileDFPInterstitialMediationAdapter.h"
 
-@protocol PBBannerMediationAdapterDelegate;
-
-@interface PrebidMobileDFPMediationAdapter : NSObject<GADCustomEventBanner, PBBannerMediationAdapterDelegate>
-
+@implementation PrebidMobileDFPInterstitialMediationAdapter
 
 @end

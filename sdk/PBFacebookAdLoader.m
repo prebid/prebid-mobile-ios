@@ -36,8 +36,8 @@ struct FBAdSize {
     // TODO nicole add this back in
     //NSString *bidPayload = (NSString *)info[@"adm"];
     //CGFloat width = [(NSString *)info[@"width"] floatValue];
-    //CGFloat height = [(NSString *)info[@"height"] floatValue];
-    //CGSize adSize = CGSizeMake(width, height);
+    CGFloat height = [(NSString *)info[@"height"] floatValue];
+    CGSize adSize = CGSizeMake(-1, height);
     
     // TODO nicole validate adSize against FBAdSize
     
@@ -58,7 +58,7 @@ struct FBAdSize {
             // Set arguments for init method
             NSString *placementId = [self parsePlacementIdFromBidPayload:bidPayload];
             struct FBAdSize fbAdSize;
-            fbAdSize.size = CGSizeMake(-1, 250);
+            fbAdSize.size = adSize;
             UIViewController *vc = (UIViewController *)[NSObject new];
             
             [invocation setArgument:&placementId atIndex:2];

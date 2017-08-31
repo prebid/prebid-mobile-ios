@@ -180,7 +180,7 @@ static NSString *const kPrebidMobileVersion = @"0.0.2";
             break;
     }
     userDict[@"gender"] = gender;
-    userDict[@"buyeruid"] = [self getFBBuyerUID];
+    userDict[@"buyeruid"] = @"eJxFUctqwzAQ\/BedZaOH7Ti5yZLaiPiFZSeEUkxMRBtIbdNQKJT+e7VuIBfBzu7szKx+UKnbQ9Xs+vZYa7ShGFltranK3ii0QRHNIspVGkQ6ifzDs0BEXAVKSpZEMtKEJAijvJIi93Tkxr6z6LGkNQXA6TpcJ2nMUsIZJywFTmX3urG+uQ55GC8c2TWmPfbKWJHlGvQJ4GrXS1GLzOS+68EXjiMc4xVeY0owZZgmmK5e\/WihlREtCFvd7I0EbQ9nXakWe2KeS\/f9dQvrTzdczsU0XK5OuY8JZGSjddlvtXnetmgTJylGoq6zzuTghPqRrlwMEN94qj02nB1z6YN7MKrdog1nBOL5gUsFx\/Bb7lFpCIEKsbubuTpfyqrR\/X0hSYbhBDNKl\/Y\/Lfs\/AWybbsCulM6hqt+n0fnk9xOBhE8OnxayOCTBaZ7HJaxPer6Mb+j3D8JhfvM=";//[self getFBBuyerUID];
 
     NSString *language = [NSLocale preferredLanguages][0];
     if (language.length) {
@@ -267,7 +267,7 @@ static NSString *const kPrebidMobileVersion = @"0.0.2";
     if (deviceId) {
         deviceDict[@"ifa"] = deviceId;
     }
-    //deviceDict[@"ip"] = [self getIPAddress];
+    deviceDict[@"ip"] = [self getIPAddress];
     
     NSInteger timeInMiliseconds = (NSInteger)[[NSDate date] timeIntervalSince1970];
     deviceDict[@"devtime"] = @(timeInMiliseconds);
