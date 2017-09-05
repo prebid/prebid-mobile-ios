@@ -15,6 +15,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PrebidMobileDFPInterstitialMediationAdapter : NSObject
+@interface PBCacheLoader : NSObject
+
+- (instancetype)initWithCacheId:(NSString *)cacheId;
+
+- (void)requestAdmWithCompletionBlock:(nullable void (^)(NSDictionary *))completionBlock;
 
 @end

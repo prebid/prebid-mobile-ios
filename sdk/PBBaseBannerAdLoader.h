@@ -13,8 +13,15 @@
  limitations under the License.
  */
 
-#import "PBCommonAdLoader.h"
+#import <Foundation/Foundation.h>
+#import "PBBannerMediationAdapter.h"
 
-@implementation PBCommonAdLoader
+@interface PBBaseBannerAdLoader : NSObject
+
+@property (nonatomic, weak) id<PBBannerMediationAdapterDelegate> delegate;
+@property (nonatomic, strong) UIView *adView;
+
+- (instancetype)initWithDelegate:(id<PBBannerMediationAdapterDelegate>)delegate;
+- (void)loadAd:(NSDictionary *)info;
 
 @end

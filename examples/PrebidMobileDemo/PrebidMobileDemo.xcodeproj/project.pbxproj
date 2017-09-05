@@ -231,7 +231,6 @@
 		C273CABC1E832451003EF1AB /* InterstitialTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C273CABB1E832451003EF1AB /* InterstitialTestsViewController.m */; };
 		C273CABF1E832479003EF1AB /* NativeTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C273CABE1E832479003EF1AB /* NativeTestsViewController.m */; };
 		C273CAC21E832494003EF1AB /* VideoTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C273CAC11E832494003EF1AB /* VideoTestsViewController.m */; };
-		C2B91AA51F41FC7D009F75C8 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B91AA41F41FC7D009F75C8 /* GoogleMobileAds.framework */; };
 		C2B91AA71F41FC86009F75C8 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B91AA61F41FC86009F75C8 /* FBAudienceNetwork.framework */; };
 		C2B91AC11F438CDC009F75C8 /* PrebidMobileDFPMediationAdapter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C2B91ABF1F438C44009F75C8 /* PrebidMobileDFPMediationAdapter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C2B91AC71F438F65009F75C8 /* PrebidMobileDFPMediationAdapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B91AC61F438F65009F75C8 /* PrebidMobileDFPMediationAdapter.framework */; };
@@ -254,13 +253,6 @@
 			remoteGlobalIDString = C2B16E1A1EE1BE69006304C0;
 			remoteInfo = PrebidMobile;
 		};
-		C255C5B01F4489180089CB41 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C281E17C1EE5EAF700F2F4A9;
-			remoteInfo = PrebidMobileTests;
-		};
 		C273C81F1E82DAAE003EF1AB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C273C7FD1E82DAAD003EF1AB /* Project object */;
@@ -281,6 +273,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = C2B91AB21F438C10009F75C8;
 			remoteInfo = PrebidMobileDFPMediationAdapter;
+		};
+		C2F456761F5892ED00A8AE17 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C281E17C1EE5EAF700F2F4A9;
+			remoteInfo = PrebidMobileTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -771,8 +770,8 @@
 			isa = PBXGroup;
 			children = (
 				C23386CA1EE5DAA7002FD404 /* PrebidMobile.framework */,
+				C2F456771F5892ED00A8AE17 /* PrebidMobileTests.xctest */,
 				C2B91ABF1F438C44009F75C8 /* PrebidMobileDFPMediationAdapter.framework */,
-				C255C5B11F4489180089CB41 /* PrebidMobileTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -997,29 +996,6 @@
 				C2B91AC61F438F65009F75C8 /* PrebidMobileDFPMediationAdapter.framework */,
 				C2B91AA61F41FC86009F75C8 /* FBAudienceNetwork.framework */,
 				C2B91AA41F41FC7D009F75C8 /* GoogleMobileAds.framework */,
-				C273CAB11E83149D003EF1AB /* MobileCoreServices.framework */,
-				C273CAAF1E831486003EF1AB /* GLKit.framework */,
-				C273CAAD1E83146F003EF1AB /* CoreMotion.framework */,
-				C273CA931E831442003EF1AB /* AdSupport.framework */,
-				C273CA941E831442003EF1AB /* AudioToolbox.framework */,
-				C273CA951E831442003EF1AB /* EventKit.framework */,
-				C273CA961E831442003EF1AB /* EventKitUI.framework */,
-				C273CA971E831442003EF1AB /* Foundation.framework */,
-				C273CA981E831442003EF1AB /* MediaPlayer.framework */,
-				C273CA991E831442003EF1AB /* MediaToolbox.framework */,
-				C273CA9A1E831442003EF1AB /* MessageUI.framework */,
-				C273CA9B1E831442003EF1AB /* QuartzCore.framework */,
-				C273CA9C1E831442003EF1AB /* SafariServices.framework */,
-				C273CA9D1E831442003EF1AB /* StoreKit.framework */,
-				C273CA9E1E831442003EF1AB /* SystemConfiguration.framework */,
-				C273CA9F1E831442003EF1AB /* UIKit.framework */,
-				C273CA871E831404003EF1AB /* CoreFoundation.framework */,
-				C273CA881E831404003EF1AB /* CoreGraphics.framework */,
-				C273CA891E831404003EF1AB /* CoreImage.framework */,
-				C273CA8A1E831404003EF1AB /* CoreLocation.framework */,
-				C273CA8B1E831404003EF1AB /* CoreMedia.framework */,
-				C273CA8C1E831404003EF1AB /* CoreTelephony.framework */,
-				C273CA851E8313F3003EF1AB /* CoreBluetooth.framework */,
 				C255C6341F44895C0089CB41 /* Categories */,
 				C255C6451F44895C0089CB41 /* MOPUBExperimentProvider.h */,
 				C255C6461F44895C0089CB41 /* MOPUBExperimentProvider.m */,
@@ -1586,18 +1562,18 @@
 			remoteRef = C23386C91EE5DAA7002FD404 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C268EAF11F279ABC00752F71 /* PrebidMobileTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = PrebidMobileTests.xctest;
-			remoteRef = C268EAF01F279ABC00752F71 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		C2B91ABF1F438C44009F75C8 /* PrebidMobileDFPMediationAdapter.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = PrebidMobileDFPMediationAdapter.framework;
 			remoteRef = C2B91ABE1F438C44009F75C8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C2F456771F5892ED00A8AE17 /* PrebidMobileTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PrebidMobileTests.xctest;
+			remoteRef = C2F456761F5892ED00A8AE17 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1993,6 +1969,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidMobileDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Debug;
 		};
@@ -2017,6 +1994,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidMobileDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Release;
 		};

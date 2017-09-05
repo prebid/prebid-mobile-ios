@@ -13,13 +13,13 @@
  limitations under the License.
  */
 
-#import "PBFacebookAdLoader.h"
+#import "PBFacebookBannerAdLoader.h"
 
 struct FBAdSize {
     CGSize size;
 };
 
-@implementation PBFacebookAdLoader
+@implementation PBFacebookBannerAdLoader
 
 - (instancetype)initWithDelegate:(id<PBBannerMediationAdapterDelegate>)delegate {
     self = [super init];
@@ -35,7 +35,6 @@ struct FBAdSize {
     
     // TODO nicole add this back in
     //NSString *bidPayload = (NSString *)info[@"adm"];
-    //CGFloat width = [(NSString *)info[@"width"] floatValue];
     CGFloat height = [(NSString *)info[@"height"] floatValue];
     CGSize adSize = CGSizeMake(-1, height);
     
@@ -133,6 +132,5 @@ struct FBAdSize {
 - (UIViewController *)viewControllerForPresentingModalView {
     return [self.delegate viewControllerForPresentingModalView];
 }
-
 
 @end

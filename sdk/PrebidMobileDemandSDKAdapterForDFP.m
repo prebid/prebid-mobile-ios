@@ -13,21 +13,23 @@
  limitations under the License.
  */
 
-#import "PrebidMobileDFPMediationAdapter.h"
-#import "PBFacebookAdLoader.h"
+#import "PrebidMobileDemandSDKAdapterForDFP.h"
+#import "PBFacebookBannerAdLoader.h"
+#import "PBCacheLoader.h"
 
 static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediationAdapter";
 static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/get?uuid=";
 
-@interface PrebidMobileDFPMediationAdapter()
+@interface PrebidMobileDemandSDKAdapterForDFP()
 
 @property (strong, nonatomic) NSString *cacheId;
 @property (strong, nonatomic) NSString *bidder;
-@property (strong, nonatomic) PBCommonAdLoader *adLoader;
+@property (strong, nonatomic) PBBaseBannerAdLoader *adLoader;
+@property (strong, nonatomic) PBCacheLoader *cacheLoader;
 
 @end
 
-@implementation PrebidMobileDFPMediationAdapter
+@implementation PrebidMobileDemandSDKAdapterForDFP
 
 @synthesize delegate;
 
@@ -50,35 +52,16 @@ static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/
 }
 
 - (void)requestAdmAndLoadAd {
-    // TODO nicole add back in
-    NSString *cacheURL = [kPrebidCacheEndpoint stringByAppendingString:self.cacheId];
-
-    NSMutableURLRequest *cacheRequest = [[NSMutableURLRequest alloc] init];
-    [cacheRequest setHTTPMethod:@"GET"];
-    [cacheRequest setURL:[NSURL URLWithString:cacheURL]];
-
-    NSURLSession *session = [NSURLSession sharedSession];
-
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:cacheRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200) {
-            NSError *parseError = nil;
-            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
-            //TODO nicole switch out real code
-            [self loadAd:responseDictionary];
-            NSLog(@"The response is - %@",responseDictionary);
-        } else {
-            NSLog(@"Error retrieving data from the cache");
-        }
-    }];
-    [dataTask resume];
-    // TODO nicole remove below code
-    //[self loadAd:@{}];
+    self.cacheLoader = [[PBCacheLoader alloc] initWithCacheId:self.cacheId];
+    void (^block)(NSDictionary *) = ^void(NSDictionary *response) {
+        [self loadAd:response];
+    };
+    [self.cacheLoader requestAdmWithCompletionBlock:block];
 }
 
 - (void)loadAd:(NSDictionary *)responseDict {
     if ([self.bidder isEqualToString:@"audienceNetwork"]) {
-        self.adLoader = [[PBFacebookAdLoader alloc] initWithDelegate:self];
+        self.adLoader = [[PBFacebookBannerAdLoader alloc] initWithDelegate:self];
         [self.adLoader loadAd:responseDict];
     } else {
         NSLog(@"Not a valid bidder for DFP Mediation Adapter");

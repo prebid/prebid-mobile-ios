@@ -13,8 +13,13 @@
  limitations under the License.
  */
 
-#import "PrebidMobileDFPInterstitialMediationAdapter.h"
+#import <Foundation/Foundation.h>
+#import "PBBaseInterstitialAdLoader.h"
 
-@implementation PrebidMobileDFPInterstitialMediationAdapter
+@protocol FBInterstitialAdDelegate
+
+@end
+
+@interface PBFacebookInterstitialAdLoader : PBBaseInterstitialAdLoader<FBInterstitialAdDelegate>
 
 @end
