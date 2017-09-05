@@ -75,6 +75,8 @@
 		C2F4567F1F58995500A8AE17 /* PBFacebookInterstitialAdLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F4567D1F58995500A8AE17 /* PBFacebookInterstitialAdLoader.m */; };
 		C2F456831F5EE88C00A8AE17 /* PBCacheLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F456811F5EE88C00A8AE17 /* PBCacheLoader.h */; };
 		C2F456841F5EE88C00A8AE17 /* PBCacheLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F456821F5EE88C00A8AE17 /* PBCacheLoader.m */; };
+		C2F456881F5EFEC900A8AE17 /* PrebidMobileDemandSDKLoadSettingsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F456871F5EFEC900A8AE17 /* PrebidMobileDemandSDKLoadSettingsTests.m */; };
+		C2F4568A1F5EFEDB00A8AE17 /* PBCacheLoaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F456891F5EFEDB00A8AE17 /* PBCacheLoaderTests.m */; };
 		C2F5436E1F54762000C8F14D /* PBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F5436C1F54762000C8F14D /* PBConstants.h */; };
 		C2F5436F1F54762000C8F14D /* PBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F5436D1F54762000C8F14D /* PBConstants.m */; };
 		C2F543701F5479A300C8F14D /* PBFacebookBannerAdLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = C2452AD71F4F539D00452762 /* PBFacebookBannerAdLoader.h */; };
@@ -85,7 +87,7 @@
 		C2F5437B1F54905700C8F14D /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B16E1B1EE1BE69006304C0 /* PrebidMobile.framework */; };
 		C2F543801F57578400C8F14D /* PrebidMobileDemandSDKLoadSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F5437E1F57578400C8F14D /* PrebidMobileDemandSDKLoadSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2F543811F57578400C8F14D /* PrebidMobileDemandSDKLoadSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F5437F1F57578400C8F14D /* PrebidMobileDemandSDKLoadSettings.m */; };
-		C2F543841F5759C200C8F14D /* PrebidMobileDemandSDKInterstitialAdapterForDFP.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F543821F5759C200C8F14D /* PrebidMobileDemandSDKInterstitialAdapterForDFP.h */; };
+		C2F543841F5759C200C8F14D /* PrebidMobileDemandSDKInterstitialAdapterForDFP.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F543821F5759C200C8F14D /* PrebidMobileDemandSDKInterstitialAdapterForDFP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2F543851F5759C200C8F14D /* PrebidMobileDemandSDKInterstitialAdapterForDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = C2F543831F5759C200C8F14D /* PrebidMobileDemandSDKInterstitialAdapterForDFP.m */; };
 		C2F543871F58599800C8F14D /* PBInterstitialMediationAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = C2F543861F58553E00C8F14D /* PBInterstitialMediationAdapter.h */; };
 /* End PBXBuildFile section */
@@ -181,6 +183,8 @@
 		C2F4567D1F58995500A8AE17 /* PBFacebookInterstitialAdLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBFacebookInterstitialAdLoader.m; sourceTree = "<group>"; };
 		C2F456811F5EE88C00A8AE17 /* PBCacheLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBCacheLoader.h; sourceTree = "<group>"; };
 		C2F456821F5EE88C00A8AE17 /* PBCacheLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBCacheLoader.m; sourceTree = "<group>"; };
+		C2F456871F5EFEC900A8AE17 /* PrebidMobileDemandSDKLoadSettingsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMobileDemandSDKLoadSettingsTests.m; sourceTree = "<group>"; };
+		C2F456891F5EFEDB00A8AE17 /* PBCacheLoaderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBCacheLoaderTests.m; sourceTree = "<group>"; };
 		C2F5436C1F54762000C8F14D /* PBConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBConstants.h; sourceTree = "<group>"; };
 		C2F5436D1F54762000C8F14D /* PBConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBConstants.m; sourceTree = "<group>"; };
 		C2F543741F548C9C00C8F14D /* PBBannerMediationAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBBannerMediationAdapter.h; sourceTree = "<group>"; };
@@ -232,7 +236,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C2452AD61F4F534200452762 /* PrebidMobileDemandSDKLoaders */ = {
+		C2452AD61F4F534200452762 /* DemandSDKLoaders */ = {
 			isa = PBXGroup;
 			children = (
 				C2452AD71F4F539D00452762 /* PBFacebookBannerAdLoader.h */,
@@ -240,12 +244,13 @@
 				C2F4567C1F58995500A8AE17 /* PBFacebookInterstitialAdLoader.h */,
 				C2F4567D1F58995500A8AE17 /* PBFacebookInterstitialAdLoader.m */,
 			);
-			name = PrebidMobileDemandSDKLoaders;
+			name = DemandSDKLoaders;
 			sourceTree = "<group>";
 		};
 		C281E17D1EE5EAF700F2F4A9 /* PrebidMobileTests */ = {
 			isa = PBXGroup;
 			children = (
+				C2F456861F5EFE9600A8AE17 /* PrebidMobileDemandSDKAdapterTests */,
 				C281E1931EE5F2AD00F2F4A9 /* PrebidMobileCoreTests */,
 				C281E1AF1EE5F2E500F2F4A9 /* MockObjects */,
 				C281E19E1EE5F2DA00F2F4A9 /* Resources */,
@@ -303,7 +308,7 @@
 			children = (
 				C2B16E1D1EE1BE69006304C0 /* PrebidMobile */,
 				C2B16E881EE1BF1A006304C0 /* PrebidServerAdapter */,
-				C2F7CAE01F2BD90D00FEC637 /* PrebidMobileMediationAdapters */,
+				C2F7CAE01F2BD90D00FEC637 /* PrebidMobileDemandSDKAdapters */,
 				C281E17D1EE5EAF700F2F4A9 /* PrebidMobileTests */,
 				C2B16EA21EE1BF8A006304C0 /* Frameworks */,
 				C2B16E1C1EE1BE69006304C0 /* Products */,
@@ -437,18 +442,35 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
-		C2F7CAE01F2BD90D00FEC637 /* PrebidMobileMediationAdapters */ = {
+		C2F456851F5EFE5100A8AE17 /* DFP */ = {
 			isa = PBXGroup;
 			children = (
-				C2F456801F58996B00A8AE17 /* Common */,
 				C2F7CAE21F2BD93D00FEC637 /* PrebidMobileDemandSDKAdapterForDFP.h */,
 				C2F7CAE31F2BD93D00FEC637 /* PrebidMobileDemandSDKAdapterForDFP.m */,
 				C2F543821F5759C200C8F14D /* PrebidMobileDemandSDKInterstitialAdapterForDFP.h */,
 				C2F543831F5759C200C8F14D /* PrebidMobileDemandSDKInterstitialAdapterForDFP.m */,
-				C2452AD61F4F534200452762 /* PrebidMobileDemandSDKLoaders */,
+			);
+			name = DFP;
+			sourceTree = "<group>";
+		};
+		C2F456861F5EFE9600A8AE17 /* PrebidMobileDemandSDKAdapterTests */ = {
+			isa = PBXGroup;
+			children = (
+				C2F456871F5EFEC900A8AE17 /* PrebidMobileDemandSDKLoadSettingsTests.m */,
+				C2F456891F5EFEDB00A8AE17 /* PBCacheLoaderTests.m */,
+			);
+			name = PrebidMobileDemandSDKAdapterTests;
+			sourceTree = "<group>";
+		};
+		C2F7CAE01F2BD90D00FEC637 /* PrebidMobileDemandSDKAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				C2F456801F58996B00A8AE17 /* Common */,
+				C2452AD61F4F534200452762 /* DemandSDKLoaders */,
+				C2F456851F5EFE5100A8AE17 /* DFP */,
 				C2B91AB61F438C10009F75C8 /* Info.plist */,
 			);
-			name = PrebidMobileMediationAdapters;
+			name = PrebidMobileDemandSDKAdapters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -634,7 +656,9 @@
 				C281E1AE1EE5F2DA00F2F4A9 /* ANURLConnectionStub.m in Sources */,
 				C281E1AD1EE5F2DA00F2F4A9 /* ANHTTPStubURLProtocol.m in Sources */,
 				C281E1B21EE5F2E500F2F4A9 /* PBMockServerAdapter.m in Sources */,
+				C2F4568A1F5EFEDB00A8AE17 /* PBCacheLoaderTests.m in Sources */,
 				C281E19B1EE5F2AD00F2F4A9 /* PBBidResponseTests.m in Sources */,
+				C2F456881F5EFEC900A8AE17 /* PrebidMobileDemandSDKLoadSettingsTests.m in Sources */,
 				C29238D91F3E38D100217075 /* PBServerAdapterTests.m in Sources */,
 				C281E19D1EE5F2AD00F2F4A9 /* PBTargetingParamsTests.m in Sources */,
 				C281E1991EE5F2AD00F2F4A9 /* PBAdUnitTests.m in Sources */,

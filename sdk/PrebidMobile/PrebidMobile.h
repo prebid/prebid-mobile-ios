@@ -15,6 +15,11 @@
 
 #import <UIKit/UIKit.h>
 #import "PBLogging.h"
+#import "PrebidMobileDemandSDKLoadSettings.h"
+#import "PBBannerAdUnit.h"
+#import "PBException.h"
+#import "PBInterstitialAdUnit.h"
+#import "PBTargetingParams.h"
 
 @class PBAdUnit;
 

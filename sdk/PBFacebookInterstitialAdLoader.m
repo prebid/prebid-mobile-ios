@@ -14,17 +14,9 @@
  */
 
 #import "PBFacebookInterstitialAdLoader.h"
+#import "PBConstants.h"
 
 @implementation PBFacebookInterstitialAdLoader
-
-- (instancetype)initWithDelegate:(id<PBInterstitialMediationAdapterDelegate>)delegate {
-    self = [super init];
-    if (self) {
-        self.delegate = delegate;
-    }
-    return self;
-}
-
 
 - (void)loadInterstitialAd:(NSDictionary *)info {
     // TODO nicole remove bid payload override
@@ -34,19 +26,19 @@
     //NSString *bidPayload = (NSString *)info[@"adm"];
     
     // Load FBInterstitialAd using reflection so we can load the ad properly in the FBAudienceNetwork SDK
-    Class fbInterstitialAdClass = NSClassFromString(@"FBInterstitialAd");
+    Class fbInterstitialAdClass = NSClassFromString(kFBInterstitialAdClassName);
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     if (fbInterstitialAdClass != nil) {
-        SEL initMethodSel = NSSelectorFromString(@"initWithPlacementID:");
+        SEL initMethodSel = NSSelectorFromString(kFBInterstitialInitMethodSelName);
         id fbInterstitialAdObj = [fbInterstitialAdClass alloc];
         if ([fbInterstitialAdObj respondsToSelector:initMethodSel]) {
             NSString *placementId = [self parsePlacementIdFromBidPayload:bidPayload];
             [fbInterstitialAdObj performSelector:initMethodSel withObject:placementId];
             
             // Set selector variables for other methods we need to call on FBAdView
-            SEL setDelegateSel = NSSelectorFromString(@"setDelegate:");
-            SEL loadAdSel = NSSelectorFromString(@"loadAdWithBidPayload:");
+            SEL setDelegateSel = NSSelectorFromString(kFBSetDelegateSelName);
+            SEL loadAdSel = NSSelectorFromString(kFBLoadAdWithBidPayloadSelName);
             
             if ([fbInterstitialAdObj respondsToSelector:setDelegateSel] &&
                 [fbInterstitialAdObj respondsToSelector:loadAdSel]) {
@@ -76,14 +68,17 @@
 - (void)interstitialAdDidLoad:(id)interstitialAd {
     //[self.interstitialAd showAdFromRootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController];
     NSLog(@"fb interstitial ad did load");
+    [self.delegate didLoadAd:interstitialAd];
 }
 
 - (void)interstitialAd:(id)interstitialAd didFailWithError:(NSError *)error {
     NSLog(@"fb interstitial ad did fail with error");
+    [self.delegate ad:interstitialAd didFailWithError:error];
 }
 
 - (void)interstitialAdDidClick:(id)interstitialAd {
     NSLog(@"fb interstitial ad did click");
+    [self.delegate didClickAd:interstitialAd];
 }
 
 @end

@@ -19,8 +19,12 @@
 
 NSString *const kFBAdViewClassName = @"FBAdView";
 NSString *const kFBAdViewInitMethodSelName = @"initWithPlacementID:adSize:rootViewController:";
-NSString *const kFBAdViewLoadAdWithBidPayloadSelName = @"loadAdWithBidPayload:";
-NSString *const kFBAdViewSetDelegateSelName = @"setDelegate:";
 NSString *const kFBAdViewDisableAutoRefreshSelName = @"disableAutoRefresh";
+
+NSString *const kFBLoadAdWithBidPayloadSelName = @"loadAdWithBidPayload:";
+NSString *const kFBSetDelegateSelName = @"setDelegate:";
+
+NSString *const kFBInterstitialAdClassName = @"FBInterstitialAd";
+NSString *const kFBInterstitialInitMethodSelName = @"initWithPlacementID:";
 
 @end

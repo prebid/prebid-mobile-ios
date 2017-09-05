@@ -16,7 +16,9 @@
 #import <Foundation/Foundation.h>
 #import "PBBaseBannerAdLoader.h"
 
-@protocol FBAdViewDelegate;
+@protocol FBAdViewDelegate
+
+@end
 
 @interface PBFacebookBannerAdLoader : PBBaseBannerAdLoader <FBAdViewDelegate>
 

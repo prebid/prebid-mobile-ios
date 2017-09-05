@@ -17,4 +17,12 @@
 
 @implementation PBBaseBannerAdLoader
 
+- (instancetype)initWithDelegate:(id<PBBannerMediationAdapterDelegate>)delegate {
+    self = [super init];
+    if (self) {
+        self.delegate = delegate;
+    }
+    return self;
+}
+
 @end

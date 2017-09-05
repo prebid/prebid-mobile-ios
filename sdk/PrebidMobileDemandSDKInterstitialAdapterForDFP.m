@@ -15,6 +15,7 @@
 
 #import "PrebidMobileDemandSDKInterstitialAdapterForDFP.h"
 #import "PBCacheLoader.h"
+#import "PBFacebookInterstitialAdLoader.h"
 
 static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediationAdapter";
 
@@ -35,16 +36,6 @@ static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediati
 - (void)requestInterstitialAdWithParameter:(NSString *)serverParameter
                                      label:(NSString *)serverLabel
                                    request:(GADCustomEventRequest *)request {
-    NSLog(@"got to mediation interstitial function");
-    //    self.interstitial = [[SampleInterstitial alloc] init];
-    //    self.interstitial.delegate = self;
-    //    self.interstitial.adUnit = serverParameter;
-    //    SampleAdRequest *adRequest = [[SampleAdRequest alloc] init];
-    //    adRequest.testMode = request.isTesting;
-    //    adRequest.keywords = request.userKeywords;
-    //    [self.interstitial fetchAd:adRequest];
-//    PBCommonMediationAdapter *commonMediationAdapter = [[PBCommonMediationAdapter alloc] initWithCacheId:@"test_cacheId" andBidder:@"TestBidder" andMediationAdapterClass:self];
-//    self.adLoader = [commonMediationAdapter requestAdmAndLoadAd];
     NSArray *keywords = request.userKeywords;
     for (NSString *keyword in keywords) {
         if ([keyword containsString:@"hb_cache_id"]) {
@@ -62,12 +53,19 @@ static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediati
 - (void)requestAdmAndLoadAd {
     self.cacheLoader = [[PBCacheLoader alloc] initWithCacheId:self.cacheId];
     void (^block)(NSDictionary *) = ^void(NSDictionary *response) {
-        //[self loadAd:response];
+        [self loadAd:response];
     };
     [self.cacheLoader requestAdmWithCompletionBlock:block];
 }
 
-
+- (void)loadAd:(NSDictionary *)responseDict {
+    if ([self.bidder isEqualToString:@"audienceNetwork"]) {
+        self.adLoader = [[PBFacebookInterstitialAdLoader alloc] initWithDelegate:self];
+        [self.adLoader loadAd:responseDict];
+    } else {
+        NSLog(@"Not a valid bidder for DFP Mediation Adapter");
+    }
+}
 
 -(void)presentFromRootViewController:(UIViewController *)rootViewController {
     NSLog(@"got here");

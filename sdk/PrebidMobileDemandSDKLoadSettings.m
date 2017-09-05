@@ -36,17 +36,27 @@
 // In order for fb demand integration to work
 // these classes and methods must exist in the FB SDK
 + (void)assertAudienceNetworkSDKExists {
+    // Banner assertations
     Class fbAdViewClass = NSClassFromString(kFBAdViewClassName);
     assert(fbAdViewClass != nil);
     id fbAdViewObj = [fbAdViewClass alloc];
     SEL initMethodSel = NSSelectorFromString(kFBAdViewInitMethodSelName);
-    SEL setDelegateSel = NSSelectorFromString(kFBAdViewSetDelegateSelName);
+    SEL setDelegateSel = NSSelectorFromString(kFBSetDelegateSelName);
     SEL disableAutoRefreshSel = NSSelectorFromString(kFBAdViewDisableAutoRefreshSelName);
-    SEL loadAdWithBidPayloadSel = NSSelectorFromString(kFBAdViewLoadAdWithBidPayloadSelName);
+    SEL loadAdWithBidPayloadSel = NSSelectorFromString(kFBLoadAdWithBidPayloadSelName);
     assert([fbAdViewObj respondsToSelector:initMethodSel]);
     assert([fbAdViewObj respondsToSelector:setDelegateSel]);
     assert([fbAdViewObj respondsToSelector:disableAutoRefreshSel]);
     assert([fbAdViewObj respondsToSelector:loadAdWithBidPayloadSel]);
+
+    // Interstitial assertations
+    Class fbInterstitialAdClass = NSClassFromString(kFBInterstitialAdClassName);
+    assert(fbInterstitialAdClass != nil);
+    id fbInterstitialAdObj = [fbInterstitialAdClass alloc];
+    SEL intInitMethodSel = NSSelectorFromString(kFBInterstitialInitMethodSelName);
+    assert([fbInterstitialAdObj respondsToSelector:intInitMethodSel]);
+    assert([fbInterstitialAdObj respondsToSelector:setDelegateSel]);
+    assert([fbInterstitialAdObj respondsToSelector:loadAdWithBidPayloadSel]);
 }
 
 @end

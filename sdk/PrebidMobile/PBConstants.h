@@ -17,10 +17,16 @@
 
 @interface PBConstants : NSObject
 
+// Facebook banner
 extern NSString *const kFBAdViewClassName;
 extern NSString *const kFBAdViewInitMethodSelName;
-extern NSString *const kFBAdViewLoadAdWithBidPayloadSelName;
-extern NSString *const kFBAdViewSetDelegateSelName;
 extern NSString *const kFBAdViewDisableAutoRefreshSelName;
+
+// Facebook interstitial
+extern NSString *const kFBInterstitialAdClassName;
+extern NSString *const kFBInterstitialInitMethodSelName;
+
+extern NSString *const kFBLoadAdWithBidPayloadSelName;
+extern NSString *const kFBSetDelegateSelName;
 
 @end

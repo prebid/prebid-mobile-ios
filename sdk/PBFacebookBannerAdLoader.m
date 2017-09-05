@@ -14,20 +14,13 @@
  */
 
 #import "PBFacebookBannerAdLoader.h"
+#import "PBConstants.h"
 
 struct FBAdSize {
     CGSize size;
 };
 
 @implementation PBFacebookBannerAdLoader
-
-- (instancetype)initWithDelegate:(id<PBBannerMediationAdapterDelegate>)delegate {
-    self = [super init];
-    if (self) {
-        self.delegate = delegate;
-    }
-    return self;
-}
 
 - (void)loadAd:(NSDictionary *)info {
     // TODO nicole remove bid payload override
@@ -71,8 +64,8 @@ struct FBAdSize {
             id result = tempResultSet;
             
             // Set selector variables for other methods we need to call on FBAdView
-            SEL setDelegateSel = NSSelectorFromString(@"setDelegate:");
-            SEL loadAdSel = NSSelectorFromString(@"loadAdWithBidPayload:");
+            SEL setDelegateSel = NSSelectorFromString(kFBSetDelegateSelName);
+            SEL loadAdSel = NSSelectorFromString(kFBLoadAdWithBidPayloadSelName);
             SEL disableAutoRefreshSel = NSSelectorFromString(@"disableAutoRefresh");
             
             if ([result respondsToSelector:setDelegateSel] &&
