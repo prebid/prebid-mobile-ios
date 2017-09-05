@@ -18,6 +18,7 @@
 @implementation Constants
 
 NSString *const kAdServer = @"Ad Server";
+NSString *const kDemandSource = @"Demand Source";
 NSString *const kAdType = @"Ad Type";
 NSString *const kPlacementId = @"Placement ID";
 NSString *const kSize = @"Size";
@@ -51,6 +52,7 @@ NSString *const kAdUnit2ConfigId = @"eebc307d-7f76-45d6-a7a7-68985169b138";
 NSString *const kAdUnit1Id = @"5d748364ee9c46a2b112892fc3551b6f";
 NSString *const kAdUnit2Id = @"NavScreen";
 
+NSString *const kFBAudienceNetwork = @"audienceNetwork";
 NSString *const kFBBannerAdUnit = @"fbBannerAdUnit";
 NSString *const kFBIntAdUnit = @"fbIntAdUnit";
 NSString *const kFBBannerAdUnitConfigId = @"7767e961-6ead-45e0-856e-d82c75010dd7";

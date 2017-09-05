@@ -18,6 +18,7 @@
 @interface Constants : NSObject
 
 extern NSString *const kAdServer;
+extern NSString *const kDemandSource;
 extern NSString *const kAdType;
 extern NSString *const kPlacementId;
 extern NSString *const kSize;
@@ -48,6 +49,7 @@ extern NSString *const kAdUnit2ConfigId;
 extern NSString *const kAdUnit1Id;
 extern NSString *const kAdUnit2Id;
 
+extern NSString *const kFBAudienceNetwork;
 extern NSString *const kFBBannerAdUnit;
 extern NSString *const kFBIntAdUnit;
 extern NSString *const kFBBannerAdUnitConfigId;

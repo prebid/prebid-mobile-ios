@@ -74,9 +74,9 @@
         _dfpAdView.delegate = self;
         
         [_adContainerView addSubview:_dfpAdView];
-        
+
         NSString *adUnitId = kAdUnit1Id;
-        if ([[self.settings objectForKey:@"Demand Source"] isEqualToString:@"audienceNetwork"]) {
+        if ([[self.settings objectForKey:kDemandSource] isEqualToString:kFBAudienceNetwork]) {
             adUnitId = kFBBannerAdUnit;
         }
         [PrebidMobile setBidKeywordsOnAdObject:_dfpAdView withAdUnitId:adUnitId withTimeout:600 completionHandler:^{

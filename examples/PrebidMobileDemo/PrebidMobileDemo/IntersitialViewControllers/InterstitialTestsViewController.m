@@ -51,8 +51,12 @@
     else if ([adServer isEqualToString:kDFPAdServer]) {
         self.dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:kDFPInterstitialAdUnitId];
         self.dfpInterstitial.delegate = self;
-    
-        [PrebidMobile setBidKeywordsOnAdObject:self.dfpInterstitial withAdUnitId:kAdUnit2Id withTimeout:600 completionHandler:^{
+
+        NSString *adUnitId = kAdUnit2Id;
+        if ([[self.settings objectForKey:kDemandSource] isEqualToString:kFBAudienceNetwork]) {
+            adUnitId = kFBIntAdUnit;
+        }
+        [PrebidMobile setBidKeywordsOnAdObject:self.dfpInterstitial withAdUnitId:adUnitId withTimeout:600 completionHandler:^{
             [self.dfpInterstitial loadRequest:[DFPRequest request]];
         }];
     }

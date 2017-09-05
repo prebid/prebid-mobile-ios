@@ -71,7 +71,7 @@
         [self setPrebidTargetingParams];
 
         [[PrebidMobileDemandSDKLoadSettings sharedInstance] enableDemandSources:@[@(PBDemandSourceFacebook)]];
-        [PrebidMobile registerAdUnits:@[adUnit1, fbBannerAdUnit] withAccountId:kAccountId];
+        [PrebidMobile registerAdUnits:@[adUnit1, fbBannerAdUnit, fbInterstitialAdUnit] withAccountId:kAccountId];
     } @catch (PBException *ex) {
         NSLog(@"%@",[ex reason]);
     } @finally {
