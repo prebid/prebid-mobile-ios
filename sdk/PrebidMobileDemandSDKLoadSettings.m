@@ -16,16 +16,36 @@
 #import "PBConstants.h"
 #import "PrebidMobileDemandSDKLoadSettings.h"
 
+@interface PrebidMobileDemandSDKLoadSettings ()
+
+@property (nonatomic, strong) NSMutableSet *demandSet;
+
+@end
+
 @implementation PrebidMobileDemandSDKLoadSettings
 
+static PrebidMobileDemandSDKLoadSettings *sharedInstance = nil;
+static dispatch_once_t onceToken;
 
-+ (void)enableDemandSources:(nonnull NSArray<NSNumber *> *)demandSources {
++ (instancetype)sharedInstance {
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[self alloc] init];
+    });
+    return sharedInstance;
+}
+
++ (void)resetSharedInstance {
+    onceToken = 0;
+    sharedInstance = nil;
+}
+
+- (void)enableDemandSources:(nonnull NSArray<NSNumber *> *)demandSources {
     for (NSNumber *demandSource in demandSources) {
         [self makeAssertationsForDemandSource:demandSource];
     }
 }
 
-+ (void)makeAssertationsForDemandSource:(NSNumber *)demandSource {
+- (void)makeAssertationsForDemandSource:(NSNumber *)demandSource {
     switch ([demandSource intValue]) {
         case PBDemandSourceFacebook:
             [self assertAudienceNetworkSDKExists];
@@ -35,7 +55,7 @@
 
 // In order for fb demand integration to work
 // these classes and methods must exist in the FB SDK
-+ (void)assertAudienceNetworkSDKExists {
+- (void)assertAudienceNetworkSDKExists {
     // Banner assertations
     Class fbAdViewClass = NSClassFromString(kFBAdViewClassName);
     assert(fbAdViewClass != nil);
@@ -57,6 +77,24 @@
     assert([fbInterstitialAdObj respondsToSelector:intInitMethodSel]);
     assert([fbInterstitialAdObj respondsToSelector:setDelegateSel]);
     assert([fbInterstitialAdObj respondsToSelector:loadAdWithBidPayloadSel]);
+
+    [self addDemandToDemandSet:@(PBDemandSourceFacebook)];
+}
+
+- (void)addDemandToDemandSet:(NSNumber *)demand {
+    if (self.demandSet) {
+        [self.demandSet addObject:demand];
+    } else {
+        self.demandSet = [[NSMutableSet alloc] init];
+        [self.demandSet addObject:demand];
+    }
+}
+
+- (BOOL)isDemandEnabled:(NSNumber *)demand {
+    if (self.demandSet) {
+        return [self.demandSet containsObject:demand];
+    }
+    return NO;
 }
 
 @end

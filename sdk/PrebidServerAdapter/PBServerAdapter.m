@@ -267,7 +267,7 @@ static NSString *const kPrebidMobileVersion = @"0.0.2";
     if (deviceId) {
         deviceDict[@"ifa"] = deviceId;
     }
-    deviceDict[@"ip"] = [self getIPAddress];
+    deviceDict[@"ip"] = @"0.0.0.0";
     
     NSInteger timeInMiliseconds = (NSInteger)[[NSDate date] timeIntervalSince1970];
     deviceDict[@"devtime"] = @(timeInMiliseconds);

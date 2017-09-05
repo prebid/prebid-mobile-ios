@@ -42,7 +42,7 @@ static CGFloat const kRightMargin = 15;
     _settingsTableView.delegate = self;
     [self.view addSubview:_settingsTableView];
 
-    _generalSettingsData = @[kAdServer, kAdType, kSize];
+    _generalSettingsData = @[kAdServer, kAdType, kSize, @"Demand Source"];
     [self initializeGeneralSettingsFields];
 
     _sectionHeaders = @[@"General"];//, @"Targeting", @"Custom Keywords"];
@@ -68,6 +68,11 @@ static CGFloat const kRightMargin = 15;
     placementIdTextField.placeholder = kDefaultPlacementId;
     placementIdTextField.text = kDefaultPlacementId;
     placementIdTextField.textAlignment = NSTextAlignmentRight;
+    
+    UITextField *demandSourceTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 160, 50)];
+    demandSourceTextField.placeholder = @"audienceNetwork";
+    demandSourceTextField.text = @"audienceNetwork";
+    demandSourceTextField.textAlignment = NSTextAlignmentRight;
 
     UITextField *sizeTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 120, 50)];
     sizeTextField.placeholder = kDefaultSize;
@@ -76,7 +81,7 @@ static CGFloat const kRightMargin = 15;
 
     [_generalSettingsFields setObject:adServerSegControl forKey:kAdServer];
     [_generalSettingsFields setObject:adTypeSegControl forKey:kAdType];
-    [_generalSettingsFields setObject:placementIdTextField forKey:kPlacementId];
+    [_generalSettingsFields setObject:demandSourceTextField forKey:@"Demand Source"];
     [_generalSettingsFields setObject:sizeTextField forKey:kSize];
 }
 
@@ -85,12 +90,13 @@ static CGFloat const kRightMargin = 15;
     UISegmentedControl *adTypeSegControl = [self.generalSettingsFields objectForKey:kAdType];
     UITextField *placementIdField = [self.generalSettingsFields objectForKey:kPlacementId];
     UITextField *sizeIdField = [self.generalSettingsFields objectForKey:kSize];
+    UITextField *demandSourceField = [self.generalSettingsFields objectForKey:@"Demand Source"];
 
     NSString *adType =[adTypeSegControl titleForSegmentAtIndex:[adTypeSegControl selectedSegmentIndex]];
 
     NSDictionary *settings = @{kAdServer : [adServerSegControl titleForSegmentAtIndex:[adServerSegControl selectedSegmentIndex]],
-                               kPlacementId : [placementIdField text],
-                               kSize : [sizeIdField text]};
+                               kSize : [sizeIdField text],
+                               @"Demand Source": [demandSourceField text]};
 
     UIViewController *vcToPush;
     if ([adType isEqualToString:kBanner]) {

@@ -48,4 +48,8 @@ extern NSString *const kAdUnit2ConfigId;
 extern NSString *const kAdUnit1Id;
 extern NSString *const kAdUnit2Id;
 
+extern NSString *const kFBBannerAdUnit;
+extern NSString *const kFBIntAdUnit;
+extern NSString *const kFBBannerAdUnitConfigId;
+
 @end

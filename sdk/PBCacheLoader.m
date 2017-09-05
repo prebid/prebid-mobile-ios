@@ -33,7 +33,6 @@ static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/
     return self;
 }
 
-
 - (void)requestAdmWithCompletionBlock:(nullable void (^)(NSDictionary *))completionBlock{
     NSString *cacheURL = [kPrebidCacheEndpoint stringByAppendingString:self.cacheId];
     
