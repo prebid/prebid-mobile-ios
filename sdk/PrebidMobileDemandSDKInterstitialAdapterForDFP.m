@@ -13,9 +13,10 @@
  limitations under the License.
  */
 
-#import "PrebidMobileDemandSDKInterstitialAdapterForDFP.h"
 #import "PBCacheLoader.h"
 #import "PBFacebookInterstitialAdLoader.h"
+#import "PrebidMobileDemandSDKInterstitialAdapterForDFP.h"
+#import "PrebidMobileDemandSDKLoadSettings.h"
 
 static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediationAdapter";
 
@@ -59,7 +60,7 @@ static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediati
 }
 
 - (void)loadAd:(NSDictionary *)responseDict {
-    if ([self.bidder isEqualToString:@"audienceNetwork"]) {
+    if ([self.bidder isEqualToString:@"audienceNetwork"] && [[PrebidMobileDemandSDKLoadSettings sharedInstance] isDemandEnabled:@(PBDemandSourceFacebook)]) {
         self.adLoader = [[PBFacebookInterstitialAdLoader alloc] initWithDelegate:self];
         [self.adLoader loadAd:responseDict];
     } else {

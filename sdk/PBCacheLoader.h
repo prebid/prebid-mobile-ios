@@ -17,8 +17,8 @@
 
 @interface PBCacheLoader : NSObject
 
-- (instancetype)initWithCacheId:(NSString *)cacheId;
+- (instancetype _Nonnull)initWithCacheId:(nonnull NSString *)cacheId;
 
-- (void)requestAdmWithCompletionBlock:(nullable void (^)(NSDictionary *))completionBlock;
+- (void)requestAdmWithCompletionBlock:(nullable void (^)(NSDictionary *_Nonnull))completionBlock;
 
 @end
