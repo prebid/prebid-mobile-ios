@@ -15,7 +15,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol PBBannerMediationAdapterDelegate<NSObject>
+@protocol PBBannerDemandSDKAdapterDelegate<NSObject>
 
 @property(nonatomic, readonly) UIViewController *viewControllerForPresentingModalView;
 

@@ -14,14 +14,14 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBBannerMediationAdapter.h"
+#import "PBBannerDemandSDKAdapterDelegate.h"
 
 @interface PBBaseBannerAdLoader : NSObject
 
-@property (nonatomic, weak) id<PBBannerMediationAdapterDelegate> delegate;
+@property (nonatomic, weak) id<PBBannerDemandSDKAdapterDelegate> delegate;
 @property (nonatomic, strong) UIView *adView;
 
-- (instancetype)initWithDelegate:(id<PBBannerMediationAdapterDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<PBBannerDemandSDKAdapterDelegate>)delegate;
 - (void)loadAd:(NSDictionary *)info;
 
 @end

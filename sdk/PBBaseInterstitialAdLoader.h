@@ -14,14 +14,14 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBInterstitialMediationAdapter.h"
+#import "PBInterstitialDemandSDKAdapterDelegate.h"
 
 @interface PBBaseInterstitialAdLoader : NSObject
 
-@property (nonatomic, weak) id<PBInterstitialMediationAdapterDelegate> delegate;
+@property (nonatomic, weak) id<PBInterstitialDemandSDKAdapterDelegate> delegate;
 @property (nonatomic, strong) id interstitialAd;
 
-- (instancetype)initWithDelegate:(id<PBInterstitialMediationAdapterDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<PBInterstitialDemandSDKAdapterDelegate>)delegate;
 - (void)loadAd:(NSDictionary *)info;
 
 @end

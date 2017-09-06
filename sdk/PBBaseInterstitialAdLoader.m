@@ -17,7 +17,7 @@
 
 @implementation PBBaseInterstitialAdLoader
 
-- (instancetype)initWithDelegate:(id<PBInterstitialMediationAdapterDelegate>)delegate {
+- (instancetype)initWithDelegate:(id<PBInterstitialDemandSDKAdapterDelegate>)delegate {
     self = [super init];
     if (self) {
         self.delegate = delegate;

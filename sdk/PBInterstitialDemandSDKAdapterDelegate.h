@@ -15,7 +15,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol PBInterstitialMediationAdapterDelegate<NSObject>
+@protocol PBInterstitialDemandSDKAdapterDelegate<NSObject>
 
 @property(nonatomic, readonly) UIViewController *viewControllerForPresentingModalView;
 

@@ -14,9 +14,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBInterstitialMediationAdapter.h"
+#import "PBInterstitialDemandSDKAdapterDelegate.h"
 @import GoogleMobileAds;
 
-@interface PrebidMobileDemandSDKInterstitialAdapterForDFP : NSObject<GADCustomEventInterstitial, PBInterstitialMediationAdapterDelegate>
+@interface PrebidMobileDemandSDKInterstitialAdapterForDFP : NSObject<GADCustomEventInterstitial, PBInterstitialDemandSDKAdapterDelegate>
 
 @end

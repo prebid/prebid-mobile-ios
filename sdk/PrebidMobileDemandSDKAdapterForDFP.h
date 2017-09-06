@@ -15,10 +15,9 @@
 
 @import Foundation;
 @import GoogleMobileAds;
+#import "PBBannerDemandSDKAdapterDelegate.h"
 
-@protocol PBBannerMediationAdapterDelegate;
-
-@interface PrebidMobileDemandSDKAdapterForDFP : NSObject<GADCustomEventBanner, PBBannerMediationAdapterDelegate>
+@interface PrebidMobileDemandSDKAdapterForDFP : NSObject<GADCustomEventBanner, PBBannerDemandSDKAdapterDelegate>
 
 
 @end
