@@ -233,9 +233,9 @@
 		C273CAC21E832494003EF1AB /* VideoTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C273CAC11E832494003EF1AB /* VideoTestsViewController.m */; };
 		C2B91AA71F41FC86009F75C8 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B91AA61F41FC86009F75C8 /* FBAudienceNetwork.framework */; };
 		C2B91AC11F438CDC009F75C8 /* PrebidMobileDFPMediationAdapter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C2B91ABF1F438C44009F75C8 /* PrebidMobileDFPMediationAdapter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C2B91AC71F438F65009F75C8 /* PrebidMobileDFPMediationAdapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B91AC61F438F65009F75C8 /* PrebidMobileDFPMediationAdapter.framework */; };
 		C2E809731E95425D00DC7732 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E809721E95425D00DC7732 /* SettingsViewController.m */; };
 		C2E8097D1E95899800DC7732 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E8097C1E95899800DC7732 /* Constants.m */; };
+		C2F456A11F6305A600A8AE17 /* PrebidMobileDFPMediationAdapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B91ABF1F438C44009F75C8 /* PrebidMobileDFPMediationAdapter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -726,7 +726,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2B91AC71F438F65009F75C8 /* PrebidMobileDFPMediationAdapter.framework in Frameworks */,
 				C273CAB21E83149D003EF1AB /* MobileCoreServices.framework in Frameworks */,
 				C273CAB01E831487003EF1AB /* GLKit.framework in Frameworks */,
 				C273CAAE1E83146F003EF1AB /* CoreMotion.framework in Frameworks */,
@@ -737,6 +736,7 @@
 				C2B91AA71F41FC86009F75C8 /* FBAudienceNetwork.framework in Frameworks */,
 				C273CAA41E831442003EF1AB /* Foundation.framework in Frameworks */,
 				C23386CB1EE5DAC9002FD404 /* PrebidMobile.framework in Frameworks */,
+				C2F456A11F6305A600A8AE17 /* PrebidMobileDFPMediationAdapter.framework in Frameworks */,
 				C273CAA51E831442003EF1AB /* MediaPlayer.framework in Frameworks */,
 				C273CAA61E831442003EF1AB /* MediaToolbox.framework in Frameworks */,
 				C273CAA71E831442003EF1AB /* MessageUI.framework in Frameworks */,

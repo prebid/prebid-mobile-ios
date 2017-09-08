@@ -24,7 +24,7 @@ struct FBAdSize {
 
 - (void)loadAd:(NSDictionary *)info {
     // TODO nicole remove bid payload override
-    NSString *bidPayload = @"{\"type\":\"ID\",\"bid_id\":\"4401013946958491377\",\"placement_id\":\"1995257847363113_1997038003851764\",\"sdk_version\":\"4.25.0-appnexus.bidding\",\"device_id\":\"87ECBA49-908A-428F-9DE7-4B9CED4F486C\",\"template\":7,\"payload\":\"null\"}";
+    NSString *bidPayload = @"{\"type\":\"ID\",\"bid_id\":\"5359403918734405361\",\"placement_id\":\"1995257847363113_1997038003851764\",\"sdk_version\":\"4.25.0-appnexus.bidding\",\"device_id\":\"87ECBA49-908A-428F-9DE7-4B9CED4F486C\",\"template\":7,\"payload\":\"null\"}";
     
     // TODO nicole add this back in
     //NSString *bidPayload = (NSString *)info[@"adm"];
@@ -74,9 +74,9 @@ struct FBAdSize {
                 // Set up FBAdView and loadAdWithBidPayload
                 [result performSelector:setDelegateSel withObject:self];
                 [result performSelector:disableAutoRefreshSel];
-                UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-                UIView *topView = window.rootViewController.view;
-                [topView addSubview:result];
+//                UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+//                UIView *topView = window.rootViewController.view;
+//                [topView addSubview:result];
                 [result performSelector:loadAdSel withObject:bidPayload];
             }
             self.adView = result;
@@ -102,8 +102,6 @@ struct FBAdSize {
 }
 
 - (void)adViewDidLoad:(UIView *)adView {
-    NSLog(@"Ad was loaded and ready to be displayed22");
-    NSLog(@"Facebook mediated ad did load.");
     [adView setFrame:CGRectMake(0, 10, 300, 250)];
     [self.delegate didLoadAd:adView];
     adView = nil;

@@ -135,7 +135,9 @@ static NSString *const kPrebidMobileVersion = @"0.0.2";
     if (keywords) {
         requestDict[@"keywords"] = keywords;
     }
+#ifdef DEBUG
     requestDict[@"is_debug"] = @(YES);
+#endif
     
     NSMutableArray *adUnitConfigs = [[NSMutableArray alloc] init];
     for (PBAdUnit *adUnit in adUnits) {
@@ -151,6 +153,7 @@ static NSString *const kPrebidMobileVersion = @"0.0.2";
         adUnitConfig[@"sizes"] = sizeArray;
         
         adUnitConfig[@"config_id"] = adUnit.configId;
+        //TODO nicole add interstitial here
         [adUnitConfigs addObject:adUnitConfig];
     }
     requestDict[@"ad_units"] = adUnitConfigs;

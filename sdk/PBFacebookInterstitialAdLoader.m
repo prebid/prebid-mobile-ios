@@ -20,7 +20,7 @@
 
 - (void)loadInterstitialAd:(NSDictionary *)info {
     // TODO nicole remove bid payload override
-    NSString *bidPayload = @"{\"type\":\"ID\",\"bid_id\":\"4401013946958491377\",\"placement_id\":\"1995257847363113_1997038003851764\",\"sdk_version\":\"4.25.0-appnexus.bidding\",\"device_id\":\"87ECBA49-908A-428F-9DE7-4B9CED4F486C\",\"template\":7,\"payload\":\"null\"}";
+    NSString *bidPayload = @"{\"type\":\"ID\",\"bid_id\":\"3657125005700902641\",\"placement_id\":\"1995257847363113_1997038003851764\",\"resolved_placement_id\":\"1995257847363113_1997038003851764\",\"sdk_version\":\"4.25.0-appnexus.bidding\",\"device_id\":\"87ECBA49-908A-428F-9DE7-4B9CED4F486C\",\"template\":102,\"payload\":\"null\"}";
     
     // TODO nicole add this back in
     //NSString *bidPayload = (NSString *)info[@"adm"];
@@ -60,6 +60,10 @@
                                                          options:NSJSONReadingMutableContainers
                                                            error:&jsonError];
     return [json objectForKey:@"placement_id"];
+}
+
+- (void)showAdFromRootViewController:(UIViewController *)vc {
+    [self.interstitialAd showAdFromRootViewController:vc];
 }
 
 

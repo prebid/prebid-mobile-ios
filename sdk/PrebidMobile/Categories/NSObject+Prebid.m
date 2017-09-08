@@ -33,8 +33,10 @@
             [NSClassFromString(@"GADSlot") pb_swizzleInstanceSelector:@selector(requestParameters)
                                                          withSelector:@selector(pb_requestParameters)];
             [NSClassFromString(@"DFPBannerView") pb_swizzleInstanceSelector:@selector(loadRequest:)
-                                                           withSelector:@selector(pb_loadRequest:)];
-            [NSClassFromString(@"MPBannerAdManager") pb_swizzleInstanceSelector:@selector(loadAd)
+                                                               withSelector:@selector(pb_loadRequest:)];
+            [NSClassFromString(@"DFPInterstitial") pb_swizzleInstanceSelector:@selector(loadRequest:)
+                                                               withSelector:@selector(pb_loadRequest:)];
+            [NSClassFromString(@"MPBannerAd0Manager") pb_swizzleInstanceSelector:@selector(loadAd)
                                                                    withSelector:@selector(pb_loadAd)];
             [NSClassFromString(@"MPBannerAdManager") pb_swizzleInstanceSelector:@selector(forceRefreshAd)
                                                                    withSelector:@selector(pb_forceRefreshAd)];
@@ -97,20 +99,25 @@
 - (void)pb_loadRequest:(id)request {
     PBAdUnit *adUnit;
     
-    SEL slotSel = NSSelectorFromString(@"slot");
-    if ([self respondsToSelector:slotSel]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        id slot = [self performSelector:slotSel];
-        SEL adEventDelegateSel = NSSelectorFromString(@"adEventDelegate");
-        if ([slot respondsToSelector:adEventDelegateSel]) {
-            id adEventDelegate = [slot performSelector:adEventDelegateSel];
-            SEL getPb_identifier = NSSelectorFromString(@"pb_identifier");
-            if ([adEventDelegate respondsToSelector:getPb_identifier]) {
-                adUnit = (PBAdUnit *)[adEventDelegate performSelector:getPb_identifier];
-#pragma clang diagnostic pop
-            }
-        }
+//    SEL slotSel = NSSelectorFromString(@"slot");
+//    if ([self respondsToSelector:slotSel]) {
+//#pragma clang diagnostic push
+//#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+//        id slot = [self performSelector:slotSel];
+//        SEL adEventDelegateSel = NSSelectorFromString(@"adEventDelegate");
+//        if ([slot respondsToSelector:adEventDelegateSel]) {
+//            id adEventDelegate = [slot performSelector:adEventDelegateSel];
+//            SEL getPb_identifier = NSSelectorFromString(@"pb_identifier");
+//            if ([adEventDelegate respondsToSelector:getPb_identifier]) {
+//                adUnit = (PBAdUnit *)[adEventDelegate performSelector:getPb_identifier];
+//#pragma clang diagnostic pop
+//            }
+//        }
+//    }
+    
+    SEL getPb_identifier = NSSelectorFromString(@"pb_identifier");
+    if ([self respondsToSelector:getPb_identifier]) {
+        adUnit = (PBAdUnit *)[self performSelector:getPb_identifier];
     }
 
     SEL setKeywordsSel = NSSelectorFromString(@"setKeywords:");

@@ -22,6 +22,8 @@
 @property (nonatomic, strong) id interstitialAd;
 
 - (instancetype)initWithDelegate:(id<PBInterstitialDemandSDKAdapterDelegate>)delegate;
-- (void)loadAd:(NSDictionary *)info;
+- (void)loadInterstitialAd:(NSDictionary *)info;
+
+- (void)showAdFromRootViewController:(UIViewController *)vc;
 
 @end

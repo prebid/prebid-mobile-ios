@@ -24,7 +24,7 @@ static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediati
 
 @property (strong, nonatomic) NSString *cacheId;
 @property (strong, nonatomic) NSString *bidder;
-@property (strong, nonatomic) id adLoader;
+@property (strong, nonatomic) PBBaseInterstitialAdLoader *adLoader;
 @property (strong, nonatomic) PBCacheLoader *cacheLoader;
 
 @end
@@ -62,15 +62,23 @@ static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediati
 - (void)loadAd:(NSDictionary *)responseDict {
     if ([self.bidder isEqualToString:@"audienceNetwork"] && [[PrebidMobileDemandSDKLoadSettings sharedInstance] isDemandEnabled:@(PBDemandSourceFacebook)]) {
         self.adLoader = [[PBFacebookInterstitialAdLoader alloc] initWithDelegate:self];
-        [self.adLoader loadAd:responseDict];
+        [self.adLoader loadInterstitialAd:responseDict];
     } else {
         NSLog(@"Not a valid bidder for DFP Mediation Adapter");
     }
 }
 
 -(void)presentFromRootViewController:(UIViewController *)rootViewController {
-    NSLog(@"got here");
+    [self.adLoader showAdFromRootViewController:rootViewController];
 }
+
+#pragma mark - PBInterstitialDemandSDKAdapterDelegate
+
+- (void)didLoadAd:(id)interstitialAd {
+    [self.delegate customEventInterstitialDidReceiveAd:interstitialAd];
+    [self.delegate customEventInterstitialWillPresent:interstitialAd];
+}
+
 
 //
 //// Sent when an interstitial ad has loaded.
