@@ -15,13 +15,13 @@
 
 #import "PBCacheLoader.h"
 #import "PBFacebookBannerAdLoader.h"
-#import "PrebidMobileDemandSDKAdapterForDFP.h"
+#import "PrebidMobileCustomEventBanner.h"
 #import "PrebidMobileDemandSDKLoadSettings.h"
 
 static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediationAdapter";
 static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/get?uuid=";
 
-@interface PrebidMobileDemandSDKAdapterForDFP()
+@interface PrebidMobileCustomEventBanner()
 
 @property (strong, nonatomic) NSString *cacheId;
 @property (strong, nonatomic) NSString *bidder;
@@ -30,7 +30,7 @@ static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/
 
 @end
 
-@implementation PrebidMobileDemandSDKAdapterForDFP
+@implementation PrebidMobileCustomEventBanner
 
 @synthesize delegate;
 
@@ -61,7 +61,7 @@ static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/
 }
 
 - (void)loadAd:(NSDictionary *)responseDict {
-    if ([self.bidder isEqualToString:@"audienceNetwork"] && [[PrebidMobileDemandSDKLoadSettings sharedInstance] isDemandEnabled:@(PBDemandSourceFacebook)]) {
+    if ([self.bidder isEqualToString:@"audienceNetwork"]) {
         self.adLoader = [[PBFacebookBannerAdLoader alloc] initWithDelegate:self];
         [self.adLoader loadAd:responseDict];
     } else {

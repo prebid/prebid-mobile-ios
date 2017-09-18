@@ -14,14 +14,14 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBBannerDemandSDKAdapterDelegate.h"
+#import "PBCustomEventBannerDelegate.h"
 
 @interface PBBaseBannerAdLoader : NSObject
 
-@property (nonatomic, weak) id<PBBannerDemandSDKAdapterDelegate> delegate;
+@property (nonatomic, weak) id<PBCustomEventBannerDelegate> delegate;
 @property (nonatomic, strong) UIView *adView;
 
-- (instancetype)initWithDelegate:(id<PBBannerDemandSDKAdapterDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<PBCustomEventBannerDelegate>)delegate;
 - (void)loadAd:(NSDictionary *)info;
 
 @end

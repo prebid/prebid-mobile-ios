@@ -17,7 +17,7 @@
 
 @implementation PBBaseInterstitialAdLoader
 
-- (instancetype)initWithDelegate:(id<PBInterstitialDemandSDKAdapterDelegate>)delegate {
+- (instancetype)initWithDelegate:(id<PBCustomEventInterstitialDelegate>)delegate {
     self = [super init];
     if (self) {
         self.delegate = delegate;

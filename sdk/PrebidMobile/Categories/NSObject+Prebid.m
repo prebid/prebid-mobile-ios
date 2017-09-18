@@ -87,8 +87,6 @@
 #pragma clang diagnostic pop
             
             keywordsPairs = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
-            // TODO Nicole remove override for FB bid to hit line item
-            keywordsPairs = @{@"hb_pb":@"0.60", @"hb_bidder":@"audienceNetwork"};
             requestParameters = [[PBBidManager sharedInstance] addPrebidParameters:requestParameters withKeywords:keywordsPairs];
         }
     }
@@ -98,26 +96,12 @@
 // dfp load ad
 - (void)pb_loadRequest:(id)request {
     PBAdUnit *adUnit;
-    
-//    SEL slotSel = NSSelectorFromString(@"slot");
-//    if ([self respondsToSelector:slotSel]) {
-//#pragma clang diagnostic push
-//#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-//        id slot = [self performSelector:slotSel];
-//        SEL adEventDelegateSel = NSSelectorFromString(@"adEventDelegate");
-//        if ([slot respondsToSelector:adEventDelegateSel]) {
-//            id adEventDelegate = [slot performSelector:adEventDelegateSel];
-//            SEL getPb_identifier = NSSelectorFromString(@"pb_identifier");
-//            if ([adEventDelegate respondsToSelector:getPb_identifier]) {
-//                adUnit = (PBAdUnit *)[adEventDelegate performSelector:getPb_identifier];
-//#pragma clang diagnostic pop
-//            }
-//        }
-//    }
-    
     SEL getPb_identifier = NSSelectorFromString(@"pb_identifier");
     if ([self respondsToSelector:getPb_identifier]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         adUnit = (PBAdUnit *)[self performSelector:getPb_identifier];
+#pragma clang diagnostic pop
     }
 
     SEL setKeywordsSel = NSSelectorFromString(@"setKeywords:");

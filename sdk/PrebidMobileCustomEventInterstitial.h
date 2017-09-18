@@ -13,17 +13,10 @@
  limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "PBCustomEventInterstitialDelegate.h"
+@import GoogleMobileAds;
 
-@protocol PBInterstitialDemandSDKAdapterDelegate<NSObject>
-
-@property(nonatomic, readonly) UIViewController *viewControllerForPresentingModalView;
-
-@optional
-- (void)didLoadAd:(id)interstitialAd;
-- (void)ad:(id)interstitialAd didFailWithError:(NSError *)error;
-- (void)trackImpression;
-- (void)didClickAd:(id)interstitialAd;
-- (void)didFinishHandlingClick:(id)interstitialAd;
+@interface PrebidMobileCustomEventInterstitial : NSObject<GADCustomEventInterstitial, PBCustomEventInterstitialDelegate>
 
 @end

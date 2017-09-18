@@ -23,6 +23,7 @@
 #import "PBKeywordsManager.h"
 #import "PBLogging.h"
 #import "PBServerAdapter.h"
+#import "PrebidMobileDemandSDKLoadSettings.h"
 
 static NSTimeInterval const kBidExpiryTimerInterval = 30;
 
@@ -247,7 +248,9 @@ static dispatch_once_t onceToken;
     NSMutableArray *bids = [_bidsMap objectForKey:adUnit.identifier];
     // can just take the first bid in the array because bids were already sorted server side
     PBBidResponse *topBidResponse = bids[0];
-    if (topBidResponse && topBidResponse.isExpired == NO) {
+    if (topBidResponse &&
+        topBidResponse.isExpired == NO &&
+        [[PrebidMobileDemandSDKLoadSettings sharedInstance] isDemandEnabled:topBidResponse.customKeywords[@"hb_bidder"]]) {
         [self startNewAuction:adUnit];
     } else {
         PBLogDebug(@"No bid responses for ad unit %@", adUnit.identifier);
@@ -265,7 +268,7 @@ static dispatch_once_t onceToken;
 
 - (void)setBidOnAdObject:(NSObject *)adObject {
     [self clearBidOnAdObject:adObject];
-    
+
     if (adObject.pb_identifier) {
         NSMutableArray *mutableKeywords;
         NSString *keywords = @"";
@@ -283,9 +286,7 @@ static dispatch_once_t onceToken;
         }
         PBAdUnit *adUnit = adObject.pb_identifier;
         NSDictionary<NSString *, NSString *> *keywordsPairs = [self keywordsForWinningBidForAdUnit:adUnit];
-        // TODO Nicole remove override for FB bid to hit line item
-        keywordsPairs = @{@"hb_pb":@"0.60", @"hb_bidder":@"audienceNetwork", @"hb_cache_id":keywordsPairs[@"hb_cache_id"]};
-        
+
         for (id key in keywordsPairs) {
             id value = [keywordsPairs objectForKey:key];
             if (value) {

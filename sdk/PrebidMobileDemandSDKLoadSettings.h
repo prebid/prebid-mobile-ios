@@ -31,6 +31,6 @@ typedef NS_ENUM(NSInteger, PBDemandSourceType) {
 };
 
 - (void)enableDemandSources:(nonnull NSArray<NSNumber *> *)demandSources;
-- (BOOL)isDemandEnabled:(nonnull NSNumber *)demand;
+- (BOOL)isDemandEnabled:(nonnull NSString *)demand;
 
 @end

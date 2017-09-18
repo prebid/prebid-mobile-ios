@@ -33,7 +33,7 @@
 }
 
 - (void)testNoDemandIsEnabled {
-    XCTAssert([[PrebidMobileDemandSDKLoadSettings sharedInstance] isDemandEnabled:@(PBDemandSourceFacebook)] == NO);
+    XCTAssert([[PrebidMobileDemandSDKLoadSettings sharedInstance] isDemandEnabled:@"audienceNetwork"] == NO);
 }
 
 - (void)testPerformanceExample {

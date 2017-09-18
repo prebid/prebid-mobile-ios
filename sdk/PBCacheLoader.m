@@ -15,7 +15,7 @@
 
 #import "PBCacheLoader.h"
 
-static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/get?uuid=";
+static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/cache?uuid=";
 
 @interface PBCacheLoader ()
 

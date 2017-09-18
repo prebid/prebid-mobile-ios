@@ -13,10 +13,11 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
-#import "PBInterstitialDemandSDKAdapterDelegate.h"
+@import Foundation;
 @import GoogleMobileAds;
+#import "PBCustomEventBannerDelegate.h"
 
-@interface PrebidMobileDemandSDKInterstitialAdapterForDFP : NSObject<GADCustomEventInterstitial, PBInterstitialDemandSDKAdapterDelegate>
+@interface PrebidMobileCustomEventBanner : NSObject<GADCustomEventBanner, PBCustomEventBannerDelegate>
+
 
 @end

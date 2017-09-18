@@ -14,14 +14,14 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBInterstitialDemandSDKAdapterDelegate.h"
+#import "PBCustomEventInterstitialDelegate.h"
 
 @interface PBBaseInterstitialAdLoader : NSObject
 
-@property (nonatomic, weak) id<PBInterstitialDemandSDKAdapterDelegate> delegate;
+@property (nonatomic, weak) id<PBCustomEventInterstitialDelegate> delegate;
 @property (nonatomic, strong) id interstitialAd;
 
-- (instancetype)initWithDelegate:(id<PBInterstitialDemandSDKAdapterDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<PBCustomEventInterstitialDelegate>)delegate;
 - (void)loadInterstitialAd:(NSDictionary *)info;
 
 - (void)showAdFromRootViewController:(UIViewController *)vc;

@@ -15,12 +15,12 @@
 
 #import "PBCacheLoader.h"
 #import "PBFacebookInterstitialAdLoader.h"
-#import "PrebidMobileDemandSDKInterstitialAdapterForDFP.h"
+#import "PrebidMobileCustomEventInterstitial.h"
 #import "PrebidMobileDemandSDKLoadSettings.h"
 
 static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediationAdapter";
 
-@interface PrebidMobileDemandSDKInterstitialAdapterForDFP()
+@interface PrebidMobileCustomEventInterstitial()
 
 @property (strong, nonatomic) NSString *cacheId;
 @property (strong, nonatomic) NSString *bidder;
@@ -29,7 +29,7 @@ static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediati
 
 @end
 
-@implementation PrebidMobileDemandSDKInterstitialAdapterForDFP
+@implementation PrebidMobileCustomEventInterstitial
 
 @synthesize delegate;
 @synthesize viewControllerForPresentingModalView;
@@ -60,7 +60,7 @@ static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediati
 }
 
 - (void)loadAd:(NSDictionary *)responseDict {
-    if ([self.bidder isEqualToString:@"audienceNetwork"] && [[PrebidMobileDemandSDKLoadSettings sharedInstance] isDemandEnabled:@(PBDemandSourceFacebook)]) {
+    if ([self.bidder isEqualToString:@"audienceNetwork"]) {
         self.adLoader = [[PBFacebookInterstitialAdLoader alloc] initWithDelegate:self];
         [self.adLoader loadInterstitialAd:responseDict];
     } else {

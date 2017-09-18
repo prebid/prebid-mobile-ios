@@ -28,6 +28,7 @@
 #import "PBServerLocation.h"
 #import "PBServerReachability.h"
 #import "PBTargetingParams.h"
+#import "PrebidMobileDemandSDKLoadSettings.h"
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 
@@ -153,7 +154,10 @@ static NSString *const kPrebidMobileVersion = @"0.0.2";
         adUnitConfig[@"sizes"] = sizeArray;
         
         adUnitConfig[@"config_id"] = adUnit.configId;
-        //TODO nicole add interstitial here
+        if (adUnit.adType == PBAdUnitTypeInterstitial && [[PrebidMobileDemandSDKLoadSettings sharedInstance] isDemandEnabled:@"audienceNetwork"]) {
+            adUnitConfig[@"instl"] = @(1);
+            [adUnitConfig[@"sizes"] addObject:[NSDictionary dictionaryWithObjectsAndKeys:@(0), @"w", @(0), @"h", nil]];
+        }
         [adUnitConfigs addObject:adUnitConfig];
     }
     requestDict[@"ad_units"] = adUnitConfigs;
@@ -183,7 +187,9 @@ static NSString *const kPrebidMobileVersion = @"0.0.2";
             break;
     }
     userDict[@"gender"] = gender;
-    userDict[@"buyeruid"] = @"eJxFUctqwzAQ\/BedZaOH7Ti5yZLaiPiFZSeEUkxMRBtIbdNQKJT+e7VuIBfBzu7szKx+UKnbQ9Xs+vZYa7ShGFltranK3ii0QRHNIspVGkQ6ifzDs0BEXAVKSpZEMtKEJAijvJIi93Tkxr6z6LGkNQXA6TpcJ2nMUsIZJywFTmX3urG+uQ55GC8c2TWmPfbKWJHlGvQJ4GrXS1GLzOS+68EXjiMc4xVeY0owZZgmmK5e\/WihlREtCFvd7I0EbQ9nXakWe2KeS\/f9dQvrTzdczsU0XK5OuY8JZGSjddlvtXnetmgTJylGoq6zzuTghPqRrlwMEN94qj02nB1z6YN7MKrdog1nBOL5gUsFx\/Bb7lFpCIEKsbubuTpfyqrR\/X0hSYbhBDNKl\/Y\/Lfs\/AWybbsCulM6hqt+n0fnk9xOBhE8OnxayOCTBaZ7HJaxPer6Mb+j3D8JhfvM=";//[self getFBBuyerUID];
+    if ([[PrebidMobileDemandSDKLoadSettings sharedInstance] isDemandEnabled:@"audienceNetwork"]) {
+        userDict[@"buyeruid"] = @"eJxFUctqwzAQ\/BedZaOH7Ti5yZLaiPiFZSeEUkxMRBtIbdNQKJT+e7VuIBfBzu7szKx+UKnbQ9Xs+vZYa7ShGFltranK3ii0QRHNIspVGkQ6ifzDs0BEXAVKSpZEMtKEJAijvJIi93Tkxr6z6LGkNQXA6TpcJ2nMUsIZJywFTmX3urG+uQ55GC8c2TWmPfbKWJHlGvQJ4GrXS1GLzOS+68EXjiMc4xVeY0owZZgmmK5e\/WihlREtCFvd7I0EbQ9nXakWe2KeS\/f9dQvrTzdczsU0XK5OuY8JZGSjddlvtXnetmgTJylGoq6zzuTghPqRrlwMEN94qj02nB1z6YN7MKrdog1nBOL5gUsFx\/Bb7lFpCIEKsbubuTpfyqrR\/X0hSYbhBDNKl\/Y\/Lfs\/AWybbsCulM6hqt+n0fnk9xOBhE8OnxayOCTBaZ7HJaxPer6Mb+j3D8JhfvM=";//[self getFBBuyerUID];
+    }
 
     NSString *language = [NSLocale preferredLanguages][0];
     if (language.length) {

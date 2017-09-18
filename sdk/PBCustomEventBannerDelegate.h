@@ -15,7 +15,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol PBBannerDemandSDKAdapterDelegate<NSObject>
+@protocol PBCustomEventBannerDelegate<NSObject>
 
 @property(nonatomic, readonly) UIViewController *viewControllerForPresentingModalView;
 

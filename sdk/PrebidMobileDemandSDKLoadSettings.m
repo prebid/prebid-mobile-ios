@@ -90,9 +90,11 @@ static dispatch_once_t onceToken;
     }
 }
 
-- (BOOL)isDemandEnabled:(NSNumber *)demand {
+- (BOOL)isDemandEnabled:(NSString *)demand {
     if (self.demandSet) {
-        return [self.demandSet containsObject:demand];
+        if ([demand isEqualToString:@"audienceNetwork"]) {
+            return [self.demandSet containsObject:@(PBDemandSourceFacebook)];
+        }
     }
     return NO;
 }

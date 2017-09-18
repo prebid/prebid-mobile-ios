@@ -13,11 +13,17 @@
  limitations under the License.
  */
 
-@import Foundation;
-@import GoogleMobileAds;
-#import "PBBannerDemandSDKAdapterDelegate.h"
+#import <UIKit/UIKit.h>
 
-@interface PrebidMobileDemandSDKAdapterForDFP : NSObject<GADCustomEventBanner, PBBannerDemandSDKAdapterDelegate>
+@protocol PBCustomEventInterstitialDelegate<NSObject>
 
+@property(nonatomic, readonly) UIViewController *viewControllerForPresentingModalView;
+
+@optional
+- (void)didLoadAd:(id)interstitialAd;
+- (void)ad:(id)interstitialAd didFailWithError:(NSError *)error;
+- (void)trackImpression;
+- (void)didClickAd:(id)interstitialAd;
+- (void)didFinishHandlingClick:(id)interstitialAd;
 
 @end
