@@ -19,9 +19,9 @@
  * Gender selection enumerator to be passed in by the user
  */
 typedef NS_ENUM(NSUInteger, PBTargetingParamsGender) {
-    PBTargetingParamsGenderFemale = 0,
-    PBTargetingParamsGenderMale,
-    PBTargetingParamsGenderUnknown
+    PBTargetingParamsGenderUnknown = 0,
+    PBTargetingParamsGenderFemale,
+    PBTargetingParamsGenderMale
 };
 
 @interface PBTargetingParams : NSObject

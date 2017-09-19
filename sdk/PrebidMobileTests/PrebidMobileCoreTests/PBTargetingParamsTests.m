@@ -33,6 +33,9 @@
 }
 
 - (void)testSetGenderTargeting {
+    // Test default gender is unknown
+    XCTAssertEqual(PBTargetingParamsGenderUnknown, [[PBTargetingParams sharedInstance] gender]);
+
     [[PBTargetingParams sharedInstance] setGender:PBTargetingParamsGenderFemale];
     XCTAssertEqual(PBTargetingParamsGenderFemale, [[PBTargetingParams sharedInstance] gender]);
     [[PBTargetingParams sharedInstance] setGender:PBTargetingParamsGenderMale];
