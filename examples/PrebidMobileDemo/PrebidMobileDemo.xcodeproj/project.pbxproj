@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C23386CB1EE5DAC9002FD404 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C23386CA1EE5DAA7002FD404 /* PrebidMobile.framework */; };
-		C23386CC1EE5DAC9002FD404 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C23386CA1EE5DAA7002FD404 /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C255C7311F44895D0089CB41 /* MPBannerAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C255C5B61F44895C0089CB41 /* MPBannerAdManager.m */; };
 		C255C7321F44895D0089CB41 /* MPBannerCustomEventAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = C255C5B91F44895C0089CB41 /* MPBannerCustomEventAdapter.m */; };
 		C255C7331F44895D0089CB41 /* MPBaseBannerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = C255C5BB1F44895C0089CB41 /* MPBaseBannerAdapter.m */; };
@@ -273,7 +272,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C23386CC1EE5DAC9002FD404 /* PrebidMobile.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
