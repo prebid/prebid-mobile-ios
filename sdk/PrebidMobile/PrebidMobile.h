@@ -13,8 +13,7 @@
  limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
-#import "PBLogging.h"
+@import Foundation.NSString;
 
 @class PBAdUnit;
 

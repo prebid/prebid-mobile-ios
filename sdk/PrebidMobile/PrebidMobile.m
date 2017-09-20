@@ -15,6 +15,7 @@
 
 #import "PBBidManager.h"
 #import "PrebidMobile.h"
+#import "PBLogging.h"
 
 @implementation PrebidMobile
 
