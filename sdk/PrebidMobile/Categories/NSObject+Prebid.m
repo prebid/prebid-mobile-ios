@@ -36,7 +36,7 @@
                                                                withSelector:@selector(pb_loadRequest:)];
             [NSClassFromString(@"DFPInterstitial") pb_swizzleInstanceSelector:@selector(loadRequest:)
                                                                withSelector:@selector(pb_loadRequest:)];
-            [NSClassFromString(@"MPBannerAd0Manager") pb_swizzleInstanceSelector:@selector(loadAd)
+            [NSClassFromString(@"MPBannerAdManager") pb_swizzleInstanceSelector:@selector(loadAd)
                                                                    withSelector:@selector(pb_loadAd)];
             [NSClassFromString(@"MPBannerAdManager") pb_swizzleInstanceSelector:@selector(forceRefreshAd)
                                                                    withSelector:@selector(pb_forceRefreshAd)];
