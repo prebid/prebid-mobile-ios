@@ -66,6 +66,7 @@
 }
 
 - (NSDictionary *)processData:(NSData *)data {
+    NSDictionary *bidMap = [[NSDictionary alloc] init];
     NSError *error;
     id object = [NSJSONSerialization JSONObjectWithData:data
                                                 options:kNilOptions
@@ -84,11 +85,15 @@
             if ([status isEqualToString:@"OK"]) {
                 // check to make sure the request tid matches the response tid
                 NSString *responseTID = (NSString *)[response objectForKey:@"tid"];
-                if ([self.requestTIDs containsObject:responseTID]) {
-                    [self.requestTIDs removeObject:responseTID];
-                    return [self mapBidsToAdUnits:response];
-                } else {
-                    PBLogError(@"Response tid did not match request tid %@", response);
+                NSMutableArray *requestTIDsToDelete = [NSMutableArray array];
+                @synchronized (self.requestTIDs) {
+                    if ([self.requestTIDs containsObject:responseTID]) {
+                        [requestTIDsToDelete addObject:responseTID];
+                        bidMap = [self mapBidsToAdUnits:response];
+                    } else {
+                        PBLogError(@"Response tid did not match request tid %@", response);
+                    }
+                    [self.requestTIDs removeObjectsInArray:requestTIDsToDelete];
                 }
             }
             else {
@@ -98,7 +103,7 @@
     } else {
         PBLogError(@"Unexpected response structure received from ad server %@", object);
     }
-    return [[NSMutableDictionary alloc] init];
+    return bidMap;
 }
 
 - (NSDictionary *)mapBidsToAdUnits:(NSDictionary *)responseDict {
