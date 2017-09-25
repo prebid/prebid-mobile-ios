@@ -33,7 +33,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
 - (void)startNewAuction:(PBAdUnit *)adUnit;
 - (void)saveBidResponses:(nonnull NSArray<PBBidResponse *> *)bidResponse;
 - (void)checkForBidsExpired;
-- (PBBidResponse *)winningBidForAdUnit:(PBAdUnit *)adUnit;
+- (NSArray<PBBidResponse *> *)getBids:(PBAdUnit *)adUnit;
 
 @end
 
@@ -123,8 +123,10 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     PBBidResponse *bidResponse2 = [PBBidResponse bidResponseWithAdUnitId:bannerAdUnit.identifier adServerTargeting:testAdServerTargeting2];
     [[PBBidManager sharedInstance] saveBidResponses:@[bidResponse, bidResponse2]];
 
-    PBBidResponse *winningBid = [[PBBidManager sharedInstance] winningBidForAdUnit:bannerAdUnit];
-    XCTAssertEqual(winningBid.customKeywords[@"hb_pb"], bidResponse.customKeywords[@"hb_pb"]);
+    NSArray *bids = [[PBBidManager sharedInstance] getBids:bannerAdUnit];
+    PBBidResponse *topBid = [bids firstObject];
+    XCTAssertEqual([bids count], 2);
+    XCTAssertEqual(topBid.customKeywords[@"hb_pb"], @"4.14");
 }
 
 #pragma mark - Test keywords for winning bid for ad unit tests
