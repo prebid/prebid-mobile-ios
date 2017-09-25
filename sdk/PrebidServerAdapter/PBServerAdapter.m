@@ -257,7 +257,10 @@ static NSString *const kPrebidMobileVersion = @"0.0.4";
 
 - (NSDictionary *)geo {
     CLLocation *clLocation = [[PBTargetingParams sharedInstance] location];
-    PBServerLocation *location = [PBServerLocation getLocationWithLatitude:clLocation.coordinate.latitude longitude:clLocation.coordinate.longitude timestamp:clLocation.timestamp horizontalAccuracy:clLocation.horizontalAccuracy];
+    PBServerLocation *location;
+    if (clLocation) {
+        location = [PBServerLocation getLocationWithLatitude:clLocation.coordinate.latitude longitude:clLocation.coordinate.longitude timestamp:clLocation.timestamp horizontalAccuracy:clLocation.horizontalAccuracy];
+    }
     if (location) {
         NSMutableDictionary *geoDict = [[NSMutableDictionary alloc] init];
         CGFloat latitude = location.latitude;
