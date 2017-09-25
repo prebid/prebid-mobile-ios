@@ -114,9 +114,9 @@ static dispatch_once_t onceToken;
 }
 
 - (nullable NSDictionary<NSString *, NSString *> *)keywordsForWinningBidForAdUnit:(nonnull PBAdUnit *)adUnit {
-    NSArray *bids = [_bidsMap objectForKey:adUnit.identifier];
-    PBBidResponse *bid = [self winningBidForAdUnit:adUnit];
-    if (bid) {
+    NSArray *bids = [self getWinningBids:adUnit];
+    [self startNewAuction:adUnit];
+    if (bids) {
         PBLogDebug(@"Bid is available to create keywords");
         NSMutableDictionary<NSString *, NSString *> *keywords = [[NSMutableDictionary alloc] init];
         for (PBBidResponse *bidResp in bids) {
@@ -236,23 +236,20 @@ static dispatch_once_t onceToken;
     if (_adUnits != nil && _adUnits.count > 0) {
         NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
         for (PBAdUnit *adUnit in _adUnits) {
-            if ([adUnit shouldExpireAllBids:currentTime]) {
+            NSMutableArray *bids = [_bidsMap objectForKey:adUnit.identifier];
+            if (bids && [bids count] > 0 && [adUnit shouldExpireAllBids:currentTime]) {
                 [self startNewAuction:adUnit];
             }
         }
     }
 }
 
-- (PBBidResponse *)winningBidForAdUnit:(PBAdUnit *)adUnit {
+- (nullable NSArray<PBBidResponse *> *)getWinningBids:(PBAdUnit *)adUnit {
     NSMutableArray *bids = [_bidsMap objectForKey:adUnit.identifier];
-    // can just take the first bid in the array because bids were already sorted server side
-    PBBidResponse *topBidResponse = bids[0];
-    if (topBidResponse && topBidResponse.isExpired == NO) {
-        [self startNewAuction:adUnit];
-    } else {
-        PBLogDebug(@"No bid responses for ad unit %@", adUnit.identifier);
+    if (bids && [bids count] > 0) {
+        return bids;
     }
-    return topBidResponse;
+    return nil;
 }
 
 - (BOOL)isBidReady:(NSString *)identifier {
