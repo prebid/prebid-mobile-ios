@@ -31,7 +31,7 @@
 
 static NSString *const kAPNAdServerResponseKeyNoBid = @"nobid";
 static NSString *const kAPNAdServerResponseKeyUUID = @"uuid";
-static NSString *const kPrebidMobileVersion = @"0.0.3";
+static NSString *const kPrebidMobileVersion = @"0.0.4";
 
 @interface PBServerAdapter ()
 
