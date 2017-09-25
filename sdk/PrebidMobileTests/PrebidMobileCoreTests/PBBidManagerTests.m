@@ -273,4 +273,16 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     }];
 }
 
+- (void)testCheckForBidsExpiredNoBid {
+    PBAdUnit *adUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt13" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
+    [adUnit addSize:CGSizeMake(320, 50)];
+    [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId];
+
+    // On no bid response bids should not be considered expired
+    NSString *originalUUID = adUnit.uuid;
+
+    [[PBBidManager sharedInstance] checkForBidsExpired];
+    XCTAssertTrue([originalUUID isEqualToString:adUnit.uuid]);
+}
+
 @end

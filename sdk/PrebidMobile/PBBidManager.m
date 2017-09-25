@@ -253,7 +253,9 @@ static dispatch_once_t onceToken;
 }
 
 - (BOOL)isBidReady:(NSString *)identifier {
-    if ([[_bidsMap allKeys] containsObject:identifier] && [_bidsMap objectForKey:identifier] != nil) {
+    if ([[_bidsMap allKeys] containsObject:identifier] &&
+        [_bidsMap objectForKey:identifier] != nil &&
+        [[_bidsMap objectForKey:identifier] count] > 0) {
         PBLogDebug(@"Bid is ready for ad unit with identifier %@", identifier);
         return YES;
     }
