@@ -114,10 +114,10 @@ static dispatch_once_t onceToken;
 }
 
 - (nullable NSDictionary<NSString *, NSString *> *)keywordsForWinningBidForAdUnit:(nonnull PBAdUnit *)adUnit {
-    NSArray *bids = [_bidsMap objectForKey:adUnit.identifier];
-    PBBidResponse *bid = [self winningBidForAdUnit:adUnit];
-    if (bid) {
-        PBLogDebug(@"Bid is available to create keywords");
+    NSArray *bids = [self getBids:adUnit];
+    [self startNewAuction:adUnit];
+    if (bids) {
+        PBLogDebug(@"Bids available to create keywords");
         NSMutableDictionary<NSString *, NSString *> *keywords = [[NSMutableDictionary alloc] init];
         for (PBBidResponse *bidResp in bids) {
             [keywords addEntriesFromDictionary:bidResp.customKeywords];
@@ -137,18 +137,12 @@ static dispatch_once_t onceToken;
         if (existingExtras) {
             mutableExtras = [existingExtras mutableCopy];
         }
-        
         for (id key in keywordsPairs) {
-            
             id value = [keywordsPairs objectForKey:key];
-            if ([key isEqualToString:@"pb_adurl_enc"]) {
-                value = [value urlencode];
-            }
             if (value) {
                 mutableExtras[key] = value;
             }
         }
-        
         mutableRequestParameters[@"extras"] = [mutableExtras copy];
         requestParameters = [mutableRequestParameters copy];
     }
@@ -177,7 +171,6 @@ static dispatch_once_t onceToken;
                                   completionHandler:handler];
             });
         } else {
-            PBLogDebug(@"Bidding failed to finish within timeout for ad unit %@", adUnitIdentifier);
             PBLogDebug(@"Attempting to attach cached bid for ad unit %@", adUnitIdentifier);
             PBLogDebug(@"Calling completionHandler on attachTopBidWhenReady");
             handler();
@@ -211,15 +204,18 @@ static dispatch_once_t onceToken;
 }
 
 - (void)saveBidResponses:(NSArray <PBBidResponse *> *)bidResponses {
-    PBBidResponse *bid = (PBBidResponse *)bidResponses[0];
-    [_bidsMap setObject:[bidResponses mutableCopy] forKey:bid.adUnitId];
+    if ([bidResponses count] > 0) {
+        PBBidResponse *bid = (PBBidResponse *)bidResponses[0];
+        [_bidsMap setObject:[bidResponses mutableCopy] forKey:bid.adUnitId];
 
-    // TODO: if prebid server returns expiry time for bids we need to change this implementation
-    NSTimeInterval timeToExpire = bid.timeToExpireAfter + [[NSDate date] timeIntervalSince1970];
-    PBAdUnit *adUnit = [self adUnitByIdentifier:bid.adUnitId];
-    [adUnit setTimeIntervalToExpireAllBids:timeToExpire];
+        // TODO: if prebid server returns expiry time for bids we need to change this implementation
+        NSTimeInterval timeToExpire = bid.timeToExpireAfter + [[NSDate date] timeIntervalSince1970];
+        PBAdUnit *adUnit = [self adUnitByIdentifier:bid.adUnitId];
+        [adUnit setTimeIntervalToExpireAllBids:timeToExpire];
+    }
 }
 
+// Poll every 30 seconds to check for expired bids
 - (void)startPollingBidsExpiryTimer {
     __weak PBBidManager *weakSelf = self;
     if ([[NSTimer class] respondsToSelector:@selector(pb_scheduledTimerWithTimeInterval:block:repeats:)]) {
@@ -236,27 +232,26 @@ static dispatch_once_t onceToken;
     if (_adUnits != nil && _adUnits.count > 0) {
         NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
         for (PBAdUnit *adUnit in _adUnits) {
-            if ([adUnit shouldExpireAllBids:currentTime]) {
+            NSMutableArray *bids = [_bidsMap objectForKey:adUnit.identifier];
+            if (bids && [bids count] > 0 && [adUnit shouldExpireAllBids:currentTime]) {
                 [self startNewAuction:adUnit];
             }
         }
     }
 }
 
-- (PBBidResponse *)winningBidForAdUnit:(PBAdUnit *)adUnit {
+- (nullable NSArray<PBBidResponse *> *)getBids:(PBAdUnit *)adUnit {
     NSMutableArray *bids = [_bidsMap objectForKey:adUnit.identifier];
-    // can just take the first bid in the array because bids were already sorted server side
-    PBBidResponse *topBidResponse = bids[0];
-    if (topBidResponse && topBidResponse.isExpired == NO) {
-        [self startNewAuction:adUnit];
-    } else {
-        PBLogDebug(@"No bid responses for ad unit %@", adUnit.identifier);
+    if (bids && [bids count] > 0) {
+        return bids;
     }
-    return topBidResponse;
+    return nil;
 }
 
 - (BOOL)isBidReady:(NSString *)identifier {
-    if ([[_bidsMap allKeys] containsObject:identifier] && [_bidsMap objectForKey:identifier] != nil) {
+    if ([[_bidsMap allKeys] containsObject:identifier] &&
+        [_bidsMap objectForKey:identifier] != nil &&
+        [[_bidsMap objectForKey:identifier] count] > 0) {
         PBLogDebug(@"Bid is ready for ad unit with identifier %@", identifier);
         return YES;
     }
@@ -265,7 +260,7 @@ static dispatch_once_t onceToken;
 
 - (void)setBidOnAdObject:(NSObject *)adObject {
     [self clearBidOnAdObject:adObject];
-    
+
     if (adObject.pb_identifier) {
         NSMutableArray *mutableKeywords;
         NSString *keywords = @"";
