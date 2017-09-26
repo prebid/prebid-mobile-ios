@@ -110,6 +110,20 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     XCTAssertNil(returnedAdUnit);
 }
 
+- (void)testRegisterAdUnitWithSameIdentifier {
+    PBAdUnit *returnedUnit = nil;
+    PBAdUnit *bannerAdUnit1 = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"sameid" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
+    [bannerAdUnit1 addSize:CGSizeMake(320, 50)];
+    PBAdUnit *bannerAdUnit2 = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"sameid" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
+    [bannerAdUnit2 addSize:CGSizeMake(320, 50)];
+
+    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit1, bannerAdUnit2] withAccountId:self.accountId];
+    returnedUnit = [[PBBidManager sharedInstance] adUnitByIdentifier:[bannerAdUnit1 identifier]];
+
+    XCTAssertNotNil(returnedUnit);
+    XCTAssertEqualObjects(returnedUnit.identifier, bannerAdUnit1.identifier);
+}
+
 #pragma mark - Test winning bid for ad unit
 
 - (void)testWinningBidForAdUnit {
