@@ -69,19 +69,19 @@
 // dfp ad slot
 - (id)pb_requestParameters {
     __block id requestParameters = [self pb_requestParameters];
-    
+
     SEL adEventDelegateSel = NSSelectorFromString(@"adEventDelegate");
     if ([self respondsToSelector:adEventDelegateSel]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         id adEventDelegate = [self performSelector:adEventDelegateSel];
         NSDictionary<NSString *, NSString *> *keywordsPairs;
-        
+
         SEL getPb_identifier = NSSelectorFromString(@"pb_identifier");
         if ([adEventDelegate respondsToSelector:getPb_identifier]) {
             PBAdUnit *adUnit = (PBAdUnit *)[adEventDelegate performSelector:getPb_identifier];
 #pragma clang diagnostic pop
-            
+
             keywordsPairs = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
             requestParameters = [[PBBidManager sharedInstance] addPrebidParameters:requestParameters withKeywords:keywordsPairs];
         }

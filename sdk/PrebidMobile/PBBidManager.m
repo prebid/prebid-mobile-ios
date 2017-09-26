@@ -117,7 +117,7 @@ static dispatch_once_t onceToken;
     NSArray *bids = [self getBids:adUnit];
     [self startNewAuction:adUnit];
     if (bids) {
-        PBLogDebug(@"Bid is available to create keywords");
+        PBLogDebug(@"Bids available to create keywords");
         NSMutableDictionary<NSString *, NSString *> *keywords = [[NSMutableDictionary alloc] init];
         for (PBBidResponse *bidResp in bids) {
             [keywords addEntriesFromDictionary:bidResp.customKeywords];
@@ -137,18 +137,12 @@ static dispatch_once_t onceToken;
         if (existingExtras) {
             mutableExtras = [existingExtras mutableCopy];
         }
-        
         for (id key in keywordsPairs) {
-            
             id value = [keywordsPairs objectForKey:key];
-            if ([key isEqualToString:@"pb_adurl_enc"]) {
-                value = [value urlencode];
-            }
             if (value) {
                 mutableExtras[key] = value;
             }
         }
-        
         mutableRequestParameters[@"extras"] = [mutableExtras copy];
         requestParameters = [mutableRequestParameters copy];
     }
@@ -177,7 +171,6 @@ static dispatch_once_t onceToken;
                                   completionHandler:handler];
             });
         } else {
-            PBLogDebug(@"Bidding failed to finish within timeout for ad unit %@", adUnitIdentifier);
             PBLogDebug(@"Attempting to attach cached bid for ad unit %@", adUnitIdentifier);
             PBLogDebug(@"Calling completionHandler on attachTopBidWhenReady");
             handler();
@@ -211,15 +204,18 @@ static dispatch_once_t onceToken;
 }
 
 - (void)saveBidResponses:(NSArray <PBBidResponse *> *)bidResponses {
-    PBBidResponse *bid = (PBBidResponse *)bidResponses[0];
-    [_bidsMap setObject:[bidResponses mutableCopy] forKey:bid.adUnitId];
+    if ([bidResponses count] > 0) {
+        PBBidResponse *bid = (PBBidResponse *)bidResponses[0];
+        [_bidsMap setObject:[bidResponses mutableCopy] forKey:bid.adUnitId];
 
-    // TODO: if prebid server returns expiry time for bids we need to change this implementation
-    NSTimeInterval timeToExpire = bid.timeToExpireAfter + [[NSDate date] timeIntervalSince1970];
-    PBAdUnit *adUnit = [self adUnitByIdentifier:bid.adUnitId];
-    [adUnit setTimeIntervalToExpireAllBids:timeToExpire];
+        // TODO: if prebid server returns expiry time for bids we need to change this implementation
+        NSTimeInterval timeToExpire = bid.timeToExpireAfter + [[NSDate date] timeIntervalSince1970];
+        PBAdUnit *adUnit = [self adUnitByIdentifier:bid.adUnitId];
+        [adUnit setTimeIntervalToExpireAllBids:timeToExpire];
+    }
 }
 
+// Poll every 30 seconds to check for expired bids
 - (void)startPollingBidsExpiryTimer {
     __weak PBBidManager *weakSelf = self;
     if ([[NSTimer class] respondsToSelector:@selector(pb_scheduledTimerWithTimeInterval:block:repeats:)]) {
@@ -264,7 +260,7 @@ static dispatch_once_t onceToken;
 
 - (void)setBidOnAdObject:(NSObject *)adObject {
     [self clearBidOnAdObject:adObject];
-    
+
     if (adObject.pb_identifier) {
         NSMutableArray *mutableKeywords;
         NSString *keywords = @"";
