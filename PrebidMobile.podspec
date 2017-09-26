@@ -40,6 +40,6 @@ Pod::Spec.new do |s|
 :HEADER_SEARCH_PATHS => '$(inherited)',
 :FRAMEWORK_SEARCH_PATHS => '$(inherited)'
 }
-  s.framework  = ['MediaPlayer', 'AVFoundation', 'EventKit', 'CoreTelephony', 'CoreData', 'SystemConfiguration', 'CoreGraphics', 'UIKit', 'Foundation', 'MessageUI', 'StoreKit']
+  s.framework  = ['CoreTelephony', 'SystemConfiguration', 'UIKit', 'Foundation']
 
 end
