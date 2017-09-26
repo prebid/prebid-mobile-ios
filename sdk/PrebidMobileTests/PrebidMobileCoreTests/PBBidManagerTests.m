@@ -33,6 +33,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
 - (void)startNewAuction:(PBAdUnit *)adUnit;
 - (void)saveBidResponses:(nonnull NSArray<PBBidResponse *> *)bidResponse;
 - (void)checkForBidsExpired;
+- (void)registerAdUnit:(PBAdUnit *)adUnit;
 - (NSArray<PBBidResponse *> *)getBids:(PBAdUnit *)adUnit;
 
 @end
@@ -264,9 +265,16 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
 
 - (void)testCheckForBidsExpired {
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    // This test is a bit confusing. The first ad unit is registered to initialize Prebid and the ad units set using the public API.
+    PBAdUnit *adUnitTest = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt21" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
+    [adUnitTest addSize:CGSizeMake(320, 50)];
+    [[PBBidManager sharedInstance] registerAdUnits:@[adUnitTest] withAccountId:self.accountId];
+
+    // We initialize this ad unit using the private function to ensure a request doesn't go out and the timeToExpireAfter doesn't get reset
+    // to 4 min and 30 seconds instead of 1 second for testing.
     PBAdUnit *adUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt12" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     [adUnit addSize:CGSizeMake(320, 50)];
-    [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId];
+    [[PBBidManager sharedInstance] registerAdUnit:adUnit];
     
     NSDictionary *testAdServerTargeting = @{@"hb_pb":@"4.14", @"hb_cache_id":@"0000-0000-000-0000", @"hb_bidder": @"appnexus"};
     PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnit.identifier adServerTargeting:testAdServerTargeting];
