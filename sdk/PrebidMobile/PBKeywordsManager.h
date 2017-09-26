@@ -13,7 +13,6 @@
  limitations under the License.
  */
 
-#import <CoreGraphics/CoreGraphics.h>
 #import <Foundation/Foundation.h>
 
 @class PBBidResponse;
