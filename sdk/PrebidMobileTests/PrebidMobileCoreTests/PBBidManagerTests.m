@@ -122,7 +122,8 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     returnedUnit = [[PBBidManager sharedInstance] adUnitByIdentifier:[bannerAdUnit1 identifier]];
 
     XCTAssertNotNil(returnedUnit);
-    XCTAssertEqualObjects(returnedUnit.identifier, bannerAdUnit1.identifier);
+    // Test that the second banner ad unit is the one that is registered, not the first banner ad unit
+    XCTAssertEqualObjects(returnedUnit, bannerAdUnit2);
 }
 
 #pragma mark - Test winning bid for ad unit
