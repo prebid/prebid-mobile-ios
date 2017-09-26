@@ -116,6 +116,7 @@ static dispatch_once_t onceToken;
 - (nullable NSDictionary<NSString *, NSString *> *)keywordsForWinningBidForAdUnit:(nonnull PBAdUnit *)adUnit {
     NSArray *bids = [self getBids:adUnit];
     [self startNewAuction:adUnit];
+    [self requestBidsForAdUnits:@[adUnit]];
     if (bids) {
         PBLogDebug(@"Bids available to create keywords");
         NSMutableDictionary<NSString *, NSString *> *keywords = [[NSMutableDictionary alloc] init];
@@ -200,7 +201,6 @@ static dispatch_once_t onceToken;
 - (void)startNewAuction:(PBAdUnit *)adUnit {
     [adUnit generateUUID];
     [_bidsMap removeObjectForKey:adUnit.identifier];
-    [self requestBidsForAdUnits:@[adUnit]];
 }
 
 - (void)saveBidResponses:(NSArray <PBBidResponse *> *)bidResponses {
@@ -231,11 +231,16 @@ static dispatch_once_t onceToken;
 - (void)checkForBidsExpired {
     if (_adUnits != nil && _adUnits.count > 0) {
         NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
+        NSMutableArray *adUnitsToRequest = [[NSMutableArray alloc] init];
         for (PBAdUnit *adUnit in _adUnits) {
             NSMutableArray *bids = [_bidsMap objectForKey:adUnit.identifier];
             if (bids && [bids count] > 0 && [adUnit shouldExpireAllBids:currentTime]) {
+                [adUnitsToRequest addObject:adUnit];
                 [self startNewAuction:adUnit];
             }
+        }
+        if ([adUnitsToRequest count] > 0) {
+            [self requestBidsForAdUnits:adUnitsToRequest];
         }
     }
 }
