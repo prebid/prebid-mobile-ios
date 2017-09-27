@@ -185,10 +185,18 @@ static dispatch_once_t onceToken;
     if (adUnit.adSizes == nil && adUnit.adType == PBAdUnitTypeBanner) {
         @throw [PBException exceptionWithName:PBAdUnitNoSizeException];
     }
-    // Check if adunit already exists, if so remove it
-    if ([_adUnits containsObject:adUnit]) {
+    // Check if ad unit already exists, if so remove it
+    NSMutableArray *adUnitsToRemove = [[NSMutableArray alloc] init];
+    for (PBAdUnit *existingAdUnit in _adUnits) {
+        if ([existingAdUnit.identifier isEqualToString:adUnit.identifier]) {
+            [adUnitsToRemove addObject:existingAdUnit];
+        }
+    }
+    for (PBAdUnit *adUnit in adUnitsToRemove) {
         [_adUnits removeObject:adUnit];
     }
+
+    // Finish registration of ad unit by adding it to adUnits
     [_adUnits addObject:adUnit];
     PBLogDebug(@"AdUnit %@ is registered with Prebid Mobile", adUnit.identifier);
 }
@@ -249,8 +257,7 @@ static dispatch_once_t onceToken;
 }
 
 - (BOOL)isBidReady:(NSString *)identifier {
-    if ([[_bidsMap allKeys] containsObject:identifier] &&
-        [_bidsMap objectForKey:identifier] != nil &&
+    if ([_bidsMap objectForKey:identifier] != nil &&
         [[_bidsMap objectForKey:identifier] count] > 0) {
         PBLogDebug(@"Bid is ready for ad unit with identifier %@", identifier);
         return YES;
