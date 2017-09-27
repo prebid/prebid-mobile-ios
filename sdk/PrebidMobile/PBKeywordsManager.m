@@ -17,8 +17,6 @@
 #import "PBKeywordsManager.h"
 
 #pragma mark Constants
-NSString *__nonnull const PBKeywordsManagerPreBidBidderCodeKey = @"hb_bidder";
-NSString *__nonnull const PBKeywordsManagerPreBidCacheIdKey = @"hb_cache_id";
 NSString *__nonnull const PBKeywordsManagerPriceHbpbKey = @"hb_pb";
 
 #pragma mark
@@ -29,9 +27,7 @@ NSString *__nonnull const PBKeywordsManagerPriceHbpbKey = @"hb_pb";
     static dispatch_once_t reservedKeysToken;
     static NSArray *keys;
     dispatch_once(&reservedKeysToken, ^{
-        keys = @[PBKeywordsManagerPreBidBidderCodeKey,
-                 PBKeywordsManagerPriceHbpbKey,
-                 PBKeywordsManagerPreBidCacheIdKey];
+        keys = @[PBKeywordsManagerPriceHbpbKey];
     });
     return keys;
 }

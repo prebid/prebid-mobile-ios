@@ -313,4 +313,19 @@ static NSString *const kPrebidMobileVersion = @"0.1.0";
     return precisionNumberFormatter;
 }
 
+- (NSString *)getFBBuyerUID {
+	NSString *buyerUID = @"";
+	SEL getBidderTokenSel = NSSelectorFromString(@"bidderToken");
+	if (NSClassFromString(@"FBAdSettings")) {
+        Class fbAdSettingsClass = NSClassFromString(@"FBAdSettings");
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            if ([fbAdSettingsClass respondsToSelector:getBidderTokenSel]) {
+                buyerUID = [fbAdSettingsClass performSelector:getBidderTokenSel];
+            }
+        #pragma clang diagnostic pop
+	}
+	return buyerUID;
+}
+
 @end

@@ -13,6 +13,7 @@
  limitations under the License.
  */
 
+@import FBAudienceNetwork;
 #import "BannerTestsViewController.h"
 #import "Constants.h"
 #import <GoogleMobileAds/DFPBannerView.h>
@@ -70,7 +71,11 @@
         
         [_adContainerView addSubview:_dfpAdView];
         
-        [PrebidMobile setBidKeywordsOnAdObject:_dfpAdView withAdUnitId:kAdUnit1Id withTimeout:600 completionHandler:^{
+        NSString *adUnitId = kAdUnit1Id;
+        if ([[self.settings objectForKey:kDemandSource] isEqualToString:kFBAudienceNetwork]) {
+            adUnitId = kFBBannerAdUnit;
+        }
+        [PrebidMobile setBidKeywordsOnAdObject:_dfpAdView withAdUnitId:adUnitId withTimeout:600 completionHandler:^{
             [_dfpAdView loadRequest:[DFPRequest request]];
         }];
     }
@@ -89,6 +94,7 @@
 
 - (void)adView:(DFPBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
     NSLog(@"DFP: %@", NSStringFromSelector(_cmd));
+    NSLog(@"ERROR: %@", error);
 }
 
 #pragma mark MPAdViewDelegate

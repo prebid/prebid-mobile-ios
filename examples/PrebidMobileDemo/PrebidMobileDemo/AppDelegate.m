@@ -62,9 +62,15 @@
         PBInterstitialAdUnit *__nullable adUnit2 = [[PBInterstitialAdUnit alloc] initWithAdUnitIdentifier:kAdUnit2Id andConfigId:kAdUnit2ConfigId];
         [adUnit1 addSize:CGSizeMake(300, 250)];
 
+        // fb ad units
+        PBBannerAdUnit *__nullable fbBannerAdUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:kFBBannerAdUnit andConfigId:kFBBannerAdUnitConfigId];
+        PBInterstitialAdUnit *__nullable fbInterstitialAdUnit = [[PBInterstitialAdUnit alloc] initWithAdUnitIdentifier:kFBIntAdUnit andConfigId:kFBBannerAdUnitConfigId];
+        [fbBannerAdUnit addSize:CGSizeMake(300, 250)];
+
         [self setPrebidTargetingParams];
 
-        [PrebidMobile registerAdUnits:@[adUnit1, adUnit2] withAccountId:kAccountId];
+        //[[PrebidMobileDemandSDKLoadSettings sharedInstance] enableDemandSources:@[@(PBDemandSourceFacebook)]];
+        [PrebidMobile registerAdUnits:@[adUnit1, fbBannerAdUnit, fbInterstitialAdUnit] withAccountId:kAccountId];
     } @catch (PBException *ex) {
         NSLog(@"%@",[ex reason]);
     } @finally {

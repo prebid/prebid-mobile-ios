@@ -32,6 +32,10 @@
 #pragma clang diagnostic ignored "-Wundeclared-selector"
             [NSClassFromString(@"GADSlot") pb_swizzleInstanceSelector:@selector(requestParameters)
                                                          withSelector:@selector(pb_requestParameters)];
+            [NSClassFromString(@"DFPBannerView") pb_swizzleInstanceSelector:@selector(loadRequest:)
+                                                               withSelector:@selector(pb_loadRequest:)];
+            [NSClassFromString(@"DFPInterstitial") pb_swizzleInstanceSelector:@selector(loadRequest:)
+                                                                 withSelector:@selector(pb_loadRequest:)];
             [NSClassFromString(@"MPBannerAdManager") pb_swizzleInstanceSelector:@selector(loadAd)
                                                                    withSelector:@selector(pb_loadAd)];
             [NSClassFromString(@"MPBannerAdManager") pb_swizzleInstanceSelector:@selector(forceRefreshAd)
@@ -88,6 +92,36 @@
     }
     return requestParameters;
 }
+
+// dfp load ad
+- (void)pb_loadRequest:(id)request {
+    PBAdUnit *adUnit;
+    SEL getPb_identifier = NSSelectorFromString(@"pb_identifier");
+	if ([self respondsToSelector:getPb_identifier]) {
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            adUnit = (PBAdUnit *)[self performSelector:getPb_identifier];
+        #pragma clang diagnostic pop
+	}
+
+	SEL setKeywordsSel = NSSelectorFromString(@"setKeywords:");
+	if ([request respondsToSelector:setKeywordsSel]) {
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            NSDictionary *keywordsPairs = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
+            NSString *cacheId = keywordsPairs[@"hb_cache_id"];
+            NSString *bidder = keywordsPairs[@"hb_bidder"];
+            if (cacheId && bidder) {
+                NSString *cacheIdKeyword = [@"hb_cache_id:" stringByAppendingString:cacheId];
+                NSString *bidderKeyword = [@"hb_bidder:" stringByAppendingString:bidder];
+                NSArray *arrayOfKeywordsToSet = @[cacheIdKeyword, bidderKeyword];
+                [request performSelector:setKeywordsSel withObject:arrayOfKeywordsToSet];
+            }
+        #pragma clang diagnostic pop
+    }
+	[self pb_loadRequest:request];
+}
+
 
 // mopub banner
 - (void)pb_applicationWillEnterForeground {
