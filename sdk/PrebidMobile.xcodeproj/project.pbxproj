@@ -15,7 +15,6 @@
 		C22601391F7C290B0015201B /* PBFacebookBannerAdLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C22601371F7C290B0015201B /* PBFacebookBannerAdLoader.m */; };
 		C226013C1F7C2A060015201B /* PBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = C226013A1F7C2A060015201B /* PBConstants.h */; };
 		C226013D1F7C2A060015201B /* PBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C226013B1F7C2A060015201B /* PBConstants.m */; };
-		C22601421F7C31F30015201B /* PrebidCustomEventBannerDFP.h in Headers */ = {isa = PBXBuildFile; fileRef = C22601401F7C31F30015201B /* PrebidCustomEventBannerDFP.h */; };
 		C22601481F7C32190015201B /* PBFacebookInterstitialAdLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = C22601461F7C32190015201B /* PBFacebookInterstitialAdLoader.h */; };
 		C22601491F7C32190015201B /* PBFacebookInterstitialAdLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C22601471F7C32190015201B /* PBFacebookInterstitialAdLoader.m */; };
 		C226014C1F7C32340015201B /* PrebidMobileDemandSDKLoaderSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = C226014A1F7C32340015201B /* PrebidMobileDemandSDKLoaderSettings.h */; };
@@ -24,6 +23,11 @@
 		C22601511F7C32630015201B /* PBBaseBannerAdLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C226014F1F7C32630015201B /* PBBaseBannerAdLoader.m */; };
 		C22601541F7C32700015201B /* PBBaseInterstitialAdLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = C22601521F7C32700015201B /* PBBaseInterstitialAdLoader.h */; };
 		C22601551F7C32700015201B /* PBBaseInterstitialAdLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C22601531F7C32700015201B /* PBBaseInterstitialAdLoader.m */; };
+		C22601611F7C39120015201B /* PrebidDemandSDKLoaderForDFP.h in Headers */ = {isa = PBXBuildFile; fileRef = C226015F1F7C39120015201B /* PrebidDemandSDKLoaderForDFP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C22601681F7C39320015201B /* PrebidCustomEventBannerDFP.h in Headers */ = {isa = PBXBuildFile; fileRef = C22601401F7C31F30015201B /* PrebidCustomEventBannerDFP.h */; };
+		C22601691F7C39320015201B /* PrebidCustomEventBannerDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = C22601411F7C31F30015201B /* PrebidCustomEventBannerDFP.m */; };
+		C226016A1F7C39320015201B /* PrebidCustomEventInterstitialDFP.h in Headers */ = {isa = PBXBuildFile; fileRef = C22601441F7C32080015201B /* PrebidCustomEventInterstitialDFP.h */; };
+		C226016B1F7C39320015201B /* PrebidCustomEventInterstitialDFP.m in Sources */ = {isa = PBXBuildFile; fileRef = C22601451F7C32080015201B /* PrebidCustomEventInterstitialDFP.m */; };
 		C22E7CE61EE70E19007B31F4 /* NSTimer+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B16E501EE1BEC4006304C0 /* NSTimer+Extension.m */; };
 		C23386D21EE5DBFB002FD404 /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = C23386D01EE5DBFB002FD404 /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C23386D31EE5DBFB002FD404 /* PrebidMobile.m in Sources */ = {isa = PBXBuildFile; fileRef = C23386D11EE5DBFB002FD404 /* PrebidMobile.m */; };
@@ -117,6 +121,9 @@
 		C226014F1F7C32630015201B /* PBBaseBannerAdLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBBaseBannerAdLoader.m; sourceTree = "<group>"; };
 		C22601521F7C32700015201B /* PBBaseInterstitialAdLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBBaseInterstitialAdLoader.h; sourceTree = "<group>"; };
 		C22601531F7C32700015201B /* PBBaseInterstitialAdLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBBaseInterstitialAdLoader.m; sourceTree = "<group>"; };
+		C226015D1F7C39120015201B /* PrebidDemandSDKLoaderForDFP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidDemandSDKLoaderForDFP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C226015F1F7C39120015201B /* PrebidDemandSDKLoaderForDFP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidDemandSDKLoaderForDFP.h; sourceTree = "<group>"; };
+		C22601601F7C39120015201B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C23386D01EE5DBFB002FD404 /* PrebidMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMobile.h; sourceTree = "<group>"; };
 		C23386D11EE5DBFB002FD404 /* PrebidMobile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMobile.m; sourceTree = "<group>"; };
 		C23386D41EE5DC95002FD404 /* PBAdUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBAdUnit.h; sourceTree = "<group>"; };
@@ -191,6 +198,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C22601591F7C39120015201B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C281E1791EE5EAF700F2F4A9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -218,14 +232,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C22601261F7C25760015201B /* PrebidDemandSDKLoader */ = {
+		C22601261F7C25760015201B /* PrebidDemandSDKLoaders */ = {
 			isa = PBXGroup;
 			children = (
+				C226015E1F7C39120015201B /* PrebidDemandSDKLoaderForDFP */,
 				C226012A1F7C27560015201B /* AdServerCustomEvents */,
 				C22601291F7C274D0015201B /* Common */,
 				C226012C1F7C276A0015201B /* DemandSDKLoaders */,
 			);
-			path = PrebidDemandSDKLoader;
+			path = PrebidDemandSDKLoaders;
 			sourceTree = "<group>";
 		};
 		C22601291F7C274D0015201B /* Common */ = {
@@ -281,6 +296,15 @@
 				C22601471F7C32190015201B /* PBFacebookInterstitialAdLoader.m */,
 			);
 			path = FacebookAudienceNetwork;
+			sourceTree = "<group>";
+		};
+		C226015E1F7C39120015201B /* PrebidDemandSDKLoaderForDFP */ = {
+			isa = PBXGroup;
+			children = (
+				C226015F1F7C39120015201B /* PrebidDemandSDKLoaderForDFP.h */,
+				C22601601F7C39120015201B /* Info.plist */,
+			);
+			path = PrebidDemandSDKLoaderForDFP;
 			sourceTree = "<group>";
 		};
 		C281E17D1EE5EAF700F2F4A9 /* PrebidMobileTests */ = {
@@ -341,11 +365,11 @@
 		C2B16E111EE1BE69006304C0 = {
 			isa = PBXGroup;
 			children = (
-				C2B16EA21EE1BF8A006304C0 /* Frameworks */,
-				C22601261F7C25760015201B /* PrebidDemandSDKLoader */,
+				C22601261F7C25760015201B /* PrebidDemandSDKLoaders */,
 				C2B16E1D1EE1BE69006304C0 /* PrebidMobile */,
 				C281E17D1EE5EAF700F2F4A9 /* PrebidMobileTests */,
 				C2B16E881EE1BF1A006304C0 /* PrebidServerAdapter */,
+				C2B16EA21EE1BF8A006304C0 /* Frameworks */,
 				C2B16E1C1EE1BE69006304C0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -355,6 +379,7 @@
 			children = (
 				C2B16E1B1EE1BE69006304C0 /* PrebidMobile.framework */,
 				C281E17C1EE5EAF700F2F4A9 /* PrebidMobileTests.xctest */,
+				C226015D1F7C39120015201B /* PrebidDemandSDKLoaderForDFP.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -462,6 +487,16 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		C226015A1F7C39120015201B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C22601611F7C39120015201B /* PrebidDemandSDKLoaderForDFP.h in Headers */,
+				C22601681F7C39320015201B /* PrebidCustomEventBannerDFP.h in Headers */,
+				C226016A1F7C39320015201B /* PrebidCustomEventInterstitialDFP.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C2B16E181EE1BE69006304C0 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -490,7 +525,6 @@
 				C2B16E3B1EE1BEA6006304C0 /* PBInterstitialAdUnit.h in Headers */,
 				C2B16E9B1EE1BF1A006304C0 /* PBServerGlobal.h in Headers */,
 				C2B16E9F1EE1BF1A006304C0 /* PBServerReachability.h in Headers */,
-				C22601421F7C31F30015201B /* PrebidCustomEventBannerDFP.h in Headers */,
 				C2B16E9D1EE1BF1A006304C0 /* PBServerLocation.h in Headers */,
 				C2B16E981EE1BF1A006304C0 /* PBServerFetcher.h in Headers */,
 				C22601481F7C32190015201B /* PBFacebookInterstitialAdLoader.h in Headers */,
@@ -500,6 +534,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		C226015C1F7C39120015201B /* PrebidDemandSDKLoaderForDFP */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C22601621F7C39120015201B /* Build configuration list for PBXNativeTarget "PrebidDemandSDKLoaderForDFP" */;
+			buildPhases = (
+				C22601581F7C39120015201B /* Sources */,
+				C22601591F7C39120015201B /* Frameworks */,
+				C226015A1F7C39120015201B /* Headers */,
+				C226015B1F7C39120015201B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PrebidDemandSDKLoaderForDFP;
+			productName = PrebidDemandSDKLoaderForDFP;
+			productReference = C226015D1F7C39120015201B /* PrebidDemandSDKLoaderForDFP.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		C281E17B1EE5EAF700F2F4A9 /* PrebidMobileTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C281E1861EE5EAF700F2F4A9 /* Build configuration list for PBXNativeTarget "PrebidMobileTests" */;
@@ -545,6 +597,11 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Nicole Hedley";
 				TargetAttributes = {
+					C226015C1F7C39120015201B = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = HR94J6TSB3;
+						ProvisioningStyle = Automatic;
+					};
 					C281E17B1EE5EAF700F2F4A9 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = HR94J6TSB3;
@@ -571,11 +628,19 @@
 			targets = (
 				C2B16E1A1EE1BE69006304C0 /* PrebidMobile */,
 				C281E17B1EE5EAF700F2F4A9 /* PrebidMobileTests */,
+				C226015C1F7C39120015201B /* PrebidDemandSDKLoaderForDFP */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C226015B1F7C39120015201B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C281E17A1EE5EAF700F2F4A9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -596,6 +661,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C22601581F7C39120015201B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C226016B1F7C39320015201B /* PrebidCustomEventInterstitialDFP.m in Sources */,
+				C22601691F7C39320015201B /* PrebidCustomEventBannerDFP.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C281E1781EE5EAF700F2F4A9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -657,6 +731,68 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		C22601631F7C39120015201B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = PrebidDemandSDKLoaderForDFP/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidDemandSDKLoaderForDFP;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C22601641F7C39120015201B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = PrebidDemandSDKLoaderForDFP/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidDemandSDKLoaderForDFP;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		C281E1841EE5EAF700F2F4A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -824,6 +960,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C22601621F7C39120015201B /* Build configuration list for PBXNativeTarget "PrebidDemandSDKLoaderForDFP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C22601631F7C39120015201B /* Debug */,
+				C22601641F7C39120015201B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C281E1861EE5EAF700F2F4A9 /* Build configuration list for PBXNativeTarget "PrebidMobileTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
