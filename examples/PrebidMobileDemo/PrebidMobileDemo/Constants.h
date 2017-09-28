@@ -40,6 +40,8 @@ extern NSString *const kMoPubInterstitialAdUnitId;
 extern NSString *const kDFPAdServer;
 extern NSString *const kDFPBannerAdUnitId;
 extern NSString *const kDFPInterstitialAdUnitId;
+extern NSString *const kDFPBannerAdUnitIdDemandSDK;
+extern NSString *const kDFPInterstitialAdUnitIdDemandSDK;
 
 #pragma mark - Prebid Mobile constants
 extern NSString *const kAccountId;

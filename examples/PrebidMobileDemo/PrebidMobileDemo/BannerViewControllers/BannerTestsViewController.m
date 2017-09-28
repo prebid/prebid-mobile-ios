@@ -64,17 +64,19 @@
             [self.mopubAdView loadAd];
         }];
     } else if ([adServer isEqualToString:kDFPAdServer]) {
-        _dfpAdView = [[DFPBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(width, height))];
-        _dfpAdView.adUnitID = kDFPBannerAdUnitId;
-        _dfpAdView.rootViewController = self;
-        _dfpAdView.delegate = self;
-        
-        [_adContainerView addSubview:_dfpAdView];
-        
         NSString *adUnitId = kAdUnit1Id;
+        NSString *dfpAdViewId = kDFPBannerAdUnitId;
         if ([[self.settings objectForKey:kDemandSource] isEqualToString:kFBAudienceNetwork]) {
             adUnitId = kFBBannerAdUnit;
+            dfpAdViewId = kDFPBannerAdUnitIdDemandSDK;
         }
+
+        _dfpAdView = [[DFPBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(width, height))];
+        _dfpAdView.adUnitID = dfpAdViewId;
+        _dfpAdView.rootViewController = self;
+        _dfpAdView.delegate = self;
+
+        [_adContainerView addSubview:_dfpAdView];
         [PrebidMobile setBidKeywordsOnAdObject:_dfpAdView withAdUnitId:adUnitId withTimeout:600 completionHandler:^{
             [_dfpAdView loadRequest:[DFPRequest request]];
         }];

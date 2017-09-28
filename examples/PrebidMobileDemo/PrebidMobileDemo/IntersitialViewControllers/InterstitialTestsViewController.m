@@ -49,18 +49,20 @@
         }];
     }
     else if ([adServer isEqualToString:kDFPAdServer]) {
-        self.dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:kDFPInterstitialAdUnitId];
-        self.dfpInterstitial.delegate = self;
-    
         NSString *adUnitId = kAdUnit2Id;
+        NSString *dfpInterstitialAdUnitId = kDFPInterstitialAdUnitId;
         if ([[self.settings objectForKey:kDemandSource] isEqualToString:kFBAudienceNetwork]) {
             adUnitId = kFBIntAdUnit;
+            dfpInterstitialAdUnitId = kDFPInterstitialAdUnitIdDemandSDK;
         }
+
+        self.dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:dfpInterstitialAdUnitId];
+        self.dfpInterstitial.delegate = self;
+
         [PrebidMobile setBidKeywordsOnAdObject:self.dfpInterstitial withAdUnitId:adUnitId withTimeout:600 completionHandler:^{
             [self.dfpInterstitial loadRequest:[DFPRequest request]];
         }];
     }
-
 }
 
 - (void)didReceiveMemoryWarning {
