@@ -48,6 +48,8 @@ static int const kPCAttachTopBidMaxTimeoutMS = 1500;
  */
 - (void)assertAdUnitRegistered:(nonnull NSString *)identifier;
 
+- (void)startNewAuction:(nonnull PBAdUnit *)adUnit;
+
 /**
  * Returns the keywords pairs for the top bid of an adUnit
  */

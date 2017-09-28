@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C226016E1F7D34DC0015201B /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22601241F7C1E8B0015201B /* FBAudienceNetwork.framework */; };
+		C22601791F7D44BF0015201B /* PrebidDemandSDKLoaderForDFP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22601721F7D34DC0015201B /* PrebidDemandSDKLoaderForDFP.framework */; };
 		C23386CB1EE5DAC9002FD404 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C23386CA1EE5DAA7002FD404 /* PrebidMobile.framework */; };
 		C255C7311F44895D0089CB41 /* MPBannerAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C255C5B61F44895C0089CB41 /* MPBannerAdManager.m */; };
 		C255C7321F44895D0089CB41 /* MPBannerCustomEventAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = C255C5B91F44895C0089CB41 /* MPBannerCustomEventAdapter.m */; };
@@ -235,6 +237,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C22601711F7D34DC0015201B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C226015D1F7C39120015201B;
+			remoteInfo = PrebidDemandSDKLoaderForDFP;
+		};
 		C23386C91EE5DAA7002FD404 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */;
@@ -719,6 +728,7 @@
 				C273CAA81E831442003EF1AB /* QuartzCore.framework in Frameworks */,
 				C273CAA91E831442003EF1AB /* SafariServices.framework in Frameworks */,
 				C273CAAA1E831442003EF1AB /* StoreKit.framework in Frameworks */,
+				C22601791F7D44BF0015201B /* PrebidDemandSDKLoaderForDFP.framework in Frameworks */,
 				C273CAAB1E831442003EF1AB /* SystemConfiguration.framework in Frameworks */,
 				C273CAAC1E831442003EF1AB /* UIKit.framework in Frameworks */,
 				C273CA8D1E831404003EF1AB /* CoreFoundation.framework in Frameworks */,
@@ -729,6 +739,7 @@
 				C273CA921E831404003EF1AB /* CoreTelephony.framework in Frameworks */,
 				C273CA861E8313F3003EF1AB /* CoreBluetooth.framework in Frameworks */,
 				C273CA841E8313D7003EF1AB /* GoogleMobileAds.framework in Frameworks */,
+				C226016E1F7D34DC0015201B /* FBAudienceNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,6 +758,7 @@
 			children = (
 				C23386CA1EE5DAA7002FD404 /* PrebidMobile.framework */,
 				C255C5B11F4489180089CB41 /* PrebidMobileTests.xctest */,
+				C22601721F7D34DC0015201B /* PrebidDemandSDKLoaderForDFP.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1527,6 +1539,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		C22601721F7D34DC0015201B /* PrebidDemandSDKLoaderForDFP.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PrebidDemandSDKLoaderForDFP.framework;
+			remoteRef = C22601711F7D34DC0015201B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C23386CA1EE5DAA7002FD404 /* PrebidMobile.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;

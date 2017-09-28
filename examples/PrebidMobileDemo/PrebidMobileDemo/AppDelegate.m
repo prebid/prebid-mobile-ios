@@ -69,8 +69,8 @@
 
         [self setPrebidTargetingParams];
 
-        //[[PrebidMobileDemandSDKLoadSettings sharedInstance] enableDemandSources:@[@(PBDemandSourceFacebook)]];
-        [PrebidMobile registerAdUnits:@[adUnit1, fbBannerAdUnit, fbInterstitialAdUnit] withAccountId:kAccountId];
+        [[PrebidMobileDemandSDKLoaderSettings sharedInstance] enableDemandSources:@[@(PBDemandSourceFacebook)]];
+        [PrebidMobile registerAdUnits:@[fbBannerAdUnit, fbInterstitialAdUnit] withAccountId:kAccountId];
     } @catch (PBException *ex) {
         NSLog(@"%@",[ex reason]);
     } @finally {

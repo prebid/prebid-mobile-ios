@@ -15,6 +15,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PBLogging.h"
+#import "PrebidMobileDemandSDKLoaderSettings.h"
 
 @class PBAdUnit;
 

@@ -87,6 +87,7 @@
 #pragma clang diagnostic pop
 
             keywordsPairs = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
+            [[PBBidManager sharedInstance] startNewAuction:adUnit];
             requestParameters = [[PBBidManager sharedInstance] addPrebidParameters:requestParameters withKeywords:keywordsPairs];
         }
     }

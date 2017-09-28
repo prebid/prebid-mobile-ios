@@ -28,6 +28,7 @@
 #import "PBServerLocation.h"
 #import "PBServerReachability.h"
 #import "PBTargetingParams.h"
+#import "PrebidMobileDemandSDKLoaderSettings.h"
 
 static NSString *const kAPNAdServerResponseKeyNoBid = @"nobid";
 static NSString *const kAPNAdServerResponseKeyUUID = @"uuid";
@@ -118,6 +119,9 @@ static NSString *const kPrebidMobileVersion = @"0.1.0";
     if (keywords) {
         requestDict[@"keywords"] = keywords;
     }
+#ifdef DEBUG
+	requestDict[@"is_debug"] = @(YES);
+#endif
     
     NSMutableArray *adUnitConfigs = [[NSMutableArray alloc] init];
     for (PBAdUnit *adUnit in adUnits) {
@@ -133,6 +137,10 @@ static NSString *const kPrebidMobileVersion = @"0.1.0";
         adUnitConfig[@"sizes"] = sizeArray;
         
         adUnitConfig[@"config_id"] = adUnit.configId;
+        if (adUnit.adType == PBAdUnitTypeInterstitial && [[PrebidMobileDemandSDKLoaderSettings sharedInstance] isDemandEnabled:@"audienceNetwork"]) {
+            adUnitConfig[@"instl"] = @(1);
+            [adUnitConfig[@"sizes"] addObject:[NSDictionary dictionaryWithObjectsAndKeys:@(0), @"w", @(0), @"h", nil]];
+        }
         [adUnitConfigs addObject:adUnitConfig];
     }
     requestDict[@"ad_units"] = adUnitConfigs;
@@ -162,6 +170,9 @@ static NSString *const kPrebidMobileVersion = @"0.1.0";
             break;
     }
     userDict[@"gender"] = gender;
+	if ([[PrebidMobileDemandSDKLoaderSettings sharedInstance] isDemandEnabled:@"audienceNetwork"]) {
+        userDict[@"buyeruid"] = [self getFBBuyerUID];
+	}
     
     NSString *language = [NSLocale preferredLanguages][0];
     if (language.length) {

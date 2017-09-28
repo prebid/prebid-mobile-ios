@@ -13,10 +13,15 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 @import GoogleMobileAds;
-#import "PBCustomEventBannerDelegate.h"
 
-@interface PrebidCustomEventBannerDFP : NSObject<GADCustomEventBanner, PBCustomEventBannerDelegate>
+//! Project version number for PrebidDemandSDKLoaderForDFP.
+FOUNDATION_EXPORT double PrebidDemandSDKLoaderForDFPVersionNumber;
 
-@end
+//! Project version string for PrebidDemandSDKLoaderForDFP.
+FOUNDATION_EXPORT const unsigned char PrebidDemandSDKLoaderForDFPVersionString[];
+
+// In this header, you should import all the public headers of your framework using statements like #import <PrebidDemandSDKLoaderForDFP/PublicHeader.h>
+
+

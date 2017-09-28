@@ -14,7 +14,9 @@
  */
 
 #import <Foundation/Foundation.h>
+@import GoogleMobileAds;
+#import "PBCustomEventInterstitialDelegate.h"
 
-@interface PrebidCustomEventInterstitialDFP : NSObject
+@interface PrebidCustomEventInterstitialDFP : NSObject<GADCustomEventInterstitial, PBCustomEventInterstitialDelegate>
 
 @end
