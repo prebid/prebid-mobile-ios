@@ -115,7 +115,7 @@ static dispatch_once_t onceToken;
 
 - (nullable NSDictionary<NSString *, NSString *> *)keywordsForWinningBidForAdUnit:(nonnull PBAdUnit *)adUnit {
     NSArray *bids = [self getBids:adUnit];
-    [self startNewAuction:adUnit];
+    [self resetAdUnit:adUnit];
     [self requestBidsForAdUnits:@[adUnit]];
     if (bids) {
         PBLogDebug(@"Bids available to create keywords");
@@ -198,7 +198,7 @@ static dispatch_once_t onceToken;
     [_demandAdapter requestBidsWithAdUnits:adUnits withDelegate:[self delegate]];
 }
 
-- (void)startNewAuction:(PBAdUnit *)adUnit {
+- (void)resetAdUnit:(PBAdUnit *)adUnit {
     [adUnit generateUUID];
     [_bidsMap removeObjectForKey:adUnit.identifier];
 }
@@ -236,7 +236,7 @@ static dispatch_once_t onceToken;
             NSMutableArray *bids = [_bidsMap objectForKey:adUnit.identifier];
             if (bids && [bids count] > 0 && [adUnit shouldExpireAllBids:currentTime]) {
                 [adUnitsToRequest addObject:adUnit];
-                [self startNewAuction:adUnit];
+                [self resetAdUnit:adUnit];
             }
         }
         if ([adUnitsToRequest count] > 0) {
