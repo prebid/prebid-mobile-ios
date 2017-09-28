@@ -46,7 +46,9 @@
     if (self.requestTIDs == nil) {
         self.requestTIDs = [[NSMutableArray alloc] init];
     }
-    [self.requestTIDs addObject:params[@"tid"]];
+    @synchronized(self.requestTIDs) {
+        [self.requestTIDs addObject:params[@"tid"]];
+    }
 
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[[NSOperationQueue alloc] init]
