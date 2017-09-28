@@ -70,8 +70,8 @@ static CGFloat const kRightMargin = 15;
     placementIdTextField.textAlignment = NSTextAlignmentRight;
 
 	UITextField *demandSourceTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 160, 50)];
-	demandSourceTextField.placeholder = kFBAudienceNetwork;
-	demandSourceTextField.text = kFBAudienceNetwork;
+	demandSourceTextField.placeholder = @"appnexus";
+	demandSourceTextField.text = @"appnexus";
 	demandSourceTextField.textAlignment = NSTextAlignmentRight;
 
     UITextField *sizeTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 120, 50)];
