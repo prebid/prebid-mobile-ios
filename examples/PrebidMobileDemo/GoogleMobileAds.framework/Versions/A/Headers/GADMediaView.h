@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
+#import <GoogleMobileAds/GADNativeAd.h>
 #import <GoogleMobileAds/GoogleMobileAdsDefines.h>
 
 GAD_ASSUME_NONNULL_BEGIN
@@ -22,6 +23,11 @@ GAD_ASSUME_NONNULL_BEGIN
 /// If the native ad doesn't contain a video and image loading is disabled, the GADMediaView object
 /// is empty.
 @interface GADMediaView : UIView
+
+/// The associated native ad. Setting this property displays the native ad's media assets in this
+/// view.
+@property(nonatomic, weak) GADNativeAd *nativeAd;
+
 @end
 
 GAD_ASSUME_NONNULL_END

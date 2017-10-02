@@ -206,9 +206,11 @@ static dispatch_once_t onceToken;
 }
 
 - (void)startNewAuction:(PBAdUnit *)adUnit {
-    [adUnit generateUUID];
-    [_bidsMap removeObjectForKey:adUnit.identifier];
-    [self requestBidsForAdUnits:@[adUnit]];
+    if (adUnit && adUnit.identifier) {
+        [adUnit generateUUID];
+        [_bidsMap removeObjectForKey:adUnit.identifier];
+        [self requestBidsForAdUnits:@[adUnit]];
+    }
 }
 
 - (void)saveBidResponses:(NSArray <PBBidResponse *> *)bidResponses {
