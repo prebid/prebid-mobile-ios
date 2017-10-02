@@ -13,8 +13,14 @@ GAD_ASSUME_NONNULL_BEGIN
 /// Video ad options.
 @interface GADVideoOptions : GADAdLoaderOptions
 
-/// Indicates if videos should start muted.
+/// Indicates if videos should start muted. By default this property value is YES.
 @property(nonatomic, assign) BOOL startMuted;
+
+/// Indicates if the requested video should have custom controls enabled for play/pause/mute/unmute.
+@property(nonatomic, assign) BOOL customControlsRequested;
+
+/// Indicates whether the requested video should have the click to expand behavior.
+@property(nonatomic, assign) BOOL clickToExpandRequested;
 
 @end
 
