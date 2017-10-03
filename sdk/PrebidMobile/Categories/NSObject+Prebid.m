@@ -86,9 +86,10 @@
             PBAdUnit *adUnit = (PBAdUnit *)[adEventDelegate performSelector:getPb_identifier];
 #pragma clang diagnostic pop
 
-            keywordsPairs = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
-            [[PBBidManager sharedInstance] startNewAuction:adUnit];
-            requestParameters = [[PBBidManager sharedInstance] addPrebidParameters:requestParameters withKeywords:keywordsPairs];
+            if (adUnit) {
+                keywordsPairs = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
+                requestParameters = [[PBBidManager sharedInstance] addPrebidParameters:requestParameters withKeywords:keywordsPairs];
+            }
         }
     }
     return requestParameters;
@@ -106,7 +107,7 @@
 	}
 
 	SEL setKeywordsSel = NSSelectorFromString(@"setKeywords:");
-	if ([request respondsToSelector:setKeywordsSel]) {
+	if (adUnit && [request respondsToSelector:setKeywordsSel]) {
         #pragma clang diagnostic push
         #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             NSDictionary *keywordsPairs = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
