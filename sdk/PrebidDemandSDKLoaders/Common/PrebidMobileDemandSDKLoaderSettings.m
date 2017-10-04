@@ -49,6 +49,7 @@ static dispatch_once_t onceToken;
 	switch ([demandSource intValue]) {
         case PBDemandSourceFacebook:
             [self assertAudienceNetworkSDKExists];
+            [self addDemandToDemandSet:@(PBDemandSourceFacebook)];
             break;
         }
 }
@@ -77,8 +78,6 @@ static dispatch_once_t onceToken;
 	assert([fbInterstitialAdObj respondsToSelector:intInitMethodSel]);
 	assert([fbInterstitialAdObj respondsToSelector:setDelegateSel]);
 	assert([fbInterstitialAdObj respondsToSelector:loadAdWithBidPayloadSel]);
-
-	[self addDemandToDemandSet:@(PBDemandSourceFacebook)];
 }
 
 - (void)addDemandToDemandSet:(NSNumber *)demand {

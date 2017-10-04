@@ -137,9 +137,8 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
         adUnitConfig[@"sizes"] = sizeArray;
         
         adUnitConfig[@"config_id"] = adUnit.configId;
-        if (adUnit.adType == PBAdUnitTypeInterstitial && [[PrebidMobileDemandSDKLoaderSettings sharedInstance] isDemandEnabled:@"audienceNetwork"]) {
+        if (adUnit.adType == PBAdUnitTypeInterstitial) {
             adUnitConfig[@"instl"] = @(1);
-            [adUnitConfig[@"sizes"] addObject:[NSDictionary dictionaryWithObjectsAndKeys:@(0), @"w", @(0), @"h", nil]];
         }
         [adUnitConfigs addObject:adUnitConfig];
     }

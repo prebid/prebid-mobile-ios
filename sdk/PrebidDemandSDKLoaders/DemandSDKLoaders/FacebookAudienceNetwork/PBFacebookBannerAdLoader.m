@@ -26,9 +26,10 @@ struct FBAdSize {
 - (void)loadAd:(NSDictionary *)info {
 	NSString *bidPayload = (NSString *)info[@"adm"];
 	CGFloat height = [(NSString *)info[@"height"] floatValue];
+    if ([self isValidHeight:height] == NO) {
+        return;
+    }
 	CGSize adSize = CGSizeMake(-1, height);
-
-	// TODO nicole validate adSize against FBAdSize
 
 	// Load FBAdView using reflection so we can load the ad properly in the FBAudienceNetwork SDK
 	Class fbAdViewClass = NSClassFromString(@"FBAdView");
@@ -71,15 +72,16 @@ struct FBAdSize {
                     // Set up FBAdView and loadAdWithBidPayload
                     [result performSelector:setDelegateSel withObject:self];
                     [result performSelector:disableAutoRefreshSel];
-                    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-                    UIView *topView = window.rootViewController.view;
-                    //[topView addSubview:result];
                     [result performSelector:loadAdSel withObject:bidPayload];
             }
             self.adView = result;
         }
     }
     #pragma clang diagnostic pop
+}
+
+- (BOOL)isValidHeight:(CGFloat)height {
+    return height == 50 || height == 90 || height == 250;
 }
 
 - (NSString *)parsePlacementIdFromBidPayload:(NSString *)bidPayload {

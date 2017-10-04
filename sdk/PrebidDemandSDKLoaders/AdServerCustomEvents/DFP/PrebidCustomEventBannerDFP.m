@@ -19,7 +19,6 @@
 #import "PrebidMobileDemandSDKLoaderSettings.h"
 
 static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediationAdapter";
-static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/get?uuid=";
 
 @interface PrebidCustomEventBannerDFP()
 
@@ -82,10 +81,6 @@ static NSString *const kPrebidCacheEndpoint = @"https://prebid.adnxs.com/pbc/v1/
 
 - (void)didClickAd:(UIView *)adView {
     [self.delegate customEventBannerWasClicked:self];
-}
-
-- (void)trackImpression {
-
 }
 
 @end

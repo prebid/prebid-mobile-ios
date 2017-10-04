@@ -18,9 +18,7 @@
 #import "PrebidCustomEventInterstitialDFP.h"
 #import "PrebidMobileDemandSDKLoaderSettings.h"
 
-static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediationAdapter";
-
-@interface PrebidCustomEventInterstitialDFP()
+@interface PrebidCustomEventInterstitialDFP ()
 
 @property (strong, nonatomic) NSString *cacheId;
 @property (strong, nonatomic) NSString *bidder;
@@ -79,41 +77,22 @@ static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediati
     [self.delegate customEventInterstitialWillPresent:interstitialAd];
 }
 
-//
-//// Sent when an interstitial ad has loaded.
-//- (void)interstitialDidLoad:(SampleInterstitial *)interstitial {
-//    [self.delegate customEventInterstitialDidReceiveAd:self];
-//}
-//
-//// Sent when an interstitial ad has failed to load.
-//- (void)interstitial:(SampleInterstitial *)interstitial
-//didFailToLoadAdWithErrorCode:(SampleErrorCode)errorCode {
-//    NSError *error = [NSError errorWithDomain:customEventErrorDomain
-//                                         code:errorCode
-//                                     userInfo:nil];
-//    [self.delegate customEventInterstitial:self didFailAd:error];
-//}
-//
-//// Sent when an interstitial is about to be shown.
-//- (void)interstitialWillPresentScreen:(SampleInterstitial *)interstitial {
-//    [self.delegate customEventInterstitialWillPresent:self];
-//}
-//
-//// Sent when an interstitial is about to be dismissed.
-//- (void)interstitialWillDismissScreen:(SampleInterstitial *)interstitial {
-//    [self.delegate customEventInterstitialWillDismiss:self];
-//}
-//
-//// Sent when an interstitial has been dismissed.
-//- (void)interstitialDidDismissScreen:(SampleInterstitial *)interstitial {
-//    [self.delegate customEventInterstitialDidDismiss:self];
-//}
-//
-//// Sent when an interstitial is clicked and an external application is launched.
-//- (void)interstitialWillLeaveApplication:(SampleInterstitial *)interstitial {
-//    [self.delegate customEventInterstitialWasClicked:self];
-//    [self.delegate customEventInterstitialWillLeaveApplication:self];
-//}
+- (void)ad:(id)interstitialAd didFailWithError:(NSError *)error {
+	[self.delegate customEventInterstitial:self didFailAd:error];
+}
+
+- (void)willCloseInterstitial:(id)interstitialAd {
+    [self.delegate customEventInterstitialWillDismiss:self];
+}
+
+- (void)didCloseInterstitial:(id)interstitialAd {
+    [self.delegate customEventInterstitialDidDismiss:self];
+}
+
+- (void)didClickAd:(id)interstitialAd {
+    [self.delegate customEventInterstitialWasClicked:self];
+    [self.delegate customEventInterstitialWillLeaveApplication:self];
+}
 
 
 @end

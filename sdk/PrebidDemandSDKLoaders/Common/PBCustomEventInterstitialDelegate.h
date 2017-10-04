@@ -22,8 +22,11 @@
 @optional
 - (void)didLoadAd:(id)interstitialAd;
 - (void)ad:(id)interstitialAd didFailWithError:(NSError *)error;
-- (void)trackImpression;
+
 - (void)didClickAd:(id)interstitialAd;
 - (void)didFinishHandlingClick:(id)interstitialAd;
+
+- (void)didCloseInterstitial:(id)interstitialAd;
+- (void)willCloseInterstitial:(id)interstitialAd;
 
 @end

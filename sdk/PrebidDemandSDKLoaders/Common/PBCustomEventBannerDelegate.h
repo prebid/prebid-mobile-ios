@@ -22,7 +22,6 @@
 @optional
 - (void)didLoadAd:(UIView *)adView;
 - (void)ad:(UIView *)adView didFailWithError:(NSError *)error;
-- (void)trackImpression;
 - (void)didClickAd:(UIView *)adView;
 - (void)didFinishHandlingClick:(UIView *)adView;
 
