@@ -70,7 +70,7 @@
 - (void)interstitialAdDidLoad:(id)interstitialAd {
 	//[self.interstitialAd showAdFromRootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController];
 	NSLog(@"fb interstitial ad did load");
-    [[self.delegate didLoadAd:interstitialAd];
+    [self.delegate didLoadAd:interstitialAd];
 }
 
 - (void)interstitialAd:(id)interstitialAd didFailWithError:(NSError *)error {

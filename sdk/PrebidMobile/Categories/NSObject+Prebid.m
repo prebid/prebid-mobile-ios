@@ -89,6 +89,7 @@
             if (adUnit) {
                 keywordsPairs = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
                 requestParameters = [[PBBidManager sharedInstance] addPrebidParameters:requestParameters withKeywords:keywordsPairs];
+                [[PBBidManager sharedInstance] startNewAuction:adUnit];
             }
         }
     }
@@ -96,18 +97,20 @@
 }
 
 // dfp load ad
+// TODO nicole can we do this using "keywords" on requestParameters maybe?
 - (void)pb_loadRequest:(id)request {
     PBAdUnit *adUnit;
     SEL getPb_identifier = NSSelectorFromString(@"pb_identifier");
-	if ([self respondsToSelector:getPb_identifier]) {
+    if ([self respondsToSelector:getPb_identifier]) {
         #pragma clang diagnostic push
         #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             adUnit = (PBAdUnit *)[self performSelector:getPb_identifier];
         #pragma clang diagnostic pop
-	}
+    }
 
-	SEL setKeywordsSel = NSSelectorFromString(@"setKeywords:");
-	if (adUnit && [request respondsToSelector:setKeywordsSel]) {
+    // TODO nicole: should we also check for existance of CustomEvent class here for framework...
+    SEL setKeywordsSel = NSSelectorFromString(@"setKeywords:");
+    if (adUnit && [request respondsToSelector:setKeywordsSel]) {
         #pragma clang diagnostic push
         #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             NSDictionary *keywordsPairs = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
@@ -121,7 +124,7 @@
             }
         #pragma clang diagnostic pop
     }
-	[self pb_loadRequest:request];
+    [self pb_loadRequest:request];
 }
 
 
