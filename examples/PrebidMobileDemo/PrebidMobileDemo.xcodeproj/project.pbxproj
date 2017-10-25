@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C20A49CC1F82A17B0016078E /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20A49CB1F82A16B0016078E /* GoogleMobileAds.framework */; };
+		C21FDB371FA0E94400A5E442 /* PrebidDemandSDKLoaderForMoPub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C21FDB361FA0E94400A5E442 /* PrebidDemandSDKLoaderForMoPub.framework */; };
 		C226016E1F7D34DC0015201B /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22601241F7C1E8B0015201B /* FBAudienceNetwork.framework */; };
 		C22601791F7D44BF0015201B /* PrebidDemandSDKLoaderForDFP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C22601721F7D34DC0015201B /* PrebidDemandSDKLoaderForDFP.framework */; };
-		C20A49CC1F82A17B0016078E /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20A49CB1F82A16B0016078E /* GoogleMobileAds.framework */; };
 		C23386CB1EE5DAC9002FD404 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C23386CA1EE5DAA7002FD404 /* PrebidMobile.framework */; };
 		C255C7311F44895D0089CB41 /* MPBannerAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C255C5B61F44895C0089CB41 /* MPBannerAdManager.m */; };
 		C255C7321F44895D0089CB41 /* MPBannerCustomEventAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = C255C5B91F44895C0089CB41 /* MPBannerCustomEventAdapter.m */; };
@@ -237,6 +238,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C21FDB351FA0E94400A5E442 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C21FDB201FA0DB8B00A5E442;
+			remoteInfo = PrebidDemandSDKLoaderForMoPub;
+		};
 		C22601711F7D34DC0015201B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */;
@@ -288,8 +296,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C22601241F7C1E8B0015201B /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		C20A49CB1F82A16B0016078E /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
+		C22601241F7C1E8B0015201B /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../sdk/PrebidMobile.xcodeproj; sourceTree = "<group>"; };
 		C255C5B51F44895C0089CB41 /* MPBannerAdManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBannerAdManager.h; sourceTree = "<group>"; };
 		C255C5B61F44895C0089CB41 /* MPBannerAdManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPBannerAdManager.m; sourceTree = "<group>"; };
@@ -729,6 +737,7 @@
 				C273CAA91E831442003EF1AB /* SafariServices.framework in Frameworks */,
 				C273CAAA1E831442003EF1AB /* StoreKit.framework in Frameworks */,
 				C22601791F7D44BF0015201B /* PrebidDemandSDKLoaderForDFP.framework in Frameworks */,
+				C21FDB371FA0E94400A5E442 /* PrebidDemandSDKLoaderForMoPub.framework in Frameworks */,
 				C273CAAB1E831442003EF1AB /* SystemConfiguration.framework in Frameworks */,
 				C273CAAC1E831442003EF1AB /* UIKit.framework in Frameworks */,
 				C273CA8D1E831404003EF1AB /* CoreFoundation.framework in Frameworks */,
@@ -759,6 +768,7 @@
 				C23386CA1EE5DAA7002FD404 /* PrebidMobile.framework */,
 				C255C5B11F4489180089CB41 /* PrebidMobileTests.xctest */,
 				C22601721F7D34DC0015201B /* PrebidDemandSDKLoaderForDFP.framework */,
+				C21FDB361FA0E94400A5E442 /* PrebidDemandSDKLoaderForMoPub.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1539,6 +1549,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		C21FDB361FA0E94400A5E442 /* PrebidDemandSDKLoaderForMoPub.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PrebidDemandSDKLoaderForMoPub.framework;
+			remoteRef = C21FDB351FA0E94400A5E442 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C22601721F7D34DC0015201B /* PrebidDemandSDKLoaderForDFP.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;

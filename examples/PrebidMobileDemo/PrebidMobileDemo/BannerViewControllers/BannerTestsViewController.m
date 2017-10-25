@@ -55,12 +55,19 @@
     [self.view addSubview:_adContainerView];
     
     if ([adServer isEqualToString:kMoPubAdServer]) {
-        _mopubAdView = [[MPAdView alloc] initWithAdUnitId:kMoPubBannerAdUnitId
+        NSString *adUnitId = kAdUnit1Id;
+        NSString *mopubAdViewId = kMoPubBannerAdUnitId;
+        if ([[self.settings objectForKey:kDemandSource] isEqualToString:kFBAudienceNetwork]) {
+            adUnitId = kFBBannerAdUnit;
+            mopubAdViewId = kMoPubBannerAdUnitIdDemandSDK;
+        }
+
+        _mopubAdView = [[MPAdView alloc] initWithAdUnitId:mopubAdViewId
                                                      size:CGSizeMake(width, height)];
         _mopubAdView.delegate = self;
         [_adContainerView addSubview:_mopubAdView];
         
-        [PrebidMobile setBidKeywordsOnAdObject:self.mopubAdView withAdUnitId:kAdUnit1Id withTimeout:600 completionHandler:^{
+        [PrebidMobile setBidKeywordsOnAdObject:self.mopubAdView withAdUnitId:adUnitId withTimeout:600 completionHandler:^{
             [self.mopubAdView loadAd];
         }];
     } else if ([adServer isEqualToString:kDFPAdServer]) {

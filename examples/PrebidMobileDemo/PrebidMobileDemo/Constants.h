@@ -33,6 +33,8 @@ extern NSString *const kVideo;
 
 #pragma mark - MoPub constants
 extern NSString *const kMoPubAdServer;
+extern NSString *const kMoPubBannerAdUnitIdDemandSDK;
+extern NSString *const kMoPubInterstitialAdUnitIdDemandSDK;
 extern NSString *const kMoPubBannerAdUnitId;
 extern NSString *const kMoPubInterstitialAdUnitId;
 
