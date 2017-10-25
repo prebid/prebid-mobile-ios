@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C21FDB241FA0DB8B00A5E442 /* PrebidDemandSDKLoaderForMoPub.h in Headers */ = {isa = PBXBuildFile; fileRef = C21FDB221FA0DB8B00A5E442 /* PrebidDemandSDKLoaderForMoPub.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C21FDB2E1FA0DD1000A5E442 /* PrebidCustomEventBannerMoPub.h in Headers */ = {isa = PBXBuildFile; fileRef = C21FDB2A1FA0DC0A00A5E442 /* PrebidCustomEventBannerMoPub.h */; };
+		C21FDB2F1FA0DD1000A5E442 /* PrebidCustomEventBannerMoPub.m in Sources */ = {isa = PBXBuildFile; fileRef = C21FDB2B1FA0DC0A00A5E442 /* PrebidCustomEventBannerMoPub.m */; };
+		C21FDB301FA0DD1000A5E442 /* PrebidCustomEventInterstitialMoPub.h in Headers */ = {isa = PBXBuildFile; fileRef = C21FDB2C1FA0DC0A00A5E442 /* PrebidCustomEventInterstitialMoPub.h */; };
+		C21FDB311FA0DD1000A5E442 /* PrebidCustomEventInterstitialMoPub.m in Sources */ = {isa = PBXBuildFile; fileRef = C21FDB2D1FA0DC0A00A5E442 /* PrebidCustomEventInterstitialMoPub.m */; };
 		C22601301F7C27A50015201B /* PBCacheLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = C226012E1F7C27A50015201B /* PBCacheLoader.h */; };
 		C22601311F7C27A50015201B /* PBCacheLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C226012F1F7C27A50015201B /* PBCacheLoader.m */; };
 		C22601331F7C28710015201B /* PBCustomEventBannerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C22601321F7C28710015201B /* PBCustomEventBannerDelegate.h */; };
@@ -101,6 +106,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C21FDB201FA0DB8B00A5E442 /* PrebidDemandSDKLoaderForMoPub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidDemandSDKLoaderForMoPub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C21FDB221FA0DB8B00A5E442 /* PrebidDemandSDKLoaderForMoPub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidDemandSDKLoaderForMoPub.h; sourceTree = "<group>"; };
+		C21FDB231FA0DB8B00A5E442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C21FDB2A1FA0DC0A00A5E442 /* PrebidCustomEventBannerMoPub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidCustomEventBannerMoPub.h; sourceTree = "<group>"; };
+		C21FDB2B1FA0DC0A00A5E442 /* PrebidCustomEventBannerMoPub.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidCustomEventBannerMoPub.m; sourceTree = "<group>"; };
+		C21FDB2C1FA0DC0A00A5E442 /* PrebidCustomEventInterstitialMoPub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidCustomEventInterstitialMoPub.h; sourceTree = "<group>"; };
+		C21FDB2D1FA0DC0A00A5E442 /* PrebidCustomEventInterstitialMoPub.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidCustomEventInterstitialMoPub.m; sourceTree = "<group>"; };
 		C226012E1F7C27A50015201B /* PBCacheLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBCacheLoader.h; sourceTree = "<group>"; };
 		C226012F1F7C27A50015201B /* PBCacheLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBCacheLoader.m; sourceTree = "<group>"; };
 		C22601321F7C28710015201B /* PBCustomEventBannerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBCustomEventBannerDelegate.h; sourceTree = "<group>"; };
@@ -198,6 +210,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C21FDB1C1FA0DB8B00A5E442 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C22601591F7C39120015201B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,6 +251,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C21FDB211FA0DB8B00A5E442 /* PrebidDemandSDKLoaderForMoPub */ = {
+			isa = PBXGroup;
+			children = (
+				C21FDB221FA0DB8B00A5E442 /* PrebidDemandSDKLoaderForMoPub.h */,
+				C21FDB231FA0DB8B00A5E442 /* Info.plist */,
+			);
+			path = PrebidDemandSDKLoaderForMoPub;
+			sourceTree = "<group>";
+		};
+		C21FDB291FA0DC0A00A5E442 /* MoPub */ = {
+			isa = PBXGroup;
+			children = (
+				C21FDB2A1FA0DC0A00A5E442 /* PrebidCustomEventBannerMoPub.h */,
+				C21FDB2B1FA0DC0A00A5E442 /* PrebidCustomEventBannerMoPub.m */,
+				C21FDB2C1FA0DC0A00A5E442 /* PrebidCustomEventInterstitialMoPub.h */,
+				C21FDB2D1FA0DC0A00A5E442 /* PrebidCustomEventInterstitialMoPub.m */,
+			);
+			path = MoPub;
+			sourceTree = "<group>";
+		};
 		C22601261F7C25760015201B /* PrebidDemandSDKLoaders */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				C226012B1F7C27600015201B /* DFP */,
+				C21FDB291FA0DC0A00A5E442 /* MoPub */,
 			);
 			path = AdServerCustomEvents;
 			sourceTree = "<group>";
@@ -365,6 +405,7 @@
 			isa = PBXGroup;
 			children = (
 				C226015E1F7C39120015201B /* PrebidDemandSDKLoaderForDFP */,
+				C21FDB211FA0DB8B00A5E442 /* PrebidDemandSDKLoaderForMoPub */,
 				C22601261F7C25760015201B /* PrebidDemandSDKLoaders */,
 				C2B16E1D1EE1BE69006304C0 /* PrebidMobile */,
 				C281E17D1EE5EAF700F2F4A9 /* PrebidMobileTests */,
@@ -380,6 +421,7 @@
 				C2B16E1B1EE1BE69006304C0 /* PrebidMobile.framework */,
 				C281E17C1EE5EAF700F2F4A9 /* PrebidMobileTests.xctest */,
 				C226015D1F7C39120015201B /* PrebidDemandSDKLoaderForDFP.framework */,
+				C21FDB201FA0DB8B00A5E442 /* PrebidDemandSDKLoaderForMoPub.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -487,6 +529,16 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		C21FDB1D1FA0DB8B00A5E442 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C21FDB301FA0DD1000A5E442 /* PrebidCustomEventInterstitialMoPub.h in Headers */,
+				C21FDB2E1FA0DD1000A5E442 /* PrebidCustomEventBannerMoPub.h in Headers */,
+				C21FDB241FA0DB8B00A5E442 /* PrebidDemandSDKLoaderForMoPub.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C226015A1F7C39120015201B /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -534,6 +586,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		C21FDB1F1FA0DB8B00A5E442 /* PrebidDemandSDKLoaderForMoPub */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C21FDB271FA0DB8B00A5E442 /* Build configuration list for PBXNativeTarget "PrebidDemandSDKLoaderForMoPub" */;
+			buildPhases = (
+				C21FDB1B1FA0DB8B00A5E442 /* Sources */,
+				C21FDB1C1FA0DB8B00A5E442 /* Frameworks */,
+				C21FDB1D1FA0DB8B00A5E442 /* Headers */,
+				C21FDB1E1FA0DB8B00A5E442 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PrebidDemandSDKLoaderForMoPub;
+			productName = PrebidDemandSDKLoaderForMoPub;
+			productReference = C21FDB201FA0DB8B00A5E442 /* PrebidDemandSDKLoaderForMoPub.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		C226015C1F7C39120015201B /* PrebidDemandSDKLoaderForDFP */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C22601621F7C39120015201B /* Build configuration list for PBXNativeTarget "PrebidDemandSDKLoaderForDFP" */;
@@ -597,6 +667,11 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Nicole Hedley";
 				TargetAttributes = {
+					C21FDB1F1FA0DB8B00A5E442 = {
+						CreatedOnToolsVersion = 9.0;
+						DevelopmentTeam = HR94J6TSB3;
+						ProvisioningStyle = Automatic;
+					};
 					C226015C1F7C39120015201B = {
 						CreatedOnToolsVersion = 9.0;
 						DevelopmentTeam = HR94J6TSB3;
@@ -629,11 +704,19 @@
 				C2B16E1A1EE1BE69006304C0 /* PrebidMobile */,
 				C281E17B1EE5EAF700F2F4A9 /* PrebidMobileTests */,
 				C226015C1F7C39120015201B /* PrebidDemandSDKLoaderForDFP */,
+				C21FDB1F1FA0DB8B00A5E442 /* PrebidDemandSDKLoaderForMoPub */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		C21FDB1E1FA0DB8B00A5E442 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C226015B1F7C39120015201B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -661,6 +744,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C21FDB1B1FA0DB8B00A5E442 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C21FDB2F1FA0DD1000A5E442 /* PrebidCustomEventBannerMoPub.m in Sources */,
+				C21FDB311FA0DD1000A5E442 /* PrebidCustomEventInterstitialMoPub.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C22601581F7C39120015201B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -731,6 +823,76 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		C21FDB251FA0DB8B00A5E442 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
+				INFOPLIST_FILE = PrebidDemandSDKLoaderForMoPub/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidDemandSDKLoaderForMoPub;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
+			};
+			name = Debug;
+		};
+		C21FDB261FA0DB8B00A5E442 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
+				INFOPLIST_FILE = PrebidDemandSDKLoaderForMoPub/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidDemandSDKLoaderForMoPub;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
+			};
+			name = Release;
+		};
 		C22601631F7C39120015201B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -755,7 +917,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
 				INFOPLIST_FILE = PrebidDemandSDKLoaderForDFP/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
 				MACH_O_TYPE = staticlib;
@@ -793,7 +955,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
 				INFOPLIST_FILE = PrebidDemandSDKLoaderForDFP/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/../externallibs/**";
 				MACH_O_TYPE = staticlib;
@@ -974,6 +1136,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C21FDB271FA0DB8B00A5E442 /* Build configuration list for PBXNativeTarget "PrebidDemandSDKLoaderForMoPub" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C21FDB251FA0DB8B00A5E442 /* Debug */,
+				C21FDB261FA0DB8B00A5E442 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C22601621F7C39120015201B /* Build configuration list for PBXNativeTarget "PrebidDemandSDKLoaderForDFP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
