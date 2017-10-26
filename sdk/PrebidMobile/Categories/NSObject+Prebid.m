@@ -97,22 +97,22 @@
 }
 
 // dfp load ad
-// TODO nicole can we do this using "keywords" on requestParameters maybe?
 - (void)pb_loadRequest:(id)request {
-    PBAdUnit *adUnit;
-    SEL getPb_identifier = NSSelectorFromString(@"pb_identifier");
-    if ([self respondsToSelector:getPb_identifier]) {
-        #pragma clang diagnostic push
-        #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    Class dfpCustomEventClass = NSClassFromString(@"PrebidCustomEventBannerDFP");
+    if (dfpCustomEventClass) {
+        PBAdUnit *adUnit;
+        SEL getPb_identifier = NSSelectorFromString(@"pb_identifier");
+        if ([self respondsToSelector:getPb_identifier]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             adUnit = (PBAdUnit *)[self performSelector:getPb_identifier];
-        #pragma clang diagnostic pop
-    }
+#pragma clang diagnostic pop
+        }
 
-    // TODO nicole: should we also check for existance of CustomEvent class here for framework...
-    SEL setKeywordsSel = NSSelectorFromString(@"setKeywords:");
-    if (adUnit && [request respondsToSelector:setKeywordsSel]) {
-        #pragma clang diagnostic push
-        #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        SEL setKeywordsSel = NSSelectorFromString(@"setKeywords:");
+        if (adUnit && [request respondsToSelector:setKeywordsSel]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             NSDictionary *keywordsPairs = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
             NSString *cacheId = keywordsPairs[@"hb_cache_id"];
             NSString *bidder = keywordsPairs[@"hb_bidder"];
@@ -122,7 +122,8 @@
                 NSArray *arrayOfKeywordsToSet = @[cacheIdKeyword, bidderKeyword];
                 [request performSelector:setKeywordsSel withObject:arrayOfKeywordsToSet];
             }
-        #pragma clang diagnostic pop
+#pragma clang diagnostic pop
+        }
     }
     [self pb_loadRequest:request];
 }

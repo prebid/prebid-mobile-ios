@@ -286,7 +286,7 @@ static dispatch_once_t onceToken;
         }
         PBAdUnit *adUnit = adObject.pb_identifier;
         NSDictionary<NSString *, NSString *> *keywordsPairs = [self keywordsForWinningBidForAdUnit:adUnit];
-        [[PBBidManager sharedInstance] startNewAuction:adUnit];
+        [self startNewAuction:adUnit];
         for (id key in keywordsPairs) {
             id value = [keywordsPairs objectForKey:key];
             if (value) {

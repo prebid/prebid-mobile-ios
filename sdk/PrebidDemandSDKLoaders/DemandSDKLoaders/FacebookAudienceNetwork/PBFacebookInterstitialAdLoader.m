@@ -19,11 +19,7 @@
 @implementation PBFacebookInterstitialAdLoader
 
 - (void)loadInterstitialAd:(NSDictionary *)info {
-	// TODO nicole remove bid payload override
-	NSString *bidPayload = @"{\"type\":\"ID\",\"bid_id\":\"3657125005700902641\",\"placement_id\":\"1995257847363113_1997038003851764\",\"resolved_placement_id\":\"1995257847363113_1997038003851764\",\"sdk_version\":\"4.25.0-appnexus.bidding\",\"device_id\":\"87ECBA49-908A-428F-9DE7-4B9CED4F486C\",\"template\":102,\"payload\":\"null\"}";
-
-	// TODO nicole add this back in
-	//NSString *bidPayload = (NSString *)info[@"adm"];
+	NSString *bidPayload = (NSString *)info[@"adm"];
 
 	// Load FBInterstitialAd using reflection so we can load the ad properly in the FBAudienceNetwork SDK
 	Class fbInterstitialAdClass = NSClassFromString(kFBInterstitialAdClassName);
@@ -68,18 +64,14 @@
 #pragma mark FBInterstitialAdDelegate methods
 
 - (void)interstitialAdDidLoad:(id)interstitialAd {
-	//[self.interstitialAd showAdFromRootViewController:[[UIApplication sharedApplication] keyWindow].rootViewController];
-	NSLog(@"fb interstitial ad did load");
     [self.delegate didLoadAd:interstitialAd];
 }
 
 - (void)interstitialAd:(id)interstitialAd didFailWithError:(NSError *)error {
-	NSLog(@"fb interstitial ad did fail with error");
 	[self.delegate ad:interstitialAd didFailWithError:error];
 }
 
 - (void)interstitialAdDidClick:(id)interstitialAd {
-	NSLog(@"fb interstitial ad did click");
 	[self.delegate didClickAd:interstitialAd];
 }
 
