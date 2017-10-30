@@ -75,4 +75,12 @@
 	[self.delegate didClickAd:interstitialAd];
 }
 
+- (void)interstitialAdWillClose:(id)interstitialAd {
+    [self.delegate willCloseInterstitial:interstitialAd];
+}
+
+- (void)interstitialAdDidClose:(id)interstitialAd {
+    [self.delegate didCloseInterstitial:interstitialAd];
+}
+
 @end
