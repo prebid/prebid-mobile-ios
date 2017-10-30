@@ -30,8 +30,8 @@ Pod::Spec.new do |s|
   s.author             = { "Nicole Hedley" => "nhedley@appnexus.com" }
   s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
-  s.source_files = "sdk/PrebidMobile", "sdk/PrebidMobile/**/*.{h,m}", "sdk/PrebidServerAdapter/**/*.{h,m}"
-  s.public_header_files = "sdk/PrebidServerAdapter/PBServerAdapter.h", "sdk/PrebidMobile/*.h", "sdk/PrebidMobile/Logging/*.h"
+  s.source_files = "../sdk/PrebidMobile", "../sdk/PrebidMobile/**/*.{h,m}", "../sdk/PrebidServerAdapter/**/*.{h,m}"
+  s.public_header_files = "../sdk/PrebidServerAdapter/PBServerAdapter.h", "../sdk/PrebidMobile/*.h", "../sdk/PrebidMobile/Logging/*.h"
   s.requires_arc = true
   s.xcconfig = {
 :LIBRARY_SEARCH_PATHS => '$(inherited)',
