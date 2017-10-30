@@ -39,17 +39,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *adServer = [self.settings objectForKey:kAdServer];
+    NSString *adUnitId = kAdUnit2Id;
     self.title = [adServer stringByAppendingString:@" Interstitial"];
 
     if ([adServer isEqualToString:kMoPubAdServer]) {
-        _moPubInterstitial = [MPInterstitialAdController  interstitialAdControllerForAdUnitId:kMoPubInterstitialAdUnitId];
+        NSString *mopubInterstitialAdUnitId = kMoPubInterstitialAdUnitId;
+        if ([[self.settings objectForKey:kDemandSource] isEqualToString:kFBAudienceNetwork]) {
+            adUnitId = kFBIntAdUnit;
+            mopubInterstitialAdUnitId = kMoPubInterstitialAdUnitIdDemandSDK;
+        }
+        _moPubInterstitial = [MPInterstitialAdController  interstitialAdControllerForAdUnitId:mopubInterstitialAdUnitId];
         _moPubInterstitial.delegate = self;
-        [PrebidMobile setBidKeywordsOnAdObject:self.moPubInterstitial withAdUnitId:kAdUnit2Id withTimeout:600 completionHandler:^{
+        [PrebidMobile setBidKeywordsOnAdObject:self.moPubInterstitial withAdUnitId:adUnitId withTimeout:600 completionHandler:^{
             [self.moPubInterstitial loadAd];
         }];
     }
     else if ([adServer isEqualToString:kDFPAdServer]) {
-        NSString *adUnitId = kAdUnit2Id;
         NSString *dfpInterstitialAdUnitId = kDFPInterstitialAdUnitId;
         if ([[self.settings objectForKey:kDemandSource] isEqualToString:kFBAudienceNetwork]) {
             adUnitId = kFBIntAdUnit;

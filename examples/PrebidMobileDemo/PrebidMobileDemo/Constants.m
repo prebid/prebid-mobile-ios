@@ -34,7 +34,7 @@ NSString *const kVideo = @"Video";
 #pragma mark - MoPub constants
 NSString *const kMoPubAdServer = @"MoPub";
 NSString *const kMoPubBannerAdUnitIdDemandSDK = @"5d748364ee9c46a2b112892fc3551b6f";
-NSString *const kMoPubInterstitialAdUnitIdDemandSDK = @"5d748364ee9c46a2b112892fc3551b6f";
+NSString *const kMoPubInterstitialAdUnitIdDemandSDK = @"739d7e40ee2e4767baff63fab4e4b9c4";
 NSString *const kMoPubBannerAdUnitId = @"a9cb8ff85fef4b50b457e3b11119aabf";
 NSString *const kMoPubInterstitialAdUnitId = @"fc82df5c964945c79cceef4c5666e1e2";
 

@@ -64,14 +64,38 @@
 - (void)loadAd:(NSDictionary *)responseDict {
 	if ([self.bidder isEqualToString:@"audienceNetwork"]) {
         self.adLoader = [[PBFacebookInterstitialAdLoader alloc] initWithDelegate:self];
-        [self.adLoader loadAd:responseDict];
+        [self.adLoader loadInterstitialAd:responseDict];
 	} else {
         NSLog(@"Not a valid bidder for DFP Mediation Adapter");
 	}
 }
 
-- (void) showInterstitialFromRootViewController:(UIViewController *)rootViewController {
+- (void)showInterstitialFromRootViewController:(UIViewController *)rootViewController {
+    [self.adLoader showAdFromRootViewController:rootViewController];
+}
 
+#pragma mark - PBInterstitialDemandSDKAdapterDelegate
+
+- (void)didLoadAd:(id)interstitialAd {
+    [self.delegate interstitialCustomEvent:self didLoadAd:interstitialAd];
+    [self.delegate interstitialCustomEventWillAppear:self];
+}
+
+- (void)ad:(id)interstitialAd didFailWithError:(NSError *)error {
+    [self.delegate interstitialCustomEvent:self didFailToLoadAdWithError:error];
+}
+
+- (void)willCloseInterstitial:(id)interstitialAd {
+    [self.delegate interstitialCustomEventWillDisappear:self];
+}
+
+- (void)didCloseInterstitial:(id)interstitialAd {
+    [self.delegate interstitialCustomEventDidDisappear:self];
+}
+
+- (void)didClickAd:(id)interstitialAd {
+    [self.delegate interstitialCustomEventDidReceiveTapEvent:self];
+    [self.delegate interstitialCustomEventWillLeaveApplication:self];
 }
 
 @end
