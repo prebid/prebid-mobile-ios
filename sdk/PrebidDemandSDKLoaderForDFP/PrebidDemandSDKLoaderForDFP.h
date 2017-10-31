@@ -23,5 +23,5 @@ FOUNDATION_EXPORT double PrebidDemandSDKLoaderForDFPVersionNumber;
 FOUNDATION_EXPORT const unsigned char PrebidDemandSDKLoaderForDFPVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <PrebidDemandSDKLoaderForDFP/PublicHeader.h>
-
-
+#import <PrebidDemandSDKLoaderForDFP/PrebidCustomEventBannerDFP.h>
+#import <PrebidDemandSDKLoaderForDFP/PrebidCustomEventInterstitialDFP.h>
