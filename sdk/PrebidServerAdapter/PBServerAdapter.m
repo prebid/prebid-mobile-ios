@@ -252,6 +252,9 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
     NSInteger timeInMiliseconds = (NSInteger)[[NSDate date] timeIntervalSince1970];
     deviceDict[@"devtime"] = @(timeInMiliseconds);
     
+    CGFloat pixelRatio = [[UIScreen mainScreen] scale];
+    deviceDict[@"pxratio"] = @(pixelRatio);
+    
     return [deviceDict copy];
 }
 
