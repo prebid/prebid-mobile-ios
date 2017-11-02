@@ -62,7 +62,7 @@
         self.adLoader = [[PBFacebookInterstitialAdLoader alloc] initWithDelegate:self];
         [self.adLoader loadInterstitialAd:responseDict];
     } else {
-        NSLog(@"Not a valid bidder for DFP Mediation Adapter");
+        NSLog(@"Not a valid bidder for DFP Custom Event Demand SDK Loader");
     }
 }
 
@@ -70,7 +70,7 @@
     [self.adLoader showAdFromRootViewController:rootViewController];
 }
 
-#pragma mark - PBInterstitialDemandSDKAdapterDelegate
+#pragma mark - PBCustomEventInterstitialDelegate
 
 - (void)didLoadAd:(id)interstitialAd {
     [self.delegate customEventInterstitialDidReceiveAd:interstitialAd];

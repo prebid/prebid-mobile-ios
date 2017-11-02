@@ -64,11 +64,11 @@
         self.adLoader = [[PBFacebookBannerAdLoader alloc] initWithDelegate:self];
         [self.adLoader loadAd:responseDict];
 	} else {
-        NSLog(@"Not a valid bidder for DFP Mediation Adapter");
+        NSLog(@"Not a valid bidder for MoPub Custom Event Demand SDK Loader");
     }
 }
 
-#pragma mark - PBBannerMediationAdapterDelegate methods
+#pragma mark - PBCustomEventBannerDelegate methods
 
 - (void)didLoadAd:(UIView *)adView {
 	[self.delegate bannerCustomEvent:self didLoadAd:adView];

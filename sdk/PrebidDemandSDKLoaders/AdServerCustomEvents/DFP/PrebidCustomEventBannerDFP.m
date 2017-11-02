@@ -18,7 +18,7 @@
 #import "PrebidCustomEventBannerDFP.h"
 #import "PrebidMobileDemandSDKLoaderSettings.h"
 
-static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediationAdapter";
+static NSString *const customEventErrorDomain = @"org.prebid.PrebidCustomEventBannerDFP";
 
 @interface PrebidCustomEventBannerDFP()
 
@@ -66,11 +66,11 @@ static NSString *const customEventErrorDomain = @"org.prebid.PrebidMobileMediati
         self.adLoader = [[PBFacebookBannerAdLoader alloc] initWithDelegate:self];
         [self.adLoader loadAd:responseDict];
     } else {
-        NSLog(@"Not a valid bidder for DFP Mediation Adapter");
+        NSLog(@"Not a valid bidder for DFP Custom Event Demand SDK Loader");
     }
 }
 
-#pragma mark - PBDFPMediationDelegate methods
+#pragma mark - PBCustomEventBannerDelegate methods
 - (void)didLoadAd:(UIView *)adView {
     [self.delegate customEventBanner:self didReceiveAd:adView];
 }
