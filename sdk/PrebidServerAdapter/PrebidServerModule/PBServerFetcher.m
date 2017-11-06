@@ -43,12 +43,12 @@
                                                            options:kNilOptions
                                                              error:nil];
     // Map request tids to ad unit codes to check to make sure response lines up
-    if (self.requestTIDs == nil) {
-        self.requestTIDs = [[NSMutableArray alloc] init];
-    }
-    @synchronized(self.requestTIDs) {
-        [self.requestTIDs addObject:params[@"tid"]];
-    }
+//    if (self.requestTIDs == nil) {
+//        self.requestTIDs = [[NSMutableArray alloc] init];
+//    }
+//    @synchronized(self.requestTIDs) {
+//        [self.requestTIDs addObject:params[@"tid"]];
+//    }
 
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[[NSOperationQueue alloc] init]
@@ -56,6 +56,7 @@
                                if (response != nil && data.length > 0) {
                                    PBLogDebug(@"Bid response from Prebid Server: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                                    NSDictionary *adUnitToBids = [self processData:data];
+                                   NSDictionary *openRTBAdUnitBidMap = [self processOpenRTBData:data];
                                    dispatch_async(dispatch_get_main_queue(), ^{
                                        completionHandler(adUnitToBids, nil);
                                    });
@@ -67,6 +68,26 @@
                            }];
 }
 
+- (NSDictionary *)processOpenRTBData:(NSData *)data {
+    NSDictionary *bidMap = [[NSDictionary alloc] init];
+    NSError *error;
+    id object = [NSJSONSerialization JSONObjectWithData:data
+                                                options:kNilOptions
+                                                  error:&error];
+    if (error) {
+        PBLogError(@"Error parsing ad server response");
+        return [[NSMutableDictionary alloc] init];
+    }
+    if (!object) {
+        return [[NSMutableDictionary alloc] init];
+    }
+    if ([object isKindOfClass:[NSDictionary class]]) {
+        
+
+    }
+}
+
+// now need to handle OpenRTB response
 - (NSDictionary *)processData:(NSData *)data {
     NSDictionary *bidMap = [[NSDictionary alloc] init];
     NSError *error;
@@ -86,17 +107,17 @@
             NSString *status = (NSString *)[response objectForKey:@"status"];
             if ([status isEqualToString:@"OK"]) {
                 // check to make sure the request tid matches the response tid
-                NSString *responseTID = (NSString *)[response objectForKey:@"tid"];
-                NSMutableArray *requestTIDsToDelete = [NSMutableArray array];
-                @synchronized (self.requestTIDs) {
-                    if ([self.requestTIDs containsObject:responseTID]) {
-                        [requestTIDsToDelete addObject:responseTID];
-                        bidMap = [self mapBidsToAdUnits:response];
-                    } else {
-                        PBLogError(@"Response tid did not match request tid %@", response);
-                    }
-                    [self.requestTIDs removeObjectsInArray:requestTIDsToDelete];
-                }
+//                NSString *responseTID = (NSString *)[response objectForKey:@"tid"];
+//                NSMutableArray *requestTIDsToDelete = [NSMutableArray array];
+//                @synchronized (self.requestTIDs) {
+//                    if ([self.requestTIDs containsObject:responseTID]) {
+//                        [requestTIDsToDelete addObject:responseTID];
+//                        bidMap = [self mapBidsToAdUnits:response];
+//                    } else {
+//                        PBLogError(@"Response tid did not match request tid %@", response);
+//                    }
+//                    [self.requestTIDs removeObjectsInArray:requestTIDsToDelete];
+//                }
             }
             else {
                 PBLogError(@"Received bad status response from the ad server %@", response);

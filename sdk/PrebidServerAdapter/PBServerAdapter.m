@@ -33,6 +33,8 @@ static NSString *const kAPNAdServerResponseKeyNoBid = @"nobid";
 static NSString *const kAPNAdServerResponseKeyUUID = @"uuid";
 static NSString *const kPrebidMobileVersion = @"0.1.1";
 
+static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com/pbs/v1/openrtb2/auction";
+
 @interface PBServerAdapter ()
 
 @property (nonatomic, strong) NSString *accountId;
@@ -70,13 +72,14 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
 }
 
 - (NSURLRequest *)buildRequestForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
-    NSURL *url = [NSURL URLWithString:@"https://prebid.adnxs.com/pbs/v1/auction"];
+    NSURL *url = [NSURL URLWithString:kPrebidServerOpenRTBEndpoint];
     NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:url
                                                                        cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                                    timeoutInterval:1000];
     [mutableRequest setHTTPMethod:@"POST"];
+    NSDictionary *requestBody = [self openRTBRequestBodyForAdUnits:adUnits];
     NSError *error;
-    NSData *postData = [NSJSONSerialization dataWithJSONObject:[self requestBodyForAdUnits:adUnits]
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:requestBody
                                                        options:kNilOptions
                                                          error:&error];
     if (!error) {
@@ -87,118 +90,92 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
     }
 }
 
-- (NSDictionary *)requestBodyForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
+- (NSDictionary *)openRTBRequestBodyForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
     NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
-    
-    requestDict[@"cache_markup"] = @(1);
-    requestDict[@"sort_bids"] = @(1);
-    // need this so DFP targeting keys aren't too long
-    requestDict[@"max_key_length"] = @(20);
-    requestDict[@"account_id"] = self.accountId;
-    requestDict[@"tid"] = [[NSUUID UUID] UUIDString];
-    requestDict[@"prebid_version"] = @"0.21.0-pre";
-    
-    requestDict[@"sdk"] = @{@"source": @"prebid-mobile",
-                            @"version": kPrebidMobileVersion,
-                            @"platform": @"iOS"};
 
-    NSDictionary *user = [self user];
-    if (user) {
-        requestDict[@"user"] = user;
-    }
-    NSDictionary *device = [self device];
-    if (device) {
-        requestDict[@"device"] = device;
-    }
-    NSDictionary *appID = [self app];
-    if (appID != nil) {
-        requestDict[@"app"] = appID;
-    }
-    NSArray *keywords = [self keywords];
-    if (keywords) {
-        requestDict[@"keywords"] = keywords;
-    }
-    
-    NSMutableArray *adUnitConfigs = [[NSMutableArray alloc] init];
+    requestDict[@"id"] = @"some-request-id";
+    requestDict[@"test"] = @(1);
+    requestDict[@"tmax"] = @(500);
+
+    requestDict[@"app"] = [self openrtbApp];
+    requestDict[@"imp"] = [self openrtbImpsFromAdUnits:adUnits];
+    requestDict[@"ext"] = [self openrtbRequestExtension];
+
+#ifdef DEBUG
+	requestDict[@"test"] = @(YES);
+#endif
+
+    return [requestDict copy];
+}
+
+- (NSDictionary *)openrtbRequestExtension {
+    NSMutableDictionary *requestPrebidExt = [[NSMutableDictionary alloc] init];
+    requestPrebidExt[@"cache"] = @{@"markup" : @(1)};
+    requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20)};
+    NSMutableDictionary *requestExt = [[NSMutableDictionary alloc] init];
+    requestExt[@"prebid"] = requestPrebidExt;
+    return [requestExt copy];
+}
+
+- (NSArray *)openrtbImpsFromAdUnits:(NSArray<PBAdUnit *> *)adUnits {
+    NSMutableArray *imps = [[NSMutableArray alloc] init];
     for (PBAdUnit *adUnit in adUnits) {
-        NSMutableDictionary *adUnitConfig = [[NSMutableDictionary alloc] init];
-        adUnitConfig[@"code"] = adUnit.identifier;
-        
+        NSMutableDictionary *imp = [[NSMutableDictionary alloc] init];
+        imp[@"id"] = adUnit.identifier;
+
         NSMutableArray *sizeArray = [[NSMutableArray alloc] initWithCapacity:adUnit.adSizes.count];
         for (id size in adUnit.adSizes) {
             CGSize arSize = [size CGSizeValue];
             NSDictionary *sizeDict = [NSDictionary dictionaryWithObjectsAndKeys:@(arSize.width), @"w", @(arSize.height), @"h", nil];
             [sizeArray addObject:sizeDict];
         }
-        adUnitConfig[@"sizes"] = sizeArray;
-        
-        adUnitConfig[@"config_id"] = adUnit.configId;
-        [adUnitConfigs addObject:adUnitConfig];
-    }
-    requestDict[@"ad_units"] = adUnitConfigs;
-    
-    return [requestDict copy];
-}
+        // TODO check for video here when we add video (Nicole)
+        NSDictionary *formats = @{@"format": sizeArray};
+        imp[@"banner"] = formats;
 
-- (NSDictionary *)user {
-    NSMutableDictionary *userDict = [[NSMutableDictionary alloc] init];
-    
-    NSInteger ageValue = [[PBTargetingParams sharedInstance] age];
-    if (ageValue > 0) {
-        userDict[@"age"] = @(ageValue);
-    }
-    
-    PBTargetingParamsGender genderValue = [[PBTargetingParams sharedInstance] gender];
-    NSString *gender;
-    switch (genderValue) {
-        case PBTargetingParamsGenderMale:
-            gender = @"M";
-            break;
-        case PBTargetingParamsGenderFemale:
-            gender = @"F";
-            break;
-        default:
-            gender = @"O";
-            break;
-    }
-    userDict[@"gender"] = gender;
-    
-    NSString *language = [NSLocale preferredLanguages][0];
-    if (language.length) {
-        userDict[@"language"] = language;
-    }
-    
-    return [userDict copy];
-}
-
-- (NSArray *)keywords {
-    NSDictionary *customKeywords = [[PBTargetingParams sharedInstance] customKeywords];
-    if (customKeywords.count < 1) {
-        return nil;
-    }
-    
-    NSMutableArray *kvSegmentsArray = [[NSMutableArray alloc] init];
-    
-    [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        NSString *stringKey = PBSConvertToNSString(key);
-        NSArray *arrayValue = PBSConvertToNSArray(value);
-        if (stringKey.length > 0 && arrayValue.count > 0) {
-            [kvSegmentsArray addObject:@{ @"key": stringKey,
-                                          @"value": arrayValue }];
+        if (adUnit.adType == PBAdUnitTypeInterstitial) {
+            imp[@"instl"] = @(1);
         }
-    }];
-    return [kvSegmentsArray copy];
+
+        NSMutableDictionary *prebidAdUnitExt = [[NSMutableDictionary alloc] init];
+        prebidAdUnitExt[@"managedconfig"] = adUnit.configId;
+
+        NSMutableDictionary *adUnitExt = [[NSMutableDictionary alloc] init];
+        adUnitExt[@"prebid"] = prebidAdUnitExt;
+
+        imp[@"ext"] = adUnitExt;
+        [imps addObject:imp];
+    }
+    return [imps copy];
 }
 
-- (NSDictionary *)device {
+// OpenRTB 2.5 Object: App in section 3.2.14
+- (NSDictionary *)openrtbApp {
+    NSMutableDictionary *app = [[NSMutableDictionary alloc] init];
+    
+    NSString *bundle = [[NSBundle mainBundle] bundleIdentifier];
+    if (bundle) {
+        app[@"bundle"] = bundle;
+    }
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    if (version) {
+        app[@"ver"] = version;
+    }
+    
+    app[@"publisher"] = @{@"id": self.accountId};
+    app[@"ext"] = @{@"prebid" : @{@"version" : kPrebidMobileVersion, @"source" : @"prebid-mobile"}};
+    return [app copy];
+}
+
+// OpenRTB 2.5 Object: Device in section 3.2.18
+- (NSDictionary *)openrtbDevice {
     NSMutableDictionary *deviceDict = [[NSMutableDictionary alloc] init];
     
     NSString *userAgent = PBSUserAgent();
     if (userAgent) {
         deviceDict[@"ua"] = userAgent;
     }
-    
-    NSDictionary *geo = [self geo];
+    NSDictionary *geo = [self openrtbGeo];
     if (geo) {
         deviceDict[@"geo"] = geo;
     }
@@ -213,7 +190,6 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
     if (deviceModel) {
         deviceDict[@"model"] = deviceModel;
     }
-    
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
     
@@ -240,7 +216,6 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
     if (carrier.mobileCountryCode.length > 0 && carrier.mobileNetworkCode.length > 0) {
         deviceDict[@"mccmnc"] = [[carrier.mobileCountryCode stringByAppendingString:@"-"] stringByAppendingString:carrier.mobileNetworkCode];
     }
-    
     // Limit ad tracking
     deviceDict[@"lmt"] = @(!PBSAdvertisingTrackingEnabled());
     
@@ -248,14 +223,11 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
     if (deviceId) {
         deviceDict[@"ifa"] = deviceId;
     }
-    
-    NSInteger timeInMiliseconds = (NSInteger)[[NSDate date] timeIntervalSince1970];
-    deviceDict[@"devtime"] = @(timeInMiliseconds);
-    
     return [deviceDict copy];
 }
 
-- (NSDictionary *)geo {
+// OpenRTB 2.5 Object: Geo in section 3.2.19
+- (NSDictionary *)openrtbGeo {
     CLLocation *clLocation = [[PBTargetingParams sharedInstance] location];
     PBServerLocation *location;
     if (clLocation) {
@@ -290,17 +262,33 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
     }
 }
 
-- (NSDictionary *)app {
-    if ([[PBTargetingParams sharedInstance] itunesID] != nil) {
-        NSString *itunesid = [[PBTargetingParams sharedInstance] itunesID];
-        return @{ @"appid": itunesid, @"ver": kPrebidMobileVersion };
-    } else {
-        NSString *appId = [[NSBundle mainBundle] bundleIdentifier];
-        if (appId == nil) {
-            appId = @"";
-        }
-        return @{ @"bundle": appId, @"ver": kPrebidMobileVersion };
+// OpenRTB 2.5 Object: User in section 3.2.20
+- (NSDictionary *)openrtbUser {
+    NSMutableDictionary *userDict = [[NSMutableDictionary alloc] init];
+
+    NSInteger ageValue = [[PBTargetingParams sharedInstance] age];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    NSInteger year = [components year];
+    if (ageValue > 0) {
+        userDict[@"yob"] = @(year - ageValue);
     }
+
+    PBTargetingParamsGender genderValue = [[PBTargetingParams sharedInstance] gender];
+    NSString *gender;
+    switch (genderValue) {
+        case PBTargetingParamsGenderMale:
+            gender = @"M";
+            break;
+        case PBTargetingParamsGenderFemale:
+            gender = @"F";
+            break;
+        default:
+            gender = @"O";
+            break;
+    }
+    userDict[@"gender"] = gender;
+
+    return [userDict copy];
 }
 
 + (NSNumberFormatter *)precisionNumberFormatter {
@@ -312,5 +300,24 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
     });
     return precisionNumberFormatter;
 }
+
+//- (NSArray *)keywords {
+//    NSDictionary *customKeywords = [[PBTargetingParams sharedInstance] customKeywords];
+//    if (customKeywords.count < 1) {
+//        return nil;
+//    }
+//
+//    NSMutableArray *kvSegmentsArray = [[NSMutableArray alloc] init];
+//
+//    [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+//        NSString *stringKey = PBSConvertToNSString(key);
+//        NSArray *arrayValue = PBSConvertToNSArray(value);
+//        if (stringKey.length > 0 && arrayValue.count > 0) {
+//            [kvSegmentsArray addObject:@{ @"key": stringKey,
+//                                          @"value": arrayValue }];
+//        }
+//    }];
+//    return [kvSegmentsArray copy];
+//}
 
 @end
