@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B40B92A91FC6477300A676A8 /* PBServerHost.h in Headers */ = {isa = PBXBuildFile; fileRef = B40B92A71FC6477300A676A8 /* PBServerHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B40B92AA1FC6477300A676A8 /* PBServerHost.m in Sources */ = {isa = PBXBuildFile; fileRef = B40B92A81FC6477300A676A8 /* PBServerHost.m */; };
+		B40B92AC1FC651D600A676A8 /* PBServerHostTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B40B92AB1FC651D600A676A8 /* PBServerHostTests.m */; };
 		C22E7CE61EE70E19007B31F4 /* NSTimer+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B16E501EE1BEC4006304C0 /* NSTimer+Extension.m */; };
 		C23386D21EE5DBFB002FD404 /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = C23386D01EE5DBFB002FD404 /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C23386D31EE5DBFB002FD404 /* PrebidMobile.m in Sources */ = {isa = PBXBuildFile; fileRef = C23386D11EE5DBFB002FD404 /* PrebidMobile.m */; };
@@ -80,6 +83,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B40B92A71FC6477300A676A8 /* PBServerHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBServerHost.h; sourceTree = "<group>"; };
+		B40B92A81FC6477300A676A8 /* PBServerHost.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBServerHost.m; sourceTree = "<group>"; };
+		B40B92AB1FC651D600A676A8 /* PBServerHostTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBServerHostTests.m; sourceTree = "<group>"; };
 		C23386D01EE5DBFB002FD404 /* PrebidMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMobile.h; sourceTree = "<group>"; };
 		C23386D11EE5DBFB002FD404 /* PrebidMobile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMobile.m; sourceTree = "<group>"; };
 		C23386D41EE5DC95002FD404 /* PBAdUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBAdUnit.h; sourceTree = "<group>"; };
@@ -199,6 +205,7 @@
 				C281E1951EE5F2AD00F2F4A9 /* PBBidManagerTests.m */,
 				C281E1961EE5F2AD00F2F4A9 /* PBBidResponseTests.m */,
 				C281E1981EE5F2AD00F2F4A9 /* PBTargetingParamsTests.m */,
+				B40B92AB1FC651D600A676A8 /* PBServerHostTests.m */,
 				C29238D81F3E38D100217075 /* PBServerAdapterTests.m */,
 			);
 			path = PrebidMobileCoreTests;
@@ -279,6 +286,8 @@
 				C2B16E301EE1BEA6006304C0 /* PBKeywordsManager.m */,
 				C2B16E311EE1BEA6006304C0 /* PBTargetingParams.h */,
 				C2B16E321EE1BEA6006304C0 /* PBTargetingParams.m */,
+				B40B92A71FC6477300A676A8 /* PBServerHost.h */,
+				B40B92A81FC6477300A676A8 /* PBServerHost.m */,
 				C23386D01EE5DBFB002FD404 /* PrebidMobile.h */,
 				C23386D11EE5DBFB002FD404 /* PrebidMobile.m */,
 			);
@@ -361,6 +370,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B40B92A91FC6477300A676A8 /* PBServerHost.h in Headers */,
 				C2B16E391EE1BEA6006304C0 /* PBException.h in Headers */,
 				C2B16E341EE1BEA6006304C0 /* PBBannerAdUnit.h in Headers */,
 				C2B16E481EE1BEB6006304C0 /* PBBidResponse.h in Headers */,
@@ -493,6 +503,7 @@
 				C281E19D1EE5F2AD00F2F4A9 /* PBTargetingParamsTests.m in Sources */,
 				C281E1991EE5F2AD00F2F4A9 /* PBAdUnitTests.m in Sources */,
 				C281E19A1EE5F2AD00F2F4A9 /* PBBidManagerTests.m in Sources */,
+				B40B92AC1FC651D600A676A8 /* PBServerHostTests.m in Sources */,
 				C281E1AC1EE5F2DA00F2F4A9 /* ANHTTPStubbingManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -517,6 +528,7 @@
 				C2B16E581EE1BEC4006304C0 /* NSString+Extension.m in Sources */,
 				C2B16E3A1EE1BEA6006304C0 /* PBException.m in Sources */,
 				C2B16E491EE1BEB6006304C0 /* PBBidResponse.m in Sources */,
+				B40B92AA1FC6477300A676A8 /* PBServerHost.m in Sources */,
 				C23FCCEF1EE5E41E00CFFEF0 /* PBLogManager.m in Sources */,
 				C2B16E371EE1BEA6006304C0 /* PBBidManager.m in Sources */,
 				C2B16E3E1EE1BEA6006304C0 /* PBKeywordsManager.m in Sources */,

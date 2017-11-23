@@ -28,10 +28,13 @@
 #import "PBServerLocation.h"
 #import "PBServerReachability.h"
 #import "PBTargetingParams.h"
+#import "PBServerHost.h"
 
 static NSString *const kAPNAdServerResponseKeyNoBid = @"nobid";
 static NSString *const kAPNAdServerResponseKeyUUID = @"uuid";
 static NSString *const kPrebidMobileVersion = @"0.1.1";
+static NSString *const kAPNPrebidServerUrl = @"https://prebid.adnxs.com/pbs/v1/auction";
+static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproject.com/auction";
 
 @interface PBServerAdapter ()
 
@@ -70,8 +73,7 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
 }
 
 - (NSURLRequest *)buildRequestForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
-    NSURL *url = [NSURL URLWithString:@"https://prebid.adnxs.com/pbs/v1/auction"];
-    NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:url
+    NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:[self pbServerUrl]
                                                                        cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                                    timeoutInterval:1000];
     [mutableRequest setHTTPMethod:@"POST"];
@@ -138,6 +140,21 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
     requestDict[@"ad_units"] = adUnitConfigs;
     
     return [requestDict copy];
+}
+
+- (NSURL *)pbServerUrl {
+    NSURL *url;
+    switch ([[PBServerHost sharedInstance] pbsHost]) {
+        case PBSHostRubicon:
+            url = [NSURL URLWithString:kRPPrebidServerUrl];
+            break;
+        case PBSHostAppNexus:
+        default:
+            url = [NSURL URLWithString:kAPNPrebidServerUrl];
+            break;
+    }
+    
+    return url;
 }
 
 - (NSDictionary *)user {
