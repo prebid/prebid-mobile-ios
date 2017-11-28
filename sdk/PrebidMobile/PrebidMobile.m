@@ -13,15 +13,20 @@
  limitations under the License.
  */
 
-#import "PBBidManager.h"
 #import "PrebidMobile.h"
 #import "PrebidURLProtocol.h"
 
 @implementation PrebidMobile
 
 + (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId {
-    [NSURLProtocol registerClass:[PrebidURLProtocol class]];
     [[PBBidManager sharedInstance] registerAdUnits:adUnits withAccountId:accountId];
+}
+
++ (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId
+     andPrimaryAdServer:(PBPrimaryAdServerType)adServer {
+    [NSURLProtocol registerClass:[PrebidURLProtocol class]];
+    [[PBBidManager sharedInstance] registerAdUnits:adUnits withAccountId:accountId andPrimaryAdServer:adServer];
 }
 
 + (void)setBidKeywordsOnAdObject:(nonnull id)adObject

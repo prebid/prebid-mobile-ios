@@ -32,10 +32,22 @@ static int const kPCAttachTopBidMaxTimeoutMS = 1500;
 + (void)resetSharedInstance;
 #endif
 
+typedef NS_ENUM(NSInteger, PBPrimaryAdServerType) {
+    PBPrimaryAdServerDFP,
+    PBPrimaryAdServerMoPub
+};
+
 /**
- * Registers all the ad units with the prebid server account id, and starts the auction for each ad unit
+ * DEPRECATED Registers all the ad units with the prebid server account id, and starts the auction for each ad unit
  */
-- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId;
+- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId __deprecated;
+
+/**
+ * Registers all the ad units with the prebid server account id, and primary ad server and starts the auction for each ad unit
+ */
+- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId
+     andPrimaryAdServer:(PBPrimaryAdServerType)adServer;
 
 /**
  * Returns the ad unit for the string identifier

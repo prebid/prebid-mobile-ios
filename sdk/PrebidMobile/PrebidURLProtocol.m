@@ -25,7 +25,6 @@
 @implementation PrebidURLProtocol
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
-    static NSUInteger requestCount = 0;
     if ([NSURLProtocol propertyForKey:@"PrebidURLProtocolHandledKey" inRequest:request]) {
         return NO;
     }

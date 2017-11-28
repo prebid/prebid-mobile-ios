@@ -21,6 +21,8 @@
 
 - (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId;
 
+@property (nonatomic, assign, readwrite) int primaryAdServer;
+
 - (void)requestBidsWithAdUnits:(nullable NSArray<PBAdUnit *> *)adUnits
                   withDelegate:(nonnull id<PBBidResponseDelegate>)delegate;
 

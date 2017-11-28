@@ -94,6 +94,22 @@ static dispatch_once_t onceToken;
     [self requestBidsForAdUnits:adUnits];
 }
 
+- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId
+     andPrimaryAdServer:(PBPrimaryAdServerType)adServer {
+    if (_adUnits == nil) {
+        _adUnits = [[NSMutableSet alloc] init];
+    }
+    _bidsMap = [[NSMutableDictionary alloc] init];
+    _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId];
+    _demandAdapter.primaryAdServer = adServer;
+    for (id adUnit in adUnits) {
+        [self registerAdUnit:adUnit];
+    }
+    [self startPollingBidsExpiryTimer];
+    [self requestBidsForAdUnits:adUnits];
+}
+
 - (nullable PBAdUnit *)adUnitByIdentifier:(nonnull NSString *)identifier {
     NSArray *adUnits = [_adUnits allObjects];
     for (PBAdUnit *adUnit in adUnits) {
