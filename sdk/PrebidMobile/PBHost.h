@@ -18,26 +18,11 @@
 /**
  * Prebid Server host selection enumerator to be passed in by the user
  */
-typedef NS_ENUM(NSUInteger, PBSHost) {
-    PBSHostAppNexus = 0,
-    PBSHostRubicon
+typedef NS_ENUM(NSUInteger, PBServerHost) {
+    PBServerHostAppNexus = 1,
+    PBServerHostRubicon
 };
 
-@interface PBServerHost : NSObject
-
-/**
- * Shared instance of the PBServerHost class
- */
-+ (nonnull instancetype)sharedInstance;
-
-#ifdef DEBUG
-+ (void)resetSharedInstance;
-#endif
-
-/**
- * The Prebid Server host to be used for auctions. Set before registering ad units.
- * If not used, Prebid Server host defaults to AppNexus.
- */
-@property (nonatomic, assign, readwrite) PBSHost pbsHost;
+@interface PBHost : NSObject
 
 @end

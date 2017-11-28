@@ -18,8 +18,10 @@
 
 @implementation PrebidMobile
 
-+ (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId {
-    [[PBBidManager sharedInstance] registerAdUnits:adUnits withAccountId:accountId];
++ (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId
+               withHost:(PBServerHost)host {
+    [[PBBidManager sharedInstance] registerAdUnits:adUnits withAccountId:accountId withHost:host];
 }
 
 + (void)setBidKeywordsOnAdObject:(nonnull id)adObject

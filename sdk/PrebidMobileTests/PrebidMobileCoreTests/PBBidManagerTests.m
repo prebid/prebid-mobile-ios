@@ -63,7 +63,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     PBAdUnit *bannerAdUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt1" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     [bannerAdUnit addSize:CGSizeMake(320, 50)];
 
-    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit] withAccountId:self.accountId];
+    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus];
     returnedUnit = [[PBBidManager sharedInstance] adUnitByIdentifier:[bannerAdUnit identifier]];
 
     XCTAssertNotNil(returnedUnit);
@@ -74,7 +74,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     PBAdUnit *returnedUnit = nil;
     PBAdUnit *interstitialAdUnit = [[PBInterstitialAdUnit alloc] initWithAdUnitIdentifier:@"bmt2" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
 
-    [[PBBidManager sharedInstance] registerAdUnits:@[interstitialAdUnit] withAccountId:self.accountId];
+    [[PBBidManager sharedInstance] registerAdUnits:@[interstitialAdUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus];
     returnedUnit = [[PBBidManager sharedInstance] adUnitByIdentifier:[interstitialAdUnit identifier]];
 
     XCTAssertNotNil(returnedUnit);
@@ -88,7 +88,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     [bannerAdUnit addSize:CGSizeMake(320, 50)];
     PBAdUnit *interstitialAdUnit = [[PBInterstitialAdUnit alloc] initWithAdUnitIdentifier:@"bmt4" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
 
-    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit, interstitialAdUnit] withAccountId:self.accountId];
+    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit, interstitialAdUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus];
     returnedAdUnit = [[PBBidManager sharedInstance] adUnitByIdentifier:[bannerAdUnit identifier]];
     returnedInterstitialAdUnit = [[PBBidManager sharedInstance] adUnitByIdentifier:[interstitialAdUnit identifier]];
 
@@ -101,7 +101,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
 - (void)testRegisterBannerAdUnitNoSizeException {
     PBBannerAdUnit *bannerAdUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt4" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     @try {
-        [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit] withAccountId:self.accountId];
+        [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus];
     } @catch (PBException *exception) {
         NSExceptionName expectedException = @"PBAdUnitNoSizeException";
         XCTAssertNotNil(exception);
@@ -118,7 +118,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     PBAdUnit *bannerAdUnit2 = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"sameid" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     [bannerAdUnit2 addSize:CGSizeMake(320, 50)];
 
-    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit1, bannerAdUnit2] withAccountId:self.accountId];
+    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit1, bannerAdUnit2] withAccountId:self.accountId withHost:PBServerHostAppNexus];
     returnedUnit = [[PBBidManager sharedInstance] adUnitByIdentifier:[bannerAdUnit1 identifier]];
 
     XCTAssertNotNil(returnedUnit);
@@ -131,7 +131,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
 - (void)testWinningBidForAdUnit {
     PBAdUnit *bannerAdUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt45" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     [bannerAdUnit addSize:CGSizeMake(320, 50)];
-    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit] withAccountId:self.accountId];
+    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus];
     
     NSDictionary *testAdServerTargeting = @{@"hb_pb":@"4.14", @"hb_cache_id":@"0000-0000-000-0000"};
     PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:bannerAdUnit.identifier adServerTargeting:testAdServerTargeting];
@@ -150,7 +150,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
 - (void)testKeywordsForWinningBidForAdUnit {
     PBAdUnit *bannerAdUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt5" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     [bannerAdUnit addSize:CGSizeMake(320, 50)];
-    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit] withAccountId:self.accountId];
+    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus];
     
     NSDictionary *testAdServerTargeting = @{@"hb_pb":@"4.14", @"hb_cache_id":@"0000-0000-000-0000", @"hb_bidder": @"appnexus"};
     PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:bannerAdUnit.identifier adServerTargeting:testAdServerTargeting];
@@ -168,7 +168,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
 - (void)testAssertAdUnitRegistered {
     PBAdUnit *bannerAdUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt6" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     [bannerAdUnit addSize:CGSizeMake(320, 50)];
-    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit] withAccountId:self.accountId];
+    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus];
     [[PBBidManager sharedInstance] assertAdUnitRegistered:bannerAdUnit.identifier];
 }
 
@@ -192,7 +192,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     PBAdUnit *adUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt8" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     [adUnit addSize:CGSizeMake(320, 50)];
-    [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId];
+    [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus];
 
     NSDictionary *testAdServerTargeting = @{@"hb_pb":@"4.14", @"hb_cache_id":@"0000-0000-000-0000", @"hb_bidder": @"appnexus"};
     PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnit.identifier adServerTargeting:testAdServerTargeting];
@@ -210,7 +210,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     PBAdUnit *adUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt9" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     [adUnit addSize:CGSizeMake(320, 50)];
-    [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId];
+    [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus];
 
     // Save a bid after 200 milliseconds - before the timeout of 500 ms but not immediately
     NSDictionary *testAdServerTargeting = @{@"hb_pb":@"4.14", @"hb_cache_id":@"0000-0000-000-0000", @"hb_bidder": @"appnexus"};
@@ -231,7 +231,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     PBAdUnit *adUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt10" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     [adUnit addSize:CGSizeMake(320, 50)];
-    [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId];
+    [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus];
 
     [[PBBidManager sharedInstance] attachTopBidHelperForAdUnitId:adUnit.identifier andTimeout:500 completionHandler:^{
         NSDictionary *bidKeywords = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
@@ -248,7 +248,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     PBAdUnit *adUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt11" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     [adUnit addSize:CGSizeMake(320, 50)];
     NSString *originalUUID = adUnit.uuid;
-    [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId];
+    [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus];
     
     NSDictionary *testAdServerTargeting = @{@"hb_pb":@"4.14", @"hb_cache_id":@"0000-0000-000-0000", @"hb_bidder": @"appnexus"};
     PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnit.identifier adServerTargeting:testAdServerTargeting];
@@ -269,7 +269,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     // This test is a bit confusing. The first ad unit is registered to initialize Prebid and the ad units set using the public API.
     PBAdUnit *adUnitTest = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt21" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     [adUnitTest addSize:CGSizeMake(320, 50)];
-    [[PBBidManager sharedInstance] registerAdUnits:@[adUnitTest] withAccountId:self.accountId];
+    [[PBBidManager sharedInstance] registerAdUnits:@[adUnitTest] withAccountId:self.accountId withHost:PBServerHostAppNexus];
 
     // We initialize this ad unit using the private function to ensure a request doesn't go out and the timeToExpireAfter doesn't get reset
     // to 4 min and 30 seconds instead of 1 second for testing.
@@ -299,7 +299,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
 - (void)testCheckForBidsExpiredNoBid {
     PBAdUnit *adUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt13" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     [adUnit addSize:CGSizeMake(320, 50)];
-    [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId];
+    [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus];
 
     // On no bid response bids should not be considered expired
     NSString *originalUUID = adUnit.uuid;

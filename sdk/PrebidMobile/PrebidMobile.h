@@ -15,6 +15,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PBLogging.h"
+#import "PBHost.h"
 
 @class PBAdUnit;
 
@@ -24,8 +25,11 @@
  * This method allows the developer to register the ad units created for Prebid Mobile
  * @param adUnits : Array of AdUnits that can be registered
  * @param accountId : Prebid server accountId
+ * @param host : Prebid server host
  */
-+ (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId;
++ (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId
+               withHost:(PBServerHost)host;
 
 + (void)setBidKeywordsOnAdObject:(nonnull id)adObject withAdUnitId:(nonnull NSString *)adUnitId;
 

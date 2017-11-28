@@ -14,6 +14,7 @@
  */
 
 #import "PBAdUnit.h"
+#import "PBHost.h"
 #import "PBServerAdapter.h"
 
 @class PBBidResponse;
@@ -33,9 +34,11 @@ static int const kPCAttachTopBidMaxTimeoutMS = 1500;
 #endif
 
 /**
- * Registers all the ad units with the prebid server account id, and starts the auction for each ad unit
+ * Registers all the ad units with the prebid server account id and host, and starts the auction for each ad unit
  */
-- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId;
+- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId
+               withHost:(PBServerHost)host;
 
 /**
  * Returns the ad unit for the string identifier

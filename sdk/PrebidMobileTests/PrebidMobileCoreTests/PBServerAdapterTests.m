@@ -15,7 +15,7 @@
 
 #import <XCTest/XCTest.h>
 #import "PBServerAdapter.h"
-#import "PBServerHost.h"
+#import "PBException.h"
 
 static NSString *const kPrebidMobileVersion = @"0.1.1";
 static NSString *const kAPNPrebidServerUrl = @"https://prebid.adnxs.com/pbs/v1/auction";
@@ -49,7 +49,7 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
 }
 
 - (void)testRequestBodyForAdUnit {
-    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id" withHost:PBServerHostAppNexus];
     NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:self.adUnits];
 
     XCTAssertEqualObjects(requestBody[@"account_id"], @"test_account_id");
@@ -77,18 +77,24 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
     XCTAssertTrue([sizesArray count] == 1);
 }
 
-- (void)testBuildRequestForAdUnits {
-    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
-    NSURLRequest *request = [serverAdapter buildRequestForAdUnits:self.adUnits];
-    
-    // Test default host
-    XCTAssertEqualObjects(request.URL, [NSURL URLWithString:kAPNPrebidServerUrl]);
+- (void)testBuildRequestForAdUnitsInvalidHost {
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id" withHost:nil];
+    NSURLRequest *request;
+    @try {
+        request = [serverAdapter buildRequestForAdUnits:self.adUnits];
+    } @catch (PBException *exception) {
+        NSExceptionName expectedException = @"PBHostInvalidException";
+        XCTAssertNotNil(exception);
+        XCTAssertEqual(exception.name, expectedException);
+    }
+}
 
-    [[PBServerHost sharedInstance] setPbsHost:PBSHostRubicon];
-    request = [serverAdapter buildRequestForAdUnits:self.adUnits];
+- (void)testBuildRequestForAdUnitsValidHost {
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id" withHost:PBServerHostRubicon];
+    NSURLRequest *request = [serverAdapter buildRequestForAdUnits:self.adUnits];
     XCTAssertEqualObjects(request.URL, [NSURL URLWithString:kRPPrebidServerUrl]);
     
-    [[PBServerHost sharedInstance] setPbsHost:PBSHostAppNexus];
+    serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id" withHost:PBServerHostAppNexus];
     request = [serverAdapter buildRequestForAdUnits:self.adUnits];
     XCTAssertEqualObjects(request.URL, [NSURL URLWithString:kAPNPrebidServerUrl]);
 }

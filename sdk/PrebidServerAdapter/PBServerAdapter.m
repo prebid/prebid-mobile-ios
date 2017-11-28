@@ -28,7 +28,7 @@
 #import "PBServerLocation.h"
 #import "PBServerReachability.h"
 #import "PBTargetingParams.h"
-#import "PBServerHost.h"
+#import "PBException.h"
 
 static NSString *const kAPNAdServerResponseKeyNoBid = @"nobid";
 static NSString *const kAPNAdServerResponseKeyUUID = @"uuid";
@@ -39,14 +39,17 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
 @interface PBServerAdapter ()
 
 @property (nonatomic, strong) NSString *accountId;
+@property (nonatomic, strong) NSURL *hostUrl;
 
 @end
 
 @implementation PBServerAdapter
 
-- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId {
+- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId
+                                 withHost:(PBServerHost)host {
     if (self = [super init]) {
         _accountId = accountId;
+        _hostUrl = [self urlForHost:host];
     }
     return self;
 }
@@ -73,7 +76,10 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
 }
 
 - (NSURLRequest *)buildRequestForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
-    NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:[self pbServerUrl]
+    if (_hostUrl == nil) {
+        @throw [PBException exceptionWithName:PBHostInvalidException];
+    }
+    NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:_hostUrl
                                                                        cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                                    timeoutInterval:1000];
     [mutableRequest setHTTPMethod:@"POST"];
@@ -142,15 +148,17 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
     return [requestDict copy];
 }
 
-- (NSURL *)pbServerUrl {
+- (NSURL *)urlForHost:(PBServerHost)host {
     NSURL *url;
-    switch ([[PBServerHost sharedInstance] pbsHost]) {
-        case PBSHostRubicon:
+    switch (host) {
+        case PBServerHostAppNexus:
+            url = [NSURL URLWithString:kAPNPrebidServerUrl];
+            break;
+        case PBServerHostRubicon:
             url = [NSURL URLWithString:kRPPrebidServerUrl];
             break;
-        case PBSHostAppNexus:
         default:
-            url = [NSURL URLWithString:kAPNPrebidServerUrl];
+            url = nil;
             break;
     }
     

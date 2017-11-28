@@ -81,12 +81,14 @@ static dispatch_once_t onceToken;
     sharedInstance = nil;
 }
 
-- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId {
+- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId
+               withHost:(PBServerHost)host {
     if (_adUnits == nil) {
         _adUnits = [[NSMutableSet alloc] init];
     }
     _bidsMap = [[NSMutableDictionary alloc] init];
-    _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId];
+    _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId withHost:host];
     for (id adUnit in adUnits) {
         [self registerAdUnit:adUnit];
     }
