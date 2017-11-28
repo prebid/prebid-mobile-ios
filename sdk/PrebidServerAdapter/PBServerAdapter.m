@@ -63,11 +63,15 @@ static NSTimeInterval const kAdTimeoutInterval = 360;
             NSMutableArray *bidResponsesArray = [[NSMutableArray alloc] init];
             for (NSDictionary *bid in bidsArray) {
                 PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:bid[@"ad_server_targeting"]];
-                if (_primaryAdServer == 0) {
+                if (self.primaryAdServer == PBPrimaryAdServerDFP) {
                     NSString *cacheId = [[NSUUID UUID] UUIDString];
                     NSMutableDictionary *bidCopy = [bid mutableCopy];
                     NSMutableDictionary *adServerTargetingCopy = [bidCopy[@"ad_server_targeting"] mutableCopy];
-                    adServerTargetingCopy[@"hb_cache_id"] = cacheId;
+                    for (NSString *key in [adServerTargetingCopy allKeys]) {
+                        if ([key containsString:@"hb_cache_id"]) {
+                            adServerTargetingCopy[key] = cacheId;
+                        }
+                    }
                     [bidCopy setObject:adServerTargetingCopy forKey:@"ad_server_targeting"];
                     [[EGOCache globalCache] setObject:bidCopy forKey:cacheId withTimeoutInterval:kAdTimeoutInterval];
 
@@ -102,7 +106,7 @@ static NSTimeInterval const kAdTimeoutInterval = 360;
 - (NSDictionary *)requestBodyForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
     NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
 
-    if (self.primaryAdServer == 1) {
+    if (self.primaryAdServer == PBPrimaryAdServerMoPub) {
         requestDict[@"cache_markup"] = @(1);
     }
 

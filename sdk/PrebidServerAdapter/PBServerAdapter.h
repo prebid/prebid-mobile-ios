@@ -15,13 +15,14 @@
 
 #import <Foundation/Foundation.h>
 #import "PBAdUnit.h"
+#import "PBBidManager.h"
 #import "PBBidResponseDelegate.h"
 
 @interface PBServerAdapter : NSObject
 
 - (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId;
 
-@property (nonatomic, assign, readwrite) int primaryAdServer;
+@property (nonatomic, assign, readwrite) PBPrimaryAdServerType primaryAdServer;
 
 - (void)requestBidsWithAdUnits:(nullable NSArray<PBAdUnit *> *)adUnits
                   withDelegate:(nonnull id<PBBidResponseDelegate>)delegate;

@@ -14,7 +14,6 @@
  */
 
 #import "PBAdUnit.h"
-#import "PBServerAdapter.h"
 
 @class PBBidResponse;
 
