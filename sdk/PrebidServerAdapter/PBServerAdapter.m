@@ -106,7 +106,7 @@ static NSTimeInterval const kAdTimeoutInterval = 360;
 - (NSDictionary *)requestBodyForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
     NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
 
-    if (self.primaryAdServer == PBPrimaryAdServerMoPub) {
+    if (self.primaryAdServer == PBPrimaryAdServerMoPub || self.primaryAdServer == PBPrimaryAdServerUnknown) {
         requestDict[@"cache_markup"] = @(1);
     }
 
