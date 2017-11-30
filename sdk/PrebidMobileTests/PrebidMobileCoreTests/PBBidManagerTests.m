@@ -58,6 +58,26 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
 
 #pragma mark - Test register ad units tests
 
+- (void)testRegisterBannerAdUnitWithDFPPrimaryAdServer {
+    PBAdUnit *bannerAdUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt1" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
+    [bannerAdUnit addSize:CGSizeMake(320, 50)];
+
+    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit] withAccountId:self.accountId andPrimaryAdServer:PBPrimaryAdServerDFP];
+    PBPrimaryAdServerType primaryAdServer = [PBBidManager sharedInstance].demandAdapter.primaryAdServer;
+
+    XCTAssertTrue(primaryAdServer == PBPrimaryAdServerDFP);
+}
+
+- (void)testRegisterBannerAdUnitWithMoPubPrimaryAdServer {
+    PBAdUnit *bannerAdUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt1" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
+    [bannerAdUnit addSize:CGSizeMake(320, 50)];
+
+    [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit] withAccountId:self.accountId andPrimaryAdServer:PBPrimaryAdServerMoPub];
+    PBPrimaryAdServerType primaryAdServer = [PBBidManager sharedInstance].demandAdapter.primaryAdServer;
+
+    XCTAssertTrue(primaryAdServer == PBPrimaryAdServerMoPub);
+}
+
 - (void)testRegisterBannerAdUnit {
     PBAdUnit *returnedUnit = nil;
     PBAdUnit *bannerAdUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt1" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
