@@ -64,19 +64,21 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
             NSArray *bidsArray = (NSArray *)[adUnitToBidsMap objectForKey:adUnitId];
             NSMutableArray *bidResponsesArray = [[NSMutableArray alloc] init];
             for (NSDictionary *bid in bidsArray) {
-                PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:bid[@"ad_server_targeting"]];
+                PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:bid[@"ext"][@"prebid"][@"targeting"]];
+                // TODO NICOLE FIX
                 if (self.primaryAdServer == PBPrimaryAdServerDFP) {
                     NSString *cacheId = [[NSUUID UUID] UUIDString];
                     NSMutableDictionary *bidCopy = [bid mutableCopy];
-                    NSMutableDictionary *adServerTargetingCopy = [bidCopy[@"ad_server_targeting"] mutableCopy];
+                    NSMutableDictionary *adServerTargetingCopy = [bidCopy[@"ext"][@"prebid"][@"targeting"] mutableCopy];
                     for (NSString *key in [adServerTargetingCopy allKeys]) {
                         if ([key containsString:@"hb_cache_id"]) {
                             adServerTargetingCopy[key] = cacheId;
                         }
                     }
-                    [bidCopy setObject:adServerTargetingCopy forKey:@"ad_server_targeting"];
+                    bidCopy[@"ext"][@"prebid"][@"targeting"] = adServerTargetingCopy;
+                    //[bidCopy setObject:adServerTargetingCopy forKey:@"ad_server_targeting"];
                     [[EGOCache globalCache] setObject:bidCopy forKey:cacheId withTimeoutInterval:kAdTimeoutInterval];
-
+                    
                     bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:bidCopy[@"ad_server_targeting"]];
                 }
                 PBLogDebug(@"Bid Successful with rounded bid targeting keys are %@ for adUnit id is %@", bidResponse.customKeywords, adUnitId);
@@ -114,6 +116,9 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
     requestDict[@"tmax"] = @(500);
 
     requestDict[@"app"] = [self openrtbApp];
+    requestDict[@"device"] = [self openrtbDevice];
+    requestDict[@"user"] = [self openrtbUser];
+    requestDict[@"geo"] = [self openrtbGeo];
     requestDict[@"imp"] = [self openrtbImpsFromAdUnits:adUnits];
     requestDict[@"ext"] = [self openrtbRequestExtension];
 
@@ -126,7 +131,9 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
 
 - (NSDictionary *)openrtbRequestExtension {
     NSMutableDictionary *requestPrebidExt = [[NSMutableDictionary alloc] init];
-    requestPrebidExt[@"cache"] = @{@"markup" : @(1)};
+    if (self.primaryAdServer == PBPrimaryAdServerUnknown || self.primaryAdServer == PBPrimaryAdServerMoPub) {
+        requestPrebidExt[@"cache"] = @{@"winners" : @(1), @"deals" : @(1)};
+    }
     requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20)};
     NSMutableDictionary *requestExt = [[NSMutableDictionary alloc] init];
     requestExt[@"prebid"] = requestPrebidExt;
@@ -135,38 +142,6 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
 
 - (NSArray *)openrtbImpsFromAdUnits:(NSArray<PBAdUnit *> *)adUnits {
     NSMutableArray *imps = [[NSMutableArray alloc] init];
-
-    if (self.primaryAdServer == PBPrimaryAdServerMoPub || self.primaryAdServer == PBPrimaryAdServerUnknown) {
-        requestDict[@"cache_markup"] = @(1);
-    }
-
-    requestDict[@"sort_bids"] = @(1);
-    // need this so DFP targeting keys aren't too long
-    requestDict[@"max_key_length"] = @(20);
-    requestDict[@"account_id"] = self.accountId;
-    requestDict[@"tid"] = [[NSUUID UUID] UUIDString];
-    requestDict[@"prebid_version"] = @"0.21.0-pre";
-
-    requestDict[@"sdk"] = @{@"source": @"prebid-mobile",
-                            @"version": kPrebidMobileVersion,
-                            @"platform": @"iOS"};
-
-    NSDictionary *user = [self user];
-    if (user) {
-        requestDict[@"user"] = user;
-    }
-    NSDictionary *device = [self device];
-    if (device) {
-        requestDict[@"device"] = device;
-    }
-    NSDictionary *appID = [self app];
-    if (appID != nil) {
-        requestDict[@"app"] = appID;
-    }
-    NSArray *keywords = [self keywords];
-    if (keywords) {
-        requestDict[@"keywords"] = keywords;
-    }
 
     NSMutableArray *adUnitConfigs = [[NSMutableArray alloc] init];
     for (PBAdUnit *adUnit in adUnits) {
@@ -188,7 +163,7 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
         }
 
         NSMutableDictionary *prebidAdUnitExt = [[NSMutableDictionary alloc] init];
-        prebidAdUnitExt[@"managedconfig"] = adUnit.configId;
+        prebidAdUnitExt[@"storedrequest"] = @{@"id" : adUnit.configId};
 
         NSMutableDictionary *adUnitExt = [[NSMutableDictionary alloc] init];
         adUnitExt[@"prebid"] = prebidAdUnitExt;
