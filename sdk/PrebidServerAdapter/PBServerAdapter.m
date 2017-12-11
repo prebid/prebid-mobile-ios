@@ -65,7 +65,6 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
             NSMutableArray *bidResponsesArray = [[NSMutableArray alloc] init];
             for (NSDictionary *bid in bidsArray) {
                 PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:bid[@"ext"][@"prebid"][@"targeting"]];
-                // TODO NICOLE FIX
                 if (self.primaryAdServer == PBPrimaryAdServerDFP) {
                     NSString *cacheId = [[NSUUID UUID] UUIDString];
                     NSMutableDictionary *bidCopy = [bid mutableCopy];
@@ -75,11 +74,14 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
                             adServerTargetingCopy[key] = cacheId;
                         }
                     }
-                    bidCopy[@"ext"][@"prebid"][@"targeting"] = adServerTargetingCopy;
-                    //[bidCopy setObject:adServerTargetingCopy forKey:@"ad_server_targeting"];
+                    NSMutableDictionary *extCopy = [bidCopy[@"ext"] mutableCopy];
+                    NSMutableDictionary *prebidExtCopy = [bidCopy[@"ext"][@"prebid"] mutableCopy];
+                    prebidExtCopy[@"targeting"] = adServerTargetingCopy;
+                    extCopy[@"prebid"] = prebidExtCopy;
+                    bidCopy[@"ext"] = extCopy;
                     [[EGOCache globalCache] setObject:bidCopy forKey:cacheId withTimeoutInterval:kAdTimeoutInterval];
                     
-                    bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:bidCopy[@"ad_server_targeting"]];
+                    bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:adServerTargetingCopy];
                 }
                 PBLogDebug(@"Bid Successful with rounded bid targeting keys are %@ for adUnit id is %@", bidResponse.customKeywords, adUnitId);
                 [bidResponsesArray addObject:bidResponse];
@@ -332,24 +334,5 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
     });
     return precisionNumberFormatter;
 }
-
-//- (NSArray *)keywords {
-//    NSDictionary *customKeywords = [[PBTargetingParams sharedInstance] customKeywords];
-//    if (customKeywords.count < 1) {
-//        return nil;
-//    }
-//
-//    NSMutableArray *kvSegmentsArray = [[NSMutableArray alloc] init];
-//
-//    [customKeywords enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-//        NSString *stringKey = PBSConvertToNSString(key);
-//        NSArray *arrayValue = PBSConvertToNSArray(value);
-//        if (stringKey.length > 0 && arrayValue.count > 0) {
-//            [kvSegmentsArray addObject:@{ @"key": stringKey,
-//                                          @"value": arrayValue }];
-//        }
-//    }];
-//    return [kvSegmentsArray copy];
-//}
 
 @end
