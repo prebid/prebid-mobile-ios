@@ -16,6 +16,7 @@
 #import <AdSupport/AdSupport.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import "EGOCache.h"
 #import <sys/utsname.h>
 #import <UIKit/UIKit.h>
 
@@ -35,21 +36,19 @@ static NSString *const kAPNAdServerResponseKeyUUID = @"uuid";
 static NSString *const kPrebidMobileVersion = @"0.1.1";
 static NSString *const kAPNPrebidServerUrl = @"https://prebid.adnxs.com/pbs/v1/auction";
 static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproject.com/auction";
+static NSTimeInterval const kAdTimeoutInterval = 360;
 
 @interface PBServerAdapter ()
 
 @property (nonatomic, strong) NSString *accountId;
-@property (nonatomic, strong) NSURL *hostUrl;
 
 @end
 
 @implementation PBServerAdapter
 
-- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId
-                                 withHost:(PBServerHost)host {
+- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId {
     if (self = [super init]) {
         _accountId = accountId;
-        _hostUrl = [self urlForHost:host];
     }
     return self;
 }
@@ -67,6 +66,20 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
             NSMutableArray *bidResponsesArray = [[NSMutableArray alloc] init];
             for (NSDictionary *bid in bidsArray) {
                 PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:bid[@"ad_server_targeting"]];
+                if (self.primaryAdServer == PBPrimaryAdServerDFP) {
+                    NSString *cacheId = [[NSUUID UUID] UUIDString];
+                    NSMutableDictionary *bidCopy = [bid mutableCopy];
+                    NSMutableDictionary *adServerTargetingCopy = [bidCopy[@"ad_server_targeting"] mutableCopy];
+                    for (NSString *key in [adServerTargetingCopy allKeys]) {
+                        if ([key containsString:@"hb_cache_id"]) {
+                            adServerTargetingCopy[key] = cacheId;
+                        }
+                    }
+                    [bidCopy setObject:adServerTargetingCopy forKey:@"ad_server_targeting"];
+                    [[EGOCache globalCache] setObject:bidCopy forKey:cacheId withTimeoutInterval:kAdTimeoutInterval];
+
+                    bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:bidCopy[@"ad_server_targeting"]];
+                }
                 PBLogDebug(@"Bid Successful with rounded bid targeting keys are %@ for adUnit id is %@", bidResponse.customKeywords, adUnitId);
                 [bidResponsesArray addObject:bidResponse];
             }
@@ -76,10 +89,11 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
 }
 
 - (NSURLRequest *)buildRequestForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
-    if (_hostUrl == nil) {
+    NSURL *hostUrl = [self urlForHost:_host];
+    if (hostUrl == nil) {
         @throw [PBException exceptionWithName:PBHostInvalidException];
     }
-    NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:_hostUrl
+    NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:hostUrl
                                                                        cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                                    timeoutInterval:1000];
     [mutableRequest setHTTPMethod:@"POST"];
@@ -97,15 +111,18 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
 
 - (NSDictionary *)requestBodyForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
     NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
-    
-    requestDict[@"cache_markup"] = @(1);
+
+    if (self.primaryAdServer == PBPrimaryAdServerMoPub || self.primaryAdServer == PBPrimaryAdServerUnknown) {
+        requestDict[@"cache_markup"] = @(1);
+    }
+
     requestDict[@"sort_bids"] = @(1);
     // need this so DFP targeting keys aren't too long
     requestDict[@"max_key_length"] = @(20);
     requestDict[@"account_id"] = self.accountId;
     requestDict[@"tid"] = [[NSUUID UUID] UUIDString];
     requestDict[@"prebid_version"] = @"0.21.0-pre";
-    
+
     requestDict[@"sdk"] = @{@"source": @"prebid-mobile",
                             @"version": kPrebidMobileVersion,
                             @"platform": @"iOS"};
@@ -126,7 +143,7 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
     if (keywords) {
         requestDict[@"keywords"] = keywords;
     }
-    
+
     NSMutableArray *adUnitConfigs = [[NSMutableArray alloc] init];
     for (PBAdUnit *adUnit in adUnits) {
         NSMutableDictionary *adUnitConfig = [[NSMutableDictionary alloc] init];

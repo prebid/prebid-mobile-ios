@@ -49,7 +49,8 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
 }
 
 - (void)testRequestBodyForAdUnit {
-    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id" withHost:PBServerHostAppNexus];
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    serverAdapter.host = PBServerHostAppNexus;
     NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:self.adUnits];
 
     XCTAssertEqualObjects(requestBody[@"account_id"], @"test_account_id");
@@ -78,7 +79,7 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
 }
 
 - (void)testBuildRequestForAdUnitsInvalidHost {
-    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id" withHost:nil];
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
     NSURLRequest *request;
     @try {
         request = [serverAdapter buildRequestForAdUnits:self.adUnits];
@@ -90,13 +91,54 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
 }
 
 - (void)testBuildRequestForAdUnitsValidHost {
-    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id" withHost:PBServerHostRubicon];
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    serverAdapter.host = PBServerHostRubicon;
     NSURLRequest *request = [serverAdapter buildRequestForAdUnits:self.adUnits];
     XCTAssertEqualObjects(request.URL, [NSURL URLWithString:kRPPrebidServerUrl]);
     
-    serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id" withHost:PBServerHostAppNexus];
+    serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    serverAdapter.host = PBServerHostAppNexus;
     request = [serverAdapter buildRequestForAdUnits:self.adUnits];
     XCTAssertEqualObjects(request.URL, [NSURL URLWithString:kAPNPrebidServerUrl]);
+}
+
+- (void)testRequestBodyForAdUnitPrimaryAdServerUnknown {
+    PBAdUnit *adUnit = [[PBAdUnit alloc] initWithIdentifier:@"test_identifier" andAdType:PBAdUnitTypeBanner andConfigId:@"test_config_id"];
+    [adUnit addSize:CGSizeMake(250, 300)];
+    NSArray *adUnits = @[adUnit];
+
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    serverAdapter.host = PBServerHostAppNexus;
+    serverAdapter.primaryAdServer = PBPrimaryAdServerUnknown;
+    NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:adUnits];
+
+    XCTAssertEqualObjects(requestBody[@"cache_markup"], @(1));
+}
+
+- (void)testRequestBodyForAdUnitWithDFPAdServer {
+    PBAdUnit *adUnit = [[PBAdUnit alloc] initWithIdentifier:@"test_identifier" andAdType:PBAdUnitTypeBanner andConfigId:@"test_config_id"];
+    [adUnit addSize:CGSizeMake(250, 300)];
+    NSArray *adUnits = @[adUnit];
+
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    serverAdapter.host = PBServerHostAppNexus;
+    serverAdapter.primaryAdServer = PBPrimaryAdServerDFP;
+    NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:adUnits];
+
+    XCTAssertNil(requestBody[@"cache_markup"]);
+}
+
+- (void)testRequestBodyForAdUnitWithMoPubAdServer {
+    PBAdUnit *adUnit = [[PBAdUnit alloc] initWithIdentifier:@"test_identifier" andAdType:PBAdUnitTypeBanner andConfigId:@"test_config_id"];
+    [adUnit addSize:CGSizeMake(250, 300)];
+    NSArray *adUnits = @[adUnit];
+
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    serverAdapter.host = PBServerHostAppNexus;
+    serverAdapter.primaryAdServer = PBPrimaryAdServerMoPub;
+    NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:adUnits];
+
+    XCTAssertEqualObjects(requestBody[@"cache_markup"], @(1));
 }
 
 @end

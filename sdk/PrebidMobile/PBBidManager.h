@@ -15,7 +15,6 @@
 
 #import "PBAdUnit.h"
 #import "PBHost.h"
-#import "PBServerAdapter.h"
 
 @class PBBidResponse;
 
@@ -33,12 +32,24 @@ static int const kPCAttachTopBidMaxTimeoutMS = 1500;
 + (void)resetSharedInstance;
 #endif
 
+typedef NS_ENUM(NSInteger, PBPrimaryAdServerType) {
+    PBPrimaryAdServerUnknown,
+    PBPrimaryAdServerDFP,
+    PBPrimaryAdServerMoPub
+};
+
 /**
- * Registers all the ad units with the prebid server account id and host, and starts the auction for each ad unit
+ * DEPRECATED Registers all the ad units with the prebid server account id, and starts the auction for each ad unit
+ */
+- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId __deprecated;
+
+/**
+ * Registers all the ad units with the prebid server account id, host, and primary ad server and starts the auction for each ad unit
  */
 - (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
           withAccountId:(nonnull NSString *)accountId
-               withHost:(PBServerHost)host;
+               withHost:(PBServerHost)host
+     andPrimaryAdServer:(PBPrimaryAdServerType)adServer;
 
 /**
  * Returns the ad unit for the string identifier

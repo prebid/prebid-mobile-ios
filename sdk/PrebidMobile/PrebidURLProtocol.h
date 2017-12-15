@@ -1,4 +1,4 @@
-/*   Copyright 2017 Prebid.org, Inc.
+/*   Copyright 2017 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,19 +14,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBAdUnit.h"
-#import "PBHost.h"
-#import "PBBidManager.h"
-#import "PBBidResponseDelegate.h"
 
-@interface PBServerAdapter : NSObject
-
-@property (nonatomic, assign, readwrite) PBPrimaryAdServerType primaryAdServer;
-@property (nonatomic, assign, readwrite) PBServerHost host;
-
-- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId;
-
-- (void)requestBidsWithAdUnits:(nullable NSArray<PBAdUnit *> *)adUnits
-                  withDelegate:(nonnull id<PBBidResponseDelegate>)delegate;
+@interface PrebidURLProtocol : NSURLProtocol
 
 @end

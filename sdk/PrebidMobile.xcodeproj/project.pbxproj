@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		B40B92AF1FCCC5E300A676A8 /* PBHost.h in Headers */ = {isa = PBXBuildFile; fileRef = B40B92AD1FCCC5E300A676A8 /* PBHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B455F9011FE460E3005D6261 /* PBBidManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E281EE1BEA6006304C0 /* PBBidManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C210FE321FBDF0440010B588 /* PrebidURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */; };
+		C210FE331FBDF0440010B588 /* PrebidURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = C210FE311FBDF0440010B588 /* PrebidURLProtocol.m */; };
+		C210FE381FC3375D0010B588 /* EGOCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE361FC3375D0010B588 /* EGOCache.h */; };
+		C210FE391FC3375D0010B588 /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C210FE371FC3375D0010B588 /* EGOCache.m */; };
 		C22E7CE61EE70E19007B31F4 /* NSTimer+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B16E501EE1BEC4006304C0 /* NSTimer+Extension.m */; };
 		C23386D21EE5DBFB002FD404 /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = C23386D01EE5DBFB002FD404 /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C23386D31EE5DBFB002FD404 /* PrebidMobile.m in Sources */ = {isa = PBXBuildFile; fileRef = C23386D11EE5DBFB002FD404 /* PrebidMobile.m */; };
@@ -36,7 +41,6 @@
 		C29238D91F3E38D100217075 /* PBServerAdapterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C29238D81F3E38D100217075 /* PBServerAdapterTests.m */; };
 		C2B16E341EE1BEA6006304C0 /* PBBannerAdUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E261EE1BEA6006304C0 /* PBBannerAdUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2B16E351EE1BEA6006304C0 /* PBBannerAdUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B16E271EE1BEA6006304C0 /* PBBannerAdUnit.m */; };
-		C2B16E361EE1BEA6006304C0 /* PBBidManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E281EE1BEA6006304C0 /* PBBidManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2B16E371EE1BEA6006304C0 /* PBBidManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B16E291EE1BEA6006304C0 /* PBBidManager.m */; };
 		C2B16E381EE1BEA6006304C0 /* PBBidResponseDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E2A1EE1BEA6006304C0 /* PBBidResponseDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2B16E391EE1BEA6006304C0 /* PBException.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E2B1EE1BEA6006304C0 /* PBException.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -82,6 +86,10 @@
 
 /* Begin PBXFileReference section */
 		B40B92AD1FCCC5E300A676A8 /* PBHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBHost.h; sourceTree = "<group>"; };
+		C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidURLProtocol.h; sourceTree = "<group>"; };
+		C210FE311FBDF0440010B588 /* PrebidURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidURLProtocol.m; sourceTree = "<group>"; };
+		C210FE361FC3375D0010B588 /* EGOCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
+		C210FE371FC3375D0010B588 /* EGOCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EGOCache.m; sourceTree = "<group>"; };
 		C23386D01EE5DBFB002FD404 /* PrebidMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMobile.h; sourceTree = "<group>"; };
 		C23386D11EE5DBFB002FD404 /* PrebidMobile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMobile.m; sourceTree = "<group>"; };
 		C23386D41EE5DC95002FD404 /* PBAdUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBAdUnit.h; sourceTree = "<group>"; };
@@ -282,8 +290,12 @@
 				C2B16E311EE1BEA6006304C0 /* PBTargetingParams.h */,
 				C2B16E321EE1BEA6006304C0 /* PBTargetingParams.m */,
 				B40B92AD1FCCC5E300A676A8 /* PBHost.h */,
+				C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */,
+				C210FE311FBDF0440010B588 /* PrebidURLProtocol.m */,
 				C23386D01EE5DBFB002FD404 /* PrebidMobile.h */,
 				C23386D11EE5DBFB002FD404 /* PrebidMobile.m */,
+				C210FE361FC3375D0010B588 /* EGOCache.h */,
+				C210FE371FC3375D0010B588 /* EGOCache.m */,
 			);
 			path = PrebidMobile;
 			sourceTree = "<group>";
@@ -364,6 +376,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B455F9011FE460E3005D6261 /* PBBidManager.h in Headers */,
 				B40B92AF1FCCC5E300A676A8 /* PBHost.h in Headers */,
 				C2B16E391EE1BEA6006304C0 /* PBException.h in Headers */,
 				C2B16E341EE1BEA6006304C0 /* PBBannerAdUnit.h in Headers */,
@@ -376,13 +389,14 @@
 				C23386DA1EE5DCDB002FD404 /* PBServerAdapter.h in Headers */,
 				C23386D61EE5DC95002FD404 /* PBAdUnit.h in Headers */,
 				C23386D21EE5DBFB002FD404 /* PrebidMobile.h in Headers */,
-				C2B16E361EE1BEA6006304C0 /* PBBidManager.h in Headers */,
 				C24B78C41EE7467E0045B454 /* NSObject+Prebid.h in Headers */,
 				C2B16E3B1EE1BEA6006304C0 /* PBInterstitialAdUnit.h in Headers */,
 				C2B16E9B1EE1BF1A006304C0 /* PBServerGlobal.h in Headers */,
 				C2B16E9F1EE1BF1A006304C0 /* PBServerReachability.h in Headers */,
 				C2B16E9D1EE1BF1A006304C0 /* PBServerLocation.h in Headers */,
+				C210FE321FBDF0440010B588 /* PrebidURLProtocol.h in Headers */,
 				C2B16E981EE1BF1A006304C0 /* PBServerFetcher.h in Headers */,
+				C210FE381FC3375D0010B588 /* EGOCache.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,7 +455,7 @@
 					};
 					C2B16E1A1EE1BE69006304C0 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = HR94J6TSB3;
+						DevelopmentTeam = KYTPW66G2W;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -513,9 +527,11 @@
 				C2B16E9C1EE1BF1A006304C0 /* PBServerGlobal.m in Sources */,
 				C2B16E3C1EE1BEA6006304C0 /* PBInterstitialAdUnit.m in Sources */,
 				C23FCCEB1EE5E3F500CFFEF0 /* PBLogging.m in Sources */,
+				C210FE391FC3375D0010B588 /* EGOCache.m in Sources */,
 				C2B16E401EE1BEA6006304C0 /* PBTargetingParams.m in Sources */,
 				C2B16E9E1EE1BF1A006304C0 /* PBServerLocation.m in Sources */,
 				C2B16E351EE1BEA6006304C0 /* PBBannerAdUnit.m in Sources */,
+				C210FE331FBDF0440010B588 /* PrebidURLProtocol.m in Sources */,
 				C23386D71EE5DC95002FD404 /* PBAdUnit.m in Sources */,
 				C24B78C51EE7467E0045B454 /* NSObject+Prebid.m in Sources */,
 				C2B16E581EE1BEC4006304C0 /* NSString+Extension.m in Sources */,
@@ -665,7 +681,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = HR94J6TSB3;
+				DEVELOPMENT_TEAM = KYTPW66G2W;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -687,7 +703,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = HR94J6TSB3;
+				DEVELOPMENT_TEAM = KYTPW66G2W;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
