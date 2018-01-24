@@ -43,19 +43,21 @@
                                                            options:kNilOptions
                                                              error:nil];
     // Map request tids to ad unit codes to check to make sure response lines up
-//    if (self.requestTIDs == nil) {
-//        self.requestTIDs = [[NSMutableArray alloc] init];
-//    }
-//    @synchronized(self.requestTIDs) {
-//        [self.requestTIDs addObject:params[@"tid"]];
-//    }
+    if (self.requestTIDs == nil) {
+        self.requestTIDs = [[NSMutableArray alloc] init];
+    }
+    @synchronized(self.requestTIDs) {
+        if(params[@"tid"] != nil){
+            [self.requestTIDs addObject:params[@"tid"]];
+        }
+    }
 
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
                                if (response != nil && data.length > 0) {
                                    PBLogDebug(@"Bid response from Prebid Server: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-                                   NSDictionary *adUnitToBids = [self processData:data];
+                                   //NSDictionary *adUnitToBids = [self processData:data];
                                    NSDictionary *openRTBAdUnitBidMap = [self processOpenRTBData:data];
                                    dispatch_async(dispatch_get_main_queue(), ^{
                                        completionHandler(openRTBAdUnitBidMap, nil);
@@ -69,129 +71,20 @@
 }
 
 - (NSDictionary *)processOpenRTBData:(NSData *)data {
-    NSDictionary *bidMap = [[NSDictionary alloc] init];
-    bidMap = @{
-        @"id":@"some-request-id",
-        @"seatbid":@[
-                   @{
-                       @"bid":@[
-                              @{
-                                  @"id":@"4107461962527263292",
-                                  @"impid":@"my-imp-id",
-                                  @"price":@(5),
-                                  @"adm":@"<script type=\"application/javascript\" src=\"http://nym1-ib.adnxs.com/ab?e=wqT_3QLUBaDUAgAAAwDWAAUBCM-ygdEFENvoqbrnoOP8eRicivXS0qH_pjcqLQkAAAECCBRAEQEHEAAAFEAZCQkI4D8hCQkIFEApCQmwJEAwn66zBTi-B0DyBkgCUIa17CZYhaVOYABovMJneMqlBIABAYoBA1VTRJIBAQbwUpgBrAKgAfoBqAEBsAEAuAECwAEFyAEC0AEA2AEA4AEB8AEAigI7dWYoJ2EnLCAyMTcwNzQ4LCAxNTEyMDY5NDU1KTt1ZigncicsIDgxNDY4MDM4Nh4A8IGSAvkBIUpETW5pUWl1LUtRSkVJYTE3Q1lZQUNDRnBVNHdBRGdBUUFCSThnWlFuNjZ6QlZnQVlQX19fXzhQYUFCd0FYZ0JnQUVCaUFFQmtBRUJtQUVCb0FFQnFBRURzQUVBdVFIenJXcWtBQUFrUU1FQjg2MXFwQUFBSkVESkFRQUFBAQMUUEFfMlFFAQpwQUFBRHdQLUFCQVBVQkFBQWdRWmdDQUtBQ0FMVUMBHghBTDAJCPBMTUFDQWNnQ0FkQUNBZGdDQWVBQ0FPZ0NBUGdDQUlBREFaQURBSmdEQWFnRHJ2aWtDYm9EQ1U1WlRUSTZNelV3TlEuLpoCLSFBUW5Rb0E2_ADwimhhVk9JQUFvQURvSlRsbE5Nam96TlRBMdgC6AfgAvzmPYADAYgDAZAD_78YmAMUoAMBqgMAwAOsAsgDANgDAOADAOgDAPgDAIAEAJIECS9vcGVucnRiMpgEAKgEALIEDAgAEAAYACAAMAA4ALgEAMAEAMgEANIECU5ZTTI6MzUwNdoEAggB4AQA8ARBIiCIBQGYBQCgBf8RAVwBqgUPc29tZS1yZXF1ZXN0LWlkwAUAyQVJZRTwP9IFCQkJDEQAANgFAeAFAfAFAfoFBAgAEAA.ss=a3b6c936d049fea367bf7a2a87a7da0adc8b690astest=1p=${AUCTION_PRICE}\"></script>",
-                                  @"adid":@"81468038",
-                                  @"adomain":@[
-                                             @"appnexus.com"
-                                             ],
-                                  @"iurl":@"http://nym1-ib.adnxs.com/cr?id=81468038",
-                                  @"cid":@"882",
-                                  @"crid":@"81468038",
-                                  @"dealid":@"401407",
-                                  @"w":@(300),
-                                  @"h":@(250),
-                                  @"ext":@{
-                                      @"prebid":@{
-                                          @"responsetimemillis":@(0),
-                                          @"targeting":@{
-                                              @"hb_bidder":@"appnexus",
-                                              @"hb_bidder_appnexus":@"appnexus",
-                                              @"hb_creative_loadtype":@"html",
-                                              @"hb_deal":@"401407",
-                                              @"hb_deal_appnexus":@"401407",
-                                              @"hb_pb":@"5.00",
-                                              @"hb_pb_appnexus":@"5.00",
-                                              @"hb_size":@"300x250",
-                                              @"hb_size_appnexus":@"300x250"
-                                          },
-                                          @"type":@"banner"
-                                      },
-                                      @"bidder":@{
-                                          @"appnexus":@{
-                                              @"brand_id":@(1),
-                                              @"auction_id":@"8789211206700921947",
-                                              @"bidder_id":@(2),
-                                              @"ranking_price":@"0.000000"
-                                          }
-                                      }
-                                  }
-                              },
-                              @{
-                                  @"id":@"6754596782874271437",
-                                  @"impid":@"my-imp-id",
-                                  @"price":@(0.5),
-                                  @"adm":@"<script type=\"application/javascript\" src=\"http://nym1-ib.adnxs.com/ab?e=wqT_3QLUBaDUAgAAAwDWAAUBCM-ygdEFENvoqbrnoOP8eRicivXS0qH_pjcqLQkAAAECCBRAEQEHEAAAFEAZCQkI4D8hCQkIFEApCQmwJEAwn66zBTi-B0DyBkgCUIa17CZYhaVOYABovMJneMqlBIABAYoBA1VTRJIBAQbwUpgBrAKgAfoBqAEBsAEAuAECwAEFyAEC0AEA2AEA4AEB8AEAigI7dWYoJ2EnLCAyMTcwNzQ4LCAxNTEyMDY5NDU1KTt1ZigncicsIDgxNDY4MDM4Nh4A8IGSAvkBIUpETW5pUWl1LUtRSkVJYTE3Q1lZQUNDRnBVNHdBRGdBUUFCSThnWlFuNjZ6QlZnQVlQX19fXzhQYUFCd0FYZ0JnQUVCaUFFQmtBRUJtQUVCb0FFQnFBRURzQUVBdVFIenJXcWtBQUFrUU1FQjg2MXFwQUFBSkVESkFRQUFBAQMUUEFfMlFFAQpwQUFBRHdQLUFCQVBVQkFBQWdRWmdDQUtBQ0FMVUMBHghBTDAJCPBMTUFDQWNnQ0FkQUNBZGdDQWVBQ0FPZ0NBUGdDQUlBREFaQURBSmdEQWFnRHJ2aWtDYm9EQ1U1WlRUSTZNelV3TlEuLpoCLSFBUW5Rb0E2_ADwimhhVk9JQUFvQURvSlRsbE5Nam96TlRBMdgC6AfgAvzmPYADAYgDAZAD_78YmAMUoAMBqgMAwAOsAsgDANgDAOADAOgDAPgDAIAEAJIECS9vcGVucnRiMpgEAKgEALIEDAgAEAAYACAAMAA4ALgEAMAEAMgEANIECU5ZTTI6MzUwNdoEAggB4AQA8ARBIiCIBQGYBQCgBf8RAVwBqgUPc29tZS1yZXF1ZXN0LWlkwAUAyQVJZRTwP9IFCQkJDEQAANgFAeAFAfAFAfoFBAgAEAA.ss=a3b6c936d049fea367bf7a2a87a7da0adc8b690astest=1p=${AUCTION_PRICE}\"></script>",
-                                  @"adid":@"68209699",
-                                  @"adomain":@[
-                                             @"dabee.com.br"
-                                             ],
-                                  @"iurl":@"http://nym1-ib.adnxs.com/cr?id=68209699",
-                                  @"cid":@"882",
-                                  @"crid":@"68209699",
-                                  @"cat":@[
-                                         @"IAB22",
-                                         @"IAB22-4"
-                                         ],
-                                  @"dealid":@"test-prebid-deal-code",
-                                  @"w":@(300),
-                                  @"h":@(250),
-                                  @"ext":@{
-                                      @"prebid":@{
-                                          @"responsetimemillis":@(0),
-                                          @"targeting":@{
-                                              @"hb_bidder_appnexus":@"appnexus",
-                                              @"hb_deal_appnexus":@"test-prebid-deal-code",
-                                              @"hb_pb_appnexus":@"0.50",
-                                              @"hb_size_appnexus":@"300x250"
-                                          },
-                                          @"type":@"banner"
-                                      },
-                                      @"bidder":@{
-                                          @"appnexus":@{
-                                              @"brand_id":@(44321),
-                                              @"auction_id":@(8789211206700921947),
-                                              @"bidder_id":@(2),
-                                              @"ranking_price":@"0.000000"
-                                          }
-                                      }
-                                  }
-                              }
-                              ],
-                       @"seat":@"appnexus"
-                   }
-                   ],
-        @"ext":@{
-            @"debug":@{
-                @"httpcalls":@{
-                    @"appnexus":@[
-                                @{
-                                    @"uri":@"http://ib.adnxs.com/openrtb2",
-                                    @"requestbody":@"{\"id\":\"some-request-id\",\"imp\":[{\"id\":\"my-imp-id\",\"banner\":{\"format\":[{\"w\":300,\"h\":250},{\"w\":300,\"h\":600}]},\"ext\":{\"appnexus\":{\"placement_id\":11327263}}}],\"test\":1,\"tmax\":500}",
-                                    @"responsebody":@"{\"id\":\"some-request-id\",\"seatbid\":[{\"bid\":[{\"id\":\"4107461962527263292\",\"impid\":\"my-imp-id\",\"price\": 5.000000,\"adid\":\"81468038\",\"adm\":\" type=\\\"application/javascript\\\" src=\\\"http://nym1-ib.adnxs.com/ab?e=wqT_3QLUBaDUAgAAAwDWAAUBCM-ygdEFENvoqbrnoOP8eRicivXS0qH_pjcqLQkAAAECCBRAEQEHEAAAFEAZCQkI4D8hCQkIFEApCQmwJEAwn66zBTi-B0DyBkgCUIa17CZYhaVOYABovMJneMqlBIABAYoBA1VTRJIBAQbwUpgBrAKgAfoBq,\"seat\":\"882\"}],\"bidid\":\"8163341907479988349\",\"cur\":\"USD\"}",
-                                    @"status":@(200)
-                                }
-                                ]
-                }
-            },
-            @"responsetimemillis":@{
-                @"appnexus":@(81)
-            }
-        }
-    };
-//    NSError *error;
-//    id object = [NSJSONSerialization JSONObjectWithData:data
-//                                                options:kNilOptions
-//                                                  error:&error];
-//    if (error) {
-//        PBLogError(@"Error parsing ad server response");
-//        return [[NSMutableDictionary alloc] init];
-//    }
-//    if (!object) {
-//        return [[NSMutableDictionary alloc] init];
-//    }
+    NSError *error;
+    id object = [NSJSONSerialization JSONObjectWithData:data
+                                                options:kNilOptions
+                                                  error:&error];
+    if (error) {
+        PBLogError(@"Error parsing ad server response");
+        return [[NSMutableDictionary alloc] init];
+    }
+    if (!object) {
+        return [[NSMutableDictionary alloc] init];
+    }
     NSMutableDictionary *adUnitToBidsMap = [[NSMutableDictionary alloc] init];
-    if ([bidMap isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *response = (NSDictionary *)bidMap;
+    if ([object isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *response = (NSDictionary *)object;
         if ([[response objectForKey:@"seatbid"] isKindOfClass:[NSArray class]]) {
             NSArray *seatbids = (NSArray *)[response objectForKey:@"seatbid"];
             for (id seatbid in seatbids) {
@@ -238,17 +131,17 @@
             NSString *status = (NSString *)[response objectForKey:@"status"];
             if ([status isEqualToString:@"OK"]) {
                 // check to make sure the request tid matches the response tid
-//                NSString *responseTID = (NSString *)[response objectForKey:@"tid"];
-//                NSMutableArray *requestTIDsToDelete = [NSMutableArray array];
-//                @synchronized (self.requestTIDs) {
-//                    if ([self.requestTIDs containsObject:responseTID]) {
-//                        [requestTIDsToDelete addObject:responseTID];
-//                        bidMap = [self mapBidsToAdUnits:response];
-//                    } else {
-//                        PBLogError(@"Response tid did not match request tid %@", response);
-//                    }
-//                    [self.requestTIDs removeObjectsInArray:requestTIDsToDelete];
-//                }
+                NSString *responseTID = (NSString *)[response objectForKey:@"tid"];
+                NSMutableArray *requestTIDsToDelete = [NSMutableArray array];
+                @synchronized (self.requestTIDs) {
+                    if ([self.requestTIDs containsObject:responseTID]) {
+                        [requestTIDsToDelete addObject:responseTID];
+                        bidMap = [self mapBidsToAdUnits:response];
+                    } else {
+                        PBLogError(@"Response tid did not match request tid %@", response);
+                    }
+                    [self.requestTIDs removeObjectsInArray:requestTIDsToDelete];
+                }
             }
             else {
                 PBLogError(@"Received bad status response from the ad server %@", response);

@@ -55,7 +55,12 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
 - (void)requestBidsWithAdUnits:(nullable NSArray<PBAdUnit *> *)adUnits
                   withDelegate:(nonnull id<PBBidResponseDelegate>)delegate {
     NSURLRequest *request = [self buildRequestForAdUnits:adUnits];
+    
+    __weak __typeof__(self) weakSelf = self;
+    
     [[PBServerFetcher sharedInstance] makeBidRequest:request withCompletionHandler:^(NSDictionary *adUnitToBidsMap, NSError *error) {
+        
+        __typeof__(self) strongSelf = weakSelf;
         if (error) {
             [delegate didCompleteWithError:error];
             return;
@@ -65,7 +70,7 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
             NSMutableArray *bidResponsesArray = [[NSMutableArray alloc] init];
             for (NSDictionary *bid in bidsArray) {
                 PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:bid[@"ext"][@"prebid"][@"targeting"]];
-                if (self.primaryAdServer == PBPrimaryAdServerDFP) {
+                if (strongSelf.primaryAdServer == PBPrimaryAdServerDFP) {
                     NSString *cacheId = [[NSUUID UUID] UUIDString];
                     NSMutableDictionary *bidCopy = [bid mutableCopy];
                     NSMutableDictionary *adServerTargetingCopy = [bidCopy[@"ext"][@"prebid"][@"targeting"] mutableCopy];
@@ -145,11 +150,12 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
 - (NSArray *)openrtbImpsFromAdUnits:(NSArray<PBAdUnit *> *)adUnits {
     NSMutableArray *imps = [[NSMutableArray alloc] init];
 
-    NSMutableArray *adUnitConfigs = [[NSMutableArray alloc] init];
     for (PBAdUnit *adUnit in adUnits) {
         NSMutableDictionary *imp = [[NSMutableDictionary alloc] init];
         imp[@"id"] = adUnit.identifier;
-
+        if(self.primaryAdServer == PBPrimaryAdServerDFP){
+            imp[@"secure"] = @1;
+        }
         NSMutableArray *sizeArray = [[NSMutableArray alloc] initWithCapacity:adUnit.adSizes.count];
         for (id size in adUnit.adSizes) {
             CGSize arSize = [size CGSizeValue];
@@ -163,14 +169,23 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
         if (adUnit.adType == PBAdUnitTypeInterstitial) {
             imp[@"instl"] = @(1);
         }
-
-        NSMutableDictionary *prebidAdUnitExt = [[NSMutableDictionary alloc] init];
+        
+        //to be removed when openRTB storedRequest is working
+        NSMutableDictionary *placementDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@9924885,@"placementId", nil];
+        
+        NSMutableDictionary *vendorDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:placementDict,@"appnexus", nil];
+        imp[@"ext"] = vendorDict;
+        
+        //to be uncommented when openRTB adUnit ID is working
+        /*NSMutableDictionary *prebidAdUnitExt = [[NSMutableDictionary alloc] init];
         prebidAdUnitExt[@"storedrequest"] = @{@"id" : adUnit.configId};
 
         NSMutableDictionary *adUnitExt = [[NSMutableDictionary alloc] init];
         adUnitExt[@"prebid"] = prebidAdUnitExt;
 
-        imp[@"ext"] = adUnitExt;
+        imp[@"ext"] = adUnitExt;*/
+        
+        
         [imps addObject:imp];
     }
     return [imps copy];
