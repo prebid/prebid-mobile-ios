@@ -18,7 +18,7 @@
 @implementation NSTimer (Extension)
 
 + (NSTimer *)pb_scheduledTimerWithTimeInterval:(NSTimeInterval)interval
-                                         block:(void(^)())block
+                                         block:(void(^)(void))block
                                        repeats:(BOOL)repeats {
     return [self scheduledTimerWithTimeInterval:interval
                                          target:self
@@ -29,7 +29,7 @@
 
 + (void)pb_blockInvoke:(NSTimer *)timer {
     if([timer userInfo]) {
-        void (^block)() = (void (^)())[timer userInfo];
+        void (^block)(void) = (void (^)(void))[timer userInfo];
         block();
     }
 }

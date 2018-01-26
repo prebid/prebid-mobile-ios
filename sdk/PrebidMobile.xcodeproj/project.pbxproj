@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		C210FE321FBDF0440010B588 /* PrebidURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */; };
 		C210FE331FBDF0440010B588 /* PrebidURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = C210FE311FBDF0440010B588 /* PrebidURLProtocol.m */; };
-		C210FE381FC3375D0010B588 /* EGOCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE361FC3375D0010B588 /* EGOCache.h */; };
-		C210FE391FC3375D0010B588 /* EGOCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C210FE371FC3375D0010B588 /* EGOCache.m */; };
+		C210FE381FC3375D0010B588 /* PrebidCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE361FC3375D0010B588 /* PrebidCache.h */; };
+		C210FE391FC3375D0010B588 /* PrebidCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C210FE371FC3375D0010B588 /* PrebidCache.m */; };
 		C22E7CE61EE70E19007B31F4 /* NSTimer+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B16E501EE1BEC4006304C0 /* NSTimer+Extension.m */; };
 		C23386D21EE5DBFB002FD404 /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = C23386D01EE5DBFB002FD404 /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C23386D31EE5DBFB002FD404 /* PrebidMobile.m in Sources */ = {isa = PBXBuildFile; fileRef = C23386D11EE5DBFB002FD404 /* PrebidMobile.m */; };
@@ -86,8 +86,8 @@
 /* Begin PBXFileReference section */
 		C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidURLProtocol.h; sourceTree = "<group>"; };
 		C210FE311FBDF0440010B588 /* PrebidURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidURLProtocol.m; sourceTree = "<group>"; };
-		C210FE361FC3375D0010B588 /* EGOCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EGOCache.h; sourceTree = "<group>"; };
-		C210FE371FC3375D0010B588 /* EGOCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EGOCache.m; sourceTree = "<group>"; };
+		C210FE361FC3375D0010B588 /* PrebidCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidCache.h; sourceTree = "<group>"; };
+		C210FE371FC3375D0010B588 /* PrebidCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidCache.m; sourceTree = "<group>"; };
 		C23386D01EE5DBFB002FD404 /* PrebidMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMobile.h; sourceTree = "<group>"; };
 		C23386D11EE5DBFB002FD404 /* PrebidMobile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMobile.m; sourceTree = "<group>"; };
 		C23386D41EE5DC95002FD404 /* PBAdUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBAdUnit.h; sourceTree = "<group>"; };
@@ -291,8 +291,8 @@
 				C210FE311FBDF0440010B588 /* PrebidURLProtocol.m */,
 				C23386D01EE5DBFB002FD404 /* PrebidMobile.h */,
 				C23386D11EE5DBFB002FD404 /* PrebidMobile.m */,
-				C210FE361FC3375D0010B588 /* EGOCache.h */,
-				C210FE371FC3375D0010B588 /* EGOCache.m */,
+				C210FE361FC3375D0010B588 /* PrebidCache.h */,
+				C210FE371FC3375D0010B588 /* PrebidCache.m */,
 			);
 			path = PrebidMobile;
 			sourceTree = "<group>";
@@ -392,7 +392,7 @@
 				C2B16E9D1EE1BF1A006304C0 /* PBServerLocation.h in Headers */,
 				C210FE321FBDF0440010B588 /* PrebidURLProtocol.h in Headers */,
 				C2B16E981EE1BF1A006304C0 /* PBServerFetcher.h in Headers */,
-				C210FE381FC3375D0010B588 /* EGOCache.h in Headers */,
+				C210FE381FC3375D0010B588 /* PrebidCache.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,7 +441,7 @@
 		C2B16E121EE1BE69006304C0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Nicole Hedley";
 				TargetAttributes = {
 					C281E17B1EE5EAF700F2F4A9 = {
@@ -523,7 +523,7 @@
 				C2B16E9C1EE1BF1A006304C0 /* PBServerGlobal.m in Sources */,
 				C2B16E3C1EE1BEA6006304C0 /* PBInterstitialAdUnit.m in Sources */,
 				C23FCCEB1EE5E3F500CFFEF0 /* PBLogging.m in Sources */,
-				C210FE391FC3375D0010B588 /* EGOCache.m in Sources */,
+				C210FE391FC3375D0010B588 /* PrebidCache.m in Sources */,
 				C2B16E401EE1BEA6006304C0 /* PBTargetingParams.m in Sources */,
 				C2B16E9E1EE1BF1A006304C0 /* PBServerLocation.m in Sources */,
 				C2B16E351EE1BEA6006304C0 /* PBBannerAdUnit.m in Sources */,
@@ -583,7 +583,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -591,7 +593,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -635,7 +641,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -643,7 +651,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -676,6 +688,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -698,6 +711,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
 				DYLIB_COMPATIBILITY_VERSION = 1;

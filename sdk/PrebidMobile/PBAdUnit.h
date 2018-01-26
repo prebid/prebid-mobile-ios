@@ -43,6 +43,8 @@
  */
 @property (nonatomic, readonly) NSArray<CGSize> *__nullable adSizes;
 
+@property (nonatomic, readwrite) BOOL isSecure;
+
 /**
  * An enumeration object that holds different types of ad units available to be configured for
  * the ad units can be configured only for banner, interstitial or native ads

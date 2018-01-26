@@ -1,37 +1,26 @@
-//
-//  EGOCache.m
-//  enormego
-//
-//  Created by Shaun Harrison.
-//  Copyright (c) 2009-2017 enormego.
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  THE SOFTWARE.
-//
+/*   Copyright 2017 Prebid.org, Inc.
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 
-#import "EGOCache.h"
+#import "PrebidCache.h"
 
 #if DEBUG
-#    define CHECK_FOR_EGOCACHE_PLIST() if([key isEqualToString:@"EGOCache.plist"]) { \
-NSLog(@"EGOCache.plist is a reserved key and can not be modified."); \
+#    define CHECK_FOR_PrebidCACHE_PLIST() if([key isEqualToString:@"PrebidCache.plist"]) { \
+NSLog(@"PrebidCache.plist is a reserved key and can not be modified."); \
 return; }
 #else
-#    define CHECK_FOR_EGOCACHE_PLIST() if([key isEqualToString:@"EGOCache.plist"]) return;
+#    define CHECK_FOR_PrebidCACHE_PLIST() if([key isEqualToString:@"PrebidCache.plist"]) return;
 #endif
 
 static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
@@ -41,7 +30,7 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 
 #pragma mark -
 
-@interface EGOCache () {
+@interface PrebidCache () {
     dispatch_queue_t _cacheInfoQueue;
     dispatch_queue_t _frozenCacheInfoQueue;
     dispatch_queue_t _diskQueue;
@@ -53,7 +42,7 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 @property(nonatomic,copy) NSDictionary* frozenCacheInfo;
 @end
 
-@implementation EGOCache
+@implementation PrebidCache
 
 + (instancetype)globalCache {
     static id instance;
@@ -68,34 +57,34 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 
 - (instancetype)init {
     NSString* cachesDirectory = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
-    NSString* oldCachesDirectory = [[[cachesDirectory stringByAppendingPathComponent:[[NSProcessInfo processInfo] processName]] stringByAppendingPathComponent:@"EGOCache"] copy];
+    NSString* oldCachesDirectory = [[[cachesDirectory stringByAppendingPathComponent:[[NSProcessInfo processInfo] processName]] stringByAppendingPathComponent:@"PrebidCache"] copy];
     
     if([[NSFileManager defaultManager] fileExistsAtPath:oldCachesDirectory]) {
         [[NSFileManager defaultManager] removeItemAtPath:oldCachesDirectory error:NULL];
     }
     
-    cachesDirectory = [[[cachesDirectory stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]] stringByAppendingPathComponent:@"EGOCache"] copy];
+    cachesDirectory = [[[cachesDirectory stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]] stringByAppendingPathComponent:@"PrebidCache"] copy];
     return [self initWithCacheDirectory:cachesDirectory];
 }
 
 - (instancetype)initWithCacheDirectory:(NSString*)cacheDirectory {
     if((self = [super init])) {
-        _cacheInfoQueue = dispatch_queue_create("com.enormego.egocache.info", DISPATCH_QUEUE_SERIAL);
+        _cacheInfoQueue = dispatch_queue_create("com.enormprebid.prebidcache.info", DISPATCH_QUEUE_SERIAL);
         dispatch_queue_t priority = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         dispatch_set_target_queue(priority, _cacheInfoQueue);
         
-        _frozenCacheInfoQueue = dispatch_queue_create("com.enormego.egocache.info.frozen", DISPATCH_QUEUE_SERIAL);
+        _frozenCacheInfoQueue = dispatch_queue_create("com.enormprebid.prebidcache.info.frozen", DISPATCH_QUEUE_SERIAL);
         priority = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         dispatch_set_target_queue(priority, _frozenCacheInfoQueue);
         
-        _diskQueue = dispatch_queue_create("com.enormego.egocache.disk", DISPATCH_QUEUE_CONCURRENT);
+        _diskQueue = dispatch_queue_create("com.enormprebid.prebidcache.disk", DISPATCH_QUEUE_CONCURRENT);
         priority = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
         dispatch_set_target_queue(priority, _diskQueue);
         
         
         _directory = cacheDirectory;
         
-        _cacheInfo = [[NSDictionary dictionaryWithContentsOfFile:cachePathForKey(_directory, @"EGOCache.plist")] mutableCopy];
+        _cacheInfo = [[NSDictionary dictionaryWithContentsOfFile:cachePathForKey(_directory, @"PrebidCache.plist")] mutableCopy];
         
         if(!_cacheInfo) {
             _cacheInfo = [[NSMutableDictionary alloc] init];
@@ -138,7 +127,7 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 }
 
 - (void)removeCacheForKey:(NSString*)key {
-    CHECK_FOR_EGOCACHE_PLIST();
+    CHECK_FOR_PrebidCACHE_PLIST();
     
     dispatch_async(_diskQueue, ^{
         [[NSFileManager defaultManager] removeItemAtPath:cachePathForKey(_directory, key) error:NULL];
@@ -230,7 +219,7 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 }
 
 - (void)setData:(NSData*)data forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
-    CHECK_FOR_EGOCACHE_PLIST();
+    CHECK_FOR_PrebidCACHE_PLIST();
     
     NSString* cachePath = cachePathForKey(_directory, key);
     
@@ -250,7 +239,7 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
         dispatch_after(popTime, _cacheInfoQueue, ^(void){
             if(!_needsSave) return;
-            [_cacheInfo writeToFile:cachePathForKey(_directory, @"EGOCache.plist") atomically:YES];
+            [_cacheInfo writeToFile:cachePathForKey(_directory, @"PrebidCache.plist") atomically:YES];
             _needsSave = NO;
         });
     });

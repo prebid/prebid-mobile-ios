@@ -37,6 +37,8 @@ static NSTimeInterval const kBidExpiryTimerInterval = 30;
 @property (nonatomic, strong) NSMutableSet<PBAdUnit *> *adUnits;
 @property (nonatomic, strong) NSMutableDictionary <NSString *, NSMutableArray<PBBidResponse *> *> *__nullable bidsMap;
 
+@property (nonatomic, assign) PBPrimaryAdServerType adServer;
+
 @end
 
 #pragma mark PBBidResponseDelegate Implementation
@@ -101,8 +103,15 @@ static dispatch_once_t onceToken;
         _adUnits = [[NSMutableSet alloc] init];
     }
     _bidsMap = [[NSMutableDictionary alloc] init];
+    
     _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId];
-    _demandAdapter.primaryAdServer = adServer;
+    
+    if(adServer == PBPrimaryAdServerDFP){
+        _demandAdapter.shouldCacheLocal = TRUE;
+    }
+    
+    self.adServer = adServer;
+    
     for (id adUnit in adUnits) {
         [self registerAdUnit:adUnit];
     }
@@ -201,6 +210,11 @@ static dispatch_once_t onceToken;
     if (adUnit.adSizes == nil && adUnit.adType == PBAdUnitTypeBanner) {
         @throw [PBException exceptionWithName:PBAdUnitNoSizeException];
     }
+    
+    if(self.adServer == PBPrimaryAdServerDFP){
+        adUnit.isSecure = true;
+    }
+    
     // Check if ad unit already exists, if so remove it
     NSMutableArray *adUnitsToRemove = [[NSMutableArray alloc] init];
     for (PBAdUnit *existingAdUnit in _adUnits) {

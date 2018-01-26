@@ -16,7 +16,7 @@
 #import <AdSupport/AdSupport.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import "EGOCache.h"
+#import "PrebidCache.h"
 #import <sys/utsname.h>
 #import <UIKit/UIKit.h>
 
@@ -32,6 +32,7 @@
 
 static NSString *const kAPNAdServerResponseKeyNoBid = @"nobid";
 static NSString *const kAPNAdServerResponseKeyUUID = @"uuid";
+static NSString *const kAPNAdServerCacheIdKey = @"hb_cache_id";
 static NSString *const kPrebidMobileVersion = @"0.1.1";
 static NSTimeInterval const kAdTimeoutInterval = 360;
 
@@ -70,21 +71,19 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
             NSMutableArray *bidResponsesArray = [[NSMutableArray alloc] init];
             for (NSDictionary *bid in bidsArray) {
                 PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:bid[@"ext"][@"prebid"][@"targeting"]];
-                if (strongSelf.primaryAdServer == PBPrimaryAdServerDFP) {
+                if (strongSelf.shouldCacheLocal == TRUE) {
                     NSString *cacheId = [[NSUUID UUID] UUIDString];
                     NSMutableDictionary *bidCopy = [bid mutableCopy];
                     NSMutableDictionary *adServerTargetingCopy = [bidCopy[@"ext"][@"prebid"][@"targeting"] mutableCopy];
-                    for (NSString *key in [adServerTargetingCopy allKeys]) {
-                        if ([key containsString:@"hb_cache_id"]) {
-                            adServerTargetingCopy[key] = cacheId;
-                        }
-                    }
+                    if([adServerTargetingCopy valueForKey:kAPNAdServerCacheIdKey] == nil){
+                        adServerTargetingCopy[kAPNAdServerCacheIdKey] = cacheId;
+                    } 
                     NSMutableDictionary *extCopy = [bidCopy[@"ext"] mutableCopy];
                     NSMutableDictionary *prebidExtCopy = [bidCopy[@"ext"][@"prebid"] mutableCopy];
                     prebidExtCopy[@"targeting"] = adServerTargetingCopy;
                     extCopy[@"prebid"] = prebidExtCopy;
                     bidCopy[@"ext"] = extCopy;
-                    [[EGOCache globalCache] setObject:bidCopy forKey:cacheId withTimeoutInterval:kAdTimeoutInterval];
+                    [[PrebidCache globalCache] setObject:bidCopy forKey:cacheId withTimeoutInterval:kAdTimeoutInterval];
                     
                     bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:adServerTargetingCopy];
                 }
@@ -138,8 +137,9 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
 
 - (NSDictionary *)openrtbRequestExtension {
     NSMutableDictionary *requestPrebidExt = [[NSMutableDictionary alloc] init];
-    if (self.primaryAdServer == PBPrimaryAdServerUnknown || self.primaryAdServer == PBPrimaryAdServerMoPub) {
-        requestPrebidExt[@"cache"] = @{@"winners" : @(1), @"deals" : @(1)};
+    
+    if (self.shouldCacheLocal == FALSE) {
+        requestPrebidExt[@"cache"] = @{@"bids" : [[NSMutableDictionary alloc] init]};
     }
     requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20)};
     NSMutableDictionary *requestExt = [[NSMutableDictionary alloc] init];
@@ -153,7 +153,7 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
     for (PBAdUnit *adUnit in adUnits) {
         NSMutableDictionary *imp = [[NSMutableDictionary alloc] init];
         imp[@"id"] = adUnit.identifier;
-        if(self.primaryAdServer == PBPrimaryAdServerDFP){
+        if(adUnit.isSecure){
             imp[@"secure"] = @1;
         }
         NSMutableArray *sizeArray = [[NSMutableArray alloc] initWithCapacity:adUnit.adSizes.count];
@@ -170,7 +170,7 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
             imp[@"instl"] = @(1);
         }
         
-        //to be removed when openRTB storedRequest is working
+        //to be removed when openRTB supports storedRequests
         NSMutableDictionary *placementDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@9924885,@"placementId", nil];
         
         NSMutableDictionary *vendorDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:placementDict,@"appnexus", nil];

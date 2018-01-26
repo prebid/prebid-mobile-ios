@@ -22,7 +22,9 @@
 
 - (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId;
 
-@property (nonatomic, assign, readwrite) PBPrimaryAdServerType primaryAdServer;
+//@property (nonatomic, assign, readwrite) PBPrimaryAdServerType primaryAdServer;
+
+@property (nonatomic, assign) BOOL shouldCacheLocal;
 
 - (void)requestBidsWithAdUnits:(nullable NSArray<PBAdUnit *> *)adUnits
                   withDelegate:(nonnull id<PBBidResponseDelegate>)delegate;
