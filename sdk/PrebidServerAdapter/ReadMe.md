@@ -1,4 +1,4 @@
-A sample Open RTB 2.5 spec compliant request that Prebid Server Adapter would send out is as following:
+# A sample Open RTB 2.5 spec compliant request that Prebid Server Adapter would send out is as following:
 ```
 {
   "app": {
