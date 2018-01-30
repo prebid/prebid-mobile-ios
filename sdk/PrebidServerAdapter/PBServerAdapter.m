@@ -169,19 +169,19 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
         }
         
         //to be removed when openRTB supports storedRequests
-        NSMutableDictionary *placementDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@9924885,@"placementId", nil];
+        /*NSMutableDictionary *placementDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@9924885,@"placementId", nil];
         
         NSMutableDictionary *vendorDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:placementDict,@"appnexus", nil];
-        imp[@"ext"] = vendorDict;
+        imp[@"ext"] = vendorDict;*/
         
         //to be uncommented when openRTB adUnit ID is working
-        /*NSMutableDictionary *prebidAdUnitExt = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary *prebidAdUnitExt = [[NSMutableDictionary alloc] init];
         prebidAdUnitExt[@"storedrequest"] = @{@"id" : adUnit.configId};
 
         NSMutableDictionary *adUnitExt = [[NSMutableDictionary alloc] init];
         adUnitExt[@"prebid"] = prebidAdUnitExt;
 
-        imp[@"ext"] = adUnitExt;*/
+        imp[@"ext"] = adUnitExt;
         
         
         [imps addObject:imp];
