@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		606A4299202005C400492433 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 606A4298202005C400492433 /* ReadMe.md */; };
+		606A42A42020FD4600492433 /* PBServerRequestBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 606A42A22020FD4600492433 /* PBServerRequestBuilder.h */; };
+		606A42A52020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
+		606A42A62020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
 		C210FE321FBDF0440010B588 /* PrebidURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */; };
 		C210FE331FBDF0440010B588 /* PrebidURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = C210FE311FBDF0440010B588 /* PrebidURLProtocol.m */; };
 		C210FE381FC3375D0010B588 /* PrebidCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE361FC3375D0010B588 /* PrebidCache.h */; };
@@ -86,6 +89,8 @@
 
 /* Begin PBXFileReference section */
 		606A4298202005C400492433 /* ReadMe.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
+		606A42A22020FD4600492433 /* PBServerRequestBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBServerRequestBuilder.h; sourceTree = "<group>"; };
+		606A42A32020FD4600492433 /* PBServerRequestBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBServerRequestBuilder.m; sourceTree = "<group>"; };
 		C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidURLProtocol.h; sourceTree = "<group>"; };
 		C210FE311FBDF0440010B588 /* PrebidURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidURLProtocol.m; sourceTree = "<group>"; };
 		C210FE361FC3375D0010B588 /* PrebidCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidCache.h; sourceTree = "<group>"; };
@@ -347,6 +352,8 @@
 				C2B16E921EE1BF1A006304C0 /* PBServerLocation.m */,
 				C2B16E931EE1BF1A006304C0 /* PBServerReachability.h */,
 				C2B16E941EE1BF1A006304C0 /* PBServerReachability.m */,
+				606A42A22020FD4600492433 /* PBServerRequestBuilder.h */,
+				606A42A32020FD4600492433 /* PBServerRequestBuilder.m */,
 			);
 			path = PrebidServerModule;
 			sourceTree = "<group>";
@@ -384,6 +391,7 @@
 				C23FCCEA1EE5E3F500CFFEF0 /* PBLogging.h in Headers */,
 				C2B16E3D1EE1BEA6006304C0 /* PBKeywordsManager.h in Headers */,
 				C23FCCEE1EE5E41E00CFFEF0 /* PBLogManager.h in Headers */,
+				606A42A42020FD4600492433 /* PBServerRequestBuilder.h in Headers */,
 				C23386DA1EE5DCDB002FD404 /* PBServerAdapter.h in Headers */,
 				C23386D61EE5DC95002FD404 /* PBAdUnit.h in Headers */,
 				C23386D21EE5DBFB002FD404 /* PrebidMobile.h in Headers */,
@@ -503,6 +511,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				606A42A62020FD4600492433 /* PBServerRequestBuilder.m in Sources */,
 				C281E1AE1EE5F2DA00F2F4A9 /* ANURLConnectionStub.m in Sources */,
 				C281E1AD1EE5F2DA00F2F4A9 /* ANHTTPStubURLProtocol.m in Sources */,
 				C281E1B21EE5F2E500F2F4A9 /* PBMockServerAdapter.m in Sources */,
@@ -533,6 +542,7 @@
 				C2B16E351EE1BEA6006304C0 /* PBBannerAdUnit.m in Sources */,
 				C210FE331FBDF0440010B588 /* PrebidURLProtocol.m in Sources */,
 				C23386D71EE5DC95002FD404 /* PBAdUnit.m in Sources */,
+				606A42A52020FD4600492433 /* PBServerRequestBuilder.m in Sources */,
 				C24B78C51EE7467E0045B454 /* NSObject+Prebid.m in Sources */,
 				C2B16E581EE1BEC4006304C0 /* NSString+Extension.m in Sources */,
 				C2B16E3A1EE1BEA6006304C0 /* PBException.m in Sources */,
