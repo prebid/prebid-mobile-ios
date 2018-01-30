@@ -117,14 +117,11 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
 - (NSDictionary *)openRTBRequestBodyForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
     NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
 
-    requestDict[@"id"] = @"some-request-id";
-    requestDict[@"test"] = @(1);
-    requestDict[@"tmax"] = @(500);
-
+    requestDict[@"id"] = [[NSUUID UUID] UUIDString];
+    
     requestDict[@"app"] = [self openrtbApp];
     requestDict[@"device"] = [self openrtbDevice];
     requestDict[@"user"] = [self openrtbUser];
-    requestDict[@"geo"] = [self openrtbGeo];
     requestDict[@"imp"] = [self openrtbImpsFromAdUnits:adUnits];
     requestDict[@"ext"] = [self openrtbRequestExtension];
 
@@ -141,7 +138,8 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
     if (self.shouldCacheLocal == FALSE) {
         requestPrebidExt[@"cache"] = @{@"bids" : [[NSMutableDictionary alloc] init]};
     }
-    requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20)};
+    requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20), @"pricegranularity":@"medium"};
+    
     NSMutableDictionary *requestExt = [[NSMutableDictionary alloc] init];
     requestExt[@"prebid"] = requestPrebidExt;
     return [requestExt copy];
@@ -153,7 +151,7 @@ static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com
     for (PBAdUnit *adUnit in adUnits) {
         NSMutableDictionary *imp = [[NSMutableDictionary alloc] init];
         imp[@"id"] = adUnit.identifier;
-        if(adUnit.isSecure){
+        if(self.isSecure){
             imp[@"secure"] = @1;
         }
         NSMutableArray *sizeArray = [[NSMutableArray alloc] initWithCapacity:adUnit.adSizes.count];

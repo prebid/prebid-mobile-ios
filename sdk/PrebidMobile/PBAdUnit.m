@@ -38,7 +38,6 @@
         _adType = type;
         _timeToExpireAllBids = 0;
         _configId = configId;
-        _isSecure = false;
     }
     return (self);
 }

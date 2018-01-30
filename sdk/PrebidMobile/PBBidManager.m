@@ -108,6 +108,7 @@ static dispatch_once_t onceToken;
     
     if(adServer == PBPrimaryAdServerDFP){
         _demandAdapter.shouldCacheLocal = TRUE;
+        _demandAdapter.isSecure = TRUE;
     }
     
     self.adServer = adServer;
@@ -209,10 +210,6 @@ static dispatch_once_t onceToken;
     // Throw exceptions if size or demand source is not specified
     if (adUnit.adSizes == nil && adUnit.adType == PBAdUnitTypeBanner) {
         @throw [PBException exceptionWithName:PBAdUnitNoSizeException];
-    }
-    
-    if(self.adServer == PBPrimaryAdServerDFP){
-        adUnit.isSecure = true;
     }
     
     // Check if ad unit already exists, if so remove it

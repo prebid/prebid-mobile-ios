@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		606A4299202005C400492433 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 606A4298202005C400492433 /* ReadMe.md */; };
 		C210FE321FBDF0440010B588 /* PrebidURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */; };
 		C210FE331FBDF0440010B588 /* PrebidURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = C210FE311FBDF0440010B588 /* PrebidURLProtocol.m */; };
 		C210FE381FC3375D0010B588 /* PrebidCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE361FC3375D0010B588 /* PrebidCache.h */; };
@@ -84,6 +85,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		606A4298202005C400492433 /* ReadMe.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidURLProtocol.h; sourceTree = "<group>"; };
 		C210FE311FBDF0440010B588 /* PrebidURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidURLProtocol.m; sourceTree = "<group>"; };
 		C210FE361FC3375D0010B588 /* PrebidCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidCache.h; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 				C2B16EA11EE1BF4A006304C0 /* PrebidServerModule */,
 				C23386D81EE5DCDB002FD404 /* PBServerAdapter.h */,
 				C23386D91EE5DCDB002FD404 /* PBServerAdapter.m */,
+				606A4298202005C400492433 /* ReadMe.md */,
 			);
 			path = PrebidServerAdapter;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				606A4299202005C400492433 /* ReadMe.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
