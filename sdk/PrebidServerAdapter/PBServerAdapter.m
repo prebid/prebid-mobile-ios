@@ -23,14 +23,9 @@
 #import "PBLogging.h"
 #import "PBServerAdapter.h"
 #import "PBServerFetcher.h"
-#import "PBServerGlobal.h"
-#import "PBServerLocation.h"
-#import "PBServerReachability.h"
 #import "PBTargetingParams.h"
 #import "PBServerRequestBuilder.h"
 
-static NSString *const kAPNAdServerResponseKeyNoBid = @"nobid";
-static NSString *const kAPNAdServerResponseKeyUUID = @"uuid";
 static NSString *const kAPNAdServerCacheIdKey = @"hb_cache_id";
 static NSTimeInterval const kAdTimeoutInterval = 360;
 

@@ -62,7 +62,7 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
     NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
     
     requestDict[@"id"] = [[NSUUID UUID] UUIDString];
-    
+    requestDict[@"source"] = [self openrtbSource];
     requestDict[@"app"] = [self openrtbApp:accountID];
     requestDict[@"device"] = [self openrtbDevice];
     requestDict[@"user"] = [self openrtbUser];
@@ -74,6 +74,14 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
 #endif
     
     return [requestDict copy];
+}
+
+- (NSDictionary *) openrtbSource {
+    
+    NSMutableDictionary *sourceDict = [[NSMutableDictionary alloc] init];
+    sourceDict[@"tid"] = @"123";
+    
+    return sourceDict;
 }
 
 - (NSDictionary *)openrtbRequestExtension:(BOOL) isLocalCache {
@@ -104,7 +112,6 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
             NSDictionary *sizeDict = [NSDictionary dictionaryWithObjectsAndKeys:@(arSize.width), @"w", @(arSize.height), @"h", nil];
             [sizeArray addObject:sizeDict];
         }
-        // TODO check for video here when we add video (Nicole)
         NSDictionary *formats = @{@"format": sizeArray};
         imp[@"banner"] = formats;
         
@@ -112,13 +119,13 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
             imp[@"instl"] = @(1);
         }
         
-        //to be removed when openRTB supports storedRequests
+        //to be used when openRTB doesnt support storedRequests
         /*NSMutableDictionary *placementDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@9924885,@"placementId", nil];
          
          NSMutableDictionary *vendorDict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:placementDict,@"appnexus", nil];
          imp[@"ext"] = vendorDict;*/
         
-        //to be uncommented when openRTB adUnit ID is working
+        //to be used when openRTB supports storedRequests
         NSMutableDictionary *prebidAdUnitExt = [[NSMutableDictionary alloc] init];
         prebidAdUnitExt[@"storedrequest"] = @{@"id" : adUnit.configId};
         
