@@ -37,6 +37,8 @@ static NSTimeInterval const kBidExpiryTimerInterval = 30;
 @property (nonatomic, strong) NSMutableSet<PBAdUnit *> *adUnits;
 @property (nonatomic, strong) NSMutableDictionary <NSString *, NSMutableArray<PBBidResponse *> *> *__nullable bidsMap;
 
+@property (nonatomic, assign) PBPrimaryAdServerType adServer;
+
 @end
 
 #pragma mark PBBidResponseDelegate Implementation
@@ -101,8 +103,16 @@ static dispatch_once_t onceToken;
         _adUnits = [[NSMutableSet alloc] init];
     }
     _bidsMap = [[NSMutableDictionary alloc] init];
+    
+    self.adServer = adServer;
+    
     _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId];
-    _demandAdapter.primaryAdServer = adServer;
+    
+    if(adServer == PBPrimaryAdServerMoPub){
+        //the adservers are cached locally by default except for MoPub hence this needs to be configured
+       _demandAdapter.shouldCacheLocal = FALSE;
+    }
+    
     for (id adUnit in adUnits) {
         [self registerAdUnit:adUnit];
     }
@@ -194,6 +204,12 @@ static dispatch_once_t onceToken;
     }
 }
 
+-(void) loadOnSecureConnection:(BOOL) secureConnection {
+    if(self.adServer == PBPrimaryAdServerMoPub){
+        self.demandAdapter.isSecure = secureConnection;
+    }
+}
+
 #pragma mark Internal Methods
 
 - (void)registerAdUnit:(PBAdUnit *)adUnit {
@@ -201,6 +217,7 @@ static dispatch_once_t onceToken;
     if (adUnit.adSizes == nil && adUnit.adType == PBAdUnitTypeBanner) {
         @throw [PBException exceptionWithName:PBAdUnitNoSizeException];
     }
+    
     // Check if ad unit already exists, if so remove it
     NSMutableArray *adUnitsToRemove = [[NSMutableArray alloc] init];
     for (PBAdUnit *existingAdUnit in _adUnits) {
@@ -271,6 +288,7 @@ static dispatch_once_t onceToken;
     if (bids && [bids count] > 0) {
         return bids;
     }
+    PBLogDebug(@"Bids for adunit not available");
     return nil;
 }
 

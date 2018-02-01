@@ -57,4 +57,8 @@
                                                completionHandler:completionHandler];
 }
 
++ (void) shouldLoadOverSecureConnection:(BOOL) secureConnection {
+    [[PBBidManager sharedInstance] loadOnSecureConnection:secureConnection];
+}
+
 @end

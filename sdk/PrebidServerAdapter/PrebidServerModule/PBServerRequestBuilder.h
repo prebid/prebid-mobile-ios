@@ -1,4 +1,4 @@
-/*   Copyright 2017 Prebid.org, Inc.
+/*   Copyright 2018 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,11 +14,12 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "PBAdUnit.h"
 
-@interface NSTimer (Extension)
+@interface PBServerRequestBuilder : NSObject
 
-+ (NSTimer *)pb_scheduledTimerWithTimeInterval:(NSTimeInterval)interval
-                                         block:(void(^)(void))block
-                                       repeats:(BOOL)repeats;
++ (instancetype _Nullable )sharedInstance;
+
+- (NSURLRequest *_Nullable)buildRequest:(nullable NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID shouldCacheLocal:(BOOL) isLocal withSecureParams:(BOOL) isSecure;
 
 @end

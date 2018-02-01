@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import "EGOCache.h"
+#import "PrebidCache.h"
 #import "PrebidURLProtocol.h"
 
 @interface PrebidURLProtocol () <NSURLConnectionDelegate>
@@ -52,7 +52,7 @@
     }
     NSString *uuid = [newRequest.URL.absoluteString substringFromIndex:(range.location + 5)];
 
-    NSDictionary *dict = (NSDictionary *)[[EGOCache globalCache] objectForKey:uuid];
+    NSDictionary *dict = (NSDictionary *)[[PrebidCache globalCache] objectForKey:uuid];
     if (dict != nil) {
         NSData *data = [NSJSONSerialization dataWithJSONObject:dict
                                                        options:NSUTF8StringEncoding
@@ -63,7 +63,7 @@
         [self.client URLProtocol:self didLoadData:data];
         [self.client URLProtocolDidFinishLoading:self];
 
-        [[EGOCache globalCache] removeCacheForKey:uuid];
+        [[PrebidCache globalCache] removeCacheForKey:uuid];
     }
 }
 
