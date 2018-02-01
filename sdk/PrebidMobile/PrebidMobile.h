@@ -1,4 +1,4 @@
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2017 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -13,19 +13,30 @@
  limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
+#import "PBBidManager.h"
 #import "PBLogging.h"
+#import <UIKit/UIKit.h>
 
 @class PBAdUnit;
 
 @interface PrebidMobile : NSObject
 
 /**
- * This method allows the developer to register the ad units created for Prebid Mobile
+ * DEPRECATED: This method allows the developer to register the ad units created for Prebid Mobile
  * @param adUnits : Array of AdUnits that can be registered
  * @param accountId : Prebid server accountId
  */
-+ (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId;
++ (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId __deprecated;
+
+/**
+ * This method allows the developer to register the ad units created for Prebid Mobile
+ * @param adUnits : Array of AdUnits that can be registered
+ * @param accountId : Prebid server accountId
+ * @param adServer : Primary ad server - needed to determine optimal bid caching
+ */
++ (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId
+     andPrimaryAdServer:(PBPrimaryAdServerType)adServer;
 
 + (void)setBidKeywordsOnAdObject:(nonnull id)adObject withAdUnitId:(nonnull NSString *)adUnitId;
 
@@ -33,5 +44,8 @@
                     withAdUnitId:(nonnull NSString *)adUnitIdentifier
                      withTimeout:(int)timeoutInMilliseconds
                completionHandler:(nullable void (^)(void))handler;
+
++ (void) shouldLoadOverSecureConnection:(BOOL) secureConnection;
+
 
 @end

@@ -1,4 +1,4 @@
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2017 Prebid.org, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 #import <XCTest/XCTest.h>
 #import "PBServerAdapter.h"
 
-static NSString *const kPrebidMobileVersion = @"0.1.0";
+static NSString *const kPrebidMobileVersion = @"0.1.1";
 
 @interface PBServerAdapter (Testing)
 
@@ -73,6 +73,42 @@ static NSString *const kPrebidMobileVersion = @"0.1.0";
     XCTAssertEqualObjects(jsonAdUnit[@"code"], @"test_identifier");
     NSArray *sizesArray = jsonAdUnit[@"sizes"];
     XCTAssertTrue([sizesArray count] == 1);
+}
+
+- (void)testRequestBodyForAdUnitPrimaryAdServerUnknown {
+    PBAdUnit *adUnit = [[PBAdUnit alloc] initWithIdentifier:@"test_identifier" andAdType:PBAdUnitTypeBanner andConfigId:@"test_config_id"];
+    [adUnit addSize:CGSizeMake(250, 300)];
+    NSArray *adUnits = @[adUnit];
+
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    serverAdapter.primaryAdServer = PBPrimaryAdServerUnknown;
+    NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:adUnits];
+
+    XCTAssertEqualObjects(requestBody[@"cache_markup"], @(1));
+}
+
+- (void)testRequestBodyForAdUnitWithDFPAdServer {
+    PBAdUnit *adUnit = [[PBAdUnit alloc] initWithIdentifier:@"test_identifier" andAdType:PBAdUnitTypeBanner andConfigId:@"test_config_id"];
+    [adUnit addSize:CGSizeMake(250, 300)];
+    NSArray *adUnits = @[adUnit];
+
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    serverAdapter.primaryAdServer = PBPrimaryAdServerDFP;
+    NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:adUnits];
+
+    XCTAssertNil(requestBody[@"cache_markup"]);
+}
+
+- (void)testRequestBodyForAdUnitWithMoPubAdServer {
+    PBAdUnit *adUnit = [[PBAdUnit alloc] initWithIdentifier:@"test_identifier" andAdType:PBAdUnitTypeBanner andConfigId:@"test_config_id"];
+    [adUnit addSize:CGSizeMake(250, 300)];
+    NSArray *adUnits = @[adUnit];
+
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    serverAdapter.primaryAdServer = PBPrimaryAdServerMoPub;
+    NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:adUnits];
+
+    XCTAssertEqualObjects(requestBody[@"cache_markup"], @(1));
 }
 
 - (void)testPerformanceExample {

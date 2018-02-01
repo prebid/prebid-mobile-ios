@@ -1,4 +1,4 @@
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2017 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -36,6 +36,8 @@ static NSTimeInterval const kBidExpiryTimerInterval = 30;
 
 @property (nonatomic, strong) NSMutableSet<PBAdUnit *> *adUnits;
 @property (nonatomic, strong) NSMutableDictionary <NSString *, NSMutableArray<PBBidResponse *> *> *__nullable bidsMap;
+
+@property (nonatomic, assign) PBPrimaryAdServerType adServer;
 
 @end
 
@@ -87,6 +89,30 @@ static dispatch_once_t onceToken;
     }
     _bidsMap = [[NSMutableDictionary alloc] init];
     _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId];
+    for (id adUnit in adUnits) {
+        [self registerAdUnit:adUnit];
+    }
+    [self startPollingBidsExpiryTimer];
+    [self requestBidsForAdUnits:adUnits];
+}
+
+- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId
+     andPrimaryAdServer:(PBPrimaryAdServerType)adServer {
+    if (_adUnits == nil) {
+        _adUnits = [[NSMutableSet alloc] init];
+    }
+    _bidsMap = [[NSMutableDictionary alloc] init];
+    
+    self.adServer = adServer;
+    
+    _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId];
+    
+    if(adServer == PBPrimaryAdServerMoPub){
+        //the adservers are cached locally by default except for MoPub hence this needs to be configured
+       _demandAdapter.shouldCacheLocal = FALSE;
+    }
+    
     for (id adUnit in adUnits) {
         [self registerAdUnit:adUnit];
     }
@@ -179,6 +205,12 @@ static dispatch_once_t onceToken;
     }
 }
 
+-(void) loadOnSecureConnection:(BOOL) secureConnection {
+    if(self.adServer == PBPrimaryAdServerMoPub){
+        self.demandAdapter.isSecure = secureConnection;
+    }
+}
+
 #pragma mark Internal Methods
 
 - (void)registerAdUnit:(PBAdUnit *)adUnit {
@@ -186,10 +218,19 @@ static dispatch_once_t onceToken;
     if (adUnit.adSizes == nil && adUnit.adType == PBAdUnitTypeBanner) {
         @throw [PBException exceptionWithName:PBAdUnitNoSizeException];
     }
-    // Check if adunit already exists, if so remove it
-    if ([_adUnits containsObject:adUnit]) {
+    
+    // Check if ad unit already exists, if so remove it
+    NSMutableArray *adUnitsToRemove = [[NSMutableArray alloc] init];
+    for (PBAdUnit *existingAdUnit in _adUnits) {
+        if ([existingAdUnit.identifier isEqualToString:adUnit.identifier]) {
+            [adUnitsToRemove addObject:existingAdUnit];
+        }
+    }
+    for (PBAdUnit *adUnit in adUnitsToRemove) {
         [_adUnits removeObject:adUnit];
     }
+
+    // Finish registration of ad unit by adding it to adUnits
     [_adUnits addObject:adUnit];
     PBLogDebug(@"AdUnit %@ is registered with Prebid Mobile", adUnit.identifier);
 }
@@ -250,12 +291,12 @@ static dispatch_once_t onceToken;
     if (bids && [bids count] > 0) {
         return bids;
     }
+    PBLogDebug(@"Bids for adunit not available");
     return nil;
 }
 
 - (BOOL)isBidReady:(NSString *)identifier {
-    if ([[_bidsMap allKeys] containsObject:identifier] &&
-        [_bidsMap objectForKey:identifier] != nil &&
+    if ([_bidsMap objectForKey:identifier] != nil &&
         [[_bidsMap objectForKey:identifier] count] > 0) {
         PBLogDebug(@"Bid is ready for ad unit with identifier %@", identifier);
         return YES;

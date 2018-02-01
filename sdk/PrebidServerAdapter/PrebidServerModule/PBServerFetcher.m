@@ -1,5 +1,5 @@
 
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2017 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@
 }
 
 - (void)makeBidRequest:(NSURLRequest *)request withCompletionHandler:(void (^)(NSDictionary *, NSError *))completionHandler {
-    PBLogDebug(@"Bid request to appnexus: %@ params: %@", request.URL.absoluteString, [[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding]);
+    PBLogDebug(@"Bid request to Prebid Server: %@ params: %@", request.URL.absoluteString, [[NSString alloc] initWithData:[request HTTPBody] encoding:NSUTF8StringEncoding]);
     NSDictionary *params = [NSJSONSerialization JSONObjectWithData:[request HTTPBody]
                                                            options:kNilOptions
                                                              error:nil];
@@ -46,16 +46,21 @@
     if (self.requestTIDs == nil) {
         self.requestTIDs = [[NSMutableArray alloc] init];
     }
-    [self.requestTIDs addObject:params[@"tid"]];
+    @synchronized(self.requestTIDs) {
+        if(params[@"tid"] != nil){
+            [self.requestTIDs addObject:params[@"tid"]];
+        }
+    }
 
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[[NSOperationQueue alloc] init]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
                                if (response != nil && data.length > 0) {
-                                   PBLogDebug(@"Bid response from appnexus: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-                                   NSDictionary *adUnitToBids = [self processData:data];
+                                   PBLogDebug(@"Bid response from Prebid Server: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                                   //NSDictionary *adUnitToBids = [self processData:data];
+                                   NSDictionary *openRTBAdUnitBidMap = [self processOpenRTBData:data];
                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                       completionHandler(adUnitToBids, nil);
+                                       completionHandler(openRTBAdUnitBidMap, nil);
                                    });
                                } else {
                                    dispatch_async(dispatch_get_main_queue(), ^{
@@ -65,6 +70,48 @@
                            }];
 }
 
+- (NSDictionary *)processOpenRTBData:(NSData *)data {
+    NSError *error;
+    id object = [NSJSONSerialization JSONObjectWithData:data
+                                                options:kNilOptions
+                                                  error:&error];
+    if (error) {
+        PBLogError(@"Error parsing ad server response");
+        return [[NSMutableDictionary alloc] init];
+    }
+    if (!object) {
+        return [[NSMutableDictionary alloc] init];
+    }
+    NSMutableDictionary *adUnitToBidsMap = [[NSMutableDictionary alloc] init];
+    if ([object isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *response = (NSDictionary *)object;
+        if ([[response objectForKey:@"seatbid"] isKindOfClass:[NSArray class]]) {
+            NSArray *seatbids = (NSArray *)[response objectForKey:@"seatbid"];
+            for (id seatbid in seatbids) {
+                if ([seatbid isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *seatbidDict = (NSDictionary *)seatbid;
+                    if ([[seatbidDict objectForKey:@"bid"] isKindOfClass:[NSArray class]]) {
+                        NSArray *bids = (NSArray *)[seatbidDict objectForKey:@"bid"];
+                        for (id bid in bids) {
+                            if ([bid isKindOfClass:[NSDictionary class]]) {
+                                NSDictionary *bidDict = (NSDictionary *)bid;
+                                NSMutableArray *adUnitBids = [[NSMutableArray alloc] init];
+                                if ([adUnitToBidsMap objectForKey:bidDict[@"impid"]] != nil) {
+                                    adUnitBids = [adUnitToBidsMap objectForKey:bidDict[@"impid"]];
+                                }
+                                [adUnitBids addObject:bidDict];
+                                [adUnitToBidsMap setObject:adUnitBids forKey:bidDict[@"impid"]];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return adUnitToBidsMap;
+}
+
+// now need to handle OpenRTB response
 - (NSDictionary *)processData:(NSData *)data {
     NSDictionary *bidMap = [[NSDictionary alloc] init];
     NSError *error;

@@ -1,5 +1,5 @@
 
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2017 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -82,8 +82,10 @@
             PBAdUnit *adUnit = (PBAdUnit *)[adEventDelegate performSelector:getPb_identifier];
 #pragma clang diagnostic pop
 
-            keywordsPairs = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
-            requestParameters = [[PBBidManager sharedInstance] addPrebidParameters:requestParameters withKeywords:keywordsPairs];
+            if (adUnit) {
+                keywordsPairs = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
+                requestParameters = [[PBBidManager sharedInstance] addPrebidParameters:requestParameters withKeywords:keywordsPairs];
+            }
         }
     }
     return requestParameters;

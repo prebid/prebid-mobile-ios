@@ -1,4 +1,4 @@
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2017 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 @implementation NSTimer (Extension)
 
 + (NSTimer *)pb_scheduledTimerWithTimeInterval:(NSTimeInterval)interval
-                                         block:(void(^)())block
+                                         block:(void(^)(void))block
                                        repeats:(BOOL)repeats {
     return [self scheduledTimerWithTimeInterval:interval
                                          target:self
@@ -29,7 +29,7 @@
 
 + (void)pb_blockInvoke:(NSTimer *)timer {
     if([timer userInfo]) {
-        void (^block)() = (void (^)())[timer userInfo];
+        void (^block)(void) = (void (^)(void))[timer userInfo];
         block();
     }
 }

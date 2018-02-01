@@ -1,4 +1,4 @@
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2017 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,6 +18,11 @@
 #import "InterstitialTestsViewController.h"
 #import "SettingsViewController.h"
 #import "VideoTestsViewController.h"
+
+#import <PrebidMobile/PBBannerAdUnit.h>
+#import <PrebidMobile/PBException.h>
+#import <PrebidMobile/PBInterstitialAdUnit.h>
+#import <PrebidMobile/PrebidMobile.h>
 
 static NSString *const kSeeAdButtonTitle = @"See Ad";
 static NSString *const kAdSettingsTableViewReuseId = @"AdSettingsTableItem";
@@ -61,6 +66,9 @@ static CGFloat const kRightMargin = 15;
 
     UISegmentedControl *adServerSegControl = [[UISegmentedControl alloc] initWithItems:@[kDFPAdServer, kMoPubAdServer]];
     adServerSegControl.selectedSegmentIndex = 0;
+    [adServerSegControl addTarget:self
+                           action:@selector(adServerClicked:)
+                 forControlEvents:UIControlEventValueChanged];
     UISegmentedControl *adTypeSegControl = [[UISegmentedControl alloc] initWithItems:@[kBanner, kInterstitial]];
     adTypeSegControl.selectedSegmentIndex = 0;
 
@@ -108,7 +116,32 @@ static CGFloat const kRightMargin = 15;
 }
 
 - (void)adServerClicked:(id)sender {
-    
+    UISegmentedControl *adServerSegControl = (UISegmentedControl *)sender;
+    NSString *adServer = [adServerSegControl titleForSegmentAtIndex:[adServerSegControl selectedSegmentIndex]];
+    PBPrimaryAdServerType primaryAdServer = PBPrimaryAdServerUnknown;
+    if ([adServer isEqualToString:kDFPAdServer]) {
+        primaryAdServer = PBPrimaryAdServerDFP;
+    } else if ([adServer isEqualToString:kMoPubAdServer]) {
+        primaryAdServer = PBPrimaryAdServerMoPub;
+    }
+    [self setupPrebidAndRegisterAdUnitsWithAdServer:primaryAdServer];
+}
+
+- (BOOL)setupPrebidAndRegisterAdUnitsWithAdServer:(PBPrimaryAdServerType)adServer {
+    @try {
+        PBBannerAdUnit *__nullable adUnit1 = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:kAdUnit1Id andConfigId:kAdUnit1ConfigId];
+        PBInterstitialAdUnit *__nullable adUnit2 = [[PBInterstitialAdUnit alloc] initWithAdUnitIdentifier:kAdUnit2Id andConfigId:kAdUnit2ConfigId];
+        [adUnit1 addSize:CGSizeMake(300, 250)];
+        
+        [PrebidMobile shouldLoadOverSecureConnection:YES];
+
+        [PrebidMobile registerAdUnits:@[adUnit1, adUnit2] withAccountId:kAccountId andPrimaryAdServer:adServer];
+        
+    } @catch (PBException *ex) {
+        NSLog(@"%@",[ex reason]);
+    } @finally {
+        return YES;
+    }
 }
 
 #pragma mark UITableViewDataSource methods

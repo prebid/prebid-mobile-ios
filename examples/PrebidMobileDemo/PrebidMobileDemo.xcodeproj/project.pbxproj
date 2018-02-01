@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C20A49CC1F82A17B0016078E /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20A49CB1F82A16B0016078E /* GoogleMobileAds.framework */; };
 		C23386CB1EE5DAC9002FD404 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C23386CA1EE5DAA7002FD404 /* PrebidMobile.framework */; };
 		C255C7311F44895D0089CB41 /* MPBannerAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C255C5B61F44895C0089CB41 /* MPBannerAdManager.m */; };
 		C255C7321F44895D0089CB41 /* MPBannerCustomEventAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = C255C5B91F44895C0089CB41 /* MPBannerCustomEventAdapter.m */; };
@@ -202,7 +203,6 @@
 		C273C8151E82DAAE003EF1AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C273C8141E82DAAE003EF1AB /* Assets.xcassets */; };
 		C273C8181E82DAAE003EF1AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C273C8161E82DAAE003EF1AB /* LaunchScreen.storyboard */; };
 		C273C8231E82DAAE003EF1AB /* PrebidMobileDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C273C8221E82DAAE003EF1AB /* PrebidMobileDemoTests.m */; };
-		C273CA841E8313D7003EF1AB /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C273CA831E8313D7003EF1AB /* GoogleMobileAds.framework */; };
 		C273CA861E8313F3003EF1AB /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C273CA851E8313F3003EF1AB /* CoreBluetooth.framework */; };
 		C273CA8D1E831404003EF1AB /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C273CA871E831404003EF1AB /* CoreFoundation.framework */; };
 		C273CA8E1E831404003EF1AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C273CA881E831404003EF1AB /* CoreGraphics.framework */; };
@@ -279,6 +279,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C20A49CB1F82A16B0016078E /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../sdk/PrebidMobile.xcodeproj; sourceTree = "<group>"; };
 		C255C5B51F44895C0089CB41 /* MPBannerAdManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBannerAdManager.h; sourceTree = "<group>"; };
 		C255C5B61F44895C0089CB41 /* MPBannerAdManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPBannerAdManager.m; sourceTree = "<group>"; };
@@ -660,7 +661,6 @@
 		C273C81E1E82DAAE003EF1AB /* PrebidMobileDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C273C8221E82DAAE003EF1AB /* PrebidMobileDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidMobileDemoTests.m; sourceTree = "<group>"; };
 		C273C8241E82DAAE003EF1AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C273CA831E8313D7003EF1AB /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		C273CA851E8313F3003EF1AB /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		C273CA871E831404003EF1AB /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		C273CA881E831404003EF1AB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -724,10 +724,10 @@
 				C273CA8E1E831404003EF1AB /* CoreGraphics.framework in Frameworks */,
 				C273CA8F1E831404003EF1AB /* CoreImage.framework in Frameworks */,
 				C273CA901E831404003EF1AB /* CoreLocation.framework in Frameworks */,
+				C20A49CC1F82A17B0016078E /* GoogleMobileAds.framework in Frameworks */,
 				C273CA911E831404003EF1AB /* CoreMedia.framework in Frameworks */,
 				C273CA921E831404003EF1AB /* CoreTelephony.framework in Frameworks */,
 				C273CA861E8313F3003EF1AB /* CoreBluetooth.framework in Frameworks */,
-				C273CA841E8313D7003EF1AB /* GoogleMobileAds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1396,7 +1396,7 @@
 				C273CA8B1E831404003EF1AB /* CoreMedia.framework */,
 				C273CA8C1E831404003EF1AB /* CoreTelephony.framework */,
 				C273CA851E8313F3003EF1AB /* CoreBluetooth.framework */,
-				C273CA831E8313D7003EF1AB /* GoogleMobileAds.framework */,
+				C20A49CB1F82A16B0016078E /* GoogleMobileAds.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1483,7 +1483,7 @@
 		C273C7FD1E82DAAD003EF1AB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Nicole Hedley";
 				TargetAttributes = {
 					C273C8041E82DAAD003EF1AB = {
@@ -1819,7 +1819,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1827,7 +1829,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1855,6 +1861,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Debug;
 		};
@@ -1867,7 +1874,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1875,7 +1884,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1897,6 +1910,7 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7";
 			};
 			name = Release;
 		};

@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobile"
-  s.version      = "0.1.0"
+  s.version      = "0.1.1"
   s.summary      = "PrebidMobile is a lightweight framework that integrates directly with Prebid Server."
 
   s.description  = <<-DESC
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
 
   s.license      = { :type => "Apache License, Version 2.0", :text => <<-LICENSE
-    Copyright 2017 APPNEXUS INC
+    Copyright 2017 Prebid.org, Inc.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
     LICENSE
     }
 
-  s.author             = { "Nicole Hedley" => "nhedley@appnexus.com" }
+  s.author             = { "Prebid.org, Inc." => "info@prebid.org" }
   s.platform     = :ios, "8.0"
   s.source       = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
   s.source_files = "sdk/PrebidMobile", "sdk/PrebidMobile/**/*.{h,m}", "sdk/PrebidServerAdapter/**/*.{h,m}"

@@ -1,4 +1,4 @@
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2017 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -15,11 +15,16 @@
 
 #import <Foundation/Foundation.h>
 #import "PBAdUnit.h"
+#import "PBBidManager.h"
 #import "PBBidResponseDelegate.h"
 
 @interface PBServerAdapter : NSObject
 
 - (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId;
+
+@property (nonatomic, assign) BOOL shouldCacheLocal;
+
+@property (nonatomic, assign) BOOL isSecure;
 
 - (void)requestBidsWithAdUnits:(nullable NSArray<PBAdUnit *> *)adUnits
                   withDelegate:(nonnull id<PBBidResponseDelegate>)delegate;
