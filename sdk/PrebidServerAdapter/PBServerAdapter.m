@@ -40,6 +40,9 @@ static NSTimeInterval const kAdTimeoutInterval = 360;
 - (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId {
     if (self = [super init]) {
         _accountId = accountId;
+        _isSecure = TRUE;
+        _shouldCacheLocal = TRUE;
+        
     }
     return self;
 }

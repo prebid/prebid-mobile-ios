@@ -104,14 +104,14 @@ static dispatch_once_t onceToken;
     }
     _bidsMap = [[NSMutableDictionary alloc] init];
     
+    self.adServer = adServer;
+    
     _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId];
     
-    if(adServer == PBPrimaryAdServerDFP){
-        _demandAdapter.shouldCacheLocal = TRUE;
-        _demandAdapter.isSecure = TRUE;
+    if(adServer == PBPrimaryAdServerMoPub){
+        //the adservers are cached locally by default except for MoPub hence this needs to be configured
+       _demandAdapter.shouldCacheLocal = FALSE;
     }
-    
-    self.adServer = adServer;
     
     for (id adUnit in adUnits) {
         [self registerAdUnit:adUnit];
@@ -204,6 +204,12 @@ static dispatch_once_t onceToken;
     }
 }
 
+-(void) loadOnSecureConnection:(BOOL) secureConnection {
+    if(self.adServer != PBPrimaryAdServerUnknown && self.adServer != PBPrimaryAdServerDFP){
+        self.demandAdapter.isSecure = secureConnection;
+    }
+}
+
 #pragma mark Internal Methods
 
 - (void)registerAdUnit:(PBAdUnit *)adUnit {
@@ -282,6 +288,7 @@ static dispatch_once_t onceToken;
     if (bids && [bids count] > 0) {
         return bids;
     }
+    PBLogDebug(@"Bids for adunit not available");
     return nil;
 }
 

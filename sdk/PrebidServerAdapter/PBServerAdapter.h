@@ -22,8 +22,6 @@
 
 - (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId;
 
-//@property (nonatomic, assign, readwrite) PBPrimaryAdServerType primaryAdServer;
-
 @property (nonatomic, assign) BOOL shouldCacheLocal;
 
 @property (nonatomic, assign) BOOL isSecure;

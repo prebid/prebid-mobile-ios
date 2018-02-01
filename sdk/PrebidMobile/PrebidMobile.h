@@ -45,5 +45,7 @@
                      withTimeout:(int)timeoutInMilliseconds
                completionHandler:(nullable void (^)(void))handler;
 
++ (void) shouldLoadOverSecureConnection:(BOOL) secureConnection;
+
 
 @end

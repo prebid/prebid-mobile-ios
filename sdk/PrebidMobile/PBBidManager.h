@@ -81,4 +81,6 @@ typedef NS_ENUM(NSInteger, PBPrimaryAdServerType) {
 - (void)setBidOnAdObject:(nonnull NSObject *)adObject;
 - (void)clearBidOnAdObject:(nonnull NSObject *)adObject;
 
+-(void) loadOnSecureConnection:(BOOL) secureConnection;
+
 @end
