@@ -205,7 +205,7 @@ static dispatch_once_t onceToken;
 }
 
 -(void) loadOnSecureConnection:(BOOL) secureConnection {
-    if(self.adServer != PBPrimaryAdServerUnknown && self.adServer != PBPrimaryAdServerDFP){
+    if(self.adServer == PBPrimaryAdServerMoPub){
         self.demandAdapter.isSecure = secureConnection;
     }
 }
