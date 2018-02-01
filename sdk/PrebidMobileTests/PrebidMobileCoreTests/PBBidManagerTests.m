@@ -30,7 +30,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
 @property (nonatomic, strong) NSMutableSet<PBAdUnit *> *adUnits;
 @property (nonatomic, strong) NSMutableDictionary <NSString *, PBBidResponse *> *__nullable bidsMap;
 @property (nonatomic, strong) PBServerAdapter *demandAdapter;
-- (void)startNewAuction:(PBAdUnit *)adUnit;
+- (void)resetAdUnit:(PBAdUnit *)adUnit;
 - (void)saveBidResponses:(nonnull NSArray<PBBidResponse *> *)bidResponse;
 - (void)checkForBidsExpired;
 - (void)registerAdUnit:(PBAdUnit *)adUnit;
@@ -264,7 +264,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
 
 #pragma mark - Test start new auction tests
 
-- (void)testStartNewAuction {
+- (void)testResetAdUnit {
     PBAdUnit *adUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt11" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     [adUnit addSize:CGSizeMake(320, 50)];
     NSString *originalUUID = adUnit.uuid;
@@ -276,7 +276,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
 
     XCTAssertNotNil([[[PBBidManager sharedInstance] bidsMap] objectForKey:adUnit.identifier]);
 
-    [[PBBidManager sharedInstance] startNewAuction:adUnit];
+    [[PBBidManager sharedInstance] resetAdUnit:adUnit];
 
     XCTAssertNil([[[PBBidManager sharedInstance] bidsMap] objectForKey:adUnit.identifier]);
     XCTAssertFalse([originalUUID isEqualToString:adUnit.uuid]);

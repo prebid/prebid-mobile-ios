@@ -20,6 +20,6 @@
 
 + (instancetype _Nullable )sharedInstance;
 
-- (NSURLRequest *_Nullable)buildRequest:(nullable NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID shouldCacheLocal:(BOOL) isLocal withSecureParams:(BOOL) isSecure;
+- (NSURLRequest *_Nullable)buildRequest:(nullable NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *_Nullable) accountID shouldCacheLocal:(BOOL) isLocal withSecureParams:(BOOL) isSecure;
 
 @end
