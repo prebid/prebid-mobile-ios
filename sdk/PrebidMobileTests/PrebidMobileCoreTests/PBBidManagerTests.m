@@ -63,9 +63,9 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     [bannerAdUnit addSize:CGSizeMake(320, 50)];
 
     [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerDFP];
-    PBPrimaryAdServerType primaryAdServer = [PBBidManager sharedInstance].demandAdapter.primaryAdServer;
-
-    XCTAssertTrue(primaryAdServer == PBPrimaryAdServerDFP);
+    BOOL cacheLocal = [PBBidManager sharedInstance].demandAdapter.shouldCacheLocal;
+    
+    XCTAssertEqual(YES, cacheLocal);
 }
 
 - (void)testRegisterBannerAdUnitWithMoPubPrimaryAdServer {
@@ -73,9 +73,9 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     [bannerAdUnit addSize:CGSizeMake(320, 50)];
 
     [[PBBidManager sharedInstance] registerAdUnits:@[bannerAdUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerMoPub];
-    PBPrimaryAdServerType primaryAdServer = [PBBidManager sharedInstance].demandAdapter.primaryAdServer;
+    BOOL cacheLocal = [PBBidManager sharedInstance].demandAdapter.shouldCacheLocal;
 
-    XCTAssertTrue(primaryAdServer == PBPrimaryAdServerMoPub);
+    XCTAssertEqual(NO, cacheLocal);
 }
 
 - (void)testRegisterBannerAdUnit {
