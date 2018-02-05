@@ -15,8 +15,11 @@
 
 #import <XCTest/XCTest.h>
 #import "PBServerAdapter.h"
+#import "PBException.h"
 
 static NSString *const kPrebidMobileVersion = @"0.1.1";
+static NSString *const kAPNPrebidServerUrl = @"https://prebid.adnxs.com/pbs/v1/auction";
+static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproject.com/auction";
 
 @interface PBServerAdapter (Testing)
 
@@ -27,28 +30,28 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
 
 @interface PBServerAdapterTests : XCTestCase
 
+@property (nonatomic, strong) NSArray *adUnits;
+
 @end
 
 @implementation PBServerAdapterTests
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    PBAdUnit *adUnit = [[PBAdUnit alloc] initWithIdentifier:@"test_identifier" andAdType:PBAdUnitTypeBanner andConfigId:@"test_config_id"];
+    [adUnit addSize:CGSizeMake(250, 300)];
+    self.adUnits = @[adUnit];
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    self.adUnits = nil;
     [super tearDown];
 }
 
 - (void)testRequestBodyForAdUnit {
-    PBAdUnit *adUnit = [[PBAdUnit alloc] initWithIdentifier:@"test_identifier" andAdType:PBAdUnitTypeBanner andConfigId:@"test_config_id"];
-    [adUnit addSize:CGSizeMake(250, 300)];
-    NSArray *adUnits = @[adUnit];
-
     PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
-
-    NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:adUnits];
+    serverAdapter.host = PBServerHostAppNexus;
+    NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:self.adUnits];
 
     XCTAssertEqualObjects(requestBody[@"account_id"], @"test_account_id");
     XCTAssertEqualObjects(requestBody[@"max_key_length"], @(20));
@@ -75,47 +78,55 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
     XCTAssertTrue([sizesArray count] == 1);
 }
 
-- (void)testRequestBodyForAdUnitPrimaryAdServerUnknown {
-    PBAdUnit *adUnit = [[PBAdUnit alloc] initWithIdentifier:@"test_identifier" andAdType:PBAdUnitTypeBanner andConfigId:@"test_config_id"];
-    [adUnit addSize:CGSizeMake(250, 300)];
-    NSArray *adUnits = @[adUnit];
-
+- (void)testBuildRequestForAdUnitsInvalidHost {
     PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    NSURLRequest *request;
+    @try {
+        request = [serverAdapter buildRequestForAdUnits:self.adUnits];
+    } @catch (PBException *exception) {
+        NSExceptionName expectedException = @"PBHostInvalidException";
+        XCTAssertNotNil(exception);
+        XCTAssertEqual(exception.name, expectedException);
+    }
+}
+
+- (void)testBuildRequestForAdUnitsValidHost {
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    serverAdapter.host = PBServerHostRubicon;
+    NSURLRequest *request = [serverAdapter buildRequestForAdUnits:self.adUnits];
+    XCTAssertEqualObjects(request.URL, [NSURL URLWithString:kRPPrebidServerUrl]);
+    
+    serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    serverAdapter.host = PBServerHostAppNexus;
+    request = [serverAdapter buildRequestForAdUnits:self.adUnits];
+    XCTAssertEqualObjects(request.URL, [NSURL URLWithString:kAPNPrebidServerUrl]);
+}
+
+- (void)testRequestBodyForAdUnitPrimaryAdServerUnknown {
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    serverAdapter.host = PBServerHostAppNexus;
     serverAdapter.primaryAdServer = PBPrimaryAdServerUnknown;
-    NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:adUnits];
+    NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:self.adUnits];
 
     XCTAssertEqualObjects(requestBody[@"cache_markup"], @(1));
 }
 
 - (void)testRequestBodyForAdUnitWithDFPAdServer {
-    PBAdUnit *adUnit = [[PBAdUnit alloc] initWithIdentifier:@"test_identifier" andAdType:PBAdUnitTypeBanner andConfigId:@"test_config_id"];
-    [adUnit addSize:CGSizeMake(250, 300)];
-    NSArray *adUnits = @[adUnit];
-
     PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    serverAdapter.host = PBServerHostAppNexus;
     serverAdapter.primaryAdServer = PBPrimaryAdServerDFP;
-    NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:adUnits];
+    NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:self.adUnits];
 
     XCTAssertNil(requestBody[@"cache_markup"]);
 }
 
 - (void)testRequestBodyForAdUnitWithMoPubAdServer {
-    PBAdUnit *adUnit = [[PBAdUnit alloc] initWithIdentifier:@"test_identifier" andAdType:PBAdUnitTypeBanner andConfigId:@"test_config_id"];
-    [adUnit addSize:CGSizeMake(250, 300)];
-    NSArray *adUnits = @[adUnit];
-
     PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id"];
+    serverAdapter.host = PBServerHostAppNexus;
     serverAdapter.primaryAdServer = PBPrimaryAdServerMoPub;
-    NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:adUnits];
+    NSDictionary *requestBody = [serverAdapter requestBodyForAdUnits:self.adUnits];
 
     XCTAssertEqualObjects(requestBody[@"cache_markup"], @(1));
-}
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
 }
 
 @end

@@ -18,15 +18,17 @@
 
 @implementation PrebidMobile
 
-+ (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId {
++ (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId {
     [[PBBidManager sharedInstance] registerAdUnits:adUnits withAccountId:accountId];
 }
 
 + (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
           withAccountId:(nonnull NSString *)accountId
+               withHost:(PBServerHost)host
      andPrimaryAdServer:(PBPrimaryAdServerType)adServer {
     [NSURLProtocol registerClass:[PrebidURLProtocol class]];
-    [[PBBidManager sharedInstance] registerAdUnits:adUnits withAccountId:accountId andPrimaryAdServer:adServer];
+    [[PBBidManager sharedInstance] registerAdUnits:adUnits withAccountId:accountId withHost:host andPrimaryAdServer:adServer];
 }
 
 + (void)setBidKeywordsOnAdObject:(nonnull id)adObject

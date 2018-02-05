@@ -1,4 +1,4 @@
-/*   Copyright 2017 Prebid.org, Inc.
+/*   Copyright 2017 APPNEXUS INC
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,21 +14,15 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBAdUnit.h"
-#import "PBHost.h"
-#import "PBBidManager.h"
-#import "PBBidResponseDelegate.h"
 
-@interface PBServerAdapter : NSObject
+/**
+ * Prebid Server host selection enumerator to be passed in by the user
+ */
+typedef NS_ENUM(NSUInteger, PBServerHost) {
+    PBServerHostAppNexus = 1,
+    PBServerHostRubicon
+};
 
-- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId;
-
-@property (nonatomic, assign) BOOL shouldCacheLocal;
-
-@property (nonatomic, assign) BOOL isSecure;
-@property (nonatomic, assign, readwrite) PBServerHost host;
-
-- (void)requestBidsWithAdUnits:(nullable NSArray<PBAdUnit *> *)adUnits
-                  withDelegate:(nonnull id<PBBidResponseDelegate>)delegate;
+@interface PBHost : NSObject
 
 @end

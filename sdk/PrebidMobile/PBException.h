@@ -27,7 +27,8 @@ typedef enum PBRaiseException {
     PBAdUnitNoSizeException,
     PBAdUnitNoDemandConfigException,
     PBAdUnitAlreadyRegisteredException,
-    PBAdUnitNotRegisteredException
+    PBAdUnitNotRegisteredException,
+    PBHostInvalidException,
 } PBRaiseException;
 
 + (NSException *)exceptionWithName:(enum PBRaiseException)exceptionName;

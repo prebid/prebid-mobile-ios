@@ -25,8 +25,12 @@
 #import "PBServerFetcher.h"
 #import "PBTargetingParams.h"
 #import "PBServerRequestBuilder.h"
+#import "PBException.h"
 
 static NSString *const kAPNAdServerCacheIdKey = @"hb_cache_id";
+
+static NSString *const kAPNPrebidServerUrl = @"https://prebid.adnxs.com/pbs/v1/openrtb2/auction";
+static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproject.com/auction";
 static NSTimeInterval const kAdTimeoutInterval = 360;
 
 @interface PBServerAdapter ()
@@ -49,6 +53,13 @@ static NSTimeInterval const kAdTimeoutInterval = 360;
 
 - (void)requestBidsWithAdUnits:(nullable NSArray<PBAdUnit *> *)adUnits
                   withDelegate:(nonnull id<PBBidResponseDelegate>)delegate {
+    
+    NSURL *hostUrl = [self urlForHost:_host];
+    if (hostUrl == nil) {
+        @throw [PBException exceptionWithName:PBHostInvalidException];
+    }
+    
+    [[PBServerRequestBuilder sharedInstance] setHostURL:hostUrl];
     
     NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:adUnits withAccountId:self.accountId shouldCacheLocal:self.shouldCacheLocal withSecureParams:self.isSecure];
     
@@ -90,5 +101,23 @@ static NSTimeInterval const kAdTimeoutInterval = 360;
     }];
 }
 
+
+
+- (NSURL *)urlForHost:(PBServerHost)host {
+    NSURL *url;
+    switch (host) {
+        case PBServerHostAppNexus:
+            url = [NSURL URLWithString:kAPNPrebidServerUrl];
+            break;
+        case PBServerHostRubicon:
+            url = [NSURL URLWithString:kRPPrebidServerUrl];
+            break;
+        default:
+            url = nil;
+            break;
+    }
+    
+    return url;
+}
 
 @end

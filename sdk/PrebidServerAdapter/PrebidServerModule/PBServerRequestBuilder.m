@@ -22,7 +22,6 @@
 #import "PBServerLocation.h"
 
 
-static NSString *const kPrebidServerOpenRTBEndpoint = @"https://prebid.adnxs.com/pbs/v1/openrtb2/auction";
 static NSString *const kPrebidMobileVersion = @"0.1.1";
 
 @implementation PBServerRequestBuilder
@@ -40,8 +39,8 @@ static NSString *const kPrebidMobileVersion = @"0.1.1";
 }
 
 - (NSURLRequest *_Nullable)buildRequest:(nullable NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID shouldCacheLocal:(BOOL) isLocal withSecureParams:(BOOL) isSecure {
-    NSURL *url = [NSURL URLWithString:kPrebidServerOpenRTBEndpoint];
-    NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:url
+    
+    NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:self.hostURL
                                                                        cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                                    timeoutInterval:1000];
     [mutableRequest setHTTPMethod:@"POST"];

@@ -83,7 +83,8 @@ static dispatch_once_t onceToken;
     sharedInstance = nil;
 }
 
-- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId {
+- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId {
     if (_adUnits == nil) {
         _adUnits = [[NSMutableSet alloc] init];
     }
@@ -98,6 +99,7 @@ static dispatch_once_t onceToken;
 
 - (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
           withAccountId:(nonnull NSString *)accountId
+               withHost:(PBServerHost)host
      andPrimaryAdServer:(PBPrimaryAdServerType)adServer {
     if (_adUnits == nil) {
         _adUnits = [[NSMutableSet alloc] init];
@@ -113,6 +115,7 @@ static dispatch_once_t onceToken;
        _demandAdapter.shouldCacheLocal = FALSE;
     }
     
+    _demandAdapter.host = host;
     for (id adUnit in adUnits) {
         [self registerAdUnit:adUnit];
     }
