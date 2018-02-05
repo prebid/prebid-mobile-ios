@@ -32,6 +32,7 @@ static NSString *const kAPNAdServerCacheIdKey = @"hb_cache_id";
 static NSString *const kAPNPrebidServerUrl = @"https://prebid.adnxs.com/pbs/v1/openrtb2/auction";
 static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproject.com/auction";
 static NSTimeInterval const kAdTimeoutInterval = 360;
+static int const kBatchCount = 10;
 
 @interface PBServerAdapter ()
 
@@ -78,7 +79,7 @@ static NSTimeInterval const kAdTimeoutInterval = 360;
     int j = 0;
     
     while(adUnitsRemaining) {
-        NSRange range = NSMakeRange(j, MIN(10, adUnitsRemaining));
+        NSRange range = NSMakeRange(j, MIN(kBatchCount, adUnitsRemaining));
         NSArray<PBAdUnit *> *subAdUnitArray = [adUnits subarrayWithRange:range];
         adUnitsRemaining-=range.length;
         j+=range.length;
