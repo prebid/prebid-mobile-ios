@@ -64,7 +64,7 @@
 
         [self setPrebidTargetingParams];
 
-        [PrebidMobile registerAdUnits:@[adUnit1, adUnit2] withAccountId:kAccountId andPrimaryAdServer:PBPrimaryAdServerDFP];
+        [PrebidMobile registerAdUnits:@[adUnit1, adUnit2] withAccountId:kAccountId withHost:kPBServerHost andPrimaryAdServer:PBPrimaryAdServerDFP];
     } @catch (PBException *ex) {
         NSLog(@"%@",[ex reason]);
     } @finally {

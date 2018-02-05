@@ -14,6 +14,7 @@
  */
 
 #import "Constants.h"
+#import "PBHost.h"
 
 @implementation Constants
 
@@ -35,7 +36,6 @@ NSString *const kMoPubAdServer = @"MoPub";
 NSString *const kMoPubBannerAdUnitId = @"a9cb8ff85fef4b50b457e3b11119aabf";
 NSString *const kMoPubInterstitialAdUnitId = @"fc82df5c964945c79cceef4c5666e1e2";
 
-
 #pragma mark - DFP constants
 NSString *const kDFPAdServer = @"DFP";
 NSString *const kDFPBannerAdUnitId = @"/19968336/PriceCheck_300x250";
@@ -45,6 +45,7 @@ NSString *const kDFPInterstitialAdUnitId = @"/19968336/PriceCheck_Interstitial";
 NSString *const kAccountId = @"aecd6ef7-b992-4e99-9bb8-65e2d984e1dd";
 NSString *const kAdUnit1ConfigId = @"eebc307d-7f76-45d6-a7a7-68985169b138";
 NSString *const kAdUnit2ConfigId = @"eebc307d-7f76-45d6-a7a7-68985169b138";
+NSUInteger const kPBServerHost = PBServerHostAppNexus;
 
 NSString *const kAdUnit1Id = @"HomeScreen";
 NSString *const kAdUnit2Id = @"NavScreen";

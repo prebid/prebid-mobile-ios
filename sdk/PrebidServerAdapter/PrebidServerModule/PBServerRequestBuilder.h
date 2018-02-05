@@ -18,7 +18,10 @@
 
 @interface PBServerRequestBuilder : NSObject
 
+@property (nonatomic, assign, readwrite) NSURL * _Nonnull hostURL;
+
 + (instancetype _Nullable )sharedInstance;
+
 
 - (NSURLRequest *_Nullable)buildRequest:(nullable NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *_Nullable) accountID shouldCacheLocal:(BOOL) isLocal withSecureParams:(BOOL) isSecure;
 
