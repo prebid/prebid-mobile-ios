@@ -23,10 +23,12 @@
 
 - (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId;
 
+- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId andHost:(PBServerHost) host;
+
 @property (nonatomic, assign) BOOL shouldCacheLocal;
 
 @property (nonatomic, assign) BOOL isSecure;
-@property (nonatomic, assign, readwrite) PBServerHost host;
+
 
 - (void)requestBidsWithAdUnits:(nullable NSArray<PBAdUnit *> *)adUnits
                   withDelegate:(nonnull id<PBBidResponseDelegate>)delegate;

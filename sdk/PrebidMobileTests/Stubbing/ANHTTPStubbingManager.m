@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-/*   Copyright 2014 Prebid.org, Inc.
-=======
-/*   Copyright 2017 APPNEXUS INC
->>>>>>> 72456237596046f334ed30b9fe293f765b88b10e
+/*   Copyright 2017 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
