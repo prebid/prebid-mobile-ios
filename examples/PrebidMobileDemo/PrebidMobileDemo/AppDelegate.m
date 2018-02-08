@@ -20,6 +20,7 @@
 #import <PrebidMobile/PBInterstitialAdUnit.h>
 #import <PrebidMobile/PBTargetingParams.h>
 #import <PrebidMobile/PrebidMobile.h>
+#import <PrebidMobile/PBLogging.h>
 #import "Constants.h"
 #import "SettingsViewController.h"
 
