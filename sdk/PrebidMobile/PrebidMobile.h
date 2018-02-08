@@ -14,9 +14,9 @@
  */
 
 #import "PBBidManager.h"
-#import "PBLogging.h"
 #import "PBHost.h"
 #import <UIKit/UIKit.h>
+@import Foundation.NSString;
 
 @class PBAdUnit;
 

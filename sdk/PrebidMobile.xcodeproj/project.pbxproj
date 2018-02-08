@@ -11,6 +11,7 @@
 		606A42A42020FD4600492433 /* PBServerRequestBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 606A42A22020FD4600492433 /* PBServerRequestBuilder.h */; };
 		606A42A52020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
 		606A42A62020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
+		606A4353202BC98100492433 /* PrebidMobile-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 606A4352202BC98100492433 /* PrebidMobile-umbrella.h */; };
 		B40B92AF1FCCC5E300A676A8 /* PBHost.h in Headers */ = {isa = PBXBuildFile; fileRef = B40B92AD1FCCC5E300A676A8 /* PBHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B455F9011FE460E3005D6261 /* PBBidManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E281EE1BEA6006304C0 /* PBBidManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C210FE321FBDF0440010B588 /* PrebidURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */; };
@@ -92,6 +93,7 @@
 		606A4298202005C400492433 /* ReadMe.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		606A42A22020FD4600492433 /* PBServerRequestBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBServerRequestBuilder.h; sourceTree = "<group>"; };
 		606A42A32020FD4600492433 /* PBServerRequestBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBServerRequestBuilder.m; sourceTree = "<group>"; };
+		606A4352202BC98100492433 /* PrebidMobile-umbrella.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidMobile-umbrella.h"; sourceTree = "<group>"; };
 		B40B92AD1FCCC5E300A676A8 /* PBHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBHost.h; sourceTree = "<group>"; };
 		C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidURLProtocol.h; sourceTree = "<group>"; };
 		C210FE311FBDF0440010B588 /* PrebidURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidURLProtocol.m; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 		C2B174791EE1E3C3006304C0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C2B1747B1EE1E3C9006304C0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C2B1747D1EE1E3CE006304C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E6BF995E1F7167B0001016FD /* PrebidMobile-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMobile-umbrella.h"; sourceTree = "<group>"; };
 		EFD3C940519B957467FE94E6 /* libPods-PrebidMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -198,6 +201,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		606A4351202BC90800492433 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				E6BF995E1F7167B0001016FD /* PrebidMobile-umbrella.h */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		C281E17D1EE5EAF700F2F4A9 /* PrebidMobileTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +272,7 @@
 				C281E17D1EE5EAF700F2F4A9 /* PrebidMobileTests */,
 				C2B16EA21EE1BF8A006304C0 /* Frameworks */,
 				C2B16E1C1EE1BE69006304C0 /* Products */,
+				606A4351202BC90800492433 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -276,6 +288,7 @@
 		C2B16E1D1EE1BE69006304C0 /* PrebidMobile */ = {
 			isa = PBXGroup;
 			children = (
+				606A4352202BC98100492433 /* PrebidMobile-umbrella.h */,
 				C2B16E4A1EE1BEC4006304C0 /* Categories */,
 				C2B16E5F1EE1BECA006304C0 /* Logging */,
 				C2B16E1F1EE1BE69006304C0 /* Info.plist */,
@@ -405,6 +418,7 @@
 				C2B16E9B1EE1BF1A006304C0 /* PBServerGlobal.h in Headers */,
 				C2B16E9F1EE1BF1A006304C0 /* PBServerReachability.h in Headers */,
 				C2B16E9D1EE1BF1A006304C0 /* PBServerLocation.h in Headers */,
+				606A4353202BC98100492433 /* PrebidMobile-umbrella.h in Headers */,
 				C210FE321FBDF0440010B588 /* PrebidURLProtocol.h in Headers */,
 				C2B16E981EE1BF1A006304C0 /* PBServerFetcher.h in Headers */,
 				C210FE381FC3375D0010B588 /* PrebidCache.h in Headers */,
@@ -718,6 +732,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/lib/DFPSDK $(PROJECT_DIR)/lib/MoPubSDK";
 				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "$(PROJECT)/PrebidMobile.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidMobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -741,6 +756,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/lib/DFPSDK $(PROJECT_DIR)/lib/MoPubSDK";
 				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "$(PROJECT)/PrebidMobile.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidMobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
