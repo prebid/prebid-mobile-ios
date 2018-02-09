@@ -1,0 +1,306 @@
+/*   Copyright 2017 Prebid.org, Inc.
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+#import <AdSupport/AdSupport.h>
+#import "PrebidCache.h"
+#import <sys/utsname.h>
+#import <UIKit/UIKit.h>
+
+#import "PBBidResponse.h"
+#import "PBBidResponseDelegate.h"
+#import "PBLogging.h"
+#import "PBServerAdapter.h"
+#import "PBServerFetcher.h"
+#import "PBTargetingParams.h"
+<<<<<<< HEAD
+#import "PrebidMobileDemandSDKLoaderSettings.h"
+=======
+#import "PBServerRequestBuilder.h"
+#import "PBException.h"
+>>>>>>> ce09ae16276d5a7564524a08c823d1c3708f6b3a
+
+static NSString *const kAPNAdServerCacheIdKey = @"hb_cache_id";
+
+static NSString *const kAPNPrebidServerUrl = @"https://prebid.adnxs.com/pbs/v1/openrtb2/auction";
+static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproject.com/auction";
+static NSTimeInterval const kAdTimeoutInterval = 360;
+static int const kBatchCount = 10;
+
+@interface PBServerAdapter ()
+
+@property (nonatomic, strong) NSString *accountId;
+
+@property (nonatomic, assign, readwrite) PBServerHost host;
+
+@end
+
+@implementation PBServerAdapter
+
+- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId {
+    if (self = [super init]) {
+        _accountId = accountId;
+        _isSecure = TRUE;
+        _shouldCacheLocal = TRUE;
+        _host = PBServerHostAppNexus;
+    }
+    return self;
+}
+
+<<<<<<< HEAD
+- (void)requestBidsWithAdUnits:(nullable NSArray<PBAdUnit *> *)adUnits
+                  withDelegate:(nonnull id<PBBidResponseDelegate>)delegate {
+    NSURLRequest *request = [self buildRequestForAdUnits:adUnits];
+    [[PBServerFetcher sharedInstance] makeBidRequest:request withCompletionHandler:^(NSDictionary *adUnitToBidsMap, NSError *error) {
+        if (error) {
+            [delegate didCompleteWithError:error];
+            return;
+        }
+        for (NSString *adUnitId in [adUnitToBidsMap allKeys]) {
+            NSArray *bidsArray = (NSArray *)[adUnitToBidsMap objectForKey:adUnitId];
+            NSMutableArray *bidResponsesArray = [[NSMutableArray alloc] init];
+            for (NSDictionary *bid in bidsArray) {
+                PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:bid[@"ad_server_targeting"]];
+                PBLogDebug(@"Bid Successful with rounded bid targeting keys are %@ for adUnit id is %@", bidResponse.customKeywords, adUnitId);
+                [bidResponsesArray addObject:bidResponse];
+            }
+            [delegate didReceiveSuccessResponse:bidResponsesArray];
+        }
+    }];
+}
+
+- (NSURLRequest *)buildRequestForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
+    NSURL *url = [NSURL URLWithString:@"https://prebid.adnxs.com/pbs/v1/auction"];
+    NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:url
+                                                                       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                                   timeoutInterval:1000];
+    [mutableRequest setHTTPMethod:@"POST"];
+    NSError *error;
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:[self requestBodyForAdUnits:adUnits]
+                                                       options:kNilOptions
+                                                         error:&error];
+    if (!error) {
+        [mutableRequest setHTTPBody:postData];
+        return [mutableRequest copy];
+    } else {
+        return nil;
+    }
+}
+
+- (NSDictionary *)requestBodyForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
+    NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
+    
+    requestDict[@"cache_markup"] = @(1);
+    requestDict[@"sort_bids"] = @(1);
+    // need this so DFP targeting keys aren't too long
+    requestDict[@"max_key_length"] = @(20);
+    requestDict[@"account_id"] = self.accountId;
+    requestDict[@"tid"] = [[NSUUID UUID] UUIDString];
+    requestDict[@"prebid_version"] = @"0.21.0-pre";
+    
+    requestDict[@"sdk"] = @{@"source": @"prebid-mobile",
+                            @"version": kPrebidMobileVersion,
+                            @"platform": @"iOS"};
+
+    NSDictionary *user = [self user];
+    if (user) {
+        requestDict[@"user"] = user;
+    }
+    NSDictionary *device = [self device];
+    if (device) {
+        requestDict[@"device"] = device;
+    }
+    NSDictionary *appID = [self app];
+    if (appID != nil) {
+        requestDict[@"app"] = appID;
+    }
+    NSArray *keywords = [self keywords];
+    if (keywords) {
+        requestDict[@"keywords"] = keywords;
+    }
+#ifdef DEBUG
+	requestDict[@"is_debug"] = @(YES);
+#endif
+    
+    NSMutableArray *adUnitConfigs = [[NSMutableArray alloc] init];
+    for (PBAdUnit *adUnit in adUnits) {
+        NSMutableDictionary *adUnitConfig = [[NSMutableDictionary alloc] init];
+        adUnitConfig[@"code"] = adUnit.identifier;
+        
+        NSMutableArray *sizeArray = [[NSMutableArray alloc] initWithCapacity:adUnit.adSizes.count];
+        for (id size in adUnit.adSizes) {
+            CGSize arSize = [size CGSizeValue];
+            NSDictionary *sizeDict = [NSDictionary dictionaryWithObjectsAndKeys:@(arSize.width), @"w", @(arSize.height), @"h", nil];
+            [sizeArray addObject:sizeDict];
+        }
+        adUnitConfig[@"sizes"] = sizeArray;
+        
+        adUnitConfig[@"config_id"] = adUnit.configId;
+        if (adUnit.adType == PBAdUnitTypeInterstitial) {
+            adUnitConfig[@"instl"] = @(1);
+        }
+        [adUnitConfigs addObject:adUnitConfig];
+=======
+- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId andHost:(PBServerHost) host {
+    if (self = [super init]) {
+        _accountId = accountId;
+        _isSecure = TRUE;
+        _shouldCacheLocal = TRUE;
+        _host = host;
+>>>>>>> ce09ae16276d5a7564524a08c823d1c3708f6b3a
+    }
+    return self;
+}
+
+- (void)requestBidsWithAdUnits:(nullable NSArray<PBAdUnit *> *)adUnits
+                  withDelegate:(nonnull id<PBBidResponseDelegate>)delegate {
+    
+    NSURL *hostUrl = [self urlForHost:_host];
+    if (hostUrl == nil) {
+        @throw [PBException exceptionWithName:PBHostInvalidException];
+    }
+    
+<<<<<<< HEAD
+    PBTargetingParamsGender genderValue = [[PBTargetingParams sharedInstance] gender];
+    NSString *gender;
+    switch (genderValue) {
+        case PBTargetingParamsGenderMale:
+            gender = @"M";
+            break;
+        case PBTargetingParamsGenderFemale:
+            gender = @"F";
+            break;
+        default:
+            gender = @"O";
+            break;
+    }
+    userDict[@"gender"] = gender;
+	if ([[PrebidMobileDemandSDKLoaderSettings sharedInstance] isDemandEnabled:@"audienceNetwork"]) {
+        userDict[@"buyeruid"] = [self getFBBuyerUID];
+	}
+=======
+    [[PBServerRequestBuilder sharedInstance] setHostURL:hostUrl];
+>>>>>>> ce09ae16276d5a7564524a08c823d1c3708f6b3a
+    
+    //batch the adunits to group of 10 & send to the server instead of this bulk request
+    int adUnitsRemaining = (int)[adUnits count];
+    int j = 0;
+    
+    while(adUnitsRemaining) {
+        NSRange range = NSMakeRange(j, MIN(kBatchCount, adUnitsRemaining));
+        NSArray<PBAdUnit *> *subAdUnitArray = [adUnits subarrayWithRange:range];
+        adUnitsRemaining-=range.length;
+        j+=range.length;
+        
+        NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:subAdUnitArray withAccountId:self.accountId shouldCacheLocal:self.shouldCacheLocal withSecureParams:self.isSecure];
+        
+        __weak __typeof__(self) weakSelf = self;
+        
+        [[PBServerFetcher sharedInstance] makeBidRequest:request withCompletionHandler:^(NSDictionary *adUnitToBidsMap, NSError *error) {
+            
+            __typeof__(self) strongSelf = weakSelf;
+            if (error) {
+                [delegate didCompleteWithError:error];
+                return;
+            }
+            for (NSString *adUnitId in [adUnitToBidsMap allKeys]) {
+                NSArray *bidsArray = (NSArray *)[adUnitToBidsMap objectForKey:adUnitId];
+                NSMutableArray *bidResponsesArray = [[NSMutableArray alloc] init];
+                for (NSDictionary *bid in bidsArray) {
+                    PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:bid[@"ext"][@"prebid"][@"targeting"]];
+                    if (strongSelf.shouldCacheLocal == TRUE) {
+                        NSString *cacheId = [[NSUUID UUID] UUIDString];
+                        NSMutableDictionary *bidCopy = [bid mutableCopy];
+                        NSMutableDictionary *adServerTargetingCopy = [bidCopy[@"ext"][@"prebid"][@"targeting"] mutableCopy];
+                        if([adServerTargetingCopy valueForKey:kAPNAdServerCacheIdKey] == nil){
+                            adServerTargetingCopy[kAPNAdServerCacheIdKey] = cacheId;
+                        }
+                        NSMutableDictionary *extCopy = [bidCopy[@"ext"] mutableCopy];
+                        NSMutableDictionary *prebidExtCopy = [bidCopy[@"ext"][@"prebid"] mutableCopy];
+                        prebidExtCopy[@"targeting"] = adServerTargetingCopy;
+                        extCopy[@"prebid"] = prebidExtCopy;
+                        bidCopy[@"ext"] = extCopy;
+                        [[PrebidCache globalCache] setObject:bidCopy forKey:cacheId withTimeoutInterval:kAdTimeoutInterval];
+                        
+                        bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:adServerTargetingCopy];
+                    }
+                    PBLogDebug(@"Bid Successful with rounded bid targeting keys are %@ for adUnit id is %@", bidResponse.customKeywords, adUnitId);
+                    [bidResponsesArray addObject:bidResponse];
+                }
+                [delegate didReceiveSuccessResponse:bidResponsesArray];
+            }
+        }];
+        
+    }
+}
+
+- (NSURL *)urlForHost:(PBServerHost)host {
+    NSURL *url;
+    switch (host) {
+        case PBServerHostAppNexus:
+            url = [NSURL URLWithString:kAPNPrebidServerUrl];
+            break;
+        case PBServerHostRubicon:
+            url = [NSURL URLWithString:kRPPrebidServerUrl];
+            break;
+        default:
+            url = nil;
+            break;
+    }
+    
+    return url;
+}
+<<<<<<< HEAD
+
+- (NSDictionary *)app {
+    if ([[PBTargetingParams sharedInstance] itunesID] != nil) {
+        NSString *itunesid = [[PBTargetingParams sharedInstance] itunesID];
+        return @{ @"appid": itunesid, @"ver": kPrebidMobileVersion };
+    } else {
+        NSString *appId = [[NSBundle mainBundle] bundleIdentifier];
+        if (appId == nil) {
+            appId = @"";
+        }
+        return @{ @"bundle": appId, @"ver": kPrebidMobileVersion };
+    }
+}
+
++ (NSNumberFormatter *)precisionNumberFormatter {
+    static dispatch_once_t precisionNumberFormatterToken;
+    static NSNumberFormatter *precisionNumberFormatter;
+    dispatch_once(&precisionNumberFormatterToken, ^{
+        precisionNumberFormatter = [[NSNumberFormatter alloc] init];
+        precisionNumberFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
+    });
+    return precisionNumberFormatter;
+}
+
+- (NSString *)getFBBuyerUID {
+	NSString *buyerUID = @"";
+	SEL getBidderTokenSel = NSSelectorFromString(@"bidderToken");
+	if (NSClassFromString(@"FBAdSettings")) {
+        Class fbAdSettingsClass = NSClassFromString(@"FBAdSettings");
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            if ([fbAdSettingsClass respondsToSelector:getBidderTokenSel]) {
+                buyerUID = [fbAdSettingsClass performSelector:getBidderTokenSel];
+            }
+        #pragma clang diagnostic pop
+	}
+	return buyerUID;
+}
+
+=======
+>>>>>>> ce09ae16276d5a7564524a08c823d1c3708f6b3a
+@end

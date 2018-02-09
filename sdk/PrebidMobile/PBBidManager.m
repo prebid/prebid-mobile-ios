@@ -1,4 +1,4 @@
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2017 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -36,6 +36,8 @@ static NSTimeInterval const kBidExpiryTimerInterval = 30;
 
 @property (nonatomic, strong) NSMutableSet<PBAdUnit *> *adUnits;
 @property (nonatomic, strong) NSMutableDictionary <NSString *, NSMutableArray<PBBidResponse *> *> *__nullable bidsMap;
+
+@property (nonatomic, assign) PBPrimaryAdServerType adServer;
 
 @end
 
@@ -81,12 +83,38 @@ static dispatch_once_t onceToken;
     sharedInstance = nil;
 }
 
-- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId {
+- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId {
     if (_adUnits == nil) {
         _adUnits = [[NSMutableSet alloc] init];
     }
     _bidsMap = [[NSMutableDictionary alloc] init];
     _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId];
+    for (id adUnit in adUnits) {
+        [self registerAdUnit:adUnit];
+    }
+    [self startPollingBidsExpiryTimer];
+    [self requestBidsForAdUnits:adUnits];
+}
+
+- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId
+               withHost:(PBServerHost)host
+     andPrimaryAdServer:(PBPrimaryAdServerType)adServer {
+    if (_adUnits == nil) {
+        _adUnits = [[NSMutableSet alloc] init];
+    }
+    _bidsMap = [[NSMutableDictionary alloc] init];
+    
+    self.adServer = adServer;
+    
+    _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId andHost:host] ;
+    
+    if(adServer == PBPrimaryAdServerMoPub){
+        //the adservers are cached locally by default except for MoPub hence this needs to be configured
+       _demandAdapter.shouldCacheLocal = FALSE;
+    }
+    
     for (id adUnit in adUnits) {
         [self registerAdUnit:adUnit];
     }
@@ -115,6 +143,8 @@ static dispatch_once_t onceToken;
 
 - (nullable NSDictionary<NSString *, NSString *> *)keywordsForWinningBidForAdUnit:(nonnull PBAdUnit *)adUnit {
     NSArray *bids = [self getBids:adUnit];
+    [self resetAdUnit:adUnit];
+    [self requestBidsForAdUnits:@[adUnit]];
     if (bids) {
         PBLogDebug(@"Bids available to create keywords");
         NSMutableDictionary<NSString *, NSString *> *keywords = [[NSMutableDictionary alloc] init];
@@ -177,6 +207,12 @@ static dispatch_once_t onceToken;
     }
 }
 
+-(void) loadOnSecureConnection:(BOOL) secureConnection {
+    if(self.adServer == PBPrimaryAdServerMoPub){
+        self.demandAdapter.isSecure = secureConnection;
+    }
+}
+
 #pragma mark Internal Methods
 
 - (void)registerAdUnit:(PBAdUnit *)adUnit {
@@ -184,6 +220,7 @@ static dispatch_once_t onceToken;
     if (adUnit.adSizes == nil && adUnit.adType == PBAdUnitTypeBanner) {
         @throw [PBException exceptionWithName:PBAdUnitNoSizeException];
     }
+    
     // Check if ad unit already exists, if so remove it
     NSMutableArray *adUnitsToRemove = [[NSMutableArray alloc] init];
     for (PBAdUnit *existingAdUnit in _adUnits) {
@@ -204,12 +241,9 @@ static dispatch_once_t onceToken;
     [_demandAdapter requestBidsWithAdUnits:adUnits withDelegate:[self delegate]];
 }
 
-- (void)startNewAuction:(PBAdUnit *)adUnit {
-    if (adUnit && adUnit.identifier) {
-        [adUnit generateUUID];
-        [_bidsMap removeObjectForKey:adUnit.identifier];
-        [self requestBidsForAdUnits:@[adUnit]];
-    }
+- (void)resetAdUnit:(PBAdUnit *)adUnit {
+    [adUnit generateUUID];
+    [_bidsMap removeObjectForKey:adUnit.identifier];
 }
 
 - (void)saveBidResponses:(NSArray <PBBidResponse *> *)bidResponses {
@@ -240,11 +274,16 @@ static dispatch_once_t onceToken;
 - (void)checkForBidsExpired {
     if (_adUnits != nil && _adUnits.count > 0) {
         NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
+        NSMutableArray *adUnitsToRequest = [[NSMutableArray alloc] init];
         for (PBAdUnit *adUnit in _adUnits) {
             NSMutableArray *bids = [_bidsMap objectForKey:adUnit.identifier];
             if (bids && [bids count] > 0 && [adUnit shouldExpireAllBids:currentTime]) {
-                [self startNewAuction:adUnit];
+                [adUnitsToRequest addObject:adUnit];
+                [self resetAdUnit:adUnit];
             }
+        }
+        if ([adUnitsToRequest count] > 0) {
+            [self requestBidsForAdUnits:adUnitsToRequest];
         }
     }
 }
@@ -254,6 +293,7 @@ static dispatch_once_t onceToken;
     if (bids && [bids count] > 0) {
         return bids;
     }
+    PBLogDebug(@"Bids for adunit not available");
     return nil;
 }
 
@@ -286,7 +326,6 @@ static dispatch_once_t onceToken;
         }
         PBAdUnit *adUnit = adObject.pb_identifier;
         NSDictionary<NSString *, NSString *> *keywordsPairs = [self keywordsForWinningBidForAdUnit:adUnit];
-        [self startNewAuction:adUnit];
         for (id key in keywordsPairs) {
             id value = [keywordsPairs objectForKey:key];
             if (value) {

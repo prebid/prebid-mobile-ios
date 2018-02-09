@@ -1,4 +1,4 @@
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2017 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -19,16 +19,24 @@
 #import "SettingsViewController.h"
 #import "VideoTestsViewController.h"
 
+#import <PrebidMobile/PBBannerAdUnit.h>
+#import <PrebidMobile/PBException.h>
+#import <PrebidMobile/PBInterstitialAdUnit.h>
+#import <PrebidMobile/PrebidMobile.h>
+
 static NSString *const kSeeAdButtonTitle = @"See Ad";
 static NSString *const kAdSettingsTableViewReuseId = @"AdSettingsTableItem";
 static CGFloat const kRightMargin = 15;
 
-@interface SettingsViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface SettingsViewController () <UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (strong, nonatomic) UITableView *settingsTableView;
 @property (strong, nonatomic) NSArray *generalSettingsData;
 @property (strong, nonatomic) NSArray *sectionHeaders;
 @property (strong, nonatomic) NSMutableDictionary *generalSettingsFields;
+@property (strong, nonatomic) NSArray *demandSourceData;
+
+@property (nonatomic, strong) UITextField *demandSourceTextField;
 
 @end
 
@@ -43,6 +51,8 @@ static CGFloat const kRightMargin = 15;
     [self.view addSubview:_settingsTableView];
 
     _generalSettingsData = @[kAdServer, kAdType, kSize, kDemandSource];
+    _demandSourceData = @[kAppNexusNetwork, kFBAudienceNetwork];
+    
     [self initializeGeneralSettingsFields];
 
     _sectionHeaders = @[@"General"];//, @"Targeting", @"Custom Keywords"];
@@ -61,6 +71,9 @@ static CGFloat const kRightMargin = 15;
 
     UISegmentedControl *adServerSegControl = [[UISegmentedControl alloc] initWithItems:@[kDFPAdServer, kMoPubAdServer]];
     adServerSegControl.selectedSegmentIndex = 0;
+    [adServerSegControl addTarget:self
+                           action:@selector(adServerClicked:)
+                 forControlEvents:UIControlEventValueChanged];
     UISegmentedControl *adTypeSegControl = [[UISegmentedControl alloc] initWithItems:@[kBanner, kInterstitial]];
     adTypeSegControl.selectedSegmentIndex = 0;
 
@@ -69,10 +82,17 @@ static CGFloat const kRightMargin = 15;
     placementIdTextField.text = kDefaultPlacementId;
     placementIdTextField.textAlignment = NSTextAlignmentRight;
 
-	UITextField *demandSourceTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 160, 50)];
-	demandSourceTextField.placeholder = @"appnexus";
-	demandSourceTextField.text = @"appnexus";
-	demandSourceTextField.textAlignment = NSTextAlignmentRight;
+	_demandSourceTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 160, 50)];
+	_demandSourceTextField.placeholder = @"appnexus";
+	_demandSourceTextField.text = @"appnexus";
+	_demandSourceTextField.textAlignment = NSTextAlignmentRight;
+    
+    UIPickerView *demandSourcePickerView = [[UIPickerView alloc] init];
+    demandSourcePickerView.dataSource = self;
+    demandSourcePickerView.delegate = self;
+    demandSourcePickerView.showsSelectionIndicator = YES;
+    
+    _demandSourceTextField.inputView = demandSourcePickerView;
 
     UITextField *sizeTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 120, 50)];
     sizeTextField.placeholder = kDefaultSize;
@@ -81,14 +101,13 @@ static CGFloat const kRightMargin = 15;
 
     [_generalSettingsFields setObject:adServerSegControl forKey:kAdServer];
     [_generalSettingsFields setObject:adTypeSegControl forKey:kAdType];
-    [_generalSettingsFields setObject:demandSourceTextField forKey:kDemandSource];
+    [_generalSettingsFields setObject:_demandSourceTextField forKey:kDemandSource];
     [_generalSettingsFields setObject:sizeTextField forKey:kSize];
 }
 
 - (void)previewAdButtonClicked:(id)sender {
     UISegmentedControl *adServerSegControl = [self.generalSettingsFields objectForKey:kAdServer];
     UISegmentedControl *adTypeSegControl = [self.generalSettingsFields objectForKey:kAdType];
-    UITextField *placementIdField = [self.generalSettingsFields objectForKey:kPlacementId];
     UITextField *sizeIdField = [self.generalSettingsFields objectForKey:kSize];
     UITextField *demandSourceField = [self.generalSettingsFields objectForKey:kDemandSource];
 
@@ -114,7 +133,55 @@ static CGFloat const kRightMargin = 15;
 }
 
 - (void)adServerClicked:(id)sender {
-    
+    UISegmentedControl *adServerSegControl = (UISegmentedControl *)sender;
+    NSString *adServer = [adServerSegControl titleForSegmentAtIndex:[adServerSegControl selectedSegmentIndex]];
+    PBPrimaryAdServerType primaryAdServer = PBPrimaryAdServerUnknown;
+    if ([adServer isEqualToString:kDFPAdServer]) {
+        primaryAdServer = PBPrimaryAdServerDFP;
+    } else if ([adServer isEqualToString:kMoPubAdServer]) {
+        primaryAdServer = PBPrimaryAdServerMoPub;
+    }
+    [self setupPrebidAndRegisterAdUnitsWithAdServer:primaryAdServer];
+}
+
+- (BOOL)setupPrebidAndRegisterAdUnitsWithAdServer:(PBPrimaryAdServerType)adServer {
+    @try {
+        PBBannerAdUnit *__nullable adUnit1 = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:kAdUnit1Id andConfigId:kAdUnit1ConfigId];
+        PBInterstitialAdUnit *__nullable adUnit2 = [[PBInterstitialAdUnit alloc] initWithAdUnitIdentifier:kAdUnit2Id andConfigId:kAdUnit2ConfigId];
+        [adUnit1 addSize:CGSizeMake(300, 250)];
+        
+        [PrebidMobile shouldLoadOverSecureConnection:YES];
+
+        [PrebidMobile registerAdUnits:@[adUnit1, adUnit2] withAccountId:kAccountId withHost:kPBServerHost andPrimaryAdServer:adServer];
+
+    } @catch (PBException *ex) {
+        NSLog(@"%@",[ex reason]);
+    } @finally {
+        return YES;
+    }
+}
+
+#pragma mark UIPickerView methods
+// The number of columns of data
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+// The number of rows of data
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return self.demandSourceData.count;
+}
+
+-(void) pickerView:(UIPickerView *) pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    [_demandSourceTextField setText:[self.demandSourceData objectAtIndex:row]];
+}
+
+// The data to return for the row and component (column) that's being passed in
+- (NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return self.demandSourceData[row];
 }
 
 #pragma mark UITableViewDataSource methods

@@ -1,4 +1,4 @@
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2017 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  */
 
 #import "PBAdUnit.h"
-#import "PBServerAdapter.h"
+#import "PBHost.h"
 
 @class PBBidResponse;
 
@@ -32,10 +32,24 @@ static int const kPCAttachTopBidMaxTimeoutMS = 1500;
 + (void)resetSharedInstance;
 #endif
 
+typedef NS_ENUM(NSInteger, PBPrimaryAdServerType) {
+    PBPrimaryAdServerUnknown,
+    PBPrimaryAdServerDFP,
+    PBPrimaryAdServerMoPub
+};
+
 /**
- * Registers all the ad units with the prebid server account id, and starts the auction for each ad unit
+ * DEPRECATED Registers all the ad units with the prebid server account id, and starts the auction for each ad unit
  */
-- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId;
+- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId __deprecated;
+
+/**
+ * Registers all the ad units with the prebid server account id, host, and primary ad server and starts the auction for each ad unit
+ */
+- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId
+               withHost:(PBServerHost)host
+     andPrimaryAdServer:(PBPrimaryAdServerType)adServer;
 
 /**
  * Returns the ad unit for the string identifier
@@ -48,7 +62,6 @@ static int const kPCAttachTopBidMaxTimeoutMS = 1500;
  */
 - (void)assertAdUnitRegistered:(nonnull NSString *)identifier;
 
-- (void)startNewAuction:(nonnull PBAdUnit *)adUnit;
 
 /**
  * Returns the keywords pairs for the top bid of an adUnit
@@ -70,5 +83,7 @@ static int const kPCAttachTopBidMaxTimeoutMS = 1500;
 
 - (void)setBidOnAdObject:(nonnull NSObject *)adObject;
 - (void)clearBidOnAdObject:(nonnull NSObject *)adObject;
+
+-(void) loadOnSecureConnection:(BOOL) secureConnection;
 
 @end

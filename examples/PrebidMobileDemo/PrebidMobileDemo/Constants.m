@@ -1,4 +1,4 @@
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2017 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
  */
 
 #import "Constants.h"
+#import "PBHost.h"
 
 @implementation Constants
 
@@ -38,7 +39,6 @@ NSString *const kMoPubInterstitialAdUnitIdDemandSDK = @"739d7e40ee2e4767baff63fa
 NSString *const kMoPubBannerAdUnitId = @"a9cb8ff85fef4b50b457e3b11119aabf";
 NSString *const kMoPubInterstitialAdUnitId = @"fc82df5c964945c79cceef4c5666e1e2";
 
-
 #pragma mark - DFP constants
 NSString *const kDFPAdServer = @"DFP";
 NSString *const kDFPBannerAdUnitIdDemandSDK = @"/19968336/test_network_mediation";
@@ -48,12 +48,14 @@ NSString *const kDFPInterstitialAdUnitId = @"/19968336/PriceCheck_Interstitial";
 
 #pragma mark - Prebid Mobile constants
 NSString *const kAccountId = @"aecd6ef7-b992-4e99-9bb8-65e2d984e1dd";
-NSString *const kAdUnit1ConfigId = @"005bf148-d964-441a-a91f-e6f09a05d1c9";
-NSString *const kAdUnit2ConfigId = @"005bf148-d964-441a-a91f-e6f09a05d1c9";
+NSString *const kAdUnit1ConfigId = @"eebc307d-7f76-45d6-a7a7-68985169b138";
+NSString *const kAdUnit2ConfigId = @"eebc307d-7f76-45d6-a7a7-68985169b138";
+NSUInteger const kPBServerHost = PBServerHostAppNexus;
 
 NSString *const kAdUnit1Id = @"HomeScreen";
 NSString *const kAdUnit2Id = @"NavScreen";
 
+NSString *const kAppNexusNetwork = @"appnexus";
 NSString *const kFBAudienceNetwork = @"audienceNetwork";
 NSString *const kFBBannerAdUnit = @"fbBannerAdUnit";
 NSString *const kFBIntAdUnit = @"fbIntAdUnit";

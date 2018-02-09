@@ -1,4 +1,4 @@
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2017 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -20,16 +20,19 @@
 + (NSException *)exceptionWithName:(enum PBRaiseException)exceptionName {
     switch (exceptionName) {
         case PBAdUnitNoSizeException:
-            return ([super exceptionWithName:@"PBAdUnitNoSizeException" reason:@"Ad unit size object is not specified" userInfo:nil]);
+            return ([super exceptionWithName:@"PBAdUnitNoSizeException" reason:@"Ad unit size object is not specified." userInfo:nil]);
             break;
         case PBAdUnitNoDemandConfigException:
-            return ([super exceptionWithName:@"PBAdUnitNoDemandConfigException" reason:@"Ad unit config id is not set in prebid server" userInfo:nil]);
+            return ([super exceptionWithName:@"PBAdUnitNoDemandConfigException" reason:@"Ad unit config id is not set in prebid server." userInfo:nil]);
             break;
         case PBAdUnitAlreadyRegisteredException:
-            return ([super exceptionWithName:@"PBAdUnitAlreadyRegisteredException" reason:@"Ad unit is already registered" userInfo:nil]);
+            return ([super exceptionWithName:@"PBAdUnitAlreadyRegisteredException" reason:@"Ad unit is already registered." userInfo:nil]);
             break;
         case PBAdUnitNotRegisteredException:
             return ([super exceptionWithName:@"PBAdUnitNotRegisteredException" reason:@"Ad unit is not registered." userInfo:nil]);
+            break;
+        case PBHostInvalidException:
+            return ([super exceptionWithName:@"PBHostInvalidException" reason:@"Prebid server host not valid." userInfo:nil]);
             break;
         default:
             return ([super exceptionWithName:@"PrebidException" reason:@"" userInfo:nil]);

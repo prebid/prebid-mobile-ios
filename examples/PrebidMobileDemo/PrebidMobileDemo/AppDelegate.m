@@ -1,4 +1,4 @@
-/*   Copyright 2017 APPNEXUS INC
+/*   Copyright 2017 Prebid.org, Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@
 #import <PrebidMobile/PBInterstitialAdUnit.h>
 #import <PrebidMobile/PBTargetingParams.h>
 #import <PrebidMobile/PrebidMobile.h>
+
 #import "Constants.h"
 #import "SettingsViewController.h"
 
@@ -70,7 +71,7 @@
         [self setPrebidTargetingParams];
 
         [[PrebidMobileDemandSDKLoaderSettings sharedInstance] enableDemandSources:@[@(PBDemandSourceFacebook)]];
-        [PrebidMobile registerAdUnits:@[adUnit1, adUnit2, fbBannerAdUnit, fbInterstitialAdUnit] withAccountId:kAccountId];
+        [PrebidMobile registerAdUnits:@[adUnit1, adUnit2, fbBannerAdUnit, fbInterstitialAdUnit] withAccountId:kAccountId withHost:kPBServerHost andPrimaryAdServer:PBPrimaryAdServerDFP];
     } @catch (PBException *ex) {
         NSLog(@"%@",[ex reason]);
     } @finally {
