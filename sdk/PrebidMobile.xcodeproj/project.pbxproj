@@ -33,7 +33,7 @@
 		C226013D1F7C2A060015201B /* PBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = C226013B1F7C2A060015201B /* PBConstants.m */; };
 		C22601481F7C32190015201B /* PBFacebookInterstitialAdLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = C22601461F7C32190015201B /* PBFacebookInterstitialAdLoader.h */; };
 		C22601491F7C32190015201B /* PBFacebookInterstitialAdLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C22601471F7C32190015201B /* PBFacebookInterstitialAdLoader.m */; };
-		C226014C1F7C32340015201B /* PrebidMobileDemandSDKLoaderSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = C226014A1F7C32340015201B /* PrebidMobileDemandSDKLoaderSettings.h */; };
+		C226014C1F7C32340015201B /* PrebidMobileDemandSDKLoaderSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = C226014A1F7C32340015201B /* PrebidMobileDemandSDKLoaderSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C226014D1F7C32340015201B /* PrebidMobileDemandSDKLoaderSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C226014B1F7C32340015201B /* PrebidMobileDemandSDKLoaderSettings.m */; };
 		C22601501F7C32630015201B /* PBBaseBannerAdLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = C226014E1F7C32630015201B /* PBBaseBannerAdLoader.h */; };
 		C22601511F7C32630015201B /* PBBaseBannerAdLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C226014F1F7C32630015201B /* PBBaseBannerAdLoader.m */; };
@@ -601,6 +601,7 @@
 				C2B16E3F1EE1BEA6006304C0 /* PBTargetingParams.h in Headers */,
 				C23FCCEA1EE5E3F500CFFEF0 /* PBLogging.h in Headers */,
 				C2B16E3D1EE1BEA6006304C0 /* PBKeywordsManager.h in Headers */,
+				C226014C1F7C32340015201B /* PrebidMobileDemandSDKLoaderSettings.h in Headers */,
 				C23FCCEE1EE5E41E00CFFEF0 /* PBLogManager.h in Headers */,
 				C22601541F7C32700015201B /* PBBaseInterstitialAdLoader.h in Headers */,
 				606A42A42020FD4600492433 /* PBServerRequestBuilder.h in Headers */,
@@ -610,7 +611,6 @@
 				C22601331F7C28710015201B /* PBCustomEventBannerDelegate.h in Headers */,
 				C22601351F7C28AF0015201B /* PBCustomEventInterstitialDelegate.h in Headers */,
 				C23386D21EE5DBFB002FD404 /* PrebidMobile.h in Headers */,
-				C226014C1F7C32340015201B /* PrebidMobileDemandSDKLoaderSettings.h in Headers */,
 				C24B78C41EE7467E0045B454 /* NSObject+Prebid.h in Headers */,
 				C2B16E3B1EE1BEA6006304C0 /* PBInterstitialAdUnit.h in Headers */,
 				C2B16E9B1EE1BF1A006304C0 /* PBServerGlobal.h in Headers */,

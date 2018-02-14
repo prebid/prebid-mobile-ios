@@ -59,6 +59,7 @@ NSString *const kAppNexusNetwork = @"appnexus";
 NSString *const kFBAudienceNetwork = @"audienceNetwork";
 NSString *const kFBBannerAdUnit = @"fbBannerAdUnit";
 NSString *const kFBIntAdUnit = @"fbIntAdUnit";
-NSString *const kFBBannerAdUnitConfigId = @"7767e961-6ead-45e0-856e-d82c75010dd7";
+NSString *const kFBBannerAdUnitConfigId = @"76cc79a4-5975-4ce0-a2d2-08b98d043117";
+
 
 @end

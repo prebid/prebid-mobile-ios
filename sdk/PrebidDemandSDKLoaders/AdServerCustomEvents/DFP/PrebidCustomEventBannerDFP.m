@@ -83,4 +83,6 @@ static NSString *const customEventErrorDomain = @"org.prebid.PrebidCustomEventBa
     [self.delegate customEventBannerWasClicked:self];
 }
 
+@synthesize viewControllerForPresentingModalView;
+
 @end
