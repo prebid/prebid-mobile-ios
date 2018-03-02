@@ -69,7 +69,7 @@ static NSString *const kPrebidMobileVersion = @"0.2.0";
     requestDict[@"ext"] = [self openrtbRequestExtension:isLocalCache];
     
 #ifndef DEBUG
-    requestDict[@"test"] = @(YES);
+    requestDict[@"test"] = @(TRUE);
 #endif
     
     return [requestDict copy];
