@@ -58,7 +58,7 @@ typedef NS_ENUM(NSUInteger, PBTargetingParamsGender) {
 @property (nonatomic, readwrite) NSString *__nullable itunesID;
 
 /**
- * This property stores the set of custom keywords that price check provides for targeting
+ * This property stores the set of custom keywords that prebid provides for targeting
  */
 @property (nonatomic, strong, readonly) NSDictionary<NSString *, NSArray *> *__nullable customKeywords;
 

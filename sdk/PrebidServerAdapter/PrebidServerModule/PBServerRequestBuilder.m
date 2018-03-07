@@ -285,6 +285,31 @@ static NSString *const kPrebidMobileVersion = @"0.2.0";
     }
     userDict[@"gender"] = gender;
     
+    NSDictionary<NSString *, NSArray *> * targetingParams = [[PBTargetingParams sharedInstance] customKeywords];
+    NSString *keywordString = @"";
+    
+    for (NSString *key in targetingParams.allKeys) {
+        
+        NSArray *values = targetingParams[key];
+        
+        for (NSString *value in values) {
+            
+            NSString *keyvalue = [NSString stringWithFormat:@"%@=%@", key, value];
+            
+            if([keywordString isEqualToString:@""]){
+            
+                keywordString = keyvalue;
+            
+            } else {
+            
+                keywordString = [NSString stringWithFormat:@"%@,%@", keywordString, keyvalue];
+            
+            }
+        
+        }
+    }
+    
+    userDict[@"keywords"] = keywordString;
     return [userDict copy];
 }
 
