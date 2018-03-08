@@ -15,6 +15,7 @@
 
 #import <XCTest/XCTest.h>
 #import "PBServerRequestBuilder.h"
+#import "PBTargetingParams.h"
 #import "PBServerAdapter.h"
 #import "PBException.h"
 #import "PBHost.h"
@@ -47,6 +48,9 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
 
 - (void)testRequestBodyForAdUnit {
     
+    [[PBTargetingParams sharedInstance] setCustomTargeting:@"targeting1" withValue:@"value1"];
+    [[PBTargetingParams sharedInstance] setCustomTargeting:@"targeting2" withValue:@"value2"];
+    
     NSURL *hostURL = [NSURL URLWithString:kAPNPrebidServerUrl];
     
     [[PBServerRequestBuilder sharedInstance] setHostURL: hostURL];
@@ -69,6 +73,10 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
         XCTAssertEqualObjects(app[@"version"], kPrebidMobileVersion);
         
         XCTAssertEqualObjects(app[@"source"], @"prebid-mobile");
+        
+        NSString *targetingParams = requestBody[@"user"][@"keywords"];
+        
+        XCTAssertEqualObjects(targetingParams, @"targeting2=value2,targeting1=value1");
         
         NSDictionary *device = requestBody[@"device"];
         XCTAssertEqualObjects(device[@"os"], @"iOS");
