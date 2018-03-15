@@ -30,7 +30,7 @@
 static NSString *const kAPNAdServerCacheIdKey = @"hb_cache_id";
 
 static NSString *const kAPNPrebidServerUrl = @"https://prebid.adnxs.com/pbs/v1/openrtb2/auction";
-static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproject.com/auction";
+static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproject.com/openrtb2/auction";
 static NSTimeInterval const kAdTimeoutInterval = 360;
 static int const kBatchCount = 10;
 
