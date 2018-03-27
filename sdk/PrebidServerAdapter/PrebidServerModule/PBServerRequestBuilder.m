@@ -22,7 +22,7 @@
 #import "PBServerLocation.h"
 
 
-static NSString *const kPrebidMobileVersion = @"0.2.0";
+static NSString *const kPrebidMobileVersion = @"0.2.1";
 
 @implementation PBServerRequestBuilder
 
@@ -308,8 +308,9 @@ static NSString *const kPrebidMobileVersion = @"0.2.0";
         
         }
     }
-    
-    userDict[@"keywords"] = keywordString;
+    if(![keywordString isEqualToString:@""]){
+        userDict[@"keywords"] = keywordString;
+    }
     return [userDict copy];
 }
 
