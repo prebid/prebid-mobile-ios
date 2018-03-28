@@ -154,6 +154,15 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     
     app[@"publisher"] = @{@"id": accountId};
     app[@"ext"] = @{@"prebid" : @{@"version" : kPrebidMobileVersion, @"source" : @"prebid-mobile"}};
+    
+    NSDictionary<NSString *, NSArray *> * targetingParams = [[PBTargetingParams sharedInstance] appKeywords];
+    
+    NSString *keywordString = [self fetchKeywordsString:targetingParams];
+    
+    if(![keywordString isEqualToString:@""]){
+        app[@"keywords"] = keywordString;
+    }
+    
     return [app copy];
 }
 
@@ -285,29 +294,14 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     }
     userDict[@"gender"] = gender;
     
-    NSDictionary<NSString *, NSArray *> * targetingParams = [[PBTargetingParams sharedInstance] customKeywords];
-    NSString *keywordString = @"";
+    NSDictionary<NSString *, NSArray *> * targetingParams = [[PBTargetingParams sharedInstance] userKeywords];
     
-    for (NSString *key in targetingParams.allKeys) {
-        
-        NSArray *values = targetingParams[key];
-        
-        for (NSString *value in values) {
-            
-            NSString *keyvalue = [NSString stringWithFormat:@"%@=%@", key, value];
-            
-            if([keywordString isEqualToString:@""]){
-            
-                keywordString = keyvalue;
-            
-            } else {
-            
-                keywordString = [NSString stringWithFormat:@"%@,%@", keywordString, keyvalue];
-            
-            }
-        
-        }
+    if(targetingParams.count <= 0){
+        targetingParams = [[PBTargetingParams sharedInstance] customKeywords];
     }
+    
+    NSString *keywordString = [self fetchKeywordsString:targetingParams];
+    
     if(![keywordString isEqualToString:@""]){
         userDict[@"keywords"] = keywordString;
     }
@@ -322,6 +316,34 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
         precisionNumberFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US"];
     });
     return precisionNumberFormatter;
+}
+
+-(NSString *) fetchKeywordsString:(NSDictionary *) kewordsDictionary {
+    
+    NSString *keywordString = @"";
+    
+    for (NSString *key in kewordsDictionary.allKeys) {
+        
+        NSArray *values = kewordsDictionary[key];
+        
+        for (NSString *value in values) {
+            
+            NSString *keyvalue = [NSString stringWithFormat:@"%@=%@", key, value];
+            
+            if([keywordString isEqualToString:@""]){
+                
+                keywordString = keyvalue;
+                
+            } else {
+                
+                keywordString = [NSString stringWithFormat:@"%@,%@", keywordString, keyvalue];
+                
+            }
+            
+        }
+    }
+    
+    return keywordString;
 }
 
 @end
