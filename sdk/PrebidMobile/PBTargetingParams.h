@@ -60,27 +60,53 @@ typedef NS_ENUM(NSUInteger, PBTargetingParamsGender) {
 /**
  * This property stores the set of custom keywords that prebid provides for targeting
  */
-@property (nonatomic, strong, readonly) NSDictionary<NSString *, NSArray *> *__nullable customKeywords;
+@property (nonatomic, strong, readonly) NSDictionary<NSString *, NSArray *> *__nullable customKeywords DEPRECATED_ATTRIBUTE;
 
 /**
  * This method obtains the custom keyword & value for targeting framed by the developer
  */
 - (void)setCustomTargeting:(nonnull NSString *)key
-                 withValue:(nonnull NSString *)value;
+                 withValue:(nonnull NSString *)value __deprecated;
 /**
  * This method obtains the custom keyword & value set for targeting framed by the developer
  */
 - (void)setCustomTargeting:(nonnull NSString *)key
-                withValues:(nonnull NSArray *)values;
+                withValues:(nonnull NSArray *)values __deprecated;
 
 /**
  * This method allows the developer to remove all the custom keywords set for targeting
  */
-- (void)removeCustomKeywords;
+- (void)removeCustomKeywords __deprecated;
 
 /**
  * This method allows the developer to remove specific custom keyword & value set from targeting
  */
-- (void)removeCustomKeywordWithKey:(nonnull NSString *)key;
+- (void)removeCustomKeywordWithKey:(nonnull NSString *)key __deprecated;
+
+/**
+ * This property stores the set of user keywords that openRTB provides for targeting
+ */
+@property (nonatomic, strong, readonly) NSDictionary<NSString *, NSArray *> *__nullable userKeywords;
+
+/**
+ * This method obtains the user keyword & value for targeting framed by the developer
+ */
+- (void)setUserKeywords:(nonnull NSString *)key
+              withValue:(NSString *_Nullable)value;
+/**
+ * This method obtains the user keyword & value set for targeting framed by the developer
+ */
+- (void)setUserKeywords:(nonnull NSString *)key
+             withValues:(NSArray *_Nullable)values;
+
+/**
+ * This method allows the developer to remove all the user keywords set for targeting
+ */
+- (void)removeUserKeywords;
+
+/**
+ * This method allows the developer to remove specific user keyword & value set from targeting
+ */
+- (void)removeUserKeywordWithKey:(nonnull NSString *)key;
 
 @end

@@ -18,14 +18,20 @@
 @interface PBTargetingParams ()
 
 @property (nonatomic, strong, readwrite) NSMutableDictionary<NSString *, NSArray *> *__nullable customKeywords;
+@property (nonatomic, strong, readwrite) NSMutableDictionary<NSString *, NSArray *> *__nullable userKeywords;
 
 @end
 
 @implementation PBTargetingParams
 
+
 - (instancetype)init {
     if (self = [super init]) {
         _locationPrecision = (NSInteger)-1;
+        
+        _customKeywords = [[NSMutableDictionary alloc] init];
+        _userKeywords = [[NSMutableDictionary alloc] init];
+        
     }
     return self;
 }
@@ -48,7 +54,7 @@ static dispatch_once_t onceToken;
 - (void)setCustomTargeting:(nonnull NSString *)key
                  withValue:(nonnull NSString *)value {
     if (_customKeywords == nil) {
-        _customKeywords = [[NSMutableDictionary alloc] init];
+        return;
     }
 
     NSArray *valueArray = [NSArray arrayWithObject:value];
@@ -58,7 +64,7 @@ static dispatch_once_t onceToken;
 - (void)setCustomTargeting:(nonnull NSString *)key
                 withValues:(nonnull NSArray *)values {
     if (_customKeywords == nil) {
-        _customKeywords = [[NSMutableDictionary alloc] init];
+        return;
     }
 
     // remove duplicate values from the array
@@ -87,6 +93,58 @@ static dispatch_once_t onceToken;
         }
     }
 }
+
+#pragma mark User Keywords
+
+- (void)setUserKeywords:(nonnull NSString *)key
+                 withValue:(NSString * _Nullable)value {
+    if (_userKeywords == nil) {
+        return;
+    }
+    
+    if(value == nil || value == NULL){
+        value = @"";
+    }
+    
+    NSArray *valueArray = [NSArray arrayWithObject:value];
+    _userKeywords[key] = valueArray;
+}
+
+- (void)setUserKeywords:(nonnull NSString *)key
+                withValues:(NSArray * _Nullable)values {
+    if (_userKeywords == nil) {
+        return;
+    }
+    
+    
+    // remove duplicate values from the array
+    NSArray *valueArray = [[NSSet setWithArray:values] allObjects];
+    _userKeywords[key] = valueArray;
+}
+
+- (nullable NSDictionary *)userKeywords {
+    return _userKeywords;
+}
+
+- (void)removeUserKeywords {
+    if (_userKeywords != nil) {
+        [_userKeywords removeAllObjects];
+        _userKeywords = nil;
+    }
+}
+
+- (void)removeUserKeywordWithKey:(NSString *)key {
+    if (_userKeywords != nil) {
+        if (_userKeywords[key] != nil) {
+            [_userKeywords removeObjectForKey:key];
+        }
+        if ([_userKeywords count] == 0) {
+            _userKeywords = nil;
+        }
+    }
+}
+
+#pragma end
 
 - (void)setLocation:(CLLocation *)location {
     _location = location;
