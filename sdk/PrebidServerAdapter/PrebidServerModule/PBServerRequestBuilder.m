@@ -320,7 +320,13 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
         
         for (NSString *value in values) {
             
-            NSString *keyvalue = [NSString stringWithFormat:@"%@=%@", key, value];
+            NSString *keyvalue = @"";
+            
+            if([value isEqualToString:@""]){
+                keyvalue = key;
+            } else {
+                keyvalue = [NSString stringWithFormat:@"%@=%@", key, value];
+            }
             
             if([keywordString isEqualToString:@""]){
                 
