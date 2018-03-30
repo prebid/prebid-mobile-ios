@@ -93,45 +93,4 @@
     XCTAssertNil([[PBTargetingParams sharedInstance] userKeywords]);
 }
 
-- (void)testSetAppKeywordsWithValue {
-    [[PBTargetingParams sharedInstance] setAppKeywords:@"targeting1" withValue:@"value1"];
-    [[PBTargetingParams sharedInstance] setAppKeywords:@"targeting2" withValue:@"value2"];
-    NSDictionary *customKeywords = [[PBTargetingParams sharedInstance] appKeywords];
-    NSDictionary *expectedCustomKeywords = @{@"targeting1" : @[@"value1"], @"targeting2" : @[@"value2"]};
-    XCTAssertTrue([customKeywords isEqualToDictionary:expectedCustomKeywords]);
-}
-
-- (void)testSetAppKeywordsWithMultipleValues {
-    [[PBTargetingParams sharedInstance] setAppKeywords:@"targeting1" withValues:@[@"value1", @"value2", @"value3"]];
-    [[PBTargetingParams sharedInstance] setAppKeywords:@"targeting2" withValue:@"value2"];
-    NSDictionary *customKeywords = [[PBTargetingParams sharedInstance] appKeywords];
-    NSDictionary *expectedCustomKeywords = @{@"targeting1" : @[@"value2", @"value1", @"value3"], @"targeting2" : @[@"value2"]};
-    XCTAssertTrue([customKeywords isEqualToDictionary:expectedCustomKeywords]);
-}
-
-- (void)testSetAppKeywordsWithDuplicateValues {
-    [[PBTargetingParams sharedInstance] setAppKeywords:@"targeting1" withValues:@[@"value2", @"value1", @"value3"]];
-    [[PBTargetingParams sharedInstance] setAppKeywords:@"targeting1" withValue:@"value2"];
-    NSDictionary *customKeywords = [[PBTargetingParams sharedInstance] appKeywords];
-    NSDictionary *expectedCustomKeywords = @{@"targeting1" : @[@"value2"]};
-    XCTAssertTrue([customKeywords isEqualToDictionary:expectedCustomKeywords]);
-}
-
-- (void)testRemoveAppKeywordWithKey {
-    [[PBTargetingParams sharedInstance] setAppKeywords:@"targeting1" withValue:@"value1"];
-    [[PBTargetingParams sharedInstance] setAppKeywords:@"targeting2" withValue:@"value2"];
-    [[PBTargetingParams sharedInstance] removeAppKeywordWithKey:@"targeting2"];
-    NSDictionary *customKeywords = [[PBTargetingParams sharedInstance] appKeywords];
-    NSDictionary *expectedCustomKeywords = @{@"targeting1" : @[@"value1"]};
-    XCTAssertTrue([customKeywords isEqualToDictionary:expectedCustomKeywords]);
-}
-
-- (void)testRemoveAppKeywords {
-    [[PBTargetingParams sharedInstance] setAppKeywords:@"targeting1" withValue:@"value1"];
-    [[PBTargetingParams sharedInstance] setAppKeywords:@"targeting2" withValue:@"value2"];
-    XCTAssertNotNil([[PBTargetingParams sharedInstance] appKeywords]);
-    [[PBTargetingParams sharedInstance] removeAppKeywords];
-    XCTAssertNil([[PBTargetingParams sharedInstance] appKeywords]);
-}
-
 @end
