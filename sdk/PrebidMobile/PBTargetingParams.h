@@ -92,12 +92,12 @@ typedef NS_ENUM(NSUInteger, PBTargetingParamsGender) {
  * This method obtains the user keyword & value for targeting framed by the developer
  */
 - (void)setUserKeywords:(nonnull NSString *)key
-                 withValue:(nonnull NSString *)value;
+              withValue:(NSString *_Nullable)value;
 /**
  * This method obtains the user keyword & value set for targeting framed by the developer
  */
 - (void)setUserKeywords:(nonnull NSString *)key
-                withValues:(nonnull NSArray *)values;
+             withValues:(NSArray *_Nullable)values;
 
 /**
  * This method allows the developer to remove all the user keywords set for targeting

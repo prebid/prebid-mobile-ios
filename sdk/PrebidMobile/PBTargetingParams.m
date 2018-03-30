@@ -97,9 +97,13 @@ static dispatch_once_t onceToken;
 #pragma mark User Keywords
 
 - (void)setUserKeywords:(nonnull NSString *)key
-                 withValue:(nonnull NSString *)value {
+                 withValue:(NSString * _Nullable)value {
     if (_userKeywords == nil) {
         return;
+    }
+    
+    if(value == nil || value == NULL){
+        value = @"";
     }
     
     NSArray *valueArray = [NSArray arrayWithObject:value];
@@ -107,10 +111,11 @@ static dispatch_once_t onceToken;
 }
 
 - (void)setUserKeywords:(nonnull NSString *)key
-                withValues:(nonnull NSArray *)values {
+                withValues:(NSArray * _Nullable)values {
     if (_userKeywords == nil) {
         return;
     }
+    
     
     // remove duplicate values from the array
     NSArray *valueArray = [[NSSet setWithArray:values] allObjects];
