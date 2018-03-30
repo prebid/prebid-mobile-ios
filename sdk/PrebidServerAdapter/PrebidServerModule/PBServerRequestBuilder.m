@@ -155,14 +155,6 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     app[@"publisher"] = @{@"id": accountId};
     app[@"ext"] = @{@"prebid" : @{@"version" : kPrebidMobileVersion, @"source" : @"prebid-mobile"}};
     
-    NSDictionary<NSString *, NSArray *> * targetingParams = [[PBTargetingParams sharedInstance] appKeywords];
-    
-    NSString *keywordString = [self fetchKeywordsString:targetingParams];
-    
-    if(![keywordString isEqualToString:@""]){
-        app[@"keywords"] = keywordString;
-    }
-    
     return [app copy];
 }
 

@@ -109,30 +109,4 @@ typedef NS_ENUM(NSUInteger, PBTargetingParamsGender) {
  */
 - (void)removeUserKeywordWithKey:(nonnull NSString *)key;
 
-/**
- * This property stores the set of app keywords that prebid provides for targeting
- */
-@property (nonatomic, strong, readonly) NSDictionary<NSString *, NSArray *> *__nullable appKeywords;
-
-/**
- * This method obtains the app keyword & value for targeting framed by the developer
- */
-- (void)setAppKeywords:(nonnull NSString *)key
-                 withValue:(nonnull NSString *)value;
-/**
- * This method obtains the app keyword & value set for targeting framed by the developer
- */
-- (void)setAppKeywords:(nonnull NSString *)key
-                withValues:(nonnull NSArray *)values;
-
-/**
- * This method allows the developer to remove all the app keywords set for targeting
- */
-- (void)removeAppKeywords;
-
-/**
- * This method allows the developer to remove specific app keyword & value set from targeting
- */
-- (void)removeAppKeywordWithKey:(nonnull NSString *)key;
-
 @end

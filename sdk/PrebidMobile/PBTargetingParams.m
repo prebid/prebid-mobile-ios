@@ -142,55 +142,6 @@ static dispatch_once_t onceToken;
 
 #pragma end
 
-#pragma mark App Keywords
-
-- (void)setAppKeywords:(nonnull NSString *)key
-              withValue:(nonnull NSString *)value {
-    if (_appKeywords == nil) {
-        return;
-    }
-    
-    NSArray *valueArray = [NSArray arrayWithObject:value];
-    _appKeywords[key] = valueArray;
-}
-
-- (void)setAppKeywords:(nonnull NSString *)key
-             withValues:(nonnull NSArray *)values {
-    if (_appKeywords == nil) {
-        return;
-    }
-    
-    // remove duplicate values from the array
-    NSArray *valueArray = [[NSSet setWithArray:values] allObjects];
-    _appKeywords[key] = valueArray;
-}
-
-- (nullable NSDictionary *) appKeywords {
-    return _appKeywords;
-}
-
-- (void)removeAppKeywords {
-    if (_appKeywords != nil) {
-        [_appKeywords removeAllObjects];
-        _appKeywords = nil;
-    }
-}
-
-- (void)removeAppKeywordWithKey:(NSString *)key {
-    if (_appKeywords != nil) {
-        if (_appKeywords[key] != nil) {
-            [_appKeywords removeObjectForKey:key];
-        }
-        if ([_appKeywords count] == 0) {
-            _appKeywords = nil;
-        }
-    }
-}
-
-#pragma end
-
-
-
 - (void)setLocation:(CLLocation *)location {
     _location = location;
 }
