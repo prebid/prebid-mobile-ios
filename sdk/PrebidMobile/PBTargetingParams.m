@@ -19,7 +19,6 @@
 
 @property (nonatomic, strong, readwrite) NSMutableDictionary<NSString *, NSArray *> *__nullable customKeywords;
 @property (nonatomic, strong, readwrite) NSMutableDictionary<NSString *, NSArray *> *__nullable userKeywords;
-@property (nonatomic, strong, readwrite) NSMutableDictionary<NSString *, NSArray *> *__nullable appKeywords;
 
 @end
 
@@ -32,7 +31,7 @@
         
         _customKeywords = [[NSMutableDictionary alloc] init];
         _userKeywords = [[NSMutableDictionary alloc] init];
-        _appKeywords = [[NSMutableDictionary alloc] init];
+        
     }
     return self;
 }
