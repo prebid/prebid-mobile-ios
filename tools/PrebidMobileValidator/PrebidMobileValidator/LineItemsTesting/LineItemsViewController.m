@@ -14,7 +14,7 @@
 #import "LineItemAdsViewController.h"
 
 NSString *__nonnull const kNextButtonText = @"Click to see your line items";
-NSString *__nonnull const kTitleText = @"AdServer Setup Validator";
+
 
 NSString *__nonnull const kAdServerLabelText = @"Ad Server";
 NSString *__nonnull const kAdFormatLabelText = @"Ad Format";
@@ -64,7 +64,6 @@ CGFloat const kLabelHeight = 80.0f;
     [super viewDidLoad];
     
     
-    self.title = kTitleText;
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
 
     //self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"ff8700"];

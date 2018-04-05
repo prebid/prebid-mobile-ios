@@ -7,7 +7,7 @@
 //
 
 #import "ListViewController.h"
-#import "LineItemsViewController.h"
+#import "LineItemsTabController.h"
 #import "SettingsViewController.h"
 
 @interface ListViewController ()
@@ -66,9 +66,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if(indexPath.row == 0){
-        LineItemsViewController *lineItemsController = [[LineItemsViewController alloc] init];
+        LineItemsTabController *lineItemsTabController = [[LineItemsTabController alloc] init];
         
-        [self.navigationController pushViewController:lineItemsController animated:YES];
+        [self.navigationController pushViewController:lineItemsTabController animated:YES];
     } if(indexPath.row == 1){
         SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
         
