@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		605A56C420768B7800E92376 /* LineItemsTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 605A56C320768B7700E92376 /* LineItemsTabController.m */; };
 		605A56C92076A27B00E92376 /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 605A56C82076A27B00E92376 /* LogsViewController.m */; };
+		605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605A56CA2076C89A00E92376 /* MessageUI.framework */; };
 		60C678842073D7B0003A7A1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678832073D7B0003A7A1D /* AppDelegate.m */; };
 		60C6788A2073D7B0003A7A1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60C678882073D7B0003A7A1D /* Main.storyboard */; };
 		60C6788C2073D7B0003A7A1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60C6788B2073D7B0003A7A1D /* Assets.xcassets */; };
@@ -249,6 +250,7 @@
 		605A56C320768B7700E92376 /* LineItemsTabController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineItemsTabController.m; sourceTree = "<group>"; };
 		605A56C72076A27B00E92376 /* LogsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogsViewController.h; sourceTree = "<group>"; };
 		605A56C82076A27B00E92376 /* LogsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogsViewController.m; sourceTree = "<group>"; };
+		605A56CA2076C89A00E92376 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		60C6787F2073D7B0003A7A1D /* PrebidMobileValidator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidMobileValidator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60C678822073D7B0003A7A1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		60C678832073D7B0003A7A1D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -671,6 +673,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */,
 				60C67B4620766FC1003A7A1D /* PrebidMobile.framework in Frameworks */,
 				60C678AE2073F879003A7A1D /* GoogleMobileAds.framework in Frameworks */,
 			);
@@ -753,6 +756,7 @@
 		60C678AC2073F879003A7A1D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				605A56CA2076C89A00E92376 /* MessageUI.framework */,
 				60C678AF2073F89C003A7A1D /* MoPubSDK */,
 				60C678AD2073F879003A7A1D /* GoogleMobileAds.framework */,
 			);

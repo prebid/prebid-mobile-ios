@@ -63,12 +63,6 @@ CGFloat const kLabelHeight = 80.0f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
-
-    //self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"ff8700"];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    
     _userInputTableView = [[UITableView alloc] init];
     _userInputTableView.frame = self.view.frame;
     _userInputTableView.dataSource = self;
