@@ -7,7 +7,7 @@
 //
 
 #import "LineItemsTabController.h"
-#import "LineItemsViewController.h"
+#import "SettingsViewController.h"
 #import "LineItemAdsViewController.h"
 #import "LogsViewController.h"
 #import <MessageUI/MessageUI.h>
@@ -31,26 +31,26 @@ NSString *__nonnull const kTitleText = @"AdServer Setup Validator";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"ScreenGrab" style:UIBarButtonItemStylePlain target:self action:@selector(captureScreen)];
     
     // Do any additional setup after loading the view.
-    LineItemsViewController *lineItemsController = [[LineItemsViewController alloc] init];
+    //SettingsViewController *lineItemsController = [[LineItemsViewController alloc] init];
     
-    UITabBarItem *item1 = [[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"GearIcon"] tag:0];
+    //UITabBarItem *item1 = [[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@"GearIcon"] tag:0];
     
-    lineItemsController.tabBarItem = item1;
+    //lineItemsController.tabBarItem = item1;
     
     LineItemAdsViewController *lineItemsAdController = [[LineItemAdsViewController alloc] init];
     
-    UITabBarItem *item2 = [[UITabBarItem alloc] initWithTitle:@"Ads" image:[UIImage imageNamed:@"PhotoIcon"] tag:1];
+    UITabBarItem *item1 = [[UITabBarItem alloc] initWithTitle:@"Ads" image:[UIImage imageNamed:@"PhotoIcon"] tag:0];
     
-    lineItemsAdController.tabBarItem = item2;
+    lineItemsAdController.tabBarItem = item1;
     
     LogsViewController *logsViewController = [[LogsViewController alloc] init];
     
-    UITabBarItem *item3 = [[UITabBarItem alloc] initWithTitle:@"Logs" image:[UIImage imageNamed:@"InfoIcon"] tag:2];
+    UITabBarItem *item2 = [[UITabBarItem alloc] initWithTitle:@"Logs" image:[UIImage imageNamed:@"InfoIcon"] tag:1];
     
-    logsViewController.tabBarItem = item3;
+    logsViewController.tabBarItem = item2;
     
     NSMutableArray *tabViewControllers = [[NSMutableArray alloc] init];
-    [tabViewControllers addObject:lineItemsController];
+    //[tabViewControllers addObject:lineItemsController];
     [tabViewControllers addObject:lineItemsAdController];
     [tabViewControllers addObject:logsViewController];
     
@@ -71,7 +71,7 @@ NSString *__nonnull const kTitleText = @"AdServer Setup Validator";
     [keyWindow.layer renderInContext:context];
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    //UIImageWriteToSavedPhotosAlbum(img, nil, nil,nil);
+    UIImageWriteToSavedPhotosAlbum(img, nil, nil,nil);
     [self sendEmail];
     //return img;
 }
@@ -84,15 +84,18 @@ NSString *__nonnull const kTitleText = @"AdServer Setup Validator";
     // To address
     NSArray *toRecipents = [NSArray arrayWithObject:@"support@test.com"];
     
-    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-    mc.mailComposeDelegate = self;
-    [mc setSubject:emailTitle];
-    [mc setMessageBody:messageBody isHTML:NO];
+    if([MFMessageComposeViewController canSendText]){
     
-    [mc setToRecipients:toRecipents];
+        MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+        mc.mailComposeDelegate = self;
+        [mc setSubject:emailTitle];
+        [mc setMessageBody:messageBody isHTML:NO];
     
-    // Present mail view controller on screen
-    [self presentViewController:mc animated:YES completion:NULL];
+        [mc setToRecipients:toRecipents];
+    
+        // Present mail view controller on screen
+        [self presentViewController:mc animated:YES completion:NULL];
+    }
     
 }
 

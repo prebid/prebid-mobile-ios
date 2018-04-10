@@ -202,7 +202,7 @@
 		60C67AE12073F89D003A7A1D /* MPAdConversionTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67A272073F89C003A7A1D /* MPAdConversionTracker.m */; };
 		60C67AE22073F89D003A7A1D /* MoPub.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67A282073F89C003A7A1D /* MoPub.m */; };
 		60C67AE32073F89D003A7A1D /* MPInterstitialCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67A2B2073F89C003A7A1D /* MPInterstitialCustomEvent.m */; };
-		60C67AE62074001B003A7A1D /* LineItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67AE52074001B003A7A1D /* LineItemsViewController.m */; };
+		60C67AE62074001B003A7A1D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67AE52074001B003A7A1D /* SettingsViewController.m */; };
 		60C67AFC20740524003A7A1D /* ActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67AEA20740524003A7A1D /* ActionSheetDatePicker.m */; };
 		60C67AFD20740524003A7A1D /* ActionSheetLocalePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67AEC20740524003A7A1D /* ActionSheetLocalePicker.m */; };
 		60C67AFE20740524003A7A1D /* ActionSheetDistancePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67AF020740524003A7A1D /* ActionSheetDistancePicker.m */; };
@@ -214,7 +214,7 @@
 		60C67B0420740524003A7A1D /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67AF820740524003A7A1D /* AbstractActionSheetPicker.m */; };
 		60C67B1620741589003A7A1D /* PrebidConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B0620741589003A7A1D /* PrebidConstants.m */; };
 		60C67B1720741589003A7A1D /* BannerTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B0820741589003A7A1D /* BannerTestsViewController.m */; };
-		60C67B1820741589003A7A1D /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B0A20741589003A7A1D /* SettingsViewController.m */; };
+		60C67B1820741589003A7A1D /* PBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B0A20741589003A7A1D /* PBSettingsViewController.m */; };
 		60C67B1920741589003A7A1D /* VideoTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B0D20741589003A7A1D /* VideoTestsViewController.m */; };
 		60C67B1A20741589003A7A1D /* InterstitialTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B1020741589003A7A1D /* InterstitialTestsViewController.m */; };
 		60C67B1B20741589003A7A1D /* NativeTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B1420741589003A7A1D /* NativeTestsViewController.m */; };
@@ -631,8 +631,8 @@
 		60C67A2B2073F89C003A7A1D /* MPInterstitialCustomEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPInterstitialCustomEvent.m; sourceTree = "<group>"; };
 		60C67A2C2073F89C003A7A1D /* MoPub-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MoPub-Bridging-Header.h"; sourceTree = "<group>"; };
 		60C67A2D2073F89C003A7A1D /* MPInterstitialAdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPInterstitialAdController.h; sourceTree = "<group>"; };
-		60C67AE42074001B003A7A1D /* LineItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineItemsViewController.h; sourceTree = "<group>"; };
-		60C67AE52074001B003A7A1D /* LineItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineItemsViewController.m; sourceTree = "<group>"; };
+		60C67AE42074001B003A7A1D /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		60C67AE52074001B003A7A1D /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		60C67AE820740524003A7A1D /* ActionSheetCustomPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetCustomPicker.h; sourceTree = "<group>"; };
 		60C67AE920740524003A7A1D /* ActionSheetStringPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetStringPicker.h; sourceTree = "<group>"; };
 		60C67AEA20740524003A7A1D /* ActionSheetDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDatePicker.m; sourceTree = "<group>"; };
@@ -656,10 +656,10 @@
 		60C67B0620741589003A7A1D /* PrebidConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidConstants.m; sourceTree = "<group>"; };
 		60C67B0820741589003A7A1D /* BannerTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerTestsViewController.m; sourceTree = "<group>"; };
 		60C67B0920741589003A7A1D /* BannerTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerTestsViewController.h; sourceTree = "<group>"; };
-		60C67B0A20741589003A7A1D /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		60C67B0A20741589003A7A1D /* PBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSettingsViewController.m; sourceTree = "<group>"; };
 		60C67B0C20741589003A7A1D /* VideoTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTestsViewController.h; sourceTree = "<group>"; };
 		60C67B0D20741589003A7A1D /* VideoTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTestsViewController.m; sourceTree = "<group>"; };
-		60C67B0E20741589003A7A1D /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		60C67B0E20741589003A7A1D /* PBSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSettingsViewController.h; sourceTree = "<group>"; };
 		60C67B1020741589003A7A1D /* InterstitialTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterstitialTestsViewController.m; sourceTree = "<group>"; };
 		60C67B1120741589003A7A1D /* InterstitialTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterstitialTestsViewController.h; sourceTree = "<group>"; };
 		60C67B1220741589003A7A1D /* PrebidConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidConstants.h; sourceTree = "<group>"; };
@@ -722,8 +722,8 @@
 		60C678A12073F788003A7A1D /* LineItemsTesting */ = {
 			isa = PBXGroup;
 			children = (
-				60C67AE42074001B003A7A1D /* LineItemsViewController.h */,
-				60C67AE52074001B003A7A1D /* LineItemsViewController.m */,
+				60C67AE42074001B003A7A1D /* SettingsViewController.h */,
+				60C67AE52074001B003A7A1D /* SettingsViewController.m */,
 				60C678A52073F7D3003A7A1D /* LineItemsConstants.h */,
 				60C678A62073F7D3003A7A1D /* LineItemsConstants.m */,
 				60C678A72073F7D3003A7A1D /* LineItemAdsViewController.h */,
@@ -746,8 +746,8 @@
 				60C67B0620741589003A7A1D /* PrebidConstants.m */,
 				60C67B0F20741589003A7A1D /* IntersitialViewControllers */,
 				60C67B1320741589003A7A1D /* NativeViewControllers */,
-				60C67B0E20741589003A7A1D /* SettingsViewController.h */,
-				60C67B0A20741589003A7A1D /* SettingsViewController.m */,
+				60C67B0E20741589003A7A1D /* PBSettingsViewController.h */,
+				60C67B0A20741589003A7A1D /* PBSettingsViewController.m */,
 				60C67B0B20741589003A7A1D /* VideoViewControllers */,
 			);
 			path = PrebidSDKTesting;
@@ -1481,7 +1481,7 @@
 				60C67ACC2073F89D003A7A1D /* MOPUBNativeVideoCustomEvent.m in Sources */,
 				60C67A712073F89C003A7A1D /* MPMRAIDBannerCustomEvent.m in Sources */,
 				60C67A992073F89D003A7A1D /* MPVASTModel.m in Sources */,
-				60C67B1820741589003A7A1D /* SettingsViewController.m in Sources */,
+				60C67B1820741589003A7A1D /* PBSettingsViewController.m in Sources */,
 				60C67A912073F89C003A7A1D /* NSHTTPURLResponse+MPAdditions.m in Sources */,
 				60C67A4D2073F89C003A7A1D /* MPInterstitialViewController.m in Sources */,
 				60C67A672073F89C003A7A1D /* MPClosableView.m in Sources */,
@@ -1552,7 +1552,7 @@
 				60C67AB02073F89D003A7A1D /* MPNativePositionSource.m in Sources */,
 				60C67A4C2073F89C003A7A1D /* MPBaseInterstitialAdapter.m in Sources */,
 				60C67A822073F89C003A7A1D /* MPTimer.m in Sources */,
-				60C67AE62074001B003A7A1D /* LineItemsViewController.m in Sources */,
+				60C67AE62074001B003A7A1D /* SettingsViewController.m in Sources */,
 				60C67ACB2073F89D003A7A1D /* MOPUBNativeVideoAdAdapter.m in Sources */,
 				60C67A8C2073F89C003A7A1D /* MPStoreKitProvider.m in Sources */,
 				60C6789A2073D831003A7A1D /* ListViewController.m in Sources */,

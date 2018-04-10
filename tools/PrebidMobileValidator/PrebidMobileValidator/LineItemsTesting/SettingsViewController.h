@@ -1,5 +1,5 @@
 //
-//  LineItemsViewController.h
+//  SettingsViewController.h
 //  PriceCheckTestApp
 //
 //  Created by Nicole Hedley on 24/08/2016.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LineItemsViewController : UIViewController
+@interface SettingsViewController : UIViewController
 
 @end
 

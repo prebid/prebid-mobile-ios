@@ -19,6 +19,6 @@
 #import <PrebidMobile/PBInterstitialAdUnit.h>
 #import <PrebidMobile/PrebidMobile.h>
 
-@interface SettingsViewController : UIViewController
+@interface PBSettingsViewController : UIViewController
 
 @end

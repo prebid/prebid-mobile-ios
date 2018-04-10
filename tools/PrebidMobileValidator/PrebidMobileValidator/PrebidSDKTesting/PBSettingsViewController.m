@@ -16,7 +16,7 @@
 #import "BannerTestsViewController.h"
 #import "PrebidConstants.h"
 #import "InterstitialTestsViewController.h"
-#import "SettingsViewController.h"
+#import "PBSettingsViewController.h"
 #import "VideoTestsViewController.h"
 
 
@@ -25,7 +25,7 @@ static NSString *const kSeeAdButtonTitle = @"See Ad";
 static NSString *const kAdSettingsTableViewReuseId = @"AdSettingsTableItem";
 static CGFloat const kRightMargin = 15;
 
-@interface SettingsViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface PBSettingsViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) UITableView *settingsTableView;
 @property (strong, nonatomic) NSArray *generalSettingsData;
@@ -34,7 +34,7 @@ static CGFloat const kRightMargin = 15;
 
 @end
 
-@implementation SettingsViewController
+@implementation PBSettingsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

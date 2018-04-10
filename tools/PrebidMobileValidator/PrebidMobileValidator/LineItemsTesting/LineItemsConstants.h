@@ -14,6 +14,9 @@ extern NSString *__nonnull const kAdSizeKey;
 extern NSString *__nonnull const kAdUnitIdKey;
 extern NSString *__nonnull const kBidPriceKey;
 
+extern NSString *__nonnull const kPBAccountKey;
+extern NSString *__nonnull const kPBConfigKey;
+
 extern NSString *__nonnull const kMoPubString;
 extern NSString *__nonnull const kDFPString;
 

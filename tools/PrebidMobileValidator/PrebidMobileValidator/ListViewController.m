@@ -8,7 +8,7 @@
 
 #import "ListViewController.h"
 #import "LineItemsTabController.h"
-#import "SettingsViewController.h"
+#import "PBSettingsViewController.h"
 
 @interface ListViewController ()
 
@@ -21,13 +21,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Prebid Testing Tool";
+    self.title = @"Prebid Validator";
     
     self.navigationController.navigationBar.barTintColor = [UIColor orangeColor];
     self.navigationController.navigationBar.translucent = NO;
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
 
-    self.items = [[NSArray alloc] initWithObjects:@"AdServer Setup Validation",@"PrebidSDK Testing", @"AppNexus Settings Validation", @"PrebidServer Configuration Validation", nil];
+    self.items = [[NSArray alloc] initWithObjects:@"AdServer Setup Validation", @"PrebidServer Configuration Validation",@"PrebidSDK Validation", nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,10 +69,10 @@
         LineItemsTabController *lineItemsTabController = [[LineItemsTabController alloc] init];
         
         [self.navigationController pushViewController:lineItemsTabController animated:YES];
-    } if(indexPath.row == 1){
-        SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
+    } if(indexPath.row == 2){
+        PBSettingsViewController *pbSettingsViewController = [[PBSettingsViewController alloc] init];
         
-        [self.navigationController pushViewController:settingsViewController animated:YES];
+        [self.navigationController pushViewController:pbSettingsViewController animated:YES];
     }
 }
 

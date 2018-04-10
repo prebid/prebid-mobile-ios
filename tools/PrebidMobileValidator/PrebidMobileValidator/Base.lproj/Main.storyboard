@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -39,12 +40,28 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="YEh-dU-9DX" kind="relationship" relationship="rootViewController" id="Feh-RJ-mWF"/>
+                        <segue destination="krf-kU-zQ5" kind="relationship" relationship="rootViewController" id="vI0-dS-tC7"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvd-Jq-uHF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1330" y="133"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="jON-Tz-X1J">
+            <objects>
+                <viewController id="krf-kU-zQ5" customClass="SettingsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PiE-1I-pWu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="WTy-H4-0V5"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="b0W-6R-6Aa"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a01-NN-lEJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-721" y="821"/>
         </scene>
     </scenes>
 </document>

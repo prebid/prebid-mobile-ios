@@ -14,6 +14,9 @@ NSString *__nonnull const kAdSizeKey = @"adSize";
 NSString *__nonnull const kAdUnitIdKey = @"adUnitId";
 NSString *__nonnull const kBidPriceKey = @"bidPrice";
 
+NSString *__nonnull const kPBAccountKey = @"accountId";
+NSString *__nonnull const kPBConfigKey = @"configId";
+
 NSString *__nonnull const kMoPubString = @"MoPub";
 NSString *__nonnull const kDFPString = @"DFP";
 
