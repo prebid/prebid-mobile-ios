@@ -221,6 +221,7 @@
 		60C67B1A20741589003A7A1D /* InterstitialTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B1020741589003A7A1D /* InterstitialTestsViewController.m */; };
 		60C67B1B20741589003A7A1D /* NativeTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B1420741589003A7A1D /* NativeTestsViewController.m */; };
 		60C67B4620766FC1003A7A1D /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60C67B4120766F51003A7A1D /* PrebidMobile.framework */; };
+		F592196B207FF0EF00F117C0 /* PBVPrebidServerConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F592196A207FF0EF00F117C0 /* PBVPrebidServerConfigViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -671,6 +672,8 @@
 		60C67B1420741589003A7A1D /* NativeTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeTestsViewController.m; sourceTree = "<group>"; };
 		60C67B1520741589003A7A1D /* NativeTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeTestsViewController.h; sourceTree = "<group>"; };
 		60C67B3B20766F51003A7A1D /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../sdk/PrebidMobile.xcodeproj; sourceTree = "<group>"; };
+		F592196A207FF0EF00F117C0 /* PBVPrebidServerConfigViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBVPrebidServerConfigViewController.m; sourceTree = "<group>"; };
+		F592196C207FF0FD00F117C0 /* PBVPrebidServerConfigViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVPrebidServerConfigViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -715,6 +718,7 @@
 				60C67AE52074001B003A7A1D /* SettingsViewController.m */,
 				60C67AE720740524003A7A1D /* Pickers */,
 				60C678A22073F794003A7A1D /* PrebidSDKTesting */,
+				F5921968207FEFEA00F117C0 /* PrebidServerConfigTesting */,
 				60C678A12073F788003A7A1D /* LineItemsTesting */,
 				60C678982073D831003A7A1D /* ListViewController.h */,
 				60C678992073D831003A7A1D /* ListViewController.m */,
@@ -1365,6 +1369,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F5921968207FEFEA00F117C0 /* PrebidServerConfigTesting */ = {
+			isa = PBXGroup;
+			children = (
+				F592196A207FF0EF00F117C0 /* PBVPrebidServerConfigViewController.m */,
+				F592196C207FF0FD00F117C0 /* PBVPrebidServerConfigViewController.h */,
+			);
+			path = PrebidServerConfigTesting;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1611,6 +1624,7 @@
 				60C67A792073F89C003A7A1D /* MPMRAIDInterstitialCustomEvent.m in Sources */,
 				60C67A512073F89C003A7A1D /* MPHTMLInterstitialCustomEvent.m in Sources */,
 				60C67ADA2073F89D003A7A1D /* MPRewardedVideoAdapter.m in Sources */,
+				F592196B207FF0EF00F117C0 /* PBVPrebidServerConfigViewController.m in Sources */,
 				60C67ABC2073F89D003A7A1D /* MPNativeView.m in Sources */,
 				60C67A682073F89C003A7A1D /* MPCountdownTimerView.m in Sources */,
 				60C67A8F2073F89C003A7A1D /* UIButton+MPAdditions.m in Sources */,

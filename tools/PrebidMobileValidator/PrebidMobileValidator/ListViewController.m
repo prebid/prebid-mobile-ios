@@ -10,6 +10,7 @@
 #import "LineItemsTabController.h"
 #import "PBSettingsViewController.h"
 #import "PBVTableViewCell.h"
+#import "PBVPrebidServerConfigViewController.h"
 
 #define CellReuseID @"ReuseCell"
 
@@ -84,6 +85,9 @@
         PBSettingsViewController *pbSettingsViewController = [[PBSettingsViewController alloc] init];
         
         [self.navigationController pushViewController:pbSettingsViewController animated:YES];
+    } if(indexPath.row == 1){
+        PBVPrebidServerConfigViewController *pbServerConfigController = [[PBVPrebidServerConfigViewController alloc]init];
+        [self.navigationController pushViewController:pbServerConfigController animated:YES];
     }
 }
 
