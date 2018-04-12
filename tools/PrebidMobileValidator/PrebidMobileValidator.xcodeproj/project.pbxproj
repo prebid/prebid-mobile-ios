@@ -10,6 +10,8 @@
 		605A56C420768B7800E92376 /* LineItemsTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 605A56C320768B7700E92376 /* LineItemsTabController.m */; };
 		605A56C92076A27B00E92376 /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 605A56C82076A27B00E92376 /* LogsViewController.m */; };
 		605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605A56CA2076C89A00E92376 /* MessageUI.framework */; };
+		6062804F207FAF31003C5F2A /* PBVTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6062804D207FAF31003C5F2A /* PBVTableViewCell.m */; };
+		60628050207FAF31003C5F2A /* PBVTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6062804E207FAF31003C5F2A /* PBVTableViewCell.xib */; };
 		60C678842073D7B0003A7A1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678832073D7B0003A7A1D /* AppDelegate.m */; };
 		60C6788A2073D7B0003A7A1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60C678882073D7B0003A7A1D /* Main.storyboard */; };
 		60C6788C2073D7B0003A7A1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60C6788B2073D7B0003A7A1D /* Assets.xcassets */; };
@@ -251,6 +253,9 @@
 		605A56C72076A27B00E92376 /* LogsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogsViewController.h; sourceTree = "<group>"; };
 		605A56C82076A27B00E92376 /* LogsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogsViewController.m; sourceTree = "<group>"; };
 		605A56CA2076C89A00E92376 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		6062804C207FAF31003C5F2A /* PBVTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVTableViewCell.h; sourceTree = "<group>"; };
+		6062804D207FAF31003C5F2A /* PBVTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBVTableViewCell.m; sourceTree = "<group>"; };
+		6062804E207FAF31003C5F2A /* PBVTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PBVTableViewCell.xib; sourceTree = "<group>"; };
 		60C6787F2073D7B0003A7A1D /* PrebidMobileValidator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidMobileValidator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60C678822073D7B0003A7A1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		60C678832073D7B0003A7A1D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -703,6 +708,11 @@
 		60C678812073D7B0003A7A1D /* PrebidMobileValidator */ = {
 			isa = PBXGroup;
 			children = (
+				6062804C207FAF31003C5F2A /* PBVTableViewCell.h */,
+				6062804D207FAF31003C5F2A /* PBVTableViewCell.m */,
+				6062804E207FAF31003C5F2A /* PBVTableViewCell.xib */,
+				60C67AE42074001B003A7A1D /* SettingsViewController.h */,
+				60C67AE52074001B003A7A1D /* SettingsViewController.m */,
 				60C67AE720740524003A7A1D /* Pickers */,
 				60C678A22073F794003A7A1D /* PrebidSDKTesting */,
 				60C678A12073F788003A7A1D /* LineItemsTesting */,
@@ -722,8 +732,6 @@
 		60C678A12073F788003A7A1D /* LineItemsTesting */ = {
 			isa = PBXGroup;
 			children = (
-				60C67AE42074001B003A7A1D /* SettingsViewController.h */,
-				60C67AE52074001B003A7A1D /* SettingsViewController.m */,
 				60C678A52073F7D3003A7A1D /* LineItemsConstants.h */,
 				60C678A62073F7D3003A7A1D /* LineItemsConstants.m */,
 				60C678A72073F7D3003A7A1D /* LineItemAdsViewController.h */,
@@ -1441,6 +1449,7 @@
 			files = (
 				60C67A3D2073F89C003A7A1D /* MPCloseButtonX.png in Resources */,
 				60C67A322073F89C003A7A1D /* MPDAAIcon.png in Resources */,
+				60628050207FAF31003C5F2A /* PBVTableViewCell.xib in Resources */,
 				60C67A3B2073F89C003A7A1D /* MPCloseButtonX@2x.png in Resources */,
 				60C6788F2073D7B0003A7A1D /* LaunchScreen.storyboard in Resources */,
 				60C67A642073F89C003A7A1D /* MPAdBrowserController.xib in Resources */,
@@ -1558,6 +1567,7 @@
 				60C6789A2073D831003A7A1D /* ListViewController.m in Sources */,
 				60C67A6B2073F89C003A7A1D /* MPAdAlertGestureRecognizer.m in Sources */,
 				60C67AA52073F89D003A7A1D /* MPServerAdPositioning.m in Sources */,
+				6062804F207FAF31003C5F2A /* PBVTableViewCell.m in Sources */,
 				60C67ACD2073F89D003A7A1D /* MOPUBPlayerView.m in Sources */,
 				60C67B1620741589003A7A1D /* PrebidConstants.m in Sources */,
 				60C67ADE2073F89D003A7A1D /* MPRewardedVideoError.m in Sources */,

@@ -9,6 +9,9 @@
 #import "ListViewController.h"
 #import "LineItemsTabController.h"
 #import "PBSettingsViewController.h"
+#import "PBVTableViewCell.h"
+
+#define CellReuseID @"ReuseCell"
 
 @interface ListViewController ()
 
@@ -28,6 +31,16 @@
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
 
     self.items = [[NSArray alloc] initWithObjects:@"AdServer Setup Validation", @"PrebidServer Configuration Validation",@"PrebidSDK Validation", nil];
+    
+    
+    UITableView *tableView = (UITableView *)self.view;
+    [tableView registerNib:[UINib nibWithNibName:@"PBVTableViewCell" bundle:nil] forCellReuseIdentifier:CellReuseID];
+    
+    
+    //[self.tableView registerNib:[UINib nibWithNibName:@"ListTableViewCell" bundle:nil] forCellReuseIdentifier:@"ListTableCellIdentifier"];
+    
+    //[self.tableView registerClass:[ListTableViewCell class] forCellReuseIdentifier:@"ListTableCellIdentifier"];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,16 +61,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell Identifier";
-    
-    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:CellIdentifier];
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    PBVTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellReuseID forIndexPath:indexPath];
     
     // Configure the cell...
     NSString *item = [self.items objectAtIndex:indexPath.row];
     
-    [cell.textLabel setText:item];
+    cell.progressImage.image = [UIImage imageNamed:@"YellowIcon"];
+    
+    cell.lblValidator.text=item;
     
     return cell;
 }

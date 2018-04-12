@@ -13,7 +13,7 @@
 
 #import "LineItemAdsViewController.h"
 
-NSString *__nonnull const kNextButtonText = @"Click to see your line items";
+NSString *__nonnull const kNextButtonText = @"Start Validation";
 
 
 NSString *__nonnull const kAdServerLabelText = @"Ad Server";

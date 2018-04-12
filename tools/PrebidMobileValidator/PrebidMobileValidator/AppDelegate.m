@@ -44,7 +44,7 @@
         
         PBBannerAdUnit *__nullable adUnit1 = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:kAdUnit1Id andConfigId:kAdUnit1ConfigId];
         PBInterstitialAdUnit *__nullable adUnit2 = [[PBInterstitialAdUnit alloc] initWithAdUnitIdentifier:kAdUnit2Id andConfigId:kAdUnit2ConfigId];
-        //[adUnit1 addSize:CGSizeMake(300, 250)];
+        [adUnit1 addSize:CGSizeMake(300, 250)];
         
         [self setPrebidTargetingParams];
         
