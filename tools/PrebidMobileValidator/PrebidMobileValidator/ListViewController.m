@@ -43,13 +43,26 @@
     
     //[self.tableView registerClass:[ListTableViewCell class] forCellReuseIdentifier:@"ListTableCellIdentifier"];
 
-    // start tests
+    [self startTests];
+}
+
+- (void)startTests{
     _validator2 = [[PBVPBSRequestResponseValidator alloc] init];
     [_validator2 startTestWithCompletionHandler:^(Boolean result) {
         if (result) {
-            NSLog(@"Prebid Server validation successful");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSIndexPath *test2 = [NSIndexPath indexPathForRow:1 inSection:0] ;
+                PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test2];
+                cell.progressImage.image = [UIImage imageNamed:@"GreenIcon"];
+            });
+   
         } else{
-            NSLog(@"Prebid Server validation failure"); // should be updating the test indicator on the screen here.
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // add red icon to this app
+                // NSIndexPath *test2 = [NSIndexPath indexPathForRow:1 inSection:0] ;
+//                PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test2];
+//                cell.progressImage.image = [UIImage imageNamed:@"RedIcon"];
+            });
         }
     }];
 }
