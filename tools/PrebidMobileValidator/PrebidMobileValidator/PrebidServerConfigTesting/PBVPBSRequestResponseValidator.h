@@ -12,7 +12,7 @@
 @property NSString *request;
 @property NSString *response;
 
-- (void)startTest;
+- (void)startTestWithCompletionHandler:(void (^) (Boolean result)) completionHandler;
 @end
 
 #endif /* PBVPBSRequestResponseValidator_h */

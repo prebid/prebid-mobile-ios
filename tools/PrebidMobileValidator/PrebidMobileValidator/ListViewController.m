@@ -45,7 +45,13 @@
 
     // start tests
     _validator2 = [[PBVPBSRequestResponseValidator alloc] init];
-    [_validator2 startTest];
+    [_validator2 startTestWithCompletionHandler:^(Boolean result) {
+        if (result) {
+            NSLog(@"Prebid Server validation successful");
+        } else{
+            NSLog(@"Prebid Server validation failure"); // should be updating the test indicator on the screen here.
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
