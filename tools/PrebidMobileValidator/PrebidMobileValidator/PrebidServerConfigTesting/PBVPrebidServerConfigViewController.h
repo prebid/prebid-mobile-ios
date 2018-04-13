@@ -8,8 +8,12 @@
 
 #ifndef PBVPrebidServerConfigViewController_h
 #define PBVPrebidServerConfigViewController_h
+
 #import <UIKit/UIKit.h>
-@interface PBVPrebidServerConfigViewController: UIViewController
+#import "PBVPBSRequestResponseValidator.h"
+
+@interface PBVPrebidServerConfigViewController: UITabBarController
+-(instancetype)initWithValidator: (PBVPBSRequestResponseValidator *) validator;
 @end
 
 #endif /* PBVPrebidServerConfigViewController_h */

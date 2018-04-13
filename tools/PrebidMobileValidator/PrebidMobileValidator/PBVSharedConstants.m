@@ -1,12 +1,19 @@
 //
-//  Constants.m
-//  PriceCheckTestApp
+//  PBVSharedConstants.m
+//  PrebidMobileValidator
 //
-//  Created by Nicole Hedley on 30/08/2016.
-//  Copyright © 2016 Nicole Hedley. All rights reserved.
+//  Created by Wei Zhang on 4/13/18.
+//  Copyright © 2018 AppNexus. All rights reserved.
 //
 
-#import "LineItemsConstants.h"
+#import <Foundation/Foundation.h>
+NSString *__nonnull const kAdServerLabelText = @"Ad Server";
+NSString *__nonnull const kAdFormatLabelText = @"Ad Format";
+NSString *__nonnull const kAdSizeLabelText = @"Ad Size";
+NSString *__nonnull const kAdUnitIdText = @"Ad Unit ID";
+NSString *__nonnull const kBidPriceText = @"Bid Price(s)";
+NSString *__nonnull const kPBAccountIDText = @"Account ID";
+NSString *__nonnull const kPBConfigIDText = @"Config ID";
 
 NSString *__nonnull const kAdServerNameKey = @"adServerName";
 NSString *__nonnull const kAdFormatNameKey = @"adFormatName";

@@ -16,7 +16,7 @@
 #import "MPInterstitialAdController.h"
 
 #import "PCKeywordsManager.h"
-#import "LineItemsConstants.h"
+#import "PBVSharedConstants.h"
 
 static CGFloat const kBannerSizeWidth = 320.0f;
 static CGFloat const kBannerSizeHeight = 50.0f;

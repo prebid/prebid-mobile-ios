@@ -11,13 +11,14 @@
 #import "PBSettingsViewController.h"
 #import "PBVTableViewCell.h"
 #import "PBVPrebidServerConfigViewController.h"
+#import "PBVPBSRequestResponseValidator.h"
 
 #define CellReuseID @"ReuseCell"
 
 @interface ListViewController ()
 
 @property (strong, nonatomic) NSArray *items;
-
+@property PBVPBSRequestResponseValidator *validator2;
 @end
 
 @implementation ListViewController
@@ -41,7 +42,10 @@
     //[self.tableView registerNib:[UINib nibWithNibName:@"ListTableViewCell" bundle:nil] forCellReuseIdentifier:@"ListTableCellIdentifier"];
     
     //[self.tableView registerClass:[ListTableViewCell class] forCellReuseIdentifier:@"ListTableCellIdentifier"];
-    
+
+    // start tests
+    _validator2 = [[PBVPBSRequestResponseValidator alloc] init];
+    [_validator2 startTest];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,7 +90,8 @@
         
         [self.navigationController pushViewController:pbSettingsViewController animated:YES];
     } if(indexPath.row == 1){
-        PBVPrebidServerConfigViewController *pbServerConfigController = [[PBVPrebidServerConfigViewController alloc]init];
+        PBVPrebidServerConfigViewController *pbServerConfigController =
+        [[PBVPrebidServerConfigViewController alloc]initWithValidator:_validator2];
         [self.navigationController pushViewController:pbServerConfigController animated:YES];
     }
 }

@@ -1,12 +1,21 @@
 //
-//  Constants.h
-//  PriceCheckTestApp
+//  PBVSharedConstants.h
+//  PrebidMobileValidator
 //
-//  Created by Nicole Hedley on 30/08/2016.
-//  Copyright © 2016 Nicole Hedley. All rights reserved.
+//  Created by Wei Zhang on 4/13/18.
+//  Copyright © 2018 AppNexus. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#ifndef PBVSharedConstants_h
+#define PBVSharedConstants_h
+
+extern NSString *__nonnull const kAdServerLabelText;
+extern NSString *__nonnull const kAdFormatLabelText;
+extern NSString *__nonnull const kAdSizeLabelText;
+extern NSString *__nonnull const kAdUnitIdText;
+extern NSString *__nonnull const kBidPriceText;
+extern NSString *__nonnull const kPBAccountIDText;
+extern NSString *__nonnull const kPBConfigIDText;
 
 extern NSString *__nonnull const kAdServerNameKey;
 extern NSString *__nonnull const kAdFormatNameKey;
@@ -26,3 +35,5 @@ extern NSString *__nonnull const kInterstitialString;
 extern NSString *__nonnull const kBannerSizeString;
 extern NSString *__nonnull const kMediumRectangleSizeString;
 extern NSString *__nonnull const kInterstitialSizeString;
+
+#endif /* PBVSharedConstants_h */
