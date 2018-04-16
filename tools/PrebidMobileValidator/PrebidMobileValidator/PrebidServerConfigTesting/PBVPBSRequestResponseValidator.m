@@ -59,13 +59,7 @@
                                                                        cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                                    timeoutInterval:1000];
     [mutableRequest setHTTPMethod:@"POST"];
-    NSError *error;
-//
-//    NSData *postData = [NSJSONSerialization dataWithJSONObject:request
-//                                                       options:kNilOptions
-//                                                         error:&error];
     NSData *data = [request dataUsingEncoding:NSUTF8StringEncoding];
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
     [mutableRequest setHTTPBody:data];
     [self runTestWithReuqest:mutableRequest CompletionHandler:completionHandler];
    
