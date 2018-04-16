@@ -14,6 +14,7 @@
  */
 
 #import "PBTargetingParams.h"
+#import "PBConstants.h"
 
 @interface PBTargetingParams ()
 
@@ -156,6 +157,25 @@ static dispatch_once_t onceToken;
 
 - (void)setItunesID:(NSString *)itunesID {
     _itunesID = itunesID;
+}
+
+-(void) setGdpr:(BOOL)gdpr{
+    [[NSUserDefaults standardUserDefaults] setBool:gdpr forKey:PBGDPRString];
+}
+
+-(void) setConsent:(NSString *)consent{
+    
+    [[NSUserDefaults standardUserDefaults] setObject:consent forKey:PBGDPRConsentString];
+}
+
+-(BOOL) gdpr {
+    BOOL savedGDPR = [[NSUserDefaults standardUserDefaults] boolForKey:PBGDPRString] ? [[NSUserDefaults standardUserDefaults] boolForKey:PBGDPRString] : TRUE;
+    return savedGDPR;
+}
+
+-(NSString *) consent{
+    NSString *savedConsent = [[NSUserDefaults standardUserDefaults] objectForKey:PBGDPRConsentString] ? [[NSUserDefaults standardUserDefaults] objectForKey:PBGDPRConsentString] : @"";
+    return savedConsent;
 }
 
 @end
