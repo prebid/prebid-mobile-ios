@@ -13,6 +13,9 @@
 @property NSString *response;
 
 - (void)startTestWithCompletionHandler:(void (^) (Boolean result)) completionHandler;
+
+- (void)startTestWithString: (NSString *)request
+       andCompletionHandler: (void (^) (Boolean result)) completionHandler;
 @end
 
 #endif /* PBVPBSRequestResponseValidator_h */

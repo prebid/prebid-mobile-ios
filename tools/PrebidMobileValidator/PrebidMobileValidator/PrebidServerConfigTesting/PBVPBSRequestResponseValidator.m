@@ -15,13 +15,12 @@
 #import <PrebidMobile/PBServerFetcher.h>
 
 @interface PBVPBSRequestResponseValidator()
-@property Boolean successfulBid;
 @end
 
 @implementation PBVPBSRequestResponseValidator
 
 - (void)startTestWithCompletionHandler:(void (^) (Boolean result)) completionHandler;{
-    NSLog(@"Start testing requet to PBS...");
+    // Get params from coredata
     NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
@@ -45,58 +44,82 @@
         adUnit = [[PBInterstitialAdUnit alloc] initWithAdUnitIdentifier:adUnitID andConfigId:configId];
     }
     NSArray *adUnits = [NSArray arrayWithObjects:adUnit, nil];
+    // Generate Request for the saved adunits
     NSURL *url = [NSURL URLWithString:@"https://prebid.adnxs.com/pbs/v1/openrtb2/auction"];
     [[PBServerRequestBuilder sharedInstance]setHostURL:url];
     NSURLRequest *req = [[PBServerRequestBuilder sharedInstance] buildRequest:adUnits withAccountId:accountId shouldCacheLocal:useCache withSecureParams:true];
     self.request = [[NSString alloc]initWithData:req.HTTPBody encoding:NSUTF8StringEncoding];
+    [self runTestWithReuqest:req CompletionHandler:completionHandler];
+}
+
+- (void) startTestWithString:(NSString *)request andCompletionHandler:(void (^)(Boolean))completionHandler
+{
+    self.request = request;
+    NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://prebid.adnxs.com/pbs/v1/openrtb2/auction"]
+                                                                       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                                   timeoutInterval:1000];
+    [mutableRequest setHTTPMethod:@"POST"];
+    NSError *error;
+//
+//    NSData *postData = [NSJSONSerialization dataWithJSONObject:request
+//                                                       options:kNilOptions
+//                                                         error:&error];
+    NSData *data = [request dataUsingEncoding:NSUTF8StringEncoding];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    [mutableRequest setHTTPBody:data];
+    [self runTestWithReuqest:mutableRequest CompletionHandler:completionHandler];
+   
+}
+
+-(void)runTestWithReuqest: (NSURLRequest *) req
+        CompletionHandler:(void (^) (Boolean result)) completionHandler;{
     NSURLSession *session = [NSURLSession sharedSession];
     
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:req completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
-    {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        self.response = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-        if(httpResponse.statusCode == 200)
-        {
-            NSError *parseError = nil;
-            NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
-            if (parseError) {
-                completionHandler(NO);
-                return;
-            }
-            if (responseDictionary == nil) {
-                completionHandler(NO);
-                return;
-            }
-            if ([responseDictionary isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *response = (NSDictionary *)responseDictionary;
-                if ([[response objectForKey:@"seatbid"] isKindOfClass:[NSArray class]]) {
-                    NSArray *seatbids = (NSArray *)[response objectForKey:@"seatbid"];
-                    for (id seatbid in seatbids) {
-                        if ([seatbid isKindOfClass:[NSDictionary class]]) {
-                            NSDictionary *seatbidDict = (NSDictionary *)seatbid;
-                            if ([[seatbidDict objectForKey:@"bid"] isKindOfClass:[NSArray class]]) {
-                                NSArray *bids = (NSArray *)[seatbidDict objectForKey:@"bid"];
-                                for (id bid in bids) {
-                                    if ([bid isKindOfClass:[NSDictionary class]]) {
-                                        completionHandler(YES);
-                                        return;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            // No bid in the response
-            completionHandler(NO);
-        }
-        else
-        {
-            completionHandler(NO);
-        }
-    }];
+                                      {
+                                          NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                                          self.response = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                                          if(httpResponse.statusCode == 200)
+                                          {
+                                              NSError *parseError = nil;
+                                              NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
+                                              if (parseError) {
+                                                  completionHandler(NO);
+                                                  return;
+                                              }
+                                              if (responseDictionary == nil) {
+                                                  completionHandler(NO);
+                                                  return;
+                                              }
+                                              if ([responseDictionary isKindOfClass:[NSDictionary class]]) {
+                                                  NSDictionary *response = (NSDictionary *)responseDictionary;
+                                                  if ([[response objectForKey:@"seatbid"] isKindOfClass:[NSArray class]]) {
+                                                      NSArray *seatbids = (NSArray *)[response objectForKey:@"seatbid"];
+                                                      for (id seatbid in seatbids) {
+                                                          if ([seatbid isKindOfClass:[NSDictionary class]]) {
+                                                              NSDictionary *seatbidDict = (NSDictionary *)seatbid;
+                                                              if ([[seatbidDict objectForKey:@"bid"] isKindOfClass:[NSArray class]]) {
+                                                                  NSArray *bids = (NSArray *)[seatbidDict objectForKey:@"bid"];
+                                                                  for (id bid in bids) {
+                                                                      if ([bid isKindOfClass:[NSDictionary class]]) {
+                                                                          completionHandler(YES);
+                                                                          return;
+                                                                      }
+                                                                  }
+                                                              }
+                                                          }
+                                                      }
+                                                  }
+                                              }
+                                              // No bid in the response
+                                              completionHandler(NO);
+                                          }
+                                          else
+                                          {
+                                              completionHandler(NO);
+                                          }
+                                      }];
     [dataTask resume];
-
 }
 
 
