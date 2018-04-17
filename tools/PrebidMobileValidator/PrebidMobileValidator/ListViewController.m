@@ -19,6 +19,7 @@
 
 @property (strong, nonatomic) NSArray *items;
 @property PBVPBSRequestResponseValidator *validator2;
+@property UIRefreshControl *refreshControll;
 @end
 
 @implementation ListViewController
@@ -43,6 +44,15 @@
     
     //[self.tableView registerClass:[ListTableViewCell class] forCellReuseIdentifier:@"ListTableCellIdentifier"];
 
+     _refreshControll = [[UIRefreshControl alloc]init];
+    [self.tableView addSubview:_refreshControll];
+    [_refreshControll addTarget:self action:@selector(refreshTests) forControlEvents:UIControlEventValueChanged];
+    [self startTests];
+}
+
+-(void)refreshTests
+{
+    [_refreshControll endRefreshing];
     [self startTests];
 }
 
@@ -53,15 +63,15 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSIndexPath *test2 = [NSIndexPath indexPathForRow:1 inSection:0] ;
                 PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test2];
-                cell.progressImage.image = [UIImage imageNamed:@"GreenIcon"];
+                cell.progressImage.image = [UIImage imageNamed:@"Green"];
             });
    
         } else{
             dispatch_async(dispatch_get_main_queue(), ^{
                 // add red icon to this app
-                // NSIndexPath *test2 = [NSIndexPath indexPathForRow:1 inSection:0] ;
-//                PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test2];
-//                cell.progressImage.image = [UIImage imageNamed:@"RedIcon"];
+                 NSIndexPath *test2 = [NSIndexPath indexPathForRow:1 inSection:0] ;
+                PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test2];
+                cell.progressImage.image = [UIImage imageNamed:@"Red"];
             });
         }
     }];
@@ -90,7 +100,7 @@
     // Configure the cell...
     NSString *item = [self.items objectAtIndex:indexPath.row];
     
-    cell.progressImage.image = [UIImage imageNamed:@"YellowIcon"];
+    cell.progressImage.image = [UIImage imageNamed:@"Progress"];
     
     cell.lblValidator.text=item;
     

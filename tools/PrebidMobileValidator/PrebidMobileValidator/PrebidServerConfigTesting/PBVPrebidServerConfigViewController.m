@@ -119,15 +119,28 @@
         [mailViewController setSubject:@"Request and response to/from Prebid Server"];
         NSMutableString *body = [[NSMutableString alloc]initWithString:@""];
         [body appendString: @"Hi, \n\n"];
-        [body appendString: @"Please find the request to prebid server below: \n"];
-        [body appendString: [self prettyJson: _validator.request]];
-        [body appendString: @"\n\nPlease find the response from prebid server below: \n"];
-        [body appendString: [self prettyJson: _validator.response]];
+        if (_validator.request) {
+            [body appendString: @"Please find the request to prebid server below: \n"];
+            [body appendString: [self prettyJson: _validator.request]];
+        } else {
+            [body appendString:@"Unable to retrieve request data from the test.\n"];
+        }
+        if (_validator.response) {
+            [body appendString: @"\n\nPlease find the response from prebid server below: \n"];
+            [body appendString: [self prettyJson: _validator.response]];
+        } else {
+            [body appendString:@"\n\nUnable to retrieve response data from the test.\n"];
+        }
+
         [mailViewController setMessageBody:body isHTML:NO];
         [self presentViewController:mailViewController animated:YES completion:nil];
     } else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to send email" message:@"Please set up an email account on your device." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil, nil];
-        [alert show];
+        UIAlertController *alert = [[UIAlertController alloc] init];
+        alert.title = @"Uable to send email";
+        alert.message = @"Please set up an email account on your device.";
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:alertAction];
+        [self presentViewController: alert animated:YES completion:nil];
     }
 }
 
