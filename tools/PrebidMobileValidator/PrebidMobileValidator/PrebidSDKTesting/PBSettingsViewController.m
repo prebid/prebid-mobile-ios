@@ -14,7 +14,7 @@
  */
 
 #import "BannerTestsViewController.h"
-#import "PrebidConstants.h"
+#import "PBVSharedConstants.h"
 #import "InterstitialTestsViewController.h"
 #import "PBSettingsViewController.h"
 #import "VideoTestsViewController.h"
@@ -39,25 +39,12 @@ static CGFloat const kRightMargin = 15;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"PrebidSDK Validation";
-    _settingsTableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
-    _settingsTableView.dataSource = self;
-    _settingsTableView.delegate = self;
-    [self.view addSubview:_settingsTableView];
-
-    _generalSettingsData = @[kAdServer, kAdType, kSize];
-    [self initializeGeneralSettingsFields];
-
-    _sectionHeaders = @[@"General"];//, @"Targeting", @"Custom Keywords"];
+    self.view.backgroundColor = [UIColor whiteColor];
 
     UIBarButtonItem *previewAdButton = [[UIBarButtonItem alloc] initWithTitle:kSeeAdButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(previewAdButtonClicked:)];
     
     [previewAdButton setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]} forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = previewAdButton;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)initializeGeneralSettingsFields {
@@ -134,7 +121,7 @@ static CGFloat const kRightMargin = 15;
         
         [PrebidMobile shouldLoadOverSecureConnection:YES];
 
-        [PrebidMobile registerAdUnits:@[adUnit1, adUnit2] withAccountId:kAccountId withHost:kPBServerHost andPrimaryAdServer:adServer];
+        [PrebidMobile registerAdUnits:@[adUnit1, adUnit2] withAccountId:kAccountId withHost:PBServerHostAppNexus andPrimaryAdServer:adServer];
 
     } @catch (PBException *ex) {
         NSLog(@"%@",[ex reason]);

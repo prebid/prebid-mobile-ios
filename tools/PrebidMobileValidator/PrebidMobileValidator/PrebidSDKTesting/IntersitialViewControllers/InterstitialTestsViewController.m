@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import "PrebidConstants.h"
+#import "PBVSharedConstants.h"
 #import <GoogleMobileAds/DFPInterstitial.h>
 #import "InterstitialTestsViewController.h"
 #import "MPInterstitialAdController.h"

@@ -1,13 +1,39 @@
-//
-//  PBVSharedConstants.h
-//  PrebidMobileValidator
-//
-//  Created by Wei Zhang on 4/13/18.
-//  Copyright © 2018 AppNexus. All rights reserved.
-//
+#import <UIKit/UIKit.h>
 
-#ifndef PBVSharedConstants_h
-#define PBVSharedConstants_h
+#pragma mark -sample
+extern NSString *__nonnull const kAdServer;
+extern NSString *__nonnull const kAdType;
+extern NSString *__nonnull const kPlacementId;
+extern NSString *__nonnull const kSize;
+
+extern NSString *__nonnull const kDefaultPlacementId;
+extern NSString *__nonnull const kDefaultSize;
+
+extern NSString *__nonnull const kBanner;
+extern NSString *__nonnull const kInterstitial;
+extern NSString *__nonnull const kNative;
+extern NSString *__nonnull const kVideo;
+
+#pragma mark - MoPub constants
+extern NSString *__nonnull const kMoPubAdServer;
+extern NSString *__nonnull const kMoPubBannerAdUnitId;
+extern NSString *__nonnull const kMoPubInterstitialAdUnitId;
+
+#pragma mark - DFP constants
+extern NSString *__nonnull const kDFPAdServer;
+extern NSString *__nonnull const kDFPBannerAdUnitId;
+extern NSString *__nonnull const kDFPInterstitialAdUnitId;
+
+#pragma mark - Prebid Mobile constants
+extern NSString *__nonnull const kAccountId;
+extern NSString *__nonnull const kAdUnit1ConfigId;
+extern NSString *__nonnull const kAdUnit2ConfigId;
+extern NSString *__nonnull const kPBServerHost;
+
+extern NSString *__nonnull const kAdUnit1Id;
+extern NSString *__nonnull const kAdUnit2Id;
+
+#pragma mark - Prebid Mobile Validator constants
 
 extern NSString *__nonnull const kAdServerLabelText;
 extern NSString *__nonnull const kAdFormatLabelText;
@@ -36,4 +62,4 @@ extern NSString *__nonnull const kBannerSizeString;
 extern NSString *__nonnull const kMediumRectangleSizeString;
 extern NSString *__nonnull const kInterstitialSizeString;
 
-#endif /* PBVSharedConstants_h */
+
