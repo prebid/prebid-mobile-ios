@@ -187,9 +187,12 @@
             for (UIView *level3 in level2.subviews){
                 if([level3 isKindOfClass:[UIWebView class]])
                 {
-                    UIWebView *WV = (UIWebView *)level3;
-                  [_delegate testDidPass];
-                    return;
+                    UIWebView *wv = (UIWebView *)level3;
+                    NSString *content = [wv stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
+                    if ([content containsString:@"prebid/pbm.js"]) {
+                        [_delegate testDidPass];
+                        return;
+                    }
                 }
             }
         }
