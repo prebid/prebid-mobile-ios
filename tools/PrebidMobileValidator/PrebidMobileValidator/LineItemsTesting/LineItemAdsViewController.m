@@ -9,12 +9,10 @@
 @import GoogleMobileAds;
 
 #import "LineItemAdsViewController.h"
-#import "LineItemsConstants.h"
+#import "PBVSharedConstants.h"
 #import "MPAdView.h"
 #import "MPInterstitialAdController.h"
-
 #import "LineItemKeywordsManager.h"
-#import "LineItemsConstants.h"
 
 @interface LineItemAdsViewController () <MPAdViewDelegate,
                                          MPInterstitialAdControllerDelegate,

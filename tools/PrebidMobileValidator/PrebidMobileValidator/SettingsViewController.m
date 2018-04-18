@@ -7,22 +7,14 @@
 //
 
 #import "SettingsViewController.h"
-#import "LineItemsConstants.h"
 #import "ListViewController.h"
 #import "ActionSheetPicker.h"
-
+#import "PBVSharedConstants.h"
 #import "LineItemAdsViewController.h"
 
 NSString *__nonnull const kNextButtonText = @"Start Validation";
 
 
-NSString *__nonnull const kAdServerLabelText = @"Ad Server";
-NSString *__nonnull const kAdFormatLabelText = @"Ad Format";
-NSString *__nonnull const kAdSizeLabelText = @"Ad Size";
-NSString *__nonnull const kAdUnitIdText = @"Ad Unit ID";
-NSString *__nonnull const kBidPriceText = @"Bid Price(s)";
-NSString *__nonnull const kPBAccountIDText = @"Account ID";
-NSString *__nonnull const kPBConfigIDText = @"Config ID";
 
 
 NSString *__nonnull const kErrorMessageTitle = @"Oops...";

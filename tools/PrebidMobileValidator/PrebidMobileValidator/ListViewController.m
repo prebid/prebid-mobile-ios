@@ -10,13 +10,15 @@
 #import "LineItemsTabController.h"
 #import "PBSettingsViewController.h"
 #import "PBVTableViewCell.h"
-#import "LineItemsConstants.h"
+#import "PBVSharedConstants.h"
 #import "LineItemKeywordsManager.h"
 #import "MPAdView.h"
 #import "MPInterstitialAdController.h"
 
 @import GoogleMobileAds;
 
+#import "PBVPrebidServerConfigViewController.h"
+#import "PBVPBSRequestResponseValidator.h"
 
 #define CellReuseID @"ReuseCell"
 
@@ -42,6 +44,8 @@
 @property (nonatomic, strong) NSMutableArray *adViews;
 
 
+@property PBVPBSRequestResponseValidator *validator2;
+@property UIRefreshControl *refreshControll;
 @end
 
 @implementation ListViewController
@@ -80,7 +84,39 @@
     
     //[lineItemsTabController view];
     
-    
+    //[self.tableView registerClass:[ListTableViewCell class] forCellReuseIdentifier:@"ListTableCellIdentifier"];
+
+     _refreshControll = [[UIRefreshControl alloc]init];
+    [self.tableView addSubview:_refreshControll];
+    [_refreshControll addTarget:self action:@selector(refreshTests) forControlEvents:UIControlEventValueChanged];
+    [self startTests];
+}
+
+-(void)refreshTests
+{
+    [_refreshControll endRefreshing];
+    [self startTests];
+}
+
+- (void)startTests{
+    _validator2 = [[PBVPBSRequestResponseValidator alloc] init];
+    [_validator2 startTestWithCompletionHandler:^(Boolean result) {
+        if (result) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSIndexPath *test2 = [NSIndexPath indexPathForRow:1 inSection:0] ;
+                PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test2];
+                cell.progressImage.image = [UIImage imageNamed:@"Green"];
+            });
+   
+        } else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // add red icon to this app
+                 NSIndexPath *test2 = [NSIndexPath indexPathForRow:1 inSection:0] ;
+                PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test2];
+                cell.progressImage.image = [UIImage imageNamed:@"Red"];
+            });
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -106,7 +142,7 @@
     // Configure the cell...
     NSString *item = [self.items objectAtIndex:indexPath.row];
     
-    cell.progressImage.image = [UIImage imageNamed:@"YellowIcon"];
+    cell.progressImage.image = [UIImage imageNamed:@"Progress"];
     
     cell.lblValidator.text=item;
     
@@ -124,6 +160,10 @@
         PBSettingsViewController *pbSettingsViewController = [[PBSettingsViewController alloc] init];
         
         [self.navigationController pushViewController:pbSettingsViewController animated:YES];
+    } if(indexPath.row == 1){
+        PBVPrebidServerConfigViewController *pbServerConfigController =
+        [[PBVPrebidServerConfigViewController alloc]initWithValidator:_validator2];
+        [self.navigationController pushViewController:pbServerConfigController animated:YES];
     }
 }
 

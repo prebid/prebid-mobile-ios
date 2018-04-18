@@ -7,7 +7,7 @@
 //
 
 #import "LineItemURLProtocol.h"
-#import "LineItemsConstants.h"
+#import "PBVSharedConstants.h"
 
 @interface LineItemURLProtocol () <NSURLConnectionDelegate>
 
@@ -38,7 +38,7 @@
 
 - (void)startLoading {
     NSMutableURLRequest *newRequest = [self.request mutableCopy];
-    [[LineItemsConstants sharedInstance] setRequestString:[newRequest description]];
+    [[PBVSharedConstants sharedInstance] setRequestString:[newRequest description]];
     [NSURLProtocol setProperty:@YES forKey:@"LineItemProtocolHandledKey" inRequest:newRequest];
     
     __weak LineItemURLProtocol *weakSelf = self;
@@ -48,7 +48,7 @@
         LineItemURLProtocol *__strong strongSelf = weakSelf;
         NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                 if (html.length) {
-                    [[LineItemsConstants sharedInstance] setResponseString:html];
+                    [[PBVSharedConstants sharedInstance] setResponseString:html];
                     strongSelf.responseString = html;
                 }
         }

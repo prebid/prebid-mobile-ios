@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		606A4299202005C400492433 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 606A4298202005C400492433 /* ReadMe.md */; };
-		606A42A42020FD4600492433 /* PBServerRequestBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 606A42A22020FD4600492433 /* PBServerRequestBuilder.h */; };
+		606A42A42020FD4600492433 /* PBServerRequestBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 606A42A22020FD4600492433 /* PBServerRequestBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		606A42A52020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
 		606A42A62020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
 		606A4353202BC98100492433 /* PrebidMobile-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 606A4352202BC98100492433 /* PrebidMobile-umbrella.h */; };
@@ -60,7 +60,7 @@
 		C2B16E491EE1BEB6006304C0 /* PBBidResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B16E451EE1BEB6006304C0 /* PBBidResponse.m */; };
 		C2B16E561EE1BEC4006304C0 /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B16E4C1EE1BEC4006304C0 /* NSDictionary+Extension.m */; };
 		C2B16E581EE1BEC4006304C0 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B16E4E1EE1BEC4006304C0 /* NSString+Extension.m */; };
-		C2B16E981EE1BF1A006304C0 /* PBServerFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E8C1EE1BF1A006304C0 /* PBServerFetcher.h */; };
+		C2B16E981EE1BF1A006304C0 /* PBServerFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E8C1EE1BF1A006304C0 /* PBServerFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C2B16E991EE1BF1A006304C0 /* PBServerFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B16E8D1EE1BF1A006304C0 /* PBServerFetcher.m */; };
 		C2B16E9B1EE1BF1A006304C0 /* PBServerGlobal.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E8F1EE1BF1A006304C0 /* PBServerGlobal.h */; };
 		C2B16E9C1EE1BF1A006304C0 /* PBServerGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B16E901EE1BF1A006304C0 /* PBServerGlobal.m */; };
@@ -409,18 +409,18 @@
 				C23FCCEA1EE5E3F500CFFEF0 /* PBLogging.h in Headers */,
 				C2B16E3D1EE1BEA6006304C0 /* PBKeywordsManager.h in Headers */,
 				C23FCCEE1EE5E41E00CFFEF0 /* PBLogManager.h in Headers */,
-				606A42A42020FD4600492433 /* PBServerRequestBuilder.h in Headers */,
 				C23386DA1EE5DCDB002FD404 /* PBServerAdapter.h in Headers */,
 				C23386D61EE5DC95002FD404 /* PBAdUnit.h in Headers */,
+				606A42A42020FD4600492433 /* PBServerRequestBuilder.h in Headers */,
 				C23386D21EE5DBFB002FD404 /* PrebidMobile.h in Headers */,
 				C24B78C41EE7467E0045B454 /* NSObject+Prebid.h in Headers */,
+				C2B16E981EE1BF1A006304C0 /* PBServerFetcher.h in Headers */,
 				C2B16E3B1EE1BEA6006304C0 /* PBInterstitialAdUnit.h in Headers */,
 				C2B16E9B1EE1BF1A006304C0 /* PBServerGlobal.h in Headers */,
 				C2B16E9F1EE1BF1A006304C0 /* PBServerReachability.h in Headers */,
 				C2B16E9D1EE1BF1A006304C0 /* PBServerLocation.h in Headers */,
 				606A4353202BC98100492433 /* PrebidMobile-umbrella.h in Headers */,
 				C210FE321FBDF0440010B588 /* PrebidURLProtocol.h in Headers */,
-				C2B16E981EE1BF1A006304C0 /* PBServerFetcher.h in Headers */,
 				C210FE381FC3375D0010B588 /* PrebidCache.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

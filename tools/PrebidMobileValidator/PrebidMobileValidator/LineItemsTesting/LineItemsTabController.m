@@ -15,7 +15,7 @@
 NSString *__nonnull const kTitleText = @"AdServer Setup Validator";
 
 #import "LineItemURLProtocol.h"
-#import "LineItemsConstants.h"
+#import "PBVSharedConstants.h"
 #import "MPAdView.h"
 #import "MPInterstitialAdController.h"
 #import "LineItemKeywordsManager.h"

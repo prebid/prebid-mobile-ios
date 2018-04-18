@@ -7,7 +7,7 @@
 //
 
 #import "LineItemLogViewController.h"
-#import "LineItemsConstants.h"
+#import "PBVSharedConstants.h"
 
 @interface LineItemLogViewController ()
 
@@ -29,7 +29,7 @@
 
 -(void) viewWillAppear:(BOOL)animated {
     
-    NSLog(@"Punnaghai request %@", [[LineItemsConstants sharedInstance] requestString]);
+    NSLog(@"Punnaghai request %@", [[PBVSharedConstants sharedInstance] requestString]);
     
 }
 

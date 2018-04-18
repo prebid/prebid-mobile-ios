@@ -1,13 +1,21 @@
 //
-//  Constants.h
-//  PriceCheckTestApp
+//  PBVSharedConstants.h
+//  PrebidMobileValidator
 //
-//  Created by Nicole Hedley on 30/08/2016.
-//  Copyright © 2016 Nicole Hedley. All rights reserved.
+//  Created by Wei Zhang on 4/13/18.
+//  Copyright © 2018 AppNexus. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
+extern NSString *__nonnull const kAdServerLabelText;
+extern NSString *__nonnull const kAdFormatLabelText;
+extern NSString *__nonnull const kAdSizeLabelText;
+extern NSString *__nonnull const kAdUnitIdText;
+extern NSString *__nonnull const kBidPriceText;
+extern NSString *__nonnull const kPBAccountIDText;
+extern NSString *__nonnull const kPBConfigIDText;
 
 extern NSString *__nonnull const kAdServerNameKey;
 extern NSString *__nonnull const kAdFormatNameKey;
@@ -43,7 +51,7 @@ static CGFloat const kAdFailedLabelHeight = 50.0f;
 static CGFloat const kAdMargin = 10.0f;
 
 
-@interface LineItemsConstants: NSObject
+@interface PBVSharedConstants: NSObject
 
 @property (nonatomic, strong) NSString * _Nullable requestString;
 @property (nonatomic, strong) NSString * _Nullable responseString;
@@ -51,3 +59,4 @@ static CGFloat const kAdMargin = 10.0f;
 + (instancetype _Nonnull)sharedInstance;
 
 @end
+
