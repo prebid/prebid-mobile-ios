@@ -17,7 +17,6 @@
 @end
 
 @interface PBVPrebidSDKValidator: NSObject
-
 @property id <PBVPrebidSDKValidatorDelegate> delegate;
 
 - (UIViewController *) getViewController;

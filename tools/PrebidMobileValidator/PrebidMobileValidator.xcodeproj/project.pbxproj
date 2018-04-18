@@ -19,7 +19,6 @@
 		60C678922073D7B0003A7A1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678912073D7B0003A7A1D /* main.m */; };
 		60C6789A2073D831003A7A1D /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678992073D831003A7A1D /* ListViewController.m */; };
 		60C678A92073F7D3003A7A1D /* LineItemAdsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678A32073F7D3003A7A1D /* LineItemAdsViewController.m */; };
-		60C678AA2073F7D3003A7A1D /* LineItemsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678A62073F7D3003A7A1D /* LineItemsConstants.m */; };
 		60C678AB2073F7D3003A7A1D /* LineItemKeywordsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678A82073F7D3003A7A1D /* LineItemKeywordsManager.m */; };
 		60C678AE2073F879003A7A1D /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60C678AD2073F879003A7A1D /* GoogleMobileAds.framework */; };
 		60C67A2E2073F89C003A7A1D /* MPAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678B12073F89C003A7A1D /* MPAdView.m */; };
@@ -215,7 +214,6 @@
 		60C67B0320740524003A7A1D /* ActionSheetMultipleStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67AF720740524003A7A1D /* ActionSheetMultipleStringPicker.m */; };
 		60C67B0420740524003A7A1D /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67AF820740524003A7A1D /* AbstractActionSheetPicker.m */; };
 		60C67B1720741589003A7A1D /* BannerTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B0820741589003A7A1D /* BannerTestsViewController.m */; };
-		60C67B1820741589003A7A1D /* PBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B0A20741589003A7A1D /* PBSettingsViewController.m */; };
 		60C67B1920741589003A7A1D /* VideoTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B0D20741589003A7A1D /* VideoTestsViewController.m */; };
 		60C67B1A20741589003A7A1D /* InterstitialTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B1020741589003A7A1D /* InterstitialTestsViewController.m */; };
 		60C67B1B20741589003A7A1D /* NativeTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B1420741589003A7A1D /* NativeTestsViewController.m */; };
@@ -272,8 +270,6 @@
 		60C678992073D831003A7A1D /* ListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		60C678A32073F7D3003A7A1D /* LineItemAdsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineItemAdsViewController.m; sourceTree = "<group>"; };
 		60C678A42073F7D3003A7A1D /* LineItemKeywordsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineItemKeywordsManager.h; sourceTree = "<group>"; };
-		60C678A52073F7D3003A7A1D /* LineItemsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineItemsConstants.h; sourceTree = "<group>"; };
-		60C678A62073F7D3003A7A1D /* LineItemsConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineItemsConstants.m; sourceTree = "<group>"; };
 		60C678A72073F7D3003A7A1D /* LineItemAdsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineItemAdsViewController.h; sourceTree = "<group>"; };
 		60C678A82073F7D3003A7A1D /* LineItemKeywordsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineItemKeywordsManager.m; sourceTree = "<group>"; };
 		60C678AD2073F879003A7A1D /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
@@ -664,10 +660,8 @@
 		60C67AFB20740524003A7A1D /* ActionSheetDistancePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDistancePicker.h; sourceTree = "<group>"; };
 		60C67B0820741589003A7A1D /* BannerTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerTestsViewController.m; sourceTree = "<group>"; };
 		60C67B0920741589003A7A1D /* BannerTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerTestsViewController.h; sourceTree = "<group>"; };
-		60C67B0A20741589003A7A1D /* PBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSettingsViewController.m; sourceTree = "<group>"; };
 		60C67B0C20741589003A7A1D /* VideoTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTestsViewController.h; sourceTree = "<group>"; };
 		60C67B0D20741589003A7A1D /* VideoTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTestsViewController.m; sourceTree = "<group>"; };
-		60C67B0E20741589003A7A1D /* PBSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSettingsViewController.h; sourceTree = "<group>"; };
 		60C67B1020741589003A7A1D /* InterstitialTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterstitialTestsViewController.m; sourceTree = "<group>"; };
 		60C67B1120741589003A7A1D /* InterstitialTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterstitialTestsViewController.h; sourceTree = "<group>"; };
 		60C67B1420741589003A7A1D /* NativeTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeTestsViewController.m; sourceTree = "<group>"; };
@@ -768,8 +762,6 @@
 				60C67B0F20741589003A7A1D /* IntersitialViewControllers */,
 				60C67B1320741589003A7A1D /* NativeViewControllers */,
 				60C67B0B20741589003A7A1D /* VideoViewControllers */,
-				60C67B0E20741589003A7A1D /* PBSettingsViewController.h */,
-				60C67B0A20741589003A7A1D /* PBSettingsViewController.m */,
 				F54847D020867D7500D109A0 /* PBVPrebidSDKValidator.m */,
 				F54847D320867D8A00D109A0 /* PBVPrebidSDKValidator.h */,
 			);
@@ -1518,7 +1510,6 @@
 				60C67ACC2073F89D003A7A1D /* MOPUBNativeVideoCustomEvent.m in Sources */,
 				60C67A712073F89C003A7A1D /* MPMRAIDBannerCustomEvent.m in Sources */,
 				60C67A992073F89D003A7A1D /* MPVASTModel.m in Sources */,
-				60C67B1820741589003A7A1D /* PBSettingsViewController.m in Sources */,
 				60C67A912073F89C003A7A1D /* NSHTTPURLResponse+MPAdditions.m in Sources */,
 				60C67A4D2073F89C003A7A1D /* MPInterstitialViewController.m in Sources */,
 				60C67A672073F89C003A7A1D /* MPClosableView.m in Sources */,

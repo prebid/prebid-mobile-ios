@@ -20,14 +20,18 @@
 #import "BannerTestsViewController.h"
 #import <WebKit/WebKit.h>
 #import "MPInterstitialAdController.h"
+#import "InterstitialTestsViewController.h"
+#import <GoogleMobileAds/DFPBannerView.h>
+#import <GoogleMobileAds/GADBannerView.h>
 
 @interface PBVPrebidSDKValidator() <CLLocationManagerDelegate,
                                     MPAdViewDelegate,
-                                    MPInterstitialAdControllerDelegate>
+                                    MPInterstitialAdControllerDelegate,
+                                    GADBannerViewDelegate>
 @property (nonatomic, readwrite) CLLocationManager *locationManager;
 @property MPAdView *mopubAdView;
 @property MPInterstitialAdController *mopubInterstitial;
-@property void (^testResult)(Boolean);
+@property DFPBannerView *dfpAdView;
 @end
 
 @implementation PBVPrebidSDKValidator
@@ -112,14 +116,22 @@
 
 - (UIViewController *)getViewController
 {
+    NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
+    NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
-    NSDictionary *settings = @{kAdServer : @"MoPub",
-                               kPlacementId : adUnitID,
+    NSDictionary *settings = @{kAdServer : adServerName,
+                               kAdUnitIdKey : adUnitID,
                                kSize : adSizeString};
-    UIViewController *vcToShow = [[BannerTestsViewController alloc] initWithSettings:settings];
+    UIViewController *vcToShow;
+    if ([adFormatName isEqualToString:kBanner]) {
+        vcToShow= [[BannerTestsViewController alloc] initWithSettings:settings];
+    } else {
+        vcToShow = [[InterstitialTestsViewController alloc] initWithSettings:settings];
+    }
     return vcToShow;
 }
+
 -(void)startTest
 {
     NSLog(@"Start creating MoPub ad view..");
@@ -152,28 +164,49 @@
             }];
         }
             
-    } else {
-        
+    } else if ([adServerName isEqualToString:kDFPString]) {
+        if ([adFormatName isEqualToString:kBanner]) {
+            _dfpAdView = [[DFPBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(width, height))];
+            _dfpAdView.adUnitID = adUnitID;
+            _dfpAdView.delegate = self;
+            _dfpAdView.rootViewController = (UIViewController *)_delegate;
+            [PrebidMobile setBidKeywordsOnAdObject:_dfpAdView withAdUnitId:adUnitID withTimeout:600 completionHandler:^{
+                [_dfpAdView loadRequest:[DFPRequest request]];
+            }];
+        } else if([adFormatName isEqualToString:kInterstitial]){
+            
+        }
     }
 }
+#pragma mark - DFP delegate
+- (void)adViewDidReceiveAd:(GADBannerView *)bannerView
+{
+    for (UIView *level1 in bannerView.subviews){
+        NSArray *level2s = level1.subviews;
+        for(UIView *level2 in level2s){
+            for (UIView *level3 in level2.subviews){
+                if([level3 isKindOfClass:[UIWebView class]])
+                {
+                    UIWebView *WV = (UIWebView *)level3;
+                  [_delegate testDidPass];
+                    return;
+                }
+            }
+        }
+    }
+    [_delegate testDidFail];
+}
 
-#pragma mark - MoPubAdView delegate
+- (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
+{
+    [_delegate testDidFail];
+}
+
+
+#pragma mark - MoPub delegate
 - (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
 {
-    [interstitial showFromViewController:[self getViewController]];
-    //    for(UIView *i in interstitial.view.subviews){
-//        if([i isKindOfClass:[MPWebView class]]){
-//            MPWebView *wv = (MPWebView *) i;
-//            [wv evaluateJavaScript:@"document.body.innerHTML" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-//                NSString *content= (NSString *)result;
-//                if ([content containsString:@"prebid/pbm.js"]) {
-//                    [_delegate testDidPass];
-//                    return;
-//                }
-//            }];
-//        }
-//    }
-//    [_delegate testDidFail];
+     [_delegate testDidPass]; // Unable to get the ad before acutally showing it, pass for all ad oaded cases
 }
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial

@@ -8,7 +8,6 @@
 
 #import "ListViewController.h"
 #import "LineItemsTabController.h"
-#import "PBSettingsViewController.h"
 #import "PBVTableViewCell.h"
 #import "PBVSharedConstants.h"
 #import "LineItemKeywordsManager.h"
@@ -163,7 +162,7 @@
         [self.navigationController pushViewController:lineItemsTabController animated:YES];
     } if(indexPath.row == 2){
         UIViewController *controller = [_validator3 getViewController];
-        
+    
         [self.navigationController pushViewController:controller animated:YES];
     } if(indexPath.row == 1){
         PBVPrebidServerConfigViewController *pbServerConfigController =

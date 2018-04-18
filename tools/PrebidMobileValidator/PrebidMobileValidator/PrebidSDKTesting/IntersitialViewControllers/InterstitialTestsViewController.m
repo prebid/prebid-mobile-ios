@@ -38,21 +38,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     NSString *adServer = [self.settings objectForKey:kAdServer];
     self.title = [adServer stringByAppendingString:@" Interstitial"];
-
+    NSString *adUnitId = [self.settings objectForKey:kAdUnitIdKey];
     if ([adServer isEqualToString:kMoPubAdServer]) {
-        _moPubInterstitial = [MPInterstitialAdController  interstitialAdControllerForAdUnitId:kMoPubInterstitialAdUnitId];
+        _moPubInterstitial = [MPInterstitialAdController  interstitialAdControllerForAdUnitId:adUnitId];
         _moPubInterstitial.delegate = self;
-        [PrebidMobile setBidKeywordsOnAdObject:self.moPubInterstitial withAdUnitId:kAdUnit2Id withTimeout:600 completionHandler:^{
+        [PrebidMobile setBidKeywordsOnAdObject:self.moPubInterstitial withAdUnitId:adUnitId withTimeout:600 completionHandler:^{
             [self.moPubInterstitial loadAd];
         }];
     }
     else if ([adServer isEqualToString:kDFPAdServer]) {
-        self.dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:kDFPInterstitialAdUnitId];
+        self.dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:adUnitId];
         self.dfpInterstitial.delegate = self;
     
-        [PrebidMobile setBidKeywordsOnAdObject:self.dfpInterstitial withAdUnitId:kAdUnit2Id withTimeout:600 completionHandler:^{
+        [PrebidMobile setBidKeywordsOnAdObject:self.dfpInterstitial withAdUnitId:adUnitId withTimeout:600 completionHandler:^{
             [self.dfpInterstitial loadRequest:[DFPRequest request]];
         }];
     }
