@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 
-@interface PCKeywordsManager : NSObject
+@interface LineItemKeywordsManager : NSObject
 
 /**
  * this method provides the list of keywords that pricecheck will pass values by default

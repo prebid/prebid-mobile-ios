@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		605A56C420768B7800E92376 /* LineItemsTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 605A56C320768B7700E92376 /* LineItemsTabController.m */; };
-		605A56C92076A27B00E92376 /* LogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 605A56C82076A27B00E92376 /* LogsViewController.m */; };
+		605A56C92076A27B00E92376 /* LineItemLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 605A56C82076A27B00E92376 /* LineItemLogViewController.m */; };
 		605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605A56CA2076C89A00E92376 /* MessageUI.framework */; };
 		6062804F207FAF31003C5F2A /* PBVTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6062804D207FAF31003C5F2A /* PBVTableViewCell.m */; };
 		60628050207FAF31003C5F2A /* PBVTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6062804E207FAF31003C5F2A /* PBVTableViewCell.xib */; };
@@ -19,7 +19,8 @@
 		60C678922073D7B0003A7A1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678912073D7B0003A7A1D /* main.m */; };
 		60C6789A2073D831003A7A1D /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678992073D831003A7A1D /* ListViewController.m */; };
 		60C678A92073F7D3003A7A1D /* LineItemAdsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678A32073F7D3003A7A1D /* LineItemAdsViewController.m */; };
-		60C678AB2073F7D3003A7A1D /* PCKeywordsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678A82073F7D3003A7A1D /* PCKeywordsManager.m */; };
+		60C678AA2073F7D3003A7A1D /* LineItemsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678A62073F7D3003A7A1D /* LineItemsConstants.m */; };
+		60C678AB2073F7D3003A7A1D /* LineItemKeywordsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678A82073F7D3003A7A1D /* LineItemKeywordsManager.m */; };
 		60C678AE2073F879003A7A1D /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60C678AD2073F879003A7A1D /* GoogleMobileAds.framework */; };
 		60C67A2E2073F89C003A7A1D /* MPAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678B12073F89C003A7A1D /* MPAdView.m */; };
 		60C67A2F2073F89C003A7A1D /* MPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678B52073F89C003A7A1D /* MPConstants.m */; };
@@ -219,6 +220,7 @@
 		60C67B1A20741589003A7A1D /* InterstitialTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B1020741589003A7A1D /* InterstitialTestsViewController.m */; };
 		60C67B1B20741589003A7A1D /* NativeTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B1420741589003A7A1D /* NativeTestsViewController.m */; };
 		60C67B4620766FC1003A7A1D /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60C67B4120766F51003A7A1D /* PrebidMobile.framework */; };
+		60CEC0312086500400CA104B /* LineItemURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CEC0302086500400CA104B /* LineItemURLProtocol.m */; };
 		F54847BA2080FDB100D109A0 /* PBVPBSRequestResponseValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847B92080FDB100D109A0 /* PBVPBSRequestResponseValidator.m */; };
 		F54847C92081223900D109A0 /* PBVSharedConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847C82081223900D109A0 /* PBVSharedConstants.m */; };
 		F54847D120867D7500D109A0 /* PBVPrebidSDKValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847D020867D7500D109A0 /* PBVPrebidSDKValidator.m */; };
@@ -252,8 +254,8 @@
 /* Begin PBXFileReference section */
 		605A56C220768B7700E92376 /* LineItemsTabController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineItemsTabController.h; sourceTree = "<group>"; };
 		605A56C320768B7700E92376 /* LineItemsTabController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineItemsTabController.m; sourceTree = "<group>"; };
-		605A56C72076A27B00E92376 /* LogsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogsViewController.h; sourceTree = "<group>"; };
-		605A56C82076A27B00E92376 /* LogsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogsViewController.m; sourceTree = "<group>"; };
+		605A56C72076A27B00E92376 /* LineItemLogViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineItemLogViewController.h; sourceTree = "<group>"; };
+		605A56C82076A27B00E92376 /* LineItemLogViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineItemLogViewController.m; sourceTree = "<group>"; };
 		605A56CA2076C89A00E92376 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		6062804C207FAF31003C5F2A /* PBVTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVTableViewCell.h; sourceTree = "<group>"; };
 		6062804D207FAF31003C5F2A /* PBVTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBVTableViewCell.m; sourceTree = "<group>"; };
@@ -269,9 +271,11 @@
 		60C678982073D831003A7A1D /* ListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		60C678992073D831003A7A1D /* ListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		60C678A32073F7D3003A7A1D /* LineItemAdsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineItemAdsViewController.m; sourceTree = "<group>"; };
-		60C678A42073F7D3003A7A1D /* PCKeywordsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKeywordsManager.h; sourceTree = "<group>"; };
+		60C678A42073F7D3003A7A1D /* LineItemKeywordsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineItemKeywordsManager.h; sourceTree = "<group>"; };
+		60C678A52073F7D3003A7A1D /* LineItemsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineItemsConstants.h; sourceTree = "<group>"; };
+		60C678A62073F7D3003A7A1D /* LineItemsConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineItemsConstants.m; sourceTree = "<group>"; };
 		60C678A72073F7D3003A7A1D /* LineItemAdsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineItemAdsViewController.h; sourceTree = "<group>"; };
-		60C678A82073F7D3003A7A1D /* PCKeywordsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCKeywordsManager.m; sourceTree = "<group>"; };
+		60C678A82073F7D3003A7A1D /* LineItemKeywordsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineItemKeywordsManager.m; sourceTree = "<group>"; };
 		60C678AD2073F879003A7A1D /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		60C678B02073F89C003A7A1D /* MPBannerCustomEventDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBannerCustomEventDelegate.h; sourceTree = "<group>"; };
 		60C678B12073F89C003A7A1D /* MPAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAdView.m; sourceTree = "<group>"; };
@@ -669,6 +673,8 @@
 		60C67B1420741589003A7A1D /* NativeTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeTestsViewController.m; sourceTree = "<group>"; };
 		60C67B1520741589003A7A1D /* NativeTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeTestsViewController.h; sourceTree = "<group>"; };
 		60C67B3B20766F51003A7A1D /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../sdk/PrebidMobile.xcodeproj; sourceTree = "<group>"; };
+		60CEC02F2086500400CA104B /* LineItemURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineItemURLProtocol.h; sourceTree = "<group>"; };
+		60CEC0302086500400CA104B /* LineItemURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineItemURLProtocol.m; sourceTree = "<group>"; };
 		F54847B92080FDB100D109A0 /* PBVPBSRequestResponseValidator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBVPBSRequestResponseValidator.m; sourceTree = "<group>"; };
 		F54847BE2080FE3200D109A0 /* PBVPBSRequestResponseValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVPBSRequestResponseValidator.h; sourceTree = "<group>"; };
 		F54847C620811BB300D109A0 /* PBVSharedConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVSharedConstants.h; sourceTree = "<group>"; };
@@ -743,12 +749,14 @@
 			children = (
 				60C678A72073F7D3003A7A1D /* LineItemAdsViewController.h */,
 				60C678A32073F7D3003A7A1D /* LineItemAdsViewController.m */,
-				60C678A42073F7D3003A7A1D /* PCKeywordsManager.h */,
-				60C678A82073F7D3003A7A1D /* PCKeywordsManager.m */,
+				60C678A42073F7D3003A7A1D /* LineItemKeywordsManager.h */,
+				60C678A82073F7D3003A7A1D /* LineItemKeywordsManager.m */,
 				605A56C220768B7700E92376 /* LineItemsTabController.h */,
 				605A56C320768B7700E92376 /* LineItemsTabController.m */,
-				605A56C72076A27B00E92376 /* LogsViewController.h */,
-				605A56C82076A27B00E92376 /* LogsViewController.m */,
+				605A56C72076A27B00E92376 /* LineItemLogViewController.h */,
+				605A56C82076A27B00E92376 /* LineItemLogViewController.m */,
+				60CEC02F2086500400CA104B /* LineItemURLProtocol.h */,
+				60CEC0302086500400CA104B /* LineItemURLProtocol.m */,
 			);
 			path = LineItemsTesting;
 			sourceTree = "<group>";
@@ -1501,6 +1509,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60CEC0312086500400CA104B /* LineItemURLProtocol.m in Sources */,
 				60C67A4A2073F89C003A7A1D /* MPRetryingHTTPOperation.m in Sources */,
 				60C67AD92073F89D003A7A1D /* MPRewardedVideoAdManager.m in Sources */,
 				60C67ADF2073F89D003A7A1D /* MPRewardedVideoCustomEvent.m in Sources */,
@@ -1529,7 +1538,7 @@
 				60C67AAB2073F89D003A7A1D /* MPStaticNativeAdRendererSettings.m in Sources */,
 				60C67A772073F89C003A7A1D /* MPMRAIDInterstitialViewController.m in Sources */,
 				60C678922073D7B0003A7A1D /* main.m in Sources */,
-				605A56C92076A27B00E92376 /* LogsViewController.m in Sources */,
+				605A56C92076A27B00E92376 /* LineItemLogViewController.m in Sources */,
 				60C67A8B2073F89C003A7A1D /* MPError.m in Sources */,
 				60C67A2F2073F89C003A7A1D /* MPConstants.m in Sources */,
 				60C67A632073F89C003A7A1D /* MPProgressOverlayView.m in Sources */,
@@ -1593,7 +1602,7 @@
 				60C67A522073F89C003A7A1D /* MPHTMLInterstitialViewController.m in Sources */,
 				60C67AFE20740524003A7A1D /* ActionSheetDistancePicker.m in Sources */,
 				60C67A862073F89C003A7A1D /* MPReachability.m in Sources */,
-				60C678AB2073F7D3003A7A1D /* PCKeywordsManager.m in Sources */,
+				60C678AB2073F7D3003A7A1D /* LineItemKeywordsManager.m in Sources */,
 				60C67A962073F89D003A7A1D /* MPVASTMediaFile.m in Sources */,
 				60C67AA32073F89D003A7A1D /* MPVASTResponse.m in Sources */,
 				60C67AB92073F89D003A7A1D /* MPStaticNativeAdImpressionTimer.m in Sources */,
