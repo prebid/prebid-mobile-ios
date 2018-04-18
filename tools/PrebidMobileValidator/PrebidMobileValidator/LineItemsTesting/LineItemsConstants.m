@@ -26,3 +26,18 @@ NSString *__nonnull const kInterstitialString = @"Interstitial";
 NSString *__nonnull const kBannerSizeString = @"320x50";
 NSString *__nonnull const kMediumRectangleSizeString = @"300x250";
 NSString *__nonnull const kInterstitialSizeString = @"320x480";
+
+@implementation LineItemsConstants
+
++ (instancetype)sharedInstance {
+    static id instance;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[[self class] alloc] init];
+    });
+    
+    return instance;
+}
+
+@end

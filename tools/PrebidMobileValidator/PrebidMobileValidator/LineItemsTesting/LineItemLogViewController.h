@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LogsViewController : UIViewController
+@interface LineItemLogViewController : UIViewController
 
 @end

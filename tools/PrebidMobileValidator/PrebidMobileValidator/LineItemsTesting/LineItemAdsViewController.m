@@ -8,29 +8,13 @@
 
 @import GoogleMobileAds;
 
-//#import <ChameleonFramework/Chameleon.h>
-
 #import "LineItemAdsViewController.h"
-
+#import "LineItemsConstants.h"
 #import "MPAdView.h"
 #import "MPInterstitialAdController.h"
 
-#import "PCKeywordsManager.h"
+#import "LineItemKeywordsManager.h"
 #import "LineItemsConstants.h"
-
-static CGFloat const kBannerSizeWidth = 320.0f;
-static CGFloat const kBannerSizeHeight = 50.0f;
-static CGFloat const kMediumRectangleSizeWidth = 300.0f;
-static CGFloat const kMediumRectangleSizeHeight = 250.0f;
-static CGFloat const kInterstitialSizeWidth = 320.0f;
-static CGFloat const kInterstitialSizeHeight = 480.0f;
-
-static CGFloat const kAdLocationY = 30.0f;
-static CGFloat const kAdLabelLocationX = 10.0f;
-static CGFloat const kAdLabelLocationY = 5.0f;
-static CGFloat const kAdTitleLabelHeight = 20.0f;
-static CGFloat const kAdFailedLabelHeight = 50.0f;
-static CGFloat const kAdMargin = 10.0f;
 
 @interface LineItemAdsViewController () <MPAdViewDelegate,
                                          MPInterstitialAdControllerDelegate,
@@ -112,7 +96,7 @@ static CGFloat const kAdMargin = 10.0f;
      * Then request the ad server (MoPub or DFP) for the ad format (Banner or Insterstitial)
      */
     for (NSString *bidPrice in self.bidPrices) {
-        self.keywordsDictionary = [PCKeywordsManager keywordsWithBidPrice:[bidPrice doubleValue]];
+        self.keywordsDictionary = [LineItemKeywordsManager keywordsWithBidPrice:[bidPrice doubleValue]];
         
         if (self.isMoPub && self.isBanner) {
             [self testMoPubBannerAdViewWithAdUnitID:adUnitID adSize:self.adSize andKeywords:[self formatKeywordsForMoPub]];
@@ -214,7 +198,7 @@ static CGFloat const kAdMargin = 10.0f;
     NSString *cellText = cell.textLabel.text;
     NSRange range = [cellText rangeOfString:@"$"];
     NSString *bidPrice = [cellText substringFromIndex:range.location + 1];
-    self.keywordsDictionary = [PCKeywordsManager keywordsWithBidPrice:[bidPrice doubleValue]];
+    self.keywordsDictionary = [LineItemKeywordsManager keywordsWithBidPrice:[bidPrice doubleValue]];
     self.interstitial.keywords = [self formatKeywordsForMoPub];
     [self.interstitial loadAd];
 }

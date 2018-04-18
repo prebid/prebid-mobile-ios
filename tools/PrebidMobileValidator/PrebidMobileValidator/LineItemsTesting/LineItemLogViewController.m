@@ -6,17 +6,31 @@
 //  Copyright © 2018 AppNexus. All rights reserved.
 //
 
-#import "LogsViewController.h"
+#import "LineItemLogViewController.h"
+#import "LineItemsConstants.h"
 
-@interface LogsViewController ()
+@interface LineItemLogViewController ()
 
 @end
 
-@implementation LogsViewController
+@implementation LineItemLogViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.title = @"Line items";
+    
+    
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    
+    NSLog(@"Punnaghai request %@", [[LineItemsConstants sharedInstance] requestString]);
+    
 }
 
 - (void)didReceiveMemoryWarning {

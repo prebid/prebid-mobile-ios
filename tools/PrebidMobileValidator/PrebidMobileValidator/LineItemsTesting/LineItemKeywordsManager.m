@@ -6,20 +6,20 @@
 //  Copyright © 2016 Nicole Hedley. All rights reserved.
 //
 
-#import "PCKeywordsManager.h"
+#import "LineItemKeywordsManager.h"
 
-NSString *__nonnull const PCKeywordsManagerPriceKey = @"hb_pb";
+NSString *__nonnull const KeywordsManagerPriceKey = @"hb_pb";
 
-CGFloat const PCKeywordsManagerPriceFiftyCentsRange = 0.50f;
+CGFloat const KeywordsManagerPriceFiftyCentsRange = 0.50f;
 
-@implementation PCKeywordsManager
+@implementation LineItemKeywordsManager
 
 + (NSDictionary<NSString *, NSString *> *)keywordsWithBidPrice:(double)bidPrice {
     NSMutableDictionary *keywords = [[NSMutableDictionary alloc] init];
     
-    keywords[PCKeywordsManagerPriceKey] =
+    keywords[KeywordsManagerPriceKey] =
     [self formatValue:bidPrice
-              toRange:PCKeywordsManagerPriceFiftyCentsRange];
+              toRange:KeywordsManagerPriceFiftyCentsRange];
     
     return (keywords);
 }
@@ -44,7 +44,7 @@ CGFloat const PCKeywordsManagerPriceFiftyCentsRange = 0.50f;
     static dispatch_once_t reservedKeysToken;
     static NSArray *keys;
     dispatch_once(&reservedKeysToken, ^{
-        keys = @[PCKeywordsManagerPriceKey];
+        keys = @[KeywordsManagerPriceKey];
     });
     return keys;
 }
