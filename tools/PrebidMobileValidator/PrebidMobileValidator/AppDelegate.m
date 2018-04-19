@@ -8,17 +8,11 @@
 
 #import "AppDelegate.h"
 
-#import <PrebidMobile/PBBannerAdUnit.h>
-#import <PrebidMobile/PBException.h>
-#import <PrebidMobile/PBInterstitialAdUnit.h>
-#import <PrebidMobile/PBTargetingParams.h>
-#import <PrebidMobile/PrebidMobile.h>
-#import <PrebidMobile/PBLogging.h>
-#import "PrebidConstants.h"
+
 
 @interface AppDelegate ()
 
-@property (nonatomic, readwrite) CLLocationManager *locationManager;
+
 
 @end
 
@@ -27,13 +21,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [self enablePrebidLogs];
-    
     return YES;
-}
-
-- (void)enablePrebidLogs {
-    [PBLogManager setPBLogLevel:PBLogLevelAll];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

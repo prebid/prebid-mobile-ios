@@ -214,9 +214,7 @@
 		60C67B0220740524003A7A1D /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67AF620740524003A7A1D /* DistancePickerView.m */; };
 		60C67B0320740524003A7A1D /* ActionSheetMultipleStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67AF720740524003A7A1D /* ActionSheetMultipleStringPicker.m */; };
 		60C67B0420740524003A7A1D /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67AF820740524003A7A1D /* AbstractActionSheetPicker.m */; };
-		60C67B1620741589003A7A1D /* PrebidConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B0620741589003A7A1D /* PrebidConstants.m */; };
 		60C67B1720741589003A7A1D /* BannerTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B0820741589003A7A1D /* BannerTestsViewController.m */; };
-		60C67B1820741589003A7A1D /* PBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B0A20741589003A7A1D /* PBSettingsViewController.m */; };
 		60C67B1920741589003A7A1D /* VideoTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B0D20741589003A7A1D /* VideoTestsViewController.m */; };
 		60C67B1A20741589003A7A1D /* InterstitialTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B1020741589003A7A1D /* InterstitialTestsViewController.m */; };
 		60C67B1B20741589003A7A1D /* NativeTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B1420741589003A7A1D /* NativeTestsViewController.m */; };
@@ -224,6 +222,12 @@
 		60CEC0312086500400CA104B /* LineItemURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CEC0302086500400CA104B /* LineItemURLProtocol.m */; };
 		F54847BA2080FDB100D109A0 /* PBVPBSRequestResponseValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847B92080FDB100D109A0 /* PBVPBSRequestResponseValidator.m */; };
 		F54847C92081223900D109A0 /* PBVSharedConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847C82081223900D109A0 /* PBVSharedConstants.m */; };
+		F54847D120867D7500D109A0 /* PBVPrebidSDKValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847D020867D7500D109A0 /* PBVPrebidSDKValidator.m */; };
+		F54847E4208806E100D109A0 /* QRToggleTorchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847DA208806E100D109A0 /* QRToggleTorchButton.m */; };
+		F54847E5208806E100D109A0 /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847DC208806E100D109A0 /* QRCameraSwitchButton.m */; };
+		F54847E6208806E100D109A0 /* QRCodeReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847DE208806E100D109A0 /* QRCodeReaderViewController.m */; };
+		F54847E7208806E100D109A0 /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847DF208806E100D109A0 /* QRCodeReaderView.m */; };
+		F54847E8208806E100D109A0 /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847E3208806E100D109A0 /* QRCodeReader.m */; };
 		F592196B207FF0EF00F117C0 /* PBVPrebidServerConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F592196A207FF0EF00F117C0 /* PBVPrebidServerConfigViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -662,16 +666,12 @@
 		60C67AF920740524003A7A1D /* ActionSheetLocalePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetLocalePicker.h; sourceTree = "<group>"; };
 		60C67AFA20740524003A7A1D /* ActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetPicker.h; sourceTree = "<group>"; };
 		60C67AFB20740524003A7A1D /* ActionSheetDistancePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDistancePicker.h; sourceTree = "<group>"; };
-		60C67B0620741589003A7A1D /* PrebidConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidConstants.m; sourceTree = "<group>"; };
 		60C67B0820741589003A7A1D /* BannerTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerTestsViewController.m; sourceTree = "<group>"; };
 		60C67B0920741589003A7A1D /* BannerTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerTestsViewController.h; sourceTree = "<group>"; };
-		60C67B0A20741589003A7A1D /* PBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSettingsViewController.m; sourceTree = "<group>"; };
 		60C67B0C20741589003A7A1D /* VideoTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTestsViewController.h; sourceTree = "<group>"; };
 		60C67B0D20741589003A7A1D /* VideoTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTestsViewController.m; sourceTree = "<group>"; };
-		60C67B0E20741589003A7A1D /* PBSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSettingsViewController.h; sourceTree = "<group>"; };
 		60C67B1020741589003A7A1D /* InterstitialTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterstitialTestsViewController.m; sourceTree = "<group>"; };
 		60C67B1120741589003A7A1D /* InterstitialTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterstitialTestsViewController.h; sourceTree = "<group>"; };
-		60C67B1220741589003A7A1D /* PrebidConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidConstants.h; sourceTree = "<group>"; };
 		60C67B1420741589003A7A1D /* NativeTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeTestsViewController.m; sourceTree = "<group>"; };
 		60C67B1520741589003A7A1D /* NativeTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeTestsViewController.h; sourceTree = "<group>"; };
 		60C67B3B20766F51003A7A1D /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../sdk/PrebidMobile.xcodeproj; sourceTree = "<group>"; };
@@ -681,6 +681,19 @@
 		F54847BE2080FE3200D109A0 /* PBVPBSRequestResponseValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVPBSRequestResponseValidator.h; sourceTree = "<group>"; };
 		F54847C620811BB300D109A0 /* PBVSharedConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVSharedConstants.h; sourceTree = "<group>"; };
 		F54847C82081223900D109A0 /* PBVSharedConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBVSharedConstants.m; sourceTree = "<group>"; };
+		F54847D020867D7500D109A0 /* PBVPrebidSDKValidator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBVPrebidSDKValidator.m; sourceTree = "<group>"; };
+		F54847D320867D8A00D109A0 /* PBVPrebidSDKValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVPrebidSDKValidator.h; sourceTree = "<group>"; };
+		F54847D9208806E100D109A0 /* QRCodeReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeReaderView.h; sourceTree = "<group>"; };
+		F54847DA208806E100D109A0 /* QRToggleTorchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRToggleTorchButton.m; sourceTree = "<group>"; };
+		F54847DB208806E100D109A0 /* QRCodeReaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeReaderDelegate.h; sourceTree = "<group>"; };
+		F54847DC208806E100D109A0 /* QRCameraSwitchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCameraSwitchButton.m; sourceTree = "<group>"; };
+		F54847DD208806E100D109A0 /* QRCodeReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeReader.h; sourceTree = "<group>"; };
+		F54847DE208806E100D109A0 /* QRCodeReaderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeReaderViewController.m; sourceTree = "<group>"; };
+		F54847DF208806E100D109A0 /* QRCodeReaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeReaderView.m; sourceTree = "<group>"; };
+		F54847E0208806E100D109A0 /* QRToggleTorchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRToggleTorchButton.h; sourceTree = "<group>"; };
+		F54847E1208806E100D109A0 /* QRCameraSwitchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCameraSwitchButton.h; sourceTree = "<group>"; };
+		F54847E2208806E100D109A0 /* QRCodeReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeReaderViewController.h; sourceTree = "<group>"; };
+		F54847E3208806E100D109A0 /* QRCodeReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeReader.m; sourceTree = "<group>"; };
 		F592196A207FF0EF00F117C0 /* PBVPrebidServerConfigViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBVPrebidServerConfigViewController.m; sourceTree = "<group>"; };
 		F592196C207FF0FD00F117C0 /* PBVPrebidServerConfigViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVPrebidServerConfigViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -720,26 +733,27 @@
 		60C678812073D7B0003A7A1D /* PrebidMobileValidator */ = {
 			isa = PBXGroup;
 			children = (
-				6062804C207FAF31003C5F2A /* PBVTableViewCell.h */,
-				6062804D207FAF31003C5F2A /* PBVTableViewCell.m */,
-				6062804E207FAF31003C5F2A /* PBVTableViewCell.xib */,
-				60C67AE42074001B003A7A1D /* SettingsViewController.h */,
-				60C67AE52074001B003A7A1D /* SettingsViewController.m */,
-				60C67AE720740524003A7A1D /* Pickers */,
-				60C678A22073F794003A7A1D /* PrebidSDKTesting */,
-				F5921968207FEFEA00F117C0 /* PrebidServerConfigTesting */,
+				60C678822073D7B0003A7A1D /* AppDelegate.h */,
+				60C678832073D7B0003A7A1D /* AppDelegate.m */,
+				60C6788B2073D7B0003A7A1D /* Assets.xcassets */,
+				60C678902073D7B0003A7A1D /* Info.plist */,
+				60C6788D2073D7B0003A7A1D /* LaunchScreen.storyboard */,
 				60C678A12073F788003A7A1D /* LineItemsTesting */,
 				60C678982073D831003A7A1D /* ListViewController.h */,
 				60C678992073D831003A7A1D /* ListViewController.m */,
-				60C678822073D7B0003A7A1D /* AppDelegate.h */,
-				60C678832073D7B0003A7A1D /* AppDelegate.m */,
-				60C678882073D7B0003A7A1D /* Main.storyboard */,
-				60C6788B2073D7B0003A7A1D /* Assets.xcassets */,
-				60C6788D2073D7B0003A7A1D /* LaunchScreen.storyboard */,
-				60C678902073D7B0003A7A1D /* Info.plist */,
 				60C678912073D7B0003A7A1D /* main.m */,
+				60C678882073D7B0003A7A1D /* Main.storyboard */,
 				F54847C620811BB300D109A0 /* PBVSharedConstants.h */,
 				F54847C82081223900D109A0 /* PBVSharedConstants.m */,
+				6062804C207FAF31003C5F2A /* PBVTableViewCell.h */,
+				6062804D207FAF31003C5F2A /* PBVTableViewCell.m */,
+				6062804E207FAF31003C5F2A /* PBVTableViewCell.xib */,
+				60C67AE720740524003A7A1D /* Pickers */,
+				60C678A22073F794003A7A1D /* PrebidSDKTesting */,
+				F5921968207FEFEA00F117C0 /* PrebidServerConfigTesting */,
+				F54847D8208806E100D109A0 /* QRCodeReaderViewController */,
+				60C67AE42074001B003A7A1D /* SettingsViewController.h */,
+				60C67AE52074001B003A7A1D /* SettingsViewController.m */,
 			);
 			path = PrebidMobileValidator;
 			sourceTree = "<group>";
@@ -767,13 +781,11 @@
 			isa = PBXGroup;
 			children = (
 				60C67B0720741589003A7A1D /* BannerViewControllers */,
-				60C67B1220741589003A7A1D /* PrebidConstants.h */,
-				60C67B0620741589003A7A1D /* PrebidConstants.m */,
 				60C67B0F20741589003A7A1D /* IntersitialViewControllers */,
 				60C67B1320741589003A7A1D /* NativeViewControllers */,
-				60C67B0E20741589003A7A1D /* PBSettingsViewController.h */,
-				60C67B0A20741589003A7A1D /* PBSettingsViewController.m */,
 				60C67B0B20741589003A7A1D /* VideoViewControllers */,
+				F54847D020867D7500D109A0 /* PBVPrebidSDKValidator.m */,
+				F54847D320867D8A00D109A0 /* PBVPrebidSDKValidator.h */,
 			);
 			path = PrebidSDKTesting;
 			sourceTree = "<group>";
@@ -1358,8 +1370,8 @@
 		60C67B0F20741589003A7A1D /* IntersitialViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				60C67B1020741589003A7A1D /* InterstitialTestsViewController.m */,
 				60C67B1120741589003A7A1D /* InterstitialTestsViewController.h */,
+				60C67B1020741589003A7A1D /* InterstitialTestsViewController.m */,
 			);
 			path = IntersitialViewControllers;
 			sourceTree = "<group>";
@@ -1380,6 +1392,24 @@
 				60C67B4320766F51003A7A1D /* PrebidMobileTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F54847D8208806E100D109A0 /* QRCodeReaderViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F54847E1208806E100D109A0 /* QRCameraSwitchButton.h */,
+				F54847DC208806E100D109A0 /* QRCameraSwitchButton.m */,
+				F54847DD208806E100D109A0 /* QRCodeReader.h */,
+				F54847E3208806E100D109A0 /* QRCodeReader.m */,
+				F54847DB208806E100D109A0 /* QRCodeReaderDelegate.h */,
+				F54847D9208806E100D109A0 /* QRCodeReaderView.h */,
+				F54847DF208806E100D109A0 /* QRCodeReaderView.m */,
+				F54847E2208806E100D109A0 /* QRCodeReaderViewController.h */,
+				F54847DE208806E100D109A0 /* QRCodeReaderViewController.m */,
+				F54847E0208806E100D109A0 /* QRToggleTorchButton.h */,
+				F54847DA208806E100D109A0 /* QRToggleTorchButton.m */,
+			);
+			path = QRCodeReaderViewController;
 			sourceTree = "<group>";
 		};
 		F5921968207FEFEA00F117C0 /* PrebidServerConfigTesting */ = {
@@ -1516,10 +1546,10 @@
 				60C67AD92073F89D003A7A1D /* MPRewardedVideoAdManager.m in Sources */,
 				60C67ADF2073F89D003A7A1D /* MPRewardedVideoCustomEvent.m in Sources */,
 				60C67A9A2073F89D003A7A1D /* MPVASTWrapper.m in Sources */,
+				F54847D120867D7500D109A0 /* PBVPrebidSDKValidator.m in Sources */,
 				60C67ACC2073F89D003A7A1D /* MOPUBNativeVideoCustomEvent.m in Sources */,
 				60C67A712073F89C003A7A1D /* MPMRAIDBannerCustomEvent.m in Sources */,
 				60C67A992073F89D003A7A1D /* MPVASTModel.m in Sources */,
-				60C67B1820741589003A7A1D /* PBSettingsViewController.m in Sources */,
 				60C67A912073F89C003A7A1D /* NSHTTPURLResponse+MPAdditions.m in Sources */,
 				60C67A4D2073F89C003A7A1D /* MPInterstitialViewController.m in Sources */,
 				60C67A672073F89C003A7A1D /* MPClosableView.m in Sources */,
@@ -1537,7 +1567,9 @@
 				60C67A6C2073F89C003A7A1D /* MPURLResolver.m in Sources */,
 				60C67AFC20740524003A7A1D /* ActionSheetDatePicker.m in Sources */,
 				60C67AAB2073F89D003A7A1D /* MPStaticNativeAdRendererSettings.m in Sources */,
+				F54847E8208806E100D109A0 /* QRCodeReader.m in Sources */,
 				60C67A772073F89C003A7A1D /* MPMRAIDInterstitialViewController.m in Sources */,
+				F54847E6208806E100D109A0 /* QRCodeReaderViewController.m in Sources */,
 				60C678922073D7B0003A7A1D /* main.m in Sources */,
 				605A56C92076A27B00E92376 /* LineItemLogViewController.m in Sources */,
 				60C67A8B2073F89C003A7A1D /* MPError.m in Sources */,
@@ -1600,7 +1632,6 @@
 				60C67AA52073F89D003A7A1D /* MPServerAdPositioning.m in Sources */,
 				6062804F207FAF31003C5F2A /* PBVTableViewCell.m in Sources */,
 				60C67ACD2073F89D003A7A1D /* MOPUBPlayerView.m in Sources */,
-				60C67B1620741589003A7A1D /* PrebidConstants.m in Sources */,
 				60C67ADE2073F89D003A7A1D /* MPRewardedVideoError.m in Sources */,
 				60C67A522073F89C003A7A1D /* MPHTMLInterstitialViewController.m in Sources */,
 				60C67AFE20740524003A7A1D /* ActionSheetDistancePicker.m in Sources */,
@@ -1637,13 +1668,16 @@
 				60C67AA82073F89D003A7A1D /* MPStreamAdPlacer.m in Sources */,
 				60C67ABE2073F89D003A7A1D /* MPMoPubNativeCustomEvent.m in Sources */,
 				60C67A7D2073F89C003A7A1D /* MRExpandModalViewController.m in Sources */,
+				F54847E5208806E100D109A0 /* QRCameraSwitchButton.m in Sources */,
 				60C67A922073F89C003A7A1D /* NSJSONSerialization+MPAdditions.m in Sources */,
+				F54847E4208806E100D109A0 /* QRToggleTorchButton.m in Sources */,
 				60C67AC12073F89D003A7A1D /* MPNativeAdConstants.m in Sources */,
 				60C67A792073F89C003A7A1D /* MPMRAIDInterstitialCustomEvent.m in Sources */,
 				60C67A512073F89C003A7A1D /* MPHTMLInterstitialCustomEvent.m in Sources */,
 				60C67ADA2073F89D003A7A1D /* MPRewardedVideoAdapter.m in Sources */,
 				F592196B207FF0EF00F117C0 /* PBVPrebidServerConfigViewController.m in Sources */,
 				60C67ABC2073F89D003A7A1D /* MPNativeView.m in Sources */,
+				F54847E7208806E100D109A0 /* QRCodeReaderView.m in Sources */,
 				60C67A682073F89C003A7A1D /* MPCountdownTimerView.m in Sources */,
 				60C67A8F2073F89C003A7A1D /* UIButton+MPAdditions.m in Sources */,
 				60C67AB72073F89D003A7A1D /* MPTableViewAdPlacerCell.m in Sources */,

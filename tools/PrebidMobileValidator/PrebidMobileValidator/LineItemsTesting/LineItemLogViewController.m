@@ -13,9 +13,8 @@
 
 @interface LineItemLogViewController () <MFMailComposeViewControllerDelegate>
 
-@property (nonatomic) UILabel *requestLabel;
-@property (nonatomic) UILabel *responseLabel;
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic) UITextView *requestLabel;
+@property (nonatomic) UITextView *responseLabel;
 
 @end
 
@@ -29,10 +28,6 @@
     
     self.parentViewController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Email" style:UIBarButtonItemStylePlain target:self action:@selector(sendEmail)];
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    self.scrollView.pagingEnabled = YES;
-    self.scrollView.scrollEnabled = YES;
-    [self.view addSubview:self.scrollView];
     
 }
 
@@ -43,27 +38,25 @@
     UILabel *requestText = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, self.view.frame.size.width-50, 20)];
     [requestText setText: @"Request"];
     [requestText setFont:[UIFont boldSystemFontOfSize:16]];
-    [self.scrollView addSubview: requestText];
+    [self.view addSubview: requestText];
     
-    self.requestLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 40, self.view.frame.size.width-50, 20)];
-    self.requestLabel.numberOfLines = 0;
-    self.requestLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.requestLabel = [[UITextView alloc] initWithFrame:CGRectMake(20, 40, self.view.frame.size.width-50, 20)];
     [self.requestLabel setText: [[PBVSharedConstants sharedInstance] requestString]];
     [self.requestLabel sizeToFit];
-    [self.scrollView addSubview: self.requestLabel];
+    [self.requestLabel setEditable:FALSE];
+    [self.view addSubview: self.requestLabel];
     
     
     UILabel *responseText = [[UILabel alloc] initWithFrame:CGRectMake(0, self.requestLabel.frame.size.height+self.requestLabel.frame.origin.y+20 , self.view.frame.size.width-50, 20)];
     [responseText setText: @"Response"];
     [responseText setFont:[UIFont boldSystemFontOfSize:16]];
-    [self.scrollView addSubview: responseText];
+    [self.view addSubview: responseText];
     
-    self.responseLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, responseText.frame.origin.y+20 , self.view.frame.size.width-50, 20)];
-    self.responseLabel.numberOfLines = 0;
-    self.responseLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    [self.responseLabel setText: [[PBVSharedConstants sharedInstance] responseString]];
+    self.responseLabel = [[UITextView alloc] initWithFrame:CGRectMake(20, responseText.frame.origin.y+20 , self.view.frame.size.width-50, 20)];
+    [self.responseLabel setText:[[PBVSharedConstants sharedInstance] responseString]];
     [self.responseLabel sizeToFit];
-    [self.scrollView addSubview: self.responseLabel];
+    [self.responseLabel setEditable:FALSE];
+    [self.view addSubview: self.responseLabel];
 }
 
 - (void)didReceiveMemoryWarning {

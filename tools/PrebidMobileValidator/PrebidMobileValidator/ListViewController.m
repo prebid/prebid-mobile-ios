@@ -8,19 +8,20 @@
 
 #import "ListViewController.h"
 #import "LineItemsTabController.h"
-#import "PBSettingsViewController.h"
 #import "PBVTableViewCell.h"
 #import "PBVSharedConstants.h"
 #import "PBVPrebidServerConfigViewController.h"
 #import "PBVPBSRequestResponseValidator.h"
+#import "PBVPrebidSDKValidator.h"
 
 #define CellReuseID @"ReuseCell"
 
-@interface ListViewController ()
+@interface ListViewController ()<PBVPrebidSDKValidatorDelegate>
 
 @property (strong, nonatomic) NSArray *items;
 
 @property PBVPBSRequestResponseValidator *validator2;
+@property PBVPrebidSDKValidator *validator3;
 @property UIRefreshControl *refreshControll;
 @end
 
@@ -46,7 +47,6 @@
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-
      _refreshControll = [[UIRefreshControl alloc]init];
     [self.tableView addSubview:_refreshControll];
     [_refreshControll addTarget:self action:@selector(refreshTests) forControlEvents:UIControlEventValueChanged];
@@ -78,6 +78,30 @@
             });
         }
     }];
+    _validator3 = [[PBVPrebidSDKValidator alloc] init];
+    _validator3.delegate = self;
+    [_validator3 startTest];
+    
+    
+}
+
+- (void)testDidPass
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSIndexPath *test3 = [NSIndexPath indexPathForRow:2 inSection:0] ;
+        PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test3];
+        cell.progressImage.image = [UIImage imageNamed:@"Green"];
+    });
+}
+
+- (void)testDidFail
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // add red icon to this app
+        NSIndexPath *test3 = [NSIndexPath indexPathForRow:2 inSection:0] ;
+        PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test3];
+        cell.progressImage.image = [UIImage imageNamed:@"Red"];
+    });
 }
 
 - (void)didReceiveMemoryWarning {
@@ -118,9 +142,9 @@
         
         [self.navigationController pushViewController:lineItemsTabController animated:YES];
     } if(indexPath.row == 2){
-        PBSettingsViewController *pbSettingsViewController = [[PBSettingsViewController alloc] init];
-        
-        [self.navigationController pushViewController:pbSettingsViewController animated:YES];
+        UIViewController *controller = [_validator3 getViewController];
+    
+        [self.navigationController pushViewController:controller animated:YES];
     } if(indexPath.row == 1){
         PBVPrebidServerConfigViewController *pbServerConfigController =
         [[PBVPrebidServerConfigViewController alloc]initWithValidator:_validator2];

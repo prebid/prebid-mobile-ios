@@ -14,7 +14,7 @@
  */
 
 #import "BannerTestsViewController.h"
-#import "PrebidConstants.h"
+#import "PBVSharedConstants.h"
 #import <GoogleMobileAds/DFPBannerView.h>
 #import "MPAdView.h"
 #import "PrebidMobile/PrebidMobile.h"
@@ -38,6 +38,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    // todo add see integration code button
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -59,7 +61,7 @@
         _mopubAdView.delegate = self;
         [_adContainerView addSubview:_mopubAdView];
         
-        [PrebidMobile setBidKeywordsOnAdObject:self.mopubAdView withAdUnitId:kAdUnit1Id withTimeout:600 completionHandler:^{
+        [PrebidMobile setBidKeywordsOnAdObject:self.mopubAdView withAdUnitId:kMoPubBannerAdUnitId withTimeout:600 completionHandler:^{
             [self.mopubAdView loadAd];
         }];
     } else if ([adServer isEqualToString:kDFPAdServer]) {
@@ -70,7 +72,7 @@
         
         [_adContainerView addSubview:_dfpAdView];
         
-        [PrebidMobile setBidKeywordsOnAdObject:_dfpAdView withAdUnitId:kAdUnit1Id withTimeout:600 completionHandler:^{
+        [PrebidMobile setBidKeywordsOnAdObject:_dfpAdView withAdUnitId:kDFPBannerAdUnitId withTimeout:600 completionHandler:^{
             [_dfpAdView loadRequest:[DFPRequest request]];
         }];
     }
@@ -96,6 +98,17 @@
 - (UIViewController *)viewControllerForPresentingModalView {
     return self;
 }
+
+- (void)adViewDidLoadAd:(MPAdView *)view
+{
+    NSLog(@"MoPub: ad load successful.");
+}
+
+- (void)adViewDidFailToLoadAd:(MPAdView *)view
+{
+    NSLog(@"MoPub: ad load failed.");
+}
+
 
 /*
 #pragma mark - Navigation
