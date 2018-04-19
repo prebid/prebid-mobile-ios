@@ -22,16 +22,18 @@
 #import "MPInterstitialAdController.h"
 #import "InterstitialTestsViewController.h"
 #import <GoogleMobileAds/DFPBannerView.h>
-#import <GoogleMobileAds/GADBannerView.h>
+#import <GoogleMobileAds/DFPInterstitial.h>
 
 @interface PBVPrebidSDKValidator() <CLLocationManagerDelegate,
                                     MPAdViewDelegate,
                                     MPInterstitialAdControllerDelegate,
-                                    GADBannerViewDelegate>
+                                    GADBannerViewDelegate,
+                                    GADInterstitialDelegate>
 @property (nonatomic, readwrite) CLLocationManager *locationManager;
 @property MPAdView *mopubAdView;
 @property MPInterstitialAdController *mopubInterstitial;
 @property DFPBannerView *dfpAdView;
+@property DFPInterstitial *dfpInterstitial;
 @end
 
 @implementation PBVPrebidSDKValidator
@@ -134,7 +136,6 @@
 
 -(void)startTest
 {
-    NSLog(@"Start creating MoPub ad view..");
     // Retrieve Config
     NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
@@ -143,7 +144,7 @@
     NSArray *widthHeight = [adSizeString componentsSeparatedByString:@"x"];
     double width = [widthHeight[0] doubleValue];
     double height = [widthHeight[1] doubleValue];
-    // Create TestAd ad unit
+    // Create ad unit
     if ([adServerName isEqualToString:kMoPubString]){
         if ([adFormatName isEqualToString:kBanner]){
             _mopubAdView = [[MPAdView alloc] initWithAdUnitId:adUnitID
@@ -174,11 +175,25 @@
                 [_dfpAdView loadRequest:[DFPRequest request]];
             }];
         } else if([adFormatName isEqualToString:kInterstitial]){
-            
+            _dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:adUnitID];
+            _dfpInterstitial.delegate = self;
+            [PrebidMobile setBidKeywordsOnAdObject:_dfpInterstitial withAdUnitId:adUnitID withTimeout:600 completionHandler:^{
+                [_dfpInterstitial loadRequest:[DFPRequest request]];
+            }];
         }
     }
 }
 #pragma mark - DFP delegate
+- (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
+{
+    [_delegate testDidFail];
+}
+
+- (void)interstitialDidReceiveAd:(GADInterstitial *)ad
+{
+    [_delegate testDidPass];
+}
+
 - (void)adViewDidReceiveAd:(GADBannerView *)bannerView
 {
     for (UIView *level1 in bannerView.subviews){
@@ -190,6 +205,7 @@
                     UIWebView *wv = (UIWebView *)level3;
                     NSString *content = [wv stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
                     if ([content containsString:@"prebid/pbm.js"]) {
+                        // TODO: Wei test this with a working ad unit id
                         [_delegate testDidPass];
                         return;
                     }
@@ -215,6 +231,11 @@
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial
 {
     [_delegate testDidFail];
+}
+
+- (UIViewController *)viewControllerForPresentingModalView
+{
+    return [[UIViewController alloc] init];
 }
 
 - (void)adViewDidLoadAd:(MPAdView *)view

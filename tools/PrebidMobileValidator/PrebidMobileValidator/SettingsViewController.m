@@ -420,9 +420,6 @@ CGFloat const kLabelHeight = 80.0f;
 
 - (void)verifyInput {
     UIAlertController *alertController = nil;
-    if ([self.adServer isEqualToString:kDFPString] && [self.adFormat isEqualToString:kInterstitialString]) {
-        alertController = [UIAlertController alertControllerWithTitle:kErrorMessageTitle message:@"We currently do not support DFP Interstitial on the Test App. Please choose a different ad server or format." preferredStyle:UIAlertControllerStyleAlert];
-    }
     if ([self.adFormat isEqualToString:kInterstitialString] && ([self.adSize isEqualToString:kInterstitialSizeString] == NO)) {
         alertController = [UIAlertController alertControllerWithTitle:kErrorMessageTitle message:@"Interstitial must be of size 320x480. Please update ad size in the picker." preferredStyle:UIAlertControllerStyleAlert];
     }
