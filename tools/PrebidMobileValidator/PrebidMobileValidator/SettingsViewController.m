@@ -11,6 +11,7 @@
 #import "ActionSheetPicker.h"
 #import "PBVSharedConstants.h"
 #import "LineItemAdsViewController.h"
+#import "QRCodeReaderViewController.h"
 
 NSString *__nonnull const kNextButtonText = @"Start Validation";
 
@@ -35,14 +36,21 @@ CGFloat const kLabelHeight = 80.0f;
 
 @end
 
-@interface SettingsViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ScanButton: UIButton
+@property id userData;
+@end
+
+@implementation ScanButton
+@synthesize userData;
+@end
+
+@interface SettingsViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate,QRCodeReaderDelegate>
 
 @property NSArray *adServers;
 @property NSArray *adFormats;
 @property NSArray *adSizes;
 
 @property (nonatomic, strong) UITableView *userInputTableView;
-//@property NSArray *tableViewItems;
 @property NSDictionary *tableViewDictionaryItems;
 @property NSArray *sectionTitles;
 @property NSDictionary *initialDetailTextValues;
@@ -128,12 +136,20 @@ CGFloat const kLabelHeight = 80.0f;
         cell = [[StyledCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
+    if ((indexPath.section == 1 && indexPath.row == 1) || indexPath.section == 2) {
+        ScanButton *scan = [ScanButton buttonWithType:UIButtonTypeRoundedRect];
+        [scan setFrame:CGRectMake(0, 0, 40, 40)];
+        [scan setTitle:@"Scan" forState:UIControlStateNormal];
+        [scan setUserData:indexPath];
+        [scan addTarget:self action:@selector(scanPressed:) forControlEvents:UIControlEventTouchUpInside];
+        cell.accessoryView = scan;
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
+    }
     NSString *sectionTitle = [self.sectionTitles objectAtIndex:indexPath.section];
     NSArray *sectionObjects = [self.tableViewDictionaryItems objectForKey:sectionTitle];
     NSString *objectContent = [sectionObjects objectAtIndex:indexPath.row];
     
     cell.textLabel.text = objectContent;
-    
     NSArray *sectionArrayObjects = [self.initialDetailTextValues objectForKey:sectionTitle];
     cell.detailTextLabel.text = sectionArrayObjects[indexPath.row];
     //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -141,6 +157,28 @@ CGFloat const kLabelHeight = 80.0f;
     return cell;
 }
 
+#pragma mark - QRCode Scanner
+- (void)scanPressed:(id)sender{
+    NSIndexPath *currentIndexPath = (NSIndexPath *)[(ScanButton *) sender userData];
+    // uses code from this lib: https://github.com/yannickl/QRCodeReaderViewController
+    QRCodeReader *reader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
+    QRCodeReaderViewController *vc = [QRCodeReaderViewController readerWithCancelButtonTitle:@"Cancel" codeReader:reader startScanningAtLoad:YES showSwitchCameraButton:YES showTorchButton:YES];
+    [vc setCompletionWithBlock:^(NSString * _Nullable resultAsString) {
+        NSLog(@"Scanned result is : %@", resultAsString);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UITableViewCell *cell = [_userInputTableView cellForRowAtIndexPath:currentIndexPath];
+            cell.detailTextLabel.text = resultAsString;
+        });
+        [vc dismissViewControllerAnimated:YES completion:nil];
+    }];
+    vc.delegate = self;
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (void)readerDidCancel:(QRCodeReaderViewController *)reader
+{
+    [reader dismissViewControllerAnimated:YES completion:nil];
+}
 #pragma mark - UITableViewDelegate methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
