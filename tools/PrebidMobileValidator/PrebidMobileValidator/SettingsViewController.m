@@ -168,6 +168,13 @@ CGFloat const kLabelHeight = 80.0f;
         dispatch_async(dispatch_get_main_queue(), ^{
             UITableViewCell *cell = [_userInputTableView cellForRowAtIndexPath:currentIndexPath];
             cell.detailTextLabel.text = resultAsString;
+            if(currentIndexPath.row == 1 && currentIndexPath.section == 1){
+                self.adUnitId = resultAsString;
+            } else if(currentIndexPath.row == 0 && currentIndexPath.section == 2){
+                self.accountID = resultAsString;
+            } else if(currentIndexPath.row == 1 && currentIndexPath.section == 2){
+                self.configID = resultAsString;
+            }
         });
         [vc dismissViewControllerAnimated:YES completion:nil];
     }];
