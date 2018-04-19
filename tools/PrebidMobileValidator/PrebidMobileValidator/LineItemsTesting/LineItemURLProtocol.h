@@ -10,8 +10,4 @@
 
 @interface LineItemURLProtocol : NSURLProtocol
 
-@property (nonatomic, strong) NSString *requestString;
-@property (nonatomic, strong) NSString *responseString;
-
-
 @end

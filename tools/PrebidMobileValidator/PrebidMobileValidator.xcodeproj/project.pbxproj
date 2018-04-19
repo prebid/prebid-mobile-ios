@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		602D0A302087D464001C5AF6 /* UILabel+DynamicSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 602D0A2F2087D464001C5AF6 /* UILabel+DynamicSize.m */; };
 		605A56C420768B7800E92376 /* LineItemsTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 605A56C320768B7700E92376 /* LineItemsTabController.m */; };
 		605A56C92076A27B00E92376 /* LineItemLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 605A56C82076A27B00E92376 /* LineItemLogViewController.m */; };
 		605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605A56CA2076C89A00E92376 /* MessageUI.framework */; };
@@ -19,7 +20,6 @@
 		60C678922073D7B0003A7A1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678912073D7B0003A7A1D /* main.m */; };
 		60C6789A2073D831003A7A1D /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678992073D831003A7A1D /* ListViewController.m */; };
 		60C678A92073F7D3003A7A1D /* LineItemAdsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678A32073F7D3003A7A1D /* LineItemAdsViewController.m */; };
-		60C678AA2073F7D3003A7A1D /* LineItemsConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678A62073F7D3003A7A1D /* LineItemsConstants.m */; };
 		60C678AB2073F7D3003A7A1D /* LineItemKeywordsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678A82073F7D3003A7A1D /* LineItemKeywordsManager.m */; };
 		60C678AE2073F879003A7A1D /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60C678AD2073F879003A7A1D /* GoogleMobileAds.framework */; };
 		60C67A2E2073F89C003A7A1D /* MPAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C678B12073F89C003A7A1D /* MPAdView.m */; };
@@ -252,6 +252,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		602D0A2E2087D463001C5AF6 /* UILabel+DynamicSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+DynamicSize.h"; sourceTree = "<group>"; };
+		602D0A2F2087D464001C5AF6 /* UILabel+DynamicSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+DynamicSize.m"; sourceTree = "<group>"; };
 		605A56C220768B7700E92376 /* LineItemsTabController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineItemsTabController.h; sourceTree = "<group>"; };
 		605A56C320768B7700E92376 /* LineItemsTabController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineItemsTabController.m; sourceTree = "<group>"; };
 		605A56C72076A27B00E92376 /* LineItemLogViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineItemLogViewController.h; sourceTree = "<group>"; };
@@ -272,8 +274,6 @@
 		60C678992073D831003A7A1D /* ListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		60C678A32073F7D3003A7A1D /* LineItemAdsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineItemAdsViewController.m; sourceTree = "<group>"; };
 		60C678A42073F7D3003A7A1D /* LineItemKeywordsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineItemKeywordsManager.h; sourceTree = "<group>"; };
-		60C678A52073F7D3003A7A1D /* LineItemsConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineItemsConstants.h; sourceTree = "<group>"; };
-		60C678A62073F7D3003A7A1D /* LineItemsConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineItemsConstants.m; sourceTree = "<group>"; };
 		60C678A72073F7D3003A7A1D /* LineItemAdsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineItemAdsViewController.h; sourceTree = "<group>"; };
 		60C678A82073F7D3003A7A1D /* LineItemKeywordsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineItemKeywordsManager.m; sourceTree = "<group>"; };
 		60C678AD2073F879003A7A1D /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
@@ -757,6 +757,8 @@
 				605A56C82076A27B00E92376 /* LineItemLogViewController.m */,
 				60CEC02F2086500400CA104B /* LineItemURLProtocol.h */,
 				60CEC0302086500400CA104B /* LineItemURLProtocol.m */,
+				602D0A2E2087D463001C5AF6 /* UILabel+DynamicSize.h */,
+				602D0A2F2087D464001C5AF6 /* UILabel+DynamicSize.m */,
 			);
 			path = LineItemsTesting;
 			sourceTree = "<group>";
@@ -1581,6 +1583,7 @@
 				60C67AD52073F89D003A7A1D /* MOPUBAVPlayer.m in Sources */,
 				60C67AD82073F89D003A7A1D /* MPMoPubRewardedVideoCustomEvent.m in Sources */,
 				60C67A9B2073F89D003A7A1D /* MPVASTLinearAd.m in Sources */,
+				602D0A302087D464001C5AF6 /* UILabel+DynamicSize.m in Sources */,
 				60C67AB22073F89D003A7A1D /* MPNativeAdUtils.m in Sources */,
 				60C67A732073F89C003A7A1D /* MRBridge.m in Sources */,
 				60C67AC42073F89D003A7A1D /* MPNativeAdRenderingImageLoader.m in Sources */,

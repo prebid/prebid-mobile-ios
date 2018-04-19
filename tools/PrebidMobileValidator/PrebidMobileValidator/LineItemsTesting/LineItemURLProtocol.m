@@ -10,9 +10,7 @@
 #import "PBVSharedConstants.h"
 
 @interface LineItemURLProtocol () <NSURLConnectionDelegate>
-
-@property (nonatomic, strong) NSURLConnection *connection;
-
+@property (nonatomic) NSURLSessionDataTask *sessionData;
 @end
 
 @implementation LineItemURLProtocol
@@ -38,42 +36,28 @@
 
 - (void)startLoading {
     NSMutableURLRequest *newRequest = [self.request mutableCopy];
-    [[PBVSharedConstants sharedInstance] setRequestString:[newRequest description]];
+    
+    [[PBVSharedConstants sharedInstance] setRequestString:newRequest.URL.absoluteString];
     [NSURLProtocol setProperty:@YES forKey:@"LineItemProtocolHandledKey" inRequest:newRequest];
     
-    __weak LineItemURLProtocol *weakSelf = self;
-    
-    [[[NSURLSession sharedSession] dataTaskWithRequest:newRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        LineItemURLProtocol *__strong strongSelf = weakSelf;
-        NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                if (html.length) {
-                    [[PBVSharedConstants sharedInstance] setResponseString:html];
-                    strongSelf.responseString = html;
-                }
+   self.sessionData = [[NSURLSession sharedSession] dataTaskWithRequest:newRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+       
+       [self.client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+       [self.client URLProtocol:self didLoadData:data];
+       [self.client URLProtocolDidFinishLoading:self];
+       
+       NSString *html = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+       if (html.length) {
+           [[PBVSharedConstants sharedInstance] setResponseString:html];
         }
-    ] resume];
+    }];
+    
+    [self.sessionData resume];
 }
 
 - (void)stopLoading {
-    [self.connection cancel];
-    self.connection = nil;
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    [self.client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [self.client URLProtocol:self didLoadData:data];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    [self.client URLProtocolDidFinishLoading:self];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    [self.client URLProtocol:self didFailWithError:error];
+    [self.sessionData cancel];
+    self.sessionData = nil;
 }
 
 @end
