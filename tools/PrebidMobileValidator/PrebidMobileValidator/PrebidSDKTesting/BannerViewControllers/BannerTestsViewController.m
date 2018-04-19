@@ -101,12 +101,10 @@
 
 - (void)adViewDidLoadAd:(MPAdView *)view
 {
-    NSLog(@"MoPub: ad load successful.");
 }
 
 - (void)adViewDidFailToLoadAd:(MPAdView *)view
 {
-    NSLog(@"MoPub: ad load failed.");
 }
 
 
