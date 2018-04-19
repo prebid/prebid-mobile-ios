@@ -51,6 +51,8 @@
     [self.tableView addSubview:_refreshControll];
     [_refreshControll addTarget:self action:@selector(refreshTests) forControlEvents:UIControlEventValueChanged];
     [self startTests];
+    
+    [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(updateCell) userInfo:nil repeats:NO];
 }
 
 -(void)refreshTests
@@ -92,6 +94,15 @@
         PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test3];
         cell.progressImage.image = [UIImage imageNamed:@"Green"];
     });
+}
+
+-(void) updateCell{
+dispatch_async(dispatch_get_main_queue(), ^{
+    NSIndexPath *test1 = [NSIndexPath indexPathForRow:0 inSection:0] ;
+    PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test1];
+    cell.progressImage.image = [UIImage imageNamed:@"Green"];
+});
+    
 }
 
 - (void)testDidFail
