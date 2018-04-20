@@ -64,9 +64,10 @@
         NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
         NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
         NSString *configId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBConfigKey];
+        NSString *accountId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBAccountKey];
         PBAdUnit *adUnit;
         // todo Wei Zhang to support native and video in the future
-        if([adFormatName isEqualToString:kBanner]) {
+        if([adFormatName isEqualToString:kBannerString]) {
             adUnit = [[PBBannerAdUnit alloc]initWithAdUnitIdentifier:adUnitID andConfigId:configId];
             // set size on adUnit
             if (adSizeString == kBannerSizeString) {
@@ -76,7 +77,7 @@
             } else {
                 [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 480)];
             }
-        } else if ([adFormatName isEqualToString:kInterstitial]){
+        } else if ([adFormatName isEqualToString:kInterstitialString]){
             adUnit = [[PBInterstitialAdUnit alloc] initWithAdUnitIdentifier:adUnitID andConfigId:configId];
         } else {
             NSLog(@"Native and vide not supported for now.");
@@ -84,7 +85,8 @@
         }
         NSArray *adUnits = [NSArray arrayWithObjects:adUnit, nil];
         
-        [PrebidMobile registerAdUnits:adUnits withAccountId:kAccountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerMoPub];
+        // TODO: add a way to configure host
+        [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerMoPub];
     } @catch (PBException *ex) {
         NSLog(@"%@",[ex reason]);
     } @finally {
@@ -122,11 +124,11 @@
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
-    NSDictionary *settings = @{kAdServer : adServerName,
+    NSDictionary *settings = @{kAdServerNameKey : adServerName,
                                kAdUnitIdKey : adUnitID,
-                               kSize : adSizeString};
+                               kAdSizeKey : adSizeString};
     UIViewController *vcToShow;
-    if ([adFormatName isEqualToString:kBanner]) {
+    if ([adFormatName isEqualToString:kBannerString]) {
         vcToShow= [[BannerTestsViewController alloc] initWithSettings:settings];
     } else {
         vcToShow = [[InterstitialTestsViewController alloc] initWithSettings:settings];
@@ -146,7 +148,7 @@
     double height = [widthHeight[1] doubleValue];
     // Create ad unit
     if ([adServerName isEqualToString:kMoPubString]){
-        if ([adFormatName isEqualToString:kBanner]){
+        if ([adFormatName isEqualToString:kBannerString]){
             _mopubAdView = [[MPAdView alloc] initWithAdUnitId:adUnitID
                                                          size:CGSizeMake(width, height)];
             [_mopubAdView stopAutomaticallyRefreshingContents];
@@ -157,8 +159,8 @@
                                  completionHandler:^{
                                      [_mopubAdView loadAd];
                                  }];
-        } else if([adFormatName isEqualToString:kInterstitial]){
-            _mopubInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:kMoPubInterstitialAdUnitId];
+        } else if([adFormatName isEqualToString:kInterstitialString]){
+            _mopubInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:adUnitID];
             _mopubInterstitial.delegate = self;
             [PrebidMobile setBidKeywordsOnAdObject:_mopubInterstitial withAdUnitId:adUnitID withTimeout:600 completionHandler:^{
                 [_mopubInterstitial loadAd];
@@ -166,7 +168,7 @@
         }
             
     } else if ([adServerName isEqualToString:kDFPString]) {
-        if ([adFormatName isEqualToString:kBanner]) {
+        if ([adFormatName isEqualToString:kBannerString]) {
             _dfpAdView = [[DFPBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(width, height))];
             _dfpAdView.adUnitID = adUnitID;
             _dfpAdView.delegate = self;
@@ -174,7 +176,7 @@
             [PrebidMobile setBidKeywordsOnAdObject:_dfpAdView withAdUnitId:adUnitID withTimeout:600 completionHandler:^{
                 [_dfpAdView loadRequest:[DFPRequest request]];
             }];
-        } else if([adFormatName isEqualToString:kInterstitial]){
+        } else if([adFormatName isEqualToString:kInterstitialString]){
             _dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:adUnitID];
             _dfpInterstitial.delegate = self;
             [PrebidMobile setBidKeywordsOnAdObject:_dfpInterstitial withAdUnitId:adUnitID withTimeout:600 completionHandler:^{

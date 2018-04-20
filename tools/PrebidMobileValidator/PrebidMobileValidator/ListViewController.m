@@ -51,7 +51,7 @@
     [self.tableView addSubview:_refreshControll];
     [_refreshControll addTarget:self action:@selector(refreshTests) forControlEvents:UIControlEventValueChanged];
     [self startTests];
-    
+    // TODO: wei to add validator mode for first test.
     [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(updateCell) userInfo:nil repeats:NO];
 }
 
@@ -62,6 +62,18 @@
 }
 
 - (void)startTests{
+    // set all cells to be in progress
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSIndexPath *test1 = [NSIndexPath indexPathForRow:0 inSection:0] ;
+        PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test1];
+        cell.progressImage.image = [UIImage imageNamed:@"Progress"];
+        NSIndexPath *test2 = [NSIndexPath indexPathForRow:1 inSection:0] ;
+        cell = [(UITableView *) self.view cellForRowAtIndexPath:test2];
+        cell.progressImage.image = [UIImage imageNamed:@"Progress"];
+        NSIndexPath *test3 = [NSIndexPath indexPathForRow:2 inSection:0] ;
+        cell = [(UITableView *) self.view cellForRowAtIndexPath:test3];
+        cell.progressImage.image = [UIImage imageNamed:@"Progress"];
+    });
     _validator2 = [[PBVPBSRequestResponseValidator alloc] init];
     [_validator2 startTestWithCompletionHandler:^(Boolean result) {
         if (result) {
@@ -83,8 +95,6 @@
     _validator3 = [[PBVPrebidSDKValidator alloc] init];
     _validator3.delegate = self;
     [_validator3 startTest];
-    
-    
 }
 
 - (void)testDidPass

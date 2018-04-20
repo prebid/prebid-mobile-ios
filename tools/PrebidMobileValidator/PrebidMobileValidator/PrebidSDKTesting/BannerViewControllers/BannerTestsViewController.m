@@ -44,10 +44,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSString *adServer = [self.settings objectForKey:kAdServer];
+    NSString *adServer = [self.settings objectForKey:kAdServerNameKey];
+    NSString *adUnitId = [self.settings objectForKey:kAdUnitIdKey];
     self.title = [adServer stringByAppendingString:@" Banner"];
     
-    NSString *size = [self.settings objectForKey:kSize];
+    NSString *size = [self.settings objectForKey:kAdSizeKey];
     NSArray *widthHeight = [size componentsSeparatedByString:@"x"];
     double width = [widthHeight[0] doubleValue];
     double height = [widthHeight[1] doubleValue];
@@ -55,24 +56,24 @@
     _adContainerView = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - width) / 2, 100, width, height)];
     [self.view addSubview:_adContainerView];
     
-    if ([adServer isEqualToString:kMoPubAdServer]) {
-        _mopubAdView = [[MPAdView alloc] initWithAdUnitId:kMoPubBannerAdUnitId
+    if ([adServer isEqualToString:kMoPubString]) {
+        _mopubAdView = [[MPAdView alloc] initWithAdUnitId:adUnitId
                                                      size:CGSizeMake(width, height)];
         _mopubAdView.delegate = self;
         [_adContainerView addSubview:_mopubAdView];
         
-        [PrebidMobile setBidKeywordsOnAdObject:self.mopubAdView withAdUnitId:kMoPubBannerAdUnitId withTimeout:600 completionHandler:^{
+        [PrebidMobile setBidKeywordsOnAdObject:self.mopubAdView withAdUnitId:adUnitId withTimeout:600 completionHandler:^{
             [self.mopubAdView loadAd];
         }];
-    } else if ([adServer isEqualToString:kDFPAdServer]) {
+    } else if ([adServer isEqualToString:kDFPString]) {
         _dfpAdView = [[DFPBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(width, height))];
-        _dfpAdView.adUnitID = kDFPBannerAdUnitId;
+        _dfpAdView.adUnitID = adUnitId;
         _dfpAdView.rootViewController = self;
         _dfpAdView.delegate = self;
         
         [_adContainerView addSubview:_dfpAdView];
         
-        [PrebidMobile setBidKeywordsOnAdObject:_dfpAdView withAdUnitId:kDFPBannerAdUnitId withTimeout:600 completionHandler:^{
+        [PrebidMobile setBidKeywordsOnAdObject:_dfpAdView withAdUnitId:adUnitId withTimeout:600 completionHandler:^{
             [_dfpAdView loadRequest:[DFPRequest request]];
         }];
     }

@@ -95,9 +95,6 @@ CGFloat const kLabelHeight = 80.0f;
                                   @"PreBid Server" : @[kPBAccountIDText, kPBConfigIDText]
                                   };
     
-    //_tableViewItems = @[kAdFormatLabelText, kAdSizeLabelText, kAdServerLabelText, kAdUnitIdText, kBidPriceText, kPBAccountID, kPBConfigID];
-    
-    
     _sectionTitles = @[@"General", @"AD Server", @"PreBid Server"];
     
     _adServers = @[kMoPubString, kDFPString];

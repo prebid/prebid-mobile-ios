@@ -39,17 +39,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    NSString *adServer = [self.settings objectForKey:kAdServer];
+    NSString *adServer = [self.settings objectForKey:kAdServerNameKey];
     self.title = [adServer stringByAppendingString:@" Interstitial"];
     NSString *adUnitId = [self.settings objectForKey:kAdUnitIdKey];
-    if ([adServer isEqualToString:kMoPubAdServer]) {
+    if ([adServer isEqualToString:kMoPubString]) {
         _moPubInterstitial = [MPInterstitialAdController  interstitialAdControllerForAdUnitId:adUnitId];
         _moPubInterstitial.delegate = self;
         [PrebidMobile setBidKeywordsOnAdObject:self.moPubInterstitial withAdUnitId:adUnitId withTimeout:600 completionHandler:^{
             [self.moPubInterstitial loadAd];
         }];
     }
-    else if ([adServer isEqualToString:kDFPAdServer]) {
+    else if ([adServer isEqualToString:kDFPString]) {
         self.dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:adUnitId];
         self.dfpInterstitial.delegate = self;
     
