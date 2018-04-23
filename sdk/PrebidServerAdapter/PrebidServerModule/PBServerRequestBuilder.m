@@ -307,8 +307,9 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     }
     
     NSString *consentString = [[PBTargetingParams sharedInstance] consent];
-    userDict[@"ext"] = @{@"consent" : consentString};
-    
+    if(consentString != nil){
+        userDict[@"ext"] = @{@"consent" : consentString};
+    }
     return [userDict copy];
 }
 

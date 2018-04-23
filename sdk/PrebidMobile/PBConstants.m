@@ -8,8 +8,11 @@
 
 #import "PBConstants.h"
 
-NSString * const  PBGDPRString = @"kPBGdprString";
-NSString * const  PBGDPRConsentString = @"kPBGDPRConsentString";
+NSString * const  PB_GDPR_SubjectToConsent = @"kPBGdprSubjectToConsent";
+NSString * const  PB_GDPR_ConsentString = @"kPBGDPRConsentString";
+
+NSString * const  IAB_GDPR_SubjectToConsent = @"IABConsent_SubjectToGDPR";
+NSString * const  IAB_GDPR_ConsentString = @"IABConsent_ConsentString";
 
 @implementation PBConstants
 

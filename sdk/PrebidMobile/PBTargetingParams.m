@@ -160,21 +160,26 @@ static dispatch_once_t onceToken;
 }
 
 -(void) setGdpr:(BOOL)gdpr{
-    [[NSUserDefaults standardUserDefaults] setBool:gdpr forKey:PBGDPRString];
+    [[NSUserDefaults standardUserDefaults] setBool:gdpr forKey:PB_GDPR_SubjectToConsent];
 }
 
 -(void) setConsent:(NSString *)consent{
     
-    [[NSUserDefaults standardUserDefaults] setObject:consent forKey:PBGDPRConsentString];
+    [[NSUserDefaults standardUserDefaults] setObject:consent forKey:PB_GDPR_ConsentString];
 }
 
 -(BOOL) gdpr {
-    BOOL savedGDPR = [[NSUserDefaults standardUserDefaults] boolForKey:PBGDPRString] ? [[NSUserDefaults standardUserDefaults] boolForKey:PBGDPRString] : TRUE;
+    BOOL savedGDPR = YES;
+    if([[NSUserDefaults standardUserDefaults] objectForKey:PB_GDPR_SubjectToConsent] != nil){
+        savedGDPR = [[NSUserDefaults standardUserDefaults] boolForKey:PB_GDPR_SubjectToConsent];
+    } else if([[NSUserDefaults standardUserDefaults] objectForKey:IAB_GDPR_SubjectToConsent] != nil){
+        savedGDPR = [[NSUserDefaults standardUserDefaults] boolForKey:IAB_GDPR_SubjectToConsent];
+    }
     return savedGDPR;
 }
 
 -(NSString *) consent{
-    NSString *savedConsent = [[NSUserDefaults standardUserDefaults] objectForKey:PBGDPRConsentString] ? [[NSUserDefaults standardUserDefaults] objectForKey:PBGDPRConsentString] : @"";
+    NSString *savedConsent = [[NSUserDefaults standardUserDefaults] objectForKey:PB_GDPR_ConsentString] ? [[NSUserDefaults standardUserDefaults] objectForKey:PB_GDPR_ConsentString] : [[NSUserDefaults standardUserDefaults] objectForKey:IAB_GDPR_ConsentString];
     return savedConsent;
 }
 

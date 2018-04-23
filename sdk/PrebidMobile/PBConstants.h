@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const  PBGDPRString;
-extern NSString * const  PBGDPRConsentString;
+extern NSString * const  PB_GDPR_SubjectToConsent;
+extern NSString * const  PB_GDPR_ConsentString;
 
+extern NSString * const  IAB_GDPR_SubjectToConsent;
+extern NSString * const  IAB_GDPR_ConsentString;
 
 @interface PBConstants : NSObject
 
