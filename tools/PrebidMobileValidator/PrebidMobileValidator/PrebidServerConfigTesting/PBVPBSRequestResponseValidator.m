@@ -33,9 +33,9 @@
     if([adFormatName isEqualToString:@"Banner"]) {
         adUnit = [[PBBannerAdUnit alloc]initWithAdUnitIdentifier:adUnitID andConfigId:configId];
         // set size on adUnit
-        if (adSizeString == kBannerSizeString) {
+        if ([adSizeString isEqualToString: kBannerSizeString]) {
             [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 50)];
-        } else if (adSizeString == kMediumRectangleSizeString) {
+        } else if ([adSizeString isEqualToString:kMediumRectangleSizeString]) {
             [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(300, 250)];
         } else {
              [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 480)];
