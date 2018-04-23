@@ -159,16 +159,16 @@ static dispatch_once_t onceToken;
     _itunesID = itunesID;
 }
 
--(void) setGdpr:(BOOL)gdpr{
-    [[NSUserDefaults standardUserDefaults] setBool:gdpr forKey:PB_GDPR_SubjectToConsent];
+-(void) setSubjectToGDPR:(BOOL)subjectToGDPR{
+    [[NSUserDefaults standardUserDefaults] setBool:subjectToGDPR forKey:PB_GDPR_SubjectToConsent];
 }
 
--(void) setConsent:(NSString *)consent{
+-(void) setGdprConsentString:(NSString *)gdprConsentString{
     
-    [[NSUserDefaults standardUserDefaults] setObject:consent forKey:PB_GDPR_ConsentString];
+    [[NSUserDefaults standardUserDefaults] setObject:gdprConsentString forKey:PB_GDPR_ConsentString];
 }
 
--(BOOL) gdpr {
+-(BOOL) subjectToGDPR {
     BOOL savedGDPR = YES;
     if([[NSUserDefaults standardUserDefaults] objectForKey:PB_GDPR_SubjectToConsent] != nil){
         savedGDPR = [[NSUserDefaults standardUserDefaults] boolForKey:PB_GDPR_SubjectToConsent];
@@ -178,7 +178,8 @@ static dispatch_once_t onceToken;
     return savedGDPR;
 }
 
--(NSString *) consent{
+-(NSString *) gdprConsentString{
+    
     NSString *savedConsent = [[NSUserDefaults standardUserDefaults] objectForKey:PB_GDPR_ConsentString] ? [[NSUserDefaults standardUserDefaults] objectForKey:PB_GDPR_ConsentString] : [[NSUserDefaults standardUserDefaults] objectForKey:IAB_GDPR_ConsentString];
     return savedConsent;
 }

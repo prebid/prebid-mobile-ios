@@ -60,12 +60,12 @@ typedef NS_ENUM(NSUInteger, PBTargetingParamsGender) {
 /**
  * The consent string for sending the GDPR consent
  */
-@property (nonatomic, readwrite) NSString *__nullable consent;
+@property (nonatomic, readwrite) NSString *__nullable gdprConsentString;
 
 /**
  * The boolean value set by the user to collect user data
  */
-@property (nonatomic, readwrite) BOOL gdpr;
+@property (nonatomic, readwrite) BOOL subjectToGDPR;
 
 
 /**

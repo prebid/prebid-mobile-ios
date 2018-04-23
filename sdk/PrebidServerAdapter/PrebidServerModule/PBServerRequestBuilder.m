@@ -265,7 +265,7 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     
     NSMutableDictionary *regsDict = [[NSMutableDictionary alloc] init];
     
-    BOOL gdpr = [[PBTargetingParams sharedInstance] gdpr];
+    BOOL gdpr = [[PBTargetingParams sharedInstance] subjectToGDPR];
     
     regsDict[@"ext"] = @{@"gdpr" : @(@(gdpr).integerValue)};
     
@@ -306,7 +306,7 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
         userDict[@"keywords"] = keywordString;
     }
     
-    NSString *consentString = [[PBTargetingParams sharedInstance] consent];
+    NSString *consentString = [[PBTargetingParams sharedInstance] gdprConsentString];
     if(consentString != nil){
         userDict[@"ext"] = @{@"consent" : consentString};
     }
