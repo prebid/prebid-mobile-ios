@@ -173,7 +173,9 @@ static dispatch_once_t onceToken;
     if([[NSUserDefaults standardUserDefaults] objectForKey:PB_GDPR_SubjectToConsent] != nil){
         savedGDPR = [[NSUserDefaults standardUserDefaults] boolForKey:PB_GDPR_SubjectToConsent];
     } else if([[NSUserDefaults standardUserDefaults] objectForKey:IAB_GDPR_SubjectToConsent] != nil){
-        savedGDPR = [[NSUserDefaults standardUserDefaults] boolForKey:IAB_GDPR_SubjectToConsent];
+        NSString *stringValue = [[NSUserDefaults standardUserDefaults] objectForKey:IAB_GDPR_SubjectToConsent];
+        
+        savedGDPR = [stringValue boolValue];
     }
     return savedGDPR;
 }
