@@ -21,6 +21,8 @@
 @property (nonatomic, strong, readwrite) NSMutableDictionary<NSString *, NSArray *> *__nullable customKeywords;
 @property (nonatomic, strong, readwrite) NSMutableDictionary<NSString *, NSArray *> *__nullable userKeywords;
 
+@property (nonatomic, readwrite) BOOL isGDPREnabled;
+
 @end
 
 @implementation PBTargetingParams
@@ -32,6 +34,7 @@
         
         _customKeywords = [[NSMutableDictionary alloc] init];
         _userKeywords = [[NSMutableDictionary alloc] init];
+        _isGDPREnabled = NO;
         
     }
     return self;
@@ -171,19 +174,26 @@ static dispatch_once_t onceToken;
 -(BOOL) subjectToGDPR {
     BOOL savedGDPR = YES;
     if([[NSUserDefaults standardUserDefaults] objectForKey:PB_GDPR_SubjectToConsent] != nil){
+        self.isGDPREnabled = YES;
         savedGDPR = [[NSUserDefaults standardUserDefaults] boolForKey:PB_GDPR_SubjectToConsent];
     } else if([[NSUserDefaults standardUserDefaults] objectForKey:IAB_GDPR_SubjectToConsent] != nil){
+        self.isGDPREnabled = YES;
         NSString *stringValue = [[NSUserDefaults standardUserDefaults] objectForKey:IAB_GDPR_SubjectToConsent];
-        
         savedGDPR = [stringValue boolValue];
     }
     return savedGDPR;
 }
 
+-(BOOL) isSubjectToGDPR {
+    return self.isGDPREnabled;
+}
+
 -(NSString *) gdprConsentString{
-    
+    if(self.isSubjectToGDPR){
     NSString *savedConsent = [[NSUserDefaults standardUserDefaults] objectForKey:PB_GDPR_ConsentString] ? [[NSUserDefaults standardUserDefaults] objectForKey:PB_GDPR_ConsentString] : [[NSUserDefaults standardUserDefaults] objectForKey:IAB_GDPR_ConsentString];
     return savedConsent;
+    }
+    return nil;
 }
 
 @end

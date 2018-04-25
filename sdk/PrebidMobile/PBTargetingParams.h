@@ -67,6 +67,11 @@ typedef NS_ENUM(NSUInteger, PBTargetingParamsGender) {
  */
 @property (nonatomic, readwrite) BOOL subjectToGDPR;
 
+/**
+ * Boolean value which is set if subject to GDPR
+ */
+
+@property (nonatomic, readonly, assign) BOOL isSubjectToGDPR;
 
 /**
  * This property stores the set of custom keywords that prebid provides for targeting

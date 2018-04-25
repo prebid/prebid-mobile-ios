@@ -67,7 +67,12 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     requestDict[@"user"] = [self openrtbUser];
     requestDict[@"imp"] = [self openrtbImpsFromAdUnits:adUnits withSecureSettings:isSecure];
     requestDict[@"ext"] = [self openrtbRequestExtension:isLocalCache];
-    requestDict[@"regs"] = [self openrtbRegs];
+    
+    if([[PBTargetingParams sharedInstance] isSubjectToGDPR] == YES){
+        requestDict[@"regs"] = [self openrtbRegs];
+    }
+    
+    
     
 #ifndef DEBUG
     requestDict[@"test"] = @(TRUE);
@@ -306,9 +311,13 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
         userDict[@"keywords"] = keywordString;
     }
     
-    NSString *consentString = [[PBTargetingParams sharedInstance] gdprConsentString];
-    if(consentString != nil){
-        userDict[@"ext"] = @{@"consent" : consentString};
+    if([[PBTargetingParams sharedInstance] isSubjectToGDPR] == YES){
+    
+        NSString *consentString = [[PBTargetingParams sharedInstance] gdprConsentString];
+        if(consentString != nil){
+            userDict[@"ext"] = @{@"consent" : consentString};
+        }
+        
     }
     return [userDict copy];
 }
