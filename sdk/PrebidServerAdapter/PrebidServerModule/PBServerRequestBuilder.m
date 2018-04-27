@@ -64,9 +64,16 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     requestDict[@"source"] = [self openrtbSource];
     requestDict[@"app"] = [self openrtbApp:accountID];
     requestDict[@"device"] = [self openrtbDevice];
+    if([[PBTargetingParams sharedInstance] isGDPREnabled] == YES){
+        requestDict[@"regs"] = [self openrtbRegs];
+    }
     requestDict[@"user"] = [self openrtbUser];
     requestDict[@"imp"] = [self openrtbImpsFromAdUnits:adUnits withSecureSettings:isSecure];
     requestDict[@"ext"] = [self openrtbRequestExtension:isLocalCache];
+    
+    
+    
+    
     
 #ifndef DEBUG
     requestDict[@"test"] = @(TRUE);
@@ -260,6 +267,17 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     }
 }
 
+-(NSDictionary *) openrtbRegs {
+    
+    NSMutableDictionary *regsDict = [[NSMutableDictionary alloc] init];
+    
+    BOOL gdpr = [[PBTargetingParams sharedInstance] subjectToGDPR];
+    
+    regsDict[@"ext"] = @{@"gdpr" : @(@(gdpr).integerValue)};
+    
+    return regsDict;
+}
+
 // OpenRTB 2.5 Object: User in section 3.2.20
 - (NSDictionary *)openrtbUser {
     NSMutableDictionary *userDict = [[NSMutableDictionary alloc] init];
@@ -288,14 +306,19 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     
     NSDictionary<NSString *, NSArray *> * targetingParams = [[PBTargetingParams sharedInstance] userKeywords];
     
-    if(targetingParams.count <= 0){
-        targetingParams = [[PBTargetingParams sharedInstance] customKeywords];
-    }
-    
     NSString *keywordString = [self fetchKeywordsString:targetingParams];
     
     if(![keywordString isEqualToString:@""]){
         userDict[@"keywords"] = keywordString;
+    }
+    
+    if([[PBTargetingParams sharedInstance] isGDPREnabled] == YES){
+    
+        NSString *consentString = [[PBTargetingParams sharedInstance] gdprConsentString];
+        if(consentString != nil){
+            userDict[@"ext"] = @{@"consent" : consentString};
+        }
+        
     }
     return [userDict copy];
 }

@@ -58,6 +58,22 @@ typedef NS_ENUM(NSUInteger, PBTargetingParamsGender) {
 @property (nonatomic, readwrite) NSString *__nullable itunesID;
 
 /**
+ * The consent string for sending the GDPR consent
+ */
+@property (nonatomic, readwrite) NSString *__nullable gdprConsentString;
+
+/**
+ * The boolean value set by the user to collect user data
+ */
+@property (nonatomic, readwrite) BOOL subjectToGDPR;
+
+/**
+ * Boolean value which is set if subject to GDPR
+ */
+
+@property (nonatomic, readonly, assign) BOOL isGDPREnabled;
+
+/**
  * This property stores the set of custom keywords that prebid provides for targeting
  */
 @property (nonatomic, strong, readonly) NSDictionary<NSString *, NSArray *> *__nullable customKeywords DEPRECATED_ATTRIBUTE;

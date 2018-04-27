@@ -12,6 +12,8 @@
 		606A42A52020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
 		606A42A62020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
 		606A4353202BC98100492433 /* PrebidMobile-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 606A4352202BC98100492433 /* PrebidMobile-umbrella.h */; };
+		60CEC02C2084DF3A00CA104B /* PBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 60CEC02A2084DF3A00CA104B /* PBConstants.h */; };
+		60CEC02D2084DF3A00CA104B /* PBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CEC02B2084DF3A00CA104B /* PBConstants.m */; };
 		B40B92AF1FCCC5E300A676A8 /* PBHost.h in Headers */ = {isa = PBXBuildFile; fileRef = B40B92AD1FCCC5E300A676A8 /* PBHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B455F9011FE460E3005D6261 /* PBBidManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E281EE1BEA6006304C0 /* PBBidManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C210FE321FBDF0440010B588 /* PrebidURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */; };
@@ -94,6 +96,8 @@
 		606A42A22020FD4600492433 /* PBServerRequestBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBServerRequestBuilder.h; sourceTree = "<group>"; };
 		606A42A32020FD4600492433 /* PBServerRequestBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBServerRequestBuilder.m; sourceTree = "<group>"; };
 		606A4352202BC98100492433 /* PrebidMobile-umbrella.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidMobile-umbrella.h"; sourceTree = "<group>"; };
+		60CEC02A2084DF3A00CA104B /* PBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBConstants.h; sourceTree = "<group>"; };
+		60CEC02B2084DF3A00CA104B /* PBConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBConstants.m; sourceTree = "<group>"; };
 		B40B92AD1FCCC5E300A676A8 /* PBHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBHost.h; sourceTree = "<group>"; };
 		C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidURLProtocol.h; sourceTree = "<group>"; };
 		C210FE311FBDF0440010B588 /* PrebidURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidURLProtocol.m; sourceTree = "<group>"; };
@@ -288,6 +292,8 @@
 		C2B16E1D1EE1BE69006304C0 /* PrebidMobile */ = {
 			isa = PBXGroup;
 			children = (
+				60CEC02A2084DF3A00CA104B /* PBConstants.h */,
+				60CEC02B2084DF3A00CA104B /* PBConstants.m */,
 				606A4352202BC98100492433 /* PrebidMobile-umbrella.h */,
 				C2B16E4A1EE1BEC4006304C0 /* Categories */,
 				C2B16E5F1EE1BECA006304C0 /* Logging */,
@@ -401,6 +407,7 @@
 			files = (
 				B455F9011FE460E3005D6261 /* PBBidManager.h in Headers */,
 				B40B92AF1FCCC5E300A676A8 /* PBHost.h in Headers */,
+				60CEC02C2084DF3A00CA104B /* PBConstants.h in Headers */,
 				C2B16E391EE1BEA6006304C0 /* PBException.h in Headers */,
 				C2B16E341EE1BEA6006304C0 /* PBBannerAdUnit.h in Headers */,
 				C2B16E481EE1BEB6006304C0 /* PBBidResponse.h in Headers */,
@@ -569,6 +576,7 @@
 				C2B16E371EE1BEA6006304C0 /* PBBidManager.m in Sources */,
 				C2B16E3E1EE1BEA6006304C0 /* PBKeywordsManager.m in Sources */,
 				C2B16E991EE1BF1A006304C0 /* PBServerFetcher.m in Sources */,
+				60CEC02D2084DF3A00CA104B /* PBConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
