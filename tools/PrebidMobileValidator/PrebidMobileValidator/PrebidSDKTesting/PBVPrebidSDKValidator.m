@@ -195,38 +195,38 @@
 #pragma mark - DFP delegate
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
 {
-    [_delegate testDidFail];
+    [_delegate sdkIntegrationDidFail];
 }
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    [_delegate testDidPass]; // Unable to get the ad before acutally showing it, pass for all ad loaded cases
+    [_delegate sdkIntegrationDidPass]; // Unable to get the ad before acutally showing it, pass for all ad loaded cases
 }
 
 - (void)adViewDidReceiveAd:(GADBannerView *)bannerView
 {
     if ([PBAdViewTool checkDFPAdViewContainsPBMAd:bannerView]) {
-        [_delegate testDidPass];
+        [_delegate sdkIntegrationDidPass];
     } else {
-        [_delegate testDidFail];
+        [_delegate sdkIntegrationDidFail];
     }
 }
 
 - (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
 {
-    [_delegate testDidFail];
+    [_delegate sdkIntegrationDidFail];
 }
 
 
 #pragma mark - MoPub delegate
 - (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
 {
-     [_delegate testDidPass]; // Unable to get the ad before acutally showing it, pass for all ad loaded cases
+     [_delegate sdkIntegrationDidPass]; // Unable to get the ad before acutally showing it, pass for all ad loaded cases
 }
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial
 {
-    [_delegate testDidFail];
+    [_delegate sdkIntegrationDidFail];
 }
 
 - (UIViewController *)viewControllerForPresentingModalView
@@ -238,16 +238,16 @@
 {
     [PBAdViewTool checkMPAdViewContainsPBMAd:view withCompletionHandler:^(BOOL result) {
         if( result) {
-            [_delegate testDidPass];
+            [_delegate sdkIntegrationDidPass];
         } else
         {
-            [_delegate testDidFail];
+            [_delegate sdkIntegrationDidFail];
         }
     }];
 }
 - (void)adViewDidFailToLoadAd:(MPAdView *)view
 {
-    [_delegate testDidFail];
+    [_delegate sdkIntegrationDidFail];
 }
     
 @end

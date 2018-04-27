@@ -97,7 +97,7 @@
     [_validator3 startTest];
 }
 
-- (void)testDidPass
+- (void)sdkIntegrationDidPass
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSIndexPath *test3 = [NSIndexPath indexPathForRow:2 inSection:0] ;
@@ -115,7 +115,7 @@ dispatch_async(dispatch_get_main_queue(), ^{
     
 }
 
-- (void)testDidFail
+- (void)sdkIntegrationDidFail
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         // add red icon to this app

@@ -420,6 +420,9 @@ CGFloat const kLabelHeight = 80.0f;
     if ([self.adFormat isEqualToString:kInterstitialString] && ([self.adSize isEqualToString:kInterstitialSizeString] == NO)) {
         alertController = [UIAlertController alertControllerWithTitle:kErrorMessageTitle message:@"Interstitial must be of size 320x480. Please update ad size in the picker." preferredStyle:UIAlertControllerStyleAlert];
     }
+    if ([self.bidPrice isEqualToString:@""]) {
+        alertController =[UIAlertController alertControllerWithTitle:kErrorMessageTitle message:@"Please input at least one bid price to test with." preferredStyle:UIAlertControllerStyleAlert];
+    }
 
     if (alertController) {
         UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];

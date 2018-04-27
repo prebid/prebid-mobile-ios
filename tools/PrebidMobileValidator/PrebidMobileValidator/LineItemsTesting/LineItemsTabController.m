@@ -52,7 +52,7 @@ NSString *__nonnull const kTitleText = @"AdServer Setup Validator";
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"ScreenGrab" style:UIBarButtonItemStylePlain target:self action:@selector(captureScreen)];
     
-    [NSURLProtocol registerClass:[LineItemURLProtocol class]];
+//    [NSURLProtocol registerClass:[LineItemURLProtocol class]];
     
     [self createTabs];
     
