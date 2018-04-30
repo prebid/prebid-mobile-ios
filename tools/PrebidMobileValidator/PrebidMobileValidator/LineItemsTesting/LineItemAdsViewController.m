@@ -94,15 +94,16 @@
      * Then request the ad server (MoPub or DFP) for the ad format (Banner or Insterstitial)
      */
     for (NSString *bidPrice in self.bidPrices) {
-        self.keywordsDictionary = [LineItemKeywordsManager keywordsWithBidPrice:[bidPrice doubleValue]];
-        
+
         if (self.isMoPub && self.isBanner) {
-            [self testMoPubBannerAdViewWithAdUnitID:adUnitID adSize:self.adSize andKeywords:[self formatKeywordsForMoPub]];
+            NSDictionary *keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:[bidPrice doubleValue] forSize:adSizeString usingLocalCache:false];
+            [self testMoPubBannerAdViewWithAdUnitID:adUnitID adSize:self.adSize andKeywords:keywords];
         } else if (self.isDFP && self.isBanner) {
             [self testDFPBannerAdViewWithAdUnitID:adUnitID adSize:GADAdSize andKeywords:self.keywordsDictionary];
         } else if (self.isMoPub && self.isInterstitial) {
             [self testMoPubInterstitialWithAdUnitID:adUnitID];
         }
+        
     }
 }
 
@@ -196,8 +197,8 @@
     NSString *cellText = cell.textLabel.text;
     NSRange range = [cellText rangeOfString:@"$"];
     NSString *bidPrice = [cellText substringFromIndex:range.location + 1];
-    self.keywordsDictionary = [LineItemKeywordsManager keywordsWithBidPrice:[bidPrice doubleValue]];
-    self.interstitial.keywords = [self formatKeywordsForMoPub];
+//    self.keywordsDictionary = [LineItemKeywordsManager sharedManager] keywordsWithBidPrice:[bidPrice doubleValue]];
+//    self.interstitial.keywords = [self formatKeywordsForMoPub];
     [self.interstitial loadAd];
 }
 
@@ -206,18 +207,6 @@
 }
 
 // Helper function to format the keywords for MoPub call
-- (NSString *)formatKeywordsForMoPub {
-    NSString *keywordsString = @"";
-    for (NSString *key in self.keywordsDictionary) {
-        NSString *formatKey = [key stringByAppendingString:@":"];
-        NSString *formatKeyword = [formatKey stringByAppendingString:self.keywordsDictionary[key]];
-        keywordsString = [keywordsString stringByAppendingString:[formatKeyword stringByAppendingString:@","]];
-    }
-    NSString *sizeQuery = [NSString stringWithFormat:@"hb_size:%dx%d", (int)self.adSize.width, (int)self.adSize.height];
-    NSString *keywordsWithPBParams = [keywordsString stringByAppendingString:sizeQuery];
-
-    return keywordsWithPBParams;
-}
 
 #pragma mark - MPAdViewDelegate
 - (UIViewController *)viewControllerForPresentingModalView {
@@ -263,14 +252,22 @@
 // Banner testing functions
 - (void)testMoPubBannerAdViewWithAdUnitID:(NSString *)adUnitID
                                    adSize:(CGSize)adSize
-                              andKeywords:(NSString *)keywords {
+                              andKeywords:(NSDictionary *)keywordsDict {
+    NSString *keywordsString = @"";
+    // Todo set keywords on the object 
+//    for (NSString *key in keywordsDict) {
+//        NSString *formatKey = [key stringByAppendingString:@":"];
+//        NSString *formatKeyword = [formatKey stringByAppendingString:self.keywordsDictionary[key]];
+//        keywordsString = [keywordsString stringByAppendingString:[formatKeyword stringByAppendingString:@","]];
+//    }
+    
     MPAdView *adView = [[MPAdView alloc] initWithAdUnitId:adUnitID
                                                      size:adSize];
     adView.delegate = self;
     CGFloat x = ([UIScreen mainScreen].bounds.size.width - adSize.width) / 2.0;
     adView.frame = CGRectMake(x, kAdLocationY, adSize.width, adSize.height);
 
-    adView.keywords = keywords;
+    adView.keywords = keywordsString;
     [self.adViews addObject:adView];
 
     [adView loadAd];

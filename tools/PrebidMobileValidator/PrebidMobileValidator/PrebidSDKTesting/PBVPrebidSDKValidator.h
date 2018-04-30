@@ -11,9 +11,9 @@
 #import <UIKit/UIKit.h>
 @protocol PBVPrebidSDKValidatorDelegate
 @required
-- (void) testDidPass;
+- (void) sdkIntegrationDidPass;
 @required
-- (void) testDidFail;
+- (void) sdkIntegrationDidFail;
 @end
 
 @interface PBVPrebidSDKValidator: NSObject
