@@ -1,0 +1,25 @@
+PODS:
+  - Google-Mobile-Ads-SDK (7.30.0)
+  - mopub-ios-sdk (4.20.1):
+    - mopub-ios-sdk/MoPubSDK (= 4.20.1)
+  - mopub-ios-sdk/Avid (4.20.1):
+    - mopub-ios-sdk/Core
+  - mopub-ios-sdk/Core (4.20.1)
+  - mopub-ios-sdk/Moat (4.20.1):
+    - mopub-ios-sdk/Core
+  - mopub-ios-sdk/MoPubSDK (4.20.1):
+    - mopub-ios-sdk/Avid
+    - mopub-ios-sdk/Core
+    - mopub-ios-sdk/Moat
+
+DEPENDENCIES:
+  - Google-Mobile-Ads-SDK
+  - mopub-ios-sdk
+
+SPEC CHECKSUMS:
+  Google-Mobile-Ads-SDK: 7404f68120ae8682afeb5af001fbf4aad731c78e
+  mopub-ios-sdk: 6220599bacc1c47f4117b7af5e9616f6779157a5
+
+PODFILE CHECKSUM: 98f60a3baaf0925475ee0f64d6991c6eb5594370
+
+COCOAPODS: 1.3.1

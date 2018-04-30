@@ -12,6 +12,7 @@
 		606A42A52020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
 		606A42A62020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
 		606A4353202BC98100492433 /* PrebidMobile-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 606A4352202BC98100492433 /* PrebidMobile-umbrella.h */; };
+		60F67CC62094FC5D002FC035 /* PBHost.h in Sources */ = {isa = PBXBuildFile; fileRef = B40B92AD1FCCC5E300A676A8 /* PBHost.h */; };
 		B40B92AF1FCCC5E300A676A8 /* PBHost.h in Headers */ = {isa = PBXBuildFile; fileRef = B40B92AD1FCCC5E300A676A8 /* PBHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B455F9011FE460E3005D6261 /* PBBidManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E281EE1BEA6006304C0 /* PBBidManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C210FE321FBDF0440010B588 /* PrebidURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */; };
@@ -546,6 +547,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60F67CC62094FC5D002FC035 /* PBHost.h in Sources */,
 				C22E7CE61EE70E19007B31F4 /* NSTimer+Extension.m in Sources */,
 				C23386D31EE5DBFB002FD404 /* PrebidMobile.m in Sources */,
 				C2B16EA01EE1BF1A006304C0 /* PBServerReachability.m in Sources */,

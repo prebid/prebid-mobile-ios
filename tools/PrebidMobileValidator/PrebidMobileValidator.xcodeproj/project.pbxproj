@@ -220,6 +220,7 @@
 		60C67B1B20741589003A7A1D /* NativeTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C67B1420741589003A7A1D /* NativeTestsViewController.m */; };
 		60C67B4620766FC1003A7A1D /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60C67B4120766F51003A7A1D /* PrebidMobile.framework */; };
 		60CEC0312086500400CA104B /* LineItemURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CEC0302086500400CA104B /* LineItemURLProtocol.m */; };
+		97E1D55FF68EE493922F24BA /* libPods-PrebidMobileValidator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8FD3025128094507AF965BE /* libPods-PrebidMobileValidator.a */; };
 		F54847BA2080FDB100D109A0 /* PBVPBSRequestResponseValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847B92080FDB100D109A0 /* PBVPBSRequestResponseValidator.m */; };
 		F54847C92081223900D109A0 /* PBVSharedConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847C82081223900D109A0 /* PBVSharedConstants.m */; };
 		F54847D120867D7500D109A0 /* PBVPrebidSDKValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847D020867D7500D109A0 /* PBVPrebidSDKValidator.m */; };
@@ -257,6 +258,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5BDCC11F3DC4053C04395DDD /* Pods-PrebidMobileValidator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileValidator.release.xcconfig"; path = "Pods/Target Support Files/Pods-PrebidMobileValidator/Pods-PrebidMobileValidator.release.xcconfig"; sourceTree = "<group>"; };
 		602D0A2E2087D463001C5AF6 /* UILabel+DynamicSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+DynamicSize.h"; sourceTree = "<group>"; };
 		602D0A2F2087D464001C5AF6 /* UILabel+DynamicSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+DynamicSize.m"; sourceTree = "<group>"; };
 		605A56C220768B7700E92376 /* LineItemsTabController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineItemsTabController.h; sourceTree = "<group>"; };
@@ -678,6 +680,8 @@
 		60C67B3B20766F51003A7A1D /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../sdk/PrebidMobile.xcodeproj; sourceTree = "<group>"; };
 		60CEC02F2086500400CA104B /* LineItemURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineItemURLProtocol.h; sourceTree = "<group>"; };
 		60CEC0302086500400CA104B /* LineItemURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineItemURLProtocol.m; sourceTree = "<group>"; };
+		B2C6991413B36D54C946A49C /* Pods-PrebidMobileValidator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileValidator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PrebidMobileValidator/Pods-PrebidMobileValidator.debug.xcconfig"; sourceTree = "<group>"; };
+		E8FD3025128094507AF965BE /* libPods-PrebidMobileValidator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidMobileValidator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F54847B92080FDB100D109A0 /* PBVPBSRequestResponseValidator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBVPBSRequestResponseValidator.m; sourceTree = "<group>"; };
 		F54847BE2080FE3200D109A0 /* PBVPBSRequestResponseValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVPBSRequestResponseValidator.h; sourceTree = "<group>"; };
 		F54847C620811BB300D109A0 /* PBVSharedConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVSharedConstants.h; sourceTree = "<group>"; };
@@ -709,12 +713,22 @@
 				605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */,
 				60C67B4620766FC1003A7A1D /* PrebidMobile.framework in Frameworks */,
 				60C678AE2073F879003A7A1D /* GoogleMobileAds.framework in Frameworks */,
+				97E1D55FF68EE493922F24BA /* libPods-PrebidMobileValidator.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1ABF9B5A2E02436FF8CEA1EF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B2C6991413B36D54C946A49C /* Pods-PrebidMobileValidator.debug.xcconfig */,
+				5BDCC11F3DC4053C04395DDD /* Pods-PrebidMobileValidator.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		60C678762073D7B0003A7A1D = {
 			isa = PBXGroup;
 			children = (
@@ -722,6 +736,7 @@
 				60C678812073D7B0003A7A1D /* PrebidMobileValidator */,
 				60C678802073D7B0003A7A1D /* Products */,
 				60C678AC2073F879003A7A1D /* Frameworks */,
+				1ABF9B5A2E02436FF8CEA1EF /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -798,6 +813,7 @@
 				605A56CA2076C89A00E92376 /* MessageUI.framework */,
 				60C678AF2073F89C003A7A1D /* MoPubSDK */,
 				60C678AD2073F879003A7A1D /* GoogleMobileAds.framework */,
+				E8FD3025128094507AF965BE /* libPods-PrebidMobileValidator.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1443,9 +1459,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 60C678952073D7B0003A7A1D /* Build configuration list for PBXNativeTarget "PrebidMobileValidator" */;
 			buildPhases = (
+				6DA25D8801FE52D1C7E25BD7 /* [CP] Check Pods Manifest.lock */,
 				60C6787B2073D7B0003A7A1D /* Sources */,
 				60C6787C2073D7B0003A7A1D /* Frameworks */,
 				60C6787D2073D7B0003A7A1D /* Resources */,
+				4CB2FE66E34E091B665DCABE /* [CP] Embed Pods Frameworks */,
+				C316F64395E37D7306531F96 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1548,6 +1567,80 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4CB2FE66E34E091B665DCABE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PrebidMobileValidator/Pods-PrebidMobileValidator-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6DA25D8801FE52D1C7E25BD7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PrebidMobileValidator-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C316F64395E37D7306531F96 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PrebidMobileValidator/Pods-PrebidMobileValidator-resources.sh",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Internal/Common/MPAdBrowserController.xib",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPCloseBtn.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPCloseBtn@2x.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPCloseBtn@3x.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPCloseButtonX.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPCloseButtonX@2x.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPCloseButtonX@3x.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPCountdownTimer.html",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPDAAIcon.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPDAAIcon@2x.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPDAAIcon@3x.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPMutedBtn.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPMutedBtn@2x.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPMutedBtn@3x.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPPlayBtn.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPPlayBtn@2x.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPPlayBtn@3x.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPUnmutedBtn.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPUnmutedBtn@2x.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPUnmutedBtn@3x.png",
+				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MRAID.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PrebidMobileValidator/Pods-PrebidMobileValidator-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		60C6787B2073D7B0003A7A1D /* Sources */ = {
@@ -1887,6 +1980,7 @@
 		};
 		60C678962073D7B0003A7A1D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2C6991413B36D54C946A49C /* Pods-PrebidMobileValidator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1906,6 +2000,7 @@
 		};
 		60C678972073D7B0003A7A1D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5BDCC11F3DC4053C04395DDD /* Pods-PrebidMobileValidator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
