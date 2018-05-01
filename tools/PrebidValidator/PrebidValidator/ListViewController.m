@@ -32,7 +32,7 @@
     
     self.title = @"Prebid Validator";
     
-    self.navigationController.navigationBar.barTintColor = [UIColor orangeColor];
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.23 green:0.53 blue:0.76 alpha:1.0];
     self.navigationController.navigationBar.translucent = NO;
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
 

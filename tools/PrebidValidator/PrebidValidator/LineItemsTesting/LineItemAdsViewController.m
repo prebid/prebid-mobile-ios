@@ -126,11 +126,8 @@
 #pragma mark - UITableViewDataSource methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
     if (tableView == self.bannerTableView) {
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(kAdLabelLocationX, kAdLabelLocationY, self.view.frame.size.width, kAdTitleLabelHeight)];
         title.font = [UIFont boldSystemFontOfSize:16];

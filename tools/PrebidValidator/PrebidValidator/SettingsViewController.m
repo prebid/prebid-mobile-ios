@@ -72,7 +72,8 @@ CGFloat const kLabelHeight = 80.0f;
     [super viewDidLoad];
     
     self.title = @"Settings";
-    self.navigationController.navigationBar.barTintColor = [UIColor orangeColor];
+    UIColor *bannerColor = [UIColor colorWithRed:0.23 green:0.53 blue:0.76 alpha:1.0];
+    self.navigationController.navigationBar.barTintColor = bannerColor;
     self.navigationController.navigationBar.translucent = NO;
     
     _userInputTableView = [[UITableView alloc] init];
