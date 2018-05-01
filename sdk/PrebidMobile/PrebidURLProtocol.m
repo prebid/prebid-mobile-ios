@@ -28,7 +28,7 @@
     if ([NSURLProtocol propertyForKey:@"PrebidURLProtocolHandledKey" inRequest:request]) {
         return NO;
     }
-    if ([request.URL.absoluteString containsString:@"prebid.adnxs.com/pbc/v1/cache"] ||
+    if ([request.URL.absoluteString containsString:@"prebid.adnxs.com/pbc/v1/cache?uuid"] ||
         [request.URL.absoluteString containsString:@"rubiconproject.com/cache"]) {
         return YES;
     }

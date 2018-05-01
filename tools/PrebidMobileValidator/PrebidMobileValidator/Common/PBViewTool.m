@@ -1,11 +1,11 @@
 
 #import <Foundation/Foundation.h>
-#import "PBAdViewTool.h"
+#import "PBViewTool.h"
 #import "MPWebView.h"
-@interface PBAdViewTool()
+@interface PBViewTool()
 @end
 
-@implementation PBAdViewTool
+@implementation PBViewTool
 
 + (void) checkMPAdViewContainsPBMAd:(MPAdView *)view withCompletionHandler:(void(^)(BOOL result))completionHandler{
     for(UIView *i in view.subviews){

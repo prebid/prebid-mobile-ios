@@ -1,4 +1,5 @@
 #import "LineItemKeywordsManager.h"
+#import <PrebidMobile/PrebidCache.h>
 
 NSString * const KeywordsManagerPriceKey = @"hb_pb";
 NSString * const KeywordsManagerCacheIdKey = @"hb_cache_id";
@@ -10,7 +11,6 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
 
 @interface LineItemKeywordsManager()
 @property NSString *cacheIdFromServer;
-@property NSString *cacheIdFromLocal;
 @end
 
 @implementation LineItemKeywordsManager
@@ -49,18 +49,20 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
         }];
         [cacheIdTask resume];
         
+        
     });
     return sharedManager;
 }
 
-- (NSDictionary<NSString *, NSString *> *)keywordsWithBidPrice:(double)bidPrice forSize:(NSString *)sizeString usingLocalCache:(BOOL) useLocalCache {
+- (NSDictionary<NSString *, NSString *> *)keywordsWithBidPrice:(NSString *)bidPrice forSize:(NSString *)sizeString usingLocalCache:(BOOL) useLocalCache {
     NSMutableDictionary *keywords = [[NSMutableDictionary alloc] init];
     if (useLocalCache) {
-        if (self.cacheIdFromLocal) {
-            keywords[KeywordsManagerCacheIdKey] = self.cacheIdFromLocal;
-        } else {
-            keywords[KeywordsManagerCacheIdKey] = KeywordsManagerFakeCacheId;
-        }
+        NSData *webData = [KeywordsManagerCreative300x250 dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *error;
+        NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:webData options:0 error:&error];
+        NSString *cacheId = [[NSUUID UUID] UUIDString];
+        [[PrebidCache globalCache] setObject:jsonDict forKey:cacheId];
+        keywords[KeywordsManagerCacheIdKey] = cacheId;
     } else {
         if (self.cacheIdFromServer) {
             keywords[KeywordsManagerCacheIdKey] = self.cacheIdFromServer;
@@ -68,8 +70,7 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
             keywords[KeywordsManagerCacheIdKey] = KeywordsManagerFakeCacheId;
         }
     }
-    keywords[KeywordsManagerPriceKey] =  [self formatValue:bidPrice
-                                                   toRange:KeywordsManagerPriceFiftyCentsRange];
+    keywords[KeywordsManagerPriceKey] =  bidPrice;
     keywords[KeywordsManagerSizeKey] = sizeString;
     return [keywords copy];
 }

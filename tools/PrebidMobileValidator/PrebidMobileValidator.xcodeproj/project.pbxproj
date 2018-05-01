@@ -230,7 +230,8 @@
 		F54847E7208806E100D109A0 /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847DF208806E100D109A0 /* QRCodeReaderView.m */; };
 		F54847E8208806E100D109A0 /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = F54847E3208806E100D109A0 /* QRCodeReader.m */; };
 		F592196B207FF0EF00F117C0 /* PBVPrebidServerConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F592196A207FF0EF00F117C0 /* PBVPrebidServerConfigViewController.m */; };
-		F5FCCC3C20924FB800F1DA52 /* PBAdViewTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FCCC3B20924FB800F1DA52 /* PBAdViewTool.m */; };
+		F5FCCC3C20924FB800F1DA52 /* PBViewTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FCCC3B20924FB800F1DA52 /* PBViewTool.m */; };
+		F5FCCC4120979A7800F1DA52 /* PBVLineItemsSetupValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FCCC4020979A7800F1DA52 /* PBVLineItemsSetupValidator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -701,8 +702,10 @@
 		F54847E3208806E100D109A0 /* QRCodeReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeReader.m; sourceTree = "<group>"; };
 		F592196A207FF0EF00F117C0 /* PBVPrebidServerConfigViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBVPrebidServerConfigViewController.m; sourceTree = "<group>"; };
 		F592196C207FF0FD00F117C0 /* PBVPrebidServerConfigViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVPrebidServerConfigViewController.h; sourceTree = "<group>"; };
-		F5FCCC3A20924F1A00F1DA52 /* PBAdViewTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBAdViewTool.h; sourceTree = "<group>"; };
-		F5FCCC3B20924FB800F1DA52 /* PBAdViewTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBAdViewTool.m; sourceTree = "<group>"; };
+		F5FCCC3A20924F1A00F1DA52 /* PBViewTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBViewTool.h; sourceTree = "<group>"; };
+		F5FCCC3B20924FB800F1DA52 /* PBViewTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBViewTool.m; sourceTree = "<group>"; };
+		F5FCCC4020979A7800F1DA52 /* PBVLineItemsSetupValidator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBVLineItemsSetupValidator.m; sourceTree = "<group>"; };
+		F5FCCC4320979AD300F1DA52 /* PBVLineItemsSetupValidator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBVLineItemsSetupValidator.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -790,6 +793,8 @@
 				60CEC0302086500400CA104B /* LineItemURLProtocol.m */,
 				602D0A2E2087D463001C5AF6 /* UILabel+DynamicSize.h */,
 				602D0A2F2087D464001C5AF6 /* UILabel+DynamicSize.m */,
+				F5FCCC4020979A7800F1DA52 /* PBVLineItemsSetupValidator.m */,
+				F5FCCC4320979AD300F1DA52 /* PBVLineItemsSetupValidator.h */,
 			);
 			path = LineItemsTesting;
 			sourceTree = "<group>";
@@ -1446,8 +1451,8 @@
 			children = (
 				60C67AE720740524003A7A1D /* Pickers */,
 				F54847D8208806E100D109A0 /* QRCodeReaderViewController */,
-				F5FCCC3A20924F1A00F1DA52 /* PBAdViewTool.h */,
-				F5FCCC3B20924FB800F1DA52 /* PBAdViewTool.m */,
+				F5FCCC3A20924F1A00F1DA52 /* PBViewTool.h */,
+				F5FCCC3B20924FB800F1DA52 /* PBViewTool.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1718,7 +1723,7 @@
 				60C67AC92073F89D003A7A1D /* MOPUBNativeVideoAdRendererSettings.m in Sources */,
 				60C67A6E2073F89C003A7A1D /* MPActivityViewControllerHelper+TweetShare.m in Sources */,
 				F54847BA2080FDB100D109A0 /* PBVPBSRequestResponseValidator.m in Sources */,
-				F5FCCC3C20924FB800F1DA52 /* PBAdViewTool.m in Sources */,
+				F5FCCC3C20924FB800F1DA52 /* PBViewTool.m in Sources */,
 				60C67AD52073F89D003A7A1D /* MOPUBAVPlayer.m in Sources */,
 				60C67AD82073F89D003A7A1D /* MPMoPubRewardedVideoCustomEvent.m in Sources */,
 				60C67A9B2073F89D003A7A1D /* MPVASTLinearAd.m in Sources */,
@@ -1828,6 +1833,7 @@
 				60C67A9E2073F89D003A7A1D /* MPVASTDurationOffset.m in Sources */,
 				60C67B1A20741589003A7A1D /* InterstitialTestsViewController.m in Sources */,
 				60C67ACF2073F89D003A7A1D /* MOPUBNativeVideoImpressionAgent.m in Sources */,
+				F5FCCC4120979A7800F1DA52 /* PBVLineItemsSetupValidator.m in Sources */,
 				60C67A692073F89C003A7A1D /* MPRealTimeTimer.m in Sources */,
 				60C67A562073F89C003A7A1D /* MPCoreInstanceProvider.m in Sources */,
 				60C67ABD2073F89D003A7A1D /* MPTableViewCellImpressionTracker.m in Sources */,

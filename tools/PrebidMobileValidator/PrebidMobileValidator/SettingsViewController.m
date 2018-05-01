@@ -72,7 +72,12 @@ CGFloat const kLabelHeight = 80.0f;
     [super viewDidLoad];
     
     self.title = @"Settings";
-    self.navigationController.navigationBar.barTintColor = [UIColor orangeColor];
+    CGFloat red = 58.0;
+    CGFloat green = 135.0;
+    CGFloat blue = 194.0;
+    CGFloat alpha = 255.0;
+    UIColor *prebidBlue = [UIColor colorWithRed:(red/255.0) green:(green/255.0) blue:(blue/255.0) alpha:(alpha/255.0)];
+    self.navigationController.navigationBar.barTintColor = prebidBlue;
     self.navigationController.navigationBar.translucent = NO;
     
     _userInputTableView = [[UITableView alloc] init];
@@ -423,6 +428,10 @@ CGFloat const kLabelHeight = 80.0f;
     if ([self.bidPrice isEqualToString:@""]) {
         alertController =[UIAlertController alertControllerWithTitle:kErrorMessageTitle message:@"Please input at least one bid price to test with." preferredStyle:UIAlertControllerStyleAlert];
     }
+    NSArray *bidPrices = [self.bidPrice componentsSeparatedByString:@","];
+    if ([self.adServer isEqualToString:kMoPubString] && [self.adFormat isEqualToString:kInterstitialString] && bidPrices.count > 1 ){
+        alertController = [UIAlertController alertControllerWithTitle:kErrorMessageTitle message:@"Please input at only one bid price each time to test MoPub interstitial." preferredStyle:UIAlertControllerStyleAlert];
+    }
 
     if (alertController) {
         UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
@@ -441,7 +450,7 @@ CGFloat const kLabelHeight = 80.0f;
     [[NSUserDefaults standardUserDefaults] setObject:self.configID forKey:kPBConfigKey];
     
     
-    NSArray *bidPrices = [self.bidPrice componentsSeparatedByString:@","];
+    
     [[NSUserDefaults standardUserDefaults] setObject:bidPrices forKey:kBidPriceKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

@@ -17,7 +17,7 @@
 		B455F9011FE460E3005D6261 /* PBBidManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E281EE1BEA6006304C0 /* PBBidManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C210FE321FBDF0440010B588 /* PrebidURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */; };
 		C210FE331FBDF0440010B588 /* PrebidURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = C210FE311FBDF0440010B588 /* PrebidURLProtocol.m */; };
-		C210FE381FC3375D0010B588 /* PrebidCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE361FC3375D0010B588 /* PrebidCache.h */; };
+		C210FE381FC3375D0010B588 /* PrebidCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C210FE361FC3375D0010B588 /* PrebidCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C210FE391FC3375D0010B588 /* PrebidCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C210FE371FC3375D0010B588 /* PrebidCache.m */; };
 		C22E7CE61EE70E19007B31F4 /* NSTimer+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B16E501EE1BEC4006304C0 /* NSTimer+Extension.m */; };
 		C23386D21EE5DBFB002FD404 /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = C23386D01EE5DBFB002FD404 /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -415,6 +415,7 @@
 				606A42A42020FD4600492433 /* PBServerRequestBuilder.h in Headers */,
 				C23386D21EE5DBFB002FD404 /* PrebidMobile.h in Headers */,
 				C24B78C41EE7467E0045B454 /* NSObject+Prebid.h in Headers */,
+				C210FE381FC3375D0010B588 /* PrebidCache.h in Headers */,
 				C2B16E981EE1BF1A006304C0 /* PBServerFetcher.h in Headers */,
 				C2B16E3B1EE1BEA6006304C0 /* PBInterstitialAdUnit.h in Headers */,
 				C2B16E9B1EE1BF1A006304C0 /* PBServerGlobal.h in Headers */,
@@ -422,7 +423,6 @@
 				C2B16E9D1EE1BF1A006304C0 /* PBServerLocation.h in Headers */,
 				606A4353202BC98100492433 /* PrebidMobile-umbrella.h in Headers */,
 				C210FE321FBDF0440010B588 /* PrebidURLProtocol.h in Headers */,
-				C210FE381FC3375D0010B588 /* PrebidCache.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,18 +8,20 @@
 
 #import "ListViewController.h"
 #import "LineItemsTabController.h"
+#import "LineItemAdsViewController.h"
 #import "PBVTableViewCell.h"
 #import "PBVSharedConstants.h"
 #import "PBVPrebidServerConfigViewController.h"
 #import "PBVPBSRequestResponseValidator.h"
 #import "PBVPrebidSDKValidator.h"
+#import "PBVLineItemsSetupValidator.h"
 
 #define CellReuseID @"ReuseCell"
 
-@interface ListViewController ()<PBVPrebidSDKValidatorDelegate>
+@interface ListViewController ()<PBVPrebidSDKValidatorDelegate, PBVLineItemsSetupValidatorDelegate>
 
 @property (strong, nonatomic) NSArray *items;
-
+@property PBVLineItemsSetupValidator *validator1;
 @property PBVPBSRequestResponseValidator *validator2;
 @property PBVPrebidSDKValidator *validator3;
 @property UIRefreshControl *refreshControll;
@@ -31,28 +33,16 @@
     [super viewDidLoad];
     
     self.title = @"Prebid Validator";
-    
-    self.navigationController.navigationBar.barTintColor = [UIColor orangeColor];
-    self.navigationController.navigationBar.translucent = NO;
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:nil action:nil];
-
     self.items = [[NSArray alloc] initWithObjects:@"AdServer Setup Validation", @"PrebidServer Configuration Validation",@"PrebidSDK Validation", nil];
     
     
     UITableView *tableView = (UITableView *)self.view;
     [tableView registerNib:[UINib nibWithNibName:@"PBVTableViewCell" bundle:nil] forCellReuseIdentifier:CellReuseID];
-    
-    
-}
-
--(void) viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
-     _refreshControll = [[UIRefreshControl alloc]init];
+    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    _refreshControll = [[UIRefreshControl alloc]init];
     [self.tableView addSubview:_refreshControll];
     [_refreshControll addTarget:self action:@selector(refreshTests) forControlEvents:UIControlEventValueChanged];
     [self startTests];
-    // TODO: wei to add validator mode for first test.
-    [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(updateCell) userInfo:nil repeats:NO];
 }
 
 -(void)refreshTests
@@ -74,6 +64,9 @@
         cell = [(UITableView *) self.view cellForRowAtIndexPath:test3];
         cell.progressImage.image = [UIImage imageNamed:@"Progress"];
     });
+    _validator1 = [[PBVLineItemsSetupValidator alloc] init];
+    _validator1.delegate = self;
+    [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runTestForValidator1) userInfo:nil repeats:NO];
     _validator2 = [[PBVPBSRequestResponseValidator alloc] init];
     [_validator2 startTestWithCompletionHandler:^(Boolean result) {
         if (result) {
@@ -97,6 +90,30 @@
     [_validator3 startTest];
 }
 
+-(void) runTestForValidator1
+{
+    [_validator1 startTest];
+}
+#pragma mark LineItems test delegate
+- (void)lineItemsWereNotSetupProperly
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSIndexPath *test1 = [NSIndexPath indexPathForRow:0 inSection:0] ;
+        PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test1];
+        cell.progressImage.image = [UIImage imageNamed:@"Red"];
+    });
+}
+
+-(void)lineItemsWereSetupProperly
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSIndexPath *test1 = [NSIndexPath indexPathForRow:0 inSection:0] ;
+        PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test1];
+        cell.progressImage.image = [UIImage imageNamed:@"Green"];
+    });
+}
+
+#pragma mark SDK integration test delegate
 - (void)sdkIntegrationDidPass
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -106,28 +123,13 @@
     });
 }
 
--(void) updateCell{
-dispatch_async(dispatch_get_main_queue(), ^{
-    NSIndexPath *test1 = [NSIndexPath indexPathForRow:0 inSection:0] ;
-    PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test1];
-    cell.progressImage.image = [UIImage imageNamed:@"Green"];
-});
-    
-}
-
 - (void)sdkIntegrationDidFail
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        // add red icon to this app
         NSIndexPath *test3 = [NSIndexPath indexPathForRow:2 inSection:0] ;
         PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test3];
         cell.progressImage.image = [UIImage imageNamed:@"Red"];
     });
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -159,9 +161,9 @@ dispatch_async(dispatch_get_main_queue(), ^{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if(indexPath.row == 0){
-        LineItemsTabController *lineItemsTabController = [[LineItemsTabController alloc] init];
-        
-        [self.navigationController pushViewController:lineItemsTabController animated:YES];
+        LineItemAdsViewController *lineItemsAdsViewController =
+        [[LineItemAdsViewController alloc] initWithValidator:_validator1];
+        [self.navigationController pushViewController:lineItemsAdsViewController animated:YES];
     } if(indexPath.row == 2){
         UIViewController *controller = [_validator3 getViewController];
     
