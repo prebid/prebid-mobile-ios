@@ -188,11 +188,22 @@
 
 - (MPInterstitialAdController *) createMPInterstitialAdControllerWithAdUnitId: (NSString *) adUnitID WithKeywords:(NSDictionary *) keywordsDict
 {
-
-    MPInterstitialAdController *interstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:adUnitID];
     NSString *keywords = [self formatMoPubKeywordStringFromDictionary:keywordsDict];
-    interstitial.keywords = keywords;
-    interstitial.delegate = self;
+    Class MPInterstitialClass = [MPInterstitialAdController class];   
+    SEL initMethodSel = NSSelectorFromString(@"initWithAdUnitId:");
+    id interstitial = [MPInterstitialClass alloc];
+    if ([interstitial respondsToSelector:initMethodSel]) {
+        NSMethodSignature *methSig = [interstitial methodSignatureForSelector:initMethodSel];
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methSig];
+        [invocation setSelector:initMethodSel];
+        [invocation setTarget:interstitial];
+        [invocation setArgument:&adUnitID atIndex:2];
+        [invocation invoke];
+        NSMutableArray *interstitials = [MPInterstitialClass valueForKey:@"sharedInterstitials"];
+        [interstitials addObject:interstitial];
+        [(MPInterstitialAdController *)interstitial setKeywords:keywords];
+        [(MPInterstitialAdController *)interstitial setDelegate:self];
+    }
     return interstitial;
 }
 

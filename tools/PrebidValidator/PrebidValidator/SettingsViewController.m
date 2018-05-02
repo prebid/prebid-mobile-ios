@@ -428,10 +428,6 @@ CGFloat const kLabelHeight = 80.0f;
     if ([self.bidPrice isEqualToString:@""]) {
         alertController =[UIAlertController alertControllerWithTitle:kErrorMessageTitle message:@"Please input at least one bid price to test with." preferredStyle:UIAlertControllerStyleAlert];
     }
-    NSArray *bidPrices = [self.bidPrice componentsSeparatedByString:@","];
-    if ([self.adServer isEqualToString:kMoPubString] && [self.adFormat isEqualToString:kInterstitialString] && bidPrices.count > 1 ){
-        alertController = [UIAlertController alertControllerWithTitle:kErrorMessageTitle message:@"Please input at only one bid price each time to test MoPub interstitial." preferredStyle:UIAlertControllerStyleAlert];
-    }
 
     if (alertController) {
         UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
@@ -450,7 +446,7 @@ CGFloat const kLabelHeight = 80.0f;
     [[NSUserDefaults standardUserDefaults] setObject:self.configID forKey:kPBConfigKey];
     
     
-    
+    NSArray *bidPrices = [self.bidPrice componentsSeparatedByString:@","];
     [[NSUserDefaults standardUserDefaults] setObject:bidPrices forKey:kBidPriceKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
