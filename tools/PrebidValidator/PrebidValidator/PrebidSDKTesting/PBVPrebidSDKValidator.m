@@ -23,7 +23,7 @@
 #import "InterstitialTestsViewController.h"
 #import <GoogleMobileAds/DFPBannerView.h>
 #import <GoogleMobileAds/DFPInterstitial.h>
-#import "PBAdViewTool.h"
+#import "PBViewTool.h"
 
 @interface PBVPrebidSDKValidator() <CLLocationManagerDelegate,
                                     MPAdViewDelegate,
@@ -42,7 +42,7 @@
 {
     self = [super init];
     if (self) {
-        [self enablePrebidLogs];
+        //        [self enablePrebidLogs]; TODO: add this back
         [self setupPrebidAndRegisterAdUnits];
     }
     return self;
@@ -84,9 +84,13 @@
             return NO;
         }
         NSArray *adUnits = [NSArray arrayWithObjects:adUnit, nil];
+        NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
+        if ([adServerName isEqualToString:kMoPubString]) {
+            [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerMoPub];
+        } else if([adServerName isEqualToString:kDFPString]){
+            [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerDFP];
+        }
         
-        // TODO: add a way to configure host
-        [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerMoPub];
     } @catch (PBException *ex) {
         NSLog(@"%@",[ex reason]);
     } @finally {
@@ -205,7 +209,7 @@
 
 - (void)adViewDidReceiveAd:(GADBannerView *)bannerView
 {
-    if ([PBAdViewTool checkDFPAdViewContainsPBMAd:bannerView]) {
+    if ([PBViewTool checkDFPAdViewContainsPBMAd:bannerView]) {
         [_delegate sdkIntegrationDidPass];
     } else {
         [_delegate sdkIntegrationDidFail];
@@ -236,7 +240,7 @@
 
 - (void)adViewDidLoadAd:(MPAdView *)view
 {
-    [PBAdViewTool checkMPAdViewContainsPBMAd:view withCompletionHandler:^(BOOL result) {
+    [PBViewTool checkMPAdViewContainsPBMAd:view withCompletionHandler:^(BOOL result) {
         if( result) {
             [_delegate sdkIntegrationDidPass];
         } else

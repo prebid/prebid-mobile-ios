@@ -2,6 +2,7 @@
 # platform :ios, '9.0'
 
 target 'PrebidValidator' do
+    pod 'PrebidMobile'
     pod 'mopub-ios-sdk'
     pod 'Google-Mobile-Ads-SDK'
 end

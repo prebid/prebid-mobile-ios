@@ -136,11 +136,10 @@
 #pragma mark - GADBannerViewDelegate methods
 
 - (void)adViewDidReceiveAd:(DFPBannerView *)view {
-    NSLog(@"DFP: %@", NSStringFromSelector(_cmd));
+
 }
 
 - (void)adView:(DFPBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
-    NSLog(@"DFP: %@", NSStringFromSelector(_cmd));
 }
 
 #pragma mark MPAdViewDelegate
@@ -156,16 +155,5 @@
 - (void)adViewDidFailToLoadAd:(MPAdView *)view
 {
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

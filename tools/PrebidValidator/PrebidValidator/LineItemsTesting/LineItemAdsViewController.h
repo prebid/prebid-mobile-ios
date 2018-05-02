@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PBVLineItemsSetupValidator.h"
 
 @interface LineItemAdsViewController : UIViewController
+
+-(instancetype)initWithValidator: (PBVLineItemsSetupValidator *) validator;
 
 @end
