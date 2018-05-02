@@ -25,8 +25,8 @@
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
-    Boolean useCache = false;
-    if(adServerName == kDFPString) useCache = true;
+    BOOL useCache = FALSE;
+    if([adServerName isEqualToString: kDFPString]) useCache = TRUE;
     NSString *accountId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBAccountKey];
     NSString *configId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBConfigKey];
     PBAdUnit *adUnit;
@@ -48,6 +48,7 @@
     NSURL *url = [NSURL URLWithString:@"https://prebid.adnxs.com/pbs/v1/openrtb2/auction"];
     [[PBServerRequestBuilder sharedInstance]setHostURL:url];
     NSURLRequest *req = [[PBServerRequestBuilder sharedInstance] buildRequest:adUnits withAccountId:accountId shouldCacheLocal:useCache withSecureParams:true];
+    NSLog(@"USE CACHE %@", useCache ? @"YES": @"NO");
     self.request = [[NSString alloc]initWithData:req.HTTPBody encoding:NSUTF8StringEncoding];
     [self runTestWithReuqest:req CompletionHandler:completionHandler];
 }
