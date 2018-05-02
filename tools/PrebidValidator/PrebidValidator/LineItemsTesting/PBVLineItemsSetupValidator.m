@@ -268,16 +268,5 @@
 {
     return _adObjects;
 }
-
--(void) destroy
-{
-    for (id object in _adObjects) {
-        if ([object isKindOfClass:[DFPBannerView class]]) {
-            [(DFPBannerView *) object removeFromSuperview];
-            ((DFPBannerView *) object).delegate = nil;
-            ((DFPBannerView *) object).rootViewController = nil;
-        }
-    }
-}
 @end
 

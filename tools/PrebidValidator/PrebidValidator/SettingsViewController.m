@@ -451,9 +451,4 @@ CGFloat const kLabelHeight = 80.0f;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 @end

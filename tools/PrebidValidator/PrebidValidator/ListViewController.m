@@ -7,7 +7,6 @@
 //
 
 #import "ListViewController.h"
-#import "LineItemsTabController.h"
 #import "LineItemAdsViewController.h"
 #import "PBVTableViewCell.h"
 #import "PBVSharedConstants.h"

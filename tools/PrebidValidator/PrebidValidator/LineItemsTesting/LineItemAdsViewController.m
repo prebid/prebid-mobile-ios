@@ -21,18 +21,11 @@
 
 @property (nonatomic, strong) NSMutableDictionary *bidPriceToCell;
 @property (nonatomic, strong) NSArray *bidPrices;
-
-
 @property (nonatomic, strong) UITableView *interstitialTableView;
 @property (nonatomic, strong) UITableView *bannerTableView;
-
 @property (nonatomic, assign) BOOL isBanner;
 @property (nonatomic, assign) BOOL isInterstitial;
-
 @property (nonatomic, assign) CGSize adSize;
-
-@property (nonatomic, strong) UIScrollView *scrollView;
-
 @property PBVLineItemsSetupValidator * validator;
 @end
 
@@ -54,9 +47,7 @@
     self.title = @"Line items";
     
     // Retrieve saved values from NSUserDefaults and setup instance variables
-    NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
-    NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
     _bidPrices = [[NSUserDefaults standardUserDefaults] arrayForKey:kBidPriceKey];
     
@@ -197,7 +188,6 @@
     } else {
         [cell setSelected:NO];
     }
-
 }
 
 - (void)interstitialDidDisappear:(MPInterstitialAdController *)interstitial
@@ -216,37 +206,5 @@
         UITableViewCell *cell = [self.bidPriceToCell objectForKey:key];
         [cell setSelected:NO];
     }
-}
-
-
-
-
-//// Helper function to properly encode the url
-//- (NSString *)urlencode:(NSString *)string {
-//
-//    NSMutableString *output = [NSMutableString string];
-//    const unsigned char *source = (const unsigned char *)[string UTF8String];
-//    int sourceLen = (int)strlen((const char *)source);
-//    for (int i = 0; i < sourceLen; ++i) {
-//        const unsigned char thisChar = source[i];
-//        if (thisChar == ' '){
-//            [output appendString:@"+"];
-//        } else if (thisChar == '.' || thisChar == '-' || thisChar == '_' || thisChar == '~' ||
-//                   (thisChar >= 'a' && thisChar <= 'z') ||
-//                   (thisChar >= 'A' && thisChar <= 'Z') ||
-//                   (thisChar >= '0' && thisChar <= '9')) {
-//            [output appendFormat:@"%c", thisChar];
-//        } else {
-//            [output appendFormat:@"%%%02X", thisChar];
-//        }
-//    }
-//    return output;
-//}
-
-- (void)dealloc
-{
-    NSLog(@"Releasing LineItemAdsViewController...");
-    [_validator destroy];
-    _validator = nil;
 }
 @end

@@ -13,5 +13,4 @@
 
 - (NSDictionary *) getDisplayables;
 
--(void) destroy;
 @end
