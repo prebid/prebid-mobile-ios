@@ -42,7 +42,7 @@
 {
     self = [super init];
     if (self) {
-        //        [self enablePrebidLogs]; TODO: add this back
+        [self enablePrebidLogs];
         [self setupPrebidAndRegisterAdUnits];
     }
     return self;
