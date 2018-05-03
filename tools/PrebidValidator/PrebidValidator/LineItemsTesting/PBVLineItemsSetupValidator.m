@@ -17,6 +17,7 @@
 @property NSInteger *testCount;
 @property NSInteger *passedTests;
 @property NSInteger *failedTests;
+@property NSMutableString *emailContent;
 @end
 
 @implementation PBVLineItemsSetupValidator
@@ -52,6 +53,8 @@
     } else if ([adSizeString isEqualToString:kInterstitialSizeString]) {
         adSize = CGSizeMake(kInterstitialSizeWidth, kInterstitialSizeHeight);
     }
+    _emailContent = [[NSMutableString alloc]init];
+    [_emailContent appendString:@"To replicate the tests that are testing your line items setup, start a project without prebid installed, do the following list of actions: \n"];
     if ([adServerName isEqualToString:kMoPubString]) {
         if ([adFormatName isEqualToString:kBannerString]) {
             for (NSString *bidPrice in bidPrices) {
@@ -60,6 +63,7 @@
                 MPAdView *adView = [self createMPAdViewWithAdUnitId:adUnitID WithSize:adSize WithKeywords:keywords];
                 [_adObjects setObject:adView forKey:bidPrice];
                 [adView loadAd];
+                [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a MoPub banner ad with adUnitId \"%@\", size \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, adSizeString, [self formatMoPubKeywordStringFromDictionary:keywords]] ];
             }
         } else if ([adFormatName isEqualToString:kInterstitialString]){
             for (NSString *bidPrice in bidPrices){
@@ -68,6 +72,7 @@
                 MPInterstitialAdController *interstitial = [self createMPInterstitialAdControllerWithAdUnitId:adUnitID WithKeywords:keywords];
                 [_adObjects setObject:interstitial forKey:bidPrice];
                 [interstitial loadAd];
+                [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a MoPub interstitial ad with adUnitId \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, [self formatMoPubKeywordStringFromDictionary:keywords]] ];
             }
         }
     } else if([adServerName isEqualToString:kDFPString]){
@@ -83,6 +88,8 @@
                 DFPRequest *request = [DFPRequest request];
                 request.customTargeting = keywords;
                 [adView loadRequest:request];
+                 keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString usingLocalCache:false];
+                 [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a DFP banner ad with adUnitId \"%@\", size \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, adSizeString, keywords ]];
             }
         } else if ([adFormatName isEqualToString:kInterstitialString]){
             for (NSString *bidPrice in bidPrices) {
@@ -93,6 +100,8 @@
                 DFPRequest *request = [DFPRequest request];
                 request.customTargeting = keywords;
                 [interstitial loadRequest:request];
+                keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString usingLocalCache:false];
+                [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a DFP interstitial ad with adUnitId \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, keywords ]];
             }
         }
     }
@@ -267,6 +276,11 @@
 - (NSDictionary *) getDisplayables
 {
     return _adObjects;
+}
+
+- (NSString *)getEmailContent
+{
+    return [_emailContent copy];
 }
 @end
 

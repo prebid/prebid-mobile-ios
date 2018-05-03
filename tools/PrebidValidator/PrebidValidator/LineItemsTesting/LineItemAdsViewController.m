@@ -13,11 +13,13 @@
 #import "MPAdView.h"
 #import "MPInterstitialAdController.h"
 #import "LineItemKeywordsManager.h"
+#import <MessageUI/MFMailComposeViewController.h>
 
 @interface LineItemAdsViewController () <MPInterstitialAdControllerDelegate,
                                          GADInterstitialDelegate,
                                          UITableViewDataSource,
-                                         UITableViewDelegate>
+                                         UITableViewDelegate,
+                                         MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *bidPriceToCell;
 @property (nonatomic, strong) NSArray *bidPrices;
@@ -74,9 +76,49 @@
         [self setupTableView:_interstitialTableView];
         self.bidPriceToCell = [[NSMutableDictionary alloc] init];
     }
+    [self setupEmailButton];
 }
 
-// Table initializer method, properties are the same for banner and interstitial
+#pragma mark Email function
+-(void) setupEmailButton
+{
+    UIBarButtonItem *emailMe =        [[UIBarButtonItem alloc]init];
+    emailMe.style = UIBarButtonItemStylePlain;
+    emailMe.title = @"Email";
+    emailMe.target = self;
+    emailMe.action = NSSelectorFromString(@"emailContent:");
+    self.navigationItem.rightBarButtonItem = emailMe;
+}
+
+- (void) emailContent:(id) sender
+{
+    if([MFMailComposeViewController canSendMail]){
+        MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+        mailViewController.mailComposeDelegate = self;
+        [mailViewController setSubject:@"Request and response to/from Prebid Server"];
+        NSMutableString *body = [[NSMutableString alloc]initWithString:@""];
+        [body appendString: @"Hi, \n\n"];
+        [body appendString:[_validator getEmailContent]];
+        [mailViewController setMessageBody:body isHTML:NO];
+        [self presentViewController:mailViewController animated:YES completion:nil];
+    } else {
+        UIAlertController *alert = [[UIAlertController alloc] init];
+        alert.title = @"Uable to send email";
+        alert.message = @"Please set up an email account on your device.";
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:alertAction];
+        [self presentViewController: alert animated:YES completion:nil];
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark Table initializer method
+// properties are the same for banner and interstitial
 - (void)setupTableView:(UITableView *)tableView {
     tableView.frame = self.view.frame;
     tableView.dataSource = self;

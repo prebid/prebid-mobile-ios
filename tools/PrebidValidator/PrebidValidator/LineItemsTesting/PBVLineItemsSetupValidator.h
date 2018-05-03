@@ -13,4 +13,6 @@
 
 - (NSDictionary *) getDisplayables;
 
+- (NSString *) getEmailContent;
+
 @end
