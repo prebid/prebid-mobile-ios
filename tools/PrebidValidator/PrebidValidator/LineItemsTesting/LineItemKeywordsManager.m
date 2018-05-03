@@ -49,7 +49,6 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
                                                                            cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                                        timeoutInterval:1000];
         [mutableRequest setHTTPMethod:@"POST"];
-        NSLog(@"POST DATA: %@", postDict);
         NSData *postData = [NSJSONSerialization dataWithJSONObject:postDict
                                                            options:kNilOptions
                                                              error:nil];

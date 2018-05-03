@@ -79,6 +79,7 @@ CGFloat const kLabelHeight = 80.0f;
     UIColor *prebidBlue = [UIColor colorWithRed:(red/255.0) green:(green/255.0) blue:(blue/255.0) alpha:(alpha/255.0)];
     self.navigationController.navigationBar.barTintColor = prebidBlue;
     self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     
     _userInputTableView = [[UITableView alloc] init];
     _userInputTableView.frame = self.view.frame;
