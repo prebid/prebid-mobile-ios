@@ -11,24 +11,20 @@ PODS:
     - mopub-ios-sdk/Avid
     - mopub-ios-sdk/Core
     - mopub-ios-sdk/Moat
-  - PrebidMobile (0.2.1)
 
 DEPENDENCIES:
   - Google-Mobile-Ads-SDK
   - mopub-ios-sdk
-  - PrebidMobile
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Google-Mobile-Ads-SDK
     - mopub-ios-sdk
-    - PrebidMobile
 
 SPEC CHECKSUMS:
   Google-Mobile-Ads-SDK: 7404f68120ae8682afeb5af001fbf4aad731c78e
   mopub-ios-sdk: 6220599bacc1c47f4117b7af5e9616f6779157a5
-  PrebidMobile: 49e6bb4c9ff9c40f89aa3a01479e360d318a10a5
 
-PODFILE CHECKSUM: 06a49cd073511d20213b073d8e694e7f24a43b71
+PODFILE CHECKSUM: d5c8acd37992482be7a922e74c7c2ac20dce97ca
 
 COCOAPODS: 1.5.0

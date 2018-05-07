@@ -242,10 +242,10 @@
 {
     [PBViewTool checkMPAdViewContainsPBMAd:view withCompletionHandler:^(BOOL result) {
         if( result) {
-            [_delegate sdkIntegrationDidPass];
+            [self.delegate sdkIntegrationDidPass];
         } else
         {
-            [_delegate sdkIntegrationDidFail];
+            [self.delegate sdkIntegrationDidFail];
         }
     }];
 }

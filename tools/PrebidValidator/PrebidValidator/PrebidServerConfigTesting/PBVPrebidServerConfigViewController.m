@@ -75,7 +75,7 @@
     [_validator startTestWithString:enteredText andCompletionHandler:^(Boolean result) {
         dispatch_async(dispatch_get_main_queue(), ^{
             // update test result to respoonse
-            _responseText.text = [self prettyJson: _validator.response];
+            self.responseText.text = [self prettyJson: self.validator.response];
             // jump to response tab
             self.selectedIndex = 1;
             // change button back to email me
