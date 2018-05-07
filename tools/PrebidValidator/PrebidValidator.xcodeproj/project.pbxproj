@@ -42,7 +42,6 @@
 		60CFB2D12097820D006FCF7C /* VideoTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2A82097820D006FCF7C /* VideoTestsViewController.m */; };
 		60CFB2D22097820D006FCF7C /* BannerTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2AA2097820D006FCF7C /* BannerTestsViewController.m */; };
 		60CFB2D32097820D006FCF7C /* PBVSharedConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2AC2097820D006FCF7C /* PBVSharedConstants.m */; };
-		60CFB2D42097820D006FCF7C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB2AD2097820D006FCF7C /* Info.plist */; };
 		60CFB2DC2097A44C006FCF7C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2D72097A44B006FCF7C /* CoreGraphics.framework */; };
 		60CFB2DD2097A44C006FCF7C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2D82097A44B006FCF7C /* AdSupport.framework */; };
 		60CFB2DE2097A44C006FCF7C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2D92097A44B006FCF7C /* CoreLocation.framework */; };
@@ -64,7 +63,6 @@
 /* Begin PBXFileReference section */
 		0D7DFE449C9FE5570D88DDD6 /* libPods-PrebidValidator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidValidator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		492202AF64D5279F9C419C95 /* Pods-PrebidValidator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidValidator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PrebidValidator/Pods-PrebidValidator.debug.xcconfig"; sourceTree = "<group>"; };
-		5BDCC11F3DC4053C04395DDD /* Pods-PrebidMobileValidator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileValidator.release.xcconfig"; path = "Pods/Target Support Files/Pods-PrebidMobileValidator/Pods-PrebidMobileValidator.release.xcconfig"; sourceTree = "<group>"; };
 		605A56CA2076C89A00E92376 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		60C6787F2073D7B0003A7A1D /* PrebidValidator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidValidator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60C678AD2073F879003A7A1D /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
@@ -512,7 +510,6 @@
 		60CFB2E92097A4C4006FCF7C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		60CFB2F42097A4E3006FCF7C /* libmopub-ios-sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libmopub-ios-sdk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A69E6FD48A42EE537F4ABE7D /* Pods-PrebidValidator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidValidator.release.xcconfig"; path = "Pods/Target Support Files/Pods-PrebidValidator/Pods-PrebidValidator.release.xcconfig"; sourceTree = "<group>"; };
-		B2C6991413B36D54C946A49C /* Pods-PrebidMobileValidator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileValidator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PrebidMobileValidator/Pods-PrebidMobileValidator.debug.xcconfig"; sourceTree = "<group>"; };
 		E8FD3025128094507AF965BE /* libPods-PrebidMobileValidator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidMobileValidator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56AE88F209A3808000CE29F /* PBViewTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBViewTool.m; sourceTree = "<group>"; };
 		F56AE890209A3809000CE29F /* PBViewTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBViewTool.h; sourceTree = "<group>"; };
@@ -550,8 +547,6 @@
 		1ABF9B5A2E02436FF8CEA1EF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B2C6991413B36D54C946A49C /* Pods-PrebidMobileValidator.debug.xcconfig */,
-				5BDCC11F3DC4053C04395DDD /* Pods-PrebidMobileValidator.release.xcconfig */,
 				492202AF64D5279F9C419C95 /* Pods-PrebidValidator.debug.xcconfig */,
 				A69E6FD48A42EE537F4ABE7D /* Pods-PrebidValidator.release.xcconfig */,
 			);
@@ -1345,7 +1340,6 @@
 				60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */,
 				60CFB2B42097820D006FCF7C /* LaunchScreen.storyboard in Resources */,
 				60CFB2B12097820D006FCF7C /* PBVTableViewCell.xib in Resources */,
-				60CFB2D42097820D006FCF7C /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

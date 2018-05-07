@@ -25,9 +25,7 @@
 - (instancetype)init
 {
     self = [super init];
-    if (self) {
-        LineItemKeywordsManager *sharedManager = [LineItemKeywordsManager sharedManager];
-    }
+    
     return self;
 }
 

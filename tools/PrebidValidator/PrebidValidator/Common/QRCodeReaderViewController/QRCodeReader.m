@@ -79,8 +79,14 @@
     self.metadataOutput     = [[AVCaptureMetadataOutput alloc] init];
     self.session            = [[AVCaptureSession alloc] init];
     self.previewLayer       = [AVCaptureVideoPreviewLayer layerWithSession:self.session];
+      
+      AVCaptureDeviceDiscoverySession *captureDeviceDiscoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:@[AVCaptureDeviceTypeBuiltInWideAngleCamera]
+                                                                                                                              mediaType:AVMediaTypeVideo
+                                                                                                                               position:AVCaptureDevicePositionFront];
+      NSArray *captureDevices = [captureDeviceDiscoverySession devices];
 
-    for (AVCaptureDevice *device in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
+      
+    for (AVCaptureDevice *device in captureDevices) {
       if (device.position == AVCaptureDevicePositionFront) {
         self.frontDevice = device;
       }

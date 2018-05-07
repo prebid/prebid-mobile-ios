@@ -165,8 +165,12 @@ CGFloat const kLabelHeight = 80.0f;
     NSIndexPath *currentIndexPath = (NSIndexPath *)[(ScanButton *) sender userData];
     // uses code from this lib: https://github.com/yannickl/QRCodeReaderViewController
     QRCodeReader *reader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
-    QRCodeReaderViewController *vc = [QRCodeReaderViewController readerWithCancelButtonTitle:@"Cancel" codeReader:reader startScanningAtLoad:YES showSwitchCameraButton:YES showTorchButton:YES];
+    
+    __weak typeof(QRCodeReaderViewController)  *vc = [QRCodeReaderViewController readerWithCancelButtonTitle:@"Cancel" codeReader:reader startScanningAtLoad:YES showSwitchCameraButton:YES showTorchButton:YES];
     [vc setCompletionWithBlock:^(NSString * _Nullable resultAsString) {
+        
+        typeof(QRCodeReaderViewController) *svc = vc;
+        
         NSLog(@"Scanned result is : %@", resultAsString);
         dispatch_async(dispatch_get_main_queue(), ^{
             if (resultAsString) {
@@ -181,7 +185,7 @@ CGFloat const kLabelHeight = 80.0f;
                 }
             }
         });
-        [vc dismissViewControllerAnimated:YES completion:nil];
+        [svc dismissViewControllerAnimated:YES completion:nil];
     }];
     vc.delegate = self;
     [self presentViewController:vc animated:YES completion:nil];
