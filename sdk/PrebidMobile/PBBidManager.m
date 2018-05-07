@@ -307,9 +307,12 @@ static dispatch_once_t onceToken;
 }
 
 - (void)setBidOnAdObject:(NSObject *)adObject {
-    [self clearBidOnAdObject:adObject];
+   
 
     if (adObject.pb_identifier) {
+        
+        [self clearBidOnAdObject:adObject];
+        
         NSMutableArray *mutableKeywords;
         NSString *keywords = @"";
         SEL getKeywords = NSSelectorFromString(@"keywords");

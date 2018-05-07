@@ -23,6 +23,9 @@
 #import <PrebidMobile/PBLogging.h>
 #import "Constants.h"
 #import "SettingsViewController.h"
+#import <PrebidMobile/PBServerRequestBuilder.h>
+#import <PrebidMobile/PBServerAdapter.h>
+#import <PrebidMobile/PBTargetingParams.h>
 
 @interface AppDelegate ()
 
