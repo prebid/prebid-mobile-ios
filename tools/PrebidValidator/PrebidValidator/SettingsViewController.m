@@ -49,6 +49,7 @@ CGFloat const kLabelHeight = 80.0f;
 @property NSArray *adServers;
 @property NSArray *adFormats;
 @property NSArray *adSizes;
+@property NSArray *hosts;
 
 @property (nonatomic, strong) UITableView *userInputTableView;
 @property NSDictionary *tableViewDictionaryItems;
@@ -63,6 +64,7 @@ CGFloat const kLabelHeight = 80.0f;
 
 @property NSString *accountID;
 @property NSString *configID;
+@property NSString *host;
 
 @end
 
@@ -98,7 +100,7 @@ CGFloat const kLabelHeight = 80.0f;
     
     _tableViewDictionaryItems = @{@"General" : @[kAdFormatLabelText, kAdSizeLabelText],
                                   @"AD Server" :@[kAdServerLabelText, kAdUnitIdText, kBidPriceText],
-                                  @"PreBid Server" : @[kPBAccountIDText, kPBConfigIDText]
+                                  @"PreBid Server" : @[kPBAccountIDText, kPBConfigIDText, KPBHostText]
                                   };
     
     _sectionTitles = @[@"General", @"AD Server", @"PreBid Server"];
@@ -106,6 +108,7 @@ CGFloat const kLabelHeight = 80.0f;
     _adServers = @[kMoPubString, kDFPString];
     _adFormats = @[kBannerString, kInterstitialString];
     _adSizes = @[kBannerSizeString, kMediumRectangleSizeString, kInterstitialSizeString];
+    _hosts = @[kAppNexusString, kRubiconString];
 
     _adServer = [[NSUserDefaults standardUserDefaults] objectForKey:kAdServerNameKey] ? [[NSUserDefaults standardUserDefaults] objectForKey:kAdServerNameKey] : self.adServers[0];
     _adFormat = [[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey] ? [[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey] : self.adFormats[0];
@@ -114,6 +117,7 @@ CGFloat const kLabelHeight = 80.0f;
     
     _accountID = [[NSUserDefaults standardUserDefaults] objectForKey:kPBAccountKey] ? [[NSUserDefaults standardUserDefaults] objectForKey:kPBAccountKey] : @"";
     _configID = [[NSUserDefaults standardUserDefaults] objectForKey:kPBConfigKey] ? [[NSUserDefaults standardUserDefaults] objectForKey:kPBConfigKey] : @"";
+    _host = [[NSUserDefaults standardUserDefaults] objectForKey:kPBHostKey]? [[NSUserDefaults standardUserDefaults] objectForKey:kPBHostKey]: kAppNexusString;
     
     id bidPriceInitialArray = [[NSUserDefaults standardUserDefaults] objectForKey:kBidPriceKey];
     if ([bidPriceInitialArray isKindOfClass:[NSArray class]]) {
@@ -124,7 +128,7 @@ CGFloat const kLabelHeight = 80.0f;
     
     _initialDetailTextValues = @{@"General" : @[_adFormat, _adSize],
                                   @"AD Server" :@[_adServer, _adUnitId, _bidPrice],
-                                  @"PreBid Server" : @[_accountID, _configID]
+                                  @"PreBid Server" : @[_accountID, _configID, _host]
                                   };
 }
 
@@ -139,7 +143,7 @@ CGFloat const kLabelHeight = 80.0f;
         cell = [[StyledCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
-    if ((indexPath.section == 1 && indexPath.row == 1) || indexPath.section == 2) {
+    if ((indexPath.section == 1 && indexPath.row == 1) || (indexPath.section == 2 && indexPath.row != 2)) {
         ScanButton *scan = [ScanButton buttonWithType:UIButtonTypeRoundedRect];
         [scan setFrame:CGRectMake(0, 0, 40, 40)];
         [scan setTitle:@"Scan" forState:UIControlStateNormal];
@@ -174,7 +178,7 @@ CGFloat const kLabelHeight = 80.0f;
         NSLog(@"Scanned result is : %@", resultAsString);
         dispatch_async(dispatch_get_main_queue(), ^{
             if (resultAsString) {
-                UITableViewCell *cell = [_userInputTableView cellForRowAtIndexPath:currentIndexPath];
+                UITableViewCell *cell = [self.userInputTableView cellForRowAtIndexPath:currentIndexPath];
                 cell.detailTextLabel.text = resultAsString;
                 if(currentIndexPath.row == 1 && currentIndexPath.section == 1){
                     self.adUnitId = resultAsString;
@@ -218,7 +222,7 @@ CGFloat const kLabelHeight = 80.0f;
     else if (section == 1){
         return 3;
     } else if(section == 2){
-        return 2;
+        return 3;
     }
     
     return 1;
@@ -365,6 +369,19 @@ CGFloat const kLabelHeight = 80.0f;
         [self presentViewController:alert animated:YES completion:^{
             [cell setSelected:NO];
         }];
+    } else if ([cellText isEqualToString:KPBHostText]){
+        [ActionSheetStringPicker showPickerWithTitle:@"Select a Prebid Server Host"
+                                                rows:self.hosts
+                                    initialSelection:0
+                                           doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+                                               cell.detailTextLabel.text = selectedValue;
+                                               self.host = selectedValue;
+                                               [cell setSelected:NO];
+                                           }
+                                         cancelBlock:^(ActionSheetStringPicker *picker) {
+                                             [cell setSelected:NO];
+                                         }
+                                              origin:tableView];
     }
 }
 
@@ -453,6 +470,7 @@ CGFloat const kLabelHeight = 80.0f;
     
     NSArray *bidPrices = [self.bidPrice componentsSeparatedByString:@","];
     [[NSUserDefaults standardUserDefaults] setObject:bidPrices forKey:kBidPriceKey];
+    [[NSUserDefaults standardUserDefaults] setObject:self.host forKey:kPBHostKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

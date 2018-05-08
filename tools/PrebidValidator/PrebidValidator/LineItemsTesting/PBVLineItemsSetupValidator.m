@@ -35,6 +35,13 @@
     _testCount = 0;
     _passedTests = 0;
     _failedTests = 0;
+    NSString *host = [[NSUserDefaults standardUserDefaults]stringForKey:kPBHostKey];
+    if ([host isEqualToString:kRubiconString]) {
+        [self.delegate lineItemsWereNotSetupProperly];
+            _emailContent = [[NSMutableString alloc]init];
+        [_emailContent appendString:@"Rubicon line items tests are not supported yet."];
+        return;
+    }
     NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];

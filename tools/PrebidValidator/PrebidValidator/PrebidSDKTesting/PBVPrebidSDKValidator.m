@@ -85,10 +85,19 @@
         }
         NSArray *adUnits = [NSArray arrayWithObjects:adUnit, nil];
         NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
+        NSString *host = [[NSUserDefaults standardUserDefaults] stringForKey:kPBHostKey];
         if ([adServerName isEqualToString:kMoPubString]) {
-            [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerMoPub];
+            if ([host isEqualToString:kAppNexusString]) {
+                [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerMoPub];
+            } else if ([host isEqualToString:kRubiconString]) {
+                [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostRubicon andPrimaryAdServer:PBPrimaryAdServerMoPub];
+            }
         } else if([adServerName isEqualToString:kDFPString]){
-            [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerDFP];
+            if ([host isEqualToString:kAppNexusString]) {
+                [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerDFP];
+            } else if ([host isEqualToString:kRubiconString]) {
+                [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostRubicon andPrimaryAdServer:PBPrimaryAdServerDFP];
+            }
         }
         
     } @catch (PBException *ex) {

@@ -45,10 +45,15 @@
     }
     NSArray *adUnits = [NSArray arrayWithObjects:adUnit, nil];
     // Generate Request for the saved adunits
-    NSURL *url = [NSURL URLWithString:@"https://prebid.adnxs.com/pbs/v1/openrtb2/auction"];
+    NSString *host = [[NSUserDefaults standardUserDefaults] stringForKey:kPBHostKey];
+    NSURL *url;
+    if ([host isEqualToString:kAppNexusString]) {
+        url = [NSURL URLWithString:kAppNexusPrebidServerEndpoint];
+    } else if ([host isEqualToString:kRubiconString]) {
+        url = [NSURL URLWithString:kRubiconPrebidServerEndpoint];
+    }
     [[PBServerRequestBuilder sharedInstance]setHostURL:url];
     NSURLRequest *req = [[PBServerRequestBuilder sharedInstance] buildRequest:adUnits withAccountId:accountId shouldCacheLocal:useCache withSecureParams:true];
-    NSLog(@"USE CACHE %@", useCache ? @"YES": @"NO");
     self.request = [[NSString alloc]initWithData:req.HTTPBody encoding:NSUTF8StringEncoding];
     [self runTestWithReuqest:req CompletionHandler:completionHandler];
 }
