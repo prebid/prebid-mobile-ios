@@ -14,11 +14,14 @@
  */
 
 #import "PBTargetingParams.h"
+#import "PBConstants.h"
 
 @interface PBTargetingParams ()
 
 @property (nonatomic, strong, readwrite) NSMutableDictionary<NSString *, NSArray *> *__nullable customKeywords;
 @property (nonatomic, strong, readwrite) NSMutableDictionary<NSString *, NSArray *> *__nullable userKeywords;
+
+@property (nonatomic, readwrite) BOOL isGDPREnabledHere;
 
 @end
 
@@ -31,6 +34,7 @@
         
         _customKeywords = [[NSMutableDictionary alloc] init];
         _userKeywords = [[NSMutableDictionary alloc] init];
+        _isGDPREnabledHere = NO;
         
     }
     return self;
@@ -156,6 +160,40 @@ static dispatch_once_t onceToken;
 
 - (void)setItunesID:(NSString *)itunesID {
     _itunesID = itunesID;
+}
+
+-(void) setSubjectToGDPR:(BOOL)subjectToGDPR{
+    [[NSUserDefaults standardUserDefaults] setBool:subjectToGDPR forKey:PB_GDPR_SubjectToConsent];
+}
+
+-(void) setGdprConsentString:(NSString *)gdprConsentString{
+    
+    [[NSUserDefaults standardUserDefaults] setObject:gdprConsentString forKey:PB_GDPR_ConsentString];
+}
+
+-(BOOL) subjectToGDPR {
+    BOOL savedGDPR = YES;
+    if([[NSUserDefaults standardUserDefaults] objectForKey:PB_GDPR_SubjectToConsent] != nil){
+        self.isGDPREnabledHere = YES;
+        savedGDPR = [[NSUserDefaults standardUserDefaults] boolForKey:PB_GDPR_SubjectToConsent];
+    } else if([[NSUserDefaults standardUserDefaults] objectForKey:IAB_GDPR_SubjectToConsent] != nil){
+        self.isGDPREnabledHere = YES;
+        NSString *stringValue = [[NSUserDefaults standardUserDefaults] objectForKey:IAB_GDPR_SubjectToConsent];
+        savedGDPR = [stringValue boolValue];
+    }
+    return savedGDPR;
+}
+
+-(BOOL) isGDPREnabled {
+    return self.isGDPREnabledHere;
+}
+
+-(NSString *) gdprConsentString{
+    if(self.isGDPREnabled){
+    NSString *savedConsent = [[NSUserDefaults standardUserDefaults] objectForKey:PB_GDPR_ConsentString] ? [[NSUserDefaults standardUserDefaults] objectForKey:PB_GDPR_ConsentString] : [[NSUserDefaults standardUserDefaults] objectForKey:IAB_GDPR_ConsentString];
+    return savedConsent;
+    }
+    return nil;
 }
 
 @end

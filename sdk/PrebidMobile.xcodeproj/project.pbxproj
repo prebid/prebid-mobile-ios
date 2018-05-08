@@ -12,6 +12,9 @@
 		606A42A52020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
 		606A42A62020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
 		606A4353202BC98100492433 /* PrebidMobile-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 606A4352202BC98100492433 /* PrebidMobile-umbrella.h */; };
+		60CFB35320A1FD0E006FCF7C /* PBAdUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C23386D41EE5DC95002FD404 /* PBAdUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		60CFB35420A1FD33006FCF7C /* PBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 60CEC02A2084DF3A00CA104B /* PBConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		60CFB35520A1FD40006FCF7C /* PBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CEC02B2084DF3A00CA104B /* PBConstants.m */; };
 		60F67CC62094FC5D002FC035 /* PBHost.h in Sources */ = {isa = PBXBuildFile; fileRef = B40B92AD1FCCC5E300A676A8 /* PBHost.h */; };
 		B40B92AF1FCCC5E300A676A8 /* PBHost.h in Headers */ = {isa = PBXBuildFile; fileRef = B40B92AD1FCCC5E300A676A8 /* PBHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B455F9011FE460E3005D6261 /* PBBidManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C2B16E281EE1BEA6006304C0 /* PBBidManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -22,7 +25,6 @@
 		C22E7CE61EE70E19007B31F4 /* NSTimer+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = C2B16E501EE1BEC4006304C0 /* NSTimer+Extension.m */; };
 		C23386D21EE5DBFB002FD404 /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = C23386D01EE5DBFB002FD404 /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C23386D31EE5DBFB002FD404 /* PrebidMobile.m in Sources */ = {isa = PBXBuildFile; fileRef = C23386D11EE5DBFB002FD404 /* PrebidMobile.m */; };
-		C23386D61EE5DC95002FD404 /* PBAdUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C23386D41EE5DC95002FD404 /* PBAdUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C23386D71EE5DC95002FD404 /* PBAdUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = C23386D51EE5DC95002FD404 /* PBAdUnit.m */; };
 		C23386DA1EE5DCDB002FD404 /* PBServerAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = C23386D81EE5DCDB002FD404 /* PBServerAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C23386DB1EE5DCDB002FD404 /* PBServerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = C23386D91EE5DCDB002FD404 /* PBServerAdapter.m */; };
@@ -95,6 +97,8 @@
 		606A42A22020FD4600492433 /* PBServerRequestBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBServerRequestBuilder.h; sourceTree = "<group>"; };
 		606A42A32020FD4600492433 /* PBServerRequestBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBServerRequestBuilder.m; sourceTree = "<group>"; };
 		606A4352202BC98100492433 /* PrebidMobile-umbrella.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidMobile-umbrella.h"; sourceTree = "<group>"; };
+		60CEC02A2084DF3A00CA104B /* PBConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBConstants.h; sourceTree = "<group>"; };
+		60CEC02B2084DF3A00CA104B /* PBConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBConstants.m; sourceTree = "<group>"; };
 		B40B92AD1FCCC5E300A676A8 /* PBHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBHost.h; sourceTree = "<group>"; };
 		C210FE301FBDF0440010B588 /* PrebidURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidURLProtocol.h; sourceTree = "<group>"; };
 		C210FE311FBDF0440010B588 /* PrebidURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidURLProtocol.m; sourceTree = "<group>"; };
@@ -289,6 +293,8 @@
 		C2B16E1D1EE1BE69006304C0 /* PrebidMobile */ = {
 			isa = PBXGroup;
 			children = (
+				60CEC02A2084DF3A00CA104B /* PBConstants.h */,
+				60CEC02B2084DF3A00CA104B /* PBConstants.m */,
 				606A4352202BC98100492433 /* PrebidMobile-umbrella.h */,
 				C2B16E4A1EE1BEC4006304C0 /* Categories */,
 				C2B16E5F1EE1BECA006304C0 /* Logging */,
@@ -400,20 +406,22 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B455F9011FE460E3005D6261 /* PBBidManager.h in Headers */,
-				B40B92AF1FCCC5E300A676A8 /* PBHost.h in Headers */,
 				C2B16E391EE1BEA6006304C0 /* PBException.h in Headers */,
 				C2B16E341EE1BEA6006304C0 /* PBBannerAdUnit.h in Headers */,
+				60CFB35420A1FD33006FCF7C /* PBConstants.h in Headers */,
+				60CFB35320A1FD0E006FCF7C /* PBAdUnit.h in Headers */,
 				C2B16E481EE1BEB6006304C0 /* PBBidResponse.h in Headers */,
 				C2B16E381EE1BEA6006304C0 /* PBBidResponseDelegate.h in Headers */,
 				C2B16E3F1EE1BEA6006304C0 /* PBTargetingParams.h in Headers */,
 				C23FCCEA1EE5E3F500CFFEF0 /* PBLogging.h in Headers */,
+				606A42A42020FD4600492433 /* PBServerRequestBuilder.h in Headers */,
 				C2B16E3D1EE1BEA6006304C0 /* PBKeywordsManager.h in Headers */,
 				C23FCCEE1EE5E41E00CFFEF0 /* PBLogManager.h in Headers */,
 				C23386DA1EE5DCDB002FD404 /* PBServerAdapter.h in Headers */,
-				C23386D61EE5DC95002FD404 /* PBAdUnit.h in Headers */,
 				606A42A42020FD4600492433 /* PBServerRequestBuilder.h in Headers */,
 				C23386D21EE5DBFB002FD404 /* PrebidMobile.h in Headers */,
+				B455F9011FE460E3005D6261 /* PBBidManager.h in Headers */,
+				B40B92AF1FCCC5E300A676A8 /* PBHost.h in Headers */,
 				C24B78C41EE7467E0045B454 /* NSObject+Prebid.h in Headers */,
 				C210FE381FC3375D0010B588 /* PrebidCache.h in Headers */,
 				C2B16E981EE1BF1A006304C0 /* PBServerFetcher.h in Headers */,
@@ -549,6 +557,7 @@
 			files = (
 				60F67CC62094FC5D002FC035 /* PBHost.h in Sources */,
 				C22E7CE61EE70E19007B31F4 /* NSTimer+Extension.m in Sources */,
+				60CFB35520A1FD40006FCF7C /* PBConstants.m in Sources */,
 				C23386D31EE5DBFB002FD404 /* PrebidMobile.m in Sources */,
 				C2B16EA01EE1BF1A006304C0 /* PBServerReachability.m in Sources */,
 				C2B16E561EE1BEC4006304C0 /* NSDictionary+Extension.m in Sources */,

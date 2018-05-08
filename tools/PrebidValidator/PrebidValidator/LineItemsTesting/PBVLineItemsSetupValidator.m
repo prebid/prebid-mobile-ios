@@ -238,16 +238,19 @@
 
 -(void)adViewDidLoadAd:(MPAdView *)view
 {
+    __weak PBVLineItemsSetupValidator *weakSelf = self;
+    
     [PBViewTool checkMPAdViewContainsPBMAd:view
                        withCompletionHandler:^(BOOL result) {
+                           __strong PBVLineItemsSetupValidator *strongSelf = weakSelf;
                            if (result) {
-                               _passedTests++;
+                               strongSelf.passedTests++;
                            } else
                            {
-                               _failedTests++;
+                               strongSelf.failedTests++;
                            }
-                           if (_testCount == 0) {
-                               if (_failedTests == 0) {
+                           if (strongSelf.testCount == 0) {
+                               if (strongSelf.failedTests == 0) {
                                    [self.delegate lineItemsWereSetupProperly];
                                } else {
                                    [self.delegate lineItemsWereNotSetupProperly];
