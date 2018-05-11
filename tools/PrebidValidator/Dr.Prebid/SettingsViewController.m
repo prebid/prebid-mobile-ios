@@ -405,13 +405,19 @@ CGFloat const kLabelHeight = 80.0f;
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
     if(section == 2){
+    UIView *footerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kLabelHeight)];
     UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [nextButton setTitle:kNextButtonText forState:UIControlStateNormal];
-    nextButton.frame = CGRectMake(0.0, 0.0, [UIScreen mainScreen].bounds.size.width, kLabelHeight);
-    [nextButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    nextButton.frame = CGRectMake(0.0, 0.0, 150.0, 40.0);
+    [nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [nextButton setBackgroundColor:[UIColor colorWithRed:0.23 green:0.53 blue:0.76 alpha:1.0]];
     [nextButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [nextButton addTarget:self action:@selector(didPressNext:) forControlEvents:UIControlEventTouchUpInside];
-    return nextButton;
+    nextButton.layer.cornerRadius = 10; // this value vary as per your desire
+    nextButton.clipsToBounds = YES;
+    [footerView addSubview:nextButton];
+        nextButton.center = footerView.center;
+    return footerView;
     } else
     {
         return nil;

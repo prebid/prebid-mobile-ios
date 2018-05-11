@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		55185A9622FEDA1558FF2653 /* libPods-PrebidValidator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D7DFE449C9FE5570D88DDD6 /* libPods-PrebidValidator.a */; };
 		605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605A56CA2076C89A00E92376 /* MessageUI.framework */; };
 		60CFB2AE2097820D006FCF7C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2582097820D006FCF7C /* SettingsViewController.m */; };
 		60CFB2AF2097820D006FCF7C /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB25A2097820D006FCF7C /* ListViewController.m */; };
@@ -56,6 +55,7 @@
 		60CFB2F02097A4C4006FCF7C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E72097A4C4006FCF7C /* QuartzCore.framework */; };
 		60CFB2F12097A4C4006FCF7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E82097A4C4006FCF7C /* UIKit.framework */; };
 		60CFB2F22097A4C4006FCF7C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E92097A4C4006FCF7C /* SystemConfiguration.framework */; };
+		F283A423484632D93AE6FB87 /* libPods-Dr.Prebid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */; };
 		F56AE891209A3809000CE29F /* PBViewTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE88F209A3808000CE29F /* PBViewTool.m */; };
 		F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */; };
 		F5AB325720A0CA3100F76478 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5AB325220A0C97C00F76478 /* PrebidMobile.framework */; };
@@ -87,9 +87,9 @@
 
 /* Begin PBXFileReference section */
 		0D7DFE449C9FE5570D88DDD6 /* libPods-PrebidValidator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidValidator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		492202AF64D5279F9C419C95 /* Pods-PrebidValidator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidValidator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PrebidValidator/Pods-PrebidValidator.debug.xcconfig"; sourceTree = "<group>"; };
+		4AB57692E142F2F12F162457 /* Pods-Dr.Prebid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dr.Prebid.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid.debug.xcconfig"; sourceTree = "<group>"; };
 		605A56CA2076C89A00E92376 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		60C6787F2073D7B0003A7A1D /* PrebidValidator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidValidator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		60C6787F2073D7B0003A7A1D /* Dr.Prebid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dr.Prebid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60CFB2572097820D006FCF7C /* PBVTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVTableViewCell.h; sourceTree = "<group>"; };
 		60CFB2582097820D006FCF7C /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		60CFB2592097820D006FCF7C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -169,12 +169,13 @@
 		60CFB2E72097A4C4006FCF7C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		60CFB2E82097A4C4006FCF7C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		60CFB2E92097A4C4006FCF7C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		A69E6FD48A42EE537F4ABE7D /* Pods-PrebidValidator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidValidator.release.xcconfig"; path = "Pods/Target Support Files/Pods-PrebidValidator/Pods-PrebidValidator.release.xcconfig"; sourceTree = "<group>"; };
+		8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dr.Prebid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56AE88F209A3808000CE29F /* PBViewTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBViewTool.m; sourceTree = "<group>"; };
 		F56AE890209A3809000CE29F /* PBViewTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBViewTool.h; sourceTree = "<group>"; };
 		F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBVLineItemsSetupValidator.m; sourceTree = "<group>"; };
 		F56AE893209A383B000CE29F /* PBVLineItemsSetupValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVLineItemsSetupValidator.h; sourceTree = "<group>"; };
 		F5AB324C20A0C97C00F76478 /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../sdk/PrebidMobile.xcodeproj; sourceTree = "<group>"; };
+		F6CF0D6B7635B4C963599C3F /* Pods-Dr.Prebid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dr.Prebid.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,7 +199,7 @@
 				60CFB2DF2097A44C006FCF7C /* CoreMedia.framework in Frameworks */,
 				60CFB2E02097A44C006FCF7C /* AVFoundation.framework in Frameworks */,
 				605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */,
-				55185A9622FEDA1558FF2653 /* libPods-PrebidValidator.a in Frameworks */,
+				F283A423484632D93AE6FB87 /* libPods-Dr.Prebid.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,8 +209,8 @@
 		1ABF9B5A2E02436FF8CEA1EF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				492202AF64D5279F9C419C95 /* Pods-PrebidValidator.debug.xcconfig */,
-				A69E6FD48A42EE537F4ABE7D /* Pods-PrebidValidator.release.xcconfig */,
+				4AB57692E142F2F12F162457 /* Pods-Dr.Prebid.debug.xcconfig */,
+				F6CF0D6B7635B4C963599C3F /* Pods-Dr.Prebid.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -218,7 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				F5AB324C20A0C97C00F76478 /* PrebidMobile.xcodeproj */,
-				60CFB2562097820D006FCF7C /* PrebidValidator */,
+				60CFB2562097820D006FCF7C /* Dr.Prebid */,
 				60C678802073D7B0003A7A1D /* Products */,
 				60C678AC2073F879003A7A1D /* Frameworks */,
 				1ABF9B5A2E02436FF8CEA1EF /* Pods */,
@@ -228,7 +229,7 @@
 		60C678802073D7B0003A7A1D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				60C6787F2073D7B0003A7A1D /* PrebidValidator.app */,
+				60C6787F2073D7B0003A7A1D /* Dr.Prebid.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -252,11 +253,12 @@
 				60CFB2DA2097A44B006FCF7C /* CoreMedia.framework */,
 				605A56CA2076C89A00E92376 /* MessageUI.framework */,
 				0D7DFE449C9FE5570D88DDD6 /* libPods-PrebidValidator.a */,
+				8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		60CFB2562097820D006FCF7C /* PrebidValidator */ = {
+		60CFB2562097820D006FCF7C /* Dr.Prebid */ = {
 			isa = PBXGroup;
 			children = (
 				60CFB2592097820D006FCF7C /* AppDelegate.h */,
@@ -278,7 +280,7 @@
 				60CFB29B2097820D006FCF7C /* SettingsViewController.h */,
 				60CFB2582097820D006FCF7C /* SettingsViewController.m */,
 			);
-			path = PrebidValidator;
+			path = Dr.Prebid;
 			sourceTree = "<group>";
 		};
 		60CFB25E2097820D006FCF7C /* PrebidServerConfigTesting */ = {
@@ -424,24 +426,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		60C6787E2073D7B0003A7A1D /* PrebidValidator */ = {
+		60C6787E2073D7B0003A7A1D /* Dr.Prebid */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 60C678952073D7B0003A7A1D /* Build configuration list for PBXNativeTarget "PrebidValidator" */;
+			buildConfigurationList = 60C678952073D7B0003A7A1D /* Build configuration list for PBXNativeTarget "Dr.Prebid" */;
 			buildPhases = (
 				4D94EE7A551EA3E167563B25 /* [CP] Check Pods Manifest.lock */,
 				60C6787B2073D7B0003A7A1D /* Sources */,
 				60C6787C2073D7B0003A7A1D /* Frameworks */,
 				60C6787D2073D7B0003A7A1D /* Resources */,
 				E624586C77DB04668970D12A /* [CP] Copy Pods Resources */,
+				77DB549F5FDB802C42EE7679 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				F5AB325620A0C9D400F76478 /* PBXTargetDependency */,
 			);
-			name = PrebidValidator;
+			name = Dr.Prebid;
 			productName = PrebidTestApp;
-			productReference = 60C6787F2073D7B0003A7A1D /* PrebidValidator.app */;
+			productReference = 60C6787F2073D7B0003A7A1D /* Dr.Prebid.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -451,7 +454,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0930;
-				ORGANIZATIONNAME = AppNexus;
+				ORGANIZATIONNAME = Prebid;
 				TargetAttributes = {
 					60C6787E2073D7B0003A7A1D = {
 						CreatedOnToolsVersion = 9.2;
@@ -459,7 +462,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 60C6787A2073D7B0003A7A1D /* Build configuration list for PBXProject "PrebidValidator" */;
+			buildConfigurationList = 60C6787A2073D7B0003A7A1D /* Build configuration list for PBXProject "Dr.Prebid" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -478,7 +481,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				60C6787E2073D7B0003A7A1D /* PrebidValidator */,
+				60C6787E2073D7B0003A7A1D /* Dr.Prebid */,
 			);
 		};
 /* End PBXProject section */
@@ -526,11 +529,26 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PrebidValidator-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Dr.Prebid-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		77DB549F5FDB802C42EE7679 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E624586C77DB04668970D12A /* [CP] Copy Pods Resources */ = {
@@ -539,7 +557,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PrebidValidator/Pods-PrebidValidator-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid-resources.sh",
 				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Internal/Common/MPAdBrowserController.xib",
 				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPCloseBtn.png",
 				"${PODS_ROOT}/mopub-ios-sdk/MoPubSDK/Resources/MPCloseBtn@2x.png",
@@ -564,31 +582,11 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPAdBrowserController.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPCloseBtn.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPCloseBtn@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPCloseBtn@3x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPCloseButtonX.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPCloseButtonX@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPCloseButtonX@3x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPCountdownTimer.html",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPDAAIcon.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPDAAIcon@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPDAAIcon@3x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPMutedBtn.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPMutedBtn@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPMutedBtn@3x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPPlayBtn.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPPlayBtn@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPPlayBtn@3x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPUnmutedBtn.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPUnmutedBtn@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPUnmutedBtn@3x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MRAID.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PrebidValidator/Pods-PrebidValidator-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -772,7 +770,7 @@
 		};
 		60C678962073D7B0003A7A1D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 492202AF64D5279F9C419C95 /* Pods-PrebidValidator.debug.xcconfig */;
+			baseConfigurationReference = 4AB57692E142F2F12F162457 /* Pods-Dr.Prebid.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -781,13 +779,13 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/PrebidValidator/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Dr.Prebid/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.AppNexus.PrebidValidator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Prebid.Dr.Prebid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -795,7 +793,7 @@
 		};
 		60C678972073D7B0003A7A1D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A69E6FD48A42EE537F4ABE7D /* Pods-PrebidValidator.release.xcconfig */;
+			baseConfigurationReference = F6CF0D6B7635B4C963599C3F /* Pods-Dr.Prebid.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -804,13 +802,13 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/PrebidValidator/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Dr.Prebid/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.AppNexus.PrebidValidator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Prebid.Dr.Prebid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -819,7 +817,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		60C6787A2073D7B0003A7A1D /* Build configuration list for PBXProject "PrebidValidator" */ = {
+		60C6787A2073D7B0003A7A1D /* Build configuration list for PBXProject "Dr.Prebid" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				60C678932073D7B0003A7A1D /* Debug */,
@@ -828,7 +826,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		60C678952073D7B0003A7A1D /* Build configuration list for PBXNativeTarget "PrebidValidator" */ = {
+		60C678952073D7B0003A7A1D /* Build configuration list for PBXNativeTarget "Dr.Prebid" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				60C678962073D7B0003A7A1D /* Debug */,
