@@ -44,10 +44,10 @@ static CGFloat const kAdLabelLocationY = 5.0f;
 static CGFloat const kAdTitleLabelHeight = 20.0f;
 static CGFloat const kAdFailedLabelHeight = 50.0f;
 static CGFloat const kAdMargin = 10.0f;
-static NSString *const kAppNexusString = @"AppNexus";
-static NSString *const kRubiconString = @"Rubicon";
-static NSString *const kAppNexusPrebidServerEndpoint = @"https://prebid.adnxs.com/pbs/v1/openrtb2/auction";
-static NSString *const kRubiconPrebidServerEndpoint = @"https://prebid-server.rubiconproject.com/openrtb2/auction";
+static NSString * _Nonnull const kAppNexusString = @"AppNexus";
+static NSString * _Nonnull const kRubiconString = @"Rubicon";
+static NSString * _Nonnull const kAppNexusPrebidServerEndpoint = @"https://prebid.adnxs.com/pbs/v1/openrtb2/auction";
+static NSString * _Nonnull const kRubiconPrebidServerEndpoint = @"https://prebid-server.rubiconproject.com/openrtb2/auction";
 
 
 
