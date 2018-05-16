@@ -104,16 +104,8 @@ static int const kBatchCount = 10;
                         NSString *cacheId = [[NSUUID UUID] UUIDString];
                         NSMutableDictionary *bidCopy = [bid mutableCopy];
                         NSMutableDictionary *adServerTargetingCopy = [bidCopy[@"ext"][@"prebid"][@"targeting"] mutableCopy];
-                        if([adServerTargetingCopy valueForKey:kAPNAdServerCacheIdKey] == nil){
-                            adServerTargetingCopy[kAPNAdServerCacheIdKey] = cacheId;
-                        }
-                        NSMutableDictionary *extCopy = [bidCopy[@"ext"] mutableCopy];
-                        NSMutableDictionary *prebidExtCopy = [bidCopy[@"ext"][@"prebid"] mutableCopy];
-                        prebidExtCopy[@"targeting"] = adServerTargetingCopy;
-                        extCopy[@"prebid"] = prebidExtCopy;
-                        bidCopy[@"ext"] = extCopy;
                         [[PrebidCache globalCache] setObject:bidCopy forKey:cacheId withTimeoutInterval:kAdTimeoutInterval];
-                        
+                        adServerTargetingCopy[kAPNAdServerCacheIdKey] = cacheId;
                         bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:adServerTargetingCopy];
                     }
                     PBLogDebug(@"Bid Successful with rounded bid targeting keys are %@ for adUnit id is %@", bidResponse.customKeywords, adUnitId);
