@@ -101,7 +101,9 @@ static int const kBatchCount = 10;
                 for (NSDictionary *bid in bidsArray) {
                     PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:bid[@"ext"][@"prebid"][@"targeting"]];
                     if (strongSelf.shouldCacheLocal == TRUE) {
-                        NSString *cacheId = [[NSUUID UUID] UUIDString];
+                        NSString *uuid = [[NSUUID UUID] UUIDString];
+                        NSString *prebidPrefix = @"prebid_";
+                        NSString *cacheId = [prebidPrefix stringByAppendingString:uuid];
                         NSMutableDictionary *bidCopy = [bid mutableCopy];
                         NSMutableDictionary *adServerTargetingCopy = [bidCopy[@"ext"][@"prebid"][@"targeting"] mutableCopy];
                         [[PrebidCache globalCache] setObject:bidCopy forKey:cacheId withTimeoutInterval:kAdTimeoutInterval];
