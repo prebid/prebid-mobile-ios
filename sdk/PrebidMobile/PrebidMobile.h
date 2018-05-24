@@ -23,13 +23,6 @@
 @interface PrebidMobile : NSObject
 
 /**
- * DEPRECATED: This method allows the developer to register the ad units created for Prebid Mobile
- * @param adUnits : Array of AdUnits that can be registered
- * @param accountId : Prebid server accountId
- */
-+ (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId __deprecated;
-
-/**
  * This method allows the developer to register the ad units created for Prebid Mobile
  * @param adUnits : Array of AdUnits that can be registered
  * @param accountId : Prebid server accountId
