@@ -39,11 +39,6 @@ typedef NS_ENUM(NSInteger, PBPrimaryAdServerType) {
 };
 
 /**
- * DEPRECATED Registers all the ad units with the prebid server account id, and starts the auction for each ad unit
- */
-- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits withAccountId:(nonnull NSString *)accountId __deprecated;
-
-/**
  * Registers all the ad units with the prebid server account id, host, and primary ad server and starts the auction for each ad unit
  */
 - (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
