@@ -82,21 +82,6 @@ static dispatch_once_t onceToken;
     onceToken = 0;
     sharedInstance = nil;
 }
-
-- (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
-          withAccountId:(nonnull NSString *)accountId {
-    if (_adUnits == nil) {
-        _adUnits = [[NSMutableSet alloc] init];
-    }
-    _bidsMap = [[NSMutableDictionary alloc] init];
-    _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId];
-    for (id adUnit in adUnits) {
-        [self registerAdUnit:adUnit];
-    }
-    [self startPollingBidsExpiryTimer];
-    [self requestBidsForAdUnits:adUnits];
-}
-
 - (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
           withAccountId:(nonnull NSString *)accountId
                withHost:(PBServerHost)host
