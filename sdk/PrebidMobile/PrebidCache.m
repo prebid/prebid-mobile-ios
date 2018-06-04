@@ -14,7 +14,7 @@
  */
 
 #import "PrebidCache.h"
-
+#import <WebKit/Webkit.h>
 #if DEBUG
 #    define CHECK_FOR_PrebidCACHE_PLIST() if([key isEqualToString:@"PrebidCache.plist"]) { \
 NSLog(@"PrebidCache.plist is a reserved key and can not be modified."); \
@@ -40,6 +40,8 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
 }
 
 @property(nonatomic,copy) NSDictionary* frozenCacheInfo;
+@property UIWebView *uiwebviewCache;
+@property WKWebView *wkwebviewCache;
 @end
 
 @implementation PrebidCache
@@ -53,6 +55,32 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
     });
     
     return instance;
+}
+
+- (NSString *) cacheContent: (NSString *) content
+{
+    NSString *clearLocalStorage = @"<head><script>localStorage.clear();</script></head><body></body>";
+     NSURL *dfpHost = [NSURL URLWithString:@"https://pubads.g.doubleclick.net"];
+    if (!_uiwebviewCache) {
+        _uiwebviewCache = [[UIWebView alloc] init];
+        _uiwebviewCache.frame = CGRectZero;
+    }
+    if (!_wkwebviewCache) {
+        _wkwebviewCache = [[WKWebView alloc] init];
+        _wkwebviewCache.frame = CGRectZero;
+    }
+    // attach _wkwebviewCache to current top view to be able to load javascript
+    [_wkwebviewCache removeFromSuperview];
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    UIView *topView = window.rootViewController.view;
+    [topView addSubview:_wkwebviewCache];
+
+    NSString *key = [NSString stringWithFormat:@"Prebid_%@", @"hello"];
+    NSString *htmlLoad = [NSString stringWithFormat:@"<head><script>localStorage.setItem('%@','%@')</script></head><body></body>", key,content];
+   
+    [_uiwebviewCache loadHTMLString:htmlLoad baseURL:dfpHost];
+    [_wkwebviewCache loadHTMLString:htmlLoad baseURL:dfpHost];
+    return key;
 }
 
 - (instancetype)init {

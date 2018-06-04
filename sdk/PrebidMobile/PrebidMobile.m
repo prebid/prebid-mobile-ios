@@ -23,7 +23,7 @@
           withAccountId:(nonnull NSString *)accountId
                withHost:(PBServerHost)host
      andPrimaryAdServer:(PBPrimaryAdServerType)adServer {
-    [NSURLProtocol registerClass:[PrebidURLProtocol class]];
+//    [NSURLProtocol registerClass:[PrebidURLProtocol class]];
     [[PBBidManager sharedInstance] registerAdUnits:adUnits withAccountId:accountId withHost:host andPrimaryAdServer:adServer];
 }
 

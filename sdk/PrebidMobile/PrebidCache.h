@@ -41,6 +41,11 @@ FOUNDATION_EXPORT const unsigned char PrebidCacheVersionString[];
 // Global cache for easy use
 + (nonnull instancetype)globalCache;
 
+#pragma mark WebView LocalCache
+- (NSString *) cacheContent: (NSString *) content;
+
+
+
 // Opitionally create a different PrebidCache instance with it's own cache directory
 - (nonnull instancetype)initWithCacheDirectory:(NSString* __nonnull)cacheDirectory;
 
