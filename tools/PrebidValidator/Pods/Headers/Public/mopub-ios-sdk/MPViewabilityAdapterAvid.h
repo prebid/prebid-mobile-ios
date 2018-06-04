@@ -1,0 +1,1 @@
+../../../mopub-ios-sdk/MoPubSDK/Viewability/Avid/MPViewabilityAdapterAvid.h
