@@ -14,7 +14,7 @@
  */
 
 #import "Constants.h"
-#import "PBHost.h"
+#import <PrebidMobile/PBHost.h>
 
 @implementation Constants
 
