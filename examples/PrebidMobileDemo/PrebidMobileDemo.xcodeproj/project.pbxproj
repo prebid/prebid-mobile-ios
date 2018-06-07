@@ -53,6 +53,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		606A126620C72B2100B5DB32 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 606A126220C72B2100B5DB32 /* CMPReference.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0E1B938920B6103A00949400;
+			remoteInfo = CMPReference;
+		};
+		606A126920C7302A00B5DB32 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 606A126220C72B2100B5DB32 /* CMPReference.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E1B938820B6103A00949400;
+			remoteInfo = CMPReference;
+		};
 		C23386C91EE5DAA7002FD404 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */;
@@ -98,6 +112,7 @@
 
 /* Begin PBXFileReference section */
 		171395FED98D8A0665F34125 /* Pods-PrebidMobileDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PrebidMobileDemo/Pods-PrebidMobileDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		606A126220C72B2100B5DB32 /* CMPReference.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CMPReference.xcodeproj; path = ../../tools/CMPReference/CMPReference.xcodeproj; sourceTree = "<group>"; };
 		A1ECD3D3DF1C659CA6E60DDD /* Pods-PrebidMobileDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PrebidMobileDemo/Pods-PrebidMobileDemo.release.xcconfig"; sourceTree = "<group>"; };
 		BFB505B67305B895820CE279 /* libPods-PrebidMobileDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidMobileDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../sdk/PrebidMobile.xcodeproj; sourceTree = "<group>"; };
@@ -207,6 +222,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		606A126320C72B2100B5DB32 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				606A126720C72B2100B5DB32 /* CMPReference.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C23386C61EE5DAA7002FD404 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +279,7 @@
 		C273C7FC1E82DAAD003EF1AB = {
 			isa = PBXGroup;
 			children = (
+				606A126220C72B2100B5DB32 /* CMPReference.xcodeproj */,
 				C273C8071E82DAAD003EF1AB /* PrebidMobileDemo */,
 				C273C8211E82DAAE003EF1AB /* PrebidMobileDemoTests */,
 				C273C84F1E831300003EF1AB /* Frameworks */,
@@ -399,6 +423,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				606A126A20C7302A00B5DB32 /* PBXTargetDependency */,
 				C23386CE1EE5DAC9002FD404 /* PBXTargetDependency */,
 			);
 			name = PrebidMobileDemo;
@@ -430,7 +455,7 @@
 		C273C7FD1E82DAAD003EF1AB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Nicole Hedley";
 				TargetAttributes = {
 					C273C8041E82DAAD003EF1AB = {
@@ -459,6 +484,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 606A126320C72B2100B5DB32 /* Products */;
+					ProjectRef = 606A126220C72B2100B5DB32 /* CMPReference.xcodeproj */;
+				},
+				{
 					ProductGroup = C23386C61EE5DAA7002FD404 /* Products */;
 					ProjectRef = C23386C51EE5DAA7002FD404 /* PrebidMobile.xcodeproj */;
 				},
@@ -472,6 +501,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		606A126720C72B2100B5DB32 /* CMPReference.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CMPReference.framework;
+			remoteRef = 606A126620C72B2100B5DB32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C23386CA1EE5DAA7002FD404 /* PrebidMobile.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -615,6 +651,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		606A126A20C7302A00B5DB32 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CMPReference;
+			targetProxy = 606A126920C7302A00B5DB32 /* PBXContainerItemProxy */;
+		};
 		C23386CE1EE5DAC9002FD404 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = PrebidMobile;
@@ -662,6 +703,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -669,6 +711,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -695,7 +738,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -717,6 +760,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -724,6 +768,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -744,7 +789,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

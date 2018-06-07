@@ -11,7 +11,7 @@
 		606A42A42020FD4600492433 /* PBServerRequestBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 606A42A22020FD4600492433 /* PBServerRequestBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		606A42A52020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
 		606A42A62020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
-		606A4353202BC98100492433 /* PrebidMobile-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 606A4352202BC98100492433 /* PrebidMobile-umbrella.h */; };
+		606A4353202BC98100492433 /* PrebidMobile-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 606A4352202BC98100492433 /* PrebidMobile-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		60CEC02C2084DF3A00CA104B /* PBConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 60CEC02A2084DF3A00CA104B /* PBConstants.h */; };
 		60CEC02D2084DF3A00CA104B /* PBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CEC02B2084DF3A00CA104B /* PBConstants.m */; };
 		B40B92AF1FCCC5E300A676A8 /* PBHost.h in Headers */ = {isa = PBXBuildFile; fileRef = B40B92AD1FCCC5E300A676A8 /* PBHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -414,6 +414,7 @@
 				C23FCCEA1EE5E3F500CFFEF0 /* PBLogging.h in Headers */,
 				606A42A42020FD4600492433 /* PBServerRequestBuilder.h in Headers */,
 				B455F9011FE460E3005D6261 /* PBBidManager.h in Headers */,
+				606A4353202BC98100492433 /* PrebidMobile-umbrella.h in Headers */,
 				C23386D61EE5DC95002FD404 /* PBAdUnit.h in Headers */,
 				B40B92AF1FCCC5E300A676A8 /* PBHost.h in Headers */,
 				C2B16E3D1EE1BEA6006304C0 /* PBKeywordsManager.h in Headers */,
@@ -425,7 +426,6 @@
 				C2B16E9B1EE1BF1A006304C0 /* PBServerGlobal.h in Headers */,
 				C2B16E9F1EE1BF1A006304C0 /* PBServerReachability.h in Headers */,
 				C2B16E9D1EE1BF1A006304C0 /* PBServerLocation.h in Headers */,
-				606A4353202BC98100492433 /* PrebidMobile-umbrella.h in Headers */,
 				C210FE321FBDF0440010B588 /* PrebidURLProtocol.h in Headers */,
 				C2B16E981EE1BF1A006304C0 /* PBServerFetcher.h in Headers */,
 				C210FE381FC3375D0010B588 /* PrebidCache.h in Headers */,
@@ -477,7 +477,7 @@
 		C2B16E121EE1BE69006304C0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Nicole Hedley";
 				TargetAttributes = {
 					C281E17B1EE5EAF700F2F4A9 = {
@@ -627,6 +627,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -634,6 +635,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -685,6 +687,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -692,6 +695,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
