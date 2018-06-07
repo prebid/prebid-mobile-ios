@@ -95,11 +95,6 @@ static dispatch_once_t onceToken;
     
     _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId andHost:host] ;
     
-    if(adServer == PBPrimaryAdServerMoPub){
-        //the adservers are cached locally by default except for MoPub hence this needs to be configured
-       _demandAdapter.shouldCacheLocal = FALSE;
-    }
-    
     for (id adUnit in adUnits) {
         [self registerAdUnit:adUnit];
     }

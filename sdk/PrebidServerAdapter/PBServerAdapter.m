@@ -48,7 +48,6 @@ static int const kBatchCount = 10;
     if (self = [super init]) {
         _accountId = accountId;
         _isSecure = TRUE;
-        _shouldCacheLocal = TRUE;
         _host = PBServerHostAppNexus;
     }
     return self;
@@ -58,7 +57,6 @@ static int const kBatchCount = 10;
     if (self = [super init]) {
         _accountId = accountId;
         _isSecure = TRUE;
-        _shouldCacheLocal = TRUE;
         _host = host;
     }
     return self;
@@ -84,13 +82,9 @@ static int const kBatchCount = 10;
         adUnitsRemaining-=range.length;
         j+=range.length;
         
-        NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:subAdUnitArray withAccountId:self.accountId shouldCacheLocal:self.shouldCacheLocal withSecureParams:self.isSecure];
-        
-        __weak __typeof__(self) weakSelf = self;
+        NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:subAdUnitArray withAccountId:self.accountId shouldCacheLocal:YES withSecureParams:self.isSecure];
         
         [[PBServerFetcher sharedInstance] makeBidRequest:request withCompletionHandler:^(NSDictionary *adUnitToBidsMap, NSError *error) {
-            
-            __typeof__(self) strongSelf = weakSelf;
             if (error) {
                 [delegate didCompleteWithError:error];
                 return;
@@ -99,21 +93,49 @@ static int const kBatchCount = 10;
                 NSArray *bidsArray = (NSArray *)[adUnitToBidsMap objectForKey:adUnitId];
                 NSMutableArray *bidResponsesArray = [[NSMutableArray alloc] init];
                 for (NSDictionary *bid in bidsArray) {
-                    PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:bid[@"ext"][@"prebid"][@"targeting"]];
-                    if (strongSelf.shouldCacheLocal == TRUE) {
-                        NSString *uuid = [[PrebidCache globalCache] cacheContent: @"{\"id\":\"9039039236557172595\",\"impid\":\"Banner_300x250\",\"price\":0.5,\"adm\":\"<img src=\\\\\\\"https:\/\/dummyimage.com\/300x250\/000\/fff\\\\\\\"><\/img>\",\"adid\":\"73501515\",\"adomain\":[\"appnexus.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=73501515\",\"cid\":\"958\",\"crid\":\"73501515\",\"w\":300,\"h\":250}"];
-                        NSMutableDictionary *adServerTargetingCopy = [bid[@"ext"][@"prebid"][@"targeting"] mutableCopy];
-                        adServerTargetingCopy[kAPNAdServerCacheIdKey] = uuid;
-                        bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:adServerTargetingCopy];
-                    }
+                    NSString *escapedBid = [self escapeJsonStrinng:[self jsonStringFromDictionary:bid]];
+                    PrebidCache *cache = [[PrebidCache alloc] init];
+                    NSString *cacheId = [cache cacheContent:escapedBid];
+                    NSMutableDictionary *adServerTargetingCopy = [bid[@"ext"][@"prebid"][@"targeting"] mutableCopy];
+                    adServerTargetingCopy[kAPNAdServerCacheIdKey] = cacheId;
+                    PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:adServerTargetingCopy];
                     PBLogDebug(@"Bid Successful with rounded bid targeting keys are %@ for adUnit id is %@", bidResponse.customKeywords, adUnitId);
                     [bidResponsesArray addObject:bidResponse];
+                    // should cache all bids, save on hb_cache_id_biddername
+                    // assign hb_cache_id to top bid
                 }
-                [delegate didReceiveSuccessResponse:bidResponsesArray];
+                [delegate didReceiveSuccessResponse:bidResponsesArray];;
             }
         }];
         
     }
+}
+
+- (NSString *)jsonStringFromDictionary: (NSDictionary *) dict
+{
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict
+                                                       options:0
+                                                         error:&error];
+    if (!jsonData) {
+        NSLog(@"%s: error: %@", __func__, error.localizedDescription);
+        return @"{}";
+    } else {
+        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+}
+
+- (NSString *) escapeJsonStrinng: (NSString *) aString
+{
+    NSMutableString *s = [NSMutableString stringWithString:aString];
+    [s replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];
+    [s replaceOccurrencesOfString:@"/" withString:@"\\/" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];
+    [s replaceOccurrencesOfString:@"\n" withString:@"\\n" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];
+    [s replaceOccurrencesOfString:@"\b" withString:@"\\b" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];
+    [s replaceOccurrencesOfString:@"\f" withString:@"\\f" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];
+    [s replaceOccurrencesOfString:@"\r" withString:@"\\r" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];
+    [s replaceOccurrencesOfString:@"\t" withString:@"\\t" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];
+    return [NSString stringWithString:s];
 }
 
 - (NSURL *)urlForHost:(PBServerHost)host {

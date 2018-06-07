@@ -25,8 +25,6 @@
 
 - (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId andHost:(PBServerHost) host;
 
-@property (nonatomic, assign) BOOL shouldCacheLocal;
-
 @property (nonatomic, assign) BOOL isSecure;
 
 

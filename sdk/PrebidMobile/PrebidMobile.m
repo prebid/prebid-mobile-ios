@@ -14,7 +14,7 @@
  */
 
 #import "PrebidMobile.h"
-#import "PrebidURLProtocol.h"
+#import "PrebidCache.h"
 #import "PBLogging.h"
 
 @implementation PrebidMobile
@@ -23,7 +23,6 @@
           withAccountId:(nonnull NSString *)accountId
                withHost:(PBServerHost)host
      andPrimaryAdServer:(PBPrimaryAdServerType)adServer {
-//    [NSURLProtocol registerClass:[PrebidURLProtocol class]];
     [[PBBidManager sharedInstance] registerAdUnits:adUnits withAccountId:accountId withHost:host andPrimaryAdServer:adServer];
 }
 

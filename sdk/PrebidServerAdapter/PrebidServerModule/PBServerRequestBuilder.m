@@ -69,11 +69,7 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     }
     requestDict[@"user"] = [self openrtbUser];
     requestDict[@"imp"] = [self openrtbImpsFromAdUnits:adUnits withSecureSettings:isSecure];
-    requestDict[@"ext"] = [self openrtbRequestExtension:isLocalCache];
-    
-    
-    
-    
+    requestDict[@"ext"] = [self openrtbRequestExtension];
     
 #ifndef DEBUG
     requestDict[@"test"] = @(TRUE);
@@ -90,12 +86,9 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     return sourceDict;
 }
 
-- (NSDictionary *)openrtbRequestExtension:(BOOL) isLocalCache {
+- (NSDictionary *)openrtbRequestExtension
+{
     NSMutableDictionary *requestPrebidExt = [[NSMutableDictionary alloc] init];
-    
-    if (isLocalCache == FALSE) {
-        requestPrebidExt[@"cache"] = @{@"bids" : [[NSMutableDictionary alloc] init]};
-    }
     requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20), @"pricegranularity":@"medium"};
     
     NSMutableDictionary *requestExt = [[NSMutableDictionary alloc] init];
