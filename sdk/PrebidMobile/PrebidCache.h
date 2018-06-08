@@ -14,12 +14,11 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "PBBidManager.h"
 
 @interface PrebidCache : NSObject
 
 + (nonnull instancetype)globalCache;
 
-- (NSString *) cacheContent: (NSString *) content;
-
-- (void) cacheContents: (NSArray *) contents withCompletionBlock: (void (^)(NSArray *))completionBlock;
+- (void) cacheContents: (NSArray *) contents forAdserver:(PBPrimaryAdServerType) adserver withCompletionBlock: (void (^)(NSArray *))completionBlock;
 @end

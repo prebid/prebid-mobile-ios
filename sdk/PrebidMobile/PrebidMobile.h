@@ -43,5 +43,7 @@
 
 + (void) shouldLoadOverSecureConnection:(BOOL) secureConnection;
 
++ (PBPrimaryAdServerType) adServer;
+
 
 @end

@@ -58,4 +58,9 @@
     [[PBBidManager sharedInstance] loadOnSecureConnection:secureConnection];
 }
 
++ (PBPrimaryAdServerType) adServer
+{
+    return [[PBBidManager sharedInstance] adServer];
+}
+
 @end

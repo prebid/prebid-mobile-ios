@@ -16,7 +16,7 @@
 #import "PrebidCache.h"
 #import <WebKit/Webkit.h>
 
-static NSInteger expireCacheMilliSeconds = 600000; // expire bids cached longer than 10 minutes
+static NSInteger expireCacheMilliSeconds = 30000; // expire bids cached longer than 10 minutes
 
 @interface PrebidCacheOperation : NSOperation <UIWebViewDelegate, WKNavigationDelegate>
 {
@@ -36,61 +36,50 @@ static NSInteger expireCacheMilliSeconds = 600000; // expire bids cached longer 
 @property NSURL *dfpSecuredHost;
 @property NSURL *mopubSecuredHost;
 @property NSInteger loadingCount;
+@property NSURL *httpHost;
+@property NSURL *httpsHost;
+@property UIWebView *uiwebviewCache;
+@property WKWebView *wkwebviewCache;
+@property UIWebView *uiwebviewSecuredCache;
+@property WKWebView *wkwebviewSecuredCache;
 @property NSString* htmlToLoad;
 
-- (instancetype)initWithHTMLLoad: (NSString *) htmlToLoad;
+- (instancetype)initWithHTMLLoad: (NSString *) htmlToLoad withAdserver: (PBPrimaryAdServerType) adserver;
 @end
 
 @interface PrebidCacheOperation()
 @end
 @implementation PrebidCacheOperation
-- (instancetype)initWithHTMLLoad:(NSString *)htmlToLoad
+- (instancetype)initWithHTMLLoad:(NSString *)htmlToLoad withAdserver: (PBPrimaryAdServerType) adserver
 {
     if (self = [super init]) {
         self.htmlToLoad = htmlToLoad;
         executing = NO;
         finished = NO;
-        _dfpHost = [NSURL URLWithString:@"http://pubads.g.doubleclick.net"];
-        _dfpSecuredHost = [NSURL URLWithString:@"https://pubads.g.doubleclick.net"];
-        _mopubHost = [NSURL URLWithString:@"http://ads.mopub.com"];
-        _mopubSecuredHost = [NSURL URLWithString:@"https://ads.mopub.com"];
         
-        if (!_uiwebviewCacheForDFP) {
-            _uiwebviewCacheForDFP = [[UIWebView alloc] init];
-            _uiwebviewCacheForDFP.frame = CGRectZero;
-            _uiwebviewCacheForDFP.delegate = self;
+        _uiwebviewCache = [[UIWebView alloc] init];
+        _uiwebviewCache.frame = CGRectZero;
+        _uiwebviewCache.delegate = self;
+        _wkwebviewCache = [[WKWebView alloc] init];
+        _wkwebviewCache.frame = CGRectZero;
+        _wkwebviewCache.navigationDelegate = self;
+        _uiwebviewSecuredCache = [[UIWebView alloc] init];
+        _uiwebviewSecuredCache.frame = CGRectZero;
+        _uiwebviewSecuredCache.delegate = self;
+        _wkwebviewSecuredCache = [[WKWebView alloc] init];
+        _wkwebviewSecuredCache.frame = CGRectZero;
+        _wkwebviewSecuredCache.navigationDelegate = self;
+        _loadingCount = 4;
+        
+        if (adserver == PBPrimaryAdServerDFP) {
+            _httpHost = [NSURL URLWithString:@"http://pubads.g.doubleclick.net"];
+            _httpsHost = [NSURL URLWithString:@"https://pubads.g.doubleclick.net"];
+        } else if (adserver == PBPrimaryAdServerMoPub){
+            _httpHost = [NSURL URLWithString:@"http://ads.mopub.com"];
+            _httpsHost = [NSURL URLWithString:@"https://ads.mopub.com"];
+        } else {
+            [self finishAndChangeState]; // TODO: check for a proper handling here
         }
-        if (!_wkwebviewCacheForDFP) {
-            _wkwebviewCacheForDFP = [[WKWebView alloc] init];
-            _wkwebviewCacheForDFP.frame = CGRectZero;
-            _wkwebviewCacheForDFP.navigationDelegate = self;
-        }
-        if (!_uiwebviewSecuredCacheForDFP) {
-            _uiwebviewSecuredCacheForDFP = [[UIWebView alloc] init];
-            _uiwebviewSecuredCacheForDFP.frame = CGRectZero;
-            
-        }
-        if (!_wkwebviewSecuredCacheForDFP) {
-            _wkwebviewSecuredCacheForDFP = [[WKWebView alloc] init];
-            _wkwebviewSecuredCacheForDFP.frame = CGRectZero;
-        }
-        if (!_uiwebviewCacheForMopub) {
-            _uiwebviewCacheForMopub = [[UIWebView alloc] init];
-            _uiwebviewCacheForMopub.frame = CGRectZero;
-        }
-        if (!_wkwebviewCacheForMoPub) {
-            _wkwebviewCacheForMoPub = [[WKWebView alloc] init];
-            _wkwebviewCacheForMoPub.frame = CGRectZero;
-        }
-        if (!_uiwebviewSecuredCacheForMoPub) {
-            _uiwebviewSecuredCacheForMoPub = [[UIWebView alloc] init];
-            _uiwebviewSecuredCacheForMoPub.frame = CGRectZero;
-        }
-        if (!_wkwebviewSecuredCacheForMoPub) {
-            _wkwebviewSecuredCacheForMoPub = [[WKWebView alloc] init];
-            _wkwebviewSecuredCacheForMoPub.frame = CGRectZero;
-        }
-        _loadingCount = 8;
     }
     return self;
 }
@@ -118,24 +107,18 @@ static NSInteger expireCacheMilliSeconds = 600000; // expire bids cached longer 
     @try {
         // attach _wkwebviewCache to current top view to be able to load javascript
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.wkwebviewCacheForMoPub removeFromSuperview];
-            [self.wkwebviewCacheForDFP removeFromSuperview];
-            [self.wkwebviewSecuredCacheForDFP removeFromSuperview];
-            [self.wkwebviewSecuredCacheForMoPub removeFromSuperview];
+            [self.wkwebviewCache removeFromSuperview];
+            [self.wkwebviewSecuredCache removeFromSuperview];
             UIWindow *window = [[UIApplication sharedApplication] keyWindow];
             UIView *topView = window.rootViewController.view;
             [topView addSubview:self.wkwebviewCacheForMoPub];
             [topView addSubview:self.wkwebviewCacheForDFP];
             [topView addSubview:self.wkwebviewSecuredCacheForDFP];
             [topView addSubview:self.wkwebviewSecuredCacheForMoPub];
-            [self.uiwebviewCacheForDFP loadHTMLString:self.htmlToLoad baseURL:self.dfpHost];
-            [self.wkwebviewCacheForDFP loadHTMLString:self.htmlToLoad baseURL:self.dfpHost];
-            [self.uiwebviewSecuredCacheForDFP loadHTMLString:self.htmlToLoad baseURL:self.dfpSecuredHost];
-            [self.wkwebviewSecuredCacheForDFP loadHTMLString:self.htmlToLoad baseURL:self.dfpSecuredHost];
-            [self.uiwebviewCacheForMopub loadHTMLString:self.htmlToLoad baseURL:self.mopubHost];
-            [self.wkwebviewCacheForMoPub loadHTMLString:self.htmlToLoad baseURL:self.mopubHost];
-            [self.uiwebviewSecuredCacheForMoPub loadHTMLString:self.htmlToLoad baseURL:self.mopubSecuredHost];
-            [self.wkwebviewSecuredCacheForMoPub loadHTMLString:self.htmlToLoad baseURL:self.mopubSecuredHost];
+            [self.uiwebviewCache loadHTMLString:self.htmlToLoad baseURL:self.httpHost];
+            [self.wkwebviewCache loadHTMLString:self.htmlToLoad baseURL:self.httpHost];
+            [self.uiwebviewSecuredCache loadHTMLString:self.htmlToLoad baseURL:self.httpsHost];
+            [self.wkwebviewSecuredCache loadHTMLString:self.htmlToLoad baseURL:self.httpsHost];
         });
     }
     @catch (NSException *exception) {
@@ -178,10 +161,8 @@ static NSInteger expireCacheMilliSeconds = 600000; // expire bids cached longer 
 - (void) finishAndChangeState
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.wkwebviewCacheForMoPub removeFromSuperview];
-        [self.wkwebviewCacheForDFP removeFromSuperview];
-        [self.wkwebviewSecuredCacheForDFP removeFromSuperview];
-        [self.wkwebviewSecuredCacheForMoPub removeFromSuperview];
+        [self.wkwebviewCache removeFromSuperview];
+        [self.wkwebviewSecuredCache removeFromSuperview];
     });
     [self willChangeValueForKey:@"isExecuting"];
     executing = NO;
@@ -193,22 +174,7 @@ static NSInteger expireCacheMilliSeconds = 600000; // expire bids cached longer 
 
 @end
 
-
-
 @interface PrebidCache () <UIWebViewDelegate>
-@property(nonatomic,copy) NSDictionary* frozenCacheInfo;
-@property UIWebView *uiwebviewCacheForDFP;
-@property WKWebView *wkwebviewCacheForDFP;
-@property UIWebView *uiwebviewSecuredCacheForDFP;
-@property WKWebView *wkwebviewSecuredCacheForDFP;
-@property UIWebView *uiwebviewCacheForMopub;
-@property WKWebView *wkwebviewCacheForMoPub;
-@property UIWebView *uiwebviewSecuredCacheForMoPub;
-@property WKWebView *wkwebviewSecuredCacheForMoPub;
-@property NSURL *dfpHost;
-@property NSURL *mopubHost;
-@property NSURL *dfpSecuredHost;
-@property NSURL *mopubSecuredHost;
 @property NSOperationQueue *cacheQueue;
 @end
 
@@ -231,59 +197,9 @@ static NSInteger expireCacheMilliSeconds = 600000; // expire bids cached longer 
     self.cacheQueue = [NSOperationQueue new];;
 }
 
-- (instancetype)init
+- (void) cacheContents:(NSArray *)contents forAdserver:(PBPrimaryAdServerType)adserver withCompletionBlock:(void (^)(NSArray *))completionBlock
 {
-    if (self = [super init]) {
-        [self setup];
-    }
-    return self;
-}
-
-- (void) setup
-{
-    _dfpHost = [NSURL URLWithString:@"http://pubads.g.doubleclick.net"];
-    _dfpSecuredHost = [NSURL URLWithString:@"https://pubads.g.doubleclick.net"];
-    _mopubHost = [NSURL URLWithString:@"http://ads.mopub.com"];
-    _mopubSecuredHost = [NSURL URLWithString:@"https://ads.mopub.com"];
-
-    if (!_uiwebviewCacheForDFP) {
-        _uiwebviewCacheForDFP = [[UIWebView alloc] init];
-        _uiwebviewCacheForDFP.frame = CGRectZero;
-    }
-    if (!_wkwebviewCacheForDFP) {
-        _wkwebviewCacheForDFP = [[WKWebView alloc] init];
-        _wkwebviewCacheForDFP.frame = CGRectZero;
-    }
-    if (!_uiwebviewSecuredCacheForDFP) {
-        _uiwebviewSecuredCacheForDFP = [[UIWebView alloc] init];
-        _uiwebviewSecuredCacheForDFP.frame = CGRectZero;
-      
-    }
-    if (!_wkwebviewSecuredCacheForDFP) {
-        _wkwebviewSecuredCacheForDFP = [[WKWebView alloc] init];
-        _wkwebviewSecuredCacheForDFP.frame = CGRectZero;
-    }
-    if (!_uiwebviewCacheForMopub) {
-        _uiwebviewCacheForMopub = [[UIWebView alloc] init];
-        _uiwebviewCacheForMopub.frame = CGRectZero;
-    }
-    if (!_wkwebviewCacheForMoPub) {
-        _wkwebviewCacheForMoPub = [[WKWebView alloc] init];
-        _wkwebviewCacheForMoPub.frame = CGRectZero;
-    }
-    if (!_uiwebviewSecuredCacheForMoPub) {
-        _uiwebviewSecuredCacheForMoPub = [[UIWebView alloc] init];
-        _uiwebviewSecuredCacheForMoPub.frame = CGRectZero;
-    }
-    if (!_wkwebviewSecuredCacheForMoPub) {
-        _wkwebviewSecuredCacheForMoPub = [[WKWebView alloc] init];
-        _wkwebviewSecuredCacheForMoPub.frame = CGRectZero;
-    }
-}
-
-- (void) cacheContents:(NSArray *)contents withCompletionBlock:(void (^)(NSArray *))completionBlock
-{
-      long long milliseconds = (long long)([[NSDate date] timeIntervalSince1970] * 1000.0);
+    long long milliseconds = (long long)([[NSDate date] timeIntervalSince1970] * 1000.0);
     NSMutableString *htmlToLoad = [[NSMutableString alloc] init];
     [htmlToLoad appendString:@"<head>"];
     [htmlToLoad appendString:[NSString stringWithFormat:@"<script>var currentTime = %lld;var toBeDeleted = [];for(i = 0; i< localStorage.length; i ++){if(localStorage.key(i).startsWith('Prebid_')) {createdTime = localStorage.key(i).split('_')[2];if (( currentTime - createdTime) > %ld){toBeDeleted.push(localStorage.key(i));}}}for ( i = 0; i< toBeDeleted.length; i ++) {localStorage.removeItem(toBeDeleted[i]);}</script>", milliseconds, (long) expireCacheMilliSeconds]];
@@ -294,47 +210,9 @@ static NSInteger expireCacheMilliSeconds = 600000; // expire bids cached longer 
         [htmlToLoad appendString:[NSString stringWithFormat:@"<script>localStorage.setItem('%@','%@');</script>", cacheId, content]];
     }
     [htmlToLoad appendString:@"</head>"];
-    PrebidCacheOperation *cacheOperation = [[PrebidCacheOperation alloc] initWithHTMLLoad:htmlToLoad];
+    PrebidCacheOperation *cacheOperation = [[PrebidCacheOperation alloc] initWithHTMLLoad:htmlToLoad withAdserver:adserver];
     cacheOperation.completionBlock = ^{ completionBlock(cacheIds);};
     [self.cacheQueue addOperation:cacheOperation];
 }
 
-- (NSString *) cacheContent: (NSString *) content
-{
-    NSLog(@"Prebid Cache starts caching content");
-    long long milliseconds = (long long)([[NSDate date] timeIntervalSince1970] * 1000.0);
-    NSString *cacheId = [NSString stringWithFormat:@"Prebid_%@_%lld", [NSString stringWithFormat:@"%08X", arc4random()], milliseconds];
-    NSString *htmlLoad = [NSString stringWithFormat:@"<head><script>var currentTime = %lld;var toBeDeleted = [];for(i = 0; i< localStorage.length; i ++){if(localStorage.key(i).startsWith('Prebid_')) {createdTime = localStorage.key(i).split('_')[2];if (( currentTime - createdTime) > %ld){toBeDeleted.push(localStorage.key(i));}}}for ( i = 0; i< toBeDeleted.length; i ++) {localStorage.removeItem(toBeDeleted[i]);}</script><script>localStorage.setItem('%@','%@');</script></head><body></body>",milliseconds, (long) expireCacheMilliSeconds,cacheId,content];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // attach _wkwebviewCache to current top view to be able to load javascript
-        [self.wkwebviewCacheForMoPub removeFromSuperview];
-        [self.wkwebviewCacheForDFP removeFromSuperview];
-        [self.wkwebviewSecuredCacheForDFP removeFromSuperview];
-        [self.wkwebviewSecuredCacheForMoPub removeFromSuperview];
-        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-        UIView *topView = window.rootViewController.view;
-        [topView addSubview:self.wkwebviewCacheForMoPub];
-        [topView addSubview:self.wkwebviewCacheForDFP];
-        [topView addSubview:self.wkwebviewSecuredCacheForDFP];
-        [topView addSubview:self.wkwebviewSecuredCacheForMoPub];
-        
-        [self.uiwebviewCacheForDFP loadHTMLString:htmlLoad baseURL:self.dfpHost];
-        [self.wkwebviewCacheForDFP loadHTMLString:htmlLoad baseURL:self.dfpHost];
-        [self.uiwebviewSecuredCacheForDFP loadHTMLString:htmlLoad baseURL:self.dfpSecuredHost];
-        [self.wkwebviewSecuredCacheForDFP loadHTMLString:htmlLoad baseURL:self.dfpSecuredHost];
-        [self.uiwebviewCacheForMopub loadHTMLString:htmlLoad baseURL:self.mopubHost];
-        [self.wkwebviewCacheForMoPub loadHTMLString:htmlLoad baseURL:self.mopubHost];
-        [self.uiwebviewSecuredCacheForMoPub loadHTMLString:htmlLoad baseURL:self.mopubSecuredHost];
-        [self.wkwebviewSecuredCacheForMoPub loadHTMLString:htmlLoad baseURL:self.mopubSecuredHost];
-    });
-    return cacheId;
-}
-
-- (void)dealloc
-{
-        [self.wkwebviewCacheForMoPub removeFromSuperview];
-        [self.wkwebviewCacheForDFP removeFromSuperview];
-        [self.wkwebviewSecuredCacheForDFP removeFromSuperview];
-        [self.wkwebviewSecuredCacheForMoPub removeFromSuperview];
-}
 @end

@@ -26,6 +26,7 @@
 #import "PBTargetingParams.h"
 #import "PBServerRequestBuilder.h"
 #import "PBException.h"
+#import "PrebidMobile.h"
 
 static NSString *const kAPNAdServerCacheIdKey = @"hb_cache_id";
 
@@ -97,8 +98,9 @@ static int const kBatchCount = 10;
                     NSString *escapedBid = [self escapeJsonStrinng:[self jsonStringFromDictionary:bid]];
                     [contentsToCache addObject:escapedBid];
                 }
-                [[PrebidCache globalCache] cacheContents:contentsToCache withCompletionBlock:^(NSArray *cacheIds) {
-                    
+                
+                [[PrebidCache globalCache] cacheContents:contentsToCache forAdserver:[PrebidMobile adServer] withCompletionBlock:^(NSArray *cacheIds) {
+
                     for (int i = 0; i< bidsArray.count; i++) {
                         NSMutableDictionary *adServerTargetingCopy = [bidsArray[i][@"ext"][@"prebid"][@"targeting"] mutableCopy];
                         if (i == 0) {
@@ -109,7 +111,7 @@ static int const kBatchCount = 10;
                         PBLogDebug(@"Bid Successful with rounded bid targeting keys are %@ for adUnit id is %@", bidResponse.customKeywords, adUnitId);
                         [bidResponsesArray addObject:bidResponse];
                     }
-                    
+
                     // should cache all bids, save on hb_cache_id_biddername
                     // assign hb_cache_id to top bid
                     [delegate didReceiveSuccessResponse:bidResponsesArray];;
