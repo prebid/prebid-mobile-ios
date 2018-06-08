@@ -59,27 +59,15 @@ static CGFloat const kRightMargin = 15;
     _sectionHeaders = @[@"General"];//, @"Targeting", @"Custom Keywords"];
     
     UIBarButtonItem *previewAdButton = [[UIBarButtonItem alloc] initWithTitle:kSeeAdButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(previewAdButtonClicked:)];
+    
     self.navigationItem.rightBarButtonItem = previewAdButton;
     
     _consentStorageVC = [[CMPStorage alloc] init];
     
-    if(!_consentStorageVC.cmpPresent  && _consentStorageVC.consentString.length == 0){
-        _nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_nextButton setTitle:@"Get GDPR Consent" forState:UIControlStateNormal];
+    if(_consentStorageVC.cmpPresent == NO){
+        UIBarButtonItem *consentButton = [[UIBarButtonItem alloc] initWithTitle:@"Get Consent" style:UIBarButtonItemStylePlain target:self action:@selector(didPressNext:)];
         
-        CGRect buttonFrame = CGRectMake(self.view.frame.origin.x, self.view.frame.size.height-100, 200.0, 40.0);
-        
-        _nextButton.frame = buttonFrame;
-        [_nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_nextButton setBackgroundColor:[UIColor colorWithRed:0.23 green:0.53 blue:0.76 alpha:1.0]];
-        [_nextButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
-        [_nextButton addTarget:self action:@selector(didPressNext:) forControlEvents:UIControlEventTouchUpInside];
-        _nextButton.layer.cornerRadius = 10; // this value vary as per your desire
-        _nextButton.clipsToBounds = YES;
-        _nextButton.translatesAutoresizingMaskIntoConstraints = NO;
-        _nextButton.center = self.view.center;
-        
-        [self.view addSubview:_nextButton];
+        self.navigationItem.leftBarButtonItem = consentButton;
     }
     
     
@@ -87,8 +75,6 @@ static CGFloat const kRightMargin = 15;
 
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -253,6 +239,7 @@ static CGFloat const kRightMargin = 15;
                                                               NSLog(@"my text");
                                                               [[PBTargetingParams sharedInstance] setSubjectToGDPR:YES];
                                                                 [[PBTargetingParams sharedInstance] setGdprConsentString:consentString];
+                                                              self.navigationItem.leftBarButtonItem = nil;
                                                               
                                                           }];
 
