@@ -431,7 +431,7 @@
 		09B810AB078C6FC33F68AB3AD00451DC /* MPLogEvent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPLogEvent.m; path = "MoPubSDK/Internal/Event Logging/MPLogEvent.m"; sourceTree = "<group>"; };
 		0A16EF175571D6BFECE4D134A542EDDA /* MPAdConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPAdConfiguration.h; path = MoPubSDK/Internal/Common/MPAdConfiguration.h; sourceTree = "<group>"; };
 		0C40629089BACA4FA77304E3EF7A22D8 /* MPGlobal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPGlobal.h; path = MoPubSDK/Internal/Utility/MPGlobal.h; sourceTree = "<group>"; };
-		0D33B402ACE355FEA73538BE29EF96D4 /* MPCountdownTimer.html */ = {isa = PBXFileReference; includeInIndex = 1; name = MPCountdownTimer.html; path = MoPubSDK/Resources/MPCountdownTimer.html; sourceTree = "<group>"; };
+		0D33B402ACE355FEA73538BE29EF96D4 /* MPCountdownTimer.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = MPCountdownTimer.html; path = MoPubSDK/Resources/MPCountdownTimer.html; sourceTree = "<group>"; };
 		0DBE326B33C8DBF354443CDE78482D26 /* Pods-PrebidMobileDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		0EBE225723543D1700D767DC34E45556 /* MPViewabilityAdapterMoat.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPViewabilityAdapterMoat.h; path = MoPubSDK/Viewability/MOAT/MPViewabilityAdapterMoat.h; sourceTree = "<group>"; };
 		0FF4B53DEA85FA9CE43052C60DDABF4E /* MOPUBNativeVideoAdAdapter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MOPUBNativeVideoAdAdapter.m; path = MoPubSDK/NativeVideo/Internal/MOPUBNativeVideoAdAdapter.m; sourceTree = "<group>"; };
@@ -484,7 +484,7 @@
 		2DC0EC12E8A5C80581303B95588FB515 /* MPLogging.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPLogging.m; path = MoPubSDK/Internal/Utility/MPLogging.m; sourceTree = "<group>"; };
 		2E980E8F6D09A22907BC4104CE9C94CE /* MPNativeAdSourceDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativeAdSourceDelegate.h; path = "MoPubSDK/Native Ads/MPNativeAdSourceDelegate.h"; sourceTree = "<group>"; };
 		2EB1AB4076ACE9103C16F40B73980002 /* MPFacebookKeywordProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPFacebookKeywordProvider.m; path = MoPubSDK/Internal/Common/MPFacebookKeywordProvider.m; sourceTree = "<group>"; };
-		2EBF74BBD4D0643E11CD802CEA2D8737 /* libmopub-ios-sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libmopub-ios-sdk.a"; path = "libmopub-ios-sdk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EBF74BBD4D0643E11CD802CEA2D8737 /* libmopub-ios-sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libmopub-ios-sdk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3055FF02DC946453F56560DE1C071617 /* MPMutedBtn@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MPMutedBtn@2x.png"; path = "MoPubSDK/Resources/MPMutedBtn@2x.png"; sourceTree = "<group>"; };
 		30C767548F4B218A22A22D9C44072853 /* MPVASTLinearAd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPVASTLinearAd.h; path = MoPubSDK/Internal/VAST/MPVASTLinearAd.h; sourceTree = "<group>"; };
 		30C79C87A61181664643941B151B0052 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -624,7 +624,7 @@
 		79106DFF2D6C4655B1232D43AC7E467F /* MPNativeAd+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MPNativeAd+Internal.h"; path = "MoPubSDK/Native Ads/Internal/MPNativeAd+Internal.h"; sourceTree = "<group>"; };
 		793F00B156EAE5ED28EAE8743545CE07 /* MPVASTTracking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPVASTTracking.h; path = MoPubSDK/Internal/MPVASTTracking.h; sourceTree = "<group>"; };
 		7958C6F7858F3DAF7E11E41184516A34 /* MPViewabilityAdapterAvid.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPViewabilityAdapterAvid.h; path = MoPubSDK/Viewability/Avid/MPViewabilityAdapterAvid.h; sourceTree = "<group>"; };
-		7A43535A18382DD2714FFE28782259D0 /* libPods-PrebidMobileDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-PrebidMobileDemo.a"; path = "libPods-PrebidMobileDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A43535A18382DD2714FFE28782259D0 /* libPods-PrebidMobileDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidMobileDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AAF550E6E1FBF08D1717BCE819C0D84 /* MPAdBrowserController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPAdBrowserController.h; path = MoPubSDK/Internal/Common/MPAdBrowserController.h; sourceTree = "<group>"; };
 		7AC85B3E409EC33809894CB991749B56 /* MPAPIEndpoints.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPAPIEndpoints.h; path = MoPubSDK/Internal/Common/MPAPIEndpoints.h; sourceTree = "<group>"; };
 		7B3BBF9B211688F4CA17D0A5B40E5031 /* MPInterstitialAdController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPInterstitialAdController.h; path = MoPubSDK/MPInterstitialAdController.h; sourceTree = "<group>"; };
@@ -659,7 +659,7 @@
 		90CFDE203D0E09F57851F0DC66DD6A15 /* MPBaseBannerAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPBaseBannerAdapter.h; path = MoPubSDK/Internal/Banners/MPBaseBannerAdapter.h; sourceTree = "<group>"; };
 		91ED2B1EF7CBC15F226D675234592223 /* MPNativeAdRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativeAdRenderer.h; path = "MoPubSDK/Native Ads/MPNativeAdRenderer.h"; sourceTree = "<group>"; };
 		937DF0905B8E594874517D4390B4142C /* MPReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPReachability.h; path = MoPubSDK/Internal/Utility/MPReachability.h; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		93EB90E586F8452140E7BC4F2FFB9516 /* MPStreamAdPlacementData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPStreamAdPlacementData.m; path = "MoPubSDK/Native Ads/MPStreamAdPlacementData.m"; sourceTree = "<group>"; };
 		943191A3B4E75659B8F6F7852AE49AB9 /* MPRewardedVideoCustomEvent+Caching.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MPRewardedVideoCustomEvent+Caching.m"; path = "MoPubSDK/RewardedVideo/MPRewardedVideoCustomEvent+Caching.m"; sourceTree = "<group>"; };
 		953135839C7D78501E660E52B8B42A80 /* MPConstants.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPConstants.m; path = MoPubSDK/MPConstants.m; sourceTree = "<group>"; };
@@ -892,7 +892,6 @@
 				F0268E1C774BCC857808B69D524C6CF7 /* Moat */,
 				6C13B3B571A9F00FFF5B6A050253324C /* Support Files */,
 			);
-			name = "mopub-ios-sdk";
 			path = "mopub-ios-sdk";
 			sourceTree = "<group>";
 		};
@@ -980,7 +979,6 @@
 			children = (
 				E67FDB290D1B1022E1BECDE6FAC5A9EE /* Frameworks */,
 			);
-			name = "Google-Mobile-Ads-SDK";
 			path = "Google-Mobile-Ads-SDK";
 			sourceTree = "<group>";
 		};
@@ -1688,7 +1686,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0940;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1942,6 +1940,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1949,6 +1948,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -2039,6 +2039,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -2046,6 +2047,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

@@ -32,12 +32,13 @@ static NSString *const kAPNAdServerCacheIdKey = @"hb_cache_id";
 
 static NSString *const kAPNPrebidServerUrl = @"https://prebid.adnxs.com/pbs/v1/openrtb2/auction";
 static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproject.com/openrtb2/auction";
-static NSTimeInterval const kAdTimeoutInterval = 360;
 static int const kBatchCount = 10;
 
 @interface PBServerAdapter ()
 
 @property (nonatomic, strong) NSString *accountId;
+
+@property (assign) PBPrimaryAdServerType primaryAdServer;
 
 @property (nonatomic, assign, readwrite) PBServerHost host;
 
@@ -45,20 +46,22 @@ static int const kBatchCount = 10;
 
 @implementation PBServerAdapter
 
-- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId {
+- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId andAdServer:(PBPrimaryAdServerType) adServer{
     if (self = [super init]) {
         _accountId = accountId;
         _isSecure = TRUE;
         _host = PBServerHostAppNexus;
+        _primaryAdServer = adServer;
     }
     return self;
 }
 
-- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId andHost:(PBServerHost) host {
+- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId andHost:(PBServerHost) host andAdServer:(PBPrimaryAdServerType) adServer{
     if (self = [super init]) {
         _accountId = accountId;
         _isSecure = TRUE;
         _host = host;
+        _primaryAdServer = adServer;
     }
     return self;
 }
@@ -99,7 +102,7 @@ static int const kBatchCount = 10;
                     [contentsToCache addObject:escapedBid];
                 }
                 
-                [[PrebidCache globalCache] cacheContents:contentsToCache forAdserver:[PrebidMobile adServer] withCompletionBlock:^(NSArray *cacheIds) {
+                [[PrebidCache globalCache] cacheContents:contentsToCache forAdserver:self.primaryAdServer withCompletionBlock:^(NSArray *cacheIds) {
 
                     for (int i = 0; i< bidsArray.count; i++) {
                         NSMutableDictionary *adServerTargetingCopy = [bidsArray[i][@"ext"][@"prebid"][@"targeting"] mutableCopy];

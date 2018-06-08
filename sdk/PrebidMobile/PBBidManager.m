@@ -93,7 +93,7 @@ static dispatch_once_t onceToken;
     
     self.adServer = adServer;
     
-    _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId andHost:host] ;
+    _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId andHost:host andAdServer:adServer] ;
     
     for (id adUnit in adUnits) {
         [self registerAdUnit:adUnit];
