@@ -20,4 +20,6 @@
 + (nonnull instancetype)globalCache;
 
 - (NSString *) cacheContent: (NSString *) content;
+
+- (void) cacheContents: (NSArray *) contents withCompletionBlock: (void (^)(NSArray *))completionBlock;
 @end

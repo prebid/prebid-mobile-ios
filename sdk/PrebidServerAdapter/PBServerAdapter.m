@@ -92,19 +92,28 @@ static int const kBatchCount = 10;
             for (NSString *adUnitId in [adUnitToBidsMap allKeys]) {
                 NSArray *bidsArray = (NSArray *)[adUnitToBidsMap objectForKey:adUnitId];
                 NSMutableArray *bidResponsesArray = [[NSMutableArray alloc] init];
+                NSMutableArray * contentsToCache = [[NSMutableArray alloc] init];
                 for (NSDictionary *bid in bidsArray) {
                     NSString *escapedBid = [self escapeJsonStrinng:[self jsonStringFromDictionary:bid]];
-                    PrebidCache *cache = [[PrebidCache alloc] init];
-                    NSString *cacheId = [cache cacheContent:escapedBid];
-                    NSMutableDictionary *adServerTargetingCopy = [bid[@"ext"][@"prebid"][@"targeting"] mutableCopy];
-                    adServerTargetingCopy[kAPNAdServerCacheIdKey] = cacheId;
-                    PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:adServerTargetingCopy];
-                    PBLogDebug(@"Bid Successful with rounded bid targeting keys are %@ for adUnit id is %@", bidResponse.customKeywords, adUnitId);
-                    [bidResponsesArray addObject:bidResponse];
+                    [contentsToCache addObject:escapedBid];
+                }
+                [[PrebidCache globalCache] cacheContents:contentsToCache withCompletionBlock:^(NSArray *cacheIds) {
+                    
+                    for (int i = 0; i< bidsArray.count; i++) {
+                        NSMutableDictionary *adServerTargetingCopy = [bidsArray[i][@"ext"][@"prebid"][@"targeting"] mutableCopy];
+                        if (i == 0) {
+                            NSString *cacheId = cacheIds[0];
+                            adServerTargetingCopy[kAPNAdServerCacheIdKey] = cacheId;
+                        }
+                        PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:adServerTargetingCopy];
+                        PBLogDebug(@"Bid Successful with rounded bid targeting keys are %@ for adUnit id is %@", bidResponse.customKeywords, adUnitId);
+                        [bidResponsesArray addObject:bidResponse];
+                    }
+                    
                     // should cache all bids, save on hb_cache_id_biddername
                     // assign hb_cache_id to top bid
-                }
-                [delegate didReceiveSuccessResponse:bidResponsesArray];;
+                    [delegate didReceiveSuccessResponse:bidResponsesArray];;
+                }];
             }
         }];
         
