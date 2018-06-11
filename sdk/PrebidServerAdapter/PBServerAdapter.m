@@ -98,7 +98,7 @@ static int const kBatchCount = 10;
                 NSMutableArray *bidResponsesArray = [[NSMutableArray alloc] init];
                 NSMutableArray * contentsToCache = [[NSMutableArray alloc] init];
                 for (NSDictionary *bid in bidsArray) {
-                    NSString *escapedBid = [self escapeJsonStrinng:[self jsonStringFromDictionary:bid]];
+                    NSString *escapedBid = [self escapeJsonString:[self jsonStringFromDictionary:bid]];
                     [contentsToCache addObject:escapedBid];
                 }
                 
@@ -139,7 +139,7 @@ static int const kBatchCount = 10;
     }
 }
 
-- (NSString *) escapeJsonStrinng: (NSString *) aString
+- (NSString *) escapeJsonString: (NSString *) aString
 {
     NSMutableString *s = [NSMutableString stringWithString:aString];
     [s replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];
