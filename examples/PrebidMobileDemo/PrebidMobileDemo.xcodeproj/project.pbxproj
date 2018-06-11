@@ -265,6 +265,7 @@
 				08AA719FD7B712EEB12D7083 /* Pods */,
 			);
 			sourceTree = "<group>";
+			wrapsLines = 0;
 		};
 		C273C8061E82DAAD003EF1AB /* Products */ = {
 			isa = PBXGroup;

@@ -112,7 +112,7 @@ static NSString *const kPBAppTransportSecurityAllowsArbitraryLoadsKey = @"NSAllo
         PBLogDebug(@"Catch the exception %@",[exception description]);
     }
     @finally {
-        PBLogDebug(@"Custom Operation - Main Method - Finally block");
+        PBLogDebug(@"Cache Operation - Main Method - Finally block");
     }
 }
 
@@ -188,12 +188,11 @@ static NSString *const kPBAppTransportSecurityAllowsArbitraryLoadsKey = @"NSAllo
     long long milliseconds = (long long)([[NSDate date] timeIntervalSince1970] * 1000.0);
     NSMutableString *htmlToLoad = [[NSMutableString alloc] init];
     [htmlToLoad appendString:@"<head>"];
-    NSString *scriptString = [NSString stringWithFormat:@"<script>var currentTime = %lld;var toBeDeleted = [];for(i = 0; i< localStorage.length; i ++){if(localStorage.key(i).startsWith('Prebid_')) {createdTime = localStorage.key(i).split('_')[2];if (( currentTime - createdTime) > %ld){toBeDeleted.push(localStorage.key(i));}}}for ( i = 0; i< toBeDeleted.length; i ++) {localStorage.removeItem(toBeDeleted[i]);console.log('deleted punnaghai');}</script>", milliseconds, (long) expireCacheMilliSeconds];
+    NSString *scriptString = [NSString stringWithFormat:@"<script>var currentTime = %lld;var toBeDeleted = [];for(i = 0; i< localStorage.length; i ++){if(localStorage.key(i).startsWith('Prebid_')) {createdTime = localStorage.key(i).split('_')[2];if (( currentTime - createdTime) > %ld){toBeDeleted.push(localStorage.key(i));}}}for ( i = 0; i< toBeDeleted.length; i ++) {localStorage.removeItem(toBeDeleted[i]);}</script>", milliseconds, (long) expireCacheMilliSeconds];
     [htmlToLoad appendString:scriptString];
     NSMutableArray *cacheIds = [[NSMutableArray alloc] init];
     for (NSString *content in contents) {
         NSString *cacheId = [NSString stringWithFormat:@"Prebid_%@_%lld", [NSString stringWithFormat:@"%08X", arc4random()], milliseconds];
-        PBLogDebug(@"Punnaghai log %@", cacheId);
         [cacheIds addObject:cacheId];
         [htmlToLoad appendString:[NSString stringWithFormat:@"<script>localStorage.setItem('%@','%@');</script>", cacheId, content]];
     }

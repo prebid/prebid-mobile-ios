@@ -107,16 +107,17 @@ static int const kBatchCount = 10;
                     for (int i = 0; i< bidsArray.count; i++) {
                         NSMutableDictionary *adServerTargetingCopy = [bidsArray[i][@"ext"][@"prebid"][@"targeting"] mutableCopy];
                         if (i == 0) {
-                            NSString *cacheId = cacheIds[0];
+                            NSString *cacheId = cacheIds[i];
                             adServerTargetingCopy[kAPNAdServerCacheIdKey] = cacheId;
                         }
+                        NSString *bidderCacheId = cacheIds[i];
+                        NSString *cacheIdkey =[ NSString stringWithFormat:@"%@_%@", kAPNAdServerCacheIdKey, adServerTargetingCopy[@"hb_bidder"]];
+                        cacheIdkey = cacheIdkey.length > 20 ? [cacheIdkey substringToIndex:20] : cacheIdkey;
+                        adServerTargetingCopy[cacheIdkey] = bidderCacheId;
                         PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:adServerTargetingCopy];
                         PBLogDebug(@"Bid Successful with rounded bid targeting keys are %@ for adUnit id is %@", bidResponse.customKeywords, adUnitId);
                         [bidResponsesArray addObject:bidResponse];
                     }
-
-                    // should cache all bids, save on hb_cache_id_biddername
-                    // assign hb_cache_id to top bid
                     [delegate didReceiveSuccessResponse:bidResponsesArray];;
                 }];
             }
