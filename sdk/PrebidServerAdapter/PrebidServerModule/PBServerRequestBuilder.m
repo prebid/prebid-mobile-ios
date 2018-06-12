@@ -71,10 +71,6 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     requestDict[@"imp"] = [self openrtbImpsFromAdUnits:adUnits withSecureSettings:isSecure];
     requestDict[@"ext"] = [self openrtbRequestExtension];
     
-#ifndef DEBUG
-    requestDict[@"test"] = @(TRUE);
-#endif
-    
     return [requestDict copy];
 }
 

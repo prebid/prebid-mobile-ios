@@ -339,19 +339,9 @@ static dispatch_once_t onceToken;
         keywordsString = (NSString *)[adObject performSelector:getKeywords];
     }
     if (keywordsString.length) {
-        NSArray *keywords = [keywordsString componentsSeparatedByString:@","];
-        NSMutableArray *mutableKeywords = [keywords mutableCopy];
-        [keywords enumerateObjectsUsingBlock:^(NSString *keyword, NSUInteger idx, BOOL *stop) {
-            for (NSString *reservedKey in [PBKeywordsManager reservedKeys]) {
-                if ([keyword hasPrefix:reservedKey]) {
-                    [mutableKeywords removeObject:keyword];
-                    return;
-                }
-            }
-        }];
         SEL setKeywords = NSSelectorFromString(@"setKeywords:");
         if ([adObject respondsToSelector:setKeywords]) {
-            [adObject performSelector:setKeywords withObject:[mutableKeywords componentsJoinedByString:@","]];
+            [adObject performSelector:setKeywords withObject:nil];
 #pragma clang diagnostic pop
         }
     }
