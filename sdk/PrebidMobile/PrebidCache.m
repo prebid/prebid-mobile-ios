@@ -49,18 +49,19 @@ static NSString *const kPBAppTransportSecurityAllowsArbitraryLoadsKey = @"NSAllo
         executing = NO;
         finished = NO;
         
-        
-        _uiwebviewCache = [[UIWebView alloc] init];
-        _uiwebviewCache.frame = CGRectZero;
-        _uiwebviewCache.delegate = self;
+        if(adserver == PBPrimaryAdServerDFP){
+            // We need UIWebView only for Mopub & not for DFP
+            _uiwebviewCache = [[UIWebView alloc] init];
+            _uiwebviewCache.frame = CGRectZero;
+            _uiwebviewCache.delegate = self;
+        }
         _wkwebviewCache = [[WKWebView alloc] init];
         _wkwebviewCache.frame = CGRectZero;
         _wkwebviewCache.navigationDelegate = self;
     
-        _loadingCount = 2;
-
         if (adserver == PBPrimaryAdServerDFP) {
             _httpsHost = [NSURL URLWithString:@"https://pubads.g.doubleclick.net"];
+            _loadingCount = 2;
         } else if (adserver == PBPrimaryAdServerMoPub){
             // Grab the ATS dictionary from the Info.plist
             NSDictionary *atsSettingsDictionary = [NSBundle mainBundle].infoDictionary[kPBAppTransportSecurityDictionaryKey];
@@ -69,7 +70,7 @@ static NSString *const kPBAppTransportSecurityAllowsArbitraryLoadsKey = @"NSAllo
             } else {
                 _httpsHost = [NSURL URLWithString:@"https://ads.mopub.com"];
             }
-            
+            _loadingCount = 1;
         } else {
             [self finishAndChangeState]; // TODO: check for a proper handling here
         }
@@ -96,15 +97,15 @@ static NSString *const kPBAppTransportSecurityAllowsArbitraryLoadsKey = @"NSAllo
 
 -(void)main
 {
-    //This is the method that will do the work
     @try {
-        // attach _wkwebviewCache to current top view to be able to load javascript
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.wkwebviewCache removeFromSuperview];
             UIWindow *window = [[UIApplication sharedApplication] keyWindow];
             UIView *topView = window.rootViewController.view;
             [topView addSubview:self.wkwebviewCache];
-            [self.uiwebviewCache loadHTMLString:self.htmlToLoad baseURL:self.httpsHost];
+            if(self.uiwebviewCache != nil){
+                [self.uiwebviewCache loadHTMLString:self.htmlToLoad baseURL:self.httpsHost];
+            }
             [self.wkwebviewCache loadHTMLString:self.htmlToLoad baseURL:self.httpsHost];
         });
     }
