@@ -21,6 +21,7 @@ extern NSString *const kAdServer;
 extern NSString *const kAdType;
 extern NSString *const kPlacementId;
 extern NSString *const kSize;
+extern NSString *const kGDPRString;
 
 extern NSString *const kDefaultPlacementId;
 extern NSString *const kDefaultSize;

@@ -23,6 +23,8 @@ NSString *const kAdType = @"Ad Type";
 NSString *const kPlacementId = @"Placement ID";
 NSString *const kSize = @"Size";
 
+NSString *const kGDPRString = @"gdprConsentString";
+
 NSString *const kDefaultPlacementId = @"9373413";
 NSString *const kDefaultSize = @"300x250";
 

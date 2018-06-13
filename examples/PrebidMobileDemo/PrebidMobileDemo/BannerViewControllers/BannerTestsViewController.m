@@ -19,6 +19,7 @@
 #import "MPAdView.h"
 #import "PrebidMobile/PrebidMobile.h"
 
+
 @interface BannerTestsViewController () <GADBannerViewDelegate, MPAdViewDelegate>
 
 @property (strong, nonatomic) MPAdView *mopubAdView;
@@ -52,6 +53,7 @@
     
     _adContainerView = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - width) / 2, 100, width, height)];
     [self.view addSubview:_adContainerView];
+    
     
     if ([adServer isEqualToString:kMoPubAdServer]) {
         _mopubAdView = [[MPAdView alloc] initWithAdUnitId:kMoPubBannerAdUnitId

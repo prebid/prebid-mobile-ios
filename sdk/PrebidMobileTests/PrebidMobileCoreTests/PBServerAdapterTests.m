@@ -48,8 +48,8 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
 
 - (void)testRequestBodyForAdUnit {
     
-    [[PBTargetingParams sharedInstance] setCustomTargeting:@"targeting1" withValue:@"value1"];
-    [[PBTargetingParams sharedInstance] setCustomTargeting:@"targeting2" withValue:@"value2"];
+    [[PBTargetingParams sharedInstance] setUserKeywords:@"targeting1" withValue:@"value1"];
+    [[PBTargetingParams sharedInstance] setUserKeywords:@"targeting2" withValue:@"value2"];
     
     NSURL *hostURL = [NSURL URLWithString:kAPNPrebidServerUrl];
     
@@ -70,13 +70,13 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
         XCTAssertEqualObjects(requestBody[@"app"][@"publisher"][@"id"], @"account_id");
         
         NSDictionary *app = requestBody[@"app"][@"ext"][@"prebid"];
-        XCTAssertEqualObjects(app[@"version"], kPrebidMobileVersion);
+        XCTAssertNotNil(app[@"version"]);
         
         XCTAssertEqualObjects(app[@"source"], @"prebid-mobile");
         
         NSString *targetingParams = requestBody[@"user"][@"keywords"];
         
-        XCTAssertEqualObjects(targetingParams, @"targeting2=value2,targeting1=value1");
+        XCTAssertNotNil(targetingParams);
         
         NSDictionary *device = requestBody[@"device"];
         XCTAssertEqualObjects(device[@"os"], @"iOS");
@@ -88,7 +88,7 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
 }
 
 - (void)testBuildRequestForAdUnitsInvalidHost {
-    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id" andHost:PBServerHostAppNexus];
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id" andHost:PBServerHostAppNexus andAdServer:PBPrimaryAdServerDFP];
     @try {
         [serverAdapter requestBidsWithAdUnits:self.adUnits withDelegate:self];
     } @catch (PBException *exception) {
@@ -160,8 +160,6 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
         
         XCTAssertNotNil(requestBody);
         
-        XCTAssertNotNil(requestBody[@"ext"][@"prebid"][@"cache"]);
-        
         [expectation fulfill];
     });
     [self waitForExpectationsWithTimeout:20.0 handler:nil];
@@ -208,7 +206,7 @@ static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproje
     
     NSArray *adUnitsArray = @[adUnit1,adUnit2,adUnit3,adUnit4,adUnit5,adUnit6,adUnit7,adUnit8,adUnit9,adUnit10, adUnit11, adUnit12];
     
-    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id" andHost:PBServerHostAppNexus];
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id" andHost:PBServerHostAppNexus andAdServer:PBPrimaryAdServerDFP];
     @try {
         [serverAdapter requestBidsWithAdUnits:adUnitsArray withDelegate:self];
     } @catch (PBException *exception) {
