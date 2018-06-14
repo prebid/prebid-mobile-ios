@@ -101,8 +101,7 @@ static NSString *const kPBAppTransportSecurityAllowsArbitraryLoadsKey = @"NSAllo
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.wkwebviewCache removeFromSuperview];
             UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-            UIView *topView = window.rootViewController.view;
-            [topView addSubview:self.wkwebviewCache];
+            [window addSubview:self.wkwebviewCache];
             if(self.uiwebviewCache != nil){
                 [self.uiwebviewCache loadHTMLString:self.htmlToLoad baseURL:self.httpsHost];
             }
