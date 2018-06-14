@@ -89,11 +89,16 @@ static NSString *testResponse = @"";
 }
 
 - (void)didCompleteWithError:(nonnull NSError *)error {
-    self.completionHandler(nil);
+    if (self.completionHandler) {
+        self.completionHandler(nil);
+    }
+
 }
 
 - (void)didReceiveSuccessResponse:(nonnull NSArray<PBBidResponse *> *)bid {
-    self.completionHandler(bid);
+    if (self.completionHandler) {
+         self.completionHandler(bid);
+    }
 }
 -(void)testAllBidsAreCached
 {
@@ -158,7 +163,7 @@ static NSString *testResponse = @"";
     NSURL *hostURL = [NSURL URLWithString:kAPNPrebidServerUrl];
     
     [[PBServerRequestBuilder sharedInstance] setHostURL: hostURL];
-    NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:self.adUnits withAccountId:@"account_id" shouldCacheLocal:NO withSecureParams:NO];
+    NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:self.adUnits withAccountId:@"account_id" withSecureParams:NO];
     XCTestExpectation *expectation = [self expectationWithDescription:@"Dummy expectation"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
@@ -207,7 +212,7 @@ static NSString *testResponse = @"";
     NSURL *hostURL = [NSURL URLWithString:kRPPrebidServerUrl];
     
     [[PBServerRequestBuilder sharedInstance] setHostURL: hostURL];
-    NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:self.adUnits withAccountId:@"account_id" shouldCacheLocal:NO withSecureParams:NO];
+    NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:self.adUnits withAccountId:@"account_id" withSecureParams:NO];
     XCTestExpectation *expectation = [self expectationWithDescription:@"Dummy expectation"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
@@ -218,58 +223,6 @@ static NSString *testResponse = @"";
     });
     [self waitForExpectationsWithTimeout:20.0 handler:nil];
 
-}
-
-- (void)testRequestBodyForAdUnitWithDFPAdServer {
-    
-    NSURL *hostURL = [NSURL URLWithString:kAPNPrebidServerUrl];
-    
-    [[PBServerRequestBuilder sharedInstance] setHostURL: hostURL];
-    NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:self.adUnits withAccountId:@"account_id" shouldCacheLocal:YES withSecureParams:NO];
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Dummy expectation"];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        
-        
-        NSError* error;
-        NSDictionary* requestBody = [NSJSONSerialization JSONObjectWithData:[request HTTPBody]
-                                                                    options:kNilOptions
-                                                                      error:&error];
-        
-        XCTAssertNotNil(requestBody);
-        
-        XCTAssertNil(requestBody[@"ext"][@"prebid"][@"cache"]);
-        
-        [expectation fulfill];
-    });
-    [self waitForExpectationsWithTimeout:20.0 handler:nil];
-    
-    
-}
-
-- (void)testRequestBodyForAdUnitWithMoPubAdServer {
-    NSURL *hostURL = [NSURL URLWithString:kAPNPrebidServerUrl];
-    
-    [[PBServerRequestBuilder sharedInstance] setHostURL: hostURL];
-    NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:self.adUnits withAccountId:@"account_id" shouldCacheLocal:NO withSecureParams:NO];
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Dummy expectation"];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        
-        
-        NSError* error;
-        NSDictionary* requestBody = [NSJSONSerialization JSONObjectWithData:[request HTTPBody]
-                                                                    options:kNilOptions
-                                                                      error:&error];
-        
-        XCTAssertNotNil(requestBody);
-        XCTAssertNil(requestBody[@"ext"][@"prebid"][@"cache"]);
-        
-        [expectation fulfill];
-    });
-    [self waitForExpectationsWithTimeout:20.0 handler:nil];
-
-    
 }
 
 -(void) testBatchRequestBidsWithAdUnits{

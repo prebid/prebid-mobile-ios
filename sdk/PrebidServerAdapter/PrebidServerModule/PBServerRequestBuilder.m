@@ -38,13 +38,13 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     return _sharedInstance;
 }
 
-- (NSURLRequest *_Nullable)buildRequest:(nullable NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID shouldCacheLocal:(BOOL) isLocal withSecureParams:(BOOL) isSecure {
+- (NSURLRequest *_Nullable)buildRequest:(nullable NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID withSecureParams:(BOOL) isSecure {
     
     NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:self.hostURL
                                                                        cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                                    timeoutInterval:1000];
     [mutableRequest setHTTPMethod:@"POST"];
-    NSDictionary *requestBody = [self openRTBRequestBodyForAdUnits:adUnits withAccountId:accountID shouldCacheLocal:isLocal withSecureParams:isSecure];
+    NSDictionary *requestBody = [self openRTBRequestBodyForAdUnits:adUnits withAccountId:accountID withSecureParams:isSecure];
     NSError *error;
     NSData *postData = [NSJSONSerialization dataWithJSONObject:requestBody
                                                        options:kNilOptions
@@ -57,7 +57,7 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     }
 }
 
-- (NSDictionary *)openRTBRequestBodyForAdUnits:(NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID shouldCacheLocal:(BOOL) isLocalCache withSecureParams:(BOOL) isSecure{
+- (NSDictionary *)openRTBRequestBodyForAdUnits:(NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID withSecureParams:(BOOL) isSecure{
     NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
     
     requestDict[@"id"] = [[NSUUID UUID] UUIDString];

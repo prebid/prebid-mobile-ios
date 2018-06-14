@@ -80,6 +80,4 @@ typedef NS_ENUM(NSInteger, PBPrimaryAdServerType) {
 
 -(void) loadOnSecureConnection:(BOOL) secureConnection;
 
-- (PBPrimaryAdServerType) adServer;
-
 @end
