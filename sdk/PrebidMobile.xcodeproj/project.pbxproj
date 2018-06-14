@@ -77,6 +77,7 @@
 		C2B1747A1EE1E3C3006304C0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B174791EE1E3C3006304C0 /* UIKit.framework */; };
 		C2B1747C1EE1E3C9006304C0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B1747B1EE1E3C9006304C0 /* SystemConfiguration.framework */; };
 		C2B1747E1EE1E3CE006304C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B1747D1EE1E3CE006304C0 /* QuartzCore.framework */; };
+		F576AEF420D1B1FF00D41FBC /* PBPrebidCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F576AEF320D1B1FF00D41FBC /* PBPrebidCacheTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +172,7 @@
 		C2B1747D1EE1E3CE006304C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E6BF995E1F7167B0001016FD /* PrebidMobile-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMobile-umbrella.h"; sourceTree = "<group>"; };
 		EFD3C940519B957467FE94E6 /* libPods-PrebidMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F576AEF320D1B1FF00D41FBC /* PBPrebidCacheTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBPrebidCacheTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +230,7 @@
 				C281E1961EE5F2AD00F2F4A9 /* PBBidResponseTests.m */,
 				C281E1981EE5F2AD00F2F4A9 /* PBTargetingParamsTests.m */,
 				C29238D81F3E38D100217075 /* PBServerAdapterTests.m */,
+				F576AEF320D1B1FF00D41FBC /* PBPrebidCacheTests.m */,
 			);
 			path = PrebidMobileCoreTests;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				C281E19B1EE5F2AD00F2F4A9 /* PBBidResponseTests.m in Sources */,
 				C29238D91F3E38D100217075 /* PBServerAdapterTests.m in Sources */,
 				C281E19D1EE5F2AD00F2F4A9 /* PBTargetingParamsTests.m in Sources */,
+				F576AEF420D1B1FF00D41FBC /* PBPrebidCacheTests.m in Sources */,
 				C281E1991EE5F2AD00F2F4A9 /* PBAdUnitTests.m in Sources */,
 				C281E19A1EE5F2AD00F2F4A9 /* PBBidManagerTests.m in Sources */,
 				C281E1AC1EE5F2DA00F2F4A9 /* ANHTTPStubbingManager.m in Sources */,
