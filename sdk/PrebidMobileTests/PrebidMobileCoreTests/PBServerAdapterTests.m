@@ -107,7 +107,8 @@ static NSString *testResponse = @"";
     self.adUnits = @[adUnit1, adUnit2];
     PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id" andHost:PBServerHostAppNexus andAdServer:PBPrimaryAdServerDFP];
     [serverAdapter requestBidsWithAdUnits:self.adUnits withDelegate:self];
-    self.completionHandler = ^(NSArray *bids){
+    __weak PBServerAdapterTests *weakSelf = self;
+    weakSelf.completionHandler = ^(NSArray *bids){
         // veryfy that all bids has a cache id
         // veryfy that only top bid has hb_cache_id
         // verify cache_id is truncated after 20 characters
