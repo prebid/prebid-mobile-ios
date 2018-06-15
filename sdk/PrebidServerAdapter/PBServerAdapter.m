@@ -26,7 +26,6 @@
 #import "PBTargetingParams.h"
 #import "PBServerRequestBuilder.h"
 #import "PBException.h"
-#import "PrebidMobile.h"
 
 static NSString *const kAPNAdServerCacheIdKey = @"hb_cache_id";
 
@@ -86,7 +85,7 @@ static int const kBatchCount = 10;
         adUnitsRemaining-=range.length;
         j+=range.length;
         
-        NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:subAdUnitArray withAccountId:self.accountId shouldCacheLocal:YES withSecureParams:self.isSecure];
+        NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:subAdUnitArray withAccountId:self.accountId withSecureParams:self.isSecure];
         
         [[PBServerFetcher sharedInstance] makeBidRequest:request withCompletionHandler:^(NSDictionary *adUnitToBidsMap, NSError *error) {
             if (error) {

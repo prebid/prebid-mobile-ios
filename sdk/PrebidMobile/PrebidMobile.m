@@ -14,7 +14,6 @@
  */
 
 #import "PrebidMobile.h"
-#import "PrebidCache.h"
 #import "PBLogging.h"
 
 @implementation PrebidMobile

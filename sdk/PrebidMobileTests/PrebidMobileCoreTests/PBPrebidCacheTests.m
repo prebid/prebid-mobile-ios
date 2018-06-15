@@ -40,7 +40,8 @@
             UIWebView *uiwebview = [[UIWebView alloc] init];
             uiwebview.delegate = self;
             [uiwebview loadRequest:[NSURLRequest requestWithURL:host]];
-            self.uiwebviewCompletionHandler = ^{
+            __weak PBPrebidCacheTests *weakSelf = self;
+            weakSelf.uiwebviewCompletionHandler = ^{
                 NSString *result =[uiwebview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"localStorage.getItem('%@')", cacheIds[0]]];
                 XCTAssertEqualObjects(@"0", result);
                 result =[uiwebview stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"localStorage.getItem('%@')", cacheIds[1]]];
@@ -52,7 +53,7 @@
             WKWebView *wkwebview = [[WKWebView alloc] init];
             wkwebview.navigationDelegate = self;
             [wkwebview loadRequest:[NSURLRequest requestWithURL:host]];
-            self.wkwebviewCompletionHandler = ^{
+            weakSelf.wkwebviewCompletionHandler = ^{
                 [wkwebview evaluateJavaScript:[NSString stringWithFormat:@"localStorage.getItem('%@')", cacheIds[0]] completionHandler:^(id _Nullable result, NSError * _Nullable error) {
                      XCTAssertEqualObjects(@"0", result);
                     [wkwebview evaluateJavaScript:[NSString stringWithFormat:@"localStorage.getItem('%@')", cacheIds[1]] completionHandler:^(id _Nullable result, NSError * _Nullable error) {
@@ -83,7 +84,8 @@
             WKWebView *wkwebview = [[WKWebView alloc] init];
             wkwebview.navigationDelegate = self;
             [wkwebview loadRequest:[NSURLRequest requestWithURL:host]];
-            self.wkwebviewCompletionHandler = ^{
+            __weak PBPrebidCacheTests *weakSelf = self;
+            weakSelf.wkwebviewCompletionHandler = ^{
                 [wkwebview evaluateJavaScript:[NSString stringWithFormat:@"localStorage.getItem('%@')", cacheIds[0]] completionHandler:^(id _Nullable result, NSError * _Nullable error) {
                     XCTAssertEqualObjects(@"0", result);
                     [wkwebview evaluateJavaScript:[NSString stringWithFormat:@"localStorage.getItem('%@')", cacheIds[1]] completionHandler:^(id _Nullable result, NSError * _Nullable error) {

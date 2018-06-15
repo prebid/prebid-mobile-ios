@@ -188,6 +188,41 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
 
 #pragma mark - Test attach top bid helper tests
 
+- (void)testAttachTopBidHelperPassThroughAllKeywords {
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    PBAdUnit *adUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt8" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
+    [adUnit addSize:CGSizeMake(320, 50)];
+    [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerMoPub];
+    
+    NSDictionary *testAdServerTargeting1 = @{@"hb_pb":@"0.50", @"hb_cache_id":@"Prebid_123_456",@"hb_cache_id_appnexus": @"Prebid_123_456", @"hb_bidder": @"appnexus"};
+    PBBidResponse *bidResponse1 = [PBBidResponse bidResponseWithAdUnitId:adUnit.identifier adServerTargeting:testAdServerTargeting1];
+    NSDictionary *testAdServerTargeting2 = @{@"hb_pb_rubicon":@"0.40", @"hb_cache_id_rubicon": @"Prebid_789_101", @"hb_bidder_rubicon": @"rubicon"};
+    PBBidResponse *bidResponse2 = [PBBidResponse bidResponseWithAdUnitId:adUnit.identifier adServerTargeting:testAdServerTargeting2];
+    [[PBBidManager sharedInstance] saveBidResponses:@[bidResponse2, bidResponse1]];
+    
+    [[PBBidManager sharedInstance] attachTopBidHelperForAdUnitId:adUnit.identifier andTimeout:500 completionHandler:^{
+        NSDictionary *bidKeywords = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
+        XCTAssertNotNil(bidKeywords);
+        XCTAssertTrue(bidKeywords.allKeys.count == 7);
+        XCTAssertTrue([bidKeywords.allKeys containsObject:@"hb_pb"]);
+        XCTAssertEqual(@"0.50", [bidKeywords objectForKey:@"hb_pb"]);
+        XCTAssertTrue([bidKeywords.allKeys containsObject:@"hb_cache_id"]);
+        XCTAssertEqual(@"Prebid_123_456", [bidKeywords objectForKey:@"hb_cache_id"]);
+        XCTAssertTrue([bidKeywords.allKeys containsObject:@"hb_cache_id_appnexus"]);
+        XCTAssertEqual(@"Prebid_123_456", [bidKeywords objectForKey:@"hb_cache_id_appnexus"]);
+        XCTAssertTrue([bidKeywords.allKeys containsObject:@"hb_bidder"]);
+        XCTAssertEqual(@"appnexus", [bidKeywords objectForKey:@"hb_bidder"]);
+        XCTAssertTrue([bidKeywords.allKeys containsObject:@"hb_pb_rubicon"]);
+        XCTAssertEqual(@"0.40", [bidKeywords objectForKey:@"hb_pb_rubicon"]);
+        XCTAssertTrue([bidKeywords.allKeys containsObject:@"hb_cache_id_rubicon"]);
+        XCTAssertEqual(@"Prebid_789_101", [bidKeywords objectForKey:@"hb_cache_id_rubicon"]);
+        XCTAssertTrue([bidKeywords.allKeys containsObject:@"hb_bidder_rubicon"]);
+        XCTAssertEqual(@"rubicon", [bidKeywords objectForKey:@"hb_bidder_rubicon"]);
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
+}
+
 - (void)testAttachTopBidHelperWithReadyBid {
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     PBAdUnit *adUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt8" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
