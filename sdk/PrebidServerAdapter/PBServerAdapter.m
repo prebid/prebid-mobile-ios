@@ -128,8 +128,17 @@ static int const kBatchCount = 10;
 
 - (NSString *)jsonStringFromDictionary: (NSDictionary *) dict
 {
+    //strip all the extra lines in the creative before converting to escaped json string - start
+    NSMutableDictionary *copiedDict = [[NSMutableDictionary alloc] initWithDictionary:dict];
+    
+    NSString *copiedAdm = (NSString *)copiedDict[@"adm"];
+    
+    NSString *strippedTextLine = [copiedAdm stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    
+    copiedDict[@"adm"] = strippedTextLine;
+    //end - do not remove this
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:copiedDict
                                                        options:0
                                                          error:&error];
     if (!jsonData) {
@@ -143,6 +152,7 @@ static int const kBatchCount = 10;
 - (NSString *) escapeJsonString: (NSString *) aString
 {
     NSMutableString *s = [NSMutableString stringWithString:aString];
+    
     [s replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];
     [s replaceOccurrencesOfString:@"/" withString:@"\\/" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];
     [s replaceOccurrencesOfString:@"\n" withString:@"\\n" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];
