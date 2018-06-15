@@ -94,7 +94,8 @@
                         NSArray *bids = (NSArray *)[seatbidDict objectForKey:@"bid"];
                         for (id bid in bids) {
                             if ([bid isKindOfClass:[NSDictionary class]]) {
-                                NSDictionary *bidDict = (NSDictionary *)bid;
+                                NSMutableDictionary *bidDict = [[NSMutableDictionary alloc] initWithDictionary:(NSDictionary *)bid];
+                                [bidDict setObject:seatbid[@"seat"] forKey:@"seat"];
                                 NSMutableArray *adUnitBids = [[NSMutableArray alloc] init];
                                 if ([adUnitToBidsMap objectForKey:bidDict[@"impid"]] != nil) {
                                     adUnitBids = [adUnitToBidsMap objectForKey:bidDict[@"impid"]];

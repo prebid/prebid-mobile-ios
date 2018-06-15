@@ -73,7 +73,7 @@
         [_adContainerView addSubview:_dfpAdView];
         
         [PrebidMobile setBidKeywordsOnAdObject:_dfpAdView withAdUnitId:kAdUnit1Id withTimeout:600 completionHandler:^{
-            [self->_dfpAdView loadRequest:[DFPRequest request]];
+            [self.dfpAdView loadRequest:[DFPRequest request]];
         }];
     }
 }

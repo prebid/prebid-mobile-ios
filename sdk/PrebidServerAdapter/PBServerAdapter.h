@@ -21,11 +21,9 @@
 
 @interface PBServerAdapter : NSObject
 
-- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId;
+- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId andAdServer:(PBPrimaryAdServerType) adServer;
 
-- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId andHost:(PBServerHost) host;
-
-@property (nonatomic, assign) BOOL shouldCacheLocal;
+- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId andHost:(PBServerHost) host andAdServer:(PBPrimaryAdServerType) adServer;
 
 @property (nonatomic, assign) BOOL isSecure;
 

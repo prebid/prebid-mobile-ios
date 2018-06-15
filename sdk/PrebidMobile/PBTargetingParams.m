@@ -170,6 +170,7 @@ static dispatch_once_t onceToken;
 -(void) setGdprConsentString:(NSString *)gdprConsentString{
     
     [[NSUserDefaults standardUserDefaults] setObject:gdprConsentString forKey:PB_GDPR_ConsentString];
+    self.isGDPREnabledHere = YES;
 }
 
 -(BOOL) subjectToGDPR {

@@ -93,12 +93,7 @@ static dispatch_once_t onceToken;
     
     self.adServer = adServer;
     
-    _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId andHost:host] ;
-    
-    if(adServer == PBPrimaryAdServerMoPub){
-        //the adservers are cached locally by default except for MoPub hence this needs to be configured
-       _demandAdapter.shouldCacheLocal = FALSE;
-    }
+    _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId andHost:host andAdServer:adServer] ;
     
     for (id adUnit in adUnits) {
         [self registerAdUnit:adUnit];
@@ -335,6 +330,10 @@ static dispatch_once_t onceToken;
     }
 }
 
+///
+// bids should not be cleared n set to nil as setting to nil will remove all publisher keywords too
+// so just remove all bids thats related to prebid... Prebid targeting starts as "hb_"
+///
 - (void)clearBidOnAdObject:(NSObject *)adObject {
     NSString *keywordsString = @"";
     SEL getKeywords = NSSelectorFromString(@"keywords");
@@ -344,16 +343,15 @@ static dispatch_once_t onceToken;
         keywordsString = (NSString *)[adObject performSelector:getKeywords];
     }
     if (keywordsString.length) {
+        
         NSArray *keywords = [keywordsString componentsSeparatedByString:@","];
         NSMutableArray *mutableKeywords = [keywords mutableCopy];
         [keywords enumerateObjectsUsingBlock:^(NSString *keyword, NSUInteger idx, BOOL *stop) {
-            for (NSString *reservedKey in [PBKeywordsManager reservedKeys]) {
-                if ([keyword hasPrefix:reservedKey]) {
-                    [mutableKeywords removeObject:keyword];
-                    return;
-                }
+            if ([keyword hasPrefix:@"hb_"]) {
+                [mutableKeywords removeObject:keyword];
             }
         }];
+        
         SEL setKeywords = NSSelectorFromString(@"setKeywords:");
         if ([adObject respondsToSelector:setKeywords]) {
             [adObject performSelector:setKeywords withObject:[mutableKeywords componentsJoinedByString:@","]];
