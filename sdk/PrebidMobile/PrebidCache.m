@@ -147,15 +147,24 @@ static NSString *const kPBAppTransportSecurityAllowsArbitraryLoadsKey = @"NSAllo
 
 - (void) finishAndChangeState
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.wkwebviewCache removeFromSuperview];
-    });
-    [self willChangeValueForKey:@"isExecuting"];
-    executing = NO;
-    [self didChangeValueForKey:@"isExecuting"];
-    [self willChangeValueForKey:@"isFinished"];
-    finished = YES;
-    [self didChangeValueForKey:@"isFinished"];
+    __weak PrebidCacheOperation *weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            __strong PrebidCacheOperation *strongSelf = weakSelf;
+            
+            [strongSelf.wkwebviewCache setNavigationDelegate:nil];
+            [strongSelf.wkwebviewCache setUIDelegate:nil];
+            
+            [strongSelf.wkwebviewCache removeFromSuperview];
+            strongSelf.wkwebviewCache = nil;
+            
+            [strongSelf willChangeValueForKey:@"isExecuting"];
+            strongSelf->executing = NO;
+            [strongSelf didChangeValueForKey:@"isExecuting"];
+            [strongSelf willChangeValueForKey:@"isFinished"];
+            strongSelf->finished = YES;
+            [strongSelf didChangeValueForKey:@"isFinished"];
+            
+        });
 }
 
 @end
