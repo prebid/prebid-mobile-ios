@@ -27,10 +27,7 @@
                                          MPInterstitialAdControllerDelegate,
                                          GADBannerViewDelegate,
                                          GADInterstitialDelegate>
-@property NSMutableDictionary *adObjects;
-@property NSInteger *testCount;
-@property NSInteger *passedTests;
-@property NSInteger *failedTests;
+@property id adObject;
 @property NSMutableString *emailContent;
 @end
 
@@ -45,10 +42,6 @@
 
 - (void)startTest
 {
-    _adObjects = [[NSMutableDictionary alloc] init];
-    _testCount = 0;
-    _passedTests = 0;
-    _failedTests = 0;
     NSString *host = [[NSUserDefaults standardUserDefaults]stringForKey:kPBHostKey];
     if ([host isEqualToString:kRubiconString]) {
         [self.delegate lineItemsWereNotSetupProperly];
@@ -60,7 +53,7 @@
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
     NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
-    NSArray *bidPrices = [[NSUserDefaults standardUserDefaults] arrayForKey:kBidPriceKey];
+    NSString *bidPrice = [[NSUserDefaults standardUserDefaults] stringForKey:kBidPriceKey];
     GADAdSize GADAdSize = kGADAdSizeInvalid;
     CGSize adSize = CGSizeZero;
     if ([adSizeString isEqualToString:kBannerSizeString]) {
@@ -76,52 +69,48 @@
     [_emailContent appendString:@"To replicate the tests that are testing your line items setup, start a project without prebid installed, do the following list of actions: \n"];
     if ([adServerName isEqualToString:kMoPubString]) {
         if ([adFormatName isEqualToString:kBannerString]) {
-            for (NSString *bidPrice in bidPrices) {
-                _testCount++;
-                NSDictionary *keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString];
-                MPAdView *adView = [self createMPAdViewWithAdUnitId:adUnitID WithSize:adSize WithKeywords:keywords];
-                [_adObjects setObject:adView forKey:bidPrice];
-                [adView loadAd];
-                [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a MoPub banner ad with adUnitId \"%@\", size \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, adSizeString, [self formatMoPubKeywordStringFromDictionary:keywords]] ];
-            }
+          
+            NSDictionary *keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString];
+            MPAdView *adView = [self createMPAdViewWithAdUnitId:adUnitID WithSize:adSize WithKeywords:keywords];
+            self.adObject = adView;
+            [adView loadAd];
+            [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a MoPub banner ad with adUnitId \"%@\", size \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, adSizeString, [self formatMoPubKeywordStringFromDictionary:keywords]] ];
+            
         } else if ([adFormatName isEqualToString:kInterstitialString]){
-            for (NSString *bidPrice in bidPrices){
-                _testCount ++;
+          
                 NSDictionary *keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString];
                 MPInterstitialAdController *interstitial = [self createMPInterstitialAdControllerWithAdUnitId:adUnitID WithKeywords:keywords];
-                [_adObjects setObject:interstitial forKey:bidPrice];
+            self.adObject = interstitial;
                 [interstitial loadAd];
                 [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a MoPub interstitial ad with adUnitId \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, [self formatMoPubKeywordStringFromDictionary:keywords]] ];
-            }
+            
         }
     } else if([adServerName isEqualToString:kDFPString]){
         if ([adFormatName isEqualToString:kBannerString]) {
-            for(NSString *bidPrice in bidPrices) {
-                _testCount++;
+          
                 NSDictionary *keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString];
                 DFPBannerView *adView = [self createDFPBannerViewWithAdUnitId:adUnitID WithSize:GADAdSize];
                 // hack to attach to screen
                 adView.frame = CGRectMake(-500, -500 , GADAdSize.size.width, GADAdSize.size.height);
                 [((UIViewController *) _delegate).view addSubview:adView];
-                [_adObjects setObject:adView forKey:bidPrice];
+            self.adObject = adView;
                 DFPRequest *request = [DFPRequest request];
                 request.customTargeting = keywords;
                 [adView loadRequest:request];
                  keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString];
                  [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a DFP banner ad with adUnitId \"%@\", size \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, adSizeString, keywords ]];
-            }
+            
         } else if ([adFormatName isEqualToString:kInterstitialString]){
-            for (NSString *bidPrice in bidPrices) {
-                _testCount++;
+           
                 NSDictionary *keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString];
                 DFPInterstitial *interstitial = [self createDFPInterstitialWithAdUnitId:adUnitID];
-                [_adObjects setObject:interstitial forKey:bidPrice];
+            self.adObject = interstitial;
                 DFPRequest *request = [DFPRequest request];
                 request.customTargeting = keywords;
                 [interstitial loadRequest:request];
                 keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString];
                 [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a DFP interstitial ad with adUnitId \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, keywords ]];
-            }
+            
         }
     }
 }
@@ -146,48 +135,33 @@
 - (void)adViewDidReceiveAd:(GADBannerView *)bannerView
 {
     if ([PBViewTool checkDFPAdViewContainsPBMAd:bannerView]) {
-        _passedTests++;
-    } else{
-        _failedTests++;
-    }
-    _testCount--;
-    if (_testCount == 0) {
-        if (_failedTests ==0) {
+  
             [self.delegate lineItemsWereSetupProperly];
         } else{
             [self.delegate lineItemsWereNotSetupProperly];
         }
-    }
+    
 }
 
 - (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
 {
-    _testCount--;
-    if (_testCount == 0) {
+
         [self.delegate lineItemsWereNotSetupProperly];
-    }
+    
 }
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    _testCount--;
-    _passedTests++;
-    if (_testCount == 0) {
-        if (_failedTests == 0) {
+
             [self.delegate lineItemsWereSetupProperly];
-        } else {
-            [self.delegate lineItemsWereNotSetupProperly];
-        }
-    }
+  
 }
 
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
 {
-    _testCount--;
-    _failedTests++;
-    if (_testCount == 0) {
+
         [self.delegate lineItemsWereNotSetupProperly];
-    }
+    
 }
 
 #pragma mark MoPub
@@ -237,24 +211,16 @@
 
 - (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
 {
-    _testCount--;
-    _passedTests++;
-    if (_testCount==0) {
-        if (_failedTests == 0) {
+ 
             [self.delegate lineItemsWereSetupProperly];
-        } else {
-            [self.delegate lineItemsWereNotSetupProperly];
-        }
-    }
+
 }
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial
 {
-    _testCount--;
-    _failedTests++;
-    if (_testCount == 0) {
+
         [self.delegate lineItemsWereNotSetupProperly];
-    }
+    
 }
 
 -(void)adViewDidLoadAd:(MPAdView *)view
@@ -265,29 +231,21 @@
                        withCompletionHandler:^(BOOL result) {
                            __strong PBVLineItemsSetupValidator *strongSelf = weakSelf;
                            if (result) {
-                               strongSelf.passedTests++;
-                           } else
-                           {
-                               strongSelf.failedTests++;
-                           }
-                           if (strongSelf.testCount == 0) {
-                               if (strongSelf.failedTests == 0) {
-                                   [self.delegate lineItemsWereSetupProperly];
+                  
+                                   [strongSelf.delegate lineItemsWereSetupProperly];
                                } else {
-                                   [self.delegate lineItemsWereNotSetupProperly];
+                                   [strongSelf.delegate lineItemsWereNotSetupProperly];
                                }
-                           }
+                           
                        }];
-    _testCount--;
+ 
 }
 
 - (void)adViewDidFailToLoadAd:(MPAdView *)view
 {
-    _testCount--;
-    _failedTests++;
-    if (_testCount == 0) {
+
         [self.delegate lineItemsWereNotSetupProperly];
-    }
+    
 }
 
 - (UIViewController *)viewControllerForPresentingModalView
@@ -295,9 +253,9 @@
     return (UIViewController *)self.delegate;
 }
 
-- (NSDictionary *) getDisplayables
+- (NSDictionary *) getDisplayable
 {
-    return _adObjects;
+    return self.adObject;
 }
 
 - (NSString *)getEmailContent

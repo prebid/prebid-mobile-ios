@@ -127,12 +127,7 @@ CGFloat const kLabelHeight = 80.0f;
     _configID = [[NSUserDefaults standardUserDefaults] objectForKey:kPBConfigKey] ? [[NSUserDefaults standardUserDefaults] objectForKey:kPBConfigKey] : @"";
     _host = [[NSUserDefaults standardUserDefaults] objectForKey:kPBHostKey]? [[NSUserDefaults standardUserDefaults] objectForKey:kPBHostKey]: kAppNexusString;
     
-    id bidPriceInitialArray = [[NSUserDefaults standardUserDefaults] objectForKey:kBidPriceKey];
-    if ([bidPriceInitialArray isKindOfClass:[NSArray class]]) {
-        _bidPrice = [bidPriceInitialArray componentsJoinedByString:@","];
-    } else {
-        _bidPrice = @"";
-    }
+    _bidPrice = [[NSUserDefaults standardUserDefaults] objectForKey:kBidPriceKey]? [[NSUserDefaults standardUserDefaults] objectForKey:kBidPriceKey] : @"";
     
     _initialDetailTextValues = @{@"General" : @[_adFormat, _adSize],
                                   @"AD Server" :@[_adServer, _adUnitId, _bidPrice],
@@ -462,7 +457,7 @@ CGFloat const kLabelHeight = 80.0f;
         alertController = [UIAlertController alertControllerWithTitle:kErrorMessageTitle message:@"Interstitial must be of size 320x480. Please update ad size in the picker." preferredStyle:UIAlertControllerStyleAlert];
     }
     if ([self.bidPrice isEqualToString:@""]) {
-        alertController =[UIAlertController alertControllerWithTitle:kErrorMessageTitle message:@"Please input at least one bid price to test with." preferredStyle:UIAlertControllerStyleAlert];
+        alertController =[UIAlertController alertControllerWithTitle:kErrorMessageTitle message:@"Please input one bid price to test with." preferredStyle:UIAlertControllerStyleAlert];
     }
 
     if (alertController) {
@@ -477,13 +472,9 @@ CGFloat const kLabelHeight = 80.0f;
     [[NSUserDefaults standardUserDefaults] setObject:self.adFormat forKey:kAdFormatNameKey];
     [[NSUserDefaults standardUserDefaults] setObject:self.adSize forKey:kAdSizeKey];
     [[NSUserDefaults standardUserDefaults] setObject:self.adUnitId forKey:kAdUnitIdKey];
-    
     [[NSUserDefaults standardUserDefaults] setObject:self.accountID forKey:kPBAccountKey];
     [[NSUserDefaults standardUserDefaults] setObject:self.configID forKey:kPBConfigKey];
-    
-    
-    NSArray *bidPrices = [self.bidPrice componentsSeparatedByString:@","];
-    [[NSUserDefaults standardUserDefaults] setObject:bidPrices forKey:kBidPriceKey];
+    [[NSUserDefaults standardUserDefaults] setObject:self.bidPrice forKey:kBidPriceKey];
     [[NSUserDefaults standardUserDefaults] setObject:self.host forKey:kPBHostKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

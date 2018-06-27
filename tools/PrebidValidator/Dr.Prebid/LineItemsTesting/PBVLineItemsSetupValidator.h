@@ -26,7 +26,7 @@
 
 - (void) startTest;
 
-- (NSDictionary *) getDisplayables;
+- (NSDictionary *) getDisplayable;
 
 - (NSString *) getEmailContent;
 

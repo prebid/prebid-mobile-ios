@@ -30,7 +30,7 @@
                                          MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *bidPriceToCell;
-@property (nonatomic, strong) NSArray *bidPrices;
+@property (nonatomic, strong) NSString *bidPrice;
 @property (nonatomic, strong) UITableView *interstitialTableView;
 @property (nonatomic, strong) UITableView *bannerTableView;
 @property (nonatomic, assign) BOOL isBanner;
@@ -59,7 +59,7 @@
     // Retrieve saved values from NSUserDefaults and setup instance variables
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
-    _bidPrices = [[NSUserDefaults standardUserDefaults] arrayForKey:kBidPriceKey];
+    _bidPrice = [[NSUserDefaults standardUserDefaults] stringForKey:kBidPriceKey];
     
     _isBanner = [adFormatName isEqualToString:kBannerString];
     _isInterstitial = [adFormatName isEqualToString:kInterstitialString];
@@ -151,19 +151,18 @@
         UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(kAdLabelLocationX, kAdLabelLocationY, self.view.frame.size.width, kAdTitleLabelHeight)];
         title.font = [UIFont boldSystemFontOfSize:16];
         title.textColor = [UIColor blackColor];
-        [title setText:[@"$" stringByAppendingString:[self.bidPrices objectAtIndex:indexPath.row]]];
+        [title setText:[@"$" stringByAppendingString:self.bidPrice]];
         [cell.contentView addSubview:title];
 
         // Show ad view if it loaded, otherwise show the ad failed label in its place
-        UIView *adView = [_validator.getDisplayables valueForKey:[self.bidPrices objectAtIndex:indexPath.row]];
+        UIView *adView = [_validator getDisplayable];
         CGFloat x = ([UIScreen mainScreen].bounds.size.width - _adSize.width) / 2.0;
         adView.frame = CGRectMake(x, kAdLocationY, _adSize.width, _adSize.height);
         [cell.contentView addSubview:adView];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     } else if (tableView == self.interstitialTableView) {
-        NSString *bidPrice = [self.bidPrices objectAtIndex:indexPath.row];
-        cell.textLabel.text = [@"Click here to test interstitial for $" stringByAppendingString: bidPrice];
-        [self.bidPriceToCell setObject:cell forKey:bidPrice];
+        cell.textLabel.text = [@"Click here to test interstitial for $" stringByAppendingString: _bidPrice];
+        [self.bidPriceToCell setObject:cell forKey:_bidPrice];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -171,7 +170,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.bidPrices count];
+    return 1;
 }
 
 #pragma mark - UITableViewDelegate methods
@@ -207,7 +206,7 @@
     NSString *cellText = cell.textLabel.text;
     NSRange range = [cellText rangeOfString:@"$"];
     NSString *bidPrice = [cellText substringFromIndex:range.location + 1];
-    id adObject = _validator.getDisplayables[bidPrice];
+    id adObject = [_validator getDisplayable];
     if (adObject) {
         if ([adObject isKindOfClass:[MPInterstitialAdController class]]) {
             MPInterstitialAdController *interstitial = (MPInterstitialAdController *) adObject;
@@ -242,19 +241,17 @@
 
 - (void)interstitialDidDisappear:(MPInterstitialAdController *)interstitial
 {
-    NSArray *keys = [_validator.getDisplayables allKeysForObject:interstitial];
-    for (NSString * key in keys) {
-        UITableViewCell *cell = [self.bidPriceToCell objectForKey:key];
+  
+        UITableViewCell *cell = [self.bidPriceToCell objectForKey:_bidPrice];
         [cell setSelected:NO];
-    }
+    
 }
 
 - (void)interstitialDidDismissScreen:(GADInterstitial *)ad
 {
-    NSArray *keys = [_validator.getDisplayables allKeysForObject:ad];
-    for (NSString * key in keys) {
-        UITableViewCell *cell = [self.bidPriceToCell objectForKey:key];
+
+        UITableViewCell *cell = [self.bidPriceToCell objectForKey:_bidPrice];
         [cell setSelected:NO];
-    }
+    
 }
 @end
