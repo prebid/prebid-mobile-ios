@@ -98,6 +98,7 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
     }
     keywords[KeywordsManagerPriceKey] =  bidPrice;
     keywords[KeywordsManagerSizeKey] = sizeString;
+    keywords[@"hb_dr_prebid"] = @"1";
     return [keywords copy];
 }
 

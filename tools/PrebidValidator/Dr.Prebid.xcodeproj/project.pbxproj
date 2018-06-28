@@ -56,6 +56,7 @@
 		60CFB2F12097A4C4006FCF7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E82097A4C4006FCF7C /* UIKit.framework */; };
 		60CFB2F22097A4C4006FCF7C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E92097A4C4006FCF7C /* SystemConfiguration.framework */; };
 		F283A423484632D93AE6FB87 /* libPods-Dr.Prebid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */; };
+		F553098220E53CF500A7B552 /* LineItemURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F553098120E53CF500A7B552 /* LineItemURLProtocol.m */; };
 		F56AE891209A3809000CE29F /* PBViewTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE88F209A3808000CE29F /* PBViewTool.m */; };
 		F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */; };
 		F5AB325720A0CA3100F76478 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5AB325220A0C97C00F76478 /* PrebidMobile.framework */; };
@@ -170,6 +171,8 @@
 		60CFB2E82097A4C4006FCF7C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		60CFB2E92097A4C4006FCF7C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dr.Prebid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F553098120E53CF500A7B552 /* LineItemURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineItemURLProtocol.m; sourceTree = "<group>"; };
+		F553098320E53D1400A7B552 /* LineItemURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineItemURLProtocol.h; sourceTree = "<group>"; };
 		F56AE88F209A3808000CE29F /* PBViewTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBViewTool.m; sourceTree = "<group>"; };
 		F56AE890209A3809000CE29F /* PBViewTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBViewTool.h; sourceTree = "<group>"; };
 		F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBVLineItemsSetupValidator.m; sourceTree = "<group>"; };
@@ -355,6 +358,8 @@
 		60CFB28D2097820D006FCF7C /* LineItemsTesting */ = {
 			isa = PBXGroup;
 			children = (
+				F553098120E53CF500A7B552 /* LineItemURLProtocol.m */,
+				F553098320E53D1400A7B552 /* LineItemURLProtocol.h */,
 				60CFB2922097820D006FCF7C /* LineItemAdsViewController.h */,
 				60CFB2982097820D006FCF7C /* LineItemAdsViewController.m */,
 				60CFB2912097820D006FCF7C /* LineItemKeywordsManager.h */,
@@ -611,6 +616,7 @@
 				60CFB2CE2097820D006FCF7C /* PBVPrebidSDKValidator.m in Sources */,
 				60CFB2D02097820D006FCF7C /* NativeTestsViewController.m in Sources */,
 				60CFB2D12097820D006FCF7C /* VideoTestsViewController.m in Sources */,
+				F553098220E53CF500A7B552 /* LineItemURLProtocol.m in Sources */,
 				60CFB2C42097820D006FCF7C /* QRCodeReaderView.m in Sources */,
 				60CFB2AF2097820D006FCF7C /* ListViewController.m in Sources */,
 				60CFB2C02097820D006FCF7C /* AbstractActionSheetPicker.m in Sources */,

@@ -155,7 +155,7 @@
         [cell.contentView addSubview:title];
 
         // Show ad view if it loaded, otherwise show the ad failed label in its place
-        UIView *adView = [_validator getDisplayable];
+        UIView *adView = (UIView *)[_validator getDisplayable];
         CGFloat x = ([UIScreen mainScreen].bounds.size.width - _adSize.width) / 2.0;
         adView.frame = CGRectMake(x, kAdLocationY, _adSize.width, _adSize.height);
         [cell.contentView addSubview:adView];

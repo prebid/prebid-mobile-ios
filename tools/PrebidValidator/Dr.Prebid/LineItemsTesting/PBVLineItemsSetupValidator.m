@@ -22,6 +22,7 @@
 #import "MPInterstitialAdController.h"
 #import "PBViewTool.h"
 #import <PrebidMobile/PBAdUnit.h>
+#import "LineItemURLProtocol.h"
 
 @interface PBVLineItemsSetupValidator() <MPAdViewDelegate,
                                          MPInterstitialAdControllerDelegate,
@@ -36,7 +37,7 @@
 - (instancetype)init
 {
     self = [super init];
-    
+    [NSURLProtocol registerClass:[LineItemURLProtocol class]];
     return self;
 }
 
