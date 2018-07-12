@@ -242,6 +242,8 @@
 		609172E320F3E50F001B94A8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				D15C104E20F6EB32004CBC18 /* SettingsViewAdSizeController.m */,
+				D15C105120F6EB4F004CBC18 /* SettingsViewAdSizeController.h */,
 				609172E520F3E58D001B94A8 /* SettingsTableViewController.h */,
 				609172E620F3E58D001B94A8 /* SettingsTableViewController.m */,
 				609172E820F50C32001B94A8 /* SegmentCell.h */,
@@ -323,8 +325,6 @@
 				60CFB25E2097820D006FCF7C /* PrebidServerConfigTesting */,
 				60CFB29B2097820D006FCF7C /* SettingsViewController.h */,
 				60CFB2582097820D006FCF7C /* SettingsViewController.m */,
-				D15C104E20F6EB32004CBC18 /* SettingsViewAdSizeController.m */,
-				D15C105120F6EB4F004CBC18 /* SettingsViewAdSizeController.h */,
 			);
 			path = Dr.Prebid;
 			sourceTree = "<group>";
