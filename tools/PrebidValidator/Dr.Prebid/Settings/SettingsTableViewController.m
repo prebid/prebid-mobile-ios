@@ -39,7 +39,7 @@ NSString *__nonnull const kPBConfigLabel = @"Config ID";
 NSString *__nonnull const KPBHostLabel = @"Server Host";
 
 
-@interface SettingsTableViewController ()
+@interface SettingsTableViewController ()<UITextFieldDelegate>
 
 @property NSDictionary *tableViewDictionaryItems;
 @property NSArray *sectionTitles;
@@ -259,14 +259,17 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             cell.lblTitle.text = kBidPriceLabel;
             cell.lblSelectedContent.text = @"$0.00";
             cell.lblSelectedContent.keyboardType = UIKeyboardTypeNumberPad;
+            [cell.lblSelectedContent addTarget:self action:@selector(currencyFieldChange:) forControlEvents:UIControlEventEditingChanged];
             [cell setAccessoryType:UITableViewCellAccessoryNone];
             
             UIToolbar  *numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+            
             numberToolbar.items = [NSArray arrayWithObjects:
                                    [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
                                    [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad:)],
                                    nil];
             cell.lblSelectedContent.inputAccessoryView = numberToolbar;
+            cell.lblSelectedContent.delegate = self;
 
         }
         return cell;
@@ -285,10 +288,9 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     return nil;
 }
 
-- (IBAction)doneWithNumberPad:(id)sender
+- (IBAction)doneWithNumberPad:(UIBarButtonItem *)sender
 {
-    UITextField *textField = (UITextField *)sender; 
-    [textField resignFirstResponder];
+    [self.tableView endEditing:YES];
 }
 
 - (UITableViewCell *) configurePrebidServerSection:(UITableView *) tableView withIndexPath:(NSIndexPath *)indexPath {
@@ -338,6 +340,52 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
     UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"helpController"];
     [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    // Prevent crashing undo bug – see note below.
+    if(range.length + range.location > textField.text.length)
+    {
+        return NO;
+    }
+    
+    NSUInteger newLength = [textField.text length] + [string length] - range.length;
+    return newLength <= 7;
+}
+
+
+-(void) currencyFieldChange: (id) sender {
+    
+    UITextField *currencyField = (UITextField *)sender;
+    if(currencyField.text.length > 7)
+        return;
+    NSString *amountString = [self currencyFormatting:currencyField.text];
+    currencyField.text = amountString;
+}
+
+-(NSString *) currencyFormatting :(NSString *) currency {
+    
+    NSNumber *inputNumber;
+    NSNumberFormatter *inputFormatter = [[NSNumberFormatter alloc] init];
+    inputFormatter.numberStyle = NSNumberFormatterCurrencyAccountingStyle;
+    inputFormatter.currencySymbol = @"$";
+    inputFormatter.maximumFractionDigits = 2;
+    inputFormatter.minimumFractionDigits = 2;
+    
+    NSError *error = NULL;
+    NSRegularExpression *expPattern = [[NSRegularExpression alloc] initWithPattern:@"[^0-9]" options:NSRegularExpressionCaseInsensitive error:&error];
+    NSString *newCurrency = [expPattern stringByReplacingMatchesInString:currency options:0 range:NSMakeRange(0, currency.length) withTemplate:@""];
+    
+    double doubleValue = newCurrency.doubleValue;
+    
+    inputNumber = [NSNumber numberWithDouble:doubleValue/100];
+
+    if(inputNumber == 0)
+        return @"";
+    else
+        return [inputFormatter stringFromNumber:inputNumber];
+    
     
 }
 
