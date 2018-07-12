@@ -104,6 +104,10 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     return cell;
 }
 
+-(void) tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(nonnull NSIndexPath *)indexPath {
+    [self btnAboutPressed:self];
+}
+
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     // Remove seperator inset
@@ -163,7 +167,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -254,8 +258,16 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         if(cell != nil){
             cell.lblTitle.text = kBidPriceLabel;
             cell.lblSelectedContent.text = @"$0.00";
-            cell.lblSelectedContent.borderStyle = UITextBorderStyleRoundedRect;
+            cell.lblSelectedContent.keyboardType = UIKeyboardTypeNumberPad;
             [cell setAccessoryType:UITableViewCellAccessoryNone];
+            
+            UIToolbar  *numberToolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
+            numberToolbar.items = [NSArray arrayWithObjects:
+                                   [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                                   [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneWithNumberPad:)],
+                                   nil];
+            cell.lblSelectedContent.inputAccessoryView = numberToolbar;
+
         }
         return cell;
     }
@@ -271,6 +283,12 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     }
     
     return nil;
+}
+
+- (IBAction)doneWithNumberPad:(id)sender
+{
+    UITextField *textField = (UITextField *)sender; 
+    [textField resignFirstResponder];
 }
 
 - (UITableViewCell *) configurePrebidServerSection:(UITableView *) tableView withIndexPath:(NSIndexPath *)indexPath {
@@ -315,9 +333,11 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 #pragma mark - Actions
 
 -(void) btnAboutPressed :(id)sender {
-    HelpViewController *helpController = [[HelpViewController alloc] init];
     
-    [self.navigationController pushViewController:helpController animated:NO];
+    NSString * storyboardName = @"Main";
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"helpController"];
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 
