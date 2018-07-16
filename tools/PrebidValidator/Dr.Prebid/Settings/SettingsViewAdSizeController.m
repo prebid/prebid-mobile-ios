@@ -23,8 +23,12 @@
 @implementation SettingsViewAdSizeController
 - (void)viewDidLoad
 {
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] init];
+    doneButton.title = @"Done";
+    self.navigationItem.rightBarButtonItem = doneButton;
     _sizesArray = @[@"320x50", @"300x85",@"250x90",@"100x100",@"200x50",@"300x50"];
     UITableView *tableView = [[UITableView alloc] init];
+    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     tableView.delegate = self;
     tableView.dataSource = self;
     self.view = tableView;
@@ -42,10 +46,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
-
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyIdentifier"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MyIdentifier"];
+    }
     cell.textLabel.text = _sizesArray[indexPath.row];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    NSLog(@"cell text: %@", cell.textLabel.text);
+    [cell setSelected:NO];
 }
 
 
