@@ -17,5 +17,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsViewAdSizeController : UIViewController
+@protocol AdSizeProtocol <NSObject>
+
+-(void)sendSelectedAdSize:(NSString *)adSize;
+
 @end
+
+@interface SettingsViewAdSizeController : UIViewController
+
+    @property (nonatomic,readwrite,weak) id<AdSizeProtocol> delegate;
+
+@end
+
+

@@ -40,13 +40,15 @@ NSString *__nonnull const kPBConfigLabel = @"Config ID";
 NSString *__nonnull const KPBHostLabel = @"Server Host";
 
 
-@interface SettingsTableViewController ()<UITextFieldDelegate>
+@interface SettingsTableViewController ()<UITextFieldDelegate, AdSizeProtocol>
 
 @property NSDictionary *tableViewDictionaryItems;
 @property NSArray *sectionTitles;
 @property NSArray *generalInfoTitles;
 @property NSArray *adServerTitles;
 @property NSArray *prebidServerTitles;
+
+@property NSString *chosenAdSize;
 
 @end
 
@@ -172,7 +174,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     if (indexPath.section == 0 && indexPath.row == 1) {
         UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
         SettingsViewAdSizeController *controller = [[SettingsViewAdSizeController alloc] init];
-        
+        controller.delegate = self;
         [self.navigationController pushViewController:controller animated:YES];
         cell.selected = NO;
     }
@@ -234,7 +236,11 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         if(cell != nil){
             cell.lblTitle.text = kAdSizeText;
             cell.lblSelectedContent.enabled = NO;
-            cell.lblSelectedContent.text = @"300x250";
+            if(self.chosenAdSize == nil || [self.chosenAdSize isEqualToString:@""]){
+                cell.lblSelectedContent.text = @"300x250";
+            } else {
+                cell.lblSelectedContent.text = self.chosenAdSize;
+            }
             cell.lblSelectedContent.textColor = [UIColor darkGrayColor];
             
         }
@@ -403,6 +409,11 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 
 -(void) adFormatChanged:(id) sender {
     
+}
+
+-(void) sendSelectedAdSize:(NSString *)adSize {
+    self.chosenAdSize = adSize;
+    [self.tableView reloadData];
 }
 
 @end
