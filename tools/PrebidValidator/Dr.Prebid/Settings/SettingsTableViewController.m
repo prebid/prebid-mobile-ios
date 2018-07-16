@@ -281,6 +281,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         
         if(cell != nil){
             cell.lblIDText.text = kAdUnitIdLabel;
+            cell.lblId.text = @"ie: /0000/xxxx/000/xxxx";
         }
         return cell;
     }
@@ -315,6 +316,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         
         if(cell != nil){
             cell.lblIDText.text = kPBAccountLabel;
+            cell.lblId.text = @"ie: 00000-0000-0000-00000-00000-00000";
         }
         return cell;
     }
@@ -325,6 +327,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         
         if(cell != nil){
             cell.lblIDText.text = kPBConfigLabel;
+            cell.lblId.text = @"ie: 00000-0000-0000-00000-00000-00000";
         }
         return cell;
     }
@@ -342,6 +345,8 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     [self.navigationController pushViewController:vc animated:YES];
     
 }
+
+#pragma mark - UITextField delegates
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     // Prevent crashing undo bug – see note below.
