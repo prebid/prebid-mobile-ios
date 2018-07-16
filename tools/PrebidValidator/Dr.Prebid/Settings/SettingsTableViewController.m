@@ -20,6 +20,7 @@
 #import "LabelAccessoryCell.h"
 #import "HeaderCell.h"
 #import "IdCell.h"
+#import "SettingsViewAdSizeController.h"
 
 NSString *__nonnull const kGeneralInfoText = @"General Info";
 
@@ -167,7 +168,12 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if (indexPath.section == 0 && indexPath.row == 1) {
+        UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+        SettingsViewAdSizeController *controller = [[SettingsViewAdSizeController alloc] init];
+        [self.navigationController pushViewController:controller animated:YES];
+        cell.selected = NO;
+    }
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
