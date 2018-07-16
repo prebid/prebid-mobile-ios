@@ -51,14 +51,25 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MyIdentifier"];
     }
     cell.textLabel.text = _sizesArray[indexPath.row];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.selectionStyle = UITableViewCellSeparatorStyleNone;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    for (UITableViewCell *cell in [tableView visibleCells]){
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        
+    }
+    
+    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+    
     NSLog(@"cell text: %@", cell.textLabel.text);
-    [cell setSelected:NO];
+    
 }
 
 

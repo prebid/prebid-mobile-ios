@@ -168,9 +168,11 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (indexPath.section == 0 && indexPath.row == 1) {
         UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
         SettingsViewAdSizeController *controller = [[SettingsViewAdSizeController alloc] init];
+        
         [self.navigationController pushViewController:controller animated:YES];
         cell.selected = NO;
     }
@@ -220,6 +222,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             NSArray *adFormatItems = @[@"Banner", @"Interstitial"];
             [cell.segmentControl setTitle:adFormatItems[0] forSegmentAtIndex:0];
             [cell.segmentControl setTitle:adFormatItems[1] forSegmentAtIndex:1];
+            [cell.segmentControl addTarget:self action:@selector(adFormatChanged:) forControlEvents:UIControlEventTouchDown];
         }
         return cell;
     }
@@ -396,7 +399,9 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         return @"";
     else
         return [inputFormatter stringFromNumber:inputNumber];
-    
+}
+
+-(void) adFormatChanged:(id) sender {
     
 }
 
