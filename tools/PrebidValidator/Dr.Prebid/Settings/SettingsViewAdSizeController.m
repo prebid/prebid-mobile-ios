@@ -27,9 +27,9 @@
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] init];
     doneButton.target = self;
     doneButton.action = @selector(doneAction:);
-    
     doneButton.title = @"Done";
     self.navigationItem.rightBarButtonItem = doneButton;
+    self.navigationItem.hidesBackButton = YES;
     _sizesArray = @[@"320x50", @"300x85",@"250x90",@"100x100",@"200x50",@"300x50"];
     UITableView *tableView = [[UITableView alloc] init];
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
