@@ -43,6 +43,10 @@
     _idInputTextField.textColor = [UIColor blackColor];
     _scanButtonArea = [[UIView alloc] initWithFrame: CGRectMake(0, 150, self.view.frame.size.width, 50)];
     _scanButtonArea.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
+    UIImage *scanImage = [UIImage imageNamed:@"QRIcon.png"];
+    UIImageView *scanImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    scanImageView.image = scanImage;
+    [_scanButtonArea addSubview:scanImageView];
     _scanButton = [[UIButton alloc] initWithFrame:CGRectMake(50, 0, 200, 50)];
     [_scanButton addTarget:self action:@selector(scanAction:) forControlEvents:UIControlEventTouchUpInside];
     [_scanButton setTitle:@"Scan a QR code" forState:UIControlStateNormal];
