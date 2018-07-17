@@ -22,12 +22,20 @@
 #import "IdCell.h"
 #import "SettingsViewAdSizeController.h"
 #import "IDInputViewController.h"
+#import "PBVSharedConstants.h"
+#import "ListViewController.h"
 
 NSString *__nonnull const kGeneralInfoText = @"General Info";
+NSString *__nonnull const kAdFormatBanner = @"Banner";
+NSString *__nonnull const kAdFormatInterstitial = @"Interstitial";
 
 NSString *__nonnull const kAdServerInfoText = @"AdServer Info";
+NSString *__nonnull const kAdServerDFP = @"DFP";
+NSString *__nonnull const kAdServerMoPub = @"MoPub";
 
 NSString *__nonnull const kPrebidServerInfoText = @"Prebid Server Info";
+NSString *__nonnull const kPrebidHostAppnexus = @"AppNexus";
+NSString *__nonnull const kPrebidHostRubicon = @"Rubicon";
 
 NSString *__nonnull const kAdFormatText = @"Ad Format";
 NSString *__nonnull const kAdSizeText = @"Ad Size";
@@ -54,6 +62,8 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 @property NSString *accountID;
 @property NSString *configID;
 
+@property BOOL isInterstitial;
+
 @end
 
 @implementation SettingsTableViewController
@@ -62,6 +72,8 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     [super viewDidLoad];
     
     self.title = @"Doctor Prebid";
+    
+    self.isInterstitial = NO;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target:self action:@selector(btnAboutPressed:)];
     
@@ -176,6 +188,9 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0 && indexPath.row == 1) {
+        
+        if(self.isInterstitial) // we dont provide size selection for interstitial
+            return;
         UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
         SettingsViewAdSizeController *controller = [[SettingsViewAdSizeController alloc] init];
         controller.delegate = self;
@@ -235,7 +250,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         [nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [nextButton setBackgroundColor:[UIColor colorWithRed:0.23 green:0.53 blue:0.76 alpha:1.0]];
         [nextButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
-//        [nextButton addTarget:self action:@selector(didPressNext:) forControlEvents:UIControlEventTouchUpInside];
+        [nextButton addTarget:self action:@selector(didPressNext:) forControlEvents:UIControlEventTouchUpInside];
         nextButton.clipsToBounds = YES;
         [footerView addSubview:nextButton];
         nextButton.center = footerView.center;
@@ -255,10 +270,10 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         
         if(cell != nil){
             cell.labelText.text = kAdFormatText;
-            NSArray *adFormatItems = @[@"Banner", @"Interstitial"];
+            NSArray *adFormatItems = @[kAdFormatBanner, kAdFormatInterstitial];
             [cell.segmentControl setTitle:adFormatItems[0] forSegmentAtIndex:0];
             [cell.segmentControl setTitle:adFormatItems[1] forSegmentAtIndex:1];
-            [cell.segmentControl addTarget:self action:@selector(adFormatChanged:) forControlEvents:UIControlEventTouchDown];
+            [cell.segmentControl addTarget:self action:@selector(adFormatChanged:) forControlEvents:UIControlEventValueChanged];
         }
         return cell;
     }
@@ -270,12 +285,20 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         if(cell != nil){
             cell.lblTitle.text = kAdSizeText;
             cell.lblSelectedContent.enabled = NO;
-            if(self.chosenAdSize == nil || [self.chosenAdSize isEqualToString:@""]){
-                cell.lblSelectedContent.text = @"300x250";
+            if(self.isInterstitial == NO){
+                if(self.chosenAdSize == nil || [self.chosenAdSize isEqualToString:@""]){
+                    cell.lblSelectedContent.text = @"300x250";
+                } else {
+                    cell.lblSelectedContent.text = self.chosenAdSize;
+                }
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             } else {
-                cell.lblSelectedContent.text = self.chosenAdSize;
+                cell.lblSelectedContent.text = @"1 x 1";
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }
+            
             cell.lblSelectedContent.textColor = [UIColor darkGrayColor];
+    
             
         }
         return cell;
@@ -293,7 +316,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         
         if(cell != nil){
             cell.labelText.text = kAdServerLabel;
-            NSArray *adServerItems = @[@"DFP", @"MoPub"];
+            NSArray *adServerItems = @[kAdServerDFP, kAdServerMoPub];
             [cell.segmentControl setTitle:adServerItems[0] forSegmentAtIndex:0];
             [cell.segmentControl setTitle:adServerItems[1] forSegmentAtIndex:1];
         }
@@ -357,7 +380,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         
         if(cell != nil){
             cell.labelText.text = KPBHostLabel;
-            NSArray *adServerItems = @[@"AppNexus", @"Rubicon"];
+            NSArray *adServerItems = @[kPrebidHostAppnexus, kPrebidHostRubicon];
             [cell.segmentControl setTitle:adServerItems[0] forSegmentAtIndex:0];
             [cell.segmentControl setTitle:adServerItems[1] forSegmentAtIndex:1];
         }
@@ -456,12 +479,99 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 }
 
 -(void) adFormatChanged:(id) sender {
+    UISegmentedControl *adTypeSegment = (UISegmentedControl *) sender;
+    
+    if(adTypeSegment.selectedSegmentIndex == 1){
+        self.isInterstitial = YES;
+    } else if(adTypeSegment.selectedSegmentIndex == 0){
+        self.isInterstitial = NO;
+    }
+    [self.tableView reloadData];
+    NSLog(@"came here");
     
 }
 
 -(void) sendSelectedAdSize:(NSString *)adSize {
-    self.chosenAdSize = adSize;
-    [self.tableView reloadData];
+    if(adSize != nil && ![adSize isEqualToString:@""]){
+        self.chosenAdSize = adSize;
+        [self.tableView reloadData];
+    }
+}
+
+-(void) didPressNext:(id) sender {
+    
+    for (int section = 0; section < [self.tableView numberOfSections]; section++) {
+        for (int row = 0; row < [self.tableView numberOfRowsInSection:section]; row++) {
+            NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
+            UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:cellPath];
+            
+            if(section == 0 && row == 0 && [cell isKindOfClass:[SegmentCell class]]){
+                SegmentCell *segmentCell = (SegmentCell *) cell;
+                if(segmentCell.segmentControl.selectedSegmentIndex == 0){
+                    [[NSUserDefaults standardUserDefaults] setObject:kAdFormatBanner forKey:kAdFormatNameKey];
+                    
+                } else {
+                    [[NSUserDefaults standardUserDefaults] setObject:kAdFormatInterstitial forKey:kAdFormatNameKey];
+                }
+            }
+            
+            if(section == 0 && row == 1 && [cell isKindOfClass:[LabelAccessoryCell class]]){
+                LabelAccessoryCell *labelCell = (LabelAccessoryCell *) cell;
+                [[NSUserDefaults standardUserDefaults] setObject:labelCell.lblSelectedContent.text forKey:kAdSizeKey];
+                
+            }
+            
+            if(section == 1 && row == 0 && [cell isKindOfClass:[SegmentCell class]]){
+                SegmentCell *segmentCell = (SegmentCell *) cell;
+                if(segmentCell.segmentControl.selectedSegmentIndex == 0){
+                    [[NSUserDefaults standardUserDefaults] setObject:kAdServerDFP forKey:kAdServerNameKey];
+                    
+                } else {
+                    [[NSUserDefaults standardUserDefaults] setObject:kAdServerMoPub forKey:kAdServerNameKey];
+                    
+                }
+            }
+            
+            if(section == 1 && row == 1 && [cell isKindOfClass:[LabelAccessoryCell class]]){
+                LabelAccessoryCell *labelCell = (LabelAccessoryCell *) cell;
+                [[NSUserDefaults standardUserDefaults] setObject:labelCell.lblSelectedContent.text forKey:kBidPriceKey];
+            }
+            
+            if(section == 1 && row == 2 && [cell isKindOfClass:[IdCell class]]){
+                IdCell *idCell = (IdCell *) cell;
+                [[NSUserDefaults standardUserDefaults] setObject:idCell.lblId.text forKey:kAdUnitIdKey];
+            }
+            
+            if(section == 2 && row == 0 && [cell isKindOfClass:[SegmentCell class]]){
+                SegmentCell *segmentCell = (SegmentCell *) cell;
+                if(segmentCell.segmentControl.selectedSegmentIndex == 0){
+                    [[NSUserDefaults standardUserDefaults] setObject:kPrebidHostAppnexus forKey:kPBHostKey];
+                    
+                } else {
+                    [[NSUserDefaults standardUserDefaults] setObject:kPrebidHostRubicon forKey:kPBHostKey];
+                    
+                }
+            }
+            
+            if(section == 2 && row == 1 && [cell isKindOfClass:[IdCell class]]){
+                IdCell *idCell = (IdCell *) cell;
+                [[NSUserDefaults standardUserDefaults] setObject:idCell.lblId.text forKey:kPBAccountKey];
+            }
+            
+            if(section == 2 && row == 2 && [cell isKindOfClass:[IdCell class]]){
+                IdCell *idCell = (IdCell *) cell;
+                [[NSUserDefaults standardUserDefaults] setObject:idCell.lblId.text forKey:kPBConfigKey];
+            }
+            
+            
+            
+            
+        }
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    ListViewController *listViewController = [[ListViewController alloc] init];
+    [self.navigationController pushViewController:listViewController animated:YES];
 }
 
 @end
