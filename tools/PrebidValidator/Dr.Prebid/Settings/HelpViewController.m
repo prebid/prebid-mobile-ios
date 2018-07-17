@@ -7,6 +7,8 @@
 //
 
 #import "HelpViewController.h"
+#import <WebKit/WebKit.h>
+#import "PBVSharedConstants.h"
 
 @interface HelpViewController ()
 
@@ -14,11 +16,28 @@
 
 @implementation HelpViewController
 
+- (instancetype)initWithTitle:(NSString *)title
+{
+    self = [super init];
+    if (self) {
+        self.title = title;
+    }
+    return self;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.title = @"About";
-    
+    self.view.backgroundColor = [UIColor whiteColor];
+    WKWebView *content = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    if ([self.title isEqualToString:kAboutString]) {
+        [content loadHTMLString:@"<body>Let me tell you what is Dr.Prebid</body>" baseURL:nil];
+    } else if( [self.title isEqualToString:kGeneralInfoHelpString]) {
+        [content loadHTMLString:@"<body>Let me tell you what is General Info.</body>" baseURL:nil];
+    } else if ( [self.title isEqualToString:kAdServerInfoHelpString]) {
+        [content loadHTMLString:@"<body>Let me tell you what is Ad Server Info.</body>" baseURL:nil];
+    } else if ( [self.title isEqualToString:kPrebidServerInfoHelpString]) {
+        [content loadHTMLString:@"<body>Let me tell you what is Prebid Server Info.</body>" baseURL:nil];
+    }
+    [self.view addSubview:content];
 }
 
 - (void)didReceiveMemoryWarning {

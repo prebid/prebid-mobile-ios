@@ -61,6 +61,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 @property NSString *adUnitID;
 @property NSString *accountID;
 @property NSString *configID;
+@property NSIndexPath *selectedIndex;
 
 @property BOOL isInterstitial;
 
@@ -124,6 +125,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 }
 
 -(void) tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(nonnull NSIndexPath *)indexPath {
+    self.selectedIndex = indexPath;
     [self btnAboutPressed:self];
 }
 
@@ -424,11 +426,22 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 #pragma mark - Actions
 
 -(void) btnAboutPressed :(id)sender {
-    
-    NSString * storyboardName = @"Main";
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-    UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"helpController"];
-    [self.navigationController pushViewController:vc animated:YES];
+    // TODO: think about the title of the helper pages
+    HelpViewController *controller = nil;
+    if ([sender isKindOfClass:[UIBarButtonItem class]]) {
+        controller = [[HelpViewController alloc] initWithTitle:kAboutString];
+    } else if ([sender isKindOfClass:[SettingsTableViewController class]]) {
+        if (self.selectedIndex.section == 0) {
+            controller = [[HelpViewController alloc] initWithTitle:kGeneralInfoHelpString];
+        } else if (self.selectedIndex.section == 1) {
+            controller = [[HelpViewController alloc] initWithTitle:kAdServerInfoHelpString];
+        } else {
+            controller = [[HelpViewController alloc] initWithTitle:kPrebidServerInfoHelpString];
+        }
+    }
+    if (controller != nil) {
+        [self.navigationController pushViewController:controller animated:YES];
+    }
     
 }
 

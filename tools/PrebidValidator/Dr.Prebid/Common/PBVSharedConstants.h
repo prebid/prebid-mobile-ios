@@ -68,5 +68,11 @@ static NSString * _Nonnull const kRubiconString = @"Rubicon";
 static NSString * _Nonnull const kAppNexusPrebidServerEndpoint = @"https://prebid.adnxs.com/pbs/v1/openrtb2/auction";
 static NSString * _Nonnull const kRubiconPrebidServerEndpoint = @"https://prebid-server.rubiconproject.com/openrtb2/auction";
 
+// Titles for helper pages
+static NSString * _Nonnull const kAboutString = @"About";
+static NSString * _Nonnull const kGeneralInfoHelpString = @"General Info";
+static NSString * _Nonnull const kAdServerInfoHelpString = @"AdServer Info";
+static NSString * _Nonnull const kPrebidServerInfoHelpString = @"Prebid Server Info";
+
 
 

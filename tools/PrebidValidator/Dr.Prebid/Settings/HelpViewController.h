@@ -10,4 +10,5 @@
 
 @interface HelpViewController : UIViewController
 
+- (instancetype) initWithTitle: (NSString *) title;
 @end
