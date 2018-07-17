@@ -67,6 +67,7 @@
 		F56AE891209A3809000CE29F /* PBViewTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE88F209A3808000CE29F /* PBViewTool.m */; };
 		F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */; };
 		F5AB325720A0CA3100F76478 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5AB325220A0C97C00F76478 /* PrebidMobile.framework */; };
+		F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CF71AA20FD180100972EA6 /* IDInputViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +200,8 @@
 		F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBVLineItemsSetupValidator.m; sourceTree = "<group>"; };
 		F56AE893209A383B000CE29F /* PBVLineItemsSetupValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVLineItemsSetupValidator.h; sourceTree = "<group>"; };
 		F5AB324C20A0C97C00F76478 /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../sdk/PrebidMobile.xcodeproj; sourceTree = "<group>"; };
+		F5CF71AA20FD180100972EA6 /* IDInputViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDInputViewController.m; sourceTree = "<group>"; };
+		F5CF71AD20FD181100972EA6 /* IDInputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDInputViewController.h; sourceTree = "<group>"; };
 		F6CF0D6B7635B4C963599C3F /* Pods-Dr.Prebid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dr.Prebid.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -256,6 +259,8 @@
 				609172F220F53C74001B94A8 /* IdCell.m */,
 				609172F420F686A8001B94A8 /* HelpViewController.h */,
 				609172F520F686A8001B94A8 /* HelpViewController.m */,
+				F5CF71AA20FD180100972EA6 /* IDInputViewController.m */,
+				F5CF71AD20FD181100972EA6 /* IDInputViewController.h */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -658,6 +663,7 @@
 				60CFB2CC2097820D006FCF7C /* LineItemAdsViewController.m in Sources */,
 				60CFB2B92097820D006FCF7C /* ActionSheetLocalePicker.m in Sources */,
 				60CFB2AE2097820D006FCF7C /* SettingsViewController.m in Sources */,
+				F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */,
 				60CFB2CE2097820D006FCF7C /* PBVPrebidSDKValidator.m in Sources */,
 				60CFB2D02097820D006FCF7C /* NativeTestsViewController.m in Sources */,
 				60CFB2D12097820D006FCF7C /* VideoTestsViewController.m in Sources */,
@@ -830,7 +836,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M78AM4Q4UE;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -853,7 +859,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M78AM4Q4UE;
+				DEVELOPMENT_TEAM = HR94J6TSB3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
