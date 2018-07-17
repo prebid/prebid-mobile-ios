@@ -30,7 +30,7 @@
     doneButton.title = @"Done";
     self.navigationItem.rightBarButtonItem = doneButton;
     self.navigationItem.hidesBackButton = YES;
-    _sizesArray = @[@"320x50", @"300x85",@"250x90",@"100x100",@"200x50",@"300x50"];
+    _sizesArray = @[@"300x250", @"300x600",@"320x50",@"320x100",@"320x480",@"728x90"];
     UITableView *tableView = [[UITableView alloc] init];
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     tableView.delegate = self;
