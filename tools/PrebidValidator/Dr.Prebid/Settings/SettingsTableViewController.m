@@ -295,7 +295,8 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
                 }
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             } else {
-                cell.lblSelectedContent.text = @"1 x 1";
+                cell.lblSelectedContent.text = @"Interstitial";
+                cell.lblSelectedContent.textColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
             
