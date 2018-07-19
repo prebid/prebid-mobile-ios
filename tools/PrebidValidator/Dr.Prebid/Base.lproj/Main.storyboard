@@ -126,7 +126,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xwW-R0-6Yz">
-                                            <rect key="frame" x="5" y="9.5" width="314" height="21"/>
+                                            <rect key="frame" x="5" y="10" width="314" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -228,5 +228,59 @@
             </objects>
             <point key="canvasLocation" x="-18.399999999999999" y="831.63418290854577"/>
         </scene>
+        <!--Input View Controller-->
+        <scene sceneID="0fb-1V-CwA">
+            <objects>
+                <viewController storyboardIdentifier="idController" id="MFZ-RO-OHq" customClass="IDInputViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nk9-57-WVY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sWo-QB-MgZ">
+                                <rect key="frame" x="0.0" y="73" width="375" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="QRIcon" translatesAutoresizingMaskIntoConstraints="NO" id="x9f-bF-hRp">
+                                <rect key="frame" x="10" y="115" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="Utr-Ux-yGa"/>
+                                    <constraint firstAttribute="height" constant="24" id="fTP-0e-QDj"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHV-C9-2Vl">
+                                <rect key="frame" x="44" y="109" width="98" height="30"/>
+                                <state key="normal" title="Scan QR code"/>
+                                <connections>
+                                    <action selector="btnScanQRCode:" destination="MFZ-RO-OHq" eventType="touchUpInside" id="xOv-3o-AWG"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="lHV-C9-2Vl" firstAttribute="bottom" secondItem="x9f-bF-hRp" secondAttribute="bottom" id="2yT-9B-ab5"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lHV-C9-2Vl" secondAttribute="trailing" constant="20" symbolic="YES" id="DSx-eG-GqX"/>
+                            <constraint firstItem="x9f-bF-hRp" firstAttribute="leading" secondItem="kEp-Xh-o0L" secondAttribute="leading" constant="10" id="MNK-Oo-65G"/>
+                            <constraint firstItem="lHV-C9-2Vl" firstAttribute="leading" secondItem="x9f-bF-hRp" secondAttribute="trailing" constant="10" id="Rz9-y3-cAQ"/>
+                            <constraint firstItem="kEp-Xh-o0L" firstAttribute="trailing" secondItem="sWo-QB-MgZ" secondAttribute="trailing" id="eii-vz-yRr"/>
+                            <constraint firstItem="sWo-QB-MgZ" firstAttribute="leading" secondItem="kEp-Xh-o0L" secondAttribute="leading" id="jD5-Rk-nAw"/>
+                            <constraint firstItem="sWo-QB-MgZ" firstAttribute="top" secondItem="kEp-Xh-o0L" secondAttribute="top" constant="53" id="oEs-VO-U67"/>
+                            <constraint firstItem="lHV-C9-2Vl" firstAttribute="top" secondItem="sWo-QB-MgZ" secondAttribute="bottom" constant="6" id="syu-6V-uZ8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kEp-Xh-o0L"/>
+                    </view>
+                    <connections>
+                        <outlet property="idInputText" destination="sWo-QB-MgZ" id="3G3-xf-OfT"/>
+                        <outlet property="imgScanQRCode" destination="x9f-bF-hRp" id="i88-sL-5Ah"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oYm-Zg-wsS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="759.20000000000005" y="725.48725637181417"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="QRIcon" width="12" height="12"/>
+    </resources>
 </document>

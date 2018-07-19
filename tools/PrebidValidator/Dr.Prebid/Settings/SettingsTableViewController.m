@@ -41,15 +41,15 @@ NSString *__nonnull const kAdFormatText = @"Ad Format";
 NSString *__nonnull const kAdSizeText = @"Ad Size";
 
 NSString *__nonnull const kAdServerLabel = @"Ad Server";
-NSString *__nonnull const kAdUnitIdLabel = @"Ad Unit ID";
+//NSString *__nonnull const kAdUnitIdLabel = @"Ad Unit ID";
 NSString *__nonnull const kBidPriceLabel = @"Bid Price";
 
-NSString *__nonnull const kPBAccountLabel = @"Account ID";
-NSString *__nonnull const kPBConfigLabel = @"Config ID";
+//NSString *__nonnull const kPBAccountLabel = @"Account ID";
+//NSString *__nonnull const kPBConfigLabel = @"Config ID";
 NSString *__nonnull const KPBHostLabel = @"Server Host";
 
 
-@interface SettingsTableViewController ()<UITextFieldDelegate, AdSizeProtocol>
+@interface SettingsTableViewController ()<UITextFieldDelegate, AdSizeProtocol, IdProtocol>
 
 @property NSDictionary *tableViewDictionaryItems;
 @property NSArray *sectionTitles;
@@ -95,8 +95,8 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     self.clearsSelectionOnViewWillAppear = NO;
     
     self.generalInfoTitles = @[kAdFormatText, kAdSizeText];
-    self.adServerTitles = @[kAdServerLabel, kBidPriceLabel, kAdUnitIdLabel];
-    self.prebidServerTitles = @[KPBHostLabel, kPBAccountLabel, kPBConfigLabel];
+    self.adServerTitles = @[kAdServerLabel, kBidPriceLabel, kAdUnitIdText];
+    self.prebidServerTitles = @[KPBHostLabel, kPBAccountIDText, kPBConfigIDText];
     
     self.tableViewDictionaryItems = @{kGeneralInfoText :self.generalInfoTitles, kAdServerInfoText:self.adServerTitles, kPrebidServerInfoText: self.prebidServerTitles};
     
@@ -205,35 +205,28 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         [self.navigationController pushViewController:controller animated:YES];
         cell.selected = NO;
     } else if (indexPath.section == 1 && indexPath.row == 2) {
-            UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-        IDInputViewController *controller = [[IDInputViewController alloc] initWithTitle:@"Ad Unit ID" andCompletionBlock:^(NSString *adUnitId) {
-            if(adUnitId != nil && ![@"" isEqualToString:adUnitId]) {
-                self.adUnitID = adUnitId;
-                [self.tableView reloadData];
-            }
-        }];
-        [self.navigationController pushViewController:controller animated:YES];
-                cell.selected = NO;
+        
+        NSString * storyboardName = @"Main";
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+        IDInputViewController * idController = [storyboard instantiateViewControllerWithIdentifier:@"idController"];
+        idController.delegate = self;
+        [idController setTitle:kAdUnitIdText];
+        [self.navigationController pushViewController:idController animated:YES];
+        
     } else if (indexPath.section == 2 && indexPath.row == 1){
-        UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-        IDInputViewController *controller = [[IDInputViewController alloc] initWithTitle:@"Account ID" andCompletionBlock:^(NSString *accoungID) {
-            if(accoungID != nil && ![@"" isEqualToString:accoungID]) {
-                self.accountID = accoungID;
-                [self.tableView reloadData];
-            }
-        }];
-        [self.navigationController pushViewController:controller animated:YES];
-        cell.selected = NO;
+        NSString * storyboardName = @"Main";
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+        IDInputViewController * idController = [storyboard instantiateViewControllerWithIdentifier:@"idController"];
+        idController.delegate = self;
+        [idController setTitle:kPBAccountIDText];
+        [self.navigationController pushViewController:idController animated:YES];
     } else if (indexPath.section == 2 && indexPath.row == 2){
-        UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-        IDInputViewController *controller = [[IDInputViewController alloc] initWithTitle:@"Config ID" andCompletionBlock:^(NSString *configID) {
-            if(configID != nil && ![@"" isEqualToString:configID]) {
-                self.configID = configID;
-                [self.tableView reloadData];
-            }
-        }];
-        [self.navigationController pushViewController:controller animated:YES];
-        cell.selected = NO;
+        NSString * storyboardName = @"Main";
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+        IDInputViewController * idController = [storyboard instantiateViewControllerWithIdentifier:@"idController"];
+        idController.delegate = self;
+        [idController setTitle:kPBConfigIDText];
+        [self.navigationController pushViewController:idController animated:YES];
     }
 }
 
@@ -361,7 +354,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
          IdCell *cell = (IdCell *)[tableView dequeueReusableCellWithIdentifier:idCell];
         
         if(cell != nil){
-            cell.lblIDText.text = kAdUnitIdLabel;
+            cell.lblIDText.text = kAdUnitIdText;
             if (self.adUnitID == nil || [self.adUnitID isEqualToString:@""]) {
                 cell.lblId.text = @"ie: /0000/xxxx/000/xxxx";
             } else {
@@ -401,7 +394,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         IdCell *cell = (IdCell *)[tableView dequeueReusableCellWithIdentifier:idCell];
         
         if(cell != nil){
-            cell.lblIDText.text = kPBAccountLabel;
+            cell.lblIDText.text = kPBAccountIDText;
             if (self.accountID == nil || [self.accountID isEqualToString:@""]) {
                 cell.lblId.text = @"ie: 00000-0000-0000-00000-00000-00000";
             } else{
@@ -417,7 +410,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         IdCell *cell = (IdCell *)[tableView dequeueReusableCellWithIdentifier:idCell];
         
         if(cell != nil){
-            cell.lblIDText.text = kPBConfigLabel;
+            cell.lblIDText.text = kPBConfigIDText;
             if (self.configID == nil || [self.configID isEqualToString:@""]) {
                 cell.lblId.text = @"ie: 00000-0000-0000-00000-00000-00000";
             } else{
@@ -516,6 +509,19 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         self.chosenAdSize = adSize;
         [self.tableView reloadData];
     }
+}
+
+-(void) sendSelectedId:(NSString *)idString forID:(NSString *) idLabel{
+    
+    if([idLabel isEqualToString:kAdUnitIdText]){
+        self.adUnitID = idString;
+    } else if( [idLabel isEqualToString: kPBAccountIDText]) {
+        self.accountID = idString;
+    } else if([idLabel isEqualToString:kPBConfigIDText]) {
+        self.configID = idString;
+    }
+    [self.tableView reloadData];
+    
 }
 
 -(void) didPressNext:(id) sender {
