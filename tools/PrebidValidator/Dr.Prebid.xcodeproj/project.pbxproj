@@ -68,6 +68,10 @@
 		F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */; };
 		F5AB325720A0CA3100F76478 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5AB325220A0C97C00F76478 /* PrebidMobile.framework */; };
 		F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CF71AA20FD180100972EA6 /* IDInputViewController.m */; };
+		F5D1856521011571001DF99A /* info-ad-server.html in Resources */ = {isa = PBXBuildFile; fileRef = F5D1856121011570001DF99A /* info-ad-server.html */; };
+		F5D1856621011571001DF99A /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = F5D1856221011570001DF99A /* about.html */; };
+		F5D1856721011571001DF99A /* info-prebid-server.html in Resources */ = {isa = PBXBuildFile; fileRef = F5D1856321011570001DF99A /* info-prebid-server.html */; };
+		F5D1856821011571001DF99A /* info-general.html in Resources */ = {isa = PBXBuildFile; fileRef = F5D1856421011571001DF99A /* info-general.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,6 +206,10 @@
 		F5AB324C20A0C97C00F76478 /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../sdk/PrebidMobile.xcodeproj; sourceTree = "<group>"; };
 		F5CF71AA20FD180100972EA6 /* IDInputViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDInputViewController.m; sourceTree = "<group>"; };
 		F5CF71AD20FD181100972EA6 /* IDInputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDInputViewController.h; sourceTree = "<group>"; };
+		F5D1856121011570001DF99A /* info-ad-server.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-ad-server.html"; sourceTree = "<group>"; };
+		F5D1856221011570001DF99A /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
+		F5D1856321011570001DF99A /* info-prebid-server.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-prebid-server.html"; sourceTree = "<group>"; };
+		F5D1856421011571001DF99A /* info-general.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-general.html"; sourceTree = "<group>"; };
 		F6CF0D6B7635B4C963599C3F /* Pods-Dr.Prebid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dr.Prebid.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -245,6 +253,7 @@
 		609172E320F3E50F001B94A8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				F5D1856021011548001DF99A /* HelpPagesAssets */,
 				D15C104E20F6EB32004CBC18 /* SettingsViewAdSizeController.m */,
 				D15C105120F6EB4F004CBC18 /* SettingsViewAdSizeController.h */,
 				609172E520F3E58D001B94A8 /* SettingsTableViewController.h */,
@@ -476,6 +485,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F5D1856021011548001DF99A /* HelpPagesAssets */ = {
+			isa = PBXGroup;
+			children = (
+				F5D1856221011570001DF99A /* about.html */,
+				F5D1856121011570001DF99A /* info-ad-server.html */,
+				F5D1856421011571001DF99A /* info-general.html */,
+				F5D1856321011570001DF99A /* info-prebid-server.html */,
+			);
+			path = HelpPagesAssets;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -561,10 +581,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5D1856621011571001DF99A /* about.html in Resources */,
 				60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */,
 				60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */,
+				F5D1856821011571001DF99A /* info-general.html in Resources */,
 				60CFB2B42097820D006FCF7C /* LaunchScreen.storyboard in Resources */,
+				F5D1856721011571001DF99A /* info-prebid-server.html in Resources */,
 				60CFB2B12097820D006FCF7C /* PBVTableViewCell.xib in Resources */,
+				F5D1856521011571001DF99A /* info-ad-server.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
