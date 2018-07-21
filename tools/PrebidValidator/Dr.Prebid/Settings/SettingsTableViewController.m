@@ -295,16 +295,13 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
                 } else {
                     cell.lblSelectedContent.text = self.chosenAdSize;
                 }
+                [cell.lblSelectedContent setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             } else {
                 cell.lblSelectedContent.text = @"Interstitial";
-                cell.lblSelectedContent.textColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.0];
+                [cell.lblSelectedContent setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.65 alpha:1.0]];
                 cell.accessoryType = UITableViewCellAccessoryNone;
             }
-            
-            cell.lblSelectedContent.textColor = [UIColor darkGrayColor];
-    
-            
         }
         return cell;
     }
