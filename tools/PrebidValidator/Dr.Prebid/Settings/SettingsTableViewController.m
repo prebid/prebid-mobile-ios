@@ -41,11 +41,8 @@ NSString *__nonnull const kAdFormatText = @"Ad Format";
 NSString *__nonnull const kAdSizeText = @"Ad Size";
 
 NSString *__nonnull const kAdServerLabel = @"Ad Server";
-//NSString *__nonnull const kAdUnitIdLabel = @"Ad Unit ID";
 NSString *__nonnull const kBidPriceLabel = @"Bid Price";
 
-//NSString *__nonnull const kPBAccountLabel = @"Account ID";
-//NSString *__nonnull const kPBConfigLabel = @"Config ID";
 NSString *__nonnull const KPBHostLabel = @"Server Host";
 
 
@@ -113,7 +110,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.sectionTitles.count;
+    return self.sectionTitles.count ;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -163,20 +160,26 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if(indexPath.section == 0){
-        return 50.0f;
+        if(indexPath.row == 0){
+            return 55.0f;
+        } else if(indexPath.row == 1){
+            return 40.0f;
+        }
     } else if(indexPath.section == 1){
-        if(indexPath.row == 2){
-            return 60.0f;
-        } else {
-            return 50.0f;
+        if(indexPath.row == 0){
+            return 55.0f;
+        } else if(indexPath.row == 1){
+            return 40.0f;
+        }else {
+            return 61.0f;
         }
     } else if(indexPath.section == 2){
         if(indexPath.row == 0){
-            return 50.0f;
+            return 55.0f;
         }
     }
     
-    return 60.0f;
+    return 61.0f;
 }
 
 
@@ -199,11 +202,11 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         
         if(self.isInterstitial) // we dont provide size selection for interstitial
             return;
-        UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
         SettingsViewAdSizeController *controller = [[SettingsViewAdSizeController alloc] init];
+        [controller setTitle:@"Ad Size"];
         controller.delegate = self;
         [self.navigationController pushViewController:controller animated:YES];
-        cell.selected = NO;
+        
     } else if (indexPath.section == 1 && indexPath.row == 2) {
         
         NSString * storyboardName = @"Main";
@@ -246,10 +249,10 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     if(section == 2){
         UIView *footerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50.0f)];
         UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [nextButton setTitle:@"Test Prebid Setup" forState:UIControlStateNormal];
-        nextButton.frame = CGRectMake(0.0, 0.0, 250.0, 30.0);
+        [nextButton setTitle:@"Run Tests" forState:UIControlStateNormal];
+        nextButton.frame = CGRectMake(0.0, 0.0, 335.0, 35.0);
         [nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [nextButton setBackgroundColor:[UIColor colorWithRed:0.23 green:0.53 blue:0.76 alpha:1.0]];
+        [nextButton setBackgroundColor:[UIColor colorWithRed:0.93 green:0.59 blue:0.12 alpha:1.0]];
         [nextButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [nextButton addTarget:self action:@selector(didPressNext:) forControlEvents:UIControlEventTouchUpInside];
         nextButton.clipsToBounds = YES;
