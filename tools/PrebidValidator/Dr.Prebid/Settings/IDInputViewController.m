@@ -27,6 +27,8 @@
     self.view.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
     
     [self.imgScanQRCode setUserInteractionEnabled:YES];
+    [self.idInputText becomeFirstResponder];
+    
 }
 
 //-(void)scanAction: (id) sender
@@ -35,10 +37,10 @@
     QRCodeReader *reader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
     
     __weak typeof(QRCodeReaderViewController)  *vc = [QRCodeReaderViewController readerWithCancelButtonTitle:@"Cancel" codeReader:reader startScanningAtLoad:YES showSwitchCameraButton:YES showTorchButton:YES];
-    [vc setCompletionWithBlock:^(NSString * _Nullable resultAsString) {
+        [vc setCompletionWithBlock:^(NSString * _Nullable resultAsString) {
         
         typeof(QRCodeReaderViewController) *svc = vc;
-        self.idInputText.text = resultAsString;
+        [self.idInputText setText:resultAsString];
         [svc dismissViewControllerAnimated:YES completion:nil];
     }];
     vc.delegate = self;

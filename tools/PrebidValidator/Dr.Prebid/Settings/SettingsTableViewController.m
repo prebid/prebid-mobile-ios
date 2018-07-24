@@ -59,7 +59,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 @property NSString *accountID;
 @property NSString *configID;
 @property NSIndexPath *selectedIndex;
-
+@property NSString *bidPrice;
 @property BOOL isInterstitial;
 
 @end
@@ -335,7 +335,11 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         
         if(cell != nil){
             cell.lblTitle.text = kBidPriceLabel;
-            cell.lblSelectedContent.text = @"$0.00";
+            if(self.bidPrice != nil && ![self.bidPrice isEqualToString:@""]){
+                cell.lblSelectedContent.text = self.bidPrice;
+            }else {
+                cell.lblSelectedContent.text = @"$0.00";
+            }
             cell.lblSelectedContent.keyboardType = UIKeyboardTypeNumberPad;
             [cell.lblSelectedContent addTarget:self action:@selector(currencyFieldChange:) forControlEvents:UIControlEventEditingChanged];
             [cell setAccessoryType:UITableViewCellAccessoryNone];
@@ -361,8 +365,12 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             cell.lblIDText.text = kAdUnitIdText;
             if (self.adUnitID == nil || [self.adUnitID isEqualToString:@""]) {
                 cell.lblId.text = @"ie: /0000/xxxx/000/xxxx";
+                [cell.lblId setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.65 alpha:1.0]];
+                [cell.lblIDText setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
             } else {
                 cell.lblId.text = self.adUnitID;
+                [cell.lblId setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
+                [cell.lblIDText setTextColor:[UIColor colorWithRed:0.56 green:0.56 blue:0.58 alpha:1.0]];
             }
 
         }
@@ -401,10 +409,13 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             cell.lblIDText.text = kPBAccountIDText;
             if (self.accountID == nil || [self.accountID isEqualToString:@""]) {
                 cell.lblId.text = @"ie: 00000-0000-0000-00000-00000-00000";
-            } else{
+                [cell.lblId setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.65 alpha:1.0]];
+                [cell.lblIDText setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
+            } else {
                 cell.lblId.text = self.accountID;
+                [cell.lblId setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
+                [cell.lblIDText setTextColor:[UIColor colorWithRed:0.56 green:0.56 blue:0.58 alpha:1.0]];
             }
-            
         }
         return cell;
     }
@@ -417,8 +428,12 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             cell.lblIDText.text = kPBConfigIDText;
             if (self.configID == nil || [self.configID isEqualToString:@""]) {
                 cell.lblId.text = @"ie: 00000-0000-0000-00000-00000-00000";
+                [cell.lblId setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.65 alpha:1.0]];
+                [cell.lblIDText setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
             } else{
                 cell.lblId.text = self.configID;
+                [cell.lblId setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
+                [cell.lblIDText setTextColor:[UIColor colorWithRed:0.56 green:0.56 blue:0.58 alpha:1.0]];
             }
         }
         return cell;
@@ -470,6 +485,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         return;
     NSString *amountString = [self currencyFormatting:currencyField.text];
     currencyField.text = amountString;
+    self.bidPrice = amountString;
 }
 
 -(NSString *) currencyFormatting :(NSString *) currency {
