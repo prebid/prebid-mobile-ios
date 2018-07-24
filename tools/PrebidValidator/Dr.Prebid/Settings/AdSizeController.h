@@ -23,9 +23,11 @@
 
 @end
 
-@interface SettingsViewAdSizeController : UIViewController
+@interface AdSizeController : UIViewController
 
     @property (nonatomic,readwrite,weak) id<AdSizeProtocol> delegate;
+
+    @property (strong) NSString *settingsSize;
 
 @end
 

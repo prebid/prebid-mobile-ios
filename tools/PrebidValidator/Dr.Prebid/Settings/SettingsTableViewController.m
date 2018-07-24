@@ -20,7 +20,7 @@
 #import "LabelAccessoryCell.h"
 #import "HeaderCell.h"
 #import "IdCell.h"
-#import "SettingsViewAdSizeController.h"
+#import "AdSizeController.h"
 #import "IDInputViewController.h"
 #import "PBVSharedConstants.h"
 #import "ListViewController.h"
@@ -202,9 +202,10 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         
         if(self.isInterstitial) // we dont provide size selection for interstitial
             return;
-        SettingsViewAdSizeController *controller = [[SettingsViewAdSizeController alloc] init];
+        AdSizeController *controller = [[AdSizeController alloc] init];
         [controller setTitle:@"Ad Size"];
         controller.delegate = self;
+        controller.settingsSize = self.chosenAdSize;
         [self.navigationController pushViewController:controller animated:YES];
         
     } else if (indexPath.section == 1 && indexPath.row == 2) {
@@ -214,6 +215,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         IDInputViewController * idController = [storyboard instantiateViewControllerWithIdentifier:@"idController"];
         idController.delegate = self;
         [idController setTitle:kAdUnitIdText];
+        idController.idInputText.text = self.adUnitID;
         [self.navigationController pushViewController:idController animated:YES];
         
     } else if (indexPath.section == 2 && indexPath.row == 1){
@@ -222,6 +224,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         IDInputViewController * idController = [storyboard instantiateViewControllerWithIdentifier:@"idController"];
         idController.delegate = self;
         [idController setTitle:kPBAccountIDText];
+        idController.idInputText.text = self.accountID;
         [self.navigationController pushViewController:idController animated:YES];
     } else if (indexPath.section == 2 && indexPath.row == 2){
         NSString * storyboardName = @"Main";
@@ -229,6 +232,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         IDInputViewController * idController = [storyboard instantiateViewControllerWithIdentifier:@"idController"];
         idController.delegate = self;
         [idController setTitle:kPBConfigIDText];
+        idController.idInputText.text = self.configID;
         [self.navigationController pushViewController:idController animated:YES];
     }
 }

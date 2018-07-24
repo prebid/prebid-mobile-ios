@@ -15,5 +15,4 @@
 
 - (IBAction)btnScanQRCode:(id)sender;
 
-//- (instancetype) initWithTitle: (NSString *) title andCompletionBlock: (void (^) (NSString *)) completionBlock;
 @end

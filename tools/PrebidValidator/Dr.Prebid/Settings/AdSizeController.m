@@ -15,13 +15,13 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "SettingsViewAdSizeController.h"
-@interface SettingsViewAdSizeController () <UITableViewDelegate, UITableViewDataSource>
+#import "AdSizeController.h"
+@interface AdSizeController () <UITableViewDelegate, UITableViewDataSource>
 @property NSArray *sizesArray;
 @property NSString *selectedSize;
 @end
 
-@implementation SettingsViewAdSizeController
+@implementation AdSizeController
 - (void)viewDidLoad
 {
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] init];
@@ -57,6 +57,10 @@
     cell.textLabel.text = _sizesArray[indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.selectionStyle = UITableViewCellSeparatorStyleNone;
+    
+    if(self.settingsSize != nil &&  [self.settingsSize isEqualToString:cell.textLabel.text] ){
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
     return cell;
 }
 
