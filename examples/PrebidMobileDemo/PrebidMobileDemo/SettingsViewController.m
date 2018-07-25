@@ -156,7 +156,7 @@ static CGFloat const kRightMargin = 15;
         
         [PrebidMobile shouldLoadOverSecureConnection:YES];
 
-        [PrebidMobile registerAdUnits:@[adUnit1, adUnit2] withAccountId:kAccountId withHost:kPBServerHost andPrimaryAdServer:adServer];
+        [PrebidMobile registerAdUnits:@[adUnit1, adUnit2] withAccountId:kAccountId withHost:kPBServerHost withPriceGranularity:kPPriceGranularity andPrimaryAdServer:adServer];
 
     } @catch (PBException *ex) {
         NSLog(@"%@",[ex reason]);
