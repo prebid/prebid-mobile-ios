@@ -32,6 +32,7 @@
 + (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
           withAccountId:(nonnull NSString *)accountId
                withHost:(PBServerHost)host
+   withPriceGranularity:(PBPriceGranularity)priceGranularity
      andPrimaryAdServer:(PBPrimaryAdServerType)adServer;
 
 + (void)setBidKeywordsOnAdObject:(nonnull id)adObject withAdUnitId:(nonnull NSString *)adUnitId;
