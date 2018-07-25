@@ -46,6 +46,7 @@ extern NSString *const kAccountId;
 extern NSString *const kAdUnit1ConfigId;
 extern NSString *const kAdUnit2ConfigId;
 extern NSUInteger const kPBServerHost;
+extern NSUInteger const kPPriceGranularity;
 
 extern NSString *const kAdUnit1Id;
 extern NSString *const kAdUnit2Id;
