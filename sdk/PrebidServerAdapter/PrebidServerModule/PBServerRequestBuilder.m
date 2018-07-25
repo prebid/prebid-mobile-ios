@@ -38,13 +38,13 @@ static NSString *const kPrebidMobileVersion = @"0.4";
     return _sharedInstance;
 }
 
-- (NSURLRequest *_Nullable)buildRequest:(nullable NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID withSecureParams:(BOOL) isSecure {
+- (NSURLRequest *_Nullable)buildRequest:(nullable NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID withSecureParams:(BOOL) isSecure withPriceGranularity:(NSString *) priceGranularity {
     
     NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:self.hostURL
                                                                        cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                                    timeoutInterval:1000];
     [mutableRequest setHTTPMethod:@"POST"];
-    NSDictionary *requestBody = [self openRTBRequestBodyForAdUnits:adUnits withAccountId:accountID withSecureParams:isSecure];
+    NSDictionary *requestBody = [self openRTBRequestBodyForAdUnits:adUnits withAccountId:accountID withSecureParams:isSecure withPriceGranularity:priceGranularity];
     NSError *error;
     NSData *postData = [NSJSONSerialization dataWithJSONObject:requestBody
                                                        options:kNilOptions
@@ -57,7 +57,7 @@ static NSString *const kPrebidMobileVersion = @"0.4";
     }
 }
 
-- (NSDictionary *)openRTBRequestBodyForAdUnits:(NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID withSecureParams:(BOOL) isSecure{
+- (NSDictionary *)openRTBRequestBodyForAdUnits:(NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID withSecureParams:(BOOL) isSecure withPriceGranularity:(NSString *)priceGranularity{
     NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
     
     requestDict[@"id"] = [[NSUUID UUID] UUIDString];
@@ -69,7 +69,7 @@ static NSString *const kPrebidMobileVersion = @"0.4";
     }
     requestDict[@"user"] = [self openrtbUser];
     requestDict[@"imp"] = [self openrtbImpsFromAdUnits:adUnits withSecureSettings:isSecure];
-    requestDict[@"ext"] = [self openrtbRequestExtension];
+    requestDict[@"ext"] = [self openrtbRequestExtension:priceGranularity];
     
     return [requestDict copy];
 }
@@ -82,10 +82,14 @@ static NSString *const kPrebidMobileVersion = @"0.4";
     return sourceDict;
 }
 
-- (NSDictionary *)openrtbRequestExtension
+- (NSDictionary *)openrtbRequestExtension:(NSString *) priceGranularity
 {
     NSMutableDictionary *requestPrebidExt = [[NSMutableDictionary alloc] init];
-    requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20), @"pricegranularity":@"medium"};
+    if ([priceGranularity isEqualToString:@"unknown"] || [priceGranularity isEqualToString:@"server"]) {
+        requestPrebidExt[@"targeting"] = @{};
+    } else {
+        requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20), @"pricegranularity":priceGranularity};
+    }
     
     NSMutableDictionary *requestExt = [[NSMutableDictionary alloc] init];
     requestExt[@"prebid"] = requestPrebidExt;
