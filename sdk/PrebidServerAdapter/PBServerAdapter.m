@@ -186,14 +186,26 @@ static int const kBatchCount = 10;
 - (NSString *)priceGranularityForAuction:(PBPriceGranularity)priceGranularity {
     NSString *_priceGranularity;
     switch (priceGranularity) {
-        case PBPriceGranularityDense:
-            _priceGranularity = @"dense";
+        case PBPriceGranularityLow:
+            _priceGranularity = @"low";
             break;
-        case PBPriceGranularityUnknown:
-            _priceGranularity = @"unknown";
+        case PBPriceGranularityMedium:
+            _priceGranularity = @"medium";
+            break;
+       case PBPriceGranularityHigh:
+            _priceGranularity = @"high";
+            break;
+       case PBPriceGranularityAuto:
+            _priceGranularity = @"auto";
+            break;        
+       case PBPriceGranularityDense:
+            _priceGranularity = @"dense";
+            break;      
+        case PBPriceGranularityServer:
+            _priceGranularity = @"server";
             break;
         default:
-            _priceGranularity = @"medium";
+            _priceGranularity = @"unknown";
             break;
     }
     
