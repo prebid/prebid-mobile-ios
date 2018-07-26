@@ -190,7 +190,7 @@ static int const kBatchCount = 10;
             _priceGranularity = @"low";
             break;
         case PBPriceGranularityMedium:
-            _priceGranularity = @"medium";
+            _priceGranularity = @"med";
             break;
        case PBPriceGranularityHigh:
             _priceGranularity = @"high";
