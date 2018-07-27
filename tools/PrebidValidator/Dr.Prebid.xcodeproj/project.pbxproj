@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605A56CA2076C89A00E92376 /* MessageUI.framework */; };
+		609172E720F3E58D001B94A8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172E620F3E58D001B94A8 /* SettingsTableViewController.m */; };
+		609172EA20F50C32001B94A8 /* SegmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172E920F50C32001B94A8 /* SegmentCell.m */; };
+		609172ED20F50F42001B94A8 /* LabelAccessoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172EC20F50F42001B94A8 /* LabelAccessoryCell.m */; };
+		609172F020F5314E001B94A8 /* HeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172EF20F5314E001B94A8 /* HeaderCell.m */; };
+		609172F320F53C74001B94A8 /* IdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172F220F53C74001B94A8 /* IdCell.m */; };
+		609172F620F686A8001B94A8 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172F520F686A8001B94A8 /* HelpViewController.m */; };
 		60CFB2AE2097820D006FCF7C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2582097820D006FCF7C /* SettingsViewController.m */; };
 		60CFB2AF2097820D006FCF7C /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB25A2097820D006FCF7C /* ListViewController.m */; };
 		60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB25C2097820D006FCF7C /* Assets.xcassets */; };
@@ -55,11 +61,17 @@
 		60CFB2F02097A4C4006FCF7C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E72097A4C4006FCF7C /* QuartzCore.framework */; };
 		60CFB2F12097A4C4006FCF7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E82097A4C4006FCF7C /* UIKit.framework */; };
 		60CFB2F22097A4C4006FCF7C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E92097A4C4006FCF7C /* SystemConfiguration.framework */; };
+		D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */ = {isa = PBXBuildFile; fileRef = D15C104E20F6EB32004CBC18 /* AdSizeController.m */; };
 		F283A423484632D93AE6FB87 /* libPods-Dr.Prebid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */; };
 		F553098220E53CF500A7B552 /* LineItemURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F553098120E53CF500A7B552 /* LineItemURLProtocol.m */; };
 		F56AE891209A3809000CE29F /* PBViewTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE88F209A3808000CE29F /* PBViewTool.m */; };
 		F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */; };
 		F5AB325720A0CA3100F76478 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5AB325220A0C97C00F76478 /* PrebidMobile.framework */; };
+		F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CF71AA20FD180100972EA6 /* IDInputViewController.m */; };
+		F5D1856521011571001DF99A /* info-ad-server.html in Resources */ = {isa = PBXBuildFile; fileRef = F5D1856121011570001DF99A /* info-ad-server.html */; };
+		F5D1856621011571001DF99A /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = F5D1856221011570001DF99A /* about.html */; };
+		F5D1856721011571001DF99A /* info-prebid-server.html in Resources */ = {isa = PBXBuildFile; fileRef = F5D1856321011570001DF99A /* info-prebid-server.html */; };
+		F5D1856821011571001DF99A /* info-general.html in Resources */ = {isa = PBXBuildFile; fileRef = F5D1856421011571001DF99A /* info-general.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +102,18 @@
 		0D7DFE449C9FE5570D88DDD6 /* libPods-PrebidValidator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidValidator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AB57692E142F2F12F162457 /* Pods-Dr.Prebid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dr.Prebid.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid.debug.xcconfig"; sourceTree = "<group>"; };
 		605A56CA2076C89A00E92376 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		609172E520F3E58D001B94A8 /* SettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
+		609172E620F3E58D001B94A8 /* SettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsTableViewController.m; sourceTree = "<group>"; };
+		609172E820F50C32001B94A8 /* SegmentCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SegmentCell.h; sourceTree = "<group>"; };
+		609172E920F50C32001B94A8 /* SegmentCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SegmentCell.m; sourceTree = "<group>"; };
+		609172EB20F50F42001B94A8 /* LabelAccessoryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LabelAccessoryCell.h; sourceTree = "<group>"; };
+		609172EC20F50F42001B94A8 /* LabelAccessoryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LabelAccessoryCell.m; sourceTree = "<group>"; };
+		609172EE20F5314E001B94A8 /* HeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderCell.h; sourceTree = "<group>"; };
+		609172EF20F5314E001B94A8 /* HeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderCell.m; sourceTree = "<group>"; };
+		609172F120F53C74001B94A8 /* IdCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IdCell.h; sourceTree = "<group>"; };
+		609172F220F53C74001B94A8 /* IdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IdCell.m; sourceTree = "<group>"; };
+		609172F420F686A8001B94A8 /* HelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		609172F520F686A8001B94A8 /* HelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		60C6787F2073D7B0003A7A1D /* Dr.Prebid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dr.Prebid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60CFB2572097820D006FCF7C /* PBVTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVTableViewCell.h; sourceTree = "<group>"; };
 		60CFB2582097820D006FCF7C /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
@@ -171,6 +195,8 @@
 		60CFB2E82097A4C4006FCF7C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		60CFB2E92097A4C4006FCF7C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dr.Prebid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D15C104E20F6EB32004CBC18 /* AdSizeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdSizeController.m; sourceTree = "<group>"; };
+		D15C105120F6EB4F004CBC18 /* AdSizeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdSizeController.h; sourceTree = "<group>"; };
 		F553098120E53CF500A7B552 /* LineItemURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineItemURLProtocol.m; sourceTree = "<group>"; };
 		F553098320E53D1400A7B552 /* LineItemURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineItemURLProtocol.h; sourceTree = "<group>"; };
 		F56AE88F209A3808000CE29F /* PBViewTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBViewTool.m; sourceTree = "<group>"; };
@@ -178,6 +204,12 @@
 		F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBVLineItemsSetupValidator.m; sourceTree = "<group>"; };
 		F56AE893209A383B000CE29F /* PBVLineItemsSetupValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVLineItemsSetupValidator.h; sourceTree = "<group>"; };
 		F5AB324C20A0C97C00F76478 /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../sdk/PrebidMobile.xcodeproj; sourceTree = "<group>"; };
+		F5CF71AA20FD180100972EA6 /* IDInputViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDInputViewController.m; sourceTree = "<group>"; };
+		F5CF71AD20FD181100972EA6 /* IDInputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDInputViewController.h; sourceTree = "<group>"; };
+		F5D1856121011570001DF99A /* info-ad-server.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-ad-server.html"; sourceTree = "<group>"; };
+		F5D1856221011570001DF99A /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
+		F5D1856321011570001DF99A /* info-prebid-server.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-prebid-server.html"; sourceTree = "<group>"; };
+		F5D1856421011571001DF99A /* info-general.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "info-general.html"; sourceTree = "<group>"; };
 		F6CF0D6B7635B4C963599C3F /* Pods-Dr.Prebid.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dr.Prebid.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -216,6 +248,30 @@
 				F6CF0D6B7635B4C963599C3F /* Pods-Dr.Prebid.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		609172E320F3E50F001B94A8 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				F5D1856021011548001DF99A /* HelpPagesAssets */,
+				D15C104E20F6EB32004CBC18 /* AdSizeController.m */,
+				D15C105120F6EB4F004CBC18 /* AdSizeController.h */,
+				609172E520F3E58D001B94A8 /* SettingsTableViewController.h */,
+				609172E620F3E58D001B94A8 /* SettingsTableViewController.m */,
+				609172E820F50C32001B94A8 /* SegmentCell.h */,
+				609172E920F50C32001B94A8 /* SegmentCell.m */,
+				609172EB20F50F42001B94A8 /* LabelAccessoryCell.h */,
+				609172EC20F50F42001B94A8 /* LabelAccessoryCell.m */,
+				609172EE20F5314E001B94A8 /* HeaderCell.h */,
+				609172EF20F5314E001B94A8 /* HeaderCell.m */,
+				609172F120F53C74001B94A8 /* IdCell.h */,
+				609172F220F53C74001B94A8 /* IdCell.m */,
+				609172F420F686A8001B94A8 /* HelpViewController.h */,
+				609172F520F686A8001B94A8 /* HelpViewController.m */,
+				F5CF71AA20FD180100972EA6 /* IDInputViewController.m */,
+				F5CF71AD20FD181100972EA6 /* IDInputViewController.h */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		60C678762073D7B0003A7A1D = {
@@ -264,6 +320,7 @@
 		60CFB2562097820D006FCF7C /* Dr.Prebid */ = {
 			isa = PBXGroup;
 			children = (
+				609172E320F3E50F001B94A8 /* Settings */,
 				60CFB2592097820D006FCF7C /* AppDelegate.h */,
 				60CFB29C2097820D006FCF7C /* AppDelegate.m */,
 				60CFB25C2097820D006FCF7C /* Assets.xcassets */,
@@ -428,6 +485,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		F5D1856021011548001DF99A /* HelpPagesAssets */ = {
+			isa = PBXGroup;
+			children = (
+				F5D1856221011570001DF99A /* about.html */,
+				F5D1856121011570001DF99A /* info-ad-server.html */,
+				F5D1856421011571001DF99A /* info-general.html */,
+				F5D1856321011570001DF99A /* info-prebid-server.html */,
+			);
+			path = HelpPagesAssets;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -513,10 +581,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5D1856621011571001DF99A /* about.html in Resources */,
 				60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */,
 				60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */,
+				F5D1856821011571001DF99A /* info-general.html in Resources */,
 				60CFB2B42097820D006FCF7C /* LaunchScreen.storyboard in Resources */,
+				F5D1856721011571001DF99A /* info-prebid-server.html in Resources */,
 				60CFB2B12097820D006FCF7C /* PBVTableViewCell.xib in Resources */,
+				F5D1856521011571001DF99A /* info-ad-server.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,7 +677,9 @@
 				60CFB2D32097820D006FCF7C /* PBVSharedConstants.m in Sources */,
 				60CFB2B82097820D006FCF7C /* ActionSheetDatePicker.m in Sources */,
 				60CFB2CB2097820D006FCF7C /* LineItemKeywordsManager.m in Sources */,
+				609172F020F5314E001B94A8 /* HeaderCell.m in Sources */,
 				60CFB2C22097820D006FCF7C /* QRCameraSwitchButton.m in Sources */,
+				609172ED20F50F42001B94A8 /* LabelAccessoryCell.m in Sources */,
 				60CFB2CF2097820D006FCF7C /* InterstitialTestsViewController.m in Sources */,
 				F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */,
 				60CFB2BF2097820D006FCF7C /* ActionSheetMultipleStringPicker.m in Sources */,
@@ -613,24 +687,30 @@
 				60CFB2CC2097820D006FCF7C /* LineItemAdsViewController.m in Sources */,
 				60CFB2B92097820D006FCF7C /* ActionSheetLocalePicker.m in Sources */,
 				60CFB2AE2097820D006FCF7C /* SettingsViewController.m in Sources */,
+				F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */,
 				60CFB2CE2097820D006FCF7C /* PBVPrebidSDKValidator.m in Sources */,
 				60CFB2D02097820D006FCF7C /* NativeTestsViewController.m in Sources */,
 				60CFB2D12097820D006FCF7C /* VideoTestsViewController.m in Sources */,
 				F553098220E53CF500A7B552 /* LineItemURLProtocol.m in Sources */,
 				60CFB2C42097820D006FCF7C /* QRCodeReaderView.m in Sources */,
 				60CFB2AF2097820D006FCF7C /* ListViewController.m in Sources */,
+				D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */,
 				60CFB2C02097820D006FCF7C /* AbstractActionSheetPicker.m in Sources */,
 				60CFB2CD2097820D006FCF7C /* AppDelegate.m in Sources */,
 				60CFB2C52097820D006FCF7C /* QRCodeReader.m in Sources */,
 				F56AE891209A3809000CE29F /* PBViewTool.m in Sources */,
+				609172F320F53C74001B94A8 /* IdCell.m in Sources */,
+				609172F620F686A8001B94A8 /* HelpViewController.m in Sources */,
 				60CFB2C62097820D006FCF7C /* main.m in Sources */,
 				60CFB2BD2097820D006FCF7C /* ActionSheetStringPicker.m in Sources */,
 				60CFB2BA2097820D006FCF7C /* ActionSheetDistancePicker.m in Sources */,
+				609172EA20F50C32001B94A8 /* SegmentCell.m in Sources */,
 				60CFB2B32097820D006FCF7C /* PBVPBSRequestResponseValidator.m in Sources */,
 				60CFB2C32097820D006FCF7C /* QRCodeReaderViewController.m in Sources */,
 				60CFB2D22097820D006FCF7C /* BannerTestsViewController.m in Sources */,
 				60CFB2BB2097820D006FCF7C /* ActionSheetCustomPicker.m in Sources */,
 				60CFB2B62097820D006FCF7C /* PBVTableViewCell.m in Sources */,
+				609172E720F3E58D001B94A8 /* SettingsTableViewController.m in Sources */,
 				60CFB2BC2097820D006FCF7C /* SWActionSheet.m in Sources */,
 				60CFB2B22097820D006FCF7C /* PBVPrebidServerConfigViewController.m in Sources */,
 			);

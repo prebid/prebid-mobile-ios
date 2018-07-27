@@ -167,41 +167,6 @@ CGFloat const kLabelHeight = 80.0f;
     return cell;
 }
 
-#pragma mark - QRCode Scanner
-- (void)scanPressed:(id)sender{
-    NSIndexPath *currentIndexPath = (NSIndexPath *)[(ScanButton *) sender userData];
-    // uses code from this lib: https://github.com/yannickl/QRCodeReaderViewController
-    QRCodeReader *reader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
-    
-    __weak typeof(QRCodeReaderViewController)  *vc = [QRCodeReaderViewController readerWithCancelButtonTitle:@"Cancel" codeReader:reader startScanningAtLoad:YES showSwitchCameraButton:YES showTorchButton:YES];
-    [vc setCompletionWithBlock:^(NSString * _Nullable resultAsString) {
-        
-        typeof(QRCodeReaderViewController) *svc = vc;
-        
-        NSLog(@"Scanned result is : %@", resultAsString);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (resultAsString) {
-                UITableViewCell *cell = [self.userInputTableView cellForRowAtIndexPath:currentIndexPath];
-                cell.detailTextLabel.text = resultAsString;
-                if(currentIndexPath.row == 1 && currentIndexPath.section == 1){
-                    self.adUnitId = resultAsString;
-                } else if(currentIndexPath.row == 0 && currentIndexPath.section == 2){
-                    self.accountID = resultAsString;
-                } else if(currentIndexPath.row == 1 && currentIndexPath.section == 2){
-                    self.configID = resultAsString;
-                }
-            }
-        });
-        [svc dismissViewControllerAnimated:YES completion:nil];
-    }];
-    vc.delegate = self;
-    [self presentViewController:vc animated:YES completion:nil];
-}
-
-- (void)readerDidCancel:(QRCodeReaderViewController *)reader
-{
-    [reader dismissViewControllerAnimated:YES completion:nil];
-}
 #pragma mark - UITableViewDelegate methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -390,7 +355,7 @@ CGFloat const kLabelHeight = 80.0f;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if(section == 2){
-    return kLabelHeight;
+        return kLabelHeight;
     }
     else {
         return 20.0f;
@@ -400,24 +365,61 @@ CGFloat const kLabelHeight = 80.0f;
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     
     if(section == 2){
-    UIView *footerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kLabelHeight)];
-    UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [nextButton setTitle:kNextButtonText forState:UIControlStateNormal];
-    nextButton.frame = CGRectMake(0.0, 0.0, 150.0, 40.0);
-    [nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [nextButton setBackgroundColor:[UIColor colorWithRed:0.23 green:0.53 blue:0.76 alpha:1.0]];
-    [nextButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
-    [nextButton addTarget:self action:@selector(didPressNext:) forControlEvents:UIControlEventTouchUpInside];
-    nextButton.layer.cornerRadius = 10; // this value vary as per your desire
-    nextButton.clipsToBounds = YES;
-    [footerView addSubview:nextButton];
+        UIView *footerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kLabelHeight)];
+        UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [nextButton setTitle:kNextButtonText forState:UIControlStateNormal];
+        nextButton.frame = CGRectMake(0.0, 0.0, 150.0, 40.0);
+        [nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [nextButton setBackgroundColor:[UIColor colorWithRed:0.23 green:0.53 blue:0.76 alpha:1.0]];
+        [nextButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+        [nextButton addTarget:self action:@selector(didPressNext:) forControlEvents:UIControlEventTouchUpInside];
+        nextButton.layer.cornerRadius = 10; // this value vary as per your desire
+        nextButton.clipsToBounds = YES;
+        [footerView addSubview:nextButton];
         nextButton.center = footerView.center;
-    return footerView;
+        return footerView;
     } else
     {
         return nil;
     }
 }
+
+#pragma mark - QRCode Scanner
+- (void)scanPressed:(id)sender{
+    NSIndexPath *currentIndexPath = (NSIndexPath *)[(ScanButton *) sender userData];
+    // uses code from this lib: https://github.com/yannickl/QRCodeReaderViewController
+    QRCodeReader *reader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
+    
+    __weak typeof(QRCodeReaderViewController)  *vc = [QRCodeReaderViewController readerWithCancelButtonTitle:@"Cancel" codeReader:reader startScanningAtLoad:YES showSwitchCameraButton:YES showTorchButton:YES];
+    [vc setCompletionWithBlock:^(NSString * _Nullable resultAsString) {
+        
+        typeof(QRCodeReaderViewController) *svc = vc;
+        
+        NSLog(@"Scanned result is : %@", resultAsString);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (resultAsString) {
+                UITableViewCell *cell = [self.userInputTableView cellForRowAtIndexPath:currentIndexPath];
+                cell.detailTextLabel.text = resultAsString;
+                if(currentIndexPath.row == 1 && currentIndexPath.section == 1){
+                    self.adUnitId = resultAsString;
+                } else if(currentIndexPath.row == 0 && currentIndexPath.section == 2){
+                    self.accountID = resultAsString;
+                } else if(currentIndexPath.row == 1 && currentIndexPath.section == 2){
+                    self.configID = resultAsString;
+                }
+            }
+        });
+        [svc dismissViewControllerAnimated:YES completion:nil];
+    }];
+    vc.delegate = self;
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (void)readerDidCancel:(QRCodeReaderViewController *)reader
+{
+    [reader dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 // Responders to user actions - text input and button click
 - (void)bidPriceTextFieldDidChange:(UITextField *)textField {
