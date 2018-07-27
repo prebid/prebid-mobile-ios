@@ -87,6 +87,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     
     // remove the scrolling of tableview
     self.tableView.scrollEnabled = NO;
+    self.chosenAdSize = @"300x250";
     
     // Uncomment the following line to preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
@@ -100,6 +101,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     self.sectionTitles = @[kGeneralInfoText, kAdServerInfoText, kPrebidServerInfoText];
 
     [self.tableView setSeparatorColor:[UIColor darkGrayColor]];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -260,6 +262,12 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         [nextButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
         [nextButton addTarget:self action:@selector(didPressNext:) forControlEvents:UIControlEventTouchUpInside];
         nextButton.clipsToBounds = YES;
+        if([self checkIfTestButtonCanBeDisabled] == FALSE){
+            nextButton.enabled = NO;
+            [nextButton setBackgroundColor:[UIColor colorWithRed:0.93 green:0.59 blue:0.12 alpha:0.3]];
+        }else{
+            nextButton.enabled = YES;
+        }
         [footerView addSubview:nextButton];
         nextButton.center = footerView.center;
         return footerView;
@@ -618,6 +626,26 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     
     ListViewController *listViewController = [[ListViewController alloc] init];
     [self.navigationController pushViewController:listViewController animated:YES];
+}
+
+-(BOOL) checkIfTestButtonCanBeDisabled {
+    
+    if(self.isInterstitial == FALSE && (self.chosenAdSize == nil || [self.chosenAdSize isEqualToString:@""]))
+        return FALSE;
+    
+    if(self.adUnitID == nil || [self.adUnitID isEqualToString:@""])
+        return FALSE;
+    
+    if(self.accountID == nil || [self.accountID isEqualToString:@""])
+        return FALSE;
+    
+    if(self.configID == nil || [self.configID isEqualToString:@""])
+        return FALSE;
+    
+    if(self.bidPrice == nil || [self.bidPrice isEqualToString:@""])
+        return FALSE;
+    
+    return TRUE;
 }
 
 @end
