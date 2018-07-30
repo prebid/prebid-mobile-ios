@@ -478,9 +478,9 @@
 			children = (
 				60CFB29A2097820D006FCF7C /* ListViewController.h */,
 				60CFB25A2097820D006FCF7C /* ListViewController.m */,
-				60CFB29D2097820D006FCF7C /* PrebidSDKTesting */,
 				60CFB28D2097820D006FCF7C /* AdServerValidation */,
 				60CFB25E2097820D006FCF7C /* DemandValidation */,
+				60CFB29D2097820D006FCF7C /* PrebidSDKTesting */,
 			);
 			path = Results;
 			sourceTree = "<group>";
