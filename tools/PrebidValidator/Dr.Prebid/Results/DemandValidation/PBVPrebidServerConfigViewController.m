@@ -40,18 +40,12 @@
         _first.view.backgroundColor = [UIColor whiteColor];
         _requestText = [[UITextView alloc] initWithFrame:self.view.frame];
         _requestText.textColor = [UIColor blackColor];
-        _requestText.text = [self prettyJson:validator.request];
+        NSDictionary *results = [validator.testResults copy];
+        int successfullTests = [[results objectForKey:@"successfullTests"] intValue];
+        _requestText.text = [NSString stringWithFormat:@"Out of 100 tests, %d of tests had responded with at least one bid", successfullTests];
         _requestText.delegate = self;
         [_first.view addSubview:_requestText];
-        // set up second tab
-        _second = [[UIViewController alloc]init];
-        _second.title = @"Responsse";
-        _second.view.backgroundColor = [UIColor whiteColor];
-        _responseText = [[UITextView alloc] initWithFrame:self.view.frame];
-        _responseText.text = [self prettyJson: validator.response];
-        _responseText.editable = NO;
-        [_second.view addSubview:_responseText];
-        NSArray * controllers = [NSArray arrayWithObjects:_first, _second, nil];
+        NSArray * controllers = [NSArray arrayWithObjects:_first, nil];
         self.viewControllers = controllers;
         
     }

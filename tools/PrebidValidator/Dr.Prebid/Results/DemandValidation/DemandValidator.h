@@ -17,6 +17,7 @@
 @interface DemandValidator:NSObject
 @property NSString *request;
 @property NSString *response;
+@property NSMutableDictionary *testResults;
 
 - (void)startTestWithCompletionHandler:(void (^) (Boolean result)) completionHandler;
 

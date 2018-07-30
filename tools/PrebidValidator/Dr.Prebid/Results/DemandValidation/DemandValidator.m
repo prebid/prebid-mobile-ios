@@ -22,6 +22,7 @@
 #import <PrebidMobile/PBInterstitialAdUnit.h>
 
 @interface DemandValidator()
+@property NSInteger testsHasResponded;
 @end
 
 @implementation DemandValidator
@@ -62,7 +63,23 @@
     [[PBServerRequestBuilder sharedInstance]setHostURL:url];
     NSURLRequest *req = [[PBServerRequestBuilder sharedInstance] buildRequest:adUnits withAccountId:accountId  withSecureParams:true];
     self.request = [[NSString alloc]initWithData:req.HTTPBody encoding:NSUTF8StringEncoding];
-    [self runTestWithReuqest:req CompletionHandler:completionHandler];
+    self.testsHasResponded = 0;
+    self.testResults = [[NSMutableDictionary alloc] init];
+    [self.testResults setObject:[NSNumber numberWithInt:0] forKey:@"successfullTests"];
+    for (int i = 0; i<100; i++) {
+        [self runTestWithReuqest:req CompletionHandler:^(Boolean result) {
+            self.testsHasResponded ++;
+            if (result) {
+                NSNumber *successfullTests = [self.testResults objectForKey:@"successfullTests"];
+                NSNumber *successfullTestsNew = [NSNumber numberWithInt:([successfullTests intValue] + 1)];
+                [self.testResults setObject:successfullTestsNew forKey:@"successfullTests"];
+            }
+            if (self.testsHasResponded == 100) {
+                completionHandler(YES);
+            }
+        }];
+    }
+
 }
 
 - (void) startTestWithString:(NSString *)request andCompletionHandler:(void (^)(Boolean))completionHandler
