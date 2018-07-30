@@ -320,6 +320,7 @@
 		60CFB2562097820D006FCF7C /* Dr.Prebid */ = {
 			isa = PBXGroup;
 			children = (
+				F531C65E210F74CE00763595 /* Results */,
 				609172E320F3E50F001B94A8 /* Settings */,
 				60CFB2592097820D006FCF7C /* AppDelegate.h */,
 				60CFB29C2097820D006FCF7C /* AppDelegate.m */,
@@ -327,23 +328,18 @@
 				60CFB2682097820D006FCF7C /* Common */,
 				60CFB2AD2097820D006FCF7C /* Info.plist */,
 				60CFB2632097820D006FCF7C /* LaunchScreen.storyboard */,
-				60CFB28D2097820D006FCF7C /* LineItemsTesting */,
-				60CFB29A2097820D006FCF7C /* ListViewController.h */,
-				60CFB25A2097820D006FCF7C /* ListViewController.m */,
 				60CFB28C2097820D006FCF7C /* main.m */,
 				60CFB2652097820D006FCF7C /* Main.storyboard */,
 				60CFB2572097820D006FCF7C /* PBVTableViewCell.h */,
 				60CFB2672097820D006FCF7C /* PBVTableViewCell.m */,
 				60CFB25D2097820D006FCF7C /* PBVTableViewCell.xib */,
-				60CFB29D2097820D006FCF7C /* PrebidSDKTesting */,
-				60CFB25E2097820D006FCF7C /* PrebidServerConfigTesting */,
 				60CFB29B2097820D006FCF7C /* SettingsViewController.h */,
 				60CFB2582097820D006FCF7C /* SettingsViewController.m */,
 			);
 			path = Dr.Prebid;
 			sourceTree = "<group>";
 		};
-		60CFB25E2097820D006FCF7C /* PrebidServerConfigTesting */ = {
+		60CFB25E2097820D006FCF7C /* DemandValidation */ = {
 			isa = PBXGroup;
 			children = (
 				60CFB25F2097820D006FCF7C /* PBVPBSRequestResponseValidator.h */,
@@ -351,6 +347,7 @@
 				60CFB2602097820D006FCF7C /* PBVPrebidServerConfigViewController.h */,
 				60CFB2612097820D006FCF7C /* PBVPrebidServerConfigViewController.m */,
 			);
+			name = DemandValidation;
 			path = PrebidServerConfigTesting;
 			sourceTree = "<group>";
 		};
@@ -412,7 +409,7 @@
 			path = QRCodeReaderViewController;
 			sourceTree = "<group>";
 		};
-		60CFB28D2097820D006FCF7C /* LineItemsTesting */ = {
+		60CFB28D2097820D006FCF7C /* AdServerValidation */ = {
 			isa = PBXGroup;
 			children = (
 				F553098120E53CF500A7B552 /* LineItemURLProtocol.m */,
@@ -424,7 +421,7 @@
 				F56AE893209A383B000CE29F /* PBVLineItemsSetupValidator.h */,
 				F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */,
 			);
-			path = LineItemsTesting;
+			path = AdServerValidation;
 			sourceTree = "<group>";
 		};
 		60CFB29D2097820D006FCF7C /* PrebidSDKTesting */ = {
@@ -474,6 +471,18 @@
 				60CFB2AB2097820D006FCF7C /* BannerTestsViewController.h */,
 			);
 			path = BannerViewControllers;
+			sourceTree = "<group>";
+		};
+		F531C65E210F74CE00763595 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				60CFB29A2097820D006FCF7C /* ListViewController.h */,
+				60CFB25A2097820D006FCF7C /* ListViewController.m */,
+				60CFB29D2097820D006FCF7C /* PrebidSDKTesting */,
+				60CFB28D2097820D006FCF7C /* AdServerValidation */,
+				60CFB25E2097820D006FCF7C /* DemandValidation */,
+			);
+			path = Results;
 			sourceTree = "<group>";
 		};
 		F5AB324D20A0C97C00F76478 /* Products */ = {
