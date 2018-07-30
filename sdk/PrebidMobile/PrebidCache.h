@@ -20,5 +20,5 @@
 
 + (nonnull instancetype)globalCache;
 
-- (void) cacheContents: (NSArray *) contents forAdserver:(PBPrimaryAdServerType) adserver withCompletionBlock: (void (^)(NSArray *))completionBlock;
+- (void) cacheContents: (NSArray *) contents forAdserver:(PBPrimaryAdServerType) adserver withCompletionBlock: (void (^)(NSError *, NSArray *))completionBlock;
 @end
