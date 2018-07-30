@@ -50,7 +50,8 @@ static NSString *const kPBAppTransportSecurityAllowsArbitraryLoadsKey = @"NSAllo
     if (self = [super init]) {
         executing = NO;
         finished = NO;
-        if (contents == nil || contents.count == 0 || completionBlock == nil) {
+        if (contents == nil || contents.count == 0) {
+            self.sendCacheIds = completionBlock;
             [self finishAndChangeState];
         } else {
             long long milliseconds = (long long)([[NSDate date] timeIntervalSince1970] * 1000.0);
@@ -177,9 +178,13 @@ static NSString *const kPBAppTransportSecurityAllowsArbitraryLoadsKey = @"NSAllo
         strongSelf.wkwebviewCache = nil;
         strongSelf.uiwebviewCache = nil;
         if(self.cacheIds != nil && self.cacheIds.count>0){
-            strongSelf.sendCacheIds(nil, strongSelf.cacheIds);
+            if (strongSelf.sendCacheIds != nil) {
+                strongSelf.sendCacheIds(nil, strongSelf.cacheIds);
+            }
         } else {
-            strongSelf.sendCacheIds([NSError errorWithDomain:@"org.prebid" code:0 userInfo:nil ], nil);
+            if (strongSelf.sendCacheIds !=nil) {
+                strongSelf.sendCacheIds([NSError errorWithDomain:@"org.prebid" code:0 userInfo:nil ], nil);
+            }
         }
         [strongSelf willChangeValueForKey:@"isExecuting"];
         strongSelf->executing = NO;
