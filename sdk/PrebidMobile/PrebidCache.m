@@ -36,7 +36,7 @@ static NSString *const kPBAppTransportSecurityAllowsArbitraryLoadsKey = @"NSAllo
 @property WKWebView *wkwebviewCache;
 
 @property NSString* htmlToLoad;
-@property NSInteger checkingCount;
+@property NSMutableArray *cacheIds;
 @property (nonnull) void (^sendCacheIds)(NSError *, NSArray *);
 
 - (instancetype)initWithContentsToLoad: (NSArray *)contents withAdserver: (PBPrimaryAdServerType) adserver withCompletionHandler: (void (^) (NSError *, NSArray *)) completionBlock;
