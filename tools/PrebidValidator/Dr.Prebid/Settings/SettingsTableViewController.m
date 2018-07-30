@@ -23,7 +23,7 @@
 #import "AdSizeController.h"
 #import "IDInputViewController.h"
 #import "PBVSharedConstants.h"
-#import "ListViewController.h"
+#import "ResultsViewController.h"
 
 NSString *__nonnull const kGeneralInfoText = @"General Info";
 NSString *__nonnull const kAdFormatBanner = @"Banner";
@@ -623,7 +623,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    ListViewController *listViewController = [[ListViewController alloc] init];
+    ResultsViewController *listViewController = [[ResultsViewController alloc] init];
     [self.navigationController pushViewController:listViewController animated:YES];
 }
 

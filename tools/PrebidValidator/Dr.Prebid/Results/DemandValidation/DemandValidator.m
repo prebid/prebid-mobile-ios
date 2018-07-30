@@ -15,16 +15,16 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBVPBSRequestResponseValidator.h"
+#import "DemandValidator.h"
 #import <PrebidMobile/PBBannerAdUnit.h>
 #import <PrebidMobile/PBServerRequestBuilder.h>
 #import "PBVSharedConstants.h"
 #import <PrebidMobile/PBInterstitialAdUnit.h>
 
-@interface PBVPBSRequestResponseValidator()
+@interface DemandValidator()
 @end
 
-@implementation PBVPBSRequestResponseValidator
+@implementation DemandValidator
 
 - (void)startTestWithCompletionHandler:(void (^) (Boolean result)) completionHandler;{
     // Get params from coredata

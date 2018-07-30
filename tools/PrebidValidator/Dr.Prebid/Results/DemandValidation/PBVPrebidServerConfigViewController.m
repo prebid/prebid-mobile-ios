@@ -16,11 +16,11 @@
 
 #import <Foundation/Foundation.h>
 #import "PBVPrebidServerConfigViewController.h"
-#import "PBVPBSRequestResponseValidator.h"
+#import "DemandValidator.h"
 #import <MessageUI/MFMailComposeViewController.h>
 
 @interface PBVPrebidServerConfigViewController() <MFMailComposeViewControllerDelegate, UITextViewDelegate>
-@property PBVPBSRequestResponseValidator *validator;
+@property DemandValidator *validator;
 @property UIViewController *first;
 @property UIViewController *second;
 @property UITextView *requestText;
@@ -28,7 +28,7 @@
 @end
 
 @implementation PBVPrebidServerConfigViewController
-- (instancetype)initWithValidator:(PBVPBSRequestResponseValidator *) validator
+- (instancetype)initWithValidator:(DemandValidator *) validator
 {
     self = [super init];
     if (self) {

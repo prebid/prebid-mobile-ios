@@ -15,7 +15,7 @@
  */
 
 #import "SettingsViewController.h"
-#import "ListViewController.h"
+#import "ResultsViewController.h"
 #import "ActionSheetPicker.h"
 #import "PBVSharedConstants.h"
 #import "LineItemAdsViewController.h"
@@ -449,7 +449,7 @@ CGFloat const kLabelHeight = 80.0f;
 - (void)didPressNext:(id)sender {
     [self verifyInput];
     
-    ListViewController *listViewController = [[ListViewController alloc] init];
+    ResultsViewController *listViewController = [[ResultsViewController alloc] init];
     [self.navigationController pushViewController:listViewController animated:YES];
 }
 

@@ -15,8 +15,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "PBVPBSRequestResponseValidator.h"
 
-@interface PBVPrebidServerConfigViewController: UITabBarController
--(instancetype)initWithValidator: (PBVPBSRequestResponseValidator *) validator;
+@interface ResultsViewController : UITableViewController 
+
 @end

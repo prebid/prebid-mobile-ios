@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-@interface PBVPBSRequestResponseValidator:NSObject
+@interface DemandValidator:NSObject
 @property NSString *request;
 @property NSString *response;
 
