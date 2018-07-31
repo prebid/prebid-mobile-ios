@@ -23,6 +23,6 @@
 + (instancetype _Nullable )sharedInstance;
 
 
-- (NSURLRequest *_Nullable)buildRequest:(nullable NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *_Nullable) accountID withSecureParams:(BOOL) isSecure;
+- (NSURLRequest *_Nullable)buildRequest:(nullable NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *_Nullable) accountID withSecureParams:(BOOL) isSecure withPriceGranularity:(NSString *_Nonnull) priceGranularity;
 
 @end

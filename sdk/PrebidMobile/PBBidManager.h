@@ -44,6 +44,7 @@ typedef NS_ENUM(NSInteger, PBPrimaryAdServerType) {
 - (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
           withAccountId:(nonnull NSString *)accountId
                withHost:(PBServerHost)host
+   withPriceGranularity:(PBPriceGranularity)priceGranularity
      andPrimaryAdServer:(PBPrimaryAdServerType)adServer;
 
 /**

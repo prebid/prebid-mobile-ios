@@ -23,7 +23,7 @@
 
 - (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId andAdServer:(PBPrimaryAdServerType) adServer;
 
-- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId andHost:(PBServerHost) host andAdServer:(PBPrimaryAdServerType) adServer;
+- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId andHost:(PBServerHost) host andAdServer:(PBPrimaryAdServerType) adServer andPriceGranularity:(PBPriceGranularity) priceGranularity;
 
 @property (nonatomic, assign) BOOL isSecure;
 

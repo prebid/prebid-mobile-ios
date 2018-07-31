@@ -23,6 +23,15 @@ typedef NS_ENUM(NSUInteger, PBServerHost) {
     PBServerHostRubicon
 };
 
+typedef NS_ENUM(NSInteger, PBPriceGranularity) {
+    PBPriceGranularityLow,
+    PBPriceGranularityMedium,
+    PBPriceGranularityHigh,
+    PBPriceGranularityAuto,
+    PBPriceGranularityDense,
+    PBPriceGranularityServer
+};
+
 @interface PBHost : NSObject
 
 @end

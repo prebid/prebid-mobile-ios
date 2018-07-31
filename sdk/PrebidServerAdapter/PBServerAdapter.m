@@ -39,6 +39,8 @@ static int const kBatchCount = 10;
 
 @property (assign) PBPrimaryAdServerType primaryAdServer;
 
+@property (assign) PBPriceGranularity priceGranularity;
+
 @property (nonatomic, assign, readwrite) PBServerHost host;
 
 @end
@@ -55,12 +57,13 @@ static int const kBatchCount = 10;
     return self;
 }
 
-- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId andHost:(PBServerHost) host andAdServer:(PBPrimaryAdServerType) adServer{
+- (nonnull instancetype)initWithAccountId:(nonnull NSString *)accountId andHost:(PBServerHost) host andAdServer:(PBPrimaryAdServerType) adServer andPriceGranularity:(PBPriceGranularity) priceGranularity{
     if (self = [super init]) {
         _accountId = accountId;
         _isSecure = TRUE;
         _host = host;
         _primaryAdServer = adServer;
+        _priceGranularity = priceGranularity;
     }
     return self;
 }
@@ -74,7 +77,8 @@ static int const kBatchCount = 10;
     }
     
     [[PBServerRequestBuilder sharedInstance] setHostURL:hostUrl];
-    
+    NSString *priceGranularity = [self priceGranularityForAuction:self.priceGranularity];
+                   
     //batch the adunits to group of 10 & send to the server instead of this bulk request
     int adUnitsRemaining = (int)[adUnits count];
     int j = 0;
@@ -85,7 +89,7 @@ static int const kBatchCount = 10;
         adUnitsRemaining-=range.length;
         j+=range.length;
         
-        NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:subAdUnitArray withAccountId:self.accountId withSecureParams:self.isSecure];
+        NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:subAdUnitArray withAccountId:self.accountId withSecureParams:self.isSecure withPriceGranularity:priceGranularity];
         
         [[PBServerFetcher sharedInstance] makeBidRequest:request withCompletionHandler:^(NSDictionary *adUnitToBidsMap, NSError *error) {
             if (error) {
@@ -177,5 +181,34 @@ static int const kBatchCount = 10;
     }
     
     return url;
+}
+
+- (NSString *)priceGranularityForAuction:(PBPriceGranularity)priceGranularity {
+    NSString *_priceGranularity;
+    switch (priceGranularity) {
+        case PBPriceGranularityLow:
+            _priceGranularity = @"low";
+            break;
+        case PBPriceGranularityMedium:
+            _priceGranularity = @"med";
+            break;
+       case PBPriceGranularityHigh:
+            _priceGranularity = @"high";
+            break;
+       case PBPriceGranularityAuto:
+            _priceGranularity = @"auto";
+            break;        
+       case PBPriceGranularityDense:
+            _priceGranularity = @"dense";
+            break;      
+        case PBPriceGranularityServer:
+            _priceGranularity = @"server";
+            break;
+        default:
+            _priceGranularity = @"unknown";
+            break;
+    }
+    
+    return _priceGranularity;
 }
 @end

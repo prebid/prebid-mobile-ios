@@ -21,8 +21,16 @@
 + (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
           withAccountId:(nonnull NSString *)accountId
                withHost:(PBServerHost)host
+   withPriceGranularity:(PBPriceGranularity)priceGranularity
      andPrimaryAdServer:(PBPrimaryAdServerType)adServer {
-    [[PBBidManager sharedInstance] registerAdUnits:adUnits withAccountId:accountId withHost:host andPrimaryAdServer:adServer];
+    [[PBBidManager sharedInstance] registerAdUnits:adUnits withAccountId:accountId withHost:host withPriceGranularity:priceGranularity andPrimaryAdServer:adServer ];
+}
+
++ (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
+          withAccountId:(nonnull NSString *)accountId
+               withHost:(PBServerHost)host
+     andPrimaryAdServer:(PBPrimaryAdServerType)adServer {
+    [[PBBidManager sharedInstance] registerAdUnits:adUnits withAccountId:accountId withHost:host withPriceGranularity:PBPriceGranularityUnknown andPrimaryAdServer:adServer ];
 }
 
 + (void)setBidKeywordsOnAdObject:(nonnull id)adObject

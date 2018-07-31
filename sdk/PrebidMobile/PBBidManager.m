@@ -39,6 +39,8 @@ static NSTimeInterval const kBidExpiryTimerInterval = 30;
 
 @property (nonatomic, assign) PBPrimaryAdServerType adServer;
 
+@property (nonatomic, assign) PBPriceGranularity priceGranularity;
+
 @end
 
 #pragma mark PBBidResponseDelegate Implementation
@@ -85,6 +87,7 @@ static dispatch_once_t onceToken;
 - (void)registerAdUnits:(nonnull NSArray<PBAdUnit *> *)adUnits
           withAccountId:(nonnull NSString *)accountId
                withHost:(PBServerHost)host
+   withPriceGranularity:(PBPriceGranularity)priceGranularity
      andPrimaryAdServer:(PBPrimaryAdServerType)adServer {
     if (_adUnits == nil) {
         _adUnits = [[NSMutableSet alloc] init];
@@ -93,7 +96,7 @@ static dispatch_once_t onceToken;
     
     self.adServer = adServer;
     
-    _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId andHost:host andAdServer:adServer] ;
+    _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId andHost:host andAdServer:adServer andPriceGranularity:priceGranularity] ;
     
     for (id adUnit in adUnits) {
         [self registerAdUnit:adUnit];
