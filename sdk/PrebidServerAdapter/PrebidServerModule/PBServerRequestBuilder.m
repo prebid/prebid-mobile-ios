@@ -69,7 +69,7 @@ static NSString *const kPrebidMobileVersion = @"0.4";
     }
     requestDict[@"user"] = [self openrtbUser];
     requestDict[@"imp"] = [self openrtbImpsFromAdUnits:adUnits withSecureSettings:isSecure];
-    requestDict[@"ext"] = [self openrtbRequestExtension:priceGranularity];
+    requestDict[@"ext"] = [self openrtbRequestExtension:accountID withPriceGranularity: priceGranularity];
     
     return [requestDict copy];
 }
@@ -82,7 +82,7 @@ static NSString *const kPrebidMobileVersion = @"0.4";
     return sourceDict;
 }
 
-- (NSDictionary *)openrtbRequestExtension:(NSString *) priceGranularity
+- (NSDictionary *)openrtbRequestExtension: (NSString *) accountID withPriceGranularity: (NSString *) priceGranularity
 {
     NSMutableDictionary *requestPrebidExt = [[NSMutableDictionary alloc] init];
     if ([priceGranularity isEqualToString:@"unknown"] || [priceGranularity isEqualToString:@"server"]) {
@@ -90,7 +90,8 @@ static NSString *const kPrebidMobileVersion = @"0.4";
     } else {
         requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20), @"pricegranularity":priceGranularity};
     }
-    
+    requestPrebidExt[@"storedrequest"] = @{@"id" : accountID};
+ 
     NSMutableDictionary *requestExt = [[NSMutableDictionary alloc] init];
     requestExt[@"prebid"] = requestPrebidExt;
     return [requestExt copy];
