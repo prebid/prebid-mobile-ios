@@ -47,6 +47,7 @@
     self.activityIndicator = [[UIActivityIndicatorView alloc] init];
     self.activityIndicator.center = self.view.center;
     self.activityIndicator.hidesWhenStopped = YES;
+    self.activityIndicator.transform = CGAffineTransformMakeScale(2, 2);
     self.activityIndicator.activityIndicatorViewStyle   = UIActivityIndicatorViewStyleGray;
     [self.view addSubview:self.activityIndicator];
     [content loadRequest:request];
