@@ -464,10 +464,10 @@
 		F513CDF72112202400700925 /* DemandValidation */ = {
 			isa = PBXGroup;
 			children = (
-				F513CDF82112202400700925 /* PBVPrebidServerConfigViewController.h */,
-				F513CDF92112202400700925 /* DemandValidator.m */,
-				F513CDFA2112202400700925 /* PBVPrebidServerConfigViewController.m */,
 				F513CDFB2112202400700925 /* DemandValidator.h */,
+				F513CDF92112202400700925 /* DemandValidator.m */,
+				F513CDF82112202400700925 /* PBVPrebidServerConfigViewController.h */,
+				F513CDFA2112202400700925 /* PBVPrebidServerConfigViewController.m */,
 			);
 			name = DemandValidation;
 			path = Dr.Prebid/Results/DemandValidation;

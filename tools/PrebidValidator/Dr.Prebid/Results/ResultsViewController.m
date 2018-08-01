@@ -75,22 +75,12 @@
     _validator1.delegate = self;
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runTestForValidator1) userInfo:nil repeats:NO];
     _validator2 = [[DemandValidator alloc] init];
-    [_validator2 startTestWithCompletionHandler:^(Boolean result) {
-        if (result) {
+    [_validator2 startTestWithCompletionHandler:^() {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSIndexPath *test2 = [NSIndexPath indexPathForRow:1 inSection:0] ;
                 PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test2];
                 cell.progressImage.image = [UIImage imageNamed:@"Green"];
             });
-   
-        } else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // add red icon to this app
-                 NSIndexPath *test2 = [NSIndexPath indexPathForRow:1 inSection:0] ;
-                PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test2];
-                cell.progressImage.image = [UIImage imageNamed:@"Red"];
-            });
-        }
     }];
     _validator3 = [[PBVPrebidSDKValidator alloc] init];
     _validator3.delegate = self;

@@ -42,48 +42,47 @@
         _requestText.textColor = [UIColor blackColor];
         NSDictionary *results = [validator.testResults copy];
         int successfullTests = [[results objectForKey:@"successfullTests"] intValue];
-        _requestText.text = [NSString stringWithFormat:@"Out of 100 tests, %d of tests had responded with at least one bid", successfullTests];
+        NSMutableString *toBeDisplayed = [[NSMutableString alloc] init];
+        [toBeDisplayed appendString:@"Hi, the app just ran the demand validation 100 times.\n"];
+        [toBeDisplayed appendString:[NSString stringWithFormat:@"%d of tests had responded with at least one bid\n", successfullTests]];
+        NSDictionary *bidderPrices = [results objectForKey:@"bidderPrices"];
+        int numOfBidders = 0;
+        int totalBids = 0;
+        double totalBidPrices = 0;
+        NSMutableDictionary *bidderAveragePrice = [[NSMutableDictionary alloc] init];
+        for (NSString *bidderName in [bidderPrices allKeys]) {
+            numOfBidders ++;
+            NSArray *prices = [bidderPrices objectForKey:bidderName];
+            double sumOfPrices = 0;
+            for (NSNumber *price in prices) {
+                sumOfPrices += [price doubleValue];
+                totalBids++;
+            }
+            [bidderAveragePrice setObject:[NSNumber numberWithDouble:(sumOfPrices/prices.count)] forKey:bidderName];
+            totalBidPrices +=sumOfPrices;
+        }
+        [toBeDisplayed appendString:[NSString stringWithFormat:@"%d bidders bid: \n", numOfBidders] ];
+        for (NSString *bidderName in [bidderPrices allKeys]) {
+            NSArray *prices = [bidderPrices objectForKey:bidderName];
+            [toBeDisplayed appendString: [NSString stringWithFormat:@"  - %@, sends back %lu bids in total.\n", bidderName, prices.count]];
+        }
+        [toBeDisplayed appendString:[NSString stringWithFormat:@"Total average bid price is $%f.\n", (totalBidPrices/totalBids)]];
+        for (NSString *bidderName in [bidderPrices allKeys]) {
+            [toBeDisplayed appendString: [NSString stringWithFormat:@"  - %@ bids $%@ in average.\n", bidderName, [bidderAveragePrice objectForKey:bidderName] ]];
+        }
+        [toBeDisplayed appendString:@"A sample request is as following: \n"];
+        [toBeDisplayed appendString: [self prettyJson:[results objectForKey:@"request"]]];
+        [toBeDisplayed appendString:@"\nA sample response is as following: \n"];
+        [toBeDisplayed appendString: [self prettyJson:[results objectForKey:@"response"]]];
+        _requestText.text = [toBeDisplayed copy];
         _requestText.delegate = self;
+        _requestText.editable = NO;
         [_first.view addSubview:_requestText];
         NSArray * controllers = [NSArray arrayWithObjects:_first, nil];
         self.viewControllers = controllers;
         
     }
     return self;
-}
-// TextView editing function
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
-    [self setupRerunTestButton];
-}
-
--(void) setupRerunTestButton
-{
-    UIBarButtonItem *rerun = [[UIBarButtonItem alloc]init];
-    rerun.style = UIBarButtonItemStylePlain;
-    rerun.title = @"Rerun Test";
-    rerun.target = self;
-    rerun.action = NSSelectorFromString(@"rerunTest:");
-    self.navigationItem.rightBarButtonItem = rerun;
-}
-
--(void)rerunTest:(id)sender
-{
-    // dismiss keyboard
-    [_requestText resignFirstResponder];
-    // pass new string to validator
-    NSString *enteredText = [_requestText text];
-      // run the test
-    [_validator startTestWithString:enteredText andCompletionHandler:^(Boolean result) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // update test result to respoonse
-            self.responseText.text = [self prettyJson: self.validator.response];
-            // jump to response tab
-            self.selectedIndex = 1;
-            // change button back to email me
-            [self setupEmailButton];
-        });
-    }];
 }
 
 // Helper function
@@ -121,19 +120,7 @@
         [mailViewController setSubject:@"Request and response to/from Prebid Server"];
         NSMutableString *body = [[NSMutableString alloc]initWithString:@""];
         [body appendString: @"Hi, \n\n"];
-        if (_validator.request) {
-            [body appendString: @"Please find the request to prebid server below: \n"];
-            [body appendString: [self prettyJson: _validator.request]];
-        } else {
-            [body appendString:@"Unable to retrieve request data from the test.\n"];
-        }
-        if (_validator.response) {
-            [body appendString: @"\n\nPlease find the response from prebid server below: \n"];
-            [body appendString: [self prettyJson: _validator.response]];
-        } else {
-            [body appendString:@"\n\nUnable to retrieve response data from the test.\n"];
-        }
-
+        [body appendString:_requestText.text];
         [mailViewController setMessageBody:body isHTML:NO];
         [self presentViewController:mailViewController animated:YES completion:nil];
     } else {
