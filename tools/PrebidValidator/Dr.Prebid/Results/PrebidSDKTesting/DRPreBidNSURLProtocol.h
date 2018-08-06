@@ -15,6 +15,12 @@
  */
 
 #import <Foundation/Foundation.h>
+@protocol DRPreBidNSURLProtocolDelegate
+-(void)didReceiveResponse:(NSString *) responseString forRequest:(NSString *)requestString;
+@end
 
 @interface DRPreBidNSURLProtocol: NSURLProtocol
+@property (class, nonatomic) NSMutableArray *delegates;
++ (void)addDelegate:(id <DRPreBidNSURLProtocolDelegate>)delegate;
++ (void)removeDelegate: (id <DRPreBidNSURLProtocolDelegate>)delegate;
 @end

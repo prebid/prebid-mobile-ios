@@ -20,6 +20,35 @@
 @end
 @implementation DRPreBidNSURLProtocol
 
+static NSMutableArray *_delegates = nil;
+
++ (void)setDelegates:(NSArray *)delegates
+{
+    _delegates = [[NSMutableArray alloc] init];
+    for (NSObject *delegate in delegates) {
+        [_delegates addObject:delegate];
+    }
+}
+
++ (NSMutableArray *)delegates
+{
+    return _delegates;
+}
+
++ (void)addDelegate:(id <DRPreBidNSURLProtocolDelegate>)delegate
+{
+    if (_delegates == nil) {
+        _delegates = [[NSMutableArray alloc] init];
+    }
+    [_delegates addObject:delegate];
+}
++ (void)removeDelegate: (id <DRPreBidNSURLProtocolDelegate>)delegate
+{
+    if (_delegates != nil) {
+        [_delegates removeObject:delegate];
+    }
+}
+
 +(BOOL)canInitWithRequest:(NSURLRequest *)request
 {
     if ([NSURLProtocol propertyForKey:@"PrebidURLProtocolHandledKey" inRequest:request]) {
@@ -31,12 +60,16 @@
     return NO;
 }
 
+
+
 - (void)startLoading
 {
-    NSLog(@"DFP request was: %@", self.request.URL.absoluteString);
     NSMutableURLRequest *newRequest = [self.request mutableCopy];
     [NSURLProtocol setProperty:@YES forKey:@"PrebidURLProtocolHandledKey" inRequest:newRequest];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     self.connection = [NSURLConnection connectionWithRequest:newRequest delegate:self];
+#pragma clang diagnostic pop
 }
 
 - (void)stopLoading
@@ -61,6 +94,15 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     [self.client URLProtocol:self didLoadData:data];
+    NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if (_delegates != nil) {
+        for (NSObject * delegate in _delegates) {
+            if ([delegate.class conformsToProtocol:@protocol(DRPreBidNSURLProtocolDelegate)]) {
+                NSObject<DRPreBidNSURLProtocolDelegate> *d = (NSObject<DRPreBidNSURLProtocolDelegate> *) delegate;
+                [d didReceiveResponse:dataString forRequest:self.request.URL.absoluteString];
+            }
+        }
+    }
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {

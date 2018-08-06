@@ -40,7 +40,6 @@
 		60CFB2CD2097820D006FCF7C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB29C2097820D006FCF7C /* AppDelegate.m */; };
 		60CFB2CE2097820D006FCF7C /* PBVPrebidSDKValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB29E2097820D006FCF7C /* PBVPrebidSDKValidator.m */; };
 		60CFB2CF2097820D006FCF7C /* InterstitialTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2A02097820D006FCF7C /* InterstitialTestsViewController.m */; };
-		60CFB2D02097820D006FCF7C /* NativeTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2A42097820D006FCF7C /* NativeTestsViewController.m */; };
 		60CFB2D12097820D006FCF7C /* VideoTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2A82097820D006FCF7C /* VideoTestsViewController.m */; };
 		60CFB2D22097820D006FCF7C /* BannerTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2AA2097820D006FCF7C /* BannerTestsViewController.m */; };
 		60CFB2D32097820D006FCF7C /* PBVSharedConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2AC2097820D006FCF7C /* PBVSharedConstants.m */; };
@@ -167,8 +166,6 @@
 		60CFB2A02097820D006FCF7C /* InterstitialTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterstitialTestsViewController.m; sourceTree = "<group>"; };
 		60CFB2A12097820D006FCF7C /* InterstitialTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterstitialTestsViewController.h; sourceTree = "<group>"; };
 		60CFB2A22097820D006FCF7C /* PBVPrebidSDKValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVPrebidSDKValidator.h; sourceTree = "<group>"; };
-		60CFB2A42097820D006FCF7C /* NativeTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeTestsViewController.m; sourceTree = "<group>"; };
-		60CFB2A52097820D006FCF7C /* NativeTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeTestsViewController.h; sourceTree = "<group>"; };
 		60CFB2A72097820D006FCF7C /* VideoTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTestsViewController.h; sourceTree = "<group>"; };
 		60CFB2A82097820D006FCF7C /* VideoTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTestsViewController.m; sourceTree = "<group>"; };
 		60CFB2AA2097820D006FCF7C /* BannerTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerTestsViewController.m; sourceTree = "<group>"; };
@@ -420,7 +417,6 @@
 			children = (
 				60CFB2A92097820D006FCF7C /* BannerViewControllers */,
 				60CFB29F2097820D006FCF7C /* IntersitialViewControllers */,
-				60CFB2A32097820D006FCF7C /* NativeViewControllers */,
 				60CFB2A22097820D006FCF7C /* PBVPrebidSDKValidator.h */,
 				60CFB29E2097820D006FCF7C /* PBVPrebidSDKValidator.m */,
 				60CFB2A62097820D006FCF7C /* VideoViewControllers */,
@@ -437,15 +433,6 @@
 				60CFB2A12097820D006FCF7C /* InterstitialTestsViewController.h */,
 			);
 			path = IntersitialViewControllers;
-			sourceTree = "<group>";
-		};
-		60CFB2A32097820D006FCF7C /* NativeViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				60CFB2A42097820D006FCF7C /* NativeTestsViewController.m */,
-				60CFB2A52097820D006FCF7C /* NativeTestsViewController.h */,
-			);
-			path = NativeViewControllers;
 			sourceTree = "<group>";
 		};
 		60CFB2A62097820D006FCF7C /* VideoViewControllers */ = {
@@ -706,7 +693,6 @@
 				F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */,
 				60CFB2CE2097820D006FCF7C /* PBVPrebidSDKValidator.m in Sources */,
 				F513CDFD2112202400700925 /* DemandValidator.m in Sources */,
-				60CFB2D02097820D006FCF7C /* NativeTestsViewController.m in Sources */,
 				60CFB2D12097820D006FCF7C /* VideoTestsViewController.m in Sources */,
 				F553098220E53CF500A7B552 /* LineItemURLProtocol.m in Sources */,
 				60CFB2C42097820D006FCF7C /* QRCodeReaderView.m in Sources */,
