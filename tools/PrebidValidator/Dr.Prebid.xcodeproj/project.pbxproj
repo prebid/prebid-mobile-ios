@@ -62,6 +62,7 @@
 		F283A423484632D93AE6FB87 /* libPods-Dr.Prebid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */; };
 		F513CDFD2112202400700925 /* DemandValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F513CDF92112202400700925 /* DemandValidator.m */; };
 		F513CDFE2112202400700925 /* PBVPrebidServerConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F513CDFA2112202400700925 /* PBVPrebidServerConfigViewController.m */; };
+		F513CE072114A81400700925 /* DRPreBidNSURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F513CE062114A81400700925 /* DRPreBidNSURLProtocol.m */; };
 		F531C6B9210FA65600763595 /* ResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F531C6B8210FA65600763595 /* ResultsViewController.m */; };
 		F553098220E53CF500A7B552 /* LineItemURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F553098120E53CF500A7B552 /* LineItemURLProtocol.m */; };
 		F56AE891209A3809000CE29F /* PBViewTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE88F209A3808000CE29F /* PBViewTool.m */; };
@@ -195,6 +196,8 @@
 		F513CDF92112202400700925 /* DemandValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemandValidator.m; sourceTree = "<group>"; };
 		F513CDFA2112202400700925 /* PBVPrebidServerConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBVPrebidServerConfigViewController.m; sourceTree = "<group>"; };
 		F513CDFB2112202400700925 /* DemandValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemandValidator.h; sourceTree = "<group>"; };
+		F513CE062114A81400700925 /* DRPreBidNSURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DRPreBidNSURLProtocol.m; sourceTree = "<group>"; };
+		F513CE092114A82300700925 /* DRPreBidNSURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRPreBidNSURLProtocol.h; sourceTree = "<group>"; };
 		F531C6B7210FA65600763595 /* ResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsViewController.h; sourceTree = "<group>"; };
 		F531C6B8210FA65600763595 /* ResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsViewController.m; sourceTree = "<group>"; };
 		F553098120E53CF500A7B552 /* LineItemURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineItemURLProtocol.m; sourceTree = "<group>"; };
@@ -421,6 +424,8 @@
 				60CFB2A22097820D006FCF7C /* PBVPrebidSDKValidator.h */,
 				60CFB29E2097820D006FCF7C /* PBVPrebidSDKValidator.m */,
 				60CFB2A62097820D006FCF7C /* VideoViewControllers */,
+				F513CE062114A81400700925 /* DRPreBidNSURLProtocol.m */,
+				F513CE092114A82300700925 /* DRPreBidNSURLProtocol.h */,
 			);
 			path = PrebidSDKTesting;
 			sourceTree = "<group>";
@@ -712,6 +717,7 @@
 				F56AE891209A3809000CE29F /* PBViewTool.m in Sources */,
 				609172F320F53C74001B94A8 /* IdCell.m in Sources */,
 				609172F620F686A8001B94A8 /* HelpViewController.m in Sources */,
+				F513CE072114A81400700925 /* DRPreBidNSURLProtocol.m in Sources */,
 				60CFB2C62097820D006FCF7C /* main.m in Sources */,
 				60CFB2BD2097820D006FCF7C /* ActionSheetStringPicker.m in Sources */,
 				60CFB2BA2097820D006FCF7C /* ActionSheetDistancePicker.m in Sources */,
