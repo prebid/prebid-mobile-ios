@@ -177,6 +177,7 @@ static NSString *testResponse = @"";
         XCTAssertNotNil(requestBody);
         
         XCTAssertEqualObjects(requestBody[@"app"][@"publisher"][@"id"], @"account_id");
+        XCTAssertEqualObjects(requestBody[@"ext"][@"prebid"][@"storedrequest"][@"id"], @"account_id");
         
         NSDictionary *app = requestBody[@"app"][@"ext"][@"prebid"];
         XCTAssertNotNil(app[@"version"]);
