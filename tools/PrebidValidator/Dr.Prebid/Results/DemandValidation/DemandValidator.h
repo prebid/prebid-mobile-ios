@@ -14,9 +14,8 @@
  *    limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
-#import "PBVPBSRequestResponseValidator.h"
+@interface DemandValidator:NSObject
+@property NSMutableDictionary *testResults;
 
-@interface PBVPrebidServerConfigViewController: UITabBarController
--(instancetype)initWithValidator: (PBVPBSRequestResponseValidator *) validator;
+- (void)startTestWithCompletionHandler:(void (^)(void)) completionHandler;
 @end

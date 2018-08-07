@@ -15,11 +15,8 @@
 		609172F320F53C74001B94A8 /* IdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172F220F53C74001B94A8 /* IdCell.m */; };
 		609172F620F686A8001B94A8 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172F520F686A8001B94A8 /* HelpViewController.m */; };
 		60CFB2AE2097820D006FCF7C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2582097820D006FCF7C /* SettingsViewController.m */; };
-		60CFB2AF2097820D006FCF7C /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB25A2097820D006FCF7C /* ListViewController.m */; };
 		60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB25C2097820D006FCF7C /* Assets.xcassets */; };
 		60CFB2B12097820D006FCF7C /* PBVTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB25D2097820D006FCF7C /* PBVTableViewCell.xib */; };
-		60CFB2B22097820D006FCF7C /* PBVPrebidServerConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2612097820D006FCF7C /* PBVPrebidServerConfigViewController.m */; };
-		60CFB2B32097820D006FCF7C /* PBVPBSRequestResponseValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2622097820D006FCF7C /* PBVPBSRequestResponseValidator.m */; };
 		60CFB2B42097820D006FCF7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB2632097820D006FCF7C /* LaunchScreen.storyboard */; };
 		60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB2652097820D006FCF7C /* Main.storyboard */; };
 		60CFB2B62097820D006FCF7C /* PBVTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2672097820D006FCF7C /* PBVTableViewCell.m */; };
@@ -43,7 +40,6 @@
 		60CFB2CD2097820D006FCF7C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB29C2097820D006FCF7C /* AppDelegate.m */; };
 		60CFB2CE2097820D006FCF7C /* PBVPrebidSDKValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB29E2097820D006FCF7C /* PBVPrebidSDKValidator.m */; };
 		60CFB2CF2097820D006FCF7C /* InterstitialTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2A02097820D006FCF7C /* InterstitialTestsViewController.m */; };
-		60CFB2D02097820D006FCF7C /* NativeTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2A42097820D006FCF7C /* NativeTestsViewController.m */; };
 		60CFB2D12097820D006FCF7C /* VideoTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2A82097820D006FCF7C /* VideoTestsViewController.m */; };
 		60CFB2D22097820D006FCF7C /* BannerTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2AA2097820D006FCF7C /* BannerTestsViewController.m */; };
 		60CFB2D32097820D006FCF7C /* PBVSharedConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2AC2097820D006FCF7C /* PBVSharedConstants.m */; };
@@ -63,6 +59,10 @@
 		60CFB2F22097A4C4006FCF7C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E92097A4C4006FCF7C /* SystemConfiguration.framework */; };
 		D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */ = {isa = PBXBuildFile; fileRef = D15C104E20F6EB32004CBC18 /* AdSizeController.m */; };
 		F283A423484632D93AE6FB87 /* libPods-Dr.Prebid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */; };
+		F513CDFD2112202400700925 /* DemandValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F513CDF92112202400700925 /* DemandValidator.m */; };
+		F513CDFE2112202400700925 /* PBVPrebidServerConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F513CDFA2112202400700925 /* PBVPrebidServerConfigViewController.m */; };
+		F513CE072114A81400700925 /* DRPreBidNSURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F513CE062114A81400700925 /* DRPreBidNSURLProtocol.m */; };
+		F531C6B9210FA65600763595 /* ResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F531C6B8210FA65600763595 /* ResultsViewController.m */; };
 		F553098220E53CF500A7B552 /* LineItemURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F553098120E53CF500A7B552 /* LineItemURLProtocol.m */; };
 		F56AE891209A3809000CE29F /* PBViewTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE88F209A3808000CE29F /* PBViewTool.m */; };
 		F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */; };
@@ -118,14 +118,9 @@
 		60CFB2572097820D006FCF7C /* PBVTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVTableViewCell.h; sourceTree = "<group>"; };
 		60CFB2582097820D006FCF7C /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		60CFB2592097820D006FCF7C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		60CFB25A2097820D006FCF7C /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		60CFB25B2097820D006FCF7C /* PBVSharedConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVSharedConstants.h; sourceTree = "<group>"; };
 		60CFB25C2097820D006FCF7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		60CFB25D2097820D006FCF7C /* PBVTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PBVTableViewCell.xib; sourceTree = "<group>"; };
-		60CFB25F2097820D006FCF7C /* PBVPBSRequestResponseValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVPBSRequestResponseValidator.h; sourceTree = "<group>"; };
-		60CFB2602097820D006FCF7C /* PBVPrebidServerConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVPrebidServerConfigViewController.h; sourceTree = "<group>"; };
-		60CFB2612097820D006FCF7C /* PBVPrebidServerConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBVPrebidServerConfigViewController.m; sourceTree = "<group>"; };
-		60CFB2622097820D006FCF7C /* PBVPBSRequestResponseValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBVPBSRequestResponseValidator.m; sourceTree = "<group>"; };
 		60CFB2642097820D006FCF7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		60CFB2662097820D006FCF7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		60CFB2672097820D006FCF7C /* PBVTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBVTableViewCell.m; sourceTree = "<group>"; };
@@ -165,15 +160,12 @@
 		60CFB2922097820D006FCF7C /* LineItemAdsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineItemAdsViewController.h; sourceTree = "<group>"; };
 		60CFB2972097820D006FCF7C /* LineItemKeywordsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineItemKeywordsManager.m; sourceTree = "<group>"; };
 		60CFB2982097820D006FCF7C /* LineItemAdsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineItemAdsViewController.m; sourceTree = "<group>"; };
-		60CFB29A2097820D006FCF7C /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		60CFB29B2097820D006FCF7C /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		60CFB29C2097820D006FCF7C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		60CFB29E2097820D006FCF7C /* PBVPrebidSDKValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBVPrebidSDKValidator.m; sourceTree = "<group>"; };
 		60CFB2A02097820D006FCF7C /* InterstitialTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterstitialTestsViewController.m; sourceTree = "<group>"; };
 		60CFB2A12097820D006FCF7C /* InterstitialTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterstitialTestsViewController.h; sourceTree = "<group>"; };
 		60CFB2A22097820D006FCF7C /* PBVPrebidSDKValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVPrebidSDKValidator.h; sourceTree = "<group>"; };
-		60CFB2A42097820D006FCF7C /* NativeTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeTestsViewController.m; sourceTree = "<group>"; };
-		60CFB2A52097820D006FCF7C /* NativeTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeTestsViewController.h; sourceTree = "<group>"; };
 		60CFB2A72097820D006FCF7C /* VideoTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTestsViewController.h; sourceTree = "<group>"; };
 		60CFB2A82097820D006FCF7C /* VideoTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTestsViewController.m; sourceTree = "<group>"; };
 		60CFB2AA2097820D006FCF7C /* BannerTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerTestsViewController.m; sourceTree = "<group>"; };
@@ -197,6 +189,14 @@
 		8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dr.Prebid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D15C104E20F6EB32004CBC18 /* AdSizeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdSizeController.m; sourceTree = "<group>"; };
 		D15C105120F6EB4F004CBC18 /* AdSizeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdSizeController.h; sourceTree = "<group>"; };
+		F513CDF82112202400700925 /* PBVPrebidServerConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVPrebidServerConfigViewController.h; sourceTree = "<group>"; };
+		F513CDF92112202400700925 /* DemandValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemandValidator.m; sourceTree = "<group>"; };
+		F513CDFA2112202400700925 /* PBVPrebidServerConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBVPrebidServerConfigViewController.m; sourceTree = "<group>"; };
+		F513CDFB2112202400700925 /* DemandValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemandValidator.h; sourceTree = "<group>"; };
+		F513CE062114A81400700925 /* DRPreBidNSURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DRPreBidNSURLProtocol.m; sourceTree = "<group>"; };
+		F513CE092114A82300700925 /* DRPreBidNSURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRPreBidNSURLProtocol.h; sourceTree = "<group>"; };
+		F531C6B7210FA65600763595 /* ResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsViewController.h; sourceTree = "<group>"; };
+		F531C6B8210FA65600763595 /* ResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsViewController.m; sourceTree = "<group>"; };
 		F553098120E53CF500A7B552 /* LineItemURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LineItemURLProtocol.m; sourceTree = "<group>"; };
 		F553098320E53D1400A7B552 /* LineItemURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LineItemURLProtocol.h; sourceTree = "<group>"; };
 		F56AE88F209A3808000CE29F /* PBViewTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBViewTool.m; sourceTree = "<group>"; };
@@ -320,6 +320,7 @@
 		60CFB2562097820D006FCF7C /* Dr.Prebid */ = {
 			isa = PBXGroup;
 			children = (
+				F531C65E210F74CE00763595 /* Results */,
 				609172E320F3E50F001B94A8 /* Settings */,
 				60CFB2592097820D006FCF7C /* AppDelegate.h */,
 				60CFB29C2097820D006FCF7C /* AppDelegate.m */,
@@ -327,31 +328,15 @@
 				60CFB2682097820D006FCF7C /* Common */,
 				60CFB2AD2097820D006FCF7C /* Info.plist */,
 				60CFB2632097820D006FCF7C /* LaunchScreen.storyboard */,
-				60CFB28D2097820D006FCF7C /* LineItemsTesting */,
-				60CFB29A2097820D006FCF7C /* ListViewController.h */,
-				60CFB25A2097820D006FCF7C /* ListViewController.m */,
 				60CFB28C2097820D006FCF7C /* main.m */,
 				60CFB2652097820D006FCF7C /* Main.storyboard */,
 				60CFB2572097820D006FCF7C /* PBVTableViewCell.h */,
 				60CFB2672097820D006FCF7C /* PBVTableViewCell.m */,
 				60CFB25D2097820D006FCF7C /* PBVTableViewCell.xib */,
-				60CFB29D2097820D006FCF7C /* PrebidSDKTesting */,
-				60CFB25E2097820D006FCF7C /* PrebidServerConfigTesting */,
 				60CFB29B2097820D006FCF7C /* SettingsViewController.h */,
 				60CFB2582097820D006FCF7C /* SettingsViewController.m */,
 			);
 			path = Dr.Prebid;
-			sourceTree = "<group>";
-		};
-		60CFB25E2097820D006FCF7C /* PrebidServerConfigTesting */ = {
-			isa = PBXGroup;
-			children = (
-				60CFB25F2097820D006FCF7C /* PBVPBSRequestResponseValidator.h */,
-				60CFB2622097820D006FCF7C /* PBVPBSRequestResponseValidator.m */,
-				60CFB2602097820D006FCF7C /* PBVPrebidServerConfigViewController.h */,
-				60CFB2612097820D006FCF7C /* PBVPrebidServerConfigViewController.m */,
-			);
-			path = PrebidServerConfigTesting;
 			sourceTree = "<group>";
 		};
 		60CFB2682097820D006FCF7C /* Common */ = {
@@ -412,7 +397,7 @@
 			path = QRCodeReaderViewController;
 			sourceTree = "<group>";
 		};
-		60CFB28D2097820D006FCF7C /* LineItemsTesting */ = {
+		60CFB28D2097820D006FCF7C /* AdServerValidation */ = {
 			isa = PBXGroup;
 			children = (
 				F553098120E53CF500A7B552 /* LineItemURLProtocol.m */,
@@ -424,7 +409,7 @@
 				F56AE893209A383B000CE29F /* PBVLineItemsSetupValidator.h */,
 				F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */,
 			);
-			path = LineItemsTesting;
+			path = AdServerValidation;
 			sourceTree = "<group>";
 		};
 		60CFB29D2097820D006FCF7C /* PrebidSDKTesting */ = {
@@ -432,10 +417,11 @@
 			children = (
 				60CFB2A92097820D006FCF7C /* BannerViewControllers */,
 				60CFB29F2097820D006FCF7C /* IntersitialViewControllers */,
-				60CFB2A32097820D006FCF7C /* NativeViewControllers */,
 				60CFB2A22097820D006FCF7C /* PBVPrebidSDKValidator.h */,
 				60CFB29E2097820D006FCF7C /* PBVPrebidSDKValidator.m */,
 				60CFB2A62097820D006FCF7C /* VideoViewControllers */,
+				F513CE062114A81400700925 /* DRPreBidNSURLProtocol.m */,
+				F513CE092114A82300700925 /* DRPreBidNSURLProtocol.h */,
 			);
 			path = PrebidSDKTesting;
 			sourceTree = "<group>";
@@ -447,15 +433,6 @@
 				60CFB2A12097820D006FCF7C /* InterstitialTestsViewController.h */,
 			);
 			path = IntersitialViewControllers;
-			sourceTree = "<group>";
-		};
-		60CFB2A32097820D006FCF7C /* NativeViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				60CFB2A42097820D006FCF7C /* NativeTestsViewController.m */,
-				60CFB2A52097820D006FCF7C /* NativeTestsViewController.h */,
-			);
-			path = NativeViewControllers;
 			sourceTree = "<group>";
 		};
 		60CFB2A62097820D006FCF7C /* VideoViewControllers */ = {
@@ -474,6 +451,30 @@
 				60CFB2AB2097820D006FCF7C /* BannerTestsViewController.h */,
 			);
 			path = BannerViewControllers;
+			sourceTree = "<group>";
+		};
+		F513CDF72112202400700925 /* DemandValidation */ = {
+			isa = PBXGroup;
+			children = (
+				F513CDFB2112202400700925 /* DemandValidator.h */,
+				F513CDF92112202400700925 /* DemandValidator.m */,
+				F513CDF82112202400700925 /* PBVPrebidServerConfigViewController.h */,
+				F513CDFA2112202400700925 /* PBVPrebidServerConfigViewController.m */,
+			);
+			name = DemandValidation;
+			path = Dr.Prebid/Results/DemandValidation;
+			sourceTree = SOURCE_ROOT;
+		};
+		F531C65E210F74CE00763595 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				F531C6B7210FA65600763595 /* ResultsViewController.h */,
+				F531C6B8210FA65600763595 /* ResultsViewController.m */,
+				60CFB28D2097820D006FCF7C /* AdServerValidation */,
+				F513CDF72112202400700925 /* DemandValidation */,
+				60CFB29D2097820D006FCF7C /* PrebidSDKTesting */,
+			);
+			path = Results;
 			sourceTree = "<group>";
 		};
 		F5AB324D20A0C97C00F76478 /* Products */ = {
@@ -675,6 +676,7 @@
 			files = (
 				60CFB2C12097820D006FCF7C /* QRToggleTorchButton.m in Sources */,
 				60CFB2D32097820D006FCF7C /* PBVSharedConstants.m in Sources */,
+				F513CDFE2112202400700925 /* PBVPrebidServerConfigViewController.m in Sources */,
 				60CFB2B82097820D006FCF7C /* ActionSheetDatePicker.m in Sources */,
 				60CFB2CB2097820D006FCF7C /* LineItemKeywordsManager.m in Sources */,
 				609172F020F5314E001B94A8 /* HeaderCell.m in Sources */,
@@ -683,17 +685,17 @@
 				60CFB2CF2097820D006FCF7C /* InterstitialTestsViewController.m in Sources */,
 				F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */,
 				60CFB2BF2097820D006FCF7C /* ActionSheetMultipleStringPicker.m in Sources */,
+				F531C6B9210FA65600763595 /* ResultsViewController.m in Sources */,
 				60CFB2BE2097820D006FCF7C /* DistancePickerView.m in Sources */,
 				60CFB2CC2097820D006FCF7C /* LineItemAdsViewController.m in Sources */,
 				60CFB2B92097820D006FCF7C /* ActionSheetLocalePicker.m in Sources */,
 				60CFB2AE2097820D006FCF7C /* SettingsViewController.m in Sources */,
 				F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */,
 				60CFB2CE2097820D006FCF7C /* PBVPrebidSDKValidator.m in Sources */,
-				60CFB2D02097820D006FCF7C /* NativeTestsViewController.m in Sources */,
+				F513CDFD2112202400700925 /* DemandValidator.m in Sources */,
 				60CFB2D12097820D006FCF7C /* VideoTestsViewController.m in Sources */,
 				F553098220E53CF500A7B552 /* LineItemURLProtocol.m in Sources */,
 				60CFB2C42097820D006FCF7C /* QRCodeReaderView.m in Sources */,
-				60CFB2AF2097820D006FCF7C /* ListViewController.m in Sources */,
 				D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */,
 				60CFB2C02097820D006FCF7C /* AbstractActionSheetPicker.m in Sources */,
 				60CFB2CD2097820D006FCF7C /* AppDelegate.m in Sources */,
@@ -701,18 +703,17 @@
 				F56AE891209A3809000CE29F /* PBViewTool.m in Sources */,
 				609172F320F53C74001B94A8 /* IdCell.m in Sources */,
 				609172F620F686A8001B94A8 /* HelpViewController.m in Sources */,
+				F513CE072114A81400700925 /* DRPreBidNSURLProtocol.m in Sources */,
 				60CFB2C62097820D006FCF7C /* main.m in Sources */,
 				60CFB2BD2097820D006FCF7C /* ActionSheetStringPicker.m in Sources */,
 				60CFB2BA2097820D006FCF7C /* ActionSheetDistancePicker.m in Sources */,
 				609172EA20F50C32001B94A8 /* SegmentCell.m in Sources */,
-				60CFB2B32097820D006FCF7C /* PBVPBSRequestResponseValidator.m in Sources */,
 				60CFB2C32097820D006FCF7C /* QRCodeReaderViewController.m in Sources */,
 				60CFB2D22097820D006FCF7C /* BannerTestsViewController.m in Sources */,
 				60CFB2BB2097820D006FCF7C /* ActionSheetCustomPicker.m in Sources */,
 				60CFB2B62097820D006FCF7C /* PBVTableViewCell.m in Sources */,
 				609172E720F3E58D001B94A8 /* SettingsTableViewController.m in Sources */,
 				60CFB2BC2097820D006FCF7C /* SWActionSheet.m in Sources */,
-				60CFB2B22097820D006FCF7C /* PBVPrebidServerConfigViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

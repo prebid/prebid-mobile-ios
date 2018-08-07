@@ -15,7 +15,7 @@
  */
 
 #import "AppDelegate.h"
-
+#import "DRPreBidNSURLProtocol.h"
 
 
 @interface AppDelegate ()
@@ -28,7 +28,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    [NSURLProtocol registerClass: [DRPreBidNSURLProtocol class] ];
     return YES;
 }
 

@@ -14,12 +14,8 @@
  *    limitations under the License.
  */
 
-@interface PBVPBSRequestResponseValidator:NSObject
-@property NSString *request;
-@property NSString *response;
+#import <UIKit/UIKit.h>
 
-- (void)startTestWithCompletionHandler:(void (^) (Boolean result)) completionHandler;
+@interface ResultsViewController : UITableViewController 
 
-- (void)startTestWithString: (NSString *)request
-       andCompletionHandler: (void (^) (Boolean result)) completionHandler;
 @end

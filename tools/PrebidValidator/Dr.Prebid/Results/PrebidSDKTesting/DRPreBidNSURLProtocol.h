@@ -14,8 +14,13 @@
  *    limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+@protocol DRPreBidNSURLProtocolDelegate
+-(void)didReceiveResponse:(NSString *) responseString forRequest:(NSString *)requestString;
+@end
 
-@interface ListViewController : UITableViewController 
-
+@interface DRPreBidNSURLProtocol: NSURLProtocol
+@property (class, nonatomic) NSMutableArray *delegates;
++ (void)addDelegate:(id <DRPreBidNSURLProtocolDelegate>)delegate;
++ (void)removeDelegate: (id <DRPreBidNSURLProtocolDelegate>)delegate;
 @end

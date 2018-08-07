@@ -15,18 +15,19 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBVPBSRequestResponseValidator.h"
+#import "DemandValidator.h"
 #import <PrebidMobile/PBBannerAdUnit.h>
 #import <PrebidMobile/PBServerRequestBuilder.h>
 #import "PBVSharedConstants.h"
 #import <PrebidMobile/PBInterstitialAdUnit.h>
 
-@interface PBVPBSRequestResponseValidator()
+@interface DemandValidator()
+@property NSInteger testsHasResponded;
 @end
 
-@implementation PBVPBSRequestResponseValidator
+@implementation DemandValidator
 
-- (void)startTestWithCompletionHandler:(void (^) (Boolean result)) completionHandler;{
+- (void)startTestWithCompletionHandler:(void (^) (void)) completionHandler;{
     // Get params from coredata
     NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
@@ -61,21 +62,26 @@
     }
     [[PBServerRequestBuilder sharedInstance]setHostURL:url];
     NSURLRequest *req = [[PBServerRequestBuilder sharedInstance] buildRequest:adUnits withAccountId:accountId  withSecureParams:true];
-    self.request = [[NSString alloc]initWithData:req.HTTPBody encoding:NSUTF8StringEncoding];
-    [self runTestWithReuqest:req CompletionHandler:completionHandler];
-}
+    self.testsHasResponded = 0;
+    self.testResults = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *bidders = [[NSMutableDictionary alloc] init];
+    [self.testResults setObject:bidders forKey:@"bidderPrices"];
+    [self.testResults setObject:[[NSString alloc]initWithData:req.HTTPBody encoding:NSUTF8StringEncoding] forKey:@"request"];
+    [self.testResults setObject:[NSNumber numberWithInt:0] forKey:@"successfullTests"];
+    for (int i = 0; i<100; i++) {
+        [self runTestWithReuqest:req CompletionHandler:^(Boolean result) {
+            self.testsHasResponded ++;
+            if (result) {
+                NSNumber *successfullTests = [self.testResults objectForKey:@"successfullTests"];
+                NSNumber *successfullTestsNew = [NSNumber numberWithInt:([successfullTests intValue] + 1)];
+                [self.testResults setObject:successfullTestsNew forKey:@"successfullTests"];
+            }
+            if (self.testsHasResponded == 100) {
+                completionHandler();
+            }
+        }];
+    }
 
-- (void) startTestWithString:(NSString *)request andCompletionHandler:(void (^)(Boolean))completionHandler
-{
-    self.request = request;
-    NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://prebid.adnxs.com/pbs/v1/openrtb2/auction"]
-                                                                       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                                   timeoutInterval:1000];
-    [mutableRequest setHTTPMethod:@"POST"];
-    NSData *data = [request dataUsingEncoding:NSUTF8StringEncoding];
-    [mutableRequest setHTTPBody:data];
-    [self runTestWithReuqest:mutableRequest CompletionHandler:completionHandler];
-   
 }
 
 -(void)runTestWithReuqest: (NSURLRequest *) req
@@ -85,9 +91,13 @@
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:req completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
                                       {
                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                                          self.response = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+//                                          self.response = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                                          if ([self.testResults objectForKey:@"response"] == nil) {
+                                              [self.testResults setObject:[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding] forKey:@"response"];
+                                          }
                                           if(httpResponse.statusCode == 200)
                                           {
+                                              bool responseHasBid = NO;
                                               NSError *parseError = nil;
                                               NSDictionary *responseDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&parseError];
                                               if (parseError) {
@@ -99,6 +109,7 @@
                                                   return;
                                               }
                                               if ([responseDictionary isKindOfClass:[NSDictionary class]]) {
+                                             
                                                   NSDictionary *response = (NSDictionary *)responseDictionary;
                                                   if ([[response objectForKey:@"seatbid"] isKindOfClass:[NSArray class]]) {
                                                       NSArray *seatbids = (NSArray *)[response objectForKey:@"seatbid"];
@@ -109,8 +120,15 @@
                                                                   NSArray *bids = (NSArray *)[seatbidDict objectForKey:@"bid"];
                                                                   for (id bid in bids) {
                                                                       if ([bid isKindOfClass:[NSDictionary class]]) {
-                                                                          completionHandler(YES);
-                                                                          return;
+                                                                          responseHasBid = YES;
+                                                                          NSMutableDictionary *bidderPrices = [self.testResults objectForKey:@"bidderPrices"];
+                                                                          NSString *bidderName = [seatbid objectForKey:@"seat"];
+                                                                          NSMutableArray *prices = [bidderPrices objectForKey:bidderName];
+                                                                          if (prices == nil) {
+                                                                              prices = [[NSMutableArray alloc] init];
+                                                                          }
+                                                                          [prices addObject:[bid objectForKey:@"price"]];
+                                                                           [bidderPrices setObject:prices forKey:bidderName];
                                                                       }
                                                                   }
                                                               }
@@ -118,11 +136,12 @@
                                                       }
                                                   }
                                               }
-                                              // No bid in the response
-                                              completionHandler(NO);
-                                          }
-                                          else
-                                          {
+                                              if (responseHasBid) {
+                                                  completionHandler(YES);
+                                              } else {
+                                                  completionHandler(NO);
+                                              }
+                                          } else {
                                               completionHandler(NO);
                                           }
                                       }];

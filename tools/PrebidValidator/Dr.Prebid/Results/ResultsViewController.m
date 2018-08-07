@@ -14,27 +14,27 @@
  *    limitations under the License.
  */
 
-#import "ListViewController.h"
+#import "ResultsViewController.h"
 #import "LineItemAdsViewController.h"
 #import "PBVTableViewCell.h"
 #import "PBVSharedConstants.h"
 #import "PBVPrebidServerConfigViewController.h"
-#import "PBVPBSRequestResponseValidator.h"
+#import "DemandValidator.h"
 #import "PBVPrebidSDKValidator.h"
 #import "PBVLineItemsSetupValidator.h"
 
 #define CellReuseID @"ReuseCell"
 
-@interface ListViewController ()<PBVPrebidSDKValidatorDelegate, PBVLineItemsSetupValidatorDelegate>
+@interface ResultsViewController ()<PBVPrebidSDKValidatorDelegate, PBVLineItemsSetupValidatorDelegate>
 
 @property (strong, nonatomic) NSArray *items;
 @property PBVLineItemsSetupValidator *validator1;
-@property PBVPBSRequestResponseValidator *validator2;
+@property DemandValidator *validator2;
 @property PBVPrebidSDKValidator *validator3;
 @property UIRefreshControl *refreshControll;
 @end
 
-@implementation ListViewController
+@implementation ResultsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -74,23 +74,13 @@
     _validator1 = [[PBVLineItemsSetupValidator alloc] init];
     _validator1.delegate = self;
     [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(runTestForValidator1) userInfo:nil repeats:NO];
-    _validator2 = [[PBVPBSRequestResponseValidator alloc] init];
-    [_validator2 startTestWithCompletionHandler:^(Boolean result) {
-        if (result) {
+    _validator2 = [[DemandValidator alloc] init];
+    [_validator2 startTestWithCompletionHandler:^() {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSIndexPath *test2 = [NSIndexPath indexPathForRow:1 inSection:0] ;
                 PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test2];
                 cell.progressImage.image = [UIImage imageNamed:@"Green"];
             });
-   
-        } else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // add red icon to this app
-                 NSIndexPath *test2 = [NSIndexPath indexPathForRow:1 inSection:0] ;
-                PBVTableViewCell *cell = [(UITableView *) self.view cellForRowAtIndexPath:test2];
-                cell.progressImage.image = [UIImage imageNamed:@"Red"];
-            });
-        }
     }];
     _validator3 = [[PBVPrebidSDKValidator alloc] init];
     _validator3.delegate = self;
