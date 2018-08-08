@@ -24,7 +24,6 @@
 #import "PBServerAdapter.h"
 #import "PBServerFetcher.h"
 #import "PBTargetingParams.h"
-#import "PBConfig.h"
 #import "PBServerRequestBuilder.h"
 #import "PBException.h"
 
