@@ -85,6 +85,7 @@ static NSString *const kPrebidMobileVersion = @"0.4";
 - (NSDictionary *)openrtbRequestExtension: (NSString *)accountId
 {
     NSMutableDictionary *requestPrebidExt = [[NSMutableDictionary alloc] init];
+    requestPrebidExt[@"targeting"] = @{};
     requestPrebidExt[@"storedrequest"] = @{@"id" :accountId};
     
     NSMutableDictionary *requestExt = [[NSMutableDictionary alloc] init];

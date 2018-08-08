@@ -178,6 +178,8 @@ static NSString *testResponse = @"";
         
         XCTAssertEqualObjects(requestBody[@"app"][@"publisher"][@"id"], @"account_id");
         XCTAssertEqualObjects(requestBody[@"ext"][@"prebid"][@"storedrequest"][@"id"], @"account_id");
+        NSDictionary *targeting = requestBody[@"ext"][@"prebid"][@"targeting"];
+        XCTAssertNotNil(targeting);
         
         NSDictionary *app = requestBody[@"app"][@"ext"][@"prebid"];
         XCTAssertNotNil(app[@"version"]);
@@ -187,6 +189,8 @@ static NSString *testResponse = @"";
         NSString *targetingParams = requestBody[@"user"][@"keywords"];
         
         XCTAssertNotNil(targetingParams);
+        XCTAssertTrue([targetingParams containsString:@"targeting1=value1"]);
+        XCTAssertTrue([targetingParams containsString:@"targeting2=value2"]);
         
         NSDictionary *device = requestBody[@"device"];
         XCTAssertEqualObjects(device[@"os"], @"iOS");
