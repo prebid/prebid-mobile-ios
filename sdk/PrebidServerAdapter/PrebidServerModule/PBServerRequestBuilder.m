@@ -86,7 +86,6 @@ static NSString *const kPrebidMobileVersion = @"0.4";
 - (NSDictionary *)openrtbRequestExtension
 {
     NSMutableDictionary *requestPrebidExt = [[NSMutableDictionary alloc] init];
-    requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20), @"pricegranularity":@"medium"};
     
     NSString *priceGranularityValue = [[PBConfig sharedInstance] priceGranularity];
     if (priceGranularityValue) {
