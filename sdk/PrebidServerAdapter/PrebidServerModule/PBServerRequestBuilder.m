@@ -88,12 +88,12 @@ static NSString *const kPrebidMobileVersion = @"0.4";
     NSMutableDictionary *requestPrebidExt = [[NSMutableDictionary alloc] init];
     requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20), @"pricegranularity":@"medium"};
     
-    NSString *priceGranularityValue = [[PBConfig sharedInstance] priceGranularityF];
+    NSString *priceGranularityValue = [[PBConfig sharedInstance] priceGranularity];
     if (priceGranularityValue) {
         requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20), @"pricegranularity":priceGranularityValue};
     }
  
-    NSString *storeRequestIdValue = [[PBConfig sharedInstance] storeRequestID];
+    NSString *storeRequestIdValue = [[PBConfig sharedInstance] storeRequestId];
     if (storeRequestIdValue) {
         requestPrebidExt[@"storedrequest"] = @{@"id":storeRequestIdValue};
     }
