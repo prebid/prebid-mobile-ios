@@ -20,7 +20,7 @@
 @interface PBConfig ()
 
 @property (nonatomic, readwrite) BOOL isPriceGranularity;
-@property (nonatomic, assign) PBPriceGranularity2 priceGranularity;
+@property (nonatomic, assign) PBPriceGranularity PBPriceGranularity;
 
 @end
 
@@ -50,32 +50,35 @@ static dispatch_once_t onceToken;
     sharedInstance = nil;
 }
 
--(void) setPriceGranularity:(PBPriceGranularity2)priceGranularity{
-    _priceGranularity = priceGranularity;
-    NSLog(@"Antoine test Granularity is %ld", (long)_priceGranularity);
+-(void) setPriceGranularity:(PBPriceGranularity)PBPriceGranularity{
+    _PBPriceGranularity = PBPriceGranularity;
     self.isPriceGranularity = YES;
 }
 
--(NSString *) priceGranularityF{
+-(NSString *) priceGranularity{
     if(self.isPriceGranularity){
-        NSString *priceGranularityF = [self priceGranularityForAuction:_priceGranularity];
-        NSLog(@"Antoine test Granularity2 is %@", priceGranularityF);
-        return priceGranularityF;
+        return [self priceGranularityForAuction:_PBPriceGranularity];;
     }
     return nil;
 }
 
-- (NSString *)priceGranularityForAuction:(PBPriceGranularity2)priceGranularity {
+- (NSString *)priceGranularityForAuction:(PBPriceGranularity)priceGranularity {
     NSString *_priceGranularity;
     switch (priceGranularity) {
-        case PBPriceGranularityDense2:
+        case PBPriceGranularityHigh:
+            _priceGranularity = @"high";
+            break;
+        case PBPriceGranularityMedium:
+            _priceGranularity = @"med";
+            break;
+        case PBPriceGranularityLow:
+            _priceGranularity = @"low";
+            break;
+        case PBPriceGranularityDense:
             _priceGranularity = @"dense";
             break;
-        case PBPriceGranularityUnknown2:
-            _priceGranularity = @"unknown";
-            break;
-        default:
-            _priceGranularity = @"medium";
+        case PBPriceGranularityAuto:
+            _priceGranularity = @"auto";
             break;
     }
     
