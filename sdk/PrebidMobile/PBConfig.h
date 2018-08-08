@@ -24,17 +24,19 @@
 + (void)resetSharedInstance;
 #endif
 
-typedef NS_ENUM(NSInteger, PBPriceGranularity2) {
-    PBPriceGranularityUnknown2,
-    PBPriceGranularityMedium2,
-    PBPriceGranularityDense2,
+typedef NS_ENUM(NSInteger, PBPriceGranularity) {
+    PBPriceGranularityLow,
+    PBPriceGranularityMedium,
+    PBPriceGranularityDense,
+    PBPriceGranularityAuto,
+    PBPriceGranularityHigh
 };
 
--(void) setPriceGranularity:(PBPriceGranularity2)priceGranularity;
+-(void) setPriceGranularity:(PBPriceGranularity2)PBPriceGranularity;
 
-@property (nonatomic, readwrite) NSString *__nullable priceGranularityF;
+@property (nonatomic, readwrite) NSString *__nullable priceGranularity;
 
 
-@property (nonatomic, assign, readwrite) NSString* _Nonnull storeRequestID;
+@property (nonatomic, assign, readwrite) NSString* _Nonnull storeRequestId;
 
 @end
