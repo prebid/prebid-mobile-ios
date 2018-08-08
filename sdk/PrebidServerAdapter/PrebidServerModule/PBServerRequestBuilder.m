@@ -19,6 +19,7 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import "PBServerReachability.h"
 #import "PBTargetingParams.h"
+#import "PBConfig.h"
 #import "PBServerLocation.h"
 
 
@@ -87,6 +88,16 @@ static NSString *const kPrebidMobileVersion = @"0.4";
     NSMutableDictionary *requestPrebidExt = [[NSMutableDictionary alloc] init];
     requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20), @"pricegranularity":@"medium"};
     
+    NSString *priceGranularityValue = [[PBConfig sharedInstance] priceGranularityF];
+    if (priceGranularityValue) {
+        requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20), @"pricegranularity":priceGranularityValue};
+    }
+ 
+    NSString *storeRequestIdValue = [[PBConfig sharedInstance] storeRequestID];
+    if (storeRequestIdValue) {
+        requestPrebidExt[@"storedrequest"] = @{@"id":storeRequestIdValue};
+    }
+ 
     NSMutableDictionary *requestExt = [[NSMutableDictionary alloc] init];
     requestExt[@"prebid"] = requestPrebidExt;
     return [requestExt copy];
