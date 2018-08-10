@@ -19,18 +19,14 @@
 
 @interface PBConfig ()
 
-@property (nonatomic, readwrite) BOOL isPriceGranularity;
-@property (nonatomic, assign) PBPriceGranularity PBPriceGranularity;
-
 @end
 
 @implementation PBConfig
 
+@synthesize priceGranularity = _priceGranularity;
+
 - (instancetype)init {
     if (self = [super init]) {
-
-        _isPriceGranularity = NO;
-        
     }
     return self;
 }
@@ -51,15 +47,11 @@ static dispatch_once_t onceToken;
 }
 
 - (void) setPriceGranularity:(PBPriceGranularity)PBPriceGranularity{
-    _PBPriceGranularity = PBPriceGranularity;
-    self.isPriceGranularity = YES;
+    _priceGranularity = [self priceGranularityForAuction:PBPriceGranularity];
 }
 
 - (NSString *) priceGranularity{
-    if(self.isPriceGranularity){
-        return [self priceGranularityForAuction:_PBPriceGranularity];;
-    }
-    return nil;
+    return _priceGranularity;
 }
 
 - (NSString *)priceGranularityForAuction:(PBPriceGranularity)priceGranularity {
