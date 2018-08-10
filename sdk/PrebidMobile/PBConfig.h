@@ -36,7 +36,6 @@ typedef NS_ENUM(NSInteger, PBPriceGranularity) {
 
 @property (nonatomic, readwrite) NSString *__nullable priceGranularity;
 
-
-@property (nonatomic, assign, readwrite) NSString* _Nonnull storeRequestId;
+@property (nonatomic, assign, readwrite) NSString* __nonnull storeRequestId;
 
 @end

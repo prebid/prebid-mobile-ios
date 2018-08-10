@@ -50,12 +50,12 @@ static dispatch_once_t onceToken;
     sharedInstance = nil;
 }
 
--(void) setPriceGranularity:(PBPriceGranularity)PBPriceGranularity{
+- (void) setPriceGranularity:(PBPriceGranularity)PBPriceGranularity{
     _PBPriceGranularity = PBPriceGranularity;
     self.isPriceGranularity = YES;
 }
 
--(NSString *) priceGranularity{
+- (NSString *) priceGranularity{
     if(self.isPriceGranularity){
         return [self priceGranularityForAuction:_PBPriceGranularity];;
     }
