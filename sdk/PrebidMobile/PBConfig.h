@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, PBPriceGranularity) {
     PBPriceGranularityHigh
 };
 
--(void) setPriceGranularity:(PBPriceGranularity2)PBPriceGranularity;
+-(void) setPriceGranularity:(PBPriceGranularity)PBPriceGranularity;
 
 @property (nonatomic, readwrite) NSString *__nullable priceGranularity;
 
