@@ -23,7 +23,6 @@
 
 @implementation PBConfig
 
-@synthesize priceGranularity = _priceGranularity;
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -46,35 +45,33 @@ static dispatch_once_t onceToken;
     sharedInstance = nil;
 }
 
-- (void) setPriceGranularity:(PBPriceGranularity)PBPriceGranularity{
-    _priceGranularity = [self priceGranularityForAuction:PBPriceGranularity];
+- (nullable NSString *)priceGranularityForAuction {
+    return [self priceGranularityForAuction: _priceGranularity];
 }
 
-- (NSString *) priceGranularity{
-    return _priceGranularity;
-}
-
-- (NSString *)priceGranularityForAuction:(PBPriceGranularity)priceGranularity {
-    NSString *_priceGranularity;
+- (nullable NSString *)priceGranularityForAuction:(PBPriceGranularity)priceGranularity {
+    NSString *priceGranularityString = nil;
     switch (priceGranularity) {
         case PBPriceGranularityHigh:
-            _priceGranularity = @"high";
+            priceGranularityString = @"high";
             break;
         case PBPriceGranularityMedium:
-            _priceGranularity = @"med";
+            priceGranularityString = @"med";
             break;
         case PBPriceGranularityLow:
-            _priceGranularity = @"low";
+            priceGranularityString = @"low";
             break;
         case PBPriceGranularityDense:
-            _priceGranularity = @"dense";
+            priceGranularityString = @"dense";
             break;
         case PBPriceGranularityAuto:
-            _priceGranularity = @"auto";
+            priceGranularityString = @"auto";
+            break;
+        default:
             break;
     }
     
-    return _priceGranularity;
+    return priceGranularityString;
 }
 
 @end
