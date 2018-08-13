@@ -18,13 +18,8 @@
 
 @interface PBConfig : NSObject
 
-+ (nonnull instancetype)sharedInstance;
-
-#ifdef DEBUG
-+ (void)resetSharedInstance;
-#endif
-
 typedef NS_ENUM(NSInteger, PBPriceGranularity) {
+    PBPriceGranularityNone = 0,
     PBPriceGranularityLow,
     PBPriceGranularityMedium,
     PBPriceGranularityDense,
@@ -32,11 +27,16 @@ typedef NS_ENUM(NSInteger, PBPriceGranularity) {
     PBPriceGranularityHigh
 };
 
--(void) setPriceGranularity:(PBPriceGranularity)PBPriceGranularity;
+@property (nonatomic, readwrite) PBPriceGranularity priceGranularity;
 
-@property (nonatomic, readwrite) NSString *__nullable priceGranularity;
+@property (nonatomic, assign, readwrite) NSString* __nonnull storeRequestId;
 
++ (nonnull instancetype)sharedInstance;
 
-@property (nonatomic, assign, readwrite) NSString* _Nonnull storeRequestId;
+- (nullable NSString *)priceGranularityForAuction;
+
+#ifdef DEBUG
++ (void)resetSharedInstance;
+#endif
 
 @end
