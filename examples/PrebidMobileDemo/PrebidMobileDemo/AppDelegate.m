@@ -89,8 +89,7 @@
 }
 
 - (void)setPrebidConfig {
-//    [[PBConfig sharedInstance] setStoreRequestId:@"1500"];
-    [[PBConfig sharedInstance] setPriceGranularity:PBPriceGranularityDense];
+    // [[PBConfig sharedInstance] setStoreRequestId:@"1500"];
 }
 
 - (void)setPrebidTargetingParams {
