@@ -162,7 +162,6 @@ static NSString *testResponse = @"";
     [[PBTargetingParams sharedInstance] setUserKeywords:@"targeting2" withValue:@"value2"];
     
     [[PBConfig sharedInstance] setStoreRequestId:@"storeRequestId"];
-    [[PBConfig sharedInstance] setPriceGranularity:PBPriceGranularityDense];
  
     NSURL *hostURL = [NSURL URLWithString:kAPNPrebidServerUrl];
     
@@ -193,7 +192,7 @@ static NSString *testResponse = @"";
         
         NSDictionary *targetingPrebid = requestBody[@"ext"][@"prebid"];
         XCTAssertEqualObjects(targetingPrebid[@"storedrequest"][@"id"], @"storeRequestId");
-        XCTAssertEqualObjects(targetingPrebid[@"targeting"][@"pricegranularity"], @"dense");
+        XCTAssertTrue([targetingPrebid.allKeys containsObject:@"targeting"]);
      
         NSDictionary *device = requestBody[@"device"];
         XCTAssertEqualObjects(device[@"os"], @"iOS");
