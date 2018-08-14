@@ -45,33 +45,4 @@ static dispatch_once_t onceToken;
     sharedInstance = nil;
 }
 
-- (nullable NSString *)priceGranularityForAuction {
-    return [self priceGranularityForAuction: _priceGranularity];
-}
-
-- (nullable NSString *)priceGranularityForAuction:(PBPriceGranularity)priceGranularity {
-    NSString *priceGranularityString = nil;
-    switch (priceGranularity) {
-        case PBPriceGranularityHigh:
-            priceGranularityString = @"high";
-            break;
-        case PBPriceGranularityMedium:
-            priceGranularityString = @"med";
-            break;
-        case PBPriceGranularityLow:
-            priceGranularityString = @"low";
-            break;
-        case PBPriceGranularityDense:
-            priceGranularityString = @"dense";
-            break;
-        case PBPriceGranularityAuto:
-            priceGranularityString = @"auto";
-            break;
-        default:
-            break;
-    }
-    
-    return priceGranularityString;
-}
-
 @end
