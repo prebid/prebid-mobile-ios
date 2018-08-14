@@ -12,5 +12,4 @@
 #import "PBKeywordsManager.h"
 #import "PBTargetingParams.h"
 #import "PBConfig.h"
-#import "PBServerRequestBuilder.h"
 #import "PBServerAdapter.h"
