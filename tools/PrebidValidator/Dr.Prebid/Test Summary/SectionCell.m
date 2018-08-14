@@ -1,14 +1,14 @@
 //
-//  SummaryHeaderCell.m
+//  SectionCell.m
 //  Dr.Prebid
 //
-//  Created by Punnaghai Puviarasu on 8/13/18.
+//  Created by Punnaghai Puviarasu on 8/14/18.
 //  Copyright © 2018 Prebid. All rights reserved.
 //
 
-#import "SummaryHeaderCell.h"
+#import "SectionCell.h"
 
-@implementation SummaryHeaderCell
+@implementation SectionCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

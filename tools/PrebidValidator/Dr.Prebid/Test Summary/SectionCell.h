@@ -1,5 +1,5 @@
 //
-//  TableSectionCell.h
+//  SectionCell.h
 //  Dr.Prebid
 //
 //  Created by Punnaghai Puviarasu on 8/14/18.
@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TableSectionCell : UITableViewCell
-    @property (weak, nonatomic) IBOutlet UILabel *lblTitle;
+@interface SectionCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *lblHeader;
+
 @end

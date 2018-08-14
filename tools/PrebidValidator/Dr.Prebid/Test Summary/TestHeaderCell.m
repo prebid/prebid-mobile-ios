@@ -1,14 +1,14 @@
 //
-//  TableSectionCell.m
+//  TestHeaderCell.m
 //  Dr.Prebid
 //
-//  Created by Punnaghai Puviarasu on 8/14/18.
+//  Created by Punnaghai Puviarasu on 8/15/18.
 //  Copyright © 2018 Prebid. All rights reserved.
 //
 
-#import "TableSectionCell.h"
+#import "TestHeaderCell.h"
 
-@implementation TableSectionCell
+@implementation TestHeaderCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

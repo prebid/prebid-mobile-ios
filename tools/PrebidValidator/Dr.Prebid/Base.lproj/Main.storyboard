@@ -278,68 +278,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="SummaryHeaderCell" rowHeight="80" id="pxJ-AS-SMq" customClass="SummaryHeaderCell">
-                                <rect key="frame" x="0.0" y="28" width="375" height="80"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pxJ-AS-SMq" id="rH3-8I-5s3">
-                                    <rect key="frame" x="0.0" y="0.0" width="327" height="79.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcN-mE-LHj">
-                                            <rect key="frame" x="26" y="16" width="283" height="22.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.23137254900000001" green="0.52941176469999995" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVk-uB-g6G">
-                                            <rect key="frame" x="26" y="43.5" width="283" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="HVk-uB-g6G" firstAttribute="leading" secondItem="rH3-8I-5s3" secondAttribute="leadingMargin" constant="10" id="HAq-rm-GPK"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="HVk-uB-g6G" secondAttribute="bottom" constant="5" id="Hg4-IL-qqg"/>
-                                        <constraint firstItem="lcN-mE-LHj" firstAttribute="top" secondItem="rH3-8I-5s3" secondAttribute="topMargin" constant="5" id="N6Q-P2-Cpn"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="HVk-uB-g6G" secondAttribute="trailing" constant="10" id="PnZ-7n-Wl2"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="lcN-mE-LHj" secondAttribute="trailing" constant="10" id="fGj-Tl-n34"/>
-                                        <constraint firstItem="lcN-mE-LHj" firstAttribute="leading" secondItem="rH3-8I-5s3" secondAttribute="leadingMargin" constant="10" id="lkG-2r-ykS"/>
-                                        <constraint firstItem="HVk-uB-g6G" firstAttribute="top" secondItem="lcN-mE-LHj" secondAttribute="bottom" constant="5" id="uJ5-52-xh1"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="lblHeader" destination="lcN-mE-LHj" id="pkb-28-gmi"/>
-                                    <outlet property="lblHeader2" destination="HVk-uB-g6G" id="rxA-HA-4CY"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="sectionCell" rowHeight="40" id="3HJ-2o-7MD" customClass="TableSectionCell">
-                                <rect key="frame" x="0.0" y="108" width="375" height="40"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3HJ-2o-7MD" id="aEt-Yh-Ywo">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="39.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xnf-ai-E4h" userLabel="lblTitle">
-                                            <rect key="frame" x="26" y="16" width="297" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="Xnf-ai-E4h" firstAttribute="leading" secondItem="aEt-Yh-Ywo" secondAttribute="leadingMargin" constant="10" id="UMb-zn-OIJ"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Xnf-ai-E4h" secondAttribute="trailing" constant="10" id="dfX-Li-85o"/>
-                                        <constraint firstItem="Xnf-ai-E4h" firstAttribute="top" secondItem="aEt-Yh-Ywo" secondAttribute="topMargin" constant="5" id="mm9-EQ-58B"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="lblTitle" destination="Xnf-ai-E4h" id="FZ6-Ud-mXN"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="ecD-r3-kor" id="ap3-YZ-waY"/>
                             <outlet property="delegate" destination="ecD-r3-kor" id="B2A-J5-9qG"/>

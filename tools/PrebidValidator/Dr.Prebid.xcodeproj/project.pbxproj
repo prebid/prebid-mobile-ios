@@ -15,8 +15,10 @@
 		609172F320F53C74001B94A8 /* IdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172F220F53C74001B94A8 /* IdCell.m */; };
 		609172F620F686A8001B94A8 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172F520F686A8001B94A8 /* HelpViewController.m */; };
 		60A2CC2A2121B71200EA6ACF /* TestSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC292121B71200EA6ACF /* TestSummaryViewController.m */; };
-		60A2CC2D2122054200EA6ACF /* SummaryHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC2C2122054200EA6ACF /* SummaryHeaderCell.m */; };
-		60A2CC302122AA0F00EA6ACF /* TableSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC2F2122AA0F00EA6ACF /* TableSectionCell.m */; };
+		60A2CC342123554200EA6ACF /* SectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC322123554200EA6ACF /* SectionCell.m */; };
+		60A2CC352123554200EA6ACF /* SectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A2CC332123554200EA6ACF /* SectionCell.xib */; };
+		60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC37212358F800EA6ACF /* TestHeaderCell.m */; };
+		60A2CC3A212358F800EA6ACF /* TestHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A2CC38212358F800EA6ACF /* TestHeaderCell.xib */; };
 		60CFB2AF2097820D006FCF7C /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB25A2097820D006FCF7C /* ListViewController.m */; };
 		60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB25C2097820D006FCF7C /* Assets.xcassets */; };
 		60CFB2B12097820D006FCF7C /* PBVTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB25D2097820D006FCF7C /* PBVTableViewCell.xib */; };
@@ -118,10 +120,12 @@
 		609172F520F686A8001B94A8 /* HelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		60A2CC282121B71200EA6ACF /* TestSummaryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestSummaryViewController.h; sourceTree = "<group>"; };
 		60A2CC292121B71200EA6ACF /* TestSummaryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestSummaryViewController.m; sourceTree = "<group>"; };
-		60A2CC2B2122054200EA6ACF /* SummaryHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SummaryHeaderCell.h; sourceTree = "<group>"; };
-		60A2CC2C2122054200EA6ACF /* SummaryHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SummaryHeaderCell.m; sourceTree = "<group>"; };
-		60A2CC2E2122AA0F00EA6ACF /* TableSectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableSectionCell.h; sourceTree = "<group>"; };
-		60A2CC2F2122AA0F00EA6ACF /* TableSectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableSectionCell.m; sourceTree = "<group>"; };
+		60A2CC312123554200EA6ACF /* SectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SectionCell.h; sourceTree = "<group>"; };
+		60A2CC322123554200EA6ACF /* SectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SectionCell.m; sourceTree = "<group>"; };
+		60A2CC332123554200EA6ACF /* SectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionCell.xib; sourceTree = "<group>"; };
+		60A2CC36212358F800EA6ACF /* TestHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestHeaderCell.h; sourceTree = "<group>"; };
+		60A2CC37212358F800EA6ACF /* TestHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestHeaderCell.m; sourceTree = "<group>"; };
+		60A2CC38212358F800EA6ACF /* TestHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestHeaderCell.xib; sourceTree = "<group>"; };
 		60C6787F2073D7B0003A7A1D /* Dr.Prebid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dr.Prebid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60CFB2572097820D006FCF7C /* PBVTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVTableViewCell.h; sourceTree = "<group>"; };
 		60CFB2592097820D006FCF7C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -285,10 +289,12 @@
 			children = (
 				60A2CC282121B71200EA6ACF /* TestSummaryViewController.h */,
 				60A2CC292121B71200EA6ACF /* TestSummaryViewController.m */,
-				60A2CC2B2122054200EA6ACF /* SummaryHeaderCell.h */,
-				60A2CC2C2122054200EA6ACF /* SummaryHeaderCell.m */,
-				60A2CC2E2122AA0F00EA6ACF /* TableSectionCell.h */,
-				60A2CC2F2122AA0F00EA6ACF /* TableSectionCell.m */,
+				60A2CC312123554200EA6ACF /* SectionCell.h */,
+				60A2CC322123554200EA6ACF /* SectionCell.m */,
+				60A2CC332123554200EA6ACF /* SectionCell.xib */,
+				60A2CC36212358F800EA6ACF /* TestHeaderCell.h */,
+				60A2CC37212358F800EA6ACF /* TestHeaderCell.m */,
+				60A2CC38212358F800EA6ACF /* TestHeaderCell.xib */,
 			);
 			path = "Test Summary";
 			sourceTree = "<group>";
@@ -603,10 +609,12 @@
 				60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */,
 				60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */,
 				F5D1856821011571001DF99A /* info-general.html in Resources */,
+				60A2CC3A212358F800EA6ACF /* TestHeaderCell.xib in Resources */,
 				60CFB2B42097820D006FCF7C /* LaunchScreen.storyboard in Resources */,
 				F5D1856721011571001DF99A /* info-prebid-server.html in Resources */,
 				60CFB2B12097820D006FCF7C /* PBVTableViewCell.xib in Resources */,
 				F5D1856521011571001DF99A /* info-ad-server.html in Resources */,
+				60A2CC352123554200EA6ACF /* SectionCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -695,13 +703,12 @@
 				60CFB2D32097820D006FCF7C /* PBVSharedConstants.m in Sources */,
 				60CFB2B82097820D006FCF7C /* ActionSheetDatePicker.m in Sources */,
 				60CFB2CB2097820D006FCF7C /* LineItemKeywordsManager.m in Sources */,
-				60A2CC302122AA0F00EA6ACF /* TableSectionCell.m in Sources */,
+				60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */,
 				609172F020F5314E001B94A8 /* HeaderCell.m in Sources */,
 				60CFB2C22097820D006FCF7C /* QRCameraSwitchButton.m in Sources */,
 				609172ED20F50F42001B94A8 /* LabelAccessoryCell.m in Sources */,
 				60CFB2CF2097820D006FCF7C /* InterstitialTestsViewController.m in Sources */,
 				F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */,
-				60A2CC2D2122054200EA6ACF /* SummaryHeaderCell.m in Sources */,
 				60CFB2BF2097820D006FCF7C /* ActionSheetMultipleStringPicker.m in Sources */,
 				60CFB2BE2097820D006FCF7C /* DistancePickerView.m in Sources */,
 				60CFB2CC2097820D006FCF7C /* LineItemAdsViewController.m in Sources */,
@@ -718,6 +725,7 @@
 				60CFB2CD2097820D006FCF7C /* AppDelegate.m in Sources */,
 				60CFB2C52097820D006FCF7C /* QRCodeReader.m in Sources */,
 				F56AE891209A3809000CE29F /* PBViewTool.m in Sources */,
+				60A2CC342123554200EA6ACF /* SectionCell.m in Sources */,
 				609172F320F53C74001B94A8 /* IdCell.m in Sources */,
 				60A2CC2A2121B71200EA6ACF /* TestSummaryViewController.m in Sources */,
 				609172F620F686A8001B94A8 /* HelpViewController.m in Sources */,

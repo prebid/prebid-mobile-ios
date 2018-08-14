@@ -616,10 +616,6 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
                 IdCell *idCell = (IdCell *) cell;
                 [[NSUserDefaults standardUserDefaults] setObject:idCell.lblId.text forKey:kPBConfigKey];
             }
-            
-            
-            
-            
         }
     }
     [[NSUserDefaults standardUserDefaults] synchronize];

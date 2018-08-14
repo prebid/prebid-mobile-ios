@@ -7,8 +7,8 @@
 //
 
 #import "TestSummaryViewController.h"
-#import "SummaryHeaderCell.h"
-#import "TableSectionCell.h"
+#import "SectionCell.h"
+#import "TestHeaderCell.h"
 
 NSString *__nonnull const kAdServerTestHeader = @"Ad Server Test";
 NSString *__nonnull const kKVTargeting = @"KV Targeting sent";
@@ -20,7 +20,7 @@ NSString *__nonnull const kBidRequestSent = @"100 bid requests sent";
 NSString *__nonnull const kBidResponseReceived = @"bid response received";
 NSString *__nonnull const kCPMReceived = @"bid response received";
 
-NSString *__nonnull const kSectionCellString = @"sectionCell";
+NSString *__nonnull const kSectionCellString = @"sCell";
 NSString *__nonnull const kHeaderCellString = @"headerCell";
 
 @interface TestSummaryViewController ()
@@ -49,8 +49,8 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     self.sectionTitles = @[kAdServerTestHeader, kRealTimeHeader];
     
     [self.tableView setSeparatorColor:[UIColor darkGrayColor]];
-    //[self.tableView registerClass:[TableSectionCell self] forCellReuseIdentifier:kSectionCellString];
-    //[self.tableView registerClass:[SummaryHeaderCell self] forCellReuseIdentifier:kHeaderCellString];
+    [self.tableView registerNib:[UINib nibWithNibName:@"SectionCell" bundle:nil] forCellReuseIdentifier:kSectionCellString];
+     [self.tableView registerNib:[UINib nibWithNibName:@"TestHeaderCell" bundle:nil] forCellReuseIdentifier:kHeaderCellString];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,7 +70,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    SummaryHeaderCell *cell = (SummaryHeaderCell *)[tableView dequeueReusableCellWithIdentifier:kHeaderCellString];
+    TestHeaderCell *cell = (TestHeaderCell *)[tableView dequeueReusableCellWithIdentifier:kHeaderCellString];
     
     if(cell == nil)
         return nil;
@@ -78,7 +78,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     if(cell != nil){
         NSString *titleText = [self.sectionTitles objectAtIndex:section];
         
-        cell.lblHeader.text = titleText;
+        cell.lblHeader1.text = titleText;
         cell.lblHeader2.text = @"Passed";
     }
     return cell;
@@ -107,11 +107,11 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 50.0f;
+    return 40.0f;
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 80.0f;
+    return 61.0f;
 }
 
 
@@ -128,39 +128,39 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 
 -(UITableViewCell *) configureAdServerSection:(UITableView *) tableView withIndexPath:(NSIndexPath *)indexPath {
     
-    TableSectionCell *cell = (TableSectionCell *)[self.tableView dequeueReusableCellWithIdentifier:kSectionCellString forIndexPath:indexPath];
+    SectionCell *cell = (SectionCell *)[self.tableView dequeueReusableCellWithIdentifier:kSectionCellString ];
 
     if(cell == nil)
         return nil;
     
     if (indexPath.row == 0){
 
-       cell.lblTitle.text = kKVTargeting;
+       cell.lblHeader.text = kKVTargeting;
        
     } else if(indexPath.row == 1){
-       cell.lblTitle.text = kAdServerRequestsent;
+       cell.lblHeader.text = kAdServerRequestsent;
        
     } else if(indexPath.row == 2){
-        cell.lblTitle.text = kpbmjssent;
+        cell.lblHeader.text = kpbmjssent;
         
     }
     return cell;
 }
 
 -(UITableViewCell *) configureDemandServerSection:(UITableView *) tableView withIndexPath:(NSIndexPath *)indexPath {
-    TableSectionCell *cell = (TableSectionCell *)[tableView dequeueReusableCellWithIdentifier:kSectionCellString6];
+    SectionCell *cell = (SectionCell *)[tableView dequeueReusableCellWithIdentifier:@"sCell"];
     
    if(cell == nil)
        return nil;
     if (indexPath.row == 0){
         
-        cell.lblTitle.text = kBidRequestSent;
+        cell.lblHeader.text = kBidRequestSent;
         
     } else if(indexPath.row == 1){
-        cell.lblTitle.text = kBidResponseReceived;
+        cell.lblHeader.text = kBidResponseReceived;
         
     } else if(indexPath.row == 2){
-        cell.lblTitle.text = kCPMReceived;
+        cell.lblHeader.text = kCPMReceived;
         
     }
     return cell;
