@@ -23,7 +23,7 @@
 #import "AdSizeController.h"
 #import "IDInputViewController.h"
 #import "PBVSharedConstants.h"
-#import "ListViewController.h"
+#import "TestSummaryViewController.h"
 
 NSString *__nonnull const kGeneralInfoText = @"General Info";
 NSString *__nonnull const kAdFormatBanner = @"Banner";
@@ -624,8 +624,8 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    ListViewController *listViewController = [[ListViewController alloc] init];
-    [self.navigationController pushViewController:listViewController animated:YES];
+    TestSummaryViewController *summaryViewController = [[TestSummaryViewController alloc] init];
+    [self.navigationController pushViewController:summaryViewController animated:YES];
 }
 
 -(BOOL) checkIfTestButtonCanBeDisabled {
