@@ -89,7 +89,7 @@
 }
 
 - (void)setPrebidConfig {
-    // [[PBConfig sharedInstance] setStoreRequestId:@"1500"];
+    // [[PBConfig sharedInstance] setStoreRequestId:@"testStoreRequestId"];
 }
 
 - (void)setPrebidTargetingParams {
