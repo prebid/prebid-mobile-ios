@@ -19,6 +19,7 @@
 #import "PBServerAdapter.h"
 #import "PBException.h"
 #import "PBHost.h"
+#import "PBConfig.h"
 #import "PBBidResponse.h"
 
 static NSString *const kPrebidMobileVersion = @"0.1.1";
@@ -160,6 +161,8 @@ static NSString *testResponse = @"";
     [[PBTargetingParams sharedInstance] setUserKeywords:@"targeting1" withValue:@"value1"];
     [[PBTargetingParams sharedInstance] setUserKeywords:@"targeting2" withValue:@"value2"];
     
+    [[PBConfig sharedInstance] setStoreRequestId:@"storeRequestId"];
+ 
     NSURL *hostURL = [NSURL URLWithString:kAPNPrebidServerUrl];
     
     [[PBServerRequestBuilder sharedInstance] setHostURL: hostURL];
@@ -187,6 +190,10 @@ static NSString *testResponse = @"";
         
         XCTAssertNotNil(targetingParams);
         
+        NSDictionary *targetingPrebid = requestBody[@"ext"][@"prebid"];
+        XCTAssertEqualObjects(targetingPrebid[@"storedrequest"][@"id"], @"storeRequestId");
+        XCTAssertTrue([targetingPrebid.allKeys containsObject:@"targeting"]);
+     
         NSDictionary *device = requestBody[@"device"];
         XCTAssertEqualObjects(device[@"os"], @"iOS");
         XCTAssertEqualObjects(device[@"make"], @"Apple");

@@ -19,6 +19,7 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import "PBServerReachability.h"
 #import "PBTargetingParams.h"
+#import "PBConfig.h"
 #import "PBServerLocation.h"
 
 
@@ -69,7 +70,7 @@ static NSString *const kPrebidMobileVersion = @"0.4";
     }
     requestDict[@"user"] = [self openrtbUser];
     requestDict[@"imp"] = [self openrtbImpsFromAdUnits:adUnits withSecureSettings:isSecure];
-    requestDict[@"ext"] = [self openrtbRequestExtension];
+    requestDict[@"ext"] = [self openrtbRequestExtension:accountID];
     
     return [requestDict copy];
 }
@@ -82,11 +83,19 @@ static NSString *const kPrebidMobileVersion = @"0.4";
     return sourceDict;
 }
 
-- (NSDictionary *)openrtbRequestExtension
+- (NSDictionary *)openrtbRequestExtension:(NSString *) accountId
 {
     NSMutableDictionary *requestPrebidExt = [[NSMutableDictionary alloc] init];
-    requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20), @"pricegranularity":@"medium"};
     
+    requestPrebidExt[@"targeting"] = @{};
+ 
+    NSString *storeRequestIdValue = [[PBConfig sharedInstance] storeRequestId];
+    if (storeRequestIdValue) {
+        requestPrebidExt[@"storedrequest"] = @{@"id":storeRequestIdValue};
+    } else {
+        requestPrebidExt[@"storedrequest"] = @{@"id" :accountId};
+    }
+ 
     NSMutableDictionary *requestExt = [[NSMutableDictionary alloc] init];
     requestExt[@"prebid"] = requestPrebidExt;
     return [requestExt copy];

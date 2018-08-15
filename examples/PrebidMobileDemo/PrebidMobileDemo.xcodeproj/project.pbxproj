@@ -16,7 +16,6 @@
 		C268CA951EA65FD7008656F2 /* env.rb in Resources */ = {isa = PBXBuildFile; fileRef = C268CA8D1EA65FD7008656F2 /* env.rb */; };
 		C268CA961EA65FD7008656F2 /* cucumber.rb in Resources */ = {isa = PBXBuildFile; fileRef = C268CA8F1EA65FD7008656F2 /* cucumber.rb */; };
 		C273C80A1E82DAAD003EF1AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C273C8091E82DAAD003EF1AB /* main.m */; };
-		C273C80D1E82DAAD003EF1AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C273C80C1E82DAAD003EF1AB /* AppDelegate.m */; };
 		C273C8131E82DAAE003EF1AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C273C8111E82DAAE003EF1AB /* Main.storyboard */; };
 		C273C8151E82DAAE003EF1AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C273C8141E82DAAE003EF1AB /* Assets.xcassets */; };
 		C273C8181E82DAAE003EF1AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C273C8161E82DAAE003EF1AB /* LaunchScreen.storyboard */; };
@@ -50,6 +49,7 @@
 		C273CAC21E832494003EF1AB /* VideoTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C273CAC11E832494003EF1AB /* VideoTestsViewController.m */; };
 		C2E809731E95425D00DC7732 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E809721E95425D00DC7732 /* SettingsViewController.m */; };
 		C2E8097D1E95899800DC7732 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E8097C1E95899800DC7732 /* Constants.m */; };
+		FAD288B2211DC166007EF470 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C273C80C1E82DAAD003EF1AB /* AppDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -630,10 +630,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C273CABC1E832451003EF1AB /* InterstitialTestsViewController.m in Sources */,
-				C273C80D1E82DAAD003EF1AB /* AppDelegate.m in Sources */,
 				C2E809731E95425D00DC7732 /* SettingsViewController.m in Sources */,
 				C273CABF1E832479003EF1AB /* NativeTestsViewController.m in Sources */,
 				C273CAB61E83175A003EF1AB /* BannerTestsViewController.m in Sources */,
+				FAD288B2211DC166007EF470 /* AppDelegate.m in Sources */,
 				C273C80A1E82DAAD003EF1AB /* main.m in Sources */,
 				C273CAC21E832494003EF1AB /* VideoTestsViewController.m in Sources */,
 				C2E8097D1E95899800DC7732 /* Constants.m in Sources */,

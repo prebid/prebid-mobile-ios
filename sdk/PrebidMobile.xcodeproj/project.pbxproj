@@ -77,6 +77,8 @@
 		C2B1747C1EE1E3C9006304C0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B1747B1EE1E3C9006304C0 /* SystemConfiguration.framework */; };
 		C2B1747E1EE1E3CE006304C0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B1747D1EE1E3CE006304C0 /* QuartzCore.framework */; };
 		F576AEF420D1B1FF00D41FBC /* PBPrebidCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F576AEF320D1B1FF00D41FBC /* PBPrebidCacheTests.m */; };
+		FAD288B9211DC25F007EF470 /* PBConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD288B7211DC25F007EF470 /* PBConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAD288BA211DC25F007EF470 /* PBConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD288B8211DC25F007EF470 /* PBConfig.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +174,8 @@
 		E6BF995E1F7167B0001016FD /* PrebidMobile-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMobile-umbrella.h"; sourceTree = "<group>"; };
 		EFD3C940519B957467FE94E6 /* libPods-PrebidMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F576AEF320D1B1FF00D41FBC /* PBPrebidCacheTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBPrebidCacheTests.m; sourceTree = "<group>"; };
+		FAD288B7211DC25F007EF470 /* PBConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBConfig.h; sourceTree = "<group>"; };
+		FAD288B8211DC25F007EF470 /* PBConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBConfig.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +294,8 @@
 		C2B16E1D1EE1BE69006304C0 /* PrebidMobile */ = {
 			isa = PBXGroup;
 			children = (
+				FAD288B7211DC25F007EF470 /* PBConfig.h */,
+				FAD288B8211DC25F007EF470 /* PBConfig.m */,
 				60CEC02A2084DF3A00CA104B /* PBConstants.h */,
 				60CEC02B2084DF3A00CA104B /* PBConstants.m */,
 				606A4352202BC98100492433 /* PrebidMobile-umbrella.h */,
@@ -413,6 +419,7 @@
 				C23386D61EE5DC95002FD404 /* PBAdUnit.h in Headers */,
 				B40B92AF1FCCC5E300A676A8 /* PBHost.h in Headers */,
 				C2B16E3D1EE1BEA6006304C0 /* PBKeywordsManager.h in Headers */,
+				FAD288B9211DC25F007EF470 /* PBConfig.h in Headers */,
 				C23FCCEE1EE5E41E00CFFEF0 /* PBLogManager.h in Headers */,
 				C23386DA1EE5DCDB002FD404 /* PBServerAdapter.h in Headers */,
 				C23386D21EE5DBFB002FD404 /* PrebidMobile.h in Headers */,
@@ -569,6 +576,7 @@
 				C23FCCEF1EE5E41E00CFFEF0 /* PBLogManager.m in Sources */,
 				C2B16E371EE1BEA6006304C0 /* PBBidManager.m in Sources */,
 				C2B16E3E1EE1BEA6006304C0 /* PBKeywordsManager.m in Sources */,
+				FAD288BA211DC25F007EF470 /* PBConfig.m in Sources */,
 				C2B16E991EE1BF1A006304C0 /* PBServerFetcher.m in Sources */,
 				60CEC02D2084DF3A00CA104B /* PBConstants.m in Sources */,
 			);

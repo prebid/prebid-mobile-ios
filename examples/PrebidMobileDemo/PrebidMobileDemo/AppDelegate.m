@@ -19,6 +19,7 @@
 #import <PrebidMobile/PBException.h>
 #import <PrebidMobile/PBInterstitialAdUnit.h>
 #import <PrebidMobile/PBTargetingParams.h>
+#import <PrebidMobile/PBConfig.h>
 #import <PrebidMobile/PrebidMobile.h>
 #import <PrebidMobile/PBLogging.h>
 #import "Constants.h"
@@ -65,6 +66,7 @@
         [adUnit1 addSize:CGSizeMake(300, 250)];
 
         [self setPrebidTargetingParams];
+        [self setPrebidConfig];
 
         [PrebidMobile registerAdUnits:@[adUnit1, adUnit2] withAccountId:kAccountId withHost:kPBServerHost andPrimaryAdServer:PBPrimaryAdServerDFP];
     } @catch (PBException *ex) {
@@ -84,6 +86,10 @@
         [self.locationManager requestWhenInUseAuthorization];
     }
     [self.locationManager startUpdatingLocation];
+}
+
+- (void)setPrebidConfig {
+    // [[PBConfig sharedInstance] setStoreRequestId:@"testStoreRequestId"];
 }
 
 - (void)setPrebidTargetingParams {
