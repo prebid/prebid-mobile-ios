@@ -56,7 +56,13 @@
     NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
+    
+    
     NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
+    
+    //for testing purpose
+    adUnitID = @"/19968336/PriceCheck_300x250";
+    
     NSString *bidPrice = [[NSUserDefaults standardUserDefaults] stringForKey:kBidPriceKey];
     GADAdSize GADAdSize = kGADAdSizeInvalid;
     CGSize adSize = CGSizeZero;
