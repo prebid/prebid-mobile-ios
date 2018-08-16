@@ -15,7 +15,8 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "DemandValidator.h"
 
-@interface NativeTestsViewController : UIViewController
-
+@interface PBVPrebidServerConfigViewController: UITabBarController
+-(instancetype)initWithValidator: (DemandValidator *) validator;
 @end

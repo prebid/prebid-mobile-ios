@@ -453,7 +453,6 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 #pragma mark - Actions
 
 -(void) btnAboutPressed :(id)sender {
-    // TODO: think about the title of the helper pages
     HelpViewController *controller = nil;
     if ([sender isKindOfClass:[UIBarButtonItem class]]) {
         controller = [[HelpViewController alloc] initWithTitle:kAboutString];
