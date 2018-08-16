@@ -189,11 +189,11 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 - (void)startLineItemTesting{
     // set all cells to be in progress
     
-    PBVLineItemsSetupValidator *validator1 = [[PBVLineItemsSetupValidator alloc] init];
-    validator1.delegate = self;
+    _validator1 = [[PBVLineItemsSetupValidator alloc] init];
+    _validator1.delegate = self;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [validator1 startTest];
+        [_validator1 startTest];
     });
     
 }
