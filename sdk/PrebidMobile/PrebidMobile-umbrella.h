@@ -11,5 +11,4 @@
 #import "PBInterstitialAdUnit.h"
 #import "PBKeywordsManager.h"
 #import "PBTargetingParams.h"
-#import "PBServerRequestBuilder.h"
 #import "PBServerAdapter.h"
