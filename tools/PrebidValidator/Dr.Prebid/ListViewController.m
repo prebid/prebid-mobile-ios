@@ -102,7 +102,7 @@
     [_validator1 startTest];
 }
 #pragma mark LineItems test delegate
-- (void)lineItemsWereNotSetupProperly
+- (void)lineItemsWereNotSetupProperly:(NSDictionary *) keywords
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSIndexPath *test1 = [NSIndexPath indexPathForRow:0 inSection:0] ;
@@ -111,7 +111,7 @@
     });
 }
 
--(void)lineItemsWereSetupProperly
+-(void)lineItemsWereSetupProperly:(NSDictionary *) keywords
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSIndexPath *test1 = [NSIndexPath indexPathForRow:0 inSection:0] ;

@@ -10,5 +10,6 @@
 
 @interface SectionCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *lblHeader;
+@property (weak, nonatomic) IBOutlet UIImageView *imgResult;
 
 @end

@@ -9,6 +9,7 @@
 #import "TestSummaryViewController.h"
 #import "SectionCell.h"
 #import "TestHeaderCell.h"
+#import "PBVLineItemsSetupValidator.h"
 
 NSString *__nonnull const kAdServerTestHeader = @"Ad Server Test";
 NSString *__nonnull const kKVTargeting = @"KV Targeting sent";
@@ -23,7 +24,7 @@ NSString *__nonnull const kCPMReceived = @"bid response received";
 NSString *__nonnull const kSectionCellString = @"sCell";
 NSString *__nonnull const kHeaderCellString = @"headerCell";
 
-@interface TestSummaryViewController ()
+@interface TestSummaryViewController ()<PBVLineItemsSetupValidatorDelegate>
 
 @property NSDictionary *tableViewDictionaryItems;
 @property NSArray *sectionTitles;
@@ -31,6 +32,13 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 @property NSArray *demandTitles;
 
 @property NSIndexPath *selectedIndex;
+
+@property PBVLineItemsSetupValidator *validator1;
+
+@property Boolean isKVSuccess;
+@property Boolean isPBMReceived;
+
+@property NSDictionary *lineItemTestKeywords;
 
 @end
 
@@ -51,6 +59,14 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     [self.tableView setSeparatorColor:[UIColor darkGrayColor]];
     [self.tableView registerNib:[UINib nibWithNibName:@"SectionCell" bundle:nil] forCellReuseIdentifier:kSectionCellString];
      [self.tableView registerNib:[UINib nibWithNibName:@"TestHeaderCell" bundle:nil] forCellReuseIdentifier:kHeaderCellString];
+    
+    
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self startLineItemTesting];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,7 +90,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
     if(cell == nil)
         return nil;
-    
+    cell.imageView.image = [UIImage imageNamed:@"Green"];
     if(cell != nil){
         NSString *titleText = [self.sectionTitles objectAtIndex:section];
         
@@ -133,8 +149,10 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     if(cell == nil)
         return nil;
     
+    cell.imageView.image = [UIImage imageNamed:@"Green"];
+    
     if (indexPath.row == 0){
-
+        
        cell.lblHeader.text = kKVTargeting;
        
     } else if(indexPath.row == 1){
@@ -152,6 +170,8 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
    if(cell == nil)
        return nil;
+    
+    cell.imageView.image = [UIImage imageNamed:@"Green"];
     if (indexPath.row == 0){
         
         cell.lblHeader.text = kBidRequestSent;
@@ -166,15 +186,28 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     return cell;
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)startLineItemTesting{
+    // set all cells to be in progress
+    
+    PBVLineItemsSetupValidator *validator1 = [[PBVLineItemsSetupValidator alloc] init];
+    validator1.delegate = self;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [validator1 startTest];
+    });
+    
 }
-*/
+
+#pragma mark LineItems test delegate
+- (void)lineItemsWereNotSetupProperly:(NSDictionary *) keywords
+{
+    self.lineItemTestKeywords = keywords;
+}
+
+-(void)lineItemsWereSetupProperly:(NSDictionary *) keywords
+{
+    self.lineItemTestKeywords = keywords;
+}
+
 
 @end

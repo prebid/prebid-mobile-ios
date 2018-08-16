@@ -30,6 +30,8 @@
                                          GADInterstitialDelegate>
 @property id adObject;
 @property NSMutableString *emailContent;
+
+@property NSDictionary *keywords;
 @end
 
 @implementation PBVLineItemsSetupValidator
@@ -45,11 +47,12 @@
 {
     NSString *host = [[NSUserDefaults standardUserDefaults]stringForKey:kPBHostKey];
     if ([host isEqualToString:kRubiconString]) {
-        [self.delegate lineItemsWereNotSetupProperly];
+        [self.delegate lineItemsWereNotSetupProperly:nil];
             _emailContent = [[NSMutableString alloc]init];
         [_emailContent appendString:@"Rubicon line items tests are not supported yet."];
         return;
     }
+    
     NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
@@ -71,11 +74,11 @@
     if ([adServerName isEqualToString:kMoPubString]) {
         if ([adFormatName isEqualToString:kBannerString]) {
           
-            NSDictionary *keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString];
-            MPAdView *adView = [self createMPAdViewWithAdUnitId:adUnitID WithSize:adSize WithKeywords:keywords];
+            self.keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString];
+            MPAdView *adView = [self createMPAdViewWithAdUnitId:adUnitID WithSize:adSize WithKeywords:self.keywords];
             self.adObject = adView;
             [adView loadAd];
-            [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a MoPub banner ad with adUnitId \"%@\", size \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, adSizeString, [self formatMoPubKeywordStringFromDictionary:keywords]] ];
+            [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a MoPub banner ad with adUnitId \"%@\", size \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, adSizeString, [self formatMoPubKeywordStringFromDictionary:self.keywords]] ];
             
         } else if ([adFormatName isEqualToString:kInterstitialString]){
           
@@ -137,9 +140,9 @@
 {
     if ([PBViewTool checkDFPAdViewContainsPBMAd:bannerView]) {
   
-            [self.delegate lineItemsWereSetupProperly];
+        [self.delegate lineItemsWereSetupProperly:self.keywords];
         } else{
-            [self.delegate lineItemsWereNotSetupProperly];
+            [self.delegate lineItemsWereNotSetupProperly:self.keywords];
         }
     
 }
@@ -147,21 +150,21 @@
 - (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
 {
 
-        [self.delegate lineItemsWereNotSetupProperly];
+        [self.delegate lineItemsWereNotSetupProperly:self.keywords];
     
 }
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
 
-            [self.delegate lineItemsWereSetupProperly];
+    [self.delegate lineItemsWereSetupProperly:self.keywords];
   
 }
 
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
 {
 
-        [self.delegate lineItemsWereNotSetupProperly];
+        [self.delegate lineItemsWereNotSetupProperly:self.keywords];
     
 }
 
@@ -213,14 +216,14 @@
 - (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
 {
  
-            [self.delegate lineItemsWereSetupProperly];
+            [self.delegate lineItemsWereSetupProperly:self.keywords];
 
 }
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial
 {
 
-        [self.delegate lineItemsWereNotSetupProperly];
+        [self.delegate lineItemsWereNotSetupProperly:self.keywords];
     
 }
 
@@ -233,9 +236,9 @@
                            __strong PBVLineItemsSetupValidator *strongSelf = weakSelf;
                            if (result) {
                   
-                                   [strongSelf.delegate lineItemsWereSetupProperly];
+                                   [strongSelf.delegate lineItemsWereSetupProperly:self.keywords];
                                } else {
-                                   [strongSelf.delegate lineItemsWereNotSetupProperly];
+                                   [strongSelf.delegate lineItemsWereNotSetupProperly:self.keywords];
                                }
                            
                        }];
@@ -245,7 +248,7 @@
 - (void)adViewDidFailToLoadAd:(MPAdView *)view
 {
 
-        [self.delegate lineItemsWereNotSetupProperly];
+        [self.delegate lineItemsWereNotSetupProperly:self.keywords];
     
 }
 

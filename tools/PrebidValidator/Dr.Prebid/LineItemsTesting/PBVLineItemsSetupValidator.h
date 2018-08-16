@@ -16,8 +16,8 @@
 
 @protocol PBVLineItemsSetupValidatorDelegate
 
-- (void) lineItemsWereSetupProperly;
-- (void) lineItemsWereNotSetupProperly;
+- (void) lineItemsWereSetupProperly:(NSDictionary *) keywords;
+- (void) lineItemsWereNotSetupProperly:(NSDictionary *) keywords;
 @end
 
 
