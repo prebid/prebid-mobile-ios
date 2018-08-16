@@ -119,7 +119,13 @@ static int const kBatchCount = 10;
                             [bidResponsesArray addObject:bidResponse];
                         }
                     }
-                    [delegate didReceiveSuccessResponse:bidResponsesArray];;
+                    if (bidResponsesArray.count == 0) {
+                        // use code 0 to represent the no bid case for now
+                        [delegate didCompleteWithError:[NSError errorWithDomain:@"prebid.org" code:0 userInfo:nil] ];
+                    } else {
+                        [delegate didReceiveSuccessResponse:bidResponsesArray];
+                    }
+
                 }];
             }
         }];
