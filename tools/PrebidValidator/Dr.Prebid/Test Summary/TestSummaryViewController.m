@@ -59,14 +59,14 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     [self.tableView setSeparatorColor:[UIColor darkGrayColor]];
     [self.tableView registerNib:[UINib nibWithNibName:@"SectionCell" bundle:nil] forCellReuseIdentifier:kSectionCellString];
      [self.tableView registerNib:[UINib nibWithNibName:@"TestHeaderCell" bundle:nil] forCellReuseIdentifier:kHeaderCellString];
-    
+    [self startLineItemTesting];
     
 }
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self startLineItemTesting];
+ 
 }
 
 - (void)didReceiveMemoryWarning {
