@@ -619,7 +619,10 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    TestSummaryViewController *summaryViewController = [[TestSummaryViewController alloc] init];
+    NSString * storyboardName = @"Main";
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+    TestSummaryViewController * summaryViewController = [storyboard instantiateViewControllerWithIdentifier:@"summaryViewController"];
+    
     [self.navigationController pushViewController:summaryViewController animated:YES];
 }
 

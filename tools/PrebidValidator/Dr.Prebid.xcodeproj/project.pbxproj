@@ -20,10 +20,8 @@
 		60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC37212358F800EA6ACF /* TestHeaderCell.m */; };
 		60A2CC3A212358F800EA6ACF /* TestHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A2CC38212358F800EA6ACF /* TestHeaderCell.xib */; };
 		60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB25C2097820D006FCF7C /* Assets.xcassets */; };
-		60CFB2B12097820D006FCF7C /* PBVTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB25D2097820D006FCF7C /* PBVTableViewCell.xib */; };
 		60CFB2B42097820D006FCF7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB2632097820D006FCF7C /* LaunchScreen.storyboard */; };
 		60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB2652097820D006FCF7C /* Main.storyboard */; };
-		60CFB2B62097820D006FCF7C /* PBVTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2672097820D006FCF7C /* PBVTableViewCell.m */; };
 		60CFB2B82097820D006FCF7C /* ActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB26D2097820D006FCF7C /* ActionSheetDatePicker.m */; };
 		60CFB2B92097820D006FCF7C /* ActionSheetLocalePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB26F2097820D006FCF7C /* ActionSheetLocalePicker.m */; };
 		60CFB2BA2097820D006FCF7C /* ActionSheetDistancePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2732097820D006FCF7C /* ActionSheetDistancePicker.m */; };
@@ -57,6 +55,9 @@
 		60CFB2F02097A4C4006FCF7C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E72097A4C4006FCF7C /* QuartzCore.framework */; };
 		60CFB2F12097A4C4006FCF7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E82097A4C4006FCF7C /* UIKit.framework */; };
 		60CFB2F22097A4C4006FCF7C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CFB2E92097A4C4006FCF7C /* SystemConfiguration.framework */; };
+		60D124642126DBAD00EC6EE2 /* KVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D124632126DBAD00EC6EE2 /* KVViewController.m */; };
+		60D124692126E1F300EC6EE2 /* CPMSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D124672126E1F300EC6EE2 /* CPMSectionCell.m */; };
+		60D1246A2126E1F300EC6EE2 /* CPMSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60D124682126E1F300EC6EE2 /* CPMSectionCell.xib */; };
 		D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */ = {isa = PBXBuildFile; fileRef = D15C104E20F6EB32004CBC18 /* AdSizeController.m */; };
 		F283A423484632D93AE6FB87 /* libPods-Dr.Prebid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */; };
 		F513CDFD2112202400700925 /* DemandValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F513CDF92112202400700925 /* DemandValidator.m */; };
@@ -127,14 +128,11 @@
 		60A2CC37212358F800EA6ACF /* TestHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestHeaderCell.m; sourceTree = "<group>"; };
 		60A2CC38212358F800EA6ACF /* TestHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestHeaderCell.xib; sourceTree = "<group>"; };
 		60C6787F2073D7B0003A7A1D /* Dr.Prebid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dr.Prebid.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		60CFB2572097820D006FCF7C /* PBVTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVTableViewCell.h; sourceTree = "<group>"; };
 		60CFB2592097820D006FCF7C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		60CFB25B2097820D006FCF7C /* PBVSharedConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVSharedConstants.h; sourceTree = "<group>"; };
 		60CFB25C2097820D006FCF7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		60CFB25D2097820D006FCF7C /* PBVTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PBVTableViewCell.xib; sourceTree = "<group>"; };
 		60CFB2642097820D006FCF7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		60CFB2662097820D006FCF7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		60CFB2672097820D006FCF7C /* PBVTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBVTableViewCell.m; sourceTree = "<group>"; };
 		60CFB26B2097820D006FCF7C /* ActionSheetCustomPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetCustomPicker.h; sourceTree = "<group>"; };
 		60CFB26C2097820D006FCF7C /* ActionSheetStringPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetStringPicker.h; sourceTree = "<group>"; };
 		60CFB26D2097820D006FCF7C /* ActionSheetDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDatePicker.m; sourceTree = "<group>"; };
@@ -188,6 +186,11 @@
 		60CFB2E72097A4C4006FCF7C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		60CFB2E82097A4C4006FCF7C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		60CFB2E92097A4C4006FCF7C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		60D124622126DBAD00EC6EE2 /* KVViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KVViewController.h; sourceTree = "<group>"; };
+		60D124632126DBAD00EC6EE2 /* KVViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KVViewController.m; sourceTree = "<group>"; };
+		60D124662126E1F300EC6EE2 /* CPMSectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPMSectionCell.h; sourceTree = "<group>"; };
+		60D124672126E1F300EC6EE2 /* CPMSectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CPMSectionCell.m; sourceTree = "<group>"; };
+		60D124682126E1F300EC6EE2 /* CPMSectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CPMSectionCell.xib; sourceTree = "<group>"; };
 		8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dr.Prebid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D15C104E20F6EB32004CBC18 /* AdSizeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdSizeController.m; sourceTree = "<group>"; };
 		D15C105120F6EB4F004CBC18 /* AdSizeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdSizeController.h; sourceTree = "<group>"; };
@@ -298,6 +301,9 @@
 				60CFB28D2097820D006FCF7C /* AdServerValidation */,
 				F513CDF72112202400700925 /* DemandValidation */,
 				F59C6B29212610B100A5B8AE /* SDKIntegrationValidation */,
+				60D124662126E1F300EC6EE2 /* CPMSectionCell.h */,
+				60D124672126E1F300EC6EE2 /* CPMSectionCell.m */,
+				60D124682126E1F300EC6EE2 /* CPMSectionCell.xib */,
 			);
 			path = "Test Summary";
 			sourceTree = "<group>";
@@ -358,9 +364,6 @@
 				60CFB2632097820D006FCF7C /* LaunchScreen.storyboard */,
 				60CFB28C2097820D006FCF7C /* main.m */,
 				60CFB2652097820D006FCF7C /* Main.storyboard */,
-				60CFB2572097820D006FCF7C /* PBVTableViewCell.h */,
-				60CFB2672097820D006FCF7C /* PBVTableViewCell.m */,
-				60CFB25D2097820D006FCF7C /* PBVTableViewCell.xib */,
 			);
 			path = Dr.Prebid;
 			sourceTree = "<group>";
@@ -436,6 +439,8 @@
 				60CFB2972097820D006FCF7C /* LineItemKeywordsManager.m */,
 				F56AE893209A383B000CE29F /* PBVLineItemsSetupValidator.h */,
 				F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */,
+				60D124622126DBAD00EC6EE2 /* KVViewController.h */,
+				60D124632126DBAD00EC6EE2 /* KVViewController.m */,
 			);
 			path = AdServerValidation;
 			sourceTree = "<group>";
@@ -611,9 +616,9 @@
 				60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */,
 				F5D1856821011571001DF99A /* info-general.html in Resources */,
 				60A2CC3A212358F800EA6ACF /* TestHeaderCell.xib in Resources */,
+				60D1246A2126E1F300EC6EE2 /* CPMSectionCell.xib in Resources */,
 				60CFB2B42097820D006FCF7C /* LaunchScreen.storyboard in Resources */,
 				F5D1856721011571001DF99A /* info-prebid-server.html in Resources */,
-				60CFB2B12097820D006FCF7C /* PBVTableViewCell.xib in Resources */,
 				F5D1856521011571001DF99A /* info-ad-server.html in Resources */,
 				60A2CC352123554200EA6ACF /* SectionCell.xib in Resources */,
 			);
@@ -712,6 +717,7 @@
 				609172F020F5314E001B94A8 /* HeaderCell.m in Sources */,
 				60CFB2C22097820D006FCF7C /* QRCameraSwitchButton.m in Sources */,
 				609172ED20F50F42001B94A8 /* LabelAccessoryCell.m in Sources */,
+				60D124692126E1F300EC6EE2 /* CPMSectionCell.m in Sources */,
 				F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */,
 				60CFB2BF2097820D006FCF7C /* ActionSheetMultipleStringPicker.m in Sources */,
 				60CFB2BE2097820D006FCF7C /* DistancePickerView.m in Sources */,
@@ -738,7 +744,7 @@
 				609172EA20F50C32001B94A8 /* SegmentCell.m in Sources */,
 				60CFB2C32097820D006FCF7C /* QRCodeReaderViewController.m in Sources */,
 				60CFB2BB2097820D006FCF7C /* ActionSheetCustomPicker.m in Sources */,
-				60CFB2B62097820D006FCF7C /* PBVTableViewCell.m in Sources */,
+				60D124642126DBAD00EC6EE2 /* KVViewController.m in Sources */,
 				609172E720F3E58D001B94A8 /* SettingsTableViewController.m in Sources */,
 				60CFB2BC2097820D006FCF7C /* SWActionSheet.m in Sources */,
 				F59C6B632126123F00A5B8AE /* PBVPrebidSDKValidator.m in Sources */,

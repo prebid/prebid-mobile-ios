@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TestSummaryViewController : UITableViewController
+@interface TestSummaryViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
