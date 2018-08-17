@@ -114,11 +114,11 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
     if(section == 0){
         if(self.adServerTestPassed)
-            cell.imageView.image = [UIImage imageNamed:@"Green"];
+            cell.imgStatus.image = [UIImage imageNamed:@"SuccessLarge"];
         else
-            cell.imageView.image = [UIImage imageNamed:@"Red"];
+            cell.imgStatus.image = [UIImage imageNamed:@"FailureLarge"];
     } else {
-        cell.imageView.image = [UIImage imageNamed:@"Green"];
+        cell.imgStatus.image = [UIImage imageNamed:@"SuccessLarge"];
     }
     if(cell != nil){
         NSString *titleText = [self.sectionTitles objectAtIndex:section];
@@ -198,23 +198,24 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     if(cell == nil)
         return nil;
     
-    cell.imageView.image = [UIImage imageNamed:@"Green"];
+    cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
     
     if (indexPath.row == 0){
         
        cell.lblHeader.text = kKVTargeting;
         
         if(!self.isKVSuccess){
-          cell.imageView.image = [UIImage imageNamed:@"Red"];
+          cell.imageView.image = [UIImage imageNamed:@"FailureSmall"];
         }
        
     } else if(indexPath.row == 1){
         
        cell.lblHeader.text = kAdServerRequestsent;
+        cell.accessoryType = UITableViewCellAccessoryNone;
        
     } else if(indexPath.row == 2){
         if(!self.isPBMReceived){
-            cell.imageView.image = [UIImage imageNamed:@"Red"];
+            cell.imageView.image = [UIImage imageNamed:@"FailureSmall"];
         }
         cell.lblHeader.text = kpbmjssent;
         
@@ -228,10 +229,11 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
    if(cell == nil)
        return nil;
     
-    cell.imageView.image = [UIImage imageNamed:@"Green"];
+    cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
     if (indexPath.row == 0){
         
         cell.lblHeader.text = kBidRequestSent;
+        cell.accessoryType = UITableViewCellAccessoryNone;
         return cell;
         
     } else if(indexPath.row == 1){
@@ -260,7 +262,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     if(cell == nil)
         return nil;
     
-    cell.imageView.image = [UIImage imageNamed:@"Green"];
+    cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
     
     if (indexPath.row == 0){
         
@@ -273,7 +275,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
         
         cell.lblHeader.text = kKVTargeting;
         
-        cell.imageView.image = [UIImage imageNamed:@"Green"];
+        cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
         
         
     } else if(indexPath.row == 3){
@@ -282,7 +284,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
         
     } else if(indexPath.row == 4){
         
-        cell.imageView.image = [UIImage imageNamed:@"Green"];
+        cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
         
         cell.lblHeader.text = kpbmjssent;
         

@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Green.png",
+      "filename" : "failedLrg.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Green-1.png",
+      "filename" : "failedLrg@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Green-2.png",
+      "filename" : "failedLrg@3x.png",
       "scale" : "3x"
     }
   ],
