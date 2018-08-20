@@ -198,6 +198,11 @@ static NSString *testResponse = @"";
         XCTAssertEqualObjects(requestBody[@"ext"][@"prebid"][@"storedrequest"][@"id"], @"account_id");
         NSDictionary *targeting = requestBody[@"ext"][@"prebid"][@"targeting"];
         XCTAssertNotNil(targeting);
+        NSDictionary *cache = requestBody[@"ext"][@"prebid"][@"cache"];
+        XCTAssertNotNil(cache);
+        NSDictionary *cacheBids = cache[@"bids"];
+        XCTAssertNotNil(cacheBids);
+        XCTAssertTrue(cacheBids.count == 0);
         
         NSDictionary *app = requestBody[@"app"][@"ext"][@"prebid"];
         XCTAssertNotNil(app[@"version"]);
