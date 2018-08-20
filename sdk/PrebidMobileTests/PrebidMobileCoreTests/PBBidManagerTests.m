@@ -268,7 +268,7 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     [adUnit addSize:CGSizeMake(320, 50)];
     [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerMoPub];
 
-    [[PBBidManager sharedInstance] attachTopBidHelperForAdUnitId:adUnit.identifier andTimeout:500 completionHandler:^{
+    [[PBBidManager sharedInstance] attachTopBidHelperForAdUnitId:adUnit.identifier andTimeout:50 completionHandler:^{
         NSDictionary *bidKeywords = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
         XCTAssertNil(bidKeywords);
         [expectation fulfill];
