@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05E2E47B212CC8CF00D532F5 /* PBSegmentAnalyticsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E2E47A212CC8CF00D532F5 /* PBSegmentAnalyticsService.m */; };
 		98DE194CD419CB43DF2EEE9F /* libPods-PrebidMobileDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFB505B67305B895820CE279 /* libPods-PrebidMobileDemo.a */; };
 		C23386CB1EE5DAC9002FD404 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C23386CA1EE5DAA7002FD404 /* PrebidMobile.framework */; };
 		C268CA911EA65FD7008656F2 /* pbm_basic.feature in Resources */ = {isa = PBXBuildFile; fileRef = C268CA871EA65FD7008656F2 /* pbm_basic.feature */; };
@@ -111,6 +112,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		05E2E479212CC8CF00D532F5 /* PBSegmentAnalyticsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBSegmentAnalyticsService.h; sourceTree = "<group>"; };
+		05E2E47A212CC8CF00D532F5 /* PBSegmentAnalyticsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBSegmentAnalyticsService.m; sourceTree = "<group>"; };
 		171395FED98D8A0665F34125 /* Pods-PrebidMobileDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PrebidMobileDemo/Pods-PrebidMobileDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		606A126220C72B2100B5DB32 /* CMPReference.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CMPReference.xcodeproj; path = ../../tools/CMPReference/CMPReference.xcodeproj; sourceTree = "<group>"; };
 		A1ECD3D3DF1C659CA6E60DDD /* Pods-PrebidMobileDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-PrebidMobileDemo/Pods-PrebidMobileDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -213,6 +216,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05E2E477212CC8C200D532F5 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				05E2E479212CC8CF00D532F5 /* PBSegmentAnalyticsService.h */,
+				05E2E47A212CC8CF00D532F5 /* PBSegmentAnalyticsService.m */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
 		08AA719FD7B712EEB12D7083 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -302,6 +314,7 @@
 		C273C8071E82DAAD003EF1AB /* PrebidMobileDemo */ = {
 			isa = PBXGroup;
 			children = (
+				05E2E477212CC8C200D532F5 /* Analytics */,
 				C273CAB31E83168B003EF1AB /* BannerViewControllers */,
 				C273CAB71E83242B003EF1AB /* IntersitialViewControllers */,
 				C273CAB81E832435003EF1AB /* NativeViewControllers */,
@@ -417,7 +430,6 @@
 				C273C8021E82DAAD003EF1AB /* Frameworks */,
 				C273C8031E82DAAD003EF1AB /* Resources */,
 				C23386CF1EE5DAC9002FD404 /* Embed Frameworks */,
-				7F490B3B6729BC8F03F10971 /* [CP] Embed Pods Frameworks */,
 				2DD0B09C41622022A4A69457 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -582,26 +594,31 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPAdBrowserController.nib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPCloseBtn.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPCloseBtn@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPCloseBtn@3x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPCloseButtonX.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPCloseButtonX@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPCloseButtonX@3x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPCountdownTimer.html",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPDAAIcon.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPDAAIcon@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPDAAIcon@3x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPMutedBtn.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPMutedBtn@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPMutedBtn@3x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPPlayBtn.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPPlayBtn@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPPlayBtn@3x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPUnmutedBtn.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPUnmutedBtn@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MPUnmutedBtn@3x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MRAID.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PrebidMobileDemo/Pods-PrebidMobileDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7F490B3B6729BC8F03F10971 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PrebidMobileDemo/Pods-PrebidMobileDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F50F7C340E70812CE7F317AE /* [CP] Check Pods Manifest.lock */ = {
@@ -637,6 +654,7 @@
 				C273C80A1E82DAAD003EF1AB /* main.m in Sources */,
 				C273CAC21E832494003EF1AB /* VideoTestsViewController.m in Sources */,
 				C2E8097D1E95899800DC7732 /* Constants.m in Sources */,
+				05E2E47B212CC8CF00D532F5 /* PBSegmentAnalyticsService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

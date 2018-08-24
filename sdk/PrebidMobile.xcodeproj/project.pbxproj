@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05E2E45E212B36C300D532F5 /* PBAnalyticsService.h in Headers */ = {isa = PBXBuildFile; fileRef = 05E2E45D212B36C300D532F5 /* PBAnalyticsService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05E2E465212B37F800D532F5 /* PBAnalyticsEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 05E2E463212B37F800D532F5 /* PBAnalyticsEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05E2E466212B37F800D532F5 /* PBAnalyticsEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E2E464212B37F800D532F5 /* PBAnalyticsEvent.m */; };
+		05E2E469212B751E00D532F5 /* PBAnalyticsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 05E2E467212B751E00D532F5 /* PBAnalyticsManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		05E2E46A212B751E00D532F5 /* PBAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E2E468212B751E00D532F5 /* PBAnalyticsManager.m */; };
+		05E2E48C212DFA2900D532F5 /* PBAnalyticsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E2E48B212DFA2900D532F5 /* PBAnalyticsTests.m */; };
+		05E2E490212DFB5B00D532F5 /* PBMockAnalyticsService.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E2E48F212DFB5B00D532F5 /* PBMockAnalyticsService.m */; };
 		606A4299202005C400492433 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 606A4298202005C400492433 /* ReadMe.md */; };
 		606A42A42020FD4600492433 /* PBServerRequestBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 606A42A22020FD4600492433 /* PBServerRequestBuilder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		606A42A52020FD4600492433 /* PBServerRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 606A42A32020FD4600492433 /* PBServerRequestBuilder.m */; };
@@ -90,6 +97,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05E2E45D212B36C300D532F5 /* PBAnalyticsService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBAnalyticsService.h; sourceTree = "<group>"; };
+		05E2E45F212B371500D532F5 /* PBSegmentAnalyticsService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBSegmentAnalyticsService.h; sourceTree = "<group>"; };
+		05E2E460212B371500D532F5 /* PBSegmentAnalyticsService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBSegmentAnalyticsService.m; sourceTree = "<group>"; };
+		05E2E463212B37F800D532F5 /* PBAnalyticsEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBAnalyticsEvent.h; sourceTree = "<group>"; };
+		05E2E464212B37F800D532F5 /* PBAnalyticsEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBAnalyticsEvent.m; sourceTree = "<group>"; };
+		05E2E467212B751E00D532F5 /* PBAnalyticsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBAnalyticsManager.h; sourceTree = "<group>"; };
+		05E2E468212B751E00D532F5 /* PBAnalyticsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBAnalyticsManager.m; sourceTree = "<group>"; };
+		05E2E48B212DFA2900D532F5 /* PBAnalyticsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBAnalyticsTests.m; sourceTree = "<group>"; };
+		05E2E48E212DFB5B00D532F5 /* PBMockAnalyticsService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMockAnalyticsService.h; sourceTree = "<group>"; };
+		05E2E48F212DFB5B00D532F5 /* PBMockAnalyticsService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMockAnalyticsService.m; sourceTree = "<group>"; };
 		606A4298202005C400492433 /* ReadMe.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = "<group>"; };
 		606A42A22020FD4600492433 /* PBServerRequestBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBServerRequestBuilder.h; sourceTree = "<group>"; };
 		606A42A32020FD4600492433 /* PBServerRequestBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBServerRequestBuilder.m; sourceTree = "<group>"; };
@@ -170,7 +187,6 @@
 		C2B1747B1EE1E3C9006304C0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C2B1747D1EE1E3CE006304C0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E6BF995E1F7167B0001016FD /* PrebidMobile-umbrella.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMobile-umbrella.h"; sourceTree = "<group>"; };
-		EFD3C940519B957467FE94E6 /* libPods-PrebidMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F576AEF320D1B1FF00D41FBC /* PBPrebidCacheTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBPrebidCacheTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -202,6 +218,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05E2E458212B34AC00D532F5 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				05E2E482212DD3CF00D532F5 /* Services */,
+				05E2E45D212B36C300D532F5 /* PBAnalyticsService.h */,
+				05E2E463212B37F800D532F5 /* PBAnalyticsEvent.h */,
+				05E2E464212B37F800D532F5 /* PBAnalyticsEvent.m */,
+				05E2E467212B751E00D532F5 /* PBAnalyticsManager.h */,
+				05E2E468212B751E00D532F5 /* PBAnalyticsManager.m */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
+		05E2E482212DD3CF00D532F5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				05E2E45F212B371500D532F5 /* PBSegmentAnalyticsService.h */,
+				05E2E460212B371500D532F5 /* PBSegmentAnalyticsService.m */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		606A4351202BC90800492433 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,11 +263,12 @@
 			isa = PBXGroup;
 			children = (
 				C281E1941EE5F2AD00F2F4A9 /* PBAdUnitTests.m */,
+				05E2E48B212DFA2900D532F5 /* PBAnalyticsTests.m */,
 				C281E1951EE5F2AD00F2F4A9 /* PBBidManagerTests.m */,
 				C281E1961EE5F2AD00F2F4A9 /* PBBidResponseTests.m */,
-				C281E1981EE5F2AD00F2F4A9 /* PBTargetingParamsTests.m */,
-				C29238D81F3E38D100217075 /* PBServerAdapterTests.m */,
 				F576AEF320D1B1FF00D41FBC /* PBPrebidCacheTests.m */,
+				C29238D81F3E38D100217075 /* PBServerAdapterTests.m */,
+				C281E1981EE5F2AD00F2F4A9 /* PBTargetingParamsTests.m */,
 			);
 			path = PrebidMobileCoreTests;
 			sourceTree = "<group>";
@@ -262,6 +301,8 @@
 			children = (
 				C281E1B01EE5F2E500F2F4A9 /* PBMockServerAdapter.h */,
 				C281E1B11EE5F2E500F2F4A9 /* PBMockServerAdapter.m */,
+				05E2E48E212DFB5B00D532F5 /* PBMockAnalyticsService.h */,
+				05E2E48F212DFB5B00D532F5 /* PBMockAnalyticsService.m */,
 			);
 			path = MockObjects;
 			sourceTree = "<group>";
@@ -290,6 +331,7 @@
 		C2B16E1D1EE1BE69006304C0 /* PrebidMobile */ = {
 			isa = PBXGroup;
 			children = (
+				05E2E458212B34AC00D532F5 /* Analytics */,
 				60CEC02A2084DF3A00CA104B /* PBConstants.h */,
 				60CEC02B2084DF3A00CA104B /* PBConstants.m */,
 				606A4352202BC98100492433 /* PrebidMobile-umbrella.h */,
@@ -389,7 +431,6 @@
 				C2B1746E1EE1E3AC006304C0 /* CoreLocation.framework */,
 				C2B1746F1EE1E3AC006304C0 /* CoreMedia.framework */,
 				C2B174701EE1E3AC006304C0 /* CoreTelephony.framework */,
-				EFD3C940519B957467FE94E6 /* libPods-PrebidMobile.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -412,6 +453,7 @@
 				B455F9011FE460E3005D6261 /* PBBidManager.h in Headers */,
 				C23386D61EE5DC95002FD404 /* PBAdUnit.h in Headers */,
 				B40B92AF1FCCC5E300A676A8 /* PBHost.h in Headers */,
+				05E2E45E212B36C300D532F5 /* PBAnalyticsService.h in Headers */,
 				C2B16E3D1EE1BEA6006304C0 /* PBKeywordsManager.h in Headers */,
 				C23FCCEE1EE5E41E00CFFEF0 /* PBLogManager.h in Headers */,
 				C23386DA1EE5DCDB002FD404 /* PBServerAdapter.h in Headers */,
@@ -423,6 +465,8 @@
 				C2B16E9D1EE1BF1A006304C0 /* PBServerLocation.h in Headers */,
 				C2B16E981EE1BF1A006304C0 /* PBServerFetcher.h in Headers */,
 				C210FE381FC3375D0010B588 /* PrebidCache.h in Headers */,
+				05E2E469212B751E00D532F5 /* PBAnalyticsManager.h in Headers */,
+				05E2E465212B37F800D532F5 /* PBAnalyticsEvent.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,11 +575,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				606A42A62020FD4600492433 /* PBServerRequestBuilder.m in Sources */,
+				05E2E490212DFB5B00D532F5 /* PBMockAnalyticsService.m in Sources */,
 				C281E1AE1EE5F2DA00F2F4A9 /* ANURLConnectionStub.m in Sources */,
 				C281E1AD1EE5F2DA00F2F4A9 /* ANHTTPStubURLProtocol.m in Sources */,
 				C281E1B21EE5F2E500F2F4A9 /* PBMockServerAdapter.m in Sources */,
 				C281E19B1EE5F2AD00F2F4A9 /* PBBidResponseTests.m in Sources */,
 				C29238D91F3E38D100217075 /* PBServerAdapterTests.m in Sources */,
+				05E2E48C212DFA2900D532F5 /* PBAnalyticsTests.m in Sources */,
 				C281E19D1EE5F2AD00F2F4A9 /* PBTargetingParamsTests.m in Sources */,
 				F576AEF420D1B1FF00D41FBC /* PBPrebidCacheTests.m in Sources */,
 				C281E1991EE5F2AD00F2F4A9 /* PBAdUnitTests.m in Sources */,
@@ -556,6 +602,7 @@
 				C2B16E9C1EE1BF1A006304C0 /* PBServerGlobal.m in Sources */,
 				C2B16E3C1EE1BEA6006304C0 /* PBInterstitialAdUnit.m in Sources */,
 				C23FCCEB1EE5E3F500CFFEF0 /* PBLogging.m in Sources */,
+				05E2E46A212B751E00D532F5 /* PBAnalyticsManager.m in Sources */,
 				C210FE391FC3375D0010B588 /* PrebidCache.m in Sources */,
 				C2B16E401EE1BEA6006304C0 /* PBTargetingParams.m in Sources */,
 				C2B16E9E1EE1BF1A006304C0 /* PBServerLocation.m in Sources */,
@@ -571,6 +618,7 @@
 				C2B16E3E1EE1BEA6006304C0 /* PBKeywordsManager.m in Sources */,
 				C2B16E991EE1BF1A006304C0 /* PBServerFetcher.m in Sources */,
 				60CEC02D2084DF3A00CA104B /* PBConstants.m in Sources */,
+				05E2E466212B37F800D532F5 /* PBAnalyticsEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

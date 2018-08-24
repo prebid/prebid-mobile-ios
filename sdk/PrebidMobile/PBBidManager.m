@@ -23,6 +23,7 @@
 #import "PBKeywordsManager.h"
 #import "PBLogging.h"
 #import "PBServerAdapter.h"
+#import "PBAnalyticsManager.h"
 
 static NSTimeInterval const kBidExpiryTimerInterval = 30;
 
@@ -154,6 +155,8 @@ static dispatch_once_t onceToken;
         }
         mutableRequestParameters[@"extras"] = [mutableExtras copy];
         requestParameters = [mutableRequestParameters copy];
+        // log analytics event
+        [self logAttachKeywordsEventWithKeywords:keywordsPairs];
     }
     return requestParameters;
 }
@@ -214,11 +217,16 @@ static dispatch_once_t onceToken;
 
     // Finish registration of ad unit by adding it to adUnits
     [_adUnits addObject:adUnit];
+    // log analytics event
+    [self logRegistrationEventForAdUnit:adUnit];
+    
     PBLogDebug(@"AdUnit %@ is registered with Prebid Mobile", adUnit.identifier);
 }
 
 - (void)requestBidsForAdUnits:(NSArray<PBAdUnit *> *)adUnits {
     [_demandAdapter requestBidsWithAdUnits:adUnits withDelegate:[self delegate]];
+    // log analytics event
+    [self logRequestBidsEventWithAdUnits:adUnits];
 }
 
 - (void)resetAdUnit:(PBAdUnit *)adUnit {
@@ -358,6 +366,35 @@ static dispatch_once_t onceToken;
 #pragma clang diagnostic pop
         }
     }
+}
+
+#pragma mark Analytics
+
+- (void)logRegistrationEventForAdUnit:(PBAdUnit *)adUnit {
+    NSDictionary *analyticsInfo = @{
+                                    @"identifier" : adUnit.identifier,
+                                    @"type" : @(adUnit.adType),
+                                    @"sizes" : adUnit.adSizes
+                                    };
+    
+    [[PBAnalyticsManager sharedInstance] trackEventType:PBAnalyticsEventRegisterAdUnit
+                                                info:analyticsInfo];
+}
+
+- (void)logRequestBidsEventWithAdUnits:(NSArray<PBAdUnit *> *)adUnits {
+    NSMutableDictionary *analyticsInfo = [[NSMutableDictionary alloc] initWithCapacity:adUnits.count];
+    NSMutableArray *identifiers = [[NSMutableArray alloc] initWithCapacity:adUnits.count];
+    for (PBAdUnit *adUnit in adUnits) {
+        [identifiers addObject:adUnit.identifier];
+    }
+    analyticsInfo[@"identifiers"] = identifiers;
+    [[PBAnalyticsManager sharedInstance] trackEventType:PBAnalyticsEventRequestBids
+                                                info:analyticsInfo];
+}
+
+- (void)logAttachKeywordsEventWithKeywords:(NSDictionary*)keywords {
+    [[PBAnalyticsManager sharedInstance] trackEventType:PBAnalyticsEventAttachKeywords
+                                                info:keywords];
 }
 
 @end

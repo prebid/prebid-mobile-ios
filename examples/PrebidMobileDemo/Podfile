@@ -4,5 +4,5 @@
 target 'PrebidMobileDemo' do
   pod 'Google-Mobile-Ads-SDK'
   pod 'mopub-ios-sdk'
-
+  pod 'Analytics', '~> 3.0'
 end

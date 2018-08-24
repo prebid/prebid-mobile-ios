@@ -21,6 +21,8 @@
 #import <PrebidMobile/PBTargetingParams.h>
 #import <PrebidMobile/PrebidMobile.h>
 #import <PrebidMobile/PBLogging.h>
+#import <PrebidMobile/PBAnalyticsManager.h>
+#import "PBSegmentAnalyticsService.h"
 #import "Constants.h"
 #import "SettingsViewController.h"
 #import <CMPReference/CMPStorage.h>
@@ -36,6 +38,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self enablePrebidLogs];
+    
+    // Prebid Mobile analytics setup
+    PBSegmentAnalyticsService *analytics = [[PBSegmentAnalyticsService alloc] init];
+    [[PBAnalyticsManager sharedInstance] addService:analytics];
+    [[PBAnalyticsManager sharedInstance] initializeWithApplication:application launchOptions:launchOptions];
+    
     [self setupPrebidAndRegisterAdUnits];
 
     SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];

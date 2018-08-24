@@ -12,3 +12,6 @@
 #import "PBKeywordsManager.h"
 #import "PBTargetingParams.h"
 #import "PBServerAdapter.h"
+#import "PBAnalyticsService.h"
+#import "PBAnalyticsManager.h"
+#import "PBAnalyticsEvent.h"
