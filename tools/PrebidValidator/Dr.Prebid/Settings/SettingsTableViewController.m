@@ -586,8 +586,8 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             }
             
             if(section == 1 && row == 1 && [cell isKindOfClass:[LabelAccessoryCell class]]){
-                LabelAccessoryCell *labelCell = (LabelAccessoryCell *) cell;
-                [[NSUserDefaults standardUserDefaults] setObject:labelCell.lblSelectedContent.text forKey:kBidPriceKey];
+                NSArray *bidPriceArray = [self.bidPrice componentsSeparatedByString:@"$"];
+                [[NSUserDefaults standardUserDefaults] setObject:bidPriceArray[1] forKey:kBidPriceKey];
             }
             
             if(section == 1 && row == 2 && [cell isKindOfClass:[IdCell class]]){

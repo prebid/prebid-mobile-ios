@@ -22,15 +22,16 @@
 #import "MPInterstitialAdController.h"
 #import "PBViewTool.h"
 #import <PrebidMobile/PBAdUnit.h>
-#import "LineItemURLProtocol.h"
+#import "AdServerValidationURLProtocol.h"
 
 @interface PBVLineItemsSetupValidator() <MPAdViewDelegate,
                                          MPInterstitialAdControllerDelegate,
                                          GADBannerViewDelegate,
-                                         GADInterstitialDelegate>
+                                         GADInterstitialDelegate,
+                                        AdServerValidationURLProtocolDelegate>
 @property id adObject;
-@property NSMutableString *emailContent;
-
+@property NSString *requestUUID;
+@property NSString *adServerResponseString;
 @property NSDictionary *keywords;
 @end
 
@@ -39,31 +40,32 @@
 - (instancetype)init
 {
     self = [super init];
-    [NSURLProtocol registerClass:[LineItemURLProtocol class]];
+    [NSURLProtocol registerClass:[AdServerValidationURLProtocol class]];
+    [AdServerValidationURLProtocol setDelegate:self];
     return self;
+}
+
+- (void)didReceiveResponse:(NSString *)responseString forRequest:(NSString *)requestString
+{
+    if (self.requestUUID != nil && [responseString containsString:self.requestUUID]) {
+        self.adServerResponseString = responseString;
+    }
 }
 
 - (void)startTest
 {
     NSString *host = [[NSUserDefaults standardUserDefaults]stringForKey:kPBHostKey];
     if ([host isEqualToString:kRubiconString]) {
-        [self.delegate lineItemsWereNotSetupProperly:nil];
-            _emailContent = [[NSMutableString alloc]init];
-        [_emailContent appendString:@"Rubicon line items tests are not supported yet."];
+        [self.delegate adServerDidNotRespondWithPrebidCreative];
         return;
     }
     
     NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
-    
-    
     NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
-    
-    //for testing purpose
-    adUnitID = @"/19968336/PriceCheck_300x250";
-    
     NSString *bidPrice = [[NSUserDefaults standardUserDefaults] stringForKey:kBidPriceKey];
+    
     GADAdSize GADAdSize = kGADAdSizeInvalid;
     CGSize adSize = CGSizeZero;
     if ([adSizeString isEqualToString:kBannerSizeString]) {
@@ -75,52 +77,49 @@
     } else if ([adSizeString isEqualToString:kInterstitialSizeString]) {
         adSize = CGSizeMake(kInterstitialSizeWidth, kInterstitialSizeHeight);
     }
-    _emailContent = [[NSMutableString alloc]init];
-    [_emailContent appendString:@"To replicate the tests that are testing your line items setup, start a project without prebid installed, do the following list of actions: \n"];
     if ([adServerName isEqualToString:kMoPubString]) {
         if ([adFormatName isEqualToString:kBannerString]) {
-          
-            self.keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString];
-            MPAdView *adView = [self createMPAdViewWithAdUnitId:adUnitID WithSize:adSize WithKeywords:self.keywords];
+            NSMutableDictionary *keywords = [[[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString] mutableCopy];
+            self.requestUUID = [[NSUUID UUID] UUIDString];
+            [keywords setObject:self.requestUUID forKey:@"hb_dr_prebid"];
+            MPAdView *adView = [self createMPAdViewWithAdUnitId:adUnitID WithSize:adSize WithKeywords:keywords];
             self.adObject = adView;
             [adView loadAd];
-            [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a MoPub banner ad with adUnitId \"%@\", size \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, adSizeString, [self formatMoPubKeywordStringFromDictionary:self.keywords]] ];
-            
+            [self.delegate setKeywordsSuccessfully:keywords];
         } else if ([adFormatName isEqualToString:kInterstitialString]){
-          
-                self.keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString];
-                MPInterstitialAdController *interstitial = [self createMPInterstitialAdControllerWithAdUnitId:adUnitID WithKeywords:self.keywords];
+            NSMutableDictionary *keywords = [[[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString] mutableCopy];
+            self.requestUUID = [[NSUUID UUID] UUIDString];
+            [keywords setObject:self.requestUUID forKey:@"hb_dr_prebid"];
+            MPInterstitialAdController *interstitial = [self createMPInterstitialAdControllerWithAdUnitId:adUnitID WithKeywords:keywords];
             self.adObject = interstitial;
-                [interstitial loadAd];
-                [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a MoPub interstitial ad with adUnitId \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, [self formatMoPubKeywordStringFromDictionary:self.keywords]] ];
-            
+            [interstitial loadAd];
+            [self.delegate setKeywordsSuccessfully:keywords];
         }
     } else if([adServerName isEqualToString:kDFPString]){
         if ([adFormatName isEqualToString:kBannerString]) {
           
-                self.keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString];
-                DFPBannerView *adView = [self createDFPBannerViewWithAdUnitId:adUnitID WithSize:GADAdSize];
-                // hack to attach to screen
-                adView.frame = CGRectMake(-500, -500 , GADAdSize.size.width, GADAdSize.size.height);
-                [((UIViewController *) _delegate).view addSubview:adView];
+            NSMutableDictionary *keywords = [[[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString] mutableCopy];
+            DFPBannerView *adView = [self createDFPBannerViewWithAdUnitId:adUnitID WithSize:GADAdSize];
+            // hack to attach to screen
+            adView.frame = CGRectMake(-500, -500 , GADAdSize.size.width, GADAdSize.size.height);
+            [((UIViewController *) _delegate).view addSubview:adView];
             self.adObject = adView;
-                DFPRequest *request = [DFPRequest request];
-                request.customTargeting = self.keywords;
-                [adView loadRequest:request];
-            
-                 [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a DFP banner ad with adUnitId \"%@\", size \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, adSizeString, self.keywords ]];
-            
+            DFPRequest *request = [DFPRequest request];
+            self.requestUUID = [[NSUUID UUID] UUIDString];
+            [keywords setObject:self.requestUUID forKey:@"hb_dr_prebid"];
+            request.customTargeting = keywords;
+            [adView loadRequest:request];
+            [self.delegate setKeywordsSuccessfully:keywords];
         } else if ([adFormatName isEqualToString:kInterstitialString]){
-           
-                self.keywords = [[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString];
-                DFPInterstitial *interstitial = [self createDFPInterstitialWithAdUnitId:adUnitID];
+            NSMutableDictionary *keywords = [[[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString] mutableCopy];
+            DFPInterstitial *interstitial = [self createDFPInterstitialWithAdUnitId:adUnitID];
             self.adObject = interstitial;
-                DFPRequest *request = [DFPRequest request];
-                request.customTargeting = self.keywords;
-                [interstitial loadRequest:request];
-            
-                [_emailContent appendString:[ NSString stringWithFormat: @"\n\nCreate a DFP interstitial ad with adUnitId \"%@\", set the keywords \"%@\", load to see if you get a prebid ad.", adUnitID, self.keywords ]];
-            
+            DFPRequest *request = [DFPRequest request];
+            self.requestUUID = [[NSUUID UUID] UUIDString];
+            [keywords setObject:self.requestUUID forKey:@"hb_dr_prebid"];
+            request.customTargeting = keywords;
+            [interstitial loadRequest:request];
+            [self.delegate setKeywordsSuccessfully:keywords];
         }
     }
 }
@@ -139,6 +138,7 @@
     banner.delegate = self;
     banner.rootViewController = (UIViewController *) self.delegate;
     banner.adUnitID = adUnitID;
+    banner.autoloadEnabled = NO;
     return banner;
 }
 
@@ -146,9 +146,9 @@
 {
     if ([PBViewTool checkDFPAdViewContainsPBMAd:bannerView]) {
   
-        [self.delegate lineItemsWereSetupProperly:self.keywords];
+        [self.delegate adServerRespondedWithPrebidCreative];
         } else{
-            [self.delegate lineItemsWereNotSetupProperly:self.keywords];
+            [self.delegate adServerDidNotRespondWithPrebidCreative];
         }
     
 }
@@ -156,22 +156,23 @@
 - (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
 {
 
-        [self.delegate lineItemsWereNotSetupProperly:self.keywords];
+        [self.delegate adServerDidNotRespondWithPrebidCreative];
     
 }
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
 
-    [self.delegate lineItemsWereSetupProperly:self.keywords];
-  
+    if (self.adServerResponseString != nil && [self.adServerResponseString containsString:@"pbm.js"]) {
+         [self.delegate adServerRespondedWithPrebidCreative];
+    } else {
+         [self.delegate adServerDidNotRespondWithPrebidCreative];
+    }
 }
 
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
 {
-
-        [self.delegate lineItemsWereNotSetupProperly:self.keywords];
-    
+    [self.delegate adServerDidNotRespondWithPrebidCreative];
 }
 
 #pragma mark MoPub
@@ -222,15 +223,16 @@
 - (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
 {
  
-            [self.delegate lineItemsWereSetupProperly:self.keywords];
-
+    if (self.adServerResponseString != nil && [self.adServerResponseString containsString:@"pbm.js"]) {
+        [self.delegate adServerRespondedWithPrebidCreative];
+    } else {
+        [self.delegate adServerDidNotRespondWithPrebidCreative];
+    }
 }
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial
 {
-
-        [self.delegate lineItemsWereNotSetupProperly:self.keywords];
-    
+    [self.delegate adServerDidNotRespondWithPrebidCreative];
 }
 
 -(void)adViewDidLoadAd:(MPAdView *)view
@@ -242,9 +244,9 @@
                            __strong PBVLineItemsSetupValidator *strongSelf = weakSelf;
                            if (result) {
                   
-                                   [strongSelf.delegate lineItemsWereSetupProperly:self.keywords];
+                                   [strongSelf.delegate adServerRespondedWithPrebidCreative];
                                } else {
-                                   [strongSelf.delegate lineItemsWereNotSetupProperly:self.keywords];
+                                   [strongSelf.delegate adServerDidNotRespondWithPrebidCreative];
                                }
                            
                        }];
@@ -253,9 +255,7 @@
 
 - (void)adViewDidFailToLoadAd:(MPAdView *)view
 {
-
-        [self.delegate lineItemsWereNotSetupProperly:self.keywords];
-    
+    [self.delegate adServerDidNotRespondWithPrebidCreative];
 }
 
 - (UIViewController *)viewControllerForPresentingModalView
@@ -263,14 +263,14 @@
     return (UIViewController *)self.delegate;
 }
 
-- (NSDictionary *) getDisplayable
+- (NSObject *) getDisplayable
 {
     return self.adObject;
 }
 
-- (NSString *)getEmailContent
+- (NSString *)getAdServerResponse
 {
-    return [_emailContent copy];
+    return self.adServerResponseString;
 }
 @end
 

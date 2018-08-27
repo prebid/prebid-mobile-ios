@@ -14,11 +14,13 @@
  *    limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
-#import "PBVLineItemsSetupValidator.h"
+#import <Foundation/Foundation.h>
 
-@interface LineItemAdsViewController : UIViewController
+@protocol AdServerValidationURLProtocolDelegate
+-(void)didReceiveResponse:(NSString *) responseString forRequest:(NSString *)requestString;
+@end
 
--(instancetype)initWithValidator: (PBVLineItemsSetupValidator *) validator;
-
+@interface AdServerValidationURLProtocol : NSURLProtocol
++ (void) setDelegate:(id<AdServerValidationURLProtocolDelegate>)delegate;
++ (id <AdServerValidationURLProtocolDelegate>) delegate;
 @end

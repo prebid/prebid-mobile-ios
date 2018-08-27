@@ -15,8 +15,8 @@
  */
 
 #import "AppDelegate.h"
-#import "DRPreBidNSURLProtocol.h"
-
+#import "LineItemKeywordsManager.h"
+#import "AdServerValidationURLProtocol.h"
 
 @interface AppDelegate ()
 
@@ -28,7 +28,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [NSURLProtocol registerClass: [DRPreBidNSURLProtocol class] ];
+    [[LineItemKeywordsManager sharedManager] setup];
     return YES;
 }
 

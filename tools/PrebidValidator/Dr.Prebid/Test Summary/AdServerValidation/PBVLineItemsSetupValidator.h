@@ -15,9 +15,9 @@
  */
 
 @protocol PBVLineItemsSetupValidatorDelegate
-
-- (void) lineItemsWereSetupProperly:(NSDictionary *) keywords;
-- (void) lineItemsWereNotSetupProperly:(NSDictionary *) keywords;
+- (void) setKeywordsSuccessfully: (NSDictionary *) keywords;
+- (void) adServerRespondedWithPrebidCreative;
+- (void) adServerDidNotRespondWithPrebidCreative;
 @end
 
 
@@ -26,8 +26,8 @@
 
 - (void) startTest;
 
-- (NSDictionary *) getDisplayable;
+- (NSObject *) getDisplayable;
 
-- (NSString *) getEmailContent;
+- (NSString *) getAdServerResponse;
 
 @end

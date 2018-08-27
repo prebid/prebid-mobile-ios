@@ -298,14 +298,9 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="KPn-Ql-Tkj">
-                                <rect key="frame" x="178" y="324" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="KPn-Ql-Tkj" firstAttribute="centerX" secondItem="qNQ-UI-oy4" secondAttribute="centerX" id="1tn-oJ-YvE"/>
-                            <constraint firstItem="KPn-Ql-Tkj" firstAttribute="centerY" secondItem="qNQ-UI-oy4" secondAttribute="centerY" id="97z-ee-nB1"/>
                             <constraint firstItem="7fh-n5-BIl" firstAttribute="bottom" secondItem="Xki-cw-9jd" secondAttribute="bottom" id="Jq8-2f-HrF"/>
                             <constraint firstItem="Xki-cw-9jd" firstAttribute="top" secondItem="7fh-n5-BIl" secondAttribute="top" id="Zpc-A3-dbu"/>
                             <constraint firstItem="Xki-cw-9jd" firstAttribute="leading" secondItem="7fh-n5-BIl" secondAttribute="leading" id="eiO-au-7Df"/>
@@ -314,7 +309,6 @@
                         <viewLayoutGuide key="safeArea" id="7fh-n5-BIl"/>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="KPn-Ql-Tkj" id="n9V-H1-bTc"/>
                         <outlet property="tableView" destination="Xki-cw-9jd" id="bBc-7A-Y5e"/>
                     </connections>
                 </viewController>

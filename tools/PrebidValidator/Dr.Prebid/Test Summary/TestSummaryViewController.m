@@ -12,10 +12,11 @@
 #import "PBVLineItemsSetupValidator.h"
 #import "CPMSectionCell.h"
 #import "KVViewController.h"
+#import "AdServerResponseViewController.h"
+#import "LineItemAdsViewController.h"
 
 NSString *__nonnull const kAdServerTestHeader = @"Ad Server Setup Validation";
-NSString *__nonnull const kKVTargeting = @"Key-Value targeting sent";
-NSString *__nonnull const kAdServerRequestsent = @"Ad server request sent";
+NSString *__nonnull const kAdServerRequestSentWithKV = @"Ad server request sent with key-value targeting";
 NSString *__nonnull const kpbmjssent = @"Prebid Mobile creative HTML served";
 
 NSString *__nonnull const kRealTimeHeader = @"Real-Time Demand Validation";
@@ -54,7 +55,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
     self.title = @"Test Summary";
     
-    self.adServerTitles = @[kKVTargeting, kAdServerRequestsent, kpbmjssent];
+    self.adServerTitles = @[kAdServerRequestSentWithKV, kpbmjssent];
     self.demandTitles = @[kBidRequestSent, kBidResponseReceived, kCPMReceived];
     
     self.tableViewDictionaryItems = @{kAdServerTestHeader :self.adServerTitles, kRealTimeHeader:self.demandTitles};
@@ -70,13 +71,11 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
     [self.tableView registerNib:[UINib nibWithNibName:@"CPMSectionCell" bundle:nil] forCellReuseIdentifier:@"cpmCell"];
     
-    self.adServerTestPassed = YES;
-    self.isKVSuccess = YES;
-    self.isPBMReceived = YES;
+    self.adServerTestPassed = NO;
+    self.isKVSuccess = NO;
+    self.isPBMReceived = NO;
     
-    [self.activityIndicator startAnimating];
-    
-    [self startLineItemTesting];
+    [self startAdServerValidation];
     
 }
 
@@ -99,9 +98,9 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    if(section == 0) return 2;
     if(section == 2)
         return 5;
-    
     return 3;
 }
 
@@ -173,8 +172,11 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
         KVViewController * kvController = [storyboard instantiateViewControllerWithIdentifier:@"kvController"];
         kvController.keyWordsDictionary = self.lineItemTestKeywords ;
         [self.navigationController pushViewController:kvController animated:YES];
-        
-    } 
+    } else if (indexPath.section == 0 && indexPath.row == 1){
+        AdServerResponseViewController *controller = [[AdServerResponseViewController alloc] initWithValidator:self.validator1];
+//        LineItemAdsViewController *controller = [[LineItemAdsViewController alloc] initWithValidator:self.validator1];
+         [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 
@@ -198,27 +200,23 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     if(cell == nil)
         return nil;
     
-    cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
+    cell.imageView.image = [UIImage imageNamed:@"FailureSmall"];
     
     if (indexPath.row == 0){
         
-       cell.lblHeader.text = kKVTargeting;
+       cell.lblHeader.text = kAdServerRequestSentWithKV;
         
-        if(!self.isKVSuccess){
-          cell.imageView.image = [UIImage imageNamed:@"FailureSmall"];
+        if(self.isKVSuccess){
+          cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
         }
        
     } else if(indexPath.row == 1){
         
-       cell.lblHeader.text = kAdServerRequestsent;
-        cell.accessoryType = UITableViewCellAccessoryNone;
-       
-    } else if(indexPath.row == 2){
-        if(!self.isPBMReceived){
-            cell.imageView.image = [UIImage imageNamed:@"FailureSmall"];
+        if(self.isPBMReceived){
+            cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
         }
         cell.lblHeader.text = kpbmjssent;
-        
+       
     }
     return cell;
 }
@@ -273,14 +271,14 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
         
     } else if (indexPath.row == 2){
         
-        cell.lblHeader.text = kKVTargeting;
+        cell.lblHeader.text = kAdServerRequestSentWithKV;
         
         cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
         
         
     } else if(indexPath.row == 3){
         
-        cell.lblHeader.text = kAdServerRequestsent;
+        cell.lblHeader.text = kAdServerRequestSentWithKV;
         
     } else if(indexPath.row == 4){
         
@@ -293,55 +291,32 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 
 }
 
-- (void)startLineItemTesting{
-    // set all cells to be in progress
-    
+- (void)startAdServerValidation{
     self.validator1 = [[PBVLineItemsSetupValidator alloc] init];
     self.validator1.delegate = self;
-    __weak __typeof__(self) weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        __strong __typeof__(self) strongSelf = weakSelf;
-        
-        [strongSelf.validator1 startTest];
-    });
-    
+    [self.validator1 startTest];
 }
 
-#pragma mark LineItems test delegate
-- (void)lineItemsWereNotSetupProperly:(NSDictionary *) keywords
+#pragma mark AdServerValidation PBVLineItemsSetupValidatorDelegate
+- (void)setKeywordsSuccessfully:(NSDictionary *)keywords
 {
-    self.adServerTestPassed = NO;
+    self.lineItemTestKeywords = keywords;
     self.isKVSuccess = YES;
+    [self.tableView reloadData];
+    
+}
+- (void)adServerDidNotRespondWithPrebidCreative
+{
     self.isPBMReceived = NO;
-    self.lineItemTestKeywords = keywords;
+    self.adServerTestPassed = NO;
     [self.tableView reloadData];
-    
-    __weak __typeof__(self) weakSelf = self;
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        __strong __typeof__(self) strongSelf = weakSelf;
-        
-        [strongSelf.activityIndicator stopAnimating];
-    });
 }
 
--(void)lineItemsWereSetupProperly:(NSDictionary *) keywords
+-(void)adServerRespondedWithPrebidCreative
 {
-    self.adServerTestPassed = YES;
-    self.isKVSuccess = YES;
     self.isPBMReceived = YES;
-    self.lineItemTestKeywords = keywords;
+    self.adServerTestPassed = YES;
     [self.tableView reloadData];
-    
-    __weak __typeof__(self) weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        __strong __typeof__(self) strongSelf = weakSelf;
-        
-        [strongSelf.activityIndicator stopAnimating];
-    });
 }
 
 

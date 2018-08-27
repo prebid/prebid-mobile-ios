@@ -41,52 +41,54 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedManager = [[self alloc] init];
-        // cache response once for the entire app life cycle since we don't consider impression tracking for testing
-        NSData *size300x250 = [KeywordsManagerCreative300x250 dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *size300x250json = [NSJSONSerialization JSONObjectWithData:size300x250 options:0 error:nil];
-        NSMutableDictionary *content300x250 = [[NSMutableDictionary alloc]init];
-        content300x250[@"type"] = @"json";
-        content300x250[@"value"] = size300x250json;
-        NSData *size320x480 = [KeywordsManagerCreative320x480 dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *size320x480json = [NSJSONSerialization JSONObjectWithData:size320x480 options:0 error:nil];
-        NSMutableDictionary *content320x480 = [[NSMutableDictionary alloc]init];
-        content320x480[@"type"] = @"json";
-        content320x480[@"value"] = size320x480json;
-        NSData *size320x50 = [KeywordsManagerCreative320x50 dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *size320x50json = [NSJSONSerialization JSONObjectWithData:size320x50 options:0 error:nil];
-        NSMutableDictionary *content320x50 = [[NSMutableDictionary alloc]init];
-        content320x50[@"type"] = @"json";
-        content320x50[@"value"] = size320x50json;
-        NSArray *puts = @[content300x250, content320x480, content320x50];
-        NSDictionary *postDict  = [NSDictionary dictionaryWithObject:puts forKey:@"puts"];
-        NSURL *url = [[NSURL alloc]initWithString:KeywordsManagerCacheEndPoint];
-        NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:url
-                                                                           cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                                       timeoutInterval:1000];
-        [mutableRequest setHTTPMethod:@"POST"];
-        NSData *postData = [NSJSONSerialization dataWithJSONObject:postDict
-                                                           options:kNilOptions
-                                                             error:nil];
-        [mutableRequest setHTTPBody:postData];
-        NSURLSession *session = [NSURLSession sharedSession];
-        NSURLSessionDataTask *cacheIdTask = [session dataTaskWithRequest:mutableRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            if (!error) {
-                NSError *jsonError;
-                NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
-                if (!jsonError) {
-                    NSArray *uuids = response[@"responses"];
-                    sharedManager.sizeToCacheIdFromServer = [[NSMutableDictionary alloc]init];
-                    [sharedManager.sizeToCacheIdFromServer setValue:uuids[0][@"uuid"] forKey:@"300x250"];
-                    [sharedManager.sizeToCacheIdFromServer setValue:uuids[1][@"uuid"] forKey:@"320x480"];
-                    [sharedManager.sizeToCacheIdFromServer setValue:uuids[2][@"uuid"] forKey:@"320x50"];
-                }
-            }
-        }];
-        [cacheIdTask resume];
-        
-        
     });
     return sharedManager;
+}
+
+- (void)setup
+{
+    // cache response once for the entire app life cycle since we don't consider impression tracking for testing
+    NSData *size300x250 = [KeywordsManagerCreative300x250 dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *size300x250json = [NSJSONSerialization JSONObjectWithData:size300x250 options:0 error:nil];
+    NSMutableDictionary *content300x250 = [[NSMutableDictionary alloc]init];
+    content300x250[@"type"] = @"json";
+    content300x250[@"value"] = size300x250json;
+    NSData *size320x480 = [KeywordsManagerCreative320x480 dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *size320x480json = [NSJSONSerialization JSONObjectWithData:size320x480 options:0 error:nil];
+    NSMutableDictionary *content320x480 = [[NSMutableDictionary alloc]init];
+    content320x480[@"type"] = @"json";
+    content320x480[@"value"] = size320x480json;
+    NSData *size320x50 = [KeywordsManagerCreative320x50 dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *size320x50json = [NSJSONSerialization JSONObjectWithData:size320x50 options:0 error:nil];
+    NSMutableDictionary *content320x50 = [[NSMutableDictionary alloc]init];
+    content320x50[@"type"] = @"json";
+    content320x50[@"value"] = size320x50json;
+    NSArray *puts = @[content300x250, content320x480, content320x50];
+    NSDictionary *postDict  = [NSDictionary dictionaryWithObject:puts forKey:@"puts"];
+    NSURL *url = [[NSURL alloc]initWithString:KeywordsManagerCacheEndPoint];
+    NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:url
+                                                                       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                                   timeoutInterval:1000];
+    [mutableRequest setHTTPMethod:@"POST"];
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:postDict
+                                                       options:kNilOptions
+                                                         error:nil];
+    [mutableRequest setHTTPBody:postData];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *cacheIdTask = [session dataTaskWithRequest:mutableRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (!error) {
+            NSError *jsonError;
+            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+            if (!jsonError) {
+                NSArray *uuids = response[@"responses"];
+                self.sizeToCacheIdFromServer = [[NSMutableDictionary alloc]init];
+                [self.sizeToCacheIdFromServer setValue:uuids[0][@"uuid"] forKey:@"300x250"];
+                [self.sizeToCacheIdFromServer setValue:uuids[1][@"uuid"] forKey:@"320x480"];
+                [self.sizeToCacheIdFromServer setValue:uuids[2][@"uuid"] forKey:@"320x50"];
+            }
+        }
+    }];
+    [cacheIdTask resume];
 }
 
 - (NSDictionary<NSString *, NSString *> *)keywordsWithBidPrice:(NSString *)bidPrice forSize:(NSString *)sizeString {
@@ -98,7 +100,6 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
     }
     keywords[KeywordsManagerPriceKey] =  bidPrice;
     keywords[KeywordsManagerSizeKey] = sizeString;
-    keywords[@"hb_dr_prebid"] = @"1";
     return [keywords copy];
 }
 

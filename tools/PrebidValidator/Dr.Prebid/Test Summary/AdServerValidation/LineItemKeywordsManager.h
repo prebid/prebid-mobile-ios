@@ -21,6 +21,8 @@
 
 + (id) sharedManager;
 
+- (void)setup;
+
 - (NSDictionary<NSString *, NSString *> *)keywordsWithBidPrice:(NSString *)bidPrice forSize:(NSString *)sizeString;
 
 

@@ -14,13 +14,24 @@
  *    limitations under the License.
  */
 
-#import "LineItemURLProtocol.h"
+#import "AdServerValidationURLProtocol.h"
 
-@interface LineItemURLProtocol () <NSURLConnectionDelegate>
+@interface AdServerValidationURLProtocol () <NSURLConnectionDelegate>
 @property (nonatomic, strong) NSURLConnection *connection;
 @end
 
-@implementation LineItemURLProtocol
+@implementation AdServerValidationURLProtocol
+static id<AdServerValidationURLProtocolDelegate> classDelegate = nil;
+
++ (void)setDelegate:(id<AdServerValidationURLProtocolDelegate>)delegate
+{
+    classDelegate = delegate;
+}
+
++ (id<AdServerValidationURLProtocolDelegate>)delegate
+{
+    return classDelegate;
+}
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
     if ([NSURLProtocol propertyForKey:@"PrebidURLProtocolHandledKey" inRequest:request]) {
@@ -46,9 +57,10 @@
 - (void)startLoading {
     NSMutableURLRequest *newRequest = [self.request mutableCopy];
     [NSURLProtocol setProperty:@YES forKey:@"PrebidURLProtocolHandledKey" inRequest:newRequest];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     self.connection = [NSURLConnection connectionWithRequest:newRequest delegate:self];
-    // TODO: pass this back to a delegate to process and display on screen
-    NSLog(@"Ad Request string: %@", newRequest.URL.absoluteString);
+#pragma clang diagnostic pop
 }
 
 
@@ -63,6 +75,10 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     [self.client URLProtocol:self didLoadData:data];
+    NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if (classDelegate != nil) {
+        [classDelegate didReceiveResponse:content forRequest:self.request.URL.absoluteString];
+    }
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
