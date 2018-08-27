@@ -62,6 +62,8 @@
 		F513CDFD2112202400700925 /* DemandValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F513CDF92112202400700925 /* DemandValidator.m */; };
 		F513CDFE2112202400700925 /* PBVPrebidServerConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F513CDFA2112202400700925 /* PBVPrebidServerConfigViewController.m */; };
 		F533B16821309548001977C2 /* AdServerResponseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B16721309548001977C2 /* AdServerResponseViewController.m */; };
+		F533B16E21349D09001977C2 /* ColorTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B16D21349D09001977C2 /* ColorTool.m */; };
+		F533B1712134A361001977C2 /* AdServerValidationMockInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B1702134A361001977C2 /* AdServerValidationMockInterstitial.m */; };
 		F553098220E53CF500A7B552 /* AdServerValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F553098120E53CF500A7B552 /* AdServerValidationURLProtocol.m */; };
 		F56AE891209A3809000CE29F /* PBViewTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE88F209A3808000CE29F /* PBViewTool.m */; };
 		F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */; };
@@ -199,6 +201,10 @@
 		F533B1662130882E001977C2 /* AdServerValidationURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdServerValidationURLProtocol.h; sourceTree = "<group>"; };
 		F533B16721309548001977C2 /* AdServerResponseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdServerResponseViewController.m; sourceTree = "<group>"; };
 		F533B1692130955A001977C2 /* AdServerResponseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdServerResponseViewController.h; sourceTree = "<group>"; };
+		F533B16D21349D09001977C2 /* ColorTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ColorTool.m; sourceTree = "<group>"; };
+		F533B16F21349D16001977C2 /* ColorTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorTool.h; sourceTree = "<group>"; };
+		F533B1702134A361001977C2 /* AdServerValidationMockInterstitial.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdServerValidationMockInterstitial.m; sourceTree = "<group>"; };
+		F533B1722134A372001977C2 /* AdServerValidationMockInterstitial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdServerValidationMockInterstitial.h; sourceTree = "<group>"; };
 		F553098120E53CF500A7B552 /* AdServerValidationURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdServerValidationURLProtocol.m; sourceTree = "<group>"; };
 		F56AE88F209A3808000CE29F /* PBViewTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBViewTool.m; sourceTree = "<group>"; };
 		F56AE890209A3809000CE29F /* PBViewTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBViewTool.h; sourceTree = "<group>"; };
@@ -379,6 +385,8 @@
 				F56AE88F209A3808000CE29F /* PBViewTool.m */,
 				60CFB26A2097820D006FCF7C /* Pickers */,
 				60CFB2802097820D006FCF7C /* QRCodeReaderViewController */,
+				F533B16D21349D09001977C2 /* ColorTool.m */,
+				F533B16F21349D16001977C2 /* ColorTool.h */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -441,6 +449,8 @@
 				60D124632126DBAD00EC6EE2 /* KVViewController.m */,
 				F533B16721309548001977C2 /* AdServerResponseViewController.m */,
 				F533B1692130955A001977C2 /* AdServerResponseViewController.h */,
+				F533B1702134A361001977C2 /* AdServerValidationMockInterstitial.m */,
+				F533B1722134A372001977C2 /* AdServerValidationMockInterstitial.h */,
 			);
 			path = AdServerValidation;
 			sourceTree = "<group>";
@@ -724,9 +734,11 @@
 				60CFB2BE2097820D006FCF7C /* DistancePickerView.m in Sources */,
 				60CFB2B92097820D006FCF7C /* ActionSheetLocalePicker.m in Sources */,
 				F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */,
+				F533B16E21349D09001977C2 /* ColorTool.m in Sources */,
 				F513CDFD2112202400700925 /* DemandValidator.m in Sources */,
 				F553098220E53CF500A7B552 /* AdServerValidationURLProtocol.m in Sources */,
 				60CFB2C42097820D006FCF7C /* QRCodeReaderView.m in Sources */,
+				F533B1712134A361001977C2 /* AdServerValidationMockInterstitial.m in Sources */,
 				F59C6B652126123F00A5B8AE /* BannerTestsViewController.m in Sources */,
 				D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */,
 				60CFB2C02097820D006FCF7C /* AbstractActionSheetPicker.m in Sources */,

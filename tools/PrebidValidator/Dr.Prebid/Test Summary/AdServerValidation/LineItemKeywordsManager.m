@@ -21,11 +21,19 @@ NSString * const KeywordsManagerCacheIdKey = @"hb_cache_id";
 NSString * const KeywordsManagerSizeKey = @"hb_size";
 NSString * const KeywordsManagerCacheEndPoint = @"https://prebid.adnxs.com/pbc/v1/cache";
 CGFloat const KeywordsManagerPriceFiftyCentsRange = 0.50f; // round to this for now, should be rounded according to setup
-NSString *const KeywordsManagerCreative300x250 = @"{\"id\":\"7438652069000399098\",\"impid\":\"Home\",\"price\":0.5,\"adm\":\"<script type=\\\"text\/javascript\\\">document.write('<a href=\\\"http:\/\/prebid.org\\\" target=\\\"_blank\\\"><img width=\\\"300\\\" height=\\\"250\\\" style=\\\"border-style: none\\\" src=\\\"https:\/\/vcdn.adnxs.com\/p\/creative-image\/e3\/59\/55\/3f\/e359553f-7356-4f5c-8644-cea6517430c7.jpg\\\"\/><\/a>');<\/script>\",\"adid\":\"29681110\",\"adomain\":[\"appnexus.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=29681110\",\"cid\":\"958\",\"crid\":\"29681110\",\"w\":300,\"h\":250}";
+NSString *const KeywordsManagerCreative300x250 = @"{\"id\":\"7438652069000399098\",\"impid\":\"Home\",\"price\":0.5,\"adm\":\"<script type=\\\"text\/javascript\\\">document.write('<a href=\\\"http:\/\/prebid.org\\\" target=\\\"_blank\\\"><img width=\\\"300\\\" height=\\\"250\\\" style=\\\"border-style: none\\\" src=\\\"https:\/\/vcdn.adnxs.com\/p\/creative-image\/27\/c0\/52\/67\/27c05267-5a6d-4874-834e-18e218493c32.png\\\"\/><\/a>');<\/script>\",\"adid\":\"29681110\",\"adomain\":[\"appnexus.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=29681110\",\"cid\":\"958\",\"crid\":\"29681110\",\"w\":300,\"h\":250}";
 
-NSString *const KeywordsManagerCreative320x480 = @"{\"id\":\"7438652069000399098\",\"impid\":\"Home\",\"price\":0.5,\"adm\":\"<script type=\\\"text\/javascript\\\">document.write('<a href=\\\"http:\/\/prebid.org\\\" target=\\\"_blank\\\"><img width=\\\"320\\\" height=\\\"480\\\" style=\\\"border-style: none\\\" src=\\\"https:\/\/vcdn.adnxs.com\/p\/creative-image\/bd\/95\/05\/da\/bd9505da-d89f-445f-896c-915f89a1c01a.jpg\\\"\/><\/a>');<\/script>\",\"adid\":\"29681110\",\"adomain\":[\"appnexus.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=29681110\",\"cid\":\"958\",\"crid\":\"29681110\",\"w\":320,\"h\":480}";
+NSString *const KeywordsManagerCreative300x600 = @"{\"id\":\"7438652069000399098\",\"impid\":\"Home\",\"price\":0.5,\"adm\":\"<script type=\\\"text\/javascript\\\">document.write('<a href=\\\"http:\/\/prebid.org\\\" target=\\\"_blank\\\"><img width=\\\"300\\\" height=\\\"600\\\" style=\\\"border-style: none\\\" src=\\\"https:\/\/vcdn.adnxs.com\/p\/creative-image\/79\/0f\/47\/8f\/790f478f-7de1-4472-9496-d21182055f90.png\\\"\/><\/a>');<\/script>\",\"adid\":\"29681110\",\"adomain\":[\"appnexus.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=29681110\",\"cid\":\"958\",\"crid\":\"29681110\",\"w\":300,\"h\":600}";
 
-NSString *const KeywordsManagerCreative320x50 = @"{\"id\":\"7438652069000399098\",\"impid\":\"Home\",\"price\":0.5,\"adm\":\"<script type=\\\"text\/javascript\\\">document.write('<a href=\\\"http:\/\/prebid.org\\\" target=\\\"_blank\\\"><img width=\\\"320\\\" height=\\\"50\\\" style=\\\"border-style: none\\\" src=\\\"https:\/\/vcdn.adnxs.com\/p\/creative-image\/73\/c7\/0d\/f5\/73c70df5-d450-4832-9894-fe88e868a67c.jpg\\\"\/><\/a>');<\/script>\",\"adid\":\"29681110\",\"adomain\":[\"appnexus.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=29681110\",\"cid\":\"958\",\"crid\":\"29681110\",\"w\":320,\"h\":50}";
+NSString *const KeywordsManagerCreative320x50 = @"{\"id\":\"7438652069000399098\",\"impid\":\"Home\",\"price\":0.5,\"adm\":\"<script type=\\\"text\/javascript\\\">document.write('<a href=\\\"http:\/\/prebid.org\\\" target=\\\"_blank\\\"><img width=\\\"320\\\" height=\\\"50\\\" style=\\\"border-style: none\\\" src=\\\"https:\/\/vcdn.adnxs.com\/p\/creative-image\/ab\/0f\/23\/7f\/ab0f237f-634c-4012-8c3b-6638da2d6982.png\\\"\/><\/a>');<\/script>\",\"adid\":\"29681110\",\"adomain\":[\"appnexus.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=29681110\",\"cid\":\"958\",\"crid\":\"29681110\",\"w\":320,\"h\":50}";
+
+NSString *const KeywordsManagerCreative320x100 = @"{\"id\":\"7438652069000399098\",\"impid\":\"Home\",\"price\":0.5,\"adm\":\"<script type=\\\"text\/javascript\\\">document.write('<a href=\\\"http:\/\/prebid.org\\\" target=\\\"_blank\\\"><img width=\\\"320\\\" height=\\\"100\\\" style=\\\"border-style: none\\\" src=\\\"https:\/\/vcdn.adnxs.com\/p\/creative-image\/a2\/96\/f9\/1c\/a296f91c-3d9f-4c44-a27f-2e1722ed6f82.png\\\"\/><\/a>');<\/script>\",\"adid\":\"29681110\",\"adomain\":[\"appnexus.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=29681110\",\"cid\":\"958\",\"crid\":\"29681110\",\"w\":320,\"h\":100}";
+
+NSString *const KeywordsManagerCreative320x480 = @"{\"id\":\"7438652069000399098\",\"impid\":\"Home\",\"price\":0.5,\"adm\":\"<script type=\\\"text\/javascript\\\">document.write('<a href=\\\"http:\/\/prebid.org\\\" target=\\\"_blank\\\"><img width=\\\"320\\\" height=\\\"480\\\" style=\\\"border-style: none\\\" src=\\\"https:\/\/vcdn.adnxs.com\/p\/creative-image\/d4\/46\/18\/cd\/d44618cd-8d0a-44d5-b255-60283551774e.png\\\"\/><\/a>');<\/script>\",\"adid\":\"29681110\",\"adomain\":[\"appnexus.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=29681110\",\"cid\":\"958\",\"crid\":\"29681110\",\"w\":320,\"h\":480}";
+
+NSString *const KeywordsManagerCreative728x90 = @"{\"id\":\"7438652069000399098\",\"impid\":\"Home\",\"price\":0.5,\"adm\":\"<script type=\\\"text\/javascript\\\">document.write('<a href=\\\"http:\/\/prebid.org\\\" target=\\\"_blank\\\"><img width=\\\"728\\\" height=\\\"90\\\" style=\\\"border-style: none\\\" src=\\\"https:\/\/vcdn.adnxs.com\/p\/creative-image\/f6\/11\/33\/19\/f6113319-e789-4408-b69d-b178d60c5a6e.png\\\"\/><\/a>');<\/script>\",\"adid\":\"29681110\",\"adomain\":[\"appnexus.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=29681110\",\"cid\":\"958\",\"crid\":\"29681110\",\"w\":728,\"h\":90}";
+
+
 
 NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
 
@@ -53,17 +61,33 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
     NSMutableDictionary *content300x250 = [[NSMutableDictionary alloc]init];
     content300x250[@"type"] = @"json";
     content300x250[@"value"] = size300x250json;
-    NSData *size320x480 = [KeywordsManagerCreative320x480 dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *size320x480json = [NSJSONSerialization JSONObjectWithData:size320x480 options:0 error:nil];
-    NSMutableDictionary *content320x480 = [[NSMutableDictionary alloc]init];
-    content320x480[@"type"] = @"json";
-    content320x480[@"value"] = size320x480json;
+    NSData *size300x600 = [KeywordsManagerCreative300x600 dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *size300x600json = [NSJSONSerialization JSONObjectWithData:size300x600 options:0 error:nil];
+    NSMutableDictionary *content300x600 = [[NSMutableDictionary alloc]init];
+    content300x600[@"type"] = @"json";
+    content300x600[@"value"] = size300x600json;
     NSData *size320x50 = [KeywordsManagerCreative320x50 dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *size320x50json = [NSJSONSerialization JSONObjectWithData:size320x50 options:0 error:nil];
     NSMutableDictionary *content320x50 = [[NSMutableDictionary alloc]init];
     content320x50[@"type"] = @"json";
     content320x50[@"value"] = size320x50json;
-    NSArray *puts = @[content300x250, content320x480, content320x50];
+    NSData *size320x100 = [KeywordsManagerCreative320x100 dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *size320x100json = [NSJSONSerialization JSONObjectWithData:size320x100 options:0 error:nil];
+    NSMutableDictionary *content320x100 = [[NSMutableDictionary alloc]init];
+    content320x100[@"type"] = @"json";
+    content320x100[@"value"] = size320x100json;
+    NSData *size320x480 = [KeywordsManagerCreative320x480 dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *size320x480json = [NSJSONSerialization JSONObjectWithData:size320x480 options:0 error:nil];
+    NSMutableDictionary *content320x480 = [[NSMutableDictionary alloc]init];
+    content320x480[@"type"] = @"json";
+    content320x480[@"value"] = size320x480json;
+    NSData *size728x90 = [KeywordsManagerCreative728x90 dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *size728x90json = [NSJSONSerialization JSONObjectWithData:size728x90 options:0 error:nil];
+    NSMutableDictionary *content728x90 = [[NSMutableDictionary alloc]init];
+    content728x90[@"type"] = @"json";
+    content728x90[@"value"] = size728x90json;
+
+    NSArray *puts = @[content300x250,content300x600, content320x50, content320x100, content320x480, content728x90];
     NSDictionary *postDict  = [NSDictionary dictionaryWithObject:puts forKey:@"puts"];
     NSURL *url = [[NSURL alloc]initWithString:KeywordsManagerCacheEndPoint];
     NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:url
@@ -83,8 +107,11 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
                 NSArray *uuids = response[@"responses"];
                 self.sizeToCacheIdFromServer = [[NSMutableDictionary alloc]init];
                 [self.sizeToCacheIdFromServer setValue:uuids[0][@"uuid"] forKey:@"300x250"];
-                [self.sizeToCacheIdFromServer setValue:uuids[1][@"uuid"] forKey:@"320x480"];
+                [self.sizeToCacheIdFromServer setValue:uuids[0][@"uuid"] forKey:@"300x600"];
                 [self.sizeToCacheIdFromServer setValue:uuids[2][@"uuid"] forKey:@"320x50"];
+                [self.sizeToCacheIdFromServer setValue:uuids[2][@"uuid"] forKey:@"320x100"];
+                [self.sizeToCacheIdFromServer setValue:uuids[1][@"uuid"] forKey:@"320x480"];
+                [self.sizeToCacheIdFromServer setValue:uuids[2][@"uuid"] forKey:@"728x90"];
             }
         }
     }];
@@ -94,7 +121,11 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
 - (NSDictionary<NSString *, NSString *> *)keywordsWithBidPrice:(NSString *)bidPrice forSize:(NSString *)sizeString {
     NSMutableDictionary *keywords = [[NSMutableDictionary alloc] init];
     if (self.sizeToCacheIdFromServer) {
-        keywords[KeywordsManagerCacheIdKey] = self.sizeToCacheIdFromServer[sizeString];
+        if ([sizeString isEqualToString:@"Interstitial"]) {
+            keywords[KeywordsManagerCacheIdKey] = self.sizeToCacheIdFromServer[@"320x480"];
+        } else {
+            keywords[KeywordsManagerCacheIdKey] = self.sizeToCacheIdFromServer[sizeString];
+        }
     } else {
         keywords[KeywordsManagerCacheIdKey] = KeywordsManagerFakeCacheId;
     }

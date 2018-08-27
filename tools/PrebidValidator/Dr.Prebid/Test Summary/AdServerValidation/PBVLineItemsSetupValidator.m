@@ -47,7 +47,7 @@
 
 - (void)didReceiveResponse:(NSString *)responseString forRequest:(NSString *)requestString
 {
-    if (self.requestUUID != nil && [responseString containsString:self.requestUUID]) {
+    if (self.requestUUID != nil && [requestString containsString:self.requestUUID]) {
         self.adServerResponseString = responseString;
     }
 }
@@ -79,17 +79,13 @@
     }
     if ([adServerName isEqualToString:kMoPubString]) {
         if ([adFormatName isEqualToString:kBannerString]) {
-            NSMutableDictionary *keywords = [[[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString] mutableCopy];
-            self.requestUUID = [[NSUUID UUID] UUIDString];
-            [keywords setObject:self.requestUUID forKey:@"hb_dr_prebid"];
+            NSDictionary *keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
             MPAdView *adView = [self createMPAdViewWithAdUnitId:adUnitID WithSize:adSize WithKeywords:keywords];
             self.adObject = adView;
             [adView loadAd];
             [self.delegate setKeywordsSuccessfully:keywords];
         } else if ([adFormatName isEqualToString:kInterstitialString]){
-            NSMutableDictionary *keywords = [[[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString] mutableCopy];
-            self.requestUUID = [[NSUUID UUID] UUIDString];
-            [keywords setObject:self.requestUUID forKey:@"hb_dr_prebid"];
+            NSDictionary *keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
             MPInterstitialAdController *interstitial = [self createMPInterstitialAdControllerWithAdUnitId:adUnitID WithKeywords:keywords];
             self.adObject = interstitial;
             [interstitial loadAd];
@@ -97,31 +93,33 @@
         }
     } else if([adServerName isEqualToString:kDFPString]){
         if ([adFormatName isEqualToString:kBannerString]) {
-          
-            NSMutableDictionary *keywords = [[[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString] mutableCopy];
             DFPBannerView *adView = [self createDFPBannerViewWithAdUnitId:adUnitID WithSize:GADAdSize];
             // hack to attach to screen
             adView.frame = CGRectMake(-500, -500 , GADAdSize.size.width, GADAdSize.size.height);
             [((UIViewController *) _delegate).view addSubview:adView];
             self.adObject = adView;
             DFPRequest *request = [DFPRequest request];
-            self.requestUUID = [[NSUUID UUID] UUIDString];
-            [keywords setObject:self.requestUUID forKey:@"hb_dr_prebid"];
+            NSDictionary *keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
             request.customTargeting = keywords;
             [adView loadRequest:request];
             [self.delegate setKeywordsSuccessfully:keywords];
         } else if ([adFormatName isEqualToString:kInterstitialString]){
-            NSMutableDictionary *keywords = [[[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString] mutableCopy];
+            NSDictionary *keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
             DFPInterstitial *interstitial = [self createDFPInterstitialWithAdUnitId:adUnitID];
             self.adObject = interstitial;
             DFPRequest *request = [DFPRequest request];
-            self.requestUUID = [[NSUUID UUID] UUIDString];
-            [keywords setObject:self.requestUUID forKey:@"hb_dr_prebid"];
             request.customTargeting = keywords;
             [interstitial loadRequest:request];
             [self.delegate setKeywordsSuccessfully:keywords];
         }
     }
+}
+- (NSDictionary *) createUniqueKeywordsWithBidPrice:(NSString *)bidPrice forSize:(NSString *)adSizeString
+{
+     NSMutableDictionary *keywords = [[[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString] mutableCopy];
+    self.requestUUID = [[NSUUID UUID] UUIDString];
+    [keywords setObject:self.requestUUID forKey:@"hb_dr_prebid"];
+    return keywords;
 }
 
 #pragma mark DFP

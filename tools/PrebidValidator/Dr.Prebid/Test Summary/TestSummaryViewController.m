@@ -13,7 +13,6 @@
 #import "CPMSectionCell.h"
 #import "KVViewController.h"
 #import "AdServerResponseViewController.h"
-#import "LineItemAdsViewController.h"
 
 NSString *__nonnull const kAdServerTestHeader = @"Ad Server Setup Validation";
 NSString *__nonnull const kAdServerRequestSentWithKV = @"Ad server request sent with key-value targeting";
@@ -172,11 +171,13 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
         KVViewController * kvController = [storyboard instantiateViewControllerWithIdentifier:@"kvController"];
         kvController.keyWordsDictionary = self.lineItemTestKeywords ;
         [self.navigationController pushViewController:kvController animated:YES];
+      
     } else if (indexPath.section == 0 && indexPath.row == 1){
         AdServerResponseViewController *controller = [[AdServerResponseViewController alloc] initWithValidator:self.validator1];
-//        LineItemAdsViewController *controller = [[LineItemAdsViewController alloc] initWithValidator:self.validator1];
          [self.navigationController pushViewController:controller animated:YES];
     }
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selected = NO;
 }
 
 
