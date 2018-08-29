@@ -17,9 +17,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-
-
-
 extern NSString *__nonnull const kAdServerLabelText;
 extern NSString *__nonnull const kAdFormatLabelText;
 extern NSString *__nonnull const kAdSizeLabelText;
@@ -46,16 +43,12 @@ extern NSString *__nonnull const kInterstitialString;
 extern NSString *__nonnull const kNativeString;
 extern NSString *__nonnull const kVideoString;
 
-extern NSString *__nonnull const kBannerSizeString;
-extern NSString *__nonnull const kMediumRectangleSizeString;
-extern NSString *__nonnull const kInterstitialSizeString;
-
-static CGFloat const kBannerSizeWidth = 320.0f;
-static CGFloat const kBannerSizeHeight = 50.0f;
-static CGFloat const kMediumRectangleSizeWidth = 300.0f;
-static CGFloat const kMediumRectangleSizeHeight = 250.0f;
-static CGFloat const kInterstitialSizeWidth = 320.0f;
-static CGFloat const kInterstitialSizeHeight = 480.0f;
+extern NSString *__nonnull const kSizeString320x50;
+extern NSString *__nonnull const kSizeString300x250;
+extern NSString *__nonnull const kSizeString320x480;
+extern NSString *__nonnull const kSizeString320x100;
+extern NSString *__nonnull const kSizeString300x600;
+extern NSString *__nonnull const kSizeString728x90;
 
 static CGFloat const kAdLocationY = 30.0f;
 static CGFloat const kAdLabelLocationX = 10.0f;

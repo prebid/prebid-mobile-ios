@@ -34,6 +34,7 @@
 {
     self.title = @"Creative Display";
     UIScrollView *container = [[UIScrollView alloc]initWithFrame:self.view.frame];
+    container.scrollEnabled = YES;
     self.view = container;
     self.view.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
    

@@ -15,6 +15,7 @@
  */
 
 #import "LineItemKeywordsManager.h"
+#import "PBVSharedConstants.h"
 
 NSString * const KeywordsManagerPriceKey = @"hb_pb";
 NSString * const KeywordsManagerCacheIdKey = @"hb_cache_id";
@@ -56,37 +57,43 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
 - (void)setup
 {
     // cache response once for the entire app life cycle since we don't consider impression tracking for testing
+    // create json for size 300x250 creative
     NSData *size300x250 = [KeywordsManagerCreative300x250 dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *size300x250json = [NSJSONSerialization JSONObjectWithData:size300x250 options:0 error:nil];
     NSMutableDictionary *content300x250 = [[NSMutableDictionary alloc]init];
     content300x250[@"type"] = @"json";
     content300x250[@"value"] = size300x250json;
+    // create json for size 300x600 creative
     NSData *size300x600 = [KeywordsManagerCreative300x600 dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *size300x600json = [NSJSONSerialization JSONObjectWithData:size300x600 options:0 error:nil];
     NSMutableDictionary *content300x600 = [[NSMutableDictionary alloc]init];
     content300x600[@"type"] = @"json";
     content300x600[@"value"] = size300x600json;
+    // create json for size 320x50 creative
     NSData *size320x50 = [KeywordsManagerCreative320x50 dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *size320x50json = [NSJSONSerialization JSONObjectWithData:size320x50 options:0 error:nil];
     NSMutableDictionary *content320x50 = [[NSMutableDictionary alloc]init];
     content320x50[@"type"] = @"json";
     content320x50[@"value"] = size320x50json;
+    // create json for size 320x100 creative
     NSData *size320x100 = [KeywordsManagerCreative320x100 dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *size320x100json = [NSJSONSerialization JSONObjectWithData:size320x100 options:0 error:nil];
     NSMutableDictionary *content320x100 = [[NSMutableDictionary alloc]init];
     content320x100[@"type"] = @"json";
     content320x100[@"value"] = size320x100json;
+    // create json for size 320x480 creative
     NSData *size320x480 = [KeywordsManagerCreative320x480 dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *size320x480json = [NSJSONSerialization JSONObjectWithData:size320x480 options:0 error:nil];
     NSMutableDictionary *content320x480 = [[NSMutableDictionary alloc]init];
     content320x480[@"type"] = @"json";
     content320x480[@"value"] = size320x480json;
+    // create json for size 728x90 creative
     NSData *size728x90 = [KeywordsManagerCreative728x90 dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *size728x90json = [NSJSONSerialization JSONObjectWithData:size728x90 options:0 error:nil];
     NSMutableDictionary *content728x90 = [[NSMutableDictionary alloc]init];
     content728x90[@"type"] = @"json";
     content728x90[@"value"] = size728x90json;
-
+    // combine into one json
     NSArray *puts = @[content300x250,content300x600, content320x50, content320x100, content320x480, content728x90];
     NSDictionary *postDict  = [NSDictionary dictionaryWithObject:puts forKey:@"puts"];
     NSURL *url = [[NSURL alloc]initWithString:KeywordsManagerCacheEndPoint];
@@ -106,12 +113,12 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
             if (!jsonError) {
                 NSArray *uuids = response[@"responses"];
                 self.sizeToCacheIdFromServer = [[NSMutableDictionary alloc]init];
-                [self.sizeToCacheIdFromServer setValue:uuids[0][@"uuid"] forKey:@"300x250"];
-                [self.sizeToCacheIdFromServer setValue:uuids[0][@"uuid"] forKey:@"300x600"];
-                [self.sizeToCacheIdFromServer setValue:uuids[2][@"uuid"] forKey:@"320x50"];
-                [self.sizeToCacheIdFromServer setValue:uuids[2][@"uuid"] forKey:@"320x100"];
-                [self.sizeToCacheIdFromServer setValue:uuids[1][@"uuid"] forKey:@"320x480"];
-                [self.sizeToCacheIdFromServer setValue:uuids[2][@"uuid"] forKey:@"728x90"];
+                [self.sizeToCacheIdFromServer setValue:uuids[0][@"uuid"] forKey:kSizeString300x250];
+                [self.sizeToCacheIdFromServer setValue:uuids[1][@"uuid"] forKey:kSizeString300x600];
+                [self.sizeToCacheIdFromServer setValue:uuids[2][@"uuid"] forKey:kSizeString320x50];
+                [self.sizeToCacheIdFromServer setValue:uuids[3][@"uuid"] forKey:kSizeString320x100];
+                [self.sizeToCacheIdFromServer setValue:uuids[4][@"uuid"] forKey:kSizeString320x480];
+                [self.sizeToCacheIdFromServer setValue:uuids[5][@"uuid"] forKey:kSizeString728x90];
             }
         }
     }];
@@ -122,7 +129,7 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
     NSMutableDictionary *keywords = [[NSMutableDictionary alloc] init];
     if (self.sizeToCacheIdFromServer) {
         if ([sizeString isEqualToString:@"Interstitial"]) {
-            keywords[KeywordsManagerCacheIdKey] = self.sizeToCacheIdFromServer[@"320x480"];
+            keywords[KeywordsManagerCacheIdKey] = self.sizeToCacheIdFromServer[kSizeString320x480];
         } else {
             keywords[KeywordsManagerCacheIdKey] = self.sizeToCacheIdFromServer[sizeString];
         }

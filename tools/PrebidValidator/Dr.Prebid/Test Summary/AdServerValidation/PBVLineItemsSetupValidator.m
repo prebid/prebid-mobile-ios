@@ -68,14 +68,24 @@
     
     GADAdSize GADAdSize = kGADAdSizeInvalid;
     CGSize adSize = CGSizeZero;
-    if ([adSizeString isEqualToString:kBannerSizeString]) {
+    if ([adSizeString isEqualToString:kSizeString320x50]) {
         GADAdSize = kGADAdSizeBanner;
-        adSize = CGSizeMake(kBannerSizeWidth, kBannerSizeHeight);
-    } else if ([adSizeString isEqualToString:kMediumRectangleSizeString]) {
+        adSize = CGSizeMake(320, 50);
+    } else if ([adSizeString isEqualToString:kSizeString300x250]) {
         GADAdSize = kGADAdSizeMediumRectangle;
-        adSize = CGSizeMake(kMediumRectangleSizeWidth, kMediumRectangleSizeHeight);
-    } else if ([adSizeString isEqualToString:kInterstitialSizeString]) {
-        adSize = CGSizeMake(kInterstitialSizeWidth, kInterstitialSizeHeight);
+        adSize = CGSizeMake(300, 250);
+    } else if ([adSizeString isEqualToString:kSizeString320x480]) {
+        adSize = CGSizeMake(320, 480);
+        GADAdSize = GADAdSizeFromCGSize(adSize);
+    } else if ([adSizeString isEqualToString:kSizeString300x600]) {
+        adSize = CGSizeMake(300, 600);
+        GADAdSize = GADAdSizeFromCGSize(adSize);
+    } else if ([adSizeString isEqualToString:kSizeString320x100]) {
+        adSize = CGSizeMake(320, 100);
+        GADAdSize = kGADAdSizeLargeBanner;
+    } else if ([adSizeString isEqualToString:kSizeString728x90]) {
+        adSize = CGSizeMake(728, 90);
+        GADAdSize = kGADAdSizeLeaderboard;
     }
     if ([adServerName isEqualToString:kMoPubString]) {
         if ([adFormatName isEqualToString:kBannerString]) {

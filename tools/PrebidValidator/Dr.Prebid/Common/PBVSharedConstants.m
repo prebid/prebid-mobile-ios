@@ -44,8 +44,12 @@ NSString *__nonnull const kInterstitialString = @"Interstitial";
 NSString *__nonnull const kNativeString = @"Native";
 NSString *__nonnull const kVideoString = @"Video";
 
-NSString *__nonnull const kBannerSizeString = @"320x50";
-NSString *__nonnull const kMediumRectangleSizeString = @"300x250";
-NSString *__nonnull const kInterstitialSizeString = @"320x480";
+NSString *__nonnull const kSizeString320x50 = @"320x50";
+NSString *__nonnull const kSizeString300x250 = @"300x250";
+NSString *__nonnull const kSizeString320x480 = @"320x480";
+NSString *__nonnull const kSizeString320x100 = @"320x100";
+NSString *__nonnull const kSizeString300x600 = @"300x600";
+NSString *__nonnull const kSizeString728x90 = @"728x90";
+
 
 
