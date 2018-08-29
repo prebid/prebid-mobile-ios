@@ -51,7 +51,7 @@
     NSString *response = [self.validator getAdServerResponse];
     pbmCreativeHTMLContent.text = response;
     [self.view addSubview:pbmCreativeHTMLContent];
-    NSArray *itemArray = @[@"Received Creative", @"Test Creative"];
+    NSArray *itemArray = @[@"Received Creative", @"Expected Creative"];
     UISegmentedControl *pbmCreativeControl = [[UISegmentedControl alloc] initWithItems:itemArray];
     pbmCreativeControl.selectedSegmentIndex = 0;
     [pbmCreativeControl addTarget:self action:@selector(pbmCreativeSwitch:) forControlEvents:UIControlEventValueChanged];
