@@ -18,7 +18,6 @@
 
 @interface AdServerValidationURLProtocol () <NSURLConnectionDelegate>
 @property (nonatomic, strong) NSURLConnection *connection;
-@property NSString *requestString;
 @end
 
 @implementation AdServerValidationURLProtocol
@@ -60,8 +59,6 @@ static id<AdServerValidationURLProtocolDelegate> classDelegate = nil;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     self.connection = [NSURLConnection connectionWithRequest:newRequest delegate:self];
-    NSLog(@"Prebid: load request: %@", newRequest.URL.absoluteString);
-    self.requestString = newRequest.URL.absoluteString;
 #pragma clang diagnostic pop
 }
 
@@ -79,11 +76,6 @@ static id<AdServerValidationURLProtocolDelegate> classDelegate = nil;
     [self.client URLProtocol:self didLoadData:data];
     NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     if (classDelegate != nil) {
-        if ([self.request.URL.absoluteString isEqualToString:self.requestString]) {
-            NSLog(@"Prebid: YES");
-        } else {
-            NSLog(@"Prebid: NO");
-        }
         [classDelegate didReceiveResponse:content forRequest:self.request.URL.absoluteString];
     }
 }
