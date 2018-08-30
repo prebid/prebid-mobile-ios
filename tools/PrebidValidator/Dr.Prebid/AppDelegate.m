@@ -28,7 +28,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [[LineItemKeywordsManager sharedManager] setup];
+    [[LineItemKeywordsManager sharedManager] refreshCacheIds];
     return YES;
 }
 

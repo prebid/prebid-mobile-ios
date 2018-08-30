@@ -1,12 +1,6 @@
-//
-//  KVViewController.m
-//  Dr.Prebid
-//
-//  Created by Punnaghai Puviarasu on 8/17/18.
-//  Copyright © 2018 Prebid. All rights reserved.
-//
 
 #import "KVViewController.h"
+#import "ColorTool.h"
 
 @interface KVViewController ()
 
@@ -17,16 +11,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Key-Value Targeting";
+    self.view.backgroundColor = [ColorTool prebidGrey];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, 40)];
+    titleLabel.text = @"Prebid Key-Value Pairs";
+    [self.view addSubview:titleLabel];
     
     if(self.keyWordsDictionary != nil){
+        
         NSString *dictString = [NSString stringWithFormat:@"%@", self.keyWordsDictionary];
         
         NSCharacterSet *unwantedChars = [NSCharacterSet characterSetWithCharactersInString:@"{}"];
         NSString *requiredString = [[dictString componentsSeparatedByCharactersInSet:unwantedChars] componentsJoinedByString: @""];
-
-        self.contentLabel.text = requiredString;
-        
-        [self.contentLabel sizeToFit];
+        UITextView *contentLabel = [[UITextView alloc] initWithFrame:CGRectMake(0, 90, self.view.frame.size.width, 400)];
+        contentLabel.text = requiredString;
+        contentLabel.editable = NO;
+        [self.view addSubview:contentLabel];
     }
     // Do any additional setup after loading the view.
 }
@@ -36,14 +35,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

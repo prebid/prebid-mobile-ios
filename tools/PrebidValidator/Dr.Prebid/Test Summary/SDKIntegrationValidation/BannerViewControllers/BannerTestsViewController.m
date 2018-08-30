@@ -20,9 +20,8 @@
 #import "MPAdView.h"
 #import "PrebidMobile/PrebidMobile.h"
 #import <MessageUI/MFMailComposeViewController.h>
-#import "DRPreBidNSURLProtocol.h"
 
-@interface BannerTestsViewController () <GADBannerViewDelegate, MPAdViewDelegate, MFMailComposeViewControllerDelegate, DRPreBidNSURLProtocolDelegate>
+@interface BannerTestsViewController () <GADBannerViewDelegate, MPAdViewDelegate, MFMailComposeViewControllerDelegate>
 
 @property (strong, nonatomic) MPAdView *mopubAdView;
 @property (strong, nonatomic) DFPBannerView *dfpAdView;
@@ -36,7 +35,6 @@
 - (instancetype)initWithSettings:(NSDictionary *)settings {
     self = [super init];
     _settings = settings;
-    [DRPreBidNSURLProtocol addDelegate:self];
     return self;
 }
 
@@ -141,24 +139,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - DRPreBidNSURLProtocolDelegate
-
-- (void)didReceiveResponse:(NSString *)responseString forRequest:(NSString *)requestString
-{
-    if ([requestString containsString:@"PrebidTestRequest%3D1"]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UITextView *request = [[UITextView alloc]initWithFrame:CGRectMake(0, 405, self.view.bounds.size.width, 150)];
-            request.editable = NO;
-            request.text = requestString;
-            [self.view addSubview:request];
-            UITextView *response =[[UITextView alloc]initWithFrame:CGRectMake(0, 555, self.view.bounds.size.width, 150)];
-            response.editable = NO;
-            response.text = responseString;
-            [self.view addSubview:response];
-        });
-    }
 }
 
 #pragma mark - GADBannerViewDelegate methods

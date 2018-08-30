@@ -153,24 +153,19 @@
 - (void)adViewDidReceiveAd:(GADBannerView *)bannerView
 {
     if ([PBViewTool checkDFPAdViewContainsPBMAd:bannerView]) {
-  
         [self.delegate adServerRespondedWithPrebidCreative];
-        } else{
-            [self.delegate adServerDidNotRespondWithPrebidCreative];
-        }
-    
+    } else{
+        [self.delegate adServerDidNotRespondWithPrebidCreative];
+    }
 }
 
 - (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
 {
-
-        [self.delegate adServerDidNotRespondWithPrebidCreative];
-    
+    [self.delegate adServerDidNotRespondWithPrebidCreative];
 }
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-
     if (self.adServerResponseString != nil && [self.adServerResponseString containsString:@"pbm.js"]) {
          [self.delegate adServerRespondedWithPrebidCreative];
     } else {

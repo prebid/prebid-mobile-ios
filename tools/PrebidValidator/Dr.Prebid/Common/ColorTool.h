@@ -4,4 +4,5 @@
 
 + (UIColor *) prebidBlue;
 + (UIColor *) prebidOrange;
++ (UIColor *) prebidGrey; // used for backgrounds 
 @end

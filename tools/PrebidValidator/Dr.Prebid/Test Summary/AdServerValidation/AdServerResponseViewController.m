@@ -10,7 +10,7 @@
 #import "AdServerResponseViewController.h"
 #import "PBVSharedConstants.h"
 #import "AdServerValidationMockInterstitial.h"
-#import "MPAdView.h"
+#import "MPInterstitialAdController.h"
 @import GoogleMobileAds;
 
 @interface AdServerResponseViewController()
@@ -111,6 +111,11 @@
         if ([_validator.getDisplayable isKindOfClass: [DFPInterstitial class] ]) {
             DFPInterstitial *interstitial  = (DFPInterstitial *)[_validator getDisplayable];
             [interstitial presentFromRootViewController:self];
+        } else if ([_validator.getDisplayable isKindOfClass: [MPInterstitialAdController class]]) {
+            MPInterstitialAdController *controller = (MPInterstitialAdController *)_validator.getDisplayable;
+            if (controller.ready) {
+                [controller showFromViewController:self];
+            }
         }
     } else if (button.tag == 1) {
         AdServerValidationMockInterstitial *mockInterstitial = [[AdServerValidationMockInterstitial alloc] init];

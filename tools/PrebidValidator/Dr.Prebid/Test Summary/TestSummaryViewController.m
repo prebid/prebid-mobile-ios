@@ -165,10 +165,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0 && indexPath.row == 0) {
-        
-        NSString * storyboardName = @"Main";
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-        KVViewController * kvController = [storyboard instantiateViewControllerWithIdentifier:@"kvController"];
+        KVViewController * kvController = [[KVViewController alloc] init];
         kvController.keyWordsDictionary = self.lineItemTestKeywords ;
         [self.navigationController pushViewController:kvController animated:YES];
       

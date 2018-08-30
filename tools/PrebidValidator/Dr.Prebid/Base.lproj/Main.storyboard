@@ -316,50 +316,6 @@
             </objects>
             <point key="canvasLocation" x="7" y="1557"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="b6X-CT-TTm">
-            <objects>
-                <viewController storyboardIdentifier="kvController" id="elR-SE-en1" customClass="KVViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qLy-OZ-qAs">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="     Key-Value Targeting Pairs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocY-gb-ub6">
-                                <rect key="frame" x="0.0" y="30" width="375" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="GeV-gD-eT0"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="      Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6h-Ls-xYB">
-                                <rect key="frame" x="0.0" y="70" width="375" height="18"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="jdr-cR-zjI" firstAttribute="trailing" secondItem="ocY-gb-ub6" secondAttribute="trailing" id="4GL-dF-CE4"/>
-                            <constraint firstItem="ocY-gb-ub6" firstAttribute="top" secondItem="jdr-cR-zjI" secondAttribute="top" constant="10" id="HEM-pd-R03"/>
-                            <constraint firstItem="J6h-Ls-xYB" firstAttribute="top" secondItem="ocY-gb-ub6" secondAttribute="bottom" id="Yca-Ol-Nzs"/>
-                            <constraint firstItem="ocY-gb-ub6" firstAttribute="leading" secondItem="jdr-cR-zjI" secondAttribute="leading" id="ZDA-MT-WoS"/>
-                            <constraint firstItem="jdr-cR-zjI" firstAttribute="trailing" secondItem="J6h-Ls-xYB" secondAttribute="trailing" id="flB-jG-RnP"/>
-                            <constraint firstItem="J6h-Ls-xYB" firstAttribute="leading" secondItem="jdr-cR-zjI" secondAttribute="leading" id="l5d-0V-w0K"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="jdr-cR-zjI"/>
-                    </view>
-                    <connections>
-                        <outlet property="contentLabel" destination="J6h-Ls-xYB" id="Q7E-AO-res"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GxF-Wo-uKC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1534" y="1481"/>
-        </scene>
     </scenes>
     <resources>
         <image name="QRIcon" width="12" height="12"/>

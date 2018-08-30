@@ -12,6 +12,4 @@
 
 @property (strong) NSDictionary *keyWordsDictionary;
 
-@property (weak, nonatomic) IBOutlet UILabel *contentLabel;
-
 @end

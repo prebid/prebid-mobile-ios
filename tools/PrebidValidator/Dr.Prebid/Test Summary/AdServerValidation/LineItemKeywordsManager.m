@@ -54,7 +54,7 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
     return sharedManager;
 }
 
-- (void)setup
+- (void)refreshCacheIds
 {
     // cache response once for the entire app life cycle since we don't consider impression tracking for testing
     // create json for size 300x250 creative
@@ -123,6 +123,8 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
         }
     }];
     [cacheIdTask resume];
+    // Prebid Cache expires every 1 hour, refresh the bids here
+    [NSTimer scheduledTimerWithTimeInterval:3500 target:self selector:@selector(refreshCacheIds) userInfo:nil repeats:NO];
 }
 
 - (NSDictionary<NSString *, NSString *> *)keywordsWithBidPrice:(NSString *)bidPrice forSize:(NSString *)sizeString {

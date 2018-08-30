@@ -72,7 +72,6 @@
 		F59C6B652126123F00A5B8AE /* BannerTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F59C6B592126123E00A5B8AE /* BannerTestsViewController.m */; };
 		F59C6B662126123F00A5B8AE /* InterstitialTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F59C6B5C2126123E00A5B8AE /* InterstitialTestsViewController.m */; };
 		F59C6B672126123F00A5B8AE /* VideoTestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F59C6B612126123F00A5B8AE /* VideoTestsViewController.m */; };
-		F59C6B682126123F00A5B8AE /* DRPreBidNSURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F59C6B622126123F00A5B8AE /* DRPreBidNSURLProtocol.m */; };
 		F5AB325720A0CA3100F76478 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5AB325220A0C97C00F76478 /* PrebidMobile.framework */; };
 		F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5CF71AA20FD180100972EA6 /* IDInputViewController.m */; };
 		F5D1856521011571001DF99A /* info-ad-server.html in Resources */ = {isa = PBXBuildFile; fileRef = F5D1856121011570001DF99A /* info-ad-server.html */; };
@@ -218,10 +217,8 @@
 		F59C6B5A2126123E00A5B8AE /* BannerTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerTestsViewController.h; sourceTree = "<group>"; };
 		F59C6B5C2126123E00A5B8AE /* InterstitialTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InterstitialTestsViewController.m; sourceTree = "<group>"; };
 		F59C6B5D2126123E00A5B8AE /* InterstitialTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InterstitialTestsViewController.h; sourceTree = "<group>"; };
-		F59C6B5E2126123F00A5B8AE /* DRPreBidNSURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRPreBidNSURLProtocol.h; sourceTree = "<group>"; };
 		F59C6B602126123F00A5B8AE /* VideoTestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTestsViewController.h; sourceTree = "<group>"; };
 		F59C6B612126123F00A5B8AE /* VideoTestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTestsViewController.m; sourceTree = "<group>"; };
-		F59C6B622126123F00A5B8AE /* DRPreBidNSURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRPreBidNSURLProtocol.m; sourceTree = "<group>"; };
 		F5AB324C20A0C97C00F76478 /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../sdk/PrebidMobile.xcodeproj; sourceTree = "<group>"; };
 		F5CF71AA20FD180100972EA6 /* IDInputViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IDInputViewController.m; sourceTree = "<group>"; };
 		F5CF71AD20FD181100972EA6 /* IDInputViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDInputViewController.h; sourceTree = "<group>"; };
@@ -377,8 +374,6 @@
 		60CFB2682097820D006FCF7C /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				F59C6B5E2126123F00A5B8AE /* DRPreBidNSURLProtocol.h */,
-				F59C6B622126123F00A5B8AE /* DRPreBidNSURLProtocol.m */,
 				60CFB25B2097820D006FCF7C /* PBVSharedConstants.h */,
 				60CFB2AC2097820D006FCF7C /* PBVSharedConstants.m */,
 				F56AE890209A3809000CE29F /* PBViewTool.h */,
@@ -719,7 +714,6 @@
 				60CFB2D32097820D006FCF7C /* PBVSharedConstants.m in Sources */,
 				F513CDFE2112202400700925 /* PBVPrebidServerConfigViewController.m in Sources */,
 				F59C6B672126123F00A5B8AE /* VideoTestsViewController.m in Sources */,
-				F59C6B682126123F00A5B8AE /* DRPreBidNSURLProtocol.m in Sources */,
 				60CFB2B82097820D006FCF7C /* ActionSheetDatePicker.m in Sources */,
 				60CFB2CB2097820D006FCF7C /* LineItemKeywordsManager.m in Sources */,
 				60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */,
