@@ -91,7 +91,6 @@
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:req completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
                                       {
                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-//                                          self.response = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
                                           if ([self.testResults objectForKey:@"response"] == nil) {
                                               [self.testResults setObject:[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding] forKey:@"response"];
                                           }

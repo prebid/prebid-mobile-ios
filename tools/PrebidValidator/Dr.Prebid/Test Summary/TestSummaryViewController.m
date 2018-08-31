@@ -13,6 +13,8 @@
 #import "CPMSectionCell.h"
 #import "KVViewController.h"
 #import "AdServerResponseViewController.h"
+#import "DemandValidator.h"
+#import "PBVPrebidServerConfigViewController.h"
 
 NSString *__nonnull const kAdServerTestHeader = @"Ad Server Setup Validation";
 NSString *__nonnull const kAdServerRequestSentWithKV = @"Ad server request sent with key-value targeting";
@@ -38,10 +40,15 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 @property NSIndexPath *selectedIndex;
 
 @property PBVLineItemsSetupValidator *validator1;
-
 @property Boolean adServerTestPassed;
 @property Boolean isKVSuccess;
 @property Boolean isPBMReceived;
+
+@property DemandValidator *validator2;
+@property Boolean demandValidationPassed;
+@property Boolean areBidRequestsSent;
+@property Boolean isAnyBidReceived;
+@property Boolean demandValidationFinished;
 @end
 
 @implementation TestSummaryViewController
@@ -67,11 +74,17 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
     [self.tableView registerNib:[UINib nibWithNibName:@"CPMSectionCell" bundle:nil] forCellReuseIdentifier:@"cpmCell"];
     
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
+    self.tableView.tableFooterView = footer;
     self.adServerTestPassed = NO;
     self.isKVSuccess = NO;
     self.isPBMReceived = NO;
-    
     [self startAdServerValidation];
+    self.demandValidationPassed = NO;
+    self.areBidRequestsSent = NO;
+    self.isAnyBidReceived = NO;
+    self.demandValidationFinished = NO;
+    [self startDemandValidation];
     
 }
 
@@ -149,8 +162,6 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
     if(indexPath.section == 1 && indexPath.row == 2){
         return 75.0f;
-    } else if (indexPath.section == 2 && indexPath.row == 4){
-        return 75.0f;
     }
     return 40.0f;
 }
@@ -164,10 +175,14 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     if (indexPath.section == 0 && indexPath.row == 0) {
         KVViewController * kvController = [[KVViewController alloc] initWithRequestString:[self.validator1 getAdServerRequest]];
         [self.navigationController pushViewController:kvController animated:YES];
-      
     } else if (indexPath.section == 0 && indexPath.row == 1){
         AdServerResponseViewController *controller = [[AdServerResponseViewController alloc] initWithValidator:self.validator1];
-         [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
+    } else if (indexPath.section == 1 && indexPath.row == 1) {
+        if (self.demandValidationFinished) {
+            PBVPrebidServerConfigViewController *controller = [[PBVPrebidServerConfigViewController alloc] initWithValidator:self.validator2];
+            [self.navigationController pushViewController:controller animated:YES];
+        }
     }
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.selected = NO;
@@ -221,14 +236,20 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
    if(cell == nil)
        return nil;
     
-    cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
+    cell.imageView.image = [UIImage imageNamed:@"FailureSmall"];
     if (indexPath.row == 0){
         
         cell.lblHeader.text = kBidRequestSent;
         cell.accessoryType = UITableViewCellAccessoryNone;
+        if (self.areBidRequestsSent) {
+            cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
+        }
         return cell;
         
     } else if(indexPath.row == 1){
+        if (self.isAnyBidReceived) {
+            cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
+        }
         cell.lblHeader.text = kBidResponseReceived;
         return cell;
         
@@ -296,27 +317,50 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 - (void)didFindPrebidKeywordsOnTheAdServerRequest
 {
     self.isKVSuccess = YES;
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (void)didNotFindPrebidKeywordsOnTheAdServerRequest
 {
     self.isKVSuccess = NO;
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 - (void)adServerDidNotRespondWithPrebidCreative
 {
     self.isPBMReceived = NO;
     self.adServerTestPassed = NO;
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 -(void)adServerRespondedWithPrebidCreative
 {
     self.isPBMReceived = YES;
     self.adServerTestPassed = YES;
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
+
+-(void) startDemandValidation
+{
+    self.validator2 = [[DemandValidator alloc] init];
+    [self.validator2 startTestWithCompletionHandler:^{
+        NSLog(@"Demand test finished.");
+    }];
+    self.areBidRequestsSent = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.isAnyBidReceived = YES; // todo: hack, to be replaced with real value
+        self.demandValidationFinished = YES;
+        [self.tableView reloadData];
+    });
+}
+
 
 
 @end
