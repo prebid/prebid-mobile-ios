@@ -250,16 +250,24 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
         if (self.isAnyBidReceived) {
             cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
         }
-        cell.lblHeader.text = kBidResponseReceived;
+        NSNumber *totalBids = [self.validator2.testResults objectForKey:@"totalBids"];
+        if (totalBids != nil) {
+            cell.lblHeader.text = [NSString stringWithFormat:@"%d bid responses received", [totalBids intValue] ];
+        } else {
+            cell.lblHeader.text = kBidResponseReceived;
+        }
         return cell;
         
     } else if(indexPath.row == 2){
         
         CPMSectionCell *cpmCell = (CPMSectionCell *)[tableView dequeueReusableCellWithIdentifier:@"cpmCell"];
         
-        cpmCell.lblHeader.text = kCPMReceived;
-        
-        cpmCell.lblHeader2.text = @"";
+        if (self.demandValidationFinished) {
+            cpmCell.lblHeader.text = [NSString stringWithFormat:@"Average CPM is: $%f",[[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue]] ;
+            
+            cpmCell.lblHeader2.text = @"";
+        }
+
         
         return cpmCell;
         
@@ -350,15 +358,21 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 -(void) startDemandValidation
 {
     self.validator2 = [[DemandValidator alloc] init];
-    [self.validator2 startTestWithCompletionHandler:^{
-        NSLog(@"Demand test finished.");
+    [self.validator2 startTestWithCompletionHandler:^() {
+        self.demandValidationFinished = YES;
+        int totalBids = [[self.validator2.testResults objectForKey:@"totalBids"] intValue];
+        if (totalBids > 0) {
+            self.isAnyBidReceived = YES;
+            self.demandValidationPassed = YES;
+        } else {
+            self.isAnyBidReceived = NO;
+            self.demandValidationPassed = NO;
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }];
     self.areBidRequestsSent = YES;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.isAnyBidReceived = YES; // todo: hack, to be replaced with real value
-        self.demandValidationFinished = YES;
-        [self.tableView reloadData];
-    });
 }
 
 
