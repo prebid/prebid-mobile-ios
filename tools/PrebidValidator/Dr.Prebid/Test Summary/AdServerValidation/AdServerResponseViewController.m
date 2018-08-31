@@ -43,7 +43,7 @@
     
     UILabel *pbmCreativeHTMLTitle = [[UILabel alloc] init];
     pbmCreativeHTMLTitle.frame = CGRectMake(20, 0, self.view.frame.size.width -20, 50);
-    pbmCreativeHTMLTitle.text = @"Prebid Mobile Creative HTML";
+    pbmCreativeHTMLTitle.text = @"Responded Creative HTML";
     [pbmCreativeHTMLTitle setFont:[UIFont systemFontOfSize:20]];
     [self.view addSubview:pbmCreativeHTMLTitle];
     UITextView *pbmCreativeHTMLContent = [[UITextView alloc] init];
