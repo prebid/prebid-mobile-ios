@@ -9,7 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface KVViewController : UIViewController
-
-@property (strong) NSDictionary *keyWordsDictionary;
-
+- (instancetype)initWithRequestString:(NSString *)requestString;
 @end

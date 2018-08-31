@@ -42,9 +42,6 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 @property Boolean adServerTestPassed;
 @property Boolean isKVSuccess;
 @property Boolean isPBMReceived;
-
-@property NSDictionary *lineItemTestKeywords;
-
 @end
 
 @implementation TestSummaryViewController
@@ -165,8 +162,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0 && indexPath.row == 0) {
-        KVViewController * kvController = [[KVViewController alloc] init];
-        kvController.keyWordsDictionary = self.lineItemTestKeywords ;
+        KVViewController * kvController = [[KVViewController alloc] initWithRequestString:[self.validator1 getAdServerRequest]];
         [self.navigationController pushViewController:kvController animated:YES];
       
     } else if (indexPath.section == 0 && indexPath.row == 1){
@@ -296,12 +292,17 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 }
 
 #pragma mark AdServerValidation PBVLineItemsSetupValidatorDelegate
-- (void)setKeywordsSuccessfully:(NSDictionary *)keywords
+
+- (void)didFindPrebidKeywordsOnTheAdServerRequest
 {
-    self.lineItemTestKeywords = keywords;
     self.isKVSuccess = YES;
     [self.tableView reloadData];
-    
+}
+
+- (void)didNotFindPrebidKeywordsOnTheAdServerRequest
+{
+    self.isKVSuccess = NO;
+    [self.tableView reloadData];
 }
 - (void)adServerDidNotRespondWithPrebidCreative
 {

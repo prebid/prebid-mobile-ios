@@ -40,6 +40,9 @@ static id<AdServerValidationURLProtocolDelegate> classDelegate = nil;
     }
     if ([request.URL.absoluteString containsString:@"hb_dr_prebid"] && ([request.URL.absoluteString containsString:@"ads.mopub.com/m/ad?"] || [request.URL.absoluteString containsString:@"pubads.g.doubleclick.net/gampad/ads?"]))
     {
+        if (classDelegate != nil) {
+            [classDelegate willInterceptRequest:request.URL.absoluteString];
+        }
         return YES;
     }
     return NO;

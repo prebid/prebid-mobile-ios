@@ -32,6 +32,7 @@
 @property id adObject;
 @property NSString *requestUUID;
 @property NSString *adServerResponseString;
+@property NSString *adServerRequestString;
 @property NSDictionary *keywords;
 @end
 
@@ -43,6 +44,35 @@
     [NSURLProtocol registerClass:[AdServerValidationURLProtocol class]];
     [AdServerValidationURLProtocol setDelegate:self];
     return self;
+}
+
+- (void)willInterceptRequest:(NSString *)requestString
+{
+    if ([requestString containsString:self.requestUUID]) {
+        NSLog(@"received request string: %@", requestString);
+        self.adServerRequestString = requestString;
+        BOOL containsKeyValues = YES;
+        if ([requestString containsString:@"pubads.g.doubleclick.net/gampad/ads?"]) {
+            for (NSString *key in self.keywords.allKeys) {
+                NSString *keyValuePair = [NSString stringWithFormat:@"%@%@%@", key,@"%3D", [self.keywords objectForKey:key]];
+                if (![requestString containsString:keyValuePair]) {
+                    containsKeyValues = NO;
+                }
+            }
+        } else {
+            for (NSString *key in self.keywords.allKeys) {
+                NSString *keyValuePair = [NSString stringWithFormat:@"%@:%@", key,[self.keywords objectForKey:key]];
+                if (![requestString containsString:keyValuePair]) {
+                    containsKeyValues = NO;
+                }
+            }
+        }
+        if (containsKeyValues) {
+            [self.delegate didFindPrebidKeywordsOnTheAdServerRequest];
+        } else {
+            [self.delegate didNotFindPrebidKeywordsOnTheAdServerRequest];
+        }
+    }
 }
 
 - (void)didReceiveResponse:(NSString *)responseString forRequest:(NSString *)requestString
@@ -89,17 +119,15 @@
     }
     if ([adServerName isEqualToString:kMoPubString]) {
         if ([adFormatName isEqualToString:kBannerString]) {
-            NSDictionary *keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
-            MPAdView *adView = [self createMPAdViewWithAdUnitId:adUnitID WithSize:adSize WithKeywords:keywords];
+            self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
+            MPAdView *adView = [self createMPAdViewWithAdUnitId:adUnitID WithSize:adSize WithKeywords:self.keywords];
             self.adObject = adView;
             [adView loadAd];
-            [self.delegate setKeywordsSuccessfully:keywords];
         } else if ([adFormatName isEqualToString:kInterstitialString]){
-            NSDictionary *keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
-            MPInterstitialAdController *interstitial = [self createMPInterstitialAdControllerWithAdUnitId:adUnitID WithKeywords:keywords];
+            self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
+            MPInterstitialAdController *interstitial = [self createMPInterstitialAdControllerWithAdUnitId:adUnitID WithKeywords:self.keywords];
             self.adObject = interstitial;
             [interstitial loadAd];
-            [self.delegate setKeywordsSuccessfully:keywords];
         }
     } else if([adServerName isEqualToString:kDFPString]){
         if ([adFormatName isEqualToString:kBannerString]) {
@@ -109,27 +137,25 @@
             [((UIViewController *) _delegate).view addSubview:adView];
             self.adObject = adView;
             DFPRequest *request = [DFPRequest request];
-            NSDictionary *keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
-            request.customTargeting = keywords;
+            self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
+            request.customTargeting = self.keywords;
             [adView loadRequest:request];
-            [self.delegate setKeywordsSuccessfully:keywords];
         } else if ([adFormatName isEqualToString:kInterstitialString]){
-            NSDictionary *keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
+            self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
             DFPInterstitial *interstitial = [self createDFPInterstitialWithAdUnitId:adUnitID];
             self.adObject = interstitial;
             DFPRequest *request = [DFPRequest request];
-            request.customTargeting = keywords;
+            request.customTargeting = self.keywords;
             [interstitial loadRequest:request];
-            [self.delegate setKeywordsSuccessfully:keywords];
         }
     }
 }
 - (NSDictionary *) createUniqueKeywordsWithBidPrice:(NSString *)bidPrice forSize:(NSString *)adSizeString
 {
-     NSMutableDictionary *keywords = [[[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString] mutableCopy];
+    NSMutableDictionary *keywords = [[[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString] mutableCopy];
     self.requestUUID = [[NSUUID UUID] UUIDString];
     [keywords setObject:self.requestUUID forKey:@"hb_dr_prebid"];
-    return keywords;
+    return [keywords copy];
 }
 
 #pragma mark DFP
@@ -274,6 +300,11 @@
 - (NSString *)getAdServerResponse
 {
     return self.adServerResponseString;
+}
+
+- (NSString *)getAdServerRequest
+{
+    return self.adServerRequestString;
 }
 @end
 

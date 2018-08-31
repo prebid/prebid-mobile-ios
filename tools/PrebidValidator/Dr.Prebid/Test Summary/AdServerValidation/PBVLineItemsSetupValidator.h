@@ -15,7 +15,8 @@
  */
 
 @protocol PBVLineItemsSetupValidatorDelegate
-- (void) setKeywordsSuccessfully: (NSDictionary *) keywords;
+- (void) didFindPrebidKeywordsOnTheAdServerRequest;
+- (void) didNotFindPrebidKeywordsOnTheAdServerRequest;
 - (void) adServerRespondedWithPrebidCreative;
 - (void) adServerDidNotRespondWithPrebidCreative;
 @end
@@ -30,4 +31,5 @@
 
 - (NSString *) getAdServerResponse;
 
+- (NSString *) getAdServerRequest;
 @end
