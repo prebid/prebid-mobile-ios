@@ -15,17 +15,9 @@
 #import "AdServerResponseViewController.h"
 #import "DemandValidator.h"
 #import "DemandViewController.h"
+#import "HelpViewController.h"
+#import "PBVSharedConstants.h"
 
-NSString *__nonnull const kAdServerTestHeader = @"Ad Server Setup Validation";
-NSString *__nonnull const kAdServerRequestSentWithKV = @"Ad server request sent and \nKey-Value Targeting sent";
-NSString *__nonnull const kpbmjssent = @"Prebid Mobile creative HTML served";
-
-NSString *__nonnull const kRealTimeHeader = @"Real-Time Demand Validation";
-NSString *__nonnull const kBidRequestSent = @"100 bid requests sent";
-NSString *__nonnull const kBidResponseReceived = @"bid response received";
-NSString *__nonnull const kCPMReceived = @"CPM response time";
-
-NSString *__nonnull const kSDKHeader = @"End-to-End SDK Validation";
 
 NSString *__nonnull const kSectionCellString = @"sCell";
 NSString *__nonnull const kHeaderCellString = @"headerCell";
@@ -117,7 +109,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
     if(cell == nil)
         return nil;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.accessoryType = UIButtonTypeDetailDisclosure;
     if(section == 0){
         if(self.adServerValidationState == 1) {
             cell.imgStatus.image = [UIImage imageNamed:@"SuccessLarge"];
@@ -140,7 +132,24 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 
 -(void) tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(nonnull NSIndexPath *)indexPath {
     self.selectedIndex = indexPath;
-    //[self btnAboutPressed:self];
+    [self btnAboutPressed:self];
+}
+
+- (void) btnAboutPressed :(id) sender
+{
+    HelpViewController *controller = nil;
+    if ([sender isKindOfClass:[TestSummaryViewController class] ]) {
+        if (self.selectedIndex.section == 0) {
+            controller = [[HelpViewController alloc] initWithTitle:kAdServerTestHeader];
+        } else if (self.selectedIndex.section == 1) {
+            controller = [[HelpViewController alloc] initWithTitle:kRealTimeHeader];
+        } else {
+            controller = [[HelpViewController alloc] initWithTitle:kSDKHeader];
+        }
+    }
+    if (controller != nil) {
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
