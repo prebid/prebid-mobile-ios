@@ -14,7 +14,6 @@
 #import "KVViewController.h"
 #import "AdServerResponseViewController.h"
 #import "DemandValidator.h"
-#import "DemandValidatorViewController.h"
 #import "DemandViewController.h"
 
 NSString *__nonnull const kAdServerTestHeader = @"Ad Server Setup Validation";

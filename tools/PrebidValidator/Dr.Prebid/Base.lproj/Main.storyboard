@@ -346,40 +346,6 @@
             </objects>
             <point key="canvasLocation" x="7" y="1557"/>
         </scene>
-        <!--Demand Validator View Controller-->
-        <scene sceneID="ZYc-nD-tPe">
-            <objects>
-                <viewController storyboardIdentifier="demandViewController" id="zp5-0Z-ESc" customClass="DemandValidatorViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Q5d-Av-YSF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="J0V-rE-rP3">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="zp5-0Z-ESc" id="itQ-8r-Jzj"/>
-                                    <outlet property="delegate" destination="zp5-0Z-ESc" id="BB5-gV-X30"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="ixq-og-WeT" firstAttribute="bottom" secondItem="J0V-rE-rP3" secondAttribute="bottom" id="Jqn-nG-g7P"/>
-                            <constraint firstItem="J0V-rE-rP3" firstAttribute="top" secondItem="ixq-og-WeT" secondAttribute="top" id="KdK-x0-rbQ"/>
-                            <constraint firstItem="ixq-og-WeT" firstAttribute="trailing" secondItem="J0V-rE-rP3" secondAttribute="trailing" id="ndD-6z-gGd"/>
-                            <constraint firstItem="J0V-rE-rP3" firstAttribute="leading" secondItem="ixq-og-WeT" secondAttribute="leading" id="uB0-GN-iYf"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="ixq-og-WeT"/>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="J0V-rE-rP3" id="wpe-xl-62U"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CCG-lu-PiE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="818" y="1474"/>
-        </scene>
     </scenes>
     <resources>
         <image name="QRIcon" width="12" height="12"/>
