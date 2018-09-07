@@ -4,7 +4,7 @@
 
 + (UIColor *)prebidBlue
 {
-    return [UIColor blueColor]; // todo: get RGB for this
+    return [UIColor colorWithRed:0.23 green:0.53 blue:0.76 alpha:1.0];
 }
 + (UIColor *)prebidOrange
 {
