@@ -10,7 +10,6 @@
 
 @interface TestHeaderCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *lblHeader1;
-@property (weak, nonatomic) IBOutlet UILabel *lblHeader2;
 @property (weak, nonatomic) IBOutlet UIImageView *imgStatus;
 
 @end
