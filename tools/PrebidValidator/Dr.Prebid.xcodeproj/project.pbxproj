@@ -14,6 +14,7 @@
 		609172F020F5314E001B94A8 /* HeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172EF20F5314E001B94A8 /* HeaderCell.m */; };
 		609172F320F53C74001B94A8 /* IdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172F220F53C74001B94A8 /* IdCell.m */; };
 		609172F620F686A8001B94A8 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172F520F686A8001B94A8 /* HelpViewController.m */; };
+		6099DE062141C44A0021661D /* DemandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6099DE052141C44A0021661D /* DemandViewController.m */; };
 		60A2CC2A2121B71200EA6ACF /* TestSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC292121B71200EA6ACF /* TestSummaryViewController.m */; };
 		60A2CC342123554200EA6ACF /* SectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC322123554200EA6ACF /* SectionCell.m */; };
 		60A2CC352123554200EA6ACF /* SectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A2CC332123554200EA6ACF /* SectionCell.xib */; };
@@ -57,10 +58,14 @@
 		60D124642126DBAD00EC6EE2 /* KVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D124632126DBAD00EC6EE2 /* KVViewController.m */; };
 		60D124692126E1F300EC6EE2 /* CPMSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D124672126E1F300EC6EE2 /* CPMSectionCell.m */; };
 		60D1246A2126E1F300EC6EE2 /* CPMSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60D124682126E1F300EC6EE2 /* CPMSectionCell.xib */; };
+		60D12472214173F600EC6EE2 /* DemandViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D12470214173F600EC6EE2 /* DemandViewCell.m */; };
+		60D12473214173F600EC6EE2 /* DemandViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60D12471214173F600EC6EE2 /* DemandViewCell.xib */; };
+		60D12477214188F100EC6EE2 /* DemandHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D12475214188F100EC6EE2 /* DemandHeaderCell.m */; };
+		60D12478214188F100EC6EE2 /* DemandHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60D12476214188F100EC6EE2 /* DemandHeaderCell.xib */; };
 		D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */ = {isa = PBXBuildFile; fileRef = D15C104E20F6EB32004CBC18 /* AdSizeController.m */; };
 		F283A423484632D93AE6FB87 /* libPods-Dr.Prebid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */; };
 		F513CDFD2112202400700925 /* DemandValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F513CDF92112202400700925 /* DemandValidator.m */; };
-		F513CDFE2112202400700925 /* PBVPrebidServerConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F513CDFA2112202400700925 /* PBVPrebidServerConfigViewController.m */; };
+		F513CDFE2112202400700925 /* DemandValidatorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F513CDFA2112202400700925 /* DemandValidatorViewController.m */; };
 		F533B16821309548001977C2 /* AdServerResponseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B16721309548001977C2 /* AdServerResponseViewController.m */; };
 		F533B16E21349D09001977C2 /* ColorTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B16D21349D09001977C2 /* ColorTool.m */; };
 		F533B1712134A361001977C2 /* AdServerValidationMockInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B1702134A361001977C2 /* AdServerValidationMockInterstitial.m */; };
@@ -120,6 +125,8 @@
 		609172F220F53C74001B94A8 /* IdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IdCell.m; sourceTree = "<group>"; };
 		609172F420F686A8001B94A8 /* HelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		609172F520F686A8001B94A8 /* HelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		6099DE042141C44A0021661D /* DemandViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemandViewController.h; sourceTree = "<group>"; };
+		6099DE052141C44A0021661D /* DemandViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemandViewController.m; sourceTree = "<group>"; };
 		60A2CC282121B71200EA6ACF /* TestSummaryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestSummaryViewController.h; sourceTree = "<group>"; };
 		60A2CC292121B71200EA6ACF /* TestSummaryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestSummaryViewController.m; sourceTree = "<group>"; };
 		60A2CC312123554200EA6ACF /* SectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SectionCell.h; sourceTree = "<group>"; };
@@ -190,12 +197,18 @@
 		60D124662126E1F300EC6EE2 /* CPMSectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPMSectionCell.h; sourceTree = "<group>"; };
 		60D124672126E1F300EC6EE2 /* CPMSectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CPMSectionCell.m; sourceTree = "<group>"; };
 		60D124682126E1F300EC6EE2 /* CPMSectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CPMSectionCell.xib; sourceTree = "<group>"; };
+		60D1246F214173F600EC6EE2 /* DemandViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemandViewCell.h; sourceTree = "<group>"; };
+		60D12470214173F600EC6EE2 /* DemandViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemandViewCell.m; sourceTree = "<group>"; };
+		60D12471214173F600EC6EE2 /* DemandViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DemandViewCell.xib; sourceTree = "<group>"; };
+		60D12474214188F100EC6EE2 /* DemandHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemandHeaderCell.h; sourceTree = "<group>"; };
+		60D12475214188F100EC6EE2 /* DemandHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemandHeaderCell.m; sourceTree = "<group>"; };
+		60D12476214188F100EC6EE2 /* DemandHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DemandHeaderCell.xib; sourceTree = "<group>"; };
 		8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dr.Prebid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D15C104E20F6EB32004CBC18 /* AdSizeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdSizeController.m; sourceTree = "<group>"; };
 		D15C105120F6EB4F004CBC18 /* AdSizeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdSizeController.h; sourceTree = "<group>"; };
-		F513CDF82112202400700925 /* PBVPrebidServerConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVPrebidServerConfigViewController.h; sourceTree = "<group>"; };
+		F513CDF82112202400700925 /* DemandValidatorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemandValidatorViewController.h; sourceTree = "<group>"; };
 		F513CDF92112202400700925 /* DemandValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemandValidator.m; sourceTree = "<group>"; };
-		F513CDFA2112202400700925 /* PBVPrebidServerConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBVPrebidServerConfigViewController.m; sourceTree = "<group>"; };
+		F513CDFA2112202400700925 /* DemandValidatorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemandValidatorViewController.m; sourceTree = "<group>"; };
 		F513CDFB2112202400700925 /* DemandValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemandValidator.h; sourceTree = "<group>"; };
 		F533B1662130882E001977C2 /* AdServerValidationURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdServerValidationURLProtocol.h; sourceTree = "<group>"; };
 		F533B16721309548001977C2 /* AdServerResponseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdServerResponseViewController.m; sourceTree = "<group>"; };
@@ -455,8 +468,16 @@
 			children = (
 				F513CDFB2112202400700925 /* DemandValidator.h */,
 				F513CDF92112202400700925 /* DemandValidator.m */,
-				F513CDF82112202400700925 /* PBVPrebidServerConfigViewController.h */,
-				F513CDFA2112202400700925 /* PBVPrebidServerConfigViewController.m */,
+				F513CDF82112202400700925 /* DemandValidatorViewController.h */,
+				F513CDFA2112202400700925 /* DemandValidatorViewController.m */,
+				60D1246F214173F600EC6EE2 /* DemandViewCell.h */,
+				60D12470214173F600EC6EE2 /* DemandViewCell.m */,
+				60D12471214173F600EC6EE2 /* DemandViewCell.xib */,
+				60D12474214188F100EC6EE2 /* DemandHeaderCell.h */,
+				60D12475214188F100EC6EE2 /* DemandHeaderCell.m */,
+				60D12476214188F100EC6EE2 /* DemandHeaderCell.xib */,
+				6099DE042141C44A0021661D /* DemandViewController.h */,
+				6099DE052141C44A0021661D /* DemandViewController.m */,
 			);
 			name = DemandValidation;
 			path = "Dr.Prebid/Test Summary/DemandValidation";
@@ -619,6 +640,7 @@
 				F5D1856621011571001DF99A /* about.html in Resources */,
 				60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */,
 				60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */,
+				60D12473214173F600EC6EE2 /* DemandViewCell.xib in Resources */,
 				F5D1856821011571001DF99A /* info-general.html in Resources */,
 				60A2CC3A212358F800EA6ACF /* TestHeaderCell.xib in Resources */,
 				60D1246A2126E1F300EC6EE2 /* CPMSectionCell.xib in Resources */,
@@ -626,6 +648,7 @@
 				F5D1856721011571001DF99A /* info-prebid-server.html in Resources */,
 				F5D1856521011571001DF99A /* info-ad-server.html in Resources */,
 				60A2CC352123554200EA6ACF /* SectionCell.xib in Resources */,
+				60D12478214188F100EC6EE2 /* DemandHeaderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,13 +735,14 @@
 			files = (
 				60CFB2C12097820D006FCF7C /* QRToggleTorchButton.m in Sources */,
 				60CFB2D32097820D006FCF7C /* PBVSharedConstants.m in Sources */,
-				F513CDFE2112202400700925 /* PBVPrebidServerConfigViewController.m in Sources */,
+				F513CDFE2112202400700925 /* DemandValidatorViewController.m in Sources */,
 				F59C6B672126123F00A5B8AE /* VideoTestsViewController.m in Sources */,
 				60CFB2B82097820D006FCF7C /* ActionSheetDatePicker.m in Sources */,
 				60CFB2CB2097820D006FCF7C /* LineItemKeywordsManager.m in Sources */,
 				60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */,
 				F59C6B662126123F00A5B8AE /* InterstitialTestsViewController.m in Sources */,
 				609172F020F5314E001B94A8 /* HeaderCell.m in Sources */,
+				60D12477214188F100EC6EE2 /* DemandHeaderCell.m in Sources */,
 				60CFB2C22097820D006FCF7C /* QRCameraSwitchButton.m in Sources */,
 				609172ED20F50F42001B94A8 /* LabelAccessoryCell.m in Sources */,
 				60D124692126E1F300EC6EE2 /* CPMSectionCell.m in Sources */,
@@ -726,12 +750,14 @@
 				F533B16821309548001977C2 /* AdServerResponseViewController.m in Sources */,
 				60CFB2BF2097820D006FCF7C /* ActionSheetMultipleStringPicker.m in Sources */,
 				60CFB2BE2097820D006FCF7C /* DistancePickerView.m in Sources */,
+				60D12472214173F600EC6EE2 /* DemandViewCell.m in Sources */,
 				60CFB2B92097820D006FCF7C /* ActionSheetLocalePicker.m in Sources */,
 				F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */,
 				F533B16E21349D09001977C2 /* ColorTool.m in Sources */,
 				F513CDFD2112202400700925 /* DemandValidator.m in Sources */,
 				F553098220E53CF500A7B552 /* AdServerValidationURLProtocol.m in Sources */,
 				60CFB2C42097820D006FCF7C /* QRCodeReaderView.m in Sources */,
+				6099DE062141C44A0021661D /* DemandViewController.m in Sources */,
 				F533B1712134A361001977C2 /* AdServerValidationMockInterstitial.m in Sources */,
 				F59C6B652126123F00A5B8AE /* BannerTestsViewController.m in Sources */,
 				D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */,

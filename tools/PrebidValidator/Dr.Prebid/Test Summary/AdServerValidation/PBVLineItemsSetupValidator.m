@@ -94,6 +94,9 @@
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
     NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
+    //DFP adUnit Id
+    adUnitID = @"/19968336/PrebidMobileValidator_Banner_300x250";
+    
     NSString *bidPrice = [[NSUserDefaults standardUserDefaults] stringForKey:kBidPriceKey];
     
     GADAdSize GADAdSize = kGADAdSizeInvalid;

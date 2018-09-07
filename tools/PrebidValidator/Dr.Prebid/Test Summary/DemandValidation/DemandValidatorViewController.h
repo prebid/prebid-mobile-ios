@@ -17,6 +17,11 @@
 #import <UIKit/UIKit.h>
 #import "DemandValidator.h"
 
-@interface PBVPrebidServerConfigViewController: UITabBarController
--(instancetype)initWithValidator: (DemandValidator *) validator;
+@interface DemandValidatorViewController: UITabBarController
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+
+@property (strong) NSDictionary *resultsDictionary;
+
+//-(instancetype)initWithValidator: (DemandValidator *) validator;
 @end

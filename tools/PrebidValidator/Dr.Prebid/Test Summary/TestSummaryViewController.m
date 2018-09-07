@@ -14,7 +14,8 @@
 #import "KVViewController.h"
 #import "AdServerResponseViewController.h"
 #import "DemandValidator.h"
-#import "PBVPrebidServerConfigViewController.h"
+#import "DemandValidatorViewController.h"
+#import "DemandViewController.h"
 
 NSString *__nonnull const kAdServerTestHeader = @"Ad Server Setup Validation";
 NSString *__nonnull const kAdServerRequestSentWithKV = @"Ad server request sent with key-value targeting";
@@ -39,6 +40,8 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 
 @property NSIndexPath *selectedIndex;
 
+@property UIActivityIndicatorView *indicatorView;
+
 @property PBVLineItemsSetupValidator *validator1;
 @property Boolean adServerTestPassed;
 @property Boolean isKVSuccess;
@@ -56,7 +59,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Test Summary";
+    self.title = @"Summary";
     
     self.adServerTitles = @[kAdServerRequestSentWithKV, kpbmjssent];
     self.demandTitles = @[kBidRequestSent, kBidResponseReceived, kCPMReceived];
@@ -119,7 +122,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
     if(cell == nil)
         return nil;
-    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if(section == 0){
         if(self.adServerTestPassed)
             cell.imgStatus.image = [UIImage imageNamed:@"SuccessLarge"];
@@ -180,7 +183,14 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
         [self.navigationController pushViewController:controller animated:YES];
     } else if (indexPath.section == 1 && indexPath.row == 1) {
         if (self.demandValidationFinished) {
-            PBVPrebidServerConfigViewController *controller = [[PBVPrebidServerConfigViewController alloc] initWithValidator:self.validator2];
+            
+            NSString * storyboardName = @"Main";
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+            DemandViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"demandController"];
+            
+            //DemandValidatorViewController *controller = [[DemandValidatorViewController alloc] init];
+            controller.resultsDictionary = self.validator2.testResults;
+            //DemandValidatorViewController *controller = [[DemandValidatorViewController alloc] initWithValidator:self.validator2];
             [self.navigationController pushViewController:controller animated:YES];
         }
     }
@@ -261,9 +271,9 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     } else if(indexPath.row == 2){
         
         CPMSectionCell *cpmCell = (CPMSectionCell *)[tableView dequeueReusableCellWithIdentifier:@"cpmCell"];
-        
+        cpmCell.lblHeader.text = @"$0.00 avg CPM";
         if (self.demandValidationFinished) {
-            cpmCell.lblHeader.text = [NSString stringWithFormat:@"Average CPM is: $%f",[[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue]] ;
+            cpmCell.lblHeader.text = [NSString stringWithFormat:@"$%f avg CPM",[[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue]] ;
             
             cpmCell.lblHeader2.text = @"";
         }
