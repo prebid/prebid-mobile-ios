@@ -15,6 +15,7 @@
 		609172F320F53C74001B94A8 /* IdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172F220F53C74001B94A8 /* IdCell.m */; };
 		609172F620F686A8001B94A8 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172F520F686A8001B94A8 /* HelpViewController.m */; };
 		6099DE062141C44A0021661D /* DemandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6099DE052141C44A0021661D /* DemandViewController.m */; };
+		6099DE0A21430FA90021661D /* RRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6099DE0921430FA90021661D /* RRViewController.m */; };
 		60A2CC2A2121B71200EA6ACF /* TestSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC292121B71200EA6ACF /* TestSummaryViewController.m */; };
 		60A2CC342123554200EA6ACF /* SectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC322123554200EA6ACF /* SectionCell.m */; };
 		60A2CC352123554200EA6ACF /* SectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A2CC332123554200EA6ACF /* SectionCell.xib */; };
@@ -23,15 +24,6 @@
 		60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB25C2097820D006FCF7C /* Assets.xcassets */; };
 		60CFB2B42097820D006FCF7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB2632097820D006FCF7C /* LaunchScreen.storyboard */; };
 		60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB2652097820D006FCF7C /* Main.storyboard */; };
-		60CFB2B82097820D006FCF7C /* ActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB26D2097820D006FCF7C /* ActionSheetDatePicker.m */; };
-		60CFB2B92097820D006FCF7C /* ActionSheetLocalePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB26F2097820D006FCF7C /* ActionSheetLocalePicker.m */; };
-		60CFB2BA2097820D006FCF7C /* ActionSheetDistancePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2732097820D006FCF7C /* ActionSheetDistancePicker.m */; };
-		60CFB2BB2097820D006FCF7C /* ActionSheetCustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2742097820D006FCF7C /* ActionSheetCustomPicker.m */; };
-		60CFB2BC2097820D006FCF7C /* SWActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2762097820D006FCF7C /* SWActionSheet.m */; };
-		60CFB2BD2097820D006FCF7C /* ActionSheetStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2782097820D006FCF7C /* ActionSheetStringPicker.m */; };
-		60CFB2BE2097820D006FCF7C /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2792097820D006FCF7C /* DistancePickerView.m */; };
-		60CFB2BF2097820D006FCF7C /* ActionSheetMultipleStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB27A2097820D006FCF7C /* ActionSheetMultipleStringPicker.m */; };
-		60CFB2C02097820D006FCF7C /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB27B2097820D006FCF7C /* AbstractActionSheetPicker.m */; };
 		60CFB2C12097820D006FCF7C /* QRToggleTorchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2822097820D006FCF7C /* QRToggleTorchButton.m */; };
 		60CFB2C22097820D006FCF7C /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2842097820D006FCF7C /* QRCameraSwitchButton.m */; };
 		60CFB2C32097820D006FCF7C /* QRCodeReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60CFB2862097820D006FCF7C /* QRCodeReaderViewController.m */; };
@@ -61,7 +53,6 @@
 		60D12472214173F600EC6EE2 /* DemandViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D12470214173F600EC6EE2 /* DemandViewCell.m */; };
 		60D12473214173F600EC6EE2 /* DemandViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60D12471214173F600EC6EE2 /* DemandViewCell.xib */; };
 		60D12477214188F100EC6EE2 /* DemandHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D12475214188F100EC6EE2 /* DemandHeaderCell.m */; };
-		60D12478214188F100EC6EE2 /* DemandHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60D12476214188F100EC6EE2 /* DemandHeaderCell.xib */; };
 		D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */ = {isa = PBXBuildFile; fileRef = D15C104E20F6EB32004CBC18 /* AdSizeController.m */; };
 		F283A423484632D93AE6FB87 /* libPods-Dr.Prebid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */; };
 		F513CDFD2112202400700925 /* DemandValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F513CDF92112202400700925 /* DemandValidator.m */; };
@@ -126,6 +117,8 @@
 		609172F520F686A8001B94A8 /* HelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		6099DE042141C44A0021661D /* DemandViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemandViewController.h; sourceTree = "<group>"; };
 		6099DE052141C44A0021661D /* DemandViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemandViewController.m; sourceTree = "<group>"; };
+		6099DE0821430FA90021661D /* RRViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RRViewController.h; sourceTree = "<group>"; };
+		6099DE0921430FA90021661D /* RRViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RRViewController.m; sourceTree = "<group>"; };
 		60A2CC282121B71200EA6ACF /* TestSummaryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestSummaryViewController.h; sourceTree = "<group>"; };
 		60A2CC292121B71200EA6ACF /* TestSummaryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestSummaryViewController.m; sourceTree = "<group>"; };
 		60A2CC312123554200EA6ACF /* SectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SectionCell.h; sourceTree = "<group>"; };
@@ -140,26 +133,6 @@
 		60CFB25C2097820D006FCF7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		60CFB2642097820D006FCF7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		60CFB2662097820D006FCF7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		60CFB26B2097820D006FCF7C /* ActionSheetCustomPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetCustomPicker.h; sourceTree = "<group>"; };
-		60CFB26C2097820D006FCF7C /* ActionSheetStringPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetStringPicker.h; sourceTree = "<group>"; };
-		60CFB26D2097820D006FCF7C /* ActionSheetDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDatePicker.m; sourceTree = "<group>"; };
-		60CFB26E2097820D006FCF7C /* SWActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWActionSheet.h; sourceTree = "<group>"; };
-		60CFB26F2097820D006FCF7C /* ActionSheetLocalePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetLocalePicker.m; sourceTree = "<group>"; };
-		60CFB2702097820D006FCF7C /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractActionSheetPicker.h; sourceTree = "<group>"; };
-		60CFB2712097820D006FCF7C /* ActionSheetMultipleStringPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetMultipleStringPicker.h; sourceTree = "<group>"; };
-		60CFB2722097820D006FCF7C /* DistancePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistancePickerView.h; sourceTree = "<group>"; };
-		60CFB2732097820D006FCF7C /* ActionSheetDistancePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDistancePicker.m; sourceTree = "<group>"; };
-		60CFB2742097820D006FCF7C /* ActionSheetCustomPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetCustomPicker.m; sourceTree = "<group>"; };
-		60CFB2752097820D006FCF7C /* ActionSheetCustomPickerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetCustomPickerDelegate.h; sourceTree = "<group>"; };
-		60CFB2762097820D006FCF7C /* SWActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWActionSheet.m; sourceTree = "<group>"; };
-		60CFB2772097820D006FCF7C /* ActionSheetDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDatePicker.h; sourceTree = "<group>"; };
-		60CFB2782097820D006FCF7C /* ActionSheetStringPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetStringPicker.m; sourceTree = "<group>"; };
-		60CFB2792097820D006FCF7C /* DistancePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistancePickerView.m; sourceTree = "<group>"; };
-		60CFB27A2097820D006FCF7C /* ActionSheetMultipleStringPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetMultipleStringPicker.m; sourceTree = "<group>"; };
-		60CFB27B2097820D006FCF7C /* AbstractActionSheetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractActionSheetPicker.m; sourceTree = "<group>"; };
-		60CFB27C2097820D006FCF7C /* ActionSheetLocalePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetLocalePicker.h; sourceTree = "<group>"; };
-		60CFB27D2097820D006FCF7C /* ActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetPicker.h; sourceTree = "<group>"; };
-		60CFB27E2097820D006FCF7C /* ActionSheetDistancePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDistancePicker.h; sourceTree = "<group>"; };
 		60CFB2812097820D006FCF7C /* QRCodeReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeReaderView.h; sourceTree = "<group>"; };
 		60CFB2822097820D006FCF7C /* QRToggleTorchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRToggleTorchButton.m; sourceTree = "<group>"; };
 		60CFB2832097820D006FCF7C /* QRCodeReaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeReaderDelegate.h; sourceTree = "<group>"; };
@@ -201,7 +174,6 @@
 		60D12471214173F600EC6EE2 /* DemandViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DemandViewCell.xib; sourceTree = "<group>"; };
 		60D12474214188F100EC6EE2 /* DemandHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemandHeaderCell.h; sourceTree = "<group>"; };
 		60D12475214188F100EC6EE2 /* DemandHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemandHeaderCell.m; sourceTree = "<group>"; };
-		60D12476214188F100EC6EE2 /* DemandHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DemandHeaderCell.xib; sourceTree = "<group>"; };
 		8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dr.Prebid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D15C104E20F6EB32004CBC18 /* AdSizeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdSizeController.m; sourceTree = "<group>"; };
 		D15C105120F6EB4F004CBC18 /* AdSizeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdSizeController.h; sourceTree = "<group>"; };
@@ -388,39 +360,11 @@
 				60CFB2AC2097820D006FCF7C /* PBVSharedConstants.m */,
 				F56AE890209A3809000CE29F /* PBViewTool.h */,
 				F56AE88F209A3808000CE29F /* PBViewTool.m */,
-				60CFB26A2097820D006FCF7C /* Pickers */,
 				60CFB2802097820D006FCF7C /* QRCodeReaderViewController */,
 				F533B16D21349D09001977C2 /* ColorTool.m */,
 				F533B16F21349D16001977C2 /* ColorTool.h */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		60CFB26A2097820D006FCF7C /* Pickers */ = {
-			isa = PBXGroup;
-			children = (
-				60CFB26B2097820D006FCF7C /* ActionSheetCustomPicker.h */,
-				60CFB26C2097820D006FCF7C /* ActionSheetStringPicker.h */,
-				60CFB26D2097820D006FCF7C /* ActionSheetDatePicker.m */,
-				60CFB26E2097820D006FCF7C /* SWActionSheet.h */,
-				60CFB26F2097820D006FCF7C /* ActionSheetLocalePicker.m */,
-				60CFB2702097820D006FCF7C /* AbstractActionSheetPicker.h */,
-				60CFB2712097820D006FCF7C /* ActionSheetMultipleStringPicker.h */,
-				60CFB2722097820D006FCF7C /* DistancePickerView.h */,
-				60CFB2732097820D006FCF7C /* ActionSheetDistancePicker.m */,
-				60CFB2742097820D006FCF7C /* ActionSheetCustomPicker.m */,
-				60CFB2752097820D006FCF7C /* ActionSheetCustomPickerDelegate.h */,
-				60CFB2762097820D006FCF7C /* SWActionSheet.m */,
-				60CFB2772097820D006FCF7C /* ActionSheetDatePicker.h */,
-				60CFB2782097820D006FCF7C /* ActionSheetStringPicker.m */,
-				60CFB2792097820D006FCF7C /* DistancePickerView.m */,
-				60CFB27A2097820D006FCF7C /* ActionSheetMultipleStringPicker.m */,
-				60CFB27B2097820D006FCF7C /* AbstractActionSheetPicker.m */,
-				60CFB27C2097820D006FCF7C /* ActionSheetLocalePicker.h */,
-				60CFB27D2097820D006FCF7C /* ActionSheetPicker.h */,
-				60CFB27E2097820D006FCF7C /* ActionSheetDistancePicker.h */,
-			);
-			path = Pickers;
 			sourceTree = "<group>";
 		};
 		60CFB2802097820D006FCF7C /* QRCodeReaderViewController */ = {
@@ -470,9 +414,10 @@
 				60D12471214173F600EC6EE2 /* DemandViewCell.xib */,
 				60D12474214188F100EC6EE2 /* DemandHeaderCell.h */,
 				60D12475214188F100EC6EE2 /* DemandHeaderCell.m */,
-				60D12476214188F100EC6EE2 /* DemandHeaderCell.xib */,
 				6099DE042141C44A0021661D /* DemandViewController.h */,
 				6099DE052141C44A0021661D /* DemandViewController.m */,
+				6099DE0821430FA90021661D /* RRViewController.h */,
+				6099DE0921430FA90021661D /* RRViewController.m */,
 			);
 			name = DemandValidation;
 			path = "Dr.Prebid/Test Summary/DemandValidation";
@@ -643,7 +588,6 @@
 				F5D1856721011571001DF99A /* info-prebid-server.html in Resources */,
 				F5D1856521011571001DF99A /* info-ad-server.html in Resources */,
 				60A2CC352123554200EA6ACF /* SectionCell.xib in Resources */,
-				60D12478214188F100EC6EE2 /* DemandHeaderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,7 +675,6 @@
 				60CFB2C12097820D006FCF7C /* QRToggleTorchButton.m in Sources */,
 				60CFB2D32097820D006FCF7C /* PBVSharedConstants.m in Sources */,
 				F59C6B672126123F00A5B8AE /* VideoTestsViewController.m in Sources */,
-				60CFB2B82097820D006FCF7C /* ActionSheetDatePicker.m in Sources */,
 				60CFB2CB2097820D006FCF7C /* LineItemKeywordsManager.m in Sources */,
 				60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */,
 				F59C6B662126123F00A5B8AE /* InterstitialTestsViewController.m in Sources */,
@@ -742,10 +685,7 @@
 				60D124692126E1F300EC6EE2 /* CPMSectionCell.m in Sources */,
 				F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */,
 				F533B16821309548001977C2 /* AdServerResponseViewController.m in Sources */,
-				60CFB2BF2097820D006FCF7C /* ActionSheetMultipleStringPicker.m in Sources */,
-				60CFB2BE2097820D006FCF7C /* DistancePickerView.m in Sources */,
 				60D12472214173F600EC6EE2 /* DemandViewCell.m in Sources */,
-				60CFB2B92097820D006FCF7C /* ActionSheetLocalePicker.m in Sources */,
 				F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */,
 				F533B16E21349D09001977C2 /* ColorTool.m in Sources */,
 				F513CDFD2112202400700925 /* DemandValidator.m in Sources */,
@@ -755,24 +695,20 @@
 				F533B1712134A361001977C2 /* AdServerValidationMockInterstitial.m in Sources */,
 				F59C6B652126123F00A5B8AE /* BannerTestsViewController.m in Sources */,
 				D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */,
-				60CFB2C02097820D006FCF7C /* AbstractActionSheetPicker.m in Sources */,
 				60CFB2CD2097820D006FCF7C /* AppDelegate.m in Sources */,
 				60CFB2C52097820D006FCF7C /* QRCodeReader.m in Sources */,
 				F56AE891209A3809000CE29F /* PBViewTool.m in Sources */,
 				60A2CC342123554200EA6ACF /* SectionCell.m in Sources */,
 				609172F320F53C74001B94A8 /* IdCell.m in Sources */,
+				6099DE0A21430FA90021661D /* RRViewController.m in Sources */,
 				60A2CC2A2121B71200EA6ACF /* TestSummaryViewController.m in Sources */,
 				609172F620F686A8001B94A8 /* HelpViewController.m in Sources */,
 				F59C6B642126123F00A5B8AE /* NativeTestsViewController.m in Sources */,
 				60CFB2C62097820D006FCF7C /* main.m in Sources */,
-				60CFB2BD2097820D006FCF7C /* ActionSheetStringPicker.m in Sources */,
-				60CFB2BA2097820D006FCF7C /* ActionSheetDistancePicker.m in Sources */,
 				609172EA20F50C32001B94A8 /* SegmentCell.m in Sources */,
 				60CFB2C32097820D006FCF7C /* QRCodeReaderViewController.m in Sources */,
-				60CFB2BB2097820D006FCF7C /* ActionSheetCustomPicker.m in Sources */,
 				60D124642126DBAD00EC6EE2 /* KVViewController.m in Sources */,
 				609172E720F3E58D001B94A8 /* SettingsTableViewController.m in Sources */,
-				60CFB2BC2097820D006FCF7C /* SWActionSheet.m in Sources */,
 				F59C6B632126123F00A5B8AE /* PBVPrebidSDKValidator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,9 +9,10 @@
 #import "DemandViewController.h"
 #import "DemandHeaderCell.h"
 #import "DemandViewCell.h"
+#import "RRViewController.h"
 
 NSString *__nonnull const cellString = @"demandCell";
-NSString *__nonnull const headerString = @"demandHeader";
+//NSString *__nonnull const headerString = @"demandHeader";
 
 @interface DemandViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -24,15 +25,13 @@ NSString *__nonnull const headerString = @"demandHeader";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Real-Time Demand";
-    
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
     
     [self.tableView setSeparatorColor:[UIColor darkGrayColor]];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"DemandViewCell" bundle:nil] forCellReuseIdentifier:cellString];
-    [self.tableView registerNib:[UINib nibWithNibName:@"DemandHeaderCell" bundle:nil] forCellReuseIdentifier:headerString];
+   
     
     id content = [self.resultsDictionary objectForKey:@"bidders"];
     
@@ -41,6 +40,19 @@ NSString *__nonnull const headerString = @"demandHeader";
     }
     
     // Do any additional setup after loading the view.
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.title = @"Real-Time Demand";
+}
+
+-(void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    self.title = @"Bids";
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,13 +73,16 @@ NSString *__nonnull const headerString = @"demandHeader";
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    DemandHeaderCell *cell = (DemandHeaderCell *)[tableView dequeueReusableCellWithIdentifier:headerString];
+    static NSString *headerCell = @"headerSection";
+    
+    DemandHeaderCell *cell = (DemandHeaderCell *)[tableView dequeueReusableCellWithIdentifier:headerCell];
     
     if(cell == nil)
         return nil;
     
-    cell.lblLeftHeader.text = self.dictBidders.allKeys[section];
+    cell.accessoryType = UITableViewCellAccessoryDetailButton;
     
+    cell.lblLeftHeader.text = [self.dictBidders.allKeys[section] capitalizedString];
     cell.lblRightHeader.text = @"Request & Response";
     
     return cell;
@@ -106,6 +121,27 @@ NSString *__nonnull const headerString = @"demandHeader";
     cell.lblTimeoutRate.text = [NSString stringWithFormat:@"%d", timeout];
     
     return cell;
+}
+
+-(void) tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(nonnull NSIndexPath *)indexPath {
+    NSString * storyboardName = @"Main";
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+    RRViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"rrController"];
+    
+    controller.requestContent = [self.resultsDictionary objectForKey:@"request"];
+    
+    NSArray *allValues = [self.dictBidders allValues];
+    NSDictionary *adServerContent = [allValues objectAtIndex:indexPath.section];
+    
+    NSString *validBid = [adServerContent objectForKey:@"serverResponse"];
+    
+    controller.responseContent = validBid;
+    
+    controller.titleString = [self.dictBidders.allKeys[indexPath.section] capitalizedString];
+    
+    
+    [self.navigationController pushViewController:controller animated:YES];
+
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

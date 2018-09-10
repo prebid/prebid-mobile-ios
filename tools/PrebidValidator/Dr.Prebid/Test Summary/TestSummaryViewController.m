@@ -187,9 +187,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
             DemandViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"demandController"];
             
-            //DemandValidatorViewController *controller = [[DemandValidatorViewController alloc] init];
             controller.resultsDictionary = self.validator2.testResults;
-            //DemandValidatorViewController *controller = [[DemandValidatorViewController alloc] initWithValidator:self.validator2];
             [self.navigationController pushViewController:controller animated:YES];
         }
     }
