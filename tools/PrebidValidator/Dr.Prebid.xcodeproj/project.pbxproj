@@ -314,12 +314,12 @@
 				60A2CC36212358F800EA6ACF /* TestHeaderCell.h */,
 				60A2CC37212358F800EA6ACF /* TestHeaderCell.m */,
 				60A2CC38212358F800EA6ACF /* TestHeaderCell.xib */,
-				60CFB28D2097820D006FCF7C /* AdServerValidation */,
-				F513CDF72112202400700925 /* DemandValidation */,
-				F59C6B29212610B100A5B8AE /* SDKIntegrationValidation */,
 				60D124662126E1F300EC6EE2 /* CPMSectionCell.h */,
 				60D124672126E1F300EC6EE2 /* CPMSectionCell.m */,
 				60D124682126E1F300EC6EE2 /* CPMSectionCell.xib */,
+				60CFB28D2097820D006FCF7C /* AdServerValidation */,
+				F513CDF72112202400700925 /* DemandValidation */,
+				F59C6B29212610B100A5B8AE /* SDKIntegrationValidation */,
 			);
 			path = "Test Summary";
 			sourceTree = "<group>";

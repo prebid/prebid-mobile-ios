@@ -109,18 +109,17 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
     if(cell == nil)
         return nil;
-    cell.accessoryType = UIButtonTypeDetailDisclosure;
     if(section == 0){
         if(self.adServerValidationState == 1) {
-            cell.imgStatus.image = [UIImage imageNamed:@"SuccessLarge"];
+            cell.imgStatus.image = [UIImage imageNamed:@"passedMain"];
         } else if (self.adServerValidationState == 2) {
-            cell.imgStatus.image = [UIImage imageNamed:@"FailureLarge"];
+            cell.imgStatus.image = [UIImage imageNamed:@"failedMain"];
         } else {
              cell.imgStatus.image = nil;
         }
 
     } else {
-        cell.imgStatus.image = [UIImage imageNamed:@"SuccessLarge"];
+        cell.imgStatus.image = [UIImage imageNamed:@"passedMain"];
     }
     if(cell != nil){
         NSString *titleText = [self.sectionTitles objectAtIndex:section];
@@ -196,10 +195,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
             NSString * storyboardName = @"Main";
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
             DemandViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"demandController"];
-            
-            //DemandValidatorViewController *controller = [[DemandValidatorViewController alloc] init];
             controller.resultsDictionary = self.validator2.testResults;
-            //DemandValidatorViewController *controller = [[DemandValidatorViewController alloc] initWithValidator:self.validator2];
             [self.navigationController pushViewController:controller animated:YES];
         }
     }
@@ -227,15 +223,14 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 
     if(cell == nil)
         return nil;
-    
     if (indexPath.row == 0){
         cell.lblHeader.numberOfLines = 0;
        cell.lblHeader.text = kAdServerRequestSentWithKV;
         
         if(self.adServerValidationKeyValueState == 1){
-            cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
+            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
         } else if (self.adServerValidationKeyValueState == 2) {
-            cell.imageView.image = [UIImage imageNamed:@"FailureSmall"];
+            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
         } else {
             cell.imageView.image = nil;
         }
@@ -243,9 +238,9 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     } else if(indexPath.row == 1){
         
         if(self.adServerValidationPBMCreativeState == 1){
-            cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
+            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
         } else if (self.adServerValidationPBMCreativeState == 2) {
-            cell.imageView.image = [UIImage imageNamed:@"FailureSmall"];
+            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
         } else {
             cell.imageView.image = nil;
         }
@@ -267,9 +262,9 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
         cell.lblHeader.text = kBidRequestSent;
         cell.accessoryType = UITableViewCellAccessoryNone;
         if (self.demandValidationBidRequestSentState == 1) {
-            cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
+            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
         } else if (self.demandValidationBidRequestSentState == 2){ // it should never equal to 2
-            cell.imageView.image = [UIImage imageNamed:@"FailureSmall"];
+            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
         } else {
             cell.imageView.image = nil;
         }
@@ -277,9 +272,9 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
         
     } else if(indexPath.row == 1){
         if (self.demandValidataionBidResponseReceivedState == 1) {
-            cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
+            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
         } else if (self.demandValidataionBidResponseReceivedState == 2) {
-            cell.imageView.image = [UIImage imageNamed:@"FailureSmall"];
+            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
         } else {
             cell.imageView.image = nil;
         }
@@ -380,6 +375,14 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 {
     self.adServerValidationPBMCreativeState = 2;
     self.adServerValidationState = 2;
+    if (self.adServerValidationKeyValueState == 0) {
+        // This is to capture the case that
+        // when user input invalid DFP ad unit id
+        // DFP won't send any request
+        // so the state will be stale at 0
+        // does not apply to MoPub
+        self.adServerValidationKeyValueState = 2;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -391,6 +394,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     if (self.adServerValidationKeyValueState == 1) {
         self.adServerValidationState = 1;
     } else {
+        self.adServerValidationKeyValueState = 2;
         self.adServerValidationState = 2;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
