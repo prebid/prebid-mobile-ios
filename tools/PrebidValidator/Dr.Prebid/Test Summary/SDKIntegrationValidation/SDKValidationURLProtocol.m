@@ -1,49 +1,51 @@
-/*
- *    Copyright 2018 Prebid.org, Inc.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
+//
+//  SDKValidationURLProtocol.m
+//  Dr.Prebid
+//
+//  Created by Wei Zhang on 9/10/18.
+//  Copyright © 2018 Prebid. All rights reserved.
+//
 
-#import "AdServerValidationURLProtocol.h"
-
-@interface AdServerValidationURLProtocol () <NSURLConnectionDelegate>
+#import "SDKValidationURLProtocol.h"
+@interface SDKValidationURLProtocol() <NSURLConnectionDelegate>
 @property (nonatomic, strong) NSURLConnection *connection;
 @end
 
-@implementation AdServerValidationURLProtocol
-static id<AdServerValidationURLProtocolDelegate> classDelegate = nil;
+@implementation SDKValidationURLProtocol
+static id<SDKValidationURLProtocolDelegate> classDelegate = nil;
 
-+ (void)setDelegate:(id<AdServerValidationURLProtocolDelegate>)delegate
++ (void)setDelegate:(id<SDKValidationURLProtocolDelegate>)delegate
 {
     classDelegate = delegate;
 }
 
-+ (id<AdServerValidationURLProtocolDelegate>)delegate
++ (id<SDKValidationURLProtocolDelegate>)delegate
 {
     return classDelegate;
 }
 
-+ (BOOL)canInitWithRequest:(NSURLRequest *)request {
++ (BOOL)canInitWithRequest:(NSURLRequest *)request
+{
     if ([NSURLProtocol propertyForKey:@"PrebidURLProtocolHandledKey" inRequest:request]) {
         return NO;
     }
-    if ([request.URL.absoluteString containsString:@"hb_dr_prebid"] && ([request.URL.absoluteString containsString:@"ads.mopub.com/m/ad?"] || [request.URL.absoluteString containsString:@"pubads.g.doubleclick.net/gampad/ads?"]))
-    {
+    if ([NSURLProtocol propertyForKey:@"DemandValidationRequest" inRequest:request]) {
+        return NO;
+    }
+    if ([request.URL.absoluteString containsString:@"prebid.adnxs.com/pbs/v1/openrtb2/auction"]) {
         if (classDelegate != nil) {
-            [classDelegate willInterceptRequest:request.URL.absoluteString];
+            [classDelegate willInterceptPrebidServerRequest];
         }
         return YES;
     }
+    if (![request.URL.absoluteString containsString:@"hb_dr_prebid"] && ([request.URL.absoluteString containsString:@"ads.mopub.com/m/ad?"] || [request.URL.absoluteString containsString:@"pubads.g.doubleclick.net/gampad/ads?"]))
+    {
+        if (classDelegate != nil) {
+            [classDelegate willInterceptAdServerRequest:request.URL.absoluteString];
+        }
+        return YES;
+    }
+    
     return NO;
 }
 
@@ -55,7 +57,8 @@ static id<AdServerValidationURLProtocolDelegate> classDelegate = nil;
     return [super requestIsCacheEquivalent:a toRequest:b];
 }
 
-- (void)startLoading {
+- (void)startLoading
+{
     NSMutableURLRequest *newRequest = [self.request mutableCopy];
     [NSURLProtocol setProperty:@YES forKey:@"PrebidURLProtocolHandledKey" inRequest:newRequest];
 #pragma clang diagnostic push
@@ -64,8 +67,8 @@ static id<AdServerValidationURLProtocolDelegate> classDelegate = nil;
 #pragma clang diagnostic pop
 }
 
-
-- (void)stopLoading {
+- (void)stopLoading
+{
     [self.connection cancel];
     self.connection = nil;
 }
@@ -78,7 +81,12 @@ static id<AdServerValidationURLProtocolDelegate> classDelegate = nil;
     [self.client URLProtocol:self didLoadData:data];
     NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     if (classDelegate != nil) {
-        [classDelegate didReceiveResponse:content forRequest:self.request.URL.absoluteString];
+        if ([self.request.URL.absoluteString containsString:@"prebid.adnxs.com/pbs/v1/openrtb2/auction"]) {
+            [classDelegate didReceivePrebidServerResponse:content];
+        } else {
+            [classDelegate didReceiveAdServerResponse:content forRequest:self.request.URL.absoluteString];
+        }
+
     }
 }
 
@@ -89,5 +97,6 @@ static id<AdServerValidationURLProtocolDelegate> classDelegate = nil;
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     [self.client URLProtocol:self didFailWithError:error];
 }
+
 
 @end
