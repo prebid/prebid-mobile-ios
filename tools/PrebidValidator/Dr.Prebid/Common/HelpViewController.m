@@ -40,9 +40,9 @@
     } else if ( [self.title isEqualToString:kPrebidServerInfoHelpString]) {
         filePath = [[NSBundle mainBundle] pathForResource:@"info-prebid-server" ofType:@"html"];
     } else if ([self.title isEqualToString:kAdServerTestHeader]) {
-        filePath = [[NSBundle mainBundle] pathForResource:@"ad-server-setup-validation" ofType:@"html"];
+        filePath = [[NSBundle mainBundle] pathForResource:@"test-ad-server" ofType:@"html"];
     } else if ([self.title isEqualToString:kRealTimeHeader]) {
-        filePath = [[NSBundle mainBundle] pathForResource:@"real-time-demand-validation" ofType:@"html"];
+        filePath = [[NSBundle mainBundle] pathForResource:@"test-real-time-demand" ofType:@"html"];
     } else if ([self.title isEqualToString:kSDKHeader]) {
         filePath = [[NSBundle mainBundle] pathForResource:@"end-to-end-sdk-validation" ofType:@"html"];
     }
