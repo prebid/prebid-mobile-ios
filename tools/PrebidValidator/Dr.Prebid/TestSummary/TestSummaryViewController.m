@@ -361,11 +361,11 @@ UITableViewDataSource, UITableViewDelegate>
         cell.lblHeader.text = kBidReceived;
         cell.accessoryType = UITableViewCellAccessoryNone;
         if (self.sdkBidReceivedState == 1) {
-            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"passedStep"];
         } else if (self.sdkBidReceivedState == 2){
-            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"failedStep"];
         } else {
-            cell.imageView.image = nil;
+            cell.imgResult.image = nil;
         }
     } else if(indexPath.row == 4){
         cell.lblHeader.text = kAdServerRequestSentWithKV;
