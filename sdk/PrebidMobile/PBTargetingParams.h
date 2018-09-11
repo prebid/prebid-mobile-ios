@@ -74,6 +74,17 @@ typedef NS_ENUM(NSUInteger, PBTargetingParamsGender) {
 @property (nonatomic, readonly, assign) BOOL isGDPREnabled;
 
 /**
+ * The boolean value set by the user to collect user data
+ */
+@property (nonatomic, readwrite) BOOL localCache;
+
+/**
+ * The boolean value set by the user to define the cache type
+ */
+
+@property (nonatomic, readonly, assign) BOOL useLocalCache;
+
+/**
  * This property stores the set of custom keywords that prebid provides for targeting
  */
 @property (nonatomic, strong, readonly) NSDictionary<NSString *, NSArray *> *__nullable customKeywords DEPRECATED_ATTRIBUTE;
