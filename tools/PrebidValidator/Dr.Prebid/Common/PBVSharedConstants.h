@@ -67,5 +67,15 @@ static NSString * _Nonnull const kGeneralInfoHelpString = @"General Info";
 static NSString * _Nonnull const kAdServerInfoHelpString = @"AdServer Info";
 static NSString * _Nonnull const kPrebidServerInfoHelpString = @"Prebid Server Info";
 
+static NSString *__nonnull const kAdServerTestHeader = @"Ad Server Setup Validation";
+static NSString *__nonnull const kAdServerRequestSentWithKV = @"Ad server request sent and \nKey-Value Targeting sent";
+static NSString *__nonnull const kpbmjssent = @"Prebid Mobile creative HTML served";
+
+static NSString *__nonnull const kRealTimeHeader = @"Real-Time Demand Validation";
+static NSString *__nonnull const kBidRequestSent = @"100 bid requests sent";
+static NSString *__nonnull const kBidResponseReceived = @"bid response received";
+static NSString *__nonnull const kCPMReceived = @"CPM response time";
+
+static NSString *__nonnull const kSDKHeader = @"End-to-End SDK Validation";
 
 

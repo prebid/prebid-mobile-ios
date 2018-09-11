@@ -114,7 +114,7 @@ NSString *__nonnull const cellString = @"demandCell";
     double cpm = [[adServerContent objectForKey:@"cpm"] doubleValue];;
     int error = [[adServerContent objectForKey:@"error"] intValue];
     
-    cell.lblAvgCPM.text = [NSString stringWithFormat:@"%f", cpm];
+    cell.lblAvgCPM.text = [NSString stringWithFormat:@"$%.02f", cpm];
     cell.lblErrorRate.text = [NSString stringWithFormat:@"%d", error];
     cell.lblNoBidRate.text = [NSString stringWithFormat:@"%d", noBid];
     cell.lblValidBidRate.text = [NSString stringWithFormat:@"%d", validBid];

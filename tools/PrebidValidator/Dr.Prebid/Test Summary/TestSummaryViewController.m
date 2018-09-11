@@ -15,17 +15,9 @@
 #import "AdServerResponseViewController.h"
 #import "DemandValidator.h"
 #import "DemandViewController.h"
+#import "HelpViewController.h"
+#import "PBVSharedConstants.h"
 
-NSString *__nonnull const kAdServerTestHeader = @"Ad Server Setup Validation";
-NSString *__nonnull const kAdServerRequestSentWithKV = @"Ad server request sent with key-value targeting";
-NSString *__nonnull const kpbmjssent = @"Prebid Mobile creative HTML served";
-
-NSString *__nonnull const kRealTimeHeader = @"Real-Time Demand Validation";
-NSString *__nonnull const kBidRequestSent = @"100 bid requests sent";
-NSString *__nonnull const kBidResponseReceived = @"bid response received";
-NSString *__nonnull const kCPMReceived = @"CPM response time";
-
-NSString *__nonnull const kSDKHeader = @"End-to-End Prebid Mobile SDK Validation";
 
 NSString *__nonnull const kSectionCellString = @"sCell";
 NSString *__nonnull const kHeaderCellString = @"headerCell";
@@ -41,16 +33,18 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 
 @property UIActivityIndicatorView *indicatorView;
 
+// Adding a state for each test
+// state 0 means loading, state 1 means pass, state 2 means failure
+
 @property PBVLineItemsSetupValidator *validator1;
-@property Boolean adServerTestPassed;
-@property Boolean isKVSuccess;
-@property Boolean isPBMReceived;
+@property int adServerValidationState;
+@property int adServerValidationKeyValueState;
+@property int adServerValidationPBMCreativeState;
 
 @property DemandValidator *validator2;
-@property Boolean demandValidationPassed;
-@property Boolean areBidRequestsSent;
-@property Boolean isAnyBidReceived;
-@property Boolean demandValidationFinished;
+@property int demandValidationState;
+@property int demandValidationBidRequestSentState;
+@property int demandValidataionBidResponseReceivedState;
 @end
 
 @implementation TestSummaryViewController
@@ -78,14 +72,8 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
     UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
     self.tableView.tableFooterView = footer;
-    self.adServerTestPassed = NO;
-    self.isKVSuccess = NO;
-    self.isPBMReceived = NO;
+
     [self startAdServerValidation];
-    self.demandValidationPassed = NO;
-    self.areBidRequestsSent = NO;
-    self.isAnyBidReceived = NO;
-    self.demandValidationFinished = NO;
     [self startDemandValidation];
     
 }
@@ -121,27 +109,46 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
     if(cell == nil)
         return nil;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if(section == 0){
-        if(self.adServerTestPassed)
-            cell.imgStatus.image = [UIImage imageNamed:@"SuccessLarge"];
-        else
-            cell.imgStatus.image = [UIImage imageNamed:@"FailureLarge"];
+        if(self.adServerValidationState == 1) {
+            cell.imgStatus.image = [UIImage imageNamed:@"passedMain"];
+        } else if (self.adServerValidationState == 2) {
+            cell.imgStatus.image = [UIImage imageNamed:@"failedMain"];
+        } else {
+             cell.imgStatus.image = nil;
+        }
+
     } else {
-        cell.imgStatus.image = [UIImage imageNamed:@"SuccessLarge"];
+        cell.imgStatus.image = [UIImage imageNamed:@"passedMain"];
     }
     if(cell != nil){
         NSString *titleText = [self.sectionTitles objectAtIndex:section];
         
         cell.lblHeader1.text = titleText;
-        cell.lblHeader2.text = @"Passed";
     }
     return cell;
 }
 
 -(void) tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(nonnull NSIndexPath *)indexPath {
     self.selectedIndex = indexPath;
-    //[self btnAboutPressed:self];
+    [self btnAboutPressed:self];
+}
+
+- (void) btnAboutPressed :(id) sender
+{
+    HelpViewController *controller = nil;
+    if ([sender isKindOfClass:[TestSummaryViewController class] ]) {
+        if (self.selectedIndex.section == 0) {
+            controller = [[HelpViewController alloc] initWithTitle:kAdServerTestHeader];
+        } else if (self.selectedIndex.section == 1) {
+            controller = [[HelpViewController alloc] initWithTitle:kRealTimeHeader];
+        } else {
+            controller = [[HelpViewController alloc] initWithTitle:kSDKHeader];
+        }
+    }
+    if (controller != nil) {
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -164,6 +171,8 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
     if(indexPath.section == 1 && indexPath.row == 2){
         return 75.0f;
+    } else if (indexPath.section == 0 && indexPath.row == 0){
+        return 61.0f;
     }
     return 40.0f;
 }
@@ -181,12 +190,11 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
         AdServerResponseViewController *controller = [[AdServerResponseViewController alloc] initWithValidator:self.validator1];
         [self.navigationController pushViewController:controller animated:YES];
     } else if (indexPath.section == 1 && indexPath.row == 1) {
-        if (self.demandValidationFinished) {
+        if (self.demandValidationState >0) {
             
             NSString * storyboardName = @"Main";
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
             DemandViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"demandController"];
-            
             controller.resultsDictionary = self.validator2.testResults;
             [self.navigationController pushViewController:controller animated:YES];
         }
@@ -215,21 +223,26 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 
     if(cell == nil)
         return nil;
-    
-    cell.imageView.image = [UIImage imageNamed:@"FailureSmall"];
-    
     if (indexPath.row == 0){
-        
+        cell.lblHeader.numberOfLines = 0;
        cell.lblHeader.text = kAdServerRequestSentWithKV;
         
-        if(self.isKVSuccess){
-          cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
+        if(self.adServerValidationKeyValueState == 1){
+            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+        } else if (self.adServerValidationKeyValueState == 2) {
+            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+        } else {
+            cell.imageView.image = nil;
         }
        
     } else if(indexPath.row == 1){
         
-        if(self.isPBMReceived){
-            cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
+        if(self.adServerValidationPBMCreativeState == 1){
+            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+        } else if (self.adServerValidationPBMCreativeState == 2) {
+            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+        } else {
+            cell.imageView.image = nil;
         }
         cell.lblHeader.text = kpbmjssent;
        
@@ -243,19 +256,27 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
    if(cell == nil)
        return nil;
     
-    cell.imageView.image = [UIImage imageNamed:@"FailureSmall"];
+ 
     if (indexPath.row == 0){
         
         cell.lblHeader.text = kBidRequestSent;
         cell.accessoryType = UITableViewCellAccessoryNone;
-        if (self.areBidRequestsSent) {
-            cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
+        if (self.demandValidationBidRequestSentState == 1) {
+            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+        } else if (self.demandValidationBidRequestSentState == 2){ // it should never equal to 2
+            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+        } else {
+            cell.imageView.image = nil;
         }
         return cell;
         
     } else if(indexPath.row == 1){
-        if (self.isAnyBidReceived) {
-            cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
+        if (self.demandValidataionBidResponseReceivedState == 1) {
+            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+        } else if (self.demandValidataionBidResponseReceivedState == 2) {
+            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+        } else {
+            cell.imageView.image = nil;
         }
         NSNumber *totalBids = [self.validator2.testResults objectForKey:@"totalBids"];
         if (totalBids != nil) {
@@ -269,8 +290,8 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
         
         CPMSectionCell *cpmCell = (CPMSectionCell *)[tableView dequeueReusableCellWithIdentifier:@"cpmCell"];
         cpmCell.lblHeader.text = @"$0.00 avg CPM";
-        if (self.demandValidationFinished) {
-            cpmCell.lblHeader.text = [NSString stringWithFormat:@"$%f avg CPM",[[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue]] ;
+        if (self.demandValidationState >0) {
+            cpmCell.lblHeader.text = [NSString stringWithFormat:@"$%.02f avg CPM",[[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue]] ;
             
             cpmCell.lblHeader2.text = @"";
         }
@@ -322,16 +343,22 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 }
 
 - (void)startAdServerValidation{
+    self.adServerValidationState = 0;
+    self.adServerValidationKeyValueState = 0;
+    self.adServerValidationPBMCreativeState = 0;
     self.validator1 = [[PBVLineItemsSetupValidator alloc] init];
     self.validator1.delegate = self;
     [self.validator1 startTest];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 #pragma mark AdServerValidation PBVLineItemsSetupValidatorDelegate
 
 - (void)didFindPrebidKeywordsOnTheAdServerRequest
 {
-    self.isKVSuccess = YES;
+    self.adServerValidationKeyValueState = 1;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -339,15 +366,23 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 
 - (void)didNotFindPrebidKeywordsOnTheAdServerRequest
 {
-    self.isKVSuccess = NO;
+    self.adServerValidationKeyValueState = 2;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
 }
 - (void)adServerDidNotRespondWithPrebidCreative
 {
-    self.isPBMReceived = NO;
-    self.adServerTestPassed = NO;
+    self.adServerValidationPBMCreativeState = 2;
+    self.adServerValidationState = 2;
+    if (self.adServerValidationKeyValueState == 0) {
+        // This is to capture the case that
+        // when user input invalid DFP ad unit id
+        // DFP won't send any request
+        // so the state will be stale at 0
+        // does not apply to MoPub
+        self.adServerValidationKeyValueState = 2;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -355,8 +390,13 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 
 -(void)adServerRespondedWithPrebidCreative
 {
-    self.isPBMReceived = YES;
-    self.adServerTestPassed = YES;
+    self.adServerValidationPBMCreativeState = 1;
+    if (self.adServerValidationKeyValueState == 1) {
+        self.adServerValidationState = 1;
+    } else {
+        self.adServerValidationKeyValueState = 2;
+        self.adServerValidationState = 2;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -364,22 +404,27 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 
 -(void) startDemandValidation
 {
+    self.demandValidationState = 0;
+    self.demandValidationBidRequestSentState = 0;
+    self.demandValidataionBidResponseReceivedState = 0;
     self.validator2 = [[DemandValidator alloc] init];
     [self.validator2 startTestWithCompletionHandler:^() {
-        self.demandValidationFinished = YES;
         int totalBids = [[self.validator2.testResults objectForKey:@"totalBids"] intValue];
         if (totalBids > 0) {
-            self.isAnyBidReceived = YES;
-            self.demandValidationPassed = YES;
+            self.demandValidataionBidResponseReceivedState = 1;
+            self.demandValidationState = 1;
         } else {
-            self.isAnyBidReceived = NO;
-            self.demandValidationPassed = NO;
+            self.demandValidataionBidResponseReceivedState = 2;
+            self.demandValidationState = 2;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
     }];
-    self.areBidRequestsSent = YES;
+    self.demandValidationBidRequestSentState = 1;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 

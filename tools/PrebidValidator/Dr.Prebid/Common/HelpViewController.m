@@ -39,6 +39,12 @@
         filePath = [[NSBundle mainBundle] pathForResource:@"info-ad-server" ofType:@"html"];
     } else if ( [self.title isEqualToString:kPrebidServerInfoHelpString]) {
         filePath = [[NSBundle mainBundle] pathForResource:@"info-prebid-server" ofType:@"html"];
+    } else if ([self.title isEqualToString:kAdServerTestHeader]) {
+        filePath = [[NSBundle mainBundle] pathForResource:@"test-ad-server" ofType:@"html"];
+    } else if ([self.title isEqualToString:kRealTimeHeader]) {
+        filePath = [[NSBundle mainBundle] pathForResource:@"test-real-time-demand" ofType:@"html"];
+    } else if ([self.title isEqualToString:kSDKHeader]) {
+        filePath = [[NSBundle mainBundle] pathForResource:@"end-to-end-sdk-validation" ofType:@"html"];
     }
     NSURL *filePathURL = [NSURL fileURLWithPath:filePath];
     NSURLRequest *request = [NSURLRequest requestWithURL:filePathURL];
