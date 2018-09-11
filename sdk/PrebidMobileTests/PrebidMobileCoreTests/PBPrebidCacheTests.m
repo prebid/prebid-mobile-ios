@@ -30,10 +30,11 @@
     NSArray *contents = @[@"0", @"1", @"2"];
     XCTestExpectation *expectation1 = [self expectationWithDescription:@"UIWebView expectation"];
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"WkWebView expectation"];
-    [[PrebidCache globalCache] cacheContents:contents forAdserver:PBPrimaryAdServerDFP withCompletionBlock:^(NSArray *cacheIds) {
+   [[PrebidCache globalCache] cacheContents:contents forAdserver:PBPrimaryAdServerDFP withCompletionBlock:^(NSError *error, NSArray *cacheIds) {
         //use cacheIds[0] should retrieve content 0
         //use cacheIds[1] should retrieve content 1
         //use cacheIds[2] should retrieve content 2
+        XCTAssertTrue(error == nil);
         XCTAssertTrue(cacheIds.count == 3);
         NSURL *host = [NSURL URLWithString:@"https://pubads.g.doubleclick.net"];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -74,10 +75,11 @@
 {
     NSArray *contents = @[@"0", @"1", @"2"];
     XCTestExpectation *expectation2 = [self expectationWithDescription:@"WkWebView expectation"];
-    [[PrebidCache globalCache] cacheContents:contents forAdserver:PBPrimaryAdServerMoPub withCompletionBlock:^(NSArray *cacheIds) {
+    [[PrebidCache globalCache] cacheContents:contents forAdserver:PBPrimaryAdServerMoPub withCompletionBlock:^(NSError *error, NSArray *cacheIds) {
         //use cacheIds[0] should retrieve content 0
         //use cacheIds[1] should retrieve content 1
         //use cacheIds[2] should retrieve content 2
+        //XCTAssertTrue(error == nil);
         XCTAssertTrue(cacheIds.count == 3);
         NSURL *host = [NSURL URLWithString:@"https://ads.mopub.com"];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -100,6 +102,20 @@
         });
     }];
     [self waitForExpectationsWithTimeout:20.0 handler:nil];
+}
+
+- (void) testPrebidCacheReturnErrorForEmptyContents
+{
+    NSArray *contents = @[];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"cache error expection"];
+    [[PrebidCache globalCache] cacheContents:contents forAdserver:PBPrimaryAdServerDFP withCompletionBlock:^(NSError *error, NSArray *cacheIds) {
+        XCTAssertTrue(error != nil);
+        XCTAssertTrue([error.domain isEqualToString:@"org.prebid"]);
+        XCTAssertTrue(error.code == 0);
+        XCTAssertTrue(cacheIds == nil);
+        [expectation fulfill];
+    }];
+    [self waitForExpectations:@[expectation]  timeout:20.0];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
