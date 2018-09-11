@@ -100,29 +100,57 @@ static int const kBatchCount = 10;
                     NSString *escapedBid = [self escapeJsonString:[self jsonStringFromDictionary:bid]];
                     [contentsToCache addObject:escapedBid];
                 }
-                for (int i = 0; i< bidsArray.count; i++) {
-                    NSMutableDictionary *adServerTargetingCopy = [bidsArray[i][@"ext"][@"prebid"][@"targeting"] mutableCopy];
-                    if (adServerTargetingCopy != nil) {
-                        // Check if resposne has cache id, since prebid server cache would fail for some reason and not set cache id on the response
-                        // If cache id is not present, we do not pass the bid back
-                        bool hasCacheID = NO;
-                        for (NSString *key in adServerTargetingCopy.allKeys) {
-                            if ([key containsString:@"hb_cache_id"]) {
-                                hasCacheID = YES;
+                
+                if (![[PBTargetingParams sharedInstance] useLocalCache]) {
+                    for (int i = 0; i< bidsArray.count; i++) {
+                        NSMutableDictionary *adServerTargetingCopy = [bidsArray[i][@"ext"][@"prebid"][@"targeting"] mutableCopy];
+                        if (adServerTargetingCopy != nil) {
+                            // Check if resposne has cache id, since prebid server cache would fail for some reason and not set cache id on the response
+                            // If cache id is not present, we do not pass the bid back
+                            bool hasCacheID = NO;
+                            for (NSString *key in adServerTargetingCopy.allKeys) {
+                                if ([key containsString:@"hb_cache_id"]) {
+                                    hasCacheID = YES;
+                                }
+                            }
+                            if (hasCacheID) {
+                                PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:adServerTargetingCopy];
+                                PBLogDebug(@"Bid Successful with rounded bid targeting keys are %@ for adUnit id is %@", [bidResponse.customKeywords description], adUnitId);
+                                [bidResponsesArray addObject:bidResponse];
                             }
                         }
-                        if (hasCacheID) {
-                            PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:adServerTargetingCopy];
-                            PBLogDebug(@"Bid Successful with rounded bid targeting keys are %@ for adUnit id is %@", [bidResponse.customKeywords description], adUnitId);
-                            [bidResponsesArray addObject:bidResponse];
-                        }
                     }
-                }
-                if (bidResponsesArray.count == 0) {
-                    // use code 0 to represent the no bid case for now
-                    [delegate didCompleteWithError:[NSError errorWithDomain:@"prebid.org" code:0 userInfo:nil] ];
+                    if (bidResponsesArray.count == 0) {
+                        // use code 0 to represent the no bid case for now
+                        [delegate didCompleteWithError:[NSError errorWithDomain:@"prebid.org" code:0 userInfo:nil] ];
+                    } else {
+                        [delegate didReceiveSuccessResponse:bidResponsesArray];
+                    }
                 } else {
-                    [delegate didReceiveSuccessResponse:bidResponsesArray];
+                    [[PrebidCache globalCache] cacheContents:contentsToCache forAdserver:self.primaryAdServer withCompletionBlock:^(NSError * error, NSArray *cacheIds) {
+                        
+                        if(!error) {
+                            for (int i = 0; i< bidsArray.count; i++) {
+                                NSMutableDictionary *adServerTargetingCopy = [bidsArray[i][@"ext"][@"prebid"][@"targeting"] mutableCopy];
+                                if (adServerTargetingCopy != nil) {
+                                    if (i == 0) {
+                                        NSString *cacheId = cacheIds[i];
+                                        adServerTargetingCopy[kAPNAdServerCacheIdKey] = cacheId;
+                                    }
+                                    NSString *bidderCacheId = cacheIds[i];
+                                    NSString *cacheIdkey =[ NSString stringWithFormat:@"%@_%@", kAPNAdServerCacheIdKey, bidsArray[i][@"seat"]];
+                                    cacheIdkey = cacheIdkey.length > 20 ? [cacheIdkey substringToIndex:20] : cacheIdkey;
+                                    adServerTargetingCopy[cacheIdkey] = bidderCacheId;
+                                    PBBidResponse *bidResponse = [PBBidResponse bidResponseWithAdUnitId:adUnitId adServerTargeting:adServerTargetingCopy];
+                                    PBLogDebug(@"Bid Successful with rounded bid targeting keys are %@ for adUnit id is %@", [bidResponse.customKeywords description], adUnitId);
+                                    [bidResponsesArray addObject:bidResponse];
+                                }
+                            }
+                            [delegate didReceiveSuccessResponse:bidResponsesArray];;
+                        } else {
+                            [delegate didCompleteWithError:error];
+                        }
+                    }];
                 }
             }
         }];
