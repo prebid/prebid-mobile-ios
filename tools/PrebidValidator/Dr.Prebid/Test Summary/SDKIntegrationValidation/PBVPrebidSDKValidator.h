@@ -18,8 +18,8 @@
 @protocol PBVPrebidSDKValidatorDelegate
 
 - (void) adUnitRegistered;
-- (void) requestToPrebidServerSent;
-- (void) prebidServerResponseReceived;
+- (void) requestToPrebidServerSent: (Boolean)sent;
+- (void) prebidServerResponseReceived: (Boolean) received;
 - (void) bidReceivedAndCached:(Boolean)received;
 - (void) adServerRequestSent:(NSString *)adServerRequest;
 - (void) adServerResponseContainsPBMCreative:(Boolean)contains;
@@ -31,5 +31,7 @@
 - (instancetype)initWithDelegate: (id<PBVPrebidSDKValidatorDelegate>) delegate;
 - (void)startTest;
 - (NSObject *)getAdObject;
+- (NSString *)getAdServerRequest;
+- (NSString *)getAdServerResponse;
 
 @end

@@ -18,6 +18,7 @@
 #import "HelpViewController.h"
 #import "PBVSharedConstants.h"
 #import "PBVPrebidSDKValidator.h"
+#import "SDKValidationResponseViewController.h"
 
 
 NSString *__nonnull const kSectionCellString = @"sCell";
@@ -108,8 +109,22 @@ UITableViewDataSource, UITableViewDelegate>
              cell.imgStatus.image = nil;
         }
 
-    } else {
-        cell.imgStatus.image = [UIImage imageNamed:@"passedMain"];
+    } else if (section == 1){
+        if (self.demandValidationState == 1) {
+            cell.imgStatus.image = [UIImage imageNamed:@"passedMain"];
+        } else if (self.demandValidationState == 2) {
+            cell.imgStatus.image = [UIImage imageNamed:@"failedMain"];
+        } else {
+            cell.imgStatus.image = nil;
+        }
+    } else if (section == 2) {
+        if (self.sdkValidationState == 1) {
+            cell.imgStatus.image = [UIImage imageNamed:@"passedMain"];
+        } else if (self.sdkValidationState == 2) {
+            cell.imgStatus.image = [UIImage imageNamed:@"failedMain"];
+        } else {
+            cell.imgStatus.image = nil;
+        }
     }
     if(cell != nil){
         NSString *titleText = [self.sectionTitles objectAtIndex:section];
@@ -188,6 +203,16 @@ UITableViewDataSource, UITableViewDelegate>
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
             DemandViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"demandController"];
             controller.resultsDictionary = self.validator2.testResults;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+    } else if (indexPath.section == 2 && indexPath.row == 4) {
+        if (self.sdkValidationState > 0) {
+            KVViewController * kvController = [[KVViewController alloc] initWithRequestString:[self.validator3 getAdServerRequest]];
+            [self.navigationController pushViewController:kvController animated:YES];
+        }
+    } else if (indexPath.section == 2 && indexPath.row == 5) {
+        if (self.sdkValidationState > 0) {
+            SDKValidationResponseViewController *controller = [[SDKValidationResponseViewController alloc] initWithValidator:self.validator3];
             [self.navigationController pushViewController:controller animated:YES];
         }
     }
@@ -473,17 +498,25 @@ UITableViewDataSource, UITableViewDelegate>
         [self.tableView reloadData];
     });
 }
-- (void)requestToPrebidServerSent
+- (void)requestToPrebidServerSent:(Boolean)sent
 {
-    self.sdkRequestToPrebidServerState = 1;
+    if (sent) {
+        self.sdkRequestToPrebidServerState = 1;
+    } else {
+        self.sdkRequestToPrebidServerState = 2;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
 }
 
-- (void)prebidServerResponseReceived
+- (void)prebidServerResponseReceived:(Boolean)received
 {
-    self.sdkPrebidServerResponseState = 1;
+    if (received) {
+        self.sdkPrebidServerResponseState = 1;
+    } else {
+        self.sdkPrebidServerResponseState = 2;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -519,6 +552,16 @@ UITableViewDataSource, UITableViewDelegate>
         self.sdkPBMCreativeState = 1;
     } else {
         self.sdkPBMCreativeState = 2;
+    }
+    if (self.sdkAdUnitRegistrationState == 1 &&
+        self.sdkRequestToPrebidServerState == 1 &&
+        self.sdkPrebidServerResponseState == 1 &&
+        self.sdkBidReceivedState == 1 &&
+        self.sdkKeyValueState == 1 &&
+        self.sdkPBMCreativeState == 1) {
+        self.sdkValidationState = 1;
+    } else {
+        self.sdkValidationState = 2;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];

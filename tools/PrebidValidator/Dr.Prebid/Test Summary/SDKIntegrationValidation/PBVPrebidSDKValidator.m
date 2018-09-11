@@ -44,7 +44,7 @@
 @property Boolean initialPrebidServerRequestReceived;
 @property Boolean initialPrebidServerResponseReceived;
 @property Boolean bidReceived;
-@property NSString *interceptedCacheId;
+@property NSString *adServerRequest;
 @property NSString *adServerResponse;
 @property id adObject;
 @end
@@ -159,6 +159,12 @@
     NSArray *widthHeight = [adSizeString componentsSeparatedByString:@"x"];
     double width = [widthHeight[0] doubleValue];
     double height = [widthHeight[1] doubleValue];
+    // sanity check that whether PBM send the initial request or not
+    if (self.initialPrebidServerRequestReceived) {
+        [self.delegate requestToPrebidServerSent:NO];
+        [self.delegate prebidServerResponseReceived:NO];
+        [self.delegate bidReceivedAndCached:NO];
+    }
     // Create ad unit
     if ([adServerName isEqualToString:kMoPubString]){
         if ([adFormatName isEqualToString:kBannerString]){
@@ -210,6 +216,17 @@
 {
     return self.adObject;
 }
+
+- (NSString *)getAdServerRequest
+{
+    return self.adServerRequest;
+}
+
+- (NSString *)getAdServerResponse;
+{
+    return self.adServerResponse;
+}
+
 #pragma mark - DFP delegate
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
 {
@@ -281,7 +298,7 @@
 {
     if (!self.initialPrebidServerRequestReceived) {
         self.initialPrebidServerRequestReceived = YES;
-        [self.delegate requestToPrebidServerSent];
+        [self.delegate requestToPrebidServerSent:YES];
     }
 }
 
@@ -289,7 +306,7 @@
 {
     if (!self.initialPrebidServerResponseReceived) {
         self.initialPrebidServerResponseReceived = YES;
-        [self.delegate prebidServerResponseReceived];
+        [self.delegate prebidServerResponseReceived:YES];
         if (response != nil) {
             NSError *error =nil;
             NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
@@ -343,6 +360,7 @@
 
 - (void)willInterceptAdServerRequest:(NSString *)request
 {
+    self.adServerRequest = request;
     [self.delegate adServerRequestSent:request];
 }
 
