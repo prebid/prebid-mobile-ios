@@ -47,8 +47,10 @@
     UITextView *pbmCreativeHTMLContent = [[UITextView alloc] init];
     pbmCreativeHTMLContent.editable = NO;
     pbmCreativeHTMLContent.frame = CGRectMake(0, 50, self.view.frame.size.width, 250);
+    pbmCreativeHTMLContent.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
     NSString *response = [self.validator getAdServerResponse];
     pbmCreativeHTMLContent.text = response;
+    [pbmCreativeHTMLContent setFont:[UIFont systemFontOfSize:14.0]];
     [self.view addSubview:pbmCreativeHTMLContent];
     UILabel * receivedCreativeLabel = [[UILabel alloc] init];
     receivedCreativeLabel.text = @"Received Creative";
@@ -61,7 +63,7 @@
         NSArray *adSizeArray = [adSizeString componentsSeparatedByString:@"x"];
         int width = [adSizeArray[0] intValue];
         int height = [adSizeArray[1] intValue];
-        adContainer.frame = CGRectMake(0, 350, self.view.frame.size.width, height + +20);
+        adContainer.frame = CGRectMake(0, 350, self.view.frame.size.width, height +20);
         UIView *adView = (UIView *)[self.validator getAdObject];
         adView.frame = CGRectMake((adContainer.frame.size.width - width)/2, 10,  width, height);
         [adContainer addSubview:adView];
