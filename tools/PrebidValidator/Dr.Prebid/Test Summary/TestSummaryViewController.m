@@ -220,21 +220,21 @@ UITableViewDataSource, UITableViewDelegate>
        cell.lblHeader.text = kAdServerRequestSentWithKV;
         
         if(self.adServerValidationKeyValueState == 1){
-            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"passedStep"];
         } else if (self.adServerValidationKeyValueState == 2) {
-            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"failedStep"];
         } else {
-            cell.imageView.image = nil;
+            cell.imgResult.image = nil;
         }
        
     } else if(indexPath.row == 1){
         
         if(self.adServerValidationPBMCreativeState == 1){
-            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"passedStep"];
         } else if (self.adServerValidationPBMCreativeState == 2) {
-            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"failedStep"];
         } else {
-            cell.imageView.image = nil;
+            cell.imgResult.image = nil;
         }
         cell.lblHeader.text = kpbmjsreceived;
        
@@ -254,21 +254,21 @@ UITableViewDataSource, UITableViewDelegate>
         cell.lblHeader.text = kBidRequestSent;
         cell.accessoryType = UITableViewCellAccessoryNone;
         if (self.demandValidationBidRequestSentState == 1) {
-            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"passedStep"];
         } else if (self.demandValidationBidRequestSentState == 2){ // it should never equal to 2
-            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"failedStep"];
         } else {
-            cell.imageView.image = nil;
+            cell.imgResult.image = nil;
         }
         return cell;
         
     } else if(indexPath.row == 1){
         if (self.demandValidataionBidResponseReceivedState == 1) {
-            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"passedStep"];
         } else if (self.demandValidataionBidResponseReceivedState == 2) {
-            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"failedStep"];
         } else {
-            cell.imageView.image = nil;
+            cell.imgResult.image = nil;
         }
         NSNumber *totalBids = [self.validator2.testResults objectForKey:@"totalBids"];
         if (totalBids != nil) {
@@ -306,31 +306,31 @@ UITableViewDataSource, UITableViewDelegate>
         cell.lblHeader.text = kAdUnitRegistered;
         cell.accessoryType = UITableViewCellAccessoryNone;
         if (self.sdkAdUnitRegistrationState == 1) {
-            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"passedStep"];
         } else if (self.sdkAdUnitRegistrationState == 2){ // it should never equal to 2
-            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"failedStep"];
         } else {
-            cell.imageView.image = nil;
+            cell.imgResult.image = nil;
         }
     } else if(indexPath.row == 1){
         cell.lblHeader.text = kRequestToPrebidServerSent;
         cell.accessoryType = UITableViewCellAccessoryNone;
         if (self.sdkRequestToPrebidServerState == 1) {
-            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"passedStep"];
         } else if (self.sdkRequestToPrebidServerState == 2){
-            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"failedStep"];
         } else {
-            cell.imageView.image = nil;
+            cell.imgResult.image = nil;
         }
     } else if (indexPath.row == 2){
         cell.lblHeader.text = kPrebidServerResponseReceived;
         cell.accessoryType = UITableViewCellAccessoryNone;
         if (self.sdkPrebidServerResponseState == 1) {
-            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"passedStep"];
         } else if (self.sdkPrebidServerResponseState == 2){
-            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"failedStep"];
         } else {
-            cell.imageView.image = nil;
+            cell.imgResult.image = nil;
         }
     } else if(indexPath.row == 3){
         cell.lblHeader.text = kBidReceived;
@@ -345,20 +345,20 @@ UITableViewDataSource, UITableViewDelegate>
     } else if(indexPath.row == 4){
         cell.lblHeader.text = kAdServerRequestSentWithKV;
         if (self.sdkKeyValueState == 1) {
-            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"passedStep"];
         } else if (self.sdkKeyValueState == 2){
-            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"failedStep"];
         } else {
-            cell.imageView.image = nil;
+            cell.imgResult.image = nil;
         }
     } else if (indexPath.row == 5) {
         cell.lblHeader.text = kpbmjsreceived;
         if (self.sdkPBMCreativeState == 1) {
-            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"passedStep"];
         } else if (self.sdkPBMCreativeState == 2){
-            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+            cell.imgResult.image = [UIImage imageNamed:@"failedStep"];
         } else {
-            cell.imageView.image = nil;
+            cell.imgResult.image = nil;
         }
     }
     return cell;
