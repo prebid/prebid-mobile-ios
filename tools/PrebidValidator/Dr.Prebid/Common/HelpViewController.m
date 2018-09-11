@@ -44,7 +44,7 @@
     } else if ([self.title isEqualToString:kRealTimeHeader]) {
         filePath = [[NSBundle mainBundle] pathForResource:@"test-real-time-demand" ofType:@"html"];
     } else if ([self.title isEqualToString:kSDKHeader]) {
-        filePath = [[NSBundle mainBundle] pathForResource:@"end-to-end-sdk-validation" ofType:@"html"];
+        filePath = [[NSBundle mainBundle] pathForResource:@"test-full-sdk" ofType:@"html"];
     }
     NSURL *filePathURL = [NSURL fileURLWithPath:filePath];
     NSURLRequest *request = [NSURLRequest requestWithURL:filePathURL];

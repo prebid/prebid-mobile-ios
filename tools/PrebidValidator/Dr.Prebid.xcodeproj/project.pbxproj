@@ -59,11 +59,11 @@
 		F533B16821309548001977C2 /* AdServerResponseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B16721309548001977C2 /* AdServerResponseViewController.m */; };
 		F533B16E21349D09001977C2 /* ColorTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B16D21349D09001977C2 /* ColorTool.m */; };
 		F533B1712134A361001977C2 /* AdServerValidationMockInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B1702134A361001977C2 /* AdServerValidationMockInterstitial.m */; };
-		F54C7F382143217B00025B23 /* end-to-end-sdk-validation.html in Resources */ = {isa = PBXBuildFile; fileRef = F54C7F352143217B00025B23 /* end-to-end-sdk-validation.html */; };
 		F54C7F422146F3AE00025B23 /* test-real-time-demand.html in Resources */ = {isa = PBXBuildFile; fileRef = F54C7F402146F3AD00025B23 /* test-real-time-demand.html */; };
 		F54C7F432146F3AE00025B23 /* test-ad-server.html in Resources */ = {isa = PBXBuildFile; fileRef = F54C7F412146F3AD00025B23 /* test-ad-server.html */; };
 		F54C7F45214700C600025B23 /* SDKValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C7F44214700C600025B23 /* SDKValidationURLProtocol.m */; };
 		F54C7F4F21483C9000025B23 /* SDKValidationResponseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C7F4E21483C9000025B23 /* SDKValidationResponseViewController.m */; };
+		F54C7F5321484AD500025B23 /* test-full-sdk.html in Resources */ = {isa = PBXBuildFile; fileRef = F54C7F5221484AD500025B23 /* test-full-sdk.html */; };
 		F553098220E53CF500A7B552 /* AdServerValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F553098120E53CF500A7B552 /* AdServerValidationURLProtocol.m */; };
 		F56AE891209A3809000CE29F /* PBViewTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE88F209A3808000CE29F /* PBViewTool.m */; };
 		F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */; };
@@ -187,13 +187,13 @@
 		F533B16F21349D16001977C2 /* ColorTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorTool.h; sourceTree = "<group>"; };
 		F533B1702134A361001977C2 /* AdServerValidationMockInterstitial.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdServerValidationMockInterstitial.m; sourceTree = "<group>"; };
 		F533B1722134A372001977C2 /* AdServerValidationMockInterstitial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdServerValidationMockInterstitial.h; sourceTree = "<group>"; };
-		F54C7F352143217B00025B23 /* end-to-end-sdk-validation.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "end-to-end-sdk-validation.html"; sourceTree = "<group>"; };
 		F54C7F402146F3AD00025B23 /* test-real-time-demand.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "test-real-time-demand.html"; sourceTree = "<group>"; };
 		F54C7F412146F3AD00025B23 /* test-ad-server.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "test-ad-server.html"; sourceTree = "<group>"; };
 		F54C7F44214700C600025B23 /* SDKValidationURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDKValidationURLProtocol.m; sourceTree = "<group>"; };
 		F54C7F462147012A00025B23 /* SDKValidationURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDKValidationURLProtocol.h; sourceTree = "<group>"; };
 		F54C7F4E21483C9000025B23 /* SDKValidationResponseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDKValidationResponseViewController.m; sourceTree = "<group>"; };
 		F54C7F5121483CAB00025B23 /* SDKValidationResponseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDKValidationResponseViewController.h; sourceTree = "<group>"; };
+		F54C7F5221484AD500025B23 /* test-full-sdk.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "test-full-sdk.html"; sourceTree = "<group>"; };
 		F553098120E53CF500A7B552 /* AdServerValidationURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdServerValidationURLProtocol.m; sourceTree = "<group>"; };
 		F56AE88F209A3808000CE29F /* PBViewTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBViewTool.m; sourceTree = "<group>"; };
 		F56AE890209A3809000CE29F /* PBViewTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBViewTool.h; sourceTree = "<group>"; };
@@ -447,10 +447,10 @@
 		F5D1856021011548001DF99A /* HelpPagesAssets */ = {
 			isa = PBXGroup;
 			children = (
-				F54C7F352143217B00025B23 /* end-to-end-sdk-validation.html */,
 				F5D1856221011570001DF99A /* about.html */,
 				F54C7F412146F3AD00025B23 /* test-ad-server.html */,
 				F54C7F402146F3AD00025B23 /* test-real-time-demand.html */,
+				F54C7F5221484AD500025B23 /* test-full-sdk.html */,
 				F5D1856121011570001DF99A /* info-ad-server.html */,
 				F5D1856421011571001DF99A /* info-general.html */,
 				F5D1856321011570001DF99A /* info-prebid-server.html */,
@@ -543,9 +543,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F54C7F5321484AD500025B23 /* test-full-sdk.html in Resources */,
 				F54C7F422146F3AE00025B23 /* test-real-time-demand.html in Resources */,
 				F5D1856621011571001DF99A /* about.html in Resources */,
-				F54C7F382143217B00025B23 /* end-to-end-sdk-validation.html in Resources */,
 				60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */,
 				60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */,
 				60924F2321484A650019DD12 /* DemandViewCell.xib in Resources */,
