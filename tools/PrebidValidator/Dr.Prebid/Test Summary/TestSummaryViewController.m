@@ -108,8 +108,22 @@ UITableViewDataSource, UITableViewDelegate>
              cell.imgStatus.image = nil;
         }
 
-    } else {
-        cell.imgStatus.image = [UIImage imageNamed:@"passedMain"];
+    } else if (section == 1){
+        if (self.demandValidationState == 1) {
+            cell.imgStatus.image = [UIImage imageNamed:@"passedMain"];
+        } else if (self.demandValidationState == 2) {
+            cell.imgStatus.image = [UIImage imageNamed:@"failedMain"];
+        } else {
+            cell.imgStatus.image = nil;
+        }
+    } else if (section == 2) {
+        if (self.sdkValidationState == 1) {
+            cell.imgStatus.image = [UIImage imageNamed:@"passedMain"];
+        } else if (self.sdkValidationState == 2) {
+            cell.imgStatus.image = [UIImage imageNamed:@"failedMain"];
+        } else {
+            cell.imgStatus.image = nil;
+        }
     }
     if(cell != nil){
         NSString *titleText = [self.sectionTitles objectAtIndex:section];
@@ -473,17 +487,25 @@ UITableViewDataSource, UITableViewDelegate>
         [self.tableView reloadData];
     });
 }
-- (void)requestToPrebidServerSent
+- (void)requestToPrebidServerSent:(Boolean)sent
 {
-    self.sdkRequestToPrebidServerState = 1;
+    if (sent) {
+        self.sdkRequestToPrebidServerState = 1;
+    } else {
+        self.sdkRequestToPrebidServerState = 2;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
 }
 
-- (void)prebidServerResponseReceived
+- (void)prebidServerResponseReceived:(Boolean)received
 {
-    self.sdkPrebidServerResponseState = 1;
+    if (received) {
+        self.sdkPrebidServerResponseState = 1;
+    } else {
+        self.sdkPrebidServerResponseState = 2;
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -519,6 +541,16 @@ UITableViewDataSource, UITableViewDelegate>
         self.sdkPBMCreativeState = 1;
     } else {
         self.sdkPBMCreativeState = 2;
+    }
+    if (self.sdkAdUnitRegistrationState == 1 &&
+        self.sdkRequestToPrebidServerState == 1 &&
+        self.sdkPrebidServerResponseState == 1 &&
+        self.sdkBidReceivedState == 1 &&
+        self.sdkKeyValueState == 1 &&
+        self.sdkPBMCreativeState == 1) {
+        self.sdkValidationState = 1;
+    } else {
+        self.sdkValidationState = 2;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
