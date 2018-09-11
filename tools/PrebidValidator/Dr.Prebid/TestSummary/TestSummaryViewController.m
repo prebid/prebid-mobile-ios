@@ -358,7 +358,7 @@ UITableViewDataSource, UITableViewDelegate>
             cell.imgResult.image = nil;
         }
     } else if(indexPath.row == 3){
-        cell.lblHeader.text = kBidReceived;
+        cell.lblHeader.text = kCreativeCached;
         cell.accessoryType = UITableViewCellAccessoryNone;
         if (self.sdkBidReceivedState == 1) {
             cell.imgResult.image = [UIImage imageNamed:@"passedStep"];
@@ -536,7 +536,7 @@ UITableViewDataSource, UITableViewDelegate>
 
 - (void)adServerRequestSent:(NSString *)adServerRequest
 {
-    if (adServerRequest!= nil && [adServerRequest containsString:@"hb_cache_id"]) {
+    if (adServerRequest!= nil && [adServerRequest containsString:@"hb_cache_id"] && [adServerRequest containsString:@"hb_pb"]) {
         self.sdkKeyValueState = 1;
     } else {
         self.sdkKeyValueState = 2;

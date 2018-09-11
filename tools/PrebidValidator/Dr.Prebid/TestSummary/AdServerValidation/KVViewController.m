@@ -66,11 +66,14 @@
     [super viewDidLoad];
     self.title = @"Key-Value Targeting";
     self.view.backgroundColor = [ColorTool prebidGrey];
-    NSArray *itemArray = @[@"Prebid Key-Value Pairs", @"Ad ServerRequet"];
+    NSArray *itemArray = @[@"Prebid Key-Value Pairs", @"Ad Server Request"];
     UISegmentedControl *control = [[UISegmentedControl alloc] initWithItems:itemArray];
     control.selectedSegmentIndex = 0;
+    control.tintColor = [ColorTool prebidBlue];
+    control.backgroundColor = [UIColor whiteColor];
+    control.layer.cornerRadius = 5.0;
     [control addTarget:self action:@selector(controlSwitch:) forControlEvents:UIControlEventValueChanged];
-    control.frame = CGRectMake(20, 80, self.view.frame.size.width -40, 50);
+    control.frame = CGRectMake(20, 80, self.view.frame.size.width -40, 35);
     [self.view addSubview:control];
     [self setupUICollectionView];
     [self setupUITableView];
@@ -96,6 +99,7 @@
         self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 140, self.view.frame.size.width, self.view.frame.size.height-140)];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
+        self.tableView.separatorColor = [UIColor clearColor];
         [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellIdentifier"];
         [self.tableView setBackgroundColor:[UIColor whiteColor]];
         self.tableView.hidden = YES;
@@ -122,6 +126,7 @@
         cell.textLabel.text = [NSString stringWithFormat:@"%@?", self.requestURL];
     } else {
         cell.textLabel.text = [NSString stringWithFormat:@"%@=%@&", self.queryStringKeys[indexPath.row -1], [self.queryStringDict objectForKey:self.queryStringKeys[indexPath.row -1]] ];
+        cell.textLabel.numberOfLines = 0;
     }
     return cell;
 }
@@ -139,9 +144,14 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.minimumInteritemSpacing = 0;
         layout.minimumLineSpacing = 0;
-        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 140, self.view.frame.size.width, self.keys.count * 50) collectionViewLayout:layout];
+        float heihgt = self.keys.count * 50;
+        if (heihgt > self.view.frame.size.height - 140) {
+            heihgt =self.view.frame.size.height - 140;
+        }
+        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 140, self.view.frame.size.width, heihgt) collectionViewLayout:layout];
         self.collectionView.delegate = self;
         self.collectionView.dataSource = self;
+        self.collectionView.showsVerticalScrollIndicator = YES;
         [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
         [self.collectionView setBackgroundColor:[UIColor whiteColor]];
         self.collectionView.hidden = NO;
@@ -161,19 +171,26 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"cellIdentifier" forIndexPath:indexPath];
+    for (UIView *sub in cell.contentView.subviews) {
+        [sub removeFromSuperview];
+    }
     CGSize size = [self getSizeForIndex:indexPath];
-    UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    UILabel *textLabel = [[UILabel alloc] init];
     textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     textLabel.numberOfLines = 0;
     if (indexPath.row % 3 == 0) {
+        textLabel.frame = CGRectMake(20, 0, size.width -40, size.height);
         textLabel.text = self.keys[indexPath.section];
         textLabel.textColor = [ColorTool prebidBlue];
     } else if (indexPath.row %3 == 1) {
+        textLabel.frame = CGRectMake(0, 0, size.width, size.height);
         textLabel.text = @" = ";
     } else {
+        textLabel.frame = CGRectMake(20, 0, size.width-40, size.height);
         textLabel.text = [self.keyWordsDictionary objectForKey:self.keys[indexPath.section]];
         textLabel.textColor = [ColorTool prebidOrange];
     }
+    textLabel.backgroundColor = [UIColor whiteColor];
     [cell.contentView addSubview:textLabel];
     return cell;
 }
@@ -187,11 +204,11 @@
 {
     CGFloat width = 0;
     if (indexPath.row % 3 == 0) {
-        width = 100;
+        width = 140;
     } else if (indexPath.row %3 == 1) {
         width = 20;
     } else {
-        width = self.view.frame.size.width - 120;
+        width = self.view.frame.size.width - 160;
     }
     return CGSizeMake(width, 50);
 }

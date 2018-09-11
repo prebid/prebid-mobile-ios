@@ -56,15 +56,18 @@
     NSArray *itemArray = @[@"Received Creative", @"Expected Creative"];
     UISegmentedControl *pbmCreativeControl = [[UISegmentedControl alloc] initWithItems:itemArray];
     pbmCreativeControl.selectedSegmentIndex = 0;
+    pbmCreativeControl.tintColor = [ColorTool prebidBlue];
+    pbmCreativeControl.backgroundColor = [UIColor whiteColor];
+    pbmCreativeControl.layer.cornerRadius = 5.0;
     [pbmCreativeControl addTarget:self action:@selector(pbmCreativeSwitch:) forControlEvents:UIControlEventValueChanged];
-    pbmCreativeControl.frame = CGRectMake(20, 302, self.view.frame.size.width -40, 50);
+    pbmCreativeControl.frame = CGRectMake(20, 305, self.view.frame.size.width -40, 35);
     [self.view addSubview:pbmCreativeControl];
     if ([_adFormatName isEqualToString:kBannerString]) {
         NSArray *adSizeArray = [_adSizeString componentsSeparatedByString:@"x"];
         int height = [adSizeArray[1] intValue];
-        _adContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 354, self.view.frame.size.width, height)];
+        _adContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 345, self.view.frame.size.width, height)];
     } else {
-        _adContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 354, self.view.frame.size.width, 200)];
+        _adContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 345, self.view.frame.size.width, 200)];
     }
 
     [self.view addSubview:_adContainer];
