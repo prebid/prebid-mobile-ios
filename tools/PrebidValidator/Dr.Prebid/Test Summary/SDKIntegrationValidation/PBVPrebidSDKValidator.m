@@ -43,6 +43,7 @@
 @property DFPInterstitial *dfpInterstitial;
 @property Boolean initialPrebidServerRequestReceived;
 @property Boolean initialPrebidServerResponseReceived;
+@property Boolean bidReceived;
 @property NSString *interceptedCacheId;
 @property NSString *adServerResponse;
 @property id adObject;
@@ -54,6 +55,9 @@
 {
     self = [super init];
     if (self) {
+        self.initialPrebidServerRequestReceived = NO;
+        self.initialPrebidServerResponseReceived = NO;
+        self.bidReceived = NO;
         [SDKValidationURLProtocol setDelegate:self];
         [NSURLProtocol registerClass:[SDKValidationURLProtocol class]];
         self.delegate = delegate;
