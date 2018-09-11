@@ -21,14 +21,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lJx-ZB-iCw">
-                        <rect key="frame" x="26" y="12" width="36" height="36"/>
+                        <rect key="frame" x="16" y="12" width="36" height="36"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="36" id="RFN-kz-5SP"/>
                             <constraint firstAttribute="width" constant="36" id="oNE-bU-VmP"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g59-St-cb7">
-                        <rect key="frame" x="72" y="20" width="182" height="20"/>
+                        <rect key="frame" x="62" y="20" width="192" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="caj-6O-6tr"/>
                         </constraints>
@@ -41,7 +41,7 @@
                     <constraint firstItem="lJx-ZB-iCw" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="MAy-af-2Ln"/>
                     <constraint firstAttribute="trailingMargin" secondItem="g59-St-cb7" secondAttribute="trailing" constant="10" id="SzO-vV-F4T"/>
                     <constraint firstItem="g59-St-cb7" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Wt2-IH-0ac"/>
-                    <constraint firstItem="lJx-ZB-iCw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="YUi-Gh-Mhg"/>
+                    <constraint firstItem="lJx-ZB-iCw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="YUi-Gh-Mhg"/>
                     <constraint firstItem="g59-St-cb7" firstAttribute="leading" secondItem="lJx-ZB-iCw" secondAttribute="trailing" constant="10" id="zJ6-C0-7aC"/>
                 </constraints>
             </tableViewCellContentView>

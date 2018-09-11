@@ -20,15 +20,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2GH-B7-Ndh">
-                        <rect key="frame" x="51" y="15" width="15" height="12"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2GH-B7-Ndh">
+                        <rect key="frame" x="30" y="15" width="15" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="bbH-Le-EPR"/>
                             <constraint firstAttribute="height" constant="12" id="vwf-Bp-qnX"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="36i-Cq-ZGv">
-                        <rect key="frame" x="67" y="12" width="211" height="18"/>
+                        <rect key="frame" x="55" y="12" width="223" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -36,9 +36,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="2GH-B7-Ndh" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Sq2-QH-gSq"/>
-                    <constraint firstItem="36i-Cq-ZGv" firstAttribute="leading" secondItem="2GH-B7-Ndh" secondAttribute="trailing" constant="1" id="Vn9-2u-vYN"/>
+                    <constraint firstItem="36i-Cq-ZGv" firstAttribute="leading" secondItem="2GH-B7-Ndh" secondAttribute="trailing" constant="10" id="Vn9-2u-vYN"/>
                     <constraint firstItem="36i-Cq-ZGv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Wke-5S-1J2"/>
-                    <constraint firstItem="2GH-B7-Ndh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="51" id="Xui-wE-5bI"/>
+                    <constraint firstItem="2GH-B7-Ndh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="Xui-wE-5bI"/>
                     <constraint firstAttribute="trailingMargin" secondItem="36i-Cq-ZGv" secondAttribute="trailing" id="au9-d1-kTp"/>
                 </constraints>
             </tableViewCellContentView>
