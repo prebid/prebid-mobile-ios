@@ -156,9 +156,6 @@
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
-    NSArray *widthHeight = [adSizeString componentsSeparatedByString:@"x"];
-    double width = [widthHeight[0] doubleValue];
-    double height = [widthHeight[1] doubleValue];
     // sanity check that whether PBM send the initial request or not
     if (self.initialPrebidServerRequestReceived) {
         [self.delegate requestToPrebidServerSent:NO];
@@ -168,6 +165,9 @@
     // Create ad unit
     if ([adServerName isEqualToString:kMoPubString]){
         if ([adFormatName isEqualToString:kBannerString]){
+            NSArray *widthHeight = [adSizeString componentsSeparatedByString:@"x"];
+            double width = [widthHeight[0] doubleValue];
+            double height = [widthHeight[1] doubleValue];
             MPAdView *mopubAdView = [[MPAdView alloc] initWithAdUnitId:adUnitID
                                                          size:CGSizeMake(width, height)];
             _adObject = mopubAdView;
@@ -190,6 +190,9 @@
             
     } else if ([adServerName isEqualToString:kDFPString]) {
         if ([adFormatName isEqualToString:kBannerString]) {
+            NSArray *widthHeight = [adSizeString componentsSeparatedByString:@"x"];
+            double width = [widthHeight[0] doubleValue];
+            double height = [widthHeight[1] doubleValue];
             DFPBannerView *dfpAdView = [[DFPBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(width, height))];
             _adObject = dfpAdView;
             dfpAdView.adUnitID = adUnitID;

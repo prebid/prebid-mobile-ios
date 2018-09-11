@@ -9,6 +9,9 @@
 
 #import "SDKValidationResponseViewController.h"
 #import "ColorTool.h"
+#import "PBVSharedConstants.h"
+#import "MPInterstitialAdController.h"
+@import GoogleMobileAds;
 
 @interface SDKValidationResponseViewController ()
 @property PBVPrebidSDKValidator *validator;
@@ -32,7 +35,62 @@
     container.scrollEnabled = YES;
     self.view = container;
     self.view.backgroundColor = [ColorTool prebidGrey];
+    
+    NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
+    NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
+    
+    UILabel *pbmCreativeHTMLTitle = [[UILabel alloc] init];
+    pbmCreativeHTMLTitle.frame = CGRectMake(20, 0, self.view.frame.size.width -20, 50);
+    pbmCreativeHTMLTitle.text = @"Responded Creative HTML";
+    [pbmCreativeHTMLTitle setFont:[UIFont systemFontOfSize:20]];
+    [self.view addSubview:pbmCreativeHTMLTitle];
+    UITextView *pbmCreativeHTMLContent = [[UITextView alloc] init];
+    pbmCreativeHTMLContent.editable = NO;
+    pbmCreativeHTMLContent.frame = CGRectMake(0, 50, self.view.frame.size.width, 250);
+    NSString *response = [self.validator getAdServerResponse];
+    pbmCreativeHTMLContent.text = response;
+    [self.view addSubview:pbmCreativeHTMLContent];
+    UIView *adContainer = [[UIView alloc] init];
+    adContainer.backgroundColor = [UIColor whiteColor];
+    UILabel * creativeDescription = [[UILabel alloc] init];
+    creativeDescription.text = @"This creative wad returned from the Ad Server";
+    creativeDescription.frame = CGRectMake(20, 0, self.view.frame.size.width - 20, 50);
+    [adContainer addSubview:creativeDescription];
+    if ([adFormatName isEqualToString:kBannerString]) {
+        NSArray *adSizeArray = [adSizeString componentsSeparatedByString:@"x"];
+        int width = [adSizeArray[0] intValue];
+        int height = [adSizeArray[1] intValue];
+        adContainer.frame = CGRectMake(0, 314, self.view.frame.size.width, height + 50 + 10);
+        UIView *adView = (UIView *)[self.validator getAdObject];
+        adView.frame = CGRectMake((adContainer.frame.size.width - width)/2, 50,  width, height);
+        [adContainer addSubview:adView];
+    } else {
+        adContainer.frame = CGRectMake(0, 314, self.view.frame.size.width, 250);
+        UIButton *clickToShow = [[UIButton alloc] initWithFrame:CGRectMake((adContainer.frame.size.width - 320)/2, 125, 320, 50)];
+        clickToShow.backgroundColor = [ColorTool prebidOrange];
+        clickToShow.layer.cornerRadius = 10;
+        clickToShow.clipsToBounds = YES;
+        clickToShow.tag = 0;
+        [clickToShow addTarget:self action:@selector(showReceivedInterstiail:) forControlEvents:UIControlEventTouchUpInside];
+        [clickToShow setTitle:@"Click to show Interstitial" forState:UIControlStateNormal];
+        [adContainer addSubview:clickToShow];
+    }
+    [self.view addSubview:adContainer];
 }
+
+- (void)showReceivedInterstiail: (id) sender
+{
+    if ([_validator.getAdObject isKindOfClass: [DFPInterstitial class] ]) {
+        DFPInterstitial *interstitial  = (DFPInterstitial *)[_validator getAdObject];
+        [interstitial presentFromRootViewController:self];
+    } else if ([_validator.getAdObject isKindOfClass: [MPInterstitialAdController class]]) {
+        MPInterstitialAdController *controller = (MPInterstitialAdController *)_validator.getAdObject;
+        if (controller.ready) {
+            [controller showFromViewController:self];
+        }
+    }
+}
+
 @end
 
 
