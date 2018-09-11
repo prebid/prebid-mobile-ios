@@ -18,6 +18,7 @@
 #import "HelpViewController.h"
 #import "PBVSharedConstants.h"
 #import "PBVPrebidSDKValidator.h"
+#import "SDKValidationResponseViewController.h"
 
 
 NSString *__nonnull const kSectionCellString = @"sCell";
@@ -202,6 +203,16 @@ UITableViewDataSource, UITableViewDelegate>
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
             DemandViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"demandController"];
             controller.resultsDictionary = self.validator2.testResults;
+            [self.navigationController pushViewController:controller animated:YES];
+        }
+    } else if (indexPath.section == 2 && indexPath.row == 4) {
+        if (self.sdkValidationState > 0) {
+            KVViewController * kvController = [[KVViewController alloc] initWithRequestString:[self.validator3 getAdServerRequest]];
+            [self.navigationController pushViewController:kvController animated:YES];
+        }
+    } else if (indexPath.section == 2 && indexPath.row == 5) {
+        if (self.sdkValidationState > 0) {
+            SDKValidationResponseViewController *controller = [[SDKValidationResponseViewController alloc] initWithValidator:self.validator3];
             [self.navigationController pushViewController:controller animated:YES];
         }
     }

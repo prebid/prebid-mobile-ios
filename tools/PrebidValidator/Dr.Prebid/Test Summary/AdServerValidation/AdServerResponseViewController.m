@@ -11,6 +11,7 @@
 #import "PBVSharedConstants.h"
 #import "AdServerValidationMockInterstitial.h"
 #import "MPInterstitialAdController.h"
+#import "ColorTool.h"
 @import GoogleMobileAds;
 
 @interface AdServerResponseViewController()
@@ -36,7 +37,7 @@
     UIScrollView *container = [[UIScrollView alloc]initWithFrame:self.view.frame];
     container.scrollEnabled = YES;
     self.view = container;
-    self.view.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
+    self.view.backgroundColor = [ColorTool prebidGrey];
    
     self.adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     self.adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
