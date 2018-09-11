@@ -87,7 +87,9 @@ static NSString *const kPrebidMobileVersion = @"0.5";
     NSMutableDictionary *requestPrebidExt = [[NSMutableDictionary alloc] init];
     requestPrebidExt[@"targeting"] = @{};
     requestPrebidExt[@"storedrequest"] = @{@"id" :accountId};
-    requestPrebidExt[@"cache"] = @{@"bids" : [[NSMutableDictionary alloc] init]};
+    if (![[PBTargetingParams sharedInstance] useLocalCache]){
+        requestPrebidExt[@"cache"] = @{@"bids" : [[NSMutableDictionary alloc] init]};
+    }
     NSMutableDictionary *requestExt = [[NSMutableDictionary alloc] init];
     requestExt[@"prebid"] = requestPrebidExt;
     return [requestExt copy];
