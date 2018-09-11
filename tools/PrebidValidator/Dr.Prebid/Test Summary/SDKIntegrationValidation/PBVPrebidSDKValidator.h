@@ -16,17 +16,20 @@
 
 #import <UIKit/UIKit.h>
 @protocol PBVPrebidSDKValidatorDelegate
-@required
-- (void) sdkIntegrationDidPass;
-@required
-- (void) sdkIntegrationDidFail;
+
+- (void) adUnitRegistered;
+- (void) requestToPrebidServerSent;
+- (void) prebidServerResponseReceived;
+- (void) bidReceivedAndCached:(Boolean)received;
+- (void) adServerRequestSent:(NSString *)adServerRequest;
+- (void) adServerResponseContainsPBMCreative:(Boolean)contains;
 @end
 
 @interface PBVPrebidSDKValidator: NSObject
 
 @property id <PBVPrebidSDKValidatorDelegate> delegate;
-
-- (UIViewController *) getViewController;
+- (instancetype)initWithDelegate: (id<PBVPrebidSDKValidatorDelegate>) delegate;
 - (void)startTest;
+- (NSObject *)getAdObject;
 
 @end

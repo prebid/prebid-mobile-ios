@@ -70,21 +70,6 @@
     [self attachReceviedCreative];
 }
 
-- (NSString *)getPrebidCreative:(NSString *)adserverResponse
-{
-    if (adserverResponse != nil && ![adserverResponse isEqualToString:@""]) {
-        NSString *pattern = @"<script.*<\/script>";
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionDotMatchesLineSeparators error:nil];
-        NSTextCheckingResult *match = [regex firstMatchInString:adserverResponse options:0 range:NSMakeRange(0, adserverResponse.length)];
-        if (match != nil) {
-            NSString *result = [adserverResponse substringWithRange:[match rangeAtIndex:0]];
-            return result;
-        }
-        
-    }
-    return nil;
-}
-
 - (void) pbmCreativeSwitch:(UISegmentedControl *)segment
 {
     if (segment.selectedSegmentIndex == 0) {

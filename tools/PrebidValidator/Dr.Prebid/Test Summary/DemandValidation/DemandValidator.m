@@ -101,8 +101,10 @@
 
 -(void)runTestWithReuqest: (NSURLRequest *) req
         CompletionHandler:(void (^)(void)) completionHandler;{
+    NSMutableURLRequest *reqMutable = [req mutableCopy];
+    [NSURLProtocol setProperty:@YES forKey:@"DemandValidationRequest" inRequest:reqMutable];
     NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:req completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:reqMutable completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
                                       {
                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                                           NSString *responseString = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];

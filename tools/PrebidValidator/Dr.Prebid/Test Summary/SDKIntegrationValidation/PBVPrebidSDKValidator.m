@@ -25,31 +25,38 @@
 #import "PBVSharedConstants.h"
 #import "MPAdView.h"
 #import "MPWebView.h"
-#import "BannerTestsViewController.h"
 #import <WebKit/WebKit.h>
 #import "MPInterstitialAdController.h"
-#import "InterstitialTestsViewController.h"
 #import <GoogleMobileAds/DFPBannerView.h>
 #import <GoogleMobileAds/DFPInterstitial.h>
 #import "PBViewTool.h"
+#import "SDKValidationURLProtocol.h"
 
 @interface PBVPrebidSDKValidator() <CLLocationManagerDelegate,
                                     MPAdViewDelegate,
                                     MPInterstitialAdControllerDelegate,
                                     GADBannerViewDelegate,
-                                    GADInterstitialDelegate>
+                                    GADInterstitialDelegate,
+                                    SDKValidationURLProtocolDelegate>
 @property (nonatomic, readwrite) CLLocationManager *locationManager;
 @property DFPBannerView *dfpAdView;
 @property DFPInterstitial *dfpInterstitial;
+@property Boolean initialPrebidServerRequestReceived;
+@property Boolean initialPrebidServerResponseReceived;
+@property NSString *interceptedCacheId;
+@property NSString *adServerResponse;
 @property id adObject;
 @end
 
 @implementation PBVPrebidSDKValidator
 
-- (instancetype)init
+- (instancetype)initWithDelegate: (id<PBVPrebidSDKValidatorDelegate>) delegate
 {
     self = [super init];
     if (self) {
+        [SDKValidationURLProtocol setDelegate:self];
+        [NSURLProtocol registerClass:[SDKValidationURLProtocol class]];
+        self.delegate = delegate;
         [self enablePrebidLogs];
         [self setupPrebidAndRegisterAdUnits];
     }
@@ -107,7 +114,7 @@
                 [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostRubicon andPrimaryAdServer:PBPrimaryAdServerDFP];
             }
         }
-        
+        [self.delegate adUnitRegistered];
     } @catch (PBException *ex) {
         NSLog(@"%@",[ex reason]);
     } @finally {
@@ -138,25 +145,6 @@
 }
 
 #pragma mark - PBVPrebidSDKValidator APIs
-
-- (UIViewController *)getViewController
-{
-    NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
-    NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
-    NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
-    NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
-    NSDictionary *settings = @{kAdServerNameKey : adServerName,
-                               kAdUnitIdKey : adUnitID,
-                               kAdSizeKey : adSizeString};
-    UIViewController *vcToShow;
-    if ([adFormatName isEqualToString:kBannerString]) {
-        vcToShow= [[BannerTestsViewController alloc] initWithSettings:settings];
-    } else {
-        vcToShow = [[InterstitialTestsViewController alloc] initWithSettings:settings];
-    }
-    return vcToShow;
-}
-
 -(void)startTest
 {
     // Retrieve Config
@@ -213,41 +201,54 @@
         }
     }
 }
+
+- (NSObject *)getAdObject
+{
+    return self.adObject;
+}
 #pragma mark - DFP delegate
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
 {
-    [_delegate sdkIntegrationDidFail];
+    [self.delegate adServerResponseContainsPBMCreative:NO];
 }
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    [_delegate sdkIntegrationDidPass]; // Unable to get the ad before acutally showing it, pass for all ad loaded cases
+    if ([self.adServerResponse containsString:@"pbm.js"]) {
+        [self.delegate adServerResponseContainsPBMCreative:YES];
+    } else {
+        [self.delegate adServerResponseContainsPBMCreative:NO];
+    }
 }
 
 - (void)adViewDidReceiveAd:(GADBannerView *)bannerView
 {
     if ([PBViewTool checkDFPAdViewContainsPBMAd:bannerView]) {
-        [_delegate sdkIntegrationDidPass];
+        [self.delegate adServerResponseContainsPBMCreative:YES];
     } else {
-        [_delegate sdkIntegrationDidFail];
+        [self.delegate adServerResponseContainsPBMCreative:NO];
     }
 }
 
 - (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
 {
-    [_delegate sdkIntegrationDidFail];
+    [self.delegate adServerResponseContainsPBMCreative:NO];
 }
 
 
 #pragma mark - MoPub delegate
 - (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
 {
-     [_delegate sdkIntegrationDidPass]; // Unable to get the ad before acutally showing it, pass for all ad loaded cases
+    if ([self.adServerResponse containsString:@"pbm.js"]) {
+        [self.delegate adServerResponseContainsPBMCreative:YES];
+    } else {
+        [self.delegate adServerResponseContainsPBMCreative:NO];
+    }
 }
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial
 {
-    [_delegate sdkIntegrationDidFail];
+    [self.delegate adServerResponseContainsPBMCreative:NO];
 }
 
 - (UIViewController *)viewControllerForPresentingModalView
@@ -259,16 +260,91 @@
 {
     [PBViewTool checkMPAdViewContainsPBMAd:view withCompletionHandler:^(BOOL result) {
         if( result) {
-            [self.delegate sdkIntegrationDidPass];
+            [self.delegate adServerResponseContainsPBMCreative:YES];
         } else
         {
-            [self.delegate sdkIntegrationDidFail];
+            [self.delegate adServerResponseContainsPBMCreative:NO];
         }
     }];
 }
 - (void)adViewDidFailToLoadAd:(MPAdView *)view
 {
-    [_delegate sdkIntegrationDidFail];
+    [self.delegate adServerResponseContainsPBMCreative:NO];
+}
+
+#pragma mark - SDKValidationURLProtocolDelegate
+- (void)willInterceptPrebidServerRequest
+{
+    if (!self.initialPrebidServerRequestReceived) {
+        self.initialPrebidServerRequestReceived = YES;
+        [self.delegate requestToPrebidServerSent];
+    }
+}
+
+- (void)didReceivePrebidServerResponse:(NSString *)response
+{
+    if (!self.initialPrebidServerResponseReceived) {
+        self.initialPrebidServerResponseReceived = YES;
+        [self.delegate prebidServerResponseReceived];
+        if (response != nil) {
+            NSError *error =nil;
+            NSData *data = [response dataUsingEncoding:NSUTF8StringEncoding];
+            id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            if (error) {
+                [self.delegate bidReceivedAndCached:NO];
+            } else {
+                Boolean containHbCacheId = NO;
+                NSDictionary *response = (NSDictionary *)json;
+                if ([[response objectForKey:@"seatbid"] isKindOfClass:[NSArray class]]) {
+                    NSArray *seatbids = (NSArray *)[response objectForKey:@"seatbid"];
+                    for (id seatbid in seatbids) {
+                        if ([seatbid isKindOfClass:[NSDictionary class]]) {
+                            NSDictionary *seatbidDict = (NSDictionary *)seatbid;
+                            if ([[seatbidDict objectForKey:@"bid"] isKindOfClass:[NSArray class]]) {
+                                NSArray *bids = (NSArray *)[seatbidDict objectForKey:@"bid"];
+                                for (id bid in bids) {
+                                    if ([bid isKindOfClass:[NSDictionary class]]) {
+                                        NSDictionary *bidDict = (NSDictionary *)bid;
+                                        if ([bidDict.allKeys containsObject:@"ext"]) {
+                                            NSDictionary *ext = [bidDict objectForKey:@"ext"];
+                                            if ([ext.allKeys containsObject:@"prebid"]) {
+                                                NSDictionary *prebid = [ext objectForKey:@"prebid"];
+                                                if ([prebid.allKeys containsObject:@"targeting"]) {
+                                                    NSDictionary *targeting = [prebid objectForKey:@"targeting"];
+                                                    for (NSString *key in targeting.allKeys) {
+                                                        if ([key isEqualToString:@"hb_cache_id"]) {
+                                                            containHbCacheId = YES;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (containHbCacheId) {
+                    [self.delegate bidReceivedAndCached:YES];
+                } else {
+                    [self.delegate bidReceivedAndCached:NO];
+                }
+            }
+        } else {
+            [self.delegate bidReceivedAndCached:NO];
+        }
+    }
+}
+
+- (void)willInterceptAdServerRequest:(NSString *)request
+{
+    [self.delegate adServerRequestSent:request];
+}
+
+- (void)didReceiveAdServerResponse:(NSString *)response forRequest:(NSString *)request
+{
+    self.adServerResponse = response;
 }
     
 @end

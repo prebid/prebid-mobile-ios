@@ -17,21 +17,18 @@
 #import "DemandViewController.h"
 #import "HelpViewController.h"
 #import "PBVSharedConstants.h"
+#import "PBVPrebidSDKValidator.h"
 
 
 NSString *__nonnull const kSectionCellString = @"sCell";
 NSString *__nonnull const kHeaderCellString = @"headerCell";
 
-@interface TestSummaryViewController ()<PBVLineItemsSetupValidatorDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface TestSummaryViewController ()<PBVLineItemsSetupValidatorDelegate, PBVPrebidSDKValidatorDelegate,
+UITableViewDataSource, UITableViewDelegate>
 
-@property NSDictionary *tableViewDictionaryItems;
 @property NSArray *sectionTitles;
-@property NSArray *adServerTitles;
-@property NSArray *demandTitles;
 
 @property NSIndexPath *selectedIndex;
-
-@property UIActivityIndicatorView *indicatorView;
 
 // Adding a state for each test
 // state 0 means loading, state 1 means pass, state 2 means failure
@@ -45,6 +42,15 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 @property int demandValidationState;
 @property int demandValidationBidRequestSentState;
 @property int demandValidataionBidResponseReceivedState;
+
+@property PBVPrebidSDKValidator *validator3;
+@property int sdkValidationState;
+@property int sdkAdUnitRegistrationState;
+@property int sdkRequestToPrebidServerState;
+@property int sdkPrebidServerResponseState;
+@property int sdkBidReceivedState;
+@property int sdkKeyValueState;
+@property int sdkPBMCreativeState;
 @end
 
 @implementation TestSummaryViewController
@@ -53,11 +59,6 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     [super viewDidLoad];
     
     self.title = @"Summary";
-    
-    self.adServerTitles = @[kAdServerRequestSentWithKV, kpbmjssent];
-    self.demandTitles = @[kBidRequestSent, kBidResponseReceived, kCPMReceived];
-    
-    self.tableViewDictionaryItems = @{kAdServerTestHeader :self.adServerTitles, kRealTimeHeader:self.demandTitles};
     
     self.sectionTitles = @[kAdServerTestHeader, kRealTimeHeader, kSDKHeader];
     
@@ -75,18 +76,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
 
     [self startAdServerValidation];
     [self startDemandValidation];
-    
-}
-
--(void) viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
- 
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self startSDKValidation];
 }
 
 #pragma mark - Table view data source
@@ -99,7 +89,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
     if(section == 0) return 2;
     if(section == 2)
-        return 5;
+        return 6;
     return 3;
 }
 
@@ -173,6 +163,8 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
         return 75.0f;
     } else if (indexPath.section == 0 && indexPath.row == 0){
         return 61.0f;
+    } else if (indexPath.section == 2 && indexPath.row == 4) {
+        return 61.0f;
     }
     return 40.0f;
 }
@@ -244,7 +236,7 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
         } else {
             cell.imageView.image = nil;
         }
-        cell.lblHeader.text = kpbmjssent;
+        cell.lblHeader.text = kpbmjsreceived;
        
     }
     return cell;
@@ -310,37 +302,70 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     
     if(cell == nil)
         return nil;
-    
-    cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
-    
     if (indexPath.row == 0){
-        
-        cell.lblHeader.text = kBidRequestSent;
-        
+        cell.lblHeader.text = kAdUnitRegistered;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        if (self.sdkAdUnitRegistrationState == 1) {
+            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+        } else if (self.sdkAdUnitRegistrationState == 2){ // it should never equal to 2
+            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+        } else {
+            cell.imageView.image = nil;
+        }
     } else if(indexPath.row == 1){
-        cell.lblHeader.text = kBidResponseReceived;
-        
+        cell.lblHeader.text = kRequestToPrebidServerSent;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        if (self.sdkRequestToPrebidServerState == 1) {
+            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+        } else if (self.sdkRequestToPrebidServerState == 2){
+            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+        } else {
+            cell.imageView.image = nil;
+        }
     } else if (indexPath.row == 2){
-        
-        cell.lblHeader.text = kAdServerRequestSentWithKV;
-        
-        cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
-        
-        
+        cell.lblHeader.text = kPrebidServerResponseReceived;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        if (self.sdkPrebidServerResponseState == 1) {
+            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+        } else if (self.sdkPrebidServerResponseState == 2){
+            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+        } else {
+            cell.imageView.image = nil;
+        }
     } else if(indexPath.row == 3){
-        
-        cell.lblHeader.text = kAdServerRequestSentWithKV;
-        
+        cell.lblHeader.text = kBidReceived;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        if (self.sdkBidReceivedState == 1) {
+            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+        } else if (self.sdkBidReceivedState == 2){
+            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+        } else {
+            cell.imageView.image = nil;
+        }
     } else if(indexPath.row == 4){
-        
-        cell.imageView.image = [UIImage imageNamed:@"SuccessSmall"];
-        
-        cell.lblHeader.text = kpbmjssent;
-        
+        cell.lblHeader.text = kAdServerRequestSentWithKV;
+        if (self.sdkKeyValueState == 1) {
+            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+        } else if (self.sdkKeyValueState == 2){
+            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+        } else {
+            cell.imageView.image = nil;
+        }
+    } else if (indexPath.row == 5) {
+        cell.lblHeader.text = kpbmjsreceived;
+        if (self.sdkPBMCreativeState == 1) {
+            cell.imageView.image = [UIImage imageNamed:@"passedStep"];
+        } else if (self.sdkPBMCreativeState == 2){
+            cell.imageView.image = [UIImage imageNamed:@"failedStep"];
+        } else {
+            cell.imageView.image = nil;
+        }
     }
     return cell;
 
 }
+
+#pragma mark AdServerValidation
 
 - (void)startAdServerValidation{
     self.adServerValidationState = 0;
@@ -353,8 +378,6 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
         [self.tableView reloadData];
     });
 }
-
-#pragma mark AdServerValidation PBVLineItemsSetupValidatorDelegate
 
 - (void)didFindPrebidKeywordsOnTheAdServerRequest
 {
@@ -402,6 +425,8 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     });
 }
 
+#pragma mark DemandValidation
+
 -(void) startDemandValidation
 {
     self.demandValidationState = 0;
@@ -427,6 +452,76 @@ NSString *__nonnull const kHeaderCellString = @"headerCell";
     });
 }
 
+#pragma mark SDKValidation
 
+- (void) startSDKValidation
+{
+    self.sdkValidationState = 0;
+    self.sdkAdUnitRegistrationState = 0;
+    self.sdkRequestToPrebidServerState = 0;
+    self.sdkPrebidServerResponseState = 0;
+    self.sdkBidReceivedState = 0;
+    self.sdkKeyValueState = 0;
+    self.sdkPBMCreativeState = 0;
+    self.validator3 = [[PBVPrebidSDKValidator alloc] initWithDelegate:self];
+    [self.validator3 startTest];
+}
+- (void)adUnitRegistered
+{
+    self.sdkAdUnitRegistrationState = 1;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+- (void)requestToPrebidServerSent
+{
+    self.sdkRequestToPrebidServerState = 1;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
 
+- (void)prebidServerResponseReceived
+{
+    self.sdkPrebidServerResponseState = 1;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+
+- (void)bidReceivedAndCached: (Boolean) received
+{
+    if (received) {
+        self.sdkBidReceivedState = 1;
+    } else {
+        self.sdkBidReceivedState = 2;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+
+- (void)adServerRequestSent:(NSString *)adServerRequest
+{
+    if (adServerRequest!= nil && [adServerRequest containsString:@"hb_cache_id"]) {
+        self.sdkKeyValueState = 1;
+    } else {
+        self.sdkKeyValueState = 2;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+
+- (void) adServerResponseContainsPBMCreative:(Boolean)contains
+{
+    if (contains) {
+        self.sdkPBMCreativeState = 1;
+    } else {
+        self.sdkPBMCreativeState = 2;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
 @end
