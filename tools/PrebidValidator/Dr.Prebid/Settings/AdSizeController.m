@@ -16,6 +16,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AdSizeController.h"
+#import "PBVSharedConstants.h"
 @interface AdSizeController () <UITableViewDelegate, UITableViewDataSource>
 @property NSArray *sizesArray;
 @property NSString *selectedSize;
@@ -30,7 +31,7 @@
     doneButton.title = @"Done";
     self.navigationItem.rightBarButtonItem = doneButton;
     self.navigationItem.hidesBackButton = YES;
-    _sizesArray = @[@"300x250", @"300x600",@"320x50",@"320x100",@"320x480",@"728x90"];
+    _sizesArray = @[kSizeString300x250, kSizeString300x600, kSizeString320x50, kSizeString320x100,kSizeString320x480,kSizeString728x90];
     UITableView *tableView = [[UITableView alloc] init];
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     tableView.delegate = self;

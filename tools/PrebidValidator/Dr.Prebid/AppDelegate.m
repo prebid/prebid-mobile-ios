@@ -15,8 +15,8 @@
  */
 
 #import "AppDelegate.h"
-
-
+#import "LineItemKeywordsManager.h"
+#import "AdServerValidationURLProtocol.h"
 
 @interface AppDelegate ()
 
@@ -28,7 +28,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    [[LineItemKeywordsManager sharedManager] refreshCacheIds];
     return YES;
 }
 

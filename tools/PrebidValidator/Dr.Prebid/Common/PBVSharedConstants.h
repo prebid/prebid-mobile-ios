@@ -17,9 +17,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-
-
-
 extern NSString *__nonnull const kAdServerLabelText;
 extern NSString *__nonnull const kAdFormatLabelText;
 extern NSString *__nonnull const kAdSizeLabelText;
@@ -46,16 +43,12 @@ extern NSString *__nonnull const kInterstitialString;
 extern NSString *__nonnull const kNativeString;
 extern NSString *__nonnull const kVideoString;
 
-extern NSString *__nonnull const kBannerSizeString;
-extern NSString *__nonnull const kMediumRectangleSizeString;
-extern NSString *__nonnull const kInterstitialSizeString;
-
-static CGFloat const kBannerSizeWidth = 320.0f;
-static CGFloat const kBannerSizeHeight = 50.0f;
-static CGFloat const kMediumRectangleSizeWidth = 300.0f;
-static CGFloat const kMediumRectangleSizeHeight = 250.0f;
-static CGFloat const kInterstitialSizeWidth = 320.0f;
-static CGFloat const kInterstitialSizeHeight = 480.0f;
+extern NSString *__nonnull const kSizeString320x50;
+extern NSString *__nonnull const kSizeString300x250;
+extern NSString *__nonnull const kSizeString320x480;
+extern NSString *__nonnull const kSizeString320x100;
+extern NSString *__nonnull const kSizeString300x600;
+extern NSString *__nonnull const kSizeString728x90;
 
 static CGFloat const kAdLocationY = 30.0f;
 static CGFloat const kAdLabelLocationX = 10.0f;
@@ -73,6 +66,21 @@ static NSString * _Nonnull const kAboutString = @"About";
 static NSString * _Nonnull const kGeneralInfoHelpString = @"General Info";
 static NSString * _Nonnull const kAdServerInfoHelpString = @"AdServer Info";
 static NSString * _Nonnull const kPrebidServerInfoHelpString = @"Prebid Server Info";
+
+static NSString *__nonnull const kAdServerTestHeader = @"Ad Server Setup Validation";
+static NSString *__nonnull const kAdServerRequestSentWithKV = @"Ad server request sent and \nKey-Value Targeting sent";
+static NSString *__nonnull const kpbmjsreceived = @"Prebid Mobile creative HTML served";
+
+static NSString *__nonnull const kRealTimeHeader = @"Real-Time Demand Validation";
+static NSString *__nonnull const kBidRequestSent = @"100 bid requests sent";
+static NSString *__nonnull const kBidResponseReceived = @"bid response received";
+static NSString *__nonnull const kCPMReceived = @"CPM response time";
+
+static NSString *__nonnull const kSDKHeader = @"End-to-End SDK Validation";
+static NSString *__nonnull const kAdUnitRegistered = @"Ad unit registered";
+static NSString *__nonnull const kRequestToPrebidServerSent = @"Request to Prebid Server Sent";
+static NSString *__nonnull const kPrebidServerResponseReceived = @"Prebid Server response received";
+static NSString *__nonnull const kBidReceived = @"Bid received and cached";
 
 
 

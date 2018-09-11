@@ -17,12 +17,14 @@
 #import <Foundation/Foundation.h>
 #import "PBViewTool.h"
 #import "MPWebView.h"
+#import "MPClosableView.h"
 @interface PBViewTool()
 @end
 
 @implementation PBViewTool
 
 + (void) checkMPAdViewContainsPBMAd:(MPAdView *)view withCompletionHandler:(void(^)(BOOL result))completionHandler{
+    Boolean checked = NO;
     for(UIView *i in view.subviews){
         if([i isKindOfClass:[MPWebView class]]){
             MPWebView *wv = (MPWebView *) i;
@@ -34,7 +36,12 @@
                     completionHandler(NO);
                 }
             }];
+            checked = YES;
         }
+    }
+    if (!checked) {
+        NSLog(@"Mraid creative and other situations are not supported yet.");
+        completionHandler(NO);
     }
 }
 

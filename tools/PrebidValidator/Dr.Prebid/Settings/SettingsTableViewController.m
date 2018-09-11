@@ -23,7 +23,7 @@
 #import "AdSizeController.h"
 #import "IDInputViewController.h"
 #import "PBVSharedConstants.h"
-#import "ListViewController.h"
+#import "TestSummaryViewController.h"
 
 NSString *__nonnull const kGeneralInfoText = @"General Info";
 NSString *__nonnull const kAdFormatBanner = @"Banner";
@@ -586,8 +586,8 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             }
             
             if(section == 1 && row == 1 && [cell isKindOfClass:[LabelAccessoryCell class]]){
-                LabelAccessoryCell *labelCell = (LabelAccessoryCell *) cell;
-                [[NSUserDefaults standardUserDefaults] setObject:labelCell.lblSelectedContent.text forKey:kBidPriceKey];
+                NSArray *bidPriceArray = [self.bidPrice componentsSeparatedByString:@"$"];
+                [[NSUserDefaults standardUserDefaults] setObject:bidPriceArray[1] forKey:kBidPriceKey];
             }
             
             if(section == 1 && row == 2 && [cell isKindOfClass:[IdCell class]]){
@@ -615,16 +615,15 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
                 IdCell *idCell = (IdCell *) cell;
                 [[NSUserDefaults standardUserDefaults] setObject:idCell.lblId.text forKey:kPBConfigKey];
             }
-            
-            
-            
-            
         }
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    ListViewController *listViewController = [[ListViewController alloc] init];
-    [self.navigationController pushViewController:listViewController animated:YES];
+    NSString * storyboardName = @"Main";
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+    TestSummaryViewController * summaryViewController = [storyboard instantiateViewControllerWithIdentifier:@"summaryViewController"];
+    
+    [self.navigationController pushViewController:summaryViewController animated:YES];
 }
 
 -(BOOL) checkIfTestButtonCanBeDisabled {
