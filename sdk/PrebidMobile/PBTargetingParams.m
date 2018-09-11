@@ -23,6 +23,8 @@
 
 @property (nonatomic, readwrite) BOOL isGDPREnabledHere;
 
+@property (nonatomic, readwrite) BOOL useLocalCacheHere;
+
 @end
 
 @implementation PBTargetingParams
@@ -31,7 +33,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         _locationPrecision = (NSInteger)-1;
-        
+        _useLocalCacheHere = NO;
         _customKeywords = [[NSMutableDictionary alloc] init];
         _userKeywords = [[NSMutableDictionary alloc] init];
         _isGDPREnabledHere = NO;
@@ -162,6 +164,10 @@ static dispatch_once_t onceToken;
     _itunesID = itunesID;
 }
 
+- (void)setLocalCache:(BOOL)localCache {
+    _useLocalCacheHere = localCache;
+}
+
 -(void) setSubjectToGDPR:(BOOL)subjectToGDPR{
     [[NSUserDefaults standardUserDefaults] setBool:subjectToGDPR forKey:PB_GDPR_SubjectToConsent];
     self.isGDPREnabledHere = YES;
@@ -195,6 +201,10 @@ static dispatch_once_t onceToken;
     return savedConsent;
     }
     return nil;
+}
+
+-(BOOL) useLocalCache {
+    return self.useLocalCacheHere;
 }
 
 @end
