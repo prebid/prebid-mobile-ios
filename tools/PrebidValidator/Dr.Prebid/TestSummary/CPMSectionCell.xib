@@ -20,14 +20,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRC-BE-pia">
-                        <rect key="frame" x="10" y="10" width="300" height="21"/>
+                        <rect key="frame" x="55" y="10" width="255" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="cRC-BE-pia" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="bdt-VL-wfS"/>
+                    <constraint firstItem="cRC-BE-pia" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="55" id="bdt-VL-wfS"/>
                     <constraint firstItem="cRC-BE-pia" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mlw-nN-g09"/>
                     <constraint firstAttribute="trailing" secondItem="cRC-BE-pia" secondAttribute="trailing" constant="10" id="nUY-wY-ZYi"/>
                 </constraints>

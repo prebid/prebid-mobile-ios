@@ -179,7 +179,7 @@ UITableViewDataSource, UITableViewDelegate>
     } else if (indexPath.section == 2 && indexPath.row == 4) {
         return 61.0f;
     }
-    return 40.0f;
+    return 39.0f;
 }
 
 -(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -306,10 +306,11 @@ UITableViewDataSource, UITableViewDelegate>
         CPMSectionCell *cpmCell = (CPMSectionCell *)[tableView dequeueReusableCellWithIdentifier:@"cpmCell"];
         cpmCell.lblHeader.text = @"$0.00 avg CPM";
         if (self.demandValidationState >0) {
+            //check nil & nan 
+            if([self.validator2.testResults objectForKey:@"avgCPM"] != nil && ([self.validator2.testResults objectForKey:@"avgCPM"] != [self.validator2.testResults objectForKey:@"avgCPM"])){
             cpmCell.lblHeader.text = [NSString stringWithFormat:@"$%.02f avg CPM",[[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue]] ;
+            }
         }
-
-        
         return cpmCell;
         
     }
@@ -364,6 +365,7 @@ UITableViewDataSource, UITableViewDelegate>
             cell.imgResult.image = nil;
         }
     } else if(indexPath.row == 4){
+        cell.lblHeader.numberOfLines = 0;
         cell.lblHeader.text = kAdServerRequestSentWithKV;
         if (self.sdkKeyValueState == 1) {
             cell.imgResult.image = [UIImage imageNamed:@"passedStep"];
