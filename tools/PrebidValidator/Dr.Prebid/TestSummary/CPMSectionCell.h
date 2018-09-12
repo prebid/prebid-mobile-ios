@@ -10,6 +10,5 @@
 
 @interface CPMSectionCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *lblHeader;
-@property (weak, nonatomic) IBOutlet UILabel *lblHeader2;
 
 @end

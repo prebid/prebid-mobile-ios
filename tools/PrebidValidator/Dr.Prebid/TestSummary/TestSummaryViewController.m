@@ -174,9 +174,7 @@ UITableViewDataSource, UITableViewDelegate>
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if(indexPath.section == 1 && indexPath.row == 2){
-        return 75.0f;
-    } else if (indexPath.section == 0 && indexPath.row == 0){
+    if (indexPath.section == 0 && indexPath.row == 0){
         return 61.0f;
     } else if (indexPath.section == 2 && indexPath.row == 4) {
         return 61.0f;
@@ -309,8 +307,6 @@ UITableViewDataSource, UITableViewDelegate>
         cpmCell.lblHeader.text = @"$0.00 avg CPM";
         if (self.demandValidationState >0) {
             cpmCell.lblHeader.text = [NSString stringWithFormat:@"$%.02f avg CPM",[[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue]] ;
-            
-            cpmCell.lblHeader2.text = @"";
         }
 
         
