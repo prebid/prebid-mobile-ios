@@ -32,14 +32,11 @@
     NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
-    adUnitID = @"/19968336/PrebidMobileValidator_Banner_300x250";
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
     BOOL useCache = FALSE;
     if([adServerName isEqualToString: kDFPString]) useCache = TRUE;
     NSString *accountId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBAccountKey];
-    accountId = @"aecd6ef7-b992-4e99-9bb8-65e2d984e1dd";
     NSString *configId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBConfigKey];
-    configId = @"05cf943f-0f70-44e3-a49e-bb6f1fb4e98b";
     
     PBAdUnit *adUnit;
     if([adFormatName isEqualToString:@"Banner"]) {

@@ -68,8 +68,10 @@
         NSArray *adSizeArray = [_adSizeString componentsSeparatedByString:@"x"];
         int height = [adSizeArray[1] intValue];
         _adContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 350, self.view.frame.size.width, height +60)];
+        [container setContentSize: CGSizeMake( self.view.frame.size.width, 410+height)];
     } else {
         _adContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 350, self.view.frame.size.width, 150)];
+        [container setContentSize: CGSizeMake( self.view.frame.size.width, 500)];
     }
     _adContainer.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_adContainer];

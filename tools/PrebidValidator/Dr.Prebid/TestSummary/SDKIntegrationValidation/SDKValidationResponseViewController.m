@@ -67,6 +67,7 @@
         UIView *adView = (UIView *)[self.validator getAdObject];
         adView.frame = CGRectMake((adContainer.frame.size.width - width)/2, 10,  width, height);
         [adContainer addSubview:adView];
+        [container setContentSize:CGSizeMake(container.frame.size.width, 370 + height)];
     } else {
         adContainer.frame = CGRectMake(0, 350, self.view.frame.size.width, 150);
         UIButton *clickToShow = [[UIButton alloc] initWithFrame:CGRectMake((adContainer.frame.size.width - 320)/2, 50, 320, 50)];

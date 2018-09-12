@@ -123,8 +123,8 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
         }
     }];
     [cacheIdTask resume];
-    // Prebid Cache expires every 1 hour, refresh the bids here
-    [NSTimer scheduledTimerWithTimeInterval:3500 target:self selector:@selector(refreshCacheIds) userInfo:nil repeats:NO];
+    // Prebid Cache expires every 4 minutes 30 seconds, refresh the bids here
+    [NSTimer scheduledTimerWithTimeInterval:270 target:self selector:@selector(refreshCacheIds) userInfo:nil repeats:NO];
 }
 
 - (NSDictionary<NSString *, NSString *> *)keywordsWithBidPrice:(NSString *)bidPrice forSize:(NSString *)sizeString {
