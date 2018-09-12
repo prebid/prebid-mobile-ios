@@ -67,7 +67,7 @@
     if ([_adFormatName isEqualToString:kBannerString]) {
         NSArray *adSizeArray = [_adSizeString componentsSeparatedByString:@"x"];
         int height = [adSizeArray[1] intValue];
-        _adContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 350, self.view.frame.size.width, height +60)];
+        _adContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 350, self.view.frame.size.width, height +80)];
         [container setContentSize: CGSizeMake( self.view.frame.size.width, 410+height)];
     } else {
         _adContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 350, self.view.frame.size.width, 150)];
@@ -92,8 +92,8 @@
     for (UIView *child in _adContainer.subviews) {
         [child removeFromSuperview];
     }
-    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, _adContainer.frame.size.width-40, 50)];
-    description.text = @"This creative was returned from the Ad Server, and should match the test creative.";
+    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, _adContainer.frame.size.width-40, 75)];
+    description.text = @"This creative was returned from the Ad Server, and should match the expected creative.";
     description.numberOfLines = 0;
     [_adContainer addSubview:description];
     if ([_adFormatName isEqualToString:kBannerString]) {
@@ -101,7 +101,7 @@
         int width = [adSizeArray[0] intValue];
         int height = [adSizeArray[1] intValue];
         UIView *adView = (UIView *)[_validator getDisplayable];
-        adView.frame = CGRectMake((_adContainer.frame.size.width - width)/2, 50,  width, height);
+        adView.frame = CGRectMake((_adContainer.frame.size.width - width)/2, 75,  width, height);
         [_adContainer addSubview:adView];
     } else {
         UIButton *clickToShow = [[UIButton alloc] initWithFrame:CGRectMake((_adContainer.frame.size.width - 320)/2, 75, 320, 50)];
@@ -139,15 +139,15 @@
     for (UIView *child in _adContainer.subviews) {
         [child removeFromSuperview];
     }
-    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, _adContainer.frame.size.width-40, 50)];
-    description.text = @"This creative is part of the Dr. Prebid app and is here for comparison purposes. Your received creative should match this creative.";
+    UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, _adContainer.frame.size.width-40, 75)];
+    description.text = @"This creative is built into Dr. Prebid for comparison purposes. Your received creative should match this creative.";
     description.numberOfLines = 0;
     [_adContainer addSubview:description];
     if ([_adFormatName isEqualToString:kBannerString]) {
         NSArray *adSizeArray = [_adSizeString componentsSeparatedByString:@"x"];
         int width = [adSizeArray[0] intValue];
         int height = [adSizeArray[1] intValue];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((_adContainer.frame.size.width - width)/2, 50,  width, height)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((_adContainer.frame.size.width - width)/2, 75,  width, height)];
         imageView.image = [UIImage imageNamed:_adSizeString];
         [_adContainer addSubview:imageView];
     } else {
