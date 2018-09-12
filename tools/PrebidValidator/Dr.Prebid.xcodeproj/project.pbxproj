@@ -64,6 +64,7 @@
 		F54C7F45214700C600025B23 /* SDKValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C7F44214700C600025B23 /* SDKValidationURLProtocol.m */; };
 		F54C7F4F21483C9000025B23 /* SDKValidationResponseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C7F4E21483C9000025B23 /* SDKValidationResponseViewController.m */; };
 		F54C7F5321484AD500025B23 /* test-full-sdk.html in Resources */ = {isa = PBXBuildFile; fileRef = F54C7F5221484AD500025B23 /* test-full-sdk.html */; };
+		F54C7F5A2149804300025B23 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C7F592149804300025B23 /* IntroViewController.m */; };
 		F553098220E53CF500A7B552 /* AdServerValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F553098120E53CF500A7B552 /* AdServerValidationURLProtocol.m */; };
 		F56AE891209A3809000CE29F /* PBViewTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE88F209A3808000CE29F /* PBViewTool.m */; };
 		F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */; };
@@ -194,6 +195,8 @@
 		F54C7F4E21483C9000025B23 /* SDKValidationResponseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDKValidationResponseViewController.m; sourceTree = "<group>"; };
 		F54C7F5121483CAB00025B23 /* SDKValidationResponseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDKValidationResponseViewController.h; sourceTree = "<group>"; };
 		F54C7F5221484AD500025B23 /* test-full-sdk.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "test-full-sdk.html"; sourceTree = "<group>"; };
+		F54C7F592149804300025B23 /* IntroViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
+		F54C7F5B2149804F00025B23 /* IntroViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		F553098120E53CF500A7B552 /* AdServerValidationURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdServerValidationURLProtocol.m; sourceTree = "<group>"; };
 		F56AE88F209A3808000CE29F /* PBViewTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBViewTool.m; sourceTree = "<group>"; };
 		F56AE890209A3809000CE29F /* PBViewTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBViewTool.h; sourceTree = "<group>"; };
@@ -354,6 +357,7 @@
 		60CFB2562097820D006FCF7C /* Dr.Prebid */ = {
 			isa = PBXGroup;
 			children = (
+				F54C7F5821497F6C00025B23 /* Intro */,
 				60A2CC262121B65300EA6ACF /* TestSummary */,
 				609172E320F3E50F001B94A8 /* Settings */,
 				60CFB2592097820D006FCF7C /* AppDelegate.h */,
@@ -420,6 +424,15 @@
 				F533B1722134A372001977C2 /* AdServerValidationMockInterstitial.h */,
 			);
 			path = AdServerValidation;
+			sourceTree = "<group>";
+		};
+		F54C7F5821497F6C00025B23 /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				F54C7F592149804300025B23 /* IntroViewController.m */,
+				F54C7F5B2149804F00025B23 /* IntroViewController.h */,
+			);
+			path = Intro;
 			sourceTree = "<group>";
 		};
 		F59C6B29212610B100A5B8AE /* SDKIntegrationValidation */ = {
@@ -648,6 +661,7 @@
 				609172F020F5314E001B94A8 /* HeaderCell.m in Sources */,
 				60924F2221484A650019DD12 /* DemandViewController.m in Sources */,
 				60CFB2C22097820D006FCF7C /* QRCameraSwitchButton.m in Sources */,
+				F54C7F5A2149804300025B23 /* IntroViewController.m in Sources */,
 				609172ED20F50F42001B94A8 /* LabelAccessoryCell.m in Sources */,
 				60D124692126E1F300EC6EE2 /* CPMSectionCell.m in Sources */,
 				F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */,

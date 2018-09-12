@@ -82,5 +82,7 @@ static NSString *__nonnull const kRequestToPrebidServerSent = @"Request to Prebi
 static NSString *__nonnull const kPrebidServerResponseReceived = @"Prebid Server response received";
 static NSString *__nonnull const kCreativeCached = @"Creative content cached";
 
+static NSString *__nonnull const kFirstLaunch = @"DR.Prebid_first_launch";
+
 
 
