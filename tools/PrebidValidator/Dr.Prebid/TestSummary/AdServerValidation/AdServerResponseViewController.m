@@ -140,7 +140,7 @@
         [child removeFromSuperview];
     }
     UILabel *description = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, _adContainer.frame.size.width-40, 50)];
-    description.text = @"This creative is from the app, your received creative should match this.";
+    description.text = @"This creative is part of the Dr. Prebid app and is here for comparison purposes. Your received creative should match this creative.";
     description.numberOfLines = 0;
     [_adContainer addSubview:description];
     if ([_adFormatName isEqualToString:kBannerString]) {
