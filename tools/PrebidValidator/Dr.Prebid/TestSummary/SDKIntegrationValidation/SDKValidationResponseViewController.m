@@ -47,26 +47,29 @@
     UITextView *pbmCreativeHTMLContent = [[UITextView alloc] init];
     pbmCreativeHTMLContent.editable = NO;
     pbmCreativeHTMLContent.frame = CGRectMake(0, 50, self.view.frame.size.width, 250);
+    pbmCreativeHTMLContent.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
     NSString *response = [self.validator getAdServerResponse];
     pbmCreativeHTMLContent.text = response;
+    [pbmCreativeHTMLContent setFont:[UIFont systemFontOfSize:14.0]];
     [self.view addSubview:pbmCreativeHTMLContent];
+    UILabel * receivedCreativeLabel = [[UILabel alloc] init];
+    receivedCreativeLabel.text = @"Received Creative";
+    receivedCreativeLabel.frame = CGRectMake(20, 300, self.view.frame.size.width - 20, 50);
+    [receivedCreativeLabel setFont:[UIFont systemFontOfSize:20]];
+    [self.view addSubview:receivedCreativeLabel];
     UIView *adContainer = [[UIView alloc] init];
     adContainer.backgroundColor = [UIColor whiteColor];
-    UILabel * creativeDescription = [[UILabel alloc] init];
-    creativeDescription.text = @"This creative wad returned from the Ad Server";
-    creativeDescription.frame = CGRectMake(20, 0, self.view.frame.size.width - 20, 50);
-    [adContainer addSubview:creativeDescription];
     if ([adFormatName isEqualToString:kBannerString]) {
         NSArray *adSizeArray = [adSizeString componentsSeparatedByString:@"x"];
         int width = [adSizeArray[0] intValue];
         int height = [adSizeArray[1] intValue];
-        adContainer.frame = CGRectMake(0, 314, self.view.frame.size.width, height + 50 + 10);
+        adContainer.frame = CGRectMake(0, 350, self.view.frame.size.width, height +20);
         UIView *adView = (UIView *)[self.validator getAdObject];
-        adView.frame = CGRectMake((adContainer.frame.size.width - width)/2, 50,  width, height);
+        adView.frame = CGRectMake((adContainer.frame.size.width - width)/2, 10,  width, height);
         [adContainer addSubview:adView];
     } else {
-        adContainer.frame = CGRectMake(0, 314, self.view.frame.size.width, 250);
-        UIButton *clickToShow = [[UIButton alloc] initWithFrame:CGRectMake((adContainer.frame.size.width - 320)/2, 125, 320, 50)];
+        adContainer.frame = CGRectMake(0, 350, self.view.frame.size.width, 150);
+        UIButton *clickToShow = [[UIButton alloc] initWithFrame:CGRectMake((adContainer.frame.size.width - 320)/2, 50, 320, 50)];
         clickToShow.backgroundColor = [ColorTool prebidOrange];
         clickToShow.layer.cornerRadius = 10;
         clickToShow.clipsToBounds = YES;

@@ -58,22 +58,6 @@
             </objects>
             <point key="canvasLocation" x="-1330" y="133"/>
         </scene>
-        <!--Settings View Controller-->
-        <scene sceneID="jON-Tz-X1J">
-            <objects>
-                <viewController id="krf-kU-zQ5" customClass="SettingsViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="PiE-1I-pWu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="WTy-H4-0V5"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="b0W-6R-6Aa"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="a01-NN-lEJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-721" y="821"/>
-        </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="dvX-7T-0k5">
             <objects>

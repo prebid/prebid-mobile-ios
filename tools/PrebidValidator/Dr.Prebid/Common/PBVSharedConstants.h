@@ -80,7 +80,7 @@ static NSString *__nonnull const kSDKHeader = @"End-to-End SDK Validation";
 static NSString *__nonnull const kAdUnitRegistered = @"Ad unit registered";
 static NSString *__nonnull const kRequestToPrebidServerSent = @"Request to Prebid Server Sent";
 static NSString *__nonnull const kPrebidServerResponseReceived = @"Prebid Server response received";
-static NSString *__nonnull const kBidReceived = @"Bid received and cached";
+static NSString *__nonnull const kCreativeCached = @"Creative content cached";
 
 
 
