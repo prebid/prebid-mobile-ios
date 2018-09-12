@@ -290,6 +290,15 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             [cell.segmentControl setTitle:adFormatItems[0] forSegmentAtIndex:0];
             [cell.segmentControl setTitle:adFormatItems[1] forSegmentAtIndex:1];
             [cell.segmentControl addTarget:self action:@selector(adFormatChanged:) forControlEvents:UIControlEventValueChanged];
+            
+            if([[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey] isEqualToString:@""]){
+                if([[[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey] isEqualToString: kAdFormatBanner]){
+                    [cell.segmentControl setSelectedSegmentIndex:0];
+                    
+                } else {
+                     [cell.segmentControl setSelectedSegmentIndex:1];
+                }
+            }
         }
         return cell;
     }
@@ -302,12 +311,22 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             cell.lblTitle.text = kAdSizeText;
             cell.lblSelectedContent.enabled = NO;
             if(self.isInterstitial == NO){
+                
                 if(self.chosenAdSize == nil || [self.chosenAdSize isEqualToString:@""]){
                     cell.lblSelectedContent.text = @"300x250";
+                    
+                    if([[NSUserDefaults standardUserDefaults] objectForKey:kAdSizeKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kAdSizeKey] isEqualToString:@""]){
+                        cell.lblSelectedContent.text = [[NSUserDefaults standardUserDefaults] objectForKey:kAdSizeKey];
+                        
+                        self.chosenAdSize = cell.lblSelectedContent.text;
+                    }
+                    
                 } else {
                     cell.lblSelectedContent.text = self.chosenAdSize;
                 }
                 [cell.lblSelectedContent setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
+                
+                
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             } else {
                 cell.lblSelectedContent.text = @"Interstitial";
@@ -333,6 +352,17 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             NSArray *adServerItems = @[kAdServerDFP, kAdServerMoPub];
             [cell.segmentControl setTitle:adServerItems[0] forSegmentAtIndex:0];
             [cell.segmentControl setTitle:adServerItems[1] forSegmentAtIndex:1];
+            [cell.segmentControl addTarget:self action:@selector(adServerChanged:) forControlEvents:UIControlEventValueChanged];
+            
+            if([[NSUserDefaults standardUserDefaults] objectForKey:kAdServerNameKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kAdServerNameKey] isEqualToString:@""]){
+                if([[[NSUserDefaults standardUserDefaults] objectForKey:kAdServerNameKey] isEqualToString:kAdServerDFP]){
+                    [cell.segmentControl setSelectedSegmentIndex:0];
+                    
+                } else {
+                    [cell.segmentControl setSelectedSegmentIndex:1];
+                }
+            }
+            
         }
         return cell;
     }
@@ -347,6 +377,14 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
                 cell.lblSelectedContent.text = self.bidPrice;
             }else {
                 cell.lblSelectedContent.text = @"$0.00";
+                
+                if([[NSUserDefaults standardUserDefaults] objectForKey:kBidPriceKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kBidPriceKey] isEqualToString:@""]){
+                    
+                    self.bidPrice = [NSString stringWithFormat:@"$%@", [[NSUserDefaults standardUserDefaults] objectForKey:kBidPriceKey]];
+                    
+                    cell.lblSelectedContent.text = self.bidPrice;
+                }
+                
             }
             cell.lblSelectedContent.keyboardType = UIKeyboardTypeNumberPad;
             [cell.lblSelectedContent addTarget:self action:@selector(currencyFieldChange:) forControlEvents:UIControlEventEditingChanged];
@@ -375,6 +413,13 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
                 cell.lblId.text = @"ie: /0000/xxxx/000/xxxx";
                 [cell.lblId setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.65 alpha:1.0]];
                 [cell.lblIDText setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
+                
+                if([[NSUserDefaults standardUserDefaults] objectForKey:kAdUnitIdKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kAdUnitIdKey] isEqualToString:@""]){
+                    cell.lblId.text = [[NSUserDefaults standardUserDefaults] objectForKey:kAdUnitIdKey];
+                    
+                    self.adUnitID = cell.lblId.text;
+                }
+                
             } else {
                 cell.lblId.text = self.adUnitID;
                 [cell.lblId setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
@@ -405,6 +450,16 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             NSArray *adServerItems = @[kPrebidHostAppnexus, kPrebidHostRubicon];
             [cell.segmentControl setTitle:adServerItems[0] forSegmentAtIndex:0];
             [cell.segmentControl setTitle:adServerItems[1] forSegmentAtIndex:1];
+            [cell.segmentControl addTarget:self action:@selector(hostServerChanged:) forControlEvents:UIControlEventValueChanged];
+            
+            if([[NSUserDefaults standardUserDefaults] objectForKey:kPBHostKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kPBHostKey] isEqualToString:@""]){
+                if([[[NSUserDefaults standardUserDefaults] objectForKey:kPBHostKey] isEqualToString: kPrebidHostAppnexus]){
+                    [cell.segmentControl setSelectedSegmentIndex:0];
+                    
+                } else {
+                    [cell.segmentControl setSelectedSegmentIndex:1];
+                }
+            }
         }
         return cell;
     }
@@ -419,6 +474,13 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
                 cell.lblId.text = @"ie: 00000-0000-0000-00000-00000-00000";
                 [cell.lblId setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.65 alpha:1.0]];
                 [cell.lblIDText setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
+                
+                if([[NSUserDefaults standardUserDefaults] objectForKey:kPBAccountKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kPBAccountKey] isEqualToString:@""]){
+                    cell.lblId.text = [[NSUserDefaults standardUserDefaults] objectForKey:kPBAccountKey];
+                    
+                    self.accountID = cell.lblId.text;
+                }
+                
             } else {
                 cell.lblId.text = self.accountID;
                 [cell.lblId setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
@@ -438,6 +500,13 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
                 cell.lblId.text = @"ie: 00000-0000-0000-00000-00000-00000";
                 [cell.lblId setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.65 alpha:1.0]];
                 [cell.lblIDText setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
+                
+                if([[NSUserDefaults standardUserDefaults] objectForKey:kPBConfigKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kPBConfigKey] isEqualToString:@""]){
+                    cell.lblId.text = [[NSUserDefaults standardUserDefaults] objectForKey:kPBConfigKey];
+                    
+                    self.configID = cell.lblId.text;
+                }
+                
             } else{
                 cell.lblId.text = self.configID;
                 [cell.lblId setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
@@ -522,12 +591,37 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     UISegmentedControl *adTypeSegment = (UISegmentedControl *) sender;
     
     if(adTypeSegment.selectedSegmentIndex == 1){
+        [[NSUserDefaults standardUserDefaults] setObject:kAdFormatInterstitial forKey:kAdFormatNameKey];
         self.isInterstitial = YES;
     } else if(adTypeSegment.selectedSegmentIndex == 0){
+        [[NSUserDefaults standardUserDefaults] setObject:kAdFormatBanner forKey:kAdFormatNameKey];
         self.isInterstitial = NO;
     }
     [self.tableView reloadData];
-    NSLog(@"came here");
+    
+}
+
+-(void) adServerChanged:(id) sender {
+    UISegmentedControl *adTypeSegment = (UISegmentedControl *) sender;
+    
+    if(adTypeSegment.selectedSegmentIndex == 1){
+        [[NSUserDefaults standardUserDefaults] setObject:kAdServerMoPub forKey:kAdServerNameKey];
+        
+    } else if(adTypeSegment.selectedSegmentIndex == 0){
+        [[NSUserDefaults standardUserDefaults] setObject:kAdServerDFP forKey:kAdServerNameKey];
+    }
+    
+}
+
+-(void) hostServerChanged:(id) sender {
+    UISegmentedControl *adTypeSegment = (UISegmentedControl *) sender;
+    
+    if(adTypeSegment.selectedSegmentIndex == 1){
+        [[NSUserDefaults standardUserDefaults] setObject:kPrebidHostRubicon forKey:kPBHostKey];
+        
+    } else if(adTypeSegment.selectedSegmentIndex == 0){
+        [[NSUserDefaults standardUserDefaults] setObject:kPrebidHostAppnexus forKey:kPBHostKey];
+    }
     
 }
 
@@ -558,31 +652,10 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
             UITableViewCell* cell = [self.tableView cellForRowAtIndexPath:cellPath];
             
-            if(section == 0 && row == 0 && [cell isKindOfClass:[SegmentCell class]]){
-                SegmentCell *segmentCell = (SegmentCell *) cell;
-                if(segmentCell.segmentControl.selectedSegmentIndex == 0){
-                    [[NSUserDefaults standardUserDefaults] setObject:kAdFormatBanner forKey:kAdFormatNameKey];
-                    
-                } else {
-                    [[NSUserDefaults standardUserDefaults] setObject:kAdFormatInterstitial forKey:kAdFormatNameKey];
-                }
-            }
-            
             if(section == 0 && row == 1 && [cell isKindOfClass:[LabelAccessoryCell class]]){
                 LabelAccessoryCell *labelCell = (LabelAccessoryCell *) cell;
                 [[NSUserDefaults standardUserDefaults] setObject:labelCell.lblSelectedContent.text forKey:kAdSizeKey];
                 
-            }
-            
-            if(section == 1 && row == 0 && [cell isKindOfClass:[SegmentCell class]]){
-                SegmentCell *segmentCell = (SegmentCell *) cell;
-                if(segmentCell.segmentControl.selectedSegmentIndex == 0){
-                    [[NSUserDefaults standardUserDefaults] setObject:kAdServerDFP forKey:kAdServerNameKey];
-                    
-                } else {
-                    [[NSUserDefaults standardUserDefaults] setObject:kAdServerMoPub forKey:kAdServerNameKey];
-                    
-                }
             }
             
             if(section == 1 && row == 1 && [cell isKindOfClass:[LabelAccessoryCell class]]){
@@ -595,17 +668,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
                 [[NSUserDefaults standardUserDefaults] setObject:idCell.lblId.text forKey:kAdUnitIdKey];
             }
             
-            if(section == 2 && row == 0 && [cell isKindOfClass:[SegmentCell class]]){
-                SegmentCell *segmentCell = (SegmentCell *) cell;
-                if(segmentCell.segmentControl.selectedSegmentIndex == 0){
-                    [[NSUserDefaults standardUserDefaults] setObject:kPrebidHostAppnexus forKey:kPBHostKey];
-                    
-                } else {
-                    [[NSUserDefaults standardUserDefaults] setObject:kPrebidHostRubicon forKey:kPBHostKey];
-                    
-                }
-            }
-            
+
             if(section == 2 && row == 1 && [cell isKindOfClass:[IdCell class]]){
                 IdCell *idCell = (IdCell *) cell;
                 [[NSUserDefaults standardUserDefaults] setObject:idCell.lblId.text forKey:kPBAccountKey];
