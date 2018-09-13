@@ -24,6 +24,9 @@
     self.lblRequest.hidden = FALSE;
     self.lblResponse.hidden = TRUE;
     
+    self.lblRequest.editable = FALSE;
+    self.lblResponse.editable = FALSE;
+    
     // Do any additional setup after loading the view.
 }
 

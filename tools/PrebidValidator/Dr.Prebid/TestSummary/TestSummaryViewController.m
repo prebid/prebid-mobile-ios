@@ -308,7 +308,7 @@ UITableViewDataSource, UITableViewDelegate>
         if (self.demandValidationState >0) {
             //check nil & nan 
             if([self.validator2.testResults objectForKey:@"avgCPM"] != nil && ([self.validator2.testResults objectForKey:@"avgCPM"] == [self.validator2.testResults objectForKey:@"avgCPM"])){
-            cpmCell.lblHeader.text = [NSString stringWithFormat:@"$%.02f avg CPM",[[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue]] ;
+            cpmCell.lblHeader.text = [NSString stringWithFormat:@"$%.02f Average CPM",[[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue]] ;
             }
         }
         return cpmCell;

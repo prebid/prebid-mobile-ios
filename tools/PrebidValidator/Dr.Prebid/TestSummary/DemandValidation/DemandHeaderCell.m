@@ -21,4 +21,9 @@
     // Configure the view for the selected state
 }
 
+
+
+- (IBAction)selectedHeaderCell:(id)sender {
+    [self.delegate didSelectUserHeaderTableViewCell:YES UserHeader:self];
+}
 @end

@@ -14,7 +14,7 @@
 NSString *__nonnull const cellString = @"demandCell";
 //NSString *__nonnull const headerString = @"demandHeader";
 
-@interface DemandViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface DemandViewController ()<UITableViewDataSource, UITableViewDelegate, DemandHeaderCellDelegate>
 
 @property NSDictionary *dictBidders;
 
@@ -80,10 +80,10 @@ NSString *__nonnull const cellString = @"demandCell";
     if(cell == nil)
         return nil;
     
-    cell.accessoryType = UITableViewCellAccessoryDetailButton;
-    
     cell.lblLeftHeader.text = [self.dictBidders.allKeys[section] capitalizedString];
     cell.lblRightHeader.text = @"Request & Response";
+    [cell.btnDetail setTag:section];
+    cell.delegate = self;
     
     return cell;
 }
@@ -115,10 +115,10 @@ NSString *__nonnull const cellString = @"demandCell";
     int error = [[adServerContent objectForKey:@"error"] intValue];
     
     cell.lblAvgCPM.text = [NSString stringWithFormat:@"$%.02f", cpm];
-    cell.lblErrorRate.text = [NSString stringWithFormat:@"%d", error];
-    cell.lblNoBidRate.text = [NSString stringWithFormat:@"%d", noBid];
-    cell.lblValidBidRate.text = [NSString stringWithFormat:@"%d", validBid];
-    cell.lblTimeoutRate.text = [NSString stringWithFormat:@"%d", timeout];
+    cell.lblErrorRate.text = [NSString stringWithFormat:@"%d%%", error];
+    cell.lblNoBidRate.text = [NSString stringWithFormat:@"%d%%", noBid];
+    cell.lblValidBidRate.text = [NSString stringWithFormat:@"%d%%", validBid];
+    cell.lblTimeoutRate.text = [NSString stringWithFormat:@"%d%%", timeout];
     
     return cell;
 }
@@ -142,6 +142,34 @@ NSString *__nonnull const cellString = @"demandCell";
     
     [self.navigationController pushViewController:controller animated:YES];
 
+}
+
+-(void) didSelectUserHeaderTableViewCell:(BOOL)isSelected UserHeader:(id)headerCell{
+    
+    if([headerCell isKindOfClass:[DemandHeaderCell class]]){
+        DemandHeaderCell *dHeaderCell = (DemandHeaderCell *) headerCell;
+        
+        NSInteger section = (long)dHeaderCell.btnDetail.tag;
+       
+        NSString * storyboardName = @"Main";
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+        RRViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"rrController"];
+        
+        controller.requestContent = [self.resultsDictionary objectForKey:@"request"];
+        
+        NSArray *allValues = [self.dictBidders allValues];
+        NSDictionary *adServerContent = [allValues objectAtIndex:section];
+        
+        NSString *validBid = [adServerContent objectForKey:@"serverResponse"];
+        
+        controller.responseContent = validBid;
+        
+        controller.titleString = [self.dictBidders.allKeys[section] capitalizedString];
+        
+        
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+    
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
