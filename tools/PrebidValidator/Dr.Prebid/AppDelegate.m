@@ -40,7 +40,6 @@
 
 - (BOOL) isFirstLaunch
 {
-    return YES; // todo: remove this after test done
     NSString *launchStatus = [[NSUserDefaults standardUserDefaults] stringForKey:kFirstLaunch];
     if ([@"1" isEqualToString:launchStatus]) {
         return NO;

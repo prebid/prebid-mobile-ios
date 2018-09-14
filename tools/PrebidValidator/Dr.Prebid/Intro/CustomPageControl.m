@@ -29,10 +29,10 @@
         }
         activeImage = [UIImage imageNamed:@"active"] ;
         inactiveImage = [UIImage imageNamed:@"inactive"];
-        self.numberOfPages = 2;
+        self.numberOfPages = 3;
         self.content= [[UIImageView alloc] init];
-        _content.image = [UIImage imageNamed:@"cat1"];
-        _content.frame = CGRectMake(0, 0,250, 308);
+        _content.image = [UIImage imageNamed:@"intro1Image"];
+        _content.frame = CGRectMake(0, 0,375, 509);
         _content.center =self.center;
         [self addSubview:_content];
         [self addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];
@@ -44,12 +44,13 @@
 {
     int i = (int) page.currentPage;
     if (i == 0) {
-        _content.frame = CGRectMake(0, 0,250, 308);
-        _content.image = [UIImage imageNamed:@"cat1"];
+        _content.image = [UIImage imageNamed:@"intro1Image"];
         _content.center = page.center;
     } else if (i == 1) {
-        _content.image = [UIImage imageNamed:@"cat2"];
-        _content.frame = CGRectMake(0, 0,250, 250);
+        _content.image = [UIImage imageNamed:@"intro2Image"];
+        _content.center = page.center;
+    } else if (i == 2) {
+        _content.image = [UIImage imageNamed:@"intro3Image"];
         _content.center = page.center;
     }
     [self updateDots];
