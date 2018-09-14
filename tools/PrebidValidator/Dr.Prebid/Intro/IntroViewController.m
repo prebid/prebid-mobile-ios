@@ -8,6 +8,7 @@
 
 #import "IntroViewController.h"
 #import "ColorTool.h"
+#import "CustomPageControl.h"
 
 @interface IntroViewController()
 @end
@@ -18,16 +19,7 @@
     self.title = @"Welcome to Dr.Prebid";
     self.view.backgroundColor = [UIColor whiteColor];
     // Add Page control
-    UIPageControl *pageControl = [[UIPageControl alloc] init];
-    pageControl.frame = CGRectMake(0, 0,self.view.frame.size.width, self.view.frame.size.height - 100);
-    pageControl.numberOfPages = 2;
-    pageControl.currentPage = 0;
-    UIImageView *cat1 = [[UIImageView alloc] init];
-    cat1.image = [UIImage imageNamed:@"cat1"];
-    cat1.frame = CGRectMake(0, 0,250, 308);
-    cat1.center = pageControl.center;
-    [pageControl addSubview:cat1];
-    [pageControl addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];
+    CustomPageControl *pageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(0, 0,self.view.frame.size.width, self.view.frame.size.height - 100)];
     [self.view addSubview:pageControl];
     
     // Add skip button
@@ -44,26 +36,5 @@
 {
     UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     [self presentViewController:    [main instantiateInitialViewController] animated:YES completion:nil];
-}
-
-- (void)pageTurn: (UIPageControl *) page
-{
-    for (UIView *sub in page.subviews) {
-        [sub removeFromSuperview];
-    }
-    int i = (int) page.currentPage;
-    if (i == 0) {
-        UIImageView *cat1 = [[UIImageView alloc] init];
-        cat1.image = [UIImage imageNamed:@"cat1"];
-        cat1.frame = CGRectMake(0, 0,250, 308);
-        cat1.center = page.center;
-        [page addSubview:cat1];
-    } else if (i == 1) {
-        UIImageView *cat2 = [[UIImageView alloc] init];
-        cat2.image = [UIImage imageNamed:@"cat2"];
-        cat2.frame = CGRectMake(0, 0,250, 250);
-        cat2.center = page.center;
-        [page addSubview:cat2];
-    }
 }
 @end
