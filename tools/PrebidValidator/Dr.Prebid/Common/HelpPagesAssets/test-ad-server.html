@@ -23,15 +23,15 @@
   <p>This test determines whether your Prebid line items are configured correctly in your primary ad server.<p>
 
     <ul>
-    <li><b>Ad server request sent with key-value targeting</b><br />Verifies whether the bid request was sent. The request will not be sent if the IDs you entered on the Setup page are incorrect. Tap this entry to see a list of key-value pairs that were sent with this request.</li>
+    <li><b>Ad Server Request sent and Key-Value Targeting sent</b><br />Verifies whether the bid request was sent. (Note: If DFP was selected as the Ad Server on the Setup page and the IDs you entered on the Setup page are incorrect, the request will not be sent.) Tap this entry to see a list of key-value pairs that were sent with this request.</li>
       <ul>
         <li>Select <b>Prebid Key-Value Pairs</b> to view only the key-values sent that apply to prebid.</li>
         <li>Select <b>Ad Server Request</b> to view the full list of key-values sent in the ad request.</li>
       </ul>
     <li><b>Prebid Mobile creative HTML served</b><br />Tap this entry to view:
       <ul>
-        <li>the Prebid.js HTML code for the Prebid Mobile creative.</li>
-        <li>the creatives that were returned. In a successful test two creatives will be returned: the creative returned from the ad server and the Prebid.org test creative. Tap the buttons to view each creative.</li>
+        <li>The HTML code for the Prebid Mobile creative.</li>
+        <li>A rendering of the creative returned from the ad server (Received Creative) and a rendering of the Prebid.org test creative (Expected Creative). Tap the buttons to view each creative. In a successful test these two creatives will be the same.</li>
       </ul></li>
     </ul>
 
