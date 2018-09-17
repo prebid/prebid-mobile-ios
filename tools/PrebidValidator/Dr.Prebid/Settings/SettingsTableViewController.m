@@ -191,11 +191,11 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         return [self configureGeneralInfoSection:tableView withIndexPath:indexPath];
     } else if(indexPath.section == 1){
         return [self configureAdServerSection:tableView withIndexPath:indexPath];
-    } else if(indexPath.section == 2){
+    } else{
         return [self configurePrebidServerSection:tableView withIndexPath:indexPath];
     }
 
-    return nil;
+    //return nil;
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -566,7 +566,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 
 -(NSString *) currencyFormatting :(NSString *) currency {
     
-    NSNumber *inputNumber;
+    
     NSNumberFormatter *inputFormatter = [[NSNumberFormatter alloc] init];
     inputFormatter.numberStyle = NSNumberFormatterCurrencyAccountingStyle;
     inputFormatter.currencySymbol = @"$";
@@ -579,9 +579,9 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     
     double doubleValue = newCurrency.doubleValue;
     
-    inputNumber = [NSNumber numberWithDouble:doubleValue/100];
+    NSNumber *inputNumber = [NSNumber numberWithDouble:doubleValue/100];
 
-    if(inputNumber == 0)
+    if([inputNumber isEqual:0])
         return @"";
     else
         return [inputFormatter stringFromNumber:inputNumber];

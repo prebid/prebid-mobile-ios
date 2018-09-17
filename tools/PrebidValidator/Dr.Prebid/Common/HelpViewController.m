@@ -30,7 +30,7 @@
     WKWebView *content = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     content.navigationDelegate = self;
     content.UIDelegate = self;
-    NSString * filePath;
+    NSString * filePath = @"";
     if ([self.title isEqualToString:kAboutString]) {
         filePath = [[NSBundle mainBundle] pathForResource:@"about" ofType:@"html"];
     } else if( [self.title isEqualToString:kGeneralInfoHelpString]) {

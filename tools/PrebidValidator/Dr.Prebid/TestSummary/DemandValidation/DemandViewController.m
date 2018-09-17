@@ -101,9 +101,6 @@ NSString *__nonnull const cellString = @"demandCell";
 {
     DemandViewCell *cell = (DemandViewCell *)[self.tableView dequeueReusableCellWithIdentifier:cellString];
     
-    if(cell == nil)
-        return nil;
-    
     NSArray *allValues = [self.dictBidders allValues];
     
     NSDictionary *adServerContent = [allValues objectAtIndex:indexPath.section];

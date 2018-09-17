@@ -18,6 +18,7 @@
 
 -(void)viewDidLoad
 {
+    [super viewDidLoad];
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] init];
     doneButton.target = self;
     doneButton.action = @selector(doneAction:);

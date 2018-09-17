@@ -7,6 +7,7 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     self.title = @"Expected Creative";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(btnDonePressed:)];
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
@@ -26,6 +27,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     self.navigationController.navigationBar.barTintColor = _originalBarColor;
 }
 @end

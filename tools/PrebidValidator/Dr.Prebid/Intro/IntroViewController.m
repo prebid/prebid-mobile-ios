@@ -16,6 +16,7 @@
 @implementation IntroViewController
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     self.title = @"Welcome to Dr.Prebid";
     self.view.backgroundColor = [UIColor whiteColor];
     // Add Page control

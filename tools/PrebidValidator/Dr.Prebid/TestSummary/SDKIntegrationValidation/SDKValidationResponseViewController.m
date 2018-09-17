@@ -30,6 +30,7 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     self.title = @"Creative Display";
     UIScrollView *container = [[UIScrollView alloc]initWithFrame:self.view.frame];
     container.scrollEnabled = YES;

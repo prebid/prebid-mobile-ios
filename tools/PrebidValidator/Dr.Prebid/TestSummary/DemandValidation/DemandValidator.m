@@ -29,12 +29,10 @@
 
 - (void)startTestWithCompletionHandler:(void (^) (void)) completionHandler;{
     // Get params from coredata
-    NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
-    BOOL useCache = FALSE;
-    if([adServerName isEqualToString: kDFPString]) useCache = TRUE;
+    
     NSString *accountId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBAccountKey];
     NSString *configId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBConfigKey];
     
@@ -55,10 +53,8 @@
     NSArray *adUnits = [NSArray arrayWithObjects:adUnit, nil];
     // Generate Request for the saved adunits
     NSString *host = [[NSUserDefaults standardUserDefaults] stringForKey:kPBHostKey];
-    NSURL *url;
-    if ([host isEqualToString:kAppNexusString]) {
-        url = [NSURL URLWithString:kAppNexusPrebidServerEndpoint];
-    } else if ([host isEqualToString:kRubiconString]) {
+    NSURL *url = [NSURL URLWithString:kAppNexusPrebidServerEndpoint];
+    if ([host isEqualToString:kRubiconString]) {
         url = [NSURL URLWithString:kRubiconPrebidServerEndpoint];
     }
     [[PBServerRequestBuilder sharedInstance]setHostURL:url];

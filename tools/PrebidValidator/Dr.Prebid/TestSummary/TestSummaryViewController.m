@@ -249,11 +249,11 @@ UITableViewDataSource, UITableViewDelegate>
         return [self configureAdServerSection:self.tableView withIndexPath:indexPath];
     } else if(indexPath.section == 1){
         return [self configureDemandServerSection:self.tableView withIndexPath:indexPath];
-    } else if (indexPath.section == 2){
+    } else {
         return [self configurePrebidMobileSDKSection:self.tableView withIndexPath:indexPath];
     }
     
-    return nil;
+   // return nil;
 }
 
 -(UITableViewCell *) configureAdServerSection:(UITableView *) tableView withIndexPath:(NSIndexPath *)indexPath {
@@ -332,7 +332,7 @@ UITableViewDataSource, UITableViewDelegate>
         if (self.demandValidationState >0) {
             //check nil & nan 
             if([self.validator2.testResults objectForKey:@"avgCPM"] != nil && ([self.validator2.testResults objectForKey:@"avgCPM"] == [self.validator2.testResults objectForKey:@"avgCPM"])){
-            cpmCell.lblHeader.text = [NSString stringWithFormat:@"$%.02f Average CPM",[[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue]] ;
+                cpmCell.lblHeader.text = [NSString stringWithFormat:@"$%.02f Average CPM",[[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue]] ;
             }
             
             if([self.validator2.testResults objectForKey:@"avgResponse"] != nil && ([self.validator2.testResults objectForKey:@"avgResponse"] == [self.validator2.testResults objectForKey:@"avgResponse"])){
