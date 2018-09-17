@@ -686,7 +686,8 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             
             if(section == 1 && row == 2 && [cell isKindOfClass:[IdCell class]]){
                 IdCell *idCell = (IdCell *) cell;
-                [[NSUserDefaults standardUserDefaults] setObject:idCell.lblId.text forKey:kAdUnitIdKey];
+                NSString *trimmedId = [self removeSpacesAndNewLines:idCell.lblId.text];
+                [[NSUserDefaults standardUserDefaults] setObject:trimmedId forKey:kAdUnitIdKey];
             }
             
             if(section == 2 && row == 0 && [cell isKindOfClass:[SegmentCell class]]){
@@ -702,12 +703,14 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             
             if(section == 2 && row == 1 && [cell isKindOfClass:[IdCell class]]){
                 IdCell *idCell = (IdCell *) cell;
-                [[NSUserDefaults standardUserDefaults] setObject:idCell.lblId.text forKey:kPBAccountKey];
+                  NSString *trimmedId = [self removeSpacesAndNewLines:idCell.lblId.text];
+                [[NSUserDefaults standardUserDefaults] setObject:trimmedId forKey:kPBAccountKey];
             }
             
             if(section == 2 && row == 2 && [cell isKindOfClass:[IdCell class]]){
                 IdCell *idCell = (IdCell *) cell;
-                [[NSUserDefaults standardUserDefaults] setObject:idCell.lblId.text forKey:kPBConfigKey];
+                  NSString *trimmedId = [self removeSpacesAndNewLines:idCell.lblId.text];
+                [[NSUserDefaults standardUserDefaults] setObject:trimmedId forKey:kPBConfigKey];
             }
         }
     }
@@ -718,6 +721,16 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     TestSummaryViewController * summaryViewController = [storyboard instantiateViewControllerWithIdentifier:@"summaryViewController"];
     
     [self.navigationController pushViewController:summaryViewController animated:YES];
+}
+
+- (NSString *) removeSpacesAndNewLines: (NSString *) original
+{
+    if (original != nil) {
+        NSString *trimmedString = [original stringByTrimmingCharactersInSet:
+                                   [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        return trimmedString;
+    }
+    return nil;
 }
 
 -(BOOL) checkIfTestButtonCanBeDisabled {
