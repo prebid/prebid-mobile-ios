@@ -200,9 +200,7 @@ UITableViewDataSource, UITableViewDelegate>
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section == 0 && indexPath.row == 0){
-        return 61.0f;
-    } else if (indexPath.section == 2 && indexPath.row == 4) {
+    if ((indexPath.section == 0 && indexPath.row == 0) || (indexPath.section == 1 && indexPath.row == 2) || (indexPath.section == 2 && indexPath.row == 4)){
         return 61.0f;
     }
     return 39.0f;
@@ -335,6 +333,10 @@ UITableViewDataSource, UITableViewDelegate>
             //check nil & nan 
             if([self.validator2.testResults objectForKey:@"avgCPM"] != nil && ([self.validator2.testResults objectForKey:@"avgCPM"] == [self.validator2.testResults objectForKey:@"avgCPM"])){
             cpmCell.lblHeader.text = [NSString stringWithFormat:@"$%.02f Average CPM",[[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue]] ;
+            }
+            
+            if([self.validator2.testResults objectForKey:@"avgResponse"] != nil && ([self.validator2.testResults objectForKey:@"avgResponse"] == [self.validator2.testResults objectForKey:@"avgResponse"])){
+                cpmCell.lblHeader2.text = [NSString stringWithFormat:@"%ldms avg response time",[[self.validator2.testResults objectForKey:@"avgResponse"] integerValue]] ;
             }
         }
         return cpmCell;

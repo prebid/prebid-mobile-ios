@@ -77,6 +77,7 @@
                 // Calculate average response time
                 int totalBids = 0;
                 double totalCPM = 0;
+                double avgResponseTime = 0;
                 NSMutableDictionary *bidders = [self.testResults objectForKey:@"bidders"];
                 for (NSString *key in bidders.allKeys) {
                     NSMutableDictionary *details = [bidders objectForKey:key];
@@ -84,11 +85,14 @@
                     int bids = [[details objectForKey:@"bid"] intValue];
                     totalBids = totalBids + bids;
                     totalCPM = totalCPM + totalPrice;
+                    avgResponseTime = avgResponseTime + [[details objectForKey:@"responseTime"] doubleValue];
                     [details setObject:[NSNumber numberWithDouble:(totalPrice/bids)] forKey:@"cpm"];
                 }
+                avgResponseTime = avgResponseTime/bidders.count;
                 double avgCPM = totalCPM/totalBids;
                 [self.testResults setObject:[NSNumber numberWithInt:totalBids] forKey:@"totalBids"];
                 [self.testResults setObject:[NSNumber numberWithDouble: avgCPM] forKey:@"avgCPM"];
+                [self.testResults setObject:[NSNumber numberWithDouble:avgResponseTime] forKey:@"avgResponse"];
                 completionHandler();
             }
         }];
@@ -127,6 +131,7 @@
                                                           [bidderDetails setObject:[NSNumber numberWithInt:0] forKey:@"error"];
                                                           [bidderDetails setObject:[NSNumber numberWithDouble:0] forKey:@"cpm"];
                                                           [bidderDetails setObject:responseString forKey:@"serverResponse"];
+                                                          [bidderDetails setObject:responseMillis[key] forKey:@"responseTime"];
                                                       }
                                                       [bidders setObject:bidderDetails forKey:key];
                                                   }
