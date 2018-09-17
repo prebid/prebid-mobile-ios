@@ -11,11 +11,7 @@
 #import "ColorTool.h"
 
 @interface CustomPageControl()
-{
-    UIImage* activeImage;
-    UIImage* inactiveImage;
-}
-@property UIImageView * content;
+@property UIImageView *content;
 @end
 
 @implementation CustomPageControl
@@ -24,11 +20,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        for (UIView *sub in self.subviews) {
-            [sub removeFromSuperview];
-        }
-        activeImage = [UIImage imageNamed:@"active"] ;
-        inactiveImage = [UIImage imageNamed:@"inactive"];
         self.numberOfPages = 3;
         self.content= [[UIImageView alloc] init];
         _content.image = [UIImage imageNamed:@"intro1Image"];
