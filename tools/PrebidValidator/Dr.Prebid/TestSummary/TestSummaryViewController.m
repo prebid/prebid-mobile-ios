@@ -52,6 +52,9 @@ UITableViewDataSource, UITableViewDelegate>
 @property int sdkBidReceivedState;
 @property int sdkKeyValueState;
 @property int sdkPBMCreativeState;
+
+@property NSTimer *pingTimer;
+
 @end
 
 @implementation TestSummaryViewController
@@ -78,6 +81,9 @@ UITableViewDataSource, UITableViewDelegate>
     [self startAdServerValidation];
     [self startDemandValidation];
     [self startSDKValidation];
+    [self.tableView setUserInteractionEnabled:FALSE];
+    self.pingTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                                      target:self selector:@selector(checkIfLoadingIsComplete) userInfo:nil repeats:YES];
 }
 
 #pragma mark - Table view data source
@@ -106,7 +112,10 @@ UITableViewDataSource, UITableViewDelegate>
         } else if (self.adServerValidationState == 2) {
             cell.imgStatus.image = [UIImage imageNamed:@"failedMain"];
         } else {
-             cell.imgStatus.image = nil;
+             //cell.imgStatus.image = nil;
+            
+            [self showLoadingIndicator: cell.imgStatus];
+            
         }
 
     } else if (section == 1){
@@ -115,7 +124,8 @@ UITableViewDataSource, UITableViewDelegate>
         } else if (self.demandValidationState == 2) {
             cell.imgStatus.image = [UIImage imageNamed:@"failedMain"];
         } else {
-            cell.imgStatus.image = nil;
+            //cell.imgStatus.image = nil;
+             [self showLoadingIndicator: cell.imgStatus];
         }
     } else if (section == 2) {
         if (self.sdkValidationState == 1) {
@@ -123,7 +133,8 @@ UITableViewDataSource, UITableViewDelegate>
         } else if (self.sdkValidationState == 2) {
             cell.imgStatus.image = [UIImage imageNamed:@"failedMain"];
         } else {
-            cell.imgStatus.image = nil;
+            //cell.imgStatus.image = nil;
+             [self showLoadingIndicator: cell.imgStatus];
         }
     }
     if(cell != nil){
@@ -137,6 +148,21 @@ UITableViewDataSource, UITableViewDelegate>
 -(void) tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(nonnull NSIndexPath *)indexPath {
     self.selectedIndex = indexPath;
     [self btnAboutPressed:self];
+}
+
+-(void) showLoadingIndicator:(UIImageView *) imageView {
+    NSMutableArray *imageCollection = [NSMutableArray arrayWithCapacity:11];
+    
+    for(int i=1; i<=36; i++){
+        NSString *imageName = [NSString stringWithFormat:@"%dloading_icon", i];
+        UIImage *myImage = [UIImage imageNamed:imageName];
+        [imageCollection addObject: myImage];
+    }
+    
+    imageView.animationImages = imageCollection;
+    imageView.animationDuration = 1.50f;
+    imageView.animationRepeatCount = 0;
+    [imageView startAnimating];
 }
 
 - (void) btnAboutPressed :(id) sender
@@ -564,5 +590,13 @@ UITableViewDataSource, UITableViewDelegate>
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
+}
+
+-(void) checkIfLoadingIsComplete {
+    if(self.adServerValidationState > 0 && self.demandValidationState > 0 && self.sdkValidationState > 0){
+        [self.tableView setUserInteractionEnabled:TRUE];
+        
+        [self.pingTimer invalidate];
+    }
 }
 @end
