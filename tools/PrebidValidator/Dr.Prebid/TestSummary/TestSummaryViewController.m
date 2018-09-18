@@ -344,7 +344,7 @@ UITableViewDataSource, UITableViewDelegate>
             }
             
             if([self.validator2.testResults objectForKey:@"avgResponse"] != nil && ([self.validator2.testResults objectForKey:@"avgResponse"] == [self.validator2.testResults objectForKey:@"avgResponse"])){
-                cpmCell.lblHeader2.text = [NSString stringWithFormat:@"%ldms avg response time",[[self.validator2.testResults objectForKey:@"avgResponse"] integerValue]] ;
+                cpmCell.lblHeader2.text = [NSString stringWithFormat:@"%ldms average response time",[[self.validator2.testResults objectForKey:@"avgResponse"] integerValue]] ;
             }
         }
         return cpmCell;
