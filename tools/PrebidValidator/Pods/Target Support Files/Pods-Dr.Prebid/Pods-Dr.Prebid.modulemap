@@ -1,0 +1,6 @@
+module Pods_Dr_Prebid {
+  umbrella header "Pods-Dr.Prebid-umbrella.h"
+
+  export *
+  module * { export * }
+}

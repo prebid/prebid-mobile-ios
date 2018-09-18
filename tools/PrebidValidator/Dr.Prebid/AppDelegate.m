@@ -17,6 +17,8 @@
 #import "AppDelegate.h"
 #import "LineItemKeywordsManager.h"
 #import "AdServerValidationURLProtocol.h"
+#import "PBVSharedConstants.h"
+#import "IntroViewController.h"
 
 @interface AppDelegate ()
 
@@ -29,7 +31,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[LineItemKeywordsManager sharedManager] refreshCacheIds];
+    if ([self isFirstLaunch]) {
+        IntroViewController *vc = [[IntroViewController alloc] init];
+        self.window.rootViewController = vc;
+    }
     return YES;
+}
+
+- (BOOL) isFirstLaunch
+{
+    NSString *launchStatus = [[NSUserDefaults standardUserDefaults] stringForKey:kFirstLaunch];
+    if ([@"1" isEqualToString:launchStatus]) {
+        return NO;
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:kFirstLaunch];
+        return YES;
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

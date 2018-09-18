@@ -14,8 +14,12 @@
 		609172F020F5314E001B94A8 /* HeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172EF20F5314E001B94A8 /* HeaderCell.m */; };
 		609172F320F53C74001B94A8 /* IdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172F220F53C74001B94A8 /* IdCell.m */; };
 		609172F620F686A8001B94A8 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172F520F686A8001B94A8 /* HelpViewController.m */; };
-		6099DE062141C44A0021661D /* DemandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6099DE052141C44A0021661D /* DemandViewController.m */; };
-		6099DE0A21430FA90021661D /* RRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6099DE0921430FA90021661D /* RRViewController.m */; };
+		60924F1E21484A650019DD12 /* DemandViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60924F1421484A650019DD12 /* DemandViewCell.m */; };
+		60924F1F21484A650019DD12 /* DemandHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60924F1521484A650019DD12 /* DemandHeaderCell.m */; };
+		60924F2021484A650019DD12 /* DemandValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 60924F1621484A650019DD12 /* DemandValidator.m */; };
+		60924F2121484A650019DD12 /* RRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60924F1721484A650019DD12 /* RRViewController.m */; };
+		60924F2221484A650019DD12 /* DemandViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60924F1921484A650019DD12 /* DemandViewController.m */; };
+		60924F2321484A650019DD12 /* DemandViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60924F1C21484A650019DD12 /* DemandViewCell.xib */; };
 		60A2CC2A2121B71200EA6ACF /* TestSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC292121B71200EA6ACF /* TestSummaryViewController.m */; };
 		60A2CC342123554200EA6ACF /* SectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC322123554200EA6ACF /* SectionCell.m */; };
 		60A2CC352123554200EA6ACF /* SectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A2CC332123554200EA6ACF /* SectionCell.xib */; };
@@ -50,19 +54,18 @@
 		60D124642126DBAD00EC6EE2 /* KVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D124632126DBAD00EC6EE2 /* KVViewController.m */; };
 		60D124692126E1F300EC6EE2 /* CPMSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D124672126E1F300EC6EE2 /* CPMSectionCell.m */; };
 		60D1246A2126E1F300EC6EE2 /* CPMSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60D124682126E1F300EC6EE2 /* CPMSectionCell.xib */; };
-		60D12472214173F600EC6EE2 /* DemandViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D12470214173F600EC6EE2 /* DemandViewCell.m */; };
-		60D12473214173F600EC6EE2 /* DemandViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60D12471214173F600EC6EE2 /* DemandViewCell.xib */; };
-		60D12477214188F100EC6EE2 /* DemandHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60D12475214188F100EC6EE2 /* DemandHeaderCell.m */; };
 		D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */ = {isa = PBXBuildFile; fileRef = D15C104E20F6EB32004CBC18 /* AdSizeController.m */; };
 		F283A423484632D93AE6FB87 /* libPods-Dr.Prebid.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */; };
-		F513CDFD2112202400700925 /* DemandValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F513CDF92112202400700925 /* DemandValidator.m */; };
 		F533B16821309548001977C2 /* AdServerResponseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B16721309548001977C2 /* AdServerResponseViewController.m */; };
 		F533B16E21349D09001977C2 /* ColorTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B16D21349D09001977C2 /* ColorTool.m */; };
 		F533B1712134A361001977C2 /* AdServerValidationMockInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B1702134A361001977C2 /* AdServerValidationMockInterstitial.m */; };
-		F54C7F382143217B00025B23 /* end-to-end-sdk-validation.html in Resources */ = {isa = PBXBuildFile; fileRef = F54C7F352143217B00025B23 /* end-to-end-sdk-validation.html */; };
 		F54C7F422146F3AE00025B23 /* test-real-time-demand.html in Resources */ = {isa = PBXBuildFile; fileRef = F54C7F402146F3AD00025B23 /* test-real-time-demand.html */; };
 		F54C7F432146F3AE00025B23 /* test-ad-server.html in Resources */ = {isa = PBXBuildFile; fileRef = F54C7F412146F3AD00025B23 /* test-ad-server.html */; };
 		F54C7F45214700C600025B23 /* SDKValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C7F44214700C600025B23 /* SDKValidationURLProtocol.m */; };
+		F54C7F4F21483C9000025B23 /* SDKValidationResponseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C7F4E21483C9000025B23 /* SDKValidationResponseViewController.m */; };
+		F54C7F5321484AD500025B23 /* test-full-sdk.html in Resources */ = {isa = PBXBuildFile; fileRef = F54C7F5221484AD500025B23 /* test-full-sdk.html */; };
+		F54C7F5A2149804300025B23 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C7F592149804300025B23 /* IntroViewController.m */; };
+		F54C7F64214B084800025B23 /* CustomPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C7F63214B084800025B23 /* CustomPageControl.m */; };
 		F553098220E53CF500A7B552 /* AdServerValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F553098120E53CF500A7B552 /* AdServerValidationURLProtocol.m */; };
 		F56AE891209A3809000CE29F /* PBViewTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE88F209A3808000CE29F /* PBViewTool.m */; };
 		F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */; };
@@ -115,10 +118,17 @@
 		609172F220F53C74001B94A8 /* IdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IdCell.m; sourceTree = "<group>"; };
 		609172F420F686A8001B94A8 /* HelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		609172F520F686A8001B94A8 /* HelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
-		6099DE042141C44A0021661D /* DemandViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemandViewController.h; sourceTree = "<group>"; };
-		6099DE052141C44A0021661D /* DemandViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemandViewController.m; sourceTree = "<group>"; };
-		6099DE0821430FA90021661D /* RRViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RRViewController.h; sourceTree = "<group>"; };
-		6099DE0921430FA90021661D /* RRViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RRViewController.m; sourceTree = "<group>"; };
+		60924F1321484A650019DD12 /* DemandViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemandViewController.h; sourceTree = "<group>"; };
+		60924F1421484A650019DD12 /* DemandViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemandViewCell.m; sourceTree = "<group>"; };
+		60924F1521484A650019DD12 /* DemandHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemandHeaderCell.m; sourceTree = "<group>"; };
+		60924F1621484A650019DD12 /* DemandValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemandValidator.m; sourceTree = "<group>"; };
+		60924F1721484A650019DD12 /* RRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRViewController.m; sourceTree = "<group>"; };
+		60924F1821484A650019DD12 /* DemandViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemandViewCell.h; sourceTree = "<group>"; };
+		60924F1921484A650019DD12 /* DemandViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemandViewController.m; sourceTree = "<group>"; };
+		60924F1A21484A650019DD12 /* DemandHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemandHeaderCell.h; sourceTree = "<group>"; };
+		60924F1B21484A650019DD12 /* RRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRViewController.h; sourceTree = "<group>"; };
+		60924F1C21484A650019DD12 /* DemandViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemandViewCell.xib; sourceTree = "<group>"; };
+		60924F1D21484A650019DD12 /* DemandValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemandValidator.h; sourceTree = "<group>"; };
 		60A2CC282121B71200EA6ACF /* TestSummaryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestSummaryViewController.h; sourceTree = "<group>"; };
 		60A2CC292121B71200EA6ACF /* TestSummaryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestSummaryViewController.m; sourceTree = "<group>"; };
 		60A2CC312123554200EA6ACF /* SectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SectionCell.h; sourceTree = "<group>"; };
@@ -169,16 +179,9 @@
 		60D124662126E1F300EC6EE2 /* CPMSectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CPMSectionCell.h; sourceTree = "<group>"; };
 		60D124672126E1F300EC6EE2 /* CPMSectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CPMSectionCell.m; sourceTree = "<group>"; };
 		60D124682126E1F300EC6EE2 /* CPMSectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CPMSectionCell.xib; sourceTree = "<group>"; };
-		60D1246F214173F600EC6EE2 /* DemandViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemandViewCell.h; sourceTree = "<group>"; };
-		60D12470214173F600EC6EE2 /* DemandViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemandViewCell.m; sourceTree = "<group>"; };
-		60D12471214173F600EC6EE2 /* DemandViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DemandViewCell.xib; sourceTree = "<group>"; };
-		60D12474214188F100EC6EE2 /* DemandHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemandHeaderCell.h; sourceTree = "<group>"; };
-		60D12475214188F100EC6EE2 /* DemandHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemandHeaderCell.m; sourceTree = "<group>"; };
 		8EF6536B68EE8867DF49CF0E /* libPods-Dr.Prebid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dr.Prebid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D15C104E20F6EB32004CBC18 /* AdSizeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdSizeController.m; sourceTree = "<group>"; };
 		D15C105120F6EB4F004CBC18 /* AdSizeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdSizeController.h; sourceTree = "<group>"; };
-		F513CDF92112202400700925 /* DemandValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemandValidator.m; sourceTree = "<group>"; };
-		F513CDFB2112202400700925 /* DemandValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemandValidator.h; sourceTree = "<group>"; };
 		F533B1662130882E001977C2 /* AdServerValidationURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdServerValidationURLProtocol.h; sourceTree = "<group>"; };
 		F533B16721309548001977C2 /* AdServerResponseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdServerResponseViewController.m; sourceTree = "<group>"; };
 		F533B1692130955A001977C2 /* AdServerResponseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdServerResponseViewController.h; sourceTree = "<group>"; };
@@ -186,11 +189,17 @@
 		F533B16F21349D16001977C2 /* ColorTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ColorTool.h; sourceTree = "<group>"; };
 		F533B1702134A361001977C2 /* AdServerValidationMockInterstitial.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdServerValidationMockInterstitial.m; sourceTree = "<group>"; };
 		F533B1722134A372001977C2 /* AdServerValidationMockInterstitial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdServerValidationMockInterstitial.h; sourceTree = "<group>"; };
-		F54C7F352143217B00025B23 /* end-to-end-sdk-validation.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "end-to-end-sdk-validation.html"; sourceTree = "<group>"; };
 		F54C7F402146F3AD00025B23 /* test-real-time-demand.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "test-real-time-demand.html"; sourceTree = "<group>"; };
 		F54C7F412146F3AD00025B23 /* test-ad-server.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "test-ad-server.html"; sourceTree = "<group>"; };
 		F54C7F44214700C600025B23 /* SDKValidationURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDKValidationURLProtocol.m; sourceTree = "<group>"; };
 		F54C7F462147012A00025B23 /* SDKValidationURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDKValidationURLProtocol.h; sourceTree = "<group>"; };
+		F54C7F4E21483C9000025B23 /* SDKValidationResponseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SDKValidationResponseViewController.m; sourceTree = "<group>"; };
+		F54C7F5121483CAB00025B23 /* SDKValidationResponseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SDKValidationResponseViewController.h; sourceTree = "<group>"; };
+		F54C7F5221484AD500025B23 /* test-full-sdk.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "test-full-sdk.html"; sourceTree = "<group>"; };
+		F54C7F592149804300025B23 /* IntroViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
+		F54C7F5B2149804F00025B23 /* IntroViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
+		F54C7F63214B084800025B23 /* CustomPageControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomPageControl.m; sourceTree = "<group>"; };
+		F54C7F66214B085400025B23 /* CustomPageControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomPageControl.h; sourceTree = "<group>"; };
 		F553098120E53CF500A7B552 /* AdServerValidationURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdServerValidationURLProtocol.m; sourceTree = "<group>"; };
 		F56AE88F209A3808000CE29F /* PBViewTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBViewTool.m; sourceTree = "<group>"; };
 		F56AE890209A3809000CE29F /* PBViewTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBViewTool.h; sourceTree = "<group>"; };
@@ -266,7 +275,25 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		60A2CC262121B65300EA6ACF /* Test Summary */ = {
+		60924F1221484A650019DD12 /* DemandValidation */ = {
+			isa = PBXGroup;
+			children = (
+				60924F1A21484A650019DD12 /* DemandHeaderCell.h */,
+				60924F1521484A650019DD12 /* DemandHeaderCell.m */,
+				60924F1D21484A650019DD12 /* DemandValidator.h */,
+				60924F1621484A650019DD12 /* DemandValidator.m */,
+				60924F1821484A650019DD12 /* DemandViewCell.h */,
+				60924F1421484A650019DD12 /* DemandViewCell.m */,
+				60924F1C21484A650019DD12 /* DemandViewCell.xib */,
+				60924F1321484A650019DD12 /* DemandViewController.h */,
+				60924F1921484A650019DD12 /* DemandViewController.m */,
+				60924F1B21484A650019DD12 /* RRViewController.h */,
+				60924F1721484A650019DD12 /* RRViewController.m */,
+			);
+			path = DemandValidation;
+			sourceTree = "<group>";
+		};
+		60A2CC262121B65300EA6ACF /* TestSummary */ = {
 			isa = PBXGroup;
 			children = (
 				60A2CC282121B71200EA6ACF /* TestSummaryViewController.h */,
@@ -281,10 +308,10 @@
 				60D124672126E1F300EC6EE2 /* CPMSectionCell.m */,
 				60D124682126E1F300EC6EE2 /* CPMSectionCell.xib */,
 				60CFB28D2097820D006FCF7C /* AdServerValidation */,
-				F513CDF72112202400700925 /* DemandValidation */,
+				60924F1221484A650019DD12 /* DemandValidation */,
 				F59C6B29212610B100A5B8AE /* SDKIntegrationValidation */,
 			);
-			path = "Test Summary";
+			path = TestSummary;
 			sourceTree = "<group>";
 		};
 		60C678762073D7B0003A7A1D = {
@@ -333,7 +360,8 @@
 		60CFB2562097820D006FCF7C /* Dr.Prebid */ = {
 			isa = PBXGroup;
 			children = (
-				60A2CC262121B65300EA6ACF /* Test Summary */,
+				F54C7F5821497F6C00025B23 /* Intro */,
+				60A2CC262121B65300EA6ACF /* TestSummary */,
 				609172E320F3E50F001B94A8 /* Settings */,
 				60CFB2592097820D006FCF7C /* AppDelegate.h */,
 				60CFB29C2097820D006FCF7C /* AppDelegate.m */,
@@ -401,24 +429,16 @@
 			path = AdServerValidation;
 			sourceTree = "<group>";
 		};
-		F513CDF72112202400700925 /* DemandValidation */ = {
+		F54C7F5821497F6C00025B23 /* Intro */ = {
 			isa = PBXGroup;
 			children = (
-				F513CDFB2112202400700925 /* DemandValidator.h */,
-				F513CDF92112202400700925 /* DemandValidator.m */,
-				60D1246F214173F600EC6EE2 /* DemandViewCell.h */,
-				60D12470214173F600EC6EE2 /* DemandViewCell.m */,
-				60D12471214173F600EC6EE2 /* DemandViewCell.xib */,
-				60D12474214188F100EC6EE2 /* DemandHeaderCell.h */,
-				60D12475214188F100EC6EE2 /* DemandHeaderCell.m */,
-				6099DE042141C44A0021661D /* DemandViewController.h */,
-				6099DE052141C44A0021661D /* DemandViewController.m */,
-				6099DE0821430FA90021661D /* RRViewController.h */,
-				6099DE0921430FA90021661D /* RRViewController.m */,
+				F54C7F592149804300025B23 /* IntroViewController.m */,
+				F54C7F5B2149804F00025B23 /* IntroViewController.h */,
+				F54C7F63214B084800025B23 /* CustomPageControl.m */,
+				F54C7F66214B085400025B23 /* CustomPageControl.h */,
 			);
-			name = DemandValidation;
-			path = "Dr.Prebid/Test Summary/DemandValidation";
-			sourceTree = SOURCE_ROOT;
+			path = Intro;
+			sourceTree = "<group>";
 		};
 		F59C6B29212610B100A5B8AE /* SDKIntegrationValidation */ = {
 			isa = PBXGroup;
@@ -427,6 +447,8 @@
 				F59C6B532126123E00A5B8AE /* PBVPrebidSDKValidator.m */,
 				F54C7F44214700C600025B23 /* SDKValidationURLProtocol.m */,
 				F54C7F462147012A00025B23 /* SDKValidationURLProtocol.h */,
+				F54C7F4E21483C9000025B23 /* SDKValidationResponseViewController.m */,
+				F54C7F5121483CAB00025B23 /* SDKValidationResponseViewController.h */,
 			);
 			path = SDKIntegrationValidation;
 			sourceTree = "<group>";
@@ -443,10 +465,10 @@
 		F5D1856021011548001DF99A /* HelpPagesAssets */ = {
 			isa = PBXGroup;
 			children = (
-				F54C7F352143217B00025B23 /* end-to-end-sdk-validation.html */,
 				F5D1856221011570001DF99A /* about.html */,
 				F54C7F412146F3AD00025B23 /* test-ad-server.html */,
 				F54C7F402146F3AD00025B23 /* test-real-time-demand.html */,
+				F54C7F5221484AD500025B23 /* test-full-sdk.html */,
 				F5D1856121011570001DF99A /* info-ad-server.html */,
 				F5D1856421011571001DF99A /* info-general.html */,
 				F5D1856321011570001DF99A /* info-prebid-server.html */,
@@ -539,12 +561,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F54C7F5321484AD500025B23 /* test-full-sdk.html in Resources */,
 				F54C7F422146F3AE00025B23 /* test-real-time-demand.html in Resources */,
 				F5D1856621011571001DF99A /* about.html in Resources */,
-				F54C7F382143217B00025B23 /* end-to-end-sdk-validation.html in Resources */,
 				60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */,
 				60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */,
-				60D12473214173F600EC6EE2 /* DemandViewCell.xib in Resources */,
+				60924F2321484A650019DD12 /* DemandViewCell.xib in Resources */,
 				F5D1856821011571001DF99A /* info-general.html in Resources */,
 				60A2CC3A212358F800EA6ACF /* TestHeaderCell.xib in Resources */,
 				60D1246A2126E1F300EC6EE2 /* CPMSectionCell.xib in Resources */,
@@ -642,28 +664,31 @@
 				60CFB2CB2097820D006FCF7C /* LineItemKeywordsManager.m in Sources */,
 				60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */,
 				609172F020F5314E001B94A8 /* HeaderCell.m in Sources */,
-				60D12477214188F100EC6EE2 /* DemandHeaderCell.m in Sources */,
+				60924F2221484A650019DD12 /* DemandViewController.m in Sources */,
 				60CFB2C22097820D006FCF7C /* QRCameraSwitchButton.m in Sources */,
+				F54C7F5A2149804300025B23 /* IntroViewController.m in Sources */,
 				609172ED20F50F42001B94A8 /* LabelAccessoryCell.m in Sources */,
 				60D124692126E1F300EC6EE2 /* CPMSectionCell.m in Sources */,
 				F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */,
 				F533B16821309548001977C2 /* AdServerResponseViewController.m in Sources */,
 				F54C7F45214700C600025B23 /* SDKValidationURLProtocol.m in Sources */,
-				60D12472214173F600EC6EE2 /* DemandViewCell.m in Sources */,
+				60924F2021484A650019DD12 /* DemandValidator.m in Sources */,
 				F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */,
 				F533B16E21349D09001977C2 /* ColorTool.m in Sources */,
-				F513CDFD2112202400700925 /* DemandValidator.m in Sources */,
+				F54C7F4F21483C9000025B23 /* SDKValidationResponseViewController.m in Sources */,
+				60924F2121484A650019DD12 /* RRViewController.m in Sources */,
 				F553098220E53CF500A7B552 /* AdServerValidationURLProtocol.m in Sources */,
+				60924F1E21484A650019DD12 /* DemandViewCell.m in Sources */,
 				60CFB2C42097820D006FCF7C /* QRCodeReaderView.m in Sources */,
-				6099DE062141C44A0021661D /* DemandViewController.m in Sources */,
 				F533B1712134A361001977C2 /* AdServerValidationMockInterstitial.m in Sources */,
 				D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */,
 				60CFB2CD2097820D006FCF7C /* AppDelegate.m in Sources */,
+				60924F1F21484A650019DD12 /* DemandHeaderCell.m in Sources */,
+				F54C7F64214B084800025B23 /* CustomPageControl.m in Sources */,
 				60CFB2C52097820D006FCF7C /* QRCodeReader.m in Sources */,
 				F56AE891209A3809000CE29F /* PBViewTool.m in Sources */,
 				60A2CC342123554200EA6ACF /* SectionCell.m in Sources */,
 				609172F320F53C74001B94A8 /* IdCell.m in Sources */,
-				6099DE0A21430FA90021661D /* RRViewController.m in Sources */,
 				60A2CC2A2121B71200EA6ACF /* TestSummaryViewController.m in Sources */,
 				609172F620F686A8001B94A8 /* HelpViewController.m in Sources */,
 				60CFB2C62097820D006FCF7C /* main.m in Sources */,
