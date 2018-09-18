@@ -403,7 +403,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="hHU-v9-RK8"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button" image="detailIcon"/>
+                                                    <state key="normal" image="detailIcon"/>
                                                     <connections>
                                                         <action selector="selectedHeaderCell:" destination="p6v-8g-1Dg" eventType="touchUpInside" id="VhZ-OW-Y58"/>
                                                     </connections>
