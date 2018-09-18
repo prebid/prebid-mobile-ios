@@ -88,7 +88,7 @@
     control.backgroundColor = [UIColor whiteColor];
     control.layer.cornerRadius = 5.0;
     [control addTarget:self action:@selector(controlSwitch:) forControlEvents:UIControlEventValueChanged];
-    control.frame = CGRectMake(20, 80, self.view.frame.size.width -40, 35);
+    control.frame = CGRectMake(20, 100, self.view.frame.size.width -40, 35);
     [self.view addSubview:control];
     [self setupUICollectionView];
     [self setupUITableView];
@@ -111,7 +111,7 @@
 - (void) setupUITableView
 {
     if (self.tableView == nil) {
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 140, self.view.frame.size.width, self.view.frame.size.height-140)];
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 150, self.view.frame.size.width, self.view.frame.size.height-140)];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.separatorColor = [UIColor clearColor];
@@ -163,7 +163,7 @@
         if (heihgt > self.view.frame.size.height - 140) {
             heihgt =self.view.frame.size.height - 140;
         }
-        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 140, self.view.frame.size.width, heihgt) collectionViewLayout:layout];
+        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 150, self.view.frame.size.width, heihgt) collectionViewLayout:layout];
         self.collectionView.delegate = self;
         self.collectionView.dataSource = self;
         self.collectionView.showsVerticalScrollIndicator = YES;
