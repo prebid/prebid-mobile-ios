@@ -266,7 +266,6 @@ static NSString *testResponse = @"";
         
         NSDictionary *targetingPrebid = requestBody[@"ext"][@"prebid"];
         XCTAssertEqualObjects(targetingPrebid[@"storedrequest"][@"id"], @"account_id");
-        NSLog(@"Bid keywords antoine: %@", targetingPrebid.allKeys);
         XCTAssertTrue([targetingPrebid.allKeys containsObject:@"targeting"]);
         
         NSDictionary *device = requestBody[@"device"];
