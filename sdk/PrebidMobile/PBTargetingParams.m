@@ -23,6 +23,8 @@
 
 @property (nonatomic, readwrite) BOOL isGDPREnabledHere;
 
+@property (nonatomic, readwrite) BOOL useLocalCacheHere;
+
 @end
 
 @implementation PBTargetingParams
@@ -34,6 +36,7 @@
         
         _customKeywords = [[NSMutableDictionary alloc] init];
         _userKeywords = [[NSMutableDictionary alloc] init];
+        _useLocalCacheHere = NO;
         _isGDPREnabledHere = NO;
         
     }
@@ -195,6 +198,14 @@ static dispatch_once_t onceToken;
     return savedConsent;
     }
     return nil;
+}
+
+-(BOOL) useLocalCache {
+    return self.useLocalCacheHere;
+}
+
+- (void)setLocalCache:(BOOL)localCache {
+    _useLocalCacheHere = localCache;
 }
 
 @end

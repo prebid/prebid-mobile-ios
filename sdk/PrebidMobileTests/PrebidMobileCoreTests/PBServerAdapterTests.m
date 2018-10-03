@@ -151,6 +151,8 @@ static NSString *testResponse = @"";
 
 -(void)testNoCacheIdFromServer
 {
+    [[PBTargetingParams sharedInstance] setLocalCache:NO];
+    
     // This test response contains 1 bid, but no cache id is in the response
     testResponse = @"{\"id\":\"3dc76667-a500-4e01-a43b-368e36d6c7cc\",\"seatbid\":[{\"bid\":[{\"id\":\"3829649260126183529\",\"impid\":\"Banner_300x250\",\"price\":15,\"adm\":\"hello\",\"adid\":\"68501584\",\"adomain\":[\"peugeot.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=68501584\",\"cid\":\"958\",\"crid\":\"68501584\",\"cat\":[\"IAB2-3\"],\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder\":\"appnexus\",\"hb_bidder_appnexus\":\"appnexus\",\"hb_creative_loadtype\":\"html\",\"hb_env\":\"mobile-app\",\"hb_env_appnexus\":\"mobile-app\",\"hb_pb\":\"15.00\",\"hb_pb_appnexus\":\"15.00\",\"hb_size\":\"300x250\",\"hb_size_appnexus\":\"300x250\"},\"type\":\"banner\"},\"bidder\":{\"appnexus\":{\"brand_id\":3264,\"auction_id\":8160292782530908000,\"bidder_id\":2,\"bid_ad_type\":0}}}}],\"seat\":\"appnexus\"}],\"ext\":{\"responsetimemillis\":{\"appnexus\":258}}}";
     [NSURLProtocol registerClass:[PBTestProtocol class]];
@@ -173,7 +175,110 @@ static NSString *testResponse = @"";
     [self waitForExpectationsWithTimeout:20.0 handler:nil];
 }
 
+-(void)testAllBidsAreCached
+{
+    [[PBTargetingParams sharedInstance] setLocalCache:TRUE];
+    testResponse = @"{\"id\":\"3dc76667-a500-4e01-a43b-368e36d6c7cc\",\"seatbid\":[{\"bid\":[{\"id\":\"4009307468250838284\",\"impid\":\"Banner_300x250\",\"price\":0.5,\"adm\":\"<script><\/script>\",\"adid\":\"73501515\",\"adomain\":[\"appnexus.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=73501515\",\"cid\":\"958\",\"crid\":\"73501515\",\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder\":\"appnexus\",\"hb_bidder_appnexus\":\"appnexus\",\"hb_creative_loadtype\":\"html\",\"hb_env\":\"mobile-app\",\"hb_env_appnexus\":\"mobile-app\",\"hb_pb\":\"0.50\",\"hb_pb_appnexus\":\"0.50\",\"hb_size\":\"300x250\",\"hb_size_appnexus\":\"300x250\"},\"type\":\"banner\"},\"bidder\":{\"appnexus\":{\"brand_id\":1,\"auction_id\":7466795334738195000,\"bidder_id\":2,\"bid_ad_type\":0}}}}],\"seat\":\"appnexus\"},{\"bid\":[{\"id\":\"4009307468250838284\",\"impid\":\"Banner_300x250\",\"price\":0.5,\"adm\":\"<script><\/script>\",\"adid\":\"73501515\",\"adomain\":[\"rubicon.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=73501515\",\"cid\":\"958\",\"crid\":\"73501515\",\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder_rubicon\":\"rubicon\",\"hb_creative_loadtype\":\"html\",\"hb_env_rubicon\":\"mobile-app\",\"hb_pb_rubicon\":\"0.50\",\"hb_size_rubicon\":\"300x250\"},\"type\":\"banner\"}}}],\"seat\":\"rubicon\"},{\"bid\":[{\"id\":\"4009307468250838284\",\"impid\":\"Banner_300x250\",\"price\":0.5,\"adm\":\"<script><\/script>\",\"adid\":\"73501515\",\"adomain\":[\"superlongnamethatshouldbecropped.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=73501515\",\"cid\":\"958\",\"crid\":\"73501515\",\"w\":300,\"h\":250,\"ext\":{\"prebid\":{\"targeting\":{\"hb_bidder_superlongnamet\":\"superlongnamethatshouldbecropped\",\"hb_creative_loadtype\":\"html\",\"hb_env_superlongnamethat\":\"mobile-app\",\"hb_pb_superlongnamethats\":\"0.50\",\"hb_size_superlongnametha\":\"300x250\"},\"type\":\"banner\"}}}],\"seat\":\"superlongnamethatshouldbecropped\"}],\"ext\":{\"responsetimemillis\":{\"appnexus\":19}}}";
+    [[PBTargetingParams sharedInstance] setLocalCache:TRUE];
+    [NSURLProtocol registerClass:[PBTestProtocol class]];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Dummy Expectation"];
+    PBAdUnit *adUnit1 = [[PBAdUnit alloc] initWithIdentifier:@"ad1" andAdType:PBAdUnitTypeBanner andConfigId:@"test_config_id1"];
+    [adUnit1 addSize:CGSizeMake(250, 300)];
+    PBAdUnit *adUnit2 = [[PBAdUnit alloc] initWithIdentifier:@"ad2" andAdType:PBAdUnitTypeBanner andConfigId:@"test_config_id2"];
+    [adUnit2 addSize:CGSizeMake(250, 300)];
+    self.adUnits = @[adUnit1, adUnit2];
+    PBServerAdapter *serverAdapter = [[PBServerAdapter alloc] initWithAccountId:@"test_account_id" andHost:PBServerHostAppNexus andAdServer:PBPrimaryAdServerDFP];
+    [serverAdapter requestBidsWithAdUnits:self.adUnits withDelegate:self];
+    __weak PBServerAdapterTests *weakSelf = self;
+    weakSelf.completionHandler = ^(NSArray *bids, NSError *error){
+        // veryfy that all bids has a cache id
+        // veryfy that only top bid has hb_cache_id
+        // verify cache_id is truncated after 20 characters
+        XCTAssertTrue(bids.count == 3);
+        BOOL cacheIdHasBeenSeen = NO;
+        for(PBBidResponse *bid in bids){
+            BOOL isCacheIdPresent = NO;
+            BOOL isTopBid = NO;
+            NSString *cacheKey = @"";
+            NSLog(@"Bid keywords: %@", bid.customKeywords);
+            for (NSString *key in bid.customKeywords.allKeys) {
+                if ([key containsString:@"hb_cache_id_"]) {
+                    isCacheIdPresent = YES;
+                    cacheKey = key;
+                    XCTAssertTrue(key.length <=20);
+                }
+                if ([key isEqualToString:@"hb_bidder"]) {
+                    isTopBid = YES;
+                }
+                if ([key isEqualToString:@"hb_cache_id"]) {
+                    if (cacheIdHasBeenSeen) {
+                        XCTFail(@"should not be setting hb_cache_id twice");
+                    } else {
+                        cacheIdHasBeenSeen = YES;
+                    }
+                }
+                
+            }
+            if (isTopBid) {
+                XCTAssertTrue([bid.customKeywords.allKeys containsObject:@"hb_cache_id"]);
+                XCTAssertEqual([bid.customKeywords objectForKey:@"hb_cache_id"], [bid.customKeywords objectForKey:cacheKey]);
+            } else {
+                XCTAssertTrue(![bid.customKeywords.allKeys containsObject:@"hb_cahce_id"]);
+            }
+            XCTAssertTrue(isCacheIdPresent);
+        }
+        
+        [expectation fulfill];
+    };
+    [self waitForExpectationsWithTimeout:20.0 handler:nil];
+}
+
 - (void)testRequestBodyForAdUnit {
+    [[PBTargetingParams sharedInstance] setLocalCache:NO];
+    [[PBTargetingParams sharedInstance] setUserKeywords:@"targeting1" withValue:@"value1"];
+    [[PBTargetingParams sharedInstance] setUserKeywords:@"targeting2" withValue:@"value2"];
+    
+    NSURL *hostURL = [NSURL URLWithString:kAPNPrebidServerUrl];
+    
+    [[PBServerRequestBuilder sharedInstance] setHostURL: hostURL];
+    NSURLRequest *request = [[PBServerRequestBuilder sharedInstance] buildRequest:self.adUnits withAccountId:@"account_id" withSecureParams:NO];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Dummy expectation"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        
+        
+        NSError* error;
+        NSDictionary* requestBody = [NSJSONSerialization JSONObjectWithData:[request HTTPBody]
+                                                                    options:kNilOptions
+                                                                      error:&error];
+        
+        XCTAssertNotNil(requestBody);
+        
+        XCTAssertEqualObjects(requestBody[@"app"][@"publisher"][@"id"], @"account_id");
+        
+        NSDictionary *app = requestBody[@"app"][@"ext"][@"prebid"];
+        XCTAssertNotNil(app[@"version"]);
+        
+        XCTAssertEqualObjects(app[@"source"], @"prebid-mobile");
+        
+        NSString *targetingParams = requestBody[@"user"][@"keywords"];
+        XCTAssertNotNil(targetingParams);
+        
+        NSDictionary *targetingPrebid = requestBody[@"ext"][@"prebid"];
+        XCTAssertEqualObjects(targetingPrebid[@"storedrequest"][@"id"], @"account_id");
+        NSLog(@"Bid keywords antoine: %@", targetingPrebid.allKeys);
+        XCTAssertTrue([targetingPrebid.allKeys containsObject:@"targeting"]);
+        
+        NSDictionary *device = requestBody[@"device"];
+        XCTAssertEqualObjects(device[@"os"], @"iOS");
+        XCTAssertEqualObjects(device[@"make"], @"Apple");
+        
+        [expectation fulfill];
+    });
+    [self waitForExpectationsWithTimeout:20.0 handler:nil];
+}
+
+- (void)testRequestBodyForAdUnitServerCaching {
     
     [[PBTargetingParams sharedInstance] setUserKeywords:@"targeting1" withValue:@"value1"];
     [[PBTargetingParams sharedInstance] setUserKeywords:@"targeting2" withValue:@"value2"];
