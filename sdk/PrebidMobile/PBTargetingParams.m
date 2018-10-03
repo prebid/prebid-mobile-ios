@@ -33,7 +33,6 @@
 - (instancetype)init {
     if (self = [super init]) {
         _locationPrecision = (NSInteger)-1;
-        
         _customKeywords = [[NSMutableDictionary alloc] init];
         _userKeywords = [[NSMutableDictionary alloc] init];
         _useLocalCacheHere = NO;
