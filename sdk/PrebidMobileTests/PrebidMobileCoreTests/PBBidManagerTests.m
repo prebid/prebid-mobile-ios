@@ -19,6 +19,7 @@
 #import "PBBidManager.h"
 #import "PBBidResponse.h"
 #import "PBException.h"
+#import "PBTargetingParams.h"
 #import "PBInterstitialAdUnit.h"
 #import "PBMockServerAdapter.h"
 #import <XCTest/XCTest.h>
@@ -262,13 +263,29 @@ NSString *const kBidManagerTestAdUnitId = @"TestAdUnitId";
     [self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
-- (void)testAttachTopBidHelperWithNoReadyBid {
+- (void)testAttachTopBidHelperWithNoReadyBidServerCache {
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     PBAdUnit *adUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt10" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
     [adUnit addSize:CGSizeMake(320, 50)];
     [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerMoPub];
 
     [[PBBidManager sharedInstance] attachTopBidHelperForAdUnitId:adUnit.identifier andTimeout:50 completionHandler:^{
+        NSDictionary *bidKeywords = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
+        XCTAssertNil(bidKeywords);
+        [expectation fulfill];
+    }];
+    // Wait for the expectation for 1 second
+    [self waitForExpectationsWithTimeout:1 handler:nil];
+}
+
+- (void)testAttachTopBidHelperWithNoReadyBidLocalCache {
+    [[PBTargetingParams sharedInstance] setLocalCache:TRUE];
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    PBAdUnit *adUnit = [[PBBannerAdUnit alloc] initWithAdUnitIdentifier:@"bmt10" andConfigId:@"0b33e7ae-cf61-4003-8404-0711eea6e673"];
+    [adUnit addSize:CGSizeMake(320, 50)];
+    [[PBBidManager sharedInstance] registerAdUnits:@[adUnit] withAccountId:self.accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerMoPub];
+    
+    [[PBBidManager sharedInstance] attachTopBidHelperForAdUnitId:adUnit.identifier andTimeout:500 completionHandler:^{
         NSDictionary *bidKeywords = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
         XCTAssertNil(bidKeywords);
         [expectation fulfill];

@@ -88,6 +88,7 @@
 
 - (void)setPrebidTargetingParams {
     [[PBTargetingParams sharedInstance] setAge:25];
+    [[PBTargetingParams sharedInstance] setLocalCache: TRUE];
     [[PBTargetingParams sharedInstance] setGender:PBTargetingParamsGenderFemale];    
     CMPStorage *consentStorageVC = [[CMPStorage alloc] init];
     
