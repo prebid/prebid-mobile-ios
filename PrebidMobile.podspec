@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobile"
-  s.version      = "0.5"
+  s.version      = "0.5.1"
   s.summary      = "PrebidMobile is a lightweight framework that integrates directly with Prebid Server."
 
   s.description  = <<-DESC
@@ -32,6 +32,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
   s.source_files = "sdk/PrebidMobile", "sdk/PrebidMobile/**/*.{h,m}", "sdk/PrebidServerAdapter/**/*.{h,m}"
   s.public_header_files = "sdk/PrebidServerAdapter/PBServerAdapter.h", "sdk/PrebidMobile/*.h", "sdk/PrebidMobile/Logging/*.h"
+  s.exclude_files = "sdk/PrebidMobile/**/PrebidMobile-umbrella.h"
   s.requires_arc = true
   s.xcconfig = {
 :LIBRARY_SEARCH_PATHS => '$(inherited)',
