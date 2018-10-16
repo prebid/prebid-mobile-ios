@@ -95,8 +95,9 @@ static dispatch_once_t onceToken;
     
     _demandAdapter = [[PBServerAdapter alloc] initWithAccountId:accountId andHost:host] ;
     
-    if(adServer == PBPrimaryAdServerMoPub){
-        //the adservers are cached locally by default except for MoPub hence this needs to be configured
+    if(adServer == PBPrimaryAdServerMoPub || adServer == PBPrimaryAdServerAdform){
+        // the adservers are cached locally by default except for MoPub hence this needs to be configured
+        // and Adform because local cache is not working there.
        _demandAdapter.shouldCacheLocal = FALSE;
     }
     
@@ -332,6 +333,48 @@ static dispatch_once_t onceToken;
         }
     } else {
         PBLogDebug(@"No bid available to pass to MoPub");
+    }
+}
+
+- (void)setBidParametersOnAdObject:(NSObject *)adObject {
+
+    if (adObject.pb_identifier) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        PBAdUnit *adUnit = adObject.pb_identifier;
+        NSDictionary<NSString *, NSString *> *keywordsPairs = [self keywordsForWinningBidForAdUnit:adUnit];
+        float price = keywordsPairs[PBKeywordsManagerPriceHbpbKey].floatValue;
+        if (price > 0) {
+            // Set price to banner.
+            SEL setPrice = NSSelectorFromString(@"setPrice:");
+            NSMethodSignature *methodSignature = [[adObject class] instanceMethodSignatureForSelector:setPrice];
+            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
+            [invocation setSelector:setPrice];
+            [invocation setTarget:adObject];
+            [invocation setArgument:&price atIndex:2];
+            [invocation invoke];
+        }
+
+        NSString *bidder = keywordsPairs[PBKeywordsManagerPreBidBidderCodeKey];
+        if (bidder) {
+            // Set bidder to banner.
+            SEL setKeyValue = NSSelectorFromString(@"addValue:forKey:");
+            if ([adObject respondsToSelector:setKeyValue]) {
+                [adObject performSelector:setKeyValue withObject:bidder withObject:PBKeywordsManagerPreBidBidderCodeKey];
+            }
+        }
+
+        NSString *cacheId = keywordsPairs[PBKeywordsManagerPreBidCacheIdKey];
+        if (cacheId) {
+            // Set cache id to banner.
+            SEL setKeyValue = NSSelectorFromString(@"addCustomParameter:forKey:");
+            if ([adObject respondsToSelector:setKeyValue]) {
+                [adObject performSelector:setKeyValue withObject:cacheId withObject:PBKeywordsManagerPreBidCacheIdKey];
+            }
+        }
+#pragma clang diagnostic pop
+    } else {
+        PBLogDebug(@"No bid available to pass to Adform");
     }
 }
 

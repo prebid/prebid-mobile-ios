@@ -35,7 +35,8 @@ static int const kPCAttachTopBidMaxTimeoutMS = 1500;
 typedef NS_ENUM(NSInteger, PBPrimaryAdServerType) {
     PBPrimaryAdServerUnknown,
     PBPrimaryAdServerDFP,
-    PBPrimaryAdServerMoPub
+    PBPrimaryAdServerMoPub,
+    PBPrimaryAdServerAdform
 };
 
 /**
@@ -77,6 +78,8 @@ typedef NS_ENUM(NSInteger, PBPrimaryAdServerType) {
 
 - (void)setBidOnAdObject:(nonnull NSObject *)adObject;
 - (void)clearBidOnAdObject:(nonnull NSObject *)adObject;
+
+- (void)setBidParametersOnAdObject:(NSObject *)adObject;
 
 -(void) loadOnSecureConnection:(BOOL) secureConnection;
 

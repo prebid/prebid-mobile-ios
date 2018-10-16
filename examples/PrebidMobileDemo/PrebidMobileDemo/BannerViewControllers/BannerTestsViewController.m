@@ -18,11 +18,13 @@
 #import <GoogleMobileAds/DFPBannerView.h>
 #import "MPAdView.h"
 #import "PrebidMobile/PrebidMobile.h"
+#import <AdformAdvertising/AdformAdvertising.h>
 
-@interface BannerTestsViewController () <GADBannerViewDelegate, MPAdViewDelegate>
+@interface BannerTestsViewController () <GADBannerViewDelegate, MPAdViewDelegate, AFAdInlineDelegate>
 
 @property (strong, nonatomic) MPAdView *mopubAdView;
 @property (strong, nonatomic) DFPBannerView *dfpAdView;
+@property (strong, nonatomic) AFAdInline *adInline;
 @property (strong, nonatomic) UIView *adContainerView;
 @property (strong, nonatomic) NSDictionary *settings;
 
@@ -73,6 +75,16 @@
         [PrebidMobile setBidKeywordsOnAdObject:_dfpAdView withAdUnitId:kAdUnit1Id withTimeout:600 completionHandler:^{
             [_dfpAdView loadRequest:[DFPRequest request]];
         }];
+    } else if ([adServer isEqualToString:kAdformAdServer]) {
+        _adInline = [[AFAdInline alloc] initWithMasterTagId:kAdformAdInlineMTag
+                                   presentingViewController:self
+                                                     adSize:CGSizeMake(width, height)];
+        _adInline.delegate = self;
+        [_adContainerView addSubview:_adInline];
+
+        [PrebidMobile setBidKeywordsOnAdObject:_adInline withAdUnitId:kAdUnit1Id withTimeout:600 completionHandler:^{
+            [_adInline loadAd];
+        }];
     }
 }
 
@@ -95,6 +107,16 @@
 
 - (UIViewController *)viewControllerForPresentingModalView {
     return self;
+}
+
+#pragma mark - AFAdInlineDelegate
+
+- (void)adInlineDidLoadAd:(AFAdInline *)adInline {
+    NSLog(@"AFAdInline did load");
+}
+
+- (void)adInlineDidFailToLoadAd:(AFAdInline *)adInline withError:(NSError *)error {
+    NSLog(@"AFAdInline did fail to load: %@", [error debugDescription]);
 }
 
 /*

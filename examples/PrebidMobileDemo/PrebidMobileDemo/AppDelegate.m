@@ -32,7 +32,6 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self enablePrebidLogs];
     [self setupPrebidAndRegisterAdUnits];

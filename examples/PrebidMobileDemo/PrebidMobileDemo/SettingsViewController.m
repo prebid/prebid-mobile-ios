@@ -64,12 +64,13 @@ static CGFloat const kRightMargin = 15;
 - (void)initializeGeneralSettingsFields {
     _generalSettingsFields = [[NSMutableDictionary alloc] init];
 
-    UISegmentedControl *adServerSegControl = [[UISegmentedControl alloc] initWithItems:@[kDFPAdServer, kMoPubAdServer]];
+    UISegmentedControl *adServerSegControl = [[UISegmentedControl alloc] initWithItems:@[kDFPAdServer, kMoPubAdServer, kAdformAdServer]];
     adServerSegControl.selectedSegmentIndex = 0;
     [adServerSegControl addTarget:self
                            action:@selector(adServerClicked:)
                  forControlEvents:UIControlEventValueChanged];
     UISegmentedControl *adTypeSegControl = [[UISegmentedControl alloc] initWithItems:@[kBanner, kInterstitial]];
+    adTypeSegControl.clipsToBounds = true;
     adTypeSegControl.selectedSegmentIndex = 0;
 
     UITextField *placementIdTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 120, 50)];
@@ -123,8 +124,23 @@ static CGFloat const kRightMargin = 15;
         primaryAdServer = PBPrimaryAdServerDFP;
     } else if ([adServer isEqualToString:kMoPubAdServer]) {
         primaryAdServer = PBPrimaryAdServerMoPub;
+    } else if ([adServer isEqualToString:kAdformAdServer]) {
+        primaryAdServer = PBPrimaryAdServerAdform;
     }
+
+    [self updateAdTypeSegmentFor:adServer];
     [self setupPrebidAndRegisterAdUnitsWithAdServer:primaryAdServer];
+}
+
+- (void)updateAdTypeSegmentFor:(NSString *)adServer {
+    UISegmentedControl *adTypeControl = _generalSettingsFields[kAdType];
+
+    if ([adServer isEqualToString:kAdformAdServer] && adTypeControl.numberOfSegments == 2) {
+        [adTypeControl removeSegmentAtIndex:1 animated:true];
+        adTypeControl.selectedSegmentIndex = 0;
+    } else if (adTypeControl.numberOfSegments == 1) {
+        [adTypeControl insertSegmentWithTitle:kInterstitial atIndex:1 animated:true];
+    }
 }
 
 - (BOOL)setupPrebidAndRegisterAdUnitsWithAdServer:(PBPrimaryAdServerType)adServer {

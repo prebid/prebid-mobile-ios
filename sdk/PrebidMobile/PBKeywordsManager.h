@@ -15,6 +15,10 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString *__nonnull const PBKeywordsManagerPreBidBidderCodeKey;
+extern NSString *__nonnull const PBKeywordsManagerPreBidCacheIdKey;
+extern NSString *__nonnull const PBKeywordsManagerPriceHbpbKey;
+
 @class PBBidResponse;
 
 /**

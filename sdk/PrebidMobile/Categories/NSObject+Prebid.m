@@ -16,6 +16,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import "PBBidManager.h"
+#import "PBKeywordsManager.h"
 #import "NSObject+Prebid.h"
 #import "NSString+Extension.h"
 #import <objc/runtime.h>
@@ -40,6 +41,8 @@
                                                                    withSelector:@selector(pb_applicationWillEnterForeground)];
             [NSClassFromString(@"MPInterstitialAdManager") pb_swizzleInstanceSelector:@selector(loadInterstitialWithAdUnitID:keywords:location:testing:)
                                                                          withSelector:@selector(pb_loadInterstitialWithAdUnitID:keywords:location:testing:)];
+            [NSClassFromString(@"AFAdInline") pb_swizzleInstanceSelector:@selector(loadAd)
+                                                            withSelector:@selector(pb_loadInlineAd)];
 #pragma clang diagnostic pop
         });
     });
@@ -167,6 +170,13 @@
             }
         }
     };
+}
+
+// adform banner
+
+- (void)pb_loadInlineAd {
+    [[PBBidManager sharedInstance] setBidParametersOnAdObject:self];
+    [self pb_loadInlineAd];
 }
 
 - (void)setPb_identifier:(PBAdUnit *)pb_identifier {

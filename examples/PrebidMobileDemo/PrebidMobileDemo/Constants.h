@@ -40,6 +40,12 @@ extern NSString *const kDFPAdServer;
 extern NSString *const kDFPBannerAdUnitId;
 extern NSString *const kDFPInterstitialAdUnitId;
 
+
+#pragma mark - Adform constants
+extern NSString *const kAdformAdServer;
+extern NSInteger const kAdformAdInlineMTag;
+extern NSInteger const kAdformAdOverlayMTag;
+
 #pragma mark - Prebid Mobile constants
 extern NSString *const kAccountId;
 extern NSString *const kAdUnit1ConfigId;
