@@ -98,6 +98,9 @@ static NSString *const kPBAppTransportSecurityAllowsArbitraryLoadsKey = @"NSAllo
 -(void)main
 {
     @try {
+        NSLog(@"%@", @"blah§");
+        PBLogDebug(@"test pb logging");
+        PBLogDebug(@"running html in webview %@",self.htmlToLoad);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.wkwebviewCache removeFromSuperview];
             UIWindow *window = [[UIApplication sharedApplication] keyWindow];
@@ -112,7 +115,7 @@ static NSString *const kPBAppTransportSecurityAllowsArbitraryLoadsKey = @"NSAllo
         PBLogDebug(@"Catch the exception %@",[exception description]);
     }
     @finally {
-        PBLogDebug(@"Cache Operation - Main Method - Finally block");
+        PBLogDebug(@"Cache Operation - Main Method - Finally block!!!!!!");
     }
 }
 

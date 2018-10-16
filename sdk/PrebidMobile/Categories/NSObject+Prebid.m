@@ -26,6 +26,7 @@
 
 + (void)load {
     static dispatch_once_t loadToken;
+    NSLog(@"loading NSOBJKECT PREBID");
     dispatch_once(&loadToken, ^{
         dispatch_async(dispatch_get_main_queue(), ^{
 #pragma clang diagnostic push

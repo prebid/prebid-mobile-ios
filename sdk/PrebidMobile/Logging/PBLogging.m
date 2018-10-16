@@ -19,9 +19,11 @@ NSString *const kPBLoggingNotification = @"kPBLoggingNotification";
 NSString *const kPBLogMessageKey = @"kPBLogMessageKey";
 NSString *const kPBLogMessageLevelKey = @"kPBLogMessageLevelKey";
 
+
+
 void _PBLog(PBLogLevel level, NSString *format, ...) {
     if ([PBLogManager getPBLogLevel] <= level) {
-        format = [NSString stringWithFormat:@"Prebid: %@", format];
+        format = [NSString stringWithFormat:@"Prebid -AS: %@", format];
         va_list args;
         va_start(args, format);
         NSString *fullString = [[NSString alloc] initWithFormat:format

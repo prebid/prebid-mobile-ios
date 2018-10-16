@@ -31,6 +31,7 @@ static NSString *const kAPNAdServerCacheIdKey = @"hb_cache_id";
 
 static NSString *const kAPNPrebidServerUrl = @"https://prebid.adnxs.com/pbs/v1/openrtb2/auction";
 static NSString *const kRPPrebidServerUrl = @"https://prebid-server.rubiconproject.com/openrtb2/auction";
+static NSString *const kASPrebidServerUrl = @"https://tagmans3.adsolutions.com/pbs/v0/openrtb2/auction";
 static int const kBatchCount = 10;
 
 @interface PBServerAdapter ()
@@ -49,7 +50,7 @@ static int const kBatchCount = 10;
     if (self = [super init]) {
         _accountId = accountId;
         _isSecure = TRUE;
-        _host = PBServerHostAppNexus;
+        _host = PBServerHostAdsolutions;
         _primaryAdServer = adServer;
     }
     return self;
@@ -67,7 +68,7 @@ static int const kBatchCount = 10;
 
 - (void)requestBidsWithAdUnits:(nullable NSArray<PBAdUnit *> *)adUnits
                   withDelegate:(nonnull id<PBBidResponseDelegate>)delegate {
-    
+     NSLog(@"%@", @"doing requestBids");
     NSURL *hostUrl = [self urlForHost:_host];
     if (hostUrl == nil) {
         @throw [PBException exceptionWithName:PBHostInvalidException];
@@ -175,6 +176,9 @@ static int const kBatchCount = 10;
             break;
         case PBServerHostRubicon:
             url = [NSURL URLWithString:kRPPrebidServerUrl];
+            break;
+        case PBServerHostAdsolutions:
+            url = [NSURL URLWithString:kASPrebidServerUrl];
             break;
         default:
             url = nil;
