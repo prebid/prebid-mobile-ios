@@ -19,41 +19,62 @@
 #import "SettingsViewController.h"
 #import "VideoTestsViewController.h"
 
+#import <CMPReference/CMPStorage.h>
+#import <CMPReference/CMPConsentViewController.h>
 #import <PrebidMobile/PBBannerAdUnit.h>
 #import <PrebidMobile/PBException.h>
 #import <PrebidMobile/PBInterstitialAdUnit.h>
 #import <PrebidMobile/PrebidMobile.h>
+#import <PrebidMobile/PBTargetingParams.h>
 
 static NSString *const kSeeAdButtonTitle = @"See Ad";
 static NSString *const kAdSettingsTableViewReuseId = @"AdSettingsTableItem";
+
 static CGFloat const kRightMargin = 15;
 
-@interface SettingsViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface SettingsViewController () <CMPConsentViewControllerDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) UITableView *settingsTableView;
 @property (strong, nonatomic) NSArray *generalSettingsData;
 @property (strong, nonatomic) NSArray *sectionHeaders;
 @property (strong, nonatomic) NSMutableDictionary *generalSettingsFields;
+@property (strong) CMPStorage *consentStorageVC;
 
+@property (strong) UIButton *nextButton;
 @end
 
 @implementation SettingsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     _settingsTableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     _settingsTableView.dataSource = self;
     _settingsTableView.delegate = self;
+    
     [self.view addSubview:_settingsTableView];
-
     _generalSettingsData = @[kAdServer, kAdType, kSize];
     [self initializeGeneralSettingsFields];
-
+    
     _sectionHeaders = @[@"General"];//, @"Targeting", @"Custom Keywords"];
-
+    
     UIBarButtonItem *previewAdButton = [[UIBarButtonItem alloc] initWithTitle:kSeeAdButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(previewAdButtonClicked:)];
+    
     self.navigationItem.rightBarButtonItem = previewAdButton;
+    
+    _consentStorageVC = [[CMPStorage alloc] init];
+    
+    if(_consentStorageVC.cmpPresent == NO){
+        UIBarButtonItem *consentButton = [[UIBarButtonItem alloc] initWithTitle:@"Get Consent" style:UIBarButtonItemStylePlain target:self action:@selector(didPressNext:)];
+        
+        self.navigationItem.leftBarButtonItem = consentButton;
+    }
+    
+    
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,7 +120,7 @@ static CGFloat const kRightMargin = 15;
 
     NSDictionary *settings = @{kAdServer : [adServerSegControl titleForSegmentAtIndex:[adServerSegControl selectedSegmentIndex]],
                                kPlacementId : [placementIdField text],
-                               kSize : [sizeIdField text]};
+                               kSize : [sizeIdField text], kGDPRString :self.consentStorageVC.consentString};
 
     UIViewController *vcToPush;
     if ([adType isEqualToString:kBanner]) {
@@ -174,6 +195,15 @@ static CGFloat const kRightMargin = 15;
     return self.generalSettingsData.count;
 }
 
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+//    if(section == 0){
+//        return 40.0f;
+//    }
+//    else {
+//        return 20.0f;
+//    }
+//}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *simpleTableIdentifier = kAdSettingsTableViewReuseId;
 
@@ -197,6 +227,52 @@ static CGFloat const kRightMargin = 15;
             break;
     }
     return cell;
+}
+
+- (void)didPressNext:(id)sender {
+    CMPConsentViewController *consentToolVC = [[CMPConsentViewController alloc] init];
+    // Both the Android and iOS versions are implemented as a wrapper around modified Web CMP reference.
+    // Instruction on how to install and configure the WebCMP JS reference can be found inside the reference folder of this repo.
+    // This example uses a demo page setup using the same instructions.
+    consentToolVC.cmpSettings.cmpURL = @"https://acdn.adnxs.com/mobile/democmp/docs/mobilecomplete.html";
+    consentToolVC.cmpSettings.subjectToGDPR = @"1";
+    consentToolVC.cmpSettings.cmpPresent = YES;
+    consentToolVC.delegate = self;
+    consentToolVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:consentToolVC animated:YES completion:nil];
+}
+
+#pragma mark CMPConsentToolViewController delegate
+-(void)consentToolViewController:(CMPConsentViewController *)consentToolViewController didReceiveConsentString:(NSString *)consentString {
+    [consentToolViewController dismissViewControllerAnimated:YES completion:nil];
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"GDPR Consent"
+                                                                   message:consentString
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction * action) {
+                                                              NSLog(@"my text");
+                                                              [[PBTargetingParams sharedInstance] setSubjectToGDPR:YES];
+                                                                [[PBTargetingParams sharedInstance] setGdprConsentString:consentString];
+                                                              self.navigationItem.leftBarButtonItem = nil;
+                                                              
+                                                          }];
+
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:NO completion:nil];
+}
+
+- (void)consentToolViewController:(CMPConsentViewController *)consentToolViewController didReceiveURL:(NSURL *)url{
+    
+    UIApplication *application = [UIApplication sharedApplication];
+    if (@available(iOS 10.0, *)) {
+        [application openURL:url options:@{} completionHandler:nil];
+    } else {
+        // Fallback on earlier versions
+        [[UIApplication sharedApplication] openURL:url];
+        
+    }
 }
 
 @end

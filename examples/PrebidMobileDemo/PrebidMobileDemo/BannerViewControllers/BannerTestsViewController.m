@@ -55,6 +55,7 @@
     _adContainerView = [[UIView alloc] initWithFrame:CGRectMake(([[UIScreen mainScreen] bounds].size.width - width) / 2, 100, width, height)];
     [self.view addSubview:_adContainerView];
     
+    
     if ([adServer isEqualToString:kMoPubAdServer]) {
         _mopubAdView = [[MPAdView alloc] initWithAdUnitId:kMoPubBannerAdUnitId
                                                      size:CGSizeMake(width, height)];
@@ -73,7 +74,7 @@
         [_adContainerView addSubview:_dfpAdView];
         
         [PrebidMobile setBidKeywordsOnAdObject:_dfpAdView withAdUnitId:kAdUnit1Id withTimeout:600 completionHandler:^{
-            [_dfpAdView loadRequest:[DFPRequest request]];
+            [self.dfpAdView loadRequest:[DFPRequest request]];
         }];
     } else if ([adServer isEqualToString:kAdformAdServer]) {
         _adInline = [[AFAdInline alloc] initWithMasterTagId:kAdformAdInlineMTag

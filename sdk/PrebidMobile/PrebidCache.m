@@ -14,32 +14,163 @@
  */
 
 #import "PrebidCache.h"
+#import "PBLogging.h"
+#import <WebKit/Webkit.h>
 
-#if DEBUG
-#    define CHECK_FOR_PrebidCACHE_PLIST() if([key isEqualToString:@"PrebidCache.plist"]) { \
-NSLog(@"PrebidCache.plist is a reserved key and can not be modified."); \
-return; }
-#else
-#    define CHECK_FOR_PrebidCACHE_PLIST() if([key isEqualToString:@"PrebidCache.plist"]) return;
-#endif
+static NSInteger expireCacheMilliSeconds = 270000; // expire bids cached longer than 4.5 minutes (console stores them for the same time...)
 
-static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
-    key = [key stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-    return [directory stringByAppendingPathComponent:key];
+static NSString *const kPBAppTransportSecurityDictionaryKey = @"NSAppTransportSecurity";
+static NSString *const kPBAppTransportSecurityAllowsArbitraryLoadsKey = @"NSAllowsArbitraryLoads";
+
+@interface PrebidCacheOperation : NSOperation <UIWebViewDelegate, WKNavigationDelegate>
+{
+    BOOL executing;
+    BOOL finished;
 }
 
-#pragma mark -
+@property NSInteger loadingCount;
 
-@interface PrebidCache () {
-    dispatch_queue_t _cacheInfoQueue;
-    dispatch_queue_t _frozenCacheInfoQueue;
-    dispatch_queue_t _diskQueue;
-    NSMutableDictionary* _cacheInfo;
-    NSString* _directory;
-    BOOL _needsSave;
+@property NSURL *httpsHost;
+
+@property UIWebView *uiwebviewCache;
+@property WKWebView *wkwebviewCache;
+
+
+@property NSString* htmlToLoad;
+
+- (instancetype)initWithHTMLLoad: (NSString *) htmlToLoad withAdserver: (PBPrimaryAdServerType) adserver;
+@end
+
+@implementation PrebidCacheOperation
+- (instancetype)initWithHTMLLoad:(NSString *)htmlToLoad withAdserver: (PBPrimaryAdServerType) adserver
+{
+    if (self = [super init]) {
+        self.htmlToLoad = htmlToLoad;
+        executing = NO;
+        finished = NO;
+        
+        if(adserver == PBPrimaryAdServerDFP){
+            // We need UIWebView only for Mopub & not for DFP
+            _uiwebviewCache = [[UIWebView alloc] init];
+            _uiwebviewCache.frame = CGRectZero;
+            _uiwebviewCache.delegate = self;
+        }
+        _wkwebviewCache = [[WKWebView alloc] init];
+        _wkwebviewCache.frame = CGRectZero;
+        _wkwebviewCache.navigationDelegate = self;
+    
+        if (adserver == PBPrimaryAdServerDFP) {
+            _httpsHost = [NSURL URLWithString:@"https://pubads.g.doubleclick.net"];
+            _loadingCount = 2;
+        } else if (adserver == PBPrimaryAdServerMoPub){
+            // Grab the ATS dictionary from the Info.plist
+            NSDictionary *atsSettingsDictionary = [NSBundle mainBundle].infoDictionary[kPBAppTransportSecurityDictionaryKey];
+            if ([atsSettingsDictionary[kPBAppTransportSecurityAllowsArbitraryLoadsKey] boolValue]) {
+                _httpsHost = [NSURL URLWithString:@"http://ads.mopub.com"];
+            } else {
+                _httpsHost = [NSURL URLWithString:@"https://ads.mopub.com"];
+            }
+            _loadingCount = 1;
+        } else {
+            [self finishAndChangeState]; // TODO: check for a proper handling here
+        }
+    }
+    return self;
 }
 
-@property(nonatomic,copy) NSDictionary* frozenCacheInfo;
+-(void)start
+{
+    if ([self isCancelled])
+    {
+        // Must move the operation to the finished state if it is canceled.
+        [self willChangeValueForKey:@"isFinished"];
+        finished = YES;
+        [self didChangeValueForKey:@"isFinished"];
+        return;
+    }
+    // If the operation is not canceled, begin executing the task.
+    [self willChangeValueForKey:@"isExecuting"];
+    [NSThread detachNewThreadSelector:@selector(main) toTarget:self withObject:nil];
+    executing = YES;
+    [self didChangeValueForKey:@"isExecuting"];
+}
+
+-(void)main
+{
+    @try {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.wkwebviewCache removeFromSuperview];
+            UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+            [window addSubview:self.wkwebviewCache];
+            if(self.uiwebviewCache != nil){
+                [self.uiwebviewCache loadHTMLString:self.htmlToLoad baseURL:self.httpsHost];
+            }
+            [self.wkwebviewCache loadHTMLString:self.htmlToLoad baseURL:self.httpsHost];
+        });
+    }
+    @catch (NSException *exception) {
+        PBLogDebug(@"Catch the exception %@",[exception description]);
+    }
+    @finally {
+        PBLogDebug(@"Cache Operation - Main Method - Finally block");
+    }
+}
+
+-(BOOL)isConcurrent
+{
+    return YES;    //Default is NO so overriding it to return YES;
+}
+
+-(BOOL)isExecuting{
+    return executing;
+}
+
+-(BOOL)isFinished{
+    return finished;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    self.loadingCount--;
+    if (self.loadingCount == 0) {
+        [self finishAndChangeState];
+    }
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+    self.loadingCount--;
+    if (self.loadingCount == 0) {
+        [self finishAndChangeState];
+    }
+}
+
+- (void) finishAndChangeState
+{
+    __weak PrebidCacheOperation *weakSelf = self;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            __strong PrebidCacheOperation *strongSelf = weakSelf;
+            
+            [strongSelf.wkwebviewCache setNavigationDelegate:nil];
+            [strongSelf.wkwebviewCache setUIDelegate:nil];
+            
+            [strongSelf.wkwebviewCache removeFromSuperview];
+            strongSelf.wkwebviewCache = nil;
+            
+            [strongSelf willChangeValueForKey:@"isExecuting"];
+            strongSelf->executing = NO;
+            [strongSelf didChangeValueForKey:@"isExecuting"];
+            [strongSelf willChangeValueForKey:@"isFinished"];
+            strongSelf->finished = YES;
+            [strongSelf didChangeValueForKey:@"isFinished"];
+            
+        });
+}
+
+@end
+
+@interface PrebidCache ()
+@property NSOperationQueue *cacheQueue;
 @end
 
 @implementation PrebidCache
@@ -50,308 +181,36 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[[self class] alloc] init];
+        [instance setupQueue];
     });
     
     return instance;
 }
 
-- (instancetype)init {
-    NSString* cachesDirectory = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
-    NSString* oldCachesDirectory = [[[cachesDirectory stringByAppendingPathComponent:[[NSProcessInfo processInfo] processName]] stringByAppendingPathComponent:@"PrebidCache"] copy];
-    
-    if([[NSFileManager defaultManager] fileExistsAtPath:oldCachesDirectory]) {
-        [[NSFileManager defaultManager] removeItemAtPath:oldCachesDirectory error:NULL];
+-(void) setupQueue
+{
+    self.cacheQueue = [NSOperationQueue new];
+}
+
+- (void) cacheContents:(NSArray *)contents forAdserver:(PBPrimaryAdServerType)adserver withCompletionBlock:(void (^)(NSArray *))completionBlock
+{
+    long long milliseconds = (long long)([[NSDate date] timeIntervalSince1970] * 1000.0);
+    NSMutableString *htmlToLoad = [[NSMutableString alloc] init];
+    [htmlToLoad appendString:@"<head>"];
+    NSString *scriptString = [NSString stringWithFormat:@"<script>var currentTime = %lld;var toBeDeleted = [];for(i = 0; i< localStorage.length; i ++){if(localStorage.key(i).startsWith('Prebid_')) {createdTime = localStorage.key(i).split('_')[2];if (( currentTime - createdTime) > %ld){toBeDeleted.push(localStorage.key(i));}}}for ( i = 0; i< toBeDeleted.length; i ++) {localStorage.removeItem(toBeDeleted[i]);}</script>", milliseconds, (long) expireCacheMilliSeconds];
+    [htmlToLoad appendString:scriptString];
+    NSMutableArray *cacheIds = [[NSMutableArray alloc] init];
+    for (NSString *content in contents) {
+        NSString *cacheId = [NSString stringWithFormat:@"Prebid_%@_%lld", [NSString stringWithFormat:@"%08X", arc4random()], milliseconds];
+        [cacheIds addObject:cacheId];
+        [htmlToLoad appendString:[NSString stringWithFormat:@"<script>localStorage.setItem('%@','%@');</script>", cacheId, content]];
     }
-    
-    cachesDirectory = [[[cachesDirectory stringByAppendingPathComponent:[[NSBundle mainBundle] bundleIdentifier]] stringByAppendingPathComponent:@"PrebidCache"] copy];
-    return [self initWithCacheDirectory:cachesDirectory];
+    [htmlToLoad appendString:@"</head>"];
+    PrebidCacheOperation *cacheOperation = [[PrebidCacheOperation alloc] initWithHTMLLoad:htmlToLoad withAdserver:adserver];
+    cacheOperation.completionBlock = ^{ completionBlock(cacheIds);};
+    [self.cacheQueue addOperation:cacheOperation];
 }
 
-- (instancetype)initWithCacheDirectory:(NSString*)cacheDirectory {
-    if((self = [super init])) {
-        _cacheInfoQueue = dispatch_queue_create("com.enormprebid.prebidcache.info", DISPATCH_QUEUE_SERIAL);
-        dispatch_queue_t priority = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-        dispatch_set_target_queue(priority, _cacheInfoQueue);
-        
-        _frozenCacheInfoQueue = dispatch_queue_create("com.enormprebid.prebidcache.info.frozen", DISPATCH_QUEUE_SERIAL);
-        priority = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-        dispatch_set_target_queue(priority, _frozenCacheInfoQueue);
-        
-        _diskQueue = dispatch_queue_create("com.enormprebid.prebidcache.disk", DISPATCH_QUEUE_CONCURRENT);
-        priority = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
-        dispatch_set_target_queue(priority, _diskQueue);
-        
-        
-        _directory = cacheDirectory;
-        
-        _cacheInfo = [[NSDictionary dictionaryWithContentsOfFile:cachePathForKey(_directory, @"PrebidCache.plist")] mutableCopy];
-        
-        if(!_cacheInfo) {
-            _cacheInfo = [[NSMutableDictionary alloc] init];
-        }
-        
-        [[NSFileManager defaultManager] createDirectoryAtPath:_directory withIntermediateDirectories:YES attributes:nil error:NULL];
-        
-        NSTimeInterval now = [[NSDate date] timeIntervalSinceReferenceDate];
-        NSMutableArray* removedKeys = [[NSMutableArray alloc] init];
-        
-        for(NSString* key in _cacheInfo) {
-            if([_cacheInfo[key] timeIntervalSinceReferenceDate] <= now) {
-                [[NSFileManager defaultManager] removeItemAtPath:cachePathForKey(_directory, key) error:NULL];
-                [removedKeys addObject:key];
-            }
-        }
-        
-        [_cacheInfo removeObjectsForKeys:removedKeys];
-        self.frozenCacheInfo = _cacheInfo;
-        [self setDefaultTimeoutInterval:86400];
-    }
-    
-    return self;
-}
 
-- (void)clearCache {
-    dispatch_sync(_cacheInfoQueue, ^{
-        for(NSString* key in _cacheInfo) {
-            [[NSFileManager defaultManager] removeItemAtPath:cachePathForKey(_directory, key) error:NULL];
-        }
-        
-        [_cacheInfo removeAllObjects];
-        
-        dispatch_sync(_frozenCacheInfoQueue, ^{
-            self.frozenCacheInfo = [_cacheInfo copy];
-        });
-        
-        [self setNeedsSave];
-    });
-}
-
-- (void)removeCacheForKey:(NSString*)key {
-    CHECK_FOR_PrebidCACHE_PLIST();
-    
-    dispatch_async(_diskQueue, ^{
-        [[NSFileManager defaultManager] removeItemAtPath:cachePathForKey(_directory, key) error:NULL];
-    });
-    
-    [self setCacheTimeoutInterval:0 forKey:key];
-}
-
-- (BOOL)hasCacheForKey:(NSString*)key {
-    NSDate* date = [self dateForKey:key];
-    if(date == nil) return NO;
-    if([date timeIntervalSinceReferenceDate] < CFAbsoluteTimeGetCurrent()) return NO;
-    
-    return [[NSFileManager defaultManager] fileExistsAtPath:cachePathForKey(_directory, key)];
-}
-
-- (NSDate*)dateForKey:(NSString*)key {
-    __block NSDate* date = nil;
-    
-    dispatch_sync(_frozenCacheInfoQueue, ^{
-        date = (self.frozenCacheInfo)[key];
-    });
-    
-    return date;
-}
-
-- (NSArray*)allKeys {
-    __block NSArray* keys = nil;
-    
-    dispatch_sync(_frozenCacheInfoQueue, ^{
-        keys = [self.frozenCacheInfo allKeys];
-    });
-    
-    return keys;
-}
-
-- (void)setCacheTimeoutInterval:(NSTimeInterval)timeoutInterval forKey:(NSString*)key {
-    NSDate* date = timeoutInterval > 0 ? [NSDate dateWithTimeIntervalSinceNow:timeoutInterval] : nil;
-    
-    // Temporarily store in the frozen state for quick reads
-    dispatch_sync(_frozenCacheInfoQueue, ^{
-        NSMutableDictionary* info = [self.frozenCacheInfo mutableCopy];
-        
-        if(date) {
-            info[key] = date;
-        } else {
-            [info removeObjectForKey:key];
-        }
-        
-        self.frozenCacheInfo = info;
-    });
-    
-    // Save the final copy (this may be blocked by other operations)
-    dispatch_async(_cacheInfoQueue, ^{
-        if(date) {
-            _cacheInfo[key] = date;
-        } else {
-            [_cacheInfo removeObjectForKey:key];
-        }
-        
-        dispatch_sync(_frozenCacheInfoQueue, ^{
-            self.frozenCacheInfo = [_cacheInfo copy];
-        });
-        
-        [self setNeedsSave];
-    });
-}
-
-#pragma mark -
-#pragma mark Copy file methods
-
-- (void)copyFilePath:(NSString*)filePath asKey:(NSString*)key {
-    [self copyFilePath:filePath asKey:key withTimeoutInterval:self.defaultTimeoutInterval];
-}
-
-- (void)copyFilePath:(NSString*)filePath asKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
-    dispatch_async(_diskQueue, ^{
-        [[NSFileManager defaultManager] copyItemAtPath:filePath toPath:cachePathForKey(_directory, key) error:NULL];
-    });
-    
-    [self setCacheTimeoutInterval:timeoutInterval forKey:key];
-}
-
-#pragma mark -
-#pragma mark Data methods
-
-- (void)setData:(NSData*)data forKey:(NSString*)key {
-    [self setData:data forKey:key withTimeoutInterval:self.defaultTimeoutInterval];
-}
-
-- (void)setData:(NSData*)data forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
-    CHECK_FOR_PrebidCACHE_PLIST();
-    
-    NSString* cachePath = cachePathForKey(_directory, key);
-    
-    dispatch_async(_diskQueue, ^{
-        [data writeToFile:cachePath atomically:YES];
-    });
-    
-    [self setCacheTimeoutInterval:timeoutInterval forKey:key];
-}
-
-- (void)setNeedsSave {
-    dispatch_async(_cacheInfoQueue, ^{
-        if(_needsSave) return;
-        _needsSave = YES;
-        
-        double delayInSeconds = 0.5;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, _cacheInfoQueue, ^(void){
-            if(!_needsSave) return;
-            [_cacheInfo writeToFile:cachePathForKey(_directory, @"PrebidCache.plist") atomically:YES];
-            _needsSave = NO;
-        });
-    });
-}
-
-- (NSData*)dataForKey:(NSString*)key {
-    if([self hasCacheForKey:key]) {
-        return [NSData dataWithContentsOfFile:cachePathForKey(_directory, key) options:0 error:NULL];
-    } else {
-        return nil;
-    }
-}
-
-#pragma mark -
-#pragma mark String methods
-
-- (NSString*)stringForKey:(NSString*)key {
-    return [[NSString alloc] initWithData:[self dataForKey:key] encoding:NSUTF8StringEncoding];
-}
-
-- (void)setString:(NSString*)aString forKey:(NSString*)key {
-    [self setString:aString forKey:key withTimeoutInterval:self.defaultTimeoutInterval];
-}
-
-- (void)setString:(NSString*)aString forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
-    [self setData:[aString dataUsingEncoding:NSUTF8StringEncoding] forKey:key withTimeoutInterval:timeoutInterval];
-}
-
-#pragma mark -
-#pragma mark Image methds
-
-#if TARGET_OS_IPHONE
-
-- (UIImage*)imageForKey:(NSString*)key {
-    UIImage* image = nil;
-    
-    @try {
-        image = [NSKeyedUnarchiver unarchiveObjectWithFile:cachePathForKey(_directory, key)];
-    } @catch (NSException* e) {
-        // Surpress any unarchiving exceptions and continue with nil
-    }
-    
-    return image;
-}
-
-- (void)setImage:(UIImage*)anImage forKey:(NSString*)key {
-    [self setImage:anImage forKey:key withTimeoutInterval:self.defaultTimeoutInterval];
-}
-
-- (void)setImage:(UIImage*)anImage forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
-    @try {
-        // Using NSKeyedArchiver preserves all information such as scale, orientation, and the proper image format instead of saving everything as pngs
-        [self setData:[NSKeyedArchiver archivedDataWithRootObject:anImage] forKey:key withTimeoutInterval:timeoutInterval];
-    } @catch (NSException* e) {
-        // Something went wrong, but we'll fail silently.
-    }
-}
-
-#else
-
-- (NSImage*)imageForKey:(NSString*)key {
-    return [[NSImage alloc] initWithData:[self dataForKey:key]];
-}
-
-- (void)setImage:(NSImage*)anImage forKey:(NSString*)key {
-    [self setImage:anImage forKey:key withTimeoutInterval:self.defaultTimeoutInterval];
-}
-
-- (void)setImage:(NSImage*)anImage forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
-    [self setData:[[NSBitmapImageRep imageRepWithData:anImage.TIFFRepresentation] representationUsingType:NSPNGFileType properties:@{ }] forKey:key withTimeoutInterval:timeoutInterval];
-}
-
-#endif
-
-#pragma mark -
-#pragma mark Property List methods
-
-- (NSData*)plistForKey:(NSString*)key; {
-    NSData* plistData = [self dataForKey:key];
-    return [NSPropertyListSerialization propertyListWithData:plistData options:NSPropertyListImmutable format:nil error:nil];
-}
-
-- (void)setPlist:(id)plistObject forKey:(NSString*)key; {
-    [self setPlist:plistObject forKey:key withTimeoutInterval:self.defaultTimeoutInterval];
-}
-
-- (void)setPlist:(id)plistObject forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval; {
-    // Binary plists are used over XML for better performance
-    NSData* plistData = [NSPropertyListSerialization dataWithPropertyList:plistObject format:NSPropertyListBinaryFormat_v1_0 options:0 error:nil];
-    
-    if(plistData != nil) {
-        [self setData:plistData forKey:key withTimeoutInterval:timeoutInterval];
-    }
-}
-
-#pragma mark -
-#pragma mark Object methods
-
-- (id<NSCoding>)objectForKey:(NSString*)key {
-    if([self hasCacheForKey:key]) {
-        return [NSKeyedUnarchiver unarchiveObjectWithData:[self dataForKey:key]];
-    } else {
-        return nil;
-    }
-}
-
-- (void)setObject:(id<NSCoding>)anObject forKey:(NSString*)key {
-    [self setObject:anObject forKey:key withTimeoutInterval:self.defaultTimeoutInterval];
-}
-
-- (void)setObject:(id<NSCoding>)anObject forKey:(NSString*)key withTimeoutInterval:(NSTimeInterval)timeoutInterval {
-    [self setData:[NSKeyedArchiver archivedDataWithRootObject:anObject] forKey:key withTimeoutInterval:timeoutInterval];
-}
 
 @end

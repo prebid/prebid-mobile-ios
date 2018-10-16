@@ -43,5 +43,4 @@
 
 + (void) shouldLoadOverSecureConnection:(BOOL) secureConnection;
 
-
 @end

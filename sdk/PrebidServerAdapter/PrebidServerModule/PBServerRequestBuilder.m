@@ -22,7 +22,7 @@
 #import "PBServerLocation.h"
 
 
-static NSString *const kPrebidMobileVersion = @"0.2.1";
+static NSString *const kPrebidMobileVersion = @"0.5.1";
 
 @implementation PBServerRequestBuilder
 
@@ -38,13 +38,13 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     return _sharedInstance;
 }
 
-- (NSURLRequest *_Nullable)buildRequest:(nullable NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID shouldCacheLocal:(BOOL) isLocal withSecureParams:(BOOL) isSecure {
+- (NSURLRequest *_Nullable)buildRequest:(nullable NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID withSecureParams:(BOOL) isSecure {
     
     NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:self.hostURL
                                                                        cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                                    timeoutInterval:1000];
     [mutableRequest setHTTPMethod:@"POST"];
-    NSDictionary *requestBody = [self openRTBRequestBodyForAdUnits:adUnits withAccountId:accountID shouldCacheLocal:isLocal withSecureParams:isSecure];
+    NSDictionary *requestBody = [self openRTBRequestBodyForAdUnits:adUnits withAccountId:accountID withSecureParams:isSecure];
     NSError *error;
     NSData *postData = [NSJSONSerialization dataWithJSONObject:requestBody
                                                        options:kNilOptions
@@ -57,7 +57,7 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     }
 }
 
-- (NSDictionary *)openRTBRequestBodyForAdUnits:(NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID shouldCacheLocal:(BOOL) isLocalCache withSecureParams:(BOOL) isSecure{
+- (NSDictionary *)openRTBRequestBodyForAdUnits:(NSArray<PBAdUnit *> *)adUnits withAccountId:(NSString *) accountID withSecureParams:(BOOL) isSecure{
     NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
     
     requestDict[@"id"] = [[NSUUID UUID] UUIDString];
@@ -69,15 +69,7 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     }
     requestDict[@"user"] = [self openrtbUser];
     requestDict[@"imp"] = [self openrtbImpsFromAdUnits:adUnits withSecureSettings:isSecure];
-    requestDict[@"ext"] = [self openrtbRequestExtension:isLocalCache];
-    
-    
-    
-    
-    
-#ifndef DEBUG
-    requestDict[@"test"] = @(TRUE);
-#endif
+    requestDict[@"ext"] = [self openrtbRequestExtension:accountID];
     
     return [requestDict copy];
 }
@@ -90,14 +82,12 @@ static NSString *const kPrebidMobileVersion = @"0.2.1";
     return sourceDict;
 }
 
-- (NSDictionary *)openrtbRequestExtension:(BOOL) isLocalCache {
+- (NSDictionary *)openrtbRequestExtension: (NSString *)accountId
+{
     NSMutableDictionary *requestPrebidExt = [[NSMutableDictionary alloc] init];
-    
-    if (isLocalCache == FALSE) {
-        requestPrebidExt[@"cache"] = @{@"bids" : [[NSMutableDictionary alloc] init]};
-    }
-    requestPrebidExt[@"targeting"] = @{@"lengthmax" : @(20), @"pricegranularity":@"medium"};
-    
+    requestPrebidExt[@"targeting"] = @{};
+    requestPrebidExt[@"storedrequest"] = @{@"id" :accountId};
+    requestPrebidExt[@"cache"] = @{@"bids" : [[NSMutableDictionary alloc] init]};
     NSMutableDictionary *requestExt = [[NSMutableDictionary alloc] init];
     requestExt[@"prebid"] = requestPrebidExt;
     return [requestExt copy];

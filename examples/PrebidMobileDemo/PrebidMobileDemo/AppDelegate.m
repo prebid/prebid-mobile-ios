@@ -23,6 +23,7 @@
 #import <PrebidMobile/PBLogging.h>
 #import "Constants.h"
 #import "SettingsViewController.h"
+#import <CMPReference/CMPStorage.h>
 
 @interface AppDelegate ()
 
@@ -86,9 +87,13 @@
 
 - (void)setPrebidTargetingParams {
     [[PBTargetingParams sharedInstance] setAge:25];
-    [[PBTargetingParams sharedInstance] setGender:PBTargetingParamsGenderFemale];
-    [[PBTargetingParams sharedInstance] setCustomTargeting:@"country" withValues:@[@"india", @"malaysia"]];
-    [[PBTargetingParams sharedInstance] setCustomTargeting:@"race" withValues:@[@"asian", @"hispanic", @"asian"]];
+    [[PBTargetingParams sharedInstance] setGender:PBTargetingParamsGenderFemale];    
+    CMPStorage *consentStorageVC = [[CMPStorage alloc] init];
+    
+    if(consentStorageVC.cmpPresent  && consentStorageVC.consentString.length != 0){
+        [[PBTargetingParams sharedInstance] setSubjectToGDPR:YES];
+        [[PBTargetingParams sharedInstance] setGdprConsentString:consentStorageVC.consentString];
+    }
 }
 
 // Location Manager Delegate Methods
