@@ -23,10 +23,12 @@ static NSString *const kIFASentinelValue = @"00000000-0000-0000-0000-00000000000
 NSString *PBSUserAgent() {
     static NSString *userAgent = nil;
     if (userAgent == nil) {
-        UIWebView *webview = [[UIWebView alloc] init];
-        userAgent = [[webview stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"] copy];
-        webview.delegate = nil;
-        [webview stopLoading];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIWebView *webview = [[UIWebView alloc] init];
+            userAgent = [[webview stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"] copy];
+            webview.delegate = nil;
+            [webview stopLoading];
+        });
     }
     return userAgent;
 }
@@ -80,5 +82,9 @@ NSString *PBSConvertToNSString(id value) {
 }
 
 @implementation PBServerGlobal
+
++ (void)load {
+    PBSUserAgent();
+}
 
 @end

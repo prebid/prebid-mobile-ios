@@ -1,12 +1,12 @@
 //
 //  MPMRAIDInterstitialViewController.m
-//  MoPub
 //
-//  Copyright (c) 2012 MoPub, Inc. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPMRAIDInterstitialViewController.h"
-#import "MPInstanceProvider.h"
 #import "MPAdConfiguration.h"
 #import "MRController.h"
 
@@ -31,7 +31,9 @@
         CGFloat width = MAX(configuration.preferredSize.width, 1);
         CGFloat height = MAX(configuration.preferredSize.height, 1);
         CGRect frame = CGRectMake(0, 0, width, height);
-        self.mraidController = [[MPInstanceProvider sharedProvider] buildInterstitialMRControllerWithFrame:frame delegate:self];
+        self.mraidController = [[MRController alloc] initWithAdViewFrame:frame
+                                                         adPlacementType:MRAdViewPlacementTypeInterstitial
+                                                                delegate:self];
 
         self.configuration = configuration;
         self.orientationType = [self.configuration orientationType];
@@ -161,7 +163,7 @@
 {
     _supportedOrientationMask = supportedOrientationMask;
 
-    // This should be called whenever the return value of -shouldAutorotateToInterfaceOrientation changes. Since the return
+    // This should be called whenever the return value of -supportedInterfaceOrientations changes. Since the return
     // value is based on _supportedOrientationMask, we do that here. Prevents possible rotation bugs.
     [UIViewController attemptRotationToDeviceOrientation];
 }
@@ -188,12 +190,6 @@
 - (BOOL)shouldAutorotate
 {
     return YES;
-}
-
-// shouldAutorotateToInterfaceOrientation is for ios 5.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return [[UIApplication sharedApplication] mp_doesOrientation:interfaceOrientation matchOrientationMask:self.supportedOrientationMask];
 }
 
 @end

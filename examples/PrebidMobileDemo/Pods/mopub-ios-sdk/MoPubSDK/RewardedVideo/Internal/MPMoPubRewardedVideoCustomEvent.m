@@ -1,13 +1,13 @@
 //
 //  MPMoPubRewardedVideoCustomEvent.m
-//  MoPubSDK
 //
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPMoPubRewardedVideoCustomEvent.h"
 #import "MPMRAIDInterstitialViewController.h"
-#import "MPInstanceProvider.h"
 #import "MPLogging.h"
 #import "MPRewardedVideoReward.h"
 #import "MPAdConfiguration.h"
@@ -29,8 +29,8 @@
 - (void)requestRewardedVideoWithCustomEventInfo:(NSDictionary *)info
 {
     MPLogInfo(@"Loading MoPub rewarded video");
-    self.interstitial = [[MPInstanceProvider sharedProvider] buildMPMRAIDInterstitialViewControllerWithDelegate:self
-                                                                                                  configuration:[self.delegate configuration]];
+    self.interstitial = [[MPMRAIDInterstitialViewController alloc] initWithAdConfiguration:[self.delegate configuration]];
+    self.interstitial.delegate = self;
 
     [self.interstitial setCloseButtonStyle:MPInterstitialCloseButtonStyleAlwaysHidden];
     [self.interstitial startLoading];

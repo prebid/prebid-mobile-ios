@@ -1,9 +1,9 @@
 //
 //  MPProgressOverlayView.h
-//  MoPub
 //
-//  Created by Andrew He on 7/18/12.
-//  Copyright 2012 MoPub, Inc. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <UIKit/UIKit.h>

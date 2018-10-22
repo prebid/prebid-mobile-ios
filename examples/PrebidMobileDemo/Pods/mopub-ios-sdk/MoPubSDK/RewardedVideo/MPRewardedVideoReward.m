@@ -1,8 +1,9 @@
 //
 //  MPRewardedVideoReward.m
-//  MoPubSDK
 //
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPRewardedVideoReward.h"
@@ -15,7 +16,7 @@ NSInteger const kMPRewardedVideoRewardCurrencyAmountUnspecified = 0;
 - (instancetype)initWithCurrencyType:(NSString *)currencyType amount:(NSNumber *)amount
 {
     if (self = [super init]) {
-        _currencyType = [NSString stringWithUTF8String:[currencyType cStringUsingEncoding:NSISOLatin1StringEncoding]];
+        _currencyType = currencyType;
         _amount = amount;
     }
 

@@ -1,6 +1,9 @@
 //
 //  MOPUBFullscreenPlayerViewController.m
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <AVFoundation/AVFoundation.h>
@@ -9,16 +12,20 @@
 #import "MOPUBPlayerViewController.h"
 #import "MPAdDestinationDisplayAgent.h"
 #import "MPCoreInstanceProvider.h"
+#import "MPHTTPNetworkSession.h"
 #import "MPGlobal.h"
+#import "MPLogging.h"
+#import "MPMemoryCache.h"
 #import "MPNativeAdConstants.h"
+#import "MPURLRequest.h"
 #import "MOPUBActivityIndicatorView.h"
 #import "UIView+MPAdditions.h"
 #import "UIButton+MPAdditions.h"
 #import "UIColor+MPAdditions.h"
 
-static CGFloat const kDaaIconFullscreenLeftMargin = 16.0f;
-static CGFloat const kDaaIconFullscreenTopMargin = 16.0f;
-static CGFloat const kDaaIconSize = 16.0f;
+static CGFloat const kPrivacyIconFullscreenLeftMargin = 16.0f;
+static CGFloat const kPrivacyIconFullscreenTopMargin = 16.0f;
+static CGFloat const kPrivacyIconSize = 16.0f;
 static CGFloat const kCloseButtonRightMargin = 16.0f;
 static CGFloat const kDefaultButtonTouchAreaInsets = 10.0f;
 
@@ -46,7 +53,7 @@ static CGFloat const kStallSpinnerSize = 35.0f;
 @interface MOPUBFullscreenPlayerViewController () <MPAdDestinationDisplayAgentDelegate, MOPUBPlayerViewControllerDelegate>
 
 // UI components
-@property (nonatomic) UIButton *daaButton;
+@property (nonatomic) UIButton *privacyButton;
 @property (nonatomic) UIButton *closeButton;
 @property (nonatomic) UIButton *ctaButton;
 @property (nonatomic) MOPUBActivityIndicatorView *stallSpinner;
@@ -59,11 +66,18 @@ static CGFloat const kStallSpinnerSize = 35.0f;
 @property (nonatomic) MPAdDestinationDisplayAgent *displayAgent;
 @property (nonatomic, copy) MOPUBFullScreenPlayerViewControllerDismissBlock dismissBlock;
 
+// Overrides
+@property (nonatomic, copy) NSString * overridePrivacyIcon;
+@property (nonatomic, strong) UIImage * overridePrivacyIconImage;
+@property (nonatomic, copy) NSString * overridePrivacyClickUrl;
+
 @end
 
 @implementation MOPUBFullscreenPlayerViewController
 
-- (instancetype)initWithVideoPlayer:(MOPUBPlayerViewController *)playerController dismissBlock:(MOPUBFullScreenPlayerViewControllerDismissBlock)dismissBlock
+- (instancetype)initWithVideoPlayer:(MOPUBPlayerViewController *)playerController
+                 nativeAdProperties:(NSDictionary *)properties
+                       dismissBlock:(MOPUBFullScreenPlayerViewControllerDismissBlock)dismissBlock
 {
     if (self = [super init]) {
         _playerController = playerController;
@@ -71,7 +85,10 @@ static CGFloat const kStallSpinnerSize = 35.0f;
         _playerView = self.playerController.playerView;
         _playerController.delegate = self;
         _dismissBlock = [dismissBlock copy];
-        _displayAgent = [[MPCoreInstanceProvider sharedProvider] buildMPAdDestinationDisplayAgentWithDelegate:self];
+        _displayAgent = [MPAdDestinationDisplayAgent agentWithDelegate:self];
+        _overridePrivacyIcon = properties[kAdPrivacyIconImageUrlKey];
+        _overridePrivacyIconImage = properties[kAdPrivacyIconUIImageKey];
+        _overridePrivacyClickUrl = properties[kAdPrivacyIconClickUrlKey];
     }
     return self;
 }
@@ -88,12 +105,12 @@ static CGFloat const kStallSpinnerSize = 35.0f;
 
     [self createAndAddGradientView];
 
-    self.daaButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.daaButton.frame = CGRectMake(0, 0, kDaaIconSize, kDaaIconSize);
-    [self.daaButton setImage:[UIImage imageNamed:MPResourcePathForResource(kDAAIconImageName)] forState:UIControlStateNormal];
-    [self.daaButton addTarget:self action:@selector(daaButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-    self.daaButton.mp_TouchAreaInsets = UIEdgeInsetsMake(kDefaultButtonTouchAreaInsets, kDefaultButtonTouchAreaInsets, kDefaultButtonTouchAreaInsets, kDefaultButtonTouchAreaInsets);
-    [self.view addSubview:self.daaButton];
+    self.privacyButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.privacyButton.frame = CGRectMake(0, 0, kPrivacyIconSize, kPrivacyIconSize);
+    [self setPrivacyIconImageForButton:self.privacyButton];
+    [self.privacyButton addTarget:self action:@selector(privacyButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    self.privacyButton.mp_TouchAreaInsets = UIEdgeInsetsMake(kDefaultButtonTouchAreaInsets, kDefaultButtonTouchAreaInsets, kDefaultButtonTouchAreaInsets, kDefaultButtonTouchAreaInsets);
+    [self.view addSubview:self.privacyButton];
 
     self.closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.closeButton setImage:[UIImage imageNamed:MPResourcePathForResource(kCloseButtonImage)] forState:UIControlStateNormal];
@@ -121,6 +138,38 @@ static CGFloat const kStallSpinnerSize = 35.0f;
     // Once the video enters fullscreen mode, we should resume the playback if it is paused.
     if (self.playerController.paused) {
         [self.playerController resume];
+    }
+}
+
+- (void)setPrivacyIconImageForButton:(UIButton *)button
+{
+    if (button == nil) {
+        return;
+    }
+
+    // A cached privacy information icon image exists; it should be used.
+    if (self.overridePrivacyIconImage != nil) {
+        [button setImage:self.overridePrivacyIconImage forState:UIControlStateNormal];
+    }
+    // No cached privacy information icon image was cached, but there is a URL for the
+    // icon. Go fetch the icon and populate the UIImageView when complete.
+    else if (self.overridePrivacyIcon != nil) {
+        NSURL *iconUrl = [NSURL URLWithString:self.overridePrivacyIcon];
+        MPURLRequest *imageRequest = [MPURLRequest requestWithURL:iconUrl];
+
+        [MPHTTPNetworkSession startTaskWithHttpRequest:imageRequest responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+            // Cache the successfully retrieved icon image
+            [MPMemoryCache.sharedInstance setData:data forKey:self.overridePrivacyIcon];
+
+            // Populate the button
+            [button setImage:[UIImage imageWithData:data] forState:UIControlStateNormal];
+        } errorHandler:^(NSError * _Nonnull error) {
+            MPLogInfo(@"Failed to retrieve privacy icon from %@", self.overridePrivacyIcon);
+        }];
+    }
+    // Default to built in MoPub privacy icon.
+    else {
+        [button setImage:[UIImage imageNamed:MPResourcePathForResource(kPrivacyIconImageName)] forState:UIControlStateNormal];
     }
 }
 
@@ -180,7 +229,7 @@ static CGFloat const kStallSpinnerSize = 35.0f;
     [super viewWillLayoutSubviews];
 
     [self layoutPlayerView];
-    [self layoutDaaButton];
+    [self layoutPrivacyButton];
     [self layoutCloseButton];
     [self layoutCtaButton];
     [self layoutStallSpinner];
@@ -202,18 +251,18 @@ static CGFloat const kStallSpinnerSize = 35.0f;
     }
 }
 
-- (void)layoutDaaButton
+- (void)layoutPrivacyButton
 {
-    self.daaButton.mp_x = kDaaIconFullscreenLeftMargin;
-    self.daaButton.mp_y = kDaaIconFullscreenTopMargin;
+    self.privacyButton.mp_x = kPrivacyIconFullscreenLeftMargin;
+    self.privacyButton.mp_y = kPrivacyIconFullscreenTopMargin;
 }
 
 - (void)layoutCloseButton
 {
     CGSize screenSize = MPScreenBounds().size;
     self.closeButton.mp_x = screenSize.width - kCloseButtonRightMargin - self.closeButton.mp_width;
-    CGFloat daaCenterY = self.daaButton.frame.origin.y + self.daaButton.mp_height/2.0f;
-    self.closeButton.mp_y = daaCenterY - self.closeButton.mp_height/2.0f;
+    CGFloat privacyCenterY = self.privacyButton.frame.origin.y + self.privacyButton.mp_height/2.0f;
+    self.closeButton.mp_y = privacyCenterY - self.closeButton.mp_height/2.0f;
     self.closeButton.frame = CGRectIntegral(self.closeButton.frame);
 }
 
@@ -279,9 +328,15 @@ static CGFloat const kStallSpinnerSize = 35.0f;
     [self.displayAgent displayDestinationForURL:self.playerController.defaultActionURL];
 }
 
-- (void)daaButtonTapped
+- (void)privacyButtonTapped
 {
-    [self.displayAgent displayDestinationForURL:[NSURL URLWithString:kDAAIconTapDestinationURL]];
+    NSURL *defaultPrivacyClickUrl = [NSURL URLWithString:kPrivacyIconTapDestinationURL];
+    NSURL *overridePrivacyClickUrl = ({
+        NSString *url = self.overridePrivacyClickUrl;
+        (url != nil ? [NSURL URLWithString:url] : nil);
+    });
+
+    [self.displayAgent displayDestinationForURL:(overridePrivacyClickUrl != nil ? overridePrivacyClickUrl : defaultPrivacyClickUrl)];
 }
 
 #pragma mark - MOPUBPlayerViewControllerDelegate
@@ -293,7 +348,7 @@ static CGFloat const kStallSpinnerSize = 35.0f;
 
 - (void)playerViewController:(MOPUBPlayerViewController *)playerViewController willShowReplayView:(MOPUBPlayerView *)view
 {
-    [self.view bringSubviewToFront:self.daaButton];
+    [self.view bringSubviewToFront:self.privacyButton];
 }
 
 - (void)playerViewController:(MOPUBPlayerViewController *)playerViewController didStall:(MOPUBAVPlayer *)player

@@ -1,8 +1,9 @@
 //
 //  MRExpandModalViewController.m
-//  MoPubSDK
 //
-//  Copyright (c) 2014 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MRExpandModalViewController.h"
@@ -90,12 +91,6 @@
 - (BOOL)shouldAutorotate
 {
     return YES;
-}
-
-// shouldAutorotateToInterfaceOrientation is for ios 5.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return [[UIApplication sharedApplication] mp_doesOrientation:interfaceOrientation matchOrientationMask:self.supportedOrientationMask];
 }
 
 #pragma mark - <MPClosableViewDelegate>

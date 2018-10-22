@@ -1,6 +1,9 @@
 //
 //  MOPUBNativeVideoAdRenderer.m
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MOPUBNativeVideoAdRenderer.h"
@@ -24,6 +27,9 @@
 #import "MOPUBNativeVideoImpressionAgent.h"
 #import "MOPUBPlayerViewController.h"
 #import "MPNativeAdRenderingImageLoader.h"
+#import "MPURLRequest.h"
+#import "MPHTTPNetworkSession.h"
+#import "MPMemoryCache.h"
 
 static const CGFloat kAutoPlayTimerInterval = 0.25f;
 
@@ -112,31 +118,70 @@ static const CGFloat kAutoPlayTimerInterval = 0.25f;
     }
 
     if ([self.adView respondsToSelector:@selector(nativePrivacyInformationIconImageView)]) {
-        // MoPub ads pass the privacy information icon key through the properties dictionary.
-        NSString *daaIconImageLoc = [adapter.properties objectForKey:kAdDAAIconImageKey];
-        if (daaIconImageLoc) {
+        UIImage *privacyIconImage = [adapter.properties objectForKey:kAdPrivacyIconUIImageKey];
+        NSString *privacyIconImageUrl = [adapter.properties objectForKey:kAdPrivacyIconImageUrlKey];
+        // A cached privacy information icon image exists; it should be used.
+        if (privacyIconImage != nil) {
             UIImageView *imageView = self.adView.nativePrivacyInformationIconImageView;
             imageView.hidden = NO;
+            imageView.image = privacyIconImage;
 
-            UIImage *daaIconImage = [UIImage imageNamed:daaIconImageLoc];
-            imageView.image = daaIconImage;
-
-            // Attach a gesture recognizer to handle loading the daa icon URL.
-            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(DAAIconTapped)];
+            // Attach a gesture recognizer to handle loading the privacy icon URL.
+            UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onPrivacyIconTapped)];
             imageView.userInteractionEnabled = YES;
             [imageView addGestureRecognizer:tapRecognizer];
-        } else if ([adapter respondsToSelector:@selector(privacyInformationIconView)]) {
-            // The ad network may provide its own view for its privacy information icon. We assume the ad handles the tap on the icon as well.
+        }
+        // No cached privacy information icon image was cached, but there is a URL for the
+        // icon. Go fetch the icon and populate the UIImageView when complete.
+        else if (privacyIconImageUrl != nil) {
+            NSURL *iconUrl = [NSURL URLWithString:privacyIconImageUrl];
+            MPURLRequest *imageRequest = [MPURLRequest requestWithURL:iconUrl];
+
+            __weak __typeof__(self) weakSelf = self;
+            [MPHTTPNetworkSession startTaskWithHttpRequest:imageRequest responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+                // Cache the successfully retrieved icon image
+                [MPMemoryCache.sharedInstance setData:data forKey:privacyIconImageUrl];
+
+                // Populate the image view
+                __typeof__(self) strongSelf = weakSelf;
+                UIImageView *imageView = strongSelf.adView.nativePrivacyInformationIconImageView;
+                imageView.hidden = NO;
+                imageView.image = [UIImage imageWithData:data];
+
+                // Attach a gesture recognizer to handle loading the privacy icon URL.
+                UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:strongSelf action:@selector(onPrivacyIconTapped)];
+                imageView.userInteractionEnabled = YES;
+                [imageView addGestureRecognizer:tapRecognizer];
+            } errorHandler:^(NSError * _Nonnull error) {
+                MPLogInfo(@"Failed to retrieve privacy icon from %@", privacyIconImageUrl);
+            }];
+        }
+        // The ad network may provide its own view for its privacy information icon.
+        // We assume the ad handles the tap on the icon as well.
+        else if ([adapter respondsToSelector:@selector(privacyInformationIconView)]) {
             UIView *privacyIconAdView = [adapter privacyInformationIconView];
             privacyIconAdView.frame = self.adView.nativePrivacyInformationIconImageView.bounds;
             privacyIconAdView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
             self.adView.nativePrivacyInformationIconImageView.userInteractionEnabled = YES;
             [self.adView.nativePrivacyInformationIconImageView addSubview:privacyIconAdView];
             self.adView.nativePrivacyInformationIconImageView.hidden = NO;
-        } else {
+        }
+        // No privacy icon
+        else {
             self.adView.nativePrivacyInformationIconImageView.userInteractionEnabled = NO;
             self.adView.nativePrivacyInformationIconImageView.hidden = YES;
         }
+    }
+
+    if ([self hasIconView]) {
+        UIView *iconView = [self.adapter iconMediaView];
+        UIView *iconImageView = [self.adView nativeIconImageView];
+
+        iconView.frame = iconImageView.bounds;
+        iconView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        iconImageView.userInteractionEnabled = YES;
+
+        [iconImageView addSubview:iconView];
     }
 
     if ([self shouldLoadMediaView]) {
@@ -170,7 +215,14 @@ static const CGFloat kAutoPlayTimerInterval = 0.25f;
         && [self.adView respondsToSelector:@selector(nativeMainImageView)];
 }
 
-- (void)DAAIconTapped
+- (BOOL)hasIconView
+{
+    return [self.adapter respondsToSelector:@selector(iconMediaView)]
+        && [self.adapter iconMediaView]
+        && [self.adView respondsToSelector:@selector(nativeIconImageView)];
+}
+
+- (void)onPrivacyIconTapped
 {
     if ([self.adapter respondsToSelector:@selector(displayContentForDAAIconTap)]) {
         [self.adapter displayContentForDAAIconTap];
@@ -182,8 +234,8 @@ static const CGFloat kAutoPlayTimerInterval = 0.25f;
     self.adViewInViewHierarchy = (superview != nil);
 
     if (superview) {
-        // We'll start asychronously loading the native ad images now.
-        if ([self.adapter.properties objectForKey:kAdIconImageKey] && [self.adView respondsToSelector:@selector(nativeIconImageView)]) {
+        // Only handle the loading of the icon image if the adapter doesn't already have a view for it.
+        if (![self hasIconView] && [self.adapter.properties objectForKey:kAdIconImageKey] && [self.adView respondsToSelector:@selector(nativeIconImageView)]) {
             [self.rendererImageHandler loadImageForURL:[NSURL URLWithString:[self.adapter.properties objectForKey:kAdIconImageKey]] intoImageView:self.adView.nativeIconImageView];
         }
 
@@ -285,7 +337,7 @@ static const CGFloat kAutoPlayTimerInterval = 0.25f;
 #pragma mark - Internal
 - (void)enterFullscreen:(UIViewController *)fromViewController
 {
-    MOPUBFullscreenPlayerViewController *vc = [[MOPUBFullscreenPlayerViewController alloc] initWithVideoPlayer:self.videoController dismissBlock:^(UIView *originalParentView) {
+    MOPUBFullscreenPlayerViewController *vc = [[MOPUBFullscreenPlayerViewController alloc] initWithVideoPlayer:self.videoController nativeAdProperties:self.adapter.properties dismissBlock:^(UIView *originalParentView) {
         self.videoController.view.frame = originalParentView.bounds;
         self.videoController.delegate = self;
         [self.videoController willExitFullscreen];
@@ -323,8 +375,7 @@ static const CGFloat kAutoPlayTimerInterval = 0.25f;
         if (!self.videoController || self.videoController.disposed) {
             createdNewVideoController = YES;
             self.videoController = [[MOPUBPlayerManager sharedInstance] playerViewControllerWithVideoConfig:self.videoConfig
-                                                                                        nativeVideoAdConfig:self.nativeVideoAdConfig
-                                                                                         logEventProperties:[self.adapter.properties valueForKey:kLogEventRequestPropertiesKey]];
+                                                                                        nativeVideoAdConfig:self.nativeVideoAdConfig];
             self.videoController.defaultActionURL = self.adapter.defaultActionURL;
             self.videoController.displayMode = MOPUBPlayerDisplayModeInline;
             self.videoController.delegate = self;

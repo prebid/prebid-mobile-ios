@@ -1,8 +1,9 @@
 //
 //  MPRewardedVideoAdapter.h
-//  MoPubSDK
 //
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <Foundation/Foundation.h>
@@ -10,6 +11,7 @@
 #import "MPPrivateRewardedVideoCustomEventDelegate.h"
 
 @class MPAdConfiguration;
+@class MPAdTargeting;
 @class MPRewardedVideoReward;
 
 @protocol MPRewardedVideoAdapterDelegate;
@@ -31,8 +33,9 @@
  * Called to retrieve an ad once we get a response from the server.
  *
  * @param configuration Contains the details about the ad we are loading.
+ 8 @param targeting Optional ad targeting details for the ad we are loading.
  */
-- (void)getAdWithConfiguration:(MPAdConfiguration *)configuration;
+- (void)getAdWithConfiguration:(MPAdConfiguration *)configuration targeting:(MPAdTargeting *)targeting;
 
 /**
  * Tells the caller whether the underlying ad network currently has an ad available for presentation.

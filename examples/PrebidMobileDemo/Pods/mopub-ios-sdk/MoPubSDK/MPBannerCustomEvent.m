@@ -1,20 +1,26 @@
 //
 //  MPBannerCustomEvent.m
-//  MoPub
 //
-//  Copyright (c) 2012 MoPub, Inc. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPBannerCustomEvent.h"
 
 @implementation MPBannerCustomEvent
 
-@synthesize delegate;
-
 - (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info
 {
     // The default implementation of this method does nothing. Subclasses must override this method
     // and implement code to load a banner here.
+}
+
+- (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info adMarkup:(NSString *)adMarkup
+{
+    // By default, the original requestAdWithSize:customEventInfo: method will be called.
+    // Otherwise subclasses must override this method and implement code to load a banner here.
+    [self requestAdWithSize:size customEventInfo:info];
 }
 
 - (void)didDisplayAd

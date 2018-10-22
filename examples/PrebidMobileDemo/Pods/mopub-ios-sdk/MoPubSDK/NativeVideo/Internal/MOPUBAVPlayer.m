@@ -1,11 +1,14 @@
 //
 //  MOPUBAVPlayer.m
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
-#import "MPReachability.h"
 #import "MOPUBAVPlayer.h"
 #import "MPLogging.h"
+#import "MPReachabilityManager.h"
 #import "MPTimer.h"
 #import "MPCoreInstanceProvider.h"
 
@@ -20,7 +23,6 @@ static NSString * const MPAVPlayerItemLoadErrorTemplate = @"Loading player item 
 @property (nonatomic, copy) NSURL *mediaURL;
 @property (nonatomic) MPTimer *playbackTimer;
 @property (nonatomic) CMTime lastContinuousPlaybackCMTime;
-@property (nonatomic) MPReachability *reachability;
 @property (nonatomic) BOOL playbackDidStall;
 
 @end
@@ -36,9 +38,8 @@ static NSString * const MPAVPlayerItemLoadErrorTemplate = @"Loading player item 
 
             // AVPlayer KVO doesn't handle disconnect/reconnect case.
             // Reachability is used to detect network drop and reconnect.
-            _reachability = [MPReachability reachabilityForInternetConnection];
-            [_reachability startNotifier];
             [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(checkNetworkStatus:) name:kMPReachabilityChangedNotification object:nil];
+            [MPReachabilityManager.sharedManager startMonitoring];
         }
         return self;
     } else {
@@ -169,7 +170,7 @@ static NSString * const MPAVPlayerItemLoadErrorTemplate = @"Loading player item 
 #pragma mark - disconnect/reconnect handling
 - (void)checkNetworkStatus:(NSNotification *)notice
 {
-    MPNetworkStatus remoteHostStatus = [self.reachability currentReachabilityStatus];
+    MPNetworkStatus remoteHostStatus = MPReachabilityManager.sharedManager.currentStatus;
 
     if (remoteHostStatus == MPNotReachable) {
         if (!self.rate) {
@@ -225,7 +226,7 @@ static NSString * const MPAVPlayerItemLoadErrorTemplate = @"Loading player item 
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
     [self stopTimeObserver];
-    [self.reachability stopNotifier];
+    [MPReachabilityManager.sharedManager stopMonitoring];
     if (_playbackTimer) {
         [_playbackTimer invalidate];
         _playbackTimer = nil;

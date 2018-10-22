@@ -1,43 +1,66 @@
 //
 //  MPAPIEndpoints.m
-//  MoPub
 //
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPAPIEndpoints.h"
 #import "MPConstants.h"
 #import "MPCoreInstanceProvider.h"
 
+// URL scheme constants
+static NSString * const kUrlSchemeHttp = @"http";
+static NSString * const kUrlSchemeHttps = @"https";
+
+// Base URL constant
+static NSString * const kMoPubBaseHostname = @"ads.mopub.com";
+
 @implementation MPAPIEndpoints
 
-static BOOL sUsesHTTPS = YES;
+#pragma mark - baseHostname property
 
+static NSString * _baseHostname = nil;
++ (void)setBaseHostname:(NSString *)baseHostname {
+    _baseHostname = baseHostname;
+}
+
++ (NSString *)baseHostname {
+    if (_baseHostname == nil || [_baseHostname isEqualToString:@""]) {
+        return kMoPubBaseHostname;
+    }
+
+    return _baseHostname;
+}
+
+#pragma mark - setUsesHTTPS
+
+static BOOL sUsesHTTPS = YES;
 + (void)setUsesHTTPS:(BOOL)usesHTTPS
 {
     sUsesHTTPS = usesHTTPS;
 }
 
+#pragma mark - baseURL
+
 + (NSString *)baseURL
 {
     if ([[MPCoreInstanceProvider sharedProvider] appTransportSecuritySettings] == MPATSSettingEnabled) {
-        return [@"https://" stringByAppendingString:MOPUB_BASE_HOSTNAME];
+        return [@"https://" stringByAppendingString:self.baseHostname];
     }
 
-    return [@"http://" stringByAppendingString:MOPUB_BASE_HOSTNAME];
+    return [@"http://" stringByAppendingString:self.baseHostname];
 }
 
-+ (NSString *)baseURLScheme
++ (NSURLComponents *)baseURLComponentsWithPath:(NSString *)path
 {
-    return sUsesHTTPS ? @"https://" : @"http://";
-}
+    NSURLComponents * components = [[NSURLComponents alloc] init];
+    components.scheme = (sUsesHTTPS ? kUrlSchemeHttps : kUrlSchemeHttp);
+    components.host = self.baseHostname;
+    components.path = path;
 
-+ (NSString *)baseURLStringWithPath:(NSString *)path testing:(BOOL)testing
-{
-    return [NSString stringWithFormat:@"%@%@%@",
-            [[self class] baseURLScheme],
-            testing ? MOPUB_BASE_HOSTNAME_FOR_TESTING : MOPUB_BASE_HOSTNAME,
-            path];
+    return components;
 }
 
 @end

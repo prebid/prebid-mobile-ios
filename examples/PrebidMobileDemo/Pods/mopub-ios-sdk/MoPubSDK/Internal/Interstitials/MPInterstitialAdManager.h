@@ -1,14 +1,15 @@
 //
 //  MPInterstitialAdManager.h
-//  MoPub
 //
-//  Copyright (c) 2012 MoPub, Inc. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPAdServerCommunicator.h"
 #import "MPBaseInterstitialAdapter.h"
 
-@class CLLocation;
+@class MPAdTargeting;
 @protocol MPInterstitialAdManagerDelegate;
 
 @interface MPInterstitialAdManager : NSObject <MPAdServerCommunicatorDelegate,
@@ -19,10 +20,7 @@
 
 - (id)initWithDelegate:(id<MPInterstitialAdManagerDelegate>)delegate;
 
-- (void)loadInterstitialWithAdUnitID:(NSString *)ID
-                            keywords:(NSString *)keywords
-                            location:(CLLocation *)location
-                             testing:(BOOL)testing;
+- (void)loadInterstitialWithAdUnitID:(NSString *)ID targeting:(MPAdTargeting *)targeting;
 - (void)presentInterstitialFromViewController:(UIViewController *)controller;
 
 @end

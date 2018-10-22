@@ -1,6 +1,9 @@
 //
 //  MOPUBPlayerManager.m
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MOPUBPlayerManager.h"
@@ -33,14 +36,14 @@
     self.currentPlayerViewController = nil;
 }
 
-- (MOPUBPlayerViewController *)playerViewControllerWithVideoConfig:(MPVideoConfig *)videoConfig nativeVideoAdConfig:(MOPUBNativeVideoAdConfigValues *)nativeVideoAdConfig logEventProperties:(MPAdConfigurationLogEventProperties *)logEventProperties
+- (MOPUBPlayerViewController *)playerViewControllerWithVideoConfig:(MPVideoConfig *)videoConfig nativeVideoAdConfig:(MOPUBNativeVideoAdConfigValues *)nativeVideoAdConfig
 {
     // make sure only one instance of avPlayer at a time
     if (self.currentPlayerViewController) {
         [self disposePlayerViewController];
     }
 
-    self.currentPlayerViewController = [[MOPUBPlayerViewController alloc] initWithVideoConfig:videoConfig nativeVideoAdConfig:nativeVideoAdConfig logEventProperties:logEventProperties];
+    self.currentPlayerViewController = [[MOPUBPlayerViewController alloc] initWithVideoConfig:videoConfig nativeVideoAdConfig:nativeVideoAdConfig];
     return self.currentPlayerViewController;
 }
 

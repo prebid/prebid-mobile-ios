@@ -1,14 +1,14 @@
 //
 //  MPHTMLInterstitialCustomEvent.m
-//  MoPub
 //
-//  Copyright (c) 2013 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPHTMLInterstitialCustomEvent.h"
 #import "MPLogging.h"
 #import "MPAdConfiguration.h"
-#import "MPInstanceProvider.h"
 
 @interface MPHTMLInterstitialCustomEvent ()
 
@@ -36,8 +36,10 @@
     MPAdConfiguration *configuration = [self.delegate configuration];
     MPLogTrace(@"Loading HTML interstitial with source: %@", [configuration adResponseHTMLString]);
 
-    self.interstitial = [[MPInstanceProvider sharedProvider] buildMPHTMLInterstitialViewControllerWithDelegate:self
-                                                                                               orientationType:configuration.orientationType];
+    self.interstitial = [[MPHTMLInterstitialViewController alloc] init];
+    self.interstitial.delegate = self;
+    self.interstitial.orientationType = configuration.orientationType;
+
     [self.interstitial loadConfiguration:configuration];
 }
 

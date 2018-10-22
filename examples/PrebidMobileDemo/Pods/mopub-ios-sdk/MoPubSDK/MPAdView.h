@@ -1,9 +1,9 @@
 //
 //  MPAdView.h
-//  MoPub
 //
-//  Created by Nafis Jamal on 1/19/11.
-//  Copyright 2011 MoPub, Inc. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <UIKit/UIKit.h>
@@ -58,7 +58,16 @@ typedef enum
 @property (nonatomic, copy) NSString *adUnitId;
 
 /**
- * A string representing a set of keywords that should be passed to the MoPub ad server to receive
+ * A string representing a set of non-personally identifiable keywords that should be passed to the MoPub ad server to receive
+ * more relevant advertising.
+
+ * Note: If a user is in General Data Protection Regulation (GDPR) region and MoPub doesn't obtain consent from the user, "keywords" will still be sent to the server.
+ *
+ */
+@property (nonatomic, copy) NSString *keywords;
+
+/**
+ * A string representing a set of personally identifiable keywords that should be passed to the MoPub ad server to receive
  * more relevant advertising.
  *
  * Keywords are typically used to target ad campaigns at specific user segments. They should be
@@ -66,8 +75,10 @@ typedef enum
  *
  * On the MoPub website, keyword targeting options can be found under the "Advanced Targeting"
  * section when managing campaigns.
+
+* Note: If a user is in General Data Protection Regulation (GDPR) region and MoPub doesn't obtain consent from the user, "userDataKeywords" will not be sent to the server.
  */
-@property (nonatomic, copy) NSString *keywords;
+@property (nonatomic, copy) NSString *userDataKeywords;
 
 /**
  * A `CLLocation` object representing a user's location that should be passed to the MoPub ad server
@@ -75,16 +86,10 @@ typedef enum
  */
 @property (nonatomic, copy) CLLocation *location;
 
-/** @name Enabling Test Mode */
-
 /**
- * A Boolean value that determines whether the ad view should request ads in test mode.
- *
- * The default value is NO.
- * @warning **Important**: If you set this value to YES, make sure to reset it to NO before
- * submitting your application to the App Store.
+ * An optional dictionary containing extra local data.
  */
-@property (nonatomic, assign, getter = isTesting) BOOL testing;
+@property (nonatomic, copy) NSDictionary *localExtras;
 
 /** @name Loading a Banner Ad */
 

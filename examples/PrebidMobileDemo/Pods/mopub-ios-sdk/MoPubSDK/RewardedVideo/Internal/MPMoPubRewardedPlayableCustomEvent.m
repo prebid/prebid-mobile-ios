@@ -1,14 +1,14 @@
 //
 //  MPMoPubRewardedPlayableCustomEvent.m
-//  MoPubSDK
 //
-//  Copyright © 2016 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPMoPubRewardedPlayableCustomEvent.h"
 #import "MPMRAIDInterstitialViewController.h"
 #import "MPAdConfiguration.h"
-#import "MPInstanceProvider.h"
 #import "MPLogging.h"
 #import "MPRewardedVideoError.h"
 #import "MPCountdownTimerView.h"

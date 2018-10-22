@@ -1,16 +1,30 @@
 //
 //  MPIdentityProvider.h
-//  MoPub
 //
-//  Copyright (c) 2013 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <Foundation/Foundation.h>
 
 @interface MPIdentityProvider : NSObject
 
+/**
+ * Return IDFA if it's available. If IDFA is not available or contains only 0s, return MoPub rotation ID that changes every 24 hours.
+ */
 + (NSString *)identifier;
+
+/**
+ * Return IDFA if it's available. If IDFA is not available or contains only 0s, return nil.
+ */
++ (NSString *)identifierFromASIdentifierManager:(BOOL)obfuscate;
+
+/**
+* Return MoPub UUID
+*/
 + (NSString *)obfuscatedIdentifier;
+
 + (BOOL)advertisingTrackingEnabled;
 
 /**

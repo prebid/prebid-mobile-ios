@@ -51,10 +51,6 @@
 /// idempotent and should not crash regardless of when or how many times the method is called.
 - (void)stopBeingDelegate;
 
-/// Some ad transition types may cause issues with particular Ad SDKs. The adapter may decide
-/// whether the given animation type is OK. Defaults to YES.
-- (BOOL)isBannerAnimationOK:(GADMBannerAnimationType)animType;
-
 /// Present an interstitial using the supplied UIViewController, by calling
 /// presentViewController:animated:completion:.
 ///
@@ -76,7 +72,8 @@
 /// ad object using the receiver's connector method
 /// adapter:didReceiveNativeAdDataSource:mediationDelegate or adapter:didFailAd: if the ad request
 /// encountered an error.
-- (void)getNativeAdWithAdTypes:(NSArray *)adTypes options:(NSArray *)options;
+- (void)getNativeAdWithAdTypes:(NSArray<GADAdLoaderAdType> *)adTypes
+                       options:(NSArray<GADAdLoaderOptions *> *)options;
 
 /// Indicates if the adapter handles user clicks. If this method returns YES, the adapter must
 /// handle user clicks and notify the Google Mobile Ads SDK of clicks using

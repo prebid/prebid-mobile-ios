@@ -1,12 +1,15 @@
 //
 //  MPAdConversionTracker.h
-//  MoPub
 //
-//  Created by Andrew He on 2/4/11.
-//  Copyright 2011 MoPub, Inc. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <Foundation/Foundation.h>
+
+#define MOPUB_CONVERSION_DEFAULTS_KEY @"com.mopub.conversion"
+#define MOPUB_CONVERSION_APP_ID_KEY @"com.mopub.conversion.appId"
 
 /**
  * The `MPAdConversionTracker` class provides a mechanism for reporting application download
@@ -22,7 +25,7 @@
  * events.
  */
 
-@interface MPAdConversionTracker : NSObject <NSURLConnectionDataDelegate>
+@interface MPAdConversionTracker : NSObject
 
 /** @name Recording Conversions */
 

@@ -1,8 +1,9 @@
 //
 //  MRBridge.h
-//  MoPubSDK
 //
-//  Copyright (c) 2014 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <UIKit/UIKit.h>
@@ -24,7 +25,7 @@
 @property (nonatomic, assign) BOOL shouldHandleRequests;
 @property (nonatomic, weak) id<MRBridgeDelegate> delegate;
 
-- (instancetype)initWithWebView:(MPWebView *)webView;
+- (instancetype)initWithWebView:(MPWebView *)webView delegate:(id<MRBridgeDelegate>)delegate;
 
 - (void)loadHTMLString:(NSString *)HTML baseURL:(NSURL *)baseURL;
 

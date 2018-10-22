@@ -1,55 +1,51 @@
 //
 //  MPAnalyticsTracker.m
-//  MoPub
 //
-//  Copyright (c) 2013 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPAnalyticsTracker.h"
 #import "MPAdConfiguration.h"
 #import "MPCoreInstanceProvider.h"
+#import "MPHTTPNetworkSession.h"
 #import "MPLogging.h"
-
-@interface MPAnalyticsTracker ()
-
-- (NSURLRequest *)requestForURL:(NSURL *)URL;
-
-@end
+#import "MPURLRequest.h"
 
 @implementation MPAnalyticsTracker
 
-+ (MPAnalyticsTracker *)tracker
++ (MPAnalyticsTracker *)sharedTracker
 {
-    return [[MPAnalyticsTracker alloc] init];
+    static MPAnalyticsTracker * sharedTracker = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedTracker = [[self alloc] init];
+    });
+    return sharedTracker;
 }
 
 - (void)trackImpressionForConfiguration:(MPAdConfiguration *)configuration
 {
-    MPLogDebug(@"Tracking impression: %@", configuration.impressionTrackingURL);
-    [NSURLConnection connectionWithRequest:[self requestForURL:configuration.impressionTrackingURL]
-                                  delegate:nil];
+    // Take the @c impressionTrackingURLs array from @c configuration and use the @c sendTrackingRequestForURLs method
+    // to actually send the requests.
+    MPLogDebug(@"Tracking impression: %@", configuration.impressionTrackingURLs.firstObject);
+    [self sendTrackingRequestForURLs:configuration.impressionTrackingURLs];
 }
 
 - (void)trackClickForConfiguration:(MPAdConfiguration *)configuration
 {
     MPLogDebug(@"Tracking click: %@", configuration.clickTrackingURL);
-    [NSURLConnection connectionWithRequest:[self requestForURL:configuration.clickTrackingURL]
-                                  delegate:nil];
+    MPURLRequest * request = [[MPURLRequest alloc] initWithURL:configuration.clickTrackingURL];
+    [MPHTTPNetworkSession startTaskWithHttpRequest:request];
 }
 
 - (void)sendTrackingRequestForURLs:(NSArray *)URLs
 {
     for (NSURL *URL in URLs) {
-        NSURLRequest *trackingRequest = [self requestForURL:URL];
-        [NSURLConnection connectionWithRequest:trackingRequest delegate:nil];
+        MPURLRequest * trackingRequest = [[MPURLRequest alloc] initWithURL:URL];
+        [MPHTTPNetworkSession startTaskWithHttpRequest:trackingRequest];
     }
-}
-
-- (NSURLRequest *)requestForURL:(NSURL *)URL
-{
-    NSMutableURLRequest *request = [[MPCoreInstanceProvider sharedProvider] buildConfiguredURLRequestWithURL:URL];
-    request.cachePolicy = NSURLRequestReloadIgnoringCacheData;
-    return request;
 }
 
 @end

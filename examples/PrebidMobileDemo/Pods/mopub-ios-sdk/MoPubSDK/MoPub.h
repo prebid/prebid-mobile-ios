@@ -1,30 +1,39 @@
 //
 //  MoPub.h
-//  MoPub
 //
-//  Copyright (c) 2014 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPConstants.h"
 
 #import "MOPUBDisplayAgentType.h"
 #import "MPAdConversionTracker.h"
+#import "MPAdImpressionTimer.h"
+#import "MPAdTargeting.h"
+#import "MPAdvancedBidder.h"
 #import "MPAdView.h"
 #import "MPBannerCustomEvent.h"
 #import "MPBannerCustomEventDelegate.h"
+#import "MPBool.h"
+#import "MPConsentChangedNotification.h"
+#import "MPConsentError.h"
+#import "MPConsentStatus.h"
+#import "MPError.h"
 #import "MPGlobal.h"
 #import "MPIdentityProvider.h"
 #import "MPInterstitialAdController.h"
 #import "MPInterstitialCustomEvent.h"
 #import "MPInterstitialCustomEventDelegate.h"
 #import "MPLogging.h"
-#import "MPLogEvent.h"
-#import "MPLogEventRecorder.h"
 #import "MPLogLevel.h"
 #import "MPLogProvider.h"
+#import "MPMediationSdkInitializable.h"
 #import "MPMediationSettingsProtocol.h"
+#import "MPMoPubConfiguration.h"
+#import "MPRealTimeTimer.h"
 #import "MPRewardedVideo.h"
-#import "MPRewardedVideoNetwork.h"
 #import "MPRewardedVideoReward.h"
 #import "MPRewardedVideoCustomEvent.h"
 #import "MPRewardedVideoCustomEvent+Caching.h"
@@ -42,6 +51,8 @@
 #import "MPNativeAdRendering.h"
 #import "MPNativeAdRequest.h"
 #import "MPNativeAdRequestTargeting.h"
+#import "MPNativeView.h"
+#import "MPNativeAdUtils.h"
 #import "MPCollectionViewAdPlacer.h"
 #import "MPTableViewAdPlacer.h"
 #import "MPClientAdPositioning.h"
@@ -52,6 +63,7 @@
 #import "MPNativeAdRendererSettings.h"
 #import "MPNativeAdRenderer.h"
 #import "MPStaticNativeAdRenderer.h"
+#import "MPNativeAdRendererImageHandler.h"
 #import "MOPUBNativeVideoAdRendererSettings.h"
 #import "MOPUBNativeVideoAdRenderer.h"
 #import "MPNativeAdRenderingImageLoader.h"
@@ -74,6 +86,8 @@
 
 #define MoPubKit [MoPub sharedInstance]
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MoPub : NSObject
 
 /**
@@ -81,7 +95,7 @@
  *
  * @return The MoPub singleton object.
  */
-+ (MoPub *)sharedInstance;
++ (MoPub * _Nonnull)sharedInstance;
 
 /**
  * A Boolean value indicating whether the MoPub SDK should use Core Location APIs to automatically
@@ -92,10 +106,13 @@
  * This only occurs if location services are enabled and the user has already authorized the use
  * of location services for the application. The default value is YES.
  *
+ * If a user is in General Data Protection Regulation (GDPR) region and
+ * MoPub doesn't obtain consent from the user for using his/her personal data,
+ * locationUpdatesEnabled will always be set to NO.
+ *
  * @return A Boolean value indicating whether the SDK should listen for location updates.
  */
 @property (nonatomic, assign) BOOL locationUpdatesEnabled;
-
 
 /**
  * A Boolean value indicating whether the MoPub SDK should create a MoPub ID that can be used
@@ -118,45 +135,36 @@
  */
 @property (nonatomic, assign) MPLogLevel logLevel;
 
-/** @name Rewarded Video */
 /**
- * Initializes the rewarded video system and preinitializes all cached rewarded video network SDKs.
- *
- * This method should only be called once. It should also be called prior to requesting any rewarded video ads.
- * Once the global mediation settings and delegate are set, they cannot be changed for the rest of the app session.
- *
- * @param globalMediationSettings Global configurations for all rewarded video ad networks your app supports.
- * @param delegate The delegate that will receive all events related to rewarded video.
+ * A boolean value indicating whether advanced bidding is enabled. This boolean defaults to `YES`.
+ * To disable advanced bidding, set this value to `NO`.
  */
-- (void)initializeRewardedVideoWithGlobalMediationSettings:(NSArray *)globalMediationSettings
-                                                  delegate:(id<MPRewardedVideoDelegate>)delegate;
+@property (nonatomic, assign) BOOL enableAdvancedBidding;
 
-/** @name Rewarded Video */
 /**
- * Initializes the rewarded video system and preinitializes all specified rewarded video network SDKs.
- *
- * This method should only be called once at app launch, prior to requesting any rewarded video ads.
- * Once the global mediation settings and delegate are set, they cannot be changed the rest of the app session.
- *
- * @param globalMediationSettings Global configurations for all rewarded video ad networks your app supports.
- * @param delegate The delegate that will receive all events related to rewarded video.
- * @param order An array of rewarded video custom event networks to preinitialize. For convenience, use
- * the constants from `MPRewardedVideoNetwork`. If `nil` is passed in, no network SDKs will be preinitialized.
+ * Initializes the MoPub SDK asynchronously on a background thread.
+ * @remark This should be called from the app's `application:didFinishLaunchingWithOptions:` method.
+ * @param configuration Required SDK configuration options.
+ * @param completionBlock Optional completion block that will be called when initialization has completed.
  */
-- (void)initializeRewardedVideoWithGlobalMediationSettings:(NSArray *)globalMediationSettings
-                                                  delegate:(id<MPRewardedVideoDelegate>)delegate
-                                networkInitializationOrder:(NSArray<NSString *> *)order;
+- (void)initializeSdkWithConfiguration:(MPMoPubConfiguration * _Nonnull)configuration
+                            completion:(void(^_Nullable)(void))completionBlock;
+
+/**
+ * A boolean value indicating if the SDK has been initialized. This property's value is @c YES if
+ * @c initializeSdkWithConfiguration:completion: has been called and completed; the value is @c NO otherwise.
+ */
+@property (nonatomic, readonly) BOOL isSdkInitialized;
 
 /**
  * Retrieves the global mediation settings for a given class type.
  *
  * @param aClass The type of mediation settings object you want to receive from the collection.
  */
-- (id<MPMediationSettingsProtocol>)globalMediationSettingsForClass:(Class)aClass;
+- (id<MPMediationSettingsProtocol> _Nullable)globalMediationSettingsForClass:(Class)aClass;
 
-- (void)start;
-- (NSString *)version;
-- (NSString *)bundleIdentifier;
+- (NSString * _Nonnull)version;
+- (NSString * _Nonnull)bundleIdentifier;
 
 /**
  * Default is MOPUBDisplayAgentTypeInApp = 0.
@@ -178,3 +186,169 @@
 - (void)disableViewability:(MPViewabilityOption)vendors;
 
 @end
+
+@interface MoPub (Mediation)
+/**
+ * Retrieves all currently cached mediated networks.
+ * @return A list of all cached networks or @c nil.
+ */
+- (NSArray<Class<MPMediationSdkInitializable>> * _Nullable)allCachedNetworks;
+
+/**
+ * Clears all currently cached mediated networks.
+ */
+- (void)clearCachedNetworks;
+
+@end
+
+@interface MoPub (Consent)
+
+/**
+ * Querying Consent State
+ */
+
+/**
+ * Flag indicating that personally identifiable information can be collected.
+ */
+@property (nonatomic, readonly) BOOL canCollectPersonalInfo;
+
+/**
+ * Gives the current consent status of this user.
+ * Note: NSNotification with name @c kMPConsentChangedNotification can be listened for to be informed of changes
+ * in the @c currentConsentStatus value. Please see MPConsentChangedNotification.h for more information on this
+ * notification.
+ */
+@property (nonatomic, readonly) MPConsentStatus currentConsentStatus;
+
+/**
+ * Flag indicating that GDPR is applicable to the user.
+ */
+@property (nonatomic, readonly) MPBool isGDPRApplicable;
+
+/**
+ * When called, @c isGDPRApplicable will always be set to @c MPBoolYes, and GDPR will apply to this user
+ * regardless of any other conditions.
+ * Note: This property's value is persisted for the lifetime of the app and cannot be unset.
+ */
+- (void)forceGDPRApplicable;
+
+/**
+ * Consent Acquisition
+ */
+
+/**
+ * `YES` if a consent dialog is presently loaded and ready to be shown; `NO` otherwise
+ */
+@property (nonatomic, readonly) BOOL isConsentDialogReady;
+
+/**
+ * Attempts to load a consent dialog. `completion` is called when either the consent dialog has finished loading
+ * or has failed to load. If there was an error, the `error` parameter will be non-nil.
+ */
+- (void)loadConsentDialogWithCompletion:(void (^ _Nullable)(NSError * _Nullable error))completion;
+
+/**
+ * If a consent dialog is currently loaded, this method will present it modally on top of @c viewController. If no
+ * consent dialog is loaded, this method will do nothing. @c didShow is called upon successful presentation of the
+ * consent dialog; otherwise it is not called. @c didDismiss is called after the dismissal of the consent dialog;
+ * otherwise (including if the dialog failed to present) it is not called.
+ */
+- (void)showConsentDialogFromViewController:(UIViewController *)viewController
+                                    didShow:(void (^ _Nullable)(void))didShow
+                                 didDismiss:(void (^ _Nullable)(void))didDismiss;
+
+/**
+ * If a consent dialog is currently loaded, this method will present it modally on top of @c viewController. If no
+ * consent dialog is loaded, this method will do nothing. @c completion is called upon successful presentation of the
+ * consent dialog; otherwise it is not called.
+ */
+- (void)showConsentDialogFromViewController:(UIViewController *)viewController completion:(void (^ _Nullable)(void))completion;
+
+/**
+ * Flag indicating that consent needs to be acquired (or reacquired) by the user, and that the consent dialog may need
+ * to be shown. (Note: This flag can be used for publishers that require use of MoPub's consent dialog, as well as
+ * publishers that specify their own consent interface)
+ */
+@property (nonatomic, readonly) BOOL shouldShowConsentDialog;
+
+/**
+ * Custom Consent Interface
+ * Note: publishers must have explicit permission from MoPub to use their own consent interface.
+ */
+
+/**
+ URL to the MoPub privacy policy in the device's preferred language. If the device's
+ preferred language could not be determined, English will be used.
+ @returns The privacy policy URL for the desired language if successful; @c nil if
+ there is no current vendor list.
+ */
+- (NSURL * _Nullable)currentConsentPrivacyPolicyUrl;
+
+/**
+ URL to the MoPub privacy policy in the language of choice.
+ @param isoLanguageCode ISO 630-1 language code
+ @returns The privacy policy URL for the desired language if successful; @c nil if the
+ language code is invalid or if there is no current vendor list.
+ */
+- (NSURL * _Nullable)currentConsentPrivacyPolicyUrlWithISOLanguageCode:(NSString * _Nonnull)isoLanguageCode;
+
+/**
+ Current vendor list URL in the device's preferred language. If the device's
+ preferred language could not be determined, English will be used.
+ @returns The vendor list URL for the desired language if successful; @c nil if
+ there is no current vendor list.
+ */
+- (NSURL * _Nullable)currentConsentVendorListUrl;
+
+/**
+ Current vendor list URL in the language of choice.
+ @param isoLanguageCode ISO 630-1 language code
+ @returns The vendor list URL for the desired language if successful; @c nil if the
+ language code is invalid or if there is no current vendor list.
+ */
+- (NSURL * _Nullable)currentConsentVendorListUrlWithISOLanguageCode:(NSString * _Nonnull)isoLanguageCode;
+
+/**
+ * Grants consent on behalf of the current user. If you do not have permission from MoPub to use a custom consent
+ * interface, this method will always fail to grant consent.
+ */
+- (void)grantConsent;
+
+/**
+ * Revokes consent on behalf of the current user.
+ */
+- (void)revokeConsent;
+
+/**
+ * Current IAB format vendor list.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString * currentConsentIabVendorListFormat;
+
+/**
+ * Current version of MoPub’s privacy policy.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString * currentConsentPrivacyPolicyVersion;
+
+/**
+ * Current version of the vendor list.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString * currentConsentVendorListVersion;
+
+/**
+ * IAB vendor list that has been consented to.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString * previouslyConsentedIabVendorListFormat;
+
+/**
+ * MoPub privacy policy version that has been consented to.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString * previouslyConsentedPrivacyPolicyVersion;
+
+/**
+ * Vendor list version that has been consented to.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString * previouslyConsentedVendorListVersion;
+
+@end
+
+NS_ASSUME_NONNULL_END

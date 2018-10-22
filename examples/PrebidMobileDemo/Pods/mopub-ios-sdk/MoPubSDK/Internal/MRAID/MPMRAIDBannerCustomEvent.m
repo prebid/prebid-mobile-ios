@@ -1,14 +1,14 @@
 //
 //  MPMRAIDBannerCustomEvent.m
-//  MoPub
 //
-//  Copyright (c) 2013 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPMRAIDBannerCustomEvent.h"
 #import "MPLogging.h"
 #import "MPAdConfiguration.h"
-#import "MPInstanceProvider.h"
 #import "MRController.h"
 #import "MPWebView.h"
 #import "MPViewabilityTracker.h"
@@ -32,7 +32,9 @@
                                  configuration.preferredSize.height);
     }
 
-    self.mraidController = [[MPInstanceProvider sharedProvider] buildBannerMRControllerWithFrame:adViewFrame delegate:self];
+    self.mraidController = [[MRController alloc] initWithAdViewFrame:adViewFrame
+                                                     adPlacementType:MRAdViewPlacementTypeInline
+                                                            delegate:self];
     [self.mraidController loadAdWithConfiguration:configuration];
 }
 
@@ -87,7 +89,7 @@
     [self.delegate bannerCustomEventDidFinishAction:self];
 }
 
-- (void)trackMPXAndThirdPartyImpressions
+- (void)trackImpressionsIncludedInMarkup
 {
     [self.mraidController.mraidWebView stringByEvaluatingJavaScriptFromString:@"webviewDidAppear();"];
 }

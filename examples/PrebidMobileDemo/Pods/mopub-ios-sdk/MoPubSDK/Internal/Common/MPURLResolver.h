@@ -1,8 +1,9 @@
 //
 //  MPURLResolver.h
-//  MoPub
 //
-//  Copyright (c) 2013 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <UIKit/UIKit.h>
@@ -11,7 +12,7 @@
 
 typedef void (^MPURLResolverCompletionBlock)(MPURLActionInfo *actionInfo, NSError *error);
 
-@interface MPURLResolver : NSObject <NSURLConnectionDataDelegate>
+@interface MPURLResolver : NSObject
 
 + (instancetype)resolverWithURL:(NSURL *)URL completion:(MPURLResolverCompletionBlock)completion;
 - (void)start;

@@ -1,8 +1,9 @@
 //
 //  MPVASTModel.m
-//  MoPub
 //
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPVASTModel.h"
@@ -41,6 +42,10 @@ id<MPObjectMapper> MPParseClass(Class destinationClass)
 
 - (id)mappedObjectFromSourceObject:(id)object
 {
+    if (![object isKindOfClass:self.requiredSourceObjectClass]) {
+        return nil;
+    }
+
     NSString *URLString = [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return [NSURL URLWithString:URLString];
 }
@@ -58,6 +63,10 @@ id<MPObjectMapper> MPParseClass(Class destinationClass)
 
 - (id)mappedObjectFromSourceObject:(id)object
 {
+    if (![object isKindOfClass:self.requiredSourceObjectClass]) {
+        return nil;
+    }
+
     return @([MPVASTStringUtilities timeIntervalFromString:object]);
 }
 
@@ -96,6 +105,10 @@ id<MPObjectMapper> MPParseClass(Class destinationClass)
 
 - (id)mappedObjectFromSourceObject:(id)object
 {
+    if (![object isKindOfClass:self.requiredSourceObjectClass]) {
+        return nil;
+    }
+
     return [self.numberFormatter numberFromString:object];
 }
 
@@ -133,6 +146,10 @@ id<MPObjectMapper> MPParseClass(Class destinationClass)
 
 - (id)mappedObjectFromSourceObject:(id)object
 {
+    if (![object isKindOfClass:self.requiredSourceObjectClass]) {
+        return nil;
+    }
+
     if (![self.destinationClass isSubclassOfClass:[MPVASTModel class]] ||
         ![self.destinationClass instancesRespondToSelector:@selector(initWithDictionary:)]) {
         return nil;
@@ -175,23 +192,39 @@ id<MPObjectMapper> MPParseClass(Class destinationClass)
 
 - (id)mappedObjectFromSourceObject:(id)object
 {
-    NSMutableArray *result = [NSMutableArray array];
-
-    if ([object isKindOfClass:[NSArray class]]) {
-        for (id obj in object) {
-            id model = [self.mapper mappedObjectFromSourceObject:obj];
-            if (model) {
-                [result addObject:model];
-            }
-        }
-    } else if ([object isKindOfClass:[self.mapper requiredSourceObjectClass]]) {
-        id model = [self.mapper mappedObjectFromSourceObject:object];
-        if (model) {
-            [result addObject:model];
-        }
+    // If the input isn't a type we recognize, return nil immediately
+    if (![object isKindOfClass:self.requiredSourceObjectClass] &&
+        ![object isKindOfClass:self.mapper.requiredSourceObjectClass]) {
+        return nil;
     }
 
-    return result;
+    // If the input isn't an array, return the mapped version of this object encapsulated in an array.
+    if ([object isKindOfClass:self.mapper.requiredSourceObjectClass]) {
+        id mappedObject = [self.mapper mappedObjectFromSourceObject:object];
+
+        // If mapping failed, return nil
+        if (mappedObject == nil) {
+            return nil;
+        }
+
+        // If mapping succeeded, return an array with the mapped object
+        return @[mappedObject];
+    }
+
+    // Otherwise, an array was passed in.
+    // Map each object in the original array into a new array and return that array.
+
+    NSArray * originalArray = (NSArray *)object;
+    NSMutableArray * mappedArray = [NSMutableArray arrayWithCapacity:originalArray.count];
+
+    [originalArray enumerateObjectsUsingBlock:^(id object, NSUInteger index, BOOL * stop){
+        id mappedObject = [self.mapper mappedObjectFromSourceObject:object];
+        if (mappedObject != nil) {
+            [mappedArray addObject:mappedObject];
+        }
+    }];
+
+    return mappedArray.count == 0 ? nil : mappedArray;
 }
 
 - (Class)requiredSourceObjectClass

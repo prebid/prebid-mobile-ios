@@ -1,19 +1,21 @@
 //
 //  MPInterstitialCustomEventAdapter.m
-//  MoPub
 //
-//  Copyright (c) 2012 MoPub, Inc. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPInterstitialCustomEventAdapter.h"
 
-#import "MPConstants.h"
 #import "MPAdConfiguration.h"
+#import "MPAdTargeting.h"
+#import "MPConstants.h"
+#import "MPCoreInstanceProvider.h"
+#import "MPHTMLInterstitialCustomEvent.h"
 #import "MPLogging.h"
-#import "MPInstanceProvider.h"
 #import "MPInterstitialCustomEvent.h"
 #import "MPInterstitialAdController.h"
-#import "MPHTMLInterstitialCustomEvent.h"
 #import "MPMRAIDInterstitialCustomEvent.h"
 #import "MPRealTimeTimer.h"
 
@@ -47,18 +49,29 @@
     [[MPCoreInstanceProvider sharedProvider] keepObjectAliveForCurrentRunLoopIteration:_interstitialCustomEvent];
 }
 
-- (void)getAdWithConfiguration:(MPAdConfiguration *)configuration
+- (void)getAdWithConfiguration:(MPAdConfiguration *)configuration targeting:(MPAdTargeting *)targeting
 {
     MPLogInfo(@"Looking for custom event class named %@.", configuration.customEventClass);
     self.configuration = configuration;
 
-    self.interstitialCustomEvent = [[MPInstanceProvider sharedProvider] buildInterstitialCustomEventFromCustomClass:configuration.customEventClass delegate:self];
-
-    if (self.interstitialCustomEvent) {
-        [self.interstitialCustomEvent requestInterstitialWithCustomEventInfo:configuration.customEventClassData];
-    } else {
+    MPInterstitialCustomEvent *customEvent = [[configuration.customEventClass alloc] init];
+    if (![customEvent isKindOfClass:[MPInterstitialCustomEvent class]]) {
+        MPLogError(@"**** Custom Event Class: %@ does not extend MPInterstitialCustomEvent ****", NSStringFromClass(configuration.customEventClass));
         [self.delegate adapter:self didFailToLoadAdWithError:nil];
+        return;
     }
+    customEvent.delegate = self;
+    customEvent.localExtras = targeting.localExtras;
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    if ([customEvent respondsToSelector:@selector(customEventDidUnload)]) {
+        MPLogWarn(@"**** Custom Event Class: %@ implements the deprecated -customEventDidUnload method.  This is no longer called.  Use -dealloc for cleanup instead ****", NSStringFromClass(configuration.customEventClass));
+    }
+#pragma clang diagnostic pop
+
+    self.interstitialCustomEvent = customEvent;
+    [self.interstitialCustomEvent requestInterstitialWithCustomEventInfo:configuration.customEventClassData adMarkup:configuration.advancedBidPayload];
 }
 
 - (void)showInterstitialFromViewController:(UIViewController *)controller

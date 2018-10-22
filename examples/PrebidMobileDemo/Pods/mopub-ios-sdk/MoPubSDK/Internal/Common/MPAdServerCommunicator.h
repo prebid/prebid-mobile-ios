@@ -1,8 +1,9 @@
 //
 //  MPAdServerCommunicator.h
-//  MoPub
 //
-//  Copyright (c) 2012 MoPub, Inc. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <Foundation/Foundation.h>
@@ -14,7 +15,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-@interface MPAdServerCommunicator : NSObject <NSURLConnectionDataDelegate>
+@interface MPAdServerCommunicator : NSObject
 
 @property (nonatomic, weak) id<MPAdServerCommunicatorDelegate> delegate;
 @property (nonatomic, assign, readonly) BOOL loading;
@@ -24,6 +25,11 @@
 - (void)loadURL:(NSURL *)URL;
 - (void)cancel;
 
+- (void)sendBeforeLoadUrlWithConfiguration:(MPAdConfiguration *)configuration;
+- (void)sendAfterLoadUrlWithConfiguration:(MPAdConfiguration *)configuration
+                      adapterLoadDuration:(NSTimeInterval)duration
+                        adapterLoadResult:(MPAfterLoadResult)result;
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,7 +37,7 @@
 @protocol MPAdServerCommunicatorDelegate <NSObject>
 
 @required
-- (void)communicatorDidReceiveAdConfiguration:(MPAdConfiguration *)configuration;
+- (void)communicatorDidReceiveAdConfigurations:(NSArray<MPAdConfiguration *> *)configurations;
 - (void)communicatorDidFailWithError:(NSError *)error;
 
 @end

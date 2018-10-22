@@ -1,9 +1,9 @@
 //
 //  UIWebView+MPAdditions.h
-//  MoPub
 //
-//  Created by Andrew He on 11/6/11.
-//  Copyright (c) 2011 MoPub, Inc. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <Foundation/Foundation.h>

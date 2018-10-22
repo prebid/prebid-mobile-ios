@@ -1,9 +1,9 @@
 //
 //  MPBaseBannerAdapter.m
-//  MoPub
 //
-//  Created by Nafis Jamal on 1/19/11.
-//  Copyright 2011 MoPub, Inc. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPBaseBannerAdapter.h"
@@ -14,6 +14,7 @@
 #import "MPCoreInstanceProvider.h"
 #import "MPAnalyticsTracker.h"
 #import "MPTimer.h"
+#import "MPError.h"
 
 @interface MPBaseBannerAdapter ()
 
@@ -49,20 +50,18 @@
 
 #pragma mark - Requesting Ads
 
-- (void)getAdWithConfiguration:(MPAdConfiguration *)configuration containerSize:(CGSize)size
+- (void)getAdWithConfiguration:(MPAdConfiguration *)configuration targeting:(MPAdTargeting *)targeting containerSize:(CGSize)size
 {
     // To be implemented by subclasses.
     [self doesNotRecognizeSelector:_cmd];
 }
 
-- (void)_getAdWithConfiguration:(MPAdConfiguration *)configuration containerSize:(CGSize)size
+- (void)_getAdWithConfiguration:(MPAdConfiguration *)configuration targeting:(MPAdTargeting *)targeting containerSize:(CGSize)size
 {
     self.configuration = configuration;
 
     [self startTimeoutTimer];
-
-    MPBaseBannerAdapter *strongSelf = self;
-    [strongSelf getAdWithConfiguration:configuration containerSize:size];
+    [self getAdWithConfiguration:configuration targeting:targeting containerSize:size];
 }
 
 - (void)didStopLoading
@@ -92,7 +91,9 @@
 
 - (void)timeout
 {
-    [self.delegate adapter:self didFailToLoadAdWithError:nil];
+    NSError * error = [MOPUBError errorWithCode:MOPUBErrorAdRequestTimedOut
+                           localizedDescription:@"Banner ad request timed out"];
+    [self.delegate adapter:self didFailToLoadAdWithError:error];
 }
 
 #pragma mark - Rotation
@@ -108,12 +109,12 @@
 
 - (void)trackImpression
 {
-    [[[MPCoreInstanceProvider sharedProvider] sharedMPAnalyticsTracker] trackImpressionForConfiguration:self.configuration];
+    [[MPAnalyticsTracker sharedTracker] trackImpressionForConfiguration:self.configuration];
 }
 
 - (void)trackClick
 {
-    [[[MPCoreInstanceProvider sharedProvider] sharedMPAnalyticsTracker] trackClickForConfiguration:self.configuration];
+    [[MPAnalyticsTracker sharedTracker] trackClickForConfiguration:self.configuration];
 }
 
 @end

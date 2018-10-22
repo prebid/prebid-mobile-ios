@@ -1,6 +1,9 @@
 //
 //  MOPUBFullscreenPlayerViewController.h
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <UIKit/UIKit.h>
@@ -25,6 +28,6 @@ typedef void (^MOPUBFullScreenPlayerViewControllerDismissBlock)(UIView *original
 
 @property (nonatomic, weak) id<MOPUBFullscreenPlayerViewControllerDelegate> delegate;
 
-- (instancetype)initWithVideoPlayer:(MOPUBPlayerViewController *)playerController dismissBlock:(MOPUBFullScreenPlayerViewControllerDismissBlock)dismiss;
+- (instancetype)initWithVideoPlayer:(MOPUBPlayerViewController *)playerController nativeAdProperties:(NSDictionary *)properties dismissBlock:(MOPUBFullScreenPlayerViewControllerDismissBlock)dismiss;
 
 @end

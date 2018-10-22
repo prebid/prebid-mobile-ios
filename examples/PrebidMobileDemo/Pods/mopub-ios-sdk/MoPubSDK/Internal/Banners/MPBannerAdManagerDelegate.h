@@ -1,8 +1,9 @@
 //
 //  MPBannerAdManagerDelegate.h
-//  MoPub
 //
-//  Copyright (c) 2013 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <Foundation/Foundation.h>
@@ -17,9 +18,6 @@
 - (MPAdView *)banner;
 - (id<MPAdViewDelegate>)bannerDelegate;
 - (CGSize)containerSize;
-- (NSString *)keywords;
-- (CLLocation *)location;
-- (BOOL)isTesting;
 - (UIViewController *)viewControllerForPresentingModalView;
 
 - (void)invalidateContentView;

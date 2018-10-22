@@ -1,15 +1,15 @@
 //
 //  MPRewardedVideoAdManager.h
-//  MoPubSDK
 //
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "MPAdTargeting.h"
 
 @class MPRewardedVideoReward;
-@class CLLocation;
 @protocol MPRewardedVideoAdManagerDelegate;
 
 /**
@@ -22,6 +22,7 @@
 @property (nonatomic, readonly) NSString *adUnitID;
 @property (nonatomic, strong) NSArray *mediationSettings;
 @property (nonatomic, copy) NSString *customerId;
+@property (nonatomic, strong) MPAdTargeting *targeting;
 
 /**
  * An array of rewards that are available for the rewarded ad that can be selected when presenting the ad.
@@ -44,18 +45,12 @@
 /**
  * Loads a rewarded video ad with the ad manager's ad unit ID.
  *
- * @param keywords A string representing a set of keywords that should be passed to the MoPub ad server to receive
- * more relevant advertising.
- *
- * @param location Latitude/Longitude that are passed to the MoPub ad server
- * If this method is called when an ad is already available and we haven't already played a video for the last time we loaded an ad,
- * the object will simply notify the delegate that an ad loaded.
- *
  * @param customerId The user's id within the app.
+ * @param targeting Optional ad targeting parameters.
  *
  * However, if an ad has been played for the last time a load was issued and load is called again, the method will request a new ad.
  */
-- (void)loadRewardedVideoAdWithKeywords:(NSString *)keywords location:(CLLocation *)location customerId:(NSString *)customerId;
+- (void)loadRewardedVideoAdWithCustomerId:(NSString *)customerId targeting:(MPAdTargeting *)targeting;
 
 /**
  * Tells the caller whether the underlying ad network currently has an ad available for presentation.

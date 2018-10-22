@@ -1,1 +1,1 @@
-../../../mopub-ios-sdk/MoPubSDK/Native Ads/Internal/MPTableViewAdPlacerCell.h
+../../../mopub-ios-sdk/MoPubSDK/NativeAds/Internal/MPTableViewAdPlacerCell.h

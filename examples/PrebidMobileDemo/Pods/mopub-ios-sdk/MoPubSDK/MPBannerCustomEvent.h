@@ -1,8 +1,9 @@
 //
 //  MPBannerCustomEvent.h
-//  MoPub
 //
-//  Copyright (c) 2012 MoPub, Inc. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <UIKit/UIKit.h>
@@ -36,10 +37,28 @@
  * @param size The current size of the parent `MPAdView`.  You should use this information to create
  * and request a banner of the appropriate size.
  *
- * @param info A  dictionary containing additional custom data associated with a given custom event
+ * @param info A dictionary containing additional custom data associated with a given custom event
  * request. This data is configurable on the MoPub website, and may be used to pass dynamic information, such as publisher IDs.
  */
 - (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info;
+
+/**
+ * Called when the MoPub SDK requires a new banner ad.
+ *
+ * When the MoPub SDK receives a response indicating it should load a custom event, it will send
+ * this message to your custom event class. Your implementation of this method can either load a
+ * banner ad from a third-party ad network, or execute any application code. It must also notify the
+ * `MPBannerCustomEventDelegate` of certain lifecycle events.
+ *
+ * @param size The current size of the parent `MPAdView`.  You should use this information to create
+ * and request a banner of the appropriate size.
+ *
+ * @param info A dictionary containing additional custom data associated with a given custom event
+ * request. This data is configurable on the MoPub website, and may be used to pass dynamic information, such as publisher IDs.
+ *
+ * @param adMarkup An optional ad markup to use.
+ */
+- (void)requestAdWithSize:(CGSize)size customEventInfo:(NSDictionary *)info adMarkup:(NSString *)adMarkup;
 
 /** @name Callbacks */
 
@@ -89,5 +108,10 @@
  *
  */
 @property (nonatomic, weak) id<MPBannerCustomEventDelegate> delegate;
+
+/**
+ * An optional dictionary containing extra local data.
+ */
+@property (nonatomic, copy) NSDictionary *localExtras;
 
 @end

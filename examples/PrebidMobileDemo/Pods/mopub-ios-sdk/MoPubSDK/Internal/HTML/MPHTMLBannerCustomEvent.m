@@ -1,15 +1,15 @@
 //
 //  MPHTMLBannerCustomEvent.m
-//  MoPub
 //
-//  Copyright (c) 2013 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPHTMLBannerCustomEvent.h"
 #import "MPWebView.h"
 #import "MPLogging.h"
 #import "MPAdConfiguration.h"
-#import "MPInstanceProvider.h"
 #import "MPAnalyticsTracker.h"
 
 @interface MPHTMLBannerCustomEvent ()
@@ -33,8 +33,7 @@
     MPLogTrace(@"Loading banner with HTML source: %@", [[self.delegate configuration] adResponseHTMLString]);
 
     CGRect adWebViewFrame = CGRectMake(0, 0, size.width, size.height);
-    self.bannerAgent = [[MPInstanceProvider sharedProvider] buildMPAdWebViewAgentWithAdWebViewFrame:adWebViewFrame
-                                                                                           delegate:self];
+    self.bannerAgent = [[MPAdWebViewAgent alloc] initWithAdWebViewFrame:adWebViewFrame delegate:self];
     [self.bannerAgent loadConfiguration:[self.delegate configuration]];
 }
 
@@ -100,7 +99,7 @@
     [self.delegate bannerCustomEventWillLeaveApplication:self];
 }
 
-- (void)trackMPXAndThirdPartyImpressions
+- (void)trackImpressionsIncludedInMarkup
 {
     [self.bannerAgent invokeJavaScriptForEvent:MPAdWebViewEventAdDidAppear];
 }

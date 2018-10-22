@@ -1,12 +1,12 @@
 //
 //  MPMRAIDInterstitialCustomEvent.m
-//  MoPub
 //
-//  Copyright (c) 2013 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPMRAIDInterstitialCustomEvent.h"
-#import "MPInstanceProvider.h"
 #import "MPLogging.h"
 
 @interface MPMRAIDInterstitialCustomEvent ()
@@ -22,8 +22,8 @@
 - (void)requestInterstitialWithCustomEventInfo:(NSDictionary *)info
 {
     MPLogInfo(@"Loading MoPub MRAID interstitial");
-    self.interstitial = [[MPInstanceProvider sharedProvider] buildMPMRAIDInterstitialViewControllerWithDelegate:self
-                                                                                                  configuration:[self.delegate configuration]];
+    self.interstitial = [[MPMRAIDInterstitialViewController alloc] initWithAdConfiguration:[self.delegate configuration]];
+    self.interstitial.delegate = self;
 
     // The MRAID ad view will handle the close button so we don't need the MPInterstitialViewController's close button.
     [self.interstitial setCloseButtonStyle:MPInterstitialCloseButtonStyleAlwaysHidden];

@@ -1,8 +1,9 @@
 //
 //  MRController.h
-//  MoPubSDK
 //
-//  Copyright (c) 2014 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <UIKit/UIKit.h>
@@ -28,7 +29,9 @@
 @property (nonatomic, readonly) MPViewabilityTracker *viewabilityTracker;
 @property (nonatomic, weak) id<MRControllerDelegate> delegate;
 
-- (instancetype)initWithAdViewFrame:(CGRect)adViewFrame adPlacementType:(MRAdViewPlacementType)placementType;
+- (instancetype)initWithAdViewFrame:(CGRect)adViewFrame
+                    adPlacementType:(MRAdViewPlacementType)placementType
+                           delegate:(id<MRControllerDelegate>)delegate;
 
 - (void)loadAdWithConfiguration:(MPAdConfiguration *)configuration;
 - (void)handleMRAIDInterstitialDidPresentWithViewController:(MPMRAIDInterstitialViewController *)viewController;

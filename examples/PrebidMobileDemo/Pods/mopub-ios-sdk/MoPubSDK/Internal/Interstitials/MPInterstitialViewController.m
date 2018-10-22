@@ -1,8 +1,9 @@
 //
 //  MPInterstitialViewController.m
-//  MoPub
 //
-//  Copyright (c) 2012 MoPub, Inc. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPInterstitialViewController.h"
@@ -43,6 +44,10 @@ static NSString * const kCloseButtonXImageName = @"MPCloseButtonX.png";
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor blackColor];
+}
+
+- (BOOL)prefersHomeIndicatorAutoHidden {
+    return YES;
 }
 
 #pragma mark - Public
@@ -256,21 +261,6 @@ static NSString * const kCloseButtonXImageName = @"MPCloseButtonX.png";
         return UIInterfaceOrientationLandscapeLeft;
     } else {
         return UIInterfaceOrientationLandscapeRight;
-    }
-}
-
-#pragma mark - Autorotation (before iOS 6.0)
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if (_orientationType == MPInterstitialOrientationTypePortrait) {
-        return (interfaceOrientation == UIInterfaceOrientationPortrait ||
-                interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
-    } else if (_orientationType == MPInterstitialOrientationTypeLandscape) {
-        return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
-                interfaceOrientation == UIInterfaceOrientationLandscapeRight);
-    } else {
-        return YES;
     }
 }
 

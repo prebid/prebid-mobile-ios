@@ -1,21 +1,25 @@
 //
 //  MOPUBNativeVideoAdAdapter.m
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MOPUBNativeVideoAdAdapter.h"
-#import "MPNativeAdError.h"
-#import "MPAdDestinationDisplayAgent.h"
-#import "MPCoreInstanceProvider.h"
-#import "MPNativeAdConstants.h"
-#import "MPLogging.h"
 #import "MOPUBNativeVideoAdConfigValues.h"
+#import "MPAdDestinationDisplayAgent.h"
 #import "MPAdImpressionTimer.h"
+#import "MPCoreInstanceProvider.h"
+#import "MPLogging.h"
+#import "MPMemoryCache.h"
+#import "MPNativeAdConstants.h"
+#import "MPNativeAdError.h"
 
 @interface MOPUBNativeVideoAdAdapter() <MPAdDestinationDisplayAgentDelegate, MPAdImpressionTimerDelegate>
 
 @property (nonatomic) MPAdImpressionTimer *impressionTimer;
-@property (nonatomic, readonly) MPAdDestinationDisplayAgent *destinationDisplayAgent;
+@property (nonatomic, strong) MPAdDestinationDisplayAgent *destinationDisplayAgent;
 
 @end
 
@@ -30,11 +34,20 @@
 
         // Let's make sure the data types of all the provided native ad properties are strings before creating the adapter.
 
-        NSArray *keysToCheck = @[kAdIconImageKey, kAdMainImageKey, kAdTextKey, kAdTitleKey, kAdCTATextKey, kVASTVideoKey];
+        NSArray *keysToCheck = @[kAdIconImageKey, kAdMainImageKey, kAdTextKey, kAdTitleKey, kAdCTATextKey, kVASTVideoKey, kAdPrivacyIconImageUrlKey, kAdPrivacyIconClickUrlKey];
 
         for (NSString *key in keysToCheck) {
             id value = properties[key];
             if (value != nil && ![value isKindOfClass:[NSString class]]) {
+                return nil;
+            }
+        }
+
+        // Validate that the views are actually views
+        NSArray * viewKeysToCheck = @[kAdIconImageViewKey, kAdMainMediaViewKey];
+        for (NSString * key in viewKeysToCheck) {
+            id value = properties[key];
+            if (value != nil && ![value isKindOfClass:[UIView class]]) {
                 return nil;
             }
         }
@@ -72,10 +85,34 @@
             return nil;
         }
 
-        // Add the DAA icon settings to our properties dictionary.
-        [properties setObject:MPResourcePathForResource(kDAAIconImageName) forKey:kAdDAAIconImageKey];
+        // The privacy icon has been overridden by the server. We will use its image instead if it is
+        // already cached. Otherwise, we will defer loading the image until later.
+        NSString * privacyIconUrl = properties[kAdPrivacyIconImageUrlKey];
+        if (privacyIconUrl != nil) {
+            UIImage * cachedIcon = [MPMemoryCache.sharedInstance imageForKey:privacyIconUrl];
+            if (cachedIcon != nil) {
+                [properties setObject:cachedIcon forKey:kAdPrivacyIconUIImageKey];
+            }
+        }
+        // Use the default MoPub privacy icon bundled with the SDK.
+        else {
+            // Add the privacy icon settings to our properties dictionary.
+            // Path will not change, so load path and image statically.
+            static NSString *privacyIconImagePath = nil;
+            static UIImage *privacyIconImage = nil;
+            if (!privacyIconImagePath || !privacyIconImage) {
+                privacyIconImagePath = MPResourcePathForResource(kPrivacyIconImageName);
+                privacyIconImage = privacyIconImagePath ? [UIImage imageWithContentsOfFile:privacyIconImagePath] : nil;
+            }
+            if (privacyIconImagePath) {
+                [properties setObject:privacyIconImagePath forKey:kAdPrivacyIconImageUrlKey];
+            }
+            if (privacyIconImage) {
+                [properties setObject:privacyIconImage forKey:kAdPrivacyIconUIImageKey];
+            }
+        }
 
-        _destinationDisplayAgent = [[MPCoreInstanceProvider sharedProvider] buildMPAdDestinationDisplayAgentWithDelegate:self];
+        _destinationDisplayAgent = [MPAdDestinationDisplayAgent agentWithDelegate:self];
 
         _impressionTimer = nil;
     }
@@ -135,11 +172,17 @@
     [self.destinationDisplayAgent displayDestinationForURL:URL];
 }
 
-#pragma mark - DAA Icon
+#pragma mark - Privacy Icon
 
 - (void)displayContentForDAAIconTap
 {
-    [self.destinationDisplayAgent displayDestinationForURL:[NSURL URLWithString:kDAAIconTapDestinationURL]];
+    NSURL *defaultPrivacyClickUrl = [NSURL URLWithString:kPrivacyIconTapDestinationURL];
+    NSURL *overridePrivacyClickUrl = ({
+        NSString *url = self.properties[kAdPrivacyIconClickUrlKey];
+        (url != nil ? [NSURL URLWithString:url] : nil);
+    });
+
+    [self.destinationDisplayAgent displayDestinationForURL:(overridePrivacyClickUrl != nil ? overridePrivacyClickUrl : defaultPrivacyClickUrl)];
 }
 
 #pragma mark - Impression and click tracking. Renderer calls those two methods

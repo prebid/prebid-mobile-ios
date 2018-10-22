@@ -1,1 +1,1 @@
-../../../mopub-ios-sdk/MoPubSDK/Native Ads/MPNativeCustomEventDelegate.h
+../../../mopub-ios-sdk/MoPubSDK/NativeAds/MPNativeCustomEventDelegate.h

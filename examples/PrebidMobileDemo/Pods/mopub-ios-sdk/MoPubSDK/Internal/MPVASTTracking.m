@@ -1,8 +1,9 @@
 //
 //  MPVASTTracking.m
-//  MoPubSDK
 //
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MOPUBNativeVideoImpressionAgent.h"
@@ -240,7 +241,7 @@ static const NSInteger kStartTrackerTime = 0;
         for (VASTTrackingURL *vastTrackingURL in vastEventTracker.trackingEvents) {
             [cleanedTrackingURLs addObject:[MPVASTMacroProcessor macroExpandedURLForURL:vastTrackingURL.url errorCode:nil videoTimeOffset:timeOffset videoAssetURL:self.videoConfig.mediaURL]];
         }
-        [[[MPCoreInstanceProvider sharedProvider] sharedMPAnalyticsTracker] sendTrackingRequestForURLs:cleanedTrackingURLs];
+        [[MPAnalyticsTracker sharedTracker] sendTrackingRequestForURLs:cleanedTrackingURLs];
     }
     vastEventTracker.trackersFired = YES;
 }

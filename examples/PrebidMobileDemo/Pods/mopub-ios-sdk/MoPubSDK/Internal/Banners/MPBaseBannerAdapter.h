@@ -1,9 +1,9 @@
 //
 //  MPBaseBannerAdapter.h
-//  MoPub
 //
-//  Created by Nafis Jamal on 1/19/11.
-//  Copyright 2011 MoPub, Inc. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <Foundation/Foundation.h>
@@ -12,6 +12,7 @@
 
 @protocol MPBannerAdapterDelegate;
 @class MPAdConfiguration;
+@class MPAdTargeting;
 
 @interface MPBaseBannerAdapter : NSObject
 
@@ -30,8 +31,8 @@
  * -_getAdWithConfiguration creates a strong reference to self before calling
  * -getAdWithConfiguration to prevent the adapter from being prematurely deallocated.
  */
-- (void)getAdWithConfiguration:(MPAdConfiguration *)configuration containerSize:(CGSize)size;
-- (void)_getAdWithConfiguration:(MPAdConfiguration *)configuration containerSize:(CGSize)size;
+- (void)getAdWithConfiguration:(MPAdConfiguration *)configuration targeting:(MPAdTargeting *)targeting containerSize:(CGSize)size;
+- (void)_getAdWithConfiguration:(MPAdConfiguration *)configuration targeting:(MPAdTargeting *)targeting containerSize:(CGSize)size;
 
 - (void)didStopLoading;
 - (void)didDisplayAd;
@@ -76,5 +77,10 @@
  * current application (e.g. the ad action opens the iTunes store, Mobile Safari, etc).
  */
 - (void)userWillLeaveApplicationFromAdapter:(MPBaseBannerAdapter *)adapter;
+
+/**
+ * Fires when the impression tracker has been sent.
+ */
+- (void)adapter:(MPBaseBannerAdapter *)adapter didTrackImpressionForAd:(UIView *)ad;
 
 @end

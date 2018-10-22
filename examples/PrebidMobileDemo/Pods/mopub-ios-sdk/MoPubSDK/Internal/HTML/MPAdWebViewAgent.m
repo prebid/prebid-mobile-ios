@@ -1,8 +1,9 @@
 //
 //  MPAdWebViewAgent.m
-//  MoPub
 //
-//  Copyright (c) 2013 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPAdWebViewAgent.h"
@@ -13,7 +14,6 @@
 #import "NSURL+MPAdditions.h"
 #import "UIWebView+MPAdditions.h"
 #import "MPWebView.h"
-#import "MPInstanceProvider.h"
 #import "MPCoreInstanceProvider.h"
 #import "MPUserInteractionGestureRecognizer.h"
 #import "NSJSONSerialization+MPAdditions.h"
@@ -64,7 +64,7 @@
     if (self) {
         _frame = frame;
 
-        self.destinationDisplayAgent = [[MPCoreInstanceProvider sharedProvider] buildMPAdDestinationDisplayAgentWithDelegate:self];
+        self.destinationDisplayAgent = [MPAdDestinationDisplayAgent agentWithDelegate:self];
         self.delegate = delegate;
         self.shouldHandleRequests = YES;
         self.adAlertManager = [[MPCoreInstanceProvider sharedProvider] buildMPAdAlertManagerWithDelegate:self];
@@ -141,7 +141,7 @@
         }
     }
 
-    [self.view mp_setScrollable:configuration.scrollable];
+    [self.view mp_setScrollable:NO];
     [self.view disableJavaScriptDialogs];
 
     // Initialize viewability trackers before loading self.view
@@ -277,8 +277,6 @@
 {
     if ([URL mp_hasTelephoneScheme] || [URL mp_hasTelephonePromptScheme]) {
         return YES;
-    } else if (!(self.configuration.shouldInterceptLinks)) {
-        return NO;
     } else if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         return YES;
     } else if (navigationType == UIWebViewNavigationTypeOther && self.userInteractedWithWebView) {

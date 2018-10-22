@@ -1,15 +1,17 @@
 //
 //  MPBaseInterstitialAdapter.h
-//  MoPub
 //
-//  Created by Nafis Jamal on 4/27/11.
-//  Copyright 2011 MoPub. All rights reserved.
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class MPAdConfiguration, CLLocation;
+@class CLLocation;
+@class MPAdConfiguration;
+@class MPAdTargeting;
 
 @protocol MPInterstitialAdapterDelegate;
 
@@ -27,8 +29,8 @@
  */
 - (void)unregisterDelegate;
 
-- (void)getAdWithConfiguration:(MPAdConfiguration *)configuration;
-- (void)_getAdWithConfiguration:(MPAdConfiguration *)configuration;
+- (void)getAdWithConfiguration:(MPAdConfiguration *)configuration targeting:(MPAdTargeting *)targeting;
+- (void)_getAdWithConfiguration:(MPAdConfiguration *)configuration targeting:(MPAdTargeting *)targeting;
 
 - (void)didStopLoading;
 

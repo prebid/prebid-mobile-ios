@@ -1,6 +1,9 @@
 //
 //  MOPUBPlayerViewController.h
-//  Copyright (c) 2015 MoPub. All rights reserved.
+//
+//  Copyright 2018 Twitter, Inc.
+//  Licensed under the MoPub SDK License Agreement
+//  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <Foundation/Foundation.h>
@@ -10,7 +13,6 @@
 @class MOPUBAVPlayer;
 @class MOPUBPlayerViewController;
 @class MOPUBNativeVideoAdConfigValues;
-@class MPAdConfigurationLogEventProperties;
 @class MPVASTTracking;
 @class MPVideoConfig;
 
@@ -57,7 +59,7 @@
 @property (nonatomic, weak) id<MOPUBPlayerViewControllerDelegate> delegate;
 
 #pragma mark - Initializer
-- (instancetype)initWithVideoConfig:(MPVideoConfig *)videoConfig nativeVideoAdConfig:(MOPUBNativeVideoAdConfigValues *)nativeVideoAdConfig logEventProperties:(MPAdConfigurationLogEventProperties *)logEventProperties;
+- (instancetype)initWithVideoConfig:(MPVideoConfig *)videoConfig nativeVideoAdConfig:(MOPUBNativeVideoAdConfigValues *)nativeVideoAdConfig;
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
