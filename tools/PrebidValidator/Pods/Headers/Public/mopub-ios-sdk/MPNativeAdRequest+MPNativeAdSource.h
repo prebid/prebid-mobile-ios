@@ -1,0 +1,1 @@
+../../../mopub-ios-sdk/MoPubSDK/Native Ads/Internal/Categories/MPNativeAdRequest+MPNativeAdSource.h
