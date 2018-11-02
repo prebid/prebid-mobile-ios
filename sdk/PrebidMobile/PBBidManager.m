@@ -123,8 +123,10 @@ static dispatch_once_t onceToken;
 
 - (nullable NSDictionary<NSString *, NSString *> *)keywordsForWinningBidForAdUnit:(nonnull PBAdUnit *)adUnit {
     NSArray *bids = [self getBids:adUnit];
-    [self resetAdUnit:adUnit];
-    [self requestBidsForAdUnits:@[adUnit]];
+    if(!bids || [bids count]==0){
+        [self resetAdUnit:adUnit];
+        [self requestBidsForAdUnits:@[adUnit]];
+    }
     if (bids) {
         PBLogDebug(@"Bids available to create keywords");
         NSMutableDictionary<NSString *, NSString *> *keywords = [[NSMutableDictionary alloc] init];
