@@ -1,1 +1,0 @@
-../../../mopub-ios-sdk/MoPubSDK/Viewability/MOAT/MPViewabilityAdapterMoat.h
