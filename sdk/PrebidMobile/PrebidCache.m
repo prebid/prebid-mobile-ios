@@ -105,7 +105,6 @@ static NSString *const kPBAppTransportSecurityAllowsArbitraryLoadsKey = @"NSAllo
 -(void)main
 {
     @try {
-        NSLog(@"%@", @"blah§");
         PBLogDebug(@"test pb logging");
         PBLogDebug(@"running html in webview %@",self.htmlToLoad);
         dispatch_async(dispatch_get_main_queue(), ^{
