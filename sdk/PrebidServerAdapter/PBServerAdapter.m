@@ -50,7 +50,7 @@ static int const kBatchCount = 10;
     if (self = [super init]) {
         _accountId = accountId;
         _isSecure = TRUE;
-        _host = PBServerHostAppNexus;
+        _host = PBServerHostAdsolutions;
         _primaryAdServer = adServer;
     }
     return self;
@@ -68,7 +68,7 @@ static int const kBatchCount = 10;
 
 - (void)requestBidsWithAdUnits:(nullable NSArray<PBAdUnit *> *)adUnits
                   withDelegate:(nonnull id<PBBidResponseDelegate>)delegate {
-    
+     NSLog(@"%@", @"doing requestBids");
     NSURL *hostUrl = [self urlForHost:_host];
     if (hostUrl == nil) {
         @throw [PBException exceptionWithName:PBHostInvalidException];
