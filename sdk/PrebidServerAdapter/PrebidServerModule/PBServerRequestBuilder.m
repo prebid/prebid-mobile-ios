@@ -86,7 +86,7 @@ static NSString *const kPrebidMobileVersion = @"0.5";
 {
     NSMutableDictionary *requestPrebidExt = [[NSMutableDictionary alloc] init];
     requestPrebidExt[@"targeting"] = @{};
-    requestPrebidExt[@"storedrequest"] = @{@"id" :accountId};
+    //requestPrebidExt[@"storedrequest"] = @{@"id" :accountId};
     requestPrebidExt[@"cache"] = @{@"bids" : [[NSMutableDictionary alloc] init]};
     NSMutableDictionary *requestExt = [[NSMutableDictionary alloc] init];
     requestExt[@"prebid"] = requestPrebidExt;

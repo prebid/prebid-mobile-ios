@@ -460,7 +460,7 @@
 				TargetAttributes = {
 					C273C8041E82DAAD003EF1AB = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = HR94J6TSB3;
+						DevelopmentTeam = H83NZ64PW3;
 						ProvisioningStyle = Automatic;
 					};
 					C273C81D1E82DAAE003EF1AB = {
@@ -803,7 +803,7 @@
 			baseConfigurationReference = 171395FED98D8A0665F34125 /* Pods-PrebidMobileDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = HR94J6TSB3;
+				DEVELOPMENT_TEAM = H83NZ64PW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -825,7 +825,7 @@
 					CFNetwork,
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidMobileDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = adsolutions.PrebidMobileDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -835,7 +835,7 @@
 			baseConfigurationReference = A1ECD3D3DF1C659CA6E60DDD /* Pods-PrebidMobileDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = HR94J6TSB3;
+				DEVELOPMENT_TEAM = H83NZ64PW3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -850,7 +850,7 @@
 					"$(PROJECT_DIR)/../../sdk/**",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = AppNexus.PrebidMobileDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = adsolutions.PrebidMobileDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
