@@ -22,7 +22,7 @@
 #import "PBServerLocation.h"
 
 
-static NSString *const kPrebidMobileVersion = @"0.5";
+static NSString *const kPrebidMobileVersion = @"0.5.2";
 
 @implementation PBServerRequestBuilder
 
