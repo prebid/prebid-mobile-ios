@@ -30,9 +30,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-            //Class dictionaryClass = NSClassFromString(@"GADOSlot");
-            //Class dictionaryClass2 = objc_getClass("GADOSlot");
-            [NSClassFromString(@"GADOSlot") pb_swizzleInstanceSelector:@selector(requestParameters)
+            [NSClassFromString(@"GADSlot") pb_swizzleInstanceSelector:@selector(requestParameters)
                                                          withSelector:@selector(pb_requestParameters)];
             [NSClassFromString(@"MPBannerAdManager") pb_swizzleInstanceSelector:@selector(loadAd)
                                                                    withSelector:@selector(pb_loadAd)];
