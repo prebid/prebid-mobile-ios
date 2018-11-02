@@ -65,7 +65,6 @@ typedef NS_ENUM(NSInteger, PBPrimaryAdServerType) {
 - (nonnull NSDictionary *)addPrebidParameters:(nonnull NSDictionary *)requestParameters
                                  withKeywords:(nonnull NSDictionary *)keywordsPairs;
 
-
 /**
  * helper method for ad server adapter attachTopBid method
  * @param adUnitIdentifier : the ad unit id
