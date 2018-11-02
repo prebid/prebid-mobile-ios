@@ -30,7 +30,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-            [NSClassFromString(@"GADSlot") pb_swizzleInstanceSelector:@selector(requestParameters)
+            [NSClassFromString(@"GADOSlot") pb_swizzleInstanceSelector:@selector(requestParameters)
                                                          withSelector:@selector(pb_requestParameters)];
             [NSClassFromString(@"MPBannerAdManager") pb_swizzleInstanceSelector:@selector(loadAd)
                                                                    withSelector:@selector(pb_loadAd)];
