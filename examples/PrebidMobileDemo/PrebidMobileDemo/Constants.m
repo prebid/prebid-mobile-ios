@@ -35,18 +35,18 @@ NSString *const kVideo = @"Video";
 
 #pragma mark - MoPub constants
 NSString *const kMoPubAdServer = @"MoPub";
-NSString *const kMoPubBannerAdUnitId = @"bd0a2cd5dd2241aaac18d7823d8e3a6f";
-NSString *const kMoPubInterstitialAdUnitId = @"af48b6575ff34fbf9337dc099f4b6032";
+NSString *const kMoPubBannerAdUnitId = @"a935eac11acd416f92640411234fbba6";
+NSString *const kMoPubInterstitialAdUnitId = @"b75185a84336479c94eb22e5c0ca67db";
 
 #pragma mark - DFP constants
 NSString *const kDFPAdServer = @"DFP";
-NSString *const kDFPBannerAdUnitId = @"/19968336/PrebidMobileValidator_Banner_300x250";
-NSString *const kDFPInterstitialAdUnitId = @"/19968336/PrebidMobileValidator_Interstitial";
+NSString *const kDFPBannerAdUnitId = @"/19968336/PriceCheck_300x250";
+NSString *const kDFPInterstitialAdUnitId = @"/19968336/PriceCheck_Interstitial";
 
 #pragma mark - Prebid Mobile constants
-NSString *const kAccountId = @"aecd6ef7-b992-4e99-9bb8-65e2d984e1dd";
-NSString *const kAdUnit1ConfigId = @"05cf943f-0f70-44e3-a49e-bb6f1fb4e98b";
-NSString *const kAdUnit2ConfigId = @"05cf943f-0f70-44e3-a49e-bb6f1fb4e98b";
+NSString *const kAccountId = @"bfa84af2-bd16-4d35-96ad-31c6bb888df0";
+NSString *const kAdUnit1ConfigId = @"6ace8c7d-88c0-4623-8117-75bc3f0a2e45";
+NSString *const kAdUnit2ConfigId = @"625c6125-f19e-4d5b-95c5-55501526b2a4";
 NSUInteger const kPBServerHost = PBServerHostAppNexus;
 
 NSString *const kAdUnit1Id = @"HomeScreen";
