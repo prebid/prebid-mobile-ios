@@ -1,1 +1,1 @@
-../../../mopub-ios-sdk/MoPubSDK/Native Ads/Internal/MPNativeAdConfigValues+Internal.h
+../../../mopub-ios-sdk/MoPubSDK/NativeAds/Internal/MPNativeAdConfigValues+Internal.h

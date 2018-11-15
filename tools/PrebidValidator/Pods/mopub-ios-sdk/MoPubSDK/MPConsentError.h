@@ -13,5 +13,4 @@ static NSString * const kConsentErrorDomain = @"com.mopub.mopub-ios-sdk.consent"
 typedef NS_ENUM(NSUInteger, MPConsentErrorCode) {
     MPConsentErrorCodeLimitAdTrackingEnabled = 1,
     MPConsentErrorCodeFailedToParseSynchronizationResponse,
-    MPConsentErrorCodeGDPRIsNotApplicable,
 };

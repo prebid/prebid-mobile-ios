@@ -45,7 +45,7 @@
 {
     self = [super init];
     if (self) {
-        self.communicator = [[MPCoreInstanceProvider sharedProvider] buildMPAdServerCommunicatorWithDelegate:self];
+        self.communicator = [[MPAdServerCommunicator alloc] initWithDelegate:self];
         self.delegate = delegate;
     }
     return self;
@@ -84,15 +84,15 @@
 }
 
 
-- (void)loadInterstitialWithAdUnitID:(NSString *)ID keywords:(NSString *)keywords location:(CLLocation *)location testing:(BOOL)testing
+- (void)loadInterstitialWithAdUnitID:(NSString *)ID keywords:(NSString *)keywords userDataKeywords:(NSString *)userDataKeywords location:(CLLocation *)location
 {
     if (self.ready) {
         [self.delegate managerDidLoadInterstitial:self];
     } else {
         [self loadAdWithURL:[MPAdServerURLBuilder URLWithAdUnitID:ID
                                                          keywords:keywords
-                                                         location:location
-                                                          testing:testing]];
+                                                 userDataKeywords:userDataKeywords
+                                                         location:location]];
     }
 }
 
@@ -126,9 +126,9 @@
 
 #pragma mark - MPAdServerCommunicatorDelegate
 
-- (void)communicatorDidReceiveAdConfiguration:(MPAdConfiguration *)configuration
+- (void)communicatorDidReceiveAdConfigurations:(NSArray<MPAdConfiguration *> *)configurations
 {
-    self.configuration = configuration;
+    self.configuration = configurations.firstObject;
 
     MPLogInfo(@"Interstitial ad view is fetching ad network type: %@", self.configuration.networkType);
 

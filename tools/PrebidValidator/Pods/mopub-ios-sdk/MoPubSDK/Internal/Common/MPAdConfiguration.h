@@ -27,7 +27,6 @@ extern NSString * const kCustomEventClassDataHeaderKey;
 extern NSString * const kFailUrlHeaderKey;
 extern NSString * const kHeightHeaderKey;
 extern NSString * const kImpressionTrackerHeaderKey;
-extern NSString * const kInterceptLinksHeaderKey;
 extern NSString * const kLaunchpageHeaderKey;
 extern NSString * const kNativeSDKParametersHeaderKey;
 extern NSString * const kNetworkTypeHeaderKey;
@@ -72,7 +71,6 @@ extern NSString * const kBannerImpressionMinPixelHeaderKey;
 @property (nonatomic, strong) NSURL *impressionTrackingURL;
 @property (nonatomic, strong) NSURL *failoverURL;
 @property (nonatomic, strong) NSURL *interceptURLPrefix;
-@property (nonatomic, assign) BOOL shouldInterceptLinks;
 @property (nonatomic, assign) BOOL scrollable;
 @property (nonatomic, assign) NSTimeInterval refreshInterval;
 @property (nonatomic, assign) NSTimeInterval adTimeoutInterval;
@@ -100,6 +98,7 @@ extern NSString * const kBannerImpressionMinPixelHeaderKey;
 @property (nonatomic, copy) NSString *rewardedVideoCompletionUrl;
 @property (nonatomic, assign) NSTimeInterval rewardedPlayableDuration;
 @property (nonatomic, assign) BOOL rewardedPlayableShouldRewardOnClick;
+@property (nonatomic, copy) NSString *advancedBidPayload;
 
 
 // viewable impression tracking experiment

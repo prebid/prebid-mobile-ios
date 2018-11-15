@@ -76,7 +76,7 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
 
     if (self.rewardedVideoCustomEvent) {
         [self startTimeoutTimer];
-        [self.rewardedVideoCustomEvent requestRewardedVideoWithCustomEventInfo:configuration.customEventClassData];
+        [self.rewardedVideoCustomEvent requestRewardedVideoWithCustomEventInfo:configuration.customEventClassData adMarkup:configuration.advancedBidPayload];
     } else {
         NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorInvalidCustomEvent userInfo:nil];
         [self.delegate rewardedVideoDidFailToLoadForAdapter:self error:error];

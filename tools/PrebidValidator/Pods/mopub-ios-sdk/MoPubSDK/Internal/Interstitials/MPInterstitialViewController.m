@@ -259,19 +259,4 @@ static NSString * const kCloseButtonXImageName = @"MPCloseButtonX.png";
     }
 }
 
-#pragma mark - Autorotation (before iOS 6.0)
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if (_orientationType == MPInterstitialOrientationTypePortrait) {
-        return (interfaceOrientation == UIInterfaceOrientationPortrait ||
-                interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
-    } else if (_orientationType == MPInterstitialOrientationTypeLandscape) {
-        return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
-                interfaceOrientation == UIInterfaceOrientationLandscapeRight);
-    } else {
-        return YES;
-    }
-}
-
 @end

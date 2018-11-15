@@ -7,6 +7,7 @@
 
 #import "MPCollectionViewAdPlacer.h"
 #import "MPStreamAdPlacer.h"
+#import "MPInstanceProvider.h"
 #import "MPAdPlacerInvocation.h"
 #import "MPTimer.h"
 #import "MPNativeAdUtils.h"
@@ -51,7 +52,7 @@ static NSString * const kCollectionViewAdPlacerReuseIdentifier = @"MPCollectionV
 
     if (self = [super init]) {
         _collectionView = collectionView;
-        _streamAdPlacer = [MPStreamAdPlacer placerWithViewController:controller adPositioning:positioning rendererConfigurations:rendererConfigurations];
+        _streamAdPlacer = [[MPInstanceProvider sharedProvider] buildStreamAdPlacerWithViewController:controller adPositioning:positioning rendererConfigurations:rendererConfigurations];
         _streamAdPlacer.delegate = self;
 
         _insertionTimer = [MPTimer timerWithTimeInterval:kUpdateVisibleCellsInterval target:self selector:@selector(updateVisibleCells) repeats:YES];
@@ -64,7 +65,7 @@ static NSString * const kCollectionViewAdPlacerReuseIdentifier = @"MPCollectionV
         collectionView.delegate = self;
 
         [_collectionView registerClass:[MPCollectionViewAdPlacerCell class] forCellWithReuseIdentifier:kCollectionViewAdPlacerReuseIdentifier];
-
+        
         [collectionView mp_setAdPlacer:self];
     }
 
@@ -501,7 +502,7 @@ static char kAdPlacerKey;
 - (NSArray *)mp_visibleCells
 {
     MPCollectionViewAdPlacer *adPlacer = [self mp_adPlacer];
-
+    
     if (adPlacer) {
         NSArray *indexPaths = [self mp_indexPathsForVisibleItems];
         NSMutableArray *visibleCells = [NSMutableArray array];
@@ -608,10 +609,10 @@ static char kAdPlacerKey;
             // We need to obtain the adjusted index paths to delete BEFORE we
             // update the stream ad placer's data.
             adjustedIndexPaths = [adPlacer.streamAdPlacer adjustedIndexPathsForOriginalIndexPaths:indexPaths];
-
+            
             [adPlacer.streamAdPlacer deleteItemsAtIndexPaths:indexPaths];
         }
-
+        
         // We perform the actual UI deletion AFTER updating the stream ad placer's
         // data, because the deletion can trigger queries to the data source, which
         // needs to reflect the post-deletion state.

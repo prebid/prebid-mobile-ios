@@ -8,7 +8,7 @@
 #import <AdSupport/AdSupport.h>
 #import "MPAPIEndpoints.h"
 #import "MPAdServerURLBuilder.h"
-#import "MPAdServerKeys.h"
+#import "MPConsentAdServerKeys.h"
 #import "MPConsentChangedNotification.h"
 #import "MPConsentChangedReason.h"
 #import "MPConsentError.h"
@@ -34,7 +34,6 @@ static NSString * const kIfaForConsentStorageKey                 = @"com.mopub.m
 static NSString * const kIsDoNotTrackStorageKey                  = @"com.mopub.mopub-ios-sdk.is.do.not.track";
 static NSString * const kIsWhitelistedStorageKey                 = @"com.mopub.mopub-ios-sdk.is.whitelisted";
 static NSString * const kGDPRAppliesStorageKey                   = @"com.mopub.mopub-ios-sdk.gdpr.applies";
-static NSString * const kForceGDPRAppliesStorageKey              = @"com.mopub.mopub-ios-sdk.gdpr.force.applies.true";
 static NSString * const kLastChangedMsStorageKey                 = @"com.mopub.mopub-ios-sdk.last.changed.ms";
 static NSString * const kLastChangedReasonStorageKey             = @"com.mopub.mopub-ios-sdk.last.changed.reason";
 static NSString * const kLastSynchronizedConsentStatusStorageKey = @"com.mopub.mopub-ios-sdk.last.synchronized.consent.status";
@@ -66,12 +65,6 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
 @property (nonatomic, readonly) BOOL isDoNotTrack;
 
 /**
- Flag indicating that GDPR applicability was forced and the transition should be
- communicated back to the server. This will only persist in memory.
- */
-@property (nonatomic, assign, readwrite) BOOL isForcedGDPRAppliesTransition;
-
-/**
  Timer used to fire the next consent synchronization update. This will be invalidated
  everytime `synchronizeConsentWithCompletion:` is explcitly called. The timer
  frequency is determined by `self.syncFrequency`.
@@ -82,11 +75,6 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
  Queries the raw consent status value that is stored in @c kConsentStatusStorageKey
  */
 @property (nonatomic, readonly) MPConsentStatus rawConsentStatus;
-
-/**
- Queries the raw isGDPRApplicable value that is stored in @c kGDPRAppliesStorageKey
- */
-@property (nonatomic, readonly) MPBool rawIsGDPRApplicable;
 
 /**
  Flag indicating that the server requires reacquisition of consent.
@@ -102,14 +90,6 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
  information. Defaults to 300 seconds.
  */
 @property (nonatomic, assign, readwrite) NSTimeInterval syncFrequency;
-
-/**
- Block to be executed after the consent dialog dismisses. Typically will be nil, but
- if a consent dialog view controller is currently presented, and the publisher set a
- block to be executed once the view controller dismisses, that block is stored here
- while it's waiting to be executed.
- */
-@property (nonatomic, copy) void (^consentDialogDidDismissCompletionBlock)(void);
 
 @end
 
@@ -186,10 +166,6 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
     return (MPConsentStatus)[NSUserDefaults.standardUserDefaults integerForKey:kConsentStatusStorageKey];
 }
 
-- (MPBool)rawIsGDPRApplicable {
-    return (MPBool)[NSUserDefaults.standardUserDefaults integerForKey:kGDPRAppliesStorageKey];
-}
-
 - (BOOL)shouldReacquireConsent {
     return [NSUserDefaults.standardUserDefaults boolForKey:kShouldReacquireConsentStorageKey];
 }
@@ -214,9 +190,6 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
 
 - (void)grantConsent {
     MPLogInfo(@"Grant consent was called with publisher whitelist status of: %@whitelisted", self.isWhitelisted ? @"" : @"not ");
-    if (!self.isWhitelisted) {
-        MPLogWarn(@"You do not have approval to use the grantConsent API. Please reach out to your account teams or support@mopub.com for more information.");
-    }
 
     // Reset the reacquire consent flag since the user has taken action.
     self.shouldReacquireConsent = NO;
@@ -280,16 +253,6 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
         return;
     }
 
-    // If GDPR is not applicable, do not load, nil any view controller that has already loaded, and send error
-    if (self.isGDPRApplicable != MPBoolYes) {
-        self.consentDialogViewController = nil;
-        NSError *gdprIsNotApplicableError = [NSError errorWithDomain:kConsentErrorDomain
-                                                                code:MPConsentErrorCodeGDPRIsNotApplicable
-                                                            userInfo:nil];
-        callCompletion(gdprIsNotApplicableError);
-        return;
-    }
-
     // If a view controller is already loaded, don't load another.
     if (self.consentDialogViewController) {
         callCompletion(nil);
@@ -333,16 +296,11 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
     }];
 }
 
-- (void)showConsentDialogFromViewController:(UIViewController *)viewController
-                                    didShow:(void (^)(void))didShow
-                                 didDismiss:(void (^)(void))didDismiss {
+- (void)showConsentDialogFromViewController:(UIViewController *)viewController completion:(void (^)(void))completion {
     if (self.isConsentDialogLoaded) {
         [viewController presentViewController:self.consentDialogViewController
                                      animated:YES
-                                   completion:didShow];
-
-        // Save @c didDismiss block for later
-        self.consentDialogDidDismissCompletionBlock = didDismiss;
+                                   completion:completion];
     }
 }
 
@@ -373,19 +331,7 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
 }
 
 - (void)consentDialogViewControllerWillDisappear:(MPConsentDialogViewController *)consentDialogViewController {
-    // Nil out the consent dialog view controller here so the same dialog instance is not accidentally reused
-    // if attempted to be loaded again too early
     self.consentDialogViewController = nil;
-}
-
-- (void)consentDialogViewControllerDidDismiss:(MPConsentDialogViewController *)consentDialogViewController {
-    // Execute @c consentDialogWillDismissCompletionBlock if needed
-    if (self.consentDialogDidDismissCompletionBlock) {
-        self.consentDialogDidDismissCompletionBlock();
-
-        // Set completion block to @c nil once done running it
-        self.consentDialogDidDismissCompletionBlock = nil;
-    }
 }
 
 #pragma mark - Foreground / Background Notification Listeners
@@ -458,20 +404,12 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
     // no IFA to send one last time for the server to revoke consent, further
     // server synchronization is not necessary until the device transitions
     // out of the "do not track" state.
-    // In the case that raw (MoPub) GDPR applicability is unknown, we should perform a sync
+    // In the case that GDPR applicability is unknown, we should perform a sync
     // to determine the final state.
-    if (!MPIdentityProvider.advertisingTrackingEnabled && self.ifaForConsent == nil && self.rawIsGDPRApplicable != MPBoolUnknown) {
+    if (!MPIdentityProvider.advertisingTrackingEnabled && self.ifaForConsent == nil && self.isGDPRApplicable != MPBoolUnknown) {
         MPLogInfo(@"Currently in a do not track state, consent synchronization will complete immediately");
         completion(nil);
         return;
-    }
-
-    // Before beginning the sync, check for a nil or empty ad unit ID, and output to the log if there's an issue.
-    // Otherwise, output the ad unit ID to the log.
-    if (self.adUnitIdUsedForConsent == nil || [self.adUnitIdUsedForConsent isEqualToString:@""]) {
-        MPLogError(@"Warning: no ad unit available for GDPR sync. Please make sure that the SDK is initialized correctly via `initializeSdkWithConfiguration:completion:` as soon as possible after app startup.");
-    } else {
-        MPLogInfo(@"Ad unit used for GDPR sync: %@", self.adUnitIdUsedForConsent);
     }
 
     // Capture the current status being synchronized with the server
@@ -493,10 +431,6 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
         // successfully sent to the server. However, it may be the case that the
         // server sends us back an invalid response.
         [NSUserDefaults.standardUserDefaults setObject:synchronizedStatus forKey:kLastSynchronizedConsentStatusStorageKey];
-
-        // Reset the GDPR applies transition state since it was successfully sent to
-        // ad server.
-        strongSelf.isForcedGDPRAppliesTransition = NO;
 
         // Deserialize the JSON response and attempt to parse it
         NSError * deserializationError = nil;
@@ -655,12 +589,10 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
     // "do not track" state is maintained by a seperate storage field.
     [defaults setBool:(currentStatus == MPConsentStatusDoNotTrack) forKey:kIsDoNotTrackStorageKey];
 
-    // Copy the current privacy policy version, vendor list version, and IAB vendor list
-    // to the equivalent consented fields under the following conditions:
-    // 1. Consent has been updated to "potential whitelist", or
-    // 2. Consent has been updated to "consented" from a previously not "potential whitelist" state
-    if (currentStatus == MPConsentStatusPotentialWhitelist ||
-        (currentStatus == MPConsentStatusConsented && oldStatus != MPConsentStatusPotentialWhitelist)) {
+    // If the state has been updated to "consented", copy the current
+    // privacy policy version, vendor list version, and IAB vendor list
+    // to the equivalent consented fields.
+    if (currentStatus == MPConsentStatusConsented) {
         [defaults setObject:self.iabVendorList forKey:kConsentedIabVendorListStorageKey];
         [defaults setObject:self.privacyPolicyVersion forKey:kConsentedPrivacyPolicyVersionStorageKey];
         [defaults setObject:self.vendorListVersion forKey:kConsentedVendorListVersionStorageKey];
@@ -721,11 +653,8 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
     [defaults setObject:privacyPolicyVersion forKey:kPrivacyPolicyVersionStorageKey];
 
     // A user is considered GDPR applicable if they first launched the app
-    // within a GDPR region. Check the @c rawIsGDPRApplicable property because
-    // a publisher may have already set @c forceIsGDPRApplicable before this point,
-    // and we still want our own definition of applicability to apply in the case that
-    // a pub stops forcing.
-    if (self.rawIsGDPRApplicable == MPBoolUnknown) {
+    // within a GDPR region.
+    if (self.isGDPRApplicable == MPBoolUnknown) {
         MPBool gdprApplies = [isGDPRRegionValue boolValue] ? MPBoolYes : MPBoolNo;
         [defaults setInteger:gdprApplies forKey:kGDPRAppliesStorageKey];
     }
@@ -734,12 +663,10 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
     BOOL shouldForceExplicitNo = [newState[kForceExplicitNoKey] boolValue];
     BOOL shouldInvalidateConsent = [newState[kInvalidateConsentKey] boolValue];
     BOOL shouldReacquireConsent = [newState[kReacquireConsentKey] boolValue];
-    BOOL shouldForceGDPRApplies = [newState[kForceGDPRAppliesKey] boolValue];
     NSString * consentChangeReason = newState[kConsentChangedReasonKey];
     [self forceStatusShouldForceExplicitNo:shouldForceExplicitNo
                    shouldInvalidateConsent:shouldInvalidateConsent
                     shouldReacquireConsent:shouldReacquireConsent
-              shouldForceGDPRApplicability:shouldForceGDPRApplies
                        consentChangeReason:consentChangeReason
                            shouldBroadcast:NO];
 
@@ -785,7 +712,6 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
 - (void)forceStatusShouldForceExplicitNo:(BOOL)shouldForceExplicitNo
                  shouldInvalidateConsent:(BOOL)shouldInvalidateConsent
                   shouldReacquireConsent:(BOOL)shouldReacquireConsent
-            shouldForceGDPRApplicability:(BOOL)shouldForceGDPRApplies
                      consentChangeReason:(NSString *)consentChangeReason
                          shouldBroadcast:(BOOL)shouldBroadcast {
     if (shouldForceExplicitNo) {
@@ -799,59 +725,11 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
     else if (shouldReacquireConsent) {
         self.shouldReacquireConsent = YES;
     }
-
-    // Forcing GDPR applicability is seperate from forcing consent.
-    if (shouldForceGDPRApplies) {
-        self.forceIsGDPRApplicable = YES;
-    }
 }
 
 @end
 
 @implementation MPConsentManager (State)
-
-#pragma mark - Read/Write Properties
-
-- (void)setForceIsGDPRApplicable:(BOOL)forceIsGDPRApplicable {
-    NSUserDefaults * defaults = NSUserDefaults.standardUserDefaults;
-    BOOL valueExists = [defaults objectForKey:kForceGDPRAppliesStorageKey] != nil;
-
-    // This can only be set once for the lifetime of the app.
-    // In the event that a set `NO` value is attempted or if there already
-    // is a set value, nothing will happen.
-    if (!forceIsGDPRApplicable || valueExists) {
-        return;
-    }
-
-    // Capture old can collect PII value
-    BOOL oldCanCollectPII = self.canCollectPersonalInfo;
-
-    // Set new value and mark the transition
-    [defaults setBool:forceIsGDPRApplicable forKey:kForceGDPRAppliesStorageKey];
-    self.isForcedGDPRAppliesTransition = YES;
-
-    // Broadcast the `kMPConsentChangedNotification` if needed.
-    if (oldCanCollectPII != self.canCollectPersonalInfo) {
-        [self notifyConsentChangedTo:self.currentStatus fromOldStatus:self.currentStatus canCollectPii:self.canCollectPersonalInfo];
-    }
-
-    // Start sync cycle if needed
-    if (self.adUnitIdUsedForConsent != nil && // If @c adUnitIdUsedForConsent is non-nil (i.e., if SDK init has been called; otherwise the sync will happen as part of init) AND
-        (forceIsGDPRApplicable && self.rawIsGDPRApplicable == MPBoolNo)) { // If GDPR was not already applicable and it has become so (otherwise there's already an active sync cycle and the effective @c isGDPRApplilcableValue didn't actually change)
-        [self synchronizeConsentWithCompletion:^(NSError *error){
-            if (error) {
-                MPLogError(@"Force GDPR consent synchronization failed: %@", error.localizedDescription);
-            }
-            else {
-                MPLogInfo(@"Force GDPR consent synchronization completed");
-            }
-        }];
-    }
-}
-
-- (BOOL)forceIsGDPRApplicable {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:kForceGDPRAppliesStorageKey];
-}
 
 #pragma mark - Read Only Properties
 
@@ -920,8 +798,7 @@ static NSString * const kMacroReplaceLanguageCode = @"%%LANGUAGE%%";
 }
 
 - (MPBool)isGDPRApplicable {
-    // Always return @c MPBoolYes if @c forceIsGDPRApplicable has been set to @c YES
-    return self.forceIsGDPRApplicable ? MPBoolYes : (MPBool)[NSUserDefaults.standardUserDefaults integerForKey:kGDPRAppliesStorageKey];
+    return (MPBool)[NSUserDefaults.standardUserDefaults integerForKey:kGDPRAppliesStorageKey];
 }
 
 - (BOOL)isWhitelisted {

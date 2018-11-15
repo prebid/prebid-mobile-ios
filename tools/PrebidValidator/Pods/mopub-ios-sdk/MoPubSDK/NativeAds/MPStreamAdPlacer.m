@@ -6,6 +6,7 @@
 //
 
 #import "MPAdPositioning.h"
+#import "MPInstanceProvider.h"
 #import "MPLogging.h"
 #import "MPNativeAd+Internal.h"
 #import "MPNativeAdData.h"
@@ -63,8 +64,8 @@ static const NSUInteger kIndexPathItemIndex = 1;
     if (self) {
         _viewController = controller;
         _adPositioning = [positioning copy];
-        _adSource = [[MPNativeAdSource alloc] initWithDelegate:self];
-        _adPlacementData = [[MPStreamAdPlacementData alloc] initWithPositioning:_adPositioning];
+        _adSource = [[MPInstanceProvider sharedProvider] buildNativeAdSourceWithDelegate:self];
+        _adPlacementData = [[MPInstanceProvider sharedProvider] buildStreamAdPlacementDataWithPositioning:_adPositioning];
         _rendererConfigurations = rendererConfigurations;
         _sectionCounts = [[NSMutableDictionary alloc] init];
     }
@@ -148,24 +149,24 @@ static const NSUInteger kIndexPathItemIndex = 1;
 
     if (!adUnitID) {
         // We need some placement data.  Pass nil to it so it doesn't do any unnecessary work.
-        self.adPlacementData = [[MPStreamAdPlacementData alloc] initWithPositioning:nil];
+        self.adPlacementData = [[MPInstanceProvider sharedProvider] buildStreamAdPlacementDataWithPositioning:nil];
     } else if ([self.adPositioning isKindOfClass:[MPClientAdPositioning class]]) {
         // Reset to a placement data that has "desired" ads but not "placed" ones.
-        self.adPlacementData = [[MPStreamAdPlacementData alloc] initWithPositioning:self.adPositioning];
+        self.adPlacementData = [[MPInstanceProvider sharedProvider] buildStreamAdPlacementDataWithPositioning:self.adPositioning];
     } else if ([self.adPositioning isKindOfClass:[MPServerAdPositioning class]]) {
         // Reset to a placement data that has no "desired" ads at all.
-        self.adPlacementData = [[MPStreamAdPlacementData alloc] initWithPositioning:nil];
-
+        self.adPlacementData = [[MPInstanceProvider sharedProvider] buildStreamAdPlacementDataWithPositioning:nil];
+        
         // Get positioning information from the server.
-        self.positioningSource = [[MPNativePositionSource alloc] init];
+        self.positioningSource = [[MPInstanceProvider sharedProvider] buildNativePositioningSource];
         __weak __typeof__(self) weakSelf = self;
         [self.positioningSource loadPositionsWithAdUnitIdentifier:self.adUnitID completionHandler:^(MPAdPositioning *positioning, NSError *error) {
             __typeof__(self) strongSelf = weakSelf;
-
+            
             if (!strongSelf) {
                 return;
             }
-
+            
             if (error) {
                 if ([error code] == MPNativePositionSourceEmptyResponse) {
                     MPLogError(@"ERROR: Ad placer cannot show any ads because ad positions have "
@@ -177,7 +178,7 @@ static const NSUInteger kIndexPathItemIndex = 1;
                                @"ad unit ID %@. Error: %@", strongSelf.adUnitID, error);
                 }
             } else {
-                strongSelf.adPlacementData = [[MPStreamAdPlacementData alloc] initWithPositioning:positioning];
+                strongSelf.adPlacementData = [[MPInstanceProvider sharedProvider] buildStreamAdPlacementDataWithPositioning:positioning];
             }
         }];
     }
@@ -190,7 +191,7 @@ static const NSUInteger kIndexPathItemIndex = 1;
         MPLogError(@"Ad placer cannot load ads with a nil ad unit ID.");
         return;
     }
-
+    
     [self.adSource loadAdsWithAdUnitIdentifier:adUnitID rendererConfigurations:self.rendererConfigurations andTargeting:targeting];
 }
 
@@ -251,24 +252,24 @@ static const NSUInteger kIndexPathItemIndex = 1;
     [originalIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath *indexPath, NSUInteger idx, BOOL *stop) {
         [activeSections addObject:[NSNumber numberWithInteger:indexPath.section]];
     }];
-
+    
     NSMutableArray *removedIndexPaths = [NSMutableArray array];
     [activeSections enumerateObjectsUsingBlock:^(NSNumber *section, BOOL *stop) {
         NSArray *originalIndexPathsInSection = [originalIndexPaths filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"section = %@", section]];
         NSRange deleteRange = [self rangeToDeleteInSection:section forOriginalContentIndexPaths:originalIndexPathsInSection];
-
+        
         NSArray *indexPathsToDelete = [self.adPlacementData adjustedAdIndexPathsInAdjustedRange:deleteRange inSection:[section integerValue]];
         [removedIndexPaths addObjectsFromArray:indexPathsToDelete];
         [self.adPlacementData clearAdsInAdjustedRange:deleteRange inSection:[section integerValue]];
     }];
-
+    
     [self.adPlacementData deleteItemsAtIndexPaths:originalIndexPaths];
-
+    
     [originalIndexPaths enumerateObjectsUsingBlock:^(NSIndexPath *originalIndexPath, NSUInteger idx, BOOL *stop) {
         NSInteger section = originalIndexPath.section;
         [self setItemCount:[[self.sectionCounts objectForKey:@(section)] integerValue] - 1 forSection:section];
     }];
-
+    
     if ([removedIndexPaths count]) {
         [self.delegate adPlacer:self didRemoveAdsAtIndexPaths:removedIndexPaths];
     }
@@ -452,7 +453,7 @@ static const NSUInteger kIndexPathItemIndex = 1;
             }
         }
     }
-
+    
     NSUInteger indices[] = {section, itemIndex};
     return [NSIndexPath indexPathWithIndexes:indices length:2];
 }
@@ -481,15 +482,15 @@ static const NSUInteger kIndexPathItemIndex = 1;
 - (MPNativeAdData *)retrieveAdDataForInsertionPath:(NSIndexPath *)insertionPath
 {
     MPNativeAd *adObject = [self.adSource dequeueAdForAdUnitIdentifier:self.adUnitID];
-
+    
     if (!adObject) {
         return nil;
     }
-
+    
     MPNativeAdData *adData = [[MPNativeAdData alloc] init];
     adData.adUnitID = self.adUnitID;
     adData.ad = adObject;
-
+    
     return adData;
 }
 
@@ -501,18 +502,18 @@ static const NSUInteger kIndexPathItemIndex = 1;
 
     NSIndexPath *topAdjustedIndexPath = [self adjustedIndexPathForOriginalIndexPath:self.topConsideredIndexPath];
     NSIndexPath *insertionPath = [self.adPlacementData nextAdInsertionIndexPathForAdjustedIndexPath:topAdjustedIndexPath];
-
+    
     while ([self shouldPlaceAdAtIndexPath:insertionPath]) {
         MPNativeAdData *adData = [self retrieveAdDataForInsertionPath:insertionPath];
         adData.ad.delegate = self;
-
+        
         if (!adData) {
             break;
         }
-
+        
         [self.adPlacementData insertAdData:adData atIndexPath:insertionPath];
         [self.delegate adPlacer:self didLoadAdAtIndexPath:insertionPath];
-
+        
         insertionPath = [self.adPlacementData nextAdInsertionIndexPathForAdjustedIndexPath:insertionPath];
     }
 }

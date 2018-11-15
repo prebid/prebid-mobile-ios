@@ -18,15 +18,13 @@
 - (void)setDesiredAssets:(NSSet *)desiredAssets
 {
     if (_desiredAssets != desiredAssets) {
-
+        
         NSMutableSet *allowedAdAssets = [NSMutableSet setWithObjects:kAdTitleKey,
                                          kAdTextKey,
                                          kAdIconImageKey,
                                          kAdMainImageKey,
                                          kAdCTATextKey,
                                          kAdStarRatingKey,
-                                         kAdIconImageViewKey,
-                                         kAdMainMediaViewKey,
                                          nil];
         [allowedAdAssets intersectSet:desiredAssets];
         _desiredAssets = allowedAdAssets;

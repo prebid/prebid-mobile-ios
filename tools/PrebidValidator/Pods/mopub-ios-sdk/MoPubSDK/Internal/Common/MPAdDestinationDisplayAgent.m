@@ -92,14 +92,12 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
     [self.enhancedDeeplinkFallbackResolver cancel];
 
     __weak __typeof__(self) weakSelf = self;
-    self.resolver = [[MPCoreInstanceProvider sharedProvider] buildMPURLResolverWithURL:URL completion:^(MPURLActionInfo *suggestedAction, NSError *error) {
+    self.resolver = [MPURLResolver resolverWithURL:URL completion:^(MPURLActionInfo *suggestedAction, NSError *error) {
         __typeof__(self) strongSelf = weakSelf;
-        if (strongSelf) {
-            if (error) {
-                [strongSelf failedToResolveURLWithError:error];
-            } else {
-                [strongSelf handleSuggestedURLAction:suggestedAction isResolvingEnhancedDeeplink:NO];
-            }
+        if (error) {
+            [strongSelf failedToResolveURLWithError:error];
+        } else {
+            [strongSelf handleSuggestedURLAction:suggestedAction isResolvingEnhancedDeeplink:NO];
         }
     }];
 
@@ -182,19 +180,18 @@ static NSString * const kDisplayAgentErrorDomain = @"com.mopub.displayagent";
 {
     __weak __typeof__(self) weakSelf = self;
     [self.enhancedDeeplinkFallbackResolver cancel];
-    self.enhancedDeeplinkFallbackResolver = [[MPCoreInstanceProvider sharedProvider] buildMPURLResolverWithURL:request.fallbackURL completion:^(MPURLActionInfo *actionInfo, NSError *error) {
+    self.enhancedDeeplinkFallbackResolver = [MPURLResolver resolverWithURL:request.fallbackURL completion:^(MPURLActionInfo *actionInfo, NSError *error) {
         __typeof__(self) strongSelf = weakSelf;
-        if (strongSelf) {
-            if (error) {
-                // If the resolver fails, just treat the entire original URL as a regular deeplink.
-                [strongSelf openURLInApplication:request.originalURL];
-            } else {
-                // Otherwise, the resolver will return us a URL action. We process that action
-                // normally with one exception: we don't follow any nested enhanced deeplinks.
-                BOOL success = [strongSelf handleSuggestedURLAction:actionInfo isResolvingEnhancedDeeplink:YES];
-                if (success) {
-                    [[[MPCoreInstanceProvider sharedProvider] sharedMPAnalyticsTracker] sendTrackingRequestForURLs:request.fallbackTrackingURLs];
-                }
+        if (error) {
+            // If the resolver fails, just treat the entire original URL as a regular deeplink.
+            [strongSelf openURLInApplication:request.originalURL];
+        }
+        else {
+            // Otherwise, the resolver will return us a URL action. We process that action
+            // normally with one exception: we don't follow any nested enhanced deeplinks.
+            BOOL success = [strongSelf handleSuggestedURLAction:actionInfo isResolvingEnhancedDeeplink:YES];
+            if (success) {
+                [[[MPCoreInstanceProvider sharedProvider] sharedMPAnalyticsTracker] sendTrackingRequestForURLs:request.fallbackTrackingURLs];
             }
         }
     }];

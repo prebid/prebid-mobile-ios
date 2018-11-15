@@ -26,11 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)consentDialogViewControllerWillDisappear:(MPConsentDialogViewController *)consentDialogViewController;
 
-/**
- Informs the delegate that the given consentDialogViewController did complete dismissing.
- */
-- (void)consentDialogViewControllerDidDismiss:(MPConsentDialogViewController *)consentDialogViewController;
-
 @end
 
 @interface MPConsentDialogViewController : UIViewController

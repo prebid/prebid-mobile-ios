@@ -1,1 +1,1 @@
-../../../mopub-ios-sdk/MoPubSDK/Native Ads/MPStreamAdPlacer.h
+../../../mopub-ios-sdk/MoPubSDK/NativeAds/MPStreamAdPlacer.h

@@ -44,7 +44,8 @@
 /**
  * Loads a rewarded video ad with the ad manager's ad unit ID.
  *
- * @param keywords A string representing a set of keywords that should be passed to the MoPub ad server to receive
+ * @param keywords A string representing a set of non-personally identifiable keywords that should be passed to the MoPub ad server to receive more relevant advertising.
+ * @param userDataKeywords A string representing a set of personally identifiable keywords that should be passed to the MoPub ad server to receive
  * more relevant advertising.
  *
  * @param location Latitude/Longitude that are passed to the MoPub ad server
@@ -54,8 +55,10 @@
  * @param customerId The user's id within the app.
  *
  * However, if an ad has been played for the last time a load was issued and load is called again, the method will request a new ad.
+
+ * Note: If a user is in General Data Protection Regulation (GDPR) region and MoPub doesn't obtain consent from the user, "keywords" will be sent to the server but "userDataKeywords" will be excluded.
  */
-- (void)loadRewardedVideoAdWithKeywords:(NSString *)keywords location:(CLLocation *)location customerId:(NSString *)customerId;
+- (void)loadRewardedVideoAdWithKeywords:(NSString *)keywords userDataKeywords:(NSString *)userDataKeywords location:(CLLocation *)location customerId:(NSString *)customerId;
 
 /**
  * Tells the caller whether the underlying ad network currently has an ad available for presentation.

@@ -57,36 +57,29 @@ static NSString * const kNetworkSDKInitializationParametersKey = @"com.mopub.mop
         return nil;
     }
 
-    NSDictionary * networkParameters = nil;
-    @synchronized (self) {
-        NSDictionary * cachedParameters = [[NSUserDefaults standardUserDefaults] objectForKey:kNetworkSDKInitializationParametersKey];
-        if (cachedParameters != nil) {
-            networkParameters = [cachedParameters objectForKey:network];
-        }
+    NSDictionary * cachedParameters = [[NSUserDefaults standardUserDefaults] objectForKey:kNetworkSDKInitializationParametersKey];
+    if (cachedParameters == nil) {
+        return nil;
     }
 
-    return networkParameters;
+    return [cachedParameters objectForKey:network];
 }
 
 - (NSArray<Class<MPMediationSdkInitializable>> * _Nullable)allCachedNetworks {
-    NSMutableArray<Class<MPMediationSdkInitializable>> * cachedNetworks = nil;
-
-    @synchronized (self) {
-        NSDictionary * cachedParameters = [[NSUserDefaults standardUserDefaults] objectForKey:kNetworkSDKInitializationParametersKey];
-        NSArray * cacheKeys = [cachedParameters allKeys];
-        if (cacheKeys == nil) {
-            return nil;
-        }
-
-        // Convert the strings of class names into class types.
-        cachedNetworks = [NSMutableArray array];
-        [cacheKeys enumerateObjectsUsingBlock:^(NSString * key, NSUInteger idx, BOOL * _Nonnull stop) {
-            Class c = NSClassFromString(key);
-            if ([c conformsToProtocol:@protocol(MPMediationSdkInitializable)]) {
-                [cachedNetworks addObject:c];
-            }
-        }];
+    NSDictionary * cachedParameters = [[NSUserDefaults standardUserDefaults] objectForKey:kNetworkSDKInitializationParametersKey];
+    NSArray * cacheKeys = [cachedParameters allKeys];
+    if (cacheKeys == nil) {
+        return nil;
     }
+
+    // Convert the strings of class names into class types.
+    NSMutableArray<Class<MPMediationSdkInitializable>> * cachedNetworks = [NSMutableArray array];
+    [cacheKeys enumerateObjectsUsingBlock:^(NSString * key, NSUInteger idx, BOOL * _Nonnull stop) {
+        Class c = NSClassFromString(key);
+        if ([c conformsToProtocol:@protocol(MPMediationSdkInitializable)]) {
+            [cachedNetworks addObject:c];
+        }
+    }];
 
     return cachedNetworks;
 }
