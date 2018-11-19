@@ -29,9 +29,11 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.numberOfPages = 3;
+        int width = frame.size.width;
+        int height = frame.size.height;
         self.content= [[UIImageView alloc] init];
         _content.image = [UIImage imageNamed:@"intro1Image"];
-        _content.frame = CGRectMake(0, 0,375, 509);
+        _content.frame = CGRectMake(0, 0,width, height - 50);
         _content.center =self.center;
         [self addSubview:_content];
         [self addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];

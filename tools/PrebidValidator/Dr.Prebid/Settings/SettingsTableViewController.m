@@ -86,7 +86,11 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     [self.tableView setBackgroundColor:[UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0]];
     
     // remove the scrolling of tableview
-    self.tableView.scrollEnabled = NO;
+    CGFloat dummyViewHeight = 40;
+    UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, dummyViewHeight)];
+    self.tableView.tableHeaderView = dummyView;
+    self.tableView.contentInset = UIEdgeInsetsMake(-dummyViewHeight, 0, 0, 0);
+    self.tableView.scrollEnabled = YES;
     self.chosenAdSize = @"300x250";
     
     // Uncomment the following line to preserve selection between presentations.
@@ -101,6 +105,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     self.sectionTitles = @[kGeneralInfoText, kAdServerInfoText, kPrebidServerInfoText];
 
     [self.tableView setSeparatorColor:[UIColor darkGrayColor]];
+    self.tableView.tableFooterView = [self footerView];
     
 }
 
@@ -148,6 +153,9 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
+    if([indexPath row] == ((NSIndexPath*)[[tableView indexPathsForVisibleRows] lastObject]).row){
+        [self updateFooterViewButtonColor];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -194,8 +202,6 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     } else{
         return [self configurePrebidServerSection:tableView withIndexPath:indexPath];
     }
-
-    //return nil;
 }
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -243,39 +249,40 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     return 40.0f;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if(section == 2)
-        return 50.0f;
-    else
-        return 0.0f;
+- (UIView *) footerView {
+    UIView *footerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50.0f)];
+    UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [nextButton setTitle:@"Run Tests" forState:UIControlStateNormal];
+    nextButton.frame = CGRectMake(0.0, 0.0, 335.0, 35.0);
+    [nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [nextButton setBackgroundColor:[UIColor colorWithRed:0.93 green:0.59 blue:0.12 alpha:1.0]];
+    [nextButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [nextButton addTarget:self action:@selector(didPressNext:) forControlEvents:UIControlEventTouchUpInside];
+    nextButton.clipsToBounds = YES;
+    if([self checkIfTestButtonCanBeDisabled] == FALSE){
+        nextButton.enabled = NO;
+        [nextButton setBackgroundColor:[UIColor colorWithRed:0.93 green:0.59 blue:0.12 alpha:0.3]];
+    }else{
+        nextButton.enabled = YES;
+    }
+    [footerView addSubview:nextButton];
+    nextButton.center = footerView.center;
+    return footerView;
 }
 
-- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    
-    if(section == 2){
-        UIView *footerView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50.0f)];
-        UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [nextButton setTitle:@"Run Tests" forState:UIControlStateNormal];
-        nextButton.frame = CGRectMake(0.0, 0.0, 335.0, 35.0);
-        [nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [nextButton setBackgroundColor:[UIColor colorWithRed:0.93 green:0.59 blue:0.12 alpha:1.0]];
-        [nextButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
-        [nextButton addTarget:self action:@selector(didPressNext:) forControlEvents:UIControlEventTouchUpInside];
-        nextButton.clipsToBounds = YES;
+- (void)updateFooterViewButtonColor {
+    UIButton *nextButton = (UIButton *)self.tableView.tableFooterView.subviews[0];
+    if (nextButton != nil) {
         if([self checkIfTestButtonCanBeDisabled] == FALSE){
             nextButton.enabled = NO;
             [nextButton setBackgroundColor:[UIColor colorWithRed:0.93 green:0.59 blue:0.12 alpha:0.3]];
         }else{
             nextButton.enabled = YES;
+            [nextButton setBackgroundColor:[UIColor colorWithRed:0.93 green:0.59 blue:0.12 alpha:1.0]];
         }
-        [footerView addSubview:nextButton];
-        nextButton.center = footerView.center;
-        return footerView;
-    } else
-    {
-        return nil;
     }
 }
+
 
 - (UITableViewCell *) configureGeneralInfoSection:(UITableView *) tableView withIndexPath:(NSIndexPath *)indexPath {
     
@@ -294,9 +301,10 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             if([[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey] isEqualToString:@""]){
                 if([[[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey] isEqualToString: kAdFormatBanner]){
                     [cell.segmentControl setSelectedSegmentIndex:0];
-                    
+                    self.isInterstitial = NO;
                 } else {
                      [cell.segmentControl setSelectedSegmentIndex:1];
+                    self.isInterstitial = YES;
                 }
             }
         }
@@ -562,6 +570,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     NSString *amountString = [self currencyFormatting:currencyField.text];
     currencyField.text = amountString;
     self.bidPrice = amountString;
+    [self updateFooterViewButtonColor];
 }
 
 -(NSString *) currencyFormatting :(NSString *) currency {
@@ -598,7 +607,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         self.isInterstitial = NO;
     }
     [self.tableView reloadData];
-    
+    [self updateFooterViewButtonColor];
 }
 
 -(void) adServerChanged:(id) sender {
@@ -610,7 +619,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     } else if(adTypeSegment.selectedSegmentIndex == 0){
         [[NSUserDefaults standardUserDefaults] setObject:kAdServerDFP forKey:kAdServerNameKey];
     }
-    
+    [self updateFooterViewButtonColor];
 }
 
 -(void) hostServerChanged:(id) sender {
@@ -623,6 +632,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         [[NSUserDefaults standardUserDefaults] setObject:kPrebidHostAppnexus forKey:kPBHostKey];
     }
     
+    [self updateFooterViewButtonColor];
 }
 
 -(void) sendSelectedAdSize:(NSString *)adSize {
@@ -630,6 +640,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         self.chosenAdSize = adSize;
         [self.tableView reloadData];
     }
+    [self updateFooterViewButtonColor];
 }
 
 -(void) sendSelectedId:(NSString *)idString forID:(NSString *) idLabel{
@@ -642,6 +653,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         self.configID = idString;
     }
     [self.tableView reloadData];
+    [self updateFooterViewButtonColor];
     
 }
 

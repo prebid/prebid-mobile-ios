@@ -73,10 +73,13 @@ UITableViewDataSource, UITableViewDelegate>
     self.title = @"Summary";
     
     self.sectionTitles = @[kAdServerTestHeader, kRealTimeHeader, kSDKHeader];
-    
     [self.tableView setDelegate:self];
     [self.tableView setDataSource:self];
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    CGFloat dummyViewHeight = 40;
+    UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, dummyViewHeight)];
+    self.tableView.tableHeaderView = dummyView;
+    self.tableView.contentInset = UIEdgeInsetsMake(-dummyViewHeight, 0, 0, 0);
     [self.tableView setSeparatorColor:[UIColor darkGrayColor]];
     [self.tableView registerNib:[UINib nibWithNibName:@"SectionCell" bundle:nil] forCellReuseIdentifier:kSectionCellString];
      [self.tableView registerNib:[UINib nibWithNibName:@"TestHeaderCell" bundle:nil] forCellReuseIdentifier:kHeaderCellString];
