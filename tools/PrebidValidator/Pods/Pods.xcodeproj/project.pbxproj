@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -560,7 +560,7 @@
 		562B43CBC4621B1A27FBA209C5CA3E00 /* MRBridge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MRBridge.h; path = MoPubSDK/Internal/MRAID/MRBridge.h; sourceTree = "<group>"; };
 		56328D9EE63998D8B0C02702A519F471 /* MPActivityViewControllerHelper+TweetShare.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MPActivityViewControllerHelper+TweetShare.h"; path = "MoPubSDK/Internal/Common/MPActivityViewControllerHelper+TweetShare.h"; sourceTree = "<group>"; };
 		563816C9084DB54679AAA1675277A9C4 /* NSHTTPURLResponse+MPAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSHTTPURLResponse+MPAdditions.h"; path = "MoPubSDK/Internal/Utility/Categories/NSHTTPURLResponse+MPAdditions.h"; sourceTree = "<group>"; };
-		56549C26D8256F3361139F9609A4D5BE /* libPods-Dr.Prebid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Dr.Prebid.a"; path = "libPods-Dr.Prebid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		56549C26D8256F3361139F9609A4D5BE /* libPods-Dr.Prebid.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Dr.Prebid.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		566AC2B23A2B43E215594DFF6E35B0C0 /* MPNativeAdRequest+MPNativeAdSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MPNativeAdRequest+MPNativeAdSource.h"; path = "MoPubSDK/NativeAds/Internal/Categories/MPNativeAdRequest+MPNativeAdSource.h"; sourceTree = "<group>"; };
 		56B56CD4FEEA952878D5DB2564216871 /* MPUnmutedBtn@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MPUnmutedBtn@2x.png"; path = "MoPubSDK/Resources/MPUnmutedBtn@2x.png"; sourceTree = "<group>"; };
 		56F9D67471A712DA48983DEB910F3E2A /* MPNativeAdUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativeAdUtils.h; path = MoPubSDK/NativeAds/Internal/MPNativeAdUtils.h; sourceTree = "<group>"; };
@@ -603,7 +603,7 @@
 		6A48860678F6D1631C790427E27617C2 /* MPAdAlertManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPAdAlertManager.m; path = MoPubSDK/Internal/Common/AdAlerts/MPAdAlertManager.m; sourceTree = "<group>"; };
 		6A9B6529FCF1095EA3C80D782B773A30 /* MPNativeAdSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativeAdSource.h; path = MoPubSDK/NativeAds/MPNativeAdSource.h; sourceTree = "<group>"; };
 		6B23661A9658350C69BFDCF6513E5B3F /* MPInternalUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPInternalUtils.h; path = MoPubSDK/Internal/Utility/MPInternalUtils.h; sourceTree = "<group>"; };
-		6C684DF448F133E5768E144372A558BC /* MPCountdownTimer.html */ = {isa = PBXFileReference; includeInIndex = 1; name = MPCountdownTimer.html; path = MoPubSDK/Resources/MPCountdownTimer.html; sourceTree = "<group>"; };
+		6C684DF448F133E5768E144372A558BC /* MPCountdownTimer.html */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.html; name = MPCountdownTimer.html; path = MoPubSDK/Resources/MPCountdownTimer.html; sourceTree = "<group>"; };
 		6D41E65BD08ACBD6619474915E1A8E7B /* MPClientAdPositioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPClientAdPositioning.m; path = MoPubSDK/NativeAds/MPClientAdPositioning.m; sourceTree = "<group>"; };
 		6DBCE00441DD5FC29770A9171E9C8D24 /* MPNativeAdRendererConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPNativeAdRendererConfiguration.m; path = MoPubSDK/NativeAds/MPNativeAdRendererConfiguration.m; sourceTree = "<group>"; };
 		6E1DD0CA199B7B5DDB6DCC5C52815AD6 /* MOPUBExperimentProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MOPUBExperimentProvider.m; path = MoPubSDK/Internal/Utility/MOPUBExperimentProvider.m; sourceTree = "<group>"; };
@@ -682,7 +682,7 @@
 		9248DCCE2A8EC9631DFCA6BD39D01C21 /* MOPUBFullscreenPlayerViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MOPUBFullscreenPlayerViewController.m; path = MoPubSDK/NativeVideo/Internal/MOPUBFullscreenPlayerViewController.m; sourceTree = "<group>"; };
 		925398519EA8B250AD283FCBADE8DF80 /* MOPUBPlayerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MOPUBPlayerView.h; path = MoPubSDK/NativeVideo/Internal/MOPUBPlayerView.h; sourceTree = "<group>"; };
 		92830D214A519958F42238819028BB2F /* UIColor+MPAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIColor+MPAdditions.h"; path = "MoPubSDK/Internal/Utility/Categories/UIColor+MPAdditions.h"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		93B1E6341745F0C8721491A94C40FA5A /* UIView+MPAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+MPAdditions.h"; path = "MoPubSDK/Internal/Utility/Categories/UIView+MPAdditions.h"; sourceTree = "<group>"; };
 		9473086B130A9F94CFABD188D885F412 /* MPCoreInstanceProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPCoreInstanceProvider.h; path = MoPubSDK/Internal/MPCoreInstanceProvider.h; sourceTree = "<group>"; };
 		94D9B0AA3F2C779DE2C356D422D68354 /* MPBannerCustomEvent+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MPBannerCustomEvent+Internal.h"; path = "MoPubSDK/Internal/Banners/MPBannerCustomEvent+Internal.h"; sourceTree = "<group>"; };
@@ -720,7 +720,7 @@
 		A35F3FA263D1E59091A547C1E5D2CB94 /* mopub-ios-sdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "mopub-ios-sdk.xcconfig"; sourceTree = "<group>"; };
 		A5308641057CEF4B3711114A1281DA32 /* MPConsentStatus.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPConsentStatus.h; path = MoPubSDK/MPConsentStatus.h; sourceTree = "<group>"; };
 		A6AE2D53DF4C48FFD7BB12FD4893B066 /* MRBundleManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MRBundleManager.h; path = MoPubSDK/Internal/MRAID/MRBundleManager.h; sourceTree = "<group>"; };
-		A7EB7F1714F48538348C0C3AC3878966 /* libmopub-ios-sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libmopub-ios-sdk.a"; path = "libmopub-ios-sdk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7EB7F1714F48538348C0C3AC3878966 /* libmopub-ios-sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libmopub-ios-sdk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A812C08B92743AA7E421C251E7A3264F /* MPNativeAdAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativeAdAdapter.h; path = MoPubSDK/NativeAds/MPNativeAdAdapter.h; sourceTree = "<group>"; };
 		A894B7B7997AB1312FE016A82E889448 /* MoPub_AvidDisplayAdSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MoPub_AvidDisplayAdSession.h; path = MoPubSDK/Viewability/Avid/MoPub_AvidDisplayAdSession.h; sourceTree = "<group>"; };
 		A94E2632F7BD590647B64F7EA0CFCCB7 /* MPGlobal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPGlobal.h; path = MoPubSDK/Internal/Utility/MPGlobal.h; sourceTree = "<group>"; };
@@ -910,7 +910,6 @@
 				1BD7F2657393A1E1C75E122FFDCE597D /* Moat */,
 				1BA2F473AA5D1C35B4A583ABE44661C9 /* Support Files */,
 			);
-			name = "mopub-ios-sdk";
 			path = "mopub-ios-sdk";
 			sourceTree = "<group>";
 		};
@@ -997,7 +996,6 @@
 			children = (
 				E67FDB290D1B1022E1BECDE6FAC5A9EE /* Frameworks */,
 			);
-			name = "Google-Mobile-Ads-SDK";
 			path = "Google-Mobile-Ads-SDK";
 			sourceTree = "<group>";
 		};
@@ -2059,6 +2057,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/mopub-ios-sdk/mopub-ios-sdk-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";

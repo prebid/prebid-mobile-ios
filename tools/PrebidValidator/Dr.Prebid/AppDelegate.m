@@ -32,8 +32,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[LineItemKeywordsManager sharedManager] refreshCacheIds];
     if ([self isFirstLaunch]) {
-        IntroViewController *vc = [[IntroViewController alloc] init];
-        self.window.rootViewController = vc;
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        IntroViewController * introController = [storyboard instantiateViewControllerWithIdentifier:@"introController"];
+        
+        self.window.rootViewController = introController;
     }
     return YES;
 }

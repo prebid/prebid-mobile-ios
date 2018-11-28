@@ -18,4 +18,13 @@
 #import <UIKit/UIKit.h>
 
 @interface IntroViewController: UIViewController
+
+@property (weak, nonatomic) IBOutlet UIImageView *contentImage;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (weak, nonatomic) IBOutlet UIButton *btnSkip;
+
+- (IBAction) skipPressed:(id)sender;
+
+- (IBAction) pageChanged:(id)sender;
+
 @end
