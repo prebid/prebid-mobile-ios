@@ -192,7 +192,7 @@
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    if (self.adServerResponseString != nil && ([self.adServerResponseString containsString:@"pbm.js"] || self.adServerResponseString containsString:@"creative.js")) {
+    if (self.adServerResponseString != nil && ([self.adServerResponseString containsString:@"pbm.js"] || [self.adServerResponseString containsString:@"creative.js"])) {
          [self.delegate adServerRespondedWithPrebidCreative];
     } else {
          [self.delegate adServerDidNotRespondWithPrebidCreative];
