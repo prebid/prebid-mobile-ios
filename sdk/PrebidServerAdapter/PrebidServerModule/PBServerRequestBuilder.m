@@ -22,7 +22,7 @@
 #import "PBServerLocation.h"
 
 
-static NSString *const kPrebidMobileVersion = @"0.5.2";
+static NSString *const kPrebidMobileVersion = @"0.5.3";
 
 @implementation PBServerRequestBuilder
 
@@ -140,7 +140,10 @@ static NSString *const kPrebidMobileVersion = @"0.5.2";
 - (NSDictionary *)openrtbApp:(NSString *) accountId {
     NSMutableDictionary *app = [[NSMutableDictionary alloc] init];
     
-    NSString *bundle = [[NSBundle mainBundle] bundleIdentifier];
+    NSString *bundle = [[PBTargetingParams sharedInstance] itunesID];
+    if (bundle == nil) {
+        bundle = [[NSBundle mainBundle] bundleIdentifier];
+    }
     if (bundle) {
         app[@"bundle"] = bundle;
     }
