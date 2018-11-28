@@ -40,7 +40,7 @@ static id<SDKValidationURLProtocolDelegate> classDelegate = nil;
     if ([NSURLProtocol propertyForKey:@"DemandValidationRequest" inRequest:request]) {
         return NO;
     }
-    if ([request.URL.absoluteString containsString:@"prebid.adnxs.com/pbs/v1/openrtb2/auction"]) {
+    if ([SDKValidationURLProtocol supportedPBSHost:request.URL.absoluteString]) {
         if (classDelegate != nil) {
             [classDelegate willInterceptPrebidServerRequest];
         }
@@ -54,6 +54,15 @@ static id<SDKValidationURLProtocolDelegate> classDelegate = nil;
         return YES;
     }
     
+    return NO;
+}
+
++ (BOOL) supportedPBSHost:(NSString *) hostURL {
+    if (hostURL != nil) {
+        if ([hostURL containsString:@"prebid.adnxs.com/pbs/v1/openrtb2/auction"] || [hostURL containsString:@"prebid-server.rubiconproject.com/openrtb2/auction"]) {
+            return YES;
+        }
+    }
     return NO;
 }
 
@@ -89,7 +98,7 @@ static id<SDKValidationURLProtocolDelegate> classDelegate = nil;
     [self.client URLProtocol:self didLoadData:data];
     NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     if (classDelegate != nil) {
-        if ([self.request.URL.absoluteString containsString:@"prebid.adnxs.com/pbs/v1/openrtb2/auction"]) {
+        if ([SDKValidationURLProtocol supportedPBSHost:self.request.URL.absoluteString]) {
             [classDelegate didReceivePrebidServerResponse:content];
         } else {
             [classDelegate didReceiveAdServerResponse:content forRequest:self.request.URL.absoluteString];
