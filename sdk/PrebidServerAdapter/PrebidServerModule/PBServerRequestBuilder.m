@@ -141,7 +141,7 @@ static NSString *const kPrebidMobileVersion = @"0.5.2";
     NSMutableDictionary *app = [[NSMutableDictionary alloc] init];
     
     NSString *bundle = [[PBTargetingParams sharedInstance] itunesID];
-    if(bundle == nil){
+    if (bundle == nil) {
         bundle = [[NSBundle mainBundle] bundleIdentifier];
     }
     if (bundle) {
