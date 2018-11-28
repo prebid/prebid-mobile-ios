@@ -30,7 +30,7 @@
             MPWebView *wv = (MPWebView *) i;
             [wv evaluateJavaScript:@"document.body.innerHTML" completionHandler:^(id result, NSError *error) {
                 NSString *content= (NSString *)result;
-                if ([content containsString:@"prebid/pbm.js"]) {
+                if ([content containsString:@"prebid/pbm.js"] || [content containsString:@"creative.js"]) {
                     completionHandler(YES);
                 } else {
                     completionHandler(NO);
@@ -54,7 +54,7 @@
                 {
                     UIWebView *wv = (UIWebView *)level3;
                     NSString *content = [wv stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
-                    if ([content containsString:@"prebid/pbm.js"]) {
+                    if ([content containsString:@"prebid/pbm.js"] || [content containsString:@"creative.js"]) {
                         return true;
                     }
                 }

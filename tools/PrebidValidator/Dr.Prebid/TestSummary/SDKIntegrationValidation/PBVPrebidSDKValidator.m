@@ -263,7 +263,7 @@
 #pragma mark - MoPub delegate
 - (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
 {
-    if ([self.adServerResponse containsString:@"pbm.js"]) {
+    if ([self.adServerResponse containsString:@"pbm.js"] || [self.adServerResponse containsString:@"creative.js"]) {
         [self.delegate adServerResponseContainsPBMCreative:YES];
     } else {
         [self.delegate adServerResponseContainsPBMCreative:NO];
