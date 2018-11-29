@@ -1,1 +1,1 @@
-../../../mopub-ios-sdk/MoPubSDK/Native Ads/Internal/MPCollectionViewAdPlacerCell.h
+../../../mopub-ios-sdk/MoPubSDK/NativeAds/Internal/MPCollectionViewAdPlacerCell.h

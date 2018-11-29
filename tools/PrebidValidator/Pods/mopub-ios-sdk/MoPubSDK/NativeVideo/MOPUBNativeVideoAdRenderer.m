@@ -323,8 +323,7 @@ static const CGFloat kAutoPlayTimerInterval = 0.25f;
         if (!self.videoController || self.videoController.disposed) {
             createdNewVideoController = YES;
             self.videoController = [[MOPUBPlayerManager sharedInstance] playerViewControllerWithVideoConfig:self.videoConfig
-                                                                                        nativeVideoAdConfig:self.nativeVideoAdConfig
-                                                                                         logEventProperties:[self.adapter.properties valueForKey:kLogEventRequestPropertiesKey]];
+                                                                                        nativeVideoAdConfig:self.nativeVideoAdConfig];
             self.videoController.defaultActionURL = self.adapter.defaultActionURL;
             self.videoController.displayMode = MOPUBPlayerDisplayModeInline;
             self.videoController.delegate = self;

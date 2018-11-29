@@ -16,7 +16,6 @@
 
 #import "IntroViewController.h"
 #import "ColorTool.h"
-#import "CustomPageControl.h"
 
 @interface IntroViewController()
 @end
@@ -27,23 +26,75 @@
     [super viewDidLoad];
     self.title = @"Welcome to Dr.Prebid";
     self.view.backgroundColor = [UIColor whiteColor];
-    // Add Page control
-    CustomPageControl *pageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(0, 0,self.view.frame.size.width, self.view.frame.size.height - 100)];
-    [self.view addSubview:pageControl];
     
     // Add skip button
-    UIButton *skip = [[UIButton alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height - 75, self.view.frame.size.width- 40., 50)];
-    [skip setTitle:@"Skip" forState:UIControlStateNormal];
-    skip.backgroundColor = [ColorTool prebidBlue];
-    skip.layer.cornerRadius = 15;
-    skip.clipsToBounds = YES;
-    [self.view addSubview:skip];
-    [skip addTarget:self action:@selector(skipPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.btnSkip.backgroundColor = [ColorTool prebidBlue];
+    self.btnSkip.layer.cornerRadius = 15;
+    self.btnSkip.clipsToBounds = YES;
+    
+    self.contentImage.image = [UIImage imageNamed:@"intro1Image"];
+    
+    self.pageControl.pageIndicatorTintColor = [UIColor grayColor];
+    self.pageControl.currentPageIndicatorTintColor = [ColorTool prebidBlue];
+    
+    self.contentImage.userInteractionEnabled = YES;
+    
+    UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeAction:)];
+    leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
+    
+    UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeAction:)];
+    rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
+
+    
+    [self.contentImage addGestureRecognizer:leftSwipe];
+    [self.contentImage addGestureRecognizer:rightSwipe];
+    
+  self.pageControl.transform = CGAffineTransformMakeScale(2.0f, 2.0f);
 }
 
-- (void) skipPressed: (id ) sender
+- (void)swipeAction:(UISwipeGestureRecognizer *)swipeGestureRecognizer
+{
+    int currentPage = (int)self.pageControl.currentPage;
+    if(swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft){
+        
+        if(self.pageControl.currentPage != 2){
+            currentPage++;
+            [self.pageControl setCurrentPage:currentPage];
+            
+        }
+        
+    } else if(swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight){
+        if(self.pageControl.currentPage != 0){
+            currentPage--;
+            
+            [self.pageControl setCurrentPage:currentPage];
+            
+        }
+    }
+    [self setPageContent:(int)self.pageControl.currentPage];
+}
+
+- (IBAction) skipPressed: (id ) sender
 {
     UIStoryboard *main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     [self presentViewController:    [main instantiateInitialViewController] animated:YES completion:nil];
+}
+
+- (IBAction) pageChanged:(id)sender {
+    int i = (int)self.pageControl.currentPage;
+    [self setPageContent:i];
+}
+
+- (void) setPageContent:(int) pageNumber {
+    if (pageNumber == 0) {
+        self.contentImage.image = [UIImage imageNamed:@"intro1Image"];
+        
+    } else if (pageNumber == 1) {
+        self.contentImage.image = [UIImage imageNamed:@"intro2Image"];
+        
+    } else if (pageNumber == 2) {
+        self.contentImage.image = [UIImage imageNamed:@"intro3Image"];
+        
+    }
 }
 @end

@@ -66,9 +66,10 @@
         return;
     }
 
+
     self.bannerCustomEvent = customEvent;
     self.bannerCustomEvent.delegate = self;
-    [self.bannerCustomEvent requestAdWithSize:size customEventInfo:configuration.customEventClassData];
+    [self.bannerCustomEvent requestAdWithSize:size customEventInfo:configuration.customEventClassData adMarkup:configuration.advancedBidPayload];
 }
 
 - (void)rotateToOrientation:(UIInterfaceOrientation)newOrientation

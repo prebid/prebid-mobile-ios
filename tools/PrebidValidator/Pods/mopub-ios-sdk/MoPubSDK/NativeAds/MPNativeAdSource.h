@@ -11,12 +11,12 @@
 
 @interface MPNativeAdSource : NSObject
 
-@property (nonatomic, weak) id<MPNativeAdSourceDelegate> delegate;
+@property (nonatomic, weak) id <MPNativeAdSourceDelegate> delegate;
 
-- (instancetype)initWithDelegate:(id<MPNativeAdSourceDelegate>)delegate;
-
++ (instancetype)source;
 - (void)loadAdsWithAdUnitIdentifier:(NSString *)identifier rendererConfigurations:(NSArray *)rendererConfigurations andTargeting:(MPNativeAdRequestTargeting *)targeting;
 - (void)deleteCacheForAdUnitIdentifier:(NSString *)identifier;
 - (id)dequeueAdForAdUnitIdentifier:(NSString *)identifier;
+
 
 @end

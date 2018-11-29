@@ -7,6 +7,7 @@
 
 #import <WebKit/WebKit.h>
 #import "MPURLResolver.h"
+#import "MPHTTPNetworkSession.h"
 #import "NSURL+MPAdditions.h"
 #import "NSHTTPURLResponse+MPAdditions.h"
 #import "MPInstanceProvider.h"
@@ -14,6 +15,7 @@
 #import "MPCoreInstanceProvider.h"
 #import "MOPUBExperimentProvider.h"
 #import "NSURL+MPAdditions.h"
+#import "MPURLRequest.h"
 
 static NSString * const kMoPubSafariScheme = @"mopubnativebrowser";
 static NSString * const kMoPubSafariNavigateHost = @"navigate";
@@ -26,9 +28,7 @@ static NSString * const kRedirectURLQueryStringKey = @"r";
 
 @property (nonatomic, strong) NSURL *originalURL;
 @property (nonatomic, strong) NSURL *currentURL;
-@property (nonatomic, strong) NSURLConnection *connection;
-@property (nonatomic, strong) NSMutableData *responseData;
-@property (nonatomic, assign) NSStringEncoding responseEncoding;
+@property (nonatomic, strong) NSURLSessionTask *task;
 @property (nonatomic, copy) MPURLResolverCompletionBlock completion;
 
 - (MPURLActionInfo *)actionInfoFromURL:(NSURL *)URL error:(NSError **)error;
@@ -41,12 +41,6 @@ static NSString * const kRedirectURLQueryStringKey = @"r";
 @end
 
 @implementation MPURLResolver
-
-@synthesize originalURL = _originalURL;
-@synthesize currentURL = _currentURL;
-@synthesize connection = _connection;
-@synthesize responseData = _responseData;
-@synthesize completion = _completion;
 
 + (instancetype)resolverWithURL:(NSURL *)URL completion:(MPURLResolverCompletionBlock)completion
 {
@@ -65,7 +59,7 @@ static NSString * const kRedirectURLQueryStringKey = @"r";
 
 - (void)start
 {
-    [self.connection cancel];
+    [self.task cancel];
     self.currentURL = self.originalURL;
 
     NSError *error = nil;
@@ -74,31 +68,72 @@ static NSString * const kRedirectURLQueryStringKey = @"r";
     if (info) {
         [self safeInvokeAndNilCompletionBlock:info error:nil];
     } else if ([self shouldEnableClickthroughExperiment]) {
-        MPURLActionInfo *info = [MPURLActionInfo infoWithURL:self.originalURL webViewBaseURL:self.currentURL];
+        info = [MPURLActionInfo infoWithURL:self.originalURL webViewBaseURL:self.currentURL];
         [self safeInvokeAndNilCompletionBlock:info error:nil];
     } else if (error) {
         [self safeInvokeAndNilCompletionBlock:nil error:error];
     } else {
-        NSURLRequest *request = [[MPCoreInstanceProvider sharedProvider] buildConfiguredURLRequestWithURL:self.originalURL];
-        self.responseData = [NSMutableData data];
-        self.responseEncoding = NSUTF8StringEncoding;
-        self.connection = [NSURLConnection connectionWithRequest:request delegate:self];
+        MPURLRequest *request = [[MPURLRequest alloc] initWithURL:self.originalURL];
+        self.task = [self httpTaskWithRequest:request];
     }
+}
+
+- (NSURLSessionTask *)httpTaskWithRequest:(MPURLRequest *)request {
+    __weak __typeof__(self) weakSelf = self;
+    NSURLSessionTask * task = [MPHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+        __typeof__(self) strongSelf = weakSelf;
+
+        // Set the response content type
+        NSStringEncoding responseEncoding = NSUTF8StringEncoding;
+        NSDictionary *headers = [response allHeaderFields];
+        NSString *contentType = [headers objectForKey:kMoPubHTTPHeaderContentType];
+        if (contentType != nil) {
+            responseEncoding = [response stringEncodingFromContentType:contentType];
+        }
+
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:responseEncoding];
+        MPURLActionInfo *info = [MPURLActionInfo infoWithURL:strongSelf.originalURL HTTPResponseString:responseString webViewBaseURL:strongSelf.currentURL];
+        [strongSelf safeInvokeAndNilCompletionBlock:info error:nil];
+
+    } errorHandler:^(NSError * _Nonnull error) {
+        __typeof__(self) strongSelf = weakSelf;
+        [strongSelf safeInvokeAndNilCompletionBlock:nil error:error];
+    } shouldRedirectWithNewRequest:^BOOL(NSURLSessionTask * _Nonnull task, NSURLRequest * _Nonnull newRequest) {
+        __typeof__(self) strongSelf = weakSelf;
+
+        // First, check to see if the redirect URL matches any of our suggested actions.
+        NSError * actionInfoError = nil;
+        MPURLActionInfo * info = [strongSelf actionInfoFromURL:newRequest.URL error:&actionInfoError];
+
+        if (info) {
+            [task cancel];
+            [strongSelf safeInvokeAndNilCompletionBlock:info error:nil];
+            return NO;
+        } else {
+            // The redirected URL didn't match any actions, so we should continue with loading the URL.
+            strongSelf.currentURL = newRequest.URL;
+            return YES;
+        }
+    }];
+
+    return task;
 }
 
 - (void)cancel
 {
-    [self.connection cancel];
-    self.connection = nil;
+    [self.task cancel];
+    self.task = nil;
     self.completion = nil;
 }
 
 - (void)safeInvokeAndNilCompletionBlock:(MPURLActionInfo *)info error:(NSError *)error
 {
-    if (self.completion != nil) {
-        self.completion(info, error);
-        self.completion = nil;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.completion != nil) {
+            self.completion(info, error);
+            self.completion = nil;
+        }
+    });
 }
 
 #pragma mark - Handling Application/StoreKit URLs
@@ -244,51 +279,6 @@ static NSString * const kRedirectURLQueryStringKey = @"r";
     }
 
     return encoding;
-}
-
-#pragma mark - <NSURLConnectionDataDelegate>
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [self.responseData appendData:data];
-}
-
-- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response
-{
-    // First, check to see if the redirect URL matches any of our suggested actions.
-    NSError *error = nil;
-    MPURLActionInfo *info = [self actionInfoFromURL:request.URL error:&error];
-
-    if (info) {
-        [connection cancel];
-        [self safeInvokeAndNilCompletionBlock:info error:nil];
-        return nil;
-    } else {
-        // The redirected URL didn't match any actions, so we should continue with loading the URL.
-        self.currentURL = request.URL;
-        return request;
-    }
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-
-    NSDictionary *headers = [httpResponse allHeaderFields];
-    NSString *contentType = [headers objectForKey:kMoPubHTTPHeaderContentType];
-    self.responseEncoding = [httpResponse stringEncodingFromContentType:contentType];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    NSString *responseString = [[NSString alloc] initWithData:self.responseData encoding:self.responseEncoding];
-    MPURLActionInfo *info = [MPURLActionInfo infoWithURL:self.originalURL HTTPResponseString:responseString webViewBaseURL:self.currentURL];
-    [self safeInvokeAndNilCompletionBlock:info error:nil];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    [self safeInvokeAndNilCompletionBlock:nil error:error];
 }
 
 #pragma mark - Check if it's necessary to include a URL in the clickthrough experiment.

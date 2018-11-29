@@ -82,13 +82,7 @@ static NSTimeInterval const kCloseButtonFadeInAfterSeconds = 10.0;
 }
 
 - (void)closeConsentDialog {
-    [self dismissViewControllerAnimated:YES completion:^{
-        // Intentionally holding a strong reference to @c self here so that the view controller doesn't deallocate
-        // before the delegate method is called.
-        if ([self.delegate respondsToSelector:@selector(consentDialogViewControllerDidDismiss:)]) {
-            [self.delegate consentDialogViewControllerDidDismiss:self];
-        }
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)setUpWebView {

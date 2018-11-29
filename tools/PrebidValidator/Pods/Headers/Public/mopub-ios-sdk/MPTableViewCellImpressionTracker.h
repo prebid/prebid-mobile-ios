@@ -1,1 +1,1 @@
-../../../mopub-ios-sdk/MoPubSDK/Native Ads/Internal/MPTableViewCellImpressionTracker.h
+../../../mopub-ios-sdk/MoPubSDK/NativeAds/Internal/MPTableViewCellImpressionTracker.h

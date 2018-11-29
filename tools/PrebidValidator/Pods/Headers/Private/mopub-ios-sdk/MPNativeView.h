@@ -1,1 +1,1 @@
-../../../mopub-ios-sdk/MoPubSDK/Native Ads/Internal/MPNativeView.h
+../../../mopub-ios-sdk/MoPubSDK/NativeAds/Internal/MPNativeView.h

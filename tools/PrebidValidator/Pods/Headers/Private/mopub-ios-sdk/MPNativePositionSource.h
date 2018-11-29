@@ -1,1 +1,1 @@
-../../../mopub-ios-sdk/MoPubSDK/Native Ads/Internal/MPNativePositionSource.h
+../../../mopub-ios-sdk/MoPubSDK/NativeAds/Internal/MPNativePositionSource.h

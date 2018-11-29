@@ -23,12 +23,25 @@
 @interface MPRewardedVideo : NSObject
 
 /**
- * Initializes the rewarded networks in order.
- *
- * @param rewardedNetworks An ordered array of `MPRewardedVideoNetwork` values. If the parameter is empty or `nil`,
- * nothing will happen.
+ * Sets the delegate that will be the receiver of rewarded video events for the given
+ * ad unit ID.
+ * @remark A weak reference to the delegate will be held.
+ * @param delegate Delegate that will recieve rewarded video events for the ad unit ID.
+ * @param adUnitId Ad unit ID
  */
-+ (void)initializeWithOrder:(NSArray<NSString *> *)rewardedNetworks;
++ (void)setDelegate:(id<MPRewardedVideoDelegate>)delegate forAdUnitId:(NSString *)adUnitId;
+
+/**
+ * Removes the delegate as a receiver of rewarded video events for all available ad unit IDs.
+ * @param delegate Reference to the delegate to remove as a listener.
+ */
++ (void)removeDelegate:(id<MPRewardedVideoDelegate>)delegate;
+
+/**
+ * Removes the rewarded video delegate that is associated with the ad unit ID.
+ * @param adUnitId Ad unit ID of the delegate to remove.
+ */
++ (void)removeDelegateForAdUnitId:(NSString *)adUnitId;
 
 /**
  * Loads a rewarded video ad for the given ad unit ID.
@@ -53,13 +66,16 @@
  * not pass in an mediation settings object for that network.
  *
  * @param adUnitID The ad unit ID that ads should be loaded from.
- * @param keywords A string representing a set of keywords that should be passed to the MoPub ad server to receive
+ * @param keywords A string representing a set of non-personally identifiable keywords that should be passed to the MoPub ad server to receive more relevant advertising.
+ * @param userDataKeywords A string representing a set of personally identifiable keywords that should be passed to the MoPub ad server to receive
  * more relevant advertising.
  * @param location Latitude/Longitude that are passed to the MoPub ad server
  * @param mediationSettings An array of mediation settings objects that map to networks that may show ads for the ad unit ID. This array
  * should only contain objects for networks you wish to configure. This can be nil.
+
+ * Note: If a user is in General Data Protection Regulation (GDPR) region and MoPub doesn't obtain consent from the user, "keywords" will be sent to the server but "userDataKeywords" will be excluded.
  */
-+ (void)loadRewardedVideoAdWithAdUnitID:(NSString *)adUnitID keywords:(NSString *)keywords location:(CLLocation *)location mediationSettings:(NSArray *)mediationSettings;
++ (void)loadRewardedVideoAdWithAdUnitID:(NSString *)adUnitID keywords:(NSString *)keywords userDataKeywords:(NSString *)userDataKeywords location:(CLLocation *)location mediationSettings:(NSArray *)mediationSettings;
 
 /**
  * Loads a rewarded video ad for the given ad unit ID.
@@ -70,14 +86,17 @@
  * not pass in an mediation settings object for that network.
  *
  * @param adUnitID The ad unit ID that ads should be loaded from.
- * @param keywords A string representing a set of keywords that should be passed to the MoPub ad server to receive
+ * @param keywords A string representing a set of non-personally identifiable keywords that should be passed to the MoPub ad server to receive more relevant advertising.
+ * @param userDataKeywords A string representing a set of personally identifiable keywords that should be passed to the MoPub ad server to receive
  * more relevant advertising.
  * @param location Latitude/Longitude that are passed to the MoPub ad server
  * @param customerId This is the ID given to the user by the publisher to identify them in their app
  * @param mediationSettings An array of mediation settings objects that map to networks that may show ads for the ad unit ID. This array
  * should only contain objects for networks you wish to configure. This can be nil.
+
+ * Note: If a user is in General Data Protection Regulation (GDPR) region and MoPub doesn't obtain consent from the user, "keywords" will be sent to the server but "userDataKeywords" will be excluded.
  */
-+ (void)loadRewardedVideoAdWithAdUnitID:(NSString *)adUnitID keywords:(NSString *)keywords location:(CLLocation *)location customerId:(NSString *)customerId mediationSettings:(NSArray *)mediationSettings;
++ (void)loadRewardedVideoAdWithAdUnitID:(NSString *)adUnitID keywords:(NSString *)keywords userDataKeywords:(NSString *)userDataKeywords location:(CLLocation *)location customerId:(NSString *)customerId mediationSettings:(NSArray *)mediationSettings;
 
 /**
  * Returns whether or not an ad is available for the given ad unit ID.
@@ -126,18 +145,6 @@
  * message.
  */
 + (void)presentRewardedVideoAdForAdUnitID:(NSString *)adUnitID fromViewController:(UIViewController *)viewController withReward:(MPRewardedVideoReward *)reward customData:(NSString *)customData;
-
-/**
- * Plays a rewarded video ad, automatically selecting the first available reward in `availableRewardsForAdUnitID:`.
- *
- * @param adUnitID The ad unit ID associated with the video ad you wish to play.
- * @param viewController The view controller that will present the rewarded video ad.
- *
- * @warning **Important**: You should not attempt to play the rewarded video unless `+hasAdAvailableForAdUnitID:` indicates that an
- * ad is available for playing or you have received the `[-rewardedVideoAdDidLoadForAdUnitID:]([MPRewardedVideoDelegate rewardedVideoAdDidLoadForAdUnitID:])`
- * message.
- */
-+ (void)presentRewardedVideoAdForAdUnitID:(NSString *)adUnitID fromViewController:(UIViewController *)viewController __deprecated_msg("use presentRewardedVideoAdForAdUnitID:fromViewController:withReward: instead.");
 
 @end
 

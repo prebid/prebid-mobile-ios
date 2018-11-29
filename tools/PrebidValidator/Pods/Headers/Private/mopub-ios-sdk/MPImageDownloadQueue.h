@@ -1,1 +1,1 @@
-../../../mopub-ios-sdk/MoPubSDK/Native Ads/Internal/MPImageDownloadQueue.h
+../../../mopub-ios-sdk/MoPubSDK/NativeAds/Internal/MPImageDownloadQueue.h

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -57,6 +56,66 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvd-Jq-uHF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1330" y="133"/>
+        </scene>
+        <!--Intro View Controller-->
+        <scene sceneID="V2q-16-dnP">
+            <objects>
+                <viewController storyboardIdentifier="introController" id="cAI-Hi-exx" customClass="IntroViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yNj-fR-iUG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="y8v-Cc-VVI">
+                                <rect key="frame" x="20" y="542" width="335" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="aGi-63-aKs"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="pageChanged:" destination="cAI-Hi-exx" eventType="valueChanged" id="BJw-rA-jvu"/>
+                                    <action selector="pageChanged:" destination="cAI-Hi-exx" eventType="touchDown" id="J0h-6D-NrF"/>
+                                </connections>
+                            </pageControl>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MWS-RR-kXl">
+                                <rect key="frame" x="20" y="617" width="335" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="KJV-qv-aFf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Skip">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="skipPressed:" destination="cAI-Hi-exx" eventType="touchDown" id="s0Z-z9-OTK"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S5b-Ct-RBS">
+                                <rect key="frame" x="20" y="30" width="335" height="492"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="y8v-Cc-VVI" firstAttribute="top" secondItem="S5b-Ct-RBS" secondAttribute="bottom" constant="20" id="0Xv-iH-2tg"/>
+                            <constraint firstItem="y8v-Cc-VVI" firstAttribute="leading" secondItem="vv5-ha-WA4" secondAttribute="leading" constant="20" id="LvJ-OV-QLJ"/>
+                            <constraint firstItem="S5b-Ct-RBS" firstAttribute="top" secondItem="vv5-ha-WA4" secondAttribute="top" constant="10" id="Pvs-sD-5n7"/>
+                            <constraint firstItem="MWS-RR-kXl" firstAttribute="top" secondItem="y8v-Cc-VVI" secondAttribute="bottom" constant="35" id="YYO-Ci-hul"/>
+                            <constraint firstItem="vv5-ha-WA4" firstAttribute="trailing" secondItem="y8v-Cc-VVI" secondAttribute="trailing" constant="20" id="Yah-gT-nbc"/>
+                            <constraint firstItem="vv5-ha-WA4" firstAttribute="trailing" secondItem="MWS-RR-kXl" secondAttribute="trailing" constant="20" id="adF-jy-7SI"/>
+                            <constraint firstItem="vv5-ha-WA4" firstAttribute="trailing" secondItem="S5b-Ct-RBS" secondAttribute="trailing" constant="20" id="beG-cD-OdX"/>
+                            <constraint firstItem="S5b-Ct-RBS" firstAttribute="leading" secondItem="vv5-ha-WA4" secondAttribute="leading" constant="20" id="cT4-bm-cZk"/>
+                            <constraint firstItem="MWS-RR-kXl" firstAttribute="leading" secondItem="vv5-ha-WA4" secondAttribute="leading" constant="20" id="xwn-ek-Y28"/>
+                            <constraint firstItem="vv5-ha-WA4" firstAttribute="bottom" secondItem="MWS-RR-kXl" secondAttribute="bottom" constant="15" id="yUT-sy-LfL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="vv5-ha-WA4"/>
+                    </view>
+                    <connections>
+                        <outlet property="btnSkip" destination="MWS-RR-kXl" id="GPo-mx-pOF"/>
+                        <outlet property="contentImage" destination="S5b-Ct-RBS" id="ZqW-dp-C7V"/>
+                        <outlet property="pageControl" destination="y8v-Cc-VVI" id="CaK-6W-vJz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rn8-cJ-PyM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2126" y="1182"/>
         </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="dvX-7T-0k5">
@@ -202,6 +261,35 @@
                                 <connections>
                                     <outlet property="labelText" destination="uo5-dj-dzb" id="TkJ-zI-xsL"/>
                                     <outlet property="segmentControl" destination="dk9-vh-zDA" id="1XA-eS-faD"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FooterCell" rowHeight="58" id="RtQ-rf-tKL" customClass="FooterCell">
+                                <rect key="frame" x="0.0" y="234" width="375" height="58"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RtQ-rf-tKL" id="KHj-Po-21M">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="57.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BdT-3S-RfT">
+                                            <rect key="frame" x="10" y="11.5" width="355" height="35"/>
+                                            <color key="backgroundColor" red="0.92549019607843142" green="0.59215686274509804" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="35" id="MGx-Zf-hWs"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <state key="normal" title="Run Tests">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="BdT-3S-RfT" firstAttribute="centerY" secondItem="KHj-Po-21M" secondAttribute="centerY" id="4KR-J5-QpD"/>
+                                        <constraint firstAttribute="trailing" secondItem="BdT-3S-RfT" secondAttribute="trailing" constant="10" id="mAg-vU-aUj"/>
+                                        <constraint firstItem="BdT-3S-RfT" firstAttribute="leading" secondItem="KHj-Po-21M" secondAttribute="leading" constant="10" id="sBK-Im-8tl"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="btnRunTests" destination="BdT-3S-RfT" id="DtP-ZD-1cB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

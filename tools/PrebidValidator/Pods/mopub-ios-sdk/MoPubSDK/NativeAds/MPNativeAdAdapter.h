@@ -173,7 +173,7 @@
 - (void)willAttachToView:(UIView *)view withAdContentViews:(NSArray *)adContentViews;
 
 /**
- * This method will be called if your implementation provides a privacy icon through the properties dictionary
+ * This method will be called if your implementation provides a DAA icon through the properties dictionary
  * and the user has tapped the icon.
  */
 - (void)displayContentForDAAIconTap;
@@ -189,18 +189,9 @@
  * Return your ad's main media view.
  *
  * You should implement this method if your ad supplies its own view for the main media view which is typically
- * an image or video. If you implement this method, the SDK will not make any other attempts at retrieving
+ * an image or video. If you implement this method, the SDK will not make any other attempts at retrieving 
  * the main media asset.
  */
 - (UIView *)mainMediaView;
-
-/**
- * Return your ad's icon view.
- *
- * You should implement this method if your ad supplies its own view for the icon view which is typically
- * an image. If you implement this method, the SDK will not make any other attempts at retrieving
- * the icon asset.
- */
-- (UIView *)iconMediaView;
 
 @end

@@ -1,1 +1,1 @@
-../../../mopub-ios-sdk/MoPubSDK/RewardedVideo/MPMediationSettingsProtocol.h
+../../../mopub-ios-sdk/MoPubSDK/MPMediationSettingsProtocol.h
