@@ -37,8 +37,41 @@
     self.pageControl.pageIndicatorTintColor = [UIColor grayColor];
     self.pageControl.currentPageIndicatorTintColor = [ColorTool prebidBlue];
     
+    self.contentImage.userInteractionEnabled = YES;
+    
+    UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeAction:)];
+    leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft;
+    
+    UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeAction:)];
+    rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;
+
+    
+    [self.contentImage addGestureRecognizer:leftSwipe];
+    [self.contentImage addGestureRecognizer:rightSwipe];
     
   self.pageControl.transform = CGAffineTransformMakeScale(2.0f, 2.0f);
+}
+
+- (void)swipeAction:(UISwipeGestureRecognizer *)swipeGestureRecognizer
+{
+    int currentPage = (int)self.pageControl.currentPage;
+    if(swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft){
+        
+        if(self.pageControl.currentPage != 0){
+            currentPage--;
+            [self.pageControl setCurrentPage:currentPage];
+            
+        }
+        
+    } else if(swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight){
+        if(self.pageControl.currentPage != 2){
+            currentPage++;
+            
+            [self.pageControl setCurrentPage:currentPage];
+            
+        }
+    }
+    [self setPageContent:(int)self.pageControl.currentPage];
 }
 
 - (IBAction) skipPressed: (id ) sender
@@ -48,46 +81,20 @@
 }
 
 - (IBAction) pageChanged:(id)sender {
-    UIPageControl *page = (UIPageControl *) sender;
-    int i = (int) page.currentPage;
-    if (i == 0) {
+    int i = (int)self.pageControl.currentPage;
+    [self setPageContent:i];
+}
+
+- (void) setPageContent:(int) pageNumber {
+    if (pageNumber == 0) {
         self.contentImage.image = [UIImage imageNamed:@"intro1Image"];
         
-    } else if (i == 1) {
+    } else if (pageNumber == 1) {
         self.contentImage.image = [UIImage imageNamed:@"intro2Image"];
         
-    } else if (i == 2) {
+    } else if (pageNumber == 2) {
         self.contentImage.image = [UIImage imageNamed:@"intro3Image"];
         
     }
-}
-
-- (void) updateDots
-{
-    // Remove old dots
-    for (UIView *sub in self.pageControl.subviews) {
-        if (![sub isKindOfClass:[UIImageView class]]) {
-            [sub removeFromSuperview];
-        }
-    }
-    // Add new customized dot
-    int width = (int) self.pageControl.numberOfPages * 50;
-    UIView *dotContainer = [[UIView alloc] initWithFrame: CGRectMake((self.pageControl.frame.size.width - width)/2, self.pageControl.frame.size.height - 50, width, 50)];
-    for (int i = 0; i < self.pageControl.numberOfPages; i ++) {
-        UIView *newDot = [[UIView alloc] initWithFrame:CGRectMake(i* 50, 0, 50, 50)];
-        UIView *status = [[UIImageView alloc] initWithFrame:CGRectMake(16, 16, 18, 18)];
-        if (i == self.pageControl.currentPage) {
-            status.backgroundColor  = [ColorTool prebidBlue];
-            status.layer.cornerRadius = status.frame.size.height/2;
-        } else {
-            status.backgroundColor = [UIColor clearColor];
-            status.layer.cornerRadius = status.frame.size.height/2;
-            status.layer.borderColor = [[ColorTool prebidOrange] CGColor];
-            status.layer.borderWidth = 2;
-        }
-        [newDot addSubview:status];
-        [dotContainer addSubview:newDot];
-    }
-    [self.pageControl addSubview:dotContainer];
 }
 @end
