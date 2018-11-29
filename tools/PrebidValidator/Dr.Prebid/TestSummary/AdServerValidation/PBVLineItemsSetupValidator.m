@@ -85,10 +85,10 @@
 - (void)startTest
 {
     NSString *host = [[NSUserDefaults standardUserDefaults]stringForKey:kPBHostKey];
-    if ([host isEqualToString:kRubiconString]) {
-        [self.delegate adServerDidNotRespondWithPrebidCreative];
-        return;
-    }
+//    if ([host isEqualToString:kRubiconString]) {
+//        [self.delegate adServerDidNotRespondWithPrebidCreative];
+//        return;
+//    }
     
     NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
@@ -192,7 +192,7 @@
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
-    if (self.adServerResponseString != nil && [self.adServerResponseString containsString:@"pbm.js"]) {
+    if (self.adServerResponseString != nil && ([self.adServerResponseString containsString:@"pbm.js"] || [self.adServerResponseString containsString:@"creative.js"])) {
          [self.delegate adServerRespondedWithPrebidCreative];
     } else {
          [self.delegate adServerDidNotRespondWithPrebidCreative];
@@ -252,7 +252,7 @@
 - (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
 {
  
-    if (self.adServerResponseString != nil && [self.adServerResponseString containsString:@"pbm.js"]) {
+    if (self.adServerResponseString != nil && ( [self.adServerResponseString containsString:@"pbm.js"] || [self.adServerResponseString containsString:@"creative.js"])) {
         [self.delegate adServerRespondedWithPrebidCreative];
     } else {
         [self.delegate adServerDidNotRespondWithPrebidCreative];
