@@ -57,15 +57,15 @@
     int currentPage = (int)self.pageControl.currentPage;
     if(swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft){
         
-        if(self.pageControl.currentPage != 0){
-            currentPage--;
+        if(self.pageControl.currentPage != 2){
+            currentPage++;
             [self.pageControl setCurrentPage:currentPage];
             
         }
         
     } else if(swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionRight){
-        if(self.pageControl.currentPage != 2){
-            currentPage++;
+        if(self.pageControl.currentPage != 0){
+            currentPage--;
             
             [self.pageControl setCurrentPage:currentPage];
             
