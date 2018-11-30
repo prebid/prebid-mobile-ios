@@ -191,7 +191,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     
     if(indexPath.section == 0){
         if(indexPath.row == 0){
-            return 55.0f;
+            return 53.0f;
         } else if(indexPath.row == 1){
             return 40.0f;
         }
@@ -199,7 +199,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         if(indexPath.row == 0){
             return 55.0f;
         } else if(indexPath.row == 1){
-            return 40.0f;
+            return 45.0f;
         }else {
             return 61.0f;
         }
