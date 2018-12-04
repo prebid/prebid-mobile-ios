@@ -23,7 +23,7 @@
 
 - (void)refreshCacheIds;
 
-- (NSDictionary<NSString *, NSString *> *)keywordsWithBidPrice:(NSString *)bidPrice forSize:(NSString *)sizeString;
+- (NSDictionary<NSString *, NSString *> *)keywordsWithBidPrice:(NSString *)bidPrice forSize:(NSString *)sizeString forHost:(NSString *)host;
 
 
 @end

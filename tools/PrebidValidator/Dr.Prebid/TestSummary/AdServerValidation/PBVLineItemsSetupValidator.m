@@ -152,7 +152,8 @@
 }
 - (NSDictionary *) createUniqueKeywordsWithBidPrice:(NSString *)bidPrice forSize:(NSString *)adSizeString
 {
-    NSMutableDictionary *keywords = [[[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString] mutableCopy];
+    NSString *host = [[NSUserDefaults standardUserDefaults]stringForKey:kPBHostKey];
+    NSMutableDictionary *keywords = [[[LineItemKeywordsManager sharedManager] keywordsWithBidPrice:bidPrice forSize:adSizeString forHost:host] mutableCopy];
     self.requestUUID = [[NSUUID UUID] UUIDString];
     [keywords setObject:self.requestUUID forKey:@"hb_dr_prebid"];
     return [keywords copy];
