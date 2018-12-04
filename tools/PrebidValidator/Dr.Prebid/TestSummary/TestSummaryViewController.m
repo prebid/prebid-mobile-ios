@@ -90,7 +90,7 @@ UITableViewDataSource, UITableViewDelegate>
     [self startDemandValidation];
     [self startSDKValidation];
     [self.tableView setUserInteractionEnabled:FALSE];
-    self.pingTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+    self.pingTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
                                                       target:self selector:@selector(checkIfLoadingIsComplete) userInfo:nil repeats:YES];
 }
 
@@ -120,8 +120,6 @@ UITableViewDataSource, UITableViewDelegate>
         } else if (self.adServerValidationState == 2) {
             cell.imgStatus.image = [UIImage imageNamed:@"failedMain"];
         } else {
-             //cell.imgStatus.image = nil;
-            
             [self showLoadingIndicator: cell.imgStatus];
             
         }
@@ -132,7 +130,6 @@ UITableViewDataSource, UITableViewDelegate>
         } else if (self.demandValidationState == 2) {
             cell.imgStatus.image = [UIImage imageNamed:@"failedMain"];
         } else {
-            //cell.imgStatus.image = nil;
              [self showLoadingIndicator: cell.imgStatus];
         }
     } else if (section == 2) {
@@ -141,7 +138,6 @@ UITableViewDataSource, UITableViewDelegate>
         } else if (self.sdkValidationState == 2) {
             cell.imgStatus.image = [UIImage imageNamed:@"failedMain"];
         } else {
-            //cell.imgStatus.image = nil;
              [self showLoadingIndicator: cell.imgStatus];
         }
     }
@@ -463,12 +459,20 @@ UITableViewDataSource, UITableViewDelegate>
         // DFP won't send any request
         // so the state will be stale at 0
         // does not apply to MoPub
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid AdUnit ID" message:@"DFP doesnt recognize this as valid adUnit id." preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction
+                                                                                                                  *action){[self.navigationController popViewControllerAnimated:YES];}];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:nil];
+        
         self.adServerValidationKeyValueState = 2;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
 }
+
 
 -(void)adServerRespondedWithPrebidCreative
 {
