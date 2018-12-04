@@ -18,8 +18,7 @@
 
 @interface RRViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
-@property (weak, nonatomic) IBOutlet UITextView *lblRequest;
-@property (weak, nonatomic) IBOutlet UITextView *lblResponse;
+@property (weak, nonatomic) IBOutlet UITextView *contentTextView;
 - (IBAction)segmentChanged:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *lblTitle;
 

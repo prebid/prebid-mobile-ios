@@ -402,51 +402,27 @@
                                     <constraint firstAttribute="trailing" secondItem="93w-U2-TKc" secondAttribute="trailing" constant="10" id="kUC-iJ-4no"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DJo-4Y-Imf">
-                                <rect key="frame" x="0.0" y="110" width="375" height="557"/>
-                                <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xGC-Fo-uj6">
-                                        <rect key="frame" x="10" y="0.0" width="355" height="557"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JhQ-go-RxY">
-                                        <rect key="frame" x="10" y="0.0" width="355" height="557"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                </subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZP9-Er-irR">
+                                <rect key="frame" x="10" y="110" width="355" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="xGC-Fo-uj6" firstAttribute="top" secondItem="DJo-4Y-Imf" secondAttribute="top" id="FN3-FC-t45"/>
-                                    <constraint firstAttribute="trailing" secondItem="xGC-Fo-uj6" secondAttribute="trailing" constant="10" id="VYz-nG-M75"/>
-                                    <constraint firstItem="xGC-Fo-uj6" firstAttribute="leading" secondItem="DJo-4Y-Imf" secondAttribute="leading" constant="10" id="e5Z-fk-9CV"/>
-                                    <constraint firstAttribute="bottom" secondItem="xGC-Fo-uj6" secondAttribute="bottom" id="q7B-wh-VJw"/>
-                                </constraints>
-                            </view>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="n2b-6E-FYc" firstAttribute="trailing" secondItem="DJo-4Y-Imf" secondAttribute="trailing" id="8ym-M2-VuO"/>
-                            <constraint firstItem="DJo-4Y-Imf" firstAttribute="top" secondItem="Bxn-9D-rRD" secondAttribute="bottom" id="FRM-IK-Q0o"/>
                             <constraint firstItem="Bxn-9D-rRD" firstAttribute="top" secondItem="n2b-6E-FYc" secondAttribute="top" id="UD5-7f-UX5"/>
                             <constraint firstItem="Bxn-9D-rRD" firstAttribute="leading" secondItem="n2b-6E-FYc" secondAttribute="leading" id="Xi1-by-LQC"/>
-                            <constraint firstItem="n2b-6E-FYc" firstAttribute="bottom" secondItem="DJo-4Y-Imf" secondAttribute="bottom" id="r5C-2u-8F2"/>
-                            <constraint firstItem="DJo-4Y-Imf" firstAttribute="leading" secondItem="n2b-6E-FYc" secondAttribute="leading" id="s3R-2c-jNj"/>
+                            <constraint firstItem="ZP9-Er-irR" firstAttribute="leading" secondItem="n2b-6E-FYc" secondAttribute="leading" constant="10" id="kbF-qY-a1H"/>
+                            <constraint firstItem="ZP9-Er-irR" firstAttribute="top" secondItem="Bxn-9D-rRD" secondAttribute="bottom" id="lXe-mj-uFl"/>
+                            <constraint firstItem="n2b-6E-FYc" firstAttribute="trailing" secondItem="ZP9-Er-irR" secondAttribute="trailing" constant="10" id="mca-dU-dJU"/>
                             <constraint firstItem="n2b-6E-FYc" firstAttribute="trailing" secondItem="Bxn-9D-rRD" secondAttribute="trailing" id="vfi-rI-9b4"/>
+                            <constraint firstItem="n2b-6E-FYc" firstAttribute="bottom" secondItem="ZP9-Er-irR" secondAttribute="bottom" constant="10" id="xjD-8W-E3O"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="n2b-6E-FYc"/>
                     </view>
                     <connections>
-                        <outlet property="lblRequest" destination="xGC-Fo-uj6" id="WoE-1K-Zp9"/>
-                        <outlet property="lblResponse" destination="JhQ-go-RxY" id="N0s-kH-0j9"/>
+                        <outlet property="contentTextView" destination="ZP9-Er-irR" id="OhO-6t-feY"/>
                         <outlet property="lblTitle" destination="93w-U2-TKc" id="Fcy-8M-zWL"/>
                         <outlet property="segmentControl" destination="tgw-lA-A0T" id="9fr-fb-z3I"/>
                     </connections>

@@ -84,11 +84,6 @@
 
 - (void)startTest
 {
-    NSString *host = [[NSUserDefaults standardUserDefaults]stringForKey:kPBHostKey];
-//    if ([host isEqualToString:kRubiconString]) {
-//        [self.delegate adServerDidNotRespondWithPrebidCreative];
-//        return;
-//    }
     
     NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];

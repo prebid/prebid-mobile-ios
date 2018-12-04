@@ -18,6 +18,8 @@
 
 @interface RRViewController ()
 
+@property (nonatomic, strong) NSString *finalRequestString;
+@property (nonatomic, strong) NSString *finalResponseString;
 @end
 
 @implementation RRViewController
@@ -29,30 +31,30 @@
     
     [self.segmentControl setSelectedSegmentIndex:0];
     
-    self.lblRequest.hidden = FALSE;
-    self.lblResponse.hidden = TRUE;
+    [self performSelectorOnMainThread:@selector(formattedContent) withObject:nil waitUntilDone:YES];
     
-    self.lblRequest.editable = FALSE;
-    self.lblResponse.editable = FALSE;
-    
-    // Do any additional setup after loading the view.
 }
 
-- (void) viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void) formattedContent {
+     __weak RRViewController *weakSelf = self;
+    
+    [self prettyJsonString:self.requestContent andCompletionHandler:^(NSString *formatedString) {
+        __strong RRViewController *strongSelf = weakSelf;
+        strongSelf.finalRequestString = formatedString;
+    }];
+    
+    [self prettyJsonString:self.responseContent andCompletionHandler:^(NSString *formatedString) {
+        __strong RRViewController *strongSelf = weakSelf;
+        strongSelf.finalResponseString = formatedString;
+    }];
+}
+
+- (void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     
     self.lblTitle.text = self.titleString;
     
-    if(self.requestContent != nil){
-        //self.lblRequest.text = self.requestContent;
-        self.lblRequest.text = [self prettyJson:self.requestContent];
-        [self.lblRequest sizeToFit];
-    }
-    
-    if(self.responseContent != nil){
-        //self.lblResponse.text = self.responseContent;
-        self.lblResponse.text = [self prettyJson:self.responseContent];
-    }
+    self.contentTextView.text = self.finalRequestString;
     
 }
 
@@ -62,12 +64,31 @@
 
 - (IBAction)segmentChanged:(id)sender {
     NSInteger selectedIndex = [self.segmentControl selectedSegmentIndex];
+    self.contentTextView.text = @"";
+    [self.contentTextView setContentOffset:CGPointZero animated:NO];
     if(selectedIndex == 0){
-        self.lblRequest.hidden = FALSE;
-        self.lblResponse.hidden = TRUE;
+        if(self.finalRequestString == nil){
+            __weak RRViewController *weakSelf = self;
+            [self prettyJsonString:self.requestContent andCompletionHandler:^(NSString *formatedString) {
+                __strong RRViewController *strongSelf = weakSelf;
+                strongSelf.finalRequestString = formatedString;
+                strongSelf.contentTextView.text = strongSelf.finalRequestString;
+            }];
+        } else {
+            self.contentTextView.text = self.finalRequestString;
+        }
     } else {
-        self.lblRequest.hidden = TRUE;
-        self.lblResponse.hidden = FALSE;
+        
+        if(self.finalResponseString == nil){
+            __weak RRViewController *weakSelf = self;
+            [self prettyJsonString:self.responseContent andCompletionHandler:^(NSString *formatedString) {
+                __strong RRViewController *strongSelf = weakSelf;
+                strongSelf.finalResponseString = formatedString;
+                strongSelf.contentTextView.text = strongSelf.finalResponseString;
+            }];
+        } else {
+            self.contentTextView.text = self.finalResponseString;
+        }
     }
 }
 
@@ -91,14 +112,21 @@
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)prettyJsonString:(NSString *)jsonString andCompletionHandler:(void (^)(NSString *formatedString))completionHandler{
+    
+    NSString *formatString = @"";
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+    if (jsonObject == nil) {
+        formatString = jsonString;
+    } else {
+        NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
+        formatString = [NSString stringWithUTF8String:[prettyJsonData bytes]];
+        
+    }
+    completionHandler(formatString);
 }
-*/
+
 
 @end
