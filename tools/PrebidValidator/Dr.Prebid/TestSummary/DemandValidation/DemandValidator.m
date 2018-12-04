@@ -163,9 +163,20 @@
                                                   // if bidder error, then set the status to 2
                                                   if ([[responseDictionary objectForKey:@"ext"] objectForKey:@"errors"] != nil) {
                                                       NSDictionary *bidderErrors = [[responseDictionary objectForKey:@"ext"] objectForKey:@"errors"];
-                                                      for (NSString * key in bidderErrors.allKeys) {
-                                                          [bidderResponseStatus setObject:@"2" forKey:key];
+                                                      NSString *host = [[NSUserDefaults standardUserDefaults]stringForKey:kPBHostKey];
+                                                      if ([kRubiconString isEqualToString:host]) {
+                                                          for (NSString *key in bidderErrors.allKeys) {
+                                                              NSArray *errors = [bidderErrors mutableArrayValueForKey:key];
+                                                              if (errors != nil && errors.count >0 ) {
+                                                                  [bidderResponseStatus setObject:@"2" forKey:key];
+                                                              }
+                                                          }
+                                                      } else {
+                                                          for (NSString * key in bidderErrors.allKeys) {
+                                                              [bidderResponseStatus setObject:@"2" forKey:key];
+                                                          }
                                                       }
+                                                    
                                                   }
                                                   // if bidder time out, then set the status to 1
                                                   // todo: need an example
