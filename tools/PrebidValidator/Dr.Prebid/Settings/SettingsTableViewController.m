@@ -25,6 +25,7 @@
 #import "IDInputViewController.h"
 #import "PBVSharedConstants.h"
 #import "TestSummaryViewController.h"
+#import "ToolReachability.h"
 
 NSString *__nonnull const kGeneralInfoText = @"General Info";
 NSString *__nonnull const kAdFormatBanner = @"Banner";
@@ -709,13 +710,39 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 
 -(void) didPressNext:(id) sender {
     
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    ToolReachability *reachability = [ToolReachability reachabilityForInternetConnection];
+    ToolNetworkStatus status = [reachability currentReachabilityStatus];
+    NSUInteger connectionType = 0;
+    switch (status) {
+        case ToolNetworkStatusReachableViaWiFi:
+            connectionType = 1;
+            break;
+        case ToolNetworkStatusReachableViaWWAN:
+            connectionType = 2;
+            break;
+        default:
+            connectionType = 0;
+            break;
+    }
     
-    NSString * storyboardName = @"Main";
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-    TestSummaryViewController * summaryViewController = [storyboard instantiateViewControllerWithIdentifier:@"summaryViewController"];
+   if (connectionType == 0) {
+       UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Network Connection" message:@"No network available." preferredStyle:UIAlertControllerStyleAlert];
+       
+       UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction
+                                                                                                                 *action){[self.navigationController popViewControllerAnimated:YES];}];
+       [alert addAction:cancel];
+       [self presentViewController:alert animated:YES completion:nil];
+       
+   } else {
     
-    [self.navigationController pushViewController:summaryViewController animated:YES];
+       [[NSUserDefaults standardUserDefaults] synchronize];
+    
+       NSString * storyboardName = @"Main";
+       UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+       TestSummaryViewController * summaryViewController = [storyboard instantiateViewControllerWithIdentifier:@"summaryViewController"];
+    
+       [self.navigationController pushViewController:summaryViewController animated:YES];
+   }
 }
 
 - (NSString *) removeSpacesAndNewLines: (NSString *) original

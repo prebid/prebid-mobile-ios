@@ -45,6 +45,7 @@
     self.title = @"Creative Display";
     UIScrollView *container = [[UIScrollView alloc]initWithFrame:self.view.frame];
     container.scrollEnabled = YES;
+    int totalHeight = 0;
     self.view = container;
     self.view.backgroundColor = [ColorTool prebidGrey];
    
@@ -76,14 +77,18 @@
     if ([_adFormatName isEqualToString:kBannerString]) {
         NSArray *adSizeArray = [_adSizeString componentsSeparatedByString:@"x"];
         int height = [adSizeArray[1] intValue];
-        _adContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 350, self.view.frame.size.width, height +80)];
+        _adContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 350, self.view.frame.size.width, height +100)];
+        totalHeight = height + 450;
         [container setContentSize: CGSizeMake( self.view.frame.size.width, 410+height)];
     } else {
         _adContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 350, self.view.frame.size.width, 150)];
+        totalHeight = 500;
         [container setContentSize: CGSizeMake( self.view.frame.size.width, 500)];
     }
     _adContainer.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_adContainer];
+    container.contentSize = CGSizeMake(self.view.frame.size.width, totalHeight);
+    container.contentInset = UIEdgeInsetsZero;
     [self attachReceviedCreative];
 }
 

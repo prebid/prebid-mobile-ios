@@ -1,13 +1,13 @@
 PODS:
   - Google-Mobile-Ads-SDK (7.30.0)
-  - mopub-ios-sdk (5.0.0):
-    - mopub-ios-sdk/MoPubSDK (= 5.0.0)
-  - mopub-ios-sdk/Avid (5.0.0):
+  - mopub-ios-sdk (4.20.1):
+    - mopub-ios-sdk/MoPubSDK (= 4.20.1)
+  - mopub-ios-sdk/Avid (4.20.1):
     - mopub-ios-sdk/Core
-  - mopub-ios-sdk/Core (5.0.0)
-  - mopub-ios-sdk/Moat (5.0.0):
+  - mopub-ios-sdk/Core (4.20.1)
+  - mopub-ios-sdk/Moat (4.20.1):
     - mopub-ios-sdk/Core
-  - mopub-ios-sdk/MoPubSDK (5.0.0):
+  - mopub-ios-sdk/MoPubSDK (4.20.1):
     - mopub-ios-sdk/Avid
     - mopub-ios-sdk/Core
     - mopub-ios-sdk/Moat
@@ -17,14 +17,14 @@ DEPENDENCIES:
   - mopub-ios-sdk (= 4.20.1)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Google-Mobile-Ads-SDK
     - mopub-ios-sdk
 
 SPEC CHECKSUMS:
   Google-Mobile-Ads-SDK: 7404f68120ae8682afeb5af001fbf4aad731c78e
-  mopub-ios-sdk: fe1302dfcff6929360ea4b7fb1bc7375c13c7074
+  mopub-ios-sdk: 6220599bacc1c47f4117b7af5e9616f6779157a5
 
 PODFILE CHECKSUM: 82b59474fc90d7aec042cf7324ba9854624901b6
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3
