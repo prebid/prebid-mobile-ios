@@ -459,7 +459,10 @@ UITableViewDataSource, UITableViewDelegate>
         // DFP won't send any request
         // so the state will be stale at 0
         // does not apply to MoPub
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid AdUnit ID" message:@"DFP doesnt recognize this as valid adUnit id." preferredStyle:UIAlertControllerStyleAlert];
+        
+        NSString *errorString = [NSString stringWithFormat:@"%@ doesnt recognize this as valid adUnit id.", [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey]];
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid AdUnit ID" message:errorString preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction
                                                                                                                   *action){[self.navigationController popViewControllerAnimated:YES];}];

@@ -31,6 +31,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>to capture the QR codes </string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>for sending location for ad filtering</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Screengrab for validation purpose</string>
 	<key>NSPhotoLibraryUsageDescription</key>
