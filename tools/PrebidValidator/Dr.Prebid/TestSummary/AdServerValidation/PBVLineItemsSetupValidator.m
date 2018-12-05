@@ -177,13 +177,13 @@
     if ([PBViewTool checkDFPAdViewContainsPBMAd:bannerView]) {
         [self.delegate adServerRespondedWithPrebidCreative];
     } else{
-        [self.delegate adServerDidNotRespondWithPrebidCreative];
+        [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
     }
 }
 
 - (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
 {
-    [self.delegate adServerDidNotRespondWithPrebidCreative];
+    [self.delegate adServerDidNotRespondWithPrebidCreative:error];
 }
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
@@ -191,13 +191,13 @@
     if (self.adServerResponseString != nil && ([self.adServerResponseString containsString:@"pbm.js"] || [self.adServerResponseString containsString:@"creative.js"])) {
          [self.delegate adServerRespondedWithPrebidCreative];
     } else {
-         [self.delegate adServerDidNotRespondWithPrebidCreative];
+        [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
     }
 }
 
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
 {
-    [self.delegate adServerDidNotRespondWithPrebidCreative];
+    [self.delegate adServerDidNotRespondWithPrebidCreative:error];
 }
 
 #pragma mark MoPub
@@ -251,13 +251,13 @@
     if (self.adServerResponseString != nil && ( [self.adServerResponseString containsString:@"pbm.js"] || [self.adServerResponseString containsString:@"creative.js"])) {
         [self.delegate adServerRespondedWithPrebidCreative];
     } else {
-        [self.delegate adServerDidNotRespondWithPrebidCreative];
+        [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
     }
 }
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial
 {
-    [self.delegate adServerDidNotRespondWithPrebidCreative];
+    [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
 }
 
 -(void)adViewDidLoadAd:(MPAdView *)view
@@ -271,7 +271,7 @@
                   
                                    [strongSelf.delegate adServerRespondedWithPrebidCreative];
                                } else {
-                                   [strongSelf.delegate adServerDidNotRespondWithPrebidCreative];
+                                   [strongSelf.delegate adServerDidNotRespondWithPrebidCreative:nil];
                                }
                            
                        }];
@@ -280,7 +280,7 @@
 
 - (void)adViewDidFailToLoadAd:(MPAdView *)view
 {
-    [self.delegate adServerDidNotRespondWithPrebidCreative];
+    [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
 }
 
 - (UIViewController *)viewControllerForPresentingModalView

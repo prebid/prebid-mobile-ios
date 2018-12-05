@@ -32,12 +32,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
    
-    MPMoPubConfiguration *sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"a935eac11acd416f92640411234fbba6"];
-    
-    sdkConfig.globalMediationSettings = @[];
-    
-    [[MoPub sharedInstance] initializeSdkWithConfiguration:sdkConfig completion:nil];
-    
     [[LineItemKeywordsManager sharedManager] refreshCacheIds];
     if ([self isFirstLaunch]) {
         

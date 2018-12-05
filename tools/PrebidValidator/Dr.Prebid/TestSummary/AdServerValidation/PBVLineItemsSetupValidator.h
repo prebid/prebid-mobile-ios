@@ -18,7 +18,7 @@
 - (void) didFindPrebidKeywordsOnTheAdServerRequest;
 - (void) didNotFindPrebidKeywordsOnTheAdServerRequest;
 - (void) adServerRespondedWithPrebidCreative;
-- (void) adServerDidNotRespondWithPrebidCreative;
+- (void) adServerDidNotRespondWithPrebidCreative:(NSError *) errorDetails;
 @end
 
 
