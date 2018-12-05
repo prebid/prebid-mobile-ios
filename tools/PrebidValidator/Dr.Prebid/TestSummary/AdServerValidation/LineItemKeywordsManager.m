@@ -20,7 +20,8 @@
 NSString * const KeywordsManagerPriceKey = @"hb_pb";
 NSString * const KeywordsManagerCacheIdKey = @"hb_cache_id";
 NSString * const KeywordsManagerSizeKey = @"hb_size";
-NSString * const KeywordsManagerCacheEndPoint = @"https://prebid.adnxs.com/pbc/v1/cache";
+NSString * const AppNexusHostedCacheEndPoint = @"https://prebid.adnxs.com/pbc/v1/cache";
+NSString * const RubiconHostedCacheEndPoint = @"https://prebid-server.rubiconproject.com/cache";
 CGFloat const KeywordsManagerPriceFiftyCentsRange = 0.50f; // round to this for now, should be rounded according to setup
 NSString *const KeywordsManagerCreative300x250 = @"{\"id\":\"7438652069000399098\",\"impid\":\"Home\",\"price\":0.5,\"adm\":\"<script type=\\\"text\/javascript\\\">document.write('<a href=\\\"http:\/\/prebid.org\\\" target=\\\"_blank\\\"><img width=\\\"300\\\" height=\\\"250\\\" style=\\\"border-style: none\\\" src=\\\"https:\/\/vcdn.adnxs.com\/p\/creative-image\/27\/c0\/52\/67\/27c05267-5a6d-4874-834e-18e218493c32.png\\\"\/><\/a>');<\/script>\",\"adid\":\"29681110\",\"adomain\":[\"appnexus.com\"],\"iurl\":\"https:\/\/nym1-ib.adnxs.com\/cr?id=29681110\",\"cid\":\"958\",\"crid\":\"29681110\",\"w\":300,\"h\":250}";
 
@@ -39,7 +40,9 @@ NSString *const KeywordsManagerCreative728x90 = @"{\"id\":\"7438652069000399098\
 NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
 
 @interface LineItemKeywordsManager()
-@property NSDictionary *sizeToCacheIdFromServer;
+@property NSDictionary *sizeToCacheIdFromAppNexusServer;
+@property NSDictionary *sizeToCacheIdFromRubiconServer;
+
 @end
 
 @implementation LineItemKeywordsManager
@@ -96,50 +99,87 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
     // combine into one json
     NSArray *puts = @[content300x250,content300x600, content320x50, content320x100, content320x480, content728x90];
     NSDictionary *postDict  = [NSDictionary dictionaryWithObject:puts forKey:@"puts"];
-    NSURL *url = [[NSURL alloc]initWithString:KeywordsManagerCacheEndPoint];
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:postDict
+                                                       options:kNilOptions
+                                                         error:nil];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURL *url = [[NSURL alloc]initWithString:AppNexusHostedCacheEndPoint];
     NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] initWithURL:url
                                                                        cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                                    timeoutInterval:1000];
     [mutableRequest setHTTPMethod:@"POST"];
-    NSData *postData = [NSJSONSerialization dataWithJSONObject:postDict
-                                                       options:kNilOptions
-                                                         error:nil];
     [mutableRequest setHTTPBody:postData];
-    NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *cacheIdTask = [session dataTaskWithRequest:mutableRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (!error) {
             NSError *jsonError;
             NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
             if (!jsonError) {
                 NSArray *uuids = response[@"responses"];
-                self.sizeToCacheIdFromServer = [[NSMutableDictionary alloc]init];
-                [self.sizeToCacheIdFromServer setValue:uuids[0][@"uuid"] forKey:kSizeString300x250];
-                [self.sizeToCacheIdFromServer setValue:uuids[1][@"uuid"] forKey:kSizeString300x600];
-                [self.sizeToCacheIdFromServer setValue:uuids[2][@"uuid"] forKey:kSizeString320x50];
-                [self.sizeToCacheIdFromServer setValue:uuids[3][@"uuid"] forKey:kSizeString320x100];
-                [self.sizeToCacheIdFromServer setValue:uuids[4][@"uuid"] forKey:kSizeString320x480];
-                [self.sizeToCacheIdFromServer setValue:uuids[5][@"uuid"] forKey:kSizeString728x90];
+                self.sizeToCacheIdFromAppNexusServer = [[NSMutableDictionary alloc]init];
+                [self.sizeToCacheIdFromAppNexusServer setValue:uuids[0][@"uuid"] forKey:kSizeString300x250];
+                [self.sizeToCacheIdFromAppNexusServer setValue:uuids[1][@"uuid"] forKey:kSizeString300x600];
+                [self.sizeToCacheIdFromAppNexusServer setValue:uuids[2][@"uuid"] forKey:kSizeString320x50];
+                [self.sizeToCacheIdFromAppNexusServer setValue:uuids[3][@"uuid"] forKey:kSizeString320x100];
+                [self.sizeToCacheIdFromAppNexusServer setValue:uuids[4][@"uuid"] forKey:kSizeString320x480];
+                [self.sizeToCacheIdFromAppNexusServer setValue:uuids[5][@"uuid"] forKey:kSizeString728x90];
             }
         }
     }];
     [cacheIdTask resume];
+    NSURL *urlRubicon = [[NSURL alloc]initWithString:RubiconHostedCacheEndPoint];
+    NSMutableURLRequest *mutableRequestRubicon = [[NSMutableURLRequest alloc] initWithURL:urlRubicon
+                                                                       cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                                   timeoutInterval:1000];
+    [mutableRequestRubicon setHTTPMethod:@"POST"];
+    [mutableRequestRubicon setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [mutableRequestRubicon setHTTPBody:postData];
+    NSURLSessionDataTask *cacheIdTask2 = [session dataTaskWithRequest:mutableRequestRubicon completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (!error) {
+            NSError *jsonError;
+            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+            if (!jsonError) {
+                NSArray *uuids = response[@"responses"];
+                self.sizeToCacheIdFromRubiconServer = [[NSMutableDictionary alloc]init];
+                [self.sizeToCacheIdFromRubiconServer setValue:uuids[0][@"uuid"] forKey:kSizeString300x250];
+                [self.sizeToCacheIdFromRubiconServer setValue:uuids[1][@"uuid"] forKey:kSizeString300x600];
+                [self.sizeToCacheIdFromRubiconServer setValue:uuids[2][@"uuid"] forKey:kSizeString320x50];
+                [self.sizeToCacheIdFromRubiconServer setValue:uuids[3][@"uuid"] forKey:kSizeString320x100];
+                [self.sizeToCacheIdFromRubiconServer setValue:uuids[4][@"uuid"] forKey:kSizeString320x480];
+                [self.sizeToCacheIdFromRubiconServer setValue:uuids[5][@"uuid"] forKey:kSizeString728x90];
+            }
+        }
+    }];
+    [cacheIdTask2 resume];
     // Prebid Cache expires every 4 minutes 30 seconds, refresh the bids here
     [NSTimer scheduledTimerWithTimeInterval:270 target:self selector:@selector(refreshCacheIds) userInfo:nil repeats:NO];
 }
 
-- (NSDictionary<NSString *, NSString *> *)keywordsWithBidPrice:(NSString *)bidPrice forSize:(NSString *)sizeString {
+- (NSDictionary<NSString *, NSString *> *)keywordsWithBidPrice:(NSString *)bidPrice forSize:(NSString *)sizeString forHost:(NSString *) host{
     NSMutableDictionary *keywords = [[NSMutableDictionary alloc] init];
-    if (self.sizeToCacheIdFromServer) {
-        if ([sizeString isEqualToString:@"Interstitial"]) {
-            keywords[KeywordsManagerCacheIdKey] = self.sizeToCacheIdFromServer[kSizeString320x480];
+    if (host != nil && [host isEqualToString:kRubiconString]) {
+        if (self.sizeToCacheIdFromRubiconServer) {
+            if ([sizeString isEqualToString:@"Interstitial"]) {
+                keywords[KeywordsManagerCacheIdKey] = self.sizeToCacheIdFromRubiconServer[kSizeString320x480];
+            } else {
+                keywords[KeywordsManagerCacheIdKey] = self.sizeToCacheIdFromRubiconServer[sizeString];
+            }
         } else {
-            keywords[KeywordsManagerCacheIdKey] = self.sizeToCacheIdFromServer[sizeString];
+            keywords[KeywordsManagerCacheIdKey] = KeywordsManagerFakeCacheId;
         }
     } else {
-        keywords[KeywordsManagerCacheIdKey] = KeywordsManagerFakeCacheId;
+        if (self.sizeToCacheIdFromAppNexusServer) {
+            if ([sizeString isEqualToString:@"Interstitial"]) {
+                keywords[KeywordsManagerCacheIdKey] = self.sizeToCacheIdFromAppNexusServer[kSizeString320x480];
+            } else {
+                keywords[KeywordsManagerCacheIdKey] = self.sizeToCacheIdFromAppNexusServer[sizeString];
+            }
+        } else {
+            keywords[KeywordsManagerCacheIdKey] = KeywordsManagerFakeCacheId;
+        }
     }
     keywords[KeywordsManagerPriceKey] =  bidPrice;
     keywords[KeywordsManagerSizeKey] = sizeString;
+    keywords[@"hb_env"] = @"mobile-app";
     return [keywords copy];
 }
 
