@@ -21,7 +21,7 @@
 - (void) requestToPrebidServerSent: (Boolean)sent;
 - (void) prebidServerResponseReceived: (Boolean) received;
 - (void) bidReceivedAndCached:(Boolean)received;
-- (void) adServerRequestSent:(NSString *)adServerRequest;
+- (void) adServerRequestSent:(NSString *)adServerRequest andPostData:(NSString *)postData;
 - (void) adServerResponseContainsPBMCreative:(Boolean)contains;
 @end
 
@@ -33,5 +33,5 @@
 - (NSObject *)getAdObject;
 - (NSString *)getAdServerRequest;
 - (NSString *)getAdServerResponse;
-
+- (NSString *)getAdServerRequestPostData;
 @end

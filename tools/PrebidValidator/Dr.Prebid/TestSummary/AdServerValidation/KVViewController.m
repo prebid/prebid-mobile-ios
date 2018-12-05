@@ -24,6 +24,7 @@
 @property (strong) NSDictionary *keyWordsDictionary;
 @property NSArray *keys;
 @property NSString *requestString;
+@property NSString *postData;
 @property NSString *requestURL;
 @property NSDictionary *queryStringDict;
 @property NSArray *queryStringKeys;
@@ -34,33 +35,37 @@
 @implementation KVViewController
 
 
-- (instancetype)initWithRequestString:(NSString *)requestString
+- (instancetype)initWithRequestString:(NSString *)requestString withPostData:(NSString *)postData
 {
     self = [super init];
     if (self) {
         self.requestString = requestString;
+        self.postData = postData;
         if (self.requestString != nil) {
-            NSArray *requestStringArray = [self.requestString componentsSeparatedByString:@"?"];
-            self.requestURL = requestStringArray[0];
-            NSMutableDictionary *qsDict = [[NSMutableDictionary alloc] init];
-            NSArray *queryStringArray = [requestStringArray[1] componentsSeparatedByString:@"&"];
-            for (NSString *queryStringPair in queryStringArray) {
-                NSArray *queryStringPairArray = [queryStringPair componentsSeparatedByString:@"="];
-                [qsDict setObject:queryStringPairArray[1] forKey:queryStringPairArray[0]];
-            }
-            self.queryStringDict = [qsDict copy];
-            self.queryStringKeys = [self.queryStringDict.allKeys copy];
             NSMutableDictionary *keywordsDict = [[NSMutableDictionary alloc] init];
-            if ([self.requestURL containsString:@"ads.mopub.com/m/ad"]) {
-                NSString *keywords = [self.queryStringDict objectForKey:@"q"];
+            if ([self.requestString containsString:@"ads.mopub.com/m/ad"]) {
+                self.requestURL = self.requestString;
+                NSData *data = [postData dataUsingEncoding:NSUTF8StringEncoding];
+                id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                NSString *keywords = json[@"q"];
                 NSArray *keywordsArray = [keywords componentsSeparatedByString:@","];
                 for (NSString *keyword in keywordsArray) {
-                    if (![keyword isEqualToString:@""]) {
+                    if ([keyword containsString: @":"]) {
                         NSArray *keywordPair = [keyword componentsSeparatedByString:@":"];
                         [keywordsDict setObject:keywordPair[1] forKey:keywordPair[0]];
                     }
                 }
             } else {
+                NSArray *requestStringArray = [self.requestString componentsSeparatedByString:@"?"];
+                self.requestURL = requestStringArray[0];
+                NSMutableDictionary *qsDict = [[NSMutableDictionary alloc] init];
+                NSArray *queryStringArray = [requestStringArray[1] componentsSeparatedByString:@"&"];
+                for (NSString *queryStringPair in queryStringArray) {
+                    NSArray *queryStringPairArray = [queryStringPair componentsSeparatedByString:@"="];
+                    [qsDict setObject:queryStringPairArray[1] forKey:queryStringPairArray[0]];
+                }
+                self.queryStringDict = [qsDict copy];
+                self.queryStringKeys = [self.queryStringDict.allKeys copy];
                 NSString *keywords = [self.queryStringDict objectForKey:@"cust_params"];
                 NSArray *keywordsArray = [keywords componentsSeparatedByString:@"%26"];
                 for (NSString *keyword in keywordsArray) {
@@ -128,7 +133,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.queryStringDict.allKeys.count + 1;
+    if ([self.requestString containsString:@"ads.mopub.com/m/ad"]){
+        return 2;
+    } else {
+        return self.queryStringDict.allKeys.count + 1;
+    }
 }
 
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -140,8 +149,14 @@
     if (indexPath.row == 0) {
         cell.textLabel.text = [NSString stringWithFormat:@"%@?", self.requestURL];
     } else {
-        cell.textLabel.text = [NSString stringWithFormat:@"%@=%@&", self.queryStringKeys[indexPath.row -1], [self.queryStringDict objectForKey:self.queryStringKeys[indexPath.row -1]] ];
-        cell.textLabel.numberOfLines = 0;
+        if ([self.requestString containsString:@"ads.mopub.com/m/ad"])  {
+            cell.textLabel.text = self.postData;
+            cell.textLabel.numberOfLines = 0;
+        } else {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@=%@&", self.queryStringKeys[indexPath.row -1], [self.queryStringDict objectForKey:self.queryStringKeys[indexPath.row -1]] ];
+            cell.textLabel.numberOfLines = 0;
+        }
+
     }
     return cell;
 }

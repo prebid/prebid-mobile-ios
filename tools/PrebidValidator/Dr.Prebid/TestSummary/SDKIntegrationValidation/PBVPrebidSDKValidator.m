@@ -46,6 +46,7 @@
 @property Boolean bidReceived;
 @property NSString *adServerRequest;
 @property NSString *adServerResponse;
+@property NSString *adServerRequestPostData;
 @property id adObject;
 @end
 
@@ -230,6 +231,10 @@
     return self.adServerResponse;
 }
 
+- (NSString *)getAdServerRequestPostData
+{
+    return self.adServerRequestPostData;
+}
 #pragma mark - DFP delegate
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
 {
@@ -361,10 +366,11 @@
     }
 }
 
-- (void)willInterceptAdServerRequest:(NSString *)request
+- (void)willInterceptAdServerRequest:(NSString *)request withPostData:(NSString *)data
 {
     self.adServerRequest = request;
-    [self.delegate adServerRequestSent:request];
+    self.adServerRequestPostData = data;
+    [self.delegate adServerRequestSent:request andPostData: data];
 }
 
 - (void)didReceiveAdServerResponse:(NSString *)response forRequest:(NSString *)request

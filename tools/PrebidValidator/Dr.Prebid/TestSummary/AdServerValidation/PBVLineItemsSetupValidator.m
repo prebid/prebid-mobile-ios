@@ -23,6 +23,7 @@
 #import "PBViewTool.h"
 #import <PrebidMobile/PBAdUnit.h>
 #import "AdServerValidationURLProtocol.h"
+#import "NSURLSessionConfiguration+PBProtocols.h"
 
 @interface PBVLineItemsSetupValidator() <MPAdViewDelegate,
                                          MPInterstitialAdControllerDelegate,
@@ -33,6 +34,7 @@
 @property NSString *requestUUID;
 @property NSString *adServerResponseString;
 @property NSString *adServerRequestString;
+@property NSString *adServerRequestPostData;
 @property NSDictionary *keywords;
 @end
 
@@ -46,11 +48,11 @@
     return self;
 }
 
-- (void)willInterceptRequest:(NSString *)requestString
+- (void)willInterceptRequest:(NSString *)requestString andPostData:(NSString *) data
 {
-    if ([requestString containsString:self.requestUUID]) {
-        NSLog(@"received request string: %@", requestString);
+    if ([requestString containsString:self.requestUUID] || [data containsString:self.requestUUID]) {
         self.adServerRequestString = requestString;
+        self.adServerRequestPostData = data;
         BOOL containsKeyValues = YES;
         if ([requestString containsString:@"pubads.g.doubleclick.net/gampad/ads?"]) {
             for (NSString *key in self.keywords.allKeys) {
@@ -62,7 +64,7 @@
         } else {
             for (NSString *key in self.keywords.allKeys) {
                 NSString *keyValuePair = [NSString stringWithFormat:@"%@:%@", key,[self.keywords objectForKey:key]];
-                if (![requestString containsString:keyValuePair]) {
+                if (![data containsString:keyValuePair]) {
                     containsKeyValues = NO;
                 }
             }
@@ -301,6 +303,11 @@
 - (NSString *)getAdServerRequest
 {
     return self.adServerRequestString;
+}
+
+- (NSString *)getAdServerPostData
+{
+    return self.adServerRequestPostData;
 }
 @end
 

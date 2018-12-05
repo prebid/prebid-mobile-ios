@@ -46,14 +46,31 @@ static id<SDKValidationURLProtocolDelegate> classDelegate = nil;
         }
         return YES;
     }
-    if (![request.URL.absoluteString containsString:@"hb_dr_prebid"] && ([request.URL.absoluteString containsString:@"ads.mopub.com/m/ad?"] || [request.URL.absoluteString containsString:@"pubads.g.doubleclick.net/gampad/ads?"]))
+    if (![request.URL.absoluteString containsString:@"hb_dr_prebid"] && [request.URL.absoluteString containsString:@"pubads.g.doubleclick.net/gampad/ads?"])
     {
         if (classDelegate != nil) {
-            [classDelegate willInterceptAdServerRequest:request.URL.absoluteString];
+            [classDelegate willInterceptAdServerRequest:request.URL.absoluteString withPostData:nil];
         }
         return YES;
     }
-    
+    if ([request.URL.absoluteString containsString:@"ads.mopub.com/m/ad"]){
+        if (request.HTTPBodyStream != nil) {
+            NSInputStream *stream = request.HTTPBodyStream;
+            uint8_t byteBuffer[4096];
+            [stream open];
+            if (stream.hasBytesAvailable)
+            {
+                NSInteger bytesRead = [stream read:byteBuffer maxLength:sizeof(byteBuffer)]; //max len must match buffer size
+                NSString *stringFromData = [[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding];
+                if(![stringFromData containsString:@"hb_dr_prebid"] ){
+                    if (classDelegate != nil) {
+                        [classDelegate willInterceptAdServerRequest: request.URL.absoluteString withPostData: stringFromData];
+                    }
+                    return YES;
+                }
+            }
+        }
+    }
     return NO;
 }
 
