@@ -217,7 +217,7 @@ UITableViewDataSource, UITableViewDelegate>
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0 && indexPath.row == 0) {
-        KVViewController * kvController = [[KVViewController alloc] initWithRequestString:[self.validator1 getAdServerRequest]];
+        KVViewController * kvController = [[KVViewController alloc] initWithRequestString:[self.validator1 getAdServerRequest] withPostData:[self.validator1 getAdServerPostData]];
         [self.navigationController pushViewController:kvController animated:YES];
     } else if (indexPath.section == 0 && indexPath.row == 1){
         AdServerResponseViewController *controller = [[AdServerResponseViewController alloc] initWithValidator:self.validator1];
@@ -233,7 +233,7 @@ UITableViewDataSource, UITableViewDelegate>
         }
     } else if (indexPath.section == 2 && indexPath.row == 4) {
         if (self.sdkValidationState > 0) {
-            KVViewController * kvController = [[KVViewController alloc] initWithRequestString:[self.validator3 getAdServerRequest]];
+            KVViewController * kvController = [[KVViewController alloc] initWithRequestString:[self.validator3 getAdServerRequest] withPostData:[self.validator3 getAdServerRequestPostData] ];
             [self.navigationController pushViewController:kvController animated:YES];
         }
     } else if (indexPath.section == 2 && indexPath.row == 5) {
@@ -449,7 +449,7 @@ UITableViewDataSource, UITableViewDelegate>
         [self.tableView reloadData];
     });
 }
-- (void)adServerDidNotRespondWithPrebidCreative
+- (void)adServerDidNotRespondWithPrebidCreative:(NSError *) errorDetails
 {
     self.adServerValidationPBMCreativeState = 2;
     self.adServerValidationState = 2;
@@ -459,16 +459,17 @@ UITableViewDataSource, UITableViewDelegate>
         // DFP won't send any request
         // so the state will be stale at 0
         // does not apply to MoPub
+        if(errorDetails != nil){
+            NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
+            NSString *errorString = [NSString stringWithFormat:@"%@ %@", adServerName, errorDetails.description];
         
-        NSString *errorString = [NSString stringWithFormat:@"%@ doesnt recognize this as valid adUnit id.", [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey]];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid AdUnit Request" message:errorString preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid AdUnit ID" message:errorString preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction
                                                                                                                   *action){[self.navigationController popViewControllerAnimated:YES];}];
-        [alert addAction:cancel];
-        [self presentViewController:alert animated:YES completion:nil];
-        
+            [alert addAction:cancel];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
         self.adServerValidationKeyValueState = 2;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -575,9 +576,9 @@ UITableViewDataSource, UITableViewDelegate>
     });
 }
 
-- (void)adServerRequestSent:(NSString *)adServerRequest
+- (void)adServerRequestSent:(NSString *)adServerRequest andPostData:(NSString *)postData
 {
-    if (adServerRequest!= nil && [adServerRequest containsString:@"hb_cache_id"] && [adServerRequest containsString:@"hb_pb"]) {
+    if (adServerRequest!= nil && (([adServerRequest containsString:@"hb_cache_id"] && [adServerRequest containsString:@"hb_pb"]) || ([postData containsString:@"hb_cache_id"] && [postData containsString:@"hb_pb"]))) {
         self.sdkKeyValueState = 1;
     } else {
         self.sdkKeyValueState = 2;

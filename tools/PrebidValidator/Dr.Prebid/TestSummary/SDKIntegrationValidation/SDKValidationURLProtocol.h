@@ -19,7 +19,7 @@
 @protocol SDKValidationURLProtocolDelegate
 - (void)willInterceptPrebidServerRequest;
 - (void)didReceivePrebidServerResponse:(NSString *)response;
-- (void)willInterceptAdServerRequest:(NSString *)request;
+- (void)willInterceptAdServerRequest:(NSString *)request withPostData: (NSString *) data;
 - (void)didReceiveAdServerResponse:(NSString *)response forRequest:(NSString *) request;
 @end
 

@@ -17,5 +17,5 @@
 #import <UIKit/UIKit.h>
 
 @interface KVViewController : UIViewController
-- (instancetype)initWithRequestString:(NSString *)requestString;
+- (instancetype)initWithRequestString:(NSString *)requestString withPostData: (NSString *)postData;
 @end
