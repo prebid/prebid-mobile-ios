@@ -459,7 +459,7 @@ UITableViewDataSource, UITableViewDelegate>
         // DFP won't send any request
         // so the state will be stale at 0
         // does not apply to MoPub
-        
+        if(errorDetails != nil || errorDetails != NULL){
         NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
         
         NSString *errorString = [NSString stringWithFormat:@"%@ %@", adServerName, errorDetails.description];
@@ -471,6 +471,7 @@ UITableViewDataSource, UITableViewDelegate>
             [alert addAction:cancel];
         
         [self presentViewController:alert animated:YES completion:nil];
+        }
         self.adServerValidationKeyValueState = 2;
     }
     dispatch_async(dispatch_get_main_queue(), ^{

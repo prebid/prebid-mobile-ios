@@ -34,6 +34,8 @@
 @property NSString *adServerResponseString;
 @property NSString *adServerRequestString;
 @property NSDictionary *keywords;
+
+@property NSTimer *timer;
 @end
 
 @implementation PBVLineItemsSetupValidator
@@ -82,9 +84,20 @@
     }
 }
 
+-(void) timerFired {
+    [self.timer invalidate];
+    [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
+}
+
 - (void)startTest
 {
-    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:10.0f
+                                              target:self
+                                            selector:@selector(timerFired)
+                                            userInfo:nil
+                                             repeats:YES];
+
+
     NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
@@ -174,20 +187,24 @@
 
 - (void)adViewDidReceiveAd:(GADBannerView *)bannerView
 {
+    [self.timer invalidate];
     if ([PBViewTool checkDFPAdViewContainsPBMAd:bannerView]) {
         [self.delegate adServerRespondedWithPrebidCreative];
     } else{
         [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
     }
+    
 }
 
 - (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
 {
+    [self.timer invalidate];
     [self.delegate adServerDidNotRespondWithPrebidCreative:error];
 }
 
 - (void)interstitialDidReceiveAd:(GADInterstitial *)ad
 {
+    [self.timer invalidate];
     if (self.adServerResponseString != nil && ([self.adServerResponseString containsString:@"pbm.js"] || [self.adServerResponseString containsString:@"creative.js"])) {
          [self.delegate adServerRespondedWithPrebidCreative];
     } else {
@@ -197,6 +214,7 @@
 
 - (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
 {
+    [self.timer invalidate];
     [self.delegate adServerDidNotRespondWithPrebidCreative:error];
 }
 
@@ -247,7 +265,7 @@
 
 - (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
 {
- 
+    [self.timer invalidate];
     if (self.adServerResponseString != nil && ( [self.adServerResponseString containsString:@"pbm.js"] || [self.adServerResponseString containsString:@"creative.js"])) {
         [self.delegate adServerRespondedWithPrebidCreative];
     } else {
@@ -257,11 +275,13 @@
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial
 {
+    [self.timer invalidate];
     [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
 }
 
 -(void)adViewDidLoadAd:(MPAdView *)view
 {
+    [self.timer invalidate];
     __weak PBVLineItemsSetupValidator *weakSelf = self;
     
     [PBViewTool checkMPAdViewContainsPBMAd:view
@@ -280,6 +300,7 @@
 
 - (void)adViewDidFailToLoadAd:(MPAdView *)view
 {
+    [self.timer invalidate];
     [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
 }
 
