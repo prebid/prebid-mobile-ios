@@ -79,7 +79,7 @@
 
 - (void)didReceiveResponse:(NSString *)responseString forRequest:(NSString *)requestString
 {
-    if (self.requestUUID != nil && [requestString containsString:self.requestUUID]) {
+    if (self.requestUUID != nil && ([requestString containsString:self.requestUUID] || [self.adServerRequestPostData containsString:self.requestUUID])) {
         self.adServerResponseString = responseString;
     }
 }
