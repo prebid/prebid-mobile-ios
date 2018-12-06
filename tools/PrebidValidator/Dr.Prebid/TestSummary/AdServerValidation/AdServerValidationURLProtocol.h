@@ -17,7 +17,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol AdServerValidationURLProtocolDelegate
--(void)willInterceptRequest: (NSString *) requestString;
+-(void)willInterceptRequest: (NSString *) requestString andPostData: (NSString *) data;
 -(void)didReceiveResponse:(NSString *) responseString forRequest:(NSString *)requestString;
 @end
 

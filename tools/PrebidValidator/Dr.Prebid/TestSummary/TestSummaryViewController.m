@@ -217,7 +217,7 @@ UITableViewDataSource, UITableViewDelegate>
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0 && indexPath.row == 0) {
-        KVViewController * kvController = [[KVViewController alloc] initWithRequestString:[self.validator1 getAdServerRequest]];
+        KVViewController * kvController = [[KVViewController alloc] initWithRequestString:[self.validator1 getAdServerRequest] withPostData:[self.validator1 getAdServerPostData]];
         [self.navigationController pushViewController:kvController animated:YES];
     } else if (indexPath.section == 0 && indexPath.row == 1){
         AdServerResponseViewController *controller = [[AdServerResponseViewController alloc] initWithValidator:self.validator1];
@@ -233,7 +233,7 @@ UITableViewDataSource, UITableViewDelegate>
         }
     } else if (indexPath.section == 2 && indexPath.row == 4) {
         if (self.sdkValidationState > 0) {
-            KVViewController * kvController = [[KVViewController alloc] initWithRequestString:[self.validator3 getAdServerRequest]];
+            KVViewController * kvController = [[KVViewController alloc] initWithRequestString:[self.validator3 getAdServerRequest] withPostData:[self.validator3 getAdServerRequestPostData] ];
             [self.navigationController pushViewController:kvController animated:YES];
         }
     } else if (indexPath.section == 2 && indexPath.row == 5) {
@@ -575,9 +575,9 @@ UITableViewDataSource, UITableViewDelegate>
     });
 }
 
-- (void)adServerRequestSent:(NSString *)adServerRequest
+- (void)adServerRequestSent:(NSString *)adServerRequest andPostData:(NSString *)postData
 {
-    if (adServerRequest!= nil && [adServerRequest containsString:@"hb_cache_id"] && [adServerRequest containsString:@"hb_pb"]) {
+    if (adServerRequest!= nil && (([adServerRequest containsString:@"hb_cache_id"] && [adServerRequest containsString:@"hb_pb"]) || ([postData containsString:@"hb_cache_id"] && [postData containsString:@"hb_pb"]))) {
         self.sdkKeyValueState = 1;
     } else {
         self.sdkKeyValueState = 2;

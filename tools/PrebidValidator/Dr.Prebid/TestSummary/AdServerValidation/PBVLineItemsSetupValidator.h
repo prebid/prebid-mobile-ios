@@ -32,4 +32,6 @@
 - (NSString *) getAdServerResponse;
 
 - (NSString *) getAdServerRequest;
+
+- (NSString *) getAdServerPostData;
 @end

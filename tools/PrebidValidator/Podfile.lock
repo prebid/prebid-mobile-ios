@@ -17,7 +17,7 @@ DEPENDENCIES:
   - mopub-ios-sdk (= 5.3.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Google-Mobile-Ads-SDK
     - mopub-ios-sdk
 
@@ -27,4 +27,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: d4a4500b91b980999628e8233f9c4ccd5109f928
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.0

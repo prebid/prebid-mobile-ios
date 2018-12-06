@@ -19,6 +19,7 @@
 #import "AdServerValidationURLProtocol.h"
 #import "PBVSharedConstants.h"
 #import "IntroViewController.h"
+#import "MoPub.h"
 
 @interface AppDelegate ()
 
@@ -30,6 +31,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    MPMoPubConfiguration *sdkConfig  = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"a9cb8ff85fef4b50b457e3b11119aabf"];
+    [[MoPub sharedInstance] initializeSdkWithConfiguration:sdkConfig completion:nil];
+    
     [[LineItemKeywordsManager sharedManager] refreshCacheIds];
     if ([self isFirstLaunch]) {
         
