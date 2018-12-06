@@ -449,7 +449,7 @@ UITableViewDataSource, UITableViewDelegate>
         [self.tableView reloadData];
     });
 }
-- (void)adServerDidNotRespondWithPrebidCreative
+- (void)adServerDidNotRespondWithPrebidCreative:(NSError *) errorDetails
 {
     self.adServerValidationPBMCreativeState = 2;
     self.adServerValidationState = 2;
@@ -459,16 +459,17 @@ UITableViewDataSource, UITableViewDelegate>
         // DFP won't send any request
         // so the state will be stale at 0
         // does not apply to MoPub
+        if(errorDetails != nil){
+            NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
+            NSString *errorString = [NSString stringWithFormat:@"%@ %@", adServerName, errorDetails.description];
         
-        NSString *errorString = [NSString stringWithFormat:@"%@ doesnt recognize this as valid adUnit id.", [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey]];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid AdUnit Request" message:errorString preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid AdUnit ID" message:errorString preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction
                                                                                                                   *action){[self.navigationController popViewControllerAnimated:YES];}];
-        [alert addAction:cancel];
-        [self presentViewController:alert animated:YES completion:nil];
-        
+            [alert addAction:cancel];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
         self.adServerValidationKeyValueState = 2;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
