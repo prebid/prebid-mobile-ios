@@ -20,6 +20,7 @@
 #import "PBVSharedConstants.h"
 #import "MPAdView.h"
 #import "MPInterstitialAdController.h"
+#import "MPInterstitialAdManager.h"
 #import "PBViewTool.h"
 #import <PrebidMobile/PBAdUnit.h>
 #import "AdServerValidationURLProtocol.h"
@@ -79,7 +80,7 @@
 
 - (void)didReceiveResponse:(NSString *)responseString forRequest:(NSString *)requestString
 {
-    if (self.requestUUID != nil && [requestString containsString:self.requestUUID]) {
+    if (self.requestUUID != nil && ([requestString containsString:self.requestUUID] || [self.adServerRequestPostData containsString:self.requestUUID])) {
         self.adServerResponseString = responseString;
     }
 }
@@ -229,7 +230,7 @@
 - (MPInterstitialAdController *) createMPInterstitialAdControllerWithAdUnitId: (NSString *) adUnitID WithKeywords:(NSDictionary *) keywordsDict
 {
     NSString *keywords = [self formatMoPubKeywordStringFromDictionary:keywordsDict];
-    Class MPInterstitialClass = [MPInterstitialAdController class];   
+    Class MPInterstitialClass = [MPInterstitialAdController class];
     SEL initMethodSel = NSSelectorFromString(@"initWithAdUnitId:");
     id interstitial = [MPInterstitialClass alloc];
     if ([interstitial respondsToSelector:initMethodSel]) {
@@ -239,8 +240,6 @@
         [invocation setTarget:interstitial];
         [invocation setArgument:&adUnitID atIndex:2];
         [invocation invoke];
-        NSMutableArray *interstitials = [MPInterstitialClass valueForKey:@"sharedInterstitials"];
-        [interstitials addObject:interstitial];
         [(MPInterstitialAdController *)interstitial setKeywords:keywords];
         [(MPInterstitialAdController *)interstitial setDelegate:self];
     }

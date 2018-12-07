@@ -353,9 +353,11 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             if([[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey] isEqualToString:@""]){
                 if([[[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey] isEqualToString: kAdFormatBanner]){
                     [cell.segmentControl setSelectedSegmentIndex:0];
+                    self.isInterstitial = NO;
                     
                 } else {
                      [cell.segmentControl setSelectedSegmentIndex:1];
+                    self.isInterstitial = YES;
                 }
             }
         }

@@ -37,14 +37,24 @@
                 [NSClassFromString(@"GADSlot") pb_swizzleInstanceSelector:@selector(requestParameters)
                                                          withSelector:@selector(pb_requestParameters)];
             }
-            [NSClassFromString(@"MPBannerAdManager") pb_swizzleInstanceSelector:@selector(loadAd)
-                                                                   withSelector:@selector(pb_loadAd)];
-            [NSClassFromString(@"MPBannerAdManager") pb_swizzleInstanceSelector:@selector(forceRefreshAd)
-                                                                   withSelector:@selector(pb_forceRefreshAd)];
-            [NSClassFromString(@"MPBannerAdManager") pb_swizzleInstanceSelector:@selector(applicationWillEnterForeground)
-                                                                   withSelector:@selector(pb_applicationWillEnterForeground)];
-            [NSClassFromString(@"MPInterstitialAdManager") pb_swizzleInstanceSelector:@selector(loadInterstitialWithAdUnitID:keywords:location:testing:)
-                                                                         withSelector:@selector(pb_loadInterstitialWithAdUnitID:keywords:location:testing:)];
+            if (NSClassFromString(@"MPBannerAdManager") != nil && [NSClassFromString(@"MPBannerAdManager") instancesRespondToSelector:@selector(loadAd)] ) {
+                [NSClassFromString(@"MPBannerAdManager") pb_swizzleInstanceSelector:@selector(loadAd)
+                                                                       withSelector:@selector(pb_loadAd)];
+                [NSClassFromString(@"MPBannerAdManager") pb_swizzleInstanceSelector:@selector(forceRefreshAd)
+                                                                       withSelector:@selector(pb_forceRefreshAd)];
+                [NSClassFromString(@"MPBannerAdManager") pb_swizzleInstanceSelector:@selector(applicationWillEnterForeground)
+                                                                       withSelector:@selector(pb_applicationWillEnterForeground)];
+                [NSClassFromString(@"MPInterstitialAdManager") pb_swizzleInstanceSelector:@selector(loadInterstitialWithAdUnitID:keywords:location:testing:)
+                                                                             withSelector:@selector(pb_loadInterstitialWithAdUnitID:keywords:location:testing:)];
+            } else {
+                [NSClassFromString(@"MPAdView") pb_swizzleInstanceSelector:@selector(loadAd)
+                                                                       withSelector:@selector(pb_new_loadAd)];
+                [NSClassFromString(@"MPAdView") pb_swizzleInstanceSelector:@selector(forceRefreshAd)
+                                                                       withSelector:@selector(pb_new_forceRefreshAd)];
+                [NSClassFromString(@"MPInterstitialAdController") pb_swizzleInstanceSelector:@selector(loadAd)
+                                                              withSelector:@selector(pb_new_loadAd_interstitial)];
+            }
+          
 #pragma clang diagnostic pop
         });
     });
@@ -131,6 +141,12 @@
     };
 }
 
+- (void)pb_new_loadAd {
+    [[PBBidManager sharedInstance] setBidOnAdObject:self];
+    [self pb_new_loadAd];
+    [[PBBidManager sharedInstance] clearBidOnAdObject:self];
+}
+
 - (void)pb_forceRefreshAd {
     SEL getDelegate = NSSelectorFromString(@"delegate");
     if ([self respondsToSelector:getDelegate]) {
@@ -148,6 +164,18 @@
     };
 }
 
+- (void)pb_new_forceRefreshAd {
+    [[PBBidManager sharedInstance] setBidOnAdObject:self];
+    [self pb_new_forceRefreshAd];
+    [[PBBidManager sharedInstance] clearBidOnAdObject:self];
+}
+
+
+- (void)pb_new_loadAd_interstitial {
+    [[PBBidManager sharedInstance] setBidOnAdObject:self];
+    [self pb_new_loadAd_interstitial];
+    [[PBBidManager sharedInstance] clearBidOnAdObject:self];
+}
 // mopub interstitial
 - (void)pb_loadInterstitialWithAdUnitID:(NSString *)ID keywords:(NSString *)keywords location:(CLLocation *)location testing:(BOOL)testing {
     SEL getDelegate = NSSelectorFromString(@"delegate");
