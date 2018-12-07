@@ -17,6 +17,7 @@
 #import "SDKValidationURLProtocol.h"
 @interface SDKValidationURLProtocol() <NSURLConnectionDelegate>
 @property (nonatomic, strong) NSURLConnection *connection;
+@property NSMutableData *data;
 @end
 
 @implementation SDKValidationURLProtocol
@@ -93,6 +94,7 @@ static id<SDKValidationURLProtocolDelegate> classDelegate = nil;
 
 - (void)startLoading
 {
+    self.data = [[NSMutableData alloc] init];
     NSMutableURLRequest *newRequest = [self.request mutableCopy];
     [NSURLProtocol setProperty:@YES forKey:@"PrebidURLProtocolHandledKey" inRequest:newRequest];
 #pragma clang diagnostic push
@@ -113,19 +115,19 @@ static id<SDKValidationURLProtocolDelegate> classDelegate = nil;
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     [self.client URLProtocol:self didLoadData:data];
-    NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    [self.data appendData:data];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    [self.client URLProtocolDidFinishLoading:self];
+    NSString *content = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
     if (classDelegate != nil) {
         if ([SDKValidationURLProtocol supportedPBSHost:self.request.URL.absoluteString]) {
             [classDelegate didReceivePrebidServerResponse:content];
         } else {
             [classDelegate didReceiveAdServerResponse:content forRequest:self.request.URL.absoluteString];
         }
-
     }
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    [self.client URLProtocolDidFinishLoading:self];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
