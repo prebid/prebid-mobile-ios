@@ -89,10 +89,6 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     
     [self.tableView setBackgroundColor:[UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0]];
     
-    // remove the scrolling of tableview
-    //self.tableView.scrollEnabled = NO;
-    self.chosenAdSize = @"300x250";
-    
     // Uncomment the following line to preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
     
@@ -376,20 +372,16 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             if(self.isInterstitial == NO){
                 
                 if(self.chosenAdSize == nil || [self.chosenAdSize isEqualToString:@""]){
-                    cell.lblSelectedContent.text = @"300x250";
-                    
+                
                     if([[NSUserDefaults standardUserDefaults] objectForKey:kAdSizeKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kAdSizeKey] isEqualToString:@""]){
-                        cell.lblSelectedContent.text = [[NSUserDefaults standardUserDefaults] objectForKey:kAdSizeKey];
-                        
-                        self.chosenAdSize = cell.lblSelectedContent.text;
+                        self.chosenAdSize = [[NSUserDefaults standardUserDefaults] objectForKey:kAdSizeKey];
                     }
-                    
-                } else {
-                    cell.lblSelectedContent.text = self.chosenAdSize;
+                    if ([self.chosenAdSize isEqualToString:@"Interstitial"] || self.chosenAdSize == nil) {
+                        self.chosenAdSize = @"300x250";
+                    }
                 }
+                cell.lblSelectedContent.text = self.chosenAdSize;
                 [cell.lblSelectedContent setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
-                
-                
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             } else {
                 cell.lblSelectedContent.text = @"Interstitial";
