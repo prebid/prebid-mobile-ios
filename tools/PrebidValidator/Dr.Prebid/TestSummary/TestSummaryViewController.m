@@ -334,14 +334,17 @@ UITableViewDataSource, UITableViewDelegate>
         CPMSectionCell *cpmCell = (CPMSectionCell *)[tableView dequeueReusableCellWithIdentifier:@"cpmCell"];
         cpmCell.lblHeader.text = @"$0.00 avg CPM";
         if (self.demandValidationState >0) {
-            //check nil & nan 
-            if([self.validator2.testResults objectForKey:@"avgCPM"] != nil && ([self.validator2.testResults objectForKey:@"avgCPM"] == [self.validator2.testResults objectForKey:@"avgCPM"])){
-                cpmCell.lblHeader.text = [NSString stringWithFormat:@"$%.02f Average CPM",[[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue]] ;
-            }
             
-            if([self.validator2.testResults objectForKey:@"avgResponse"] != nil && ([self.validator2.testResults objectForKey:@"avgResponse"] == [self.validator2.testResults objectForKey:@"avgResponse"])){
+            //check nil & nan
+            if(!isnan([[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue])){
+               cpmCell.lblHeader.text = [NSString stringWithFormat:@"$%.02f Average CPM",[[self.validator2.testResults objectForKey:@"avgCPM"] doubleValue]];
+            }
+
+            
+            if(!isnan([[self.validator2.testResults objectForKey:@"avgResponse"] doubleValue])){
                 cpmCell.lblHeader2.text = [NSString stringWithFormat:@"%ldms average response time",[[self.validator2.testResults objectForKey:@"avgResponse"] integerValue]] ;
             }
+
         }
         return cpmCell;
         
