@@ -75,7 +75,6 @@ static id<AdServerValidationURLProtocolDelegate> classDelegate = nil;
         {
             NSInteger bytesRead = [stream read:byteBuffer maxLength:sizeof(byteBuffer)]; //max len must match buffer size
             NSString *stringFromData = [[NSString alloc] initWithBytes:byteBuffer length:bytesRead encoding:NSUTF8StringEncoding];
-            NSLog(@"read data: %@", stringFromData);
             return [stringFromData containsString:@"hb_dr_prebid"];
         }
     }

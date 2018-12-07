@@ -178,7 +178,12 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
         }
     }
     keywords[KeywordsManagerPriceKey] =  bidPrice;
-    keywords[KeywordsManagerSizeKey] = sizeString;
+    if ([sizeString containsString:@"Interstitial"]) {
+        keywords[KeywordsManagerSizeKey] = @"320x480";
+    } else {
+        keywords[KeywordsManagerSizeKey] = sizeString;
+    }
+
     keywords[@"hb_env"] = @"mobile-app";
     return [keywords copy];
 }
