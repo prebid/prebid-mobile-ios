@@ -77,7 +77,7 @@
     @try {
         // Prebid Mobile setup!
         [self setupPrebidLocationManager];
-        [self setPrebidTargetingParams];
+        //[self setPrebidTargetingParams];
         
         // Retriev settings from core data and create ad unit based on that
         NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];

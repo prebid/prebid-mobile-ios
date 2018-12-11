@@ -27,6 +27,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.contentTextView setEditable:NO];
+    
     self.title = @"Bid Request/Response";
     
     [self.segmentControl setSelectedSegmentIndex:0];
@@ -54,7 +56,9 @@
     
     self.lblTitle.text = self.titleString;
     
-    self.contentTextView.text = self.finalRequestString;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.contentTextView.text = self.finalRequestString;
+    });
     
 }
 
@@ -65,18 +69,20 @@
 - (IBAction)segmentChanged:(id)sender {
     NSInteger selectedIndex = [self.segmentControl selectedSegmentIndex];
     self.contentTextView.text = @"";
-    [self.contentTextView setContentOffset:CGPointZero animated:NO];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.contentTextView.selectedRange = NSMakeRange(0, 0);
+    });
     if(selectedIndex == 0){
         if(self.finalRequestString == nil){
             __weak RRViewController *weakSelf = self;
             [self prettyJsonString:self.requestContent andCompletionHandler:^(NSString *formatedString) {
                 __strong RRViewController *strongSelf = weakSelf;
                 strongSelf.finalRequestString = formatedString;
-                strongSelf.contentTextView.text = strongSelf.finalRequestString;
             }];
-        } else {
-            self.contentTextView.text = self.finalRequestString;
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.contentTextView.text = self.finalRequestString;
+        });
     } else {
         
         if(self.finalResponseString == nil){
@@ -84,11 +90,12 @@
             [self prettyJsonString:self.responseContent andCompletionHandler:^(NSString *formatedString) {
                 __strong RRViewController *strongSelf = weakSelf;
                 strongSelf.finalResponseString = formatedString;
-                strongSelf.contentTextView.text = strongSelf.finalResponseString;
+                
             }];
-        } else {
-            self.contentTextView.text = self.finalResponseString;
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.contentTextView.text = self.finalResponseString;
+        });
     }
 }
 
@@ -127,6 +134,5 @@
     }
     completionHandler(formatString);
 }
-
 
 @end

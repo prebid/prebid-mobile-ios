@@ -619,6 +619,9 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     NSString *amountString = [self currencyFormatting:currencyField.text];
     currencyField.text = amountString;
     self.bidPrice = amountString;
+    
+    NSArray *bidPriceArray = [self.bidPrice componentsSeparatedByString:@"$"];
+    [[NSUserDefaults standardUserDefaults] setObject:bidPriceArray[1] forKey:kBidPriceKey];
 }
 
 -(NSString *) currencyFormatting :(NSString *) currency {

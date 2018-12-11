@@ -27,6 +27,9 @@
 @property UIView *adContainer;
 @property NSString *adSizeString;
 @property NSString *adFormatName;
+@property UITextView *pbmCreativeHTMLContent;
+
+@property NSString *adServerResponseString;
 @end
 
 @implementation AdServerResponseViewController
@@ -51,20 +54,25 @@
    
     self.adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     self.adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
-    
+    NSString *adServer = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     UILabel *pbmCreativeHTMLTitle = [[UILabel alloc] init];
     pbmCreativeHTMLTitle.frame = CGRectMake(20, 0, self.view.frame.size.width -20, 50);
-    pbmCreativeHTMLTitle.text = @"Responded Creative HTML";
+    if([adServer isEqualToString:kMoPubString]){
+        pbmCreativeHTMLTitle.text = @"Responded Creative Content";
+    } else if([adServer isEqualToString: kDFPString]){
+        pbmCreativeHTMLTitle.text = @"Responded Creative HTML";
+    }
+    
+    [self performSelectorOnMainThread:@selector(prettyJson:) withObject:[self.validator getAdServerResponse] waitUntilDone:YES];
     [pbmCreativeHTMLTitle setFont:[UIFont systemFontOfSize:20]];
     [self.view addSubview:pbmCreativeHTMLTitle];
-    UITextView *pbmCreativeHTMLContent = [[UITextView alloc] init];
-    pbmCreativeHTMLContent.editable = NO;
-    pbmCreativeHTMLContent.frame = CGRectMake(0, 50, self.view.frame.size.width, 250);
-    pbmCreativeHTMLContent.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
-    NSString *response = [self.validator getAdServerResponse];
-    pbmCreativeHTMLContent.text = response;
-    [pbmCreativeHTMLContent setFont:[UIFont systemFontOfSize:14.0]];
-    [self.view addSubview:pbmCreativeHTMLContent];
+    self.pbmCreativeHTMLContent = [[UITextView alloc] init];
+    self.pbmCreativeHTMLContent.editable = NO;
+    self.pbmCreativeHTMLContent.frame = CGRectMake(0, 50, self.view.frame.size.width, 250);
+    self.pbmCreativeHTMLContent.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
+    
+    [self.pbmCreativeHTMLContent setFont:[UIFont systemFontOfSize:14.0]];
+    [self.view addSubview:self.pbmCreativeHTMLContent];
     NSArray *itemArray = @[@"Received Creative", @"Expected Creative"];
     UISegmentedControl *pbmCreativeControl = [[UISegmentedControl alloc] initWithItems:itemArray];
     pbmCreativeControl.selectedSegmentIndex = 0;
@@ -90,6 +98,20 @@
     container.contentSize = CGSizeMake(self.view.frame.size.width, totalHeight);
     container.contentInset = UIEdgeInsetsZero;
     [self attachReceviedCreative];
+}
+
+-(void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if([self.adServerResponseString isEqualToString:@""])
+            NSLog(@"AdServer Response string empty");
+        
+        self.pbmCreativeHTMLContent.text = self.adServerResponseString;
+    });
+    
+    
+    
 }
 
 - (void) pbmCreativeSwitch:(UISegmentedControl *)segment
@@ -175,5 +197,21 @@
         [_adContainer addSubview:clickToShow];
     }
 }
+
+// Helper function
+- (void) prettyJson: (NSString *) jsonString
+{
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+    if (jsonObject == nil) {
+        self.adServerResponseString = jsonString;
+    } else {
+        NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *prettyPrintedJson = [NSString stringWithUTF8String:[prettyJsonData bytes]];
+        self.adServerResponseString = prettyPrintedJson;
+    }
+}
+
 
 @end

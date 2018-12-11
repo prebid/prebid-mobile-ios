@@ -116,10 +116,21 @@ NSString *__nonnull const cellString = @"demandCell";
     int validBid = [[adServerContent objectForKey:@"bid"] intValue];
     int noBid = [[adServerContent objectForKey:@"nobid"] intValue];
     int timeout = [[adServerContent objectForKey:@"timeout"] intValue];
-    double cpm = [[adServerContent objectForKey:@"cpm"] doubleValue];;
+    
+    
+    
+    double cpm = [[adServerContent objectForKey:@"cpm"] doubleValue];
+    
+    if(!isnan(cpm)){
+        cell.lblAvgCPM.text = [NSString stringWithFormat:@"$%.02f", cpm];
+        
+    } else {
+        cell.lblAvgCPM.text = @"$0.00";
+    }
+    
     int error = [[adServerContent objectForKey:@"error"] intValue];
     
-    cell.lblAvgCPM.text = [NSString stringWithFormat:@"$%.02f", cpm];
+    
     cell.lblErrorRate.text = [NSString stringWithFormat:@"%d%%", error];
     cell.lblNoBidRate.text = [NSString stringWithFormat:@"%d%%", noBid];
     cell.lblValidBidRate.text = [NSString stringWithFormat:@"%d%%", validBid];
