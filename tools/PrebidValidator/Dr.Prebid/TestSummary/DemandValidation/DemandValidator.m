@@ -63,6 +63,8 @@
     self.testResults = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *bidders = [[NSMutableDictionary alloc] init];
     [self.testResults setObject:bidders forKey:@"bidders"];
+    [self.testResults setObject:@"" forKey:@"error"];
+    [self.testResults setObject:[NSNumber numberWithInteger:200] forKey:@"responseStatus"];
     [self.testResults setObject:[[NSString alloc]initWithData:req.HTTPBody encoding:NSUTF8StringEncoding] forKey:@"request"];
     for (int i = 0; i<100; i++) {
         [self runTestWithReuqest:req CompletionHandler:^() {
@@ -97,7 +99,7 @@
 }
 
 -(void)runTestWithReuqest: (NSURLRequest *) req
-        CompletionHandler:(void (^)(void)) completionHandler;{
+        CompletionHandler:(void (^)(void)) completionHandler {
     NSMutableURLRequest *reqMutable = [req mutableCopy];
     [NSURLProtocol setProperty:@YES forKey:@"DemandValidationRequest" inRequest:reqMutable];
     NSURLSession *session = [NSURLSession sharedSession];
@@ -198,6 +200,9 @@
                                                   }
                                                   [self.testResults setObject:bidders forKey:@"bidders"];
                                               }
+                                          } else {
+                                              [self.testResults setObject:[NSNumber numberWithInteger:httpResponse.statusCode] forKey:@"responseStatus"];
+                                              [self.testResults setObject:responseString forKey:@"error"];
                                           }
                                           completionHandler();
                                       }];

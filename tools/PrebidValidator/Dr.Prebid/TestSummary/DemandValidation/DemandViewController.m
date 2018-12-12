@@ -20,7 +20,6 @@
 #import "RRViewController.h"
 
 NSString *__nonnull const cellString = @"demandCell";
-//NSString *__nonnull const headerString = @"demandHeader";
 
 @interface DemandViewController ()<UITableViewDataSource, UITableViewDelegate, DemandHeaderCellDelegate>
 
@@ -32,40 +31,34 @@ NSString *__nonnull const cellString = @"demandCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self.tableView setDelegate:self];
-    [self.tableView setDataSource:self];
-    
-    [self.tableView setSeparatorColor:[UIColor darkGrayColor]];
-    
-    [self.tableView registerNib:[UINib nibWithNibName:@"DemandViewCell" bundle:nil] forCellReuseIdentifier:cellString];
-   
-    
-    id content = [self.resultsDictionary objectForKey:@"bidders"];
-    
-    if([content isKindOfClass:[NSDictionary class] ]){
-        self.dictBidders = (NSDictionary *) content;
+     self.title = @"Real-Time Demand";
+    NSNumber *status = [self.resultsDictionary objectForKey:@"responseStatus"];
+    if (status == [NSNumber numberWithInteger:200]) {
+        id content = [self.resultsDictionary objectForKey:@"bidders"];
+        
+        if([content isKindOfClass:[NSDictionary class] ]){
+            self.dictBidders = (NSDictionary *) content;
+        }
+        [self.tableView setDelegate:self];
+        [self.tableView setDataSource:self];
+        
+        [self.tableView setSeparatorColor:[UIColor darkGrayColor]];
+        
+        [self.tableView registerNib:[UINib nibWithNibName:@"DemandViewCell" bundle:nil] forCellReuseIdentifier:cellString];
+        UIView *footer = [[UIView alloc] initWithFrame:CGRectZero];
+        self.tableView.tableFooterView = footer;
+    } else {
+        for (UIView * view in self.view.subviews) {
+            [view removeFromSuperview];
+        }
+        UITextView *textView = [[UITextView alloc] initWithFrame:self.view.frame];
+        textView.text = [self.resultsDictionary objectForKey:@"error"];
+        [textView setFont:[UIFont systemFontOfSize:14.0]];
+        [self.view addSubview:textView];
     }
+
     
     // Do any additional setup after loading the view.
-}
-
--(void) viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    self.title = @"Real-Time Demand";
-}
-
--(void) viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    self.title = @"Bids";
-    
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -116,10 +109,21 @@ NSString *__nonnull const cellString = @"demandCell";
     int validBid = [[adServerContent objectForKey:@"bid"] intValue];
     int noBid = [[adServerContent objectForKey:@"nobid"] intValue];
     int timeout = [[adServerContent objectForKey:@"timeout"] intValue];
-    double cpm = [[adServerContent objectForKey:@"cpm"] doubleValue];;
+    
+    
+    
+    double cpm = [[adServerContent objectForKey:@"cpm"] doubleValue];
+    
+    if(!isnan(cpm)){
+        cell.lblAvgCPM.text = [NSString stringWithFormat:@"$%.02f", cpm];
+        
+    } else {
+        cell.lblAvgCPM.text = @"$0.00";
+    }
+    
     int error = [[adServerContent objectForKey:@"error"] intValue];
     
-    cell.lblAvgCPM.text = [NSString stringWithFormat:@"$%.02f", cpm];
+    
     cell.lblErrorRate.text = [NSString stringWithFormat:@"%d%%", error];
     cell.lblNoBidRate.text = [NSString stringWithFormat:@"%d%%", noBid];
     cell.lblValidBidRate.text = [NSString stringWithFormat:@"%d%%", validBid];

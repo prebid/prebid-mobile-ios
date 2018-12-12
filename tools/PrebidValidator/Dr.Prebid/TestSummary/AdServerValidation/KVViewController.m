@@ -16,6 +16,7 @@
 
 #import "KVViewController.h"
 #import "ColorTool.h"
+#import "PBVSharedConstants.h"
 
 @interface KVViewController () <UICollectionViewDelegate,
                                 UICollectionViewDataSource,
@@ -40,7 +41,11 @@
     self = [super init];
     if (self) {
         self.requestString = requestString;
-        self.postData = postData;
+        if([[[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey] isEqualToString:kMoPubString]){
+            [self performSelectorOnMainThread:@selector(prettyJson:) withObject:postData waitUntilDone:YES];
+        } else {
+            self.postData = postData;
+        }
         if (self.requestString != nil) {
             NSMutableDictionary *keywordsDict = [[NSMutableDictionary alloc] init];
             if ([self.requestString containsString:@"ads.mopub.com/m/ad"]) {
@@ -109,6 +114,9 @@
     } else {
         self.collectionView.hidden = YES;
         self.tableView.hidden = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }
     
 }
@@ -241,6 +249,21 @@
         width = self.view.frame.size.width - 160;
     }
     return CGSizeMake(width, 50);
+}
+
+// Helper function
+- (void) prettyJson: (NSString *) jsonString
+{
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+    if (jsonObject == nil) {
+        self.postData = jsonString;
+    } else {
+        NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *prettyPrintedJson = [NSString stringWithUTF8String:[prettyJsonData bytes]];
+        self.postData = prettyPrintedJson;
+    }
 }
 
 

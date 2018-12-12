@@ -53,8 +53,12 @@
     [super viewDidAppear:animated];
     
     self.lblTitle.text = self.titleString;
+    [self.contentTextView setEditable:NO];
     
-    self.contentTextView.text = self.finalRequestString;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.contentTextView.text = self.finalRequestString;
+        
+    });
     
 }
 
@@ -65,18 +69,18 @@
 - (IBAction)segmentChanged:(id)sender {
     NSInteger selectedIndex = [self.segmentControl selectedSegmentIndex];
     self.contentTextView.text = @"";
-    [self.contentTextView setContentOffset:CGPointZero animated:NO];
+    [self.contentTextView setEditable:YES];
     if(selectedIndex == 0){
         if(self.finalRequestString == nil){
             __weak RRViewController *weakSelf = self;
             [self prettyJsonString:self.requestContent andCompletionHandler:^(NSString *formatedString) {
                 __strong RRViewController *strongSelf = weakSelf;
                 strongSelf.finalRequestString = formatedString;
-                strongSelf.contentTextView.text = strongSelf.finalRequestString;
             }];
-        } else {
-            self.contentTextView.text = self.finalRequestString;
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.contentTextView.text = self.finalRequestString;
+        });
     } else {
         
         if(self.finalResponseString == nil){
@@ -84,12 +88,21 @@
             [self prettyJsonString:self.responseContent andCompletionHandler:^(NSString *formatedString) {
                 __strong RRViewController *strongSelf = weakSelf;
                 strongSelf.finalResponseString = formatedString;
-                strongSelf.contentTextView.text = strongSelf.finalResponseString;
+                
             }];
-        } else {
-            self.contentTextView.text = self.finalResponseString;
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.contentTextView.text = self.finalResponseString;
+            
+        });
     }
+    self.contentTextView.selectedRange = NSMakeRange(0, 0);
+     [self performSelector:@selector(disableTextView) withObject:nil afterDelay:3.0];
+    
+}
+
+-(void) disableTextView {
+    [self.contentTextView setEditable:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -127,6 +140,5 @@
     }
     completionHandler(formatString);
 }
-
 
 @end

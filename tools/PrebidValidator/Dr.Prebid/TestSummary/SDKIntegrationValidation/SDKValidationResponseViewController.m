@@ -23,6 +23,8 @@
 
 @interface SDKValidationResponseViewController ()
 @property PBVPrebidSDKValidator *validator;
+@property NSString *response;
+@property UITextView *pbmCreativeHTMLContent;
 @end
 
 @implementation SDKValidationResponseViewController
@@ -47,20 +49,23 @@
     
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
-    
+    NSString *adServer = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     UILabel *pbmCreativeHTMLTitle = [[UILabel alloc] init];
     pbmCreativeHTMLTitle.frame = CGRectMake(20, 0, self.view.frame.size.width -20, 50);
-    pbmCreativeHTMLTitle.text = @"Responded Creative HTML";
+    if([adServer isEqualToString:kMoPubString]){
+        pbmCreativeHTMLTitle.text = @"Responded Creative JSON";
+    } else if([adServer isEqualToString: kDFPString]){
+        pbmCreativeHTMLTitle.text = @"Responded Creative HTML";
+    }
     [pbmCreativeHTMLTitle setFont:[UIFont systemFontOfSize:20]];
     [self.view addSubview:pbmCreativeHTMLTitle];
-    UITextView *pbmCreativeHTMLContent = [[UITextView alloc] init];
-    pbmCreativeHTMLContent.editable = NO;
-    pbmCreativeHTMLContent.frame = CGRectMake(0, 50, self.view.frame.size.width, 250);
-    pbmCreativeHTMLContent.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
-    NSString *response = [self.validator getAdServerResponse];
-    pbmCreativeHTMLContent.text = response;
-    [pbmCreativeHTMLContent setFont:[UIFont systemFontOfSize:14.0]];
-    [self.view addSubview:pbmCreativeHTMLContent];
+    [self performSelectorOnMainThread:@selector(prettyJson:) withObject:[self.validator getAdServerResponse] waitUntilDone:YES];
+    self.pbmCreativeHTMLContent = [[UITextView alloc] init];
+    self.pbmCreativeHTMLContent.editable = NO;
+    self.pbmCreativeHTMLContent.frame = CGRectMake(0, 50, self.view.frame.size.width, 250);
+    self.pbmCreativeHTMLContent.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
+    [self.pbmCreativeHTMLContent setFont:[UIFont systemFontOfSize:14.0]];
+    [self.view addSubview:self.pbmCreativeHTMLContent];
     UILabel * receivedCreativeLabel = [[UILabel alloc] init];
     receivedCreativeLabel.text = @"Received Creative";
     receivedCreativeLabel.frame = CGRectMake(20, 300, self.view.frame.size.width - 20, 50);
@@ -101,6 +106,32 @@
         if (controller.ready) {
             [controller showFromViewController:self];
         }
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if([self.response isEqualToString:@""])
+            NSLog(@"AdServer Response string empty");
+        
+        self.pbmCreativeHTMLContent.text = self.response;
+    });
+}
+
+// Helper function
+- (void) prettyJson: (NSString *) jsonString
+{
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+    if (jsonObject == nil) {
+        self.response = jsonString;
+    } else {
+        NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *prettyPrintedJson = [NSString stringWithUTF8String:[prettyJsonData bytes]];
+        self.response = prettyPrintedJson;
     }
 }
 
