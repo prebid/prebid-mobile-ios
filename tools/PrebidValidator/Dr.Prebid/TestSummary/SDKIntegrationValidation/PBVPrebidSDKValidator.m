@@ -39,8 +39,6 @@
                                     GADInterstitialDelegate,
                                     SDKValidationURLProtocolDelegate>
 @property (nonatomic, readwrite) CLLocationManager *locationManager;
-@property DFPBannerView *dfpAdView;
-@property DFPInterstitial *dfpInterstitial;
 @property Boolean initialPrebidServerRequestReceived;
 @property Boolean initialPrebidServerResponseReceived;
 @property Boolean bidReceived;
@@ -199,9 +197,6 @@
             dfpAdView.adUnitID = adUnitID;
             dfpAdView.delegate = self;
             dfpAdView.rootViewController = (UIViewController *)_delegate;
-            // hack for dfp to load a webview
-            dfpAdView.frame = CGRectMake(-300,-250 ,300,250);
-            [((UIViewController *) _delegate).view addSubview:dfpAdView];
             [PrebidMobile setBidKeywordsOnAdObject:dfpAdView withAdUnitId:adUnitID withTimeout:600 completionHandler:^{
                 [dfpAdView loadRequest:[DFPRequest request]];
             }];
@@ -252,7 +247,7 @@
 
 - (void)adViewDidReceiveAd:(GADBannerView *)bannerView
 {
-    if ([PBViewTool checkDFPAdViewContainsPBMAd:bannerView]) {
+    if ([self.adServerResponse containsString:@"pbm.js"]||[self.adServerResponse containsString:@"creative.js"]) {
         [self.delegate adServerResponseContainsPBMCreative:YES];
     } else {
         [self.delegate adServerResponseContainsPBMCreative:NO];

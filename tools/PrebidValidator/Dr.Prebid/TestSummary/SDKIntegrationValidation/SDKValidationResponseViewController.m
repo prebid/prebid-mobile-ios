@@ -47,7 +47,6 @@
     
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
-    
     UILabel *pbmCreativeHTMLTitle = [[UILabel alloc] init];
     pbmCreativeHTMLTitle.frame = CGRectMake(20, 0, self.view.frame.size.width -20, 50);
     pbmCreativeHTMLTitle.text = @"Responded Creative HTML";
