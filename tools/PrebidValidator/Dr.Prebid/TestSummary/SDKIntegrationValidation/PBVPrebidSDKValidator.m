@@ -92,8 +92,14 @@
                 [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 50)];
             } else if ([adSizeString isEqualToString: kSizeString300x250]) {
                 [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(300, 250)];
-            } else {
+            } else if ([adSizeString isEqualToString:kSizeString320x480]){
                 [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 480)];
+            } else if ([adSizeString isEqualToString:kSizeString320x100]){
+                [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 100)];
+            } else if ([adSizeString isEqualToString:kSizeString300x600]){
+                [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(300, 600)];
+            } else {
+                [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(728, 90)];
             }
         } else if ([adFormatName isEqualToString:kInterstitialString]){
             adUnit = [[PBInterstitialAdUnit alloc] initWithAdUnitIdentifier:adUnitID andConfigId:configId];
