@@ -27,8 +27,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.contentTextView setEditable:NO];
-    
     self.title = @"Bid Request/Response";
     
     [self.segmentControl setSelectedSegmentIndex:0];
@@ -55,9 +53,11 @@
     [super viewDidAppear:animated];
     
     self.lblTitle.text = self.titleString;
+    [self.contentTextView setEditable:NO];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self.contentTextView.text = self.finalRequestString;
+        
     });
     
 }
@@ -69,9 +69,7 @@
 - (IBAction)segmentChanged:(id)sender {
     NSInteger selectedIndex = [self.segmentControl selectedSegmentIndex];
     self.contentTextView.text = @"";
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.contentTextView.selectedRange = NSMakeRange(0, 0);
-    });
+    [self.contentTextView setEditable:YES];
     if(selectedIndex == 0){
         if(self.finalRequestString == nil){
             __weak RRViewController *weakSelf = self;
@@ -95,8 +93,16 @@
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             self.contentTextView.text = self.finalResponseString;
+            
         });
     }
+    self.contentTextView.selectedRange = NSMakeRange(0, 0);
+     [self performSelector:@selector(disableTextView) withObject:nil afterDelay:3.0];
+    
+}
+
+-(void) disableTextView {
+    [self.contentTextView setEditable:NO];
 }
 
 - (void)didReceiveMemoryWarning {
