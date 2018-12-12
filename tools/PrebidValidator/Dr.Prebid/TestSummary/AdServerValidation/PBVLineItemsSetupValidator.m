@@ -118,6 +118,7 @@
         if ([adFormatName isEqualToString:kBannerString]) {
             self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
             MPAdView *adView = [self createMPAdViewWithAdUnitId:adUnitID WithSize:adSize WithKeywords:self.keywords];
+            [adView stopAutomaticallyRefreshingContents]; // forcing on the client side, server side management seems to be broken
             self.adObject = adView;
             [adView loadAd];
         } else if ([adFormatName isEqualToString:kInterstitialString]){
@@ -176,9 +177,9 @@
 
 - (void)adViewDidReceiveAd:(GADBannerView *)bannerView
 {
-    if ([PBViewTool checkDFPAdViewContainsPBMAd:bannerView]) {
+    if (self.adServerResponseString != nil && ([self.adServerResponseString containsString:@"pbm.js"] || [self.adServerResponseString containsString:@"creative.js"])) {
         [self.delegate adServerRespondedWithPrebidCreative];
-    } else{
+    } else {
         [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
     }
 }
@@ -262,20 +263,11 @@
 
 -(void)adViewDidLoadAd:(MPAdView *)view
 {
-    __weak PBVLineItemsSetupValidator *weakSelf = self;
-    
-    [PBViewTool checkMPAdViewContainsPBMAd:view
-                       withCompletionHandler:^(BOOL result) {
-                           __strong PBVLineItemsSetupValidator *strongSelf = weakSelf;
-                           if (result) {
-                  
-                                   [strongSelf.delegate adServerRespondedWithPrebidCreative];
-                               } else {
-                                   [strongSelf.delegate adServerDidNotRespondWithPrebidCreative:nil];
-                               }
-                           
-                       }];
- 
+    if (self.adServerResponseString != nil && ([self.adServerResponseString containsString:@"pbm.js"] || [self.adServerResponseString containsString:@"creative.js"])) {
+        [self.delegate adServerRespondedWithPrebidCreative];
+    } else {
+        [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
+    }
 }
 
 - (void)adViewDidFailToLoadAd:(MPAdView *)view
