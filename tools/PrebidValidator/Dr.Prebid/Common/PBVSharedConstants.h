@@ -69,7 +69,7 @@ static NSString * _Nonnull const kPrebidServerInfoHelpString = @"Prebid Server I
 
 static NSString *__nonnull const kAdServerTestHeader = @"Ad Server Setup Validation";
 static NSString *__nonnull const kAdServerRequestSentWithKV = @"Ad server request sent and \nKey-Value Targeting sent";
-static NSString *__nonnull const kpbmjsreceived = @"Prebid Mobile creative HTML served";
+static NSString *__nonnull const kpbmjsreceived = @"Prebid Mobile creative served";
 
 static NSString *__nonnull const kRealTimeHeader = @"Real-Time Demand Validation";
 static NSString *__nonnull const kBidRequestSent = @"100 bid requests sent";

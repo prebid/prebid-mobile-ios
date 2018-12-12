@@ -58,11 +58,10 @@
     UILabel *pbmCreativeHTMLTitle = [[UILabel alloc] init];
     pbmCreativeHTMLTitle.frame = CGRectMake(20, 0, self.view.frame.size.width -20, 50);
     if([adServer isEqualToString:kMoPubString]){
-        pbmCreativeHTMLTitle.text = @"Responded Creative Content";
+        pbmCreativeHTMLTitle.text = @"Responded Creative JSON";
     } else if([adServer isEqualToString: kDFPString]){
         pbmCreativeHTMLTitle.text = @"Responded Creative HTML";
     }
-    
     [self performSelectorOnMainThread:@selector(prettyJson:) withObject:[self.validator getAdServerResponse] waitUntilDone:YES];
     [pbmCreativeHTMLTitle setFont:[UIFont systemFontOfSize:20]];
     [self.view addSubview:pbmCreativeHTMLTitle];
