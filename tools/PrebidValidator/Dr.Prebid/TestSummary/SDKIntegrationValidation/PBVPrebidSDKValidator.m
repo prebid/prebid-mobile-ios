@@ -175,9 +175,10 @@
             double height = [widthHeight[1] doubleValue];
             MPAdView *mopubAdView = [[MPAdView alloc] initWithAdUnitId:adUnitID
                                                          size:CGSizeMake(width, height)];
-            _adObject = mopubAdView;
             [mopubAdView stopAutomaticallyRefreshingContents];
             mopubAdView.delegate = self;
+            self.adObject = mopubAdView;
+            
             [PrebidMobile setBidKeywordsOnAdObject:mopubAdView
                                       withAdUnitId:adUnitID
                                        withTimeout:600
@@ -186,8 +187,9 @@
                                  }];
         } else if([adFormatName isEqualToString:kInterstitialString]){
             MPInterstitialAdController *mopubInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:adUnitID];
-            _adObject = mopubInterstitial;
             mopubInterstitial.delegate = self;
+            self.adObject = mopubInterstitial;
+            
             [PrebidMobile setBidKeywordsOnAdObject:mopubInterstitial withAdUnitId:adUnitID withTimeout:600 completionHandler:^{
                 [mopubInterstitial loadAd];
             }];
@@ -199,17 +201,19 @@
             double width = [widthHeight[0] doubleValue];
             double height = [widthHeight[1] doubleValue];
             DFPBannerView *dfpAdView = [[DFPBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(width, height))];
-            _adObject = dfpAdView;
             dfpAdView.adUnitID = adUnitID;
             dfpAdView.delegate = self;
             dfpAdView.rootViewController = (UIViewController *)_delegate;
+            self.adObject = dfpAdView;
+            
             [PrebidMobile setBidKeywordsOnAdObject:dfpAdView withAdUnitId:adUnitID withTimeout:600 completionHandler:^{
                 [dfpAdView loadRequest:[DFPRequest request]];
             }];
         } else if([adFormatName isEqualToString:kInterstitialString]){
             DFPInterstitial *dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:adUnitID];
-            _adObject = dfpInterstitial;
             dfpInterstitial.delegate = self;
+            self.adObject = dfpInterstitial;
+            
             [PrebidMobile setBidKeywordsOnAdObject:dfpInterstitial withAdUnitId:adUnitID withTimeout:600 completionHandler:^{
                 [dfpInterstitial loadRequest:[DFPRequest request]];
             }];
@@ -283,7 +287,7 @@
 
 - (UIViewController *)viewControllerForPresentingModalView
 {
-    return [[UIViewController alloc] init]; // this should work since we don't test click through here.
+    return (UIViewController *)self.delegate; // this should work since we don't test click through here.
 }
 
 - (void)adViewDidLoadAd:(MPAdView *)view

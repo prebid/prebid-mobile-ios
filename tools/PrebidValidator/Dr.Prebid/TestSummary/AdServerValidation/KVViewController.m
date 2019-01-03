@@ -98,7 +98,7 @@
     control.backgroundColor = [UIColor whiteColor];
     control.layer.cornerRadius = 5.0;
     [control addTarget:self action:@selector(controlSwitch:) forControlEvents:UIControlEventValueChanged];
-    control.frame = CGRectMake(20, 100, self.view.frame.size.width -40, 35);
+    control.frame = CGRectMake(20, 85, self.view.frame.size.width -40, 35);
     [self.view addSubview:control];
     [self setupUICollectionView];
     [self setupUITableView];
@@ -124,7 +124,7 @@
 - (void) setupUITableView
 {
     if (self.tableView == nil) {
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 150, self.view.frame.size.width, self.view.frame.size.height-140)];
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 140, self.view.frame.size.width, self.view.frame.size.height-140)];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.separatorColor = [UIColor clearColor];
@@ -186,7 +186,7 @@
         if (heihgt > self.view.frame.size.height - 140) {
             heihgt =self.view.frame.size.height - 140;
         }
-        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 150, self.view.frame.size.width, heihgt) collectionViewLayout:layout];
+        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 140, self.view.frame.size.width, heihgt) collectionViewLayout:layout];
         self.collectionView.delegate = self;
         self.collectionView.dataSource = self;
         self.collectionView.showsVerticalScrollIndicator = YES;
@@ -254,15 +254,20 @@
 // Helper function
 - (void) prettyJson: (NSString *) jsonString
 {
-    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     NSError *error;
     id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
     if (jsonObject == nil) {
         self.postData = jsonString;
     } else {
-        NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
-        NSString *prettyPrintedJson = [NSString stringWithUTF8String:[prettyJsonData bytes]];
-        self.postData = prettyPrintedJson;
+        if([jsonObject isKindOfClass:[NSDictionary class]]){
+            self.postData = [(NSDictionary *) jsonObject description];
+        } else {
+            NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
+            NSString *prettyPrintedJson = [NSString stringWithUTF8String:[prettyJsonData bytes]];
+            self.postData = prettyPrintedJson;
+        }
+        
     }
 }
 

@@ -30,7 +30,7 @@
     self.title = @"Bid Request/Response";
     
     [self.segmentControl setSelectedSegmentIndex:0];
-    
+    self.contentTextView.inputView = [[UIView alloc] initWithFrame:CGRectZero];
     [self performSelectorOnMainThread:@selector(formattedContent) withObject:nil waitUntilDone:YES];
     
 }
@@ -53,8 +53,9 @@
     [super viewDidAppear:animated];
     
     self.lblTitle.text = self.titleString;
-    [self.contentTextView setEditable:NO];
-    
+    //[self.contentTextView setEditable:NO];
+    [self.contentTextView setFont:[UIFont monospacedDigitSystemFontOfSize:17.0 weight:UIFontWeightRegular]];
+    //[self.contentTextView setSelectable:YES];
     dispatch_async(dispatch_get_main_queue(), ^{
         self.contentTextView.text = self.finalRequestString;
         
@@ -69,7 +70,7 @@
 - (IBAction)segmentChanged:(id)sender {
     NSInteger selectedIndex = [self.segmentControl selectedSegmentIndex];
     self.contentTextView.text = @"";
-    [self.contentTextView setEditable:YES];
+    //[self.contentTextView setEditable:YES];
     if(selectedIndex == 0){
         if(self.finalRequestString == nil){
             __weak RRViewController *weakSelf = self;
@@ -97,7 +98,7 @@
         });
     }
     self.contentTextView.selectedRange = NSMakeRange(0, 0);
-     [self performSelector:@selector(disableTextView) withObject:nil afterDelay:3.0];
+     //[self performSelector:@selector(disableTextView) withObject:nil afterDelay:3.0];
     
 }
 
@@ -115,13 +116,17 @@
 {
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error;
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
     if (jsonObject == nil) {
         return jsonString;
     } else {
-        NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
-        NSString *prettyPrintedJson = [NSString stringWithUTF8String:[prettyJsonData bytes]];
-        return prettyPrintedJson;
+        if([jsonObject isKindOfClass:[NSDictionary class]]){
+            return [(NSDictionary *) jsonObject description];
+        } else {
+            NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
+            NSString *prettyPrintedJson = [NSString stringWithUTF8String:[prettyJsonData bytes]];
+            return prettyPrintedJson;
+        }
     }
 }
 
@@ -130,13 +135,17 @@
     NSString *formatString = @"";
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error;
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
     if (jsonObject == nil) {
         formatString = jsonString;
     } else {
-        NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
-        formatString = [NSString stringWithUTF8String:[prettyJsonData bytes]];
-        
+        if([jsonObject isKindOfClass:[NSDictionary class]]){
+            formatString = [(NSDictionary *) jsonObject description];
+        } else {
+            NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
+            formatString = [NSString stringWithUTF8String:[prettyJsonData bytes]];
+        }
+        NSLog(@"DemandServer-Punnaghai2 %@", formatString);
     }
     completionHandler(formatString);
 }

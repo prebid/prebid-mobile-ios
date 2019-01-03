@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		600073C621DE65CA00F4738B /* CustomTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 600073C521DE65CA00F4738B /* CustomTextView.m */; };
 		602CF6E221AEEEC10097F6C9 /* FooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 602CF6E121AEEEC10097F6C9 /* FooterCell.m */; };
 		605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605A56CA2076C89A00E92376 /* MessageUI.framework */; };
 		607999C121B727E700EE3007 /* ToolReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 607999C021B727E700EE3007 /* ToolReachability.m */; };
@@ -107,6 +108,8 @@
 /* Begin PBXFileReference section */
 		0D7DFE449C9FE5570D88DDD6 /* libPods-PrebidValidator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidValidator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AB57692E142F2F12F162457 /* Pods-Dr.Prebid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dr.Prebid.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid.debug.xcconfig"; sourceTree = "<group>"; };
+		600073C421DE65CA00F4738B /* CustomTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTextView.h; sourceTree = "<group>"; };
+		600073C521DE65CA00F4738B /* CustomTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomTextView.m; sourceTree = "<group>"; };
 		602CF6E021AEEEC10097F6C9 /* FooterCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FooterCell.h; sourceTree = "<group>"; };
 		602CF6E121AEEEC10097F6C9 /* FooterCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FooterCell.m; sourceTree = "<group>"; };
 		605A56CA2076C89A00E92376 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -400,6 +403,8 @@
 				F533B16F21349D16001977C2 /* ColorTool.h */,
 				F5944B3A21B87F4E00E04A34 /* NSURLSessionConfiguration+PBProtocols.h */,
 				F5944B3B21B87F9C00E04A34 /* NSURLSessionConfiguration+PBProtocols.m */,
+				600073C421DE65CA00F4738B /* CustomTextView.h */,
+				600073C521DE65CA00F4738B /* CustomTextView.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -676,6 +681,7 @@
 				60CFB2C12097820D006FCF7C /* QRToggleTorchButton.m in Sources */,
 				60CFB2D32097820D006FCF7C /* PBVSharedConstants.m in Sources */,
 				60CFB2CB2097820D006FCF7C /* LineItemKeywordsManager.m in Sources */,
+				600073C621DE65CA00F4738B /* CustomTextView.m in Sources */,
 				60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */,
 				609172F020F5314E001B94A8 /* HeaderCell.m in Sources */,
 				60924F2221484A650019DD12 /* DemandViewController.m in Sources */,
@@ -866,7 +872,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Dr.Prebid/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -890,7 +896,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Dr.Prebid/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",

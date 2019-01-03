@@ -733,7 +733,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
    } else {
     
        [[NSUserDefaults standardUserDefaults] synchronize];
-    
+       [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:kAdServerResponseCreative];
        NSString * storyboardName = @"Main";
        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
        TestSummaryViewController * summaryViewController = [storyboard instantiateViewControllerWithIdentifier:@"summaryViewController"];
