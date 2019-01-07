@@ -264,7 +264,7 @@
             self.postData = [(NSDictionary *) jsonObject description];
         } else {
             NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
-            NSString *prettyPrintedJson = [NSString stringWithUTF8String:[prettyJsonData bytes]];
+            NSString *prettyPrintedJson = [[NSString alloc] initWithData:prettyJsonData encoding:NSUTF8StringEncoding];
             self.postData = prettyPrintedJson;
         }
         

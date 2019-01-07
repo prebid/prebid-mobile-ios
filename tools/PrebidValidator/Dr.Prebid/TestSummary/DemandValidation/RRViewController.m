@@ -111,24 +111,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-// Helper function
-- (NSString *) prettyJson: (NSString *) jsonString
-{
-    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    NSError *error;
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:&error];
-    if (jsonObject == nil) {
-        return jsonString;
-    } else {
-        if([jsonObject isKindOfClass:[NSDictionary class]]){
-            return [(NSDictionary *) jsonObject description];
-        } else {
-            NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
-            NSString *prettyPrintedJson = [NSString stringWithUTF8String:[prettyJsonData bytes]];
-            return prettyPrintedJson;
-        }
-    }
-}
 
 -(void)prettyJsonString:(NSString *)jsonString andCompletionHandler:(void (^)(NSString *formatedString))completionHandler{
     
@@ -139,12 +121,9 @@
     if (jsonObject == nil) {
         formatString = jsonString;
     } else {
-        if([jsonObject isKindOfClass:[NSDictionary class]]){
-            formatString = [(NSDictionary *) jsonObject description];
-        } else {
-            NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
-            formatString = [NSString stringWithUTF8String:[prettyJsonData bytes]];
-        }
+        NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
+            formatString = [[NSString alloc] initWithData:prettyJsonData encoding:NSUTF8StringEncoding];
+        
         NSLog(@"DemandServer-Punnaghai2 %@", formatString);
     }
     completionHandler(formatString);

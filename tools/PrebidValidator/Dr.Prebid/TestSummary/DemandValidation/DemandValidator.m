@@ -148,9 +148,13 @@
                                                                           [bidderResponseStatus setObject:@"3" forKey:bidderName];
                                                                           NSMutableDictionary *bidderDetails = [bidders objectForKey:bidderName];
                                                                           // increase bid number
+                                                                          
+                                                                          if([[[bid objectForKey:@"ext"] objectForKey:@"prebid"] objectForKey:@"targeting"] != nil){
+                                                                          
                                                                           NSNumber *original = [bidderDetails objectForKey:@"bid"];
                                                                           NSNumber *new = [NSNumber numberWithInt:([original intValue] +1)];
                                                                           [bidderDetails setObject:new forKey:@"bid"];
+                                                                          }
                                                                           // increase total cpm
                                                                           double price = [[bid objectForKey:@"price"] doubleValue];
                                                                           price = price + [[bidderDetails objectForKey:@"cpm"] doubleValue];

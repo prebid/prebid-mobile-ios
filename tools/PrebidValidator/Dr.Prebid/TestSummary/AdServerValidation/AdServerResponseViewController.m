@@ -225,7 +225,7 @@
         self.adServerResponseString = jsonString;
     } else {
             NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
-            NSString *prettyPrintedJson = [NSString stringWithUTF8String:[prettyJsonData bytes]];
+            NSString *prettyPrintedJson =[[NSString alloc] initWithData:prettyJsonData encoding:NSUTF8StringEncoding];
             self.adServerResponseString = prettyPrintedJson;
     }
     
