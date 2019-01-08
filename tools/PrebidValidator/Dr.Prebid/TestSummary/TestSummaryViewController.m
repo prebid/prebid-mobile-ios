@@ -19,6 +19,7 @@
 #import "TestHeaderCell.h"
 #import "PBVLineItemsSetupValidator.h"
 #import "CPMSectionCell.h"
+#import "KeyValueController.h"
 #import "KVViewController.h"
 #import "AdServerResponseViewController.h"
 #import "DemandValidator.h"
@@ -217,8 +218,13 @@ UITableViewDataSource, UITableViewDelegate>
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0 && indexPath.row == 0) {
-        KVViewController * kvController = [[KVViewController alloc] initWithRequestString:[self.validator1 getAdServerRequest] withPostData:[self.validator1 getAdServerPostData]];
-        [self.navigationController pushViewController:kvController animated:YES];
+        NSString * storyboardName = @"Main";
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+        KeyValueController * controller = [storyboard instantiateViewControllerWithIdentifier:@"keyValueView"];
+        controller.requestString = [self.validator1 getAdServerRequest];
+        controller.postDataString = [self.validator1 getAdServerPostData];
+        
+        [self.navigationController pushViewController:controller animated:YES];
     } else if (indexPath.section == 0 && indexPath.row == 1){
         AdServerResponseViewController *controller = [[AdServerResponseViewController alloc] initWithValidator:self.validator1];
         [self.navigationController pushViewController:controller animated:YES];
@@ -233,8 +239,13 @@ UITableViewDataSource, UITableViewDelegate>
         }
     } else if (indexPath.section == 2 && indexPath.row == 4) {
         if (self.sdkValidationState > 0) {
-            KVViewController * kvController = [[KVViewController alloc] initWithRequestString:[self.validator3 getAdServerRequest] withPostData:[self.validator3 getAdServerRequestPostData] ];
-            [self.navigationController pushViewController:kvController animated:YES];
+            NSString * storyboardName = @"Main";
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+            KeyValueController * controller = [storyboard instantiateViewControllerWithIdentifier:@"keyValueView"];
+            controller.requestString = [self.validator3 getAdServerRequest];
+            controller.postDataString = [self.validator3 getAdServerRequestPostData];
+            
+            [self.navigationController pushViewController:controller animated:YES];
         }
     } else if (indexPath.section == 2 && indexPath.row == 5) {
         if (self.sdkValidationState > 0) {

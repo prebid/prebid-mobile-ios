@@ -10,6 +10,7 @@
 		600073C621DE65CA00F4738B /* CustomTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 600073C521DE65CA00F4738B /* CustomTextView.m */; };
 		602CF6E221AEEEC10097F6C9 /* FooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 602CF6E121AEEEC10097F6C9 /* FooterCell.m */; };
 		605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605A56CA2076C89A00E92376 /* MessageUI.framework */; };
+		605C15A321E3E23B00BB9636 /* KeyValueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 605C15A221E3E23B00BB9636 /* KeyValueController.m */; };
 		607999C121B727E700EE3007 /* ToolReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 607999C021B727E700EE3007 /* ToolReachability.m */; };
 		609172E720F3E58D001B94A8 /* SettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172E620F3E58D001B94A8 /* SettingsTableViewController.m */; };
 		609172EA20F50C32001B94A8 /* SegmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 609172E920F50C32001B94A8 /* SegmentCell.m */; };
@@ -113,6 +114,8 @@
 		602CF6E021AEEEC10097F6C9 /* FooterCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FooterCell.h; sourceTree = "<group>"; };
 		602CF6E121AEEEC10097F6C9 /* FooterCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FooterCell.m; sourceTree = "<group>"; };
 		605A56CA2076C89A00E92376 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		605C15A121E3E23B00BB9636 /* KeyValueController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyValueController.h; sourceTree = "<group>"; };
+		605C15A221E3E23B00BB9636 /* KeyValueController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyValueController.m; sourceTree = "<group>"; };
 		607999BF21B727E700EE3007 /* ToolReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolReachability.h; sourceTree = "<group>"; };
 		607999C021B727E700EE3007 /* ToolReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolReachability.m; sourceTree = "<group>"; };
 		609172E520F3E58D001B94A8 /* SettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsTableViewController.h; sourceTree = "<group>"; };
@@ -442,6 +445,8 @@
 				F533B1692130955A001977C2 /* AdServerResponseViewController.h */,
 				F533B1702134A361001977C2 /* AdServerValidationMockInterstitial.m */,
 				F533B1722134A372001977C2 /* AdServerValidationMockInterstitial.h */,
+				605C15A121E3E23B00BB9636 /* KeyValueController.h */,
+				605C15A221E3E23B00BB9636 /* KeyValueController.m */,
 			);
 			path = AdServerValidation;
 			sourceTree = "<group>";
@@ -715,6 +720,7 @@
 				60CFB2C62097820D006FCF7C /* main.m in Sources */,
 				F5944B3C21B87F9C00E04A34 /* NSURLSessionConfiguration+PBProtocols.m in Sources */,
 				609172EA20F50C32001B94A8 /* SegmentCell.m in Sources */,
+				605C15A321E3E23B00BB9636 /* KeyValueController.m in Sources */,
 				60CFB2C32097820D006FCF7C /* QRCodeReaderViewController.m in Sources */,
 				60D124642126DBAD00EC6EE2 /* KVViewController.m in Sources */,
 				609172E720F3E58D001B94A8 /* SettingsTableViewController.m in Sources */,
