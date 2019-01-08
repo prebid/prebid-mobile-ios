@@ -75,7 +75,7 @@ static NSString *__nonnull const kpbmjsreceived = @"Prebid Mobile creative serve
 
 static NSString *__nonnull const kRealTimeHeader = @"Real-Time Demand Validation";
 static NSString *__nonnull const kBidRequestSent = @"100 bid requests sent";
-static NSString *__nonnull const kBidResponseReceived = @"bid response received";
+static NSString *__nonnull const kBidResponseReceived = @"no bid response received yet";
 static NSString *__nonnull const kCPMReceived = @"CPM response time";
 
 static NSString *__nonnull const kSDKHeader = @"End-to-End SDK Validation";

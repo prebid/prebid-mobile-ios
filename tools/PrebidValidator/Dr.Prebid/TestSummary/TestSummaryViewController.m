@@ -316,17 +316,25 @@ UITableViewDataSource, UITableViewDelegate>
     } else if(indexPath.row == 1){
         if (self.demandValidataionBidResponseReceivedState == 1) {
             cell.imgResult.image = [UIImage imageNamed:@"passedStep"];
+            NSNumber *totalBids = [self.validator2.testResults objectForKey:@"totalBids"];
+            if (totalBids != nil) {
+                cell.lblHeader.text = [NSString stringWithFormat:@"%d bid responses received", [totalBids intValue] ];
+            } else {
+                cell.lblHeader.text = kBidResponseReceived;
+            }
         } else if (self.demandValidataionBidResponseReceivedState == 2) {
             cell.imgResult.image = [UIImage imageNamed:@"failedStep"];
+            NSNumber *totalBids = [self.validator2.testResults objectForKey:@"totalBids"];
+            if (totalBids != nil) {
+                cell.lblHeader.text = [NSString stringWithFormat:@"%d bid responses received", [totalBids intValue] ];
+            } else {
+                cell.lblHeader.text = kBidResponseReceived;
+            }
         } else {
             cell.imgResult.image = nil;
-        }
-        NSNumber *totalBids = [self.validator2.testResults objectForKey:@"totalBids"];
-        if (totalBids != nil) {
-            cell.lblHeader.text = [NSString stringWithFormat:@"%d bid responses received", [totalBids intValue] ];
-        } else {
             cell.lblHeader.text = kBidResponseReceived;
         }
+
         return cell;
         
     } else if(indexPath.row == 2){
