@@ -64,7 +64,7 @@
     } else if([self.adServer isEqualToString: kDFPString]){
         pbmCreativeHTMLTitle.text = @"Responded Creative HTML";
     }
-    
+    [pbmCreativeHTMLTitle setFont:[UIFont systemFontOfSize:18.0 weight:UIFontWeightSemibold]];
     [self fetchCreativeContent];
     
     [pbmCreativeHTMLTitle setFont:[UIFont systemFontOfSize:20]];
@@ -74,7 +74,8 @@
     self.pbmCreativeHTMLContent.frame = CGRectMake(0, 50, self.view.frame.size.width, 250);
     self.pbmCreativeHTMLContent.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
     
-    [self.pbmCreativeHTMLContent setFont:[UIFont monospacedDigitSystemFontOfSize:17.0 weight:UIFontWeightRegular]];
+    [self.pbmCreativeHTMLContent setFont:[UIFont fontWithName:@"Courier" size:14.0]];
+    [self.pbmCreativeHTMLContent setTextColor:[ColorTool prebidCodeSnippetGrey]];
     [self.view addSubview:self.pbmCreativeHTMLContent];
     NSArray *itemArray = @[@"Received Creative", @"Expected Creative"];
     UISegmentedControl *pbmCreativeControl = [[UISegmentedControl alloc] initWithItems:itemArray];

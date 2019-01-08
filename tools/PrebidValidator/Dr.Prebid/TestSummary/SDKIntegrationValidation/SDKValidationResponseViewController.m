@@ -58,15 +58,16 @@
     } else if([adServer isEqualToString: kDFPString]){
         pbmCreativeHTMLTitle.text = @"Responded Creative HTML";
     }
-    [pbmCreativeHTMLTitle setFont:[UIFont systemFontOfSize:20]];
+    [pbmCreativeHTMLTitle setFont:[UIFont systemFontOfSize:18.0 weight:UIFontWeightSemibold]];
     [self.view addSubview:pbmCreativeHTMLTitle];
     [self performSelectorOnMainThread:@selector(prettyJson:) withObject:[self.validator getAdServerResponse] waitUntilDone:YES];
     self.pbmCreativeHTMLContent = [[CustomTextView alloc] init];
     self.pbmCreativeHTMLContent.inputView = [[UIView alloc] initWithFrame:CGRectZero];
     self.pbmCreativeHTMLContent.frame = CGRectMake(0, 50, self.view.frame.size.width, 250);
     self.pbmCreativeHTMLContent.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
-    [self.pbmCreativeHTMLContent setFont:[UIFont systemFontOfSize:14.0]];
-    [self.pbmCreativeHTMLContent setFont:[UIFont monospacedDigitSystemFontOfSize:17.0 weight:UIFontWeightRegular]];
+    [self.pbmCreativeHTMLContent setFont:[UIFont fontWithName:@"Courier" size:14.0]];
+    [self.pbmCreativeHTMLContent setTextColor:[ColorTool prebidCodeSnippetGrey]];
+    
     [self.pbmCreativeHTMLContent setSelectable:YES];
     
     [self.view addSubview:self.pbmCreativeHTMLContent];

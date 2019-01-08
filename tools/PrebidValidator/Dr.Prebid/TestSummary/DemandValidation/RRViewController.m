@@ -15,6 +15,7 @@
  */
 
 #import "RRViewController.h"
+#import "ColorTool.h"
 
 @interface RRViewController ()
 
@@ -53,9 +54,8 @@
     [super viewDidAppear:animated];
     
     self.lblTitle.text = self.titleString;
-    //[self.contentTextView setEditable:NO];
-    [self.contentTextView setFont:[UIFont monospacedDigitSystemFontOfSize:17.0 weight:UIFontWeightRegular]];
-    //[self.contentTextView setSelectable:YES];
+    [self.contentTextView setFont:[UIFont fontWithName:@"Courier" size:14.0]];
+    [self.contentTextView setTextColor:[ColorTool prebidCodeSnippetGrey]];
     dispatch_async(dispatch_get_main_queue(), ^{
         self.contentTextView.text = self.finalRequestString;
         

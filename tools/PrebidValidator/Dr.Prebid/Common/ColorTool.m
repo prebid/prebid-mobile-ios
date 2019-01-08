@@ -32,5 +32,10 @@
     return [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
 }
 
++ (UIColor *) prebidCodeSnippetGrey
+{
+    return [UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0];
+}
+
 
 @end
