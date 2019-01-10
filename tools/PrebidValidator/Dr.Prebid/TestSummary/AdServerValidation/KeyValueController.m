@@ -15,7 +15,6 @@ UICollectionViewDataSource,
 UITableViewDataSource,
 UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentCntrl;
-@property (weak, nonatomic) IBOutlet UIView *displayView;
 
 @property (strong) NSDictionary *keyWordsDictionary;
 @property NSString *postData;
@@ -25,6 +24,7 @@ UITableViewDelegate>
 @property NSArray *queryStringKeys;
 @property UICollectionView *collectionView;
 @property UITableView *tableView;
+@property CGFloat yAxis;
 
 @end
 
@@ -47,11 +47,18 @@ UITableViewDelegate>
     self.segmentCntrl.backgroundColor = [UIColor whiteColor];
     self.segmentCntrl.layer.cornerRadius = 5.0;
     [self.segmentCntrl addTarget:self action:@selector(controlSwitch:) forControlEvents:UIControlEventValueChanged];
+    
+    self.yAxis = 125.0;
+    if([self checkSafeAreaInsets])
+        self.yAxis = 150.0;
+    
     [self setupUICollectionView];
     [self setupUITableView];
-    [self.displayView addSubview:self.collectionView];
-    [self.displayView addSubview:self.tableView];
-    self.displayView.backgroundColor = [ColorTool prebidGrey];
+    [self.view addSubview:self.collectionView];
+    [self.view addSubview:self.tableView];
+    self.view.backgroundColor = [ColorTool prebidGrey];
+    
+    
 }
 
 - (void) controlSwitch:(UISegmentedControl *)segment
@@ -121,7 +128,8 @@ UITableViewDelegate>
 - (void) setupUITableView
 {
     if (self.tableView == nil) {
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.displayView.frame.size.width, self.displayView.frame.size.height)];
+        
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.yAxis, self.view.frame.size.width, self.view.frame.size.height)];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.separatorColor = [UIColor clearColor];
@@ -182,7 +190,8 @@ UITableViewDelegate>
         layout.minimumInteritemSpacing = 0;
         layout.minimumLineSpacing = 0;
         float height = self.keys.count * 50;
-        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.displayView.frame.size.width, height) collectionViewLayout:layout];
+        
+        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.yAxis, self.view.frame.size.width, height) collectionViewLayout:layout];
         self.collectionView.delegate = self;
         self.collectionView.dataSource = self;
         self.collectionView.showsVerticalScrollIndicator = YES;
@@ -243,7 +252,7 @@ UITableViewDelegate>
     } else if (indexPath.row %3 == 1) {
         width = 20;
     } else {
-        width = self.displayView.frame.size.width - 160;
+        width = self.view.frame.size.width - 160;
     }
     return CGSizeMake(width, 50);
 }
@@ -266,6 +275,19 @@ UITableViewDelegate>
         }
         
     }
+}
+
+-(BOOL) checkSafeAreaInsets {
+    if (@available(iOS 11.0, *)) {
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        CGFloat topPadding = window.safeAreaInsets.top;
+        
+        if(topPadding > 0)
+            return true;
+        
+    }
+
+    return false;
 }
 
 

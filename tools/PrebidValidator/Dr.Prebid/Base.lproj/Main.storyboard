@@ -452,25 +452,16 @@
                                 </segments>
                                 <color key="tintColor" red="0.23137254901960785" green="0.53333333333333333" blue="0.76470588235294112" alpha="1" colorSpace="calibratedRGB"/>
                             </segmentedControl>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O2V-jS-z2D">
-                                <rect key="frame" x="10" y="85" width="355" height="572"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1b4-oQ-wBP" firstAttribute="trailing" secondItem="n7V-GH-dsM" secondAttribute="trailing" constant="10" id="9Go-FB-jeo"/>
                             <constraint firstItem="n7V-GH-dsM" firstAttribute="leading" secondItem="1b4-oQ-wBP" secondAttribute="leading" constant="10" id="CB5-FZ-y6v"/>
-                            <constraint firstItem="O2V-jS-z2D" firstAttribute="top" secondItem="n7V-GH-dsM" secondAttribute="bottom" constant="15" id="Fdt-qt-9Ok"/>
-                            <constraint firstItem="1b4-oQ-wBP" firstAttribute="trailing" secondItem="O2V-jS-z2D" secondAttribute="trailing" constant="10" id="G5d-uS-PPk"/>
-                            <constraint firstItem="1b4-oQ-wBP" firstAttribute="bottom" secondItem="O2V-jS-z2D" secondAttribute="bottom" constant="10" id="Kwd-7f-acI"/>
                             <constraint firstItem="n7V-GH-dsM" firstAttribute="top" secondItem="1b4-oQ-wBP" secondAttribute="top" constant="15" id="hYc-AG-SKQ"/>
-                            <constraint firstItem="O2V-jS-z2D" firstAttribute="leading" secondItem="1b4-oQ-wBP" secondAttribute="leading" constant="10" id="ySb-uz-xJP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1b4-oQ-wBP"/>
                     </view>
                     <connections>
-                        <outlet property="displayView" destination="O2V-jS-z2D" id="oTC-dx-Gq1"/>
                         <outlet property="segmentCntrl" destination="n7V-GH-dsM" id="fra-2x-vzb"/>
                     </connections>
                 </viewController>
