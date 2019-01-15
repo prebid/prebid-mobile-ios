@@ -195,6 +195,7 @@ UITableViewDelegate>
         self.collectionView.delegate = self;
         self.collectionView.dataSource = self;
         self.collectionView.showsVerticalScrollIndicator = YES;
+        self.collectionView.alwaysBounceVertical = YES;
         [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
         [self.collectionView setBackgroundColor:[UIColor whiteColor]];
         self.collectionView.hidden = NO;
