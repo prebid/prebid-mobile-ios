@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uVU-gA-0U1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uVU-gA-0U1">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -330,7 +330,9 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHV-C9-2Vl">
                                 <rect key="frame" x="44" y="123" width="98" height="30"/>
-                                <state key="normal" title="Scan QR code"/>
+                                <state key="normal" title="Scan QR code">
+                                    <color key="titleColor" red="0.23137254900000001" green="0.53333333329999999" blue="0.76470588240000004" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="btnScanQRCode:" destination="MFZ-RO-OHq" eventType="touchUpInside" id="xOv-3o-AWG"/>
                                 </connections>
@@ -402,7 +404,7 @@
                                     <constraint firstAttribute="trailing" secondItem="93w-U2-TKc" secondAttribute="trailing" constant="10" id="kUC-iJ-4no"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZP9-Er-irR">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZP9-Er-irR" customClass="CustomTextView">
                                 <rect key="frame" x="10" y="110" width="355" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -430,6 +432,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XCw-WN-5Mn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1797" y="1164"/>
+        </scene>
+        <!--Key Value Controller-->
+        <scene sceneID="fnm-em-TDD">
+            <objects>
+                <viewController storyboardIdentifier="keyValueView" id="uYB-l9-5hN" customClass="KeyValueController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uvQ-FU-rrq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="n7V-GH-dsM">
+                                <rect key="frame" x="10" y="35" width="355" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="vMA-iE-8nh"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                                <color key="tintColor" red="0.23137254901960785" green="0.53333333333333333" blue="0.76470588235294112" alpha="1" colorSpace="calibratedRGB"/>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1b4-oQ-wBP" firstAttribute="trailing" secondItem="n7V-GH-dsM" secondAttribute="trailing" constant="10" id="9Go-FB-jeo"/>
+                            <constraint firstItem="n7V-GH-dsM" firstAttribute="leading" secondItem="1b4-oQ-wBP" secondAttribute="leading" constant="10" id="CB5-FZ-y6v"/>
+                            <constraint firstItem="n7V-GH-dsM" firstAttribute="top" secondItem="1b4-oQ-wBP" secondAttribute="top" constant="15" id="hYc-AG-SKQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="1b4-oQ-wBP"/>
+                    </view>
+                    <connections>
+                        <outlet property="segmentCntrl" destination="n7V-GH-dsM" id="fra-2x-vzb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GbV-UE-2fG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2425" y="1087"/>
         </scene>
         <!--Demand View Controller-->
         <scene sceneID="cZA-XJ-w1a">

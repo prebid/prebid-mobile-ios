@@ -15,10 +15,11 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "CustomTextView.h"
 
 @interface RRViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
-@property (weak, nonatomic) IBOutlet UITextView *contentTextView;
+@property (weak, nonatomic) IBOutlet CustomTextView *contentTextView;
 - (IBAction)segmentChanged:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *lblTitle;
 

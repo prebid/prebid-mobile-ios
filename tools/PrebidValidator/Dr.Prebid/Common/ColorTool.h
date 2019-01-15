@@ -20,5 +20,6 @@
 
 + (UIColor *) prebidBlue;
 + (UIColor *) prebidOrange;
-+ (UIColor *) prebidGrey; // used for backgrounds 
++ (UIColor *) prebidGrey; // used for backgrounds
++ (UIColor *) prebidCodeSnippetGrey; //used for code snippet text
 @end

@@ -44,8 +44,14 @@
             [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 50)];
         } else if ([adSizeString isEqualToString:kSizeString300x250]) {
             [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(300, 250)];
-        } else {
-             [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 480)];
+        } else if ([adSizeString isEqualToString:kSizeString320x100]){
+             [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 100)];
+        }else if ([adSizeString isEqualToString:kSizeString320x480]){
+            [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 480)];
+        }else if ([adSizeString isEqualToString:kSizeString300x600]){
+            [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(300, 600)];
+        }else if ([adSizeString isEqualToString:kSizeString728x90]){
+            [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(728, 90)];
         }
     } else {
         adUnit = [[PBInterstitialAdUnit alloc] initWithAdUnitIdentifier:adUnitID andConfigId:configId];
@@ -66,9 +72,9 @@
     [self.testResults setObject:@"" forKey:@"error"];
     [self.testResults setObject:[NSNumber numberWithInteger:200] forKey:@"responseStatus"];
     [self.testResults setObject:[[NSString alloc]initWithData:req.HTTPBody encoding:NSUTF8StringEncoding] forKey:@"request"];
+    [self.testResults setObject:[NSNumber numberWithInt:0] forKey:@"totalBids"];
     for (int i = 0; i<100; i++) {
         [self runTestWithReuqest:req CompletionHandler:^() {
-            self.testsHasResponded ++;
             if (self.testsHasResponded == 100) {
                 // Calculate total bids
                 // Calculate average CPM
@@ -88,7 +94,6 @@
                 }
                 avgResponseTime = avgResponseTime/bidders.count;
                 double avgCPM = totalCPM/totalBids;
-                [self.testResults setObject:[NSNumber numberWithInt:totalBids] forKey:@"totalBids"];
                 [self.testResults setObject:[NSNumber numberWithDouble: avgCPM] forKey:@"avgCPM"];
                 [self.testResults setObject:[NSNumber numberWithDouble:avgResponseTime] forKey:@"avgResponse"];
                 completionHandler();
@@ -105,8 +110,10 @@
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:reqMutable completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
                                       {
+                                          self.testsHasResponded ++;
                                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                                           NSString *responseString = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                                          BOOL containBids = NO;
                                           if(httpResponse.statusCode == 200)
                                           {
                                               NSError *parseError = nil;
@@ -128,7 +135,7 @@
                                                           [bidderDetails setObject:[NSNumber numberWithInt:0] forKey:@"timeout"];
                                                           [bidderDetails setObject:[NSNumber numberWithInt:0] forKey:@"error"];
                                                           [bidderDetails setObject:[NSNumber numberWithDouble:0] forKey:@"cpm"];
-                                                          [bidderDetails setObject:responseString forKey:@"serverResponse"];
+                                                          [bidderDetails setObject:@"" forKey:@"serverResponse"];
                                                           [bidderDetails setObject:responseMillis[key] forKey:@"responseTime"];
                                                       }
                                                       [bidders setObject:bidderDetails forKey:key];
@@ -144,13 +151,18 @@
                                                                   for (id bid in bids) {
                                                                       if ([bid isKindOfClass:[NSDictionary class]]) {
                                                                           // if bid, set the status to 3
+                                                                          containBids = YES;
                                                                           NSString *bidderName = [seatbid objectForKey:@"seat"];
                                                                           [bidderResponseStatus setObject:@"3" forKey:bidderName];
                                                                           NSMutableDictionary *bidderDetails = [bidders objectForKey:bidderName];
                                                                           // increase bid number
-                                                                          NSNumber *original = [bidderDetails objectForKey:@"bid"];
-                                                                          NSNumber *new = [NSNumber numberWithInt:([original intValue] +1)];
-                                                                          [bidderDetails setObject:new forKey:@"bid"];
+                                                                          
+                                                                          if([[[bid objectForKey:@"ext"] objectForKey:@"prebid"] objectForKey:@"targeting"] != nil){
+                                                                              NSNumber *original = [bidderDetails objectForKey:@"bid"];
+                                                                              NSNumber *new = [NSNumber numberWithInt:([original intValue] +1)];
+                                                                              [bidderDetails setObject:new forKey:@"bid"];
+                                                                              [bidderDetails setObject:responseString forKey:@"serverResponse"];
+                                                                          }
                                                                           // increase total cpm
                                                                           double price = [[bid objectForKey:@"price"] doubleValue];
                                                                           price = price + [[bidderDetails objectForKey:@"cpm"] doubleValue];
@@ -161,6 +173,11 @@
                                                               }
                                                           }
                                                       }
+                                                  }
+                                                  if (containBids) {
+                                                      NSNumber *original = [self.testResults objectForKey:@"totalBids"];
+                                                      NSNumber *new = [NSNumber numberWithInt:([original intValue] +1)];
+                                                      [self.testResults setObject:new forKey:@"totalBids"];
                                                   }
                                                   // if bidder error, then set the status to 2
                                                   if ([[responseDictionary objectForKey:@"ext"] objectForKey:@"errors"] != nil) {
@@ -196,6 +213,14 @@
                                                           NSNumber *original = [bidderDetails objectForKey:@"error"];
                                                           NSNumber *new = [NSNumber numberWithInt:([original intValue] +1)];
                                                           [bidderDetails setObject:new forKey:@"error"];
+                                                      }
+                                                  }
+                                                  if (self.testsHasResponded == 100) {
+                                                      for(NSString *key in bidderResponseStatus.allKeys) {
+                                                          NSMutableDictionary *bidderDetails = [bidders objectForKey:key];
+                                                          if ([[bidderDetails objectForKey:@"serverResponse"] isEqualToString:@""]) {
+                                                              [bidderDetails setObject:responseString forKey:@"serverResponse"];
+                                                          }
                                                       }
                                                   }
                                                   [self.testResults setObject:bidders forKey:@"bidders"];

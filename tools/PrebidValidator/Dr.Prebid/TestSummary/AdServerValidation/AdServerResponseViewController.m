@@ -20,6 +20,7 @@
 #import "AdServerValidationMockInterstitial.h"
 #import "MPInterstitialAdController.h"
 #import "ColorTool.h"
+#import "CustomTextView.h"
 @import GoogleMobileAds;
 
 @interface AdServerResponseViewController()
@@ -27,7 +28,8 @@
 @property UIView *adContainer;
 @property NSString *adSizeString;
 @property NSString *adFormatName;
-@property UITextView *pbmCreativeHTMLContent;
+@property NSString *adServer;
+@property CustomTextView *pbmCreativeHTMLContent;
 
 @property NSString *adServerResponseString;
 @end
@@ -54,23 +56,26 @@
    
     self.adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     self.adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
-    NSString *adServer = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
+    self.adServer = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     UILabel *pbmCreativeHTMLTitle = [[UILabel alloc] init];
     pbmCreativeHTMLTitle.frame = CGRectMake(20, 0, self.view.frame.size.width -20, 50);
-    if([adServer isEqualToString:kMoPubString]){
+    if([self.adServer isEqualToString:kMoPubString]){
         pbmCreativeHTMLTitle.text = @"Responded Creative JSON";
-    } else if([adServer isEqualToString: kDFPString]){
+    } else if([self.adServer isEqualToString: kDFPString]){
         pbmCreativeHTMLTitle.text = @"Responded Creative HTML";
     }
-    [self performSelectorOnMainThread:@selector(prettyJson:) withObject:[self.validator getAdServerResponse] waitUntilDone:YES];
+    [pbmCreativeHTMLTitle setFont:[UIFont systemFontOfSize:18.0 weight:UIFontWeightSemibold]];
+    [self fetchCreativeContent];
+    
     [pbmCreativeHTMLTitle setFont:[UIFont systemFontOfSize:20]];
     [self.view addSubview:pbmCreativeHTMLTitle];
-    self.pbmCreativeHTMLContent = [[UITextView alloc] init];
-    self.pbmCreativeHTMLContent.editable = NO;
+    self.pbmCreativeHTMLContent = [[CustomTextView alloc] init];
+    self.pbmCreativeHTMLContent.inputView = [[UIView alloc] initWithFrame:CGRectZero];
     self.pbmCreativeHTMLContent.frame = CGRectMake(0, 50, self.view.frame.size.width, 250);
     self.pbmCreativeHTMLContent.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
     
-    [self.pbmCreativeHTMLContent setFont:[UIFont systemFontOfSize:14.0]];
+    [self.pbmCreativeHTMLContent setFont:[UIFont fontWithName:@"Courier" size:14.0]];
+    [self.pbmCreativeHTMLContent setTextColor:[ColorTool prebidCodeSnippetGrey]];
     [self.view addSubview:self.pbmCreativeHTMLContent];
     NSArray *itemArray = @[@"Received Creative", @"Expected Creative"];
     UISegmentedControl *pbmCreativeControl = [[UISegmentedControl alloc] initWithItems:itemArray];
@@ -99,13 +104,23 @@
     [self attachReceviedCreative];
 }
 
+-(void) fetchCreativeContent {
+    NSString *responseCreative = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerResponseCreative];
+    
+    if([responseCreative isEqualToString:@""]){
+        [self performSelectorOnMainThread:@selector(prettyJson:) withObject:[self.validator getAdServerResponse] waitUntilDone:YES];
+    } else {
+        self.adServerResponseString = responseCreative;
+    }
+}
+
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         if([self.adServerResponseString isEqualToString:@""])
             NSLog(@"AdServer Response string empty");
-        
+        NSLog(@"adServer response string ************** %@", self.adServerResponseString);
         self.pbmCreativeHTMLContent.text = self.adServerResponseString;
     });
     
@@ -200,16 +215,22 @@
 // Helper function
 - (void) prettyJson: (NSString *) jsonString
 {
-    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    if(jsonString == nil)
+        return;
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     NSError *error;
+    
+    
     id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
     if (jsonObject == nil) {
         self.adServerResponseString = jsonString;
     } else {
-        NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
-        NSString *prettyPrintedJson = [NSString stringWithUTF8String:[prettyJsonData bytes]];
-        self.adServerResponseString = prettyPrintedJson;
+            NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
+            NSString *prettyPrintedJson =[[NSString alloc] initWithData:prettyJsonData encoding:NSUTF8StringEncoding];
+            self.adServerResponseString = prettyPrintedJson;
     }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:self.adServerResponseString forKey:kAdServerResponseCreative];
 }
 
 

@@ -733,7 +733,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
    } else {
     
        [[NSUserDefaults standardUserDefaults] synchronize];
-    
+       [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:kAdServerResponseCreative];
        NSString * storyboardName = @"Main";
        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
        TestSummaryViewController * summaryViewController = [storyboard instantiateViewControllerWithIdentifier:@"summaryViewController"];
@@ -757,16 +757,15 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     if(self.isInterstitial == FALSE && (self.chosenAdSize == nil || [self.chosenAdSize isEqualToString:@""]))
         return FALSE;
     
-    if(self.adUnitID == nil || [self.adUnitID isEqualToString:@""])
+    if(self.adUnitID == nil || ([self.adUnitID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length <= 0))
+        return FALSE;
+    if(self.accountID == nil || ([self.accountID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length <= 0))
         return FALSE;
     
-    if(self.accountID == nil || [self.accountID isEqualToString:@""])
+    if(self.configID == nil || ([self.configID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length <= 0))
         return FALSE;
     
-    if(self.configID == nil || [self.configID isEqualToString:@""])
-        return FALSE;
-    
-    if(self.bidPrice == nil || [self.bidPrice isEqualToString:@""])
+    if(self.bidPrice == nil || (self.bidPrice.length <= 0))
         return FALSE;
     
     return TRUE;

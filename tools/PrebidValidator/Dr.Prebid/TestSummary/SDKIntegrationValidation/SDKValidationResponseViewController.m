@@ -19,12 +19,13 @@
 #import "ColorTool.h"
 #import "PBVSharedConstants.h"
 #import "MPInterstitialAdController.h"
+#import "CustomTextView.h"
 @import GoogleMobileAds;
 
 @interface SDKValidationResponseViewController ()
 @property PBVPrebidSDKValidator *validator;
 @property NSString *response;
-@property UITextView *pbmCreativeHTMLContent;
+@property CustomTextView *pbmCreativeHTMLContent;
 @end
 
 @implementation SDKValidationResponseViewController
@@ -57,14 +58,18 @@
     } else if([adServer isEqualToString: kDFPString]){
         pbmCreativeHTMLTitle.text = @"Responded Creative HTML";
     }
-    [pbmCreativeHTMLTitle setFont:[UIFont systemFontOfSize:20]];
+    [pbmCreativeHTMLTitle setFont:[UIFont systemFontOfSize:18.0 weight:UIFontWeightSemibold]];
     [self.view addSubview:pbmCreativeHTMLTitle];
     [self performSelectorOnMainThread:@selector(prettyJson:) withObject:[self.validator getAdServerResponse] waitUntilDone:YES];
-    self.pbmCreativeHTMLContent = [[UITextView alloc] init];
-    self.pbmCreativeHTMLContent.editable = NO;
+    self.pbmCreativeHTMLContent = [[CustomTextView alloc] init];
+    self.pbmCreativeHTMLContent.inputView = [[UIView alloc] initWithFrame:CGRectZero];
     self.pbmCreativeHTMLContent.frame = CGRectMake(0, 50, self.view.frame.size.width, 250);
     self.pbmCreativeHTMLContent.textContainerInset = UIEdgeInsetsMake(20, 20, 20, 20);
-    [self.pbmCreativeHTMLContent setFont:[UIFont systemFontOfSize:14.0]];
+    [self.pbmCreativeHTMLContent setFont:[UIFont fontWithName:@"Courier" size:14.0]];
+    [self.pbmCreativeHTMLContent setTextColor:[ColorTool prebidCodeSnippetGrey]];
+    
+    [self.pbmCreativeHTMLContent setSelectable:YES];
+    
     [self.view addSubview:self.pbmCreativeHTMLContent];
     UILabel * receivedCreativeLabel = [[UILabel alloc] init];
     receivedCreativeLabel.text = @"Received Creative";
@@ -129,9 +134,13 @@
     if (jsonObject == nil) {
         self.response = jsonString;
     } else {
-        NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
-        NSString *prettyPrintedJson = [NSString stringWithUTF8String:[prettyJsonData bytes]];
-        self.response = prettyPrintedJson;
+        if([jsonObject isKindOfClass:[NSDictionary class]]){
+            self.response = [(NSDictionary *) jsonObject description];
+        } else {
+            NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&error];
+            NSString *prettyPrintedJson = [[NSString alloc] initWithData:prettyJsonData encoding:NSUTF8StringEncoding];
+            self.response = prettyPrintedJson;
+        }
     }
 }
 

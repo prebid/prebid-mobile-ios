@@ -1,56 +1,95 @@
-/*
- *    Copyright 2018 Prebid.org, Inc.
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
+//
+//  KeyValueController.m
+//  Dr.Prebid
+//
+//  Created by Punnaghai Puviarasu on 1/7/19.
+//  Copyright © 2019 Prebid. All rights reserved.
+//
 
-#import "KVViewController.h"
+#import "KeyValueController.h"
 #import "ColorTool.h"
 #import "PBVSharedConstants.h"
 
-@interface KVViewController () <UICollectionViewDelegate,
-                                UICollectionViewDataSource,
-                                UITableViewDataSource,
-                                UITableViewDelegate>
+@interface KeyValueController () <UICollectionViewDelegate,
+UICollectionViewDataSource,
+UITableViewDataSource,
+UITableViewDelegate>
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentCntrl;
+
 @property (strong) NSDictionary *keyWordsDictionary;
-@property NSArray *keys;
-@property NSString *requestString;
 @property NSString *postData;
+@property NSArray *keys;
 @property NSString *requestURL;
 @property NSDictionary *queryStringDict;
 @property NSArray *queryStringKeys;
 @property UICollectionView *collectionView;
 @property UITableView *tableView;
+@property CGFloat yAxis;
+
 @end
 
-@implementation KVViewController
+@implementation KeyValueController
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
-- (instancetype)initWithRequestString:(NSString *)requestString withPostData:(NSString *)postData
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self processData];
+    self.title = @"Key-Value Targeting";
+    self.view.backgroundColor = [ColorTool prebidGrey];
+    [self.segmentCntrl setTitle:@"Prebid Key-Value Pairs" forSegmentAtIndex:0];
+    [self.segmentCntrl setTitle:@"Ad Server Request" forSegmentAtIndex:1];
+    
+    self.segmentCntrl.tintColor = [ColorTool prebidBlue];
+    self.segmentCntrl.backgroundColor = [UIColor whiteColor];
+    self.segmentCntrl.layer.cornerRadius = 5.0;
+    [self.segmentCntrl addTarget:self action:@selector(controlSwitch:) forControlEvents:UIControlEventValueChanged];
+    
+    self.yAxis = 125.0;
+    if([self checkSafeAreaInsets])
+        self.yAxis = 150.0;
+    
+    [self setupUICollectionView];
+    [self setupUITableView];
+    [self.view addSubview:self.collectionView];
+    [self.view addSubview:self.tableView];
+    self.view.backgroundColor = [ColorTool prebidGrey];
+    
+    
+}
+
+- (void) controlSwitch:(UISegmentedControl *)segment
 {
-    self = [super init];
-    if (self) {
-        self.requestString = requestString;
-        if([[[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey] isEqualToString:kMoPubString]){
-            [self performSelectorOnMainThread:@selector(prettyJson:) withObject:postData waitUntilDone:YES];
-        } else {
-            self.postData = postData;
-        }
+    if (segment.selectedSegmentIndex == 0) {
+        self.collectionView.hidden = NO;
+        self.tableView.hidden = YES;
+    } else {
+        self.collectionView.hidden = YES;
+        self.tableView.hidden = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    }
+    
+}
+
+-(void) processData {
+    
+    if([self.requestString isEqualToString:@""] || [self.postDataString isEqualToString:@""])
+        return;
+    if([[[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey] isEqualToString:kMoPubString]){
+            [self performSelectorOnMainThread:@selector(prettyJson:) withObject:self.postDataString waitUntilDone:YES];
+    } else {
+        self.postData = self.postDataString;
+    }
         if (self.requestString != nil) {
             NSMutableDictionary *keywordsDict = [[NSMutableDictionary alloc] init];
             if ([self.requestString containsString:@"ads.mopub.com/m/ad"]) {
                 self.requestURL = self.requestString;
-                NSData *data = [postData dataUsingEncoding:NSUTF8StringEncoding];
+                NSData *data = [self.postDataString dataUsingEncoding:NSUTF8StringEncoding];
                 id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                 NSString *keywords = json[@"q"];
                 NSArray *keywordsArray = [keywords componentsSeparatedByString:@","];
@@ -83,58 +122,14 @@
             self.keyWordsDictionary = [keywordsDict copy];
             self.keys = [self.keyWordsDictionary.allKeys copy];
         }
-    }
-    return self;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.title = @"Key-Value Targeting";
-    self.view.backgroundColor = [ColorTool prebidGrey];
-    NSArray *itemArray = @[@"Prebid Key-Value Pairs", @"Ad Server Request"];
-    UISegmentedControl *control = [[UISegmentedControl alloc] initWithItems:itemArray];
-    control.selectedSegmentIndex = 0;
-    control.tintColor = [ColorTool prebidBlue];
-    control.backgroundColor = [UIColor whiteColor];
-    control.layer.cornerRadius = 5.0;
-    [control addTarget:self action:@selector(controlSwitch:) forControlEvents:UIControlEventValueChanged];
-    control.frame = CGRectMake(20, 85, self.view.frame.size.width -40, 35);
-    [self.view addSubview:control];
-    [self setupUICollectionView];
-    [self setupUITableView];
-    [self.view addSubview:self.collectionView];
-    [self.view addSubview:self.tableView];
-    
-    //control.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    if (@available(iOS 11, *)) {
-        UILayoutGuide * guide = self.view.safeAreaLayoutGuide;
-        [control.topAnchor constraintEqualToAnchor:guide.topAnchor].active = YES;
-    }
-    
-    // Refresh myView and/or main view
-    [self.view layoutIfNeeded];
-}
-
-- (void) controlSwitch:(UISegmentedControl *)segment
-{
-    if (segment.selectedSegmentIndex == 0) {
-        self.collectionView.hidden = NO;
-        self.tableView.hidden = YES;
-    } else {
-        self.collectionView.hidden = YES;
-        self.tableView.hidden = NO;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-    }
     
 }
 #pragma mark UITableView
 - (void) setupUITableView
 {
     if (self.tableView == nil) {
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 140, self.view.frame.size.width, self.view.frame.size.height-140)];
+        
+        self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.yAxis, self.view.frame.size.width, self.view.frame.size.height)];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
         self.tableView.separatorColor = [UIColor clearColor];
@@ -158,26 +153,25 @@
     }
 }
 
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdenitifier"];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellIndetifier"];
     }
-    
+    [cell.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [cell.textLabel setTextColor:[ColorTool prebidCodeSnippetGrey]];
     if (indexPath.row == 0) {
         cell.textLabel.text = [NSString stringWithFormat:@"%@?", self.requestURL];
     } else {
-        
         if ([self.requestString containsString:@"ads.mopub.com/m/ad"])  {
-            
             cell.textLabel.text = self.postData;
             cell.textLabel.numberOfLines = 0;
         } else {
             cell.textLabel.text = [NSString stringWithFormat:@"%@=%@&", self.queryStringKeys[indexPath.row -1], [self.queryStringDict objectForKey:self.queryStringKeys[indexPath.row -1]] ];
             cell.textLabel.numberOfLines = 0;
         }
-
+        
     }
     return cell;
 }
@@ -195,14 +189,13 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.minimumInteritemSpacing = 0;
         layout.minimumLineSpacing = 0;
-        float heihgt = self.keys.count * 50;
-        if (heihgt > self.view.frame.size.height - 140) {
-            heihgt =self.view.frame.size.height - 140;
-        }
-        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 140, self.view.frame.size.width, heihgt) collectionViewLayout:layout];
+        float height = self.keys.count * 50;
+        
+        self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, self.yAxis, self.view.frame.size.width, height) collectionViewLayout:layout];
         self.collectionView.delegate = self;
         self.collectionView.dataSource = self;
         self.collectionView.showsVerticalScrollIndicator = YES;
+        self.collectionView.alwaysBounceVertical = YES;
         [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellIdentifier"];
         [self.collectionView setBackgroundColor:[UIColor whiteColor]];
         self.collectionView.hidden = NO;
@@ -227,6 +220,7 @@
     }
     CGSize size = [self getSizeForIndex:indexPath];
     UILabel *textLabel = [[UILabel alloc] init];
+    [textLabel setFont:[UIFont systemFontOfSize:17.0]];
     textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     textLabel.numberOfLines = 0;
     if (indexPath.row % 3 == 0) {
@@ -284,6 +278,18 @@
     }
 }
 
+-(BOOL) checkSafeAreaInsets {
+    if (@available(iOS 11.0, *)) {
+        UIWindow *window = UIApplication.sharedApplication.keyWindow;
+        CGFloat topPadding = window.safeAreaInsets.top;
+        
+        if(topPadding > 0)
+            return true;
+        
+    }
+
+    return false;
+}
 
 
 @end
