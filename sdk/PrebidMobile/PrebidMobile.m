@@ -53,6 +53,34 @@
                                                completionHandler:completionHandler];
 }
 
++ (void)setBidKeywordsOnDFPBannerView:(id)adView
+                         withAdUnitId:(NSString *)adUnitIdentifier
+                          withTimeout:(int)timeoutInMilliseconds
+                          withRequest:(id)request {
+    void (^completionHandler)(void) = ^{
+        [self setBidKeywordsOnAdObject:adView withAdUnitId:adUnitIdentifier];
+        SEL getPb_identifier = NSSelectorFromString(@"pb_identifier");
+        if ([adView respondsToSelector:getPb_identifier]) {
+            PBAdUnit *adUnit = (PBAdUnit *)[adView performSelector:getPb_identifier];
+            NSDictionary<NSString *, NSString *> *prebidTargeting = [[PBBidManager sharedInstance] keywordsForWinningBidForAdUnit:adUnit];
+            SEL getCustomTargeting = NSSelectorFromString(@"customTargeting");
+            if ([request respondsToSelector:getCustomTargeting]) {
+                NSMutableDictionary<NSString *, NSString *> *targeting = [[request performSelector:getCustomTargeting] mutableCopy];
+                if (targeting == nil) {
+                    targeting = [NSMutableDictionary dictionary];
+                }
+                [targeting addEntriesFromDictionary:prebidTargeting];
+                [request setValue:targeting forKey:@"customTargeting"];
+            }
+        }
+        [adView loadRequest:request];
+        [[PBBidManager sharedInstance] clearBidOnAdObject:adView];
+    };
+    [[PBBidManager sharedInstance] attachTopBidHelperForAdUnitId:adUnitIdentifier
+                                                      andTimeout:timeoutInMilliseconds
+                                               completionHandler:completionHandler];
+}
+
 + (void) shouldLoadOverSecureConnection:(BOOL) secureConnection {
     [[PBBidManager sharedInstance] loadOnSecureConnection:secureConnection];
 }
