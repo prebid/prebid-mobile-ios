@@ -41,6 +41,11 @@
                      withTimeout:(int)timeoutInMilliseconds
                completionHandler:(nullable void (^)(void))handler;
 
++ (void)setBidKeywordsOnDFPBannerView:(nonnull id)adView
+                         withAdUnitId:(NSString *)adUnitIdentifier
+                          withTimeout:(int)timeoutInMilliseconds
+                          withRequest:(nonnull id)request;
+
 + (void) shouldLoadOverSecureConnection:(BOOL) secureConnection;
 
 @end
