@@ -23,6 +23,11 @@
 @implementation NSObject (Prebid)
 
 @dynamic pb_identifier;
+static bool swizzlingDisable = false;
+
++ (void)disableSwizzling {
+    swizzlingDisable = true;
+}
 
 + (void)load {
     static dispatch_once_t loadToken;
@@ -30,6 +35,9 @@
         dispatch_async(dispatch_get_main_queue(), ^{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
+            if (swizzlingDisable) { 
+             return;
+            }
             if (NSClassFromString(@"GADSlot") == nil) {
                 [NSClassFromString(@"GADOSlot") pb_swizzleInstanceSelector:@selector(requestParameters)
                                                          withSelector:@selector(pb_requestParameters)];
