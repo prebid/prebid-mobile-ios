@@ -73,7 +73,9 @@
                 [request setValue:targeting forKey:@"customTargeting"];
             }
         }
-        [adView loadRequest:request];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [adView loadRequest:request];
+        });
         [[PBBidManager sharedInstance] clearBidOnAdObject:adView];
     };
     [[PBBidManager sharedInstance] attachTopBidHelperForAdUnitId:adUnitIdentifier
