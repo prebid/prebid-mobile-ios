@@ -73,9 +73,13 @@
                 [request setValue:targeting forKey:@"customTargeting"];
             }
         }
-        dispatch_sync(dispatch_get_main_queue(), ^{
+        if ([NSThread isMainThread]) {
             [adView loadRequest:request];
-        });
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [adView loadRequest:request];
+            });
+        }
         [[PBBidManager sharedInstance] clearBidOnAdObject:adView];
     };
     [[PBBidManager sharedInstance] attachTopBidHelperForAdUnitId:adUnitIdentifier
