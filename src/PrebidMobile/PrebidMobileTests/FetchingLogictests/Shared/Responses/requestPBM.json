@@ -1,0 +1,73 @@
+{
+  "device" : {
+    "w" : 414,
+    "h" : 736,
+    "ifa" : "F29EC94E-4CD8-456C-8543-1E18998A5B8E",
+    "devtime" : 1546976796,
+    "osv" : "11.4",
+    "lmt" : 0,
+    "connectiontype" : 1,
+    "os" : "iOS",
+    "pxratio" : 3,
+    "make" : "Apple",
+    "ua" : "Mozilla\/5.0 (iPhone; CPU iPhone OS 11_4 like Mac OS X) AppleWebKit\/605.1.15 (KHTML, like Gecko) Mobile\/15F79",
+    "model" : "x86_64"
+  },
+  "source" : {
+    "tid" : "123"
+  },
+  "app" : {
+    "bundle" : "com.prebid.DrPrebid",
+    "ext" : {
+      "prebid" : {
+        "version" : "0.5.3",
+        "source" : "prebid-mobile"
+      }
+    },
+    "publisher" : {
+      "id" : "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+    },
+    "ver" : "1.6"
+  },
+  "id" : "0D559927-115B-4DFC-9FE3-88A0B2F4EABD",
+  "imp" : [
+    {
+      "id" : "\/19968336\/PrebidMobileValidator_Banner_All_Sizes",
+      "ext" : {
+        "prebid" : {
+          "storedrequest" : {
+            "id" : "6ace8c7d-88c0-4623-8117-75bc3f0a2e45"
+          }
+        }
+      },
+      "secure" : 1,
+      "banner" : {
+        "format" : [
+          {
+            "w" : 300,
+            "h" : 250
+          }
+        ]
+      }
+    }
+  ],
+  "ext" : {
+    "prebid" : {
+      "storedrequest" : {
+        "id" : "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+      },
+      "cache" : {
+        "bids" : {
+
+        }
+      },
+      "targeting" : {
+
+      }
+    }
+  },
+  "user" : {
+    "gender" : "O",
+    "yob" : 200020202
+  }
+}
