@@ -16,12 +16,6 @@
 
 #import <Foundation/Foundation.h>
 #import "PBVPrebidSDKValidator.h"
-#import <PrebidMobile/PBBannerAdUnit.h>
-#import <PrebidMobile/PBException.h>
-#import <PrebidMobile/PBInterstitialAdUnit.h>
-#import <PrebidMobile/PBTargetingParams.h>
-#import <PrebidMobile/PrebidMobile.h>
-#import <PrebidMobile/PBLogging.h>
 #import "PBVSharedConstants.h"
 #import "MPAdView.h"
 #import "MPWebView.h"
@@ -31,6 +25,8 @@
 #import <GoogleMobileAds/DFPInterstitial.h>
 #import "PBViewTool.h"
 #import "SDKValidationURLProtocol.h"
+
+@import PrebidMobile;
 
 @interface PBVPrebidSDKValidator() <CLLocationManagerDelegate,
                                     MPAdViewDelegate,
@@ -68,7 +64,7 @@
 
 #pragma mark - Prebid Mobile Setup
 - (void)enablePrebidLogs {
-    [PBLogManager setPBLogLevel:PBLogLevelAll];
+   // [PBLogManager setPBLogLevel:PBLogLevelAll];
 }
 
 - (BOOL)setupPrebidAndRegisterAdUnits {
@@ -79,52 +75,60 @@
         
         // Retriev settings from core data and create ad unit based on that
         NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
-        NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
+        //NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
         NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
         NSString *configId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBConfigKey];
         NSString *accountId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBAccountKey];
-        PBAdUnit *adUnit;
+        AdUnit *adUnit;
         // todo Wei Zhang to support native and video in the future
         if([adFormatName isEqualToString:kBannerString]) {
-            adUnit = [[PBBannerAdUnit alloc]initWithAdUnitIdentifier:adUnitID andConfigId:configId];
+            adUnit = [[BannerAdUnit alloc] initWithConfigId:configId size:CGSizeMake(320, 50)];
             // set size on adUnit
+            NSMutableArray* array = [NSMutableArray new];
             if ([adSizeString isEqualToString: kSizeString320x50]) {
-                [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 50)];
+                [array addObject:[NSValue valueWithCGSize:CGSizeMake(320, 50)]];
+                [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
             } else if ([adSizeString isEqualToString: kSizeString300x250]) {
-                [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(300, 250)];
+                [array addObject:[NSValue valueWithCGSize:CGSizeMake(300, 250)]];
+                [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
             } else if ([adSizeString isEqualToString:kSizeString320x480]){
-                [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 480)];
+                [array addObject:[NSValue valueWithCGSize:CGSizeMake(320, 480)]];
+                [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
             } else if ([adSizeString isEqualToString:kSizeString320x100]){
-                [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 100)];
+                [array addObject:[NSValue valueWithCGSize:CGSizeMake(320, 100)]];
+                [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
             } else if ([adSizeString isEqualToString:kSizeString300x600]){
-                [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(300, 600)];
+                [array addObject:[NSValue valueWithCGSize:CGSizeMake(300, 600)]];
+                [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
             } else {
-                [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(728, 90)];
+                [array addObject:[NSValue valueWithCGSize:CGSizeMake(728, 90)]];
+                [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
             }
         } else if ([adFormatName isEqualToString:kInterstitialString]){
-            adUnit = [[PBInterstitialAdUnit alloc] initWithAdUnitIdentifier:adUnitID andConfigId:configId];
+            adUnit = [[InterstitialAdUnit alloc] initWithConfigId:configId];
         } else {
             NSLog(@"Native and video not supported for now.");
             return NO;
         }
-        NSArray *adUnits = [NSArray arrayWithObjects:adUnit, nil];
+        //NSArray *adUnits = [NSArray arrayWithObjects:adUnit, nil];
         NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
         NSString *host = [[NSUserDefaults standardUserDefaults] stringForKey:kPBHostKey];
+        Prebid.shared.prebidServerAccountId = accountId;
         if ([adServerName isEqualToString:kMoPubString]) {
-            if ([host isEqualToString:kAppNexusString]) {
-                [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerMoPub];
-            } else if ([host isEqualToString:kRubiconString]) {
-                [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostRubicon andPrimaryAdServer:PBPrimaryAdServerMoPub];
-            }
+                if ([host isEqualToString:kAppNexusString]) {
+                    Prebid.shared.prebidServerHost = PrebidHostAppnexus;
+                } else if ([host isEqualToString:kRubiconString]) {
+                    Prebid.shared.prebidServerHost = PrebidHostRubicon;
+                }
         } else if([adServerName isEqualToString:kDFPString]){
-            if ([host isEqualToString:kAppNexusString]) {
-                [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostAppNexus andPrimaryAdServer:PBPrimaryAdServerDFP];
-            } else if ([host isEqualToString:kRubiconString]) {
-                [PrebidMobile registerAdUnits:adUnits withAccountId:accountId withHost:PBServerHostRubicon andPrimaryAdServer:PBPrimaryAdServerDFP];
-            }
+                if ([host isEqualToString:kAppNexusString]) {
+                    Prebid.shared.prebidServerHost = PrebidHostAppnexus;
+                } else if ([host isEqualToString:kRubiconString]) {
+                    Prebid.shared.prebidServerHost = PrebidHostRubicon;
+                }
         }
         [self.delegate adUnitRegistered];
-    } @catch (PBException *ex) {
+    } @catch (NSException *ex) {//(PBException *ex) {
         NSLog(@"%@",[ex reason]);
     } @finally {
         return YES;
@@ -144,13 +148,14 @@
 }
 
 - (void)setPrebidTargetingParams {
-    [[PBTargetingParams sharedInstance] setAge:25];
-    [[PBTargetingParams sharedInstance] setGender:PBTargetingParamsGenderFemale];
+    //Targeting.shared.gender = GenderFemale;
+    //    [[PBTargetingParams sharedInstance] setAge:25];
+    //    [[PBTargetingParams sharedInstance] setGender:PBTargetingParamsGenderFemale];
 }
 
 // Location Manager Delegate Methods
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    [[PBTargetingParams sharedInstance] setLocation:[locations lastObject]];
+   // [[PBTargetingParams sharedInstance] setLocation:[locations lastObject]];
 }
 
 #pragma mark - PBVPrebidSDKValidator APIs
@@ -179,20 +184,21 @@
             mopubAdView.delegate = self;
             self.adObject = mopubAdView;
             
-            [PrebidMobile setBidKeywordsOnAdObject:mopubAdView
-                                      withAdUnitId:adUnitID
-                                       withTimeout:600
-                                 completionHandler:^{
-                                     [mopubAdView loadAd];
-                                 }];
+//            [PrebidMobile setBidKeywordsOnAdObject:mopubAdView
+//                                      withAdUnitId:adUnitID
+//                                       withTimeout:600
+//                                 completionHandler:^{
+//                                     [mopubAdView loadAd];
+//                                 }];
+            
         } else if([adFormatName isEqualToString:kInterstitialString]){
             MPInterstitialAdController *mopubInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:adUnitID];
             mopubInterstitial.delegate = self;
             self.adObject = mopubInterstitial;
             
-            [PrebidMobile setBidKeywordsOnAdObject:mopubInterstitial withAdUnitId:adUnitID withTimeout:600 completionHandler:^{
-                [mopubInterstitial loadAd];
-            }];
+//            [PrebidMobile setBidKeywordsOnAdObject:mopubInterstitial withAdUnitId:adUnitID withTimeout:600 completionHandler:^{
+//                [mopubInterstitial loadAd];
+//            }];
         }
             
     } else if ([adServerName isEqualToString:kDFPString]) {
@@ -206,17 +212,17 @@
             dfpAdView.rootViewController = (UIViewController *)_delegate;
             self.adObject = dfpAdView;
             
-            [PrebidMobile setBidKeywordsOnAdObject:dfpAdView withAdUnitId:adUnitID withTimeout:600 completionHandler:^{
-                [dfpAdView loadRequest:[DFPRequest request]];
-            }];
+//            [PrebidMobile setBidKeywordsOnAdObject:dfpAdView withAdUnitId:adUnitID withTimeout:600 completionHandler:^{
+//                [dfpAdView loadRequest:[DFPRequest request]];
+//            }];
         } else if([adFormatName isEqualToString:kInterstitialString]){
             DFPInterstitial *dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:adUnitID];
             dfpInterstitial.delegate = self;
             self.adObject = dfpInterstitial;
             
-            [PrebidMobile setBidKeywordsOnAdObject:dfpInterstitial withAdUnitId:adUnitID withTimeout:600 completionHandler:^{
-                [dfpInterstitial loadRequest:[DFPRequest request]];
-            }];
+//            [PrebidMobile setBidKeywordsOnAdObject:dfpInterstitial withAdUnitId:adUnitID withTimeout:600 completionHandler:^{
+//                [dfpInterstitial loadRequest:[DFPRequest request]];
+//            }];
         }
     }
 }

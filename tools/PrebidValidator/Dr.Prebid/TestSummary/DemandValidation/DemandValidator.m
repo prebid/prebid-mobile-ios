@@ -16,10 +16,9 @@
 
 #import <Foundation/Foundation.h>
 #import "DemandValidator.h"
-#import <PrebidMobile/PBBannerAdUnit.h>
-#import <PrebidMobile/PBServerRequestBuilder.h>
 #import "PBVSharedConstants.h"
-#import <PrebidMobile/PBInterstitialAdUnit.h>
+
+@import PrebidMobile;
 
 @interface DemandValidator()
 @property NSInteger testsHasResponded;
@@ -36,25 +35,31 @@
     NSString *accountId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBAccountKey];
     NSString *configId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBConfigKey];
     
-    PBAdUnit *adUnit;
+    AdUnit *adUnit;
     if([adFormatName isEqualToString:@"Banner"]) {
-        adUnit = [[PBBannerAdUnit alloc]initWithAdUnitIdentifier:adUnitID andConfigId:configId];
-        // set size on adUnit
+        adUnit = [[BannerAdUnit alloc] initWithConfigId:configId size:CGSizeMake(320, 50)];
+        NSMutableArray* array = [NSMutableArray new];
         if ([adSizeString isEqualToString: kSizeString320x50]) {
-            [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 50)];
-        } else if ([adSizeString isEqualToString:kSizeString300x250]) {
-            [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(300, 250)];
+            [array addObject:[NSValue valueWithCGSize:CGSizeMake(320, 50)]];
+            [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
+        } else if ([adSizeString isEqualToString: kSizeString300x250]) {
+            [array addObject:[NSValue valueWithCGSize:CGSizeMake(300, 250)]];
+            [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
+        } else if ([adSizeString isEqualToString:kSizeString320x480]){
+            [array addObject:[NSValue valueWithCGSize:CGSizeMake(320, 480)]];
+            [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
         } else if ([adSizeString isEqualToString:kSizeString320x100]){
-             [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 100)];
-        }else if ([adSizeString isEqualToString:kSizeString320x480]){
-            [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 480)];
-        }else if ([adSizeString isEqualToString:kSizeString300x600]){
-            [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(300, 600)];
-        }else if ([adSizeString isEqualToString:kSizeString728x90]){
-            [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(728, 90)];
+            [array addObject:[NSValue valueWithCGSize:CGSizeMake(320, 100)]];
+            [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
+        } else if ([adSizeString isEqualToString:kSizeString300x600]){
+            [array addObject:[NSValue valueWithCGSize:CGSizeMake(300, 600)]];
+            [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
+        } else {
+            [array addObject:[NSValue valueWithCGSize:CGSizeMake(728, 90)]];
+            [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
         }
     } else {
-        adUnit = [[PBInterstitialAdUnit alloc] initWithAdUnitIdentifier:adUnitID andConfigId:configId];
+        adUnit = [[InterstitialAdUnit alloc] initWithConfigId:configId];
     }
     NSArray *adUnits = [NSArray arrayWithObjects:adUnit, nil];
     // Generate Request for the saved adunits
@@ -63,8 +68,9 @@
     if ([host isEqualToString:kRubiconString]) {
         url = [NSURL URLWithString:kRubiconPrebidServerEndpoint];
     }
-    [[PBServerRequestBuilder sharedInstance]setHostURL:url];
-    NSURLRequest *req = [[PBServerRequestBuilder sharedInstance] buildRequest:adUnits withAccountId:accountId  withSecureParams:true];
+   // [[RequestBuilder shared] setHostURL:url];
+    //    [[PBServerRequestBuilder sharedInstance]setHostURL:url];
+    NSURLRequest *req = nil;//[[RequestBuilder sharedInstance] buildRequest:adUnits withAccountId:accountId  withSecureParams:true];
     self.testsHasResponded = 0;
     self.testResults = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *bidders = [[NSMutableDictionary alloc] init];
@@ -100,7 +106,7 @@
             }
         }];
     }
-
+    
 }
 
 -(void)runTestWithReuqest: (NSURLRequest *) req
