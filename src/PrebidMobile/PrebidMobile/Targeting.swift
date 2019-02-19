@@ -22,7 +22,7 @@ import CoreLocation
     case female
 }
 
-@objc public class Targeting :NSObject {
+@objcMembers public class Targeting :NSObject {
     
     private var yearofbirth:Int = 0;
    

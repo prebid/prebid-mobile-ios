@@ -19,7 +19,7 @@ import CoreLocation
 import WebKit
 import AdSupport
 
-class RequestBuilder:NSObject{
+@objcMembers public class RequestBuilder:NSObject{
     /**
      * The class is created as a singleton object & used
      */
