@@ -17,6 +17,7 @@
 #import <Foundation/Foundation.h>
 #import "DemandValidator.h"
 #import "PBVSharedConstants.h"
+#import "DemandRequestBuilder.h"
 
 @import PrebidMobile;
 
@@ -35,29 +36,30 @@
     NSString *accountId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBAccountKey];
     NSString *configId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBConfigKey];
     
+    NSMutableArray* array = [NSMutableArray new];
     AdUnit *adUnit;
     if([adFormatName isEqualToString:@"Banner"]) {
-        adUnit = [[BannerAdUnit alloc] initWithConfigId:configId size:CGSizeMake(320, 50)];
-        NSMutableArray* array = [NSMutableArray new];
         if ([adSizeString isEqualToString: kSizeString320x50]) {
             [array addObject:[NSValue valueWithCGSize:CGSizeMake(320, 50)]];
-            [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
+            
         } else if ([adSizeString isEqualToString: kSizeString300x250]) {
             [array addObject:[NSValue valueWithCGSize:CGSizeMake(300, 250)]];
-            [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
+            
         } else if ([adSizeString isEqualToString:kSizeString320x480]){
             [array addObject:[NSValue valueWithCGSize:CGSizeMake(320, 480)]];
-            [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
+           
         } else if ([adSizeString isEqualToString:kSizeString320x100]){
             [array addObject:[NSValue valueWithCGSize:CGSizeMake(320, 100)]];
-            [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
+            
         } else if ([adSizeString isEqualToString:kSizeString300x600]){
             [array addObject:[NSValue valueWithCGSize:CGSizeMake(300, 600)]];
-            [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
+            
         } else {
             [array addObject:[NSValue valueWithCGSize:CGSizeMake(728, 90)]];
-            [( (BannerAdUnit *) adUnit) addAdditionalSizeWithSizes:array];
+            
         }
+        adUnit = [[BannerAdUnit alloc] initWithConfigId:configId size:[array.lastObject CGSizeValue]];
+        
     } else {
         adUnit = [[InterstitialAdUnit alloc] initWithConfigId:configId];
     }
@@ -67,10 +69,14 @@
     NSURL *url = [NSURL URLWithString:kAppNexusPrebidServerEndpoint];
     if ([host isEqualToString:kRubiconString]) {
         url = [NSURL URLWithString:kRubiconPrebidServerEndpoint];
+        Prebid.shared.prebidServerHost = PrebidHostRubicon;
     }
-   // [[RequestBuilder shared] setHostURL:url];
-    //    [[PBServerRequestBuilder sharedInstance]setHostURL:url];
-    NSURLRequest *req = nil;//[[RequestBuilder sharedInstance] buildRequest:adUnits withAccountId:accountId  withSecureParams:true];
+    DemandRequestBuilder *builder = [[DemandRequestBuilder alloc] init];
+    builder.configId = configId;
+    builder.adSizes = array;
+    builder.hostURL = url;
+    NSURLRequest *req = [builder buildRequest:adUnits withAccountId:accountId withSecureParams:YES];
+    
     self.testsHasResponded = 0;
     self.testResults = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *bidders = [[NSMutableDictionary alloc] init];

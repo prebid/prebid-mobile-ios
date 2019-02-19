@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		600073C621DE65CA00F4738B /* CustomTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 600073C521DE65CA00F4738B /* CustomTextView.m */; };
+		6013E447221C605500FEE2B1 /* DemandRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6013E446221C605500FEE2B1 /* DemandRequestBuilder.m */; };
 		602CF6E221AEEEC10097F6C9 /* FooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 602CF6E121AEEEC10097F6C9 /* FooterCell.m */; };
 		605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605A56CA2076C89A00E92376 /* MessageUI.framework */; };
 		605C15A321E3E23B00BB9636 /* KeyValueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 605C15A221E3E23B00BB9636 /* KeyValueController.m */; };
@@ -111,6 +112,8 @@
 		4AB57692E142F2F12F162457 /* Pods-Dr.Prebid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dr.Prebid.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid.debug.xcconfig"; sourceTree = "<group>"; };
 		600073C421DE65CA00F4738B /* CustomTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTextView.h; sourceTree = "<group>"; };
 		600073C521DE65CA00F4738B /* CustomTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomTextView.m; sourceTree = "<group>"; };
+		6013E445221C605500FEE2B1 /* DemandRequestBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemandRequestBuilder.h; sourceTree = "<group>"; };
+		6013E446221C605500FEE2B1 /* DemandRequestBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemandRequestBuilder.m; sourceTree = "<group>"; };
 		602CF6E021AEEEC10097F6C9 /* FooterCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FooterCell.h; sourceTree = "<group>"; };
 		602CF6E121AEEEC10097F6C9 /* FooterCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FooterCell.m; sourceTree = "<group>"; };
 		605A56CA2076C89A00E92376 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -303,6 +306,8 @@
 				60924F1921484A650019DD12 /* DemandViewController.m */,
 				60924F1B21484A650019DD12 /* RRViewController.h */,
 				60924F1721484A650019DD12 /* RRViewController.m */,
+				6013E445221C605500FEE2B1 /* DemandRequestBuilder.h */,
+				6013E446221C605500FEE2B1 /* DemandRequestBuilder.m */,
 			);
 			path = DemandValidation;
 			sourceTree = "<group>";
@@ -704,6 +709,7 @@
 				F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */,
 				F533B16E21349D09001977C2 /* ColorTool.m in Sources */,
 				F54C7F4F21483C9000025B23 /* SDKValidationResponseViewController.m in Sources */,
+				6013E447221C605500FEE2B1 /* DemandRequestBuilder.m in Sources */,
 				60924F2121484A650019DD12 /* RRViewController.m in Sources */,
 				F553098220E53CF500A7B552 /* AdServerValidationURLProtocol.m in Sources */,
 				60924F1E21484A650019DD12 /* DemandViewCell.m in Sources */,
