@@ -22,9 +22,10 @@
 #import "MPInterstitialAdController.h"
 #import "MPInterstitialAdManager.h"
 #import "PBViewTool.h"
-#import <PrebidMobile/PBAdUnit.h>
 #import "AdServerValidationURLProtocol.h"
 #import "NSURLSessionConfiguration+PBProtocols.h"
+
+@import PrebidMobile;
 
 @interface PBVLineItemsSetupValidator() <MPAdViewDelegate,
                                          MPInterstitialAdControllerDelegate,

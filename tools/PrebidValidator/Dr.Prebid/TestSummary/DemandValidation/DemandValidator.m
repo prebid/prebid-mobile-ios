@@ -16,10 +16,10 @@
 
 #import <Foundation/Foundation.h>
 #import "DemandValidator.h"
-#import <PrebidMobile/PBBannerAdUnit.h>
-#import <PrebidMobile/PBServerRequestBuilder.h>
 #import "PBVSharedConstants.h"
-#import <PrebidMobile/PBInterstitialAdUnit.h>
+#import "DemandRequestBuilder.h"
+
+@import PrebidMobile;
 
 @interface DemandValidator()
 @property NSInteger testsHasResponded;
@@ -30,31 +30,37 @@
 - (void)startTestWithCompletionHandler:(void (^) (void)) completionHandler;{
     // Get params from coredata
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
-    NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
     
     NSString *accountId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBAccountKey];
     NSString *configId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBConfigKey];
     
-    PBAdUnit *adUnit;
+    NSMutableArray* array = [NSMutableArray new];
+    AdUnit *adUnit;
     if([adFormatName isEqualToString:@"Banner"]) {
-        adUnit = [[PBBannerAdUnit alloc]initWithAdUnitIdentifier:adUnitID andConfigId:configId];
-        // set size on adUnit
         if ([adSizeString isEqualToString: kSizeString320x50]) {
-            [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 50)];
-        } else if ([adSizeString isEqualToString:kSizeString300x250]) {
-            [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(300, 250)];
+            [array addObject:[NSValue valueWithCGSize:CGSizeMake(320, 50)]];
+            
+        } else if ([adSizeString isEqualToString: kSizeString300x250]) {
+            [array addObject:[NSValue valueWithCGSize:CGSizeMake(300, 250)]];
+            
+        } else if ([adSizeString isEqualToString:kSizeString320x480]){
+            [array addObject:[NSValue valueWithCGSize:CGSizeMake(320, 480)]];
+           
         } else if ([adSizeString isEqualToString:kSizeString320x100]){
-             [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 100)];
-        }else if ([adSizeString isEqualToString:kSizeString320x480]){
-            [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(320, 480)];
-        }else if ([adSizeString isEqualToString:kSizeString300x600]){
-            [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(300, 600)];
-        }else if ([adSizeString isEqualToString:kSizeString728x90]){
-            [( (PBBannerAdUnit *) adUnit) addSize: CGSizeMake(728, 90)];
+            [array addObject:[NSValue valueWithCGSize:CGSizeMake(320, 100)]];
+            
+        } else if ([adSizeString isEqualToString:kSizeString300x600]){
+            [array addObject:[NSValue valueWithCGSize:CGSizeMake(300, 600)]];
+            
+        } else {
+            [array addObject:[NSValue valueWithCGSize:CGSizeMake(728, 90)]];
+            
         }
+        adUnit = [[BannerAdUnit alloc] initWithConfigId:configId size:[array.lastObject CGSizeValue]];
+        
     } else {
-        adUnit = [[PBInterstitialAdUnit alloc] initWithAdUnitIdentifier:adUnitID andConfigId:configId];
+        adUnit = [[InterstitialAdUnit alloc] initWithConfigId:configId];
     }
     NSArray *adUnits = [NSArray arrayWithObjects:adUnit, nil];
     // Generate Request for the saved adunits
@@ -62,9 +68,14 @@
     NSURL *url = [NSURL URLWithString:kAppNexusPrebidServerEndpoint];
     if ([host isEqualToString:kRubiconString]) {
         url = [NSURL URLWithString:kRubiconPrebidServerEndpoint];
+        Prebid.shared.prebidServerHost = PrebidHostRubicon;
     }
-    [[PBServerRequestBuilder sharedInstance]setHostURL:url];
-    NSURLRequest *req = [[PBServerRequestBuilder sharedInstance] buildRequest:adUnits withAccountId:accountId  withSecureParams:true];
+    DemandRequestBuilder *builder = [[DemandRequestBuilder alloc] init];
+    builder.configId = configId;
+    builder.adSizes = array;
+    builder.hostURL = url;
+    NSURLRequest *req = [builder buildRequest:adUnits withAccountId:accountId withSecureParams:YES];
+    
     self.testsHasResponded = 0;
     self.testResults = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *bidders = [[NSMutableDictionary alloc] init];
@@ -100,7 +111,7 @@
             }
         }];
     }
-
+    
 }
 
 -(void)runTestWithReuqest: (NSURLRequest *) req

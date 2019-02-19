@@ -77,13 +77,13 @@ import CoreLocation
     /**
      * The boolean value set by the user to collect user data
      */
-    public var subjectToGDPR:Bool? {
+    public var subjectToGDPR:Bool {
         set {
             UserDefaults.standard.set(newValue, forKey: .PB_GDPR_SubjectToConsent)
         }
         
         get {
-            var gdprConsent:Bool?
+            var gdprConsent:Bool = false
             
             if((UserDefaults.standard.object(forKey: .PB_GDPR_SubjectToConsent)) != nil){
                 gdprConsent = UserDefaults.standard.bool(forKey: .PB_GDPR_SubjectToConsent)
