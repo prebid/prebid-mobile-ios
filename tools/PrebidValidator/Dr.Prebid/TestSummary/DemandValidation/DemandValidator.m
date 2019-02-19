@@ -30,7 +30,6 @@
 - (void)startTestWithCompletionHandler:(void (^) (void)) completionHandler;{
     // Get params from coredata
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
-    NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
     
     NSString *accountId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBAccountKey];
