@@ -63,7 +63,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         let request:DFPRequest = DFPRequest()
         request.testDevices = [ kGADSimulatorID,"cc7ca766f86b43ab6cdc92bed424069b"]
         bannerUnit.fetchDemand(adObject:request) { (ResultCode) in
-            DispatchQueue.main.async {
+            //DispatchQueue.main.async {
                if 0 == ResultCode.rawValue
                {
                     DispatchQueue.main.async {
@@ -78,7 +78,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
                   XCTFail("Unexpected response")
                   self.loadSuccesfulException?.fulfill()
                }
-            }
+            //}
         }
         loadSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
@@ -578,10 +578,10 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         MoPub.sharedInstance().initializeSdk(with: sdkConfig){}
         let mopubBanner = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6", size: CGSize(width: 300, height: 250))
         adUnit.fetchDemand(adObject: mopubBanner!){ (ResultCode) in
-            DispatchQueue.main.async {
+            //DispatchQueue.main.async {
                 XCTAssertEqual(0, ResultCode.rawValue)
                 self.loadSuccesfulException?.fulfill()
-            }
+            //}
         }
         loadSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForRequest, handler: nil)

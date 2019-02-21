@@ -47,8 +47,6 @@ class TargetingTests: XCTestCase {
 
     func testSetGenderTargeting() {
         
-        XCTAssertEqual(Gender.unknown, Targeting.shared.gender)
-        
         Targeting.shared.gender = .female
         XCTAssertEqual(Gender.female, Targeting.shared.gender)
         Targeting.shared.gender = .male
@@ -77,7 +75,7 @@ class TargetingTests: XCTestCase {
         Targeting.shared.subjectToGDPR = false
         let testGDPR = Targeting.shared.subjectToGDPR
         
-        XCTAssertFalse(testGDPR!)
+        XCTAssertFalse(testGDPR)
     }
 
 }

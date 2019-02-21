@@ -9,8 +9,12 @@ set -e
 
 # 2
 # Setup some constants for use later on.
+
+
+cd ../src/PrebidMobile/
+
 FRAMEWORK_NAME="PrebidMobile"
-LOGDIR=../build/out/log
+LOGDIR=../../build/out/log
 mkdir -p "$LOGDIR"
 
 # 3
@@ -19,16 +23,16 @@ if [ -d "build" ]; then
 rm -rf "build"
 fi
 
-cd ../sdk/
 LOGFILE="$LOGDIR"/prebid_mobile_build.log
 touch "$LOGFILE"
+
 
 # 4
 # Build the framework for device and for simulator (using
 # all needed architectures).
-xcodebuild -target "${FRAMEWORK_NAME}" -configuration Release -arch arm64 -arch armv7 -arch armv7s only_active_arch=no defines_module=yes -sdk "iphoneos" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
+xcodebuild -target "${FRAMEWORK_NAME}" -configuration Release -arch arm64 -arch -arch  only_active_arch=yes defines_module=yes -sdk "iphoneos" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
 
-xcodebuild -target "${FRAMEWORK_NAME}" -configuration Release -arch x86_64 -arch i386 only_active_arch=no defines_module=yes -sdk "iphonesimulator" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
+xcodebuild -target "${FRAMEWORK_NAME}" -configuration Release -arch x86_64 -arch i386 only_active_arch=yes defines_module=yes -sdk "iphonesimulator" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
 
 # 5
 # Remove .framework file if exists on Desktop from previous run.

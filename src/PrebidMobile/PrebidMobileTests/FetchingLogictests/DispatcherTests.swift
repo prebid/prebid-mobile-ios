@@ -55,7 +55,7 @@ class DispatcherTests: XCTestCase, DispatcherDelegate {
         XCTAssertNotNil(dispatcher.timer)
         XCTAssertTrue(dispatcher.timer!.isValid)
         dispatcher.stop()
-        XCTAssertFalse(dispatcher.timer!.isValid)
+        XCTAssertNil(dispatcher.timer)
     }
     
     //MARK:- DispatcherDelegate method
