@@ -4,8 +4,11 @@
 **/out
 **/Payload/
 **/PrebidMobileDemo.app/
-#**/Products
+**/Products
+**/example/Swift/PrebidDemo/Pods/
+**/example/ObjectiveC/PrebidDemo/Pods/
 **/screenshot*
+PrebidMobile.framework
 
 ########################################################################################
 # macOS.gitignore

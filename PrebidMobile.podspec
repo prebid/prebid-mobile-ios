@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobile"
-  s.version      = "0.5.3"
+  s.version      = "1.0"
   s.summary      = "PrebidMobile is a lightweight framework that integrates directly with Prebid Server."
 
   s.description  = <<-DESC
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
 
   s.license      = { :type => "Apache License, Version 2.0", :text => <<-LICENSE
-    Copyright 2017 Prebid.org, Inc.
+    Copyright 2018-2019 Prebid.org, Inc.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -28,12 +28,10 @@ Pod::Spec.new do |s|
     }
 
   s.author             = { "Prebid.org, Inc." => "info@prebid.org" }
-  s.platform     = :ios, "8.0"
+  s.platform     = :ios, "11.0"
+  s.swift_version = '3.2'
   s.source       = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
-  s.source_files = "sdk/PrebidMobile", "sdk/PrebidMobile/**/*.{h,m}", "sdk/PrebidServerAdapter/**/*.{h,m}"
-  s.public_header_files = "sdk/PrebidServerAdapter/PBServerAdapter.h", "sdk/PrebidMobile/*.h", "sdk/PrebidMobile/Logging/*.h"
-  s.exclude_files = "sdk/PrebidMobile/**/PrebidMobile-umbrella.h"
-  s.requires_arc = true
+  s.source_files = "src/PrebidMobile/PrebidMobile","src/PrebidMobile/PrebidMobile/*.{h,swift}","src/PrebidMobile/PrebidMobile/**/*.swift"
   s.xcconfig = {
 :LIBRARY_SEARCH_PATHS => '$(inherited)',
 :OTHER_CFLAGS => '$(inherited)',
