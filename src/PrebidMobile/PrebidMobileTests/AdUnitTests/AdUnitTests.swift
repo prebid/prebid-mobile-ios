@@ -64,7 +64,7 @@ class AdUnitTests: XCTestCase {
         let testObject:AnyObject = () as AnyObject
         
         adUnit.fetchDemand(adObject: testObject) { (ResultCode) in
-            XCTAssertEqual(ResultCode.name(), "Prebid server TimedOut")
+            XCTAssertEqual(ResultCode.name(), "Prebid demand timedout")
         }
     }
     
