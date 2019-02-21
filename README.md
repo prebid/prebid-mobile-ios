@@ -9,7 +9,7 @@ Get started with Prebid Mobile by creating a Prebid Server account [here](http:/
 Easily include the Prebid Mobile SDK for your priamy ad server in your Podfile/
 
 ```
-platform :ios, '9.0'
+platform :ios, '11.0'
 
 target 'MyAmazingApp' do 
     pod 'PrebidMobile'
