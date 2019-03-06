@@ -80,8 +80,9 @@ import AdSupport
     
     func openrtbSource() -> [String:Any]? {
         
+        let uuid = UUID().uuidString
         var sourceDict: [String : Any] = [:]
-        sourceDict["tid"] = "123"
+        sourceDict["tid"] = uuid
         
         return sourceDict
     }
