@@ -17,20 +17,12 @@ import Foundation
 
 @objcMembers class BidManager:NSObject {
     
-    var prebidAdUnit:AdUnit?
+    var prebidAdUnit:AdUnit
     
     init(adUnit:AdUnit) {
         
-        super.init()
-        
         prebidAdUnit = adUnit
-        
-        if(RequestBuilder.myUserAgent == ""){
-            RequestBuilder.UserAgent(){(userAgentString) in
-                Log.info(userAgentString)
-                RequestBuilder.myUserAgent = userAgentString
-            }
-        }
+        super.init()
     }
     
     dynamic func requestBidsForAdUnit(callback: @escaping (_ response: BidResponse?, _ result: ResultCode) -> Void) {
@@ -54,7 +46,7 @@ import Foundation
                     if(!Prebid.shared.timeoutUpdated) {
                         let tmax = self.getTmaxRequest(data!)
                         if(tmax > 0) {
-                            Prebid.shared.timeoutMillis = min(demandFetchEndTime - demandFetchStartTime + tmax + 200, 10000)
+                            Prebid.shared.timeoutMillis = min(demandFetchEndTime - demandFetchStartTime + tmax + 200, 2000)
                             Prebid.shared.timeoutUpdated = true
                         }
                     }
@@ -65,7 +57,7 @@ import Foundation
                             let bidResponse = BidResponse(adId: "PrebidMobile", adServerTargeting: bidMap)
                             Log.info("Bid Successful with rounded bid targeting keys are \(bidResponse.customKeywords) for adUnit id is \(bidResponse.adUnitId)")
                         
-                        DispatchQueue.main.async() {
+                        DispatchQueue.global().async() {
                             callback(bidResponse, ResultCode.prebidDemandFetchSuccess)
                         }
                     } else {
@@ -92,45 +84,36 @@ import Foundation
                 
                 var bidDict:[String:AnyObject] = [:]
                 var containTopBid = false
-                if (response.count > 0) {
-                    if (response["seatbid"] != nil) {
-                        let seatbids = response["seatbid"] as! [AnyObject]
-                        for seatbid in seatbids {
-                            if (seatbid is [String : AnyObject]) {
-                                var seatbidDict = seatbid as? [String:AnyObject]
-                                if (seatbidDict?["bid"] is [AnyObject]) {
-                                    let bids = seatbidDict?["bid"] as! [AnyObject]
-                                    for bid in bids {
-                                        var containBid = false
-                                        var adServerTargeting:[String:AnyObject]?
-                                        if (bid["ext"] != nil) {
-                                            let extDict:[String:Any] = bid["ext"] as! [String:Any]
-                                            if (extDict["prebid"] != nil) {
-                                                let prebidDict:[String:Any] = extDict["prebid"] as! [String:Any]
-                                                adServerTargeting = prebidDict["targeting"] as? [String:AnyObject]
-                                                if (adServerTargeting != nil) {
-                                                    for key in adServerTargeting!.keys{
-                                                        if (key == "hb_cache_id") {
-                                                            containTopBid = true
-                                                        }
-                                                        if (key.starts(with: "hb_cache_id")) {
-                                                            containBid = true
-                                                        }
-                                                    }
-                                                    if (containBid) {
-                                                        for (key, value) in adServerTargeting! {
-                                                            bidDict[key] = value
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                
+                guard response.count > 0 , response["seatbid"] != nil else { return ([:],ResultCode.prebidDemandNoBids)}
+                let seatbids = response["seatbid"] as! [AnyObject]
+                for seatbid in seatbids {
+                    var seatbidDict = seatbid as? [String:AnyObject]
+                    guard seatbid is [String : AnyObject] , seatbidDict?["bid"] is [AnyObject] else { break }
+                    let bids = seatbidDict?["bid"] as! [AnyObject]
+                    for bid in bids {
+                        var containBid = false
+                        var adServerTargeting:[String:AnyObject]?
+                        guard bid["ext"] != nil else { break }
+                        let extDict:[String:Any] = bid["ext"] as! [String:Any]
+                        guard extDict["prebid"] != nil else { break }
+                        let prebidDict:[String:Any] = extDict["prebid"] as! [String:Any]
+                        adServerTargeting = prebidDict["targeting"] as? [String:AnyObject]
+                        guard adServerTargeting != nil else { break }
+                        for key in adServerTargeting!.keys{
+                            if (key == "hb_cache_id") {
+                                containTopBid = true
+                             }
+                            if (key.starts(with: "hb_cache_id")) {
+                                containBid = true
                             }
                         }
+                        guard containBid else {  break }
+                        for (key, value) in adServerTargeting! {
+                            bidDict[key] = value
+                        }
                     }
-                }
+              }
                 if (containTopBid && bidDict.count > 0) {
                     return (bidDict,ResultCode.prebidDemandFetchSuccess)
                 } else {
