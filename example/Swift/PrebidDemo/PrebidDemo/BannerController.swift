@@ -39,7 +39,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         super.viewDidLoad()
         
         adServerLabel.text = adServerName
-                
+        
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 35000)
         //bannerUnit.addAdditionalSize(sizes: [CGSize(width: 300, height: 600)])

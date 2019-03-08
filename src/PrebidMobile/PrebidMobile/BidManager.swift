@@ -57,7 +57,7 @@ import Foundation
                             let bidResponse = BidResponse(adId: "PrebidMobile", adServerTargeting: bidMap)
                             Log.info("Bid Successful with rounded bid targeting keys are \(bidResponse.customKeywords) for adUnit id is \(bidResponse.adUnitId)")
                         
-                        DispatchQueue.global().async() {
+                        DispatchQueue.main.async() {
                             callback(bidResponse, ResultCode.prebidDemandFetchSuccess)
                         }
                     } else {

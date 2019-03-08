@@ -102,7 +102,7 @@ import ObjectiveC.runtime
             }
         }
         
-        DispatchQueue.global().asyncAfter(deadline: .now() + .milliseconds(.PB_Request_Timeout) , execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(.PB_Request_Timeout) , execute: {
             if(!self.didReceiveResponse){
                 self.timeOutSignalSent = true
                 completion(ResultCode.prebidDemandTimedOut)
