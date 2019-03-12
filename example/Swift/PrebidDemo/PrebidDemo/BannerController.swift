@@ -35,6 +35,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     
     var mopubBanner: MPAdView?
     
+    var adUnit: AdUnit?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,10 +71,12 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         appBannerView.addSubview(dfpBanner)
         request.testDevices = [ kGADSimulatorID,"cc7ca766f86b43ab6cdc92bed424069b"]
     
-        bannerUnit.fetchDemand(adObject:self.request) { (ResultCode) in
+        bannerUnit.fetchDemand(adObject:self.request) { [weak self] (ResultCode) in
             print("Prebid demand fetch for DFP \(ResultCode.name())")
-            self.dfpBanner!.load(self.request)
+            self?.dfpBanner!.load(self?.request)
         }
+        
+        self.adUnit = bannerUnit
     }
     
     func loadMoPubBanner(bannerUnit: AdUnit){

@@ -196,4 +196,8 @@ import ObjectiveC.runtime
         
     }
     
+    deinit {
+        stopAutoRefresh()
+    }
+    
 }
