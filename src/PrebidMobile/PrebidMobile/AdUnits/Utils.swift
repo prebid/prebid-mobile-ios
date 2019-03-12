@@ -133,10 +133,10 @@ public class Utils : NSObject {
                 }
                 
             }
-            DispatchQueue.main.async {
-                Log.info("MoPub targeting keys are \(targetingKeywordsString)")
-                adObject.setValue( targetingKeywordsString,forKey:"keywords")
-            }
+
+            Log.info("MoPub targeting keys are \(targetingKeywordsString)")
+            adObject.setValue( targetingKeywordsString,forKey:"keywords")
+
             
             
         }
