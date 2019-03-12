@@ -33,6 +33,8 @@ extension String {
     
     public static let DFP_O_Object_Name = "DFPORequest"
     
+    public static let GAD_N_Object_Name = "GADNRequest"
+    
     public static let MoPub_Object_Name = "MPAdView"
     
     public static let MoPub_Interstitial_Name = "MPInterstitialAdController"
