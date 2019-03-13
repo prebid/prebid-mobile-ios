@@ -87,7 +87,7 @@ import Foundation
         do {
             let errorString:String = String.init(data: data, encoding: .utf8)!
             print(String(format: "Response from server: %@", errorString))
-            if(!errorString.contains("Invalid request:")){
+            if(!errorString.contains("Invalid request")){
                 let response:[String:AnyObject] = try JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
                 
                 var bidDict:[String:AnyObject] = [:]
@@ -137,11 +137,11 @@ import Foundation
                     return ([:],ResultCode.prebidDemandNoBids)
                 }
             } else {
-                if(errorString.contains("Stored Imp with ID")){
+                if(errorString.contains("Stored Imp with ID") || errorString.contains("No stored imp found")){
                     return ([:],ResultCode.prebidInvalidConfigId)
-                } else if(errorString.contains("Stored Request with ID")) {
+                } else if(errorString.contains("Stored Request with ID") || errorString.contains("No stored request found")) {
                     return ([:],ResultCode.prebidInvalidAccountId)
-                } else if((errorString.contains("Invalid request: Request imp[0].banner.format")) || (errorString.contains("Unable to set interstitial size list"))){
+                } else if((errorString.contains("Invalid request: Request imp[0].banner.format")) || errorString.contains("Request imp[0].banner.format") || (errorString.contains("Unable to set interstitial size list"))){
                     return ([:],ResultCode.prebidInvalidSize)
                 } else {
                     return ([:],ResultCode.prebidServerError)
