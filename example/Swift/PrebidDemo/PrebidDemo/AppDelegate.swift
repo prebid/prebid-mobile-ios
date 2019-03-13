@@ -26,6 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate  {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        //Declare in AppDelegate to the user agent could be passed in first call
+        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        Prebid.shared.shareGeoLocation = true
+        //Prebid.shared.timeoutMillis = 1000;
+        //Prebid.shared.prebidServerHost = PrebidHost.Rubicon
+        //Prebid.shared.prebidServerAccountId = "12345"
+        
         coreLocation = CLLocationManager()
         coreLocation?.requestWhenInUseAuthorization()
                 

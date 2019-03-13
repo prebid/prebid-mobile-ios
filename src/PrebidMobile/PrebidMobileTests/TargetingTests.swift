@@ -77,5 +77,12 @@ class TargetingTests: XCTestCase {
         
         XCTAssertFalse(testGDPR)
     }
+    
+    func testItuneIDTargeting() {
+        Targeting.shared.itunesID = "54673893"
+        let testItuneID = Targeting.shared.itunesID
+        
+        XCTAssertTrue((testItuneID == "54673893"))
+    }
 
 }

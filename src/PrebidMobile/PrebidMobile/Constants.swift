@@ -49,7 +49,7 @@ extension Double {
 
 extension Int {
     
-    public static let PB_Request_Timeout = 10000
+    public static let PB_Request_Timeout = Prebid.shared.timeoutMillis
 }
 
 extension UIDevice {

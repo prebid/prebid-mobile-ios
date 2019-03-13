@@ -17,7 +17,7 @@ import Foundation
 
 
 @objcMembers public class Prebid:NSObject {
-    var timeoutMillis : Int = 10000
+    public var timeoutMillis : Int = 2000
     var timeoutUpdated: Bool = false
     
     public var prebidServerAccountId : String! = ""
@@ -41,9 +41,9 @@ import Foundation
         }
     }
 
-    public var prebidServerHost : PrebidHost = PrebidHost.Appnexus {
+    public var prebidServerHost : PrebidHost = PrebidHost.Appnexus{
         didSet {
-            timeoutMillis = 10000
+            timeoutMillis = 2000
             timeoutUpdated = false
         }
     }
@@ -58,6 +58,12 @@ import Foundation
      */
     private override init() {
         super.init()
+        if(RequestBuilder.myUserAgent == ""){
+            RequestBuilder.UserAgent(){(userAgentString) in
+                Log.info(userAgentString)
+                RequestBuilder.myUserAgent = userAgentString
+            }
+        }
     }
     
     public func setCustomPrebidServer(url:String) throws {

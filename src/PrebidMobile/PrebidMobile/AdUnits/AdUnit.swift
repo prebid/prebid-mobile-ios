@@ -22,7 +22,7 @@ import ObjectiveC.runtime
     
     var adSizes = Array<CGSize> ()
     
-    var identifier:String?
+    var identifier:String
     
     var timerClass:Dispatcher?
     
@@ -45,15 +45,17 @@ import ObjectiveC.runtime
     
     init(configId:String, size:CGSize) {
         self.closure = {_ in return}
-        super.init()
         prebidConfigId = configId
         adSizes.append(size)
         identifier = UUID.init().uuidString
+        super.init()
         
         timerClass = Dispatcher.init(withDelegate:self)
     }
     
     dynamic public func fetchDemand(adObject:AnyObject, completion: @escaping(_ result:ResultCode) -> Void) {
+        
+        Utils.shared.removeHBKeywords(adObject: adObject)
         
         for size in adSizes {
             if(size.width < 0 || size.height < 0){
@@ -89,14 +91,12 @@ import ObjectiveC.runtime
             self.didReceiveResponse = true
             if(bidResponse != nil){
                 if(!self.timeOutSignalSent){
-                        Utils.shared.removeHBKeywords(adObject: adObject)
                         Utils.shared.validateAndAttachKeywords (adObject: adObject, bidResponse: bidResponse!)
                         completion(resultCode)
                 }
                 
             } else {
                 if(!self.timeOutSignalSent){
-                    Utils.shared.removeHBKeywords(adObject: adObject)
                     completion(resultCode)
                 }
             }
