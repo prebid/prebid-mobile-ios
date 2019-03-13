@@ -56,7 +56,6 @@ class Dispatcher:NSObject {
     }
     
     @objc func fireTimer(){
-        
         delegate?.refreshDemand()
     }
     

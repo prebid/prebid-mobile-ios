@@ -32,6 +32,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     let request = DFPRequest()
     
     var dfpBanner: DFPBannerView!
+    var bannerUnit: BannerAdUnit!
     
     var mopubBanner: MPAdView?
     
@@ -40,7 +41,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         
         adServerLabel.text = adServerName
         
-        let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
+        bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 35000)
         //bannerUnit.addAdditionalSize(sizes: [CGSize(width: 300, height: 600)])
         
@@ -53,6 +54,12 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
             loadMoPubBanner(bannerUnit: bannerUnit)
             
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        // important to remove the time instance
+        bannerUnit.stopAutoRefresh()
+        bannerUnit = nil
     }
     
     func loadDFPBanner(bannerUnit : AdUnit){
