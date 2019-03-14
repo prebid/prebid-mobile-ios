@@ -32,17 +32,17 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     let request = DFPRequest()
     
     var dfpBanner: DFPBannerView!
-    var bannerUnit: BannerAdUnit!
     
     var mopubBanner: MPAdView?
+    var dispatcher: Dispatcher?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         adServerLabel.text = adServerName
         
-        bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
-        bannerUnit.setAutoRefreshMillis(time: 35000)
+        let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
+        dispatcher = bannerUnit.setAutoRefreshMillis(time: 35000)
         //bannerUnit.addAdditionalSize(sizes: [CGSize(width: 300, height: 600)])
         
         if(adServerName == "DFP"){
@@ -58,8 +58,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     
     override func viewDidDisappear(_ animated: Bool) {
         // important to remove the time instance
-        bannerUnit.stopAutoRefresh()
-        bannerUnit = nil
+        dispatcher?.invalidate()
     }
     
     func loadDFPBanner(bannerUnit : AdUnit){
@@ -72,9 +71,9 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         appBannerView.addSubview(dfpBanner)
         request.testDevices = [ kGADSimulatorID,"cc7ca766f86b43ab6cdc92bed424069b"]
     
-        bannerUnit.fetchDemand(adObject:self.request) { (ResultCode) in
+        bannerUnit.fetchDemand(adObject:self.request) { [weak self] (ResultCode) in
             print("Prebid demand fetch for DFP \(ResultCode.name())")
-            self.dfpBanner!.load(self.request)
+            self?.dfpBanner!.load(self?.request)
         }
     }
     
