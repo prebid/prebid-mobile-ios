@@ -1,5 +1,22 @@
 #!/bin/sh
 
+#################################################################
+# The script does the following as part of the release process.
+# If any of the steps fail then the process is aborted. All steps needs to be successful to complete the release
+# 1. Run the unit tests.
+#   1.1 check is the unit test runs successfully with all the test cases passing
+#   1.2 if the unit tests fails exit
+# 2. Run integration tests
+# 3. Get the latest build of the sdk from master
+# 4. Create the new release tag
+# 5. push the tag to github
+# 6. Update the podspec with the new release version
+# 7. validate the podspec
+#   7.1 if the validation fails exit
+# 8. Push the podspec to cocoapods
+# 9. Notify the slack channel about the release
+##################################################################
+
 if [ -d "scripts" ]; then
 cd scripts/
 fi
