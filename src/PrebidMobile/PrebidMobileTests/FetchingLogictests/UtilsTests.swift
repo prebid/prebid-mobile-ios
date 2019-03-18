@@ -346,8 +346,8 @@ class UtilsTests: XCTestCase {
         DispatchQueue.main.async {
             XCTAssertTrue(((self.mopubObject?.description) != nil), "MPAdView")
             XCTAssertNotNil(self.mopubObject?.keywords)
-            var keywords = self.mopubObject?.keywords
-            var keywordsArray = keywords!.components(separatedBy: ",")
+            let keywords = self.mopubObject?.keywords
+            let keywordsArray = keywords!.components(separatedBy: ",")
             XCTAssertEqual(11, keywordsArray.count)
             XCTAssertTrue (keywordsArray.contains("hb_env:mobile-app"))
             XCTAssertTrue (keywordsArray.contains("hb_bidder_appnexus:appnexus"))
