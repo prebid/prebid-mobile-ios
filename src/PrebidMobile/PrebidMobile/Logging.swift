@@ -1,11 +1,11 @@
 /*   Copyright 2018-2019 Prebid.org, Inc.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,6 @@ enum LogEvent: String {
     case severe = "[🔥]" // severe
 }
 
-
 /// Wrapping Swift.print() within DEBUG flag
 ///
 /// - Note: *print()* might cause [security vulnerabilities](https://codifiedsecurity.com/mobile-app-security-testing-checklist-ios/)
@@ -41,7 +40,7 @@ func print(_ object: Any) {
 }
 
 class Log {
-    
+
     static var dateFormat = "yyyy-MM-dd hh:mm:ssSSS"
     static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -50,7 +49,7 @@ class Log {
         formatter.timeZone = TimeZone.current
         return formatter
     }
-    
+
     private static var isLoggingEnabled: Bool {
         #if DEBUG
         return true
@@ -58,10 +57,9 @@ class Log {
         return false
         #endif
     }
-    
+
     // MARK: - Loging methods
-    
-    
+
     /// Logs error messages on console with prefix [‼️]
     ///
     /// - Parameters:
@@ -75,7 +73,7 @@ class Log {
             print("\(Date().toString()) \(LogEvent.error.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
         }
     }
-    
+
     /// Logs info messages on console with prefix [ℹ️]
     ///
     /// - Parameters:
@@ -89,7 +87,7 @@ class Log {
             print("\(Date().toString()) \(LogEvent.info.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
         }
     }
-    
+
     /// Logs debug messages on console with prefix [💬]
     ///
     /// - Parameters:
@@ -103,7 +101,7 @@ class Log {
             print("\(Date().toString()) \(LogEvent.debug.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
         }
     }
-    
+
     /// Logs messages verbosely on console with prefix [🔬]
     ///
     /// - Parameters:
@@ -117,7 +115,7 @@ class Log {
             print("\(Date().toString()) \(LogEvent.verbose.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
         }
     }
-    
+
     /// Logs warnings verbosely on console with prefix [⚠️]
     ///
     /// - Parameters:
@@ -131,7 +129,7 @@ class Log {
             print("\(Date().toString()) \(LogEvent.warn.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
         }
     }
-    
+
     /// Logs severe events on console with prefix [🔥]
     ///
     /// - Parameters:
@@ -145,8 +143,7 @@ class Log {
             print("\(Date().toString()) \(LogEvent.severe.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
         }
     }
-    
-    
+
     /// Extract the file name from the file path
     ///
     /// - Parameter filePath: Full file path in bundle

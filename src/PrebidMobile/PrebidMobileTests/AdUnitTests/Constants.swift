@@ -1,11 +1,11 @@
 /*   Copyright 2018-2019 Prebid.org, Inc.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,7 +14,7 @@
  */
 
 struct Constants {
-    
+
     static let configID1 = "6ace8c7d-88c0-4623-8117-75bc3f0a2e45"
     static let configID2 = "0c286d00-b3ee-4550-b15d-f71f8e746865"
     static let configID3 = "35f1d17d-c99a-4d55-800e-062b80750d65"
@@ -24,7 +24,7 @@ struct Constants {
     static let APNPlacementId_1 = 1111
     static let APNPlacementId_2 = 2222
     static let APNPlacementId_3 = 3333
-    static let accountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0";
+    static let accountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
     static let width1 = 320
     static let height1 = 50
     static let width2 = 300

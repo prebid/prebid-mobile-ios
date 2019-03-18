@@ -224,6 +224,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 60D793392180E2750080F428 /* Build configuration list for PBXNativeTarget "PrebidDemo" */;
 			buildPhases = (
+				C1970649223FD72C00E10E77 /* ShellScript */,
 				CECAE1B09BD5EF94E75FFE8B /* [CP] Check Pods Manifest.lock */,
 				60D793232180E2730080F428 /* Sources */,
 				60D793242180E2730080F428 /* Frameworks */,
@@ -359,6 +360,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PrebidDemo/Pods-PrebidDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		C1970649223FD72C00E10E77 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		CECAE1B09BD5EF94E75FFE8B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
