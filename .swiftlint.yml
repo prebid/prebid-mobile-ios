@@ -1,0 +1,11 @@
+disabled_rules: # rule identifiers to exclude from running
+  - force_cast
+  - force_try
+  - identifier_name
+  - control_statement
+
+line_length: 200
+function_body_length: 100
+type_body_length: 100
+
+
