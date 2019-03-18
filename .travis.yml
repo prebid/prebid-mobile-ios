@@ -1,6 +1,5 @@
 language: swift
 osx_image: xcode8
-before_install: brew update; brew outdated swiftlint || brew upgrade swiftlint
 before_script: "./scripts/add-keys.sh"
 after_script: "./scripts/remove-key.sh"
 script:
