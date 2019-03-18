@@ -66,7 +66,7 @@ import AdSupport
         if let aSource = openrtbSource() {
             requestDict["source"] = aSource
         }
-        requestDict["app"] = openrtbApp()
+        requestDict["app"] = openrtbApp(adUnit: adUnit)
         requestDict["device"] = openrtbDevice()
         if Targeting.shared.subjectToGDPR == true {
             requestDict["regs"] = openrtbRegs()
@@ -140,7 +140,7 @@ import AdSupport
 
     // OpenRTB 2.5 Object: App in section 3.2.14
 
-    func openrtbApp() -> [AnyHashable: Any]? {
+    func openrtbApp(adUnit: AdUnit?) -> [AnyHashable: Any]? {
         var app: [AnyHashable: Any] = [:]
 
         let itunesID: String? = Targeting.shared.itunesID
@@ -158,6 +158,14 @@ import AdSupport
 
         app["publisher"] = ["id": Prebid.shared.prebidServerAccountId ?? 0] as NSDictionary
         app["ext"] = ["prebid": ["version": String(PrebidMobileVersionNumber), "source": "prebid-mobile"]]
+
+        let targetingInvParams = adUnit?.invKeywords
+
+        let invKeywordString = fetchKeywordsString(targetingInvParams)
+
+        if !(invKeywordString == "") {
+            app["keywords"] = invKeywordString
+        }
 
         return app
     }
@@ -280,12 +288,12 @@ import AdSupport
         }
         userDict["gender"] = gender
 
-        let targetingParams = adUnit?.userKeywords
+        let targetingUserParams = adUnit?.userKeywords
 
-        let keywordString = fetchKeywordsString(targetingParams)
+        let userKeywordString = fetchKeywordsString(targetingUserParams)
 
-        if !(keywordString == "") {
-            userDict["keywords"] = keywordString
+        if !(userKeywordString == "") {
+            userDict["keywords"] = userKeywordString
         }
 
         if Targeting.shared.subjectToGDPR == true {
