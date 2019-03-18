@@ -158,10 +158,8 @@ import ObjectiveC.runtime
     
     /**
      * This method allows to set the auto refresh period for the demand
-     * - important: Do not forget to call invalidate() on the returned Dispatcher object to prevent reference cycle
      *
      * - Parameter time: refresh time interval
-     * - Returns: A new Dispatcher object, configured according to the specified parameters.
      */
     public func setAutoRefreshMillis(time:Double) {
         
