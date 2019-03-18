@@ -163,13 +163,13 @@ import ObjectiveC.runtime
      * - Parameter time: refresh time interval
      * - Returns: A new Dispatcher object, configured according to the specified parameters.
      */
-    public func setAutoRefreshMillis(time:Double) -> Dispatcher? {
+    public func setAutoRefreshMillis(time:Double) {
         
         stopDispatcher()
         
         guard time >= .PB_MIN_RefreshTime else {
             Log.error("auto refresh not set as the refresh time is less than to \(.PB_MIN_RefreshTime as Double) seconds")
-            return nil
+            return
         }
         
         initDispatcher(refreshTime: time)
@@ -177,8 +177,6 @@ import ObjectiveC.runtime
         if isInitialFetchDemandCallMade {
             startDispatcher();
         }
-        
-        return self.dispatcher
     }
     
     /**

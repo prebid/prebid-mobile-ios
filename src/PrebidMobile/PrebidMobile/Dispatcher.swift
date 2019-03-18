@@ -19,7 +19,7 @@ protocol DispatcherDelegate: class {
     func refreshDemand()
 }
 
-open class Dispatcher:NSObject {
+class Dispatcher:NSObject {
     
     var timer : Timer?
     
