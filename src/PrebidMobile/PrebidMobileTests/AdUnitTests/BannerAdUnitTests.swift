@@ -59,25 +59,6 @@ class BannerAdUnitTests: XCTestCase {
         XCTAssertNil(adUnit.userKeywords["key2"])
     }
 
-    func testSetInvKeyword() {
-        let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width1, height: Constants.height1))
-        adUnit.addInvKeyword(key: "key1", value: "value1")
-        adUnit.addInvKeyword(key: "key2", value: "value2")
-        XCTAssertTrue(2 == adUnit.invKeywords.count)
-        if let value = adUnit.invKeywords["key1"]?[0] {
-            XCTAssertEqual("value1", value)
-        }
-        if let value = adUnit.invKeywords["key2"]?[0] {
-            XCTAssertEqual("value2", value)
-        }
-        adUnit.removeInvKeyword(forKey: "key1")
-        XCTAssertTrue(1 == adUnit.invKeywords.count)
-        XCTAssertNil(adUnit.invKeywords["key1"])
-        adUnit.removeInvKeyword(forKey: "key2")
-        XCTAssertTrue(0 == adUnit.invKeywords.count)
-        XCTAssertNil(adUnit.invKeywords["key2"])
-    }
-
     func testSetUserKeywords() {
         let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width1, height: Constants.height1))
         adUnit.addUserKeyword(key: "key1", value: "value1")
@@ -105,35 +86,6 @@ class BannerAdUnitTests: XCTestCase {
         XCTAssertTrue(0 == adUnit.userKeywords.count)
         XCTAssertNil(adUnit.userKeywords["key1"])
         XCTAssertNil(adUnit.userKeywords["key2"])
-    }
-
-    func testSetInvKeywords() {
-        let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width1, height: Constants.height1))
-        adUnit.addInvKeyword(key: "key1", value: "value1")
-        let arrValues = ["value1", "value2"]
-        adUnit.addInvKeywords(key: "key2", value: arrValues)
-        XCTAssertTrue(2 == adUnit.invKeywords.count)
-        if let value = adUnit.invKeywords["key1"]?[0] {
-            XCTAssertEqual("value1", value)
-        }
-        if let value = adUnit.invKeywords["key2"]?[0] {
-            XCTAssertEqual("value1", value)
-        }
-        if let value = adUnit.invKeywords["key2"]?[1] {
-            XCTAssertEqual("value2", value)
-        }
-        adUnit.addInvKeywords(key: "key1", value: arrValues)
-        if let value = adUnit.invKeywords["key1"]?[0] {
-            XCTAssertEqual("value1", value)
-        }
-        if let value = adUnit.invKeywords["key1"]?[1] {
-            XCTAssertEqual("value2", value)
-        }
-        XCTAssertTrue(2 == adUnit.invKeywords.count)
-        adUnit.clearInvKeywords()
-        XCTAssertTrue(0 == adUnit.invKeywords.count)
-        XCTAssertNil(adUnit.invKeywords["key1"])
-        XCTAssertNil(adUnit.invKeywords["key2"])
     }
 
 }

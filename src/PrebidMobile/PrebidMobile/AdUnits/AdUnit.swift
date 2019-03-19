@@ -28,8 +28,7 @@ import ObjectiveC.runtime
 
     var refreshTime: Double? = 0.0
 
-    private var customUserKeywords = [String: [String]]()
-    private var customInvKeywords = [String: [String]]()
+    private var customKeywords = [String: [String]]()
 
     //This flag is set to check if the refresh needs to be made though the user has not invoked the fetch demand after initialization
     private var isInitialCallMade: Bool! = false
@@ -113,13 +112,8 @@ import ObjectiveC.runtime
     }
 
     var userKeywords: [String: [String]] {
-        Log.info("user keywords are \(customUserKeywords)")
-        return customUserKeywords
-    }
-
-    var invKeywords: [String: [String]] {
-        Log.info("user keywords are \(customInvKeywords)")
-        return customInvKeywords
+        Log.info("user keywords are \(customKeywords)")
+        return customKeywords
     }
 
     /**
@@ -128,27 +122,12 @@ import ObjectiveC.runtime
      */
     public func addUserKeyword(key: String, value: String) {
         var existingValues: [String] = []
-        if (customUserKeywords[key] != nil) {
-            existingValues = customUserKeywords[key]!
+        if (customKeywords[key] != nil) {
+            existingValues = customKeywords[key]!
         }
         if (!existingValues.contains(value)) {
             existingValues.append(value)
-            customUserKeywords[key] = existingValues
-        }
-    }
-
-    /**
-     * This method obtains the inventory keyword & value for targeting
-     * if the key already exists the value will be appended to the list. No duplicates will be added
-     */
-    public func addInvKeyword(key: String, value: String) {
-        var existingValues: [String] = []
-        if (customInvKeywords[key] != nil) {
-            existingValues = customInvKeywords[key]!
-        }
-        if (!existingValues.contains(value)) {
-            existingValues.append(value)
-            customInvKeywords[key] = existingValues
+            customKeywords[key] = existingValues
         }
     }
 
@@ -158,17 +137,7 @@ import ObjectiveC.runtime
      */
     public func addUserKeywords(key: String, value: [String]) {
 
-        customUserKeywords[key] = value
-
-    }
-
-    /**
-     * This method obtains the inventory keyword & values set for targeting.
-     * the values if the key already exist will be replaced with the new set of values
-     */
-    public func addInvKeywords(key: String, value: [String]) {
-
-        customInvKeywords[key] = value
+        customKeywords[key] = value
 
     }
 
@@ -177,19 +146,8 @@ import ObjectiveC.runtime
      */
     public func clearUserKeywords() {
 
-        if (customUserKeywords.count > 0 ) {
-            customUserKeywords.removeAll()
-        }
-
-    }
-
-    /**
-     * This method allows to remove all the inventory keywords set for user targeting
-     */
-    public func clearInvKeywords() {
-
-        if (customInvKeywords.count > 0 ) {
-            customInvKeywords.removeAll()
+        if (customKeywords.count > 0 ) {
+            customKeywords.removeAll()
         }
 
     }
@@ -198,17 +156,8 @@ import ObjectiveC.runtime
      * This method allows to remove specific user keyword & value set from user targeting
      */
     public func removeUserKeyword(forKey: String) {
-        if (customUserKeywords[forKey] != nil) {
-            customUserKeywords.removeValue(forKey: forKey)
-        }
-    }
-
-    /**
-     * This method allows to remove specific inventory keyword & value set from user targeting
-     */
-    public func removeInvKeyword(forKey: String) {
-        if (customInvKeywords[forKey] != nil) {
-            customInvKeywords.removeValue(forKey: forKey)
+        if (customKeywords[forKey] != nil) {
+            customKeywords.removeValue(forKey: forKey)
         }
     }
 
