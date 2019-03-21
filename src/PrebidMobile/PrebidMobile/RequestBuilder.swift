@@ -80,8 +80,9 @@ import AdSupport
     
     func openrtbSource() -> [String:Any]? {
         
+        let uuid = UUID().uuidString
         var sourceDict: [String : Any] = [:]
-        sourceDict["tid"] = "123"
+        sourceDict["tid"] = uuid
         
         return sourceDict
     }
@@ -142,10 +143,14 @@ import AdSupport
     func openrtbApp() -> [AnyHashable : Any]? {
         var app: [AnyHashable : Any] = [:]
         
+        let itunesID:String? = Targeting.shared.itunesID
         let bundle = Bundle.main.bundleIdentifier
-        if bundle != nil {
+        if itunesID != nil {
+            app["bundle"] = itunesID
+        } else if bundle != nil {
             app["bundle"] = bundle ?? ""
         }
+
         let version:String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
         if version != "" {
             app["ver"] = version

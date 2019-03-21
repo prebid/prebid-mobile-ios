@@ -243,7 +243,7 @@ class BidManagerTests: XCTestCase {
         stubRequestWithResponse("noBidResponse")
         Prebid.shared.prebidServerHost = PrebidHost.Appnexus
         XCTAssertTrue(!Prebid.shared.timeoutUpdated)
-        XCTAssertTrue(Prebid.shared.timeoutMillis == 10000)
+        XCTAssertTrue(Prebid.shared.timeoutMillis == 2000)
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager:BidManager = BidManager(adUnit: bannerUnit)
         manager.requestBidsForAdUnit() { (bidResponse, resultCode) in
@@ -260,12 +260,12 @@ class BidManagerTests: XCTestCase {
         stubRequestWithResponse("noBidResponseNoTmax")
         Prebid.shared.prebidServerHost = PrebidHost.Appnexus
         XCTAssertTrue(!Prebid.shared.timeoutUpdated)
-        XCTAssertTrue(Prebid.shared.timeoutMillis == 10000)
+        XCTAssertTrue(Prebid.shared.timeoutMillis == 2000)
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager:BidManager = BidManager(adUnit: bannerUnit)
         manager.requestBidsForAdUnit() { (bidResponse, resultCode) in
             XCTAssertTrue(!Prebid.shared.timeoutUpdated)
-            XCTAssertTrue(Prebid.shared.timeoutMillis == 10000)
+            XCTAssertTrue(Prebid.shared.timeoutMillis == 2000)
             loadAdSuccesfulException.fulfill()
         }
         
@@ -277,12 +277,30 @@ class BidManagerTests: XCTestCase {
         stubRequestWithResponse("noBidResponseTmaxTooLarge")
         Prebid.shared.prebidServerHost = PrebidHost.Appnexus
         XCTAssertTrue(!Prebid.shared.timeoutUpdated)
-        XCTAssertTrue(Prebid.shared.timeoutMillis == 10000)
+        XCTAssertTrue(Prebid.shared.timeoutMillis == 2000)
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager:BidManager = BidManager(adUnit: bannerUnit)
         manager.requestBidsForAdUnit() { (bidResponse, resultCode) in
             XCTAssertTrue(Prebid.shared.timeoutUpdated)
-            XCTAssertTrue(Prebid.shared.timeoutMillis == 10000)
+            XCTAssertTrue(Prebid.shared.timeoutMillis == 2000)
+            loadAdSuccesfulException.fulfill()
+        }
+        
+        waitForExpectations(timeout: 10.0, handler: nil)
+    }
+    
+    func testTimeoutMillisUpdate4(){
+        let loadAdSuccesfulException = expectation(description: "\(#function)")
+        stubRequestWithResponse("noBidResponseNoTmaxEdite")
+        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
+        Prebid.shared.timeoutMillis = 1000;
+        XCTAssertTrue(!Prebid.shared.timeoutUpdated)
+        XCTAssertTrue(Prebid.shared.timeoutMillis == 1000)
+        let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
+        let manager:BidManager = BidManager(adUnit: bannerUnit)
+        manager.requestBidsForAdUnit() { (bidResponse, resultCode) in
+            XCTAssertTrue(!Prebid.shared.timeoutUpdated)
+            XCTAssertTrue(Prebid.shared.timeoutMillis == 1000)
             loadAdSuccesfulException.fulfill()
         }
         

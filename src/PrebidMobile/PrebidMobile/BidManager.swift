@@ -17,20 +17,12 @@ import Foundation
 
 @objcMembers class BidManager:NSObject {
     
-    var prebidAdUnit:AdUnit?
+    var prebidAdUnit:AdUnit
     
     init(adUnit:AdUnit) {
         
-        super.init()
-        
         prebidAdUnit = adUnit
-        
-        if(RequestBuilder.myUserAgent == ""){
-            RequestBuilder.UserAgent(){(userAgentString) in
-                Log.info(userAgentString)
-                RequestBuilder.myUserAgent = userAgentString
-            }
-        }
+        super.init()
     }
     
     dynamic func requestBidsForAdUnit(callback: @escaping (_ response: BidResponse?, _ result: ResultCode) -> Void) {
@@ -54,7 +46,7 @@ import Foundation
                     if(!Prebid.shared.timeoutUpdated) {
                         let tmax = self.getTmaxRequest(data!)
                         if(tmax > 0) {
-                            Prebid.shared.timeoutMillis = min(demandFetchEndTime - demandFetchStartTime + tmax + 200, 10000)
+                            Prebid.shared.timeoutMillis = min(demandFetchEndTime - demandFetchStartTime + tmax + 200, 2000)
                             Prebid.shared.timeoutUpdated = true
                         }
                     }
@@ -87,61 +79,52 @@ import Foundation
         do {
             let errorString:String = String.init(data: data, encoding: .utf8)!
             print(String(format: "Response from server: %@", errorString))
-            if(!errorString.contains("Invalid request:")){
+            if(!errorString.contains("Invalid request")){
                 let response:[String:AnyObject] = try JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
                 
                 var bidDict:[String:AnyObject] = [:]
                 var containTopBid = false
-                if (response.count > 0) {
-                    if (response["seatbid"] != nil) {
-                        let seatbids = response["seatbid"] as! [AnyObject]
-                        for seatbid in seatbids {
-                            if (seatbid is [String : AnyObject]) {
-                                var seatbidDict = seatbid as? [String:AnyObject]
-                                if (seatbidDict?["bid"] is [AnyObject]) {
-                                    let bids = seatbidDict?["bid"] as! [AnyObject]
-                                    for bid in bids {
-                                        var containBid = false
-                                        var adServerTargeting:[String:AnyObject]?
-                                        if (bid["ext"] != nil) {
-                                            let extDict:[String:Any] = bid["ext"] as! [String:Any]
-                                            if (extDict["prebid"] != nil) {
-                                                let prebidDict:[String:Any] = extDict["prebid"] as! [String:Any]
-                                                adServerTargeting = prebidDict["targeting"] as? [String:AnyObject]
-                                                if (adServerTargeting != nil) {
-                                                    for key in adServerTargeting!.keys{
-                                                        if (key == "hb_cache_id") {
-                                                            containTopBid = true
-                                                        }
-                                                        if (key.starts(with: "hb_cache_id")) {
-                                                            containBid = true
-                                                        }
-                                                    }
-                                                    if (containBid) {
-                                                        for (key, value) in adServerTargeting! {
-                                                            bidDict[key] = value
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                
+                guard response.count > 0 , response["seatbid"] != nil else { return ([:],ResultCode.prebidDemandNoBids)}
+                let seatbids = response["seatbid"] as! [AnyObject]
+                for seatbid in seatbids {
+                    var seatbidDict = seatbid as? [String:AnyObject]
+                    guard seatbid is [String : AnyObject] , seatbidDict?["bid"] is [AnyObject] else { break }
+                    let bids = seatbidDict?["bid"] as! [AnyObject]
+                    for bid in bids {
+                        var containBid = false
+                        var adServerTargeting:[String:AnyObject]?
+                        guard bid["ext"] != nil else { break }
+                        let extDict:[String:Any] = bid["ext"] as! [String:Any]
+                        guard extDict["prebid"] != nil else { break }
+                        let prebidDict:[String:Any] = extDict["prebid"] as! [String:Any]
+                        adServerTargeting = prebidDict["targeting"] as? [String:AnyObject]
+                        guard adServerTargeting != nil else { break }
+                        for key in adServerTargeting!.keys{
+                            if (key == "hb_cache_id") {
+                                containTopBid = true
+                             }
+                            if (key.starts(with: "hb_cache_id")) {
+                                containBid = true
                             }
                         }
+                        guard containBid else {  break }
+                        for (key, value) in adServerTargeting! {
+                            bidDict[key] = value
+                        }
                     }
-                }
+              }
                 if (containTopBid && bidDict.count > 0) {
                     return (bidDict,ResultCode.prebidDemandFetchSuccess)
                 } else {
                     return ([:],ResultCode.prebidDemandNoBids)
                 }
             } else {
-                if(errorString.contains("Stored Imp with ID")){
+                if(errorString.contains("Stored Imp with ID") || errorString.contains("No stored imp found")){
                     return ([:],ResultCode.prebidInvalidConfigId)
-                } else if(errorString.contains("Stored Request with ID")) {
+                } else if(errorString.contains("Stored Request with ID") || errorString.contains("No stored request found")) {
                     return ([:],ResultCode.prebidInvalidAccountId)
-                } else if((errorString.contains("Invalid request: Request imp[0].banner.format")) || (errorString.contains("Unable to set interstitial size list"))){
+                } else if((errorString.contains("Invalid request: Request imp[0].banner.format")) || errorString.contains("Request imp[0].banner.format") || (errorString.contains("Unable to set interstitial size list"))){
                     return ([:],ResultCode.prebidInvalidSize)
                 } else {
                     return ([:],ResultCode.prebidServerError)

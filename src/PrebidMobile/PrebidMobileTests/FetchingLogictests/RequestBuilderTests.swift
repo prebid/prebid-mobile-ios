@@ -356,7 +356,9 @@ class RequestBuilderTests: XCTestCase,CLLocationManagerDelegate {
         }
         if let source = jsonRequestBody["source"] as? [String : Any]
         {
-            XCTAssertEqual("123", source["tid"] as! String)
+            let tid = source["tid"] as? String
+            XCTAssertNotNil(tid)
+
         }
     }
     

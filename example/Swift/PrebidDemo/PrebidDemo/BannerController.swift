@@ -33,6 +33,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     
     var dfpBanner: DFPBannerView!
     
+    var bannerUnit: BannerAdUnit!
+    
     var mopubBanner: MPAdView?
     
     override func viewDidLoad() {
@@ -40,13 +42,9 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         
         adServerLabel.text = adServerName
         
-        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
-        //Prebid.shared.prebidServerAccountId = "12345"
-        Prebid.shared.shareGeoLocation = true
-        
-        
-        let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
+        bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 35000)
+        //bannerUnit.addAdditionalSize(sizes: [CGSize(width: 300, height: 600)])
         
         if(adServerName == "DFP"){
             print("entered \(adServerName) loop" )
@@ -59,6 +57,11 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        // important to remove the time instance
+        bannerUnit?.stopAutoRefresh()
+    }
+    
     func loadDFPBanner(bannerUnit : AdUnit){
         print("Google Mobile Ads SDK version: \(DFPRequest.sdkVersion())")
         dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
@@ -69,9 +72,9 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         appBannerView.addSubview(dfpBanner)
         request.testDevices = [ kGADSimulatorID,"cc7ca766f86b43ab6cdc92bed424069b"]
     
-        bannerUnit.fetchDemand(adObject:self.request) { (ResultCode) in
+        bannerUnit.fetchDemand(adObject:self.request) { [weak self] (ResultCode) in
             print("Prebid demand fetch for DFP \(ResultCode.name())")
-            self.dfpBanner!.load(self.request)
+            self?.dfpBanner!.load(self?.request)
         }
     }
     

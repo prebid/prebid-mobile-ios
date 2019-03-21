@@ -30,7 +30,7 @@ class InterstItialAdUnitTests: XCTestCase {
     {
         let adUnit = InterstitialAdUnit(configId: Constants.configID1)
         XCTAssertTrue(adUnit.prebidConfigId == Constants.configID1)
-        XCTAssertTrue(0 == adUnit.refreshTime)
+        XCTAssertNil(adUnit.dispatcher)
     }
 
     func testSetUserKeyword()
