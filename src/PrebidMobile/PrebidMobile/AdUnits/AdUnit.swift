@@ -22,16 +22,14 @@ import ObjectiveC.runtime
     
     var adSizes = Array<CGSize> ()
     
-    var identifier:String?
+    var identifier:String
     
-    var timerClass:Dispatcher?
-    
-    var refreshTime:Double? = 0.0
+    var dispatcher: Dispatcher?
     
     private var customKeywords = [String: Array<String>]()
     
     //This flag is set to check if the refresh needs to be made though the user has not invoked the fetch demand after initialization
-    private var isInitialCallMade:Bool! = false
+    private var isInitialFetchDemandCallMade: Bool = false
     
     private var adServerObject:AnyObject?
     
@@ -45,15 +43,15 @@ import ObjectiveC.runtime
     
     init(configId:String, size:CGSize) {
         self.closure = {_ in return}
-        super.init()
         prebidConfigId = configId
         adSizes.append(size)
         identifier = UUID.init().uuidString
-        
-        timerClass = Dispatcher.init(withDelegate:self)
+        super.init()
     }
     
     dynamic public func fetchDemand(adObject:AnyObject, completion: @escaping(_ result:ResultCode) -> Void) {
+        
+        Utils.shared.removeHBKeywords(adObject: adObject)
         
         for size in adSizes {
             if(size.width < 0 || size.height < 0){
@@ -70,15 +68,12 @@ import ObjectiveC.runtime
             completion(ResultCode.prebidInvalidAccountId)
             return
         }
-        if(isInitialCallMade == false){
-            //the publisher called the fetch demand 1st fire the timer
-             isInitialCallMade = true
-            //start the timer only if the refresh timer is valided & set
-            if(refreshTime! > 0.0){
-                self.timerClass?.start(autoRefreshMillies: refreshTime!)
-            }
+
+        if !isInitialFetchDemandCallMade {
+            isInitialFetchDemandCallMade = true
+            startDispatcher()
         }
-       
+
         didReceiveResponse = false
         timeOutSignalSent = false
         self.closure = completion
@@ -89,14 +84,12 @@ import ObjectiveC.runtime
             self.didReceiveResponse = true
             if(bidResponse != nil){
                 if(!self.timeOutSignalSent){
-                        Utils.shared.removeHBKeywords(adObject: adObject)
                         Utils.shared.validateAndAttachKeywords (adObject: adObject, bidResponse: bidResponse!)
                         completion(resultCode)
                 }
                 
             } else {
                 if(!self.timeOutSignalSent){
-                    Utils.shared.removeHBKeywords(adObject: adObject)
                     completion(resultCode)
                 }
             }
@@ -165,20 +158,22 @@ import ObjectiveC.runtime
     
     /**
      * This method allows to set the auto refresh period for the demand
+     *
+     * - Parameter time: refresh time interval
      */
-    public func setAutoRefreshMillis(time:Double){
-            if(time >= .PB_MIN_RefreshTime){
-            //Stop the old refresh & start a new timer
-            if(refreshTime! > 0.0 && isInitialCallMade == true){
-                timerClass!.stop()
-                refreshTime = time
-                timerClass!.start(autoRefreshMillies: refreshTime!)
-                
-            } else {
-                refreshTime = time
-            }
-        } else {
-            Log.error("auto refresh not set as the refresh time is less than to 30 seconds")
+    public func setAutoRefreshMillis(time:Double) {
+        
+        stopDispatcher()
+        
+        guard time >= .PB_MIN_RefreshTime else {
+            Log.error("auto refresh not set as the refresh time is less than to \(.PB_MIN_RefreshTime as Double) seconds")
+            return
+        }
+        
+        initDispatcher(refreshTime: time)
+        
+        if isInitialFetchDemandCallMade {
+            startDispatcher();
         }
     }
     
@@ -186,7 +181,7 @@ import ObjectiveC.runtime
      * This method stops the auto refresh of demand
      */
     public func stopAutoRefresh(){
-       timerClass!.stop()
+        stopDispatcher()
     }
     
     func refreshDemand(){
@@ -194,6 +189,29 @@ import ObjectiveC.runtime
                 self.fetchDemand(adObject: adServerObject!, completion: self.closure)
             }
         
+    }
+    
+    func initDispatcher(refreshTime: Double) {
+        self.dispatcher = Dispatcher.init(withDelegate:self, autoRefreshMillies: refreshTime)
+    }
+    
+    func startDispatcher() {
+        guard let dispatcher = self.dispatcher else {
+            Log.verbose("Dispatcher is nil")
+            return
+        }
+        
+        dispatcher.start()
+    }
+    
+    func stopDispatcher() {
+        guard let dispatcher = self.dispatcher else {
+            Log.verbose("Dispatcher is nil")
+            return
+        }
+        
+        dispatcher.stop()
+        self.dispatcher = nil
     }
     
 }
