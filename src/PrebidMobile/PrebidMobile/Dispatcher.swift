@@ -19,29 +19,32 @@ protocol DispatcherDelegate: class {
     func refreshDemand()
 }
 
-class Dispatcher: NSObject {
-
-    var timer: Timer?
-
-    weak var delegate: DispatcherDelegate?
-
-    var repeatInSeconds: Double! = 0
-
-    init(withDelegate: DispatcherDelegate) {
-        super.init()
-        delegate = withDelegate
-    }
-
-    func start(autoRefreshMillies: Double) {
-
-        if (self.timer != nil) {
-            self.timer?.invalidate()
-            self.timer = nil
-        }
-
+class Dispatcher:NSObject {
+    
+    var timer : Timer?
+    
+    var delegate: DispatcherDelegate!
+    
+    var repeatInSeconds:Double = 0
+    
+    init(withDelegate:DispatcherDelegate, autoRefreshMillies:Double) {
+        
         //timer takes values in seconds...
         repeatInSeconds = autoRefreshMillies/1000
-
+        delegate = withDelegate
+        
+        super.init()     
+    }
+    
+    open func invalidate() {
+        stop()
+        delegate = nil
+    }
+    
+    func start() {
+        
+        stop()
+        
         self.timer = Timer.scheduledTimer(timeInterval: repeatInSeconds, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
 
         RunLoop.main.add(self.timer!, forMode: .commonModes)
