@@ -19,6 +19,7 @@ import ObjectiveC.runtime
 @objcMembers public class AdUnit: NSObject, DispatcherDelegate {
 
     var prebidConfigId: String! = ""
+<<<<<<< HEAD
     
     var adSizes = Array<CGSize> ()
     
@@ -33,6 +34,25 @@ import ObjectiveC.runtime
     
     private var adServerObject:AnyObject?
     
+=======
+
+    var adSizes = [CGSize] ()
+
+    var identifier: String
+
+    var timerClass: Dispatcher?
+
+    var refreshTime: Double? = 0.0
+
+    private var customUserKeywords = [String: [String]]()
+    private var customInvKeywords = [String: [String]]()
+
+    //This flag is set to check if the refresh needs to be made though the user has not invoked the fetch demand after initialization
+    private var isInitialCallMade: Bool! = false
+
+    private var adServerObject: AnyObject?
+
+>>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
     private var closure: (ResultCode) -> Void
 
     //notification flag set to check if the prebid response is received within the specified time
@@ -47,6 +67,11 @@ import ObjectiveC.runtime
         adSizes.append(size)
         identifier = UUID.init().uuidString
         super.init()
+<<<<<<< HEAD
+=======
+
+        timerClass = Dispatcher.init(withDelegate: self)
+>>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
     }
 
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
@@ -55,7 +80,11 @@ import ObjectiveC.runtime
 
         for size in adSizes {
             if (size.width < 0 || size.height < 0) {
+<<<<<<< HEAD
                  completion(ResultCode.prebidInvalidSize)
+=======
+                completion(ResultCode.prebidInvalidSize)
+>>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
                 return
             }
         }
@@ -68,10 +97,20 @@ import ObjectiveC.runtime
             completion(ResultCode.prebidInvalidAccountId)
             return
         }
+<<<<<<< HEAD
 
         if !isInitialFetchDemandCallMade {
             isInitialFetchDemandCallMade = true
             startDispatcher()
+=======
+        if (isInitialCallMade == false) {
+            //the publisher called the fetch demand 1st fire the timer
+            isInitialCallMade = true
+            //start the timer only if the refresh timer is valided & set
+            if (refreshTime! > 0.0) {
+                self.timerClass?.start(autoRefreshMillies: refreshTime!)
+            }
+>>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
         }
 
         didReceiveResponse = false
@@ -84,8 +123,13 @@ import ObjectiveC.runtime
             self.didReceiveResponse = true
             if (bidResponse != nil) {
                 if (!self.timeOutSignalSent) {
+<<<<<<< HEAD
                         Utils.shared.validateAndAttachKeywords (adObject: adObject, bidResponse: bidResponse!)
                         completion(resultCode)
+=======
+                    Utils.shared.validateAndAttachKeywords (adObject: adObject, bidResponse: bidResponse!)
+                    completion(resultCode)
+>>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
                 }
 
             } else {
@@ -105,8 +149,18 @@ import ObjectiveC.runtime
     }
 
     var userKeywords: [String: [String]] {
+<<<<<<< HEAD
         Log.info("user keywords are \(customKeywords)")
         return customKeywords
+=======
+        Log.info("user keywords are \(customUserKeywords)")
+        return customUserKeywords
+    }
+
+    var invKeywords: [String: [String]] {
+        Log.info("user keywords are \(customInvKeywords)")
+        return customInvKeywords
+>>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
     }
 
     /**
@@ -115,12 +169,32 @@ import ObjectiveC.runtime
      */
     public func addUserKeyword(key: String, value: String) {
         var existingValues: [String] = []
+<<<<<<< HEAD
         if (customKeywords[key] != nil) {
             existingValues = customKeywords[key]!
+=======
+        if (customUserKeywords[key] != nil) {
+            existingValues = customUserKeywords[key]!
         }
         if (!existingValues.contains(value)) {
             existingValues.append(value)
-            customKeywords[key] = existingValues
+            customUserKeywords[key] = existingValues
+        }
+    }
+
+    /**
+     * This method obtains the inventory keyword & value for targeting
+     * if the key already exists the value will be appended to the list. No duplicates will be added
+     */
+    public func addInvKeyword(key: String, value: String) {
+        var existingValues: [String] = []
+        if (customInvKeywords[key] != nil) {
+            existingValues = customInvKeywords[key]!
+>>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
+        }
+        if (!existingValues.contains(value)) {
+            existingValues.append(value)
+            customInvKeywords[key] = existingValues
         }
     }
 
@@ -130,7 +204,21 @@ import ObjectiveC.runtime
      */
     public func addUserKeywords(key: String, value: [String]) {
 
+<<<<<<< HEAD
         customKeywords[key] = value
+=======
+        customUserKeywords[key] = value
+
+    }
+
+    /**
+     * This method obtains the inventory keyword & values set for targeting.
+     * the values if the key already exist will be replaced with the new set of values
+     */
+    public func addInvKeywords(key: String, value: [String]) {
+
+        customInvKeywords[key] = value
+>>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
 
     }
 
@@ -139,8 +227,24 @@ import ObjectiveC.runtime
      */
     public func clearUserKeywords() {
 
+<<<<<<< HEAD
         if (customKeywords.count > 0 ) {
             customKeywords.removeAll()
+=======
+        if (customUserKeywords.count > 0 ) {
+            customUserKeywords.removeAll()
+        }
+
+    }
+
+    /**
+     * This method allows to remove all the inventory keywords set for user targeting
+     */
+    public func clearInvKeywords() {
+
+        if (customInvKeywords.count > 0 ) {
+            customInvKeywords.removeAll()
+>>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
         }
 
     }
@@ -149,8 +253,22 @@ import ObjectiveC.runtime
      * This method allows to remove specific user keyword & value set from user targeting
      */
     public func removeUserKeyword(forKey: String) {
+<<<<<<< HEAD
         if (customKeywords[forKey] != nil) {
             customKeywords.removeValue(forKey: forKey)
+=======
+        if (customUserKeywords[forKey] != nil) {
+            customUserKeywords.removeValue(forKey: forKey)
+        }
+    }
+
+    /**
+     * This method allows to remove specific inventory keyword & value set from user targeting
+     */
+    public func removeInvKeyword(forKey: String) {
+        if (customInvKeywords[forKey] != nil) {
+            customInvKeywords.removeValue(forKey: forKey)
+>>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
         }
     }
 
@@ -159,6 +277,7 @@ import ObjectiveC.runtime
      *
      * - Parameter time: refresh time interval
      */
+<<<<<<< HEAD
 
     public func setAutoRefreshMillis(time:Double) {
         
@@ -173,12 +292,28 @@ import ObjectiveC.runtime
         
         if isInitialFetchDemandCallMade {
             startDispatcher();
+=======
+    public func setAutoRefreshMillis(time: Double) {
+        if (time >= .PB_MIN_RefreshTime) {
+            //Stop the old refresh & start a new timer
+            if (refreshTime! > 0.0 && isInitialCallMade == true) {
+                timerClass!.stop()
+                refreshTime = time
+                timerClass!.start(autoRefreshMillies: refreshTime!)
+
+            } else {
+                refreshTime = time
+            }
+        } else {
+            Log.error("auto refresh not set as the refresh time is less than to 30 seconds")
+>>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
         }
     }
 
     /**
      * This method stops the auto refresh of demand
      */
+<<<<<<< HEAD
     public func stopAutoRefresh(){
         stopDispatcher()
     }
@@ -211,6 +346,17 @@ import ObjectiveC.runtime
         
         dispatcher.stop()
         self.dispatcher = nil
+=======
+    public func stopAutoRefresh() {
+        timerClass!.stop()
     }
-    
+
+    func refreshDemand() {
+        if (adServerObject != nil) {
+            self.fetchDemand(adObject: adServerObject!, completion: self.closure)
+        }
+
+>>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
+    }
+
 }
