@@ -85,4 +85,99 @@ class TargetingTests: XCTestCase {
         XCTAssertTrue((testItuneID == "54673893"))
     }
 
+    func testSetUserKeyword() {
+        let targeting = Targeting.shared
+        targeting.addUserKeyword(key: "key1", value: "value1")
+        targeting.addUserKeyword(key: "key2", value: "value2")
+        XCTAssertTrue(2 == targeting.userKeywords.count)
+        if let value = targeting.userKeywords["key1"]?[0] {
+            XCTAssertEqual("value1", value)
+        }
+        if let value = targeting.userKeywords["key2"]?[0] {
+            XCTAssertEqual("value2", value)
+        }
+        targeting.removeUserKeyword(forKey: "key1")
+        XCTAssertTrue(1 == targeting.userKeywords.count)
+        XCTAssertNil(targeting.userKeywords["key1"])
+        targeting.removeUserKeyword(forKey: "key2")
+        XCTAssertTrue(0 == targeting.userKeywords.count)
+        XCTAssertNil(targeting.userKeywords["key2"])
+    }
+
+    func testSetInvKeyword() {
+        let targeting = Targeting.shared
+        targeting.addInvKeyword(key: "key1", value: "value1")
+        targeting.addInvKeyword(key: "key2", value: "value2")
+        XCTAssertTrue(2 == targeting.invKeywords.count)
+        if let value = targeting.invKeywords["key1"]?[0] {
+            XCTAssertEqual("value1", value)
+        }
+        if let value = targeting.invKeywords["key2"]?[0] {
+            XCTAssertEqual("value2", value)
+        }
+        targeting.removeInvKeyword(forKey: "key1")
+        XCTAssertTrue(1 == targeting.invKeywords.count)
+        XCTAssertNil(targeting.invKeywords["key1"])
+        targeting.removeInvKeyword(forKey: "key2")
+        XCTAssertTrue(0 == targeting.invKeywords.count)
+        XCTAssertNil(targeting.invKeywords["key2"])
+    }
+
+    func testSetUserKeywords() {
+        let targeting = Targeting.shared
+        targeting.addUserKeyword(key: "key1", value: "value1")
+        let arrValues = ["value1", "value2"]
+        targeting.addUserKeywords(key: "key2", value: arrValues)
+        XCTAssertTrue(2 == targeting.userKeywords.count)
+        if let value = targeting.userKeywords["key1"]?[0] {
+            XCTAssertEqual("value1", value)
+        }
+        if let value = targeting.userKeywords["key2"]?[0] {
+            XCTAssertEqual("value1", value)
+        }
+        if let value = targeting.userKeywords["key2"]?[1] {
+            XCTAssertEqual("value2", value)
+        }
+        targeting.addUserKeywords(key: "key1", value: arrValues)
+        if let value = targeting.userKeywords["key1"]?[0] {
+            XCTAssertEqual("value1", value)
+        }
+        if let value = targeting.userKeywords["key1"]?[1] {
+            XCTAssertEqual("value2", value)
+        }
+        XCTAssertTrue(2 == targeting.userKeywords.count)
+        targeting.clearUserKeywords()
+        XCTAssertTrue(0 == targeting.userKeywords.count)
+        XCTAssertNil(targeting.userKeywords["key1"])
+        XCTAssertNil(targeting.userKeywords["key2"])
+    }
+
+    func testSetInvKeywords() {
+        let targeting = Targeting.shared
+        targeting.addInvKeyword(key: "key1", value: "value1")
+        let arrValues = ["value1", "value2"]
+        targeting.addInvKeywords(key: "key2", value: arrValues)
+        XCTAssertTrue(2 == targeting.invKeywords.count)
+        if let value = targeting.invKeywords["key1"]?[0] {
+            XCTAssertEqual("value1", value)
+        }
+        if let value = targeting.invKeywords["key2"]?[0] {
+            XCTAssertEqual("value1", value)
+        }
+        if let value = targeting.invKeywords["key2"]?[1] {
+            XCTAssertEqual("value2", value)
+        }
+        targeting.addInvKeywords(key: "key1", value: arrValues)
+        if let value = targeting.invKeywords["key1"]?[0] {
+            XCTAssertEqual("value1", value)
+        }
+        if let value = targeting.invKeywords["key1"]?[1] {
+            XCTAssertEqual("value2", value)
+        }
+        XCTAssertTrue(2 == targeting.invKeywords.count)
+        targeting.clearInvKeywords()
+        XCTAssertTrue(0 == targeting.invKeywords.count)
+        XCTAssertNil(targeting.invKeywords["key1"])
+        XCTAssertNil(targeting.invKeywords["key2"])
+    }
 }

@@ -164,7 +164,7 @@ class RequestBuilderTests: XCTestCase,CLLocationManagerDelegate {
         targeting.subjectToGDPR = false
         targeting.itunesID = nil
         targeting.clearYearOfBirth()
-        adUnit.addUserKeyword(key: "key1", value: "value1")
+        targeting.addUserKeyword(key: "key1", value: "value1")
         do {
             try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
                 let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String : Any]

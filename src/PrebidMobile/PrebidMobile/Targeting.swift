@@ -29,7 +29,7 @@ import CoreLocation
     /**
      * This property gets the gender enum passed set by the developer
      */
-    
+
     public var gender:Gender
     
     public var yearOfBirth: Int {
@@ -58,7 +58,14 @@ import CoreLocation
     public func clearYearOfBirth()  {
             yearofbirth = 0
     }
-    
+
+    /**
+     * This user and app inventory keyword & value for targeting
+     */
+    internal var customUserKeywords = [String: [String]]()
+
+    internal var customInvKeywords = [String: [String]]()
+
     /**
      * The itunes app id for targeting
      */
@@ -115,6 +122,110 @@ import CoreLocation
                 savedConsent = iabString
             }
             return savedConsent
+        }
+    }
+
+    /**
+     * The property to access user and app inventory targetign
+     */
+
+    var userKeywords: [String: [String]] {
+        Log.info("user keywords are \(customUserKeywords)")
+        return customUserKeywords
+    }
+
+    var invKeywords: [String: [String]] {
+        Log.info("user keywords are \(customInvKeywords)")
+        return customInvKeywords
+    }
+
+    /**
+     * This method obtains the user keyword & value user for targeting
+     * if the key already exists the value will be appended to the list. No duplicates will be added
+     */
+    public func addUserKeyword(key: String, value: String) {
+        var existingValues: [String] = []
+        if (customUserKeywords[key] != nil) {
+            existingValues = customUserKeywords[key]!
+        }
+        if (!existingValues.contains(value)) {
+            existingValues.append(value)
+            customUserKeywords[key] = existingValues
+        }
+    }
+
+    /**
+     * This method obtains the inventory keyword & value for targeting
+     * if the key already exists the value will be appended to the list. No duplicates will be added
+     */
+    public func addInvKeyword(key: String, value: String) {
+        var existingValues: [String] = []
+        if (customInvKeywords[key] != nil) {
+            existingValues = customInvKeywords[key]!
+        }
+        if (!existingValues.contains(value)) {
+            existingValues.append(value)
+            customInvKeywords[key] = existingValues
+        }
+    }
+
+    /**
+     * This method obtains the user keyword & values set for user targeting.
+     * the values if the key already exist will be replaced with the new set of values
+     */
+    public func addUserKeywords(key: String, value: [String]) {
+
+        customUserKeywords[key] = value
+
+    }
+
+    /**
+     * This method obtains the inventory keyword & values set for targeting.
+     * the values if the key already exist will be replaced with the new set of values
+     */
+    public func addInvKeywords(key: String, value: [String]) {
+
+        customInvKeywords[key] = value
+
+    }
+
+    /**
+     * This method allows to remove all the user keywords set for user targeting
+     */
+    public func clearUserKeywords() {
+
+        if (customUserKeywords.count > 0 ) {
+            customUserKeywords.removeAll()
+        }
+
+    }
+
+    /**
+     * This method allows to remove all the inventory keywords set for user targeting
+     */
+    public func clearInvKeywords() {
+
+        if (customInvKeywords.count > 0 ) {
+            customInvKeywords.removeAll()
+        }
+
+    }
+
+    /**
+     * This method allows to remove specific user keyword & value set from user targeting
+     */
+    public func removeUserKeyword(forKey: String) {
+        if (customUserKeywords[forKey] != nil) {
+            customUserKeywords.removeValue(forKey: forKey)
+        }
+    }
+
+    /**
+     * This method allows to remove specific inventory keyword & value set from user targeting
+     */
+    public func removeInvKeyword(forKey: String) {
+        if (customInvKeywords[forKey] != nil) {
+            customInvKeywords.removeValue(forKey: forKey)
         }
     }
     
