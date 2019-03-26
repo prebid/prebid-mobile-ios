@@ -343,7 +343,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 60D79306217E229B0080F428 /* Build configuration list for PBXNativeTarget "PrebidMobile" */;
 			buildPhases = (
-				C197064B223FDB7000E10E77 /* ShellScript */,
 				60D792ED217E229A0080F428 /* Sources */,
 				60D792EE217E229A0080F428 /* Frameworks */,
 				60D792EF217E229A0080F428 /* Headers */,
@@ -443,26 +442,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		C197064B223FDB7000E10E77 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		60D792ED217E229A0080F428 /* Sources */ = {

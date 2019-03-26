@@ -46,7 +46,6 @@ import AdSupport
 
     func buildRequest(adUnit: AdUnit?) throws -> URLRequest? {
 
-<<<<<<< HEAD
             let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
         var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Prebid.shared.timeoutMillis))
             request.httpMethod = "POST"
@@ -58,19 +57,6 @@ import AdSupport
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             Log.info("Prebid Request post body \(requestBody)")
             return request
-=======
-        let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
-        var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Prebid.shared.timeoutMillis))
-        request.httpMethod = "POST"
-        let requestBody: [String: Any] = openRTBRequestBody(adUnit: adUnit)!
-
-        request.httpBody = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
-        //HTTP HeadersExpression implicitly coerced from '[AnyHashable : Any]?' to Any
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        Log.info("Prebid Request post body \(requestBody)")
-        return request
->>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
     }
 
     func openRTBRequestBody(adUnit: AdUnit?) -> [String: Any]? {
@@ -80,7 +66,7 @@ import AdSupport
         if let aSource = openrtbSource() {
             requestDict["source"] = aSource
         }
-        requestDict["app"] = openrtbApp(adUnit: adUnit)
+        requestDict["app"] = openrtbApp()
         requestDict["device"] = openrtbDevice()
         if Targeting.shared.subjectToGDPR == true {
             requestDict["regs"] = openrtbRegs()
@@ -154,11 +140,7 @@ import AdSupport
 
     // OpenRTB 2.5 Object: App in section 3.2.14
 
-<<<<<<< HEAD
     func openrtbApp() -> [AnyHashable: Any]? {
-=======
-    func openrtbApp(adUnit: AdUnit?) -> [AnyHashable: Any]? {
->>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
         var app: [AnyHashable: Any] = [:]
 
         let itunesID: String? = Targeting.shared.itunesID
@@ -177,17 +159,6 @@ import AdSupport
         app["publisher"] = ["id": Prebid.shared.prebidServerAccountId ?? 0] as NSDictionary
         app["ext"] = ["prebid": ["version": String(PrebidMobileVersionNumber), "source": "prebid-mobile"]]
 
-<<<<<<< HEAD
-=======
-        let targetingInvParams = adUnit?.invKeywords
-
-        let invKeywordString = fetchKeywordsString(targetingInvParams)
-
-        if !(invKeywordString == "") {
-            app["keywords"] = invKeywordString
-        }
-
->>>>>>> 094294e7f8ebf3eed62e49972f476b10b27f6085
         return app
     }
 
