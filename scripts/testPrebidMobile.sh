@@ -8,6 +8,9 @@ echo "Running unit tests"
 gem install xcpretty
 xcodebuild test -project PrebidMobile.xcodeproj -scheme "PrebidMobileTests" -destination 'platform=iOS Simulator,name=iPhone 8 Plus,OS=11.0.1' | xcpretty
 
+echo "Running swiftlint tests"
+swiftlint --config /.swiftlint.yml 
+
 #echo "Running integration tests"
 cd ../../example/Swift/PrebidDemo/
 echo $PWD
