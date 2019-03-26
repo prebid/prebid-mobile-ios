@@ -8,5 +8,3 @@ disabled_rules: # rule identifiers to exclude from running
 line_length: 250
 function_body_length: 100
 type_body_length: 100
-
-
