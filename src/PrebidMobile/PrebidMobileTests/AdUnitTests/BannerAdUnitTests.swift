@@ -30,7 +30,7 @@ class BannerAdUnitTests: XCTestCase {
         let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2))
         XCTAssertTrue(1 == adUnit.adSizes.count)
         XCTAssertTrue(adUnit.prebidConfigId == Constants.configID1)
-        XCTAssertTrue(0 == adUnit.refreshTime)
+        XCTAssertNil(adUnit.dispatcher)
     }
 
     func testBannerAdUnitAddSize() {
