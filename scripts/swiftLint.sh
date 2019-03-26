@@ -7,7 +7,7 @@ echo $PWD
 
 echo "Installing SwiftLint"
 
-brew update && brew install swiftlint
+brew update && brew upgrade swiftlint
 
 echo "Running SwiftLint"
 
