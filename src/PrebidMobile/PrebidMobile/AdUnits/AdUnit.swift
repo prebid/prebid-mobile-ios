@@ -19,7 +19,7 @@ import ObjectiveC.runtime
 
     var adSizes = Array<CGSize> ()
 
-    var identifier:String
+    var identifier: String
 
     var dispatcher: Dispatcher?
 
@@ -28,7 +28,7 @@ import ObjectiveC.runtime
     //This flag is set to check if the refresh needs to be made though the user has not invoked the fetch demand after initialization
     private var isInitialFetchDemandCallMade: Bool = false
 
-    private var adServerObject:AnyObject?
+    private var adServerObject: AnyObject?
 
     private var closure: (ResultCode) -> Void
 
@@ -156,8 +156,7 @@ import ObjectiveC.runtime
      *
      * - Parameter time: refresh time interval
      */
-
-    public func setAutoRefreshMillis(time:Double) {
+    public func setAutoRefreshMillis(time: Double) {
 
         stopDispatcher()
 
@@ -169,14 +168,14 @@ import ObjectiveC.runtime
         initDispatcher(refreshTime: time)
 
         if isInitialFetchDemandCallMade {
-            startDispatcher();
+            startDispatcher()
         }
     }
 
     /**
      * This method stops the auto refresh of demand
      */
-    public func stopAutoRefresh(){
+    public func stopAutoRefresh() {
         stopDispatcher()
     }
 
@@ -188,7 +187,7 @@ import ObjectiveC.runtime
     }
 
     func initDispatcher(refreshTime: Double) {
-        self.dispatcher = Dispatcher.init(withDelegate:self, autoRefreshMillies: refreshTime)
+        self.dispatcher = Dispatcher.init(withDelegate: self, autoRefreshMillies: refreshTime)
     }
 
     func startDispatcher() {

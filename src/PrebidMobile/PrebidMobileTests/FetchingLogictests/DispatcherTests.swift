@@ -31,15 +31,13 @@ class DispatcherTests: XCTestCase, DispatcherDelegate {
         loadSuccesfulException = nil
     }
 
-    func testDispatcherIsNotNil()
-    {
+    func testDispatcherIsNotNil() {
         let dispatcher = Dispatcher(withDelegate: self, autoRefreshMillies: 0.0)
         XCTAssertNotNil(dispatcher)
         XCTAssertNil(dispatcher.timer)
     }
-    
-    func testStartDispatcherWithRefreshMiliseconds()
-    {
+
+    func testStartDispatcherWithRefreshMiliseconds() {
         let dispatcher = Dispatcher(withDelegate: self, autoRefreshMillies: 10.0)
         dispatcher.start()
         XCTAssertNotNil(dispatcher.timer)
@@ -47,9 +45,8 @@ class DispatcherTests: XCTestCase, DispatcherDelegate {
         loadSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
     }
-    
-    func testStopDispatcher()
-    {
+
+    func testStopDispatcher() {
         let dispatcher = Dispatcher(withDelegate: self, autoRefreshMillies: 10.0)
         dispatcher.start()
         XCTAssertNotNil(dispatcher.timer)

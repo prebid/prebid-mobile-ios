@@ -32,7 +32,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     let request = DFPRequest()
 
     var dfpBanner: DFPBannerView!
-    
+
     var bannerUnit: BannerAdUnit!
 
     var mopubBanner: MPAdView?
@@ -71,8 +71,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         dfpBanner.backgroundColor = .red
         appBannerView.addSubview(dfpBanner)
         request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
-      
-        bannerUnit.fetchDemand(adObject:self.request) { [weak self] (ResultCode) in
+
+        bannerUnit.fetchDemand(adObject: self.request) { [weak self] (ResultCode) in
             print("Prebid demand fetch for DFP \(ResultCode.name())")
             self?.dfpBanner!.load(self?.request)
         }
