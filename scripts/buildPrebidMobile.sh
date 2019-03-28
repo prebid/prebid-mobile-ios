@@ -30,9 +30,9 @@ touch "$LOGFILE"
 # 4
 # Build the framework for device and for simulator (using
 # all needed architectures).
-xcodebuild -target "${FRAMEWORK_NAME}" -configuration Release -arch arm64 -arch -arch  only_active_arch=yes defines_module=yes -sdk "iphoneos" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
+xcodebuild -target "${FRAMEWORK_NAME}" -configuration Release ONLY_ACTIVE_ARCH=NO -sdk iphoneos > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
 
-xcodebuild -target "${FRAMEWORK_NAME}" -configuration Release -arch x86_64 -arch i386 only_active_arch=yes defines_module=yes -sdk "iphonesimulator" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
+xcodebuild -target "${FRAMEWORK_NAME}" -configuration Release -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit;}
 
 # 5
 # Remove .framework file if exists on Desktop from previous run.
@@ -40,11 +40,20 @@ if [ -d "${HOME}/Desktop/${FRAMEWORK_NAME}.framework" ]; then
 rm -rf "${HOME}/Desktop/${FRAMEWORK_NAME}.framework"
 fi
 
-# 6
+
+# 6 Copy swiftmodule
+SIMULATOR_SWIFT_MODULES_DIR="build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule/."
+echo "SIMULATOR_SWIFT_MODULES_DIR: ${SIMULATOR_SWIFT_MODULES_DIR}"
+if [ -d "${SIMULATOR_SWIFT_MODULES_DIR}" ]; then
+  echo "IN SIMULATOR_SWIFT_MODULES_DIR: ${SIMULATOR_SWIFT_MODULES_DIR}"
+cp -R "${SIMULATOR_SWIFT_MODULES_DIR}" "build/Release-iphoneos/${FRAMEWORK_NAME}.framework/Modules/${FRAMEWORK_NAME}.swiftmodule"
+fi
+
+# 7
 # Copy the device version of framework to Desktop.
 cp -r "build/Release-iphoneos/${FRAMEWORK_NAME}.framework" "${HOME}/Desktop/${FRAMEWORK_NAME}.framework"
 
-# 7
+# 8
 # Replace the framework executable within the framework with
 # a new version created by merging the device and simulator
 # frameworks' executables with lipo.
@@ -53,7 +62,7 @@ lipo -create -output "${HOME}/Desktop/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NA
 echo "Done! You can find the Prebid Mobile framework on your Desktop"
 echo "Build logs are also available in the build/out/log/ folder."
 
-# 8
+# 9
 # Delete the most recent build.
 if [ -d "build" ]; then
 rm -rf "build"
