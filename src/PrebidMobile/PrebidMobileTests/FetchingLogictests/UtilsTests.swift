@@ -343,25 +343,26 @@ class UtilsTests: XCTestCase {
         mopubObject?.keywords = "test_key:test_value"
         utils.validateAndAttachKeywords(adObject: mopubObject as AnyObject, bidResponse: bidResponse)
 
-        DispatchQueue.main.async {
-            XCTAssertTrue(((self.mopubObject?.description) != nil), "MPAdView")
-            XCTAssertNotNil(self.mopubObject?.keywords)
-            let keywords = self.mopubObject?.keywords
-            let keywordsArray = keywords!.components(separatedBy: ",")
-            XCTAssertEqual(11, keywordsArray.count)
-            XCTAssertTrue (keywordsArray.contains("hb_env:mobile-app"))
-            XCTAssertTrue (keywordsArray.contains("hb_bidder_appnexus:appnexus"))
-            XCTAssertTrue (keywordsArray.contains("hb_size_appnexus:300x250"))
-            XCTAssertTrue (keywordsArray.contains("hb_pb_appnexus:0.50"))
-            XCTAssertTrue (keywordsArray.contains("hb_env_appnexus:mobile-app"))
-            XCTAssertTrue (keywordsArray.contains("hb_cache_id:d6e43a95-5ee2-4d74-ae85-e4b602b7f88d"))
-            XCTAssertTrue (keywordsArray.contains("hb_cache_id_appnexus:d6e43a95-5ee2-4d74-ae85-e4b602b7f88d"))
-            XCTAssertTrue (keywordsArray.contains("hb_pb:0.50"))
-            XCTAssertTrue (keywordsArray.contains("hb_bidder:appnexus"))
-            XCTAssertTrue (keywordsArray.contains("hb_size:300x250"))
-            XCTAssertTrue (keywordsArray.contains("test_key:test_value"))
+        var keywords: String?
+        var keywordsArray: [String] = []
 
-        }
+        XCTAssertTrue(((self.mopubObject?.description) != nil), "MPAdView")
+        XCTAssertNotNil(self.mopubObject?.keywords)
+        keywords = self.mopubObject?.keywords
+        keywordsArray = keywords!.components(separatedBy: ",")
+        XCTAssertEqual(11, keywordsArray.count)
+        XCTAssertTrue (keywordsArray.contains("hb_env:mobile-app"))
+        XCTAssertTrue (keywordsArray.contains("hb_bidder_appnexus:appnexus"))
+        XCTAssertTrue (keywordsArray.contains("hb_size_appnexus:300x250"))
+        XCTAssertTrue (keywordsArray.contains("hb_pb_appnexus:0.50"))
+        XCTAssertTrue (keywordsArray.contains("hb_env_appnexus:mobile-app"))
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id:d6e43a95-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id_appnexus:d6e43a95-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertTrue (keywordsArray.contains("hb_pb:0.50"))
+        XCTAssertTrue (keywordsArray.contains("hb_bidder:appnexus"))
+        XCTAssertTrue (keywordsArray.contains("hb_size:300x250"))
+        XCTAssertTrue (keywordsArray.contains("test_key:test_value"))
+
         let prebidKeywords2: [String: String] = ["hb_env": "mobile-app",
                                                "hb_bidder_rubicon": "rubicon",
                                                "hb_size_rubicon": "300x250",
@@ -373,28 +374,27 @@ class UtilsTests: XCTestCase {
                                                "hb_bidder": "rubicon",
                                                "hb_size": "300x250"]
 
-            let bidResponse2 = BidResponse(adId: "test2", adServerTargeting: prebidKeywords2 as [String: AnyObject])
-            utils.removeHBKeywords(adObject: self.mopubObject!)
-            utils.validateAndAttachKeywords(adObject: self.mopubObject as AnyObject, bidResponse: bidResponse2)
+        let bidResponse2 = BidResponse(adId: "test2", adServerTargeting: prebidKeywords2 as [String: AnyObject])
+        utils.removeHBKeywords(adObject: self.mopubObject!)
+        utils.validateAndAttachKeywords(adObject: self.mopubObject as AnyObject, bidResponse: bidResponse2)
 
-            DispatchQueue.main.async {
-            XCTAssertTrue(((self.mopubObject?.description) != nil), "MPAdView")
-            XCTAssertNotNil(self.mopubObject?.keywords)
-            let keywords = self.mopubObject?.keywords
-            let keywordsArray = keywords!.components(separatedBy: ",")
-            XCTAssertEqual(11, keywordsArray.count)
-            XCTAssertTrue (keywordsArray.contains("hb_env:mobile-app"))
-            XCTAssertTrue (keywordsArray.contains("hb_bidder_rubicon:rubicon"))
-            XCTAssertTrue (keywordsArray.contains("hb_size_rubicon:300x250"))
-            XCTAssertTrue (keywordsArray.contains("hb_pb_rubicon:0.50"))
-            XCTAssertTrue (keywordsArray.contains("hb_env_rubicon:mobile-app"))
-            XCTAssertTrue (keywordsArray.contains("hb_cache_id:ffffffff-5ee2-4d74-ae85-e4b602b7f88d"))
-            XCTAssertTrue (keywordsArray.contains("hb_cache_id_rubicon:ffffffff-5ee2-4d74-ae85-e4b602b7f88d"))
-            XCTAssertTrue (keywordsArray.contains("hb_pb:0.50"))
-            XCTAssertTrue (keywordsArray.contains("hb_bidder:rubicon"))
-            XCTAssertTrue (keywordsArray.contains("hb_size:300x250"))
-            XCTAssertTrue (keywordsArray.contains("test_key:test_value"))
-        }
+        XCTAssertTrue(((self.mopubObject?.description) != nil), "MPAdView")
+        XCTAssertNotNil(self.mopubObject?.keywords)
+
+        keywords = self.mopubObject?.keywords
+        keywordsArray = keywords!.components(separatedBy: ",")
+        XCTAssertEqual(11, keywordsArray.count)
+        XCTAssertTrue (keywordsArray.contains("hb_env:mobile-app"))
+        XCTAssertTrue (keywordsArray.contains("hb_bidder_rubicon:rubicon"))
+        XCTAssertTrue (keywordsArray.contains("hb_size_rubicon:300x250"))
+        XCTAssertTrue (keywordsArray.contains("hb_pb_rubicon:0.50"))
+        XCTAssertTrue (keywordsArray.contains("hb_env_rubicon:mobile-app"))
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id:ffffffff-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id_rubicon:ffffffff-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertTrue (keywordsArray.contains("hb_pb:0.50"))
+        XCTAssertTrue (keywordsArray.contains("hb_bidder:rubicon"))
+        XCTAssertTrue (keywordsArray.contains("hb_size:300x250"))
+        XCTAssertTrue (keywordsArray.contains("test_key:test_value"))
 
     }
 
@@ -408,12 +408,13 @@ class UtilsTests: XCTestCase {
         mopubObject?.keywords = "test_key:test_value"
         utils.validateAndAttachKeywords(adObject: mopubObject as AnyObject, bidResponse: bidResponse)
 
-        DispatchQueue.main.async {
+        var keywords: String?
+        var keywordsArray: [String] = []
 
         XCTAssertTrue(((self.mopubObject?.description) != nil), "MPAdView")
         XCTAssertNotNil(self.mopubObject?.keywords)
-        let keywords = self.mopubObject?.keywords
-        let keywordsArray = keywords!.components(separatedBy: ",")
+        keywords = self.mopubObject?.keywords
+        keywordsArray = keywords!.components(separatedBy: ",")
         XCTAssertEqual(11, keywordsArray.count)
         XCTAssertTrue (keywordsArray.contains("hb_env:mobile-app"))
         XCTAssertTrue (keywordsArray.contains("hb_bidder_appnexus:appnexus"))
@@ -426,14 +427,13 @@ class UtilsTests: XCTestCase {
         XCTAssertTrue (keywordsArray.contains("hb_bidder:appnexus"))
         XCTAssertTrue (keywordsArray.contains("hb_size:300x250"))
         XCTAssertTrue (keywordsArray.contains("test_key:test_value"))
-        }
 
         utils.removeHBKeywords(adObject: self.mopubObject!)
-        DispatchQueue.main.async {
+
         XCTAssertTrue(((self.mopubObject?.description) != nil), "MPAdView")
         XCTAssertNotNil(self.mopubObject?.keywords)
-        let keywords = self.mopubObject?.keywords
-        let keywordsArray = keywords!.components(separatedBy: ",")
+        keywords = self.mopubObject?.keywords
+        keywordsArray = keywords!.components(separatedBy: ",")
         XCTAssertEqual(1, keywordsArray.count)
         XCTAssertFalse(keywordsArray.contains("hb_env:mobile-app"))
         XCTAssertFalse(keywordsArray.contains("hb_bidder_appnexus:appnexus"))
@@ -446,7 +446,7 @@ class UtilsTests: XCTestCase {
         XCTAssertFalse(keywordsArray.contains("hb_bidder:appnexus"))
         XCTAssertFalse(keywordsArray.contains("hb_size:300x250"))
         XCTAssertTrue(keywordsArray.contains("test_key:test_value"))
-        }
+
         let prebidKeywords2: [String: String] = ["hb_env": "mobile-app",
                                                "hb_bidder_rubicon": "rubicon",
                                                "hb_size_rubicon": "300x250",
@@ -459,11 +459,11 @@ class UtilsTests: XCTestCase {
                                                "hb_size": "300x250"]
         let bidResponse2 = BidResponse(adId: "test2", adServerTargeting: prebidKeywords2 as [String: AnyObject])
         utils.validateAndAttachKeywords(adObject: self.mopubObject as AnyObject, bidResponse: bidResponse2)
-        DispatchQueue.main.async {
+
         XCTAssertTrue(((self.mopubObject?.description) != nil), "MPAdView")
         XCTAssertNotNil(self.mopubObject?.keywords)
-        let keywords = self.mopubObject?.keywords
-        let keywordsArray = keywords!.components(separatedBy: ",")
+        keywords = self.mopubObject?.keywords
+        keywordsArray = keywords!.components(separatedBy: ",")
         XCTAssertEqual(11, keywordsArray.count)
         XCTAssertTrue (keywordsArray.contains("hb_env:mobile-app"))
         XCTAssertTrue (keywordsArray.contains("hb_bidder_rubicon:rubicon"))
@@ -476,13 +476,13 @@ class UtilsTests: XCTestCase {
         XCTAssertTrue (keywordsArray.contains("hb_bidder:rubicon"))
         XCTAssertTrue (keywordsArray.contains("hb_size:300x250"))
         XCTAssertTrue (keywordsArray.contains("test_key:test_value"))
-        }
+        
         utils.removeHBKeywords(adObject: self.mopubObject!)
-        DispatchQueue.main.async {
+        
         XCTAssertTrue(((self.mopubObject?.description) != nil), "MPAdView")
         XCTAssertNotNil(self.mopubObject?.keywords)
-        let keywords = self.mopubObject?.keywords
-        let keywordsArray = keywords!.components(separatedBy: ",")
+        keywords = self.mopubObject?.keywords
+        keywordsArray = keywords!.components(separatedBy: ",")
         XCTAssertEqual(1, keywordsArray.count)
         XCTAssertFalse(keywordsArray.contains("hb_env:mobile-app"))
         XCTAssertFalse(keywordsArray.contains("hb_bidder_rubicon:rubicon"))
@@ -495,7 +495,7 @@ class UtilsTests: XCTestCase {
         XCTAssertFalse(keywordsArray.contains("hb_bidder:rubicon"))
         XCTAssertFalse(keywordsArray.contains("hb_size:300x250"))
         XCTAssertTrue(keywordsArray.contains("test_key:test_value"))
-        }
+        
     }
 
     func testMoPubKeywordsAbsent() {
