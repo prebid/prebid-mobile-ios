@@ -61,7 +61,9 @@ import Foundation
                             callback(bidResponse, ResultCode.prebidDemandFetchSuccess)
                         }
                     } else {
-                        callback(nil, result)
+                        DispatchQueue.main.async {
+                            callback(nil, result)
+                        }
                     }
 
                     }.resume()
