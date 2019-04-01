@@ -75,10 +75,10 @@ public class Utils: NSObject {
 
                         i += 1
                     }
-                    DispatchQueue.main.async {
-                        Log.info("MoPub targeting keys are \(newString)")
-                        adObject.setValue( newString, forKey: "keywords")
-                    }
+
+                    Log.info("MoPub targeting keys are \(newString)")
+                    adObject.setValue( newString, forKey: "keywords")
+
 
                 }
             }
