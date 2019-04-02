@@ -28,6 +28,8 @@ extension String {
 
     public static let kIFASentinelValue = "00000000-0000-0000-0000-000000000000"
 
+    public static let DFP_Object_Name = "DFPRequest"
+    
     public static let DFP_N_Object_Name = "DFPNRequest"
 
     public static let DFP_O_Object_Name = "DFPORequest"
@@ -41,7 +43,8 @@ extension String {
 }
 
 extension Double {
-     public static let PB_MIN_RefreshTime = 30000.0
+//     public static let PB_MIN_RefreshTime = 30000.0
+    public static let PB_MIN_RefreshTime = 1_000.0
 
 }
 
