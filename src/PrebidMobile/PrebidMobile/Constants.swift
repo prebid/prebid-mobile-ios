@@ -43,8 +43,7 @@ extension String {
 }
 
 extension Double {
-//     public static let PB_MIN_RefreshTime = 30000.0
-    public static let PB_MIN_RefreshTime = 1_000.0
+     public static let PB_MIN_RefreshTime = 30000.0
 
 }
 
