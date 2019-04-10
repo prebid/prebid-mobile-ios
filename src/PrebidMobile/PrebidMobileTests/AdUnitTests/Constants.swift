@@ -34,4 +34,10 @@ struct Constants {
     static let cpm3 = 0.54
     static let BIDDER_NAME = "MockBidder"
     static let utAdRequestBaseUrl = "https://prebid.adnxs.com/pbs/v1/openrtb2/auction"
+    
+    static let pbsRubiconAccount_id = "1001"
+    static let pbsConfigId300x250Rubicon = "1001-1"
+    static let mopubBannerAdunitId300x250Rubicon = "a108b8dd5ebc472098167e6f1c118120"
+    static let dfpBannerAdunitId300x250Rubicon = "/5300653/test_adunit_pavliuchyk_300x250_prebid-server.rubiconproject.com_puc"
+
 }
