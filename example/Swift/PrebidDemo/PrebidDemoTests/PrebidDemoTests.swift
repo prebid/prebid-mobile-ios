@@ -51,7 +51,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
     
     func setUpAppNexus() {
         Prebid.shared.prebidServerHost = PrebidHost.Appnexus
-        Prebid.shared.prebidServerAccountId = Constants.PBS_APPNEXUS_ACCOUNT_ID
+        Prebid.shared.prebidServerAccountId = Constants.PBS_ACCOUNT_ID_APPNEXUS
         
         Prebid.shared.timeoutMillis = 10_000;
     }
@@ -63,14 +63,14 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         Prebid.shared.timeoutMillis = 10_000;
     }
 
-    func testDFPBannerSanityAppCheckTest() {
+    func testAppNexusDFPBannerSanityAppCheckTest() {
         
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 30.0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.delegate = self
         dfpBanner.backgroundColor = .red
@@ -91,12 +91,42 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
 
     }
+    
+    func testRubiconDFPBannerSanityAppCheckTest() {
+        setUpAppRubicon()
+        
+        loadSuccesfulException = expectation(description: "\(#function)")
+        
+        timeoutForRequest = 30.0
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
+        let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_RUBICON
+        dfpBanner.rootViewController = viewController
+        dfpBanner.delegate = self
+        dfpBanner.backgroundColor = .red
+        viewController?.view.addSubview(dfpBanner)
+        let request: DFPRequest = DFPRequest()
+        request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
+        bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
+            if resultCode == ResultCode.prebidDemandFetchSuccess {
+                XCTAssertNotNil(request.customTargeting)
+                XCTAssertNotNil(request.customTargeting!["hb_pb"])
+                dfpBanner.load(request)
+            } else {
+                XCTFail("resultCode:\(resultCode.name())")
+                self.loadSuccesfulException?.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: timeoutForRequest, handler: nil)
+        
+    }
 
     func testDFPBannerWithoutAutoRefresh() {
         var fetchDemandCount = 0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
@@ -111,10 +141,10 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func testDFPBannerWithInvalidAutoRefresh() {
         var fetchDemandCount = 0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 20000)
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
@@ -129,10 +159,10 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func testDFPBannerWithValidAutoRefresh() {
         var fetchDemandCount = 0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 30000)
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
@@ -149,8 +179,8 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 30.0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS_DEMAND)
-        dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID)
+        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
+        dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         let request: DFPRequest = DFPRequest()
         dfpInterstitial?.delegate = self
         request.testDevices = [ kGADSimulatorID]
@@ -171,8 +201,8 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func testDFPInterstitialWithoutAutoRefresh() {
         var fetchDemandCount = 0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS_DEMAND)
-        dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID)
+        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
+        dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         let request: DFPRequest = DFPRequest()
         request.testDevices = [ kGADSimulatorID]
         interstitialUnit.fetchDemand(adObject: request) { (_) in
@@ -184,9 +214,9 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func testDFPInterstitialWithInvalidAutoRefresh() {
         var fetchDemandCount = 0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS_DEMAND)
+        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
         interstitialUnit.setAutoRefreshMillis(time: 20000)
-        dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID)
+        dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         let request: DFPRequest = DFPRequest()
         request.testDevices = [ kGADSimulatorID]
         interstitialUnit.fetchDemand(adObject: request) { (_) in
@@ -198,9 +228,9 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func testDFPInterstitialWithValidAutoRefresh() {
         var fetchDemandCount = 0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS_DEMAND)
+        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
         interstitialUnit.setAutoRefreshMillis(time: 30000)
-        dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID)
+        dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         let request: DFPRequest = DFPRequest()
         request.testDevices = [ kGADSimulatorID]
         interstitialUnit.fetchDemand(adObject: request) { (_) in
@@ -210,15 +240,44 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTAssertEqual(2, fetchDemandCount)
     }
 
-    func testMoPubBannerSanityAppCheckTest() {
+    func testAppNexusMoPubBannerSanityAppCheckTest() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 20.0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250)
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250, size: CGSize(width: 300, height: 250))
+        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
+        mopubBanner?.delegate = self
+        viewController?.view.addSubview(mopubBanner!)
+        bannerUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
+            if resultCode == ResultCode.prebidDemandNoBids {
+                self.mopubInterstitial?.loadAd()
+            } else if resultCode == ResultCode.prebidDemandFetchSuccess {
+                XCTAssertNotNil(mopubBanner!.keywords)
+                XCTAssertNotNil(mopubBanner!.keywords.contains("hb_pb"))
+                mopubBanner!.loadAd()
+            } else {
+                XCTFail("resultCode:\(resultCode.name())")
+                self.loadSuccesfulException?.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: timeoutForRequest, handler: nil)
+    }
+    
+    func testRubiconMoPubBannerSanityAppCheckTest() {
+        setUpAppRubicon()
+        
+        loadSuccesfulException = expectation(description: "\(#function)")
+        
+        timeoutForRequest = 20.0
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
+        sdkConfig.globalMediationSettings = []
+        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
+        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
         mopubBanner?.delegate = self
         viewController?.view.addSubview(mopubBanner!)
         bannerUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
@@ -239,11 +298,11 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func testMopubBannerWithoutAutoRefresh() {
         var fetchDemandCount = 0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250)
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250, size: CGSize(width: 300, height: 250))
+        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.fetchDemand(adObject: mopubBanner!) { (_) in
             fetchDemandCount += 1
         }
@@ -253,12 +312,12 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func testMopubBannerWithInvalidAutoRefresh() {
         var fetchDemandCount = 0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 20000)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250)
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250, size: CGSize(width: 300, height: 250))
+        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.fetchDemand(adObject: mopubBanner!) { (_) in
             fetchDemandCount += 1
         }
@@ -268,12 +327,12 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func testMopubBannerWithValidAutoRefresh() {
         var fetchDemandCount = 0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 30000)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250)
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250, size: CGSize(width: 300, height: 250))
+        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.fetchDemand(adObject: mopubBanner!) { (_) in
             fetchDemandCount += 1
         }
@@ -285,11 +344,11 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 20.0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS_DEMAND)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID)
+        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID)
+        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         mopubInterstitial?.delegate = self
         interstitialUnit.fetchDemand(adObject: mopubInterstitial!) { (resultCode: ResultCode) in
             if resultCode == ResultCode.prebidDemandNoBids {
@@ -309,11 +368,11 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func testMopubInterstitialWithoutAutoRefresh() {
         var fetchDemandCount = 0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS_DEMAND)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID)
+        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID)
+        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         interstitialUnit.fetchDemand(adObject: mopubInterstitial!) { (_) in
              fetchDemandCount += 1
         }
@@ -323,12 +382,12 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func testMopubInterstitialWithInvalidAutoRefresh() {
         var fetchDemandCount = 0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS_DEMAND)
+        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
         interstitialUnit.setAutoRefreshMillis(time: 20000)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID)
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID)
+        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         interstitialUnit.fetchDemand(adObject: mopubInterstitial!) { (_) in
             fetchDemandCount += 1
         }
@@ -338,12 +397,12 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func testMopubInterstitialWithValidAutoRefresh() {
         var fetchDemandCount = 0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS_DEMAND)
+        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
         interstitialUnit.setAutoRefreshMillis(time: 30000)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID)
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID)
+        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         interstitialUnit.fetchDemand(adObject: mopubInterstitial!) { (_) in
             fetchDemandCount += 1
         }
@@ -353,10 +412,10 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func testAutoRefreshWith2MinThenDisable() {
         var fetchDemandCount = 0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 30000)
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
@@ -375,10 +434,10 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
     
     func testAutoRefreshWith5MinThenDisable() {
         var fetchDemandCount = 0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 120000)
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
@@ -395,14 +454,14 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTAssertEqual(0, fetchDemandCount)
     }
 
-    func testInvalidPrebidServerAccountId() {
+    func testAppNexysInvalidPrebidServerAccountId() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
-        Prebid.shared.prebidServerAccountId = Constants.PBS_INVALID_ACCOUNT_ID
+        Prebid.shared.prebidServerAccountId = Constants.PBS_INVALID_ACCOUNT_ID_APPNEXUS
         timeoutForRequest = 10.0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request: DFPRequest = DFPRequest()
         request.testDevices = [ kGADSimulatorID]
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
@@ -412,6 +471,28 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
 
+    }
+    
+    func testRubiconInvalidPrebidServerAccountId() {
+        
+        setUpAppRubicon()
+        
+        loadSuccesfulException = expectation(description: "\(#function)")
+        
+        Prebid.shared.prebidServerAccountId = Constants.PBS_INVALID_ACCOUNT_ID_RUBICON
+        timeoutForRequest = 10.0
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
+        let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_RUBICON
+        let request: DFPRequest = DFPRequest()
+        request.testDevices = [ kGADSimulatorID]
+        bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
+            XCTAssertEqual(resultCode, ResultCode.prebidInvalidAccountId)
+            self.loadSuccesfulException?.fulfill()
+        }
+        
+        waitForExpectations(timeout: timeoutForRequest, handler: nil)
+        
     }
 
     func testEmptyPrebidServerAccountId() {
@@ -419,9 +500,9 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         Prebid.shared.prebidServerAccountId = Constants.PBS_EMPTY_ACCOUNT_ID
         timeoutForRequest = 10.0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request: DFPRequest = DFPRequest()
         request.testDevices = [ kGADSimulatorID]
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
@@ -433,13 +514,13 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     }
 
-    func testInvalidConfigId() {
+    func testAppNexusInvalidConfigId() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 10.0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_INVALID_CONFIG_ID, size: CGSize(width: 300, height: 250))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_INVALID_CONFIG_ID_APPNEXUS, size: CGSize(width: 300, height: 250))
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request: DFPRequest = DFPRequest()
         request.testDevices = [ kGADSimulatorID]
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
@@ -449,6 +530,27 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
 
+    }
+    
+    func testRubiconInvalidConfigId() {
+        
+        setUpAppRubicon()
+        
+        loadSuccesfulException = expectation(description: "\(#function)")
+        
+        timeoutForRequest = 10.0
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_INVALID_CONFIG_ID_RUBICON, size: CGSize(width: 300, height: 250))
+        let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_RUBICON
+        let request: DFPRequest = DFPRequest()
+        request.testDevices = [ kGADSimulatorID]
+        bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
+            XCTAssertEqual(resultCode, ResultCode.prebidInvalidConfigId)
+            self.loadSuccesfulException?.fulfill()
+        }
+        
+        waitForExpectations(timeout: timeoutForRequest, handler: nil)
+        
     }
 
     func testEmptyConfigId() {
@@ -457,7 +559,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         timeoutForRequest = 10.0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_EMPTY_CONFIG_ID, size: CGSize(width: 300, height: 250))
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request: DFPRequest = DFPRequest()
         request.testDevices = [ kGADSimulatorID]
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
@@ -467,26 +569,6 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
 
-    }
-
-    func testRubiconDemandForDFP() {
-        
-        setUpAppRubicon()
-        loadSuccesfulException = expectation(description: "\(#function)")
-        
-        timeoutForRequest = 10.0
-
-        let bannerUnit = BannerAdUnit(configId: "1001-2", size: CGSize(width: 300, height: 250))
-        let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = "/112115922/PB_test_2"
-        let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID]
-        bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, ResultCode.prebidDemandFetchSuccess, resultCode.name())
-            self.loadSuccesfulException?.fulfill()
-        }
-        
-        waitForExpectations(timeout: timeoutForRequest, handler: nil)
     }
 
     func testYOBWith2018() {
@@ -586,10 +668,10 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         var fetchCount = 0
         timeoutForRequest = 60.0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 30000)
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
@@ -622,12 +704,12 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         var fetchCount = 0
         timeoutForRequest = 60.0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 30000)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250)
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250, size: CGSize(width: 300, height: 250))
+        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         mopubBanner?.keywords = "key1:value1,key2:value2"
         bannerUnit.fetchDemand(adObject: mopubBanner!) { (_) in
             fetchCount += 1
@@ -654,11 +736,11 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 30.0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         let arraySizes = [CGSize(width: 320, height: 50), CGSize(width: 300, height: 250), CGSize(width: 300, height: 600), CGSize(width: 320, height: 100), CGSize(width: 320, height: 480), CGSize(width: 0, height: 0)]
         bannerUnit.addAdditionalSize(sizes: arraySizes)
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
@@ -676,11 +758,11 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 30.0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 320, height: 50))
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 320, height: 50))
         let arraySizes = [CGSize(width: 0, height: 0)]
         bannerUnit.addAdditionalSize(sizes: arraySizes)
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         dfpBanner.rootViewController = viewController
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
@@ -787,18 +869,18 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             fetchDemandCount += 1
         }
 
-        let interstitialUnit9 = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS_DEMAND)
-        let sdkConfig9 = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID)
+        let interstitialUnit9 = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
+        let sdkConfig9 = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         sdkConfig9.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig9) {}
-        let mopubInterstitial9 = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID)
+        let mopubInterstitial9 = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         interstitialUnit9.fetchDemand(adObject: mopubInterstitial9!) { (resultCode: ResultCode) in
             XCTAssert(resultCode == ResultCode.prebidDemandFetchSuccess || resultCode == ResultCode.prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
 
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS_DEMAND)
-        let dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID)
+        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
+        let dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         let request: DFPRequest = DFPRequest()
         dfpInterstitial.delegate = self
         request.testDevices = [ kGADSimulatorID]
@@ -813,11 +895,11 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func testSameConfigIdOnDifferentAdObjects() {
         var fetchDemandCount = 0
-        let bannerUnit1 = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
-        let sdkConfig1 = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250)
+        let bannerUnit1 = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
+        let sdkConfig1 = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
         sdkConfig1.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig1) {}
-        let mopubBanner1 = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250, size: CGSize(width: 300, height: 250))
+        let mopubBanner1 = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         mopubBanner1?.delegate = self
         viewController?.view.addSubview(mopubBanner1!)
         bannerUnit1.fetchDemand(adObject: mopubBanner1!) { (resultCode: ResultCode) in
@@ -836,11 +918,11 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             }
         }
 
-        let bannerUnit2 = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND, size: CGSize(width: 300, height: 250))
-        let sdkConfig2 = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250)
+        let bannerUnit2 = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
+        let sdkConfig2 = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
         sdkConfig2.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig2) {}
-        let mopubBanner2 = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250, size: CGSize(width: 300, height: 250))
+        let mopubBanner2 = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         mopubBanner2?.delegate = self
         viewController?.view.addSubview(mopubBanner2!)
         bannerUnit2.fetchDemand(adObject: mopubBanner2!) { (resultCode: ResultCode) in
