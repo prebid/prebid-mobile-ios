@@ -92,14 +92,16 @@ class PBViewTool: NSObject {
                 for innerView in views {
                     let nameInner: String = String(describing: type(of: innerView))
                     if (innerView.isKind(of: WKWebView.self)) {
-                      return PBViewTool.checkJSExistInWebView(webView: innerView as! WKWebView)
+                      return PBViewTool.checkJSExistInWebView(wkWebView: innerView as! WKWebView)
                     } else if (innerView.isKind(of: UIWebView.self)) {
-                        return PBViewTool.checkJSExistInUIWebView(webView: innerView as! UIWebView)
+                        return PBViewTool.checkJSExistInWebView(uiWebView: innerView as! UIWebView)
                     } else if (nameInner == "GADOUIKitWebView") {
                         let deepInnerView  = innerView.subviews
                         for innerView2 in deepInnerView {
                             if (innerView2.isKind(of: WKWebView.self)) {
-                                return PBViewTool.checkJSExistInWebView(webView: innerView2 as! WKWebView)
+                                return PBViewTool.checkJSExistInWebView(wkWebView: innerView2 as! WKWebView)
+                            } else if (innerView.isKind(of: UIWebView.self)) {
+                                return PBViewTool.checkJSExistInWebView(uiWebView: innerView2 as! UIWebView)
                             }
                         }
                     }
@@ -118,9 +120,11 @@ class PBViewTool: NSObject {
                         for level5: UIView? in level4?.subviews ?? [] {
                             for level6: UIView? in level5?.subviews ?? [] {
                                 if (level6 is UIWebView) {
-                                    return PBViewTool.checkJSExistInUIWebView(webView: level6 as! UIWebView)
+                                    let uiWebView = level6 as! UIWebView;
+                                    return PBViewTool.checkJSExistInWebView(uiWebView: uiWebView) && checkWebViewSize(adManagerBanner: view!, webView: uiWebView)
                                 } else if (level6 is WKWebView) {
-                                    return PBViewTool.checkJSExistInWebView(webView: level6 as! WKWebView)
+                                    let wkWebView = level6 as! WKWebView;
+                                    return PBViewTool.checkJSExistInWebView(wkWebView: wkWebView) && checkWebViewSize(adManagerBanner: view!, webView: wkWebView)
                                 } else if level5 == nil {
                                     return false
                                 }
@@ -133,12 +137,12 @@ class PBViewTool: NSObject {
         return false
     }
 
-    class func checkJSExistInWebView(webView: WKWebView) -> Bool {
+    class func checkJSExistInWebView(wkWebView: WKWebView) -> Bool {
         let sema = DispatchSemaphore(value: 0)
         var content: String?
         DispatchQueue.global().async {
             // Background thread
-            webView.evaluateJavaScript("document.body.innerHTML", completionHandler: { (value: Any!, _: Error!) -> Void in
+            wkWebView.evaluateJavaScript("document.body.innerHTML", completionHandler: { (value: Any!, _: Error!) -> Void in
                 if let contentHtml = value as? String {
                     content = contentHtml
                 } else {
@@ -156,14 +160,25 @@ class PBViewTool: NSObject {
         }
     }
     
+    // MARK: - UIWebView deprecated
     //At least AdManager v7.42.2 uses UIWebView
-    class func checkJSExistInUIWebView(webView: UIWebView) -> Bool {
-        let content = webView.stringByEvaluatingJavaScript(from: "document.body.innerHTML")
+    class func checkJSExistInWebView(uiWebView: UIWebView) -> Bool {
+        let content = uiWebView.stringByEvaluatingJavaScript(from: "document.body.innerHTML")
 
         if ((content?.contains("prebid/pbm.js"))!) || (content?.contains("creative.js"))! {
             return true
         } else {
             return false
         }
+    }
+    
+    /// It is possible that AdManager response for Banner contains all necessary data but an ad is not being rendered.
+    /// Check if the ad is not 1x1
+    class func checkWebViewSize(adManagerBanner: GADBannerView, webView: UIView) -> Bool {
+        
+        let webviewWidth = webView.frame.size.width
+        let webviewHeight = webView.frame.size.height
+
+        return webviewWidth > 1 && webviewHeight >= 1
     }
 }
