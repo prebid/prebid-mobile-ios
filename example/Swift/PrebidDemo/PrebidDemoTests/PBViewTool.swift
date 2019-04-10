@@ -87,12 +87,14 @@ class PBViewTool: NSObject {
 
         for view in subviews {
             let name: String = String(describing: type(of: view))
-            if (name == "GADNWebAdView" || name == "GADOAdView") {
+            if (name == "GADNWebAdView" || name == "GADOAdView" || name == "GADWebAdView") {
                 let views  = view.subviews
                 for innerView in views {
                     let nameInner: String = String(describing: type(of: innerView))
                     if (innerView.isKind(of: WKWebView.self)) {
                       return PBViewTool.checkJSExistInWebView(webView: innerView as! WKWebView)
+                    } else if (innerView.isKind(of: UIWebView.self)) {
+                        return PBViewTool.checkJSExistInUIWebView(webView: innerView as! UIWebView)
                     } else if (nameInner == "GADOUIKitWebView") {
                         let deepInnerView  = innerView.subviews
                         for innerView2 in deepInnerView {
@@ -115,7 +117,9 @@ class PBViewTool: NSObject {
                     for level4: UIView? in level3?.subviews ?? [] {
                         for level5: UIView? in level4?.subviews ?? [] {
                             for level6: UIView? in level5?.subviews ?? [] {
-                                if (level6 is WKWebView) {
+                                if (level6 is UIWebView) {
+                                    return PBViewTool.checkJSExistInUIWebView(webView: level6 as! UIWebView)
+                                } else if (level6 is WKWebView) {
                                     return PBViewTool.checkJSExistInWebView(webView: level6 as! WKWebView)
                                 } else if level5 == nil {
                                     return false
@@ -149,6 +153,17 @@ class PBViewTool: NSObject {
         } else {
             return false
 
+        }
+    }
+    
+    //At least AdManager v7.42.2 uses UIWebView
+    class func checkJSExistInUIWebView(webView: UIWebView) -> Bool {
+        let content = webView.stringByEvaluatingJavaScript(from: "document.body.innerHTML")
+
+        if ((content?.contains("prebid/pbm.js"))!) || (content?.contains("creative.js"))! {
+            return true
+        } else {
+            return false
         }
     }
 }

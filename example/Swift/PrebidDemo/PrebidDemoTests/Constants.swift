@@ -15,7 +15,9 @@
 
 struct Constants {
 
-    static let PBS_ACCOUNT_ID = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+    static let PBS_APPNEXUS_ACCOUNT_ID = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+    static let PBS_RUBICON_ACCOUNT_ID = "1001"
+    
     static let PBS_CONFIG_ID_300x250_APPNEXUS_DEMAND = "6ace8c7d-88c0-4623-8117-75bc3f0a2e45"
     static let PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS_DEMAND = "625c6125-f19e-4d5b-95c5-55501526b2a4"
     static let MOPUB_BANNER_ADUNIT_ID_300x250 = "bd0a2cd5dd2241aaac18d7823d8e3a6f"
@@ -26,5 +28,4 @@ struct Constants {
     static let PBS_EMPTY_ACCOUNT_ID = ""
     static let PBS_INVALID_CONFIG_ID = "6ace8c7d-88c0-4623-8117-ffffffffffff"
     static let PBS_EMPTY_CONFIG_ID = ""
-    static let PBS_RUBICON_ACCOUNT_ID = "1001"
 }
