@@ -177,17 +177,17 @@ class BidManagerTests: XCTestCase {
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
         manager.requestBidsForAdUnit { (bidResponse, _) in
-            if (bidResponse != nil) {
-                XCTAssertEqual("appnexus", bidResponse?.customKeywords["hb_bidder"])
-                XCTAssertEqual("appnexus", bidResponse?.customKeywords["hb_bidder_appnexus"])
-                XCTAssertEqual("7008d51d-af2a-4357-acea-1cb672ac2189", bidResponse?.customKeywords["hb_cache_id"])
-                XCTAssertEqual("7008d51d-af2a-4357-acea-1cb672ac2189", bidResponse?.customKeywords["hb_cache_id_appnexus"])
-                XCTAssertEqual("mobile-app", bidResponse?.customKeywords["hb_env"])
-                XCTAssertEqual("mobile-app", bidResponse?.customKeywords["hb_env_appnexus"])
-                XCTAssertEqual("0.50", bidResponse?.customKeywords["hb_pb"])
-                XCTAssertEqual("0.50", bidResponse?.customKeywords["hb_pb_appnexus"])
-                XCTAssertEqual("300x250", bidResponse?.customKeywords["hb_size"])
-                XCTAssertEqual("300x250", bidResponse?.customKeywords["hb_size_appnexus"])
+            if let bidResponse = bidResponse {
+                XCTAssertEqual("appnexus", bidResponse.customKeywords["hb_bidder"])
+                XCTAssertEqual("appnexus", bidResponse.customKeywords["hb_bidder_appnexus"])
+                XCTAssertEqual("7008d51d-af2a-4357-acea-1cb672ac2189", bidResponse.customKeywords["hb_cache_id"])
+                XCTAssertEqual("7008d51d-af2a-4357-acea-1cb672ac2189", bidResponse.customKeywords["hb_cache_id_appnexus"])
+                XCTAssertEqual("mobile-app", bidResponse.customKeywords["hb_env"])
+                XCTAssertEqual("mobile-app", bidResponse.customKeywords["hb_env_appnexus"])
+                XCTAssertEqual("0.50", bidResponse.customKeywords["hb_pb"])
+                XCTAssertEqual("0.50", bidResponse.customKeywords["hb_pb_appnexus"])
+                XCTAssertEqual("300x250", bidResponse.customKeywords["hb_size"])
+                XCTAssertEqual("300x250", bidResponse.customKeywords["hb_size_appnexus"])
                 self.loadAdSuccesfulException?.fulfill()
             } else {
                 self.loadAdSuccesfulException = nil
