@@ -42,9 +42,9 @@
 		60C038342204F02C0082B32C /* responseIncorrectFormat.json in Resources */ = {isa = PBXBuildFile; fileRef = 97EE4C6722035E57006FEFA2 /* responseIncorrectFormat.json */; };
 		60C038352204F02C0082B32C /* responseInvalidAccountId.json in Resources */ = {isa = PBXBuildFile; fileRef = 97EE4C6322035DD1006FEFA2 /* responseInvalidAccountId.json */; };
 		60C038362204F02C0082B32C /* responseInvalidConfigId.json in Resources */ = {isa = PBXBuildFile; fileRef = 97EE4C6422035DD1006FEFA2 /* responseInvalidConfigId.json */; };
-		60C038372204F02C0082B32C /* noBidResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 979C2F9922030606001F1FCC /* noBidResponse.json */; };
+		60C038372204F02C0082B32C /* noBidResponseAppNexus.json in Resources */ = {isa = PBXBuildFile; fileRef = 979C2F9922030606001F1FCC /* noBidResponseAppNexus.json */; };
 		60C038382204F02C0082B32C /* requestPBM.json in Resources */ = {isa = PBXBuildFile; fileRef = 979177A22201B43300E624CE /* requestPBM.json */; };
-		60C038392204F02C0082B32C /* responsePBM.json in Resources */ = {isa = PBXBuildFile; fileRef = 979177A12201B43300E624CE /* responsePBM.json */; };
+		60C038392204F02C0082B32C /* responseAppNexusPBM.json in Resources */ = {isa = PBXBuildFile; fileRef = 979177A12201B43300E624CE /* responseAppNexusPBM.json */; };
 		60D792FC217E229B0080F428 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D792F2217E229A0080F428 /* PrebidMobile.framework */; };
 		60D79301217E229B0080F428 /* PrebidMobileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D79300217E229B0080F428 /* PrebidMobileTests.swift */; };
 		60D79303217E229B0080F428 /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D792F5217E229A0080F428 /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -56,12 +56,14 @@
 		60D79318217F7F3E0080F428 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D79317217F7F3E0080F428 /* Constants.swift */; };
 		60EE7B0621F26329000B12A8 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EE7B0521F26329000B12A8 /* Utils.swift */; };
 		F5400CB22209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json in Resources */ = {isa = PBXBuildFile; fileRef = F5400CB12209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json */; };
-		F5400CB42209E9B40018F6B1 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json in Resources */ = {isa = PBXBuildFile; fileRef = F5400CB32209E9B40018F6B1 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json */; };
 		F5400CB62209EBF50018F6B1 /* PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json in Resources */ = {isa = PBXBuildFile; fileRef = F5400CB52209EBF50018F6B1 /* PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json */; };
 		F5400CB82209F19B0018F6B1 /* responseInvalidNoTopCacheId.json in Resources */ = {isa = PBXBuildFile; fileRef = F5400CB72209F19B0018F6B1 /* responseInvalidNoTopCacheId.json */; };
 		F543D52F220E101B00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D52E220E101A00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json */; };
 		F543D532220E193200F1EF8F /* noBidResponseTmaxTooLarge.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D530220E193200F1EF8F /* noBidResponseTmaxTooLarge.json */; };
 		F543D533220E193200F1EF8F /* noBidResponseNoTmax.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D531220E193200F1EF8F /* noBidResponseNoTmax.json */; };
+		FA7C3EB5225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB4225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json */; };
+		FA7C3EB7225E4C2200D2F128 /* responseRubiconPBM.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB6225E4C2200D2F128 /* responseRubiconPBM.json */; };
+		FA7C3EB9225E518000D2F128 /* noBidResponseRubicon.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB8225E518000D2F128 /* noBidResponseRubicon.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,7 +117,7 @@
 		9791778F2201AF4700E624CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		979177962201AF5F00E624CE /* DispatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatcherTests.swift; sourceTree = "<group>"; };
 		9791779A2201B32200E624CE /* BidManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidManagerTests.swift; sourceTree = "<group>"; };
-		979177A12201B43300E624CE /* responsePBM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responsePBM.json; sourceTree = "<group>"; };
+		979177A12201B43300E624CE /* responseAppNexusPBM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseAppNexusPBM.json; sourceTree = "<group>"; };
 		979177A22201B43300E624CE /* requestPBM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = requestPBM.json; sourceTree = "<group>"; };
 		979177C72201F3E500E624CE /* PBHTTPStubURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBHTTPStubURLProtocol.m; sourceTree = "<group>"; };
 		979177C82201F3E500E624CE /* PBHTTPStubbingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBHTTPStubbingManager.h; sourceTree = "<group>"; };
@@ -130,18 +132,20 @@
 		979177D62201F40300E624CE /* PBTestGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTestGlobal.m; sourceTree = "<group>"; };
 		979177D72201F40300E624CE /* NSObject+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Swizzling.m"; sourceTree = "<group>"; };
 		979177D82201F40300E624CE /* PBTestGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTestGlobal.h; sourceTree = "<group>"; };
-		979C2F9922030606001F1FCC /* noBidResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponse.json; sourceTree = "<group>"; };
+		979C2F9922030606001F1FCC /* noBidResponseAppNexus.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponseAppNexus.json; sourceTree = "<group>"; };
 		97EE4C6322035DD1006FEFA2 /* responseInvalidAccountId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseInvalidAccountId.json; sourceTree = "<group>"; };
 		97EE4C6422035DD1006FEFA2 /* responseInvalidConfigId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseInvalidConfigId.json; sourceTree = "<group>"; };
 		97EE4C6722035E57006FEFA2 /* responseIncorrectFormat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseIncorrectFormat.json; sourceTree = "<group>"; };
 		97F29999220056D10072E0C0 /* BannerAdUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdUnitTests.swift; sourceTree = "<group>"; };
 		F5400CB12209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseInvalidResponseWithoutCacheId.json; sourceTree = "<group>"; };
-		F5400CB32209E9B40018F6B1 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrebidServerOneBidFromAppNexusOneBidFromRubicon.json; sourceTree = "<group>"; };
 		F5400CB52209EBF50018F6B1 /* PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json; sourceTree = "<group>"; };
 		F5400CB72209F19B0018F6B1 /* responseInvalidNoTopCacheId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseInvalidNoTopCacheId.json; sourceTree = "<group>"; };
 		F543D52E220E101A00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseValidTwoBidsOnTheSameSeat.json; sourceTree = "<group>"; };
 		F543D530220E193200F1EF8F /* noBidResponseTmaxTooLarge.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponseTmaxTooLarge.json; sourceTree = "<group>"; };
 		F543D531220E193200F1EF8F /* noBidResponseNoTmax.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponseNoTmax.json; sourceTree = "<group>"; };
+		FA7C3EB4225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = PrebidServerOneBidFromAppNexusOneBidFromRubicon.json; path = ../../../../../../../../../../android/SDKPrebid/contributing/PrebidMobile/API1.0/src/test/resources/PrebidServerOneBidFromAppNexusOneBidFromRubicon.json; sourceTree = "<group>"; };
+		FA7C3EB6225E4C2200D2F128 /* responseRubiconPBM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseRubiconPBM.json; sourceTree = "<group>"; };
+		FA7C3EB8225E518000D2F128 /* noBidResponseRubicon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponseRubicon.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,19 +311,21 @@
 		979177A02201B41500E624CE /* Responses */ = {
 			isa = PBXGroup;
 			children = (
+				FA7C3EB8225E518000D2F128 /* noBidResponseRubicon.json */,
+				FA7C3EB6225E4C2200D2F128 /* responseRubiconPBM.json */,
+				FA7C3EB4225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json */,
 				F5400CB72209F19B0018F6B1 /* responseInvalidNoTopCacheId.json */,
 				F543D52E220E101A00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json */,
 				F5400CB12209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json */,
 				F5400CB52209EBF50018F6B1 /* PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json */,
-				F5400CB32209E9B40018F6B1 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json */,
 				97EE4C6722035E57006FEFA2 /* responseIncorrectFormat.json */,
 				97EE4C6322035DD1006FEFA2 /* responseInvalidAccountId.json */,
 				97EE4C6422035DD1006FEFA2 /* responseInvalidConfigId.json */,
-				979C2F9922030606001F1FCC /* noBidResponse.json */,
+				979C2F9922030606001F1FCC /* noBidResponseAppNexus.json */,
 				F543D531220E193200F1EF8F /* noBidResponseNoTmax.json */,
 				F543D530220E193200F1EF8F /* noBidResponseTmaxTooLarge.json */,
 				979177A22201B43300E624CE /* requestPBM.json */,
-				979177A12201B43300E624CE /* responsePBM.json */,
+				979177A12201B43300E624CE /* responseAppNexusPBM.json */,
 				600CF13D220CDFA700C95176 /* responseinvalidSize.json */,
 			);
 			path = Responses;
@@ -425,11 +431,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				60C038342204F02C0082B32C /* responseIncorrectFormat.json in Resources */,
-				F5400CB42209E9B40018F6B1 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json in Resources */,
 				F5400CB82209F19B0018F6B1 /* responseInvalidNoTopCacheId.json in Resources */,
 				60C038352204F02C0082B32C /* responseInvalidAccountId.json in Resources */,
 				60C038362204F02C0082B32C /* responseInvalidConfigId.json in Resources */,
-				60C038372204F02C0082B32C /* noBidResponse.json in Resources */,
+				60C038372204F02C0082B32C /* noBidResponseAppNexus.json in Resources */,
+				FA7C3EB7225E4C2200D2F128 /* responseRubiconPBM.json in Resources */,
 				F543D533220E193200F1EF8F /* noBidResponseNoTmax.json in Resources */,
 				F5400CB22209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json in Resources */,
 				60C038382204F02C0082B32C /* requestPBM.json in Resources */,
@@ -437,7 +443,9 @@
 				F543D52F220E101B00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json in Resources */,
 				F5400CB62209EBF50018F6B1 /* PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json in Resources */,
 				600CF13E220CDFA700C95176 /* responseinvalidSize.json in Resources */,
-				60C038392204F02C0082B32C /* responsePBM.json in Resources */,
+				60C038392204F02C0082B32C /* responseAppNexusPBM.json in Resources */,
+				FA7C3EB5225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json in Resources */,
+				FA7C3EB9225E518000D2F128 /* noBidResponseRubicon.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
