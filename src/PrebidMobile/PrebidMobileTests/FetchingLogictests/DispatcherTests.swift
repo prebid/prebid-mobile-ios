@@ -1,11 +1,11 @@
 /*   Copyright 2018-2019 Prebid.org, Inc.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,7 @@ class DispatcherTests: XCTestCase, DispatcherDelegate {
 
     var loadSuccesfulException: XCTestExpectation?
     var timeoutForRequest: TimeInterval = 0.0
-    
+
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         timeoutForRequest = 10.0
@@ -31,15 +31,13 @@ class DispatcherTests: XCTestCase, DispatcherDelegate {
         loadSuccesfulException = nil
     }
 
-    func testDispatcherIsNotNil()
-    {
+    func testDispatcherIsNotNil() {
         let dispatcher = Dispatcher(withDelegate: self, autoRefreshMillies: 0.0)
         XCTAssertNotNil(dispatcher)
         XCTAssertNil(dispatcher.timer)
     }
-    
-    func testStartDispatcherWithRefreshMiliseconds()
-    {
+
+    func testStartDispatcherWithRefreshMiliseconds() {
         let dispatcher = Dispatcher(withDelegate: self, autoRefreshMillies: 10.0)
         dispatcher.start()
         XCTAssertNotNil(dispatcher.timer)
@@ -47,9 +45,8 @@ class DispatcherTests: XCTestCase, DispatcherDelegate {
         loadSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
     }
-    
-    func testStopDispatcher()
-    {
+
+    func testStopDispatcher() {
         let dispatcher = Dispatcher(withDelegate: self, autoRefreshMillies: 10.0)
         dispatcher.start()
         XCTAssertNotNil(dispatcher.timer)
@@ -57,8 +54,8 @@ class DispatcherTests: XCTestCase, DispatcherDelegate {
         dispatcher.stop()
         XCTAssertNil(dispatcher.timer)
     }
-    
-    //MARK:- DispatcherDelegate method
+
+    // MARK: - DispatcherDelegate method
     func refreshDemand() {
         loadSuccesfulException?.fulfill()
     }
