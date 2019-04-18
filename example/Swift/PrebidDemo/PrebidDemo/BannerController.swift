@@ -72,8 +72,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         appBannerView.addSubview(dfpBanner)
         request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
 
-        bannerUnit.fetchDemand(adObject: self.request) { [weak self] (ResultCode) in
-            print("Prebid demand fetch for DFP \(ResultCode.name())")
+        bannerUnit.fetchDemand(adObject: self.request) { [weak self] (resultCode: ResultCode) in
+            print("Prebid demand fetch for DFP \(resultCode.name())")
             self?.dfpBanner!.load(self?.request)
         }
     }
@@ -93,8 +93,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         appBannerView.addSubview(mopubBanner!)
 
         // Do any additional setup after loading the view, typically from a nib.
-        bannerUnit.fetchDemand(adObject: mopubBanner!) { (ResultCode) in
-            print("Prebid demand fetch for mopub \(ResultCode)")
+        bannerUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
+            print("Prebid demand fetch for mopub \(resultCode.name())")
 
             self.mopubBanner!.loadAd()
         }
