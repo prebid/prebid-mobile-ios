@@ -46,7 +46,7 @@ import Foundation
                     if (!Prebid.shared.timeoutUpdated) {
                         let tmax = self.getTmaxRequest(data!)
                         if (tmax > 0) {
-                            Prebid.shared.timeoutMillis = min(demandFetchEndTime - demandFetchStartTime + tmax + 200, 2000)
+                            Prebid.shared.timeoutMillis = min(demandFetchEndTime - demandFetchStartTime + tmax + 200, .PB_Request_Timeout)
                             Prebid.shared.timeoutUpdated = true
                         }
                     }

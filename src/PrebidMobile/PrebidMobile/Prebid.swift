@@ -16,7 +16,7 @@
 import Foundation
 
 @objcMembers public class Prebid: NSObject {
-    public var timeoutMillis: Int = 2000
+    public var timeoutMillis: Int = .PB_Request_Timeout
     var timeoutUpdated: Bool = false
 
     public var prebidServerAccountId: String! = ""
@@ -42,7 +42,7 @@ import Foundation
 
     public var prebidServerHost: PrebidHost = PrebidHost.Appnexus {
         didSet {
-            timeoutMillis = 2000
+            timeoutMillis = .PB_Request_Timeout
             timeoutUpdated = false
         }
     }

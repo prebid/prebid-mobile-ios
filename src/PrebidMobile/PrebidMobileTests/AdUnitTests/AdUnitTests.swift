@@ -33,8 +33,8 @@ class AdUnitTests: XCTestCase {
         adUnit.testScenario = ResultCode.prebidDemandFetchSuccess
         let testObject: AnyObject = () as AnyObject
 
-        adUnit.fetchDemand(adObject: testObject) { (ResultCode) in
-            XCTAssertEqual(ResultCode.name(), "Prebid Demand Fetch Successful")
+        adUnit.fetchDemand(adObject: testObject) { (resultCode: ResultCode) in
+            XCTAssertEqual(resultCode.name(), "Prebid Demand Fetch Successful")
         }
     }
 
@@ -43,8 +43,8 @@ class AdUnitTests: XCTestCase {
         adUnit.testScenario = ResultCode.prebidDemandNoBids
         let testObject: AnyObject = () as AnyObject
 
-        adUnit.fetchDemand(adObject: testObject) { (ResultCode) in
-            XCTAssertEqual(ResultCode.name(), "Prebid Server did not return bids")
+        adUnit.fetchDemand(adObject: testObject) { (resultCode: ResultCode) in
+            XCTAssertEqual(resultCode.name(), "Prebid Server did not return bids")
         }
     }
 
@@ -53,8 +53,8 @@ class AdUnitTests: XCTestCase {
         adUnit.testScenario = ResultCode.prebidNetworkError
         let testObject: AnyObject = () as AnyObject
 
-        adUnit.fetchDemand(adObject: testObject) { (ResultCode) in
-            XCTAssertEqual(ResultCode.name(), "Network Error")
+        adUnit.fetchDemand(adObject: testObject) { (resultCode: ResultCode) in
+            XCTAssertEqual(resultCode.name(), "Network Error")
         }
     }
 
@@ -63,8 +63,8 @@ class AdUnitTests: XCTestCase {
         adUnit.testScenario = ResultCode.prebidDemandTimedOut
         let testObject: AnyObject = () as AnyObject
 
-        adUnit.fetchDemand(adObject: testObject) { (ResultCode) in
-            XCTAssertEqual(ResultCode.name(), "Prebid demand timedout")
+        adUnit.fetchDemand(adObject: testObject) { (resultCode: ResultCode) in
+            XCTAssertEqual(resultCode.name(), "Prebid demand timedout")
         }
     }
 
@@ -73,8 +73,8 @@ class AdUnitTests: XCTestCase {
         adUnit.testScenario = ResultCode.prebidInvalidSize
         let testObject: AnyObject = () as AnyObject
 
-        adUnit.fetchDemand(adObject: testObject) { (ResultCode) in
-            XCTAssertEqual(ResultCode.name(), "Prebid server does not recognize the size requested")
+        adUnit.fetchDemand(adObject: testObject) { (resultCode: ResultCode) in
+            XCTAssertEqual(resultCode.name(), "Prebid server does not recognize the size requested")
         }
     }
 
