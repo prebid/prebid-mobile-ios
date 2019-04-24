@@ -23,7 +23,11 @@ import ObjectiveC.runtime
 
     var dispatcher: Dispatcher?
 
-    private var customKeywords = [String: Array<String>]()
+    private var customKeywords = [String: Set<String>]()
+
+    private var contextDataDictionary = [String: Set<String>]()
+
+    private var contextKeywordsDictionary = [String: Set<String>]()
 
     //This flag is set to check if the refresh needs to be made though the user has not invoked the fetch demand after initialization
     private var isInitialFetchDemandCallMade: Bool = false
@@ -100,8 +104,10 @@ import ObjectiveC.runtime
             }
         })
     }
+    
+    // MARK: - DEPRECATED adunit user keywords (user.keywords)
 
-    var userKeywords: [String: [String]] {
+    var userKeywords: [String: Set<String>] {
         Log.info("user keywords are \(customKeywords)")
         return customKeywords
     }
@@ -110,46 +116,111 @@ import ObjectiveC.runtime
      * This method obtains the user keyword & value user for targeting
      * if the key already exists the value will be appended to the list. No duplicates will be added
      */
+    @available(*, deprecated, message: "Please use Targeting.shared.addUserKeyword(key:value:) method instead")
     public func addUserKeyword(key: String, value: String) {
-        var existingValues: [String] = []
-        if (customKeywords[key] != nil) {
-            existingValues = customKeywords[key]!
-        }
-        if (!existingValues.contains(value)) {
-            existingValues.append(value)
-            customKeywords[key] = existingValues
-        }
+        customKeywords.addValue(value, forKey: key)
     }
 
     /**
      * This method obtains the user keyword & values set for user targeting.
      * the values if the key already exist will be replaced with the new set of values
      */
-    public func addUserKeywords(key: String, value: [String]) {
-
-        customKeywords[key] = value
-
+    @available(*, deprecated, message: "Please use Targeting.shared.addUserKeywords(key:value:) method instead")
+    public func addUserKeywords(key: String, value: Set<String>) {
+        customKeywords.updateValue(value, forKey: key)
     }
 
     /**
      * This method allows to remove all the user keywords set for user targeting
      */
+    @available(*, deprecated, message: "Please use Targeting.shared.clearUserKeywords() method instead")
     public func clearUserKeywords() {
-
-        if (customKeywords.count > 0 ) {
-            customKeywords.removeAll()
-        }
-
+        customKeywords.removeAll()
     }
 
     /**
      * This method allows to remove specific user keyword & value set from user targeting
      */
+    @available(*, deprecated, message: "Please use Targeting.shared.removeUserKeyword(forKey:) method instead")
     public func removeUserKeyword(forKey: String) {
-        if (customKeywords[forKey] != nil) {
-            customKeywords.removeValue(forKey: forKey)
-        }
+        customKeywords.removeValue(forKey: forKey)
     }
+
+    // MARK: - adunit context data aka inventory data (imp[].ext.context.data)
+    
+    /**
+     * This method obtains the context data keyword & value for adunit context targeting
+     * if the key already exists the value will be appended to the list. No duplicates will be added
+     */
+    public func addContextData(key: String, value: String) {
+        contextDataDictionary.addValue(value, forKey: key)
+    }
+    
+    /**
+     * This method obtains the context data keyword & values for adunit context targeting
+     * the values if the key already exist will be replaced with the new set of values
+     */
+    public func updateContextData(key: String, value: Set<String>) {
+        contextDataDictionary.updateValue(value, forKey: key)
+    }
+    
+    /**
+     * This method allows to remove specific context data keyword & values set from adunit context targeting
+     */
+    public func removeContextData(forKey: String) {
+        contextDataDictionary.removeValue(forKey: forKey)
+    }
+    
+    /**
+     * This method allows to remove all context data set from adunit context targeting
+     */
+    public func clearContextData() {
+        contextDataDictionary.removeAll()
+    }
+    
+    func getContextDataDictionary() -> [String: Set<String>] {
+        Log.info("adunit context data dictionary is \(contextDataDictionary)")
+        return contextDataDictionary
+    }
+    
+    // MARK: - adunit context keywords (imp[].ext.context.keywords)
+    
+    /**
+     * This method obtains the context keyword & value for adunit context targeting
+     * if the key already exists the value will be appended to the list. No duplicates will be added
+     */
+    public func addContextKeyword(key: String, value: String) {
+        contextKeywordsDictionary.addValue(value, forKey: key)
+    }
+    
+    /**
+     * This method obtains the context keyword & values set for adunit context targeting
+     * the values if the key already exist will be replaced with the new set of values
+     */
+    public func addContextKeywords(key: String, value: Set<String>) {
+        contextKeywordsDictionary.updateValue(value, forKey: key)
+    }
+    
+    /**
+     * This method allows to remove specific context keyword & values set from adunit context targeting
+     */
+    public func removeContextKeyword(forKey: String) {
+        contextKeywordsDictionary.removeValue(forKey: forKey)
+    }
+    
+    /**
+     * This method allows to remove all the context keywords set from adunit context targeting
+     */
+    public func clearContextKeywords() {
+        contextKeywordsDictionary.removeAll()
+    }
+    
+    func getContextKeywordsDictionary() -> [String: Set<String>] {
+        Log.info("adunit context dictionary is \(contextKeywordsDictionary)")
+        return contextKeywordsDictionary
+    }
+
+    // MARK: - others
 
     /**
      * This method allows to set the auto refresh period for the demand

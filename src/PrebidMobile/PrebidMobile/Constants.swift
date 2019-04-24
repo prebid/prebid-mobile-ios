@@ -40,6 +40,9 @@ extension String {
 
     public static let MoPub_Interstitial_Name = "MPInterstitialAdController"
 
+    public static let bidderNameAppNexus = "appnexus"
+    
+    public static let bidderNameRubiconProject = "rubicon"
 }
 
 extension Double {
@@ -101,6 +104,67 @@ extension Dictionary {
         for (k, v) in dict {
             updateValue(v, forKey: k)
         }
+    }
+}
+
+extension Dictionary where Value == Set<String> {
+    mutating func addValue(_ value: String, forKey: Key) {
+        
+        var valueSet = self[forKey] ?? Set<String>()
+        
+        let isInserted = valueSet.insert((value)).inserted
+        
+        if isInserted {
+            self[forKey] = valueSet
+        }
+    }
+    
+    mutating func updateValue(_ values: Value, forKey: Key) {
+        self.updateValue(values, forKey: forKey)
+    }
+    
+    mutating func removeValue(forKey: Key) {
+        self.removeValue(forKey: forKey)
+    }
+    
+    mutating func removeAll() {
+        self.removeAll()
+    }
+    
+    func getCopyWhereValueIsArray() -> [Key: [String]] {
+        var dictionary = [Key: [String]]()
+        
+        for (key, valueSet) in self {
+            let valuerArray = Array(valueSet)
+            dictionary[key] = valuerArray
+        }
+        
+        return dictionary
+    }
+    
+    func toCommaSeparatedListString() -> String {
+        return toString(entrySeparator: ",", keyValueSeparator: "=")
+    }
+    
+    func toString(entrySeparator: String, keyValueSeparator: String) -> String {
+        
+        var keywordString = ""
+        
+        for (key, dictValues) in self {
+            
+            for value in dictValues {
+                
+                let keyValue = "\(key)\(keyValueSeparator)\(value)"
+                
+                if (keywordString != "") {
+                    keywordString = "\(keywordString)\(entrySeparator)\(keyValue)"
+                } else {
+                    keywordString = keyValue
+                }
+            }
+        }
+        
+        return keywordString
     }
 }
 
