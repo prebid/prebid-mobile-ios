@@ -119,18 +119,6 @@ extension Dictionary where Value == Set<String> {
         }
     }
     
-    mutating func updateValue(_ values: Value, forKey: Key) {
-        self.updateValue(values, forKey: forKey)
-    }
-    
-    mutating func removeValue(forKey: Key) {
-        self.removeValue(forKey: forKey)
-    }
-    
-    mutating func removeAll() {
-        self.removeAll()
-    }
-    
     func getCopyWhereValueIsArray() -> [Key: [String]] {
         var dictionary = [Key: [String]]()
         
