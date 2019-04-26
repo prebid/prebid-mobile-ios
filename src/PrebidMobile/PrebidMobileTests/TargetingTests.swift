@@ -84,5 +84,65 @@ class TargetingTests: XCTestCase {
 
         XCTAssertTrue((testItuneID == "54673893"))
     }
+    
+    func testContextData() {
+        Targeting.shared.addContextData(key: "key1", value: "value10")
+        let dictionary = Targeting.shared.getContextDataDictionary()
+        
+        XCTAssert(dictionary.count == 1)
+        
+        guard let set = dictionary["key1"] else {
+            XCTFail("set is nil")
+            return
+        }
+        
+        XCTAssert(set.count == 1)
+        XCTAssert(set.contains("value10"))
+    }
+    
+    func testUserData() {
+        Targeting.shared.addUserData(key: "key1", value: "value10")
+        let dictionary = Targeting.shared.getUserDataDictionary()
+        
+        XCTAssert(dictionary.count == 1)
+        
+        guard let set = dictionary["key1"] else {
+            XCTFail("set is nil")
+            return
+        }
+        
+        XCTAssert(set.count == 1)
+        XCTAssert(set.contains("value10"))
+    }
+    
+    func testContextKeyword() {
+        Targeting.shared.addContextKeyword(key: "key1", value: "value10")
+        let dictionary = Targeting.shared.getContextKeywordsDictionary()
+        
+        XCTAssert(dictionary.count == 1)
+        
+        guard let set = dictionary["key1"] else {
+            XCTFail("set is nil")
+            return
+        }
+        
+        XCTAssert(set.count == 1)
+        XCTAssert(set.contains("value10"))
+    }
+    
+    func testUserKeyword() {
+        Targeting.shared.addUserKeyword(key: "key1", value: "value10")
+        let dictionary = Targeting.shared.getUserKeywordsDictionary()
+        
+        XCTAssert(dictionary.count == 1)
+        
+        guard let set = dictionary["key1"] else {
+            XCTFail("set is nil")
+            return
+        }
+        
+        XCTAssert(set.count == 1)
+        XCTAssert(set.contains("value10"))
+    }
 
 }
