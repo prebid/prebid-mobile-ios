@@ -187,7 +187,7 @@ import AdSupport
             requestAppExt["data"] = contextDataDictionary
         }
         
-        let contextKeywordsString = Targeting.shared.getContextDataDictionary().toCommaSeparatedListString()
+        let contextKeywordsString = Targeting.shared.getContextKeywordsDictionary().toCommaSeparatedListString()
         
         if !contextKeywordsString.isEmpty {
             app["keywords"] = contextKeywordsString
