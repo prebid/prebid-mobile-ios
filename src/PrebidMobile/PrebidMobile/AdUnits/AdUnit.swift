@@ -116,7 +116,7 @@ import ObjectiveC.runtime
      * This method obtains the user keyword & value user for targeting
      * if the key already exists the value will be appended to the list. No duplicates will be added
      */
-    @available(*, deprecated, message: "Please use Targeting.shared.addUserKeyword(key:value:) method instead")
+    @available(*, deprecated, message: "Please use Targeting.shared.addUserKeyword() method instead")
     public func addUserKeyword(key: String, value: String) {
         customKeywords.addValue(value, forKey: key)
     }
@@ -125,7 +125,7 @@ import ObjectiveC.runtime
      * This method obtains the user keyword & values set for user targeting.
      * the values if the key already exist will be replaced with the new set of values
      */
-    @available(*, deprecated, message: "Please use Targeting.shared.addUserKeywords(key:value:) method instead")
+    @available(*, deprecated, message: "Please use Targeting.shared.addUserKeywords() method instead")
     public func addUserKeywords(key: String, value: Set<String>) {
         customKeywords.updateValue(value, forKey: key)
     }
@@ -141,7 +141,7 @@ import ObjectiveC.runtime
     /**
      * This method allows to remove specific user keyword & value set from user targeting
      */
-    @available(*, deprecated, message: "Please use Targeting.shared.removeUserKeyword(forKey:) method instead")
+    @available(*, deprecated, message: "Please use Targeting.shared.removeUserKeyword() method instead")
     public func removeUserKeyword(forKey: String) {
         customKeywords.removeValue(forKey: forKey)
     }
