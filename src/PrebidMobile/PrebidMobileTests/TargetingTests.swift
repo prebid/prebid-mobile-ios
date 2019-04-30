@@ -116,30 +116,16 @@ class TargetingTests: XCTestCase {
     }
     
     func testContextKeyword() {
-        Targeting.shared.addContextKeyword(key: "key1", value: "value10")
-        let dictionary = Targeting.shared.getContextKeywordsDictionary()
-        
-        XCTAssert(dictionary.count == 1)
-        
-        guard let set = dictionary["key1"] else {
-            XCTFail("set is nil")
-            return
-        }
+        Targeting.shared.addContextKeyword("value10")
+        let set = Targeting.shared.getContextKeywordsSet()
         
         XCTAssert(set.count == 1)
         XCTAssert(set.contains("value10"))
     }
     
     func testUserKeyword() {
-        Targeting.shared.addUserKeyword(key: "key1", value: "value10")
-        let dictionary = Targeting.shared.getUserKeywordsDictionary()
-        
-        XCTAssert(dictionary.count == 1)
-        
-        guard let set = dictionary["key1"] else {
-            XCTFail("set is nil")
-            return
-        }
+        Targeting.shared.addUserKeyword("value10")
+        let set = Targeting.shared.getUserKeywordsSet()
         
         XCTAssert(set.count == 1)
         XCTAssert(set.contains("value10"))

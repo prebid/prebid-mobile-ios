@@ -182,7 +182,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testPostDataWithGlobalUserKeyword() {
         let targeting = Targeting.shared
       
-        targeting.addUserKeyword(key: "key1", value: "value10")
+        targeting.addUserKeyword("value10")
         
         do {
             try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
@@ -194,7 +194,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
                 }
                 
                 XCTAssertNotNil(user["keywords"])
-                XCTAssertEqual(user["keywords"] as! String, "key1=value10")
+                XCTAssertEqual(user["keywords"] as! String, "value10")
                 
                 self.validationResponse(jsonRequestBody: jsonRequestBody)
             }
@@ -206,7 +206,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testPostDataWithGlobalContextKeyword() {
         let targeting = Targeting.shared
         
-        targeting.addContextKeyword(key: "key1", value: "value10")
+        targeting.addContextKeyword("value10")
         
         do {
             try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
@@ -218,7 +218,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
                 }
                 
                 XCTAssertNotNil(app["keywords"])
-                XCTAssertEqual(app["keywords"] as! String, "key1=value10")
+                XCTAssertEqual(app["keywords"] as! String, "value10")
                 
                 self.validationResponse(jsonRequestBody: jsonRequestBody)
             }
@@ -323,7 +323,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     }
     
     func testPostDataWithAdunitContextKeyword() {
-        adUnit.addContextKeyword(key: "key1", value: "value10")
+        adUnit.addContextKeyword("value10")
         
         do {
             try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
@@ -335,7 +335,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
                 }
                 
                 XCTAssertNotNil(context["keywords"])
-                XCTAssertEqual(context["keywords"] as! String, "key1=value10")
+                XCTAssertEqual(context["keywords"] as! String, "value10")
                 
                 self.validationResponse(jsonRequestBody: jsonRequestBody)
             }

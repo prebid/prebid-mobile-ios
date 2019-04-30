@@ -215,7 +215,7 @@ import ObjectiveC.runtime
         contextKeywordsSet.removeAll()
     }
     
-    func getContextKeywordsDictionary() -> Set<String> {
+    func getContextKeywordsSet() -> Set<String> {
         Log.info("adunit context keywords set is \(contextKeywordsSet)")
         return contextKeywordsSet
     }

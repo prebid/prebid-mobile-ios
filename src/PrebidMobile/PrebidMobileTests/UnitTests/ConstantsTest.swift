@@ -19,6 +19,34 @@ class ConstantsTest: XCTestCase {
     override func tearDown() {
 
     }
+    
+    func testSetExtensionToCommaSeparatedListString() {
+        var stringSet = Set<String>()
+        
+        XCTAssert(stringSet.toCommaSeparatedListString().isEmpty)
+        
+        stringSet.insert("value1")
+        
+        XCTAssert(stringSet.toCommaSeparatedListString() == "value1")
+        
+        stringSet.insert("value2")
+        
+        XCTAssert(stringSet.toCommaSeparatedListString() == "value1,value2" || stringSet.toCommaSeparatedListString() == "value2,value1" )
+        
+        stringSet.removeAll()
+        
+        var intSet = Set<Int>()
+        
+        XCTAssert(intSet.toCommaSeparatedListString().isEmpty)
+        
+        intSet.insert(1)
+        
+        XCTAssert(intSet.toCommaSeparatedListString() == "1")
+        
+        intSet.insert(2)
+        
+        XCTAssert(intSet.toCommaSeparatedListString() == "1,2" || intSet.toCommaSeparatedListString() == "2,1")
+    }
 
     func testDictionatyExtensionAddValue() {
         var dictionary = [String: Set<String>]()

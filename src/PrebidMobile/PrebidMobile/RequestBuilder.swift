@@ -139,7 +139,7 @@ import AdSupport
         
         var prebidAdUnitExtContext: [AnyHashable: Any] = [:]
         
-        if let adUnitContextKeywords = adUnit?.getContextKeywordsDictionary().toCommaSeparatedListString(), !adUnitContextKeywords.isEmpty {
+        if let adUnitContextKeywords = adUnit?.getContextKeywordsSet().toCommaSeparatedListString(), !adUnitContextKeywords.isEmpty {
             prebidAdUnitExtContext["keywords"] = adUnitContextKeywords
         }
         
@@ -187,7 +187,7 @@ import AdSupport
             requestAppExt["data"] = contextDataDictionary
         }
         
-        let contextKeywordsString = Targeting.shared.getContextKeywordsDictionary().toCommaSeparatedListString()
+        let contextKeywordsString = Targeting.shared.getContextKeywordsSet().toCommaSeparatedListString()
         
         if !contextKeywordsString.isEmpty {
             app["keywords"] = contextKeywordsString
@@ -316,7 +316,7 @@ import AdSupport
         }
         userDict["gender"] = gender
 
-        let globalUserKeywordString = Targeting.shared.getUserKeywordsDictionary().toCommaSeparatedListString()
+        let globalUserKeywordString = Targeting.shared.getUserKeywordsSet().toCommaSeparatedListString()
         if !globalUserKeywordString.isEmpty  {
             userDict["keywords"] = globalUserKeywordString
         } else if let adunitUserKeywordString = adUnit?.userKeywords.toCommaSeparatedListString(), !adunitUserKeywordString.isEmpty  {

@@ -139,7 +139,7 @@ import CoreLocation
         userKeywordsSet.removeAll()
     }
     
-    func getUserKeywordsDictionary() -> Set<String> {
+    func getUserKeywordsSet() -> Set<String> {
         Log.info("global user keywords set is \(userKeywordsSet)")
         return userKeywordsSet
     }
@@ -213,7 +213,7 @@ import CoreLocation
         contextKeywordsSet.removeAll()
     }
     
-    func getContextKeywordsDictionary() -> Set<String> {
+    func getContextKeywordsSet() -> Set<String> {
         Log.info("global context keywords set is \(contextKeywordsSet)")
         return contextKeywordsSet
     }
