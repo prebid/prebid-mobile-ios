@@ -26,9 +26,9 @@ import CoreLocation
 
     private var accessControlList = Set<String>()
     private var userDataDictionary = [String: Set<String>]()
-    private var userKeywordsDictionary = [String: Set<String>]()
+    private var userKeywordsSet = Set<String>()
     private var contextDataDictionary = [String: Set<String>]()
-    private var contextKeywordsDictionary = [String: Set<String>]()
+    private var contextKeywordsSet = Set<String>()
     
     private var yearofbirth: Int = 0
 
@@ -110,38 +110,38 @@ import CoreLocation
     // MARK: - global user keywords (user.keywords)
     
     /**
-     * This method obtains the user keyword & value for global user targeting
-     * if the key already exists the value will be appended to the list. No duplicates will be added
+     * This method obtains the user keyword for global user targeting
+     * Inserts the given element in the set if it is not already present.
      */
-    public func addUserKeyword(key: String, value: String) {
-        userKeywordsDictionary.addValue(value, forKey: key)
+    public func addUserKeyword(_ newElement: String) {
+        userKeywordsSet.insert(newElement)
     }
     
     /**
-     * This method obtains the user keyword & values for global user targeting
-     * the values if the key already exist will be replaced with the new set of values
+     * This method obtains the user keyword set for global user targeting
+     * Adds the elements of the given set to the set.
      */
-    public func addUserKeywords(key: String, value: Set<String>) {
-        userKeywordsDictionary.updateValue(value, forKey: key)
+    public func addUserKeywords(_ newElements: Set<String>) {
+        userKeywordsSet.formUnion(newElements)
     }
     
     /**
-     * This method allows to remove specific user keyword & value set from global user targeting
+     * This method allows to remove specific user keyword from global user targeting
      */
-    public func removeUserKeyword(forKey: String) {
-        userKeywordsDictionary.removeValue(forKey: forKey)
+    public func removeUserKeyword(_ element: String) {
+        userKeywordsSet.remove(element)
     }
     
     /**
-     * This method allows to remove all the user keywords set from global user targeting
+     * This method allows to remove all keywords from the set of global user targeting
      */
     public func clearUserKeywords() {
-        userKeywordsDictionary.removeAll()
+        userKeywordsSet.removeAll()
     }
     
-    func getUserKeywordsDictionary() -> [String: Set<String>] {
-        Log.info("gloabl user dictionary is \(userKeywordsDictionary)")
-        return userKeywordsDictionary
+    func getUserKeywordsDictionary() -> Set<String> {
+        Log.info("global user keywords set is \(userKeywordsSet)")
+        return userKeywordsSet
     }
     
     // MARK: - global context data aka inventory data (app.ext.data)
@@ -184,38 +184,38 @@ import CoreLocation
     // MARK: - global context keywords (app.keywords)
     
     /**
-     * This method obtains the context keyword & value for global context targeting
-     * if the key already exists the value will be appended to the list. No duplicates will be added
+     * This method obtains the context keyword for global context targeting
+     * Inserts the given element in the set if it is not already present.
      */
-    public func addContextKeyword(key: String, value: String) {
-        contextKeywordsDictionary.addValue(value, forKey: key)
+    public func addContextKeyword(_ newElement: String) {
+        contextKeywordsSet.insert(newElement)
     }
     
     /**
-     * This method obtains the context keyword & values for global context targeting
-     * the values if the key already exist will be replaced with the new set of values
+     * This method obtains the context keyword set for global context targeting
+     * Adds the elements of the given set to the set.
      */
-    public func addContextKeywords(key: String, value: Set<String>) {
-        contextKeywordsDictionary.updateValue(value, forKey: key)
+    public func addContextKeywords(_ newElements: Set<String>) {
+        contextKeywordsSet.formUnion(newElements)
     }
     
     /**
-     * This method allows to remove specific context keyword & values set from global context targeting
+     * This method allows to remove specific context keyword from global context targeting
      */
-    public func removeContextKeyword(forKey: String) {
-        contextKeywordsDictionary.removeValue(forKey: forKey)
+    public func removeContextKeyword(_ element: String) {
+        contextKeywordsSet.remove(element)
     }
     
     /**
-     * This method allows to remove all the user keywords set from global context targeting
+     * This method allows to remove all keywords from the set of global context targeting
      */
     public func clearContextKeywords() {
-        contextKeywordsDictionary.removeAll()
+        contextKeywordsSet.removeAll()
     }
     
-    func getContextKeywordsDictionary() -> [String: Set<String>] {
-        Log.info("global context keywords dictionary is \(contextKeywordsDictionary)")
-        return contextKeywordsDictionary
+    func getContextKeywordsDictionary() -> Set<String> {
+        Log.info("global context keywords set is \(contextKeywordsSet)")
+        return contextKeywordsSet
     }
     
     // MARK: - others

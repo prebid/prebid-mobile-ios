@@ -99,6 +99,12 @@ extension UIDevice {
 
 }
 
+extension Set {
+    func toCommaSeparatedListString() -> String {
+        return self.map({"\($0)"}).joined(separator: ",")
+    }
+}
+
 extension Dictionary {
     mutating func merge(dict: [Key: Value]) {
         for (k, v) in dict {
@@ -136,7 +142,7 @@ extension Dictionary where Value == Set<String> {
     
     func toString(entrySeparator: String, keyValueSeparator: String) -> String {
         
-        var keywordString = ""
+        var resultString = ""
         
         for (key, dictValues) in self {
             
@@ -144,15 +150,15 @@ extension Dictionary where Value == Set<String> {
                 
                 let keyValue = "\(key)\(keyValueSeparator)\(value)"
                 
-                if (keywordString != "") {
-                    keywordString = "\(keywordString)\(entrySeparator)\(keyValue)"
+                if (resultString != "") {
+                    resultString = "\(resultString)\(entrySeparator)\(keyValue)"
                 } else {
-                    keywordString = keyValue
+                    resultString = keyValue
                 }
             }
         }
         
-        return keywordString
+        return resultString
     }
 }
 

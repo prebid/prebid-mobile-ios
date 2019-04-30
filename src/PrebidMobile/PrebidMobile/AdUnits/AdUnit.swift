@@ -27,7 +27,7 @@ import ObjectiveC.runtime
 
     private var contextDataDictionary = [String: Set<String>]()
 
-    private var contextKeywordsDictionary = [String: Set<String>]()
+    private var contextKeywordsSet = Set<String>()
 
     //This flag is set to check if the refresh needs to be made though the user has not invoked the fetch demand after initialization
     private var isInitialFetchDemandCallMade: Bool = false
@@ -186,38 +186,38 @@ import ObjectiveC.runtime
     // MARK: - adunit context keywords (imp[].ext.context.keywords)
     
     /**
-     * This method obtains the context keyword & value for adunit context targeting
-     * if the key already exists the value will be appended to the list. No duplicates will be added
+     * This method obtains the context keyword for adunit context targeting
+     * Inserts the given element in the set if it is not already present.
      */
-    public func addContextKeyword(key: String, value: String) {
-        contextKeywordsDictionary.addValue(value, forKey: key)
+    public func addContextKeyword(_ newElement: String) {
+        contextKeywordsSet.insert(newElement)
     }
     
     /**
-     * This method obtains the context keyword & values set for adunit context targeting
-     * the values if the key already exist will be replaced with the new set of values
+     * This method obtains the context keyword set for adunit context targeting
+     * Adds the elements of the given set to the set.
      */
-    public func addContextKeywords(key: String, value: Set<String>) {
-        contextKeywordsDictionary.updateValue(value, forKey: key)
+    public func addContextKeywords(_ newElements: Set<String>) {
+        contextKeywordsSet.formUnion(newElements)
     }
     
     /**
-     * This method allows to remove specific context keyword & values set from adunit context targeting
+     * This method allows to remove specific context keyword from adunit context targeting
      */
-    public func removeContextKeyword(forKey: String) {
-        contextKeywordsDictionary.removeValue(forKey: forKey)
+    public func removeContextKeyword(_ element: String) {
+        contextKeywordsSet.remove(element)
     }
     
     /**
-     * This method allows to remove all the context keywords set from adunit context targeting
+     * This method allows to remove all keywords from the set of adunit context targeting
      */
     public func clearContextKeywords() {
-        contextKeywordsDictionary.removeAll()
+        contextKeywordsSet.removeAll()
     }
     
-    func getContextKeywordsDictionary() -> [String: Set<String>] {
-        Log.info("adunit context dictionary is \(contextKeywordsDictionary)")
-        return contextKeywordsDictionary
+    func getContextKeywordsDictionary() -> Set<String> {
+        Log.info("adunit context keywords set is \(contextKeywordsSet)")
+        return contextKeywordsSet
     }
 
     // MARK: - others
