@@ -20,128 +20,99 @@ import MoPub
 
 class PBViewTool: NSObject {
 
-    class func checkMPAdViewContainsPBMAd(_ view: MPAdView?, withCompletionHandler completionHandler: @escaping (_ result: Bool) -> Void) {
-        var checked = false
-        for view in view!.subviews where (view is MPClosableView) {
-            if (view.isKind(of: MPClosableView.self)) {
-                let wv = view as! MPClosableView
-
-                for innerView in (wv.subviews) where (innerView != nil) {
-                    if (innerView.isKind(of: MPWebView.self)) {
-                        let wv = innerView as! MPWebView
-
-                        wv.evaluateJavaScript("document.body.innerHTML", completionHandler: { result, _ in
-                            let content = result as? String
-                            if content?.contains("prebid/pbm.js") ?? false || content?.contains("creative.js") ?? false {
-                                completionHandler(true)
-                            } else {
-                                completionHandler(false)
-                            }
-                        })
-                        checked = true
-                        break
-                    }
-                }
-            }
+    class func checkMPAdViewContainsPBMAd(_ adView: MPAdView, withCompletionHandler completionHandler: @escaping (_ result: Bool) -> Void) {
+        
+        let view = findInView(adView) { (subView) -> Bool in
+            return subView is MPWebView
         }
-
-        if !checked {
+        guard let mpWebView = view as? MPWebView else {
             completionHandler(false)
+            return;
         }
+
+        mpWebView.evaluateJavaScript("document.body.innerHTML", completionHandler: { (result, error) in
+            
+            if error == nil, let content = result as? String, content.contains("prebid/pbm.js") || content.contains("creative.js") {
+                completionHandler(true)
+            } else {
+                completionHandler(false)
+            }
+            
+        })
     }
 
-    class func checkMPInterstitialContainsPBMAd(_ viewController: UIViewController, withCompletionHandler completionHandler: @escaping (_ result: Bool) -> Void) {
-        var checked = false
-        let mainView = viewController.view
-        for view in mainView!.subviews where (view is MPClosableView) {
-            if (view.isKind(of: MPClosableView.self)) {
-                let wv = view as! MPClosableView
-
-                for innerView in (wv.subviews) where (innerView != nil) {
-                    if (innerView.isKind(of: MPWebView.self)) {
-                        let wv = innerView as! MPWebView
-
-                        wv.evaluateJavaScript("document.body.innerHTML", completionHandler: { result, _ in
-                            let content = result as? String
-                            if content?.contains("prebid/pbm.js") ?? false || content?.contains("creative.js") ?? false {
-                                completionHandler(true)
-                            } else {
-                                completionHandler(false)
-                            }
-                        })
-                        checked = true
-                        break
-                    }
-                }
-            }
+    class func checkMPInterstitialContainsPBMAd(_ adView: UIView, withCompletionHandler completionHandler: @escaping (_ result: Bool) -> Void) {
+        
+        let view = findInView(adView) { (subView) -> Bool in
+            return subView is MPWebView
         }
-
-        if !checked {
+        guard let mpWebView = view as? MPWebView else {
             completionHandler(false)
+            return;
         }
+        
+        mpWebView.evaluateJavaScript("document.body.innerHTML", completionHandler: { (result, error) in
+            
+            if error == nil, let content = result as? String, content.contains("prebid/pbm.js") || content.contains("creative.js") {
+                completionHandler(true)
+            } else {
+                completionHandler(false)
+            }
+            
+        })
     }
 
     class func checkDFPInterstitialAdViewContainsPBMAd(_ viewController: UIViewController) -> Bool {
-        let view: UIView = viewController.view
-        let subviews = view.subviews
-
-        for view in subviews {
-            let name: String = String(describing: type(of: view))
-            if (name == "GADNWebAdView" || name == "GADOAdView" || name == "GADWebAdView") {
-                let views  = view.subviews
-                for innerView in views {
-                    let nameInner: String = String(describing: type(of: innerView))
-                    if (innerView.isKind(of: WKWebView.self)) {
-                      return PBViewTool.checkJSExistInWebView(wkWebView: innerView as! WKWebView)
-                    } else if (innerView.isKind(of: UIWebView.self)) {
-                        return PBViewTool.checkJSExistInWebView(uiWebView: innerView as! UIWebView)
-                    } else if (nameInner == "GADOUIKitWebView") {
-                        let deepInnerView  = innerView.subviews
-                        for innerView2 in deepInnerView {
-                            if (innerView2.isKind(of: WKWebView.self)) {
-                                return PBViewTool.checkJSExistInWebView(wkWebView: innerView2 as! WKWebView)
-                            } else if (innerView.isKind(of: UIWebView.self)) {
-                                return PBViewTool.checkJSExistInWebView(uiWebView: innerView2 as! UIWebView)
-                            }
-                        }
-                    }
-                }
-            }
+        let adView: UIView = viewController.view
+        
+        let view = findInView(adView) { (subView) -> Bool in
+            return subView is WKWebView || subView is UIWebView
         }
-        return false
+        
+        if let wkWebView = view as? WKWebView  {
+            let wkResult = PBViewTool.checkJSExistInWebView(wkWebView: wkWebView)
+            return wkResult
+        } else if let uiWebView = view as? UIWebView {
+            let uiResult = PBViewTool.checkJSExistInWebView(uiWebView: uiWebView)
+            return uiResult
+        }
+        
+        return false;
+        
+        
     }
 
-    class func checkDFPAdViewContainsPBMAd(_ view: GADBannerView) -> Bool {
-
-        return findWebView(view);
+    class func checkDFPAdViewContainsPBMAd(_ adView: GADBannerView) -> Bool {
+        
+        let view = findInView(adView) { (subView) -> Bool in
+            return subView is WKWebView || subView is UIWebView
+        }
+        
+        if let wkWebView = view as? WKWebView  {
+            let wkResult = PBViewTool.checkJSExistInWebView(wkWebView: wkWebView) && checkWebViewSize(webView: wkWebView)
+            return wkResult
+        } else if let uiWebView = view as? UIWebView {
+            let uiResult = PBViewTool.checkJSExistInWebView(uiWebView: uiWebView) && checkWebViewSize(webView: uiWebView)
+            return uiResult
+        }
+        
+        return false;
     }
     
-    class func findWebView(_ view: UIView) -> Bool {
-        
+    class func findInView(_ view: UIView, closure:(UIView) -> Bool) -> UIView? {
         for subview in view.subviews {
-            if subview is WKWebView {
-                let wkWebView = subview as! WKWebView;
-                let wkResult = PBViewTool.checkJSExistInWebView(wkWebView: wkWebView) && checkWebViewSize(webView: wkWebView)
-                if wkResult {
-                    return true
-                }
-            } else if subview is UIWebView {
-                let uiWebView = subview as! UIWebView;
-                let uiResult = PBViewTool.checkJSExistInWebView(uiWebView: uiWebView) && checkWebViewSize(webView: uiWebView)
-                if uiResult {
-                    return true
-                }
+            
+            if closure(subview)  {
+                return subview
             }
             
-            let recResult = findWebView(subview)
-            
-            if recResult {
-                return true
+            if let result = findInView(subview, closure: closure) {
+                return result
             }
+            
         }
         
-        return false
-
+        return nil
     }
 
     class func checkJSExistInWebView(wkWebView: WKWebView) -> Bool {
