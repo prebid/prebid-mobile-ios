@@ -108,6 +108,9 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("adViewDidReceiveAd")
+        
+        self.dfpBanner.resize(bannerView.adSize)
+        
     }
 
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
