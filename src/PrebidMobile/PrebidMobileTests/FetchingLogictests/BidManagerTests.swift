@@ -93,7 +93,7 @@ class BidManagerTests: XCTestCase {
             XCTAssertEqual(resultCode, ResultCode.prebidDemandFetchSuccess)
             XCTAssertNotNil(bidResponse)
             let keywords = bidResponse?.customKeywords
-            XCTAssertEqual(16, keywords?.count)
+            XCTAssertEqual(15, keywords?.count)
             self.loadAdSuccesfulException?.fulfill()
         }
         loadAdSuccesfulException = expectation(description: "\(#function)")
