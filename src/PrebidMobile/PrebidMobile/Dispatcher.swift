@@ -47,7 +47,11 @@ class Dispatcher: NSObject {
 
         self.timer = Timer.scheduledTimer(timeInterval: repeatInSeconds, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
 
+        #if swift(>=4.2)
+        RunLoop.main.add(self.timer!, forMode: .common)
+        #else
         RunLoop.main.add(self.timer!, forMode: .commonModes)
+        #endif
 
     }
 
