@@ -117,6 +117,9 @@ import CoreLocation
             return savedConsent
         }
     }
+    
+    public var storeURL: String?
+    public var domain: String?
 
     /**
      * The class is created as a singleton object & used
