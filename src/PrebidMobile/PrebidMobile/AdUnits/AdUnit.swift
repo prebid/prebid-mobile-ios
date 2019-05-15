@@ -33,10 +33,10 @@ import ObjectiveC.runtime
     private var closure: (ResultCode) -> Void
 
     //notification flag set to check if the prebid response is received within the specified time
-    var didReceiveResponse: Bool! = false
+    var didReceiveResponse: Bool = false
 
     //notification flag set to determine if delegate call needs to be made after timeout delegate is sent
-    var timeOutSignalSent: Bool! = false
+    var timeOutSignalSent: Bool = false
 
     init(configId: String, size: CGSize) {
         self.closure = {_ in return}
