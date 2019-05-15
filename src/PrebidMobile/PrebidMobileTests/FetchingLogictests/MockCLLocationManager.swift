@@ -100,7 +100,11 @@ class MockCLLocationManager: CLLocationManager {
             self.updateLocation()
         })
         if let timer = timer {
+            #if swift(>=4.2)
             RunLoop.main.add(timer, forMode: .default)
+            #else
+            RunLoop.main.add(timer, forMode: .defaultRunLoopMode)
+            #endif
         }
     }
     override func stopUpdatingLocation() {
