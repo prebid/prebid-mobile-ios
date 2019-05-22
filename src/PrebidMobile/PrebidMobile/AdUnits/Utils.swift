@@ -98,25 +98,25 @@ public class Utils: NSObject {
         }
         
         if let wkWebView = view as? WKWebView  {
-            Log.debug("prebid resize, subView is WKWebView")
+            Log.debug("subView is WKWebView")
             self.findSizeInWebViewAsync(wkWebView: wkWebView, completion: completion)
             
         } else if let uiWebView = view as? UIWebView {
-            Log.debug("prebid resize, subView is UIWebView")
+            Log.debug("subView is UIWebView")
             self.findSizeInWebViewAsync(uiWebView: uiWebView, completion: completion)
         } else {
-            Log.warn("prebid resize, subView doesn't include WebView")
+            Log.warn("subView doesn't include WebView")
         }
        
     }
     
     func runResizeCompletion(size: CGSize?, completion: @escaping (CGSize?) -> Void) {
         guard let size = size else {
-            Log.warn("prebid resize, size is nil")
+            Log.warn("size is nil")
             return
         }
         
-        Log.debug("prebid resize, size:\(size)")
+        Log.debug("size:\(size)")
         completion(size)
     }
     
@@ -140,7 +140,7 @@ public class Utils: NSObject {
         wkWebView.evaluateJavaScript("document.body.innerHTML", completionHandler: { (value: Any!, error: Error!) -> Void in
             
             if error != nil {
-                Log.warn("prebid resize, error:\(error.localizedDescription)")
+                Log.warn("error:\(error.localizedDescription)")
                 return
             }
 
@@ -171,17 +171,17 @@ public class Utils: NSObject {
     
     func findSizeInJavaScript(jsCode: String?) -> CGSize? {
         guard let jsCode = jsCode else {
-            Log.warn("prebid resize, jsCode is nil")
+            Log.warn("jsCode is nil")
             return nil
         }
         
         guard let hbSizeKeyValue = findHbSizeKeyValue(in: jsCode) else {
-            Log.warn("prebid resize, HbSizeKeyValue is nil")
+            Log.warn("HbSizeKeyValue is nil")
             return nil
         }
             
         guard let hbSizeValue = findHbSizeValue(in: hbSizeKeyValue) else {
-            Log.warn("prebid resize, HbSizeValue is nil")
+            Log.warn("HbSizeValue is nil")
             return nil
         }
         
