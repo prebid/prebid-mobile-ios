@@ -111,10 +111,6 @@ public class Utils: NSObject {
     }
     
     func runResizeCompletion(size: CGSize?, completion: @escaping (CGSize?) -> Void) {
-        guard let size = size else {
-            Log.warn("size is nil")
-            return
-        }
         
         Log.debug("size:\(size)")
         completion(size)
@@ -155,7 +151,7 @@ public class Utils: NSObject {
         
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
         
-            guard uiWebView.isLoading else {
+            guard !uiWebView.isLoading else {
                 return
             }
             
