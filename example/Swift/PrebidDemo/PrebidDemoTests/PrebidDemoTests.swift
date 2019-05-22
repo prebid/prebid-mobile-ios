@@ -121,6 +121,73 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
         
     }
+    
+    func testRubiconDFPBannerResizeSanityAppCheckTest() {
+        
+        class BannerViewDelegate: NSObject, GADBannerViewDelegate {
+            let outer: PrebidDemoTests
+            var loadSuccesfulException: XCTestExpectation?
+            
+            init(outer: PrebidDemoTests, loadSuccesfulException: XCTestExpectation?) {
+                
+                self.outer = outer
+                self.loadSuccesfulException =  loadSuccesfulException
+
+            }
+            
+            func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+                print("adViewDidReceiveAd")
+                
+                Utils.shared.resizeAdManagerBannerAdView(bannerView) { (size) in
+                    if let bannerView = bannerView as? DFPBannerView, let size = size {
+                        bannerView.resize(GADAdSizeFromCGSize(size))
+                        
+                        let result = PBViewTool.checkDFPAdViewContainsPBMAd(bannerView)
+                        XCTAssertTrue(result)
+                        
+                    }
+                    
+                    //TODO upgrade the logic
+                    self.loadSuccesfulException?.fulfill()
+                }
+                
+            }
+            
+            func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+                print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+                self.loadSuccesfulException = nil
+            }
+        }
+        
+        var loadSuccesfulException: XCTestExpectation? = expectation(description: "\(#function)")
+        let delegate = BannerViewDelegate(outer:self, loadSuccesfulException: loadSuccesfulException)
+        
+        setUpAppRubicon()
+        
+        timeoutForRequest = 30.0
+        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
+        let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
+        dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_RUBICON
+        dfpBanner.rootViewController = viewController
+        dfpBanner.delegate = delegate
+        dfpBanner.backgroundColor = .red
+        viewController?.view.addSubview(dfpBanner)
+        let request: DFPRequest = DFPRequest()
+        request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
+        bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
+            if resultCode == ResultCode.prebidDemandFetchSuccess {
+                XCTAssertNotNil(request.customTargeting)
+                XCTAssertNotNil(request.customTargeting!["hb_pb"])
+                dfpBanner.load(request)
+            } else {
+                XCTFail("resultCode:\(resultCode.name())")
+                loadSuccesfulException?.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: timeoutForRequest, handler: nil)
+        
+    }
 
     func testDFPBannerWithoutAutoRefresh() {
         var fetchDemandCount = 0
