@@ -225,8 +225,21 @@ public class Utils: NSObject {
     func stringToCGSize(_ size: String) -> CGSize? {
         
         let sizeArr = size.split{$0 == "x"}.map(String.init)
-        let width = CGFloat(truncating: NumberFormatter().number(from: sizeArr[0])!)
-        let height = CGFloat(truncating: NumberFormatter().number(from: sizeArr[1])!)
+        guard sizeArr.count == 2 else {
+            Log.warn("\(size) has a wrong format")
+            return nil
+        }
+        
+        let nsNumberWidth = NumberFormatter().number(from: sizeArr[0])
+        let nsNumberHeight = NumberFormatter().number(from: sizeArr[1])
+        
+        guard let numberWidth = nsNumberWidth, let numberHeight = nsNumberHeight else {
+            Log.warn("\(size) can not be converted to CGSize")
+            return nil
+        }
+        
+        let width = CGFloat(truncating: numberWidth)
+        let height = CGFloat(truncating: numberHeight)
         
         let gcSize = CGSize(width: width, height: height)
         
