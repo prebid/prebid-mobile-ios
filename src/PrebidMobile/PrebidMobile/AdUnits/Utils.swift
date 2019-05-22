@@ -155,13 +155,16 @@ public class Utils: NSObject {
         
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
         
-            if !uiWebView.isLoading {
-                timer.invalidate()
-                let content = uiWebView.stringByEvaluatingJavaScript(from: "document.body.innerHTML")
-                
-                let uiResult = self.findSizeInJavaScript(jsCode: content)
-                self.runResizeCompletion(size: uiResult, completion: completion)
+            guard uiWebView.isLoading else {
+                return
             }
+            
+            timer.invalidate()
+            let content = uiWebView.stringByEvaluatingJavaScript(from: "document.body.innerHTML")
+            
+            let uiResult = self.findSizeInJavaScript(jsCode: content)
+            self.runResizeCompletion(size: uiResult, completion: completion)
+            
         }
 
     }
