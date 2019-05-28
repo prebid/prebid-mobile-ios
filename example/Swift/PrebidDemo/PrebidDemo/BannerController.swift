@@ -109,7 +109,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("adViewDidReceiveAd")
         
-        Utils.shared.resizeAdManagerBannerAdView(bannerView) { (size) in
+        Utils.shared.findPrebidCreativeSize(bannerView) { (size) in
             if let bannerView = bannerView as? DFPBannerView, let size = size {
                 bannerView.resize(GADAdSizeFromCGSize(size))
             }

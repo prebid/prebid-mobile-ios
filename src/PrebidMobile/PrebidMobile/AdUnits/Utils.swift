@@ -91,7 +91,7 @@ public class Utils: NSObject {
     }
 }
     
-    public func resizeAdManagerBannerAdView(_ adView: UIView, completion: @escaping (CGSize?) -> Void) {
+    public func findPrebidCreativeSize(_ adView: UIView, completion: @escaping (CGSize?) -> Void) {
         
         let view = self.recursivelyFindWebView(adView) { (subView) -> Bool in
             return subView is WKWebView || subView is UIWebView
