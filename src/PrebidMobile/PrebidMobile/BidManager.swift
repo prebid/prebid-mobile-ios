@@ -72,7 +72,10 @@ import Foundation
 
         } catch let error {
             print(error.localizedDescription)
-            callback(nil, ResultCode.prebidServerURLInvalid)
+            
+            let errorCode = ResultCode.prebidServerURLInvalid
+            Log.error(errorCode.name())
+            callback(nil, errorCode)
         }
     }
 

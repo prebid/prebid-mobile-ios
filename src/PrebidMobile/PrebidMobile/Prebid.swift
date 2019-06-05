@@ -40,7 +40,7 @@ import Foundation
         }
     }
 
-    public var prebidServerHost: PrebidHost = PrebidHost.Appnexus {
+    public var prebidServerHost: PrebidHost = PrebidHost.Custom {
         didSet {
             timeoutMillis = .PB_Request_Timeout
             timeoutUpdated = false

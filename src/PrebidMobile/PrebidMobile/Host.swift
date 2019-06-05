@@ -16,8 +16,17 @@
 import Foundation
 
 @objc public enum PrebidHost: Int {
+    
+    /**
+     URL [https://prebid.adnxs.com/pbs/v1/openrtb2/auction](URL)
+    */
     case Appnexus
+    
+    /**
+     URL [https://prebid-server.rubiconproject.com/openrtb2/auction](URL)
+     */
     case Rubicon
+    
     case Custom
 
     func name () -> String {
