@@ -1,11 +1,11 @@
 /*   Copyright 2018-2019 Prebid.org, Inc.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,38 +19,38 @@ import CoreLocation
 import WebKit
 import AdSupport
 
-@objcMembers public class RequestBuilder:NSObject{
+@objcMembers public class RequestBuilder: NSObject {
     /**
      * The class is created as a singleton object & used
      */
     static let shared = RequestBuilder()
-    
-    static var myUserAgent:String = ""
-    
+
+    static var myUserAgent: String = ""
+
     /**
      * The initializer that needs to be created only once
      */
     private override init() {
-        
+
         super.init()
     }
-    
-    func buildPrebidRequest(adUnit: AdUnit?,callback:@escaping(_ urlRequest: URLRequest?) throws -> ()) throws {
+
+    func buildPrebidRequest(adUnit: AdUnit?, callback:@escaping(_ urlRequest: URLRequest?) throws -> Void) throws {
         do {
-            try callback(self.buildRequest(adUnit:adUnit))
-            
+            try callback(self.buildRequest(adUnit: adUnit))
+
         } catch let error {
             throw error
         }
     }
-    
+
     func buildRequest(adUnit: AdUnit?) throws -> URLRequest? {
-        
-            let hostUrl:String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
-        var request:URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Prebid.shared.timeoutMillis))
+
+            let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
+        var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Prebid.shared.timeoutMillis))
             request.httpMethod = "POST"
-            let requestBody:[String : Any] = openRTBRequestBody(adUnit: adUnit)!
-            
+            let requestBody: [String: Any] = openRTBRequestBody(adUnit: adUnit)!
+
             request.httpBody = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
             //HTTP HeadersExpression implicitly coerced from '[AnyHashable : Any]?' to Any
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -58,10 +58,10 @@ import AdSupport
             Log.info("Prebid Request post body \(requestBody)")
             return request
     }
-    
-    func openRTBRequestBody(adUnit: AdUnit?) -> [String : Any]? {
-        var requestDict: [String : Any] = [:]
-        
+
+    func openRTBRequestBody(adUnit: AdUnit?) -> [String: Any]? {
+        var requestDict: [String: Any] = [:]
+
         requestDict["id"] = UUID().uuidString
         if let aSource = openrtbSource() {
             requestDict["source"] = aSource
@@ -71,27 +71,28 @@ import AdSupport
         if Targeting.shared.subjectToGDPR == true {
             requestDict["regs"] = openrtbRegs()
         }
-        requestDict["user"] = openrtbUser(adUnit:adUnit)
+        requestDict["user"] = openrtbUser(adUnit: adUnit)
         requestDict["imp"] = openrtbImps(adUnit: adUnit)
         requestDict["ext"] = openrtbRequestExtension()
-        
+
         return requestDict
     }
-    
-    func openrtbSource() -> [String:Any]? {
-        
-        var sourceDict: [String : Any] = [:]
-        sourceDict["tid"] = "123"
-        
+
+    func openrtbSource() -> [String: Any]? {
+
+        let uuid = UUID().uuidString
+        var sourceDict: [String: Any] = [:]
+        sourceDict["tid"] = uuid
+
         return sourceDict
     }
-    
-    func openrtbRequestExtension() -> [AnyHashable : Any]? {
-        var requestPrebidExt: [AnyHashable : Any] = [:]
+
+    func openrtbRequestExtension() -> [AnyHashable: Any]? {
+        var requestPrebidExt: [AnyHashable: Any] = [:]
         requestPrebidExt["targeting"] = [:]
         requestPrebidExt["storedrequest"] = ["id": Prebid.shared.prebidServerAccountId]
-        requestPrebidExt["cache"] = ["bids": [AnyHashable : Any]()]
-        var requestExt: [AnyHashable : Any] = [:]
+        requestPrebidExt["cache"] = ["bids": [AnyHashable: Any]()]
+        var requestExt: [AnyHashable: Any] = [:]
         requestExt["prebid"] = requestPrebidExt
         return requestExt
     }
@@ -99,35 +100,35 @@ import AdSupport
     func openrtbImps(adUnit: AdUnit?) -> [Any]! {
         var imps: [Any] = []
 
-        var imp: [AnyHashable : Any] = [:]
+        var imp: [AnyHashable: Any] = [:]
         if let anIdentifier = adUnit?.identifier {
             imp["id"] = anIdentifier
         }
 
         imp["secure"] = 1
 
-        var sizeArray = [[String:CGFloat]]()
+        var sizeArray = [[String: CGFloat]]()
         for size: CGSize in (adUnit?.adSizes)! {
             let sizeDict = [
-                "w" : size.width,
-                "h" : size.height
+                "w": size.width,
+                "h": size.height
             ]
             sizeArray.append(sizeDict)
         }
         let formats = ["format": sizeArray]
         imp["banner"] = formats
-        
-        if(adUnit is InterstitialAdUnit){
+
+        if (adUnit is InterstitialAdUnit) {
             imp["instl"] = 1
         }
 
         //to be used when openRTB supports storedRequests
-        var prebidAdUnitExt: [AnyHashable : Any] = [:]
+        var prebidAdUnitExt: [AnyHashable: Any] = [:]
         if let anId = adUnit?.prebidConfigId {
             prebidAdUnitExt["storedrequest"] = ["id": anId]
         }
 
-        var adUnitExt: [AnyHashable : Any] = [:]
+        var adUnitExt: [AnyHashable: Any] = [:]
         adUnitExt["prebid"] = prebidAdUnitExt
 
         imp["ext"] = adUnitExt
@@ -136,38 +137,49 @@ import AdSupport
 
         return imps
     }
-    
+
     // OpenRTB 2.5 Object: App in section 3.2.14
-    
-    func openrtbApp() -> [AnyHashable : Any]? {
-        var app: [AnyHashable : Any] = [:]
-        
+
+    func openrtbApp() -> [AnyHashable: Any]? {
+        var app: [AnyHashable: Any] = [:]
+
+        let itunesID: String? = Targeting.shared.itunesID
         let bundle = Bundle.main.bundleIdentifier
-        if bundle != nil {
+        if itunesID != nil {
+            app["bundle"] = itunesID
+        } else if bundle != nil {
             app["bundle"] = bundle ?? ""
         }
-        let version:String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+
+        let version: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
         if version != "" {
             app["ver"] = version
         }
-        
+
         app["publisher"] = ["id": Prebid.shared.prebidServerAccountId ?? 0] as NSDictionary
         app["ext"] = ["prebid": ["version": String(PrebidMobileVersionNumber), "source": "prebid-mobile"]]
         
-        return app
-    }
-    
-    // OpenRTB 2.5 Object: Device in section 3.2.18
-    
-    func openrtbDevice() -> [AnyHashable : Any]? {
-        var deviceDict: [AnyHashable : Any] = [:]
-        
-        if(RequestBuilder.myUserAgent != ""){
-            deviceDict["ua"] = RequestBuilder.myUserAgent
+        if let storeUrl = Targeting.shared.storeURL, !storeUrl.isEmpty {
+            app["storeurl"] = storeUrl
         }
         
-        deviceDict["geo"] = openrtbGeo()
+        if let domain = Targeting.shared.domain, !domain.isEmpty {
+            app["domain"] = domain
+        }
 
+        return app
+    }
+
+    // OpenRTB 2.5 Object: Device in section 3.2.18
+
+    func openrtbDevice() -> [AnyHashable: Any]? {
+        var deviceDict: [AnyHashable: Any] = [:]
+
+        if (RequestBuilder.myUserAgent != "") {
+            deviceDict["ua"] = RequestBuilder.myUserAgent
+        }
+
+        deviceDict["geo"] = openrtbGeo()
 
         deviceDict["make"] = "Apple"
         deviceDict["os"] = "iOS"
@@ -185,23 +197,23 @@ import AdSupport
         if (carrier?.carrierName?.count ?? 0) > 0 {
             deviceDict["carrier"] = carrier?.carrierName ?? ""
         }
-        
-        let reachability:Reachability = Reachability()!
-        var connectionType:Int = 0
-        if (reachability.connection == .wifi){
+
+        let reachability: Reachability = Reachability()!
+        var connectionType: Int = 0
+        if (reachability.connection == .wifi) {
             connectionType = 1
-        }else if(reachability.connection == .cellular){
+        } else if (reachability.connection == .cellular) {
             connectionType = 2
         }
-        
+
         deviceDict["connectiontype"] = connectionType
 
         if (carrier?.mobileCountryCode?.count ?? 0) > 0 && (carrier?.mobileNetworkCode?.count ?? 0) > 0 {
             deviceDict["mccmnc"] = carrier?.mobileCountryCode ?? "" + ("-") + (carrier?.mobileNetworkCode ?? "")
         }
-        let lmtAd:Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
+        let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
         // Limit ad tracking
-        deviceDict["lmt"] = NSNumber(value:lmtAd).intValue
+        deviceDict["lmt"] = NSNumber(value: lmtAd).intValue
 
         let deviceId = RequestBuilder.DeviceUUID()
         if deviceId != "" {
@@ -213,18 +225,18 @@ import AdSupport
 
         let pixelRatio: CGFloat = UIScreen.main.scale
 
-        deviceDict["pxratio"] = pixelRatio;
+        deviceDict["pxratio"] = pixelRatio
 
-        return deviceDict;
+        return deviceDict
 
     }
 
     // OpenRTB 2.5 Object: Geo in section 3.2.19
 
-    func openrtbGeo() -> [AnyHashable : Any]? {
-        
+    func openrtbGeo() -> [AnyHashable: Any]? {
+
         if Location.shared.location != nil {
-            var geoDict: [AnyHashable : Any] = [:]
+            var geoDict: [AnyHashable: Any] = [:]
             let latitude = Location.shared.location?.coordinate.latitude
             let longitude = Location.shared.location?.coordinate.longitude
 
@@ -243,21 +255,21 @@ import AdSupport
         return nil
     }
 
-    func openrtbRegs() -> [AnyHashable : Any]? {
+    func openrtbRegs() -> [AnyHashable: Any]? {
 
-        var regsDict: [AnyHashable : Any] = [:]
+        var regsDict: [AnyHashable: Any] = [:]
 
-        let gdpr:Bool? = Targeting.shared.subjectToGDPR
-        
-        if(gdpr != nil){
+        let gdpr: Bool? = Targeting.shared.subjectToGDPR
+
+        if (gdpr != nil) {
             regsDict["ext"] = ["gdpr": NSNumber(value: gdpr!).intValue] as NSDictionary
         }
         return regsDict
     }
 
     // OpenRTB 2.5 Object: User in section 3.2.20
-    func openrtbUser(adUnit: AdUnit?) -> [AnyHashable : Any]? {
-        var userDict: [AnyHashable : Any] = [:]
+    func openrtbUser(adUnit: AdUnit?) -> [AnyHashable: Any]? {
+        var userDict: [AnyHashable: Any] = [:]
 
         let yob = Targeting.shared.yearOfBirth
         if yob > 0 {
@@ -276,12 +288,12 @@ import AdSupport
         }
         userDict["gender"] = gender
 
-        let targetingParams = adUnit?.userKeywords
+        let targetingUserParams = adUnit?.userKeywords
 
-        let keywordString = fetchKeywordsString(targetingParams)
+        let userKeywordString = fetchKeywordsString(targetingUserParams)
 
-        if !(keywordString == "") {
-            userDict["keywords"] = keywordString
+        if !(userKeywordString == "") {
+            userDict["keywords"] = userKeywordString
         }
 
         if Targeting.shared.subjectToGDPR == true {
@@ -305,19 +317,19 @@ import AdSupport
         return precisionNumberFormatter
     }
 
-    func fetchKeywordsString(_ kewordsDictionary: [AnyHashable : Any]?) -> String? {
+    func fetchKeywordsString(_ kewordsDictionary: [AnyHashable: Any]?) -> String? {
 
         var keywordString = ""
 
-        for (key,dictValues) in (kewordsDictionary)! {
+        for (key, dictValues) in (kewordsDictionary)! {
 
             let values = dictValues as? [String?]
-            
-            for value in values!  {
+
+            for value in values! {
 
                 let keyvalue = "\(key)=\(value!)"
 
-                if(keywordString != ""){
+                if (keywordString != "") {
                     keywordString = "\(keywordString),\(keyvalue)"
                 } else {
                     keywordString = keyvalue
@@ -327,43 +339,43 @@ import AdSupport
 
         return keywordString
     }
-    
+
     class func UserAgent(callback:@escaping(_ userAgentString: String) -> Void) {
-        
-        var wkUserAgent:String = ""
+
+        var wkUserAgent: String = ""
         let myGroup = DispatchGroup()
-        
+
         let window = UIApplication.shared.keyWindow
-        let webView = WKWebView(frame:UIScreen.main.bounds)
+        let webView = WKWebView(frame: UIScreen.main.bounds)
         webView.isHidden = true
         window?.addSubview(webView)
         myGroup.enter()
         webView.loadHTMLString("<html></html>", baseURL: nil)
-        webView.evaluateJavaScript("navigator.userAgent", completionHandler: { (userAgent, error) in
+        webView.evaluateJavaScript("navigator.userAgent", completionHandler: { (userAgent, _) in
             wkUserAgent = userAgent as! String
             webView.stopLoading()
             webView.removeFromSuperview()
             myGroup.leave()
-            
+
         })
         myGroup.notify(queue: .main) {
             callback(wkUserAgent)
         }
-        
+
     }
-    
+
     class func DeviceUUID() -> String {
-        var uuidString:String = ""
-        
-        if(uuidString == ""){
-            let advertisingIdentifier:String = ASIdentifierManager.shared().advertisingIdentifier.uuidString
-            
-            if(advertisingIdentifier != .kIFASentinelValue){
+        var uuidString: String = ""
+
+        if (uuidString == "") {
+            let advertisingIdentifier: String = ASIdentifierManager.shared().advertisingIdentifier.uuidString
+
+            if (advertisingIdentifier != .kIFASentinelValue) {
                 uuidString = advertisingIdentifier
             }
         }
-        
+
         return uuidString
     }
-    
+
 }

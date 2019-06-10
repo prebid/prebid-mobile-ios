@@ -1,11 +1,11 @@
 /*   Copyright 2018-2019 Prebid.org, Inc.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,45 +15,47 @@
 
 import Foundation
 
-
 extension String {
     public static let PB_GDPR_ConsentString = "kPBGDPRConsentString"
-    
+
     public static let PB_GDPR_SubjectToConsent = "kPBGdprSubjectToConsent"
-    
+
     public static let IAB_GDPR_SubjectToConsent = "IABConsent_SubjectToGDPR"
-    
+
     public static let IAB_GDPR_ConsentString = "IABConsent_ConsentString"
-    
+
     public static let EMPTY_String = ""
-    
+
     public static let kIFASentinelValue = "00000000-0000-0000-0000-000000000000"
+
+    public static let DFP_Object_Name = "DFPRequest"
     
     public static let DFP_N_Object_Name = "DFPNRequest"
-    
+
     public static let DFP_O_Object_Name = "DFPORequest"
-    
+
+    public static let GAD_Object_Name = "GADRequest"
+
     public static let GAD_N_Object_Name = "GADNRequest"
-    
+
     public static let MoPub_Object_Name = "MPAdView"
-    
+
     public static let MoPub_Interstitial_Name = "MPInterstitialAdController"
-    
-    
+
 }
 
 extension Double {
-     public static let PB_MIN_RefreshTime = 30000.0
-    
+    public static let PB_MIN_RefreshTime = 30000.0
+
 }
 
 extension Int {
-    
-    public static let PB_Request_Timeout = 10000
+
+    public static let PB_Request_Timeout = 2000
 }
 
 extension UIDevice {
-    
+
     var modelName: String {
         var systemInfo = utsname()
         uname(&systemInfo)
@@ -62,7 +64,7 @@ extension UIDevice {
             guard let value = element.value as? Int8, value != 0 else { return identifier }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
-        
+
         switch identifier {
         case "iPod5,1":                                 return "iPod Touch 5"
         case "iPod7,1":                                 return "iPod Touch 6"
@@ -93,11 +95,11 @@ extension UIDevice {
         default:                                        return identifier
         }
     }
-    
+
 }
 
 extension Dictionary {
-    mutating func merge(dict: [Key: Value]){
+    mutating func merge(dict: [Key: Value]) {
         for (k, v) in dict {
             updateValue(v, forKey: k)
         }
@@ -105,12 +107,11 @@ extension Dictionary {
 }
 
 extension Array {
-    public func toDictionary<Key: Hashable>(with selectKey: (Element) -> Key) -> [Key:Element] {
-        var dict = [Key:Element]()
+    public func toDictionary<Key: Hashable>(with selectKey: (Element) -> Key) -> [Key: Element] {
+        var dict = [Key: Element]()
         for element in self {
             dict[selectKey(element)] = element
         }
         return dict
     }
 }
-
