@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobile"
-  s.version      = "1.0"
+  s.version      = "1.1"
   s.summary      = "PrebidMobile is a lightweight framework that integrates directly with Prebid Server."
 
   s.description  = <<-DESC
@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
 
   s.author             = { "Prebid.org, Inc." => "info@prebid.org" }
   s.platform     = :ios, "11.0"
-  s.swift_version = '3.2'
+  s.swift_version = '5.0'
   s.source       = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
   s.source_files = "src/PrebidMobile/PrebidMobile","src/PrebidMobile/PrebidMobile/*.{h,swift}","src/PrebidMobile/PrebidMobile/**/*.swift"
   s.xcconfig = {
