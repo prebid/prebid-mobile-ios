@@ -338,7 +338,9 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             if let ext = app["ext"] as? [String: Any] {
                 if let prebid = ext["prebid"] as? [String: Any] {
                     XCTAssertEqual("prebid-mobile", prebid["source"] as! String)
-                    XCTAssertEqual(String(PrebidMobileVersionNumber), prebid["version"] as! String)
+                    
+                    let prebidSdkVersion = Bundle(for: RequestBuilder.self).infoDictionary?["CFBundleShortVersionString"] as? String
+                    XCTAssertEqual(prebidSdkVersion, prebid["version"] as! String)
                 }
             }
             if let publisher = app["publisher"] as? [String: Any] {
