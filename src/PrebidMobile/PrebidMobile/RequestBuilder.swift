@@ -157,7 +157,17 @@ import AdSupport
         }
 
         app["publisher"] = ["id": Prebid.shared.prebidServerAccountId ?? 0] as NSDictionary
-        app["ext"] = ["prebid": ["version": String(PrebidMobileVersionNumber), "source": "prebid-mobile"]]
+
+        let prebidSdkVersion = Bundle(for: type(of: self)).infoDictionary?["CFBundleShortVersionString"] as? String
+        app["ext"] = ["prebid": ["version": prebidSdkVersion, "source": "prebid-mobile"]]
+        
+        if let storeUrl = Targeting.shared.storeURL, !storeUrl.isEmpty {
+            app["storeurl"] = storeUrl
+        }
+        
+        if let domain = Targeting.shared.domain, !domain.isEmpty {
+            app["domain"] = domain
+        }
 
         return app
     }

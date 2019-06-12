@@ -46,6 +46,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         targeting.subjectToGDPR = true
         targeting.itunesID = "12345"
         targeting.gdprConsentString = "testGDPR"
+        targeting.storeURL = "https://itunes.apple.com/app/id123456789"
+        targeting.domain = "appdomain.com"
 
         adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2))
         adUnit.identifier = "PrebidMobile"
@@ -248,6 +250,28 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         }
 
     }
+    
+    func testOpenRTBAppObjectWithoutData() {
+        Targeting.shared.storeURL = ""
+        Targeting.shared.domain = nil
+        
+        do {
+            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+                
+                guard let app = jsonRequestBody["app"] as? [String: Any] else {
+                    XCTFail("app object was not found")
+                    return;
+                }
+                
+                XCTAssertNil(app["storeurl"])
+                XCTAssertNil(app["domain"])
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+    }
 
     func validationResponse(jsonRequestBody: [String: Any]) {
 
@@ -314,13 +338,25 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             if let ext = app["ext"] as? [String: Any] {
                 if let prebid = ext["prebid"] as? [String: Any] {
                     XCTAssertEqual("prebid-mobile", prebid["source"] as! String)
-                    XCTAssertEqual("1.0", prebid["version"] as! String)
+                    
+                    let prebidSdkVersion = Bundle(for: RequestBuilder.self).infoDictionary?["CFBundleShortVersionString"] as? String
+                    XCTAssertEqual(prebidSdkVersion, prebid["version"] as! String)
                 }
             }
             if let publisher = app["publisher"] as? [String: Any] {
                 if let id = publisher["id"] as? String {
                     XCTAssertEqual("bfa84af2-bd16-4d35-96ad-31c6bb888df0", id)
                 }
+            }
+            if let storeUrl = app["storeurl"] as? String {
+                XCTAssertEqual(storeUrl, "https://itunes.apple.com/app/id123456789")
+            } else {
+                XCTFail("storeurl was not fount")
+            }
+            if let domain = app["domain"] as? String {
+                XCTAssertEqual(domain, "appdomain.com")
+            } else {
+                XCTFail("domain was not fount")
             }
         }
         if let source = jsonRequestBody["source"] as? [String: Any] {

@@ -84,5 +84,21 @@ class TargetingTests: XCTestCase {
 
         XCTAssertTrue((testItuneID == "54673893"))
     }
+    
+    func testStoreURL() {
+        
+        Targeting.shared.storeURL = "https://itunes.apple.com/app/id123456789"
+        let storeURL = Targeting.shared.storeURL
+        
+        XCTAssertTrue((storeURL == "https://itunes.apple.com/app/id123456789"))
+    }
+    
+    func testDomain() {
+        
+        Targeting.shared.domain = "appdomain.com"
+        let domain = Targeting.shared.domain
+        
+        XCTAssertTrue((domain == "appdomain.com"))
+    }
 
 }
