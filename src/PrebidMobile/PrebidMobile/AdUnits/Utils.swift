@@ -148,19 +148,18 @@ public class Utils: NSObject {
     }
     
     func findSizeInWebViewAsync(uiWebView: UIWebView, completion: @escaping (CGSize?) -> Void) {
-        
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { (timer) in
-        
-            guard !uiWebView.isLoading else {
-                return
+
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+            
+            if uiWebView.isLoading {
+                self.findSizeInWebViewAsync(uiWebView: uiWebView, completion: completion)
+            } else {
+
+                let content = uiWebView.stringByEvaluatingJavaScript(from: "document.body.innerHTML")
+
+                let uiResult = self.findSizeInJavaScript(jsCode: content)
+                self.runResizeCompletion(size: uiResult, completion: completion)
             }
-            
-            timer.invalidate()
-            let content = uiWebView.stringByEvaluatingJavaScript(from: "document.body.innerHTML")
-            
-            let uiResult = self.findSizeInJavaScript(jsCode: content)
-            self.runResizeCompletion(size: uiResult, completion: completion)
-            
         }
 
     }
