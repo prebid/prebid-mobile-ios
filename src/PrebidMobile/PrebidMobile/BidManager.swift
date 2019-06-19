@@ -46,7 +46,7 @@ import Foundation
                     if (!Prebid.shared.timeoutUpdated) {
                         let tmax = self.getTmaxRequest(data!)
                         if (tmax > 0) {
-                            Prebid.shared.timeoutMillis = min(demandFetchEndTime - demandFetchStartTime + tmax + 200, .PB_Request_Timeout)
+                            Prebid.shared.timeoutMillis = min(Int(demandFetchEndTime - demandFetchStartTime + tmax + 200), .PB_Request_Timeout)
                             Prebid.shared.timeoutUpdated = true
                         }
                     }
@@ -144,16 +144,16 @@ import Foundation
 
     }
 
-    func getCurrentMillis() -> Int {
-        return Int(Date().timeIntervalSince1970 * 1000)
+    func getCurrentMillis() -> Int64 {
+        return Int64(Date().timeIntervalSince1970 * 1000)
     }
 
-    func getTmaxRequest(_ data: Data) -> Int {
+    func getTmaxRequest(_ data: Data) -> Int64 {
         do {
             let response: [String: AnyObject] = try JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
             let ext = response["ext"] as! [String: AnyObject]
             if (ext["tmaxrequest"] != nil) {
-                return  ext["tmaxrequest"] as! Int
+                return  ext["tmaxrequest"] as! Int64
             }
         } catch let error {
             print(error.localizedDescription)
