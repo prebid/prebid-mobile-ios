@@ -609,7 +609,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTAssertEqual(0, fetchDemandCount)
     }
 
-    func testAppNexysInvalidPrebidServerAccountId() {
+    func testAppNexusInvalidPrebidServerAccountId() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
         Prebid.shared.prebidServerAccountId = Constants.PBS_INVALID_ACCOUNT_ID_APPNEXUS
@@ -1103,11 +1103,18 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
     // MARK: - DFP delegate
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("adViewDidReceiveAd")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
-            let result = PBViewTool.checkDFPAdViewContainsPBMAd(bannerView)
-            XCTAssertTrue(result)
-            self.loadSuccesfulException?.fulfill()
-        })
+        Utils.shared.findPrebidCreativeSize(bannerView) { (size) in
+            if let bannerView = bannerView as? DFPBannerView, let size = size {
+                bannerView.resize(GADAdSizeFromCGSize(size))
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
+                    let result = PBViewTool.checkDFPAdViewContainsPBMAd(bannerView)
+                    XCTAssertTrue(result)
+                    self.loadSuccesfulException?.fulfill()
+                })
+            }
+        }
+        
     }
 
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
