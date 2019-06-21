@@ -247,7 +247,7 @@ import AdSupport
 
             let locationTimestamp: Date? = Location.shared.location?.timestamp
             let ageInSeconds: TimeInterval = -1.0 * (locationTimestamp?.timeIntervalSinceNow ?? 0.0)
-            let ageInMilliseconds = Int(ageInSeconds * 1000)
+            let ageInMilliseconds = Int64(ageInSeconds * 1000)
 
             geoDict["lastfix"] = ageInMilliseconds
             geoDict["accuracy"] = Int(Location.shared.location?.horizontalAccuracy ?? 0)
