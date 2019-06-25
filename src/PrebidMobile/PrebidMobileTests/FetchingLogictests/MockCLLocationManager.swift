@@ -94,15 +94,19 @@ class MockCLLocationManager: CLLocationManager {
 
     }
     override func startUpdatingLocation() {
-
-        timer = Timer(timeInterval: updateInterval, repeats: true, block: { [unowned self](_) in
-            self.locations = CLLocation(latitude: 28.5388, longitude: -81.3756)
-            self.updateLocation()
-        })
+        
+        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.loop), userInfo: nil, repeats: true)
+        
         if let timer = timer {
             RunLoop.main.add(timer, forMode: .default)
         }
     }
+    
+    @objc func loop() {
+        self.locations = CLLocation(latitude: 28.5388, longitude: -81.3756)
+        self.updateLocation()
+    }
+    
     override func stopUpdatingLocation() {
         timer?.invalidate()
         self.locations = nil
