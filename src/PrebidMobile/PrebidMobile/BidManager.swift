@@ -46,7 +46,7 @@ import Foundation
                     if (!Prebid.shared.timeoutUpdated) {
                         let tmax = self.getTmaxRequest(data!)
                         if (tmax > 0) {
-                            Prebid.shared.timeoutMillis = min(demandFetchEndTime - demandFetchStartTime + tmax + 200, .PB_Request_Timeout)
+                            Prebid.shared.timeoutMillis = min(Int(demandFetchEndTime - demandFetchStartTime) + tmax + 200, .PB_Request_Timeout)
                             Prebid.shared.timeoutUpdated = true
                         }
                     }
@@ -144,8 +144,8 @@ import Foundation
 
     }
 
-    func getCurrentMillis() -> Int {
-        return Int(Date().timeIntervalSince1970 * 1000)
+    func getCurrentMillis() -> Int64 {
+        return Int64(Date().timeIntervalSince1970 * 1000)
     }
 
     func getTmaxRequest(_ data: Data) -> Int {

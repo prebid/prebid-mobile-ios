@@ -121,6 +121,161 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
         
     }
+    
+    
+    
+    let transactionFailRepeatCount = 5
+    let screenshotDelaySeconds = 3.0
+    let transactionFailDelaySeconds = 3.0
+    
+    //30x250 -> 728x90
+    func testRubiconDFPBannerResizeSanityAppCheckTest() {
+        
+        class BannerViewDelegate: NSObject, GADBannerViewDelegate {
+            let outer: PrebidDemoTests
+            var loadSuccesfulExpectation: XCTestExpectation
+            var prebidbBannerAdUnit: BannerAdUnit
+            var first: Int
+            var second: Int
+            
+            init(outer: PrebidDemoTests, loadSuccesfulExpectation: XCTestExpectation, prebidbBannerAdUnit: BannerAdUnit, first: inout Int, second: inout Int) {
+                
+                self.outer = outer
+                self.loadSuccesfulExpectation =  loadSuccesfulExpectation
+                self.prebidbBannerAdUnit = prebidbBannerAdUnit
+                self.first = first
+                self.second = second
+            }
+            
+            func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+                Log.debug("AdManager adViewDidReceiveAd")
+                
+                Utils.shared.findPrebidCreativeSize(bannerView) { (size) in
+                    if let bannerView = bannerView as? DFPBannerView, let size = size {
+                        bannerView.resize(GADAdSizeFromCGSize(size))
+                        
+                        let bannerViewFrame = bannerView.frame;
+                        let bannerViewSize = CGSize(width: bannerViewFrame.width, height: bannerViewFrame.height)
+                        
+                        XCTAssertEqual(bannerViewSize, size)
+                        
+                        //Wait to make screenshot
+                        XCTWaiter.wait(for: [XCTestExpectation(description: "wait")], timeout: self.outer.screenshotDelaySeconds)
+                        
+                        self.outer.makeScreenShot()
+                    }
+
+                    self.outer.onResult(isSuccess: true, prebidbBannerAdUnit: self.prebidbBannerAdUnit, loadSuccesfulExpectation: self.loadSuccesfulExpectation, first: &self.first, second: &self.second)
+                }
+                
+            }
+            
+            func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+                Log.warn("AdManager adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+                
+                self.outer.onResult(isSuccess: false, prebidbBannerAdUnit: self.prebidbBannerAdUnit, loadSuccesfulExpectation: loadSuccesfulExpectation, first: &self.first, second: &self.second)
+            }
+        }
+
+        var firstTransactionCount = 0
+        var secondTransactionCount = 0
+        
+        let loadSuccesfulExpectation: XCTestExpectation = expectation(description: "load succesful")
+        loadSuccesfulExpectation.expectedFulfillmentCount = 2
+        loadSuccesfulExpectation.assertForOverFulfill = false
+        
+        //Logic
+        setUpAppRubicon()
+        timeoutForRequest = 30.0
+        
+        let prebidbBannerAdUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
+        
+        let delegare = BannerViewDelegate(outer:self, loadSuccesfulExpectation: loadSuccesfulExpectation, prebidbBannerAdUnit: prebidbBannerAdUnit, first: &firstTransactionCount, second: &secondTransactionCount)
+        
+        let gamBannerView = DFPBannerView()
+        gamBannerView.validAdSizes = [
+            NSValueFromGADAdSize(kGADAdSizeMediumRectangle),
+            NSValueFromGADAdSize(GADAdSizeFromCGSize(CGSize(width: 728, height: 90))),
+        ]
+        
+        gamBannerView.adUnitID = "/5300653/test_adunit_pavliuchyk_300x250_puc_ucTagData_prebid-server.rubiconproject.com"
+        
+        gamBannerView.rootViewController = viewController
+        gamBannerView.delegate = delegare
+        gamBannerView.backgroundColor = .red
+        
+        viewController?.view.addSubview(gamBannerView)
+        
+        
+        let request: DFPRequest = DFPRequest()
+        prebidbBannerAdUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
+            if resultCode == ResultCode.prebidDemandFetchSuccess {
+                
+                gamBannerView.load(request)
+            } else {
+                Log.warn("ERROR bannerUnit.fetchDemand resultCode: \(resultCode.name())")
+                self.onResult(isSuccess: false, prebidbBannerAdUnit: prebidbBannerAdUnit, loadSuccesfulExpectation: loadSuccesfulExpectation, first: &firstTransactionCount, second: &secondTransactionCount)
+            }
+        }
+    
+        wait(for: [loadSuccesfulExpectation], timeout: 100)
+    }
+    
+    func onResult(isSuccess: Bool, prebidbBannerAdUnit: BannerAdUnit, loadSuccesfulExpectation: XCTestExpectation, first: inout Int, second: inout Int) {
+        if isSuccess {
+            
+            if first != -1 {
+                first = -1
+
+                prebidbBannerAdUnit.adSizes = [CGSize(width: 728, height: 90)]
+                prebidbBannerAdUnit.refreshDemand()
+                
+            } else if second != -1 {
+                second = -1
+            }
+            
+            loadSuccesfulExpectation.fulfill()
+            
+        } else {
+            //time-out
+            XCTWaiter.wait(for: [XCTestExpectation(description: "wait")], timeout: self.transactionFailDelaySeconds)
+            
+            if first != -1 {
+                if first > self.transactionFailRepeatCount - 2 {
+                    XCTFail("first Transaction Count == 5")
+                    loadSuccesfulExpectation.fulfill()
+                    loadSuccesfulExpectation.fulfill()
+                    
+                } else {
+                    Log.warn("first transaction repear#\(first)")
+                    first += 1
+                    prebidbBannerAdUnit.refreshDemand()
+                }
+            } else if second != -1 {
+                if second > self.transactionFailRepeatCount - 2 {
+                    XCTFail("second Transaction Count == 5")
+                    loadSuccesfulExpectation.fulfill()
+                    loadSuccesfulExpectation.fulfill()
+                } else {
+                    Log.warn("second transaction repear#\(second)")
+                    second += 1
+                    prebidbBannerAdUnit.refreshDemand()
+                }
+            } else {
+                XCTFail("Unexpected")
+            }
+            
+        }
+    }
+    
+    func makeScreenShot() {
+        // Taking screenshot after test
+        let screenshot = XCUIScreen.main.screenshot()
+        let fullScreenshotAttachment = XCTAttachment(screenshot: screenshot)
+        fullScreenshotAttachment.lifetime = .keepAlways
+        
+        add(fullScreenshotAttachment)
+    }
 
     func testDFPBannerWithoutAutoRefresh() {
         var fetchDemandCount = 0
@@ -454,7 +609,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTAssertEqual(0, fetchDemandCount)
     }
 
-    func testAppNexysInvalidPrebidServerAccountId() {
+    func testAppNexusInvalidPrebidServerAccountId() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
         Prebid.shared.prebidServerAccountId = Constants.PBS_INVALID_ACCOUNT_ID_APPNEXUS
@@ -948,11 +1103,18 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
     // MARK: - DFP delegate
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("adViewDidReceiveAd")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
-            let result = PBViewTool.checkDFPAdViewContainsPBMAd(bannerView)
-            XCTAssertTrue(result)
-            self.loadSuccesfulException?.fulfill()
-        })
+        Utils.shared.findPrebidCreativeSize(bannerView) { (size) in
+            if let bannerView = bannerView as? DFPBannerView, let size = size {
+                bannerView.resize(GADAdSizeFromCGSize(size))
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
+                    let result = PBViewTool.checkDFPAdViewContainsPBMAd(bannerView)
+                    XCTAssertTrue(result)
+                    self.loadSuccesfulException?.fulfill()
+                })
+            }
+        }
+        
     }
 
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
