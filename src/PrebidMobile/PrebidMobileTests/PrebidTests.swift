@@ -50,8 +50,6 @@ class PrebidTests: XCTestCase {
 
     func testServerCustomHost() {
 
-        XCTAssertEqual(Prebid.shared.prebidServerHost, PrebidHost.Appnexus)
-
         Prebid.shared.prebidServerHost = PrebidHost.Custom
         XCTAssertEqual(Prebid.shared.prebidServerHost, PrebidHost.Custom)
 
