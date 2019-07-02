@@ -104,6 +104,26 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         }
     }
 
+    func testPostDataWithCOPPA() {
+        let targeting = Targeting.shared
+        targeting.subjectToCOPPA = true
+        defer {
+            targeting.subjectToCOPPA = false
+        }
+        
+        do {
+            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+                XCTAssertNotNil(jsonRequestBody["regs"])
+                if let coppa = jsonRequestBody["coppa"] as? Int {
+                    XCTAssertEqual(1, coppa)
+                }
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
     func testPostDataWithNoGDPR() {
         let targeting = Targeting.shared
         targeting.subjectToGDPR = false
