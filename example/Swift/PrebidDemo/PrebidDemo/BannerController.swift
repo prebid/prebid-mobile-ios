@@ -109,10 +109,15 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("adViewDidReceiveAd")
         
-        Utils.shared.findPrebidCreativeSize(bannerView) { (size) in
-            if let bannerView = bannerView as? DFPBannerView, let size = size {
-                bannerView.resize(GADAdSizeFromCGSize(size))
+        Utils.shared.findPrebidCreativeSize(bannerView, success: { (size) in
+            guard let bannerView = bannerView as? DFPBannerView else {
+                return
             }
+            
+            bannerView.resize(GADAdSizeFromCGSize(size))
+            
+        }) { (error) in
+            print("error: \(error.localizedDescription)");
         }
     }
 
