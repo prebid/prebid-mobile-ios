@@ -92,6 +92,17 @@ public class Utils: NSObject {
 
     }
 }
+
+    @objc
+    public func findPrebidCreativeSize(_ adView: UIView, success: @escaping (CGSize) -> Void, failure: @escaping (Error) -> Void) {
+        findPrebidCreativeSize(adView) { (size) in
+            if let size = size {
+                success(size)
+            } else {
+                failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Can not get size"]))
+            }
+        }
+    }
     
     public func findPrebidCreativeSize(_ adView: UIView, completion: @escaping (CGSize?) -> Void) {
         
