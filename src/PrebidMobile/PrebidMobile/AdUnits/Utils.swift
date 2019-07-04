@@ -97,6 +97,8 @@ public class Utils: NSObject {
     public func findPrebidCreativeSize(_ adView: UIView, success: @escaping (CGSize) -> Void, failure: @escaping (Error) -> Void) {
         findPrebidCreativeSize(adView) { (size) in
             if let size = size {
+                Log.debug("size:\(size)")
+                
                 success(size)
             } else {
                 failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Can not get size"]))
@@ -104,7 +106,7 @@ public class Utils: NSObject {
         }
     }
     
-    @available(iOS, deprecated: 1.1.1, message: "Please migrate to - findPrebidCreativeSize(_:success:failure:)")
+    @available(iOS, deprecated, message: "Please migrate to - findPrebidCreativeSize(_:success:failure:)")
     public func findPrebidCreativeSize(_ adView: UIView, completion: @escaping (CGSize?) -> Void) {
         
         let view = self.recursivelyFindWebView(adView) { (subView) -> Bool in
@@ -126,7 +128,6 @@ public class Utils: NSObject {
     
     func runResizeCompletion(size: CGSize?, completion: @escaping (CGSize?) -> Void) {
         
-        Log.debug("size:\(size)")
         completion(size)
     }
     
