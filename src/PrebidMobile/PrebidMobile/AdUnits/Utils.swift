@@ -104,6 +104,7 @@ public class Utils: NSObject {
         }
     }
     
+    @available(iOS, deprecated: 1.1.1, message: "Please migrate to - findPrebidCreativeSize(_:success:failure:)")
     public func findPrebidCreativeSize(_ adView: UIView, completion: @escaping (CGSize?) -> Void) {
         
         let view = self.recursivelyFindWebView(adView) { (subView) -> Bool in
