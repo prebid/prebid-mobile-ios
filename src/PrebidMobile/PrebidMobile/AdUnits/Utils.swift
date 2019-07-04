@@ -16,11 +16,13 @@
 import Foundation
 import WebKit
 
+@objc
 public class Utils: NSObject {
 
     /**
      * The class is created as a singleton object & used
      */
+    @objc
     public static let shared = Utils()
 
     /**
