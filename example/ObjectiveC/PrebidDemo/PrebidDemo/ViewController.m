@@ -135,6 +135,18 @@
 #pragma mark :- DFP delegates
 -(void) adViewDidReceiveAd:(GADBannerView *)bannerView {
     NSLog(@"Ad received");
+    
+    [[Utils shared] findPrebidCreativeSize:bannerView
+                                   success:^(CGSize size) {
+                                       if ([bannerView isKindOfClass:[DFPBannerView class]]) {
+                                           DFPBannerView *dfpBannerView = (DFPBannerView *)bannerView;
+                                           
+                                           [dfpBannerView resize:GADAdSizeFromCGSize(size)];
+                                       }
+                                   } failure:^(NSError * _Nonnull error) {
+                                       NSLog(@"error: %@", error.localizedDescription);
+                                   }];
+
 }
     
 - (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
