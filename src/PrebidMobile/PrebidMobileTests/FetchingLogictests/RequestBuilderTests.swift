@@ -239,12 +239,29 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
                 }
                 
                 if let imp = jsonRequestBody["imp"] as? [Any],
-                    let imp0 = imp[0] as? [String: Any],
-                    let instl = imp0["instl"] as? Int {
+                    let imp0 = imp[0] as? [String: Any] {
                     
-                    XCTAssertEqual(1, instl)
+                    if let banner = imp0["banner"] as? [String: Any],
+                        let formatArr = banner["format"] as? [Any],
+                        let format0 = formatArr[0] as? [String: Any],
+                        let w = format0["w"] as? Int,
+                        let h = format0["h"] as? Int {
+                        
+                        XCTAssertNotNil(w)
+                        XCTAssertNotNil(h)
+                    } else {
+                        XCTFail("Can not find width and height")
+                    }
+                    
+                    if let instl = imp0["instl"] as? Int {
+                        XCTAssertEqual(1, instl)
+                    } else {
+                        XCTFail("Can not find instl")
+                    }
+                    
+                    
                 } else {
-                    XCTFail("Can not find instl")
+                    XCTFail("Can not find imp")
                     
                 }
             }
@@ -270,8 +287,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
                 }
                 
-                if let imp = jsonRequestBody["imp"] as? [Any],
-                    let imp0 = imp[0] as? [String: Any],
+                if let impArr = jsonRequestBody["imp"] as? [Any],
+                    let imp0 = impArr[0] as? [String: Any],
                     let instl = imp0["instl"] as? Int {
                     
                     XCTAssertEqual(0, instl)
