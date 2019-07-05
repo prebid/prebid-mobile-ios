@@ -31,6 +31,11 @@ class InterstItialAdUnitTests: XCTestCase {
         XCTAssertTrue(adUnit.prebidConfigId == Constants.configID1)
         XCTAssertNil(adUnit.dispatcher)
     }
+    
+    func testAdvancedInterstitialAdUnitCreation() {
+        let adUnit = InterstitialAdUnit(configId: Constants.configID1, minWidthPerc: 50, minHeightPerc: 70)
+        XCTAssertTrue(adUnit.minSizePerc?.width == 50 && adUnit.minSizePerc?.height == 70)
+    }
 
     func testSetUserKeyword() {
         let adUnit = InterstitialAdUnit(configId: Constants.configID1)
