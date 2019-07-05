@@ -67,7 +67,7 @@ import AdSupport
             requestDict["source"] = aSource
         }
         requestDict["app"] = openrtbApp()
-        requestDict["device"] = openrtbDevice()
+        requestDict["device"] = openrtbDevice(adUnit: adUnit)
         if Targeting.shared.subjectToGDPR == true {
             requestDict["regs"] = openrtbRegs()
         }
@@ -174,7 +174,7 @@ import AdSupport
 
     // OpenRTB 2.5 Object: Device in section 3.2.18
 
-    func openrtbDevice() -> [AnyHashable: Any]? {
+    func openrtbDevice(adUnit: AdUnit?) -> [AnyHashable: Any]? {
         var deviceDict: [AnyHashable: Any] = [:]
 
         if (RequestBuilder.myUserAgent != "") {
@@ -228,6 +228,10 @@ import AdSupport
         let pixelRatio: CGFloat = UIScreen.main.scale
 
         deviceDict["pxratio"] = pixelRatio
+        
+        if let deviceExt = self.fetchDeviceExt(adUnit: adUnit) {
+            deviceDict["ext"] = deviceExt
+        }
 
         return deviceDict
 
@@ -340,6 +344,26 @@ import AdSupport
         }
 
         return keywordString
+    }
+    
+    func fetchDeviceExt(adUnit: AdUnit?) -> [AnyHashable: Any]? {
+        var hasValue = false
+        
+        var deviceExtDict: [AnyHashable: Any] = [:]
+        var deviceExtPrebidDict: [AnyHashable: Any] = [:]
+        var deviceExtPrebidInstlDict: [AnyHashable: Any] = [:]
+        
+        if let adUnit = adUnit as? InterstitialAdUnit, let minSizePerc = adUnit.minSizePerc {
+            hasValue = true
+            
+            deviceExtPrebidInstlDict["minwidthperc"] = minSizePerc.width
+            deviceExtPrebidInstlDict["minheightperc"] = minSizePerc.height
+        }
+        
+        deviceExtPrebidDict["interstitial"] = deviceExtPrebidInstlDict
+        deviceExtDict["prebid"] = deviceExtPrebidDict
+        
+        return hasValue ? deviceExtDict : nil
     }
 
     class func UserAgent(callback:@escaping(_ userAgentString: String) -> Void) {

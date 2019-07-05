@@ -17,8 +17,16 @@ import Foundation
 
 @objcMembers public class InterstitialAdUnit: AdUnit {
 
+    var minSizePerc: CGSize?
+    
     public init(configId: String) {
         super.init(configId: configId, size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    }
+    
+    public convenience init(configId: String, minWidthPerc: Int, minHeightPerc: Int) {
+        self.init(configId: configId)
+        
+        minSizePerc = CGSize(width: minWidthPerc, height: minHeightPerc)
     }
 
 }
