@@ -72,6 +72,11 @@ class Log {
     }
 
     // MARK: - Loging methods
+    private class func log(level: LogLevel, _ object: Any, filename: String, line: Int, column: Int, funcName: String) {
+        if isLoggingEnabled(for: level) {
+            print("\(Date().toString()) \(level.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
+        }
+    }
 
     /// Logs error messages on console with prefix [‼️]
     ///
@@ -82,9 +87,7 @@ class Log {
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
     class func error( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        if isLoggingEnabled(for: .error) {
-            print("\(Date().toString()) \(LogLevel.error.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
-        }
+        log(level: .error, object, filename: filename, line: line, column: column, funcName: funcName)
     }
 
     /// Logs info messages on console with prefix [ℹ️]
@@ -96,9 +99,7 @@ class Log {
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
     class func info ( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        if isLoggingEnabled(for: .info) {
-            print("\(Date().toString()) \(LogLevel.info.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
-        }
+        log(level: .info, object, filename: filename, line: line, column: column, funcName: funcName)
     }
 
     /// Logs debug messages on console with prefix [💬]
@@ -110,9 +111,7 @@ class Log {
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
     class func debug( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        if isLoggingEnabled(for: .debug) {
-            print("\(Date().toString()) \(LogLevel.debug.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
-        }
+       log(level: .debug, object, filename: filename, line: line, column: column, funcName: funcName)
     }
 
     /// Logs messages verbosely on console with prefix [🔬]
@@ -124,9 +123,7 @@ class Log {
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
     class func verbose( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        if isLoggingEnabled(for: .verbose) {
-            print("\(Date().toString()) \(LogLevel.verbose.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
-        }
+        log(level: .verbose, object, filename: filename, line: line, column: column, funcName: funcName)
     }
 
     /// Logs warnings verbosely on console with prefix [⚠️]
@@ -138,9 +135,7 @@ class Log {
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
     class func warn( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        if isLoggingEnabled(for: .warn) {
-            print("\(Date().toString()) \(LogLevel.warn.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
-        }
+        log(level: .warn, object, filename: filename, line: line, column: column, funcName: funcName)
     }
 
     /// Logs severe events on console with prefix [🔥]
@@ -152,9 +147,7 @@ class Log {
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
     class func severe( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        if isLoggingEnabled(for: .severe) {
-            print("\(Date().toString()) \(LogLevel.severe.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
-        }
+        log(level: .severe, object, filename: filename, line: line, column: column, funcName: funcName)
     }
 
     /// Extract the file name from the file path
