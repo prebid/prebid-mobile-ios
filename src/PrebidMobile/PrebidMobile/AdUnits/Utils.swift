@@ -16,7 +16,6 @@
 import Foundation
 import WebKit
 
-@objc
 public class Utils: NSObject {
 
     /**
