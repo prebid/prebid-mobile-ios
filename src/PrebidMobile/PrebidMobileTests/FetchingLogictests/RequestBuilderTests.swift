@@ -216,7 +216,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         }
     }
     
-    func testPostDataWithAndvancedInterstitial() {
+    func testPostDataWithAdvancedInterstitial() {
         let adUnit = InterstitialAdUnit(configId: Constants.configID1, minWidthPerc: 50, minHeightPerc: 70)
         
         do {
@@ -270,7 +270,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         }
     }
     
-    func testPostDataWithoutAndvancedInterstitial() {
+    func testPostDataWithoutAdvancedInterstitial() {
         let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
         
         do {
