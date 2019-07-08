@@ -259,7 +259,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
                         XCTFail("Can not find instl")
                     }
                     
-                    
                 } else {
                     XCTFail("Can not find imp")
                     
