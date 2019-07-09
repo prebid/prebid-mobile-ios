@@ -347,23 +347,21 @@ import AdSupport
     }
     
     func fetchDeviceExt(adUnit: AdUnit?) -> [AnyHashable: Any]? {
-        var hasValue = false
         
-        var deviceExtDict: [AnyHashable: Any] = [:]
-        var deviceExtPrebidDict: [AnyHashable: Any] = [:]
+        var deviceExt: [AnyHashable: Any] = [:]
+        var deviceExtPrebid: [AnyHashable: Any] = [:]
         var deviceExtPrebidInstlDict: [AnyHashable: Any] = [:]
         
-        if let adUnit = adUnit as? InterstitialAdUnit, let minSizePerc = adUnit.minSizePerc {
-            hasValue = true
-            
-            deviceExtPrebidInstlDict["minwidthperc"] = minSizePerc.width
-            deviceExtPrebidInstlDict["minheightperc"] = minSizePerc.height
+        if let adUnit = adUnit as? InterstitialAdUnit {
+            deviceExtPrebidInstlDict["minwidthperc"] = adUnit.minSizePerc?.width
+            deviceExtPrebidInstlDict["minheightperc"] = adUnit.minSizePerc?.height
         }
         
-        deviceExtPrebidDict["interstitial"] = deviceExtPrebidInstlDict
-        deviceExtDict["prebid"] = deviceExtPrebidDict
+        deviceExtPrebid["interstitial"] = deviceExtPrebidInstlDict
+        deviceExt["prebid"] = deviceExtPrebid
         
-        return hasValue ? deviceExtDict : nil
+        let deviceExtWithoutEmptyValues = Utils.shared.getObjectWithoutEmptyValues(deviceExt)
+        return deviceExtWithoutEmptyValues
     }
 
     class func UserAgent(callback:@escaping(_ userAgentString: String) -> Void) {

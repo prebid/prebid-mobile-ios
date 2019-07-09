@@ -241,6 +241,63 @@ public class Utils: NSObject {
         return gcSize
     }
 
+    func getObjectWithoutEmptyValues(_ dict: [AnyHashable: Any]) -> [AnyHashable: Any]? {
+        var result = dict
+        
+        removeEntryWithoutValue(&result)
+        
+        return result.count > 0 ? result : nil
+    }
+    
+    func removeEntryWithoutValue(_ dict: inout [AnyHashable: Any]) {
+        
+        for key in dict.keys {
+            if var value = dict[key] {
+                
+                if var dictValue = value as? Dictionary<AnyHashable, Any> {
+                    removeEntryWithoutValue(&dictValue)
+                    dict[key] = dictValue
+                    
+                    if dictValue.count == 0 {
+                        dict[key] = nil
+                        
+                    }
+                } else if var arrayValue = value as? Array<Any> {
+                    
+                    removeEntryWithoutValue(&arrayValue)
+                    dict[key] = arrayValue
+                    
+                    if arrayValue.count == 0 {
+                        dict[key] = nil
+                    }
+                }
+            }
+
+        }
+    }
+    
+    func removeEntryWithoutValue(_ array: inout [Any]) {
+        for (index, var value) in array.enumerated() {
+            
+            if var dictValue = value as? Dictionary<AnyHashable, Any> {
+                removeEntryWithoutValue(&dictValue)
+                array[index] = dictValue
+                
+                if dictValue.count == 0 {
+                    array.remove(at: index)
+                }
+                
+            } else if var arrayValue = value as? Array<Any> {
+                removeEntryWithoutValue(&arrayValue)
+                array[index] = arrayValue
+                
+                if arrayValue.count == 0 {
+                    array.remove(at: index)
+                }
+            }
+        }
+    }
+    
 @objc func validateAndAttachKeywords (adObject: AnyObject, bidResponse: BidResponse) {
 
     let adServerObject: String = String(describing: type(of: adObject))
