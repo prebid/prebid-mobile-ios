@@ -585,20 +585,47 @@ class UtilsTests: XCTestCase {
         result = Utils.shared.stringToCGSize("300x250ERROR")
         XCTAssertNil(result)
     }
+
+    func testCannotFindASizeInVoidJsCode() {
+        findSizeInJavascriptErrorHelper(jsCode: nil)
+    }
+
+    func testCannotFindASizeIfItIsNotPresent() {
+        findSizeInJavascriptErrorHelper(jsCode: "<script> \n </script>")
+    }
+
+    func testCannotFindASizeIfTheSizeHasTheWrongType() {
+        findSizeInJavascriptErrorHelper(jsCode: "<script> \n \"hb_size\":ERROR \n </script>")
+    }
+
+    func findSizeInJavascriptErrorHelper(jsCode: String?) {
+        // given
+        var result: CGSize? = nil
+        var error: String? = nil
+        let success: (CGSize) -> Void = { size in result = size}
+        let failure: (Error) -> Void = { err in error = err.localizedDescription}
+
+        // when
+        Utils.shared.findSizeInJavaScript(jsCode: jsCode, success: success, failure: failure)
+
+        // then
+        XCTAssertNil(result)
+        XCTAssertNotNil(error)
+    }
     
-    func testFindSizeInJavaScript() {
-        var result = Utils.shared.findSizeInJavaScript(jsCode: nil)
-        XCTAssertNil(result)
-        
-        result = Utils.shared.findSizeInJavaScript(jsCode: "<script> \n </script>")
-        XCTAssertNil(result)
-        
-        result = Utils.shared.findSizeInJavaScript(jsCode: "<script> \n \"hb_size\":ERROR \n </script>")
-        XCTAssertNil(result)
-        
-        result = Utils.shared.findSizeInJavaScript(jsCode: "<script> \n \"hb_size\":[\"728x90\"] \n </script>")
-        XCTAssertNotNil(result)
-        XCTAssert(result == CGSize(width: 728, height: 90))
+    func testShouldFindSizeInJavaScriptIfProperlyFormatted() {
+        // given
+        var result: CGSize? = nil
+        var error: String? = nil
+        let success: (CGSize) -> Void = { size in result = size}
+        let failure: (Error) -> Void = { err in error = err.localizedDescription}
+
+        // when
+        Utils.shared.findSizeInJavaScript(jsCode: "<script> \n \"hb_size\":[\"728x90\"] \n </script>", success: success, failure: failure)
+
+        // then
+        XCTAssertEqual(result, CGSize(width: 728, height: 90))
+        XCTAssertNil(error)
     }
     
 }
