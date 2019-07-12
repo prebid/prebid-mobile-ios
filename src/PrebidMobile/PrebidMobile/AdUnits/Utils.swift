@@ -90,30 +90,31 @@ public class Utils: NSObject {
 
         }
     }
-    
-    public func findPrebidCreativeSize(_ adView: UIView, completion: @escaping (CGSize?) -> Void) {
-        
+
+    @objc
+    public func findPrebidCreativeSize(_ adView: UIView, success: @escaping (CGSize) -> Void, failure: @escaping (Error) -> Void) {
         let view = self.recursivelyFindWebView(adView) { (subView) -> Bool in
             return subView is WKWebView || subView is UIWebView
         }
-        
+
         if let wkWebView = view as? WKWebView  {
             Log.debug("subView is WKWebView")
-            self.findSizeInWebViewAsync(wkWebView: wkWebView, completion: completion)
-            
+            self.findSizeInWebViewAsync(wkWebView: wkWebView, success: success, failure: failure)
+
         } else if let uiWebView = view as? UIWebView {
             Log.debug("subView is UIWebView")
-            self.findSizeInWebViewAsync(uiWebView: uiWebView, completion: completion)
+            self.findSizeInWebViewAsync(uiWebView: uiWebView, success: success, failure: failure)
         } else {
-            Log.warn("subView doesn't include WebView")
+            warnAndTriggerFailure("subView doesn't include WebView", failure: failure)
         }
-
     }
-    
-    func runResizeCompletion(size: CGSize?, completion: @escaping (CGSize?) -> Void) {
-        
-        Log.debug("size:\(size)")
-        completion(size)
+
+    @available(iOS, deprecated, message: "Please migrate to - findPrebidCreativeSize(_:success, failure:)")
+    public func findPrebidCreativeSize(_ adView: UIView, completion: @escaping (CGSize?) -> Void) {
+        findPrebidCreativeSize(adView, success: completion) { (error) in
+            Log.warn("Missing failure hander, please use - findPrebidCreativeSize(_:success, failure:")
+            completion(nil) // backwardscompatibility
+        }
     }
     
     func recursivelyFindWebView(_ view: UIView, closure:(UIView) -> Bool) -> UIView? {
@@ -131,56 +132,58 @@ public class Utils: NSObject {
         return nil
     }
     
-    func findSizeInWebViewAsync(wkWebView: WKWebView, completion: @escaping (CGSize?) -> Void) {
+    func findSizeInWebViewAsync(wkWebView: WKWebView, success: @escaping (CGSize) -> Void, failure: @escaping (Error) -> Void) {
         
         wkWebView.evaluateJavaScript("document.body.innerHTML", completionHandler: { (value: Any!, error: Error!) -> Void in
             
             if error != nil {
-                Log.warn("error:\(error.localizedDescription)")
+                self.warnAndTriggerFailure("error:\(error.localizedDescription)", failure: failure)
                 return
             }
 
-            let wkResult = self.findSizeInJavaScript(jsCode: value as? String)
-            
-            self.runResizeCompletion(size: wkResult, completion: completion)
+            self.findSizeInJavaScript(jsCode: value as? String, success: success, failure: failure)
         })
         
     }
     
-    func findSizeInWebViewAsync(uiWebView: UIWebView, completion: @escaping (CGSize?) -> Void) {
+    func findSizeInWebViewAsync(uiWebView: UIWebView, success: @escaping (CGSize) -> Void, failure: @escaping (Error) -> Void) {
 
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
             
             if uiWebView.isLoading {
-                self.findSizeInWebViewAsync(uiWebView: uiWebView, completion: completion)
+                self.findSizeInWebViewAsync(uiWebView: uiWebView, success: success, failure: failure)
             } else {
 
                 let content = uiWebView.stringByEvaluatingJavaScript(from: "document.body.innerHTML")
 
-                let uiResult = self.findSizeInJavaScript(jsCode: content)
-                self.runResizeCompletion(size: uiResult, completion: completion)
+                self.findSizeInJavaScript(jsCode: content, success: success, failure: failure)
             }
         }
 
     }
     
-    func findSizeInJavaScript(jsCode: String?) -> CGSize? {
+    func findSizeInJavaScript(jsCode: String?, success: (CGSize) -> Void, failure: (Error) -> Void) {
         guard let jsCode = jsCode else {
-            Log.warn("jsCode is nil")
-            return nil
+            warnAndTriggerFailure("jsCode is nil", failure: failure)
+            return
         }
         
         guard let hbSizeKeyValue = findHbSizeKeyValue(in: jsCode) else {
-            Log.warn("HbSizeKeyValue is nil")
-            return nil
+            warnAndTriggerFailure("HbSizeKeyValue is nil", failure: failure)
+            return
         }
 
         guard let hbSizeValue = findHbSizeValue(in: hbSizeKeyValue) else {
-            Log.warn("HbSizeValue is nil")
-            return nil
+            warnAndTriggerFailure("HbSizeValue is nil", failure: failure)
+            return
         }
         
-        return stringToCGSize(hbSizeValue)
+        let maybeSize = stringToCGSize(hbSizeValue)
+        if let size = maybeSize {
+            success(size)
+        } else {
+            warnAndTriggerFailure("Size cannot be parsed", failure: failure)
+        }
     }
     
     func findHbSizeKeyValue(in text: String) -> String?{
@@ -295,4 +298,8 @@ public class Utils: NSObject {
 
     }
 
+    func warnAndTriggerFailure(_ warning: String, failure: (Error) -> Void) {
+        Log.warn(warning)
+        failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: warning]))
+    }
 }
