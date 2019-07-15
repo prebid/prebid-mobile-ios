@@ -277,7 +277,7 @@ public class Utils: NSObject {
     }
     
     func removeEntryWithoutValue(_ array: inout [Any]) {
-        for (index, var value) in array.enumerated() {
+        for (index, var value) in array.enumerated().reversed() {
             
             if var dictValue = value as? Dictionary<AnyHashable, Any> {
                 removeEntryWithoutValue(&dictValue)
