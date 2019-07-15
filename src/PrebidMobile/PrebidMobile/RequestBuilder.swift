@@ -360,7 +360,7 @@ import AdSupport
         deviceExtPrebid["interstitial"] = deviceExtPrebidInstlDict
         deviceExt["prebid"] = deviceExtPrebid
         
-        let deviceExtWithoutEmptyValues = Utils.shared.getObjectWithoutEmptyValues(deviceExt)
+        let deviceExtWithoutEmptyValues = deviceExt.getObjectWithoutEmptyValues()
         return deviceExtWithoutEmptyValues
     }
 
