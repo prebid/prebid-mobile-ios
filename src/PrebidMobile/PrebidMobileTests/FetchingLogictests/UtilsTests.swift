@@ -663,6 +663,28 @@ class UtilsTests: XCTestCase {
         node21.add(node212)
         let result8 = Utils.shared.getObjectWithoutEmptyValues(node1 as! [AnyHashable : Any])
         XCTAssertNil(result8)
+        
+        //Test9
+        var node31: NSMutableArray = []
+        node1["key3"] = node31
+        var node311: NSMutableDictionary = [:]
+        node31.add(node311)
+        var node312: NSMutableDictionary = [:]
+        node312["key312"] = "value312"
+        node31.add(node312)
+        let result9 = Utils.shared.getObjectWithoutEmptyValues(node1 as! [AnyHashable : Any])
+        XCTAssertEqual("{\"key3\":[{\"key312\":\"value312\"}]}", collectionToString(result9!))
+        
+        //Test10
+        var node313: NSMutableArray = []
+        var node3131: NSMutableDictionary = [:]
+        node3131["key3131"] = "value3131"
+        node313.add(node3131)
+        var node3132: NSMutableDictionary = [:]
+        node313.add(node3132);
+        node31.add(node313);
+        let result10 = Utils.shared.getObjectWithoutEmptyValues(node1 as! [AnyHashable : Any])
+        XCTAssertEqual("{\"key3\":[{\"key312\":\"value312\"},[{\"key3131\":\"value3131\"}]]}", collectionToString(result10!))
 
     }
     
