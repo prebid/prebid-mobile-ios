@@ -152,6 +152,7 @@ public class Utils: NSObject {
             
             if error != nil {
                 Log.warn("error:\(error.localizedDescription)")
+                completion(nil)
                 return
             }
 
