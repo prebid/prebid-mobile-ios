@@ -121,6 +121,7 @@ public class Utils: NSObject {
             self.findSizeInWebViewAsync(uiWebView: uiWebView, completion: completion)
         } else {
             Log.warn("subView doesn't include WebView")
+            completion(nil)
         }
        
     }
