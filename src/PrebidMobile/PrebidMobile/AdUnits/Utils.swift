@@ -108,8 +108,8 @@ public class Utils: NSObject {
     @available(iOS, deprecated, message: "Please migrate to - findPrebidCreativeSize(_:success:failure:)")
     public func findPrebidCreativeSize(_ adView: UIView, completion: @escaping (CGSize?) -> Void) {
         
-        let view = self.recursivelyFindWebView(adView) { (subView) -> Bool in
-            return subView is WKWebView || subView is UIWebView
+        let view = self.findWebView(adView) { (subView) -> Bool in
+            return isWebView(subView)
         }
         
         if let wkWebView = view as? WKWebView  {
@@ -129,6 +129,14 @@ public class Utils: NSObject {
     func runResizeCompletion(size: CGSize?, completion: @escaping (CGSize?) -> Void) {
         
         completion(size)
+    }
+    
+    func findWebView(_ view: UIView, closure:(UIView) -> Bool) -> UIView? {
+        if closure(view)  {
+            return view
+        } else {
+            return recursivelyFindWebView(view, closure: closure)
+        }
     }
     
     func recursivelyFindWebView(_ view: UIView, closure:(UIView) -> Bool) -> UIView? {
@@ -205,6 +213,10 @@ public class Utils: NSObject {
     
     func findHbSizeValue(in hbSizeKeyValue: String) -> String?{
         return matchAndCheck(regex: "[0-9]+x[0-9]+", text: hbSizeKeyValue)
+    }
+    
+    func isWebView(_ view: UIView) -> Bool {
+        return view is WKWebView || view is UIWebView
     }
     
     func matchAndCheck(regex: String, text: String) -> String?{
