@@ -633,198 +633,182 @@ class UtilsTests: XCTestCase {
         XCTAssertNil(error)
     }
     
-    func testFindPrebidCreativeSize() {
+    func testFailureFindSizeInViewIfThereIsNoWebView() {
         
-        class NavigationDelegate: NSObject, WKNavigationDelegate {
-            var loadSuccesfulException: XCTestExpectation?
-            
-            init(_ loadSuccesfulException: XCTestExpectation) {
-                self.loadSuccesfulException = loadSuccesfulException
-            }
-            
-            func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-                webView.evaluateJavaScript("document.body.innerHTML") { innerHTML, error in
-                    
-                    if error != nil {
-                        XCTFail("NavigationDelegate error: \(error)")
-                    }
-                    self.loadSuccesfulException?.fulfill()
+        let uiView = UIView()
+        
+        findSizeInViewErrorHelper(uiView, expectedError: .prebidFindSizeErrorNoWebView)
+    }
+    
+    func testFailureFindSizeInViewIfUiWebViewWithoutHTML() {
+        
+        let uiWebView = UIWebView()
+        
+        findSizeInViewErrorHelper(uiWebView, expectedError: .prebidFindSizeErrorNoHTML)
+    }
+    
+    func testFailureFindSizeInViewIfWkWebViewWithoutHTML() {
+        
+        let wkWebView = WKWebView()
+        
+        findSizeInViewErrorHelper(wkWebView, expectedError: .prebidFindSizeErrorNoHTML)
+    }
+    
+    func findSizeInViewErrorHelper(_ view: UIView, expectedError: PrebidFindSizeError) {
+        // given
+        let loadSuccesfulException = expectation(description: "\(#function)")
+        
+        var result: CGSize? = nil
+        var error: Error? = nil
+        let success: (CGSize) -> Void = { size in
+            result = size
+            loadSuccesfulException.fulfill()
+        }
+        
+        let failure: (Error) -> Void = { err in
+            error = err
+            loadSuccesfulException.fulfill()
+        }
+
+        // when
+        Utils.shared.findPrebidCreativeSize(view, success: success, failure: failure)
+        waitForExpectations(timeout: 5, handler: nil)
+
+        // then
+        XCTAssertNil(result)
+        XCTAssertNotNil(error)
+        XCTAssertEqual(error?._code, expectedError.errorCode)
+    }
+    
+    class NavigationDelegate: NSObject, WKNavigationDelegate {
+        let loadSuccesfulException: XCTestExpectation
+        
+        init(_ loadSuccesfulException: XCTestExpectation) {
+            self.loadSuccesfulException = loadSuccesfulException
+        }
+        
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            webView.evaluateJavaScript("document.body.innerHTML") { innerHTML, error in
+                
+                if error != nil {
+                    XCTFail("NavigationDelegate error: \(error)")
                 }
+                self.loadSuccesfulException.fulfill()
             }
         }
+    }
+    
+    class WebViewDelegate: NSObject, UIWebViewDelegate {
+        let loadSuccesfulException: XCTestExpectation
         
-        class WebViewDelegate: NSObject, UIWebViewDelegate {
-            var loadSuccesfulException: XCTestExpectation?
-            
-            init(_ loadSuccesfulException: XCTestExpectation) {
-                
-                self.loadSuccesfulException = loadSuccesfulException
-            }
-            
-            func webViewDidFinishLoad(_ webView: UIWebView) {
-                loadSuccesfulException?.fulfill()
-                return
-            }
-            
-            func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-                
-                XCTFail("NavigationDelegate error: \(error)")
-                loadSuccesfulException?.fulfill()
-                return
-                
-            }
+        init(_ loadSuccesfulException: XCTestExpectation) {
+            self.loadSuccesfulException = loadSuccesfulException
         }
         
-        //Test 1
-        let loadSuccesfulException1 = expectation(description: "\(#function)")
+        func webViewDidFinishLoad(_ webView: UIWebView) {
+            loadSuccesfulException.fulfill()
+            return
+        }
         
-        let uiView1 = UIView(frame: CGRect(x: 10, y: 10, width: 100, height: 100))
-        
-        Utils.shared.findPrebidCreativeSize(uiView1,
-                                            success: { (size) in
-                                                XCTFail("Should throw an error to failure block")
-                                                loadSuccesfulException1.fulfill()
-        },
-                                            failure: { (error) in
-                                                loadSuccesfulException1.fulfill()
-                                                
-        })
-        
-        waitForExpectations(timeout: 5, handler: nil)
-        
-        //Test 2
-        let loadSuccesfulException2 = expectation(description: "\(#function)")
-        
-        let uiWebView2 = UIWebView()
-        Utils.shared.findPrebidCreativeSize(uiWebView2,
-                                            success: { (size) in
-                                                XCTFail("Should throw an error to failure block")
-                                                loadSuccesfulException2.fulfill()
-        },
-                                            failure: { (error) in
-                                                loadSuccesfulException2.fulfill()
-                                                
-        })
-        
-        waitForExpectations(timeout: 5, handler: nil)
-        
-        //Test 3
-        
-        let loadSuccesfulException3 = expectation(description: "\(#function)")
-        
-        let wkWebView3 = WKWebView()
-        Utils.shared.findPrebidCreativeSize(wkWebView3,
-                                            success: { (size) in
-                                                XCTFail("Should throw an error to failure block")
-                                                loadSuccesfulException3.fulfill()
-        },
-                                            failure: { (error) in
-                                                loadSuccesfulException3.fulfill()
-                                                
-        })
-        
-        waitForExpectations(timeout: 5, handler: nil)
- 
-        //Test 4
-        
-        let loadSuccesfulException41 = expectation(description: "\(#function)")
-        
-        let wkWebView4 = WKWebView()
-        let html = """
-                    <html><body leftMargin="0" topMargin="0" marginwidth="0" marginheight="0"><script src = "https://ads.rubiconproject.com/prebid/creative.js"></script>
-                    <script>
-                      var ucTagData = {};
-                      ucTagData.adServerDomain = "";
-                      ucTagData.pubUrl = "0.1.0.iphone.com.Prebid.PrebidDemo.adsenseformobileapps.com";
-                      ucTagData.targetingMap = {"bidder":["rubicon"],"bidid":["ee34715d-336c-4e77-b651-ba62f9d4e026"],"hb_bidder":["rubicon"],"hb_bidder_rubicon":["rubicon"],"hb_cache_host":["prebid-cache-europe.rubiconproject.com"],"hb_cache_host_rubicon":["prebid-cache-europe.rubiconproject.com"],"hb_cache_id":["376f6334-2bba-4f58-a76b-feeb419f513a"],"hb_cache_id_rubicon":["376f6334-2bba-4f58-a76b-feeb419f513a"],"hb_cache_path":["/cache"],"hb_cache_path_rubicon":["/cache"],"hb_env":["mobile-app"],"hb_env_rubicon":["mobile-app"],"hb_pb":["1.40"],"hb_pb_rubicon":["1.40"],"hb_size":["728x90"],"hb_size_rubicon":["728x90"]};
+        func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+            XCTFail("NavigationDelegate error: \(error)")
+            loadSuccesfulException.fulfill()
+            return
+            
+        }
+    }
+    
+    let successHtmlWithSize728x90 = """
+                <html><body leftMargin="0" topMargin="0" marginwidth="0" marginheight="0"><script src = "https://ads.rubiconproject.com/prebid/creative.js"></script>
+                <script>
+                  var ucTagData = {};
+                  ucTagData.adServerDomain = "";
+                  ucTagData.pubUrl = "0.1.0.iphone.com.Prebid.PrebidDemo.adsenseformobileapps.com";
+                  ucTagData.targetingMap = {"bidder":["rubicon"],"bidid":["ee34715d-336c-4e77-b651-ba62f9d4e026"],"hb_bidder":["rubicon"],"hb_bidder_rubicon":["rubicon"],"hb_cache_host":["prebid-cache-europe.rubiconproject.com"],"hb_cache_host_rubicon":["prebid-cache-europe.rubiconproject.com"],"hb_cache_id":["376f6334-2bba-4f58-a76b-feeb419f513a"],"hb_cache_id_rubicon":["376f6334-2bba-4f58-a76b-feeb419f513a"],"hb_cache_path":["/cache"],"hb_cache_path_rubicon":["/cache"],"hb_env":["mobile-app"],"hb_env_rubicon":["mobile-app"],"hb_pb":["1.40"],"hb_pb_rubicon":["1.40"],"hb_size":["728x90"],"hb_size_rubicon":["728x90"]};
 
-                      try {
-                        ucTag.renderAd(document, ucTagData);
-                      } catch (e) {
-                        console.log(e);
-                      }
-                    </script></div><div style="bottom:0;right:0;width:100px;height:100px;background:initial !important;position:absolute !important;max-width:100% !important;max-height:100% !important;pointer-events:none !important;image-rendering:pixelated !important;background-repeat:no-repeat !important;z-index:2147483647;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkBAMAAACCzIhnAAAABlBMVEUAAAD+AciWmZzWAAAAAnRSTlMAApidrBQAAAEZSURBVFjD7VRJksQwCIMf8P/XjgMS4OXSh7nhdKXawbEsoUjk96ExZF1aM4sh6zLhjMX19BuGP5hpbOc/3NbdgCLA8AJn3+6O4cswY7GqDnRU/bDHRoWiTxR7oyQHs4vLp8jFpRQLjFOxwNgUy2FxirsH72dEEHKxpkZ0RoxLpYTsjFLzjVEsVRDYqPhrRQbElCdBBc4ADDaBiQCTSzXezlPQRlbdJSUtxdEZI0gpxxZvyuXxNcEkvQupIMzt5GDC07L7quWAw8lSLmwekzLsy8nsiW2fBPvQ6DYna+nRnGxp1svJJvVhppNV6sN8OLnZozm5Oel28iTMJMwkzCTMJMwkzCTMJMwkzCTMJMwkzCTMJMwkzL8nzB8ivkq1hG7lNQAAAABJRU5ErkJggg==') !important;"></div><script src="https://pagead2.googlesyndication.com/omsdk/releases/live/omid_session_bin.js"></script><script type="text/javascript">(function() {var omidSession = new OmidCreativeSession([]);})();</script></body></html>
-                    """
+                  try {
+                    ucTag.renderAd(document, ucTagData);
+                  } catch (e) {
+                    console.log(e);
+                  }
+                </script></div><div style="bottom:0;right:0;width:100px;height:100px;background:initial !important;position:absolute !important;max-width:100% !important;max-height:100% !important;pointer-events:none !important;image-rendering:pixelated !important;background-repeat:no-repeat !important;z-index:2147483647;background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkBAMAAACCzIhnAAAABlBMVEUAAAD+AciWmZzWAAAAAnRSTlMAApidrBQAAAEZSURBVFjD7VRJksQwCIMf8P/XjgMS4OXSh7nhdKXawbEsoUjk96ExZF1aM4sh6zLhjMX19BuGP5hpbOc/3NbdgCLA8AJn3+6O4cswY7GqDnRU/bDHRoWiTxR7oyQHs4vLp8jFpRQLjFOxwNgUy2FxirsH72dEEHKxpkZ0RoxLpYTsjFLzjVEsVRDYqPhrRQbElCdBBc4ADDaBiQCTSzXezlPQRlbdJSUtxdEZI0gpxxZvyuXxNcEkvQupIMzt5GDC07L7quWAw8lSLmwekzLsy8nsiW2fBPvQ6DYna+nRnGxp1svJJvVhppNV6sN8OLnZozm5Oel28iTMJMwkzCTMJMwkzCTMJMwkzCTMJMwkzCTMJMwkzL8nzB8ivkq1hG7lNQAAAABJRU5ErkJggg==') !important;"></div><script src="https://pagead2.googlesyndication.com/omsdk/releases/live/omid_session_bin.js"></script><script type="text/javascript">(function() {var omidSession = new OmidCreativeSession([]);})();</script></body></html>
+                """
+    
+    func testSuccessFindSizeInWkWebView() {
         
-        wkWebView4.loadHTMLString(html, baseURL: Bundle.main.bundleURL)
+        let wkWebView = WKWebView()
         
-        let navigationDelegate = NavigationDelegate(loadSuccesfulException41)
-        wkWebView4.navigationDelegate = navigationDelegate
+        setHtmlIntoWkWebView(successHtmlWithSize728x90, wkWebView)
+        findSizeInViewSuccessHelper(wkWebView, expectedSize: CGSize(width: 728, height: 90))
+    }
+    
+    func testSuccessFindSizeInUiWebView() {
+        let uiWebView = UIWebView()
         
-        waitForExpectations(timeout: 5, handler: nil)
-        
-        let loadSuccesfulException42 = expectation(description: "\(#function)")
-        Utils.shared.findPrebidCreativeSize(wkWebView4,
-                                            success: { (size) in
+        setHtmlIntoUiWebView(successHtmlWithSize728x90, uiWebView)
+        findSizeInViewSuccessHelper(uiWebView, expectedSize: CGSize(width: 728, height: 90))
+    }
+    
+    func testSuccessFindSizeInViewWithUiWebView() {
 
-                                                XCTAssertEqual(CGSize(width: 728, height: 90), size)
-                                                loadSuccesfulException42.fulfill()
-        },
-                                            failure: { (error) in
-                                                XCTFail("Success block should be called")
-                                                loadSuccesfulException42.fulfill()
+        let uiView = UIView()
+        let uiWebView = UIWebView()
+        uiView.addSubview(uiWebView)
 
-        })
-        
-        waitForExpectations(timeout: 5, handler: nil)
+        setHtmlIntoUiWebView(successHtmlWithSize728x90, uiWebView)
+        findSizeInViewSuccessHelper(uiWebView, expectedSize: CGSize(width: 728, height: 90))
+    }
+    
+    func setHtmlIntoWkWebView(_ html: String, _ wkWebView: WKWebView) {
+        let loadSuccesfulException = expectation(description: "\(#function)")
 
-        //Test 5
+        wkWebView.loadHTMLString(html, baseURL: nil)
         
-        let loadSuccesfulException51 = expectation(description: "\(#function)")
-        
-        let uiWebView5 = UIWebView()
-        uiWebView5.loadHTMLString(html, baseURL: nil)
-        
-        let webViewDelegate = WebViewDelegate(loadSuccesfulException51)
-        uiWebView5.delegate = webViewDelegate
+        let navigationDelegate = NavigationDelegate(loadSuccesfulException)
+        wkWebView.navigationDelegate = navigationDelegate
         
         waitForExpectations(timeout: 5, handler: nil)
+        wkWebView.navigationDelegate = nil
+    }
+    
+    func setHtmlIntoUiWebView(_ html: String, _ uiWebView: UIWebView) {
+        let loadSuccesfulException = expectation(description: "\(#function)")
         
-        let loadSuccesfulException52 = expectation(description: "\(#function)")
-        Utils.shared.findPrebidCreativeSize(uiWebView5,
-                                            success: { (size) in
-                                                
-                                                XCTAssertEqual(CGSize(width: 728, height: 90), size)
-                                                loadSuccesfulException52.fulfill()
-        },
-                                            failure: { (error) in
-                                                XCTFail("Success block should be called")
-                                                loadSuccesfulException52.fulfill()
-                                                
-        })
+        uiWebView.loadHTMLString(html, baseURL: nil)
+        
+        let webViewDelegate = WebViewDelegate(loadSuccesfulException)
+        uiWebView.delegate = webViewDelegate
         
         waitForExpectations(timeout: 5, handler: nil)
+        uiWebView.delegate = nil
+    }
+    
+    func findSizeInViewSuccessHelper(_ view: UIView, expectedSize: CGSize) {
+        // given
+        let loadSuccesfulException = expectation(description: "\(#function)")
         
-        //Test 6
+        var result: CGSize? = nil
+        var error: Error? = nil
+        let success: (CGSize) -> Void = { size in
+            result = size
+            loadSuccesfulException.fulfill()
+        }
         
-        let loadSuccesfulException61 = expectation(description: "\(#function)")
+        let failure: (Error) -> Void = { err in
+            error = err
+            loadSuccesfulException.fulfill()
+        }
         
-        let uiView6 = UIView()
-        let uiWebView6 = UIWebView()
-        uiView6.addSubview(uiWebView6)
-        
-        uiWebView6.loadHTMLString(html, baseURL: nil)
-        
-        let webViewDelegate6 = WebViewDelegate(loadSuccesfulException61)
-        uiWebView6.delegate = webViewDelegate6
-        
+        // when
+        Utils.shared.findPrebidCreativeSize(view, success: success, failure: failure)
         waitForExpectations(timeout: 5, handler: nil)
         
-        let loadSuccesfulException62 = expectation(description: "\(#function)")
-        Utils.shared.findPrebidCreativeSize(uiView6,
-                                            success: { (size) in
-                                                
-                                                XCTAssertEqual(CGSize(width: 728, height: 90), size)
-                                                loadSuccesfulException62.fulfill()
-        },
-                                            failure: { (error) in
-                                                XCTFail("Success block should be called")
-                                                loadSuccesfulException62.fulfill()
-                                                
-        })
+        // then
+        XCTAssertNotNil(result)
+        XCTAssertEqual(expectedSize, result)
+        XCTAssertNil(error)
+
         
-        waitForExpectations(timeout: 5, handler: nil)
- 
     }
     
 }
