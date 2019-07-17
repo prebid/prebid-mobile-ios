@@ -115,7 +115,9 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
                                                     return
                                                 }
                                                 
-                                                bannerView.resize(GADAdSizeFromCGSize(size))},
+                                                bannerView.resize(GADAdSizeFromCGSize(size))
+
+        },
                                             failure: { (error) in
                                                 print("error: \(error.localizedDescription)");
                                                 
