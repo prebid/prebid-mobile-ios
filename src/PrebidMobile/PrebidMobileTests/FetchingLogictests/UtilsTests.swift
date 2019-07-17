@@ -567,7 +567,7 @@ class UtilsTests: XCTestCase {
     }
     
     func testFindHbSizeKeyValue() {
-        var result = Utils.shared.findHbSizeKeyValue(in: "{ \n adManagerResponse:\"hb_size\":[\"728x90\"],\"hb_size_rubicon\":[\"728x90\"],moPubResponse:\"hb_size:300x250\" \n }")
+        var result = Utils.shared.findHbSizeObject(in: "{ \n adManagerResponse:\"hb_size\":[\"728x90\"],\"hb_size_rubicon\":[\"728x90\"],moPubResponse:\"hb_size:300x250\" \n }")
         XCTAssertNotNil(result)
         XCTAssert(result == "hb_size\":[\"728x90")
     }
@@ -587,19 +587,50 @@ class UtilsTests: XCTestCase {
         XCTAssertNil(result)
     }
     
-    func testFindSizeInJavaScript() {
-        var result = Utils.shared.findSizeInJavaScript(jsCode: nil)
-        XCTAssertNil(result)
+    func testFailureFindASizeInNilJsCode() {
+        findSizeInJavascriptErrorHelper(body: nil)
+    }
+    
+    func testFailureFindASizeIfItIsNotPresent() {
+        findSizeInJavascriptErrorHelper(body: "<script> \n </script>")
+    }
+    
+    func testFailureFindASizeIfItHasTheWrongType() {
+        findSizeInJavascriptErrorHelper(body: "<script> \n \"hb_size\":ERROR \n </script>")
+    }
+    
+    func testSuccessFindASizeIfProperlyFormatted() {
+        findSizeInJavascriptSuccessHelper(body: "<script> \n \"hb_size\":[\"728x90\"] \n </script>")
+    }
+    
+    func findSizeInJavascriptErrorHelper(body: String?) {
+        // given
+        var result: CGSize? = nil
+        var error: String? = nil
+        let success: (CGSize) -> Void = { size in result = size}
+        let failure: (Error) -> Void = { err in error = err.localizedDescription}
         
-        result = Utils.shared.findSizeInJavaScript(jsCode: "<script> \n </script>")
-        XCTAssertNil(result)
+        // when
+        Utils.shared.findSizeInHTML(body: body, success: success, failure: failure)
         
-        result = Utils.shared.findSizeInJavaScript(jsCode: "<script> \n \"hb_size\":ERROR \n </script>")
+        // then
         XCTAssertNil(result)
+        XCTAssertNotNil(error)
+    }
+    
+    func findSizeInJavascriptSuccessHelper(body: String?) {
+        // given
+        var result: CGSize? = nil
+        var error: String? = nil
+        let success: (CGSize) -> Void = { size in result = size}
+        let failure: (Error) -> Void = { err in error = err.localizedDescription}
         
-        result = Utils.shared.findSizeInJavaScript(jsCode: "<script> \n \"hb_size\":[\"728x90\"] \n </script>")
+        // when
+        Utils.shared.findSizeInHTML(body: body, success: success, failure: failure)
+        
+        // then
         XCTAssertNotNil(result)
-        XCTAssert(result == CGSize(width: 728, height: 90))
+        XCTAssertNil(error)
     }
     
     func testFindPrebidCreativeSize() {
