@@ -33,13 +33,13 @@ import Foundation
                 URLSession.shared.dataTask(with: urlRequest!) { data, _, error in
                     let demandFetchEndTime = self.getCurrentMillis()
                     guard error == nil else {
-                        print("error calling GET on /todos/1")
+                        Log.debug("error calling GET on /todos/1")
                         return
                     }
 
                     // make sure we got data
                     if (data == nil ) {
-                        print("Error: did not receive data")
+                        Log.debug("Error: did not receive data")
                         callback(nil, ResultCode.prebidNetworkError)
 
                     }
@@ -71,7 +71,7 @@ import Foundation
             }
 
         } catch let error {
-            print(error.localizedDescription)
+            Log.debug(error.localizedDescription)
             
             let errorCode = ResultCode.prebidServerURLInvalid
             Log.error(errorCode.name())
@@ -83,7 +83,7 @@ import Foundation
 
         do {
             let errorString: String = String.init(data: data, encoding: .utf8)!
-            print(String(format: "Response from server: %@", errorString))
+            Log.debug(String(format: "Response from server: %@", errorString))
             if (!errorString.contains("Invalid request")) {
                 let response: [String: AnyObject] = try JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
 
@@ -137,7 +137,7 @@ import Foundation
             }
 
         } catch let error {
-            print(error.localizedDescription)
+            Log.debug(error.localizedDescription)
 
             return ([:], ResultCode.prebidDemandNoBids)
         }
@@ -156,7 +156,7 @@ import Foundation
                 return  ext["tmaxrequest"] as! Int
             }
         } catch let error {
-            print(error.localizedDescription)
+            Log.debug(error.localizedDescription)
         }
         return -1
     }
