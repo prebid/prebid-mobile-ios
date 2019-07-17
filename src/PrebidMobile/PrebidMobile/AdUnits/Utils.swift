@@ -128,7 +128,9 @@ public class Utils: NSObject {
     func warnAndTriggerFailure(_ error: PrebidFindSizeError, failure: (Error) -> Void) {
         let description = error.name()
         Log.warn(description)
-        failure(NSError(domain: "", code: error.errorCode, userInfo: [NSLocalizedDescriptionKey: description]))
+        
+        let error = NSError(domain: "com.prebidmobile", code: error.errorCode, userInfo: [NSLocalizedDescriptionKey: description])
+        failure(error)
     }
     
     func findWebView(_ view: UIView, closure:(UIView) -> Bool) -> UIView? {
@@ -269,51 +271,6 @@ public class Utils: NSObject {
         
         return gcSize
     }
-    
-    enum PrebidFindSizeError {
-        
-        case prebidFindSizeErrorNoWebView
-        case prebidFindSizeErrorWKWebView(message: String)
-        case prebidFindSizeErrorNoHTML
-        case prebidFindSizeErrorNoKeyValue
-        case prebidFindSizeErrorNoValue
-        case prebidFindSizeErrorParsing
-        
-        public func name() -> String {
-            switch self {
-            case .prebidFindSizeErrorNoWebView:
-                return "The view doesn't include WebView"
-            case .prebidFindSizeErrorWKWebView(let message):
-                return "WKWebView error:\(message)"
-            case .prebidFindSizeErrorNoHTML:
-                return "The WebView doesn't have HTML"
-            case .prebidFindSizeErrorNoKeyValue:
-                return "The HTML doesn't contain a size object"
-            case .prebidFindSizeErrorNoValue:
-                return "The size object doesn't contain a value"
-            case .prebidFindSizeErrorParsing:
-                return "The size value has a wrong format"
-            }
-        }
-        
-        var errorCode: Int {
-            switch self {
-            case .prebidFindSizeErrorNoWebView:
-                return 1
-            case .prebidFindSizeErrorWKWebView:
-                return 2
-            case .prebidFindSizeErrorNoHTML:
-                return 3
-            case .prebidFindSizeErrorNoKeyValue:
-                return 4
-            case .prebidFindSizeErrorNoValue:
-                return 5
-            case .prebidFindSizeErrorParsing:
-                return 6
-            }
-        }
-        
-    }
 
 @objc func validateAndAttachKeywords (adObject: AnyObject, bidResponse: BidResponse) {
 
@@ -369,4 +326,54 @@ public class Utils: NSObject {
 
 }
 
+}
+
+enum PrebidFindSizeError {
+    
+    case prebidFindSizeErrorNoWebView
+    case prebidFindSizeErrorNoHTML
+    case prebidFindSizeErrorUIWebView(message: String)
+    case prebidFindSizeErrorWKWebView(message: String)
+    case prebidFindSizeErrorNoKeyValue
+    case prebidFindSizeErrorNoValue
+    case prebidFindSizeErrorParsing
+    
+    public func name() -> String {
+        switch self {
+        case .prebidFindSizeErrorNoWebView:
+            return "The view doesn't include WebView"
+        case .prebidFindSizeErrorNoHTML:
+            return "The WebView doesn't have HTML"
+        case .prebidFindSizeErrorUIWebView(let message):
+            return "UIWebView error:\(message)"
+        case .prebidFindSizeErrorWKWebView(let message):
+            return "WKWebView error:\(message)"
+        case .prebidFindSizeErrorNoKeyValue:
+            return "The HTML doesn't contain a size object"
+        case .prebidFindSizeErrorNoValue:
+            return "The size object doesn't contain a value"
+        case .prebidFindSizeErrorParsing:
+            return "The size value has a wrong format"
+        }
+    }
+    
+    var errorCode: Int {
+        switch self {
+        case .prebidFindSizeErrorNoWebView:
+            return 10
+        case .prebidFindSizeErrorNoHTML:
+            return 20
+        case .prebidFindSizeErrorUIWebView:
+            return 30
+        case .prebidFindSizeErrorWKWebView:
+            return 40
+        case .prebidFindSizeErrorNoKeyValue:
+            return 50
+        case .prebidFindSizeErrorNoValue:
+            return 60
+        case .prebidFindSizeErrorParsing:
+            return 70
+        }
+    }
+    
 }
