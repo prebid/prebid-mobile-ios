@@ -119,7 +119,7 @@ public class Utils: NSObject {
     public func findPrebidCreativeSize(_ adView: UIView, completion: @escaping (CGSize?) -> Void) {
         
         findPrebidCreativeSize(adView, success: completion) { (error) in
-            Log.warn("Missing failure hander, please migrate to - findPrebidCreativeSize(_:success:failure:)")
+            Log.warn("Missing failure handler, please migrate to - findPrebidCreativeSize(_:success:failure:)")
             completion(nil) // backwards compatibility
         }
        

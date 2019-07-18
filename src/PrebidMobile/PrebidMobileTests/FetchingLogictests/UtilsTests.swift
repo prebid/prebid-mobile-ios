@@ -807,7 +807,6 @@ class UtilsTests: XCTestCase {
         XCTAssertNotNil(result)
         XCTAssertEqual(expectedSize, result)
         XCTAssertNil(error)
-
         
     }
     
