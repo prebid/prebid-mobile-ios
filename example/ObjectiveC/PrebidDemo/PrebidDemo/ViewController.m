@@ -136,7 +136,7 @@
 -(void) adViewDidReceiveAd:(GADBannerView *)bannerView {
     NSLog(@"Ad received");
     
-    [[Utils shared] findPrebidCreativeSize:bannerView
+    [AdViewUtils findPrebidCreativeSize:bannerView
                                    success:^(CGSize size) {
                                        if ([bannerView isKindOfClass:[DFPBannerView class]]) {
                                            DFPBannerView *dfpBannerView = (DFPBannerView *)bannerView;
@@ -144,7 +144,7 @@
                                            [dfpBannerView resize:GADAdSizeFromCGSize(size)];
                                        }
                                    } failure:^(NSError * _Nonnull error) {
-                                       NSLog(@"error: %@", error.localizedDescription);
+                                       NSLog(@"error: %@", error);
                                    }];
 
 }
