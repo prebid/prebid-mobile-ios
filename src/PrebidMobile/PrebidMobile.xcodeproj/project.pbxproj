@@ -66,6 +66,7 @@
 		FA7C3EB5225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB4225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json */; };
 		FA7C3EB7225E4C2200D2F128 /* responseRubiconPBM.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB6225E4C2200D2F128 /* responseRubiconPBM.json */; };
 		FA7C3EB9225E518000D2F128 /* noBidResponseRubicon.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB8225E518000D2F128 /* noBidResponseRubicon.json */; };
+		FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +151,7 @@
 		FA7C3EB4225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrebidServerOneBidFromAppNexusOneBidFromRubicon.json; sourceTree = "<group>"; };
 		FA7C3EB6225E4C2200D2F128 /* responseRubiconPBM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseRubiconPBM.json; sourceTree = "<group>"; };
 		FA7C3EB8225E518000D2F128 /* noBidResponseRubicon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponseRubicon.json; sourceTree = "<group>"; };
+		FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewUtilsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +239,7 @@
 		60D792FF217E229B0080F428 /* PrebidMobileTests */ = {
 			isa = PBXGroup;
 			children = (
+				FA9D7F2522E8A80E006FCBEF /* addendum */,
 				9791778C2201AF4600E624CE /* FetchingLogictests */,
 				97826A8321FB4514001E2C05 /* AdUnitTests */,
 				60D79300217E229B0080F428 /* PrebidMobileTests.swift */,
@@ -341,6 +344,14 @@
 			children = (
 				FA5C30BA22E5E86900DA23C4 /* AdViewUtils.swift */,
 				FA5C30BC22E5ECF700DA23C4 /* PbFindSizeError.swift */,
+			);
+			path = addendum;
+			sourceTree = "<group>";
+		};
+		FA9D7F2522E8A80E006FCBEF /* addendum */ = {
+			isa = PBXGroup;
+			children = (
+				FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */,
 			);
 			path = addendum;
 			sourceTree = "<group>";
@@ -512,6 +523,7 @@
 				606FAC5222022932008EAE5E /* ExAdUnit.swift in Sources */,
 				60C038212204AF5D0082B32C /* RequestBuilderTests.swift in Sources */,
 				60C038272204AFE50082B32C /* InterstItialAdUnitTests.swift in Sources */,
+				FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */,
 				60C038252204AFA90082B32C /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				60C038242204AF5D0082B32C /* Constants.swift in Sources */,
 				606FAC2621FFB20A008EAE5E /* TargetingTests.swift in Sources */,
