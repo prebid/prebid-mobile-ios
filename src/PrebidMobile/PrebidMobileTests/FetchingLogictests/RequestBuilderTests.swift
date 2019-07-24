@@ -61,6 +61,9 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testPostData() {
         let targeting = Targeting.shared
         try! targeting.setYearOfBirth(yob: 1990)
+        defer {
+            targeting.clearYearOfBirth()
+        }
 
         do {
             try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
@@ -89,6 +92,9 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testPostDataWithCustomHost() {
         let targeting = Targeting.shared
         try! targeting.setYearOfBirth(yob: 1990)
+        defer {
+            targeting.clearYearOfBirth()
+        }
 
         XCTAssertThrowsError(try Prebid.shared.setCustomPrebidServer(url: "http://www.rubicon.org"))
         Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
@@ -108,6 +114,9 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let targeting = Targeting.shared
         targeting.subjectToGDPR = false
         try! targeting.setYearOfBirth(yob: 1990)
+        defer {
+            targeting.clearYearOfBirth()
+        }
 
         do {
             try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
