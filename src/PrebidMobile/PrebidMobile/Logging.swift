@@ -17,12 +17,12 @@ import Foundation
 
 /// Enum which maps an appropiate symbol which added as prefix for each log message
 
-enum LogEvent: String {
-    case error = "[‼️]" // error
-    case info = "[ℹ️]" // info
+public enum LogLevel: String {
     case debug = "[💬]" // debug
     case verbose = "[🔬]" // verbose
+    case info = "[ℹ️]" // info
     case warn = "[⚠️]" // warning
+    case error = "[‼️]" // error
     case severe = "[🔥]" // severe
 }
 
@@ -50,15 +50,33 @@ class Log {
         return formatter
     }
 
-    private static var isLoggingEnabled: Bool {
-        #if DEBUG
-        return true
-        #else
+    private class func isLoggingEnabled(for currentEvent: LogLevel) -> Bool {
+        #if !(DEBUG)
         return false
         #endif
+        let currentLevel = Prebid.shared.logLevel
+        switch currentLevel {
+        case .debug:
+            return true
+        case .verbose:
+            return [ LogLevel.verbose, LogLevel.info, LogLevel.warn, LogLevel.error, LogLevel.severe].contains(currentEvent)
+        case .info:
+            return [ LogLevel.info, LogLevel.warn, LogLevel.error, LogLevel.severe].contains(currentEvent)
+        case .warn:
+            return [ LogLevel.warn, LogLevel.error, LogLevel.severe].contains(currentEvent)
+        case .error:
+            return [ LogLevel.error, LogLevel.severe].contains(currentEvent)
+        case .severe:
+            return [ LogLevel.severe].contains(currentEvent)
+        }
     }
 
     // MARK: - Loging methods
+    private class func log(level: LogLevel, _ object: Any, filename: String, line: Int, column: Int, funcName: String) {
+        if isLoggingEnabled(for: level) {
+            print("\(Date().toString()) \(level.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
+        }
+    }
 
     /// Logs error messages on console with prefix [‼️]
     ///
@@ -69,9 +87,7 @@ class Log {
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
     class func error( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        if isLoggingEnabled {
-            print("\(Date().toString()) \(LogEvent.error.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
-        }
+        log(level: .error, object, filename: filename, line: line, column: column, funcName: funcName)
     }
 
     /// Logs info messages on console with prefix [ℹ️]
@@ -83,9 +99,7 @@ class Log {
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
     class func info ( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        if isLoggingEnabled {
-            print("\(Date().toString()) \(LogEvent.info.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
-        }
+        log(level: .info, object, filename: filename, line: line, column: column, funcName: funcName)
     }
 
     /// Logs debug messages on console with prefix [💬]
@@ -97,9 +111,7 @@ class Log {
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
     class func debug( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        if isLoggingEnabled {
-            print("\(Date().toString()) \(LogEvent.debug.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
-        }
+       log(level: .debug, object, filename: filename, line: line, column: column, funcName: funcName)
     }
 
     /// Logs messages verbosely on console with prefix [🔬]
@@ -111,9 +123,7 @@ class Log {
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
     class func verbose( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        if isLoggingEnabled {
-            print("\(Date().toString()) \(LogEvent.verbose.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
-        }
+        log(level: .verbose, object, filename: filename, line: line, column: column, funcName: funcName)
     }
 
     /// Logs warnings verbosely on console with prefix [⚠️]
@@ -125,9 +135,7 @@ class Log {
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
     class func warn( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        if isLoggingEnabled {
-            print("\(Date().toString()) \(LogEvent.warn.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
-        }
+        log(level: .warn, object, filename: filename, line: line, column: column, funcName: funcName)
     }
 
     /// Logs severe events on console with prefix [🔥]
@@ -139,9 +147,7 @@ class Log {
     ///   - column: Column number of the log message
     ///   - funcName: Name of the function from where the logging is done
     class func severe( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        if isLoggingEnabled {
-            print("\(Date().toString()) \(LogEvent.severe.rawValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
-        }
+        log(level: .severe, object, filename: filename, line: line, column: column, funcName: funcName)
     }
 
     /// Extract the file name from the file path
