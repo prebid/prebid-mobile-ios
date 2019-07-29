@@ -708,6 +708,85 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
     }
 
+    func testRubiconCOPPA() {
+        
+        var methodRequest: Method = class_getClassMethod(JSONSerialization.self, #selector(JSONSerialization.data(withJSONObject:options:)))!
+        var swizzledMethodRequest: Method = class_getClassMethod(PrebidDemoTests.self, #selector(PrebidDemoTests.swizzledJSONSerializationData(withJSONObject:options:)))!
+        method_exchangeImplementations(methodRequest, swizzledMethodRequest)
+        
+        var methodResponse: Method = class_getClassMethod(JSONSerialization.self, #selector(JSONSerialization.jsonObject as (Data, JSONSerialization.ReadingOptions) throws -> Any ))!
+        var swizzledMethodResponse: Method = class_getClassMethod(PrebidDemoTests.self, #selector(PrebidDemoTests.swizzledJSONSerializationJsonObject(with:options:)))!
+        method_exchangeImplementations(methodResponse, swizzledMethodResponse)
+        
+        loadSuccesfulException = expectation(description: "\(#function)")
+        
+        //Rubicon prod
+        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
+        
+        //Rubicon qa
+//        Prebid.shared.prebidServerHost = PrebidHost.Custom
+//        do {
+//            try Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.qa.rubiconproject.com/openrtb2/auction")
+//        } catch {
+//            Log.error("testRubiconQaCOPPA")
+//        }
+        
+        Prebid.shared.prebidServerAccountId = "1001"
+        
+        Targeting.shared.subjectToCOPPA = true
+        defer {
+            Targeting.shared.subjectToCOPPA = false
+        }
+        
+        do {
+            try Targeting.shared.setYearOfBirth(yob: 1990)
+        } catch {
+            Log.error("testRubiconQaCOPPA")
+        }
+        Targeting.shared.gender = .male
+        
+        let bannerUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let manager: BidManager = BidManager(adUnit: bannerUnit)
+        manager.requestBidsForAdUnit { (bidResponse, _) in
+
+            sleep(2)
+            self.loadSuccesfulException?.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+    
+    dynamic class func swizzledJSONSerializationData(withJSONObject obj: Any, options opt: JSONSerialization.WritingOptions = []) throws -> Data {
+        
+        var requestBody: [String: Any] = obj as! [String : Any]
+        requestBody.merge(dict: ["test" : 1])
+        
+        return try PrebidDemoTests.swizzledJSONSerializationData(withJSONObject: requestBody, options: opt)
+    }
+    
+    dynamic class func swizzledJSONSerializationJsonObject(with data: Data, options opt: JSONSerialization.ReadingOptions = []) throws -> Any {
+        let result = try PrebidDemoTests.swizzledJSONSerializationJsonObject(with: data, options: opt)
+        
+        let response = result as? [String: AnyObject]
+        
+        if let response = response,
+            response.count > 0,
+            let ext = response["ext"] as? [String: Any],
+            let debug = ext["debug"] as? [String: Any],
+            let httpcalls = debug["httpcalls"] as? [String: Any],
+            let rubicon = httpcalls["rubicon"] as? [Any],
+            let first = rubicon[0] as? [String: Any],
+            let requestbody = first["requestbody"] as? String {
+            
+            Log.debug("requestbody to exchange \(requestbody)")
+            XCTAssertFalse(requestbody.contains("\"yob\""))
+            XCTAssertFalse(requestbody.contains("\"gender\""))
+            XCTAssertFalse(requestbody.contains("\"lat\""))
+            XCTAssertFalse(requestbody.contains("\"lon\""))
+        }
+        
+        return result
+    }
+
     func testEmptyConfigId() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
