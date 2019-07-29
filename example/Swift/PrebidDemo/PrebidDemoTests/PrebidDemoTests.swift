@@ -121,6 +121,161 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
         
     }
+    
+    
+    
+    let transactionFailRepeatCount = 5
+    let screenshotDelaySeconds = 3.0
+    let transactionFailDelaySeconds = 3.0
+    
+    //30x250 -> 728x90
+    func testRubiconDFPBannerResizeSanityAppCheckTest() {
+        
+        class BannerViewDelegate: NSObject, GADBannerViewDelegate {
+            let outer: PrebidDemoTests
+            var loadSuccesfulExpectation: XCTestExpectation
+            var prebidbBannerAdUnit: BannerAdUnit
+            var first: Int
+            var second: Int
+            
+            init(outer: PrebidDemoTests, loadSuccesfulExpectation: XCTestExpectation, prebidbBannerAdUnit: BannerAdUnit, first: inout Int, second: inout Int) {
+                
+                self.outer = outer
+                self.loadSuccesfulExpectation =  loadSuccesfulExpectation
+                self.prebidbBannerAdUnit = prebidbBannerAdUnit
+                self.first = first
+                self.second = second
+            }
+            
+            func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+                Log.debug("AdManager adViewDidReceiveAd")
+                
+                Utils.shared.findPrebidCreativeSize(bannerView) { (size) in
+                    if let bannerView = bannerView as? DFPBannerView, let size = size {
+                        bannerView.resize(GADAdSizeFromCGSize(size))
+                        
+                        let bannerViewFrame = bannerView.frame;
+                        let bannerViewSize = CGSize(width: bannerViewFrame.width, height: bannerViewFrame.height)
+                        
+                        XCTAssertEqual(bannerViewSize, size)
+                        
+                        //Wait to make screenshot
+                        XCTWaiter.wait(for: [XCTestExpectation(description: "wait")], timeout: self.outer.screenshotDelaySeconds)
+                        
+                        self.outer.makeScreenShot()
+                    }
+
+                    self.outer.onResult(isSuccess: true, prebidbBannerAdUnit: self.prebidbBannerAdUnit, loadSuccesfulExpectation: self.loadSuccesfulExpectation, first: &self.first, second: &self.second)
+                }
+                
+            }
+            
+            func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+                Log.warn("AdManager adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+                
+                self.outer.onResult(isSuccess: false, prebidbBannerAdUnit: self.prebidbBannerAdUnit, loadSuccesfulExpectation: loadSuccesfulExpectation, first: &self.first, second: &self.second)
+            }
+        }
+
+        var firstTransactionCount = 0
+        var secondTransactionCount = 0
+        
+        let loadSuccesfulExpectation: XCTestExpectation = expectation(description: "load succesful")
+        loadSuccesfulExpectation.expectedFulfillmentCount = 2
+        loadSuccesfulExpectation.assertForOverFulfill = false
+        
+        //Logic
+        setUpAppRubicon()
+        timeoutForRequest = 30.0
+        
+        let prebidbBannerAdUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
+        
+        let delegare = BannerViewDelegate(outer:self, loadSuccesfulExpectation: loadSuccesfulExpectation, prebidbBannerAdUnit: prebidbBannerAdUnit, first: &firstTransactionCount, second: &secondTransactionCount)
+        
+        let gamBannerView = DFPBannerView()
+        gamBannerView.validAdSizes = [
+            NSValueFromGADAdSize(kGADAdSizeMediumRectangle),
+            NSValueFromGADAdSize(GADAdSizeFromCGSize(CGSize(width: 728, height: 90))),
+        ]
+        
+        gamBannerView.adUnitID = "/5300653/test_adunit_pavliuchyk_300x250_puc_ucTagData_prebid-server.rubiconproject.com"
+        
+        gamBannerView.rootViewController = viewController
+        gamBannerView.delegate = delegare
+        gamBannerView.backgroundColor = .red
+        
+        viewController?.view.addSubview(gamBannerView)
+        
+        
+        let request: DFPRequest = DFPRequest()
+        prebidbBannerAdUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
+            if resultCode == ResultCode.prebidDemandFetchSuccess {
+                
+                gamBannerView.load(request)
+            } else {
+                Log.warn("ERROR bannerUnit.fetchDemand resultCode: \(resultCode.name())")
+                self.onResult(isSuccess: false, prebidbBannerAdUnit: prebidbBannerAdUnit, loadSuccesfulExpectation: loadSuccesfulExpectation, first: &firstTransactionCount, second: &secondTransactionCount)
+            }
+        }
+    
+        wait(for: [loadSuccesfulExpectation], timeout: 100)
+    }
+    
+    func onResult(isSuccess: Bool, prebidbBannerAdUnit: BannerAdUnit, loadSuccesfulExpectation: XCTestExpectation, first: inout Int, second: inout Int) {
+        if isSuccess {
+            
+            if first != -1 {
+                first = -1
+
+                prebidbBannerAdUnit.adSizes = [CGSize(width: 728, height: 90)]
+                prebidbBannerAdUnit.refreshDemand()
+                
+            } else if second != -1 {
+                second = -1
+            }
+            
+            loadSuccesfulExpectation.fulfill()
+            
+        } else {
+            //time-out
+            XCTWaiter.wait(for: [XCTestExpectation(description: "wait")], timeout: self.transactionFailDelaySeconds)
+            
+            if first != -1 {
+                if first > self.transactionFailRepeatCount - 2 {
+                    XCTFail("first Transaction Count == 5")
+                    loadSuccesfulExpectation.fulfill()
+                    loadSuccesfulExpectation.fulfill()
+                    
+                } else {
+                    Log.warn("first transaction repear#\(first)")
+                    first += 1
+                    prebidbBannerAdUnit.refreshDemand()
+                }
+            } else if second != -1 {
+                if second > self.transactionFailRepeatCount - 2 {
+                    XCTFail("second Transaction Count == 5")
+                    loadSuccesfulExpectation.fulfill()
+                    loadSuccesfulExpectation.fulfill()
+                } else {
+                    Log.warn("second transaction repear#\(second)")
+                    second += 1
+                    prebidbBannerAdUnit.refreshDemand()
+                }
+            } else {
+                XCTFail("Unexpected")
+            }
+            
+        }
+    }
+    
+    func makeScreenShot() {
+        // Taking screenshot after test
+        let screenshot = XCUIScreen.main.screenshot()
+        let fullScreenshotAttachment = XCTAttachment(screenshot: screenshot)
+        fullScreenshotAttachment.lifetime = .keepAlways
+        
+        add(fullScreenshotAttachment)
+    }
 
     func testDFPBannerWithoutAutoRefresh() {
         var fetchDemandCount = 0
@@ -454,7 +609,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTAssertEqual(0, fetchDemandCount)
     }
 
-    func testAppNexysInvalidPrebidServerAccountId() {
+    func testAppNexusInvalidPrebidServerAccountId() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
         Prebid.shared.prebidServerAccountId = Constants.PBS_INVALID_ACCOUNT_ID_APPNEXUS
@@ -551,6 +706,85 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
         
+    }
+
+    func testRubiconCOPPA() {
+        
+        var methodRequest: Method = class_getClassMethod(JSONSerialization.self, #selector(JSONSerialization.data(withJSONObject:options:)))!
+        var swizzledMethodRequest: Method = class_getClassMethod(PrebidDemoTests.self, #selector(PrebidDemoTests.swizzledJSONSerializationData(withJSONObject:options:)))!
+        method_exchangeImplementations(methodRequest, swizzledMethodRequest)
+        
+        var methodResponse: Method = class_getClassMethod(JSONSerialization.self, #selector(JSONSerialization.jsonObject as (Data, JSONSerialization.ReadingOptions) throws -> Any ))!
+        var swizzledMethodResponse: Method = class_getClassMethod(PrebidDemoTests.self, #selector(PrebidDemoTests.swizzledJSONSerializationJsonObject(with:options:)))!
+        method_exchangeImplementations(methodResponse, swizzledMethodResponse)
+        
+        loadSuccesfulException = expectation(description: "\(#function)")
+        
+        //Rubicon prod
+        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
+        
+        //Rubicon qa
+//        Prebid.shared.prebidServerHost = PrebidHost.Custom
+//        do {
+//            try Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.qa.rubiconproject.com/openrtb2/auction")
+//        } catch {
+//            Log.error("testRubiconQaCOPPA")
+//        }
+        
+        Prebid.shared.prebidServerAccountId = "1001"
+        
+        Targeting.shared.subjectToCOPPA = true
+        defer {
+            Targeting.shared.subjectToCOPPA = false
+        }
+        
+        do {
+            try Targeting.shared.setYearOfBirth(yob: 1990)
+        } catch {
+            Log.error("testRubiconQaCOPPA")
+        }
+        Targeting.shared.gender = .male
+        
+        let bannerUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let manager: BidManager = BidManager(adUnit: bannerUnit)
+        manager.requestBidsForAdUnit { (bidResponse, _) in
+
+            sleep(2)
+            self.loadSuccesfulException?.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+    
+    dynamic class func swizzledJSONSerializationData(withJSONObject obj: Any, options opt: JSONSerialization.WritingOptions = []) throws -> Data {
+        
+        var requestBody: [String: Any] = obj as! [String : Any]
+        requestBody.merge(dict: ["test" : 1])
+        
+        return try PrebidDemoTests.swizzledJSONSerializationData(withJSONObject: requestBody, options: opt)
+    }
+    
+    dynamic class func swizzledJSONSerializationJsonObject(with data: Data, options opt: JSONSerialization.ReadingOptions = []) throws -> Any {
+        let result = try PrebidDemoTests.swizzledJSONSerializationJsonObject(with: data, options: opt)
+        
+        let response = result as? [String: AnyObject]
+        
+        if let response = response,
+            response.count > 0,
+            let ext = response["ext"] as? [String: Any],
+            let debug = ext["debug"] as? [String: Any],
+            let httpcalls = debug["httpcalls"] as? [String: Any],
+            let rubicon = httpcalls["rubicon"] as? [Any],
+            let first = rubicon[0] as? [String: Any],
+            let requestbody = first["requestbody"] as? String {
+            
+            Log.debug("requestbody to exchange \(requestbody)")
+            XCTAssertFalse(requestbody.contains("\"yob\""))
+            XCTAssertFalse(requestbody.contains("\"gender\""))
+            XCTAssertFalse(requestbody.contains("\"lat\""))
+            XCTAssertFalse(requestbody.contains("\"lon\""))
+        }
+        
+        return result
     }
 
     func testEmptyConfigId() {
@@ -948,11 +1182,18 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
     // MARK: - DFP delegate
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("adViewDidReceiveAd")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
-            let result = PBViewTool.checkDFPAdViewContainsPBMAd(bannerView)
-            XCTAssertTrue(result)
-            self.loadSuccesfulException?.fulfill()
-        })
+        Utils.shared.findPrebidCreativeSize(bannerView) { (size) in
+            if let bannerView = bannerView as? DFPBannerView, let size = size {
+                bannerView.resize(GADAdSizeFromCGSize(size))
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
+                    let result = PBViewTool.checkDFPAdViewContainsPBMAd(bannerView)
+                    XCTAssertTrue(result)
+                    self.loadSuccesfulException?.fulfill()
+                })
+            }
+        }
+        
     }
 
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {

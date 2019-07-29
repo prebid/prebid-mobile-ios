@@ -14,6 +14,7 @@
  */
 
 import Foundation
+import WebKit
 
 public class Utils: NSObject {
 
@@ -33,7 +34,9 @@ public class Utils: NSObject {
 @objc public func removeHBKeywords (adObject: AnyObject) {
 
     let adServerObject: String = String(describing: type(of: adObject))
-    if (adServerObject == .DFP_O_Object_Name || adServerObject == .DFP_N_Object_Name || adServerObject == .GAD_N_Object_Name) {
+    if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name || 
+        adServerObject == .DFP_N_Object_Name || adServerObject == .GAD_N_Object_Name || 
+        adServerObject == .GAD_Object_Name) {
         let hasDFPMember = adObject.responds(to: NSSelectorFromString("setCustomTargeting:"))
         if (hasDFPMember) {
             //check if the publisher has added any custom targeting. If so then merge the bid keywords to the same.
@@ -87,11 +90,163 @@ public class Utils: NSObject {
 
     }
 }
+    
+    public func findPrebidCreativeSize(_ adView: UIView, completion: @escaping (CGSize?) -> Void) {
+        
+        let view = self.recursivelyFindWebView(adView) { (subView) -> Bool in
+            return subView is WKWebView || subView is UIWebView
+        }
+        
+        if let wkWebView = view as? WKWebView  {
+            Log.debug("subView is WKWebView")
+            self.findSizeInWebViewAsync(wkWebView: wkWebView, completion: completion)
+            
+        } else if let uiWebView = view as? UIWebView {
+            Log.debug("subView is UIWebView")
+            self.findSizeInWebViewAsync(uiWebView: uiWebView, completion: completion)
+        } else {
+            Log.warn("subView doesn't include WebView")
+        }
+       
+    }
+    
+    func runResizeCompletion(size: CGSize?, completion: @escaping (CGSize?) -> Void) {
+        
+        Log.debug("size:\(size)")
+        completion(size)
+    }
+    
+    func recursivelyFindWebView(_ view: UIView, closure:(UIView) -> Bool) -> UIView? {
+        for subview in view.subviews {
+            
+            if closure(subview)  {
+                return subview
+            }
+            
+            if let result = recursivelyFindWebView(subview, closure: closure) {
+                return result
+            }
+        }
+        
+        return nil
+    }
+    
+    func findSizeInWebViewAsync(wkWebView: WKWebView, completion: @escaping (CGSize?) -> Void) {
+        
+        wkWebView.evaluateJavaScript("document.body.innerHTML", completionHandler: { (value: Any!, error: Error!) -> Void in
+            
+            if error != nil {
+                Log.warn("error:\(error.localizedDescription)")
+                return
+            }
+
+            let wkResult = self.findSizeInJavaScript(jsCode: value as? String)
+            
+            self.runResizeCompletion(size: wkResult, completion: completion)
+        })
+        
+    }
+    
+    func findSizeInWebViewAsync(uiWebView: UIWebView, completion: @escaping (CGSize?) -> Void) {
+
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
+            
+            if uiWebView.isLoading {
+                self.findSizeInWebViewAsync(uiWebView: uiWebView, completion: completion)
+            } else {
+
+                let content = uiWebView.stringByEvaluatingJavaScript(from: "document.body.innerHTML")
+
+                let uiResult = self.findSizeInJavaScript(jsCode: content)
+                self.runResizeCompletion(size: uiResult, completion: completion)
+            }
+        }
+
+    }
+    
+    func findSizeInJavaScript(jsCode: String?) -> CGSize? {
+        guard let jsCode = jsCode else {
+            Log.warn("jsCode is nil")
+            return nil
+        }
+        
+        guard let hbSizeKeyValue = findHbSizeKeyValue(in: jsCode) else {
+            Log.warn("HbSizeKeyValue is nil")
+            return nil
+        }
+            
+        guard let hbSizeValue = findHbSizeValue(in: hbSizeKeyValue) else {
+            Log.warn("HbSizeValue is nil")
+            return nil
+        }
+        
+        return stringToCGSize(hbSizeValue)
+    }
+    
+    func findHbSizeKeyValue(in text: String) -> String?{
+        return matchAndCheck(regex: "hb_size\\W+[0-9]+x[0-9]+", text: text)
+    }
+    
+    func findHbSizeValue(in hbSizeKeyValue: String) -> String?{
+        return matchAndCheck(regex: "[0-9]+x[0-9]+", text: hbSizeKeyValue)
+    }
+    
+    func matchAndCheck(regex: String, text: String) -> String?{
+        let matched = matches(for: regex, in: text)
+        
+        if matched.isEmpty {
+            return nil
+        }
+        
+        let firstResult = matched[0]
+        
+        return firstResult
+    }
+    
+    func matches(for regex: String, in text: String) -> [String] {
+        
+        do {
+            let regex = try NSRegularExpression(pattern: regex)
+            let results = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
+            return results.map {
+                String(text[Range($0.range, in: text)!])
+            }
+        } catch let error {
+            Log.warn("invalid regex: \(error.localizedDescription)")
+            return []
+        }
+    }
+    
+    func stringToCGSize(_ size: String) -> CGSize? {
+        
+        let sizeArr = size.split{$0 == "x"}.map(String.init)
+        guard sizeArr.count == 2 else {
+            Log.warn("\(size) has a wrong format")
+            return nil
+        }
+        
+        let nsNumberWidth = NumberFormatter().number(from: sizeArr[0])
+        let nsNumberHeight = NumberFormatter().number(from: sizeArr[1])
+        
+        guard let numberWidth = nsNumberWidth, let numberHeight = nsNumberHeight else {
+            Log.warn("\(size) can not be converted to CGSize")
+            return nil
+        }
+        
+        let width = CGFloat(truncating: numberWidth)
+        let height = CGFloat(truncating: numberHeight)
+        
+        let gcSize = CGSize(width: width, height: height)
+        
+        return gcSize
+    }
 
 @objc func validateAndAttachKeywords (adObject: AnyObject, bidResponse: BidResponse) {
 
     let adServerObject: String = String(describing: type(of: adObject))
-    if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name || adServerObject == .DFP_N_Object_Name || adServerObject == .GAD_N_Object_Name) {
+    if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name || 
+        adServerObject == .DFP_N_Object_Name || adServerObject == .GAD_N_Object_Name || 
+        adServerObject == .GAD_Object_Name) {
         let hasDFPMember = adObject.responds(to: NSSelectorFromString("setCustomTargeting:"))
         if (hasDFPMember) {
             //check if the publisher has added any custom targeting. If so then merge the bid keywords to the same.

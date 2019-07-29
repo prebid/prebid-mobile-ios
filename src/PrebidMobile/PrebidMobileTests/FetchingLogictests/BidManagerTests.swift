@@ -31,6 +31,7 @@ class BidManagerTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        Prebid.shared.prebidServerHost = .Appnexus
         timeoutForImpbusRequest = 10.0
         PBHTTPStubbingManager.shared().enable()
         PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
@@ -49,43 +50,46 @@ class BidManagerTests: XCTestCase {
 
     // MARK: - Test methods.
     func testAppNexusBidManagerAdUnitRequest() {
+        loadAdSuccesfulException = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("responseAppNexusPBM")
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
         manager.requestBidsForAdUnit { (_, _) in
             self.loadAdSuccesfulException?.fulfill()
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
     
     func testRubiconBidManagerAdUnitRequest() {
-        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
+        loadAdSuccesfulException = expectation(description: "\(#function)")
         
-        stubAppNexusRequestWithResponse("responseRubiconPBM")
+        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
+        Prebid.shared.prebidServerAccountId = Constants.pbsRubiconAccount_id
+        
+        stubRubiconRequestWithResponse("responseRubiconPBM")
         let bannerUnit = BannerAdUnit(configId: Constants.pbsConfigId300x250Rubicon, size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
         manager.requestBidsForAdUnit { (_, _) in
             self.loadAdSuccesfulException?.fulfill()
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
 
     func testBidManagerRequestForInvaidBidResponseNoCacheId() {
+        loadAdSuccesfulException = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("responseInvalidResponseWithoutCacheId")
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
         manager.requestBidsForAdUnit { (bidResponse, resultCode) in
             XCTAssertNil(bidResponse)
-            XCTAssertEqual(resultCode, ResultCode.prebidDemandNoBids)
+            XCTAssertEqual(resultCode, ResultCode.prebidDemandNoBids, resultCode.name())
             self.loadAdSuccesfulException?.fulfill()
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
 
     func testBidManagerRequestForBidResponseFromTwoBidders() {
+        loadAdSuccesfulException = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("PrebidServerOneBidFromAppNexusOneBidFromRubicon")
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
@@ -93,14 +97,14 @@ class BidManagerTests: XCTestCase {
             XCTAssertEqual(resultCode, ResultCode.prebidDemandFetchSuccess)
             XCTAssertNotNil(bidResponse)
             let keywords = bidResponse?.customKeywords
-            XCTAssertEqual(16, keywords?.count)
+            XCTAssertEqual(15, keywords?.count)
             self.loadAdSuccesfulException?.fulfill()
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
 
     func testBidManagerRequestForBidResponseOneSeatHasCacheIdAnotherSeatDoesNot() {
+        loadAdSuccesfulException = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId")
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
@@ -111,12 +115,12 @@ class BidManagerTests: XCTestCase {
             XCTAssertEqual(10, keywords?.count)
             self.loadAdSuccesfulException?.fulfill()
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
 
     }
 
     func testBidManagerRequestForBidResponeTwoBidsOnTheSameSeat() {
+        loadAdSuccesfulException = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("responseValidTwoBidsOnTheSameSeat")
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
@@ -127,12 +131,12 @@ class BidManagerTests: XCTestCase {
             XCTAssertEqual(10, keywords?.count)
             self.loadAdSuccesfulException?.fulfill()
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
 
     }
 
     func testBidManagerRequestForBidResponseTopBidNoCacheId() {
+        loadAdSuccesfulException = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("responseInvalidNoTopCacheId")
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
@@ -141,11 +145,11 @@ class BidManagerTests: XCTestCase {
             XCTAssertNil(bidResponse)
             self.loadAdSuccesfulException?.fulfill()
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
 
     func testAppNexusBidManagerRequestForNoBidResponse() {
+        loadAdSuccesfulException = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("noBidResponseAppNexus")
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
@@ -153,26 +157,27 @@ class BidManagerTests: XCTestCase {
             XCTAssertNil(bidResponse)
             self.loadAdSuccesfulException?.fulfill()
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
     
     func testRubiconBidManagerRequestForNoBidResponse() {
-        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
+        loadAdSuccesfulException = expectation(description: "\(#function)")
         
-        stubAppNexusRequestWithResponse("noBidResponseRubicon")
+        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
+        Prebid.shared.prebidServerAccountId = Constants.pbsRubiconAccount_id
+        
+        stubRubiconRequestWithResponse("noBidResponseRubicon")
         let bannerUnit = BannerAdUnit(configId: Constants.pbsConfigId300x250Rubicon, size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
         manager.requestBidsForAdUnit { (bidResponse, _) in
             XCTAssertNil(bidResponse)
             self.loadAdSuccesfulException?.fulfill()
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
 
     func testAppNexusBidManagerRequestForSuccessfulBidResponse() {
-
+        loadAdSuccesfulException = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("responseAppNexusPBM")
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
@@ -193,12 +198,14 @@ class BidManagerTests: XCTestCase {
                 self.loadAdSuccesfulException = nil
             }
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
     
     func testRubiconBidManagerRequestForSuccessfulBidResponse() {
+        loadAdSuccesfulException = expectation(description: "\(#function)")
+        
         Prebid.shared.prebidServerHost = PrebidHost.Rubicon
+        Prebid.shared.prebidServerAccountId = Constants.pbsRubiconAccount_id
         
         stubRubiconRequestWithResponse("responseRubiconPBM")
         let bannerUnit = BannerAdUnit(configId: Constants.pbsConfigId300x250Rubicon, size: CGSize(width: 300, height: 250))
@@ -227,11 +234,11 @@ class BidManagerTests: XCTestCase {
                 self.loadAdSuccesfulException = nil
             }
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
 
     func testBidManagerRequestForInvalidAccountId() {
+        loadAdSuccesfulException = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("responseInvalidAccountId")
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
@@ -240,11 +247,11 @@ class BidManagerTests: XCTestCase {
             XCTAssertEqual(ResultCode.prebidInvalidAccountId, resultCode)
             self.loadAdSuccesfulException?.fulfill()
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
 
     func testBidManagerRequestForInvalidConfigId() {
+        loadAdSuccesfulException = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("responseInvalidConfigId")
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
@@ -253,11 +260,11 @@ class BidManagerTests: XCTestCase {
             XCTAssertEqual(ResultCode.prebidInvalidConfigId, resultCode)
             self.loadAdSuccesfulException?.fulfill()
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
 
     func testBidManagerRequestForInvalidSizeId() {
+        loadAdSuccesfulException = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("responseinvalidSize")
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 0, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
@@ -265,11 +272,11 @@ class BidManagerTests: XCTestCase {
             XCTAssertNil(bidResponse)
             self.loadAdSuccesfulException?.fulfill()
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
 
     func testBidManagerRequestForIncorrectFormatOfConfigIdOrAccountId() {
+        loadAdSuccesfulException = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("responseIncorrectFormat")
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
@@ -278,7 +285,6 @@ class BidManagerTests: XCTestCase {
             XCTAssertEqual(ResultCode.prebidServerError, resultCode)
             self.loadAdSuccesfulException?.fulfill()
         }
-        loadAdSuccesfulException = expectation(description: "\(#function)")
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
 

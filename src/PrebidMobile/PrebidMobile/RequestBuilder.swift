@@ -68,9 +68,7 @@ import AdSupport
         }
         requestDict["app"] = openrtbApp()
         requestDict["device"] = openrtbDevice()
-        if Targeting.shared.subjectToGDPR == true {
-            requestDict["regs"] = openrtbRegs()
-        }
+        requestDict["regs"] = openrtbRegs()
         requestDict["user"] = openrtbUser(adUnit: adUnit)
         requestDict["imp"] = openrtbImps(adUnit: adUnit)
         requestDict["ext"] = openrtbRequestExtension()
@@ -92,12 +90,12 @@ import AdSupport
         requestPrebidExt["targeting"] = [:]
         requestPrebidExt["storedrequest"] = ["id": Prebid.shared.prebidServerAccountId]
         requestPrebidExt["cache"] = ["bids": [AnyHashable: Any]()]
-        
+
         let acl = Array(Targeting.shared.getAccessControlList())
         if acl.count > 0 {
             requestPrebidExt["data"] = ["bidders": acl]
         }
-        
+
         var requestExt: [AnyHashable: Any] = [:]
         requestExt["prebid"] = requestPrebidExt
         return requestExt
@@ -136,13 +134,13 @@ import AdSupport
 
         var adUnitExt: [AnyHashable: Any] = [:]
         adUnitExt["prebid"] = prebidAdUnitExt
-        
+
         var prebidAdUnitExtContext: [AnyHashable: Any] = [:]
-        
+
         if let adUnitContextKeywords = adUnit?.getContextKeywordsSet().toCommaSeparatedListString(), !adUnitContextKeywords.isEmpty {
             prebidAdUnitExtContext["keywords"] = adUnitContextKeywords
         }
-        
+
         if let adUnitContextData = adUnit?.getContextDataDictionary().getCopyWhereValueIsArray(), adUnitContextData.count > 0 {
             prebidAdUnitExtContext["data"] = adUnitContextData
         }
@@ -177,23 +175,32 @@ import AdSupport
         }
 
         app["publisher"] = ["id": Prebid.shared.prebidServerAccountId ?? 0] as NSDictionary
-        
+
         var requestAppExt: [AnyHashable: Any] = [:]
-        
-        requestAppExt["prebid"] = ["version": String(PrebidMobileVersionNumber), "source": "prebid-mobile"]
-        
+
+        let prebidSdkVersion = Bundle(for: type(of: self)).infoDictionary?["CFBundleShortVersionString"] as? String
+        requestAppExt["prebid"] = ["version": prebidSdkVersion, "source": "prebid-mobile"]
+
         let contextDataDictionary = Targeting.shared.getContextDataDictionary().getCopyWhereValueIsArray()
         if contextDataDictionary.count > 0 {
             requestAppExt["data"] = contextDataDictionary
         }
-        
+
         let contextKeywordsString = Targeting.shared.getContextKeywordsSet().toCommaSeparatedListString()
-        
+
         if !contextKeywordsString.isEmpty {
             app["keywords"] = contextKeywordsString
         }
-        
+
         app["ext"] = requestAppExt
+
+        if let storeUrl = Targeting.shared.storeURL, !storeUrl.isEmpty {
+            app["storeurl"] = storeUrl
+        }
+
+        if let domain = Targeting.shared.domain, !domain.isEmpty {
+            app["domain"] = domain
+        }
 
         return app
     }
@@ -273,7 +280,7 @@ import AdSupport
 
             let locationTimestamp: Date? = Location.shared.location?.timestamp
             let ageInSeconds: TimeInterval = -1.0 * (locationTimestamp?.timeIntervalSinceNow ?? 0.0)
-            let ageInMilliseconds = Int(ageInSeconds * 1000)
+            let ageInMilliseconds = Int64(ageInSeconds * 1000)
 
             geoDict["lastfix"] = ageInMilliseconds
             geoDict["accuracy"] = Int(Location.shared.location?.horizontalAccuracy ?? 0)
@@ -287,12 +294,18 @@ import AdSupport
 
         var regsDict: [AnyHashable: Any] = [:]
 
-        let gdpr: Bool? = Targeting.shared.subjectToGDPR
+        let gdpr = Targeting.shared.subjectToGDPR
 
-        if (gdpr != nil) {
-            regsDict["ext"] = ["gdpr": NSNumber(value: gdpr!).intValue] as NSDictionary
+        if gdpr == true {
+            regsDict["ext"] = ["gdpr": NSNumber(value: gdpr).intValue] as NSDictionary
         }
-        return regsDict
+
+        let coppa = Targeting.shared.subjectToCOPPA
+        if coppa == true {
+            regsDict["coppa"] = NSNumber(value: coppa).intValue
+        }
+
+        return regsDict.isEmpty ? nil : regsDict
     }
 
     // OpenRTB 2.5 Object: User in section 3.2.20
@@ -324,19 +337,19 @@ import AdSupport
         }
 
         var requestUserExt: [AnyHashable: Any] = [:]
-        
+
         if Targeting.shared.subjectToGDPR == true {
 
             if let gdprConsentString = Targeting.shared.gdprConsentString, !gdprConsentString.isEmpty {
                 requestUserExt["consent"] = gdprConsentString
             }
         }
-        
+
         let userDataDictionary = Targeting.shared.getUserDataDictionary().getCopyWhereValueIsArray()
         if userDataDictionary.count > 0 {
             requestUserExt["data"] = userDataDictionary
         }
-        
+
         if requestUserExt.count > 0 {
             userDict["ext"] = requestUserExt
         }

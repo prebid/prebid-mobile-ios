@@ -16,6 +16,8 @@
 import Foundation
 
 extension String {
+    public static let PB_COPPA_SubjectToConsent = "kPBCoppaSubjectToConsent"
+    
     public static let PB_GDPR_ConsentString = "kPBGDPRConsentString"
 
     public static let PB_GDPR_SubjectToConsent = "kPBGdprSubjectToConsent"
@@ -33,6 +35,8 @@ extension String {
     public static let DFP_N_Object_Name = "DFPNRequest"
 
     public static let DFP_O_Object_Name = "DFPORequest"
+
+    public static let GAD_Object_Name = "GADRequest"
 
     public static let GAD_N_Object_Name = "GADNRequest"
 

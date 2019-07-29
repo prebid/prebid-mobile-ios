@@ -40,12 +40,17 @@ import Foundation
         }
     }
 
-    public var prebidServerHost: PrebidHost = PrebidHost.Appnexus {
+    public var prebidServerHost: PrebidHost = PrebidHost.Custom {
         didSet {
             timeoutMillis = .PB_Request_Timeout
             timeoutUpdated = false
         }
     }
+
+    /**
+     * Set the desidered verbosity of the logs
+     */
+    public var logLevel: LogLevel = .debug
 
     /**
      * The class is created as a singleton object & used

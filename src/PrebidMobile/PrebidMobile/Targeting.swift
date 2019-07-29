@@ -261,6 +261,19 @@ import CoreLocation
     /**
      * The boolean value set by the user to collect user data
      */
+    public var subjectToCOPPA: Bool {
+        set {
+            UserDefaults.standard.set(newValue, forKey: .PB_COPPA_SubjectToConsent)
+        }
+        
+        get {
+            return UserDefaults.standard.bool(forKey: .PB_COPPA_SubjectToConsent)
+        }
+    }
+    
+    /**
+     * The boolean value set by the user to collect user data
+     */
     public var subjectToGDPR: Bool {
         set {
             UserDefaults.standard.set(newValue, forKey: .PB_GDPR_SubjectToConsent)
@@ -301,6 +314,9 @@ import CoreLocation
             return savedConsent
         }
     }
+    
+    public var storeURL: String?
+    public var domain: String?
 
     /**
      * The class is created as a singleton object & used
