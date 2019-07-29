@@ -16,6 +16,8 @@
 import Foundation
 
 extension String {
+    public static let PB_COPPA_SubjectToConsent = "kPBCoppaSubjectToConsent"
+    
     public static let PB_GDPR_ConsentString = "kPBGDPRConsentString"
 
     public static let PB_GDPR_SubjectToConsent = "kPBGdprSubjectToConsent"
