@@ -340,7 +340,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTAssertEqual(2, fetchDemandCount)
     }
 
-    func testMopubInterstitialSanityAppCheckTest() {
+    func testMoPubInterstitialSanityAppCheckTest() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 20.0
@@ -950,7 +950,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         print("adViewDidReceiveAd")
         DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
             let result = PBViewTool.checkDFPAdViewContainsPBMAd(bannerView)
-            XCTAssertTrue(result, "checkDFPAdViewContainsPBMAd")
+            XCTAssertTrue(result)
             self.loadSuccesfulException?.fulfill()
         })
     }
@@ -976,7 +976,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             self.dfpInterstitial?.present(fromRootViewController: viewController!)
             DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
                 let result = PBViewTool.checkDFPInterstitialAdViewContainsPBMAd(self.viewController!.presentedViewController!)
-                XCTAssertTrue(result, "checkDFPInterstitialAdViewContainsPBMAd")
+                XCTAssertTrue(result)
                 self.loadSuccesfulException?.fulfill()
             })
         } else {
@@ -989,10 +989,10 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         return viewController
     }
 
-    func adViewDidLoadAd(_ view: MPAdView) {
+    func adViewDidLoadAd(_ view: MPAdView!) {
         print("adViewDidReceiveAd")
         PBViewTool.checkMPAdViewContainsPBMAd(view) { (result) in
-            XCTAssertTrue(result, "checkMPAdViewContainsPBMAd")
+            XCTAssertTrue(result)
             self.loadSuccesfulException?.fulfill()
         }
     }
@@ -1016,13 +1016,8 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func interstitialDidAppear(_ interstitial: MPInterstitialAdController!) {
         print("ad appeared")
-        guard let viewAd = self.viewController?.presentedViewController?.view else {
-            XCTFail("view is nil")
-            return
-        }
-        
-        PBViewTool.checkMPInterstitialContainsPBMAd(viewAd, withCompletionHandler: { (result) in
-                XCTAssertTrue(result, "checkMPInterstitialContainsPBMAd")
+        PBViewTool.checkMPInterstitialContainsPBMAd(self.viewController!.presentedViewController!, withCompletionHandler: { (result) in
+                XCTAssertTrue(result)
                 self.loadSuccesfulException?.fulfill()
             })
 

@@ -122,7 +122,7 @@ import Foundation
                     return ([:], ResultCode.prebidDemandNoBids)
                 }
             } else {
-                if (errorString.contains("Stored Imp with ID") || errorString.contains("No stored imp")) {
+                if (errorString.contains("Stored Imp with ID") || errorString.contains("No stored imp found")) {
                     return ([:], ResultCode.prebidInvalidConfigId)
                 } else if (errorString.contains("Stored Request with ID") || errorString.contains("No stored request found")) {
                     return ([:], ResultCode.prebidInvalidAccountId)
