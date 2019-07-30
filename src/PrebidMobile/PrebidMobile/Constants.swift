@@ -45,7 +45,7 @@ extension String {
     public static let MoPub_Interstitial_Name = "MPInterstitialAdController"
 
     public static let bidderNameAppNexus = "appnexus"
-    
+
     public static let bidderNameRubiconProject = "rubicon"
 }
 
@@ -101,77 +101,4 @@ extension UIDevice {
         }
     }
 
-}
-
-extension Set {
-    func toCommaSeparatedListString() -> String {
-        return self.map({"\($0)"}).joined(separator: ",")
-    }
-}
-
-extension Dictionary {
-    mutating func merge(dict: [Key: Value]) {
-        for (k, v) in dict {
-            updateValue(v, forKey: k)
-        }
-    }
-}
-
-extension Dictionary where Value == Set<String> {
-    mutating func addValue(_ value: String, forKey: Key) {
-        
-        var valueSet = self[forKey] ?? Set<String>()
-        
-        let isInserted = valueSet.insert((value)).inserted
-        
-        if isInserted {
-            self[forKey] = valueSet
-        }
-    }
-    
-    func getCopyWhereValueIsArray() -> [Key: [String]] {
-        var dictionary = [Key: [String]]()
-        
-        for (key, valueSet) in self {
-            let valuerArray = Array(valueSet)
-            dictionary[key] = valuerArray
-        }
-        
-        return dictionary
-    }
-    
-    func toCommaSeparatedListString() -> String {
-        return toString(entrySeparator: ",", keyValueSeparator: "=")
-    }
-    
-    func toString(entrySeparator: String, keyValueSeparator: String) -> String {
-        
-        var resultString = ""
-        
-        for (key, dictValues) in self {
-            
-            for value in dictValues {
-                
-                let keyValue = "\(key)\(keyValueSeparator)\(value)"
-                
-                if (resultString != "") {
-                    resultString = "\(resultString)\(entrySeparator)\(keyValue)"
-                } else {
-                    resultString = keyValue
-                }
-            }
-        }
-        
-        return resultString
-    }
-}
-
-extension Array {
-    public func toDictionary<Key: Hashable>(with selectKey: (Element) -> Key) -> [Key: Element] {
-        var dict = [Key: Element]()
-        for element in self {
-            dict[selectKey(element)] = element
-        }
-        return dict
-    }
 }
