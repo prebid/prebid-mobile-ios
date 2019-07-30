@@ -67,7 +67,7 @@ import AdSupport
             requestDict["source"] = aSource
         }
         requestDict["app"] = openrtbApp()
-        requestDict["device"] = openrtbDevice()
+        requestDict["device"] = openrtbDevice(adUnit: adUnit)
         requestDict["regs"] = openrtbRegs()
         requestDict["user"] = openrtbUser(adUnit: adUnit)
         requestDict["imp"] = openrtbImps(adUnit: adUnit)
@@ -172,7 +172,7 @@ import AdSupport
 
     // OpenRTB 2.5 Object: Device in section 3.2.18
 
-    func openrtbDevice() -> [AnyHashable: Any]? {
+    func openrtbDevice(adUnit: AdUnit?) -> [AnyHashable: Any]? {
         var deviceDict: [AnyHashable: Any] = [:]
 
         if (RequestBuilder.myUserAgent != "") {
@@ -227,6 +227,10 @@ import AdSupport
 
         deviceDict["pxratio"] = pixelRatio
 
+        if let deviceExt = self.fetchDeviceExt(adUnit: adUnit) {
+            deviceDict["ext"] = deviceExt
+        }
+
         return deviceDict
 
     }
@@ -264,12 +268,12 @@ import AdSupport
         if gdpr == true {
             regsDict["ext"] = ["gdpr": NSNumber(value: gdpr).intValue] as NSDictionary
         }
-        
+
         let coppa = Targeting.shared.subjectToCOPPA
         if coppa == true {
             regsDict["coppa"] = NSNumber(value: coppa).intValue
         }
-        
+
         return regsDict.isEmpty ? nil : regsDict
     }
 
@@ -344,6 +348,24 @@ import AdSupport
         }
 
         return keywordString
+    }
+
+    func fetchDeviceExt(adUnit: AdUnit?) -> [AnyHashable: Any]? {
+
+        var deviceExt: [AnyHashable: Any] = [:]
+        var deviceExtPrebid: [AnyHashable: Any] = [:]
+        var deviceExtPrebidInstlDict: [AnyHashable: Any] = [:]
+
+        if let adUnit = adUnit as? InterstitialAdUnit {
+            deviceExtPrebidInstlDict["minwidthperc"] = adUnit.minSizePerc?.width
+            deviceExtPrebidInstlDict["minheightperc"] = adUnit.minSizePerc?.height
+        }
+
+        deviceExtPrebid["interstitial"] = deviceExtPrebidInstlDict
+        deviceExt["prebid"] = deviceExtPrebid
+
+        let deviceExtWithoutEmptyValues = deviceExt.getObjectWithoutEmptyValues()
+        return deviceExtWithoutEmptyValues
     }
 
     class func UserAgent(callback:@escaping(_ userAgentString: String) -> Void) {

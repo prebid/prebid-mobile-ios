@@ -67,6 +67,8 @@
 		FA7C3EB7225E4C2200D2F128 /* responseRubiconPBM.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB6225E4C2200D2F128 /* responseRubiconPBM.json */; };
 		FA7C3EB9225E518000D2F128 /* noBidResponseRubicon.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB8225E518000D2F128 /* noBidResponseRubicon.json */; };
 		FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */; };
+		FA7F89EC22DC95E30065B652 /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */; };
+		FA7F89F622DCB20E0065B652 /* CollectionExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F89F522DCB20E0065B652 /* CollectionExtensionTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +154,8 @@
 		FA7C3EB6225E4C2200D2F128 /* responseRubiconPBM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseRubiconPBM.json; sourceTree = "<group>"; };
 		FA7C3EB8225E518000D2F128 /* noBidResponseRubicon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponseRubicon.json; sourceTree = "<group>"; };
 		FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewUtilsTests.swift; sourceTree = "<group>"; };
+		FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
+		FA7F89F522DCB20E0065B652 /* CollectionExtensionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionExtensionTest.swift; path = PrebidMobileTests/CollectionExtensionTest.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +236,7 @@
 				607B04792194AC79000C0879 /* BidResponse.swift */,
 				600072FE21BAFD2F00F4738B /* Dispatcher.swift */,
 				6013E3F12214A4CA00FEE2B1 /* Location.swift */,
+				FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */,
 			);
 			path = PrebidMobile;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 		97826A8321FB4514001E2C05 /* AdUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				FA7F89F522DCB20E0065B652 /* CollectionExtensionTest.swift */,
 				97826A8621FB4514001E2C05 /* Info.plist */,
 				97826AA621FB4F1B001E2C05 /* Constants.swift */,
 				97F29999220056D10072E0C0 /* BannerAdUnitTests.swift */,
@@ -488,6 +494,7 @@
 				60D7930D217E23F90080F428 /* Prebid.swift in Sources */,
 				6062B1BC2188F6C200CE1BA3 /* RequestBuilder.swift in Sources */,
 				FA5C30BB22E5E86900DA23C4 /* AdViewUtils.swift in Sources */,
+				FA7F89EC22DC95E30065B652 /* CollectionExtension.swift in Sources */,
 				6013E3F22214A4CA00FEE2B1 /* Location.swift in Sources */,
 				60D79314217E31150080F428 /* ResultCode.swift in Sources */,
 				FA5C30BD22E5ECF700DA23C4 /* PbFindSizeError.swift in Sources */,
@@ -509,6 +516,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60C038192204AF5D0082B32C /* NSObject+Swizzling.m in Sources */,
+				FA7F89F622DCB20E0065B652 /* CollectionExtensionTest.swift in Sources */,
 				60C0381A2204AF5D0082B32C /* PBTestGlobal.m in Sources */,
 				60C0381B2204AF5D0082B32C /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				6013E3FA2215C92C00FEE2B1 /* MockCLLocationManager.swift in Sources */,

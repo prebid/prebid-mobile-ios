@@ -262,6 +262,136 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             print(error.localizedDescription)
         }
     }
+    
+    func testPostDataWithAdvancedInterstitial() {
+        let adUnit = InterstitialAdUnit(configId: Constants.configID1, minWidthPerc: 50, minHeightPerc: 70)
+        
+        do {
+            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+                print(jsonRequestBody)
+                
+                if let device = jsonRequestBody["device"] as? [String: Any],
+                    let ext = device["ext"] as? [String: Any],
+                    let prebid = ext["prebid"] as? [String: Any],
+                    let interstitial = prebid["interstitial"] as? [String: Any],
+                    let minwidthperc = interstitial["minwidthperc"] as? Int,
+                    let minheightperc = interstitial["minheightperc"] as? Int {
+                    
+                    XCTAssertEqual(50, minwidthperc)
+                    XCTAssertEqual(70, minheightperc)
+                    
+                } else {
+                    XCTFail("Can not find minSizePerc")
+                }
+                
+                if let imp = jsonRequestBody["imp"] as? [Any],
+                    let imp0 = imp[0] as? [String: Any] {
+                    
+                    if let banner = imp0["banner"] as? [String: Any],
+                        let formatArr = banner["format"] as? [Any],
+                        let format0 = formatArr[0] as? [String: Any],
+                        let w = format0["w"] as? Int,
+                        let h = format0["h"] as? Int {
+                        
+                        XCTAssertNotNil(w)
+                        XCTAssertNotNil(h)
+                    } else {
+                        XCTFail("Can not find width and height")
+                    }
+                    
+                    if let instl = imp0["instl"] as? Int {
+                        XCTAssertEqual(1, instl)
+                    } else {
+                        XCTFail("Can not find instl")
+                    }
+                    
+                } else {
+                    XCTFail("Can not find imp")
+                    
+                }
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func testPostDataWithoutAdvancedInterstitial() {
+        let adUnit = InterstitialAdUnit(configId: Constants.configID1)
+        
+        do {
+            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+                print(jsonRequestBody)
+                
+                if let device = jsonRequestBody["device"] as? [String: Any],
+                    let ext = device["ext"] as? [String: Any],
+                    let prebid = ext["prebid"] as? [String: Any],
+                    let interstitial = prebid["interstitial"] as? [String: Any] {
+                    
+                    XCTAssertEqual(0, interstitial.count)
+                    
+                }
+                
+                if let imp = jsonRequestBody["imp"] as? [Any],
+                    let imp0 = imp[0] as? [String: Any] {
+                    
+                    if let banner = imp0["banner"] as? [String: Any],
+                        let formatArr = banner["format"] as? [Any],
+                        let format0 = formatArr[0] as? [String: Any],
+                        let w = format0["w"] as? Int,
+                        let h = format0["h"] as? Int {
+                        
+                        XCTAssertNotNil(w)
+                        XCTAssertNotNil(h)
+                    } else {
+                        XCTFail("Can not find width and height")
+                    }
+                    
+                    if let instl = imp0["instl"] as? Int {
+                        XCTAssertEqual(1, instl)
+                    } else {
+                        XCTFail("Can not find instl")
+                    }
+                    
+                } else {
+                    XCTFail("Can not find imp")
+                    
+                }
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func testPostDataWithoutAdvancedBannerInterstitial() {
+        let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
+        
+        do {
+            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+                print(jsonRequestBody)
+                
+                if let device = jsonRequestBody["device"] as? [String: Any],
+                    let ext = device["ext"] as? [String: Any],
+                    let prebid = ext["prebid"] as? [String: Any],
+                    let interstitial = prebid["interstitial"] as? [String: Any] {
+
+                    XCTAssertEqual(0, interstitial.count)
+
+                }
+                
+                if let impArr = jsonRequestBody["imp"] as? [Any],
+                    let imp0 = impArr[0] as? [String: Any],
+                    let instl = imp0["instl"] as? Int {
+                    
+                    XCTAssertEqual(0, instl)
+                }
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
 
     func testYOBWith1855() {
         let targeting = Targeting.shared
