@@ -68,9 +68,7 @@ import AdSupport
         }
         requestDict["app"] = openrtbApp()
         requestDict["device"] = openrtbDevice(adUnit: adUnit)
-        if Targeting.shared.subjectToGDPR == true {
-            requestDict["regs"] = openrtbRegs()
-        }
+        requestDict["regs"] = openrtbRegs()
         requestDict["user"] = openrtbUser(adUnit: adUnit)
         requestDict["imp"] = openrtbImps(adUnit: adUnit)
         requestDict["ext"] = openrtbRequestExtension()
@@ -228,7 +226,7 @@ import AdSupport
         let pixelRatio: CGFloat = UIScreen.main.scale
 
         deviceDict["pxratio"] = pixelRatio
-        
+
         if let deviceExt = self.fetchDeviceExt(adUnit: adUnit) {
             deviceDict["ext"] = deviceExt
         }
@@ -265,12 +263,18 @@ import AdSupport
 
         var regsDict: [AnyHashable: Any] = [:]
 
-        let gdpr: Bool? = Targeting.shared.subjectToGDPR
+        let gdpr = Targeting.shared.subjectToGDPR
 
-        if (gdpr != nil) {
-            regsDict["ext"] = ["gdpr": NSNumber(value: gdpr!).intValue] as NSDictionary
+        if gdpr == true {
+            regsDict["ext"] = ["gdpr": NSNumber(value: gdpr).intValue] as NSDictionary
         }
-        return regsDict
+
+        let coppa = Targeting.shared.subjectToCOPPA
+        if coppa == true {
+            regsDict["coppa"] = NSNumber(value: coppa).intValue
+        }
+
+        return regsDict.isEmpty ? nil : regsDict
     }
 
     // OpenRTB 2.5 Object: User in section 3.2.20
@@ -345,21 +349,21 @@ import AdSupport
 
         return keywordString
     }
-    
+
     func fetchDeviceExt(adUnit: AdUnit?) -> [AnyHashable: Any]? {
-        
+
         var deviceExt: [AnyHashable: Any] = [:]
         var deviceExtPrebid: [AnyHashable: Any] = [:]
         var deviceExtPrebidInstlDict: [AnyHashable: Any] = [:]
-        
+
         if let adUnit = adUnit as? InterstitialAdUnit {
             deviceExtPrebidInstlDict["minwidthperc"] = adUnit.minSizePerc?.width
             deviceExtPrebidInstlDict["minheightperc"] = adUnit.minSizePerc?.height
         }
-        
+
         deviceExtPrebid["interstitial"] = deviceExtPrebidInstlDict
         deviceExt["prebid"] = deviceExtPrebid
-        
+
         let deviceExtWithoutEmptyValues = deviceExt.getObjectWithoutEmptyValues()
         return deviceExtWithoutEmptyValues
     }
