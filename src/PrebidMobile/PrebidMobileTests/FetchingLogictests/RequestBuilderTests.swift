@@ -56,6 +56,12 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         adUnit = nil
+        
+        Targeting.shared.clearAccessControlList()
+        Targeting.shared.clearUserData()
+        Targeting.shared.clearContextData()
+        Targeting.shared.clearContextKeywords()
+        Targeting.shared.clearUserKeywords()
     }
 
     func testPostData() {
@@ -216,6 +222,204 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
                 }
                 self.validationResponse(jsonRequestBody: jsonRequestBody)
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func testPostDataWithGlobalUserKeyword() {
+        let targeting = Targeting.shared
+      
+        targeting.addUserKeyword("value10")
+        
+        do {
+            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+                
+                guard let user = jsonRequestBody["user"] as? [String: Any]  else {
+                    XCTFail("parcing fail")
+                    return
+                }
+                
+                XCTAssertNotNil(user["keywords"])
+                XCTAssertEqual(user["keywords"] as! String, "value10")
+                
+                self.validationResponse(jsonRequestBody: jsonRequestBody)
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func testPostDataWithGlobalContextKeyword() {
+        let targeting = Targeting.shared
+        
+        targeting.addContextKeyword("value10")
+        
+        do {
+            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+                
+                guard let app = jsonRequestBody["app"] as? [String: Any]  else {
+                    XCTFail("parcing fail")
+                    return
+                }
+                
+                XCTAssertNotNil(app["keywords"])
+                XCTAssertEqual(app["keywords"] as! String, "value10")
+                
+                self.validationResponse(jsonRequestBody: jsonRequestBody)
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func testPostDataWithAccessControlList() {
+        let targeting = Targeting.shared
+        targeting.addBidderToAccessControlList(.bidderNameRubiconProject)
+        
+        do {
+            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+                
+                guard let ext = jsonRequestBody["ext"] as? [String: Any], let prebid = ext["prebid"] as? [String: Any], let data = prebid["data"] as? [String: Any], let bidders = data["bidders"] as? [String] else {
+                    XCTFail("parcing fail")
+                    return
+                }
+                
+                XCTAssertNotNil(bidders.count == 1)
+                XCTAssertEqual(bidders[0], .bidderNameRubiconProject)
+                
+                self.validationResponse(jsonRequestBody: jsonRequestBody)
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func testPostDataWithGlobalUserData() {
+        let targeting = Targeting.shared
+        targeting.addUserData(key: "key1", value: "value10")
+        targeting.addUserData(key: "key2", value: "value20")
+        targeting.addUserData(key: "key2", value: "value21")
+        
+        do {
+            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+                
+                guard let user = jsonRequestBody["user"] as? [String: Any], let ext = user["ext"] as? [String: Any], let data = ext["data"] as? [String: Any] else {
+                    XCTFail("parcing fail")
+                    return
+                }
+                
+                XCTAssert(data.count == 2)
+                
+                guard let key1Set1 = data["key1"] as? [String] else {
+                    XCTFail("set is nil")
+                    return
+                }
+                XCTAssert(key1Set1.contains("value10"))
+                
+                guard let key2Set1 = data["key2"] as? [String] else {
+                    XCTFail("set is nil")
+                    return
+                }
+                XCTAssert(key2Set1.contains("value20") && key2Set1.contains("value21"))
+                
+                self.validationResponse(jsonRequestBody: jsonRequestBody)
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func testPostDataWithGlobalContextData() {
+        let targeting = Targeting.shared
+        targeting.addContextData(key: "key1", value: "value10")
+        targeting.addContextData(key: "key2", value: "value20")
+        targeting.addContextData(key: "key2", value: "value21")
+        
+        do {
+            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+                
+                guard let app = jsonRequestBody["app"] as? [String: Any], let ext = app["ext"] as? [String: Any], let data = ext["data"] as? [String: Any] else {
+                    XCTFail("parcing fail")
+                    return
+                }
+                
+                XCTAssert(data.count == 2)
+                
+                guard let key1Set1 = data["key1"] as? [String] else {
+                    XCTFail("set is nil")
+                    return
+                }
+                XCTAssert(key1Set1.contains("value10"))
+                
+                guard let key2Set1 = data["key2"] as? [String] else {
+                    XCTFail("set is nil")
+                    return
+                }
+                XCTAssert(key2Set1.contains("value20") && key2Set1.contains("value21"))
+                
+                self.validationResponse(jsonRequestBody: jsonRequestBody)
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func testPostDataWithAdunitContextKeyword() {
+        adUnit.addContextKeyword("value10")
+        
+        do {
+            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+                
+                guard let impArray = jsonRequestBody["imp"] as? [Any], let impDic = impArray[0] as? [String: Any], let ext = impDic["ext"] as? [String: Any], let context = ext["context"] as? [String: Any] else {
+                    XCTFail("parcing fail")
+                    return
+                }
+                
+                XCTAssertNotNil(context["keywords"])
+                XCTAssertEqual(context["keywords"] as! String, "value10")
+                
+                self.validationResponse(jsonRequestBody: jsonRequestBody)
+            }
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func testPostDataWithAdunitContextData() {
+        adUnit.addContextData(key: "key1", value: "value10")
+        adUnit.addContextData(key: "key2", value: "value20")
+        adUnit.addContextData(key: "key2", value: "value21")
+        
+        do {
+            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+                
+                guard let impArray = jsonRequestBody["imp"] as? [Any], let impDic = impArray[0] as? [String: Any], let ext = impDic["ext"] as? [String: Any], let context = ext["context"] as? [String: Any], let data = context["data"] as? [String: Any] else {
+                    XCTFail("parcing fail")
+                    return
+                }
+                
+                XCTAssert(data.count == 2)
+                
+                guard let key1Set1 = data["key1"] as? [String] else {
+                    XCTFail("set is nil")
+                    return
+                }
+                XCTAssert(key1Set1.contains("value10"))
+                
+                guard let key2Set1 = data["key2"] as? [String] else {
+                    XCTFail("set is nil")
+                    return
+                }
+                XCTAssert(key2Set1.contains("value20") && key2Set1.contains("value21"))
             }
         } catch let error {
             print(error.localizedDescription)

@@ -25,16 +25,6 @@ extension Array {
     }
 }
 
-extension Dictionary {
-    mutating func merge(dict: [Key: Value]) {
-        for (k, v) in dict {
-            updateValue(v, forKey: k)
-        }
-    }
-}
-
-// MARK: - Clean a collection
-
 extension Array where Element == Any {
     func getObjectWithoutEmptyValues() -> [Element]? {
         
@@ -43,6 +33,69 @@ extension Array where Element == Any {
         removeEntryWithoutValue(&result)
 
         return result.count > 0 ? result : nil
+    }
+}
+
+extension Set {
+    func toCommaSeparatedListString() -> String {
+        return self.map({"\($0)"}).joined(separator: ",")
+    }
+}
+
+extension Dictionary {
+    mutating func merge(dict: [Key: Value]) {
+        for (k, v) in dict {
+            updateValue(v, forKey: k)
+        }
+    }
+}
+
+extension Dictionary where Value == Set<String> {
+    mutating func addValue(_ value: String, forKey: Key) {
+        
+        var valueSet = self[forKey] ?? Set<String>()
+        
+        let isInserted = valueSet.insert((value)).inserted
+        
+        if isInserted {
+            self[forKey] = valueSet
+        }
+    }
+    
+    func getCopyWhereValueIsArray() -> [Key: [String]] {
+        var dictionary = [Key: [String]]()
+        
+        for (key, valueSet) in self {
+            let valuerArray = Array(valueSet)
+            dictionary[key] = valuerArray
+        }
+        
+        return dictionary
+    }
+    
+    func toCommaSeparatedListString() -> String {
+        return toString(entrySeparator: ",", keyValueSeparator: "=")
+    }
+    
+    func toString(entrySeparator: String, keyValueSeparator: String) -> String {
+        
+        var resultString = ""
+        
+        for (key, dictValues) in self {
+            
+            for value in dictValues {
+                
+                let keyValue = "\(key)\(keyValueSeparator)\(value)"
+                
+                if (resultString != "") {
+                    resultString = "\(resultString)\(entrySeparator)\(keyValue)"
+                } else {
+                    resultString = keyValue
+                }
+            }
+        }
+        
+        return resultString
     }
 }
 
@@ -57,6 +110,8 @@ extension Dictionary where Key == AnyHashable, Value == Any {
     }
     
 }
+
+//MARK: - private block
 
 private func removeEntryWithoutValue(_ array: inout [Any]) {
     for (index, var value) in array.enumerated().reversed() {

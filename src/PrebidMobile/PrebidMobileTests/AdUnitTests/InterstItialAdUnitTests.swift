@@ -42,12 +42,21 @@ class InterstItialAdUnitTests: XCTestCase {
         adUnit.addUserKeyword(key: "key1", value: "value1")
         adUnit.addUserKeyword(key: "key2", value: "value2")
         XCTAssertTrue(2 == adUnit.userKeywords.count)
-        if let value = adUnit.userKeywords["key1"]?[0] {
-            XCTAssertEqual("value1", value)
+        
+        guard let key1Set = adUnit.userKeywords["key1"] else {
+            XCTFail("set is nil")
+            return
         }
-        if let value = adUnit.userKeywords["key2"]?[0] {
-            XCTAssertEqual("value2", value)
+        XCTAssert(key1Set.count == 1)
+        XCTAssert(key1Set.contains("value1"))
+        
+        guard let key2Set = adUnit.userKeywords["key2"] else {
+            XCTFail("set is nil")
+            return
         }
+        XCTAssert(key2Set.count == 1)
+        XCTAssert(key2Set.contains("value2"))
+        
         adUnit.removeUserKeyword(forKey: "key1")
         XCTAssertTrue(1 == adUnit.userKeywords.count)
         XCTAssertNil(adUnit.userKeywords["key1"])
@@ -58,26 +67,37 @@ class InterstItialAdUnitTests: XCTestCase {
 
     func testSetUserKeywords() {
         let adUnit = InterstitialAdUnit(configId: Constants.configID1)
+        
+        let arrValues: Set = ["value1", "value2"]
+        
         adUnit.addUserKeyword(key: "key1", value: "value1")
-        let arrValues = ["value1", "value2"]
         adUnit.addUserKeywords(key: "key2", value: arrValues)
         XCTAssertTrue(2 == adUnit.userKeywords.count)
-        if let value = adUnit.userKeywords["key1"]?[0] {
-            XCTAssertEqual("value1", value)
+        
+        guard let key1Set = adUnit.userKeywords["key1"] else {
+            XCTFail("set is nil")
+            return
         }
-        if let value = adUnit.userKeywords["key2"]?[0] {
-            XCTAssertEqual("value1", value)
+        XCTAssert(key1Set.count == 1)
+        XCTAssert(key1Set.contains("value1"))
+        
+        guard let key2Set = adUnit.userKeywords["key2"] else {
+            XCTFail("set is nil")
+            return
         }
-        if let value = adUnit.userKeywords["key2"]?[1] {
-            XCTAssertEqual("value2", value)
-        }
+        XCTAssert(key2Set.count == 2)
+        XCTAssert(key2Set.contains("value1") && key2Set.contains("value2"))
+
         adUnit.addUserKeywords(key: "key1", value: arrValues)
-        if let value = adUnit.userKeywords["key1"]?[0] {
-            XCTAssertEqual("value1", value)
+        
+        guard let key1SetChanged = adUnit.userKeywords["key1"] else {
+            XCTFail("set is nil")
+            return
         }
-        if let value = adUnit.userKeywords["key1"]?[1] {
-            XCTAssertEqual("value2", value)
-        }
+        XCTAssertTrue(adUnit.userKeywords.count == 2)
+        XCTAssert(key1SetChanged.count == 2)
+        XCTAssert(key1SetChanged.contains("value1") && key1SetChanged.contains("value2"))
+
         XCTAssertTrue(2 == adUnit.userKeywords.count)
         adUnit.clearUserKeywords()
         XCTAssertTrue(0 == adUnit.userKeywords.count)
