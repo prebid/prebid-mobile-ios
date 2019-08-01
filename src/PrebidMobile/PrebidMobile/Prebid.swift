@@ -16,7 +16,13 @@
 import Foundation
 
 @objcMembers public class Prebid: NSObject {
-    public var timeoutMillis: Int = .PB_Request_Timeout
+    public var timeoutMillis: Int = .PB_Request_Timeout {
+        didSet {
+            timeoutMillisDynamic = timeoutMillis
+        }
+    }
+    
+    var timeoutMillisDynamic: Int
     var timeoutUpdated: Bool = false
 
     public var prebidServerAccountId: String! = ""
@@ -42,7 +48,7 @@ import Foundation
 
     public var prebidServerHost: PrebidHost = PrebidHost.Custom {
         didSet {
-            timeoutMillis = .PB_Request_Timeout
+            timeoutMillisDynamic = timeoutMillis
             timeoutUpdated = false
         }
     }
@@ -61,6 +67,8 @@ import Foundation
      * The initializer that needs to be created only once
      */
     private override init() {
+        timeoutMillisDynamic = timeoutMillis
+        
         super.init()
         if (RequestBuilder.myUserAgent == "") {
             RequestBuilder.UserAgent {(userAgentString) in
