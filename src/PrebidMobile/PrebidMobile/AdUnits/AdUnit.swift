@@ -23,6 +23,8 @@ import ObjectiveC.runtime
 
     var dispatcher: Dispatcher?
 
+    var cancelWorkItem : DispatchWorkItem?;
+
     private var customKeywords = [String: Set<String>]()
 
     private var contextDataDictionary = [String: Set<String>]()
@@ -75,6 +77,17 @@ import ObjectiveC.runtime
             startDispatcher()
         }
 
+        if(self.cancelWorkItem != nil && !self.cancelWorkItem!.isCancelled) {
+            self.cancelWorkItem!.cancel()
+        }
+        self.cancelWorkItem = DispatchWorkItem {
+            if (!self.didReceiveResponse) {
+                Log.debug("Received timeout signal.")
+                self.timeOutSignalSent = true
+                completion(ResultCode.prebidDemandTimedOut)
+            }
+        }
+
         didReceiveResponse = false
         timeOutSignalSent = false
         self.closure = completion
@@ -96,13 +109,7 @@ import ObjectiveC.runtime
             }
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(.PB_Request_Timeout), execute: {
-            if (!self.didReceiveResponse) {
-                self.timeOutSignalSent = true
-                completion(ResultCode.prebidDemandTimedOut)
-
-            }
-        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(.PB_Request_Timeout), execute: self.cancelWorkItem!)
     }
     
     // MARK: - DEPRECATED adunit user keywords (user.keywords)
