@@ -23,7 +23,7 @@ import ObjectiveC.runtime
 
     var dispatcher: Dispatcher?
 
-    var cancelWorkItem : DispatchWorkItem?;
+    var cancelWorkItem : DispatchWorkItem?
 
     private var customKeywords = [String: Set<String>]()
 
