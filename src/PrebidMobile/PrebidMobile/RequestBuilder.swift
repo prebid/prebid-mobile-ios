@@ -45,22 +45,23 @@ import AdSupport
     }
 
     func buildRequest(adUnit: AdUnit?) throws -> URLRequest? {
-
-            let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
+        
+        let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
         var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Prebid.shared.timeoutMillis))
-            request.httpMethod = "POST"
-            let requestBody: [String: Any] = openRTBRequestBody(adUnit: adUnit)!
-
-            request.httpBody = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
-            //HTTP HeadersExpression implicitly coerced from '[AnyHashable : Any]?' to Any
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            Log.info("Prebid Request post body \(requestBody)")
-            return request
+        request.httpMethod = "POST"
+        let requestBody = openRTBRequestBody(adUnit: adUnit) ?? [:]
+        
+        request.httpBody = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
+        
+        //HTTP HeadersExpression implicitly coerced from '[AnyHashable : Any]?' to Any
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        Log.info("Prebid Request post body \(requestBody)")
+        return request
     }
 
-    func openRTBRequestBody(adUnit: AdUnit?) -> [String: Any]? {
-        var requestDict: [String: Any] = [:]
+    func openRTBRequestBody(adUnit: AdUnit?) -> [AnyHashable: Any]? {
+        var requestDict: [AnyHashable: Any] = [:]
 
         requestDict["id"] = UUID().uuidString
         if let aSource = openrtbSource() {
@@ -73,7 +74,8 @@ import AdSupport
         requestDict["imp"] = openrtbImps(adUnit: adUnit)
         requestDict["ext"] = openrtbRequestExtension()
 
-        return requestDict
+        let requestDictWithoutEmptyValues = requestDict.getObjectWithoutEmptyValues()
+        return requestDictWithoutEmptyValues
     }
 
     func openrtbSource() -> [String: Any]? {
@@ -386,8 +388,7 @@ import AdSupport
         deviceExtPrebid["interstitial"] = deviceExtPrebidInstlDict
         deviceExt["prebid"] = deviceExtPrebid
 
-        let deviceExtWithoutEmptyValues = deviceExt.getObjectWithoutEmptyValues()
-        return deviceExtWithoutEmptyValues
+        return deviceExt
     }
 
     class func UserAgent(callback:@escaping(_ userAgentString: String) -> Void) {

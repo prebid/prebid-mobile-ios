@@ -703,16 +703,11 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         if let ext = jsonRequestBody["ext"] as? [String: Any] {
             XCTAssertNotNil(ext["prebid"])
             if let prebid = ext["prebid"] as? [String: Any] {
-                XCTAssertNotNil(prebid["cache"])
-                if let cache = prebid["cache"] as? [String: Any] {
-                    XCTAssertNotNil(cache["bids"])
-                }
                 if let storedrequest = prebid["storedrequest"] as? [String: Any] {
                     if let id = storedrequest["id"] as? String {
                         XCTAssertEqual("bfa84af2-bd16-4d35-96ad-31c6bb888df0", id)
                     }
                 }
-                XCTAssertNotNil(prebid["targeting"])
             }
         }
         if let app = jsonRequestBody["app"] as? [String: Any] {
