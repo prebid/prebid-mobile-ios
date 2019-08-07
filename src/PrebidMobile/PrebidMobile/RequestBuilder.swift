@@ -92,11 +92,7 @@ import AdSupport
         requestPrebidExt["targeting"] = [:]
         requestPrebidExt["storedrequest"] = ["id": Prebid.shared.prebidServerAccountId]
         requestPrebidExt["cache"] = ["bids": [AnyHashable: Any]()]
-
-        let acl = Array(Targeting.shared.getAccessControlList())
-        if acl.count > 0 {
-            requestPrebidExt["data"] = ["bidders": acl]
-        }
+        requestPrebidExt["data"] = ["bidders": Array(Targeting.shared.getAccessControlList())]
 
         var requestExt: [AnyHashable: Any] = [:]
         requestExt["prebid"] = requestPrebidExt
@@ -138,18 +134,10 @@ import AdSupport
         adUnitExt["prebid"] = prebidAdUnitExt
 
         var prebidAdUnitExtContext: [AnyHashable: Any] = [:]
+        prebidAdUnitExtContext["keywords"] = adUnit?.getContextKeywordsSet().toCommaSeparatedListString()
+        prebidAdUnitExtContext["data"] = adUnit?.getContextDataDictionary().getCopyWhereValueIsArray()
 
-        if let adUnitContextKeywords = adUnit?.getContextKeywordsSet().toCommaSeparatedListString(), !adUnitContextKeywords.isEmpty {
-            prebidAdUnitExtContext["keywords"] = adUnitContextKeywords
-        }
-
-        if let adUnitContextData = adUnit?.getContextDataDictionary().getCopyWhereValueIsArray(), adUnitContextData.count > 0 {
-            prebidAdUnitExtContext["data"] = adUnitContextData
-        }
-
-        if prebidAdUnitExtContext.count > 0 {
-            adUnitExt["context"] = prebidAdUnitExtContext
-        }
+        adUnitExt["context"] = prebidAdUnitExtContext
 
         imp["ext"] = adUnitExt
 
@@ -183,18 +171,11 @@ import AdSupport
         let prebidSdkVersion = Bundle(for: type(of: self)).infoDictionary?["CFBundleShortVersionString"] as? String
         requestAppExt["prebid"] = ["version": prebidSdkVersion, "source": "prebid-mobile"]
 
-        let contextDataDictionary = Targeting.shared.getContextDataDictionary().getCopyWhereValueIsArray()
-        if contextDataDictionary.count > 0 {
-            requestAppExt["data"] = contextDataDictionary
-        }
-
-        let contextKeywordsString = Targeting.shared.getContextKeywordsSet().toCommaSeparatedListString()
-
-        if !contextKeywordsString.isEmpty {
-            app["keywords"] = contextKeywordsString
-        }
+        requestAppExt["data"] = Targeting.shared.getContextDataDictionary().getCopyWhereValueIsArray()
 
         app["ext"] = requestAppExt
+        
+        app["keywords"] = Targeting.shared.getContextKeywordsSet().toCommaSeparatedListString()
 
         if let storeUrl = Targeting.shared.storeURL, !storeUrl.isEmpty {
             app["storeurl"] = storeUrl
@@ -351,14 +332,9 @@ import AdSupport
             }
         }
 
-        let userDataDictionary = Targeting.shared.getUserDataDictionary().getCopyWhereValueIsArray()
-        if userDataDictionary.count > 0 {
-            requestUserExt["data"] = userDataDictionary
-        }
+        requestUserExt["data"] = Targeting.shared.getUserDataDictionary().getCopyWhereValueIsArray()
 
-        if requestUserExt.count > 0 {
-            userDict["ext"] = requestUserExt
-        }
+        userDict["ext"] = requestUserExt
 
         return userDict
     }
