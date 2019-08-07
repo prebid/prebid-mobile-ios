@@ -336,7 +336,7 @@ import AdSupport
         let globalUserKeywordString = Targeting.shared.getUserKeywordsSet().toCommaSeparatedListString()
         if !globalUserKeywordString.isEmpty  {
             userDict["keywords"] = globalUserKeywordString
-        } else if let adunitUserKeywordString = adUnit?.userKeywords.toCommaSeparatedListString(), !adunitUserKeywordString.isEmpty  {
+        } else if let adunitUserKeywordString = adUnit?.getUserKeywords.toCommaSeparatedListString(), !adunitUserKeywordString.isEmpty  {
             userDict["keywords"] = adunitUserKeywordString
         }
 

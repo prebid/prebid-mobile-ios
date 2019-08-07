@@ -23,7 +23,8 @@ import ObjectiveC.runtime
 
     var dispatcher: Dispatcher?
 
-    private var customKeywords = [String: Set<String>]()
+    @available(*, deprecated)
+    private var userKeywords = [String: Set<String>]()
 
     private var contextDataDictionary = [String: Set<String>]()
 
@@ -107,18 +108,13 @@ import ObjectiveC.runtime
     
     // MARK: - DEPRECATED adunit user keywords (user.keywords)
 
-    var userKeywords: [String: Set<String>] {
-        Log.info("user keywords are \(customKeywords)")
-        return customKeywords
-    }
-
     /**
      * This method obtains the user keyword & value user for targeting
      * if the key already exists the value will be appended to the list. No duplicates will be added
      */
     @available(*, deprecated, message: "Please use Targeting.shared.addUserKeyword() method instead")
     public func addUserKeyword(key: String, value: String) {
-        customKeywords.addValue(value, forKey: key)
+        userKeywords.addValue(value, forKey: key)
     }
 
     /**
@@ -127,7 +123,7 @@ import ObjectiveC.runtime
      */
     @available(*, deprecated, message: "Please use Targeting.shared.addUserKeywords() method instead")
     public func addUserKeywords(key: String, value: Set<String>) {
-        customKeywords.updateValue(value, forKey: key)
+        userKeywords.updateValue(value, forKey: key)
     }
 
     /**
@@ -135,7 +131,7 @@ import ObjectiveC.runtime
      */
     @available(*, deprecated, message: "Please use Targeting.shared.clearUserKeywords() method instead")
     public func clearUserKeywords() {
-        customKeywords.removeAll()
+        userKeywords.removeAll()
     }
 
     /**
@@ -143,7 +139,12 @@ import ObjectiveC.runtime
      */
     @available(*, deprecated, message: "Please use Targeting.shared.removeUserKeyword() method instead")
     public func removeUserKeyword(forKey: String) {
-        customKeywords.removeValue(forKey: forKey)
+        userKeywords.removeValue(forKey: forKey)
+    }
+    
+    var getUserKeywords: [String: Set<String>] {
+        Log.info("user keywords are \(userKeywords)")
+        return userKeywords
     }
 
     // MARK: - adunit context data aka inventory data (imp[].ext.context.data)
