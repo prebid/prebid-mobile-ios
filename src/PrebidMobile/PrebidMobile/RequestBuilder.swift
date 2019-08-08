@@ -73,20 +73,22 @@ import AdSupport
         requestDict["user"] = openrtbUser(adUnit: adUnit)
         requestDict["imp"] = openrtbImps(adUnit: adUnit)
         requestDict["ext"] = openrtbRequestExtension()
-
-        var requestDictWithoutEmptyValues = requestDict.getObjectWithoutEmptyValues() ?? [:]
         
-        if var ext = requestDictWithoutEmptyValues["ext"] as? [String: Any],
-            var prebid = ext["prebid"] as? [String: Any] {
+        if let requestDictWithoutEmptyValues = requestDict.getObjectWithoutEmptyValues() {
+            requestDict = requestDictWithoutEmptyValues
             
-            prebid["targeting"] = [:]
-            prebid["cache"] = ["bids": [AnyHashable: Any]()]
-            
-            ext["prebid"] = prebid
-            requestDictWithoutEmptyValues["ext"] = ext
+            if var ext = requestDict["ext"] as? [String: Any],
+                var prebid = ext["prebid"] as? [String: Any] {
+
+                prebid["targeting"] = [:]
+                prebid["cache"] = ["bids": [AnyHashable: Any]()]
+
+                ext["prebid"] = prebid
+                requestDict["ext"] = ext
+            }
         }
 
-        return requestDictWithoutEmptyValues
+        return requestDict
     }
 
     func openrtbSource() -> [String: Any]? {
