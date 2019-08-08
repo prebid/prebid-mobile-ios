@@ -74,7 +74,18 @@ import AdSupport
         requestDict["imp"] = openrtbImps(adUnit: adUnit)
         requestDict["ext"] = openrtbRequestExtension()
 
-        let requestDictWithoutEmptyValues = requestDict.getObjectWithoutEmptyValues()
+        var requestDictWithoutEmptyValues = requestDict.getObjectWithoutEmptyValues() ?? [:]
+        
+        if var ext = requestDictWithoutEmptyValues["ext"] as? [String: Any],
+            var prebid = ext["prebid"] as? [String: Any] {
+            
+            prebid["targeting"] = [:]
+            prebid["cache"] = ["bids": [AnyHashable: Any]()]
+            
+            ext["prebid"] = prebid
+            requestDictWithoutEmptyValues["ext"] = ext
+        }
+
         return requestDictWithoutEmptyValues
     }
 
@@ -89,9 +100,7 @@ import AdSupport
 
     func openrtbRequestExtension() -> [AnyHashable: Any]? {
         var requestPrebidExt: [AnyHashable: Any] = [:]
-        requestPrebidExt["targeting"] = [:]
         requestPrebidExt["storedrequest"] = ["id": Prebid.shared.prebidServerAccountId]
-        requestPrebidExt["cache"] = ["bids": [AnyHashable: Any]()]
         requestPrebidExt["data"] = ["bidders": Array(Targeting.shared.getAccessControlList())]
 
         var requestExt: [AnyHashable: Any] = [:]

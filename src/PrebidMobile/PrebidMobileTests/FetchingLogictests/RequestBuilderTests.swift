@@ -854,6 +854,18 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             XCTAssertEqual(NSNumber(value: lmtAd).intValue, device["lmt"] as! Int)
             XCTAssertEqual(UIScreen.main.scale, device["pxratio"] as! CGFloat)
         }
+        
+        if let ext = jsonRequestBody["ext"] as? [String: Any] {
+            XCTAssertNotNil(ext["prebid"])
+            if let prebid = ext["prebid"] as? [String: Any] {
+                XCTAssertNotNil(prebid["cache"])
+                if let cache = prebid["cache"] as? [String: Any] {
+                    XCTAssertNotNil(cache["bids"])
+                }
+
+                XCTAssertNotNil(prebid["targeting"])
+            }
+        }
 
         if let app = jsonRequestBody["app"] as? [String: Any] {
             if let ext = app["ext"] as? [String: Any] {
