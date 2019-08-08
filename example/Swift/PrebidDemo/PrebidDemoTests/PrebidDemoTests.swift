@@ -65,6 +65,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func testAppNexusDFPBannerSanityAppCheckTest() {
         
+        //given
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 30.0
@@ -77,10 +78,10 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         viewController?.view.addSubview(dfpBanner)
         let request: DFPRequest = DFPRequest()
         request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
+        
+        //when
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             if resultCode == ResultCode.prebidDemandFetchSuccess {
-                XCTAssertNotNil(request.customTargeting)
-                XCTAssertNotNil(request.customTargeting!["hb_pb"])
                 dfpBanner.load(request)
             } else {
                 XCTFail("resultCode:\(resultCode.name())")
@@ -90,9 +91,18 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
 
+        
+        //then
+        XCTAssertNotNil(request.customTargeting)
+        XCTAssertNotNil(request.customTargeting!["hb_pb"])
+        
+        XCTAssertNil(prebidCreativeError)
+        XCTAssertNotNil(prebidCreativeSize)
     }
     
     func testRubiconDFPBannerSanityAppCheckTest() {
+        
+        //given
         setUpAppRubicon()
         
         loadSuccesfulException = expectation(description: "\(#function)")
@@ -107,10 +117,11 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         viewController?.view.addSubview(dfpBanner)
         let request: DFPRequest = DFPRequest()
         request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
+        
+        //when
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             if resultCode == ResultCode.prebidDemandFetchSuccess {
-                XCTAssertNotNil(request.customTargeting)
-                XCTAssertNotNil(request.customTargeting!["hb_pb"])
+
                 dfpBanner.load(request)
             } else {
                 XCTFail("resultCode:\(resultCode.name())")
@@ -119,10 +130,14 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
+
+        //then
+        XCTAssertNotNil(request.customTargeting)
+        XCTAssertNotNil(request.customTargeting!["hb_pb"])
         
+        XCTAssertNil(prebidCreativeError)
+        XCTAssertNotNil(prebidCreativeSize)
     }
-    
-    
     
     let transactionFailRepeatCount = 5
     let screenshotDelaySeconds = 3.0
@@ -333,16 +348,17 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
     func testDFPInterstitialSanityAppCheckTest() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
+        //given
         timeoutForRequest = 30.0
         let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
         dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         let request: DFPRequest = DFPRequest()
         dfpInterstitial?.delegate = self
         request.testDevices = [ kGADSimulatorID]
+        
+        //when
         interstitialUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             if resultCode == ResultCode.prebidDemandFetchSuccess {
-                XCTAssertNotNil(request.customTargeting)
-                XCTAssertNotNil(request.customTargeting!["hb_pb"])
                 self.dfpInterstitial?.load(request)
 
             } else {
@@ -352,6 +368,13 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
+        
+        //then
+        XCTAssertNotNil(request.customTargeting)
+        XCTAssertNotNil(request.customTargeting!["hb_pb"])
+        
+        XCTAssertNil(prebidCreativeError)
+        XCTAssertNotNil(prebidCreativeSize)
     }
 
     func testDFPInterstitialWithoutAutoRefresh() {
@@ -423,6 +446,8 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
     }
     
     func testRubiconMoPubBannerSanityAppCheckTest() {
+        
+        //given
         setUpAppRubicon()
         
         loadSuccesfulException = expectation(description: "\(#function)")
@@ -435,12 +460,10 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
         mopubBanner?.delegate = self
         viewController?.view.addSubview(mopubBanner!)
+        
+        //when
         bannerUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            if resultCode == ResultCode.prebidDemandNoBids {
-                self.mopubInterstitial?.loadAd()
-            } else if resultCode == ResultCode.prebidDemandFetchSuccess {
-                XCTAssertNotNil(mopubBanner!.keywords)
-                XCTAssertNotNil(mopubBanner!.keywords.contains("hb_pb"))
+            if resultCode == ResultCode.prebidDemandFetchSuccess {
                 mopubBanner!.loadAd()
             } else {
                 XCTFail("resultCode:\(resultCode.name())")
@@ -449,6 +472,13 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
+        
+        //then
+        XCTAssertNotNil(mopubBanner!.keywords)
+        XCTAssertNotNil(mopubBanner!.keywords.contains("hb_pb"))
+        
+        XCTAssertNil(prebidCreativeError)
+        XCTAssertNotNil(prebidCreativeSize)
     }
 
     func testMopubBannerWithoutAutoRefresh() {
@@ -506,11 +536,8 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         mopubInterstitial?.delegate = self
         interstitialUnit.fetchDemand(adObject: mopubInterstitial!) { (resultCode: ResultCode) in
-            if resultCode == ResultCode.prebidDemandNoBids {
-                self.mopubInterstitial?.loadAd()
-            } else if resultCode == ResultCode.prebidDemandFetchSuccess {
-                XCTAssertNotNil(self.mopubInterstitial!.keywords)
-                XCTAssertNotNil(self.mopubInterstitial!.keywords.contains("hb_pb"))
+            if resultCode == ResultCode.prebidDemandFetchSuccess {
+
                 self.mopubInterstitial?.loadAd()
             } else {
                 XCTFail("resultCode:\(resultCode.name())")
@@ -519,6 +546,13 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
+        
+        //then
+        XCTAssertNotNil(self.mopubInterstitial!.keywords)
+        XCTAssertNotNil(self.mopubInterstitial!.keywords.contains("hb_pb"))
+        
+        XCTAssertNil(prebidCreativeError)
+        XCTAssertNotNil(prebidCreativeSize)
     }
 
     func testMopubInterstitialWithoutAutoRefresh() {
@@ -708,28 +742,19 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
     }
 
-    func testRubiconCOPPA() {
+    func testRubiconCOPPA() throws {
         
-        var methodRequest: Method = class_getClassMethod(JSONSerialization.self, #selector(JSONSerialization.data(withJSONObject:options:)))!
-        var swizzledMethodRequest: Method = class_getClassMethod(PrebidDemoTests.self, #selector(PrebidDemoTests.swizzledJSONSerializationData(withJSONObject:options:)))!
-        method_exchangeImplementations(methodRequest, swizzledMethodRequest)
+        swizzleJsonSerializationData()
+        swizzleJsonSerializationJsonObject()
         
-        var methodResponse: Method = class_getClassMethod(JSONSerialization.self, #selector(JSONSerialization.jsonObject as (Data, JSONSerialization.ReadingOptions) throws -> Any ))!
-        var swizzledMethodResponse: Method = class_getClassMethod(PrebidDemoTests.self, #selector(PrebidDemoTests.swizzledJSONSerializationJsonObject(with:options:)))!
-        method_exchangeImplementations(methodResponse, swizzledMethodResponse)
+        defer {
+            swizzleJsonSerializationData()
+            swizzleJsonSerializationJsonObject()
+        }
         
         loadSuccesfulException = expectation(description: "\(#function)")
         
-        //Rubicon prod
         Prebid.shared.prebidServerHost = PrebidHost.Rubicon
-        
-        //Rubicon qa
-//        Prebid.shared.prebidServerHost = PrebidHost.Custom
-//        do {
-//            try Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.qa.rubiconproject.com/openrtb2/auction")
-//        } catch {
-//            Log.error("testRubiconQaCOPPA")
-//        }
         
         Prebid.shared.prebidServerAccountId = "1001"
         
@@ -738,11 +763,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             Targeting.shared.subjectToCOPPA = false
         }
         
-        do {
-            try Targeting.shared.setYearOfBirth(yob: 1990)
-        } catch {
-            Log.error("testRubiconQaCOPPA")
-        }
+        try Targeting.shared.setYearOfBirth(yob: 1990)
         Targeting.shared.gender = .male
         
         let bannerUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
@@ -753,38 +774,25 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             self.loadSuccesfulException?.fulfill()
         }
         waitForExpectations(timeout: 10, handler: nil)
-    }
-    
-    dynamic class func swizzledJSONSerializationData(withJSONObject obj: Any, options opt: JSONSerialization.WritingOptions = []) throws -> Data {
         
-        var requestBody: [String: Any] = obj as! [String : Any]
-        requestBody.merge(dict: ["test" : 1])
-        
-        return try PrebidDemoTests.swizzledJSONSerializationData(withJSONObject: requestBody, options: opt)
-    }
-    
-    dynamic class func swizzledJSONSerializationJsonObject(with data: Data, options opt: JSONSerialization.ReadingOptions = []) throws -> Any {
-        let result = try PrebidDemoTests.swizzledJSONSerializationJsonObject(with: data, options: opt)
-        
-        let response = result as? [String: AnyObject]
-        
-        if let response = response,
+        guard let response = PrebidDemoTests.pbServerResponse,
             response.count > 0,
             let ext = response["ext"] as? [String: Any],
             let debug = ext["debug"] as? [String: Any],
             let httpcalls = debug["httpcalls"] as? [String: Any],
             let rubicon = httpcalls["rubicon"] as? [Any],
             let first = rubicon[0] as? [String: Any],
-            let requestbody = first["requestbody"] as? String {
-            
-            Log.debug("requestbody to exchange \(requestbody)")
-            XCTAssertFalse(requestbody.contains("\"yob\""))
-            XCTAssertFalse(requestbody.contains("\"gender\""))
-            XCTAssertFalse(requestbody.contains("\"lat\""))
-            XCTAssertFalse(requestbody.contains("\"lon\""))
+            let requestbody = first["requestbody"] as? String else {
+
+                XCTFail("parsing error")
+                return
         }
         
-        return result
+        //then
+        XCTAssertFalse(requestbody.contains("\"yob\""))
+        XCTAssertFalse(requestbody.contains("\"gender\""))
+        XCTAssertFalse(requestbody.contains("\"lat\""))
+        XCTAssertFalse(requestbody.contains("\"lon\""))
     }
 
     func testEmptyConfigId() {
@@ -1178,21 +1186,13 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         wait(5)
         XCTAssertEqual(2, fetchDemandCount)
     }
-
+    
     // MARK: - DFP delegate
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        
         print("adViewDidReceiveAd")
-        Utils.shared.findPrebidCreativeSize(bannerView) { (size) in
-            if let bannerView = bannerView as? DFPBannerView, let size = size {
-                bannerView.resize(GADAdSizeFromCGSize(size))
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 10.0, execute: {
-                    let result = PBViewTool.checkDFPAdViewContainsPBMAd(bannerView)
-                    XCTAssertTrue(result)
-                    self.loadSuccesfulException?.fulfill()
-                })
-            }
-        }
+        
+        didLoadAdByAdServerHelper(view: bannerView)
         
     }
 
@@ -1209,33 +1209,28 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         // Send another GADRequest here
         print("Ad dismissed")
     }
-
+    
     func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-
-        if (self.dfpInterstitial?.isReady ?? true) {
-            print("Ad ready")
-            self.dfpInterstitial?.present(fromRootViewController: viewController!)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
-                let result = PBViewTool.checkDFPInterstitialAdViewContainsPBMAd(self.viewController!.presentedViewController!)
-                XCTAssertTrue(result)
-                self.loadSuccesfulException?.fulfill()
-            })
-        } else {
-            print("Ad not ready")
-        }
+        
+        print("interstitialDidReceiveAd")
+        
+        self.dfpInterstitial?.present(fromRootViewController: viewController!)
+        
+        swizzleUIWebViewIsLoading()
+        
+        XCTWaiter.wait(for: [XCTestExpectation(description: "Hello World!")], timeout: 2.0)
+        didLoadAdByAdServerHelper(view: self.viewController!.presentedViewController!.view)
     }
 
     // MARK: - Mopub delegate
     func viewControllerForPresentingModalView() -> UIViewController! {
         return viewController
     }
-
+    
     func adViewDidLoadAd(_ view: MPAdView!) {
         print("adViewDidReceiveAd")
-        PBViewTool.checkMPAdViewContainsPBMAd(view) { (result) in
-            XCTAssertTrue(result)
-            self.loadSuccesfulException?.fulfill()
-        }
+        
+        didLoadAdByAdServerHelper(view: view)
     }
 
     func adViewDidFail(toLoadAd view: MPAdView!) {
@@ -1257,15 +1252,78 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
     func interstitialDidAppear(_ interstitial: MPInterstitialAdController!) {
         print("ad appeared")
-        PBViewTool.checkMPInterstitialContainsPBMAd(self.viewController!.presentedViewController!, withCompletionHandler: { (result) in
-                XCTAssertTrue(result)
-                self.loadSuccesfulException?.fulfill()
-            })
 
+        didLoadAdByAdServerHelper(view: self.viewController!.presentedViewController!.view)
     }
 
     func interstitialWillAppear(_ interstitial: MPInterstitialAdController!) {
         print("ad appeared")
+    }
+    
+    //MARK: - private zone
+    
+    private var prebidCreativeSize: CGSize? = nil
+    private var prebidCreativeError: Error? = nil
+    
+    private func didLoadAdByAdServerHelper(view: UIView) {
+        let success: (CGSize) -> Void = { s in
+            self.prebidCreativeSize = s
+            self.loadSuccesfulException!.fulfill()
+        }
+        
+        let failure: (Error) -> Void = { err in
+            self.prebidCreativeError = err
+            self.loadSuccesfulException!.fulfill()
+        }
+        
+        AdViewUtils.findPrebidCreativeSize(view, success: success, failure: failure)
+    }
+    
+    private func swizzleUIWebViewIsLoading() {
+
+        let originalMethod = class_getInstanceMethod(UIWebView.self, #selector(getter: UIWebView.isLoading))
+        let swizzledMethod = class_getInstanceMethod(PrebidDemoTests.self, #selector(PrebidDemoTests.swizzledIsLoading))
+        
+        method_exchangeImplementations(originalMethod!, swizzledMethod!)
+    }
+    
+    @objc
+    private func swizzledIsLoading() -> Bool {
+        return false
+    }
+    
+    private func swizzleJsonSerializationData() {
+        
+        let methodRequest: Method = class_getClassMethod(JSONSerialization.self, #selector(JSONSerialization.data(withJSONObject:options:)))!
+        let swizzledMethodRequest: Method = class_getClassMethod(PrebidDemoTests.self, #selector(PrebidDemoTests.swizzledJSONSerializationData(withJSONObject:options:)))!
+        method_exchangeImplementations(methodRequest, swizzledMethodRequest)
+    }
+    
+    private func swizzleJsonSerializationJsonObject() {
+        
+        let methodResponse: Method = class_getClassMethod(JSONSerialization.self, #selector(JSONSerialization.jsonObject as (Data, JSONSerialization.ReadingOptions) throws -> Any ))!
+        let swizzledMethodResponse: Method = class_getClassMethod(PrebidDemoTests.self, #selector(PrebidDemoTests.swizzledJSONSerializationJsonObject(with:options:)))!
+        method_exchangeImplementations(methodResponse, swizzledMethodResponse)
+    }
+    
+    dynamic
+    class func swizzledJSONSerializationData(withJSONObject obj: Any, options opt: JSONSerialization.WritingOptions = []) throws -> Data {
+        
+        var requestBody: [String: Any] = obj as! [String : Any]
+        requestBody.merge(dict: ["test" : 1])
+        
+        return try PrebidDemoTests.swizzledJSONSerializationData(withJSONObject: requestBody, options: opt)
+    }
+    
+    private static var pbServerResponse: [String: AnyObject]? = nil
+    
+    dynamic
+    class func swizzledJSONSerializationJsonObject(with data: Data, options opt: JSONSerialization.ReadingOptions = []) throws -> Any {
+        let result = try PrebidDemoTests.swizzledJSONSerializationJsonObject(with: data, options: opt)
+        
+        pbServerResponse = result as? [String: AnyObject]
+        
+        return result
     }
 
 }
