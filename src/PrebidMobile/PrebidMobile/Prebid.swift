@@ -79,4 +79,16 @@ import Foundation
             Host.shared.setHostURL = url
         }
     }
+    
+    public var storedAuctionResponse: String! = ""
+    
+    public var storedBidResponses: [String: String]! = [:]
+    
+    public func addStoredBidResponse(bidder: String, responseId: String) {
+        storedBidResponses[bidder] = responseId
+    }
+    
+    public func clearStoredBidResponses() {
+        storedBidResponses.removeAll()
+    }
 }
