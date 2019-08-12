@@ -30,9 +30,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
         Prebid.shared.prebidServerHost = PrebidHost.Appnexus
 
-        Prebid.shared.storedAuctionResponse = "111122223333"
-        Prebid.shared.addStoredBidResponse(bidder: "appnexus", responseId: "221144")
-        Prebid.shared.addStoredBidResponse(bidder: "rubicon", responseId: "221155")
 //        app = XCUIApplication()
 //
 //        addUIInterruptionMonitor(withDescription: "Location authorization") { (alert) -> Bool in
@@ -59,8 +56,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         adUnit = nil
-        Prebid.shared.storedAuctionResponse = ""
-        Prebid.shared.clearStoredBidResponses()
         
         Targeting.shared.clearAccessControlList()
         Targeting.shared.clearUserData()
@@ -431,34 +426,37 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         }
     }
     
-    func testPostDataWithStoredResponses() {
-        do {
-            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
-                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
-                
-                guard let impArray = jsonRequestBody["imp"] as? [Any], let impDic = impArray[0] as? [String: Any], let ext = impDic["ext"] as? [String: Any], let prebid = ext["prebid"] as? [String: Any], let storedAuctionResponse = prebid["storedauctionresponse"] as? [String: String], let storedBidResponses = prebid["storedbidresponse"] as? [Any] else {
-                    XCTFail("parcing fail")
+    func testPostDataWithStoredResponses() throws {
+        //given
+        Prebid.shared.storedAuctionResponse = "111122223333"
+        Prebid.shared.addStoredBidResponse(bidder: "appnexus", responseId: "221144")
+        Prebid.shared.addStoredBidResponse(bidder: "rubicon", responseId: "221155")
+        
+        defer {
+            Prebid.shared.storedAuctionResponse = ""
+            Prebid.shared.clearStoredBidResponses()
+        }
+        
+        //when
+        try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+            let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+            
+            guard let impArray = jsonRequestBody["imp"] as? [Any],
+                let impDic = impArray[0] as? [String: Any],
+                let ext = impDic["ext"] as? [String: Any],
+                let prebid = ext["prebid"] as? [String: Any],
+                let storedAuctionResponse = prebid["storedauctionresponse"] as? [String: String],
+                let storedAuctionResponseId = storedAuctionResponse["id"],
+                let storedBidResponses = prebid["storedbidresponse"] as? [Any] else {
+                    
+                    XCTFail("parsing fail")
                     return
-                }
-                
-                XCTAssertEqual(storedAuctionResponse["id"], "111122223333")
-                
-                guard let storedBidResponse1 = storedBidResponses[0] as? [String: String] else {
-                    XCTFail("stored bid response 1 is nil")
-                    return
-                }
-                XCTAssertEqual(storedBidResponse1["bidder"], "appnexus")
-                XCTAssertEqual(storedBidResponse1["id"], "221144")
-                
-                guard let storedBidResponse2 = storedBidResponses[1] as? [String: String] else {
-                    XCTFail("stored bid response 2 is nil")
-                    return
-                }
-                XCTAssertEqual(storedBidResponse2["bidder"], "rubicon")
-                XCTAssertEqual(storedBidResponse2["id"], "221155")
             }
-        } catch let error {
-            print(error.localizedDescription)
+            
+            //then
+            XCTAssertEqual("111122223333", storedAuctionResponseId)
+            
+            XCTAssertEqual(Set([["bidder":"appnexus", "id":"221144"], ["bidder":"rubicon", "id":"221155"]]), Set(storedBidResponses as! Array<Dictionary<String, String>>))
         }
     }
 
