@@ -425,6 +425,40 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             print(error.localizedDescription)
         }
     }
+    
+    func testPostDataWithStoredResponses() throws {
+        //given
+        Prebid.shared.storedAuctionResponse = "111122223333"
+        Prebid.shared.addStoredBidResponse(bidder: "appnexus", responseId: "221144")
+        Prebid.shared.addStoredBidResponse(bidder: "rubicon", responseId: "221155")
+        
+        defer {
+            Prebid.shared.storedAuctionResponse = ""
+            Prebid.shared.clearStoredBidResponses()
+        }
+        
+        //when
+        try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+            let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+            
+            guard let impArray = jsonRequestBody["imp"] as? [Any],
+                let impDic = impArray[0] as? [String: Any],
+                let ext = impDic["ext"] as? [String: Any],
+                let prebid = ext["prebid"] as? [String: Any],
+                let storedAuctionResponse = prebid["storedauctionresponse"] as? [String: String],
+                let storedAuctionResponseId = storedAuctionResponse["id"],
+                let storedBidResponses = prebid["storedbidresponse"] as? [Any] else {
+                    
+                    XCTFail("parsing fail")
+                    return
+            }
+            
+            //then
+            XCTAssertEqual("111122223333", storedAuctionResponseId)
+            
+            XCTAssertEqual(Set([["bidder":"appnexus", "id":"221144"], ["bidder":"rubicon", "id":"221155"]]), Set(storedBidResponses as! Array<Dictionary<String, String>>))
+        }
+    }
 
     func testPostDataWithShareLocationOn() {
         coreLocation = CLLocationManager()
