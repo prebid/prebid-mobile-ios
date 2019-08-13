@@ -348,7 +348,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         }
 
         //then
-        XCTAssertEqual("key1=value1", keywords)
+        XCTAssertEqual("value1", keywords)
     }
     
     func testPostDataWithoutTargetingKeys() throws {

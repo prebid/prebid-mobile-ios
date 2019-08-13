@@ -23,9 +23,6 @@ import ObjectiveC.runtime
 
     var dispatcher: Dispatcher?
 
-    @available(*, deprecated)
-    private var userKeywords = [String: Set<String>]()
-
     private var contextDataDictionary = [String: Set<String>]()
 
     private var contextKeywordsSet = Set<String>()
@@ -109,42 +106,43 @@ import ObjectiveC.runtime
     // MARK: - DEPRECATED adunit user keywords (user.keywords)
 
     /**
-     * This method obtains the user keyword & value user for targeting
-     * if the key already exists the value will be appended to the list. No duplicates will be added
+     The func uses Targeting.addUserKeyword() inside.
+     - Parameters:
+        - key: parameter is omitted
+        - value: is passed to Targeting.addUserKeyword()
      */
-    @available(*, deprecated, message: "Please use Targeting.shared.addUserKeyword() method instead")
+    @available(*, deprecated, message: "Please use Targeting.addUserKeyword() method instead")
     public func addUserKeyword(key: String, value: String) {
-        userKeywords.addValue(value, forKey: key)
+        Targeting.shared.addUserKeyword(value)
     }
 
     /**
-     * This method obtains the user keyword & values set for user targeting.
-     * the values if the key already exist will be replaced with the new set of values
+     The func uses Targeting.addUserKeyword() inside.
+     - Parameters:
+        - key: parameter is omitted
+        - value: is passed to Targeting.addUserKeywords()
      */
-    @available(*, deprecated, message: "Please use Targeting.shared.addUserKeywords() method instead")
+    @available(*, deprecated, message: "Please use Targeting.addUserKeywords() method instead")
     public func addUserKeywords(key: String, value: Set<String>) {
-        userKeywords.updateValue(value, forKey: key)
+        Targeting.shared.addUserKeywords(value)
     }
 
     /**
-     * This method allows to remove all the user keywords set for user targeting
+     The func uses Targeting.clearUserKeywords() inside.
      */
-    @available(*, deprecated, message: "Please use Targeting.shared.clearUserKeywords() method instead")
+    @available(*, deprecated, message: "Please use Targeting.clearUserKeywords() method instead")
     public func clearUserKeywords() {
-        userKeywords.removeAll()
+        Targeting.shared.clearUserKeywords()
     }
 
     /**
-     * This method allows to remove specific user keyword & value set from user targeting
+     The func uses Targeting.removeUserKeyword() inside.
+     - Parameters:
+     - forKey: is a value that has been added previously
      */
-    @available(*, deprecated, message: "Please use Targeting.shared.removeUserKeyword() method instead")
+    @available(*, deprecated, message: "Please use Targeting.removeUserKeyword() method instead")
     public func removeUserKeyword(forKey: String) {
-        userKeywords.removeValue(forKey: forKey)
-    }
-    
-    var getUserKeywords: [String: Set<String>] {
-        Log.info("user keywords are \(userKeywords)")
-        return userKeywords
+        Targeting.shared.removeUserKeyword(forKey)
     }
 
     // MARK: - adunit context data aka inventory data (imp[].ext.context.data)

@@ -328,11 +328,7 @@ import AdSupport
         userDict["gender"] = gender
 
         let globalUserKeywordString = Targeting.shared.getUserKeywordsSet().toCommaSeparatedListString()
-        if !globalUserKeywordString.isEmpty  {
-            userDict["keywords"] = globalUserKeywordString
-        } else if let adunitUserKeywordString = adUnit?.getUserKeywords.toCommaSeparatedListString(), !adunitUserKeywordString.isEmpty  {
-            userDict["keywords"] = adunitUserKeywordString
-        }
+        userDict["keywords"] = globalUserKeywordString
 
         var requestUserExt: [AnyHashable: Any] = [:]
 
