@@ -20,6 +20,10 @@ import Foundation
     var timeoutUpdated: Bool = false
 
     public var prebidServerAccountId: String! = ""
+    
+    public var storedAuctionResponse: String = ""
+    
+    var storedBidResponses: [String: String] = [:]
 
     /**
     * This property is set by the developer when he is willing to share the location for better ad targeting
@@ -79,10 +83,6 @@ import Foundation
             Host.shared.setHostURL = url
         }
     }
-    
-    public var storedAuctionResponse: String! = ""
-    
-    public var storedBidResponses: [String: String]! = [:]
     
     public func addStoredBidResponse(bidder: String, responseId: String) {
         storedBidResponses[bidder] = responseId
