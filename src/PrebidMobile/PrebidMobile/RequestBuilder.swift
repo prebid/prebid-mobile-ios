@@ -131,6 +131,23 @@ import AdSupport
         if let anId = adUnit?.prebidConfigId {
             prebidAdUnitExt["storedrequest"] = ["id": anId]
         }
+        
+        if !Prebid.shared.storedAuctionResponse.isEmpty {
+            prebidAdUnitExt["storedauctionresponse"] = ["id": Prebid.shared.storedAuctionResponse]
+        }
+        
+        if !Prebid.shared.storedBidResponses.isEmpty {
+            var storedBidResponses: [Any] = []
+            
+            for(bidder, responseId) in Prebid.shared.storedBidResponses {
+                var storedBidResponse: [String: String] = [:]
+                storedBidResponse["bidder"] = bidder
+                storedBidResponse["id"] = responseId
+                storedBidResponses.append(storedBidResponse)
+            }
+            
+            prebidAdUnitExt["storedbidresponse"] = storedBidResponses
+        }
 
         var adUnitExt: [AnyHashable: Any] = [:]
         adUnitExt["prebid"] = prebidAdUnitExt
