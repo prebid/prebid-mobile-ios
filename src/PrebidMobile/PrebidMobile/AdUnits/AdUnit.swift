@@ -96,7 +96,7 @@ import ObjectiveC.runtime
             }
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(.PB_Request_Timeout), execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Prebid.shared.timeoutMillisDynamic), execute: {
             if (!self.didReceiveResponse) {
                 self.timeOutSignalSent = true
                 completion(ResultCode.prebidDemandTimedOut)

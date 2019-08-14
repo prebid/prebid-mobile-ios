@@ -47,7 +47,7 @@ import AdSupport
     func buildRequest(adUnit: AdUnit?) throws -> URLRequest? {
 
             let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
-        var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Prebid.shared.timeoutMillis))
+        var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Prebid.shared.timeoutMillisDynamic))
             request.httpMethod = "POST"
             let requestBody: [String: Any] = openRTBRequestBody(adUnit: adUnit)!
 
