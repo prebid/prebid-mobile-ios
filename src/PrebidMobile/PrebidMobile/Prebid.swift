@@ -16,6 +16,10 @@
 import Foundation
 
 @objcMembers public class Prebid: NSObject {
+    
+    public static let bidderNameAppNexus = "appnexus"
+    public static let bidderNameRubiconProject = "rubicon"
+    
     public var timeoutMillis: Int = .PB_Request_Timeout {
         didSet {
             timeoutMillisDynamic = timeoutMillis
