@@ -43,10 +43,6 @@ extension String {
     public static let MoPub_Object_Name = "MPAdView"
 
     public static let MoPub_Interstitial_Name = "MPInterstitialAdController"
-
-    public static let bidderNameAppNexus = "appnexus"
-
-    public static let bidderNameRubiconProject = "rubicon"
 }
 
 extension Double {

@@ -278,7 +278,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     
     func testPostDataWithAccessControlList() {
         let targeting = Targeting.shared
-        targeting.addBidderToAccessControlList(.bidderNameRubiconProject)
+        targeting.addBidderToAccessControlList(Prebid.bidderNameRubiconProject)
         
         do {
             try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
@@ -290,7 +290,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
                 }
                 
                 XCTAssertNotNil(bidders.count == 1)
-                XCTAssertEqual(bidders[0], .bidderNameRubiconProject)
+                XCTAssertEqual(bidders[0], Prebid.bidderNameRubiconProject)
                 
                 self.validationResponse(jsonRequestBody: jsonRequestBody)
             }
