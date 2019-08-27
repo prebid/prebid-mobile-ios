@@ -16,10 +16,24 @@
 import Foundation
 
 @objcMembers public class Prebid: NSObject {
-    public var timeoutMillis: Int = .PB_Request_Timeout
+    
+    public static let bidderNameAppNexus = "appnexus"
+    public static let bidderNameRubiconProject = "rubicon"
+    
+    public var timeoutMillis: Int = .PB_Request_Timeout {
+        didSet {
+            timeoutMillisDynamic = timeoutMillis
+        }
+    }
+    
+    var timeoutMillisDynamic: Int
     var timeoutUpdated: Bool = false
 
     public var prebidServerAccountId: String! = ""
+    
+    public var storedAuctionResponse: String = ""
+    
+    var storedBidResponses: [String: String] = [:]
 
     /**
     * This property is set by the developer when he is willing to share the location for better ad targeting
@@ -42,7 +56,7 @@ import Foundation
 
     public var prebidServerHost: PrebidHost = PrebidHost.Custom {
         didSet {
-            timeoutMillis = .PB_Request_Timeout
+            timeoutMillisDynamic = timeoutMillis
             timeoutUpdated = false
         }
     }
@@ -61,6 +75,8 @@ import Foundation
      * The initializer that needs to be created only once
      */
     private override init() {
+        timeoutMillisDynamic = timeoutMillis
+        
         super.init()
         if (RequestBuilder.myUserAgent == "") {
             RequestBuilder.UserAgent {(userAgentString) in
@@ -78,5 +94,13 @@ import Foundation
             prebidServerHost = PrebidHost.Custom
             Host.shared.setHostURL = url
         }
+    }
+    
+    public func addStoredBidResponse(bidder: String, responseId: String) {
+        storedBidResponses[bidder] = responseId
+    }
+    
+    public func clearStoredBidResponses() {
+        storedBidResponses.removeAll()
     }
 }

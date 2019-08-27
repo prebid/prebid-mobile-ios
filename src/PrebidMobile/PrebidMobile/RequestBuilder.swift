@@ -45,19 +45,18 @@ import AdSupport
     }
 
     func buildRequest(adUnit: AdUnit?) throws -> URLRequest? {
-        
-        let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
-        var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Prebid.shared.timeoutMillis))
-        request.httpMethod = "POST"
-        let requestBody = openRTBRequestBody(adUnit: adUnit) ?? [:]
-        
-        request.httpBody = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
-        
-        //HTTP HeadersExpression implicitly coerced from '[AnyHashable : Any]?' to Any
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        Log.info("Prebid Request post body \(requestBody)")
-        return request
+
+            let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
+            var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Prebid.shared.timeoutMillisDynamic))
+            request.httpMethod = "POST"
+            let requestBody = openRTBRequestBody(adUnit: adUnit) ?? [:]
+
+            request.httpBody = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
+            //HTTP HeadersExpression implicitly coerced from '[AnyHashable : Any]?' to Any
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            Log.info("Prebid Request post body \(requestBody)")
+            return request
     }
 
     func openRTBRequestBody(adUnit: AdUnit?) -> [AnyHashable: Any]? {
@@ -73,10 +72,10 @@ import AdSupport
         requestDict["user"] = openrtbUser(adUnit: adUnit)
         requestDict["imp"] = openrtbImps(adUnit: adUnit)
         requestDict["ext"] = openrtbRequestExtension()
-        
+
         if let requestDictWithoutEmptyValues = requestDict.getObjectWithoutEmptyValues() {
             requestDict = requestDictWithoutEmptyValues
-            
+
             if var ext = requestDict["ext"] as? [String: Any],
                 var prebid = ext["prebid"] as? [String: Any] {
 
@@ -141,6 +140,23 @@ import AdSupport
             prebidAdUnitExt["storedrequest"] = ["id": anId]
         }
 
+        if !Prebid.shared.storedAuctionResponse.isEmpty {
+            prebidAdUnitExt["storedauctionresponse"] = ["id": Prebid.shared.storedAuctionResponse]
+        }
+
+        if !Prebid.shared.storedBidResponses.isEmpty {
+            var storedBidResponses: [Any] = []
+
+            for(bidder, responseId) in Prebid.shared.storedBidResponses {
+                var storedBidResponse: [String: String] = [:]
+                storedBidResponse["bidder"] = bidder
+                storedBidResponse["id"] = responseId
+                storedBidResponses.append(storedBidResponse)
+            }
+
+            prebidAdUnitExt["storedbidresponse"] = storedBidResponses
+        }
+
         var adUnitExt: [AnyHashable: Any] = [:]
         adUnitExt["prebid"] = prebidAdUnitExt
 
@@ -185,7 +201,7 @@ import AdSupport
         requestAppExt["data"] = Targeting.shared.getContextDataDictionary().getCopyWhereValueIsArray()
 
         app["ext"] = requestAppExt
-        
+
         app["keywords"] = Targeting.shared.getContextKeywordsSet().toCommaSeparatedListString()
 
         if let storeUrl = Targeting.shared.storeURL, !storeUrl.isEmpty {
