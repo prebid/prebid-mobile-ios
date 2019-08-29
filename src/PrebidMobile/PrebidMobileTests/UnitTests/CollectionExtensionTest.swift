@@ -39,6 +39,11 @@ class CollectionExtensionTest: XCTestCase {
         var node1: NSMutableDictionary = [:]
         node1["key1"] = node11
         
+        node1["emptyObject"] = "";
+        var array: NSMutableArray = []
+        array.add("");
+        node1["emptyArray"] = array;
+        
         let result1 = (node1 as! Dictionary).getObjectWithoutEmptyValues()
         XCTAssertNil(result1)
         
