@@ -13,7 +13,9 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "NO"
+            parallelizable = "YES"
+            testExecutionOrdering = "random">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "60D792FA217E229B0080F428"
@@ -21,6 +23,14 @@
                BlueprintName = "PrebidMobileTests"
                ReferencedContainer = "container:PrebidMobile.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "RequestBuilderTests/testPostDataWithShareLocationOff()">
+               </Test>
+               <Test
+                  Identifier = "RequestBuilderTests/testPostDataWithShareLocationOn()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <AdditionalOptions>

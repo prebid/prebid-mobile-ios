@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "60D793262180E2730080F428"
-               BuildableName = "PrebidDemo.app"
-               BlueprintName = "PrebidDemo"
+               BlueprintIdentifier = "FA12E4B3231EB04100CAA05B"
+               BuildableName = "PrebidDemoSwift.app"
+               BlueprintName = "PrebidDemoSwift"
                ReferencedContainer = "container:PrebidDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "600CF06222088CD400C95176"
-               BuildableName = "PrebidDemoTests.xctest"
-               BlueprintName = "PrebidDemoTests"
+               BlueprintIdentifier = "FA12E4D5231EB49000CAA05B"
+               BuildableName = "PrebidDemoSwiftTests.xctest"
+               BlueprintName = "PrebidDemoSwiftTests"
                ReferencedContainer = "container:PrebidDemo.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -42,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "60D793262180E2730080F428"
-            BuildableName = "PrebidDemo.app"
-            BlueprintName = "PrebidDemo"
+            BlueprintIdentifier = "FA12E4B3231EB04100CAA05B"
+            BuildableName = "PrebidDemoSwift.app"
+            BlueprintName = "PrebidDemoSwift"
             ReferencedContainer = "container:PrebidDemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,9 +65,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "60D793262180E2730080F428"
-            BuildableName = "PrebidDemo.app"
-            BlueprintName = "PrebidDemo"
+            BlueprintIdentifier = "FA12E4B3231EB04100CAA05B"
+            BuildableName = "PrebidDemoSwift.app"
+            BlueprintName = "PrebidDemoSwift"
             ReferencedContainer = "container:PrebidDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -84,9 +84,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "60D793262180E2730080F428"
-            BuildableName = "PrebidDemo.app"
-            BlueprintName = "PrebidDemo"
+            BlueprintIdentifier = "FA12E4B3231EB04100CAA05B"
+            BuildableName = "PrebidDemoSwift.app"
+            BlueprintName = "PrebidDemoSwift"
             ReferencedContainer = "container:PrebidDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

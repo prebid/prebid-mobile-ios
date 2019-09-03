@@ -2,7 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:PrebidDemo.xcodeproj">
+      location = "group:Example/PrebidDemo/PrebidDemo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PrebidMobile.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
