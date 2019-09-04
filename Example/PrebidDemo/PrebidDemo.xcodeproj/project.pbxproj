@@ -11,7 +11,6 @@
 		C8FF859E7AA1BCD70592C587 /* Pods_PrebidDemoSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917D77E89EF3C1670D1422F9 /* Pods_PrebidDemoSwiftTests.framework */; };
 		F7EB308FA66D1E4CC541C0D0 /* Pods_PrebidDemoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DB88A751977DBCF3DBDA3DC /* Pods_PrebidDemoSwift.framework */; };
 		FA12E4B7231EB04100CAA05B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E4B6231EB04100CAA05B /* AppDelegate.swift */; };
-		FA12E4B9231EB04100CAA05B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E4B8231EB04100CAA05B /* ViewController.swift */; };
 		FA12E4BC231EB04100CAA05B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA12E4BA231EB04100CAA05B /* Main.storyboard */; };
 		FA12E4BE231EB04200CAA05B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA12E4BD231EB04200CAA05B /* Assets.xcassets */; };
 		FA12E4C1231EB04200CAA05B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA12E4BF231EB04200CAA05B /* LaunchScreen.storyboard */; };
@@ -80,7 +79,6 @@
 		FA12E472231E9DAA00CAA05B /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../PrebidMobile.xcodeproj; sourceTree = "<group>"; };
 		FA12E4B4231EB04100CAA05B /* PrebidDemoSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidDemoSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA12E4B6231EB04100CAA05B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FA12E4B8231EB04100CAA05B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FA12E4BB231EB04100CAA05B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FA12E4BD231EB04200CAA05B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA12E4C0231EB04200CAA05B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -163,10 +161,11 @@
 		FA12E452231E9C5900CAA05B = {
 			isa = PBXGroup;
 			children = (
+				FA12E514231EBFED00CAA05B /* common */,
 				FA12E472231E9DAA00CAA05B /* PrebidMobile.xcodeproj */,
 				FA12E4B5231EB04100CAA05B /* PrebidDemoSwift */,
-				FA12E4E7231EB52D00CAA05B /* PrebidDemoSwiftTests */,
 				FA12E4F7231EB99D00CAA05B /* PrebidDemoObjectiveC */,
+				FA12E4E7231EB52D00CAA05B /* PrebidDemoSwiftTests */,
 				FA12E45C231E9C5900CAA05B /* Products */,
 				464FE826217632CAB58ABF2E /* Pods */,
 				99D7F73A394177471348CDD1 /* Frameworks */,
@@ -195,11 +194,10 @@
 		FA12E4B5231EB04100CAA05B /* PrebidDemoSwift */ = {
 			isa = PBXGroup;
 			children = (
-				FA12E4CE231EB3F000CAA05B /* BannerController.swift */,
-				FA12E4CD231EB3F000CAA05B /* IndexController.swift */,
-				FA12E4CB231EB3F000CAA05B /* InterstitialViewController.swift */,
 				FA12E4B6231EB04100CAA05B /* AppDelegate.swift */,
-				FA12E4B8231EB04100CAA05B /* ViewController.swift */,
+				FA12E4CD231EB3F000CAA05B /* IndexController.swift */,
+				FA12E4CE231EB3F000CAA05B /* BannerController.swift */,
+				FA12E4CB231EB3F000CAA05B /* InterstitialViewController.swift */,
 				FA12E4BA231EB04100CAA05B /* Main.storyboard */,
 				FA12E4BD231EB04200CAA05B /* Assets.xcassets */,
 				FA12E4BF231EB04200CAA05B /* LaunchScreen.storyboard */,
@@ -234,6 +232,13 @@
 				FA12E507231EB99E00CAA05B /* main.m */,
 			);
 			path = PrebidDemoObjectiveC;
+			sourceTree = "<group>";
+		};
+		FA12E514231EBFED00CAA05B /* common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -502,7 +507,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA12E4D0231EB3F000CAA05B /* IndexController.swift in Sources */,
-				FA12E4B9231EB04100CAA05B /* ViewController.swift in Sources */,
 				FA12E4D1231EB3F000CAA05B /* BannerController.swift in Sources */,
 				FA12E4B7231EB04100CAA05B /* AppDelegate.swift in Sources */,
 				FA12E4CF231EB3F000CAA05B /* InterstitialViewController.swift in Sources */,

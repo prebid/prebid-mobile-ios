@@ -19,7 +19,6 @@
 		6062B1AC21878CFB00CE1BA3 /* AdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1AB21878CFB00CE1BA3 /* AdUnit.swift */; };
 		6062B1AE2188783B00CE1BA3 /* InterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1AD2188783B00CE1BA3 /* InterstitialAdUnit.swift */; };
 		6062B1B021889EC600CE1BA3 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1AF21889EC600CE1BA3 /* Global.swift */; };
-		6062B1B82188EF8300CE1BA3 /* BidManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1B72188EF8300CE1BA3 /* BidManager.swift */; };
 		6062B1BC2188F6C200CE1BA3 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1BB2188F6C200CE1BA3 /* RequestBuilder.swift */; };
 		6062B1C3218BFC7A00CE1BA3 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1C2218BFC7A00CE1BA3 /* Reachability.swift */; };
 		606FAC2621FFB20A008EAE5E /* TargetingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FAC2521FFB20A008EAE5E /* TargetingTests.swift */; };
@@ -62,6 +61,7 @@
 		F543D52F220E101B00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D52E220E101A00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json */; };
 		F543D532220E193200F1EF8F /* noBidResponseTmaxTooLarge.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D530220E193200F1EF8F /* noBidResponseTmaxTooLarge.json */; };
 		F543D533220E193200F1EF8F /* noBidResponseNoTmax.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D531220E193200F1EF8F /* noBidResponseNoTmax.json */; };
+		FA12E518231FCD1400CAA05B /* BidManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E517231FCD1400CAA05B /* BidManager.swift */; };
 		FA5AD5E42271FA4100C8F274 /* ConstantsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */; };
 		FA5C30BB22E5E86900DA23C4 /* AdViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5C30BA22E5E86900DA23C4 /* AdViewUtils.swift */; };
 		FA5C30BD22E5ECF700DA23C4 /* PbFindSizeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5C30BC22E5ECF700DA23C4 /* PbFindSizeError.swift */; };
@@ -69,7 +69,6 @@
 		FA7C3EB7225E4C2200D2F128 /* responseRubiconPBM.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB6225E4C2200D2F128 /* responseRubiconPBM.json */; };
 		FA7C3EB9225E518000D2F128 /* noBidResponseRubicon.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB8225E518000D2F128 /* noBidResponseRubicon.json */; };
 		FA7F89EC22DC95E30065B652 /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */; };
-		FA7F89F622DCB20E0065B652 /* CollectionExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F89F522DCB20E0065B652 /* CollectionExtensionTest.swift */; };
 		FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -95,7 +94,6 @@
 		6062B1AB21878CFB00CE1BA3 /* AdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdUnit.swift; sourceTree = "<group>"; };
 		6062B1AD2188783B00CE1BA3 /* InterstitialAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialAdUnit.swift; sourceTree = "<group>"; };
 		6062B1AF21889EC600CE1BA3 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
-		6062B1B72188EF8300CE1BA3 /* BidManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BidManager.swift; path = PrebidMobile/BidManager.swift; sourceTree = SOURCE_ROOT; };
 		6062B1BB2188F6C200CE1BA3 /* RequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilder.swift; sourceTree = "<group>"; };
 		6062B1C2218BFC7A00CE1BA3 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		606FAC1E21FFAF46008EAE5E /* RequestBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBuilderTests.swift; sourceTree = "<group>"; };
@@ -153,6 +151,7 @@
 		F543D52E220E101A00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseValidTwoBidsOnTheSameSeat.json; sourceTree = "<group>"; };
 		F543D530220E193200F1EF8F /* noBidResponseTmaxTooLarge.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponseTmaxTooLarge.json; sourceTree = "<group>"; };
 		F543D531220E193200F1EF8F /* noBidResponseNoTmax.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponseNoTmax.json; sourceTree = "<group>"; };
+		FA12E517231FCD1400CAA05B /* BidManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BidManager.swift; sourceTree = "<group>"; };
 		FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTest.swift; sourceTree = "<group>"; };
 		FA5C30BA22E5E86900DA23C4 /* AdViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewUtils.swift; sourceTree = "<group>"; };
 		FA5C30BC22E5ECF700DA23C4 /* PbFindSizeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PbFindSizeError.swift; sourceTree = "<group>"; };
@@ -208,8 +207,8 @@
 		60D792E8217E229A0080F428 = {
 			isa = PBXGroup;
 			children = (
-				60D792F4217E229A0080F428 /* PrebidMobile */,
-				60D792FF217E229B0080F428 /* PrebidMobileTests */,
+				60D792F4217E229A0080F428 /* Source */,
+				60D792FF217E229B0080F428 /* Tests */,
 				60D792F3217E229A0080F428 /* Products */,
 				6062B19A218243FA00CE1BA3 /* Frameworks */,
 				EE09B07119B6562CC4356195 /* Pods */,
@@ -225,12 +224,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		60D792F4217E229A0080F428 /* PrebidMobile */ = {
+		60D792F4217E229A0080F428 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				FA5C30B922E5E84100DA23C4 /* addendum */,
-				6062B1B72188EF8300CE1BA3 /* BidManager.swift */,
 				6062B1B42188C20600CE1BA3 /* AdUnits */,
+				FA12E517231FCD1400CAA05B /* BidManager.swift */,
 				6062B1A321835DF300CE1BA3 /* Logging.swift */,
 				60D792F5217E229A0080F428 /* PrebidMobile.h */,
 				60D792F6217E229A0080F428 /* Info.plist */,
@@ -247,10 +246,10 @@
 				6013E3F12214A4CA00FEE2B1 /* Location.swift */,
 				FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */,
 			);
-			path = PrebidMobile;
+			path = Source;
 			sourceTree = "<group>";
 		};
-		60D792FF217E229B0080F428 /* PrebidMobileTests */ = {
+		60D792FF217E229B0080F428 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				FA5AD5E02271F99D00C8F274 /* UnitTests */,
@@ -263,7 +262,7 @@
 				606FAC272200AD2C008EAE5E /* PrebidTests.swift */,
 				60C0382B2204BB190082B32C /* PrebidMobileTest-Bridging-Header.h */,
 			);
-			path = PrebidMobileTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		97826A7D21FB44DE001E2C05 /* Shared */ = {
@@ -542,8 +541,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6062B1C3218BFC7A00CE1BA3 /* Reachability.swift in Sources */,
+				FA12E518231FCD1400CAA05B /* BidManager.swift in Sources */,
 				600072FF21BAFD2F00F4738B /* Dispatcher.swift in Sources */,
-				6062B1B82188EF8300CE1BA3 /* BidManager.swift in Sources */,
 				60D7930D217E23F90080F428 /* Prebid.swift in Sources */,
 				6062B1BC2188F6C200CE1BA3 /* RequestBuilder.swift in Sources */,
 				FA5C30BB22E5E86900DA23C4 /* AdViewUtils.swift in Sources */,
@@ -569,7 +568,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				60C038192204AF5D0082B32C /* NSObject+Swizzling.m in Sources */,
-				FA7F89F622DCB20E0065B652 /* CollectionExtensionTest.swift in Sources */,
 				60C0381A2204AF5D0082B32C /* PBTestGlobal.m in Sources */,
 				60C0381B2204AF5D0082B32C /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				6013E3FA2215C92C00FEE2B1 /* MockCLLocationManager.swift in Sources */,
@@ -740,7 +738,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
-				INFOPLIST_FILE = PrebidMobile/Info.plist;
+				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -749,7 +747,7 @@
 					"@loader_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "-Onone";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AppNexus.PrebidMobile;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidMobile;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -772,7 +770,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
-				INFOPLIST_FILE = PrebidMobile/Info.plist;
+				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -780,7 +778,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.AppNexus.PrebidMobile;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidMobile;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -795,15 +793,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
-				INFOPLIST_FILE = PrebidMobileTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.AppNexus.PrebidMobileTests;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidMobileTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/PrebidMobileTests/PrebidMobileTest-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Tests/PrebidMobileTest-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -816,15 +814,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = HR94J6TSB3;
-				INFOPLIST_FILE = PrebidMobileTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.AppNexus.PrebidMobileTests;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidMobileTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/PrebidMobileTests/PrebidMobileTest-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Tests/PrebidMobileTest-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
