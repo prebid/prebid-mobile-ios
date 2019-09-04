@@ -161,8 +161,8 @@
 		FA12E452231E9C5900CAA05B = {
 			isa = PBXGroup;
 			children = (
-				FA12E514231EBFED00CAA05B /* common */,
 				FA12E472231E9DAA00CAA05B /* PrebidMobile.xcodeproj */,
+				FA12E514231EBFED00CAA05B /* common */,
 				FA12E4B5231EB04100CAA05B /* PrebidDemoSwift */,
 				FA12E4F7231EB99D00CAA05B /* PrebidDemoObjectiveC */,
 				FA12E4E7231EB52D00CAA05B /* PrebidDemoSwiftTests */,

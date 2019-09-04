@@ -4,6 +4,7 @@ platform :ios, '9.0'
 workspace 'PrebidMobile'
 project 'PrebidMobile.xcodeproj'
 project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
+project 'tools/PrebidValidator/Dr.Prebid.xcodeproj'
 
 def prebid_demo_pods
   use_frameworks!
@@ -13,18 +14,15 @@ def prebid_demo_pods
 end
 
 target 'PrebidMobile' do
-  
-  project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
-  
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
-
   project 'PrebidMobile.xcodeproj'
+
+  use_frameworks!
 
 end
 
 target 'PrebidDemoSwift' do
-
+  project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
+  
   prebid_demo_pods
   
   target 'PrebidDemoSwiftTests' do
@@ -33,6 +31,13 @@ target 'PrebidDemoSwift' do
 end
 
 target 'PrebidDemoObjectiveC' do
+  project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
+  
+  prebid_demo_pods
+end
+
+target 'Dr.Prebid' do
+  project 'tools/PrebidValidator/Dr.Prebid.xcodeproj'
   
   prebid_demo_pods
 end
