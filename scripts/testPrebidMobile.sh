@@ -2,13 +2,20 @@ if [ -d "scripts" ]; then
 cd scripts/
 fi
 
-cd ../src/PrebidMobile/
-echo $PWD
-echo "Running unit tests"
+set -e
 
-gem install xcpretty
-gem install xcpretty-travis-formatter
-xcodebuild test -project PrebidMobile.xcodeproj -scheme "PrebidMobileTests" -destination 'platform=iOS Simulator,name=iPhone 8 Plus,OS=12.2' | xcpretty -f `xcpretty-travis-formatter` --color --test
+cd ..
+echo $PWD
+
+gem install xcpretty --user-install
+gem install xcpretty-travis-formatter --user-install
+
+gem install cocoapods --user-install
+pod install --repo-update
+
+echo "Running unit tests"
+xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileTests" -destination 'platform=iOS Simulator,name=iPhone 8 Plus,OS=12.2' | xcpretty -f `xcpretty-travis-formatter` --color --test
+
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ Unit Tests Passed"
 else
@@ -16,7 +23,5 @@ else
     exit 1
 fi
 
-cd ../src/PrebidMobile/
-echo $PWD
 echo "Running swiftlint tests"
 swiftlint --config .swiftlint.yml
