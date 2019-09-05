@@ -114,7 +114,7 @@ extension Dictionary where Key == AnyHashable, Value == Any {
 //MARK: - private block
 
 private func removeEntryWithoutValue(_ array: inout [Any]) {
-    for (index, var value) in array.enumerated().reversed() {
+    for (index, value) in array.enumerated().reversed() {
         
         if var dictValue = value as? Dictionary<AnyHashable, Any> {
             removeEntryWithoutValue(&dictValue)
@@ -131,6 +131,10 @@ private func removeEntryWithoutValue(_ array: inout [Any]) {
             if arrayValue.count == 0 {
                 array.remove(at: index)
             }
+        } else if let stringValue = value as? String {
+            if stringValue.isEmpty {
+                array.remove(at: index)
+            }
         }
     }
 }
@@ -138,7 +142,7 @@ private func removeEntryWithoutValue(_ array: inout [Any]) {
 private func removeEntryWithoutValue(_ dict: inout [AnyHashable: Any]) {
     
     for key in dict.keys {
-        if var value = dict[key] {
+        if let value = dict[key] {
             
             if var dictValue = value as? Dictionary<AnyHashable, Any> {
                 removeEntryWithoutValue(&dictValue)
@@ -154,6 +158,10 @@ private func removeEntryWithoutValue(_ dict: inout [AnyHashable: Any]) {
                 dict[key] = arrayValue
                 
                 if arrayValue.count == 0 {
+                    dict[key] = nil
+                }
+            } else if let stringValue = value as? String {
+                if stringValue.isEmpty {
                     dict[key] = nil
                 }
             }
