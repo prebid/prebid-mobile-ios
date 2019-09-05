@@ -227,7 +227,7 @@
 		60D792F4217E229A0080F428 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				FA5C30B922E5E84100DA23C4 /* addendum */,
+				FA5C30B922E5E84100DA23C4 /* Addendum */,
 				6062B1B42188C20600CE1BA3 /* AdUnits */,
 				FA12E517231FCD1400CAA05B /* BidManager.swift */,
 				6062B1A321835DF300CE1BA3 /* Logging.swift */,
@@ -371,13 +371,13 @@
 			path = UnitTests;
 			sourceTree = "<group>";
 		};
-		FA5C30B922E5E84100DA23C4 /* addendum */ = {
+		FA5C30B922E5E84100DA23C4 /* Addendum */ = {
 			isa = PBXGroup;
 			children = (
 				FA5C30BA22E5E86900DA23C4 /* AdViewUtils.swift */,
 				FA5C30BC22E5ECF700DA23C4 /* PbFindSizeError.swift */,
 			);
-			path = addendum;
+			path = Addendum;
 			sourceTree = "<group>";
 		};
 		FA9D7F2522E8A80E006FCBEF /* addendum */ = {
