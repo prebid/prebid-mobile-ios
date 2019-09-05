@@ -70,6 +70,7 @@
 		FA7C3EB9225E518000D2F128 /* noBidResponseRubicon.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB8225E518000D2F128 /* noBidResponseRubicon.json */; };
 		FA7F89EC22DC95E30065B652 /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */; };
 		FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */; };
+		FAC8376523212F6100565051 /* VideoImaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC8376423212F6100565051 /* VideoImaView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +162,7 @@
 		FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
 		FA7F89F522DCB20E0065B652 /* CollectionExtensionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CollectionExtensionTest.swift; path = PrebidMobileTests/UnitTests/CollectionExtensionTest.swift; sourceTree = SOURCE_ROOT; };
 		FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewUtilsTests.swift; sourceTree = "<group>"; };
+		FAC8376423212F6100565051 /* VideoImaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoImaView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 		60D792F4217E229A0080F428 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				FAC8376223212F0200565051 /* Video */,
 				FA5C30B922E5E84100DA23C4 /* Addendum */,
 				6062B1B42188C20600CE1BA3 /* AdUnits */,
 				FA12E517231FCD1400CAA05B /* BidManager.swift */,
@@ -388,6 +391,22 @@
 			path = addendum;
 			sourceTree = "<group>";
 		};
+		FAC8376223212F0200565051 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				FAC8376323212F3700565051 /* IMA */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		FAC8376323212F3700565051 /* IMA */ = {
+			isa = PBXGroup;
+			children = (
+				FAC8376423212F6100565051 /* VideoImaView.swift */,
+			);
+			path = IMA;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -541,6 +560,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6062B1C3218BFC7A00CE1BA3 /* Reachability.swift in Sources */,
+				FAC8376523212F6100565051 /* VideoImaView.swift in Sources */,
 				FA12E518231FCD1400CAA05B /* BidManager.swift in Sources */,
 				600072FF21BAFD2F00F4738B /* Dispatcher.swift in Sources */,
 				60D7930D217E23F90080F428 /* Prebid.swift in Sources */,
