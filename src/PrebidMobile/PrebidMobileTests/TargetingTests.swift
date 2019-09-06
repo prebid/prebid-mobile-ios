@@ -84,21 +84,67 @@ class TargetingTests: XCTestCase {
 
         XCTAssertTrue((testItuneID == "54673893"))
     }
-    
+
     func testStoreURL() {
-        
+
         Targeting.shared.storeURL = "https://itunes.apple.com/app/id123456789"
         let storeURL = Targeting.shared.storeURL
-        
+
         XCTAssertTrue((storeURL == "https://itunes.apple.com/app/id123456789"))
     }
-    
+
     func testDomain() {
-        
+
         Targeting.shared.domain = "appdomain.com"
         let domain = Targeting.shared.domain
-        
+
         XCTAssertTrue((domain == "appdomain.com"))
+    }
+
+    func testContextData() {
+        Targeting.shared.addContextData(key: "key1", value: "value10")
+        let dictionary = Targeting.shared.getContextDataDictionary()
+
+        XCTAssert(dictionary.count == 1)
+
+        guard let set = dictionary["key1"] else {
+            XCTFail("set is nil")
+            return
+        }
+
+        XCTAssert(set.count == 1)
+        XCTAssert(set.contains("value10"))
+    }
+
+    func testUserData() {
+        Targeting.shared.addUserData(key: "key1", value: "value10")
+        let dictionary = Targeting.shared.getUserDataDictionary()
+
+        XCTAssert(dictionary.count == 1)
+
+        guard let set = dictionary["key1"] else {
+            XCTFail("set is nil")
+            return
+        }
+
+        XCTAssert(set.count == 1)
+        XCTAssert(set.contains("value10"))
+    }
+
+    func testContextKeyword() {
+        Targeting.shared.addContextKeyword("value10")
+        let set = Targeting.shared.getContextKeywordsSet()
+
+        XCTAssert(set.count == 1)
+        XCTAssert(set.contains("value10"))
+    }
+
+    func testUserKeyword() {
+        Targeting.shared.addUserKeyword("value10")
+        let set = Targeting.shared.getUserKeywordsSet()
+
+        XCTAssert(set.count == 1)
+        XCTAssert(set.contains("value10"))
     }
 
 }

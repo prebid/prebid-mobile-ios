@@ -31,53 +31,10 @@ class InterstItialAdUnitTests: XCTestCase {
         XCTAssertTrue(adUnit.prebidConfigId == Constants.configID1)
         XCTAssertNil(adUnit.dispatcher)
     }
-
-    func testSetUserKeyword() {
-        let adUnit = InterstitialAdUnit(configId: Constants.configID1)
-        adUnit.addUserKeyword(key: "key1", value: "value1")
-        adUnit.addUserKeyword(key: "key2", value: "value2")
-        XCTAssertTrue(2 == adUnit.userKeywords.count)
-        if let value = adUnit.userKeywords["key1"]?[0] {
-            XCTAssertEqual("value1", value)
-        }
-        if let value = adUnit.userKeywords["key2"]?[0] {
-            XCTAssertEqual("value2", value)
-        }
-        adUnit.removeUserKeyword(forKey: "key1")
-        XCTAssertTrue(1 == adUnit.userKeywords.count)
-        XCTAssertNil(adUnit.userKeywords["key1"])
-        adUnit.removeUserKeyword(forKey: "key2")
-        XCTAssertTrue(0 == adUnit.userKeywords.count)
-        XCTAssertNil(adUnit.userKeywords["key2"])
-    }
-
-    func testSetUserKeywords() {
-        let adUnit = InterstitialAdUnit(configId: Constants.configID1)
-        adUnit.addUserKeyword(key: "key1", value: "value1")
-        let arrValues = ["value1", "value2"]
-        adUnit.addUserKeywords(key: "key2", value: arrValues)
-        XCTAssertTrue(2 == adUnit.userKeywords.count)
-        if let value = adUnit.userKeywords["key1"]?[0] {
-            XCTAssertEqual("value1", value)
-        }
-        if let value = adUnit.userKeywords["key2"]?[0] {
-            XCTAssertEqual("value1", value)
-        }
-        if let value = adUnit.userKeywords["key2"]?[1] {
-            XCTAssertEqual("value2", value)
-        }
-        adUnit.addUserKeywords(key: "key1", value: arrValues)
-        if let value = adUnit.userKeywords["key1"]?[0] {
-            XCTAssertEqual("value1", value)
-        }
-        if let value = adUnit.userKeywords["key1"]?[1] {
-            XCTAssertEqual("value2", value)
-        }
-        XCTAssertTrue(2 == adUnit.userKeywords.count)
-        adUnit.clearUserKeywords()
-        XCTAssertTrue(0 == adUnit.userKeywords.count)
-        XCTAssertNil(adUnit.userKeywords["key1"])
-        XCTAssertNil(adUnit.userKeywords["key2"])
+    
+    func testAdvancedInterstitialAdUnitCreation() {
+        let adUnit = InterstitialAdUnit(configId: Constants.configID1, minWidthPerc: 50, minHeightPerc: 70)
+        XCTAssertTrue(adUnit.minSizePerc?.width == 50 && adUnit.minSizePerc?.height == 70)
     }
 
 }

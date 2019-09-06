@@ -43,16 +43,32 @@
     // [[Prebid shared] setCustomPrebidServerWithUrl:@"" error:&err];
     // if(err == nil)
     
-    if([self.adServer isEqualToString:@"DFP"] && [self.adUnit isEqualToString:@"Banner"])
-    [self loadDFPBanner];
-    if([self.adServer isEqualToString:@"DFP"] && [self.adUnit isEqualToString:@"Interstitial"])
-    [self loadDFPInterstitial];
-    if([self.adServer isEqualToString:@"MoPub"] && [self.adUnit isEqualToString:@"Banner"])
-    [self loadMoPubBanner];
-    if([self.adServer isEqualToString:@"MoPub"] && [self.adUnit isEqualToString:@"Interstitial"])
-    [self loadMoPubInterstitial];
+    self.bannerUnit = [[BannerAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45" size:CGSizeMake(300, 250)];
+//    self.interstitialUnit = [[InterstitialAdUnit alloc] initWithConfigId:@"625c6125-f19e-4d5b-95c5-55501526b2a4"];
     
+//    Advanced interstitial support
+//    self.interstitialUnit = [[InterstitialAdUnit alloc] initWithConfigId:@"625c6125-f19e-4d5b-95c5-55501526b2a4" minWidthPerc:50 minHeightPerc:70];
     
+//    [self enableCOPPA];
+//    [self addFirstPartyData:self.bannerUnit];
+//    [self setStoredResponse];
+//    [self setRequestTimeoutMillis];
+    
+    if([self.adUnit isEqualToString:@"Banner"]) {
+        
+        if ([self.adServer isEqualToString:@"DFP"]) {
+            [self loadDFPBanner];
+        } else if ([self.adServer isEqualToString:@"MoPub"]) {
+            [self loadMoPubBanner];
+        }
+    } else if ([self.adUnit isEqualToString:@"Interstitial"]) {
+        
+        if ([self.adServer isEqualToString:@"DFP"]) {
+            [self loadDFPInterstitial];
+        } else if ([self.adServer isEqualToString:@"MoPub"]) {
+            [self loadMoPubInterstitial];
+        }
+    }
     // Do any additional setup after loading the view, typically from a nib.
 }
     
@@ -65,7 +81,6 @@
     
 -(void) loadDFPBanner {
     
-    self.bannerUnit = [[BannerAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45" size:CGSizeMake(300, 250)];
     [self.bannerUnit setAutoRefreshMillisWithTime:35000];
     self.dfpView = [[DFPBannerView alloc] initWithAdSize:kGADAdSizeMediumRectangle];
     self.dfpView.rootViewController = self;
@@ -86,7 +101,6 @@
     
 -(void) loadDFPInterstitial {
     
-    self.interstitialUnit = [[InterstitialAdUnit alloc] initWithConfigId:@"625c6125-f19e-4d5b-95c5-55501526b2a4"];
     self.dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:@"/19968336/PrebidMobileValidator_Interstitial"];
     self.dfpInterstitial.delegate = self;
     self.request = [[DFPRequest alloc] init];
@@ -109,7 +123,6 @@
     
     [self.bannerView addSubview:self.mopubAdView];
     
-    self.bannerUnit = [[BannerAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45" size:CGSizeMake(300, 250)];
     // Do any additional setup after loading the view, typically from a nib.
     [self.bannerUnit fetchDemandWithAdObject:self.mopubAdView completion:^(enum ResultCode result) {         
         NSLog(@"Prebid demand result %ld", (long)result);
@@ -119,7 +132,6 @@
     
 -(void) loadMoPubInterstitial {
     
-    self.interstitialUnit = [[InterstitialAdUnit alloc] initWithConfigId:@"625c6125-f19e-4d5b-95c5-55501526b2a4"];
     MPMoPubConfiguration *configuration = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"2829868d308643edbec0795977f17437"];
     [[MoPub sharedInstance] initializeSdkWithConfiguration:configuration completion:nil];
     self.mopubInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"2829868d308643edbec0795977f17437"];
@@ -131,10 +143,60 @@
     
     
 }
-    
+
+-(void) enableCOPPA {
+    Targeting.shared.subjectToCOPPA = true;
+}
+
+-(void) addFirstPartyData:(AdUnit *)adUnit {
+    //Access Control List
+    [Targeting.shared addBidderToAccessControlList: Prebid.bidderNameAppNexus];
+
+    //global user data
+    [Targeting.shared addUserDataWithKey:@"globalUserDataKey1" value:@"globalUserDataValue1"];
+
+    //global context data
+    [Targeting.shared addContextDataWithKey:@"globalContextDataKey1" value:@"globalContextDataValue1"];
+
+    //adunit context data
+    [adUnit addContextDataWithKey:@"adunitContextDataKey1" value:@"adunitContextDataValue1"];
+
+    //global context keywords
+    [Targeting.shared addContextKeyword:@"globalContextKeywordValue1"];
+    [Targeting.shared addContextKeyword:@"globalContextKeywordValue2"];
+
+    //global user keywords
+    [Targeting.shared addUserKeyword:@"globalUserKeywordValue1"];
+    [Targeting.shared addUserKeyword:@"globalUserKeywordValue2"];
+
+    //adunit context keywords
+    [adUnit addContextKeyword:@"adunitContextKeywordValue1"];
+    [adUnit addContextKeyword:@"adunitContextKeywordValue2"];
+}
+
+-(void) setStoredResponse {
+    Prebid.shared.storedAuctionResponse = @"111122223333";
+}
+
+-(void) setRequestTimeoutMillis {
+    Prebid.shared.timeoutMillis = 5000;
+}
+
 #pragma mark :- DFP delegates
 -(void) adViewDidReceiveAd:(GADBannerView *)bannerView {
     NSLog(@"Ad received");
+    
+    [AdViewUtils findPrebidCreativeSize:bannerView
+                                   success:^(CGSize size) {
+                                       if ([bannerView isKindOfClass:[DFPBannerView class]]) {
+                                           DFPBannerView *dfpBannerView = (DFPBannerView *)bannerView;
+                                           
+                                           [dfpBannerView resize:GADAdSizeFromCGSize(size)];
+                                       }
+                                   } failure:^(NSError * _Nonnull error) {
+                                       NSLog(@"error: %@", error);
+                                   }];
+
 }
     
 - (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error

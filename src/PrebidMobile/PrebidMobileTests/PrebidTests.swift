@@ -50,8 +50,6 @@ class PrebidTests: XCTestCase {
 
     func testServerCustomHost() {
 
-        XCTAssertEqual(Prebid.shared.prebidServerHost, PrebidHost.Appnexus)
-
         Prebid.shared.prebidServerHost = PrebidHost.Custom
         XCTAssertEqual(Prebid.shared.prebidServerHost, PrebidHost.Custom)
 
@@ -60,4 +58,16 @@ class PrebidTests: XCTestCase {
         XCTAssertThrowsError(try Prebid.shared.setCustomPrebidServer(url: "abc"))
     }
 
+    func testStoredAuctionResponse() {
+        Prebid.shared.storedAuctionResponse = "111122223333"
+        XCTAssertEqual(Prebid.shared.storedAuctionResponse, "111122223333")
+    }
+    
+    func testStoredBidResponses() {
+        Prebid.shared.addStoredBidResponse(bidder: "appnexus", responseId: "221144")
+        Prebid.shared.addStoredBidResponse(bidder: "rubicon", responseId: "221155")
+        XCTAssertFalse(Prebid.shared.storedBidResponses.isEmpty)
+        Prebid.shared.clearStoredBidResponses()
+        XCTAssertTrue(Prebid.shared.storedBidResponses.isEmpty)
+    }
 }

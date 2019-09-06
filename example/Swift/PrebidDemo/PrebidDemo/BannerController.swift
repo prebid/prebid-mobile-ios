@@ -45,6 +45,11 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         bannerUnit.setAutoRefreshMillis(time: 35000)
         //bannerUnit.addAdditionalSize(sizes: [CGSize(width: 300, height: 600)])
+        
+//        enableCOPPA()
+//        addFirstPartyData(adUnit: bannerUnit)
+//        setStoredResponse()
+//        setRequestTimeoutMillis()
 
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
@@ -105,15 +110,61 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func enableCOPPA() {
+        Targeting.shared.subjectToCOPPA = true
+    }
+    
+    func addFirstPartyData(adUnit: AdUnit) {
+        //Access Control List
+        Targeting.shared.addBidderToAccessControlList(Prebid.bidderNameAppNexus)
+        
+        //global user data
+        Targeting.shared.addUserData(key: "globalUserDataKey1", value: "globalUserDataValue1")
+        
+        //global context data
+        Targeting.shared.addContextData(key: "globalContextDataKey1", value: "globalContextDataValue1")
+        
+        //adunit context data
+        adUnit.addContextData(key: "adunitContextDataKey1", value: "adunitContextDataValue1")
+        
+        //global context keywords
+        Targeting.shared.addContextKeyword("globalContextKeywordValue1")
+        Targeting.shared.addContextKeyword("globalContextKeywordValue2")
+        
+        //global user keywords
+        Targeting.shared.addUserKeyword("globalUserKeywordValue1")
+        Targeting.shared.addUserKeyword("globalUserKeywordValue2")
+        
+        //adunit context keywords
+        adUnit.addContextKeyword("adunitContextKeywordValue1")
+        adUnit.addContextKeyword("adunitContextKeywordValue2")
+    }
+    
+    func setStoredResponse() {
+        Prebid.shared.storedAuctionResponse = "111122223333"
+    }
+    
+    func setRequestTimeoutMillis() {
+        Prebid.shared.timeoutMillis = 5000
+    }
 
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("adViewDidReceiveAd")
         
-        Utils.shared.findPrebidCreativeSize(bannerView) { (size) in
-            if let bannerView = bannerView as? DFPBannerView, let size = size {
-                bannerView.resize(GADAdSizeFromCGSize(size))
-            }
-        }
+        AdViewUtils.findPrebidCreativeSize(bannerView,
+                                            success: { (size) in
+                                                guard let bannerView = bannerView as? DFPBannerView else {
+                                                    return
+                                                }
+
+                                                bannerView.resize(GADAdSizeFromCGSize(size))
+
+        },
+                                            failure: { (error) in
+                                                print("error: \(error)");
+
+        })
     }
 
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {

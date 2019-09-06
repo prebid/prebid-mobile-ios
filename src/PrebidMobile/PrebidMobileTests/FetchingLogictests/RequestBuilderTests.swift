@@ -27,8 +27,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     var adUnit: BannerAdUnit!
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
-        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
 
 //        app = XCUIApplication()
 //
@@ -41,137 +39,531 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 //
 //        app?.launch()
 
-        let targeting = Targeting.shared
-        targeting.gender = Gender.male
-        targeting.subjectToGDPR = true
-        targeting.itunesID = "12345"
-        targeting.gdprConsentString = "testGDPR"
-        targeting.storeURL = "https://itunes.apple.com/app/id123456789"
-        targeting.domain = "appdomain.com"
-
+        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
         adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2))
-        adUnit.identifier = "PrebidMobile"
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         adUnit = nil
+        
+        Targeting.shared.clearAccessControlList()
+        Targeting.shared.clearUserData()
+        Targeting.shared.clearContextData()
+        Targeting.shared.clearContextKeywords()
+        Targeting.shared.clearUserKeywords()
     }
 
-    func testPostData() {
-        let targeting = Targeting.shared
-        try! targeting.setYearOfBirth(yob: 1990)
+    func testPostData() throws {
 
-        do {
-            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
-                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
-                XCTAssertNotNil(jsonRequestBody["regs"])
-                if let regs = jsonRequestBody["regs"] as? [String: Any] {
-                    if let ext = regs["ext"] as? [String: Any] {
-                        XCTAssertEqual(1, ext["gdpr"] as! Int)
-                    }
-                }
-                if let user = jsonRequestBody["user"] as? [String: Any] {
-                    if let ext = user["ext"] as? [String: Any] {
-                        XCTAssertEqual("testGDPR", ext["consent"] as! String)
-                    }
-                    XCTAssertEqual("M", user["gender"] as! String)
-                    XCTAssertEqual(1990, user["yob"] as! Int)
-                }
-                self.validationResponse(jsonRequestBody: jsonRequestBody)
+        //given
 
-            }
-        } catch let error {
-            print(error.localizedDescription)
-        }
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        //then
+        //TODO move to this area
+        validationResponse(jsonRequestBody: jsonRequestBody as! [String : Any])
     }
 
-    func testPostDataWithCustomHost() {
-        let targeting = Targeting.shared
-        try! targeting.setYearOfBirth(yob: 1990)
 
-        XCTAssertThrowsError(try Prebid.shared.setCustomPrebidServer(url: "http://www.rubicon.org"))
+
+    func testPostDataWithServerAccountId() throws {
+
+        //given
         Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
-        Prebid.shared.prebidServerHost = PrebidHost.Custom
 
-        do {
-            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
-                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
-                self.validationResponse(jsonRequestBody: jsonRequestBody)
-            }
-        } catch let error {
-            print(error.localizedDescription)
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let ext = jsonRequestBody["ext"] as? [String: Any],
+            let prebid = ext["prebid"] as? [String: Any],
+            let storedrequest = prebid["storedrequest"] as? [String: Any],
+            let soredRequestid = storedrequest["id"] as? String else {
+
+                XCTFail("parsing error")
+                return
+
         }
+
+        guard let app = jsonRequestBody["app"] as? [String: Any],
+            let publisher = app["publisher"] as? [String: Any],
+            let publisherId = publisher["id"] as? String else {
+
+                XCTFail("parsing error")
+                return
+
+        }
+
+        //then
+        XCTAssertEqual("bfa84af2-bd16-4d35-96ad-31c6bb888df0", soredRequestid)
+        XCTAssertEqual("bfa84af2-bd16-4d35-96ad-31c6bb888df0", publisherId)
     }
 
-    func testPostDataWithNoGDPR() {
-        let targeting = Targeting.shared
-        targeting.subjectToGDPR = false
-        try! targeting.setYearOfBirth(yob: 1990)
+    func testPostDataWithIdentifier() throws {
 
-        do {
-            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
-                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
-                XCTAssertNil(jsonRequestBody["regs"])
-                if let user = jsonRequestBody["user"] as? [String: Any] {
-                    XCTAssertNil(user["ext"])
-                    XCTAssertEqual("M", user["gender"] as! String)
-                    XCTAssertEqual(1990, user["yob"] as! Int)
-                }
-                self.validationResponse(jsonRequestBody: jsonRequestBody)
-            }
-        } catch let error {
-            print(error.localizedDescription)
+        //given
+        adUnit.identifier = "PrebidMobile"
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let impArray = jsonRequestBody["imp"] as? [Any],
+            let impDic = impArray[0] as? [String: Any],
+            let id = impDic["id"] as? String else {
+
+                XCTFail("parsing error")
+                return
         }
+
+        //then
+        XCTAssertEqual("PrebidMobile", id)
     }
 
-    func testPostDataWithNoTargetingKeys() {
-        let targeting = Targeting.shared
-        targeting.gender = Gender.unknown
-        targeting.subjectToGDPR = false
-        targeting.itunesID = nil
-        targeting.clearYearOfBirth()
+    func testPostDataWithConsent() throws {
 
-        do {
-            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
-                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
-                print(jsonRequestBody)
-                XCTAssertNil(jsonRequestBody["regs"])
-                if let user = jsonRequestBody["user"] as? [String: Any] {
-                    XCTAssertNil(user["ext"])
-                    XCTAssertEqual("O", user["gender"] as! String)
-                    XCTAssertNil(user["yob"])
-                }
-                self.validationResponse(jsonRequestBody: jsonRequestBody)
-            }
-        } catch let error {
-            print(error.localizedDescription)
+        //given
+        let targeting = Targeting.shared
+        targeting.subjectToGDPR = true
+        defer {
+            targeting.subjectToGDPR = false
         }
+
+        targeting.gdprConsentString = "testGDPR"
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let user = jsonRequestBody["user"] as? [String: Any],
+            let userExt = user["ext"] as? [String: Any],
+            let consent = userExt["consent"] as? String else {
+
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertEqual("testGDPR", consent)
     }
 
-    func testPostDataWithCustomKeyword() {
+    func testPostDataWithGender() throws {
+
+        //given
         let targeting = Targeting.shared
-        targeting.gender = Gender.unknown
+        targeting.gender = Gender.male
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let user = jsonRequestBody["user"] as? [String: Any],
+            let gender = user["gender"] as? String else {
+
+            XCTFail("parsing error")
+            return
+        }
+
+        //then
+        XCTAssertEqual("M", gender)
+    }
+
+    func testPostDataWithItunesId() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.itunesID = "12345"
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let app = jsonRequestBody["app"] as? [String: Any],
+            let itunesID = app["bundle"] as? String else {
+
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertEqual("12345", itunesID)
+    }
+
+    func testPostDataWithStoreUrl() throws {
+        //given
+        let targeting = Targeting.shared
+        targeting.storeURL = "https://itunes.apple.com/app/id123456789"
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let app = jsonRequestBody["app"] as? [String: Any],
+            let storeurl = app["storeurl"] as? String else {
+
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertEqual("https://itunes.apple.com/app/id123456789", storeurl)
+    }
+
+    func testPostDataWithDomain() throws {
+        //given
+        let targeting = Targeting.shared
+        targeting.domain = "appdomain.com"
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let app = jsonRequestBody["app"] as? [String: Any],
+            let domain = app["domain"] as? String else {
+
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertEqual("appdomain.com", domain)
+    }
+
+    func testPostDataWithRubiconHost() throws {
+
+        //given
+        Prebid.shared.prebidServerHost = .Rubicon
+
+        //when
+        let urlRequest = try getPostDataHelper(adUnit: adUnit).urlRequest
+
+        //then
+        XCTAssertEqual(PrebidHost.Rubicon.name(), urlRequest.url?.absoluteString)
+    }
+
+    func testPostDataWithCOPPA() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.subjectToCOPPA = true
+        defer {
+            targeting.subjectToCOPPA = false
+        }
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let regs = jsonRequestBody["regs"] as? [String: Any],
+            let coppa = regs["coppa"] as? Int else {
+
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertEqual(1, coppa)
+    }
+    
+    func testPostDataWithoutCOPPA() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.subjectToCOPPA = false
+        defer {
+            targeting.subjectToCOPPA = false
+        }
+        
+        var coppa: Int? = nil
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        if let regs = jsonRequestBody["regs"] as? [String: Any],
+            let regsCoppa = regs["coppa"] as? Int {
+
+            coppa = regsCoppa
+        }
+
+        //then
+        XCTAssertNil(coppa)
+    }
+    
+    func testPostDataWithGDPR() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.subjectToGDPR = true
+        defer {
+            targeting.subjectToGDPR = false
+        }
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let regs = jsonRequestBody["regs"] as? [String: Any],
+            let regsExt = regs["ext"] as? [String: Any],
+            let gdpr = regsExt["gdpr"] as? Int else {
+
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertEqual(1, gdpr)
+    }
+
+    func testPostDataWithoutGDPR() throws {
+
+        //given
+        let targeting = Targeting.shared
         targeting.subjectToGDPR = false
-        targeting.itunesID = nil
-        targeting.clearYearOfBirth()
+        defer {
+            targeting.subjectToGDPR = false
+        }
+
+        var gdpr: Int? = nil
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        if let regs = jsonRequestBody["regs"] as? [String: Any],
+            let regsExt = regs["ext"] as? [String: Any],
+            let extGdpr = regsExt["gdpr"] as? Int {
+
+            gdpr = extGdpr
+        }
+
+        //then
+        XCTAssertNil(gdpr)
+    }
+
+    func testPostDataWithCustomKeyword() throws {
+
+        //given
         adUnit.addUserKeyword(key: "key1", value: "value1")
-        do {
-            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
-                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
-                XCTAssertNil(jsonRequestBody["regs"])
-                if let user = jsonRequestBody["user"] as? [String: Any] {
-                    XCTAssertNil(user["ext"])
-                    XCTAssertEqual("O", user["gender"] as! String)
-                    XCTAssertNil(user["yob"])
-                    XCTAssertNotNil(user["keywords"])
-                    XCTAssertEqual("key1=value1", user["keywords"] as! String)
 
-                }
-                self.validationResponse(jsonRequestBody: jsonRequestBody)
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let user = jsonRequestBody["user"] as? [String: Any],
+            let keywords = user["keywords"] as? String else {
+
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertEqual("value1", keywords)
+    }
+
+    func testPostDataWithoutTargetingKeys() throws {
+        //given
+        var keywords: String? = nil
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        if let user = jsonRequestBody["user"] as? [String: Any],
+            let userKeywords = user["keywords"] as? String {
+
+                keywords = userKeywords
+        }
+
+        //then
+        XCTAssertNil(keywords)
+    }
+    
+    func testPostDataWithGlobalUserKeyword() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.addUserKeyword("value10")
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let user = jsonRequestBody["user"] as? [String: Any],
+            let keywords = user["keywords"] as? String else {
+                
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertEqual("value10", keywords)
+    }
+    
+    func testPostDataWithGlobalContextKeyword() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.addContextKeyword("value10")
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let user = jsonRequestBody["app"] as? [String: Any],
+            let keywords = user["keywords"] as? String else {
+                
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertEqual("value10", keywords)
+
+    }
+    
+    func testPostDataWithAccessControlList() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.addBidderToAccessControlList(Prebid.bidderNameRubiconProject)
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let ext = jsonRequestBody["ext"] as? [String: Any],
+            let prebid = ext["prebid"] as? [String: Any],
+            let data = prebid["data"] as? [String: Any],
+            let bidders = data["bidders"] as? [String] else {
+                
+                XCTFail("parsing fail")
+                return
+        }
+
+        //then
+        XCTAssertEqual(1, bidders.count)
+        XCTAssertEqual(bidders[0], Prebid.bidderNameRubiconProject)
+    }
+    
+    func testPostDataWithGlobalUserData() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.addUserData(key: "key1", value: "value10")
+        targeting.addUserData(key: "key2", value: "value20")
+        targeting.addUserData(key: "key2", value: "value21")
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let user = jsonRequestBody["user"] as? [String: Any],
+            let ext = user["ext"] as? [String: Any],
+            let data = ext["data"] as? [String: Any],
+            let key1Set1 = data["key1"] as? [String],
+            let key2Set1 = data["key2"] as? [String] else {
+                XCTFail("parsing fail")
+                return
+        }
+
+        //then
+        XCTAssertEqual(2, data.count)
+        XCTAssertEqual(Set(["value10"]), Set(key1Set1))
+        XCTAssertEqual(Set(["value20", "value21"]), Set(key2Set1))
+    }
+
+    func testPostDataWithGlobalContextData() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.addContextData(key: "key1", value: "value10")
+        targeting.addContextData(key: "key2", value: "value20")
+        targeting.addContextData(key: "key2", value: "value21")
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let app = jsonRequestBody["app"] as? [String: Any],
+            let ext = app["ext"] as? [String: Any],
+            let data = ext["data"] as? [String: Any],
+            let key1Set1 = data["key1"] as? [String],
+            let key2Set1 = data["key2"] as? [String] else {
+                XCTFail("parsing fail")
+                return
+        }
+
+        //then
+        XCTAssertEqual(2, data.count)
+        XCTAssertEqual(Set(["value10"]), Set(key1Set1))
+        XCTAssertEqual(Set(["value20", "value21"]), Set(key2Set1))
+
+    }
+    
+    func testPostDataWithAdunitContextKeyword() throws {
+
+        //given
+        adUnit.addContextKeyword("value10")
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let impArray = jsonRequestBody["imp"] as? [Any],
+            let impDic = impArray[0] as? [String: Any],
+            let ext = impDic["ext"] as? [String: Any],
+            let context = ext["context"] as? [String: Any],
+            let keywords = context["keywords"] as? String else {
+                XCTFail("parsing fail")
+                return
+        }
+
+        //then
+        XCTAssertEqual("value10", keywords)
+    }
+    
+    func testPostDataWithAdunitContextData() throws {
+
+        //given
+        adUnit.addContextData(key: "key1", value: "value10")
+        adUnit.addContextData(key: "key2", value: "value20")
+        adUnit.addContextData(key: "key2", value: "value21")
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let impArray = jsonRequestBody["imp"] as? [Any],
+            let impDic = impArray[0] as? [String: Any],
+            let ext = impDic["ext"] as? [String: Any],
+            let context = ext["context"] as? [String: Any],
+            let data = context["data"] as? [String: Any],
+            let key1Set1 = data["key1"] as? [String],
+            let key2Set1 = data["key2"] as? [String] else {
+                XCTFail("parsing fail")
+                return
+        }
+
+        //then
+        XCTAssertEqual(2, data.count)
+        XCTAssertEqual(Set(["value10"]), Set(key1Set1))
+        XCTAssertEqual(Set(["value20", "value21"]), Set(key2Set1))
+    }
+
+    func testPostDataWithStoredResponses() throws {
+        //given
+        Prebid.shared.storedAuctionResponse = "111122223333"
+        Prebid.shared.addStoredBidResponse(bidder: "appnexus", responseId: "221144")
+        Prebid.shared.addStoredBidResponse(bidder: "rubicon", responseId: "221155")
+
+        defer {
+            Prebid.shared.storedAuctionResponse = ""
+            Prebid.shared.clearStoredBidResponses()
+        }
+
+        //when
+        try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+            let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+
+            guard let impArray = jsonRequestBody["imp"] as? [Any],
+                let impDic = impArray[0] as? [String: Any],
+                let ext = impDic["ext"] as? [String: Any],
+                let prebid = ext["prebid"] as? [String: Any],
+                let storedAuctionResponse = prebid["storedauctionresponse"] as? [String: String],
+                let storedAuctionResponseId = storedAuctionResponse["id"],
+                let storedBidResponses = prebid["storedbidresponse"] as? [Any] else {
+
+                    XCTFail("parsing fail")
+                    return
             }
-        } catch let error {
-            print(error.localizedDescription)
+
+            //then
+            XCTAssertEqual("111122223333", storedAuctionResponseId)
+
+            XCTAssertEqual(Set([["bidder":"appnexus", "id":"221144"], ["bidder":"rubicon", "id":"221155"]]), Set(storedBidResponses as! Array<Dictionary<String, String>>))
         }
     }
 
@@ -215,62 +607,241 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             print(error.localizedDescription)
         }
     }
+    
+    func testPostDataWithAdvancedInterstitial() throws {
 
-    func testYOBWith1855() {
+        //given
+        let adUnit = InterstitialAdUnit(configId: Constants.configID1, minWidthPerc: 50, minHeightPerc: 70)
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let device = jsonRequestBody["device"] as? [String: Any],
+            let ext = device["ext"] as? [String: Any],
+            let prebid = ext["prebid"] as? [String: Any],
+            let interstitial = prebid["interstitial"] as? [String: Any],
+            let minwidthperc = interstitial["minwidthperc"] as? Int,
+            let minheightperc = interstitial["minheightperc"] as? Int else {
+
+                XCTFail("parsing fail")
+                return
+        }
+
+        guard let imp = jsonRequestBody["imp"] as? [Any],
+            let imp0 = imp[0] as? [String: Any],
+
+            let instl = imp0["instl"] as? Int,
+
+            let banner = imp0["banner"] as? [String: Any],
+            let formatArr = banner["format"] as? [Any],
+            let format0 = formatArr[0] as? [String: Any],
+            let w = format0["w"] as? Int,
+            let h = format0["h"] as? Int else {
+
+                XCTFail("parsing fail")
+                return
+
+        }
+
+        //then
+        XCTAssertEqual(1, instl)
+
+        XCTAssertEqual(50, minwidthperc)
+        XCTAssertEqual(70, minheightperc)
+
+        XCTAssertNotNil(w)
+        XCTAssertNotNil(h)
+
+    }
+
+    func testPostDataWithoutAdvancedInterstitial() throws {
+
+        //given
+        let adUnit = InterstitialAdUnit(configId: Constants.configID1)
+        var interstitial: [String: Any]? = nil
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        if let device = jsonRequestBody["device"] as? [String: Any],
+            let ext = device["ext"] as? [String: Any],
+            let prebid = ext["prebid"] as? [String: Any],
+            let prebidInterstitial = prebid["interstitial"] as? [String: Any] {
+
+                interstitial = prebidInterstitial
+        }
+
+        guard let imp = jsonRequestBody["imp"] as? [Any],
+            let imp0 = imp[0] as? [String: Any],
+
+            let instl = imp0["instl"] as? Int,
+
+            let banner = imp0["banner"] as? [String: Any],
+            let formatArr = banner["format"] as? [Any],
+            let format0 = formatArr[0] as? [String: Any],
+            let w = format0["w"] as? Int,
+            let h = format0["h"] as? Int else {
+
+                XCTFail("parsing fail")
+                return
+
+        }
+
+        //then
+        XCTAssertEqual(1, instl)
+
+        XCTAssertNil(interstitial)
+
+        XCTAssertNotNil(w)
+        XCTAssertNotNil(h)
+    }
+
+    func testPostDataWithoutAdvancedBannerInterstitial() throws {
+
+        //given
+        let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
+        var interstitial: [String: Any]? = nil
+        var instl = 0
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        if let device = jsonRequestBody["device"] as? [String: Any],
+            let ext = device["ext"] as? [String: Any],
+            let prebid = ext["prebid"] as? [String: Any],
+            let prebidInterstitial = prebid["interstitial"] as? [String: Any] {
+
+            interstitial = prebidInterstitial
+
+
+        }
+
+        if let impArr = jsonRequestBody["imp"] as? [Any],
+            let imp0 = impArr[0] as? [String: Any],
+            let imp0instl = imp0["instl"] as? Int {
+
+            instl = imp0instl
+        }
+
+        //then
+        XCTAssert(interstitial == nil || interstitial!.count == 0)
+        XCTAssertEqual(0, instl)
+    }
+
+    func testYearOfBirth() throws {
+
+        let targeting = Targeting.shared
+        try targeting.setYearOfBirth(yob: 1990)
+        defer {
+            targeting.clearYearOfBirth()
+        }
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let user = jsonRequestBody["user"] as? [String: Any],
+            let yob = user["yob"] as? Int else {
+
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertEqual(1990, yob)
+
+    }
+
+    func testYearOfBirthWrong() throws {
+
+        //given
         let targeting = Targeting.shared
         XCTAssertThrowsError(try targeting.setYearOfBirth(yob: 1855))
+        defer {
+            targeting.clearYearOfBirth()
+        }
         let value = Targeting.shared.yearOfBirth
         XCTAssertFalse(value == 1855)
 
-        do {
-            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
-                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
-                let user = jsonRequestBody["user"] as? [String: Any]
-                XCTAssertNil(user!["yob"])
-            }
-        } catch let error {
-            print(error.localizedDescription)
+        var yob: Int? = nil
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        if let user = jsonRequestBody["user"] as? [String: Any],
+            let userYob = user["yob"] as? Int {
+
+                yob = userYob
         }
+
+        //then
+        XCTAssertNil(yob)
     }
 
-    func testYOBWithNegative1() {
+    func testYearOfBirthNegative() throws {
+
+        //given
         let targeting = Targeting.shared
         XCTAssertThrowsError(try targeting.setYearOfBirth(yob: -1))
+        defer {
+            targeting.clearYearOfBirth()
+        }
         let value = Targeting.shared.yearOfBirth
         XCTAssertFalse(value == -1)
 
-        do {
-            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
-                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
-                let user = jsonRequestBody["user"] as? [String: Any]
-                XCTAssertNil(user!["yob"])
-            }
-        } catch let error {
-            print(error.localizedDescription)
+        var yob: Int? = nil
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        if let user = jsonRequestBody["user"] as? [String: Any],
+            let userYob = user["yob"] as? Int {
+
+            yob = userYob
         }
+
+        //then
+        XCTAssertNil(yob)
 
     }
     
-    func testOpenRTBAppObjectWithoutData() {
+    func testOpenRTBAppObjectWithoutData() throws {
+
+        //given
         Targeting.shared.storeURL = ""
         Targeting.shared.domain = nil
         
-        do {
-            try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
-                let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
-                
-                guard let app = jsonRequestBody["app"] as? [String: Any] else {
-                    XCTFail("app object was not found")
-                    return;
-                }
-                
-                XCTAssertNil(app["storeurl"])
-                XCTAssertNil(app["domain"])
-            }
-        } catch let error {
-            print(error.localizedDescription)
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let app = jsonRequestBody["app"] as? [String: Any] else {
+            XCTFail("parsing error")
+            return
         }
-        
+
+        //then
+        XCTAssertNil(app["storeurl"])
+        XCTAssertNil(app["domain"])
+
+    }
+
+    private func getPostDataHelper(adUnit: AdUnit) throws -> (urlRequest: URLRequest, jsonRequestBody: [AnyHashable: Any]) {
+        var resultUrlRequest: URLRequest? = nil
+        var resultJsonRequestBody: [AnyHashable: Any]? = nil
+
+        let exception = expectation(description: "\(#function)")
+
+        try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
+            resultUrlRequest = urlRequest
+            let jsonRequestBody = PBHTTPStubbingManager.jsonBodyOfURLRequest(asDictionary: urlRequest) as! [String: Any]
+
+            resultJsonRequestBody = jsonRequestBody
+            exception.fulfill()
+        }
+
+        waitForExpectations(timeout: 5, handler: nil)
+
+        return (resultUrlRequest!, resultJsonRequestBody!)
+
     }
 
     func validationResponse(jsonRequestBody: [String: Any]) {
@@ -281,10 +852,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertNotNil(jsonRequestBody["device"])
         XCTAssertNotNil(jsonRequestBody["app"])
         XCTAssertNotNil(jsonRequestBody["user"])
-        XCTAssertNotNil(jsonRequestBody["ext"])
 
         if let impArray = jsonRequestBody["imp"] as? [Any], let impDic = impArray[0] as? [String: Any] {
-            XCTAssertEqual("PrebidMobile", impDic["id"] as! String)
             XCTAssertEqual(1, impDic["secure"] as! Int)
             if let ext = impDic["ext"] as? [String: Any], let prebid = ext["prebid"] as? [String: Any], let storedrequest = prebid["storedrequest"] as? [String: Any] {
                 XCTAssertEqual("6ace8c7d-88c0-4623-8117-75bc3f0a2e45", storedrequest["id"] as! String)
@@ -319,6 +888,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             XCTAssertEqual(NSNumber(value: lmtAd).intValue, device["lmt"] as! Int)
             XCTAssertEqual(UIScreen.main.scale, device["pxratio"] as! CGFloat)
         }
+
         if let ext = jsonRequestBody["ext"] as? [String: Any] {
             XCTAssertNotNil(ext["prebid"])
             if let prebid = ext["prebid"] as? [String: Any] {
@@ -326,14 +896,11 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
                 if let cache = prebid["cache"] as? [String: Any] {
                     XCTAssertNotNil(cache["bids"])
                 }
-                if let storedrequest = prebid["storedrequest"] as? [String: Any] {
-                    if let id = storedrequest["id"] as? String {
-                        XCTAssertEqual("bfa84af2-bd16-4d35-96ad-31c6bb888df0", id)
-                    }
-                }
+
                 XCTAssertNotNil(prebid["targeting"])
             }
         }
+
         if let app = jsonRequestBody["app"] as? [String: Any] {
             if let ext = app["ext"] as? [String: Any] {
                 if let prebid = ext["prebid"] as? [String: Any] {
@@ -342,21 +909,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
                     let prebidSdkVersion = Bundle(for: RequestBuilder.self).infoDictionary?["CFBundleShortVersionString"] as? String
                     XCTAssertEqual(prebidSdkVersion, prebid["version"] as! String)
                 }
-            }
-            if let publisher = app["publisher"] as? [String: Any] {
-                if let id = publisher["id"] as? String {
-                    XCTAssertEqual("bfa84af2-bd16-4d35-96ad-31c6bb888df0", id)
-                }
-            }
-            if let storeUrl = app["storeurl"] as? String {
-                XCTAssertEqual(storeUrl, "https://itunes.apple.com/app/id123456789")
-            } else {
-                XCTFail("storeurl was not fount")
-            }
-            if let domain = app["domain"] as? String {
-                XCTAssertEqual(domain, "appdomain.com")
-            } else {
-                XCTFail("domain was not fount")
             }
         }
         if let source = jsonRequestBody["source"] as? [String: Any] {

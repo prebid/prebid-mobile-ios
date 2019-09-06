@@ -40,6 +40,9 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
 
         Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
         let interstitialUnit = InterstitialAdUnit(configId: "625c6125-f19e-4d5b-95c5-55501526b2a4")
+        
+//        Advanced interstitial support
+//        let interstitialUnit = InterstitialAdUnit(configId: "625c6125-f19e-4d5b-95c5-55501526b2a4", minWidthPerc: 50, minHeightPerc: 70)
 
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )

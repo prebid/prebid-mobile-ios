@@ -77,5 +77,43 @@ class AdUnitTests: XCTestCase {
             XCTAssertEqual(resultCode.name(), "Prebid server does not recognize the size requested")
         }
     }
+    
+    func testSetUserKeyword() {
+        let adUnit: AdUnit = AdUnit.shared
+        
+        adUnit.addUserKeyword(key: "key1", value: "value1")
+        adUnit.addUserKeyword(key: "key2", value: "value2")
+        
+        var userKeywords = Targeting.shared.getUserKeywordsSet()
+        XCTAssertEqual(2, userKeywords.count)
+        XCTAssert(userKeywords.contains("value2") && userKeywords.contains("value1"))
+        
+        adUnit.removeUserKeyword(forKey: "value1")
+        userKeywords = Targeting.shared.getUserKeywordsSet()
+        XCTAssertEqual(1, userKeywords.count)
+        XCTAssert(userKeywords.contains("value2"))
+        adUnit.removeUserKeyword(forKey: "value2")
+        userKeywords = Targeting.shared.getUserKeywordsSet()
+        XCTAssertEqual(0, userKeywords.count)
+    }
+    
+    func testSetUserKeywords() {
+        let adUnit: AdUnit = AdUnit.shared
+
+        let arrValues: Set = ["value1", "value2"]
+        adUnit.addUserKeywords(key: "key2", value: arrValues)
+        var userKeywords = Targeting.shared.getUserKeywordsSet()
+        XCTAssertEqual(2, userKeywords.count)
+        XCTAssert(userKeywords.contains("value2") && userKeywords.contains("value1"))
+
+        adUnit.addUserKeywords(key: "key1", value: arrValues)
+        userKeywords = Targeting.shared.getUserKeywordsSet()
+        XCTAssertEqual(2, userKeywords.count)
+        XCTAssert(userKeywords.contains("value2") && userKeywords.contains("value1"))
+
+        adUnit.clearUserKeywords()
+        userKeywords = Targeting.shared.getUserKeywordsSet()
+        XCTAssertEqual(0, userKeywords.count)
+    }
 
 }
