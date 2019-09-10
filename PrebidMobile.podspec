@@ -41,4 +41,8 @@ Pod::Spec.new do |s|
 }
   s.framework  = ['CoreTelephony', 'SystemConfiguration', 'UIKit', 'Foundation']
 
+  s.subspec 'core' do |core|
+    core.source_files = 'Source/**/*.{h,m,swift}'
+  end
+
 end
