@@ -4,6 +4,11 @@ fi
 
 set -e
 
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+echo -e "\n\n${GREEN}TEST PREBID MOBILE${NC}\n\n"
+
 cd ..
 echo $PWD
 
@@ -13,7 +18,7 @@ gem install xcpretty-travis-formatter --user-install
 gem install cocoapods --user-install
 pod install --repo-update
 
-echo "Running unit tests"
+echo -e "\n${GREEN}Running unit tests${NC} \n"
 xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileTests" -destination 'platform=iOS Simulator,name=iPhone 8 Plus,OS=12.2' | xcpretty -f `xcpretty-travis-formatter` --color --test
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
@@ -23,5 +28,5 @@ else
     exit 1
 fi
 
-echo "Running swiftlint tests"
+echo -e "\n${GREEN}Running swiftlint tests${NC} \n"
 swiftlint --config .swiftlint.yml

@@ -6,13 +6,14 @@ fi
 # 1
 # Set bash script to exit immediately if any commands fail.
 set -e
-
 cd ../
 
 # Setup some constants for use later on.
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
+
+echo -e "\n\n${GREEN}BUILD PREBID MOBILE${NC}\n\n"
 
 PRODUCT_NAME="PrebidMobile"
 
