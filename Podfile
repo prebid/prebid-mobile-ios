@@ -2,6 +2,7 @@
 platform :ios, '9.0'
 
 workspace 'PrebidMobile'
+
 project 'PrebidMobile.xcodeproj'
 project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
 project 'tools/PrebidValidator/Dr.Prebid.xcodeproj'
@@ -20,12 +21,19 @@ target 'PrebidMobile' do
 
 end
 
+target 'PrebidMobileCore' do
+  project 'PrebidMobile.xcodeproj'
+
+  use_frameworks!
+
+end
+
 target 'PrebidDemoSwift' do
   project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
   
   prebid_demo_pods
   
-  target 'PrebidDemoSwiftTests' do
+  target 'PrebidDemoTests' do
     inherit! :search_paths
   end
 end

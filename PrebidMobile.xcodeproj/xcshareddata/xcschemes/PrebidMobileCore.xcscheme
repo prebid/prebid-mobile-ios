@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FAAA00BC2322733E009DC7D6"
+               BlueprintIdentifier = "FA29A3D2232255DF00F13F61"
                BuildableName = "PrebidMobile.framework"
-               BlueprintName = "PrebidMobile"
+               BlueprintName = "PrebidMobileCore"
                ReferencedContainer = "container:PrebidMobile.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,15 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FAAA00BC2322733E009DC7D6"
-            BuildableName = "PrebidMobile.framework"
-            BlueprintName = "PrebidMobile"
-            ReferencedContainer = "container:PrebidMobile.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -54,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FAAA00BC2322733E009DC7D6"
+            BlueprintIdentifier = "FA29A3D2232255DF00F13F61"
             BuildableName = "PrebidMobile.framework"
-            BlueprintName = "PrebidMobile"
+            BlueprintName = "PrebidMobileCore"
             ReferencedContainer = "container:PrebidMobile.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -72,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FAAA00BC2322733E009DC7D6"
+            BlueprintIdentifier = "FA29A3D2232255DF00F13F61"
             BuildableName = "PrebidMobile.framework"
-            BlueprintName = "PrebidMobile"
+            BlueprintName = "PrebidMobileCore"
             ReferencedContainer = "container:PrebidMobile.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

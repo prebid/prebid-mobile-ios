@@ -23,14 +23,6 @@
                BlueprintName = "PrebidMobileTests"
                ReferencedContainer = "container:PrebidMobile.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "RequestBuilderTests/testPostDataWithShareLocationOff()">
-               </Test>
-               <Test
-                  Identifier = "RequestBuilderTests/testPostDataWithShareLocationOn()">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
       <AdditionalOptions>
