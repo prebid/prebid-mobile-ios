@@ -778,7 +778,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBID_MOBILE_NAME = "";
+				PREBID_MOBILE_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile;
+				PRODUCT_NAME = PrebidMobile;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -835,7 +837,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PREBID_MOBILE_NAME = "";
+				PREBID_MOBILE_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile;
+				PRODUCT_NAME = PrebidMobile;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -858,8 +862,8 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidMobileTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobileTests;
+				PRODUCT_NAME = PrebidMobileTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Tests/PrebidMobileTest-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -879,8 +883,8 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidMobileTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobileTests;
+				PRODUCT_NAME = PrebidMobileTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/Tests/PrebidMobileTest-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -912,10 +916,6 @@
 				);
 				MODULEMAP_FILE = "";
 				OTHER_SWIFT_FLAGS = "-Onone";
-				PREBID_MOBILE_NAME = PrebidMobileCore;
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidMobile;
-				PRODUCT_MODULE_NAME = PrebidMobile;
-				PRODUCT_NAME = PrebidMobile;
 				REEXPORTED_FRAMEWORK_NAMES = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -948,10 +948,6 @@
 					"@loader_path/Frameworks",
 				);
 				MODULEMAP_FILE = "";
-				PREBID_MOBILE_NAME = PrebidMobileCore;
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidMobile;
-				PRODUCT_MODULE_NAME = PrebidMobile;
-				PRODUCT_NAME = PrebidMobile;
 				REEXPORTED_FRAMEWORK_NAMES = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -981,9 +977,6 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PREBID_MOBILE_NAME = PrebidMobile;
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidMobile;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1012,9 +1005,6 @@
 					"@loader_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PREBID_MOBILE_NAME = PrebidMobile;
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidMobile;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
