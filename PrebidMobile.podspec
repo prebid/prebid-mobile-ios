@@ -42,6 +42,16 @@ Pod::Spec.new do |s|
 
   s.subspec 'core' do |core|
     core.source_files = 'Source/**/*.{h,m,swift}'
+
+    core.exclude_files = 'Source/video/'
+  end
+
+  s.subspec 'video-ima' do |video_ima|
+    video_ima.source_files = 'Source/Video/*.{h,m,swift}'
+    video_ima.source_files = 'Source/Video/IMA/**/*.{h,m,swift}'
+
+    video_ima.dependency 'PrebidMobile/core'
+    video_ima.dependency 'GoogleAds-IMA-iOS-SDK'
   end
 
 end

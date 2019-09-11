@@ -42,11 +42,11 @@ echo $PWD
 gem install cocoapods --user-install
 pod install --repo-update
 
-schemes=("PrebidMobile" "PrebidMobileCore")
-outputPaths=("" "core/")
-frameworkNames=("PrebidMobile" "PrebidMobile-core")
+schemes=("PrebidMobile" "PrebidMobileCore" "PrebidMobileVideoIMA")
+outputPaths=("" "core/" "video-ima/")
+frameworkNames=("PrebidMobile" "PrebidMobile-core" "PrebidMobile-video-ima")
 
-for(( n=0; n<=1; n++ ))
+for n in ${!schemes[@]}; do
 do
 
 	# Delete the most recent xcodebuild.

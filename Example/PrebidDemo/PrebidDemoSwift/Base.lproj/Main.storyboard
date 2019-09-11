@@ -51,6 +51,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2BF-DS-686">
                                 <rect key="frame" x="142.5" y="373.5" width="90" height="30"/>
                                 <state key="normal" title="Simple Video"/>
+                                <connections>
+                                    <segue destination="OMD-Y3-QWv" kind="show" id="zDl-lH-LZF"/>
+                                </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fwP-lp-368">
                                 <rect key="frame" x="100" y="89" width="175" height="29"/>
@@ -82,6 +85,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-9" y="81"/>
+        </scene>
+        <!--Video View Controller-->
+        <scene sceneID="dLi-Si-anV">
+            <objects>
+                <viewController id="OMD-Y3-QWv" customClass="VideoViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mqJ-sK-bRT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a2w-cg-zTw" customClass="VideoImaView" customModule="PrebidMobile">
+                                <rect key="frame" x="31" y="115" width="312" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.6483619338815334" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="613-IC-6uZ">
+                                <rect key="frame" x="152" y="306" width="70" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Play"/>
+                                <connections>
+                                    <action selector="onPlay:" destination="OMD-Y3-QWv" eventType="touchUpInside" id="1li-4v-pxd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="iV2-jk-Wzw"/>
+                    </view>
+                    <connections>
+                        <outlet property="customVideoView" destination="a2w-cg-zTw" id="iYP-wO-atw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E7a-DM-GHL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-490.39999999999998" y="773.16341829085468"/>
         </scene>
         <!--Interstitial View Controller-->
         <scene sceneID="uus-Cg-IZ7">
