@@ -1,11 +1,11 @@
 /*   Copyright 2018-2019 Prebid.org, Inc.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,27 +21,27 @@ import WebKit
 @testable import PrebidDemoSwift
 
 class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegate, MPAdViewDelegate, MPInterstitialAdControllerDelegate {
-    
+
     var viewController: IndexController?
     var loadSuccesfulException: XCTestExpectation?
     var timeoutForRequest: TimeInterval = 0.0
     var mopubInterstitial: MPInterstitialAdController?
     var dfpInterstitial: DFPInterstitial?
-    
+
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        
+
         setUpAppNexus()
-        // Prebid.shared.shareGeoLocation = true
+       // Prebid.shared.shareGeoLocation = true
         timeoutForRequest = 35.0
-        
+
         let storyboard = UIStoryboard(name: "Main",
                                       bundle: Bundle.main)
         viewController = storyboard.instantiateViewController(withIdentifier: "index") as? IndexController
         let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
         appDelegate.window?.rootViewController = viewController
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         loadSuccesfulException = nil
@@ -62,7 +62,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         Prebid.shared.timeoutMillis = 10_000;
     }
-    
+
     func testAppNexusDFPBannerSanityAppCheckTest() {
         
         //given
@@ -90,7 +90,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
-        
+
         
         //then
         XCTAssertNotNil(request.customTargeting)
@@ -121,7 +121,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         //when
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             if resultCode == ResultCode.prebidDemandFetchSuccess {
-                
+
                 dfpBanner.load(request)
             } else {
                 XCTFail("resultCode:\(resultCode.name())")
@@ -130,7 +130,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
-        
+
         //then
         XCTAssertNotNil(request.customTargeting)
         XCTAssertNotNil(request.customTargeting!["hb_pb"])
@@ -179,7 +179,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
                         
                         self.outer.makeScreenShot()
                     }
-                    
+
                     self.outer.onResult(isSuccess: true, prebidbBannerAdUnit: self.prebidbBannerAdUnit, loadSuccesfulExpectation: self.loadSuccesfulExpectation, first: &self.first, second: &self.second)
                 }
                 
@@ -191,7 +191,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
                 self.outer.onResult(isSuccess: false, prebidbBannerAdUnit: self.prebidbBannerAdUnit, loadSuccesfulExpectation: loadSuccesfulExpectation, first: &self.first, second: &self.second)
             }
         }
-        
+
         var firstTransactionCount = 0
         var secondTransactionCount = 0
         
@@ -232,7 +232,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
                 self.onResult(isSuccess: false, prebidbBannerAdUnit: prebidbBannerAdUnit, loadSuccesfulExpectation: loadSuccesfulExpectation, first: &firstTransactionCount, second: &secondTransactionCount)
             }
         }
-        
+
         wait(for: [loadSuccesfulExpectation], timeout: 100)
     }
     
@@ -241,7 +241,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             
             if first != -1 {
                 first = -1
-                
+
                 prebidbBannerAdUnit.adSizes = [CGSize(width: 728, height: 90)]
                 prebidbBannerAdUnit.refreshDemand()
                 
@@ -291,7 +291,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         add(fullScreenshotAttachment)
     }
-    
+
     func testDFPBannerWithoutAutoRefresh() {
         var fetchDemandCount = 0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
@@ -308,7 +308,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         wait(31)
         XCTAssertEqual(1, fetchDemandCount)
     }
-    
+
     func testDFPBannerWithInvalidAutoRefresh() {
         var fetchDemandCount = 0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
@@ -326,7 +326,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         wait(31)
         XCTAssertEqual(1, fetchDemandCount)
     }
-    
+
     func testDFPBannerWithValidAutoRefresh() {
         var fetchDemandCount = 0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
@@ -344,7 +344,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         wait(31)
         XCTAssertEqual(2, fetchDemandCount)
     }
-    
+
     func testDFPInterstitialSanityAppCheckTest() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -360,7 +360,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         interstitialUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             if resultCode == ResultCode.prebidDemandFetchSuccess {
                 self.dfpInterstitial?.load(request)
-                
+
             } else {
                 XCTFail("resultCode:\(resultCode.name())")
                 self.loadSuccesfulException?.fulfill()
@@ -376,7 +376,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTAssertNil(prebidCreativeError)
         XCTAssertNotNil(prebidCreativeSize)
     }
-    
+
     func testDFPInterstitialWithoutAutoRefresh() {
         var fetchDemandCount = 0
         let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
@@ -389,7 +389,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         wait(31)
         XCTAssertEqual(1, fetchDemandCount)
     }
-    
+
     func testDFPInterstitialWithInvalidAutoRefresh() {
         var fetchDemandCount = 0
         let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
@@ -403,7 +403,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         wait(31)
         XCTAssertEqual(1, fetchDemandCount)
     }
-    
+
     func testDFPInterstitialWithValidAutoRefresh() {
         var fetchDemandCount = 0
         let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
@@ -417,7 +417,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         wait(31)
         XCTAssertEqual(2, fetchDemandCount)
     }
-    
+
     func testAppNexusMoPubBannerSanityAppCheckTest() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -480,7 +480,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTAssertNil(prebidCreativeError)
         XCTAssertNotNil(prebidCreativeSize)
     }
-    
+
     func testMopubBannerWithoutAutoRefresh() {
         var fetchDemandCount = 0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
@@ -494,7 +494,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         wait(31)
         XCTAssertEqual(1, fetchDemandCount)
     }
-    
+
     func testMopubBannerWithInvalidAutoRefresh() {
         var fetchDemandCount = 0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
@@ -509,7 +509,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         wait(31)
         XCTAssertEqual(1, fetchDemandCount)
     }
-    
+
     func testMopubBannerWithValidAutoRefresh() {
         var fetchDemandCount = 0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
@@ -524,7 +524,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         wait(31)
         XCTAssertEqual(2, fetchDemandCount)
     }
-    
+
     func testMoPubInterstitialSanityAppCheckTest() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -537,7 +537,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         mopubInterstitial?.delegate = self
         interstitialUnit.fetchDemand(adObject: mopubInterstitial!) { (resultCode: ResultCode) in
             if resultCode == ResultCode.prebidDemandFetchSuccess {
-                
+
                 self.mopubInterstitial?.loadAd()
             } else {
                 XCTFail("resultCode:\(resultCode.name())")
@@ -554,7 +554,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTAssertNil(prebidCreativeError)
         XCTAssertNotNil(prebidCreativeSize)
     }
-    
+
     func testMopubInterstitialWithoutAutoRefresh() {
         var fetchDemandCount = 0
         let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
@@ -563,12 +563,12 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
         mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         interstitialUnit.fetchDemand(adObject: mopubInterstitial!) { (_) in
-            fetchDemandCount += 1
+             fetchDemandCount += 1
         }
         wait(31)
         XCTAssertEqual(1, fetchDemandCount)
     }
-    
+
     func testMopubInterstitialWithInvalidAutoRefresh() {
         var fetchDemandCount = 0
         let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
@@ -583,7 +583,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         wait(31)
         XCTAssertEqual(1, fetchDemandCount)
     }
-    
+
     func testMopubInterstitialWithValidAutoRefresh() {
         var fetchDemandCount = 0
         let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
@@ -598,7 +598,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         wait(31)
         XCTAssertEqual(2, fetchDemandCount)
     }
-    
+
     func testAutoRefreshWith2MinThenDisable() {
         var fetchDemandCount = 0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
@@ -642,7 +642,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         wait(35)
         XCTAssertEqual(0, fetchDemandCount)
     }
-    
+
     func testAppNexusInvalidPrebidServerAccountId() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -659,7 +659,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
-        
+
     }
     
     func testRubiconInvalidPrebidServerAccountId() {
@@ -683,7 +683,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
         
     }
-    
+
     func testEmptyPrebidServerAccountId() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -700,9 +700,9 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
-        
+
     }
-    
+
     func testAppNexusInvalidConfigId() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -718,7 +718,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
-        
+
     }
     
     func testRubiconInvalidConfigId() {
@@ -741,7 +741,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
         
     }
-    
+
     func testRubiconCOPPA() throws {
         
         swizzleJsonSerializationData()
@@ -769,7 +769,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         let bannerUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
         manager.requestBidsForAdUnit { (bidResponse, _) in
-            
+
             sleep(2)
             self.loadSuccesfulException?.fulfill()
         }
@@ -783,7 +783,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             let rubicon = httpcalls["rubicon"] as? [Any],
             let first = rubicon[0] as? [String: Any],
             let requestbody = first["requestbody"] as? String else {
-                
+
                 XCTFail("parsing error")
                 return
         }
@@ -794,7 +794,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTAssertFalse(requestbody.contains("\"lat\""))
         XCTAssertFalse(requestbody.contains("\"lon\""))
     }
-    
+
     func testEmptyConfigId() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -810,9 +810,9 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
-        
+
     }
-    
+
     func testYOBWith2018() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -820,9 +820,9 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTAssertNoThrow(try targeting.setYearOfBirth(yob: 2018))
         let value = Targeting.shared.yearOfBirth
         XCTAssertTrue((value == 2018))
-        
+
         let adUnit = BannerAdUnit(configId: "47706260-ee91-4cd7-b656-2185aca89f59", size: CGSize(width: 300, height: 250))
-        
+
         let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
@@ -834,7 +834,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
     }
-    
+
     func testYOBWith1989() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -842,9 +842,9 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTAssertNoThrow(try targeting.setYearOfBirth(yob: 1989))
         let value = Targeting.shared.yearOfBirth
         XCTAssertTrue((value == 1989))
-        
+
         let adUnit = BannerAdUnit(configId: "47706260-ee91-4cd7-b656-2185aca89f59", size: CGSize(width: 300, height: 250))
-        
+
         let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
@@ -856,18 +856,18 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
     }
-    
+
     func testAppNexusKeyValueTargeting() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
         Prebid.shared.prebidServerHost = PrebidHost.Appnexus
         Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
-        
+
         timeoutForRequest = 20.0
         let adUnit = BannerAdUnit(configId: "67bac530-9832-4f78-8c94-fbf88ac7bd14", size: CGSize(width: 300, height: 250))
         adUnit.removeUserKeyword(forKey: "pbm_key")
         adUnit.addUserKeyword(key: "pbm_key", value: "pbm_value1")
-        
+
         let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
@@ -878,20 +878,20 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
-        
+
     }
-    
+
     func testAppNexusKeyValueTargeting2() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
         Prebid.shared.prebidServerHost = PrebidHost.Appnexus
         Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
-        
+
         timeoutForRequest = 20.0
         let adUnit = BannerAdUnit(configId: "67bac530-9832-4f78-8c94-fbf88ac7bd14", size: CGSize(width: 300, height: 250))
         adUnit.removeUserKeyword(forKey: "pbm_key")
         adUnit.addUserKeyword(key: "pbm_key", value: "pbm_value2")
-        
+
         let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
@@ -902,9 +902,9 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
-        
+
     }
-    
+
     func testDFPCustomKeywords() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -935,12 +935,12 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
                 self.loadSuccesfulException?.fulfill()
             }
             request.customTargeting = ["key1": "", "key2": "value1", "key3": "value3"] as [String: AnyObject]
-            
+
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
     }
-    
+
     func testMoPubCustomKeywords() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -973,7 +973,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
     }
-    
+
     func testBannerWith5ValidAnd1InvalidSizes() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -995,7 +995,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
     }
-    
+
     func testBannerWithInvalidSize() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -1017,7 +1017,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
     }
-    
+
     func testMultipleAdUnitsAllDemandFetched() {
         var fetchDemandCount = 0
         let bannerUnit1 = BannerAdUnit(configId: "7cd2c7c8-cebe-4206-b5a4-97b9e840729e", size: CGSize(width: 320, height: 50))
@@ -1031,7 +1031,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             XCTAssert(resultCode == ResultCode.prebidDemandFetchSuccess || resultCode == ResultCode.prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
-        
+
         let bannerUnit2 = BannerAdUnit(configId: "525a5fee-ffbb-4f16-935d-3717c56e7aeb", size: CGSize(width: 320, height: 50))
         let sdkConfig2 = MPMoPubConfiguration(adUnitIdForAppInitialization: "50564379db734ebbb347849221a1081e")
         sdkConfig2.globalMediationSettings = []
@@ -1043,7 +1043,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             XCTAssert(resultCode == ResultCode.prebidDemandFetchSuccess || resultCode == ResultCode.prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
-        
+
         let bannerUnit3 = BannerAdUnit(configId: "511c39f2-b527-41af-811a-adac6911bdfc", size: CGSize(width: 300, height: 250))
         let sdkConfig3 = MPMoPubConfiguration(adUnitIdForAppInitialization: "5ff9556b05964e65b684ec54013df59d")
         sdkConfig3.globalMediationSettings = []
@@ -1055,7 +1055,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             XCTAssert(resultCode == ResultCode.prebidDemandFetchSuccess || resultCode == ResultCode.prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
-        
+
         let bannerUnit4 = BannerAdUnit(configId: "42ad4418-9b36-4e39-ae54-2f7a13ad8616", size: CGSize(width: 300, height: 250))
         let sdkConfig4 = MPMoPubConfiguration(adUnitIdForAppInitialization: "c5c9267bcf6247cb91a116d1ef6c7487")
         sdkConfig4.globalMediationSettings = []
@@ -1067,7 +1067,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             XCTAssert(resultCode == ResultCode.prebidDemandFetchSuccess || resultCode == ResultCode.prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
-        
+
         let bannerUnit5 = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let sdkConfig5 = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
         sdkConfig5.globalMediationSettings = []
@@ -1079,7 +1079,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             XCTAssert(resultCode == ResultCode.prebidDemandFetchSuccess || resultCode == ResultCode.prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
-        
+
         let interstitialUnit6 = InterstitialAdUnit(configId: "625c6125-f19e-4d5b-95c5-55501526b2a4")
         let sdkConfig6 = MPMoPubConfiguration(adUnitIdForAppInitialization: "2829868d308643edbec0795977f17437")
         sdkConfig6.globalMediationSettings = []
@@ -1090,7 +1090,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             XCTAssert(resultCode == ResultCode.prebidDemandFetchSuccess || resultCode == ResultCode.prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
-        
+
         let interstitialUnit7 = InterstitialAdUnit(configId: "bde00f49-0a1b-483a-9716-e2dd427b794c")
         let sdkConfig7 = MPMoPubConfiguration(adUnitIdForAppInitialization: "c3fca03154a540bfa7f0971fb984e3e8")
         sdkConfig7.globalMediationSettings = []
@@ -1100,7 +1100,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             XCTAssert(resultCode == ResultCode.prebidDemandFetchSuccess || resultCode == ResultCode.prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
-        
+
         let interstitialUnit8 = InterstitialAdUnit(configId: "6ceca3d4-f5b8-4717-b4d9-178843f873f8")
         let sdkConfig8 = MPMoPubConfiguration(adUnitIdForAppInitialization: "12ecf78eb8314f8bb36192a6286adc56")
         sdkConfig8.globalMediationSettings = []
@@ -1110,7 +1110,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             XCTAssert(resultCode == ResultCode.prebidDemandFetchSuccess || resultCode == ResultCode.prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
-        
+
         let interstitialUnit9 = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
         let sdkConfig9 = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         sdkConfig9.globalMediationSettings = []
@@ -1120,7 +1120,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             XCTAssert(resultCode == ResultCode.prebidDemandFetchSuccess || resultCode == ResultCode.prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
-        
+
         let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
         let dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         let request: DFPRequest = DFPRequest()
@@ -1130,11 +1130,11 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             XCTAssert(resultCode == ResultCode.prebidDemandFetchSuccess || resultCode == ResultCode.prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
-        
+
         wait(10)
         XCTAssertEqual(10, fetchDemandCount)
     }
-    
+
     func testSameConfigIdOnDifferentAdObjects() {
         var fetchDemandCount = 0
         let bannerUnit1 = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
@@ -1159,7 +1159,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
                 }
             }
         }
-        
+
         let bannerUnit2 = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         let sdkConfig2 = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
         sdkConfig2.globalMediationSettings = []
@@ -1182,7 +1182,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
                 }
             }
         }
-        
+
         wait(5)
         XCTAssertEqual(2, fetchDemandCount)
     }
@@ -1195,16 +1195,16 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         didLoadAdByAdServerHelper(view: bannerView)
         
     }
-    
+
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
         loadSuccesfulException = nil
     }
-    
+
     func interstitialWillPresentScreen(_ ad: GADInterstitial) {
         print("Ad presented")
     }
-    
+
     func interstitialDidDismissScreen(_ ad: GADInterstitial) {
         // Send another GADRequest here
         print("Ad dismissed")
@@ -1221,7 +1221,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTWaiter.wait(for: [XCTestExpectation(description: "Hello World!")], timeout: 2.0)
         didLoadAdByAdServerHelper(view: self.viewController!.presentedViewController!.view)
     }
-    
+
     // MARK: - Mopub delegate
     func viewControllerForPresentingModalView() -> UIViewController! {
         return viewController
@@ -1232,30 +1232,30 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         didLoadAdByAdServerHelper(view: view)
     }
-    
+
     func adViewDidFail(toLoadAd view: MPAdView!) {
         print("adViewDidFail")
         loadSuccesfulException = nil
     }
-    
+
     func interstitialDidLoadAd(_ interstitial: MPInterstitialAdController!) {
         print("Ad ready")
         if (self.mopubInterstitial?.ready ?? true) {
             self.mopubInterstitial?.show(from: viewController)
         }
     }
-    
+
     func interstitialDidFail(toLoadAd interstitial: MPInterstitialAdController!) {
         print("Ad not ready")
         loadSuccesfulException = nil
     }
-    
+
     func interstitialDidAppear(_ interstitial: MPInterstitialAdController!) {
         print("ad appeared")
-        
+
         didLoadAdByAdServerHelper(view: self.viewController!.presentedViewController!.view)
     }
-    
+
     func interstitialWillAppear(_ interstitial: MPInterstitialAdController!) {
         print("ad appeared")
     }
@@ -1280,7 +1280,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
     }
     
     private func swizzleUIWebViewIsLoading() {
-        
+
         let originalMethod = class_getInstanceMethod(UIWebView.self, #selector(getter: UIWebView.isLoading))
         let swizzledMethod = class_getInstanceMethod(PrebidDemoTests.self, #selector(PrebidDemoTests.swizzledIsLoading))
         
@@ -1325,7 +1325,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         return result
     }
-    
+
 }
 
 extension XCTestCase {
