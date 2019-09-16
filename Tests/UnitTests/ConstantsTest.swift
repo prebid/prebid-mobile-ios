@@ -176,13 +176,24 @@ class ConstantsTest: XCTestCase {
             commaSeparatedList)
     }
     
-    func testDictionatyExtensiontoString() {
+    func testDictionatyExtensiontoStringBasic() {
+        let dictionary = ["key1": "value10", "key2": "value20"]
+        
+        let resultList = (dictionary as [AnyHashable : Any]).toString(entrySeparator: "|", keyValueSeparator: "~")
+        
+        XCTAssert(
+            resultList == "key1~value10|key2~value20"
+                || resultList == "key2~value20|key1~value10",
+            resultList)
+    }
+    
+    func testDictionatyExtensiontoStringSet() {
         var dictionary = [String: Set<String>]()
         dictionary.addValue("value10", forKey: "key1")
         dictionary.addValue("value20", forKey: "key2")
         dictionary.addValue("value21", forKey: "key2")
         
-        let resultList = dictionary.toString(entrySeparator: "|", keyValueSeparator: "~")
+        let resultList = (dictionary as [AnyHashable : Any]).toString(entrySeparator: "|", keyValueSeparator: "~")
         
         XCTAssert(
             resultList == "key1~value10|key2~value20|key2~value21"

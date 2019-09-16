@@ -74,28 +74,7 @@ extension Dictionary where Value == Set<String> {
     }
     
     func toCommaSeparatedListString() -> String {
-        return toString(entrySeparator: ",", keyValueSeparator: "=")
-    }
-    
-    func toString(entrySeparator: String, keyValueSeparator: String) -> String {
-        
-        var resultString = ""
-        
-        for (key, dictValues) in self {
-            
-            for value in dictValues {
-                
-                let keyValue = "\(key)\(keyValueSeparator)\(value)"
-                
-                if (resultString != "") {
-                    resultString = "\(resultString)\(entrySeparator)\(keyValue)"
-                } else {
-                    resultString = keyValue
-                }
-            }
-        }
-        
-        return resultString
+        return (self as [AnyHashable: Any]).toString(entrySeparator: ",", keyValueSeparator: "=")
     }
 }
 
@@ -107,6 +86,34 @@ extension Dictionary where Key == AnyHashable, Value == Any {
         removeEntryWithoutValue(&result)
         
         return result.count > 0 ? result : nil
+    }
+    
+    private func concatenate(resultString:inout String, key: Any, value: Any, entrySeparator: String, keyValueSeparator: String) {
+        
+        let keyValue = "\(key)\(keyValueSeparator)\(value)"
+        
+        if (resultString != "") {
+            resultString = "\(resultString)\(entrySeparator)\(keyValue)"
+        } else {
+            resultString = keyValue
+        }
+    }
+    
+    func toString(entrySeparator: String, keyValueSeparator: String) -> String {
+        var resultString = ""
+
+        for (key, dictValue) in self {
+            
+            if let set = dictValue as? Set<AnyHashable> {
+                for value in set {
+                    concatenate(resultString: &resultString, key: key, value: value, entrySeparator: entrySeparator, keyValueSeparator: keyValueSeparator)
+                }
+            } else {
+                concatenate(resultString: &resultString, key: key, value: dictValue, entrySeparator: entrySeparator, keyValueSeparator: keyValueSeparator)
+            }
+        }
+
+        return resultString
     }
     
 }

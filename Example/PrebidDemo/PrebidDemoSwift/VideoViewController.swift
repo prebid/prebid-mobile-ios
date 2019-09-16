@@ -16,24 +16,113 @@
 import UIKit
 import Foundation
 import PrebidMobile
+import GoogleMobileAds
 
-class VideoViewController: UIViewController {
+class VideoViewController: UIViewController, VideoImaDelegate {
 
-    @IBOutlet var customVideoView: VideoImaView!
+    @IBOutlet var videoImaView: VideoImaView!
     
-    @IBAction func onPlay(_ sender: Any) {
+    @IBOutlet var playerConsole: UITextView!
 
-        customVideoView.requestAds()
-    }
+    @IBOutlet var playerSizeSlider: UISlider!
+    
+    var videoAdUnit: VideoAdUnit!
+    
+    //resize feture
+    var originalFrame: CGRect!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        originalFrame = videoImaView.frame
+        
+        setupPrebid()
 
-//        Programmatic creation
-//        let videoView = VideoImaView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
-//        videoView.backgroundColor = UIColor.gray
-//        view.addSubview(videoView)
-//        videoView.requestAds()
+        videoImaView.delegate = self
+    }
+    
+    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
+        let currentVideoFrame = videoImaView.frame
+        
+        let playerScale = playerSizeSlider.value
+        
+        let width = CGFloat(currentVideoFrame.width / CGFloat(playerScale))
+        let height = CGFloat(currentVideoFrame.height / CGFloat(playerScale))
+        
+        let x = currentVideoFrame.origin.x - ((width - currentVideoFrame.width) / 2)
+        let y = currentVideoFrame.origin.y - ((height - currentVideoFrame.height) / 2)
+        
+        originalFrame = CGRect(x: x, y: y, width: width, height: height)
+
+    }
+
+    private func setupPrebid() {
+        Prebid.shared.storedAuctionResponse = "1001_video_response"
+        Prebid.shared.prebidServerHost = PrebidHost.Custom
+        try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.qa.rubiconproject.com/openrtb2/auction")
+        Prebid.shared.prebidServerAccountId = "1001_top_level_video"
+    }
+    
+    //MARK: - IB Actions
+    @IBAction func onPlay(_ sender: Any) {
+        
+        playerConsole.text = ""
+        
+        videoAdUnit = VideoAdUnit(configId: "1001_test_video", size: CGSize(width: 300, height: 250))
+        
+        let request = DFPRequest()
+        
+        logMessage("Auction request")
+        videoAdUnit.fetchDemand(adObject: request) { [weak self] (resultCode: ResultCode) in
+            print("Prebid demand fetch for DFP \(resultCode.name())")
+            
+            if (resultCode == .prebidDemandFetchSuccess) {
+                let keywords = request.value(forKey: "customTargeting") as! Dictionary<String, String>
+                self?.logMessage("keywords:\(keywords)")
+                
+                self?.logMessage("AdManager request")
+                self?.videoImaView.requestAds(adUnitId: "/5300653/test_adunit_vast_pavliuchyk", targeting: keywords)
+            }
+        }
+        
+    }
+    
+    @IBAction func onPlayerSize(_ sender: UISlider) {
+
+        let playerScale = sender.value
+        let width = CGFloat(originalFrame.width * CGFloat(playerScale))
+        let height = CGFloat(originalFrame.height * CGFloat(playerScale))
+        
+        let x = originalFrame.origin.x + (originalFrame.width - width) / 2
+        let y = originalFrame.origin.y + (originalFrame.height - height) / 2
+        
+        videoImaView.frame = CGRect(x: x, y: y, width: width, height: height)
+        
+    }
+    
+    // MARK: - Disappear
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        videoImaView.reset()
+        
+        super.viewWillDisappear(animated)
+    }
+    
+    // MARK: - VideoImaDelegate
+    func videoIma(event: VideoImaAdEvent) {
+        logMessage("eventString:\(event.typeString)")
+    }
+    
+    // MARK: Utility methods
+    func logMessage(_ log: String) {
+        playerConsole.text = playerConsole.text + ("\n\(log)\n")
+        NSLog(log)
+        
+        //scroll
+        if (playerConsole.text.count > 0) {
+            let bottom = NSMakeRange(playerConsole.text.count - 1, 1)
+            playerConsole.scrollRangeToVisible(bottom)
+        }
     }
 }
 
