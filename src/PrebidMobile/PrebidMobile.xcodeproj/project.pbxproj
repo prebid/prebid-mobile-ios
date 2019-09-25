@@ -61,6 +61,7 @@
 		F543D52F220E101B00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D52E220E101A00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json */; };
 		F543D532220E193200F1EF8F /* noBidResponseTmaxTooLarge.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D530220E193200F1EF8F /* noBidResponseTmaxTooLarge.json */; };
 		F543D533220E193200F1EF8F /* noBidResponseNoTmax.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D531220E193200F1EF8F /* noBidResponseNoTmax.json */; };
+		F5E1E37B23355AEF0007C736 /* NativeAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E1E37A23355AEF0007C736 /* NativeAdUnit.swift */; };
 		FA5AD5E42271FA4100C8F274 /* ConstantsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */; };
 		FA5C30BB22E5E86900DA23C4 /* AdViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5C30BA22E5E86900DA23C4 /* AdViewUtils.swift */; };
 		FA5C30BD22E5ECF700DA23C4 /* PbFindSizeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5C30BC22E5ECF700DA23C4 /* PbFindSizeError.swift */; };
@@ -149,6 +150,7 @@
 		F543D52E220E101A00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseValidTwoBidsOnTheSameSeat.json; sourceTree = "<group>"; };
 		F543D530220E193200F1EF8F /* noBidResponseTmaxTooLarge.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponseTmaxTooLarge.json; sourceTree = "<group>"; };
 		F543D531220E193200F1EF8F /* noBidResponseNoTmax.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponseNoTmax.json; sourceTree = "<group>"; };
+		F5E1E37A23355AEF0007C736 /* NativeAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdUnit.swift; sourceTree = "<group>"; };
 		FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTest.swift; sourceTree = "<group>"; };
 		FA5C30BA22E5E86900DA23C4 /* AdViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewUtils.swift; sourceTree = "<group>"; };
 		FA5C30BC22E5ECF700DA23C4 /* PbFindSizeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PbFindSizeError.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				6062B1AB21878CFB00CE1BA3 /* AdUnit.swift */,
 				6062B1AD2188783B00CE1BA3 /* InterstitialAdUnit.swift */,
 				60EE7B0521F26329000B12A8 /* Utils.swift */,
+				F5E1E37A23355AEF0007C736 /* NativeAdUnit.swift */,
 			);
 			path = AdUnits;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				FA5C30BD22E5ECF700DA23C4 /* PbFindSizeError.swift in Sources */,
 				6062B1AC21878CFB00CE1BA3 /* AdUnit.swift in Sources */,
 				60D79312217E2CF20080F428 /* BannerAdUnit.swift in Sources */,
+				F5E1E37B23355AEF0007C736 /* NativeAdUnit.swift in Sources */,
 				60EE7B0621F26329000B12A8 /* Utils.swift in Sources */,
 				60D79316217E39D90080F428 /* Targeting.swift in Sources */,
 				6062B1B021889EC600CE1BA3 /* Global.swift in Sources */,

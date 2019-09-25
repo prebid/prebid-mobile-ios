@@ -35,6 +35,11 @@ class IndexController: UIViewController {
             let vc = segue.destination as? InterstitialViewController
             vc?.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
         }
+        
+        if segue.destination is NativeController {
+            let vc = segue.destination as? NativeController
+            vc?.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
+        }
     }
 
 }

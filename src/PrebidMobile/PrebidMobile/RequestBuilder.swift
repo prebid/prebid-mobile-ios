@@ -119,21 +119,25 @@ import AdSupport
 
         imp["secure"] = 1
 
-        var sizeArray = [[String: CGFloat]]()
-        for size: CGSize in (adUnit?.adSizes)! {
-            let sizeDict = [
-                "w": size.width,
-                "h": size.height
-            ]
-            sizeArray.append(sizeDict)
+        if(adUnit is NativeAdUnit){
+            imp["native"] = ["request":"{\"context\":2,\"contextsubtype\":20,\"plcmttype\":1,\"eventtrackers\":[{\"event\":1,\"methods\":[1]}],\"assets\":[{\"title\":{\"len\":90},\"required\":1},{\"img\":{\"type\":3,\"wmin\":200,\"hmin\":200},\"required\":1},{\"img\":{\"type\":3,\"wmin\":200,\"hmin\":200},\"required\":1},{\"data\":{\"type\":1,\"len\":90},\"required\":1}],\"ver\":\"1.2\"}",
+                             "ver":"1.2"]
+        } else {
+            var sizeArray = [[String: CGFloat]]()
+            for size: CGSize in (adUnit?.adSizes)! {
+                let sizeDict = [
+                    "w": size.width,
+                    "h": size.height
+                ]
+                sizeArray.append(sizeDict)
+            }
+            let formats = ["format": sizeArray]
+            imp["banner"] = formats
+            
+            if (adUnit is InterstitialAdUnit) {
+                imp["instl"] = 1
+            }
         }
-        let formats = ["format": sizeArray]
-        imp["banner"] = formats
-
-        if (adUnit is InterstitialAdUnit) {
-            imp["instl"] = 1
-        }
-
         //to be used when openRTB supports storedRequests
         var prebidAdUnitExt: [AnyHashable: Any] = [:]
         if let anId = adUnit?.prebidConfigId {

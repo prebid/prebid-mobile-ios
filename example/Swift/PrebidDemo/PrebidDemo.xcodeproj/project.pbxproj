@@ -20,6 +20,7 @@
 		97AACE45220C67FC0070EC46 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AACE44220C67FC0070EC46 /* Constants.swift */; };
 		97AACE4A220C70210070EC46 /* BannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D7932C2180E2730080F428 /* BannerController.swift */; };
 		B8247B83B2A4DAD259E550EB /* Pods_PrebidDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D00DA8F1BC6437DE7C642F4 /* Pods_PrebidDemo.framework */; };
+		F5E1E37D233A6CD10007C736 /* NativeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E1E37C233A6CD10007C736 /* NativeController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		82EEADA1C36E1EAB53062714 /* Pods_PrebidDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97AACE44220C67FC0070EC46 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B2E125C6A6F36CD376458748 /* Pods-PrebidDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PrebidDemoTests/Pods-PrebidDemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		F5E1E37C233A6CD10007C736 /* NativeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 				60D793362180E2750080F428 /* Info.plist */,
 				607B047C21963820000C0879 /* IndexController.swift */,
 				60EE7B0821F770A4000B12A8 /* InterstitialViewController.swift */,
+				F5E1E37C233A6CD10007C736 /* NativeController.swift */,
 			);
 			path = PrebidDemo;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				607B047D21963820000C0879 /* IndexController.swift in Sources */,
 				60D7932B2180E2730080F428 /* AppDelegate.swift in Sources */,
 				97AACE4A220C70210070EC46 /* BannerController.swift in Sources */,
+				F5E1E37D233A6CD10007C736 /* NativeController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
