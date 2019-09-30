@@ -36,9 +36,6 @@ public class VideoImaInterstitial: NSObject, VideoImaDelegate, PBVideoAdDelegate
         
         videoImaView.pbVideoAdDelegate = self
         videoImaView.add(videoImaDelegate: self)
-        
-        let muteSwitcher = videoImaView.muteSwitcher!
-        muteSwitcher.frame = CGRect(x: CGFloat(muteSwitcher.frame.origin.x), y: CGFloat(UIApplication.shared.statusBarFrame.size.height), width: muteSwitcher.frame.width, height: muteSwitcher.frame.height)
     }
     
     public func loadAd(videoInterstitialAdUnit: VideoInterstitialAdUnit, adUnitId: String) {
@@ -96,13 +93,38 @@ private class InterstitialController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         let videoViewBounds = self.view.bounds
         portraitVideoViewFrame = self.view.frame
         portraitVideoFrame = CGRect(x: 0, y: 0, width: videoViewBounds.size.width, height: videoViewBounds.size.height)
         
+        videoImaView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(videoImaView)
+
+        
+
         
         videoImaView.setAutoPlayAndShowAd()
+        
+        updateMuteSwitcherPosition()
+    }
+    
+    private func updateMuteSwitcherPosition() {
+        let muteSwitcher = videoImaView.muteSwitcher!
+        var x = CGFloat()
+        var y = CGFloat()
+        if (UIApplication.shared.statusBarOrientation.isPortrait) {
+            //DO Portrait
+            x = CGFloat(0)
+            y = CGFloat(UIApplication.shared.statusBarFrame.size.height)
+        } else {
+            //DO Landscape
+            x = CGFloat(self.view.layoutMargins.left)
+            y = CGFloat(0)
+        }
+        
+        muteSwitcher.frame = CGRect(x: x, y: y, width: muteSwitcher.frame.width, height: muteSwitcher.frame.height)
     }
 
     fileprivate func dismiss() {
@@ -115,10 +137,12 @@ private class InterstitialController: UIViewController {
         case UIInterfaceOrientation.landscapeLeft: fallthrough
         case UIInterfaceOrientation.landscapeRight:
             viewDidEnterPortrait()
+            updateMuteSwitcherPosition()
             break
         case UIInterfaceOrientation.portrait: fallthrough
         case UIInterfaceOrientation.portraitUpsideDown:
             viewDidEnterLandscape()
+            updateMuteSwitcherPosition()
             break
         case UIInterfaceOrientation.unknown:
             break
