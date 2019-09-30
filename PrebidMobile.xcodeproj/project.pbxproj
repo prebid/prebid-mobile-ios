@@ -84,6 +84,7 @@
 		FA76A51A23424B2F0083ADF4 /* VideoAdUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76A51823424B2F0083ADF4 /* VideoAdUnitTests.swift */; };
 		FA76A51B23424B2F0083ADF4 /* VideoInterstitialAdUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76A51923424B2F0083ADF4 /* VideoInterstitialAdUnitTests.swift */; };
 		FA76A51D2342576A0083ADF4 /* CollectionExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA76A51C2342576A0083ADF4 /* CollectionExtensionTest.swift */; };
+		FA76A52023425CCA0083ADF4 /* VideoInterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7810BB2333EA0F00079E70 /* VideoInterstitialAdUnit.swift */; };
 		FA7810B92333C3C400079E70 /* VideoImaInterstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7810B82333C3C400079E70 /* VideoImaInterstitial.swift */; };
 		FA7810BA2333C3C400079E70 /* VideoImaInterstitial.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7810B82333C3C400079E70 /* VideoImaInterstitial.swift */; };
 		FA7810BC2333EA0F00079E70 /* VideoInterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7810BB2333EA0F00079E70 /* VideoInterstitialAdUnit.swift */; };
@@ -890,6 +891,7 @@
 				FA29A3DE232255DF00F13F61 /* PbFindSizeError.swift in Sources */,
 				FA29A3DF232255DF00F13F61 /* AdUnit.swift in Sources */,
 				FA29A3E0232255DF00F13F61 /* BannerAdUnit.swift in Sources */,
+				FA76A52023425CCA0083ADF4 /* VideoInterstitialAdUnit.swift in Sources */,
 				FA29A3E1232255DF00F13F61 /* Utils.swift in Sources */,
 				FA29A3E2232255DF00F13F61 /* Targeting.swift in Sources */,
 				FA495E792326F50500894166 /* Prebid.swift in Sources */,
