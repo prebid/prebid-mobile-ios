@@ -713,7 +713,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
             interstitial = prebidInterstitial
 
-
         }
 
         if let impArr = jsonRequestBody["imp"] as? [Any],
@@ -822,6 +821,94 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertNil(app["storeurl"])
         XCTAssertNil(app["domain"])
 
+    }
+    
+    func testVideoOutStream() throws {
+        //given
+        Prebid.shared.prebidServerAccountId = "12345"
+        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+        
+        guard let impArray = jsonRequestBody["imp"] as? [Any],
+            let impDic = impArray[0] as? [String: Any],
+            let video = impDic["video"] as? [String: Any],
+            let w = video["w"] as? Int,
+            let h = video["h"] as? Int,
+            let startdelay = video["startdelay"] as? Int,
+            let protocols = video["protocols"] as? [Int],
+            let protocols1 = protocols[0] as? Int,
+            let playbackMethods = video["playbackmethod"] as? [Int],
+            let playbackMethods1 = playbackMethods[0] as? Int,
+            let mimes = video["mimes"] as? [String],
+            let mimes1 = mimes[0] as? String,
+        
+            let ext = jsonRequestBody["ext"] as? [String: Any],
+            let extPrebid = ext["prebid"] as? [String: Any],
+            let cache = extPrebid["cache"] as? [String: Any],
+            let vastXml = cache["vastxml"] as? [String: Any]
+            else {
+                XCTFail("parsing fail")
+                return
+            }
+        
+        //then
+        XCTAssertEqual(300, w)
+        XCTAssertEqual(250, h)
+        XCTAssertEqual(0, startdelay)
+        XCTAssertEqual(7, protocols1)
+        XCTAssertEqual(2, playbackMethods1)
+        XCTAssertEqual("video/mp4", mimes1)
+        
+        XCTAssertNotNil(vastXml)
+        
+    }
+    
+    func testVideoInterstitial() throws {
+        //given
+        Prebid.shared.prebidServerAccountId = "12345"
+        let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+        
+        guard let impArray = jsonRequestBody["imp"] as? [Any],
+            let impDic = impArray[0] as? [String: Any],
+            let video = impDic["video"] as? [String: Any],
+            let w = video["w"] as? Int,
+            let h = video["h"] as? Int,
+            let startdelay = video["startdelay"] as? Int,
+            let protocols = video["protocols"] as? [Int],
+            let protocols1 = protocols[0] as? Int,
+            let playbackMethods = video["playbackmethod"] as? [Int],
+            let playbackMethods1 = playbackMethods[0] as? Int,
+            let mimes = video["mimes"] as? [String],
+            let mimes1 = mimes[0] as? String,
+            
+            let ext = jsonRequestBody["ext"] as? [String: Any],
+            let extPrebid = ext["prebid"] as? [String: Any],
+            let cache = extPrebid["cache"] as? [String: Any],
+            let vastXml = cache["vastxml"] as? [String: Any],
+        
+            let instl = impDic["instl"] as? Int
+            else {
+                XCTFail("parsing fail")
+                return
+        }
+        
+        //then
+        XCTAssertEqual(300, w)
+        XCTAssertEqual(250, h)
+        XCTAssertEqual(0, startdelay)
+        XCTAssertEqual(7, protocols1)
+        XCTAssertEqual(2, playbackMethods1)
+        XCTAssertEqual("video/mp4", mimes1)
+        
+        XCTAssertNotNil(vastXml)
+        
+        XCTAssertEqual(1, instl)
+        
     }
 
     private func getPostDataHelper(adUnit: AdUnit) throws -> (urlRequest: URLRequest, jsonRequestBody: [AnyHashable: Any]) {

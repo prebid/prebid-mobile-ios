@@ -32,7 +32,7 @@ public final class VideoUtils: NSObject {
     }
     
     //https://support.google.com/admanager/answer/1068325?hl=en
-    public static func buildAdTagUrl(adUnitId: String, adSlotSize:String?, customParams: String?) -> String {
+    static func buildAdTagUrl(adUnitId: String, adSlotSize:String?, customParams: String?) -> String {
         let currentMillis = Int64(NSDate().timeIntervalSince1970 * 1000)
         
         var adTagUrl =
@@ -44,8 +44,7 @@ public final class VideoUtils: NSObject {
                 //Required parameters with variable values
                 "&output=xml_vast4" + //Output format of ad
                 "&vpmute=1" + //Indicates whether the ad playback starts while the video player is muted.
-                "&iu=\(adUnitId)" +
-        "&correlator=\(currentMillis)"
+        "&iu=\(adUnitId)";
         
         if let adSlotSize = adSlotSize {
             adTagUrl += "&sz=\(adSlotSize)" //Size of master video ad slot. Multiple sizes should be separated by the pipe (|) character.
@@ -54,6 +53,8 @@ public final class VideoUtils: NSObject {
         if let customParams = customParams {
             adTagUrl += "&cust_params=\(customParams)"
         }
+        
+        adTagUrl += "&correlator=\(currentMillis)"
         
         return adTagUrl
     }
