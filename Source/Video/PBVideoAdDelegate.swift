@@ -16,16 +16,7 @@
 import Foundation
 
 @objc
-public enum VideoImaAdEventType: Int {
-    case AdLoadSuccess
-    case AdLoadFail
-    case AdClicked
-    case AdImpression
-    case AdStarted
-    case AdDidReachEnd
-    
-    case AdRewardedCompleted
-    case AdRewardedCancelled
-    
-    case AdInternalError
+public protocol PBVideoAdDelegate: AnyObject {
+    @objc
+    func videoAd(event: PBVideoAdEvent)
 }

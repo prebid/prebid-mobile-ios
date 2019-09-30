@@ -12,10 +12,19 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
-
 import Foundation
 
 @objc
-public protocol VideoImaDelegate {
-    func videoIma(event: VideoImaAdEvent)
+public protocol PBVideoAdInterstitialDelegate: AnyObject {
+    @objc
+    func videoAdInterstitialLoaded()
+    @objc
+    func videoAdInterstitialCancelled()
+    @objc
+    func videoAdInterstitialCompleted()
+    @objc
+    func videoAdInterstitialFailed()
+    @objc
+    func videoAdInterstitial(event: PBVideoAdEvent)
+    
 }

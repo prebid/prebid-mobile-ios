@@ -24,7 +24,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6eS-q3-5Xj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-884" y="-27"/>
+            <point key="canvasLocation" x="-996" y="81"/>
         </scene>
         <!--Index Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -49,8 +49,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2BF-DS-686">
-                                <rect key="frame" x="142.5" y="373.5" width="90" height="30"/>
-                                <state key="normal" title="Simple Video"/>
+                                <rect key="frame" x="125.5" y="373.5" width="124" height="30"/>
+                                <state key="normal" title="Video Out-Stream"/>
                                 <connections>
                                     <segue destination="OMD-Y3-QWv" kind="show" id="zDl-lH-LZF"/>
                                 </connections>
@@ -62,6 +62,13 @@
                                     <segment title="MoPub"/>
                                 </segments>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beL-GJ-fF6">
+                                <rect key="frame" x="132" y="428.5" width="111" height="30"/>
+                                <state key="normal" title="Video Interstitial"/>
+                                <connections>
+                                    <segue destination="W5H-Va-uVE" kind="show" id="LJZ-CW-YrZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -70,7 +77,9 @@
                             <constraint firstItem="ze7-Xk-t60" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L22-ha-lp8"/>
                             <constraint firstItem="2BF-DS-686" firstAttribute="top" secondItem="gs4-Un-gLc" secondAttribute="bottom" constant="25" id="QCv-r0-6G9"/>
                             <constraint firstItem="fwP-lp-368" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="TB7-Cg-dlk"/>
+                            <constraint firstItem="beL-GJ-fF6" firstAttribute="top" secondItem="2BF-DS-686" secondAttribute="bottom" constant="25" id="Tdt-aw-ea7"/>
                             <constraint firstItem="gs4-Un-gLc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UG4-q2-Cje"/>
+                            <constraint firstItem="beL-GJ-fF6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aQM-Wz-zPw"/>
                             <constraint firstItem="2BF-DS-686" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="q39-Lq-QPj"/>
                             <constraint firstItem="gs4-Un-gLc" firstAttribute="top" secondItem="ze7-Xk-t60" secondAttribute="bottom" constant="25" id="yOu-YU-6fP"/>
                             <constraint firstItem="fwP-lp-368" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="yte-Ky-7os"/>
@@ -86,10 +95,10 @@
             </objects>
             <point key="canvasLocation" x="-9" y="81"/>
         </scene>
-        <!--Video View Controller-->
+        <!--Video Out Stream View Controller-->
         <scene sceneID="dLi-Si-anV">
             <objects>
-                <viewController id="OMD-Y3-QWv" customClass="VideoViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="OMD-Y3-QWv" customClass="VideoOutStreamViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mqJ-sK-bRT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -102,18 +111,12 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="613-IC-6uZ">
                                 <rect key="frame" x="152" y="281" width="70" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Play"/>
                                 <connections>
                                     <action selector="onPlay:" destination="OMD-Y3-QWv" eventType="touchUpInside" id="1li-4v-pxd"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.10000000000000001" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="2OU-no-wlq">
-                                <rect key="frame" x="31" y="321" width="314" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="onPlayerSize:" destination="OMD-Y3-QWv" eventType="valueChanged" id="wSM-AZ-nxg"/>
-                                </connections>
-                            </slider>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AyL-jZ-2o6">
                                 <rect key="frame" x="19" y="387" width="335" height="145"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -127,13 +130,42 @@
                     </view>
                     <connections>
                         <outlet property="playerConsole" destination="AyL-jZ-2o6" id="m40-2v-Rpv"/>
-                        <outlet property="playerSizeSlider" destination="2OU-no-wlq" id="WZ7-D8-VZk"/>
                         <outlet property="videoImaView" destination="a2w-cg-zTw" id="iYP-wO-atw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E7a-DM-GHL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-490.39999999999998" y="773.16341829085468"/>
+            <point key="canvasLocation" x="902" y="322"/>
+        </scene>
+        <!--Video Interstitial View Controller-->
+        <scene sceneID="w3J-no-dwl">
+            <objects>
+                <viewController id="W5H-Va-uVE" customClass="VideoInterstitialViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hoJ-pL-GJS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOc-g3-oao">
+                                <rect key="frame" x="1" y="114" width="132" height="30"/>
+                                <state key="normal" title="Show Interstitial Ad"/>
+                                <connections>
+                                    <action selector="onShowAd:" destination="W5H-Va-uVE" eventType="touchUpInside" id="Nrd-JS-AXW"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vOc-g3-oao" firstAttribute="top" secondItem="ESO-HU-ljG" secondAttribute="top" constant="50" id="tDI-mI-Ldc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ESO-HU-ljG"/>
+                    </view>
+                    <connections>
+                        <outlet property="showAd" destination="vOc-g3-oao" id="LJZ-PK-8YF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cYt-m9-H01" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="902" y="1057"/>
         </scene>
         <!--Interstitial View Controller-->
         <scene sceneID="uus-Cg-IZ7">
@@ -164,7 +196,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ydj-9r-sui" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="789" y="592"/>
+            <point key="canvasLocation" x="902" y="-457"/>
         </scene>
         <!--Banner Controller-->
         <scene sceneID="6fe-pu-VEN">
@@ -206,7 +238,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y1z-cd-7BR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1439" y="82"/>
+            <point key="canvasLocation" x="903" y="-1175"/>
         </scene>
     </scenes>
 </document>

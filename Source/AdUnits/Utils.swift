@@ -140,6 +140,10 @@ public class Utils: NSObject {
 
         }
     }
+    
+    if let dict = adObject as? NSMutableDictionary {
+        dict.addEntries(from: bidResponse.customKeywords)
+    }
 }
 
     @available(iOS, deprecated, message: "Please migrate to - AdViewUtils.findPrebidCreativeSize(_:success:failure:)")

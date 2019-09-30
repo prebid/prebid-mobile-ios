@@ -47,7 +47,6 @@ outputPaths=("" "core/" "video-ima/")
 frameworkNames=("PrebidMobile" "PrebidMobile-core" "PrebidMobile-video-ima")
 
 for n in ${!schemes[@]}; do
-do
 
 	# Delete the most recent xcodebuild.
 	if [ -d "$XCODE_BUILD_DIR" ]; then

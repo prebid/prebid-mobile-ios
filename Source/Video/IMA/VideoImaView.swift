@@ -17,214 +17,339 @@ import Foundation
 import GoogleInteractiveMediaAds
 
 @objcMembers
-public class VideoImaView: UIView, VideoImaPrivateDelegate {
-    
-    public weak var delegate: VideoImaDelegate? {
+public class VideoImaView: UIView, VideoImaLoaderDelegate, VideoImaDelegate  {
+
+    public weak var pbVideoAdDelegate: PBVideoAdDelegate? {
         didSet {
-            imaDelegate.videoImaDelegate = delegate
+            imaAdapter.pbVideoAdDelegate = pbVideoAdDelegate
         }
     }
     
-    fileprivate var imaDelegate: ImaDelegate!
+    var muteSwitcher: UIButton!
     
-    private static let contentUrlDummy = URL(string: "https://google.com")!
-
-    private var contentPlayhead: IMAAVPlayerContentPlayhead?
-    private var adsLoader: IMAAdsLoader!
-    private var adsManager: IMAAdsManager!
+    private let imaAdapter = ImaAdapter()
+    private var adsLoader: IMAAdsLoader?
+    private var adsManager: IMAAdsManager?
     
-    private var contentPlayer: AVPlayer!
-    private var playerLayer: AVPlayerLayer!
+    private var adCanBePlayed: Bool = false
     
     //initWithFrame to init view from code
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        initialization()
     }
     
     //initWithCode to init view from xib or storyboard
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup()
-    }
-
-    private func setup() {
-        imaDelegate = ImaDelegate(videoImaPrivateDelegate: self)
-        setupPlayerAndLoader()
-    }
-    
-    //common func to init our view
-    private func setupPlayerAndLoader() {
-        
-        setupContentPlayer()
-        setupAdsLoader()
-    }
-    
-    private func setupContentPlayer() {
-        
-        if (contentPlayer != nil) {
-            return
-        }
-        
-        // Load AVPlayer with path to our content.
-        contentPlayer = AVPlayer(url: VideoImaView.contentUrlDummy)
-        
-        // Create a player layer for the player.
-        playerLayer = AVPlayerLayer(player: contentPlayer)
-        
-        // Size, position, and display the AVPlayer.
-        playerLayer?.frame = self.layer.bounds
-        self.layer.addSublayer(playerLayer!)
-        
-        // Set up our content playhead and contentComplete callback.
-        contentPlayhead = IMAAVPlayerContentPlayhead(avPlayer: contentPlayer)
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(VideoImaView.contentDidFinishPlaying(_:)),
-            name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
-            object: contentPlayer.currentItem);
-    }
-    
-    fileprivate func setupAdsLoader() {
-        adsLoader = IMAAdsLoader(settings: nil)
-        adsLoader.delegate = imaDelegate
-    }
-    
-    fileprivate func setupAdsManager(adsLoadedData: IMAAdsLoadedData) {
-        // Grab the instance of the IMAAdsManager and set ourselves as the delegate.
-        adsManager = adsLoadedData.adsManager
-        adsManager.delegate = imaDelegate
-        
-        // Create ads rendering settings
-        let adsRenderingSettings = IMAAdsRenderingSettings()
-//        tell the SDK to use the in-app browser.
-//        adsRenderingSettings.webOpenerPresentingController = self
-        
-        // Initialize the ads manager.
-        adsManager.initialize(with: adsRenderingSettings)
+        initialization()
     }
     
     // MARK: - Public API
-    public func requestAds(adUnitId: String, targeting: Dictionary<String, String>) {
-        
-        let adTagUrl = VideoUtils.buildAdTagUrl(adUnitId: adUnitId, targeting: targeting)
-        
-        requestAds(adTagUrl: adTagUrl)
+    public func loadAd(videoAdUnit: VideoAdUnit, adUnitId: String) {
+
+        loadAdAndAutoPlay(adUnit: videoAdUnit, adUnitId: adUnitId)
     }
     
-    public func requestAds(adTagUrl: String) {
-        resetAdsManager()
+    public func reset() {
         
-        setupPlayerAndLoader()
+        resetAdsManager()
+        resetAdsLoader()
+        resetView()
+    }
+    
+    // MARK: - internal API
+    func add(videoImaDelegate: VideoImaDelegate) {
+        imaAdapter.videoImaDelegateStorage.add(videoImaDelegate)
+    }
+    
+    func remove(videoImaDelegate: VideoImaDelegate) {
+        imaAdapter.videoImaDelegateStorage.remove(videoImaDelegate)
+    }
+    
+    func loadAdAndAutoPlay(adUnit: AdUnit, adUnitId: String) {
+        adCanBePlayed = true
+        
+        makeAuctionAndLoadAd(adUnit: adUnit, adUnitId: adUnitId)
+    }
+    
+    func loadAdWithoutAutoPlay(adUnit: AdUnit, adUnitId: String) {
+        adCanBePlayed = false
+        
+        makeAuctionAndLoadAd(adUnit: adUnit, adUnitId: adUnitId)
+    }
+    
+    private func makeAuctionAndLoadAd(adUnit: AdUnit, adUnitId: String) {
+        
+        reset()
+        setup()
+        
+        let targetingDict = NSMutableDictionary()
+        
+        adUnit.fetchDemand(adObject: targetingDict) { [weak self] (resultCode: ResultCode) in
+            
+            let resultCodeName = resultCode.name()
+            
+            if (resultCode == .prebidDemandFetchSuccess) {
+                
+                let keywords = targetingDict as! Dictionary<String, String>
+                
+                let adSlotSize = adUnit.adSizes[0]
+                let adTagUrl = VideoUtils.buildAdTagUrl(adUnitId: adUnitId, adSlotSize: "\(Int(adSlotSize.width))x\(Int(adSlotSize.height))", targeting: keywords)
+                
+                self?.loadAd(adTagUrl: adTagUrl)
+                //                self?.loadAd(adTagUrl: "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=1")
+                
+            } else {
+                self?.pbVideoAdDelegate?.videoAd(event: VideoAdEventFactory.getAdLoadFail(typeString: resultCodeName))
+            }
+        }
+        
+    }
+    
+    func setAutoPlayAndShowAd() {
+        adCanBePlayed = true
+        checkAutoPlayAndShowAd()
+    }
+    
+    // MARK: - private API
+    private func initialization() {
+        initMuteSwitcher()
+        
+        initImaAdapter()
+    }
+    
+    private func initImaAdapter() {
+        
+        add(videoImaDelegate: self)
+        imaAdapter.videoImaLoaderDelegate = self
+        
+    }
+    
+    private func getStatusBarHeight() -> CGFloat {
+        let statusBarSize = UIApplication.shared.statusBarFrame.size
+        return Swift.min(statusBarSize.width, statusBarSize.height)
+    }
+    
+    private func initMuteSwitcher() {
+        muteSwitcher = UIButton(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        
+        muteSwitcher.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        muteSwitcher.layer.cornerRadius = 5
+        muteSwitcher.setTitle("Unmute", for: .normal)
+        muteSwitcher.sizeToFit()
+        muteSwitcher.setTitleColor(UIColor.white, for: .normal)
+        muteSwitcher.titleLabel?.font = .systemFont(ofSize: 15)
+        
+        muteSwitcher.addTarget(self, action: #selector(onMuteSwitcherPress), for: .touchUpInside)
+    }
+    
+    @objc
+    private func onMuteSwitcherPress(sender: UIButton!) {
+        if (adsManager?.volume == 0) {
+            //Unmute
+            sender.setTitle("Mute", for: .normal)
+            adsManager?.volume = 1
+        } else {
+            //Mute
+            sender.setTitle("Unmute", for: .normal)
+            adsManager?.volume = 0
+        }
+        
+    }
+    
+    //common func to init our view
+    private func setup() {
+        setupAdsLoader()
+    }
+    
+    private func setupAdsLoader() {
+        adsLoader = IMAAdsLoader(settings: nil)
+        adsLoader!.delegate = imaAdapter
+        
+    }
+    
+    private func setupAdsManager(adsLoadedData: IMAAdsLoadedData) {
+        adsManager = adsLoadedData.adsManager
+        adsManager!.delegate = imaAdapter
+        
+
+        let adsRenderingSettings = IMAAdsRenderingSettings()
+        //        tell the SDK to use the in-app browser.
+        //        adsRenderingSettings.webOpenerPresentingController = self
+        
+        adsManager!.initialize(with: adsRenderingSettings)
+        
+        adsManager!.volume = 0
+
+    }
+    
+    private func loadAd(adTagUrl: String) {
         
         // Create ad display container for ad rendering.
-        let adDisplayContainer = IMAAdDisplayContainer(adContainer: self, companionSlots: nil)
+        let adDisplayContainer = IMAAdDisplayContainer(adContainer: self)
         // Create an ad request with our ad tag, display container, and optional user context.
         let request = IMAAdsRequest(
             adTagUrl: adTagUrl,
             adDisplayContainer: adDisplayContainer,
-            contentPlayhead: contentPlayhead,
+            contentPlayhead: nil,
             userContext: nil)
         
-        adsLoader.requestAds(with: request)
+        adsLoader?.requestAds(with: request)
+        
     }
     
-    public func reset() {
-        resetContentPlayer()
-        resetAdsLoader()
-        resetAdsManager()
+    private func checkAutoPlayAndShowAd() {
+        
+        if (adCanBePlayed == true) {
+            adsManager?.start()
+        }
+        
     }
     
-    // MARK: - private API
-    private func resetContentPlayer() {
-        contentPlayer = nil
-    }
-    
-    private func resetAdsLoader() {
-        adsLoader.delegate = nil
-        adsLoader = nil
+    private func showMuteSwitcher() {
+        self.addSubview(muteSwitcher)
     }
     
     private func resetAdsManager() {
         if (adsManager != nil) {
-            adsManager.destroy()
+            adsManager!.delegate = nil
+            adsManager!.destroy()
             adsManager = nil
         }
     }
     
-    // MARK: - NotificationCenter AVPlayerItemDidPlayToEndTime
-    
-    func contentDidFinishPlaying(_ notification: Notification) {
-        // Make sure we don't call contentComplete as a result of an ad completing.
-        if (notification.object as! AVPlayerItem) == contentPlayer.currentItem {
-            adsLoader.contentComplete()
+    private func resetAdsLoader() {
+        if (adsLoader != nil) {
+            adsLoader!.delegate = nil
+            adsLoader = nil
         }
     }
     
-    //MARK: - VideoImaPrivateDelegate
-    func adLoaded(adsLoadedData: IMAAdsLoadedData) {
+    private func resetView() {
+        
+        for subview in self.subviews {
+            subview.removeFromSuperview()
+        }
+        
+    }
+    
+    //MARK: - ImaAdsLoaderDelegate
+    func adDidLoad(adsLoadedData: IMAAdsLoadedData) {
+        
         setupAdsManager(adsLoadedData: adsLoadedData)
+    }
+    
+    //MARK: - VideoImaDelegate
+    func adLoaded() {
+        checkAutoPlayAndShowAd()
+    }
+    
+    func adStarted() {
+        showMuteSwitcher()
+    }
+    
+    func allAdsCompleted() {
+        resetView()
     }
 
 }
 
-private protocol VideoImaPrivateDelegate: class {
-    func adLoaded(adsLoadedData: IMAAdsLoadedData)
+// MARK: - IMA IMAAdsLoaderDelegate
+private protocol VideoImaLoaderDelegate: AnyObject {
+    func adDidLoad(adsLoadedData: IMAAdsLoadedData)
 }
 
-// MARK: - IMA API
-private class ImaDelegate: NSObject, IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
+// MARK: - IMA IMAAdsManagerDelegate
+@objc
+protocol VideoImaDelegate: AnyObject {
+    
+    @objc
+    optional func adLoaded()
+    @objc
+    optional func adStarted()
+    @objc
+    optional func adSkipped()
+    @objc
+    optional func adFinished()
+    @objc
+    optional func adPlayingFailed()
+    @objc
+    optional func allAdsCompleted()
+}
 
-    fileprivate weak var videoImaDelegate: VideoImaDelegate?
+private class ImaAdapter: NSObject, IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
     
-    private weak var videoImaPrivateDelegate: VideoImaPrivateDelegate?
+    fileprivate weak var videoImaLoaderDelegate: VideoImaLoaderDelegate?
+    fileprivate let videoImaDelegateStorage = NSHashTable<VideoImaDelegate>.weakObjects()
+    fileprivate weak var pbVideoAdDelegate: PBVideoAdDelegate?
     
-    fileprivate init(videoImaPrivateDelegate: VideoImaPrivateDelegate) {
-        self.videoImaPrivateDelegate = videoImaPrivateDelegate
+    override init() {
     }
     
     // MARK: - IMAAdsLoaderDelegate
     public func adsLoader(_ loader: IMAAdsLoader!, adsLoadedWith adsLoadedData: IMAAdsLoadedData!) {
         
-        videoImaDelegate?.videoIma(event: VideoImaAdEventFactory.getAdLoadSuccess(typeString: nil))
-        
-        videoImaPrivateDelegate?.adLoaded(adsLoadedData: adsLoadedData)
-        
-        Log.debug("adsLoader success")
+        videoImaLoaderDelegate?.adDidLoad(adsLoadedData: adsLoadedData)
     }
     
     public func adsLoader(_ loader: IMAAdsLoader!, failedWith adErrorData: IMAAdLoadingErrorData!) {
         
         let errorMessage = adErrorData.adError.message
-        videoImaDelegate?.videoIma(event: VideoImaAdEventFactory.getAdLoadFail(typeString: errorMessage))
+        pbVideoAdDelegate?.videoAd(event: VideoAdEventFactory.getAdLoadFail(typeString: errorMessage))
         
-        Log.debug("adsLoader failed:\(errorMessage ?? "")")
+        Log.error("adsLoader failed:\(errorMessage ?? "")")
     }
-    
+
     // MARK: - IMAAdsManagerDelegate
     public func adsManager(_ adsManager: IMAAdsManager!, didReceive event: IMAAdEvent!) {
-        
+
         let message = event.typeString
         Log.debug("adsManager eventType:\(message ?? "")")
-        
-        //Logic
-        if event.type == IMAAdEventType.LOADED {
-            // When the SDK notifies us that ads have been loaded, play them.
-            adsManager.start()
-        }
         
         let eventString = event.typeString
         //Event handler
         switch (event.type) {
+        case IMAAdEventType.LOADED:
+            
+            iterateVideoImaDelegates { (videoImaDelegate) in
+                videoImaDelegate.adLoaded?()
+            }
+            pbVideoAdDelegate?.videoAd(event: VideoAdEventFactory.getAdLoadSuccess(typeString: eventString))
+            break
+            
         case IMAAdEventType.STARTED:
-            videoImaDelegate?.videoIma(event: VideoImaAdEventFactory.getAdStarted(typeString: eventString))
+            
+            iterateVideoImaDelegates { (videoImaDelegate) in
+                videoImaDelegate.adStarted?()
+            }
+            pbVideoAdDelegate?.videoAd(event: VideoAdEventFactory.getAdStarted(typeString: eventString))
             break
+            
         case IMAAdEventType.COMPLETE:
-            videoImaDelegate?.videoIma(event: VideoImaAdEventFactory.getAdDidReachEnd(typeString: eventString))
+            
+            iterateVideoImaDelegates { (videoImaDelegate) in
+                videoImaDelegate.adFinished?()
+            }
+            pbVideoAdDelegate?.videoAd(event: VideoAdEventFactory.getAdDidReachEnd(typeString: eventString))
             break
-        case IMAAdEventType.TAPPED:
-            videoImaDelegate?.videoIma(event: VideoImaAdEventFactory.getAdClicked(typeString: eventString))
+            
+        case IMAAdEventType.CLICKED:
+            pbVideoAdDelegate?.videoAd(event: VideoAdEventFactory.getAdClicked(typeString: eventString))
             break
+            
+        case IMAAdEventType.SKIPPED:
+            iterateVideoImaDelegates { (videoImaDelegate) in
+                videoImaDelegate.adSkipped?()
+            }
+            break
+            
+        case IMAAdEventType.ALL_ADS_COMPLETED:
+            iterateVideoImaDelegates { (videoImaDelegate) in
+                videoImaDelegate.allAdsCompleted?()
+            }
+            break
+            
         default:
             break
         }
@@ -234,10 +359,13 @@ private class ImaDelegate: NSObject, IMAAdsLoaderDelegate, IMAAdsManagerDelegate
         // Something went wrong with the ads manager after ads were loaded. Log the error and play the
         // content.
         let errorMessage = error.message
-        Log.debug("AdsManager error:\(errorMessage ?? "")")
+        Log.error("AdsManager error:\(errorMessage ?? "")")
         
-        videoImaDelegate?.videoIma(event: VideoImaAdEventFactory.getAdInternalError(typeString: errorMessage))
-        //        contentPlayer.play()
+        iterateVideoImaDelegates { (videoImaDelegate) in
+            videoImaDelegate.adPlayingFailed!()
+        }
+        
+        pbVideoAdDelegate?.videoAd(event: VideoAdEventFactory.getAdLoadFail(typeString: errorMessage))
     }
     
     public func adsManagerDidRequestContentPause(_ adsManager: IMAAdsManager!) {
@@ -246,5 +374,11 @@ private class ImaDelegate: NSObject, IMAAdsLoaderDelegate, IMAAdsManagerDelegate
     
     public func adsManagerDidRequestContentResume(_ adsManager: IMAAdsManager!) {
         // The SDK is done playing ads (at least for now)
+    }
+    
+    private func iterateVideoImaDelegates(closure: (VideoImaDelegate) -> ())  {
+        for delegate in videoImaDelegateStorage.objectEnumerator() {
+            closure(delegate as! VideoImaDelegate)
+        }
     }
 }

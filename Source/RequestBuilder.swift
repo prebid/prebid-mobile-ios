@@ -80,8 +80,14 @@ import AdSupport
                 var prebid = ext["prebid"] as? [String: Any] {
 
                 prebid["targeting"] = [:]
-                prebid["cache"] = ["bids": [AnyHashable: Any]()]
-
+                
+                var cache: [AnyHashable: Any] = [:]
+                cache["bids"] = [AnyHashable: Any]()
+                
+                if (adUnit is VideoAdUnit || adUnit is VideoInterstitialAdUnit) {
+                    cache["vastxml"] = [AnyHashable: Any]()
+                }
+                prebid["cache"] = cache
                 ext["prebid"] = prebid
                 requestDict["ext"] = ext
             }
@@ -113,36 +119,34 @@ import AdSupport
         var imps: [Any] = []
 
         var imp: [AnyHashable: Any] = [:]
-        if let anIdentifier = adUnit?.identifier {
-            imp["id"] = anIdentifier
-        }
+        
+        imp["id"] = adUnit?.identifier
 
         imp["secure"] = 1
 
-        var sizeArray = [[String: CGFloat]]()
-        for size: CGSize in (adUnit?.adSizes)! {
-            let sizeDict = [
-                "w": size.width,
-                "h": size.height
-            ]
-            sizeArray.append(sizeDict)
+        if (adUnit is BannerAdUnit || adUnit is InterstitialAdUnit) {
+            var sizeArray = [[String: CGFloat]]()
+            for size: CGSize in (adUnit?.adSizes)! {
+                let sizeDict = [
+                    "w": size.width,
+                    "h": size.height
+                ]
+                sizeArray.append(sizeDict)
+            }
+            let formats = ["format": sizeArray]
+            
+            imp["banner"] = formats
         }
-        let formats = ["format": sizeArray]
-        imp["banner"] = formats
 
-        if (adUnit is InterstitialAdUnit) {
+        if (adUnit is InterstitialAdUnit || adUnit is VideoInterstitialAdUnit) {
             imp["instl"] = 1
         }
 
         //to be used when openRTB supports storedRequests
         var prebidAdUnitExt: [AnyHashable: Any] = [:]
-        if let anId = adUnit?.prebidConfigId {
-            prebidAdUnitExt["storedrequest"] = ["id": anId]
-        }
-
-        if !Prebid.shared.storedAuctionResponse.isEmpty {
-            prebidAdUnitExt["storedauctionresponse"] = ["id": Prebid.shared.storedAuctionResponse]
-        }
+        
+        prebidAdUnitExt["storedrequest"] = ["id": adUnit?.prebidConfigId]
+        prebidAdUnitExt["storedauctionresponse"] = ["id": Prebid.shared.storedAuctionResponse]
 
         if !Prebid.shared.storedBidResponses.isEmpty {
             var storedBidResponses: [Any] = []
@@ -168,6 +172,27 @@ import AdSupport
 
         imp["ext"] = adUnitExt
 
+        if (adUnit is VideoAdUnit || adUnit is VideoInterstitialAdUnit) {
+            var video: [AnyHashable: Any] = [:]
+            
+            let videoMimes: [String] = ["video/mp4"]
+            video["mimes"] = videoMimes
+            
+            let videoProtocols: [Int] = [7]
+            video["protocols"] = videoProtocols
+            
+            video["startdelay"] = 0
+            
+            let videoPlaybackMethod: [Int] = [2]
+            video["playbackmethod"] = videoPlaybackMethod
+            
+            let adSize = adUnit!.adSizes[0]
+            video["w"] = adSize.width
+            video["h"] = adSize.height
+            
+            imp["video"] = video
+        }
+        
         imps.append(imp)
 
         return imps

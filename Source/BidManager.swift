@@ -106,11 +106,9 @@ import Foundation
                         adServerTargeting = prebidDict["targeting"] as? [String: AnyObject]
                         guard adServerTargeting != nil else { break }
                         for key in adServerTargeting!.keys {
-//                            if (key == "hb_cache_id") {
-                            //TODO 
-                            if (key.starts(with: "hb_cache_id")) {
+                            if (key == "hb_cache_id") {
                                 containTopBid = true
-                             }
+                            }
                             if (key.starts(with: "hb_cache_id")) {
                                 containBid = true
                             }
