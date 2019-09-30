@@ -32,7 +32,7 @@ class VideoUtilsTest: XCTestCase {
         targetingMap["key2"] = "value2"
 
         let adTagUrl = VideoUtils.buildAdTagUrl(adUnitId: "adUnitId", adSlotSize: "300x250", targeting: targetingMap)
-        XCTAssertTrue(adTagUrl.contains("https://pubads.g.doubleclick.net/gampad/ads?env=vp&gdfp_req=1&unviewed_position_start=1&output=xml_vast4&vpmute=1&iu=adUnitId&sz=300x250&cust_params=key1%3Dvalue1%26key2%3Dvalue2"))
+        XCTAssertTrue(adTagUrl.contains("https://pubads.g.doubleclick.net/gampad/ads?env=vp&gdfp_req=1&unviewed_position_start=1&output=xml_vast4&vpmute=1&iu=adUnitId&sz=300x250&cust_params=key1%3Dvalue1%26key2%3Dvalue2") || adTagUrl.contains("https://pubads.g.doubleclick.net/gampad/ads?env=vp&gdfp_req=1&unviewed_position_start=1&output=xml_vast4&vpmute=1&iu=adUnitId&sz=300x250&cust_params=key2%3Dvalue2%26key1%3Dvalue1"))
     }
     
 }
