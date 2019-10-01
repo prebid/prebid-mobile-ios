@@ -93,8 +93,6 @@ private class InterstitialController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         let videoViewBounds = self.view.bounds
         portraitVideoViewFrame = self.view.frame
         portraitVideoFrame = CGRect(x: 0, y: 0, width: videoViewBounds.size.width, height: videoViewBounds.size.height)
@@ -102,9 +100,6 @@ private class InterstitialController: UIViewController {
         videoImaView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(videoImaView)
 
-        
-
-        
         videoImaView.setAutoPlayAndShowAd()
         
         updateMuteSwitcherPosition()
