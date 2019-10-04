@@ -49,6 +49,7 @@ public class VideoImaInterstitial: NSObject, VideoImaDelegate, PBVideoAdDelegate
             interstitialDelegate?.videoAdInterstitialFailed()
             return
         }
+        interstitialController.modalPresentationStyle = .fullScreen
         from.present(interstitialController, animated: true, completion: nil)
         
     }
@@ -86,89 +87,66 @@ private class InterstitialController: UIViewController {
     
     fileprivate var videoImaView: VideoImaView!
     
-    private var fullscreenVideoFrame: CGRect?
-    private var portraitVideoViewFrame: CGRect?
-    private var portraitVideoFrame: CGRect?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let videoViewBounds = self.view.bounds
-        portraitVideoViewFrame = self.view.frame
-        portraitVideoFrame = CGRect(x: 0, y: 0, width: videoViewBounds.size.width, height: videoViewBounds.size.height)
-        
+
         videoImaView.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(videoImaView)
 
         videoImaView.setAutoPlayAndShowAd()
         
-        updateMuteSwitcherPosition()
+        layoutInterstitial()
+
+        self.view.autoresizesSubviews = true
     }
     
-    private func updateMuteSwitcherPosition() {
-        let muteSwitcher = videoImaView.muteSwitcher!
-        var x = CGFloat()
-        var y = CGFloat()
-        if (UIApplication.shared.statusBarOrientation.isPortrait) {
-            //DO Portrait
-            x = CGFloat(0)
-            y = CGFloat(UIApplication.shared.statusBarFrame.size.height)
-        } else {
-            //DO Landscape
-            x = CGFloat(self.view.layoutMargins.left)
-            y = CGFloat(0)
-        }
+    // MARK: - layout
+    override func viewWillLayoutSubviews() {
+        videoImaView.frame = UIScreen.main.bounds
         
-        muteSwitcher.frame = CGRect(x: x, y: y, width: muteSwitcher.frame.width, height: muteSwitcher.frame.height)
+        layoutInterstitial()
     }
 
-    fileprivate func dismiss() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    // MARK: - rotate
-    override func didRotate(from interfaceOrientation: UIInterfaceOrientation) {
-        switch (interfaceOrientation) {
-        case UIInterfaceOrientation.landscapeLeft: fallthrough
-        case UIInterfaceOrientation.landscapeRight:
-            viewDidEnterPortrait()
-            updateMuteSwitcherPosition()
-            break
-        case UIInterfaceOrientation.portrait: fallthrough
-        case UIInterfaceOrientation.portraitUpsideDown:
-            viewDidEnterLandscape()
-            updateMuteSwitcherPosition()
-            break
-        case UIInterfaceOrientation.unknown:
-            break
-        @unknown default:
-            break
-        }
-    }
-    
-    func viewDidEnterLandscape() {
-        
-        let screenRect = UIScreen.main.bounds
-        if ((UIDevice.current.systemVersion as NSString).floatValue < 8.0) {
-            fullscreenVideoFrame = CGRect(x: 0, y: 0, width: screenRect.size.height, height: screenRect.size.width)
-        } else {
-            fullscreenVideoFrame = CGRect(x: 0, y: 0, width: screenRect.size.width, height: screenRect.size.height)
-        }
-
-        videoImaView.frame = fullscreenVideoFrame!
-    }
-    
-    func viewDidEnterPortrait() {
-
-        videoImaView.frame = portraitVideoViewFrame!
-    }
-    
     // MARK: - Disappear
     override func viewWillDisappear(_ animated: Bool) {
         
         videoImaView.reset()
         
         super.viewWillDisappear(animated)
+    }
+    
+    //MARK: = fileprivate
+    fileprivate func dismiss() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    //MARK: - private
+    private func layoutInterstitial() {
+        
+        if UIDevice.current.orientation == .portrait {
+            viewDidEnterPortrait()
+        } else if UIDevice.current.orientation.isLandscape {
+            viewDidEnterLandscape()
+        }
+    }
+    
+    private func viewDidEnterPortrait() {
+        
+        let statusBarHeight: CGFloat
+        if #available(iOS 13.0, *) {
+            statusBarHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+        } else {
+            // Fallback on earlier versions
+            statusBarHeight = UIApplication.shared.statusBarFrame.size.height
+        }
+        let muteSwitcher = videoImaView.muteSwitcher!
+        muteSwitcher.frame = CGRect(x: 0, y: statusBarHeight, width: muteSwitcher.frame.width, height: muteSwitcher.frame.height)
+    }
+    
+    private func viewDidEnterLandscape() {
+        
+        let muteSwitcher = videoImaView.muteSwitcher!
+        muteSwitcher.frame = CGRect(x: self.view.layoutMargins.left, y: 0, width: muteSwitcher.frame.width, height: muteSwitcher.frame.height)
     }
     
 }
