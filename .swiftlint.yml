@@ -1,0 +1,11 @@
+disabled_rules: # rule identifiers to exclude from running
+  - force_cast
+  - force_try
+  - identifier_name
+  - control_statement
+  - nesting
+  - file_length
+
+line_length: 250
+function_body_length: 100
+type_body_length: 100

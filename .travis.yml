@@ -1,6 +1,10 @@
 language: swift
 osx_image: xcode10.2
-before_script: "./scripts/add-keys.sh"
+before_install:
+  - "pod repo update"
+  - "gem install cocoapods"
+before_script: 
+  - "./scripts/add-keys.sh"
 after_script: "./scripts/remove-key.sh"
 script:
   - "./scripts/swiftLint.sh"

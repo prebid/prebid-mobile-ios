@@ -6,56 +6,79 @@ fi
 # 1
 # Set bash script to exit immediately if any commands fail.
 set -e
+cd ../
 
-# 2
 # Setup some constants for use later on.
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
 
+echo -e "\n\n${GREEN}BUILD PREBID MOBILE${NC}\n\n"
 
-cd ../src/PrebidMobile/
+PRODUCT_NAME="PrebidMobile"
 
-FRAMEWORK_NAME="PrebidMobile"
-LOGDIR=../../build/out/log
-mkdir -p "$LOGDIR"
+GENERATED_DIR_NAME="generated"
 
-# 3
+LOG_DIR="$GENERATED_DIR_NAME/log"
+LOG_FILE_FRAMEWORK="$LOG_DIR/prebid_mobile_build.log"
+LOG_FILE_FRAMEWORK_ABSOLUTE="$PWD/$LOG_FILE_FRAMEWORK"
+
+XCODE_BUILD_DIR="$GENERATED_DIR_NAME/xcodebuild"
+XCODE_BUILD_IPHONE_FILE_ABSOLUTE="$PWD/$XCODE_BUILD_DIR/Build/Products/Release-iphoneos/$PRODUCT_NAME.framework"
+XCODE_BUILD_SIMULATOR_FILE_ABSOLUTE="$PWD/$XCODE_BUILD_DIR/Build/Products/Release-iphonesimulator/$PRODUCT_NAME.framework"
+
+OUTPUT_DIR="$GENERATED_DIR_NAME/output"
+OUTPUT_DIR_ABSOLUTE="$PWD/$OUTPUT_DIR"
+
 # If remnants from a previous build exist, delete them.
-if [ -d "build" ]; then
-rm -rf "build"
+if [ -d "$GENERATED_DIR_NAME" ]; then
+rm -rf "$GENERATED_DIR_NAME"
 fi
 
-LOGFILE="$LOGDIR"/prebid_mobile_build.log
-touch "$LOGFILE"
+mkdir -p "$LOG_DIR"
+touch "$LOG_FILE_FRAMEWORK"
 
+echo $PWD
+gem install cocoapods --user-install
+pod install --repo-update
 
-# 4
-# Build the framework for device and for simulator (using
-# all needed architectures).
-echo "Building the framework for device"
-xcodebuild -target "${FRAMEWORK_NAME}" -configuration Release -arch arm64 only_active_arch=no defines_module=yes -sdk "iphoneos" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit 1;}
+schemes=("PrebidMobile" "PrebidMobileCore")
+outputPaths=("" "core/")
+frameworkNames=("PrebidMobile" "PrebidMobile-core")
 
-echo "Building the framework for simulator"
-xcodebuild -target "${FRAMEWORK_NAME}" -configuration Release -arch x86_64 only_active_arch=no defines_module=yes -sdk "iphonesimulator" > "$LOGFILE" 2>&1 || { echo "Error in build check log "$LOGFILE""; exit 1;}
-# 5
-# Remove .framework file if exists on Desktop from previous run.
-if [ -d "${HOME}/Desktop/${FRAMEWORK_NAME}.framework" ]; then
-rm -rf "${HOME}/Desktop/${FRAMEWORK_NAME}.framework"
-fi
+for(( n=0; n<=1; n++ ))
+do
 
-# 6
-# Copy the device version of framework to Desktop.
-cp -r "build/Release-iphoneos/${FRAMEWORK_NAME}.framework" "${HOME}/Desktop/${FRAMEWORK_NAME}.framework"
+	# Delete the most recent xcodebuild.
+	if [ -d "$XCODE_BUILD_DIR" ]; then
+	rm -rf "$XCODE_BUILD_DIR"
+	fi
 
-# 7
-# Replace the framework executable within the framework with
-# a new version created by merging the device and simulator
-# frameworks' executables with lipo.
-lipo -create -output "${HOME}/Desktop/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}" "build/Release-iphoneos/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}" "build/Release-iphonesimulator/${FRAMEWORK_NAME}.framework/${FRAMEWORK_NAME}"
+	mkdir -p "$OUTPUT_DIR_ABSOLUTE/${outputPaths[$n]}"
+	OUTPUT_FILE_FRAMEWORK_ABSOLUTE="$OUTPUT_DIR_ABSOLUTE/${outputPaths[$n]}${PRODUCT_NAME}.framework"
+	
+	# Build the framework for device and for simulator (using
+	# all needed architectures).
+	echo -e "\n${GREEN} - Building ${frameworkNames[$n]} for device${NC}"
+	xcodebuild -workspace PrebidMobile.xcworkspace -scheme "${schemes[$n]}" -configuration Release -arch arm64 only_active_arch=no defines_module=yes -sdk "iphoneos" -derivedDataPath $XCODE_BUILD_DIR > "$LOG_FILE_FRAMEWORK" 2>&1 || { echo -e "${RED}Error in build check log "$LOG_FILE_FRAMEWORK_ABSOLUTE"${NC}"; exit 1;}
 
-echo "Done! You can find the Prebid Mobile framework on your Desktop"
-echo "Build logs are also available in the build/out/log/ folder."
+	echo -e "${GREEN} - Building ${frameworkNames[$n]} for simulator${NC}"
+	xcodebuild -workspace PrebidMobile.xcworkspace -scheme "${schemes[$n]}" -configuration Release -arch x86_64 only_active_arch=no defines_module=yes -sdk "iphonesimulator" -derivedDataPath $XCODE_BUILD_DIR > "$LOG_FILE_FRAMEWORK" 2>&1 || { echo -e "${RED}Error in build check log "$LOG_FILE_FRAMEWORK_ABSOLUTE"${NC}"; exit 1;}
 
-# 8
-# Delete the most recent build.
-if [ -d "build" ]; then
-rm -rf "build"
-fi
+	# Copy the device version of framework.
+	cp -r "$XCODE_BUILD_IPHONE_FILE_ABSOLUTE" "$OUTPUT_FILE_FRAMEWORK_ABSOLUTE"
+
+	# Copy Swift modules (from iphonesimulator build)
+	cp -R "$XCODE_BUILD_SIMULATOR_FILE_ABSOLUTE/Modules/${PRODUCT_NAME}.swiftmodule/." "$OUTPUT_FILE_FRAMEWORK_ABSOLUTE/Modules/${PRODUCT_NAME}.swiftmodule"
+
+	# Merging the device and simulator
+	# frameworks' executables with lipo.
+	# echo -e "${GREEN} - Creating Universal $FRAMEWORK_NAME framework ${NC}"
+	echo -e "${GREEN} - Creating Universal ${frameworkNames[$n]} framework ${NC}"
+	lipo "$XCODE_BUILD_IPHONE_FILE_ABSOLUTE/${PRODUCT_NAME}" "$XCODE_BUILD_SIMULATOR_FILE_ABSOLUTE/${PRODUCT_NAME}" -create -output "$OUTPUT_FILE_FRAMEWORK_ABSOLUTE/${PRODUCT_NAME}" 
+
+done
+
+echo -e "\n${GREEN}Done!${NC} \n"
+echo -e "Universal frameworks are located: "$OUTPUT_DIR_ABSOLUTE" \n"
+echo -e "Build logs path is: "$LOG_FILE_FRAMEWORK_ABSOLUTE" \n"
