@@ -60,7 +60,7 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
 
         dfpInterstitial = DFPInterstitial(adUnitID: "/19968336/PrebidMobileValidator_Interstitial")
         dfpInterstitial.delegate = self
-        request.testDevices = [ kGADSimulatorID]
+        request.testDevices = [ (kGADSimulatorID as! String)]
         adUnit.fetchDemand(adObject: self.request) { (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
             self.dfpInterstitial!.load(self.request)

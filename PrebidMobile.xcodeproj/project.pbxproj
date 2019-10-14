@@ -35,6 +35,9 @@
 		60C038372204F02C0082B32C /* noBidResponseAppNexus.json in Resources */ = {isa = PBXBuildFile; fileRef = 979C2F9922030606001F1FCC /* noBidResponseAppNexus.json */; };
 		60C038382204F02C0082B32C /* requestPBM.json in Resources */ = {isa = PBXBuildFile; fileRef = 979177A22201B43300E624CE /* requestPBM.json */; };
 		60C038392204F02C0082B32C /* responseAppNexusPBM.json in Resources */ = {isa = PBXBuildFile; fileRef = 979177A12201B43300E624CE /* responseAppNexusPBM.json */; };
+		60C2A365234B9AC100628C9D /* NativeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A364234B9AC100628C9D /* NativeRequest.swift */; };
+		60C2A368234D214C00628C9D /* NativeAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A367234D214C00628C9D /* NativeAsset.swift */; };
+		60C2A36E2354C7BA00628C9D /* NativeEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A36D2354C7BA00628C9D /* NativeEventTracker.swift */; };
 		60D79301217E229B0080F428 /* PrebidMobileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D79300217E229B0080F428 /* PrebidMobileTests.swift */; };
 		76DA65285917B36FC7A30B20 /* Pods_PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 730153ABBDC6B4478360A4A9 /* Pods_PrebidMobile.framework */; };
 		F5400CB22209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json in Resources */ = {isa = PBXBuildFile; fileRef = F5400CB12209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json */; };
@@ -127,6 +130,9 @@
 		606FAC5122022932008EAE5E /* ExAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExAdUnit.swift; sourceTree = "<group>"; };
 		607B04792194AC79000C0879 /* BidResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidResponse.swift; sourceTree = "<group>"; };
 		60C0382B2204BB190082B32C /* PrebidMobileTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileTest-Bridging-Header.h"; sourceTree = "<group>"; };
+		60C2A364234B9AC100628C9D /* NativeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeRequest.swift; sourceTree = "<group>"; };
+		60C2A367234D214C00628C9D /* NativeAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAsset.swift; sourceTree = "<group>"; };
+		60C2A36D2354C7BA00628C9D /* NativeEventTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTracker.swift; sourceTree = "<group>"; };
 		60D792F5217E229A0080F428 /* PrebidMobile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMobile.h; sourceTree = "<group>"; };
 		60D792F6217E229A0080F428 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		60D792FB217E229B0080F428 /* PrebidMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -228,12 +234,23 @@
 		6062B1B42188C20600CE1BA3 /* AdUnits */ = {
 			isa = PBXGroup;
 			children = (
+				60C2A366234BBA5300628C9D /* Native */,
 				60D79311217E2CF20080F428 /* BannerAdUnit.swift */,
 				6062B1AB21878CFB00CE1BA3 /* AdUnit.swift */,
 				6062B1AD2188783B00CE1BA3 /* InterstitialAdUnit.swift */,
 				60EE7B0521F26329000B12A8 /* Utils.swift */,
 			);
 			path = AdUnits;
+			sourceTree = "<group>";
+		};
+		60C2A366234BBA5300628C9D /* Native */ = {
+			isa = PBXGroup;
+			children = (
+				60C2A364234B9AC100628C9D /* NativeRequest.swift */,
+				60C2A367234D214C00628C9D /* NativeAsset.swift */,
+				60C2A36D2354C7BA00628C9D /* NativeEventTracker.swift */,
+			);
+			path = Native;
 			sourceTree = "<group>";
 		};
 		60D792E8217E229A0080F428 = {
@@ -698,9 +715,12 @@
 				FAAA00D323227F5B009DC7D6 /* RequestBuilder.swift in Sources */,
 				FAAA00D523227F5B009DC7D6 /* BidResponse.swift in Sources */,
 				FAAA00DE23227F6A009DC7D6 /* PbFindSizeError.swift in Sources */,
+				60C2A368234D214C00628C9D /* NativeAsset.swift in Sources */,
 				FAAA00D723227F5B009DC7D6 /* Location.swift in Sources */,
 				FAAA00CC23227F5B009DC7D6 /* Logging.swift in Sources */,
 				FAAA00CD23227F5B009DC7D6 /* Prebid.swift in Sources */,
+				60C2A365234B9AC100628C9D /* NativeRequest.swift in Sources */,
+				60C2A36E2354C7BA00628C9D /* NativeEventTracker.swift in Sources */,
 				FAAA00DC23227F65009DC7D6 /* Utils.swift in Sources */,
 				FAAA00D123227F5B009DC7D6 /* Constants.swift in Sources */,
 				FAAA00DA23227F65009DC7D6 /* AdUnit.swift in Sources */,

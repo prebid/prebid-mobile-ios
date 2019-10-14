@@ -185,12 +185,14 @@ import AdSupport
         } else if bundle != nil {
             app["bundle"] = bundle ?? ""
         }
-
-        let version: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-        if version != "" {
+        //if installed from cocoapods & uses frameworks then use this
+        if let version = Bundle(identifier: "org.cocoapods.PrebidMobile")?.infoDictionary?["CFBundleShortVersionString"] as? String {
             app["ver"] = version
+            print(version)
+        } else if let version = Bundle(identifier: "org.prebid.mobile")?.infoDictionary?[kCFBundleVersionKey as String] as? String {
+            app["ver"] = version
+            print(version)
         }
-
         app["publisher"] = ["id": Prebid.shared.prebidServerAccountId ?? 0] as NSDictionary
 
         var requestAppExt: [AnyHashable: Any] = [:]

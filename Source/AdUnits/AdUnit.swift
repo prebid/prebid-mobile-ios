@@ -39,16 +39,31 @@ import ObjectiveC.runtime
 
     //notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     var timeOutSignalSent: Bool! = false
+    
+//    init(configId: String) {
+//        self.closure = {_ in return}
+//        prebidConfigId = configId
+//        identifier = UUID.init().uuidString
+//        super.init()
+//    }
 
-    init(configId: String, size: CGSize) {
+    init(configId: String, size: CGSize?) {
         self.closure = {_ in return}
         prebidConfigId = configId
-        adSizes.append(size)
+        if let givenSize = size {
+           adSizes.append(givenSize)
+        }
         identifier = UUID.init().uuidString
         super.init()
     }
 
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
+        
+        if(self is NativeRequest){
+            let nativeRequest:NativeRequest = self as! NativeRequest
+            let object = nativeRequest.getNativeRequestObject()
+            print(object)
+        }
 
         Utils.shared.removeHBKeywords(adObject: adObject)
 
