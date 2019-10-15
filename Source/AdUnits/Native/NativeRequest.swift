@@ -1,10 +1,17 @@
-//
-//  NativeAdUnit.swift
-//  PrebidMobile
-//
-//  Created by Punnaghai Puviarasu on 10/7/19.
-//  Copyright © 2019 AppNexus. All rights reserved.
-//
+/*   Copyright 2018-2019 Prebid.org, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 
 import UIKit
 
@@ -16,15 +23,19 @@ public class NativeRequest: AdUnit {
     public var placementType:PlacementId?
     public var placementCount:Int? = 1
     public var sequence:Int?  = 0
-    var assets: Array<NativeAsset>!
+    public var assets: Array<NativeAsset>!
     public var asseturlsupport:Int? = 0
     public var durlsupport:Int? = 0
     public var eventtrackers:Array<NativeEventTracker>?
     public var privacy:Int? = 0
     public var ext:AnyObject?
     
-    public required init(configId: String, assets:Array<NativeAsset>) {
+    public required init(configId: String) {
         super.init(configId: configId, size:nil)
+    }
+    
+    public convenience init(configId: String, assets:Array<NativeAsset>) {
+        self.init(configId: configId)
         self.assets = assets
     }
     
@@ -32,12 +43,20 @@ public class NativeRequest: AdUnit {
         var nativeObject: [AnyHashable:Any] = [:]
         nativeObject["ver"] = version
         if(assets != nil){
-            var assetsObject:[Any] = []
+            var assetsObjects:[Any] = []
             for asset:NativeAsset in assets {
-                assetsObject.append(asset.getAssetObject())
+                assetsObjects.append(asset.getAssetObject())
             }
             
-            nativeObject["assets"] = assetsObject
+            nativeObject["assets"] = assetsObjects
+        }
+        if(eventtrackers != nil && eventtrackers!.count > 0){
+            var eventObjects:[Any] = []
+            for event:NativeEventTracker in eventtrackers! {
+                eventObjects.append(event.getEventTracker())
+            }
+            
+            nativeObject["eventtrackers"] = eventObjects
         }
         
         return nativeObject

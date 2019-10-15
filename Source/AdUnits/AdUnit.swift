@@ -62,7 +62,17 @@ import ObjectiveC.runtime
         if(self is NativeRequest){
             let nativeRequest:NativeRequest = self as! NativeRequest
             let object = nativeRequest.getNativeRequestObject()
-            print(object)
+            do {
+                let postData = try JSONSerialization.data(withJSONObject: object!, options: .prettyPrinted)
+                
+                let stringObject = String.init(data: postData, encoding: String.Encoding.utf8)
+                
+                print(stringObject!)
+                return
+            } catch let error {
+                Log.debug(error.localizedDescription)
+            }
+            
         }
 
         Utils.shared.removeHBKeywords(adObject: adObject)

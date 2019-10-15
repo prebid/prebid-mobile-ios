@@ -16,6 +16,9 @@ class NativeController: UIViewController, GADNativeAdDelegate {
     
     var nativeUnit: NativeRequest!
     var assets:NativeAsset!
+    var eventTrackers:NativeEventTracker!
+    var dfpNativeAdUnit:GADAdLoader!
+    let request = DFPRequest()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +27,19 @@ class NativeController: UIViewController, GADNativeAdDelegate {
         assets.title = NativeAssetTitle(length:25)
         assets.image = NativeAssetImage(minimumWidth: 20, minimumHeight: 30)
         nativeUnit = NativeRequest(configId: "25e17008-5081-4676-94d5-923ced4359d3", assets: [assets])
+        nativeUnit.context = ContextId.Social
+        nativeUnit.placementType = PlacementId.FeedContent
+        nativeUnit.contextSubType = ContextSubTypeId.General
+        eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
+        nativeUnit.eventtrackers = [eventTrackers]
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ (kGADSimulatorID as! String), "cc7ca766f86b43ab6cdc92bed424069b"]
+        dfpNativeAdUnit = GADAdLoader(adUnitID: "/19968336/Wei_Prebid_Native_Test", rootViewController: self, adTypes: [GADAdLoaderAdType.unifiedNative], options: [])
         
         
-       
-
+        nativeUnit.fetchDemand(adObject: self.request) {[weak self] (resultCode:ResultCode) in
+            print("Prebid demand fetch for DFP \(resultCode.name())")
+            self?.dfpNativeAdUnit!.load(self?.request)
+        }
         // Do any additional setup after loading the view.
     }
     
