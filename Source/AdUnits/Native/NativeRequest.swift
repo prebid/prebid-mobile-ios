@@ -18,16 +18,16 @@ import UIKit
 public class NativeRequest: AdUnit {
     
     var version:String! = "1.2"
-    public var context:ContextId?
-    public var contextSubType: ContextSubTypeId?
-    public var placementType:PlacementId?
-    public var placementCount:Int? = 1
-    public var sequence:Int?  = 0
+    public var context:ContextType?
+    public var contextSubType: ContextSubType?
+    public var placementType:PlacementType?
+    public var placementCount:Int = 1
+    public var sequence:Int  = 0
     public var assets: Array<NativeAsset>!
-    public var asseturlsupport:Int? = 0
-    public var durlsupport:Int? = 0
+    public var asseturlsupport:Int = 0
+    public var durlsupport:Int = 0
     public var eventtrackers:Array<NativeEventTracker>?
-    public var privacy:Int? = 0
+    public var privacy:Int = 0
     public var ext:AnyObject?
     
     public required init(configId: String) {
@@ -42,6 +42,33 @@ public class NativeRequest: AdUnit {
     func getNativeRequestObject() -> [AnyHashable: Any]? {
         var nativeObject: [AnyHashable:Any] = [:]
         nativeObject["ver"] = version
+        if (placementType?.rawValue != nil) {
+            nativeObject["plcmttype"] = placementType!.rawValue
+        }
+        if (context?.rawValue != nil) {
+            nativeObject["context"] = context?.rawValue
+        }
+        if (contextSubType?.rawValue != nil) {
+            nativeObject["contextsubtype"] = contextSubType?.rawValue
+        }
+        if (sequence > 0) {
+            nativeObject["sequence"] = sequence
+        }
+        if (asseturlsupport > 0) {
+            nativeObject["aurlsupport"] = asseturlsupport
+        }
+        if (durlsupport > 0) {
+            nativeObject["durlsupport"] = durlsupport
+        }
+        if (privacy > 0) {
+            nativeObject["privacy"] = privacy
+        }
+        if (ext != nil) {
+            nativeObject["ext"] = ext
+        }
+        
+        nativeObject["plcmtcnt"] = placementCount
+        
         if(assets != nil){
             var assetsObjects:[Any] = []
             for asset:NativeAsset in assets {
@@ -64,14 +91,14 @@ public class NativeRequest: AdUnit {
 
 }
 
-@objc public enum ContextId: Int {
+@objc public enum ContextType: Int {
     case Content = 1
     case Social = 2
     case Product = 3
     case TBD = 500
 }
 
-@objc public enum ContextSubTypeId: Int {
+@objc public enum ContextSubType: Int {
     case General = 10
     case Article = 11
     case Video = 12
@@ -87,7 +114,7 @@ public class NativeRequest: AdUnit {
     case TBD = 500
 }
 
-@objc public enum PlacementId: Int {
+@objc public enum PlacementType: Int {
     case FeedContent = 1
     case AtomicContent = 2
     case OutsideContent = 3

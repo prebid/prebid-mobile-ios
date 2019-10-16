@@ -27,9 +27,9 @@ class NativeController: UIViewController, GADNativeAdDelegate {
         assets.title = NativeAssetTitle(length:25)
         assets.image = NativeAssetImage(minimumWidth: 20, minimumHeight: 30)
         nativeUnit = NativeRequest(configId: "25e17008-5081-4676-94d5-923ced4359d3", assets: [assets])
-        nativeUnit.context = ContextId.Social
-        nativeUnit.placementType = PlacementId.FeedContent
-        nativeUnit.contextSubType = ContextSubTypeId.General
+        nativeUnit.context = ContextType.Social
+        nativeUnit.placementType = PlacementType.FeedContent
+        //nativeUnit.contextSubType = ContextSubType.General
         eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
         nativeUnit.eventtrackers = [eventTrackers]
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ (kGADSimulatorID as! String), "cc7ca766f86b43ab6cdc92bed424069b"]
