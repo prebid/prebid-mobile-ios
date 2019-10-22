@@ -26,13 +26,13 @@ public class NativeAsset:NSObject {
     func getAssetObject() -> [AnyHashable: Any] {
         var asset: [AnyHashable: Any] = [:]
         
-        asset["id"] = Int.random(in: 0...1000)
+        //asset["id"] = Int.random(in: 0...1000)
         asset["required"] = Int(truncating: NSNumber(value:required))
         if (title != nil) {
             asset["title"] = title!.getTitleObject()
         }
         if(image != nil){
-            asset["image"] = image!.getImageObject()
+            asset["img"] = image!.getImageObject()
         }
         if(video != nil){
             asset["video"] = video!.getVideoObject()
@@ -93,7 +93,7 @@ public class NativeAssetImage:NSObject {
         
         var image: [AnyHashable: Any] = [:]
         if(type != nil){
-            image["type"] = type
+            image["type"] = type?.rawValue
         }
         if(width != nil){
             image["w"] = width!

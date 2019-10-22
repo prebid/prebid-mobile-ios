@@ -55,7 +55,10 @@ import AdSupport
             //HTTP HeadersExpression implicitly coerced from '[AnyHashable : Any]?' to Any
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
-            Log.info("Prebid Request post body \(requestBody)")
+            
+        let stringObject:String = String.init(data: request.httpBody!, encoding: String.Encoding.utf8)!
+
+            Log.info("Prebid Request post body \(stringObject)")
             return request
     }
 
@@ -128,10 +131,17 @@ import AdSupport
             sizeArray.append(sizeDict)
         }
         let formats = ["format": sizeArray]
-        imp["banner"] = formats
+        if !(adUnit is NativeRequest){
+            imp["banner"] = formats
 
-        if (adUnit is InterstitialAdUnit) {
-            imp["instl"] = 1
+            if (adUnit is InterstitialAdUnit) {
+                imp["instl"] = 1
+            }
+        } else {
+            
+            let nativeRequest:NativeRequest = adUnit as! NativeRequest
+            imp["native"] = nativeRequest.getNativeRequestObject()
+            
         }
 
         //to be used when openRTB supports storedRequests

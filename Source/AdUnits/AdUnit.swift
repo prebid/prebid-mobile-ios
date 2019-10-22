@@ -59,16 +59,23 @@ import ObjectiveC.runtime
 
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
         
-        if(self is NativeRequest){
+        if !(self is NativeRequest){
+            for size in adSizes {
+                if (size.width < 0 || size.height < 0) {
+                    completion(ResultCode.prebidInvalidSize)
+                    return
+                }
+            }
+            
             let nativeRequest:NativeRequest = self as! NativeRequest
             let object = nativeRequest.getNativeRequestObject()
             do {
                 let postData = try JSONSerialization.data(withJSONObject: object!, options: .prettyPrinted)
-                
+
                 let stringObject = String.init(data: postData, encoding: String.Encoding.utf8)
-                
+
                 print(stringObject!)
-                return
+                //return
             } catch let error {
                 Log.debug(error.localizedDescription)
             }
@@ -77,12 +84,7 @@ import ObjectiveC.runtime
 
         Utils.shared.removeHBKeywords(adObject: adObject)
 
-        for size in adSizes {
-            if (size.width < 0 || size.height < 0) {
-                completion(ResultCode.prebidInvalidSize)
-                return
-            }
-        }
+        
 
         if (prebidConfigId.isEmpty || (prebidConfigId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
             completion(ResultCode.prebidInvalidConfigId)
