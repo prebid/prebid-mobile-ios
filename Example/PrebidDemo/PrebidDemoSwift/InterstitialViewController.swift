@@ -29,63 +29,126 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
 
     let request = GADRequest()
 
-    var dfpInterstitial: DFPInterstitial!
+    var amInterstitial: DFPInterstitial!
 
-    var mopubInterstitial: MPInterstitialAdController!
+    var mpInterstitial: MPInterstitialAdController!
+    
+    var adUnit: AdUnit!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         adServerLabel.text = adServerName
 
-        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
-        let interstitialUnit = InterstitialAdUnit(configId: "625c6125-f19e-4d5b-95c5-55501526b2a4")
-        
-//        Advanced interstitial support
-//        let interstitialUnit = InterstitialAdUnit(configId: "625c6125-f19e-4d5b-95c5-55501526b2a4", minWidthPerc: 50, minHeightPerc: 70)
-
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
-            loadDFPInterstitial(adUnit: interstitialUnit)
+//            setupAndLoadAMInterstitial()
+            setupAndLoadAMInterstitialVAST()
 
         } else if (adServerName == "MoPub") {
             print("entered \(adServerName) loop" )
-            loadMoPubInterstitial(adUnit: interstitialUnit)
-
+//            setupAndLoadMPInterstitial()
+            setupAndLoadMPInterstitialVAST()
         }
     }
 
-    func loadDFPInterstitial(adUnit: AdUnit) {
-        print("Google Mobile Ads SDK version: \(DFPRequest.sdkVersion())")
+    //MARK: - AdManager
+    func setupAndLoadAMInterstitial() {
+        
+        setupPBInterstitial()
+        setupAMInterstitial()
+        
+        loadInterstitial()
+    }
+    
+    func setupAndLoadAMInterstitialVAST() {
 
-        dfpInterstitial = DFPInterstitial(adUnitID: "/19968336/PrebidMobileValidator_Interstitial")
-        dfpInterstitial.delegate = self
-        request.testDevices = [ kGADSimulatorID]
+        setupPBInterstitialVAST()
+        setupAMInterstitialVAST()
+        
+        loadInterstitial()
+    }
+    
+    func setupPBInterstitialVAST() {
+        Prebid.shared.prebidServerHost = PrebidHost.Custom
+        try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.qa.rubiconproject.com/openrtb2/auction")
+        Prebid.shared.prebidServerAccountId = "1011"
+        
+        adUnit = VideoInterstitialAdUnit(configId: "1011-test-video")
+    }
+    
+    func setupPBInterstitial() {
+        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        adUnit = InterstitialAdUnit(configId: "625c6125-f19e-4d5b-95c5-55501526b2a4")
+        
+//        Advanced interstitial support
+//        adUnit = InterstitialAdUnit(configId: "625c6125-f19e-4d5b-95c5-55501526b2a4", minWidthPerc: 50, minHeightPerc: 70)
+
+    }
+    
+    func setupAMInterstitial() {
+        amInterstitial = DFPInterstitial(adUnitID: "/19968336/PrebidMobileValidator_Interstitial")
+        amInterstitial.delegate = self
+    }
+    
+    func setupAMInterstitialVAST() {
+        amInterstitial = DFPInterstitial(adUnitID: "/5300653/test_adunit_vast_pavliuchyk")
+        amInterstitial.delegate = self
+    }
+    
+    func loadInterstitial() {
+        print("Google Mobile Ads SDK version: \(DFPRequest.sdkVersion())")
+        
         adUnit.fetchDemand(adObject: self.request) { (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
-            self.dfpInterstitial!.load(self.request)
+            self.amInterstitial!.load(self.request)
         }
     }
 
-    func loadMoPubInterstitial(adUnit: AdUnit) {
+    //MARK: - MoPub
+    func setupAndLoadMPInterstitial() {
+        setupPBInterstitial()
+        setupMPInterstitial()
+        
+        loadMPInterstitial()
 
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "2829868d308643edbec0795977f17437")
+    }
+    
+    func setupAndLoadMPInterstitialVAST() {
+        setupPBInterstitialVAST()
+        setupMPInterstitialVAST()
+        
+        loadMPInterstitial()
+
+    }
+    
+    func setupMPInterstitial() {
+        
+        setupMPInterstitial(id: "2829868d308643edbec0795977f17437")
+    }
+    
+    func setupMPInterstitialVAST() {
+        
+        setupMPInterstitial(id: "fdafd17a5aeb41c798e6901a7f76f256")
+    }
+    
+    func setupMPInterstitial(id: String) {
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: id)
         sdkConfig.globalMediationSettings = []
 
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {
+        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
 
-        }
-
-        self.mopubInterstitial = MPInterstitialAdController(forAdUnitId: "2829868d308643edbec0795977f17437")
-        self.mopubInterstitial.delegate = self
-
+        self.mpInterstitial = MPInterstitialAdController(forAdUnitId: id)
+        self.mpInterstitial.delegate = self
+    }
+    
+    func loadMPInterstitial() {
         // Do any additional setup after loading the view, typically from a nib.
-        adUnit.fetchDemand(adObject: mopubInterstitial!) { (resultCode: ResultCode) in
+        adUnit.fetchDemand(adObject: mpInterstitial!) { (resultCode: ResultCode) in
             print("Prebid demand fetch for mopub \(resultCode.name())")
 
-            self.mopubInterstitial.loadAd()
+            self.mpInterstitial.loadAd()
         }
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -104,9 +167,9 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
 
     func interstitialDidReceiveAd(_ ad: GADInterstitial) {
 
-        if (self.dfpInterstitial?.isReady ?? true) {
+        if (self.amInterstitial?.isReady ?? true) {
             print("Ad ready")
-            self.dfpInterstitial?.present(fromRootViewController: self)
+            self.amInterstitial?.present(fromRootViewController: self)
         } else {
             print("Ad not ready")
         }
@@ -114,8 +177,8 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
 
     func interstitialDidLoadAd(_ interstitial: MPInterstitialAdController!) {
         print("Ad ready")
-        if (self.mopubInterstitial.ready ) {
-            self.mopubInterstitial.show(from: self)
+        if (self.mpInterstitial.ready ) {
+            self.mpInterstitial.show(from: self)
         }
     }
 
