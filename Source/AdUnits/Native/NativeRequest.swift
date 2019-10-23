@@ -42,32 +42,34 @@ public class NativeRequest: AdUnit {
     func getNativeRequestObject() -> [AnyHashable: Any]? {
         var nativeObject: [AnyHashable:Any] = [:]
         nativeObject["ver"] = version
+        var requestObject: [AnyHashable:Any] = [:]
+        
         if (placementType?.rawValue != nil) {
-            nativeObject["plcmttype"] = placementType!.rawValue
+            requestObject["plcmttype"] = placementType!.rawValue
         }
         if (context?.rawValue != nil) {
-            nativeObject["context"] = context?.rawValue
+            requestObject["context"] = context?.rawValue
         }
         if (contextSubType?.rawValue != nil) {
-            nativeObject["contextsubtype"] = contextSubType?.rawValue
+            requestObject["contextsubtype"] = contextSubType?.rawValue
         }
         if (sequence > 0) {
-            nativeObject["sequence"] = sequence
+            requestObject["sequence"] = sequence
         }
         if (asseturlsupport > 0) {
-            nativeObject["aurlsupport"] = asseturlsupport
+            requestObject["aurlsupport"] = asseturlsupport
         }
         if (durlsupport > 0) {
-            nativeObject["durlsupport"] = durlsupport
+            requestObject["durlsupport"] = durlsupport
         }
         if (privacy > 0) {
-            nativeObject["privacy"] = privacy
+            requestObject["privacy"] = privacy
         }
         if (ext != nil) {
-            nativeObject["ext"] = ext
+            requestObject["ext"] = ext
         }
         
-        nativeObject["plcmtcnt"] = placementCount
+        requestObject["plcmtcnt"] = placementCount
         
         if(assets != nil){
             var assetsObjects:[Any] = []
@@ -75,7 +77,7 @@ public class NativeRequest: AdUnit {
                 assetsObjects.append(asset.getAssetObject())
             }
             
-            nativeObject["assets"] = assetsObjects
+            requestObject["assets"] = assetsObjects
         }
         if(eventtrackers != nil && eventtrackers!.count > 0){
             var eventObjects:[Any] = []
@@ -83,7 +85,18 @@ public class NativeRequest: AdUnit {
                 eventObjects.append(event.getEventTracker())
             }
             
-            nativeObject["eventtrackers"] = eventObjects
+            requestObject["eventtrackers"] = eventObjects
+        }
+        
+        do {
+            let nativeData = try JSONSerialization.data(withJSONObject: requestObject, options: .prettyPrinted)
+
+            let stringObject = String.init(data: nativeData, encoding: String.Encoding.utf8)
+            
+            nativeObject["request"] = stringObject
+            
+        } catch let error {
+            Log.debug(error.localizedDescription)
         }
         
         return nativeObject

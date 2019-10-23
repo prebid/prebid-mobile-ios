@@ -15,7 +15,7 @@ import GoogleMobileAds
 class NativeController: UIViewController, GADNativeAdDelegate {
     
     var nativeUnit: NativeRequest!
-    var assets:NativeAsset!
+    
     var eventTrackers:NativeEventTracker!
     var dfpNativeAdUnit:GADAdLoader!
     let request = DFPRequest()
@@ -23,13 +23,19 @@ class NativeController: UIViewController, GADNativeAdDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        assets = NativeAsset()
-        assets.title = NativeAssetTitle(length:25)
-        assets.image = NativeAssetImage(minimumWidth: 20, minimumHeight: 30)
-        nativeUnit = NativeRequest(configId: "25e17008-5081-4676-94d5-923ced4359d3", assets: [assets])
+        let asset1 = NativeAsset()
+        asset1.required = true
+        asset1.image = NativeAssetImage(minimumWidth: 200, minimumHeight: 200)
+        asset1.image?.type = ImageAsset.Main
+        
+        let asset2 = NativeAsset()
+        asset2.required = true
+        asset2.title = NativeAssetTitle(length: 90)
+        
+        nativeUnit = NativeRequest(configId: "1f85e687-b45f-4649-a4d5-65f74f2ede8e", assets: [asset1,asset2])
         nativeUnit.context = ContextType.Social
         nativeUnit.placementType = PlacementType.FeedContent
-        //nativeUnit.contextSubType = ContextSubType.General
+        nativeUnit.contextSubType = ContextSubType.Social
         eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
         nativeUnit.eventtrackers = [eventTrackers]
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ (kGADSimulatorID as! String), "cc7ca766f86b43ab6cdc92bed424069b"]
