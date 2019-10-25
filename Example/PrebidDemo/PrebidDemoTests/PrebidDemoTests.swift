@@ -461,6 +461,62 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
     }
     
+    func testDFPNativeWithoutAutoRefresh() {
+        var fetchDemandCount = 0
+        let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [])
+        nativeUnit.context = ContextType.Social
+        nativeUnit.placementType = PlacementType.FeedContent
+        nativeUnit.contextSubType = ContextSubType.Social
+        let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
+        nativeUnit.eventtrackers = [eventTrackers]
+        let dfpNativeAdUnit = GADAdLoader(adUnitID: Constants.DFP_NATIVE_ADUNIT_ID_APPNEXUS, rootViewController: viewController, adTypes: [GADAdLoaderAdType.unifiedNative], options: [])
+        dfpNativeAdUnit.delegate = self
+        let request: DFPRequest = DFPRequest()
+        nativeUnit.fetchDemand(adObject: request) {(resultCode:ResultCode) in
+            fetchDemandCount += 1
+        }
+        wait(31)
+        XCTAssertEqual(1, fetchDemandCount)
+    }
+    
+    func testDFPNativeWithInvalidAutoRefresh() {
+        var fetchDemandCount = 0
+        let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [])
+        nativeUnit.setAutoRefreshMillis(time: 20000)
+        nativeUnit.context = ContextType.Social
+        nativeUnit.placementType = PlacementType.FeedContent
+        nativeUnit.contextSubType = ContextSubType.Social
+        let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
+        nativeUnit.eventtrackers = [eventTrackers]
+        let dfpNativeAdUnit = GADAdLoader(adUnitID: Constants.DFP_NATIVE_ADUNIT_ID_APPNEXUS, rootViewController: viewController, adTypes: [GADAdLoaderAdType.unifiedNative], options: [])
+        dfpNativeAdUnit.delegate = self
+        let request: DFPRequest = DFPRequest()
+        nativeUnit.fetchDemand(adObject: request) {(resultCode:ResultCode) in
+            fetchDemandCount += 1
+        }
+        wait(31)
+        XCTAssertEqual(1, fetchDemandCount)
+    }
+    
+    func testDFPNativeWithValidAutoRefresh() {
+         var fetchDemandCount = 0
+         let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [])
+         nativeUnit.setAutoRefreshMillis(time: 30000)
+         nativeUnit.context = ContextType.Social
+         nativeUnit.placementType = PlacementType.FeedContent
+         nativeUnit.contextSubType = ContextSubType.Social
+         let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
+         nativeUnit.eventtrackers = [eventTrackers]
+         let dfpNativeAdUnit = GADAdLoader(adUnitID: Constants.DFP_NATIVE_ADUNIT_ID_APPNEXUS, rootViewController: viewController, adTypes: [GADAdLoaderAdType.unifiedNative], options: [])
+         dfpNativeAdUnit.delegate = self
+         let request: DFPRequest = DFPRequest()
+         nativeUnit.fetchDemand(adObject: request) {(resultCode:ResultCode) in
+             fetchDemandCount += 1
+         }
+         wait(31)
+         XCTAssertEqual(2, fetchDemandCount)
+     }
+    
     func testRubiconDFPNativeSanityAppCheckTest() {
           //given
         setUpAppRubicon()
@@ -733,6 +789,65 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
+    }
+    
+    func testMopubNativeWithoutAutoRefresh() {
+        var fetchDemandCount = 0
+        let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [])
+        nativeUnit.context = ContextType.Social
+        nativeUnit.placementType = PlacementType.FeedContent
+        nativeUnit.contextSubType = ContextSubType.Social
+        let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
+        nativeUnit.eventtrackers = [eventTrackers]
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
+          sdkConfig.globalMediationSettings = []
+          MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
+          let mopubNative = MPNativeAdRequest(adUnitIdentifier: Constants.MOPUB_NATIVE_ADUNIT_ID_APPNEXUS, rendererConfigurations: [])
+          nativeUnit.fetchDemand(adObject: mopubNative!) { (resultCode: ResultCode) in
+              fetchDemandCount += 1
+          }
+        wait(31)
+        XCTAssertEqual(1, fetchDemandCount)
+    }
+    
+    func testMopubNativeWithInvalidAutoRefresh() {
+        var fetchDemandCount = 0
+        let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [])
+        nativeUnit.setAutoRefreshMillis(time: 20000)
+        nativeUnit.context = ContextType.Social
+        nativeUnit.placementType = PlacementType.FeedContent
+        nativeUnit.contextSubType = ContextSubType.Social
+        let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
+        nativeUnit.eventtrackers = [eventTrackers]
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
+          sdkConfig.globalMediationSettings = []
+          MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
+          let mopubNative = MPNativeAdRequest(adUnitIdentifier: Constants.MOPUB_NATIVE_ADUNIT_ID_APPNEXUS, rendererConfigurations: [])
+          nativeUnit.fetchDemand(adObject: mopubNative!) { (resultCode: ResultCode) in
+              fetchDemandCount += 1
+          }
+        wait(31)
+        XCTAssertEqual(1, fetchDemandCount)
+    }
+    
+    func testMopubNativeWithValidAutoRefresh() {
+        var fetchDemandCount = 0
+        let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [])
+        nativeUnit.setAutoRefreshMillis(time: 30000)
+        nativeUnit.context = ContextType.Social
+        nativeUnit.placementType = PlacementType.FeedContent
+        nativeUnit.contextSubType = ContextSubType.Social
+        let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
+        nativeUnit.eventtrackers = [eventTrackers]
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
+          sdkConfig.globalMediationSettings = []
+          MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
+          let mopubNative = MPNativeAdRequest(adUnitIdentifier: Constants.MOPUB_NATIVE_ADUNIT_ID_APPNEXUS, rendererConfigurations: [])
+          nativeUnit.fetchDemand(adObject: mopubNative!) { (resultCode: ResultCode) in
+              fetchDemandCount += 1
+          }
+        wait(31)
+        XCTAssertEqual(2, fetchDemandCount)
     }
 
     func testAutoRefreshWith2MinThenDisable() {
