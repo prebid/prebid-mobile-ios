@@ -69,13 +69,7 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
 
     func loadMoPubInterstitial(adUnit: AdUnit) {
 
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "2829868d308643edbec0795977f17437")
-        sdkConfig.globalMediationSettings = []
-
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {
-
-        }
-
+        
         self.mopubInterstitial = MPInterstitialAdController(forAdUnitId: "2829868d308643edbec0795977f17437")
         self.mopubInterstitial.delegate = self
 

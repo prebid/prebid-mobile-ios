@@ -17,9 +17,7 @@ import UIKit
 import PrebidMobile
 import CoreLocation
 import GoogleMobileAds
-
-//import GoogleMobileAds
-//import MoPub
+import MoPub
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -39,6 +37,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Prebid.shared.prebidServerAccountId = "12345"
         
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =  [ (kGADSimulatorID as! String), "cc7ca766f86b43ab6cdc92bed424069b"]
+        GADMobileAds.sharedInstance().start()
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
+        sdkConfig.globalMediationSettings = []
+
+        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {
+
+        }
 
         coreLocation = CLLocationManager()
         coreLocation?.requestWhenInUseAuthorization()

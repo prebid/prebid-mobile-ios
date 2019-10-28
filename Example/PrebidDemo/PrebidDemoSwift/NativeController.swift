@@ -64,9 +64,8 @@ class NativeController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     }
     
     func loadDFPNative(){
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ (kGADSimulatorID as! String), "cc7ca766f86b43ab6cdc92bed424069b"]
         
-        dfpNativeAdUnit = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
+        dfpNativeAdUnit = DFPBannerView(adSize: kGADAdSizeFluid)
         dfpNativeAdUnit.adUnitID = "/19968336/Wei_Prebid_Native_Test"
         dfpNativeAdUnit.rootViewController = self
         dfpNativeAdUnit.delegate = self
@@ -82,21 +81,17 @@ class NativeController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     
     func loadMoPubNative() {
 
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
-        sdkConfig.globalMediationSettings = []
-
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {
-
-        }
+        
 
         mopubNativeAdUnit = MPAdView(adUnitId: "a470959f33034229945744c5f904d5bc")
-        mopubNativeAdUnit!.delegate = self
-
-        nativeView.addSubview(mopubNativeAdUnit!)
+        mopubNativeAdUnit.frame = CGRect(x: 0, y: 0, width: 300, height: 250)
+        mopubNativeAdUnit.delegate = self
+        mopubNativeAdUnit.backgroundColor = .green
+        nativeView.addSubview(mopubNativeAdUnit)
 
         if(nativeUnit != nil){
             // Do any additional setup after loading the view, typically from a nib.
-            nativeUnit.fetchDemand(adObject: mopubNativeAdUnit!) { (resultCode: ResultCode) in
+            nativeUnit.fetchDemand(adObject: mopubNativeAdUnit) { (resultCode: ResultCode) in
                 print("Prebid demand fetch for mopub \(resultCode.name())")
 
                 self.mopubNativeAdUnit!.loadAd()
@@ -129,7 +124,7 @@ class NativeController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     }
 
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+            print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
     }
 
     func adViewDidReceiveAd(_ bannerView: DFPBannerView) {
