@@ -128,10 +128,27 @@
                     <view key="view" contentMode="scaleToFill" id="PI9-v6-Lfw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K0f-FZ-kxL">
+                                <rect key="frame" x="37.5" y="208.5" width="300" height="250"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="Nko-Dd-qIR"/>
+                                    <constraint firstAttribute="width" constant="300" id="vpJ-Yx-RIu"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="K0f-FZ-kxL" firstAttribute="centerX" secondItem="PI9-v6-Lfw" secondAttribute="centerX" id="G5R-jm-Mef"/>
+                            <constraint firstItem="K0f-FZ-kxL" firstAttribute="centerY" secondItem="PI9-v6-Lfw" secondAttribute="centerY" id="zoQ-vx-n1t"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="E0V-4p-0dE"/>
                     </view>
                     <navigationItem key="navigationItem" id="pQF-nK-uow"/>
+                    <connections>
+                        <outlet property="nativeView" destination="K0f-FZ-kxL" id="AwO-KS-6QB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lop-8Z-uUw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

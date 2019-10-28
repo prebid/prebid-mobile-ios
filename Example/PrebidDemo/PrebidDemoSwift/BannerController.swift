@@ -75,8 +75,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         dfpBanner.delegate = self
         dfpBanner.backgroundColor = .red
         appBannerView.addSubview(dfpBanner)
-        request.testDevices = [ (kGADSimulatorID as! String), "cc7ca766f86b43ab6cdc92bed424069b"]
-
+        
         bannerUnit.fetchDemand(adObject: self.request) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
             self?.dfpBanner!.load(self?.request)

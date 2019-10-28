@@ -16,6 +16,7 @@
 import UIKit
 import PrebidMobile
 import CoreLocation
+import GoogleMobileAds
 
 //import GoogleMobileAds
 //import MoPub
@@ -36,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Prebid.shared.timeoutMillis = 1000;
         //Prebid.shared.prebidServerHost = PrebidHost.Rubicon
         //Prebid.shared.prebidServerAccountId = "12345"
+        
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =  [ (kGADSimulatorID as! String), "cc7ca766f86b43ab6cdc92bed424069b"]
 
         coreLocation = CLLocationManager()
         coreLocation?.requestWhenInUseAuthorization()
