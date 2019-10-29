@@ -20,16 +20,19 @@ import WebKit
 @testable import PrebidMobile
 @testable import PrebidDemoSwift
 
-class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegate, GADUnifiedNativeAdDelegate, GADAdLoaderDelegate, GADUnifiedNativeAdLoaderDelegate, MPAdViewDelegate, MPInterstitialAdControllerDelegate, MPNativeAdRendering {
+class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegate, MPAdViewDelegate, MPInterstitialAdControllerDelegate {
     
     
-
+    
     var viewController: IndexController?
     var loadSuccesfulException: XCTestExpectation?
     var timeoutForRequest: TimeInterval = 0.0
     var mopubInterstitial: MPInterstitialAdController?
     var dfpInterstitial: DFPInterstitial?
-
+    var nativeUnit : NativeRequest!
+    var dfpNativeAdUnit:DFPBannerView!
+    var mopubNativeAdUnit:MPAdView!
+    
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
@@ -50,6 +53,9 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         loadSuccesfulException = nil
         mopubInterstitial = nil
         dfpInterstitial = nil
+        nativeUnit = nil
+        dfpNativeAdUnit = nil
+        mopubNativeAdUnit = nil
     }
     
     func setUpAppNexus() {
@@ -65,7 +71,44 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         Prebid.shared.timeoutMillis = 10_000;
     }
-
+    
+    func loadNativeAssets(){
+        let asset1 = NativeAsset()
+        asset1.required = true
+        asset1.image = NativeAssetImage(minimumWidth: 200, minimumHeight: 200)
+        asset1.image?.type = ImageAsset.Main
+        
+        let asset2 = NativeAsset()
+        asset2.required = true
+        asset2.title = NativeAssetTitle(length: 90)
+        
+        nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [asset1,asset2])
+        nativeUnit.context = ContextType.Social
+        nativeUnit.placementType = PlacementType.FeedContent
+        nativeUnit.contextSubType = ContextSubType.Social
+        let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
+        nativeUnit.eventtrackers = [eventTrackers]
+    }
+    
+    func loadDFPNative(){
+        dfpNativeAdUnit = DFPBannerView(adSize: kGADAdSizeFluid)
+        dfpNativeAdUnit.adUnitID = Constants.DFP_NATIVE_ADUNIT_ID_APPNEXUS
+        dfpNativeAdUnit.rootViewController = viewController
+        dfpNativeAdUnit.delegate = self
+        dfpNativeAdUnit.backgroundColor = .green
+        viewController?.view.addSubview(dfpNativeAdUnit)
+    }
+    
+    func loadMopubNative(){
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_NATIVE_ADUNIT_ID_APPNEXUS)
+        sdkConfig.globalMediationSettings = []
+        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
+        mopubNativeAdUnit = MPAdView(adUnitId: Constants.MOPUB_NATIVE_ADUNIT_ID_APPNEXUS)
+        mopubNativeAdUnit?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
+        mopubNativeAdUnit?.delegate = self
+        viewController?.view.addSubview(mopubNativeAdUnit!)
+    }
+    
     func testAppNexusDFPBannerSanityAppCheckTest() {
         
         //given
@@ -170,21 +213,21 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             func adViewDidReceiveAd(_ bannerView: GADBannerView) {
                 Log.debug("AdManager adViewDidReceiveAd")
                 AdViewUtils.findPrebidCreativeSize(bannerView, success: { (size) in
-                        if let bannerView = bannerView as? DFPBannerView {
-                                        bannerView.resize(GADAdSizeFromCGSize(size))
-                                        
-                                        let bannerViewFrame = bannerView.frame;
-                                        let bannerViewSize = CGSize(width: bannerViewFrame.width, height: bannerViewFrame.height)
-                                        
-                                        XCTAssertEqual(bannerViewSize, size)
-                                        
-                                        //Wait to make screenshot
-                                        XCTWaiter.wait(for: [XCTestExpectation(description: "wait")], timeout: self.outer.screenshotDelaySeconds)
-                                        
-                                        self.outer.makeScreenShot()
-                                    }
-
-                                    self.outer.onResult(isSuccess: true, prebidbBannerAdUnit: self.prebidbBannerAdUnit, loadSuccesfulExpectation: self.loadSuccesfulExpectation, first: &self.first, second: &self.second)
+                    if let bannerView = bannerView as? DFPBannerView {
+                        bannerView.resize(GADAdSizeFromCGSize(size))
+                        
+                        let bannerViewFrame = bannerView.frame;
+                        let bannerViewSize = CGSize(width: bannerViewFrame.width, height: bannerViewFrame.height)
+                        
+                        XCTAssertEqual(bannerViewSize, size)
+                        
+                        //Wait to make screenshot
+                        XCTWaiter.wait(for: [XCTestExpectation(description: "wait")], timeout: self.outer.screenshotDelaySeconds)
+                        
+                        self.outer.makeScreenShot()
+                    }
+                    
+                    self.outer.onResult(isSuccess: true, prebidbBannerAdUnit: self.prebidbBannerAdUnit, loadSuccesfulExpectation: self.loadSuccesfulExpectation, first: &self.first, second: &self.second)
                 }) { (error) in
                     Log.warn("ERROR AdViewUtils findPrebidCreativeSize: \(error)")
                 }
@@ -423,28 +466,14 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 30.0
-        let asset1 = NativeAsset()
-        asset1.required = true
-        asset1.image = NativeAssetImage(minimumWidth: 200, minimumHeight: 200)
-        asset1.image?.type = ImageAsset.Main
+        loadNativeAssets()
+        loadDFPNative()
         
-        let asset2 = NativeAsset()
-        asset2.required = true
-        asset2.title = NativeAssetTitle(length: 90)
-        
-        let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [asset1,asset2])
-        nativeUnit.context = ContextType.Social
-        nativeUnit.placementType = PlacementType.FeedContent
-        nativeUnit.contextSubType = ContextSubType.Social
-        let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
-        nativeUnit.eventtrackers = [eventTrackers]
-        let dfpNativeAdUnit = GADAdLoader(adUnitID: Constants.DFP_NATIVE_ADUNIT_ID_APPNEXUS, rootViewController: viewController, adTypes: [GADAdLoaderAdType.unifiedNative], options: [])
-        dfpNativeAdUnit.delegate = self
         let request: DFPRequest = DFPRequest()
         nativeUnit.fetchDemand(adObject: request) {[weak self] (resultCode:ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
             if resultCode == ResultCode.prebidDemandFetchSuccess{
-                dfpNativeAdUnit.load(request)
+                self?.dfpNativeAdUnit.load(request)
             } else {
                 XCTFail("resultCode:\(resultCode.name())")
                 self?.loadSuccesfulException?.fulfill()
@@ -463,14 +492,8 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
     
     func testDFPNativeWithoutAutoRefresh() {
         var fetchDemandCount = 0
-        let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [])
-        nativeUnit.context = ContextType.Social
-        nativeUnit.placementType = PlacementType.FeedContent
-        nativeUnit.contextSubType = ContextSubType.Social
-        let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
-        nativeUnit.eventtrackers = [eventTrackers]
-        let dfpNativeAdUnit = GADAdLoader(adUnitID: Constants.DFP_NATIVE_ADUNIT_ID_APPNEXUS, rootViewController: viewController, adTypes: [GADAdLoaderAdType.unifiedNative], options: [])
-        dfpNativeAdUnit.delegate = self
+        loadNativeAssets()
+        loadDFPNative()
         let request: DFPRequest = DFPRequest()
         nativeUnit.fetchDemand(adObject: request) {(resultCode:ResultCode) in
             fetchDemandCount += 1
@@ -481,15 +504,9 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
     
     func testDFPNativeWithInvalidAutoRefresh() {
         var fetchDemandCount = 0
-        let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [])
+        loadNativeAssets()
         nativeUnit.setAutoRefreshMillis(time: 20000)
-        nativeUnit.context = ContextType.Social
-        nativeUnit.placementType = PlacementType.FeedContent
-        nativeUnit.contextSubType = ContextSubType.Social
-        let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
-        nativeUnit.eventtrackers = [eventTrackers]
-        let dfpNativeAdUnit = GADAdLoader(adUnitID: Constants.DFP_NATIVE_ADUNIT_ID_APPNEXUS, rootViewController: viewController, adTypes: [GADAdLoaderAdType.unifiedNative], options: [])
-        dfpNativeAdUnit.delegate = self
+        loadDFPNative()
         let request: DFPRequest = DFPRequest()
         nativeUnit.fetchDemand(adObject: request) {(resultCode:ResultCode) in
             fetchDemandCount += 1
@@ -499,66 +516,16 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
     }
     
     func testDFPNativeWithValidAutoRefresh() {
-         var fetchDemandCount = 0
-         let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [])
-         nativeUnit.setAutoRefreshMillis(time: 30000)
-         nativeUnit.context = ContextType.Social
-         nativeUnit.placementType = PlacementType.FeedContent
-         nativeUnit.contextSubType = ContextSubType.Social
-         let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
-         nativeUnit.eventtrackers = [eventTrackers]
-         let dfpNativeAdUnit = GADAdLoader(adUnitID: Constants.DFP_NATIVE_ADUNIT_ID_APPNEXUS, rootViewController: viewController, adTypes: [GADAdLoaderAdType.unifiedNative], options: [])
-         dfpNativeAdUnit.delegate = self
-         let request: DFPRequest = DFPRequest()
-         nativeUnit.fetchDemand(adObject: request) {(resultCode:ResultCode) in
-             fetchDemandCount += 1
-         }
-         wait(31)
-         XCTAssertEqual(2, fetchDemandCount)
-     }
-    
-    func testRubiconDFPNativeSanityAppCheckTest() {
-          //given
-        setUpAppRubicon()
-        loadSuccesfulException = expectation(description: "\(#function)")
-        
-        timeoutForRequest = 30.0
-        let asset1 = NativeAsset()
-        asset1.required = true
-        asset1.image = NativeAssetImage(minimumWidth: 200, minimumHeight: 200)
-        asset1.image?.type = ImageAsset.Main
-        
-        let asset2 = NativeAsset()
-        asset2.required = true
-        asset2.title = NativeAssetTitle(length: 90)
-        
-        let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_RUBICON, assets: [asset1,asset2])
-        nativeUnit.context = ContextType.Social
-        nativeUnit.placementType = PlacementType.FeedContent
-        nativeUnit.contextSubType = ContextSubType.Social
-        let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
-        nativeUnit.eventtrackers = [eventTrackers]
-        let dfpNativeAdUnit = GADAdLoader(adUnitID: Constants.DFP_NATIVE_ADUNIT_ID_RUBICON, rootViewController: viewController, adTypes: [GADAdLoaderAdType.unifiedNative], options: [])
-        dfpNativeAdUnit.delegate = self
+        var fetchDemandCount = 0
+        loadNativeAssets()
+        nativeUnit.setAutoRefreshMillis(time: 30000)
+        loadDFPNative()
         let request: DFPRequest = DFPRequest()
-        nativeUnit.fetchDemand(adObject: request) {[weak self] (resultCode:ResultCode) in
-            print("Prebid demand fetch for DFP \(resultCode.name())")
-            if resultCode == ResultCode.prebidDemandFetchSuccess {
-                dfpNativeAdUnit.load(request)
-            } else {
-                XCTFail("resultCode:\(resultCode.name())")
-                self?.loadSuccesfulException?.fulfill()
-            }
+        nativeUnit.fetchDemand(adObject: request) {(resultCode:ResultCode) in
+            fetchDemandCount += 1
         }
-        
-        waitForExpectations(timeout: timeoutForRequest, handler: nil)
-
-        
-        //then
-        XCTAssertNotNil(request.customTargeting)
-        if let customTargeting = request.customTargeting {
-            XCTAssertNotNil(customTargeting["hb_pb"])
-        }
+        wait(31)
+        XCTAssertEqual(2, fetchDemandCount)
     }
 
     func testAppNexusMoPubBannerSanityAppCheckTest() {
@@ -756,32 +723,11 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 30.0
-        let asset1 = NativeAsset()
-        asset1.required = true
-        asset1.image = NativeAssetImage(minimumWidth: 200, minimumHeight: 200)
-        asset1.image?.type = ImageAsset.Main
-        
-        let asset2 = NativeAsset()
-        asset2.required = true
-        asset2.title = NativeAssetTitle(length: 90)
-        
-        let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [asset1,asset2])
-        nativeUnit.context = ContextType.Social
-        nativeUnit.placementType = PlacementType.FeedContent
-        nativeUnit.contextSubType = ContextSubType.Social
-        let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
-        nativeUnit.eventtrackers = [eventTrackers]
-        
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubNative = MPNativeAdRequest(adUnitIdentifier: Constants.MOPUB_NATIVE_ADUNIT_ID_APPNEXUS, rendererConfigurations: [])
-        nativeUnit.fetchDemand(adObject: mopubNative!) { (resultCode: ResultCode) in
+        loadNativeAssets()
+        loadMopubNative()
+        nativeUnit.fetchDemand(adObject: mopubNativeAdUnit!) { (resultCode: ResultCode) in
             if resultCode == ResultCode.prebidDemandFetchSuccess {
-                mopubNative?.start(completionHandler: { (request, nativeAd, error) in
-                    XCTAssertNotNil(request)
-                    self.loadSuccesfulException?.fulfill()
-                })
+                self.mopubNativeAdUnit!.loadAd()
             } else {
                 XCTFail("resultCode:\(resultCode.name())")
                 self.loadSuccesfulException?.fulfill()
@@ -789,63 +735,45 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
+        
+        //then
+        XCTAssertNotNil(self.mopubNativeAdUnit!.keywords)
+        if let keywords = self.mopubNativeAdUnit?.keywords{
+            XCTAssertNotNil(keywords.contains("hb_pb"))
+        }
     }
     
     func testMopubNativeWithoutAutoRefresh() {
         var fetchDemandCount = 0
-        let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [])
-        nativeUnit.context = ContextType.Social
-        nativeUnit.placementType = PlacementType.FeedContent
-        nativeUnit.contextSubType = ContextSubType.Social
-        let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
-        nativeUnit.eventtrackers = [eventTrackers]
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
-          sdkConfig.globalMediationSettings = []
-          MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-          let mopubNative = MPNativeAdRequest(adUnitIdentifier: Constants.MOPUB_NATIVE_ADUNIT_ID_APPNEXUS, rendererConfigurations: [])
-          nativeUnit.fetchDemand(adObject: mopubNative!) { (resultCode: ResultCode) in
-              fetchDemandCount += 1
-          }
+        loadNativeAssets()
+        loadMopubNative()
+        nativeUnit.fetchDemand(adObject: mopubNativeAdUnit!) { (resultCode: ResultCode) in
+            fetchDemandCount += 1
+        }
         wait(31)
         XCTAssertEqual(1, fetchDemandCount)
     }
     
     func testMopubNativeWithInvalidAutoRefresh() {
         var fetchDemandCount = 0
-        let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [])
+        loadNativeAssets()
         nativeUnit.setAutoRefreshMillis(time: 20000)
-        nativeUnit.context = ContextType.Social
-        nativeUnit.placementType = PlacementType.FeedContent
-        nativeUnit.contextSubType = ContextSubType.Social
-        let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
-        nativeUnit.eventtrackers = [eventTrackers]
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
-          sdkConfig.globalMediationSettings = []
-          MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-          let mopubNative = MPNativeAdRequest(adUnitIdentifier: Constants.MOPUB_NATIVE_ADUNIT_ID_APPNEXUS, rendererConfigurations: [])
-          nativeUnit.fetchDemand(adObject: mopubNative!) { (resultCode: ResultCode) in
-              fetchDemandCount += 1
-          }
+        loadMopubNative()
+        nativeUnit.fetchDemand(adObject: mopubNativeAdUnit!) { (resultCode: ResultCode) in
+            fetchDemandCount += 1
+        }
         wait(31)
         XCTAssertEqual(1, fetchDemandCount)
     }
     
     func testMopubNativeWithValidAutoRefresh() {
         var fetchDemandCount = 0
-        let nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [])
+        loadNativeAssets()
         nativeUnit.setAutoRefreshMillis(time: 30000)
-        nativeUnit.context = ContextType.Social
-        nativeUnit.placementType = PlacementType.FeedContent
-        nativeUnit.contextSubType = ContextSubType.Social
-        let eventTrackers = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
-        nativeUnit.eventtrackers = [eventTrackers]
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
-          sdkConfig.globalMediationSettings = []
-          MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-          let mopubNative = MPNativeAdRequest(adUnitIdentifier: Constants.MOPUB_NATIVE_ADUNIT_ID_APPNEXUS, rendererConfigurations: [])
-          nativeUnit.fetchDemand(adObject: mopubNative!) { (resultCode: ResultCode) in
-              fetchDemandCount += 1
-          }
+        loadMopubNative()
+        nativeUnit.fetchDemand(adObject: mopubNativeAdUnit!) { (resultCode: ResultCode) in
+            fetchDemandCount += 1
+        }
         wait(31)
         XCTAssertEqual(2, fetchDemandCount)
     }
@@ -1013,7 +941,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         let bannerUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
         manager.requestBidsForAdUnit { (bidResponse, _) in
-
+            
             sleep(2)
             self.loadSuccesfulException?.fulfill()
         }
@@ -1379,9 +1307,39 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
             XCTAssert(resultCode == ResultCode.prebidDemandFetchSuccess || resultCode == ResultCode.prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
-
-        wait(10)
-        XCTAssertEqual(10, fetchDemandCount)
+        
+        loadNativeAssets()
+        loadDFPNative()
+        nativeUnit.fetchDemand(adObject: dfpNativeAdUnit!) { (resultCode: ResultCode) in
+            fetchDemandCount += 1
+        }
+        
+        loadNativeAssets()
+        loadDFPNative()
+        nativeUnit.fetchDemand(adObject: dfpNativeAdUnit!) { (resultCode: ResultCode) in
+            fetchDemandCount += 1
+        }
+        
+        loadNativeAssets()
+        loadDFPNative()
+        nativeUnit.fetchDemand(adObject: dfpNativeAdUnit!) { (resultCode: ResultCode) in
+            fetchDemandCount += 1
+        }
+        
+        loadNativeAssets()
+        loadDFPNative()
+        nativeUnit.fetchDemand(adObject: dfpNativeAdUnit!) { (resultCode: ResultCode) in
+            fetchDemandCount += 1
+        }
+        
+        loadNativeAssets()
+        loadDFPNative()
+        nativeUnit.fetchDemand(adObject: dfpNativeAdUnit!) { (resultCode: ResultCode) in
+            fetchDemandCount += 1
+        }
+        
+        wait(15)
+        XCTAssertEqual(15, fetchDemandCount)
     }
 
     func testSameConfigIdOnDifferentAdObjects() {
@@ -1471,46 +1429,6 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         
         XCTWaiter.wait(for: [XCTestExpectation(description: "Hello World!")], timeout: 2.0)
         didLoadAdByAdServerHelper(view: self.viewController!.presentedViewController!.view)
-    }
-    
-    // MARK: - DFP AdLoaderDelegate delegate
-    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: GADRequestError) {
-        print("\(adLoader) failed with error: \(error.localizedDescription)")
-    }
-    
-    func adLoaderDidFinishLoading(_ adLoader: GADAdLoader) {
-        print("adLoaderDidFinishLoading \(adLoader)")
-        loadSuccesfulException?.fulfill()
-    }
-
-    // MARK: - DFP Native AdLoaderDelegate delegate
-    func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADUnifiedNativeAd) {
-        print("\(adLoader) didReceive: \(nativeAd)")
-    }
-    
-    // MARK: - DFP UnifiedNativeAdDelegate delegate
-    func nativeAdDidRecordClick(_ nativeAd: GADUnifiedNativeAd) {
-      print("\(#function) called")
-    }
-
-    func nativeAdDidRecordImpression(_ nativeAd: GADUnifiedNativeAd) {
-      print("\(#function) called")
-    }
-
-    func nativeAdWillPresentScreen(_ nativeAd: GADUnifiedNativeAd) {
-      print("\(#function) called")
-    }
-
-    func nativeAdWillDismissScreen(_ nativeAd: GADUnifiedNativeAd) {
-      print("\(#function) called")
-    }
-
-    func nativeAdDidDismissScreen(_ nativeAd: GADUnifiedNativeAd) {
-      print("\(#function) called")
-    }
-
-    func nativeAdWillLeaveApplication(_ nativeAd: GADUnifiedNativeAd) {
-      print("\(#function) called")
     }
     
     // MARK: - Mopub delegate
