@@ -66,25 +66,9 @@ import ObjectiveC.runtime
                     return
                 }
             }
-            
-            let nativeRequest:NativeRequest = self as! NativeRequest
-            let object = nativeRequest.getNativeRequestObject()
-            do {
-                let postData = try JSONSerialization.data(withJSONObject: object!, options: .prettyPrinted)
-
-                let stringObject = String.init(data: postData, encoding: String.Encoding.utf8)
-
-                print(stringObject!)
-                //return
-            } catch let error {
-                Log.debug(error.localizedDescription)
-            }
-            
         }
 
         Utils.shared.removeHBKeywords(adObject: adObject)
-
-        
 
         if (prebidConfigId.isEmpty || (prebidConfigId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
             completion(ResultCode.prebidInvalidConfigId)

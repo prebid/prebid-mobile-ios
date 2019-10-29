@@ -75,8 +75,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         dfpBanner.delegate = self
         dfpBanner.backgroundColor = .red
         appBannerView.addSubview(dfpBanner)
-        request.testDevices = [ (kGADSimulatorID as! String), "cc7ca766f86b43ab6cdc92bed424069b"]
-
+        
         bannerUnit.fetchDemand(adObject: self.request) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
             self?.dfpBanner!.load(self?.request)
@@ -85,14 +84,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
     func loadMoPubBanner(bannerUnit: AdUnit) {
 
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
-        sdkConfig.globalMediationSettings = []
-
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {
-
-        }
-
-        mopubBanner = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6", size: CGSize(width: 300, height: 250))
+        mopubBanner = MPAdView(adUnitId: "5ff9556b05964e65b684ec54013df59d")
+        mopubBanner?.frame = CGRect(x: 0, y: 0, width: 300, height: 250)
         mopubBanner!.delegate = self
 
         appBannerView.addSubview(mopubBanner!)
