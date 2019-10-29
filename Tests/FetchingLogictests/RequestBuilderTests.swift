@@ -883,7 +883,9 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             if (carrier?.carrierName?.count ?? 0) > 0 {
                 XCTAssertEqual(carrier?.carrierName ?? "", device["carrier"] as! String)
             }
-            XCTAssertEqual(RequestBuilder.DeviceUUID(), device["ifa"] as! String)
+            if let deviceUUID = device["ifa"] as? String{
+              XCTAssertEqual(RequestBuilder.DeviceUUID(), deviceUUID)
+            }
             let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
             XCTAssertEqual(NSNumber(value: lmtAd).intValue, device["lmt"] as! Int)
             XCTAssertEqual(UIScreen.main.scale, device["pxratio"] as! CGFloat)
