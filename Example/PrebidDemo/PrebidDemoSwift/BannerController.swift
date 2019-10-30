@@ -49,8 +49,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
-//            setupAndLoadAMBanner()
-            setupAndLoadAMBannerVAST()
+            setupAndLoadAMBanner()
+//            setupAndLoadAMBannerVAST()
 
         } else if (adServerName == "MoPub") {
             print("entered \(adServerName) loop" )
@@ -91,7 +91,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.qa.rubiconproject.com/openrtb2/auction")
         Prebid.shared.prebidServerAccountId = "1011"
         
-        adUnit = VideoAdUnit(configId: "1011-test-video", size: CGSize(width: 300, height: 250))
+        adUnit = VideoAdUnit(configId: "1011-test-video", size: CGSize(width: 300, height: 250), type: .inBanner)
     }
     
     func setupAMBanner() {
@@ -109,7 +109,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     
     func loadBanner() {
         print("Google Mobile Ads SDK version: \(DFPRequest.sdkVersion())")
-        amBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
+        
         amBanner.rootViewController = self
         amBanner.delegate = self
         amBanner.backgroundColor = .red

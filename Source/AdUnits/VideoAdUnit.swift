@@ -17,7 +17,10 @@ import Foundation
 
 public class VideoAdUnit: AdUnit {
 
-    public override init(configId: String, size: CGSize) {
+    let type: PlacementType
+    
+    public init(configId: String, size: CGSize, type: PlacementType) {
+        self.type = type
         super.init(configId: configId, size: size)
     }
 
@@ -25,4 +28,10 @@ public class VideoAdUnit: AdUnit {
         super.adSizes += sizes
     }
 
+    public enum PlacementType: Int {
+        case inBanner = 2
+        case inArticle = 3
+        case inFeed = 4
+    }
+    
 }

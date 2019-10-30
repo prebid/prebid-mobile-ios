@@ -42,13 +42,13 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
 
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
-//            setupAndLoadAMInterstitial()
-            setupAndLoadAMInterstitialVAST()
+            setupAndLoadAMInterstitial()
+//            setupAndLoadAMInterstitialVAST()
 
         } else if (adServerName == "MoPub") {
             print("entered \(adServerName) loop" )
-//            setupAndLoadMPInterstitial()
-            setupAndLoadMPInterstitialVAST()
+            setupAndLoadMPInterstitial()
+//            setupAndLoadMPInterstitialVAST()
         }
     }
 

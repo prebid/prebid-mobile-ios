@@ -827,7 +827,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testVideoAdUnit() throws {
          //given
          Prebid.shared.prebidServerAccountId = "12345"
-         let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
+        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250), type: .inBanner)
          
          //when
          let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -844,6 +844,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
              let playbackMethods1 = playbackMethods[0] as? Int,
              let mimes = video["mimes"] as? [String],
              let mimes1 = mimes[0] as? String,
+             let placement = video["placement"] as? Int,
          
              let ext = jsonRequestBody["ext"] as? [String: Any],
              let extPrebid = ext["prebid"] as? [String: Any],
@@ -861,6 +862,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
          XCTAssertEqual(7, protocols1)
          XCTAssertEqual(2, playbackMethods1)
          XCTAssertEqual("video/mp4", mimes1)
+         XCTAssertEqual(2, placement)
          
          XCTAssertNotNil(vastXml)
          
