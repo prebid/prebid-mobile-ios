@@ -837,9 +837,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
              let video = impDic["video"] as? [String: Any],
              let w = video["w"] as? Int,
              let h = video["h"] as? Int,
-             let startdelay = video["startdelay"] as? Int,
-             let protocols = video["protocols"] as? [Int],
-             let protocols1 = protocols[0] as? Int,
+             let linearity = video["linearity"] as? Int,
              let playbackMethods = video["playbackmethod"] as? [Int],
              let playbackMethods1 = playbackMethods[0] as? Int,
              let mimes = video["mimes"] as? [String],
@@ -858,11 +856,10 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
          //then
          XCTAssertEqual(300, w)
          XCTAssertEqual(250, h)
-         XCTAssertEqual(0, startdelay)
-         XCTAssertEqual(7, protocols1)
+         XCTAssertEqual(1, linearity)
          XCTAssertEqual(2, playbackMethods1)
          XCTAssertEqual("video/mp4", mimes1)
-         XCTAssertEqual(2, placement)
+         XCTAssertEqual(5, placement)
          
          XCTAssertNotNil(vastXml)
          
@@ -881,9 +878,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
              let video = impDic["video"] as? [String: Any],
              let w = video["w"] as? Int,
              let h = video["h"] as? Int,
-             let startdelay = video["startdelay"] as? Int,
-             let protocols = video["protocols"] as? [Int],
-             let protocols1 = protocols[0] as? Int,
+             let linearity = video["linearity"] as? Int,
              let playbackMethods = video["playbackmethod"] as? [Int],
              let playbackMethods1 = playbackMethods[0] as? Int,
              let mimes = video["mimes"] as? [String],
@@ -901,8 +896,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
          }
          
          //then
-         XCTAssertEqual(0, startdelay)
-         XCTAssertEqual(7, protocols1)
+         XCTAssertEqual(1, linearity)
          XCTAssertEqual(2, playbackMethods1)
          XCTAssertEqual("video/mp4", mimes1)
          
