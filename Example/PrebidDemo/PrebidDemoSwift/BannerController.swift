@@ -21,12 +21,19 @@ import GoogleMobileAds
 
 import MoPub
 
+enum BannerFormat: Int {
+    case html
+    case vast
+}
+
 class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegate {
 
    @IBOutlet var appBannerView: UIView!
 
     @IBOutlet var adServerLabel: UILabel!
 
+    var bannerFormat: BannerFormat = .html
+    
     var adServerName: String = ""
 
     let request = DFPRequest()
@@ -49,8 +56,15 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
-            setupAndLoadAMBanner()
-//            setupAndLoadAMBannerVAST()
+            
+            switch bannerFormat {
+                
+            case .html:
+                setupAndLoadAMBanner()
+            case .vast:
+                setupAndLoadAMBannerVAST()
+            }
+            
 
         } else if (adServerName == "MoPub") {
             print("entered \(adServerName) loop" )
@@ -82,16 +96,21 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     }
     
     func setupPBBanner() {
+        Prebid.shared.prebidServerHost = .Appnexus
+        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        Prebid.shared.storedAuctionResponse = ""
+        
         adUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         adUnit.setAutoRefreshMillis(time: 35000)
     }
     
     func setupPBBannerVAST() {
-        Prebid.shared.prebidServerHost = PrebidHost.Custom
-        try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.qa.rubiconproject.com/openrtb2/auction")
-        Prebid.shared.prebidServerAccountId = "1011"
         
-        adUnit = VideoAdUnit(configId: "1011-test-video", size: CGSize(width: 300, height: 250), type: .inBanner)
+        Prebid.shared.prebidServerHost = .Rubicon
+        Prebid.shared.prebidServerAccountId = "1001"
+        Prebid.shared.storedAuctionResponse = "sample_video_response"
+        
+        adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), type: .inBanner)
     }
     
     func setupAMBanner() {

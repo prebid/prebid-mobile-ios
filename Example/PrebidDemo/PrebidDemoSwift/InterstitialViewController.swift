@@ -34,6 +34,8 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
     var mpInterstitial: MPInterstitialAdController!
     
     var adUnit: AdUnit!
+    
+    var bannerFormat: BannerFormat = .html
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,13 +44,23 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
 
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
-            setupAndLoadAMInterstitial()
-//            setupAndLoadAMInterstitialVAST()
+            
+            switch bannerFormat {
+            case .html:
+                setupAndLoadAMInterstitial()
+            case .vast:
+                setupAndLoadAMInterstitialVAST()
+            }
 
         } else if (adServerName == "MoPub") {
             print("entered \(adServerName) loop" )
-            setupAndLoadMPInterstitial()
-//            setupAndLoadMPInterstitialVAST()
+            
+            switch bannerFormat {
+            case .html:
+                setupAndLoadMPInterstitial()
+            case .vast:
+                setupAndLoadMPInterstitialVAST()
+            }
         }
     }
 
@@ -69,21 +81,25 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
         loadInterstitial()
     }
     
-    func setupPBInterstitialVAST() {
-        Prebid.shared.prebidServerHost = PrebidHost.Custom
-        try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.qa.rubiconproject.com/openrtb2/auction")
-        Prebid.shared.prebidServerAccountId = "1011"
-        
-        adUnit = VideoInterstitialAdUnit(configId: "1011-test-video")
-    }
-    
     func setupPBInterstitial() {
+        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
         Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        Prebid.shared.storedAuctionResponse = ""
+        
         adUnit = InterstitialAdUnit(configId: "625c6125-f19e-4d5b-95c5-55501526b2a4")
         
 //        Advanced interstitial support
 //        adUnit = InterstitialAdUnit(configId: "625c6125-f19e-4d5b-95c5-55501526b2a4", minWidthPerc: 50, minHeightPerc: 70)
 
+    }
+    
+    func setupPBInterstitialVAST() {
+        Prebid.shared.prebidServerHost = .Rubicon
+        
+        Prebid.shared.prebidServerAccountId = "1001"
+        adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), type: .inBanner)
+        
+        Prebid.shared.storedAuctionResponse = "sample_video_response"
     }
     
     func setupAMInterstitial() {
