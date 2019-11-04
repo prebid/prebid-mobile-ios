@@ -827,7 +827,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testVideoAdUnit() throws {
          //given
          Prebid.shared.prebidServerAccountId = "12345"
-        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250), type: .inBanner)
+        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
          
          //when
          let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody

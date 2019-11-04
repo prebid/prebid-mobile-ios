@@ -97,7 +97,7 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
         Prebid.shared.prebidServerHost = .Rubicon
         
         Prebid.shared.prebidServerAccountId = "1001"
-        adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), type: .inBanner)
+        adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
         
         Prebid.shared.storedAuctionResponse = "sample_video_response"
     }

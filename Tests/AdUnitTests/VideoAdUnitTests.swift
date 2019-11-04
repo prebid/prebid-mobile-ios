@@ -27,10 +27,9 @@ class VideoAdUnitTests: XCTestCase {
     }
 
     func testBannerAdUnitCreation() {
-        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2), type: .inBanner)
+        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2))
         XCTAssertEqual(1, adUnit.adSizes.count)
         XCTAssertEqual(Constants.configID1, adUnit.prebidConfigId)
         XCTAssertNil(adUnit.dispatcher)
-        XCTAssertEqual(.inBanner, adUnit.type)
     }
 }
