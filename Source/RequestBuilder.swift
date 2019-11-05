@@ -190,7 +190,18 @@ import AdSupport
             video["w"] = adSize.width
             video["h"] = adSize.height
             
-            video["placement"] = 5
+            let placement: Int?
+
+            switch adUnit {
+            case let videoAdUnit as VideoAdUnit:
+                placement = videoAdUnit.type.rawValue
+            case is VideoInterstitialAdUnit:
+                placement = 5
+            default: placement = nil
+            }
+
+            video["placement"] = placement
+
             video["linearity"] = 1
             
             imp["video"] = video

@@ -110,7 +110,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         Prebid.shared.prebidServerAccountId = "1001"
         Prebid.shared.storedAuctionResponse = "sample_video_response"
         
-        adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), type: .inBanner)
     }
     
     func setupAMBanner() {
