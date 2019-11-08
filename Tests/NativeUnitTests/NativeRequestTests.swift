@@ -1,10 +1,17 @@
-//
-//  NativeRequestTests.swift
-//  PrebidMobileTests
-//
-//  Created by Akash Verma on 17/10/19.
-//  Copyright © 2019 AppNexus. All rights reserved.
-//
+/*   Copyright 2018-2019 Prebid.org, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 
 import XCTest
 @testable import PrebidMobile
@@ -142,32 +149,29 @@ class NativeRequestTests: XCTestCase {
         nativeUnit.eventtrackers = [eventTrackers1, eventTrackers2]
         XCTAssertNotNil(nativeUnit.eventtrackers)
         XCTAssertTrue(nativeUnit.eventtrackers?.count == 2)
-        if let eventTrackerArray = nativeUnit.eventtrackers{
+        if let eventTrackerArray = nativeUnit.eventtrackers {
             if eventTrackerArray.count == 1 {
                 let eventTracker = eventTrackerArray[0]
-                if let event = eventTracker.event
-                {
-                    XCTAssertTrue(event == EventType.Impression)
-                }
-                if let methods = eventTracker.methods
-                {
-                    XCTAssertTrue(methods.count == 2)
-                    XCTAssertTrue(methods[0] == EventTracking.Image)
-                    XCTAssertTrue(methods[1] == EventTracking.js)
-                }
-            }
-            if eventTrackerArray.count == 2 {
+
+                XCTAssertTrue(eventTracker.event == EventType.Impression)
+                
+                let methods = eventTracker.methods
+                
+                XCTAssertTrue(methods.count == 2)
+                XCTAssertTrue(methods[0] == EventTracking.Image)
+                XCTAssertTrue(methods[1] == EventTracking.js)
+                
+            } else if eventTrackerArray.count == 2 {
                 let eventTracker = eventTrackerArray[1]
-                if let event = eventTracker.event
-                {
-                    XCTAssertTrue(event == EventType.ViewableImpression50)
-                }
-                if let methods = eventTracker.methods
-                {
-                    XCTAssertTrue(methods.count == 2)
-                    XCTAssertTrue(methods[0] == EventTracking.TBD)
-                    XCTAssertTrue(methods[1] == EventTracking.Image)
-                }
+                
+                XCTAssertTrue(eventTracker.event == EventType.ViewableImpression50)
+                
+                let methods = eventTracker.methods
+                
+                XCTAssertTrue(methods.count == 2)
+                XCTAssertTrue(methods[0] == EventTracking.TBD)
+                XCTAssertTrue(methods[1] == EventTracking.Image)
+                
             }
         }
     }

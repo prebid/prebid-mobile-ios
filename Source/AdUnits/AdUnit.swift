@@ -39,13 +39,6 @@ import ObjectiveC.runtime
 
     //notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     var timeOutSignalSent: Bool! = false
-    
-//    init(configId: String) {
-//        self.closure = {_ in return}
-//        prebidConfigId = configId
-//        identifier = UUID.init().uuidString
-//        super.init()
-//    }
 
     init(configId: String, size: CGSize?) {
         self.closure = {_ in return}

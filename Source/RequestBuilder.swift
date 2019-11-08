@@ -46,20 +46,21 @@ import AdSupport
 
     func buildRequest(adUnit: AdUnit?) throws -> URLRequest? {
 
-            let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
-            var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Prebid.shared.timeoutMillisDynamic))
-            request.httpMethod = "POST"
-            let requestBody = openRTBRequestBody(adUnit: adUnit) ?? [:]
+        let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
+        var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Prebid.shared.timeoutMillisDynamic))
+        request.httpMethod = "POST"
+        let requestBody = openRTBRequestBody(adUnit: adUnit) ?? [:]
+        let requestBodyJSON = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
 
-            request.httpBody = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
-            //HTTP HeadersExpression implicitly coerced from '[AnyHashable : Any]?' to Any
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            
-        let stringObject:String = String.init(data: request.httpBody!, encoding: String.Encoding.utf8)!
-
-            Log.info("Prebid Request post body \(stringObject)")
-            return request
+        request.httpBody = requestBodyJSON
+        //HTTP HeadersExpression implicitly coerced from '[AnyHashable : Any]?' to Any
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let stringObject = String.init(data: requestBodyJSON, encoding: String.Encoding.utf8)
+        Log.info("Prebid Request post body \(stringObject ?? "nil")")
+        
+        return request
     }
 
     func openRTBRequestBody(adUnit: AdUnit?) -> [AnyHashable: Any]? {
@@ -131,17 +132,18 @@ import AdSupport
             sizeArray.append(sizeDict)
         }
         let formats = ["format": sizeArray]
-        if !(adUnit is NativeRequest){
+        
+        if let nativeRequest = adUnit as? NativeRequest {
+            
+            imp["native"] = nativeRequest.getNativeRequestObject()
+            
+        } else {
+            
             imp["banner"] = formats
 
             if (adUnit is InterstitialAdUnit) {
                 imp["instl"] = 1
             }
-        } else {
-            
-            let nativeRequest:NativeRequest = adUnit as! NativeRequest
-            imp["native"] = nativeRequest.getNativeRequestObject()
-            
         }
 
         //to be used when openRTB supports storedRequests
