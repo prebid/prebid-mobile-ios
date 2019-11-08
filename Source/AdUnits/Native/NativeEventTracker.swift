@@ -17,25 +17,27 @@ import UIKit
 
 public class NativeEventTracker: NSObject {
     
-    var event:EventType?
-    var methods:Array<EventTracking>?
-    var ext:AnyObject?
+    var event: EventType
+    var methods: Array<EventTracking>
+    var ext: AnyObject?
     
-    required public init(event:EventType, methods:Array<EventTracking>) {
-        super.init()
+    public init(event: EventType, methods: Array<EventTracking>) {
         self.event = event
         self.methods = methods
     }
     
     func getEventTracker() -> [AnyHashable: Any] {
         var methodsList:[Int] = []
-        for method:EventTracking in methods! {
+        
+        for method:EventTracking in methods {
             methodsList.append(method.rawValue)
         }
+        
         let event = [
-            "event": self.event!.rawValue,
+            "event": self.event.rawValue,
             "methods": methodsList
             ] as [String : Any]
+        
         return event
     }
 }

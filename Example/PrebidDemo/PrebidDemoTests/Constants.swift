@@ -38,7 +38,7 @@ struct Constants {
     static let MOPUB_INTERSTITIAL_ADUNIT_ID_RUBICON = ""
     static let DFP_BANNER_ADUNIT_ID_300x250_RUBICON = "/5300653/test_adunit_pavliuchyk_300x250_prebid-server.rubiconproject.com_puc"
     static let DFP_INTERSTITIAL_ADUNIT_ID_RUBICON = ""
-    static let DFP_NATIVE_ADUNIT_ID_RUBICON = "/5300653/test_adunit_pavliuchyk_300x250_prebid-server.rubiconproject.com_puc"
+    static let DFP_NATIVE_ADUNIT_ID_RUBICON = ""
     static let PBS_INVALID_ACCOUNT_ID_RUBICON = "1001_ERROR"
     static let PBS_INVALID_CONFIG_ID_RUBICON = "1001-1_ERROR"
 

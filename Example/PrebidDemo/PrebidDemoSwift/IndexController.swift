@@ -26,19 +26,19 @@ class IndexController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is BannerController {
-            let vc = segue.destination as? BannerController
-            vc?.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
-        }
-
-        if segue.destination is InterstitialViewController {
-            let vc = segue.destination as? InterstitialViewController
-            vc?.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
-        }
         
-        if segue.destination is NativeController {
-            let vc = segue.destination as? NativeController
-            vc?.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
+        let adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
+        
+        switch segue.destination {
+            
+        case let vc as BannerController:
+            vc.adServerName = adServerName
+        case let vc as InterstitialViewController:
+            vc.adServerName = adServerName
+        case let vc as NativeController:
+            vc.adServerName = adServerName
+        default:
+            print("wrong controller")
         }
     }
 

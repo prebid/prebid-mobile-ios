@@ -17,24 +17,24 @@ import UIKit
 
 public class NativeRequest: AdUnit {
     
-    var version:String! = "1.2"
-    public var context:ContextType?
+    var version: String = "1.2"
+    public var context: ContextType?
     public var contextSubType: ContextSubType?
-    public var placementType:PlacementType?
-    public var placementCount:Int = 1
-    public var sequence:Int  = 0
-    public var assets: Array<NativeAsset>!
-    public var asseturlsupport:Int = 0
-    public var durlsupport:Int = 0
+    public var placementType: PlacementType?
+    public var placementCount: Int = 1
+    public var sequence: Int  = 0
+    public var assets: Array<NativeAsset>?
+    public var asseturlsupport: Int = 0
+    public var durlsupport: Int = 0
     public var eventtrackers:Array<NativeEventTracker>?
-    public var privacy:Int = 0
-    public var ext:AnyObject?
+    public var privacy: Int = 0
+    public var ext: AnyObject?
     
-    public required init(configId: String) {
+    public init(configId: String) {
         super.init(configId: configId, size:nil)
     }
     
-    public convenience init(configId: String, assets:Array<NativeAsset>) {
+    public convenience init(configId: String, assets: Array<NativeAsset>) {
         self.init(configId: configId)
         self.assets = assets
     }
@@ -44,15 +44,10 @@ public class NativeRequest: AdUnit {
         nativeObject["ver"] = version
         var requestObject: [AnyHashable:Any] = [:]
         
-        if (placementType?.rawValue != nil) {
-            requestObject["plcmttype"] = placementType!.rawValue
-        }
-        if (context?.rawValue != nil) {
-            requestObject["context"] = context?.rawValue
-        }
-        if (contextSubType?.rawValue != nil) {
-            requestObject["contextsubtype"] = contextSubType?.rawValue
-        }
+        requestObject["plcmttype"] = placementType?.rawValue
+        requestObject["context"] = context?.rawValue
+        requestObject["contextsubtype"] = contextSubType?.rawValue
+        
         if (sequence > 0) {
             requestObject["sequence"] = sequence
         }
@@ -65,13 +60,11 @@ public class NativeRequest: AdUnit {
         if (privacy > 0) {
             requestObject["privacy"] = privacy
         }
-        if (ext != nil) {
-            requestObject["ext"] = ext
-        }
         
+        requestObject["ext"] = ext
         requestObject["plcmtcnt"] = placementCount
         
-        if(assets != nil){
+        if let assets = assets {
             var assetsObjects:[Any] = []
             for asset:NativeAsset in assets {
                 assetsObjects.append(asset.getAssetObject())
@@ -79,9 +72,10 @@ public class NativeRequest: AdUnit {
             
             requestObject["assets"] = assetsObjects
         }
-        if(eventtrackers != nil && eventtrackers!.count > 0){
+        
+        if let eventtrackers = eventtrackers, eventtrackers.count > 0 {
             var eventObjects:[Any] = []
-            for event:NativeEventTracker in eventtrackers! {
+            for event:NativeEventTracker in eventtrackers {
                 eventObjects.append(event.getEventTracker())
             }
             
@@ -96,7 +90,7 @@ public class NativeRequest: AdUnit {
             nativeObject["request"] = stringObject
             
         } catch let error {
-            Log.debug(error.localizedDescription)
+            Log.error(error.localizedDescription)
         }
         
         return nativeObject
