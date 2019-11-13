@@ -30,8 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         //Declare in AppDelegate to the user agent could be passed in first call
-        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
-        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
         Prebid.shared.shareGeoLocation = true
         //Prebid.shared.timeoutMillis = 1000;
         //Prebid.shared.prebidServerHost = PrebidHost.Rubicon

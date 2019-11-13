@@ -77,7 +77,6 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
         
         //when
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
@@ -116,7 +115,6 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
         
         //when
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
@@ -301,7 +299,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
+
         bannerUnit.fetchDemand(adObject: request) { (_) in
             fetchDemandCount += 1
         }
@@ -319,7 +317,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
+
         bannerUnit.fetchDemand(adObject: request) { (_) in
             fetchDemandCount += 1
         }
@@ -337,7 +335,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
+
         bannerUnit.fetchDemand(adObject: request) { (_) in
             fetchDemandCount += 1
         }
@@ -354,7 +352,6 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         let request: DFPRequest = DFPRequest()
         dfpInterstitial?.delegate = self
-        request.testDevices = [ kGADSimulatorID]
         
         //when
         interstitialUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
@@ -382,7 +379,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
         dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID]
+        
         interstitialUnit.fetchDemand(adObject: request) { (_) in
             fetchDemandCount += 1
         }
@@ -396,7 +393,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         interstitialUnit.setAutoRefreshMillis(time: 20000)
         dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID]
+
         interstitialUnit.fetchDemand(adObject: request) { (_) in
             fetchDemandCount += 1
         }
@@ -410,7 +407,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         interstitialUnit.setAutoRefreshMillis(time: 30000)
         dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID]
+
         interstitialUnit.fetchDemand(adObject: request) { (_) in
             fetchDemandCount += 1
         }
@@ -609,7 +606,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
+
         bannerUnit.fetchDemand(adObject: request) { (_) in
             fetchDemandCount += 1
         }
@@ -631,7 +628,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
+
         bannerUnit.fetchDemand(adObject: request) { (_) in
             fetchDemandCount += 1
         }
@@ -652,7 +649,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID]
+
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             XCTAssertEqual(resultCode, ResultCode.prebidInvalidAccountId)
             self.loadSuccesfulException?.fulfill()
@@ -674,7 +671,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_RUBICON
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID]
+
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             XCTAssertEqual(resultCode, ResultCode.prebidInvalidAccountId)
             self.loadSuccesfulException?.fulfill()
@@ -693,7 +690,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID]
+
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             XCTAssertEqual(resultCode, ResultCode.prebidInvalidAccountId)
             self.loadSuccesfulException?.fulfill()
@@ -711,7 +708,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID]
+
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             XCTAssertEqual(resultCode, ResultCode.prebidInvalidConfigId)
             self.loadSuccesfulException?.fulfill()
@@ -732,7 +729,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_RUBICON
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID]
+
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             XCTAssertEqual(resultCode, ResultCode.prebidInvalidConfigId)
             self.loadSuccesfulException?.fulfill()
@@ -803,7 +800,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         let dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID]
+
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             XCTAssertEqual(resultCode, ResultCode.prebidInvalidConfigId)
             self.loadSuccesfulException?.fulfill()
@@ -919,7 +916,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         viewController?.view.addSubview(dfpBanner)
         let request: DFPRequest = DFPRequest()
         request.customTargeting = ["key1": "value1", "key2": "value2"] as [String: AnyObject]
-        request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
+
         bannerUnit.fetchDemand(adObject: request) { (_) in
             fetchCount += 1
             XCTAssertNotNil(request.customTargeting)
@@ -987,7 +984,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
+
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             XCTAssertEqual(resultCode, ResultCode.prebidInvalidSize, resultCode.name())
             self.loadSuccesfulException?.fulfill()
@@ -1009,7 +1006,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         dfpBanner.backgroundColor = .red
         viewController?.view.addSubview(dfpBanner)
         let request: DFPRequest = DFPRequest()
-        request.testDevices = [ kGADSimulatorID, "cc7ca766f86b43ab6cdc92bed424069b"]
+
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             XCTAssertEqual(resultCode, ResultCode.prebidInvalidSize)
             self.loadSuccesfulException?.fulfill()
@@ -1125,7 +1122,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         let dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         let request: DFPRequest = DFPRequest()
         dfpInterstitial.delegate = self
-        request.testDevices = [ kGADSimulatorID]
+
         interstitialUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             XCTAssert(resultCode == ResultCode.prebidDemandFetchSuccess || resultCode == ResultCode.prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
