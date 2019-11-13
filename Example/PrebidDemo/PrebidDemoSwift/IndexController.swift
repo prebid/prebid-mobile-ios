@@ -19,21 +19,55 @@ import UIKit
 
 class IndexController: UIViewController {
     @IBOutlet var adServerSegment: UISegmentedControl!
+    @IBOutlet var bannerVideo: UIButton!
+    @IBOutlet var interstitialVideo: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = "Prebid Demo"
     }
+    
+    @IBAction func onAdServerSwidshed(_ sender: UISegmentedControl) {
+        let index = sender.selectedSegmentIndex
+        
+        switch index {
+        case 0:
+            bannerVideo.isHidden = false
+        case 1:
+            bannerVideo.isHidden = true
+            
+        default:
+            bannerVideo.isHidden = false
+        }
+        
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        var buttonText = ""
+        if let button = sender as? UIButton, let text = button.titleLabel?.text {
+            buttonText = text
+        }
+        
         if segue.destination is BannerController {
-            let vc = segue.destination as? BannerController
-            vc?.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
+            if let vc = segue.destination as? BannerController {
+                vc.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
+                
+                if buttonText == "Banner Video" {
+                    vc.bannerFormat = .vast
+                }
+            }
         }
 
         if segue.destination is InterstitialViewController {
-            let vc = segue.destination as? InterstitialViewController
-            vc?.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
+            if let vc = segue.destination as? InterstitialViewController {
+                vc.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
+                
+                if buttonText == "Interstitial Video" {
+                    vc.bannerFormat = .vast
+                }
+            }
         }
     }
 

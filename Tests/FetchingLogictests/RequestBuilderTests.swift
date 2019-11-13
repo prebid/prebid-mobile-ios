@@ -823,6 +823,90 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertNil(app["domain"])
 
     }
+    
+    func testVideoAdUnit() throws {
+         //given
+         Prebid.shared.prebidServerAccountId = "12345"
+        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250), type: .inBanner)
+         
+         //when
+         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+         
+         guard let impArray = jsonRequestBody["imp"] as? [Any],
+             let impDic = impArray[0] as? [String: Any],
+             let video = impDic["video"] as? [String: Any],
+             let w = video["w"] as? Int,
+             let h = video["h"] as? Int,
+             let linearity = video["linearity"] as? Int,
+             let playbackMethods = video["playbackmethod"] as? [Int],
+             let playbackMethods1 = playbackMethods[0] as? Int,
+             let mimes = video["mimes"] as? [String],
+             let mimes1 = mimes[0] as? String,
+             let placement = video["placement"] as? Int,
+         
+             let ext = jsonRequestBody["ext"] as? [String: Any],
+             let extPrebid = ext["prebid"] as? [String: Any],
+             let cache = extPrebid["cache"] as? [String: Any],
+             let vastXml = cache["vastxml"] as? [String: Any]
+             else {
+                 XCTFail("parsing fail")
+                 return
+             }
+         
+         //then
+         XCTAssertEqual(300, w)
+         XCTAssertEqual(250, h)
+         XCTAssertEqual(1, linearity)
+         XCTAssertEqual(2, playbackMethods1)
+         XCTAssertEqual("video/mp4", mimes1)
+         XCTAssertEqual(2, placement)
+         
+         XCTAssertNotNil(vastXml)
+         
+     }
+     
+     func testVideoInterstitialAdUnit() throws {
+         //given
+         Prebid.shared.prebidServerAccountId = "12345"
+         let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
+         
+         //when
+         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+         
+         guard let impArray = jsonRequestBody["imp"] as? [Any],
+             let impDic = impArray[0] as? [String: Any],
+             let video = impDic["video"] as? [String: Any],
+             let w = video["w"] as? Int,
+             let h = video["h"] as? Int,
+             let placement = video["placement"] as? Int,
+             let linearity = video["linearity"] as? Int,
+             let playbackMethods = video["playbackmethod"] as? [Int],
+             let playbackMethods1 = playbackMethods[0] as? Int,
+             let mimes = video["mimes"] as? [String],
+             let mimes1 = mimes[0] as? String,
+             
+             let ext = jsonRequestBody["ext"] as? [String: Any],
+             let extPrebid = ext["prebid"] as? [String: Any],
+             let cache = extPrebid["cache"] as? [String: Any],
+             let vastXml = cache["vastxml"] as? [String: Any],
+         
+             let instl = impDic["instl"] as? Int
+             else {
+                 XCTFail("parsing fail")
+                 return
+         }
+         
+         //then
+         XCTAssertEqual(5, placement)
+         XCTAssertEqual(1, linearity)
+         XCTAssertEqual(2, playbackMethods1)
+         XCTAssertEqual("video/mp4", mimes1)
+         
+         XCTAssertNotNil(vastXml)
+         
+         XCTAssertEqual(1, instl)
+         
+     }
 
     private func getPostDataHelper(adUnit: AdUnit) throws -> (urlRequest: URLRequest, jsonRequestBody: [AnyHashable: Any]) {
         var resultUrlRequest: URLRequest? = nil
@@ -883,7 +967,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             if (carrier?.carrierName?.count ?? 0) > 0 {
                 XCTAssertEqual(carrier?.carrierName ?? "", device["carrier"] as! String)
             }
-            XCTAssertEqual(RequestBuilder.DeviceUUID(), device["ifa"] as! String)
+            let ifa = device["ifa"] as? String ?? ""
+            XCTAssertEqual(RequestBuilder.DeviceUUID(), ifa)
             let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
             XCTAssertEqual(NSNumber(value: lmtAd).intValue, device["lmt"] as! Int)
             XCTAssertEqual(UIScreen.main.scale, device["pxratio"] as! CGFloat)
