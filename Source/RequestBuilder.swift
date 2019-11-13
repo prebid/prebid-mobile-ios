@@ -439,8 +439,16 @@ import AdSupport
         window?.addSubview(webView)
         myGroup.enter()
         webView.loadHTMLString("<html></html>", baseURL: nil)
-        webView.evaluateJavaScript("navigator.userAgent", completionHandler: { (userAgent, _) in
-            wkUserAgent = userAgent as! String
+        webView.evaluateJavaScript("navigator.userAgent", completionHandler: { (userAgent: Any?, error: Error?) in
+            
+            if let error = error {
+                Log.error("retrieving userAgent error:\(error)")
+            }
+            
+            if let userAgent = userAgent as? String {
+                wkUserAgent = userAgent
+            }
+            
             webView.stopLoading()
             webView.removeFromSuperview()
             myGroup.leave()
