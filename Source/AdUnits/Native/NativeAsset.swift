@@ -19,23 +19,41 @@ public class NativeAsset: NSObject {
     
     var id: NSInteger!
     public var required: Bool = false
-    public var title: NativeAssetTitle?
-    public var image: NativeAssetImage?
-    public var video: NativeAssetVideo?
-    public var data: NativeAssetData?
-    public var ext: AnyObject?
+    public var assetObject:AnyObject?
+    
+    public required init?(isRequired: Bool, nativeObject:AnyObject) {
+        super.init()
+        required = isRequired
+        var containsAssetType = true
+        
+        switch nativeObject {
+            case let nativeObject as NativeAssetImage:
+                self.assetObject = nativeObject
+            case is NativeAssetTitle:
+                self.assetObject = nativeObject
+            case is NativeAssetData:
+                self.assetObject = nativeObject
+            default: containsAssetType = false
+        }
+        
+        if(containsAssetType == false){
+            return nil
+        }
+    }
     
     func getAssetObject() -> [AnyHashable: Any] {
         var asset: [AnyHashable: Any] = [:]
         
         //asset["id"] = Int.random(in: 0...1000)
         asset["required"] = Int(truncating: NSNumber(value: required))
-        asset["title"] = title?.getTitleObject()
-        asset["img"] = image?.getImageObject()
-        asset["video"] = video?.getVideoObject()
-        asset["data"] = data?.getDataObject()
-        asset["ext"] = ext
         
+        if let titleObject = assetObject as? NativeAssetTitle {
+            asset["title"] = titleObject.getTitleObject()
+        } else  if let imageObject = assetObject as? NativeAssetImage {
+            asset["img"] = imageObject.getImageObject()
+        } else if let dataObject = assetObject as? NativeAssetData {
+            asset["data"] = dataObject.getDataObject()
+        }
         return asset
     }
     
@@ -96,39 +114,6 @@ public class NativeAssetImage: NSObject {
     
 }
 
-public class NativeAssetVideo: NSObject {
-    
-    public var mimes: Array<String>
-    public var protocols: Array<Int>
-    public var minDuration: Int
-    public var maxDuration: Int
-    public var ext: AnyObject?
-    
-    required public init(mimes: Array<String>, protocols: Array<Int>, minduration: Int, maxduration: Int){
-        
-        self.mimes = mimes
-        self.protocols = protocols
-        self.minDuration = minduration
-        self.maxDuration = maxduration
-        
-        super.init()
-    }
-    
-    func getVideoObject() -> [AnyHashable: Any] {
-        
-        var video: [AnyHashable: Any] = [:]
-
-        video["protocols"] = protocols
-        video["minDuration"] = minDuration
-        video["maxDuration"] = maxDuration
-        video["mimes"] = mimes
-        video["ext"] = ext
-        
-        return video
-    }
-    
-}
-
 public class NativeAssetData: NSObject {
     var type: Int
     public var length: Int?
@@ -154,5 +139,5 @@ public class NativeAssetData: NSObject {
 @objc public enum ImageAsset: Int {
     case Icon = 1
     case Main = 3
-    case XXX = 500
+    case Custom = 500
 }

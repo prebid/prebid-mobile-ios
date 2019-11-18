@@ -64,30 +64,6 @@ class NativeAssetTests: XCTestCase {
         }
     }
     
-    func testNativeAssetVideo() {
-        let asset = NativeAsset()
-        XCTAssertNil(asset.video)
-        asset.video = NativeAssetVideo(mimes: ["png"], protocols: [1], minduration: 10, maxduration: 100)
-        asset.video?.ext = ["key" : "value"] as AnyObject
-        XCTAssertTrue(asset.video!.minDuration == 10)
-        XCTAssertTrue(asset.video!.maxDuration == 100)
-        if let mimes = asset.video?.mimes{
-            if mimes.count == 1 {
-                let value = mimes[0]
-                XCTAssertTrue(value == "png")
-            }
-        }
-        if let protocols = asset.video?.protocols{
-                  if protocols.count == 1 {
-                      let value = protocols[0]
-                      XCTAssertTrue(value == 1)
-                  }
-              }
-        if let ext = asset.video?.ext as? [String : String], let value = ext["key"] {
-            XCTAssertTrue(value == "value")
-        }
-    }
-    
     func testNativeAssetData() {
          let asset = NativeAsset()
          XCTAssertNil(asset.data)

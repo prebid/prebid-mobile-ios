@@ -47,11 +47,11 @@ public class NativeEventTracker: NSObject {
     case ViewableImpression50 = 2
     case ViewableImpression100 = 3
     case ViewableVideoImpression50 = 4
-    case TBD = 500
+    case Custom = 500
 }
 
 @objc public enum EventTracking: Int {
     case Image = 1
     case js = 2
-    case TBD = 500
+    case Custom = 500
 }

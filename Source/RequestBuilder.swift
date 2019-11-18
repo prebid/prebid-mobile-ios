@@ -237,7 +237,7 @@ import AdSupport
         if let version = Bundle(identifier: "org.cocoapods.PrebidMobile")?.infoDictionary?["CFBundleShortVersionString"] as? String {
             app["ver"] = version
             print(version)
-        } else if let version = Bundle(identifier: "org.prebid.mobile")?.infoDictionary?[kCFBundleVersionKey as String] as? String {
+        } else if let version = Bundle(identifier: "org.prebid.mobile")?.infoDictionary?["CFBundleShortVersionString"] as? String {
             app["ver"] = version
             print(version)
         }

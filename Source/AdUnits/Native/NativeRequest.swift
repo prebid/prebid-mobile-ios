@@ -49,7 +49,7 @@ public class NativeRequest: AdUnit {
         requestObject["contextsubtype"] = contextSubType?.rawValue
         
         if (sequence > 0) {
-            requestObject["sequence"] = sequence
+            requestObject["seq"] = sequence
         }
         if (asseturlsupport > 0) {
             requestObject["aurlsupport"] = asseturlsupport
@@ -102,7 +102,7 @@ public class NativeRequest: AdUnit {
     case Content = 1
     case Social = 2
     case Product = 3
-    case TBD = 500
+    case Custom = 500
 }
 
 @objc public enum ContextSubType: Int {
@@ -118,7 +118,7 @@ public class NativeRequest: AdUnit {
     case SellingProduct = 30
     case AppStore = 31
     case ReviewSite = 32
-    case TBD = 500
+    case Custom = 500
 }
 
 @objc public enum PlacementType: Int {
@@ -126,7 +126,7 @@ public class NativeRequest: AdUnit {
     case AtomicContent = 2
     case OutsideContent = 3
     case RecommendationWidget = 4
-    case TBD = 500
+    case Custom = 500
 }
 
 @objc public enum DataAsset: Int {
@@ -142,7 +142,7 @@ public class NativeRequest: AdUnit {
     case description2 = 10
     case displayurl = 11
     case ctatext = 12
-    case XXX = 500
+    case Custom = 500
 }
 
 
