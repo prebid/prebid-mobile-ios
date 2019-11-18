@@ -102,7 +102,7 @@ import CoreLocation
 
                 if (iabGdpr == "1" || iabGdpr == "true" || iabGdpr == "yes") {
                     gdprConsent = true
-                } else {
+                } else if (iabGdpr == "0" || iabGdpr == "false" || iabGdpr == "no") {
                     gdprConsent = false
                 }
                 
