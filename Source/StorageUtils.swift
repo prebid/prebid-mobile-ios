@@ -17,7 +17,7 @@ import Foundation
 
 class StorageUtils {
     //COPPA
-    static let PB_COPPA = "kPBCoppaSubjectToConsent"
+    static let PB_COPPAKey = "kPBCoppaSubjectToConsent"
     
     //GDPR
     static let PBConsent_SubjectToGDPRKey = "kPBGdprSubjectToConsent"
@@ -35,11 +35,11 @@ class StorageUtils {
     
     //COPPA
     static func pbCoppa() -> Bool {
-        return UserDefaults.standard.bool(forKey: StorageUtils.PB_COPPA)
+        return UserDefaults.standard.bool(forKey: StorageUtils.PB_COPPAKey)
     }
     
     static func setPbCoppa(value: Bool) {
-        setUserDefaults(value: value, forKey: StorageUtils.PB_COPPA)
+        setUserDefaults(value: value, forKey: StorageUtils.PB_COPPAKey)
     }
     
     //GDPR
