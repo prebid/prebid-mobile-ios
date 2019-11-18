@@ -49,6 +49,9 @@
 		F543D52F220E101B00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D52E220E101A00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json */; };
 		F543D532220E193200F1EF8F /* noBidResponseTmaxTooLarge.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D530220E193200F1EF8F /* noBidResponseTmaxTooLarge.json */; };
 		F543D533220E193200F1EF8F /* noBidResponseNoTmax.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D531220E193200F1EF8F /* noBidResponseNoTmax.json */; };
+		FA0AA1A623797413004B7A44 /* NativeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A364234B9AC100628C9D /* NativeRequest.swift */; };
+		FA0AA1A723797433004B7A44 /* NativeAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A367234D214C00628C9D /* NativeAsset.swift */; };
+		FA0AA1A823797435004B7A44 /* NativeEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A36D2354C7BA00628C9D /* NativeEventTracker.swift */; };
 		FA282DE22327B4D600C9D477 /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D792F5217E229A0080F428 /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA29A3D5232255DF00F13F61 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1C2218BFC7A00CE1BA3 /* Reachability.swift */; };
 		FA29A3D6232255DF00F13F61 /* BidManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E517231FCD1400CAA05B /* BidManager.swift */; };
@@ -702,7 +705,9 @@
 				FA29A3D5232255DF00F13F61 /* Reachability.swift in Sources */,
 				FA29A3D6232255DF00F13F61 /* BidManager.swift in Sources */,
 				FA29A3D7232255DF00F13F61 /* Dispatcher.swift in Sources */,
+				FA0AA1A623797413004B7A44 /* NativeRequest.swift in Sources */,
 				FA29A3D9232255DF00F13F61 /* RequestBuilder.swift in Sources */,
+				FA0AA1A723797433004B7A44 /* NativeAsset.swift in Sources */,
 				FA29A3DA232255DF00F13F61 /* AdViewUtils.swift in Sources */,
 				FA29A3DB232255DF00F13F61 /* CollectionExtension.swift in Sources */,
 				FA29A3DC232255DF00F13F61 /* Location.swift in Sources */,
@@ -716,6 +721,7 @@
 				FA29A3E3232255DF00F13F61 /* Global.swift in Sources */,
 				FA29A3E4232255DF00F13F61 /* BidResponse.swift in Sources */,
 				FA29A3E5232255DF00F13F61 /* InterstitialAdUnit.swift in Sources */,
+				FA0AA1A823797435004B7A44 /* NativeEventTracker.swift in Sources */,
 				FA29A3E6232255DF00F13F61 /* Host.swift in Sources */,
 				FA29A3E7232255DF00F13F61 /* Constants.swift in Sources */,
 				FA29A3E8232255DF00F13F61 /* Logging.swift in Sources */,
