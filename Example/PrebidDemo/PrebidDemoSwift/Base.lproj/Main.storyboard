@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -47,8 +47,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2BF-DS-686">
-                                <rect key="frame" x="142.5" y="373.5" width="90" height="30"/>
-                                <state key="normal" title="Simple Video"/>
+                                <rect key="frame" x="141.5" y="373.5" width="92" height="30"/>
+                                <state key="normal" title="Banner Video"/>
+                                <connections>
+                                    <segue destination="ihT-Ma-5CT" kind="show" id="6vM-Cs-bCE"/>
+                                </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fwP-lp-368">
                                 <rect key="frame" x="100" y="69" width="175" height="32"/>
@@ -56,12 +59,15 @@
                                     <segment title="DFP"/>
                                     <segment title="MoPub"/>
                                 </segments>
-                            </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tqI-eV-Bmv">
-                                <rect key="frame" x="140.5" y="428.5" width="94" height="30"/>
-                                <state key="normal" title="Simple Native"/>
                                 <connections>
-                                    <segue destination="8EE-dY-0p7" kind="show" id="MrY-Rh-16s"/>
+                                    <action selector="onAdServerSwidshed:" destination="BYZ-38-t0r" eventType="valueChanged" id="j2N-Nn-Vqk"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H9f-Yj-Von">
+                                <rect key="frame" x="132" y="420" width="111" height="30"/>
+                                <state key="normal" title="Interstitial Video"/>
+                                <connections>
+                                    <segue destination="i5n-eA-fbo" kind="show" id="oHg-3D-EQi"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -70,11 +76,12 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fwP-lp-368" secondAttribute="trailing" constant="100" id="IjW-xZ-d3E"/>
                             <constraint firstItem="gs4-Un-gLc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Jm8-tG-2ua"/>
                             <constraint firstItem="ze7-Xk-t60" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L22-ha-lp8"/>
-                            <constraint firstItem="tqI-eV-Bmv" firstAttribute="top" secondItem="2BF-DS-686" secondAttribute="bottom" constant="25" id="NMg-d0-HUZ"/>
+                            <constraint firstItem="H9f-Yj-Von" firstAttribute="centerX" secondItem="2BF-DS-686" secondAttribute="centerX" id="Ngz-Nm-10j"/>
                             <constraint firstItem="2BF-DS-686" firstAttribute="top" secondItem="gs4-Un-gLc" secondAttribute="bottom" constant="25" id="QCv-r0-6G9"/>
                             <constraint firstItem="fwP-lp-368" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="TB7-Cg-dlk"/>
                             <constraint firstItem="tqI-eV-Bmv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TVT-40-hfI"/>
                             <constraint firstItem="gs4-Un-gLc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UG4-q2-Cje"/>
+                            <constraint firstItem="H9f-Yj-Von" firstAttribute="top" secondItem="2BF-DS-686" secondAttribute="bottom" constant="16.5" id="WHs-er-cHs"/>
                             <constraint firstItem="2BF-DS-686" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="q39-Lq-QPj"/>
                             <constraint firstItem="gs4-Un-gLc" firstAttribute="top" secondItem="ze7-Xk-t60" secondAttribute="bottom" constant="25" id="yOu-YU-6fP"/>
                             <constraint firstItem="fwP-lp-368" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="yte-Ky-7os"/>
@@ -84,6 +91,8 @@
                     <navigationItem key="navigationItem" id="blE-VU-00S"/>
                     <connections>
                         <outlet property="adServerSegment" destination="fwP-lp-368" id="oHh-cj-Nkb"/>
+                        <outlet property="bannerVideo" destination="2BF-DS-686" id="5Fb-nV-c6O"/>
+                        <outlet property="interstitialVideo" destination="H9f-Yj-Von" id="6Af-yT-nRW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -113,6 +122,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MDv-TO-hpU"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Zuf-Dh-wfV"/>
                     <connections>
                         <outlet property="adServerLabel" destination="A68-A7-mkG" id="3vf-kg-0Ni"/>
                     </connections>
@@ -187,6 +197,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jGy-I6-dpO"/>
                     </view>
+                    <navigationItem key="navigationItem" id="JjN-6d-Z0y"/>
                     <connections>
                         <outlet property="adServerLabel" destination="yQh-8P-TfB" id="G6P-NP-8aN"/>
                         <outlet property="appBannerView" destination="2ys-Rb-Auo" id="aZu-7F-8qc"/>
@@ -197,4 +208,8 @@
             <point key="canvasLocation" x="1439" y="82"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="kib-uu-Sx9"/>
+        <segue reference="kvU-2J-PSM"/>
+    </inferredMetricsTieBreakers>
 </document>

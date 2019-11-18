@@ -21,30 +21,33 @@ import GoogleMobileAds
 
 import MoPub
 
+enum BannerFormat: Int {
+    case html
+    case vast
+}
+
 class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegate {
 
    @IBOutlet var appBannerView: UIView!
 
     @IBOutlet var adServerLabel: UILabel!
 
+    var bannerFormat: BannerFormat = .html
+    
     var adServerName: String = ""
 
     let request = DFPRequest()
 
-    var dfpBanner: DFPBannerView!
+    var adUnit: AdUnit!
 
-    var bannerUnit: BannerAdUnit!
-
-    var mopubBanner: MPAdView?
+    var mpBanner: MPAdView?
+    
+    var amBanner: DFPBannerView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         adServerLabel.text = adServerName
-
-        bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
-        bannerUnit.setAutoRefreshMillis(time: 35000)
-        //bannerUnit.addAdditionalSize(sizes: [CGSize(width: 300, height: 600)])
         
 //        enableCOPPA()
 //        addFirstPartyData(adUnit: bannerUnit)
@@ -53,48 +56,110 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
-            loadDFPBanner(bannerUnit: bannerUnit)
+            
+            switch bannerFormat {
+                
+            case .html:
+                setupAndLoadAMBanner()
+            case .vast:
+                setupAndLoadAMBannerVAST()
+            }
+            
 
         } else if (adServerName == "MoPub") {
             print("entered \(adServerName) loop" )
-            loadMoPubBanner(bannerUnit: bannerUnit)
+            loadMoPubBanner()
 
         }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         // important to remove the time instance
-        bannerUnit?.stopAutoRefresh()
+        adUnit?.stopAutoRefresh()
     }
 
-    func loadDFPBanner(bannerUnit: AdUnit) {
-        print("Google Mobile Ads SDK version: \(DFPRequest.sdkVersion())")
-        dfpBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
-        dfpBanner.adUnitID = "/19968336/PrebidMobileValidator_Banner_All_Sizes"
-        dfpBanner.rootViewController = self
-        dfpBanner.delegate = self
-        dfpBanner.backgroundColor = .red
-        appBannerView.addSubview(dfpBanner)
+    func setupAndLoadAMBanner() {
+        setupPBBanner()
         
-        bannerUnit.fetchDemand(adObject: self.request) { [weak self] (resultCode: ResultCode) in
+        setupAMBanner()
+        
+        loadBanner()
+    }
+    
+    func setupAndLoadAMBannerVAST() {
+        
+        setupPBBannerVAST()
+        
+        setupAMBannerVAST()
+
+        loadBanner()
+    }
+    
+    func setupPBBanner() {
+        Prebid.shared.prebidServerHost = .Appnexus
+        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        Prebid.shared.storedAuctionResponse = ""
+        
+        adUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
+        adUnit.setAutoRefreshMillis(time: 35000)
+    }
+    
+    func setupPBBannerVAST() {
+        
+        Prebid.shared.prebidServerHost = .Rubicon
+        Prebid.shared.prebidServerAccountId = "1001"
+        Prebid.shared.storedAuctionResponse = "sample_video_response"
+        
+        adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), type: .inBanner)
+    }
+    
+    func setupAMBanner() {
+        setupAMBanner(id: "/19968336/PrebidMobileValidator_Banner_All_Sizes")
+    }
+    
+    func setupAMBannerVAST() {
+        setupAMBanner(id: "/5300653/test_adunit_vast_pavliuchyk")
+    }
+    
+    func setupAMBanner(id: String) {
+        amBanner = DFPBannerView(adSize: kGADAdSizeMediumRectangle)
+        amBanner.adUnitID = id
+    }
+    
+    func loadBanner() {
+        print("Google Mobile Ads SDK version: \(DFPRequest.sdkVersion())")
+        
+        amBanner.rootViewController = self
+        amBanner.delegate = self
+        amBanner.backgroundColor = .red
+        appBannerView.addSubview(amBanner)
+
+        adUnit.fetchDemand(adObject: self.request) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
-            self?.dfpBanner!.load(self?.request)
+            self?.amBanner!.load(self?.request)
         }
     }
 
-    func loadMoPubBanner(bannerUnit: AdUnit) {
+    func loadMoPubBanner() {
+        setupPBBanner()
+        
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
+        sdkConfig.globalMediationSettings = []
 
-        mopubBanner = MPAdView(adUnitId: "5ff9556b05964e65b684ec54013df59d")
-        mopubBanner?.frame = CGRect(x: 0, y: 0, width: 300, height: 250)
-        mopubBanner!.delegate = self
+        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {
 
-        appBannerView.addSubview(mopubBanner!)
+        }
+
+        mpBanner = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6", size: CGSize(width: 300, height: 250))
+        mpBanner!.delegate = self
+
+        appBannerView.addSubview(mpBanner!)
 
         // Do any additional setup after loading the view, typically from a nib.
-        bannerUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
+        adUnit.fetchDemand(adObject: mpBanner!) { (resultCode: ResultCode) in
             print("Prebid demand fetch for mopub \(resultCode.name())")
 
-            self.mopubBanner!.loadAd()
+            self.mpBanner!.loadAd()
         }
 
     }
@@ -167,7 +232,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func adViewDidReceiveAd(_ bannerView: DFPBannerView) {
         print("adViewDidReceiveAd")
         
-        self.dfpBanner.resize(bannerView.adSize)
+        self.amBanner.resize(bannerView.adSize)
 
     }
 

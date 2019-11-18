@@ -19,10 +19,28 @@ import UIKit
 
 class IndexController: UIViewController {
     @IBOutlet var adServerSegment: UISegmentedControl!
+    @IBOutlet var bannerVideo: UIButton!
+    @IBOutlet var interstitialVideo: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = "Prebid Demo"
+    }
+    
+    @IBAction func onAdServerSwidshed(_ sender: UISegmentedControl) {
+        let index = sender.selectedSegmentIndex
+        
+        switch index {
+        case 0:
+            bannerVideo.isHidden = false
+        case 1:
+            bannerVideo.isHidden = true
+            
+        default:
+            bannerVideo.isHidden = false
+        }
+        
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -39,6 +57,7 @@ class IndexController: UIViewController {
             vc.adServerName = adServerName
         default:
             print("wrong controller")
+
         }
     }
 

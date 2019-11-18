@@ -84,7 +84,13 @@ import AdSupport
                 var prebid = ext["prebid"] as? [String: Any] {
 
                 prebid["targeting"] = [:]
-                prebid["cache"] = ["bids": [AnyHashable: Any]()]
+                var cache: [AnyHashable: Any] = [:]
+                cache["bids"] = [AnyHashable: Any]()
+                
+                if (adUnit is VideoAdUnit || adUnit is VideoInterstitialAdUnit) {
+                    cache["vastxml"] = [AnyHashable: Any]()
+                }
+                prebid["cache"] = cache
 
                 ext["prebid"] = prebid
                 requestDict["ext"] = ext
@@ -123,27 +129,28 @@ import AdSupport
 
         imp["secure"] = 1
 
-        var sizeArray = [[String: CGFloat]]()
-        for size: CGSize in (adUnit?.adSizes)! {
-            let sizeDict = [
-                "w": size.width,
-                "h": size.height
-            ]
-            sizeArray.append(sizeDict)
-        }
-        let formats = ["format": sizeArray]
-        
         if let nativeRequest = adUnit as? NativeRequest {
             
             imp["native"] = nativeRequest.getNativeRequestObject()
             
-        } else {
-            
+        } else
+        if (adUnit is BannerAdUnit || adUnit is InterstitialAdUnit) {
+            var sizeArray = [[String: CGFloat]]()
+            for size: CGSize in (adUnit?.adSizes)! {
+                let sizeDict = [
+                    "w": size.width,
+                    "h": size.height
+                ]
+                sizeArray.append(sizeDict)
+            }
+            let formats = ["format": sizeArray]
             imp["banner"] = formats
 
-            if (adUnit is InterstitialAdUnit) {
-                imp["instl"] = 1
-            }
+        }
+        
+        if (adUnit is InterstitialAdUnit || adUnit is VideoInterstitialAdUnit) {
+            imp["instl"] = 1
+
         }
 
         //to be used when openRTB supports storedRequests
@@ -180,6 +187,35 @@ import AdSupport
 
         imp["ext"] = adUnitExt
 
+        if (adUnit is VideoAdUnit || adUnit is VideoInterstitialAdUnit) {
+            var video: [AnyHashable: Any] = [:]
+            
+            let videoMimes: [String] = ["video/mp4"]
+            video["mimes"] = videoMimes
+            
+            let videoPlaybackMethod: [Int] = [2]
+            video["playbackmethod"] = videoPlaybackMethod
+            
+            let adSize = adUnit!.adSizes[0]
+            video["w"] = adSize.width
+            video["h"] = adSize.height
+            
+            let placement: Int?
+
+            switch adUnit {
+            case let videoAdUnit as VideoAdUnit:
+                placement = videoAdUnit.type.rawValue
+            case is VideoInterstitialAdUnit:
+                placement = 5
+            default: placement = nil
+            }
+
+            video["placement"] = placement
+
+            video["linearity"] = 1
+            
+            imp["video"] = video
+        }
         imps.append(imp)
 
         return imps
@@ -415,8 +451,16 @@ import AdSupport
         window?.addSubview(webView)
         myGroup.enter()
         webView.loadHTMLString("<html></html>", baseURL: nil)
-        webView.evaluateJavaScript("navigator.userAgent", completionHandler: { (userAgent, _) in
-            wkUserAgent = userAgent as! String
+        webView.evaluateJavaScript("navigator.userAgent", completionHandler: { (userAgent: Any?, error: Error?) in
+            
+            if let error = error {
+                Log.error("retrieving userAgent error:\(error)")
+            }
+            
+            if let userAgent = userAgent as? String {
+                wkUserAgent = userAgent
+            }
+            
             webView.stopLoading()
             webView.removeFromSuperview()
             myGroup.leave()
