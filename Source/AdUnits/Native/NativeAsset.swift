@@ -20,7 +20,7 @@ public class NativeAsset: NSObject {
     var id: NSInteger!
     public var required: Bool = false
     
-    internal init(isRequired: Bool) {
+    public init(isRequired: Bool) {
         super.init()
         required = isRequired
     }
@@ -65,7 +65,7 @@ public class NativeAsset: NSObject {
     
 }
 
-public class NativeAssetImage: NativeAsset {
+@objcMembers public class NativeAssetImage: NativeAsset {
     
     public var type: ImageAsset?
     public var width: Int?
@@ -75,10 +75,14 @@ public class NativeAssetImage: NativeAsset {
     public var mimes: Array<String>?
     public var ext: AnyObject?
     
-    public required init(minimumWidth: Int, minimumHeight: Int, required: Bool) {
-        super.init(isRequired: required)
+    public convenience init(minimumWidth: Int, minimumHeight: Int, required: Bool) {
+        self.init(isRequired: required)
         self.widthMin = minimumWidth
         self.heightMin = minimumHeight
+    }
+    
+    public override init(isRequired: Bool) {
+        super.init(isRequired: isRequired)
     }
     
     func getImageObject() -> [AnyHashable: Any] {
@@ -98,7 +102,7 @@ public class NativeAssetImage: NativeAsset {
     
 }
 
-public class NativeAssetData: NativeAsset {
+@objcMembers public class NativeAssetData: NativeAsset {
     var type: Int?
     public var length: Int?
     public var ext: AnyObject?

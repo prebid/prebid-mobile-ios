@@ -35,8 +35,8 @@ class NativeEventTrackerTests: XCTestCase {
         XCTAssertTrue(eventTracker.event == EventType.ViewableImpression100)
         eventTracker.event = EventType.ViewableVideoImpression50
         XCTAssertTrue(eventTracker.event == EventType.ViewableVideoImpression50)
-        eventTracker.event = EventType.TBD
-        XCTAssertTrue(eventTracker.event == EventType.TBD)
+        eventTracker.event = EventType.Custom
+        XCTAssertTrue(eventTracker.event == EventType.Custom)
     }
     
     func testNativeEventTracking() {
@@ -48,13 +48,13 @@ class NativeEventTrackerTests: XCTestCase {
             let eventTracker = eventTrackerArray[0]
             XCTAssertTrue(eventTracker == EventTracking.Image)
             XCTAssertTrue(eventTracker == EventTracking.js)
-            XCTAssertTrue(eventTracker == EventTracking.TBD)
+            XCTAssertTrue(eventTracker == EventTracking.Custom)
         }
         
         eventTracker.methods = [EventTracking.js];
         XCTAssertTrue(eventTracker.methods.count == 1)
         
-        eventTracker.methods = [EventTracking.TBD];
+        eventTracker.methods = [EventTracking.Custom];
         XCTAssertTrue(eventTracker.methods.count == 1)
         
     }

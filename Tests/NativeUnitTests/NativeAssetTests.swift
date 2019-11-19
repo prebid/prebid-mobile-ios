@@ -27,56 +27,49 @@ class NativeAssetTests: XCTestCase {
     }
     
     func testNativeAssetTitle() {
-        let asset = NativeAsset()
-        XCTAssertNil(asset.title)
-        XCTAssertNil(asset.ext)
-        asset.title = NativeAssetTitle(length:25)
-        XCTAssertTrue(asset.title!.length == 25)
+        let assettitle = NativeAssetTitle(length:25, required: true)
+        XCTAssertTrue(assettitle.length == 25)
         let ext = ["key" : "value"]
-        asset.ext = ext as AnyObject
-        if let data = asset.ext as? [String : String], let value = data["key"] {
+        assettitle.ext = ext as AnyObject
+        if let data = assettitle.ext as? [String : String], let value = data["key"] {
             XCTAssertTrue(value == "value")
         }
     }
     
     func testNativeAssetImage() {
-        let asset = NativeAsset()
-        XCTAssertNil(asset.image)
-        asset.image = NativeAssetImage(minimumWidth: 20, minimumHeight: 30)
-        asset.image?.type = .Icon
-        asset.image?.width = 100
-        asset.image?.height = 200
-        asset.image?.mimes = ["png"]
-        asset.image?.ext = ["key" : "value"] as AnyObject
-        XCTAssertTrue(asset.image!.widthMin == 20)
-        XCTAssertTrue(asset.image!.heightMin == 30)
-        XCTAssertTrue(asset.image!.width == 100)
-        XCTAssertTrue(asset.image!.height == 200)
-        XCTAssertTrue(asset.image!.type == .Icon)
-        if let mimes = asset.image?.mimes{
+        let assetImage = NativeAssetImage(minimumWidth: 20, minimumHeight: 30, required: true)
+        assetImage.type = .Icon
+        assetImage.width = 100
+        assetImage.height = 200
+        assetImage.mimes = ["png"]
+        assetImage.ext = ["key" : "value"] as AnyObject
+        XCTAssertTrue(assetImage.widthMin == 20)
+        XCTAssertTrue(assetImage.heightMin == 30)
+        XCTAssertTrue(assetImage.width == 100)
+        XCTAssertTrue(assetImage.height == 200)
+        XCTAssertTrue(assetImage.type == .Icon)
+        if let mimes = assetImage.mimes{
             if mimes.count == 1 {
                 let value = mimes[0]
                 XCTAssertTrue(value == "png")
             }
         }
-        if let ext = asset.image?.ext as? [String : String], let value = ext["key"] {
+        if let ext = assetImage.ext as? [String : String], let value = ext["key"] {
             XCTAssertTrue(value == "value")
         }
     }
     
     func testNativeAssetData() {
-         let asset = NativeAsset()
-         XCTAssertNil(asset.data)
-         asset.data = NativeAssetData(type: 1)
-         asset.data?.ext = ["key" : "value"] as AnyObject
-         XCTAssertTrue(asset.data!.type == 1)
-         if let ext = asset.video?.ext as? [String : String], let value = ext["key"] {
+         let assetData = NativeAssetData(type: 1, required: true)
+         assetData.ext = ["key" : "value"] as AnyObject
+         XCTAssertTrue(assetData.type == 1)
+         if let ext = assetData.ext as? [String : String], let value = ext["key"] {
              XCTAssertTrue(value == "value")
          }
      }
     
     func testNativeAssetIdAndRequiredFileds() {
-        let asset = NativeAsset()
+        let asset = NativeAsset(isRequired: false)
         XCTAssertNil(asset.id)
         XCTAssertFalse(asset.required)
         asset.id = 100

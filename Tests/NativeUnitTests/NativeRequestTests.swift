@@ -42,8 +42,8 @@ class NativeRequestTests: XCTestCase {
         XCTAssertTrue(nativeUnit.context == ContextType.Product)
         nativeUnit.context = ContextType.Content
         XCTAssertTrue(nativeUnit.context == ContextType.Content)
-        nativeUnit.context = ContextType.TBD
-        XCTAssertTrue(nativeUnit.context == ContextType.TBD)
+        nativeUnit.context = ContextType.Custom
+        XCTAssertTrue(nativeUnit.context == ContextType.Custom)
     }
     
     func testNativeAdContextSubType() {
@@ -74,8 +74,8 @@ class NativeRequestTests: XCTestCase {
         XCTAssertTrue(nativeUnit.contextSubType == ContextSubType.AppStore)
         nativeUnit.contextSubType = ContextSubType.ReviewSite
         XCTAssertTrue(nativeUnit.contextSubType == ContextSubType.ReviewSite)
-        nativeUnit.contextSubType = ContextSubType.TBD
-        XCTAssertTrue(nativeUnit.contextSubType == ContextSubType.TBD)
+        nativeUnit.contextSubType = ContextSubType.Custom
+        XCTAssertTrue(nativeUnit.contextSubType == ContextSubType.Custom)
     }
     
     func testNativeAdPlacementType() {
@@ -90,8 +90,8 @@ class NativeRequestTests: XCTestCase {
         XCTAssertTrue(nativeUnit.placementType == PlacementType.OutsideContent)
         nativeUnit.placementType = PlacementType.RecommendationWidget
         XCTAssertTrue(nativeUnit.placementType == PlacementType.RecommendationWidget)
-        nativeUnit.placementType = PlacementType.TBD
-        XCTAssertTrue(nativeUnit.placementType == PlacementType.TBD)
+        nativeUnit.placementType = PlacementType.Custom
+        XCTAssertTrue(nativeUnit.placementType == PlacementType.Custom)
     }
     
     func testNativeAdPlacementCount() {
@@ -145,7 +145,7 @@ class NativeRequestTests: XCTestCase {
         let nativeUnit = NativeRequest(configId: Constants.configID1)
         XCTAssertNil(nativeUnit.eventtrackers)
         let eventTrackers1 = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
-        let eventTrackers2 = NativeEventTracker(event: EventType.ViewableImpression50, methods: [EventTracking.TBD,EventTracking.Image])
+        let eventTrackers2 = NativeEventTracker(event: EventType.ViewableImpression50, methods: [EventTracking.Custom,EventTracking.Image])
         nativeUnit.eventtrackers = [eventTrackers1, eventTrackers2]
         XCTAssertNotNil(nativeUnit.eventtrackers)
         XCTAssertTrue(nativeUnit.eventtrackers?.count == 2)
@@ -169,7 +169,7 @@ class NativeRequestTests: XCTestCase {
                 let methods = eventTracker.methods
                 
                 XCTAssertTrue(methods.count == 2)
-                XCTAssertTrue(methods[0] == EventTracking.TBD)
+                XCTAssertTrue(methods[0] == EventTracking.Custom)
                 XCTAssertTrue(methods[1] == EventTracking.Image)
                 
             }
@@ -179,21 +179,22 @@ class NativeRequestTests: XCTestCase {
     func testNativeAdAssets() {
         let nativeUnit = NativeRequest(configId: Constants.configID1)
         XCTAssertNil(nativeUnit.assets)
-        let assets = NativeAsset()
-        assets.title = NativeAssetTitle(length:25)
-        assets.image = NativeAssetImage(minimumWidth: 20, minimumHeight: 30)
-        nativeUnit.assets = [assets]
+        let assetsTitle = NativeAssetTitle(length:25, required: true)
+        let assetsImage = NativeAssetImage(minimumWidth: 20, minimumHeight: 30, required: true)
+        nativeUnit.assets = [assetsTitle,assetsImage]
         XCTAssertNotNil(nativeUnit.assets)
         XCTAssertTrue(nativeUnit.assets?.count == 1)
         if let assets = nativeUnit.assets{
             if assets.count == 1 {
                 let asset = assets[0]
-                if let title = asset.title
+                if asset.isKind(of: NativeAssetTitle.self)
                 {
+                    let title = asset as! NativeAssetTitle
                     XCTAssertTrue(title.length == 25)
                 }
-                if let image = asset.image
+                if asset.isKind(of: NativeAssetImage.self)
                 {
+                    let image = asset as! NativeAssetImage
                     XCTAssertTrue(image.widthMin == 20)
                     XCTAssertTrue(image.heightMin == 30)
                 }
