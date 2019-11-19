@@ -19,26 +19,10 @@ public class NativeAsset: NSObject {
     
     var id: NSInteger!
     public var required: Bool = false
-    public var assetObject:AnyObject?
     
-    public required init?(isRequired: Bool, nativeObject:AnyObject) {
+    internal init(isRequired: Bool) {
         super.init()
         required = isRequired
-        var containsAssetType = true
-        
-        switch nativeObject {
-            case let nativeObject as NativeAssetImage:
-                self.assetObject = nativeObject
-            case is NativeAssetTitle:
-                self.assetObject = nativeObject
-            case is NativeAssetData:
-                self.assetObject = nativeObject
-            default: containsAssetType = false
-        }
-        
-        if(containsAssetType == false){
-            return nil
-        }
     }
     
     func getAssetObject() -> [AnyHashable: Any] {
@@ -47,11 +31,11 @@ public class NativeAsset: NSObject {
         //asset["id"] = Int.random(in: 0...1000)
         asset["required"] = Int(truncating: NSNumber(value: required))
         
-        if let titleObject = assetObject as? NativeAssetTitle {
+        if let titleObject = self as? NativeAssetTitle {
             asset["title"] = titleObject.getTitleObject()
-        } else  if let imageObject = assetObject as? NativeAssetImage {
+        } else  if let imageObject = self as? NativeAssetImage {
             asset["img"] = imageObject.getImageObject()
-        } else if let dataObject = assetObject as? NativeAssetData {
+        } else if let dataObject = self as? NativeAssetData {
             asset["data"] = dataObject.getDataObject()
         }
         return asset
@@ -59,14 +43,14 @@ public class NativeAsset: NSObject {
     
 }
 
-@objcMembers public class NativeAssetTitle: NSObject {
+@objcMembers public class NativeAssetTitle: NativeAsset {
     
     var length: NSInteger! = 25
     
     public var ext: AnyObject?
     
-    public required init(length: NSInteger) {
-        super.init()
+    public required init(length: NSInteger, required: Bool) {
+        super.init(isRequired: required)
         self.length = length
     }
     
@@ -81,7 +65,7 @@ public class NativeAsset: NSObject {
     
 }
 
-public class NativeAssetImage: NSObject {
+public class NativeAssetImage: NativeAsset {
     
     public var type: ImageAsset?
     public var width: Int?
@@ -91,8 +75,8 @@ public class NativeAssetImage: NSObject {
     public var mimes: Array<String>?
     public var ext: AnyObject?
     
-    public convenience init(minimumWidth: Int, minimumHeight: Int){
-        self.init()
+    public required init(minimumWidth: Int, minimumHeight: Int, required: Bool) {
+        super.init(isRequired: required)
         self.widthMin = minimumWidth
         self.heightMin = minimumHeight
     }
@@ -114,15 +98,14 @@ public class NativeAssetImage: NSObject {
     
 }
 
-public class NativeAssetData: NSObject {
-    var type: Int
+public class NativeAssetData: NativeAsset {
+    var type: Int?
     public var length: Int?
     public var ext: AnyObject?
     
-    required public init(type: Int) {
+    public required init(type: Int, required: Bool) {
+        super.init(isRequired: required)
         self.type = type
-        
-        super.init()
     }
     
     func getDataObject() -> [AnyHashable: Any]{

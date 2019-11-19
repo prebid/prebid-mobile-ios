@@ -54,20 +54,12 @@ class NativeController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     
     func loadNativeAssets(){
         
-        let image:NativeAssetImage = NativeAssetImage(minimumWidth: 200, minimumHeight: 200)
+        let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 200, required: true)
         image.type = ImageAsset.Main
         
-        let asset1 = NativeAsset(isRequired: true, nativeObject: image)
+        let title = NativeAssetTitle(length: 90, required: true)
         
-        let title = NativeAssetTitle(length: 90)
-        let asset2 = NativeAsset(isRequired: true, nativeObject: title)
-        
-        let object:AnyObject = NativeRequest(configId: "abc")
-        
-        let asset3 = NativeAsset(isRequired: true, nativeObject: object)
-        
-        
-        nativeUnit = NativeRequest(configId: "1f85e687-b45f-4649-a4d5-65f74f2ede8e", assets: [asset1!,asset2!])
+        nativeUnit = NativeRequest(configId: "1f85e687-b45f-4649-a4d5-65f74f2ede8e", assets: [title,image])
         nativeUnit.context = ContextType.Social
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
