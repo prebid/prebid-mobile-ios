@@ -102,7 +102,24 @@ public class NativeRequest: AdUnit {
     case Content = 1
     case Social = 2
     case Product = 3
-    case Custom = 500
+    case Custom
+    
+    private static var customValue = 500
+    
+    public var exchangeID:Int {
+        get {
+            switch self {
+            case .Custom:
+                return ContextType.customValue
+            default:
+                return self.rawValue
+            }
+        }
+        set {
+            ContextType.customValue = newValue
+        }
+        
+    }
 }
 
 @objc public enum ContextSubType: Int {
@@ -118,7 +135,24 @@ public class NativeRequest: AdUnit {
     case SellingProduct = 30
     case AppStore = 31
     case ReviewSite = 32
-    case Custom = 500
+    case Custom
+    
+    private static var customValue = 500
+        
+        public var exchangeID:Int {
+            get {
+                switch self {
+                case .Custom:
+                    return ContextSubType.customValue
+                default:
+                    return self.rawValue
+                }
+            }
+            set {
+                ContextSubType.customValue = newValue
+            }
+            
+        }
 }
 
 @objc public enum PlacementType: Int {
@@ -126,7 +160,24 @@ public class NativeRequest: AdUnit {
     case AtomicContent = 2
     case OutsideContent = 3
     case RecommendationWidget = 4
-    case Custom = 500
+    case Custom
+    
+    private static var customValue = 500
+        
+        public var exchangeID:Int {
+            get {
+                switch self {
+                case .Custom:
+                    return PlacementType.customValue
+                default:
+                    return self.rawValue
+                }
+            }
+            set {
+                PlacementType.customValue = newValue
+            }
+            
+        }
 }
 
 @objc public enum DataAsset: Int {
@@ -142,7 +193,24 @@ public class NativeRequest: AdUnit {
     case description2 = 10
     case displayurl = 11
     case ctatext = 12
-    case Custom = 500
+    case Custom
+    
+    private static var customValue = 500
+        
+        public var exchangeID:Int {
+            get {
+                switch self {
+                case .Custom:
+                    return DataAsset.customValue
+                default:
+                    return self.rawValue
+                }
+            }
+            set {
+                DataAsset.customValue = newValue
+            }
+            
+        }
 }
 
 

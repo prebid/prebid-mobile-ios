@@ -34,7 +34,7 @@ public class NativeEventTracker: NSObject {
         }
         
         let event = [
-            "event": self.event.rawValue,
+            "event": self.event.exchangeID,
             "methods": methodsList
             ] as [String : Any]
         
@@ -42,16 +42,55 @@ public class NativeEventTracker: NSObject {
     }
 }
 
-@objc public enum EventType: Int {
+@objc public enum EventType:Int {
+
     case Impression = 1
     case ViewableImpression50 = 2
     case ViewableImpression100 = 3
     case ViewableVideoImpression50 = 4
-    case Custom = 500
+    case Custom
+    
+    private static var customValue = 500
+    
+    public var exchangeID:Int {
+        get {
+            switch self {
+            case .Custom:
+                return EventType.customValue
+            default:
+                return self.rawValue
+            }
+        }
+        set {
+            EventType.customValue = newValue
+        }
+        
+    }
 }
 
 @objc public enum EventTracking: Int {
     case Image = 1
     case js = 2
-    case Custom = 500
+    case Custom
+    
+    private static var customValue = 500
+    
+    public var exchangeID:Int {
+        get {
+            switch self {
+            case .Custom:
+                return EventTracking.customValue
+            default:
+                return self.rawValue
+            }
+        }
+        set {
+            EventTracking.customValue = newValue
+        }
+        
+    }
 }
+
+
+
+
