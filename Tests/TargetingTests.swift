@@ -64,18 +64,68 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(2, Targeting.shared.locationPrecision)
     }
 
-    func testGDPRConsentString() {
-        Targeting.shared.gdprConsentString = "testconsent"
-        let value = Targeting.shared.gdprConsentString
+    func testPbGrprSubject() {
+        //given
+        Targeting.shared.subjectToGDPR = true
+        defer {
+            Targeting.shared.subjectToGDPR = false
+        }
+        
+        //when
+        let pbGdprSubject = Targeting.shared.subjectToGDPR
 
-        XCTAssertTrue((value == "testconsent"))
+        //then
+        XCTAssertEqual(true, pbGdprSubject)
     }
+    
+    func testIabGrprSubject() {
+        //given
+        Targeting.shared.subjectToGDPR = nil
+        UserDefaults.standard.set("1", forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+        defer {
+            UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+        }
+        
+        //when
+        let iabGdprSubject = Targeting.shared.subjectToGDPR
 
-    func testGDPREnable() {
-        Targeting.shared.subjectToGDPR = false
-        let testGDPR = Targeting.shared.subjectToGDPR
+        //then
+        XCTAssertEqual(true, iabGdprSubject)
+        
+        //when
+        UserDefaults.standard.set("true", forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+        
+        //then
+        XCTAssertEqual(true, iabGdprSubject)
+    }
+    
+    func testPbGdprConsent() {
+        //given
+        Targeting.shared.gdprConsentString = "testconsent PB"
+        defer {
+            Targeting.shared.gdprConsentString = nil
+        }
+        
+        //when
+        let pbGdprConsent = Targeting.shared.gdprConsentString
 
-        XCTAssertFalse(testGDPR)
+        //then
+        XCTAssertEqual("testconsent PB", pbGdprConsent)
+    }
+    
+    func testIabGdprConsent() {
+        //given
+        Targeting.shared.gdprConsentString = nil
+        UserDefaults.standard.set("testconsent IAB", forKey: StorageUtils.IABConsent_ConsentStringKey)
+        defer {
+            UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_ConsentStringKey)
+        }
+        
+        //when
+        let iabGdprConsent = Targeting.shared.gdprConsentString
+
+        //then
+        XCTAssertEqual("testconsent IAB", iabGdprConsent)
     }
 
     func testItuneIDTargeting() {

@@ -354,22 +354,25 @@ import AdSupport
         return nil
     }
 
-    func openrtbRegs() -> [AnyHashable: Any]? {
+    func openrtbRegs() -> [AnyHashable: Any] {
 
         var regsDict: [AnyHashable: Any] = [:]
+        var ext: [AnyHashable: Any] = [:]
 
-        let gdpr = Targeting.shared.subjectToGDPR
-
-        if gdpr == true {
-            regsDict["ext"] = ["gdpr": NSNumber(value: gdpr).intValue] as NSDictionary
+        if Targeting.shared.subjectToGDPR == true {
+            ext["gdpr"] = 1
         }
+        
+        ext["us_privacy"] = StorageUtils.iabCcpa()
+        
+        regsDict["ext"] = ext
 
         let coppa = Targeting.shared.subjectToCOPPA
         if coppa == true {
             regsDict["coppa"] = NSNumber(value: coppa).intValue
         }
 
-        return regsDict.isEmpty ? nil : regsDict
+        return regsDict
     }
 
     // OpenRTB 2.5 Object: User in section 3.2.20

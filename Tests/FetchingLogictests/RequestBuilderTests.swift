@@ -120,32 +120,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual("PrebidMobile", id)
     }
 
-    func testPostDataWithConsent() throws {
-
-        //given
-        let targeting = Targeting.shared
-        targeting.subjectToGDPR = true
-        defer {
-            targeting.subjectToGDPR = false
-        }
-
-        targeting.gdprConsentString = "testGDPR"
-
-        //when
-        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-
-        guard let user = jsonRequestBody["user"] as? [String: Any],
-            let userExt = user["ext"] as? [String: Any],
-            let consent = userExt["consent"] as? String else {
-
-                XCTFail("parsing error")
-                return
-        }
-
-        //then
-        XCTAssertEqual("testGDPR", consent)
-    }
-
     func testPostDataWithGender() throws {
 
         //given
@@ -299,7 +273,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertNil(coppa)
     }
     
-    func testPostDataWithGDPR() throws {
+    func testPostDataWithGdprSubject() throws {
 
         //given
         let targeting = Targeting.shared
@@ -323,7 +297,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual(1, gdpr)
     }
 
-    func testPostDataWithoutGDPR() throws {
+    func testPostDataWithoutGdprSubject() throws {
 
         //given
         let targeting = Targeting.shared
@@ -346,6 +320,137 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         //then
         XCTAssertNil(gdpr)
+    }
+    
+    func testPostDataWithGdprConsent() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.subjectToGDPR = true
+        defer {
+            targeting.subjectToGDPR = false
+        }
+
+        targeting.gdprConsentString = "testGDPR"
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let regs = jsonRequestBody["regs"] as? [String: Any],
+            let regsExt = regs["ext"] as? [String: Any],
+            let gdpr = regsExt["gdpr"] as? Int,
+            //consent
+            let user = jsonRequestBody["user"] as? [String: Any],
+            let userExt = user["ext"] as? [String: Any],
+            let consent = userExt["consent"] as? String else {
+                
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertEqual(1, gdpr)
+        XCTAssertEqual("testGDPR", consent)
+    }
+    
+    func testPostDataWithGdprConsentWithoutGdprSubject() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.subjectToGDPR = false
+
+        targeting.gdprConsentString = "testGDPR"
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        var gdpr: Int? = nil
+        var consent: String? = nil
+
+        if let regs = jsonRequestBody["regs"] as? [String: Any],
+            let regsExt = regs["ext"] as? [String: Any],
+            let extGdpr = regsExt["gdpr"] as? Int,
+            //consent
+            let user = jsonRequestBody["user"] as? [String: Any],
+            let userExt = user["ext"] as? [String: Any],
+            let extConsent = userExt["consent"] as? String {
+
+            gdpr = extGdpr
+            consent = extConsent
+        }
+
+        //then
+        XCTAssertNil(gdpr)
+        XCTAssertNil(consent)
+
+    }
+    
+    func testPostDataWithCCPA() throws {
+
+        //given
+        UserDefaults.standard.set("testCCPA", forKey: StorageUtils.IABUSPrivacy_StringKey)
+        defer {
+            UserDefaults.standard.removeObject(forKey: StorageUtils.IABUSPrivacy_StringKey)
+        }
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let regs = jsonRequestBody["regs"] as? [String: Any],
+            let regsExt = regs["ext"] as? [String: Any],
+            let usPrivacy = regsExt["us_privacy"] as? String else {
+
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertEqual("testCCPA", usPrivacy)
+    }
+    
+    func testPostDataWithEmptyCCPA() throws {
+
+        //given
+        UserDefaults.standard.set("", forKey: StorageUtils.IABUSPrivacy_StringKey)
+        defer {
+            UserDefaults.standard.removeObject(forKey: StorageUtils.IABUSPrivacy_StringKey)
+        }
+
+        var usPrivacy: String? = nil
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        if let regs = jsonRequestBody["regs"] as? [String: Any],
+            let regsExt = regs["ext"] as? [String: Any],
+            let extUsPrivacy = regsExt["us_privacy"] as? String {
+
+            usPrivacy = extUsPrivacy
+        }
+
+        //then
+        XCTAssertNil(usPrivacy)
+    }
+    
+    func testPostDataWithoutCCPA() throws {
+
+        //given
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABUSPrivacy_StringKey)
+
+        var usPrivacy: String? = nil
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        if let regs = jsonRequestBody["regs"] as? [String: Any],
+            let regsExt = regs["ext"] as? [String: Any],
+            let extUsPrivacy = regsExt["us_privacy"] as? String {
+
+            usPrivacy = extUsPrivacy
+        }
+
+        //then
+        XCTAssertNil(usPrivacy)
     }
 
     func testPostDataWithCustomKeyword() throws {

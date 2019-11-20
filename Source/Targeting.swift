@@ -32,6 +32,21 @@ import CoreLocation
     
     private var yearofbirth: Int = 0
 
+    public var storeURL: String?
+    public var domain: String?
+
+    /**
+     * The class is created as a singleton object & used
+     */
+    public static let shared = Targeting()
+
+    /**
+     * The initializer that needs to be created only once
+     */
+    private override init() {
+        gender = Gender.unknown
+    }
+    
     /**
      * This property gets the gender enum passed set by the developer
      */
@@ -40,6 +55,82 @@ import CoreLocation
 
     public var yearOfBirth: Int {
         return yearofbirth
+    }
+    
+    /**
+     * The itunes app id for targeting
+     */
+    public var itunesID: String?
+
+    /**
+     * The application location for targeting
+     */
+    public var location: CLLocation?
+
+    /**
+     * The application location precision for targeting
+     */
+    public var locationPrecision: Int?
+    
+    /**
+     * The boolean value set by the user to collect user data
+     */
+    public var subjectToCOPPA: Bool {
+        set {
+            StorageUtils.setPbCoppa(value: newValue)
+        }
+        
+        get {
+            return StorageUtils.pbCoppa()
+        }
+    }
+    
+    /**
+     * The boolean value set by the user to collect user data
+     */
+    public var subjectToGDPR: Bool? {
+        set {
+            StorageUtils.setPbGdprSubject(value: newValue)
+        }
+
+        get {
+            var gdprConsent: Bool?
+
+            if let pbGdpr = StorageUtils.pbGdprSubject() {
+                gdprConsent = pbGdpr
+            } else if let iabGdpr = StorageUtils.iabGdprSubject() {
+
+                if (iabGdpr == "1" || iabGdpr == "true" || iabGdpr == "yes") {
+                    gdprConsent = true
+                } else if (iabGdpr == "0" || iabGdpr == "false" || iabGdpr == "no") {
+                    gdprConsent = false
+                }
+                
+            }
+            
+            return gdprConsent
+        }
+    }
+
+    /**
+     * The consent string for sending the GDPR consent
+     */
+    public var gdprConsentString: String? {
+        set {
+            StorageUtils.setPbGdprConsent(value: newValue)
+        }
+
+        get {
+            var savedConsent: String?
+            
+            if let pbString = StorageUtils.pbGdprConsent() {
+                savedConsent = pbString
+            } else if let iabString = StorageUtils.iabGdprConsent() {
+                savedConsent = iabString
+            }
+            
+            return savedConsent
+        }
     }
     
     // MARK: - access control list (ext.prebid.data)
@@ -241,93 +332,6 @@ import CoreLocation
      */
     public func clearYearOfBirth() {
             yearofbirth = 0
-    }
-
-    /**
-     * The itunes app id for targeting
-     */
-    public var itunesID: String?
-
-    /**
-     * The application location for targeting
-     */
-    public var location: CLLocation?
-
-    /**
-     * The application location precision for targeting
-     */
-    public var locationPrecision: Int?
-
-    /**
-     * The boolean value set by the user to collect user data
-     */
-    public var subjectToCOPPA: Bool {
-        set {
-            UserDefaults.standard.set(newValue, forKey: .PB_COPPA_SubjectToConsent)
-        }
-        
-        get {
-            return UserDefaults.standard.bool(forKey: .PB_COPPA_SubjectToConsent)
-        }
-    }
-    
-    /**
-     * The boolean value set by the user to collect user data
-     */
-    public var subjectToGDPR: Bool {
-        set {
-            UserDefaults.standard.set(newValue, forKey: .PB_GDPR_SubjectToConsent)
-        }
-
-        get {
-            var gdprConsent: Bool = false
-
-            if ((UserDefaults.standard.object(forKey: .PB_GDPR_SubjectToConsent)) != nil) {
-                gdprConsent = UserDefaults.standard.bool(forKey: .PB_GDPR_SubjectToConsent)
-            } else if ((UserDefaults.standard.object(forKey: .IAB_GDPR_SubjectToConsent)) != nil) {
-                let stringValue: String = UserDefaults.standard.object(forKey: .IAB_GDPR_SubjectToConsent) as! String
-
-                gdprConsent = Bool(stringValue)!
-            }
-            return gdprConsent
-        }
-    }
-
-    /**
-     * The consent string for sending the GDPR consent
-     */
-    public var gdprConsentString: String? {
-        set {
-            UserDefaults.standard.set(newValue, forKey: .PB_GDPR_ConsentString)
-        }
-
-        get {
-            let pbString: String? = UserDefaults.standard.object(forKey: .PB_GDPR_ConsentString) as? String
-            let iabString: String? = UserDefaults.standard.object(forKey: .IAB_GDPR_ConsentString) as? String
-
-            var savedConsent: String?
-            if (pbString != nil) {
-                savedConsent = pbString
-            } else if (iabString != nil) {
-                savedConsent = iabString
-            }
-            return savedConsent
-        }
-    }
-    
-    public var storeURL: String?
-    public var domain: String?
-
-    /**
-     * The class is created as a singleton object & used
-     */
-    public static let shared = Targeting()
-
-    /**
-     * The initializer that needs to be created only once
-     */
-    private override init() {
-        gender = Gender.unknown
     }
 
 }
