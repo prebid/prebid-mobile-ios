@@ -103,11 +103,11 @@ public class NativeAsset: NSObject {
 }
 
 @objcMembers public class NativeAssetData: NativeAsset {
-    var type: Int?
+    var type: DataAsset?
     public var length: Int?
     public var ext: AnyObject?
     
-    public required init(type: Int, required: Bool) {
+    public required init(type: DataAsset, required: Bool) {
         super.init(isRequired: required)
         self.type = type
     }
@@ -126,5 +126,55 @@ public class NativeAsset: NSObject {
 @objc public enum ImageAsset: Int {
     case Icon = 1
     case Main = 3
-    case Custom = 500
+    case Custom
+    
+    private static var customValue = 500
+    
+    public var exchangeID:Int {
+        get {
+            switch self {
+            case .Custom:
+                return ImageAsset.customValue
+            default:
+                return self.rawValue
+            }
+        }
+        set {
+            ImageAsset.customValue = newValue
+        }
+        
+    }
+}
+
+@objc public enum DataAsset: Int {
+    case sponsored = 1
+    case description = 2
+    case rating = 3
+    case likes = 4
+    case downloads = 5
+    case price = 6
+    case saleprice = 7
+    case phone = 8
+    case address = 9
+    case description2 = 10
+    case displayurl = 11
+    case ctatext = 12
+    case Custom
+    
+    private static var customValue = 500
+        
+        public var exchangeID:Int {
+            get {
+                switch self {
+                case .Custom:
+                    return DataAsset.customValue
+                default:
+                    return self.rawValue
+                }
+            }
+            set {
+                DataAsset.customValue = newValue
+            }
+            
+        }
 }

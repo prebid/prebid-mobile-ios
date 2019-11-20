@@ -180,38 +180,7 @@ public class NativeRequest: AdUnit {
         }
 }
 
-@objc public enum DataAsset: Int {
-    case sponsored = 1
-    case description = 2
-    case rating = 3
-    case likes = 4
-    case downloads = 5
-    case price = 6
-    case saleprice = 7
-    case phone = 8
-    case address = 9
-    case description2 = 10
-    case displayurl = 11
-    case ctatext = 12
-    case Custom
-    
-    private static var customValue = 500
-        
-        public var exchangeID:Int {
-            get {
-                switch self {
-                case .Custom:
-                    return DataAsset.customValue
-                default:
-                    return self.rawValue
-                }
-            }
-            set {
-                DataAsset.customValue = newValue
-            }
-            
-        }
-}
+
 
 
 

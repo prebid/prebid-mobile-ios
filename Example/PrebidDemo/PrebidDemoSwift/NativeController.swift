@@ -65,7 +65,6 @@ class NativeController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         nativeUnit.contextSubType = ContextSubType.Social
         
         let event1 = EventType.Impression
-        event1.exchangeID = 200
         eventTrackers = NativeEventTracker(event: event1, methods: [EventTracking.Image,EventTracking.js])
         nativeUnit.eventtrackers = [eventTrackers]
     }

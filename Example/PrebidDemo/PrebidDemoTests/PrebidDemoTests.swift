@@ -73,16 +73,12 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
     }
     
     func loadNativeAssets(){
-        let asset1 = NativeAsset()
-        asset1.required = true
-        asset1.image = NativeAssetImage(minimumWidth: 200, minimumHeight: 200)
-        asset1.image?.type = ImageAsset.Main
+        let assetImage = NativeAssetImage(minimumWidth: 200, minimumHeight: 200,required:true)
+        assetImage.type = ImageAsset.Main
         
-        let asset2 = NativeAsset()
-        asset2.required = true
-        asset2.title = NativeAssetTitle(length: 90)
+        let assetTitle = NativeAssetTitle(length: 90, required:true)
         
-        nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [asset1,asset2])
+        nativeUnit = NativeRequest(configId: Constants.PBS_CONFIG_ID_NATIVE_APPNEXUS, assets: [assetImage,assetTitle])
         nativeUnit.context = ContextType.Social
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
