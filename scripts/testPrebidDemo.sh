@@ -2,12 +2,19 @@ if [ -d "scripts" ]; then
 cd scripts/
 fi
 
-echo "Running integration tests"
-cd ../example/Swift/PrebidDemo/
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+echo -e "\n\n${GREEN}TEST PREBID DEMO${NC}\n\n"
+
+cd ..
 echo $PWD
-gem install cocoapods --pre
+
+gem install cocoapods --user-install
 pod install --repo-update
-xcodebuild -workspace PrebidDemo.xcworkspace test -scheme "PrebidDemoTests" -destination 'platform=iOS Simulator,name=iPhone 8 Plus,OS=12.2' | xcpretty -f `xcpretty-travis-formatter` --color --test
+
+echo -e "\n${GREEN}Running integration tests${NC} \n"
+xcodebuild test -workspace PrebidMobile.xcworkspace -scheme "PrebidDemoTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=13.0' | xcpretty -f `xcpretty-travis-formatter` --color --test
 
 # Make the keychain the default so identities are found
 security default-keychain -s ios-build.keychain
