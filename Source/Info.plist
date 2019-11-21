@@ -15,12 +15,12 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.2</string>
+	<string>1.3</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
-    <key>PrebidMobileName</key>
-    <string>$(PREBID_MOBILE_NAME)</string>
+	<key>PrebidMobileName</key>
+	<string>$(PREBID_MOBILE_NAME)</string>
 </dict>
 </plist>

@@ -16,15 +16,6 @@
 import Foundation
 
 extension String {
-    public static let PB_COPPA_SubjectToConsent = "kPBCoppaSubjectToConsent"
-    
-    public static let PB_GDPR_ConsentString = "kPBGDPRConsentString"
-
-    public static let PB_GDPR_SubjectToConsent = "kPBGdprSubjectToConsent"
-
-    public static let IAB_GDPR_SubjectToConsent = "IABConsent_SubjectToGDPR"
-
-    public static let IAB_GDPR_ConsentString = "IABConsent_ConsentString"
 
     public static let EMPTY_String = ""
 

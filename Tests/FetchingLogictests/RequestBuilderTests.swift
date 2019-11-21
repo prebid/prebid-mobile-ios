@@ -120,32 +120,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual("PrebidMobile", id)
     }
 
-    func testPostDataWithConsent() throws {
-
-        //given
-        let targeting = Targeting.shared
-        targeting.subjectToGDPR = true
-        defer {
-            targeting.subjectToGDPR = false
-        }
-
-        targeting.gdprConsentString = "testGDPR"
-
-        //when
-        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-
-        guard let user = jsonRequestBody["user"] as? [String: Any],
-            let userExt = user["ext"] as? [String: Any],
-            let consent = userExt["consent"] as? String else {
-
-                XCTFail("parsing error")
-                return
-        }
-
-        //then
-        XCTAssertEqual("testGDPR", consent)
-    }
-
     func testPostDataWithGender() throws {
 
         //given
@@ -283,7 +257,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertNil(coppa)
     }
     
-    func testPostDataWithGDPR() throws {
+    func testPostDataWithGdprSubject() throws {
 
         //given
         let targeting = Targeting.shared
@@ -307,7 +281,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual(1, gdpr)
     }
 
-    func testPostDataWithoutGDPR() throws {
+    func testPostDataWithoutGdprSubject() throws {
 
         //given
         let targeting = Targeting.shared
@@ -330,6 +304,137 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         //then
         XCTAssertNil(gdpr)
+    }
+    
+    func testPostDataWithGdprConsent() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.subjectToGDPR = true
+        defer {
+            targeting.subjectToGDPR = false
+        }
+
+        targeting.gdprConsentString = "testGDPR"
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let regs = jsonRequestBody["regs"] as? [String: Any],
+            let regsExt = regs["ext"] as? [String: Any],
+            let gdpr = regsExt["gdpr"] as? Int,
+            //consent
+            let user = jsonRequestBody["user"] as? [String: Any],
+            let userExt = user["ext"] as? [String: Any],
+            let consent = userExt["consent"] as? String else {
+                
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertEqual(1, gdpr)
+        XCTAssertEqual("testGDPR", consent)
+    }
+    
+    func testPostDataWithGdprConsentWithoutGdprSubject() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.subjectToGDPR = false
+
+        targeting.gdprConsentString = "testGDPR"
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        var gdpr: Int? = nil
+        var consent: String? = nil
+
+        if let regs = jsonRequestBody["regs"] as? [String: Any],
+            let regsExt = regs["ext"] as? [String: Any],
+            let extGdpr = regsExt["gdpr"] as? Int,
+            //consent
+            let user = jsonRequestBody["user"] as? [String: Any],
+            let userExt = user["ext"] as? [String: Any],
+            let extConsent = userExt["consent"] as? String {
+
+            gdpr = extGdpr
+            consent = extConsent
+        }
+
+        //then
+        XCTAssertNil(gdpr)
+        XCTAssertNil(consent)
+
+    }
+    
+    func testPostDataWithCCPA() throws {
+
+        //given
+        UserDefaults.standard.set("testCCPA", forKey: StorageUtils.IABUSPrivacy_StringKey)
+        defer {
+            UserDefaults.standard.removeObject(forKey: StorageUtils.IABUSPrivacy_StringKey)
+        }
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let regs = jsonRequestBody["regs"] as? [String: Any],
+            let regsExt = regs["ext"] as? [String: Any],
+            let usPrivacy = regsExt["us_privacy"] as? String else {
+
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertEqual("testCCPA", usPrivacy)
+    }
+    
+    func testPostDataWithEmptyCCPA() throws {
+
+        //given
+        UserDefaults.standard.set("", forKey: StorageUtils.IABUSPrivacy_StringKey)
+        defer {
+            UserDefaults.standard.removeObject(forKey: StorageUtils.IABUSPrivacy_StringKey)
+        }
+
+        var usPrivacy: String? = nil
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        if let regs = jsonRequestBody["regs"] as? [String: Any],
+            let regsExt = regs["ext"] as? [String: Any],
+            let extUsPrivacy = regsExt["us_privacy"] as? String {
+
+            usPrivacy = extUsPrivacy
+        }
+
+        //then
+        XCTAssertNil(usPrivacy)
+    }
+    
+    func testPostDataWithoutCCPA() throws {
+
+        //given
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABUSPrivacy_StringKey)
+
+        var usPrivacy: String? = nil
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        if let regs = jsonRequestBody["regs"] as? [String: Any],
+            let regsExt = regs["ext"] as? [String: Any],
+            let extUsPrivacy = regsExt["us_privacy"] as? String {
+
+            usPrivacy = extUsPrivacy
+        }
+
+        //then
+        XCTAssertNil(usPrivacy)
     }
 
     func testPostDataWithCustomKeyword() throws {
@@ -823,6 +928,90 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertNil(app["domain"])
 
     }
+    
+    func testVideoAdUnit() throws {
+         //given
+         Prebid.shared.prebidServerAccountId = "12345"
+        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250), type: .inBanner)
+         
+         //when
+         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+         
+         guard let impArray = jsonRequestBody["imp"] as? [Any],
+             let impDic = impArray[0] as? [String: Any],
+             let video = impDic["video"] as? [String: Any],
+             let w = video["w"] as? Int,
+             let h = video["h"] as? Int,
+             let linearity = video["linearity"] as? Int,
+             let playbackMethods = video["playbackmethod"] as? [Int],
+             let playbackMethods1 = playbackMethods[0] as? Int,
+             let mimes = video["mimes"] as? [String],
+             let mimes1 = mimes[0] as? String,
+             let placement = video["placement"] as? Int,
+         
+             let ext = jsonRequestBody["ext"] as? [String: Any],
+             let extPrebid = ext["prebid"] as? [String: Any],
+             let cache = extPrebid["cache"] as? [String: Any],
+             let vastXml = cache["vastxml"] as? [String: Any]
+             else {
+                 XCTFail("parsing fail")
+                 return
+             }
+         
+         //then
+         XCTAssertEqual(300, w)
+         XCTAssertEqual(250, h)
+         XCTAssertEqual(1, linearity)
+         XCTAssertEqual(2, playbackMethods1)
+         XCTAssertEqual("video/mp4", mimes1)
+         XCTAssertEqual(2, placement)
+         
+         XCTAssertNotNil(vastXml)
+         
+     }
+     
+     func testVideoInterstitialAdUnit() throws {
+         //given
+         Prebid.shared.prebidServerAccountId = "12345"
+         let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
+         
+         //when
+         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+         
+         guard let impArray = jsonRequestBody["imp"] as? [Any],
+             let impDic = impArray[0] as? [String: Any],
+             let video = impDic["video"] as? [String: Any],
+             let w = video["w"] as? Int,
+             let h = video["h"] as? Int,
+             let placement = video["placement"] as? Int,
+             let linearity = video["linearity"] as? Int,
+             let playbackMethods = video["playbackmethod"] as? [Int],
+             let playbackMethods1 = playbackMethods[0] as? Int,
+             let mimes = video["mimes"] as? [String],
+             let mimes1 = mimes[0] as? String,
+             
+             let ext = jsonRequestBody["ext"] as? [String: Any],
+             let extPrebid = ext["prebid"] as? [String: Any],
+             let cache = extPrebid["cache"] as? [String: Any],
+             let vastXml = cache["vastxml"] as? [String: Any],
+         
+             let instl = impDic["instl"] as? Int
+             else {
+                 XCTFail("parsing fail")
+                 return
+         }
+         
+         //then
+         XCTAssertEqual(5, placement)
+         XCTAssertEqual(1, linearity)
+         XCTAssertEqual(2, playbackMethods1)
+         XCTAssertEqual("video/mp4", mimes1)
+         
+         XCTAssertNotNil(vastXml)
+         
+         XCTAssertEqual(1, instl)
+         
+     }
 
     private func getPostDataHelper(adUnit: AdUnit) throws -> (urlRequest: URLRequest, jsonRequestBody: [AnyHashable: Any]) {
         var resultUrlRequest: URLRequest? = nil
@@ -883,7 +1072,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             if (carrier?.carrierName?.count ?? 0) > 0 {
                 XCTAssertEqual(carrier?.carrierName ?? "", device["carrier"] as! String)
             }
-            XCTAssertEqual(RequestBuilder.DeviceUUID(), device["ifa"] as! String)
+            let ifa = device["ifa"] as? String ?? ""
+            XCTAssertEqual(RequestBuilder.DeviceUUID(), ifa)
             let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
             XCTAssertEqual(NSNumber(value: lmtAd).intValue, device["lmt"] as! Int)
             XCTAssertEqual(UIScreen.main.scale, device["pxratio"] as! CGFloat)
