@@ -49,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         coreLocation = CLLocationManager()
         coreLocation?.requestWhenInUseAuthorization()
+       
 
         return true
     }

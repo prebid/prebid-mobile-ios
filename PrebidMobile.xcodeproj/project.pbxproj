@@ -709,7 +709,6 @@
 				60C038212204AF5D0082B32C /* RequestBuilderTests.swift in Sources */,
 				9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */,
 				60C038272204AFE50082B32C /* InterstItialAdUnitTests.swift in Sources */,
-
 				9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */,
 				FA434C33235DEBE6001578E3 /* VideoAdUnitTests.swift in Sources */,
 				FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */,

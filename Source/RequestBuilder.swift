@@ -133,8 +133,8 @@ import AdSupport
             
             imp["native"] = nativeRequest.getNativeRequestObject()
             
-        } else
-        if (adUnit is BannerAdUnit || adUnit is InterstitialAdUnit) {
+        } else if (adUnit is BannerAdUnit || adUnit is InterstitialAdUnit) {
+
             var sizeArray = [[String: CGFloat]]()
             for size: CGSize in (adUnit?.adSizes)! {
                 let sizeDict = [
@@ -151,10 +151,11 @@ import AdSupport
         if (adUnit is InterstitialAdUnit || adUnit is VideoInterstitialAdUnit) {
             imp["instl"] = 1
 
-        }
 
+        }
         //to be used when openRTB supports storedRequests
         var prebidAdUnitExt: [AnyHashable: Any] = [:]
+        
         if let anId = adUnit?.prebidConfigId {
             prebidAdUnitExt["storedrequest"] = ["id": anId]
         }

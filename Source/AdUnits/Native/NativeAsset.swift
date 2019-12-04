@@ -115,7 +115,7 @@ public class NativeAsset: NSObject {
     func getDataObject() -> [AnyHashable: Any]{
         var data: [AnyHashable: Any] = [:]
         
-        data["type"] = type
+        data["type"] = type?.rawValue
         data["len"] = length
         data["ext"] = ext
 

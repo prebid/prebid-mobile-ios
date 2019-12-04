@@ -75,7 +75,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Banner Native"/>
                                 <connections>
-                                    <segue destination="8EE-dY-0p7" kind="show" id="lDI-Fa-jAw"/>
+                                    <segue destination="g7Y-o0-qeY" kind="show" id="Mld-S3-Yyw"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -138,6 +138,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ydj-9r-sui" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="753" y="-514"/>
+        </scene>
+        <!--Native View Controller-->
+        <scene sceneID="RcZ-hq-Ywf">
+            <objects>
+                <viewController id="g7Y-o0-qeY" customClass="NativeViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bh5-l7-3oV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RMV-Sg-y3F">
+                                <rect key="frame" x="37.5" y="54" width="300" height="559"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="RMV-Sg-y3F" firstAttribute="top" secondItem="QKV-Tv-nlJ" secondAttribute="top" constant="10" id="9cf-Fd-nx4"/>
+                            <constraint firstItem="RMV-Sg-y3F" firstAttribute="leading" secondItem="QKV-Tv-nlJ" secondAttribute="leading" constant="37.5" id="Ku5-Wf-cmr"/>
+                            <constraint firstItem="RMV-Sg-y3F" firstAttribute="centerX" secondItem="Bh5-l7-3oV" secondAttribute="centerX" id="sUL-mH-7Wn"/>
+                            <constraint firstItem="RMV-Sg-y3F" firstAttribute="centerY" secondItem="Bh5-l7-3oV" secondAttribute="centerY" id="uIa-ue-Ysy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="QKV-Tv-nlJ"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="h83-Tk-Cxc"/>
+                    <connections>
+                        <outlet property="nativeView" destination="RMV-Sg-y3F" id="JTj-CB-FRr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UgK-Ok-t7y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-383" y="817"/>
         </scene>
         <!--Native Controller-->
         <scene sceneID="Yuj-5b-jLm">
@@ -213,7 +244,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y1z-cd-7BR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1439" y="82"/>
+            <point key="canvasLocation" x="990" y="-27"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

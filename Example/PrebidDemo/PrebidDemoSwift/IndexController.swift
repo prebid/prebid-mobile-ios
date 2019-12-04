@@ -53,7 +53,7 @@ class IndexController: UIViewController {
             vc.adServerName = adServerName
         case let vc as InterstitialViewController:
             vc.adServerName = adServerName
-        case let vc as NativeController:
+        case let vc as NativeViewController:
             vc.adServerName = adServerName
         default:
             print("wrong controller")

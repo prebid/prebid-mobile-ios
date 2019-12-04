@@ -21,7 +21,7 @@ public final class AdViewUtils: NSObject {
     private static let innerHtmlScript = "document.body.innerHTML"
     private static let sizeValueRegexExpression = "[0-9]+x[0-9]+"
     private static let sizeObjectRegexExpression = "hb_size\\W+\(sizeValueRegexExpression)" //"hb_size\\W+[0-9]+x[0-9]+"
-    
+    private static let nativeJS = "native-trk.js"
     private override init() {}
     
     @objc
@@ -38,6 +38,23 @@ public final class AdViewUtils: NSObject {
         } else if let uiWebView = view as? UIWebView {
             Log.debug("subView is UIWebView")
             self.findSizeInWebViewAsync(uiWebView: uiWebView, success: success, failure: failure)
+        } else {
+            warnAndTriggerFailure(PbFindSizeErrorFactory.noWebView, failure: failure)
+        }
+    }
+    
+    @objc
+    public static func setPrebidNativeCreativeSize(_ adView: UIView,sizeParams:CGSize, success: @escaping (CGSize) -> Void, failure: @escaping (Error) -> Void) {
+        
+        let view = self.findWebView(adView) { (subView) -> Bool in
+            return isWebView(subView)
+        }
+        
+        if let wkWebView = view as? WKWebView  {
+            Log.debug("subView is WKWebView")
+            self.setSizeInWebViewAsync(wkWebView: wkWebView, size: sizeParams, success: success, failure: failure)
+            
+            
         } else {
             warnAndTriggerFailure(PbFindSizeErrorFactory.noWebView, failure: failure)
         }
@@ -73,6 +90,29 @@ public final class AdViewUtils: NSObject {
         }
         
         return nil
+    }
+    
+    static func setSizeInWebViewAsync(wkWebView: WKWebView,size:CGSize, success: @escaping (CGSize) -> Void, failure: @escaping (PbFindSizeError) -> Void) {
+        
+        wkWebView.evaluateJavaScript(AdViewUtils.innerHtmlScript, completionHandler: { (value: Any!, error: Error!) -> Void in
+            
+            if error != nil {
+                self.warnAndTriggerFailure(PbFindSizeErrorFactory.getWkWebViewFailedError(message: error.localizedDescription), failure: failure)
+                return
+            }
+            wkWebView.evaluateJavaScript("document.documentElement.scrollHeight", completionHandler: { (height, error) in
+                
+                let nativeObject = findNativeObject(in: value as! String)
+                if (nativeObject != nil) {
+                    wkWebView.frame = CGRect(x: 0, y: 0, width: 300, height: height as! CGFloat)
+                    triggerSuccess(size: size, success: success)
+                } else {
+                    warnAndTriggerFailure(error as! PbFindSizeError, failure: failure)
+                }
+            })
+            
+        })
+        
     }
     
     static func findSizeInWebViewAsync(wkWebView: WKWebView, success: @escaping (CGSize) -> Void, failure: @escaping (PbFindSizeError) -> Void) {
@@ -137,6 +177,10 @@ public final class AdViewUtils: NSObject {
         } else {
             return (nil, PbFindSizeErrorFactory.sizeUnparsed)
         }
+    }
+    
+    static func findNativeObject(in text:String) -> String? {
+        return matchAndCheck(regex: AdViewUtils.nativeJS, text: text)
     }
     
     static func findHbSizeObject(in text: String) -> String? {
