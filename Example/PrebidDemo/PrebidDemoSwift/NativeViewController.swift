@@ -153,21 +153,7 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
         
         func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
             
-            AdViewUtils.setPrebidNativeCreativeSize(view, sizeParams: CGSize(width: 1000,height: 1500),
-                                                success: { (size) in
-                                                    guard let nativeView = view else {
-                                                        return
-                                                    }
-                                                    //nativeView.frame = CGRect(x: 0, y: 0, width: 500, height: 500)
-
-
-            },
-                                                failure: { (error) in
-                                                    print("error: \(error)");
-
-            })
-            //view.sizeToFit()
-            //view.sizeThatFits(CGSize(width:500,height:500))
+            view.sizeToFit()
             
         }
         
