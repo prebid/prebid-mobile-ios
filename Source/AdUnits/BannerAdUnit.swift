@@ -17,7 +17,7 @@ import Foundation
 
 public class BannerAdUnit: AdUnit {
 
-    public override init(configId: String, size: CGSize) {
+    public init(configId: String, size: CGSize) {
         super.init(configId: configId, size: size)
     }
 

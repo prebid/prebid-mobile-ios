@@ -159,6 +159,22 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         //then
         XCTAssertEqual("12345", itunesID)
     }
+    
+    func testPostDataVersion() throws {
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+        
+        guard let app = jsonRequestBody["app"] as? [String: Any],
+            let version = app["ver"] as? String else {
+
+                XCTFail("parsing error")
+                return
+        }
+
+        //then
+        XCTAssertNotNil(version)
+    }
 
     func testPostDataWithStoreUrl() throws {
         //given

@@ -150,7 +150,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
         }
 
-        mpBanner = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6", size: CGSize(width: 300, height: 250))
+        mpBanner = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6")
         mpBanner!.delegate = self
 
         appBannerView.addSubview(mpBanner!)
@@ -159,7 +159,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         adUnit.fetchDemand(adObject: mpBanner!) { (resultCode: ResultCode) in
             print("Prebid demand fetch for mopub \(resultCode.name())")
 
-            self.mpBanner!.loadAd()
+            self.mpBanner!.loadAd(withMaxAdSize: CGSize(width: 300,height: 250))
         }
 
     }
