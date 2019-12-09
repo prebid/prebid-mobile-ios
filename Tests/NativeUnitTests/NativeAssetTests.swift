@@ -60,9 +60,9 @@ class NativeAssetTests: XCTestCase {
     }
     
     func testNativeAssetData() {
-         let assetData = NativeAssetData(type: 1, required: true)
+        let assetData = NativeAssetData(type: DataAsset.description, required: true)
          assetData.ext = ["key" : "value"] as AnyObject
-         XCTAssertTrue(assetData.type == 1)
+        XCTAssertTrue(assetData.type == DataAsset.description)
          if let ext = assetData.ext as? [String : String], let value = ext["key"] {
              XCTAssertTrue(value == "value")
          }

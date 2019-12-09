@@ -47,8 +47,7 @@ class NativeEventTrackerTests: XCTestCase {
         if eventTrackerArray.count == 1 {
             let eventTracker = eventTrackerArray[0]
             XCTAssertTrue(eventTracker == EventTracking.Image)
-            XCTAssertTrue(eventTracker == EventTracking.js)
-            XCTAssertTrue(eventTracker == EventTracking.Custom)
+            
         }
         
         eventTracker.methods = [EventTracking.js];

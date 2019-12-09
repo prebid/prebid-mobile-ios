@@ -183,9 +183,9 @@ class NativeRequestTests: XCTestCase {
         let assetsImage = NativeAssetImage(minimumWidth: 20, minimumHeight: 30, required: true)
         nativeUnit.assets = [assetsTitle,assetsImage]
         XCTAssertNotNil(nativeUnit.assets)
-        XCTAssertTrue(nativeUnit.assets?.count == 1)
+        XCTAssertTrue(nativeUnit.assets?.count == 2)
         if let assets = nativeUnit.assets{
-            if assets.count == 1 {
+            if assets.count > 1 {
                 let asset = assets[0]
                 if asset.isKind(of: NativeAssetTitle.self)
                 {
