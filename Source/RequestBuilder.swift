@@ -46,17 +46,21 @@ import AdSupport
 
     func buildRequest(adUnit: AdUnit?) throws -> URLRequest? {
 
-            let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
-            var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Prebid.shared.timeoutMillisDynamic))
-            request.httpMethod = "POST"
-            let requestBody = openRTBRequestBody(adUnit: adUnit) ?? [:]
+        let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
+        var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Prebid.shared.timeoutMillisDynamic))
+        request.httpMethod = "POST"
+        let requestBody = openRTBRequestBody(adUnit: adUnit) ?? [:]
+        let requestBodyJSON = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
 
-            request.httpBody = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
-            //HTTP HeadersExpression implicitly coerced from '[AnyHashable : Any]?' to Any
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.addValue("application/json", forHTTPHeaderField: "Accept")
-            Log.info("Prebid Request post body \(requestBody)")
-            return request
+        request.httpBody = requestBodyJSON
+        //HTTP HeadersExpression implicitly coerced from '[AnyHashable : Any]?' to Any
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let stringObject = String.init(data: requestBodyJSON, encoding: String.Encoding.utf8)
+        Log.info("Prebid Request post body \(stringObject ?? "nil")")
+        
+        return request
     }
 
     func openRTBRequestBody(adUnit: AdUnit?) -> [AnyHashable: Any]? {
@@ -125,7 +129,12 @@ import AdSupport
 
         imp["secure"] = 1
 
-        if (adUnit is BannerAdUnit || adUnit is InterstitialAdUnit) {
+        if let nativeRequest = adUnit as? NativeRequest {
+            
+            imp["native"] = nativeRequest.getNativeRequestObject()
+            
+        } else if (adUnit is BannerAdUnit || adUnit is InterstitialAdUnit) {
+
             var sizeArray = [[String: CGFloat]]()
             for size: CGSize in (adUnit?.adSizes)! {
                 let sizeDict = [
@@ -141,10 +150,12 @@ import AdSupport
         
         if (adUnit is InterstitialAdUnit || adUnit is VideoInterstitialAdUnit) {
             imp["instl"] = 1
-        }
 
+
+        }
         //to be used when openRTB supports storedRequests
         var prebidAdUnitExt: [AnyHashable: Any] = [:]
+        
         if let anId = adUnit?.prebidConfigId {
             prebidAdUnitExt["storedrequest"] = ["id": anId]
         }
@@ -223,12 +234,14 @@ import AdSupport
         } else if bundle != nil {
             app["bundle"] = bundle ?? ""
         }
-
-        let version: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-        if version != "" {
+        //if installed from cocoapods & uses frameworks then use this
+        if let version = Bundle(identifier: "org.cocoapods.PrebidMobile")?.infoDictionary?["CFBundleShortVersionString"] as? String {
             app["ver"] = version
+            print(version)
+        } else if let version = Bundle(identifier: "org.prebid.mobile")?.infoDictionary?["CFBundleShortVersionString"] as? String {
+            app["ver"] = version
+            print(version)
         }
-
         app["publisher"] = ["id": Prebid.shared.prebidServerAccountId ?? 0] as NSDictionary
 
         var requestAppExt: [AnyHashable: Any] = [:]
