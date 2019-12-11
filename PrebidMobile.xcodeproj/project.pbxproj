@@ -243,10 +243,10 @@
 		6062B1B42188C20600CE1BA3 /* AdUnits */ = {
 			isa = PBXGroup;
 			children = (
-				60D79311217E2CF20080F428 /* BannerAdUnit.swift */,
-				6062B1AB21878CFB00CE1BA3 /* AdUnit.swift */,
-				6062B1AD2188783B00CE1BA3 /* InterstitialAdUnit.swift */,
 				60EE7B0521F26329000B12A8 /* Utils.swift */,
+				6062B1AB21878CFB00CE1BA3 /* AdUnit.swift */,
+				60D79311217E2CF20080F428 /* BannerAdUnit.swift */,
+				6062B1AD2188783B00CE1BA3 /* InterstitialAdUnit.swift */,
 				FAD4D542235DCCAB00140012 /* VideoAdUnit.swift */,
 				FAD4D545235DCCCF00140012 /* VideoInterstitialAdUnit.swift */,
 			);

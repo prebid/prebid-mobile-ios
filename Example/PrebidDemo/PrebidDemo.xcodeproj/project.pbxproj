@@ -28,6 +28,7 @@
 		FA12E511231EBC8E00CAA05B /* PrebidNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA12E510231EBC8E00CAA05B /* PrebidNavigationController.m */; };
 		FA282EAB2327EC2800C9D477 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; };
 		FA282EAC2327EC2800C9D477 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA7E5530239E87FA0063B028 /* RewardedVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */; };
 		FAC9E216232800DB00113B04 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; };
 		FAC9E217232800DB00113B04 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -152,6 +153,7 @@
 		FA12E507231EB99E00CAA05B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FA12E50E231EBC8E00CAA05B /* PrebidNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidNavigationController.h; sourceTree = "<group>"; };
 		FA12E510231EBC8E00CAA05B /* PrebidNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidNavigationController.m; sourceTree = "<group>"; };
+		FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedVideoController.swift; sourceTree = "<group>"; };
 		FE42FA136DE4051164482E98 /* Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod-PrebidDemoPodTests/Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig"; sourceTree = "<group>"; };
 		FF998B08BBD628EE19A4C031 /* Pods-PrebidDemoSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwiftTests/Pods-PrebidDemoSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -266,6 +268,7 @@
 				FA12E4CD231EB3F000CAA05B /* IndexController.swift */,
 				FA12E4CE231EB3F000CAA05B /* BannerController.swift */,
 				FA12E4CB231EB3F000CAA05B /* InterstitialViewController.swift */,
+				FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */,
 				FA12E4BA231EB04100CAA05B /* Main.storyboard */,
 				FA12E4BD231EB04200CAA05B /* Assets.xcassets */,
 				FA12E4BF231EB04200CAA05B /* LaunchScreen.storyboard */,
@@ -578,6 +581,7 @@
 			files = (
 				FA12E4D0231EB3F000CAA05B /* IndexController.swift in Sources */,
 				FA12E4D1231EB3F000CAA05B /* BannerController.swift in Sources */,
+				FA7E5530239E87FA0063B028 /* RewardedVideoController.swift in Sources */,
 				FA12E4B7231EB04100CAA05B /* AppDelegate.swift in Sources */,
 				FA12E4CF231EB3F000CAA05B /* InterstitialViewController.swift in Sources */,
 			);

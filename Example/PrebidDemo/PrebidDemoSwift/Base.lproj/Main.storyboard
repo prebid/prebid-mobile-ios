@@ -22,7 +22,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6eS-q3-5Xj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-884" y="-27"/>
+            <point key="canvasLocation" x="-884" y="81"/>
         </scene>
         <!--Index Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -68,6 +68,14 @@
                                 <state key="normal" title="Interstitial Video"/>
                                 <connections>
                                     <segue destination="i5n-eA-fbo" kind="show" id="oHg-3D-EQi"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcD-14-DN2">
+                                <rect key="frame" x="132" y="458" width="110" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Rewarded video"/>
+                                <connections>
+                                    <segue destination="DWf-Za-wca" kind="show" id="hwa-a9-gmn"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -128,7 +136,23 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ydj-9r-sui" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="789" y="592"/>
+            <point key="canvasLocation" x="918" y="81"/>
+        </scene>
+        <!--Rewarded Video Controller-->
+        <scene sceneID="o2o-ve-AgX">
+            <objects>
+                <viewController id="DWf-Za-wca" customClass="RewardedVideoController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Lq-8K-MU3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="AP8-fl-6xp"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="rln-qt-97J"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MQs-6u-Jr6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="918" y="855"/>
         </scene>
         <!--Banner Controller-->
         <scene sceneID="6fe-pu-VEN">
@@ -171,7 +195,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y1z-cd-7BR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1439" y="82"/>
+            <point key="canvasLocation" x="943" y="-672"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
