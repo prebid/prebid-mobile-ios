@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		357880CCDA9464E1BC8B6ACE /* Pods_PrebidDemoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0177D90B948D57DD24AEB9 /* Pods_PrebidDemoSwift.framework */; };
+		609C52C32395F17F001FA5BD /* NativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609C52C22395F17F001FA5BD /* NativeViewController.swift */; };
 		C7A1F0B942F152B467C71A70 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B64CCFCC9D513DEAA95A372 /* Pods_PrebidDemoObjectiveC.framework */; };
 		DADFB9F410588613B69275BC /* Pods_PrebidDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5976732304BFCF6E222040EE /* Pods_PrebidDemoTests.framework */; };
 		FA12E4B7231EB04100CAA05B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E4B6231EB04100CAA05B /* AppDelegate.swift */; };
@@ -115,6 +116,7 @@
 		55EA1793258A4B187A300E8E /* Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift-PrebidDemoSwiftTests/Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		5976732304BFCF6E222040EE /* Pods_PrebidDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA527E4B4E05598C6D7B462 /* Pods-PrebidDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoTests/Pods-PrebidDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		609C52C22395F17F001FA5BD /* NativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NativeViewController.swift; path = ../../../example/PrebidDemo/PrebidDemoSwift/NativeViewController.swift; sourceTree = "<group>"; };
 		658745FEE114707D845BCCDA /* Pods-PrebidDemoPodTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPodTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPodTests/Pods-PrebidDemoPodTests.release.xcconfig"; sourceTree = "<group>"; };
 		6CD6AD93320513F54EF922A8 /* Pods-PrebidDemoPodTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPodTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPodTests/Pods-PrebidDemoPodTests.debug.xcconfig"; sourceTree = "<group>"; };
 		71D584CFFA6132CB2B6B74A6 /* Pods-PrebidDemoObjectiveC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoObjectiveC.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoObjectiveC/Pods-PrebidDemoObjectiveC.debug.xcconfig"; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				FA12E4BD231EB04200CAA05B /* Assets.xcassets */,
 				FA12E4BF231EB04200CAA05B /* LaunchScreen.storyboard */,
 				FA12E4C2231EB04200CAA05B /* Info.plist */,
+				609C52C22395F17F001FA5BD /* NativeViewController.swift */,
 			);
 			path = PrebidDemoSwift;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 				FA12E4D1231EB3F000CAA05B /* BannerController.swift in Sources */,
 				FA7E5530239E87FA0063B028 /* RewardedVideoController.swift in Sources */,
 				FA12E4B7231EB04100CAA05B /* AppDelegate.swift in Sources */,
+				609C52C32395F17F001FA5BD /* NativeViewController.swift in Sources */,
 				FA12E4CF231EB3F000CAA05B /* InterstitialViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

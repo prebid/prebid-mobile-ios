@@ -45,29 +45,19 @@ class IndexController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        var buttonText = ""
-        if let button = sender as? UIButton, let text = button.titleLabel?.text {
-            buttonText = text
-        }
+        let adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
         
-        if segue.destination is BannerController {
-            if let vc = segue.destination as? BannerController {
-                vc.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
-                
-                if buttonText == "Banner Video" {
-                    vc.bannerFormat = .vast
-                }
-            }
-        }
+        switch segue.destination {
+            
+        case let vc as BannerController:
+            vc.adServerName = adServerName
+        case let vc as InterstitialViewController:
+            vc.adServerName = adServerName
+        case let vc as NativeViewController:
+            vc.adServerName = adServerName
+        default:
+            print("wrong controller")
 
-        if segue.destination is InterstitialViewController {
-            if let vc = segue.destination as? InterstitialViewController {
-                vc.adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
-                
-                if buttonText == "Interstitial Video" {
-                    vc.bannerFormat = .vast
-                }
-            }
         }
     }
 

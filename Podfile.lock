@@ -45,7 +45,7 @@ DEPENDENCIES:
   - mopub-ios-sdk
 
 SPEC REPOS:
-  trunk:
+  https://github.com/cocoapods/specs.git:
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleUtilities

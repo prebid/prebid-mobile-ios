@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -70,6 +70,14 @@
                                     <segue destination="i5n-eA-fbo" kind="show" id="oHg-3D-EQi"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gT-aH-qqc">
+                                <rect key="frame" x="139" y="463" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Banner Native"/>
+                                <connections>
+                                    <segue destination="g7Y-o0-qeY" kind="show" id="Mld-S3-Yyw"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcD-14-DN2">
                                 <rect key="frame" x="132" y="458" width="110" height="30"/>
                                 <state key="normal" title="Rewarded video"/>
@@ -87,6 +95,7 @@
                             <constraint firstItem="H9f-Yj-Von" firstAttribute="centerX" secondItem="2BF-DS-686" secondAttribute="centerX" id="Ngz-Nm-10j"/>
                             <constraint firstItem="2BF-DS-686" firstAttribute="top" secondItem="gs4-Un-gLc" secondAttribute="bottom" constant="25" id="QCv-r0-6G9"/>
                             <constraint firstItem="fwP-lp-368" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="TB7-Cg-dlk"/>
+                            <constraint firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TVT-40-hfI"/>
                             <constraint firstItem="HcD-14-DN2" firstAttribute="top" secondItem="H9f-Yj-Von" secondAttribute="bottom" constant="8" id="TIS-q8-b0C"/>
                             <constraint firstItem="gs4-Un-gLc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UG4-q2-Cje"/>
                             <constraint firstItem="H9f-Yj-Von" firstAttribute="top" secondItem="2BF-DS-686" secondAttribute="bottom" constant="16.5" id="WHs-er-cHs"/>
@@ -138,6 +147,71 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ydj-9r-sui" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="753" y="-514"/>
+        </scene>
+        <!--Native View Controller-->
+        <scene sceneID="RcZ-hq-Ywf">
+            <objects>
+                <viewController id="g7Y-o0-qeY" customClass="NativeViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bh5-l7-3oV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RMV-Sg-y3F">
+                                <rect key="frame" x="37.5" y="54" width="300" height="559"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="RMV-Sg-y3F" firstAttribute="top" secondItem="QKV-Tv-nlJ" secondAttribute="top" constant="10" id="9cf-Fd-nx4"/>
+                            <constraint firstItem="RMV-Sg-y3F" firstAttribute="leading" secondItem="QKV-Tv-nlJ" secondAttribute="leading" constant="37.5" id="Ku5-Wf-cmr"/>
+                            <constraint firstItem="RMV-Sg-y3F" firstAttribute="centerX" secondItem="Bh5-l7-3oV" secondAttribute="centerX" id="sUL-mH-7Wn"/>
+                            <constraint firstItem="RMV-Sg-y3F" firstAttribute="centerY" secondItem="Bh5-l7-3oV" secondAttribute="centerY" id="uIa-ue-Ysy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="QKV-Tv-nlJ"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="h83-Tk-Cxc"/>
+                    <connections>
+                        <outlet property="nativeView" destination="RMV-Sg-y3F" id="JTj-CB-FRr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UgK-Ok-t7y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-383" y="817"/>
+        </scene>
+        <!--Native Controller-->
+        <scene sceneID="Yuj-5b-jLm">
+            <objects>
+                <viewController id="8EE-dY-0p7" customClass="NativeController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PI9-v6-Lfw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K0f-FZ-kxL">
+                                <rect key="frame" x="37.5" y="208.5" width="300" height="250"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="Nko-Dd-qIR"/>
+                                    <constraint firstAttribute="width" constant="300" id="vpJ-Yx-RIu"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="K0f-FZ-kxL" firstAttribute="centerX" secondItem="PI9-v6-Lfw" secondAttribute="centerX" id="G5R-jm-Mef"/>
+                            <constraint firstItem="K0f-FZ-kxL" firstAttribute="centerY" secondItem="PI9-v6-Lfw" secondAttribute="centerY" id="zoQ-vx-n1t"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="E0V-4p-0dE"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="pQF-nK-uow"/>
+                    <connections>
+                        <outlet property="nativeView" destination="K0f-FZ-kxL" id="AwO-KS-6QB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lop-8Z-uUw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="706" y="822"/>
             <point key="canvasLocation" x="918" y="81"/>
         </scene>
         <!--Rewarded Video Controller-->
@@ -198,6 +272,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y1z-cd-7BR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="943" y="-672"/>
+            <point key="canvasLocation" x="990" y="-27"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
