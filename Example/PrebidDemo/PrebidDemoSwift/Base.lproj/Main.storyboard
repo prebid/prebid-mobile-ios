@@ -70,9 +70,8 @@
                                     <segue destination="i5n-eA-fbo" kind="show" id="oHg-3D-EQi"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcD-14-DN2">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcD-14-DN2">
                                 <rect key="frame" x="132" y="458" width="110" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Rewarded video"/>
                                 <connections>
                                     <segue destination="DWf-Za-wca" kind="show" id="hwa-a9-gmn"/>
@@ -81,14 +80,17 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="HcD-14-DN2" firstAttribute="leading" secondItem="H9f-Yj-Von" secondAttribute="leading" id="9oT-bo-iqH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fwP-lp-368" secondAttribute="trailing" constant="100" id="IjW-xZ-d3E"/>
                             <constraint firstItem="gs4-Un-gLc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Jm8-tG-2ua"/>
                             <constraint firstItem="ze7-Xk-t60" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L22-ha-lp8"/>
                             <constraint firstItem="H9f-Yj-Von" firstAttribute="centerX" secondItem="2BF-DS-686" secondAttribute="centerX" id="Ngz-Nm-10j"/>
                             <constraint firstItem="2BF-DS-686" firstAttribute="top" secondItem="gs4-Un-gLc" secondAttribute="bottom" constant="25" id="QCv-r0-6G9"/>
                             <constraint firstItem="fwP-lp-368" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="TB7-Cg-dlk"/>
+                            <constraint firstItem="HcD-14-DN2" firstAttribute="top" secondItem="H9f-Yj-Von" secondAttribute="bottom" constant="8" id="TIS-q8-b0C"/>
                             <constraint firstItem="gs4-Un-gLc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UG4-q2-Cje"/>
                             <constraint firstItem="H9f-Yj-Von" firstAttribute="top" secondItem="2BF-DS-686" secondAttribute="bottom" constant="16.5" id="WHs-er-cHs"/>
+                            <constraint firstItem="HcD-14-DN2" firstAttribute="centerX" secondItem="H9f-Yj-Von" secondAttribute="centerX" id="ing-9o-5gu"/>
                             <constraint firstItem="2BF-DS-686" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="q39-Lq-QPj"/>
                             <constraint firstItem="gs4-Un-gLc" firstAttribute="top" secondItem="ze7-Xk-t60" secondAttribute="bottom" constant="25" id="yOu-YU-6fP"/>
                             <constraint firstItem="fwP-lp-368" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="yte-Ky-7os"/>
