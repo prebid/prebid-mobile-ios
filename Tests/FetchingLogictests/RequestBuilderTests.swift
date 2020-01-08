@@ -66,8 +66,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         validationResponse(jsonRequestBody: jsonRequestBody as! [String : Any])
     }
 
-
-
     func testPostDataWithServerAccountId() throws {
 
         //given
@@ -1028,6 +1026,28 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
          XCTAssertEqual(1, instl)
          
      }
+    
+    func testPrebidAdSlot() throws {
+
+        //given
+        adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2), pbAdSlot: "/1111111/homepage/med-rect-2")
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let impArray = jsonRequestBody["imp"] as? [Any],
+            let impDic = impArray[0] as? [String: Any],
+            let ext = impDic["ext"] as? [String: Any],
+            let context = ext["context"] as? [String: Any],
+            let data = context["data"] as? [String: Any],
+            let adslot = data["adslot"] as? String else {
+                XCTFail("parsing fail")
+                return
+        }
+
+        //then
+        XCTAssertEqual("/1111111/homepage/med-rect-2", adslot)
+    }
 
     private func getPostDataHelper(adUnit: AdUnit) throws -> (urlRequest: URLRequest, jsonRequestBody: [AnyHashable: Any]) {
         var resultUrlRequest: URLRequest? = nil

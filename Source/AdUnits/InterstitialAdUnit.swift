@@ -23,6 +23,12 @@ import Foundation
         super.init(configId: configId, size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
     }
     
+    convenience public init(configId: String, pbAdSlot: String) {
+        self.init(configId: configId)
+        
+        self.pbAdSlot = pbAdSlot
+    }
+    
     public convenience init(configId: String, minWidthPerc: Int, minHeightPerc: Int) {
         self.init(configId: configId)
         

@@ -39,7 +39,9 @@ import ObjectiveC.runtime
 
     //notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     var timeOutSignalSent: Bool! = false
-
+    
+    var pbAdSlot: String? = nil
+    
     init(configId: String, size: CGSize?) {
         self.closure = {_ in return}
         prebidConfigId = configId

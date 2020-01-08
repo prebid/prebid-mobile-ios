@@ -48,11 +48,6 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         super.viewDidLoad()
 
         adServerLabel.text = adServerName
-        
-//        enableCOPPA()
-//        addFirstPartyData(adUnit: bannerUnit)
-//        setStoredResponse()
-//        setRequestTimeoutMillis()
 
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
@@ -64,13 +59,17 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
             case .vast:
                 setupAndLoadAMBannerVAST()
             }
-            
 
         } else if (adServerName == "MoPub") {
             print("entered \(adServerName) loop" )
             loadMoPubBanner()
 
         }
+        
+//        enableCOPPA()
+//        addFirstPartyData(adUnit: adUnit)
+//        setStoredResponse()
+//        setRequestTimeoutMillis()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
