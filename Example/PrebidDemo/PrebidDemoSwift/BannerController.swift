@@ -229,13 +229,6 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
     }
 
-    func adViewDidReceiveAd(_ bannerView: DFPBannerView) {
-        print("adViewDidReceiveAd")
-        
-        self.amBanner.resize(bannerView.adSize)
-
-    }
-
     /// Tells the delegate an ad request failed.
     func adView(_ bannerView: DFPBannerView,
                 didFailToReceiveAdWithError error: GADRequestError) {

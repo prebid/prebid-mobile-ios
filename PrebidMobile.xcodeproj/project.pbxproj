@@ -101,6 +101,9 @@
 		FAAA00DC23227F65009DC7D6 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EE7B0521F26329000B12A8 /* Utils.swift */; };
 		FAAA00DD23227F6A009DC7D6 /* AdViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5C30BA22E5E86900DA23C4 /* AdViewUtils.swift */; };
 		FAAA00DE23227F6A009DC7D6 /* PbFindSizeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5C30BC22E5ECF700DA23C4 /* PbFindSizeError.swift */; };
+		FAAB5F9723B9F734001715A7 /* RewardedVideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB5F9623B9F734001715A7 /* RewardedVideoAdUnit.swift */; };
+		FAAB5F9823B9F73B001715A7 /* RewardedVideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB5F9623B9F734001715A7 /* RewardedVideoAdUnit.swift */; };
+		FAAB5F9A23BA0056001715A7 /* RewardedVideoAdUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB5F9923BA0056001715A7 /* RewardedVideoAdUnitTests.swift */; };
 		FAC837D82321583500565051 /* CollectionExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC837D72321583500565051 /* CollectionExtensionTest.swift */; };
 		FAD4D543235DCCAB00140012 /* VideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4D542235DCCAB00140012 /* VideoAdUnit.swift */; };
 		FAD4D544235DCCAB00140012 /* VideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4D542235DCCAB00140012 /* VideoAdUnit.swift */; };
@@ -211,6 +214,8 @@
 		FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
 		FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewUtilsTests.swift; sourceTree = "<group>"; };
 		FAAA00BD2322733E009DC7D6 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAAB5F9623B9F734001715A7 /* RewardedVideoAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedVideoAdUnit.swift; sourceTree = "<group>"; };
+		FAAB5F9923BA0056001715A7 /* RewardedVideoAdUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedVideoAdUnitTests.swift; sourceTree = "<group>"; };
 		FAC837D72321583500565051 /* CollectionExtensionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionExtensionTest.swift; sourceTree = "<group>"; };
 		FAD4D542235DCCAB00140012 /* VideoAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAdUnit.swift; sourceTree = "<group>"; };
 		FAD4D545235DCCCF00140012 /* VideoInterstitialAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoInterstitialAdUnit.swift; sourceTree = "<group>"; };
@@ -260,12 +265,12 @@
 			children = (
 				60EE7B0521F26329000B12A8 /* Utils.swift */,
 				60C2A366234BBA5300628C9D /* Native */,
-				60D79311217E2CF20080F428 /* BannerAdUnit.swift */,
 				6062B1AB21878CFB00CE1BA3 /* AdUnit.swift */,
 				60D79311217E2CF20080F428 /* BannerAdUnit.swift */,
 				6062B1AD2188783B00CE1BA3 /* InterstitialAdUnit.swift */,
 				FAD4D542235DCCAB00140012 /* VideoAdUnit.swift */,
 				FAD4D545235DCCCF00140012 /* VideoInterstitialAdUnit.swift */,
+				FAAB5F9623B9F734001715A7 /* RewardedVideoAdUnit.swift */,
 			);
 			path = AdUnits;
 			sourceTree = "<group>";
@@ -379,6 +384,7 @@
 				606FAC5122022932008EAE5E /* ExAdUnit.swift */,
 				FA434C32235DEBE6001578E3 /* VideoAdUnitTests.swift */,
 				FA434C34235DEC0B001578E3 /* VideoInterstitialAdUnitTests.swift */,
+				FAAB5F9923BA0056001715A7 /* RewardedVideoAdUnitTests.swift */,
 			);
 			path = AdUnitTests;
 			sourceTree = "<group>";
@@ -697,6 +703,7 @@
 				6013E3FA2215C92C00FEE2B1 /* MockCLLocationManager.swift in Sources */,
 				60C0381C2204AF5D0082B32C /* PBHTTPStubbingManager.m in Sources */,
 				9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */,
+				FAAB5F9A23BA0056001715A7 /* RewardedVideoAdUnitTests.swift in Sources */,
 				60C0381D2204AF5D0082B32C /* PBHTTPStubURLProtocol.m in Sources */,
 				FA5AD5E42271FA4100C8F274 /* ConstantsTest.swift in Sources */,
 				60C038262204AFE20082B32C /* BannerAdUnitTests.swift in Sources */,
@@ -745,6 +752,7 @@
 				FA29A3E1232255DF00F13F61 /* Utils.swift in Sources */,
 				FA29A3E2232255DF00F13F61 /* Targeting.swift in Sources */,
 				FA495E792326F50500894166 /* Prebid.swift in Sources */,
+				FAAB5F9823B9F73B001715A7 /* RewardedVideoAdUnit.swift in Sources */,
 				FA29A3E3232255DF00F13F61 /* Global.swift in Sources */,
 				FA29A3E4232255DF00F13F61 /* BidResponse.swift in Sources */,
 				FA29A3E5232255DF00F13F61 /* InterstitialAdUnit.swift in Sources */,
@@ -778,6 +786,7 @@
 				60C2A365234B9AC100628C9D /* NativeRequest.swift in Sources */,
 				60C2A36E2354C7BA00628C9D /* NativeEventTracker.swift in Sources */,
 				FAAA00DC23227F65009DC7D6 /* Utils.swift in Sources */,
+				FAAB5F9723B9F734001715A7 /* RewardedVideoAdUnit.swift in Sources */,
 				FAAA00D123227F5B009DC7D6 /* Constants.swift in Sources */,
 				FAAA00DA23227F65009DC7D6 /* AdUnit.swift in Sources */,
 				FAAA00DB23227F65009DC7D6 /* InterstitialAdUnit.swift in Sources */,

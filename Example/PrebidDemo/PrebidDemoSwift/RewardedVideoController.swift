@@ -46,7 +46,7 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate {
         Prebid.shared.prebidServerAccountId = "1011"
         Prebid.shared.storedAuctionResponse = ""
         
-        adUnit = VideoInterstitialAdUnit(configId: "1011-test-video")
+        adUnit = RewardedVideoAdUnit(configId: "1011-test-video")
     }
     
     func setupAMRewardedVideo() {

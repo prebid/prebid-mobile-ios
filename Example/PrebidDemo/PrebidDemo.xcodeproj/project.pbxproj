@@ -270,12 +270,12 @@
 				FA12E4CD231EB3F000CAA05B /* IndexController.swift */,
 				FA12E4CE231EB3F000CAA05B /* BannerController.swift */,
 				FA12E4CB231EB3F000CAA05B /* InterstitialViewController.swift */,
+				609C52C22395F17F001FA5BD /* NativeViewController.swift */,
 				FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */,
 				FA12E4BA231EB04100CAA05B /* Main.storyboard */,
 				FA12E4BD231EB04200CAA05B /* Assets.xcassets */,
 				FA12E4BF231EB04200CAA05B /* LaunchScreen.storyboard */,
 				FA12E4C2231EB04200CAA05B /* Info.plist */,
-				609C52C22395F17F001FA5BD /* NativeViewController.swift */,
 			);
 			path = PrebidDemoSwift;
 			sourceTree = "<group>";
