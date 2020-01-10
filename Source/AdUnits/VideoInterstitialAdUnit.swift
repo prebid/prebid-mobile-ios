@@ -20,11 +20,5 @@ public class VideoInterstitialAdUnit: AdUnit {
     public init(configId: String) {
         super.init(configId: configId, size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
     }
-    
-    convenience public init(configId: String, pbAdSlot: String) {
-        self.init(configId: configId)
-        
-        self.pbAdSlot = pbAdSlot
-    }
 
 }

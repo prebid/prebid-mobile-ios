@@ -20,12 +20,6 @@ public class BannerAdUnit: AdUnit {
     public init(configId: String, size: CGSize) {
         super.init(configId: configId, size: size)
     }
-    
-    convenience public init(configId: String, size: CGSize, pbAdSlot: String) {
-        self.init(configId: configId, size: size)
-        
-        self.pbAdSlot = pbAdSlot
-    }
 
      public func addAdditionalSize(sizes: [CGSize]) {
         super.adSizes += sizes

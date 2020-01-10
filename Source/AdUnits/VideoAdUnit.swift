@@ -23,12 +23,6 @@ public class VideoAdUnit: AdUnit {
         self.type = type
         super.init(configId: configId, size: size)
     }
-    
-    convenience public init(configId: String, size: CGSize, type: PlacementType, pbAdSlot: String) {
-        self.init(configId: configId, size: size, type: type)
-        
-        self.pbAdSlot = pbAdSlot
-    }
 
     public func addAdditionalSize(sizes: [CGSize]) {
         super.adSizes += sizes

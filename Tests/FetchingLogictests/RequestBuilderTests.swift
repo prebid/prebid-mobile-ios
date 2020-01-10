@@ -1030,8 +1030,9 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testPrebidAdSlot() throws {
 
         //given
-        adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2), pbAdSlot: "/1111111/homepage/med-rect-2")
-
+        adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2))
+        adUnit.pbAdSlot = "/1111111/homepage/med-rect-2"
+        
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
 
