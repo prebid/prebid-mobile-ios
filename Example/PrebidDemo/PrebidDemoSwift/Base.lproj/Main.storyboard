@@ -188,14 +188,31 @@
                     <view key="view" contentMode="scaleToFill" id="5Lq-8K-MU3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVJ-d8-2Uq">
+                                <rect key="frame" x="0.0" y="44" width="375" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="NVJ-d8-2Uq" firstAttribute="top" secondItem="AP8-fl-6xp" secondAttribute="top" id="LCo-z9-MDM"/>
+                            <constraint firstItem="NVJ-d8-2Uq" firstAttribute="leading" secondItem="AP8-fl-6xp" secondAttribute="leading" id="fvf-cz-1r5"/>
+                            <constraint firstItem="AP8-fl-6xp" firstAttribute="trailing" secondItem="NVJ-d8-2Uq" secondAttribute="trailing" id="iBL-Pw-PMn"/>
+                            <constraint firstItem="NVJ-d8-2Uq" firstAttribute="top" secondItem="AP8-fl-6xp" secondAttribute="top" id="vzM-sb-F7S"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="AP8-fl-6xp"/>
                     </view>
                     <navigationItem key="navigationItem" id="rln-qt-97J"/>
+                    <connections>
+                        <outlet property="adServerLabel" destination="NVJ-d8-2Uq" id="bRT-wZ-lap"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MQs-6u-Jr6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="753" y="1301"/>
+            <point key="canvasLocation" x="752.79999999999995" y="1300.2998500749627"/>
         </scene>
         <!--Banner Controller-->
         <scene sceneID="6fe-pu-VEN">

@@ -176,7 +176,22 @@ class ConstantsTest: XCTestCase {
             commaSeparatedList)
     }
     
-    func testDictionatyExtensiontoString() {
+    func testDictionaryExtensionToString() {
+        var dictionary = [String: String]()
+        dictionary["key1"] = "value1"
+        dictionary["key2"] = "value2"
+        
+        let result = dictionary.toString(entrySeparator: "|", keyValueSeparator: "~")
+        
+        XCTAssertTrue(
+            result == "key1~value1|key2~value2"
+                || result == "key2~value2|key1~value1",
+            result
+        )
+        
+    }
+    
+    func testDictionaryExtensionToStringWhereValueIsSet() {
         var dictionary = [String: Set<String>]()
         dictionary.addValue("value10", forKey: "key1")
         dictionary.addValue("value20", forKey: "key2")

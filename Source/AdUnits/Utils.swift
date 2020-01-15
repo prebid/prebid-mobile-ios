@@ -31,6 +31,16 @@ public class Utils: NSObject {
         super.init()
 
     }
+    
+    @objc
+    public func convert(a: String) {
+        
+    }
+    @objc
+    public func convertDictToMoPubKeywords(dict: Dictionary<String, String>) -> String {
+        return dict.toString(entrySeparator: ",", keyValueSeparator: ":")
+        
+    }
 
 @objc public func removeHBKeywords (adObject: AnyObject) {
 
@@ -109,9 +119,7 @@ public class Utils: NSObject {
 
             return
         }
-    }
-
-    if (adServerObject == .MoPub_Object_Name || adServerObject == .MoPub_Interstitial_Name) {
+    } else if (adServerObject == .MoPub_Object_Name || adServerObject == .MoPub_Interstitial_Name) {
         let hasMoPubMember = adObject.responds(to: NSSelectorFromString("setKeywords:"))
 
         if (hasMoPubMember) {
@@ -138,6 +146,10 @@ public class Utils: NSObject {
             Log.info("MoPub targeting keys are \(targetingKeywordsString)")
             adObject.setValue( targetingKeywordsString, forKey: "keywords")
 
+        }
+    } else {
+        if let dict = adObject as? NSMutableDictionary {
+            dict.addEntries(from: bidResponse.customKeywords)
         }
     }
 }
