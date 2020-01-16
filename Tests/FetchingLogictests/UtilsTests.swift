@@ -115,6 +115,15 @@ class UtilsTests: XCTestCase {
         )
         
     }
+    
+    func testConvertDictToMoPubKeywordsEmpty() {
+        
+        var dictionary = [String: String]()
+        
+        let result = Utils.shared.convertDictToMoPubKeywords(dict: dictionary)
+        
+        XCTAssertEqual("", result)
+    }
 
     func testAttachDFPKeywords() {
         let utils: Utils = Utils.shared
