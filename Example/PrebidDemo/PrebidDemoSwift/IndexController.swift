@@ -17,6 +17,7 @@ import Foundation
 
 import UIKit
 
+
 class IndexController: UIViewController {
     @IBOutlet var adServerSegment: UISegmentedControl!
     @IBOutlet var bannerVideo: UIButton!
