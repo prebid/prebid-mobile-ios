@@ -133,6 +133,17 @@ import CoreLocation
         }
     }
     
+    public var deviceAccessConsent: Bool? {
+        set {
+            StorageUtils.setDeviceAccessConsent(value: newValue)
+        }
+
+        get {
+            
+            return StorageUtils.deviceAccessConsent()
+        }
+    }
+    
     // MARK: - access control list (ext.prebid.data)
     
     /**

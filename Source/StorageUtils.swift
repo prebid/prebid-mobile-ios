@@ -32,6 +32,8 @@ class StorageUtils {
     static let IABTCF_ConsentString = "IABTCF_TCString"
     static let IABTCF_SubjectToGDPR = "IABTCF_gdprApplies"
     
+    static let IABTCF_DeviceAccessConsent = "IABTCF_DeviceAccessConsent"
+    
     //CCPA
     static let IABUSPrivacy_StringKey = "IABUSPrivacy_String"
     
@@ -73,7 +75,21 @@ class StorageUtils {
     }
     
     static func iabGdprConsent() -> String? {
-        return getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_ConsentStringKey)
+        var gdprConsentString:String = getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_ConsentString)!
+        
+        if(gdprConsentString == String.EMPTY_String){
+            gdprConsentString = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_ConsentStringKey)!
+        }
+        return gdprConsentString
+        
+    }
+    
+    static func setDeviceAccessConsent(value: Bool?) {
+        setUserDefaults(value: value, forKey: StorageUtils.IABTCF_DeviceAccessConsent)
+    }
+    
+    static func deviceAccessConsent()->Bool? {
+        return getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_DeviceAccessConsent)
     }
     
     //CCPA

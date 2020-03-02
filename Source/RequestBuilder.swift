@@ -310,11 +310,15 @@ import AdSupport
         let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
         // Limit ad tracking
         deviceDict["lmt"] = NSNumber(value: lmtAd).intValue
-
-        let deviceId = RequestBuilder.DeviceUUID()
-        if deviceId != "" {
-            deviceDict["ifa"] = deviceId
+        
+        
+        if Targeting.shared.deviceAccessConsent == true {
+            let deviceId = RequestBuilder.DeviceUUID()
+            if deviceId != "" {
+                deviceDict["ifa"] = deviceId
+            }
         }
+        
 
         let timeInMiliseconds = Int(Date().timeIntervalSince1970)
         deviceDict["devtime"] = timeInMiliseconds
