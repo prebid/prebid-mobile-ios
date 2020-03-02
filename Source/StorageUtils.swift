@@ -56,7 +56,12 @@ class StorageUtils {
     }
     
     static func iabGdprSubject() -> String? {
-        return getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+        var gdprSubject:String = getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_SubjectToGDPR)!
+        
+        if(gdprSubject == String.EMPTY_String){
+            gdprSubject = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)!
+        }
+        return gdprSubject
     }
     
     static func pbGdprConsent() -> String? {
