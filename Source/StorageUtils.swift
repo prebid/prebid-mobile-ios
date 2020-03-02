@@ -28,6 +28,10 @@ class StorageUtils {
 
     static let IABConsent_ConsentStringKey = "IABConsent_ConsentString"
     
+    //TCF 2.0 variables
+    static let IABTCF_ConsentString = "IABTCF_TCString"
+    static let IABTCF_SubjectToGDPR = "IABTCF_gdprApplies"
+    
     //CCPA
     static let IABUSPrivacy_StringKey = "IABUSPrivacy_String"
     
