@@ -311,8 +311,17 @@ import AdSupport
         // Limit ad tracking
         deviceDict["lmt"] = NSNumber(value: lmtAd).intValue
         
-        
-        if Targeting.shared.deviceAccessConsent == true {
+        //fetch advertising identifier based TCF 2.0 Purpose1 value
+        //truth table
+        /*
+                            deviceAccessConsent=true  deviceAccessConsent=false  deviceAccessConsent undefined
+         gdprApplies=false        Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
+         gdprApplies=true         Yes, read IDFA       No, don’t read IDFA           No, don’t read IDFA
+         gdprApplies=undefined    Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
+         */
+          
+        let purposeConsent = (Int(Targeting.shared.purposeConsents!) ?? 0) != 0
+        if ((Targeting.shared.purposeConsents == nil && Targeting.shared.subjectToGDPR == false) || (purposeConsent == true)) {
             let deviceId = RequestBuilder.DeviceUUID()
             if deviceId != "" {
                 deviceDict["ifa"] = deviceId

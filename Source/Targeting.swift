@@ -133,14 +133,24 @@ import CoreLocation
         }
     }
     
-    public var deviceAccessConsent: Bool? {
+    public var purposeConsents: String? {
         set {
-            StorageUtils.setDeviceAccessConsent(value: newValue)
+            StorageUtils.setPurposeConsents(value: newValue!)
         }
 
         get {
+            var savedConsent: String?
             
-            return StorageUtils.deviceAccessConsent()
+            if let pbString = StorageUtils.pbPurposeConsents() {
+                savedConsent = pbString
+            } else if let iabString = StorageUtils.iabPurposeConsents() {
+                savedConsent = iabString
+            }
+            if(savedConsent != nil){
+                return String(savedConsent!.prefix(1))
+            }
+            return savedConsent
+            
         }
     }
     

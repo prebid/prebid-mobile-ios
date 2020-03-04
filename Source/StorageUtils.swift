@@ -19,20 +19,24 @@ class StorageUtils {
     //COPPA
     static let PB_COPPAKey = "kPBCoppaSubjectToConsent"
     
-    //GDPR
+    //GDPR - publisher set local
     static let PBConsent_SubjectToGDPRKey = "kPBGdprSubjectToConsent"
     
     static let PBConsent_ConsentStringKey = "kPBGDPRConsentString"
+    
+    static let PBConsent_PurposeConsentsStringKey = "kPBGDPRPurposeConsents"
 
+    //TCF 1.1
     static let IABConsent_SubjectToGDPRKey = "IABConsent_SubjectToGDPR"
 
     static let IABConsent_ConsentStringKey = "IABConsent_ConsentString"
     
     //TCF 2.0 variables
     static let IABTCF_ConsentString = "IABTCF_TCString"
+    
     static let IABTCF_SubjectToGDPR = "IABTCF_gdprApplies"
     
-    static let IABTCF_DeviceAccessConsent = "IABTCF_DeviceAccessConsent"
+    static let IABTCF_PurposeConsents = "IABTCF_PurposeConsents"
     
     //CCPA
     static let IABUSPrivacy_StringKey = "IABUSPrivacy_String"
@@ -84,12 +88,16 @@ class StorageUtils {
         
     }
     
-    static func setDeviceAccessConsent(value: Bool?) {
-        setUserDefaults(value: value, forKey: StorageUtils.IABTCF_DeviceAccessConsent)
+    static func setPurposeConsents(value: String) {
+        setUserDefaults(value: value, forKey: StorageUtils.PBConsent_PurposeConsentsStringKey)
     }
     
-    static func deviceAccessConsent()->Bool? {
-        return getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_DeviceAccessConsent)
+    static func pbPurposeConsents() -> String? {
+        return getObjectFromUserDefaults(forKey: StorageUtils.PBConsent_PurposeConsentsStringKey)
+    }
+    
+    static func iabPurposeConsents()->String? {
+        return getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_PurposeConsents)
     }
     
     //CCPA
