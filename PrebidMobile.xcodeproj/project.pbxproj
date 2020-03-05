@@ -43,6 +43,8 @@
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
 		9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */; };
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
+		CEEA4530240FCBEF0003CDE7 /* VideoBaseAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEA452F240FCBEF0003CDE7 /* VideoBaseAdUnit.swift */; };
+		CEEA4531240FCBEF0003CDE7 /* VideoBaseAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEA452F240FCBEF0003CDE7 /* VideoBaseAdUnit.swift */; };
 		F5400CB22209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json in Resources */ = {isa = PBXBuildFile; fileRef = F5400CB12209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json */; };
 		F5400CB62209EBF50018F6B1 /* PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json in Resources */ = {isa = PBXBuildFile; fileRef = F5400CB52209EBF50018F6B1 /* PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json */; };
 		F5400CB82209F19B0018F6B1 /* responseInvalidNoTopCacheId.json in Resources */ = {isa = PBXBuildFile; fileRef = F5400CB72209F19B0018F6B1 /* responseInvalidNoTopCacheId.json */; };
@@ -190,6 +192,7 @@
 		97EE4C6422035DD1006FEFA2 /* responseInvalidConfigId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseInvalidConfigId.json; sourceTree = "<group>"; };
 		97EE4C6722035E57006FEFA2 /* responseIncorrectFormat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseIncorrectFormat.json; sourceTree = "<group>"; };
 		97F29999220056D10072E0C0 /* BannerAdUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdUnitTests.swift; sourceTree = "<group>"; };
+		CEEA452F240FCBEF0003CDE7 /* VideoBaseAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBaseAdUnit.swift; sourceTree = "<group>"; };
 		D07F43DFFF74B68B593B7880 /* Pods-PrebidMobileCore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileCore.debug.xcconfig"; path = "Target Support Files/Pods-PrebidMobileCore/Pods-PrebidMobileCore.debug.xcconfig"; sourceTree = "<group>"; };
 		F37A7B8AA694F6F9F550482F /* Pods-PrebidMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobile.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobile/Pods-PrebidMobile.release.xcconfig"; sourceTree = "<group>"; };
 		F5400CB12209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseInvalidResponseWithoutCacheId.json; sourceTree = "<group>"; };
@@ -263,6 +266,7 @@
 				6062B1AB21878CFB00CE1BA3 /* AdUnit.swift */,
 				6062B1AD2188783B00CE1BA3 /* InterstitialAdUnit.swift */,
 				60EE7B0521F26329000B12A8 /* Utils.swift */,
+				CEEA452F240FCBEF0003CDE7 /* VideoBaseAdUnit.swift */,
 				FAD4D542235DCCAB00140012 /* VideoAdUnit.swift */,
 				FAD4D545235DCCCF00140012 /* VideoInterstitialAdUnit.swift */,
 			);
@@ -747,6 +751,7 @@
 				FA29A3E3232255DF00F13F61 /* Global.swift in Sources */,
 				FA29A3E4232255DF00F13F61 /* BidResponse.swift in Sources */,
 				FA29A3E5232255DF00F13F61 /* InterstitialAdUnit.swift in Sources */,
+				CEEA4531240FCBEF0003CDE7 /* VideoBaseAdUnit.swift in Sources */,
 				FA0AA1A823797435004B7A44 /* NativeEventTracker.swift in Sources */,
 				FA29A3E6232255DF00F13F61 /* Host.swift in Sources */,
 				FA29A3E7232255DF00F13F61 /* Constants.swift in Sources */,
@@ -780,6 +785,7 @@
 				FAAA00D123227F5B009DC7D6 /* Constants.swift in Sources */,
 				FAAA00DA23227F65009DC7D6 /* AdUnit.swift in Sources */,
 				FAAA00DB23227F65009DC7D6 /* InterstitialAdUnit.swift in Sources */,
+				CEEA4530240FCBEF0003CDE7 /* VideoBaseAdUnit.swift in Sources */,
 				FAAA00CE23227F5B009DC7D6 /* Host.swift in Sources */,
 				FAAA00D423227F5B009DC7D6 /* Reachability.swift in Sources */,
 				FAAA00CF23227F5B009DC7D6 /* ResultCode.swift in Sources */,

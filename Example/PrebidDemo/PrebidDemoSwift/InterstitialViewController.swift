@@ -94,12 +94,18 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
     }
     
     func setupPBInterstitialVAST() {
-        Prebid.shared.prebidServerHost = .Rubicon
-        
-        Prebid.shared.prebidServerAccountId = "1001"
-        adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), type: .inBanner)
-        
         Prebid.shared.storedAuctionResponse = "sample_video_response"
+        
+        Prebid.shared.prebidServerHost = .Rubicon
+        Prebid.shared.prebidServerAccountId = "1001"
+        
+        let adUnit = VideoInterstitialAdUnit(configId: "1001-1")
+        let videoParameters = VideoBaseAdUnit.VideoParameters()
+        videoParameters.mimes = ["video/mp4"]
+        
+        adUnit.videoParameters = videoParameters
+        
+        self.adUnit = adUnit
     }
     
     func setupAMInterstitial() {

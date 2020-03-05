@@ -188,16 +188,23 @@ import AdSupport
 
         imp["ext"] = adUnitExt
 
-        if (adUnit is VideoAdUnit || adUnit is VideoInterstitialAdUnit) {
+        if let adUnit = adUnit as? VideoBaseAdUnit {
+            
+            let videoParameters = adUnit.videoParameters
+            
             var video: [AnyHashable: Any] = [:]
             
-            let videoMimes: [String] = ["video/mp4"]
-            video["mimes"] = videoMimes
+            video["api"] = videoParameters?.api
+            video["maxbitrate"] = videoParameters?.maxBitrate
+            video["minbitrate"] = videoParameters?.minBitrate
+            video["maxduration"] = videoParameters?.maxDuration
+            video["minduration"] = videoParameters?.minDuration
+            video["mimes"] = videoParameters?.mimes
+            video["playbackmethod"] = videoParameters?.playbackMethod
+            video["protocols"] = videoParameters?.protocols
+            video["startdelay"] = videoParameters?.startDelay
             
-            let videoPlaybackMethod: [Int] = [2]
-            video["playbackmethod"] = videoPlaybackMethod
-            
-            let adSize = adUnit!.adSizes[0]
+            let adSize = adUnit.adSizes[0]
             video["w"] = adSize.width
             video["h"] = adSize.height
             

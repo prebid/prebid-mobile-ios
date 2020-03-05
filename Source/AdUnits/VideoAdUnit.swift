@@ -15,7 +15,7 @@
 
 import Foundation
 
-public class VideoAdUnit: AdUnit {
+public class VideoAdUnit: VideoBaseAdUnit {
 
     let type: PlacementType
 
