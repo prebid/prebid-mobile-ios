@@ -135,7 +135,7 @@ import CoreLocation
     
     public var purposeConsents: String? {
         set {
-            StorageUtils.setPurposeConsents(value: newValue!)
+            StorageUtils.setPurposeConsents(value: newValue)
         }
 
         get {

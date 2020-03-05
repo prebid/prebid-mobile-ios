@@ -320,15 +320,27 @@ import AdSupport
          gdprApplies=undefined    Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
          */
           
-        let purposeConsent = (Int(Targeting.shared.purposeConsents!) ?? 0) != 0
-        if ((Targeting.shared.purposeConsents == nil && Targeting.shared.subjectToGDPR == false) || (purposeConsent == true)) {
-            let deviceId = RequestBuilder.DeviceUUID()
-            if deviceId != "" {
-                deviceDict["ifa"] = deviceId
+        var setDeviceId:Bool = false
+        let purposeConsents:String? = Targeting.shared.purposeConsents
+        
+        if (purposeConsents == nil && Targeting.shared.subjectToGDPR == false) {
+            setDeviceId = true
+        } else {
+            if(purposeConsents != nil){
+                let purposeConsent = (Int(purposeConsents!) ?? 0) != 0
+            
+                if (purposeConsent == true) {
+                    setDeviceId = true
+                }
             }
         }
-        
-
+        if(setDeviceId){
+            let deviceId = RequestBuilder.DeviceUUID()
+                if deviceId != "" {
+                    deviceDict["ifa"] = deviceId
+                }
+        }
+            
         let timeInMiliseconds = Int(Date().timeIntervalSince1970)
         deviceDict["devtime"] = timeInMiliseconds
 
@@ -494,10 +506,7 @@ import AdSupport
 
         if (uuidString == "") {
             let advertisingIdentifier: String = ASIdentifierManager.shared().advertisingIdentifier.uuidString
-
-            if (advertisingIdentifier != .kIFASentinelValue) {
-                uuidString = advertisingIdentifier
-            }
+            uuidString = advertisingIdentifier
         }
 
         return uuidString

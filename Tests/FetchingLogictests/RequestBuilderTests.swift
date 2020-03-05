@@ -57,7 +57,12 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testPostData() throws {
 
         //given
+        let targeting = Targeting.shared
+        targeting.subjectToGDPR = true
 
+        targeting.gdprConsentString = "testGDPR"
+        
+        targeting.purposeConsents = "10"
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
 
@@ -383,6 +388,75 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertNil(gdpr)
         XCTAssertNil(consent)
 
+    }
+    
+    func testPostDataWithDeviceConsent() throws {
+
+           //given
+           let targeting = Targeting.shared
+           targeting.subjectToGDPR = false
+
+           targeting.gdprConsentString = "testGDPR"
+        
+            targeting.purposeConsents = "10"
+
+           //when
+           let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+           var idfa: String? = nil
+
+           if let regs = jsonRequestBody["device"] as? [String: Any],
+            let ifa = regs["ifa"] as? String {
+                idfa = ifa
+           }
+           //then
+            XCTAssertEqual(idfa, .kIFASentinelValue)
+       }
+    
+    func testPostDataWithoutDeviceConsent() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.subjectToGDPR = false
+
+        targeting.gdprConsentString = "testGDPR"
+     
+         targeting.purposeConsents = "00"
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        var idfa: String? = nil
+
+        if let regs = jsonRequestBody["device"] as? [String: Any],
+         let ifa = regs["ifa"] as? String {
+             idfa = ifa
+        }
+        //then
+         XCTAssertNil(idfa)
+    }
+    
+    func testPostDataWithInvalidDeviceConsent() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.subjectToGDPR = true
+
+        targeting.gdprConsentString = "testGDPR"
+        
+        targeting.purposeConsents = nil
+     
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        var idfa: String? = nil
+
+        if let regs = jsonRequestBody["device"] as? [String: Any],
+         let ifa = regs["ifa"] as? String {
+             idfa = ifa
+        }
+        //then
+         XCTAssertNil(idfa)
     }
     
     func testPostDataWithCCPA() throws {

@@ -48,6 +48,14 @@ class StorageUtilsTests: XCTestCase {
         XCTAssertEqual("kPBGDPRConsentString", StorageUtils.PBConsent_ConsentStringKey)
     }
     
+    func testPBConsent_PurposeConsentsStringKey() {
+        XCTAssertEqual("kPBGDPRPurposeConsents", StorageUtils.PBConsent_PurposeConsentsStringKey)
+    }
+    
+    func testIABTCF_PurposeConsents() {
+        XCTAssertEqual("IABTCF_PurposeConsents", StorageUtils.IABTCF_PurposeConsents)
+    }
+    
     func testPbCoppa() {
         //given
         StorageUtils.setPbCoppa(value: true)
