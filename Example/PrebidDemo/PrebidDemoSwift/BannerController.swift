@@ -33,16 +33,14 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     @IBOutlet var adServerLabel: UILabel!
 
     var bannerFormat: BannerFormat = .html
-    
     var adServerName: String = ""
 
-    let request = DFPRequest()
-
-    var adUnit: AdUnit!
-
-    var mpBanner: MPAdView?
+    private var adUnit: AdUnit!
     
-    var amBanner: DFPBannerView!
+    private let amRequest = DFPRequest()
+    private var amBanner: DFPBannerView!
+    
+    private var mpBanner: MPAdView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +53,6 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 //        setRequestTimeoutMillis()
 
         if (adServerName == "DFP") {
-            print("entered \(adServerName) loop" )
             
             switch bannerFormat {
                 
@@ -67,9 +64,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
             
 
         } else if (adServerName == "MoPub") {
-            print("entered \(adServerName) loop" )
-            loadMoPubBanner()
-
+            setupAndLoadMPBanner()
         }
     }
 
@@ -134,13 +129,13 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         amBanner.backgroundColor = .red
         appBannerView.addSubview(amBanner)
 
-        adUnit.fetchDemand(adObject: self.request) { [weak self] (resultCode: ResultCode) in
+        adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
-            self?.amBanner!.load(self?.request)
+            self?.amBanner!.load(self?.amRequest)
         }
     }
 
-    func loadMoPubBanner() {
+    func setupAndLoadMPBanner() {
         setupPBBanner()
         
         let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
@@ -162,11 +157,6 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
             self.mpBanner!.loadAd(withMaxAdSize: CGSize(width: 300,height: 250))
         }
 
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func enableCOPPA() {
@@ -227,13 +217,6 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
-    }
-
-    func adViewDidReceiveAd(_ bannerView: DFPBannerView) {
-        print("adViewDidReceiveAd")
-        
-        self.amBanner.resize(bannerView.adSize)
-
     }
 
     /// Tells the delegate an ad request failed.
