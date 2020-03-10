@@ -141,7 +141,7 @@ class StorageUtilsTests: XCTestCase {
         UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_ConsentStringKey)
         
         //when
-        let iabGdprConsent = StorageUtils.iabGdprSubject()
+        let iabGdprConsent = StorageUtils.iabGdprConsent()
         
         //then
         XCTAssertNil(iabGdprConsent)

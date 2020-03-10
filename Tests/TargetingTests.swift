@@ -81,22 +81,25 @@ class TargetingTests: XCTestCase {
     func testIabGrprSubject() {
         //given
         Targeting.shared.subjectToGDPR = nil
-        UserDefaults.standard.set("1", forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
         defer {
             UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
         }
         
-        //when
-        let iabGdprSubject = Targeting.shared.subjectToGDPR
+        let testMap = [
+            "1": true, "true": true, "yes": true,
+            "0": false, "false": false, "no": false
+        ]
 
-        //then
-        XCTAssertEqual(true, iabGdprSubject)
-        
-        //when
-        UserDefaults.standard.set("true", forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
-        
-        //then
-        XCTAssertEqual(true, iabGdprSubject)
+        for (value, expectation) in testMap {
+            //given
+            UserDefaults.standard.set(value, forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+
+            //when
+            let iabGdprSubject = Targeting.shared.subjectToGDPR
+
+            //then
+            XCTAssertEqual(expectation, iabGdprSubject)
+        }
     }
     
     func testPbGdprConsent() {

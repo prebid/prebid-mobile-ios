@@ -1,14 +1,19 @@
 language: swift
 osx_image: xcode11
 before_install:
-  - "pod install"
-  - "pod repo update"
-  - "gem install cocoapods"
+  - pod install
+  - pod repo update
+  - gem install cocoapods
+  - which carthage || brew install carthage
+  - brew outdated carthage || brew upgrade carthage
 before_script: 
   - "./scripts/add-keys.sh"
-after_script: "./scripts/remove-key.sh"
+after_script:
+  - "./scripts/remove-key.sh"
 script:
   - "./scripts/swiftLint.sh"
+# validate cocoapods support & run unit tests
+  - pod lib lint --allow-warnings
   - "./scripts/buildPrebidMobile.sh"
   - "./scripts/testPrebidMobile.sh"
   - "./scripts/testPrebidDemo.sh"

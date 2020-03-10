@@ -44,4 +44,8 @@ Pod::Spec.new do |s|
     core.source_files = 'Source/**/*.{h,m,swift}'
   end
 
+  s.test_spec 'Tests' do |test_spec|
+    test_spec.source_files = 'Tests/*.{h,m,swift}'
+  end 
+
 end
