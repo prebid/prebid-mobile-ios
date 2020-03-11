@@ -87,7 +87,7 @@ import AdSupport
                 var cache: [AnyHashable: Any] = [:]
                 cache["bids"] = [AnyHashable: Any]()
                 
-                if (adUnit is VideoAdUnit || adUnit is VideoInterstitialAdUnit) {
+                if (adUnit is VideoBaseAdUnit)
                     cache["vastxml"] = [AnyHashable: Any]()
                 }
                 prebid["cache"] = cache
@@ -148,10 +148,8 @@ import AdSupport
 
         }
         
-        if (adUnit is InterstitialAdUnit || adUnit is VideoInterstitialAdUnit) {
+        if (adUnit is InterstitialAdUnit || adUnit is VideoInterstitialAdUnit || adUnit is RewardedVideoAdUnit) {
             imp["instl"] = 1
-
-
         }
         //to be used when openRTB supports storedRequests
         var prebidAdUnitExt: [AnyHashable: Any] = [:]
@@ -177,6 +175,10 @@ import AdSupport
             prebidAdUnitExt["storedbidresponse"] = storedBidResponses
         }
 
+        if (adUnit is RewardedVideoAdUnit) {
+            prebidAdUnitExt["is_rewarded_inventory"] = 1
+        }
+
         var adUnitExt: [AnyHashable: Any] = [:]
         adUnitExt["prebid"] = prebidAdUnitExt
 
@@ -189,9 +191,9 @@ import AdSupport
         imp["ext"] = adUnitExt
 
         if let adUnit = adUnit as? VideoBaseAdUnit {
-            
+
             let videoParameters = adUnit.videoParameters
-            
+
             var video: [AnyHashable: Any] = [:]
             
             video["api"] = videoParameters?.api
@@ -214,6 +216,8 @@ import AdSupport
             case let videoAdUnit as VideoAdUnit:
                 placement = videoAdUnit.type.rawValue
             case is VideoInterstitialAdUnit:
+                placement = 5
+            case is RewardedVideoAdUnit:
                 placement = 5
             default: placement = nil
             }
