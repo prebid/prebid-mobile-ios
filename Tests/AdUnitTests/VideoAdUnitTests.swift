@@ -26,7 +26,7 @@ class VideoAdUnitTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testBannerAdUnitCreation() {
+    func testVideoAdUnitCreation() {
         let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2), type: .inBanner)
         XCTAssertEqual(1, adUnit.adSizes.count)
         XCTAssertEqual(Constants.configID1, adUnit.prebidConfigId)

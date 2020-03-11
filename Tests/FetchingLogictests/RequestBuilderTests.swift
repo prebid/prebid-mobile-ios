@@ -950,7 +950,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
          Prebid.shared.prebidServerAccountId = "12345"
         let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250), type: .inBanner)
         
-        let videoParameters = VideoParameters()
+        let videoParameters = VideoBaseAdUnit.VideoParameters()
         videoParameters.playbackMethod = [2]
         videoParameters.mimes = ["video/mp4"]
         adUnit.videoParameters = videoParameters
@@ -996,7 +996,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
          Prebid.shared.prebidServerAccountId = "12345"
          let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
         
-         let videoParameters = VideoParameters()
+         let videoParameters = VideoBaseAdUnit.VideoParameters()
          videoParameters.playbackMethod = [2]
          videoParameters.mimes = ["video/mp4"]
          adUnit.videoParameters = videoParameters
