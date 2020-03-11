@@ -66,7 +66,14 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPReward
         Prebid.shared.prebidServerHost = .Rubicon
 
         Prebid.shared.prebidServerAccountId = "1001"
-        adUnit = RewardedVideoAdUnit(configId: "1001-1")
+        let adUnit = RewardedVideoAdUnit(configId: "1001-1")
+        
+        let videoParameters = VideoBaseAdUnit.VideoParameters()
+        videoParameters.mimes = ["video/mp4"]
+        
+        adUnit.videoParameters = videoParameters
+        
+        self.adUnit = adUnit
 
         Prebid.shared.storedAuctionResponse = "sample_video_response"
         
