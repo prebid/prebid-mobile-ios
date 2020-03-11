@@ -37,6 +37,7 @@ public class VideoBaseAdUnit: AdUnit {
         | 3     | VPAID 2.0   |
         | 4     | ORMMA       |
         | 5     | MRAID-2     |
+        | 6     | MRAID-3     |
         ```
         */
         public var api: [Int]?
