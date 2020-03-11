@@ -87,7 +87,7 @@ import AdSupport
                 var cache: [AnyHashable: Any] = [:]
                 cache["bids"] = [AnyHashable: Any]()
                 
-                if (adUnit is VideoBaseAdUnit)
+                if (adUnit is VideoBaseAdUnit) {
                     cache["vastxml"] = [AnyHashable: Any]()
                 }
                 prebid["cache"] = cache
