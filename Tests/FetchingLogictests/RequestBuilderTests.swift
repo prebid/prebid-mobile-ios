@@ -1044,6 +1044,12 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         Prebid.shared.prebidServerAccountId = "12345"
         let adUnit = RewardedVideoAdUnit(configId: Constants.configID1)
         
+        let videoParameters = VideoBaseAdUnit.VideoParameters()
+        videoParameters.playbackMethod = [2]
+        videoParameters.mimes = ["video/mp4"]
+        
+        adUnit.videoParameters = videoParameters
+        
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
         
