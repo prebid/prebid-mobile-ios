@@ -39,5 +39,29 @@ class BannerAdUnitTests: XCTestCase {
         XCTAssertNotNil(adUnit.adSizes)
         XCTAssertTrue(2 == adUnit.adSizes.count)
     }
+    
+    func testBannerParametersCreation() {
+
+        //given
+        let bannerAdUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
+        
+        let bannerParameters = BannerAdUnit.Parameters()
+        bannerParameters.api = [1, 2];
+        
+        bannerAdUnit.bannerParameters = bannerParameters;
+        
+        //when
+        let testedBannerParameters = bannerAdUnit.bannerParameters;
+        
+        //then
+        guard let parameters = testedBannerParameters, let api = parameters.api else {
+            XCTFail("parsing fail")
+            return
+        }
+        
+        XCTAssertEqual(2, api.count);
+        XCTAssert(api.contains(1) && api.contains(2));
+
+    }
 
 }
