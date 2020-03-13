@@ -323,17 +323,14 @@ import AdSupport
         var setDeviceId:Bool = false
         let purposeConsents:String? = Targeting.shared.purposeConsents
         
-        if (purposeConsents == nil && Targeting.shared.subjectToGDPR == false) {
+//        if(((ANGDPRSettings.getDeviceAccessConsent(context) == null) && (ANGDPRSettings.getConsentRequired(context) == null || ANGDPRSettings.getConsentRequired(context) == false)) ||
+//        (ANGDPRSettings.getDeviceAccessConsent(context) != null && ANGDPRSettings.getDeviceAccessConsent(context).equals("1")))
+        
+        if ((purposeConsents == nil && (Targeting.shared.subjectToGDPR == nil || Targeting.shared.subjectToGDPR == false))
+            || (purposeConsents != nil && purposeConsents == "1")) {
             setDeviceId = true
-        } else {
-            if(purposeConsents != nil){
-                let purposeConsent = (Int(purposeConsents!) ?? 0) != 0
-            
-                if (purposeConsent == true) {
-                    setDeviceId = true
-                }
-            }
         }
+        
         if(setDeviceId){
             let deviceId = RequestBuilder.DeviceUUID()
                 if deviceId != "" {
