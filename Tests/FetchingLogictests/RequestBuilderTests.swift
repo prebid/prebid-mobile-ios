@@ -729,6 +729,35 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         }
     }
     
+    func testPostDataWithBannerApiFrameworks() throws {
+
+        //given
+        let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
+        
+        let parameters = BannerAdUnit.Parameters()
+        parameters.api = [1, 2];
+        
+        adUnit.parameters = parameters;
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let imp = jsonRequestBody["imp"] as? [Any],
+            let imp0 = imp[0] as? [String: Any],
+            let banner = imp0["banner"] as? [String: Any],
+            let api = banner["api"] as? [Int] else {
+
+                XCTFail("parsing fail")
+                return
+
+        }
+
+        //then
+        XCTAssertEqual(2, api.count)
+        XCTAssert(api.contains(1) && api.contains(2))
+
+    }
+    
     func testPostDataWithAdvancedInterstitial() throws {
 
         //given

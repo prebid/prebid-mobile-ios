@@ -45,16 +45,16 @@ class BannerAdUnitTests: XCTestCase {
         //given
         let bannerAdUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         
-        let bannerParameters = BannerAdUnit.Parameters()
-        bannerParameters.api = [1, 2];
+        let parameters = BannerAdUnit.Parameters()
+        parameters.api = [1, 2];
         
-        bannerAdUnit.bannerParameters = bannerParameters;
+        bannerAdUnit.parameters = parameters;
         
         //when
-        let testedBannerParameters = bannerAdUnit.bannerParameters;
+        let testedBannerParameters = bannerAdUnit.parameters;
         
         //then
-        guard let parameters = testedBannerParameters, let api = parameters.api else {
+        guard let bannerparameters = testedBannerParameters, let api = bannerparameters.api else {
             XCTFail("parsing fail")
             return
         }

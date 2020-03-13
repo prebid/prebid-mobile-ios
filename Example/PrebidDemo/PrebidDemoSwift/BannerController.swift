@@ -95,8 +95,15 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
         Prebid.shared.storedAuctionResponse = ""
         
-        adUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
+        let adUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         adUnit.setAutoRefreshMillis(time: 35000)
+        
+        let parameters = BannerAdUnit.Parameters()
+        parameters.api = [5];
+        
+        adUnit.parameters = parameters;
+        
+        self.adUnit = adUnit
     }
     
     func setupPBBannerVAST() {

@@ -35,13 +35,13 @@ limitations under the License.
     //given
     BannerAdUnit *bannerAdUnit = [[BannerAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45" size:CGSizeMake(300, 250)];
     
-    BannerAdUnitParameters* bannerParameters = [[BannerAdUnitParameters alloc] init];
-    bannerParameters.api = @[@1, @2];
+    BannerAdUnitParameters* parameters = [[BannerAdUnitParameters alloc] init];
+    parameters.api = @[@1, @2];
     
-    bannerAdUnit.bannerParameters = bannerParameters;
+    bannerAdUnit.parameters = parameters;
     
     //when
-    BannerAdUnitParameters* testedBannerParameters = bannerAdUnit.bannerParameters;
+    BannerAdUnitParameters* testedBannerParameters = bannerAdUnit.parameters;
     
     //then
     XCTAssertNotNil(testedBannerParameters);
