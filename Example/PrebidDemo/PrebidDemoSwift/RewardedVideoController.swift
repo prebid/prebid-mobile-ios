@@ -68,10 +68,10 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPReward
         Prebid.shared.prebidServerAccountId = "1001"
         let adUnit = RewardedVideoAdUnit(configId: "1001-1")
         
-        let videoParameters = VideoBaseAdUnit.VideoParameters()
+        let videoParameters = VideoBaseAdUnit.Parameters()
         videoParameters.mimes = ["video/mp4"]
         
-        adUnit.videoParameters = videoParameters
+        adUnit.parameters = videoParameters
         
         self.adUnit = adUnit
 

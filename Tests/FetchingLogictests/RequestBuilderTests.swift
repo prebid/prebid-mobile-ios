@@ -945,61 +945,87 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
     }
     
-    func testVideoAdUnit() throws {
-         //given
-         Prebid.shared.prebidServerAccountId = "12345"
+    func testPostDataWithVideo() throws {
+        //given
+        Prebid.shared.prebidServerAccountId = "12345"
         let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250), type: .inBanner)
         
-        let videoParameters = VideoBaseAdUnit.VideoParameters()
-        videoParameters.playbackMethod = [2]
-        videoParameters.mimes = ["video/mp4"]
-        adUnit.videoParameters = videoParameters
-         
-         //when
-         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-         
-         guard let impArray = jsonRequestBody["imp"] as? [Any],
-             let impDic = impArray[0] as? [String: Any],
-             let video = impDic["video"] as? [String: Any],
-             let w = video["w"] as? Int,
-             let h = video["h"] as? Int,
-             let linearity = video["linearity"] as? Int,
-             let playbackMethods = video["playbackmethod"] as? [Int],
-             let playbackMethods1 = playbackMethods[0] as? Int,
-             let mimes = video["mimes"] as? [String],
-             let mimes1 = mimes[0] as? String,
-             let placement = video["placement"] as? Int,
-         
-             let ext = jsonRequestBody["ext"] as? [String: Any],
-             let extPrebid = ext["prebid"] as? [String: Any],
-             let cache = extPrebid["cache"] as? [String: Any],
-             let vastXml = cache["vastxml"] as? [String: Any]
-             else {
-                 XCTFail("parsing fail")
-                 return
-             }
-         
-         //then
-         XCTAssertEqual(300, w)
-         XCTAssertEqual(250, h)
-         XCTAssertEqual(1, linearity)
-         XCTAssertEqual(2, playbackMethods1)
-         XCTAssertEqual("video/mp4", mimes1)
-         XCTAssertEqual(2, placement)
-         
-         XCTAssertNotNil(vastXml)
-         
-     }
+        let videoParameters = VideoBaseAdUnit.Parameters()
+        
+        videoParameters.api = [1, 2]
+        videoParameters.maxBitrate = 1500
+        videoParameters.minBitrate = 300
+        videoParameters.maxDuration = 30
+        videoParameters.minDuration = 5
+        videoParameters.mimes = ["video/x-flv", "video/mp4"]
+        videoParameters.playbackMethod = [1, 3]
+        videoParameters.protocols = [2, 3]
+        videoParameters.startDelay = 0
+        
+        adUnit.parameters = videoParameters
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+        
+        guard let impArray = jsonRequestBody["imp"] as? [Any],
+            let impDic = impArray[0] as? [String: Any],
+            let video = impDic["video"] as? [String: Any],
+            let w = video["w"] as? Int,
+            let h = video["h"] as? Int,
+            let linearity = video["linearity"] as? Int,
+            
+            let placement = video["placement"] as? Int,
+            let api = video["api"] as? [Int],
+            let maxBitrate = video["maxbitrate"] as? Int,
+            let minBitrate = video["minbitrate"] as? Int,
+            let maxDuration = video["maxduration"] as? Int,
+            let minDuration = video["minduration"] as? Int,
+            let mimes = video["mimes"] as? [String],
+            let playbackMethod = video["playbackmethod"] as? [Int],
+            let protocols = video["protocols"] as? [Int],
+            let startDelay = video["startdelay"] as? Int,
+            
+            let ext = jsonRequestBody["ext"] as? [String: Any],
+            let extPrebid = ext["prebid"] as? [String: Any],
+            let cache = extPrebid["cache"] as? [String: Any],
+            let vastXml = cache["vastxml"] as? [String: Any]
+            else {
+                XCTFail("parsing fail")
+                return
+        }
+        
+        //then
+        XCTAssertEqual(300, w)
+        XCTAssertEqual(250, h)
+        XCTAssertEqual(1, linearity)
+        
+        XCTAssertEqual(2, api.count)
+        XCTAssert(api.contains(1) && api.contains(2))
+        XCTAssertEqual(1500, maxBitrate)
+        XCTAssertEqual(300, minBitrate)
+        XCTAssertEqual(30, maxDuration)
+        XCTAssertEqual(5, minDuration)
+        XCTAssertEqual(2, mimes.count)
+        XCTAssert(mimes.contains("video/x-flv") && mimes.contains("video/mp4"))
+        XCTAssertEqual(2, playbackMethod.count)
+        XCTAssert(playbackMethod.contains(1) && playbackMethod.contains(3))
+        XCTAssertEqual(2, protocols.count)
+        XCTAssert(protocols.contains(2) && protocols.contains(3))
+        XCTAssertEqual(0, startDelay)
+        
+        XCTAssertNotNil(vastXml)
+        
+    }
      
      func testVideoInterstitialAdUnit() throws {
          //given
          Prebid.shared.prebidServerAccountId = "12345"
          let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
         
-         let videoParameters = VideoBaseAdUnit.VideoParameters()
+         let videoParameters = VideoBaseAdUnit.Parameters()
          videoParameters.playbackMethod = [2]
          videoParameters.mimes = ["video/mp4"]
-         adUnit.videoParameters = videoParameters
+         adUnit.parameters = videoParameters
         
          //when
          let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -1044,11 +1070,11 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         Prebid.shared.prebidServerAccountId = "12345"
         let adUnit = RewardedVideoAdUnit(configId: Constants.configID1)
         
-        let videoParameters = VideoBaseAdUnit.VideoParameters()
+        let videoParameters = VideoBaseAdUnit.Parameters()
         videoParameters.playbackMethod = [2]
         videoParameters.mimes = ["video/mp4"]
         
-        adUnit.videoParameters = videoParameters
+        adUnit.parameters = videoParameters
         
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody

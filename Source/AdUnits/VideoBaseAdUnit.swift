@@ -18,12 +18,13 @@ import Foundation
 
 public class VideoBaseAdUnit: AdUnit {
 
-    public var videoParameters: VideoParameters?
+    public var parameters: Parameters?
 
-    //MARK: - VideoParameters class
+    //MARK: - Parameters class
     
     /// Describes an [OpenRTB](https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf) video object
-    public class VideoParameters {
+    @objc(VideoAdUnitParameters)
+    public class Parameters: NSObject {
         
         /**
         List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.
@@ -40,27 +41,32 @@ public class VideoBaseAdUnit: AdUnit {
         | 6     | MRAID-3     |
         ```
         */
+        @objc
         public var api: [Int]?
 
         /**
         Maximum bit rate in Kbps.
         */
-        public var maxBitrate: Int?
+        @objc
+        public var maxBitrate: NSNumber?
         
         /**
         Maximum bit rate in Kbps.
         */
-        public var minBitrate: Int?
+        @objc
+        public var minBitrate: NSNumber?
         
         /**
         Maximum video ad duration in seconds.
         */
-        public var maxDuration: Int?
+        @objc
+        public var maxDuration: NSNumber?
         
         /**
         Minimum video ad duration in seconds.
         */
-        public var minDuration: Int?
+        @objc
+        public var minDuration: NSNumber?
         
         /**
         Content MIME types supported
@@ -69,6 +75,7 @@ public class VideoBaseAdUnit: AdUnit {
         * "video/mp4"
         * "video/x-ms-wmv"
         */
+        @objc
         public var mimes: [String]?
         
         /**
@@ -84,6 +91,7 @@ public class VideoBaseAdUnit: AdUnit {
         | 4     | Mouse-Over          |
         ```
         */
+        @objc
         public var playbackMethod: [Int]?
         
         /**
@@ -101,6 +109,7 @@ public class VideoBaseAdUnit: AdUnit {
         | 6     | VAST 3.0 Wrapper |
         ```
         */
+        @objc
         public var protocols: [Int]?
         
         /**
@@ -116,9 +125,8 @@ public class VideoBaseAdUnit: AdUnit {
         | -2    | Generic Post-Roll                                |
         ```
         */
-        public var startDelay: Int?
-        
-        public init() {}
+        @objc
+        public var startDelay: NSNumber?
         
     }
 }

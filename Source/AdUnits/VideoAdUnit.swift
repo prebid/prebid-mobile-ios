@@ -24,10 +24,11 @@ public class VideoAdUnit: VideoBaseAdUnit {
         super.init(configId: configId, size: size)
     }
 
-     public func addAdditionalSize(sizes: [CGSize]) {
+    public func addAdditionalSize(sizes: [CGSize]) {
         super.adSizes += sizes
     }
 
+    @objc(VideoPlacementType)
     public enum PlacementType: Int {
         case inBanner = 2
         case inArticle = 3

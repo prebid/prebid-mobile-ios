@@ -113,10 +113,10 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
         Prebid.shared.prebidServerAccountId = "1001"
         
         let adUnit = VideoInterstitialAdUnit(configId: "1001-1")
-        let videoParameters = VideoBaseAdUnit.VideoParameters()
-        videoParameters.mimes = ["video/mp4"]
+        let parameters = VideoBaseAdUnit.Parameters()
+        parameters.mimes = ["video/mp4"]
         
-        adUnit.videoParameters = videoParameters
+        adUnit.parameters = parameters
         
         self.adUnit = adUnit
     }

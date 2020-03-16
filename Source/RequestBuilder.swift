@@ -192,7 +192,7 @@ import AdSupport
 
         if let adUnit = adUnit as? VideoBaseAdUnit {
 
-            let videoParameters = adUnit.videoParameters
+            let videoParameters = adUnit.parameters
 
             var video: [AnyHashable: Any] = [:]
             
