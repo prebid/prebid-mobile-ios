@@ -94,7 +94,7 @@ class TargetingTests: XCTestCase {
     
     func testGrprSubjectTCFv2() {
         //given
-        UserDefaults.standard.set(1, forKey: StorageUtils.IABTCF_SubjectToGDPR)
+        UserDefaults.standard.set("1", forKey: StorageUtils.IABTCF_SubjectToGDPR)
         defer {
             UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_SubjectToGDPR)
         }
