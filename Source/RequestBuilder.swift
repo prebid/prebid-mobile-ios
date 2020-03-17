@@ -320,18 +320,17 @@ import AdSupport
          gdprApplies=undefined    Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
          */
           
-        var setDeviceId:Bool = false
-        let purposeConsents:String? = Targeting.shared.purposeConsents
+        var setDeviceId: Bool = false
         
-//        if(((ANGDPRSettings.getDeviceAccessConsent(context) == null) && (ANGDPRSettings.getConsentRequired(context) == null || ANGDPRSettings.getConsentRequired(context) == false)) ||
-//        (ANGDPRSettings.getDeviceAccessConsent(context) != null && ANGDPRSettings.getDeviceAccessConsent(context).equals("1")))
+        let gdprApplies = Targeting.shared.subjectToGDPR
+        let deviceAccessConsent = Targeting.shared.getDeviceAccessConsent()
         
-        if ((purposeConsents == nil && (Targeting.shared.subjectToGDPR == nil || Targeting.shared.subjectToGDPR == false))
-            || (purposeConsents != nil && purposeConsents == "1")) {
+        if ((deviceAccessConsent == nil && (gdprApplies == nil || gdprApplies == false))
+            || deviceAccessConsent == true) {
             setDeviceId = true
         }
         
-        if(setDeviceId){
+        if (setDeviceId) {
             let deviceId = RequestBuilder.DeviceUUID()
                 if deviceId != "" {
                     deviceDict["ifa"] = deviceId
