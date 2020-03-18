@@ -34,10 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Prebid.shared.prebidServerHost = PrebidHost.Appnexus
         Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
-        
-        //Prebid.shared.prebidServerHost = PrebidHost.Rubicon
-        //Prebid.shared.prebidServerAccountId = "12345"
-        
+
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =  [ (kGADSimulatorID as! String), "cc7ca766f86b43ab6cdc92bed424069b"]
         GADMobileAds.sharedInstance().start()
         let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")

@@ -47,14 +47,33 @@ class IndexController: UIViewController {
         
         let adServerName = adServerSegment.titleForSegment(at: adServerSegment.selectedSegmentIndex)!
         
+        var buttonText = ""
+        if let button = sender as? UIButton, let text = button.titleLabel?.text {
+           buttonText = text
+        }
+        
         switch segue.destination {
             
         case let vc as BannerController:
             vc.adServerName = adServerName
+            
+            if buttonText == "Banner Video" {
+                vc.bannerFormat = .vast
+            }
+            
         case let vc as InterstitialViewController:
             vc.adServerName = adServerName
+            
+            if buttonText == "Interstitial Video" {
+                vc.bannerFormat = .vast
+            }
+            
         case let vc as NativeViewController:
             vc.adServerName = adServerName
+            
+        case let vc as RewardedVideoController:
+            vc.adServerName = adServerName
+
         default:
             print("wrong controller")
 
