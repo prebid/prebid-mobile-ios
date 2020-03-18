@@ -146,7 +146,9 @@ class StorageUtilsTests: XCTestCase {
     
     func testIabGdprConsentNotExists() {
         //given
+        Targeting.shared.gdprConsentString = nil
         UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_ConsentStringKey)
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_ConsentString)
         
         //when
         let iabGdprConsent = StorageUtils.iabGdprSubject()

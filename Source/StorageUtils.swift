@@ -62,11 +62,12 @@ class StorageUtils {
     }
     
     static func iabGdprSubject() -> String? {
-        var gdprSubject:String? = getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_SubjectToGDPR)!
+        var gdprSubject: String? = getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_SubjectToGDPR)
         
-        if(gdprSubject == nil || gdprSubject == String.EMPTY_String){
-            gdprSubject = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)!
+        if (gdprSubject ?? "").isEmpty {
+            gdprSubject = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
         }
+
         return gdprSubject
     }
     
@@ -79,11 +80,12 @@ class StorageUtils {
     }
     
     static func iabGdprConsent() -> String? {
-        var gdprConsentString:String? = getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_ConsentString)!
+        var gdprConsentString: String? = getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_ConsentString)
         
-        if(gdprConsentString == nil || gdprConsentString == String.EMPTY_String){
-            gdprConsentString = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_ConsentStringKey)!
+        if (gdprConsentString ?? "").isEmpty {
+            gdprConsentString = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_ConsentStringKey)
         }
+        
         return gdprConsentString
         
     }
@@ -96,7 +98,7 @@ class StorageUtils {
         return getObjectFromUserDefaults(forKey: StorageUtils.PBConsent_PurposeConsentsStringKey)
     }
     
-    static func iabPurposeConsents()->String? {
+    static func iabPurposeConsents() -> String? {
         return getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_PurposeConsents)
     }
     

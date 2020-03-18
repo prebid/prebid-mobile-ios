@@ -133,25 +133,51 @@ import CoreLocation
         }
     }
     
+    // MARK: - TCFv2
+    
     public var purposeConsents: String? {
         set {
             StorageUtils.setPurposeConsents(value: newValue)
         }
 
         get {
-            var savedConsent: String?
+            var savedPurposeConsents: String?
             
             if let pbString = StorageUtils.pbPurposeConsents() {
-                savedConsent = pbString
+                savedPurposeConsents = pbString
             } else if let iabString = StorageUtils.iabPurposeConsents() {
-                savedConsent = iabString
+                savedPurposeConsents = iabString
             }
-            if(savedConsent != nil){
-                return String(savedConsent!.prefix(1))
-            }
-            return savedConsent
+
+            return savedPurposeConsents
             
         }
+    }
+    
+    /*
+     Purpose 1 - Store and/or access information on a device
+     */
+    public func getDeviceAccessConsent() -> Bool? {
+        let deviceAccessConsentIndex = 0
+        return getPurposeConsent(index: deviceAccessConsentIndex)
+    }
+    
+    func getPurposeConsent(index: Int) -> Bool? {
+        
+        var purposeConsent: Bool? = nil
+        if let savedPurposeConsents = purposeConsents {
+            let char = savedPurposeConsents[savedPurposeConsents.index(savedPurposeConsents.startIndex, offsetBy: index)]
+            
+            if char == "1" {
+                purposeConsent = true
+            } else if char == "0" {
+                purposeConsent = false
+            } else {
+                Log.warn("invalid char:\(char)")
+            }
+        }
+        
+        return purposeConsent
     }
     
     // MARK: - access control list (ext.prebid.data)

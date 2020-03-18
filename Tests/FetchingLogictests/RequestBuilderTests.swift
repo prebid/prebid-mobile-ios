@@ -59,10 +59,14 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         //given
         let targeting = Targeting.shared
         targeting.subjectToGDPR = true
-
         targeting.gdprConsentString = "testGDPR"
+        targeting.purposeConsents = "100000000000000000000000"
         
-        targeting.purposeConsents = "10"
+        defer {
+            targeting.subjectToGDPR = nil
+            targeting.gdprConsentString = nil
+            targeting.purposeConsents = nil
+        }
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
 
@@ -284,7 +288,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let targeting = Targeting.shared
         targeting.subjectToGDPR = true
         defer {
-            targeting.subjectToGDPR = false
+            targeting.subjectToGDPR = nil
         }
 
         //when
@@ -308,7 +312,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let targeting = Targeting.shared
         targeting.subjectToGDPR = false
         defer {
-            targeting.subjectToGDPR = false
+            targeting.subjectToGDPR = nil
         }
 
         var gdpr: Int? = nil
@@ -332,11 +336,12 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         //given
         let targeting = Targeting.shared
         targeting.subjectToGDPR = true
+        targeting.gdprConsentString = "BOEFEAyOEFEAyAHABDENAI4AAAB9vABAASA"
+        
         defer {
-            targeting.subjectToGDPR = false
+            targeting.subjectToGDPR = nil
+            targeting.gdprConsentString = nil
         }
-
-        targeting.gdprConsentString = "testGDPR"
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -355,7 +360,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         //then
         XCTAssertEqual(1, gdpr)
-        XCTAssertEqual("testGDPR", consent)
+        XCTAssertEqual("BOEFEAyOEFEAyAHABDENAI4AAAB9vABAASA", consent)
+
     }
     
     func testPostDataWithGdprConsentWithoutGdprSubject() throws {
@@ -363,8 +369,12 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         //given
         let targeting = Targeting.shared
         targeting.subjectToGDPR = false
-
         targeting.gdprConsentString = "testGDPR"
+        
+        defer {
+            targeting.subjectToGDPR = nil
+            targeting.gdprConsentString = nil
+        }
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -391,72 +401,85 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     }
     
     func testPostDataWithDeviceConsent() throws {
-
-           //given
-           let targeting = Targeting.shared
-           targeting.subjectToGDPR = false
-
-           targeting.gdprConsentString = "testGDPR"
         
-            targeting.purposeConsents = "10"
-
-           //when
-           let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-
-           var idfa: String? = nil
-
-           if let regs = jsonRequestBody["device"] as? [String: Any],
-            let ifa = regs["ifa"] as? String {
-                idfa = ifa
-           }
-           //then
-            XCTAssertEqual(idfa, .kIFASentinelValue)
-       }
-    
-    func testPostDataWithoutDeviceConsent() throws {
-
         //given
         let targeting = Targeting.shared
         targeting.subjectToGDPR = false
-
-        targeting.gdprConsentString = "testGDPR"
-     
-         targeting.purposeConsents = "00"
-
+        targeting.purposeConsents = "100000000000000000000000"
+        
+        defer {
+            targeting.subjectToGDPR = nil
+            targeting.purposeConsents = nil
+        }
+        
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-
+        
         var idfa: String? = nil
-
+        
         if let regs = jsonRequestBody["device"] as? [String: Any],
-         let ifa = regs["ifa"] as? String {
-             idfa = ifa
+            let ifa = regs["ifa"] as? String {
+            idfa = ifa
         }
         //then
-         XCTAssertNil(idfa)
+        XCTAssertEqual(idfa, .kIFASentinelValue)
     }
     
-    func testPostDataWithInvalidDeviceConsent() throws {
+    //TCFv2 and gdpr
+    //fetch advertising identifier based TCF 2.0 Purpose1 value
+    //truth table
+    /*
+                           deviceAccessConsent=true  deviceAccessConsent=false  deviceAccessConsent undefined
+     gdprApplies=false        (1)Yes, read IDFA       (2)No, don’t read IDFA           (3)Yes, read IDFA
+     gdprApplies=true         (4)Yes, read IDFA       (5)No, don’t read IDFA           (6)No, don’t read IDFA
+     gdprApplies=undefined    (7)Yes, read IDFA       (8)No, don’t read IDFA           (9)Yes, read IDFA
+     */
+    func testPostDataIfa() throws {
+        //(1)
+        try! postDataIfaHelper(gdprApplies: false, purposeConsents: "100000000000000000000000", hasIfa: true)
+        //(2)
+        try! postDataIfaHelper(gdprApplies: false, purposeConsents: "000000000000000000000000", hasIfa: false)
+        //(3)
+        try! postDataIfaHelper(gdprApplies: false, purposeConsents: nil, hasIfa: true)
+        //(4)
+        try! postDataIfaHelper(gdprApplies: true, purposeConsents: "100000000000000000000000", hasIfa: true)
+        //(5)
+        try! postDataIfaHelper(gdprApplies: true, purposeConsents: "000000000000000000000000", hasIfa: false)
+        //(6)
+        try! postDataIfaHelper(gdprApplies: true, purposeConsents: nil, hasIfa: false)
+        //(7)
+        try! postDataIfaHelper(gdprApplies: nil, purposeConsents: "100000000000000000000000", hasIfa: true)
+        //(8)
+        try! postDataIfaHelper(gdprApplies: nil, purposeConsents: "000000000000000000000000", hasIfa: false)
+        //(9)
+        try! postDataIfaHelper(gdprApplies: nil, purposeConsents: nil, hasIfa: true)
 
+    }
+    
+    func postDataIfaHelper(gdprApplies: Bool?, purposeConsents:String?, hasIfa: Bool) throws {
         //given
         let targeting = Targeting.shared
-        targeting.subjectToGDPR = true
-
-        targeting.gdprConsentString = "testGDPR"
+        targeting.subjectToGDPR = gdprApplies
+        targeting.purposeConsents = purposeConsents
         
-        targeting.purposeConsents = nil
-     
+        defer {
+            targeting.subjectToGDPR = nil
+            targeting.purposeConsents = nil
+        }
+        
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-
-        var idfa: String? = nil
-
-        if let regs = jsonRequestBody["device"] as? [String: Any],
-         let ifa = regs["ifa"] as? String {
-             idfa = ifa
+        
+        guard let regs = jsonRequestBody["device"] as? [String: Any] else {
+            
+            XCTFail("parsing error")
+            return
         }
+        
+        let ifa = regs["ifa"] as? String
+            
         //then
-         XCTAssertNil(idfa)
+        XCTAssertEqual(hasIfa, ifa != nil)
     }
     
     func testPostDataWithCCPA() throws {
