@@ -262,5 +262,24 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(true, deviceAccessConsent)
     }
     
+    func testGetPurposeConsent() throws {
+        //given
+        Targeting.shared.purposeConsents = "101000000000000000000000"
+        
+        defer {
+            Targeting.shared.purposeConsents = nil
+        }
+        
+        //when
+        let purpose1 = Targeting.shared.getPurposeConsent(index: 0)
+        let purpose2 = Targeting.shared.getPurposeConsent(index: 1)
+        let purpose3 = Targeting.shared.getPurposeConsent(index: 2)
+
+        //then
+        XCTAssertTrue(purpose1!)
+        XCTAssertFalse(purpose2!)
+        XCTAssertTrue(purpose3!)
+    }
+    
 
 }
