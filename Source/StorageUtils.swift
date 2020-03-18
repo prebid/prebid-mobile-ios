@@ -61,13 +61,17 @@ class StorageUtils {
         setUserDefaults(value: value, forKey: StorageUtils.PBConsent_SubjectToGDPRKey)
     }
     
-    static func iabGdprSubject() -> String? {
-        var gdprSubject: String? = getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_SubjectToGDPR)
+    static func iabGdprSubject() -> NSNumber? {
+        var gdprSubject: NSNumber? = getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_SubjectToGDPR)
         
-        if (gdprSubject ?? "").isEmpty {
-            gdprSubject = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+        if gdprSubject == nil {
+            let gdprValue:String? = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            if gdprValue != nil {
+                gdprSubject = numberFormatter.number(from: gdprValue!)
+            }
         }
-
         return gdprSubject
     }
     

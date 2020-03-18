@@ -103,7 +103,7 @@ class TargetingTests: XCTestCase {
         let iabGdprSubject = Targeting.shared.subjectToGDPR
 
         //then
-        XCTAssertEqual(true, iabGdprSubject)
+        XCTAssertNil(iabGdprSubject)
     }
     
     func testGdprConsentPB() {

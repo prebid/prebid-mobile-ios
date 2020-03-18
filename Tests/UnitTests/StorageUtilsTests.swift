@@ -107,7 +107,7 @@ class StorageUtilsTests: XCTestCase {
     }
     
     func testIabGdprSubjectFilled() {
-        UserDefaults.standard.set("testIabGdprSubject", forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+        UserDefaults.standard.set("1", forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
         defer {
             UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
         }
@@ -116,7 +116,7 @@ class StorageUtilsTests: XCTestCase {
         let iabGdprSubject = StorageUtils.iabGdprSubject()
         
         //then
-        XCTAssertEqual("testIabGdprSubject", iabGdprSubject)
+        XCTAssertEqual(1, iabGdprSubject)
     }
     
     func testPbGdprConsent() {
