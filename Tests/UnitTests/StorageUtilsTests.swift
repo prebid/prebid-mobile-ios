@@ -99,6 +99,19 @@ class StorageUtilsTests: XCTestCase {
         XCTAssertEqual(true, pbGdprSubject)
     }
     
+    func testGdprSubjectNotExists() {
+        //given
+        Targeting.shared.subjectToGDPR = nil
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_SubjectToGDPR)
+        
+        //when
+        let iabGdprSubject = StorageUtils.pbGdprSubject()
+        
+        //then
+        XCTAssertNil(iabGdprSubject)
+    }
+    
     func testGdprSubjectPbNotExists() {
         //given
         StorageUtils.setPbGdprSubject(value: nil)
@@ -173,7 +186,7 @@ class StorageUtilsTests: XCTestCase {
         XCTAssertNil(pbGdprConsent)
     }
     
-    func testGdprConsentTCFv1NotExists() {
+    func testGdprConsentNotExists() {
         //given
         Targeting.shared.gdprConsentString = nil
         UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_ConsentStringKey)
