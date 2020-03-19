@@ -107,7 +107,7 @@ class StorageUtils {
         
     }
     
-    static func setPurposeConsents(value: String?) {
+    static func setPbPurposeConsents(value: String?) {
         setUserDefaults(value: value, forKey: StorageUtils.PBConsent_PurposeConsentsStringKey)
     }
     
