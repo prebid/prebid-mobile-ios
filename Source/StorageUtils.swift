@@ -61,17 +61,30 @@ class StorageUtils {
         setUserDefaults(value: value, forKey: StorageUtils.PBConsent_SubjectToGDPRKey)
     }
     
-    static func iabGdprSubject() -> NSNumber? {
-        var gdprSubject: NSNumber? = getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_SubjectToGDPR)
+    static func iabGdprSubject() -> Bool? {
+        var gdprSubject: Bool? = nil
         
-        if gdprSubject == nil {
-            let gdprValue:String? = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            if gdprValue != nil {
-                gdprSubject = numberFormatter.number(from: gdprValue!)
+        let gdprSubjectTcf2: NSNumber? = getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_SubjectToGDPR)
+        
+        if let gdprSubjectTcf2 = gdprSubjectTcf2 {
+            if gdprSubjectTcf2 == 1 {
+                gdprSubject = true
+            } else if gdprSubjectTcf2 == 0 {
+                gdprSubject = false
+            }
+        } else {
+            let gdprSubjectTcf1: String? = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+
+            if let gdprSubjectTcf1 = gdprSubjectTcf1 {
+                
+                if gdprSubjectTcf1 == "1" {
+                    gdprSubject = true
+                } else if gdprSubjectTcf1 == "0" {
+                    gdprSubject = false
+                }
             }
         }
+
         return gdprSubject
     }
     
@@ -89,7 +102,7 @@ class StorageUtils {
         if (gdprConsentString ?? "").isEmpty {
             gdprConsentString = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_ConsentStringKey)
         }
-        
+
         return gdprConsentString
         
     }

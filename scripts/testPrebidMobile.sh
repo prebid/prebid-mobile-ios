@@ -28,5 +28,5 @@ else
     exit 1
 fi
 
-echo -e "\n${GREEN}Running swiftlint tests${NC} \n"
-swiftlint --config .swiftlint.yml
+# echo -e "\n${GREEN}Running swiftlint tests${NC} \n"
+# swiftlint --config .swiftlint.yml

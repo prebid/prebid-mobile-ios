@@ -64,7 +64,8 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(2, Targeting.shared.locationPrecision)
     }
 
-    func testGrprSubjectPB() {
+    //MARK: - GDPR Subject
+    func testGdprSubjectPB() {
         //given
         Targeting.shared.subjectToGDPR = true
         defer {
@@ -78,7 +79,7 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(true, pbGdprSubject)
     }
     
-    func testGrprSubjectTCFv1() {
+    func testGdprSubjectTCFv1() {
         //given
         UserDefaults.standard.set("1", forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
         defer {
@@ -92,7 +93,7 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(true, iabGdprSubject)
     }
     
-    func testGrprSubjectTCFv2() {
+    func testGdprSubjectTCFv2() {
         //given
         UserDefaults.standard.set("1", forKey: StorageUtils.IABTCF_SubjectToGDPR)
         defer {
@@ -106,6 +107,7 @@ class TargetingTests: XCTestCase {
         XCTAssertNil(iabGdprSubject)
     }
     
+    //MARK: - GDPR Consent
     func testGdprConsentPB() {
         //given
         Targeting.shared.gdprConsentString = "testconsent PB"
@@ -217,6 +219,7 @@ class TargetingTests: XCTestCase {
         XCTAssert(set.contains("value10"))
     }
     
+    //MARK: - PurposeConsents
     func testPurposeConsentsPB() throws {
         //given
         Targeting.shared.purposeConsents = "test PurposeConsents PB"
