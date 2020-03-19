@@ -94,21 +94,15 @@ import CoreLocation
         }
 
         get {
-            var gdprConsent: Bool?
+            var gdprSubject: Bool?
 
             if let pbGdpr = StorageUtils.pbGdprSubject() {
-                gdprConsent = pbGdpr
+                gdprSubject = pbGdpr
             } else if let iabGdpr = StorageUtils.iabGdprSubject() {
-
-                if (iabGdpr == "1" || iabGdpr == "true" || iabGdpr == "yes") {
-                    gdprConsent = true
-                } else if (iabGdpr == "0" || iabGdpr == "false" || iabGdpr == "no") {
-                    gdprConsent = false
-                }
-                
+                gdprSubject = iabGdpr
             }
             
-            return gdprConsent
+            return gdprSubject
         }
     }
 
@@ -131,6 +125,53 @@ import CoreLocation
             
             return savedConsent
         }
+    }
+    
+    // MARK: - TCFv2
+    
+    public var purposeConsents: String? {
+        set {
+            StorageUtils.setPurposeConsents(value: newValue)
+        }
+
+        get {
+            var savedPurposeConsents: String?
+            
+            if let pbString = StorageUtils.pbPurposeConsents() {
+                savedPurposeConsents = pbString
+            } else if let iabString = StorageUtils.iabPurposeConsents() {
+                savedPurposeConsents = iabString
+            }
+
+            return savedPurposeConsents
+            
+        }
+    }
+    
+    /*
+     Purpose 1 - Store and/or access information on a device
+     */
+    public func getDeviceAccessConsent() -> Bool? {
+        let deviceAccessConsentIndex = 0
+        return getPurposeConsent(index: deviceAccessConsentIndex)
+    }
+    
+    func getPurposeConsent(index: Int) -> Bool? {
+        
+        var purposeConsent: Bool? = nil
+        if let savedPurposeConsents = purposeConsents {
+            let char = savedPurposeConsents[savedPurposeConsents.index(savedPurposeConsents.startIndex, offsetBy: index)]
+            
+            if char == "1" {
+                purposeConsent = true
+            } else if char == "0" {
+                purposeConsent = false
+            } else {
+                Log.warn("invalid char:\(char)")
+            }
+        }
+        
+        return purposeConsent
     }
     
     // MARK: - access control list (ext.prebid.data)

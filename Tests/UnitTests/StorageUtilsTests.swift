@@ -28,16 +28,8 @@ class StorageUtilsTests: XCTestCase {
         
     }
     
-    func testIABUSPrivacy_StringKey() {
-        XCTAssertEqual("IABUSPrivacy_String", StorageUtils.IABUSPrivacy_StringKey)
-    }
-    
-    func testIABConsent_SubjectToGDPRKey() {
-        XCTAssertEqual("IABConsent_SubjectToGDPR", StorageUtils.IABConsent_SubjectToGDPRKey)
-    }
-    
-    func testIABConsent_ConsentStringKey() {
-        XCTAssertEqual("IABConsent_ConsentString", StorageUtils.IABConsent_ConsentStringKey)
+    func testPB_COPPAKey() {
+        XCTAssertEqual("kPBCoppaSubjectToConsent", StorageUtils.PB_COPPAKey)
     }
     
     func testPBConsent_SubjectToGDPRKey() {
@@ -48,6 +40,35 @@ class StorageUtilsTests: XCTestCase {
         XCTAssertEqual("kPBGDPRConsentString", StorageUtils.PBConsent_ConsentStringKey)
     }
     
+    func testPBConsent_PurposeConsentsStringKey() {
+        XCTAssertEqual("kPBGDPRPurposeConsents", StorageUtils.PBConsent_PurposeConsentsStringKey)
+    }
+    
+    func testIABConsent_SubjectToGDPRKey() {
+        XCTAssertEqual("IABConsent_SubjectToGDPR", StorageUtils.IABConsent_SubjectToGDPRKey)
+    }
+    
+    func testIABConsent_ConsentStringKey() {
+        XCTAssertEqual("IABConsent_ConsentString", StorageUtils.IABConsent_ConsentStringKey)
+    }
+    
+    func testIABTCF_ConsentString() {
+        XCTAssertEqual("IABTCF_TCString", StorageUtils.IABTCF_ConsentString)
+    }
+    
+    func testIABTCF_SubjectToGDPR() {
+        XCTAssertEqual("IABTCF_gdprApplies", StorageUtils.IABTCF_SubjectToGDPR)
+    }
+    
+    func testIABTCF_PurposeConsents() {
+        XCTAssertEqual("IABTCF_PurposeConsents", StorageUtils.IABTCF_PurposeConsents)
+    }
+    
+    func testIABUSPrivacy_StringKey() {
+        XCTAssertEqual("IABUSPrivacy_String", StorageUtils.IABUSPrivacy_StringKey)
+    }
+    
+    // MARK: - COPPA
     func testPbCoppa() {
         //given
         StorageUtils.setPbCoppa(value: true)
@@ -62,7 +83,9 @@ class StorageUtilsTests: XCTestCase {
         XCTAssertEqual(true, coppa)
     }
     
-    func testPbGdprSubject() {
+    // MARK: - GDPR Subject
+    
+    func testGdprSubjectPb() {
         //given
         StorageUtils.setPbGdprSubject(value: true)
         defer {
@@ -76,7 +99,20 @@ class StorageUtilsTests: XCTestCase {
         XCTAssertEqual(true, pbGdprSubject)
     }
     
-    func testPbGdprSubjectNotExists() {
+    func testGdprSubjectNotExists() {
+        //given
+        Targeting.shared.subjectToGDPR = nil
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_SubjectToGDPR)
+        
+        //when
+        let iabGdprSubject = StorageUtils.pbGdprSubject()
+        
+        //then
+        XCTAssertNil(iabGdprSubject)
+    }
+    
+    func testGdprSubjectPbNotExists() {
         //given
         StorageUtils.setPbGdprSubject(value: nil)
         
@@ -87,7 +123,7 @@ class StorageUtilsTests: XCTestCase {
         XCTAssertNil(pbGdprSubject)
     }
     
-    func testIabGdprSubjectNotExists() {
+    func testGdprSubjectTCFv1NotExists() {
         //given
         UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
         
@@ -98,8 +134,8 @@ class StorageUtilsTests: XCTestCase {
         XCTAssertNil(iabGdprSubject)
     }
     
-    func testIabGdprSubjectFilled() {
-        UserDefaults.standard.set("testIabGdprSubject", forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+    func testGdprSubjectTCFv1Filled() {
+        UserDefaults.standard.set("1", forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
         defer {
             UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
         }
@@ -108,10 +144,24 @@ class StorageUtilsTests: XCTestCase {
         let iabGdprSubject = StorageUtils.iabGdprSubject()
         
         //then
-        XCTAssertEqual("testIabGdprSubject", iabGdprSubject)
+        XCTAssertEqual(true, iabGdprSubject)
     }
     
-    func testPbGdprConsent() {
+    func testGdprSubjectTCFv2Filled() {
+        UserDefaults.standard.set(1, forKey: StorageUtils.IABTCF_SubjectToGDPR)
+        defer {
+            UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_SubjectToGDPR)
+        }
+        
+        //when
+        let iabGdprSubject = StorageUtils.iabGdprSubject()
+        
+        //then
+        XCTAssertEqual(true, iabGdprSubject)
+    }
+    
+    //MARK: - GDPR Consent
+    func testGdprConsentPb() {
         //given
         StorageUtils.setPbGdprConsent(value: "testPbGdprConsent")
         defer {
@@ -125,7 +175,7 @@ class StorageUtilsTests: XCTestCase {
         XCTAssertEqual("testPbGdprConsent", pbGdprConsent)
     }
     
-    func testPbGdprConsentNotExists() {
+    func testGdprConsentPbNotExists() {
         //given
         StorageUtils.setPbGdprConsent(value: nil)
         
@@ -136,9 +186,11 @@ class StorageUtilsTests: XCTestCase {
         XCTAssertNil(pbGdprConsent)
     }
     
-    func testIabGdprConsentNotExists() {
+    func testGdprConsentNotExists() {
         //given
+        Targeting.shared.gdprConsentString = nil
         UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_ConsentStringKey)
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_ConsentString)
         
         //when
         let iabGdprConsent = StorageUtils.iabGdprSubject()
@@ -147,7 +199,7 @@ class StorageUtilsTests: XCTestCase {
         XCTAssertNil(iabGdprConsent)
     }
     
-    func testIabGdprConsentFilled() {
+    func testGdprConsentTCFv1Filled() {
         UserDefaults.standard.set("testIabGdprConsentFilled", forKey: StorageUtils.IABConsent_ConsentStringKey)
         defer {
             UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_ConsentStringKey)
@@ -160,7 +212,21 @@ class StorageUtilsTests: XCTestCase {
         XCTAssertEqual("testIabGdprConsentFilled", iabGdprConsent)
     }
     
-    func testIabCcpaNotExist() {
+    func testGdprConsentTCFv2Filled() {
+        UserDefaults.standard.set("testIabGdprConsentFilled", forKey: StorageUtils.IABTCF_ConsentString)
+        defer {
+            UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_ConsentString)
+        }
+        
+        //when
+        let iabGdprConsent = StorageUtils.iabGdprConsent()
+        
+        //then
+        XCTAssertEqual("testIabGdprConsentFilled", iabGdprConsent)
+    }
+    
+    //MARK: - CCPA
+    func testCcpaNotExist() {
         
         //given
         UserDefaults.standard.removeObject(forKey: StorageUtils.IABUSPrivacy_StringKey)
@@ -172,7 +238,7 @@ class StorageUtilsTests: XCTestCase {
         XCTAssertNil(ccpa)
     }
     
-    func testIabCcpaFilled() {
+    func testCcpaFilled() {
         
         //given
         UserDefaults.standard.set("testCCPA", forKey: StorageUtils.IABUSPrivacy_StringKey)
@@ -187,7 +253,7 @@ class StorageUtilsTests: XCTestCase {
         XCTAssertEqual("testCCPA", ccpa)
     }
     
-    func testIabCcpaEmpry() {
+    func testCcpaEmpty() {
         
         //given
         UserDefaults.standard.set("", forKey: StorageUtils.IABUSPrivacy_StringKey)

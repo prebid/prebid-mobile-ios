@@ -19,14 +19,24 @@ class StorageUtils {
     //COPPA
     static let PB_COPPAKey = "kPBCoppaSubjectToConsent"
     
-    //GDPR
+    //GDPR - publisher set local
     static let PBConsent_SubjectToGDPRKey = "kPBGdprSubjectToConsent"
     
     static let PBConsent_ConsentStringKey = "kPBGDPRConsentString"
+    
+    static let PBConsent_PurposeConsentsStringKey = "kPBGDPRPurposeConsents"
 
+    //TCF 1.1
     static let IABConsent_SubjectToGDPRKey = "IABConsent_SubjectToGDPR"
 
     static let IABConsent_ConsentStringKey = "IABConsent_ConsentString"
+    
+    //TCF 2.0 variables
+    static let IABTCF_ConsentString = "IABTCF_TCString"
+    
+    static let IABTCF_SubjectToGDPR = "IABTCF_gdprApplies"
+    
+    static let IABTCF_PurposeConsents = "IABTCF_PurposeConsents"
     
     //CCPA
     static let IABUSPrivacy_StringKey = "IABUSPrivacy_String"
@@ -51,8 +61,31 @@ class StorageUtils {
         setUserDefaults(value: value, forKey: StorageUtils.PBConsent_SubjectToGDPRKey)
     }
     
-    static func iabGdprSubject() -> String? {
-        return getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+    static func iabGdprSubject() -> Bool? {
+        var gdprSubject: Bool? = nil
+        
+        let gdprSubjectTcf2: NSNumber? = getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_SubjectToGDPR)
+        
+        if let gdprSubjectTcf2 = gdprSubjectTcf2 {
+            if gdprSubjectTcf2 == 1 {
+                gdprSubject = true
+            } else if gdprSubjectTcf2 == 0 {
+                gdprSubject = false
+            }
+        } else {
+            let gdprSubjectTcf1: String? = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+
+            if let gdprSubjectTcf1 = gdprSubjectTcf1 {
+                
+                if gdprSubjectTcf1 == "1" {
+                    gdprSubject = true
+                } else if gdprSubjectTcf1 == "0" {
+                    gdprSubject = false
+                }
+            }
+        }
+
+        return gdprSubject
     }
     
     static func pbGdprConsent() -> String? {
@@ -64,7 +97,26 @@ class StorageUtils {
     }
     
     static func iabGdprConsent() -> String? {
-        return getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_ConsentStringKey)
+        var gdprConsentString: String? = getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_ConsentString)
+        
+        if (gdprConsentString ?? "").isEmpty {
+            gdprConsentString = getObjectFromUserDefaults(forKey: StorageUtils.IABConsent_ConsentStringKey)
+        }
+
+        return gdprConsentString
+        
+    }
+    
+    static func setPurposeConsents(value: String?) {
+        setUserDefaults(value: value, forKey: StorageUtils.PBConsent_PurposeConsentsStringKey)
+    }
+    
+    static func pbPurposeConsents() -> String? {
+        return getObjectFromUserDefaults(forKey: StorageUtils.PBConsent_PurposeConsentsStringKey)
+    }
+    
+    static func iabPurposeConsents() -> String? {
+        return getObjectFromUserDefaults(forKey: StorageUtils.IABTCF_PurposeConsents)
     }
     
     //CCPA
