@@ -109,6 +109,27 @@ extension Dictionary where Key == AnyHashable, Value == Any {
         return result.count > 0 ? result : nil
     }
     
+    func toString(entrySeparator: String, keyValueSeparator: String) -> String {
+        
+        var resultString = ""
+        
+        for (key, value) in self {
+            resultString += "\(key)\(keyValueSeparator)\(value)\(entrySeparator)"
+        }
+        
+        if (resultString != "") {
+            resultString.remove(at: resultString.index(before: resultString.endIndex))
+        }
+        
+        return resultString
+    }
+    
+}
+
+extension Dictionary where Key == String, Value == String {
+    func toString(entrySeparator: String, keyValueSeparator: String) -> String {
+        return (self as Dictionary<AnyHashable, Any>).toString(entrySeparator: entrySeparator, keyValueSeparator: keyValueSeparator)
+    }
 }
 
 //MARK: - private block

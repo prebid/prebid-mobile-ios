@@ -100,9 +100,9 @@ import CoreLocation
                 gdprConsent = pbGdpr
             } else if let iabGdpr = StorageUtils.iabGdprSubject() {
 
-                if (iabGdpr == "1" || iabGdpr == "true" || iabGdpr == "yes") {
+                if (iabGdpr == 1) {
                     gdprConsent = true
-                } else if (iabGdpr == "0" || iabGdpr == "false" || iabGdpr == "no") {
+                } else if (iabGdpr == 0) {
                     gdprConsent = false
                 }
                 
