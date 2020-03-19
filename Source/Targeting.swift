@@ -94,21 +94,15 @@ import CoreLocation
         }
 
         get {
-            var gdprConsent: Bool?
+            var gdprSubject: Bool?
 
             if let pbGdpr = StorageUtils.pbGdprSubject() {
-                gdprConsent = pbGdpr
+                gdprSubject = pbGdpr
             } else if let iabGdpr = StorageUtils.iabGdprSubject() {
-
-                if (iabGdpr == 1) {
-                    gdprConsent = true
-                } else if (iabGdpr == 0) {
-                    gdprConsent = false
-                }
-                
+                gdprSubject = iabGdpr
             }
             
-            return gdprConsent
+            return gdprSubject
         }
     }
 
