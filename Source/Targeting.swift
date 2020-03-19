@@ -128,7 +128,7 @@ import CoreLocation
     }
     
     // MARK: - TCFv2
-    
+
     public var purposeConsents: String? {
         set {
             StorageUtils.setPbPurposeConsents(value: newValue)
@@ -136,7 +136,7 @@ import CoreLocation
 
         get {
             var savedPurposeConsents: String?
-            
+
             if let pbString = StorageUtils.pbPurposeConsents() {
                 savedPurposeConsents = pbString
             } else if let iabString = StorageUtils.iabPurposeConsents() {
@@ -144,10 +144,10 @@ import CoreLocation
             }
 
             return savedPurposeConsents
-            
+
         }
     }
-    
+
     /*
      Purpose 1 - Store and/or access information on a device
      */
@@ -155,13 +155,13 @@ import CoreLocation
         let deviceAccessConsentIndex = 0
         return getPurposeConsent(index: deviceAccessConsentIndex)
     }
-    
+
     func getPurposeConsent(index: Int) -> Bool? {
-        
+
         var purposeConsent: Bool? = nil
         if let savedPurposeConsents = purposeConsents {
             let char = savedPurposeConsents[savedPurposeConsents.index(savedPurposeConsents.startIndex, offsetBy: index)]
-            
+
             if char == "1" {
                 purposeConsent = true
             } else if char == "0" {
@@ -170,10 +170,10 @@ import CoreLocation
                 Log.warn("invalid char:\(char)")
             }
         }
-        
+
         return purposeConsent
     }
-    
+
     // MARK: - access control list (ext.prebid.data)
     
     /**

@@ -84,14 +84,14 @@ class TargetingTests: XCTestCase {
         Targeting.shared.subjectToGDPR = nil
         UserDefaults.standard.set(nil, forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
         UserDefaults.standard.set(nil, forKey: StorageUtils.IABTCF_SubjectToGDPR)
-        
+
         //when
         let gdprSubject = Targeting.shared.subjectToGDPR
 
         //then
         XCTAssertEqual(nil, gdprSubject)
     }
-    
+
     func testGdprSubjectTCFv1() {
         //given
         UserDefaults.standard.set("1", forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
@@ -105,7 +105,7 @@ class TargetingTests: XCTestCase {
         //then
         XCTAssertEqual(true, gdprSubject)
     }
-    
+
     func testGdprSubjectTCFv2() {
         //given
         UserDefaults.standard.set(1, forKey: StorageUtils.IABTCF_SubjectToGDPR)
@@ -140,14 +140,14 @@ class TargetingTests: XCTestCase {
         Targeting.shared.gdprConsentString = nil
         UserDefaults.standard.set(nil, forKey: StorageUtils.IABConsent_ConsentStringKey)
         UserDefaults.standard.set(nil, forKey: StorageUtils.IABTCF_ConsentString)
-        
+
         //when
         let gdprConsent = Targeting.shared.gdprConsentString
 
         //then
         XCTAssertEqual(nil, gdprConsent)
     }
-    
+
     func testGdprConsentTCFv1() {
         //given
         UserDefaults.standard.set("testconsent TCFv1", forKey: StorageUtils.IABConsent_ConsentStringKey)
@@ -161,87 +161,87 @@ class TargetingTests: XCTestCase {
         //then
         XCTAssertEqual("testconsent TCFv1", gdprConsent)
     }
-    
+
     func testGdprConsentTCFv2() {
         //given
         UserDefaults.standard.set("testconsent TCFv2", forKey: StorageUtils.IABTCF_ConsentString)
         defer {
             UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_ConsentString)
         }
-        
+
         //when
         let gdprConsent = Targeting.shared.gdprConsentString
 
         //then
         XCTAssertEqual("testconsent TCFv2", gdprConsent)
     }
-    
+
     //MARK: - PurposeConsents
     func testPurposeConsentsPB() throws {
         //given
         Targeting.shared.purposeConsents = "test PurposeConsents PB"
-        
+
         defer {
             Targeting.shared.purposeConsents = nil
         }
-        
+
         //when
         let purposeConsents = Targeting.shared.purposeConsents
 
         //then
         XCTAssertEqual("test PurposeConsents PB", purposeConsents)
     }
-    
+
     func testPurposeConsentsUndefined() throws {
         //given
         Targeting.shared.purposeConsents = nil
         UserDefaults.standard.set(nil, forKey: StorageUtils.IABTCF_PurposeConsents)
-        
+
         //when
         let purposeConsents = Targeting.shared.purposeConsents
 
         //then
         XCTAssertEqual(nil, purposeConsents)
     }
-    
+
     func testPurposeConsentsTCFv2() throws {
         //given
         UserDefaults.standard.set("test PurposeConsents TCFv2", forKey: StorageUtils.IABTCF_PurposeConsents)
-        
+
         defer {
             UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_PurposeConsents)
         }
-        
+
         //when
         let purposeConsents = Targeting.shared.purposeConsents
 
         //then
         XCTAssertEqual("test PurposeConsents TCFv2", purposeConsents)
     }
-    
+
     func testGetDeviceAccessConsent() throws {
         //given
         Targeting.shared.purposeConsents = "100000000000000000000000"
-        
+
         defer {
             Targeting.shared.purposeConsents = nil
         }
-        
+
         //when
         let deviceAccessConsent = Targeting.shared.getDeviceAccessConsent()
 
         //then
         XCTAssertEqual(true, deviceAccessConsent)
     }
-    
+
     func testGetPurposeConsent() throws {
         //given
         Targeting.shared.purposeConsents = "101000000000000000000000"
-        
+
         defer {
             Targeting.shared.purposeConsents = nil
         }
-        
+
         //when
         let purpose1 = Targeting.shared.getPurposeConsent(index: 0)
         let purpose2 = Targeting.shared.getPurposeConsent(index: 1)
@@ -321,5 +321,5 @@ class TargetingTests: XCTestCase {
         XCTAssert(set.count == 1)
         XCTAssert(set.contains("value10"))
     }
-    
+
 }
