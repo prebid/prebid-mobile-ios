@@ -19,7 +19,7 @@ gem install cocoapods --user-install
 pod install --repo-update
 
 echo -e "\n${GREEN}Running unit tests${NC} \n"
-xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
+xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' | xcpretty --color --test
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ Unit Tests Passed"
@@ -28,5 +28,5 @@ else
     exit 1
 fi
 
-# echo -e "\n${GREEN}Running swiftlint tests${NC} \n"
-# swiftlint --config .swiftlint.yml
+echo -e "\n${GREEN}Running swiftlint tests${NC} \n"
+swiftlint --config .swiftlint.yml
