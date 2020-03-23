@@ -6,9 +6,10 @@ before_install:
   - "gem install cocoapods"
 before_script: 
   - "./scripts/add-keys.sh"
-after_script: "./scripts/remove-key.sh"
+after_script:
+  - "./scripts/remove-key.sh"
 script:
-  - "./scripts/swiftLint.sh"
   - "./scripts/buildPrebidMobile.sh"
   - "./scripts/testPrebidMobile.sh"
   - "./scripts/testPrebidDemo.sh"
+  # - "./scripts/swiftLint.sh"

@@ -160,7 +160,7 @@ class AdViewUtilsTests: XCTestCase {
         findSizeInViewFailureHelper(uiView, expectedErrorCode: PbFindSizeErrorFactory.noWebViewCode)
     }
     
-    class NavigationDelegate: NSObject, WKNavigationDelegate {
+    class TestingWKNavigationDelegate: NSObject, WKNavigationDelegate {
         let loadSuccesfulException: XCTestExpectation
         
         init(_ loadSuccesfulException: XCTestExpectation) {
@@ -171,14 +171,14 @@ class AdViewUtilsTests: XCTestCase {
             webView.evaluateJavaScript("document.body.innerHTML") { innerHTML, error in
                 
                 if error != nil {
-                    XCTFail("NavigationDelegate error: \(error?.localizedDescription ?? "some error")")
+                    XCTFail("TestingWKNavigationDelegate error: \(error?.localizedDescription ?? "some error")")
                 }
                 self.loadSuccesfulException.fulfill()
             }
         }
     }
     
-    class WebViewDelegate: NSObject, UIWebViewDelegate {
+    class TestingUIWebViewDelegate: NSObject, UIWebViewDelegate {
         let loadSuccesfulException: XCTestExpectation
         
         init(_ loadSuccesfulException: XCTestExpectation) {
@@ -191,7 +191,7 @@ class AdViewUtilsTests: XCTestCase {
         }
         
         func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-            XCTFail("NavigationDelegate error: \(error)")
+            XCTFail("TestingUIWebViewDelegate error: \(error)")
             loadSuccesfulException.fulfill()
             return
             
@@ -242,10 +242,10 @@ class AdViewUtilsTests: XCTestCase {
     func setHtmlIntoWkWebView(_ html: String, _ wkWebView: WKWebView) {
         let loadSuccesfulException = expectation(description: "\(#function)")
         
-        wkWebView.loadHTMLString(html, baseURL: nil)
+        let testingWKNavigationDelegate = TestingWKNavigationDelegate(loadSuccesfulException)
+        wkWebView.navigationDelegate = testingWKNavigationDelegate
         
-        let navigationDelegate = NavigationDelegate(loadSuccesfulException)
-        wkWebView.navigationDelegate = navigationDelegate
+        wkWebView.loadHTMLString(html, baseURL: nil)
         
         waitForExpectations(timeout: 5, handler: nil)
         wkWebView.navigationDelegate = nil
@@ -254,10 +254,10 @@ class AdViewUtilsTests: XCTestCase {
     func setHtmlIntoUiWebView(_ html: String, _ uiWebView: UIWebView) {
         let loadSuccesfulException = expectation(description: "\(#function)")
         
-        uiWebView.loadHTMLString(html, baseURL: nil)
+        let testingUIWebViewDelegate = TestingUIWebViewDelegate(loadSuccesfulException)
+        uiWebView.delegate = testingUIWebViewDelegate
         
-        let webViewDelegate = WebViewDelegate(loadSuccesfulException)
-        uiWebView.delegate = webViewDelegate
+        uiWebView.loadHTMLString(html, baseURL: nil)
         
         waitForExpectations(timeout: 5, handler: nil)
         uiWebView.delegate = nil

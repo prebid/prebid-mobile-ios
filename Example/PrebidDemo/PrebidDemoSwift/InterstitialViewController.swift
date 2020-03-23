@@ -26,16 +26,14 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
     @IBOutlet var adServerLabel: UILabel!
 
     var adServerName: String = ""
-
-    let request = GADRequest()
-
-    var amInterstitial: DFPInterstitial!
-
-    var mpInterstitial: MPInterstitialAdController!
-    
-    var adUnit: AdUnit!
-    
     var bannerFormat: BannerFormat = .html
+    
+    private var adUnit: AdUnit!
+    
+    private let amRequest = GADRequest()
+    private var amInterstitial: DFPInterstitial!
+
+    private var mpInterstitial: MPInterstitialAdController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,13 +62,12 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
         }
     }
 
-    //MARK: - AdManager
     func setupAndLoadAMInterstitial() {
         
         setupPBInterstitial()
         setupAMInterstitial()
         
-        loadInterstitial()
+        loadAMInterstitial()
     }
     
     func setupAndLoadAMInterstitialVAST() {
@@ -78,7 +75,23 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
         setupPBInterstitialVAST()
         setupAMInterstitialVAST()
         
-        loadInterstitial()
+        loadAMInterstitial()
+    }
+    
+    func setupAndLoadMPInterstitial() {
+        setupPBInterstitial()
+        setupMPInterstitial()
+        
+        loadMPInterstitial()
+
+    }
+    
+    func setupAndLoadMPInterstitialVAST() {
+        setupPBInterstitialVAST()
+        setupMPInterstitialVAST()
+        
+        loadMPInterstitial()
+
     }
     
     func setupPBInterstitial() {
@@ -112,32 +125,6 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
         amInterstitial.delegate = self
     }
     
-    func loadInterstitial() {
-        print("Google Mobile Ads SDK version: \(DFPRequest.sdkVersion())")
-        
-        adUnit.fetchDemand(adObject: self.request) { (resultCode: ResultCode) in
-            print("Prebid demand fetch for DFP \(resultCode.name())")
-            self.amInterstitial!.load(self.request)
-        }
-    }
-
-    //MARK: - MoPub
-    func setupAndLoadMPInterstitial() {
-        setupPBInterstitial()
-        setupMPInterstitial()
-        
-        loadMPInterstitial()
-
-    }
-    
-    func setupAndLoadMPInterstitialVAST() {
-        setupPBInterstitialVAST()
-        setupMPInterstitialVAST()
-        
-        loadMPInterstitial()
-
-    }
-    
     func setupMPInterstitial() {
         
         setupMPInterstitial(id: "2829868d308643edbec0795977f17437")
@@ -158,6 +145,15 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
         self.mpInterstitial.delegate = self
     }
     
+    func loadAMInterstitial() {
+        print("Google Mobile Ads SDK version: \(DFPRequest.sdkVersion())")
+        
+        adUnit.fetchDemand(adObject: self.amRequest) { (resultCode: ResultCode) in
+            print("Prebid demand fetch for DFP \(resultCode.name())")
+            self.amInterstitial!.load(self.amRequest)
+        }
+    }
+    
     func loadMPInterstitial() {
         // Do any additional setup after loading the view, typically from a nib.
         adUnit.fetchDemand(adObject: mpInterstitial!) { (resultCode: ResultCode) in
@@ -167,11 +163,7 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    //MARK: - GADInterstitialDelegate
     func interstitialWillPresentScreen(_ ad: GADInterstitial) {
         print("Ad presented")
     }
@@ -191,6 +183,7 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
         }
     }
 
+    //MARK: - MPInterstitialAdControllerDelegate
     func interstitialDidLoadAd(_ interstitial: MPInterstitialAdController!) {
         print("Ad ready")
         if (self.mpInterstitial.ready ) {

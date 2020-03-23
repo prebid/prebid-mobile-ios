@@ -87,7 +87,7 @@ import AdSupport
                 var cache: [AnyHashable: Any] = [:]
                 cache["bids"] = [AnyHashable: Any]()
                 
-                if (adUnit is VideoAdUnit || adUnit is VideoInterstitialAdUnit) {
+                if (adUnit is VideoAdUnit || adUnit is VideoInterstitialAdUnit || adUnit is RewardedVideoAdUnit) {
                     cache["vastxml"] = [AnyHashable: Any]()
                 }
                 prebid["cache"] = cache
@@ -148,10 +148,8 @@ import AdSupport
 
         }
         
-        if (adUnit is InterstitialAdUnit || adUnit is VideoInterstitialAdUnit) {
+        if (adUnit is InterstitialAdUnit || adUnit is VideoInterstitialAdUnit || adUnit is RewardedVideoAdUnit) {
             imp["instl"] = 1
-
-
         }
         //to be used when openRTB supports storedRequests
         var prebidAdUnitExt: [AnyHashable: Any] = [:]
@@ -176,6 +174,10 @@ import AdSupport
 
             prebidAdUnitExt["storedbidresponse"] = storedBidResponses
         }
+        
+        if (adUnit is RewardedVideoAdUnit) {
+            prebidAdUnitExt["is_rewarded_inventory"] = 1
+        }
 
         var adUnitExt: [AnyHashable: Any] = [:]
         adUnitExt["prebid"] = prebidAdUnitExt
@@ -194,7 +196,7 @@ import AdSupport
 
         imp["ext"] = adUnitExt
 
-        if (adUnit is VideoAdUnit || adUnit is VideoInterstitialAdUnit) {
+        if (adUnit is VideoAdUnit || adUnit is VideoInterstitialAdUnit || adUnit is RewardedVideoAdUnit) {
             var video: [AnyHashable: Any] = [:]
             
             let videoMimes: [String] = ["video/mp4"]
@@ -213,6 +215,8 @@ import AdSupport
             case let videoAdUnit as VideoAdUnit:
                 placement = videoAdUnit.type.rawValue
             case is VideoInterstitialAdUnit:
+                placement = 5
+            case is RewardedVideoAdUnit:
                 placement = 5
             default: placement = nil
             }
@@ -316,12 +320,33 @@ import AdSupport
         let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
         // Limit ad tracking
         deviceDict["lmt"] = NSNumber(value: lmtAd).intValue
-
-        let deviceId = RequestBuilder.DeviceUUID()
-        if deviceId != "" {
-            deviceDict["ifa"] = deviceId
+        
+        //fetch advertising identifier based TCF 2.0 Purpose1 value
+        //truth table
+        /*
+                            deviceAccessConsent=true  deviceAccessConsent=false  deviceAccessConsent undefined
+         gdprApplies=false        Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
+         gdprApplies=true         Yes, read IDFA       No, don’t read IDFA           No, don’t read IDFA
+         gdprApplies=undefined    Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
+         */
+          
+        var setDeviceId: Bool = false
+        
+        let gdprApplies = Targeting.shared.subjectToGDPR
+        let deviceAccessConsent = Targeting.shared.getDeviceAccessConsent()
+        
+        if ((deviceAccessConsent == nil && (gdprApplies == nil || gdprApplies == false))
+            || deviceAccessConsent == true) {
+            setDeviceId = true
         }
-
+        
+        if (setDeviceId) {
+            let deviceId = RequestBuilder.DeviceUUID()
+                if deviceId != "" {
+                    deviceDict["ifa"] = deviceId
+                }
+        }
+            
         let timeInMiliseconds = Int(Date().timeIntervalSince1970)
         deviceDict["devtime"] = timeInMiliseconds
 
@@ -487,10 +512,7 @@ import AdSupport
 
         if (uuidString == "") {
             let advertisingIdentifier: String = ASIdentifierManager.shared().advertisingIdentifier.uuidString
-
-            if (advertisingIdentifier != .kIFASentinelValue) {
-                uuidString = advertisingIdentifier
-            }
+            uuidString = advertisingIdentifier
         }
 
         return uuidString
