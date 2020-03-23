@@ -115,6 +115,8 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
         let adUnit = VideoInterstitialAdUnit(configId: "1001-1")
         let parameters = VideoBaseAdUnit.Parameters()
         parameters.mimes = ["video/mp4"]
+        videoParameters.protocols = [2]
+        videoParameters.playbackMethod = [2]
         
         adUnit.parameters = parameters
         
