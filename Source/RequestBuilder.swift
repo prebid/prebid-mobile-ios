@@ -321,12 +321,33 @@ import AdSupport
         let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
         // Limit ad tracking
         deviceDict["lmt"] = NSNumber(value: lmtAd).intValue
-
-        let deviceId = RequestBuilder.DeviceUUID()
-        if deviceId != "" {
-            deviceDict["ifa"] = deviceId
+        
+        //fetch advertising identifier based TCF 2.0 Purpose1 value
+        //truth table
+        /*
+                            deviceAccessConsent=true  deviceAccessConsent=false  deviceAccessConsent undefined
+         gdprApplies=false        Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
+         gdprApplies=true         Yes, read IDFA       No, don’t read IDFA           No, don’t read IDFA
+         gdprApplies=undefined    Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
+         */
+          
+        var setDeviceId: Bool = false
+        
+        let gdprApplies = Targeting.shared.subjectToGDPR
+        let deviceAccessConsent = Targeting.shared.getDeviceAccessConsent()
+        
+        if ((deviceAccessConsent == nil && (gdprApplies == nil || gdprApplies == false))
+            || deviceAccessConsent == true) {
+            setDeviceId = true
         }
-
+        
+        if (setDeviceId) {
+            let deviceId = RequestBuilder.DeviceUUID()
+                if deviceId != "" {
+                    deviceDict["ifa"] = deviceId
+                }
+        }
+            
         let timeInMiliseconds = Int(Date().timeIntervalSince1970)
         deviceDict["devtime"] = timeInMiliseconds
 
@@ -492,10 +513,7 @@ import AdSupport
 
         if (uuidString == "") {
             let advertisingIdentifier: String = ASIdentifierManager.shared().advertisingIdentifier.uuidString
-
-            if (advertisingIdentifier != .kIFASentinelValue) {
-                uuidString = advertisingIdentifier
-            }
+            uuidString = advertisingIdentifier
         }
 
         return uuidString
