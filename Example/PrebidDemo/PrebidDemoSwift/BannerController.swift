@@ -107,12 +107,12 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         
         let adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), type: .inBanner)
         
-        let videoParameters = VideoBaseAdUnit.Parameters()
-        videoParameters.mimes = ["video/mp4"]
-        videoParameters.protocols = [2]
-        videoParameters.playbackMethod = [2]
+        let parameters = VideoBaseAdUnit.Parameters()
+        parameters.mimes = ["video/mp4"]
+        parameters.protocols = [Protocols.VAST_2_0]
+        parameters.playbackMethod = [PlaybackMethod.AutoPlaySoundOff]
         
-        adUnit.parameters = videoParameters
+        adUnit.parameters = parameters
         
         self.adUnit = adUnit
     }

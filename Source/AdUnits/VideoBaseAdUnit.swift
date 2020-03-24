@@ -23,50 +23,38 @@ public class VideoBaseAdUnit: AdUnit {
     //MARK: - Parameters class
     
     /// Describes an [OpenRTB](https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf) video object
-    @objc(VideoAdUnitParameters)
+    @objc(PBVideoAdUnitParameters)
     public class Parameters: NSObject {
         
         /**
         List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.
-
-        # Example #
-        ```
-        | Value | Description |
-        |-------|-------------|
-        | 1     | VPAID 1.0   |
-        | 2     | VPAID 2.0   |
-        | 3     | VPAID 2.0   |
-        | 4     | ORMMA       |
-        | 5     | MRAID-2     |
-        | 6     | MRAID-3     |
-        ```
         */
         @objc
-        public var api: [Int]?
+        public var api: [Api]?
 
         /**
         Maximum bit rate in Kbps.
         */
         @objc
-        public var maxBitrate: NSNumber?
+        public var maxBitrate: SingleContainerInt?
         
         /**
         Maximum bit rate in Kbps.
         */
         @objc
-        public var minBitrate: NSNumber?
+        public var minBitrate: SingleContainerInt?
         
         /**
         Maximum video ad duration in seconds.
         */
         @objc
-        public var maxDuration: NSNumber?
+        public var maxDuration: SingleContainerInt?
         
         /**
         Minimum video ad duration in seconds.
         */
         @objc
-        public var minDuration: NSNumber?
+        public var minDuration: SingleContainerInt?
         
         /**
         Content MIME types supported
@@ -80,53 +68,21 @@ public class VideoBaseAdUnit: AdUnit {
         
         /**
         Allowed playback methods. If none specified, assume all are allowed.
-
-        # Example #
-        ```
-        | Value | Description         |
-        |-------|---------------------|
-        | 1     | Auto-Play Sound On  |
-        | 2     | Auto-Play Sound Off |
-        | 3     | Click-to-Play       |
-        | 4     | Mouse-Over          |
-        ```
         */
         @objc
-        public var playbackMethod: [Int]?
+        public var playbackMethod: [PlaybackMethod]?
         
         /**
         Array of supported video bid response protocols.
-
-        # Example #
-        ```
-        | Value | Description      |
-        |-------|------------------|
-        | 1     | VAST 1.0         |
-        | 2     | VAST 2.0         |
-        | 3     | VAST 3.0         |
-        | 4     | VAST 1.0 Wrapper |
-        | 5     | VAST 2.0 Wrapper |
-        | 6     | VAST 3.0 Wrapper |
-        ```
         */
         @objc
-        public var protocols: [Int]?
+        public var protocols: [Protocols]?
         
         /**
         Indicates the start delay in seconds for pre-roll, mid-roll, or post-roll ad placements.
-
-        # Example #
-        ```
-        | Value | Description                                      |
-        |-------|--------------------------------------------------|
-        | > 0   | Mid-Roll (value indicates start delay in second) |
-        | 0     | Pre-Roll                                         |
-        | -1    | Generic Mid-Roll                                 |
-        | -2    | Generic Post-Roll                                |
-        ```
         */
         @objc
-        public var startDelay: NSNumber?
+        public var startDelay: StartDelay?
         
     }
 }

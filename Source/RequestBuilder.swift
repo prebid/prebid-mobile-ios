@@ -192,19 +192,19 @@ import AdSupport
 
         if let adUnit = adUnit as? VideoBaseAdUnit {
 
-            let videoParameters = adUnit.parameters
-
             var video: [AnyHashable: Any] = [:]
             
-            video["api"] = videoParameters?.api
-            video["maxbitrate"] = videoParameters?.maxBitrate
-            video["minbitrate"] = videoParameters?.minBitrate
-            video["maxduration"] = videoParameters?.maxDuration
-            video["minduration"] = videoParameters?.minDuration
-            video["mimes"] = videoParameters?.mimes
-            video["playbackmethod"] = videoParameters?.playbackMethod
-            video["protocols"] = videoParameters?.protocols
-            video["startdelay"] = videoParameters?.startDelay
+            if let parameters = adUnit.parameters {
+                video["api"] = parameters.api?.toIntArray()
+                video["maxbitrate"] = parameters.maxBitrate?.value
+                video["minbitrate"] = parameters.minBitrate?.value
+                video["maxduration"] = parameters.maxDuration?.value
+                video["minduration"] = parameters.minDuration?.value
+                video["mimes"] = parameters.mimes
+                video["playbackmethod"] = parameters.playbackMethod?.toIntArray()
+                video["protocols"] = parameters.protocols?.toIntArray()
+                video["startdelay"] = parameters.startDelay?.value
+            }
             
             let adSize = adUnit.adSizes[0]
             video["w"] = adSize.width

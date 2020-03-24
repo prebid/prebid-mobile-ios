@@ -1056,32 +1056,31 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         //given
         Prebid.shared.prebidServerAccountId = "12345"
         let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250), type: .inBanner)
-        
-        let videoParameters = VideoBaseAdUnit.Parameters()
-        
-        videoParameters.api = [1, 2]
-        videoParameters.maxBitrate = 1500
-        videoParameters.minBitrate = 300
-        videoParameters.maxDuration = 30
-        videoParameters.minDuration = 5
-        videoParameters.mimes = ["video/x-flv", "video/mp4"]
-        videoParameters.playbackMethod = [1, 3]
-        videoParameters.protocols = [2, 3]
-        videoParameters.startDelay = 0
-        
-        adUnit.parameters = videoParameters
-        
+
+        let parameters = VideoBaseAdUnit.Parameters()
+
+        parameters.api = [Api.VPAID_1, Api.VPAID_2]
+        parameters.maxBitrate = 1500
+        parameters.minBitrate = 300
+        parameters.maxDuration = 30
+        parameters.minDuration = 5
+        parameters.mimes = ["video/x-flv", "video/mp4"]
+        parameters.playbackMethod = [PlaybackMethod.AutoPlaySoundOn, PlaybackMethod.ClickToPlay]
+        parameters.protocols = [Protocols.VAST_2_0, Protocols.VAST_3_0]
+        parameters.startDelay = StartDelay.PreRoll
+
+        adUnit.parameters = parameters
+
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-        
+
         guard let impArray = jsonRequestBody["imp"] as? [Any],
             let impDic = impArray[0] as? [String: Any],
             let video = impDic["video"] as? [String: Any],
             let w = video["w"] as? Int,
             let h = video["h"] as? Int,
             let linearity = video["linearity"] as? Int,
-            
-            let placement = video["placement"] as? Int,
+
             let api = video["api"] as? [Int],
             let maxBitrate = video["maxbitrate"] as? Int,
             let minBitrate = video["minbitrate"] as? Int,
@@ -1091,7 +1090,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             let playbackMethod = video["playbackmethod"] as? [Int],
             let protocols = video["protocols"] as? [Int],
             let startDelay = video["startdelay"] as? Int,
-            
+
             let ext = jsonRequestBody["ext"] as? [String: Any],
             let extPrebid = ext["prebid"] as? [String: Any],
             let cache = extPrebid["cache"] as? [String: Any],
@@ -1100,12 +1099,12 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
                 XCTFail("parsing fail")
                 return
         }
-        
+
         //then
         XCTAssertEqual(300, w)
         XCTAssertEqual(250, h)
         XCTAssertEqual(1, linearity)
-        
+
         XCTAssertEqual(2, api.count)
         XCTAssert(api.contains(1) && api.contains(2))
         XCTAssertEqual(1500, maxBitrate)
@@ -1119,58 +1118,58 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual(2, protocols.count)
         XCTAssert(protocols.contains(2) && protocols.contains(3))
         XCTAssertEqual(0, startDelay)
+
+        XCTAssertNotNil(vastXml)
+
+    }
+     
+    func testVideoInterstitialAdUnit() throws {
+        //given
+        Prebid.shared.prebidServerAccountId = "12345"
+        let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
+        
+        let parameters = VideoBaseAdUnit.Parameters()
+        parameters.playbackMethod = [PlaybackMethod.AutoPlaySoundOff]
+        parameters.mimes = ["video/mp4"]
+        adUnit.parameters = parameters
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+        
+        guard let impArray = jsonRequestBody["imp"] as? [Any],
+            let impDic = impArray[0] as? [String: Any],
+            let video = impDic["video"] as? [String: Any],
+            let w = video["w"] as? Int,
+            let h = video["h"] as? Int,
+            let placement = video["placement"] as? Int,
+            let linearity = video["linearity"] as? Int,
+            let playbackMethods = video["playbackmethod"] as? [Int],
+            let playbackMethods1 = playbackMethods[0] as? Int,
+            let mimes = video["mimes"] as? [String],
+            let mimes1 = mimes[0] as? String,
+            
+            let ext = jsonRequestBody["ext"] as? [String: Any],
+            let extPrebid = ext["prebid"] as? [String: Any],
+            let cache = extPrebid["cache"] as? [String: Any],
+            let vastXml = cache["vastxml"] as? [String: Any],
+            
+            let instl = impDic["instl"] as? Int
+            else {
+                XCTFail("parsing fail")
+                return
+        }
+        
+        //then
+        XCTAssertEqual(5, placement)
+        XCTAssertEqual(1, linearity)
+        XCTAssertEqual(2, playbackMethods1)
+        XCTAssertEqual("video/mp4", mimes1)
         
         XCTAssertNotNil(vastXml)
         
+        XCTAssertEqual(1, instl)
+        
     }
-     
-     func testVideoInterstitialAdUnit() throws {
-         //given
-         Prebid.shared.prebidServerAccountId = "12345"
-         let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
-        
-         let videoParameters = VideoBaseAdUnit.Parameters()
-         videoParameters.playbackMethod = [2]
-         videoParameters.mimes = ["video/mp4"]
-         adUnit.parameters = videoParameters
-        
-         //when
-         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-         
-         guard let impArray = jsonRequestBody["imp"] as? [Any],
-             let impDic = impArray[0] as? [String: Any],
-             let video = impDic["video"] as? [String: Any],
-             let w = video["w"] as? Int,
-             let h = video["h"] as? Int,
-             let placement = video["placement"] as? Int,
-             let linearity = video["linearity"] as? Int,
-             let playbackMethods = video["playbackmethod"] as? [Int],
-             let playbackMethods1 = playbackMethods[0] as? Int,
-             let mimes = video["mimes"] as? [String],
-             let mimes1 = mimes[0] as? String,
-             
-             let ext = jsonRequestBody["ext"] as? [String: Any],
-             let extPrebid = ext["prebid"] as? [String: Any],
-             let cache = extPrebid["cache"] as? [String: Any],
-             let vastXml = cache["vastxml"] as? [String: Any],
-         
-             let instl = impDic["instl"] as? Int
-             else {
-                 XCTFail("parsing fail")
-                 return
-         }
-         
-         //then
-         XCTAssertEqual(5, placement)
-         XCTAssertEqual(1, linearity)
-         XCTAssertEqual(2, playbackMethods1)
-         XCTAssertEqual("video/mp4", mimes1)
-         
-         XCTAssertNotNil(vastXml)
-         
-         XCTAssertEqual(1, instl)
-         
-     }
     
     func testRewardedVideoAdUnit() throws {
         //given
@@ -1178,7 +1177,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let adUnit = RewardedVideoAdUnit(configId: Constants.configID1)
         
         let videoParameters = VideoBaseAdUnit.Parameters()
-        videoParameters.playbackMethod = [2]
+        videoParameters.playbackMethod = [PlaybackMethod.AutoPlaySoundOff]
         videoParameters.mimes = ["video/mp4"]
         
         adUnit.parameters = videoParameters

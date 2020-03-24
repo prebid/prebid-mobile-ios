@@ -112,6 +112,8 @@
 		FAD4D546235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4D545235DCCCF00140012 /* VideoInterstitialAdUnit.swift */; };
 		FAD4D547235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4D545235DCCCF00140012 /* VideoInterstitialAdUnit.swift */; };
 		FAD9527E241BE18000A03AB6 /* VideoAdUnitObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD9527D241BE18000A03AB6 /* VideoAdUnitObjCTests.m */; };
+		FAE17D58242A29AC0052719A /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE17D57242A29AC0052719A /* Parameters.swift */; };
+		FAE17D59242A29AC0052719A /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE17D57242A29AC0052719A /* Parameters.swift */; };
 		FAEBF29F237EC7B1006BA972 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */; };
 		FAEBF2A0237EC7B1006BA972 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */; };
 		FAEBF2A2237ECFEF006BA972 /* StorageUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */; };
@@ -224,6 +226,7 @@
 		FAD4D542235DCCAB00140012 /* VideoAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAdUnit.swift; sourceTree = "<group>"; };
 		FAD4D545235DCCCF00140012 /* VideoInterstitialAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoInterstitialAdUnit.swift; sourceTree = "<group>"; };
 		FAD9527D241BE18000A03AB6 /* VideoAdUnitObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoAdUnitObjCTests.m; sourceTree = "<group>"; };
+		FAE17D57242A29AC0052719A /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 		FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUtils.swift; sourceTree = "<group>"; };
 		FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUtilsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -269,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				60EE7B0521F26329000B12A8 /* Utils.swift */,
+				FAE17D57242A29AC0052719A /* Parameters.swift */,
 				60C2A366234BBA5300628C9D /* Native */,
 				6062B1AB21878CFB00CE1BA3 /* AdUnit.swift */,
 				60D79311217E2CF20080F428 /* BannerAdUnit.swift */,
@@ -770,6 +774,7 @@
 				FA29A3E7232255DF00F13F61 /* Constants.swift in Sources */,
 				FAD4D547235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */,
 				FA29A3E8232255DF00F13F61 /* Logging.swift in Sources */,
+				FAE17D59242A29AC0052719A /* Parameters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -805,6 +810,7 @@
 				FAAA00CF23227F5B009DC7D6 /* ResultCode.swift in Sources */,
 				FAD4D546235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */,
 				FAAA00DD23227F6A009DC7D6 /* AdViewUtils.swift in Sources */,
+				FAE17D58242A29AC0052719A /* Parameters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
