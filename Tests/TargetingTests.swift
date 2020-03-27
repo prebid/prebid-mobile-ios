@@ -30,9 +30,8 @@ class TargetingTests: XCTestCase {
 
     func testYOB() {
         XCTAssertNoThrow(try Targeting.shared.setYearOfBirth(yob: 1985))
-            let value = Targeting.shared.yearOfBirth
-
-            XCTAssertTrue((value == 1985))
+        let value = Targeting.shared.yearOfBirth
+        XCTAssertTrue(value == 1985)
 
     }
 
@@ -64,6 +63,24 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(2, Targeting.shared.locationPrecision)
     }
 
+    //MARK: - COPPA
+    func testSubjectToCOPPA() {
+        //given
+        let subjectToCOPPA = true;
+        Targeting.shared.subjectToCOPPA = subjectToCOPPA;
+        
+        defer {
+            Targeting.shared.subjectToCOPPA = false
+        }
+        
+        //when
+        let result = Targeting.shared.subjectToCOPPA;
+
+        //then
+        XCTAssertEqual(subjectToCOPPA, result);
+        
+    }
+    
     //MARK: - GDPR Subject
     func testGdprSubjectPB() {
         //given

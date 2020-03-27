@@ -52,10 +52,6 @@ import CoreLocation
      */
 
     public var gender: Gender
-
-    public var yearOfBirth: Int {
-        return yearofbirth
-    }
     
     /**
      * The itunes app id for targeting
@@ -71,6 +67,17 @@ import CoreLocation
      * The application location precision for targeting
      */
     public var locationPrecision: Int?
+    
+    //Objective-C Api
+    @available(swift, obsoleted: 1.0)
+    public func setLocationPrecision(_ newValue: NSNumber?) {
+        locationPrecision = newValue?.intValue
+    }
+    
+    @available(swift, obsoleted: 1.0)
+    public func getLocationPrecision() -> NSNumber? {
+        return locationPrecision as NSNumber?
+    }
     
     /**
      * The boolean value set by the user to collect user data
@@ -104,6 +111,17 @@ import CoreLocation
             
             return gdprSubject
         }
+    }
+    
+    //Objective-C Api
+    @available(swift, obsoleted: 1.0)
+    public func setSubjectToGDPR(_ newValue: NSNumber?) {
+        subjectToGDPR = newValue?.boolValue
+    }
+    
+    @available(swift, obsoleted: 1.0)
+    public func getSubjectToGDPR() -> NSNumber? {
+        return subjectToGDPR as NSNumber?
     }
 
     /**
@@ -154,6 +172,13 @@ import CoreLocation
     public func getDeviceAccessConsent() -> Bool? {
         let deviceAccessConsentIndex = 0
         return getPurposeConsent(index: deviceAccessConsentIndex)
+    }
+    
+    //Objective-C Api
+    @available(swift, obsoleted: 1.0)
+    public func getDeviceAccessConsent() -> NSNumber? {
+        let deviceAccessConsent = getDeviceAccessConsent()
+        return deviceAccessConsent as NSNumber?
     }
 
     func getPurposeConsent(index: Int) -> Bool? {
@@ -350,7 +375,11 @@ import CoreLocation
         return contextKeywordsSet
     }
     
-    // MARK: - others
+    // MARK: - yearOfBirth
+    //TODO refactor
+    public var yearOfBirth: Int {
+        return yearofbirth
+    }
 
     /**
      * This property gets the year of birth value set by the application developer
@@ -372,7 +401,7 @@ import CoreLocation
      * This property clears year of birth value set by the application developer
      */
     public func clearYearOfBirth() {
-            yearofbirth = 0
+        yearofbirth = 0
     }
 
 }
