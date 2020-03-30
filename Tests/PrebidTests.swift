@@ -38,6 +38,7 @@ class PrebidTests: XCTestCase {
         Prebid.shared.prebidServerHost = case2
         let result2 = Prebid.shared.prebidServerHost
         
+        //then
         XCTAssertEqual(case1, result1)
         XCTAssertEqual(case2, result2)
     }

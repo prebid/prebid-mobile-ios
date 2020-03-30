@@ -65,6 +65,15 @@ import Foundation
      * Set the desidered verbosity of the logs
      */
     public var logLevel: LogLevel = .debug
+    
+    /**
+     * Set the desidered verbosity of the logs
+     */
+    //Objective-C Api
+    @available(swift, obsoleted: 1.0)
+    public func setLogLevel(_ logLevel: LogLevel_) {
+        self.logLevel = logLevel.getPrimary()
+    }
 
     /**
      * The class is created as a singleton object & used

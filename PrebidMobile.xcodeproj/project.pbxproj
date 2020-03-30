@@ -82,6 +82,7 @@
 		FA7C3EB9225E518000D2F128 /* noBidResponseRubicon.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB8225E518000D2F128 /* noBidResponseRubicon.json */; };
 		FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */; };
 		FAA29904242D1C27002ACBF2 /* TargetingObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */; };
+		FAA2990824322962002ACBF2 /* PrebidObjcTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA2990724322962002ACBF2 /* PrebidObjcTests.m */; };
 		FAAA00CA23227F5B009DC7D6 /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D792F5217E229A0080F428 /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAAA00CB23227F5B009DC7D6 /* BidManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E517231FCD1400CAA05B /* BidManager.swift */; };
 		FAAA00CC23227F5B009DC7D6 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1A321835DF300CE1BA3 /* Logging.swift */; };
@@ -215,6 +216,7 @@
 		FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
 		FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewUtilsTests.swift; sourceTree = "<group>"; };
 		FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TargetingObjCTests.m; sourceTree = "<group>"; };
+		FAA2990724322962002ACBF2 /* PrebidObjcTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidObjcTests.m; sourceTree = "<group>"; };
 		FAAA00BD2322733E009DC7D6 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAAB5F9623B9F734001715A7 /* RewardedVideoAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedVideoAdUnit.swift; sourceTree = "<group>"; };
 		FAAB5F9923BA0056001715A7 /* RewardedVideoAdUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedVideoAdUnitTests.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				606FAC2521FFB20A008EAE5E /* TargetingTests.swift */,
 				FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */,
 				606FAC272200AD2C008EAE5E /* PrebidTests.swift */,
+				FAA2990724322962002ACBF2 /* PrebidObjcTests.m */,
 				60C0382B2204BB190082B32C /* PrebidMobileTest-Bridging-Header.h */,
 			);
 			path = Tests;
@@ -700,6 +703,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60C038192204AF5D0082B32C /* NSObject+Swizzling.m in Sources */,
+				FAA2990824322962002ACBF2 /* PrebidObjcTests.m in Sources */,
 				60C0381A2204AF5D0082B32C /* PBTestGlobal.m in Sources */,
 				FA434C35235DEC0B001578E3 /* VideoInterstitialAdUnitTests.swift in Sources */,
 				FAA29904242D1C27002ACBF2 /* TargetingObjCTests.m in Sources */,
