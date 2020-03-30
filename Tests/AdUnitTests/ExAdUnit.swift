@@ -16,7 +16,7 @@
 import Foundation
 @testable import PrebidMobile
 
-public extension AdUnit {
+extension AdUnit {
 
    private static var _myComputedProperty: ResultCode = .prebidDemandFetchSuccess
 

@@ -16,7 +16,7 @@
 import XCTest
 @testable import PrebidMobile
 
-@objcMembers public class DFPORequest: NSObject {
+@objcMembers class DFPORequest: NSObject {
     var name: String!
     private(set) var p_customKeywords: [String: AnyObject]
 
@@ -29,7 +29,7 @@ import XCTest
     }
 }
 
-@objcMembers public class DFPNRequest: NSObject {
+@objcMembers class DFPNRequest: NSObject {
     var name: String!
     private(set) var p_customKeywords: [String: AnyObject]
 
@@ -50,7 +50,7 @@ import XCTest
     }
 }
 
-@objcMembers public class MPAdView: NSObject {
+@objcMembers class MPAdView: NSObject {
     var name: String!
     private(set) var p_customKeywords: String = ""
 
@@ -67,7 +67,7 @@ import XCTest
     }
 }
 
-@objcMembers public class InvalidMPAdView: NSObject {
+@objcMembers class InvalidMPAdView: NSObject {
     var name: String!
     private(set) var p_customKeywords: String = ""
 

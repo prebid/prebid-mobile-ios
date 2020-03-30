@@ -21,11 +21,11 @@ class Location: NSObject, CLLocationManagerDelegate {
     /**
      * The class is created as a singleton object & used
      */
-    public static let shared = Location()
+    static let shared = Location()
 
     private var locationManager: CLLocationManager?
 
-    public var location: CLLocation?
+    var location: CLLocation?
 
     /**
      * The initializer that needs to be created only once
