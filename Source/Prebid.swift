@@ -29,7 +29,7 @@ import Foundation
     var timeoutMillisDynamic: Int
     var timeoutUpdated: Bool = false
 
-    public var prebidServerAccountId: String! = ""
+    public var prebidServerAccountId: String = ""
     
     public var storedAuctionResponse: String = ""
     
@@ -89,7 +89,7 @@ import Foundation
     public func setCustomPrebidServer(url: String) throws {
 
         if (Host.shared.verifyUrl(urlString: url) == false) {
-                throw ErrorCode.prebidServerURLInvalid(url)
+            throw ErrorCode.prebidServerURLInvalid(url)
         } else {
             prebidServerHost = PrebidHost.Custom
             Host.shared.setHostURL = url
