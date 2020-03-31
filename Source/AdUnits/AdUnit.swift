@@ -50,6 +50,7 @@ import ObjectiveC.runtime
         super.init()
     }
 
+    //TODO: remove dynamic
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
         
         if !(self is NativeRequest){
