@@ -15,7 +15,7 @@ import ObjectiveC.runtime
 
 @objcMembers public class AdUnit: NSObject, DispatcherDelegate {
 
-    var prebidConfigId: String! = ""
+    var prebidConfigId: String = ""
 
     var adSizes = Array<CGSize> ()
 
