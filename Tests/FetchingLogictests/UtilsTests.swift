@@ -118,7 +118,7 @@ class UtilsTests: XCTestCase {
     
     func testConvertDictToMoPubKeywordsEmpty() {
         
-        var dictionary = [String: String]()
+        let dictionary = [String: String]()
         
         let result = Utils.shared.convertDictToMoPubKeywords(dict: dictionary)
         

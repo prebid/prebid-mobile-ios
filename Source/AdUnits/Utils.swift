@@ -37,7 +37,7 @@ public class Utils: NSObject {
         
     }
 
-@objc public func removeHBKeywords (adObject: AnyObject) {
+@objc func removeHBKeywords (adObject: AnyObject) {
 
     let adServerObject: String = String(describing: type(of: adObject))
     if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name || 
