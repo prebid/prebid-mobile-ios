@@ -120,8 +120,8 @@ limitations under the License.
 }
 
 - (void)testBidderName {
-    XCTAssertEqual(@"appnexus", Prebid.bidderNameAppNexus);
-    XCTAssertEqual(@"rubicon", Prebid.bidderNameRubiconProject);
+    XCTAssertEqualObjects(@"appnexus", Prebid.bidderNameAppNexus);
+    XCTAssertEqualObjects(@"rubicon", Prebid.bidderNameRubiconProject);
 }
 
 @end
