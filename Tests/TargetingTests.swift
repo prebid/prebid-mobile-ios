@@ -25,42 +25,113 @@ class TargetingTests: XCTestCase {
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        Targeting.shared.subjectToCOPPA = false
+        Targeting.shared.subjectToGDPR = nil
+        Targeting.shared.gdprConsentString = nil
+        Targeting.shared.purposeConsents = nil
+        
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_SubjectToGDPR)
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_ConsentStringKey)
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_ConsentString)
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_PurposeConsents)
+        
+        Targeting.shared.clearYearOfBirth()
+        Targeting.shared.clearAccessControlList()
+        Targeting.shared.clearContextData()
+        Targeting.shared.clearContextKeywords()
+        Targeting.shared.clearUserKeywords()
+        Targeting.shared.clearUserData()
     }
 
-    func testYOB() {
-        XCTAssertNoThrow(try Targeting.shared.setYearOfBirth(yob: 1985))
-        let value = Targeting.shared.yearOfBirth
-        XCTAssertTrue(value == 1985)
+    func testStoreURL() {
+        //given
+        let storeURL = "https://itunes.apple.com/app/id123456789"
+        
+        //when
+        Targeting.shared.storeURL = storeURL
+        let result = Targeting.shared.storeURL
 
+        //then
+        XCTAssertEqual(storeURL, result)
     }
 
-    func testInvalidYOB() {
-        XCTAssertThrowsError(try Targeting.shared.setYearOfBirth(yob: -1))
+    func testDomain() {
+        //given
+        let domain = "appdomain.com"
+        
+        //when
+        Targeting.shared.domain = domain
+        let result = Targeting.shared.domain
 
-        XCTAssertThrowsError(try Targeting.shared.setYearOfBirth(yob: 999))
-
-        XCTAssertThrowsError(try Targeting.shared.setYearOfBirth(yob: 10000))
-
+        //then
+        XCTAssertEqual(domain, result)
+    }
+    
+    func testGender() {
+        //given
+        let female = Gender.female
+        
+        //when
+        Targeting.shared.gender = female
+        
+        //then
+        XCTAssertEqual(female, Targeting.shared.gender)
     }
 
-    func testSetGenderTargeting() {
+    func testItunesID() {
+        //given
+        let itunesID = "54673893"
+        
+        //when
+        Targeting.shared.itunesID = itunesID
+        let result = Targeting.shared.itunesID
 
-        Targeting.shared.gender = .female
-        XCTAssertEqual(Gender.female, Targeting.shared.gender)
-        Targeting.shared.gender = .male
-        XCTAssertEqual(Gender.male, Targeting.shared.gender)
-        Targeting.shared.gender = .unknown
-        XCTAssertEqual(Gender.unknown, Targeting.shared.gender)
+        //then
+        XCTAssertEqual(itunesID, result)
     }
 
-    func testSetLocationTargeting() {
-
+    func testLocation() {
+        //given
         let location = CLLocation(latitude: CLLocationDegrees(100.0), longitude: CLLocationDegrees(100.0))
+        
+        //when
         Targeting.shared.location = location
         Targeting.shared.locationPrecision = 2
+        
+        //then
         XCTAssertEqual(location, Targeting.shared.location)
         XCTAssertEqual(2, Targeting.shared.locationPrecision)
+    }
+    
+    func testLocationPrecision() {
+        //given
+        let locationPrecision = 2
+        
+        //when
+        Targeting.shared.locationPrecision = locationPrecision
+        
+        //then
+        XCTAssertEqual(locationPrecision, Targeting.shared.locationPrecision)
+    }
+    
+    // MARK: - Year Of Birth
+    func testYearOfBirth() {
+        //given
+        let  yearOfBirth = 1985
+        
+        //when
+        XCTAssertNoThrow(try Targeting.shared.setYearOfBirth(yob: yearOfBirth))
+        let result = Targeting.shared.yearOfBirth
+        
+        //then
+        XCTAssertEqual(yearOfBirth, result)
+    }
+
+    func testYearOfBirthInvalid() {
+        XCTAssertThrowsError(try Targeting.shared.setYearOfBirth(yob: -1))
+        XCTAssertThrowsError(try Targeting.shared.setYearOfBirth(yob: 999))
+        XCTAssertThrowsError(try Targeting.shared.setYearOfBirth(yob: 10000))
     }
 
     //MARK: - COPPA
@@ -68,10 +139,6 @@ class TargetingTests: XCTestCase {
         //given
         let subjectToCOPPA = true;
         Targeting.shared.subjectToCOPPA = subjectToCOPPA;
-        
-        defer {
-            Targeting.shared.subjectToCOPPA = false
-        }
         
         //when
         let result = Targeting.shared.subjectToCOPPA;
@@ -82,21 +149,19 @@ class TargetingTests: XCTestCase {
     }
     
     //MARK: - GDPR Subject
-    func testGdprSubjectPB() {
+    func testSubjectToGDPR_PB() {
         //given
-        Targeting.shared.subjectToGDPR = true
-        defer {
-            Targeting.shared.subjectToGDPR = nil
-        }
+        let subjectToGDPR = true
         
         //when
-        let gdprSubject = Targeting.shared.subjectToGDPR
+        Targeting.shared.subjectToGDPR = subjectToGDPR
+        let result = Targeting.shared.subjectToGDPR
 
         //then
-        XCTAssertEqual(true, gdprSubject)
+        XCTAssertEqual(subjectToGDPR, result)
     }
     
-    func testGdprSubjectUndefined() {
+    func testSubjectToGDPR_Undefined() {
         //given
         Targeting.shared.subjectToGDPR = nil
         UserDefaults.standard.set(nil, forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
@@ -109,12 +174,9 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(nil, gdprSubject)
     }
 
-    func testGdprSubjectTCFv1() {
+    func testSubjectToGDPR_TCFv1() {
         //given
         UserDefaults.standard.set("1", forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
-        defer {
-            UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
-        }
         
         //when
         let gdprSubject = Targeting.shared.subjectToGDPR
@@ -123,12 +185,9 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(true, gdprSubject)
     }
 
-    func testGdprSubjectTCFv2() {
+    func testSubjectToGDPR_TCFv2() {
         //given
         UserDefaults.standard.set(1, forKey: StorageUtils.IABTCF_SubjectToGDPR)
-        defer {
-            UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_SubjectToGDPR)
-        }
         
         //when
         let iabGdprSubject = Targeting.shared.subjectToGDPR
@@ -138,21 +197,19 @@ class TargetingTests: XCTestCase {
     }
     
     //MARK: - GDPR Consent
-    func testGdprConsentPB() {
+    func testGdprConsentStringPB() {
         //given
-        Targeting.shared.gdprConsentString = "testconsent PB"
-        defer {
-            Targeting.shared.gdprConsentString = nil
-        }
+        let gdprConsentString = "testconsent PB"
+        Targeting.shared.gdprConsentString = gdprConsentString
         
         //when
-        let gdprConsent = Targeting.shared.gdprConsentString
+        let result = Targeting.shared.gdprConsentString
 
         //then
-        XCTAssertEqual("testconsent PB", gdprConsent)
+        XCTAssertEqual(gdprConsentString, result)
     }
     
-    func testGdprConsentUndefined() {
+    func testGdprConsentStringUndefined() {
         //given
         Targeting.shared.gdprConsentString = nil
         UserDefaults.standard.set(nil, forKey: StorageUtils.IABConsent_ConsentStringKey)
@@ -165,48 +222,41 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual(nil, gdprConsent)
     }
 
-    func testGdprConsentTCFv1() {
+    func testGdprConsentStringTCFv1() {
         //given
-        UserDefaults.standard.set("testconsent TCFv1", forKey: StorageUtils.IABConsent_ConsentStringKey)
-        defer {
-            UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_ConsentStringKey)
-        }
+        let gdprConsentString = "testconsent TCFv1"
+        UserDefaults.standard.set(gdprConsentString, forKey: StorageUtils.IABConsent_ConsentStringKey)
         
         //when
-        let gdprConsent = Targeting.shared.gdprConsentString
+        let result = Targeting.shared.gdprConsentString
 
         //then
-        XCTAssertEqual("testconsent TCFv1", gdprConsent)
+        XCTAssertEqual(gdprConsentString, result)
     }
 
-    func testGdprConsentTCFv2() {
+    func testGdprConsentStringTCFv2() {
         //given
-        UserDefaults.standard.set("testconsent TCFv2", forKey: StorageUtils.IABTCF_ConsentString)
-        defer {
-            UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_ConsentString)
-        }
+        let gdprConsentString = "testconsent TCFv2"
+        UserDefaults.standard.set(gdprConsentString, forKey: StorageUtils.IABTCF_ConsentString)
 
         //when
-        let gdprConsent = Targeting.shared.gdprConsentString
+        let result = Targeting.shared.gdprConsentString
 
         //then
-        XCTAssertEqual("testconsent TCFv2", gdprConsent)
+        XCTAssertEqual(gdprConsentString, result)
     }
 
     //MARK: - PurposeConsents
     func testPurposeConsentsPB() throws {
         //given
-        Targeting.shared.purposeConsents = "test PurposeConsents PB"
-
-        defer {
-            Targeting.shared.purposeConsents = nil
-        }
+        let purposeConsents = "test PurposeConsents PB"
+        Targeting.shared.purposeConsents = purposeConsents
 
         //when
-        let purposeConsents = Targeting.shared.purposeConsents
+        let result = Targeting.shared.purposeConsents
 
         //then
-        XCTAssertEqual("test PurposeConsents PB", purposeConsents)
+        XCTAssertEqual(purposeConsents, result)
     }
 
     func testPurposeConsentsUndefined() throws {
@@ -223,26 +273,19 @@ class TargetingTests: XCTestCase {
 
     func testPurposeConsentsTCFv2() throws {
         //given
-        UserDefaults.standard.set("test PurposeConsents TCFv2", forKey: StorageUtils.IABTCF_PurposeConsents)
-
-        defer {
-            UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_PurposeConsents)
-        }
+        let purposeConsents = "test PurposeConsents TCFv2"
+        UserDefaults.standard.set(purposeConsents, forKey: StorageUtils.IABTCF_PurposeConsents)
 
         //when
-        let purposeConsents = Targeting.shared.purposeConsents
+        let result = Targeting.shared.purposeConsents
 
         //then
-        XCTAssertEqual("test PurposeConsents TCFv2", purposeConsents)
+        XCTAssertEqual(purposeConsents, result)
     }
 
     func testGetDeviceAccessConsent() throws {
         //given
         Targeting.shared.purposeConsents = "100000000000000000000000"
-
-        defer {
-            Targeting.shared.purposeConsents = nil
-        }
 
         //when
         let deviceAccessConsent = Targeting.shared.getDeviceAccessConsent()
@@ -255,10 +298,6 @@ class TargetingTests: XCTestCase {
         //given
         Targeting.shared.purposeConsents = "101000000000000000000000"
 
-        defer {
-            Targeting.shared.purposeConsents = nil
-        }
-
         //when
         let purpose1 = Targeting.shared.getPurposeConsent(index: 0)
         let purpose2 = Targeting.shared.getPurposeConsent(index: 1)
@@ -270,73 +309,276 @@ class TargetingTests: XCTestCase {
         XCTAssertTrue(purpose3!)
     }
 
-    func testItuneIDTargeting() {
-        Targeting.shared.itunesID = "54673893"
-        let testItuneID = Targeting.shared.itunesID
+    // MARK: - access control list (ext.prebid.data)
+    func testAddBidderToAccessControlList() {
+        //given
+        let bidderNameRubicon = Prebid.bidderNameRubiconProject
+        
+        //when
+        Targeting.shared.addBidderToAccessControlList(bidderNameRubicon)
+        let set = Targeting.shared.getAccessControlList()
 
-        XCTAssertTrue((testItuneID == "54673893"))
+        //then
+        XCTAssertEqual(1, set.count)
+        XCTAssert(set.contains(bidderNameRubicon))
+    }
+    
+    func testRemoveBidderFromAccessControlList() {
+        //given
+        let bidderNameRubicon = Prebid.bidderNameRubiconProject
+        Targeting.shared.addBidderToAccessControlList(bidderNameRubicon)
+        
+        //when
+        Targeting.shared.removeBidderFromAccessControlList(bidderNameRubicon)
+        let set = Targeting.shared.getAccessControlList()
+
+        //then
+        XCTAssertEqual(0, set.count)
+    }
+    
+    func testClearAccessControlList() {
+        //given
+        let bidderNameRubicon = Prebid.bidderNameRubiconProject
+        Targeting.shared.addBidderToAccessControlList(bidderNameRubicon)
+        
+        //when
+        Targeting.shared.clearAccessControlList()
+        let set = Targeting.shared.getAccessControlList()
+
+        //then
+        XCTAssertEqual(0, set.count)
+    }
+    
+    // MARK: - global context data aka inventory data (app.ext.data)
+    func testAddContextData() {
+        //given
+        let key1 = "key1"
+        let value1 = "value1"
+        
+        //when
+        Targeting.shared.addContextData(key: key1, value: value1)
+        let dictionary = Targeting.shared.getContextDataDictionary()
+        let set = dictionary[key1]
+
+        //then
+        XCTAssertEqual(1, dictionary.count)
+        XCTAssertEqual(1, set?.count)
+        XCTAssert((set?.contains(value1))!)
     }
 
-    func testStoreURL() {
+    func testUpdateContextData() {
+        //given
+        let key1 = "key1"
+        let value1 = "value1"
+        let inputSet: Set = [value1]
+        
+        //when
+        Targeting.shared.updateContextData(key: key1, value: inputSet)
+        let dictionary = Targeting.shared.getContextDataDictionary()
+        let set = dictionary[key1]
 
-        Targeting.shared.storeURL = "https://itunes.apple.com/app/id123456789"
-        let storeURL = Targeting.shared.storeURL
-
-        XCTAssertTrue((storeURL == "https://itunes.apple.com/app/id123456789"))
+        //then
+        XCTAssertEqual(1, dictionary.count)
+        XCTAssertEqual(1, set?.count)
+        XCTAssert((set?.contains(value1))!)
     }
-
-    func testDomain() {
-
-        Targeting.shared.domain = "appdomain.com"
-        let domain = Targeting.shared.domain
-
-        XCTAssertTrue((domain == "appdomain.com"))
-    }
-
-    func testContextData() {
-        Targeting.shared.addContextData(key: "key1", value: "value10")
+    
+    func testRemoveContextData() {
+        //given
+        let key1 = "key1"
+        let value1 = "value1"
+        Targeting.shared.addContextData(key: key1, value: value1)
+        
+        //when
+        Targeting.shared.removeContextData(forKey: key1)
         let dictionary = Targeting.shared.getContextDataDictionary()
 
-        XCTAssert(dictionary.count == 1)
+        //then
+        XCTAssertEqual(0, dictionary.count)
+    }
+    
+    func testClearContextData() {
+        //given
+        let key1 = "key1"
+        let value1 = "value1"
+        Targeting.shared.addContextData(key: key1, value: value1)
+        
+        //when
+        Targeting.shared.clearContextData()
+        let dictionary = Targeting.shared.getContextDataDictionary()
 
-        guard let set = dictionary["key1"] else {
-            XCTFail("set is nil")
-            return
-        }
-
-        XCTAssert(set.count == 1)
-        XCTAssert(set.contains("value10"))
+        //then
+        XCTAssertEqual(0, dictionary.count)
     }
 
-    func testUserData() {
-        Targeting.shared.addUserData(key: "key1", value: "value10")
+    // MARK: - global user data aka visitor data (user.ext.data)
+    func testAddUserData() {
+        //given
+        let key1 = "key1"
+        let value1 = "value1"
+        
+        //when
+        Targeting.shared.addUserData(key: key1, value: value1)
+        let dictionary = Targeting.shared.getUserDataDictionary()
+        let set = dictionary[key1]
+
+        //then
+        XCTAssertEqual(1, dictionary.count)
+        XCTAssertEqual(1, set?.count)
+        XCTAssert((set?.contains(value1))!)
+    }
+    
+    func testupdateUserData() {
+        //given
+        let key1 = "key1"
+        let value1 = "value1"
+        let inputSet: Set = [value1]
+        
+        //when
+        Targeting.shared.updateUserData(key: key1, value: inputSet)
+        let dictionary = Targeting.shared.getUserDataDictionary()
+        let set = dictionary[key1]
+
+        //then
+        XCTAssertEqual(1, dictionary.count)
+        XCTAssertEqual(1, set?.count)
+        XCTAssert((set?.contains(value1))!)
+    }
+    
+    func testRemoveUserData() {
+        //given
+        let key1 = "key1"
+        let value1 = "value1"
+        Targeting.shared.addUserData(key: key1, value: value1)
+        
+        //when
+        Targeting.shared.removeUserData(forKey: key1)
         let dictionary = Targeting.shared.getUserDataDictionary()
 
-        XCTAssert(dictionary.count == 1)
-
-        guard let set = dictionary["key1"] else {
-            XCTFail("set is nil")
-            return
-        }
-
-        XCTAssert(set.count == 1)
-        XCTAssert(set.contains("value10"))
+        //then
+        XCTAssertEqual(0, dictionary.count)
     }
 
-    func testContextKeyword() {
-        Targeting.shared.addContextKeyword("value10")
+    func testClearUserData() {
+        //given
+        let key1 = "key1"
+        let value1 = "value1"
+        Targeting.shared.addUserData(key: key1, value: value1)
+        
+        //when
+        Targeting.shared.clearUserData()
+        let dictionary = Targeting.shared.getUserDataDictionary()
+
+        //then
+        XCTAssertEqual(0, dictionary.count)
+    }
+
+    // MARK: - global context keywords (app.keywords)
+    func testAddContextKeyword() {
+        //given
+        let value1 = "value1"
+        
+        //when
+        Targeting.shared.addContextKeyword(value1)
         let set = Targeting.shared.getContextKeywordsSet()
 
-        XCTAssert(set.count == 1)
-        XCTAssert(set.contains("value10"))
+        //then
+        XCTAssertEqual(1, set.count)
+        XCTAssert(set.contains(value1))
+    }
+    
+    func testAddContextKeywords() {
+        //given
+        let value1 = "value1"
+        let inputSet: Set = [value1]
+        
+        //when
+        Targeting.shared.addContextKeywords(inputSet)
+        let set = Targeting.shared.getContextKeywordsSet()
+
+        //then
+        XCTAssertEqual(1, set.count)
+        XCTAssert(set.contains(value1))
+    }
+    
+    func testRemoveContextKeyword() {
+        //given
+        let value1 = "value1"
+        Targeting.shared.addContextKeyword(value1)
+        
+        //when
+        Targeting.shared.removeContextKeyword(value1)
+        let set = Targeting.shared.getContextKeywordsSet()
+
+        //then
+        XCTAssertEqual(0, set.count)
     }
 
-    func testUserKeyword() {
-        Targeting.shared.addUserKeyword("value10")
+    func testClearContextKeywords() {
+        //given
+        let value1 = "value1"
+        Targeting.shared.addContextKeyword(value1)
+        
+        //when
+        Targeting.shared.clearContextKeywords()
+        let set = Targeting.shared.getContextKeywordsSet()
+
+        //then
+        XCTAssertEqual(0, set.count)
+    }
+
+    // MARK: - global user keywords (user.keywords)
+    func testAddUserKeyword() {
+        //given
+        let value1 = "value1"
+        
+        //when
+        Targeting.shared.addUserKeyword(value1)
         let set = Targeting.shared.getUserKeywordsSet()
 
-        XCTAssert(set.count == 1)
-        XCTAssert(set.contains("value10"))
+        //then
+        XCTAssertEqual(1, set.count)
+        XCTAssert(set.contains(value1))
+    }
+    
+    func testAddUserKeywords() {
+        //given
+        let value1 = "value1"
+        let inputSet: Set = [value1]
+        
+        //when
+        Targeting.shared.addUserKeywords(inputSet)
+        let set = Targeting.shared.getUserKeywordsSet()
+
+        //then
+        XCTAssertEqual(1, set.count)
+        XCTAssert(set.contains(value1))
+    }
+    
+    func testRemoveUserKeyword() {
+        //given
+        let value1 = "value1"
+        Targeting.shared.addUserKeyword(value1)
+        
+        //when
+        Targeting.shared.removeUserKeyword(value1)
+        let set = Targeting.shared.getUserKeywordsSet()
+
+        //then
+        XCTAssertEqual(0, set.count)
+    }
+    
+    func testClearUserKeywords() {
+        //given
+        let value1 = "value1"
+        Targeting.shared.addUserKeyword(value1)
+        
+        //when
+        Targeting.shared.clearUserKeywords()
+        let set = Targeting.shared.getUserKeywordsSet()
+
+        //then
+        XCTAssertEqual(0, set.count)
     }
 
 }

@@ -79,6 +79,36 @@ import CoreLocation
         return locationPrecision as NSNumber?
     }
     
+    // MARK: - Year Of Birth
+    //TODO refactor
+    public var yearOfBirth: Int {
+        return yearofbirth
+    }
+
+    /**
+     * This property gets the year of birth value set by the application developer
+     */
+    public func setYearOfBirth(yob: Int) throws {
+        let date = Date()
+        let calendar = Calendar.current
+
+        let year = calendar.component(.year, from: date)
+
+        if (yob <= 1900 || yob >= year) {
+            throw ErrorCode.yearOfBirthInvalid
+        } else {
+            yearofbirth = yob
+        }
+    }
+
+    /**
+     * This property clears year of birth value set by the application developer
+     */
+    public func clearYearOfBirth() {
+        yearofbirth = 0
+    }
+    
+    // MARK: - COPPA
     /**
      * The boolean value set by the user to collect user data
      */
@@ -92,6 +122,7 @@ import CoreLocation
         }
     }
     
+    // MARK: - GDPR Subject
     /**
      * The boolean value set by the user to collect user data
      */
@@ -124,6 +155,7 @@ import CoreLocation
         return subjectToGDPR as NSNumber?
     }
 
+    // MARK: - GDPR Consent
     /**
      * The consent string for sending the GDPR consent
      */
@@ -373,35 +405,6 @@ import CoreLocation
     func getContextKeywordsSet() -> Set<String> {
         Log.info("global context keywords set is \(contextKeywordsSet)")
         return contextKeywordsSet
-    }
-    
-    // MARK: - yearOfBirth
-    //TODO refactor
-    public var yearOfBirth: Int {
-        return yearofbirth
-    }
-
-    /**
-     * This property gets the year of birth value set by the application developer
-     */
-    public func setYearOfBirth(yob: Int) throws {
-        let date = Date()
-        let calendar = Calendar.current
-
-        let year = calendar.component(.year, from: date)
-
-        if (yob <= 1900 || yob >= year) {
-            throw ErrorCode.yearOfBirthInvalid
-        } else {
-            yearofbirth = yob
-        }
-    }
-
-    /**
-     * This property clears year of birth value set by the application developer
-     */
-    public func clearYearOfBirth() {
-        yearofbirth = 0
     }
 
 }

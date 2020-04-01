@@ -31,52 +31,54 @@ limitations under the License.
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
-- (void)testYearOfBirth {
+- (void)testStoreURL {
     //given
-    NSError *error = nil;
-    int yearOfBirth = 1985;
+    NSString *storeURL = @"https://itunes.apple.com/app/id123456789";
     
     //when
-    [Targeting.shared setYearOfBirthWithYob:yearOfBirth error:&error];
-    long value1 = Targeting.shared.yearOfBirth;
-    
-    [Targeting.shared clearYearOfBirth];
-    long value2 = Targeting.shared.yearOfBirth;
-    
+    Targeting.shared.storeURL = storeURL;
+    NSString *result = Targeting.shared.storeURL;
+
     //then
-    XCTAssertNil(error);
-    XCTAssertEqual(yearOfBirth, value1);
-    XCTAssertEqual(0, value2);
+    XCTAssertEqualObjects(storeURL, result);
 }
 
-- (void)testInvalidYOB {
+- (void)testDomain {
+    //given
+    NSString *domain = @"appdomain.com";
     
     //when
-    NSError *error1 = nil;
-    NSError *error2 = nil;
-    NSError *error3 = nil;
+    Targeting.shared.domain = domain;
+    NSString *result = Targeting.shared.domain;
+
+    //then
+    XCTAssertEqualObjects(domain, result);
+}
+
+- (void)testGender {
+    //given
+    int genderFemale = GenderFemale;
     
-    [Targeting.shared setYearOfBirthWithYob:-1 error:&error1];
-    [Targeting.shared setYearOfBirthWithYob:999 error:&error2];
-    [Targeting.shared setYearOfBirthWithYob:10000 error:&error3];
+    //when
+    Targeting.shared.gender = genderFemale;
     
     //then
-    XCTAssertNotNil(error1);
-    XCTAssertNotNil(error2);
-    XCTAssertNotNil(error3);
-
+    XCTAssertEqual(genderFemale, Targeting.shared.gender);
 }
 
-- (void)testSetGenderTargeting {
-    Targeting.shared.gender = GenderFemale;
-    XCTAssertEqual(GenderFemale, Targeting.shared.gender);
-    Targeting.shared.gender = GenderMale;
-    XCTAssertEqual(GenderMale, Targeting.shared.gender);
-    Targeting.shared.gender = GenderUnknown;
-    XCTAssertEqual(GenderUnknown, Targeting.shared.gender);
+- (void)testitunesID {
+    //given
+    NSString *itunesID = @"54673893";
+    
+    //when
+    Targeting.shared.itunesID = itunesID;
+    NSString *result = Targeting.shared.itunesID;
+
+    //then
+    XCTAssertEqualObjects(itunesID, result);
 }
 
-- (void)testSetLocationTargeting {
+- (void)testLocation {
     
     //given
     CLLocation *location = [[CLLocation alloc] initWithLatitude:100 longitude:100];
@@ -89,7 +91,7 @@ limitations under the License.
     
 }
 
-- (void)testSetLocationPrecisionTargeting {
+- (void)testLocationPrecision {
     //given
     NSNumber *locationPrecision1 = @1;
     int locationPrecision2 = 2;
@@ -117,6 +119,43 @@ limitations under the License.
     
 }
 
+// MARK: - Year Of Birth
+- (void)testYearOfBirth {
+    //given
+    NSError *error = nil;
+    int yearOfBirth = 1985;
+    
+    //when
+    [Targeting.shared setYearOfBirthWithYob:yearOfBirth error:&error];
+    long value1 = Targeting.shared.yearOfBirth;
+    
+    [Targeting.shared clearYearOfBirth];
+    long value2 = Targeting.shared.yearOfBirth;
+    
+    //then
+    XCTAssertNil(error);
+    XCTAssertEqual(yearOfBirth, value1);
+    XCTAssertEqual(0, value2);
+}
+
+- (void)testYearOfBirthInvalid {
+    
+    //when
+    NSError *error1 = nil;
+    NSError *error2 = nil;
+    NSError *error3 = nil;
+    
+    [Targeting.shared setYearOfBirthWithYob:-1 error:&error1];
+    [Targeting.shared setYearOfBirthWithYob:999 error:&error2];
+    [Targeting.shared setYearOfBirthWithYob:10000 error:&error3];
+    
+    //then
+    XCTAssertNotNil(error1);
+    XCTAssertNotNil(error2);
+    XCTAssertNotNil(error3);
+
+}
+
 //MARK: - COPPA
 - (void)testSubjectToCOPPA {
     //given
@@ -134,7 +173,7 @@ limitations under the License.
 }
 
 //MARK: - GDPR Subject
-- (void)testGdprSubjectPB {
+- (void)testsubjectToGDPR_PB {
     //given
     NSNumber *subjectToGDPR1 = @YES;
     BOOL subjectToGDPR2 = YES;
@@ -163,7 +202,7 @@ limitations under the License.
 }
 
 //MARK: - GDPR Consent
-- (void)testGdprConsentPB {
+- (void)testGdprConsentStringPB {
     //given
     Targeting.shared.gdprConsentString = @"testconsent PB";
     
@@ -205,42 +244,6 @@ limitations under the License.
     
     //defer
     Targeting.shared.purposeConsents = nil;
-}
-
-- (void)testItuneIDTargeting {
-    //given
-    NSString *itunesID = @"54673893";
-    
-    //when
-    Targeting.shared.itunesID = itunesID;
-    NSString *result = Targeting.shared.itunesID;
-
-    //then
-    XCTAssertEqualObjects(itunesID, result);
-}
-
-- (void)testStoreURL {
-    //given
-    NSString *storeURL = @"https://itunes.apple.com/app/id123456789";
-    
-    //when
-    Targeting.shared.storeURL = storeURL;
-    NSString *result = Targeting.shared.storeURL;
-
-    //then
-    XCTAssertEqualObjects(storeURL, result);
-}
-
-- (void)testDomain {
-    //given
-    NSString *domain = @"appdomain.com";
-    
-    //when
-    Targeting.shared.domain = domain;
-    NSString *result = Targeting.shared.domain;
-
-    //then
-    XCTAssertEqualObjects(domain, result);
 }
 
 - (void)testAccessControlList {
