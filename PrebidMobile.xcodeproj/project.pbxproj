@@ -82,6 +82,7 @@
 		FAA2990A24334E96002ACBF2 /* AdUnitSuccessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA2990924334E96002ACBF2 /* AdUnitSuccessorTests.swift */; };
 		FAA2990C243368A1002ACBF2 /* AdUnitSuccessorObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA2990B243368A1002ACBF2 /* AdUnitSuccessorObjCTests.m */; };
 		FAA2990E24349813002ACBF2 /* AdUnitObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA2990D24349812002ACBF2 /* AdUnitObjCTests.m */; };
+		FAA299102434C141002ACBF2 /* AdViewUtilsObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA2990F2434C141002ACBF2 /* AdViewUtilsObjCTests.m */; };
 		FAAA00CA23227F5B009DC7D6 /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D792F5217E229A0080F428 /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAAA00CB23227F5B009DC7D6 /* BidManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E517231FCD1400CAA05B /* BidManager.swift */; };
 		FAAA00CC23227F5B009DC7D6 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1A321835DF300CE1BA3 /* Logging.swift */; };
@@ -214,6 +215,7 @@
 		FAA2990924334E96002ACBF2 /* AdUnitSuccessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdUnitSuccessorTests.swift; sourceTree = "<group>"; };
 		FAA2990B243368A1002ACBF2 /* AdUnitSuccessorObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdUnitSuccessorObjCTests.m; sourceTree = "<group>"; };
 		FAA2990D24349812002ACBF2 /* AdUnitObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdUnitObjCTests.m; sourceTree = "<group>"; };
+		FAA2990F2434C141002ACBF2 /* AdViewUtilsObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdViewUtilsObjCTests.m; sourceTree = "<group>"; };
 		FAAA00BD2322733E009DC7D6 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAAB5F9623B9F734001715A7 /* RewardedVideoAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedVideoAdUnit.swift; sourceTree = "<group>"; };
 		FAC837D72321583500565051 /* CollectionExtensionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionExtensionTest.swift; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 			isa = PBXGroup;
 			children = (
 				FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */,
+				FAA2990F2434C141002ACBF2 /* AdViewUtilsObjCTests.m */,
 			);
 			path = addendum;
 			sourceTree = "<group>";
@@ -715,6 +718,7 @@
 				6013E3F82215C82900FEE2B1 /* CLLocationManager+Swizzle.swift in Sources */,
 				60C0381F2204AF5D0082B32C /* DispatcherTests.swift in Sources */,
 				60C038202204AF5D0082B32C /* BidManagerTests.swift in Sources */,
+				FAA299102434C141002ACBF2 /* AdViewUtilsObjCTests.m in Sources */,
 				606FAC5222022932008EAE5E /* ExAdUnit.swift in Sources */,
 				60C038212204AF5D0082B32C /* RequestBuilderTests.swift in Sources */,
 				9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */,
