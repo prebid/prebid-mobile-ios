@@ -15,7 +15,7 @@
 
 import Foundation
 
-public enum ErrorCode: Error {
+enum ErrorCode: Error {
     case prebidServerURLInvalid (String)
     case yearOfBirthInvalid
 }
