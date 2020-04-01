@@ -28,7 +28,25 @@ limitations under the License.
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    Targeting.shared.subjectToCOPPA = false;
+    Targeting.shared.subjectToGDPR = nil;
+    Targeting.shared.gdprConsentString = nil;
+    Targeting.shared.purposeConsents = nil;
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_SubjectToGDPR"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_SubjectToGDPR"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_gdprApplies"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABConsent_ConsentString"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_TCString"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_PurposeConsents"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [Targeting.shared clearYearOfBirth];
+    [Targeting.shared clearAccessControlList];
+    [Targeting.shared clearContextData];
+    [Targeting.shared clearContextKeywords];
+    [Targeting.shared clearUserKeywords];
+    [Targeting.shared clearUserData];
 }
 
 - (void)testStoreURL {
