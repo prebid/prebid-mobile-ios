@@ -19,9 +19,7 @@ import XCTest
 class AdUnitTests: XCTestCase {
 
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
-        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
+
     }
 
     override func tearDown() {
@@ -127,20 +125,6 @@ class AdUnitTests: XCTestCase {
         XCTAssertEqual(2, userKeywords.count)
         XCTAssert(userKeywords.contains("value2") && userKeywords.contains("value1"))
     }
-    
-    func testClearUserKeywords() {
-        //given
-        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        adUnit.addUserKeyword(key: "key1", value: "value1")
-        adUnit.addUserKeyword(key: "key2", value: "value2")
-        
-        //when
-        adUnit.clearUserKeywords()
-        let userKeywords = Targeting.shared.getUserKeywordsSet()
-        
-        //then
-        XCTAssertEqual(0, userKeywords.count)
-    }
 
     func testRemoveUserKeyword() {
         //given
@@ -155,6 +139,20 @@ class AdUnitTests: XCTestCase {
         //then
         XCTAssertEqual(1, userKeywords.count)
         XCTAssert(userKeywords.contains("value2"))
+    }
+
+    func testClearUserKeywords() {
+        //given
+        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        adUnit.addUserKeyword(key: "key1", value: "value1")
+        adUnit.addUserKeyword(key: "key2", value: "value2")
+        
+        //when
+        adUnit.clearUserKeywords()
+        let userKeywords = Targeting.shared.getUserKeywordsSet()
+        
+        //then
+        XCTAssertEqual(0, userKeywords.count)
     }
     
     // MARK: - adunit context data aka inventory data (imp[].ext.context.data)
