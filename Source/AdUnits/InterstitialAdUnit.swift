@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers public class InterstitialAdUnit: AdUnit {
+public class InterstitialAdUnit: AdUnit {
 
     var minSizePerc: CGSize?
     

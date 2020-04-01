@@ -37,7 +37,7 @@ public class Utils: NSObject {
         
     }
 
-@objc func removeHBKeywords (adObject: AnyObject) {
+func removeHBKeywords (adObject: AnyObject) {
 
     let adServerObject: String = String(describing: type(of: adObject))
     if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name || 
@@ -95,7 +95,7 @@ public class Utils: NSObject {
     }
 }
 
-@objc func validateAndAttachKeywords (adObject: AnyObject, bidResponse: BidResponse) {
+func validateAndAttachKeywords (adObject: AnyObject, bidResponse: BidResponse) {
 
     let adServerObject: String = String(describing: type(of: adObject))
     if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name || 
