@@ -386,13 +386,16 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTAssertEqual(2, fetchDemandCount)
     }
 
-    func testDFPInterstitialSanityAppCheckTest() {
+    func testAMInterstitialSanity() {
+        
+        setUpAppRubicon()
+        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
         loadSuccesfulException = expectation(description: "\(#function)")
         
         //given
         timeoutForRequest = 30.0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
-        dfpInterstitial = DFPInterstitial(adUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
+        let interstitialUnit = InterstitialAdUnit(configId: "1001-1")
+        dfpInterstitial = DFPInterstitial(adUnitID: "/5300653/test_adunit_interstitial_pavliuchyk_prebid-server.qa.rubiconproject.com")
         let request: DFPRequest = DFPRequest()
         dfpInterstitial?.delegate = self
         
@@ -1019,7 +1022,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         let mopubBanner = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6")
         mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
         adUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, ResultCode.prebidDemandFetchSuccess)
+            XCTAssertEqual(resultCode, ResultCode.prebidDemandFetchSuccess, "expected:Success instead of:\(resultCode.name)")
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -1393,6 +1396,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
     }
     
     // MARK: - DFP delegate
+    // MARK: - GADBannerViewDelegate
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         
         print("adViewDidReceiveAd")
@@ -1406,28 +1410,27 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         loadSuccesfulException = nil
     }
 
-    func interstitialWillPresentScreen(_ ad: GADInterstitial) {
-        print("Ad presented")
-    }
-
-    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        // Send another GADRequest here
-        print("Ad dismissed")
-    }
-    
+    //MARK: - GADInterstitialDelegate
     func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-        
+
         print("interstitialDidReceiveAd")
-        
+
         self.dfpInterstitial?.present(fromRootViewController: viewController!)
-        
-        swizzleUIWebViewIsLoading()
-        
-        XCTWaiter.wait(for: [XCTestExpectation(description: "Hello World!")], timeout: 2.0)
+
+        let _ = XCTWaiter.wait(for: [XCTestExpectation(description: "Hello World!")], timeout: 2.0)
         didLoadAdByAdServerHelper(view: self.viewController!.presentedViewController!.view)
     }
     
+
+    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        print("AM Interstitial didFailToReceiveAdWithError:\(error.localizedDescription)")
+        
+        self.prebidCreativeError = error
+        self.loadSuccesfulException!.fulfill()
+    }
+    
     // MARK: - Mopub delegate
+    //MARK: - MPAdViewDelegate
     func viewControllerForPresentingModalView() -> UIViewController! {
         return viewController
     }
@@ -1443,6 +1446,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         loadSuccesfulException = nil
     }
 
+    //MARK: - MPInterstitialAdControllerDelegate
     func interstitialDidLoadAd(_ interstitial: MPInterstitialAdController!) {
         print("Ad ready")
         if (self.mopubInterstitial?.ready ?? true) {
@@ -1482,19 +1486,6 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         }
         
         AdViewUtils.findPrebidCreativeSize(view, success: success, failure: failure)
-    }
-    
-    private func swizzleUIWebViewIsLoading() {
-
-        let originalMethod = class_getInstanceMethod(UIWebView.self, #selector(getter: UIWebView.isLoading))
-        let swizzledMethod = class_getInstanceMethod(PrebidDemoTests.self, #selector(PrebidDemoTests.swizzledIsLoading))
-        
-        method_exchangeImplementations(originalMethod!, swizzledMethod!)
-    }
-    
-    @objc
-    private func swizzledIsLoading() -> Bool {
-        return false
     }
     
     private func swizzleJsonSerializationData() {
