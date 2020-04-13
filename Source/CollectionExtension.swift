@@ -132,6 +132,19 @@ extension Dictionary where Key == String, Value == String {
     }
 }
 
+extension Array where Element: SingleContainerInt {
+    func toIntArray() -> [Int] {
+        
+        var result: [Int] = []
+
+        for element in self {
+            result.append(element.value)
+        }
+
+        return result
+    }
+}
+
 //MARK: - private block
 
 private func removeEntryWithoutValue(_ array: inout [Any]) {

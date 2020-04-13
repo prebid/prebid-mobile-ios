@@ -43,6 +43,8 @@
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
 		9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */; };
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
+		CEEA4530240FCBEF0003CDE7 /* VideoBaseAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEA452F240FCBEF0003CDE7 /* VideoBaseAdUnit.swift */; };
+		CEEA4531240FCBEF0003CDE7 /* VideoBaseAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEA452F240FCBEF0003CDE7 /* VideoBaseAdUnit.swift */; };
 		F5400CB22209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json in Resources */ = {isa = PBXBuildFile; fileRef = F5400CB12209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json */; };
 		F5400CB62209EBF50018F6B1 /* PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json in Resources */ = {isa = PBXBuildFile; fileRef = F5400CB52209EBF50018F6B1 /* PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json */; };
 		F5400CB82209F19B0018F6B1 /* responseInvalidNoTopCacheId.json in Resources */ = {isa = PBXBuildFile; fileRef = F5400CB72209F19B0018F6B1 /* responseInvalidNoTopCacheId.json */; };
@@ -109,6 +111,9 @@
 		FAD4D544235DCCAB00140012 /* VideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4D542235DCCAB00140012 /* VideoAdUnit.swift */; };
 		FAD4D546235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4D545235DCCCF00140012 /* VideoInterstitialAdUnit.swift */; };
 		FAD4D547235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4D545235DCCCF00140012 /* VideoInterstitialAdUnit.swift */; };
+		FAD9527E241BE18000A03AB6 /* VideoAdUnitObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD9527D241BE18000A03AB6 /* VideoAdUnitObjCTests.m */; };
+		FAE17D58242A29AC0052719A /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE17D57242A29AC0052719A /* Parameters.swift */; };
+		FAE17D59242A29AC0052719A /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE17D57242A29AC0052719A /* Parameters.swift */; };
 		FAEBF29F237EC7B1006BA972 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */; };
 		FAEBF2A0237EC7B1006BA972 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */; };
 		FAEBF2A2237ECFEF006BA972 /* StorageUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */; };
@@ -193,6 +198,7 @@
 		97EE4C6422035DD1006FEFA2 /* responseInvalidConfigId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseInvalidConfigId.json; sourceTree = "<group>"; };
 		97EE4C6722035E57006FEFA2 /* responseIncorrectFormat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseIncorrectFormat.json; sourceTree = "<group>"; };
 		97F29999220056D10072E0C0 /* BannerAdUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAdUnitTests.swift; sourceTree = "<group>"; };
+		CEEA452F240FCBEF0003CDE7 /* VideoBaseAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBaseAdUnit.swift; sourceTree = "<group>"; };
 		D07F43DFFF74B68B593B7880 /* Pods-PrebidMobileCore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileCore.debug.xcconfig"; path = "Target Support Files/Pods-PrebidMobileCore/Pods-PrebidMobileCore.debug.xcconfig"; sourceTree = "<group>"; };
 		F37A7B8AA694F6F9F550482F /* Pods-PrebidMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobile.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobile/Pods-PrebidMobile.release.xcconfig"; sourceTree = "<group>"; };
 		F5400CB12209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseInvalidResponseWithoutCacheId.json; sourceTree = "<group>"; };
@@ -219,6 +225,8 @@
 		FAC837D72321583500565051 /* CollectionExtensionTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionExtensionTest.swift; sourceTree = "<group>"; };
 		FAD4D542235DCCAB00140012 /* VideoAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAdUnit.swift; sourceTree = "<group>"; };
 		FAD4D545235DCCCF00140012 /* VideoInterstitialAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoInterstitialAdUnit.swift; sourceTree = "<group>"; };
+		FAD9527D241BE18000A03AB6 /* VideoAdUnitObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoAdUnitObjCTests.m; sourceTree = "<group>"; };
+		FAE17D57242A29AC0052719A /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 		FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUtils.swift; sourceTree = "<group>"; };
 		FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUtilsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -264,10 +272,12 @@
 			isa = PBXGroup;
 			children = (
 				60EE7B0521F26329000B12A8 /* Utils.swift */,
+				FAE17D57242A29AC0052719A /* Parameters.swift */,
 				60C2A366234BBA5300628C9D /* Native */,
 				6062B1AB21878CFB00CE1BA3 /* AdUnit.swift */,
 				60D79311217E2CF20080F428 /* BannerAdUnit.swift */,
 				6062B1AD2188783B00CE1BA3 /* InterstitialAdUnit.swift */,
+				CEEA452F240FCBEF0003CDE7 /* VideoBaseAdUnit.swift */,
 				FAD4D542235DCCAB00140012 /* VideoAdUnit.swift */,
 				FAD4D545235DCCCF00140012 /* VideoInterstitialAdUnit.swift */,
 				FAAB5F9623B9F734001715A7 /* RewardedVideoAdUnit.swift */,
@@ -383,6 +393,7 @@
 				606FAC492201F248008EAE5E /* AdUnitTests.swift */,
 				606FAC5122022932008EAE5E /* ExAdUnit.swift */,
 				FA434C32235DEBE6001578E3 /* VideoAdUnitTests.swift */,
+				FAD9527D241BE18000A03AB6 /* VideoAdUnitObjCTests.m */,
 				FA434C34235DEC0B001578E3 /* VideoInterstitialAdUnitTests.swift */,
 				FAAB5F9923BA0056001715A7 /* RewardedVideoAdUnitTests.swift */,
 			);
@@ -726,6 +737,7 @@
 				606FAC282200AD2C008EAE5E /* PrebidTests.swift in Sources */,
 				606FAC4A2201F248008EAE5E /* AdUnitTests.swift in Sources */,
 				FAEBF2A2237ECFEF006BA972 /* StorageUtilsTests.swift in Sources */,
+				FAD9527E241BE18000A03AB6 /* VideoAdUnitObjCTests.m in Sources */,
 				60D79301217E229B0080F428 /* PrebidMobileTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -756,11 +768,13 @@
 				FA29A3E3232255DF00F13F61 /* Global.swift in Sources */,
 				FA29A3E4232255DF00F13F61 /* BidResponse.swift in Sources */,
 				FA29A3E5232255DF00F13F61 /* InterstitialAdUnit.swift in Sources */,
+				CEEA4531240FCBEF0003CDE7 /* VideoBaseAdUnit.swift in Sources */,
 				FA0AA1A823797435004B7A44 /* NativeEventTracker.swift in Sources */,
 				FA29A3E6232255DF00F13F61 /* Host.swift in Sources */,
 				FA29A3E7232255DF00F13F61 /* Constants.swift in Sources */,
 				FAD4D547235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */,
 				FA29A3E8232255DF00F13F61 /* Logging.swift in Sources */,
+				FAE17D59242A29AC0052719A /* Parameters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -790,11 +804,13 @@
 				FAAA00D123227F5B009DC7D6 /* Constants.swift in Sources */,
 				FAAA00DA23227F65009DC7D6 /* AdUnit.swift in Sources */,
 				FAAA00DB23227F65009DC7D6 /* InterstitialAdUnit.swift in Sources */,
+				CEEA4530240FCBEF0003CDE7 /* VideoBaseAdUnit.swift in Sources */,
 				FAAA00CE23227F5B009DC7D6 /* Host.swift in Sources */,
 				FAAA00D423227F5B009DC7D6 /* Reachability.swift in Sources */,
 				FAAA00CF23227F5B009DC7D6 /* ResultCode.swift in Sources */,
 				FAD4D546235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */,
 				FAAA00DD23227F6A009DC7D6 /* AdViewUtils.swift in Sources */,
+				FAE17D58242A29AC0052719A /* Parameters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
