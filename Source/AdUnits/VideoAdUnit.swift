@@ -15,7 +15,7 @@
 
 import Foundation
 
-public class VideoAdUnit: AdUnit {
+public class VideoAdUnit: VideoBaseAdUnit {
 
     let type: PlacementType
 
@@ -24,11 +24,13 @@ public class VideoAdUnit: AdUnit {
         super.init(configId: configId, size: size)
     }
 
-     public func addAdditionalSize(sizes: [CGSize]) {
+    public func addAdditionalSize(sizes: [CGSize]) {
         super.adSizes += sizes
     }
 
+    
     @objc(VideoAdUnitPlacementType)
+//    @objc(PBVideoPlacementType)
     public enum PlacementType: Int {
         case inBanner = 2
         case inArticle = 3
