@@ -68,6 +68,25 @@ class AdUnitSuccessorTests: XCTestCase {
         XCTAssertEqual(.inBanner, adUnit.type)
     }
     
+    //MARK: - VideoInterstitialAdUnit
+    func testVideoInterstitialAdUnitCreation() {
+        //when
+        let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
+        
+        //then
+        checkDefault(adUnit: adUnit)
+    }
+    
+    //MARK: - RewardedVideoAdUnit
+    func testRewardedVideoAdUnitCreation() {
+        //when
+        let adUnit = RewardedVideoAdUnit(configId: Constants.configID1)
+        
+        //then
+        checkDefault(adUnit: adUnit)
+    }
+    
+    //MARK: - VideoBaseAdUnit
     func testVideoParametersCreation() {
         
         //given
@@ -78,12 +97,19 @@ class AdUnitSuccessorTests: XCTestCase {
         let videoBaseAdUnitArr = [videoAdUnit, videoInterstitialAdUnit, rewardedVideoAdUnit]
         
         for videoBaseAdUnit in videoBaseAdUnitArr {
-            checkVideoParametersHelper(videoBaseAdUnit: videoBaseAdUnit)
+            checkVideoParametersHelper(videoBaseAdUnit)
         }
         
     }
     
-    func checkVideoParametersHelper(videoBaseAdUnit: VideoBaseAdUnit) {
+    //MARK: - private zone
+    private func checkDefault(adUnit: AdUnit) {
+        XCTAssertEqual(1, adUnit.adSizes.count)
+        XCTAssertEqual(Constants.configID1, adUnit.prebidConfigId)
+        XCTAssertNil(adUnit.dispatcher)
+    }
+    
+    private func checkVideoParametersHelper(_ videoBaseAdUnit: VideoBaseAdUnit) {
         
         let parameters = VideoAdUnit.Parameters()
         parameters.api = [Api.VPAID_1, Api.VPAID_2]
@@ -129,31 +155,6 @@ class AdUnitSuccessorTests: XCTestCase {
         XCTAssertEqual(2, protocols.count)
         XCTAssert(protocols.contains(2) && protocols.contains(3))
         XCTAssertEqual(0, startDelay)
-    }
-    
-    //MARK: - VideoInterstitialAdUnit
-    func testVideoInterstitialAdUnitCreation() {
-        //when
-        let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
-        
-        //then
-        checkDefault(adUnit: adUnit)
-    }
-    
-    //MARK: - RewardedVideoAdUnit
-    func testRewardedVideoAdUnitCreation() {
-        //when
-        let adUnit = RewardedVideoAdUnit(configId: Constants.configID1)
-        
-        //then
-        checkDefault(adUnit: adUnit)
-    }
-    
-    //MARK: - private zone
-    private func checkDefault(adUnit: AdUnit) {
-        XCTAssertEqual(1, adUnit.adSizes.count)
-        XCTAssertEqual(Constants.configID1, adUnit.prebidConfigId)
-        XCTAssertNil(adUnit.dispatcher)
     }
 
 }

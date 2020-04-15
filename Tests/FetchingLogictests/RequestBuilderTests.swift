@@ -1052,7 +1052,127 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
     }
     
-    func testPostDataWithVideo() throws {
+    func testVideoAdUnit() throws {
+        //given
+        Prebid.shared.prebidServerAccountId = "12345"
+        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250), type: .inBanner)
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let impArray = jsonRequestBody["imp"] as? [Any],
+            let impDic = impArray[0] as? [String: Any],
+            let video = impDic["video"] as? [String: Any],
+            let w = video["w"] as? Int,
+            let h = video["h"] as? Int,
+            let linearity = video["linearity"] as? Int,
+
+            let ext = jsonRequestBody["ext"] as? [String: Any],
+            let extPrebid = ext["prebid"] as? [String: Any],
+            let cache = extPrebid["cache"] as? [String: Any],
+            let vastXml = cache["vastxml"] as? [String: Any]
+            else {
+                XCTFail("parsing fail")
+                return
+        }
+
+        //then
+        XCTAssertEqual(300, w)
+        XCTAssertEqual(250, h)
+        XCTAssertEqual(1, linearity)
+
+        XCTAssertNotNil(vastXml)
+
+    }
+     
+    func testVideoInterstitialAdUnit() throws {
+        //given
+        Prebid.shared.prebidServerAccountId = "12345"
+        let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+        
+        guard let impArray = jsonRequestBody["imp"] as? [Any],
+            let impDic = impArray[0] as? [String: Any],
+            let video = impDic["video"] as? [String: Any],
+            let w = video["w"] as? Int,
+            let h = video["h"] as? Int,
+            let placement = video["placement"] as? Int,
+            let linearity = video["linearity"] as? Int,
+            
+            let ext = jsonRequestBody["ext"] as? [String: Any],
+            let extPrebid = ext["prebid"] as? [String: Any],
+            let cache = extPrebid["cache"] as? [String: Any],
+            let vastXml = cache["vastxml"] as? [String: Any],
+            
+            let instl = impDic["instl"] as? Int
+            else {
+                XCTFail("parsing fail")
+                return
+        }
+        
+        //then
+        XCTAssertNotNil(w)
+        XCTAssertNotNil(h)
+        
+        XCTAssertEqual(5, placement)
+        XCTAssertEqual(1, linearity)
+        
+        XCTAssertNotNil(vastXml)
+        
+        XCTAssertEqual(1, instl)
+        
+    }
+    
+    func testRewardedVideoAdUnit() throws {
+        //given
+        Prebid.shared.prebidServerAccountId = "12345"
+        let adUnit = RewardedVideoAdUnit(configId: Constants.configID1)
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+        
+        guard let impArray = jsonRequestBody["imp"] as? [Any],
+            let impDic = impArray[0] as? [String: Any],
+            let video = impDic["video"] as? [String: Any],
+            let w = video["w"] as? Int,
+            let h = video["h"] as? Int,
+            let placement = video["placement"] as? Int,
+            let linearity = video["linearity"] as? Int,
+            
+            let ext = jsonRequestBody["ext"] as? [String: Any],
+            let extPrebid = ext["prebid"] as? [String: Any],
+            let cache = extPrebid["cache"] as? [String: Any],
+            let vastXml = cache["vastxml"] as? [String: Any],
+        
+            let instl = impDic["instl"] as? Int,
+        
+            let impExt = impDic["ext"] as? [String: Any],
+            let prebid = impExt["prebid"] as? [String: Any],
+            let isRewarded = prebid["is_rewarded_inventory"] as? Int
+        
+            else {
+                XCTFail("parsing fail")
+                return
+        }
+        
+        //then
+        XCTAssertNotNil(w)
+        XCTAssertNotNil(h)
+        
+        XCTAssertEqual(5, placement)
+        XCTAssertEqual(1, linearity)
+        
+        XCTAssertNotNil(vastXml)
+        
+        XCTAssertEqual(1, instl)
+        
+        XCTAssertEqual(1, isRewarded)
+        
+    }
+    
+    func testVideoBaseAdUnit() throws {
         //given
         Prebid.shared.prebidServerAccountId = "12345"
         let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250), type: .inBanner)
@@ -1077,9 +1197,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         guard let impArray = jsonRequestBody["imp"] as? [Any],
             let impDic = impArray[0] as? [String: Any],
             let video = impDic["video"] as? [String: Any],
-            let w = video["w"] as? Int,
-            let h = video["h"] as? Int,
-            let linearity = video["linearity"] as? Int,
 
             let api = video["api"] as? [Int],
             let maxBitrate = video["maxbitrate"] as? Int,
@@ -1089,22 +1206,14 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             let mimes = video["mimes"] as? [String],
             let playbackMethod = video["playbackmethod"] as? [Int],
             let protocols = video["protocols"] as? [Int],
-            let startDelay = video["startdelay"] as? Int,
+            let startDelay = video["startdelay"] as? Int
 
-            let ext = jsonRequestBody["ext"] as? [String: Any],
-            let extPrebid = ext["prebid"] as? [String: Any],
-            let cache = extPrebid["cache"] as? [String: Any],
-            let vastXml = cache["vastxml"] as? [String: Any]
             else {
                 XCTFail("parsing fail")
                 return
         }
 
         //then
-        XCTAssertEqual(300, w)
-        XCTAssertEqual(250, h)
-        XCTAssertEqual(1, linearity)
-
         XCTAssertEqual(2, api.count)
         XCTAssert(api.contains(1) && api.contains(2))
         XCTAssertEqual(1500, maxBitrate)
@@ -1119,112 +1228,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssert(protocols.contains(2) && protocols.contains(3))
         XCTAssertEqual(0, startDelay)
 
-        XCTAssertNotNil(vastXml)
-
-    }
-     
-    func testVideoInterstitialAdUnit() throws {
-        //given
-        Prebid.shared.prebidServerAccountId = "12345"
-        let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
-        
-        let parameters = VideoBaseAdUnit.Parameters()
-        parameters.playbackMethod = [PlaybackMethod.AutoPlaySoundOff]
-        parameters.mimes = ["video/mp4"]
-        adUnit.parameters = parameters
-        
-        //when
-        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-        
-        guard let impArray = jsonRequestBody["imp"] as? [Any],
-            let impDic = impArray[0] as? [String: Any],
-            let video = impDic["video"] as? [String: Any],
-            let w = video["w"] as? Int,
-            let h = video["h"] as? Int,
-            let placement = video["placement"] as? Int,
-            let linearity = video["linearity"] as? Int,
-            let playbackMethods = video["playbackmethod"] as? [Int],
-            let playbackMethods1 = playbackMethods[0] as? Int,
-            let mimes = video["mimes"] as? [String],
-            let mimes1 = mimes[0] as? String,
-            
-            let ext = jsonRequestBody["ext"] as? [String: Any],
-            let extPrebid = ext["prebid"] as? [String: Any],
-            let cache = extPrebid["cache"] as? [String: Any],
-            let vastXml = cache["vastxml"] as? [String: Any],
-            
-            let instl = impDic["instl"] as? Int
-            else {
-                XCTFail("parsing fail")
-                return
-        }
-        
-        //then
-        XCTAssertEqual(5, placement)
-        XCTAssertEqual(1, linearity)
-        XCTAssertEqual(2, playbackMethods1)
-        XCTAssertEqual("video/mp4", mimes1)
-        
-        XCTAssertNotNil(vastXml)
-        
-        XCTAssertEqual(1, instl)
-        
-    }
-    
-    func testRewardedVideoAdUnit() throws {
-        //given
-        Prebid.shared.prebidServerAccountId = "12345"
-        let adUnit = RewardedVideoAdUnit(configId: Constants.configID1)
-        
-        let videoParameters = VideoBaseAdUnit.Parameters()
-        videoParameters.playbackMethod = [PlaybackMethod.AutoPlaySoundOff]
-        videoParameters.mimes = ["video/mp4"]
-        
-        adUnit.parameters = videoParameters
-        
-        //when
-        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-        
-        guard let impArray = jsonRequestBody["imp"] as? [Any],
-            let impDic = impArray[0] as? [String: Any],
-            let video = impDic["video"] as? [String: Any],
-            let w = video["w"] as? Int,
-            let h = video["h"] as? Int,
-            let placement = video["placement"] as? Int,
-            let linearity = video["linearity"] as? Int,
-            let playbackMethods = video["playbackmethod"] as? [Int],
-            let playbackMethods1 = playbackMethods[0] as? Int,
-            let mimes = video["mimes"] as? [String],
-            let mimes1 = mimes[0] as? String,
-            
-            let ext = jsonRequestBody["ext"] as? [String: Any],
-            let extPrebid = ext["prebid"] as? [String: Any],
-            let cache = extPrebid["cache"] as? [String: Any],
-            let vastXml = cache["vastxml"] as? [String: Any],
-        
-            let instl = impDic["instl"] as? Int,
-        
-            let impExt = impDic["ext"] as? [String: Any],
-            let prebid = impExt["prebid"] as? [String: Any],
-            let isRewarded = prebid["is_rewarded_inventory"] as? Int
-        
-            else {
-                XCTFail("parsing fail")
-                return
-        }
-        
-        //then
-        XCTAssertEqual(5, placement)
-        XCTAssertEqual(1, linearity)
-        XCTAssertEqual(2, playbackMethods1)
-        XCTAssertEqual("video/mp4", mimes1)
-        
-        XCTAssertNotNil(vastXml)
-        
-        XCTAssertEqual(1, instl)
-        
-        XCTAssertEqual(1, isRewarded)
-        
     }
 
     private func getPostDataHelper(adUnit: AdUnit) throws -> (urlRequest: URLRequest, jsonRequestBody: [AnyHashable: Any]) {
@@ -1311,7 +1314,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
                     XCTAssertEqual("prebid-mobile", prebid["source"] as! String)
                     
                     let prebidSdkVersion = Bundle(for: RequestBuilder.self).infoDictionary?["CFBundleShortVersionString"] as? String
-                    XCTAssertEqual(prebidSdkVersion, prebid["version"] as! String)
+                    XCTAssertEqual(prebidSdkVersion, prebid["version"] as? String)
                 }
             }
         }

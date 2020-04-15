@@ -28,9 +28,7 @@ public class VideoAdUnit: VideoBaseAdUnit {
         super.adSizes += sizes
     }
 
-    
-    @objc(VideoAdUnitPlacementType)
-//    @objc(PBVideoPlacementType)
+    @objc(PBVideoPlacementType)
     public enum PlacementType: Int {
         case inBanner = 2
         case inArticle = 3

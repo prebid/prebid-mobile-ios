@@ -30,7 +30,7 @@ limitations under the License.
 - (void) testVideoParametersCreation {
     
     //given
-    VideoAdUnit *videoAdUnit = [[VideoAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45" size:CGSizeMake(300, 250) type: VideoAdUnitPlacementTypeInBanner];
+    VideoAdUnit *videoAdUnit = [[VideoAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45" size:CGSizeMake(300, 250) type: PBVideoPlacementTypeInBanner];
     VideoInterstitialAdUnit *videoInterstitialAdUnit = [[VideoInterstitialAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45"];
     RewardedVideoAdUnit *rewardedVideoAdUnit = [[RewardedVideoAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45"];
 
