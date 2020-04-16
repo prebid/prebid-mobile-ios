@@ -153,8 +153,8 @@ public class StartDelay: SingleContainerInt {
     @objc
     public static let PreRoll = StartDelay(0)
     @objc
-    public static let GenericMidRoll  = StartDelay(-1)
+    public static let GenericMidRoll = StartDelay(-1)
     @objc
-    public static let GenericPostRoll  = StartDelay(-2)
+    public static let GenericPostRoll = StartDelay(-2)
     
 }

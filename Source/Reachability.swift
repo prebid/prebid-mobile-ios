@@ -16,7 +16,7 @@
 import SystemConfiguration
 import Foundation
 
-public enum ReachabilityError: Error {
+enum ReachabilityError: Error {
     case FailedToCreateWithAddress(sockaddr_in)
     case FailedToCreateWithHostname(String)
     case UnableToSetCallback
@@ -25,21 +25,21 @@ public enum ReachabilityError: Error {
 }
 
 @available(*, unavailable, renamed: "Notification.Name.reachabilityChanged")
-public let ReachabilityChangedNotification = NSNotification.Name("ReachabilityChangedNotification")
+let ReachabilityChangedNotification = NSNotification.Name("ReachabilityChangedNotification")
 
-public extension Notification.Name {
-    public static let reachabilityChanged = Notification.Name("reachabilityChanged")
+extension Notification.Name {
+    static let reachabilityChanged = Notification.Name("reachabilityChanged")
 }
 
-public class Reachability {
+class Reachability {
 
-    public typealias NetworkReachable = (Reachability) -> Void
-    public typealias NetworkUnreachable = (Reachability) -> Void
+    typealias NetworkReachable = (Reachability) -> Void
+    typealias NetworkUnreachable = (Reachability) -> Void
 
     @available(*, unavailable, renamed: "Connection")
-    public enum NetworkStatus: CustomStringConvertible {
+    enum NetworkStatus: CustomStringConvertible {
         case notReachable, reachableViaWiFi, reachableViaWWAN
-        public var description: String {
+        var description: String {
             switch self {
             case .reachableViaWWAN: return "Cellular"
             case .reachableViaWiFi: return "WiFi"
@@ -48,9 +48,9 @@ public class Reachability {
         }
     }
 
-    public enum Connection: CustomStringConvertible {
+    enum Connection: CustomStringConvertible {
         case none, wifi, cellular
-        public var description: String {
+        var description: String {
             switch self {
             case .cellular: return "Cellular"
             case .wifi: return "WiFi"
@@ -59,29 +59,29 @@ public class Reachability {
         }
     }
 
-    public var whenReachable: NetworkReachable?
-    public var whenUnreachable: NetworkUnreachable?
+    var whenReachable: NetworkReachable?
+    var whenUnreachable: NetworkUnreachable?
 
     @available(*, deprecated: 4.0, renamed: "allowsCellularConnection")
-    public let reachableOnWWAN: Bool = true
+    let reachableOnWWAN: Bool = true
 
     /// Set to `false` to force Reachability.connection to .none when on cellular connection (default value `true`)
-    public var allowsCellularConnection: Bool
+    var allowsCellularConnection: Bool
 
     // The notification center on which "reachability changed" events are being posted
-    public var notificationCenter: NotificationCenter = NotificationCenter.default
+    var notificationCenter: NotificationCenter = NotificationCenter.default
 
     @available(*, deprecated: 4.0, renamed: "connection.description")
-    public var currentReachabilityString: String {
+    var currentReachabilityString: String {
         return "\(connection)"
     }
 
     @available(*, unavailable, renamed: "connection")
-    public var currentReachabilityStatus: Connection {
+    var currentReachabilityStatus: Connection {
         return connection
     }
 
-    public var connection: Connection {
+    var connection: Connection {
         if flags == nil {
             try? setReachabilityFlags()
         }
@@ -111,18 +111,18 @@ public class Reachability {
         }
     }
 
-    required public init(reachabilityRef: SCNetworkReachability, queueQoS: DispatchQoS = .default, targetQueue: DispatchQueue? = nil) {
+    required init(reachabilityRef: SCNetworkReachability, queueQoS: DispatchQoS = .default, targetQueue: DispatchQueue? = nil) {
         self.allowsCellularConnection = true
         self.reachabilityRef = reachabilityRef
         self.reachabilitySerialQueue = DispatchQueue(label: "uk.co.ashleymills.reachability", qos: queueQoS, target: targetQueue)
     }
 
-    public convenience init?(hostname: String, queueQoS: DispatchQoS = .default, targetQueue: DispatchQueue? = nil) {
+    convenience init?(hostname: String, queueQoS: DispatchQoS = .default, targetQueue: DispatchQueue? = nil) {
         guard let ref = SCNetworkReachabilityCreateWithName(nil, hostname) else { return nil }
         self.init(reachabilityRef: ref, queueQoS: queueQoS, targetQueue: targetQueue)
     }
 
-    public convenience init?(queueQoS: DispatchQoS = .default, targetQueue: DispatchQueue? = nil) {
+    convenience init?(queueQoS: DispatchQoS = .default, targetQueue: DispatchQueue? = nil) {
         var zeroAddress = sockaddr()
         zeroAddress.sa_len = UInt8(MemoryLayout<sockaddr>.size)
         zeroAddress.sa_family = sa_family_t(AF_INET)
@@ -137,7 +137,7 @@ public class Reachability {
     }
 }
 
-public extension Reachability {
+extension Reachability {
 
     // MARK: - *** Notifier methods ***
     func startNotifier() throws {

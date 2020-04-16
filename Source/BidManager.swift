@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objcMembers class BidManager: NSObject {
+class BidManager: NSObject {
 
     var prebidAdUnit: AdUnit
 
@@ -25,7 +25,7 @@ import Foundation
         super.init()
     }
 
-    dynamic func requestBidsForAdUnit(callback: @escaping (_ response: BidResponse?, _ result: ResultCode) -> Void) {
+    func requestBidsForAdUnit(callback: @escaping (_ response: BidResponse?, _ result: ResultCode) -> Void) {
 
         do {
             try RequestBuilder.shared.buildPrebidRequest(adUnit: prebidAdUnit) {(urlRequest) in
