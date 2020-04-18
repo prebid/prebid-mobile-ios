@@ -38,15 +38,9 @@ import Foundation
     /**
     * This property is set by the developer when he is willing to share the location for better ad targeting
     **/
-    private var geoLocation: Bool = false
-    public var shareGeoLocation: Bool {
-        get {
-           return geoLocation
-        }
-
-        set {
-            geoLocation = newValue
-            if (geoLocation == true) {
+    public var shareGeoLocation = false {
+        didSet {
+            if (shareGeoLocation == true) {
                 Location.shared.startCapture()
             } else {
                 Location.shared.stopCapture()
