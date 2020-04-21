@@ -56,7 +56,11 @@
 	<string>Need to use location for better ad targeting</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Need to use location for better ad targeting</string>
+
     <key>GADIsAdManagerApp</key>
     <true/>
+    <key>gad_preferred_webview</key>
+    <string>wkwebview</string>
+    
 </dict>
 </plist>

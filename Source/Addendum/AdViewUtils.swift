@@ -27,19 +27,16 @@ public final class AdViewUtils: NSObject {
     @objc
     public static func findPrebidCreativeSize(_ adView: UIView, success: @escaping (CGSize) -> Void, failure: @escaping (Error) -> Void) {
         
-        let view = self.findWebView(adView) { (subView) -> Bool in
-            return isWebView(subView)
+        let view = self.findView(adView) { (subView) -> Bool in
+            return isWKWebView(subView)
         }
         
         if let wkWebView = view as? WKWebView  {
             Log.debug("subView is WKWebView")
             self.findSizeInWebViewAsync(wkWebView: wkWebView, success: success, failure: failure)
             
-        } else if let uiWebView = view as? UIWebView {
-            Log.debug("subView is UIWebView")
-            self.findSizeInWebViewAsync(uiWebView: uiWebView, success: success, failure: failure)
         } else {
-            warnAndTriggerFailure(PbFindSizeErrorFactory.noWebView, failure: failure)
+            warnAndTriggerFailure(PbFindSizeErrorFactory.noWKWebView, failure: failure)
         }
     }
     
@@ -52,22 +49,22 @@ public final class AdViewUtils: NSObject {
         failure(error)
     }
     
-    static func findWebView(_ view: UIView, closure:(UIView) -> Bool) -> UIView? {
+    static func findView(_ view: UIView, closure:(UIView) -> Bool) -> UIView? {
         if closure(view)  {
             return view
         } else {
-            return recursivelyFindWebView(view, closure: closure)
+            return recursivelyFindView(view, closure: closure)
         }
     }
     
-    static func recursivelyFindWebView(_ view: UIView, closure:(UIView) -> Bool) -> UIView? {
+    static func recursivelyFindView(_ view: UIView, closure:(UIView) -> Bool) -> UIView? {
         for subview in view.subviews {
             
             if closure(subview)  {
                 return subview
             }
             
-            if let result = recursivelyFindWebView(subview, closure: closure) {
+            if let result = recursivelyFindView(subview, closure: closure) {
                 return result
             }
         }
@@ -86,22 +83,6 @@ public final class AdViewUtils: NSObject {
             
             self.findSizeInHtml(body: value as? String, success: success, failure: failure)
         })
-        
-    }
-    
-    static func findSizeInWebViewAsync(uiWebView: UIWebView, success: @escaping (CGSize) -> Void, failure: @escaping (PbFindSizeError) -> Void) {
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
-            
-            if uiWebView.isLoading {
-                self.findSizeInWebViewAsync(uiWebView: uiWebView, success: success, failure: failure)
-            } else {
-                
-                let content = uiWebView.stringByEvaluatingJavaScript(from: AdViewUtils.innerHtmlScript)
-                
-                self.findSizeInHtml(body: content, success: success, failure: failure)
-            }
-        }
         
     }
     
@@ -147,8 +128,8 @@ public final class AdViewUtils: NSObject {
         return matchAndCheck(regex: AdViewUtils.sizeValueRegexExpression, text: hbSizeObject)
     }
     
-    static func isWebView(_ view: UIView) -> Bool {
-        return view is WKWebView || view is UIWebView
+    static func isWKWebView(_ view: UIView) -> Bool {
+        return view is WKWebView
     }
     
     static func matchAndCheck(regex: String, text: String) -> String? {
@@ -212,8 +193,7 @@ final class PbFindSizeErrorFactory {
     static let unspecifiedCode = 101
     
     // MARK: - common errors
-    static let noWebViewCode = 110
-    static let uiWebViewFailedCode = 121
+    static let noWKWebViewCode = 111
     static let wkWebViewFailedCode = 126
     static let noHtmlCode = 130
     static let noSizeObjectCode = 140
@@ -222,7 +202,7 @@ final class PbFindSizeErrorFactory {
     
     //MARK: - fileprivate and private zone
     fileprivate static let unspecified = getUnspecifiedError()
-    fileprivate static let noWebView = getNoWebViewError()
+    fileprivate static let noWKWebView = getNoWKWebViewError()
     fileprivate static let noHtml = getNoHtmlError()
     fileprivate static let noSizeObject = getNoSizeObjectError()
     fileprivate static let noSizeValue = getNoSizeValueError()
@@ -232,12 +212,8 @@ final class PbFindSizeErrorFactory {
         return getError(code: unspecifiedCode, description: "Unspecified error")
     }
     
-    private static func getNoWebViewError() -> PbFindSizeError {
-        return getError(code: noWebViewCode, description: "The view doesn't include WebView")
-    }
-    
-    fileprivate static func getUiWebViewFailedError(message: String) -> PbFindSizeError {
-        return getError(code: uiWebViewFailedCode, description: "UIWebView error:\(message)")
+    private static func getNoWKWebViewError() -> PbFindSizeError {
+        return getError(code: noWKWebViewCode, description: "The view doesn't include WKWebView")
     }
     
     fileprivate static func getWkWebViewFailedError(message: String) -> PbFindSizeError {

@@ -16,7 +16,7 @@
 import Foundation
 
 extension Array {
-    public func toDictionary<Key: Hashable>(with selectKey: (Element) -> Key) -> [Key: Element] {
+    func toDictionary<Key: Hashable>(with selectKey: (Element) -> Key) -> [Key: Element] {
         var dict = [Key: Element]()
         for element in self {
             dict[selectKey(element)] = element
@@ -129,6 +129,19 @@ extension Dictionary where Key == AnyHashable, Value == Any {
 extension Dictionary where Key == String, Value == String {
     func toString(entrySeparator: String, keyValueSeparator: String) -> String {
         return (self as Dictionary<AnyHashable, Any>).toString(entrySeparator: entrySeparator, keyValueSeparator: keyValueSeparator)
+    }
+}
+
+extension Array where Element: SingleContainerInt {
+    func toIntArray() -> [Int] {
+        
+        var result: [Int] = []
+
+        for element in self {
+            result.append(element.value)
+        }
+
+        return result
     }
 }
 

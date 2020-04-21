@@ -36,7 +36,7 @@ class Dispatcher: NSObject {
         super.init()
     }
 
-    open func invalidate() {
+    func invalidate() {
         stop()
         delegate = nil
     }
