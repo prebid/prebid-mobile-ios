@@ -43,6 +43,30 @@ class AdUnitSuccessorTests: XCTestCase {
         XCTAssertEqual(2, adUnit.adSizes.count)
     }
     
+    func testBannerParametersCreation() {
+
+        //given
+        let bannerAdUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
+        
+        let parameters = BannerAdUnit.Parameters()
+        parameters.api = [Api.VPAID_1, Api.VPAID_2]
+        
+        bannerAdUnit.parameters = parameters
+        
+        //when
+        let testedBannerParameters = bannerAdUnit.parameters
+        
+        //then
+        guard let bannerparameters = testedBannerParameters, let api = bannerparameters.api else {
+            XCTFail("parsing fail")
+            return
+        }
+        
+        XCTAssertEqual(2, api.count)
+        XCTAssert(api.contains(1) && api.contains(2))
+
+    }
+    
     //MARK: - InterstitialAdUnit
     func testInterstitialAdUnitCreation() {
         //when
@@ -122,10 +146,10 @@ class AdUnitSuccessorTests: XCTestCase {
         parameters.protocols = [Protocols.VAST_2_0, Protocols.VAST_3_0]
         parameters.startDelay = StartDelay.PreRoll
         
-        videoBaseAdUnit.parameters = parameters;
+        videoBaseAdUnit.parameters = parameters
         
         //when
-        let testedVideoParameters = videoBaseAdUnit.parameters;
+        let testedVideoParameters = videoBaseAdUnit.parameters
         
         //then
         guard let videoParameters = testedVideoParameters,

@@ -836,15 +836,15 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         }
     }
     
-    func testPostDataWithBannerApiFrameworks() throws {
+    func testBannerBaseAdUnit() throws {
 
         //given
         let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
         
         let parameters = BannerAdUnit.Parameters()
-        parameters.api = [1, 2];
+        parameters.api = [Api.VPAID_1, Api.VPAID_2]
         
-        adUnit.parameters = parameters;
+        adUnit.parameters = parameters
         
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody

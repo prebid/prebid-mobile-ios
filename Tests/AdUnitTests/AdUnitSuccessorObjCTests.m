@@ -50,6 +50,27 @@ NSString * const configId = @"1001-1";
     XCTAssertNotNil(adunit);
 }
 
+- (void)testBannerParametersCreation {
+
+    //given
+    BannerAdUnit *bannerAdUnit = [[BannerAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45" size:CGSizeMake(300, 250)];
+    
+    PBBannerAdUnitParameters* parameters = [[PBBannerAdUnitParameters alloc] init];
+    parameters.api = @[PBApi.VPAID_1, PBApi.VPAID_2];
+    
+    bannerAdUnit.parameters = parameters;
+    
+    //when
+    PBBannerAdUnitParameters* testedBannerParameters = bannerAdUnit.parameters;
+    
+    //then
+    XCTAssertNotNil(testedBannerParameters);
+    XCTAssertNotNil(testedBannerParameters.api);
+    XCTAssertEqual(2, testedBannerParameters.api.count);
+    XCTAssert([testedBannerParameters.api containsObject:[[PBApi alloc] initWithIntegerLiteral: 1]] && [testedBannerParameters.api containsObject:[[PBApi alloc] initWithIntegerLiteral: 2]]);
+
+}
+
 //MARK: - InterstitialAdUnit
 - (void)testInterstitialAdUnitCreation {
     AdUnit *adunit = [[InterstitialAdUnit alloc] initWithConfigId:configId];
@@ -80,6 +101,64 @@ NSString * const configId = @"1001-1";
     //when
     AdUnit *adunit = [[RewardedVideoAdUnit alloc] initWithConfigId:configId];
     XCTAssertNotNil(adunit);
+}
+
+//MARK: - VideoBaseAdUnit
+- (void)testVideoParametersCreation {
+    
+    //given
+    VideoAdUnit *videoAdUnit = [[VideoAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45" size:CGSizeMake(300, 250) type: PBVideoPlacementTypeInBanner];
+    VideoInterstitialAdUnit *videoInterstitialAdUnit = [[VideoInterstitialAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45"];
+    RewardedVideoAdUnit *rewardedVideoAdUnit = [[RewardedVideoAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45"];
+
+    NSArray *videoBaseAdUnitArr = @[videoAdUnit, videoInterstitialAdUnit, rewardedVideoAdUnit ];
+
+    for (VideoBaseAdUnit *videoBaseAdUnit in videoBaseAdUnitArr) {
+        [self checkVideoParametersHelper:videoBaseAdUnit];
+    }
+}
+
+- (void)checkVideoParametersHelper: (VideoBaseAdUnit*) videoBaseAdUnit {
+    PBVideoAdUnitParameters *parameters = [[PBVideoAdUnitParameters alloc] init];
+    
+    parameters.api = @[PBApi.VPAID_1, PBApi.VPAID_2];
+    parameters.maxBitrate = [[SingleContainerInt alloc] initWithIntegerLiteral: 1500];
+    parameters.minBitrate = [[SingleContainerInt alloc] initWithIntegerLiteral: 300];;
+    parameters.maxDuration = [[SingleContainerInt alloc] initWithIntegerLiteral: 30];
+    parameters.minDuration = [[SingleContainerInt alloc] initWithIntegerLiteral: 5];
+    parameters.mimes = @[@"video/x-flv", @"video/mp4"];
+    parameters.playbackMethod = @[PBPlaybackMethod.AutoPlaySoundOn, PBPlaybackMethod.ClickToPlay];
+    parameters.protocols = @[PBProtocols.VAST_2_0, PBProtocols.VAST_3_0];
+    parameters.startDelay = PBStartDelay.PreRoll;
+    videoBaseAdUnit.parameters = parameters;
+    
+    //when
+    PBVideoAdUnitParameters* testedParameters = videoBaseAdUnit.parameters;
+    
+    //then
+    XCTAssertNotNil(testedParameters.api);
+    XCTAssertEqual(2, testedParameters.api.count);
+    XCTAssert([testedParameters.api containsObject:[[PBApi alloc] initWithIntegerLiteral: 1]] && [testedParameters.api containsObject:[[PBApi alloc] initWithIntegerLiteral: 2]]);
+    XCTAssertNotNil(testedParameters.maxBitrate);
+    XCTAssertEqual(1500, testedParameters.maxBitrate.value);
+    XCTAssertNotNil(testedParameters.minBitrate);
+    XCTAssertEqual(300, testedParameters.minBitrate.value);
+    XCTAssertNotNil(testedParameters.maxDuration);
+    XCTAssertEqual(30, testedParameters.maxDuration.value);
+    XCTAssertNotNil(testedParameters.minDuration);
+    XCTAssertEqual(5, testedParameters.minDuration.value);
+    XCTAssertNotNil(testedParameters.mimes);
+    XCTAssertEqual(2, testedParameters.mimes.count);
+    XCTAssert([testedParameters.mimes containsObject:@"video/x-flv"] && [testedParameters.mimes containsObject:@"video/mp4"]);
+    XCTAssertNotNil(testedParameters.playbackMethod);
+    XCTAssertEqual(2, testedParameters.playbackMethod.count);
+    XCTAssert([testedParameters.playbackMethod containsObject:[[PBPlaybackMethod alloc] initWithIntegerLiteral: 1]] && [testedParameters.playbackMethod containsObject:[[PBPlaybackMethod alloc] initWithIntegerLiteral: 3]]);
+    XCTAssertNotNil(testedParameters.protocols);
+    XCTAssertEqual(2, testedParameters.protocols.count);
+    XCTAssert([testedParameters.protocols containsObject:[[PBProtocols alloc] initWithIntegerLiteral: 2]] && [testedParameters.protocols containsObject:[[PBProtocols alloc] initWithIntegerLiteral: 3]]);
+    XCTAssertNotNil(testedParameters.startDelay);
+    XCTAssertEqualObjects([[PBStartDelay alloc] initWithIntegerLiteral: 0], testedParameters.startDelay);
+
 }
 
 @end

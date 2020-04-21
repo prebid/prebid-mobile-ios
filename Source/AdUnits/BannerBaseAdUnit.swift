@@ -20,25 +20,14 @@ public class BannerBaseAdUnit: AdUnit {
     //MARK: - Parameters class
     
     /// Describes an [OpenRTB](https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf) video object
-    @objc(BannerAdUnitParameters)
+    @objc(PBBannerAdUnitParameters)
     public class Parameters: NSObject {
 
         /**
         List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.
-        # Example #
-        ```
-        | Value | Description |
-        |-------|-------------|
-        | 1     | VPAID 1.0   |
-        | 2     | VPAID 2.0   |
-        | 3     | VPAID 2.0   |
-        | 4     | ORMMA       |
-        | 5     | MRAID-2     |
-        | 6     | MRAID-3     |
-        ```
         */
         @objc
-        public var api: [Int]?
+        public var api: [Api]?
 
     }
 }

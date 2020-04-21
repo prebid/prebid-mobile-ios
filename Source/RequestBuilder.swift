@@ -147,8 +147,9 @@ class RequestBuilder: NSObject {
             
             banner["format"] = sizeArray
             
-            let bannerParameters = bannerBaseAdUnit.parameters
-            banner["api"] = bannerParameters?.api
+            if let bannerParameters = bannerBaseAdUnit.parameters {
+                banner["api"] = bannerParameters.api?.toIntArray()
+            }
             
             imp["banner"] = banner
 
