@@ -21,39 +21,41 @@ class Location: NSObject, CLLocationManagerDelegate {
     /**
      * The class is created as a singleton object & used
      */
-    public static let shared = Location()
+    static let shared = Location()
 
-    private var locationManager: CLLocationManager?
+    private var locationManager: CLLocationManager
 
-    public var location: CLLocation?
+    var location: CLLocation?
 
     /**
      * The initializer that needs to be created only once
      */
     private override init() {
-        super.init()
         locationManager = CLLocationManager()
-        locationManager!.delegate = self
-        locationManager!.distanceFilter = kCLDistanceFilterNone
-        locationManager!.desiredAccuracy = kCLLocationAccuracyKilometer
-        locationManager!.startMonitoringSignificantLocationChanges()
+        super.init()
+        
+        locationManager.delegate = self
+        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+        locationManager.startMonitoringSignificantLocationChanges()
     }
 
     func startCapture () {
         let status = CLLocationManager.authorizationStatus()
         if (status == CLAuthorizationStatus.authorizedWhenInUse || status == CLAuthorizationStatus.authorizedAlways ) {
-            locationManager!.startUpdatingLocation()
+            locationManager.startUpdatingLocation()
         }
 
     }
 
     func stopCapture () {
-        locationManager?.stopUpdatingLocation()
+        locationManager.stopUpdatingLocation()
 
     }
 
+    //MARK: - CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        location = locations.last!
+        location = locations.last
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

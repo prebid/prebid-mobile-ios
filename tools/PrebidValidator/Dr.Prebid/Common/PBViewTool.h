@@ -22,7 +22,5 @@
 + (void) checkMPAdViewContainsPBMAd:(MPAdView *)view
               withCompletionHandler:(void(^)(BOOL result))completionHandler;
 
-+ (BOOL) checkDFPAdViewContainsPBMAd:(GADBannerView *)view;
-
 @end
 

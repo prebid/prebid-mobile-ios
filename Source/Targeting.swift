@@ -52,10 +52,6 @@ import CoreLocation
      */
 
     public var gender: Gender
-
-    public var yearOfBirth: Int {
-        return yearofbirth
-    }
     
     /**
      * The itunes app id for targeting
@@ -72,6 +68,47 @@ import CoreLocation
      */
     public var locationPrecision: Int?
     
+    //Objective-C Api
+    @available(swift, obsoleted: 1.0)
+    public func setLocationPrecision(_ newValue: NSNumber?) {
+        locationPrecision = newValue?.intValue
+    }
+    
+    @available(swift, obsoleted: 1.0)
+    public func getLocationPrecision() -> NSNumber? {
+        return locationPrecision as NSNumber?
+    }
+    
+    // MARK: - Year Of Birth
+    //TODO refactor
+    public var yearOfBirth: Int {
+        return yearofbirth
+    }
+
+    /**
+     * This property gets the year of birth value set by the application developer
+     */
+    public func setYearOfBirth(yob: Int) throws {
+        let date = Date()
+        let calendar = Calendar.current
+
+        let year = calendar.component(.year, from: date)
+
+        if (yob <= 1900 || yob >= year) {
+            throw ErrorCode.yearOfBirthInvalid
+        } else {
+            yearofbirth = yob
+        }
+    }
+
+    /**
+     * This property clears year of birth value set by the application developer
+     */
+    public func clearYearOfBirth() {
+        yearofbirth = 0
+    }
+    
+    // MARK: - COPPA
     /**
      * The boolean value set by the user to collect user data
      */
@@ -85,6 +122,7 @@ import CoreLocation
         }
     }
     
+    // MARK: - GDPR Subject
     /**
      * The boolean value set by the user to collect user data
      */
@@ -105,7 +143,19 @@ import CoreLocation
             return gdprSubject
         }
     }
+    
+    //Objective-C Api
+    @available(swift, obsoleted: 1.0)
+    public func setSubjectToGDPR(_ newValue: NSNumber?) {
+        subjectToGDPR = newValue?.boolValue
+    }
+    
+    @available(swift, obsoleted: 1.0)
+    public func getSubjectToGDPR() -> NSNumber? {
+        return subjectToGDPR as NSNumber?
+    }
 
+    // MARK: - GDPR Consent
     /**
      * The consent string for sending the GDPR consent
      */
@@ -154,6 +204,13 @@ import CoreLocation
     public func getDeviceAccessConsent() -> Bool? {
         let deviceAccessConsentIndex = 0
         return getPurposeConsent(index: deviceAccessConsentIndex)
+    }
+    
+    //Objective-C Api
+    @available(swift, obsoleted: 1.0)
+    public func getDeviceAccessConsent() -> NSNumber? {
+        let deviceAccessConsent = getDeviceAccessConsent()
+        return deviceAccessConsent as NSNumber?
     }
 
     func getPurposeConsent(index: Int) -> Bool? {
@@ -348,31 +405,6 @@ import CoreLocation
     func getContextKeywordsSet() -> Set<String> {
         Log.info("global context keywords set is \(contextKeywordsSet)")
         return contextKeywordsSet
-    }
-    
-    // MARK: - others
-
-    /**
-     * This property gets the year of birth value set by the application developer
-     */
-    public func setYearOfBirth(yob: Int) throws {
-        let date = Date()
-        let calendar = Calendar.current
-
-        let year = calendar.component(.year, from: date)
-
-        if (yob <= 1900 || yob >= year) {
-            throw ErrorCode.yearOfBirthInvalid
-        } else {
-            yearofbirth = yob
-        }
-    }
-
-    /**
-     * This property clears year of birth value set by the application developer
-     */
-    public func clearYearOfBirth() {
-            yearofbirth = 0
     }
 
 }

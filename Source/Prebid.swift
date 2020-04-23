@@ -29,7 +29,7 @@ import Foundation
     var timeoutMillisDynamic: Int
     var timeoutUpdated: Bool = false
 
-    public var prebidServerAccountId: String! = ""
+    public var prebidServerAccountId: String = ""
     
     public var storedAuctionResponse: String = ""
     
@@ -38,15 +38,9 @@ import Foundation
     /**
     * This property is set by the developer when he is willing to share the location for better ad targeting
     **/
-    private var geoLocation: Bool = false
-    public var shareGeoLocation: Bool {
-        get {
-           return geoLocation
-        }
-
-        set {
-            geoLocation = newValue
-            if (geoLocation == true) {
+    public var shareGeoLocation = false {
+        didSet {
+            if (shareGeoLocation == true) {
                 Location.shared.startCapture()
             } else {
                 Location.shared.stopCapture()
@@ -65,6 +59,15 @@ import Foundation
      * Set the desidered verbosity of the logs
      */
     public var logLevel: LogLevel = .debug
+    
+    /**
+     * Set the desidered verbosity of the logs
+     */
+    //Objective-C Api
+    @available(swift, obsoleted: 1.0)
+    public func setLogLevel(_ logLevel: LogLevel_) {
+        self.logLevel = logLevel.getPrimary()
+    }
 
     /**
      * The class is created as a singleton object & used
@@ -89,7 +92,7 @@ import Foundation
     public func setCustomPrebidServer(url: String) throws {
 
         if (Host.shared.verifyUrl(urlString: url) == false) {
-                throw ErrorCode.prebidServerURLInvalid(url)
+            throw ErrorCode.prebidServerURLInvalid(url)
         } else {
             prebidServerHost = PrebidHost.Custom
             Host.shared.setHostURL = url

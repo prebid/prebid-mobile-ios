@@ -17,33 +17,33 @@ import Foundation
 
 extension String {
 
-    public static let EMPTY_String = ""
+    static let EMPTY_String = ""
 
-    public static let kIFASentinelValue = "00000000-0000-0000-0000-000000000000"
+    static let kIFASentinelValue = "00000000-0000-0000-0000-000000000000"
 
-    public static let DFP_Object_Name = "DFPRequest"
+    static let DFP_Object_Name = "DFPRequest"
     
-    public static let DFP_N_Object_Name = "DFPNRequest"
+    static let DFP_N_Object_Name = "DFPNRequest"
 
-    public static let DFP_O_Object_Name = "DFPORequest"
+    static let DFP_O_Object_Name = "DFPORequest"
 
-    public static let GAD_Object_Name = "GADRequest"
+    static let GAD_Object_Name = "GADRequest"
 
-    public static let GAD_N_Object_Name = "GADNRequest"
+    static let GAD_N_Object_Name = "GADNRequest"
 
-    public static let MoPub_Object_Name = "MPAdView"
+    static let MoPub_Object_Name = "MPAdView"
 
-    public static let MoPub_Interstitial_Name = "MPInterstitialAdController"
+    static let MoPub_Interstitial_Name = "MPInterstitialAdController"
 }
 
 extension Double {
-    public static let PB_MIN_RefreshTime = 30000.0
+    static let PB_MIN_RefreshTime = 30000.0
 
 }
 
 extension Int {
 
-    public static let PB_Request_Timeout = 2000
+    static let PB_Request_Timeout = 2000
 }
 
 extension UIDevice {

@@ -15,7 +15,7 @@ limitations under the License.
 
 import Foundation
 
-public class RewardedVideoAdUnit: AdUnit {
+public class RewardedVideoAdUnit: VideoBaseAdUnit {
 
     public init(configId: String) {
         super.init(configId: configId, size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))

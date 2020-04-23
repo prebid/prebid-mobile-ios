@@ -29,18 +29,18 @@ class CollectionExtensionTest: XCTestCase {
     func testGetObjectWithoutEmptyValues() {
         
         //Test 1
-        var node1111: NSMutableDictionary = [:]
-        var node111: NSMutableDictionary = [:]
+        let node1111: NSMutableDictionary = [:]
+        let node111: NSMutableDictionary = [:]
         node111["key111"] = node1111
         
-        var node11: NSMutableDictionary = [:]
+        let node11: NSMutableDictionary = [:]
         node11["key11"] = node111
         
-        var node1: NSMutableDictionary = [:]
+        let node1: NSMutableDictionary = [:]
         node1["key1"] = node11
         
         node1["emptyObject"] = "";
-        var array: NSMutableArray = []
+        let array: NSMutableArray = []
         array.add("");
         node1["emptyArray"] = array;
         
@@ -56,7 +56,7 @@ class CollectionExtensionTest: XCTestCase {
         //Test 3
         node1111["key1111"] = nil
         
-        var node121: NSMutableDictionary = [:]
+        let node121: NSMutableDictionary = [:]
         node121["key121"] = "value121"
         node11["key12"] = node121
         
@@ -65,7 +65,7 @@ class CollectionExtensionTest: XCTestCase {
         
         //Test 4
         node11["key12"] = nil
-        var node21: NSMutableArray = []
+        let node21: NSMutableArray = []
         node1["key2"] = node21
         let result4 = (node1 as! Dictionary).getObjectWithoutEmptyValues()
         XCTAssertNil(result4)
@@ -77,7 +77,7 @@ class CollectionExtensionTest: XCTestCase {
         
         //Test6
         node21.removeObject(at: 0)
-        var node211: NSMutableDictionary = [:]
+        let node211: NSMutableDictionary = [:]
         node21.add(node211)
         let result6 = (node1 as! Dictionary).getObjectWithoutEmptyValues()
         XCTAssertNil(result6)
@@ -89,33 +89,45 @@ class CollectionExtensionTest: XCTestCase {
         
         //Test8
         node21.removeObject(at: 0)
-        var node212: NSMutableArray = []
+        let node212: NSMutableArray = []
         node21.add(node212)
         let result8 = (node1 as! Dictionary).getObjectWithoutEmptyValues()
         XCTAssertNil(result8)
         
         //Test9
-        var node31: NSMutableArray = []
+        let node31: NSMutableArray = []
         node1["key3"] = node31
-        var node311: NSMutableDictionary = [:]
+        let node311: NSMutableDictionary = [:]
         node31.add(node311)
-        var node312: NSMutableDictionary = [:]
+        let node312: NSMutableDictionary = [:]
         node312["key312"] = "value312"
         node31.add(node312)
         let result9 = (node1 as! Dictionary).getObjectWithoutEmptyValues()
         XCTAssertEqual("{\"key3\":[{\"key312\":\"value312\"}]}", collectionToString(result9!))
         
         //Test10
-        var node313: NSMutableArray = []
-        var node3131: NSMutableDictionary = [:]
+        let node313: NSMutableArray = []
+        let node3131: NSMutableDictionary = [:]
         node3131["key3131"] = "value3131"
         node313.add(node3131)
-        var node3132: NSMutableDictionary = [:]
+        let node3132: NSMutableDictionary = [:]
         node313.add(node3132)
         node31.add(node313)
         let result10 = (node1 as! Dictionary).getObjectWithoutEmptyValues()
         XCTAssertEqual("{\"key3\":[{\"key312\":\"value312\"},[{\"key3131\":\"value3131\"}]]}", collectionToString(result10!))
         
+    }
+    
+    func testSingleContainerIntToIntArray() {
+        //given
+        let array: [SingleContainerInt] = [1, 2, 5]
+        
+        //when
+        let intArray = array.toIntArray()
+        
+        //then
+        XCTAssertEqual(3, intArray.count)
+        XCTAssertTrue(intArray.contains(1) && intArray.contains(2) && intArray.contains(5))
     }
     
     private func collectionToString(_ dict: [AnyHashable: Any]) -> String {

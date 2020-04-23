@@ -15,7 +15,7 @@
 
 import Foundation
 
-public class VideoInterstitialAdUnit: AdUnit {
+public class VideoInterstitialAdUnit: VideoBaseAdUnit {
 
     public init(configId: String) {
         super.init(configId: configId, size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
