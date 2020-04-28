@@ -28,24 +28,24 @@ public class VideoBaseAdUnit: AdUnit {
         
         /// List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.
         @objc
-        public var api: [Api]?
+        public var api: [Signals.Api]?
 
         /// Maximum bit rate in Kbps.
         @objc
-        public var maxBitrate: SingleContainerInt?
+        public var maxBitrate: Signals.SingleContainerInt?
         
         /// Maximum bit rate in Kbps.
         @objc
-        public var minBitrate: SingleContainerInt?
+        public var minBitrate: Signals.SingleContainerInt?
         
         /// Maximum video ad duration in seconds.
         @objc
-        public var maxDuration: SingleContainerInt?
+        public var maxDuration: Signals.SingleContainerInt?
         
 
         /// Minimum video ad duration in seconds.
         @objc
-        public var minDuration: SingleContainerInt?
+        public var minDuration: Signals.SingleContainerInt?
         
         /**
         Content MIME types supported
@@ -59,19 +59,19 @@ public class VideoBaseAdUnit: AdUnit {
         
         /// Allowed playback methods. If none specified, assume all are allowed.
         @objc
-        public var playbackMethod: [PlaybackMethod]?
+        public var playbackMethod: [Signals.PlaybackMethod]?
         
         /// Array of supported video bid response protocols.
         @objc
-        public var protocols: [Protocols]?
+        public var protocols: [Signals.Protocols]?
         
         /// Indicates the start delay in seconds for pre-roll, mid-roll, or post-roll ad placements.
         @objc
-        public var startDelay: StartDelay?
+        public var startDelay: Signals.StartDelay?
         
         /// Placement type for the impression.
         @objc
-        public var placement: Placement?
+        public var placement: Signals.Placement?
         
     }
 }

@@ -1179,16 +1179,16 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         let parameters = VideoBaseAdUnit.Parameters()
 
-        parameters.api = [Api.VPAID_1, Api.VPAID_2]
+        parameters.api = [Signals.Api.VPAID_1, Signals.Api.VPAID_2]
         parameters.maxBitrate = 1500
         parameters.minBitrate = 300
         parameters.maxDuration = 30
         parameters.minDuration = 5
         parameters.mimes = ["video/x-flv", "video/mp4"]
-        parameters.playbackMethod = [PlaybackMethod.AutoPlaySoundOn, PlaybackMethod.ClickToPlay]
-        parameters.protocols = [Protocols.VAST_2_0, Protocols.VAST_3_0]
-        parameters.startDelay = StartDelay.PreRoll
-        parameters.placement = Placement.InBanner
+        parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOn, Signals.PlaybackMethod.ClickToPlay]
+        parameters.protocols = [Signals.Protocols.VAST_2_0, Signals.Protocols.VAST_3_0]
+        parameters.startDelay = Signals.StartDelay.PreRoll
+        parameters.placement = Signals.Placement.InBanner
 
         adUnit.parameters = parameters
 
