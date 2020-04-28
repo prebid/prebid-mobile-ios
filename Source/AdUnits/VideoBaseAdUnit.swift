@@ -26,33 +26,24 @@ public class VideoBaseAdUnit: AdUnit {
     @objc(PBVideoAdUnitParameters)
     public class Parameters: NSObject {
         
-        /**
-        List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.
-        */
+        /// List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.
         @objc
         public var api: [Api]?
 
-        /**
-        Maximum bit rate in Kbps.
-        */
+        /// Maximum bit rate in Kbps.
         @objc
         public var maxBitrate: SingleContainerInt?
         
-        /**
-        Maximum bit rate in Kbps.
-        */
+        /// Maximum bit rate in Kbps.
         @objc
         public var minBitrate: SingleContainerInt?
         
-        /**
-        Maximum video ad duration in seconds.
-        */
+        /// Maximum video ad duration in seconds.
         @objc
         public var maxDuration: SingleContainerInt?
         
-        /**
-        Minimum video ad duration in seconds.
-        */
+
+        /// Minimum video ad duration in seconds.
         @objc
         public var minDuration: SingleContainerInt?
         
@@ -66,23 +57,21 @@ public class VideoBaseAdUnit: AdUnit {
         @objc
         public var mimes: [String]?
         
-        /**
-        Allowed playback methods. If none specified, assume all are allowed.
-        */
+        /// Allowed playback methods. If none specified, assume all are allowed.
         @objc
         public var playbackMethod: [PlaybackMethod]?
         
-        /**
-        Array of supported video bid response protocols.
-        */
+        /// Array of supported video bid response protocols.
         @objc
         public var protocols: [Protocols]?
         
-        /**
-        Indicates the start delay in seconds for pre-roll, mid-roll, or post-roll ad placements.
-        */
+        /// Indicates the start delay in seconds for pre-roll, mid-roll, or post-roll ad placements.
         @objc
         public var startDelay: StartDelay?
+        
+        /// Placement type for the impression.
+        @objc
+        public var placement: Placement?
         
     }
 }

@@ -222,3 +222,48 @@ public class StartDelay: SingleContainerInt {
     public static let GenericPostRoll = StartDelay(-2)
     
 }
+
+/**
+# OpenRTB - Video Placement Types #
+```
+| Value | Description                  |
+|-------|------------------------------|
+| 1     | In-Stream                    |
+| 2     | In-Banner                    |
+| 3     | In-Article                   |
+| 4     | In-Feed                      |
+| 5     | Interstitial/Slider/Floating |
+```
+*/
+@objc(PBPlacement)
+public class Placement: SingleContainerInt {
+    
+    /// In-Stream
+    @objc
+    public static let InStream = Placement(1)
+    
+    /// In-Banner
+    @objc
+    public static let InBanner = Placement(2)
+    
+    /// In-Article
+    @objc
+    public static let InArticle = Placement(3)
+    
+    /// In-Feed
+    @objc
+    public static let InFeed = Placement(4)
+    
+    /// Interstitial
+    @objc
+    public static let Interstitial = Placement(5)
+    
+    /// Slider
+    @objc
+    public static let Slider = Placement(5)
+    
+    /// Floating
+    @objc
+    public static let Floating = Placement(5)
+    
+}

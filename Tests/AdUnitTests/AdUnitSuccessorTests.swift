@@ -60,6 +60,14 @@ class AdUnitSuccessorTests: XCTestCase {
     //MARK: - VideoAdUnit
     func testVideoAdUnitCreation() {
         //when
+        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width1, height: Constants.height1))
+        
+        //then
+        checkDefault(adUnit: adUnit)
+    }
+    
+    func testVideoAdUnitCreationDeprecated() {
+        //when
         let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width1, height: Constants.height1), type: .inBanner)
         
         //then
@@ -90,7 +98,7 @@ class AdUnitSuccessorTests: XCTestCase {
     func testVideoParametersCreation() {
         
         //given
-        let videoAdUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2), type: .inBanner)
+        let videoAdUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2))
         let videoInterstitialAdUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
         let rewardedVideoAdUnit = RewardedVideoAdUnit(configId: Constants.configID1)
         
