@@ -109,9 +109,15 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         
         let parameters = VideoBaseAdUnit.Parameters()
         parameters.mimes = ["video/mp4"]
+        
         parameters.protocols = [Signals.Protocols.VAST_2_0]
+        // parameters.protocols = [Signals.Protocols(2)]
+        
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
+        // parameters.playbackMethod = [Signals.PlaybackMethod(2)]
+        
         parameters.placement = Signals.Placement.InBanner
+        // parameters.placement = Signals.Placement(2)
         
         adUnit.parameters = parameters
         
