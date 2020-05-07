@@ -105,12 +105,19 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         Prebid.shared.prebidServerAccountId = "1001"
         Prebid.shared.storedAuctionResponse = "sample_video_response"
         
-        let adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), type: .inBanner)
+        let adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
         
         let parameters = VideoBaseAdUnit.Parameters()
         parameters.mimes = ["video/mp4"]
-        parameters.protocols = [Protocols.VAST_2_0]
-        parameters.playbackMethod = [PlaybackMethod.AutoPlaySoundOff]
+        
+        parameters.protocols = [Signals.Protocols.VAST_2_0]
+        // parameters.protocols = [Signals.Protocols(2)]
+        
+        parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
+        // parameters.playbackMethod = [Signals.PlaybackMethod(2)]
+        
+        parameters.placement = Signals.Placement.InBanner
+        // parameters.placement = Signals.Placement(2)
         
         adUnit.parameters = parameters
         
