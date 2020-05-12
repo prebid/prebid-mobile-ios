@@ -120,7 +120,7 @@ class CollectionExtensionTest: XCTestCase {
     
     func testSingleContainerIntToIntArray() {
         //given
-        let array: [SingleContainerInt] = [1, 2, 5]
+        let array: [Signals.SingleContainerInt] = [1, 2, 5]
         
         //when
         let intArray = array.toIntArray()
