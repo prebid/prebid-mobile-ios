@@ -19,15 +19,13 @@ public class BannerBaseAdUnit: AdUnit {
 
     //MARK: - Parameters class
     
-    /// Describes an [OpenRTB](https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf) video object
+    /// Describes an [OpenRTB](https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf) banner object
     @objc(PBBannerAdUnitParameters)
     public class Parameters: NSObject {
 
-        /**
-        List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.
-        */
+        /// List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.
         @objc
-        public var api: [Api]?
+        public var api: [Signals.Api]?
 
     }
 }

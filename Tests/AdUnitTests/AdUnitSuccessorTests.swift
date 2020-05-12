@@ -49,7 +49,7 @@ class AdUnitSuccessorTests: XCTestCase {
         let bannerAdUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         
         let parameters = BannerAdUnit.Parameters()
-        parameters.api = [Api.VPAID_1, Api.VPAID_2]
+        parameters.api = [Signals.Api.VPAID_1, Signals.Api.VPAID_2]
         
         bannerAdUnit.parameters = parameters
         

@@ -85,11 +85,11 @@ public class Signals: NSObject {
         
         /// MRAID-2
         @objc
-        public static let MARAID_2 = Api(5)
+        public static let MRAID_2 = Api(5)
         
         /// MRAID-3
         @objc
-        public static let MARAID_3 = Api(6)
+        public static let MRAID_3 = Api(6)
     }
 
     /**

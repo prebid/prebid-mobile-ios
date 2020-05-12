@@ -842,7 +842,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
         
         let parameters = BannerAdUnit.Parameters()
-        parameters.api = [Api.VPAID_1, Api.VPAID_2]
+        parameters.api = [Signals.Api.VPAID_1, Signals.Api.VPAID_2]
         
         adUnit.parameters = parameters
         
