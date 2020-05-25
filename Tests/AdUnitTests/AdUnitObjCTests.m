@@ -57,14 +57,6 @@ AdUnit *adUnit;
     [adUnit stopAutoRefresh];
 }
 
-- (void)testUserKeyword {
-    NSSet *set = [NSSet setWithArray:@[@"value2"]];
-    [adUnit addUserKeywordWithKey:@"key1" value:@"value1"];
-    [adUnit addUserKeywordsWithKey:@"key2" value:set];
-    [adUnit removeUserKeywordForKey:@"key1"];
-    [adUnit clearUserKeywords];
-}
-
 - (void)testContextData {
     NSSet *set = [NSSet setWithArray:@[@"value2"]];
     [adUnit addContextDataWithKey:@"key1" value:@"value1"];

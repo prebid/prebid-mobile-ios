@@ -17,34 +17,12 @@ import Foundation
 
 public class VideoAdUnit: VideoBaseAdUnit {
 
-    @available(iOS, deprecated)
-    var type: PlacementType?
-
     public init(configId: String, size: CGSize) {
-        super.init(configId: configId, size: size)
-    }
-    
-    @available(iOS, deprecated, message: "Replaced by VideoAdUnit(String, int, int)")
-    public init(configId: String, size: CGSize, type: PlacementType) {
-        self.type = type
         super.init(configId: configId, size: size)
     }
 
     public func addAdditionalSize(sizes: [CGSize]) {
         super.adSizes += sizes
-    }
-
-    @available(iOS, deprecated, message: "Replaced by Signals.Placement")
-    @objc(PBVideoPlacementType)
-    public enum PlacementType: Int {
-        @available(iOS, deprecated)
-        case inBanner = 2
-        
-        @available(iOS, deprecated)
-        case inArticle = 3
-        
-        @available(iOS, deprecated)
-        case inFeed = 4
     }
 
 }
