@@ -90,16 +90,6 @@ class AdUnitSuccessorTests: XCTestCase {
         checkDefault(adUnit: adUnit)
     }
     
-    func testVideoAdUnitCreationDeprecated() {
-        //when
-        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width1, height: Constants.height1), type: .inBanner)
-        
-        //then
-        checkDefault(adUnit: adUnit)
-        
-        XCTAssertEqual(.inBanner, adUnit.type)
-    }
-    
     //MARK: - VideoInterstitialAdUnit
     func testVideoInterstitialAdUnitCreation() {
         //when
