@@ -38,24 +38,13 @@
     }
 }
 
-+ (void)exchangeInstanceSelector:(SEL)originalSelector withSelector:(SEL)swizzledSelector {
-    Class class = [self class];
++ (void)exchangeInstanceCls1:(Class)cls1 Sel1:(SEL)sel1 Cls2:(Class)cls2 Sel2:(SEL)sel2 {
     
-    Method originalMethod = class_getInstanceMethod(class, originalSelector);
-    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+    Method originalMethod = class_getInstanceMethod(cls1, sel1);
+    Method swizzledMethod = class_getInstanceMethod(cls2, sel2);
     
-    BOOL didAddMethod = class_addMethod(class,
-                                        originalSelector,
-                                        method_getImplementation(swizzledMethod),
-                                        method_getTypeEncoding(swizzledMethod));
-    if (didAddMethod) {
-        class_replaceMethod(class,
-                            swizzledSelector,
-                            method_getImplementation(originalMethod),
-                            method_getTypeEncoding(originalMethod));
-    } else {
-        method_exchangeImplementations(originalMethod, swizzledMethod);
-    }
+    method_exchangeImplementations(originalMethod, swizzledMethod);
+    
 }
 
 IMP PBHTTPStubsReplaceMethod(SEL selector,

@@ -14,6 +14,7 @@ limitations under the License.
 */
 
 #import <XCTest/XCTest.h>
+#import "ExAdUnit.h"
 #import "PrebidMobile/PrebidMobile.h"
 
 @interface AdUnitObjCTests : XCTestCase
@@ -25,8 +26,7 @@ limitations under the License.
 AdUnit *adUnit;
 
 + (void) setUp {
-    adUnit = [[BannerAdUnit alloc] initWithConfigId:@"1001-1" size:CGSizeMake(300, 250)];
-
+    adUnit = [[ExAdUnit shared] adUnit];
 }
 
 - (void)setUp {
@@ -38,10 +38,45 @@ AdUnit *adUnit;
 }
 
 - (void)testFetchDemand {
-
+    
+    //given
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     NSObject *testObject = [[NSObject alloc] init];
+    __block ResultCode resultCode;
+    
+    //when
     [adUnit fetchDemandWithAdObject:testObject completion:^(enum ResultCode result) {
+        resultCode = result;
+        [expectation fulfill];
     }];
+
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    
+    //then
+    XCTAssertEqual(ResultCodePrebidDemandFetchSuccess, resultCode);
+}
+
+- (void)testFetchDemandBids {
+    
+    //given
+    XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
+    __block ResultCode resultCode;
+    __block NSDictionary<NSString *, NSString *> *kvDictResult;
+    
+    //when
+    [adUnit fetchDemandWithCompletion:^(enum ResultCode code, NSDictionary<NSString *,NSString *> * _Nullable kvDict) {
+        resultCode = code;
+        kvDictResult = kvDict;
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    
+    //then
+    XCTAssertEqual(ResultCodePrebidDemandFetchSuccess, resultCode);
+    XCTAssertEqual(1, kvDictResult.count);
+    XCTAssertEqual(@"value1", kvDictResult[@"key1"]);
+    
 }
 
 - (void)testResultCode {

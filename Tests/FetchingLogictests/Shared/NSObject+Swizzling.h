@@ -19,8 +19,8 @@
 
 + (void)exchangeClassSelector:(SEL)originalSelector
                  withSelector:(SEL)swizzledSelector;
-+ (void)exchangeInstanceSelector:(SEL)originalSelector
-                    withSelector:(SEL)swizzledSelector;
+
++ (void)exchangeInstanceCls1:(Class)cls1 Sel1:(SEL)sel1 Cls2:(Class)cls2 Sel2:(SEL)sel2;
 
 /**
  *  Replaces the selector's associated method implementation with the

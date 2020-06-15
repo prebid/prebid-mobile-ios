@@ -32,7 +32,8 @@ import ObjectiveC.runtime
 
     private var adServerObject: AnyObject?
 
-    private var closure: (ResultCode) -> Void
+    private var closureAd: ((ResultCode) -> Void)?
+    private var closureBids: ((ResultCode, [String : String]?) -> Void)?
 
     //notification flag set to check if the prebid response is received within the specified time
     var didReceiveResponse: Bool! = false
@@ -41,7 +42,6 @@ import ObjectiveC.runtime
     var timeOutSignalSent: Bool! = false
 
     init(configId: String, size: CGSize?) {
-        self.closure = {_ in return}
         prebidConfigId = configId
         if let givenSize = size {
            adSizes.append(givenSize)
@@ -50,7 +50,21 @@ import ObjectiveC.runtime
         super.init()
     }
 
-    //TODO: remove dynamic
+    //TODO: dynamic is used by tests
+    dynamic public func fetchDemand(completion: @escaping(_ result: ResultCode, _ kvResultDict: [String : String]?) -> Void) {
+        
+        closureBids = completion
+        
+        let dictContainer = DictionaryContainer<String, String>()
+        
+        fetchDemand(adObject: dictContainer) { (resultCode) in
+            let dict = dictContainer.dict
+            
+            completion(resultCode, dict.count > 0 ? dict : nil)
+        }
+    }
+    
+    //TODO: dynamic is used by tests
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
         
         if !(self is NativeRequest){
@@ -80,7 +94,7 @@ import ObjectiveC.runtime
 
         didReceiveResponse = false
         timeOutSignalSent = false
-        self.closure = completion
+        self.closureAd = completion
         adServerObject = adObject
         let manager: BidManager = BidManager(adUnit: self)
 
@@ -255,8 +269,15 @@ import ObjectiveC.runtime
     }
 
     func refreshDemand() {
-        if (adServerObject != nil) {
-            self.fetchDemand(adObject: adServerObject!, completion: self.closure)
+        
+        guard let adServerObject = adServerObject else {
+            return
+        }
+        
+        if adServerObject is DictionaryContainer<String, String>, let closureBids = closureBids {
+            fetchDemand(completion: closureBids)
+        } else if let closureAd = closureAd {
+            fetchDemand(adObject: adServerObject, completion: closureAd)
         }
 
     }

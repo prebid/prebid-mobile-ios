@@ -27,19 +27,20 @@ extension AdUnit {
     }()
    
     private func initialize() {
+        
+        exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.fetchDemand(adObject:completion:)), cls2: AdUnit.self, sel2: #selector(AdUnit.swizzledFetchDemand(adObject:completion:)))
+        exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.fetchDemand(completion:)), cls2: AdUnit.self, sel2: #selector(AdUnit.swizzledFetchDemand(completion:)))
 
-        let originalSelector = #selector(AdUnit.fetchDemand(adObject:completion:))
-        let swizzledSelector = #selector(AdUnit.swizzledFetchDemand(adObject:completion:))
-        
-        let originalMethod = class_getInstanceMethod(AdUnit.self, originalSelector)
-        let swizzledMethod = class_getInstanceMethod(AdUnit.self, swizzledSelector)
-        
-        method_exchangeImplementations(originalMethod!, swizzledMethod!)
     }
     
     @objc
     fileprivate func swizzledFetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
         completion(AdUnit.testScenario)
+    }
+    
+    @objc
+    fileprivate func swizzledFetchDemand(completion: @escaping(_ result: ResultCode, _ kvResultDict: [String : String]?) -> Void) {
+        completion(AdUnit.testScenario, ["key1" : "value1"])
     }
 
 }

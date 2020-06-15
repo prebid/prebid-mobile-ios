@@ -32,21 +32,48 @@ class AdUnitTests: XCTestCase {
         //given
         let exception = expectation(description: "\(#function)")
         let testObject: AnyObject = () as AnyObject
-        var result: ResultCode?
+        var resultCode: ResultCode?
         
         let expected = ResultCode.prebidDemandFetchSuccess
         let adUnit: AdUnit = AdUnit.shared
         AdUnit.testScenario = expected
         
         //when
-        adUnit.fetchDemand(adObject: testObject) { (resultCode: ResultCode) in
-            result = resultCode
+        adUnit.fetchDemand(adObject: testObject) { (code: ResultCode) in
+            resultCode = code
             exception.fulfill()
         }
+        
         waitForExpectations(timeout: 5, handler: nil)
         
         //then
-        XCTAssertEqual(expected, result)
+        XCTAssertEqual(expected, resultCode)
+    }
+    
+    func testFetchDemandBids() {
+        //given
+        let exception = expectation(description: "\(#function)")
+        var codeResult: ResultCode?
+        var kvDictResult: [String:String]?
+        
+        let expected = ResultCode.prebidDemandFetchSuccess
+        let adUnit: AdUnit = AdUnit.shared
+        AdUnit.testScenario = expected
+        
+        //when
+        adUnit.fetchDemand() { (code: ResultCode, kvDict: [String:String]?) in
+            codeResult = code
+            kvDictResult = kvDict
+            exception.fulfill()
+        }
+        
+        waitForExpectations(timeout: 5, handler: nil)
+        
+        //then
+        XCTAssertEqual(expected, codeResult)
+        XCTAssertEqual(1, kvDictResult!.count)
+        XCTAssertEqual("value1", kvDictResult!["key1"])
+        
     }
 
     func testSetAutoRefreshMillis() {
