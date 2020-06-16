@@ -28,8 +28,8 @@ extension AdUnit {
    
     private func initialize() {
         
-        exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.fetchDemand(adObject:completion:)), cls2: AdUnit.self, sel2: #selector(AdUnit.swizzledFetchDemand(adObject:completion:)))
-        exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.fetchDemand(completion:)), cls2: AdUnit.self, sel2: #selector(AdUnit.swizzledFetchDemand(completion:)))
+        Swizzling.exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.fetchDemand(adObject:completion:)), cls2: AdUnit.self, sel2: #selector(AdUnit.swizzledFetchDemand(adObject:completion:)))
+        Swizzling.exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.fetchDemand(completion:)), cls2: AdUnit.self, sel2: #selector(AdUnit.swizzledFetchDemand(completion:)))
 
     }
     

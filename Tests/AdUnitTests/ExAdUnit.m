@@ -18,8 +18,8 @@ limitations under the License.
 @implementation ExAdUnit
 
 + (void)load {
-    [NSObject exchangeInstanceCls1:[AdUnit class] Sel1:@selector(fetchDemandWithAdObject:completion:) Cls2:[self class] Sel2:@selector(swizzledFetchDemandWithAdObject:completion:)];
-    [NSObject exchangeInstanceCls1:[AdUnit class] Sel1:@selector(fetchDemandWithCompletion:) Cls2:[self class] Sel2:@selector(swizzledFetchDemandWithCompletion:)];
+    [Swizzling exchangeInstanceWithCls1:[AdUnit class] sel1:@selector(fetchDemandWithAdObject:completion:) cls2:[self class] sel2:@selector(swizzledFetchDemandWithAdObject:completion:)];
+    [Swizzling exchangeInstanceWithCls1:[AdUnit class] sel1:@selector(fetchDemandWithCompletion:) cls2:[self class] sel2:@selector(swizzledFetchDemandWithCompletion:)];
 }
 
 + (instancetype)shared
