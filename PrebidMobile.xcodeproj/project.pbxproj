@@ -75,7 +75,6 @@
 		FA495E792326F50500894166 /* Prebid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D7930C217E23F90080F428 /* Prebid.swift */; };
 		FA495E7A2326F50B00894166 /* Targeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D79315217E39D90080F428 /* Targeting.swift */; };
 		FA4A88442497A99D00FDCBB6 /* Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4A88432497A99D00FDCBB6 /* Swizzling.swift */; };
-		FA4A88552497ECEB00FDCBB6 /* ExAdUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4A88542497ECEB00FDCBB6 /* ExAdUnit.m */; };
 		FA5AD5E42271FA4100C8F274 /* ConstantsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */; };
 		FA7C3EB5225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB4225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json */; };
 		FA7C3EB7225E4C2200D2F128 /* responseRubiconPBM.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB6225E4C2200D2F128 /* responseRubiconPBM.json */; };
@@ -212,8 +211,6 @@
 		FA12E517231FCD1400CAA05B /* BidManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BidManager.swift; sourceTree = "<group>"; };
 		FA29A3F2232255DF00F13F61 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA4A88432497A99D00FDCBB6 /* Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swizzling.swift; sourceTree = "<group>"; };
-		FA4A88532497ECEB00FDCBB6 /* ExAdUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExAdUnit.h; sourceTree = "<group>"; };
-		FA4A88542497ECEB00FDCBB6 /* ExAdUnit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExAdUnit.m; sourceTree = "<group>"; };
 		FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTest.swift; sourceTree = "<group>"; };
 		FA5C30BA22E5E86900DA23C4 /* AdViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewUtils.swift; sourceTree = "<group>"; };
 		FA5C30BC22E5ECF700DA23C4 /* PbFindSizeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PbFindSizeError.swift; sourceTree = "<group>"; };
@@ -368,6 +365,7 @@
 				FA4A88432497A99D00FDCBB6 /* Swizzling.swift */,
 				979177D52201F40300E624CE /* NSObject+Swizzling.h */,
 				979177D72201F40300E624CE /* NSObject+Swizzling.m */,
+				606FAC5122022932008EAE5E /* ExAdUnit.swift */,
 				60C0382B2204BB190082B32C /* PrebidMobileTest-Bridging-Header.h */,
 			);
 			path = Tests;
@@ -404,9 +402,6 @@
 				FAA2990924334E96002ACBF2 /* AdUnitSuccessorTests.swift */,
 				FAA2990B243368A1002ACBF2 /* AdUnitSuccessorObjCTests.m */,
 				97826AA621FB4F1B001E2C05 /* Constants.swift */,
-				606FAC5122022932008EAE5E /* ExAdUnit.swift */,
-				FA4A88532497ECEB00FDCBB6 /* ExAdUnit.h */,
-				FA4A88542497ECEB00FDCBB6 /* ExAdUnit.m */,
 				FAD9527D241BE18000A03AB6 /* VideoAdUnitObjCTests.m */,
 			);
 			path = AdUnitTests;
@@ -755,7 +750,6 @@
 				FAEBF2A2237ECFEF006BA972 /* StorageUtilsTests.swift in Sources */,
 				FAD9527E241BE18000A03AB6 /* VideoAdUnitObjCTests.m in Sources */,
 				FAA299122434C769002ACBF2 /* UtilsObjCTests.m in Sources */,
-				FA4A88552497ECEB00FDCBB6 /* ExAdUnit.m in Sources */,
 				60D79301217E229B0080F428 /* PrebidMobileTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

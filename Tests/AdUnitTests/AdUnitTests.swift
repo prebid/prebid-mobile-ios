@@ -35,8 +35,8 @@ class AdUnitTests: XCTestCase {
         var resultCode: ResultCode?
         
         let expected = ResultCode.prebidDemandFetchSuccess
-        let adUnit: AdUnit = AdUnit.shared
-        AdUnit.testScenario = expected
+        let adUnit = ExAdUnit.shared
+        ExAdUnit.testScenario = expected
         
         //when
         adUnit.fetchDemand(adObject: testObject) { (code: ResultCode) in
@@ -57,8 +57,8 @@ class AdUnitTests: XCTestCase {
         var kvDictResult: [String:String]?
         
         let expected = ResultCode.prebidDemandFetchSuccess
-        let adUnit: AdUnit = AdUnit.shared
-        AdUnit.testScenario = expected
+        let adUnit: AdUnit = ExAdUnit.shared
+        ExAdUnit.testScenario = expected
         
         //when
         adUnit.fetchDemand() { (code: ResultCode, kvDict: [String:String]?) in

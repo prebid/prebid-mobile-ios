@@ -14,8 +14,8 @@ limitations under the License.
 */
 
 #import <XCTest/XCTest.h>
-#import "ExAdUnit.h"
 #import "PrebidMobile/PrebidMobile.h"
+#import "PrebidMobileTests-Swift.h"
 
 @interface AdUnitObjCTests : XCTestCase
 
@@ -26,7 +26,7 @@ limitations under the License.
 AdUnit *adUnit;
 
 + (void) setUp {
-    adUnit = [[ExAdUnit shared] adUnit];
+    adUnit = [ExAdUnit shared];
 }
 
 - (void)setUp {
@@ -75,7 +75,7 @@ AdUnit *adUnit;
     //then
     XCTAssertEqual(ResultCodePrebidDemandFetchSuccess, resultCode);
     XCTAssertEqual(1, kvDictResult.count);
-    XCTAssertEqual(@"value1", kvDictResult[@"key1"]);
+    XCTAssertEqualObjects(@"value1", kvDictResult[@"key1"]);
     
 }
 
