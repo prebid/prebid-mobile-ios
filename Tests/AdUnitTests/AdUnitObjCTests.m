@@ -26,7 +26,7 @@ limitations under the License.
 AdUnit *adUnit;
 
 + (void) setUp {
-    adUnit = [ExAdUnit shared];
+    adUnit = [[BannerAdUnit alloc] initWithConfigId:@"1001-1" size:CGSizeMake(300, 250)];
 }
 
 - (void)setUp {
@@ -43,6 +43,7 @@ AdUnit *adUnit;
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     NSObject *testObject = [[NSObject alloc] init];
     __block ResultCode resultCode;
+    [AdUnitSwizzleHelper toggleFetchDemand];
     
     //when
     [adUnit fetchDemandWithAdObject:testObject completion:^(enum ResultCode result) {
@@ -51,6 +52,7 @@ AdUnit *adUnit;
     }];
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    [AdUnitSwizzleHelper toggleFetchDemand];
     
     //then
     XCTAssertEqual(ResultCodePrebidDemandFetchSuccess, resultCode);
@@ -62,6 +64,7 @@ AdUnit *adUnit;
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     __block ResultCode resultCode;
     __block NSDictionary<NSString *, NSString *> *kvDictResult;
+    [AdUnitSwizzleHelper toggleFetchDemand];
     
     //when
     [adUnit fetchDemandWithCompletion:^(enum ResultCode code, NSDictionary<NSString *,NSString *> * _Nullable kvDict) {
@@ -71,12 +74,13 @@ AdUnit *adUnit;
     }];
 
     [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    [AdUnitSwizzleHelper toggleFetchDemand];
     
     //then
     XCTAssertEqual(ResultCodePrebidDemandFetchSuccess, resultCode);
     XCTAssertEqual(1, kvDictResult.count);
     XCTAssertEqualObjects(@"value1", kvDictResult[@"key1"]);
-    
+
 }
 
 - (void)testResultCode {

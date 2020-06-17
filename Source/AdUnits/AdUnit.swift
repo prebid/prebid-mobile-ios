@@ -15,6 +15,8 @@ import ObjectiveC.runtime
 
 @objcMembers public class AdUnit: NSObject, DispatcherDelegate {
 
+    private static let PB_MIN_RefreshTime = 30000.0
+    
     var prebidConfigId: String = ""
 
     var adSizes = Array<CGSize> ()
@@ -249,8 +251,8 @@ import ObjectiveC.runtime
 
         stopDispatcher()
 
-        guard time >= .PB_MIN_RefreshTime else {
-            Log.error("auto refresh not set as the refresh time is less than to \(.PB_MIN_RefreshTime as Double) seconds")
+        guard checkRefreshTime(time) else {
+            Log.error("auto refresh not set as the refresh time is less than to \(AdUnit.PB_MIN_RefreshTime as Double) seconds")
             return
         }
 
@@ -268,6 +270,10 @@ import ObjectiveC.runtime
         stopDispatcher()
     }
 
+    dynamic func checkRefreshTime(_ time: Double) -> Bool {
+        return time >= AdUnit.PB_MIN_RefreshTime
+    }
+    
     func refreshDemand() {
         
         guard let adServerObject = adServerObject else {

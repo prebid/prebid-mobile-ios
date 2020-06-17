@@ -35,8 +35,9 @@ class AdUnitTests: XCTestCase {
         var resultCode: ResultCode?
         
         let expected = ResultCode.prebidDemandFetchSuccess
-        let adUnit = ExAdUnit.shared
-        ExAdUnit.testScenario = expected
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250))
+        AdUnitSwizzleHelper.testScenario = expected
+        AdUnitSwizzleHelper.toggleFetchDemand()
         
         //when
         adUnit.fetchDemand(adObject: testObject) { (code: ResultCode) in
@@ -45,6 +46,7 @@ class AdUnitTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 5, handler: nil)
+        AdUnitSwizzleHelper.toggleFetchDemand()
         
         //then
         XCTAssertEqual(expected, resultCode)
@@ -57,8 +59,9 @@ class AdUnitTests: XCTestCase {
         var kvDictResult: [String:String]?
         
         let expected = ResultCode.prebidDemandFetchSuccess
-        let adUnit: AdUnit = ExAdUnit.shared
-        ExAdUnit.testScenario = expected
+        let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250))
+        AdUnitSwizzleHelper.testScenario = expected
+        AdUnitSwizzleHelper.toggleFetchDemand()
         
         //when
         adUnit.fetchDemand() { (code: ResultCode, kvDict: [String:String]?) in
@@ -68,12 +71,87 @@ class AdUnitTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 5, handler: nil)
+        AdUnitSwizzleHelper.toggleFetchDemand()
         
         //then
         XCTAssertEqual(expected, codeResult)
         XCTAssertEqual(1, kvDictResult!.count)
         XCTAssertEqual("value1", kvDictResult!["key1"])
+    }
+    
+    func testFetchDemandAutoRefresh() {
+        PBHTTPStubbingManager.shared().enable()
+        PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
+        PBHTTPStubbingManager.shared().broadcastRequests = true
         
+        AdUnitSwizzleHelper.toggleCheckRefreshTime()
+        //given
+        let expectedFetchDemandCount = 2
+        let exception = expectation(description: "\(#function)")
+        exception.expectedFulfillmentCount = expectedFetchDemandCount
+        exception.assertForOverFulfill = false
+        
+        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
+        Prebid.shared.prebidServerAccountId = "1001"
+        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        adUnit.setAutoRefreshMillis(time: 800.0)
+        let testObject: AnyObject = () as AnyObject
+        
+        var fetchDemandCount = 0
+        
+        //when
+        adUnit.fetchDemand(adObject: testObject) { (code: ResultCode) in
+            fetchDemandCount += 1
+            exception.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1, handler: nil)
+        AdUnitSwizzleHelper.toggleCheckRefreshTime()
+        
+        PBHTTPStubbingManager.shared().disable()
+        PBHTTPStubbingManager.shared().removeAllStubs()
+        PBHTTPStubbingManager.shared().broadcastRequests = false
+        
+        //then
+        XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
+
+    }
+    
+    func testFetchDemandBidsAutoRefresh() {
+        PBHTTPStubbingManager.shared().enable()
+        PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
+        PBHTTPStubbingManager.shared().broadcastRequests = true
+        
+        AdUnitSwizzleHelper.toggleCheckRefreshTime()
+        //given
+        let expectedFetchDemandCount = 2
+        let exception = expectation(description: "\(#function)")
+        exception.expectedFulfillmentCount = expectedFetchDemandCount
+        exception.assertForOverFulfill = false
+        
+        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
+        Prebid.shared.prebidServerAccountId = "1001"
+        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        adUnit.setAutoRefreshMillis(time: 800.0)
+        
+        var fetchDemandCount = 0
+        
+        //when
+        adUnit.fetchDemand(completion: { (code: ResultCode, kvDict: [String:String]?) in
+            fetchDemandCount += 1
+            exception.fulfill()
+        })
+        
+        waitForExpectations(timeout: 1, handler: nil)
+        AdUnitSwizzleHelper.toggleCheckRefreshTime()
+        
+        PBHTTPStubbingManager.shared().disable()
+        PBHTTPStubbingManager.shared().removeAllStubs()
+        PBHTTPStubbingManager.shared().broadcastRequests = false
+        
+        //then
+        XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
+
     }
 
     func testSetAutoRefreshMillis() {

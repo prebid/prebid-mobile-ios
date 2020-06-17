@@ -15,7 +15,7 @@
 		606FAC2621FFB20A008EAE5E /* TargetingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FAC2521FFB20A008EAE5E /* TargetingTests.swift */; };
 		606FAC282200AD2C008EAE5E /* PrebidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FAC272200AD2C008EAE5E /* PrebidTests.swift */; };
 		606FAC4A2201F248008EAE5E /* AdUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FAC492201F248008EAE5E /* AdUnitTests.swift */; };
-		606FAC5222022932008EAE5E /* ExAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FAC5122022932008EAE5E /* ExAdUnit.swift */; };
+		606FAC5222022932008EAE5E /* AdUnitSwizzleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FAC5122022932008EAE5E /* AdUnitSwizzleHelper.swift */; };
 		60C038192204AF5D0082B32C /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 979177D72201F40300E624CE /* NSObject+Swizzling.m */; };
 		60C0381A2204AF5D0082B32C /* PBTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 979177D62201F40300E624CE /* PBTestGlobal.m */; };
 		60C0381B2204AF5D0082B32C /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 979177D22201F3EE00E624CE /* NSURLRequest+HTTPBodyTesting.m */; };
@@ -153,7 +153,7 @@
 		606FAC2521FFB20A008EAE5E /* TargetingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetingTests.swift; sourceTree = "<group>"; };
 		606FAC272200AD2C008EAE5E /* PrebidTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidTests.swift; sourceTree = "<group>"; };
 		606FAC492201F248008EAE5E /* AdUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdUnitTests.swift; sourceTree = "<group>"; };
-		606FAC5122022932008EAE5E /* ExAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExAdUnit.swift; sourceTree = "<group>"; };
+		606FAC5122022932008EAE5E /* AdUnitSwizzleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdUnitSwizzleHelper.swift; sourceTree = "<group>"; };
 		607B04792194AC79000C0879 /* BidResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidResponse.swift; sourceTree = "<group>"; };
 		60C0382B2204BB190082B32C /* PrebidMobileTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileTest-Bridging-Header.h"; sourceTree = "<group>"; };
 		60C2A364234B9AC100628C9D /* NativeRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeRequest.swift; sourceTree = "<group>"; };
@@ -365,7 +365,7 @@
 				FA4A88432497A99D00FDCBB6 /* Swizzling.swift */,
 				979177D52201F40300E624CE /* NSObject+Swizzling.h */,
 				979177D72201F40300E624CE /* NSObject+Swizzling.m */,
-				606FAC5122022932008EAE5E /* ExAdUnit.swift */,
+				606FAC5122022932008EAE5E /* AdUnitSwizzleHelper.swift */,
 				60C0382B2204BB190082B32C /* PrebidMobileTest-Bridging-Header.h */,
 			);
 			path = Tests;
@@ -737,7 +737,7 @@
 				60C0381F2204AF5D0082B32C /* DispatcherTests.swift in Sources */,
 				60C038202204AF5D0082B32C /* BidManagerTests.swift in Sources */,
 				FAA299102434C141002ACBF2 /* AdViewUtilsObjCTests.m in Sources */,
-				606FAC5222022932008EAE5E /* ExAdUnit.swift in Sources */,
+				606FAC5222022932008EAE5E /* AdUnitSwizzleHelper.swift in Sources */,
 				60C038212204AF5D0082B32C /* RequestBuilderTests.swift in Sources */,
 				9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */,
 				9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */,
