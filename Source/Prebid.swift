@@ -33,6 +33,8 @@ import Foundation
     
     public var storedAuctionResponse: String = ""
     
+    public var pbsDebug: Bool = false
+    
     var storedBidResponses: [String: String] = [:]
 
     /**
