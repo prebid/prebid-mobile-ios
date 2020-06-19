@@ -1052,6 +1052,25 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
     }
     
+    func testPbsDebug() throws {
+        try pbsDebugHelper(pbsDebug: true, expectedTest: 1)
+        try pbsDebugHelper(pbsDebug: false, expectedTest: nil)
+
+    }
+    
+    func pbsDebugHelper(pbsDebug: Bool, expectedTest: Int?) throws {
+        //given
+        Prebid.shared.pbsDebug = pbsDebug
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        let test = jsonRequestBody["test"] as? Int
+
+        //then
+        XCTAssertEqual(expectedTest, test)
+    }
+    
     func testVideoAdUnit() throws {
         //given
         Prebid.shared.prebidServerAccountId = "12345"

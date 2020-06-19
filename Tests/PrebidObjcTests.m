@@ -124,4 +124,15 @@ limitations under the License.
     XCTAssertEqualObjects(@"rubicon", Prebid.bidderNameRubiconProject);
 }
 
+- (void)testPbsDebug {
+    //given
+    BOOL pbsDebug = true;
+    
+    //when
+    Prebid.shared.pbsDebug = pbsDebug;
+    
+    //then
+    XCTAssertEqual(pbsDebug, Prebid.shared.pbsDebug);
+}
+
 @end
