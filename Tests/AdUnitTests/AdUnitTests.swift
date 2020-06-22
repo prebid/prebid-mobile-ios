@@ -151,7 +151,7 @@ class AdUnitTests: XCTestCase {
         if TestUtils.isTravisCI() {
             timeoutSec = 5.0
         }
-        
+
         waitForExpectations(timeout: timeoutSec, handler: nil)
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         
@@ -161,6 +161,9 @@ class AdUnitTests: XCTestCase {
         
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
+        
+        XCTAssertEqual("Temp", ProcessInfo.processInfo.environment["user"]!)
+        XCTAssertEqual(["Temp" : "temp"], ProcessInfo.processInfo.environment)
 
     }
 
