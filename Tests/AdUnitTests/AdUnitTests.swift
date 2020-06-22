@@ -105,12 +105,7 @@ class AdUnitTests: XCTestCase {
             exception.fulfill()
         }
         
-        var timeoutSec = 1.0
-        if TestUtils.isTravisCI() {
-            timeoutSec = 5.0
-        }
-        
-        waitForExpectations(timeout: timeoutSec, handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         
         PBHTTPStubbingManager.shared().disable()
@@ -146,13 +141,8 @@ class AdUnitTests: XCTestCase {
             fetchDemandCount += 1
             exception.fulfill()
         })
-        
-        var timeoutSec = 1.0
-        if TestUtils.isTravisCI() {
-            timeoutSec = 5.0
-        }
 
-        waitForExpectations(timeout: timeoutSec, handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         
         PBHTTPStubbingManager.shared().disable()
@@ -161,9 +151,6 @@ class AdUnitTests: XCTestCase {
         
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
-        
-        XCTAssertEqual("Temp", ProcessInfo.processInfo.environment["user"])
-        XCTAssertEqual(["Temp" : "temp"], ProcessInfo.processInfo.environment)
 
     }
 
