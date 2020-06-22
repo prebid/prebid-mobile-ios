@@ -162,7 +162,7 @@ class AdUnitTests: XCTestCase {
         //then
         XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
         
-        XCTAssertEqual("Temp", ProcessInfo.processInfo.environment["user"]!)
+        XCTAssertEqual("Temp", ProcessInfo.processInfo.environment["user"])
         XCTAssertEqual(["Temp" : "temp"], ProcessInfo.processInfo.environment)
 
     }
