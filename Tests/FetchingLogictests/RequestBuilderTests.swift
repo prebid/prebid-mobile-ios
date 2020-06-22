@@ -560,24 +560,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     }
 
     //MARK: - FirstPartyData
-    func testPostDataWithCustomKeyword() throws {
-
-        //given
-        adUnit.addUserKeyword(key: "key1", value: "value1")
-
-        //when
-        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-
-        guard let user = jsonRequestBody["user"] as? [String: Any],
-            let keywords = user["keywords"] as? String else {
-
-                XCTFail("parsing error")
-                return
-        }
-
-        //then
-        XCTAssertEqual("value1", keywords)
-    }
 
     func testPostDataWithoutTargetingKeys() throws {
         //given
