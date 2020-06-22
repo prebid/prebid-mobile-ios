@@ -17,7 +17,7 @@ import Foundation
 
 class TestUtils {
     class func isTravisCI() -> Bool {
-        if let value = ProcessInfo.processInfo.environment["USER"], value == "travis"  {
+        if let value = ProcessInfo.processInfo.environment["user"], value == "travis"  {
             return true
         }
         
