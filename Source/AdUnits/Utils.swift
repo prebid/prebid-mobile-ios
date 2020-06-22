@@ -149,4 +149,14 @@ func validateAndAttachKeywords (adObject: AnyObject, bidResponse: BidResponse) {
     }
 }
 
+    @available(iOS, deprecated, message: "Please migrate to - AdViewUtils.findPrebidCreativeSize(_:success:failure:)")
+    public func findPrebidCreativeSize(_ adView: UIView, completion: @escaping (CGSize?) -> Void) {
+
+        AdViewUtils.findPrebidCreativeSize(adView, success: completion) { (error) in
+            Log.warn("Missing failure handler, please migrate to - AdViewUtils.findPrebidCreativeSize(_:success:failure:)")
+            completion(nil) // backwards compatibility
+        }
+
+    }
+
 }
