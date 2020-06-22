@@ -105,7 +105,12 @@ class AdUnitTests: XCTestCase {
             exception.fulfill()
         }
         
-        waitForExpectations(timeout: 1, handler: nil)
+        var timeoutSec = 1.0
+        if TestUtils.isTravisCI() {
+            timeoutSec = 5.0
+        }
+        
+        waitForExpectations(timeout: timeoutSec, handler: nil)
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         
         PBHTTPStubbingManager.shared().disable()
@@ -142,7 +147,12 @@ class AdUnitTests: XCTestCase {
             exception.fulfill()
         })
         
-        waitForExpectations(timeout: 1, handler: nil)
+        var timeoutSec = 1.0
+        if TestUtils.isTravisCI() {
+            timeoutSec = 5.0
+        }
+        
+        waitForExpectations(timeout: timeoutSec, handler: nil)
         AdUnitSwizzleHelper.toggleCheckRefreshTime()
         
         PBHTTPStubbingManager.shared().disable()
