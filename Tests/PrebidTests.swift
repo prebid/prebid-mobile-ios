@@ -164,4 +164,15 @@ class PrebidTests: XCTestCase {
         XCTAssertEqual("appnexus", Prebid.bidderNameAppNexus)
         XCTAssertEqual("rubicon", Prebid.bidderNameRubiconProject)
     }
+    
+    func testPbsDebug() {
+        //given
+        let pbsDebug = true
+        
+        //when
+        Prebid.shared.pbsDebug = pbsDebug
+        
+        //then
+        XCTAssertEqual(pbsDebug, Prebid.shared.pbsDebug)
+    }
 }

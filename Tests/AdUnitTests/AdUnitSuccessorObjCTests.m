@@ -64,7 +64,7 @@ NSString * const configId = @"1001-1";
 //MARK: - VideoAdUnit
 - (void)testVideoAdUnitCreation {
     //when
-    AdUnit *adunit = [[VideoAdUnit alloc] initWithConfigId:configId size:CGSizeMake(300, 250) type:PBVideoPlacementTypeInBanner];
+    AdUnit *adunit = [[VideoAdUnit alloc] initWithConfigId:configId size:CGSizeMake(300, 250)];
     XCTAssertNotNil(adunit);
 }
 

@@ -76,6 +76,10 @@ class RequestBuilder: NSObject {
         requestDict["user"] = openrtbUser(adUnit: adUnit)
         requestDict["imp"] = openrtbImps(adUnit: adUnit)
         requestDict["ext"] = openrtbRequestExtension()
+        
+        if Prebid.shared.pbsDebug {
+            requestDict["test"] = 1
+        }
 
         if let requestDictWithoutEmptyValues = requestDict.getObjectWithoutEmptyValues() {
             requestDict = requestDictWithoutEmptyValues
@@ -194,6 +198,8 @@ class RequestBuilder: NSObject {
 
             var video: [AnyHashable: Any] = [:]
             
+            var placementValue: Int?
+            
             if let parameters = adUnit.parameters {
                 video["api"] = parameters.api?.toIntArray()
                 video["maxbitrate"] = parameters.maxBitrate?.value
@@ -204,25 +210,21 @@ class RequestBuilder: NSObject {
                 video["playbackmethod"] = parameters.playbackMethod?.toIntArray()
                 video["protocols"] = parameters.protocols?.toIntArray()
                 video["startdelay"] = parameters.startDelay?.value
+                
+                placementValue = parameters.placement?.value
             }
             
             let adSize = adUnit.adSizes[0]
             video["w"] = adSize.width
             video["h"] = adSize.height
             
-            let placement: Int?
-
-            switch adUnit {
-            case let videoAdUnit as VideoAdUnit:
-                placement = videoAdUnit.type.rawValue
-            case is VideoInterstitialAdUnit:
-                placement = 5
-            case is RewardedVideoAdUnit:
-                placement = 5
-            default: placement = nil
+            if (adUnit is VideoInterstitialAdUnit || adUnit is RewardedVideoAdUnit) {
+                if (placementValue == nil) {
+                    placementValue = 5
+                }
             }
 
-            video["placement"] = placement
+            video["placement"] = placementValue
 
             video["linearity"] = 1
             

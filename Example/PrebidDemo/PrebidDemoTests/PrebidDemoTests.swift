@@ -1037,9 +1037,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
         timeoutForRequest = 20.0
         let adUnit = BannerAdUnit(configId: "67bac530-9832-4f78-8c94-fbf88ac7bd14", size: CGSize(width: 300, height: 250))
-        adUnit.removeUserKeyword(forKey: "pbm_key")
-        adUnit.addUserKeyword(key: "pbm_key", value: "pbm_value1")
-
+        
         let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
@@ -1062,8 +1060,6 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
 
         timeoutForRequest = 20.0
         let adUnit = BannerAdUnit(configId: "67bac530-9832-4f78-8c94-fbf88ac7bd14", size: CGSize(width: 300, height: 250))
-        adUnit.removeUserKeyword(forKey: "pbm_key")
-        adUnit.addUserKeyword(key: "pbm_key", value: "pbm_value2")
 
         let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
         sdkConfig.globalMediationSettings = []

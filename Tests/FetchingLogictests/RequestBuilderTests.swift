@@ -560,24 +560,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     }
 
     //MARK: - FirstPartyData
-    func testPostDataWithCustomKeyword() throws {
-
-        //given
-        adUnit.addUserKeyword(key: "key1", value: "value1")
-
-        //when
-        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-
-        guard let user = jsonRequestBody["user"] as? [String: Any],
-            let keywords = user["keywords"] as? String else {
-
-                XCTFail("parsing error")
-                return
-        }
-
-        //then
-        XCTAssertEqual("value1", keywords)
-    }
 
     func testPostDataWithoutTargetingKeys() throws {
         //given
@@ -1052,10 +1034,29 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
     }
     
+    func testPbsDebug() throws {
+        try pbsDebugHelper(pbsDebug: true, expectedTest: 1)
+        try pbsDebugHelper(pbsDebug: false, expectedTest: nil)
+
+    }
+    
+    func pbsDebugHelper(pbsDebug: Bool, expectedTest: Int?) throws {
+        //given
+        Prebid.shared.pbsDebug = pbsDebug
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        let test = jsonRequestBody["test"] as? Int
+
+        //then
+        XCTAssertEqual(expectedTest, test)
+    }
+    
     func testVideoAdUnit() throws {
         //given
         Prebid.shared.prebidServerAccountId = "12345"
-        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250), type: .inBanner)
+        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -1175,19 +1176,20 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testVideoBaseAdUnit() throws {
         //given
         Prebid.shared.prebidServerAccountId = "12345"
-        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250), type: .inBanner)
+        let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
 
         let parameters = VideoBaseAdUnit.Parameters()
 
-        parameters.api = [Api.VPAID_1, Api.VPAID_2]
+        parameters.api = [Signals.Api.VPAID_1, Signals.Api.VPAID_2]
         parameters.maxBitrate = 1500
         parameters.minBitrate = 300
         parameters.maxDuration = 30
         parameters.minDuration = 5
         parameters.mimes = ["video/x-flv", "video/mp4"]
-        parameters.playbackMethod = [PlaybackMethod.AutoPlaySoundOn, PlaybackMethod.ClickToPlay]
-        parameters.protocols = [Protocols.VAST_2_0, Protocols.VAST_3_0]
-        parameters.startDelay = StartDelay.PreRoll
+        parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOn, Signals.PlaybackMethod.ClickToPlay]
+        parameters.protocols = [Signals.Protocols.VAST_2_0, Signals.Protocols.VAST_3_0]
+        parameters.startDelay = Signals.StartDelay.PreRoll
+        parameters.placement = Signals.Placement.InBanner
 
         adUnit.parameters = parameters
 
@@ -1206,7 +1208,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             let mimes = video["mimes"] as? [String],
             let playbackMethod = video["playbackmethod"] as? [Int],
             let protocols = video["protocols"] as? [Int],
-            let startDelay = video["startdelay"] as? Int
+            let startDelay = video["startdelay"] as? Int,
+            let placement = video["placement"] as? Int
 
             else {
                 XCTFail("parsing fail")
@@ -1227,6 +1230,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual(2, protocols.count)
         XCTAssert(protocols.contains(2) && protocols.contains(3))
         XCTAssertEqual(0, startDelay)
+        XCTAssertEqual(2, placement)
 
     }
 

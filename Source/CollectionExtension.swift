@@ -132,7 +132,7 @@ extension Dictionary where Key == String, Value == String {
     }
 }
 
-extension Array where Element: SingleContainerInt {
+extension Array where Element: Signals.SingleContainerInt {
     func toIntArray() -> [Int] {
         
         var result: [Int] = []
