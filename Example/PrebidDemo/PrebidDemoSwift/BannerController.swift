@@ -51,6 +51,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 //        addFirstPartyData(adUnit: bannerUnit)
 //        setStoredResponse()
 //        setRequestTimeoutMillis()
+//        enablePbsDebug()
 
         if (adServerName == "DFP") {
             
@@ -262,6 +263,10 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     
     func setRequestTimeoutMillis() {
         Prebid.shared.timeoutMillis = 5000
+    }
+    
+    func enablePbsDebug() {
+        Prebid.shared.pbsDebug = true
     }
 
     //MARK: - GADBannerViewDelegate

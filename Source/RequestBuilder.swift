@@ -76,6 +76,10 @@ class RequestBuilder: NSObject {
         requestDict["user"] = openrtbUser(adUnit: adUnit)
         requestDict["imp"] = openrtbImps(adUnit: adUnit)
         requestDict["ext"] = openrtbRequestExtension()
+        
+        if Prebid.shared.pbsDebug {
+            requestDict["test"] = 1
+        }
 
         if let requestDictWithoutEmptyValues = requestDict.getObjectWithoutEmptyValues() {
             requestDict = requestDictWithoutEmptyValues
