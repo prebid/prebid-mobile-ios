@@ -14,20 +14,6 @@ def prebid_demo_pods
   pod 'mopub-ios-sdk'
 end
 
-target 'PrebidMobile' do
-  project 'PrebidMobile.xcodeproj'
-
-  use_frameworks!
-
-end
-
-target 'PrebidMobileCore' do
-  project 'PrebidMobile.xcodeproj'
-
-  use_frameworks!
-
-end
-
 target 'PrebidDemoSwift' do
   project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
   
