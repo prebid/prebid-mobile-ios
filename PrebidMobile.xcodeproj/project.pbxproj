@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3516757CA74E81CCE7A07B64 /* Pods_PrebidMobileCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5502D79180F5E6DED9BD3785 /* Pods_PrebidMobileCore.framework */; };
 		600CF0702208963500C95176 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600CF06F2208963500C95176 /* UtilsTests.swift */; };
 		600CF13E220CDFA700C95176 /* responseinvalidSize.json in Resources */ = {isa = PBXBuildFile; fileRef = 600CF13D220CDFA700C95176 /* responseinvalidSize.json */; };
 		6013E3F82215C82900FEE2B1 /* CLLocationManager+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6013E3F72215C82900FEE2B1 /* CLLocationManager+Swizzle.swift */; };
@@ -37,7 +36,6 @@
 		60C2A368234D214C00628C9D /* NativeAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A367234D214C00628C9D /* NativeAsset.swift */; };
 		60C2A36E2354C7BA00628C9D /* NativeEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A36D2354C7BA00628C9D /* NativeEventTracker.swift */; };
 		60D79301217E229B0080F428 /* PrebidMobileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D79300217E229B0080F428 /* PrebidMobileTests.swift */; };
-		76DA65285917B36FC7A30B20 /* Pods_PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 730153ABBDC6B4478360A4A9 /* Pods_PrebidMobile.framework */; };
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
 		9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */; };
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
@@ -132,9 +130,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F1C6E8B15DF27C3772977CE /* Pods-PrebidMobileCore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileCore.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobileCore/Pods-PrebidMobileCore.release.xcconfig"; sourceTree = "<group>"; };
-		35FE3E0475D07E6FE2455850 /* Pods-PrebidMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobile.debug.xcconfig"; path = "Target Support Files/Pods-PrebidMobile/Pods-PrebidMobile.debug.xcconfig"; sourceTree = "<group>"; };
-		5502D79180F5E6DED9BD3785 /* Pods_PrebidMobileCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidMobileCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		600072FE21BAFD2F00F4738B /* Dispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		600CF06F2208963500C95176 /* UtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
 		600CF13D220CDFA700C95176 /* responseinvalidSize.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = responseinvalidSize.json; sourceTree = "<group>"; };
@@ -170,7 +165,6 @@
 		60D79315217E39D90080F428 /* Targeting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Targeting.swift; sourceTree = "<group>"; };
 		60D79317217F7F3E0080F428 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		60EE7B0521F26329000B12A8 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		730153ABBDC6B4478360A4A9 /* Pods_PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9720387B2358771600F8025A /* NativeRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeRequestTests.swift; sourceTree = "<group>"; };
 		9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetTests.swift; sourceTree = "<group>"; };
 		9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackerTests.swift; sourceTree = "<group>"; };
@@ -199,8 +193,6 @@
 		97EE4C6422035DD1006FEFA2 /* responseInvalidConfigId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseInvalidConfigId.json; sourceTree = "<group>"; };
 		97EE4C6722035E57006FEFA2 /* responseIncorrectFormat.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseIncorrectFormat.json; sourceTree = "<group>"; };
 		CEEA452F240FCBEF0003CDE7 /* VideoBaseAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBaseAdUnit.swift; sourceTree = "<group>"; };
-		D07F43DFFF74B68B593B7880 /* Pods-PrebidMobileCore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileCore.debug.xcconfig"; path = "Target Support Files/Pods-PrebidMobileCore/Pods-PrebidMobileCore.debug.xcconfig"; sourceTree = "<group>"; };
-		F37A7B8AA694F6F9F550482F /* Pods-PrebidMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobile.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobile/Pods-PrebidMobile.release.xcconfig"; sourceTree = "<group>"; };
 		F5400CB12209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseInvalidResponseWithoutCacheId.json; sourceTree = "<group>"; };
 		F5400CB52209EBF50018F6B1 /* PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json; sourceTree = "<group>"; };
 		F5400CB72209F19B0018F6B1 /* responseInvalidNoTopCacheId.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseInvalidNoTopCacheId.json; sourceTree = "<group>"; };
@@ -247,7 +239,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3516757CA74E81CCE7A07B64 /* Pods_PrebidMobileCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,7 +246,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76DA65285917B36FC7A30B20 /* Pods_PrebidMobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,8 +256,6 @@
 			isa = PBXGroup;
 			children = (
 				6062B19B218243FA00CE1BA3 /* CoreLocation.framework */,
-				730153ABBDC6B4478360A4A9 /* Pods_PrebidMobile.framework */,
-				5502D79180F5E6DED9BD3785 /* Pods_PrebidMobileCore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -469,10 +457,6 @@
 		EE09B07119B6562CC4356195 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				35FE3E0475D07E6FE2455850 /* Pods-PrebidMobile.debug.xcconfig */,
-				F37A7B8AA694F6F9F550482F /* Pods-PrebidMobile.release.xcconfig */,
-				D07F43DFFF74B68B593B7880 /* Pods-PrebidMobileCore.debug.xcconfig */,
-				1F1C6E8B15DF27C3772977CE /* Pods-PrebidMobileCore.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -549,7 +533,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FA29A3EF232255DF00F13F61 /* Build configuration list for PBXNativeTarget "PrebidMobileCore" */;
 			buildPhases = (
-				477304AED236E2ADA62121E1 /* [CP] Check Pods Manifest.lock */,
 				FA29A3EC232255DF00F13F61 /* Headers */,
 				FA29A3D4232255DF00F13F61 /* Sources */,
 				FA29A3E9232255DF00F13F61 /* Frameworks */,
@@ -568,7 +551,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAAA00C22322733E009DC7D6 /* Build configuration list for PBXNativeTarget "PrebidMobile" */;
 			buildPhases = (
-				F4DB4A8B7AB243D08F5E21EE /* [CP] Check Pods Manifest.lock */,
 				FAAA00B82322733E009DC7D6 /* Headers */,
 				FAAA00B92322733E009DC7D6 /* Sources */,
 				FAAA00BA2322733E009DC7D6 /* Frameworks */,
@@ -660,53 +642,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		477304AED236E2ADA62121E1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PrebidMobileCore-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F4DB4A8B7AB243D08F5E21EE /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PrebidMobile-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		60D792F7217E229B0080F428 /* Sources */ = {
@@ -1005,7 +940,6 @@
 		};
 		FA29A3F0232255DF00F13F61 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D07F43DFFF74B68B593B7880 /* Pods-PrebidMobileCore.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -1029,7 +963,6 @@
 		};
 		FA29A3F1232255DF00F13F61 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1F1C6E8B15DF27C3772977CE /* Pods-PrebidMobileCore.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -1053,7 +986,6 @@
 		};
 		FAAA00C32322733E009DC7D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35FE3E0475D07E6FE2455850 /* Pods-PrebidMobile.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -1077,7 +1009,6 @@
 		};
 		FAAA00C42322733E009DC7D6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F37A7B8AA694F6F9F550482F /* Pods-PrebidMobile.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
