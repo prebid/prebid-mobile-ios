@@ -61,7 +61,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         targeting.subjectToGDPR = true
         targeting.gdprConsentString = "testGDPR"
         targeting.purposeConsents = "100000000000000000000000"
-        
+
         defer {
             targeting.subjectToGDPR = nil
             targeting.gdprConsentString = nil
@@ -74,8 +74,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         //TODO move to this area
         validationResponse(jsonRequestBody: jsonRequestBody as! [String : Any])
     }
-
-
 
     func testPostDataWithServerAccountId() throws {
 
@@ -277,7 +275,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         //then
         XCTAssertNil(regs)
     }
-    
+
     func testPostDataGdprSubjectUndefined() throws {
 
         //given
@@ -300,7 +298,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let targeting = Targeting.shared
         targeting.subjectToGDPR = true
         targeting.gdprConsentString = "BOEFEAyOEFEAyAHABDENAI4AAAB9vABAASA"
-        
+
         defer {
             targeting.subjectToGDPR = nil
             targeting.gdprConsentString = nil
@@ -316,7 +314,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             let user = jsonRequestBody["user"] as? [String: Any],
             let userExt = user["ext"] as? [String: Any],
             let consent = userExt["consent"] as? String else {
-                
+
                 XCTFail("parsing error")
                 return
         }
@@ -326,14 +324,14 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual("BOEFEAyOEFEAyAHABDENAI4AAAB9vABAASA", consent)
 
     }
-    
+
     func testPostDataGdprConsentAndGdprSubjectFalse() throws {
 
         //given
         let targeting = Targeting.shared
         targeting.subjectToGDPR = false
         targeting.gdprConsentString = "testGDPR"
-        
+
         defer {
             targeting.subjectToGDPR = nil
             targeting.gdprConsentString = nil
@@ -348,11 +346,11 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
             XCTFail("parsing error")
             return
-        
+
         }
 
         let consent = user["ext"] as? [String: Any]
-        
+
         //then
         XCTAssertNil(gdpr)
         XCTAssertNil(consent)
@@ -361,22 +359,22 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     
     //MARK: - TCFv2
     func testPostDataIfa() throws {
-        
+
         //given
         let targeting = Targeting.shared
         targeting.subjectToGDPR = false
         targeting.purposeConsents = "100000000000000000000000"
-        
+
         defer {
             targeting.subjectToGDPR = nil
             targeting.purposeConsents = nil
         }
-        
+
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-        
+
         var idfa: String? = nil
-        
+
         if let regs = jsonRequestBody["device"] as? [String: Any],
             let ifa = regs["ifa"] as? String {
             idfa = ifa
@@ -384,7 +382,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         //then
         XCTAssertEqual(idfa, .kIFASentinelValue)
     }
-    
+
     //TCFv2 and gdpr
     //fetch advertising identifier based TCF 2.0 Purpose1 value
     //truth table
@@ -415,33 +413,33 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         try! postDataIfaHelper(gdprApplies: nil, purposeConsents: nil, hasIfa: true)
 
     }
-    
+
     func postDataIfaHelper(gdprApplies: Bool?, purposeConsents:String?, hasIfa: Bool) throws {
         //given
         let targeting = Targeting.shared
         targeting.subjectToGDPR = gdprApplies
         targeting.purposeConsents = purposeConsents
-        
+
         defer {
             targeting.subjectToGDPR = nil
             targeting.purposeConsents = nil
         }
-        
+
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-        
+
         guard let regs = jsonRequestBody["device"] as? [String: Any] else {
-            
+
             XCTFail("parsing error")
             return
         }
-        
+
         let ifa = regs["ifa"] as? String
-            
+
         //then
         XCTAssertEqual(hasIfa, ifa != nil)
     }
-    
+
     //MARK: - COPPA
     func testPostDataCoppaTrue() throws {
 
@@ -451,7 +449,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         defer {
             targeting.subjectToCOPPA = false
         }
-        
+
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
 
@@ -474,7 +472,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         defer {
             targeting.subjectToCOPPA = false
         }
-        
+
         var coppa: Int? = nil
 
         //when
@@ -1057,11 +1055,11 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         try pbsDebugHelper(pbsDebug: false, expectedTest: nil)
 
     }
-    
+
     func pbsDebugHelper(pbsDebug: Bool, expectedTest: Int?) throws {
         //given
         Prebid.shared.pbsDebug = pbsDebug
-        
+
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
 
@@ -1070,7 +1068,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         //then
         XCTAssertEqual(expectedTest, test)
     }
-    
+
     func testVideoAdUnit() throws {
         //given
         Prebid.shared.prebidServerAccountId = "12345"
@@ -1108,10 +1106,10 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         //given
         Prebid.shared.prebidServerAccountId = "12345"
         let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
-        
+
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-        
+
         guard let impArray = jsonRequestBody["imp"] as? [Any],
             let impDic = impArray[0] as? [String: Any],
             let video = impDic["video"] as? [String: Any],
@@ -1119,39 +1117,39 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             let h = video["h"] as? Int,
             let placement = video["placement"] as? Int,
             let linearity = video["linearity"] as? Int,
-            
+
             let ext = jsonRequestBody["ext"] as? [String: Any],
             let extPrebid = ext["prebid"] as? [String: Any],
             let cache = extPrebid["cache"] as? [String: Any],
             let vastXml = cache["vastxml"] as? [String: Any],
-            
+
             let instl = impDic["instl"] as? Int
             else {
                 XCTFail("parsing fail")
                 return
         }
-        
+
         //then
         XCTAssertNotNil(w)
         XCTAssertNotNil(h)
-        
+
         XCTAssertEqual(5, placement)
         XCTAssertEqual(1, linearity)
-        
+
         XCTAssertNotNil(vastXml)
-        
+
         XCTAssertEqual(1, instl)
-        
+
     }
-    
+
     func testRewardedVideoAdUnit() throws {
         //given
         Prebid.shared.prebidServerAccountId = "12345"
         let adUnit = RewardedVideoAdUnit(configId: Constants.configID1)
-        
+
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-        
+
         guard let impArray = jsonRequestBody["imp"] as? [Any],
             let impDic = impArray[0] as? [String: Any],
             let video = impDic["video"] as? [String: Any],
@@ -1159,38 +1157,38 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             let h = video["h"] as? Int,
             let placement = video["placement"] as? Int,
             let linearity = video["linearity"] as? Int,
-            
+
             let ext = jsonRequestBody["ext"] as? [String: Any],
             let extPrebid = ext["prebid"] as? [String: Any],
             let cache = extPrebid["cache"] as? [String: Any],
             let vastXml = cache["vastxml"] as? [String: Any],
-        
+
             let instl = impDic["instl"] as? Int,
-        
+
             let impExt = impDic["ext"] as? [String: Any],
             let prebid = impExt["prebid"] as? [String: Any],
             let isRewarded = prebid["is_rewarded_inventory"] as? Int
-        
+
             else {
                 XCTFail("parsing fail")
                 return
         }
-        
+
         //then
         XCTAssertNotNil(w)
         XCTAssertNotNil(h)
-        
+
         XCTAssertEqual(5, placement)
         XCTAssertEqual(1, linearity)
-        
+
         XCTAssertNotNil(vastXml)
-        
+
         XCTAssertEqual(1, instl)
-        
+
         XCTAssertEqual(1, isRewarded)
-        
+
     }
-    
+
     func testVideoBaseAdUnit() throws {
         //given
         Prebid.shared.prebidServerAccountId = "12345"
@@ -1250,6 +1248,29 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual(0, startDelay)
         XCTAssertEqual(2, placement)
 
+    }
+
+    func testPrebidAdSlot() throws {
+
+        //given
+        adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2))
+        adUnit.pbAdSlot = "/1111111/homepage/med-rect-2"
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let impArray = jsonRequestBody["imp"] as? [Any],
+            let impDic = impArray[0] as? [String: Any],
+            let ext = impDic["ext"] as? [String: Any],
+            let context = ext["context"] as? [String: Any],
+            let data = context["data"] as? [String: Any],
+            let adslot = data["adslot"] as? String else {
+                XCTFail("parsing fail")
+                return
+        }
+
+        //then
+        XCTAssertEqual("/1111111/homepage/med-rect-2", adslot)
     }
 
     private func getPostDataHelper(adUnit: AdUnit) throws -> (urlRequest: URLRequest, jsonRequestBody: [AnyHashable: Any]) {

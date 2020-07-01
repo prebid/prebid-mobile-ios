@@ -188,8 +188,14 @@ class RequestBuilder: NSObject {
 
         var prebidAdUnitExtContext: [AnyHashable: Any] = [:]
         prebidAdUnitExtContext["keywords"] = adUnit?.getContextKeywordsSet().toCommaSeparatedListString()
-        prebidAdUnitExtContext["data"] = adUnit?.getContextDataDictionary().getCopyWhereValueIsArray()
 
+        var contextData: [AnyHashable: Any] = [:]
+        
+        contextData = adUnit?.getContextDataDictionary().getCopyWhereValueIsArray() ?? [:]
+        contextData["adslot"] = adUnit?.pbAdSlot
+
+        prebidAdUnitExtContext["data"] = contextData
+        
         adUnitExt["context"] = prebidAdUnitExtContext
 
         imp["ext"] = adUnitExt
