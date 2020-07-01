@@ -1117,10 +1117,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             let h = video["h"] as? Int,
             let placement = video["placement"] as? Int,
             let linearity = video["linearity"] as? Int,
-            let playbackMethods = video["playbackmethod"] as? [Int],
-            let playbackMethods1 = playbackMethods[0] as? Int,
-            let mimes = video["mimes"] as? [String],
-            let mimes1 = mimes[0] as? String,
 
             let ext = jsonRequestBody["ext"] as? [String: Any],
             let extPrebid = ext["prebid"] as? [String: Any],
@@ -1139,8 +1135,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         XCTAssertEqual(5, placement)
         XCTAssertEqual(1, linearity)
-        XCTAssertEqual(2, playbackMethods1)
-        XCTAssertEqual("video/mp4", mimes1)
 
         XCTAssertNotNil(vastXml)
 
@@ -1163,10 +1157,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             let h = video["h"] as? Int,
             let placement = video["placement"] as? Int,
             let linearity = video["linearity"] as? Int,
-            let playbackMethods = video["playbackmethod"] as? [Int],
-            let playbackMethods1 = playbackMethods[0] as? Int,
-            let mimes = video["mimes"] as? [String],
-            let mimes1 = mimes[0] as? String,
 
             let ext = jsonRequestBody["ext"] as? [String: Any],
             let extPrebid = ext["prebid"] as? [String: Any],
@@ -1190,8 +1180,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         XCTAssertEqual(5, placement)
         XCTAssertEqual(1, linearity)
-        XCTAssertEqual(2, playbackMethods1)
-        XCTAssertEqual("video/mp4", mimes1)
 
         XCTAssertNotNil(vastXml)
 
