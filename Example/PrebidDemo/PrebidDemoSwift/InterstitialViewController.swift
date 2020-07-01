@@ -62,105 +62,136 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
         }
     }
 
+    //MARK: - Interstitial
     func setupAndLoadAMInterstitial() {
-        
-        setupPBInterstitial()
-        setupAMInterstitial()
-        
-        loadAMInterstitial()
-    }
-    
-    func setupAndLoadAMInterstitialVAST() {
-
-        setupPBInterstitialVAST()
-        setupAMInterstitialVAST()
-        
+        setupPBRubiconInterstitial()
+        setupAMRubiconInterstitial()
         loadAMInterstitial()
     }
     
     func setupAndLoadMPInterstitial() {
-        setupPBInterstitial()
-        setupMPInterstitial()
-        
+        setupPBRubiconInterstitial()
+        setupMPRubiconInterstitial()
         loadMPInterstitial()
-
     }
     
-    func setupAndLoadMPInterstitialVAST() {
-        setupPBInterstitialVAST()
-        setupMPInterstitialVAST()
-        
-        loadMPInterstitial()
+    //Setup PB
+    func setupPBAppNexusInterstitial() {
+        setupPBInterstitial(host: .Appnexus, accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0", configId: "625c6125-f19e-4d5b-95c5-55501526b2a4", storedResponse: "")
+    }
 
+    func setupPBRubiconInterstitial() {
+        setupPBInterstitial(host: .Rubicon, accountId: "1001", configId: "1001-1", storedResponse: "1001-rubicon-300x250")
     }
     
-    func setupPBInterstitial() {
-        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
-        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
-        Prebid.shared.storedAuctionResponse = ""
+    func setupPBInterstitial(host: PrebidHost, accountId: String, configId: String, storedResponse: String) {
+        setupPB(host: host, accountId: accountId, storedResponse: storedResponse)
         
-        adUnit = InterstitialAdUnit(configId: "625c6125-f19e-4d5b-95c5-55501526b2a4")
+        adUnit = InterstitialAdUnit(configId: configId)
         
 //        Advanced interstitial support
 //        adUnit = InterstitialAdUnit(configId: "625c6125-f19e-4d5b-95c5-55501526b2a4", minWidthPerc: 50, minHeightPerc: 70)
 
     }
     
-    func setupPBInterstitialVAST() {
-        Prebid.shared.prebidServerHost = .Rubicon
-        
-        Prebid.shared.prebidServerAccountId = "1001"
-        adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250), type: .inBanner)
-        
-        Prebid.shared.storedAuctionResponse = "sample_video_response"
+    func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
+        Prebid.shared.prebidServerHost = host
+        Prebid.shared.prebidServerAccountId = accountId
+        Prebid.shared.storedAuctionResponse = storedResponse
     }
     
-    func setupAMInterstitial() {
-        amInterstitial = DFPInterstitial(adUnitID: "/19968336/PrebidMobileValidator_Interstitial")
+    //Setup AdServer
+    func setupAMAppNexusInterstitial() {
+        setupAMInterstitial(adUnitId: "/19968336/PrebidMobileValidator_Interstitial")
+    }
+
+    func setupAMRubiconInterstitial() {
+        setupAMInterstitial(adUnitId: "/5300653/pavliuchyk_test_adunit_1x1_puc")
+    }
+    
+    func setupAMInterstitial(adUnitId: String) {
+        amInterstitial = DFPInterstitial(adUnitID: adUnitId)
         amInterstitial.delegate = self
     }
     
-    func setupAMInterstitialVAST() {
-        amInterstitial = DFPInterstitial(adUnitID: "/5300653/test_adunit_vast_pavliuchyk")
-        amInterstitial.delegate = self
+    func setupMPAppNexusInterstitial() {
+        setupMPInterstitial(adUnitId: "2829868d308643edbec0795977f17437")
+    }
+
+    func setupMPRubiconInterstitial() {
+        setupMPInterstitial(adUnitId: "d5c75d9f0b8742cab579610930077c35")
     }
     
-    func setupMPInterstitial() {
-        
-        setupMPInterstitial(id: "2829868d308643edbec0795977f17437")
-    }
-    
-    func setupMPInterstitialVAST() {
-        
-        setupMPInterstitial(id: "fdafd17a5aeb41c798e6901a7f76f256")
-    }
-    
-    func setupMPInterstitial(id: String) {
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: id)
+    func setupMPInterstitial(adUnitId: String) {
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: adUnitId)
         sdkConfig.globalMediationSettings = []
 
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
 
-        self.mpInterstitial = MPInterstitialAdController(forAdUnitId: id)
+        self.mpInterstitial = MPInterstitialAdController(forAdUnitId: adUnitId)
         self.mpInterstitial.delegate = self
     }
     
+    //Load
     func loadAMInterstitial() {
         print("Google Mobile Ads SDK version: \(DFPRequest.sdkVersion())")
         
-        adUnit.fetchDemand(adObject: self.amRequest) { (resultCode: ResultCode) in
+        adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
-            self.amInterstitial!.load(self.amRequest)
+            self?.amInterstitial.load(self?.amRequest)
         }
     }
     
     func loadMPInterstitial() {
         // Do any additional setup after loading the view, typically from a nib.
-        adUnit.fetchDemand(adObject: mpInterstitial!) { (resultCode: ResultCode) in
+        adUnit.fetchDemand(adObject: mpInterstitial) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for mopub \(resultCode.name())")
 
-            self.mpInterstitial.loadAd()
+            self?.mpInterstitial.loadAd()
         }
+    }
+    
+    //MARK: - Interstitial VAST
+    func setupAndLoadAMInterstitialVAST() {
+        setupPBRubiconInterstitialVAST()
+        setupAMRubiconInterstitialVAST()
+        loadAMInterstitial()
+    }
+    
+    func setupAndLoadMPInterstitialVAST() {
+        setupPBRubiconInterstitialVAST()
+        setupMPRubiconInterstitialVAST()
+        loadMPInterstitial()
+    }
+    
+    //Setup PB
+    func setupPBRubiconInterstitialVAST() {
+        setupPB(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
+        
+        let adUnit = VideoInterstitialAdUnit(configId: "1001-1")
+        let parameters = VideoBaseAdUnit.Parameters()
+        parameters.mimes = ["video/mp4"]
+        
+        parameters.protocols = [Signals.Protocols.VAST_2_0]
+        // parameters.protocols = [Signals.Protocols(2)]
+        
+        parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
+        // parameters.playbackMethod = [Signals.PlaybackMethod(2)]
+        
+        adUnit.parameters = parameters
+        
+        self.adUnit = adUnit
+    }
+    
+    //Setup AdServer
+    func setupAMRubiconInterstitialVAST() {
+        amInterstitial = DFPInterstitial(adUnitID: "/5300653/test_adunit_vast_pavliuchyk")
+        amInterstitial.delegate = self
+    }
+    
+    func setupMPRubiconInterstitialVAST() {
+        
+        setupMPInterstitial(adUnitId: "fdafd17a5aeb41c798e6901a7f76f256")
     }
 
     //MARK: - GADInterstitialDelegate

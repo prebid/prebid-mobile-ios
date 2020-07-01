@@ -1,10 +1,17 @@
-//
-//  AdViewUtilsTests.swift
-//  PrebidMobileTests
-//
-//  Created by Alex on 7/24/19.
-//  Copyright © 2019 AppNexus. All rights reserved.
-//
+/*   Copyright 2018-2019 Prebid.org, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 
 import XCTest
 import WebKit
@@ -136,14 +143,7 @@ class AdViewUtilsTests: XCTestCase {
         
         let uiView = UIView()
         
-        findSizeInViewFailureHelper(uiView, expectedErrorCode: PbFindSizeErrorFactory.noWebViewCode)
-    }
-    
-    func testFailureFindSizeInViewIfUiWebViewWithoutHTML() {
-        
-        let uiWebView = UIWebView()
-        
-        findSizeInViewFailureHelper(uiWebView, expectedErrorCode: PbFindSizeErrorFactory.noHtmlCode)
+        findSizeInViewFailureHelper(uiView, expectedErrorCode: PbFindSizeErrorFactory.noWKWebViewCode)
     }
     
     func testFailureFindSizeInViewIfWkWebViewWithoutHTML() {
@@ -157,7 +157,7 @@ class AdViewUtilsTests: XCTestCase {
         
         let uiView = UIView()
         
-        findSizeInViewFailureHelper(uiView, expectedErrorCode: PbFindSizeErrorFactory.noWebViewCode)
+        findSizeInViewFailureHelper(uiView, expectedErrorCode: PbFindSizeErrorFactory.noWKWebViewCode)
     }
     
     class TestingWKNavigationDelegate: NSObject, WKNavigationDelegate {
@@ -175,26 +175,6 @@ class AdViewUtilsTests: XCTestCase {
                 }
                 self.loadSuccesfulException.fulfill()
             }
-        }
-    }
-    
-    class TestingUIWebViewDelegate: NSObject, UIWebViewDelegate {
-        let loadSuccesfulException: XCTestExpectation
-        
-        init(_ loadSuccesfulException: XCTestExpectation) {
-            self.loadSuccesfulException = loadSuccesfulException
-        }
-        
-        func webViewDidFinishLoad(_ webView: UIWebView) {
-            loadSuccesfulException.fulfill()
-            return
-        }
-        
-        func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-            XCTFail("TestingUIWebViewDelegate error: \(error)")
-            loadSuccesfulException.fulfill()
-            return
-            
         }
     }
     
@@ -222,23 +202,6 @@ class AdViewUtilsTests: XCTestCase {
         findSizeInViewSuccessHelper(wkWebView, expectedSize: CGSize(width: 728, height: 90))
     }
     
-    func testSuccessFindSizeInUiWebView() {
-        let uiWebView = UIWebView()
-        
-        setHtmlIntoUiWebView(successHtmlWithSize728x90, uiWebView)
-        findSizeInViewSuccessHelper(uiWebView, expectedSize: CGSize(width: 728, height: 90))
-    }
-    
-    func testSuccessFindSizeInViewWithUiWebView() {
-        
-        let uiView = UIView()
-        let uiWebView = UIWebView()
-        uiView.addSubview(uiWebView)
-        
-        setHtmlIntoUiWebView(successHtmlWithSize728x90, uiWebView)
-        findSizeInViewSuccessHelper(uiWebView, expectedSize: CGSize(width: 728, height: 90))
-    }
-    
     func setHtmlIntoWkWebView(_ html: String, _ wkWebView: WKWebView) {
         let loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -249,18 +212,6 @@ class AdViewUtilsTests: XCTestCase {
         
         waitForExpectations(timeout: 5, handler: nil)
         wkWebView.navigationDelegate = nil
-    }
-    
-    func setHtmlIntoUiWebView(_ html: String, _ uiWebView: UIWebView) {
-        let loadSuccesfulException = expectation(description: "\(#function)")
-        
-        let testingUIWebViewDelegate = TestingUIWebViewDelegate(loadSuccesfulException)
-        uiWebView.delegate = testingUIWebViewDelegate
-        
-        uiWebView.loadHTMLString(html, baseURL: nil)
-        
-        waitForExpectations(timeout: 5, handler: nil)
-        uiWebView.delegate = nil
     }
     
     func findSizeInViewFailureHelper(_ view: UIView, expectedErrorCode: Int) {

@@ -32,9 +32,9 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPReward
     
     private var amRewardedAd: GADRewardedAd!
     private let amRequest = GADRequest()
-    private let amAdUnitId = "/5300653/test_adunit_vast_rewarded-video_pavliuchyk"
     
-    private let mpAdUnitId = "46d2ebb3ccd340b38580b5d3581c6434"
+    private let amRubiconAdUnitId = "/5300653/test_adunit_vast_rewarded-video_pavliuchyk"
+    private let mpRubiconAdUnitId = "46d2ebb3ccd340b38580b5d3581c6434"
     
     override func viewDidLoad() {
         
@@ -48,54 +48,74 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPReward
     }
     
     func setupAndLoadAMRewardedVideo() {
-        setupPBRewardedVideo()
-        setupAMRewardedVideo()
-        
+        setupPBRubiconRewardedVideo()
+        setupAMRubiconRewardedVideo()
         loadAMRewardedVideo()
     }
     
     func setupAndLoadMPRewardedVideo() {
-        setupPBRewardedVideo()
-        setupMPRewardedVideo()
-        
+        setupPBRubiconRewardedVideo()
+        setupMPRubiconRewardedVideo()
         loadMPRewardedVideo()
     }
     
-    func setupPBRewardedVideo() {
+    //Setup PB
+    func setupPBRubiconRewardedVideo() {
 
-        Prebid.shared.prebidServerHost = .Rubicon
+        setupPB(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
 
-        Prebid.shared.prebidServerAccountId = "1001"
-        adUnit = RewardedVideoAdUnit(configId: "1001-1")
-
-        Prebid.shared.storedAuctionResponse = "sample_video_response"
+        let adUnit = RewardedVideoAdUnit(configId: "1001-1")
+        
+        let parameters = VideoBaseAdUnit.Parameters()
+        parameters.mimes = ["video/mp4"]
+        
+        parameters.protocols = [Signals.Protocols.VAST_2_0]
+        // parameters.protocols = [Signals.Protocols(2)]
+        
+        parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
+        //parameters.playbackMethod = [Signals.PlaybackMethod(2)]
+        
+        adUnit.parameters = parameters
+        
+        self.adUnit = adUnit
         
     }
     
-    func setupAMRewardedVideo() {
-        amRewardedAd = GADRewardedAd(adUnitID: amAdUnitId)
+    func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
+        Prebid.shared.prebidServerHost = host
+        Prebid.shared.prebidServerAccountId = accountId
+        Prebid.shared.storedAuctionResponse = storedResponse
     }
     
-    func setupMPRewardedVideo() {
-        MPRewardedVideo.setDelegate(self, forAdUnitId: mpAdUnitId)
+    //Setup AdServer
+    func setupAMRubiconRewardedVideo() {
+        amRewardedAd = GADRewardedAd(adUnitID: amRubiconAdUnitId)
     }
     
+    func setupMPRubiconRewardedVideo() {
+        MPRewardedVideo.setDelegate(self, forAdUnitId: mpRubiconAdUnitId)
+    }
+    
+    //Load
     func loadAMRewardedVideo() {
         
-        adUnit.fetchDemand(adObject: self.amRequest) { (resultCode: ResultCode) in
+        adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: ResultCode) in
+            
+            guard let self = self else {
+                print("self is nil")
+                return
+            }
             
             self.amRewardedAd.load(self.amRequest) { error in
                 if let error = error {
                     print("loadAMRewardedVideo failed:\(error)")
                 } else {
                     
-                    if self.amRewardedAd?.isReady == true {
-                        self.amRewardedAd?.present(fromRootViewController: self, delegate:self)
+                    if self.amRewardedAd.isReady == true {
+                        self.amRewardedAd.present(fromRootViewController: self, delegate:self)
                     }
-                    
                 }
             }
-            
         }
     }
     
@@ -104,30 +124,29 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPReward
         let targetingDict = NSMutableDictionary()
         
         // Do any additional setup after loading the view, typically from a nib.
-        adUnit.fetchDemand(adObject: targetingDict) { (resultCode: ResultCode) in
+        adUnit.fetchDemand(adObject: targetingDict) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for mopub \(resultCode.name())")
 
             if let targetingDict = targetingDict as? Dictionary<String, String> {
                 let keywords = Utils.shared.convertDictToMoPubKeywords(dict: targetingDict)
-                MPRewardedVideo.loadAd(withAdUnitID: self.mpAdUnitId, keywords: keywords, userDataKeywords: nil, location: nil, mediationSettings: nil)
+                MPRewardedVideo.loadAd(withAdUnitID: self?.mpRubiconAdUnitId, keywords: keywords, userDataKeywords: nil, location: nil, mediationSettings: nil)
             }
         }
     }
     
     //MARK: - GADRewardedAdDelegate
-    /// Tells the delegate that the user earned a reward.
     func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
         print("Reward received with currency: \(reward.type), amount \(reward.amount).")
     }
-    /// Tells the delegate that the rewarded ad was presented.
+
     func rewardedAdDidPresent(_ rewardedAd: GADRewardedAd) {
         print("Rewarded ad presented.")
     }
-    /// Tells the delegate that the rewarded ad was dismissed.
+
     func rewardedAdDidDismiss(_ rewardedAd: GADRewardedAd) {
         print("Rewarded ad dismissed.")
     }
-    /// Tells the delegate that the rewarded ad failed to present.
+
     func rewardedAd(_ rewardedAd: GADRewardedAd, didFailToPresentWithError error: Error) {
         print("rewardedAdDidFailToPresentWithError:\(error.localizedDescription)")
     }

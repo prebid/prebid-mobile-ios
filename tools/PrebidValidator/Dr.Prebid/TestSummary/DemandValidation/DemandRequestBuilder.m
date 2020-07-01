@@ -49,7 +49,7 @@ static NSString *const kPrebidMobileVersion = @"0.5.3";
     requestDict[@"source"] = [self openrtbSource];
     requestDict[@"app"] = [self openrtbApp:accountID];
     requestDict[@"device"] = [self openrtbDevice];
-    if(Targeting.shared.subjectToGDPR == YES){
+    if ([Targeting.shared getSubjectToGDPR]){
         requestDict[@"regs"] = [self openrtbRegs];
     }
     requestDict[@"user"] = [self openrtbUser];
@@ -197,7 +197,7 @@ static NSString *const kPrebidMobileVersion = @"0.5.3";
     
     NSMutableDictionary *regsDict = [[NSMutableDictionary alloc] init];
     
-    BOOL gdpr = [[Targeting shared] subjectToGDPR];
+    BOOL gdpr = [[Targeting shared] getSubjectToGDPR];
     
     regsDict[@"ext"] = @{@"gdpr" : @(@(gdpr).integerValue)};
     
@@ -227,7 +227,7 @@ static NSString *const kPrebidMobileVersion = @"0.5.3";
     }
     userDict[@"gender"] = gender;
     
-    if([[Targeting shared] subjectToGDPR] == YES){
+    if([[Targeting shared] getSubjectToGDPR]){
         
         NSString *consentString = [[Targeting shared] gdprConsentString];
         if(consentString != nil){

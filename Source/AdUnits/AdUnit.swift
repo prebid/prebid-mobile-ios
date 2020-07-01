@@ -16,8 +16,8 @@ import ObjectiveC.runtime
 @objcMembers public class AdUnit: NSObject, DispatcherDelegate {
 
     public var pbAdSlot: String? = nil
-    
-    var prebidConfigId: String! = ""
+
+    var prebidConfigId: String = ""
 
     var adSizes = Array<CGSize> ()
 
@@ -41,7 +41,7 @@ import ObjectiveC.runtime
 
     //notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     var timeOutSignalSent: Bool! = false
-    
+
     init(configId: String, size: CGSize?) {
         self.closure = {_ in return}
         prebidConfigId = configId

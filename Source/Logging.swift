@@ -26,6 +26,28 @@ public enum LogLevel: String {
     case severe = "[🔥]" // severe
 }
 
+//Objective-C Api
+@objc
+public enum LogLevel_: Int {
+    case debug // debug
+    case verbose // verbose
+    case info // info
+    case warn // warning
+    case error // error
+    case severe // severe
+    
+    func getPrimary() -> LogLevel {
+        switch self {
+        case .debug: return .debug
+        case .verbose: return .verbose
+        case .info: return .info
+        case .warn: return .warn
+        case .error: return .error
+        case .severe: return .severe
+        }
+    }
+}
+
 /// Wrapping Swift.print() within DEBUG flag
 ///
 /// - Note: *print()* might cause [security vulnerabilities](https://codifiedsecurity.com/mobile-app-security-testing-checklist-ios/)

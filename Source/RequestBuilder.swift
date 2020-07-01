@@ -19,7 +19,7 @@ import CoreLocation
 import WebKit
 import AdSupport
 
-@objcMembers public class RequestBuilder: NSObject {
+class RequestBuilder: NSObject {
     /**
      * The class is created as a singleton object & used
      */
@@ -76,6 +76,10 @@ import AdSupport
         requestDict["user"] = openrtbUser(adUnit: adUnit)
         requestDict["imp"] = openrtbImps(adUnit: adUnit)
         requestDict["ext"] = openrtbRequestExtension()
+        
+        if Prebid.shared.pbsDebug {
+            requestDict["test"] = 1
+        }
 
         if let requestDictWithoutEmptyValues = requestDict.getObjectWithoutEmptyValues() {
             requestDict = requestDictWithoutEmptyValues
@@ -87,7 +91,7 @@ import AdSupport
                 var cache: [AnyHashable: Any] = [:]
                 cache["bids"] = [AnyHashable: Any]()
                 
-                if (adUnit is VideoAdUnit || adUnit is VideoInterstitialAdUnit || adUnit is RewardedVideoAdUnit) {
+                if (adUnit is VideoBaseAdUnit) {
                     cache["vastxml"] = [AnyHashable: Any]()
                 }
                 prebid["cache"] = cache
@@ -174,7 +178,7 @@ import AdSupport
 
             prebidAdUnitExt["storedbidresponse"] = storedBidResponses
         }
-        
+
         if (adUnit is RewardedVideoAdUnit) {
             prebidAdUnitExt["is_rewarded_inventory"] = 1
         }
@@ -196,32 +200,37 @@ import AdSupport
 
         imp["ext"] = adUnitExt
 
-        if (adUnit is VideoAdUnit || adUnit is VideoInterstitialAdUnit || adUnit is RewardedVideoAdUnit) {
+        if let adUnit = adUnit as? VideoBaseAdUnit {
+
             var video: [AnyHashable: Any] = [:]
             
-            let videoMimes: [String] = ["video/mp4"]
-            video["mimes"] = videoMimes
+            var placementValue: Int?
             
-            let videoPlaybackMethod: [Int] = [2]
-            video["playbackmethod"] = videoPlaybackMethod
+            if let parameters = adUnit.parameters {
+                video["api"] = parameters.api?.toIntArray()
+                video["maxbitrate"] = parameters.maxBitrate?.value
+                video["minbitrate"] = parameters.minBitrate?.value
+                video["maxduration"] = parameters.maxDuration?.value
+                video["minduration"] = parameters.minDuration?.value
+                video["mimes"] = parameters.mimes
+                video["playbackmethod"] = parameters.playbackMethod?.toIntArray()
+                video["protocols"] = parameters.protocols?.toIntArray()
+                video["startdelay"] = parameters.startDelay?.value
+                
+                placementValue = parameters.placement?.value
+            }
             
-            let adSize = adUnit!.adSizes[0]
+            let adSize = adUnit.adSizes[0]
             video["w"] = adSize.width
             video["h"] = adSize.height
             
-            let placement: Int?
-
-            switch adUnit {
-            case let videoAdUnit as VideoAdUnit:
-                placement = videoAdUnit.type.rawValue
-            case is VideoInterstitialAdUnit:
-                placement = 5
-            case is RewardedVideoAdUnit:
-                placement = 5
-            default: placement = nil
+            if (adUnit is VideoInterstitialAdUnit || adUnit is RewardedVideoAdUnit) {
+                if (placementValue == nil) {
+                    placementValue = 5
+                }
             }
 
-            video["placement"] = placement
+            video["placement"] = placementValue
 
             video["linearity"] = 1
             
@@ -366,20 +375,20 @@ import AdSupport
 
     func openrtbGeo() -> [AnyHashable: Any]? {
 
-        if Location.shared.location != nil {
+        if let location = Location.shared.location {
             var geoDict: [AnyHashable: Any] = [:]
-            let latitude = Location.shared.location?.coordinate.latitude
-            let longitude = Location.shared.location?.coordinate.longitude
+            let latitude = location.coordinate.latitude
+            let longitude = location.coordinate.longitude
 
-            geoDict["lat"] = latitude ?? 0.0
-            geoDict["lon"] = longitude ?? 0.0
+            geoDict["lat"] = latitude
+            geoDict["lon"] = longitude
 
-            let locationTimestamp: Date? = Location.shared.location?.timestamp
-            let ageInSeconds: TimeInterval = -1.0 * (locationTimestamp?.timeIntervalSinceNow ?? 0.0)
+            let locationTimestamp = location.timestamp
+            let ageInSeconds: TimeInterval = -1.0 * locationTimestamp.timeIntervalSinceNow
             let ageInMilliseconds = Int64(ageInSeconds * 1000)
 
             geoDict["lastfix"] = ageInMilliseconds
-            geoDict["accuracy"] = Int(Location.shared.location?.horizontalAccuracy ?? 0)
+            geoDict["accuracy"] = Int(location.horizontalAccuracy)
 
             return geoDict
         }

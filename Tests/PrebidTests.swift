@@ -26,48 +26,153 @@ class PrebidTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testAccountId() {
-        Prebid.shared.prebidServerAccountId = "123"
-        XCTAssertEqual(Prebid.shared.prebidServerAccountId, "123")
-        XCTAssertNotEqual(Prebid.shared.prebidServerAccountId, "456")
-    }
-
-    func testShareGeoLocation() {
-        Prebid.shared.shareGeoLocation = true
-        XCTAssertTrue(Prebid.shared.shareGeoLocation)
-
-        Prebid.shared.shareGeoLocation = false
-        XCTAssertFalse(Prebid.shared.shareGeoLocation)
-    }
-
     func testServerHost() {
-        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
-        XCTAssertEqual(Prebid.shared.prebidServerHost, PrebidHost.Appnexus)
-
-        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
-        XCTAssertEqual(Prebid.shared.prebidServerHost, PrebidHost.Rubicon)
+        //given
+        let case1 = PrebidHost.Appnexus
+        let case2 = PrebidHost.Rubicon
+        
+        //when
+        Prebid.shared.prebidServerHost = case1
+        let result1 = Prebid.shared.prebidServerHost
+        
+        Prebid.shared.prebidServerHost = case2
+        let result2 = Prebid.shared.prebidServerHost
+        
+        //then
+        XCTAssertEqual(case1, result1)
+        XCTAssertEqual(case2, result2)
     }
-
-    func testServerCustomHost() {
-
+    
+    func testServerHostCustom() throws {
+        //given
+        let customHost = "https://prebid-server.rubiconproject.com/openrtb2/auction"
+        
+        //when
+        //We can not use setCustomPrebidServer() because it uses UIApplication.shared.canOpenURL
+//        try! Prebid.shared.setCustomPrebidServer(url: customHost)
+        
         Prebid.shared.prebidServerHost = PrebidHost.Custom
-        XCTAssertEqual(Prebid.shared.prebidServerHost, PrebidHost.Custom)
+        Host.shared.setHostURL = customHost
+        
+        //then
+        XCTAssertEqual(PrebidHost.Custom, Prebid.shared.prebidServerHost)
+        XCTAssertEqual(customHost, Host.shared.setHostURL)
+    }
+    
+    func testServerHostCustomInvalid() throws {
 
-        XCTAssertThrowsError(try Prebid.shared.setCustomPrebidServer(url: "http://www.rubicon.org"))
-
-        XCTAssertThrowsError(try Prebid.shared.setCustomPrebidServer(url: "abc"))
+        XCTAssertThrowsError(try Prebid.shared.setCustomPrebidServer(url: "wrong url"))
+    }
+    
+    func testAccountId() {
+        //given
+        let serverAccountId = "123"
+        
+        //when
+        Prebid.shared.prebidServerAccountId = serverAccountId
+        
+        //then
+        XCTAssertEqual(serverAccountId, Prebid.shared.prebidServerAccountId)
     }
 
     func testStoredAuctionResponse() {
-        Prebid.shared.storedAuctionResponse = "111122223333"
-        XCTAssertEqual(Prebid.shared.storedAuctionResponse, "111122223333")
+        //given
+        let storedAuctionResponse = "111122223333"
+        
+        //when
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        
+        //then
+        XCTAssertEqual(storedAuctionResponse, Prebid.shared.storedAuctionResponse)
     }
     
-    func testStoredBidResponses() {
-        Prebid.shared.addStoredBidResponse(bidder: "appnexus", responseId: "221144")
+    func testAddStoredBidResponse() {
+        
+        //given
+        let appnexusBidder = "appnexus"
+        let appnexusResponseId = "221144"
+        
+        let rubiconBidder = "rubicon"
+        let rubiconResponseId = "221155"
+        
+        //when
+        Prebid.shared.addStoredBidResponse(bidder: appnexusBidder, responseId: appnexusResponseId)
+        Prebid.shared.addStoredBidResponse(bidder: rubiconBidder, responseId: rubiconResponseId)
+        
+        //then
+        let dict = Prebid.shared.storedBidResponses
+        XCTAssertEqual(2, dict.count)
+        XCTAssert(dict[appnexusBidder] == appnexusResponseId && dict[rubiconBidder] == rubiconResponseId )
+    }
+    
+    func testClearStoredBidResponses() {
+        
+        //given
         Prebid.shared.addStoredBidResponse(bidder: "rubicon", responseId: "221155")
-        XCTAssertFalse(Prebid.shared.storedBidResponses.isEmpty)
+        let case1 = Prebid.shared.storedBidResponses.count
+        
+        //when
         Prebid.shared.clearStoredBidResponses()
-        XCTAssertTrue(Prebid.shared.storedBidResponses.isEmpty)
+        let case2 = Prebid.shared.storedBidResponses.count
+        
+        //then
+        XCTAssertNotEqual(0, case1)
+        XCTAssertEqual(0, case2)
+    }
+    
+    func testShareGeoLocation() {
+        //given
+        let case1 = true
+        let case2 = false
+        
+        //when
+        Prebid.shared.shareGeoLocation = case1
+        let result1 = Prebid.shared.shareGeoLocation
+        
+        Prebid.shared.shareGeoLocation = case2
+        let result2 = Prebid.shared.shareGeoLocation
+        
+        //rhen
+        XCTAssertEqual(case1, result1)
+        XCTAssertEqual(case2, result2)
+    }
+    
+    func testTimeoutMillis() {
+        //given
+        let timeoutMillis =  3_000
+        
+        //when
+        Prebid.shared.timeoutMillis = timeoutMillis
+        
+        //then
+        XCTAssertEqual(timeoutMillis, Prebid.shared.timeoutMillis)
+    }
+    
+    func testLogLevel() {
+        //given
+        let logLevel = LogLevel.verbose
+        
+        //when
+        Prebid.shared.logLevel = logLevel
+        
+        //then
+        XCTAssertEqual(logLevel, Prebid.shared.logLevel)
+        
+    }
+    
+    func testBidderName() {
+        XCTAssertEqual("appnexus", Prebid.bidderNameAppNexus)
+        XCTAssertEqual("rubicon", Prebid.bidderNameRubiconProject)
+    }
+    
+    func testPbsDebug() {
+        //given
+        let pbsDebug = true
+        
+        //when
+        Prebid.shared.pbsDebug = pbsDebug
+        
+        //then
+        XCTAssertEqual(pbsDebug, Prebid.shared.pbsDebug)
     }
 }
