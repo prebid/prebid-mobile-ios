@@ -46,12 +46,6 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         super.viewDidLoad()
 
         adServerLabel.text = adServerName
-        
-//        enableCOPPA()
-//        addFirstPartyData(adUnit: bannerUnit)
-//        setStoredResponse()
-//        setRequestTimeoutMillis()
-//        enablePbsDebug()
 
         if (adServerName == "DFP") {
             
@@ -62,11 +56,16 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
             case .vast:
                 setupAndLoadAMBannerVAST()
             }
-            
 
         } else if (adServerName == "MoPub") {
             setupAndLoadMPBanner()
         }
+
+//        enableCOPPA()
+//        addFirstPartyData(adUnit: adUnit)
+//        setStoredResponse()
+//        setRequestTimeoutMillis()
+//        enablePbsDebug()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -83,7 +82,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         setupAMRubiconBanner(width: width, height: height)
         loadAMBanner()
     }
-    
+
     func setupAndLoadMPBanner() {
         let width = 300
         let height = 250
@@ -119,7 +118,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
         //adUnit.setAutoRefreshMillis(time: 35000)
     }
-    
+
     func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
         Prebid.shared.prebidServerHost = host
         Prebid.shared.prebidServerAccountId = accountId
@@ -264,7 +263,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func setRequestTimeoutMillis() {
         Prebid.shared.timeoutMillis = 5000
     }
-    
+
     func enablePbsDebug() {
         Prebid.shared.pbsDebug = true
     }

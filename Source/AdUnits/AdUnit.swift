@@ -15,6 +15,8 @@ import ObjectiveC.runtime
 
 @objcMembers public class AdUnit: NSObject, DispatcherDelegate {
 
+    public var pbAdSlot: String? = nil
+
     var prebidConfigId: String = ""
 
     var adSizes = Array<CGSize> ()
@@ -50,7 +52,6 @@ import ObjectiveC.runtime
         super.init()
     }
 
-    //TODO: remove dynamic
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
         
         if !(self is NativeRequest){
