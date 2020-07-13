@@ -105,8 +105,17 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func setupPBBanner(host: PrebidHost, accountId: String, configId: String, storedResponse: String, width: Int, height: Int) {
         
         setupPB(host: host, accountId: accountId, storedResponse: storedResponse)
-        adUnit = BannerAdUnit(configId: configId, size: CGSize(width: width, height: height))
+        let adUnit = BannerAdUnit(configId: configId, size: CGSize(width: width, height: height))
         
+        let parameters = BannerAdUnit.Parameters()
+
+        parameters.api = [Signals.Api.MRAID_2]
+//        parameters.api = [Signals.Api(5)]
+
+        adUnit.parameters = parameters
+        
+        self.adUnit = adUnit
+
         //adUnit.setAutoRefreshMillis(time: 35000)
     }
 
@@ -124,7 +133,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func setupAMRubiconBanner(width: Int, height: Int) {
         setupAMBanner(width: width, height: height, adUnitId: "/5300653/pavliuchyk_test_adunit_1x1_puc")
     }
-    
+
     func setupAMBanner(width: Int, height:Int, adUnitId: String) {
         let customAdSize = GADAdSizeFromCGSize(CGSize(width: width, height: height))
         

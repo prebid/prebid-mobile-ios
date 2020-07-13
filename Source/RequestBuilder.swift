@@ -137,7 +137,7 @@ class RequestBuilder: NSObject {
             
             imp["native"] = nativeRequest.getNativeRequestObject()
             
-        } else if (adUnit is BannerAdUnit || adUnit is InterstitialAdUnit) {
+        } else if let bannerBaseAdUnit = adUnit as? BannerBaseAdUnit {
 
             var sizeArray = [[String: CGFloat]]()
             for size: CGSize in (adUnit?.adSizes)! {
@@ -147,8 +147,15 @@ class RequestBuilder: NSObject {
                 ]
                 sizeArray.append(sizeDict)
             }
-            let formats = ["format": sizeArray]
-            imp["banner"] = formats
+            var banner: [AnyHashable: Any] = [:]
+            
+            banner["format"] = sizeArray
+            
+            if let bannerParameters = bannerBaseAdUnit.parameters {
+                banner["api"] = bannerParameters.api?.toIntArray()
+            }
+            
+            imp["banner"] = banner
 
         }
         

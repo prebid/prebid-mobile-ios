@@ -15,7 +15,7 @@
 
 import Foundation
 
-public class InterstitialAdUnit: AdUnit {
+public class InterstitialAdUnit: BannerBaseAdUnit {
 
     var minSizePerc: CGSize?
     

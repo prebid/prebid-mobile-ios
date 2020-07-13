@@ -62,6 +62,7 @@ public class Signals: NSObject {
      | 4     | ORMMA       |
      | 5     | MRAID-2     |
      | 6     | MRAID-3     |
+     | 7     | OMID-1      |
      ```
      */
     @objc(PBApi)
@@ -85,11 +86,15 @@ public class Signals: NSObject {
         
         /// MRAID-2
         @objc
-        public static let MARAID_2 = Api(5)
+        public static let MRAID_2 = Api(5)
         
         /// MRAID-3
         @objc
-        public static let MARAID_3 = Api(6)
+        public static let MRAID_3 = Api(6)
+        
+        /// OMID-1
+        @objc
+        public static let OMID_1 = Api(7)
     }
 
     /**
