@@ -15,13 +15,13 @@
 
 import Foundation
 
-public class BannerAdUnit: AdUnit {
-
+public class BannerAdUnit: BannerBaseAdUnit {
+    
     public init(configId: String, size: CGSize) {
         super.init(configId: configId, size: size)
     }
 
-     public func addAdditionalSize(sizes: [CGSize]) {
+    public func addAdditionalSize(sizes: [CGSize]) {
         super.adSizes += sizes
     }
 

@@ -46,12 +46,6 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         super.viewDidLoad()
 
         adServerLabel.text = adServerName
-        
-//        enableCOPPA()
-//        addFirstPartyData(adUnit: bannerUnit)
-//        setStoredResponse()
-//        setRequestTimeoutMillis()
-//        enablePbsDebug()
 
         if (adServerName == "DFP") {
             
@@ -62,11 +56,16 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
             case .vast:
                 setupAndLoadAMBannerVAST()
             }
-            
 
         } else if (adServerName == "MoPub") {
             setupAndLoadMPBanner()
         }
+
+//        enableCOPPA()
+//        addFirstPartyData(adUnit: adUnit)
+//        setStoredResponse()
+//        setRequestTimeoutMillis()
+//        enablePbsDebug()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -83,7 +82,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         setupAMRubiconBanner(width: width, height: height)
         loadAMBanner()
     }
-    
+
     func setupAndLoadMPBanner() {
         let width = 300
         let height = 250
@@ -93,12 +92,12 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         loadMPBanner()
 
     }
-    
+
     //setup PB
     func setupPBAppNexusBanner(width: Int, height: Int) {
         setupPBBanner(host: .Appnexus, accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0", configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", storedResponse: "", width: width, height: height)
     }
-    
+
     func setupPBRubiconBanner(width: Int, height: Int) {
         setupPBBanner(host: .Rubicon, accountId: "1001", configId: "1001-1", storedResponse: "1001-rubicon-300x250", width: width, height: height)
     }
@@ -106,11 +105,20 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func setupPBBanner(host: PrebidHost, accountId: String, configId: String, storedResponse: String, width: Int, height: Int) {
         
         setupPB(host: host, accountId: accountId, storedResponse: storedResponse)
-        adUnit = BannerAdUnit(configId: configId, size: CGSize(width: width, height: height))
+        let adUnit = BannerAdUnit(configId: configId, size: CGSize(width: width, height: height))
         
+        let parameters = BannerAdUnit.Parameters()
+
+        parameters.api = [Signals.Api.MRAID_2]
+//        parameters.api = [Signals.Api(5)]
+
+        adUnit.parameters = parameters
+        
+        self.adUnit = adUnit
+
         //adUnit.setAutoRefreshMillis(time: 35000)
     }
-    
+
     func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
         Prebid.shared.prebidServerHost = host
         Prebid.shared.prebidServerAccountId = accountId
@@ -121,18 +129,18 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func setupAMAppNexusBanner(width: Int, height: Int) {
         setupAMBanner(width: width, height: height, adUnitId: "/19968336/PrebidMobileValidator_Banner_All_Sizes")
     }
-    
+
     func setupAMRubiconBanner(width: Int, height: Int) {
         setupAMBanner(width: width, height: height, adUnitId: "/5300653/pavliuchyk_test_adunit_1x1_puc")
     }
-    
+
     func setupAMBanner(width: Int, height:Int, adUnitId: String) {
         let customAdSize = GADAdSizeFromCGSize(CGSize(width: width, height: height))
         
         amBanner = DFPBannerView(adSize: customAdSize)
         amBanner.adUnitID = adUnitId
     }
-    
+
     func setupMPAppNexusBanner(width: Int, height: Int) {
         setupMPBanner(adUnitId: "a935eac11acd416f92640411234fbba6", width: width, height: height)
     }
@@ -169,10 +177,10 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
             self?.amBanner.load(self?.amRequest)
         }
     }
-    
+
     func loadMPBanner() {
         mpBanner.backgroundColor = .red
-        
+
         // Do any additional setup after loading the view, typically from a nib.
         adUnit.fetchDemand(adObject: mpBanner) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for MoPub \(resultCode.name())")
@@ -180,40 +188,40 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
             self?.mpBanner.loadAd()
         }
     }
-    
+
     //MARK: Banner VAST
     func setupAndLoadAMBannerVAST() {
         let width = 300
         let height = 250
-        
+
         setupPBRubiconBannerVAST(width: width, height: height)
         setupAMRubiconBannerVAST(width: width, height: height)
         loadAMBanner()
     }
-    
+
     func setupPBRubiconBannerVAST(width: Int, height: Int) {
-        
+
         setupPB(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
-        
+
         let adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: width, height: height))
-        
+
         let parameters = VideoBaseAdUnit.Parameters()
         parameters.mimes = ["video/mp4"]
-        
+
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         // parameters.protocols = [Signals.Protocols(2)]
-        
+
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
         // parameters.playbackMethod = [Signals.PlaybackMethod(2)]
-        
+
         parameters.placement = Signals.Placement.InBanner
         // parameters.placement = Signals.Placement(2)
-        
+
         adUnit.parameters = parameters
-        
+
         self.adUnit = adUnit
     }
-    
+
     func setupAMRubiconBannerVAST(width: Int, height: Int) {
         setupAMBanner(width: width, height: height, adUnitId: "/5300653/test_adunit_vast_pavliuchyk")
     }
@@ -255,7 +263,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func setRequestTimeoutMillis() {
         Prebid.shared.timeoutMillis = 5000
     }
-    
+
     func enablePbsDebug() {
         Prebid.shared.pbsDebug = true
     }
@@ -287,11 +295,11 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func viewControllerForPresentingModalView() -> UIViewController! {
         return self
     }
-    
+
     func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
         print("adViewDidLoadAd")
     }
-    
+
     func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
         print("adView: didFailToLoadAdWithError: \(error.localizedDescription)" )
     }

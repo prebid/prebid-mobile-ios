@@ -15,8 +15,10 @@ import ObjectiveC.runtime
 
 @objcMembers public class AdUnit: NSObject, DispatcherDelegate {
 
+    public var pbAdSlot: String? = nil
+
     private static let PB_MIN_RefreshTime = 30000.0
-    
+
     var prebidConfigId: String = ""
 
     var adSizes = Array<CGSize> ()
@@ -54,18 +56,18 @@ import ObjectiveC.runtime
 
     //TODO: dynamic is used by tests
     dynamic public func fetchDemand(completion: @escaping(_ result: ResultCode, _ kvResultDict: [String : String]?) -> Void) {
-        
+
         closureBids = completion
-        
+
         let dictContainer = DictionaryContainer<String, String>()
-        
+
         fetchDemand(adObject: dictContainer) { (resultCode) in
             let dict = dictContainer.dict
-            
+
             completion(resultCode, dict.count > 0 ? dict : nil)
         }
     }
-    
+
     //TODO: dynamic is used by tests
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
         
@@ -273,13 +275,13 @@ import ObjectiveC.runtime
     dynamic func checkRefreshTime(_ time: Double) -> Bool {
         return time >= AdUnit.PB_MIN_RefreshTime
     }
-    
+
     func refreshDemand() {
-        
+
         guard let adServerObject = adServerObject else {
             return
         }
-        
+
         if adServerObject is DictionaryContainer<String, String>, let closureBids = closureBids {
             fetchDemand(completion: closureBids)
         } else if let closureAd = closureAd {
