@@ -22,6 +22,7 @@
 #import "FooterCell.h"
 #import "IdCell.h"
 #import "AdSizeController.h"
+#import "AdFormatController.h"
 #import "IDInputViewController.h"
 #import "PBVSharedConstants.h"
 #import "TestSummaryViewController.h"
@@ -30,6 +31,8 @@
 NSString *__nonnull const kGeneralInfoText = @"General Info";
 NSString *__nonnull const kAdFormatBanner = @"Banner";
 NSString *__nonnull const kAdFormatInterstitial = @"Interstitial";
+NSString *__nonnull const kAdFormatNative = @"Native";
+NSString *__nonnull const kAdFormatVideo = @"Video";
 
 NSString *__nonnull const kAdServerInfoText = @"AdServer Info";
 NSString *__nonnull const kAdServerDFP = @"DFP";
@@ -38,6 +41,7 @@ NSString *__nonnull const kAdServerMoPub = @"MoPub";
 NSString *__nonnull const kPrebidServerInfoText = @"Prebid Server Info";
 NSString *__nonnull const kPrebidHostAppnexus = @"AppNexus";
 NSString *__nonnull const kPrebidHostRubicon = @"Rubicon";
+NSString *__nonnull const kPrebidHostCustom = @"Custom";
 
 NSString *__nonnull const kfooter = @"footer";
 
@@ -50,7 +54,7 @@ NSString *__nonnull const kBidPriceLabel = @"Bid Price";
 NSString *__nonnull const KPBHostLabel = @"Server Host";
 
 
-@interface SettingsTableViewController ()<UITextFieldDelegate, AdSizeProtocol, IdProtocol>
+@interface SettingsTableViewController ()<UITextFieldDelegate, AdSizeProtocol, IdProtocol,AdFormatProtocol>
 
 @property NSDictionary *tableViewDictionaryItems;
 @property NSArray *sectionTitles;
@@ -59,6 +63,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 @property NSArray *prebidServerTitles;
 
 @property NSString *chosenAdSize;
+@property NSString *chosenAdFormat;
 @property NSString *adUnitID;
 @property NSString *accountID;
 @property NSString *configID;
@@ -170,14 +175,9 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         [cell setLayoutMargins:UIEdgeInsetsZero];
     }
     
-    if(indexPath.section == 0 && indexPath.row == 0 && [cell isKindOfClass:[SegmentCell class]]){
-        SegmentCell *segmentCell = (SegmentCell *) cell;
-        if(segmentCell.segmentControl.selectedSegmentIndex == 0){
-            [[NSUserDefaults standardUserDefaults] setObject:kAdFormatBanner forKey:kAdFormatNameKey];
-            
-        } else {
-            [[NSUserDefaults standardUserDefaults] setObject:kAdFormatInterstitial forKey:kAdFormatNameKey];
-        }
+    if(indexPath.section == 0 && indexPath.row == 0 && [cell isKindOfClass:[LabelAccessoryCell class]]){
+        LabelAccessoryCell *labelCell = (LabelAccessoryCell *) cell;
+        [[NSUserDefaults standardUserDefaults] setObject:labelCell.lblSelectedContent.text forKey:kAdFormatNameKey];
     }
     
     if(indexPath.section == 0 && indexPath.row == 1 && [cell isKindOfClass:[LabelAccessoryCell class]]){
@@ -290,7 +290,14 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0 && indexPath.row == 1) {
+    if(indexPath.section == 0 && indexPath.row == 0){
+        AdFormatController *controller = [[AdFormatController alloc] init];
+        [controller setTitle:@"Ad Format"];
+        controller.delegate = self;
+        controller.settingsAdFormat = self.chosenAdFormat;
+        [self.navigationController pushViewController:controller animated:YES];
+        
+    } else if (indexPath.section == 0 && indexPath.row == 1) {
         
         if(self.isInterstitial) // we dont provide size selection for interstitial
             return;
@@ -339,27 +346,24 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 - (UITableViewCell *) configureGeneralInfoSection:(UITableView *) tableView withIndexPath:(NSIndexPath *)indexPath {
     
     if(indexPath.row == 0){
-        static NSString *segmentCell = @"SegmentCell";
+        static NSString *labelAccessoryCell = @"LabelAccessoryCell";
         
-        SegmentCell *cell = (SegmentCell *)[tableView dequeueReusableCellWithIdentifier:segmentCell];
+        LabelAccessoryCell *cell = (LabelAccessoryCell *)[tableView dequeueReusableCellWithIdentifier:labelAccessoryCell];
         
         if(cell != nil){
-            cell.labelText.text = kAdFormatText;
-            NSArray *adFormatItems = @[kAdFormatBanner, kAdFormatInterstitial];
-            [cell.segmentControl setTitle:adFormatItems[0] forSegmentAtIndex:0];
-            [cell.segmentControl setTitle:adFormatItems[1] forSegmentAtIndex:1];
-            [cell.segmentControl addTarget:self action:@selector(adFormatChanged:) forControlEvents:UIControlEventValueChanged];
-            
             if([[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey] isEqualToString:@""]){
-                if([[[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey] isEqualToString: kAdFormatBanner]){
-                    [cell.segmentControl setSelectedSegmentIndex:0];
-                    self.isInterstitial = NO;
-                    
-                } else {
-                     [cell.segmentControl setSelectedSegmentIndex:1];
-                    self.isInterstitial = YES;
-                }
+                self.chosenAdFormat = [[NSUserDefaults standardUserDefaults] objectForKey:kAdFormatNameKey];
             }
+            cell.lblTitle.text = kAdFormatText;
+            cell.lblSelectedContent.enabled = NO;
+            cell.lblSelectedContent.text = self.chosenAdFormat;
+            
+            if([self.chosenAdFormat isEqualToString:kInterstitialString]){
+                self.isInterstitial = YES;
+            } else {
+                self.isInterstitial = NO;
+            }
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         return cell;
     }
@@ -647,20 +651,6 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         return [inputFormatter stringFromNumber:inputNumber];
 }
 
--(void) adFormatChanged:(id) sender {
-    UISegmentedControl *adTypeSegment = (UISegmentedControl *) sender;
-    
-    if(adTypeSegment.selectedSegmentIndex == 1){
-        [[NSUserDefaults standardUserDefaults] setObject:kAdFormatInterstitial forKey:kAdFormatNameKey];
-        self.isInterstitial = YES;
-    } else if(adTypeSegment.selectedSegmentIndex == 0){
-        [[NSUserDefaults standardUserDefaults] setObject:kAdFormatBanner forKey:kAdFormatNameKey];
-        self.isInterstitial = NO;
-    }
-    [self.tableView reloadData];
-    
-}
-
 -(void) adServerChanged:(id) sender {
     UISegmentedControl *adTypeSegment = (UISegmentedControl *) sender;
     
@@ -688,6 +678,13 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 -(void) sendSelectedAdSize:(NSString *)adSize {
     if(adSize != nil && ![adSize isEqualToString:@""]){
         self.chosenAdSize = adSize;
+        [self.tableView reloadData];
+    }
+}
+
+-(void) sendSelectedAdFormat:(NSString *)adFormat {
+    if(adFormat != nil && ![adFormat isEqualToString:@""]){
+        [[NSUserDefaults standardUserDefaults] setObject:adFormat forKey:kAdFormatNameKey];
         [self.tableView reloadData];
     }
 }
