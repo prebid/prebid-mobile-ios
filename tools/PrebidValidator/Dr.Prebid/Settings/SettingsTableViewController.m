@@ -27,6 +27,7 @@
 #import "PBVSharedConstants.h"
 #import "TestSummaryViewController.h"
 #import "ToolReachability.h"
+#import "AppDelegate.h"
 
 NSString *__nonnull const kGeneralInfoText = @"General Info";
 NSString *__nonnull const kAdFormatBanner = @"Banner";
@@ -377,6 +378,11 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             cell.lblSelectedContent.enabled = NO;
             if(self.isInterstitial == NO){
                 
+                if(self.chosenAdFormat != nil && [self.chosenAdFormat isEqualToString:@"Native"]){
+                    cell.lblSelectedContent.text = @"1x1";
+                    self.chosenAdSize = @"1x1";
+                } else {
+                
                 if(self.chosenAdSize == nil || [self.chosenAdSize isEqualToString:@""]){
                 
                     if([[NSUserDefaults standardUserDefaults] objectForKey:kAdSizeKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kAdSizeKey] isEqualToString:@""]){
@@ -389,6 +395,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
                 cell.lblSelectedContent.text = self.chosenAdSize;
                 [cell.lblSelectedContent setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                }
             } else {
                 cell.lblSelectedContent.text = @"Interstitial";
                 [cell.lblSelectedContent setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.65 alpha:1.0]];
@@ -761,6 +768,13 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     
     if(self.configID == nil || ([self.configID stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length <= 0))
         return FALSE;
+    
+    if([self.chosenAdFormat isEqualToString:kNativeString]){
+        NativeRequest *request = ((AppDelegate*)[UIApplication sharedApplication].delegate).nativeRequest;
+        
+        if(request == nil)
+            return FALSE;
+    }
     
     if(self.bidPrice == nil || (self.bidPrice.length <= 0))
         return FALSE;

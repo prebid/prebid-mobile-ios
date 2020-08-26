@@ -15,42 +15,42 @@ limitations under the License.
 
 import Foundation
 
-public class Signals: NSObject {
+public class SingleContainerInt: NSObject, ExpressibleByIntegerLiteral {
+
+    public typealias IntegerLiteralType = Int
     
-    public class SingleContainerInt: NSObject, ExpressibleByIntegerLiteral {
-
-        public typealias IntegerLiteralType = Int
-        
-        @objc
-        public let value: Int
-        
-        @objc
-        public required init(integerLiteral value: Int) {
-            self.value = value
-        }
-        
-        static func == (lhs: SingleContainerInt, rhs: SingleContainerInt) -> Bool {
-            return lhs.value == rhs.value
-        }
-
-        override public func isEqual(_ object: Any?) -> Bool {
-
-            if let other = object as? SingleContainerInt {
-                if self === other {
-                    return true
-                } else {
-                    return self.value == other.value
-                }
-            }
-
-            return false
-
-        }
-
-        override public var hash : Int {
-            return value.hashValue
-        }
+    @objc
+    public let value: Int
+    
+    @objc
+    public required init(integerLiteral value: Int) {
+        self.value = value
     }
+    
+    static func == (lhs: SingleContainerInt, rhs: SingleContainerInt) -> Bool {
+        return lhs.value == rhs.value
+    }
+
+    override public func isEqual(_ object: Any?) -> Bool {
+
+        if let other = object as? SingleContainerInt {
+            if self === other {
+                return true
+            } else {
+                return self.value == other.value
+            }
+        }
+
+        return false
+
+    }
+
+    override public var hash : Int {
+        return value.hashValue
+    }
+}
+
+public class Signals: NSObject {
     /**
      # OpenRTB - API Frameworks #
      ```

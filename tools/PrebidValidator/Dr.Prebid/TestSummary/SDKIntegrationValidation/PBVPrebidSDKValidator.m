@@ -25,6 +25,7 @@
 #import <GoogleMobileAds/DFPInterstitial.h>
 #import "PBViewTool.h"
 #import "SDKValidationURLProtocol.h"
+#import "AppDelegate.h"
 
 @import PrebidMobile;
 
@@ -100,6 +101,10 @@
             [( (BannerAdUnit *) self.adUnit) addAdditionalSizeWithSizes:array];
         } else if ([adFormatName isEqualToString:kInterstitialString]){
             self.adUnit = [[InterstitialAdUnit alloc] initWithConfigId:configId];
+        } else if ([adFormatName isEqualToString:kNativeString]){
+            NativeRequest *request = ((AppDelegate*)[UIApplication sharedApplication].delegate).nativeRequest;
+            request.configId = configId;
+            self.adUnit = request;
         } else {
             NSLog(@"Native and video not supported for now.");
             return NO;
@@ -182,7 +187,7 @@
             self.dfpView.rootViewController = (UIViewController *)_delegate;
             
             self.request = [[DFPRequest alloc] init];
-            self.request.testDevices = @[kDFPSimulatorID];
+            GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[kDFPSimulatorID];
             [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
                 [self.dfpView loadRequest:self.request];
             }];
@@ -191,10 +196,22 @@
             self.dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:adUnitID];
             self.dfpInterstitial.delegate = self;
             self.request = [[DFPRequest alloc] init];
-            self.request.testDevices = @[kDFPSimulatorID];
+            GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[kDFPSimulatorID];
             [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
                 [self.dfpInterstitial loadRequest:self.request];
             }];
+        } else if ([adFormatName isEqualToString:kNativeString]) {
+            self.dfpView = [[DFPBannerView alloc] initWithAdSize:kGADAdSizeFluid];
+            self.dfpView.adUnitID = adUnitID;
+            self.dfpView.delegate = self;
+            self.dfpView.rootViewController = (UIViewController *)_delegate;
+            
+            self.request = [[DFPRequest alloc] init];
+            GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[kDFPSimulatorID];
+            [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
+                [self.dfpView loadRequest:self.request];
+            }];
+            
         }
     }
 }

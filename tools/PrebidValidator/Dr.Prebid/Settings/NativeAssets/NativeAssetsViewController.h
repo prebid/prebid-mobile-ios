@@ -19,17 +19,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol AdFormatProtocol <NSObject>
+@protocol NativeAssetsProtocol <NSObject>
 
--(void) sendSelectedAdFormat:(NSString *)adFormat;
+-(void)sendNativeRequest:(NativeRequest *)request;
 
 @end
 
-@interface AdFormatController : UIViewController
+@interface NativeAssetsViewController : UIViewController
 
-    @property (nonatomic,readwrite,weak) id<AdFormatProtocol> delegate;
+@property (nonatomic,readwrite,weak) id<NativeAssetsProtocol> delegate;
 
-    @property (strong) NSString *settingsAdFormat;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) NSString *configID;
 
 @end
 

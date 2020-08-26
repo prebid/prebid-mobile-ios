@@ -93,7 +93,7 @@
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
     NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
     NSString *bidPrice = [[NSUserDefaults standardUserDefaults] stringForKey:kBidPriceKey];
-    
+        
     GADAdSize GADAdSize = kGADAdSizeInvalid;
     CGSize adSize = CGSizeZero;
     if ([adSizeString isEqualToString:kSizeString320x50]) {
@@ -111,9 +111,9 @@
     } else if ([adSizeString isEqualToString:kSizeString320x100]) {
         adSize = CGSizeMake(320, 100);
         GADAdSize = kGADAdSizeLargeBanner;
-    } else if ([adSizeString isEqualToString:kSizeString728x90]) {
-        adSize = CGSizeMake(728, 90);
-        GADAdSize = kGADAdSizeLeaderboard;
+    } else if ([adSizeString isEqualToString:kSizeString1x1]) {
+        adSize = CGSizeMake(1, 1);
+        GADAdSize = kGADAdSizeFluid;
     }
     if ([adServerName isEqualToString:kMoPubString]) {
         if ([adFormatName isEqualToString:kBannerString]) {
@@ -127,9 +127,14 @@
             MPInterstitialAdController *interstitial = [self createMPInterstitialAdControllerWithAdUnitId:adUnitID WithKeywords:self.keywords];
             self.adObject = interstitial;
             [interstitial loadAd];
+        } else if ([adFormatName isEqualToString:kNativeString]){
+            self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
+            MPInterstitialAdController *interstitial = [self createMPInterstitialAdControllerWithAdUnitId:adUnitID WithKeywords:self.keywords];
+            self.adObject = interstitial;
+            [interstitial loadAd];
         }
     } else if([adServerName isEqualToString:kDFPString]){
-        if ([adFormatName isEqualToString:kBannerString]) {
+        if ([adFormatName isEqualToString:kBannerString] || [adFormatName isEqualToString:kNativeString]) {
             DFPBannerView *adView = [self createDFPBannerViewWithAdUnitId:adUnitID WithSize:GADAdSize];
             // hack to attach to screen
             adView.frame = CGRectMake(-500, -500 , GADAdSize.size.width, GADAdSize.size.height);

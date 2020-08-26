@@ -15,12 +15,13 @@ limitations under the License.
 
 import UIKit
 
-public class NativeEventTracker: NSObject {
+@objc public class NativeEventTracker: NSObject {
     
     var event: EventType
     var methods: Array<EventTracking>
     var ext: AnyObject?
     
+    @objc
     public init(event: EventType, methods: Array<EventTracking>) {
         self.event = event
         self.methods = methods
@@ -30,11 +31,11 @@ public class NativeEventTracker: NSObject {
         var methodsList:[Int] = []
         
         for method:EventTracking in methods {
-            methodsList.append(method.rawValue)
+            methodsList.append(method.value)
         }
         
         let event = [
-            "event": self.event.exchangeID,
+            "event": self.event.value,
             "methods": methodsList
             ] as [String : Any]
         
@@ -42,55 +43,31 @@ public class NativeEventTracker: NSObject {
     }
 }
 
-@objc public enum EventType:Int {
+public class EventType: SingleContainerInt {
+    @objc
+    public static let Impression = EventType(1)
 
-    case Impression = 1
-    case ViewableImpression50 = 2
-    case ViewableImpression100 = 3
-    case ViewableVideoImpression50 = 4
-    case Custom
-    
-    private static var customValue = 500
-    
-    public var exchangeID:Int {
-        get {
-            switch self {
-            case .Custom:
-                return EventType.customValue
-            default:
-                return self.rawValue
-            }
-        }
-        set {
-            EventType.customValue = newValue
-        }
-        
-    }
-}
+    @objc
+    public static let ViewableImpression50 = EventType(2)
 
-@objc public enum EventTracking: Int {
-    case Image = 1
-    case js = 2
-    case Custom
-    
-    private static var customValue = 500
-    
-    public var exchangeID:Int {
-        get {
-            switch self {
-            case .Custom:
-                return EventTracking.customValue
-            default:
-                return self.rawValue
-            }
-        }
-        set {
-            EventTracking.customValue = newValue
-        }
-        
-    }
+    @objc
+    public static let ViewableImpression100 = EventType(3)
+
+    @objc
+    public static let ViewableVideoImpression50 = EventType(4)
+
+    @objc
+    public static let Custom = EventType(500)
 }
 
 
+public class EventTracking: SingleContainerInt {
+    @objc
+    public static let Image = EventTracking(1)
 
+    @objc
+    public static let js = EventTracking(2)
 
+    @objc
+    public static let Custom = EventTracking(500)
+}

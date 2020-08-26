@@ -42,6 +42,19 @@
         
         self.window.rootViewController = introController;
     }
+    
+    self.nativeRequest = [[NativeRequest alloc] initWithConfigId:@"123"];
+    NativeAssetImage *mainImage = [[NativeAssetImage alloc] initWithMinimumWidth:90 minimumHeight:90 required:YES];
+    mainImage.type = ImageAsset.Main;
+    NativeAssetImage *iconImage = [[NativeAssetImage alloc] initWithMinimumWidth:90 minimumHeight:90 required:YES];
+    iconImage.type = ImageAsset.Icon;
+    NativeAssetTitle *title = [[NativeAssetTitle alloc] initWithLength:20 required:YES];
+    
+    NativeAssetData *data1 = [[NativeAssetData alloc] initWithType:DataAssetSponsored required:YES];
+    NativeAssetData *data2 = [[NativeAssetData alloc] initWithType:DataAssetDescription required:YES];
+    NativeAssetData *data3 = [[NativeAssetData alloc] initWithType:DataAssetCtatext required:YES];
+    self.nativeRequest.assets = [NSArray arrayWithObjects:mainImage,iconImage,title,data1,data2,data3, nil];
+    
     return YES;
 }
 

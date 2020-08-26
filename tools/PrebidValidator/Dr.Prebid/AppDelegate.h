@@ -15,11 +15,13 @@
  */
 
 #import <UIKit/UIKit.h>
+@import PrebidMobile;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (nonatomic, strong) NativeRequest *nativeRequest;
 
 @end
 

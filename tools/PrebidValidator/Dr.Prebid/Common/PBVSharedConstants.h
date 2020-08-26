@@ -34,6 +34,7 @@ extern NSString *__nonnull const kBidPriceKey;
 extern NSString *__nonnull const kPBAccountKey;
 extern NSString *__nonnull const kPBConfigKey;
 extern NSString *__nonnull const kPBHostKey;
+extern NSString *__nonnull const kNativeRequestKey;
 
 extern NSString *__nonnull const kMoPubString;
 extern NSString *__nonnull const kDFPString;
@@ -51,6 +52,7 @@ extern NSString *__nonnull const kSizeString320x480;
 extern NSString *__nonnull const kSizeString320x100;
 extern NSString *__nonnull const kSizeString300x600;
 extern NSString *__nonnull const kSizeString728x90;
+extern NSString *__nonnull const kSizeString1x1;
 
 static CGFloat const kAdLocationY = 30.0f;
 static CGFloat const kAdLabelLocationX = 10.0f;

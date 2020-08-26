@@ -34,6 +34,7 @@ NSString *__nonnull const kBidPriceKey = @"bidPrice";
 NSString *__nonnull const kPBAccountKey = @"accountId";
 NSString *__nonnull const kPBConfigKey = @"configId";
 NSString *__nonnull const kPBHostKey = @"host";
+NSString *__nonnull const kNativeRequestKey = @"nativeRequest";
 
 NSString *__nonnull const kMoPubString = @"MoPub";
 NSString *__nonnull const kDFPString = @"DFP";
@@ -51,6 +52,7 @@ NSString *__nonnull const kSizeString320x480 = @"320x480";
 NSString *__nonnull const kSizeString320x100 = @"320x100";
 NSString *__nonnull const kSizeString300x600 = @"300x600";
 NSString *__nonnull const kSizeString728x90 = @"728x90";
+NSString *__nonnull const kSizeString1x1 = @"1x1";
 
 
 
