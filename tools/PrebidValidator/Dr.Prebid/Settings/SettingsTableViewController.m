@@ -662,7 +662,20 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     UISegmentedControl *adTypeSegment = (UISegmentedControl *) sender;
     
     if(adTypeSegment.selectedSegmentIndex == 1){
-        [[NSUserDefaults standardUserDefaults] setObject:kAdServerMoPub forKey:kAdServerNameKey];
+        if([self.chosenAdFormat isEqualToString:kNativeString]){
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"AdFormat not supported" message:@"MoPub doesnt support native styles." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* noButton = [UIAlertAction
+            actionWithTitle:@"Ok"
+            style:UIAlertActionStyleDefault
+            handler:^(UIAlertAction * action) {
+                //Handle no, thanks button
+                adTypeSegment.selectedSegmentIndex = 0;
+            }];
+            [alert addAction:noButton];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setObject:kAdServerMoPub forKey:kAdServerNameKey];
+        }
         
     } else if(adTypeSegment.selectedSegmentIndex == 0){
         [[NSUserDefaults standardUserDefaults] setObject:kAdServerDFP forKey:kAdServerNameKey];
