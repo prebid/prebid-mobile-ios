@@ -10,8 +10,6 @@
 		600073C621DE65CA00F4738B /* CustomTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 600073C521DE65CA00F4738B /* CustomTextView.m */; };
 		6013E447221C605500FEE2B1 /* DemandRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6013E446221C605500FEE2B1 /* DemandRequestBuilder.m */; };
 		602CF6E221AEEEC10097F6C9 /* FooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 602CF6E121AEEEC10097F6C9 /* FooterCell.m */; };
-		60309A2924EC754C004A8951 /* NativeAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60309A2824EC754C004A8951 /* NativeAssetsViewController.m */; };
-		60309A2F24ED69CB004A8951 /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60309A2E24ED69CB004A8951 /* ImageCell.m */; };
 		605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 605A56CA2076C89A00E92376 /* MessageUI.framework */; };
 		605C15A321E3E23B00BB9636 /* KeyValueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 605C15A221E3E23B00BB9636 /* KeyValueController.m */; };
 		607999C121B727E700EE3007 /* ToolReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 607999C021B727E700EE3007 /* ToolReachability.m */; };
@@ -32,7 +30,6 @@
 		60A2CC352123554200EA6ACF /* SectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A2CC332123554200EA6ACF /* SectionCell.xib */; };
 		60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2CC37212358F800EA6ACF /* TestHeaderCell.m */; };
 		60A2CC3A212358F800EA6ACF /* TestHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A2CC38212358F800EA6ACF /* TestHeaderCell.xib */; };
-		60AEC50724EDABD500329A9B /* AssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60AEC50624EDABD500329A9B /* AssetsViewController.m */; };
 		60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB25C2097820D006FCF7C /* Assets.xcassets */; };
 		60CFB2B42097820D006FCF7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB2632097820D006FCF7C /* LaunchScreen.storyboard */; };
 		60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60CFB2652097820D006FCF7C /* Main.storyboard */; };
@@ -142,10 +139,6 @@
 		6013E446221C605500FEE2B1 /* DemandRequestBuilder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemandRequestBuilder.m; sourceTree = "<group>"; };
 		602CF6E021AEEEC10097F6C9 /* FooterCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FooterCell.h; sourceTree = "<group>"; };
 		602CF6E121AEEEC10097F6C9 /* FooterCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FooterCell.m; sourceTree = "<group>"; };
-		60309A2724EC754C004A8951 /* NativeAssetsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeAssetsViewController.h; sourceTree = "<group>"; };
-		60309A2824EC754C004A8951 /* NativeAssetsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeAssetsViewController.m; sourceTree = "<group>"; };
-		60309A2D24ED69CB004A8951 /* ImageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageCell.h; sourceTree = "<group>"; };
-		60309A2E24ED69CB004A8951 /* ImageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageCell.m; sourceTree = "<group>"; };
 		605A56CA2076C89A00E92376 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		605C15A121E3E23B00BB9636 /* KeyValueController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyValueController.h; sourceTree = "<group>"; };
 		605C15A221E3E23B00BB9636 /* KeyValueController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyValueController.m; sourceTree = "<group>"; };
@@ -182,8 +175,6 @@
 		60A2CC36212358F800EA6ACF /* TestHeaderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestHeaderCell.h; sourceTree = "<group>"; };
 		60A2CC37212358F800EA6ACF /* TestHeaderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestHeaderCell.m; sourceTree = "<group>"; };
 		60A2CC38212358F800EA6ACF /* TestHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestHeaderCell.xib; sourceTree = "<group>"; };
-		60AEC50524EDABD500329A9B /* AssetsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AssetsViewController.h; sourceTree = "<group>"; };
-		60AEC50624EDABD500329A9B /* AssetsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AssetsViewController.m; sourceTree = "<group>"; };
 		60C6787F2073D7B0003A7A1D /* Dr.Prebid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dr.Prebid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60CFB2592097820D006FCF7C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		60CFB25B2097820D006FCF7C /* PBVSharedConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVSharedConstants.h; sourceTree = "<group>"; };
@@ -303,23 +294,9 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		60309A2C24ED69A1004A8951 /* NativeAssets */ = {
-			isa = PBXGroup;
-			children = (
-				60309A2724EC754C004A8951 /* NativeAssetsViewController.h */,
-				60309A2824EC754C004A8951 /* NativeAssetsViewController.m */,
-				60309A2D24ED69CB004A8951 /* ImageCell.h */,
-				60309A2E24ED69CB004A8951 /* ImageCell.m */,
-				60AEC50524EDABD500329A9B /* AssetsViewController.h */,
-				60AEC50624EDABD500329A9B /* AssetsViewController.m */,
-			);
-			path = NativeAssets;
-			sourceTree = "<group>";
-		};
 		609172E320F3E50F001B94A8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				60309A2C24ED69A1004A8951 /* NativeAssets */,
 				D15C104E20F6EB32004CBC18 /* AdSizeController.m */,
 				D15C105120F6EB4F004CBC18 /* AdSizeController.h */,
 				609172E520F3E58D001B94A8 /* SettingsTableViewController.h */,
@@ -718,7 +695,6 @@
 				60CFB2CB2097820D006FCF7C /* LineItemKeywordsManager.m in Sources */,
 				600073C621DE65CA00F4738B /* CustomTextView.m in Sources */,
 				60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */,
-				60309A2F24ED69CB004A8951 /* ImageCell.m in Sources */,
 				609172F020F5314E001B94A8 /* HeaderCell.m in Sources */,
 				60924F2221484A650019DD12 /* DemandViewController.m in Sources */,
 				60CFB2C22097820D006FCF7C /* QRCameraSwitchButton.m in Sources */,
@@ -736,7 +712,6 @@
 				F54C7F4F21483C9000025B23 /* SDKValidationResponseViewController.m in Sources */,
 				6013E447221C605500FEE2B1 /* DemandRequestBuilder.m in Sources */,
 				60924F2121484A650019DD12 /* RRViewController.m in Sources */,
-				60309A2924EC754C004A8951 /* NativeAssetsViewController.m in Sources */,
 				F553098220E53CF500A7B552 /* AdServerValidationURLProtocol.m in Sources */,
 				60924F1E21484A650019DD12 /* DemandViewCell.m in Sources */,
 				60CFB2C42097820D006FCF7C /* QRCodeReaderView.m in Sources */,
@@ -746,7 +721,6 @@
 				60924F1F21484A650019DD12 /* DemandHeaderCell.m in Sources */,
 				60CFB2C52097820D006FCF7C /* QRCodeReader.m in Sources */,
 				607999C121B727E700EE3007 /* ToolReachability.m in Sources */,
-				60AEC50724EDABD500329A9B /* AssetsViewController.m in Sources */,
 				F56AE891209A3809000CE29F /* PBViewTool.m in Sources */,
 				60A2CC342123554200EA6ACF /* SectionCell.m in Sources */,
 				609172F320F53C74001B94A8 /* IdCell.m in Sources */,

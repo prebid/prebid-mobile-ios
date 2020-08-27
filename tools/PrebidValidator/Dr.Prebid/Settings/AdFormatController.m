@@ -17,9 +17,8 @@
 #import <Foundation/Foundation.h>
 #import "AdFormatController.h"
 #import "PBVSharedConstants.h"
-#import "NativeAssetsViewController.h"
 
-@interface AdFormatController () <UITableViewDelegate, UITableViewDataSource, NativeAssetsProtocol>
+@interface AdFormatController () <UITableViewDelegate, UITableViewDataSource>
 @property NSArray *formatArray;
 @property NSString *selectedFormat;
 @end
@@ -82,16 +81,6 @@
     self.selectedFormat = cell.textLabel.text;
     
     NSLog(@"cell text: %@", cell.textLabel.text);
-    
-//    if(indexPath.row == 2){
-//        
-//        
-//        NSString * storyboardName = @"Main";
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-//        NativeAssetsViewController * controller = [storyboard instantiateViewControllerWithIdentifier:@"nativeViewController"];
-//        
-//        [self.navigationController pushViewController:controller animated:YES];
-//    }
     
 }
 
