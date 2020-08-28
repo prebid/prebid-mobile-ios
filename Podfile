@@ -24,6 +24,13 @@ target 'PrebidDemoSwift' do
   end
 end
 
+target 'ANPrebidDemoSwift' do
+  project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
+  
+  prebid_demo_pods
+  
+end
+
 target 'PrebidDemoObjectiveC' do
   project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
   
