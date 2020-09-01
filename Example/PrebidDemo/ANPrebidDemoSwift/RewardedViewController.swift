@@ -38,15 +38,23 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPReward
     
     override func viewDidLoad() {
         
-        Prebid.shared.prebidServerHost = PrebidHost.Custom
-        do {
-            try Prebid.shared.setCustomPrebidServer(url: "https://ib.adnxs.com/openrtb2/prebid")
-        } catch {
-            print("error setting the URL")
-        }
-        setupPB(host: .Custom, accountId: "9325", storedResponse: "sample_video_response")
+//        Prebid.shared.prebidServerHost = PrebidHost.Custom
+//        do {
+//            try Prebid.shared.setCustomPrebidServer(url: "https://ib.adnxs.com/openrtb2/prebid")
+//        } catch {
+//            print("error setting the URL")
+//        }
+//
+//        setupPB(host: .Custom, accountId: "9325", storedResponse: "sample_video_response")
+//
+//        let adUnit = RewardedVideoAdUnit(configId: anAdUnitID)
         
-        let adUnit = RewardedVideoAdUnit(configId: anAdUnitID)
+        //Prebid server
+        //configId: 2c0af852-a55d-49dc-a5ca-ef7e141f73cc
+        //Account: aecd6ef7-b992-4e99-9bb8-65e2d984e1dd
+        
+        setupPB(host: .Appnexus, accountId: "aecd6ef7-b992-4e99-9bb8-65e2d984e1dd", storedResponse: "sample_video_response")
+        let adUnit = RewardedVideoAdUnit(configId: "2c0af852-a55d-49dc-a5ca-ef7e141f73cc")
         
         let parameters = VideoBaseAdUnit.Parameters()
         parameters.mimes = ["video/mp4"]
@@ -58,6 +66,8 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPReward
         adUnit.parameters = parameters
         
         self.adUnit = adUnit
+        
+        //adServerName = "DFP"
         
         if (adServerName == "DFP") {
             self.amRewardedAd = GADRewardedAd(adUnitID: amAdUnitId)
@@ -167,5 +177,9 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPReward
     
     func rewardedVideoAdDidFailToLoad(forAdUnitID adUnitID: String!, error: Error!) {
         print("rewardedVideoAdDidFailToLoad:\(error.localizedDescription)")
+    }
+    
+    func rewardedVideoAdDidDisappear(forAdUnitID adUnitID: String!) {
+    
     }
 }
