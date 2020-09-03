@@ -982,6 +982,59 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssert(interstitial == nil || interstitial!.count == 0)
         XCTAssertEqual(0, instl)
     }
+    
+    func testPostDataWithOmidNameAndVersion() throws {
+        
+        //given
+        let name = "PartnerName"
+        let version = "1.0"
+        
+        var omidPartherName: String?
+        var omidPartherVersion: String?
+        
+        Targeting.shared.omidPartnerName = name
+        Targeting.shared.omidPartnerVersion = version
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+        
+        if let source = jsonRequestBody["source"] as? [String: Any],
+            let ext = source["ext"] as? [String: Any] {
+            
+            omidPartherName = ext["omidpn"] as? String
+            omidPartherVersion = ext["omidpv"] as? String
+            
+        }
+        
+        //then
+        XCTAssertEqual(name, omidPartherName)
+        XCTAssertEqual(version, omidPartherVersion)
+    }
+    
+    func testPostDataWithoutOmidNameAndVersion() throws {
+        
+        //given
+        var omidPartherName: String?
+        var omidPartherVersion: String?
+        
+        Targeting.shared.omidPartnerName = nil
+        Targeting.shared.omidPartnerVersion = nil
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+        
+        if let source = jsonRequestBody["source"] as? [String: Any],
+            let ext = source["ext"] as? [String: Any] {
+            
+            omidPartherName = ext["omidpn"] as? String
+            omidPartherVersion = ext["omidpv"] as? String
+            
+        }
+        
+        //then
+        XCTAssertNil(omidPartherName)
+        XCTAssertNil(omidPartherVersion)
+    }
 
     func testYearOfBirth() throws {
 

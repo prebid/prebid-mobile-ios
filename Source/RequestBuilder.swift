@@ -67,9 +67,7 @@ class RequestBuilder: NSObject {
         var requestDict: [AnyHashable: Any] = [:]
 
         requestDict["id"] = UUID().uuidString
-        if let aSource = openrtbSource() {
-            requestDict["source"] = aSource
-        }
+        requestDict["source"] = openrtbSource()
         requestDict["app"] = openrtbApp()
         requestDict["device"] = openrtbDevice(adUnit: adUnit)
         requestDict["regs"] = openrtbRegs()
@@ -109,6 +107,12 @@ class RequestBuilder: NSObject {
         let uuid = UUID().uuidString
         var sourceDict: [String: Any] = [:]
         sourceDict["tid"] = uuid
+        
+        var extDict: [String: Any] = [:]
+        extDict["omidpn"] = Targeting.shared.omidPartnerName
+        extDict["omidpv"] = Targeting.shared.omidPartnerVersion
+        
+        sourceDict["ext"] = extDict
 
         return sourceDict
     }
