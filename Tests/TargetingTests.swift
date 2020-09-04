@@ -90,6 +90,20 @@ class TargetingTests: XCTestCase {
         //then
         XCTAssertEqual(itunesID, result)
     }
+    
+    func testOmidPartnerNameAndVersion() {
+        //given
+        let partnerName = "PartnerName"
+        let partnerVersion = "1.0"
+        
+        //when
+        Targeting.shared.omidPartnerName = partnerName
+        Targeting.shared.omidPartnerVersion = partnerVersion
+        
+        //then
+        XCTAssertEqual(partnerName, Targeting.shared.omidPartnerName)
+        XCTAssertEqual(partnerVersion, Targeting.shared.omidPartnerVersion)
+    }
 
     func testLocation() {
         //given
