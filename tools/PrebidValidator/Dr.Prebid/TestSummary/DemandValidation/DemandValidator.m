@@ -32,7 +32,7 @@
     // Get params from coredata
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
-    
+  
     NSString *accountId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBAccountKey];
     NSString *configId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBConfigKey];
     
@@ -77,6 +77,11 @@
     if ([host isEqualToString:kRubiconString]) {
         url = [NSURL URLWithString:kRubiconPrebidServerEndpoint];
         Prebid.shared.prebidServerHost = PrebidHostRubicon;
+    } else if ([host isEqualToString:kCustomString]){
+        NSString *urlString = [[NSUserDefaults standardUserDefaults] stringForKey:kCustomPrebidServerEndpoint];
+        url =[NSURL URLWithString:urlString];
+        Prebid.shared.prebidServerHost = PrebidHostCustom;
+        [Prebid.shared setCustomPrebidServerWithUrl:urlString error:nil];
     }
     DemandRequestBuilder *builder = [[DemandRequestBuilder alloc] init];
     builder.configId = configId;
