@@ -1177,10 +1177,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let adUnit = RewardedVideoAdUnit(configId: Constants.configID1)
 
         //when
-        let json = try getPostDataHelper(adUnit: adUnit)
-        let jsonRequestBody = json.jsonRequestBody
-        let urlRequest:URLRequest = json.urlRequest
-        
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
         guard let impArray = jsonRequestBody["imp"] as? [Any],
             let impDic = impArray[0] as? [String: Any],
             let video = impDic["video"] as? [String: Any],
@@ -1197,17 +1195,14 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             let instl = impDic["instl"] as? Int,
 
             let impExt = impDic["ext"] as? [String: Any],
-            let prebid = impExt["prebid"] as? [String: Any]
-        else {
+            let prebid = impExt["prebid"] as? [String: Any],
+            let isRewarded = prebid["is_rewarded_inventory"] as? Int
+
+            else {
                 XCTFail("parsing fail")
                 return
         }
-        
-        let urlString:String = urlRequest.url!.absoluteString
-        if((urlString.contains("prebid.adnxs.com") == false) && (urlString.contains("ib.adnxs.com") == false)) {
-            let isRewarded = prebid["is_rewarded_inventory"] as? Int
-            XCTAssertEqual(1, isRewarded)
-        }
+
         //then
         XCTAssertNotNil(w)
         XCTAssertNotNil(h)
@@ -1219,8 +1214,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         XCTAssertEqual(1, instl)
 
-        
-        
+        XCTAssertEqual(1, isRewarded)
 
     }
 

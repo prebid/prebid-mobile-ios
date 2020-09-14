@@ -26,8 +26,6 @@ class RequestBuilder: NSObject {
     static let shared = RequestBuilder()
 
     static var myUserAgent: String = ""
-    
-    var hostUrl:String = ""
 
     /**
      * The initializer that needs to be created only once
@@ -48,7 +46,7 @@ class RequestBuilder: NSObject {
 
     func buildRequest(adUnit: AdUnit?) throws -> URLRequest? {
 
-        hostUrl = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
+        let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
         var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Prebid.shared.timeoutMillisDynamic))
         request.httpMethod = "POST"
         let requestBody = openRTBRequestBody(adUnit: adUnit) ?? [:]
@@ -187,13 +185,11 @@ class RequestBuilder: NSObject {
 
             prebidAdUnitExt["storedbidresponse"] = storedBidResponses
         }
-        
-        if (adUnit is RewardedVideoAdUnit){
-            if !((hostUrl.contains("https://ib.adnxs.com/openrtb2/prebid")) || (Prebid.shared.prebidServerHost == PrebidHost.Appnexus)){
-                 prebidAdUnitExt["is_rewarded_inventory"] = 1
-            }
+
+        if (adUnit is RewardedVideoAdUnit) {
+            prebidAdUnitExt["is_rewarded_inventory"] = 1
         }
-    
+
         var adUnitExt: [AnyHashable: Any] = [:]
         adUnitExt["prebid"] = prebidAdUnitExt
 
