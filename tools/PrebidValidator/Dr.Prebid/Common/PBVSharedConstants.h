@@ -25,7 +25,7 @@ extern NSString *__nonnull const kBidPriceText;
 extern NSString *__nonnull const kPBCustomHostText;
 extern NSString *__nonnull const kPBAccountIDText;
 extern NSString *__nonnull const kPBConfigIDText;
-extern NSString *__nonnull const KPBHostText;
+extern NSString *__nonnull const kPBHostText;
 
 extern NSString *__nonnull const kAdServerNameKey;
 extern NSString *__nonnull const kAdFormatNameKey;

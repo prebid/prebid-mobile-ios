@@ -62,7 +62,6 @@
 		60F9F62924EC5F940027648F /* AdFormatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 60F9F62824EC5F940027648F /* AdFormatController.m */; };
 		7A557DBFCFAE372590F751D6 /* Pods_Dr_Prebid.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3E59CE17F9B673A68B9666D /* Pods_Dr_Prebid.framework */; };
 		D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */ = {isa = PBXBuildFile; fileRef = D15C104E20F6EB32004CBC18 /* AdSizeController.m */; };
-		F52B2D80250AACF900D12BE0 /* PickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F52B2D7F250AACF900D12BE0 /* PickerCell.m */; };
 		F533B16821309548001977C2 /* AdServerResponseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B16721309548001977C2 /* AdServerResponseViewController.m */; };
 		F533B16E21349D09001977C2 /* ColorTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B16D21349D09001977C2 /* ColorTool.m */; };
 		F533B1712134A361001977C2 /* AdServerValidationMockInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = F533B1702134A361001977C2 /* AdServerValidationMockInterstitial.m */; };
@@ -223,8 +222,6 @@
 		A3E59CE17F9B673A68B9666D /* Pods_Dr_Prebid.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dr_Prebid.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D15C104E20F6EB32004CBC18 /* AdSizeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdSizeController.m; sourceTree = "<group>"; };
 		D15C105120F6EB4F004CBC18 /* AdSizeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdSizeController.h; sourceTree = "<group>"; };
-		F52B2D7C250AACCC00D12BE0 /* PickerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerCell.h; sourceTree = "<group>"; };
-		F52B2D7F250AACF900D12BE0 /* PickerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerCell.m; sourceTree = "<group>"; };
 		F533B1662130882E001977C2 /* AdServerValidationURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdServerValidationURLProtocol.h; sourceTree = "<group>"; };
 		F533B16721309548001977C2 /* AdServerResponseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdServerResponseViewController.m; sourceTree = "<group>"; };
 		F533B1692130955A001977C2 /* AdServerResponseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdServerResponseViewController.h; sourceTree = "<group>"; };
@@ -318,8 +315,6 @@
 				602CF6E121AEEEC10097F6C9 /* FooterCell.m */,
 				60F9F62724EC5F940027648F /* AdFormatController.h */,
 				60F9F62824EC5F940027648F /* AdFormatController.m */,
-				F52B2D7C250AACCC00D12BE0 /* PickerCell.h */,
-				F52B2D7F250AACF900D12BE0 /* PickerCell.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -723,7 +718,6 @@
 				F533B1712134A361001977C2 /* AdServerValidationMockInterstitial.m in Sources */,
 				D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */,
 				60CFB2CD2097820D006FCF7C /* AppDelegate.m in Sources */,
-				F52B2D80250AACF900D12BE0 /* PickerCell.m in Sources */,
 				60924F1F21484A650019DD12 /* DemandHeaderCell.m in Sources */,
 				60CFB2C52097820D006FCF7C /* QRCodeReader.m in Sources */,
 				607999C121B727E700EE3007 /* ToolReachability.m in Sources */,

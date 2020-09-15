@@ -22,10 +22,10 @@ NSString *__nonnull const kAdFormatLabelText = @"Ad Format";
 NSString *__nonnull const kAdSizeLabelText = @"Ad Size";
 NSString *__nonnull const kAdUnitIdText = @"Ad Unit ID";
 NSString *__nonnull const kBidPriceText = @"Bid Price";
-NSString *__nonnull const kPBCustomHostText = @"Custom Host Endpoint";
+NSString *__nonnull const kPBCustomHostText = @"Custom URL";
 NSString *__nonnull const kPBAccountIDText = @"Account ID";
 NSString *__nonnull const kPBConfigIDText = @"Config ID";
-NSString *__nonnull const KPBHostText = @"Server Host";
+NSString *__nonnull const kPBHostText = @"Server Host";
 
 NSString *__nonnull const kAdServerNameKey = @"adServerName";
 NSString *__nonnull const kAdFormatNameKey = @"adFormatName";

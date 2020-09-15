@@ -28,7 +28,6 @@
 #import "TestSummaryViewController.h"
 #import "ToolReachability.h"
 #import "AppDelegate.h"
-#import "PickerCell.h"
 
 NSString *__nonnull const kGeneralInfoText = @"General Info";
 NSString *__nonnull const kAdFormatBanner = @"Banner";
@@ -74,6 +73,9 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 @property NSString *bidPrice;
 @property BOOL isInterstitial;
 @property BOOL hideCustomHost;
+
+@property (strong, nonatomic) UIPickerView *pickerView;
+
 @end
 
 @implementation SettingsTableViewController
@@ -110,6 +112,14 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     self.sectionTitles = @[kGeneralInfoText, kAdServerInfoText, kPrebidServerInfoText, kfooter];
 
     [self.tableView setSeparatorColor:[UIColor darkGrayColor]];
+    
+    self.pickerView = [[UIPickerView alloc] initWithFrame:(CGRect){{0, self.view.frame.size.height-300}, self.view.frame.size.width, 200}];
+    self.pickerView.backgroundColor = [UIColor whiteColor];
+    //self.pickerView.showsSelectionIndicator = true;
+    self.pickerView.delegate = self;
+    self.pickerView.dataSource = self;
+    self.pickerView.hidden = YES;
+    [self.view addSubview:self.pickerView];
     
 }
 
@@ -211,25 +221,10 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         NSString *trimmedId = [self removeSpacesAndNewLines:idCell.lblId.text];
         [[NSUserDefaults standardUserDefaults] setObject:trimmedId forKey:kAdUnitIdKey];
     }
-    
-    if(indexPath.section == 2 && indexPath.row == 0 && [cell isKindOfClass:[PickerCell class]]){
-        PickerCell *pickerCell = (PickerCell *) cell;
-        if([pickerCell.Picker selectedRowInComponent:0] == 0){
-            [[NSUserDefaults standardUserDefaults] setObject:kPrebidHostAppnexus forKey:kPBHostKey];
-            
-        } else if([pickerCell.Picker selectedRowInComponent:0] == 1) {
-            [[NSUserDefaults standardUserDefaults] setObject:kPrebidHostRubicon forKey:kPBHostKey];
-            
-        } else {
-             [[NSUserDefaults standardUserDefaults] setObject:kPrebidHostCustom forKey:kPBHostKey];
-            
-        }
-    }
-  
     if(indexPath.section == 2 && indexPath.row == 1 && [cell isKindOfClass:[IdCell class]]){
           IdCell *idCell = (IdCell *) cell;
           NSString *trimmedId = [self removeSpacesAndNewLines:idCell.lblId.text];
-          [[NSUserDefaults standardUserDefaults] setObject:trimmedId forKey:kPBHostKey];
+          [[NSUserDefaults standardUserDefaults] setObject:trimmedId forKey:kPBCustomHostKey];
       }
     if(indexPath.section == 2 && indexPath.row == 2 && [cell isKindOfClass:[IdCell class]]){
         IdCell *idCell = (IdCell *) cell;
@@ -337,7 +332,17 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         idController.idInputText.text = self.adUnitID;
         [self.navigationController pushViewController:idController animated:YES];
         
-    } else if (indexPath.section == 2 && indexPath.row == 1){
+    }else if (indexPath.section == 2 && indexPath.row == 0){
+        self.pickerView.hidden = NO;
+        [self.view bringSubviewToFront:self.pickerView];
+    }else if (indexPath.section == 2 && indexPath.row == 1){
+        NSString * storyboardName = @"Main";
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
+        IDInputViewController * idController = [storyboard instantiateViewControllerWithIdentifier:@"idController"];
+        idController.delegate = self;
+        [idController setTitle:kPBHostText];
+        [self.navigationController pushViewController:idController animated:YES];
+    } else if (indexPath.section == 2 && indexPath.row == 2){
         NSString * storyboardName = @"Main";
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
         IDInputViewController * idController = [storyboard instantiateViewControllerWithIdentifier:@"idController"];
@@ -345,7 +350,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         [idController setTitle:kPBAccountIDText];
         idController.idInputText.text = self.accountID;
         [self.navigationController pushViewController:idController animated:YES];
-    } else if (indexPath.section == 2 && indexPath.row == 2){
+    } else if (indexPath.section == 2 && indexPath.row == 3){
         NSString * storyboardName = @"Main";
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
         IDInputViewController * idController = [storyboard instantiateViewControllerWithIdentifier:@"idController"];
@@ -528,25 +533,23 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 - (UITableViewCell *) configurePrebidServerSection:(UITableView *) tableView withIndexPath:(NSIndexPath *)indexPath {
     
     if(indexPath.row == 0){
-        static NSString *pickerCell = @"pickerCell";
+        static NSString *labelAccessoryCell = @"LabelAccessoryCell";
         
-        PickerCell *cell = (PickerCell *)[tableView dequeueReusableCellWithIdentifier:pickerCell];
+        LabelAccessoryCell *cell = (LabelAccessoryCell *)[tableView dequeueReusableCellWithIdentifier:labelAccessoryCell];
         
         if(cell != nil){
-            cell.lblPicker.text = KPBHostLabel;
-            cell.Picker.delegate = self;
-            cell.Picker.dataSource = self;
-
             if([[NSUserDefaults standardUserDefaults] objectForKey:kPBHostKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kPBHostKey] isEqualToString:@""]){
                 if([[[NSUserDefaults standardUserDefaults] objectForKey:kPBHostKey] isEqualToString: kPrebidHostAppnexus]){
-                    [cell.Picker selectRow:0 inComponent:0 animated:YES];
-
+                    cell.lblSelectedContent.text = kPrebidHostAppnexus;
                 } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:kPBHostKey] isEqualToString: kPrebidHostRubicon]){
-                    [cell.Picker selectRow:1 inComponent:0 animated:YES];
+                    cell.lblSelectedContent.text = kPrebidHostRubicon;
                 } else {
-                    [cell.Picker selectRow:2 inComponent:0 animated:YES];
+                    cell.lblSelectedContent.text = kPrebidHostCustom;
                 }
             }
+            cell.lblTitle.text = @"Host";
+            cell.lblSelectedContent.enabled = NO;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         return cell;
     } else if(indexPath.row == 1){
@@ -753,7 +756,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         self.accountID = idString;
     } else if([idLabel isEqualToString:kPBConfigIDText]) {
         self.configID = idString;
-    } else if([idLabel isEqualToString:kPBCustomHostText]){
+    } else if([idLabel isEqualToString:kPBHostText]){
         self.customHost = idString;
         [[NSUserDefaults standardUserDefaults] setObject:self.customHost forKey:kCustomPrebidServerEndpoint];
     }
@@ -854,9 +857,10 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         self.hideCustomHost = YES;
     } else {
         [[NSUserDefaults standardUserDefaults] setObject:kPrebidHostAppnexus forKey:kPBHostKey];
+        self.hideCustomHost = YES;
     }
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
+    self.pickerView.hidden = YES;
+    [self.tableView reloadData];
 }
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
