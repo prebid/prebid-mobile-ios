@@ -37,7 +37,6 @@ class Location: NSObject, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-        locationManager.startMonitoringSignificantLocationChanges()
     }
 
     func startCapture () {
