@@ -26,6 +26,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *idInputText;
 @property (weak, nonatomic) IBOutlet UIImageView *imgScanQRCode;
+@property (weak, nonatomic) IBOutlet UIButton *btnScanQRCode;
 
 @property (nonatomic,readwrite,weak) id<IdProtocol> delegate;
 

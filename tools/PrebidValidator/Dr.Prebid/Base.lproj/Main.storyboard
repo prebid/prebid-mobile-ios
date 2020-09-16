@@ -123,6 +123,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <pickerView key="tableFooterView" contentMode="scaleToFill" id="48p-kg-Cgs" userLabel="Picker Host">
+                            <rect key="frame" x="0.0" y="337.5" width="375" height="216"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                        </pickerView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="IdCell" rowHeight="65" id="nKI-5J-n6t" customClass="IdCell">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="65"/>
@@ -349,6 +353,7 @@
                         <viewLayoutGuide key="safeArea" id="kEp-Xh-o0L"/>
                     </view>
                     <connections>
+                        <outlet property="btnScanQRCode" destination="lHV-C9-2Vl" id="gDr-ue-AhA"/>
                         <outlet property="idInputText" destination="sWo-QB-MgZ" id="3G3-xf-OfT"/>
                         <outlet property="imgScanQRCode" destination="x9f-bF-hRp" id="i88-sL-5Ah"/>
                     </connections>
