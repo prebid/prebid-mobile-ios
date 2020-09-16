@@ -68,6 +68,10 @@ import CoreLocation
      */
     public var locationPrecision: Int?
     
+    public var omidPartnerName: String?
+    
+    public var omidPartnerVersion: String?
+    
     //Objective-C Api
     @available(swift, obsoleted: 1.0)
     public func setLocationPrecision(_ newValue: NSNumber?) {
