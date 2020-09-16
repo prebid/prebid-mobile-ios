@@ -17,6 +17,8 @@ import ObjectiveC.runtime
 
     public var pbAdSlot: String? = nil
 
+    private static let PB_MIN_RefreshTime = 30000.0
+
     var prebidConfigId: String = ""
 
     var adSizes = Array<CGSize> ()
@@ -34,7 +36,8 @@ import ObjectiveC.runtime
 
     private var adServerObject: AnyObject?
 
-    private var closure: (ResultCode) -> Void
+    private var closureAd: ((ResultCode) -> Void)?
+    private var closureBids: ((ResultCode, [String : String]?) -> Void)?
 
     //notification flag set to check if the prebid response is received within the specified time
     var didReceiveResponse: Bool! = false
@@ -43,7 +46,6 @@ import ObjectiveC.runtime
     var timeOutSignalSent: Bool! = false
 
     init(configId: String, size: CGSize?) {
-        self.closure = {_ in return}
         prebidConfigId = configId
         if let givenSize = size {
            adSizes.append(givenSize)
@@ -52,6 +54,21 @@ import ObjectiveC.runtime
         super.init()
     }
 
+    //TODO: dynamic is used by tests
+    dynamic public func fetchDemand(completion: @escaping(_ result: ResultCode, _ kvResultDict: [String : String]?) -> Void) {
+
+        closureBids = completion
+
+        let dictContainer = DictionaryContainer<String, String>()
+
+        fetchDemand(adObject: dictContainer) { (resultCode) in
+            let dict = dictContainer.dict
+
+            completion(resultCode, dict.count > 0 ? dict : nil)
+        }
+    }
+
+    //TODO: dynamic is used by tests
     dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
         
         if !(self is NativeRequest){
@@ -81,7 +98,7 @@ import ObjectiveC.runtime
 
         didReceiveResponse = false
         timeOutSignalSent = false
-        self.closure = completion
+        self.closureAd = completion
         adServerObject = adObject
         let manager: BidManager = BidManager(adUnit: self)
 
@@ -236,8 +253,8 @@ import ObjectiveC.runtime
 
         stopDispatcher()
 
-        guard time >= .PB_MIN_RefreshTime else {
-            Log.error("auto refresh not set as the refresh time is less than to \(.PB_MIN_RefreshTime as Double) seconds")
+        guard checkRefreshTime(time) else {
+            Log.error("auto refresh not set as the refresh time is less than to \(AdUnit.PB_MIN_RefreshTime as Double) seconds")
             return
         }
 
@@ -255,9 +272,20 @@ import ObjectiveC.runtime
         stopDispatcher()
     }
 
+    dynamic func checkRefreshTime(_ time: Double) -> Bool {
+        return time >= AdUnit.PB_MIN_RefreshTime
+    }
+
     func refreshDemand() {
-        if (adServerObject != nil) {
-            self.fetchDemand(adObject: adServerObject!, completion: self.closure)
+
+        guard let adServerObject = adServerObject else {
+            return
+        }
+
+        if adServerObject is DictionaryContainer<String, String>, let closureBids = closureBids {
+            fetchDemand(completion: closureBids)
+        } else if let closureAd = closureAd {
+            fetchDemand(adObject: adServerObject, completion: closureAd)
         }
 
     }
