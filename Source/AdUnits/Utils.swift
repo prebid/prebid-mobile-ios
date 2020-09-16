@@ -142,10 +142,10 @@ func validateAndAttachKeywords (adObject: AnyObject, bidResponse: BidResponse) {
             adObject.setValue( targetingKeywordsString, forKey: "keywords")
 
         }
-    } else {
-        if let dict = adObject as? NSMutableDictionary {
-            dict.addEntries(from: bidResponse.customKeywords)
-        }
+    } else if let dictContainer = adObject as? DictionaryContainer<String, String> {
+        dictContainer.dict = bidResponse.customKeywords
+    } else if let dict = adObject as? NSMutableDictionary {
+        dict.addEntries(from: bidResponse.customKeywords)
     }
 }
 
@@ -159,4 +159,12 @@ func validateAndAttachKeywords (adObject: AnyObject, bidResponse: BidResponse) {
 
     }
 
+}
+
+/**
+ 1. It is a class that allow use it as AnyObject and passs to - func fetchDemand(adObject: AnyObject, ...)
+ 2. It is not a public class as a result client can not directly pass it to - func fetchDemand(adObject: AnyObject, ...)
+ */
+class DictionaryContainer<T1: Hashable, T2: Hashable> {
+    var dict = [T1 : T2]()
 }
