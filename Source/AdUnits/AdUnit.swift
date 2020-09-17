@@ -125,48 +125,6 @@ import ObjectiveC.runtime
             }
         })
     }
-    
-    // MARK: - DEPRECATED adunit user keywords (user.keywords)
-
-    /**
-     The func uses Targeting.addUserKeyword() inside.
-     - Parameters:
-        - key: parameter is omitted
-        - value: is passed to Targeting.addUserKeyword()
-     */
-    @available(*, deprecated, message: "Please use Targeting.addUserKeyword() method instead")
-    public func addUserKeyword(key: String, value: String) {
-        Targeting.shared.addUserKeyword(value)
-    }
-
-    /**
-     The func uses Targeting.addUserKeyword() inside.
-     - Parameters:
-        - key: parameter is omitted
-        - value: is passed to Targeting.addUserKeywords()
-     */
-    @available(*, deprecated, message: "Please use Targeting.addUserKeywords() method instead")
-    public func addUserKeywords(key: String, value: Set<String>) {
-        Targeting.shared.addUserKeywords(value)
-    }
-
-    /**
-     The func uses Targeting.clearUserKeywords() inside.
-     */
-    @available(*, deprecated, message: "Please use Targeting.clearUserKeywords() method instead")
-    public func clearUserKeywords() {
-        Targeting.shared.clearUserKeywords()
-    }
-
-    /**
-     The func uses Targeting.removeUserKeyword() inside.
-     - Parameters:
-     - forKey: is a value that has been added previously
-     */
-    @available(*, deprecated, message: "Please use Targeting.removeUserKeyword() method instead")
-    public func removeUserKeyword(forKey: String) {
-        Targeting.shared.removeUserKeyword(forKey)
-    }
 
     // MARK: - adunit context data aka inventory data (imp[].ext.context.data)
     
