@@ -22,18 +22,21 @@ extern NSString *__nonnull const kAdFormatLabelText;
 extern NSString *__nonnull const kAdSizeLabelText;
 extern NSString *__nonnull const kAdUnitIdText;
 extern NSString *__nonnull const kBidPriceText;
+extern NSString *__nonnull const kPBCustomHostText;
 extern NSString *__nonnull const kPBAccountIDText;
 extern NSString *__nonnull const kPBConfigIDText;
-extern NSString *__nonnull const KPBHostText;
+extern NSString *__nonnull const kPBHostText;
 
 extern NSString *__nonnull const kAdServerNameKey;
 extern NSString *__nonnull const kAdFormatNameKey;
 extern NSString *__nonnull const kAdSizeKey;
+extern NSString *__nonnull const kPBCustomHostKey;
 extern NSString *__nonnull const kAdUnitIdKey;
 extern NSString *__nonnull const kBidPriceKey;
 extern NSString *__nonnull const kPBAccountKey;
 extern NSString *__nonnull const kPBConfigKey;
 extern NSString *__nonnull const kPBHostKey;
+extern NSString *__nonnull const kNativeRequestKey;
 
 extern NSString *__nonnull const kMoPubString;
 extern NSString *__nonnull const kDFPString;
@@ -51,6 +54,7 @@ extern NSString *__nonnull const kSizeString320x480;
 extern NSString *__nonnull const kSizeString320x100;
 extern NSString *__nonnull const kSizeString300x600;
 extern NSString *__nonnull const kSizeString728x90;
+extern NSString *__nonnull const kSizeString1x1;
 
 static CGFloat const kAdLocationY = 30.0f;
 static CGFloat const kAdLabelLocationX = 10.0f;
@@ -58,10 +62,12 @@ static CGFloat const kAdLabelLocationY = 5.0f;
 static CGFloat const kAdTitleLabelHeight = 20.0f;
 static CGFloat const kAdFailedLabelHeight = 50.0f;
 static CGFloat const kAdMargin = 10.0f;
-static NSString * _Nonnull const kAppNexusString = @"AppNexus";
+static NSString * _Nonnull const kAppNexusString = @"Xandr";
 static NSString * _Nonnull const kRubiconString = @"Rubicon";
+static NSString * _Nonnull const kCustomString = @"Custom";
 static NSString * _Nonnull const kAppNexusPrebidServerEndpoint = @"https://prebid.adnxs.com/pbs/v1/openrtb2/auction";
 static NSString * _Nonnull const kRubiconPrebidServerEndpoint = @"https://prebid-server.rubiconproject.com/openrtb2/auction";
+static NSString * _Nonnull const kCustomPrebidServerEndpoint = @"CustomHostPath";
 
 // Titles for helper pages
 static NSString * _Nonnull const kAboutString = @"About";

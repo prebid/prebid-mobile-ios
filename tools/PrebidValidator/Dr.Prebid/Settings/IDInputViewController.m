@@ -17,6 +17,7 @@
 #import <Foundation/Foundation.h>
 #import "IDInputViewController.h"
 #import "QRCodeReaderViewController.h"
+#import "PBVSharedConstants.h"
 
 @interface IDInputViewController () <QRCodeReaderDelegate>
 
@@ -40,7 +41,6 @@
     
 }
 
-//-(void)scanAction: (id) sender
 - (IBAction)btnScanQRCode:(id)sender
 {
     QRCodeReader *reader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
@@ -59,10 +59,37 @@
 
 -(void)doneAction: (id) sender
 {
-   //get the input id from text field, validate it, set the delegate and dismiss the view
-    [self.delegate sendSelectedId:self.idInputText.text forID:self.title];
+    if([self.title isEqualToString:kPBHostText]){
+        NSURL *url = [NSURL URLWithString:self.idInputText.text];
+        NSURLRequest *req = [NSURLRequest requestWithURL:url];
+        bool valid = [NSURLConnection canHandleRequest:req];
+        if (valid){
+            //get the input id from text field, validate it, set the delegate and dismiss the view
+            [self.delegate sendSelectedId:self.idInputText.text forID:self.title];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        } else{
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Invalid Host" message:@"Provided host URL is invalid." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* noButton = [UIAlertAction
+            actionWithTitle:@"Ok"
+            style:UIAlertActionStyleDefault
+            handler:^(UIAlertAction * action) {
+                //Handle no, thanks button
+                return;
+            }];
+            [alert addAction:noButton];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+        
+    } else {
+        //get the input id from text field, validate it, set the delegate and dismiss the view
+           [self.delegate sendSelectedId:self.idInputText.text forID:self.title];
+           
+           [self.navigationController popViewControllerAnimated:YES];
+    }
     
-    [self.navigationController popViewControllerAnimated:YES];
+  
 }
 
 @end

@@ -32,20 +32,20 @@ public class VideoBaseAdUnit: AdUnit {
 
         /// Maximum bit rate in Kbps.
         @objc
-        public var maxBitrate: Signals.SingleContainerInt?
+        public var maxBitrate: SingleContainerInt?
         
         /// Maximum bit rate in Kbps.
         @objc
-        public var minBitrate: Signals.SingleContainerInt?
+        public var minBitrate: SingleContainerInt?
         
         /// Maximum video ad duration in seconds.
         @objc
-        public var maxDuration: Signals.SingleContainerInt?
+        public var maxDuration: SingleContainerInt?
         
 
         /// Minimum video ad duration in seconds.
         @objc
-        public var minDuration: Signals.SingleContainerInt?
+        public var minDuration: SingleContainerInt?
         
         /**
         Content MIME types supported

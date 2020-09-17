@@ -29,9 +29,21 @@ public class NativeRequest: AdUnit {
     public var eventtrackers:Array<NativeEventTracker>?
     public var privacy: Int = 0
     public var ext: AnyObject?
+    private var _configId:String!
+    
+    public var configId:String? {
+        set {
+            _configId = newValue!;
+            super.prebidConfigId = _configId;
+        }
+        get {
+            return _configId;
+        }
+    }
     
     public init(configId: String) {
         super.init(configId: configId, size:nil)
+        self.configId = configId;
     }
     
     public convenience init(configId: String, assets: Array<NativeAsset>) {
@@ -39,14 +51,14 @@ public class NativeRequest: AdUnit {
         self.assets = assets
     }
     
-    func getNativeRequestObject() -> [AnyHashable: Any]? {
+    public func getNativeRequestObject() -> [AnyHashable: Any]? {
         var nativeObject: [AnyHashable:Any] = [:]
         nativeObject["ver"] = version
         var requestObject: [AnyHashable:Any] = [:]
         
-        requestObject["plcmttype"] = placementType?.rawValue
-        requestObject["context"] = context?.rawValue
-        requestObject["contextsubtype"] = contextSubType?.rawValue
+        requestObject["plcmttype"] = placementType?.value
+        requestObject["context"] = context?.value
+        requestObject["contextsubtype"] = contextSubType?.value
         
         if (sequence > 0) {
             requestObject["seq"] = sequence
@@ -98,86 +110,78 @@ public class NativeRequest: AdUnit {
 
 }
 
-@objc public enum ContextType: Int {
-    case Content = 1
-    case Social = 2
-    case Product = 3
-    case Custom
+public class ContextType: SingleContainerInt {
     
-    private static var customValue = 500
+    @objc
+    public static let Content = ContextType(1)
     
-    public var exchangeID:Int {
-        get {
-            switch self {
-            case .Custom:
-                return ContextType.customValue
-            default:
-                return self.rawValue
-            }
-        }
-        set {
-            ContextType.customValue = newValue
-        }
-        
-    }
+    @objc
+    public static let Social = ContextType(2)
+    
+    @objc
+    public static let Product = ContextType(3)
+    
+    @objc
+    public static let Custom = ContextType(500)
+    
 }
 
-@objc public enum ContextSubType: Int {
-    case General = 10
-    case Article = 11
-    case Video = 12
-    case Audio = 13
-    case Image = 14
-    case UserGenerated = 15
-    case Social = 20
-    case email = 21
-    case chatIM = 22
-    case SellingProduct = 30
-    case AppStore = 31
-    case ReviewSite = 32
-    case Custom
-    
-    private static var customValue = 500
-        
-        public var exchangeID:Int {
-            get {
-                switch self {
-                case .Custom:
-                    return ContextSubType.customValue
-                default:
-                    return self.rawValue
-                }
-            }
-            set {
-                ContextSubType.customValue = newValue
-            }
-            
-        }
+public class ContextSubType: SingleContainerInt {
+    @objc
+    public static let General = ContextSubType(10)
+
+    @objc
+    public static let Article = ContextSubType(11)
+
+    @objc
+    public static let Video = ContextSubType(12)
+
+    @objc
+    public static let Audio = ContextSubType(13)
+
+    @objc
+    public static let Image = ContextSubType(14)
+
+    @objc
+    public static let UserGenerated = ContextSubType(15)
+
+    @objc
+    public static let Social = ContextSubType(20)
+
+    @objc
+    public static let email = ContextSubType(21)
+
+    @objc
+    public static let chatIM = ContextSubType(22)
+
+    @objc
+    public static let SellingProduct = ContextSubType(30)
+
+    @objc
+    public static let AppStore = ContextSubType(31)
+
+    @objc
+    public static let ReviewSite = ContextSubType(32)
+
+    @objc
+    public static let Custom = ContextSubType(500)
 }
 
-@objc public enum PlacementType: Int {
-    case FeedContent = 1
-    case AtomicContent = 2
-    case OutsideContent = 3
-    case RecommendationWidget = 4
-    case Custom
-    
-    private static var customValue = 500
-        
-        public var exchangeID:Int {
-            get {
-                switch self {
-                case .Custom:
-                    return PlacementType.customValue
-                default:
-                    return self.rawValue
-                }
-            }
-            set {
-                PlacementType.customValue = newValue
-            }
-            
-        }
+public class PlacementType: SingleContainerInt {
+    @objc
+    public static let FeedContent = PlacementType(1)
+
+    @objc
+    public static let AtomicContent = PlacementType(2)
+
+    @objc
+    public static let OutsideContent = PlacementType(3)
+
+    @objc
+    public static let RecommendationWidget = PlacementType(4)
+
+    @objc
+    public static let Custom = PlacementType(500)
 }
 
 

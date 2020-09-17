@@ -18,6 +18,7 @@
 #import "DemandValidator.h"
 #import "PBVSharedConstants.h"
 #import "DemandRequestBuilder.h"
+#import "AppDelegate.h"
 
 @import PrebidMobile;
 
@@ -31,7 +32,7 @@
     // Get params from coredata
     NSString *adFormatName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdFormatNameKey];
     NSString *adSizeString = [[NSUserDefaults standardUserDefaults] stringForKey:kAdSizeKey];
-    
+  
     NSString *accountId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBAccountKey];
     NSString *configId = [[NSUserDefaults standardUserDefaults] stringForKey:kPBConfigKey];
     
@@ -53,14 +54,21 @@
         } else if ([adSizeString isEqualToString:kSizeString300x600]){
             [array addObject:[NSValue valueWithCGSize:CGSizeMake(300, 600)]];
             
-        } else {
+        } 
+        else {
             [array addObject:[NSValue valueWithCGSize:CGSizeMake(728, 90)]];
             
         }
         adUnit = [[BannerAdUnit alloc] initWithConfigId:configId size:[array.lastObject CGSizeValue]];
         
-    } else {
+    } else if([adFormatName isEqualToString:kInterstitialString]) {
         adUnit = [[InterstitialAdUnit alloc] initWithConfigId:configId];
+    } else if([adFormatName isEqualToString:kNativeString]) {
+        
+        NativeRequest *request = ((AppDelegate*)[UIApplication sharedApplication].delegate).nativeRequest;
+        request.configId = configId;
+        [array addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
+        adUnit = request;
     }
     NSArray *adUnits = [NSArray arrayWithObjects:adUnit, nil];
     // Generate Request for the saved adunits
@@ -69,6 +77,11 @@
     if ([host isEqualToString:kRubiconString]) {
         url = [NSURL URLWithString:kRubiconPrebidServerEndpoint];
         Prebid.shared.prebidServerHost = PrebidHostRubicon;
+    } else if ([host isEqualToString:kCustomString]){
+        NSString *urlString = [[NSUserDefaults standardUserDefaults] stringForKey:kCustomPrebidServerEndpoint];
+        url =[NSURL URLWithString:urlString];
+        Prebid.shared.prebidServerHost = PrebidHostCustom;
+        [Prebid.shared setCustomPrebidServerWithUrl:urlString error:nil];
     }
     DemandRequestBuilder *builder = [[DemandRequestBuilder alloc] init];
     builder.configId = configId;

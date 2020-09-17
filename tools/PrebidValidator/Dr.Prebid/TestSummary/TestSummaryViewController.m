@@ -28,6 +28,7 @@
 #import "PBVSharedConstants.h"
 #import "PBVPrebidSDKValidator.h"
 #import "SDKValidationResponseViewController.h"
+#import "AppDelegate.h"
 
 
 NSString *__nonnull const kSectionCellString = @"sCell";

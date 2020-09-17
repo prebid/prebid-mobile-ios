@@ -89,7 +89,7 @@ public class NativeAsset: NSObject {
         
         var image: [AnyHashable: Any] = [:]
         
-        image["type"] = type?.rawValue
+        image["type"] = type?.value
         image["w"] = width
         image["wmin"] = widthMin
         image["h"] = height
@@ -123,28 +123,19 @@ public class NativeAsset: NSObject {
     }
 }
 
-@objc public enum ImageAsset: Int {
-    case Icon = 1
-    case Main = 3
-    case Custom
+public class ImageAsset: SingleContainerInt {
     
-    private static var customValue = 500
+    @objc
+    public static let Icon = ImageAsset(1)
     
-    public var exchangeID:Int {
-        get {
-            switch self {
-            case .Custom:
-                return ImageAsset.customValue
-            default:
-                return self.rawValue
-            }
-        }
-        set {
-            ImageAsset.customValue = newValue
-        }
-        
-    }
+    @objc
+    public static let Main = ImageAsset(3)
+    
+    @objc
+    public static let Custom = ContextType(500)
+    
 }
+
 
 @objc public enum DataAsset: Int {
     case sponsored = 1

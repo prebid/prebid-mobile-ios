@@ -86,7 +86,7 @@
     [pbmCreativeControl addTarget:self action:@selector(pbmCreativeSwitch:) forControlEvents:UIControlEventValueChanged];
     pbmCreativeControl.frame = CGRectMake(20, 310, self.view.frame.size.width -40, 35);
     [self.view addSubview:pbmCreativeControl];
-    if ([_adFormatName isEqualToString:kBannerString]) {
+    if ([_adFormatName isEqualToString:kBannerString] || [_adFormatName isEqualToString:kNativeString]) {
         NSArray *adSizeArray = [_adSizeString componentsSeparatedByString:@"x"];
         int height = [adSizeArray[1] intValue];
         _adContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 350, self.view.frame.size.width, height +100)];
@@ -146,7 +146,7 @@
     description.text = @"This creative was returned from the Ad Server, and should match the expected creative.";
     description.numberOfLines = 0;
     [_adContainer addSubview:description];
-    if ([_adFormatName isEqualToString:kBannerString]) {
+    if ([_adFormatName isEqualToString:kBannerString] || [_adFormatName isEqualToString:kNativeString]) {
         NSArray *adSizeArray = [_adSizeString componentsSeparatedByString:@"x"];
         int width = [adSizeArray[0] intValue];
         int height = [adSizeArray[1] intValue];
@@ -193,7 +193,7 @@
     description.text = @"This creative is built into Dr. Prebid for comparison purposes. Your received creative should match this creative.";
     description.numberOfLines = 0;
     [_adContainer addSubview:description];
-    if ([_adFormatName isEqualToString:kBannerString]) {
+    if ([_adFormatName isEqualToString:kBannerString] || [_adFormatName isEqualToString:kNativeString]) {
         NSArray *adSizeArray = [_adSizeString componentsSeparatedByString:@"x"];
         int width = [adSizeArray[0] intValue];
         int height = [adSizeArray[1] intValue];

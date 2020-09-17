@@ -18,6 +18,8 @@
 	<string>2.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>GADIsAdManagerApp</key>
+	<true/>
 	<key>LSApplicationCategoryType</key>
 	<dict/>
 	<key>LSRequiresIPhoneOS</key>
@@ -58,11 +60,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    
-    <key>GADIsAdManagerApp</key>
-    <true/>
-    <key>gad_preferred_webview</key>
-    <string>wkwebview</string>
-
+	<key>gad_preferred_webview</key>
+	<string>wkwebview</string>
 </dict>
 </plist>
