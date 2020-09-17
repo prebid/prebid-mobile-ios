@@ -96,6 +96,20 @@ limitations under the License.
     XCTAssertEqualObjects(itunesID, result);
 }
 
+- (void)testOmidPartnerNameAndVersion {
+    //given
+    NSString *partnerName = @"PartnerName";
+    NSString *partnerVersion = @"1.0";
+    
+    //when
+    Targeting.shared.omidPartnerName = partnerName;
+    Targeting.shared.omidPartnerVersion = partnerVersion;
+
+    //then
+    XCTAssertEqualObjects(partnerName, Targeting.shared.omidPartnerName);
+    XCTAssertEqualObjects(partnerVersion, Targeting.shared.omidPartnerVersion);
+}
+
 - (void)testLocation {
     
     //given

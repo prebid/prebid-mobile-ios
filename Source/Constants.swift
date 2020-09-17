@@ -36,11 +36,6 @@ extension String {
     static let MoPub_Interstitial_Name = "MPInterstitialAdController"
 }
 
-extension Double {
-    static let PB_MIN_RefreshTime = 30000.0
-
-}
-
 extension Int {
 
     static let PB_Request_Timeout = 2000

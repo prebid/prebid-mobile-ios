@@ -121,16 +121,15 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPReward
     
     func loadMPRewardedVideo() {
         
-        let targetingDict = NSMutableDictionary()
-        
-        // Do any additional setup after loading the view, typically from a nib.
-        adUnit.fetchDemand(adObject: targetingDict) { [weak self] (resultCode: ResultCode) in
+        adUnit.fetchDemand { [weak self] (resultCode: ResultCode, targetingDict: [String : String]?) in
             print("Prebid demand fetch for mopub \(resultCode.name())")
-
-            if let targetingDict = targetingDict as? Dictionary<String, String> {
-                let keywords = Utils.shared.convertDictToMoPubKeywords(dict: targetingDict)
-                MPRewardedVideo.loadAd(withAdUnitID: self?.mpRubiconAdUnitId, keywords: keywords, userDataKeywords: nil, location: nil, mediationSettings: nil)
+            
+            guard let targetingDict = targetingDict else {
+                return
             }
+            
+            let keywords = Utils.shared.convertDictToMoPubKeywords(dict: targetingDict)
+            MPRewardedVideo.loadAd(withAdUnitID: self?.mpRubiconAdUnitId, keywords: keywords, userDataKeywords: nil, location: nil, mediationSettings: nil)
         }
     }
     

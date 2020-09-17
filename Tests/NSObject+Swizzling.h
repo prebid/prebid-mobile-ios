@@ -17,11 +17,6 @@
 
 @interface NSObject (Swizzling)
 
-+ (void)exchangeClassSelector:(SEL)originalSelector
-                 withSelector:(SEL)swizzledSelector;
-+ (void)exchangeInstanceSelector:(SEL)originalSelector
-                    withSelector:(SEL)swizzledSelector;
-
 /**
  *  Replaces the selector's associated method implementation with the
  *  given implementation (or adds it, if there was no existing one).
