@@ -18,6 +18,16 @@ gem install xcpretty-travis-formatter --user-install
 gem install cocoapods --user-install
 pod install --repo-update
 
+echo -e "\n${GREEN}Running some unit tests for iOS 13${NC} \n"
+xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=13.5' -only-testing PrebidMobileTests/RequestBuilderTests/testPostData | xcpretty -f `xcpretty-travis-formatter` --color --test
+
+if [[ ${PIPESTATUS[0]} == 0 ]]; then
+    echo "✅ unit tests for iOS 13 Passed"
+else
+    echo "🔴 unit tests for iOS 13 Failed"
+    exit 1
+fi
+
 echo -e "\n${GREEN}Running unit tests${NC} \n"
 xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
 
