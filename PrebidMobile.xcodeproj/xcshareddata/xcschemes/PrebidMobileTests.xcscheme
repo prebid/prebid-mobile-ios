@@ -23,6 +23,9 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "AdUnitTests/testFetchDemandAutoRefresh()">
+               </Test>
+               <Test
                   Identifier = "AdUnitTests/testFetchDemandBidsAutoRefresh()">
                </Test>
                <Test
