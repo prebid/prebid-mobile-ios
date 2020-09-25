@@ -23,6 +23,9 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "AdUnitTests/testFetchDemandBidsAutoRefresh()">
+               </Test>
+               <Test
                   Identifier = "RequestBuilderTests/testPostDataWithShareLocationOff()">
                </Test>
                <Test
