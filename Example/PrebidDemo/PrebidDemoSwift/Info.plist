@@ -62,5 +62,8 @@
     <key>gad_preferred_webview</key>
     <string>wkwebview</string>
     
+    <key>NSUserTrackingUsageDescription</key>
+    <string>By selecting allow, you give the Prebid Demo Application permission to use your IDFA for testing purposes. This a one time prompt per user. You are still able to change your decision in “Settings > Privacy” to test multiple opt-in scenarios</string>
+    
 </dict>
 </plist>
