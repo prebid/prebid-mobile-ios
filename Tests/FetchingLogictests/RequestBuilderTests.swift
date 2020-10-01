@@ -1412,10 +1412,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
                 XCTAssertEqual(NSNumber(value: lmtAd).intValue, device["lmt"] as! Int)
             }
             
-            if let currentIFV = UIDevice.current.identifierForVendor?.uuidString {
-                XCTAssertEqual(currentIFV, deviceExt!["ifv"] as! String)
-            }
-            
             XCTAssertEqual(UIScreen.main.scale, device["pxratio"] as! CGFloat)
         }
 

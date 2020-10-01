@@ -499,8 +499,6 @@ class RequestBuilder: NSObject {
         if #available(iOS 14, *) {
             deviceExt["atts"] = ATTrackingManager.trackingAuthorizationStatus.rawValue
         }
-        
-        deviceExt["ifv"] = UIDevice.current.identifierForVendor?.uuidString
 
         return deviceExt
     }
