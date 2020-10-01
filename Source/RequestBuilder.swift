@@ -18,6 +18,7 @@ import CoreTelephony
 import CoreLocation
 import WebKit
 import AdSupport
+import AppTrackingTransparency
 
 class RequestBuilder: NSObject {
     /**
@@ -337,9 +338,12 @@ class RequestBuilder: NSObject {
         if (carrier?.mobileCountryCode?.count ?? 0) > 0 && (carrier?.mobileNetworkCode?.count ?? 0) > 0 {
             deviceDict["mccmnc"] = carrier?.mobileCountryCode ?? "" + ("-") + (carrier?.mobileNetworkCode ?? "")
         }
-        let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
-        // Limit ad tracking
-        deviceDict["lmt"] = NSNumber(value: lmtAd).intValue
+        
+        if let version = Float(UIDevice.current.systemVersion), version < 14 {
+            let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
+            // Limit ad tracking
+            deviceDict["lmt"] = NSNumber(value: lmtAd).intValue
+        }
         
         //fetch advertising identifier based TCF 2.0 Purpose1 value
         //truth table
@@ -491,6 +495,10 @@ class RequestBuilder: NSObject {
 
         deviceExtPrebid["interstitial"] = deviceExtPrebidInstlDict
         deviceExt["prebid"] = deviceExtPrebid
+
+        if #available(iOS 14, *) {
+            deviceExt["atts"] = ATTrackingManager.trackingAuthorizationStatus.rawValue
+        }
 
         return deviceExt
     }

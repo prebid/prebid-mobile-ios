@@ -18,6 +18,7 @@ import PrebidMobile
 import CoreLocation
 import GoogleMobileAds
 import MoPub
+import AppTrackingTransparency
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -46,7 +47,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         coreLocation = CLLocationManager()
         coreLocation?.requestWhenInUseAuthorization()
-       
+
+        //requestIDFA()
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+            })
+        }
 
         return true
     }
