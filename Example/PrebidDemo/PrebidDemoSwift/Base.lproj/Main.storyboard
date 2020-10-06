@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -77,17 +77,25 @@
                                     <segue destination="g7Y-o0-qeY" kind="show" id="Mld-S3-Yyw"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcD-14-DN2">
-                                <rect key="frame" x="132" y="508" width="110" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcD-14-DN2">
+                                <rect key="frame" x="132" y="508" width="111" height="30"/>
                                 <state key="normal" title="Rewarded video"/>
                                 <connections>
                                     <segue destination="DWf-Za-wca" kind="show" id="hwa-a9-gmn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22J-SO-m28">
+                                <rect key="frame" x="132" y="550" width="101" height="30"/>
+                                <state key="normal" title="Instream video"/>
+                                <connections>
+                                    <segue destination="fzy-BX-rP8" kind="show" id="UrZ-GQ-avz"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="HcD-14-DN2" firstAttribute="centerX" secondItem="H9f-Yj-Von" secondAttribute="centerX" id="0wP-DZ-aaR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="22J-SO-m28" secondAttribute="trailing" symbolic="YES" id="9P8-nO-geT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HcD-14-DN2" secondAttribute="bottom" constant="129" id="EEX-3A-Acn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fwP-lp-368" secondAttribute="trailing" constant="100" id="IjW-xZ-d3E"/>
                             <constraint firstItem="gs4-Un-gLc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Jm8-tG-2ua"/>
@@ -99,7 +107,9 @@
                             <constraint firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TVT-40-hfI"/>
                             <constraint firstItem="gs4-Un-gLc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UG4-q2-Cje"/>
                             <constraint firstItem="H9f-Yj-Von" firstAttribute="top" secondItem="2BF-DS-686" secondAttribute="bottom" constant="16.5" id="WHs-er-cHs"/>
+                            <constraint firstItem="22J-SO-m28" firstAttribute="leading" secondItem="HcD-14-DN2" secondAttribute="leading" id="nkI-MF-nda"/>
                             <constraint firstItem="2BF-DS-686" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="q39-Lq-QPj"/>
+                            <constraint firstItem="22J-SO-m28" firstAttribute="top" secondItem="HcD-14-DN2" secondAttribute="bottom" constant="12" id="xBF-SP-JbF"/>
                             <constraint firstItem="HcD-14-DN2" firstAttribute="centerX" secondItem="0gT-aH-qqc" secondAttribute="centerX" id="y4n-YU-3zY"/>
                             <constraint firstItem="gs4-Un-gLc" firstAttribute="top" secondItem="ze7-Xk-t60" secondAttribute="bottom" constant="25" id="yOu-YU-6fP"/>
                             <constraint firstItem="fwP-lp-368" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="yte-Ky-7os"/>
@@ -180,6 +190,48 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgK-Ok-t7y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="753" y="525"/>
+        </scene>
+        <!--Instream Video View Controller-->
+        <scene sceneID="zbl-LL-A6u">
+            <objects>
+                <viewController id="fzy-BX-rP8" customClass="InstreamVideoViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="akm-Ms-TqH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3h-pN-8tm">
+                                <rect key="frame" x="37.5" y="208.5" width="300" height="250"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="SiQ-04-drd"/>
+                                    <constraint firstAttribute="height" constant="250" id="hgD-BZ-Yml"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKR-us-fJr">
+                                <rect key="frame" x="166.5" y="82" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="K3h-pN-8tm" firstAttribute="centerY" secondItem="akm-Ms-TqH" secondAttribute="centerY" id="F0z-RA-AEx"/>
+                            <constraint firstItem="K3h-pN-8tm" firstAttribute="centerX" secondItem="akm-Ms-TqH" secondAttribute="centerX" id="ZZV-lh-CC0"/>
+                            <constraint firstItem="eKR-us-fJr" firstAttribute="top" secondItem="Q9y-bU-RVQ" secondAttribute="top" constant="38" id="aUY-wP-s8p"/>
+                            <constraint firstItem="eKR-us-fJr" firstAttribute="centerX" secondItem="akm-Ms-TqH" secondAttribute="centerX" id="tML-t9-G6A"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Q9y-bU-RVQ"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="f5Q-7N-GXu"/>
+                    <connections>
+                        <outlet property="adServerLabel" destination="eKR-us-fJr" id="xDV-Dd-bUH"/>
+                        <outlet property="appInstreamView" destination="K3h-pN-8tm" id="b33-qE-ZT3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V4N-fP-62I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-500" y="965"/>
         </scene>
         <!--Rewarded Video Controller-->
         <scene sceneID="o2o-ve-AgX">

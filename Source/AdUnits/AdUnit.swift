@@ -38,6 +38,7 @@ import ObjectiveC.runtime
 
     private var closureAd: ((ResultCode) -> Void)?
     private var closureBids: ((ResultCode, [String : String]?) -> Void)?
+    private var closureVideoBids: ((ResultCode, String?) -> Void)?
 
     //notification flag set to check if the prebid response is received within the specified time
     var didReceiveResponse: Bool! = false
@@ -121,6 +122,53 @@ import ObjectiveC.runtime
             if (!self.didReceiveResponse) {
                 self.timeOutSignalSent = true
                 completion(ResultCode.prebidDemandTimedOut)
+
+            }
+        })
+    }
+    
+    //TODO: dynamic is used by tests
+    dynamic public func fetchVideoDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode, _ adServerURL:String?) -> Void) {
+        
+        if (prebidConfigId.isEmpty || (prebidConfigId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
+            completion(ResultCode.prebidInvalidConfigId, nil)
+            return
+        }
+        if (Prebid.shared.prebidServerAccountId.isEmpty || (Prebid.shared.prebidServerAccountId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
+            completion(ResultCode.prebidInvalidAccountId, nil)
+            return
+        }
+
+        if !isInitialFetchDemandCallMade {
+            isInitialFetchDemandCallMade = true
+            startDispatcher()
+        }
+
+        didReceiveResponse = false
+        timeOutSignalSent = false
+        self.closureVideoBids = completion
+        adServerObject = adObject
+        let manager: BidManager = BidManager(adUnit: self)
+
+        manager.requestBidsForAdUnit { (bidResponse, resultCode) in
+            self.didReceiveResponse = true
+            if (bidResponse != nil) {
+                if (!self.timeOutSignalSent) {
+                    Utils.shared.validateAndAttachKeywords (adObject: adObject, bidResponse: bidResponse!)
+                    //completion(resultCode)
+                }
+
+            } else {
+                if (!self.timeOutSignalSent) {
+                   // completion(resultCode)
+                }
+            }
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Prebid.shared.timeoutMillisDynamic), execute: {
+            if (!self.didReceiveResponse) {
+                self.timeOutSignalSent = true
+                //completion(ResultCode.prebidDemandTimedOut)
 
             }
         })

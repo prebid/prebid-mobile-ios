@@ -12,6 +12,7 @@ def prebid_demo_pods
   
   pod 'Google-Mobile-Ads-SDK'
   pod 'mopub-ios-sdk'
+  pod 'GoogleAds-IMA-iOS-SDK'
 end
 
 target 'PrebidDemoSwift' do
