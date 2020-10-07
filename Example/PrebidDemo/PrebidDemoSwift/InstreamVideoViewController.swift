@@ -33,7 +33,7 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&"
     + "iu=/19968336/Punnaghai_Instream_Video1&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&"
     + "output=vast&unviewed_position_start=1&"
-    + "cust_params=sample_ct%3Dlinear%26hb_uuid%3D51e7a149-7985-4e70-87be-abc47133a043"
+    + "cust_params=sample_ct%3Dlinear%26hb_uuid%3Df3727302-e689-4ecc-800e-b966bed76e87"
     
     private let amAppNexusAdUnitId = "/19968336/Punnaghai_Instream_Video1"
 

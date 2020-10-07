@@ -174,6 +174,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
         adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for AdManager \(resultCode.name())")
+            print(self?.amRequest.contentURL!);
             self?.amBanner.load(self?.amRequest)
         }
     }
