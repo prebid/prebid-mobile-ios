@@ -17,7 +17,9 @@ import XCTest
 import CoreTelephony
 import CoreLocation
 import AdSupport
+#if canImport(AppTrackingTransparency)
 import AppTrackingTransparency
+#endif
 import WebKit
 @testable import PrebidMobile
 
@@ -1401,9 +1403,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             XCTAssertEqual(RequestBuilder.DeviceUUID(), ifa)
             
             let deviceExt = device["ext"] as? [String: Any]
-            
+            #if canImport(AppTrackingTransparency)
             if #available(iOS 14, *) {
-                
                 let atts = deviceExt!["atts"] as! Int
                 XCTAssertEqual(Int(ATTrackingManager.trackingAuthorizationStatus.rawValue), atts)
             } else {
@@ -1411,6 +1412,11 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
                 let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
                 XCTAssertEqual(NSNumber(value: lmtAd).intValue, device["lmt"] as! Int)
             }
+            #else
+                let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
+                XCTAssertEqual(NSNumber(value: lmtAd).intValue, device["lmt"] as! Int)
+            #endif
+            
             
             XCTAssertEqual(UIScreen.main.scale, device["pxratio"] as! CGFloat)
         }
