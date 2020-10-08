@@ -18,8 +18,9 @@ import CoreTelephony
 import CoreLocation
 import WebKit
 import AdSupport
+#if canImport(AppTrackingTransparency)
 import AppTrackingTransparency
-
+#endif
 class RequestBuilder: NSObject {
     /**
      * The class is created as a singleton object & used
@@ -495,10 +496,12 @@ class RequestBuilder: NSObject {
 
         deviceExtPrebid["interstitial"] = deviceExtPrebidInstlDict
         deviceExt["prebid"] = deviceExtPrebid
-
+        
+        #if canImport(AppTrackingTransparency)
         if #available(iOS 14, *) {
             deviceExt["atts"] = ATTrackingManager.trackingAuthorizationStatus.rawValue
         }
+        #endif
 
         return deviceExt
     }
