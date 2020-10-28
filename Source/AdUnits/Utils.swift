@@ -37,117 +37,141 @@ public class Utils: NSObject {
         
     }
 
-func removeHBKeywords (adObject: AnyObject) {
+    func removeHBKeywords (adObject: AnyObject) {
 
-    let adServerObject: String = String(describing: type(of: adObject))
-    if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name || 
-        adServerObject == .DFP_N_Object_Name || adServerObject == .GAD_N_Object_Name || 
-        adServerObject == .GAD_Object_Name) {
-        let hasDFPMember = adObject.responds(to: NSSelectorFromString("setCustomTargeting:"))
-        if (hasDFPMember) {
-            //check if the publisher has added any custom targeting. If so then merge the bid keywords to the same.
-            if (adObject.value(forKey: "customTargeting") != nil) {
-                var existingDict: [String: Any] = adObject.value(forKey: "customTargeting") as! [String: Any]
-                for (key, _)in existingDict {
-                    if (key.starts(with: "hb_")) {
-                        existingDict[key] = nil
+        let adServerObject: String = String(describing: type(of: adObject))
+        if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name ||
+            adServerObject == .DFP_N_Object_Name || adServerObject == .GAD_N_Object_Name ||
+            adServerObject == .GAD_Object_Name) {
+            let hasDFPMember = adObject.responds(to: NSSelectorFromString("setCustomTargeting:"))
+            if (hasDFPMember) {
+                //check if the publisher has added any custom targeting. If so then merge the bid keywords to the same.
+                if (adObject.value(forKey: "customTargeting") != nil) {
+                    var existingDict: [String: Any] = adObject.value(forKey: "customTargeting") as! [String: Any]
+                    for (key, _)in existingDict {
+                        if (key.starts(with: "hb_")) {
+                            existingDict[key] = nil
+                        }
                     }
+                    adObject.setValue( existingDict, forKey: "customTargeting")
                 }
-                adObject.setValue( existingDict, forKey: "customTargeting")
             }
         }
-    }
 
-    if (adServerObject == .MoPub_Object_Name || adServerObject == .MoPub_Interstitial_Name) {
-        let hasMoPubMember = adObject.responds(to: NSSelectorFromString("setKeywords:"))
+        if (adServerObject == .MoPub_Object_Name || adServerObject == .MoPub_Interstitial_Name) {
+            let hasMoPubMember = adObject.responds(to: NSSelectorFromString("setKeywords:"))
 
-        if (hasMoPubMember) {
-            //for mopub the keywords has to be set as a string seperated by ,
-            // split the dictionary & construct a string comma separated
-            if (adObject.value(forKey: "keywords") != nil) {
-                let targetingKeywordsString: String = adObject.value(forKey: "keywords") as! String
+            if (hasMoPubMember) {
+                //for mopub the keywords has to be set as a string seperated by ,
+                // split the dictionary & construct a string comma separated
+                if (adObject.value(forKey: "keywords") != nil) {
+                    let targetingKeywordsString: String = adObject.value(forKey: "keywords") as! String
 
-                let commaString: String = ","
-                if (targetingKeywordsString != "") {
-                    var keywordsArray = targetingKeywordsString.components(separatedBy: ",")
-                    var i = 0
-                    var newString: String = ""
-                    while i < keywordsArray.count {
-                        if (!keywordsArray[i].starts(with: "hb_")) {
+                    let commaString: String = ","
+                    if (targetingKeywordsString != "") {
+                        var keywordsArray = targetingKeywordsString.components(separatedBy: ",")
+                        var i = 0
+                        var newString: String = ""
+                        while i < keywordsArray.count {
+                            if (!keywordsArray[i].starts(with: "hb_")) {
 
-                            if ( newString == .EMPTY_String) {
-                                newString = keywordsArray[i]
-                            } else {
-                                newString += commaString + keywordsArray[i]
+                                if ( newString == .EMPTY_String) {
+                                    newString = keywordsArray[i]
+                                } else {
+                                    newString += commaString + keywordsArray[i]
+                                }
                             }
+
+                            i += 1
                         }
 
-                        i += 1
+                        Log.info("MoPub targeting keys are \(newString)")
+                        adObject.setValue( newString, forKey: "keywords")
+
+
+                    }
+                }
+            }
+        }
+    }
+
+    func validateAndAttachKeywords (adObject: AnyObject, bidResponse: BidResponse) {
+
+        let adServerObject: String = String(describing: type(of: adObject))
+        if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name ||
+            adServerObject == .DFP_N_Object_Name || adServerObject == .GAD_N_Object_Name ||
+            adServerObject == .GAD_Object_Name) {
+            let hasDFPMember = adObject.responds(to: NSSelectorFromString("setCustomTargeting:"))
+            if (hasDFPMember) {
+                //check if the publisher has added any custom targeting. If so then merge the bid keywords to the same.
+                if (adObject.value(forKey: "customTargeting") != nil) {
+                    var existingDict: [String: Any] = adObject.value(forKey: "customTargeting") as! [String: Any]
+                    existingDict.merge(dict: bidResponse.customKeywords)
+                    adObject.setValue( existingDict, forKey: "customTargeting")
+                } else {
+                    adObject.setValue( bidResponse.customKeywords, forKey: "customTargeting")
+                }
+
+                return
+            }
+        } else if (adServerObject == .MoPub_Object_Name || adServerObject == .MoPub_Interstitial_Name) {
+            let hasMoPubMember = adObject.responds(to: NSSelectorFromString("setKeywords:"))
+
+            if (hasMoPubMember) {
+                //for mopub the keywords has to be set as a string seperated by ,
+                // split the dictionary & construct a string comma separated
+                var targetingKeywordsString: String = ""
+                //get the publisher set keywords & append the bid keywords to the same
+
+                if let keywordsString = (adObject.value(forKey: "keywords") as? String) {
+                    targetingKeywordsString = keywordsString
+                }
+
+                let commaString: String = ","
+
+                for (key, value) in bidResponse.customKeywords {
+                    if ( targetingKeywordsString == .EMPTY_String) {
+                        targetingKeywordsString = key + ":" + value
+                    } else {
+                        targetingKeywordsString += commaString + key + ":" + value
                     }
 
-                    Log.info("MoPub targeting keys are \(newString)")
-                    adObject.setValue( newString, forKey: "keywords")
-
-
                 }
+
+                Log.info("MoPub targeting keys are \(targetingKeywordsString)")
+                adObject.setValue( targetingKeywordsString, forKey: "keywords")
+
             }
+        } else if let dictContainer = adObject as? DictionaryContainer<String, String> {
+            dictContainer.dict = bidResponse.customKeywords
+        } else if let dict = adObject as? NSMutableDictionary {
+            dict.addEntries(from: bidResponse.customKeywords)
         }
     }
-}
-
-func validateAndAttachKeywords (adObject: AnyObject, bidResponse: BidResponse) {
-
-    let adServerObject: String = String(describing: type(of: adObject))
-    if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name || 
-        adServerObject == .DFP_N_Object_Name || adServerObject == .GAD_N_Object_Name || 
-        adServerObject == .GAD_Object_Name) {
-        let hasDFPMember = adObject.responds(to: NSSelectorFromString("setCustomTargeting:"))
-        if (hasDFPMember) {
-            //check if the publisher has added any custom targeting. If so then merge the bid keywords to the same.
-            if (adObject.value(forKey: "customTargeting") != nil) {
-                var existingDict: [String: Any] = adObject.value(forKey: "customTargeting") as! [String: Any]
-                existingDict.merge(dict: bidResponse.customKeywords)
-                adObject.setValue( existingDict, forKey: "customTargeting")
+    
+    func constructAdTagURLForIMAWithPrebidKeys (adUnitID:String, bidResponse: BidResponse) -> String{
+        let adServerURL = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&output=vast&unviewed_position_start=1&gdfp_req=1&env=vp"
+        let adUnit = String(format: "iu=%@", adUnitID)
+        
+        let andString: String = "&"
+        var targetingKeywordsString: String = ""
+        for (key, value) in bidResponse.customKeywords {
+            if ( targetingKeywordsString == .EMPTY_String) {
+                targetingKeywordsString = key + "=" + value
             } else {
-                adObject.setValue( bidResponse.customKeywords, forKey: "customTargeting")
+                targetingKeywordsString += andString + key + "=" + value
             }
-
-            return
         }
-    } else if (adServerObject == .MoPub_Object_Name || adServerObject == .MoPub_Interstitial_Name) {
-        let hasMoPubMember = adObject.responds(to: NSSelectorFromString("setKeywords:"))
-
-        if (hasMoPubMember) {
-            //for mopub the keywords has to be set as a string seperated by ,
-            // split the dictionary & construct a string comma separated
-            var targetingKeywordsString: String = ""
-            //get the publisher set keywords & append the bid keywords to the same
-
-            if let keywordsString = (adObject.value(forKey: "keywords") as? String) {
-                targetingKeywordsString = keywordsString
-            }
-
-            let commaString: String = ","
-
-            for (key, value) in bidResponse.customKeywords {
-                if ( targetingKeywordsString == .EMPTY_String) {
-                    targetingKeywordsString = key + ":" + value
-                } else {
-                    targetingKeywordsString += commaString + key + ":" + value
-                }
-
-            }
-
-            Log.info("MoPub targeting keys are \(targetingKeywordsString)")
-            adObject.setValue( targetingKeywordsString, forKey: "keywords")
-
-        }
-    } else if let dictContainer = adObject as? DictionaryContainer<String, String> {
-        dictContainer.dict = bidResponse.customKeywords
-    } else if let dict = adObject as? NSMutableDictionary {
-        dict.addEntries(from: bidResponse.customKeywords)
+        let customAllowedSet =  NSCharacterSet(charactersIn:"&=\"#%/<>?@\\^`{|}").inverted
+        let escapedString:String = targetingKeywordsString.addingPercentEncoding(withAllowedCharacters: customAllowedSet)!
+        
+        let customKeywords = String(format: "cust_params=%@", escapedString)
+        print(customKeywords)
+        
+        let adTagUrl = String(format: "%@&%@&%@", adServerURL,adUnit,customKeywords)
+        
+        return adTagUrl
     }
-}
 
 }
 

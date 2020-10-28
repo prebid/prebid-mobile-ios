@@ -3,7 +3,7 @@ PODS:
     - GoogleAppMeasurement (~> 6.0)
     - GoogleUserMessagingPlatform (~> 1.1)
   - GoogleAds-IMA-iOS-SDK (3.11.3)
-  - GoogleAppMeasurement (6.8.3):
+  - GoogleAppMeasurement (6.9.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
     - GoogleUtilities/MethodSwizzler (~> 6.7)
     - GoogleUtilities/Network (~> 6.7)
@@ -46,7 +46,7 @@ PODS:
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
-  - PromisesObjC (1.2.10)
+  - PromisesObjC (1.2.11)
 
 DEPENDENCIES:
   - Google-Mobile-Ads-SDK
@@ -67,12 +67,12 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Google-Mobile-Ads-SDK: 7d7074359c040f5add4e0963bf860e14690060d0
   GoogleAds-IMA-iOS-SDK: 134b35758455576aaa6b3d2d3146699dcf8af4f1
-  GoogleAppMeasurement: 966e88df9d19c15715137bb2ddaf52373f111436
+  GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
   GoogleUserMessagingPlatform: c85530d930ba509583aa5a6d50a10aca22cf8502
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   mopub-ios-sdk: d1640225b34ad74700e2acddb116cac634fc45d8
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
-  PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
+  PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
 
 PODFILE CHECKSUM: 3ac6b72b8e32e6b50d5524e6bbdc3864ec850fb0
 

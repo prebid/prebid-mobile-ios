@@ -18,7 +18,7 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     
     var adServerName: String = ""
     
-    private var adUnit: AdUnit!
+    private var adUnit: InStreamVideoAdUnit!
     
     var adsLoader: IMAAdsLoader!
     var adsManager: IMAAdsManager!
@@ -29,11 +29,19 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
 //    + "output=vast&unviewed_position_start=1&"
 //    + "cust_params=sample_ct%3Dlinear%26hb_uuid_appnexus%3Dd2913b6a-6abb-4451-941c-12657097c5bc%26hb_cache_host%3Dprebid.nym2.adnxs.com&hb_bidder_appnexus%3Dappnexus%26hb_size_appnexus%3D1x1%26hb_pb_appnexus%3D0.50%26hb_cache_path%3D/pbc/v1/cache%26hb_pb%3D0.50%26hb_cache_path_appnex%3D/pbc/v1/cache%26hb_uuid%3Dd2913b6a-6abb-4451-941c-12657097c5bc%26hb_size%3D1x1%26hb_env%3Dmobile-app%26hb_env_appnexus%3Dmobile-app%26hb_bidder%3Dappnexus%26hb_cache_host_appnex%3Dprebid.nym2.adnxs.com"
     
+    //env
+    //gdfp_req
+    //iu
+    //output
+    //sz - Size of master video ad slot.
+    //unviewed_position_start - Setting this to 1 turns on delayed impressions for video.
+    //cust_params
+    
     static let kTestAppAdTagUrl =
     "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&"
-    + "iu=/19968336/Punnaghai_Instream_Video1&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&"
+    + "iu=/19968336/Punnaghai_Instream_Video1&gdfp_req=1&env=vp&"
     + "output=vast&unviewed_position_start=1&"
-    + "cust_params=sample_ct%3Dlinear%26hb_uuid%3Df3727302-e689-4ecc-800e-b966bed76e87"
+    + "cust_params=hb_size_appnexus%3D1x1%26hb_cache_id_appnexus%3D37a2083f-f7ab-4f75-9c68-ef6e65de60bb%26hb_uuid%3Dda6b9303-52fc-434b-96e1-786c7f006735%26hb_env_appnexus%3Dmobile-app%26hb_cache_host%3Dprebid.nym2.adnxs.com%26hb_cache_path%3D%2Fpbc%2Fv1%2Fcache%26hb_env%3Dmobile-app%26hb_size%3D1x1%26hb_cache_host_appnex%3Dprebid.nym2.adnxs.com%26hb_cache_id%3D37a2083f-f7ab-4f75-9c68-ef6e65de60bb%26hb_bidder_appnexus%3Dappnexus%26hb_bidder%3Dappnexus%26hb_pb_appnexus%3D0.50%26hb_cache_path_appnex%3D%2Fpbc%2Fv1%2Fcache%26hb_pb%3D0.50%26hb_uuid_appnexus%3Dda6b9303-52fc-434b-96e1-786c7f006735"
     
     private let amAppNexusAdUnitId = "/19968336/Punnaghai_Instream_Video1"
 
@@ -62,7 +70,7 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
 
         setupPB(host: .Appnexus, accountId: "aecd6ef7-b992-4e99-9bb8-65e2d984e1dd", storedResponse: "sample_video_response")
 
-        let adUnit = VideoAdUnit(configId: "2c0af852-a55d-49dc-a5ca-ef7e141f73cc", size: CGSize(width: 1, height: 1))
+        let videoAdUnit = InStreamVideoAdUnit(configId: "2c0af852-a55d-49dc-a5ca-ef7e141f73cc")
         
         let parameters = VideoBaseAdUnit.Parameters()
         parameters.mimes = ["video/mp4"]
@@ -71,9 +79,9 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
         
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
         
-        adUnit.parameters = parameters
+        videoAdUnit.parameters = parameters
         
-        self.adUnit = adUnit
+        adUnit = videoAdUnit
         
     }
     
@@ -89,16 +97,23 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
         adsLoader = IMAAdsLoader(settings: nil)
         adsLoader.delegate = self
         
-//        self.adUnit.fetchDemand() { [weak self] (resultCode: ResultCode) in
-//            print("Prebid demand fetch for AdManager \(resultCode.name())")
-//            self?.amBanner.load(self?.amRequest)
-//        }
+        adUnit.fetchInstreamDemandForAdObject(adUnitId: "/19968336/Punnaghai_Instream_Video1") { (ResultCode, adServerTag: String?) in
+            print("prebid keys")
+            print(adServerTag!)
+            let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.appInstreamView)
+            // Create an ad request with our ad tag, display container, and optional user context.
+            if(ResultCode == .prebidDemandFetchSuccess){
+                let request = IMAAdsRequest(adTagUrl: adServerTag, adDisplayContainer: adDisplayContainer, contentPlayhead: nil, userContext: nil)
+                self.adsLoader.requestAds(with: request)
+            } else {
+                print ("Error constructing IMA Tag")
+            }
+            
+        }
+                        
         
-        // Create ad display container for ad rendering.
-        let adDisplayContainer = IMAAdDisplayContainer(adContainer: appInstreamView)
-        // Create an ad request with our ad tag, display container, and optional user context.
-        let request = IMAAdsRequest(adTagUrl: InstreamVideoViewController.kTestAppAdTagUrl, adDisplayContainer: adDisplayContainer, contentPlayhead: nil, userContext: nil)
-        adsLoader.requestAds(with: request)
+        
+        
         
     }
     
