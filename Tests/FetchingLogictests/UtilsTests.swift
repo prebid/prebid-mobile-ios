@@ -551,4 +551,49 @@ class UtilsTests: XCTestCase {
         }
     }
     
+    func testConstructAdTagURLForIMAWithPrebidKeys() {
+        let utils: IMAUtils = IMAUtils.shared
+
+        let prebidKeywords: [String: String] = ["hb_env": "mobile-app",
+                                              "hb_bidder_appnexus": "appnexus",
+                                              "hb_size_appnexus": "300x250",
+                                              "hb_pb_appnexus": "0.50",
+                                              "hb_env_appnexus": "mobile-app",
+                                              "hb_cache_id": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d",
+                                              "hb_cache_id_appnexus": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d",
+                                              "hb_pb": "0.50",
+                                              "hb_bidder": "appnexus",
+                                              "hb_size": "300x250"]
+        let bidResponse = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
+        
+
+        let adTagUrl:String = utils.constructAdTagURLForIMAWithPrebidKeys(adUnitID: "/19968336/Punnaghai_Instream_Video1", customKeywords: bidResponse.customKeywords)
+        
+        let splitUrl = adTagUrl.components(separatedBy: "?")
+        
+        let rightUrl:String = String(splitUrl[1])
+        
+        let queryString:[String] = rightUrl.components(separatedBy: "&")
+        
+        let filtered = queryString.filter { $0.contains("cust_params") }
+        XCTAssertNotNil(filtered)
+        
+//        var newString:String = filtered[0] as String
+//        
+//        newString = newString.removingPercentEncoding!
+//        
+//        let extractedKeywords:[String] = newString.components(separatedBy: "&")
+//        
+//        var extractedPrebidKeywords: [String: String] = [String:String]()
+//        
+//        for keyString in extractedKeywords {
+//            let keywords:[String] = newString.components(separatedBy: ":")
+//            
+//            extractedKeywords[keywords[0]] = keywords[1]
+//            
+//        }
+        
+        
+    }
+    
 }

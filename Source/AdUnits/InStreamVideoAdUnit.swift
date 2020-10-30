@@ -41,7 +41,7 @@ public class InStreamVideoAdUnit: VideoBaseAdUnit {
             self.didReceiveResponse = true
             if (bidResponse != nil) {
                 if (!self.timeOutSignalSent) {
-                    let adServerURL = Utils.shared.constructAdTagURLForIMAWithPrebidKeys(adUnitID: adUnitId, bidResponse: bidResponse!)
+                    let adServerURL = IMAUtils.shared.constructAdTagURLForIMAWithPrebidKeys(adUnitID: adUnitId, customKeywords: bidResponse!.customKeywords)
                     completion(resultCode,adServerURL)
                 }
 

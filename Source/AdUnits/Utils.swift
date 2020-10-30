@@ -149,29 +149,7 @@ public class Utils: NSObject {
         }
     }
     
-    func constructAdTagURLForIMAWithPrebidKeys (adUnitID:String, bidResponse: BidResponse) -> String{
-        let adServerURL = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&output=vast&unviewed_position_start=1&gdfp_req=1&env=vp"
-        let adUnit = String(format: "iu=%@", adUnitID)
-        
-        let andString: String = "&"
-        var targetingKeywordsString: String = ""
-        for (key, value) in bidResponse.customKeywords {
-            if ( targetingKeywordsString == .EMPTY_String) {
-                targetingKeywordsString = key + "=" + value
-            } else {
-                targetingKeywordsString += andString + key + "=" + value
-            }
-        }
-        let customAllowedSet =  NSCharacterSet(charactersIn:"&=\"#%/<>?@\\^`{|}").inverted
-        let escapedString:String = targetingKeywordsString.addingPercentEncoding(withAllowedCharacters: customAllowedSet)!
-        
-        let customKeywords = String(format: "cust_params=%@", escapedString)
-        print(customKeywords)
-        
-        let adTagUrl = String(format: "%@&%@&%@", adServerURL,adUnit,customKeywords)
-        
-        return adTagUrl
-    }
+    
 
 }
 

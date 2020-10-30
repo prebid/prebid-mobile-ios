@@ -110,10 +110,6 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
             }
             
         }
-                        
-        
-        
-        
         
     }
     
