@@ -119,6 +119,12 @@
 		FAEBF29F237EC7B1006BA972 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */; };
 		FAEBF2A0237EC7B1006BA972 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */; };
 		FAEBF2A2237ECFEF006BA972 /* StorageUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */; };
+		FCE4276D255042A800C95FAD /* PrebieNativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE4276C255042A800C95FAD /* PrebieNativeAd.swift */; };
+		FCE4276E2550436F00C95FAD /* PrebieNativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE4276C255042A800C95FAD /* PrebieNativeAd.swift */; };
+		FCE42773255043A600C95FAD /* PrebidNativeAdListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE42772255043A600C95FAD /* PrebidNativeAdListener.swift */; };
+		FCE42774255043A600C95FAD /* PrebidNativeAdListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE42772255043A600C95FAD /* PrebidNativeAdListener.swift */; };
+		FCE42776255043D900C95FAD /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE42775255043D900C95FAD /* Util.swift */; };
+		FCE42777255043D900C95FAD /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE42775255043D900C95FAD /* Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,7 +216,7 @@
 		FA7C3EB4225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrebidServerOneBidFromAppNexusOneBidFromRubicon.json; sourceTree = "<group>"; };
 		FA7C3EB6225E4C2200D2F128 /* responseRubiconPBM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseRubiconPBM.json; sourceTree = "<group>"; };
 		FA7C3EB8225E518000D2F128 /* noBidResponseRubicon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponseRubicon.json; sourceTree = "<group>"; };
-		FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
+		FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
 		FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewUtilsTests.swift; sourceTree = "<group>"; };
 		FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TargetingObjCTests.m; sourceTree = "<group>"; };
 		FAA2990724322962002ACBF2 /* PrebidObjcTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidObjcTests.m; sourceTree = "<group>"; };
@@ -228,6 +234,9 @@
 		FAE17D57242A29AC0052719A /* Signals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signals.swift; sourceTree = "<group>"; };
 		FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUtils.swift; sourceTree = "<group>"; };
 		FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUtilsTests.swift; sourceTree = "<group>"; };
+		FCE4276C255042A800C95FAD /* PrebieNativeAd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebieNativeAd.swift; sourceTree = "<group>"; };
+		FCE42772255043A600C95FAD /* PrebidNativeAdListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdListener.swift; sourceTree = "<group>"; };
+		FCE42775255043D900C95FAD /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,6 +342,9 @@
 				600072FE21BAFD2F00F4738B /* Dispatcher.swift */,
 				6013E3F12214A4CA00FEE2B1 /* Location.swift */,
 				FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */,
+				FCE4276C255042A800C95FAD /* PrebieNativeAd.swift */,
+				FCE42772255043A600C95FAD /* PrebidNativeAdListener.swift */,
+				FCE42775255043D900C95FAD /* Util.swift */,
 				FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */,
 			);
 			path = Source;
@@ -693,6 +705,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCE4276E2550436F00C95FAD /* PrebieNativeAd.swift in Sources */,
+				FCE42777255043D900C95FAD /* Util.swift in Sources */,
 				FAEBF2A0237EC7B1006BA972 /* StorageUtils.swift in Sources */,
 				FA29A3D5232255DF00F13F61 /* Reachability.swift in Sources */,
 				FA29A3D6232255DF00F13F61 /* BidManager.swift in Sources */,
@@ -723,6 +737,7 @@
 				FA29A3E8232255DF00F13F61 /* Logging.swift in Sources */,
 				FAE17D59242A29AC0052719A /* Signals.swift in Sources */,
 				FAD9527C241BA30800A03AB6 /* BannerBaseAdUnit.swift in Sources */,
+				FCE42774255043A600C95FAD /* PrebidNativeAdListener.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -730,7 +745,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCE4276D255042A800C95FAD /* PrebieNativeAd.swift in Sources */,
+				FCE42776255043D900C95FAD /* Util.swift in Sources */,
 				FAEBF29F237EC7B1006BA972 /* StorageUtils.swift in Sources */,
+				FCE42773255043A600C95FAD /* PrebidNativeAdListener.swift in Sources */,
 				FAAA00D223227F5B009DC7D6 /* Global.swift in Sources */,
 				FA4A88442497A99D00FDCBB6 /* Swizzling.swift in Sources */,
 				FAAA00D823227F5B009DC7D6 /* CollectionExtension.swift in Sources */,
