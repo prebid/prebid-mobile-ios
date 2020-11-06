@@ -1,10 +1,17 @@
-//
-//  InstreamVideoViewController.swift
-//  PrebidDemoSwift
-//
-//  Created by Punnaghai Puviarasu on 9/28/20.
-//  Copyright © 2020 Prebid. All rights reserved.
-//
+/*   Copyright 2018-2019 Prebid.org, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 
 import UIKit
 import GoogleInteractiveMediaAds
@@ -22,26 +29,6 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     
     var adsLoader: IMAAdsLoader!
     var adsManager: IMAAdsManager!
-    
-//    static let kTestAppAdTagUrl =
-//    "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&"
-//    + "iu=/19968336/Punnaghai_Instream_Video1&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&"
-//    + "output=vast&unviewed_position_start=1&"
-//    + "cust_params=sample_ct%3Dlinear%26hb_uuid_appnexus%3Dd2913b6a-6abb-4451-941c-12657097c5bc%26hb_cache_host%3Dprebid.nym2.adnxs.com&hb_bidder_appnexus%3Dappnexus%26hb_size_appnexus%3D1x1%26hb_pb_appnexus%3D0.50%26hb_cache_path%3D/pbc/v1/cache%26hb_pb%3D0.50%26hb_cache_path_appnex%3D/pbc/v1/cache%26hb_uuid%3Dd2913b6a-6abb-4451-941c-12657097c5bc%26hb_size%3D1x1%26hb_env%3Dmobile-app%26hb_env_appnexus%3Dmobile-app%26hb_bidder%3Dappnexus%26hb_cache_host_appnex%3Dprebid.nym2.adnxs.com"
-    
-    //env
-    //gdfp_req
-    //iu
-    //output
-    //sz - Size of master video ad slot.
-    //unviewed_position_start - Setting this to 1 turns on delayed impressions for video.
-    //cust_params
-    
-    static let kTestAppAdTagUrl =
-    "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&"
-    + "iu=/19968336/Punnaghai_Instream_Video1&gdfp_req=1&env=vp&"
-    + "output=vast&unviewed_position_start=1&"
-    + "cust_params=hb_size_appnexus%3D1x1%26hb_cache_id_appnexus%3D37a2083f-f7ab-4f75-9c68-ef6e65de60bb%26hb_uuid%3Dda6b9303-52fc-434b-96e1-786c7f006735%26hb_env_appnexus%3Dmobile-app%26hb_cache_host%3Dprebid.nym2.adnxs.com%26hb_cache_path%3D%2Fpbc%2Fv1%2Fcache%26hb_env%3Dmobile-app%26hb_size%3D1x1%26hb_cache_host_appnex%3Dprebid.nym2.adnxs.com%26hb_cache_id%3D37a2083f-f7ab-4f75-9c68-ef6e65de60bb%26hb_bidder_appnexus%3Dappnexus%26hb_bidder%3Dappnexus%26hb_pb_appnexus%3D0.50%26hb_cache_path_appnex%3D%2Fpbc%2Fv1%2Fcache%26hb_pb%3D0.50%26hb_uuid_appnexus%3Dda6b9303-52fc-434b-96e1-786c7f006735"
     
     private let amAppNexusAdUnitId = "/19968336/Punnaghai_Instream_Video1"
 

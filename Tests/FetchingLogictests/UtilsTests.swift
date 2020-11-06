@@ -578,20 +578,21 @@ class UtilsTests: XCTestCase {
         let filtered = queryString.filter { $0.contains("cust_params") }
         XCTAssertNotNil(filtered)
         
-//        var newString:String = filtered[0] as String
-//        
-//        newString = newString.removingPercentEncoding!
-//        
-//        let extractedKeywords:[String] = newString.components(separatedBy: "&")
-//        
-//        var extractedPrebidKeywords: [String: String] = [String:String]()
-//        
-//        for keyString in extractedKeywords {
-//            let keywords:[String] = newString.components(separatedBy: ":")
-//            
-//            extractedKeywords[keywords[0]] = keywords[1]
-//            
-//        }
+        var newString:String = filtered[0] as String
+        
+        newString = newString.replacingOccurrences(of: "cust_params=", with: "")
+
+        newString = newString.removingPercentEncoding!
+
+        let extractedKeywords:[String] = newString.components(separatedBy: "&")
+
+        for keyString in extractedKeywords {
+            let keywords:[String] = keyString.components(separatedBy: "=")
+            let key:String = keywords[0]
+            let value:String = keywords[1]
+            XCTAssertTrue((prebidKeywords[key] != nil),value)
+
+        }
         
         
     }
