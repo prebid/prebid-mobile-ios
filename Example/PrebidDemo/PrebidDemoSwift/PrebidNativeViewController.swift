@@ -131,7 +131,9 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
             DispatchQueue.global().async {
                 let data = try? Data(contentsOf: iconUrl)
                 DispatchQueue.main.async {
+                    if data != nil {
                     icon.image = UIImage(data:data!)
+                    }
                 }
             }
         }
@@ -142,7 +144,9 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
             DispatchQueue.global().async {
                 let data = try? Data(contentsOf: imageUrl)
                 DispatchQueue.main.async {
-                    image.image = UIImage(data:data!)
+                    if data != nil {
+                     image.image = UIImage(data:data!)
+                    }
                 }
             }
         }
@@ -188,7 +192,9 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
         DispatchQueue.global().async {
             let data = try? Data(contentsOf: iconUrl!)
             DispatchQueue.main.async {
+                if data != nil {
                 icon.image = UIImage(data:data!)
+                }
             }
         }
         let description = UITextView(frame: CGRect(x: 0, y: 50, width: self.screenWidth, height: 50))
@@ -198,7 +204,9 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
         DispatchQueue.global().async {
             let data = try? Data(contentsOf: imageUrl!)
             DispatchQueue.main.async {
+                if data != nil {
                 image.image = UIImage(data:data!)
+                }
             }
         }
         self.adContainer = UIView(frame: CGRect(x: 0, y: 0, width: self.screenWidth, height: 150 + self.screenWidth * 400 / 600))

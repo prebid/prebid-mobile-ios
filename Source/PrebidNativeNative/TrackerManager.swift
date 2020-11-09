@@ -9,6 +9,14 @@
 import UIKit
 
 class TrackerManager: NSObject {
+    
+    //MARK: Properties
+    private var internetIsReachable = false
+    private var reachability: Reachability!
+    private var trackerArray = [TrackerInfo]()
+    private var trackerRetryTimer : Timer?
+    typealias  OnComplete = ((Bool) -> Void)?
+    
     /**
      * The class is created as a singleton object & used
      */
@@ -20,12 +28,20 @@ class TrackerManager: NSObject {
      */
     private override init() {
         super.init()
+        self.reachability = Reachability()
+        self.internetIsReachable = self.reachability.isReachable
+        NotificationCenter.default.addObserver(self, selector:#selector(self.reachabilityChanged), name: NSNotification.Name.reachabilityChanged, object: nil)
+        do {
+            try self.reachability.startNotifier()
+        }
+        catch(let error) {
+            Log.debug("Error occured while starting reachability notifications : \(error.localizedDescription)")
+        }
     }
     
-    private var trackerArray = [TrackerInfo]()
-    private let internetReachability: Reachability = Reachability()!
-    private var trackerRetryTimer : Timer?
-    typealias  OnComplete = ((Bool) -> Void)?
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     //MARK: Public Methods
     func fireTrackerURLArray(arrayWithURLs: [String], completion: OnComplete){
@@ -36,7 +52,7 @@ class TrackerManager: NSObject {
             return
         }
         
-        if !internetIsReachable() {
+        if !internetIsReachable {
             Log.debug("Internet IS UNREACHABLE - queing trackers for firing later: \(arrayWithURLs)")
             arrayWithURLs.forEach { URL in
                 queueTrackerURLForRetry(URL: URL, completion: completion)
@@ -90,7 +106,7 @@ class TrackerManager: NSObject {
     private func retryTrackerFiresWithBlock(completion: OnComplete){
         
         var trackerArrayCopy: [TrackerInfo]?
-        if internetIsReachable() {
+        if internetIsReachable {
             Log.debug("Internet back online - Firing trackers \(trackerArray)")
             trackerArrayCopy = trackerArray
             trackerArray.removeAll()
@@ -132,8 +148,16 @@ class TrackerManager: NSObject {
         }
     }
     
-    private func internetIsReachable() -> Bool{
-        return internetReachability.isReachable
+    @objc func reachabilityChanged(note: Notification) {
+        let reachability = note.object as! Reachability
+        switch reachability.connection {
+        case .cellular, .wifi:
+            internetIsReachable = true
+            break
+        case .none:
+            internetIsReachable = false
+            break
+      }
     }
     
 }
