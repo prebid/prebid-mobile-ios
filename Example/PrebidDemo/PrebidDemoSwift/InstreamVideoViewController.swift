@@ -25,7 +25,7 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     
     var adServerName: String = ""
     
-    private var adUnit: InStreamVideoAdUnit!
+    private var adUnit: VideoAdUnit!
     
     var adsLoader: IMAAdsLoader!
     var adsManager: IMAAdsManager!
@@ -38,15 +38,15 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
         adServerLabel.text = adServerName
         
         if (adServerName == "DFP") {
-            setupAndLoadAMRewardedVideo()
+            setupAndLoadAMInstreamVideo()
         } else if (adServerName == "MoPub") {
-           
+           print("mopub not supported")
         }
 
         // Do any additional setup after loading the view.
     }
     
-    func setupAndLoadAMRewardedVideo() {
+    func setupAndLoadAMInstreamVideo() {
         setupPBAppNexusInStreamVideo()
         setupAMAppNexusInstreamVideo()
         
@@ -57,14 +57,14 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
 
         setupPB(host: .Appnexus, accountId: "aecd6ef7-b992-4e99-9bb8-65e2d984e1dd", storedResponse: "sample_video_response")
 
-        let videoAdUnit = InStreamVideoAdUnit(configId: "2c0af852-a55d-49dc-a5ca-ef7e141f73cc")
+        let videoAdUnit = VideoAdUnit(configId: "2c0af852-a55d-49dc-a5ca-ef7e141f73cc", size: CGSize(width: 1,height: 1))
         
         let parameters = VideoBaseAdUnit.Parameters()
         parameters.mimes = ["video/mp4"]
         
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         
-        parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
+        parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOn]
         
         videoAdUnit.parameters = parameters
         
@@ -84,18 +84,17 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
         adsLoader = IMAAdsLoader(settings: nil)
         adsLoader.delegate = self
         
-        adUnit.fetchInstreamDemandForAdObject(adUnitId: "/19968336/Punnaghai_Instream_Video1") { (ResultCode, adServerTag: String?) in
+        adUnit.fetchDemand { (ResultCode, prebidKeys: [String : String]?) in
             print("prebid keys")
-            print(adServerTag!)
-            let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.appInstreamView)
-            // Create an ad request with our ad tag, display container, and optional user context.
             if(ResultCode == .prebidDemandFetchSuccess){
+                let adServerTag:String = IMAUtils.shared.constructAdTagURLForIMAWithPrebidKeys(adUnitID: "/19968336/Punnaghai_Instream_Video1", customKeywords: prebidKeys!)
+                let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.appInstreamView)
+                // Create an ad request with our ad tag, display container, and optional user context.
                 let request = IMAAdsRequest(adTagUrl: adServerTag, adDisplayContainer: adDisplayContainer, contentPlayhead: nil, userContext: nil)
                 self.adsLoader.requestAds(with: request)
             } else {
                 print ("Error constructing IMA Tag")
             }
-            
         }
         
     }

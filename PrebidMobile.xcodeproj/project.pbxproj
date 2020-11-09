@@ -11,7 +11,6 @@
 		600CF13E220CDFA700C95176 /* responseinvalidSize.json in Resources */ = {isa = PBXBuildFile; fileRef = 600CF13D220CDFA700C95176 /* responseinvalidSize.json */; };
 		6013E3F82215C82900FEE2B1 /* CLLocationManager+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6013E3F72215C82900FEE2B1 /* CLLocationManager+Swizzle.swift */; };
 		6013E3FA2215C92C00FEE2B1 /* MockCLLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6013E3F92215C92C00FEE2B1 /* MockCLLocationManager.swift */; };
-		60556C6A2534D65900D895FF /* InStreamVideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60556C692534D65900D895FF /* InStreamVideoAdUnit.swift */; };
 		606FAC2621FFB20A008EAE5E /* TargetingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FAC2521FFB20A008EAE5E /* TargetingTests.swift */; };
 		606FAC282200AD2C008EAE5E /* PrebidTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FAC272200AD2C008EAE5E /* PrebidTests.swift */; };
 		606FAC4A2201F248008EAE5E /* AdUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FAC492201F248008EAE5E /* AdUnitTests.swift */; };
@@ -141,7 +140,6 @@
 		6013E3F12214A4CA00FEE2B1 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		6013E3F72215C82900FEE2B1 /* CLLocationManager+Swizzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+Swizzle.swift"; sourceTree = "<group>"; };
 		6013E3F92215C92C00FEE2B1 /* MockCLLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCLLocationManager.swift; sourceTree = "<group>"; };
-		60556C692534D65900D895FF /* InStreamVideoAdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InStreamVideoAdUnit.swift; sourceTree = "<group>"; };
 		6062B19B218243FA00CE1BA3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6062B1A321835DF300CE1BA3 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		6062B1AB21878CFB00CE1BA3 /* AdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdUnit.swift; sourceTree = "<group>"; };
@@ -282,7 +280,6 @@
 				FAD4D542235DCCAB00140012 /* VideoAdUnit.swift */,
 				FAD4D545235DCCCF00140012 /* VideoInterstitialAdUnit.swift */,
 				FAAB5F9623B9F734001715A7 /* RewardedVideoAdUnit.swift */,
-				60556C692534D65900D895FF /* InStreamVideoAdUnit.swift */,
 			);
 			path = AdUnits;
 			sourceTree = "<group>";
@@ -758,7 +755,6 @@
 				60C2A365234B9AC100628C9D /* NativeRequest.swift in Sources */,
 				60C2A36E2354C7BA00628C9D /* NativeEventTracker.swift in Sources */,
 				FAAA00DC23227F65009DC7D6 /* Utils.swift in Sources */,
-				60556C6A2534D65900D895FF /* InStreamVideoAdUnit.swift in Sources */,
 				FAAB5F9723B9F734001715A7 /* RewardedVideoAdUnit.swift in Sources */,
 				FAAA00D123227F5B009DC7D6 /* Constants.swift in Sources */,
 				FAAA00DA23227F65009DC7D6 /* AdUnit.swift in Sources */,
