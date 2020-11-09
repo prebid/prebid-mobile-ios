@@ -11,6 +11,10 @@
 		380188E8255402F10089CA84 /* PrebidNativeAdEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188E6255402F10089CA84 /* PrebidNativeAdEventDelegate.swift */; };
 		380188EC255432820089CA84 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188EB255432820089CA84 /* UIViewExtension.swift */; };
 		380188ED255432820089CA84 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188EB255432820089CA84 /* UIViewExtension.swift */; };
+		380188EF255551890089CA84 /* TrackerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188EE255551890089CA84 /* TrackerManager.swift */; };
+		380188F0255551890089CA84 /* TrackerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188EE255551890089CA84 /* TrackerManager.swift */; };
+		380188F22555588B0089CA84 /* TrackerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188F12555588B0089CA84 /* TrackerInfo.swift */; };
+		380188F32555588B0089CA84 /* TrackerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188F12555588B0089CA84 /* TrackerInfo.swift */; };
 		3868489E2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
 		3868489F2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
 		600CF0702208963500C95176 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600CF06F2208963500C95176 /* UtilsTests.swift */; };
@@ -144,6 +148,8 @@
 /* Begin PBXFileReference section */
 		380188E6255402F10089CA84 /* PrebidNativeAdEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdEventDelegate.swift; sourceTree = "<group>"; };
 		380188EB255432820089CA84 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = Source/UIViewExtension.swift; sourceTree = SOURCE_ROOT; };
+		380188EE255551890089CA84 /* TrackerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerManager.swift; sourceTree = "<group>"; };
+		380188F12555588B0089CA84 /* TrackerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerInfo.swift; sourceTree = "<group>"; };
 		3868489D2551712800234314 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		600072FE21BAFD2F00F4738B /* Dispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		600CF06F2208963500C95176 /* UtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
@@ -277,6 +283,8 @@
 				FCE4276C255042A800C95FAD /* PrebieNativeAd.swift */,
 				3868489D2551712800234314 /* CacheManager.swift */,
 				380188E6255402F10089CA84 /* PrebidNativeAdEventDelegate.swift */,
+				380188EE255551890089CA84 /* TrackerManager.swift */,
+				380188F12555588B0089CA84 /* TrackerInfo.swift */,
 			);
 			path = PrebidNativeNative;
 			sourceTree = "<group>";
@@ -723,10 +731,12 @@
 			files = (
 				FCE4276E2550436F00C95FAD /* PrebieNativeAd.swift in Sources */,
 				FAEBF2A0237EC7B1006BA972 /* StorageUtils.swift in Sources */,
+				380188F0255551890089CA84 /* TrackerManager.swift in Sources */,
 				FA29A3D5232255DF00F13F61 /* Reachability.swift in Sources */,
 				FA29A3D6232255DF00F13F61 /* BidManager.swift in Sources */,
 				FA29A3D7232255DF00F13F61 /* Dispatcher.swift in Sources */,
 				380188E8255402F10089CA84 /* PrebidNativeAdEventDelegate.swift in Sources */,
+				380188F32555588B0089CA84 /* TrackerInfo.swift in Sources */,
 				FA0AA1A623797413004B7A44 /* NativeRequest.swift in Sources */,
 				FAD4D544235DCCAB00140012 /* VideoAdUnit.swift in Sources */,
 				FA29A3D9232255DF00F13F61 /* RequestBuilder.swift in Sources */,
@@ -774,6 +784,7 @@
 				FAAA00CB23227F5B009DC7D6 /* BidManager.swift in Sources */,
 				FAD4D543235DCCAB00140012 /* VideoAdUnit.swift in Sources */,
 				FA495E7A2326F50B00894166 /* Targeting.swift in Sources */,
+				380188EF255551890089CA84 /* TrackerManager.swift in Sources */,
 				FAAA00D623227F5B009DC7D6 /* Dispatcher.swift in Sources */,
 				FAAA00D923227F65009DC7D6 /* BannerAdUnit.swift in Sources */,
 				FAAA00D323227F5B009DC7D6 /* RequestBuilder.swift in Sources */,
@@ -790,6 +801,7 @@
 				FAAA00D123227F5B009DC7D6 /* Constants.swift in Sources */,
 				FAAA00DA23227F65009DC7D6 /* AdUnit.swift in Sources */,
 				FAAA00DB23227F65009DC7D6 /* InterstitialAdUnit.swift in Sources */,
+				380188F22555588B0089CA84 /* TrackerInfo.swift in Sources */,
 				CEEA4530240FCBEF0003CDE7 /* VideoBaseAdUnit.swift in Sources */,
 				FAAA00CE23227F5B009DC7D6 /* Host.swift in Sources */,
 				FAAA00D423227F5B009DC7D6 /* Reachability.swift in Sources */,

@@ -15,6 +15,7 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
 
     //MARK: : IBOutlet
     @IBOutlet weak var adContainerView: UIView!
+    @IBOutlet weak var adContainerHeight: NSLayoutConstraint!
     
     //MARK: : Properties
     var adLoader: GADAdLoader?
@@ -61,7 +62,7 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     "    {\n" +
     "      \"event\": 1,\n" +
     "      \"method\": 1,\n" +
-    "      \"url\": \"https://nym1-ib.adnxs.com/it?an_audit=0&e=wqT_3QLhCWzhBAAAAwDWAAUBCJSC6foFEMGjnrXYm-PkXhj_EQEUASo2CZqZAQEIqT8REQkEGQAFAQjgPyEREgApEQkAMQUauADgPzD7-toHOO5OQO5OSAJQkd-wTVj4mXNgAGjI34wBeI_dBIABAYoBA1VTRJIBAQbwVZgBAaABAagBAbABALgBAsABA8gBAtABANgBAOABAPABAIoCPHVmKCdhJywgMzM5MzUyMCwgMTU5OTc1MDQyMCk7dWYoJ3InLCAxNjIyNzkzMTMsIDE1GR_0DgGSAvkDIWdGazdGZ2lGellBVEVKSGZzRTBZQUNENG1YTXdBRGdBUUFSSTdrNVEtX3JhQjFnQVlQX19fXzhQYUFCd0FYZ0JnQUVCaUFFQmtBRUJtQUVCb0FFQnFBRURzQUVBdVFGMXF3MXNtcG1wUDhFQmRhc05iSnFacVRfSkFYd2xrdlZtdVBBXzJRRUFBQUFBQUFEd1AtQUJBUFVCQUFBQUFKZ0NBS0FDQUxVQ0FBQUFBTDBDQUFBQUFNQUNBY2dDQWRBQ0FkZ0NBZUFDQU9nQ0FQZ0NBSUFEQVpnREFhZ0RoYzJBRTdvRENVNVpUVEk2TkRBMU51QURwaVNJQkFDUUJBQ1lCQUhCQkFBQUFBCYMIeVFRCQkBARhOZ0VBUEVFAQsJASBDSUJkZ2ZxUVUJDxhBRHdQN0VGDQ0UQUFBREJCHT8AeRUoDEFBQU4yKAAAWi4oAPBANEFXSUpfQUY0djN4QV9nRjhJX1BBWUlHQTFWVFJJZ0dBSkFHQVpnR0FLRUdtcG1abVptWnFULW9CZ0d5QmlRSkEBYAkBAFIJBwUBAFoFBgkBAGgJBwEBQEM0QmdvLpoCiQEhMUJLWkhBNv0BMC1KbHpJQVFvQURHYW0Fa1htcFB6b0pUbGxOTWpvME1EVTJRS1lrUxHpDFBBX1URDAxBQUFXHQwAWR0MAGEdDABjHQzwpGVBQS7YAgDgAsqoTYADAYgDAJADAJgDFKADAaoDAMAD4KgByAMA2AMA4AMA6AMC-AMAgAQAkgQJL29wZW5ydGIymAQAqAQAsgQMCAAQABgAIAAwADgAuAQAwAQAyAQA0gQPMTAwOTQjTllNMjo0MDU22gQCCAHgBADwBJHfsE2CBRpvcmcucHJlYmlkLm1vYmlsZS5hcGkxZGVtb4gFAZgFAKAF_3X8sKoFJDZhZjFlZmQ3LWJlNmMtNDlmMS04MTk2LWViNjI0NWI5ZWFjZsAFAMkFAGX5FPA_0gUJCQULOAAAANgFAeAFAfAFAfoFBAGwKJAGAZgGALgGAMEGAR8wAADwP9AG1jPaBhYKEAkRGQFcEAAYAOAGDPIGAggAgAcBiAcAoAdBugcOAUgEGAAJ-CRAAMgHj90E0gcNFXMwEAAYANoHBggAEAAYAA..&s=46d93f84d8459a2ca773485e5721255200b9f0ed&pp=${AUCTION_PRICE}\"\n" +
+    "      \"url\": \"https://sin1-mobile.adnxs.com/it?referrer=itunes.apple.com%2Fus%2Fapp%2Fappnexus-sdk-app%2Fid736869833&e=wqT_3QLDB6DDAwAAAwDWAAUBCI79reQFEPOdyJjM7L-pHBiK9rXIxs6lnlIqNgkAAAECCBRAEQEHNAAAFEAZAAAA4HoUFEAhERIAKREJADERG6AwhYapBji-B0C-B0gCUMDY7C5Yy7tOYABokUB4qf0EgAEBigEDVVNEkgUG8GaYAQGgAQGoAQGwAQC4AQHAAQTIAQLQAQDYAQDgAQDwAQD6ARJ1bml2ZXJzYWxQbGFjZW1lbnSKAjt1ZignYScsIDE3OTc4NjUsIDE1NTI2NDU3NzQpO3VmKCdyJywgOTgyNDk3OTIsMh4A8JCSAvkBIVNqbTNJd2o5Njk0TEVNRFk3QzRZQUNETHUwNHdBRGdBUUFSSXZnZFFoWWFwQmxnQVlPSUhhQUJ3TW5pc3JnR0FBVEtJQWF5dUFaQUJBWmdCQWFBQkFhZ0JBN0FCQUxrQjg2MXFwQUFBRkVEQkFmT3RhcVFBQUJSQXlRRWFQY1U4QVpIeFA5a0JBQUFBAQMkOERfZ0FRRDFBUQEOQENZQWdDZ0F2X19fXzhQdFFJARUEQXYNCHx3QUlBeUFJQTRBSUE2QUlBLUFJQWdBTUJtQU1CcUFQOQHUgHVnTUpVMGxPTVRvek5UZzA0QVBXQ0EuLpoCYSFCUTVybDr8ACh5N3RPSUFRb0FERQVsGEFBQVVRRG8yRAAQUU5ZSVMFoBhBQUFQQV9VEQwMQUFBVx0MiNgC6AfgAsfTAeoCNGl0dW5lcy5hcHBsZS5jb20vdXMvYXBwAQQkbmV4dXMtc2RrLQER8LFpZDczNjg2OTgzM4ADAYgDAZADAJgDF6ADAaoDAMAD4KgByAMA0gMoCAASJDJhYjBkNmIwLWY1NTYtNGY1NC1iMzY3LWU0YzE5MDZlMzgxZtgD-aN64AMA6AMC-AMAgAQAkgQGL3V0L3YzmAQAogQLMTAuMTQuMTIuMTWoBI7sAbIEDAgAEAEYACAAMAA4ArgEAMAEAMgEANIEDTk1OCNTSU4xOjM1ODTaBAIIAeAEAfAEQdwMggUJNxG3IIgFAZgFAKAF_xEBFAHABQDJBWkiFPA_0gUJCQkMcAAA2AUB4AUB8AUB-gUECAAQAJAGAZgGALgGAMEGCSMo8D_IBgDaBhYKEAA6AQAYEAAYAOAGDA..&s=0652533731f0fabbda6eb54f4cad13e323bcd3b0\"\n" +
     "    }\n" +
     "  ]\n" +
     "}"
@@ -93,7 +94,22 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     @IBAction func loadMoPubWithPrebid(_ sender: Any) {
         loadMoPubNative(usePrebid: true)
     }
-
+    @IBAction func scrollEnabled(_ sender: UISwitch) {
+        if sender.isOn{
+            let newConstraint = adContainerHeight.constraintWithMultiplier(1.2)
+            view.removeConstraint(adContainerHeight)
+            view.addConstraint(newConstraint)
+            view.layoutIfNeeded()
+            adContainerHeight = newConstraint
+        }else{
+            let newConstraint = adContainerHeight.constraintWithMultiplier(0.6)
+            view.removeConstraint(adContainerHeight)
+            view.addConstraint(newConstraint)
+            view.layoutIfNeeded()
+            adContainerHeight = newConstraint
+        }
+    }
+    
     
     //MARK: : Helper functions
     func removePreviousAds() {
@@ -242,7 +258,7 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
         let settings: MPStaticNativeAdRendererSettings = MPStaticNativeAdRendererSettings.init()
         let config:MPNativeAdRendererConfiguration = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)
         self.mpNative = MPNativeAdRequest.init(adUnitIdentifier: "2674981035164b2db5ef4b4546bf3d49", rendererConfigurations: [config])
-         if let cacheId = CacheManager.shared.save(content: dummyCacheData), !cacheId.isEmpty &&  usePrebid
+         if let cacheId = CacheManager.shared.save(content: dummyMockData), !cacheId.isEmpty &&  usePrebid
          {
             let targeting:MPNativeAdRequestTargeting = MPNativeAdRequestTargeting.init()
             targeting.keywords = "hb_pb:0.50,hb_cache_id:\(cacheId)"
@@ -285,5 +301,11 @@ extension PrebidNativeViewController : PrebidNativeAdEventDelegate{
     }
     func adDidLogImpression(ad:PrebidNativeAd){
         print("adDidLogImpression")
+    }
+}
+
+extension NSLayoutConstraint {
+    func constraintWithMultiplier(_ multiplier: CGFloat) -> NSLayoutConstraint {
+        return NSLayoutConstraint(item: self.firstItem!, attribute: self.firstAttribute, relatedBy: self.relation, toItem: self.secondItem, attribute: self.secondAttribute, multiplier: multiplier, constant: self.constant)
     }
 }

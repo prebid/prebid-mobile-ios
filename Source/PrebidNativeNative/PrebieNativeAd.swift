@@ -29,23 +29,21 @@ public  class PrebidNativeAd: NSObject {
     
     //NativeAd Expire
     private var expired = false
-    private let kNativeAdResponseExpirationTime : TimeInterval = 21600
     private var adDidExpireTimer:Timer?
     //Impression Tracker
-    private let kAppNexusNativeAdIABShouldBeViewableForTrackingDuration = 1.0
-    private let kAppNexusNativeAdCheckViewabilityForTrackingFrequency = 0.25
     private var targetViewabilityValue = 0
     private var viewabilityTimer:Timer?
     private var viewabilityValue = 0
     private var impressionHasBeenTracked = false
     private var viewForTracking:UIView?
+    private var impTrackers = [String]()
     
     public static func  create(cacheId:String)-> PrebidNativeAd? {
         if let content = CacheManager.shared.get(cacheId: cacheId) {
             let data = content.data(using: .utf8)!
             do {
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-//                    let ad: PrebidNativeAd = PrebidNativeAd()
+                    let ad: PrebidNativeAd = PrebidNativeAd()
 //                    //assets
 //                    if let assets = json["assets"] as? [AnyObject] {
 //                        for adObject in assets {
@@ -76,15 +74,14 @@ public  class PrebidNativeAd: NSObject {
 //                    if let link = json["link"] as? [String : AnyObject], let url = link["url"] as? String {
 //                        ad.clickUrl = url;
 //                    }
-//                    //eventtrackers
-//                    if let eventtrackers = json["eventtrackers"] as? [AnyObject] {
-//                        for eventtracker in eventtrackers {
-//                            if let eventtracker = eventtracker as? [String : AnyObject], let url = eventtracker["url"] as? String  {
-//                                print(url)
-//                            }
-//                        }
-//                    }
-                    let ad: PrebidNativeAd = PrebidNativeAd()
+                    //eventtrackers
+                    if let eventtrackers = json["eventtrackers"] as? [AnyObject] {
+                        for eventtracker in eventtrackers {
+                            if let eventtracker = eventtracker as? [String : AnyObject], let url = eventtracker["url"] as? String  {
+                                ad.impTrackers.append(url)
+                            }
+                        }
+                    }
                     ad.title = "Hello World"
                     ad.text = "This is a Prebid Native Ad. For more information please check prebid.org."
                     ad.callToAction = "Learn More"
@@ -137,13 +134,14 @@ public  class PrebidNativeAd: NSObject {
             return false
         }
         viewForTracking = view
+        setupViewabilityTracker()
         return true
     }
     
     //MARK: NativeAd Expire
     private func registerAdAboutToExpire(){
         invalidateAdExpireTimer(timer: adDidExpireTimer)
-        adDidExpireTimer = Timer.scheduledTimer(timeInterval: kNativeAdResponseExpirationTime, target: self, selector:#selector(onAdExpired), userInfo: nil, repeats:false)
+        adDidExpireTimer = Timer.scheduledTimer(timeInterval: Constants.kNativeAdResponseExpirationTime, target: self, selector:#selector(onAdExpired), userInfo: nil, repeats:false)
     }
     
     private func invalidateAdExpireTimer(timer : Timer?){
@@ -163,20 +161,45 @@ public  class PrebidNativeAd: NSObject {
     
     //MARK: Impression Tracking
     private func setupViewabilityTracker(){
-        let requiredAmountOfSimultaneousViewableEvents = lround(kAppNexusNativeAdIABShouldBeViewableForTrackingDuration / kAppNexusNativeAdCheckViewabilityForTrackingFrequency) + 1
+        let requiredAmountOfSimultaneousViewableEvents = lround(Constants.kAppNexusNativeAdIABShouldBeViewableForTrackingDuration / Constants.kAppNexusNativeAdCheckViewabilityForTrackingFrequency) + 1
         
         targetViewabilityValue = lround(pow(Double(2),Double(requiredAmountOfSimultaneousViewableEvents)) - 1)
         
         Log.debug("\n\trequiredAmountOfSimultaneousViewableEvents=\(requiredAmountOfSimultaneousViewableEvents) \n\ttargetViewabilityValue=\(targetViewabilityValue)")
         
-        viewabilityTimer = Timer.scheduledTimer(timeInterval: kAppNexusNativeAdCheckViewabilityForTrackingFrequency, target: self, selector:#selector(checkViewability), userInfo: nil, repeats:true)
+        viewabilityTimer = Timer.scheduledTimer(timeInterval: Constants.kAppNexusNativeAdCheckViewabilityForTrackingFrequency, target: self, selector:#selector(checkViewability), userInfo: nil, repeats:true)
     }
     
     @objc private func checkViewability() {
-
         viewabilityValue = (viewabilityValue << 1 | (viewForTracking?.an_isAtLeastHalfViewable() == true ? 1 : 0)) & targetViewabilityValue
-        
-        
+        let isIABViewable = (viewabilityValue == targetViewabilityValue)
+        Log.debug("\n\tviewabilityValue=\(viewabilityValue) \n\tself.targetViewabilityValue=\(targetViewabilityValue) \n\tisIABViewable=\(isIABViewable)")
+        if isIABViewable {
+            trackImpression()
+        }
+    }
+    
+    private func trackImpression(){
+        if !impressionHasBeenTracked {
+            Log.debug("Firing impression trackers")
+            fireImpTrackers()
+            viewabilityTimer?.invalidate()
+            impressionHasBeenTracked = true
+        }
+    }
+    
+    private func fireImpTrackers(){
+        if impTrackers.count != 0 {
+            TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: impTrackers) { [weak self] isTrackerFired in
+                guard let strongSelf = self else {
+                    Log.debug("FAILED TO ACQUIRE strongSelf.")
+                    return
+                }
+                if isTrackerFired {
+                    strongSelf.delegate?.adDidLogImpression?(ad: strongSelf)
+                }
+            }
+        }
     }
     
     

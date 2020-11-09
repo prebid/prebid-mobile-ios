@@ -84,3 +84,12 @@ extension UIDevice {
     }
 
 }
+
+struct Constants {
+    static let kAppNexusNativeAdIABShouldBeViewableForTrackingDuration = 1.0
+    static let kAppNexusNativeAdCheckViewabilityForTrackingFrequency = 0.25
+    static let kNativeAdResponseExpirationTime : TimeInterval = 60 * 1000
+    static let kANTrackerManagerRetryInterval : TimeInterval = 300
+    static let kANTrackerManagerMaximumNumberOfRetries = 3
+    static let kANTrackerExpirationInterval : TimeInterval = 3600
+}
