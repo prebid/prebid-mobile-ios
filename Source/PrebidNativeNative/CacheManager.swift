@@ -15,7 +15,7 @@ limitations under the License.
 
 import UIKit
 
-public class CacheManager: NSObject {
+@objcMembers public class CacheManager: NSObject {
     
     /**
      * The class is created as a singleton object & used
@@ -32,30 +32,30 @@ public class CacheManager: NSObject {
     
     private var savedValuesDict = [String : String]()
     
-    public func save(content : String) -> String?{
+    public func save(content: String) -> String?{
         if content.isEmpty {
             return nil
         }else{
             let cacheId = "Prebid_" + UUID().uuidString
             self.savedValuesDict[cacheId] = content
-            let context = ["cacheId": cacheId]
-            Timer.scheduledTimer(timeInterval: 300, target: self, selector:#selector(removeSavedValues), userInfo: context, repeats:false)
+            Timer.scheduledTimer(withTimeInterval: 300, repeats: false) { [weak self] timer in
+                timer.invalidate()
+                guard let strongSelf = self else {
+                    Log.debug("FAILED TO ACQUIRE strongSelf for CacheManager")
+                    return
+                }
+                strongSelf.savedValuesDict.removeValue(forKey: cacheId)
+            }
             return cacheId
         }
     }
     
-    public func isValid(cacheId : String) -> Bool{
+    public func isValid(cacheId: String) -> Bool{
         return self.savedValuesDict.keys.contains(cacheId)
     }
     
-    public func get(cacheId : String) -> String?{
+    public func get(cacheId: String) -> String?{
         return self.savedValuesDict.removeValue(forKey: cacheId)
-    }
-
-    @objc func removeSavedValues(timer: Timer) {
-        guard let context = timer.userInfo as? [String: String], let cacheId = context["cacheId"] else { return }
-        self.savedValuesDict.removeValue(forKey: cacheId)
-        timer.invalidate()
     }
 
 }

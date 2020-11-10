@@ -21,7 +21,7 @@ public protocol PrebidNativeAdDelegate : AnyObject{
      *
      * @param ad use this instance for displaying
      */
-    func prebidNativeAdLoaded(ad:PrebidNativeAd)
+    func prebidNativeAdLoaded(ad: PrebidNativeAd)
     /**
      * Prebid Native was not found in the server returned response,
      * Please display the ad as regular ways

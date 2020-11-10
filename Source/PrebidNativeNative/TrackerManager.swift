@@ -69,7 +69,7 @@ class TrackerManager: NSObject {
                     guard error == nil else {
                         Log.debug("Internet REACHABILITY ERROR - queing tracker for firing later: \(urlString)")
                         guard let strongSelf = self else {
-                            Log.debug("FAILED TO ACQUIRE strongSelf.")
+                            Log.debug("FAILED TO ACQUIRE strongSelf for fireTrackerURLArray")
                             return
                         }
                         strongSelf.queueTrackerURLForRetry(URL: urlString, completion: completion)
@@ -94,13 +94,15 @@ class TrackerManager: NSObject {
     }
     
     private func scheduleRetryTimerIfNecessaryWithBlock(completion: OnComplete){
-        let context = ["completion": completion]
-        trackerRetryTimer = Timer.scheduledTimer(timeInterval: Constants.kANTrackerManagerRetryInterval, target: self, selector:#selector(fireTimer), userInfo: context, repeats:true)
-    }
-    
-    @objc func fireTimer(timer: Timer) {
-        guard let context = timer.userInfo as? [String: OnComplete], let completion = context["completion"] else { return }
-        retryTrackerFiresWithBlock(completion: completion)
+        trackerRetryTimer = Timer.scheduledTimer(withTimeInterval: Constants.kANTrackerManagerRetryInterval, repeats: true, block: { [weak self] timer in
+            guard let strongSelf = self else {
+                timer.invalidate()
+                Log.debug("FAILED TO ACQUIRE strongSelf for trackerRetryTimer")
+                return
+            }
+            strongSelf.retryTrackerFiresWithBlock(completion: completion)
+            
+        })
     }
     
     private func retryTrackerFiresWithBlock(completion: OnComplete){
@@ -124,7 +126,7 @@ class TrackerManager: NSObject {
                         guard error == nil else {
                             Log.debug("CONNECTION ERROR - queing tracker for firing later: \(urlString)")
                             guard let strongSelf = self else {
-                                Log.debug("FAILED TO ACQUIRE strongSelf.")
+                                Log.debug("FAILED TO ACQUIRE strongSelf for retryTrackerFiresWithBlock")
                                 return
                             }
                             info.numberOfTimesFired += 1

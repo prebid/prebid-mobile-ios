@@ -129,8 +129,8 @@
 		FAEBF29F237EC7B1006BA972 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */; };
 		FAEBF2A0237EC7B1006BA972 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */; };
 		FAEBF2A2237ECFEF006BA972 /* StorageUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */; };
-		FCE4276D255042A800C95FAD /* PrebieNativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE4276C255042A800C95FAD /* PrebieNativeAd.swift */; };
-		FCE4276E2550436F00C95FAD /* PrebieNativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE4276C255042A800C95FAD /* PrebieNativeAd.swift */; };
+		FCE4276D255042A800C95FAD /* PrebidNativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE4276C255042A800C95FAD /* PrebidNativeAd.swift */; };
+		FCE4276E2550436F00C95FAD /* PrebidNativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE4276C255042A800C95FAD /* PrebidNativeAd.swift */; };
 		FCE42773255043A600C95FAD /* PrebidNativeAdDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE42772255043A600C95FAD /* PrebidNativeAdDelegate.swift */; };
 		FCE42774255043A600C95FAD /* PrebidNativeAdDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE42772255043A600C95FAD /* PrebidNativeAdDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -247,7 +247,7 @@
 		FAE17D57242A29AC0052719A /* Signals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signals.swift; sourceTree = "<group>"; };
 		FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUtils.swift; sourceTree = "<group>"; };
 		FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUtilsTests.swift; sourceTree = "<group>"; };
-		FCE4276C255042A800C95FAD /* PrebieNativeAd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebieNativeAd.swift; sourceTree = "<group>"; };
+		FCE4276C255042A800C95FAD /* PrebidNativeAd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidNativeAd.swift; sourceTree = "<group>"; };
 		FCE42772255043A600C95FAD /* PrebidNativeAdDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -280,7 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				FCE42772255043A600C95FAD /* PrebidNativeAdDelegate.swift */,
-				FCE4276C255042A800C95FAD /* PrebieNativeAd.swift */,
+				FCE4276C255042A800C95FAD /* PrebidNativeAd.swift */,
 				3868489D2551712800234314 /* CacheManager.swift */,
 				380188E6255402F10089CA84 /* PrebidNativeAdEventDelegate.swift */,
 				380188EE255551890089CA84 /* TrackerManager.swift */,
@@ -729,7 +729,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCE4276E2550436F00C95FAD /* PrebieNativeAd.swift in Sources */,
+				FCE4276E2550436F00C95FAD /* PrebidNativeAd.swift in Sources */,
 				FAEBF2A0237EC7B1006BA972 /* StorageUtils.swift in Sources */,
 				380188F0255551890089CA84 /* TrackerManager.swift in Sources */,
 				FA29A3D5232255DF00F13F61 /* Reachability.swift in Sources */,
@@ -773,7 +773,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCE4276D255042A800C95FAD /* PrebieNativeAd.swift in Sources */,
+				FCE4276D255042A800C95FAD /* PrebidNativeAd.swift in Sources */,
 				FAEBF29F237EC7B1006BA972 /* StorageUtils.swift in Sources */,
 				FCE42773255043A600C95FAD /* PrebidNativeAdDelegate.swift in Sources */,
 				FAAA00D223227F5B009DC7D6 /* Global.swift in Sources */,
@@ -1052,6 +1052,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1075,6 +1076,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

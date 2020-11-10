@@ -16,19 +16,21 @@ class TrackerInfo: NSObject {
     var numberOfTimesFired = 0
     private var expirationTimer : Timer?
     
-    init(URL : String) {
+    init(URL: String) {
         self.URL = URL
         self.dateCreated = Date()
         super.init()
         createExpirationTimer()
     }
     func createExpirationTimer(){
-        expirationTimer = Timer.scheduledTimer(timeInterval: Constants.kANTrackerExpirationInterval, target: self, selector:#selector(fireTimer), userInfo: nil, repeats:false)
-    }
-    
-    @objc func fireTimer(timer: Timer) {
-        expired = true
-        timer.invalidate()
+        expirationTimer = Timer.scheduledTimer(withTimeInterval: Constants.kANTrackerExpirationInterval, repeats: false, block: { [weak self] timer in
+            timer.invalidate()
+            guard let strongSelf = self else {
+                Log.debug("FAILED TO ACQUIRE strongSelf for TrackerInfo")
+                return
+            }
+            strongSelf.expired = true
+        })
     }
     
     deinit {
