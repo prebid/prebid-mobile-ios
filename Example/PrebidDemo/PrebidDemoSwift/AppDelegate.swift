@@ -55,7 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 14, *) {
             ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
             })
-            
         }
         #endif
 
