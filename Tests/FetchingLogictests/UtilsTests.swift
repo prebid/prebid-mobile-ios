@@ -552,6 +552,7 @@ class UtilsTests: XCTestCase {
     }
     
     func testConstructAdTagURLForIMAWithPrebidKeys() {
+        do {
         let utils: IMAUtils = IMAUtils.shared
 
         let prebidKeywords: [String: String] = ["hb_env": "mobile-app",
@@ -566,8 +567,10 @@ class UtilsTests: XCTestCase {
                                               "hb_size": "300x250"]
         let bidResponse = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
         
-
-        let adTagUrl:String = utils.constructAdTagURLForIMAWithPrebidKeys(adUnitID: "/19968336/Punnaghai_Instream_Video1", customKeywords: bidResponse.customKeywords)
+        
+        XCTAssertThrowsError(try utils.constructAdTagURLForIMAWithPrebidKeys(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [] ,customKeywords: bidResponse.customKeywords))
+            
+        let adTagUrl = try utils.constructAdTagURLForIMAWithPrebidKeys(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [.Size400x300] ,customKeywords: bidResponse.customKeywords)
         
         let splitUrl = adTagUrl.components(separatedBy: "?")
         
@@ -593,7 +596,9 @@ class UtilsTests: XCTestCase {
             XCTAssertTrue((prebidKeywords[key] != nil),value)
 
         }
-        
+        } catch {
+            
+        }
         
     }
     

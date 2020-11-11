@@ -87,11 +87,15 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
         adUnit.fetchDemand { (ResultCode, prebidKeys: [String : String]?) in
             print("prebid keys")
             if(ResultCode == .prebidDemandFetchSuccess){
-                let adServerTag:String = IMAUtils.shared.constructAdTagURLForIMAWithPrebidKeys(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [.Size400x300], customKeywords: prebidKeys!)
-                let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.appInstreamView)
-                // Create an ad request with our ad tag, display container, and optional user context.
-                let request = IMAAdsRequest(adTagUrl: adServerTag, adDisplayContainer: adDisplayContainer, contentPlayhead: nil, userContext: nil)
-                self.adsLoader.requestAds(with: request)
+                do {
+                     let adServerTag:String = try IMAUtils.shared.constructAdTagURLForIMAWithPrebidKeys(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [.Size640x480,.Size400x300], customKeywords: prebidKeys!)
+                    let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.appInstreamView)
+                    // Create an ad request with our ad tag, display container, and optional user context.
+                    let request = IMAAdsRequest(adTagUrl: adServerTag, adDisplayContainer: adDisplayContainer, contentPlayhead: nil, userContext: nil)
+                    self.adsLoader.requestAds(with: request)
+                }catch {
+                    print (error)
+                }
             } else {
                 print ("Error constructing IMA Tag")
             }

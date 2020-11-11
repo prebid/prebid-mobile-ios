@@ -36,14 +36,17 @@ public final class IMAUtils: NSObject {
     
     private override init() {}
     
-    public func constructAdTagURLForIMAWithPrebidKeys (adUnitID:String, adSlotSizes:[IMAAdSlotSize], customKeywords: [String:String]) -> String{
+    public func constructAdTagURLForIMAWithPrebidKeys (adUnitID:String, adSlotSizes:[IMAAdSlotSize], customKeywords: [String:String]) throws -> String{
         let adServerURL = "https://pubads.g.doubleclick.net/gampad/ads?output=xml_vast4&unviewed_position_start=1&gdfp_req=1&env=vp"
         
+        if(adSlotSizes.count <= 0){
+            throw ErrorCode.invalidSize("adslot size not provided")
+        }
         var adSlotSize = "sz="
-        
         for adSlot in adSlotSizes {
             adSlotSize = String(format: "%@%@|", adSlotSize,adSlot.size())
         }
+        
         adSlotSize = String(adSlotSize.dropLast())
         let adUnit = String(format: "iu=%@", adUnitID)
         
