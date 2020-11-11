@@ -15,6 +15,20 @@
 
 import Foundation
 
+@objc public enum IMAAdSlotSize: Int {
+    
+    case Size400x300
+    
+    case Size640x480
+    
+    func size () -> String {
+        switch self {
+        case .Size400x300: return "400x300"
+        case .Size640x480: return "640x480"
+        }
+    }
+}
+
 public final class IMAUtils: NSObject {
     
     @objc
@@ -22,9 +36,15 @@ public final class IMAUtils: NSObject {
     
     private override init() {}
     
-    @objc
-    public func constructAdTagURLForIMAWithPrebidKeys (adUnitID:String, customKeywords: [String:String]) -> String{
-        let adServerURL = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480|400x300&output=xml_vast4&unviewed_position_start=1&gdfp_req=1&env=vp"
+    public func constructAdTagURLForIMAWithPrebidKeys (adUnitID:String, adSlotSizes:[IMAAdSlotSize], customKeywords: [String:String]) -> String{
+        let adServerURL = "https://pubads.g.doubleclick.net/gampad/ads?output=xml_vast4&unviewed_position_start=1&gdfp_req=1&env=vp"
+        
+        var adSlotSize = "sz="
+        
+        for adSlot in adSlotSizes {
+            adSlotSize = String(format: "%@%@|", adSlotSize,adSlot.size())
+        }
+        adSlotSize = String(adSlotSize.dropLast())
         let adUnit = String(format: "iu=%@", adUnitID)
         
         let andString: String = "&"
@@ -42,7 +62,7 @@ public final class IMAUtils: NSObject {
         let queryStringKeywords = String(format: "cust_params=%@", escapedString)
         print(queryStringKeywords)
         
-        let adTagUrl = String(format: "%@&%@&%@", adServerURL,adUnit,queryStringKeywords)
+        let adTagUrl = String(format: "%@&%@&%@&%@", adServerURL, adSlotSize, adUnit, queryStringKeywords)
         
         return adTagUrl
     }
