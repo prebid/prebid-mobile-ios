@@ -16,7 +16,7 @@ limitations under the License.
 import Foundation
 import UIKit
 
-@objcMembers public class PrebidNativeAd: NSObject {
+@objcMembers public class PrebidNativeAd: NSObject, CacheExpiryDelegate {
     
     public private(set) var title:String?
     public private(set) var text:String?
@@ -28,7 +28,6 @@ import UIKit
     
     //NativeAd Expire
     private var expired = false
-    private var adDidExpireTimer:Timer?
     //Impression Tracker
     private var targetViewabilityValue = 0
     private var viewabilityTimer:Timer?
@@ -88,7 +87,7 @@ import UIKit
                     ad.text = "This is a Prebid Native Ad. For more information please check prebid.org."
                     ad.iconUrl = "https://dummyimage.com/40x40/000/fff"
                     if ad.isValid() {
-                        ad.registerAdAboutToExpire()
+                        CacheManager.shared.delegate = ad
                         return ad
                     }else{
                         Log.error("Invalid Prebid Native Ad")
@@ -147,27 +146,14 @@ import UIKit
     private func unregisterViewFromTracking(){
         detachAllGestureRecognizers()
         viewForTracking = nil
-        invalidateTimer(adDidExpireTimer)
         invalidateTimer(viewabilityTimer)
     }
     
     //MARK: NativeAd Expire
-    private func registerAdAboutToExpire(){
-        invalidateTimer(adDidExpireTimer)
-        adDidExpireTimer = Timer.scheduledTimer(withTimeInterval: Constants.kNativeAdResponseExpirationTime, repeats: false) { [weak self] timer in
-            guard let strongSelf = self else {
-                timer.invalidate()
-                Log.debug("FAILED TO ACQUIRE strongSelf for adDidExpireTimer")
-                return
-            }
-            strongSelf.onAdExpired()
-        }
-    }
-    
-    @objc private func onAdExpired() {
+    func cacheExpired() {
         expired = true
         delegate?.adDidExpire?(ad: self)
-        invalidateTimer(adDidExpireTimer)
+        unregisterViewFromTracking()
     }
     
     private func invalidateTimer(_ timer :Timer?){
@@ -221,7 +207,6 @@ import UIKit
                     return
                 }
                 if isTrackerFired {
-                    strongSelf.invalidateTimer(strongSelf.adDidExpireTimer)
                     strongSelf.delegate?.adDidLogImpression?(ad: strongSelf)
                 }
             }

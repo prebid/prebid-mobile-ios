@@ -31,6 +31,7 @@ import UIKit
     }
     
     private var savedValuesDict = [String : String]()
+    weak var delegate: CacheExpiryDelegate?
     
     public func save(content: String) -> String?{
         if content.isEmpty {
@@ -45,6 +46,7 @@ import UIKit
                     return
                 }
                 strongSelf.savedValuesDict.removeValue(forKey: cacheId)
+                strongSelf.delegate?.cacheExpired()
             }
             return cacheId
         }
@@ -57,5 +59,8 @@ import UIKit
     public func get(cacheId: String) -> String?{
         return self.savedValuesDict.removeValue(forKey: cacheId)
     }
+}
 
+protocol CacheExpiryDelegate : AnyObject{
+    func cacheExpired()
 }
