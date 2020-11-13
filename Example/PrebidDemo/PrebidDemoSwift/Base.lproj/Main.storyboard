@@ -275,7 +275,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="IaT-on-1NJ">
-                                <rect key="frame" x="0.0" y="90" width="375" height="126"/>
+                                <rect key="frame" x="0.0" y="90" width="375" height="190"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGr-ed-XNH">
                                         <rect key="frame" x="102.5" y="0.0" width="170" height="30"/>
@@ -325,10 +325,34 @@
                                             <action selector="loadMoPubWithPrebid:" destination="GT4-HE-4pt" eventType="touchUpInside" id="24l-kd-F2U"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2V-Jv-nyn">
+                                        <rect key="frame" x="66.5" y="128" width="242" height="30"/>
+                                        <state key="normal" title="Load Prebid Native Native with DFP"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="tag">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="loadPrebidNativeNativeWithDFP:" destination="GT4-HE-4pt" eventType="touchUpInside" id="qPD-0J-8UF"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="psK-RE-yXg">
+                                        <rect key="frame" x="56.5" y="160" width="262" height="30"/>
+                                        <state key="normal" title="Load Prebid Native Native with MoPub"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="tag">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="loadPrebidNativeNativeWithMoPub:" destination="GT4-HE-4pt" eventType="touchUpInside" id="DhU-af-QZG"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCp-Cf-gPh">
-                                <rect key="frame" x="0.0" y="236" width="375" height="431"/>
+                                <rect key="frame" x="0.0" y="300" width="375" height="367"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Vr-ka-x20" userLabel="RootAdContainerView">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>

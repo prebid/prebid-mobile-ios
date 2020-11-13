@@ -85,15 +85,30 @@ class BidManager: NSObject {
             let errorString: String = String.init(data: data, encoding: .utf8)!
             Log.debug(String(format: "Response from server: %@", errorString))
             if (!errorString.contains("Invalid request")) {
-                let response: [String: AnyObject] = try JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
+                //Temp Akash changes
+                var response: [String: AnyObject] = try JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
 
                 var bidDict: [String: AnyObject] = [:]
                 var containTopBid = false
+                //Temp Akash changes
+                let currentBundle = Bundle(for: type(of: self))
+                if let path = currentBundle.path(forResource: "mockNative", ofType: "json") {
+                    do {
+                          let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                          let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                          if let jsonResult = jsonResult as? Dictionary<String, AnyObject>{
+                                    // do stuff
+                            response = jsonResult
+                          }
+                      } catch {
+                           // handle error
+                      }
+                }
 
                 guard response.count > 0, response["seatbid"] != nil else { return ([:], ResultCode.prebidDemandNoBids)}
                 let seatbids = response["seatbid"] as! [AnyObject]
                 for seatbid in seatbids {
-                    var seatbidDict = seatbid as? [String: AnyObject]
+                    let seatbidDict = seatbid as? [String: AnyObject]
                     guard seatbid is [String: AnyObject], seatbidDict?["bid"] is [AnyObject] else { break }
                     let bids = seatbidDict?["bid"] as! [AnyObject]
                     for bid in bids {
@@ -116,6 +131,12 @@ class BidManager: NSObject {
                         guard containBid else {  break }
                         for (key, value) in adServerTargeting! {
                             bidDict[key] = value
+                        }
+                        if let adm = bid["adm"] as? String?, adm?.count != 0 {
+                            if let cacheId = CacheManager.shared.save(content: adm ?? ""), !cacheId.isEmpty{
+                                bidDict["hb_cache_id"] = cacheId as AnyObject
+                                containTopBid = true
+                            }
                         }
                     }
               }

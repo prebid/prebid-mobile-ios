@@ -1,10 +1,17 @@
-//
-//  ViewController.swift
-//  iOSTestNativeNative
-//
-//  Created by Wei Zhang on 11/6/19.
-//  Copyright © 2019 AppNexus. All rights reserved.
-//
+/*   Copyright 2019-2020 Prebid.org, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 
 import UIKit
 import GoogleMobileAds
@@ -23,8 +30,8 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     var mpAd: MPNativeAd?
     var prebidNativeAd: PrebidNativeAd?
     var prebidNativeAdView: PrebidNativeAdView?
-    
-    var dummyCacheData = "{\"title\":\"Test title\",\"description\":\"This is a test ad for Prebid Native Native. Please check prebid.org\",\"cta\":\"Learn More\",\"iconUrl\":\"https://dummyimage.com/40x40/000/fff\",\"imageUrl\":\"https://dummyimage.com/600x400/000/fff\",\"clickUrl\":\"https://prebid.org/\"}"
+    var nativeUnit: NativeRequest!
+    var eventTrackers: NativeEventTracker!
     
     var dummyMockData = "{\n" +
     "  \"ver\": \"1.2\",\n" +
@@ -33,7 +40,7 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     "      \"id\": 1,\n" +
     "      \"img\": {\n" +
     "        \"type\": 3,\n" +
-    "        \"url\": \"https://vcdn.adnxs.com/p/creative-image/7e/71/90/27/7e719027-80ef-4664-9b6d-a763da4cea4e.png\",\n" +
+    "        \"url\": \"https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search-v2_297x176.jpg\",\n" +
     "        \"w\": 300,\n" +
     "        \"h\": 250,\n" +
     "        \"ext\": {\n" +
@@ -52,7 +59,7 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     "    {\n" +
     "      \"id\": 2,\n" +
     "      \"title\": {\n" +
-    "        \"text\": \"This is an RTB ad\"\n" +
+    "        \"text\": \"This is a test ad for Prebid Native Native. Please check prebid.org\"\n" +
     "      }\n" +
     "    }\n" +
     "  ],\n" +
@@ -96,6 +103,16 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     @IBAction func loadMoPubWithPrebid(_ sender: Any) {
         loadMoPubNative(usePrebid: true)
     }
+    
+    @IBAction func loadPrebidNativeNativeWithDFP(_ sender: Any) {
+        loadPrebidNativeForDFP()
+    }
+    
+    @IBAction func loadPrebidNativeNativeWithMoPub(_ sender: Any) {
+        loadPrebidNativeForMoPub()
+    }
+    
+    
     @IBAction func scrollEnabled(_ sender: UISwitch) {
         if sender.isOn{
             let newConstraint = adContainerHeight.constraintWithMultiplier(1.2)
@@ -110,6 +127,82 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
             view.layoutIfNeeded()
             adContainerHeight = newConstraint
         }
+    }
+    
+    //MARK: Prebid NativeAd MoPub
+    func loadPrebidNativeForMoPub(){
+        removePreviousAds()
+        createPrebidNativeView()
+        loadNativeAssets()
+        
+        let settings: MPStaticNativeAdRendererSettings = MPStaticNativeAdRendererSettings.init()
+        let config:MPNativeAdRendererConfiguration = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)
+        self.mpNative = MPNativeAdRequest.init(adUnitIdentifier: "2674981035164b2db5ef4b4546bf3d49", rendererConfigurations: [config])
+
+        let targeting:MPNativeAdRequestTargeting = MPNativeAdRequestTargeting.init()
+        self.mpNative?.targeting = targeting
+        
+        nativeUnit.fetchDemand(adObject: mpNative!) { [weak self] (resultCode: ResultCode) in
+            print("Prebid demand fetch for AdManager \(resultCode.name())")
+            self?.loadMoPub(self?.mpNative)
+        }
+    }
+    
+    func loadMoPub(_ mpNative: MPNativeAdRequest?){
+        mpNative!.start(completionHandler: { (request, response, error)->Void in
+            if error == nil {
+                self.mpAd = response!
+                Utils.shared.delegate = self
+                Utils.shared.findNative(adObject: response!)
+            }
+        })
+    }
+    
+    //MARK: Prebid NativeAd DFP
+    func loadPrebidNativeForDFP(){
+        removePreviousAds()
+        createPrebidNativeView()
+        loadNativeAssets()
+        let dfpRequest:DFPRequest = DFPRequest()
+        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: ResultCode) in
+            self?.loadDFP(dfpRequest)
+        }
+    }
+    
+    func loadDFP(_ dfpRequest: DFPRequest){
+        adLoader = GADAdLoader(adUnitID: "/19968336/Wei_test_native_native",
+                               rootViewController: self,
+                               adTypes: [ GADAdLoaderAdType.dfpBanner, GADAdLoaderAdType.nativeCustomTemplate],
+                               options: [ ])
+        adLoader?.delegate  = self
+        adLoader?.load(dfpRequest)
+    }
+    
+    func loadNativeAssets(){
+        
+        let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 200, required: true)
+        image.type = ImageAsset.Main
+        
+        let icon = NativeAssetImage(minimumWidth: 20, minimumHeight: 20, required: true)
+        icon.type = ImageAsset.Icon
+        
+        let title = NativeAssetTitle(length: 90, required: true)
+        
+        let body = NativeAssetData(type: DataAsset.description, required: true)
+        
+        let cta = NativeAssetData(type: DataAsset.ctatext, required: true)
+        
+        let sponsored = NativeAssetData(type: DataAsset.sponsored, required: true)
+        
+        nativeUnit = NativeRequest(configId: "25e17008-5081-4676-94d5-923ced4359d3", assets: [icon,title,image,body,cta,sponsored])
+        
+        nativeUnit.context = ContextType.Social
+        nativeUnit.placementType = PlacementType.FeedContent
+        nativeUnit.contextSubType = ContextSubType.Social
+        
+        let event1 = EventType.Impression
+        eventTrackers = NativeEventTracker(event: event1, methods: [EventTracking.Image,EventTracking.js])
+        nativeUnit.eventtrackers = [eventTrackers]
     }
     
     //MARK: DFP
@@ -206,25 +299,26 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     }
     
     func renderMoPubNativeAd( ) {
-        let properties: [AnyHashable: Any] = mpAd!.properties!
-        prebidNativeAdView?.titleLabel.text = properties["title"] as? String
-        prebidNativeAdView?.bodyLabel.text = properties["text"] as? String
-        if let iconString = properties["iconimage"] as? String, let iconUrl = URL(string: iconString) {
-            DispatchQueue.global().async {
-                let data = try? Data(contentsOf: iconUrl)
-                DispatchQueue.main.async {
-                    if data != nil {
-                        self.prebidNativeAdView?.iconImageView.image = UIImage(data:data!)
+        if let mpAd = mpAd, let properties = mpAd.properties {
+            prebidNativeAdView?.titleLabel.text = properties["title"] as? String
+            prebidNativeAdView?.bodyLabel.text = properties["text"] as? String
+            if let iconString = properties["iconimage"] as? String, let iconUrl = URL(string: iconString) {
+                DispatchQueue.global().async {
+                    let data = try? Data(contentsOf: iconUrl)
+                    DispatchQueue.main.async {
+                        if data != nil {
+                            self.prebidNativeAdView?.iconImageView.image = UIImage(data:data!)
+                        }
                     }
                 }
             }
-        }
-        if let imageString = properties["mainimage"] as? String,let imageUrl = URL(string: imageString) {
-            DispatchQueue.global().async {
-                let data = try? Data(contentsOf: imageUrl)
-                DispatchQueue.main.async {
-                    if data != nil {
-                        self.prebidNativeAdView?.mainImageView.image = UIImage(data:data!)
+            if let imageString = properties["mainimage"] as? String,let imageUrl = URL(string: imageString) {
+                DispatchQueue.global().async {
+                    let data = try? Data(contentsOf: imageUrl)
+                    DispatchQueue.main.async {
+                        if data != nil {
+                            self.prebidNativeAdView?.mainImageView.image = UIImage(data:data!)
+                        }
                     }
                 }
             }
@@ -252,6 +346,8 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     //MARK: : Helper functions
     func removePreviousAds() {
         if prebidNativeAdView != nil {
+            prebidNativeAdView?.iconImageView = nil
+            prebidNativeAdView?.mainImageView = nil
             prebidNativeAdView!.removeFromSuperview()
             prebidNativeAdView = nil
         }
@@ -271,7 +367,7 @@ extension PrebidNativeViewController : PrebidNativeAdDelegate{
     }
     
     func prebidNativeAdNotFound() {
-        renderMoPubNativeAd()
+       // renderMoPubNativeAd()
         
     }
     func prebidNativeAdNotValid() {
@@ -297,3 +393,5 @@ extension NSLayoutConstraint {
         return NSLayoutConstraint(item: self.firstItem!, attribute: self.firstAttribute, relatedBy: self.relation, toItem: self.secondItem, attribute: self.secondAttribute, multiplier: multiplier, constant: self.constant)
     }
 }
+
+

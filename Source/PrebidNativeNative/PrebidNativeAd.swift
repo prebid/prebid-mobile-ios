@@ -55,7 +55,7 @@ import UIKit
                                     ad.title = text;
                                 }
                                 //description
-                                if let description = adObject["description"], let text = description["text"] as? String {
+                                if let description = adObject["data"], let text = description["value"] as? String {
                                     ad.text = text;
                                 }
                                 //img
@@ -84,7 +84,6 @@ import UIKit
                             }
                         }
                     }
-                    ad.text = "This is a Prebid Native Ad. For more information please check prebid.org."
                     ad.iconUrl = "https://dummyimage.com/40x40/000/fff"
                     if ad.isValid() {
                         CacheManager.shared.delegate = ad
@@ -112,11 +111,11 @@ import UIKit
     
     private func isValid() -> Bool{
         return !(title ?? "").isEmpty
-        && !(text ?? "").isEmpty
-        && !(callToAction ?? "").isEmpty
-        && canOpenString(iconUrl)
-        && canOpenString(imageUrl)
-        && canOpenString(clickUrl)
+//        && !(text ?? "").isEmpty
+//        && !(callToAction ?? "").isEmpty
+//        && canOpenString(iconUrl)
+//        && canOpenString(imageUrl)
+//        && canOpenString(clickUrl)
     }
     
     private func canOpenString(_ string: String?) -> Bool {

@@ -100,6 +100,45 @@ public class Utils: NSObject {
                     }
                 }
             }
+        } else if (adServerObject == .MoPub_Request_Name) {
+            let hasMoPubMember = adObject.responds(to: NSSelectorFromString("setTargeting:"))
+            
+            if (hasMoPubMember) {
+                //for mopub the keywords has to be set as a string seperated by ,
+                // split the dictionary & construct a string comma separated
+                if (adObject.value(forKey: "targeting") != nil) {
+                    //  let targetingKeywordsString: String = adObject.value(forKey: "keywords") as! String
+                    
+                    if let adTargeting = (adObject.value(forKey: "targeting") as? AnyObject) {
+                        if let targetingKeywordsString = (adTargeting.value(forKey: "keywords") as? String) {
+                            
+                            let commaString: String = ","
+                            if (targetingKeywordsString != "") {
+                                var keywordsArray = targetingKeywordsString.components(separatedBy: ",")
+                                var i = 0
+                                var newString: String = ""
+                                while i < keywordsArray.count {
+                                    if (!keywordsArray[i].starts(with: "hb_")) {
+                                        
+                                        if ( newString == .EMPTY_String) {
+                                            newString = keywordsArray[i]
+                                        } else {
+                                            newString += commaString + keywordsArray[i]
+                                        }
+                                    }
+                                    
+                                    i += 1
+                                }
+                                
+                                Log.info("MoPub targeting keys are \(newString)")
+                                adTargeting.setValue( newString, forKey: "keywords")
+                                adObject.setValue( adTargeting, forKey: "targeting")
+                            }
+                        }
+                    }
+                }
+                
+            }
         }
     }
     
@@ -148,6 +187,40 @@ public class Utils: NSObject {
                 
                 Log.info("MoPub targeting keys are \(targetingKeywordsString)")
                 adObject.setValue( targetingKeywordsString, forKey: "keywords")
+                
+            }
+        } else if (adServerObject == .MoPub_Request_Name) {
+            let hasMoPubMember = adObject.responds(to: NSSelectorFromString("setTargeting:"))
+            
+            if (hasMoPubMember) {
+                //for mopub the keywords has to be set as a string seperated by ,
+                // split the dictionary & construct a string comma separated
+                var targetingKeywordsString: String = ""
+                //get the publisher set keywords & append the bid keywords to the same
+                
+                if let adTargeting = (adObject.value(forKey: "targeting") as? AnyObject) {
+                    if let keywordsString = (adTargeting.value(forKey: "keywords") as? String) {
+                        targetingKeywordsString = keywordsString
+                    }
+                }
+                
+                let commaString: String = ","
+                
+                for (key, value) in bidResponse.customKeywords {
+                    if ( targetingKeywordsString == .EMPTY_String) {
+                        targetingKeywordsString = key + ":" + value
+                    } else {
+                        targetingKeywordsString += commaString + key + ":" + value
+                    }
+                    
+                }
+                
+                Log.info("MoPub targeting keys are \(targetingKeywordsString)")
+
+                if let adTargeting = (adObject.value(forKey: "targeting") as? AnyObject) {
+                    adTargeting.setValue( targetingKeywordsString, forKey: "keywords")
+                    adObject.setValue( adTargeting, forKey: "targeting")
+                }
                 
             }
         } else if let dictContainer = adObject as? DictionaryContainer<String, String> {
