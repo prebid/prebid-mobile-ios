@@ -171,10 +171,10 @@ import CoreLocation
         get {
             var savedConsent: String?
             
-            if let pbString = StorageUtils.pbGdprConsent() {
-                savedConsent = pbString
-            } else if let iabString = StorageUtils.iabGdprConsent() {
+            if let iabString = StorageUtils.iabGdprConsent() {
                 savedConsent = iabString
+            } else if let pbString = StorageUtils.pbGdprConsent() {
+                savedConsent = pbString
             }
             
             return savedConsent
@@ -191,10 +191,10 @@ import CoreLocation
         get {
             var savedPurposeConsents: String?
 
-            if let pbString = StorageUtils.pbPurposeConsents() {
-                savedPurposeConsents = pbString
-            } else if let iabString = StorageUtils.iabPurposeConsents() {
+            if let iabString = StorageUtils.iabPurposeConsents() {
                 savedPurposeConsents = iabString
+            } else if let pbString = StorageUtils.pbPurposeConsents() {
+                savedPurposeConsents = pbString
             }
 
             return savedPurposeConsents
