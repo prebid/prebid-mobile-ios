@@ -31,6 +31,7 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     var adsManager: IMAAdsManager!
     
     private let amAppNexusAdUnitId = "/19968336/Punnaghai_Instream_Video1"
+//    private let amRubiconProjectAdUnitId = "/5300653/test_adunit_vast_pavliuchyk"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,9 +56,11 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     //Setup PB
     func setupPBAppNexusInStreamVideo() {
 
-        setupPB(host: .Appnexus, accountId: "aecd6ef7-b992-4e99-9bb8-65e2d984e1dd", storedResponse: "sample_video_response")
+        setupPB(host: .Appnexus, accountId: "aecd6ef7-b992-4e99-9bb8-65e2d984e1dd", storedResponse: "")
+//        setupPB(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
 
         let videoAdUnit = VideoAdUnit(configId: "2c0af852-a55d-49dc-a5ca-ef7e141f73cc", size: CGSize(width: 1,height: 1))
+//        let videoAdUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: 1, height: 1))
         
         let parameters = VideoBaseAdUnit.Parameters()
         parameters.mimes = ["video/mp4"]
@@ -88,7 +91,8 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
             print("prebid keys")
             if(ResultCode == .prebidDemandFetchSuccess){
                 do {
-                     let adServerTag:String = try IMAUtils.shared.constructAdTagURLForIMAWithPrebidKeys(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [.Size640x480,.Size400x300], customKeywords: prebidKeys!)
+                    let adServerTag:String = try IMAUtils.shared.constructAdTagURLForIMAWithPrebidKeys(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [.Size640x480,.Size400x300], customKeywords: prebidKeys!)
+//                    let adServerTag:String = try IMAUtils.shared.constructAdTagURLForIMAWithPrebidKeys(adUnitID: "/5300653/test_adunit_vast_pavliuchyk", adSlotSizes: [.Size640x480,.Size400x300], customKeywords: prebidKeys!)
                     let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.appInstreamView)
                     // Create an ad request with our ad tag, display container, and optional user context.
                     let request = IMAAdsRequest(adTagUrl: adServerTag, adDisplayContainer: adDisplayContainer, contentPlayhead: nil, userContext: nil)
