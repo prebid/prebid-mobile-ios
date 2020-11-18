@@ -295,7 +295,7 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
             }
         }
         prebidNativeAdView?.callToActionButton.setTitle(prebidNativeAd?.callToAction, for: .normal)
-      //  prebidNativeAdView?.sponsoredLabel.text = ad.title
+        prebidNativeAdView?.sponsoredLabel.text = prebidNativeAd?.sponsoredBy
     }
     
     func renderMoPubNativeAd( ) {

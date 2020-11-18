@@ -23,6 +23,7 @@ import UIKit
     public private(set) var iconUrl:String?
     public private(set) var imageUrl:String?
     public private(set) var callToAction:String?
+    public private(set) var sponsoredBy:String?
     
     public weak var delegate: PrebidNativeAdEventDelegate?
     
@@ -55,19 +56,30 @@ import UIKit
                                     ad.title = text;
                                 }
                                 //description
-                                if let description = adObject["data"], let text = description["value"] as? String {
+                                if let id = adObject["id"] as? Int, id == 3, let description = adObject["data"], let text = description["value"] as? String {
                                     ad.text = text;
                                 }
-                                //img
-                                if let img = adObject["img"], let url = img["url"] as? String {
-                                    ad.imageUrl = url;
-                                }
-                                //icon
-                                if let icon = adObject["icon"], let url = icon["url"] as? String {
-                                    ad.iconUrl = url;
+                                //sponsoredBy
+                                if let id = adObject["id"] as? Int, id == 5, let sponsoredBy = adObject["data"], let text = sponsoredBy["value"] as? String {
+                                    ad.sponsoredBy = text;
                                 }
                                 //call to action
-                                ad.callToAction = "Learn More"
+                                if let id = adObject["id"] as? Int, id == 4, let callToAction = adObject["data"], let text = callToAction["value"] as? String {
+                                    ad.callToAction = text;
+                                }
+                                if let img = adObject["img"]{
+                                    if let id = adObject["id"] as? Int, id == 2{
+                                        //img
+                                        if let url = img["url"] as? String {
+                                            ad.imageUrl = url;
+                                        }
+                                    }else{
+                                        //icon
+                                        if let url = img["url"] as? String {
+                                            ad.iconUrl = url;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -84,7 +96,6 @@ import UIKit
                             }
                         }
                     }
-                    ad.iconUrl = "https://dummyimage.com/40x40/000/fff"
                     if ad.isValid() {
                         CacheManager.shared.delegate = ad
                         return ad
@@ -111,11 +122,11 @@ import UIKit
     
     private func isValid() -> Bool{
         return !(title ?? "").isEmpty
-//        && !(text ?? "").isEmpty
-//        && !(callToAction ?? "").isEmpty
-//        && canOpenString(iconUrl)
-//        && canOpenString(imageUrl)
-//        && canOpenString(clickUrl)
+        && !(text ?? "").isEmpty
+        && !(callToAction ?? "").isEmpty
+        && canOpenString(iconUrl)
+        && canOpenString(imageUrl)
+        && canOpenString(clickUrl)
     }
     
     private func canOpenString(_ string: String?) -> Bool {
