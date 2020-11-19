@@ -17,8 +17,6 @@
 		380188F32555588B0089CA84 /* TrackerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188F12555588B0089CA84 /* TrackerInfo.swift */; };
 		3868489E2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
 		3868489F2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
-		38EF22D0255D7F3D0038D96D /* mockNative.json in Resources */ = {isa = PBXBuildFile; fileRef = 38EF22CF255D7F3D0038D96D /* mockNative.json */; };
-		38EF22D1255D7F3D0038D96D /* mockNative.json in Resources */ = {isa = PBXBuildFile; fileRef = 38EF22CF255D7F3D0038D96D /* mockNative.json */; };
 		600CF0702208963500C95176 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600CF06F2208963500C95176 /* UtilsTests.swift */; };
 		600CF13E220CDFA700C95176 /* responseinvalidSize.json in Resources */ = {isa = PBXBuildFile; fileRef = 600CF13D220CDFA700C95176 /* responseinvalidSize.json */; };
 		6013E3F82215C82900FEE2B1 /* CLLocationManager+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6013E3F72215C82900FEE2B1 /* CLLocationManager+Swizzle.swift */; };
@@ -153,7 +151,6 @@
 		380188EE255551890089CA84 /* TrackerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerManager.swift; sourceTree = "<group>"; };
 		380188F12555588B0089CA84 /* TrackerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerInfo.swift; sourceTree = "<group>"; };
 		3868489D2551712800234314 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
-		38EF22CF255D7F3D0038D96D /* mockNative.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mockNative.json; sourceTree = "<group>"; };
 		600072FE21BAFD2F00F4738B /* Dispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		600CF06F2208963500C95176 /* UtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
 		600CF13D220CDFA700C95176 /* responseinvalidSize.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = responseinvalidSize.json; sourceTree = "<group>"; };
@@ -352,7 +349,6 @@
 		60D792F4217E229A0080F428 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				38EF22CF255D7F3D0038D96D /* mockNative.json */,
 				38450A5D25514677000DCF6D /* PrebidNativeNative */,
 				FA5C30B922E5E84100DA23C4 /* Addendum */,
 				6062B1B42188C20600CE1BA3 /* AdUnits */,
@@ -676,7 +672,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38EF22D1255D7F3D0038D96D /* mockNative.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -684,7 +679,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38EF22D0255D7F3D0038D96D /* mockNative.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
