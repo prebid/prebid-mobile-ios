@@ -15,13 +15,13 @@ limitations under the License.
 
 import UIKit
 
-class PrebidNativeAdView: UIView {
+public class PrebidNativeAdView: UIView {
 
-    @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var mainImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var bodyLabel: UILabel!
-    @IBOutlet weak var callToActionButton: UIButton!
-    @IBOutlet weak var sponsoredLabel: UILabel!
+    @IBOutlet public weak var iconImageView: UIImageView!
+    @IBOutlet public weak var mainImageView: UIImageView!
+    @IBOutlet public weak var titleLabel: UILabel!
+    @IBOutlet public weak var bodyLabel: UILabel!
+    @IBOutlet public weak var callToActionButton: UIButton!
+    @IBOutlet public weak var sponsoredLabel: UILabel!
 
 }

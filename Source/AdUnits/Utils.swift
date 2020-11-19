@@ -30,7 +30,7 @@ public class Utils: NSObject {
     private override init() {
         super.init()
     }
-    
+    @objc
     public weak var delegate: PrebidNativeAdDelegate?
     
     private let DFP_BANNER_VIEW_CLASSNAME = "DFPBannerView"
@@ -106,15 +106,14 @@ public class Utils: NSObject {
             if (hasMoPubMember) {
                 //for mopub the keywords has to be set as a string seperated by ,
                 // split the dictionary & construct a string comma separated
-                if (adObject.value(forKey: "targeting") != nil) {
-                    //  let targetingKeywordsString: String = adObject.value(forKey: "keywords") as! String
-                    
-                    if let adTargeting = (adObject.value(forKey: "targeting") as? AnyObject) {
-                        if let targetingKeywordsString = (adTargeting.value(forKey: "keywords") as? String) {
+                let adTargeting = adObject.value(forKey: "targeting")
+                if adTargeting != nil {
+                    if let adTargeting = adTargeting{
+                        if let targetingKeywordsString = ((adTargeting as AnyObject).value(forKey: "keywords") as? String) {
                             
                             let commaString: String = ","
                             if (targetingKeywordsString != "") {
-                                var keywordsArray = targetingKeywordsString.components(separatedBy: ",")
+                                let keywordsArray = targetingKeywordsString.components(separatedBy: ",")
                                 var i = 0
                                 var newString: String = ""
                                 while i < keywordsArray.count {
@@ -131,7 +130,7 @@ public class Utils: NSObject {
                                 }
                                 
                                 Log.info("MoPub targeting keys are \(newString)")
-                                adTargeting.setValue( newString, forKey: "keywords")
+                                (adTargeting as AnyObject).setValue( newString, forKey: "keywords")
                                 adObject.setValue( adTargeting, forKey: "targeting")
                             }
                         }
@@ -198,9 +197,12 @@ public class Utils: NSObject {
                 var targetingKeywordsString: String = ""
                 //get the publisher set keywords & append the bid keywords to the same
                 
-                if let adTargeting = (adObject.value(forKey: "targeting") as? AnyObject) {
-                    if let keywordsString = (adTargeting.value(forKey: "keywords") as? String) {
-                        targetingKeywordsString = keywordsString
+                let adTargeting = adObject.value(forKey: "targeting")
+                if adTargeting != nil {
+                    if let adTargeting = adTargeting {
+                        if let keywordsString = ((adTargeting as AnyObject).value(forKey: "keywords") as? String) {
+                            targetingKeywordsString = keywordsString
+                        }
                     }
                 }
                 
@@ -217,9 +219,11 @@ public class Utils: NSObject {
                 
                 Log.info("MoPub targeting keys are \(targetingKeywordsString)")
 
-                if let adTargeting = (adObject.value(forKey: "targeting") as? AnyObject) {
-                    adTargeting.setValue( targetingKeywordsString, forKey: "keywords")
-                    adObject.setValue( adTargeting, forKey: "targeting")
+                if adTargeting != nil {
+                    if let adTargeting = adTargeting {
+                        (adTargeting as AnyObject).setValue( targetingKeywordsString, forKey: "keywords")
+                        adObject.setValue( adTargeting, forKey: "targeting")
+                    }
                 }
                 
             }
@@ -230,6 +234,7 @@ public class Utils: NSObject {
         }
     }
     
+    @objc
     public func findNative(adObject: AnyObject){
         if (self.isObjectFromClass(adObject, DFP_BANNER_VIEW_CLASSNAME)) {
             let dfpBannerView = adObject as! UIView
