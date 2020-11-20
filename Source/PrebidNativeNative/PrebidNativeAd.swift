@@ -130,10 +130,15 @@ import UIKit
     }
     
     private func canOpenString(_ string: String?) -> Bool {
-        guard let string = string, let url = URL(string: string) else {
+        guard let string = string else {
             return false
         }
-        return UIApplication.shared.canOpenURL(url)
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        if let match = detector.firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count)) {
+            return match.range.length == string.utf16.count
+        } else {
+            return false
+        }
     }
     
     //MARK: registerView function

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -32,27 +33,60 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ze7-Xk-t60">
-                                <rect key="frame" x="138" y="263.5" width="99" height="30"/>
-                                <state key="normal" title="Simple Banner"/>
-                                <connections>
-                                    <segue destination="ihT-Ma-5CT" kind="show" id="kib-uu-Sx9"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gs4-Un-gLc">
-                                <rect key="frame" x="124.5" y="318.5" width="126" height="30"/>
-                                <state key="normal" title="Simple Interstitials"/>
-                                <connections>
-                                    <segue destination="i5n-eA-fbo" kind="show" id="kvU-2J-PSM"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2BF-DS-686">
-                                <rect key="frame" x="141.5" y="373.5" width="92" height="30"/>
-                                <state key="normal" title="Banner Video"/>
-                                <connections>
-                                    <segue destination="ihT-Ma-5CT" kind="show" id="6vM-Cs-bCE"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jeh-3U-EHA">
+                                <rect key="frame" x="20" y="160" width="335" height="312"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ze7-Xk-t60">
+                                        <rect key="frame" x="118" y="0.0" width="99" height="30"/>
+                                        <state key="normal" title="Simple Banner"/>
+                                        <connections>
+                                            <segue destination="ihT-Ma-5CT" kind="show" id="kib-uu-Sx9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gs4-Un-gLc">
+                                        <rect key="frame" x="104.5" y="47" width="126" height="30"/>
+                                        <state key="normal" title="Simple Interstitials"/>
+                                        <connections>
+                                            <segue destination="i5n-eA-fbo" kind="show" id="kvU-2J-PSM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2BF-DS-686">
+                                        <rect key="frame" x="121.5" y="94" width="92" height="30"/>
+                                        <state key="normal" title="Banner Video"/>
+                                        <connections>
+                                            <segue destination="ihT-Ma-5CT" kind="show" id="6vM-Cs-bCE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H9f-Yj-Von">
+                                        <rect key="frame" x="112" y="141" width="111" height="30"/>
+                                        <state key="normal" title="Interstitial Video"/>
+                                        <connections>
+                                            <segue destination="i5n-eA-fbo" kind="show" id="oHg-3D-EQi"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gT-aH-qqc">
+                                        <rect key="frame" x="119" y="188" width="97" height="30"/>
+                                        <state key="normal" title="Banner Native"/>
+                                        <connections>
+                                            <segue destination="g7Y-o0-qeY" kind="show" id="Mld-S3-Yyw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ga-uv-oWc">
+                                        <rect key="frame" x="121.5" y="235" width="92" height="30"/>
+                                        <state key="normal" title="In App Native"/>
+                                        <connections>
+                                            <segue destination="GT4-HE-4pt" kind="show" id="Iim-i9-iFW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcD-14-DN2">
+                                        <rect key="frame" x="112.5" y="282" width="110" height="30"/>
+                                        <state key="normal" title="Rewarded video"/>
+                                        <connections>
+                                            <segue destination="DWf-Za-wca" kind="show" id="hwa-a9-gmn"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fwP-lp-368">
                                 <rect key="frame" x="100" y="69" width="175" height="32"/>
                                 <segments>
@@ -63,58 +97,18 @@
                                     <action selector="onAdServerSwidshed:" destination="BYZ-38-t0r" eventType="valueChanged" id="j2N-Nn-Vqk"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H9f-Yj-Von">
-                                <rect key="frame" x="132" y="420" width="111" height="30"/>
-                                <state key="normal" title="Interstitial Video"/>
-                                <connections>
-                                    <segue destination="i5n-eA-fbo" kind="show" id="oHg-3D-EQi"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gT-aH-qqc">
-                                <rect key="frame" x="139" y="463" width="97" height="30"/>
-                                <state key="normal" title="Banner Native"/>
-                                <connections>
-                                    <segue destination="g7Y-o0-qeY" kind="show" id="Mld-S3-Yyw"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcD-14-DN2">
-                                <rect key="frame" x="132" y="508" width="110" height="30"/>
-                                <state key="normal" title="Rewarded video"/>
-                                <connections>
-                                    <segue destination="DWf-Za-wca" kind="show" id="hwa-a9-gmn"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ga-uv-oWc">
-                                <rect key="frame" x="144.5" y="546" width="92" height="30"/>
-                                <state key="normal" title="Prebid Native"/>
-                                <connections>
-                                    <segue destination="GT4-HE-4pt" kind="show" id="Iim-i9-iFW"/>
-                                </connections>
-                            </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="HcD-14-DN2" firstAttribute="centerX" secondItem="H9f-Yj-Von" secondAttribute="centerX" id="0wP-DZ-aaR"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HcD-14-DN2" secondAttribute="bottom" constant="129" id="EEX-3A-Acn"/>
-                            <constraint firstItem="8ga-uv-oWc" firstAttribute="centerX" secondItem="HcD-14-DN2" secondAttribute="centerX" constant="3" id="G7W-kX-XBD"/>
+                            <constraint firstItem="Jeh-3U-EHA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="I5D-Bl-QZ5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fwP-lp-368" secondAttribute="trailing" constant="100" id="IjW-xZ-d3E"/>
-                            <constraint firstItem="gs4-Un-gLc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Jm8-tG-2ua"/>
-                            <constraint firstItem="ze7-Xk-t60" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L22-ha-lp8"/>
-                            <constraint firstItem="H9f-Yj-Von" firstAttribute="centerX" secondItem="2BF-DS-686" secondAttribute="centerX" id="Ngz-Nm-10j"/>
-                            <constraint firstItem="2BF-DS-686" firstAttribute="top" secondItem="gs4-Un-gLc" secondAttribute="bottom" constant="25" id="QCv-r0-6G9"/>
-                            <constraint firstItem="HcD-14-DN2" firstAttribute="top" secondItem="0gT-aH-qqc" secondAttribute="bottom" constant="15" id="SSR-ma-iJD"/>
                             <constraint firstItem="fwP-lp-368" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="TB7-Cg-dlk"/>
                             <constraint firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TVT-40-hfI"/>
-                            <constraint firstItem="gs4-Un-gLc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UG4-q2-Cje"/>
-                            <constraint firstItem="H9f-Yj-Von" firstAttribute="top" secondItem="2BF-DS-686" secondAttribute="bottom" constant="16.5" id="WHs-er-cHs"/>
-                            <constraint firstItem="8ga-uv-oWc" firstAttribute="top" secondItem="HcD-14-DN2" secondAttribute="bottom" constant="8" id="ewl-U8-0GO"/>
-                            <constraint firstItem="2BF-DS-686" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="q39-Lq-QPj"/>
-                            <constraint firstItem="HcD-14-DN2" firstAttribute="centerX" secondItem="0gT-aH-qqc" secondAttribute="centerX" id="y4n-YU-3zY"/>
-                            <constraint firstItem="gs4-Un-gLc" firstAttribute="top" secondItem="ze7-Xk-t60" secondAttribute="bottom" constant="25" id="yOu-YU-6fP"/>
+                            <constraint firstItem="Jeh-3U-EHA" firstAttribute="top" secondItem="fwP-lp-368" secondAttribute="bottom" constant="60" id="WkA-Ux-ytE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Jeh-3U-EHA" secondAttribute="trailing" constant="20" id="ukx-1v-bCp"/>
                             <constraint firstItem="fwP-lp-368" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="yte-Ky-7os"/>
-                            <constraint firstItem="HcD-14-DN2" firstAttribute="leading" secondItem="H9f-Yj-Von" secondAttribute="leading" id="yy2-ok-cdE"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="blE-VU-00S"/>
                     <connections>
@@ -142,13 +136,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="MDv-TO-hpU"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="MDv-TO-hpU" firstAttribute="trailing" secondItem="A68-A7-mkG" secondAttribute="trailing" constant="10" id="02I-lX-Ocn"/>
                             <constraint firstItem="A68-A7-mkG" firstAttribute="top" secondItem="MDv-TO-hpU" secondAttribute="top" constant="15" id="7lu-fV-JL9"/>
                             <constraint firstItem="A68-A7-mkG" firstAttribute="leading" secondItem="MDv-TO-hpU" secondAttribute="leading" constant="10" id="gCE-ZZ-Oek"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="MDv-TO-hpU"/>
                     </view>
                     <navigationItem key="navigationItem" id="Zuf-Dh-wfV"/>
                     <connections>
@@ -169,17 +163,17 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RMV-Sg-y3F">
                                 <rect key="frame" x="37.5" y="54" width="300" height="559"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="QKV-Tv-nlJ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="RMV-Sg-y3F" firstAttribute="top" secondItem="QKV-Tv-nlJ" secondAttribute="top" constant="10" id="9cf-Fd-nx4"/>
                             <constraint firstItem="RMV-Sg-y3F" firstAttribute="leading" secondItem="QKV-Tv-nlJ" secondAttribute="leading" constant="37.5" id="Ku5-Wf-cmr"/>
                             <constraint firstItem="RMV-Sg-y3F" firstAttribute="centerX" secondItem="Bh5-l7-3oV" secondAttribute="centerX" id="sUL-mH-7Wn"/>
                             <constraint firstItem="RMV-Sg-y3F" firstAttribute="centerY" secondItem="Bh5-l7-3oV" secondAttribute="centerY" id="uIa-ue-Ysy"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="QKV-Tv-nlJ"/>
                     </view>
                     <navigationItem key="navigationItem" id="h83-Tk-Cxc"/>
                     <connections>
@@ -205,14 +199,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="AP8-fl-6xp"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="NVJ-d8-2Uq" firstAttribute="top" secondItem="AP8-fl-6xp" secondAttribute="top" id="LCo-z9-MDM"/>
                             <constraint firstItem="NVJ-d8-2Uq" firstAttribute="leading" secondItem="AP8-fl-6xp" secondAttribute="leading" id="fvf-cz-1r5"/>
                             <constraint firstItem="AP8-fl-6xp" firstAttribute="trailing" secondItem="NVJ-d8-2Uq" secondAttribute="trailing" id="iBL-Pw-PMn"/>
                             <constraint firstItem="NVJ-d8-2Uq" firstAttribute="top" secondItem="AP8-fl-6xp" secondAttribute="top" id="vzM-sb-F7S"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="AP8-fl-6xp"/>
                     </view>
                     <navigationItem key="navigationItem" id="rln-qt-97J"/>
                     <connections>
@@ -246,6 +240,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="jGy-I6-dpO"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="2ys-Rb-Auo" firstAttribute="centerY" secondItem="TqC-IG-bhU" secondAttribute="centerY" id="3zT-Cn-57s"/>
@@ -254,7 +249,6 @@
                             <constraint firstItem="2ys-Rb-Auo" firstAttribute="centerX" secondItem="TqC-IG-bhU" secondAttribute="centerX" id="fzC-0m-Ss9"/>
                             <constraint firstItem="yQh-8P-TfB" firstAttribute="top" secondItem="jGy-I6-dpO" secondAttribute="top" constant="25" id="roO-2e-Lef"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="jGy-I6-dpO"/>
                     </view>
                     <navigationItem key="navigationItem" id="JjN-6d-Z0y"/>
                     <connections>
@@ -266,7 +260,7 @@
             </objects>
             <point key="canvasLocation" x="753" y="-1083"/>
         </scene>
-        <!--Prebid Native-->
+        <!--In App Native-->
         <scene sceneID="NfC-uv-nmT">
             <objects>
                 <viewController id="GT4-HE-4pt" customClass="PrebidNativeViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
@@ -274,149 +268,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="IaT-on-1NJ">
-                                <rect key="frame" x="0.0" y="90" width="375" height="190"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGr-ed-XNH">
-                                        <rect key="frame" x="102.5" y="0.0" width="170" height="30"/>
-                                        <state key="normal" title="Load DFP without Prebid"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="tag">
-                                                <integer key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="loadDFPWithoutPrebid:" destination="GT4-HE-4pt" eventType="touchUpInside" id="4UE-EC-zZt"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fd3-H6-O30">
-                                        <rect key="frame" x="114" y="32" width="147" height="30"/>
-                                        <state key="normal" title="Load DFP with Prebid"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="tag">
-                                                <integer key="value" value="2"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="loadDFPWithPrebid:" destination="GT4-HE-4pt" eventType="touchUpInside" id="jjm-x0-UqX"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TsP-e3-VGc">
-                                        <rect key="frame" x="92.5" y="64" width="190" height="30"/>
-                                        <state key="normal" title="Load MoPub without Prebid"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="tag">
-                                                <integer key="value" value="3"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="loadMoPubWithoutPrebid:" destination="GT4-HE-4pt" eventType="touchUpInside" id="TXC-NC-1Ch"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V5A-nR-3hp">
-                                        <rect key="frame" x="104" y="96" width="167" height="30"/>
-                                        <state key="normal" title="Load MoPub with Prebid"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="tag">
-                                                <integer key="value" value="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="loadMoPubWithPrebid:" destination="GT4-HE-4pt" eventType="touchUpInside" id="24l-kd-F2U"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F2V-Jv-nyn">
-                                        <rect key="frame" x="66.5" y="128" width="242" height="30"/>
-                                        <state key="normal" title="Load Prebid Native Native with DFP"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="tag">
-                                                <integer key="value" value="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="loadPrebidNativeNativeWithDFP:" destination="GT4-HE-4pt" eventType="touchUpInside" id="qPD-0J-8UF"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="psK-RE-yXg">
-                                        <rect key="frame" x="56.5" y="160" width="262" height="30"/>
-                                        <state key="normal" title="Load Prebid Native Native with MoPub"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="tag">
-                                                <integer key="value" value="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="loadPrebidNativeNativeWithMoPub:" destination="GT4-HE-4pt" eventType="touchUpInside" id="DhU-af-QZG"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HCp-Cf-gPh">
-                                <rect key="frame" x="0.0" y="300" width="375" height="367"/>
-                                <subviews>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Vr-ka-x20" userLabel="RootAdContainerView">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iHV-b5-jBp">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="400" id="60X-BH-LkO"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.96765942258883253" green="0.96765942258883253" blue="0.96765942258883253" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="iHV-b5-jBp" secondAttribute="trailing" id="2VX-vc-t1a"/>
-                                            <constraint firstItem="iHV-b5-jBp" firstAttribute="leading" secondItem="5Vr-ka-x20" secondAttribute="leading" id="e5m-CS-NeV"/>
-                                            <constraint firstAttribute="bottom" secondItem="iHV-b5-jBp" secondAttribute="bottom" id="g5Y-8T-yPJ"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iHV-b5-jBp">
+                                <rect key="frame" x="0.0" y="44" width="375" height="400"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="5Vr-ka-x20" firstAttribute="top" secondItem="HCp-Cf-gPh" secondAttribute="top" id="DiH-mU-Ih3"/>
-                                    <constraint firstItem="5Vr-ka-x20" firstAttribute="leading" secondItem="HCp-Cf-gPh" secondAttribute="leading" id="LE0-ZN-AlM"/>
-                                    <constraint firstAttribute="bottom" secondItem="5Vr-ka-x20" secondAttribute="bottom" id="cgY-LI-N6Z"/>
-                                    <constraint firstAttribute="trailing" secondItem="5Vr-ka-x20" secondAttribute="trailing" id="rJK-eJ-hGX"/>
+                                    <constraint firstAttribute="height" constant="400" id="60X-BH-LkO"/>
                                 </constraints>
-                            </scrollView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="deg-Cl-Ego">
-                                <rect key="frame" x="10" y="54" width="197.5" height="31"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scrolling Enabled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTr-yf-GWb">
-                                        <rect key="frame" x="0.0" y="0.0" width="132.5" height="31"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="qcN-h1-bcl">
-                                        <rect key="frame" x="148.5" y="0.0" width="51" height="31"/>
-                                        <connections>
-                                            <action selector="scrollEnabled:" destination="GT4-HE-4pt" eventType="valueChanged" id="vXd-Wn-rkF"/>
-                                        </connections>
-                                    </switch>
-                                </subviews>
-                            </stackView>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="5Vr-ka-x20" firstAttribute="width" secondItem="hED-Cc-5a8" secondAttribute="width" id="6qG-tI-gcm"/>
-                            <constraint firstItem="IaT-on-1NJ" firstAttribute="top" secondItem="deg-Cl-Ego" secondAttribute="bottom" constant="5" id="G3U-X0-T1K"/>
-                            <constraint firstItem="HCp-Cf-gPh" firstAttribute="top" secondItem="IaT-on-1NJ" secondAttribute="bottom" constant="20" id="JOd-FL-5Vc"/>
-                            <constraint firstItem="deg-Cl-Ego" firstAttribute="leading" secondItem="hRm-OL-9QU" secondAttribute="leading" constant="10" id="LaJ-KT-GSZ"/>
-                            <constraint firstItem="HCp-Cf-gPh" firstAttribute="leading" secondItem="hED-Cc-5a8" secondAttribute="leading" id="QnI-WQ-Nga"/>
-                            <constraint firstItem="5Vr-ka-x20" firstAttribute="height" secondItem="hED-Cc-5a8" secondAttribute="height" multiplier="0.6" id="SYF-5o-SaU"/>
-                            <constraint firstItem="hRm-OL-9QU" firstAttribute="trailing" secondItem="IaT-on-1NJ" secondAttribute="trailing" id="XN2-TY-G3U"/>
-                            <constraint firstAttribute="bottom" secondItem="HCp-Cf-gPh" secondAttribute="bottom" id="Xvk-9Q-trJ"/>
-                            <constraint firstItem="IaT-on-1NJ" firstAttribute="leading" secondItem="hRm-OL-9QU" secondAttribute="leading" id="mJU-4G-jux"/>
-                            <constraint firstItem="deg-Cl-Ego" firstAttribute="top" secondItem="hRm-OL-9QU" secondAttribute="top" constant="10" id="oZD-5r-0jC"/>
-                            <constraint firstAttribute="trailing" secondItem="HCp-Cf-gPh" secondAttribute="trailing" id="q9k-i2-MIf"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="hRm-OL-9QU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iHV-b5-jBp" firstAttribute="top" secondItem="hRm-OL-9QU" secondAttribute="top" id="Pvv-f9-r85"/>
+                            <constraint firstItem="hRm-OL-9QU" firstAttribute="trailing" secondItem="iHV-b5-jBp" secondAttribute="trailing" id="diu-6T-fWV"/>
+                            <constraint firstItem="iHV-b5-jBp" firstAttribute="leading" secondItem="hRm-OL-9QU" secondAttribute="leading" id="zl5-pX-GSW"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Prebid Native" id="XPg-Dg-Z87"/>
+                    <navigationItem key="navigationItem" title="In App Native" id="XPg-Dg-Z87"/>
                     <connections>
-                        <outlet property="adContainerHeight" destination="SYF-5o-SaU" id="96u-BP-fhC"/>
                         <outlet property="adContainerView" destination="iHV-b5-jBp" id="iST-kO-o68"/>
                     </connections>
                 </viewController>
@@ -429,4 +298,9 @@
         <segue reference="kib-uu-Sx9"/>
         <segue reference="kvU-2J-PSM"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

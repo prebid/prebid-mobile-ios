@@ -115,10 +115,12 @@ class BidManager: NSObject {
                         for (key, value) in adServerTargeting! {
                             bidDict[key] = value
                         }
-                        if let adm = bid["adm"] as? String?, adm?.count != 0 {
-                            if let cacheId = CacheManager.shared.save(content: adm ?? ""), !cacheId.isEmpty{
-                                bidDict["hb_cache_id_local"] = cacheId as AnyObject
-                                containTopBid = true
+                        // Caching the response only for Native
+                        if let adType = prebidDict["type"] as? String, adType == "native", containTopBid == true {
+                            if let adm = bid["adm"] as? String?, adm?.count != 0{
+                                if let cacheId = CacheManager.shared.save(content: adm ?? ""), !cacheId.isEmpty{
+                                    bidDict["hb_cache_id_local"] = cacheId as AnyObject
+                                }
                             }
                         }
                     }

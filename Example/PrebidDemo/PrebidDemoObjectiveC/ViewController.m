@@ -316,7 +316,7 @@
 }
 
 -(void) loadDFP:(DFPRequest *)dfpRequest{
-    self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:@"/19968336/Wei_test_native_native" rootViewController:self adTypes:@[kGADAdLoaderAdTypeDFPBanner, kGADAdLoaderAdTypeNativeCustomTemplate] options:@[]];
+    self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:@"/19968336/Abhas_test_native_native_adunit" rootViewController:self adTypes:@[kGADAdLoaderAdTypeDFPBanner, kGADAdLoaderAdTypeNativeCustomTemplate] options:@[]];
     self.adLoader.delegate = self;
     [self.adLoader loadRequest:dfpRequest];
 }
@@ -403,7 +403,7 @@ didFailToReceiveAdWithError:(nonnull GADRequestError *)error{
 }
 
 - (nonnull NSArray<NSString *> *)nativeCustomTemplateIDsForAdLoader:(nonnull GADAdLoader *)adLoader{
-    return @[@"11885766"];
+    return @[@"11963183"];
 }
 
 - (void)adLoader:(nonnull GADAdLoader *)adLoader
@@ -425,6 +425,7 @@ didReceiveDFPBannerView:(nonnull DFPBannerView *)bannerView{
 #pragma mark :- PrebidNativeAdDelegate Delegate
 
 - (void)prebidNativeAdLoadedWithAd:(PrebidNativeAd *)ad{
+    NSLog(@"prebidNativeAdLoadedWithAd");
     self.prebidNativeAd = ad;
     [self registerPrebidNativeView];
     [self renderPrebidNativeAd];
