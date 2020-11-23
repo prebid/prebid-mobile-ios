@@ -39,15 +39,10 @@ import UIKit
         }else{
             let cacheId = "Prebid_" + UUID().uuidString
             self.savedValuesDict[cacheId] = content
-            Timer.scheduledTimer(withTimeInterval: 300, repeats: false) { [weak self] timer in
-                timer.invalidate()
-                guard let strongSelf = self else {
-                    Log.debug("FAILED TO ACQUIRE strongSelf for CacheManager")
-                    return
-                }
-                strongSelf.savedValuesDict.removeValue(forKey: cacheId)
-                strongSelf.delegate?.cacheExpired()
-            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + Constants.kCacheManagerExpireInterval, execute: {
+                self.savedValuesDict.removeValue(forKey: cacheId)
+                self.delegate?.cacheExpired()
+            })
             return cacheId
         }
     }

@@ -166,9 +166,11 @@ import UIKit
     
     //MARK: NativeAd Expire
     func cacheExpired() {
-        expired = true
-        delegate?.adDidExpire?(ad: self)
-        unregisterViewFromTracking()
+        if viewForTracking == nil {
+            expired = true
+            delegate?.adDidExpire?(ad: self)
+            unregisterViewFromTracking()
+        }
     }
     
     private func invalidateTimer(_ timer :Timer?){

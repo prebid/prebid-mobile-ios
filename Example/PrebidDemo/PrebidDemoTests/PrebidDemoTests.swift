@@ -32,6 +32,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
     var nativeUnit : NativeRequest!
     var dfpNativeAdUnit:DFPBannerView!
     var mopubNativeAdUnit:MPAdView!
+    var adLoader: GADAdLoader!
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -56,6 +57,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         nativeUnit = nil
         dfpNativeAdUnit = nil
         mopubNativeAdUnit = nil
+        adLoader = nil
     }
     
     func setUpAppNexus() {
@@ -103,6 +105,15 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         mopubNativeAdUnit?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
         mopubNativeAdUnit?.delegate = self
         viewController?.view.addSubview(mopubNativeAdUnit!)
+    }
+    
+    func loadDFPPrebitNative(){
+        dfpNativeAdUnit = DFPBannerView(adSize: kGADAdSizeFluid)
+        dfpNativeAdUnit.adUnitID = Constants.DFP_NATIVE_ADUNIT_ID_APPNEXUS
+        dfpNativeAdUnit.rootViewController = viewController
+        dfpNativeAdUnit.delegate = self
+        dfpNativeAdUnit.backgroundColor = .green
+        viewController?.view.addSubview(dfpNativeAdUnit)
     }
     
     func testAppNexusDFPBannerSanityAppCheckTest() {
@@ -527,6 +538,35 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, GADInterstitialDelegat
         XCTAssertEqual(2, fetchDemandCount)
     }
 
+    func testDFPPrebidNativeSanityAppCheckTest() {
+        //given
+        loadSuccesfulException = expectation(description: "\(#function)")
+        
+        timeoutForRequest = 30.0
+        loadNativeAssets()
+        loadDFPNative()
+        
+        let request: DFPRequest = DFPRequest()
+        nativeUnit.fetchDemand(adObject: request) {[weak self] (resultCode:ResultCode) in
+            print("Prebid demand fetch for DFP \(resultCode.name())")
+            if resultCode == ResultCode.prebidDemandFetchSuccess{
+                self?.dfpNativeAdUnit.load(request)
+            } else {
+                XCTFail("resultCode:\(resultCode.name())")
+                self?.loadSuccesfulException?.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: timeoutForRequest, handler: nil)
+
+        
+        //then
+        XCTAssertNotNil(request.customTargeting)
+        if let customTargeting = request.customTargeting {
+            XCTAssertNotNil(customTargeting["hb_pb"])
+        }
+    }
+    
     func testAppNexusMoPubBannerSanityAppCheckTest() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
