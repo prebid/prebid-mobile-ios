@@ -67,23 +67,6 @@ import XCTest
     }
 }
 
-@objcMembers class MPNativeAdRequest: NSObject {
-    var name: String!
-    private(set) var p_customKeywords: String = ""
-
-    var keywords: String {
-
-        get {
-            return p_customKeywords
-        }
-
-        set {
-            self.p_customKeywords = newValue
-        }
-
-    }
-}
-
 @objcMembers class InvalidMPAdView: NSObject {
     var name: String!
     private(set) var p_customKeywords: String = ""
@@ -107,12 +90,10 @@ class UtilsTests: XCTestCase {
     var invalidDfpAdObject: DFPORequest?
     var mopubObject: MPAdView?
     var invalidMopubObject: InvalidMPAdView?
-    var mopubNativeObject: MPNativeAdRequest?
 
     override func setUp() {
         dfpAdObject = DFPNRequest()
         mopubObject = MPAdView()
-        mopubNativeObject = MPNativeAdRequest()
     }
 
     override func tearDown() {
@@ -568,74 +549,6 @@ class UtilsTests: XCTestCase {
         DispatchQueue.main.async {
             XCTAssertNil(self.invalidMopubObject?.keywords)
         }
-    }
-    
-    func testAttachMoPubNativeKeywords() {
-        let utils: Utils = Utils.shared
-
-        let prebidKeywords: [String: String] = ["hb_env": "mobile-app", "hb_bidder_appnexus": "appnexus", "hb_size_appnexus": "300x250", "hb_pb_appnexus":
-            "0.50", "hb_env_appnexus": "mobile-app", "hb_cache_id": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_cache_id_appnexus": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_pb": "0.50", "hb_bidder": "appnexus", "hb_size": "300x250", "hb_cache_id_local": "Prebid_6DC38833-1CFE-4DE5-AF1D-84222056F9F8"]
-
-        let bidResponse = BidResponse(adId: "test1", adServerTargeting: prebidKeywords as [String: AnyObject])
-        mopubNativeObject?.keywords = "test_key:test_value"
-        utils.validateAndAttachKeywords(adObject: mopubNativeObject as AnyObject, bidResponse: bidResponse)
-
-        var keywords: String?
-        var keywordsArray: [String] = []
-
-        XCTAssertTrue(((self.mopubNativeObject?.description) != nil), "MPAdView")
-        XCTAssertNotNil(self.mopubNativeObject?.keywords)
-        keywords = self.mopubNativeObject?.keywords
-        keywordsArray = keywords!.components(separatedBy: ",")
-        XCTAssertEqual(12, keywordsArray.count)
-        XCTAssertTrue (keywordsArray.contains("hb_env:mobile-app"))
-        XCTAssertTrue (keywordsArray.contains("hb_bidder_appnexus:appnexus"))
-        XCTAssertTrue (keywordsArray.contains("hb_size_appnexus:300x250"))
-        XCTAssertTrue (keywordsArray.contains("hb_pb_appnexus:0.50"))
-        XCTAssertTrue (keywordsArray.contains("hb_env_appnexus:mobile-app"))
-        XCTAssertTrue (keywordsArray.contains("hb_cache_id:d6e43a95-5ee2-4d74-ae85-e4b602b7f88d"))
-        XCTAssertTrue (keywordsArray.contains("hb_cache_id_appnexus:d6e43a95-5ee2-4d74-ae85-e4b602b7f88d"))
-        XCTAssertTrue (keywordsArray.contains("hb_pb:0.50"))
-        XCTAssertTrue (keywordsArray.contains("hb_bidder:appnexus"))
-        XCTAssertTrue (keywordsArray.contains("hb_size:300x250"))
-        XCTAssertTrue (keywordsArray.contains("hb_cache_id_local:Prebid_6DC38833-1CFE-4DE5-AF1D-84222056F9F8"))
-        XCTAssertTrue (keywordsArray.contains("test_key:test_value"))
-
-        let prebidKeywords2: [String: String] = ["hb_env": "mobile-app",
-                                               "hb_bidder_rubicon": "rubicon",
-                                               "hb_size_rubicon": "300x250",
-                                               "hb_pb_rubicon": "0.50",
-                                               "hb_env_rubicon": "mobile-app",
-                                               "hb_cache_id": "ffffffff-5ee2-4d74-ae85-e4b602b7f88d",
-                                               "hb_cache_id_rubicon": "ffffffff-5ee2-4d74-ae85-e4b602b7f88d",
-                                               "hb_pb": "0.50",
-                                               "hb_bidder": "rubicon",
-                                               "hb_size": "300x250",
-                                               "hb_cache_id_local": "Prebid_6DC38833-1CFE-4DE5-AF1D-84222056F9F8"]
-
-        let bidResponse2 = BidResponse(adId: "test2", adServerTargeting: prebidKeywords2 as [String: AnyObject])
-        utils.removeHBKeywords(adObject: self.mopubNativeObject!)
-        utils.validateAndAttachKeywords(adObject: self.mopubNativeObject as AnyObject, bidResponse: bidResponse2)
-
-        XCTAssertTrue(((self.mopubNativeObject?.description) != nil), "MPAdView")
-        XCTAssertNotNil(self.mopubNativeObject?.keywords)
-
-        keywords = self.mopubNativeObject?.keywords
-        keywordsArray = keywords!.components(separatedBy: ",")
-        XCTAssertEqual(12, keywordsArray.count)
-        XCTAssertTrue (keywordsArray.contains("hb_env:mobile-app"))
-        XCTAssertTrue (keywordsArray.contains("hb_bidder_rubicon:rubicon"))
-        XCTAssertTrue (keywordsArray.contains("hb_size_rubicon:300x250"))
-        XCTAssertTrue (keywordsArray.contains("hb_pb_rubicon:0.50"))
-        XCTAssertTrue (keywordsArray.contains("hb_env_rubicon:mobile-app"))
-        XCTAssertTrue (keywordsArray.contains("hb_cache_id:ffffffff-5ee2-4d74-ae85-e4b602b7f88d"))
-        XCTAssertTrue (keywordsArray.contains("hb_cache_id_rubicon:ffffffff-5ee2-4d74-ae85-e4b602b7f88d"))
-        XCTAssertTrue (keywordsArray.contains("hb_pb:0.50"))
-        XCTAssertTrue (keywordsArray.contains("hb_bidder:rubicon"))
-        XCTAssertTrue (keywordsArray.contains("hb_size:300x250"))
-        XCTAssertTrue (keywordsArray.contains("hb_cache_id_local:Prebid_6DC38833-1CFE-4DE5-AF1D-84222056F9F8"))
-        XCTAssertTrue (keywordsArray.contains("test_key:test_value"))
-
     }
     
 }

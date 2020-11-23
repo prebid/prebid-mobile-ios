@@ -97,7 +97,7 @@ class BidManagerTests: XCTestCase {
             XCTAssertEqual(resultCode, ResultCode.prebidDemandFetchSuccess)
             XCTAssertNotNil(bidResponse)
             let keywords = bidResponse?.customKeywords
-            XCTAssertEqual(16, keywords?.count)
+            XCTAssertEqual(15, keywords?.count)
             self.loadAdSuccesfulException?.fulfill()
         }
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
@@ -112,7 +112,7 @@ class BidManagerTests: XCTestCase {
             XCTAssertEqual(resultCode, ResultCode.prebidDemandFetchSuccess)
             XCTAssertNotNil(bidResponse)
             let keywords = bidResponse?.customKeywords
-            XCTAssertEqual(11, keywords?.count)
+            XCTAssertEqual(10, keywords?.count)
             self.loadAdSuccesfulException?.fulfill()
         }
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
@@ -128,7 +128,7 @@ class BidManagerTests: XCTestCase {
             XCTAssertEqual(resultCode, ResultCode.prebidDemandFetchSuccess)
             XCTAssertNotNil(bidResponse)
             let keywords = bidResponse?.customKeywords
-            XCTAssertEqual(11, keywords?.count)
+            XCTAssertEqual(10, keywords?.count)
             self.loadAdSuccesfulException?.fulfill()
         }
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
