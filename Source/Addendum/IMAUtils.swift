@@ -36,7 +36,7 @@ public final class IMAUtils: NSObject {
     
     private override init() {}
     
-    public func constructAdTagURLForIMAWithPrebidKeys (adUnitID:String, adSlotSizes:[IMAAdSlotSize], customKeywords: [String:String]) throws -> String{
+    public func generateInstreamUriForGAM (adUnitID:String, adSlotSizes:[IMAAdSlotSize], customKeywords: [String:String]) throws -> String{
         let adServerURL = "https://pubads.g.doubleclick.net/gampad/ads?output=xml_vast4&unviewed_position_start=1&gdfp_req=1&env=vp"
         
         if(adSlotSizes.count <= 0){

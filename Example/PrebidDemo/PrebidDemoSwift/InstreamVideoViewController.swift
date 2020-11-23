@@ -91,7 +91,7 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
             print("prebid keys")
             if(ResultCode == .prebidDemandFetchSuccess){
                 do {
-                    let adServerTag:String = try IMAUtils.shared.constructAdTagURLForIMAWithPrebidKeys(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [.Size640x480,.Size400x300], customKeywords: prebidKeys!)
+                    let adServerTag:String = try IMAUtils.shared.generateInstreamUriForGAM(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [.Size640x480,.Size400x300], customKeywords: prebidKeys!)
 //                    let adServerTag:String = try IMAUtils.shared.constructAdTagURLForIMAWithPrebidKeys(adUnitID: "/5300653/test_adunit_vast_pavliuchyk", adSlotSizes: [.Size640x480,.Size400x300], customKeywords: prebidKeys!)
                     let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.appInstreamView)
                     // Create an ad request with our ad tag, display container, and optional user context.
