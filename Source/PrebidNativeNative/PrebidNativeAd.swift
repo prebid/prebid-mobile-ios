@@ -270,7 +270,7 @@ import UIKit
     
     @objc private func handleClick() {
         self.delegate?.adWasClicked?(ad: self)
-        if let clickUrl = clickUrl, let url = URL(string: clickUrl) {
+        if let clickUrl = clickUrl, let clickUrlString = clickUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: clickUrlString) {
             if !openURLWithExternalBrowser(url: url){
                 Log.debug("Could not open click URL: \(clickUrl)")
             }

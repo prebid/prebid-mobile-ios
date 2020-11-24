@@ -69,7 +69,7 @@ class TrackerManager: NSObject {
         
         Log.debug("Internet is reachable - FIRING TRACKERS: \(arrayWithURLs)")
         arrayWithURLs.forEach { urlString in
-            if let url = URL(string: urlString)
+            if let clickUrlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: clickUrlString)
             {
                 let request = URLRequest(url: url)
                 URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
@@ -126,7 +126,7 @@ class TrackerManager: NSObject {
                 if info.expired{
                     return
                 }
-                if let urlString = info.URL, let url = URL(string: urlString)
+                if let urlString = info.URL, let clickUrlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: clickUrlString)
                 {
                     let request = URLRequest(url: url)
                     URLSession.shared.dataTask(with: request) { [weak self] data, _, error in

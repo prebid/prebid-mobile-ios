@@ -327,7 +327,7 @@
     UINib *adNib = [UINib nibWithNibName:@"PrebidNativeAdView" bundle:[NSBundle bundleForClass:[self class]]];
     NSArray *array = [adNib instantiateWithOwner:self options:nil];
     _prebidNativeAdView = [array firstObject];
-    _prebidNativeAdView.frame = CGRectMake(0, 0, self.view.frame.size.width, 150 + self.view.frame.size.width * 400 / 600);
+    _prebidNativeAdView.frame = CGRectMake(0, 0, _adContainerView.frame.size.width, 150 + self.view.frame.size.width * 400 / 600);
     [_adContainerView addSubview:_prebidNativeAdView];
 }
 

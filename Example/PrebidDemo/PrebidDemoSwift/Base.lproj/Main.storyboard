@@ -268,8 +268,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iHV-b5-jBp">
-                                <rect key="frame" x="0.0" y="44" width="375" height="400"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iHV-b5-jBp">
+                                <rect key="frame" x="10" y="44" width="355" height="400"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="400" id="60X-BH-LkO"/>
@@ -280,8 +280,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="iHV-b5-jBp" firstAttribute="top" secondItem="hRm-OL-9QU" secondAttribute="top" id="Pvv-f9-r85"/>
-                            <constraint firstItem="hRm-OL-9QU" firstAttribute="trailing" secondItem="iHV-b5-jBp" secondAttribute="trailing" id="diu-6T-fWV"/>
-                            <constraint firstItem="iHV-b5-jBp" firstAttribute="leading" secondItem="hRm-OL-9QU" secondAttribute="leading" id="zl5-pX-GSW"/>
+                            <constraint firstItem="hRm-OL-9QU" firstAttribute="trailing" secondItem="iHV-b5-jBp" secondAttribute="trailing" constant="10" id="diu-6T-fWV"/>
+                            <constraint firstItem="iHV-b5-jBp" firstAttribute="leading" secondItem="hRm-OL-9QU" secondAttribute="leading" constant="10" id="zl5-pX-GSW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="In App Native" id="XPg-Dg-Z87"/>

@@ -220,7 +220,7 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
         let array = adNib.instantiate(withOwner: self, options: nil)
         if let prebidNativeAdView = array.first as? PrebidNativeAdView{
             self.prebidNativeAdView = prebidNativeAdView
-            prebidNativeAdView.frame = CGRect(x: 0, y: 0, width: self.screenWidth, height: 150 + self.screenWidth * 400 / 600)
+            prebidNativeAdView.frame = CGRect(x: 0, y: 0, width: self.adContainerView.frame.size.width, height: 150 + self.screenWidth * 400 / 600)
             self.adContainerView.addSubview(prebidNativeAdView)
         }
     }
