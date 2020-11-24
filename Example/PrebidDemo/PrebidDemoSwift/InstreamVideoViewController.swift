@@ -47,6 +47,10 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        adsManager.destroy()
+    }
+    
     func setupAndLoadAMInstreamVideo() {
         setupPBAppNexusInStreamVideo()
         setupAMAppNexusInstreamVideo()
