@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -32,21 +33,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ze7-Xk-t60">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ze7-Xk-t60">
                                 <rect key="frame" x="138" y="263.5" width="99" height="30"/>
                                 <state key="normal" title="Simple Banner"/>
                                 <connections>
                                     <segue destination="ihT-Ma-5CT" kind="show" id="kib-uu-Sx9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gs4-Un-gLc">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gs4-Un-gLc">
                                 <rect key="frame" x="124.5" y="318.5" width="126" height="30"/>
                                 <state key="normal" title="Simple Interstitials"/>
                                 <connections>
                                     <segue destination="i5n-eA-fbo" kind="show" id="kvU-2J-PSM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2BF-DS-686">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2BF-DS-686">
                                 <rect key="frame" x="141.5" y="373.5" width="92" height="30"/>
                                 <state key="normal" title="Banner Video"/>
                                 <connections>
@@ -63,28 +64,28 @@
                                     <action selector="onAdServerSwidshed:" destination="BYZ-38-t0r" eventType="valueChanged" id="j2N-Nn-Vqk"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H9f-Yj-Von">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H9f-Yj-Von">
                                 <rect key="frame" x="132" y="420" width="111" height="30"/>
                                 <state key="normal" title="Interstitial Video"/>
                                 <connections>
                                     <segue destination="i5n-eA-fbo" kind="show" id="oHg-3D-EQi"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gT-aH-qqc">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gT-aH-qqc">
                                 <rect key="frame" x="139" y="463" width="97" height="30"/>
                                 <state key="normal" title="Banner Native"/>
                                 <connections>
                                     <segue destination="g7Y-o0-qeY" kind="show" id="Mld-S3-Yyw"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcD-14-DN2">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcD-14-DN2">
                                 <rect key="frame" x="132" y="508" width="111" height="30"/>
                                 <state key="normal" title="Rewarded video"/>
                                 <connections>
                                     <segue destination="DWf-Za-wca" kind="show" id="hwa-a9-gmn"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22J-SO-m28">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22J-SO-m28">
                                 <rect key="frame" x="132" y="550" width="101" height="30"/>
                                 <state key="normal" title="Instream video"/>
                                 <connections>
@@ -92,6 +93,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="HcD-14-DN2" firstAttribute="centerX" secondItem="H9f-Yj-Von" secondAttribute="centerX" id="0wP-DZ-aaR"/>
@@ -115,7 +117,6 @@
                             <constraint firstItem="fwP-lp-368" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="yte-Ky-7os"/>
                             <constraint firstItem="HcD-14-DN2" firstAttribute="leading" secondItem="H9f-Yj-Von" secondAttribute="leading" id="yy2-ok-cdE"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="blE-VU-00S"/>
                     <connections>
@@ -143,13 +144,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="MDv-TO-hpU"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="MDv-TO-hpU" firstAttribute="trailing" secondItem="A68-A7-mkG" secondAttribute="trailing" constant="10" id="02I-lX-Ocn"/>
                             <constraint firstItem="A68-A7-mkG" firstAttribute="top" secondItem="MDv-TO-hpU" secondAttribute="top" constant="15" id="7lu-fV-JL9"/>
                             <constraint firstItem="A68-A7-mkG" firstAttribute="leading" secondItem="MDv-TO-hpU" secondAttribute="leading" constant="10" id="gCE-ZZ-Oek"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="MDv-TO-hpU"/>
                     </view>
                     <navigationItem key="navigationItem" id="Zuf-Dh-wfV"/>
                     <connections>
@@ -170,17 +171,17 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RMV-Sg-y3F">
                                 <rect key="frame" x="37.5" y="54" width="300" height="559"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="QKV-Tv-nlJ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="RMV-Sg-y3F" firstAttribute="top" secondItem="QKV-Tv-nlJ" secondAttribute="top" constant="10" id="9cf-Fd-nx4"/>
                             <constraint firstItem="RMV-Sg-y3F" firstAttribute="leading" secondItem="QKV-Tv-nlJ" secondAttribute="leading" constant="37.5" id="Ku5-Wf-cmr"/>
                             <constraint firstItem="RMV-Sg-y3F" firstAttribute="centerX" secondItem="Bh5-l7-3oV" secondAttribute="centerX" id="sUL-mH-7Wn"/>
                             <constraint firstItem="RMV-Sg-y3F" firstAttribute="centerY" secondItem="Bh5-l7-3oV" secondAttribute="centerY" id="uIa-ue-Ysy"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="QKV-Tv-nlJ"/>
                     </view>
                     <navigationItem key="navigationItem" id="h83-Tk-Cxc"/>
                     <connections>
@@ -201,10 +202,22 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3h-pN-8tm">
                                 <rect key="frame" x="37.5" y="208.5" width="300" height="250"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79e-eM-b5E">
+                                        <rect key="frame" x="119.5" y="74" width="61" height="102"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="75"/>
+                                        <state key="normal" title="▶"/>
+                                        <connections>
+                                            <action selector="onPlayButtonTouch:" destination="fzy-BX-rP8" eventType="touchDown" id="2L0-9V-w62"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="SiQ-04-drd"/>
                                     <constraint firstAttribute="height" constant="250" id="hgD-BZ-Yml"/>
+                                    <constraint firstItem="79e-eM-b5E" firstAttribute="centerX" secondItem="K3h-pN-8tm" secondAttribute="centerX" id="mOx-35-UvL"/>
+                                    <constraint firstItem="79e-eM-b5E" firstAttribute="centerY" secondItem="K3h-pN-8tm" secondAttribute="centerY" id="t0i-XA-Fmt"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKR-us-fJr">
@@ -214,19 +227,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Q9y-bU-RVQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="K3h-pN-8tm" firstAttribute="centerY" secondItem="akm-Ms-TqH" secondAttribute="centerY" id="F0z-RA-AEx"/>
                             <constraint firstItem="K3h-pN-8tm" firstAttribute="centerX" secondItem="akm-Ms-TqH" secondAttribute="centerX" id="ZZV-lh-CC0"/>
                             <constraint firstItem="eKR-us-fJr" firstAttribute="top" secondItem="Q9y-bU-RVQ" secondAttribute="top" constant="38" id="aUY-wP-s8p"/>
                             <constraint firstItem="eKR-us-fJr" firstAttribute="centerX" secondItem="akm-Ms-TqH" secondAttribute="centerX" id="tML-t9-G6A"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Q9y-bU-RVQ"/>
                     </view>
                     <navigationItem key="navigationItem" id="f5Q-7N-GXu"/>
                     <connections>
                         <outlet property="adServerLabel" destination="eKR-us-fJr" id="xDV-Dd-bUH"/>
                         <outlet property="appInstreamView" destination="K3h-pN-8tm" id="b33-qE-ZT3"/>
+                        <outlet property="playButton" destination="79e-eM-b5E" id="XGC-DQ-2cN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V4N-fP-62I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -248,14 +262,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="AP8-fl-6xp"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="NVJ-d8-2Uq" firstAttribute="top" secondItem="AP8-fl-6xp" secondAttribute="top" id="LCo-z9-MDM"/>
                             <constraint firstItem="NVJ-d8-2Uq" firstAttribute="leading" secondItem="AP8-fl-6xp" secondAttribute="leading" id="fvf-cz-1r5"/>
                             <constraint firstItem="AP8-fl-6xp" firstAttribute="trailing" secondItem="NVJ-d8-2Uq" secondAttribute="trailing" id="iBL-Pw-PMn"/>
                             <constraint firstItem="NVJ-d8-2Uq" firstAttribute="top" secondItem="AP8-fl-6xp" secondAttribute="top" id="vzM-sb-F7S"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="AP8-fl-6xp"/>
                     </view>
                     <navigationItem key="navigationItem" id="rln-qt-97J"/>
                     <connections>
@@ -289,6 +303,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="jGy-I6-dpO"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="2ys-Rb-Auo" firstAttribute="centerY" secondItem="TqC-IG-bhU" secondAttribute="centerY" id="3zT-Cn-57s"/>
@@ -297,7 +312,6 @@
                             <constraint firstItem="2ys-Rb-Auo" firstAttribute="centerX" secondItem="TqC-IG-bhU" secondAttribute="centerX" id="fzC-0m-Ss9"/>
                             <constraint firstItem="yQh-8P-TfB" firstAttribute="top" secondItem="jGy-I6-dpO" secondAttribute="top" constant="25" id="roO-2e-Lef"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="jGy-I6-dpO"/>
                     </view>
                     <navigationItem key="navigationItem" id="JjN-6d-Z0y"/>
                     <connections>
@@ -314,4 +328,9 @@
         <segue reference="kib-uu-Sx9"/>
         <segue reference="kvU-2J-PSM"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
