@@ -15,13 +15,13 @@ limitations under the License.
 
 import UIKit
 
-@objcMembers public class CacheManager: NSObject {
+class CacheManager: NSObject {
     
     /**
      * The class is created as a singleton object & used
      */
     @objc
-    public static let shared = CacheManager()
+    static let shared = CacheManager()
     
     /**
      * The initializer that needs to be created only once
@@ -30,10 +30,10 @@ import UIKit
         super.init()
     }
     
-    private var savedValuesDict = [String : String]()
+    internal var savedValuesDict = [String : String]()
     weak var delegate: CacheExpiryDelegate?
     
-    public func save(content: String) -> String?{
+    func save(content: String) -> String?{
         if content.isEmpty {
             return nil
         }else{
@@ -47,11 +47,11 @@ import UIKit
         }
     }
     
-    public func isValid(cacheId: String) -> Bool{
+    func isValid(cacheId: String) -> Bool{
         return self.savedValuesDict.keys.contains(cacheId)
     }
     
-    public func get(cacheId: String) -> String?{
+    func get(cacheId: String) -> String?{
         return self.savedValuesDict.removeValue(forKey: cacheId)
     }
 }

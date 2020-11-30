@@ -12,7 +12,20 @@
 		38018908255AC5560089CA84 /* PrebidNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38018905255AC5560089CA84 /* PrebidNativeAdView.swift */; };
 		38018909255AC5560089CA84 /* PrebidNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38018906255AC5560089CA84 /* PrebidNativeAdView.xib */; };
 		3801890A255AC5560089CA84 /* PrebidNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38018906255AC5560089CA84 /* PrebidNativeAdView.xib */; };
+		383E9CA32571281F006FA6F4 /* PrebidNativeNativeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CA22571281F006FA6F4 /* PrebidNativeNativeTest.swift */; };
+		383E9CA525712879006FA6F4 /* PrebidNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38018905255AC5560089CA84 /* PrebidNativeAdView.swift */; };
+		383E9CA62571287C006FA6F4 /* PrebidNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38018906255AC5560089CA84 /* PrebidNativeAdView.xib */; };
+		383E9CC92571297F006FA6F4 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CAA2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.m */; };
+		383E9CD62571297F006FA6F4 /* PrebidNativeAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 383E9CB92571297E006FA6F4 /* PrebidNativeAdResponse.json */; };
+		383E9CDC2571297F006FA6F4 /* PBTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CBF2571297E006FA6F4 /* PBTestGlobal.m */; };
+		383E9CDD2571297F006FA6F4 /* PBHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CC22571297E006FA6F4 /* PBHTTPStubURLProtocol.m */; };
+		383E9CDE2571297F006FA6F4 /* PBURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CC32571297E006FA6F4 /* PBURLConnectionStub.m */; };
+		383E9CDF2571297F006FA6F4 /* PBHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CC42571297E006FA6F4 /* PBHTTPStubbingManager.m */; };
+		383E9CE02571297F006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CC52571297E006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m */; };
+		383E9CEC25712D06006FA6F4 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CEA25712D06006FA6F4 /* NSObject+Swizzling.m */; };
+		383E9CF2257140E3006FA6F4 /* PrebidNativeAdInvalidResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 383E9CF1257140E3006FA6F4 /* PrebidNativeAdInvalidResponse.json */; };
 		38450A6225514EA6000DCF6D /* PrebidNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38450A6125514EA6000DCF6D /* PrebidNativeViewController.swift */; };
+		38481D29257505B600DE9737 /* PrebidNativeAdText.txt in Resources */ = {isa = PBXBuildFile; fileRef = 38481D26257505B600DE9737 /* PrebidNativeAdText.txt */; };
 		609C52C32395F17F001FA5BD /* NativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609C52C22395F17F001FA5BD /* NativeViewController.swift */; };
 		C7A1F0B942F152B467C71A70 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B64CCFCC9D513DEAA95A372 /* Pods_PrebidDemoObjectiveC.framework */; };
 		DADFB9F410588613B69275BC /* Pods_PrebidDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5976732304BFCF6E222040EE /* Pods_PrebidDemoTests.framework */; };
@@ -117,7 +130,25 @@
 		30744DA255EA063B76D484F9 /* Pods-PrebidDemoSwift-PrebidDemoSwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift-PrebidDemoSwiftTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift-PrebidDemoSwiftTests/Pods-PrebidDemoSwift-PrebidDemoSwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		38018905255AC5560089CA84 /* PrebidNativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdView.swift; sourceTree = "<group>"; };
 		38018906255AC5560089CA84 /* PrebidNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrebidNativeAdView.xib; sourceTree = "<group>"; };
+		383E9CA22571281F006FA6F4 /* PrebidNativeNativeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeNativeTest.swift; sourceTree = "<group>"; };
+		383E9CAA2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
+		383E9CAB2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
+		383E9CB92571297E006FA6F4 /* PrebidNativeAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrebidNativeAdResponse.json; sourceTree = "<group>"; };
+		383E9CBF2571297E006FA6F4 /* PBTestGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTestGlobal.m; sourceTree = "<group>"; };
+		383E9CC12571297E006FA6F4 /* PBHTTPStubbingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBHTTPStubbingManager.h; sourceTree = "<group>"; };
+		383E9CC22571297E006FA6F4 /* PBHTTPStubURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBHTTPStubURLProtocol.m; sourceTree = "<group>"; };
+		383E9CC32571297E006FA6F4 /* PBURLConnectionStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBURLConnectionStub.m; sourceTree = "<group>"; };
+		383E9CC42571297E006FA6F4 /* PBHTTPStubbingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBHTTPStubbingManager.m; sourceTree = "<group>"; };
+		383E9CC52571297E006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PBURLConnectionStub+NSURLSessionConfiguration.m"; sourceTree = "<group>"; };
+		383E9CC62571297E006FA6F4 /* PBHTTPStubURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBHTTPStubURLProtocol.h; sourceTree = "<group>"; };
+		383E9CC72571297E006FA6F4 /* PBURLConnectionStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBURLConnectionStub.h; sourceTree = "<group>"; };
+		383E9CC82571297E006FA6F4 /* PBTestGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTestGlobal.h; sourceTree = "<group>"; };
+		383E9CE325712AC3006FA6F4 /* PrebidDemoTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidDemoTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		383E9CEA25712D06006FA6F4 /* NSObject+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Swizzling.m"; path = "../../../NSObject+Swizzling.m"; sourceTree = "<group>"; };
+		383E9CEB25712D06006FA6F4 /* NSObject+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Swizzling.h"; path = "../../../NSObject+Swizzling.h"; sourceTree = "<group>"; };
+		383E9CF1257140E3006FA6F4 /* PrebidNativeAdInvalidResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrebidNativeAdInvalidResponse.json; sourceTree = "<group>"; };
 		38450A6125514EA6000DCF6D /* PrebidNativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeViewController.swift; sourceTree = "<group>"; };
+		38481D26257505B600DE9737 /* PrebidNativeAdText.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PrebidNativeAdText.txt; sourceTree = "<group>"; };
 		398C46797E3B11F6932E9BDA /* Pods-PrebidDemoPod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod/Pods-PrebidDemoPod.debug.xcconfig"; sourceTree = "<group>"; };
 		3C3DD5560D8F19EE9F2158E7 /* Pods-PrebidDemoSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		5197A13C51AEAF0782B64F40 /* Pods-PrebidDemoPodCoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPodCoreTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPodCoreTests/Pods-PrebidDemoPodCoreTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -216,6 +247,54 @@
 			path = NativeView;
 			sourceTree = "<group>";
 		};
+		383E9CA82571297E006FA6F4 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				383E9CA92571297E006FA6F4 /* Category */,
+				383E9CAC2571297E006FA6F4 /* Responses */,
+				383E9CBF2571297E006FA6F4 /* PBTestGlobal.m */,
+				383E9CC02571297E006FA6F4 /* Stubbing */,
+				383E9CC82571297E006FA6F4 /* PBTestGlobal.h */,
+			);
+			name = Shared;
+			path = ../../../Tests/FetchingLogictests/Shared;
+			sourceTree = "<group>";
+		};
+		383E9CA92571297E006FA6F4 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				383E9CEB25712D06006FA6F4 /* NSObject+Swizzling.h */,
+				383E9CEA25712D06006FA6F4 /* NSObject+Swizzling.m */,
+				383E9CAA2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.m */,
+				383E9CAB2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.h */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		383E9CAC2571297E006FA6F4 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				38481D26257505B600DE9737 /* PrebidNativeAdText.txt */,
+				383E9CF1257140E3006FA6F4 /* PrebidNativeAdInvalidResponse.json */,
+				383E9CB92571297E006FA6F4 /* PrebidNativeAdResponse.json */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		383E9CC02571297E006FA6F4 /* Stubbing */ = {
+			isa = PBXGroup;
+			children = (
+				383E9CC12571297E006FA6F4 /* PBHTTPStubbingManager.h */,
+				383E9CC22571297E006FA6F4 /* PBHTTPStubURLProtocol.m */,
+				383E9CC32571297E006FA6F4 /* PBURLConnectionStub.m */,
+				383E9CC42571297E006FA6F4 /* PBHTTPStubbingManager.m */,
+				383E9CC52571297E006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m */,
+				383E9CC62571297E006FA6F4 /* PBHTTPStubURLProtocol.h */,
+				383E9CC72571297E006FA6F4 /* PBURLConnectionStub.h */,
+			);
+			path = Stubbing;
+			sourceTree = "<group>";
+		};
 		464FE826217632CAB58ABF2E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -310,8 +389,11 @@
 		FA12E4E7231EB52D00CAA05B /* PrebidDemoTests */ = {
 			isa = PBXGroup;
 			children = (
+				383E9CE325712AC3006FA6F4 /* PrebidDemoTests-Bridging-Header.h */,
+				383E9CA82571297E006FA6F4 /* Shared */,
 				FA12E4E0231EB4BB00CAA05B /* Constants.swift */,
 				FA12E4E8231EB52D00CAA05B /* PrebidDemoTests.swift */,
+				383E9CA22571281F006FA6F4 /* PrebidNativeNativeTest.swift */,
 				FA12E4EA231EB52D00CAA05B /* Info.plist */,
 			);
 			path = PrebidDemoTests;
@@ -488,6 +570,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				383E9CF2257140E3006FA6F4 /* PrebidNativeAdInvalidResponse.json in Resources */,
+				383E9CA62571287C006FA6F4 /* PrebidNativeAdView.xib in Resources */,
+				383E9CD62571297F006FA6F4 /* PrebidNativeAdResponse.json in Resources */,
+				38481D29257505B600DE9737 /* PrebidNativeAdText.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,8 +713,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				383E9CA525712879006FA6F4 /* PrebidNativeAdView.swift in Sources */,
 				FA12E4E9231EB52D00CAA05B /* PrebidDemoTests.swift in Sources */,
+				383E9CE02571297F006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
+				383E9CDD2571297F006FA6F4 /* PBHTTPStubURLProtocol.m in Sources */,
+				383E9CDE2571297F006FA6F4 /* PBURLConnectionStub.m in Sources */,
+				383E9CEC25712D06006FA6F4 /* NSObject+Swizzling.m in Sources */,
+				383E9CDF2571297F006FA6F4 /* PBHTTPStubbingManager.m in Sources */,
 				FA12E4F0231EB53A00CAA05B /* Constants.swift in Sources */,
+				383E9CC92571297F006FA6F4 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
+				383E9CDC2571297F006FA6F4 /* PBTestGlobal.m in Sources */,
+				383E9CA32571281F006FA6F4 /* PrebidNativeNativeTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -872,6 +967,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidDemoSwiftTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/PrebidDemoTests/PrebidDemoTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrebidDemoSwift.app/PrebidDemoSwift";
@@ -892,6 +988,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidDemoSwiftTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/PrebidDemoTests/PrebidDemoTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrebidDemoSwift.app/PrebidDemoSwift";

@@ -263,7 +263,7 @@
         <!--In App Native-->
         <scene sceneID="NfC-uv-nmT">
             <objects>
-                <viewController id="GT4-HE-4pt" customClass="PrebidNativeViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="prebidNative" id="GT4-HE-4pt" customClass="PrebidNativeViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hED-Cc-5a8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
