@@ -42,72 +42,75 @@ import UIKit
 
     
     public static func  create(cacheId: String)-> PrebidNativeAd? {
-        if let content = CacheManager.shared.get(cacheId: cacheId) {
-            let data = content.data(using: .utf8)!
-            do {
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                    let ad: PrebidNativeAd = PrebidNativeAd()
-                    //assets
-                    if let assets = json["assets"] as? [AnyObject] {
-                        for adObject in assets {
-                            if let adObject = adObject as? [String : AnyObject]{
-                                //title
-                                if let title = adObject["title"], let text = title["text"] as? String {
-                                    ad.title = text;
+        guard let content = CacheManager.shared.get(cacheId: cacheId), let data = content.data(using: .utf8) else {
+            Log.error("Invalid prebid native contents")
+            return nil
+        }
+        do {
+            guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                Log.error("Invalid prebid native json")
+                return nil
+            }
+            let ad: PrebidNativeAd = PrebidNativeAd()
+            //assets
+            if let assets = json["assets"] as? [AnyObject] {
+                for adObject in assets {
+                    if let adObject = adObject as? [String : AnyObject]{
+                        //title
+                        if let title = adObject["title"], let text = title["text"] as? String {
+                            ad.title = text;
+                        }
+                        //description
+                        if let id = adObject["id"] as? Int, id == 3, let description = adObject["data"], let text = description["value"] as? String {
+                            ad.text = text;
+                        }
+                        //sponsoredBy
+                        if let id = adObject["id"] as? Int, id == 5, let sponsoredBy = adObject["data"], let text = sponsoredBy["value"] as? String {
+                            ad.sponsoredBy = text;
+                        }
+                        //call to action
+                        if let id = adObject["id"] as? Int, id == 4, let callToAction = adObject["data"], let text = callToAction["value"] as? String {
+                            ad.callToAction = text;
+                        }
+                        if let img = adObject["img"]{
+                            if let id = adObject["id"] as? Int, id == 2{
+                                //img
+                                if let url = img["url"] as? String {
+                                    ad.imageUrl = url;
                                 }
-                                //description
-                                if let id = adObject["id"] as? Int, id == 3, let description = adObject["data"], let text = description["value"] as? String {
-                                    ad.text = text;
-                                }
-                                //sponsoredBy
-                                if let id = adObject["id"] as? Int, id == 5, let sponsoredBy = adObject["data"], let text = sponsoredBy["value"] as? String {
-                                    ad.sponsoredBy = text;
-                                }
-                                //call to action
-                                if let id = adObject["id"] as? Int, id == 4, let callToAction = adObject["data"], let text = callToAction["value"] as? String {
-                                    ad.callToAction = text;
-                                }
-                                if let img = adObject["img"]{
-                                    if let id = adObject["id"] as? Int, id == 2{
-                                        //img
-                                        if let url = img["url"] as? String {
-                                            ad.imageUrl = url;
-                                        }
-                                    }else{
-                                        //icon
-                                        if let url = img["url"] as? String {
-                                            ad.iconUrl = url;
-                                        }
-                                    }
+                            }else{
+                                //icon
+                                if let url = img["url"] as? String {
+                                    ad.iconUrl = url;
                                 }
                             }
                         }
-                    }
-
-                    //clickUrl
-                    if let link = json["link"] as? [String : AnyObject], let url = link["url"] as? String {
-                        ad.clickUrl = url;
-                    }
-                    //eventtrackers
-                    if let eventtrackers = json["eventtrackers"] as? [AnyObject] {
-                        for eventtracker in eventtrackers {
-                            if let eventtracker = eventtracker as? [String : AnyObject], let url = eventtracker["url"] as? String  {
-                                ad.impTrackers.append(url)
-                            }
-                        }
-                    }
-                    if ad.isValid() {
-                        CacheManager.shared.delegate = ad
-                        return ad
-                    }else{
-                        Log.error("Invalid Prebid Native Ad")
-                        return nil
                     }
                 }
-            } catch let error as NSError {
-                Log.error("Failed to load: \(error.localizedDescription)")
             }
             
+            //clickUrl
+            if let link = json["link"] as? [String : AnyObject], let url = link["url"] as? String {
+                ad.clickUrl = url;
+            }
+            //eventtrackers
+            if let eventtrackers = json["eventtrackers"] as? [AnyObject] {
+                for eventtracker in eventtrackers {
+                    if let eventtracker = eventtracker as? [String : AnyObject], let url = eventtracker["url"] as? String  {
+                        ad.impTrackers.append(url)
+                    }
+                }
+            }
+            if ad.isValid() {
+                CacheManager.shared.delegate = ad
+                return ad
+            }else{
+                Log.error("Prebid Native Ad is not valid")
+                return nil
+            }
+            
+        } catch let error as NSError {
+            Log.error("Failed to load: \(error.localizedDescription)")
         }
         return nil
     }

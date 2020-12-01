@@ -19,6 +19,8 @@
 		382B1201256EA10900B81CA9 /* PrebidNativeAdText.txt in Resources */ = {isa = PBXBuildFile; fileRef = 382B1200256EA10900B81CA9 /* PrebidNativeAdText.txt */; };
 		3868489E2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
 		3868489F2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
+		38F03B272576421400E026A2 /* CacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B262576421400E026A2 /* CacheManagerTests.swift */; };
+		38F03B332576624C00E026A2 /* TrackerManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B322576624C00E026A2 /* TrackerManagerTests.swift */; };
 		600CF0702208963500C95176 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600CF06F2208963500C95176 /* UtilsTests.swift */; };
 		600CF13E220CDFA700C95176 /* responseinvalidSize.json in Resources */ = {isa = PBXBuildFile; fileRef = 600CF13D220CDFA700C95176 /* responseinvalidSize.json */; };
 		6013E3F82215C82900FEE2B1 /* CLLocationManager+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6013E3F72215C82900FEE2B1 /* CLLocationManager+Swizzle.swift */; };
@@ -155,6 +157,8 @@
 		382B11E5256E933800B81CA9 /* PrebidNativeAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrebidNativeAdResponse.json; sourceTree = "<group>"; };
 		382B1200256EA10900B81CA9 /* PrebidNativeAdText.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PrebidNativeAdText.txt; sourceTree = "<group>"; };
 		3868489D2551712800234314 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		38F03B262576421400E026A2 /* CacheManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerTests.swift; sourceTree = "<group>"; };
+		38F03B322576624C00E026A2 /* TrackerManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerManagerTests.swift; sourceTree = "<group>"; };
 		600072FE21BAFD2F00F4738B /* Dispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		600CF06F2208963500C95176 /* UtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
 		600CF13D220CDFA700C95176 /* responseinvalidSize.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = responseinvalidSize.json; sourceTree = "<group>"; };
@@ -397,6 +401,8 @@
 				979177D72201F40300E624CE /* NSObject+Swizzling.m */,
 				606FAC5122022932008EAE5E /* AdUnitSwizzleHelper.swift */,
 				60C0382B2204BB190082B32C /* PrebidMobileTest-Bridging-Header.h */,
+				38F03B262576421400E026A2 /* CacheManagerTests.swift */,
+				38F03B322576624C00E026A2 /* TrackerManagerTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -703,6 +709,7 @@
 				FAA29904242D1C27002ACBF2 /* TargetingObjCTests.m in Sources */,
 				60C0381B2204AF5D0082B32C /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				6013E3FA2215C92C00FEE2B1 /* MockCLLocationManager.swift in Sources */,
+				38F03B332576624C00E026A2 /* TrackerManagerTests.swift in Sources */,
 				FAA2990E24349813002ACBF2 /* AdUnitObjCTests.m in Sources */,
 				60C0381C2204AF5D0082B32C /* PBHTTPStubbingManager.m in Sources */,
 				FAA2990C243368A1002ACBF2 /* AdUnitSuccessorObjCTests.m in Sources */,
@@ -721,6 +728,7 @@
 				60C038212204AF5D0082B32C /* RequestBuilderTests.swift in Sources */,
 				9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */,
 				9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */,
+				38F03B272576421400E026A2 /* CacheManagerTests.swift in Sources */,
 				FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */,
 				60C038252204AFA90082B32C /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				60C038242204AF5D0082B32C /* Constants.swift in Sources */,
