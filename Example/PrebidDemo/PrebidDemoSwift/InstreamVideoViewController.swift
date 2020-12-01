@@ -22,6 +22,7 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     @IBOutlet var adServerLabel: UILabel!
     
     @IBOutlet var appInstreamView: UIView!
+    @IBOutlet weak var playButton: UIButton!
     
     var adServerName: String = ""
     
@@ -32,19 +33,70 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     
     private let amAppNexusAdUnitId = "/19968336/Punnaghai_Instream_Video1"
 //    private let amRubiconProjectAdUnitId = "/5300653/test_adunit_vast_pavliuchyk"
+    
+    var contentPlayer: AVPlayer?
+    var playerLayer: AVPlayerLayer?
+
+    var contentPlayhead: IMAAVPlayerContentPlayhead?
+    
+    static let kTestAppContentUrl_MP4 =
+      "https://storage.googleapis.com/gvabox/media/samples/stock.mp4"
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        playButton.layer.zPosition = CGFloat.greatestFiniteMagnitude
         adServerLabel.text = adServerName
-        
+        setUpContentPlayer()
+       
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        playerLayer?.frame = self.appInstreamView.layer.bounds
+        adsManager.destroy()
+    }
+    
+    @IBAction func onPlayButtonTouch(_ sender: AnyObject) {
         if (adServerName == "DFP") {
             setupAndLoadAMInstreamVideo()
+            
         } else if (adServerName == "MoPub") {
+            contentPlayer?.play()
            print("mopub not supported")
         }
+        
+        playButton.isHidden = true
+    }
+    
+    func setUpContentPlayer() {
+      // Load AVPlayer with path to our content.
+      guard let contentURL = URL(string: InstreamVideoViewController.kTestAppContentUrl_MP4) else {
+        print("ERROR: please use a valid URL for the content URL")
+        return
+      }
+      contentPlayer = AVPlayer(url: contentURL)
 
-        // Do any additional setup after loading the view.
+      // Create a player layer for the player.
+      playerLayer = AVPlayerLayer(player: contentPlayer)
+
+      // Size, position, and display the AVPlayer.
+      playerLayer?.frame = appInstreamView.layer.bounds
+        appInstreamView.layer.addSublayer(playerLayer!)
+
+      // Set up our content playhead and contentComplete callback.
+      contentPlayhead = IMAAVPlayerContentPlayhead(avPlayer: contentPlayer)
+      NotificationCenter.default.addObserver(
+        self,
+        selector: #selector(InstreamVideoViewController.contentDidFinishPlaying(_:)),
+        name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+        object: contentPlayer?.currentItem)
+    }
+
+    @objc func contentDidFinishPlaying(_ notification: Notification) {
+      // Make sure we don't call contentComplete as a result of an ad completing.
+      if (notification.object as! AVPlayerItem) == contentPlayer?.currentItem {
+        adsLoader.contentComplete()
+      }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -127,6 +179,7 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     
     func adsLoader(_ loader: IMAAdsLoader!, failedWith adErrorData: IMAAdLoadingErrorData!) {
         print("Error loading ads: \(adErrorData.adError.message ?? "nil")")
+        contentPlayer?.play()
     }
     
     //adsManager delegate
@@ -139,14 +192,17 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     
     func adsManager(_ adsManager: IMAAdsManager!, didReceive error: IMAAdError!) {
         print("AdsManager error: \(error.message ?? "nil")")
+        contentPlayer?.play()
     }
     
     func adsManagerDidRequestContentPause(_ adsManager: IMAAdsManager!) {
-        
+      // The SDK is going to play ads, so pause the content.
+      contentPlayer?.pause()
     }
-    
+
     func adsManagerDidRequestContentResume(_ adsManager: IMAAdsManager!) {
-        
+      // The SDK is done playing ads (at least for now), so resume the content.
+      contentPlayer?.play()
     }
 
 }
