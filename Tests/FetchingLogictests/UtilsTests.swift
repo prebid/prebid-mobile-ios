@@ -862,9 +862,8 @@ class UtilsTests: XCTestCase, PrebidNativeAdDelegate {
         prebidNativeAdLoadedExpectation = expectation(description: "\(#function)")
         let mpNativeAd = MPNativeAd()
         let currentBundle = Bundle(for: type(of: self))
-        let adm = try? String(contentsOfFile: currentBundle.path(forResource: "PrebidNativeAdText", ofType: "txt") ?? "", encoding: String.Encoding.utf8)
-        let data = adm!.unescaped.replacingOccurrences(of: "\"\n", with: "").replacingOccurrences(of: "\"{\"ver\"", with: "{\"ver\"")
-        if let cacheId = CacheManager.shared.save(content: data), !cacheId.isEmpty{
+        let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "PrebidNativeAd", ofType: "json") ?? "", encoding: .utf8)
+        if let cacheId = CacheManager.shared.save(content: baseResponse!), !cacheId.isEmpty{
             mpNativeAd.p_customProperties["hb_cache_id_local"] = cacheId as AnyObject
         }
         
@@ -891,9 +890,8 @@ class UtilsTests: XCTestCase, PrebidNativeAdDelegate {
         prebidNativeAdNotFoundExpectation = expectation(description: "\(#function)")
         let mpNativeAd = MPNativeAd()
         let currentBundle = Bundle(for: type(of: self))
-        let adm = try? String(contentsOfFile: currentBundle.path(forResource: "PrebidNativeAdText", ofType: "txt") ?? "", encoding: String.Encoding.utf8)
-        let data = adm!.unescaped.replacingOccurrences(of: "\"\n", with: "").replacingOccurrences(of: "\"{\"ver\"", with: "{\"ver\"")
-        if let cacheId = CacheManager.shared.save(content: data), !cacheId.isEmpty{
+        let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "PrebidNativeAd", ofType: "json") ?? "", encoding: .utf8)
+        if let cacheId = CacheManager.shared.save(content: baseResponse!), !cacheId.isEmpty{
             mpNativeAd.p_customProperties["hb_cache_id_local"] = cacheId as AnyObject
             mpNativeAd.p_customProperties["isPrebid"] = 0 as AnyObject;
         }
@@ -908,9 +906,8 @@ class UtilsTests: XCTestCase, PrebidNativeAdDelegate {
         prebidNativeAdLoadedExpectation = expectation(description: "\(#function)")
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
         let currentBundle = Bundle(for: type(of: self))
-        let adm = try? String(contentsOfFile: currentBundle.path(forResource: "PrebidNativeAdText", ofType: "txt") ?? "", encoding: String.Encoding.utf8)
-        let data = adm!.unescaped.replacingOccurrences(of: "\"\n", with: "").replacingOccurrences(of: "\"{\"ver\"", with: "{\"ver\"")
-        if let cacheId = CacheManager.shared.save(content: data), !cacheId.isEmpty{
+        let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "PrebidNativeAd", ofType: "json") ?? "", encoding: .utf8)
+        if let cacheId = CacheManager.shared.save(content: baseResponse!), !cacheId.isEmpty{
             gadNativeCustomTemplateAd.setValue("1", forKey: "isPrebid")
             gadNativeCustomTemplateAd.setValue(cacheId, forKey: "hb_cache_id_local")
         }
@@ -939,9 +936,8 @@ class UtilsTests: XCTestCase, PrebidNativeAdDelegate {
         prebidNativeAdNotFoundExpectation = expectation(description: "\(#function)")
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
         let currentBundle = Bundle(for: type(of: self))
-        let adm = try? String(contentsOfFile: currentBundle.path(forResource: "PrebidNativeAdText", ofType: "txt") ?? "", encoding: String.Encoding.utf8)
-        let data = adm!.unescaped.replacingOccurrences(of: "\"\n", with: "").replacingOccurrences(of: "\"{\"ver\"", with: "{\"ver\"")
-        if let cacheId = CacheManager.shared.save(content: data), !cacheId.isEmpty{
+        let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "PrebidNativeAd", ofType: "json") ?? "", encoding: .utf8)
+        if let cacheId = CacheManager.shared.save(content: baseResponse!), !cacheId.isEmpty{
             gadNativeCustomTemplateAd.setValue("0", forKey: "isPrebid")
             gadNativeCustomTemplateAd.setValue(cacheId, forKey: "hb_cache_id_local")
         }

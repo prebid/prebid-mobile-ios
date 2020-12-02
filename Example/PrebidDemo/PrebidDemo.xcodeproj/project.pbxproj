@@ -12,6 +12,7 @@
 		38018908255AC5560089CA84 /* PrebidNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38018905255AC5560089CA84 /* PrebidNativeAdView.swift */; };
 		38018909255AC5560089CA84 /* PrebidNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38018906255AC5560089CA84 /* PrebidNativeAdView.xib */; };
 		3801890A255AC5560089CA84 /* PrebidNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38018906255AC5560089CA84 /* PrebidNativeAdView.xib */; };
+		380D2E6A2577A3F900507B76 /* PrebidNativeAd.json in Resources */ = {isa = PBXBuildFile; fileRef = 380D2E692577A3F900507B76 /* PrebidNativeAd.json */; };
 		383E9CA32571281F006FA6F4 /* PrebidNativeNativeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CA22571281F006FA6F4 /* PrebidNativeNativeTest.swift */; };
 		383E9CA525712879006FA6F4 /* PrebidNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38018905255AC5560089CA84 /* PrebidNativeAdView.swift */; };
 		383E9CA62571287C006FA6F4 /* PrebidNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38018906255AC5560089CA84 /* PrebidNativeAdView.xib */; };
@@ -25,7 +26,6 @@
 		383E9CEC25712D06006FA6F4 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CEA25712D06006FA6F4 /* NSObject+Swizzling.m */; };
 		383E9CF2257140E3006FA6F4 /* PrebidNativeAdInvalidResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 383E9CF1257140E3006FA6F4 /* PrebidNativeAdInvalidResponse.json */; };
 		38450A6225514EA6000DCF6D /* PrebidNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38450A6125514EA6000DCF6D /* PrebidNativeViewController.swift */; };
-		38481D29257505B600DE9737 /* PrebidNativeAdText.txt in Resources */ = {isa = PBXBuildFile; fileRef = 38481D26257505B600DE9737 /* PrebidNativeAdText.txt */; };
 		609C52C32395F17F001FA5BD /* NativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609C52C22395F17F001FA5BD /* NativeViewController.swift */; };
 		C7A1F0B942F152B467C71A70 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B64CCFCC9D513DEAA95A372 /* Pods_PrebidDemoObjectiveC.framework */; };
 		DADFB9F410588613B69275BC /* Pods_PrebidDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5976732304BFCF6E222040EE /* Pods_PrebidDemoTests.framework */; };
@@ -130,6 +130,7 @@
 		30744DA255EA063B76D484F9 /* Pods-PrebidDemoSwift-PrebidDemoSwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift-PrebidDemoSwiftTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift-PrebidDemoSwiftTests/Pods-PrebidDemoSwift-PrebidDemoSwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		38018905255AC5560089CA84 /* PrebidNativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdView.swift; sourceTree = "<group>"; };
 		38018906255AC5560089CA84 /* PrebidNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrebidNativeAdView.xib; sourceTree = "<group>"; };
+		380D2E692577A3F900507B76 /* PrebidNativeAd.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrebidNativeAd.json; sourceTree = "<group>"; };
 		383E9CA22571281F006FA6F4 /* PrebidNativeNativeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeNativeTest.swift; sourceTree = "<group>"; };
 		383E9CAA2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
 		383E9CAB2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
@@ -148,7 +149,6 @@
 		383E9CEB25712D06006FA6F4 /* NSObject+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Swizzling.h"; path = "../../../NSObject+Swizzling.h"; sourceTree = "<group>"; };
 		383E9CF1257140E3006FA6F4 /* PrebidNativeAdInvalidResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrebidNativeAdInvalidResponse.json; sourceTree = "<group>"; };
 		38450A6125514EA6000DCF6D /* PrebidNativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeViewController.swift; sourceTree = "<group>"; };
-		38481D26257505B600DE9737 /* PrebidNativeAdText.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PrebidNativeAdText.txt; sourceTree = "<group>"; };
 		398C46797E3B11F6932E9BDA /* Pods-PrebidDemoPod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod/Pods-PrebidDemoPod.debug.xcconfig"; sourceTree = "<group>"; };
 		3C3DD5560D8F19EE9F2158E7 /* Pods-PrebidDemoSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		5197A13C51AEAF0782B64F40 /* Pods-PrebidDemoPodCoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPodCoreTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPodCoreTests/Pods-PrebidDemoPodCoreTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -274,7 +274,7 @@
 		383E9CAC2571297E006FA6F4 /* Responses */ = {
 			isa = PBXGroup;
 			children = (
-				38481D26257505B600DE9737 /* PrebidNativeAdText.txt */,
+				380D2E692577A3F900507B76 /* PrebidNativeAd.json */,
 				383E9CF1257140E3006FA6F4 /* PrebidNativeAdInvalidResponse.json */,
 				383E9CB92571297E006FA6F4 /* PrebidNativeAdResponse.json */,
 			);
@@ -572,8 +572,8 @@
 			files = (
 				383E9CF2257140E3006FA6F4 /* PrebidNativeAdInvalidResponse.json in Resources */,
 				383E9CA62571287C006FA6F4 /* PrebidNativeAdView.xib in Resources */,
+				380D2E6A2577A3F900507B76 /* PrebidNativeAd.json in Resources */,
 				383E9CD62571297F006FA6F4 /* PrebidNativeAdResponse.json in Resources */,
-				38481D29257505B600DE9737 /* PrebidNativeAdText.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,8 +15,8 @@
 		380188F0255551890089CA84 /* TrackerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188EE255551890089CA84 /* TrackerManager.swift */; };
 		380188F22555588B0089CA84 /* TrackerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188F12555588B0089CA84 /* TrackerInfo.swift */; };
 		380188F32555588B0089CA84 /* TrackerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188F12555588B0089CA84 /* TrackerInfo.swift */; };
+		380D2E5B2577A3C400507B76 /* PrebidNativeAd.json in Resources */ = {isa = PBXBuildFile; fileRef = 380D2E5A2577A3C400507B76 /* PrebidNativeAd.json */; };
 		382B11E6256E933800B81CA9 /* PrebidNativeAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 382B11E5256E933800B81CA9 /* PrebidNativeAdResponse.json */; };
-		382B1201256EA10900B81CA9 /* PrebidNativeAdText.txt in Resources */ = {isa = PBXBuildFile; fileRef = 382B1200256EA10900B81CA9 /* PrebidNativeAdText.txt */; };
 		3868489E2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
 		3868489F2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
 		38F03B272576421400E026A2 /* CacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B262576421400E026A2 /* CacheManagerTests.swift */; };
@@ -154,8 +154,8 @@
 		380188EB255432820089CA84 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = Source/UIViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		380188EE255551890089CA84 /* TrackerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerManager.swift; sourceTree = "<group>"; };
 		380188F12555588B0089CA84 /* TrackerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerInfo.swift; sourceTree = "<group>"; };
+		380D2E5A2577A3C400507B76 /* PrebidNativeAd.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrebidNativeAd.json; sourceTree = "<group>"; };
 		382B11E5256E933800B81CA9 /* PrebidNativeAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrebidNativeAdResponse.json; sourceTree = "<group>"; };
-		382B1200256EA10900B81CA9 /* PrebidNativeAdText.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PrebidNativeAdText.txt; sourceTree = "<group>"; };
 		3868489D2551712800234314 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		38F03B262576421400E026A2 /* CacheManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerTests.swift; sourceTree = "<group>"; };
 		38F03B322576624C00E026A2 /* TrackerManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerManagerTests.swift; sourceTree = "<group>"; };
@@ -484,7 +484,7 @@
 		979177A02201B41500E624CE /* Responses */ = {
 			isa = PBXGroup;
 			children = (
-				382B1200256EA10900B81CA9 /* PrebidNativeAdText.txt */,
+				380D2E5A2577A3C400507B76 /* PrebidNativeAd.json */,
 				382B11E5256E933800B81CA9 /* PrebidNativeAdResponse.json */,
 				FA7C3EB8225E518000D2F128 /* noBidResponseRubicon.json */,
 				FA7C3EB6225E4C2200D2F128 /* responseRubiconPBM.json */,
@@ -676,8 +676,8 @@
 				F5400CB62209EBF50018F6B1 /* PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json in Resources */,
 				600CF13E220CDFA700C95176 /* responseinvalidSize.json in Resources */,
 				60C038392204F02C0082B32C /* responseAppNexusPBM.json in Resources */,
-				382B1201256EA10900B81CA9 /* PrebidNativeAdText.txt in Resources */,
 				FA7C3EB5225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json in Resources */,
+				380D2E5B2577A3C400507B76 /* PrebidNativeAd.json in Resources */,
 				FA7C3EB9225E518000D2F128 /* noBidResponseRubicon.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
