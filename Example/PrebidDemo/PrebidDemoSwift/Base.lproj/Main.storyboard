@@ -34,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jeh-3U-EHA">
-                                <rect key="frame" x="20" y="160" width="335" height="312"/>
+                                <rect key="frame" x="20" y="160" width="335" height="359"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ze7-Xk-t60">
                                         <rect key="frame" x="118" y="0.0" width="99" height="30"/>
@@ -83,6 +83,13 @@
                                         <state key="normal" title="Rewarded video"/>
                                         <connections>
                                             <segue destination="DWf-Za-wca" kind="show" id="hwa-a9-gmn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xoo-vz-hax">
+                                        <rect key="frame" x="117" y="329" width="101" height="30"/>
+                                        <state key="normal" title="Instream video"/>
+                                        <connections>
+                                            <segue destination="fzy-BX-rP8" kind="show" id="6P0-Fz-hsw"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -183,6 +190,61 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgK-Ok-t7y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="753" y="525"/>
+        </scene>
+        <!--Instream Video View Controller-->
+        <scene sceneID="zbl-LL-A6u">
+            <objects>
+                <viewController id="fzy-BX-rP8" customClass="InstreamVideoViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="akm-Ms-TqH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K3h-pN-8tm">
+                                <rect key="frame" x="37.5" y="208.5" width="300" height="250"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="79e-eM-b5E">
+                                        <rect key="frame" x="119.5" y="74" width="61" height="102"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="75"/>
+                                        <state key="normal" title="▶"/>
+                                        <connections>
+                                            <action selector="onPlayButtonTouch:" destination="fzy-BX-rP8" eventType="touchDown" id="2L0-9V-w62"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="SiQ-04-drd"/>
+                                    <constraint firstAttribute="height" constant="250" id="hgD-BZ-Yml"/>
+                                    <constraint firstItem="79e-eM-b5E" firstAttribute="centerX" secondItem="K3h-pN-8tm" secondAttribute="centerX" id="mOx-35-UvL"/>
+                                    <constraint firstItem="79e-eM-b5E" firstAttribute="centerY" secondItem="K3h-pN-8tm" secondAttribute="centerY" id="t0i-XA-Fmt"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKR-us-fJr">
+                                <rect key="frame" x="166.5" y="82" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Q9y-bU-RVQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="K3h-pN-8tm" firstAttribute="centerY" secondItem="akm-Ms-TqH" secondAttribute="centerY" id="F0z-RA-AEx"/>
+                            <constraint firstItem="K3h-pN-8tm" firstAttribute="centerX" secondItem="akm-Ms-TqH" secondAttribute="centerX" id="ZZV-lh-CC0"/>
+                            <constraint firstItem="eKR-us-fJr" firstAttribute="top" secondItem="Q9y-bU-RVQ" secondAttribute="top" constant="38" id="aUY-wP-s8p"/>
+                            <constraint firstItem="eKR-us-fJr" firstAttribute="centerX" secondItem="akm-Ms-TqH" secondAttribute="centerX" id="tML-t9-G6A"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="f5Q-7N-GXu"/>
+                    <connections>
+                        <outlet property="adServerLabel" destination="eKR-us-fJr" id="xDV-Dd-bUH"/>
+                        <outlet property="appInstreamView" destination="K3h-pN-8tm" id="b33-qE-ZT3"/>
+                        <outlet property="playButton" destination="79e-eM-b5E" id="XGC-DQ-2cN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V4N-fP-62I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-710" y="844"/>
         </scene>
         <!--Rewarded Video Controller-->
         <scene sceneID="o2o-ve-AgX">

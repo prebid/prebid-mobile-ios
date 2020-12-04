@@ -26,6 +26,7 @@
 		383E9CEC25712D06006FA6F4 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CEA25712D06006FA6F4 /* NSObject+Swizzling.m */; };
 		383E9CF2257140E3006FA6F4 /* PrebidNativeAdInvalidResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 383E9CF1257140E3006FA6F4 /* PrebidNativeAdInvalidResponse.json */; };
 		38450A6225514EA6000DCF6D /* PrebidNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38450A6125514EA6000DCF6D /* PrebidNativeViewController.swift */; };
+		6069716C25224655000EE732 /* InstreamVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6069716B25224655000EE732 /* InstreamVideoViewController.swift */; };
 		609C52C32395F17F001FA5BD /* NativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609C52C22395F17F001FA5BD /* NativeViewController.swift */; };
 		C7A1F0B942F152B467C71A70 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B64CCFCC9D513DEAA95A372 /* Pods_PrebidDemoObjectiveC.framework */; };
 		DADFB9F410588613B69275BC /* Pods_PrebidDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5976732304BFCF6E222040EE /* Pods_PrebidDemoTests.framework */; };
@@ -155,6 +156,7 @@
 		55EA1793258A4B187A300E8E /* Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift-PrebidDemoSwiftTests/Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		5976732304BFCF6E222040EE /* Pods_PrebidDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA527E4B4E05598C6D7B462 /* Pods-PrebidDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoTests/Pods-PrebidDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6069716B25224655000EE732 /* InstreamVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InstreamVideoViewController.swift; path = ../../../example/PrebidDemo/PrebidDemoSwift/InstreamVideoViewController.swift; sourceTree = "<group>"; };
 		609C52C22395F17F001FA5BD /* NativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NativeViewController.swift; path = ../../../example/PrebidDemo/PrebidDemoSwift/NativeViewController.swift; sourceTree = "<group>"; };
 		658745FEE114707D845BCCDA /* Pods-PrebidDemoPodTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPodTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPodTests/Pods-PrebidDemoPodTests.release.xcconfig"; sourceTree = "<group>"; };
 		6CD6AD93320513F54EF922A8 /* Pods-PrebidDemoPodTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPodTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPodTests/Pods-PrebidDemoPodTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				FA12E4CB231EB3F000CAA05B /* InterstitialViewController.swift */,
 				609C52C22395F17F001FA5BD /* NativeViewController.swift */,
 				FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */,
+				6069716B25224655000EE732 /* InstreamVideoViewController.swift */,
 				FA12E4BA231EB04100CAA05B /* Main.storyboard */,
 				FA12E4BD231EB04200CAA05B /* Assets.xcassets */,
 				FA12E4BF231EB04200CAA05B /* LaunchScreen.storyboard */,
@@ -699,6 +702,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA12E4D0231EB3F000CAA05B /* IndexController.swift in Sources */,
+				6069716C25224655000EE732 /* InstreamVideoViewController.swift in Sources */,
 				FA12E4D1231EB3F000CAA05B /* BannerController.swift in Sources */,
 				FA7E5530239E87FA0063B028 /* RewardedVideoController.swift in Sources */,
 				FA12E4B7231EB04100CAA05B /* AppDelegate.swift in Sources */,

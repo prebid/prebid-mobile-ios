@@ -18,4 +18,5 @@ import Foundation
 enum ErrorCode: Error {
     case prebidServerURLInvalid (String)
     case yearOfBirthInvalid
+    case invalidSize (String)
 }

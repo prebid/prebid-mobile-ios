@@ -78,6 +78,9 @@ class IndexController: UIViewController {
         case let vc as PrebidNativeViewController:
             vc.adServerName = adServerName
 
+        case let vc as InstreamVideoViewController:
+            vc.adServerName = adServerName
+
         default:
             print("wrong controller")
 
