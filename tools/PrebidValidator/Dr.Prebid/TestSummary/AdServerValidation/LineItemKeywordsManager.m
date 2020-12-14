@@ -185,6 +185,15 @@ NSString *const KeywordsManagerFakeCacheId = @"FakeCacheId_ShouldNotAffectTest";
     }
 
     keywords[@"hb_env"] = @"mobile-app";
+//    keywords[@"hb_pb"] = @"0.05";
+//    keywords[@"hb_pb_appnexus"] = @"0.05";
+//    keywords[@"hb_cache_host"] = @"prebid.sin3.adnxs.com";
+//    keywords[@"hb_cache_path_appnex"] = @"/pbc/v1/cache";
+//    keywords[@"hb_bidder"] = @"appnexus";
+//    keywords[@"hb_bidder_appnexus"] = @"appnexus";
+//    keywords[@"hb_cache_id_local"] = @"Prebid_226D28DA-21C3-49B0-BF2C-5F24B3FCBEF9";
+//    keywords[@"hb_env_appnexus"] = @"mobile-app";
+//    keywords[@"hb_cache_host_appnex"] = @"prebid.sin3.adnxs.com";
     return [keywords copy];
 }
 

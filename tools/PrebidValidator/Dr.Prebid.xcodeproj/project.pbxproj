@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38A7A32025879CFB00191AA1 /* PrebidNativeAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38A7A31F25879CFB00191AA1 /* PrebidNativeAdView.m */; };
+		38A7A32425879D2C00191AA1 /* PrebidNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38A7A32325879D2C00191AA1 /* PrebidNativeAdView.xib */; };
 		600073C621DE65CA00F4738B /* CustomTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 600073C521DE65CA00F4738B /* CustomTextView.m */; };
 		6013E447221C605500FEE2B1 /* DemandRequestBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6013E446221C605500FEE2B1 /* DemandRequestBuilder.m */; };
 		602CF6E221AEEEC10097F6C9 /* FooterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 602CF6E121AEEEC10097F6C9 /* FooterCell.m */; };
@@ -132,6 +134,9 @@
 
 /* Begin PBXFileReference section */
 		0D7DFE449C9FE5570D88DDD6 /* libPods-PrebidValidator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidValidator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		38A7A31E25879CFB00191AA1 /* PrebidNativeAdView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidNativeAdView.h; sourceTree = "<group>"; };
+		38A7A31F25879CFB00191AA1 /* PrebidNativeAdView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidNativeAdView.m; sourceTree = "<group>"; };
+		38A7A32325879D2C00191AA1 /* PrebidNativeAdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrebidNativeAdView.xib; sourceTree = "<group>"; };
 		4AB57692E142F2F12F162457 /* Pods-Dr.Prebid.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dr.Prebid.debug.xcconfig"; path = "../../Pods/Target Support Files/Pods-Dr.Prebid/Pods-Dr.Prebid.debug.xcconfig"; sourceTree = "<group>"; };
 		600073C421DE65CA00F4738B /* CustomTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTextView.h; sourceTree = "<group>"; };
 		600073C521DE65CA00F4738B /* CustomTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomTextView.m; sourceTree = "<group>"; };
@@ -356,6 +361,9 @@
 				60CFB28D2097820D006FCF7C /* AdServerValidation */,
 				60924F1221484A650019DD12 /* DemandValidation */,
 				F59C6B29212610B100A5B8AE /* SDKIntegrationValidation */,
+				38A7A31E25879CFB00191AA1 /* PrebidNativeAdView.h */,
+				38A7A31F25879CFB00191AA1 /* PrebidNativeAdView.m */,
+				38A7A32325879D2C00191AA1 /* PrebidNativeAdView.xib */,
 			);
 			path = TestSummary;
 			sourceTree = "<group>";
@@ -635,6 +643,7 @@
 				F5D1856721011571001DF99A /* info-prebid-server.html in Resources */,
 				F5D1856521011571001DF99A /* info-ad-server.html in Resources */,
 				60A2CC352123554200EA6ACF /* SectionCell.xib in Resources */,
+				38A7A32425879D2C00191AA1 /* PrebidNativeAdView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,6 +707,7 @@
 				600073C621DE65CA00F4738B /* CustomTextView.m in Sources */,
 				60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */,
 				609172F020F5314E001B94A8 /* HeaderCell.m in Sources */,
+				38A7A32025879CFB00191AA1 /* PrebidNativeAdView.m in Sources */,
 				60924F2221484A650019DD12 /* DemandViewController.m in Sources */,
 				60CFB2C22097820D006FCF7C /* QRCameraSwitchButton.m in Sources */,
 				F54C7F5A2149804300025B23 /* IntroViewController.m in Sources */,

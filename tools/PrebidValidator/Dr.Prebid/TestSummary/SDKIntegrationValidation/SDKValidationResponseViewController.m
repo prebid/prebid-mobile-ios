@@ -20,12 +20,15 @@
 #import "PBVSharedConstants.h"
 #import "MPInterstitialAdController.h"
 #import "CustomTextView.h"
+#import "PrebidNativeAdView.h"
+@import PrebidMobile;
 @import GoogleMobileAds;
 
 @interface SDKValidationResponseViewController ()
 @property PBVPrebidSDKValidator *validator;
 @property NSString *response;
 @property CustomTextView *pbmCreativeHTMLContent;
+
 @end
 
 @implementation SDKValidationResponseViewController
@@ -87,6 +90,14 @@
         adView.frame = CGRectMake((adContainer.frame.size.width - width)/2, 10,  width, height);
         [adContainer addSubview:adView];
         [container setContentSize:CGSizeMake(container.frame.size.width, 370 + height)];
+    }else if ([adFormatName isEqualToString:kInAppNativeString]) {
+        adContainer.frame = CGRectMake(0, 350, self.view.frame.size.width, 150 + self.view.frame.size.width * 400 / 600);
+        PrebidNativeAd *nativeAd = (PrebidNativeAd *)[self.validator getAdObject];
+        PrebidNativeAdView *adView = [self createPrebidNativeView];
+        adView.frame = CGRectMake(0, 0, adContainer.frame.size.width, adContainer.frame.size.height);
+        [adContainer addSubview:adView];
+        [container setContentSize:CGSizeMake(container.frame.size.width, 370 + adContainer.frame.size.height)];
+        [self renderPrebidNativeAd:nativeAd withAdView:adView];
     } else {
         adContainer.frame = CGRectMake(0, 350, self.view.frame.size.width, 150);
         UIButton *clickToShow = [[UIButton alloc] initWithFrame:CGRectMake((adContainer.frame.size.width - 320)/2, 50, 320, 50)];
@@ -142,6 +153,35 @@
             self.response = prettyPrintedJson;
         }
     }
+}
+
+-(PrebidNativeAdView *) createPrebidNativeView{
+    UINib *adNib = [UINib nibWithNibName:@"PrebidNativeAdView" bundle:[NSBundle bundleForClass:[self class]]];
+    NSArray *array = [adNib instantiateWithOwner:self options:nil];
+    PrebidNativeAdView *prebidNativeAdView = [array firstObject];
+//    prebidNativeAdView.frame = CGRectMake(0, 0, self.view.frame.size.width, 150 + self.view.frame.size.width * 400 / 600);
+//    [self.view addSubview:prebidNativeAdView];
+    return  prebidNativeAdView;
+}
+
+-(void) renderPrebidNativeAd:(PrebidNativeAd *) prebidNativeAd withAdView:(PrebidNativeAdView *)prebidNativeAdView{
+    prebidNativeAdView.titleLabel.text = prebidNativeAd.title;
+    prebidNativeAdView.bodyLabel.text = prebidNativeAd.text;
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        NSData * dataIcon = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: prebidNativeAd.iconUrl]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            prebidNativeAdView.iconImageView.image = [UIImage imageWithData: dataIcon];
+        });
+    });
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        NSData * dataMainImage = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: prebidNativeAd.imageUrl]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            prebidNativeAdView.mainImageView.image = [UIImage imageWithData: dataMainImage];
+        });
+    });
+    [prebidNativeAdView.callToActionButton setTitle:prebidNativeAd.callToAction forState:UIControlStateNormal];
+    prebidNativeAdView.sponsoredLabel.text = prebidNativeAd.sponsoredBy;
+    
 }
 
 @end

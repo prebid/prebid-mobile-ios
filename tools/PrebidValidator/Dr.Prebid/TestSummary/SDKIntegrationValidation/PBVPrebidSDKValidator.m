@@ -21,19 +21,15 @@
 #import "MPWebView.h"
 #import <WebKit/WebKit.h>
 #import "MPInterstitialAdController.h"
-#import <GoogleMobileAds/DFPBannerView.h>
-#import <GoogleMobileAds/DFPInterstitial.h>
+#import "MoPub.h"
 #import "PBViewTool.h"
 #import "SDKValidationURLProtocol.h"
 #import "AppDelegate.h"
 
+@import GoogleMobileAds;
 @import PrebidMobile;
 
-@interface PBVPrebidSDKValidator() <MPAdViewDelegate,
-                                    MPInterstitialAdControllerDelegate,
-                                    GADBannerViewDelegate,
-                                    GADInterstitialDelegate,
-                                    SDKValidationURLProtocolDelegate>
+@interface PBVPrebidSDKValidator() <MPAdViewDelegate,MPInterstitialAdControllerDelegate,GADBannerViewDelegate,GADInterstitialDelegate,GADNativeCustomTemplateAdLoaderDelegate,DFPBannerAdLoaderDelegate,SDKValidationURLProtocolDelegate,PrebidNativeAdDelegate>
 @property (nonatomic, readwrite) CLLocationManager *locationManager;
 @property Boolean initialPrebidServerRequestReceived;
 @property Boolean initialPrebidServerResponseReceived;
@@ -46,8 +42,11 @@
 @property (nonatomic, strong) DFPBannerView *dfpView;
 @property (nonatomic, strong) DFPInterstitial *dfpInterstitial;
 @property (nonatomic, strong) DFPRequest *request;
+@property (nonatomic, strong) GADAdLoader *adLoader;
 @property (nonatomic, strong) MPAdView *mopubAdView;
 @property (nonatomic, strong) MPInterstitialAdController *mopubInterstitial;
+@property (nonatomic, strong) MPNativeAdRequest *mpNative;
+@property (nonatomic, strong) MPNativeAd *mpAd;
 @end
 
 @implementation PBVPrebidSDKValidator
@@ -101,9 +100,10 @@
             [( (BannerAdUnit *) self.adUnit) addAdditionalSizeWithSizes:array];
         } else if ([adFormatName isEqualToString:kInterstitialString]){
             self.adUnit = [[InterstitialAdUnit alloc] initWithConfigId:configId];
-        } else if ([adFormatName isEqualToString:kNativeString]){
-            NativeRequest *request = ((AppDelegate*)[UIApplication sharedApplication].delegate).nativeRequest;
-            request.configId = configId;
+        } else if ([adFormatName isEqualToString:kBannerNativeString] || [adFormatName isEqualToString:kInAppNativeString]){
+            //NativeRequest *request = ((AppDelegate*)[UIApplication sharedApplication].delegate).nativeRequest;
+            NativeRequest *request = [self loadNativeAssetsWithConfigId:configId];
+//            request.configId = configId;
             self.adUnit = request;
         } else {
             NSLog(@"Native and video not supported for now.");
@@ -132,6 +132,29 @@
     } @finally {
         return YES;
     }
+}
+
+-(NativeRequest *) loadNativeAssetsWithConfigId:(NSString *)configId{
+    NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
+    image.type = ImageAsset.Main;
+    
+    NativeAssetImage *icon = [[NativeAssetImage alloc] initWithMinimumWidth:20 minimumHeight:20 required:true];
+    icon.type = ImageAsset.Icon;
+    
+    NativeAssetTitle *title = [[NativeAssetTitle alloc] initWithLength:90 required:true];
+    NativeAssetData *body = [[NativeAssetData alloc] initWithType:DataAssetDescription required:true];
+    NativeAssetData *cta = [[NativeAssetData alloc] initWithType:DataAssetCtatext required:true];
+    NativeAssetData *sponsored = [[NativeAssetData alloc] initWithType:DataAssetSponsored required:true];
+    
+    NativeRequest *nativeUnit = [[NativeRequest alloc] initWithConfigId:configId assets:@[icon,title,image,body,cta,sponsored]];
+    nativeUnit.context = ContextType.Social;
+    nativeUnit.placementType = PlacementType.FeedContent;
+    nativeUnit.contextSubType = ContextSubType.Social;
+    
+    NativeEventTracker *eventTrackers = [[NativeEventTracker alloc] initWithEvent:EventType.Impression methods:@[EventTracking.Image, EventTracking.js]];
+    nativeUnit.eventtrackers = @[eventTrackers];
+    return  nativeUnit;;
+    
 }
 
 - (void)setPrebidTargetingParams {
@@ -175,6 +198,24 @@
                 [self.mopubInterstitial loadAd];
             }];
         }
+        else if ([adFormatName isEqualToString:kInAppNativeString]) {
+            MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
+            MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
+            self.mpNative = [MPNativeAdRequest requestWithAdUnitIdentifier:adUnitID rendererConfigurations:@[config]];
+            MPNativeAdRequestTargeting *targeting = [MPNativeAdRequestTargeting targeting];
+            self.mpNative.targeting = targeting;
+            __weak PBVPrebidSDKValidator *weakSelf = self;
+            [self.adUnit fetchDemandWithAdObject:self.mpNative completion:^(enum ResultCode result) {
+                PBVPrebidSDKValidator *strongSelf = weakSelf;
+                [strongSelf.mpNative startWithCompletionHandler:^(MPNativeAdRequest *request, MPNativeAd *response, NSError *error) {
+                    if (error == nil) {
+                        self.mpAd = response;
+                        Utils.shared.delegate = self;
+                        [Utils.shared findNativeWithAdObject:self.mpAd];
+                    }
+                }];
+            }];            
+        }
             
     } else if ([adServerName isEqualToString:kDFPString]) {
         if ([adFormatName isEqualToString:kBannerString]) {
@@ -200,7 +241,7 @@
             [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
                 [self.dfpInterstitial loadRequest:self.request];
             }];
-        } else if ([adFormatName isEqualToString:kNativeString]) {
+        } else if ([adFormatName isEqualToString:kBannerNativeString]) {
             self.dfpView = [[DFPBannerView alloc] initWithAdSize:kGADAdSizeFluid];
             self.dfpView.adUnitID = adUnitID;
             self.dfpView.delegate = self;
@@ -210,6 +251,17 @@
             GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[kDFPSimulatorID];
             [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
                 [self.dfpView loadRequest:self.request];
+            }];
+            
+        } else if ([adFormatName isEqualToString:kInAppNativeString]) {
+            self.request = [[DFPRequest alloc] init];
+            GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[kDFPSimulatorID];
+            __weak PBVPrebidSDKValidator *weakSelf = self;
+            [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
+                PBVPrebidSDKValidator *strongSelf = weakSelf;
+                strongSelf.adLoader = [[GADAdLoader alloc] initWithAdUnitID:adUnitID rootViewController:(UIViewController *)strongSelf.delegate adTypes:@[kGADAdLoaderAdTypeDFPBanner, kGADAdLoaderAdTypeNativeCustomTemplate] options:@[]];
+                strongSelf.adLoader.delegate = strongSelf;
+                [strongSelf.adLoader loadRequest:strongSelf.request];
             }];
             
         }
@@ -264,6 +316,39 @@
     [self.delegate adServerResponseContainsPBMCreative:NO];
 }
 
+#pragma mark :- DFP Native Delegate
+
+- (void)adLoader:(nonnull GADAdLoader *)adLoader
+didFailToReceiveAdWithError:(nonnull GADRequestError *)error{
+    [self.delegate adServerResponseContainsPBMCreative:NO];
+}
+
+- (nonnull NSArray<NSString *> *)nativeCustomTemplateIDsForAdLoader:(nonnull GADAdLoader *)adLoader{
+    return @[@"11963183"];
+}
+
+- (void)adLoader:(nonnull GADAdLoader *)adLoader
+didReceiveNativeCustomTemplateAd:(nonnull GADNativeCustomTemplateAd *)nativeCustomTemplateAd{
+    Utils.shared.delegate = self;
+    [Utils.shared findNativeWithAdObject:nativeCustomTemplateAd];
+}
+
+- (nonnull NSArray<NSValue *> *)validBannerSizesForAdLoader:(nonnull GADAdLoader *)adLoader{
+   return @[NSValueFromGADAdSize(kGADAdSizeBanner)];
+}
+
+#pragma mark :- PrebidNativeAdDelegate Delegate
+
+- (void)prebidNativeAdLoadedWithAd:(PrebidNativeAd *)ad{
+    self.adObject = ad;
+    [self.delegate adServerResponseContainsPBMCreative:YES];
+}
+- (void)prebidNativeAdNotFound{
+    [self.delegate adServerResponseContainsPBMCreative:NO];
+}
+- (void)prebidNativeAdNotValid{
+    [self.delegate adServerResponseContainsPBMCreative:NO];
+}
 
 #pragma mark - MoPub delegate
 - (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial

@@ -63,9 +63,10 @@
         
     } else if([adFormatName isEqualToString:kInterstitialString]) {
         adUnit = [[InterstitialAdUnit alloc] initWithConfigId:configId];
-    } else if([adFormatName isEqualToString:kNativeString]) {
+    } else if([adFormatName isEqualToString:kBannerNativeString] || [adFormatName isEqualToString:kInAppNativeString]) {
         
-        NativeRequest *request = ((AppDelegate*)[UIApplication sharedApplication].delegate).nativeRequest;
+//        NativeRequest *request = ((AppDelegate*)[UIApplication sharedApplication].delegate).nativeRequest;
+        NativeRequest *request = [self loadNativeAssetsWithConfigId:configId];
         request.configId = configId;
         [array addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];
         adUnit = request;
@@ -258,4 +259,26 @@
     [dataTask resume];
 }
 
+-(NativeRequest *) loadNativeAssetsWithConfigId:(NSString *)configId{
+    NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
+    image.type = ImageAsset.Main;
+    
+    NativeAssetImage *icon = [[NativeAssetImage alloc] initWithMinimumWidth:20 minimumHeight:20 required:true];
+    icon.type = ImageAsset.Icon;
+    
+    NativeAssetTitle *title = [[NativeAssetTitle alloc] initWithLength:90 required:true];
+    NativeAssetData *body = [[NativeAssetData alloc] initWithType:DataAssetDescription required:true];
+    NativeAssetData *cta = [[NativeAssetData alloc] initWithType:DataAssetCtatext required:true];
+    NativeAssetData *sponsored = [[NativeAssetData alloc] initWithType:DataAssetSponsored required:true];
+    
+    NativeRequest *nativeUnit = [[NativeRequest alloc] initWithConfigId:configId assets:@[icon,title,image,body,cta,sponsored]];
+    nativeUnit.context = ContextType.Social;
+    nativeUnit.placementType = PlacementType.FeedContent;
+    nativeUnit.contextSubType = ContextSubType.Social;
+    
+    NativeEventTracker *eventTrackers = [[NativeEventTracker alloc] initWithEvent:EventType.Impression methods:@[EventTracking.Image, EventTracking.js]];
+    nativeUnit.eventtrackers = @[eventTrackers];
+    return  nativeUnit;;
+    
+}
 @end
