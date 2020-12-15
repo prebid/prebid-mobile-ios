@@ -210,7 +210,7 @@ class AdViewUtilsTests: XCTestCase {
         
         wkWebView.loadHTMLString(html, baseURL: nil)
         
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         wkWebView.navigationDelegate = nil
     }
     
@@ -233,7 +233,7 @@ class AdViewUtilsTests: XCTestCase {
         
         // when
         AdViewUtils.findPrebidCreativeSize(view, success: success, failure: failure)
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         // then
         XCTAssertNil(size)
@@ -261,7 +261,7 @@ class AdViewUtilsTests: XCTestCase {
         
         // when
         AdViewUtils.findPrebidCreativeSize(view, success: success, failure: failure)
-        waitForExpectations(timeout: 5, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         // then
         XCTAssertNotNil(result)
