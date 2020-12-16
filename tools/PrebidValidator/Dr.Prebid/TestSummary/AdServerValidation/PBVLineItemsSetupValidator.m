@@ -31,14 +31,17 @@
 @interface PBVLineItemsSetupValidator() <MPAdViewDelegate,
                                          MPInterstitialAdControllerDelegate,
                                          GADBannerViewDelegate,
-                                         GADInterstitialDelegate,GADNativeCustomTemplateAdLoaderDelegate,DFPBannerAdLoaderDelegate,
-                                        AdServerValidationURLProtocolDelegate,PrebidNativeAdDelegate>
+                                         GADInterstitialDelegate,
+                                         GADNativeCustomTemplateAdLoaderDelegate,
+                                         DFPBannerAdLoaderDelegate,
+                                         AdServerValidationURLProtocolDelegate>
 @property id adObject;
 @property NSString *requestUUID;
 @property NSString *adServerResponseString;
 @property NSString *adServerRequestString;
 @property NSString *adServerRequestPostData;
 @property NSDictionary *keywords;
+@property (nonatomic, strong) GADAdLoader *adLoader;
 @end
 
 @implementation PBVLineItemsSetupValidator
@@ -170,12 +173,13 @@
             request.customTargeting = self.keywords;
             [interstitial loadRequest:request];
         } else if ([adFormatName isEqualToString:kInAppNativeString]){
-            GADAdLoader *adLoader = [[GADAdLoader alloc] initWithAdUnitID:adUnitID rootViewController:(UIViewController *) self.delegate adTypes:@[kGADAdLoaderAdTypeDFPBanner, kGADAdLoaderAdTypeNativeCustomTemplate] options:@[]];
-            adLoader.delegate = self;
+            GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[kDFPSimulatorID];
+            self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:adUnitID rootViewController:(UIViewController *) self.delegate adTypes:@[kGADAdLoaderAdTypeDFPBanner, kGADAdLoaderAdTypeNativeCustomTemplate] options:@[]];
+            self.adLoader.delegate = self;
             DFPRequest *request = [[DFPRequest alloc] init];
             self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
             request.customTargeting = self.keywords;
-            [adLoader loadRequest:request];
+            [self.adLoader loadRequest:request];
         }
     }
 }
@@ -253,6 +257,11 @@ didReceiveNativeCustomTemplateAd:(nonnull GADNativeCustomTemplateAd *)nativeCust
 - (nonnull NSArray<NSValue *> *)validBannerSizesForAdLoader:(nonnull GADAdLoader *)adLoader{
    return @[NSValueFromGADAdSize(kGADAdSizeBanner)];
 }
+
+- (void)adLoader:(nonnull GADAdLoader *)adLoader didReceiveDFPBannerView:(nonnull DFPBannerView *)bannerView {
+    [self.delegate adServerRespondedWithPrebidCreative];
+}
+
 
 #pragma mark MoPub
 - (NSString *) formatMoPubKeywordStringFromDictionary:(NSDictionary *) keywordsDict

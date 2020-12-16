@@ -64,8 +64,6 @@
     } else if([adFormatName isEqualToString:kInterstitialString]) {
         adUnit = [[InterstitialAdUnit alloc] initWithConfigId:configId];
     } else if([adFormatName isEqualToString:kBannerNativeString] || [adFormatName isEqualToString:kInAppNativeString]) {
-        
-//        NativeRequest *request = ((AppDelegate*)[UIApplication sharedApplication].delegate).nativeRequest;
         NativeRequest *request = [self loadNativeAssetsWithConfigId:configId];
         request.configId = configId;
         [array addObject:[NSValue valueWithCGSize:CGSizeMake(1, 1)]];

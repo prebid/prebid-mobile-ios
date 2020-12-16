@@ -29,7 +29,14 @@
 @import GoogleMobileAds;
 @import PrebidMobile;
 
-@interface PBVPrebidSDKValidator() <MPAdViewDelegate,MPInterstitialAdControllerDelegate,GADBannerViewDelegate,GADInterstitialDelegate,GADNativeCustomTemplateAdLoaderDelegate,DFPBannerAdLoaderDelegate,SDKValidationURLProtocolDelegate,PrebidNativeAdDelegate>
+@interface PBVPrebidSDKValidator() <MPAdViewDelegate,
+                                    MPInterstitialAdControllerDelegate,
+                                    GADBannerViewDelegate,
+                                    GADInterstitialDelegate,
+                                    GADNativeCustomTemplateAdLoaderDelegate,
+                                    DFPBannerAdLoaderDelegate,
+                                    SDKValidationURLProtocolDelegate,
+                                    PrebidNativeAdDelegate>
 @property (nonatomic, readwrite) CLLocationManager *locationManager;
 @property Boolean initialPrebidServerRequestReceived;
 @property Boolean initialPrebidServerResponseReceived;
@@ -101,9 +108,7 @@
         } else if ([adFormatName isEqualToString:kInterstitialString]){
             self.adUnit = [[InterstitialAdUnit alloc] initWithConfigId:configId];
         } else if ([adFormatName isEqualToString:kBannerNativeString] || [adFormatName isEqualToString:kInAppNativeString]){
-            //NativeRequest *request = ((AppDelegate*)[UIApplication sharedApplication].delegate).nativeRequest;
             NativeRequest *request = [self loadNativeAssetsWithConfigId:configId];
-//            request.configId = configId;
             self.adUnit = request;
         } else {
             NSLog(@"Native and video not supported for now.");
