@@ -90,9 +90,10 @@ import UIKit
                 }
             }
             
+            let price = response["price"] as? Double
+            
             //clickUrl
             if let link = json["link"] as? [String : AnyObject], var url = link["url"] as? String {
-                let price = response["price"] as? Double
                 if (url.contains("{AUCTION_PRICE}") && price != nil){
                     url = url.replacingOccurrences(of: "{AUCTION_PRICE}", with: "\(price ?? 0.0)")
                 }
@@ -101,7 +102,10 @@ import UIKit
             //eventtrackers
             if let eventtrackers = json["eventtrackers"] as? [AnyObject] {
                 for eventtracker in eventtrackers {
-                    if let eventtracker = eventtracker as? [String : AnyObject], let url = eventtracker["url"] as? String  {
+                    if let eventtracker = eventtracker as? [String : AnyObject], var url = eventtracker["url"] as? String  {
+                        if (url.contains("{AUCTION_PRICE}") && price != nil){
+                            url = url.replacingOccurrences(of: "{AUCTION_PRICE}", with: "\(price ?? 0.0)")
+                        }
                         ad.impTrackers.append(url)
                     }
                 }

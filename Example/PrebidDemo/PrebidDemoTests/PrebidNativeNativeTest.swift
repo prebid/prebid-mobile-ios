@@ -45,7 +45,7 @@ class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAd
         // Put setup code here. This method is called before the invocation of each test method in the class.
         Prebid.shared.prebidServerHost = .Appnexus
         Prebid.shared.prebidServerAccountId = Constants.PBS_ACCOUNT_ID_APPNEXUS
-        timeoutForImpbusRequest = 10.0
+        timeoutForImpbusRequest = 20.0
         PBHTTPStubbingManager.shared().enable()
         PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
         PBHTTPStubbingManager.shared().broadcastRequests = true
@@ -339,7 +339,7 @@ class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAd
         renderPrebidNativeAd()
         self.prebidNativeAdLoadedExpectation?.fulfill()
         if self.adDidClickAPIForNativeAd != nil {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
                 self.prebidNativeAdView?.callToActionButton.sendActions(for: .touchUpInside)
             })
         }
