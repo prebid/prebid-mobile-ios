@@ -377,6 +377,29 @@ public class Utils: NSObject {
         }
     }
     
+    func getStringFromDictionary(_ dic: [String:AnyObject]) -> String? {
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: dic, options: [])
+            let text = String(data: jsonData, encoding: .utf8)
+            return text
+        } catch {
+            print(error.localizedDescription)
+        }
+        return nil
+    }
+    
+    func getDictionaryFromString(_ text: String) -> [String:AnyObject]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject]
+                return json
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+    
 }
 
 /**

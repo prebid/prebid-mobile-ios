@@ -43,7 +43,7 @@ import UIKit
     
     public static func  create(cacheId: String)-> PrebidNativeAd? {
         
-        guard let content = CacheManager.shared.get(cacheId: cacheId), let response = PrebidNativeAd.getDictionaryFromString(content), let adm = response["adm"] as? String, let data = adm.data(using: .utf8) else {
+        guard let content = CacheManager.shared.get(cacheId: cacheId), let response = Utils.shared.getDictionaryFromString(content), let adm = response["adm"] as? String, let data = adm.data(using: .utf8) else {
             Log.error("Invalid prebid native contents")
             return nil
         }
@@ -296,18 +296,6 @@ import UIKit
         }else{
             return false
         }
-    }
-    
-    private static func getDictionaryFromString(_ text: String) -> [String:AnyObject]? {
-        if let data = text.data(using: .utf8) {
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject]
-                return json
-            } catch {
-                print(error.localizedDescription)
-            }
-        }
-        return nil
     }
     
 }

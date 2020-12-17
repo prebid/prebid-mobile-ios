@@ -117,7 +117,7 @@ class BidManager: NSObject {
                         }
                         // Caching the response only for Native
                         if let adType = prebidDict["type"] as? String, adType == "native", containTopBid == true {
-                            if let bid = bid as? [String : AnyObject], let bidTxt = getStringFromDictionary(bid),  let cacheId = CacheManager.shared.save(content: bidTxt), !cacheId.isEmpty{
+                            if let bid = bid as? [String : AnyObject], let bidTxt = Utils.shared.getStringFromDictionary(bid),  let cacheId = CacheManager.shared.save(content: bidTxt), !cacheId.isEmpty{
                                 bidDict["hb_cache_id_local"] = cacheId as AnyObject
                             }
                         }
@@ -146,17 +146,6 @@ class BidManager: NSObject {
             return ([:], ResultCode.prebidDemandNoBids)
         }
 
-    }
-    
-    func getStringFromDictionary(_ dic: [String:AnyObject]) -> String? {
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: dic, options: [])
-            let text = String(data: jsonData, encoding: .utf8)
-            return text
-        } catch {
-            print(error.localizedDescription)
-        }
-        return nil
     }
     
     func getCurrentMillis() -> Int64 {
