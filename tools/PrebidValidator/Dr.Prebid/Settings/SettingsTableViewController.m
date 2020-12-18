@@ -712,7 +712,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     UISegmentedControl *adTypeSegment = (UISegmentedControl *) sender;
     
     if(adTypeSegment.selectedSegmentIndex == 1){
-        if([self.chosenAdFormat isEqualToString:kNativeString]){
+        if([self.chosenAdFormat isEqualToString:kBannerNativeString]){
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"AdFormat not supported" message:@"MoPub doesnt support native styles." preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction* noButton = [UIAlertAction
             actionWithTitle:@"Ok"
@@ -827,8 +827,8 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
     if(!self.hideCustomHost &&(self.customHost == nil || ([self.customHost stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length <= 0)))
         return FALSE;
     
-    if([self.chosenAdFormat isEqualToString:kNativeString]){
-        NativeRequest *request = ((AppDelegate*)[UIApplication sharedApplication].delegate).nativeRequest;
+    if([self.chosenAdFormat isEqualToString:kBannerNativeString] || [self.chosenAdFormat isEqualToString:kInAppNativeString]){
+        NativeRequest *request = [self loadNativeAssetsWithConfigId:self.configID];
         
         if(request == nil)
             return FALSE;
@@ -866,6 +866,29 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
      NSArray *adServerItems = @[kPrebidHostAppnexus, kPrebidHostRubicon, kPrebidHostCustom];
     return adServerItems[row];
+}
+
+-(NativeRequest *) loadNativeAssetsWithConfigId:(NSString *)configId{
+    NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
+    image.type = ImageAsset.Main;
+    
+    NativeAssetImage *icon = [[NativeAssetImage alloc] initWithMinimumWidth:20 minimumHeight:20 required:true];
+    icon.type = ImageAsset.Icon;
+    
+    NativeAssetTitle *title = [[NativeAssetTitle alloc] initWithLength:90 required:true];
+    NativeAssetData *body = [[NativeAssetData alloc] initWithType:DataAssetDescription required:true];
+    NativeAssetData *cta = [[NativeAssetData alloc] initWithType:DataAssetCtatext required:true];
+    NativeAssetData *sponsored = [[NativeAssetData alloc] initWithType:DataAssetSponsored required:true];
+    
+    NativeRequest *nativeUnit = [[NativeRequest alloc] initWithConfigId:configId assets:@[icon,title,image,body,cta,sponsored]];
+    nativeUnit.context = ContextType.Social;
+    nativeUnit.placementType = PlacementType.FeedContent;
+    nativeUnit.contextSubType = ContextSubType.Social;
+    
+    NativeEventTracker *eventTrackers = [[NativeEventTracker alloc] initWithEvent:EventType.Impression methods:@[EventTracking.Image, EventTracking.js]];
+    nativeUnit.eventtrackers = @[eventTrackers];
+    return  nativeUnit;;
+    
 }
 
 @end

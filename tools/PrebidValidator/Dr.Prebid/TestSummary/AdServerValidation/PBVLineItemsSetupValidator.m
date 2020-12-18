@@ -21,6 +21,7 @@
 #import "MPAdView.h"
 #import "MPInterstitialAdController.h"
 #import "MPInterstitialAdManager.h"
+#import "MoPub.h"
 #import "PBViewTool.h"
 #import "AdServerValidationURLProtocol.h"
 #import "NSURLSessionConfiguration+PBProtocols.h"
@@ -31,13 +32,16 @@
                                          MPInterstitialAdControllerDelegate,
                                          GADBannerViewDelegate,
                                          GADInterstitialDelegate,
-                                        AdServerValidationURLProtocolDelegate>
+                                         GADNativeCustomTemplateAdLoaderDelegate,
+                                         DFPBannerAdLoaderDelegate,
+                                         AdServerValidationURLProtocolDelegate>
 @property id adObject;
 @property NSString *requestUUID;
 @property NSString *adServerResponseString;
 @property NSString *adServerRequestString;
 @property NSString *adServerRequestPostData;
 @property NSDictionary *keywords;
+@property (nonatomic, strong) GADAdLoader *adLoader;
 @end
 
 @implementation PBVLineItemsSetupValidator
@@ -127,14 +131,31 @@
             MPInterstitialAdController *interstitial = [self createMPInterstitialAdControllerWithAdUnitId:adUnitID WithKeywords:self.keywords];
             self.adObject = interstitial;
             [interstitial loadAd];
-        } else if ([adFormatName isEqualToString:kNativeString]){
+        } else if ([adFormatName isEqualToString:kBannerNativeString]){
             self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
             MPInterstitialAdController *interstitial = [self createMPInterstitialAdControllerWithAdUnitId:adUnitID WithKeywords:self.keywords];
             self.adObject = interstitial;
             [interstitial loadAd];
+        } else if ([adFormatName isEqualToString:kInAppNativeString]) {
+            MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
+            MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
+            MPNativeAdRequest *mpNative = [MPNativeAdRequest requestWithAdUnitIdentifier:adUnitID rendererConfigurations:@[config]];
+            MPNativeAdRequestTargeting *targeting = [MPNativeAdRequestTargeting targeting];
+            self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
+            NSString *keywordsString = [self formatMoPubKeywordStringFromDictionary:self.keywords];
+            targeting.keywords = keywordsString;
+            mpNative.targeting = targeting;
+            [mpNative startWithCompletionHandler:^(MPNativeAdRequest *request, MPNativeAd *response, NSError *error) {
+                if (error == nil) {
+                    [self.delegate adServerRespondedWithPrebidCreative];
+                }else{
+                    [self.delegate adServerDidNotRespondWithPrebidCreative:error];
+                }
+            }];
+
         }
     } else if([adServerName isEqualToString:kDFPString]){
-        if ([adFormatName isEqualToString:kBannerString] || [adFormatName isEqualToString:kNativeString]) {
+        if ([adFormatName isEqualToString:kBannerString] || [adFormatName isEqualToString:kBannerNativeString]) {
             DFPBannerView *adView = [self createDFPBannerViewWithAdUnitId:adUnitID WithSize:GADAdSize];
             // hack to attach to screen
             adView.frame = CGRectMake(-500, -500 , GADAdSize.size.width, GADAdSize.size.height);
@@ -151,6 +172,14 @@
             DFPRequest *request = [DFPRequest request];
             request.customTargeting = self.keywords;
             [interstitial loadRequest:request];
+        } else if ([adFormatName isEqualToString:kInAppNativeString]){
+            GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[kDFPSimulatorID];
+            self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:adUnitID rootViewController:(UIViewController *) self.delegate adTypes:@[kGADAdLoaderAdTypeDFPBanner, kGADAdLoaderAdTypeNativeCustomTemplate] options:@[]];
+            self.adLoader.delegate = self;
+            DFPRequest *request = [[DFPRequest alloc] init];
+            self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
+            request.customTargeting = self.keywords;
+            [self.adLoader loadRequest:request];
         }
     }
 }
@@ -208,6 +237,31 @@
 {
     [self.delegate adServerDidNotRespondWithPrebidCreative:error];
 }
+
+#pragma mark :- DFP Native Delegate
+
+- (void)adLoader:(nonnull GADAdLoader *)adLoader
+didFailToReceiveAdWithError:(nonnull GADRequestError *)error{
+    [self.delegate adServerDidNotRespondWithPrebidCreative:error];
+}
+
+- (nonnull NSArray<NSString *> *)nativeCustomTemplateIDsForAdLoader:(nonnull GADAdLoader *)adLoader{
+    return @[@"11963183"];
+}
+
+- (void)adLoader:(nonnull GADAdLoader *)adLoader
+didReceiveNativeCustomTemplateAd:(nonnull GADNativeCustomTemplateAd *)nativeCustomTemplateAd{
+    [self.delegate adServerRespondedWithPrebidCreative];
+}
+
+- (nonnull NSArray<NSValue *> *)validBannerSizesForAdLoader:(nonnull GADAdLoader *)adLoader{
+   return @[NSValueFromGADAdSize(kGADAdSizeBanner)];
+}
+
+- (void)adLoader:(nonnull GADAdLoader *)adLoader didReceiveDFPBannerView:(nonnull DFPBannerView *)bannerView {
+    [self.delegate adServerRespondedWithPrebidCreative];
+}
+
 
 #pragma mark MoPub
 - (NSString *) formatMoPubKeywordStringFromDictionary:(NSDictionary *) keywordsDict
@@ -305,5 +359,6 @@
 {
     return self.adServerRequestPostData;
 }
+
 @end
 

@@ -45,7 +45,8 @@ NSString *__nonnull const kAdServerResponseCreative = @"";
 
 NSString *__nonnull const kBannerString = @"Banner";
 NSString *__nonnull const kInterstitialString = @"Interstitial";
-NSString *__nonnull const kNativeString = @"Native";
+NSString *__nonnull const kBannerNativeString = @"Banner Native";
+NSString *__nonnull const kInAppNativeString = @"In App Native";
 NSString *__nonnull const kVideoString = @"Video";
 
 NSString *__nonnull const kSizeString320x50 = @"320x50";

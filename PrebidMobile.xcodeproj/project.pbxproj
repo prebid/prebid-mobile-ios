@@ -749,7 +749,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCE4276E2550436F00C95FAD /* PrebidNativeAd.swift in Sources */,
-				60BB98D9254B241D00D94C12 /* IMAUtils.swift in Sources */,
 				FAEBF2A0237EC7B1006BA972 /* StorageUtils.swift in Sources */,
 				380188F0255551890089CA84 /* TrackerManager.swift in Sources */,
 				FA29A3D5232255DF00F13F61 /* Reachability.swift in Sources */,

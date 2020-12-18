@@ -45,7 +45,8 @@ extern NSString *__nonnull const kAdServerResponseCreative;
 
 extern NSString *__nonnull const kBannerString;
 extern NSString *__nonnull const kInterstitialString;
-extern NSString *__nonnull const kNativeString;
+extern NSString *__nonnull const kBannerNativeString;
+extern NSString *__nonnull const kInAppNativeString;
 extern NSString *__nonnull const kVideoString;
 
 extern NSString *__nonnull const kSizeString320x50;

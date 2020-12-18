@@ -33,7 +33,7 @@
     doneButton.title = @"Done";
     self.navigationItem.rightBarButtonItem = doneButton;
     self.navigationItem.hidesBackButton = YES;
-    self.formatArray= @[kBannerString, kInterstitialString, kNativeString, kVideoString];
+    self.formatArray= @[kBannerString, kInterstitialString, kBannerNativeString, kInAppNativeString, kVideoString];
     UITableView *tableView = [[UITableView alloc] init];
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     tableView.delegate = self;
