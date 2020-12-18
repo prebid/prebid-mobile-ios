@@ -22,6 +22,7 @@ class TrackerInfo: NSObject {
     var expired = false
     var numberOfTimesFired = 0
     private var expirationTimer : Timer?
+    private static let kTrackerExpirationInterval : TimeInterval = 3600
     
     init(URL: String) {
         self.URL = URL
@@ -30,7 +31,7 @@ class TrackerInfo: NSObject {
         createExpirationTimer()
     }
     func createExpirationTimer(){
-        expirationTimer = Timer.scheduledTimer(withTimeInterval: Constants.kANTrackerExpirationInterval, repeats: false, block: { [weak self] timer in
+        expirationTimer = Timer.scheduledTimer(withTimeInterval: TrackerInfo.kTrackerExpirationInterval, repeats: false, block: { [weak self] timer in
             timer.invalidate()
             guard let strongSelf = self else {
                 Log.debug("FAILED TO ACQUIRE strongSelf for TrackerInfo")

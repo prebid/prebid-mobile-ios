@@ -17,7 +17,7 @@ import XCTest
 @testable import PrebidMobile
 @testable import PrebidDemoSwift
 
-class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAdEventDelegate {
+class PrebidNativeNativeTest: XCTestCase, NativeAdDelegate, NativeAdEventDelegate {
     
     var request: URLRequest!
     var jsonRequestBody = [String: Any]()
@@ -31,7 +31,7 @@ class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAd
     
     var timeoutForImpbusRequest: TimeInterval = 0.0
     
-    var prebidNativeAd: PrebidNativeAd?
+    var prebidNativeAd:NativeAd?
     var prebidNativeAdView: PrebidNativeAdView!
     var nativeUnit: NativeRequest!
     var eventTrackers: NativeEventTracker!
@@ -75,7 +75,7 @@ class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAd
     // MARK: - Test methods.
     func testSuccessfulPrebidNativeResponseForMoPub() {
         prebidNativeAdLoadedExpectation = expectation(description: "\(#function)")
-        stubAppNexusRequestWithResponse("PrebidNativeAdResponse")
+        stubAppNexusRequestWithResponse("NativeAdResponse")
         createPrebidNativeView()
         loadNativeAssets()
         let mpNativeAd = MPNativeAd()
@@ -97,7 +97,7 @@ class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAd
     
     func testPrebidNativeResponseNotFoundForMoPub() {
         prebidNativeAdNotFoundExpectation = expectation(description: "\(#function)")
-        stubAppNexusRequestWithResponse("PrebidNativeAdResponse")
+        stubAppNexusRequestWithResponse("NativeAdResponse")
         createPrebidNativeView()
         loadNativeAssets()
         let mpNativeAd = MPNativeAd()
@@ -120,7 +120,7 @@ class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAd
     
     func testPrebidNativeResponseNotValidForMoPub() {
         prebidNativeAdNotValidExpectation = expectation(description: "\(#function)")
-        stubAppNexusRequestWithResponse("PrebidNativeAdInvalidResponse")
+        stubAppNexusRequestWithResponse("NativeAdInvalidResponse")
         createPrebidNativeView()
         loadNativeAssets()
         let mpNativeAd = MPNativeAd()
@@ -142,7 +142,7 @@ class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAd
     
     func testSuccessfulPrebidNativeResponseForDFP() {
         prebidNativeAdLoadedExpectation = expectation(description: "\(#function)")
-        stubAppNexusRequestWithResponse("PrebidNativeAdResponse")
+        stubAppNexusRequestWithResponse("NativeAdResponse")
         createPrebidNativeView()
         loadNativeAssets()
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
@@ -160,7 +160,7 @@ class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAd
     
     func testPrebidNativeResponseNotFoundForDFP() {
         prebidNativeAdNotFoundExpectation = expectation(description: "\(#function)")
-        stubAppNexusRequestWithResponse("PrebidNativeAdResponse")
+        stubAppNexusRequestWithResponse("NativeAdResponse")
         createPrebidNativeView()
         loadNativeAssets()
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
@@ -178,7 +178,7 @@ class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAd
     
     func testPrebidNativeResponseNotValidForDFP() {
         prebidNativeAdNotValidExpectation = expectation(description: "\(#function)")
-        stubAppNexusRequestWithResponse("PrebidNativeAdInvalidResponse")
+        stubAppNexusRequestWithResponse("NativeAdInvalidResponse")
         createPrebidNativeView()
         loadNativeAssets()
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
@@ -196,7 +196,7 @@ class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAd
     
     func testPrebidNativeAdWithAdDidLogImpression() {
         adDidLogImpressionAPIForNativeAd = expectation(description: "\(#function)")
-        stubAppNexusRequestWithResponse("PrebidNativeAdResponse")
+        stubAppNexusRequestWithResponse("NativeAdResponse")
         createPrebidNativeView()
         loadNativeAssets()
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
@@ -214,7 +214,7 @@ class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAd
     
     func testPrebidNativeAdWithAdWasClicked() {
         adDidClickAPIForNativeAd = expectation(description: "\(#function)")
-        stubAppNexusRequestWithResponse("PrebidNativeAdResponse")
+        stubAppNexusRequestWithResponse("NativeAdResponse")
         createPrebidNativeView()
         loadNativeAssets()
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
@@ -234,7 +234,7 @@ class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAd
         adExpiredAPIForNativeAd = expectation(description: "\(#function)")
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
         let currentBundle = Bundle(for: type(of: self))
-        let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "PrebidNativeAd", ofType: "json") ?? "", encoding: .utf8)
+        let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "NativeAd", ofType: "json") ?? "", encoding: .utf8)
         if let cacheId = CacheManager.shared.testSave(content: baseResponse!), !cacheId.isEmpty{
             gadNativeCustomTemplateAd.setValue("1", forKey: "isPrebid")
             gadNativeCustomTemplateAd.setValue(cacheId, forKey: "hb_cache_id_local")
@@ -331,8 +331,8 @@ class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAd
         prebidNativeAdView?.sponsoredLabel.text = prebidNativeAd?.sponsoredBy
     }
     
-    //MARK: PrebidNativeAdDelegate
-    func prebidNativeAdLoaded(ad: PrebidNativeAd) {
+    //MARK: NativeAdDelegate
+    func nativeAdLoaded(ad:NativeAd) {
         CacheManager.shared.delegate = ad
         prebidNativeAd = ad
         registerPrebidNativeView()
@@ -345,22 +345,22 @@ class PrebidNativeNativeTest: XCTestCase, PrebidNativeAdDelegate, PrebidNativeAd
         }
     }
     
-    func prebidNativeAdNotFound() {
+    func nativeAdNotFound() {
         self.prebidNativeAdNotFoundExpectation?.fulfill()
     }
     
-    func prebidNativeAdNotValid() {
+    func nativeAdNotValid() {
         self.prebidNativeAdNotValidExpectation?.fulfill()
     }
     
-    //MARK: PrebidNativeAdEventDelegate
-    func adDidExpire(ad:PrebidNativeAd){
+    //MARK: NativeAdEventDelegate
+    func adDidExpire(ad:NativeAd){
         self.adExpiredAPIForNativeAd?.fulfill()
     }
-    func adWasClicked(ad:PrebidNativeAd){
+    func adWasClicked(ad:NativeAd){
         self.adDidClickAPIForNativeAd?.fulfill()
     }
-    func adDidLogImpression(ad:PrebidNativeAd){
+    func adDidLogImpression(ad:NativeAd){
         self.adDidLogImpressionAPIForNativeAd?.fulfill()
     }
 

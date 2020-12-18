@@ -15,17 +15,17 @@ limitations under the License.
 
 import Foundation
 
-@objc public protocol PrebidNativeAdEventDelegate : AnyObject {
+@objc public protocol NativeAdEventDelegate : AnyObject {
     /**
      * Sent when the native ad is expired.
      */
-    @objc optional func adDidExpire(ad: PrebidNativeAd)
+    @objc optional func adDidExpire(ad:NativeAd)
     /**
      * Sent when the native view is clicked by the user.
      */
-    @objc optional func adWasClicked(ad: PrebidNativeAd)
+    @objc optional func adWasClicked(ad:NativeAd)
     /**
      * Sent when  an impression is recorded for an native ad
      */
-    @objc optional func adDidLogImpression(ad: PrebidNativeAd)
+    @objc optional func adDidLogImpression(ad:NativeAd)
 }

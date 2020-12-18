@@ -27,7 +27,7 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     var adLoader: GADAdLoader?
     var mpNative:MPNativeAdRequest?
     var mpAd: MPNativeAd?
-    var prebidNativeAd: PrebidNativeAd?
+    var nativeAd:NativeAd?
     var prebidNativeAdView: PrebidNativeAdView?
     var nativeUnit: NativeRequest!
     var eventTrackers: NativeEventTracker!
@@ -134,9 +134,9 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     
     //MARK: Rendering Prebid Native
     func renderPrebidNativeAd() {
-        prebidNativeAdView?.titleLabel.text = prebidNativeAd?.title
-        prebidNativeAdView?.bodyLabel.text = prebidNativeAd?.text
-        if let iconString = prebidNativeAd?.iconUrl, let iconUrl = URL(string: iconString) {
+        prebidNativeAdView?.titleLabel.text = nativeAd?.title
+        prebidNativeAdView?.bodyLabel.text = nativeAd?.text
+        if let iconString = nativeAd?.iconUrl, let iconUrl = URL(string: iconString) {
             DispatchQueue.global().async {
                 let data = try? Data(contentsOf: iconUrl)
                 DispatchQueue.main.async {
@@ -146,7 +146,7 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
                 }
             }
         }
-        if let imageString = prebidNativeAd?.imageUrl,let imageUrl = URL(string: imageString) {
+        if let imageString = nativeAd?.imageUrl,let imageUrl = URL(string: imageString) {
             DispatchQueue.global().async {
                 let data = try? Data(contentsOf: imageUrl)
                 DispatchQueue.main.async {
@@ -156,8 +156,8 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
                 }
             }
         }
-        prebidNativeAdView?.callToActionButton.setTitle(prebidNativeAd?.callToAction, for: .normal)
-        prebidNativeAdView?.sponsoredLabel.text = prebidNativeAd?.sponsoredBy
+        prebidNativeAdView?.callToActionButton.setTitle(nativeAd?.callToAction, for: .normal)
+        prebidNativeAdView?.sponsoredLabel.text = nativeAd?.sponsoredBy
     }
     
     func renderMoPubNativeAd( ) {
@@ -226,9 +226,9 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     }
     
     func registerPrebidNativeView(){
-        prebidNativeAd?.delegate = self
+        nativeAd?.delegate = self
         if  let prebidNativeAdView = prebidNativeAdView {
-            prebidNativeAd?.registerView(view: prebidNativeAdView, clickableViews: [prebidNativeAdView.callToActionButton])
+            nativeAd?.registerView(view: prebidNativeAdView, clickableViews: [prebidNativeAdView.callToActionButton])
         }
     }
     
@@ -240,43 +240,43 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
             prebidNativeAdView!.removeFromSuperview()
             prebidNativeAdView = nil
         }
-        if prebidNativeAd != nil {
-            prebidNativeAd = nil
+        if nativeAd != nil {
+            nativeAd = nil
         }
     }
 }
 
-extension PrebidNativeViewController : PrebidNativeAdDelegate{
+extension PrebidNativeViewController : NativeAdDelegate{
     
-    func prebidNativeAdLoaded(ad: PrebidNativeAd) {
-        print("prebidNativeAdLoaded")
-        prebidNativeAd = ad
+    func nativeAdLoaded(ad:NativeAd) {
+        print("nativeAdLoaded")
+        nativeAd = ad
         registerPrebidNativeView()
         renderPrebidNativeAd()
     }
     
-    func prebidNativeAdNotFound() {
+    func nativeAdNotFound() {
         if (adServerName == "MoPub") {
             renderMoPubNativeAd( )
         }else {
-            print("prebidNativeAdNotFound")
+            print("nativeAdNotFound")
         }
         
     }
-    func prebidNativeAdNotValid() {
-        print("prebidNativeAdNotValid")
+    func nativeAdNotValid() {
+        print("nativeAdNotValid")
     }
 }
 
-extension PrebidNativeViewController : PrebidNativeAdEventDelegate{
+extension PrebidNativeViewController : NativeAdEventDelegate{
     
-    func adDidExpire(ad:PrebidNativeAd){
+    func adDidExpire(ad:NativeAd){
         print("adDidExpire")
     }
-    func adWasClicked(ad:PrebidNativeAd){
+    func adWasClicked(ad:NativeAd){
         print("adWasClicked")
     }
-    func adDidLogImpression(ad:PrebidNativeAd){
+    func adDidLogImpression(ad:NativeAd){
         print("adDidLogImpression")
     }
 }

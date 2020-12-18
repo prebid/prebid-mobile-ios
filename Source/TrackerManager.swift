@@ -23,6 +23,8 @@ class TrackerManager: NSObject {
     private var trackerArray = [TrackerInfo]()
     private var trackerRetryTimer : Timer?
     typealias  OnComplete = ((Bool) -> Void)?
+    private static let kTrackerManagerRetryInterval : TimeInterval = 300
+    private static let kTrackerManagerMaximumNumberOfRetries = 3
     
     /**
      * The class is created as a singleton object & used
@@ -101,7 +103,7 @@ class TrackerManager: NSObject {
     }
     
     private func scheduleRetryTimerIfNecessaryWithBlock(completion: OnComplete){
-        trackerRetryTimer = Timer.scheduledTimer(withTimeInterval: Constants.kANTrackerManagerRetryInterval, repeats: true, block: { [weak self] timer in
+        trackerRetryTimer = Timer.scheduledTimer(withTimeInterval: TrackerManager.kTrackerManagerRetryInterval, repeats: true, block: { [weak self] timer in
             guard let strongSelf = self else {
                 timer.invalidate()
                 Log.debug("FAILED TO ACQUIRE strongSelf for trackerRetryTimer")
@@ -137,7 +139,7 @@ class TrackerManager: NSObject {
                                 return
                             }
                             info.numberOfTimesFired += 1
-                            if (info.numberOfTimesFired < Constants.kANTrackerManagerMaximumNumberOfRetries) && !info.expired{
+                            if (info.numberOfTimesFired < TrackerManager.kTrackerManagerMaximumNumberOfRetries) && !info.expired{
                                 strongSelf.queueTrackerInfoForRetry(trackerInfo: info, completion: completion)
                             }else{
                                 if let completion = completion {

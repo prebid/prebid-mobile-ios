@@ -31,7 +31,7 @@ public class Utils: NSObject {
         super.init()
     }
     @objc
-    public weak var delegate: PrebidNativeAdDelegate?
+    public weak var delegate: NativeAdDelegate?
     
     private let DFP_BANNER_VIEW_CLASSNAME = "DFPBannerView"
     private let DFP_WEBADVIEW_CLASSNAME = "GADWebAdView"
@@ -244,7 +244,7 @@ public class Utils: NSObject {
         }else if(self.isObjectFromClass(adObject, DFP_CUSTOM_TEMPLATE_AD_CLASSNAME)){
             findNativeForDFPCustomTemplateAd(adObject)
         } else {
-            delegate?.prebidNativeAdNotFound()
+            delegate?.nativeAdNotFound()
         }
     }
     
@@ -253,18 +253,18 @@ public class Utils: NSObject {
         if("1" == isPrebid) {
             if let hb_cache_id_local = dfpCustomAd.string?(forKey: "hb_cache_id_local"), CacheManager.shared.isValid(cacheId: hb_cache_id_local)
             {
-                let ad = PrebidNativeAd.create(cacheId: hb_cache_id_local)
+                let ad = NativeAd.create(cacheId: hb_cache_id_local)
                 if (ad != nil) {
-                    delegate?.prebidNativeAdLoaded(ad: ad!)
+                    delegate?.nativeAdLoaded(ad: ad!)
                     return
                 } else {
-                    delegate?.prebidNativeAdNotValid()
+                    delegate?.nativeAdNotValid()
                     return
                 }
             }
         }
         
-        delegate?.prebidNativeAdNotFound()
+        delegate?.nativeAdNotFound()
     }
     
     private func findNativeForMoPubNativeAd(_ mopub: AnyObject){
@@ -273,15 +273,15 @@ public class Utils: NSObject {
         let isPrebid = properties["isPrebid"] as? Bool
         if (isPrebid != nil && isPrebid!) {
             if let hb_cache_id_local = properties["hb_cache_id_local"] as? String, CacheManager.shared.isValid(cacheId: hb_cache_id_local){
-                let ad = PrebidNativeAd.create(cacheId: hb_cache_id_local)
+                let ad = NativeAd.create(cacheId: hb_cache_id_local)
                 if (ad != nil){
-                    delegate?.prebidNativeAdLoaded(ad: ad!)
+                    delegate?.nativeAdLoaded(ad: ad!)
                 } else {
-                    delegate?.prebidNativeAdNotValid()
+                    delegate?.nativeAdNotValid()
                 }
             }
         } else {
-            delegate?.prebidNativeAdNotFound()
+            delegate?.nativeAdNotFound()
         }
     }
     private func isObjectFromClass(_ object: AnyObject, _ className: String) -> Bool{
@@ -295,7 +295,7 @@ public class Utils: NSObject {
         var array = [UIView]()
         recursivelyFindWebViewList(view, &array)
         if array.count == 0 {
-            delegate?.prebidNativeAdNotFound()
+            delegate?.nativeAdNotFound()
         } else {
             self.iterateWebViewListAsync(array, array.count - 1)
         }
@@ -307,16 +307,16 @@ public class Utils: NSObject {
             if i > 0 {
                 self.iterateWebViewListAsync(array, i - 1)
             } else {
-                self.delegate?.prebidNativeAdNotFound()
+                self.delegate?.nativeAdNotFound()
             }
         }
         let processHTMLContent:(String)->Void = {(html) in
             if let cacheId = self.getCacheIdFromBody(html), CacheManager.shared.isValid(cacheId: cacheId) {
-                let ad = PrebidNativeAd.create(cacheId: cacheId)
+                let ad = NativeAd.create(cacheId: cacheId)
                 if ad != nil {
-                    self.delegate?.prebidNativeAdLoaded(ad: ad!)
+                    self.delegate?.nativeAdLoaded(ad: ad!)
                 } else {
-                    self.delegate?.prebidNativeAdNotValid()
+                    self.delegate?.nativeAdNotValid()
                 }
             } else {
                 processNextWebView(index)

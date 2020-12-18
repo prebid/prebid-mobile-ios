@@ -16,7 +16,10 @@ limitations under the License.
 import Foundation
 import UIKit
 
-@objcMembers public class PrebidNativeAd: NSObject, CacheExpiryDelegate {
+@objcMembers public class NativeAd: NSObject, CacheExpiryDelegate {
+    
+    private static let kNativeAdIABShouldBeViewableForTrackingDuration = 1.0
+    private static let kNativeAdCheckViewabilityForTrackingFrequency = 0.25
     
     public private(set) var title:String?
     public private(set) var text:String?
@@ -25,7 +28,7 @@ import UIKit
     public private(set) var callToAction:String?
     public private(set) var sponsoredBy:String?
     
-    public weak var delegate: PrebidNativeAdEventDelegate?
+    public weak var delegate: NativeAdEventDelegate?
     
     //NativeAd Expire
     private var expired = false
@@ -37,22 +40,22 @@ import UIKit
     private var viewForTracking:UIView?
     private var impTrackers = [String]()
     //Click Handling
-    private var gestureRecognizerRecords = [PrebidNativeAdGestureRecognizerRecord]()
+    private var gestureRecognizerRecords = [NativeAdGestureRecognizerRecord]()
     private var clickUrl:String?
 
     
-    public static func  create(cacheId: String)-> PrebidNativeAd? {
+    public static func  create(cacheId: String)->NativeAd? {
         
         guard let content = CacheManager.shared.get(cacheId: cacheId), let response = Utils.shared.getDictionaryFromString(content), let adm = response["adm"] as? String, let data = adm.data(using: .utf8) else {
-            Log.error("Invalid prebid native contents")
+            Log.error("Invalid native contents")
             return nil
         }
         do {
             guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-                Log.error("Invalid prebid native json")
+                Log.error("Invalid native json")
                 return nil
             }
-            let ad: PrebidNativeAd = PrebidNativeAd()
+            let ad:NativeAd = NativeAd()
             //assets
             if let assets = json["assets"] as? [AnyObject] {
                 for adObject in assets {
@@ -114,7 +117,7 @@ import UIKit
                 CacheManager.shared.delegate = ad
                 return ad
             }else{
-                Log.error("Prebid Native Ad is not valid")
+                Log.error("Native Ad is not valid")
                 return nil
             }
             
@@ -194,13 +197,13 @@ import UIKit
     
     //MARK: Impression Tracking
     private func setupViewabilityTracker(){
-        let requiredAmountOfSimultaneousViewableEvents = lround(Constants.kAppNexusNativeAdIABShouldBeViewableForTrackingDuration / Constants.kAppNexusNativeAdCheckViewabilityForTrackingFrequency) + 1
+        let requiredAmountOfSimultaneousViewableEvents = lround(NativeAd.kNativeAdIABShouldBeViewableForTrackingDuration / NativeAd.kNativeAdCheckViewabilityForTrackingFrequency) + 1
         
         targetViewabilityValue = lround(pow(Double(2),Double(requiredAmountOfSimultaneousViewableEvents)) - 1)
         
         Log.debug("\n\trequiredAmountOfSimultaneousViewableEvents=\(requiredAmountOfSimultaneousViewableEvents) \n\ttargetViewabilityValue=\(targetViewabilityValue)")
 
-        viewabilityTimer = Timer.scheduledTimer(withTimeInterval: Constants.kAppNexusNativeAdCheckViewabilityForTrackingFrequency, repeats: true) { [weak self] timer in
+        viewabilityTimer = Timer.scheduledTimer(withTimeInterval: NativeAd.kNativeAdCheckViewabilityForTrackingFrequency, repeats: true) { [weak self] timer in
             guard let strongSelf = self else {
                 timer.invalidate()
                 Log.debug("FAILED TO ACQUIRE strongSelf viewabilityTimer")
@@ -255,7 +258,7 @@ import UIKit
     
     private func attachGestureRecognizerToView(view: UIView){
         view.isUserInteractionEnabled = true
-        let record = PrebidNativeAdGestureRecognizerRecord.init()
+        let record = NativeAdGestureRecognizerRecord.init()
         record.viewWithTracking = view
         if let button = view as? UIButton {
             button.addTarget(self, action: #selector(handleClick), for: .touchUpInside)
@@ -300,7 +303,7 @@ import UIKit
     
 }
 
-private class PrebidNativeAdGestureRecognizerRecord : NSObject {
+private class NativeAdGestureRecognizerRecord : NSObject {
     weak var viewWithTracking : UIView?
     weak var gestureRecognizer : UIGestureRecognizer?
     

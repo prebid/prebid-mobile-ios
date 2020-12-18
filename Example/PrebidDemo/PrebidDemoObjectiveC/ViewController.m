@@ -20,7 +20,7 @@
 #import "MoPub.h"
 #import "PrebidDemoObjectiveC-Swift.h"
 
-@interface ViewController () <GADBannerViewDelegate,GADInterstitialDelegate,MPAdViewDelegate,MPInterstitialAdControllerDelegate,DFPBannerAdLoaderDelegate,GADNativeCustomTemplateAdLoaderDelegate,PrebidNativeAdDelegate,PrebidNativeAdEventDelegate>
+@interface ViewController () <GADBannerViewDelegate,GADInterstitialDelegate,MPAdViewDelegate,MPInterstitialAdControllerDelegate,DFPBannerAdLoaderDelegate,GADNativeCustomTemplateAdLoaderDelegate,NativeAdDelegate,NativeAdEventDelegate>
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UIView *adContainerView;
 
@@ -34,7 +34,7 @@
 @property (nonatomic, strong) GADAdLoader *adLoader;
 @property (nonatomic, strong) MPNativeAdRequest *mpNative;
 @property (nonatomic, strong) MPNativeAd *mpAd;
-@property (nonatomic, strong) PrebidNativeAd *prebidNativeAd;
+@property (nonatomic, strong) NativeAd *prebidNativeAd;
 @property (nonatomic, strong) PrebidNativeAdView *prebidNativeAdView;
 @property (nonatomic, strong) NativeRequest *nativeUnit;
 @property (nonatomic, strong) NativeEventTracker *eventTrackers;
@@ -422,30 +422,30 @@ didReceiveDFPBannerView:(nonnull DFPBannerView *)bannerView{
    return @[NSValueFromGADAdSize(kGADAdSizeBanner)];
 }
 
-#pragma mark :- PrebidNativeAdDelegate Delegate
+#pragma mark :- NativeAdDelegate Delegate
 
-- (void)prebidNativeAdLoadedWithAd:(PrebidNativeAd *)ad{
-    NSLog(@"prebidNativeAdLoadedWithAd");
+- (void)nativeAdLoadedWithAd:(NativeAd *)ad{
+    NSLog(@"nativeAdLoadedWithAd");
     self.prebidNativeAd = ad;
     [self registerPrebidNativeView];
     [self renderPrebidNativeAd];
 }
-- (void)prebidNativeAdNotFound{
-    NSLog(@"prebidNativeAdNotFound");
+- (void)nativeAdNotFound{
+    NSLog(@"nativeAdNotFound");
 }
-- (void)prebidNativeAdNotValid{
-    NSLog(@"prebidNativeAdNotValid");
+- (void)nativeAdNotValid{
+    NSLog(@"nativeAdNotValid");
 }
 
-#pragma mark :- PrebidNativeAdEventDelegate Delegate
+#pragma mark :- NativeAdEventDelegate Delegate
 
-- (void)adDidExpireWithAd:(PrebidNativeAd *)ad{
+- (void)adDidExpireWithAd:(NativeAd *)ad{
     NSLog(@"adDidExpire");
 }
-- (void)adWasClickedWithAd:(PrebidNativeAd *)ad{
+- (void)adWasClickedWithAd:(NativeAd *)ad{
     NSLog(@"adWasClicked");
 }
-- (void)adDidLogImpressionWithAd:(PrebidNativeAd *)ad{
+- (void)adDidLogImpressionWithAd:(NativeAd *)ad{
     NSLog(@"adDidLogImpression");
 }
 
