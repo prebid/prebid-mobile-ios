@@ -46,6 +46,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {
 
         }
+        
+//        Targeting.shared.itunesID = "880047117"
+//        Targeting.shared.skAdNetListMax = 306
+//        Targeting.shared.skAdNetListExcl = [2,8,10,55]
+//        Targeting.shared.skAdNetListAddl = ["cDkw7geQsH.skadnetwork", "qyJfv329m4.skadnetwork"]
 
         coreLocation = CLLocationManager()
         coreLocation?.requestWhenInUseAuthorization()

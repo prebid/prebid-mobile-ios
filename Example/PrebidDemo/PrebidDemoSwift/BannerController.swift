@@ -290,6 +290,12 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
     }
+    
+    func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
+        print("adView:didFailToReceiveAdWithError:")
+
+        AdViewUtils.onAdClicked(viewController: self, adView: bannerView)
+    }
 
     //MARK: - MPAdViewDelegate
     func viewControllerForPresentingModalView() -> UIViewController! {

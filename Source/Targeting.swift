@@ -72,6 +72,12 @@ import CoreLocation
     
     public var omidPartnerVersion: String?
     
+    public var skAdNetListMax: Int?
+    
+    public var skAdNetListExcl: [Int]?
+    
+    public var skAdNetListAddl: [String]?
+    
     //Objective-C Api
     @available(swift, obsoleted: 1.0)
     public func setLocationPrecision(_ newValue: NSNumber?) {

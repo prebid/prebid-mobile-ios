@@ -15,6 +15,7 @@
 
 import Foundation
 import WebKit
+import StoreKit
 
 public final class AdViewUtils: NSObject {
 
@@ -39,6 +40,49 @@ public final class AdViewUtils: NSObject {
             warnAndTriggerFailure(PbFindSizeErrorFactory.noWKWebView, failure: failure)
         }
     }
+    
+    @objc
+    public static func onAdClicked(viewController: UIViewController, adView: UIView) {
+        let view = self.findView(adView) { (subView) -> Bool in
+            return AdViewUtils.isWKWebView(subView)
+        }
+        
+        if let wkWebView = view as? WKWebView  {
+//            guard wkWebView.url?.host == "apps.apple.com" else {
+//                return
+//            }
+            self.findIdInWebViewAsync(wkWebView: wkWebView) { (id) in
+                
+                let savedValuesDict = CacheManager.shared.savedValuesDict
+                for (key, value) in savedValuesDict {
+                   
+                    let response = Utils.shared.getDictionaryFromString(value)!
+                    if let ext = response["ext"] as? [AnyHashable : Any],
+                       let prebid = ext["prebid"] as? [AnyHashable : Any],
+                       let targeting = prebid["targeting"] as? [AnyHashable : Any],
+                       let hbCacheId = targeting["hb_cache_id"] as? String {
+                        if (hbCacheId == id) {
+                            if let skadn = ext["skadn"] as? [AnyHashable : Any], let itunesitem = skadn["itunesitem"] as? String {
+                                
+                                let adViewController = SKStoreProductViewController()
+
+                                adViewController.loadProduct(withParameters:[SKStoreProductParameterITunesItemIdentifier: NSNumber(value: Int(itunesitem)!)]) { (b, e) in
+                                    print("error:\(e)")
+                                }
+                        
+                                viewController.present(adViewController, animated: true, completion: nil)
+                            }
+                            
+                            break
+                        }
+                    }
+                }
+            }
+        } else {
+            Log.warn("view doesn't contain WKWebView")
+        }
+    }
+    
     
     static func triggerSuccess(size: CGSize, success: @escaping (CGSize) -> Void) {
         success(size)
@@ -86,6 +130,13 @@ public final class AdViewUtils: NSObject {
         
     }
     
+    static func findIdInWebViewAsync(wkWebView: WKWebView, success: @escaping (String) -> Void) {
+        wkWebView.evaluateJavaScript(AdViewUtils.innerHtmlScript, completionHandler: { (value: Any!, error: Error!) -> Void in
+            
+            self.findIdInHtml(body: value as? String, success: success)
+        })
+    }
+    
     static func findSizeInHtml(body: String?, success: @escaping (CGSize) -> Void, failure: @escaping (PbFindSizeError) -> Void) {
         let result = findSizeInHtml(body: body)
         
@@ -97,6 +148,10 @@ public final class AdViewUtils: NSObject {
             Log.error("The bouth values size and error are nil")
             warnAndTriggerFailure(PbFindSizeErrorFactory.unspecified, failure: failure)
         }
+    }
+    
+    static func findIdInHtml(body: String?, success: @escaping (String) -> Void) {
+        success(findIdInHtml(body: body))
     }
     
     static func findSizeInHtml(body: String?) -> (size: CGSize?, error: PbFindSizeError?) {
@@ -120,8 +175,20 @@ public final class AdViewUtils: NSObject {
         }
     }
     
+    static func findIdInHtml(body: String?) -> String {
+        if let htmlBody = body, !htmlBody.isEmpty, let idObject = findHbIdObject(in: htmlBody) {
+            return idObject
+        }
+
+        return ""
+    }
+    
     static func findHbSizeObject(in text: String) -> String? {
         return matchAndCheck(regex: AdViewUtils.sizeObjectRegexExpression, text: text)
+    }
+    
+    static func findHbIdObject(in text: String) -> String? {
+        return matchAndCheck(regex: "ucTagData.uuid = \"(.*?)\"", text: text, rangeAt: 1)
     }
     
     static func findHbSizeValue(in hbSizeObject: String) -> String? {
@@ -132,8 +199,8 @@ public final class AdViewUtils: NSObject {
         return view is WKWebView
     }
     
-    static func matchAndCheck(regex: String, text: String) -> String? {
-        let matched = matches(for: regex, in: text)
+    static func matchAndCheck(regex: String, text: String, rangeAt: Int = 0) -> String? {
+        let matched = matches(for: regex, in: text, rangeAt: rangeAt)
         
         if matched.isEmpty {
             return nil
@@ -144,13 +211,13 @@ public final class AdViewUtils: NSObject {
         return firstResult
     }
     
-    static func matches(for regex: String, in text: String) -> [String] {
+    static func matches(for regex: String, in text: String, rangeAt: Int) -> [String] {
         
         do {
             let regex = try NSRegularExpression(pattern: regex)
             let results = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
             return results.map {
-                String(text[Range($0.range, in: text)!])
+                String(text[Range($0.range(at: rangeAt), in: text)!])
             }
         } catch let error {
             Log.warn("invalid regex: \(error.localizedDescription)")

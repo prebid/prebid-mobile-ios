@@ -211,6 +211,18 @@ class RequestBuilder: NSObject {
         
         adUnitExt["context"] = prebidAdUnitExtContext
 
+        var skAdNet: [AnyHashable: Any] = [:]
+        skAdNet["version"] = "2.0"
+        skAdNet["sourceapp"] = Targeting.shared.itunesID
+
+        var skAdNetList: [AnyHashable: Any] = [:]
+        skAdNetList["max"] = Targeting.shared.skAdNetListMax
+        skAdNetList["excl"] = Targeting.shared.skAdNetListExcl
+        skAdNetList["addl"] = Targeting.shared.skAdNetListAddl
+
+        skAdNet["skadnetlist"] = skAdNetList
+        adUnitExt["skadn"] = skAdNet
+        
         imp["ext"] = adUnitExt
 
         if let adUnit = adUnit as? VideoBaseAdUnit {
