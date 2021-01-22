@@ -17,7 +17,7 @@ import UIKit
 
 class CacheManager: NSObject {
     
-    private static let kCacheManagerExpireInterval : TimeInterval = 300
+    static let kCacheManagerExpireInterval : TimeInterval = 300
     /**
      * The class is created as a singleton object & used
      */
@@ -34,13 +34,13 @@ class CacheManager: NSObject {
     internal var savedValuesDict = [String : String]()
     weak var delegate: CacheExpiryDelegate?
     
-    func save(content: String) -> String?{
+    func save(content: String, expireInterval: TimeInterval = CacheManager.kCacheManagerExpireInterval) -> String?{
         if content.isEmpty {
             return nil
         }else{
             let cacheId = "Prebid_" + UUID().uuidString
             self.savedValuesDict[cacheId] = content
-            DispatchQueue.main.asyncAfter(deadline: .now() + CacheManager.kCacheManagerExpireInterval, execute: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + expireInterval, execute: {
                 self.savedValuesDict.removeValue(forKey: cacheId)
                 self.delegate?.cacheExpired()
             })
