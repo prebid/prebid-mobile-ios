@@ -285,6 +285,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
                                                 print("error: \(error)")
 
         })
+        
+        AdViewUtils.onAdClicked(viewController: self, adView: bannerView)
     }
 
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
@@ -294,7 +296,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
         print("adView:didFailToReceiveAdWithError:")
 
-        AdViewUtils.onAdClicked(viewController: self, adView: bannerView)
+//        AdViewUtils.onAdClicked(viewController: self, adView: bannerView)
     }
 
     //MARK: - MPAdViewDelegate

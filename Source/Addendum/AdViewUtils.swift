@@ -51,7 +51,9 @@ public final class AdViewUtils: NSObject {
 //            guard wkWebView.url?.host == "apps.apple.com" else {
 //                return
 //            }
-            self.findIdInWebViewAsync(wkWebView: wkWebView) { (id) in
+//            self.findIdInWebViewAsync(wkWebView: wkWebView) { (id) in
+            self.injectCodeInWebViewAsync(wkWebView: wkWebView) { (id) in
+                
                 
                 let savedValuesDict = CacheManager.shared.savedValuesDict
                 for (key, value) in savedValuesDict {
@@ -134,6 +136,14 @@ public final class AdViewUtils: NSObject {
         wkWebView.evaluateJavaScript(AdViewUtils.innerHtmlScript, completionHandler: { (value: Any!, error: Error!) -> Void in
             
             self.findIdInHtml(body: value as? String, success: success)
+        })
+    }
+    
+    static func injectCodeInWebViewAsync(wkWebView: WKWebView, success: @escaping (String) -> Void) {
+        wkWebView.evaluateJavaScript("var isClicked = false window.onclick=()=> console.log(\"test\") isClicked=true", completionHandler: { (value: Any!, error: Error!) -> Void in
+            
+            let a = "f"
+
         })
     }
     
