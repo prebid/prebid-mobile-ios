@@ -18,8 +18,8 @@ import UIKit
 
 @objcMembers public class NativeAd: NSObject, CacheExpiryDelegate {
     
-    private static let kNativeAdIABShouldBeViewableForTrackingDuration = 1.0
-    private static let kNativeAdCheckViewabilityForTrackingFrequency = 0.25
+    private static let nativeAdIABShouldBeViewableForTrackingDuration = 1.0
+    private static let nativeAdCheckViewabilityForTrackingFrequency = 0.25
     
     public private(set) var title:String?
     public private(set) var text:String?
@@ -197,13 +197,13 @@ import UIKit
     
     //MARK: Impression Tracking
     private func setupViewabilityTracker(){
-        let requiredAmountOfSimultaneousViewableEvents = lround(NativeAd.kNativeAdIABShouldBeViewableForTrackingDuration / NativeAd.kNativeAdCheckViewabilityForTrackingFrequency) + 1
+        let requiredAmountOfSimultaneousViewableEvents = lround(NativeAd.nativeAdIABShouldBeViewableForTrackingDuration / NativeAd.nativeAdCheckViewabilityForTrackingFrequency) + 1
         
         targetViewabilityValue = lround(pow(Double(2),Double(requiredAmountOfSimultaneousViewableEvents)) - 1)
         
         Log.debug("\n\trequiredAmountOfSimultaneousViewableEvents=\(requiredAmountOfSimultaneousViewableEvents) \n\ttargetViewabilityValue=\(targetViewabilityValue)")
 
-        viewabilityTimer = Timer.scheduledTimer(withTimeInterval: NativeAd.kNativeAdCheckViewabilityForTrackingFrequency, repeats: true) { [weak self] timer in
+        viewabilityTimer = Timer.scheduledTimer(withTimeInterval: NativeAd.nativeAdCheckViewabilityForTrackingFrequency, repeats: true) { [weak self] timer in
             guard let strongSelf = self else {
                 timer.invalidate()
                 Log.debug("FAILED TO ACQUIRE strongSelf viewabilityTimer")
@@ -214,7 +214,7 @@ import UIKit
     }
     
     @objc private func checkViewability() {
-        viewabilityValue = (viewabilityValue << 1 | (viewForTracking?.an_isAtLeastHalfViewable() == true ? 1 : 0)) & targetViewabilityValue
+        viewabilityValue = (viewabilityValue << 1 | (viewForTracking?.pb_isAtLeastHalfViewable() == true ? 1 : 0)) & targetViewabilityValue
         let isIABViewable = (viewabilityValue == targetViewabilityValue)
         Log.debug("\n\tviewabilityValue=\(viewabilityValue) \n\tself.targetViewabilityValue=\(targetViewabilityValue) \n\tisIABViewable=\(isIABViewable)")
         if isIABViewable {

@@ -15,7 +15,7 @@ limitations under the License.
 
 import UIKit
 
-public class PrebidNativeAdView: UIView {
+public class NativeAdView: UIView {
 
     @IBOutlet public weak var iconImageView: UIImageView!
     @IBOutlet public weak var mainImageView: UIImageView!

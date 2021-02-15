@@ -18,7 +18,7 @@ import GoogleMobileAds
 import MoPub
 import PrebidMobile
 
-class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GADNativeCustomTemplateAdLoaderDelegate {
+class NativeInAppViewController: UIViewController,DFPBannerAdLoaderDelegate, GADNativeCustomTemplateAdLoaderDelegate {
 
     //MARK: : IBOutlet
     @IBOutlet weak var adContainerView: UIView!
@@ -28,7 +28,7 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     var mpNative:MPNativeAdRequest?
     var mpAd: MPNativeAd?
     var nativeAd:NativeAd?
-    var prebidNativeAdView: PrebidNativeAdView?
+    var nativeAdView: NativeAdView?
     var nativeUnit: NativeRequest!
     var eventTrackers: NativeEventTracker!
     var adServerName: String = ""
@@ -47,20 +47,74 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
         
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
-            loadPrebidNativeForDFP()
+            setupAndLoadNativeInAppForDFP()
             
         } else if (adServerName == "MoPub") {
             print("entered \(adServerName) loop" )
-            loadPrebidNativeForMoPub()
+            setupAndLoadNativeInAppForMoPub()
+        }
+    }
+    
+    //MARK: Setup NativeAd
+    func setupAndLoadNativeInAppForDFP() {
+        setupPBNativeInApp(host: .Appnexus, accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0", configId: "25e17008-5081-4676-94d5-923ced4359d3")
+        loadNativeInAppForDFP()
+    }
+
+    func setupAndLoadNativeInAppForMoPub() {
+        setupPBNativeInApp(host: .Appnexus, accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0", configId: "25e17008-5081-4676-94d5-923ced4359d3")
+        loadNativeInAppForMoPub()
+    }
+    
+    func setupPBNativeInApp(host: PrebidHost, accountId: String, configId: String) {
+        Prebid.shared.prebidServerHost = host
+        Prebid.shared.prebidServerAccountId = accountId
+        
+        createNativeInAppView()
+        loadNativeAssets(configId)
+    }
+    
+    //MARK: : Native functions
+    func loadNativeAssets(_ configId: String){
+        
+        let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 200, required: true)
+        image.type = ImageAsset.Main
+        
+        let icon = NativeAssetImage(minimumWidth: 20, minimumHeight: 20, required: true)
+        icon.type = ImageAsset.Icon
+        
+        let title = NativeAssetTitle(length: 90, required: true)
+        
+        let body = NativeAssetData(type: DataAsset.description, required: true)
+        
+        let cta = NativeAssetData(type: DataAsset.ctatext, required: true)
+        
+        let sponsored = NativeAssetData(type: DataAsset.sponsored, required: true)
+        
+        nativeUnit = NativeRequest(configId: configId, assets: [icon,title,image,body,cta,sponsored])
+        
+        nativeUnit.context = ContextType.Social
+        nativeUnit.placementType = PlacementType.FeedContent
+        nativeUnit.contextSubType = ContextSubType.Social
+        
+        let event1 = EventType.Impression
+        eventTrackers = NativeEventTracker(event: event1, methods: [EventTracking.Image,EventTracking.js])
+        nativeUnit.eventtrackers = [eventTrackers]
+    }
+    
+    func createNativeInAppView(){
+        removePreviousAds()
+        let adNib = UINib(nibName: "NativeAdView", bundle: Bundle(for: type(of: self)))
+        let array = adNib.instantiate(withOwner: self, options: nil)
+        if let NativeAdView = array.first as? NativeAdView{
+            self.nativeAdView = NativeAdView
+            NativeAdView.frame = CGRect(x: 0, y: 0, width: self.adContainerView.frame.size.width, height: 150 + self.screenWidth * 400 / 600)
+            self.adContainerView.addSubview(NativeAdView)
         }
     }
     
     //MARK: Prebid NativeAd MoPub
-    func loadPrebidNativeForMoPub(){
-        removePreviousAds()
-        createPrebidNativeView()
-        loadNativeAssets()
-        
+    func loadNativeInAppForMoPub(){
         let settings: MPStaticNativeAdRendererSettings = MPStaticNativeAdRendererSettings.init()
         let config:MPNativeAdRendererConfiguration = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)
         self.mpNative = MPNativeAdRequest.init(adUnitIdentifier: "2674981035164b2db5ef4b4546bf3d49", rendererConfigurations: [config])
@@ -87,10 +141,7 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     }
     
     //MARK: Prebid NativeAd DFP
-    func loadPrebidNativeForDFP(){
-        removePreviousAds()
-        createPrebidNativeView()
-        loadNativeAssets()
+    func loadNativeInAppForDFP(){
         let dfpRequest:DFPRequest = DFPRequest()
         nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: ResultCode) in
             self?.callDFP(dfpRequest)
@@ -124,7 +175,7 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     }
     
     func adLoader(_ adLoader: GADAdLoader, didReceive bannerView: DFPBannerView) {
-        prebidNativeAdView?.addSubview(bannerView)
+        nativeAdView?.addSubview(bannerView)
     }
     
     func validBannerSizes(for adLoader: GADAdLoader) -> [NSValue] {
@@ -133,15 +184,15 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     
     
     //MARK: Rendering Prebid Native
-    func renderPrebidNativeAd() {
-        prebidNativeAdView?.titleLabel.text = nativeAd?.title
-        prebidNativeAdView?.bodyLabel.text = nativeAd?.text
+    func renderNativeInAppAd() {
+        nativeAdView?.titleLabel.text = nativeAd?.title
+        nativeAdView?.bodyLabel.text = nativeAd?.text
         if let iconString = nativeAd?.iconUrl, let iconUrl = URL(string: iconString) {
             DispatchQueue.global().async {
                 let data = try? Data(contentsOf: iconUrl)
                 DispatchQueue.main.async {
                     if data != nil {
-                        self.prebidNativeAdView?.iconImageView.image = UIImage(data:data!)
+                        self.nativeAdView?.iconImageView.image = UIImage(data:data!)
                     }
                 }
             }
@@ -151,25 +202,25 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
                 let data = try? Data(contentsOf: imageUrl)
                 DispatchQueue.main.async {
                     if data != nil {
-                     self.prebidNativeAdView?.mainImageView.image = UIImage(data:data!)
+                     self.nativeAdView?.mainImageView.image = UIImage(data:data!)
                     }
                 }
             }
         }
-        prebidNativeAdView?.callToActionButton.setTitle(nativeAd?.callToAction, for: .normal)
-        prebidNativeAdView?.sponsoredLabel.text = nativeAd?.sponsoredBy
+        nativeAdView?.callToActionButton.setTitle(nativeAd?.callToAction, for: .normal)
+        nativeAdView?.sponsoredLabel.text = nativeAd?.sponsoredBy
     }
     
     func renderMoPubNativeAd( ) {
         if let mpAd = mpAd, let properties = mpAd.properties {
-            prebidNativeAdView?.titleLabel.text = properties["title"] as? String
-            prebidNativeAdView?.bodyLabel.text = properties["text"] as? String
+            nativeAdView?.titleLabel.text = properties["title"] as? String
+            nativeAdView?.bodyLabel.text = properties["text"] as? String
             if let iconString = properties["iconimage"] as? String, let iconUrl = URL(string: iconString) {
                 DispatchQueue.global().async {
                     let data = try? Data(contentsOf: iconUrl)
                     DispatchQueue.main.async {
                         if data != nil {
-                            self.prebidNativeAdView?.iconImageView.image = UIImage(data:data!)
+                            self.nativeAdView?.iconImageView.image = UIImage(data:data!)
                         }
                     }
                 }
@@ -179,7 +230,7 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
                     let data = try? Data(contentsOf: imageUrl)
                     DispatchQueue.main.async {
                         if data != nil {
-                            self.prebidNativeAdView?.mainImageView.image = UIImage(data:data!)
+                            self.nativeAdView?.mainImageView.image = UIImage(data:data!)
                         }
                     }
                 }
@@ -187,58 +238,21 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
         }
     }
     
-    //MARK: : Native functions
-    func loadNativeAssets(){
-        
-        let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 200, required: true)
-        image.type = ImageAsset.Main
-        
-        let icon = NativeAssetImage(minimumWidth: 20, minimumHeight: 20, required: true)
-        icon.type = ImageAsset.Icon
-        
-        let title = NativeAssetTitle(length: 90, required: true)
-        
-        let body = NativeAssetData(type: DataAsset.description, required: true)
-        
-        let cta = NativeAssetData(type: DataAsset.ctatext, required: true)
-        
-        let sponsored = NativeAssetData(type: DataAsset.sponsored, required: true)
-        
-        nativeUnit = NativeRequest(configId: "25e17008-5081-4676-94d5-923ced4359d3", assets: [icon,title,image,body,cta,sponsored])
-        
-        nativeUnit.context = ContextType.Social
-        nativeUnit.placementType = PlacementType.FeedContent
-        nativeUnit.contextSubType = ContextSubType.Social
-        
-        let event1 = EventType.Impression
-        eventTrackers = NativeEventTracker(event: event1, methods: [EventTracking.Image,EventTracking.js])
-        nativeUnit.eventtrackers = [eventTrackers]
-    }
-    
-    func createPrebidNativeView(){
-        let adNib = UINib(nibName: "PrebidNativeAdView", bundle: Bundle(for: type(of: self)))
-        let array = adNib.instantiate(withOwner: self, options: nil)
-        if let prebidNativeAdView = array.first as? PrebidNativeAdView{
-            self.prebidNativeAdView = prebidNativeAdView
-            prebidNativeAdView.frame = CGRect(x: 0, y: 0, width: self.adContainerView.frame.size.width, height: 150 + self.screenWidth * 400 / 600)
-            self.adContainerView.addSubview(prebidNativeAdView)
-        }
-    }
-    
-    func registerPrebidNativeView(){
-        nativeAd?.delegate = self
-        if  let prebidNativeAdView = prebidNativeAdView {
-            nativeAd?.registerView(view: prebidNativeAdView, clickableViews: [prebidNativeAdView.callToActionButton])
-        }
-    }
-    
     //MARK: : Helper functions
+    
+    func registerNativeInAppView(){
+        nativeAd?.delegate = self
+        if  let nativeAdView = nativeAdView {
+            nativeAd?.registerView(view: nativeAdView, clickableViews: [nativeAdView.callToActionButton])
+        }
+    }
+    
     func removePreviousAds() {
-        if prebidNativeAdView != nil {
-            prebidNativeAdView?.iconImageView = nil
-            prebidNativeAdView?.mainImageView = nil
-            prebidNativeAdView!.removeFromSuperview()
-            prebidNativeAdView = nil
+        if nativeAdView != nil {
+            nativeAdView?.iconImageView = nil
+            nativeAdView?.mainImageView = nil
+            nativeAdView!.removeFromSuperview()
+            nativeAdView = nil
         }
         if nativeAd != nil {
             nativeAd = nil
@@ -246,13 +260,13 @@ class PrebidNativeViewController: UIViewController,DFPBannerAdLoaderDelegate, GA
     }
 }
 
-extension PrebidNativeViewController : NativeAdDelegate{
+extension NativeInAppViewController : NativeAdDelegate{
     
     func nativeAdLoaded(ad:NativeAd) {
         print("nativeAdLoaded")
         nativeAd = ad
-        registerPrebidNativeView()
-        renderPrebidNativeAd()
+        registerNativeInAppView()
+        renderNativeInAppAd()
     }
     
     func nativeAdNotFound() {
@@ -268,7 +282,7 @@ extension PrebidNativeViewController : NativeAdDelegate{
     }
 }
 
-extension PrebidNativeViewController : NativeAdEventDelegate{
+extension NativeInAppViewController : NativeAdEventDelegate{
     
     func adDidExpire(ad:NativeAd){
         print("adDidExpire")

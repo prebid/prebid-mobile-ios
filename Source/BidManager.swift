@@ -117,7 +117,7 @@ class BidManager: NSObject {
                         }
                         // Caching the response only for Native
                         if let adType = prebidDict["type"] as? String, adType == "native", containTopBid == true {
-                            if let bid = bid as? [String : AnyObject], let bidTxt = Utils.shared.getStringFromDictionary(bid),  let cacheId = CacheManager.shared.save(content: bidTxt, expireInterval: bid["exp"] as? TimeInterval ?? CacheManager.kCacheManagerExpireInterval), !cacheId.isEmpty{
+                            if let bid = bid as? [String : AnyObject], let bidTxt = Utils.shared.getStringFromDictionary(bid),  let cacheId = CacheManager.shared.save(content: bidTxt, expireInterval: bid["exp"] as? TimeInterval ?? CacheManager.cacheManagerExpireInterval), !cacheId.isEmpty{
                                 bidDict["hb_cache_id_local"] = cacheId as AnyObject
                             }
                         }

@@ -17,7 +17,7 @@ import UIKit
 
 class CacheManager: NSObject {
     
-    static let kCacheManagerExpireInterval : TimeInterval = 300
+    static let cacheManagerExpireInterval : TimeInterval = 300
     /**
      * The class is created as a singleton object & used
      */
@@ -34,7 +34,7 @@ class CacheManager: NSObject {
     internal var savedValuesDict = [String : String]()
     weak var delegate: CacheExpiryDelegate?
     
-    func save(content: String, expireInterval: TimeInterval = CacheManager.kCacheManagerExpireInterval) -> String?{
+    func save(content: String, expireInterval: TimeInterval = CacheManager.cacheManagerExpireInterval) -> String?{
         if content.isEmpty {
             return nil
         }else{

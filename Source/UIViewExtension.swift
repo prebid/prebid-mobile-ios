@@ -17,7 +17,7 @@ import Foundation
 
 extension UIView {
     
-    func an_isAtLeastHalfViewable() -> Bool{
+    func pb_isAtLeastHalfViewable() -> Bool{
         if isHidden {
             return false
         }

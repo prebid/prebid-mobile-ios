@@ -35,7 +35,7 @@
 @property (nonatomic, strong) MPNativeAdRequest *mpNative;
 @property (nonatomic, strong) MPNativeAd *mpAd;
 @property (nonatomic, strong) NativeAd *prebidNativeAd;
-@property (nonatomic, strong) PrebidNativeAdView *prebidNativeAdView;
+@property (nonatomic, strong) NativeAdView *nativeAdView;
 @property (nonatomic, strong) NativeRequest *nativeUnit;
 @property (nonatomic, strong) NativeEventTracker *eventTrackers;
 
@@ -80,7 +80,7 @@
         } else if ([self.adServer isEqualToString:@"MoPub"]) {
             [self loadMoPubInterstitial];
         }
-    } else if ([self.adUnit isEqualToString:@"PrebidNative"]) {
+    } else if ([self.adUnit isEqualToString:@"InAppNative"]) {
         self.bannerView.hidden = true;
         self.adContainerView.hidden = false;
         if ([self.adServer isEqualToString:@"DFP"]) {
@@ -324,16 +324,16 @@
 #pragma mark :- Native functions
 
 -(void) createPrebidNativeView{
-    UINib *adNib = [UINib nibWithNibName:@"PrebidNativeAdView" bundle:[NSBundle bundleForClass:[self class]]];
+    UINib *adNib = [UINib nibWithNibName:@"NativeAdView" bundle:[NSBundle bundleForClass:[self class]]];
     NSArray *array = [adNib instantiateWithOwner:self options:nil];
-    _prebidNativeAdView = [array firstObject];
-    _prebidNativeAdView.frame = CGRectMake(0, 0, _adContainerView.frame.size.width, 150 + self.view.frame.size.width * 400 / 600);
-    [_adContainerView addSubview:_prebidNativeAdView];
+    _nativeAdView = [array firstObject];
+    _nativeAdView.frame = CGRectMake(0, 0, _adContainerView.frame.size.width, 150 + self.view.frame.size.width * 400 / 600);
+    [_adContainerView addSubview:_nativeAdView];
 }
 
 -(void) registerPrebidNativeView{
     self.prebidNativeAd.delegate = self;
-    [self.prebidNativeAd registerViewWithView:self.prebidNativeAdView clickableViews:@[self.prebidNativeAdView.callToActionButton]];
+    [self.prebidNativeAd registerViewWithView:self.nativeAdView clickableViews:@[self.nativeAdView.callToActionButton]];
 }
 
 -(void) loadNativeAssets{
@@ -359,11 +359,11 @@
 }
 
 -(void) removePreviousAds{
-    if (_prebidNativeAdView != nil) {
-        _prebidNativeAdView.iconImageView = nil;
-        _prebidNativeAdView.mainImageView = nil;
-        [_prebidNativeAdView removeFromSuperview];
-        _prebidNativeAdView = nil;
+    if (_nativeAdView != nil) {
+        _nativeAdView.iconImageView = nil;
+        _nativeAdView.mainImageView = nil;
+        [_nativeAdView removeFromSuperview];
+        _nativeAdView = nil;
     }
     if (_prebidNativeAd != nil) {
         _prebidNativeAd = nil;
@@ -376,22 +376,22 @@
 #pragma mark :- Rendering Prebid Native
 
 -(void) renderPrebidNativeAd{
-    self.prebidNativeAdView.titleLabel.text = self.prebidNativeAd.title;
-    self.prebidNativeAdView.bodyLabel.text = self.prebidNativeAd.text;
+    self.nativeAdView.titleLabel.text = self.prebidNativeAd.title;
+    self.nativeAdView.bodyLabel.text = self.prebidNativeAd.text;
     dispatch_async(dispatch_get_global_queue(0,0), ^{
         NSData * dataIcon = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: self.prebidNativeAd.iconUrl]];
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.prebidNativeAdView.iconImageView.image = [UIImage imageWithData: dataIcon];
+            self.nativeAdView.iconImageView.image = [UIImage imageWithData: dataIcon];
         });
     });
     dispatch_async(dispatch_get_global_queue(0,0), ^{
         NSData * dataMainImage = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: self.prebidNativeAd.imageUrl]];
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.prebidNativeAdView.mainImageView.image = [UIImage imageWithData: dataMainImage];
+            self.nativeAdView.mainImageView.image = [UIImage imageWithData: dataMainImage];
         });
     });
-    [self.prebidNativeAdView.callToActionButton setTitle:self.prebidNativeAd.callToAction forState:UIControlStateNormal];
-    self.prebidNativeAdView.sponsoredLabel.text = self.prebidNativeAd.sponsoredBy;
+    [self.nativeAdView.callToActionButton setTitle:self.prebidNativeAd.callToAction forState:UIControlStateNormal];
+    self.nativeAdView.sponsoredLabel.text = self.prebidNativeAd.sponsoredBy;
     
 }
 
@@ -415,7 +415,7 @@ didReceiveNativeCustomTemplateAd:(nonnull GADNativeCustomTemplateAd *)nativeCust
 
 - (void)adLoader:(nonnull GADAdLoader *)adLoader
 didReceiveDFPBannerView:(nonnull DFPBannerView *)bannerView{
-    [self.prebidNativeAdView addSubview:bannerView];
+    [self.nativeAdView addSubview:bannerView];
 }
 
 - (nonnull NSArray<NSValue *> *)validBannerSizesForAdLoader:(nonnull GADAdLoader *)adLoader{
