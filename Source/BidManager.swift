@@ -119,7 +119,7 @@ class BidManager: NSObject {
                         if containTopBid == true {
                             let skadnDict: [String: Any]? = extDict["skadn"] as? [String: Any]
                             
-                            if let adType = prebidDict["type"] as? String, adType == "native" || skadnDict != nil {
+                            if let adType = prebidDict["type"] as? String, adType == "native" || true { //|| skadnDict != nil
                                 if let bid = bid as? [String : AnyObject], let bidTxt = Utils.shared.getStringFromDictionary(bid),  let cacheId = CacheManager.shared.save(content: bidTxt), !cacheId.isEmpty{
                                     bidDict["hb_cache_id_local"] = cacheId as AnyObject
                                 }

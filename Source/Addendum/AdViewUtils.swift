@@ -42,18 +42,13 @@ public final class AdViewUtils: NSObject {
     }
     
     @objc
-    public static func onAdClicked(viewController: UIViewController, adView: UIView) {
+    public static func subscribeOnAdClicked(viewController: UIViewController, adView: UIView) {
         let view = self.findView(adView) { (subView) -> Bool in
             return AdViewUtils.isWKWebView(subView)
         }
         
         if let wkWebView = view as? WKWebView  {
-//            guard wkWebView.url?.host == "apps.apple.com" else {
-//                return
-//            }
-//            self.findIdInWebViewAsync(wkWebView: wkWebView) { (id) in
             self.injectCodeInWebViewAsync(wkWebView: wkWebView) { (id) in
-                
                 
                 let savedValuesDict = CacheManager.shared.savedValuesDict
                 for (key, value) in savedValuesDict {
@@ -64,16 +59,18 @@ public final class AdViewUtils: NSObject {
                        let targeting = prebid["targeting"] as? [AnyHashable : Any],
                        let hbCacheId = targeting["hb_cache_id"] as? String {
                         if (hbCacheId == id) {
-                            if let skadn = ext["skadn"] as? [AnyHashable : Any], let itunesitem = skadn["itunesitem"] as? String {
+//                            if let skadn = ext["skadn"] as? [AnyHashable : Any], let itunesitem = skadn["itunesitem"] as? String {
                                 
                                 let adViewController = SKStoreProductViewController()
 
-                                adViewController.loadProduct(withParameters:[SKStoreProductParameterITunesItemIdentifier: NSNumber(value: Int(itunesitem)!)]) { (b, e) in
+//                                adViewController.loadProduct(withParameters:[SKStoreProductParameterITunesItemIdentifier: NSNumber(value: Int(itunesitem)!)]) { (b, e) in
+                                adViewController.loadProduct(withParameters:[SKStoreProductParameterITunesItemIdentifier: NSNumber(value: 1442614692)]) { (b, e) in
+                                
                                     print("error:\(e)")
                                 }
                         
                                 viewController.present(adViewController, animated: true, completion: nil)
-                            }
+//                            }
                             
                             break
                         }
@@ -132,18 +129,67 @@ public final class AdViewUtils: NSObject {
         
     }
     
+    static func injectCodeInWebViewAsync(wkWebView: WKWebView, success: @escaping (String) -> Void) {
+        
+//        wkWebView.evaluateJavaScript("var isReady = false; document.addEventListener(\"DOMContentLoaded\", function(event) {isReady = true; });", completionHandler: { (value: Any!, error: Error!) -> Void in
+//            if let error = error {
+//                print("00:\(error.localizedDescription)")
+//            }
+//
+//        })
+        
+        let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
+            wkWebView.evaluateJavaScript("document.readyState", completionHandler: { (value: Any!, error: Error!) -> Void in
+                if let error = error {
+                    print("02:\(error.localizedDescription)")
+                }
+                
+                if let v = value as? String, v == "complete" {
+                    print("ready")
+                    timer.invalidate()
+                    
+                    wkWebView.evaluateJavaScript("document.querySelector(\"a[target='_blank']\").href", completionHandler: { (value: Any!, error: Error!) -> Void in
+                        if let error = error {
+                            print("0:\(error.localizedDescription)")
+                        }
+                        
+                        if let url = value as? String, url == "http://www.rubiconproject.com/" {
+                            wkWebView.evaluateJavaScript("var isClicked = false; const div = document.createElement('div'); div.style.top = 0; div.style.bottom = 0; div.style.left = 0; div.style.right = 0; div.style.position = \"fixed\"; document.body.appendChild(div); div.addEventListener(\"click\", () => {isClicked=true; console.log(\"test\");})", completionHandler: { (value: Any!, error: Error!) -> Void in //div.style.background = \"red\";
+                                if let error = error {
+                                    print("1:\(error.localizedDescription)")
+                                }
+                                let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
+                                    wkWebView.evaluateJavaScript("isClicked", completionHandler: { (value: Any!, error: Error!) -> Void in
+                                        if let error = error {
+                                            print("2:\(error.localizedDescription)")
+                                        }
+                                        print("\(value!)")
+                                        
+                                        if let v = value as? Bool, v == true {
+                                            wkWebView.evaluateJavaScript("isClicked = false", completionHandler: { (value: Any!, error: Error!) -> Void in
+
+                                            })
+                                            
+                                            findIdInWebViewAsync(wkWebView: wkWebView, success: success)
+                                        }
+                                    })
+                                }
+                                
+                            })
+                            
+                        }
+                    })
+                }
+            })
+        }
+        
+        
+    }
+    
     static func findIdInWebViewAsync(wkWebView: WKWebView, success: @escaping (String) -> Void) {
         wkWebView.evaluateJavaScript(AdViewUtils.innerHtmlScript, completionHandler: { (value: Any!, error: Error!) -> Void in
             
             self.findIdInHtml(body: value as? String, success: success)
-        })
-    }
-    
-    static func injectCodeInWebViewAsync(wkWebView: WKWebView, success: @escaping (String) -> Void) {
-        wkWebView.evaluateJavaScript("var isClicked = false window.onclick=()=> console.log(\"test\") isClicked=true", completionHandler: { (value: Any!, error: Error!) -> Void in
-            
-            let a = "f"
-
         })
     }
     
