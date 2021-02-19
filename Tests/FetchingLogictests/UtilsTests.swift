@@ -84,20 +84,95 @@ import XCTest
     }
 }
 
-class UtilsTests: XCTestCase {
+@objcMembers class MPNativeAdRequest: NSObject {
+    
+    var name: String!
+    private(set) var p_customTargeting: MPNativeAdRequestTargeting
+
+    var targeting: MPNativeAdRequestTargeting {
+
+        get {
+            return p_customTargeting
+        }
+
+        set {
+            self.p_customTargeting = newValue
+        }
+
+    }
+
+    override init() {
+        self.p_customTargeting = MPNativeAdRequestTargeting()
+    }
+}
+
+@objcMembers class MPNativeAdRequestTargeting: NSObject {
+    var name: String!
+    private(set) var p_customKeywords: String = ""
+
+    var keywords: String {
+
+        get {
+            return p_customKeywords
+        }
+
+        set {
+            self.p_customKeywords = newValue
+        }
+
+    }
+}
+
+@objcMembers class MPNativeAd: NSObject {
+    
+    var name: String!
+    var p_customProperties: [String:AnyObject]
+
+    var properties:  [String:AnyObject] {
+
+        get {
+            return p_customProperties
+        }
+
+        set {
+            self.p_customProperties = newValue
+        }
+
+    }
+
+    override init() {
+        self.p_customProperties = [String:AnyObject]()
+        self.p_customProperties["isPrebid"] = 1 as AnyObject
+    }
+}
+
+class GADNativeCustomTemplateAd: UserDefaults {}
+
+class UtilsTests: XCTestCase, NativeAdDelegate {
 
     var dfpAdObject: DFPNRequest?
     var invalidDfpAdObject: DFPORequest?
     var mopubObject: MPAdView?
     var invalidMopubObject: InvalidMPAdView?
+    var mopubNativeObject: MPNativeAdRequest?
+    var prebidNativeAdLoadedExpectation: XCTestExpectation?
+    var prebidNativeAdNotFoundExpectation: XCTestExpectation?
+    var prebidNativeAdNotValidExpectation: XCTestExpectation?
+    var timeoutForImpbusRequest: TimeInterval = 0.0
+
 
     override func setUp() {
         dfpAdObject = DFPNRequest()
         mopubObject = MPAdView()
+        mopubNativeObject = MPNativeAdRequest()
+        timeoutForImpbusRequest = 10.0
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        prebidNativeAdLoadedExpectation = nil
+        prebidNativeAdNotFoundExpectation = nil
+        prebidNativeAdNotValidExpectation = nil
     }
     
     func testConvertDictToMoPubKeywords() {
@@ -137,7 +212,8 @@ class UtilsTests: XCTestCase {
                                               "hb_cache_id_appnexus": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d",
                                               "hb_pb": "0.50",
                                               "hb_bidder": "appnexus",
-                                              "hb_size": "300x250"]
+                                              "hb_size": "300x250",
+                                              "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
         dfpAdObject?.customTargeting = ["test_key": "test_value"] as [String: AnyObject]
 
         let bidResponse = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
@@ -147,8 +223,9 @@ class UtilsTests: XCTestCase {
         XCTAssertTrue(((dfpAdObject?.description) != nil), "DFPNRequest")
 
         XCTAssertNotNil(dfpAdObject?.customTargeting)
-        XCTAssertEqual(11, dfpAdObject?.customTargeting.count)
+        XCTAssertEqual(12, dfpAdObject?.customTargeting.count)
         XCTAssertEqual(dfpAdObject?.customTargeting["test_key"] as! String, "test_value")
+        XCTAssertEqual(dfpAdObject!.customTargeting["hb_cache_id_local"] as! String, "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80")
         XCTAssertEqual(dfpAdObject!.customTargeting["hb_size"] as! String, "300x250")
         XCTAssertEqual(dfpAdObject!.customTargeting["hb_bidder"] as! String, "appnexus")
         XCTAssertEqual(dfpAdObject!.customTargeting["hb_env"] as! String, "mobile-app")
@@ -168,15 +245,17 @@ class UtilsTests: XCTestCase {
                                                "hb_cache_id_rubicon": "ffffffff-5ee2-4d74-ae85-e4b602b7f88d",
                                                "hb_pb": "0.50",
                                                "hb_bidder": "rubicon",
-                                               "hb_size": "300x250"]
+                                               "hb_size": "300x250",
+                                               "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
         let bidResponse2 = BidResponse(adId: "test", adServerTargeting: prebidKeywords2 as [String: AnyObject])
         utils.removeHBKeywords(adObject: dfpAdObject!)
         utils.validateAndAttachKeywords(adObject: dfpAdObject as AnyObject, bidResponse: bidResponse2)
         XCTAssertTrue(((dfpAdObject?.description) != nil), "DFPNRequest")
 
         XCTAssertNotNil(dfpAdObject?.customTargeting)
-        XCTAssertEqual(11, dfpAdObject?.customTargeting.count)
+        XCTAssertEqual(12, dfpAdObject?.customTargeting.count)
         XCTAssertEqual(dfpAdObject?.customTargeting["test_key"] as! String, "test_value")
+        XCTAssertEqual(dfpAdObject!.customTargeting["hb_cache_id_local"] as! String, "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80")
         XCTAssertEqual(dfpAdObject!.customTargeting["hb_size"] as! String, "300x250")
         XCTAssertEqual(dfpAdObject!.customTargeting["hb_bidder"] as! String, "rubicon")
         XCTAssertEqual(dfpAdObject!.customTargeting["hb_env"] as! String, "mobile-app")
@@ -206,7 +285,8 @@ class UtilsTests: XCTestCase {
                                               "hb_cache_id_appnexus": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d",
                                               "hb_pb": "0.50",
                                               "hb_bidder": "appnexus",
-                                              "hb_size": "300x250"]
+                                              "hb_size": "300x250",
+                                              "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
         dfpAdObject?.customTargeting = ["test_key": "test_value"] as [String: AnyObject]
 
         let bidResponse = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
@@ -216,8 +296,9 @@ class UtilsTests: XCTestCase {
         XCTAssertTrue(((dfpAdObject?.description) != nil), "DFPNRequest")
 
         XCTAssertNotNil(dfpAdObject?.customTargeting)
-        XCTAssertEqual(11, dfpAdObject?.customTargeting.count)
+        XCTAssertEqual(12, dfpAdObject?.customTargeting.count)
         XCTAssertEqual(dfpAdObject?.customTargeting["test_key"] as! String, "test_value")
+        XCTAssertEqual(dfpAdObject!.customTargeting["hb_cache_id_local"] as! String, "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80")
         XCTAssertEqual(dfpAdObject!.customTargeting["hb_size"] as! String, "300x250")
         XCTAssertEqual(dfpAdObject!.customTargeting["hb_bidder"] as! String, "appnexus")
         XCTAssertEqual(dfpAdObject!.customTargeting["hb_env"] as! String, "mobile-app")
@@ -235,6 +316,7 @@ class UtilsTests: XCTestCase {
         XCTAssertNotNil(dfpAdObject?.customTargeting)
         XCTAssertEqual(1, dfpAdObject?.customTargeting.count)
         XCTAssertEqual(dfpAdObject?.customTargeting["test_key"] as! String, "test_value")
+        XCTAssertNil(dfpAdObject?.customTargeting["hb_cache_id_local"])
         XCTAssertNil(dfpAdObject?.customTargeting["hb_size"])
         XCTAssertNil(dfpAdObject?.customTargeting["hb_bidder"])
         XCTAssertNil(dfpAdObject?.customTargeting["hb_env"])
@@ -255,14 +337,16 @@ class UtilsTests: XCTestCase {
                                                "hb_cache_id_rubicon": "ffffffff-5ee2-4d74-ae85-e4b602b7f88d",
                                                "hb_pb": "0.50",
                                                "hb_bidder": "rubicon",
-                                               "hb_size": "300x250"]
+                                               "hb_size": "300x250",
+                                               "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
         let bidResponse2 = BidResponse(adId: "test", adServerTargeting: prebidKeywords2 as [String: AnyObject])
         utils.validateAndAttachKeywords(adObject: dfpAdObject as AnyObject, bidResponse: bidResponse2)
 
         XCTAssertTrue(((dfpAdObject?.description) != nil), "DFPNRequest")
         XCTAssertNotNil(dfpAdObject?.customTargeting)
-        XCTAssertEqual(11, dfpAdObject?.customTargeting.count)
+        XCTAssertEqual(12, dfpAdObject?.customTargeting.count)
         XCTAssertEqual(dfpAdObject?.customTargeting["test_key"] as! String, "test_value")
+        XCTAssertEqual(dfpAdObject!.customTargeting["hb_cache_id_local"] as! String, "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80")
         XCTAssertEqual(dfpAdObject!.customTargeting["hb_size"] as! String, "300x250")
         XCTAssertEqual(dfpAdObject!.customTargeting["hb_bidder"] as! String, "rubicon")
         XCTAssertEqual(dfpAdObject!.customTargeting["hb_env"] as! String, "mobile-app")
@@ -285,6 +369,7 @@ class UtilsTests: XCTestCase {
         XCTAssertNotNil(dfpAdObject?.customTargeting)
         XCTAssertEqual(1, dfpAdObject?.customTargeting.count)
         XCTAssertEqual(dfpAdObject?.customTargeting["test_key"] as! String, "test_value")
+        XCTAssertNil(dfpAdObject?.customTargeting["hb_cache_id_local"])
         XCTAssertNil(dfpAdObject?.customTargeting["hb_size"])
         XCTAssertNil(dfpAdObject?.customTargeting["hb_bidder"])
         XCTAssertNil(dfpAdObject?.customTargeting["hb_env"])
@@ -318,7 +403,7 @@ class UtilsTests: XCTestCase {
     func testDFPInvalidObject() {
         let utils: Utils = Utils.shared
         let prebidKeywords: [String: String] = ["hb_env": "mobile-app", "hb_bidder_appnexus": "appnexus", "hb_size_appnexus": "300x250", "hb_pb_appnexus":
-            "0.50", "hb_env_appnexus": "mobile-app", "hb_cache_id": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_cache_id_appnexus": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_pb": "0.50", "hb_bidder": "appnexus", "hb_size": "300x250"]
+            "0.50", "hb_env_appnexus": "mobile-app", "hb_cache_id": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_cache_id_appnexus": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_pb": "0.50", "hb_bidder": "appnexus", "hb_size": "300x250", "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
         let bidResponse = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
         utils.validateAndAttachKeywords(adObject: invalidDfpAdObject as AnyObject, bidResponse: bidResponse)
         XCTAssertNil(invalidDfpAdObject?.customTargeting)
@@ -602,4 +687,355 @@ class UtilsTests: XCTestCase {
         
     }
     
+    func testAttachMoPubNativeKeywords() {
+        let utils: Utils = Utils.shared
+
+        let prebidKeywords: [String: String] = ["hb_env": "mobile-app", "hb_bidder_appnexus": "appnexus", "hb_size_appnexus": "300x250", "hb_pb_appnexus":
+                                                    "0.50", "hb_env_appnexus": "mobile-app", "hb_cache_id": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_cache_id_appnexus": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_pb": "0.50", "hb_bidder": "appnexus", "hb_size": "300x250", "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
+
+        let bidResponse = BidResponse(adId: "test1", adServerTargeting: prebidKeywords as [String: AnyObject])
+        let mopubNativeAdRequestTargeting = MPNativeAdRequestTargeting()
+        mopubNativeAdRequestTargeting.keywords = "test_key:test_value"
+        mopubNativeObject?.targeting = mopubNativeAdRequestTargeting
+        utils.validateAndAttachKeywords(adObject: mopubNativeObject as AnyObject, bidResponse: bidResponse)
+
+        var keywords: String?
+        var keywordsArray: [String] = []
+
+        XCTAssertTrue(((self.mopubNativeObject?.description) != nil), "MPNativeAdRequest")
+        XCTAssertNotNil(self.mopubNativeObject?.targeting)
+        
+        XCTAssertTrue(((self.mopubNativeObject?.targeting.description) != nil), "MPNativeAdRequestTargeting")
+        XCTAssertNotNil(self.mopubNativeObject?.targeting.keywords)
+        
+        keywords = self.mopubNativeObject?.targeting.keywords
+        keywordsArray = keywords!.components(separatedBy: ",")
+        XCTAssertEqual(12, keywordsArray.count)
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id_local:Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"))
+        XCTAssertTrue (keywordsArray.contains("hb_env:mobile-app"))
+        XCTAssertTrue (keywordsArray.contains("hb_bidder_appnexus:appnexus"))
+        XCTAssertTrue (keywordsArray.contains("hb_size_appnexus:300x250"))
+        XCTAssertTrue (keywordsArray.contains("hb_pb_appnexus:0.50"))
+        XCTAssertTrue (keywordsArray.contains("hb_env_appnexus:mobile-app"))
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id:d6e43a95-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id_appnexus:d6e43a95-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertTrue (keywordsArray.contains("hb_pb:0.50"))
+        XCTAssertTrue (keywordsArray.contains("hb_bidder:appnexus"))
+        XCTAssertTrue (keywordsArray.contains("hb_size:300x250"))
+        XCTAssertTrue (keywordsArray.contains("test_key:test_value"))
+
+        let prebidKeywords2: [String: String] = ["hb_env": "mobile-app",
+                                               "hb_bidder_rubicon": "rubicon",
+                                               "hb_size_rubicon": "300x250",
+                                               "hb_pb_rubicon": "0.50",
+                                               "hb_env_rubicon": "mobile-app",
+                                               "hb_cache_id": "ffffffff-5ee2-4d74-ae85-e4b602b7f88d",
+                                               "hb_cache_id_rubicon": "ffffffff-5ee2-4d74-ae85-e4b602b7f88d",
+                                               "hb_pb": "0.50",
+                                               "hb_bidder": "rubicon",
+                                               "hb_size": "300x250", "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
+
+        let bidResponse2 = BidResponse(adId: "test2", adServerTargeting: prebidKeywords2 as [String: AnyObject])
+        utils.removeHBKeywords(adObject: self.mopubNativeObject!)
+        utils.validateAndAttachKeywords(adObject: self.mopubNativeObject as AnyObject, bidResponse: bidResponse2)
+
+        XCTAssertTrue(((self.mopubNativeObject?.description) != nil), "MPNativeAdRequest")
+        XCTAssertNotNil(self.mopubNativeObject?.targeting)
+        
+        XCTAssertTrue(((self.mopubNativeObject?.targeting.description) != nil), "MPNativeAdRequestTargeting")
+        XCTAssertNotNil(self.mopubNativeObject?.targeting.keywords)
+
+        keywords = self.mopubNativeObject?.targeting.keywords
+        keywordsArray = keywords!.components(separatedBy: ",")
+        XCTAssertEqual(12, keywordsArray.count)
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id_local:Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"))
+        XCTAssertTrue (keywordsArray.contains("hb_env:mobile-app"))
+        XCTAssertTrue (keywordsArray.contains("hb_bidder_rubicon:rubicon"))
+        XCTAssertTrue (keywordsArray.contains("hb_size_rubicon:300x250"))
+        XCTAssertTrue (keywordsArray.contains("hb_pb_rubicon:0.50"))
+        XCTAssertTrue (keywordsArray.contains("hb_env_rubicon:mobile-app"))
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id:ffffffff-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id_rubicon:ffffffff-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertTrue (keywordsArray.contains("hb_pb:0.50"))
+        XCTAssertTrue (keywordsArray.contains("hb_bidder:rubicon"))
+        XCTAssertTrue (keywordsArray.contains("hb_size:300x250"))
+        XCTAssertTrue (keywordsArray.contains("test_key:test_value"))
+
+    }
+    
+    func testRemoveMoPubNativeKeywords() {
+        let utils: Utils = Utils.shared
+
+        let prebidKeywords: [String: String] = ["hb_env": "mobile-app", "hb_bidder_appnexus": "appnexus", "hb_size_appnexus": "300x250", "hb_pb_appnexus":
+            "0.50", "hb_env_appnexus": "mobile-app", "hb_cache_id": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_cache_id_appnexus": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_pb": "0.50", "hb_bidder": "appnexus", "hb_size": "300x250", "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
+
+        let bidResponse = BidResponse(adId: "test1", adServerTargeting: prebidKeywords as [String: AnyObject])
+        let mopubNativeAdRequestTargeting = MPNativeAdRequestTargeting()
+        mopubNativeAdRequestTargeting.keywords = "test_key:test_value"
+        mopubNativeObject?.targeting = mopubNativeAdRequestTargeting
+        utils.validateAndAttachKeywords(adObject: mopubNativeObject as AnyObject, bidResponse: bidResponse)
+
+        var keywords: String?
+        var keywordsArray: [String] = []
+
+        XCTAssertTrue(((self.mopubNativeObject?.description) != nil), "MPNativeAdRequest")
+        XCTAssertNotNil(self.mopubNativeObject?.targeting)
+        
+        XCTAssertTrue(((self.mopubNativeObject?.targeting.description) != nil), "MPNativeAdRequestTargeting")
+        XCTAssertNotNil(self.mopubNativeObject?.targeting.keywords)
+        
+        keywords = self.mopubNativeObject?.targeting.keywords
+        keywordsArray = keywords!.components(separatedBy: ",")
+        XCTAssertEqual(12, keywordsArray.count)
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id_local:Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"))
+        XCTAssertTrue (keywordsArray.contains("hb_env:mobile-app"))
+        XCTAssertTrue (keywordsArray.contains("hb_bidder_appnexus:appnexus"))
+        XCTAssertTrue (keywordsArray.contains("hb_size_appnexus:300x250"))
+        XCTAssertTrue (keywordsArray.contains("hb_pb_appnexus:0.50"))
+        XCTAssertTrue (keywordsArray.contains("hb_env_appnexus:mobile-app"))
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id:d6e43a95-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id_appnexus:d6e43a95-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertTrue (keywordsArray.contains("hb_pb:0.50"))
+        XCTAssertTrue (keywordsArray.contains("hb_bidder:appnexus"))
+        XCTAssertTrue (keywordsArray.contains("hb_size:300x250"))
+        XCTAssertTrue (keywordsArray.contains("test_key:test_value"))
+
+        utils.removeHBKeywords(adObject: self.mopubNativeObject!)
+
+        XCTAssertTrue(((self.mopubNativeObject?.description) != nil), "MPNativeAdRequest")
+        XCTAssertNotNil(self.mopubNativeObject?.targeting)
+        
+        XCTAssertTrue(((self.mopubNativeObject?.targeting.description) != nil), "MPNativeAdRequestTargeting")
+        XCTAssertNotNil(self.mopubNativeObject?.targeting.keywords)
+        
+        keywords = self.mopubNativeObject?.targeting.keywords
+        keywordsArray = keywords!.components(separatedBy: ",")
+        XCTAssertEqual(1, keywordsArray.count)
+        XCTAssertFalse (keywordsArray.contains("hb_cache_id_local:Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"))
+        XCTAssertFalse(keywordsArray.contains("hb_env:mobile-app"))
+        XCTAssertFalse(keywordsArray.contains("hb_bidder_appnexus:appnexus"))
+        XCTAssertFalse(keywordsArray.contains("hb_size_appnexus:300x250"))
+        XCTAssertFalse(keywordsArray.contains("hb_pb_appnexus:0.50"))
+        XCTAssertFalse(keywordsArray.contains("hb_env_appnexus:mobile-app"))
+        XCTAssertFalse(keywordsArray.contains("hb_cache_id:d6e43a95-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertFalse(keywordsArray.contains("hb_cache_id_appnexus:d6e43a95-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertFalse(keywordsArray.contains("hb_pb:0.50"))
+        XCTAssertFalse(keywordsArray.contains("hb_bidder:appnexus"))
+        XCTAssertFalse(keywordsArray.contains("hb_size:300x250"))
+        XCTAssertTrue(keywordsArray.contains("test_key:test_value"))
+
+        let prebidKeywords2: [String: String] = ["hb_env": "mobile-app",
+                                               "hb_bidder_rubicon": "rubicon",
+                                               "hb_size_rubicon": "300x250",
+                                               "hb_pb_rubicon": "0.50",
+                                               "hb_env_rubicon": "mobile-app",
+                                               "hb_cache_id": "ffffffff-5ee2-4d74-ae85-e4b602b7f88d",
+                                               "hb_cache_id_rubicon": "ffffffff-5ee2-4d74-ae85-e4b602b7f88d",
+                                               "hb_pb": "0.50",
+                                               "hb_bidder": "rubicon",
+                                               "hb_size": "300x250","hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
+        let bidResponse2 = BidResponse(adId: "test2", adServerTargeting: prebidKeywords2 as [String: AnyObject])
+        utils.validateAndAttachKeywords(adObject: self.mopubNativeObject as AnyObject, bidResponse: bidResponse2)
+
+        XCTAssertTrue(((self.mopubNativeObject?.description) != nil), "MPNativeAdRequest")
+        XCTAssertNotNil(self.mopubNativeObject?.targeting)
+        
+        XCTAssertTrue(((self.mopubNativeObject?.targeting.description) != nil), "MPNativeAdRequestTargeting")
+        XCTAssertNotNil(self.mopubNativeObject?.targeting.keywords)
+        
+        keywords = self.mopubNativeObject?.targeting.keywords
+        keywordsArray = keywords!.components(separatedBy: ",")
+        XCTAssertEqual(12, keywordsArray.count)
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id_local:Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"))
+        XCTAssertTrue (keywordsArray.contains("hb_env:mobile-app"))
+        XCTAssertTrue (keywordsArray.contains("hb_bidder_rubicon:rubicon"))
+        XCTAssertTrue (keywordsArray.contains("hb_size_rubicon:300x250"))
+        XCTAssertTrue (keywordsArray.contains("hb_pb_rubicon:0.50"))
+        XCTAssertTrue (keywordsArray.contains("hb_env_rubicon:mobile-app"))
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id:ffffffff-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertTrue (keywordsArray.contains("hb_cache_id_rubicon:ffffffff-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertTrue (keywordsArray.contains("hb_pb:0.50"))
+        XCTAssertTrue (keywordsArray.contains("hb_bidder:rubicon"))
+        XCTAssertTrue (keywordsArray.contains("hb_size:300x250"))
+        XCTAssertTrue (keywordsArray.contains("test_key:test_value"))
+        
+        utils.removeHBKeywords(adObject: self.mopubNativeObject!)
+        
+        XCTAssertTrue(((self.mopubNativeObject?.description) != nil), "MPNativeAdRequest")
+        XCTAssertNotNil(self.mopubNativeObject?.targeting)
+        
+        XCTAssertTrue(((self.mopubNativeObject?.targeting.description) != nil), "MPNativeAdRequestTargeting")
+        XCTAssertNotNil(self.mopubNativeObject?.targeting.keywords)
+        
+        keywords = self.mopubNativeObject?.targeting.keywords
+        keywordsArray = keywords!.components(separatedBy: ",")
+        XCTAssertEqual(1, keywordsArray.count)
+        XCTAssertFalse(keywordsArray.contains("hb_env:mobile-app"))
+        XCTAssertFalse(keywordsArray.contains("hb_bidder_rubicon:rubicon"))
+        XCTAssertFalse(keywordsArray.contains("hb_size_rubicon:300x250"))
+        XCTAssertFalse(keywordsArray.contains("hb_pb_rubicon:0.50"))
+        XCTAssertFalse(keywordsArray.contains("hb_env_rubicon:mobile-app"))
+        XCTAssertFalse(keywordsArray.contains("hb_cache_id:ffffffff-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertFalse(keywordsArray.contains("hb_cache_id_rubicon:ffffffff-5ee2-4d74-ae85-e4b602b7f88d"))
+        XCTAssertFalse(keywordsArray.contains("hb_pb:0.50"))
+        XCTAssertFalse(keywordsArray.contains("hb_bidder:rubicon"))
+        XCTAssertFalse(keywordsArray.contains("hb_size:300x250"))
+        XCTAssertTrue(keywordsArray.contains("test_key:test_value"))
+        
+    }
+    
+    func testMoPubNativeKeywordsAbsent() {
+        let utils: Utils = Utils.shared
+        let prebidKeywords: [String: String] = [:]
+
+        let bidResponse = BidResponse(adId: "test1", adServerTargeting: prebidKeywords as [String: AnyObject])
+        let mopubNativeAdRequestTargeting = MPNativeAdRequestTargeting()
+        mopubNativeAdRequestTargeting.keywords = "test_key:test_value"
+        mopubNativeObject?.targeting = mopubNativeAdRequestTargeting
+        utils.validateAndAttachKeywords(adObject: mopubNativeObject as AnyObject, bidResponse: bidResponse)
+        
+        DispatchQueue.main.async {
+            XCTAssertTrue(((self.mopubNativeObject?.description) != nil), "MPNativeAdRequest")
+            XCTAssertNotNil(self.mopubNativeObject?.targeting)
+            
+            XCTAssertTrue(((self.mopubNativeObject?.targeting.description) != nil), "MPNativeAdRequestTargeting")
+            XCTAssertNotNil(self.mopubNativeObject?.targeting.keywords)
+            
+            let keywords = self.mopubNativeObject?.targeting.keywords
+            let keywordsArray = keywords!.components(separatedBy: ",")
+            XCTAssertEqual(1, keywordsArray.count)
+            XCTAssertTrue(keywordsArray.contains("test_key:test_value"))
+        }
+    }
+    
+    func testfindNativeForMoPubNativeWithPrebidNativeAdLoaded() {
+
+        prebidNativeAdLoadedExpectation = expectation(description: "\(#function)")
+        let mpNativeAd = MPNativeAd()
+        let currentBundle = Bundle(for: type(of: self))
+        let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "NativeAd", ofType: "json") ?? "", encoding: .utf8)
+        if let cacheId = CacheManager.shared.save(content: baseResponse!), !cacheId.isEmpty{
+            mpNativeAd.p_customProperties["hb_cache_id_local"] = cacheId as AnyObject
+        }
+        
+        Utils.shared.delegate = self
+        Utils.shared.findNative(adObject: mpNativeAd)
+        waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
+    }
+
+    func testfindNativeForMoPubNativeWithPrebidNativeAdNotValid() {
+
+        prebidNativeAdNotValidExpectation = expectation(description: "\(#function)")
+        let mpNativeAd = MPNativeAd()
+        if let cacheId = CacheManager.shared.save(content: "invalid ad"), !cacheId.isEmpty{
+            mpNativeAd.p_customProperties["hb_cache_id_local"] = cacheId as AnyObject
+        }
+        
+        Utils.shared.delegate = self
+        Utils.shared.findNative(adObject: mpNativeAd)
+        waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
+    }
+
+    func testfindNativeForMoPubNativeWithPrebidNativeAdNotFound() {
+
+        prebidNativeAdNotFoundExpectation = expectation(description: "\(#function)")
+        let mpNativeAd = MPNativeAd()
+        let currentBundle = Bundle(for: type(of: self))
+        let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "NativeAd", ofType: "json") ?? "", encoding: .utf8)
+        if let cacheId = CacheManager.shared.save(content: baseResponse!), !cacheId.isEmpty{
+            mpNativeAd.p_customProperties["hb_cache_id_local"] = cacheId as AnyObject
+            mpNativeAd.p_customProperties["isPrebid"] = 0 as AnyObject;
+        }
+        
+        Utils.shared.delegate = self
+        Utils.shared.findNative(adObject: mpNativeAd)
+        waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
+    }
+    
+    func testfindNativeForDFPNativeWithPrebidNativeAdLoaded() {
+        
+        prebidNativeAdLoadedExpectation = expectation(description: "\(#function)")
+        let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
+        let currentBundle = Bundle(for: type(of: self))
+        let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "NativeAd", ofType: "json") ?? "", encoding: .utf8)
+        if let cacheId = CacheManager.shared.save(content: baseResponse!), !cacheId.isEmpty{
+            gadNativeCustomTemplateAd.setValue("1", forKey: "isPrebid")
+            gadNativeCustomTemplateAd.setValue(cacheId, forKey: "hb_cache_id_local")
+        }
+
+        Utils.shared.delegate = self
+        Utils.shared.findNative(adObject: gadNativeCustomTemplateAd)
+        waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
+    }
+    
+    func testfindNativeForDFPNativeWithPrebidNativeAdNotValid() {
+
+        prebidNativeAdNotValidExpectation = expectation(description: "\(#function)")
+        let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
+        if let cacheId = CacheManager.shared.save(content: "invalid ad"), !cacheId.isEmpty{
+            gadNativeCustomTemplateAd.setValue("1", forKey: "isPrebid")
+            gadNativeCustomTemplateAd.setValue(cacheId, forKey: "hb_cache_id_local")
+        }
+        
+        Utils.shared.delegate = self
+        Utils.shared.findNative(adObject: gadNativeCustomTemplateAd)
+        waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
+    }
+
+    func testfindNativeForDFPNativeWithPrebidNativeAdNotFound() {
+
+        prebidNativeAdNotFoundExpectation = expectation(description: "\(#function)")
+        let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
+        let currentBundle = Bundle(for: type(of: self))
+        let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "NativeAd", ofType: "json") ?? "", encoding: .utf8)
+        if let cacheId = CacheManager.shared.save(content: baseResponse!), !cacheId.isEmpty{
+            gadNativeCustomTemplateAd.setValue("0", forKey: "isPrebid")
+            gadNativeCustomTemplateAd.setValue(cacheId, forKey: "hb_cache_id_local")
+        }
+        
+        Utils.shared.delegate = self
+        Utils.shared.findNative(adObject: gadNativeCustomTemplateAd)
+        waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
+    }
+
+    
+    func nativeAdLoaded(ad:NativeAd) {
+        print("nativeAdLoaded")
+        prebidNativeAdLoadedExpectation?.fulfill()
+    }
+    
+    func nativeAdNotFound() {
+        print("nativeAdNotFound")
+        prebidNativeAdNotFoundExpectation?.fulfill()
+    }
+    
+    func nativeAdNotValid() {
+        print("nativeAdNotValid")
+        prebidNativeAdNotValidExpectation?.fulfill()
+    }
+    
+    func convertStringToDictionary(text: String) -> [String:AnyObject]? {
+       if let data = text.data(using: .utf8) {
+           do {
+               let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject]
+               return json
+           } catch {
+               print("Something went wrong")
+           }
+       }
+       return nil
+   }
+}
+
+extension String {
+    var unescaped: String {
+        let entities = ["\0", "\t", "\n", "\r", "\"", "\'", "\\", "\\\'", "\\\""]
+        var current = self
+        for entity in entities {
+            let descriptionCharacters = entity.debugDescription.dropFirst().dropLast()
+            let description = String(descriptionCharacters)
+            current = current.replacingOccurrences(of: description, with: entity)
+        }
+        return current
+    }
 }

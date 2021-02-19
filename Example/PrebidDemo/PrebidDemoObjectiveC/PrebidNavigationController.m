@@ -33,7 +33,7 @@
     self.title = @"Prebid Demo";
     
     self.adServerList = @[@"DFP", @"MoPub"];
-    self.adUnitList = @[@"Banner", @"Interstitial"];
+    self.adUnitList = @[@"Banner", @"Interstitial", @"InAppNative"];
 }
 
 #pragma mark - Table view data source
