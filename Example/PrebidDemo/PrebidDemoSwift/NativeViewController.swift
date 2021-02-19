@@ -30,19 +30,22 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
+        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        
         loadNativeAssets()
             
-            if (adServerName == "DFP") {
-                print("entered \(adServerName) loop" )
-                loadDFPNative()
+        if (adServerName == "DFP") {
+            print("entered \(adServerName) loop" )
+            loadDFPNative()
 
-            } else if (adServerName == "MoPub") {
-                print("entered \(adServerName) loop" )
-                loadMoPubNative()
+        } else if (adServerName == "MoPub") {
+            print("entered \(adServerName) loop" )
+            loadMoPubNative()
 
-            }
-            
-            // Do any additional setup after loading the view.
+        }
+        
+        // Do any additional setup after loading the view.
         }
         
         func loadNativeAssets(){
