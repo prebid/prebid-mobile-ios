@@ -22,7 +22,7 @@ import PrebidMobile
 import MoPub
 
 
-class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPRewardedVideoDelegate {
+class RewardedVideoController: UIViewController, MPRewardedVideoDelegate {
     
     @IBOutlet var adServerLabel: UILabel!
     
@@ -30,8 +30,7 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPReward
     
     private var adUnit: AdUnit!
     
-    private var amRewardedAd: GADRewardedAd!
-    private let amRequest = GADRequest()
+    private let amRequest = GAMRequest()
     
     private let amRubiconAdUnitId = "/5300653/test_adunit_vast_rewarded-video_pavliuchyk"
     private let mpRubiconAdUnitId = "46d2ebb3ccd340b38580b5d3581c6434"
@@ -49,7 +48,6 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPReward
     
     func setupAndLoadAMRewardedVideo() {
         setupPBRubiconRewardedVideo()
-        setupAMRubiconRewardedVideo()
         loadAMRewardedVideo()
     }
     
@@ -88,9 +86,6 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPReward
     }
     
     //Setup AdServer
-    func setupAMRubiconRewardedVideo() {
-        amRewardedAd = GADRewardedAd(adUnitID: amRubiconAdUnitId)
-    }
     
     func setupMPRubiconRewardedVideo() {
         MPRewardedVideo.setDelegate(self, forAdUnitId: mpRubiconAdUnitId)
@@ -106,14 +101,16 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPReward
                 return
             }
             
-            self.amRewardedAd.load(self.amRequest) { error in
+            GADRewardedAd.load(withAdUnitID: self.amRubiconAdUnitId, request: self.amRequest) { (ad, error) in
                 if let error = error {
                     print("loadAMRewardedVideo failed:\(error)")
-                } else {
+                } else if let ad = ad {
                     
-                    if self.amRewardedAd.isReady == true {
-                        self.amRewardedAd.present(fromRootViewController: self, delegate:self)
-                    }
+                    ad.present(fromRootViewController: self, userDidEarnRewardHandler: {
+                        let reward = ad.adReward
+                        // TODO: Reward the user.
+                      })
+
                 }
             }
         }
@@ -131,23 +128,6 @@ class RewardedVideoController: UIViewController, GADRewardedAdDelegate, MPReward
             let keywords = Utils.shared.convertDictToMoPubKeywords(dict: targetingDict)
             MPRewardedVideo.loadAd(withAdUnitID: self?.mpRubiconAdUnitId, keywords: keywords, userDataKeywords: nil, location: nil, mediationSettings: nil)
         }
-    }
-    
-    //MARK: - GADRewardedAdDelegate
-    func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
-        print("Reward received with currency: \(reward.type), amount \(reward.amount).")
-    }
-
-    func rewardedAdDidPresent(_ rewardedAd: GADRewardedAd) {
-        print("Rewarded ad presented.")
-    }
-
-    func rewardedAdDidDismiss(_ rewardedAd: GADRewardedAd) {
-        print("Rewarded ad dismissed.")
-    }
-
-    func rewardedAd(_ rewardedAd: GADRewardedAd, didFailToPresentWithError error: Error) {
-        print("rewardedAdDidFailToPresentWithError:\(error.localizedDescription)")
     }
 
     //MARK: - MPRewardedVideoDelegate

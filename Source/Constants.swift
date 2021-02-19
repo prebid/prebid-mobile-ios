@@ -21,6 +21,7 @@ extension String {
 
     static let kIFASentinelValue = "00000000-0000-0000-0000-000000000000"
 
+    //TODO: Improvement - use a set
     static let DFP_Object_Name = "DFPRequest"
     
     static let DFP_N_Object_Name = "DFPNRequest"
@@ -30,6 +31,8 @@ extension String {
     static let GAD_Object_Name = "GADRequest"
 
     static let GAD_N_Object_Name = "GADNRequest"
+    
+    static let GAM_Object_Name = "GAMRequest"
 
     static let MoPub_Object_Name = "MPAdView"
 

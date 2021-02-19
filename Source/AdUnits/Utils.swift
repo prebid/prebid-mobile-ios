@@ -42,7 +42,7 @@ func removeHBKeywords (adObject: AnyObject) {
     let adServerObject: String = String(describing: type(of: adObject))
     if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name || 
         adServerObject == .DFP_N_Object_Name || adServerObject == .GAD_N_Object_Name || 
-        adServerObject == .GAD_Object_Name) {
+        adServerObject == .GAD_Object_Name || adServerObject == .GAM_Object_Name) {
         let hasDFPMember = adObject.responds(to: NSSelectorFromString("setCustomTargeting:"))
         if (hasDFPMember) {
             //check if the publisher has added any custom targeting. If so then merge the bid keywords to the same.
@@ -100,7 +100,7 @@ func validateAndAttachKeywords (adObject: AnyObject, bidResponse: BidResponse) {
     let adServerObject: String = String(describing: type(of: adObject))
     if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name || 
         adServerObject == .DFP_N_Object_Name || adServerObject == .GAD_N_Object_Name || 
-        adServerObject == .GAD_Object_Name) {
+        adServerObject == .GAD_Object_Name || adServerObject == .GAM_Object_Name) {
         let hasDFPMember = adObject.responds(to: NSSelectorFromString("setCustomTargeting:"))
         if (hasDFPMember) {
             //check if the publisher has added any custom targeting. If so then merge the bid keywords to the same.

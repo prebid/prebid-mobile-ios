@@ -19,11 +19,10 @@
 #import "ViewController.h"
 #import "MoPub.h"
 
-@interface ViewController () <GADBannerViewDelegate,GADInterstitialDelegate,MPAdViewDelegate,MPInterstitialAdControllerDelegate>
+@interface ViewController () <GADBannerViewDelegate, MPAdViewDelegate, MPInterstitialAdControllerDelegate>
     @property (weak, nonatomic) IBOutlet UIView *bannerView;
-    @property (nonatomic, strong) DFPBannerView *dfpView;
-    @property (nonatomic, strong) DFPInterstitial *dfpInterstitial;
-    @property (nonatomic, strong) DFPRequest *request;
+    @property (nonatomic, strong) GAMBannerView *dfpView;
+    @property (nonatomic, strong) GAMRequest *request;
     @property (nonatomic, strong) MPAdView *mopubAdView;
     @property (nonatomic, strong) MPInterstitialAdController *mopubInterstitial;
     @property (nonatomic, strong) BannerAdUnit *bannerUnit;
@@ -44,7 +43,7 @@
     // if(err == nil)
     
     self.bannerUnit = [[BannerAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45" size:CGSizeMake(300, 250)];
-//    self.interstitialUnit = [[InterstitialAdUnit alloc] initWithConfigId:@"625c6125-f19e-4d5b-95c5-55501526b2a4"];
+    self.interstitialUnit = [[InterstitialAdUnit alloc] initWithConfigId:@"625c6125-f19e-4d5b-95c5-55501526b2a4"];
     
 //    Advanced interstitial support
 //    self.interstitialUnit = [[InterstitialAdUnit alloc] initWithConfigId:@"625c6125-f19e-4d5b-95c5-55501526b2a4" minWidthPerc:50 minHeightPerc:70];
@@ -82,15 +81,14 @@
 -(void) loadDFPBanner {
     
     [self.bannerUnit setAutoRefreshMillisWithTime:35000];
-    self.dfpView = [[DFPBannerView alloc] initWithAdSize:kGADAdSizeMediumRectangle];
+    self.dfpView = [[GAMBannerView alloc] initWithAdSize:kGADAdSizeMediumRectangle];
     self.dfpView.rootViewController = self;
     self.dfpView.adUnitID = @"/19968336/PrebidMobileValidator_Banner_All_Sizes";
     self.dfpView.delegate = self;
     [self.bannerView addSubview:self.dfpView];
     self.dfpView.backgroundColor = [UIColor redColor];
-    self.request = [[DFPRequest alloc] init];
-    self.request.testDevices = @[kDFPSimulatorID];
-    
+    self.request = [[GAMRequest alloc] init];
+
     [self.bannerUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
         NSLog(@"Prebid demand result %ld", (long)result);
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -101,13 +99,18 @@
     
 -(void) loadDFPInterstitial {
     
-    self.dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:@"/19968336/PrebidMobileValidator_Interstitial"];
-    self.dfpInterstitial.delegate = self;
-    self.request = [[DFPRequest alloc] init];
-    self.request.testDevices = @[kDFPSimulatorID];
+    self.request = [[GAMRequest alloc] init];
     [self.interstitialUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
         NSLog(@"Prebid demand result %ld", (long)result);
-        [self.dfpInterstitial loadRequest:self.request];
+
+        [GAMInterstitialAd loadWithAdManagerAdUnitID:@"/19968336/PrebidMobileValidator_Interstitial" request:self.request completionHandler:^(GAMInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"Failed to load interstitial ad with error: %@", [error localizedDescription]);
+                return;
+            }
+            [interstitialAd presentFromRootViewController:self];
+        }];
+
     }];
 }
     
@@ -182,50 +185,27 @@
     Prebid.shared.timeoutMillis = 5000;
 }
 
-#pragma mark :- DFP delegates
--(void) adViewDidReceiveAd:(GADBannerView *)bannerView {
+#pragma mark :- DFP banner delegates
+
+- (void)bannerViewDidReceiveAd:(GADBannerView *)bannerView {
     NSLog(@"Ad received");
     
     [AdViewUtils findPrebidCreativeSize:bannerView
                                    success:^(CGSize size) {
-                                       if ([bannerView isKindOfClass:[DFPBannerView class]]) {
-                                           DFPBannerView *dfpBannerView = (DFPBannerView *)bannerView;
+                                       if ([bannerView isKindOfClass:[GAMBannerView class]]) {
+                                           GAMBannerView *dfpBannerView = (GAMBannerView *)bannerView;
                                            
                                            [dfpBannerView resize:GADAdSizeFromCGSize(size)];
                                        }
                                    } failure:^(NSError * _Nonnull error) {
                                        NSLog(@"error: %@", error);
                                    }];
-
 }
-    
-- (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
-{
+
+- (void)bannerView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(NSError *)error {
     NSLog(@"adView:didFailToReceiveAdWithError: %@", error.localizedDescription);
 }
     
-- (void)interstitialDidReceiveAd:(GADInterstitial *)ad
-{
-    if (self.dfpInterstitial.isReady)
-    {
-        NSLog(@"Ad ready");
-        [self.dfpInterstitial presentFromRootViewController:self];
-    }
-    else
-    {
-        NSLog(@"Ad not ready");
-    }
-}
-
-- (void)interstitialDidDismissScreen:(GADInterstitial *)ad
-{
-    NSLog(@"Ad dismissed");
-}
-
-- (void)interstitialWillPresentScreen:(GADInterstitial *)ad
-{
-    NSLog(@"Ad presented");
-}
 
 
 #pragma mark :- Mopub delegates

@@ -37,8 +37,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
     private var adUnit: AdUnit!
     
-    private let amRequest = DFPRequest()
-    private var amBanner: DFPBannerView!
+    private let amRequest = GAMRequest()
+    private var amBanner: GAMBannerView!
     
     private var mpBanner: MPAdView!
 
@@ -137,7 +137,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func setupAMBanner(width: Int, height:Int, adUnitId: String) {
         let customAdSize = GADAdSizeFromCGSize(CGSize(width: width, height: height))
         
-        amBanner = DFPBannerView(adSize: customAdSize)
+        amBanner = GAMBannerView(adSize: customAdSize)
         amBanner.adUnitID = adUnitId
     }
 
@@ -165,7 +165,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     
     //Load
     func loadAMBanner() {
-        print("Google Mobile Ads SDK version: \(DFPRequest.sdkVersion())")
+        print("Google Mobile Ads SDK version: \(GADMobileAds.sharedInstance().sdkVersion)")
         
         amBanner.backgroundColor = .red
         amBanner.rootViewController = self
@@ -269,12 +269,12 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     }
 
     //MARK: - GADBannerViewDelegate
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("adViewDidReceiveAd")
         
         AdViewUtils.findPrebidCreativeSize(bannerView,
                                             success: { (size) in
-                                                guard let bannerView = bannerView as? DFPBannerView else {
+                                                guard let bannerView = bannerView as? GAMBannerView else {
                                                     return
                                                 }
 
@@ -287,7 +287,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         })
     }
 
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
     }
 
