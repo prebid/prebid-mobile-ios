@@ -37,6 +37,8 @@ extension String {
     static let MoPub_Object_Name = "MPAdView"
 
     static let MoPub_Interstitial_Name = "MPInterstitialAdController"
+    
+    static let MoPub_Request_Name = "MPNativeAdRequest"
 }
 
 extension Int {

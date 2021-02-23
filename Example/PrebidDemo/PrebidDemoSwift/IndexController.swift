@@ -75,6 +75,9 @@ class IndexController: UIViewController {
         case let vc as RewardedVideoController:
             vc.adServerName = adServerName
             
+        case let vc as NativeInAppViewController:
+            vc.adServerName = adServerName
+
         case let vc as InstreamVideoViewController:
             vc.adServerName = adServerName
 

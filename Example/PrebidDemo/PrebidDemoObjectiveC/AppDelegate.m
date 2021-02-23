@@ -15,6 +15,7 @@
 
 #import "AppDelegate.h"
 @import PrebidMobile;
+#import "MoPub.h"
 
 @interface AppDelegate ()
 
@@ -27,6 +28,9 @@
     Targeting.shared.gender = GenderMale;
     
     // Override point for customization after application launch.
+    MPMoPubConfiguration *sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"a935eac11acd416f92640411234fbba6"];
+    sdkConfig.globalMediationSettings = @[];
+    [MoPub.sharedInstance initializeSdkWithConfiguration:sdkConfig completion:nil];
     return YES;
 }
 

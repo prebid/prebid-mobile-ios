@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -33,27 +33,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ze7-Xk-t60">
-                                <rect key="frame" x="138" y="263.5" width="99" height="30"/>
-                                <state key="normal" title="Simple Banner"/>
-                                <connections>
-                                    <segue destination="ihT-Ma-5CT" kind="show" id="kib-uu-Sx9"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gs4-Un-gLc">
-                                <rect key="frame" x="124.5" y="318.5" width="126" height="30"/>
-                                <state key="normal" title="Simple Interstitials"/>
-                                <connections>
-                                    <segue destination="i5n-eA-fbo" kind="show" id="kvU-2J-PSM"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2BF-DS-686">
-                                <rect key="frame" x="141.5" y="373.5" width="92" height="30"/>
-                                <state key="normal" title="Banner Video"/>
-                                <connections>
-                                    <segue destination="ihT-Ma-5CT" kind="show" id="6vM-Cs-bCE"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jeh-3U-EHA">
+                                <rect key="frame" x="20" y="160" width="335" height="359"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ze7-Xk-t60">
+                                        <rect key="frame" x="118" y="0.0" width="99" height="30"/>
+                                        <state key="normal" title="Simple Banner"/>
+                                        <connections>
+                                            <segue destination="ihT-Ma-5CT" kind="show" id="kib-uu-Sx9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gs4-Un-gLc">
+                                        <rect key="frame" x="104.5" y="47" width="126" height="30"/>
+                                        <state key="normal" title="Simple Interstitials"/>
+                                        <connections>
+                                            <segue destination="i5n-eA-fbo" kind="show" id="kvU-2J-PSM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2BF-DS-686">
+                                        <rect key="frame" x="121.5" y="94" width="92" height="30"/>
+                                        <state key="normal" title="Banner Video"/>
+                                        <connections>
+                                            <segue destination="ihT-Ma-5CT" kind="show" id="6vM-Cs-bCE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H9f-Yj-Von">
+                                        <rect key="frame" x="112" y="141" width="111" height="30"/>
+                                        <state key="normal" title="Interstitial Video"/>
+                                        <connections>
+                                            <segue destination="i5n-eA-fbo" kind="show" id="oHg-3D-EQi"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gT-aH-qqc">
+                                        <rect key="frame" x="119" y="188" width="97" height="30"/>
+                                        <state key="normal" title="Banner Native"/>
+                                        <connections>
+                                            <segue destination="g7Y-o0-qeY" kind="show" id="Mld-S3-Yyw"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ga-uv-oWc">
+                                        <rect key="frame" x="121.5" y="235" width="92" height="30"/>
+                                        <state key="normal" title="In App Native"/>
+                                        <connections>
+                                            <segue destination="GT4-HE-4pt" kind="show" id="Iim-i9-iFW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcD-14-DN2">
+                                        <rect key="frame" x="112.5" y="282" width="110" height="30"/>
+                                        <state key="normal" title="Rewarded video"/>
+                                        <connections>
+                                            <segue destination="DWf-Za-wca" kind="show" id="hwa-a9-gmn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xoo-vz-hax">
+                                        <rect key="frame" x="117" y="329" width="101" height="30"/>
+                                        <state key="normal" title="Instream video"/>
+                                        <connections>
+                                            <segue destination="fzy-BX-rP8" kind="show" id="6P0-Fz-hsw"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fwP-lp-368">
                                 <rect key="frame" x="100" y="69" width="175" height="32"/>
                                 <segments>
@@ -64,58 +104,17 @@
                                     <action selector="onAdServerSwidshed:" destination="BYZ-38-t0r" eventType="valueChanged" id="j2N-Nn-Vqk"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H9f-Yj-Von">
-                                <rect key="frame" x="132" y="420" width="111" height="30"/>
-                                <state key="normal" title="Interstitial Video"/>
-                                <connections>
-                                    <segue destination="i5n-eA-fbo" kind="show" id="oHg-3D-EQi"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0gT-aH-qqc">
-                                <rect key="frame" x="139" y="463" width="97" height="30"/>
-                                <state key="normal" title="Banner Native"/>
-                                <connections>
-                                    <segue destination="g7Y-o0-qeY" kind="show" id="Mld-S3-Yyw"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcD-14-DN2">
-                                <rect key="frame" x="132" y="508" width="111" height="30"/>
-                                <state key="normal" title="Rewarded video"/>
-                                <connections>
-                                    <segue destination="DWf-Za-wca" kind="show" id="hwa-a9-gmn"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22J-SO-m28">
-                                <rect key="frame" x="132" y="550" width="101" height="30"/>
-                                <state key="normal" title="Instream video"/>
-                                <connections>
-                                    <segue destination="fzy-BX-rP8" kind="show" id="UrZ-GQ-avz"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="HcD-14-DN2" firstAttribute="centerX" secondItem="H9f-Yj-Von" secondAttribute="centerX" id="0wP-DZ-aaR"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="22J-SO-m28" secondAttribute="trailing" symbolic="YES" id="9P8-nO-geT"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HcD-14-DN2" secondAttribute="bottom" constant="129" id="EEX-3A-Acn"/>
+                            <constraint firstItem="Jeh-3U-EHA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="I5D-Bl-QZ5"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fwP-lp-368" secondAttribute="trailing" constant="100" id="IjW-xZ-d3E"/>
-                            <constraint firstItem="gs4-Un-gLc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Jm8-tG-2ua"/>
-                            <constraint firstItem="ze7-Xk-t60" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L22-ha-lp8"/>
-                            <constraint firstItem="H9f-Yj-Von" firstAttribute="centerX" secondItem="2BF-DS-686" secondAttribute="centerX" id="Ngz-Nm-10j"/>
-                            <constraint firstItem="2BF-DS-686" firstAttribute="top" secondItem="gs4-Un-gLc" secondAttribute="bottom" constant="25" id="QCv-r0-6G9"/>
-                            <constraint firstItem="HcD-14-DN2" firstAttribute="top" secondItem="0gT-aH-qqc" secondAttribute="bottom" constant="15" id="SSR-ma-iJD"/>
                             <constraint firstItem="fwP-lp-368" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="TB7-Cg-dlk"/>
                             <constraint firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TVT-40-hfI"/>
-                            <constraint firstItem="gs4-Un-gLc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UG4-q2-Cje"/>
-                            <constraint firstItem="H9f-Yj-Von" firstAttribute="top" secondItem="2BF-DS-686" secondAttribute="bottom" constant="16.5" id="WHs-er-cHs"/>
-                            <constraint firstItem="22J-SO-m28" firstAttribute="leading" secondItem="HcD-14-DN2" secondAttribute="leading" id="nkI-MF-nda"/>
-                            <constraint firstItem="2BF-DS-686" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="q39-Lq-QPj"/>
-                            <constraint firstItem="22J-SO-m28" firstAttribute="top" secondItem="HcD-14-DN2" secondAttribute="bottom" constant="12" id="xBF-SP-JbF"/>
-                            <constraint firstItem="HcD-14-DN2" firstAttribute="centerX" secondItem="0gT-aH-qqc" secondAttribute="centerX" id="y4n-YU-3zY"/>
-                            <constraint firstItem="gs4-Un-gLc" firstAttribute="top" secondItem="ze7-Xk-t60" secondAttribute="bottom" constant="25" id="yOu-YU-6fP"/>
+                            <constraint firstItem="Jeh-3U-EHA" firstAttribute="top" secondItem="fwP-lp-368" secondAttribute="bottom" constant="60" id="WkA-Ux-ytE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Jeh-3U-EHA" secondAttribute="trailing" constant="20" id="ukx-1v-bCp"/>
                             <constraint firstItem="fwP-lp-368" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="yte-Ky-7os"/>
-                            <constraint firstItem="HcD-14-DN2" firstAttribute="leading" secondItem="H9f-Yj-Von" secondAttribute="leading" id="yy2-ok-cdE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="blE-VU-00S"/>
@@ -245,7 +244,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V4N-fP-62I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-500" y="965"/>
+            <point key="canvasLocation" x="-710" y="844"/>
         </scene>
         <!--Rewarded Video Controller-->
         <scene sceneID="o2o-ve-AgX">
@@ -322,6 +321,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y1z-cd-7BR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="753" y="-1083"/>
+        </scene>
+        <!--In App Native-->
+        <scene sceneID="NfC-uv-nmT">
+            <objects>
+                <viewController storyboardIdentifier="NativeInAppViewController" id="GT4-HE-4pt" customClass="NativeInAppViewController" customModule="PrebidDemoSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hED-Cc-5a8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iHV-b5-jBp">
+                                <rect key="frame" x="10" y="44" width="355" height="400"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="60X-BH-LkO"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hRm-OL-9QU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iHV-b5-jBp" firstAttribute="top" secondItem="hRm-OL-9QU" secondAttribute="top" id="Pvv-f9-r85"/>
+                            <constraint firstItem="hRm-OL-9QU" firstAttribute="trailing" secondItem="iHV-b5-jBp" secondAttribute="trailing" constant="10" id="diu-6T-fWV"/>
+                            <constraint firstItem="iHV-b5-jBp" firstAttribute="leading" secondItem="hRm-OL-9QU" secondAttribute="leading" constant="10" id="zl5-pX-GSW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="In App Native" id="XPg-Dg-Z87"/>
+                    <connections>
+                        <outlet property="adContainerView" destination="iHV-b5-jBp" id="iST-kO-o68"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NIg-vd-Euz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-167.19999999999999" y="859.52023988005999"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

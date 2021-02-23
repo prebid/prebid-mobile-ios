@@ -18,17 +18,27 @@
 
 #import "ViewController.h"
 #import "MoPub.h"
+#import "PrebidDemoObjectiveC-Swift.h"
 
-@interface ViewController () <GADBannerViewDelegate, MPAdViewDelegate, MPInterstitialAdControllerDelegate>
-    @property (weak, nonatomic) IBOutlet UIView *bannerView;
-    @property (nonatomic, strong) GAMBannerView *dfpView;
-    @property (nonatomic, strong) GAMRequest *request;
-    @property (nonatomic, strong) MPAdView *mopubAdView;
-    @property (nonatomic, strong) MPInterstitialAdController *mopubInterstitial;
-    @property (nonatomic, strong) BannerAdUnit *bannerUnit;
-    @property (nonatomic, strong) InterstitialAdUnit *interstitialUnit;
-    
-    @end
+@interface ViewController () <GADBannerViewDelegate,GADInterstitialDelegate,MPAdViewDelegate,MPInterstitialAdControllerDelegate,DFPBannerAdLoaderDelegate,GADNativeCustomTemplateAdLoaderDelegate,NativeAdDelegate,NativeAdEventDelegate>
+@property (weak, nonatomic) IBOutlet UIView *bannerView;
+@property (weak, nonatomic) IBOutlet UIView *adContainerView;
+
+@property (nonatomic, strong) GAMBannerView *dfpView;
+@property (nonatomic, strong) GAMRequest *request;
+@property (nonatomic, strong) MPAdView *mopubAdView;
+@property (nonatomic, strong) MPInterstitialAdController *mopubInterstitial;
+@property (nonatomic, strong) BannerAdUnit *bannerUnit;
+@property (nonatomic, strong) InterstitialAdUnit *interstitialUnit;
+@property (nonatomic, strong) GADAdLoader *adLoader;
+@property (nonatomic, strong) MPNativeAdRequest *mpNative;
+@property (nonatomic, strong) MPNativeAd *mpAd;
+@property (nonatomic, strong) NativeAd *prebidNativeAd;
+@property (nonatomic, strong) NativeAdView *nativeAdView;
+@property (nonatomic, strong) NativeRequest *nativeUnit;
+@property (nonatomic, strong) NativeEventTracker *eventTrackers;
+
+@end
 
 @implementation ViewController
     
@@ -54,18 +64,28 @@
 //    [self setRequestTimeoutMillis];//
     
     if([self.adUnit isEqualToString:@"Banner"]) {
-        
+        self.bannerView.hidden = false;
+        self.adContainerView.hidden = true;
         if ([self.adServer isEqualToString:@"DFP"]) {
             [self loadDFPBanner];
         } else if ([self.adServer isEqualToString:@"MoPub"]) {
             [self loadMoPubBanner];
         }
     } else if ([self.adUnit isEqualToString:@"Interstitial"]) {
-        
+        self.bannerView.hidden = false;
+        self.adContainerView.hidden = true;
         if ([self.adServer isEqualToString:@"DFP"]) {
             [self loadDFPInterstitial];
         } else if ([self.adServer isEqualToString:@"MoPub"]) {
             [self loadMoPubInterstitial];
+        }
+    } else if ([self.adUnit isEqualToString:@"InAppNative"]) {
+        self.bannerView.hidden = true;
+        self.adContainerView.hidden = false;
+        if ([self.adServer isEqualToString:@"DFP"]) {
+            [self loadDFPPrebidNative];
+        } else if ([self.adServer isEqualToString:@"MoPub"]) {
+            [self loadMopubPrebidNative];
         }
     }
     // Do any additional setup after loading the view, typically from a nib.
@@ -205,7 +225,7 @@
 - (void)bannerView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(NSError *)error {
     NSLog(@"adView:didFailToReceiveAdWithError: %@", error.localizedDescription);
 }
-    
+
 
 
 #pragma mark :- Mopub delegates
@@ -229,5 +249,184 @@
     NSLog(@"Ad not ready");
 }
 
+#pragma mark Prebid NativeAd MoPub
+
+-(void) loadMopubPrebidNative {
+    [self removePreviousAds];
+    [self createPrebidNativeView];
+    [self loadNativeAssets];
+    MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
+    MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
+    self.mpNative = [MPNativeAdRequest requestWithAdUnitIdentifier:@"2674981035164b2db5ef4b4546bf3d49" rendererConfigurations:@[config]];
+
+    MPNativeAdRequestTargeting *targeting = [MPNativeAdRequestTargeting targeting];
+    self.mpNative.targeting = targeting;
+
+    [self.nativeUnit fetchDemandWithAdObject:self.mpNative completion:^(enum ResultCode resultCode) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+              [self loadMoPub:self.mpNative];
+          });
+    }];
+
+}
+
+-(void) loadMoPub:(MPNativeAdRequest *)mpNative{
+    [mpNative startWithCompletionHandler:^(MPNativeAdRequest *request, MPNativeAd *response, NSError *error) {
+        if (error == nil) {
+            self.mpAd = response;
+            Utils.shared.delegate = self;
+            [Utils.shared findNativeWithAdObject:self.mpAd];
+        }
+    }];
+}
+
+#pragma mark Prebid NativeAd DFP
+
+-(void) loadDFPPrebidNative {
+    [self removePreviousAds];
+    [self createPrebidNativeView];
+    [self loadNativeAssets];
+    DFPRequest *dfpRequest = [[DFPRequest alloc] init];
+    [self.nativeUnit fetchDemandWithAdObject:dfpRequest completion:^(enum ResultCode result) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self loadDFP:dfpRequest];
+        });
+    }];
+
+}
+
+-(void) loadDFP:(DFPRequest *)dfpRequest{
+    self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:@"/19968336/Abhas_test_native_native_adunit" rootViewController:self adTypes:@[kGADAdLoaderAdTypeDFPBanner, kGADAdLoaderAdTypeNativeCustomTemplate] options:@[]];
+    self.adLoader.delegate = self;
+    [self.adLoader loadRequest:dfpRequest];
+}
+
+#pragma mark :- Native functions
+
+-(void) createPrebidNativeView{
+    UINib *adNib = [UINib nibWithNibName:@"NativeAdView" bundle:[NSBundle bundleForClass:[self class]]];
+    NSArray *array = [adNib instantiateWithOwner:self options:nil];
+    _nativeAdView = [array firstObject];
+    _nativeAdView.frame = CGRectMake(0, 0, _adContainerView.frame.size.width, 150 + self.view.frame.size.width * 400 / 600);
+    [_adContainerView addSubview:_nativeAdView];
+}
+
+-(void) registerPrebidNativeView{
+    self.prebidNativeAd.delegate = self;
+    [self.prebidNativeAd registerViewWithView:self.nativeAdView clickableViews:@[self.nativeAdView.callToActionButton]];
+}
+
+-(void) loadNativeAssets{
+    NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
+    image.type = ImageAsset.Main;
+
+    NativeAssetImage *icon = [[NativeAssetImage alloc] initWithMinimumWidth:20 minimumHeight:20 required:true];
+    icon.type = ImageAsset.Icon;
+
+    NativeAssetTitle *title = [[NativeAssetTitle alloc] initWithLength:90 required:true];
+    NativeAssetData *body = [[NativeAssetData alloc] initWithType:DataAssetDescription required:true];
+    NativeAssetData *cta = [[NativeAssetData alloc] initWithType:DataAssetCtatext required:true];
+    NativeAssetData *sponsored = [[NativeAssetData alloc] initWithType:DataAssetSponsored required:true];
+
+    self.nativeUnit = [[NativeRequest alloc] initWithConfigId:@"25e17008-5081-4676-94d5-923ced4359d3" assets:@[icon,title,image,body,cta,sponsored]];
+    self.nativeUnit.context = ContextType.Social;
+    self.nativeUnit.placementType = PlacementType.FeedContent;
+    self.nativeUnit.contextSubType = ContextSubType.Social;
+
+    self.eventTrackers = [[NativeEventTracker alloc] initWithEvent:EventType.Impression methods:@[EventTracking.Image, EventTracking.js]];
+    self.nativeUnit.eventtrackers = @[self.eventTrackers];
+
+}
+
+-(void) removePreviousAds{
+    if (_nativeAdView != nil) {
+        _nativeAdView.iconImageView = nil;
+        _nativeAdView.mainImageView = nil;
+        [_nativeAdView removeFromSuperview];
+        _nativeAdView = nil;
+    }
+    if (_prebidNativeAd != nil) {
+        _prebidNativeAd = nil;
+    }
+    if (_bannerView != nil) {
+        _bannerView = nil;
+    }
+}
+
+#pragma mark :- Rendering Prebid Native
+
+-(void) renderPrebidNativeAd{
+    self.nativeAdView.titleLabel.text = self.prebidNativeAd.title;
+    self.nativeAdView.bodyLabel.text = self.prebidNativeAd.text;
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        NSData * dataIcon = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: self.prebidNativeAd.iconUrl]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.nativeAdView.iconImageView.image = [UIImage imageWithData: dataIcon];
+        });
+    });
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        NSData * dataMainImage = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: self.prebidNativeAd.imageUrl]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.nativeAdView.mainImageView.image = [UIImage imageWithData: dataMainImage];
+        });
+    });
+    [self.nativeAdView.callToActionButton setTitle:self.prebidNativeAd.callToAction forState:UIControlStateNormal];
+    self.nativeAdView.sponsoredLabel.text = self.prebidNativeAd.sponsoredBy;
+
+}
+
+#pragma mark :- DFP Native Delegate
+
+- (void)adLoader:(nonnull GADAdLoader *)adLoader
+didFailToReceiveAdWithError:(nonnull GADRequestError *)error{
+    NSLog(@"Prebid GADAdLoader failed %@", error.localizedDescription);
+}
+
+- (nonnull NSArray<NSString *> *)nativeCustomTemplateIDsForAdLoader:(nonnull GADAdLoader *)adLoader{
+    return @[@"11963183"];
+}
+
+- (void)adLoader:(nonnull GADAdLoader *)adLoader
+didReceiveNativeCustomTemplateAd:(nonnull GADNativeCustomTemplateAd *)nativeCustomTemplateAd{
+    NSLog(@"Prebid GADAdLoader received customTemplageAd");
+    Utils.shared.delegate = self;
+    [Utils.shared findNativeWithAdObject:nativeCustomTemplateAd];
+}
+
+- (void)adLoader:(nonnull GADAdLoader *)adLoader
+didReceiveDFPBannerView:(nonnull DFPBannerView *)bannerView{
+    [self.nativeAdView addSubview:bannerView];
+}
+
+- (nonnull NSArray<NSValue *> *)validBannerSizesForAdLoader:(nonnull GADAdLoader *)adLoader{
+   return @[NSValueFromGADAdSize(kGADAdSizeBanner)];
+}
+
+#pragma mark :- NativeAdDelegate Delegate
+
+- (void)nativeAdLoadedWithAd:(NativeAd *)ad{
+    NSLog(@"nativeAdLoadedWithAd");
+    self.prebidNativeAd = ad;
+    [self registerPrebidNativeView];
+    [self renderPrebidNativeAd];
+}
+- (void)nativeAdNotFound{
+    NSLog(@"nativeAdNotFound");
+}
+- (void)nativeAdNotValid{
+    NSLog(@"nativeAdNotValid");
+}
+
+#pragma mark :- NativeAdEventDelegate Delegate
+
+- (void)adDidExpireWithAd:(NativeAd *)ad{
+    NSLog(@"adDidExpire");
+}
+- (void)adWasClickedWithAd:(NativeAd *)ad{
+    NSLog(@"adWasClicked");
+}
+- (void)adDidLogImpressionWithAd:(NativeAd *)ad{
+    NSLog(@"adDidLogImpression");
+}
 
 @end
