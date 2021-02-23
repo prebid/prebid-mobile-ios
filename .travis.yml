@@ -13,3 +13,4 @@ script:
   - "./scripts/testPrebidMobile.sh"
   - "./scripts/testPrebidDemo.sh"
   # - "./scripts/swiftLint.sh"
+
