@@ -51,7 +51,7 @@
 //    [self enableCOPPA];
 //    [self addFirstPartyData:self.bannerUnit];
 //    [self setStoredResponse];
-//    [self setRequestTimeoutMillis];
+//    [self setRequestTimeoutMillis];//
     
     if([self.adUnit isEqualToString:@"Banner"]) {
         
