@@ -37,6 +37,7 @@ public class Utils: NSObject {
     private let DFP_WEBADVIEW_CLASSNAME = "GADWebAdView"
     private let MOPUB_NATIVE_AD_CLASSNAME = "MPNativeAd"
     private let DFP_CUSTOM_TEMPLATE_AD_CLASSNAME = "GADNativeCustomTemplateAd"
+    private let GAD_CUSTOM_NATIVE_AD = "GADCustomNativeAd"
     private let INNNER_HTML_SCRIPT = "document.body.innerHTML"
 
     @objc
@@ -239,9 +240,9 @@ public class Utils: NSObject {
         if (self.isObjectFromClass(adObject, DFP_BANNER_VIEW_CLASSNAME)) {
             let dfpBannerView = adObject as! UIView
             findNativeForDFPBannerAdView(dfpBannerView)
-        } else if(self.isObjectFromClass(adObject, MOPUB_NATIVE_AD_CLASSNAME)){
+        } else if (self.isObjectFromClass(adObject, MOPUB_NATIVE_AD_CLASSNAME)) {
             findNativeForMoPubNativeAd(adObject)
-        }else if(self.isObjectFromClass(adObject, DFP_CUSTOM_TEMPLATE_AD_CLASSNAME)){
+        } else if (self.isObjectFromClass(adObject, DFP_CUSTOM_TEMPLATE_AD_CLASSNAME) || self.isObjectFromClass(adObject, GAD_CUSTOM_NATIVE_AD)) {
             findNativeForDFPCustomTemplateAd(adObject)
         } else {
             delegate?.nativeAdNotFound()
@@ -284,13 +285,15 @@ public class Utils: NSObject {
             delegate?.nativeAdNotFound()
         }
     }
+    
     private func isObjectFromClass(_ object: AnyObject, _ className: String) -> Bool{
-        let objectClassName:String = String(describing: type(of: object))
+        let objectClassName = String(describing: type(of: object))
         if objectClassName == className {
             return true
         }
         return false
     }
+    
     private func findNativeForDFPBannerAdView(_ view:UIView){
         var array = [UIView]()
         recursivelyFindWebViewList(view, &array)

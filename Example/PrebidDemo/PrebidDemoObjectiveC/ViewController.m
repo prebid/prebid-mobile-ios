@@ -20,7 +20,7 @@
 #import "MoPub.h"
 #import "PrebidDemoObjectiveC-Swift.h"
 
-@interface ViewController () <GADBannerViewDelegate,GADInterstitialDelegate,MPAdViewDelegate,MPInterstitialAdControllerDelegate,DFPBannerAdLoaderDelegate,GADNativeCustomTemplateAdLoaderDelegate,NativeAdDelegate,NativeAdEventDelegate>
+@interface ViewController () <GADBannerViewDelegate, MPAdViewDelegate, MPInterstitialAdControllerDelegate, GAMBannerAdLoaderDelegate, GADCustomNativeAdLoaderDelegate, NativeAdDelegate, NativeAdEventDelegate>
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UIView *adContainerView;
 
@@ -286,7 +286,7 @@
     [self removePreviousAds];
     [self createPrebidNativeView];
     [self loadNativeAssets];
-    DFPRequest *dfpRequest = [[DFPRequest alloc] init];
+    GAMRequest *dfpRequest = [[GAMRequest alloc] init];
     [self.nativeUnit fetchDemandWithAdObject:dfpRequest completion:^(enum ResultCode result) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self loadDFP:dfpRequest];
@@ -295,8 +295,8 @@
 
 }
 
--(void) loadDFP:(DFPRequest *)dfpRequest{
-    self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:@"/19968336/Abhas_test_native_native_adunit" rootViewController:self adTypes:@[kGADAdLoaderAdTypeDFPBanner, kGADAdLoaderAdTypeNativeCustomTemplate] options:@[]];
+-(void) loadDFP:(GAMRequest *)dfpRequest{
+    self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:@"/19968336/Abhas_test_native_native_adunit" rootViewController:self adTypes:@[kGADAdLoaderAdTypeGAMBanner, kGADAdLoaderAdTypeCustomNative] options:@[]];
     self.adLoader.delegate = self;
     [self.adLoader loadRequest:dfpRequest];
 }
@@ -375,31 +375,35 @@
 
 }
 
-#pragma mark :- DFP Native Delegate
+#pragma mark :- DFP Native Delegate GAMBannerAdLoaderDelegate
 
-- (void)adLoader:(nonnull GADAdLoader *)adLoader
-didFailToReceiveAdWithError:(nonnull GADRequestError *)error{
-    NSLog(@"Prebid GADAdLoader failed %@", error.localizedDescription);
-}
-
-- (nonnull NSArray<NSString *> *)nativeCustomTemplateIDsForAdLoader:(nonnull GADAdLoader *)adLoader{
-    return @[@"11963183"];
-}
-
-- (void)adLoader:(nonnull GADAdLoader *)adLoader
-didReceiveNativeCustomTemplateAd:(nonnull GADNativeCustomTemplateAd *)nativeCustomTemplateAd{
-    NSLog(@"Prebid GADAdLoader received customTemplageAd");
-    Utils.shared.delegate = self;
-    [Utils.shared findNativeWithAdObject:nativeCustomTemplateAd];
-}
-
-- (void)adLoader:(nonnull GADAdLoader *)adLoader
-didReceiveDFPBannerView:(nonnull DFPBannerView *)bannerView{
+- (void)adLoader:(GADAdLoader *)adLoader didReceiveGAMBannerView:(GAMBannerView *)bannerView
+{
     [self.nativeAdView addSubview:bannerView];
 }
 
-- (nonnull NSArray<NSValue *> *)validBannerSizesForAdLoader:(nonnull GADAdLoader *)adLoader{
-   return @[NSValueFromGADAdSize(kGADAdSizeBanner)];
+- (void)adLoader:(GADAdLoader *)adLoader didFailToReceiveAdWithError:(NSError *)error
+{
+    NSLog(@"Prebid GADAdLoader failed %@", error.localizedDescription);
+}
+
+- (NSArray<NSValue *> *)validBannerSizesForAdLoader:(GADAdLoader *)adLoader
+{
+    return @[NSValueFromGADAdSize(kGADAdSizeBanner)];
+}
+
+#pragma mark : GADCustomNativeAdLoaderDelegate
+
+- (NSArray<NSString *> *)customNativeAdFormatIDsForAdLoader:(GADAdLoader *)adLoader
+{
+    return @[@"11963183"];
+}
+
+- (void)adLoader:(GADAdLoader *)adLoader didReceiveCustomNativeAd:(GADCustomNativeAd *)customNativeAd
+{
+    NSLog(@"Prebid GADAdLoader received customTemplageAd");
+    Utils.shared.delegate = self;
+    [Utils.shared findNativeWithAdObject:customNativeAd];
 }
 
 #pragma mark :- NativeAdDelegate Delegate
