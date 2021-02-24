@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		380188E7255402F10089CA84 /* NativeAdEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188E6255402F10089CA84 /* NativeAdEventDelegate.swift */; };
+		380188E8255402F10089CA84 /* NativeAdEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188E6255402F10089CA84 /* NativeAdEventDelegate.swift */; };
+		380188EC255432820089CA84 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188EB255432820089CA84 /* UIViewExtension.swift */; };
+		380188ED255432820089CA84 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188EB255432820089CA84 /* UIViewExtension.swift */; };
+		380188EF255551890089CA84 /* TrackerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188EE255551890089CA84 /* TrackerManager.swift */; };
+		380188F0255551890089CA84 /* TrackerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188EE255551890089CA84 /* TrackerManager.swift */; };
+		380188F22555588B0089CA84 /* TrackerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188F12555588B0089CA84 /* TrackerInfo.swift */; };
+		380188F32555588B0089CA84 /* TrackerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188F12555588B0089CA84 /* TrackerInfo.swift */; };
+		380D2E5B2577A3C400507B76 /* NativeAd.json in Resources */ = {isa = PBXBuildFile; fileRef = 380D2E5A2577A3C400507B76 /* NativeAd.json */; };
+		382B11E6256E933800B81CA9 /* NativeAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 382B11E5256E933800B81CA9 /* NativeAdResponse.json */; };
+		3868489E2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
+		3868489F2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
+		38F03B272576421400E026A2 /* CacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B262576421400E026A2 /* CacheManagerTests.swift */; };
+		38F03B332576624C00E026A2 /* TrackerManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B322576624C00E026A2 /* TrackerManagerTests.swift */; };
 		600CF0702208963500C95176 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600CF06F2208963500C95176 /* UtilsTests.swift */; };
 		600CF13E220CDFA700C95176 /* responseinvalidSize.json in Resources */ = {isa = PBXBuildFile; fileRef = 600CF13D220CDFA700C95176 /* responseinvalidSize.json */; };
 		6013E3F82215C82900FEE2B1 /* CLLocationManager+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6013E3F72215C82900FEE2B1 /* CLLocationManager+Swizzle.swift */; };
@@ -16,7 +30,6 @@
 		606FAC4A2201F248008EAE5E /* AdUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FAC492201F248008EAE5E /* AdUnitTests.swift */; };
 		606FAC5222022932008EAE5E /* AdUnitSwizzleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FAC5122022932008EAE5E /* AdUnitSwizzleHelper.swift */; };
 		60BB98D7254B241D00D94C12 /* IMAUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BB98D6254B241D00D94C12 /* IMAUtils.swift */; };
-		60BB98D9254B241D00D94C12 /* IMAUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BB98D6254B241D00D94C12 /* IMAUtils.swift */; };
 		60C038192204AF5D0082B32C /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 979177D72201F40300E624CE /* NSObject+Swizzling.m */; };
 		60C0381A2204AF5D0082B32C /* PBTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 979177D62201F40300E624CE /* PBTestGlobal.m */; };
 		60C0381B2204AF5D0082B32C /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 979177D22201F3EE00E624CE /* NSURLRequest+HTTPBodyTesting.m */; };
@@ -121,6 +134,10 @@
 		FAEBF29F237EC7B1006BA972 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */; };
 		FAEBF2A0237EC7B1006BA972 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */; };
 		FAEBF2A2237ECFEF006BA972 /* StorageUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */; };
+		FCE4276D255042A800C95FAD /* NativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE4276C255042A800C95FAD /* NativeAd.swift */; };
+		FCE4276E2550436F00C95FAD /* NativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE4276C255042A800C95FAD /* NativeAd.swift */; };
+		FCE42773255043A600C95FAD /* NativeAdDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE42772255043A600C95FAD /* NativeAdDelegate.swift */; };
+		FCE42774255043A600C95FAD /* NativeAdDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE42772255043A600C95FAD /* NativeAdDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,6 +151,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		380188E6255402F10089CA84 /* NativeAdEventDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdEventDelegate.swift; sourceTree = "<group>"; };
+		380188EB255432820089CA84 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = Source/UIViewExtension.swift; sourceTree = SOURCE_ROOT; };
+		380188EE255551890089CA84 /* TrackerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerManager.swift; sourceTree = "<group>"; };
+		380188F12555588B0089CA84 /* TrackerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerInfo.swift; sourceTree = "<group>"; };
+		380D2E5A2577A3C400507B76 /* NativeAd.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAd.json; sourceTree = "<group>"; };
+		382B11E5256E933800B81CA9 /* NativeAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAdResponse.json; sourceTree = "<group>"; };
+		3868489D2551712800234314 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		38F03B262576421400E026A2 /* CacheManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerTests.swift; sourceTree = "<group>"; };
+		38F03B322576624C00E026A2 /* TrackerManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerManagerTests.swift; sourceTree = "<group>"; };
 		600072FE21BAFD2F00F4738B /* Dispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		600CF06F2208963500C95176 /* UtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
 		600CF13D220CDFA700C95176 /* responseinvalidSize.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = responseinvalidSize.json; sourceTree = "<group>"; };
@@ -213,7 +239,7 @@
 		FA7C3EB4225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PrebidServerOneBidFromAppNexusOneBidFromRubicon.json; sourceTree = "<group>"; };
 		FA7C3EB6225E4C2200D2F128 /* responseRubiconPBM.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = responseRubiconPBM.json; sourceTree = "<group>"; };
 		FA7C3EB8225E518000D2F128 /* noBidResponseRubicon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponseRubicon.json; sourceTree = "<group>"; };
-		FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
+		FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionExtension.swift; sourceTree = "<group>"; };
 		FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewUtilsTests.swift; sourceTree = "<group>"; };
 		FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TargetingObjCTests.m; sourceTree = "<group>"; };
 		FAA2990724322962002ACBF2 /* PrebidObjcTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidObjcTests.m; sourceTree = "<group>"; };
@@ -231,6 +257,8 @@
 		FAE17D57242A29AC0052719A /* Signals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signals.swift; sourceTree = "<group>"; };
 		FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUtils.swift; sourceTree = "<group>"; };
 		FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageUtilsTests.swift; sourceTree = "<group>"; };
+		FCE4276C255042A800C95FAD /* NativeAd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAd.swift; sourceTree = "<group>"; };
+		FCE42772255043A600C95FAD /* NativeAdDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +315,9 @@
 		60C2A366234BBA5300628C9D /* Native */ = {
 			isa = PBXGroup;
 			children = (
+				FCE42772255043A600C95FAD /* NativeAdDelegate.swift */,
+				FCE4276C255042A800C95FAD /* NativeAd.swift */,
+				380188E6255402F10089CA84 /* NativeAdEventDelegate.swift */,
 				60C2A364234B9AC100628C9D /* NativeRequest.swift */,
 				60C2A367234D214C00628C9D /* NativeAsset.swift */,
 				60C2A36D2354C7BA00628C9D /* NativeEventTracker.swift */,
@@ -325,6 +356,9 @@
 				FA12E517231FCD1400CAA05B /* BidManager.swift */,
 				6062B1A321835DF300CE1BA3 /* Logging.swift */,
 				60D7930C217E23F90080F428 /* Prebid.swift */,
+				3868489D2551712800234314 /* CacheManager.swift */,
+				380188EE255551890089CA84 /* TrackerManager.swift */,
+				380188F12555588B0089CA84 /* TrackerInfo.swift */,
 				60D7930F217E27960080F428 /* Host.swift */,
 				60D79313217E31150080F428 /* ResultCode.swift */,
 				60D79315217E39D90080F428 /* Targeting.swift */,
@@ -336,6 +370,7 @@
 				600072FE21BAFD2F00F4738B /* Dispatcher.swift */,
 				6013E3F12214A4CA00FEE2B1 /* Location.swift */,
 				FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */,
+				380188EB255432820089CA84 /* UIViewExtension.swift */,
 				FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */,
 			);
 			path = Source;
@@ -360,6 +395,8 @@
 				979177D72201F40300E624CE /* NSObject+Swizzling.m */,
 				606FAC5122022932008EAE5E /* AdUnitSwizzleHelper.swift */,
 				60C0382B2204BB190082B32C /* PrebidMobileTest-Bridging-Header.h */,
+				38F03B262576421400E026A2 /* CacheManagerTests.swift */,
+				38F03B322576624C00E026A2 /* TrackerManagerTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -441,6 +478,8 @@
 		979177A02201B41500E624CE /* Responses */ = {
 			isa = PBXGroup;
 			children = (
+				380D2E5A2577A3C400507B76 /* NativeAd.json */,
+				382B11E5256E933800B81CA9 /* NativeAdResponse.json */,
 				FA7C3EB8225E518000D2F128 /* noBidResponseRubicon.json */,
 				FA7C3EB6225E4C2200D2F128 /* responseRubiconPBM.json */,
 				FA7C3EB4225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json */,
@@ -620,6 +659,7 @@
 				60C038342204F02C0082B32C /* responseIncorrectFormat.json in Resources */,
 				F5400CB82209F19B0018F6B1 /* responseInvalidNoTopCacheId.json in Resources */,
 				60C038352204F02C0082B32C /* responseInvalidAccountId.json in Resources */,
+				382B11E6256E933800B81CA9 /* NativeAdResponse.json in Resources */,
 				60C038362204F02C0082B32C /* responseInvalidConfigId.json in Resources */,
 				60C038372204F02C0082B32C /* noBidResponseAppNexus.json in Resources */,
 				FA7C3EB7225E4C2200D2F128 /* responseRubiconPBM.json in Resources */,
@@ -632,6 +672,7 @@
 				600CF13E220CDFA700C95176 /* responseinvalidSize.json in Resources */,
 				60C038392204F02C0082B32C /* responseAppNexusPBM.json in Resources */,
 				FA7C3EB5225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json in Resources */,
+				380D2E5B2577A3C400507B76 /* NativeAd.json in Resources */,
 				FA7C3EB9225E518000D2F128 /* noBidResponseRubicon.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -663,6 +704,7 @@
 				FAA29904242D1C27002ACBF2 /* TargetingObjCTests.m in Sources */,
 				60C0381B2204AF5D0082B32C /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				6013E3FA2215C92C00FEE2B1 /* MockCLLocationManager.swift in Sources */,
+				38F03B332576624C00E026A2 /* TrackerManagerTests.swift in Sources */,
 				FAA2990E24349813002ACBF2 /* AdUnitObjCTests.m in Sources */,
 				60C0381C2204AF5D0082B32C /* PBHTTPStubbingManager.m in Sources */,
 				FAA2990C243368A1002ACBF2 /* AdUnitSuccessorObjCTests.m in Sources */,
@@ -681,6 +723,7 @@
 				60C038212204AF5D0082B32C /* RequestBuilderTests.swift in Sources */,
 				9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */,
 				9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */,
+				38F03B272576421400E026A2 /* CacheManagerTests.swift in Sources */,
 				FA9D7F2722E8A83D006FCBEF /* AdViewUtilsTests.swift in Sources */,
 				60C038252204AFA90082B32C /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
 				60C038242204AF5D0082B32C /* Constants.swift in Sources */,
@@ -697,11 +740,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60BB98D9254B241D00D94C12 /* IMAUtils.swift in Sources */,
+				FCE4276E2550436F00C95FAD /* NativeAd.swift in Sources */,
 				FAEBF2A0237EC7B1006BA972 /* StorageUtils.swift in Sources */,
+				380188F0255551890089CA84 /* TrackerManager.swift in Sources */,
 				FA29A3D5232255DF00F13F61 /* Reachability.swift in Sources */,
 				FA29A3D6232255DF00F13F61 /* BidManager.swift in Sources */,
 				FA29A3D7232255DF00F13F61 /* Dispatcher.swift in Sources */,
+				380188E8255402F10089CA84 /* NativeAdEventDelegate.swift in Sources */,
+				380188F32555588B0089CA84 /* TrackerInfo.swift in Sources */,
 				FA0AA1A623797413004B7A44 /* NativeRequest.swift in Sources */,
 				FAD4D544235DCCAB00140012 /* VideoAdUnit.swift in Sources */,
 				FA29A3D9232255DF00F13F61 /* RequestBuilder.swift in Sources */,
@@ -716,10 +762,12 @@
 				FA29A3E1232255DF00F13F61 /* Utils.swift in Sources */,
 				FA29A3E2232255DF00F13F61 /* Targeting.swift in Sources */,
 				FA495E792326F50500894166 /* Prebid.swift in Sources */,
+				3868489F2551712800234314 /* CacheManager.swift in Sources */,
 				FAAB5F9823B9F73B001715A7 /* RewardedVideoAdUnit.swift in Sources */,
 				FA29A3E3232255DF00F13F61 /* Global.swift in Sources */,
 				FA29A3E4232255DF00F13F61 /* BidResponse.swift in Sources */,
 				FA29A3E5232255DF00F13F61 /* InterstitialAdUnit.swift in Sources */,
+				380188ED255432820089CA84 /* UIViewExtension.swift in Sources */,
 				CEEA4531240FCBEF0003CDE7 /* VideoBaseAdUnit.swift in Sources */,
 				FA0AA1A823797435004B7A44 /* NativeEventTracker.swift in Sources */,
 				FA29A3E6232255DF00F13F61 /* Host.swift in Sources */,
@@ -728,6 +776,7 @@
 				FA29A3E8232255DF00F13F61 /* Logging.swift in Sources */,
 				FAE17D59242A29AC0052719A /* Signals.swift in Sources */,
 				FAD9527C241BA30800A03AB6 /* BannerBaseAdUnit.swift in Sources */,
+				FCE42774255043A600C95FAD /* NativeAdDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -735,13 +784,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCE4276D255042A800C95FAD /* NativeAd.swift in Sources */,
 				FAEBF29F237EC7B1006BA972 /* StorageUtils.swift in Sources */,
+				FCE42773255043A600C95FAD /* NativeAdDelegate.swift in Sources */,
 				FAAA00D223227F5B009DC7D6 /* Global.swift in Sources */,
 				FA4A88442497A99D00FDCBB6 /* Swizzling.swift in Sources */,
+				3868489E2551712800234314 /* CacheManager.swift in Sources */,
+				380188EC255432820089CA84 /* UIViewExtension.swift in Sources */,
 				FAAA00D823227F5B009DC7D6 /* CollectionExtension.swift in Sources */,
 				FAAA00CB23227F5B009DC7D6 /* BidManager.swift in Sources */,
 				FAD4D543235DCCAB00140012 /* VideoAdUnit.swift in Sources */,
 				FA495E7A2326F50B00894166 /* Targeting.swift in Sources */,
+				380188EF255551890089CA84 /* TrackerManager.swift in Sources */,
 				FAAA00D623227F5B009DC7D6 /* Dispatcher.swift in Sources */,
 				FAAA00D923227F65009DC7D6 /* BannerAdUnit.swift in Sources */,
 				FAAA00D323227F5B009DC7D6 /* RequestBuilder.swift in Sources */,
@@ -759,11 +813,13 @@
 				FAAA00D123227F5B009DC7D6 /* Constants.swift in Sources */,
 				FAAA00DA23227F65009DC7D6 /* AdUnit.swift in Sources */,
 				FAAA00DB23227F65009DC7D6 /* InterstitialAdUnit.swift in Sources */,
+				380188F22555588B0089CA84 /* TrackerInfo.swift in Sources */,
 				CEEA4530240FCBEF0003CDE7 /* VideoBaseAdUnit.swift in Sources */,
 				FAAA00CE23227F5B009DC7D6 /* Host.swift in Sources */,
 				FAAA00D423227F5B009DC7D6 /* Reachability.swift in Sources */,
 				FAAA00CF23227F5B009DC7D6 /* ResultCode.swift in Sources */,
 				FAD4D546235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */,
+				380188E7255402F10089CA84 /* NativeAdEventDelegate.swift in Sources */,
 				FAAA00DD23227F6A009DC7D6 /* AdViewUtils.swift in Sources */,
 				FAE17D58242A29AC0052719A /* Signals.swift in Sources */,
 				FAD9527B241BA30800A03AB6 /* BannerBaseAdUnit.swift in Sources */,
@@ -917,6 +973,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -938,6 +995,7 @@
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -962,6 +1020,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -985,6 +1044,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1008,6 +1068,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1031,6 +1092,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
