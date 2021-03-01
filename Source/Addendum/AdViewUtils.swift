@@ -41,6 +41,7 @@ public final class AdViewUtils: NSObject {
         }
     }
     
+    @available(iOS 14.0, *)
     @objc
     public static func subscribeOnAdClicked(viewController: UIViewController, adView: UIView) {
         let view = self.findView(adView) { (subView) -> Bool in
@@ -52,25 +53,36 @@ public final class AdViewUtils: NSObject {
                 
                 let savedValuesDict = CacheManager.shared.savedValuesDict
                 for (key, value) in savedValuesDict {
-                   
+
                     let response = Utils.shared.getDictionaryFromString(value)!
                     if let ext = response["ext"] as? [AnyHashable : Any],
                        let prebid = ext["prebid"] as? [AnyHashable : Any],
                        let targeting = prebid["targeting"] as? [AnyHashable : Any],
                        let hbCacheId = targeting["hb_cache_id"] as? String {
                         if (hbCacheId == id) {
-//                            if let skadn = ext["skadn"] as? [AnyHashable : Any], let itunesitem = skadn["itunesitem"] as? String {
+                            if let skadn = ext["skadn"] as? [AnyHashable : Any] {
                                 
                                 let adViewController = SKStoreProductViewController()
-
-//                                adViewController.loadProduct(withParameters:[SKStoreProductParameterITunesItemIdentifier: NSNumber(value: Int(itunesitem)!)]) { (b, e) in
-                                adViewController.loadProduct(withParameters:[SKStoreProductParameterITunesItemIdentifier: NSNumber(value: 1442614692)]) { (b, e) in
                                 
-                                    print("error:\(e)")
+                                adViewController.loadProduct(withParameters:[
+                                    SKStoreProductParameterITunesItemIdentifier: NSNumber(value: Int(skadn["itunesitem"] as! String)!),
+                                    
+                                    SKStoreProductParameterAdNetworkIdentifier: skadn["network"] as! String,
+                                    SKStoreProductParameterAdNetworkCampaignIdentifier: NSNumber(value: Int(skadn["campaign"] as! String)!),
+                                    SKStoreProductParameterAdNetworkTimestamp: NSNumber(value: Int(skadn["timestamp"] as! String)!),
+                                    SKStoreProductParameterAdNetworkNonce: NSUUID(uuidString: skadn["nonce"] as! String)!,
+                                    SKStoreProductParameterAdNetworkAttributionSignature: skadn["signature"] as! String,
+                                    SKStoreProductParameterAdNetworkSourceAppStoreIdentifier: NSNumber(value: Int(skadn["sourceapp"] as! String)!),
+                                    SKStoreProductParameterAdNetworkVersion: skadn["version"] as! String
+                                    
+                                ]) { (b, e) in
+                                    if let error = e {
+                                        print("error:\(error)")
+                                    }
                                 }
-                        
+                                
                                 viewController.present(adViewController, animated: true, completion: nil)
-//                            }
+                            }
                             
                             break
                         }
@@ -81,7 +93,6 @@ public final class AdViewUtils: NSObject {
             Log.warn("view doesn't contain WKWebView")
         }
     }
-    
     
     static func triggerSuccess(size: CGSize, success: @escaping (CGSize) -> Void) {
         success(size)
@@ -131,13 +142,6 @@ public final class AdViewUtils: NSObject {
     
     static func injectCodeInWebViewAsync(wkWebView: WKWebView, success: @escaping (String) -> Void) {
         
-//        wkWebView.evaluateJavaScript("var isReady = false; document.addEventListener(\"DOMContentLoaded\", function(event) {isReady = true; });", completionHandler: { (value: Any!, error: Error!) -> Void in
-//            if let error = error {
-//                print("00:\(error.localizedDescription)")
-//            }
-//
-//        })
-        
         let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
             wkWebView.evaluateJavaScript("document.readyState", completionHandler: { (value: Any!, error: Error!) -> Void in
                 if let error = error {
@@ -153,7 +157,7 @@ public final class AdViewUtils: NSObject {
                             print("0:\(error.localizedDescription)")
                         }
                         
-                        if let url = value as? String, url == "http://www.rubiconproject.com/" {
+                        if let url = value as? String, url.contains("//apps.apple.com") {
                             wkWebView.evaluateJavaScript("var isClicked = false; const div = document.createElement('div'); div.style.top = 0; div.style.bottom = 0; div.style.left = 0; div.style.right = 0; div.style.position = \"fixed\"; document.body.appendChild(div); div.addEventListener(\"click\", () => {isClicked=true; console.log(\"test\");})", completionHandler: { (value: Any!, error: Error!) -> Void in //div.style.background = \"red\";
                                 if let error = error {
                                     print("1:\(error.localizedDescription)")

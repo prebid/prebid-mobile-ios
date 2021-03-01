@@ -123,6 +123,16 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         Prebid.shared.prebidServerHost = host
         Prebid.shared.prebidServerAccountId = accountId
         Prebid.shared.storedAuctionResponse = storedResponse
+
+        //set QA env
+        Prebid.shared.prebidServerHost = .Custom
+        do {
+            try Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.qa.rubiconproject.com/openrtb2/auction")
+        } catch {
+            print(error)
+        }
+        
+        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250-skadnetwork"
     }
 
     //Setup AdServer
@@ -286,7 +296,12 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
         })
         
-        AdViewUtils.onAdClicked(viewController: self, adView: bannerView)
+        if #available(iOS 14.0, *) {
+            AdViewUtils.subscribeOnAdClicked(viewController: self, adView: bannerView)
+        } else {
+            // Fallback on earlier versions
+            print("this feature is support from iOS v14")
+        }
     }
 
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
