@@ -1407,11 +1407,11 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             if #available(iOS 14, *) {
                 let atts = deviceExt!["atts"] as! Int
                 XCTAssertEqual(Int(ATTrackingManager.trackingAuthorizationStatus.rawValue), atts)
-            } else {
-                
-                let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
-                XCTAssertEqual(NSNumber(value: lmtAd).intValue, device["lmt"] as! Int)
             }
+            
+            let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
+            XCTAssertEqual(NSNumber(value: lmtAd).intValue, device["lmt"] as! Int)
+            
             #else
                 let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
                 XCTAssertEqual(NSNumber(value: lmtAd).intValue, device["lmt"] as! Int)

@@ -8,6 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		357880CCDA9464E1BC8B6ACE /* Pods_PrebidDemoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0177D90B948D57DD24AEB9 /* Pods_PrebidDemoSwift.framework */; };
+		38018907255AC5560089CA84 /* NativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38018905255AC5560089CA84 /* NativeAdView.swift */; };
+		38018908255AC5560089CA84 /* NativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38018905255AC5560089CA84 /* NativeAdView.swift */; };
+		38018909255AC5560089CA84 /* NativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38018906255AC5560089CA84 /* NativeAdView.xib */; };
+		3801890A255AC5560089CA84 /* NativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38018906255AC5560089CA84 /* NativeAdView.xib */; };
+		383E9CA32571281F006FA6F4 /* NativeInAppNativeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CA22571281F006FA6F4 /* NativeInAppNativeTest.swift */; };
+		383E9CA525712879006FA6F4 /* NativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38018905255AC5560089CA84 /* NativeAdView.swift */; };
+		383E9CA62571287C006FA6F4 /* NativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38018906255AC5560089CA84 /* NativeAdView.xib */; };
+		383E9CC92571297F006FA6F4 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CAA2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.m */; };
+		383E9CDC2571297F006FA6F4 /* PBTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CBF2571297E006FA6F4 /* PBTestGlobal.m */; };
+		383E9CDD2571297F006FA6F4 /* PBHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CC22571297E006FA6F4 /* PBHTTPStubURLProtocol.m */; };
+		383E9CDE2571297F006FA6F4 /* PBURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CC32571297E006FA6F4 /* PBURLConnectionStub.m */; };
+		383E9CDF2571297F006FA6F4 /* PBHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CC42571297E006FA6F4 /* PBHTTPStubbingManager.m */; };
+		383E9CE02571297F006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CC52571297E006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m */; };
+		383E9CEC25712D06006FA6F4 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CEA25712D06006FA6F4 /* NSObject+Swizzling.m */; };
+		38450A6225514EA6000DCF6D /* NativeInAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38450A6125514EA6000DCF6D /* NativeInAppViewController.swift */; };
+		3884A0E8258CD0F1005D0163 /* NativeAdInvalidResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 3884A0E5258CD0F0005D0163 /* NativeAdInvalidResponse.json */; };
+		3884A0E9258CD0F1005D0163 /* NativeAd.json in Resources */ = {isa = PBXBuildFile; fileRef = 3884A0E6258CD0F1005D0163 /* NativeAd.json */; };
+		3884A0EA258CD0F1005D0163 /* NativeAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 3884A0E7258CD0F1005D0163 /* NativeAdResponse.json */; };
 		6069716C25224655000EE732 /* InstreamVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6069716B25224655000EE732 /* InstreamVideoViewController.swift */; };
 		609C52C32395F17F001FA5BD /* NativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609C52C22395F17F001FA5BD /* NativeViewController.swift */; };
 		C7A1F0B942F152B467C71A70 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B64CCFCC9D513DEAA95A372 /* Pods_PrebidDemoObjectiveC.framework */; };
@@ -111,6 +129,27 @@
 		23D087975EEE7CB85E7E7050 /* Pods-PrebidDemoSwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwiftTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwiftTests/Pods-PrebidDemoSwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		27A7BB2D11AE790948BFB336 /* Pods-PrebidDemoSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.release.xcconfig"; sourceTree = "<group>"; };
 		30744DA255EA063B76D484F9 /* Pods-PrebidDemoSwift-PrebidDemoSwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift-PrebidDemoSwiftTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift-PrebidDemoSwiftTests/Pods-PrebidDemoSwift-PrebidDemoSwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
+		38018905255AC5560089CA84 /* NativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdView.swift; sourceTree = "<group>"; };
+		38018906255AC5560089CA84 /* NativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NativeAdView.xib; sourceTree = "<group>"; };
+		383E9CA22571281F006FA6F4 /* NativeInAppNativeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeInAppNativeTest.swift; sourceTree = "<group>"; };
+		383E9CAA2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
+		383E9CAB2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
+		383E9CBF2571297E006FA6F4 /* PBTestGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTestGlobal.m; sourceTree = "<group>"; };
+		383E9CC12571297E006FA6F4 /* PBHTTPStubbingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBHTTPStubbingManager.h; sourceTree = "<group>"; };
+		383E9CC22571297E006FA6F4 /* PBHTTPStubURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBHTTPStubURLProtocol.m; sourceTree = "<group>"; };
+		383E9CC32571297E006FA6F4 /* PBURLConnectionStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBURLConnectionStub.m; sourceTree = "<group>"; };
+		383E9CC42571297E006FA6F4 /* PBHTTPStubbingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBHTTPStubbingManager.m; sourceTree = "<group>"; };
+		383E9CC52571297E006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PBURLConnectionStub+NSURLSessionConfiguration.m"; sourceTree = "<group>"; };
+		383E9CC62571297E006FA6F4 /* PBHTTPStubURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBHTTPStubURLProtocol.h; sourceTree = "<group>"; };
+		383E9CC72571297E006FA6F4 /* PBURLConnectionStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBURLConnectionStub.h; sourceTree = "<group>"; };
+		383E9CC82571297E006FA6F4 /* PBTestGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTestGlobal.h; sourceTree = "<group>"; };
+		383E9CE325712AC3006FA6F4 /* PrebidDemoTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidDemoTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		383E9CEA25712D06006FA6F4 /* NSObject+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Swizzling.m"; path = "../../../NSObject+Swizzling.m"; sourceTree = "<group>"; };
+		383E9CEB25712D06006FA6F4 /* NSObject+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Swizzling.h"; path = "../../../NSObject+Swizzling.h"; sourceTree = "<group>"; };
+		38450A6125514EA6000DCF6D /* NativeInAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeInAppViewController.swift; sourceTree = "<group>"; };
+		3884A0E5258CD0F0005D0163 /* NativeAdInvalidResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAdInvalidResponse.json; sourceTree = "<group>"; };
+		3884A0E6258CD0F1005D0163 /* NativeAd.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAd.json; sourceTree = "<group>"; };
+		3884A0E7258CD0F1005D0163 /* NativeAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAdResponse.json; sourceTree = "<group>"; };
 		398C46797E3B11F6932E9BDA /* Pods-PrebidDemoPod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod/Pods-PrebidDemoPod.debug.xcconfig"; sourceTree = "<group>"; };
 		3C3DD5560D8F19EE9F2158E7 /* Pods-PrebidDemoSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		5197A13C51AEAF0782B64F40 /* Pods-PrebidDemoPodCoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPodCoreTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPodCoreTests/Pods-PrebidDemoPodCoreTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -192,6 +231,72 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38018902255AC4DE0089CA84 /* NativeAd */ = {
+			isa = PBXGroup;
+			children = (
+				38018903255AC4FC0089CA84 /* NativeView */,
+				38450A6125514EA6000DCF6D /* NativeInAppViewController.swift */,
+			);
+			path = NativeAd;
+			sourceTree = "<group>";
+		};
+		38018903255AC4FC0089CA84 /* NativeView */ = {
+			isa = PBXGroup;
+			children = (
+				38018905255AC5560089CA84 /* NativeAdView.swift */,
+				38018906255AC5560089CA84 /* NativeAdView.xib */,
+			);
+			path = NativeView;
+			sourceTree = "<group>";
+		};
+		383E9CA82571297E006FA6F4 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				383E9CA92571297E006FA6F4 /* Category */,
+				383E9CAC2571297E006FA6F4 /* Responses */,
+				383E9CBF2571297E006FA6F4 /* PBTestGlobal.m */,
+				383E9CC02571297E006FA6F4 /* Stubbing */,
+				383E9CC82571297E006FA6F4 /* PBTestGlobal.h */,
+			);
+			name = Shared;
+			path = ../../../Tests/FetchingLogictests/Shared;
+			sourceTree = "<group>";
+		};
+		383E9CA92571297E006FA6F4 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				383E9CEB25712D06006FA6F4 /* NSObject+Swizzling.h */,
+				383E9CEA25712D06006FA6F4 /* NSObject+Swizzling.m */,
+				383E9CAA2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.m */,
+				383E9CAB2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.h */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		383E9CAC2571297E006FA6F4 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				3884A0E6258CD0F1005D0163 /* NativeAd.json */,
+				3884A0E5258CD0F0005D0163 /* NativeAdInvalidResponse.json */,
+				3884A0E7258CD0F1005D0163 /* NativeAdResponse.json */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		383E9CC02571297E006FA6F4 /* Stubbing */ = {
+			isa = PBXGroup;
+			children = (
+				383E9CC12571297E006FA6F4 /* PBHTTPStubbingManager.h */,
+				383E9CC22571297E006FA6F4 /* PBHTTPStubURLProtocol.m */,
+				383E9CC32571297E006FA6F4 /* PBURLConnectionStub.m */,
+				383E9CC42571297E006FA6F4 /* PBHTTPStubbingManager.m */,
+				383E9CC52571297E006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m */,
+				383E9CC62571297E006FA6F4 /* PBHTTPStubURLProtocol.h */,
+				383E9CC72571297E006FA6F4 /* PBURLConnectionStub.h */,
+			);
+			path = Stubbing;
+			sourceTree = "<group>";
+		};
 		464FE826217632CAB58ABF2E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +373,7 @@
 		FA12E4B5231EB04100CAA05B /* PrebidDemoSwift */ = {
 			isa = PBXGroup;
 			children = (
+				38018902255AC4DE0089CA84 /* NativeAd */,
 				FA12E4B6231EB04100CAA05B /* AppDelegate.swift */,
 				FA12E4CD231EB3F000CAA05B /* IndexController.swift */,
 				FA12E4CE231EB3F000CAA05B /* BannerController.swift */,
@@ -286,8 +392,11 @@
 		FA12E4E7231EB52D00CAA05B /* PrebidDemoTests */ = {
 			isa = PBXGroup;
 			children = (
+				383E9CE325712AC3006FA6F4 /* PrebidDemoTests-Bridging-Header.h */,
+				383E9CA82571297E006FA6F4 /* Shared */,
 				FA12E4E0231EB4BB00CAA05B /* Constants.swift */,
 				FA12E4E8231EB52D00CAA05B /* PrebidDemoTests.swift */,
+				383E9CA22571281F006FA6F4 /* NativeInAppNativeTest.swift */,
 				FA12E4EA231EB52D00CAA05B /* Info.plist */,
 			);
 			path = PrebidDemoTests;
@@ -394,6 +503,7 @@
 					};
 					FA12E4F5231EB99D00CAA05B = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1170;
 					};
 				};
 			};
@@ -454,6 +564,7 @@
 			files = (
 				FA12E4C1231EB04200CAA05B /* LaunchScreen.storyboard in Resources */,
 				FA12E4BE231EB04200CAA05B /* Assets.xcassets in Resources */,
+				38018909255AC5560089CA84 /* NativeAdView.xib in Resources */,
 				FA12E4BC231EB04100CAA05B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,6 +573,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3884A0EA258CD0F1005D0163 /* NativeAdResponse.json in Resources */,
+				3884A0E9258CD0F1005D0163 /* NativeAd.json in Resources */,
+				3884A0E8258CD0F1005D0163 /* NativeAdInvalidResponse.json in Resources */,
+				383E9CA62571287C006FA6F4 /* NativeAdView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +586,7 @@
 			files = (
 				FA12E505231EB99E00CAA05B /* LaunchScreen.storyboard in Resources */,
 				FA12E502231EB99E00CAA05B /* Assets.xcassets in Resources */,
+				3801890A255AC5560089CA84 /* NativeAdView.xib in Resources */,
 				FA12E500231EB99D00CAA05B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -591,6 +707,8 @@
 				FA7E5530239E87FA0063B028 /* RewardedVideoController.swift in Sources */,
 				FA12E4B7231EB04100CAA05B /* AppDelegate.swift in Sources */,
 				609C52C32395F17F001FA5BD /* NativeViewController.swift in Sources */,
+				38018907255AC5560089CA84 /* NativeAdView.swift in Sources */,
+				38450A6225514EA6000DCF6D /* NativeInAppViewController.swift in Sources */,
 				FA12E4CF231EB3F000CAA05B /* InterstitialViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -599,8 +717,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				383E9CA525712879006FA6F4 /* NativeAdView.swift in Sources */,
 				FA12E4E9231EB52D00CAA05B /* PrebidDemoTests.swift in Sources */,
+				383E9CE02571297F006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
+				383E9CDD2571297F006FA6F4 /* PBHTTPStubURLProtocol.m in Sources */,
+				383E9CDE2571297F006FA6F4 /* PBURLConnectionStub.m in Sources */,
+				383E9CEC25712D06006FA6F4 /* NSObject+Swizzling.m in Sources */,
+				383E9CDF2571297F006FA6F4 /* PBHTTPStubbingManager.m in Sources */,
 				FA12E4F0231EB53A00CAA05B /* Constants.swift in Sources */,
+				383E9CC92571297F006FA6F4 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
+				383E9CDC2571297F006FA6F4 /* PBTestGlobal.m in Sources */,
+				383E9CA32571281F006FA6F4 /* NativeInAppNativeTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,6 +735,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38018908255AC5560089CA84 /* NativeAdView.swift in Sources */,
 				FA12E4FD231EB99D00CAA05B /* ViewController.m in Sources */,
 				FA12E511231EBC8E00CAA05B /* PrebidNavigationController.m in Sources */,
 				FA12E508231EB99E00CAA05B /* main.m in Sources */,
@@ -796,7 +924,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PrebidDemoSwift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -817,7 +945,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PrebidDemoSwift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -843,6 +971,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidDemoSwiftTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/PrebidDemoTests/PrebidDemoTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrebidDemoSwift.app/PrebidDemoSwift";
@@ -863,6 +992,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidDemoSwiftTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/PrebidDemoTests/PrebidDemoTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrebidDemoSwift.app/PrebidDemoSwift";
@@ -875,6 +1005,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PrebidDemoObjectiveC/Info.plist;
@@ -885,6 +1016,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidDemoObjectiveC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -895,6 +1029,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PrebidDemoObjectiveC/Info.plist;
@@ -905,6 +1040,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.PrebidDemoObjectiveC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

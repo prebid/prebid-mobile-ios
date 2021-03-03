@@ -86,14 +86,12 @@ class BidManager: NSObject {
             Log.debug(String(format: "Response from server: %@", errorString))
             if (!errorString.contains("Invalid request")) {
                 let response: [String: AnyObject] = try JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
-
                 var bidDict: [String: AnyObject] = [:]
                 var containTopBid = false
-
                 guard response.count > 0, response["seatbid"] != nil else { return ([:], ResultCode.prebidDemandNoBids)}
                 let seatbids = response["seatbid"] as! [AnyObject]
                 for seatbid in seatbids {
-                    var seatbidDict = seatbid as? [String: AnyObject]
+                    let seatbidDict = seatbid as? [String: AnyObject]
                     guard seatbid is [String: AnyObject], seatbidDict?["bid"] is [AnyObject] else { break }
                     let bids = seatbidDict?["bid"] as! [AnyObject]
                     for bid in bids {
@@ -116,6 +114,12 @@ class BidManager: NSObject {
                         guard containBid else {  break }
                         for (key, value) in adServerTargeting! {
                             bidDict[key] = value
+                        }
+                        // Caching the response only for Native
+                        if let adType = prebidDict["type"] as? String, adType == "native", containTopBid == true {
+                            if let bid = bid as? [String : AnyObject], let bidTxt = Utils.shared.getStringFromDictionary(bid),  let cacheId = CacheManager.shared.save(content: bidTxt, expireInterval: bid["exp"] as? TimeInterval ?? CacheManager.cacheManagerExpireInterval), !cacheId.isEmpty{
+                                bidDict["hb_cache_id_local"] = cacheId as AnyObject
+                            }
                         }
                     }
               }
@@ -143,7 +147,7 @@ class BidManager: NSObject {
         }
 
     }
-
+    
     func getCurrentMillis() -> Int64 {
         return Int64(Date().timeIntervalSince1970 * 1000)
     }
