@@ -464,10 +464,29 @@ class RequestBuilder: NSObject {
         }
 
         requestUserExt["data"] = Targeting.shared.getUserDataDictionary().getCopyWhereValueIsArray()
+        
+        if let externalUserIdArray = getExternalUserIds(), externalUserIdArray.count != 0{
+            requestUserExt["eids"] = externalUserIdArray
+        }
 
         userDict["ext"] = requestUserExt
 
         return userDict
+    }
+    
+    func getExternalUserIds() -> [[AnyHashable: Any]]? {
+        let externalUserIdArray : [ExternalUserId] = Prebid.shared.externalUserIdArray
+        var transformedeuidArray = [[AnyHashable: Any]]()
+        for externaluserId in externalUserIdArray {
+            var transformedeuidDic = [AnyHashable: Any]()
+            guard externaluserId.source.count != 0 else {
+                return nil
+            }
+            transformedeuidDic["source"] = externaluserId.source
+            transformedeuidDic["uids"] = externaluserId.userIdArray
+            transformedeuidArray.append(transformedeuidDic)
+        }
+        return transformedeuidArray
     }
 
     class func precisionNumberFormatter() -> NumberFormatter? {

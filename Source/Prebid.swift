@@ -63,6 +63,11 @@ import Foundation
     public var logLevel: LogLevel = .debug
     
     /**
+     * Array  containing objects that hold External UserId parameters.
+     */
+    public var externalUserIdArray = [ExternalUserId]()
+    
+    /**
      * Set the desidered verbosity of the logs
      */
     //Objective-C Api

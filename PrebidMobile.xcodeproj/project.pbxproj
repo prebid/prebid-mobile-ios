@@ -17,6 +17,8 @@
 		380188F32555588B0089CA84 /* TrackerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188F12555588B0089CA84 /* TrackerInfo.swift */; };
 		380D2E5B2577A3C400507B76 /* NativeAd.json in Resources */ = {isa = PBXBuildFile; fileRef = 380D2E5A2577A3C400507B76 /* NativeAd.json */; };
 		382B11E6256E933800B81CA9 /* NativeAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 382B11E5256E933800B81CA9 /* NativeAdResponse.json */; };
+		3857FFF125F65F6A00D1EEBE /* ExternalUserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3857FFF025F65F6A00D1EEBE /* ExternalUserId.swift */; };
+		3857FFF225F65F6A00D1EEBE /* ExternalUserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3857FFF025F65F6A00D1EEBE /* ExternalUserId.swift */; };
 		3868489E2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
 		3868489F2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
 		38F03B272576421400E026A2 /* CacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B262576421400E026A2 /* CacheManagerTests.swift */; };
@@ -157,6 +159,7 @@
 		380188F12555588B0089CA84 /* TrackerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerInfo.swift; sourceTree = "<group>"; };
 		380D2E5A2577A3C400507B76 /* NativeAd.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAd.json; sourceTree = "<group>"; };
 		382B11E5256E933800B81CA9 /* NativeAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAdResponse.json; sourceTree = "<group>"; };
+		3857FFF025F65F6A00D1EEBE /* ExternalUserId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalUserId.swift; sourceTree = "<group>"; };
 		3868489D2551712800234314 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		38F03B262576421400E026A2 /* CacheManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerTests.swift; sourceTree = "<group>"; };
 		38F03B322576624C00E026A2 /* TrackerManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerManagerTests.swift; sourceTree = "<group>"; };
@@ -372,6 +375,7 @@
 				FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */,
 				380188EB255432820089CA84 /* UIViewExtension.swift */,
 				FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */,
+				3857FFF025F65F6A00D1EEBE /* ExternalUserId.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -772,6 +776,7 @@
 				FA0AA1A823797435004B7A44 /* NativeEventTracker.swift in Sources */,
 				FA29A3E6232255DF00F13F61 /* Host.swift in Sources */,
 				FA29A3E7232255DF00F13F61 /* Constants.swift in Sources */,
+				3857FFF225F65F6A00D1EEBE /* ExternalUserId.swift in Sources */,
 				FAD4D547235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */,
 				FA29A3E8232255DF00F13F61 /* Logging.swift in Sources */,
 				FAE17D59242A29AC0052719A /* Signals.swift in Sources */,
@@ -822,6 +827,7 @@
 				380188E7255402F10089CA84 /* NativeAdEventDelegate.swift in Sources */,
 				FAAA00DD23227F6A009DC7D6 /* AdViewUtils.swift in Sources */,
 				FAE17D58242A29AC0052719A /* Signals.swift in Sources */,
+				3857FFF125F65F6A00D1EEBE /* ExternalUserId.swift in Sources */,
 				FAD9527B241BA30800A03AB6 /* BannerBaseAdUnit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
