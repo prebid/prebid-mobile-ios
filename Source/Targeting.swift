@@ -72,6 +72,8 @@ import CoreLocation
     
     public var omidPartnerVersion: String?
     
+    public var versions: [String]?
+    
     public var skAdNetListMax: Int?
     
     public var skAdNetListExcl: [Int]?

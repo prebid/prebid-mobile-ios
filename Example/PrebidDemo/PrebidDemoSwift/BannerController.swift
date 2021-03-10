@@ -66,11 +66,30 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 //        setStoredResponse()
 //        setRequestTimeoutMillis()
 //        enablePbsDebug()
+        
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(appBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
+    
 
+    @objc func appBecomeActive() {
+        print("App foreground")
+    }
+    
+    @objc func appMovedToBackground() {
+        print("App background")
+        
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         // important to remove the time instance
         adUnit?.stopAutoRefresh()
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.removeObserver(self, name:UIApplication.willResignActiveNotification, object: nil)
+        notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     //MARK: Banner
@@ -125,12 +144,12 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         Prebid.shared.storedAuctionResponse = storedResponse
 
         //set QA env
-        Prebid.shared.prebidServerHost = .Custom
-        do {
-            try Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.qa.rubiconproject.com/openrtb2/auction")
-        } catch {
-            print(error)
-        }
+//        Prebid.shared.prebidServerHost = .Custom
+//        do {
+//            try Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.qa.rubiconproject.com/openrtb2/auction")
+//        } catch {
+//            print(error)
+//        }
         
         Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250-skadnetwork"
     }
@@ -278,6 +297,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         Prebid.shared.pbsDebug = true
     }
 
+    let skAdNetworkUtils = SKAdNetworkUtils()
     //MARK: - GADBannerViewDelegate
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("adViewDidReceiveAd")
@@ -297,7 +317,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         })
         
         if #available(iOS 14.0, *) {
-            AdViewUtils.subscribeOnAdClicked(viewController: self, adView: bannerView)
+            skAdNetworkUtils.subscribeOnAdClicked(viewController: self, adView: bannerView)
         } else {
             // Fallback on earlier versions
             print("this feature is support from iOS v14")
@@ -311,7 +331,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
         print("adView:didFailToReceiveAdWithError:")
 
-//        AdViewUtils.onAdClicked(viewController: self, adView: bannerView)
+        
     }
 
     //MARK: - MPAdViewDelegate

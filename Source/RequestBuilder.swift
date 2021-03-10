@@ -212,13 +212,17 @@ class RequestBuilder: NSObject {
         adUnitExt["context"] = prebidAdUnitExtContext
 
         var skAdNet: [AnyHashable: Any] = [:]
-        skAdNet["version"] = "2.0"
+        skAdNet["version"] = Targeting.shared.versions
         skAdNet["sourceapp"] = Targeting.shared.itunesID
 
         var skAdNetList: [AnyHashable: Any] = [:]
         skAdNetList["max"] = Targeting.shared.skAdNetListMax
-        skAdNetList["excl"] = Targeting.shared.skAdNetListExcl
-        skAdNetList["addl"] = Targeting.shared.skAdNetListAddl
+        if let skAdNetListExcl = Targeting.shared.skAdNetListExcl {
+            skAdNetList["excl"] = Array(skAdNetListExcl.prefix(30))
+        }
+        if let skAdNetListAddl = Targeting.shared.skAdNetListAddl {
+            skAdNetList["addl"] = skAdNetListAddl.prefix(10).map { $0.capitalized }
+        }
 
         skAdNet["skadnetlist"] = skAdNetList
         adUnitExt["skadn"] = skAdNet

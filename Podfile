@@ -10,7 +10,7 @@ project 'tools/PrebidValidator/Dr.Prebid.xcodeproj'
 def prebid_demo_pods
   use_frameworks!
   
-  pod 'Google-Mobile-Ads-SDK'
+  pod 'Google-Mobile-Ads-SDK', '7.69'
   pod 'mopub-ios-sdk'
   pod 'GoogleAds-IMA-iOS-SDK'
 end

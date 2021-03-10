@@ -47,10 +47,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         }
         
-//        Targeting.shared.itunesID = "880047117"
-//        Targeting.shared.skAdNetListMax = 306
-//        Targeting.shared.skAdNetListExcl = [2,8,10,55]
-//        Targeting.shared.skAdNetListAddl = ["cDkw7geQsH.skadnetwork", "qyJfv329m4.skadnetwork"]
+        Targeting.shared.versions = ["2.0", "2.1"]
+        Targeting.shared.skAdNetListMax = 306
+        Targeting.shared.skAdNetListExcl = [2, 8, 10, 55]
+        Targeting.shared.skAdNetListAddl = ["cDkw7geQsH.skadnetwork", "qyJfv329m4.skadnetwork"]
+        
+        Targeting.shared.itunesID = "880047117"
 
         coreLocation = CLLocationManager()
         coreLocation?.requestWhenInUseAuthorization()
@@ -85,5 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    
 
 }

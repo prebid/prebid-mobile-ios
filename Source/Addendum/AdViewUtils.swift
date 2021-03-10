@@ -17,34 +17,13 @@ import Foundation
 import WebKit
 import StoreKit
 
-public final class AdViewUtils: NSObject {
-
-    private static let innerHtmlScript = "document.body.innerHTML"
-    private static let sizeValueRegexExpression = "[0-9]+x[0-9]+"
-    private static let sizeObjectRegexExpression = "hb_size\\W+\(sizeValueRegexExpression)" //"hb_size\\W+[0-9]+x[0-9]+"
-    
-    private override init() {}
-    
-    @objc
-    public static func findPrebidCreativeSize(_ adView: UIView, success: @escaping (CGSize) -> Void, failure: @escaping (Error) -> Void) {
-        
-        let view = self.findView(adView) { (subView) -> Bool in
-            return isWKWebView(subView)
-        }
-        
-        if let wkWebView = view as? WKWebView  {
-            Log.debug("subView is WKWebView")
-            self.findSizeInWebViewAsync(wkWebView: wkWebView, success: success, failure: failure)
-            
-        } else {
-            warnAndTriggerFailure(PbFindSizeErrorFactory.noWKWebView, failure: failure)
-        }
-    }
+public class SKAdNetworkUtils {
+    public init() {}
     
     @available(iOS 14.0, *)
     @objc
-    public static func subscribeOnAdClicked(viewController: UIViewController, adView: UIView) {
-        let view = self.findView(adView) { (subView) -> Bool in
+    public func subscribeOnAdClicked(viewController: UIViewController, adView: UIView) {
+        let view = AdViewUtils.findView(adView) { (subView) -> Bool in
             return AdViewUtils.isWKWebView(subView)
         }
         
@@ -53,7 +32,7 @@ public final class AdViewUtils: NSObject {
                 
                 let savedValuesDict = CacheManager.shared.savedValuesDict
                 for (key, value) in savedValuesDict {
-
+                    
                     let response = Utils.shared.getDictionaryFromString(value)!
                     if let ext = response["ext"] as? [AnyHashable : Any],
                        let prebid = ext["prebid"] as? [AnyHashable : Any],
@@ -91,6 +70,89 @@ public final class AdViewUtils: NSObject {
             }
         } else {
             Log.warn("view doesn't contain WKWebView")
+        }
+    }
+    
+    func injectCodeInWebViewAsync(wkWebView: WKWebView, success: @escaping (String) -> Void) {
+        
+        let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
+            wkWebView.evaluateJavaScript("document.readyState", completionHandler: { (value: Any!, error: Error!) -> Void in
+                if let error = error {
+                    print("02:\(error.localizedDescription)")
+                }
+                
+                if let v = value as? String, v == "complete" {
+                    print("ready")
+                    timer.invalidate()
+                    
+                    wkWebView.evaluateJavaScript("document.querySelector(\"a[target='_blank']\").href", completionHandler: { (value: Any!, error: Error!) -> Void in
+                        if let error = error {
+                            print("0:\(error.localizedDescription)")
+                        }
+                        
+                        if let url = value as? String, url.contains("//apps.apple.com") {
+                            wkWebView.evaluateJavaScript("var isClicked = false; const div = document.createElement('div'); div.style.top = 0; div.style.bottom = 0; div.style.left = 0; div.style.right = 0; div.style.position = \"fixed\"; document.body.appendChild(div); div.addEventListener(\"click\", () => {isClicked=true; console.log(\"test\");})", completionHandler: { (value: Any!, error: Error!) -> Void in //div.style.background = \"red\";
+                                if let error = error {
+                                    print("1:\(error.localizedDescription)")
+                                }
+                                let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
+                                    wkWebView.evaluateJavaScript("isClicked", completionHandler: { (value: Any!, error: Error!) -> Void in
+                                        if let error = error {
+                                            print("2:\(error.localizedDescription)")
+                                        }
+                                        print("\(value!)")
+                                        
+                                        if let v = value as? Bool, v == true {
+                                            
+                                            wkWebView.evaluateJavaScript("isClicked = false", completionHandler: { (value: Any!, error: Error!) -> Void in })
+                                            
+                                            SKAdNetworkUtils.findIdInWebViewAsync(wkWebView: wkWebView, success: success)
+                                        }
+                                    })
+                                }
+
+                            })
+                            
+                        }
+                    })
+                }
+            })
+        }
+    }
+    
+    static func findIdInWebViewAsync(wkWebView: WKWebView, success: @escaping (String) -> Void) {
+        wkWebView.evaluateJavaScript(AdViewUtils.innerHtmlScript, completionHandler: { (value: Any!, error: Error!) -> Void in
+            
+            self.findIdInHtml(body: value as? String, success: success)
+        })
+    }
+    
+    static func findIdInHtml(body: String?, success: @escaping (String) -> Void) {
+        success(AdViewUtils.findIdInHtml(body: body))
+    }
+}
+
+public final class AdViewUtils: NSObject {
+
+    fileprivate static let innerHtmlScript = "document.body.innerHTML"
+    private static let sizeValueRegexExpression = "[0-9]+x[0-9]+"
+    private static let sizeObjectRegexExpression = "hb_size\\W+\(sizeValueRegexExpression)" //"hb_size\\W+[0-9]+x[0-9]+"
+    
+    private override init() {}
+    
+    @objc
+    public static func findPrebidCreativeSize(_ adView: UIView, success: @escaping (CGSize) -> Void, failure: @escaping (Error) -> Void) {
+        
+        let view = self.findView(adView) { (subView) -> Bool in
+            return isWKWebView(subView)
+        }
+        
+        if let wkWebView = view as? WKWebView  {
+            Log.debug("subView is WKWebView")
+            self.findSizeInWebViewAsync(wkWebView: wkWebView, success: success, failure: failure)
+            
+        } else {
+            warnAndTriggerFailure(PbFindSizeErrorFactory.noWKWebView, failure: failure)
         }
     }
     
@@ -140,63 +202,6 @@ public final class AdViewUtils: NSObject {
         
     }
     
-    static func injectCodeInWebViewAsync(wkWebView: WKWebView, success: @escaping (String) -> Void) {
-        
-        let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
-            wkWebView.evaluateJavaScript("document.readyState", completionHandler: { (value: Any!, error: Error!) -> Void in
-                if let error = error {
-                    print("02:\(error.localizedDescription)")
-                }
-                
-                if let v = value as? String, v == "complete" {
-                    print("ready")
-                    timer.invalidate()
-                    
-                    wkWebView.evaluateJavaScript("document.querySelector(\"a[target='_blank']\").href", completionHandler: { (value: Any!, error: Error!) -> Void in
-                        if let error = error {
-                            print("0:\(error.localizedDescription)")
-                        }
-                        
-                        if let url = value as? String, url.contains("//apps.apple.com") {
-                            wkWebView.evaluateJavaScript("var isClicked = false; const div = document.createElement('div'); div.style.top = 0; div.style.bottom = 0; div.style.left = 0; div.style.right = 0; div.style.position = \"fixed\"; document.body.appendChild(div); div.addEventListener(\"click\", () => {isClicked=true; console.log(\"test\");})", completionHandler: { (value: Any!, error: Error!) -> Void in //div.style.background = \"red\";
-                                if let error = error {
-                                    print("1:\(error.localizedDescription)")
-                                }
-                                let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
-                                    wkWebView.evaluateJavaScript("isClicked", completionHandler: { (value: Any!, error: Error!) -> Void in
-                                        if let error = error {
-                                            print("2:\(error.localizedDescription)")
-                                        }
-                                        print("\(value!)")
-                                        
-                                        if let v = value as? Bool, v == true {
-                                            wkWebView.evaluateJavaScript("isClicked = false", completionHandler: { (value: Any!, error: Error!) -> Void in
-
-                                            })
-                                            
-                                            findIdInWebViewAsync(wkWebView: wkWebView, success: success)
-                                        }
-                                    })
-                                }
-                                
-                            })
-                            
-                        }
-                    })
-                }
-            })
-        }
-        
-        
-    }
-    
-    static func findIdInWebViewAsync(wkWebView: WKWebView, success: @escaping (String) -> Void) {
-        wkWebView.evaluateJavaScript(AdViewUtils.innerHtmlScript, completionHandler: { (value: Any!, error: Error!) -> Void in
-            
-            self.findIdInHtml(body: value as? String, success: success)
-        })
-    }
-    
     static func findSizeInHtml(body: String?, success: @escaping (CGSize) -> Void, failure: @escaping (PbFindSizeError) -> Void) {
         let result = findSizeInHtml(body: body)
         
@@ -208,10 +213,6 @@ public final class AdViewUtils: NSObject {
             Log.error("The bouth values size and error are nil")
             warnAndTriggerFailure(PbFindSizeErrorFactory.unspecified, failure: failure)
         }
-    }
-    
-    static func findIdInHtml(body: String?, success: @escaping (String) -> Void) {
-        success(findIdInHtml(body: body))
     }
     
     static func findSizeInHtml(body: String?) -> (size: CGSize?, error: PbFindSizeError?) {
