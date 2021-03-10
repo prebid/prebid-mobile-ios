@@ -234,6 +234,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         externalUserIdArray.append(ExternalUserId(source: "netid.de", userIdArray: [["id" : "999888777"]]))
         externalUserIdArray.append(ExternalUserId(source: "criteo.com", userIdArray: [["id" : "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"]]))
         externalUserIdArray.append(ExternalUserId(source: "liveramp.com", userIdArray: [["id" : "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"]]))
+        externalUserIdArray.append(ExternalUserId(source: "sharedid.org", userIdArray: [["atype" : "1", "ext" : ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"], "id" : "111111111111"]]))
         
         Prebid.shared.externalUserIdArray = externalUserIdArray
 
@@ -247,7 +248,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         }
 
         //then
-        XCTAssertEqual(4, eids.count)
+        XCTAssertEqual(5, eids.count)
 
         let adServerDic = eids[0]
         XCTAssertEqual("adserver.org", adServerDic["source"] as! String)
@@ -273,6 +274,15 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual("liveramp.com", liverampDic["source"] as! String)
         let liverampUids = liverampDic["uids"] as! [[String : AnyObject]]
         XCTAssertEqual("AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg", liverampUids[0]["id"] as! String)
+        
+        
+        let sharedIdDic = eids[4]
+        XCTAssertEqual("sharedid.org", sharedIdDic["source"] as! String)
+        let sharedIdUids = sharedIdDic["uids"] as! [[String : AnyObject]]
+        XCTAssertEqual("111111111111", sharedIdUids[0]["id"] as! String)
+        XCTAssertEqual("1", sharedIdUids[0]["atype"] as! String)
+        let sharedIdExt = sharedIdUids[0]["ext"] as! [String : AnyObject]
+        XCTAssertEqual("01ERJWE5FS4RAZKG6SKQ3ZYSKV", sharedIdExt["third"] as! String)
     }
     
     func testPostDataWithExternalUserIdsForEmptySource() throws {
