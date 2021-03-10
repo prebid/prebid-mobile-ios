@@ -322,6 +322,17 @@ class TargetingTests: XCTestCase {
         XCTAssertFalse(purpose2!)
         XCTAssertTrue(purpose3!)
     }
+    
+    func testGetPurposeConsentEmpty() throws {
+        //given
+        Targeting.shared.purposeConsents = ""
+
+        //when
+        let purpose1 = Targeting.shared.getPurposeConsent(index: 0)
+
+        //then
+        XCTAssertNil(purpose1)
+    }
 
     // MARK: - access control list (ext.prebid.data)
     func testAddBidderToAccessControlList() {

@@ -269,10 +269,10 @@ class RequestBuilder: NSObject {
         //if installed from cocoapods & uses frameworks then use this
         if let version = Bundle(identifier: "org.cocoapods.PrebidMobile")?.infoDictionary?["CFBundleShortVersionString"] as? String {
             app["ver"] = version
-            print(version)
+            Log.info("Prebid version: \(version)")
         } else if let version = Bundle(identifier: "org.prebid.mobile")?.infoDictionary?["CFBundleShortVersionString"] as? String {
             app["ver"] = version
-            print(version)
+            Log.info("Prebid version: \(version)")
         }
         app["publisher"] = ["id": Prebid.shared.prebidServerAccountId ?? 0] as NSDictionary
 
@@ -340,11 +340,9 @@ class RequestBuilder: NSObject {
             deviceDict["mccmnc"] = carrier?.mobileCountryCode ?? "" + ("-") + (carrier?.mobileNetworkCode ?? "")
         }
         
-        if let version = Float(UIDevice.current.systemVersion), version < 14 {
-            let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
-            // Limit ad tracking
-            deviceDict["lmt"] = NSNumber(value: lmtAd).intValue
-        }
+        let lmtAd: Bool = !ASIdentifierManager.shared().isAdvertisingTrackingEnabled
+        // Limit ad tracking
+        deviceDict["lmt"] = NSNumber(value: lmtAd).intValue
         
         //fetch advertising identifier based TCF 2.0 Purpose1 value
         //truth table
