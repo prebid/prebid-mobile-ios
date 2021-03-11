@@ -21,7 +21,7 @@ import GoogleMobileAds
 
 import MoPub
 
-class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPInterstitialAdControllerDelegate {
+class InterstitialViewController: UIViewController, MPInterstitialAdControllerDelegate {
 
     @IBOutlet var adServerLabel: UILabel!
 
@@ -30,8 +30,8 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
     
     private var adUnit: AdUnit!
     
-    private let amRequest = GADRequest()
-    private var amInterstitial: DFPInterstitial!
+    private let amRequest = GAMRequest()
+    private var amInterstitial: GAMInterstitialAd!
 
     private var mpInterstitial: MPInterstitialAdController!
 
@@ -65,8 +65,9 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
     //MARK: - Interstitial
     func setupAndLoadAMInterstitial() {
         setupPBRubiconInterstitial()
-        setupAMRubiconInterstitial()
-        loadAMInterstitial()
+
+        //Xandr "/19968336/PrebidMobileValidator_Interstitial"
+        loadAMInterstitial("/5300653/pavliuchyk_test_adunit_1x1_puc")
     }
     
     func setupAndLoadMPInterstitial() {
@@ -101,18 +102,6 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
     }
     
     //Setup AdServer
-    func setupAMAppNexusInterstitial() {
-        setupAMInterstitial(adUnitId: "/19968336/PrebidMobileValidator_Interstitial")
-    }
-
-    func setupAMRubiconInterstitial() {
-        setupAMInterstitial(adUnitId: "/5300653/pavliuchyk_test_adunit_1x1_puc")
-    }
-    
-    func setupAMInterstitial(adUnitId: String) {
-        amInterstitial = DFPInterstitial(adUnitID: adUnitId)
-        amInterstitial.delegate = self
-    }
     
     func setupMPAppNexusInterstitial() {
         setupMPInterstitial(adUnitId: "2829868d308643edbec0795977f17437")
@@ -133,12 +122,20 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
     }
     
     //Load
-    func loadAMInterstitial() {
-        print("Google Mobile Ads SDK version: \(DFPRequest.sdkVersion())")
+    func loadAMInterstitial(_ adUnitID: String) {
         
         adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
-            self?.amInterstitial.load(self?.amRequest)
+            
+            GAMInterstitialAd.load(withAdManagerAdUnitID: adUnitID, request: self?.amRequest) { (ad, error) in
+                if let error = error {
+                      print("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                      return
+                } else if let ad = ad {
+                    ad.present(fromRootViewController: self!)
+                }
+            }
+
         }
     }
     
@@ -154,8 +151,7 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
     //MARK: - Interstitial VAST
     func setupAndLoadAMInterstitialVAST() {
         setupPBRubiconInterstitialVAST()
-        setupAMRubiconInterstitialVAST()
-        loadAMInterstitial()
+        loadAMInterstitial("/5300653/test_adunit_vast_pavliuchyk")
     }
     
     func setupAndLoadMPInterstitialVAST() {
@@ -184,34 +180,10 @@ class InterstitialViewController: UIViewController, GADInterstitialDelegate, MPI
     }
     
     //Setup AdServer
-    func setupAMRubiconInterstitialVAST() {
-        amInterstitial = DFPInterstitial(adUnitID: "/5300653/test_adunit_vast_pavliuchyk")
-        amInterstitial.delegate = self
-    }
     
     func setupMPRubiconInterstitialVAST() {
         
         setupMPInterstitial(adUnitId: "fdafd17a5aeb41c798e6901a7f76f256")
-    }
-
-    //MARK: - GADInterstitialDelegate
-    func interstitialWillPresentScreen(_ ad: GADInterstitial) {
-        print("Ad presented")
-    }
-
-    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        // Send another GADRequest here
-        print("Ad dismissed")
-    }
-
-    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-
-        if (self.amInterstitial?.isReady ?? true) {
-            print("Ad ready")
-            self.amInterstitial?.present(fromRootViewController: self)
-        } else {
-            print("Ad not ready")
-        }
     }
 
     //MARK: - MPInterstitialAdControllerDelegate
