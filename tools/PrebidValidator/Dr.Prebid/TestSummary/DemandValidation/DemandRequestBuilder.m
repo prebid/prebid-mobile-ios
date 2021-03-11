@@ -93,20 +93,26 @@ static NSString *const kPrebidMobileVersion = @"0.5.3";
             NSDictionary *sizeDict = [NSDictionary dictionaryWithObjectsAndKeys:@(arSize.width), @"w", @(arSize.height), @"h", nil];
             [sizeArray addObject:sizeDict];
         }
-        if ([adUnit isKindOfClass:[InterstitialAdUnit class]]) {
-            imp[@"instl"] = @(1);
-            NSDictionary *sizeDict = [NSDictionary dictionaryWithObjectsAndKeys:@([[UIScreen mainScreen] bounds].size.width), @"w", @([[UIScreen mainScreen] bounds].size.height), @"h", nil];
-            [sizeArray addObject:sizeDict];
-        } else if ([adUnit isKindOfClass:[NativeRequest class]]) {
+        
+        if ([adUnit isKindOfClass:[NativeRequest class]]) {
             NativeRequest *request = (NativeRequest *)adUnit;
             imp[@"native"] = [request getNativeRequestObject];
         } else {
+            if ([adUnit isKindOfClass:[InterstitialAdUnit class]]) {
+                imp[@"instl"] = @(1);
+                NSDictionary *sizeDict = [NSDictionary dictionaryWithObjectsAndKeys:@([[UIScreen mainScreen] bounds].size.width), @"w", @([[UIScreen mainScreen] bounds].size.height), @"h", nil];
+                [sizeArray addObject:sizeDict];
+            }
+
             NSDictionary *formats = @{@"format": sizeArray};
             imp[@"banner"] = formats;
         }
         //to be used when openRTB supports storedRequests
         NSMutableDictionary *prebidAdUnitExt = [[NSMutableDictionary alloc] init];
         prebidAdUnitExt[@"storedrequest"] = @{@"id" : self.configId};
+        
+//        TODO: use it for  testing
+//        prebidAdUnitExt[@"storedauctionresponse"] = @{@"id" : @"1001-rubicon-300x250"};
         
         NSMutableDictionary *adUnitExt = [[NSMutableDictionary alloc] init];
         adUnitExt[@"prebid"] = prebidAdUnitExt;
