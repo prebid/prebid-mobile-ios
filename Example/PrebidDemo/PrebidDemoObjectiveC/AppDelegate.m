@@ -29,11 +29,11 @@
     
     // User Id from External Third Party Sources
     NSMutableArray<ExternalUserId *>  *externalUserIdArray  = [[NSMutableArray<ExternalUserId *> alloc] init];
-    [externalUserIdArray addObject:[[ExternalUserId alloc] initWithSource:@"adserver.org" userIdArray:@[@{@"id" : @"111111111111", @"ext": @{@"rtiPartner" : @"TDID"}}]]];
-    [externalUserIdArray addObject:[[ExternalUserId alloc] initWithSource:@"netid.de" userIdArray:@[@{@"id" : @"999888777"}]]];
-    [externalUserIdArray addObject:[[ExternalUserId alloc] initWithSource:@"criteo.com" userIdArray:@[@{@"id" : @"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"}]]];
-    [externalUserIdArray addObject:[[ExternalUserId alloc] initWithSource:@"liveramp.com" userIdArray:@[@{@"id" : @"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"}]]];
-    [externalUserIdArray addObject:[[ExternalUserId alloc] initWithSource:@"sharedid.org" userIdArray:@[@{@"id" : @"111111111111", @"ext": @{@"third" : @"01ERJWE5FS4RAZKG6SKQ3ZYSKV"}, @"atype" : @"1"}]]];
+    [externalUserIdArray addObject:[[ExternalUserId alloc]initWithSource:@"adserver.org" identifier:@"111111111111" atype:nil ext:@{@"rtiPartner" : @"TDID"}]];
+    [externalUserIdArray addObject:[[ExternalUserId alloc]initWithSource:@"netid.de" identifier:@"999888777" atype:nil ext:nil]];
+    [externalUserIdArray addObject:[[ExternalUserId alloc]initWithSource:@"criteo.com" identifier:@"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N" atype:nil ext:nil]];
+    [externalUserIdArray addObject:[[ExternalUserId alloc]initWithSource:@"liveramp.com" identifier:@"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg" atype:nil ext:nil]];
+    [externalUserIdArray addObject:[[ExternalUserId alloc]initWithSource:@"sharedid.org" identifier:@"111111111111" atype:[NSNumber numberWithInt:1] ext:@{@"third" : @"01ERJWE5FS4RAZKG6SKQ3ZYSKV"}]];
     
     Prebid.shared.externalUserIdArray = externalUserIdArray;
     

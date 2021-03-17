@@ -19,24 +19,28 @@ import UIKit
  Defines the User Id Object from an External Thrid Party Source
  */
 @objcMembers public class ExternalUserId: NSObject {
+    
     // MARK: - Properties
-    /**
-     Source of the External User Id String
-     */
-    var source: String
-    /**
-     Array of Dictionaries containing objects that hold UserId parameters.
-     */
-    var userIdArray: [[String: Any]]
+    public var source: String
+    public var identifier: String
+    public var atype: NSNumber?
+    public var ext: [String: Any]?
 
     // MARK: - Initialization
     /**
      Initialize ExternalUserId Class
     - Parameter source: Source of the External User Id String.
-    - Parameter userIdArray: Array of Dictionaries containing objects that hold UserId parameters.
+    - Parameter identifier: String of the External User Id.
+    - Parameter atype: (Optional) Int of the External User Id.
+    - Parameter ext: (Optional) Dictionary of the External User Id.
     */
-    public init(source:String, userIdArray:[[String: Any]]) {
+    @objc public init(source:String, identifier:String, atype:NSNumber? = nil, ext:[String: Any]? = nil) {
         self.source = source
-        self.userIdArray = userIdArray
+        self.identifier = identifier
+        self.atype = atype
+        self.ext = ext
+        super.init()
     }
+    
+
 }

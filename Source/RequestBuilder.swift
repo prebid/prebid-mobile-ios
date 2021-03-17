@@ -476,17 +476,23 @@ class RequestBuilder: NSObject {
     
     func getExternalUserIds() -> [[AnyHashable: Any]]? {
         let externalUserIdArray : [ExternalUserId] = Prebid.shared.externalUserIdArray
-        var transformedeuidArray = [[AnyHashable: Any]]()
+        var transformedUserIdArray = [[AnyHashable: Any]]()
         for externaluserId in externalUserIdArray {
             var transformedeuidDic = [AnyHashable: Any]()
-            guard externaluserId.source.count != 0 else {
+            guard externaluserId.source.count != 0 && externaluserId.identifier.count != 0 else {
                 return nil
             }
             transformedeuidDic["source"] = externaluserId.source
-            transformedeuidDic["uids"] = externaluserId.userIdArray
-            transformedeuidArray.append(transformedeuidDic)
+            var uidArray = [[AnyHashable: Any]]()
+            var uidDic = [AnyHashable: Any]()
+            uidDic["id"] = externaluserId.identifier
+            uidDic["atype"] = externaluserId.atype
+            uidDic["ext"] = externaluserId.ext
+            uidArray.append(uidDic)
+            transformedeuidDic["uids"] = uidArray
+            transformedUserIdArray.append(transformedeuidDic)
         }
-        return transformedeuidArray
+        return transformedUserIdArray
     }
 
     class func precisionNumberFormatter() -> NumberFormatter? {

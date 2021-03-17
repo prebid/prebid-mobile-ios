@@ -230,11 +230,11 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         //given
         var externalUserIdArray = [ExternalUserId]()
 
-        externalUserIdArray.append(ExternalUserId(source: "adserver.org", userIdArray: [["id" : "111111111111", "ext" : ["rtiPartner" : "TDID"]]]))
-        externalUserIdArray.append(ExternalUserId(source: "netid.de", userIdArray: [["id" : "999888777"]]))
-        externalUserIdArray.append(ExternalUserId(source: "criteo.com", userIdArray: [["id" : "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"]]))
-        externalUserIdArray.append(ExternalUserId(source: "liveramp.com", userIdArray: [["id" : "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"]]))
-        externalUserIdArray.append(ExternalUserId(source: "sharedid.org", userIdArray: [["atype" : "1", "ext" : ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"], "id" : "111111111111"]]))
+        externalUserIdArray.append(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
+        externalUserIdArray.append(ExternalUserId(source: "netid.de", identifier: "999888777"))
+        externalUserIdArray.append(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
+        externalUserIdArray.append(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
+        externalUserIdArray.append(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
         
         Prebid.shared.externalUserIdArray = externalUserIdArray
 
@@ -280,7 +280,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual("sharedid.org", sharedIdDic["source"] as! String)
         let sharedIdUids = sharedIdDic["uids"] as! [[String : AnyObject]]
         XCTAssertEqual("111111111111", sharedIdUids[0]["id"] as! String)
-        XCTAssertEqual("1", sharedIdUids[0]["atype"] as! String)
+        XCTAssertEqual(1, sharedIdUids[0]["atype"] as! Int)
         let sharedIdExt = sharedIdUids[0]["ext"] as! [String : AnyObject]
         XCTAssertEqual("01ERJWE5FS4RAZKG6SKQ3ZYSKV", sharedIdExt["third"] as! String)
     }
@@ -289,8 +289,30 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         //given
         var externalUserIdArray = [ExternalUserId]()
+        externalUserIdArray.append(ExternalUserId(source: "", identifier: "999888777"))
+        
+        Prebid.shared.externalUserIdArray = externalUserIdArray
 
-        externalUserIdArray.append(ExternalUserId(source: "", userIdArray: [["id" : "999888777"]]))
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let user = jsonRequestBody["user"] as? [String: Any] else {
+            XCTFail("parsing error")
+            return
+        }
+
+        let ext = user["ext"] as? [String: Any]
+        let eids = ext?["eids"] as? [[String: AnyObject]]
+        //then
+        XCTAssertNil(eids)
+
+    }
+    
+    func testPostDataWithExternalUserIdsForEmptyUserId() throws {
+
+        //given
+        var externalUserIdArray = [ExternalUserId]()
+        externalUserIdArray.append(ExternalUserId(source: "netid.de", identifier: ""))
         
         Prebid.shared.externalUserIdArray = externalUserIdArray
 
