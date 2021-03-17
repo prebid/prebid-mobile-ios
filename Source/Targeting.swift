@@ -220,7 +220,7 @@ import CoreLocation
     func getPurposeConsent(index: Int) -> Bool? {
 
         var purposeConsent: Bool? = nil
-        if let savedPurposeConsents = purposeConsents {
+        if let savedPurposeConsents = purposeConsents, index >= 0, index < savedPurposeConsents.count {
             let char = savedPurposeConsents[savedPurposeConsents.index(savedPurposeConsents.startIndex, offsetBy: index)]
 
             if char == "1" {

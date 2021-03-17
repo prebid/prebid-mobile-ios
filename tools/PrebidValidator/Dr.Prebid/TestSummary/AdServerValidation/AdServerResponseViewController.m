@@ -170,8 +170,8 @@
 {
     UIButton *button = (UIButton *) sender;
     if (button.tag == 0) {
-        if ([_validator.getDisplayable isKindOfClass: [DFPInterstitial class] ]) {
-            DFPInterstitial *interstitial  = (DFPInterstitial *)[_validator getDisplayable];
+        if ([_validator.getDisplayable isKindOfClass: [GAMInterstitialAd class] ]) {
+            GAMInterstitialAd *interstitial  = (GAMInterstitialAd *)[_validator getDisplayable];
             [interstitial presentFromRootViewController:self];
         } else if ([_validator.getDisplayable isKindOfClass: [MPInterstitialAdController class]]) {
             MPInterstitialAdController *controller = (MPInterstitialAdController *)_validator.getDisplayable;

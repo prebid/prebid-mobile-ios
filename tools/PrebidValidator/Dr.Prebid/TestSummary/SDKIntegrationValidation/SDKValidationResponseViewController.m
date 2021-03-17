@@ -103,8 +103,8 @@
 
 - (void)showReceivedInterstiail: (id) sender
 {
-    if ([_validator.getAdObject isKindOfClass: [DFPInterstitial class] ]) {
-        DFPInterstitial *interstitial  = (DFPInterstitial *)[_validator getAdObject];
+    if ([_validator.getAdObject isKindOfClass: [GAMInterstitialAd class] ]) {
+        GAMInterstitialAd *interstitial  = (GAMInterstitialAd *)[_validator getAdObject];
         [interstitial presentFromRootViewController:self];
     } else if ([_validator.getAdObject isKindOfClass: [MPInterstitialAdController class]]) {
         MPInterstitialAdController *controller = (MPInterstitialAdController *)_validator.getAdObject;

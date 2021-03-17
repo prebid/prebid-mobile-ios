@@ -18,7 +18,7 @@ import GoogleMobileAds
 import MoPub
 import PrebidMobile
 
-class NativeInAppViewController: UIViewController,DFPBannerAdLoaderDelegate, GADNativeCustomTemplateAdLoaderDelegate {
+class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GADCustomNativeAdLoaderDelegate {
 
     //MARK: : IBOutlet
     @IBOutlet weak var adContainerView: UIView!
@@ -142,16 +142,16 @@ class NativeInAppViewController: UIViewController,DFPBannerAdLoaderDelegate, GAD
     
     //MARK: Prebid NativeAd DFP
     func loadNativeInAppForDFP(){
-        let dfpRequest:DFPRequest = DFPRequest()
+        let dfpRequest = GAMRequest()
         nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: ResultCode) in
             self?.callDFP(dfpRequest)
         }
     }
     
-    func callDFP(_ dfpRequest: DFPRequest){
+    func callDFP(_ dfpRequest: GAMRequest){
         adLoader = GADAdLoader(adUnitID: "/19968336/Abhas_test_native_native_adunit",
                                rootViewController: self,
-                               adTypes: [ GADAdLoaderAdType.dfpBanner, GADAdLoaderAdType.nativeCustomTemplate],
+                               adTypes: [ GADAdLoaderAdType.gamBanner, GADAdLoaderAdType.customNative],
                                options: [ ])
         adLoader?.delegate  = self
         adLoader?.load(dfpRequest)
@@ -159,29 +159,27 @@ class NativeInAppViewController: UIViewController,DFPBannerAdLoaderDelegate, GAD
     
 
     //MARK: : DFP Native Delegate
-    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: GADRequestError) {
-        print("Prebid GADAdLoader failed \(error)")
-    }
-    
-    func nativeCustomTemplateIDs(for adLoader: GADAdLoader) -> [String] {
-        return ["11963183"]
-    }
-
-    func adLoader(_ adLoader: GADAdLoader,
-                  didReceive nativeCustomTemplateAd: GADNativeCustomTemplateAd){
-        print("Prebid GADAdLoader received customTemplageAd")
-        Utils.shared.delegate = self
-        Utils.shared.findNative(adObject: nativeCustomTemplateAd)
-    }
-    
-    func adLoader(_ adLoader: GADAdLoader, didReceive bannerView: DFPBannerView) {
+    func adLoader(_ adLoader: GADAdLoader, didReceive bannerView: GAMBannerView) {
         nativeAdView?.addSubview(bannerView)
     }
     
+    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
+        print("Prebid GADAdLoader failed \(error)")
+    }
     func validBannerSizes(for adLoader: GADAdLoader) -> [NSValue] {
         return [NSValueFromGADAdSize(kGADAdSizeBanner)]
     }
     
+    //MARK: GADCustomNativeAdLoaderDelegate
+    func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
+        return ["11963183"]
+    }
+    
+    func adLoader(_ adLoader: GADAdLoader, didReceive customNativeAd: GADCustomNativeAd) {
+        print("Prebid GADAdLoader received customTemplageAd")
+        Utils.shared.delegate = self
+        Utils.shared.findNative(adObject: customNativeAd)
+    }
     
     //MARK: Rendering Prebid Native
     func renderNativeInAppAd() {
