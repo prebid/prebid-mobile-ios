@@ -475,7 +475,13 @@ class RequestBuilder: NSObject {
     }
     
     func getExternalUserIds() -> [[AnyHashable: Any]]? {
-        let externalUserIdArray : [ExternalUserId] = Prebid.shared.externalUserIdArray
+       
+        var externalUserIdArray = [ExternalUserId]()
+        if Prebid.shared.externalUserIdArray.count != 0 {
+            externalUserIdArray = Prebid.shared.externalUserIdArray
+        }else if let externalUserIds = Targeting.shared.externalUserIds, externalUserIds.count != 0{
+            externalUserIdArray = externalUserIds
+        }
         var transformedUserIdArray = [[AnyHashable: Any]]()
         for externaluserId in externalUserIdArray {
             var transformedeuidDic = [AnyHashable: Any]()

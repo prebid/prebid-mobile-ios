@@ -181,6 +181,20 @@ import CoreLocation
         }
     }
     
+    // MARK: - External UserIds
+    /**
+     * Array  containing objects that hold External UserIds.
+     */
+    public var externalUserIds: [ExternalUserId]? {
+        set {
+            StorageUtils.setExternalUserIds(value: newValue)
+        }
+
+        get {
+            return StorageUtils.getExternalUserIds()
+        }
+    }
+    
     // MARK: - TCFv2
 
     public var purposeConsents: String? {
