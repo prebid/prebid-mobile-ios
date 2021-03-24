@@ -39,14 +39,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
         
         // User Id from External Third Party Sources
-        var externalUserIdArray = [ExternalUserId]()
-        externalUserIdArray.append(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
-        externalUserIdArray.append(ExternalUserId(source: "netid.de", identifier: "999888777"))
-        externalUserIdArray.append(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
-        externalUserIdArray.append(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
-        externalUserIdArray.append(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
-        Prebid.shared.externalUserIdArray = externalUserIdArray
+//        var externalUserIdArray = [ExternalUserId]()
+//        externalUserIdArray.append(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
+//        externalUserIdArray.append(ExternalUserId(source: "netid.de", identifier: "999888777"))
+//        externalUserIdArray.append(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
+//        externalUserIdArray.append(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
+//        externalUserIdArray.append(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
+     //   Prebid.shared.externalUserIdArray = externalUserIdArray
 
+        //Set External User Id
+        Targeting.shared.setExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
+
+        //Get External User Id with source
+        if let userId = Targeting.shared.getExternalUserId("adserver.org"){
+            print(userId.source)
+        }
+        // Reset All External User Ids
+        Targeting.shared.resetExternalUserIds()
+        
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =  [ (kGADSimulatorID as! String), "cc7ca766f86b43ab6cdc92bed424069b"]
         GADMobileAds.sharedInstance().start()
         let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")

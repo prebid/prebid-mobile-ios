@@ -479,8 +479,9 @@ class RequestBuilder: NSObject {
         var externalUserIdArray = [ExternalUserId]()
         if Prebid.shared.externalUserIdArray.count != 0 {
             externalUserIdArray = Prebid.shared.externalUserIdArray
-        }else if let externalUserIds = Targeting.shared.externalUserIds, externalUserIds.count != 0{
-            externalUserIdArray = externalUserIds
+        }
+        else if Targeting.shared.externalUserIds.count != 0{
+            externalUserIdArray = Targeting.shared.externalUserIds
         }
         var transformedUserIdArray = [[AnyHashable: Any]]()
         for externaluserId in externalUserIdArray {

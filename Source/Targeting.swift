@@ -182,18 +182,32 @@ import CoreLocation
     }
     
     // MARK: - External UserIds
-    /**
-     * Array  containing objects that hold External UserIds.
-     */
-    public var externalUserIds: [ExternalUserId]? {
-        set {
-            StorageUtils.setExternalUserIds(value: newValue)
+    var externalUserIds = [ExternalUserId]()
+    
+    public func setExternalUserId(_ externalUserId: ExternalUserId) {
+        if !externalUserIds.contains(where: { $0.source == externalUserId.source }) {
+            externalUserIds.append(externalUserId)
+            StorageUtils.setExternalUserIds(value: externalUserIds)
+        }else{
+            Log.error("Error:- UserId with source \(externalUserId.source) is already added")
         }
-
-        get {
-            return StorageUtils.getExternalUserIds()
+        
+    }
+    
+    public func getExternalUserId(_ source : String)->ExternalUserId? {
+        guard let array = StorageUtils.getExternalUserIds(), let externalUserId = array.first(where: {$0.source == source}) else{
+            return nil
+        }
+        return externalUserId
+    }
+    
+    public func resetExternalUserIds() {
+        if var arrayExternalUserIds = StorageUtils.getExternalUserIds(){
+            arrayExternalUserIds.removeAll()
+            StorageUtils.setExternalUserIds(value: arrayExternalUserIds)
         }
     }
+    
     
     // MARK: - TCFv2
 
