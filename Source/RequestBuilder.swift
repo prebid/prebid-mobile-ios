@@ -505,33 +505,21 @@ class RequestBuilder: NSObject {
     }
 
     class func UserAgent(callback:@escaping(_ userAgentString: String) -> Void) {
-
-        var wkUserAgent: String = ""
-        let myGroup = DispatchGroup()
-
-        let window = UIApplication.shared.keyWindow
-        let webView = WKWebView(frame: UIScreen.main.bounds)
-        webView.isHidden = true
-        window?.addSubview(webView)
-        myGroup.enter()
-        webView.loadHTMLString("<html></html>", baseURL: nil)
-        webView.evaluateJavaScript("navigator.userAgent", completionHandler: { (userAgent: Any?, error: Error?) in
-            
-            if let error = error {
-                Log.error("retrieving userAgent error:\(error)")
-            }
-            
-            if let userAgent = userAgent as? String {
-                wkUserAgent = userAgent
-            }
-            
-            webView.stopLoading()
-            webView.removeFromSuperview()
-            myGroup.leave()
-
-        })
-        myGroup.notify(queue: .main) {
-            callback(wkUserAgent)
+        
+        DispatchQueue.main.async {
+            let webViewForUserAgent = WKWebView()
+            webViewForUserAgent.loadHTMLString("<html></html>", baseURL: nil)
+            webViewForUserAgent.evaluateJavaScript(
+                "navigator.userAgent",
+                completionHandler: { (userAgent: Any?, error: Error?) in
+                    if let error = error {
+                        Log.error("retrieving userAgent error:\(error)")
+                    } else if let userAgent = userAgent as? String {
+                        callback(userAgent)
+                    }
+                    webViewForUserAgent.stopLoading()
+                    webViewForUserAgent.removeFromSuperview()
+                })
         }
 
     }
