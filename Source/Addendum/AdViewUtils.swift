@@ -33,7 +33,7 @@ public class PrebidSKAdNetworkHelper {
         stopPollingTimer()
         NotificationCenter.default.removeObserver(self)
     }
-
+    
     @available(iOS 14.0, *)
     @objc
     public func subscribeOnAdClicked(viewController: UIViewController, adView: UIView) {
@@ -57,16 +57,16 @@ public class PrebidSKAdNetworkHelper {
                 Log.error("WKWebView doesn't contain id")
                 return
             }
-                
+            
             let savedValuesDict = CacheManager.shared.savedValuesDict
             for (key, value) in savedValuesDict {
                 
                 let response = Utils.shared.getDictionaryFromString(value)!
                 
                 guard let ext = response["ext"] as? [AnyHashable : Any],
-                   let prebid = ext["prebid"] as? [AnyHashable : Any],
-                   let targeting = prebid["targeting"] as? [AnyHashable : Any],
-                   let hbCacheId = targeting["hb_cache_id"] as? String else {
+                      let prebid = ext["prebid"] as? [AnyHashable : Any],
+                      let targeting = prebid["targeting"] as? [AnyHashable : Any],
+                      let hbCacheId = targeting["hb_cache_id"] as? String else {
                     
                     continue
                 }
@@ -84,14 +84,14 @@ public class PrebidSKAdNetworkHelper {
                       let signature = skadn["signature"] as? String,
                       let sourceapp = skadn["sourceapp"] as? String,
                       let version = skadn["version"] as? String
-                      else {
+                else {
                     
                     Log.warn("response doesn't contain SKAdNetwork params")
                     break
                 }
                 
                 self.prebidSKAdNetworkData = PrebidSKAdNetworkData(itunesitem: itunesitem, network: network, campaign: campaign, timestamp: timestamp, nonce: nonce, signature: signature, sourceapp: sourceapp, version: version)
-                    
+                
                 self.injectSKAdNetworkCodeInWebViewAsync(wkWebView: wkWebView)
                 
                 break
@@ -120,9 +120,9 @@ public class PrebidSKAdNetworkHelper {
                 if let readyState = readyStateJS as? String, readyState == "complete" {
                     Log.info("ready")
                     timer.invalidate()
-
+                    
                     wkWebView.evaluateJavaScript(
-                    """
+                        """
                     var isClicked = false;
 
                     // window.open
@@ -163,9 +163,9 @@ public class PrebidSKAdNetworkHelper {
                         })
                     })
                     """
-                    
+                        
                     ) { (result, error) in
-                    
+                        
                         self.startPollingTimer()
                     }
                 }
@@ -198,7 +198,7 @@ public class PrebidSKAdNetworkHelper {
                 Log.error("2:\(error.localizedDescription)")
                 return
             }
-
+            
             guard let isClicked = isClickedJS as? Bool, isClicked == true else {
                 Log.info("\(isClickedJS!)")
                 return
@@ -225,7 +225,7 @@ public class PrebidSKAdNetworkHelper {
             stopPollingTimer()
             return
         }
-
+        
         let adViewController = SKStoreProductViewController()
         
         adViewController.loadProduct(withParameters:[
@@ -249,19 +249,19 @@ public class PrebidSKAdNetworkHelper {
         viewController.present(adViewController, animated: true, completion: nil)
         
     }
-
+    
     //MARK: - App state
     @objc
     private func onAppForeground() {
         Log.info("App foreground")
-
+        
         guard let viewController = viewController else {
             Log.info("no viewController")
             
             stopPollingTimer()
             return
         }
-            
+        
         if viewController.viewIfLoaded?.window != nil {
             // viewController is visible
             Log.info("viewController is visible")
