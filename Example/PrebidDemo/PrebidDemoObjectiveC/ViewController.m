@@ -20,13 +20,12 @@
 #import "MoPub.h"
 #import "PrebidDemoObjectiveC-Swift.h"
 
-@interface ViewController () <GADBannerViewDelegate,GADInterstitialDelegate,MPAdViewDelegate,MPInterstitialAdControllerDelegate,DFPBannerAdLoaderDelegate,GADNativeCustomTemplateAdLoaderDelegate,NativeAdDelegate,NativeAdEventDelegate>
+@interface ViewController () <GADBannerViewDelegate, MPAdViewDelegate, MPInterstitialAdControllerDelegate, GAMBannerAdLoaderDelegate, GADCustomNativeAdLoaderDelegate, NativeAdDelegate, NativeAdEventDelegate>
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UIView *adContainerView;
 
-@property (nonatomic, strong) DFPBannerView *dfpView;
-@property (nonatomic, strong) DFPInterstitial *dfpInterstitial;
-@property (nonatomic, strong) DFPRequest *request;
+@property (nonatomic, strong) GAMBannerView *dfpView;
+@property (nonatomic, strong) GAMRequest *request;
 @property (nonatomic, strong) MPAdView *mopubAdView;
 @property (nonatomic, strong) MPInterstitialAdController *mopubInterstitial;
 @property (nonatomic, strong) BannerAdUnit *bannerUnit;
@@ -35,7 +34,7 @@
 @property (nonatomic, strong) MPNativeAdRequest *mpNative;
 @property (nonatomic, strong) MPNativeAd *mpAd;
 @property (nonatomic, strong) NativeAd *prebidNativeAd;
-@property (nonatomic, strong) PrebidNativeAdView *prebidNativeAdView;
+@property (nonatomic, strong) NativeAdView *nativeAdView;
 @property (nonatomic, strong) NativeRequest *nativeUnit;
 @property (nonatomic, strong) NativeEventTracker *eventTrackers;
 
@@ -54,7 +53,7 @@
     // if(err == nil)
     
     self.bannerUnit = [[BannerAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45" size:CGSizeMake(300, 250)];
-//    self.interstitialUnit = [[InterstitialAdUnit alloc] initWithConfigId:@"625c6125-f19e-4d5b-95c5-55501526b2a4"];
+    self.interstitialUnit = [[InterstitialAdUnit alloc] initWithConfigId:@"625c6125-f19e-4d5b-95c5-55501526b2a4"];
     
 //    Advanced interstitial support
 //    self.interstitialUnit = [[InterstitialAdUnit alloc] initWithConfigId:@"625c6125-f19e-4d5b-95c5-55501526b2a4" minWidthPerc:50 minHeightPerc:70];
@@ -62,7 +61,7 @@
 //    [self enableCOPPA];
 //    [self addFirstPartyData:self.bannerUnit];
 //    [self setStoredResponse];
-//    [self setRequestTimeoutMillis];
+//    [self setRequestTimeoutMillis];//
     
     if([self.adUnit isEqualToString:@"Banner"]) {
         self.bannerView.hidden = false;
@@ -80,7 +79,7 @@
         } else if ([self.adServer isEqualToString:@"MoPub"]) {
             [self loadMoPubInterstitial];
         }
-    } else if ([self.adUnit isEqualToString:@"PrebidNative"]) {
+    } else if ([self.adUnit isEqualToString:@"InAppNative"]) {
         self.bannerView.hidden = true;
         self.adContainerView.hidden = false;
         if ([self.adServer isEqualToString:@"DFP"]) {
@@ -102,15 +101,14 @@
 -(void) loadDFPBanner {
     
     [self.bannerUnit setAutoRefreshMillisWithTime:35000];
-    self.dfpView = [[DFPBannerView alloc] initWithAdSize:kGADAdSizeMediumRectangle];
+    self.dfpView = [[GAMBannerView alloc] initWithAdSize:kGADAdSizeMediumRectangle];
     self.dfpView.rootViewController = self;
     self.dfpView.adUnitID = @"/19968336/PrebidMobileValidator_Banner_All_Sizes";
     self.dfpView.delegate = self;
     [self.bannerView addSubview:self.dfpView];
     self.dfpView.backgroundColor = [UIColor redColor];
-    self.request = [[DFPRequest alloc] init];
-    self.request.testDevices = @[kDFPSimulatorID];
-    
+    self.request = [[GAMRequest alloc] init];
+
     [self.bannerUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
         NSLog(@"Prebid demand result %ld", (long)result);
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -121,13 +119,18 @@
     
 -(void) loadDFPInterstitial {
     
-    self.dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:@"/19968336/PrebidMobileValidator_Interstitial"];
-    self.dfpInterstitial.delegate = self;
-    self.request = [[DFPRequest alloc] init];
-    self.request.testDevices = @[kDFPSimulatorID];
+    self.request = [[GAMRequest alloc] init];
     [self.interstitialUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
         NSLog(@"Prebid demand result %ld", (long)result);
-        [self.dfpInterstitial loadRequest:self.request];
+
+        [GAMInterstitialAd loadWithAdManagerAdUnitID:@"/19968336/PrebidMobileValidator_Interstitial" request:self.request completionHandler:^(GAMInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"Failed to load interstitial ad with error: %@", [error localizedDescription]);
+                return;
+            }
+            [interstitialAd presentFromRootViewController:self];
+        }];
+
     }];
 }
     
@@ -202,50 +205,27 @@
     Prebid.shared.timeoutMillis = 5000;
 }
 
-#pragma mark :- DFP delegates
--(void) adViewDidReceiveAd:(GADBannerView *)bannerView {
+#pragma mark :- DFP banner delegates
+
+- (void)bannerViewDidReceiveAd:(GADBannerView *)bannerView {
     NSLog(@"Ad received");
     
     [AdViewUtils findPrebidCreativeSize:bannerView
                                    success:^(CGSize size) {
-                                       if ([bannerView isKindOfClass:[DFPBannerView class]]) {
-                                           DFPBannerView *dfpBannerView = (DFPBannerView *)bannerView;
+                                       if ([bannerView isKindOfClass:[GAMBannerView class]]) {
+                                           GAMBannerView *dfpBannerView = (GAMBannerView *)bannerView;
                                            
                                            [dfpBannerView resize:GADAdSizeFromCGSize(size)];
                                        }
                                    } failure:^(NSError * _Nonnull error) {
                                        NSLog(@"error: %@", error);
                                    }];
-
 }
-    
-- (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
-{
+
+- (void)bannerView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(NSError *)error {
     NSLog(@"adView:didFailToReceiveAdWithError: %@", error.localizedDescription);
 }
-    
-- (void)interstitialDidReceiveAd:(GADInterstitial *)ad
-{
-    if (self.dfpInterstitial.isReady)
-    {
-        NSLog(@"Ad ready");
-        [self.dfpInterstitial presentFromRootViewController:self];
-    }
-    else
-    {
-        NSLog(@"Ad not ready");
-    }
-}
 
-- (void)interstitialDidDismissScreen:(GADInterstitial *)ad
-{
-    NSLog(@"Ad dismissed");
-}
-
-- (void)interstitialWillPresentScreen:(GADInterstitial *)ad
-{
-    NSLog(@"Ad presented");
-}
 
 
 #pragma mark :- Mopub delegates
@@ -278,16 +258,16 @@
     MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
     MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
     self.mpNative = [MPNativeAdRequest requestWithAdUnitIdentifier:@"2674981035164b2db5ef4b4546bf3d49" rendererConfigurations:@[config]];
-    
+
     MPNativeAdRequestTargeting *targeting = [MPNativeAdRequestTargeting targeting];
     self.mpNative.targeting = targeting;
-    
+
     [self.nativeUnit fetchDemandWithAdObject:self.mpNative completion:^(enum ResultCode resultCode) {
         dispatch_async(dispatch_get_main_queue(), ^{
               [self loadMoPub:self.mpNative];
           });
     }];
-    
+
 }
 
 -(void) loadMoPub:(MPNativeAdRequest *)mpNative{
@@ -306,17 +286,17 @@
     [self removePreviousAds];
     [self createPrebidNativeView];
     [self loadNativeAssets];
-    DFPRequest *dfpRequest = [[DFPRequest alloc] init];
+    GAMRequest *dfpRequest = [[GAMRequest alloc] init];
     [self.nativeUnit fetchDemandWithAdObject:dfpRequest completion:^(enum ResultCode result) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self loadDFP:dfpRequest];
         });
     }];
-    
+
 }
 
--(void) loadDFP:(DFPRequest *)dfpRequest{
-    self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:@"/19968336/Abhas_test_native_native_adunit" rootViewController:self adTypes:@[kGADAdLoaderAdTypeDFPBanner, kGADAdLoaderAdTypeNativeCustomTemplate] options:@[]];
+-(void) loadDFP:(GAMRequest *)dfpRequest{
+    self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:@"/19968336/Abhas_test_native_native_adunit" rootViewController:self adTypes:@[kGADAdLoaderAdTypeGAMBanner, kGADAdLoaderAdTypeCustomNative] options:@[]];
     self.adLoader.delegate = self;
     [self.adLoader loadRequest:dfpRequest];
 }
@@ -324,46 +304,46 @@
 #pragma mark :- Native functions
 
 -(void) createPrebidNativeView{
-    UINib *adNib = [UINib nibWithNibName:@"PrebidNativeAdView" bundle:[NSBundle bundleForClass:[self class]]];
+    UINib *adNib = [UINib nibWithNibName:@"NativeAdView" bundle:[NSBundle bundleForClass:[self class]]];
     NSArray *array = [adNib instantiateWithOwner:self options:nil];
-    _prebidNativeAdView = [array firstObject];
-    _prebidNativeAdView.frame = CGRectMake(0, 0, _adContainerView.frame.size.width, 150 + self.view.frame.size.width * 400 / 600);
-    [_adContainerView addSubview:_prebidNativeAdView];
+    _nativeAdView = [array firstObject];
+    _nativeAdView.frame = CGRectMake(0, 0, _adContainerView.frame.size.width, 150 + self.view.frame.size.width * 400 / 600);
+    [_adContainerView addSubview:_nativeAdView];
 }
 
 -(void) registerPrebidNativeView{
     self.prebidNativeAd.delegate = self;
-    [self.prebidNativeAd registerViewWithView:self.prebidNativeAdView clickableViews:@[self.prebidNativeAdView.callToActionButton]];
+    [self.prebidNativeAd registerViewWithView:self.nativeAdView clickableViews:@[self.nativeAdView.callToActionButton]];
 }
 
 -(void) loadNativeAssets{
     NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
     image.type = ImageAsset.Main;
-    
+
     NativeAssetImage *icon = [[NativeAssetImage alloc] initWithMinimumWidth:20 minimumHeight:20 required:true];
     icon.type = ImageAsset.Icon;
-    
+
     NativeAssetTitle *title = [[NativeAssetTitle alloc] initWithLength:90 required:true];
     NativeAssetData *body = [[NativeAssetData alloc] initWithType:DataAssetDescription required:true];
     NativeAssetData *cta = [[NativeAssetData alloc] initWithType:DataAssetCtatext required:true];
     NativeAssetData *sponsored = [[NativeAssetData alloc] initWithType:DataAssetSponsored required:true];
-    
+
     self.nativeUnit = [[NativeRequest alloc] initWithConfigId:@"25e17008-5081-4676-94d5-923ced4359d3" assets:@[icon,title,image,body,cta,sponsored]];
     self.nativeUnit.context = ContextType.Social;
     self.nativeUnit.placementType = PlacementType.FeedContent;
     self.nativeUnit.contextSubType = ContextSubType.Social;
-    
+
     self.eventTrackers = [[NativeEventTracker alloc] initWithEvent:EventType.Impression methods:@[EventTracking.Image, EventTracking.js]];
     self.nativeUnit.eventtrackers = @[self.eventTrackers];
-    
+
 }
 
 -(void) removePreviousAds{
-    if (_prebidNativeAdView != nil) {
-        _prebidNativeAdView.iconImageView = nil;
-        _prebidNativeAdView.mainImageView = nil;
-        [_prebidNativeAdView removeFromSuperview];
-        _prebidNativeAdView = nil;
+    if (_nativeAdView != nil) {
+        _nativeAdView.iconImageView = nil;
+        _nativeAdView.mainImageView = nil;
+        [_nativeAdView removeFromSuperview];
+        _nativeAdView = nil;
     }
     if (_prebidNativeAd != nil) {
         _prebidNativeAd = nil;
@@ -376,50 +356,54 @@
 #pragma mark :- Rendering Prebid Native
 
 -(void) renderPrebidNativeAd{
-    self.prebidNativeAdView.titleLabel.text = self.prebidNativeAd.title;
-    self.prebidNativeAdView.bodyLabel.text = self.prebidNativeAd.text;
+    self.nativeAdView.titleLabel.text = self.prebidNativeAd.title;
+    self.nativeAdView.bodyLabel.text = self.prebidNativeAd.text;
     dispatch_async(dispatch_get_global_queue(0,0), ^{
         NSData * dataIcon = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: self.prebidNativeAd.iconUrl]];
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.prebidNativeAdView.iconImageView.image = [UIImage imageWithData: dataIcon];
+            self.nativeAdView.iconImageView.image = [UIImage imageWithData: dataIcon];
         });
     });
     dispatch_async(dispatch_get_global_queue(0,0), ^{
         NSData * dataMainImage = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: self.prebidNativeAd.imageUrl]];
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.prebidNativeAdView.mainImageView.image = [UIImage imageWithData: dataMainImage];
+            self.nativeAdView.mainImageView.image = [UIImage imageWithData: dataMainImage];
         });
     });
-    [self.prebidNativeAdView.callToActionButton setTitle:self.prebidNativeAd.callToAction forState:UIControlStateNormal];
-    self.prebidNativeAdView.sponsoredLabel.text = self.prebidNativeAd.sponsoredBy;
-    
+    [self.nativeAdView.callToActionButton setTitle:self.prebidNativeAd.callToAction forState:UIControlStateNormal];
+    self.nativeAdView.sponsoredLabel.text = self.prebidNativeAd.sponsoredBy;
+
 }
 
-#pragma mark :- DFP Native Delegate
+#pragma mark :- DFP Native Delegate GAMBannerAdLoaderDelegate
 
-- (void)adLoader:(nonnull GADAdLoader *)adLoader
-didFailToReceiveAdWithError:(nonnull GADRequestError *)error{
+- (void)adLoader:(GADAdLoader *)adLoader didReceiveGAMBannerView:(GAMBannerView *)bannerView
+{
+    [self.nativeAdView addSubview:bannerView];
+}
+
+- (void)adLoader:(GADAdLoader *)adLoader didFailToReceiveAdWithError:(NSError *)error
+{
     NSLog(@"Prebid GADAdLoader failed %@", error.localizedDescription);
 }
 
-- (nonnull NSArray<NSString *> *)nativeCustomTemplateIDsForAdLoader:(nonnull GADAdLoader *)adLoader{
+- (NSArray<NSValue *> *)validBannerSizesForAdLoader:(GADAdLoader *)adLoader
+{
+    return @[NSValueFromGADAdSize(kGADAdSizeBanner)];
+}
+
+#pragma mark : GADCustomNativeAdLoaderDelegate
+
+- (NSArray<NSString *> *)customNativeAdFormatIDsForAdLoader:(GADAdLoader *)adLoader
+{
     return @[@"11963183"];
 }
 
-- (void)adLoader:(nonnull GADAdLoader *)adLoader
-didReceiveNativeCustomTemplateAd:(nonnull GADNativeCustomTemplateAd *)nativeCustomTemplateAd{
+- (void)adLoader:(GADAdLoader *)adLoader didReceiveCustomNativeAd:(GADCustomNativeAd *)customNativeAd
+{
     NSLog(@"Prebid GADAdLoader received customTemplageAd");
     Utils.shared.delegate = self;
-    [Utils.shared findNativeWithAdObject:nativeCustomTemplateAd];
-}
-
-- (void)adLoader:(nonnull GADAdLoader *)adLoader
-didReceiveDFPBannerView:(nonnull DFPBannerView *)bannerView{
-    [self.prebidNativeAdView addSubview:bannerView];
-}
-
-- (nonnull NSArray<NSValue *> *)validBannerSizesForAdLoader:(nonnull GADAdLoader *)adLoader{
-   return @[NSValueFromGADAdSize(kGADAdSizeBanner)];
+    [Utils.shared findNativeWithAdObject:customNativeAd];
 }
 
 #pragma mark :- NativeAdDelegate Delegate

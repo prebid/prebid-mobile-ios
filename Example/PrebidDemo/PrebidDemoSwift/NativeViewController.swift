@@ -23,26 +23,29 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
     @IBOutlet var nativeView: UIView!
     
     var eventTrackers: NativeEventTracker!
-    var dfpNativeAdUnit: DFPBannerView!
+    var dfpNativeAdUnit: GAMBannerView!
     var mopubNativeAdUnit: MPAdView!
-    let request = DFPRequest()
+    let request = GAMRequest()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
+        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        
         loadNativeAssets()
             
-            if (adServerName == "DFP") {
-                print("entered \(adServerName) loop" )
-                loadDFPNative()
+        if (adServerName == "DFP") {
+            print("entered \(adServerName) loop" )
+            loadDFPNative()
 
-            } else if (adServerName == "MoPub") {
-                print("entered \(adServerName) loop" )
-                loadMoPubNative()
+        } else if (adServerName == "MoPub") {
+            print("entered \(adServerName) loop" )
+            loadMoPubNative()
 
-            }
-            
-            // Do any additional setup after loading the view.
+        }
+        
+        // Do any additional setup after loading the view.
         }
         
         func loadNativeAssets(){
@@ -74,7 +77,7 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
         
         func loadDFPNative(){
             
-            dfpNativeAdUnit = DFPBannerView(adSize: kGADAdSizeFluid)
+            dfpNativeAdUnit = GAMBannerView(adSize: kGADAdSizeFluid)
             dfpNativeAdUnit.adUnitID = "/19968336/Wei_Prebid_Native_Test"
             dfpNativeAdUnit.rootViewController = self
             dfpNativeAdUnit.delegate = self
@@ -112,12 +115,12 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
             // Dispose of any resources that can be recreated.
         }
         
-        func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
             print("adViewDidReceiveAd")
             
             AdViewUtils.findPrebidCreativeSize(bannerView,
                                                 success: { (size) in
-                                                    guard let bannerView = bannerView as? DFPBannerView else {
+                                                    guard let bannerView = bannerView as? GAMBannerView else {
                                                         return
                                                     }
 
@@ -128,22 +131,12 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
                                                     print("error: \(error)");
 
             })
-        }
-
-        func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-                print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
-        }
-
-        func adViewDidReceiveAd(_ bannerView: DFPBannerView) {
-            print("adViewDidReceiveAd")
             
+            //TODO: ask about adViewDidReceiveAd(_ bannerView: DFPBannerView)
             self.dfpNativeAdUnit.resize(bannerView.adSize)
-
         }
 
-        /// Tells the delegate an ad request failed.
-        func adView(_ bannerView: DFPBannerView,
-                    didFailToReceiveAdWithError error: GADRequestError) {
+        func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
             print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
         }
 

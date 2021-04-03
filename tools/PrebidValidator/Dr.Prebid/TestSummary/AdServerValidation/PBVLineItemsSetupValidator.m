@@ -30,7 +30,6 @@
 @interface PBVLineItemsSetupValidator() <MPAdViewDelegate,
                                          MPInterstitialAdControllerDelegate,
                                          GADBannerViewDelegate,
-                                         GADInterstitialDelegate,
                                         AdServerValidationURLProtocolDelegate>
 @property id adObject;
 @property NSString *requestUUID;
@@ -135,22 +134,38 @@
         }
     } else if([adServerName isEqualToString:kDFPString]){
         if ([adFormatName isEqualToString:kBannerString] || [adFormatName isEqualToString:kNativeString]) {
-            DFPBannerView *adView = [self createDFPBannerViewWithAdUnitId:adUnitID WithSize:GADAdSize];
+            GAMBannerView *adView = [self createDFPBannerViewWithAdUnitId:adUnitID WithSize:GADAdSize];
             // hack to attach to screen
             adView.frame = CGRectMake(-500, -500 , GADAdSize.size.width, GADAdSize.size.height);
             [((UIViewController *) _delegate).view addSubview:adView];
             self.adObject = adView;
-            DFPRequest *request = [DFPRequest request];
+            GAMRequest *request = [GAMRequest request];
             self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
             request.customTargeting = self.keywords;
             [adView loadRequest:request];
         } else if ([adFormatName isEqualToString:kInterstitialString]){
             self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
-            DFPInterstitial *interstitial = [self createDFPInterstitialWithAdUnitId:adUnitID];
-            self.adObject = interstitial;
-            DFPRequest *request = [DFPRequest request];
+            GAMRequest *request = [GAMRequest request];
             request.customTargeting = self.keywords;
-            [interstitial loadRequest:request];
+
+            [GAMInterstitialAd loadWithAdManagerAdUnitID:adUnitID
+                                                 request:request
+                                       completionHandler:^(GAMInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
+                if (error) {
+                    [self.delegate adServerDidNotRespondWithPrebidCreative:error];
+                    return;
+                }
+                
+                if (self.adServerResponseString != nil && ([self.adServerResponseString containsString:@"pbm.js"] || [self.adServerResponseString containsString:@"creative.js"])) {
+                    [self.delegate adServerRespondedWithPrebidCreative];
+                } else {
+                    [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
+                }
+                
+                self.adObject = interstitialAd;
+                
+            }];
+
         }
     }
 }
@@ -164,16 +179,9 @@
 }
 
 #pragma mark DFP
--(DFPInterstitial *) createDFPInterstitialWithAdUnitId:(NSString *)adUnitID
+- (GAMBannerView *)createDFPBannerViewWithAdUnitId:(NSString *) adUnitID WithSize:(GADAdSize)GADAdSize
 {
-    DFPInterstitial *interstitial = [[DFPInterstitial alloc] initWithAdUnitID:adUnitID];
-    interstitial.delegate = self;
-    return interstitial;
-}
-
-- (DFPBannerView *)createDFPBannerViewWithAdUnitId:(NSString *) adUnitID WithSize:(GADAdSize)GADAdSize
-{
-    DFPBannerView *banner = [[DFPBannerView alloc] initWithAdSize:GADAdSize];
+    GAMBannerView *banner = [[GAMBannerView alloc] initWithAdSize:GADAdSize];
     banner.delegate = self;
     banner.rootViewController = (UIViewController *) self.delegate;
     banner.adUnitID = adUnitID;
@@ -181,7 +189,7 @@
     return banner;
 }
 
-- (void)adViewDidReceiveAd:(GADBannerView *)bannerView
+- (void)bannerViewDidReceiveAd:(GADBannerView *)bannerView
 {
     if (self.adServerResponseString != nil && ([self.adServerResponseString containsString:@"pbm.js"] || [self.adServerResponseString containsString:@"creative.js"])) {
         [self.delegate adServerRespondedWithPrebidCreative];
@@ -190,21 +198,7 @@
     }
 }
 
-- (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
-{
-    [self.delegate adServerDidNotRespondWithPrebidCreative:error];
-}
-
-- (void)interstitialDidReceiveAd:(GADInterstitial *)ad
-{
-    if (self.adServerResponseString != nil && ([self.adServerResponseString containsString:@"pbm.js"] || [self.adServerResponseString containsString:@"creative.js"])) {
-         [self.delegate adServerRespondedWithPrebidCreative];
-    } else {
-        [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
-    }
-}
-
-- (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
+- (void)bannerView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(NSError *)error
 {
     [self.delegate adServerDidNotRespondWithPrebidCreative:error];
 }

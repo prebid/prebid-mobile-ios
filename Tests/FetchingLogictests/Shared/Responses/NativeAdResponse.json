@@ -4,6 +4,7 @@
     {
       "bid": [
         {
+          "exp": 100,
           "id": "6710145726530182423",
           "impid": "PrebidMobile",
           "price": 0.05,

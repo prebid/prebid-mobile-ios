@@ -1,11 +1,11 @@
 /*   Copyright 2018-2019 Prebid.org, Inc.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,13 +17,13 @@ import Foundation
 import WebKit
 
 public class Utils: NSObject {
-    
+
     /**
      * The class is created as a singleton object & used
      */
     @objc
     public static let shared = Utils()
-    
+
     /**
      * The initializer that needs to be created only once
      */
@@ -32,25 +32,26 @@ public class Utils: NSObject {
     }
     @objc
     public weak var delegate: NativeAdDelegate?
-    
+
     private let DFP_BANNER_VIEW_CLASSNAME = "DFPBannerView"
     private let DFP_WEBADVIEW_CLASSNAME = "GADWebAdView"
     private let MOPUB_NATIVE_AD_CLASSNAME = "MPNativeAd"
     private let DFP_CUSTOM_TEMPLATE_AD_CLASSNAME = "GADNativeCustomTemplateAd"
+    private let GAD_CUSTOM_NATIVE_AD = "GADCustomNativeAd"
     private let INNNER_HTML_SCRIPT = "document.body.innerHTML"
-    
+
     @objc
     public func convertDictToMoPubKeywords(dict: Dictionary<String, String>) -> String {
         return dict.toString(entrySeparator: ",", keyValueSeparator: ":")
         
     }
-    
+
     func removeHBKeywords (adObject: AnyObject) {
-        
+
         let adServerObject: String = String(describing: type(of: adObject))
         if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name ||
             adServerObject == .DFP_N_Object_Name || adServerObject == .GAD_N_Object_Name ||
-            adServerObject == .GAD_Object_Name) {
+            adServerObject == .GAD_Object_Name || adServerObject == .GAM_Object_Name) {
             let hasDFPMember = adObject.responds(to: NSSelectorFromString("setCustomTargeting:"))
             if (hasDFPMember) {
                 //check if the publisher has added any custom targeting. If so then merge the bid keywords to the same.
@@ -65,16 +66,16 @@ public class Utils: NSObject {
                 }
             }
         }
-        
+
         if (adServerObject == .MoPub_Object_Name || adServerObject == .MoPub_Interstitial_Name) {
             let hasMoPubMember = adObject.responds(to: NSSelectorFromString("setKeywords:"))
-            
+
             if (hasMoPubMember) {
                 //for mopub the keywords has to be set as a string seperated by ,
                 // split the dictionary & construct a string comma separated
                 if (adObject.value(forKey: "keywords") != nil) {
                     let targetingKeywordsString: String = adObject.value(forKey: "keywords") as! String
-                    
+
                     let commaString: String = ","
                     if (targetingKeywordsString != "") {
                         var keywordsArray = targetingKeywordsString.components(separatedBy: ",")
@@ -82,27 +83,27 @@ public class Utils: NSObject {
                         var newString: String = ""
                         while i < keywordsArray.count {
                             if (!keywordsArray[i].starts(with: "hb_")) {
-                                
+
                                 if ( newString == .EMPTY_String) {
                                     newString = keywordsArray[i]
                                 } else {
                                     newString += commaString + keywordsArray[i]
                                 }
                             }
-                            
+
                             i += 1
                         }
-                        
+
                         Log.info("MoPub targeting keys are \(newString)")
                         adObject.setValue( newString, forKey: "keywords")
-                        
-                        
+
+
                     }
                 }
             }
         } else if (adServerObject == .MoPub_Request_Name) {
             let hasMoPubMember = adObject.responds(to: NSSelectorFromString("setTargeting:"))
-            
+
             if (hasMoPubMember) {
                 //for mopub the keywords has to be set as a string seperated by ,
                 // split the dictionary & construct a string comma separated
@@ -110,7 +111,7 @@ public class Utils: NSObject {
                 if adTargeting != nil {
                     if let adTargeting = adTargeting{
                         if let targetingKeywordsString = ((adTargeting as AnyObject).value(forKey: "keywords") as? String) {
-                            
+
                             let commaString: String = ","
                             if (targetingKeywordsString != "") {
                                 let keywordsArray = targetingKeywordsString.components(separatedBy: ",")
@@ -118,17 +119,17 @@ public class Utils: NSObject {
                                 var newString: String = ""
                                 while i < keywordsArray.count {
                                     if (!keywordsArray[i].starts(with: "hb_")) {
-                                        
+
                                         if ( newString == .EMPTY_String) {
                                             newString = keywordsArray[i]
                                         } else {
                                             newString += commaString + keywordsArray[i]
                                         }
                                     }
-                                    
+
                                     i += 1
                                 }
-                                
+
                                 Log.info("MoPub targeting keys are \(newString)")
                                 (adTargeting as AnyObject).setValue( newString, forKey: "keywords")
                                 adObject.setValue( adTargeting, forKey: "targeting")
@@ -136,17 +137,17 @@ public class Utils: NSObject {
                         }
                     }
                 }
-                
+
             }
         }
     }
-    
+
     func validateAndAttachKeywords (adObject: AnyObject, bidResponse: BidResponse) {
-        
+
         let adServerObject: String = String(describing: type(of: adObject))
         if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name ||
             adServerObject == .DFP_N_Object_Name || adServerObject == .GAD_N_Object_Name ||
-            adServerObject == .GAD_Object_Name) {
+            adServerObject == .GAD_Object_Name || adServerObject == .GAM_Object_Name) {
             let hasDFPMember = adObject.responds(to: NSSelectorFromString("setCustomTargeting:"))
             if (hasDFPMember) {
                 //check if the publisher has added any custom targeting. If so then merge the bid keywords to the same.
@@ -157,46 +158,46 @@ public class Utils: NSObject {
                 } else {
                     adObject.setValue( bidResponse.customKeywords, forKey: "customTargeting")
                 }
-                
+
                 return
             }
         } else if (adServerObject == .MoPub_Object_Name || adServerObject == .MoPub_Interstitial_Name) {
             let hasMoPubMember = adObject.responds(to: NSSelectorFromString("setKeywords:"))
-            
+
             if (hasMoPubMember) {
                 //for mopub the keywords has to be set as a string seperated by ,
                 // split the dictionary & construct a string comma separated
                 var targetingKeywordsString: String = ""
                 //get the publisher set keywords & append the bid keywords to the same
-                
+
                 if let keywordsString = (adObject.value(forKey: "keywords") as? String) {
                     targetingKeywordsString = keywordsString
                 }
-                
+
                 let commaString: String = ","
-                
+
                 for (key, value) in bidResponse.customKeywords {
                     if ( targetingKeywordsString == .EMPTY_String) {
                         targetingKeywordsString = key + ":" + value
                     } else {
                         targetingKeywordsString += commaString + key + ":" + value
                     }
-                    
+
                 }
-                
+
                 Log.info("MoPub targeting keys are \(targetingKeywordsString)")
                 adObject.setValue( targetingKeywordsString, forKey: "keywords")
-                
+
             }
         } else if (adServerObject == .MoPub_Request_Name) {
             let hasMoPubMember = adObject.responds(to: NSSelectorFromString("setTargeting:"))
-            
+
             if (hasMoPubMember) {
                 //for mopub the keywords has to be set as a string seperated by ,
                 // split the dictionary & construct a string comma separated
                 var targetingKeywordsString: String = ""
                 //get the publisher set keywords & append the bid keywords to the same
-                
+
                 let adTargeting = adObject.value(forKey: "targeting")
                 if adTargeting != nil {
                     if let adTargeting = adTargeting {
@@ -205,18 +206,18 @@ public class Utils: NSObject {
                         }
                     }
                 }
-                
+
                 let commaString: String = ","
-                
+
                 for (key, value) in bidResponse.customKeywords {
                     if ( targetingKeywordsString == .EMPTY_String) {
                         targetingKeywordsString = key + ":" + value
                     } else {
                         targetingKeywordsString += commaString + key + ":" + value
                     }
-                    
+
                 }
-                
+
                 Log.info("MoPub targeting keys are \(targetingKeywordsString)")
 
                 if adTargeting != nil {
@@ -225,7 +226,7 @@ public class Utils: NSObject {
                         adObject.setValue( adTargeting, forKey: "targeting")
                     }
                 }
-                
+
             }
         } else if let dictContainer = adObject as? DictionaryContainer<String, String> {
             dictContainer.dict = bidResponse.customKeywords
@@ -233,21 +234,21 @@ public class Utils: NSObject {
             dict.addEntries(from: bidResponse.customKeywords)
         }
     }
-    
+
     @objc
     public func findNative(adObject: AnyObject){
         if (self.isObjectFromClass(adObject, DFP_BANNER_VIEW_CLASSNAME)) {
             let dfpBannerView = adObject as! UIView
             findNativeForDFPBannerAdView(dfpBannerView)
-        } else if(self.isObjectFromClass(adObject, MOPUB_NATIVE_AD_CLASSNAME)){
+        } else if (self.isObjectFromClass(adObject, MOPUB_NATIVE_AD_CLASSNAME)) {
             findNativeForMoPubNativeAd(adObject)
-        }else if(self.isObjectFromClass(adObject, DFP_CUSTOM_TEMPLATE_AD_CLASSNAME)){
+        } else if (self.isObjectFromClass(adObject, DFP_CUSTOM_TEMPLATE_AD_CLASSNAME) || self.isObjectFromClass(adObject, GAD_CUSTOM_NATIVE_AD)) {
             findNativeForDFPCustomTemplateAd(adObject)
         } else {
             delegate?.nativeAdNotFound()
         }
     }
-    
+
     private func findNativeForDFPCustomTemplateAd(_ dfpCustomAd: AnyObject){
         let isPrebid = dfpCustomAd.string?(forKey: "isPrebid")
         if("1" == isPrebid) {
@@ -263,10 +264,10 @@ public class Utils: NSObject {
                 }
             }
         }
-        
+
         delegate?.nativeAdNotFound()
     }
-    
+
     private func findNativeForMoPubNativeAd(_ mopub: AnyObject){
         let mopubObject:AnyObject = mopub as! NSObject
         let properties = mopubObject.value(forKey: "properties") as! Dictionary<String, AnyObject>
@@ -284,13 +285,15 @@ public class Utils: NSObject {
             delegate?.nativeAdNotFound()
         }
     }
+
     private func isObjectFromClass(_ object: AnyObject, _ className: String) -> Bool{
-        let objectClassName:String = String(describing: type(of: object))
+        let objectClassName = String(describing: type(of: object))
         if objectClassName == className {
             return true
         }
         return false
     }
+
     private func findNativeForDFPBannerAdView(_ view:UIView){
         var array = [UIView]()
         recursivelyFindWebViewList(view, &array)
@@ -299,9 +302,9 @@ public class Utils: NSObject {
         } else {
             self.iterateWebViewListAsync(array, array.count - 1)
         }
-        
+
     }
-    
+
     private func iterateWebViewListAsync(_ array: [UIView], _ index: Int){
         let processNextWebView:(Int)->Void = {(i) in
             if i > 0 {
@@ -329,11 +332,11 @@ public class Utils: NSObject {
         if webView is WKWebView {
             let wk = webView as! WKWebView
             wk.evaluateJavaScript(self.INNNER_HTML_SCRIPT, completionHandler: { (value: Any!, error: Error!) -> Void in
-                
+
                 if error != nil {
                     return
                 }
-                
+
                 let html = value as! String
                 processHTMLContent(html)
             })
@@ -347,7 +350,7 @@ public class Utils: NSObject {
             processNextWebView(index)
         }
     }
-    
+
     private func getCacheIdFromBody(_ body: String) -> String? {
         let regex = "\\%\\%Prebid\\%\\%.*\\%\\%Prebid\\%\\%"
         do {
@@ -360,13 +363,13 @@ public class Utils: NSObject {
                 return nil
             }
             let firstResult = matched[0]
-            
+
             return firstResult
         } catch {
             return nil
         }
     }
-    
+
     private func recursivelyFindWebViewList(_ view:UIView, _ webViewArray:inout [UIView]){
         if(self.isObjectFromClass(view, self.DFP_WEBADVIEW_CLASSNAME)){
             webViewArray.append(view)
@@ -376,7 +379,7 @@ public class Utils: NSObject {
             }
         }
     }
-    
+
     func getStringFromDictionary(_ dic: [String:AnyObject]) -> String? {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: dic, options: [])
@@ -387,7 +390,7 @@ public class Utils: NSObject {
         }
         return nil
     }
-    
+
     func getDictionaryFromString(_ text: String) -> [String:AnyObject]? {
         if let data = text.data(using: .utf8) {
             do {
@@ -399,7 +402,7 @@ public class Utils: NSObject {
         }
         return nil
     }
-    
+
 }
 
 /**

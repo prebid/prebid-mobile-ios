@@ -1,9 +1,9 @@
 language: swift
 osx_image: xcode12
 before_install:
+  - "gem install cocoapods"
   - "pod install"
   - "pod repo update"
-  - "gem install cocoapods"
 before_script: 
   - "./scripts/add-keys.sh"
 after_script:

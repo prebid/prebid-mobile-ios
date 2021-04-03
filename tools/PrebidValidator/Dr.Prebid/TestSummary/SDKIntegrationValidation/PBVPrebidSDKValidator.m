@@ -21,8 +21,7 @@
 #import "MPWebView.h"
 #import <WebKit/WebKit.h>
 #import "MPInterstitialAdController.h"
-#import <GoogleMobileAds/DFPBannerView.h>
-#import <GoogleMobileAds/DFPInterstitial.h>
+#import <GoogleMobileAds/GAMBannerView.h>
 #import "PBViewTool.h"
 #import "SDKValidationURLProtocol.h"
 #import "AppDelegate.h"
@@ -32,7 +31,6 @@
 @interface PBVPrebidSDKValidator() <MPAdViewDelegate,
                                     MPInterstitialAdControllerDelegate,
                                     GADBannerViewDelegate,
-                                    GADInterstitialDelegate,
                                     SDKValidationURLProtocolDelegate>
 @property (nonatomic, readwrite) CLLocationManager *locationManager;
 @property Boolean initialPrebidServerRequestReceived;
@@ -43,9 +41,8 @@
 @property NSString *adServerRequestPostData;
 @property id adObject;
 @property (nonatomic, strong) AdUnit *adUnit;
-@property (nonatomic, strong) DFPBannerView *dfpView;
-@property (nonatomic, strong) DFPInterstitial *dfpInterstitial;
-@property (nonatomic, strong) DFPRequest *request;
+@property (nonatomic, strong) GAMBannerView *dfpView;
+@property (nonatomic, strong) GAMRequest *request;
 @property (nonatomic, strong) MPAdView *mopubAdView;
 @property (nonatomic, strong) MPInterstitialAdController *mopubInterstitial;
 @end
@@ -113,6 +110,10 @@
         NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
         NSString *host = [[NSUserDefaults standardUserDefaults] stringForKey:kPBHostKey];
         Prebid.shared.prebidServerAccountId = accountId;
+        
+        //TODO: use it for testing
+//        Prebid.shared.storedAuctionResponse = @"1001-rubicon-300x250";
+        
         if ([adServerName isEqualToString:kMoPubString]) {
                 if ([host isEqualToString:kAppNexusString]) {
                     Prebid.shared.prebidServerHost = PrebidHostAppnexus;
@@ -181,33 +182,42 @@
             NSArray *widthHeight = [adSizeString componentsSeparatedByString:@"x"];
             double width = [widthHeight[0] doubleValue];
             double height = [widthHeight[1] doubleValue];
-            self.dfpView = [[DFPBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(width, height))];
+            self.dfpView = [[GAMBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(width, height))];
             self.dfpView.adUnitID = adUnitID;
             self.dfpView.delegate = self;
             self.dfpView.rootViewController = (UIViewController *)_delegate;
             
-            self.request = [[DFPRequest alloc] init];
-            GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[kDFPSimulatorID];
+            self.request = [[GAMRequest alloc] init];
             [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
                 [self.dfpView loadRequest:self.request];
             }];
             
         } else if([adFormatName isEqualToString:kInterstitialString]){
-            self.dfpInterstitial = [[DFPInterstitial alloc] initWithAdUnitID:adUnitID];
-            self.dfpInterstitial.delegate = self;
-            self.request = [[DFPRequest alloc] init];
-            GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[kDFPSimulatorID];
+            self.request = [[GAMRequest alloc] init];
             [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
-                [self.dfpInterstitial loadRequest:self.request];
+                
+                [GAMInterstitialAd loadWithAdManagerAdUnitID:adUnitID
+                                                     request:self.request
+                                           completionHandler:^(GAMInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
+                    if (error) {
+                        [self.delegate adServerResponseContainsPBMCreative:NO];
+                        return;
+                    }
+                    
+                    if ([self.adServerResponse containsString:@"pbm.js"]||[self.adServerResponse containsString:@"creative.js"]) {
+                        [self.delegate adServerResponseContainsPBMCreative:YES];
+                    } else {
+                        [self.delegate adServerResponseContainsPBMCreative:NO];
+                    }
+                }];
             }];
         } else if ([adFormatName isEqualToString:kNativeString]) {
-            self.dfpView = [[DFPBannerView alloc] initWithAdSize:kGADAdSizeFluid];
+            self.dfpView = [[GAMBannerView alloc] initWithAdSize:kGADAdSizeFluid];
             self.dfpView.adUnitID = adUnitID;
             self.dfpView.delegate = self;
             self.dfpView.rootViewController = (UIViewController *)_delegate;
             
-            self.request = [[DFPRequest alloc] init];
-            GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = @[kDFPSimulatorID];
+            self.request = [[GAMRequest alloc] init];
             [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
                 [self.dfpView loadRequest:self.request];
             }];
@@ -236,12 +246,8 @@
     return self.adServerRequestPostData;
 }
 #pragma mark - DFP delegate
-- (void)interstitial:(GADInterstitial *)ad didFailToReceiveAdWithError:(GADRequestError *)error
-{
-    [self.delegate adServerResponseContainsPBMCreative:NO];
-}
 
-- (void)interstitialDidReceiveAd:(GADInterstitial *)ad
+- (void)bannerViewDidReceiveAd:(GADBannerView *)bannerView
 {
     if ([self.adServerResponse containsString:@"pbm.js"]||[self.adServerResponse containsString:@"creative.js"]) {
         [self.delegate adServerResponseContainsPBMCreative:YES];
@@ -250,20 +256,10 @@
     }
 }
 
-- (void)adViewDidReceiveAd:(GADBannerView *)bannerView
-{
-    if ([self.adServerResponse containsString:@"pbm.js"]||[self.adServerResponse containsString:@"creative.js"]) {
-        [self.delegate adServerResponseContainsPBMCreative:YES];
-    } else {
-        [self.delegate adServerResponseContainsPBMCreative:NO];
-    }
-}
-
-- (void)adView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(GADRequestError *)error
+- (void)bannerView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(NSError *)error
 {
     [self.delegate adServerResponseContainsPBMCreative:NO];
 }
-
 
 #pragma mark - MoPub delegate
 - (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
