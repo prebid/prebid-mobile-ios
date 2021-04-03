@@ -40,15 +40,7 @@ import Foundation
     /**
     * This property is set by the developer when he is willing to share the location for better ad targeting
     **/
-    public var shareGeoLocation = false {
-        didSet {
-            if (shareGeoLocation == true) {
-                Location.shared.startCapture()
-            } else {
-                Location.shared.stopCapture()
-            }
-        }
-    }
+    public var shareGeoLocation = false
 
     public var prebidServerHost: PrebidHost = PrebidHost.Custom {
         didSet {

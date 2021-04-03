@@ -389,24 +389,25 @@ class RequestBuilder: NSObject {
 
     func openrtbGeo() -> [AnyHashable: Any]? {
 
-        if let location = Location.shared.location {
-            var geoDict: [AnyHashable: Any] = [:]
-            let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude
-
-            geoDict["lat"] = latitude
-            geoDict["lon"] = longitude
-
-            let locationTimestamp = location.timestamp
-            let ageInSeconds: TimeInterval = -1.0 * locationTimestamp.timeIntervalSinceNow
-            let ageInMilliseconds = Int64(ageInSeconds * 1000)
-
-            geoDict["lastfix"] = ageInMilliseconds
-            geoDict["accuracy"] = Int(location.horizontalAccuracy)
-
-            return geoDict
+        guard Prebid.shared.shareGeoLocation, let location = CLLocationManager().location else {
+            return nil
         }
-        return nil
+        
+        var geoDict: [AnyHashable: Any] = [:]
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+
+        geoDict["lat"] = latitude
+        geoDict["lon"] = longitude
+
+        let locationTimestamp = location.timestamp
+        let ageInSeconds: TimeInterval = -1.0 * locationTimestamp.timeIntervalSinceNow
+        let ageInMilliseconds = Int64(ageInSeconds * 1000)
+
+        geoDict["lastfix"] = ageInMilliseconds
+        geoDict["accuracy"] = Int(location.horizontalAccuracy)
+
+        return geoDict
     }
 
     func openrtbRegs() -> [AnyHashable: Any] {
