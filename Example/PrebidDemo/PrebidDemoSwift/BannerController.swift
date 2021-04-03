@@ -68,7 +68,6 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 //        setStoredResponse()
 //        setRequestTimeoutMillis()
 //        enablePbsDebug()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,7 +107,10 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     }
 
     func setupPBRubiconBanner(width: Int, height: Int) {
-        setupPBBanner(host: .Rubicon, accountId: "1001", configId: "1001-1", storedResponse: "1001-rubicon-300x250", width: width, height: height)
+        //setupPBBanner(host: .Rubicon, accountId: "1001", configId: "1001-1", storedResponse: "1001-rubicon-300x250", width: width, height: height)
+        
+        // SKAdNetwork
+        setupPBBanner(host: .Rubicon, accountId: "1001", configId: "1001-1", storedResponse: "1001-rubicon-300x250-skadnetwork", width: width, height: height)
     }
     
     func setupPBBanner(host: PrebidHost, accountId: String, configId: String, storedResponse: String, width: Int, height: Int) {
@@ -132,16 +134,6 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         Prebid.shared.prebidServerHost = host
         Prebid.shared.prebidServerAccountId = accountId
         Prebid.shared.storedAuctionResponse = storedResponse
-
-        //set QA env
-//        Prebid.shared.prebidServerHost = .Custom
-//        do {
-//            try Prebid.shared.setCustomPrebidServer(url: "https://prebid-server.qa.rubiconproject.com/openrtb2/auction")
-//        } catch {
-//            print(error)
-//        }
-        
-        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250-skadnetwork"
     }
 
     //Setup AdServer
@@ -306,11 +298,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         })
         
         if #available(iOS 14.0, *) {
-            
             prebidSKAdNetworkHelper.subscribeOnAdClicked(viewController: self, adView: bannerView)
-        } else {
-            // Fallback on earlier versions
-            print("this feature is support from iOS v14")
         }
     }
 

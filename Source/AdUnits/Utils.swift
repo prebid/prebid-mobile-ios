@@ -285,7 +285,7 @@ public class Utils: NSObject {
             delegate?.nativeAdNotFound()
         }
     }
-
+    
     private func isObjectFromClass(_ object: AnyObject, _ className: String) -> Bool{
         let objectClassName = String(describing: type(of: object))
         if objectClassName == className {
@@ -293,7 +293,7 @@ public class Utils: NSObject {
         }
         return false
     }
-
+    
     private func findNativeForDFPBannerAdView(_ view:UIView){
         var array = [UIView]()
         recursivelyFindWebViewList(view, &array)
