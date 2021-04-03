@@ -17,118 +17,278 @@ import Foundation
 import WebKit
 import StoreKit
 
-public class SKAdNetworkUtils {
-    public init() {}
+public class PrebidSKAdNetworkHelper {
     
+    private weak var viewController: UIViewController?
+    private weak var wkWebView: WKWebView?
+    private var prebidSKAdNetworkData: PrebidSKAdNetworkData?
+    private var pollingTimer: Timer?
+    
+    public init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onAppBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onAppForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+    
+    deinit {
+        stopPollingTimer()
+        NotificationCenter.default.removeObserver(self)
+    }
+
     @available(iOS 14.0, *)
     @objc
     public func subscribeOnAdClicked(viewController: UIViewController, adView: UIView) {
+        
+        self.viewController = viewController
+        
         let view = AdViewUtils.findView(adView) { (subView) -> Bool in
             return AdViewUtils.isWKWebView(subView)
         }
         
-        if let wkWebView = view as? WKWebView  {
-            self.injectCodeInWebViewAsync(wkWebView: wkWebView) { (id) in
-                
-                let savedValuesDict = CacheManager.shared.savedValuesDict
-                for (key, value) in savedValuesDict {
-                    
-                    let response = Utils.shared.getDictionaryFromString(value)!
-                    if let ext = response["ext"] as? [AnyHashable : Any],
-                       let prebid = ext["prebid"] as? [AnyHashable : Any],
-                       let targeting = prebid["targeting"] as? [AnyHashable : Any],
-                       let hbCacheId = targeting["hb_cache_id"] as? String {
-                        if (hbCacheId == id) {
-                            if let skadn = ext["skadn"] as? [AnyHashable : Any] {
-                                
-                                let adViewController = SKStoreProductViewController()
-                                
-                                adViewController.loadProduct(withParameters:[
-                                    SKStoreProductParameterITunesItemIdentifier: NSNumber(value: Int(skadn["itunesitem"] as! String)!),
-                                    
-                                    SKStoreProductParameterAdNetworkIdentifier: skadn["network"] as! String,
-                                    SKStoreProductParameterAdNetworkCampaignIdentifier: NSNumber(value: Int(skadn["campaign"] as! String)!),
-                                    SKStoreProductParameterAdNetworkTimestamp: NSNumber(value: Int(skadn["timestamp"] as! String)!),
-                                    SKStoreProductParameterAdNetworkNonce: NSUUID(uuidString: skadn["nonce"] as! String)!,
-                                    SKStoreProductParameterAdNetworkAttributionSignature: skadn["signature"] as! String,
-                                    SKStoreProductParameterAdNetworkSourceAppStoreIdentifier: NSNumber(value: Int(skadn["sourceapp"] as! String)!),
-                                    SKStoreProductParameterAdNetworkVersion: skadn["version"] as! String
-                                    
-                                ]) { (b, e) in
-                                    if let error = e {
-                                        print("error:\(error)")
-                                    }
-                                }
-                                
-                                viewController.present(adViewController, animated: true, completion: nil)
-                            }
-                            
-                            break
-                        }
-                    }
-                }
-            }
-        } else {
+        guard let wkWebView = view as? WKWebView else {
             Log.warn("view doesn't contain WKWebView")
+            return
+            
         }
+        
+        AdViewUtils.findIdInWebViewAsync(wkWebView: wkWebView, success: { (webViewId) in
+            self.wkWebView = wkWebView
+            
+            guard let webViewId = webViewId else {
+                Log.error("WKWebView doesn't contain id")
+                return
+            }
+                
+            let savedValuesDict = CacheManager.shared.savedValuesDict
+            for (key, value) in savedValuesDict {
+                
+                let response = Utils.shared.getDictionaryFromString(value)!
+                
+                guard let ext = response["ext"] as? [AnyHashable : Any],
+                   let prebid = ext["prebid"] as? [AnyHashable : Any],
+                   let targeting = prebid["targeting"] as? [AnyHashable : Any],
+                   let hbCacheId = targeting["hb_cache_id"] as? String else {
+                    
+                    continue
+                }
+                
+                guard (hbCacheId == webViewId) else {
+                    continue
+                }
+                
+                guard let skadn = ext["skadn"] as? [AnyHashable : Any],
+                      let itunesitem = skadn["itunesitem"] as? String,
+                      let network = skadn["network"] as? String,
+                      let campaign = skadn["campaign"] as? String,
+                      let timestamp = skadn["timestamp"] as? String,
+                      let nonce = skadn["nonce"] as? String,
+                      let signature = skadn["signature"] as? String,
+                      let sourceapp = skadn["sourceapp"] as? String,
+                      let version = skadn["version"] as? String
+                      else {
+                    
+                    Log.warn("response doesn't contain SKAdNetwork params")
+                    break
+                }
+                
+                self.prebidSKAdNetworkData = PrebidSKAdNetworkData(itunesitem: itunesitem, network: network, campaign: campaign, timestamp: timestamp, nonce: nonce, signature: signature, sourceapp: sourceapp, version: version)
+                    
+                self.injectSKAdNetworkCodeInWebViewAsync(wkWebView: wkWebView)
+                
+                break
+            }
+            
+        })
     }
     
-    func injectCodeInWebViewAsync(wkWebView: WKWebView, success: @escaping (String) -> Void) {
+    public func viewAppear() {
+        startPollingTimer()
+    }
+    
+    public func viewDisappear() {
+        stopPollingTimer()
+    }
+    
+    private func injectSKAdNetworkCodeInWebViewAsync(wkWebView: WKWebView) {
         
         let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
-            wkWebView.evaluateJavaScript("document.readyState", completionHandler: { (value: Any!, error: Error!) -> Void in
-                if let error = error {
-                    print("02:\(error.localizedDescription)")
+            wkWebView.evaluateJavaScript("document.readyState", completionHandler: { (readyStateJS: Any!, error: Error!) -> Void in
+                guard error == nil else {
+                    Log.error("\(error.localizedDescription)")
+                    return
                 }
                 
-                if let v = value as? String, v == "complete" {
-                    print("ready")
+                if let readyState = readyStateJS as? String, readyState == "complete" {
+                    Log.info("ready")
                     timer.invalidate()
-                    
-                    wkWebView.evaluateJavaScript("document.querySelector(\"a[target='_blank']\").href", completionHandler: { (value: Any!, error: Error!) -> Void in
-                        if let error = error {
-                            print("0:\(error.localizedDescription)")
-                        }
-                        
-                        if let url = value as? String, url.contains("//apps.apple.com") {
-                            wkWebView.evaluateJavaScript("var isClicked = false; const div = document.createElement('div'); div.style.top = 0; div.style.bottom = 0; div.style.left = 0; div.style.right = 0; div.style.position = \"fixed\"; document.body.appendChild(div); div.addEventListener(\"click\", () => {isClicked=true; console.log(\"test\");})", completionHandler: { (value: Any!, error: Error!) -> Void in //div.style.background = \"red\";
-                                if let error = error {
-                                    print("1:\(error.localizedDescription)")
-                                }
-                                let timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
-                                    wkWebView.evaluateJavaScript("isClicked", completionHandler: { (value: Any!, error: Error!) -> Void in
-                                        if let error = error {
-                                            print("2:\(error.localizedDescription)")
-                                        }
-                                        print("\(value!)")
-                                        
-                                        if let v = value as? Bool, v == true {
-                                            
-                                            wkWebView.evaluateJavaScript("isClicked = false", completionHandler: { (value: Any!, error: Error!) -> Void in })
-                                            
-                                            SKAdNetworkUtils.findIdInWebViewAsync(wkWebView: wkWebView, success: success)
-                                        }
-                                    })
-                                }
 
-                            })
+                    wkWebView.evaluateJavaScript(
+                    """
+                    var isClicked = false;
+
+                    // window.open
+                    window.open_ = window.open;
+                    window.open = function(url) {
+                        if (url.includes(\"//apps.apple.com\") || url.includes(\"//itunes.apple.com\")) {
                             
+                            isClicked = true;
+                            console.log(\"appstore ad is clicked\");
+                        } else {
+
+                            console.log(\"default window.open\");
+                            window.open_(url)
                         }
+                    }
+
+                    // window.mraid.open
+                    window.mraidOpen_ = window.mraid.open;
+                    window.mraid.open = function(url) {
+                        if (url.includes(\"//apps.apple.com\") || url.includes(\"//itunes.apple.com\")) {
+                            
+                            isClicked = true;
+                            console.log(\"appstore ad is clicked via mraid\");
+                        } else {
+
+                            console.log(\"default window.mraid.open\");
+                            window.mraidOpen_(url)
+                        }
+                    }
+
+                    // href
+                    document.querySelectorAll(\"a[target='_blank']\").forEach((element) => {
+                        element.addEventListener(\"click\", (event) => {
+                            event.preventDefault();
+
+                            console.log(\"ad is clicked\");
+                            window.open(element.href);
+                        })
                     })
+                    """
+                    
+                    ) { (result, error) in
+                    
+                        self.startPollingTimer()
+                    }
                 }
             })
         }
     }
     
-    static func findIdInWebViewAsync(wkWebView: WKWebView, success: @escaping (String) -> Void) {
-        wkWebView.evaluateJavaScript(AdViewUtils.innerHtmlScript, completionHandler: { (value: Any!, error: Error!) -> Void in
+    private func startPollingTimer() {
+        guard prebidSKAdNetworkData != nil else {
+            return
+        }
+        
+        stopPollingTimer()
+        
+        pollingTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (timer) in
             
-            self.findIdInHtml(body: value as? String, success: success)
+            self.pollOnClick()
+            
+        }
+    }
+    
+    private func pollOnClick() {
+        guard let wkWebView = self.wkWebView else {
+            self.stopPollingTimer()
+            return
+        }
+        
+        wkWebView.evaluateJavaScript("isClicked", completionHandler: { (isClickedJS: Any!, error: Error!) -> Void in
+            guard error == nil else {
+                Log.error("2:\(error.localizedDescription)")
+                return
+            }
+
+            guard let isClicked = isClickedJS as? Bool, isClicked == true else {
+                Log.info("\(isClickedJS!)")
+                return
+            }
+            
+            Log.info("\(isClicked)")
+            wkWebView.evaluateJavaScript("isClicked = false", completionHandler: { (value: Any!, error: Error!) -> Void in })
+            
+            if #available(iOS 14.0, *) {
+                self.presentSKStoreProductViewController()
+            }
+            
         })
     }
     
-    static func findIdInHtml(body: String?, success: @escaping (String) -> Void) {
-        success(AdViewUtils.findIdInHtml(body: body))
+    private func stopPollingTimer() {
+        pollingTimer?.invalidate()
+    }
+    
+    @available(iOS 14.0, *)
+    private func presentSKStoreProductViewController() {
+        
+        guard let viewController = viewController, let skAdNetworkData = prebidSKAdNetworkData else {
+            stopPollingTimer()
+            return
+        }
+
+        let adViewController = SKStoreProductViewController()
+        
+        adViewController.loadProduct(withParameters:[
+            SKStoreProductParameterITunesItemIdentifier: NSNumber(value: Int(skAdNetworkData.itunesitem)!),
+            
+            SKStoreProductParameterAdNetworkIdentifier: skAdNetworkData.network,
+            SKStoreProductParameterAdNetworkCampaignIdentifier: NSNumber(value: Int(skAdNetworkData.campaign)!),
+            SKStoreProductParameterAdNetworkTimestamp: NSNumber(value: Int(skAdNetworkData.timestamp)!),
+            SKStoreProductParameterAdNetworkNonce: NSUUID(uuidString: skAdNetworkData.nonce)!,
+            SKStoreProductParameterAdNetworkAttributionSignature: skAdNetworkData.signature,
+            SKStoreProductParameterAdNetworkSourceAppStoreIdentifier: NSNumber(value: Int(skAdNetworkData.sourceapp)!),
+            SKStoreProductParameterAdNetworkVersion: skAdNetworkData.version
+            
+        ]) { (result, error) in
+            guard error == nil else {
+                Log.error("\(error!)")
+                return
+            }
+        }
+        
+        viewController.present(adViewController, animated: true, completion: nil)
+        
+    }
+
+    //MARK: - App state
+    @objc
+    private func onAppForeground() {
+        Log.info("App foreground")
+
+        guard let viewController = viewController else {
+            Log.info("no viewController")
+            
+            stopPollingTimer()
+            return
+        }
+            
+        if viewController.viewIfLoaded?.window != nil {
+            // viewController is visible
+            Log.info("viewController is visible")
+            
+            startPollingTimer()
+        } else {
+            Log.info("viewController is notvisible")
+        }
+        
+    }
+    
+    @objc
+    private func onAppBackground() {
+        print("App background")
+        stopPollingTimer()
+    }
+    
+    //MARK: Data objects
+    private struct PrebidSKAdNetworkData {
+        let itunesitem: String
+        let network: String
+        let campaign: String
+        let timestamp: String
+        let nonce: String
+        let signature: String
+        let sourceapp: String
+        let version: String
     }
 }
 
@@ -202,6 +362,13 @@ public final class AdViewUtils: NSObject {
         
     }
     
+    static func findIdInWebViewAsync(wkWebView: WKWebView, success: @escaping (String?) -> Void) {
+        wkWebView.evaluateJavaScript(AdViewUtils.innerHtmlScript, completionHandler: { (htmlBody: Any!, error: Error!) -> Void in
+            
+            self.findIdInHtml(htmlBody: htmlBody as? String, success: success)
+        })
+    }
+    
     static func findSizeInHtml(body: String?, success: @escaping (CGSize) -> Void, failure: @escaping (PbFindSizeError) -> Void) {
         let result = findSizeInHtml(body: body)
         
@@ -236,14 +403,6 @@ public final class AdViewUtils: NSObject {
         }
     }
     
-    static func findIdInHtml(body: String?) -> String {
-        if let htmlBody = body, !htmlBody.isEmpty, let idObject = findHbIdObject(in: htmlBody) {
-            return idObject
-        }
-
-        return ""
-    }
-    
     static func findHbSizeObject(in text: String) -> String? {
         return matchAndCheck(regex: AdViewUtils.sizeObjectRegexExpression, text: text)
     }
@@ -254,6 +413,18 @@ public final class AdViewUtils: NSObject {
     
     static func findHbSizeValue(in hbSizeObject: String) -> String? {
         return matchAndCheck(regex: AdViewUtils.sizeValueRegexExpression, text: hbSizeObject)
+    }
+    
+    static func findIdInHtml(htmlBody: String?, success: @escaping (String?) -> Void) {
+        success(AdViewUtils.findIdInHtml(body: htmlBody))
+    }
+    
+    static func findIdInHtml(body: String?) -> String? {
+        if let htmlBody = body, !htmlBody.isEmpty, let idObject = findHbIdObject(in: htmlBody) {
+            return idObject
+        }
+
+        return nil
     }
     
     static func isWKWebView(_ view: UIView) -> Bool {

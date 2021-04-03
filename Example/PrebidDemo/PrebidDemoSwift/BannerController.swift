@@ -41,6 +41,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     private var amBanner: DFPBannerView!
     
     private var mpBanner: MPAdView!
+    
+    private let prebidSKAdNetworkHelper = PrebidSKAdNetworkHelper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,29 +69,17 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 //        setRequestTimeoutMillis()
 //        enablePbsDebug()
         
-        
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(appBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
-
-    @objc func appBecomeActive() {
-        print("App foreground")
-    }
-    
-    @objc func appMovedToBackground() {
-        print("App background")
-        
+    override func viewWillAppear(_ animated: Bool) {
+        prebidSKAdNetworkHelper.viewAppear()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         // important to remove the time instance
         adUnit?.stopAutoRefresh()
+        prebidSKAdNetworkHelper.viewDisappear()
         
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.removeObserver(self, name:UIApplication.willResignActiveNotification, object: nil)
-        notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 
     //MARK: Banner
@@ -297,7 +287,6 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         Prebid.shared.pbsDebug = true
     }
 
-    let skAdNetworkUtils = SKAdNetworkUtils()
     //MARK: - GADBannerViewDelegate
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("adViewDidReceiveAd")
@@ -317,7 +306,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         })
         
         if #available(iOS 14.0, *) {
-            skAdNetworkUtils.subscribeOnAdClicked(viewController: self, adView: bannerView)
+            
+            prebidSKAdNetworkHelper.subscribeOnAdClicked(viewController: self, adView: bannerView)
         } else {
             // Fallback on earlier versions
             print("this feature is support from iOS v14")
@@ -326,12 +316,6 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
     func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
-    }
-    
-    func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
-        print("adView:didFailToReceiveAdWithError:")
-
-        
     }
 
     //MARK: - MPAdViewDelegate
