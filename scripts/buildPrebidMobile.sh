@@ -30,6 +30,8 @@ XCODE_BUILD_SIMULATOR_FILE_ABSOLUTE="$PWD/$XCODE_BUILD_DIR/Build/Products/Releas
 OUTPUT_DIR="$GENERATED_DIR_NAME/output"
 OUTPUT_DIR_ABSOLUTE="$PWD/$OUTPUT_DIR"
 
+BITCODE_FLAG="marker"
+
 # If remnants from a previous build exist, delete them.
 if [ -d "$GENERATED_DIR_NAME" ]; then
 rm -rf "$GENERATED_DIR_NAME"
@@ -37,6 +39,12 @@ fi
 
 mkdir -p "$LOG_DIR"
 touch "$LOG_FILE_FRAMEWORK"
+
+echo -n "Embed bitcode (y/n)?"
+read bitcodeAnswer
+if [ "$bitcodeAnswer" != "${bitcodeAnswer#[Yy]}" ] ;then
+    BITCODE_FLAG="bitcode"
+fi
 
 echo $PWD
 gem install cocoapods --user-install
@@ -60,10 +68,10 @@ do
 	# Build the framework for device and for simulator (using
 	# all needed architectures).
 	echo -e "\n${GREEN} - Building ${frameworkNames[$n]} for device${NC}"
-	xcodebuild -workspace PrebidMobile.xcworkspace -scheme "${schemes[$n]}" -configuration Release -arch arm64 only_active_arch=no defines_module=yes -sdk "iphoneos" -derivedDataPath $XCODE_BUILD_DIR > "$LOG_FILE_FRAMEWORK" 2>&1 || { echo -e "${RED}Error in build check log "$LOG_FILE_FRAMEWORK_ABSOLUTE"${NC}"; exit 1;}
+	xcodebuild -workspace PrebidMobile.xcworkspace -scheme "${schemes[$n]}" -configuration Release -arch arm64 only_active_arch=no defines_module=yes -sdk "iphoneos" -derivedDataPath $XCODE_BUILD_DIR BITCODE_GENERATION_MODE="$BITCODE_FLAG" > "$LOG_FILE_FRAMEWORK" 2>&1 || { echo -e "${RED}Error in build check log "$LOG_FILE_FRAMEWORK_ABSOLUTE"${NC}"; exit 1;}
 
 	echo -e "${GREEN} - Building ${frameworkNames[$n]} for simulator${NC}"
-	xcodebuild -workspace PrebidMobile.xcworkspace -scheme "${schemes[$n]}" -configuration Release -arch x86_64 only_active_arch=no defines_module=yes -sdk "iphonesimulator" -derivedDataPath $XCODE_BUILD_DIR > "$LOG_FILE_FRAMEWORK" 2>&1 || { echo -e "${RED}Error in build check log "$LOG_FILE_FRAMEWORK_ABSOLUTE"${NC}"; exit 1;}
+	xcodebuild -workspace PrebidMobile.xcworkspace -scheme "${schemes[$n]}" -configuration Release -arch x86_64 only_active_arch=no defines_module=yes -sdk "iphonesimulator" -derivedDataPath $XCODE_BUILD_DIR BITCODE_GENERATION_MODE="$BITCODE_FLAG" > "$LOG_FILE_FRAMEWORK" 2>&1 || { echo -e "${RED}Error in build check log "$LOG_FILE_FRAMEWORK_ABSOLUTE"${NC}"; exit 1;}
 
 	# Copy the device version of framework.
 	cp -r "$XCODE_BUILD_IPHONE_FILE_ABSOLUTE" "$OUTPUT_FILE_FRAMEWORK_ABSOLUTE"
