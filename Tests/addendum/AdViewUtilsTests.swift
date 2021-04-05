@@ -51,7 +51,7 @@ class AdViewUtilsTests: XCTestCase {
     }
     
     func regexMatcherHelper(for regex: String, in text: String) -> [String] {
-        return AdViewUtils.matches(for: regex, in: text)
+        return AdViewUtils.matches(for: regex, in: text, rangeAt: 0)
     }
     
     func testRegexMatchAndCheck() {
