@@ -46,7 +46,7 @@ if [ "$bitcodeAnswer" != "${bitcodeAnswer#[Yy]}" ] ;then
     BITCODE_FLAG="bitcode"
 fi
 
-echo -n "BITCODE_FLAG: $BITCODE_FLAG"
+echo -n "\nBITCODE_FLAG: $BITCODE_FLAG\n"
 
 echo $PWD
 gem install cocoapods --user-install
