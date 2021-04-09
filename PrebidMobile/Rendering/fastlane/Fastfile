@@ -23,10 +23,10 @@ platform :ios do
         SDK_WORKSPACE       = "ios-sdk-v3.xcworkspace"
         
         # The name of Simulator with the last major OS version to test the backward compatibility
-        SIMULATOR_IOS_PREVIOUS  = "iPhone 11,OS=13.5"
+        SIMULATOR_IOS_PREVIOUS  = "iPhone 11 Pro Max,OS=13.5"
         
         # The name of Simulator with the latest iOS version supported by the current Xcode on the build machines
-        SIMULATOR_IOS_LATEST    = "iPhone 11,OS=14.4"
+        SIMULATOR_IOS_LATEST    = "iPhone 11 Pro Max,OS=14.4"
     end
 
 # ------------------------------------------
