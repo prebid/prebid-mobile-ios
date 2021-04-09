@@ -87,9 +87,6 @@ class OXMBasicParameterBuilderTest: XCTestCase {
     }
     
     func testParameterBuilderInterstitialVAST() {
-        let auid = "12345"
-        let pgid = "67890"
-
         let adUnit = OXAInterstitialAdUnit.init(configId: "configId")
         adUnit.adFormat = .video
         let adConfiguration = adUnit.adUnitConfig.adConfiguration
