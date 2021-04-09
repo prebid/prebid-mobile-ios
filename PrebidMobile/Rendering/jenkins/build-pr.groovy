@@ -14,7 +14,7 @@ pipeline {
 
             steps {
                 sh 'hostname'
-                dir('PrebidMobileRendering') {
+                dir('PrebidMobile/Rendering') {
                     sh('bundle install')
                     sh('bundle exec fastlane build_sdk')
                 }
@@ -38,7 +38,7 @@ pipeline {
 
                     steps {
                         sh 'hostname'
-                        dir('PrebidMobileRendering') {
+                        dir('PrebidMobile/Rendering') {
                             sh('bundle install')
                             sh('bundle exec fastlane UnitTests_GAM_EH_iOS_Previous')
                             dir('fastlane') {
@@ -48,8 +48,8 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts artifacts: 'PrebidMobileRendering/fastlane/*_output.zip', fingerprint: true
-                            junit 'PrebidMobileRendering/fastlane/test_output/**/report.junit'
+                            archiveArtifacts artifacts: 'PrebidMobile/Rendering/fastlane/*_output.zip', fingerprint: true
+                            junit 'PrebidMobile/Rendering/fastlane/test_output/**/report.junit'
                         }
                         cleanup {
                             deleteDir()
@@ -63,7 +63,7 @@ pipeline {
 
                     steps {
                         sh 'hostname'
-                        dir('PrebidMobileRendering') {
+                        dir('PrebidMobile/Rendering') {
                             sh('bundle install')
                             sh('bundle exec fastlane UnitTests_GAM_EH_iOS_Latest')
                             dir('fastlane') {
@@ -73,8 +73,8 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts artifacts: 'PrebidMobileRendering/fastlane/*_output.zip', fingerprint: true
-                            junit 'PrebidMobileRendering/fastlane/test_output/**/report.junit'
+                            archiveArtifacts artifacts: 'PrebidMobile/Rendering/fastlane/*_output.zip', fingerprint: true
+                            junit 'PrebidMobile/Rendering/fastlane/test_output/**/report.junit'
                         }
                         cleanup {
                             deleteDir()
@@ -94,7 +94,7 @@ pipeline {
 
                     steps {
                         sh 'hostname'
-                        dir('PrebidMobileRendering') {
+                        dir('PrebidMobile/Rendering') {
                             sh('bundle install')
                             sh('bundle exec fastlane UnitTests_SDK_iOS_Previous')
                             dir('fastlane') {
@@ -104,8 +104,8 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts artifacts: 'PrebidMobileRendering/fastlane/*_output.zip', fingerprint: true
-                            junit 'PrebidMobileRendering/fastlane/test_output/**/report.junit'
+                            archiveArtifacts artifacts: 'PrebidMobile/Rendering/fastlane/*_output.zip', fingerprint: true
+                            junit 'PrebidMobile/Rendering/fastlane/test_output/**/report.junit'
                         }
                         cleanup {
                             deleteDir()
@@ -122,7 +122,7 @@ pipeline {
                     }
                     steps {
                         sh 'hostname'
-                        dir('PrebidMobileRendering') {
+                        dir('PrebidMobile/Rendering') {
                             sh('bundle install')
                             sh('bundle exec fastlane UnitTests_SDK_iOS_Latest report_coverage:true')
                             dir('fastlane') {
@@ -133,8 +133,8 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts artifacts: 'PrebidMobileRendering/fastlane/*_output.zip', fingerprint: true
-                            junit 'PrebidMobileRendering/fastlane/test_output/**/report.junit'
+                            archiveArtifacts artifacts: 'PrebidMobile/Rendering/fastlane/*_output.zip', fingerprint: true
+                            junit 'PrebidMobile/Rendering/fastlane/test_output/**/report.junit'
                         }
                         cleanup {
                             deleteDir()
@@ -158,7 +158,7 @@ pipeline {
                     }
                     steps {
                         sh 'hostname'
-                        dir('PrebidMobileRendering') {
+                        dir('PrebidMobile/Rendering') {
                             sh('git clone git@github.com:openx/mobile-mock-server.git')
                             sh('mobile-mock-server/install.sh')
                             sh('python3 mobile-mock-server/manage.py makemigrations')
@@ -174,8 +174,8 @@ pipeline {
                     }
                     post {
                         always {
-                            archiveArtifacts artifacts: 'PrebidMobileRendering/fastlane/*_output.zip', fingerprint: true
-                            junit 'PrebidMobileRendering/fastlane/test_output/**/report.junit'
+                            archiveArtifacts artifacts: 'PrebidMobile/Rendering/fastlane/*_output.zip', fingerprint: true
+                            junit 'PrebidMobile/Rendering/fastlane/test_output/**/report.junit'
                         }
                         cleanup {
                             deleteDir()
