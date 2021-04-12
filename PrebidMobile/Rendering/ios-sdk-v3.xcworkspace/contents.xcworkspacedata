@@ -21,4 +21,7 @@
    <FileRef
       location = "group:EventHandlers/EventHandlers.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:PrebidMobileDemoRendering/PrebidMobileDemoRendering/PrebidMobileDemoRendering.xcodeproj">
+   </FileRef>
 </Workspace>

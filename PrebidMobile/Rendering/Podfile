@@ -3,7 +3,7 @@ platform :ios, '10.0'
 
 workspace 'ios-sdk-v3'
 
-project 'OpenXInternalTestApp/OpenXInternalTestApp/OpenXInternalTestApp.xcodeproj'
+project 'PrebidMobileDemoRendering/PrebidMobileDemoRendering/PrebidMobileDemoRendering.xcodeproj'
 
 def mopub_pods
   pod 'mopub-ios-sdk', '5.15'
@@ -45,9 +45,9 @@ def internalTestApp_pods
   admob_pods
 end
 
-target 'OpenXInternalTestApp' do
+target 'PrebidMobileDemoRendering' do
   use_frameworks!
-  project 'OpenXInternalTestApp/OpenXInternalTestApp/OpenXInternalTestApp.xcodeproj'
+  project 'PrebidMobileDemoRendering/PrebidMobileDemoRendering/PrebidMobileDemoRendering.xcodeproj'
   internalTestApp_pods
 end
 

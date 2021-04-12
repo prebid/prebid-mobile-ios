@@ -1,7 +1,7 @@
 FRAMEWORK_NAME="$PRODUCT_NAME.framework"
 
 declare -a destinations=(
-"/../OpenXInternalTestApp/OpenXInternalTestApp/OpenXInternalTestApp/Frameworks/"
+"/../PrebidMobileDemoRendering/PrebidMobileDemoRendering/PrebidMobileDemoRendering/Frameworks/"
 "/../Products/"
 )
 
