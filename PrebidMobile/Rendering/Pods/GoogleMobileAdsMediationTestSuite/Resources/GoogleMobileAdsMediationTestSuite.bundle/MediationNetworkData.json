@@ -1,0 +1,865 @@
+[
+  {
+    "networkName": "AdColony",
+    "networkSdkClass": "AdColony",
+    "initializerClass": "GADMediationAdapterAdColony",
+    "buyerNetworkID": 1385256,
+    "adapters": [
+      {
+        "is_rtb": "true",
+        "name": "Interstitial",
+        "adapterClass": "GADMediationAdapterAdColony",
+        "serverParameters": {
+          "App ID": "app_id",
+          "Zone ID": "zone_id"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterAdColony",
+        "serverParameters": {
+          "App ID": "app_id",
+          "Zone ID": "zone_ids"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterAdColony",
+        "serverParameters": {
+          "App ID": "app_id",
+          "Zone ID": "zone_ids"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMAdapterAdColony",
+        "serverParameters": {
+          "App ID": "app_id",
+          "Zone ID": "zone_ids"
+        }
+      },
+      {
+        "is_rtb": "true",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMediationAdapterAdColony",
+        "serverParameters": {
+          "App ID": "app_id",
+          "Zone ID": "zone_id"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "AdMob Network",
+    "networkSdkClass": "GADMobileAds",
+    "initializerClass": "",
+    "adapters": [
+      {
+        "is_rtb": "false",
+        "name": "Native",
+        "adapterClass": "GADMAdapterGoogleAdMobAds",
+        "serverParameters": {}
+      },
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterGoogleAdMobAds",
+        "serverParameters": {}
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterGoogleAdMobAds",
+        "serverParameters": {}
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMAdapterGoogleAdMobAds",
+        "serverParameters": {}
+      }
+    ]
+  },
+  {
+    "networkName": "Applovin",
+    "networkSdkClass": "ALSdk",
+    "initializerClass": "GADMediationAdapterAppLovin",
+    "buyerNetworkID": 1410708,
+    "adapters": [
+      {
+        "is_rtb": "true",
+        "name": "Banner",
+        "adapterClass": "GADMediationAdapterAppLovin",
+        "serverParameters": {
+          "SDK Key": "sdkKey"
+        }
+      },
+      {
+        "is_rtb": "true",
+        "name": "Interstitial",
+        "adapterClass": "GADMediationAdapterAppLovin",
+        "serverParameters": {
+          "SDK Key": "sdkKey"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Native",
+        "adapterClass": "GADMAdapterAppLovinNative",
+        "serverParameters": {
+          "SDK Key": "sdkKey",
+          "Bundle ID": "bundleId",
+          "Zone ID": "zone_id"
+        }
+      },
+      {
+        "is_rtb": "true",
+        "name": "Native",
+        "adapterClass": "GADMediationAdapterAppLovin",
+        "serverParameters": {
+          "SDK Key": "sdkKey"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterAppLovin",
+        "serverParameters": {
+          "SDK Key": "sdkKey",
+          "Bundle ID": "bundleId",
+          "Zone ID": "zone_id"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterAppLovin",
+        "serverParameters": {
+          "SDK Key": "sdkKey",
+          "Bundle ID": "bundleId",
+          "Zone ID": "zone_id"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMAdapterAppLovinRewardBasedVideoAd",
+        "serverParameters": {
+          "SDK Key": "sdkKey",
+          "Bundle ID": "bundleId",
+          "Zone ID": "zone_id"
+        }
+      },
+      {
+        "is_rtb": "true",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMediationAdapterAppLovin",
+        "serverParameters": {
+          "SDK Key": "sdkKey"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "Chartboost",
+    "networkSdkClass": "Chartboost",
+    "initializerClass": "GADMediationAdapterChartboost",
+    "adapters": [
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterChartboost",
+        "serverParameters": {
+          "App ID": "appId",
+          "App Signature": "appSignature",
+          "Ad Location": "adLocation"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterChartboost",
+        "serverParameters": {
+          "App ID": "appId",
+          "App Signature": "appSignature",
+          "Ad Location": "adLocation"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMAdapterChartboost",
+        "serverParameters": {
+          "App ID": "appId",
+          "App Signature": "appSignature",
+          "Ad Location": "adLocation"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "Custom Event",
+    "networkSdkClass": "",
+    "adapters": [
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterCustomEvents",
+        "serverParameters": {
+          "Label": "label",
+          "Class Name": "class_name",
+          "Parameter": "parameter"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterCustomEvents",
+        "serverParameters": {
+          "Label": "label",
+          "Class Name": "class_name",
+          "Parameter": "parameter"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "DU Ad Platform",
+    "networkSdkClass": "DUAdNetwork",
+    "initializerClass": "GADMediationAdapterDuAd",
+    "adapters": [
+      {
+        "is_rtb": "false",
+        "name": "Native",
+        "adapterClass": "GADMAdapterDuAdNative",
+        "serverParameters": {
+          "Placement ID (广告位ID)": "placementId",
+          "App ID (应用ID/App license)": "appId"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterDuAd",
+        "serverParameters": {
+          "Placement ID (广告位ID)": "placementId",
+          "App ID (应用ID/App license)": "appId"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterDuAd",
+        "serverParameters": {
+          "Placement ID (广告位ID)": "placementId",
+          "App ID (应用ID/App license)": "appId"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMAdapterDuAdRewarded",
+        "serverParameters": {
+          "Placement ID (广告位ID)": "placementId",
+          "App ID (应用ID/App license)": "appId"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "Facebook Audience Network",
+    "networkSdkClass": "FBAdView",
+    "initializerClass": "GADMediationAdapterFacebook",
+    "buyerNetworkID": 1418116,
+    "adapters": [
+      {
+        "is_rtb": "true",
+        "name": "Banner",
+        "adapterClass": "GADMediationAdapterFacebook",
+        "serverParameters": {
+          "Placement ID": "placement_id"
+        }
+      },
+      {
+        "is_rtb": "true",
+        "name": "Interstitial",
+        "adapterClass": "GADMediationAdapterFacebook",
+        "serverParameters": {
+          "Placement ID": "placement_id"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Native",
+        "adapterClass": "GADMAdapterFacebook",
+        "serverParameters": {
+          "Placement ID": "pubid"
+        }
+      },
+      {
+        "is_rtb": "true",
+        "name": "Native",
+        "adapterClass": "GADMediationAdapterFacebook",
+        "serverParameters": {
+          "Placement ID": "placement_id"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterFacebook",
+        "serverParameters": {
+          "Placement ID": "pubid"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterFacebook",
+        "serverParameters": {
+          "Placement ID": "pubid"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMAdapterFacebook",
+        "serverParameters": {
+          "Placement ID": "pubid"
+        }
+      },
+      {
+        "is_rtb": "true",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMediationAdapterFacebook",
+        "serverParameters": {
+          "Placement ID": "placement_id"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "Fyber Marketplace",
+    "networkSdkClass": "IASDKCore",
+    "initializerClass": "GADMediationAdapterFyber",
+    "adapters": [
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMediationAdapterFyber",
+        "serverParameters": {
+          "Application ID": "applicationId",
+          "Ad Spot ID": "spotId",
+          "Ad Unit ID": "adUnitId"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMediationAdapterFyber",
+        "serverParameters": {
+          "Application ID": "applicationId",
+          "Ad Spot ID": "spotId",
+          "Ad Unit ID": "adUnitId"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMediationAdapterFyber",
+        "serverParameters": {
+          "Application ID": "applicationId",
+          "Ad Spot ID": "spotId",
+          "Ad Unit ID": "adUnitId"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "InMobi",
+    "networkSdkClass": "IMSdk",
+    "initializerClass": "GADMediationAdapterInMobi",
+    "buyerNetworkID": 1392528,
+    "adapters": [
+      {
+        "is_rtb": "true",
+        "name": "Banner",
+        "adapterClass": "GADMediationAdapterInMobi",
+        "serverParameters": {
+          "Account ID": "accountid",
+          "Placement ID": "placementid"
+        }
+      },
+      {
+        "is_rtb": "true",
+        "name": "Interstitial",
+        "adapterClass": "GADMediationAdapterInMobi",
+        "serverParameters": {
+          "Account ID": "accountid",
+          "Placement ID": "placementid"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Native",
+        "adapterClass": "GADMAdapterInMobi",
+        "serverParameters": {
+          "Account ID": "accountid",
+          "Placement ID": "placementid"
+        }
+      },
+      {
+        "is_rtb": "true",
+        "name": "Native",
+        "adapterClass": "GADMediationAdapterInMobi",
+        "serverParameters": {
+          "Account ID": "accountid",
+          "Placement ID": "placementid"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterInMobi",
+        "serverParameters": {
+          "Account ID": "accountid",
+          "Placement ID": "placementid"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterInMobi",
+        "serverParameters": {
+          "Account ID": "accountid",
+          "Placement ID": "placementid"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMAdapterInMobi",
+        "serverParameters": {
+          "Account ID": "accountid",
+          "Placement ID": "placementid"
+        }
+      },
+      {
+        "is_rtb": "true",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMediationAdapterInMobi",
+        "serverParameters": {
+          "Account ID": "accountid",
+          "Placement ID": "placementid"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "IronSource",
+    "networkSdkClass": "IronSource",
+    "initializerClass": "GADMediationAdapterIronSource",
+    "adapters": [
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterIronSource",
+        "serverParameters": {
+          "App Key": "appKey",
+          "Instance ID": "instanceId"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterIronSource",
+        "serverParameters": {
+          "App Key": "appKey",
+          "Instance ID": "instanceId"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMAdapterIronSourceRewarded",
+        "serverParameters": {
+          "App Key": "appKey",
+          "Instance ID": "instanceId"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "maio",
+    "networkSdkClass": "Maio",
+    "initializerClass": "GADMediationAdapterMaio",
+    "buyerNetworkID": 1504118,
+    "adapters": [
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMMaioInterstitialAdapter",
+        "serverParameters": {
+          "Media ID (メディアID)": "mediaId",
+          "Zone ID (ゾーンID)": "zoneId"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMMaioInterstitialAdapter",
+        "serverParameters": {
+          "Media ID (メディアID)": "mediaId",
+          "Zone ID (ゾーンID)": "zoneId"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMMaioRewardedAdapter",
+        "serverParameters": {
+          "Media ID (メディアID)": "mediaId",
+          "Zone ID (ゾーンID)": "zoneId"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "MoPub",
+    "networkSdkClass": "MoPub",
+    "initializerClass": "GADMediationAdapterMoPub",
+    "adapters": [
+      {
+        "is_rtb": "false",
+        "name": "Native",
+        "adapterClass": "GADMAdapterMoPub",
+        "serverParameters": {
+          "Ad Unit ID": "pubid"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterMoPub",
+        "serverParameters": {
+          "Ad Unit ID": "pubid"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterMoPub",
+        "serverParameters": {
+          "Ad Unit ID": "pubid"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMediationAdapterMoPub",
+        "serverParameters": {
+          "Ad Unit ID": "pubid"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "myTarget",
+    "networkSdkClass": "MTRGAdView",
+    "initializerClass": "GADMediationAdapterMyTarget",
+    "adapters": [
+      {
+        "is_rtb": "false",
+        "name": "Native",
+        "adapterClass": "GADMAdapterMyTargetNative",
+        "serverParameters": {
+          "Slot ID": "slotId"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterMyTarget",
+        "serverParameters": {
+          "Slot ID": "slotId"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterMyTarget",
+        "serverParameters": {
+          "Slot ID": "slotId"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMAdapterMyTargetRewarded",
+        "serverParameters": {
+          "Slot ID": "slotId"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "Nend",
+    "networkSdkClass": "NADView",
+    "initializerClass": "GADMediationAdapterNend",
+    "adapters": [
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterNend",
+        "serverParameters": {
+          "Spot ID": "spotId",
+          "API Key": "apiKey"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterNend",
+        "serverParameters": {
+          "Spot ID": "spotId",
+          "API Key": "apiKey"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMAdapterNendRewarded",
+        "serverParameters": {
+          "Spot ID": "spotId",
+          "API Key": "apiKey"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "Sample Ad Network",
+    "networkSdkClass": "SampleAdRequest",
+    "initializerClass": "GADMediationAdapterSample",
+    "adapters": [
+      {
+        "is_rtb": "false",
+        "name": "Native",
+        "adapterClass": "SampleAdapter",
+        "serverParameters": {
+          "Ad Unit": "ad_unit"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "SampleAdapter",
+        "serverParameters": {
+          "Ad Unit": "ad_unit"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "SampleAdapter",
+        "serverParameters": {
+          "Ad Unit": "ad_unit"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "SampleAdapter",
+        "serverParameters": {
+          "Ad Unit": "ad_unit",
+          "Application ID": "app_id"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "Tapjoy",
+    "networkSdkClass": "Tapjoy",
+    "initializerClass": "GADMediationAdapterTapjoy",
+    "buyerNetworkID": 1383005,
+    "adapters": [
+      {
+        "is_rtb": "true",
+        "name": "Interstitial",
+        "adapterClass": "GADMediationAdapterTapjoy",
+        "serverParameters": {
+          "SDK Key": "sdkKey",
+          "Placement Name": "placementName"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterTapjoy",
+        "serverParameters": {
+          "SDK Key": "sdkKey",
+          "Placement Name": "placementName"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterTapjoy",
+        "serverParameters": {
+          "SDK Key": "sdkKey",
+          "Placement Name": "placementName"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMAdapterTapjoy",
+        "serverParameters": {
+          "SDK Key": "sdkKey",
+          "Placement Name": "placementName"
+        }
+      },
+      {
+        "is_rtb": "true",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMediationAdapterTapjoy",
+        "serverParameters": {
+          "SDK Key": "sdkKey",
+          "Placement Name": "placementName"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "Unity Ads",
+    "networkSdkClass": "UnityAds",
+    "initializerClass": "GADMediationAdapterUnity",
+    "adapters": [
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterUnity",
+        "serverParameters": {
+          "Game ID": "gameId",
+          "Placement ID": "zoneId"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterUnity",
+        "serverParameters": {
+          "Game ID": "gameId",
+          "Placement ID": "zoneId"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMAdapterUnity",
+        "serverParameters": {
+          "Game ID": "gameId",
+          "Placement ID": "zoneId"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "Verizon Media",
+    "networkSdkClass": "VASAds",
+    "initializerClass": "GADMediationAdapterVerizon",
+    "adapters": [
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMediationAdapterVerizon",
+        "serverParameters": {
+          "Placement ID": "placement_id",
+          "Site ID": "site_id"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMediationAdapterVerizon",
+        "serverParameters": {
+          "Placement ID": "placement_id",
+          "Site ID": "site_id"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Native",
+        "adapterClass": "GADMediationAdapterVerizon",
+        "serverParameters": {
+          "Placement ID": "placement_id",
+          "Site ID": "site_id"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMediationAdapterVerizon",
+        "serverParameters": {
+          "Placement ID": "placement_id",
+          "Site ID": "site_id"
+        }
+      }
+    ]
+  },
+  {
+    "networkName": "Vungle",
+    "networkSdkClass": "VungleSDK",
+    "initializerClass": "GADMediationAdapterVungle",
+    "buyerNetworkID": 1362416,
+    "adapters": [
+      {
+        "is_rtb": "true",
+        "name": "Interstitial",
+        "adapterClass": "GADMediationAdapterVungle",
+        "serverParameters": {
+          "Application ID": "application_id",
+          "Placement Reference ID": "placementID"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Banner",
+        "adapterClass": "GADMAdapterVungleInterstitial",
+        "serverParameters": {
+          "Application ID": "application_id",
+          "Placement Reference ID": "placementID"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Interstitial",
+        "adapterClass": "GADMAdapterVungleInterstitial",
+        "serverParameters": {
+          "Application ID": "application_id",
+          "Placement Reference ID": "placementID"
+        }
+      },
+      {
+        "is_rtb": "false",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMAdapterVungleRewardBasedVideoAd",
+        "serverParameters": {
+          "Application ID": "application_id",
+          "Placement Reference ID": "placementID"
+        }
+      },
+      {
+        "is_rtb": "true",
+        "name": "Rewarded Video",
+        "adapterClass": "GADMediationAdapterVungle",
+        "serverParameters": {
+          "Application ID": "application_id",
+          "Placement Reference ID": "placementID"
+        }
+      }
+    ]
+  }
+]

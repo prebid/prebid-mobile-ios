@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-OpenXApolloGAMEventHandlersTests/Pods-OpenXApolloGAMEventHandlersTests-frameworks.sh
+${BUILT_PRODUCTS_DIR}/GoogleUtilities-iOS10.0/GoogleUtilities.framework
+${BUILT_PRODUCTS_DIR}/PromisesObjC-iOS10.0/FBLPromises.framework
+${BUILT_PRODUCTS_DIR}/nanopb-iOS10.0/nanopb.framework

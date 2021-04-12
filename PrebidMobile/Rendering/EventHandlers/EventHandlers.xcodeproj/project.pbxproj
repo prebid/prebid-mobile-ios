@@ -1,0 +1,1115 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		30C652FBB80C47AFC06E2B57 /* Pods_OpenXApolloGAMEventHandlersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83248AAFDF3FB8E502728AC9 /* Pods_OpenXApolloGAMEventHandlersTests.framework */; };
+		3405F94A250A555800268A77 /* OpenXApolloGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D5C24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.framework */; };
+		3405F951250A55AE00268A77 /* OXADFPBannerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3405F950250A55AE00268A77 /* OXADFPBannerTest.swift */; };
+		344A7F02250B6C4E00743A93 /* OXADFPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 344A7F00250B6C4E00743A93 /* OXADFPRequest.h */; };
+		344A7F03250B6C4E00743A93 /* OXADFPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F01250B6C4E00743A93 /* OXADFPRequest.m */; };
+		344A7F09250B73FA00743A93 /* PropertyTestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F08250B73FA00743A93 /* PropertyTestModels.swift */; };
+		344A7F0C250B744D00743A93 /* GADAdSize+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F0B250B744D00743A93 /* GADAdSize+Equatable.swift */; };
+		344A7F0E250B749600743A93 /* OXADFPRequestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F0D250B749600743A93 /* OXADFPRequestTest.swift */; };
+		344A7F11250B7A5100743A93 /* OXADFPInterstitial.h in Headers */ = {isa = PBXBuildFile; fileRef = 344A7F0F250B7A5100743A93 /* OXADFPInterstitial.h */; };
+		344A7F12250B7A5100743A93 /* OXADFPInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F10250B7A5100743A93 /* OXADFPInterstitial.m */; };
+		344A7F14250B823F00743A93 /* OXADFPInterstitialTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F13250B823F00743A93 /* OXADFPInterstitialTest.swift */; };
+		344A7F17250B83E200743A93 /* OXAGADRewardedAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 344A7F15250B83E200743A93 /* OXAGADRewardedAd.h */; };
+		344A7F18250B83E200743A93 /* OXAGADRewardedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F16250B83E200743A93 /* OXAGADRewardedAd.m */; };
+		344A7F1A250B8E5400743A93 /* OXAGADRewardedAdTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F19250B8E5400743A93 /* OXAGADRewardedAdTest.swift */; };
+		3459DF4D25E8D8B4004EC761 /* OXAGADUnifiedNativeAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3459DF4C25E8D8B4004EC761 /* OXAGADUnifiedNativeAd.m */; };
+		346A9C9824F8F4CF002892BC /* OXAMoPubAdapterConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 346A9C9624F8F4CE002892BC /* OXAMoPubAdapterConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		346A9C9924F8F4CF002892BC /* OXAMoPubAdapterConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 346A9C9724F8F4CF002892BC /* OXAMoPubAdapterConfiguration.m */; };
+		346C50EC250BC05A00435A73 /* OXAGAMError.h in Headers */ = {isa = PBXBuildFile; fileRef = 346C50EA250BC05A00435A73 /* OXAGAMError.h */; };
+		346C50ED250BC05A00435A73 /* OXAGAMError.m in Sources */ = {isa = PBXBuildFile; fileRef = 346C50EB250BC05A00435A73 /* OXAGAMError.m */; };
+		34B64D6024F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D5E24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64D6A24F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D6924F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.m */; };
+		34B64D6B24F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D6624F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.m */; };
+		34B64D6C24F7E51300FDD9F4 /* OXAGAMBannerEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D6724F7E51300FDD9F4 /* OXAGAMBannerEventHandler.m */; };
+		34B64D7124F7E8A100FDD9F4 /* OpenXApolloSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7024F7E8A100FDD9F4 /* OpenXApolloSDK.framework */; };
+		34B64D7624F7EA8300FDD9F4 /* OXAGAMBannerEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D6524F7E51300FDD9F4 /* OXAGAMBannerEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64D7724F7EA8300FDD9F4 /* OXAGAMInterstitialEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D6424F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64D7824F7EA8300FDD9F4 /* OXAGAMRewardedEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D6824F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64D8224F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D8024F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64DA024F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D9824F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64DA124F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D9924F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.m */; };
+		34B64DA224F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D9A24F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64DA324F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D9B24F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.m */; };
+		34B64DA424F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D9C24F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.m */; };
+		34B64DA524F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D9D24F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64DA624F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D9E24F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.m */; };
+		34B64DA724F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D9F24F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64DAE24F7FD8100FDD9F4 /* OpenXApolloSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7024F7E8A100FDD9F4 /* OpenXApolloSDK.framework */; };
+		34C7964325DD59370072A898 /* OXAGAMUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7964125DD59370072A898 /* OXAGAMUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34C7964425DD59370072A898 /* OXAGAMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7964225DD59370072A898 /* OXAGAMUtils.m */; };
+		34C7965125DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7964F25DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.h */; };
+		34C7965225DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7965025DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.m */; };
+		34C7965825DD67470072A898 /* OXALocalResponseInfoCache+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7965725DD67470072A898 /* OXALocalResponseInfoCache+Internal.h */; };
+		34C7967B25DE52CD0072A898 /* OXAGAMConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7967925DE52CD0072A898 /* OXAGAMConstants.h */; };
+		34C7967C25DE52CD0072A898 /* OXAGAMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7967A25DE52CD0072A898 /* OXAGAMConstants.m */; };
+		34C7C9EB2509018B0021C6D0 /* OXADFPBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7C9E92509018B0021C6D0 /* OXADFPBanner.h */; };
+		34C7C9EC2509018B0021C6D0 /* OXADFPBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7C9EA2509018B0021C6D0 /* OXADFPBanner.m */; };
+		34C7C9F3250A1B610021C6D0 /* OXAInvocationHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7C9F1250A1B610021C6D0 /* OXAInvocationHelper.h */; };
+		34C7C9F4250A1B610021C6D0 /* OXAInvocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7C9F2250A1B610021C6D0 /* OXAInvocationHelper.m */; };
+		371F4B3C6A31093A058D4DF9 /* Pods_OpenXApolloMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC94A9D54E941090D53CFFC4 /* Pods_OpenXApolloMoPubAdapters.framework */; };
+		8328A6139C17EC57CD5D3A0F /* Pods_OpenXApolloGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6AA24E8ECDC447CB5116398 /* Pods_OpenXApolloGAMEventHandlers.framework */; };
+		AC47330825D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = AC47330625D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC47330925D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AC47330725D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.m */; };
+		AC4733B025D55BD70041EEBA /* OXAMoPubNativeAdRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4733AF25D55BD70041EEBA /* OXAMoPubNativeAdRenderer.m */; };
+		AC4733B125D55BD70041EEBA /* OXAMoPubNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4733AE25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.m */; };
+		AC4733CB25D56A400041EEBA /* OXAMoPubNativeAdRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = AC4733AC25D55BD50041EEBA /* OXAMoPubNativeAdRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC4733D225D56A5D0041EEBA /* OXAMoPubNativeAdAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = AC4733AD25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ACF3824225EFBD8A000A071B /* OXAMoPubConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3824025EFBD89000A071B /* OXAMoPubConstants.h */; };
+		ACF3824325EFBD8A000A071B /* OXAMoPubConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF3824125EFBD89000A071B /* OXAMoPubConstants.m */; };
+		ACF3824C25EFC147000A071B /* OXAMoPubNativeAdUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3824A25EFC147000A071B /* OXAMoPubNativeAdUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ACF3824D25EFC147000A071B /* OXAMoPubNativeAdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF3824B25EFC147000A071B /* OXAMoPubNativeAdUtils.m */; };
+		ACF3825625EFC86D000A071B /* DO_NOT_MOVE_THESE_FILES.txt in Resources */ = {isa = PBXBuildFile; fileRef = ACF3825525EFC86D000A071B /* DO_NOT_MOVE_THESE_FILES.txt */; };
+		ACF3825B25EFC8E5000A071B /* OXALocalResponseInfoCache+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3825A25EFC8E5000A071B /* OXALocalResponseInfoCache+Internal.h */; };
+		ACF3826925EFCAD9000A071B /* OXAMoPubNativeAdUtils+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3826825EFCAD9000A071B /* OXAMoPubNativeAdUtils+Internal.h */; };
+		ACF3831C25F0F91D000A071B /* OXAMoPubError.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3831A25F0F91C000A071B /* OXAMoPubError.h */; };
+		ACF3831D25F0F91D000A071B /* OXAMoPubError.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF3831B25F0F91C000A071B /* OXAMoPubError.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3405F94B250A555800268A77 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34B64D4324F7D95800FDD9F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 34B64D5B24F7E41600FDD9F4;
+			remoteInfo = OpenXApolloGAMEventHandlers;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3405F945250A555800268A77 /* OpenXApolloGAMEventHandlersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenXApolloGAMEventHandlersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3405F949250A555800268A77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3405F950250A55AE00268A77 /* OXADFPBannerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXADFPBannerTest.swift; sourceTree = "<group>"; };
+		3405F952250A5A5800268A77 /* OpenXApolloGAMEventHandlersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenXApolloGAMEventHandlersTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		344A7F00250B6C4E00743A93 /* OXADFPRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXADFPRequest.h; sourceTree = "<group>"; };
+		344A7F01250B6C4E00743A93 /* OXADFPRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXADFPRequest.m; sourceTree = "<group>"; };
+		344A7F08250B73FA00743A93 /* PropertyTestModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTestModels.swift; sourceTree = "<group>"; };
+		344A7F0B250B744D00743A93 /* GADAdSize+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GADAdSize+Equatable.swift"; sourceTree = "<group>"; };
+		344A7F0D250B749600743A93 /* OXADFPRequestTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXADFPRequestTest.swift; sourceTree = "<group>"; };
+		344A7F0F250B7A5100743A93 /* OXADFPInterstitial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXADFPInterstitial.h; sourceTree = "<group>"; };
+		344A7F10250B7A5100743A93 /* OXADFPInterstitial.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXADFPInterstitial.m; sourceTree = "<group>"; };
+		344A7F13250B823F00743A93 /* OXADFPInterstitialTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXADFPInterstitialTest.swift; sourceTree = "<group>"; };
+		344A7F15250B83E200743A93 /* OXAGADRewardedAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGADRewardedAd.h; sourceTree = "<group>"; };
+		344A7F16250B83E200743A93 /* OXAGADRewardedAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGADRewardedAd.m; sourceTree = "<group>"; };
+		344A7F19250B8E5400743A93 /* OXAGADRewardedAdTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXAGADRewardedAdTest.swift; sourceTree = "<group>"; };
+		3459DF4B25E8D87F004EC761 /* OXAGADUnifiedNativeAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGADUnifiedNativeAd.h; sourceTree = "<group>"; };
+		3459DF4C25E8D8B4004EC761 /* OXAGADUnifiedNativeAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGADUnifiedNativeAd.m; sourceTree = "<group>"; };
+		346A9C9624F8F4CE002892BC /* OXAMoPubAdapterConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OXAMoPubAdapterConfiguration.h; sourceTree = "<group>"; };
+		346A9C9724F8F4CF002892BC /* OXAMoPubAdapterConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubAdapterConfiguration.m; sourceTree = "<group>"; };
+		346C50EA250BC05A00435A73 /* OXAGAMError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMError.h; sourceTree = "<group>"; };
+		346C50EB250BC05A00435A73 /* OXAGAMError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMError.m; sourceTree = "<group>"; };
+		34B64D5C24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenXApolloGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		34B64D5E24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenXApolloGAMEventHandlers.h; sourceTree = "<group>"; };
+		34B64D5F24F7E41600FDD9F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		34B64D6424F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMInterstitialEventHandler.h; sourceTree = "<group>"; };
+		34B64D6524F7E51300FDD9F4 /* OXAGAMBannerEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMBannerEventHandler.h; sourceTree = "<group>"; };
+		34B64D6624F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMInterstitialEventHandler.m; sourceTree = "<group>"; };
+		34B64D6724F7E51300FDD9F4 /* OXAGAMBannerEventHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMBannerEventHandler.m; sourceTree = "<group>"; };
+		34B64D6824F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMRewardedEventHandler.h; sourceTree = "<group>"; };
+		34B64D6924F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMRewardedEventHandler.m; sourceTree = "<group>"; };
+		34B64D6E24F7E6C400FDD9F4 /* OpenXApolloGAMEventHandlers.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = OpenXApolloGAMEventHandlers.modulemap; sourceTree = "<group>"; };
+		34B64D7024F7E8A100FDD9F4 /* OpenXApolloSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenXApolloSDK.framework; path = ../Products/OpenXApolloSDK.framework; sourceTree = "<group>"; };
+		34B64D7E24F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenXApolloMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		34B64D8024F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenXApolloMoPubAdapters.h; sourceTree = "<group>"; };
+		34B64D8124F7ED9600FDD9F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		34B64D9724F7EEA700FDD9F4 /* OpenXApolloMoPubAdapters.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = OpenXApolloMoPubAdapters.modulemap; sourceTree = "<group>"; };
+		34B64D9824F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OXAMoPubBannerAdapter.h; sourceTree = "<group>"; };
+		34B64D9924F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubInterstitialAdapter.m; sourceTree = "<group>"; };
+		34B64D9A24F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OXAMoPubVideoInterstitialAdapter.h; sourceTree = "<group>"; };
+		34B64D9B24F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubVideoInterstitialAdapter.m; sourceTree = "<group>"; };
+		34B64D9C24F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubBannerAdapter.m; sourceTree = "<group>"; };
+		34B64D9D24F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OXAMoPubInterstitialAdapter.h; sourceTree = "<group>"; };
+		34B64D9E24F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubRewardedVideoAdapter.m; sourceTree = "<group>"; };
+		34B64D9F24F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OXAMoPubRewardedVideoAdapter.h; sourceTree = "<group>"; };
+		34C7964125DD59370072A898 /* OXAGAMUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMUtils.h; sourceTree = "<group>"; };
+		34C7964225DD59370072A898 /* OXAGAMUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMUtils.m; sourceTree = "<group>"; };
+		34C7964B25DD5AFA0072A898 /* OXAGAMUtils+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OXAGAMUtils+Internal.h"; sourceTree = "<group>"; };
+		34C7964F25DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGADNativeCustomTemplateAd.h; sourceTree = "<group>"; };
+		34C7965025DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGADNativeCustomTemplateAd.m; sourceTree = "<group>"; };
+		34C7965725DD67470072A898 /* OXALocalResponseInfoCache+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "OXALocalResponseInfoCache+Internal.h"; path = "../../../../OpenXSDKCore/OpenXSDKCore/Prebid/Integrations/PrimarySDKUtilHelpers/OXALocalResponseInfoCache+Internal.h"; sourceTree = "<group>"; };
+		34C7965C25DD68170072A898 /* OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OXAScheduledTimerFactory.h; path = ../../../../OpenXSDKCore/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/OXAScheduledTimerFactory.h; sourceTree = "<group>"; };
+		34C7965D25DD68170072A898 /* NSTimer+OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTimer+OXAScheduledTimerFactory.h"; path = "../../../../OpenXSDKCore/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/NSTimer+OXAScheduledTimerFactory.h"; sourceTree = "<group>"; };
+		34C7966325DD69160072A898 /* DO_NOT_MOVE_THESE_FILES.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = DO_NOT_MOVE_THESE_FILES.txt; sourceTree = "<group>"; };
+		34C7967925DE52CD0072A898 /* OXAGAMConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMConstants.h; sourceTree = "<group>"; };
+		34C7967A25DE52CD0072A898 /* OXAGAMConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMConstants.m; sourceTree = "<group>"; };
+		34C7C9E92509018B0021C6D0 /* OXADFPBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXADFPBanner.h; sourceTree = "<group>"; };
+		34C7C9EA2509018B0021C6D0 /* OXADFPBanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXADFPBanner.m; sourceTree = "<group>"; };
+		34C7C9F1250A1B610021C6D0 /* OXAInvocationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAInvocationHelper.h; sourceTree = "<group>"; };
+		34C7C9F2250A1B610021C6D0 /* OXAInvocationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAInvocationHelper.m; sourceTree = "<group>"; };
+		3FEDB3441581AD2740D0FD55 /* Pods-OpenXApolloGAMEventHandlersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXApolloGAMEventHandlersTests.debug.xcconfig"; path = "Target Support Files/Pods-OpenXApolloGAMEventHandlersTests/Pods-OpenXApolloGAMEventHandlersTests.debug.xcconfig"; sourceTree = "<group>"; };
+		74A8BF7A4E7A6F80D6A4AD3A /* Pods-OpenXApolloGAMEventHandlers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXApolloGAMEventHandlers.release.xcconfig"; path = "Target Support Files/Pods-OpenXApolloGAMEventHandlers/Pods-OpenXApolloGAMEventHandlers.release.xcconfig"; sourceTree = "<group>"; };
+		83248AAFDF3FB8E502728AC9 /* Pods_OpenXApolloGAMEventHandlersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenXApolloGAMEventHandlersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		92831E907BEC58ECDD9AB0B0 /* Pods-OpenXApolloGAMEventHandlersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXApolloGAMEventHandlersTests.release.xcconfig"; path = "Target Support Files/Pods-OpenXApolloGAMEventHandlersTests/Pods-OpenXApolloGAMEventHandlersTests.release.xcconfig"; sourceTree = "<group>"; };
+		A16A0485A8ADF00DFD4EF782 /* Pods-OpenXApolloMoPubAdapters.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXApolloMoPubAdapters.release.xcconfig"; path = "Target Support Files/Pods-OpenXApolloMoPubAdapters/Pods-OpenXApolloMoPubAdapters.release.xcconfig"; sourceTree = "<group>"; };
+		AC47330625D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubNativeCustomEvent.h; sourceTree = "<group>"; };
+		AC47330725D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubNativeCustomEvent.m; sourceTree = "<group>"; };
+		AC4733AC25D55BD50041EEBA /* OXAMoPubNativeAdRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubNativeAdRenderer.h; sourceTree = "<group>"; };
+		AC4733AD25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubNativeAdAdapter.h; sourceTree = "<group>"; };
+		AC4733AE25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubNativeAdAdapter.m; sourceTree = "<group>"; };
+		AC4733AF25D55BD70041EEBA /* OXAMoPubNativeAdRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubNativeAdRenderer.m; sourceTree = "<group>"; };
+		AC94A9D54E941090D53CFFC4 /* Pods_OpenXApolloMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenXApolloMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACF3824025EFBD89000A071B /* OXAMoPubConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubConstants.h; sourceTree = "<group>"; };
+		ACF3824125EFBD89000A071B /* OXAMoPubConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubConstants.m; sourceTree = "<group>"; };
+		ACF3824A25EFC147000A071B /* OXAMoPubNativeAdUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubNativeAdUtils.h; sourceTree = "<group>"; };
+		ACF3824B25EFC147000A071B /* OXAMoPubNativeAdUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubNativeAdUtils.m; sourceTree = "<group>"; };
+		ACF3825525EFC86D000A071B /* DO_NOT_MOVE_THESE_FILES.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DO_NOT_MOVE_THESE_FILES.txt; sourceTree = "<group>"; };
+		ACF3825A25EFC8E5000A071B /* OXALocalResponseInfoCache+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "OXALocalResponseInfoCache+Internal.h"; path = "../../../../OpenXSDKCore/OpenXSDKCore/Prebid/Integrations/PrimarySDKUtilHelpers/OXALocalResponseInfoCache+Internal.h"; sourceTree = "<group>"; };
+		ACF3825F25EFCA1B000A071B /* OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OXAScheduledTimerFactory.h; path = ../../../../OpenXSDKCore/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/OXAScheduledTimerFactory.h; sourceTree = "<group>"; };
+		ACF3826725EFCA50000A071B /* NSTimer+OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTimer+OXAScheduledTimerFactory.h"; path = "../../../../OpenXSDKCore/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/NSTimer+OXAScheduledTimerFactory.h"; sourceTree = "<group>"; };
+		ACF3826825EFCAD9000A071B /* OXAMoPubNativeAdUtils+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OXAMoPubNativeAdUtils+Internal.h"; sourceTree = "<group>"; };
+		ACF3831A25F0F91C000A071B /* OXAMoPubError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubError.h; sourceTree = "<group>"; };
+		ACF3831B25F0F91C000A071B /* OXAMoPubError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubError.m; sourceTree = "<group>"; };
+		B4F634A2CD51206A74B992F5 /* Pods-OpenXApolloMoPubAdapters.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXApolloMoPubAdapters.debug.xcconfig"; path = "Target Support Files/Pods-OpenXApolloMoPubAdapters/Pods-OpenXApolloMoPubAdapters.debug.xcconfig"; sourceTree = "<group>"; };
+		E6F16A5619567130256104BF /* Pods-OpenXApolloGAMEventHandlers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXApolloGAMEventHandlers.debug.xcconfig"; path = "Target Support Files/Pods-OpenXApolloGAMEventHandlers/Pods-OpenXApolloGAMEventHandlers.debug.xcconfig"; sourceTree = "<group>"; };
+		F6AA24E8ECDC447CB5116398 /* Pods_OpenXApolloGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenXApolloGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3405F942250A555800268A77 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3405F94A250A555800268A77 /* OpenXApolloGAMEventHandlers.framework in Frameworks */,
+				30C652FBB80C47AFC06E2B57 /* Pods_OpenXApolloGAMEventHandlersTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34B64D5924F7E41600FDD9F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8328A6139C17EC57CD5D3A0F /* Pods_OpenXApolloGAMEventHandlers.framework in Frameworks */,
+				34B64D7124F7E8A100FDD9F4 /* OpenXApolloSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34B64D7B24F7ED9600FDD9F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				371F4B3C6A31093A058D4DF9 /* Pods_OpenXApolloMoPubAdapters.framework in Frameworks */,
+				34B64DAE24F7FD8100FDD9F4 /* OpenXApolloSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3405F946250A555800268A77 /* OpenXApolloGAMEventHandlersTests */ = {
+			isa = PBXGroup;
+			children = (
+				344A7F0A250B743900743A93 /* Extensions */,
+				344A7F07250B73BA00743A93 /* TestModels */,
+				344A7F06250B73A700743A93 /* BoxTests */,
+				3405F949250A555800268A77 /* Info.plist */,
+				3405F952250A5A5800268A77 /* OpenXApolloGAMEventHandlersTests-Bridging-Header.h */,
+			);
+			path = OpenXApolloGAMEventHandlersTests;
+			sourceTree = "<group>";
+		};
+		344A7F06250B73A700743A93 /* BoxTests */ = {
+			isa = PBXGroup;
+			children = (
+				3405F950250A55AE00268A77 /* OXADFPBannerTest.swift */,
+				344A7F0D250B749600743A93 /* OXADFPRequestTest.swift */,
+				344A7F13250B823F00743A93 /* OXADFPInterstitialTest.swift */,
+				344A7F19250B8E5400743A93 /* OXAGADRewardedAdTest.swift */,
+			);
+			path = BoxTests;
+			sourceTree = "<group>";
+		};
+		344A7F07250B73BA00743A93 /* TestModels */ = {
+			isa = PBXGroup;
+			children = (
+				344A7F08250B73FA00743A93 /* PropertyTestModels.swift */,
+			);
+			path = TestModels;
+			sourceTree = "<group>";
+		};
+		344A7F0A250B743900743A93 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				344A7F0B250B744D00743A93 /* GADAdSize+Equatable.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		34B64D4224F7D95800FDD9F4 = {
+			isa = PBXGroup;
+			children = (
+				34B64D7024F7E8A100FDD9F4 /* OpenXApolloSDK.framework */,
+				34B64D5D24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers */,
+				34B64D7F24F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters */,
+				3405F946250A555800268A77 /* OpenXApolloGAMEventHandlersTests */,
+				34B64D4D24F7D95800FDD9F4 /* Products */,
+				CC2CD67F9CF37B42D798F5DD /* Pods */,
+				C2145F51A9F0F90E814B8F9A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		34B64D4D24F7D95800FDD9F4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				34B64D5C24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.framework */,
+				34B64D7E24F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.framework */,
+				3405F945250A555800268A77 /* OpenXApolloGAMEventHandlersTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		34B64D5D24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers */ = {
+			isa = PBXGroup;
+			children = (
+				34B64D6D24F7E54700FDD9F4 /* Sources */,
+				34B64D5E24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.h */,
+				34B64D6E24F7E6C400FDD9F4 /* OpenXApolloGAMEventHandlers.modulemap */,
+				34B64D5F24F7E41600FDD9F4 /* Info.plist */,
+			);
+			path = OpenXApolloGAMEventHandlers;
+			sourceTree = "<group>";
+		};
+		34B64D6D24F7E54700FDD9F4 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				34C7965625DD67110072A898 /* InternalAPIExtensions */,
+				34C7967925DE52CD0072A898 /* OXAGAMConstants.h */,
+				34C7967A25DE52CD0072A898 /* OXAGAMConstants.m */,
+				346C50EA250BC05A00435A73 /* OXAGAMError.h */,
+				346C50EB250BC05A00435A73 /* OXAGAMError.m */,
+				34C7C9E8250901410021C6D0 /* Boxes */,
+				34B64D6524F7E51300FDD9F4 /* OXAGAMBannerEventHandler.h */,
+				34B64D6724F7E51300FDD9F4 /* OXAGAMBannerEventHandler.m */,
+				34B64D6424F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.h */,
+				34B64D6624F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.m */,
+				34B64D6824F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.h */,
+				34B64D6924F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.m */,
+				34C7964B25DD5AFA0072A898 /* OXAGAMUtils+Internal.h */,
+				34C7964125DD59370072A898 /* OXAGAMUtils.h */,
+				34C7964225DD59370072A898 /* OXAGAMUtils.m */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		34B64D7F24F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				34B64D8624F7ED9D00FDD9F4 /* Sources */,
+				34B64D8024F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.h */,
+				34B64D9724F7EEA700FDD9F4 /* OpenXApolloMoPubAdapters.modulemap */,
+				34B64D8124F7ED9600FDD9F4 /* Info.plist */,
+			);
+			path = OpenXApolloMoPubAdapters;
+			sourceTree = "<group>";
+		};
+		34B64D8624F7ED9D00FDD9F4 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				ACF3825425EFC86D000A071B /* InternalAPIExtensions */,
+				ACF3824025EFBD89000A071B /* OXAMoPubConstants.h */,
+				ACF3824125EFBD89000A071B /* OXAMoPubConstants.m */,
+				ACF3831A25F0F91C000A071B /* OXAMoPubError.h */,
+				ACF3831B25F0F91C000A071B /* OXAMoPubError.m */,
+				ACF3826825EFCAD9000A071B /* OXAMoPubNativeAdUtils+Internal.h */,
+				ACF3824A25EFC147000A071B /* OXAMoPubNativeAdUtils.h */,
+				ACF3824B25EFC147000A071B /* OXAMoPubNativeAdUtils.m */,
+				346A9C9624F8F4CE002892BC /* OXAMoPubAdapterConfiguration.h */,
+				346A9C9724F8F4CF002892BC /* OXAMoPubAdapterConfiguration.m */,
+				34B64D9824F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.h */,
+				34B64D9C24F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.m */,
+				34B64D9D24F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.h */,
+				34B64D9924F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.m */,
+				34B64D9F24F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.h */,
+				34B64D9E24F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.m */,
+				34B64D9A24F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.h */,
+				34B64D9B24F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.m */,
+				AC4733AD25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.h */,
+				AC4733AE25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.m */,
+				AC4733AC25D55BD50041EEBA /* OXAMoPubNativeAdRenderer.h */,
+				AC4733AF25D55BD70041EEBA /* OXAMoPubNativeAdRenderer.m */,
+				AC47330625D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.h */,
+				AC47330725D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.m */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		34C7965625DD67110072A898 /* InternalAPIExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				34C7966325DD69160072A898 /* DO_NOT_MOVE_THESE_FILES.txt */,
+				34C7965725DD67470072A898 /* OXALocalResponseInfoCache+Internal.h */,
+				34C7965C25DD68170072A898 /* OXAScheduledTimerFactory.h */,
+				34C7965D25DD68170072A898 /* NSTimer+OXAScheduledTimerFactory.h */,
+			);
+			path = InternalAPIExtensions;
+			sourceTree = "<group>";
+		};
+		34C7C9E8250901410021C6D0 /* Boxes */ = {
+			isa = PBXGroup;
+			children = (
+				34C7C9F5250A1B680021C6D0 /* InvocationHelper */,
+				34C7C9E92509018B0021C6D0 /* OXADFPBanner.h */,
+				34C7C9EA2509018B0021C6D0 /* OXADFPBanner.m */,
+				344A7F00250B6C4E00743A93 /* OXADFPRequest.h */,
+				344A7F01250B6C4E00743A93 /* OXADFPRequest.m */,
+				344A7F0F250B7A5100743A93 /* OXADFPInterstitial.h */,
+				344A7F10250B7A5100743A93 /* OXADFPInterstitial.m */,
+				344A7F15250B83E200743A93 /* OXAGADRewardedAd.h */,
+				344A7F16250B83E200743A93 /* OXAGADRewardedAd.m */,
+				34C7964F25DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.h */,
+				34C7965025DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.m */,
+				3459DF4B25E8D87F004EC761 /* OXAGADUnifiedNativeAd.h */,
+				3459DF4C25E8D8B4004EC761 /* OXAGADUnifiedNativeAd.m */,
+			);
+			path = Boxes;
+			sourceTree = "<group>";
+		};
+		34C7C9F5250A1B680021C6D0 /* InvocationHelper */ = {
+			isa = PBXGroup;
+			children = (
+				34C7C9F1250A1B610021C6D0 /* OXAInvocationHelper.h */,
+				34C7C9F2250A1B610021C6D0 /* OXAInvocationHelper.m */,
+			);
+			path = InvocationHelper;
+			sourceTree = "<group>";
+		};
+		ACF3825425EFC86D000A071B /* InternalAPIExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				ACF3825525EFC86D000A071B /* DO_NOT_MOVE_THESE_FILES.txt */,
+				ACF3825A25EFC8E5000A071B /* OXALocalResponseInfoCache+Internal.h */,
+				ACF3825F25EFCA1B000A071B /* OXAScheduledTimerFactory.h */,
+				ACF3826725EFCA50000A071B /* NSTimer+OXAScheduledTimerFactory.h */,
+			);
+			path = InternalAPIExtensions;
+			sourceTree = "<group>";
+		};
+		C2145F51A9F0F90E814B8F9A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F6AA24E8ECDC447CB5116398 /* Pods_OpenXApolloGAMEventHandlers.framework */,
+				AC94A9D54E941090D53CFFC4 /* Pods_OpenXApolloMoPubAdapters.framework */,
+				83248AAFDF3FB8E502728AC9 /* Pods_OpenXApolloGAMEventHandlersTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC2CD67F9CF37B42D798F5DD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E6F16A5619567130256104BF /* Pods-OpenXApolloGAMEventHandlers.debug.xcconfig */,
+				74A8BF7A4E7A6F80D6A4AD3A /* Pods-OpenXApolloGAMEventHandlers.release.xcconfig */,
+				B4F634A2CD51206A74B992F5 /* Pods-OpenXApolloMoPubAdapters.debug.xcconfig */,
+				A16A0485A8ADF00DFD4EF782 /* Pods-OpenXApolloMoPubAdapters.release.xcconfig */,
+				3FEDB3441581AD2740D0FD55 /* Pods-OpenXApolloGAMEventHandlersTests.debug.xcconfig */,
+				92831E907BEC58ECDD9AB0B0 /* Pods-OpenXApolloGAMEventHandlersTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		34B64D5724F7E41600FDD9F4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				344A7F17250B83E200743A93 /* OXAGADRewardedAd.h in Headers */,
+				344A7F11250B7A5100743A93 /* OXADFPInterstitial.h in Headers */,
+				346C50EC250BC05A00435A73 /* OXAGAMError.h in Headers */,
+				34B64D6024F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.h in Headers */,
+				344A7F02250B6C4E00743A93 /* OXADFPRequest.h in Headers */,
+				34C7C9F3250A1B610021C6D0 /* OXAInvocationHelper.h in Headers */,
+				34C7964325DD59370072A898 /* OXAGAMUtils.h in Headers */,
+				34C7965825DD67470072A898 /* OXALocalResponseInfoCache+Internal.h in Headers */,
+				34C7965125DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.h in Headers */,
+				34B64D7824F7EA8300FDD9F4 /* OXAGAMRewardedEventHandler.h in Headers */,
+				34B64D7624F7EA8300FDD9F4 /* OXAGAMBannerEventHandler.h in Headers */,
+				34C7967B25DE52CD0072A898 /* OXAGAMConstants.h in Headers */,
+				34C7C9EB2509018B0021C6D0 /* OXADFPBanner.h in Headers */,
+				34B64D7724F7EA8300FDD9F4 /* OXAGAMInterstitialEventHandler.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34B64D7924F7ED9600FDD9F4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACF3831C25F0F91D000A071B /* OXAMoPubError.h in Headers */,
+				AC47330825D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.h in Headers */,
+				ACF3824225EFBD8A000A071B /* OXAMoPubConstants.h in Headers */,
+				34B64DA224F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.h in Headers */,
+				AC4733D225D56A5D0041EEBA /* OXAMoPubNativeAdAdapter.h in Headers */,
+				ACF3825B25EFC8E5000A071B /* OXALocalResponseInfoCache+Internal.h in Headers */,
+				34B64D8224F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.h in Headers */,
+				34B64DA024F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.h in Headers */,
+				34B64DA724F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.h in Headers */,
+				346A9C9824F8F4CF002892BC /* OXAMoPubAdapterConfiguration.h in Headers */,
+				AC4733CB25D56A400041EEBA /* OXAMoPubNativeAdRenderer.h in Headers */,
+				ACF3824C25EFC147000A071B /* OXAMoPubNativeAdUtils.h in Headers */,
+				34B64DA524F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.h in Headers */,
+				ACF3826925EFCAD9000A071B /* OXAMoPubNativeAdUtils+Internal.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		3405F944250A555800268A77 /* OpenXApolloGAMEventHandlersTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3405F94F250A555800268A77 /* Build configuration list for PBXNativeTarget "OpenXApolloGAMEventHandlersTests" */;
+			buildPhases = (
+				91AC585089E542FF66ED87D3 /* [CP] Check Pods Manifest.lock */,
+				3405F941250A555800268A77 /* Sources */,
+				3405F942250A555800268A77 /* Frameworks */,
+				3405F943250A555800268A77 /* Resources */,
+				4B9C28B1840A80798F3DED3A /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3405F94C250A555800268A77 /* PBXTargetDependency */,
+			);
+			name = OpenXApolloGAMEventHandlersTests;
+			productName = OpenXApolloGAMEventHandlersTests;
+			productReference = 3405F945250A555800268A77 /* OpenXApolloGAMEventHandlersTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		34B64D5B24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34B64D6124F7E41600FDD9F4 /* Build configuration list for PBXNativeTarget "OpenXApolloGAMEventHandlers" */;
+			buildPhases = (
+				7886EF329E9F7CAA55680571 /* [CP] Check Pods Manifest.lock */,
+				34B64D5724F7E41600FDD9F4 /* Headers */,
+				34B64D5824F7E41600FDD9F4 /* Sources */,
+				34B64D5924F7E41600FDD9F4 /* Frameworks */,
+				34B64D5A24F7E41600FDD9F4 /* Resources */,
+				34B64D6F24F7E7B200FDD9F4 /* Copy out .framework */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OpenXApolloGAMEventHandlers;
+			productName = OpenXApolloGAMEventHandlers;
+			productReference = 34B64D5C24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		34B64D7D24F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 34B64D8324F7ED9600FDD9F4 /* Build configuration list for PBXNativeTarget "OpenXApolloMoPubAdapters" */;
+			buildPhases = (
+				8578B2143F38A543205DDFB9 /* [CP] Check Pods Manifest.lock */,
+				34B64D7924F7ED9600FDD9F4 /* Headers */,
+				34B64D7A24F7ED9600FDD9F4 /* Sources */,
+				34B64D7B24F7ED9600FDD9F4 /* Frameworks */,
+				34B64D7C24F7ED9600FDD9F4 /* Resources */,
+				34B64DA824F7FCE400FDD9F4 /* Copy out .framework */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OpenXApolloMoPubAdapters;
+			productName = OpenXApolloMoPubAdapters;
+			productReference = 34B64D7E24F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		34B64D4324F7D95800FDD9F4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1170;
+				LastUpgradeCheck = 1210;
+				ORGANIZATIONNAME = OpenX;
+				TargetAttributes = {
+					3405F944250A555800268A77 = {
+						CreatedOnToolsVersion = 11.7;
+						LastSwiftMigration = 1170;
+					};
+					34B64D5B24F7E41600FDD9F4 = {
+						CreatedOnToolsVersion = 11.6;
+					};
+					34B64D7D24F7ED9600FDD9F4 = {
+						CreatedOnToolsVersion = 11.6;
+					};
+				};
+			};
+			buildConfigurationList = 34B64D4624F7D95800FDD9F4 /* Build configuration list for PBXProject "EventHandlers" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 34B64D4224F7D95800FDD9F4;
+			productRefGroup = 34B64D4D24F7D95800FDD9F4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				34B64D5B24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers */,
+				34B64D7D24F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters */,
+				3405F944250A555800268A77 /* OpenXApolloGAMEventHandlersTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3405F943250A555800268A77 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34B64D5A24F7E41600FDD9F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34B64D7C24F7ED9600FDD9F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACF3825625EFC86D000A071B /* DO_NOT_MOVE_THESE_FILES.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		34B64D6F24F7E7B200FDD9F4 /* Copy out .framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy out .framework";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellScript = "$SRCROOT/../copy_framework_to_apps.sh\n";
+		};
+		34B64DA824F7FCE400FDD9F4 /* Copy out .framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy out .framework";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellScript = "$SRCROOT/../copy_framework_to_apps.sh\n";
+		};
+		4B9C28B1840A80798F3DED3A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OpenXApolloGAMEventHandlersTests/Pods-OpenXApolloGAMEventHandlersTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OpenXApolloGAMEventHandlersTests/Pods-OpenXApolloGAMEventHandlersTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenXApolloGAMEventHandlersTests/Pods-OpenXApolloGAMEventHandlersTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7886EF329E9F7CAA55680571 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OpenXApolloGAMEventHandlers-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8578B2143F38A543205DDFB9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OpenXApolloMoPubAdapters-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		91AC585089E542FF66ED87D3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OpenXApolloGAMEventHandlersTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3405F941250A555800268A77 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				344A7F09250B73FA00743A93 /* PropertyTestModels.swift in Sources */,
+				344A7F0E250B749600743A93 /* OXADFPRequestTest.swift in Sources */,
+				344A7F1A250B8E5400743A93 /* OXAGADRewardedAdTest.swift in Sources */,
+				344A7F14250B823F00743A93 /* OXADFPInterstitialTest.swift in Sources */,
+				344A7F0C250B744D00743A93 /* GADAdSize+Equatable.swift in Sources */,
+				3405F951250A55AE00268A77 /* OXADFPBannerTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34B64D5824F7E41600FDD9F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				34C7C9EC2509018B0021C6D0 /* OXADFPBanner.m in Sources */,
+				344A7F12250B7A5100743A93 /* OXADFPInterstitial.m in Sources */,
+				34C7967C25DE52CD0072A898 /* OXAGAMConstants.m in Sources */,
+				34C7C9F4250A1B610021C6D0 /* OXAInvocationHelper.m in Sources */,
+				34B64D6B24F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.m in Sources */,
+				344A7F18250B83E200743A93 /* OXAGADRewardedAd.m in Sources */,
+				344A7F03250B6C4E00743A93 /* OXADFPRequest.m in Sources */,
+				34C7964425DD59370072A898 /* OXAGAMUtils.m in Sources */,
+				34C7965225DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.m in Sources */,
+				34B64D6C24F7E51300FDD9F4 /* OXAGAMBannerEventHandler.m in Sources */,
+				3459DF4D25E8D8B4004EC761 /* OXAGADUnifiedNativeAd.m in Sources */,
+				34B64D6A24F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.m in Sources */,
+				346C50ED250BC05A00435A73 /* OXAGAMError.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		34B64D7A24F7ED9600FDD9F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACF3824D25EFC147000A071B /* OXAMoPubNativeAdUtils.m in Sources */,
+				34B64DA324F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.m in Sources */,
+				34B64DA124F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.m in Sources */,
+				ACF3831D25F0F91D000A071B /* OXAMoPubError.m in Sources */,
+				34B64DA624F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.m in Sources */,
+				AC4733B125D55BD70041EEBA /* OXAMoPubNativeAdAdapter.m in Sources */,
+				346A9C9924F8F4CF002892BC /* OXAMoPubAdapterConfiguration.m in Sources */,
+				34B64DA424F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.m in Sources */,
+				AC4733B025D55BD70041EEBA /* OXAMoPubNativeAdRenderer.m in Sources */,
+				AC47330925D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.m in Sources */,
+				ACF3824325EFBD8A000A071B /* OXAMoPubConstants.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3405F94C250A555800268A77 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 34B64D5B24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers */;
+			targetProxy = 3405F94B250A555800268A77 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		3405F94D250A555800268A77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3FEDB3441581AD2740D0FD55 /* Pods-OpenXApolloGAMEventHandlersTests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = FQD5T8P989;
+				INFOPLIST_FILE = OpenXApolloGAMEventHandlersTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.openx.OpenXApolloGAMEventHandlersTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "OpenXApolloGAMEventHandlersTests/OpenXApolloGAMEventHandlersTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3405F94E250A555800268A77 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92831E907BEC58ECDD9AB0B0 /* Pods-OpenXApolloGAMEventHandlersTests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = FQD5T8P989;
+				INFOPLIST_FILE = OpenXApolloGAMEventHandlersTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.openx.OpenXApolloGAMEventHandlersTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "OpenXApolloGAMEventHandlersTests/OpenXApolloGAMEventHandlersTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		34B64D5224F7D95800FDD9F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		34B64D5324F7D95800FDD9F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		34B64D6224F7E41600FDD9F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E6F16A5619567130256104BF /* Pods-OpenXApolloGAMEventHandlers.debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = FQD5T8P989;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				"EXCLUDED_ARCHS[sdk=iphoneos*]" = "i386 x86_64";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 arm64e armv7 armv7s";
+				INFOPLIST_FILE = OpenXApolloGAMEventHandlers/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.3.0;
+				MODULEMAP_FILE = OpenXApolloGAMEventHandlers/OpenXApolloGAMEventHandlers.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.openx.apollo.GAMEventHandlers;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		34B64D6324F7E41600FDD9F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 74A8BF7A4E7A6F80D6A4AD3A /* Pods-OpenXApolloGAMEventHandlers.release.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				"EXCLUDED_ARCHS[sdk=iphoneos*]" = "i386 x86_64";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 arm64e armv7 armv7s";
+				INFOPLIST_FILE = OpenXApolloGAMEventHandlers/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.3.0;
+				MODULEMAP_FILE = OpenXApolloGAMEventHandlers/OpenXApolloGAMEventHandlers.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.openx.apollo.GAMEventHandlers;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		34B64D8424F7ED9600FDD9F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B4F634A2CD51206A74B992F5 /* Pods-OpenXApolloMoPubAdapters.debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = FQD5T8P989;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = OpenXApolloMoPubAdapters/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.3.0;
+				MODULEMAP_FILE = OpenXApolloMoPubAdapters/OpenXApolloMoPubAdapters.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.openx.OpenXApolloMoPubAdapters;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		34B64D8524F7ED9600FDD9F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A16A0485A8ADF00DFD4EF782 /* Pods-OpenXApolloMoPubAdapters.release.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
+				CODE_SIGN_STYLE = Manual;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = OpenXApolloMoPubAdapters/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.3.0;
+				MODULEMAP_FILE = OpenXApolloMoPubAdapters/OpenXApolloMoPubAdapters.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.openx.OpenXApolloMoPubAdapters;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3405F94F250A555800268A77 /* Build configuration list for PBXNativeTarget "OpenXApolloGAMEventHandlersTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3405F94D250A555800268A77 /* Debug */,
+				3405F94E250A555800268A77 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34B64D4624F7D95800FDD9F4 /* Build configuration list for PBXProject "EventHandlers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34B64D5224F7D95800FDD9F4 /* Debug */,
+				34B64D5324F7D95800FDD9F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34B64D6124F7E41600FDD9F4 /* Build configuration list for PBXNativeTarget "OpenXApolloGAMEventHandlers" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34B64D6224F7E41600FDD9F4 /* Debug */,
+				34B64D6324F7E41600FDD9F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		34B64D8324F7ED9600FDD9F4 /* Build configuration list for PBXNativeTarget "OpenXApolloMoPubAdapters" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				34B64D8424F7ED9600FDD9F4 /* Debug */,
+				34B64D8524F7ED9600FDD9F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 34B64D4324F7D95800FDD9F4 /* Project object */;
+}

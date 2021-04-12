@@ -1,0 +1,69 @@
+<!-- VAST document with one Wrapper ad -->
+<VAST version="2.0">
+    <Error><![CDATA[http://myErrorURL/wrapper/Error]]></Error>
+    <Ad id="602833">
+        <Wrapper>
+            <AdSystem>Wrapper AdSystem</AdSystem>
+            <VASTAdTagURI>http://foo.com/inline/vast</VASTAdTagURI>
+            <Impression>http://myTrackingURL/wrapper/impression</Impression>
+            <Impression>http://myTrackingURL/wrapper/anotherImpression</Impression>
+            <Creatives>
+                <Creative AdID="602833">
+                    <Linear>
+                        <TrackingEvents>
+                            <Tracking event="creativeView"><![CDATA[http://myTrackingURL/wrapper/creativeView]]></Tracking>
+                            <Tracking event="start"><![CDATA[http://myTrackingURL/wrapper/start1]]></Tracking>
+                            <Tracking event="start"><![CDATA[http://myTrackingURL/wrapper/start2]]></Tracking>
+                            <Tracking event="midpoint"><![CDATA[http://myTrackingURL/wrapper/midpoint]]></Tracking>
+                            <Tracking event="firstQuartile"><![CDATA[http://myTrackingURL/wrapper/firstQuartile]]></Tracking>
+                            <Tracking event="thirdQuartile"><![CDATA[http://myTrackingURL/wrapper/thirdQuartile]]></Tracking>
+                            <Tracking event="complete"><![CDATA[http://myTrackingURL/wrapper/complete]]></Tracking>
+                            <Tracking event="mute"><![CDATA[http://myTrackingURL/wrapper/mute]]></Tracking>
+                            <Tracking event="unmute"><![CDATA[http://myTrackingURL/wrapper/unmute]]></Tracking>
+                            <Tracking event="pause"><![CDATA[http://myTrackingURL/wrapper/pause]]></Tracking>
+                            <Tracking event="rewind"><![CDATA[http://myTrackingURL/wrapper/rewind]]></Tracking>
+                            <Tracking event="resume"><![CDATA[http://myTrackingURL/wrapper/resume]]></Tracking>
+                            <Tracking event="fullscreen"><![CDATA[http://myTrackingURL/wrapper/fullscreen]]></Tracking>
+                            <Tracking event="expand"><![CDATA[http://myTrackingURL/wrapper/expand]]></Tracking>
+                            <Tracking event="collapse"><![CDATA[http://myTrackingURL/wrapper/collapse]]></Tracking>
+                            <Tracking event="acceptInvitation"><![CDATA[http://myTrackingURL/wrapper/acceptInvitation]]></Tracking>
+                            <Tracking event="close"><![CDATA[http://myTrackingURL/wrapper/close]]></Tracking>
+                        </TrackingEvents>
+                        <VideoClicks>
+                            <ClickTracking id="first"><![CDATA[http://myTrackingURL/wrapper/click1]]></ClickTracking>
+                            <ClickTracking id="second"><![CDATA[http://myTrackingURL/wrapper/click2]]></ClickTracking>
+                            <CustomClick id="customOne"><![CDATA[http://myTrackingURL/wrapper/custom1]]></CustomClick>
+                            <CustomClick id="customTwo"><![CDATA[http://myTrackingURL/wrapper/custom2]]></CustomClick>
+                        </VideoClicks>
+                    </Linear>
+                </Creative>
+            
+                <Creative AdID="602833-Companion">
+                    <CompanionAds>
+                        <Companion>
+                            <TrackingEvents>
+                                <Tracking event="creativeViewFromWrapper">http://myTrackingURL/wrapper/firstCompanionCreativeView</Tracking>
+                            </TrackingEvents>
+                        </Companion>
+                    </CompanionAds>
+                </Creative>
+            </Creatives>
+            <Extensions>
+                <Extension type="AdVerifications">
+                    <AdVerifications>
+                        <Verification vendor="openx">
+                            <JavaScriptResource apiFramework="omid" browserOptional="true">
+                                <![CDATA[http://127.0.0.1:66/omid-validation-verification-script.js]]>
+                            </JavaScriptResource>
+                            <VerificationParameters>
+                                <![CDATA[
+                                    parameter1=value1&parameter2=value2&parameter3=value3
+                                ]]>
+                            </VerificationParameters>
+                        </Verification>
+                    </AdVerifications>
+                </Extension>
+            </Extensions>
+        </Wrapper>
+    </Ad>
+</VAST>

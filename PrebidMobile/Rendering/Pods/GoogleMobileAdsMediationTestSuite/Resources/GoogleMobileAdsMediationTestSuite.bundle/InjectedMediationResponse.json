@@ -1,0 +1,25 @@
+{
+  "ad_type": "interstitial",
+  "qdata": "x",
+  "ad_networks": [
+    {
+      "adapter_class_names": [
+        "{{{InitializerClassName}}}"
+      ],
+      "adapters": [
+        "{{{AdapterClassName}}}"
+      ],
+      "id": "garbage",
+      "imp_urls": [],
+      "data": "{{{some_server_data}}}"
+    }
+  ],
+  "settings": {
+    "click_urls": [
+      "@gw_adnetid@"
+    ],
+    "imp_urls": [],
+    "nofill_urls": [],
+    "refresh": "60"
+  }
+}
