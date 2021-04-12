@@ -43,6 +43,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         Targeting.shared.clearContextData()
         Targeting.shared.clearContextKeywords()
         Targeting.shared.clearUserKeywords()
+        Targeting.shared.clearLocalStoredExternalUserIds()
+        Prebid.shared.externalUserIdArray = []
     }
 
     func testPostData() throws {
@@ -224,8 +226,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual(PrebidHost.Rubicon.name(), urlRequest.url?.absoluteString)
     }
     
-    //MARK: - External UserIds
-    func testPostDataWithExternalUserIds() throws {
+    //MARK: - Prebid External UserId Array
+    func testPostDataWithExternalUserIdsArray() throws {
 
         //given
         var externalUserIdArray = [ExternalUserId]()
@@ -237,6 +239,109 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         externalUserIdArray.append(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
         
         Prebid.shared.externalUserIdArray = externalUserIdArray
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let user = jsonRequestBody["user"] as? [String: Any],
+            let ext = user["ext"] as? [String: Any], let eids = ext["eids"] as? [[String: AnyObject]] else {
+            XCTFail("parsing error")
+            return
+        }
+
+        //then
+        XCTAssertEqual(5, eids.count)
+
+        let adServerDic = eids[0]
+        XCTAssertEqual("adserver.org", adServerDic["source"] as! String)
+        let adServerUids = adServerDic["uids"] as! [[String : AnyObject]]
+        XCTAssertEqual("111111111111", adServerUids[0]["id"] as! String)
+        let adServerExt = adServerUids[0]["ext"] as! [String : AnyObject]
+        XCTAssertEqual("TDID", adServerExt["rtiPartner"] as! String)
+
+
+        let netIdDic = eids[1]
+        XCTAssertEqual("netid.de", netIdDic["source"] as! String)
+        let netIdUids = netIdDic["uids"] as! [[String : AnyObject]]
+        XCTAssertEqual("999888777", netIdUids[0]["id"] as! String)
+
+
+        let criteoDic = eids[2]
+        XCTAssertEqual("criteo.com", criteoDic["source"] as! String)
+        let criteoUids = criteoDic["uids"] as! [[String : AnyObject]]
+        XCTAssertEqual("_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N", criteoUids[0]["id"] as! String)
+
+
+        let liverampDic = eids[3]
+        XCTAssertEqual("liveramp.com", liverampDic["source"] as! String)
+        let liverampUids = liverampDic["uids"] as! [[String : AnyObject]]
+        XCTAssertEqual("AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg", liverampUids[0]["id"] as! String)
+
+
+        let sharedIdDic = eids[4]
+        XCTAssertEqual("sharedid.org", sharedIdDic["source"] as! String)
+        let sharedIdUids = sharedIdDic["uids"] as! [[String : AnyObject]]
+        XCTAssertEqual("111111111111", sharedIdUids[0]["id"] as! String)
+        XCTAssertEqual(1, sharedIdUids[0]["atype"] as! Int)
+        let sharedIdExt = sharedIdUids[0]["ext"] as! [String : AnyObject]
+        XCTAssertEqual("01ERJWE5FS4RAZKG6SKQ3ZYSKV", sharedIdExt["third"] as! String)
+    }
+
+    func testPostDataWithExternalUserIdsArrayForEmptySource() throws {
+
+        //given
+        var externalUserIdArray = [ExternalUserId]()
+        externalUserIdArray.append(ExternalUserId(source: "", identifier: "999888777"))
+
+        Prebid.shared.externalUserIdArray = externalUserIdArray
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let user = jsonRequestBody["user"] as? [String: Any] else {
+            XCTFail("parsing error")
+            return
+        }
+
+        let ext = user["ext"] as? [String: Any]
+        let eids = ext?["eids"] as? [[String: AnyObject]]
+        //then
+        XCTAssertNil(eids)
+
+    }
+
+    func testPostDataWithExternalUserIdsArrayForEmptyUserId() throws {
+
+        //given
+        var externalUserIdArray = [ExternalUserId]()
+        externalUserIdArray.append(ExternalUserId(source: "netid.de", identifier: ""))
+
+        Prebid.shared.externalUserIdArray = externalUserIdArray
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let user = jsonRequestBody["user"] as? [String: Any] else {
+            XCTFail("parsing error")
+            return
+        }
+
+        let ext = user["ext"] as? [String: Any]
+        let eids = ext?["eids"] as? [[String: AnyObject]]
+        //then
+        XCTAssertNil(eids)
+
+    }
+    
+    //MARK: - Targeting External UserIds UserDefault
+    func testPostDataWithTargetingExternalUserIds() throws {
+
+        //given
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "netid.de", identifier: "999888777"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -285,13 +390,10 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual("01ERJWE5FS4RAZKG6SKQ3ZYSKV", sharedIdExt["third"] as! String)
     }
     
-    func testPostDataWithExternalUserIdsForEmptySource() throws {
+    func testPostDataWithTargetingExternalUserIdsForEmptySourceAndUserId() throws {
 
         //given
-        var externalUserIdArray = [ExternalUserId]()
-        externalUserIdArray.append(ExternalUserId(source: "", identifier: "999888777"))
-        
-        Prebid.shared.externalUserIdArray = externalUserIdArray
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "", identifier: "", atype: nil, ext: nil))
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -305,30 +407,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let eids = ext?["eids"] as? [[String: AnyObject]]
         //then
         XCTAssertNil(eids)
-
-    }
-    
-    func testPostDataWithExternalUserIdsForEmptyUserId() throws {
-
-        //given
-        var externalUserIdArray = [ExternalUserId]()
-        externalUserIdArray.append(ExternalUserId(source: "netid.de", identifier: ""))
-        
-        Prebid.shared.externalUserIdArray = externalUserIdArray
-
-        //when
-        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-
-        guard let user = jsonRequestBody["user"] as? [String: Any] else {
-            XCTFail("parsing error")
-            return
-        }
-
-        let ext = user["ext"] as? [String: Any]
-        let eids = ext?["eids"] as? [[String: AnyObject]]
-        //then
-        XCTAssertNil(eids)
-
     }
     
     //MARK: - GDPR Subject

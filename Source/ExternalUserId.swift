@@ -18,7 +18,7 @@ import UIKit
 /**
  Defines the User Id Object from an External Thrid Party Source
  */
-@objcMembers public class ExternalUserId: NSObject {
+@objcMembers public class ExternalUserId: NSObject, NSCoding {
     
     // MARK: - Properties
     public var source: String
@@ -42,5 +42,18 @@ import UIKit
         super.init()
     }
     
+    public func encode(with coder: NSCoder) {
+        coder.encode(self.source, forKey: "source")
+        coder.encode(self.identifier, forKey: "identifier")
+        coder.encode(self.atype, forKey: "atype")
+        coder.encode(self.ext, forKey: "ext")
+    }
+    
+    public required init?(coder: NSCoder) {
+        self.source = coder.decodeObject(forKey: "source") as? String ?? ""
+        self.identifier = coder.decodeObject(forKey: "identifier") as? String ?? ""
+        self.atype = coder.decodeObject(forKey: "atype") as? NSNumber
+        self.ext = coder.decodeObject(forKey: "ext") as? [String: Any]
+    }
 
 }
