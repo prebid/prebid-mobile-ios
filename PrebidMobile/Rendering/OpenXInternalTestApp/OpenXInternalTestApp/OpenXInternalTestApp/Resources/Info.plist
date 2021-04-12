@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>To advertise this app to people who really needed it</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -24,6 +22,8 @@
 	<string>1</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-3384408078236170~9501675642</string>
+	<key>GADNativeAdValidatorEnabled</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fb</string>
@@ -48,6 +48,8 @@
 	<string>Need Photo Access for MRAID Save Photo</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Need Photo Access for MRAID</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>To advertise this app to people who really needed it</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -74,7 +76,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-    <key>GADNativeAdValidatorEnabled</key>
-    <false/>
 </dict>
 </plist>

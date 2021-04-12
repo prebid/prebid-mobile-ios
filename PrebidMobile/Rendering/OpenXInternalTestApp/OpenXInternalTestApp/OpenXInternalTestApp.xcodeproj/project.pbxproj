@@ -1622,7 +1622,7 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.OpenX.OpenXInternalTestApplication;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp;
 				PRODUCT_NAME = OpenXInternalTestApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1656,7 +1656,7 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.OpenX.OpenXInternalTestApplication;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp;
 				PRODUCT_NAME = OpenXInternalTestApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
