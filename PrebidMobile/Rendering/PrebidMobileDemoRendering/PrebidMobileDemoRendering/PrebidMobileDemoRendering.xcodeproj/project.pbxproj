@@ -36,8 +36,8 @@
 		34B5CEE125D2D05C008C0CBC /* PrebidNativeAdRenderingConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B5CEE025D2D05C008C0CBC /* PrebidNativeAdRenderingConfigurationController.swift */; };
 		34B64D7424F7EA1500FDD9F4 /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7224F7EA0F00FDD9F4 /* PrebidMobileGAMEventHandlers.framework */; };
 		34B64D7524F7EA1500FDD9F4 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7224F7EA0F00FDD9F4 /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		34B64DAC24F7FD6E00FDD9F4 /* OpenXApolloMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64DAA24F7FD6000FDD9F4 /* OpenXApolloMoPubAdapters.framework */; };
-		34B64DAD24F7FD6E00FDD9F4 /* OpenXApolloMoPubAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64DAA24F7FD6000FDD9F4 /* OpenXApolloMoPubAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		34B64DAC24F7FD6E00FDD9F4 /* PrebidMobileMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64DAA24F7FD6000FDD9F4 /* PrebidMobileMoPubAdapters.framework */; };
+		34B64DAD24F7FD6E00FDD9F4 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64DAA24F7FD6000FDD9F4 /* PrebidMobileMoPubAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		34BA95FE249CBF05006AE372 /* PrebidGAMInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BA95FD249CBF05006AE372 /* PrebidGAMInterstitialController.swift */; };
 		34BA9600249CC118006AE372 /* PrebidRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BA95FF249CC118006AE372 /* PrebidRewardedController.swift */; };
 		34BA9602249CC164006AE372 /* PrebidMoPubInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BA9601249CC164006AE372 /* PrebidMoPubInterstitialController.swift */; };
@@ -195,7 +195,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				34B64DAD24F7FD6E00FDD9F4 /* OpenXApolloMoPubAdapters.framework in Embed Frameworks */,
+				34B64DAD24F7FD6E00FDD9F4 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */,
 				D08680812398088A00E70E60 /* OpenXMockServer.framework in Embed Frameworks */,
 				34B64D7524F7EA1500FDD9F4 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
 				348A0A7D24EE803A00A6659F /* OpenXApolloSDK.framework in Embed Frameworks */,
@@ -239,7 +239,7 @@
 		34B5CEE025D2D05C008C0CBC /* PrebidNativeAdRenderingConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdRenderingConfigurationController.swift; sourceTree = "<group>"; };
 		34B64D7224F7EA0F00FDD9F4 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PrebidMobileGAMEventHandlers.framework; path = ../../Products/PrebidMobileGAMEventHandlers.framework; sourceTree = "<group>"; };
 		34B64DA924F7FD3900FDD9F4 /* OXASDKConfiguration+InternalState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OXASDKConfiguration+InternalState.h"; path = "../../../../OpenXSDKCore/OpenXSDKCore/Prebid/OXACore/OXASDKConfiguration+InternalState.h"; sourceTree = "<group>"; };
-		34B64DAA24F7FD6000FDD9F4 /* OpenXApolloMoPubAdapters.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenXApolloMoPubAdapters.framework; path = ../../Products/OpenXApolloMoPubAdapters.framework; sourceTree = "<group>"; };
+		34B64DAA24F7FD6000FDD9F4 /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PrebidMobileMoPubAdapters.framework; path = ../../Products/PrebidMobileMoPubAdapters.framework; sourceTree = "<group>"; };
 		34BA95FD249CBF05006AE372 /* PrebidGAMInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMInterstitialController.swift; sourceTree = "<group>"; };
 		34BA95FF249CC118006AE372 /* PrebidRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidRewardedController.swift; sourceTree = "<group>"; };
 		34BA9601249CC164006AE372 /* PrebidMoPubInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMoPubInterstitialController.swift; sourceTree = "<group>"; };
@@ -398,7 +398,7 @@
 				5B5830A920B4370D002B2596 /* StoreKit.framework in Frameworks */,
 				5B5830A720B43704002B2596 /* Social.framework in Frameworks */,
 				5B5830A320B436F1002B2596 /* MessageUI.framework in Frameworks */,
-				34B64DAC24F7FD6E00FDD9F4 /* OpenXApolloMoPubAdapters.framework in Frameworks */,
+				34B64DAC24F7FD6E00FDD9F4 /* PrebidMobileMoPubAdapters.framework in Frameworks */,
 				5B5830A120B436E7002B2596 /* JavaScriptCore.framework in Frameworks */,
 				5B58309F20B436DD002B2596 /* EventKit.framework in Frameworks */,
 				5B58309D20B436D5002B2596 /* CoreTelephony.framework in Frameworks */,
@@ -756,7 +756,7 @@
 			children = (
 				348A0A4A24EE6EFD00A6659F /* OpenXApolloSDK.framework */,
 				34B64D7224F7EA0F00FDD9F4 /* PrebidMobileGAMEventHandlers.framework */,
-				34B64DAA24F7FD6000FDD9F4 /* OpenXApolloMoPubAdapters.framework */,
+				34B64DAA24F7FD6000FDD9F4 /* PrebidMobileMoPubAdapters.framework */,
 				5B3C2A9C2100BC4900BD733C /* PrebidMobileDemoRendering */,
 				35F94D141F93F85D00CF46DB /* PrebidMobileDemoRenderingUITests */,
 				5B6EB0102122CAA400C5B072 /* PrebidMobileDemoRenderingTests */,

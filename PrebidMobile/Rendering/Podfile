@@ -30,7 +30,7 @@ target 'PrebidMobileGAMEventHandlersTests' do
   admob_pods
 end
 
-target 'OpenXApolloMoPubAdapters' do
+target 'PrebidMobileMoPubAdapters' do
   event_handlers_project
   mopub_pods
 end

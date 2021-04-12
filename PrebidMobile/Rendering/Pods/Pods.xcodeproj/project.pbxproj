@@ -91,7 +91,6 @@
 		01620272F5A0C7B017CCCE3346AE517D /* MPVASTCompanionAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1443C3910A6AE1E5D739044801A11EEE /* MPVASTCompanionAdView.m */; };
 		0177B3BFCBA90670361A4C257DBC19FC /* MDCAlertColorThemer.h in Headers */ = {isa = PBXBuildFile; fileRef = DDCAE28ECBED320FF71E7A04EF0548E7 /* MDCAlertColorThemer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		017E34C3EEC76AF5F613874DA373B9F0 /* MPImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 0267AA9B340B7D38A19160F4578C1CC8 /* MPImageLoader.m */; };
-		019787AA3AF35C799B5A5E94587E715A /* Pods-OpenXApolloMoPubAdapters-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A46530BC59F9092CD53D9DE847A93B9A /* Pods-OpenXApolloMoPubAdapters-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01ADF7B24CC3AB511C694DCDBE2E3EA1 /* MOPUBDisplayAgentType.h in Headers */ = {isa = PBXBuildFile; fileRef = C9634ED2DECDE10F4D9DD7B99F1C3958 /* MOPUBDisplayAgentType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		01E1380B9DAEF7517AD42713A8CB716E /* ButtonRowWithPresent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AB6ACA7BA043F55288AD5E904F1BAC /* ButtonRowWithPresent.swift */; };
 		01FBF50816485022A684660D14F08F15 /* MaterialButtons+ShapeThemer.h in Headers */ = {isa = PBXBuildFile; fileRef = 825996ED9458C1922D1474D88CDE0690 /* MaterialButtons+ShapeThemer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -229,7 +228,6 @@
 		19E9A4BD6E43F6CA5827D0C623ED54E8 /* MDCSlantedRectShapeGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DD3C504B2D550AEA70418EC5D9A6F86 /* MDCSlantedRectShapeGenerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1A14A4A0BA30642C52C3F85DF49C9E99 /* FBLPromise+Recover.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = D2D6EC0DE128493B276C7E5ECD5699B1 /* FBLPromise+Recover.h */; };
 		1A2C4D4D474CD1657EF41E7675BCD997 /* MDCTypographyUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 39D6AFF1F71D1443B89332876E0832CA /* MDCTypographyUtilities.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		1A4433569FF99CB544DA279561B43536 /* Pods-OpenXApolloMoPubAdapters-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D36D1CB2070028AB3272E98BD52AB3D0 /* Pods-OpenXApolloMoPubAdapters-dummy.m */; };
 		1A57E6045DD884847A9CA57F0DE22044 /* FBLPromise+Delay.h in Headers */ = {isa = PBXBuildFile; fileRef = 330BD36D696C7F43278768F9C9546349 /* FBLPromise+Delay.h */; };
 		1AAC28E9E095C154E9992AC6F7189CF3 /* NSBundle+MPAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A4B94D21BA3E0A824CC0D18C68A21CC /* NSBundle+MPAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B689FEAEEA351D42B172897B28B90D8 /* UIApplication+MDCAppExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F9A3C488F0CB4A15EEB5F7190DDD78E /* UIApplication+MDCAppExtensions.m */; };
@@ -307,6 +305,7 @@
 		2A462D97F2DFA8D9F699319F0F84228E /* MPAdDestinationDisplayAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DE10B657B1D8DE378F86745BEAC51C7 /* MPAdDestinationDisplayAgent.m */; };
 		2A5264AA9E740EABBBA758CF5EF5F100 /* MPAdEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = DA24CC3120BF11CE0080B87EC8E6BBC8 /* MPAdEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2A87B0CDA1843A23DD3C13C5356E1EAB /* MPAdAdapterError.h in Headers */ = {isa = PBXBuildFile; fileRef = 57F9A68C8895507EE69EA3CF3A0ED1E5 /* MPAdAdapterError.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2AD97FCDAF67EB7BE0C5DFE85E41E001 /* Pods-PrebidMobileMoPubAdapters-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 22F61C5DA83DBC19172BECE02F4442D8 /* Pods-PrebidMobileMoPubAdapters-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2ADCE486FDE715828CA3514C2B7CDC4E /* StartWith.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9F54CED7A0AE0AFC7A33EAA7B218AE /* StartWith.swift */; };
 		2AEE5E5B29392E0B101C0CD9F0521DB0 /* MDCAlertControllerView+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 851180D1946D32F132E5E1128A0862DD /* MDCAlertControllerView+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2AF702BC29E979F11F8ADD01DCCE6B12 /* MPAdConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A058E1375AFD8E6DA7C65911F8B6D /* MPAdConfiguration.m */; };
@@ -352,11 +351,10 @@
 		3465C3CAEAD6084AF4803D9836A81CA6 /* MDCFloatingButtonColorThemer.h in Headers */ = {isa = PBXBuildFile; fileRef = 29384A676020EC7BCAF90E047E77E419 /* MDCFloatingButtonColorThemer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34CFA4118A27FB1954C92FBE556462EC /* UIImage+MaterialRTL.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 203E934E0E4F34563B929253701C2AC1 /* UIImage+MaterialRTL.h */; };
 		34E6894DC6F5C0758BDA19469258D6FA /* pb_common.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CC6CAA1C5AAEB2758245BAA3D9A9368 /* pb_common.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		351092B364D275353A08AE594C92D065 /* Pods-OpenXMockServer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A5BF0C177ACFEF92D41B89415E6E3F2 /* Pods-OpenXMockServer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		351092B364D275353A08AE594C92D065 /* Pods-OpenXMockServer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 97E51113CACF7C8B95EC27406B22E09E /* Pods-OpenXMockServer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3518E415F70A973329AB4F2E4DF7D9EC /* MRConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = CD52EC0B3141D2AFC5B330EADEEA94EA /* MRConstants.m */; };
 		3571F958A3907B3A806E62D50C2550D4 /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D394CC7823A08BAC5861D5DD544ABA /* NetworkReachabilityManager.swift */; };
 		35933EAB20D9EAD08DD9AFFE481E3ABF /* MDCElevatable.h in Headers */ = {isa = PBXBuildFile; fileRef = 750F0CF2803D3253A15AB3CCE9589D6D /* MDCElevatable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		35DDF2B174DB80505B11437350BF197B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A31F8497A160FF1336ACCBE45B10F5 /* Foundation.framework */; };
 		36AF487DD511BD59052C7B95A12BA71C /* MPCoreInstanceProvider+MRAID.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B426672B2C397D98FA716B622E8117 /* MPCoreInstanceProvider+MRAID.m */; };
 		36ECFA961710A5B512197597C26C7378 /* MPMoPubInlineAdAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3800E46135DCC3949ED688BFA6AA35B4 /* MPMoPubInlineAdAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3726FCF71ED7E2B5678C2173419E3FF1 /* MPVASTResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 52AE9F66CE12C5EC8771456453C44209 /* MPVASTResource.m */; };
@@ -449,7 +447,7 @@
 		4B393C50471A2B0EA03C581E1EC024D3 /* GULSceneDelegateSwizzler.h in Headers */ = {isa = PBXBuildFile; fileRef = A54703B7BF6D1FFD0D84585B2E242F7F /* GULSceneDelegateSwizzler.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		4B91442371D8602AA76A3DC8DA0442E6 /* MDCOutlinedButtonColorThemer.m in Sources */ = {isa = PBXBuildFile; fileRef = 27E8F5FB9C1F12B61AA1322753E2BA44 /* MDCOutlinedButtonColorThemer.m */; };
 		4B92A9BCA5E02241E162F79EF5B6BDA0 /* MDCTabBarIndicatorAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = FBEEEF583DA51839C083A361B35D60D5 /* MDCTabBarIndicatorAttributes.m */; };
-		4BE4BBAEB7C0014B32E9A84F88EB3FF2 /* Pods-PrebidMobileGAMEventHandlersTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A12BE92878A875306E2F9A75B6C0AFC0 /* Pods-PrebidMobileGAMEventHandlersTests-dummy.m */; };
+		4BE4BBAEB7C0014B32E9A84F88EB3FF2 /* Pods-PrebidMobileGAMEventHandlersTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 85BA58DC4BEA0AEDFE0829B530416C79 /* Pods-PrebidMobileGAMEventHandlersTests-dummy.m */; };
 		4C0BC5D9B33BBDA57197ED5F56711424 /* MDCItemBarCell+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = B81D7313BC41C5BC46A9C5E9A0898C0D /* MDCItemBarCell+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		4C74985AE9D2F23A2ADC2221479F1AB1 /* MDCFloatingButton+MaterialTheming.m in Sources */ = {isa = PBXBuildFile; fileRef = 70D579E010C4E99EFD68BEF1D79F7FC5 /* MDCFloatingButton+MaterialTheming.m */; };
 		4CE0161F67CCC5CA0FC469858450F6E7 /* FBLPromise+Async.m in Sources */ = {isa = PBXBuildFile; fileRef = D899B9C25997A268211B99A798FE9B80 /* FBLPromise+Async.m */; };
@@ -778,7 +776,7 @@
 		8ACC314E042875015FBE38F1910F7F11 /* MPFullscreenAdAdapter+MPFullscreenAdViewControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC1E455E7A77B5246D9F8BC6641DFCC2 /* MPFullscreenAdAdapter+MPFullscreenAdViewControllerDelegate.m */; };
 		8AFA10B7F0591080EA6BCBCC9CB34BE1 /* GenericMultipleSelectorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DE5ABA136E46706F1E27DE80ED75AB /* GenericMultipleSelectorRow.swift */; };
 		8B14DC5A04FF0E20930FF44BA1F202A2 /* NSObject+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FEA92EB138388FBCC3B96B00D2710C4 /* NSObject+MPAdditions.m */; };
-		8B39A7D54121623B7670847A924D064D /* Pods-PrebidMobileDemoRendering-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FFCE9212522831F7AA7E60573315C514 /* Pods-PrebidMobileDemoRendering-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8B39A7D54121623B7670847A924D064D /* Pods-PrebidMobileDemoRendering-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FD4362C9AF247DF8C9BFA1BA0F74F05F /* Pods-PrebidMobileDemoRendering-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8B469C2192D308925D7C22F0C8C22DAE /* MPLocationAuthorizationStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ABA04BF3F12F442C960B35B2E28FF73 /* MPLocationAuthorizationStatus.m */; };
 		8B4B67427F99E93C1ACF5439914F08E3 /* GULHeartbeatDateStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E0FC70A77D387E6643FC0B74B9A9575 /* GULHeartbeatDateStorage.m */; };
 		8B80372EADFF0B64B0ED400FB0C4146D /* MaterialThemes.h in Headers */ = {isa = PBXBuildFile; fileRef = BA4AE917E6949B1781F90A8AAF4BC839 /* MaterialThemes.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -858,6 +856,7 @@
 		98A929C8E9012AB167672714FFD2113C /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4090FB02994FB4C6686226F1CAF55EA0 /* Request.swift */; };
 		98FAF1A7B753A3C331C3777BC020CD03 /* FBLPromise+Any.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = ABAFA5A75538F66E4C589ABC21B3DCDA /* FBLPromise+Any.h */; };
 		9953D9B38CFBD8F121D3EA5EB2001004 /* MPAdViewOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = BE59B66A7E1E5262193E44529FB6DC2C /* MPAdViewOverlay.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99664A580BBD389DCA6CCA1E898AB7C7 /* Pods-PrebidMobileMoPubAdapters-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C1B6B96742CF67EAADC3A816F5C4EAB /* Pods-PrebidMobileMoPubAdapters-dummy.m */; };
 		99D1A05E36C93DF8F04DD93D197A4CDF /* SKStoreProductViewController+MPAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = A8CA93FF355E8A698005CA763555E4D3 /* SKStoreProductViewController+MPAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		99D30B5752424F65CC3F724F5B0A19B4 /* MDCFloatingButton+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 205005B1E2661FDCA28D639405190D67 /* MDCFloatingButton+Animation.m */; };
 		99E6FC970B2E639F0FE6FF59BE9B57EA /* MPBLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 911D503229E665AB21DE49182EBF34F3 /* MPBLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -894,7 +893,7 @@
 		A067E19DC28023B317D37873E8005782 /* FBLPromise+Race.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 2B2B63A63D7624AEC1E5FA10225A723B /* FBLPromise+Race.h */; };
 		A0B58AC08F9EB8AF71B6B584981AA8E7 /* UIButton+MPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DFAD494791799E3225226B728BE7C4 /* UIButton+MPAdditions.m */; };
 		A0F5DB491A65B44E2DBE2A753A160FA5 /* MPImpressionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA86CFA9CB4E29251CD8170A2630122 /* MPImpressionData.m */; };
-		A1E14F8B5CE7C1D9347EDA85943D7AD8 /* Pods-PrebidMobileGAMEventHandlers-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8574E982FDE59F736B81A72FE2F9489C /* Pods-PrebidMobileGAMEventHandlers-dummy.m */; };
+		A1E14F8B5CE7C1D9347EDA85943D7AD8 /* Pods-PrebidMobileGAMEventHandlers-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B0263396E08CBF212BB8AD4ECA2509 /* Pods-PrebidMobileGAMEventHandlers-dummy.m */; };
 		A235736D09A221AC630C9B1EA5C3FF6A /* MRCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 392B377A1F84AC4F081DADEC6547C76D /* MRCommand.m */; };
 		A26E65FEB548913D57440E402F0C49E6 /* MPInterstitialAdControllerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5824E08460A66098CDBAD3C76066742A /* MPInterstitialAdControllerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A271185244AD3B371AE9AD39C49E2725 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1238B70F3A75EF75A7B001086E07CAFD /* Lock.swift */; };
@@ -934,7 +933,7 @@
 		A7883B31D32B72CFCD7A9F56804BE1FF /* TakeUntil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B573D27687C873CE37FD239041C007 /* TakeUntil.swift */; };
 		A89161A31F363774929B278E4335167C /* Completable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83576AB9419E2D4228AC1FA5FF73E989 /* Completable.swift */; };
 		A8CC7494418F0BF56444C5877CF4ABAF /* AsSingle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F97DC6118424EECC9042B19A283EB /* AsSingle.swift */; };
-		A8D9C5D65BC86B1CE85B48C8604A70A3 /* Pods-PrebidMobileDemoRendering-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E2E5261D7767C211DC5ED1B1CC2F3A /* Pods-PrebidMobileDemoRendering-dummy.m */; };
+		A8D9C5D65BC86B1CE85B48C8604A70A3 /* Pods-PrebidMobileDemoRendering-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D198703250503D05A969A8F0ABC1E8 /* Pods-PrebidMobileDemoRendering-dummy.m */; };
 		A901E40C16048E56E0C93ACDC8774384 /* ObservableType+PrimitiveSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0403E02738C6E8814350A4D5EAD31C /* ObservableType+PrimitiveSequence.swift */; };
 		A91D4F561E5C16644A5D3A389609ACD6 /* DoublePickerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFD71B279937BA7A93DD95596F90389 /* DoublePickerRow.swift */; };
 		A933970B4879125B11194B192A67A68F /* MPHTMLBannerCustomEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E1349D473FADD9D77CAD28A5692D79C /* MPHTMLBannerCustomEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -976,7 +975,7 @@
 		B047B4CA84E36E7258F8D9D062A95A54 /* Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = A19E66867508CCA120B369BBF13F75CC /* Sink.swift */; };
 		B09BFEB9F6E13B4DEE9E0366E15BB0C9 /* MPError.h in Headers */ = {isa = PBXBuildFile; fileRef = 3606E05BDEE35689DE5E4AFD75D3139E /* MPError.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B242E99A20F672B355E8CA90B9481815 /* MPVideoPlayerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 2ED700810B63B9B2E41A28FA2E7589DE /* MPVideoPlayerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B2F36A32E338A4FD46C90E2AE114185E /* Pods-OpenXMockServer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AD224015BACEF7253D560C9726DAC02 /* Pods-OpenXMockServer-dummy.m */; };
+		B2F36A32E338A4FD46C90E2AE114185E /* Pods-OpenXMockServer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6845BCBA7AAD7DCA33C9409B5BEC8777 /* Pods-OpenXMockServer-dummy.m */; };
 		B35967CE2C4C7530D365B0872285241C /* GULKeychainUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 853860446366C4A1AC1CCBF99BBD1E00 /* GULKeychainUtils.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		B381E96E97716B09FD303C104D20725F /* FBLPromise+Then.m in Sources */ = {isa = PBXBuildFile; fileRef = F1B7F138B73DA481F695D8E5298C9A24 /* FBLPromise+Then.m */; };
 		B3924CF1315153207B55DE02729FEC8C /* mopub-ios-sdk-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FEAE29EB6E9D0E1DC624151AF269D0C5 /* mopub-ios-sdk-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1057,6 +1056,7 @@
 		C299DDF2CE31D8489EFFD0B9D086F9FE /* SelectableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B350F7DD6BFD9B949FD4E75D770E48F /* SelectableSection.swift */; };
 		C2C77AE7CB47585D47B2FB503D8DBE2B /* FBLPromise+Always.h in Headers */ = {isa = PBXBuildFile; fileRef = 535D9B904462FE69128F766E8BE9B141 /* FBLPromise+Always.h */; };
 		C2F5EF0076B32E28969F73229409F94E /* DatePickerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A26F8F9883C47557165845A741CB06 /* DatePickerRow.swift */; };
+		C3C8E89A2D487064F59FC84CDA183853 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27A31F8497A160FF1336ACCBE45B10F5 /* Foundation.framework */; };
 		C3CB648AC138C631D7C18E586E89647C /* GULLoggerCodes.h in Headers */ = {isa = PBXBuildFile; fileRef = 9051F566BD25E1DDEE42A4321712D6A3 /* GULLoggerCodes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C428AEFA04ACD341BFDDD2A2C0CD086D /* MDCPalettes.m in Sources */ = {isa = PBXBuildFile; fileRef = 2468528949BE30B198402B8165D067C2 /* MDCPalettes.m */; };
 		C44583EF1F19F84208164AA6E1D6F1AB /* MDCEdgeTreatment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7F2A33BECEF3A282BBBF4B3E1944FF88 /* MDCEdgeTreatment.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1235,7 +1235,7 @@
 		E00562CA977852B61517764AA9132DEB /* MPCoreInstanceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A03B69D1667E90CA6F5A8812826D204 /* MPCoreInstanceProvider.m */; };
 		E0186A63060F0EB3676F95CD0ACE0E18 /* SVProgressAnimatedView.h in Headers */ = {isa = PBXBuildFile; fileRef = FBB2BF0DFC6CC2434CB3E38DD6CD9174 /* SVProgressAnimatedView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E027F1F1714A5E41B5024B157FAB5DC0 /* FBLPromise+Validate.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 8515DFC0839D7E4D1335FC71B815C698 /* FBLPromise+Validate.h */; };
-		E029CAB73D3E7190EA324280E4963776 /* Pods-PrebidMobileGAMEventHandlersTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 81C363A634BFB66E74DAD2AD426B646F /* Pods-PrebidMobileGAMEventHandlersTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E029CAB73D3E7190EA324280E4963776 /* Pods-PrebidMobileGAMEventHandlersTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D4643621C1BCA52111C1FD7D3822849 /* Pods-PrebidMobileGAMEventHandlersTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E03F339DA1355396E1BF1FB88276AB55 /* MDCDialogPresentationController+MaterialTheming.m in Sources */ = {isa = PBXBuildFile; fileRef = 16B36289F1F896662801895277E8E117 /* MDCDialogPresentationController+MaterialTheming.m */; };
 		E0406209CF65F02B2423948AB9793239 /* MPInlineAdAdapter+MPAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 372C385864759A9446657E3510519914 /* MPInlineAdAdapter+MPAdAdapter.m */; };
 		E07EC99ACB662B6BAB487EE5A10E5186 /* FBLPromise+Delay.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 330BD36D696C7F43278768F9C9546349 /* FBLPromise+Delay.h */; };
@@ -1389,7 +1389,7 @@
 		FA4FB21D887D3D6F588960EEFF23C822 /* GULNetworkURLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE18875DA2B03F7D8A5C90C7F439B75 /* GULNetworkURLSession.m */; };
 		FAAEF765F75A4A64976FED21B92747DE /* MPVASTTracking.h in Headers */ = {isa = PBXBuildFile; fileRef = 279D68403AB859DE9B42EE0FB6870400 /* MPVASTTracking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBA9635725D1C70676992B2D8569C126 /* MPBaseNativeAdRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AF45A2E55B0D1B4E9E8999AD0CC611 /* MPBaseNativeAdRenderer.m */; };
-		FBB86F5AD1E55F8243569BA05A4A375D /* Pods-PrebidMobileGAMEventHandlers-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C6CBC61B816B8AE566FF145E87CB73D4 /* Pods-PrebidMobileGAMEventHandlers-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FBB86F5AD1E55F8243569BA05A4A375D /* Pods-PrebidMobileGAMEventHandlers-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7732A3D2217695D1C2C883D65878DC73 /* Pods-PrebidMobileGAMEventHandlers-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBCB6277F107EDE9004CD58C85ED41DB /* SingleAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38672081C174FC5D3775BD7A6E0856C2 /* SingleAsync.swift */; };
 		FC1C04E03EBE2F65F14E50FFEF057785 /* InvocableScheduledItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE9A83544061C087879E49AB0E90F9B /* InvocableScheduledItem.swift */; };
 		FCE2DE07FD84D06F1A92DAA617AC3430 /* MPOpenMeasurementTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 94DE7C747CBFD881E29810AF83C33DEE /* MPOpenMeasurementTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1613,7 +1613,7 @@
 			remoteGlobalIDString = EAAA1AD3A8A1B59AB91319EE40752C6D;
 			remoteInfo = Alamofire;
 		};
-		A42F4C3CC63F2AA42D9568A552A47E76 /* PBXContainerItemProxy */ = {
+		A24C7C88645A4D15EDCA844D13B29F02 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -1853,7 +1853,6 @@
 		033652CBF08B6DD0BE051DFB679AEF5E /* Reactive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Reactive.swift; path = RxSwift/Reactive.swift; sourceTree = "<group>"; };
 		03A926B6678106DD8FF6603165A7C64F /* MPVASTModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPVASTModel.m; path = MoPubSDK/Internal/VAST/MPVASTModel.m; sourceTree = "<group>"; };
 		03B573D27687C873CE37FD239041C007 /* TakeUntil.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TakeUntil.swift; path = RxSwift/Observables/TakeUntil.swift; sourceTree = "<group>"; };
-		03C8BCCA215CC9C50B8AC4C4E26E3A62 /* Pods-PrebidMobileGAMEventHandlers-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PrebidMobileGAMEventHandlers-Info.plist"; sourceTree = "<group>"; };
 		03CCE6EC77AEE4017C2BE70C1A8C3E4E /* Cancelable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Cancelable.swift; path = RxSwift/Cancelable.swift; sourceTree = "<group>"; };
 		042E7F1609B22F80731CD8C7E6D9E872 /* GoogleUserMessagingPlatform-iOS9.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "GoogleUserMessagingPlatform-iOS9.0.debug.xcconfig"; path = "../GoogleUserMessagingPlatform-iOS9.0/GoogleUserMessagingPlatform-iOS9.0.debug.xcconfig"; sourceTree = "<group>"; };
 		04BE14B97621025497E13D0F8F1A1097 /* MPRewardedVideoAdManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPRewardedVideoAdManager.m; path = MoPubSDK/RewardedVideo/Internal/MPRewardedVideoAdManager.m; sourceTree = "<group>"; };
@@ -1881,6 +1880,7 @@
 		09D3E8D89686A4D2DE4C55FCD66DE1D0 /* MPVASTStringUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPVASTStringUtilities.m; path = MoPubSDK/Internal/VAST/MPVASTStringUtilities.m; sourceTree = "<group>"; };
 		0A57BBAF8749D5C67A027F1E7639F02A /* MPSKAdNetworkManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPSKAdNetworkManager.m; path = MoPubSDK/Internal/Common/MPSKAdNetworkManager.m; sourceTree = "<group>"; };
 		0A6A9F34E6E17955B320705DA2B89611 /* GroupBy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GroupBy.swift; path = RxSwift/Observables/GroupBy.swift; sourceTree = "<group>"; };
+		0A84BC7E5726E5EA706359BA3EE1C3C5 /* Pods-OpenXMockServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OpenXMockServer.debug.xcconfig"; sourceTree = "<group>"; };
 		0A8924B6305C5116EA8035AE891818F6 /* MoPub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MoPub.framework; path = "mopub-ios-sdk.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AFE696466BEF31040D4C94A2DFFA37A /* ObservableType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ObservableType.swift; path = RxSwift/ObservableType.swift; sourceTree = "<group>"; };
 		0B2651C6EB699F48C719334BBA2CE097 /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVRadialGradientLayer.h; path = SVProgressHUD/SVRadialGradientLayer.h; sourceTree = "<group>"; };
@@ -1891,9 +1891,9 @@
 		0D6C832338607839FE80F05B21D03E49 /* MPVASTCreative.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPVASTCreative.m; path = MoPubSDK/Internal/VAST/MPVASTCreative.m; sourceTree = "<group>"; };
 		0DBF11F2C39BAB7F9703378656EE2A1B /* MDCLegacyTonalColorScheme.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCLegacyTonalColorScheme.h; path = components/schemes/Color/src/MDCLegacyTonalColorScheme.h; sourceTree = "<group>"; };
 		0DDA1CE1B574AB8F2165662BAC32F527 /* ObservableConvertibleType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ObservableConvertibleType.swift; path = RxSwift/ObservableConvertibleType.swift; sourceTree = "<group>"; };
+		0E03929AB12A8AD2A210F57B43713F55 /* Pods-PrebidMobileMoPubAdapters-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PrebidMobileMoPubAdapters-Info.plist"; sourceTree = "<group>"; };
 		0E1349D473FADD9D77CAD28A5692D79C /* MPHTMLBannerCustomEvent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPHTMLBannerCustomEvent.h; path = MoPubSDK/Internal/HTML/MPHTMLBannerCustomEvent.h; sourceTree = "<group>"; };
 		0E37FB920055A672ACB7BE92EEBBF3FC /* MDCInkGestureRecognizer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCInkGestureRecognizer.h; path = components/Ink/src/MDCInkGestureRecognizer.h; sourceTree = "<group>"; };
-		0E3B533AB6B26BC89141E21F488E23E4 /* Pods-OpenXApolloMoPubAdapters-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OpenXApolloMoPubAdapters-Info.plist"; sourceTree = "<group>"; };
 		0E3D970C19F327FF1792837C9F952257 /* InvocableType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = InvocableType.swift; path = RxSwift/Schedulers/Internal/InvocableType.swift; sourceTree = "<group>"; };
 		0E758A566CCB7CA5BF8966BA6267BF7E /* UIFont+MaterialTypographyPrivate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIFont+MaterialTypographyPrivate.h"; path = "components/Typography/src/private/UIFont+MaterialTypographyPrivate.h"; sourceTree = "<group>"; };
 		0F092A519AECEBCC51537C6F2F73F217 /* MPIdentityProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPIdentityProvider.m; path = MoPubSDK/Internal/Utility/MPIdentityProvider.m; sourceTree = "<group>"; };
@@ -1921,8 +1921,10 @@
 		13F86C2C9780386E20AB2E1B22BF0815 /* MPVASTCompanionAd.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPVASTCompanionAd.m; path = MoPubSDK/Internal/VAST/MPVASTCompanionAd.m; sourceTree = "<group>"; };
 		1443C3910A6AE1E5D739044801A11EEE /* MPVASTCompanionAdView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPVASTCompanionAdView.m; path = MoPubSDK/Internal/VideoPlayer/MPVASTCompanionAdView.m; sourceTree = "<group>"; };
 		14927FAA38B741DDD58522B8F4C86A1E /* MPHTTPNetworkSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPHTTPNetworkSession.m; path = MoPubSDK/Internal/MPHTTPNetworkSession.m; sourceTree = "<group>"; };
+		149F5C8D5BC43FC51FF776CD71365B97 /* Pods-OpenXMockServer-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OpenXMockServer-acknowledgements.plist"; sourceTree = "<group>"; };
 		14A92C712D25D704759DE18157F5C6BA /* RxSwift-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "RxSwift-Info.plist"; sourceTree = "<group>"; };
 		14D52A665937A89B2296BECBF93FFD34 /* MDCRectangleShapeGenerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCRectangleShapeGenerator.h; path = components/Shapes/src/MDCRectangleShapeGenerator.h; sourceTree = "<group>"; };
+		14DB2372E0A08CFF0E8F7C7AE80F87E4 /* Pods-PrebidMobileGAMEventHandlers-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PrebidMobileGAMEventHandlers-Info.plist"; sourceTree = "<group>"; };
 		14FA6EEF669E3DFEA3AC5FA5EFC302A8 /* MPExtendedHitBoxButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPExtendedHitBoxButton.h; path = MoPubSDK/Internal/MPExtendedHitBoxButton.h; sourceTree = "<group>"; };
 		15B40F132AE8D3767AFF6FD11E560E46 /* UIFont+MaterialTypography.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIFont+MaterialTypography.h"; path = "components/Typography/src/UIFont+MaterialTypography.h"; sourceTree = "<group>"; };
 		163983612B394D40DBC42776B98A813B /* RowType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RowType.swift; path = Source/Core/RowType.swift; sourceTree = "<group>"; };
@@ -1933,6 +1935,7 @@
 		16FD293E34F97F561551BE7320251B7F /* FBLPromiseError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FBLPromiseError.m; path = Sources/FBLPromises/FBLPromiseError.m; sourceTree = "<group>"; };
 		170A2B986F36043074CD515D84181DDB /* Never.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Never.swift; path = RxSwift/Observables/Never.swift; sourceTree = "<group>"; };
 		17478C3E8B413EF9B745A547F268686A /* MDCShapedShadowLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCShapedShadowLayer.h; path = components/Shapes/src/MDCShapedShadowLayer.h; sourceTree = "<group>"; };
+		177AE23C7EE8F9E34586BE0A457EEAE6 /* Pods-PrebidMobileDemoRendering-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-PrebidMobileDemoRendering-acknowledgements.markdown"; sourceTree = "<group>"; };
 		17D0D3EF0EC117BA6B5D2CB349F79549 /* Debug.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Debug.swift; path = RxSwift/Observables/Debug.swift; sourceTree = "<group>"; };
 		17E76CF809BEC24430136F9172EFACE5 /* GULHeartbeatDateStorage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULHeartbeatDateStorage.h; path = GoogleUtilities/Environment/Private/GULHeartbeatDateStorage.h; sourceTree = "<group>"; };
 		17F2F5A789F2B5BA72C7D2FD59334313 /* GULReachabilityChecker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GULReachabilityChecker.m; path = GoogleUtilities/Reachability/GULReachabilityChecker.m; sourceTree = "<group>"; };
@@ -1940,19 +1943,17 @@
 		184E02297DC65BD2F306855B0D7F3002 /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVProgressAnimatedView.m; path = SVProgressHUD/SVProgressAnimatedView.m; sourceTree = "<group>"; };
 		1861755AC938CCEBEFC304CEFA0489E8 /* MPAdWebViewAgent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPAdWebViewAgent.m; path = MoPubSDK/Internal/HTML/MPAdWebViewAgent.m; sourceTree = "<group>"; };
 		187F6B81A46C97ED192A5F37A904520E /* MPVASTResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPVASTResponse.m; path = MoPubSDK/Internal/VAST/MPVASTResponse.m; sourceTree = "<group>"; };
-		18BCE903D3BDC39F198255DE239E22EA /* Pods-PrebidMobileGAMEventHandlersTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-PrebidMobileGAMEventHandlersTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		18BE013CEE68330B7A580C779930E64A /* Pods-OpenXApolloMoPubAdapters.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OpenXApolloMoPubAdapters.release.xcconfig"; sourceTree = "<group>"; };
 		18FB07C7A811B7A47ACE4B4D38D0A6C0 /* FBLPromise+Do.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+Do.h"; path = "Sources/FBLPromises/include/FBLPromise+Do.h"; sourceTree = "<group>"; };
 		19126ECBB12D4FAC72B525D3FBA0ABDB /* Enumerated.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Enumerated.swift; path = RxSwift/Observables/Enumerated.swift; sourceTree = "<group>"; };
 		194DAB71F57CED9ACC5E57EF9F9A2CEF /* DefaultIfEmpty.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DefaultIfEmpty.swift; path = RxSwift/Observables/DefaultIfEmpty.swift; sourceTree = "<group>"; };
 		196532914D88B57FB21D02AE52B1B172 /* MPVASTCreative.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPVASTCreative.h; path = MoPubSDK/Internal/VAST/MPVASTCreative.h; sourceTree = "<group>"; };
 		19B6A8B6962C90A8D2CC6148DA14692B /* ConnectableObservableType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConnectableObservableType.swift; path = RxSwift/ConnectableObservableType.swift; sourceTree = "<group>"; };
 		19E98FB8279276BC44F52810735FDE19 /* UIFont+MaterialTypographyPrivate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIFont+MaterialTypographyPrivate.m"; path = "components/Typography/src/private/UIFont+MaterialTypographyPrivate.m"; sourceTree = "<group>"; };
-		19EFF5FDDD23C869D1F9D1D5C1EC2754 /* Pods-OpenXApolloMoPubAdapters-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OpenXApolloMoPubAdapters-acknowledgements.plist"; sourceTree = "<group>"; };
 		19FDB76F083322F7F8EBABABF4ABEB53 /* MPNativeAdConfigValues.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativeAdConfigValues.h; path = MoPubSDK/NativeAds/Internal/MPNativeAdConfigValues.h; sourceTree = "<group>"; };
 		1A0B45A304037578C69E544F913905DA /* MaterialButtons.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MaterialButtons.h; path = components/Buttons/src/MaterialButtons.h; sourceTree = "<group>"; };
 		1A1A058E1375AFD8E6DA7C65911F8B6D /* MPAdConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPAdConfiguration.m; path = MoPubSDK/Internal/Common/MPAdConfiguration.m; sourceTree = "<group>"; };
 		1A39FD2D977F6B223967257F0F350C09 /* MPInlineAdAdapter+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MPInlineAdAdapter+Private.h"; path = "MoPubSDK/Internal/Inline/MPInlineAdAdapter+Private.h"; sourceTree = "<group>"; };
+		1A3E4F3E28D4A7EBD4CD96D4FBA504DB /* Pods-PrebidMobileGAMEventHandlersTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PrebidMobileGAMEventHandlersTests-Info.plist"; sourceTree = "<group>"; };
 		1A9DCBEAC5C63DF3D7C8046E056D2A0A /* Multicast.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Multicast.swift; path = RxSwift/Observables/Multicast.swift; sourceTree = "<group>"; };
 		1AA2A35E3BE07F079A780227B5110967 /* MRBridge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MRBridge.h; path = MoPubSDK/Internal/MRAID/MRBridge.h; sourceTree = "<group>"; };
 		1AD7D2335DDADED619A9A6FB6253F820 /* GULSwizzler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULSwizzler.h; path = GoogleUtilities/MethodSwizzler/Private/GULSwizzler.h; sourceTree = "<group>"; };
@@ -1965,12 +1966,15 @@
 		1BE380CB834B225B8509E2C0E0440574 /* MPActivityViewControllerHelper+TweetShare.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MPActivityViewControllerHelper+TweetShare.m"; path = "MoPubSDK/Internal/Common/MPActivityViewControllerHelper+TweetShare.m"; sourceTree = "<group>"; };
 		1C36713312498B62E12290CA0885D290 /* MPHTTPNetworkSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPHTTPNetworkSession.h; path = MoPubSDK/Internal/MPHTTPNetworkSession.h; sourceTree = "<group>"; };
 		1CBBC2B675381E46E118D76F9620966D /* NSDate+MPAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDate+MPAdditions.m"; path = "MoPubSDK/Internal/Utility/Categories/NSDate+MPAdditions.m"; sourceTree = "<group>"; };
+		1D3A502FB75A59DBC7106AD2BADCCB8C /* Pods-PrebidMobileGAMEventHandlersTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-PrebidMobileGAMEventHandlersTests.modulemap"; sourceTree = "<group>"; };
 		1D9F54CED7A0AE0AFC7A33EAA7B218AE /* StartWith.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StartWith.swift; path = RxSwift/Observables/StartWith.swift; sourceTree = "<group>"; };
 		1E10DAFD7170DC940C526B85B3C757DE /* MPNativeAdRendererConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativeAdRendererConfiguration.h; path = MoPubSDK/NativeAds/MPNativeAdRendererConfiguration.h; sourceTree = "<group>"; };
 		1F18986F2BD16D76759FD3105E49577D /* MPViewabilityManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPViewabilityManager.h; path = MoPubSDK/Internal/Viewability/MPViewabilityManager.h; sourceTree = "<group>"; };
+		1F3599E8F3AFF0DCBDFEA3A1BA0CA964 /* Pods-PrebidMobileMoPubAdapters.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileMoPubAdapters.debug.xcconfig"; sourceTree = "<group>"; };
 		1F3869FF640FD2F73DD643A015B772D3 /* GoogleAppMeasurement-iOS10.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "GoogleAppMeasurement-iOS10.0.release.xcconfig"; sourceTree = "<group>"; };
 		1F5DA6A71576729058663C18F89E7511 /* ImageCreator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageCreator.swift; path = MoPubSDK/Internal/Utility/ImageCreator.swift; sourceTree = "<group>"; };
 		1FFEDB95511BA081983AB785B9898D07 /* MPConsoleLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPConsoleLogger.h; path = MoPubSDK/Logging/Internal/MPConsoleLogger.h; sourceTree = "<group>"; };
+		1FFEFE09F9C1E1466ED96E583C1DE768 /* Pods-OpenXMockServer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-OpenXMockServer.modulemap"; sourceTree = "<group>"; };
 		20212E3C74F02011A492A37C4837045C /* TakeLast.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TakeLast.swift; path = RxSwift/Observables/TakeLast.swift; sourceTree = "<group>"; };
 		2028BDF7DC13A2E9A99AAADD2180AE82 /* MPMutedBtn@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MPMutedBtn@3x.png"; path = "MoPubSDK/Resources/MPMutedBtn@3x.png"; sourceTree = "<group>"; };
 		203844C32064C7FF7DBF2A192E073FEB /* SVProgressHUD.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SVProgressHUD.modulemap; sourceTree = "<group>"; };
@@ -1981,6 +1985,7 @@
 		20F0F2B39D3AEDADB8CF5A33153C4F62 /* PromisesObjC-iOS9.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "PromisesObjC-iOS9.0.release.xcconfig"; path = "../PromisesObjC-iOS9.0/PromisesObjC-iOS9.0.release.xcconfig"; sourceTree = "<group>"; };
 		221EC49D11CAB9A8FC944C29DCB606A4 /* MDCTabBarAlignment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCTabBarAlignment.h; path = components/Tabs/src/MDCTabBarAlignment.h; sourceTree = "<group>"; };
 		22ACF6381565C853CC2B43D39E8A4F05 /* MPClientAdPositioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPClientAdPositioning.m; path = MoPubSDK/NativeAds/MPClientAdPositioning.m; sourceTree = "<group>"; };
+		22F61C5DA83DBC19172BECE02F4442D8 /* Pods-PrebidMobileMoPubAdapters-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-PrebidMobileMoPubAdapters-umbrella.h"; sourceTree = "<group>"; };
 		230B9C8DE53E9ACF20FC33F6181229B6 /* UIView+MaterialRTL.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+MaterialRTL.h"; path = "Sources/UIView+MaterialRTL.h"; sourceTree = "<group>"; };
 		23281A68BF234CDD3E9141772C0F1C7F /* MPNativeAdUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPNativeAdUtils.m; path = MoPubSDK/NativeAds/MPNativeAdUtils.m; sourceTree = "<group>"; };
 		2371E4FE95BAD6C65A4D025F60DB6ED8 /* GoogleUtilities-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "GoogleUtilities-iOS10.0-dummy.m"; sourceTree = "<group>"; };
@@ -1997,7 +2002,6 @@
 		254709324F7AC86022DB95C279762566 /* MRConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MRConstants.h; path = MoPubSDK/Internal/MRAID/MRConstants.h; sourceTree = "<group>"; };
 		255794D27CB73D7960299CDA9BD135AF /* MPVASTDurationOffset.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPVASTDurationOffset.h; path = MoPubSDK/Internal/VAST/MPVASTDurationOffset.h; sourceTree = "<group>"; };
 		25665B787BEF367BB10A5E28E16EF23D /* MDFInternationalization-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MDFInternationalization-dummy.m"; sourceTree = "<group>"; };
-		2576BBCE9C94E78C12E7400634DEA342 /* Pods-PrebidMobileGAMEventHandlers-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-PrebidMobileGAMEventHandlers-acknowledgements.markdown"; sourceTree = "<group>"; };
 		25A3503E81A26D79469BD6E0326FF178 /* Alamofire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.debug.xcconfig; sourceTree = "<group>"; };
 		25EEEDEAB9C24B0BD818BB126B4BCC48 /* FBLPromise+Delay.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FBLPromise+Delay.m"; path = "Sources/FBLPromises/FBLPromise+Delay.m"; sourceTree = "<group>"; };
 		25EF4204FF604661C63B9D7631EDAD0E /* MDCButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCButton.m; path = components/Buttons/src/MDCButton.m; sourceTree = "<group>"; };
@@ -2011,7 +2015,6 @@
 		271EE99F5C7D31DD4E7018D3C3C781BE /* Alamofire-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-prefix.pch"; sourceTree = "<group>"; };
 		279D68403AB859DE9B42EE0FB6870400 /* MPVASTTracking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPVASTTracking.h; path = MoPubSDK/Internal/VAST/MPVASTTracking.h; sourceTree = "<group>"; };
 		27A31F8497A160FF1336ACCBE45B10F5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		27CC4292105B792BC2D72ADAD5FCACB8 /* Pods-PrebidMobileDemoRendering-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PrebidMobileDemoRendering-acknowledgements.plist"; sourceTree = "<group>"; };
 		27E843840503675F80CBDB16574F5836 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		27E8F5FB9C1F12B61AA1322753E2BA44 /* MDCOutlinedButtonColorThemer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCOutlinedButtonColorThemer.m; path = components/Buttons/src/ColorThemer/MDCOutlinedButtonColorThemer.m; sourceTree = "<group>"; };
 		27E9179D0E00A81C1D2C2A4A3C8F1C89 /* MDCKeyboardWatcher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCKeyboardWatcher.m; path = components/private/KeyboardWatcher/src/MDCKeyboardWatcher.m; sourceTree = "<group>"; };
@@ -2027,8 +2030,6 @@
 		29DBB9657EDB7D7127021447897FC88F /* UIColor+MPAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIColor+MPAdditions.m"; path = "MoPubSDK/Internal/Utility/Categories/UIColor+MPAdditions.m"; sourceTree = "<group>"; };
 		2A407973A1B0F27B1BC3EBF7764D8CDE /* Timeout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Timeout.swift; path = RxSwift/Observables/Timeout.swift; sourceTree = "<group>"; };
 		2A767ECC84DAE6B3A696E47319B2F2B4 /* MDCTypographyScheme.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCTypographyScheme.h; path = components/schemes/Typography/src/MDCTypographyScheme.h; sourceTree = "<group>"; };
-		2A7A412BAA7F62B4E3812EC769AD666B /* Pods-PrebidMobileGAMEventHandlersTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PrebidMobileGAMEventHandlersTests-Info.plist"; sourceTree = "<group>"; };
-		2AD224015BACEF7253D560C9726DAC02 /* Pods-OpenXMockServer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OpenXMockServer-dummy.m"; sourceTree = "<group>"; };
 		2B2B63A63D7624AEC1E5FA10225A723B /* FBLPromise+Race.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+Race.h"; path = "Sources/FBLPromises/include/FBLPromise+Race.h"; sourceTree = "<group>"; };
 		2B37F1C90877DDE1219D97E2568FFFAC /* Section.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Section.swift; path = Source/Core/Section.swift; sourceTree = "<group>"; };
 		2B45AC7B4EA69C31AF2C22934BF47C05 /* APIEndpoints.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = APIEndpoints.swift; path = MoPubSDK/Internal/Common/APIEndpoints.swift; sourceTree = "<group>"; };
@@ -2036,12 +2037,12 @@
 		2B6DFC3E31C90968B9114F146C02C088 /* Eureka-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Eureka-umbrella.h"; sourceTree = "<group>"; };
 		2B9D493594B352CEA02F3C4E8A0BF932 /* MPFullscreenAdViewController+MRAIDWeb.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MPFullscreenAdViewController+MRAIDWeb.m"; path = "MoPubSDK/Internal/Fullscreen/MPFullscreenAdViewController+MRAIDWeb.m"; sourceTree = "<group>"; };
 		2C0B1E6BB2F6B6855861901CBC6CC9DA /* MPNativeAdUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativeAdUtils.h; path = MoPubSDK/NativeAds/MPNativeAdUtils.h; sourceTree = "<group>"; };
-		2C59903E7732EE9724A8DE99518FB96B /* Pods-PrebidMobileDemoRendering-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PrebidMobileDemoRendering-resources.sh"; sourceTree = "<group>"; };
 		2CABA8328FC9402A16E9A75B2A453645 /* HistoricalScheduler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HistoricalScheduler.swift; path = RxSwift/Schedulers/HistoricalScheduler.swift; sourceTree = "<group>"; };
 		2CC37A610A7192792813D364FB009082 /* MDCTypographyScheme.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCTypographyScheme.m; path = components/schemes/Typography/src/MDCTypographyScheme.m; sourceTree = "<group>"; };
 		2CEDEA3776C399AD50FC0A65C2637518 /* UIViewController+MaterialDialogs.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+MaterialDialogs.m"; path = "components/Dialogs/src/UIViewController+MaterialDialogs.m"; sourceTree = "<group>"; };
 		2D429F91E4FC17F820BA4291F9369CB7 /* MDCIcons.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCIcons.h; path = components/private/Icons/src/MDCIcons.h; sourceTree = "<group>"; };
 		2D443EF53F9CAD48B9EA266F35D0871A /* MPConsentError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPConsentError.h; path = MoPubSDK/MPConsentError.h; sourceTree = "<group>"; };
+		2D4643621C1BCA52111C1FD7D3822849 /* Pods-PrebidMobileGAMEventHandlersTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-PrebidMobileGAMEventHandlersTests-umbrella.h"; sourceTree = "<group>"; };
 		2D5B397F65EA621F28BFA6F91FA75878 /* MDCDialogShadowedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCDialogShadowedView.h; path = components/Dialogs/src/private/MDCDialogShadowedView.h; sourceTree = "<group>"; };
 		2D640687BA4FAF29F1AAC0336ECA6ED9 /* MPBLogLevel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPBLogLevel.h; path = MoPubSDK/Logging/MPBLogLevel.h; sourceTree = "<group>"; };
 		2D71F435AAAC7B601D8FAD19E47742B4 /* MPCollectionViewAdPlacer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPCollectionViewAdPlacer.m; path = MoPubSDK/NativeAds/MPCollectionViewAdPlacer.m; sourceTree = "<group>"; };
@@ -2071,6 +2072,7 @@
 		3069A45109BD5E5D43275F9240F38935 /* MPNativeAdError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativeAdError.h; path = MoPubSDK/MPNativeAdError.h; sourceTree = "<group>"; };
 		306F7A735EA8E2C3F63CFF54B3736508 /* MDCItemBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCItemBar.h; path = components/Tabs/src/private/MDCItemBar.h; sourceTree = "<group>"; };
 		307CBE4EA0D33F3933509FB13BD642CF /* MDCButton+MaterialTheming.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MDCButton+MaterialTheming.m"; path = "components/Buttons/src/Theming/MDCButton+MaterialTheming.m"; sourceTree = "<group>"; };
+		3098862467DCC98F82A7FE3716BA2F18 /* Pods-PrebidMobileDemoRendering-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PrebidMobileDemoRendering-resources.sh"; sourceTree = "<group>"; };
 		314DCFDE341625611AD9CA15A16CE909 /* MPVASTVerification.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPVASTVerification.m; path = MoPubSDK/Internal/VAST/MPVASTVerification.m; sourceTree = "<group>"; };
 		3193771DF55A27AB4C9E97DD27F20AB9 /* MDCFlatButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCFlatButton.h; path = components/Buttons/src/MDCFlatButton.h; sourceTree = "<group>"; };
 		31DCC7760DDFE8D8876BD2D60700980B /* GULNetworkMessageCode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULNetworkMessageCode.h; path = GoogleUtilities/Network/Private/GULNetworkMessageCode.h; sourceTree = "<group>"; };
@@ -2109,6 +2111,7 @@
 		379EDC94578C3DF7CFD2710F1C796CFE /* MPBaseNativeAdRenderer+Internal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MPBaseNativeAdRenderer+Internal.m"; path = "MoPubSDK/NativeAds/Internal/MPBaseNativeAdRenderer+Internal.m"; sourceTree = "<group>"; };
 		37A0521D66D75D648B0D8F2141F99AEE /* MDCTabBarIndicatorView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCTabBarIndicatorView.m; path = components/Tabs/src/private/MDCTabBarIndicatorView.m; sourceTree = "<group>"; };
 		3800E46135DCC3949ED688BFA6AA35B4 /* MPMoPubInlineAdAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPMoPubInlineAdAdapter.h; path = MoPubSDK/Internal/Inline/MPMoPubInlineAdAdapter.h; sourceTree = "<group>"; };
+		380E8A4CA2A989DD41F4B004C763C635 /* Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig"; sourceTree = "<group>"; };
 		383C95C37F235BDC1D68FB700E8DE0B2 /* MDCItemBarStyle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCItemBarStyle.h; path = components/Tabs/src/private/MDCItemBarStyle.h; sourceTree = "<group>"; };
 		38672081C174FC5D3775BD7A6E0856C2 /* SingleAsync.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SingleAsync.swift; path = RxSwift/Observables/SingleAsync.swift; sourceTree = "<group>"; };
 		392B377A1F84AC4F081DADEC6547C76D /* MRCommand.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MRCommand.m; path = MoPubSDK/Internal/MRAID/MRCommand.m; sourceTree = "<group>"; };
@@ -2130,6 +2133,7 @@
 		3B14E36DD34B99BE7CAE9E51B247D9C3 /* Eureka.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Eureka.modulemap; sourceTree = "<group>"; };
 		3B1B10FD28E38621278336EBAB2AAB9F /* MDCSemanticColorScheme.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCSemanticColorScheme.h; path = components/schemes/Color/src/MDCSemanticColorScheme.h; sourceTree = "<group>"; };
 		3B3930826BA3E19B24689112BD5BE158 /* MPDAAIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = MPDAAIcon.png; path = MoPubSDK/Resources/MPDAAIcon.png; sourceTree = "<group>"; };
+		3B68ABBBE3106754DC49C1C892AA7790 /* Pods-PrebidMobileDemoRendering.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileDemoRendering.release.xcconfig"; sourceTree = "<group>"; };
 		3B6F64FE365E6C73C37F9B6D2BB20038 /* MPForceableOrientationProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPForceableOrientationProtocol.h; path = MoPubSDK/Internal/MRAID/MPForceableOrientationProtocol.h; sourceTree = "<group>"; };
 		3B7F9BFEFBA8E73067D26A1862FF0BA2 /* MPFullscreenAdAdapter+Video.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MPFullscreenAdAdapter+Video.h"; path = "MoPubSDK/Internal/Fullscreen/MPFullscreenAdAdapter+Video.h"; sourceTree = "<group>"; };
 		3B9E3FBE003F0981885B7326A862B2C4 /* PickerInlineRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PickerInlineRow.swift; path = Source/Rows/PickerInlineRow.swift; sourceTree = "<group>"; };
@@ -2169,8 +2173,6 @@
 		4132CA84F12B3474A6DF19530616BCDB /* MPURLActionInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPURLActionInfo.m; path = MoPubSDK/Internal/Common/MPURLActionInfo.m; sourceTree = "<group>"; };
 		413D97BBDC2E755B7E872EC91CA69E80 /* mopub-ios-sdk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "mopub-ios-sdk.release.xcconfig"; sourceTree = "<group>"; };
 		4196A39A8F7431840E3C9BB8CB7DC808 /* MPRealTimeTimer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPRealTimeTimer.m; path = MoPubSDK/MPRealTimeTimer.m; sourceTree = "<group>"; };
-		41C7962A41C10ADC7EDF883CC847C49F /* Pods_OpenXApolloMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_OpenXApolloMoPubAdapters.framework; path = "Pods-OpenXApolloMoPubAdapters.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		41CC50233539F75BFCFD4E8793069845 /* Pods-PrebidMobileGAMEventHandlersTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PrebidMobileGAMEventHandlersTests-frameworks.sh"; sourceTree = "<group>"; };
 		421ECBBB17A7E5E28C3FCBED1717F9D4 /* Take.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Take.swift; path = RxSwift/Observables/Take.swift; sourceTree = "<group>"; };
 		423069BE1DAD1A3B3C49CA6D64A56BC9 /* MPViewableView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPViewableView.h; path = MoPubSDK/Internal/Viewability/MPViewableView.h; sourceTree = "<group>"; };
 		425255497C54340A03070A73A44E44D1 /* MDCTabBarControllerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCTabBarControllerDelegate.h; path = components/Tabs/src/MDCTabBarControllerDelegate.h; sourceTree = "<group>"; };
@@ -2188,13 +2190,12 @@
 		464C46DD20703D59B4539F802682056E /* MPNativeAdData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativeAdData.h; path = MoPubSDK/NativeAds/Internal/MPNativeAdData.h; sourceTree = "<group>"; };
 		4650ACA31DE66A03DBF0F86BDA637C87 /* SelectorRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SelectorRow.swift; path = Source/Rows/Common/SelectorRow.swift; sourceTree = "<group>"; };
 		465A70F2177E85325E3EC4E2303A2E63 /* pb_decode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = pb_decode.h; sourceTree = "<group>"; };
-		4705E402260AC16C8B7277FD6557368B /* Pods-PrebidMobileDemoRendering-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-PrebidMobileDemoRendering-acknowledgements.markdown"; sourceTree = "<group>"; };
 		472BCB6521190F5C3E73ED24816509C0 /* PromisesObjC-iOS9.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "PromisesObjC-iOS9.0-umbrella.h"; path = "../PromisesObjC-iOS9.0/PromisesObjC-iOS9.0-umbrella.h"; sourceTree = "<group>"; };
 		4781F1CB08AE4A2F609B9A90A6B6EFE7 /* MPFullscreenAdAdapter+MPAdAdapter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MPFullscreenAdAdapter+MPAdAdapter.m"; path = "MoPubSDK/Internal/Fullscreen/MPFullscreenAdAdapter+MPAdAdapter.m"; sourceTree = "<group>"; };
 		47C8D8417FCA848629FF4BC3B173B7B5 /* Bag+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Bag+Rx.swift"; path = "RxSwift/Extensions/Bag+Rx.swift"; sourceTree = "<group>"; };
 		47EC3FC01490475FCF00DD6CCBDA6F28 /* DisposeBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DisposeBase.swift; path = RxSwift/Disposables/DisposeBase.swift; sourceTree = "<group>"; };
 		4853605CE58C07BE3C9C56E3DC340234 /* MDCDialogPresentationController+MaterialTheming.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MDCDialogPresentationController+MaterialTheming.h"; path = "components/Dialogs/src/Theming/MDCDialogPresentationController+MaterialTheming.h"; sourceTree = "<group>"; };
-		48BB776F78EC6BEDDEE0D48A2FBF0F59 /* Pods-OpenXMockServer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-OpenXMockServer.modulemap"; sourceTree = "<group>"; };
+		4857C50B64C4DDEE492D0A7979C6C3B1 /* Pods_PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_PrebidMobileMoPubAdapters.framework; path = "Pods-PrebidMobileMoPubAdapters.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48E35788565B1D641E7605A475E13778 /* MPReward.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPReward.m; path = MoPubSDK/MPReward.m; sourceTree = "<group>"; };
 		48FA5818B09D3694BD852F4E29B6AE19 /* Merge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Merge.swift; path = RxSwift/Observables/Merge.swift; sourceTree = "<group>"; };
 		48FFBC91CB0D1DE938B3FCE757A655B7 /* MPNativeAdConstants.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPNativeAdConstants.m; path = MoPubSDK/NativeAds/MPNativeAdConstants.m; sourceTree = "<group>"; };
@@ -2267,10 +2268,10 @@
 		549A8DBC48338F70293E4511656FAB0C /* Row.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Row.swift; path = Source/Core/Row.swift; sourceTree = "<group>"; };
 		55630AA69E37063EFE77CE1C8717B720 /* GULReachabilityChecker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULReachabilityChecker.h; path = GoogleUtilities/Reachability/Private/GULReachabilityChecker.h; sourceTree = "<group>"; };
 		556CF73AEA01BDD00D356D10BC4CFBCC /* MPMediationManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPMediationManager.h; path = MoPubSDK/Internal/MPMediationManager.h; sourceTree = "<group>"; };
-		559CC7DD4F9D76EC53011ED59A2028CD /* Pods-OpenXApolloMoPubAdapters-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OpenXApolloMoPubAdapters-acknowledgements.markdown"; sourceTree = "<group>"; };
 		55C436CF0360A270F81B153D2196A8ED /* MaterialComponents-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MaterialComponents-dummy.m"; sourceTree = "<group>"; };
 		55FE8B148C53F5E6E08E08F0B8CD06F1 /* MPRewardedVideoReward.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPRewardedVideoReward.m; path = MoPubSDK/RewardedVideo/MPRewardedVideoReward.m; sourceTree = "<group>"; };
 		562425DE562FAB3A53FE74F2941919E6 /* MPVASTModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPVASTModel.h; path = MoPubSDK/Internal/VAST/MPVASTModel.h; sourceTree = "<group>"; };
+		56352CD551303561184AB4A4E2BA8C05 /* Pods-OpenXMockServer-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OpenXMockServer-acknowledgements.markdown"; sourceTree = "<group>"; };
 		56738F818FAB678AB69E645D7731BB2C /* PromisesObjC-iOS10.0-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "PromisesObjC-iOS10.0-Info.plist"; sourceTree = "<group>"; };
 		567A90F888F7CA97BFDB671D2B8A7BCC /* MPFullscreenAdViewController+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MPFullscreenAdViewController+Private.h"; path = "MoPubSDK/Internal/Fullscreen/MPFullscreenAdViewController+Private.h"; sourceTree = "<group>"; };
 		56958BC60AAEED86A187C443E9B55EE9 /* MDCLegacyInkLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCLegacyInkLayer.h; path = components/Ink/src/private/MDCLegacyInkLayer.h; sourceTree = "<group>"; };
@@ -2340,7 +2341,6 @@
 		63529BAF42218A0A20ED7537EFAD148E /* UIView+MPAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+MPAdditions.h"; path = "MoPubSDK/Internal/Utility/Categories/UIView+MPAdditions.h"; sourceTree = "<group>"; };
 		63E8A95EC6621B44DF513CE12BCA59D4 /* MainScheduler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MainScheduler.swift; path = RxSwift/Schedulers/MainScheduler.swift; sourceTree = "<group>"; };
 		63F0B75FFA15B9DF426228B1C76FCF4A /* MPNativeAdRequest+MPNativeAdSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MPNativeAdRequest+MPNativeAdSource.h"; path = "MoPubSDK/NativeAds/Internal/Categories/MPNativeAdRequest+MPNativeAdSource.h"; sourceTree = "<group>"; };
-		6411C66DF41082175D7537A6BC591F24 /* Pods-OpenXApolloMoPubAdapters.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OpenXApolloMoPubAdapters.debug.xcconfig"; sourceTree = "<group>"; };
 		645BBBFAB166083BF2197624A5A9C736 /* MPVideoConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPVideoConfig.h; path = MoPubSDK/Internal/Common/MPVideoConfig.h; sourceTree = "<group>"; };
 		64C9B14F0B9D002F9E4A5F14726C45AF /* PromisesObjC-iOS10.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "PromisesObjC-iOS10.0.release.xcconfig"; sourceTree = "<group>"; };
 		64CDF526BB0F479956FCFE6351C0411C /* MPMediationManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPMediationManager.m; path = MoPubSDK/Internal/MPMediationManager.m; sourceTree = "<group>"; };
@@ -2358,17 +2358,18 @@
 		66A39FF5D3D2EF3383B2900C997D161C /* Sequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Sequence.swift; path = RxSwift/Observables/Sequence.swift; sourceTree = "<group>"; };
 		66C28331D0AC52D28E9E755E1CA5CEE1 /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
 		6732B95942ACCD40C5D410DD11C773FB /* MPTableViewAdPlacer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPTableViewAdPlacer.h; path = MoPubSDK/NativeAds/MPTableViewAdPlacer.h; sourceTree = "<group>"; };
+		675842E771C1AA6DC9B45384B17E4CFF /* Pods-PrebidMobileGAMEventHandlers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileGAMEventHandlers.debug.xcconfig"; sourceTree = "<group>"; };
 		6761E0D70ED7155BC09A209F2A77BCC0 /* VirtualTimeScheduler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VirtualTimeScheduler.swift; path = RxSwift/Schedulers/VirtualTimeScheduler.swift; sourceTree = "<group>"; };
 		6777270D00D9B33A37381CF1C5581781 /* MPSKAdNetworkManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPSKAdNetworkManager.h; path = MoPubSDK/Internal/Common/MPSKAdNetworkManager.h; sourceTree = "<group>"; };
 		67C5CC2B67D4F815600066F34F922D98 /* MDCLegacyTonalPalette.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCLegacyTonalPalette.m; path = components/schemes/Color/src/MDCLegacyTonalPalette.m; sourceTree = "<group>"; };
 		67E02B0491A4559191419BA986159ACB /* MPURL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPURL.m; path = MoPubSDK/Internal/MPURL.m; sourceTree = "<group>"; };
 		6814C5A0A62A8831ACC7C25732111CFD /* NSString+MaterialBidi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+MaterialBidi.h"; path = "Sources/NSString+MaterialBidi.h"; sourceTree = "<group>"; };
 		68338B9FB0A4B2A2EC4E69979392D972 /* MDCPaletteNames.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCPaletteNames.m; path = components/Palettes/src/private/MDCPaletteNames.m; sourceTree = "<group>"; };
+		6845BCBA7AAD7DCA33C9409B5BEC8777 /* Pods-OpenXMockServer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OpenXMockServer-dummy.m"; sourceTree = "<group>"; };
 		68B28E3F05DA8A4B53E07DF136508795 /* MaterialRipple.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MaterialRipple.h; path = components/Ripple/src/MaterialRipple.h; sourceTree = "<group>"; };
 		68D7EE595D0A11B67B9DAD7D4264D858 /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Source/Validation.swift; sourceTree = "<group>"; };
 		690F541E18032365B41131AF14CAE64A /* MPCollectionViewAdPlacer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPCollectionViewAdPlacer.h; path = MoPubSDK/NativeAds/MPCollectionViewAdPlacer.h; sourceTree = "<group>"; };
 		69196CA5D9E9B88F8232E1AE11810688 /* MPInterstitialAdManagerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPInterstitialAdManagerDelegate.h; path = MoPubSDK/Internal/Interstitials/MPInterstitialAdManagerDelegate.h; sourceTree = "<group>"; };
-		698F138C4C5A5C35E0E84E26AFB13FD0 /* Pods-PrebidMobileDemoRendering.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-PrebidMobileDemoRendering.modulemap"; sourceTree = "<group>"; };
 		699698747BC1EC8B952CB2F4D58A0DFF /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ServerTrustPolicy.swift; path = Source/ServerTrustPolicy.swift; sourceTree = "<group>"; };
 		69990FF8914BA1D5945E1EA89D2E0153 /* MaterialComponents-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MaterialComponents-prefix.pch"; sourceTree = "<group>"; };
 		69B75D24174E29BEC0633A3B809F3A5C /* TriplePickerRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TriplePickerRow.swift; path = Source/Rows/TriplePickerRow.swift; sourceTree = "<group>"; };
@@ -2443,6 +2444,7 @@
 		767DD3933221631914F6F27B81C17117 /* nanopb-iOS10.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "nanopb-iOS10.0.release.xcconfig"; sourceTree = "<group>"; };
 		76B9ED36D13336307026E66601FAFD49 /* GULKeychainStorage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULKeychainStorage.h; path = GoogleUtilities/Environment/Private/GULKeychainStorage.h; sourceTree = "<group>"; };
 		76D06F57103D0BBEF39E30910A1AC7CC /* MPVASTLinearAd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPVASTLinearAd.h; path = MoPubSDK/Internal/VAST/MPVASTLinearAd.h; sourceTree = "<group>"; };
+		7732A3D2217695D1C2C883D65878DC73 /* Pods-PrebidMobileGAMEventHandlers-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-PrebidMobileGAMEventHandlers-umbrella.h"; sourceTree = "<group>"; };
 		773647638CAC1EBC1A31CA57F246A123 /* MPNativeAdData.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPNativeAdData.m; path = MoPubSDK/NativeAds/Internal/MPNativeAdData.m; sourceTree = "<group>"; };
 		774A14628237EF65B039A20A7277F289 /* MRProperty.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MRProperty.m; path = MoPubSDK/Internal/MRAID/MRProperty.m; sourceTree = "<group>"; };
 		776FEABD77910CA136C85EDB25225AE5 /* MPAdContainerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPAdContainerView.h; path = MoPubSDK/Internal/UI/MPAdContainerView.h; sourceTree = "<group>"; };
@@ -2452,11 +2454,13 @@
 		77C854068B2DDE8A989C2FA0A851E6C7 /* MPNativeAdConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativeAdConstants.h; path = MoPubSDK/NativeAds/MPNativeAdConstants.h; sourceTree = "<group>"; };
 		77D7585F89660D408F6123095BDCC84A /* AnyObserver.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnyObserver.swift; path = RxSwift/AnyObserver.swift; sourceTree = "<group>"; };
 		78936F2742A5EF47DFF41A4CB075C277 /* MPRateLimitManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPRateLimitManager.h; path = MoPubSDK/Internal/MPRateLimitManager.h; sourceTree = "<group>"; };
+		78D232F64CB5373F52869C2A70AF5C14 /* Pods-PrebidMobileGAMEventHandlers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileGAMEventHandlers.release.xcconfig"; sourceTree = "<group>"; };
 		792C3954BE459B248A9CF5F171339E28 /* FBLPromise+All.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+All.h"; path = "Sources/FBLPromises/include/FBLPromise+All.h"; sourceTree = "<group>"; };
 		79384433AE6347BDA15525C90623E9BC /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
 		7969B06A4A1245F0E41D7D1524B621FD /* NSString+MPAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+MPAdditions.h"; path = "MoPubSDK/Internal/Utility/Categories/NSString+MPAdditions.h"; sourceTree = "<group>"; };
 		799160BAD8816341E51C36D53ED0B941 /* MPActivityViewControllerHelper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPActivityViewControllerHelper.m; path = MoPubSDK/Internal/Common/MPActivityViewControllerHelper.m; sourceTree = "<group>"; };
 		79A86C181632BD0BAB6044BF77D354F1 /* MDCRippleTouchController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCRippleTouchController.h; path = components/Ripple/src/MDCRippleTouchController.h; sourceTree = "<group>"; };
+		79D198703250503D05A969A8F0ABC1E8 /* Pods-PrebidMobileDemoRendering-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PrebidMobileDemoRendering-dummy.m"; sourceTree = "<group>"; };
 		79DE651E56A7A514B3D982E4AAEBD493 /* FBLPromiseError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBLPromiseError.h; path = Sources/FBLPromises/include/FBLPromiseError.h; sourceTree = "<group>"; };
 		7A8396F4E3C67A5A27130FC66999F716 /* RxSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RxSwift-prefix.pch"; sourceTree = "<group>"; };
 		7A989C464962D6D39FCFE5CB47E2E46A /* GULSwizzler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GULSwizzler.m; path = GoogleUtilities/MethodSwizzler/GULSwizzler.m; sourceTree = "<group>"; };
@@ -2497,7 +2501,6 @@
 		80BD5A31EFCFB7B22E31F1CF7D478554 /* SkipWhile.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SkipWhile.swift; path = RxSwift/Observables/SkipWhile.swift; sourceTree = "<group>"; };
 		81AC2D1FDFF9A291417375CC67946333 /* MDCShapeCategory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCShapeCategory.h; path = components/schemes/Shape/src/MDCShapeCategory.h; sourceTree = "<group>"; };
 		81B715972B60A0E80738463089D2183B /* MPNativeAdAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativeAdAdapter.h; path = MoPubSDK/NativeAds/MPNativeAdAdapter.h; sourceTree = "<group>"; };
-		81C363A634BFB66E74DAD2AD426B646F /* Pods-PrebidMobileGAMEventHandlersTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-PrebidMobileGAMEventHandlersTests-umbrella.h"; sourceTree = "<group>"; };
 		825996ED9458C1922D1474D88CDE0690 /* MaterialButtons+ShapeThemer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MaterialButtons+ShapeThemer.h"; path = "components/Buttons/src/ShapeThemer/MaterialButtons+ShapeThemer.h"; sourceTree = "<group>"; };
 		82A95F7BA0D4B1C825CFFB3CBBC34DD1 /* Switch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Switch.swift; path = RxSwift/Observables/Switch.swift; sourceTree = "<group>"; };
 		82C028FAC36826CC987D07A4CEC2DF88 /* MDCPathGenerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCPathGenerator.h; path = components/Shapes/src/MDCPathGenerator.h; sourceTree = "<group>"; };
@@ -2521,13 +2524,13 @@
 		853860446366C4A1AC1CCBF99BBD1E00 /* GULKeychainUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULKeychainUtils.h; path = GoogleUtilities/Environment/Private/GULKeychainUtils.h; sourceTree = "<group>"; };
 		853B2AC2E45107E9D36971F5048F43F3 /* Deprecated.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Deprecated.swift; path = RxSwift/Deprecated.swift; sourceTree = "<group>"; };
 		8555ECCD3071D0A67728337AFFA38FE2 /* nanopb-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "nanopb-iOS10.0.modulemap"; sourceTree = "<group>"; };
-		8574E982FDE59F736B81A72FE2F9489C /* Pods-PrebidMobileGAMEventHandlers-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PrebidMobileGAMEventHandlers-dummy.m"; sourceTree = "<group>"; };
 		857FBAC9285F445E15FE995641462BAC /* nanopb-iOS9.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "nanopb-iOS9.0-umbrella.h"; path = "../nanopb-iOS9.0/nanopb-iOS9.0-umbrella.h"; sourceTree = "<group>"; };
 		85AB28D77396CF795FD242049DA17DBF /* MPTimer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPTimer.m; path = MoPubSDK/Internal/Utility/MPTimer.m; sourceTree = "<group>"; };
+		85BA58DC4BEA0AEDFE0829B530416C79 /* Pods-PrebidMobileGAMEventHandlersTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PrebidMobileGAMEventHandlersTests-dummy.m"; sourceTree = "<group>"; };
 		8667BAF6C7EE7EAA89F5C92FFEC46C44 /* MPNativePositionSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativePositionSource.h; path = MoPubSDK/NativeAds/Internal/MPNativePositionSource.h; sourceTree = "<group>"; };
+		86827C39868FCF034326D3F0C705AE11 /* Pods-PrebidMobileGAMEventHandlersTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PrebidMobileGAMEventHandlersTests-frameworks.sh"; sourceTree = "<group>"; };
 		8684DD663755ABE6A75AECD3E681F003 /* MDCFloatingButtonColorThemer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCFloatingButtonColorThemer.m; path = components/Buttons/src/ColorThemer/MDCFloatingButtonColorThemer.m; sourceTree = "<group>"; };
 		86B08B906072FCD7A767F7605D5F92B9 /* NopDisposable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NopDisposable.swift; path = RxSwift/Disposables/NopDisposable.swift; sourceTree = "<group>"; };
-		86C572479C4CB6010DE7E885FB625BD9 /* Pods-PrebidMobileGAMEventHandlers-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PrebidMobileGAMEventHandlers-acknowledgements.plist"; sourceTree = "<group>"; };
 		86C9A384AAEF32E16ADB4B751CFD9F87 /* MPContentBlocker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPContentBlocker.m; path = MoPubSDK/Internal/HTML/MPContentBlocker.m; sourceTree = "<group>"; };
 		86F7BD93530947FF30E6E60E4B7F29E9 /* Range.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Range.swift; path = RxSwift/Observables/Range.swift; sourceTree = "<group>"; };
 		871842EC552826C82CE723AD8B00E2B9 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -2544,16 +2547,17 @@
 		88F02CC9532DA771C9CCA88E3FD7A4DD /* Dematerialize.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Dematerialize.swift; path = RxSwift/Observables/Dematerialize.swift; sourceTree = "<group>"; };
 		88F2F9FE038E61212D04B16A769E755D /* MDCStatefulRippleView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCStatefulRippleView.h; path = components/Ripple/src/MDCStatefulRippleView.h; sourceTree = "<group>"; };
 		8907733346BB0C827EC4DE6605B9A6A3 /* MaterialShadowElevations.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MaterialShadowElevations.h; path = components/ShadowElevations/src/MaterialShadowElevations.h; sourceTree = "<group>"; };
+		895ACC000E6A04F0FF5EBB91EDEAB5EE /* Pods-PrebidMobileGAMEventHandlers-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-PrebidMobileGAMEventHandlers-acknowledgements.markdown"; sourceTree = "<group>"; };
 		89F66FC99C5CC6937F9A2CF1E88B7E2B /* MDCIcons.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCIcons.m; path = components/private/Icons/src/MDCIcons.m; sourceTree = "<group>"; };
 		8A17AB1F05C56E3E2780B53FDB549C3E /* MPVASTIndustryIcon.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPVASTIndustryIcon.m; path = MoPubSDK/Internal/VAST/MPVASTIndustryIcon.m; sourceTree = "<group>"; };
 		8A41D5B2D94C122026C5B681513C0CE9 /* FBLPromise+Wrap.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+Wrap.h"; path = "Sources/FBLPromises/include/FBLPromise+Wrap.h"; sourceTree = "<group>"; };
-		8A5BF0C177ACFEF92D41B89415E6E3F2 /* Pods-OpenXMockServer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-OpenXMockServer-umbrella.h"; sourceTree = "<group>"; };
 		8ABDC040BA10F8F4248D90C23E684C4E /* Do.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Do.swift; path = RxSwift/Observables/Do.swift; sourceTree = "<group>"; };
 		8AF31C6EEFDCD4F2DB199572B7F5EA3C /* MPSKAdNetworkClickthroughData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPSKAdNetworkClickthroughData.h; path = MoPubSDK/Internal/Common/MPSKAdNetworkClickthroughData.h; sourceTree = "<group>"; };
 		8B2298869485B9A6EA1B8CD4DB255270 /* MPNativeCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPNativeCache.m; path = MoPubSDK/Internal/Utility/MPNativeCache.m; sourceTree = "<group>"; };
 		8B2B3541933BCE7A1567514644546953 /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
 		8B74A970558D2195EA7FB2C047AA8AD2 /* Disposables.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Disposables.swift; path = RxSwift/Disposables/Disposables.swift; sourceTree = "<group>"; };
 		8C082052B0D79A48CF8667F86C619CC3 /* Cell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Cell.swift; path = Source/Core/Cell.swift; sourceTree = "<group>"; };
+		8C1B6B96742CF67EAADC3A816F5C4EAB /* Pods-PrebidMobileMoPubAdapters-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PrebidMobileMoPubAdapters-dummy.m"; sourceTree = "<group>"; };
 		8C448F5444ABE924B4220D69EE8E78A5 /* RxSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = RxSwift.modulemap; sourceTree = "<group>"; };
 		8CA2B25B4027993DBF7FE3C5A85BB980 /* MOPUBExperimentProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MOPUBExperimentProvider.h; path = MoPubSDK/Internal/Utility/MOPUBExperimentProvider.h; sourceTree = "<group>"; };
 		8CC6CAA1C5AAEB2758245BAA3D9A9368 /* pb_common.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = pb_common.h; sourceTree = "<group>"; };
@@ -2611,6 +2615,7 @@
 		961E437EA20859E667AFA5C24560AEA8 /* LockOwnerType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LockOwnerType.swift; path = RxSwift/Concurrency/LockOwnerType.swift; sourceTree = "<group>"; };
 		96779085A07BB4BCA6D343917A5754DB /* MPAdPositioning.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPAdPositioning.m; path = MoPubSDK/NativeAds/MPAdPositioning.m; sourceTree = "<group>"; };
 		96E8545B6B32EEEB45454A1B2FE07D86 /* ObservableType+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ObservableType+Extensions.swift"; path = "RxSwift/ObservableType+Extensions.swift"; sourceTree = "<group>"; };
+		96EE1ADCBFF5D30AEC36948E4349781C /* Pods-PrebidMobileGAMEventHandlers.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-PrebidMobileGAMEventHandlers.modulemap"; sourceTree = "<group>"; };
 		96F4CBF2C749C11E96F1925DEF8B1FED /* MDCFloatingButtonModeAnimatorDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCFloatingButtonModeAnimatorDelegate.h; path = components/Buttons/src/private/MDCFloatingButtonModeAnimatorDelegate.h; sourceTree = "<group>"; };
 		96FD260D03D70B31440365A1B02B8BBA /* BinaryDisposable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BinaryDisposable.swift; path = RxSwift/Disposables/BinaryDisposable.swift; sourceTree = "<group>"; };
 		9706036531FB56B314160CB47F8D63B7 /* Error.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Error.swift; path = RxSwift/Observables/Error.swift; sourceTree = "<group>"; };
@@ -2618,7 +2623,7 @@
 		978A0CC1C4B2820E801CED9435A925C1 /* Disposable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Disposable.swift; path = RxSwift/Disposable.swift; sourceTree = "<group>"; };
 		97988907D76F0D3F8263F3301DA65471 /* UIFont+MaterialSimpleEquality.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIFont+MaterialSimpleEquality.h"; path = "components/Typography/src/UIFont+MaterialSimpleEquality.h"; sourceTree = "<group>"; };
 		979D41F0250A1F3CD920FD3D7541E6A0 /* MPCloseBtn@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MPCloseBtn@3x.png"; path = "MoPubSDK/Resources/MPCloseBtn@3x.png"; sourceTree = "<group>"; };
-		97BB37FC5E26D3245C144117FEF66E89 /* Pods-PrebidMobileGAMEventHandlers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileGAMEventHandlers.release.xcconfig"; sourceTree = "<group>"; };
+		97E51113CACF7C8B95EC27406B22E09E /* Pods-OpenXMockServer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-OpenXMockServer-umbrella.h"; sourceTree = "<group>"; };
 		981EECC8A1611B9FE695209E72EA2B43 /* GoogleUtilities-iOS9.0.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "GoogleUtilities-iOS9.0.release.xcconfig"; path = "../GoogleUtilities-iOS9.0/GoogleUtilities-iOS9.0.release.xcconfig"; sourceTree = "<group>"; };
 		983ED014248A4B3CC29793A1BE5F15D8 /* MPVASTWrapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPVASTWrapper.m; path = MoPubSDK/Internal/VAST/MPVASTWrapper.m; sourceTree = "<group>"; };
 		986B07C7C75BA5A74320CFA43286CBE8 /* MaterialButtons+TypographyThemer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MaterialButtons+TypographyThemer.h"; path = "components/Buttons/src/TypographyThemer/MaterialButtons+TypographyThemer.h"; sourceTree = "<group>"; };
@@ -2642,6 +2647,7 @@
 		9B6F27B63FB0747E03A3BD89966031DA /* MPNativePositionSource.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPNativePositionSource.m; path = MoPubSDK/NativeAds/Internal/MPNativePositionSource.m; sourceTree = "<group>"; };
 		9BBD3555402B6BF7A77CE36777D2AF28 /* MPInlineAdAdapter+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MPInlineAdAdapter+Internal.h"; path = "MoPubSDK/Internal/Inline/MPInlineAdAdapter+Internal.h"; sourceTree = "<group>"; };
 		9BE824CBB80D0E52FC463E73C629598E /* AlertRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlertRow.swift; path = Source/Rows/AlertRow.swift; sourceTree = "<group>"; };
+		9BF55BD3625284E49EBE25A598872D28 /* Pods-PrebidMobileGAMEventHandlersTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-PrebidMobileGAMEventHandlersTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		9C073A4341636C51579EAFB29B964F78 /* FBLPromise+Testing.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FBLPromise+Testing.m"; path = "Sources/FBLPromises/FBLPromise+Testing.m"; sourceTree = "<group>"; };
 		9C12172CF51B45D7A8573A32FA23927D /* MPInlineAdAdapter+MPInlineAdAdapterDelegate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MPInlineAdAdapter+MPInlineAdAdapterDelegate.m"; path = "MoPubSDK/Internal/Inline/MPInlineAdAdapter+MPInlineAdAdapterDelegate.m"; sourceTree = "<group>"; };
 		9C9DBCACBA3376B092D3BC72D3C760C8 /* MPImageDownloadQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPImageDownloadQueue.m; path = MoPubSDK/Internal/Utility/MPImageDownloadQueue.m; sourceTree = "<group>"; };
@@ -2663,11 +2669,11 @@
 		9F6B8D5B3880D46FEAF89B92CC154F0F /* MPClientAdPositioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPClientAdPositioning.h; path = MoPubSDK/NativeAds/MPClientAdPositioning.h; sourceTree = "<group>"; };
 		9F71AE6CEAE4B29446DC46A402C63A74 /* MDFTextAccessibility.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MDFTextAccessibility.debug.xcconfig; sourceTree = "<group>"; };
 		9F733CD95C18D0C68D09A28CECD070AF /* DelaySubscription.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DelaySubscription.swift; path = RxSwift/Observables/DelaySubscription.swift; sourceTree = "<group>"; };
+		9FB38D18EDBFCAC68DE6C8BE6AC42D57 /* Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9FBA95F49E1AA198417A597B5634DDA3 /* SwipeActions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwipeActions.swift; path = Source/Core/SwipeActions.swift; sourceTree = "<group>"; };
 		A03057A9758AD10CD3FEFCAF85175CE5 /* MPAdPlacerInvocation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPAdPlacerInvocation.h; path = MoPubSDK/NativeAds/Internal/MPAdPlacerInvocation.h; sourceTree = "<group>"; };
 		A085E827DD48B8320C5C1F0059E913AD /* GoogleUtilities-iOS9.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "GoogleUtilities-iOS9.0.modulemap"; path = "../GoogleUtilities-iOS9.0/GoogleUtilities-iOS9.0.modulemap"; sourceTree = "<group>"; };
 		A0BC0FF8059BDC73DD3D466A48E4DBBC /* RxSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RxSwift.release.xcconfig; sourceTree = "<group>"; };
-		A12BE92878A875306E2F9A75B6C0AFC0 /* Pods-PrebidMobileGAMEventHandlersTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PrebidMobileGAMEventHandlersTests-dummy.m"; sourceTree = "<group>"; };
 		A14E0BB56ECBA5FFA1B5C8ED9CE0009D /* OptionsRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OptionsRow.swift; path = Source/Rows/Common/OptionsRow.swift; sourceTree = "<group>"; };
 		A1526C8DC2412A85B29BA0674071B384 /* Single.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Single.swift; path = RxSwift/Traits/Single.swift; sourceTree = "<group>"; };
 		A18937598233A19B85CE5E57B6B1FA6C /* RowProtocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RowProtocols.swift; path = Source/Core/RowProtocols.swift; sourceTree = "<group>"; };
@@ -2689,7 +2695,6 @@
 		A3EE306B4F3EC00C2AC123A946EE503D /* FBLPromise+Race.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FBLPromise+Race.m"; path = "Sources/FBLPromises/FBLPromise+Race.m"; sourceTree = "<group>"; };
 		A438A3DBDC93B2F9ABA6123ACEFDF1B6 /* MPImageLoader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPImageLoader.h; path = MoPubSDK/MPImageLoader.h; sourceTree = "<group>"; };
 		A45B1BB7261377E34E000F5EB021EC41 /* MPViewableProgressView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPViewableProgressView.m; path = MoPubSDK/Internal/Viewability/MPViewableProgressView.m; sourceTree = "<group>"; };
-		A46530BC59F9092CD53D9DE847A93B9A /* Pods-OpenXApolloMoPubAdapters-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-OpenXApolloMoPubAdapters-umbrella.h"; sourceTree = "<group>"; };
 		A4FEFF4E4AC02C4B1C9628E6E544607E /* MPConsentChangedNotification.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPConsentChangedNotification.h; path = MoPubSDK/MPConsentChangedNotification.h; sourceTree = "<group>"; };
 		A51DF171DB815FD295C1FDB0E5AFA02B /* Delay.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Delay.swift; path = RxSwift/Observables/Delay.swift; sourceTree = "<group>"; };
 		A5284C6AF366FA6CFBB31E90742BD536 /* MPViewabilityObstructionName.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPViewabilityObstructionName.m; path = MoPubSDK/Internal/Viewability/MPViewabilityObstructionName.m; sourceTree = "<group>"; };
@@ -2717,9 +2722,10 @@
 		AACB24795A62B089C8C7135BF92E4CFF /* GoogleUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GoogleUtilities.framework; path = "GoogleUtilities-iOS9.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AACBA66DBF9FDB25DA67651D8B65665C /* MDCLegacyInkLayerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCLegacyInkLayerDelegate.h; path = components/Ink/src/private/MDCLegacyInkLayerDelegate.h; sourceTree = "<group>"; };
 		AAE2087DBCDCB511F6FD8615B18E5063 /* pb_common.c */ = {isa = PBXFileReference; includeInIndex = 1; path = pb_common.c; sourceTree = "<group>"; };
-		AB0E4CCE07AB924E180571DBF94A27B3 /* Pods-OpenXMockServer-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OpenXMockServer-acknowledgements.plist"; sourceTree = "<group>"; };
 		AB17220F736D492C992AB04D7BC489F1 /* MRError.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MRError.m; path = MoPubSDK/Internal/MRAID/MRError.m; sourceTree = "<group>"; };
 		AB18A996DF5BDA8CE0A7FB0D8D1910CF /* nanopb-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "nanopb-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
+		AB3454A210F210C7F2E062E83C88CAE8 /* Pods-PrebidMobileGAMEventHandlers-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PrebidMobileGAMEventHandlers-acknowledgements.plist"; sourceTree = "<group>"; };
+		AB3522C17EC98C067A6C5A381C2D5452 /* Pods-PrebidMobileDemoRendering.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileDemoRendering.debug.xcconfig"; sourceTree = "<group>"; };
 		AB4B0F671B639E6CC414B42FC5276D3D /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.framework"; sourceTree = "<group>"; };
 		AB6C95B4A31D4AC07A1FB5A282B18D2B /* HistoricalSchedulerTimeConverter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HistoricalSchedulerTimeConverter.swift; path = RxSwift/Schedulers/HistoricalSchedulerTimeConverter.swift; sourceTree = "<group>"; };
 		AB97146853D1EACB0165B5199BB0F1BC /* MPFullscreenAdAdapterDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPFullscreenAdAdapterDelegate.h; path = MoPubSDK/MPFullscreenAdAdapterDelegate.h; sourceTree = "<group>"; };
@@ -2756,7 +2762,6 @@
 		B2C8CD7DD2DE3078264C1E43F69BA3EE /* NSBundle+MPAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+MPAdditions.m"; path = "MoPubSDK/Internal/Utility/Categories/NSBundle+MPAdditions.m"; sourceTree = "<group>"; };
 		B2D92FCDFEB8406582F7F85242634FFE /* MPURLRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPURLRequest.h; path = MoPubSDK/Internal/MPURLRequest.h; sourceTree = "<group>"; };
 		B2F3944736CB1B5E9E1372F3B90EADD1 /* Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-umbrella.h"; sourceTree = "<group>"; };
-		B315709A69FEF39BC63A0F8B8DCEB1A5 /* Pods-PrebidMobileDemoRendering.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileDemoRendering.release.xcconfig"; sourceTree = "<group>"; };
 		B33541E916425A4E538E36FDA8DB41E0 /* MPBaseNativeAdRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPBaseNativeAdRenderer.h; path = MoPubSDK/NativeAds/MPBaseNativeAdRenderer.h; sourceTree = "<group>"; };
 		B3658ACFAAF93A6872059A1EB949AC7C /* MaterialInk.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MaterialInk.h; path = components/Ink/src/MaterialInk.h; sourceTree = "<group>"; };
 		B3D993B46F6924A8102279519F9B3092 /* PromisesObjC-iOS9.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "PromisesObjC-iOS9.0.debug.xcconfig"; path = "../PromisesObjC-iOS9.0/PromisesObjC-iOS9.0.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2783,7 +2788,6 @@
 		B8C6D3371BD07D2E2CCBBA03BE040E4D /* mopub-ios-sdk-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "mopub-ios-sdk-prefix.pch"; sourceTree = "<group>"; };
 		B8CF59710B70E8B7038168468E682239 /* MRBundleManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MRBundleManager.m; path = MoPubSDK/Internal/MRAID/MRBundleManager.m; sourceTree = "<group>"; };
 		B9620895699CC57495E1221797389C1C /* GULReachabilityChecker+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "GULReachabilityChecker+Internal.h"; path = "GoogleUtilities/Reachability/GULReachabilityChecker+Internal.h"; sourceTree = "<group>"; };
-		B9FB870084978B0453EE96280ACE9029 /* Pods-OpenXMockServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OpenXMockServer.debug.xcconfig"; sourceTree = "<group>"; };
 		BA302DE3EED0A7F39BCBB90C685380D4 /* MoPub.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MoPub.m; path = MoPubSDK/MoPub.m; sourceTree = "<group>"; };
 		BA4AE917E6949B1781F90A8AAF4BC839 /* MaterialThemes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MaterialThemes.h; path = components/Themes/src/MaterialThemes.h; sourceTree = "<group>"; };
 		BA5BAB0734ACCAB17F6266CD6FACE27B /* mopub-ios-sdk.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "mopub-ios-sdk.modulemap"; sourceTree = "<group>"; };
@@ -2796,6 +2800,7 @@
 		BBEFDDC3A021289F2AD87A2D04EF48CC /* MDCItemBarBadge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCItemBarBadge.h; path = components/Tabs/src/private/MDCItemBarBadge.h; sourceTree = "<group>"; };
 		BC14A2B32AE0F91AC50979AB6C1E945B /* MPLogging.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPLogging.m; path = MoPubSDK/Logging/MPLogging.m; sourceTree = "<group>"; };
 		BC1E455E7A77B5246D9F8BC6641DFCC2 /* MPFullscreenAdAdapter+MPFullscreenAdViewControllerDelegate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MPFullscreenAdAdapter+MPFullscreenAdViewControllerDelegate.m"; path = "MoPubSDK/Internal/Fullscreen/MPFullscreenAdAdapter+MPFullscreenAdViewControllerDelegate.m"; sourceTree = "<group>"; };
+		BC5C791AE569FA837E548AFAD2A62A08 /* Pods-PrebidMobileDemoRendering-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PrebidMobileDemoRendering-frameworks.sh"; sourceTree = "<group>"; };
 		BCC2D17920F57A9D5FF6B027E46A0D0A /* Maybe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Maybe.swift; path = RxSwift/Traits/Maybe.swift; sourceTree = "<group>"; };
 		BCC464B7692C55FD14229B58A7362BD5 /* MDCLegacyTonalPalette.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCLegacyTonalPalette.h; path = components/schemes/Color/src/MDCLegacyTonalPalette.h; sourceTree = "<group>"; };
 		BCDE89FABA6DBA4B08E177C87AFE70D0 /* CombineLatest+arity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CombineLatest+arity.swift"; path = "RxSwift/Observables/CombineLatest+arity.swift"; sourceTree = "<group>"; };
@@ -2803,11 +2808,13 @@
 		BD666ABA6D0E74AF39C030CB0C8C0807 /* Sample.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Sample.swift; path = RxSwift/Observables/Sample.swift; sourceTree = "<group>"; };
 		BDB45B1A211A1F4666C1A1B1BD7F602C /* MPVideoPlayerViewOverlay.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPVideoPlayerViewOverlay.h; path = MoPubSDK/Internal/VideoPlayer/MPVideoPlayerViewOverlay.h; sourceTree = "<group>"; };
 		BDD3B7E109B53CCB48F8435F1E16DF1A /* Pods_PrebidMobileDemoRendering.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_PrebidMobileDemoRendering.framework; path = "Pods-PrebidMobileDemoRendering.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDE478AF2F8C4D535BD263114A97E153 /* Pods-PrebidMobileMoPubAdapters.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-PrebidMobileMoPubAdapters.modulemap"; sourceTree = "<group>"; };
 		BE00B15C110B62E9C3F6579A6726B611 /* MDCRectangleShapeGenerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCRectangleShapeGenerator.m; path = components/Shapes/src/MDCRectangleShapeGenerator.m; sourceTree = "<group>"; };
 		BE0F9558452CF28F1EF0DA3154643905 /* MPNativeAdError+VAST.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MPNativeAdError+VAST.m"; path = "MoPubSDK/NativeAds/Internal/Categories/MPNativeAdError+VAST.m"; sourceTree = "<group>"; };
 		BE2F774B3F22DD04016E9D5E0519E39D /* MDCTextButtonColorThemer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCTextButtonColorThemer.h; path = components/Buttons/src/ColorThemer/MDCTextButtonColorThemer.h; sourceTree = "<group>"; };
 		BE5312EA7F6F8FE7DCF46BEC8B1D219A /* MPMoPubInlineAdAdapter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPMoPubInlineAdAdapter.m; path = MoPubSDK/Internal/Inline/MPMoPubInlineAdAdapter.m; sourceTree = "<group>"; };
 		BE59B66A7E1E5262193E44529FB6DC2C /* MPAdViewOverlay.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPAdViewOverlay.h; path = MoPubSDK/Internal/UI/MPAdViewOverlay.h; sourceTree = "<group>"; };
+		BE5DFFBAA0DA4C6B59ED2D2F5A26D961 /* Pods-PrebidMobileDemoRendering.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-PrebidMobileDemoRendering.modulemap"; sourceTree = "<group>"; };
 		BFB69B4BE248CCFA5F6250C0C2439ABB /* SynchronizedOnType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SynchronizedOnType.swift; path = RxSwift/Concurrency/SynchronizedOnType.swift; sourceTree = "<group>"; };
 		BFC953A5D0AEC905D0FA0FDBEEB3805D /* ButtonRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ButtonRow.swift; path = Source/Rows/ButtonRow.swift; sourceTree = "<group>"; };
 		C000E1EC4097D65541486A8505D9CD42 /* MDCTextButtonColorThemer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCTextButtonColorThemer.m; path = components/Buttons/src/ColorThemer/MDCTextButtonColorThemer.m; sourceTree = "<group>"; };
@@ -2817,7 +2824,6 @@
 		C0BAD5310775EFC23B1514E5CD3D6675 /* MPStopwatch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPStopwatch.h; path = MoPubSDK/Internal/Utility/MPStopwatch.h; sourceTree = "<group>"; };
 		C132C436F4CA3B41F59A18D5BAF11773 /* PublishSubject.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PublishSubject.swift; path = RxSwift/Subjects/PublishSubject.swift; sourceTree = "<group>"; };
 		C157045DA777DC2CB872971EE1BB8EC8 /* ScheduledItemType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScheduledItemType.swift; path = RxSwift/Schedulers/Internal/ScheduledItemType.swift; sourceTree = "<group>"; };
-		C16446ED4E70CB80B2257C7D8922747E /* Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig"; sourceTree = "<group>"; };
 		C171F7C88FB506F1AA4CF792A3523666 /* UIFontDescriptor+MaterialTypography.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIFontDescriptor+MaterialTypography.m"; path = "components/Typography/src/UIFontDescriptor+MaterialTypography.m"; sourceTree = "<group>"; };
 		C1BAEE2089F3955C8CAA30E296DCDF2F /* MaterialPalettes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MaterialPalettes.h; path = components/Palettes/src/MaterialPalettes.h; sourceTree = "<group>"; };
 		C1BBBD1AB896549F18728821FF6B6533 /* NSHTTPURLResponse+MPAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSHTTPURLResponse+MPAdditions.m"; path = "MoPubSDK/Internal/Utility/Categories/NSHTTPURLResponse+MPAdditions.m"; sourceTree = "<group>"; };
@@ -2828,8 +2834,8 @@
 		C25897D97E8D9B9878953D3ECE3E7BAF /* GoogleAppMeasurement-iOS10.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "GoogleAppMeasurement-iOS10.0.debug.xcconfig"; sourceTree = "<group>"; };
 		C28B528BF80524A232CCE09C3B562B2D /* UIColor+MaterialElevation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIColor+MaterialElevation.m"; path = "components/Elevation/src/UIColor+MaterialElevation.m"; sourceTree = "<group>"; };
 		C3003EA16660FAC5DE6DFAA85611E4AA /* MRNativeCommandHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MRNativeCommandHandler.m; path = MoPubSDK/Internal/MRAID/MRNativeCommandHandler.m; sourceTree = "<group>"; };
-		C30D48A5C51D374254B8B25C581F85AE /* Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C34CA76A35A98F8DD8D47ED06BB43649 /* MaterialIcons.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MaterialIcons.h; path = components/private/Icons/src/MaterialIcons.h; sourceTree = "<group>"; };
+		C377FB15F10BEC21327FAD2828AEC379 /* Pods-OpenXMockServer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OpenXMockServer.release.xcconfig"; sourceTree = "<group>"; };
 		C397A7E250A4FA6750F8C260BAA2652A /* RxMutableBox.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RxMutableBox.swift; path = RxSwift/RxMutableBox.swift; sourceTree = "<group>"; };
 		C40DCDB23169E2A7924591A6CAD6BE34 /* MDCRoundedCornerTreatment.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCRoundedCornerTreatment.m; path = components/ShapeLibrary/src/MDCRoundedCornerTreatment.m; sourceTree = "<group>"; };
 		C442380BDEFA407CDA4C2DED17561587 /* MPFullscreenAdAdapter+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MPFullscreenAdAdapter+Private.h"; path = "MoPubSDK/Internal/Fullscreen/MPFullscreenAdAdapter+Private.h"; sourceTree = "<group>"; };
@@ -2839,8 +2845,8 @@
 		C50F9623241A6C766420B2C43AAF808B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		C517F143DB2AB3E228A73D48F7958CBF /* MPAdDestinationDisplayAgent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPAdDestinationDisplayAgent.h; path = MoPubSDK/Internal/Common/MPAdDestinationDisplayAgent.h; sourceTree = "<group>"; };
 		C5597C143E6DFDA890DA5E1ACAEF6715 /* RefCountDisposable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RefCountDisposable.swift; path = RxSwift/Disposables/RefCountDisposable.swift; sourceTree = "<group>"; };
-		C55F2B96EFCA2FEE12B7E6072BE2AF0B /* Pods-PrebidMobileDemoRendering-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PrebidMobileDemoRendering-frameworks.sh"; sourceTree = "<group>"; };
 		C57727D2736D695F035ABDB6ECB8C574 /* MDCCardCollectionCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCCardCollectionCell.m; path = components/Cards/src/MDCCardCollectionCell.m; sourceTree = "<group>"; };
+		C58310ACF16A76D7EB18698EC38E7E9C /* Pods-PrebidMobileMoPubAdapters-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-PrebidMobileMoPubAdapters-acknowledgements.markdown"; sourceTree = "<group>"; };
 		C584E3A6D02695F5BC7605E5FC4568E1 /* MDCIcons+BundleLoader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MDCIcons+BundleLoader.h"; path = "components/private/Icons/src/MDCIcons+BundleLoader.h"; sourceTree = "<group>"; };
 		C591D160E74159EC0EBE2D07DDCE7FA3 /* MPFullscreenAdViewController+Video.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MPFullscreenAdViewController+Video.m"; path = "MoPubSDK/Internal/Fullscreen/MPFullscreenAdViewController+Video.m"; sourceTree = "<group>"; };
 		C5990BE23E2B6A86BEA99CBF2E03A78A /* MDCColorScheme.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCColorScheme.h; path = components/Themes/src/MDCColorScheme.h; sourceTree = "<group>"; };
@@ -2849,7 +2855,6 @@
 		C621AE23438C1DE91005257A94EFC632 /* MaterialContainerScheme.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MaterialContainerScheme.h; path = components/schemes/Container/src/MaterialContainerScheme.h; sourceTree = "<group>"; };
 		C63B015DC9C20EF9965E4D51A4BB7CBA /* MPTableViewAdPlacerCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPTableViewAdPlacerCell.h; path = MoPubSDK/NativeAds/Internal/MPTableViewAdPlacerCell.h; sourceTree = "<group>"; };
 		C69DE145653AB4CB10455EE3AF2E539D /* Core.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Core.swift; path = Source/Core/Core.swift; sourceTree = "<group>"; };
-		C6CBC61B816B8AE566FF145E87CB73D4 /* Pods-PrebidMobileGAMEventHandlers-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-PrebidMobileGAMEventHandlers-umbrella.h"; sourceTree = "<group>"; };
 		C70C27FC2724CED696C18D2B35483E2C /* MDCTabBarDisplayDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCTabBarDisplayDelegate.h; path = components/Tabs/src/MDCTabBarDisplayDelegate.h; sourceTree = "<group>"; };
 		C7528D9BD068E9D32D68B6A8114B0027 /* MPAdViewOverlay.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPAdViewOverlay.m; path = MoPubSDK/Internal/UI/MPAdViewOverlay.m; sourceTree = "<group>"; };
 		C76A562093388BAC26B38731A0EC4FA6 /* mopub-ios-sdk-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "mopub-ios-sdk-Info.plist"; sourceTree = "<group>"; };
@@ -2857,13 +2862,13 @@
 		C78C1D2DB90E625EEB460FED9D92BDE5 /* MPConsentManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPConsentManager.h; path = MoPubSDK/Internal/MPConsentManager.h; sourceTree = "<group>"; };
 		C7AEBFA0F5CEBB964106959F10612C48 /* MDCAlertTypographyThemer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCAlertTypographyThemer.m; path = components/Dialogs/src/TypographyThemer/MDCAlertTypographyThemer.m; sourceTree = "<group>"; };
 		C7DBA676E0F2A7407FDA70F29A33496A /* NSDictionary+MPAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+MPAdditions.m"; path = "MoPubSDK/Internal/Utility/Categories/NSDictionary+MPAdditions.m"; sourceTree = "<group>"; };
-		C8303DEF285FA78AB5285E2E9C12EA6B /* Pods-OpenXApolloMoPubAdapters.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-OpenXApolloMoPubAdapters.modulemap"; sourceTree = "<group>"; };
 		C8859D343AFE14B971E507A5AC8B7CE0 /* NSArray+MDFUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSArray+MDFUtils.h"; path = "src/private/NSArray+MDFUtils.h"; sourceTree = "<group>"; };
 		C8C866AA3157E9ABC1793B946B88A564 /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SVRadialGradientLayer.m; path = SVProgressHUD/SVRadialGradientLayer.m; sourceTree = "<group>"; };
 		C8F603F3FA8F3A6627F483F9D842BAED /* SelectorViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SelectorViewController.swift; path = Source/Rows/Controllers/SelectorViewController.swift; sourceTree = "<group>"; };
 		C8FB988B4FF8B59A2626E763AAF27DBD /* OMIDMediaEvents.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OMIDMediaEvents.h; path = MoPubSDK/Internal/Viewability/OMSDK/OMIDMediaEvents.h; sourceTree = "<group>"; };
 		C91C347482E09F7DDF6D683920FE1B4A /* MDCFloatingButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCFloatingButton.m; path = components/Buttons/src/MDCFloatingButton.m; sourceTree = "<group>"; };
 		C91FDA7A701A202EFA6E7D4145AE74BD /* GULSecureCoding.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GULSecureCoding.m; path = GoogleUtilities/Environment/GULSecureCoding.m; sourceTree = "<group>"; };
+		C92809436AC0B033FF5B22008CA3A8DB /* Pods-PrebidMobileMoPubAdapters-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PrebidMobileMoPubAdapters-acknowledgements.plist"; sourceTree = "<group>"; };
 		C92FB1F4F2666022E7D7C72F8D8E0955 /* MDFTextAccessibility-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MDFTextAccessibility-prefix.pch"; sourceTree = "<group>"; };
 		C943A0AB8A8BD6CFF40E2DF6925AC3FC /* MPVASTMediaFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPVASTMediaFile.m; path = MoPubSDK/Internal/VAST/MPVASTMediaFile.m; sourceTree = "<group>"; };
 		C947638FAA4BEB9D6C02DB83334B2D6E /* MPAdView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPAdView.m; path = MoPubSDK/MPAdView.m; sourceTree = "<group>"; };
@@ -2891,6 +2896,7 @@
 		CD52EC0B3141D2AFC5B330EADEEA94EA /* MRConstants.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MRConstants.m; path = MoPubSDK/Internal/MRAID/MRConstants.m; sourceTree = "<group>"; };
 		CD9B0AF9BFD7FF83D559D602F187E7EE /* MPNativeAdConfigValues.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPNativeAdConfigValues.m; path = MoPubSDK/NativeAds/Internal/MPNativeAdConfigValues.m; sourceTree = "<group>"; };
 		CD9E7DF66E4ACE78B810BED3E91F2210 /* InlineRowType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = InlineRowType.swift; path = Source/Core/InlineRowType.swift; sourceTree = "<group>"; };
+		CDC32E76FE0BC679354E88184C0690AC /* Pods-PrebidMobileDemoRendering-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PrebidMobileDemoRendering-Info.plist"; sourceTree = "<group>"; };
 		CDD4DC328A26DE0DA5B96A916118D461 /* MPRewardedVideoError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPRewardedVideoError.h; path = MoPubSDK/RewardedVideo/MPRewardedVideoError.h; sourceTree = "<group>"; };
 		CE270132CDFC83D85A6463921EA552C6 /* MaterialKeyboardWatcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MaterialKeyboardWatcher.h; path = components/private/KeyboardWatcher/src/MaterialKeyboardWatcher.h; sourceTree = "<group>"; };
 		CE3584398CC05BDAAC1923AFEF5C5A34 /* MDCOutlinedButtonColorThemer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCOutlinedButtonColorThemer.h; path = components/Buttons/src/ColorThemer/MDCOutlinedButtonColorThemer.h; sourceTree = "<group>"; };
@@ -2912,6 +2918,7 @@
 		D1430CD181199F2523C15F39FD5D23E1 /* MPConsentDialogViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPConsentDialogViewController.h; path = MoPubSDK/Internal/MPConsentDialogViewController.h; sourceTree = "<group>"; };
 		D150D53BA5A674D09D5611C6A1D6BF9E /* GoogleMobileAdsMediationTestSuite.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GoogleMobileAdsMediationTestSuite.bundle; path = Resources/GoogleMobileAdsMediationTestSuite.bundle; sourceTree = "<group>"; };
 		D1CC269213BE4C110C4B89146A36EFF9 /* Google-Mobile-Ads-SDK-iOS9.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Google-Mobile-Ads-SDK-iOS9.0.debug.xcconfig"; path = "../Google-Mobile-Ads-SDK-iOS9.0/Google-Mobile-Ads-SDK-iOS9.0.debug.xcconfig"; sourceTree = "<group>"; };
+		D1DBE38494111FAE958A103904B2D91D /* Pods-PrebidMobileDemoRendering-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PrebidMobileDemoRendering-acknowledgements.plist"; sourceTree = "<group>"; };
 		D1F32EC10A4285513F4530EAB38395C7 /* MPAdConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPAdConfiguration.h; path = MoPubSDK/Internal/Common/MPAdConfiguration.h; sourceTree = "<group>"; };
 		D242716BBBAA1AE8369C0B6D4B426824 /* MDCElevationOverriding.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCElevationOverriding.h; path = components/Elevation/src/MDCElevationOverriding.h; sourceTree = "<group>"; };
 		D24951AFBBDC6077FE9674CBE6C0ECE4 /* Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Rx.swift; path = RxSwift/Rx.swift; sourceTree = "<group>"; };
@@ -2922,7 +2929,6 @@
 		D2EA62C6706598E725BF9A39A122E776 /* Generate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Generate.swift; path = RxSwift/Observables/Generate.swift; sourceTree = "<group>"; };
 		D3117C24D8E05C55837F7E358B1759A7 /* GULAppEnvironmentUtil.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GULAppEnvironmentUtil.m; path = GoogleUtilities/Environment/third_party/GULAppEnvironmentUtil.m; sourceTree = "<group>"; };
 		D32747EBD262A8555D1163578B4BADE6 /* FBLPromise+Await.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FBLPromise+Await.m"; path = "Sources/FBLPromises/FBLPromise+Await.m"; sourceTree = "<group>"; };
-		D36D1CB2070028AB3272E98BD52AB3D0 /* Pods-OpenXApolloMoPubAdapters-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OpenXApolloMoPubAdapters-dummy.m"; sourceTree = "<group>"; };
 		D408F1F10B6AF083CA93FF353D824719 /* MPAdView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPAdView.h; path = MoPubSDK/MPAdView.h; sourceTree = "<group>"; };
 		D44C7DDF462FA07CCFABD2BF9FC68515 /* MDFInternationalization.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MDFInternationalization.modulemap; sourceTree = "<group>"; };
 		D45B10362D6BE41BCFABAEB99C69CCEA /* SVProgressHUD-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "SVProgressHUD-Info.plist"; sourceTree = "<group>"; };
@@ -2951,7 +2957,6 @@
 		D9672D45D595B4D7E8E78F9B607A77DA /* RuleRequired.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RuleRequired.swift; path = Source/Validations/RuleRequired.swift; sourceTree = "<group>"; };
 		D9A87C9B929A9CFA8529CDC1A8F4DF02 /* MDCAlertController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCAlertController.m; path = components/Dialogs/src/MDCAlertController.m; sourceTree = "<group>"; };
 		D9B9E3CE0392A9FDB000D88CC9332AAD /* MDCTabBarIndicatorAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCTabBarIndicatorAttributes.h; path = components/Tabs/src/MDCTabBarIndicatorAttributes.h; sourceTree = "<group>"; };
-		D9BB42570407C73AA24C381D3D6B9083 /* Pods-PrebidMobileGAMEventHandlersTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PrebidMobileGAMEventHandlersTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		DA24CC3120BF11CE0080B87EC8E6BBC8 /* MPAdEvent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPAdEvent.h; path = MoPubSDK/Internal/MPAdEvent.h; sourceTree = "<group>"; };
 		DA5AB42931BC38B7E46E8BECE78744C0 /* MPVideoPlayerView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPVideoPlayerView.m; path = MoPubSDK/Internal/VideoPlayer/MPVideoPlayerView.m; sourceTree = "<group>"; };
 		DA62925601F7375A2BB58127E78F887F /* MPFullscreenAdViewController+Web.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MPFullscreenAdViewController+Web.m"; path = "MoPubSDK/Internal/Fullscreen/MPFullscreenAdViewController+Web.m"; sourceTree = "<group>"; };
@@ -2963,7 +2968,6 @@
 		DB4EB22888FC64713C7600B195607824 /* GoogleUtilities-iOS10.0-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "GoogleUtilities-iOS10.0-Info.plist"; sourceTree = "<group>"; };
 		DB677FBCDACBA0E5430129FA1743EBAD /* Empty.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Empty.swift; path = RxSwift/Observables/Empty.swift; sourceTree = "<group>"; };
 		DB9E165814C21006341A4EA67E9E227D /* MPConsentChangedReason.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPConsentChangedReason.m; path = MoPubSDK/MPConsentChangedReason.m; sourceTree = "<group>"; };
-		DBE62D28ECDF2456894153D18FCA377A /* Pods-PrebidMobileGAMEventHandlersTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-PrebidMobileGAMEventHandlersTests.modulemap"; sourceTree = "<group>"; };
 		DC1461F865AF030A4687FD276A1A3CC0 /* MDCRippleLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCRippleLayer.m; path = components/Ripple/src/private/MDCRippleLayer.m; sourceTree = "<group>"; };
 		DC1FED04D253BB2C26D66C56088AC9C7 /* AlertOptionsRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlertOptionsRow.swift; path = Source/Rows/Common/AlertOptionsRow.swift; sourceTree = "<group>"; };
 		DC2E581B0636EB7E1314C92BBB290D5B /* MPFullscreenAdViewControllerDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPFullscreenAdViewControllerDelegate.h; path = MoPubSDK/Internal/Fullscreen/MPFullscreenAdViewControllerDelegate.h; sourceTree = "<group>"; };
@@ -2972,7 +2976,6 @@
 		DC671C2E94967D978DB56719958DA293 /* GULAppDelegateSwizzler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GULAppDelegateSwizzler.h; path = GoogleUtilities/AppDelegateSwizzler/Private/GULAppDelegateSwizzler.h; sourceTree = "<group>"; };
 		DC6F2C5809165858016C20F2AE0B8F8D /* MPAdPlacerInvocation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPAdPlacerInvocation.m; path = MoPubSDK/NativeAds/Internal/MPAdPlacerInvocation.m; sourceTree = "<group>"; };
 		DCB35301272156D54403A254B1B0C4CC /* MDCLegacyColorScheme.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCLegacyColorScheme.h; path = components/schemes/Color/src/MDCLegacyColorScheme.h; sourceTree = "<group>"; };
-		DCE5FA0129A8FE5C517EB21F0454724C /* Pods-OpenXMockServer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OpenXMockServer.release.xcconfig"; sourceTree = "<group>"; };
 		DD48A41C398B2537903EEAAB43B50B13 /* MPFullscreenAdAdapter+Reward.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MPFullscreenAdAdapter+Reward.h"; path = "MoPubSDK/Internal/Fullscreen/MPFullscreenAdAdapter+Reward.h"; sourceTree = "<group>"; };
 		DDA0D952E895715354D52BDD77EF8A9B /* MDCRippleTouchController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCRippleTouchController.m; path = components/Ripple/src/MDCRippleTouchController.m; sourceTree = "<group>"; };
 		DDC07CC408232EB8EDACFD240FE461E6 /* MPCoreInstanceProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPCoreInstanceProvider.h; path = MoPubSDK/Internal/MPCoreInstanceProvider.h; sourceTree = "<group>"; };
@@ -3001,21 +3004,19 @@
 		E1021493704D89BD9640D1A1272856B1 /* DateRow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DateRow.swift; path = Source/Rows/DateRow.swift; sourceTree = "<group>"; };
 		E10811D4B6D28FB98E9CF8D03012191A /* MPNativeAdConfigValues+Internal.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MPNativeAdConfigValues+Internal.m"; path = "MoPubSDK/NativeAds/Internal/MPNativeAdConfigValues+Internal.m"; sourceTree = "<group>"; };
 		E132800A2C0B11D6EE84EF16693D8A72 /* RuleURL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RuleURL.swift; path = Source/Validations/RuleURL.swift; sourceTree = "<group>"; };
-		E143A55D987F51FBB3332196DC87D029 /* Pods-PrebidMobileDemoRendering-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PrebidMobileDemoRendering-Info.plist"; sourceTree = "<group>"; };
 		E1795A79010965A0D438D1B32FDE21CF /* MPVASTIndustryIconView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPVASTIndustryIconView.m; path = MoPubSDK/Internal/VideoPlayer/MPVASTIndustryIconView.m; sourceTree = "<group>"; };
 		E1AF45A2E55B0D1B4E9E8999AD0CC611 /* MPBaseNativeAdRenderer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPBaseNativeAdRenderer.m; path = MoPubSDK/NativeAds/MPBaseNativeAdRenderer.m; sourceTree = "<group>"; };
 		E1B426672B2C397D98FA716B622E8117 /* MPCoreInstanceProvider+MRAID.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MPCoreInstanceProvider+MRAID.m"; path = "MoPubSDK/Internal/MPCoreInstanceProvider+MRAID.m"; sourceTree = "<group>"; };
 		E1DAA5A873900C687B49B383CE0FBF0E /* MDCTabBarPrivateIndicatorContext.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCTabBarPrivateIndicatorContext.h; path = components/Tabs/src/private/MDCTabBarPrivateIndicatorContext.h; sourceTree = "<group>"; };
-		E1E2E5261D7767C211DC5ED1B1CC2F3A /* Pods-PrebidMobileDemoRendering-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PrebidMobileDemoRendering-dummy.m"; sourceTree = "<group>"; };
 		E222A9CF24A8260CE142E6B368D87579 /* MPVideoEvent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPVideoEvent.h; path = MoPubSDK/Internal/VAST/MPVideoEvent.h; sourceTree = "<group>"; };
 		E23F9B91C11EA57B1F750C9829B955D9 /* MPSessionTracker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPSessionTracker.m; path = MoPubSDK/Internal/Utility/MPSessionTracker.m; sourceTree = "<group>"; };
 		E25B9EE6BCD495EA7F60457225C273DC /* DistinctUntilChanged.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DistinctUntilChanged.swift; path = RxSwift/Observables/DistinctUntilChanged.swift; sourceTree = "<group>"; };
 		E287FAA81AECBACCB4B6645BD95AD82F /* MaterialElevation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MaterialElevation.h; path = components/Elevation/src/MaterialElevation.h; sourceTree = "<group>"; };
 		E28A1233495BC1FA9F64B4CDD6848567 /* GULMutableDictionary.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GULMutableDictionary.m; path = GoogleUtilities/Network/GULMutableDictionary.m; sourceTree = "<group>"; };
+		E2B0263396E08CBF212BB8AD4ECA2509 /* Pods-PrebidMobileGAMEventHandlers-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PrebidMobileGAMEventHandlers-dummy.m"; sourceTree = "<group>"; };
 		E2EE3AF5B5C98ACA32F69BBB98B6320A /* MPActivityViewControllerHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPActivityViewControllerHelper.h; path = MoPubSDK/Internal/Common/MPActivityViewControllerHelper.h; sourceTree = "<group>"; };
 		E30061B913FE930ECC27AEF05856E53A /* MPNativeAdRequestTargeting.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPNativeAdRequestTargeting.m; path = MoPubSDK/NativeAds/MPNativeAdRequestTargeting.m; sourceTree = "<group>"; };
 		E3500555654746177062A9322790D2A5 /* MPMoPubFullscreenAdAdapter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPMoPubFullscreenAdAdapter.m; path = MoPubSDK/Internal/Fullscreen/MPMoPubFullscreenAdAdapter.m; sourceTree = "<group>"; };
-		E3B767F41F705348F94A4FC35FF5098B /* Pods-OpenXMockServer-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OpenXMockServer-acknowledgements.markdown"; sourceTree = "<group>"; };
 		E3BA6359B7987AE1D05F4FF9A83E8309 /* FBLPromise.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBLPromise.h; path = Sources/FBLPromises/include/FBLPromise.h; sourceTree = "<group>"; };
 		E3F060C39926A1E21451EE63511DCE7D /* OMIDVerificationScriptResource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OMIDVerificationScriptResource.h; path = MoPubSDK/Internal/Viewability/OMSDK/OMIDVerificationScriptResource.h; sourceTree = "<group>"; };
 		E47AD2FCC3991A05F403818F94D6103E /* Skip.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Skip.swift; path = RxSwift/Observables/Skip.swift; sourceTree = "<group>"; };
@@ -3068,10 +3069,10 @@
 		EE287129CDCADCAF3A6A66CD6266DD0A /* MDFInternationalization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDFInternationalization.h; path = Sources/MDFInternationalization.h; sourceTree = "<group>"; };
 		EE521266445F3EAA8AEC1B70917D0E75 /* MPVideoPlayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPVideoPlayer.h; path = MoPubSDK/Internal/VideoPlayer/MPVideoPlayer.h; sourceTree = "<group>"; };
 		EE5C1D0702A1F77AA0F44FEA63FA538E /* MDCLegacyInkLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCLegacyInkLayer.m; path = components/Ink/src/private/MDCLegacyInkLayer.m; sourceTree = "<group>"; };
+		EE6EF6C879278456BE38EFEAA2C3C91D /* Pods-PrebidMobileMoPubAdapters.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileMoPubAdapters.release.xcconfig"; sourceTree = "<group>"; };
 		EE74BD197D91B4D6AD9F02BF34729E9A /* MDCRippleView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCRippleView.h; path = components/Ripple/src/MDCRippleView.h; sourceTree = "<group>"; };
 		EECA1135AF829A84731C6EE3580860C8 /* MDCMath.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCMath.h; path = components/private/Math/src/MDCMath.h; sourceTree = "<group>"; };
 		EF01FB66E39EF42E2627E54BA388FC5A /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
-		EFA297A7E8687CA14269B2DB9174022D /* Pods-PrebidMobileGAMEventHandlers.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-PrebidMobileGAMEventHandlers.modulemap"; sourceTree = "<group>"; };
 		EFB366554D5B3E413FD929C1BBD5D716 /* MPNativeAdRenderingImageLoader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativeAdRenderingImageLoader.h; path = MoPubSDK/NativeAds/MPNativeAdRenderingImageLoader.h; sourceTree = "<group>"; };
 		F0CDCFDA49256E558A9B1586C2E58BC0 /* MDCButtonColorThemer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCButtonColorThemer.h; path = components/Buttons/src/ColorThemer/MDCButtonColorThemer.h; sourceTree = "<group>"; };
 		F0CF73FFDD5AFAB0FA44BDEDB028FA3C /* MPNativeAdDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPNativeAdDelegate.h; path = MoPubSDK/NativeAds/MPNativeAdDelegate.h; sourceTree = "<group>"; };
@@ -3080,11 +3081,9 @@
 		F23B9226802E76B3A1D8CE3766F29DC7 /* MDCTabBarTextTransform.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCTabBarTextTransform.h; path = components/Tabs/src/MDCTabBarTextTransform.h; sourceTree = "<group>"; };
 		F2FF1EDAEC34308CC6DA9C0569B6CD23 /* GoogleUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GoogleUtilities.framework; path = "GoogleUtilities-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F30D47739645C0BA9070B9053BA9A43F /* ReplaySubject.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaySubject.swift; path = RxSwift/Subjects/ReplaySubject.swift; sourceTree = "<group>"; };
-		F33FC01A1187776E60F831067751642D /* Pods-OpenXMockServer-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OpenXMockServer-Info.plist"; sourceTree = "<group>"; };
 		F353103F4C35BBAF3C22A980FE3B893A /* MDCTriangleEdgeTreatment.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCTriangleEdgeTreatment.m; path = components/ShapeLibrary/src/MDCTriangleEdgeTreatment.m; sourceTree = "<group>"; };
 		F3779CCE764C1D62CC705A8DE7D1E116 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = SVProgressHUD.bundle; path = SVProgressHUD/SVProgressHUD.bundle; sourceTree = "<group>"; };
 		F37FBD40D137395723F45F8060320879 /* PresenterRowType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PresenterRowType.swift; path = Source/Core/PresenterRowType.swift; sourceTree = "<group>"; };
-		F4491F649154E64496988A98A98D387A /* Pods-PrebidMobileDemoRendering.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileDemoRendering.debug.xcconfig"; sourceTree = "<group>"; };
 		F4AC389C2BA12918184D3DFEDEA6F4A2 /* Event.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Event.swift; path = RxSwift/Event.swift; sourceTree = "<group>"; };
 		F4D6D5F7FF8B57638219A707377CCFF2 /* MPAdPositioning.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPAdPositioning.h; path = MoPubSDK/NativeAds/MPAdPositioning.h; sourceTree = "<group>"; };
 		F50C5BAA007414D87C3DC60E75637DC9 /* MPPlayBtn@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "MPPlayBtn@2x.png"; path = "MoPubSDK/Resources/MPPlayBtn@2x.png"; sourceTree = "<group>"; };
@@ -3102,8 +3101,8 @@
 		F6BA342423DC2D6B47088F8872FD96A6 /* MDFTextAccessibility.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MDFTextAccessibility.release.xcconfig; sourceTree = "<group>"; };
 		F747D25B0AFC23672A9D1D9D0524075B /* GoogleUtilities-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "GoogleUtilities-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		F79283943A9FC13608CCE299F784A6CD /* Alamofire-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Alamofire-Info.plist"; sourceTree = "<group>"; };
-		F7A02314B271364A137974A4C6195766 /* Pods-PrebidMobileGAMEventHandlers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PrebidMobileGAMEventHandlers.debug.xcconfig"; sourceTree = "<group>"; };
 		F7E2F91C6C0D94F3589FCCB6DEF100DE /* MPVASTTrackingEvent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPVASTTrackingEvent.m; path = MoPubSDK/Internal/VAST/MPVASTTrackingEvent.m; sourceTree = "<group>"; };
+		F7F72BDF354F84E0D724073BC7727EDB /* Pods-OpenXMockServer-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OpenXMockServer-Info.plist"; sourceTree = "<group>"; };
 		F7FC1FAC4D492911E22970B907C5399A /* MDCInkView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCInkView.h; path = components/Ink/src/MDCInkView.h; sourceTree = "<group>"; };
 		F817808F5A0FB453BB38D19EA20A8FFD /* Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Errors.swift; path = RxSwift/Errors.swift; sourceTree = "<group>"; };
 		F81F309FD281C5A73AEC53B537FBA9B9 /* FBLPromise+Reduce.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FBLPromise+Reduce.h"; path = "Sources/FBLPromises/include/FBLPromise+Reduce.h"; sourceTree = "<group>"; };
@@ -3124,12 +3123,14 @@
 		FB3411B0CA761F6AEE310BB7313452E7 /* MaterialComponents.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MaterialComponents.debug.xcconfig; sourceTree = "<group>"; };
 		FB410DA62701DC8BE77A9946571FC103 /* MPStreamAdPlacementData.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPStreamAdPlacementData.h; path = MoPubSDK/NativeAds/Internal/MPStreamAdPlacementData.h; sourceTree = "<group>"; };
 		FB4BE6FA866BEC4E13989B8CBD68D450 /* MPVASTManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MPVASTManager.h; path = MoPubSDK/Internal/VAST/MPVASTManager.h; sourceTree = "<group>"; };
+		FB4D2E9B44D740C49E8E300F0AD59806 /* Pods-PrebidMobileGAMEventHandlersTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PrebidMobileGAMEventHandlersTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		FB68F537D3B8F6E884A81CCF3C8B6B1B /* MPInlineAdAdapter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPInlineAdAdapter.m; path = MoPubSDK/MPInlineAdAdapter.m; sourceTree = "<group>"; };
 		FB8220FA4D9117310AEFC629A6EE4A08 /* MDFTextAccessibility.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MDFTextAccessibility.framework; path = MDFTextAccessibility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB84A8115BD4AE53DA49C6109D62F648 /* MPMoPubConfiguration.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPMoPubConfiguration.m; path = MoPubSDK/MPMoPubConfiguration.m; sourceTree = "<group>"; };
 		FBB2BF0DFC6CC2434CB3E38DD6CD9174 /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SVProgressAnimatedView.h; path = SVProgressHUD/SVProgressAnimatedView.h; sourceTree = "<group>"; };
 		FBEEEF583DA51839C083A361B35D60D5 /* MDCTabBarIndicatorAttributes.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCTabBarIndicatorAttributes.m; path = components/Tabs/src/MDCTabBarIndicatorAttributes.m; sourceTree = "<group>"; };
 		FCF45250E8CD5AB51680BA5D8B8F90E1 /* MPLogManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPLogManager.m; path = MoPubSDK/Logging/Internal/MPLogManager.m; sourceTree = "<group>"; };
+		FD4362C9AF247DF8C9BFA1BA0F74F05F /* Pods-PrebidMobileDemoRendering-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-PrebidMobileDemoRendering-umbrella.h"; sourceTree = "<group>"; };
 		FD537A0D460C5B2913FA809DA30306FC /* MDFRTL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDFRTL.m; path = Sources/MDFRTL.m; sourceTree = "<group>"; };
 		FD90FB4803DC3094833335080736CA15 /* MDCDialogPresentationController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MDCDialogPresentationController.m; path = components/Dialogs/src/MDCDialogPresentationController.m; sourceTree = "<group>"; };
 		FE1D34F2D76764F3DAF58726146FDE95 /* NSURL+MPAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSURL+MPAdditions.h"; path = "MoPubSDK/Internal/Utility/Categories/NSURL+MPAdditions.h"; sourceTree = "<group>"; };
@@ -3140,7 +3141,6 @@
 		FF2DD121D779C0F39D038475AA3802D5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		FF6177158465B19263DA74A1D350E0E0 /* GoogleUserMessagingPlatform-iOS10.0.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "GoogleUserMessagingPlatform-iOS10.0.debug.xcconfig"; sourceTree = "<group>"; };
 		FF7568B07288DD5C637C812001DF8BD3 /* MDCShapeScheme.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MDCShapeScheme.h; path = components/schemes/Shape/src/MDCShapeScheme.h; sourceTree = "<group>"; };
-		FFCE9212522831F7AA7E60573315C514 /* Pods-PrebidMobileDemoRendering-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-PrebidMobileDemoRendering-umbrella.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3227,6 +3227,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A4B100B07E6406D27CE0370FA20B120 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3C8E89A2D487064F59FC84CDA183853 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7C739679CAE74D90F140F5EDC0EE4EC0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -3299,14 +3307,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B3FC7807E3431C5F570D1E172CB55061 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				35DDF2B174DB80505B11437350BF197B /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C457EBC8BE397AF091EA8A73E0911B5A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -3368,6 +3368,22 @@
 				CAFD5B766F4B2CDF9E1DE3FE76F52D1F /* MDCButtonShapeThemer.m */,
 			);
 			name = "Buttons+ShapeThemer";
+			sourceTree = "<group>";
+		};
+		092C809A6C6121CCF7F3A42D85829665 /* Pods-PrebidMobileMoPubAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				BDE478AF2F8C4D535BD263114A97E153 /* Pods-PrebidMobileMoPubAdapters.modulemap */,
+				C58310ACF16A76D7EB18698EC38E7E9C /* Pods-PrebidMobileMoPubAdapters-acknowledgements.markdown */,
+				C92809436AC0B033FF5B22008CA3A8DB /* Pods-PrebidMobileMoPubAdapters-acknowledgements.plist */,
+				8C1B6B96742CF67EAADC3A816F5C4EAB /* Pods-PrebidMobileMoPubAdapters-dummy.m */,
+				0E03929AB12A8AD2A210F57B43713F55 /* Pods-PrebidMobileMoPubAdapters-Info.plist */,
+				22F61C5DA83DBC19172BECE02F4442D8 /* Pods-PrebidMobileMoPubAdapters-umbrella.h */,
+				1F3599E8F3AFF0DCBDFEA3A1BA0CA964 /* Pods-PrebidMobileMoPubAdapters.debug.xcconfig */,
+				EE6EF6C879278456BE38EFEAA2C3C91D /* Pods-PrebidMobileMoPubAdapters.release.xcconfig */,
+			);
+			name = "Pods-PrebidMobileMoPubAdapters";
+			path = "Target Support Files/Pods-PrebidMobileMoPubAdapters";
 			sourceTree = "<group>";
 		};
 		0B8980455D72363419AE332B3FDD6C80 /* ShadowLayer */ = {
@@ -3804,6 +3820,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		40337BBED440D7F9EE24662367111353 /* Pods-OpenXMockServer */ = {
+			isa = PBXGroup;
+			children = (
+				1FFEFE09F9C1E1466ED96E583C1DE768 /* Pods-OpenXMockServer.modulemap */,
+				56352CD551303561184AB4A4E2BA8C05 /* Pods-OpenXMockServer-acknowledgements.markdown */,
+				149F5C8D5BC43FC51FF776CD71365B97 /* Pods-OpenXMockServer-acknowledgements.plist */,
+				6845BCBA7AAD7DCA33C9409B5BEC8777 /* Pods-OpenXMockServer-dummy.m */,
+				F7F72BDF354F84E0D724073BC7727EDB /* Pods-OpenXMockServer-Info.plist */,
+				97E51113CACF7C8B95EC27406B22E09E /* Pods-OpenXMockServer-umbrella.h */,
+				0A84BC7E5726E5EA706359BA3EE1C3C5 /* Pods-OpenXMockServer.debug.xcconfig */,
+				C377FB15F10BEC21327FAD2828AEC379 /* Pods-OpenXMockServer.release.xcconfig */,
+			);
+			name = "Pods-OpenXMockServer";
+			path = "Target Support Files/Pods-OpenXMockServer";
+			sourceTree = "<group>";
+		};
 		419E04884F0358CF65F70B55D7676C18 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -3844,6 +3876,23 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/GoogleUtilities-iOS10.0";
+			sourceTree = "<group>";
+		};
+		49FE2E6F92B8F9AE086202055BD8615B /* Pods-PrebidMobileGAMEventHandlersTests */ = {
+			isa = PBXGroup;
+			children = (
+				1D3A502FB75A59DBC7106AD2BADCCB8C /* Pods-PrebidMobileGAMEventHandlersTests.modulemap */,
+				9BF55BD3625284E49EBE25A598872D28 /* Pods-PrebidMobileGAMEventHandlersTests-acknowledgements.markdown */,
+				FB4D2E9B44D740C49E8E300F0AD59806 /* Pods-PrebidMobileGAMEventHandlersTests-acknowledgements.plist */,
+				85BA58DC4BEA0AEDFE0829B530416C79 /* Pods-PrebidMobileGAMEventHandlersTests-dummy.m */,
+				86827C39868FCF034326D3F0C705AE11 /* Pods-PrebidMobileGAMEventHandlersTests-frameworks.sh */,
+				1A3E4F3E28D4A7EBD4CD96D4FBA504DB /* Pods-PrebidMobileGAMEventHandlersTests-Info.plist */,
+				2D4643621C1BCA52111C1FD7D3822849 /* Pods-PrebidMobileGAMEventHandlersTests-umbrella.h */,
+				9FB38D18EDBFCAC68DE6C8BE6AC42D57 /* Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig */,
+				380E8A4CA2A989DD41F4B004C763C635 /* Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig */,
+			);
+			name = "Pods-PrebidMobileGAMEventHandlersTests";
+			path = "Target Support Files/Pods-PrebidMobileGAMEventHandlersTests";
 			sourceTree = "<group>";
 		};
 		4C570741F44D57C3DA82A41A9744C848 /* Elevation */ = {
@@ -4020,34 +4069,6 @@
 			path = SVProgressHUD;
 			sourceTree = "<group>";
 		};
-		63FAB9D1F17664CE2132D00B84EBC477 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */,
-				082977F3777A7D434AB35C357B487F83 /* Eureka.framework */,
-				92A2ACDB287AD3C62960E1A730E1E3B3 /* FBLPromises.framework */,
-				77A062D3FA16E0EC5D92C3A8DBFBB412 /* FBLPromises.framework */,
-				F2FF1EDAEC34308CC6DA9C0569B6CD23 /* GoogleUtilities.framework */,
-				AACB24795A62B089C8C7135BF92E4CFF /* GoogleUtilities.framework */,
-				A34157B3708EDB7D17422B3D92F591D2 /* MaterialComponents.framework */,
-				3CA6F19A19E2E67F5778834EA376B306 /* MaterialIcons_ic_check_circle.bundle */,
-				9A2AC0B8BAC6EF061EBC28825653DF99 /* MDFInternationalization.framework */,
-				FB8220FA4D9117310AEFC629A6EE4A08 /* MDFTextAccessibility.framework */,
-				0A8924B6305C5116EA8035AE891818F6 /* MoPub.framework */,
-				34B563924B618450C7C26443623F0334 /* MoPubResources.bundle */,
-				91AB2BEAA5AEF50DCE8BD88C00849182 /* nanopb.framework */,
-				A7B403E875FB7318C5B8C9A30E79FEE9 /* nanopb.framework */,
-				41C7962A41C10ADC7EDF883CC847C49F /* Pods_OpenXApolloMoPubAdapters.framework */,
-				31F87E6BD8086781035F0B2B7276C174 /* Pods_OpenXMockServer.framework */,
-				BDD3B7E109B53CCB48F8435F1E16DF1A /* Pods_PrebidMobileDemoRendering.framework */,
-				9880974C5720DB9A76442E0626CB13F5 /* Pods_PrebidMobileGAMEventHandlers.framework */,
-				05780C9EDA7AAB3C8C01964BC5AC9942 /* Pods_PrebidMobileGAMEventHandlersTests.framework */,
-				809C5FAB588354C9BA37DC3EAB8CB45C /* RxSwift.framework */,
-				E97D43C46A45EE515A4DA3AF94398441 /* SVProgressHUD.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		64B98883035D044B189BE6919FF3D949 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -4113,22 +4134,6 @@
 				C91FDA7A701A202EFA6E7D4145AE74BD /* GULSecureCoding.m */,
 			);
 			name = Environment;
-			sourceTree = "<group>";
-		};
-		752F59955B85197E7F333ADBBF6E1172 /* Pods-PrebidMobileGAMEventHandlers */ = {
-			isa = PBXGroup;
-			children = (
-				EFA297A7E8687CA14269B2DB9174022D /* Pods-PrebidMobileGAMEventHandlers.modulemap */,
-				2576BBCE9C94E78C12E7400634DEA342 /* Pods-PrebidMobileGAMEventHandlers-acknowledgements.markdown */,
-				86C572479C4CB6010DE7E885FB625BD9 /* Pods-PrebidMobileGAMEventHandlers-acknowledgements.plist */,
-				8574E982FDE59F736B81A72FE2F9489C /* Pods-PrebidMobileGAMEventHandlers-dummy.m */,
-				03C8BCCA215CC9C50B8AC4C4E26E3A62 /* Pods-PrebidMobileGAMEventHandlers-Info.plist */,
-				C6CBC61B816B8AE566FF145E87CB73D4 /* Pods-PrebidMobileGAMEventHandlers-umbrella.h */,
-				F7A02314B271364A137974A4C6195766 /* Pods-PrebidMobileGAMEventHandlers.debug.xcconfig */,
-				97BB37FC5E26D3245C144117FEF66E89 /* Pods-PrebidMobileGAMEventHandlers.release.xcconfig */,
-			);
-			name = "Pods-PrebidMobileGAMEventHandlers";
-			path = "Target Support Files/Pods-PrebidMobileGAMEventHandlers";
 			sourceTree = "<group>";
 		};
 		7604CAF942C87508436906A1D90AC30E /* Support Files */ = {
@@ -4302,18 +4307,6 @@
 			name = Buttons;
 			sourceTree = "<group>";
 		};
-		89CFE55F4175610370ED6BE472A730CA /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				F77B48FC3726E7E4886C431F43278F24 /* Pods-OpenXApolloMoPubAdapters */,
-				F240EBA19CC7984D01A16BFD21C47E66 /* Pods-OpenXMockServer */,
-				E5FC61C23276EE6CCD1CEDD9EFBD47F7 /* Pods-PrebidMobileDemoRendering */,
-				752F59955B85197E7F333ADBBF6E1172 /* Pods-PrebidMobileGAMEventHandlers */,
-				DEFBEC6F40222DE2BF55425131A385C6 /* Pods-PrebidMobileGAMEventHandlersTests */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
 		8D1465EA98C1982050B921FBCE953BD7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -4482,6 +4475,46 @@
 				DE49B62A9063447610081CF0687B71DA /* MDCTypographyScheming.h */,
 			);
 			name = "Typography+Scheming";
+			sourceTree = "<group>";
+		};
+		A8FCB12BF5E240E9CDA81A714581BD5D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5D797E9A5C5782CE845840781FA1CC81 /* Alamofire.framework */,
+				082977F3777A7D434AB35C357B487F83 /* Eureka.framework */,
+				92A2ACDB287AD3C62960E1A730E1E3B3 /* FBLPromises.framework */,
+				77A062D3FA16E0EC5D92C3A8DBFBB412 /* FBLPromises.framework */,
+				F2FF1EDAEC34308CC6DA9C0569B6CD23 /* GoogleUtilities.framework */,
+				AACB24795A62B089C8C7135BF92E4CFF /* GoogleUtilities.framework */,
+				A34157B3708EDB7D17422B3D92F591D2 /* MaterialComponents.framework */,
+				3CA6F19A19E2E67F5778834EA376B306 /* MaterialIcons_ic_check_circle.bundle */,
+				9A2AC0B8BAC6EF061EBC28825653DF99 /* MDFInternationalization.framework */,
+				FB8220FA4D9117310AEFC629A6EE4A08 /* MDFTextAccessibility.framework */,
+				0A8924B6305C5116EA8035AE891818F6 /* MoPub.framework */,
+				34B563924B618450C7C26443623F0334 /* MoPubResources.bundle */,
+				91AB2BEAA5AEF50DCE8BD88C00849182 /* nanopb.framework */,
+				A7B403E875FB7318C5B8C9A30E79FEE9 /* nanopb.framework */,
+				31F87E6BD8086781035F0B2B7276C174 /* Pods_OpenXMockServer.framework */,
+				BDD3B7E109B53CCB48F8435F1E16DF1A /* Pods_PrebidMobileDemoRendering.framework */,
+				9880974C5720DB9A76442E0626CB13F5 /* Pods_PrebidMobileGAMEventHandlers.framework */,
+				05780C9EDA7AAB3C8C01964BC5AC9942 /* Pods_PrebidMobileGAMEventHandlersTests.framework */,
+				4857C50B64C4DDEE492D0A7979C6C3B1 /* Pods_PrebidMobileMoPubAdapters.framework */,
+				809C5FAB588354C9BA37DC3EAB8CB45C /* RxSwift.framework */,
+				E97D43C46A45EE515A4DA3AF94398441 /* SVProgressHUD.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ABE891AB6E323EFD84851A9F6B89D65F /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				40337BBED440D7F9EE24662367111353 /* Pods-OpenXMockServer */,
+				ECEA7403B4F072A86C55E606F020BA4B /* Pods-PrebidMobileDemoRendering */,
+				F72E89287EFB469956F90F5DABAE9DFD /* Pods-PrebidMobileGAMEventHandlers */,
+				49FE2E6F92B8F9AE086202055BD8615B /* Pods-PrebidMobileGAMEventHandlersTests */,
+				092C809A6C6121CCF7F3A42D85829665 /* Pods-PrebidMobileMoPubAdapters */,
+			);
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
 		ADE6EEAC24E87847D0D24243F2AC6029 /* Frameworks */ = {
@@ -4768,8 +4801,8 @@
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				E19AAF1778E248EA0FDCE03B58002778 /* Frameworks */,
 				3BACAFB608F02A0991AF85210D6A7ED5 /* Pods */,
-				63FAB9D1F17664CE2132D00B84EBC477 /* Products */,
-				89CFE55F4175610370ED6BE472A730CA /* Targets Support Files */,
+				A8FCB12BF5E240E9CDA81A714581BD5D /* Products */,
+				ABE891AB6E323EFD84851A9F6B89D65F /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -5197,23 +5230,6 @@
 			name = ShapeLibrary;
 			sourceTree = "<group>";
 		};
-		DEFBEC6F40222DE2BF55425131A385C6 /* Pods-PrebidMobileGAMEventHandlersTests */ = {
-			isa = PBXGroup;
-			children = (
-				DBE62D28ECDF2456894153D18FCA377A /* Pods-PrebidMobileGAMEventHandlersTests.modulemap */,
-				18BCE903D3BDC39F198255DE239E22EA /* Pods-PrebidMobileGAMEventHandlersTests-acknowledgements.markdown */,
-				D9BB42570407C73AA24C381D3D6B9083 /* Pods-PrebidMobileGAMEventHandlersTests-acknowledgements.plist */,
-				A12BE92878A875306E2F9A75B6C0AFC0 /* Pods-PrebidMobileGAMEventHandlersTests-dummy.m */,
-				41CC50233539F75BFCFD4E8793069845 /* Pods-PrebidMobileGAMEventHandlersTests-frameworks.sh */,
-				2A7A412BAA7F62B4E3812EC769AD666B /* Pods-PrebidMobileGAMEventHandlersTests-Info.plist */,
-				81C363A634BFB66E74DAD2AD426B646F /* Pods-PrebidMobileGAMEventHandlersTests-umbrella.h */,
-				C30D48A5C51D374254B8B25C581F85AE /* Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig */,
-				C16446ED4E70CB80B2257C7D8922747E /* Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig */,
-			);
-			name = "Pods-PrebidMobileGAMEventHandlersTests";
-			path = "Target Support Files/Pods-PrebidMobileGAMEventHandlersTests";
-			sourceTree = "<group>";
-		};
 		E19AAF1778E248EA0FDCE03B58002778 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -5335,24 +5351,6 @@
 			name = Typography;
 			sourceTree = "<group>";
 		};
-		E5FC61C23276EE6CCD1CEDD9EFBD47F7 /* Pods-PrebidMobileDemoRendering */ = {
-			isa = PBXGroup;
-			children = (
-				698F138C4C5A5C35E0E84E26AFB13FD0 /* Pods-PrebidMobileDemoRendering.modulemap */,
-				4705E402260AC16C8B7277FD6557368B /* Pods-PrebidMobileDemoRendering-acknowledgements.markdown */,
-				27CC4292105B792BC2D72ADAD5FCACB8 /* Pods-PrebidMobileDemoRendering-acknowledgements.plist */,
-				E1E2E5261D7767C211DC5ED1B1CC2F3A /* Pods-PrebidMobileDemoRendering-dummy.m */,
-				C55F2B96EFCA2FEE12B7E6072BE2AF0B /* Pods-PrebidMobileDemoRendering-frameworks.sh */,
-				E143A55D987F51FBB3332196DC87D029 /* Pods-PrebidMobileDemoRendering-Info.plist */,
-				2C59903E7732EE9724A8DE99518FB96B /* Pods-PrebidMobileDemoRendering-resources.sh */,
-				FFCE9212522831F7AA7E60573315C514 /* Pods-PrebidMobileDemoRendering-umbrella.h */,
-				F4491F649154E64496988A98A98D387A /* Pods-PrebidMobileDemoRendering.debug.xcconfig */,
-				B315709A69FEF39BC63A0F8B8DCEB1A5 /* Pods-PrebidMobileDemoRendering.release.xcconfig */,
-			);
-			name = "Pods-PrebidMobileDemoRendering";
-			path = "Target Support Files/Pods-PrebidMobileDemoRendering";
-			sourceTree = "<group>";
-		};
 		E634CEA269F7A824ABBA8D96930C4E9A /* Logger */ = {
 			isa = PBXGroup;
 			children = (
@@ -5361,6 +5359,24 @@
 				A9746AE1A868F6B2AAC6E2424E924DF7 /* GULLoggerLevel.h */,
 			);
 			name = Logger;
+			sourceTree = "<group>";
+		};
+		ECEA7403B4F072A86C55E606F020BA4B /* Pods-PrebidMobileDemoRendering */ = {
+			isa = PBXGroup;
+			children = (
+				BE5DFFBAA0DA4C6B59ED2D2F5A26D961 /* Pods-PrebidMobileDemoRendering.modulemap */,
+				177AE23C7EE8F9E34586BE0A457EEAE6 /* Pods-PrebidMobileDemoRendering-acknowledgements.markdown */,
+				D1DBE38494111FAE958A103904B2D91D /* Pods-PrebidMobileDemoRendering-acknowledgements.plist */,
+				79D198703250503D05A969A8F0ABC1E8 /* Pods-PrebidMobileDemoRendering-dummy.m */,
+				BC5C791AE569FA837E548AFAD2A62A08 /* Pods-PrebidMobileDemoRendering-frameworks.sh */,
+				CDC32E76FE0BC679354E88184C0690AC /* Pods-PrebidMobileDemoRendering-Info.plist */,
+				3098862467DCC98F82A7FE3716BA2F18 /* Pods-PrebidMobileDemoRendering-resources.sh */,
+				FD4362C9AF247DF8C9BFA1BA0F74F05F /* Pods-PrebidMobileDemoRendering-umbrella.h */,
+				AB3522C17EC98C067A6C5A381C2D5452 /* Pods-PrebidMobileDemoRendering.debug.xcconfig */,
+				3B68ABBBE3106754DC49C1C892AA7790 /* Pods-PrebidMobileDemoRendering.release.xcconfig */,
+			);
+			name = "Pods-PrebidMobileDemoRendering";
+			path = "Target Support Files/Pods-PrebidMobileDemoRendering";
 			sourceTree = "<group>";
 		};
 		F166A8DBE62387792024609E38EAE144 /* Support Files */ = {
@@ -5373,22 +5389,6 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Google-Mobile-Ads-SDK-iOS10.0";
-			sourceTree = "<group>";
-		};
-		F240EBA19CC7984D01A16BFD21C47E66 /* Pods-OpenXMockServer */ = {
-			isa = PBXGroup;
-			children = (
-				48BB776F78EC6BEDDEE0D48A2FBF0F59 /* Pods-OpenXMockServer.modulemap */,
-				E3B767F41F705348F94A4FC35FF5098B /* Pods-OpenXMockServer-acknowledgements.markdown */,
-				AB0E4CCE07AB924E180571DBF94A27B3 /* Pods-OpenXMockServer-acknowledgements.plist */,
-				2AD224015BACEF7253D560C9726DAC02 /* Pods-OpenXMockServer-dummy.m */,
-				F33FC01A1187776E60F831067751642D /* Pods-OpenXMockServer-Info.plist */,
-				8A5BF0C177ACFEF92D41B89415E6E3F2 /* Pods-OpenXMockServer-umbrella.h */,
-				B9FB870084978B0453EE96280ACE9029 /* Pods-OpenXMockServer.debug.xcconfig */,
-				DCE5FA0129A8FE5C517EB21F0454724C /* Pods-OpenXMockServer.release.xcconfig */,
-			);
-			name = "Pods-OpenXMockServer";
-			path = "Target Support Files/Pods-OpenXMockServer";
 			sourceTree = "<group>";
 		};
 		F35779131B388F485CABA8ACAB0D6C5E /* Resources */ = {
@@ -5433,20 +5433,20 @@
 			path = "../Target Support Files/Eureka";
 			sourceTree = "<group>";
 		};
-		F77B48FC3726E7E4886C431F43278F24 /* Pods-OpenXApolloMoPubAdapters */ = {
+		F72E89287EFB469956F90F5DABAE9DFD /* Pods-PrebidMobileGAMEventHandlers */ = {
 			isa = PBXGroup;
 			children = (
-				C8303DEF285FA78AB5285E2E9C12EA6B /* Pods-OpenXApolloMoPubAdapters.modulemap */,
-				559CC7DD4F9D76EC53011ED59A2028CD /* Pods-OpenXApolloMoPubAdapters-acknowledgements.markdown */,
-				19EFF5FDDD23C869D1F9D1D5C1EC2754 /* Pods-OpenXApolloMoPubAdapters-acknowledgements.plist */,
-				D36D1CB2070028AB3272E98BD52AB3D0 /* Pods-OpenXApolloMoPubAdapters-dummy.m */,
-				0E3B533AB6B26BC89141E21F488E23E4 /* Pods-OpenXApolloMoPubAdapters-Info.plist */,
-				A46530BC59F9092CD53D9DE847A93B9A /* Pods-OpenXApolloMoPubAdapters-umbrella.h */,
-				6411C66DF41082175D7537A6BC591F24 /* Pods-OpenXApolloMoPubAdapters.debug.xcconfig */,
-				18BE013CEE68330B7A580C779930E64A /* Pods-OpenXApolloMoPubAdapters.release.xcconfig */,
+				96EE1ADCBFF5D30AEC36948E4349781C /* Pods-PrebidMobileGAMEventHandlers.modulemap */,
+				895ACC000E6A04F0FF5EBB91EDEAB5EE /* Pods-PrebidMobileGAMEventHandlers-acknowledgements.markdown */,
+				AB3454A210F210C7F2E062E83C88CAE8 /* Pods-PrebidMobileGAMEventHandlers-acknowledgements.plist */,
+				E2B0263396E08CBF212BB8AD4ECA2509 /* Pods-PrebidMobileGAMEventHandlers-dummy.m */,
+				14DB2372E0A08CFF0E8F7C7AE80F87E4 /* Pods-PrebidMobileGAMEventHandlers-Info.plist */,
+				7732A3D2217695D1C2C883D65878DC73 /* Pods-PrebidMobileGAMEventHandlers-umbrella.h */,
+				675842E771C1AA6DC9B45384B17E4CFF /* Pods-PrebidMobileGAMEventHandlers.debug.xcconfig */,
+				78D232F64CB5373F52869C2A70AF5C14 /* Pods-PrebidMobileGAMEventHandlers.release.xcconfig */,
 			);
-			name = "Pods-OpenXApolloMoPubAdapters";
-			path = "Target Support Files/Pods-OpenXApolloMoPubAdapters";
+			name = "Pods-PrebidMobileGAMEventHandlers";
+			path = "Target Support Files/Pods-PrebidMobileGAMEventHandlers";
 			sourceTree = "<group>";
 		};
 		FC42FEE2DE076672D7879C072262811D /* Support Files */ = {
@@ -6068,14 +6068,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9324C3439AD63F1DF2CB18C7761EA327 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				019787AA3AF35C799B5A5E94587E715A /* Pods-OpenXApolloMoPubAdapters-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AAD9B1D09170D700542CB835079F48AD /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -6189,6 +6181,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F125513BD20124B0C397D4786BF547DD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AD97FCDAF67EB7BE0C5DFE85E41E001 /* Pods-PrebidMobileMoPubAdapters-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -6227,25 +6227,6 @@
 			productName = "mopub-ios-sdk-MoPubResources";
 			productReference = 34B563924B618450C7C26443623F0334 /* MoPubResources.bundle */;
 			productType = "com.apple.product-type.bundle";
-		};
-		180153D62F9FD52B90CC8035A9DF1BF7 /* Pods-OpenXApolloMoPubAdapters */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FA7CE3D202A57A63BCF9E185D6BC401D /* Build configuration list for PBXNativeTarget "Pods-OpenXApolloMoPubAdapters" */;
-			buildPhases = (
-				9324C3439AD63F1DF2CB18C7761EA327 /* Headers */,
-				5B040EBBA567DD0FA323346ABAA27573 /* Sources */,
-				B3FC7807E3431C5F570D1E172CB55061 /* Frameworks */,
-				92C44963EE48257DABF215B1E3D078AB /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				933B6B59112FD04E4CEFDC86B826910A /* PBXTargetDependency */,
-			);
-			name = "Pods-OpenXApolloMoPubAdapters";
-			productName = "Pods-OpenXApolloMoPubAdapters";
-			productReference = 41C7962A41C10ADC7EDF883CC847C49F /* Pods_OpenXApolloMoPubAdapters.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 		197C4DBA3CCA41F0D6A2F841506BDAD1 /* Pods-PrebidMobileDemoRendering */ = {
 			isa = PBXNativeTarget;
@@ -6353,6 +6334,25 @@
 			name = MDFInternationalization;
 			productName = MDFInternationalization;
 			productReference = 9A2AC0B8BAC6EF061EBC28825653DF99 /* MDFInternationalization.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		68300FA32A013E787CD3E5861A514E7D /* Pods-PrebidMobileMoPubAdapters */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3CDA49B23BD6618A6294ACDE5B0D46B5 /* Build configuration list for PBXNativeTarget "Pods-PrebidMobileMoPubAdapters" */;
+			buildPhases = (
+				F125513BD20124B0C397D4786BF547DD /* Headers */,
+				5304ACC8B5754FA52E9974CAE47DCC9C /* Sources */,
+				7A4B100B07E6406D27CE0370FA20B120 /* Frameworks */,
+				CD211DCE10F9F13CE082AF3C20C4B0DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F2228E059C2FDC7CFE28FC3778EF12D1 /* PBXTargetDependency */,
+			);
+			name = "Pods-PrebidMobileMoPubAdapters";
+			productName = "Pods-PrebidMobileMoPubAdapters";
+			productReference = 4857C50B64C4DDEE492D0A7979C6C3B1 /* Pods_PrebidMobileMoPubAdapters.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		73A14632C922D08239FC5CC11DA4DF67 /* nanopb-iOS10.0 */ = {
@@ -6627,7 +6627,7 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 63FAB9D1F17664CE2132D00B84EBC477 /* Products */;
+			productRefGroup = A8FCB12BF5E240E9CDA81A714581BD5D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -6650,11 +6650,11 @@
 				0DB722908788751726FF5FFB53DE4350 /* mopub-ios-sdk-MoPubResources */,
 				73A14632C922D08239FC5CC11DA4DF67 /* nanopb-iOS10.0 */,
 				507B591219C7C8C056D313587FF4608D /* nanopb-iOS9.0 */,
-				180153D62F9FD52B90CC8035A9DF1BF7 /* Pods-OpenXApolloMoPubAdapters */,
 				3F190A67222F4F44CFB84D5B2113A519 /* Pods-OpenXMockServer */,
 				197C4DBA3CCA41F0D6A2F841506BDAD1 /* Pods-PrebidMobileDemoRendering */,
 				EABFFCF51D710ED9EF19FA56422E3B5E /* Pods-PrebidMobileGAMEventHandlers */,
 				82CC9002CE7B8896C354ACE527931A1A /* Pods-PrebidMobileGAMEventHandlersTests */,
+				68300FA32A013E787CD3E5861A514E7D /* Pods-PrebidMobileMoPubAdapters */,
 				77EEAD010AB4EAFD9E97B6CEB054F585 /* PromisesObjC-iOS10.0 */,
 				9AE90FC04F3F1DC86B998A79CC2696B1 /* PromisesObjC-iOS9.0 */,
 				EA9EA43B3B503823EE36C60D9C8A865F /* RxSwift */,
@@ -6754,13 +6754,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		92C44963EE48257DABF215B1E3D078AB /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		C6AFE590176E3A846DAE473492B8ADE1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -6769,6 +6762,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CCB0AB5BC1F4C4E681479E7206C2BCE0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD211DCE10F9F13CE082AF3C20C4B0DA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -7034,19 +7034,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5304ACC8B5754FA52E9974CAE47DCC9C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99664A580BBD389DCA6CCA1E898AB7C7 /* Pods-PrebidMobileMoPubAdapters-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		561F50731BF1EED6AF6030432E936411 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				A8D9C5D65BC86B1CE85B48C8604A70A3 /* Pods-PrebidMobileDemoRendering-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5B040EBBA567DD0FA323346ABAA27573 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1A4433569FF99CB544DA279561B43536 /* Pods-OpenXApolloMoPubAdapters-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7789,12 +7789,6 @@
 			target = 1C8D67D8B72D6BA42CCEDB648537A340 /* SVProgressHUD */;
 			targetProxy = 3E071433758AAF6EEDBEB0BCE5BB7AF7 /* PBXContainerItemProxy */;
 		};
-		933B6B59112FD04E4CEFDC86B826910A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "mopub-ios-sdk";
-			target = BE4A4ECC8A801924F03DA6FFE943E04C /* mopub-ios-sdk */;
-			targetProxy = A42F4C3CC63F2AA42D9568A552A47E76 /* PBXContainerItemProxy */;
-		};
 		981E56CBC1461F94C8A9D9270F716AAC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "GoogleAppMeasurement-iOS10.0";
@@ -7885,6 +7879,12 @@
 			target = 8836121413E802A63BFC2C88A481B99D /* GoogleUserMessagingPlatform-iOS9.0 */;
 			targetProxy = 8B3551DAB66656D215ECE4A2D16D1A1F /* PBXContainerItemProxy */;
 		};
+		F2228E059C2FDC7CFE28FC3778EF12D1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "mopub-ios-sdk";
+			target = BE4A4ECC8A801924F03DA6FFE943E04C /* mopub-ios-sdk */;
+			targetProxy = A24C7C88645A4D15EDCA844D13B29F02 /* PBXContainerItemProxy */;
+		};
 		F27C5139329C1AC8F300190648A6EFB4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "GoogleAppMeasurement-iOS9.0";
@@ -7939,7 +7939,7 @@
 		};
 		0763506BD8B243525AB68A1DCC9A00C9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 97BB37FC5E26D3245C144117FEF66E89 /* Pods-PrebidMobileGAMEventHandlers.release.xcconfig */;
+			baseConfigurationReference = 78D232F64CB5373F52869C2A70AF5C14 /* Pods-PrebidMobileGAMEventHandlers.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -8005,7 +8005,7 @@
 		};
 		12CD9D037995749768303A2D2FB17B94 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F4491F649154E64496988A98A98D387A /* Pods-PrebidMobileDemoRendering.debug.xcconfig */;
+			baseConfigurationReference = AB3522C17EC98C067A6C5A381C2D5452 /* Pods-PrebidMobileDemoRendering.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -8200,7 +8200,7 @@
 		};
 		2B57C281180EB5267A0B60E79856FB77 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DCE5FA0129A8FE5C517EB21F0454724C /* Pods-OpenXMockServer.release.xcconfig */;
+			baseConfigurationReference = C377FB15F10BEC21327FAD2828AEC379 /* Pods-OpenXMockServer.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -8302,6 +8302,41 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		505F8B73EAA88EA97CDD820551C3DAD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE6EF6C879278456BE38EFEAA2C3C91D /* Pods-PrebidMobileMoPubAdapters.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMPILER_INDEX_STORE_ENABLE = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-PrebidMobileMoPubAdapters/Pods-PrebidMobileMoPubAdapters-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-PrebidMobileMoPubAdapters/Pods-PrebidMobileMoPubAdapters.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -8495,6 +8530,40 @@
 			};
 			name = Debug;
 		};
+		756CEB79B19A72AC16FA2ED8059D2EC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F3599E8F3AFF0DCBDFEA3A1BA0CA964 /* Pods-PrebidMobileMoPubAdapters.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				COMPILER_INDEX_STORE_ENABLE = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-PrebidMobileMoPubAdapters/Pods-PrebidMobileMoPubAdapters-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-PrebidMobileMoPubAdapters/Pods-PrebidMobileMoPubAdapters.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		75F2F4745B86380FF5371FCE7E22138A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 042E7F1609B22F80731CD8C7E6D9E872 /* GoogleUserMessagingPlatform-iOS9.0.debug.xcconfig */;
@@ -8511,7 +8580,7 @@
 		};
 		77F273C695EDEE4CC1B09D8DE4CDE840 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C30D48A5C51D374254B8B25C581F85AE /* Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig */;
+			baseConfigurationReference = 9FB38D18EDBFCAC68DE6C8BE6AC42D57 /* Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -8654,7 +8723,7 @@
 		};
 		7D705425F50E2FDDB16B155440722042 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C16446ED4E70CB80B2257C7D8922747E /* Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig */;
+			baseConfigurationReference = 380E8A4CA2A989DD41F4B004C763C635 /* Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -8689,7 +8758,7 @@
 		};
 		81779491DC18FB5205214B3ED4ECD996 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9FB870084978B0453EE96280ACE9029 /* Pods-OpenXMockServer.debug.xcconfig */;
+			baseConfigurationReference = 0A84BC7E5726E5EA706359BA3EE1C3C5 /* Pods-OpenXMockServer.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -8751,40 +8820,6 @@
 			};
 			name = Release;
 		};
-		8ED42CA1E00903B1061B380E5A2025B9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6411C66DF41082175D7537A6BC591F24 /* Pods-OpenXApolloMoPubAdapters.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMPILER_INDEX_STORE_ENABLE = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-OpenXApolloMoPubAdapters/Pods-OpenXApolloMoPubAdapters-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-OpenXApolloMoPubAdapters/Pods-OpenXApolloMoPubAdapters.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		8F1731EF1C686E67C805222013B28664 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9AF099F401506A5EB2D8EC8D05E2018F /* MaterialComponents.release.xcconfig */;
@@ -8804,7 +8839,7 @@
 		};
 		90EC85B424F20EB60AC2E12368DA86C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F7A02314B271364A137974A4C6195766 /* Pods-PrebidMobileGAMEventHandlers.debug.xcconfig */;
+			baseConfigurationReference = 675842E771C1AA6DC9B45384B17E4CFF /* Pods-PrebidMobileGAMEventHandlers.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -9046,7 +9081,7 @@
 		};
 		A6AE29759D0CDB55D0079A5E171B8D4A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B315709A69FEF39BC63A0F8B8DCEB1A5 /* Pods-PrebidMobileDemoRendering.release.xcconfig */;
+			baseConfigurationReference = 3B68ABBBE3106754DC49C1C892AA7790 /* Pods-PrebidMobileDemoRendering.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -9466,41 +9501,6 @@
 			};
 			name = Debug;
 		};
-		ECF7BF73D7EBB4583614D0BD4D14B6D3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 18BE013CEE68330B7A580C779930E64A /* Pods-OpenXApolloMoPubAdapters.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				COMPILER_INDEX_STORE_ENABLE = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-OpenXApolloMoPubAdapters/Pods-OpenXApolloMoPubAdapters-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-OpenXApolloMoPubAdapters/Pods-OpenXApolloMoPubAdapters.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		F1CDD861B4B99CE5940BAA25C52519A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FB3411B0CA761F6AEE310BB7313452E7 /* MaterialComponents.debug.xcconfig */;
@@ -9562,6 +9562,15 @@
 			buildConfigurations = (
 				2970C634118E91C13265B794D78E6C90 /* Debug */,
 				4D1E7B2E04601C0A0A43D8E65EC4051B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3CDA49B23BD6618A6294ACDE5B0D46B5 /* Build configuration list for PBXNativeTarget "Pods-PrebidMobileMoPubAdapters" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				756CEB79B19A72AC16FA2ED8059D2EC7 /* Debug */,
+				505F8B73EAA88EA97CDD820551C3DAD3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -9760,15 +9769,6 @@
 			buildConfigurations = (
 				79A6A42945A795EB37B5559FB21F5D70 /* Debug */,
 				C403DA446A60DAF2369C48921E44CA3B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FA7CE3D202A57A63BCF9E185D6BC401D /* Build configuration list for PBXNativeTarget "Pods-OpenXApolloMoPubAdapters" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8ED42CA1E00903B1061B380E5A2025B9 /* Debug */,
-				ECF7BF73D7EBB4583614D0BD4D14B6D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
