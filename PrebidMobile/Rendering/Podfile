@@ -20,12 +20,12 @@ end
 
 
 
-target 'OpenXApolloGAMEventHandlers' do
+target 'PrebidMobileGAMEventHandlers' do
   platform :ios, '9.0'
   event_handlers_project
   admob_pods
 end
-target 'OpenXApolloGAMEventHandlersTests' do
+target 'PrebidMobileGAMEventHandlersTests' do
   event_handlers_project
   admob_pods
 end

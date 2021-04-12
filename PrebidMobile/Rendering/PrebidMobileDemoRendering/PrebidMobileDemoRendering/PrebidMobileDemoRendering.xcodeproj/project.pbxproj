@@ -34,8 +34,8 @@
 		34A8DDDB2493B82000924E99 /* PrebidExamplesUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A8DDDA2493B82000924E99 /* PrebidExamplesUITest.swift */; };
 		34B10A30255017DE00B5FE09 /* ThreadCheckingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B10A2F255017DE00B5FE09 /* ThreadCheckingButton.swift */; };
 		34B5CEE125D2D05C008C0CBC /* PrebidNativeAdRenderingConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B5CEE025D2D05C008C0CBC /* PrebidNativeAdRenderingConfigurationController.swift */; };
-		34B64D7424F7EA1500FDD9F4 /* OpenXApolloGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7224F7EA0F00FDD9F4 /* OpenXApolloGAMEventHandlers.framework */; };
-		34B64D7524F7EA1500FDD9F4 /* OpenXApolloGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7224F7EA0F00FDD9F4 /* OpenXApolloGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		34B64D7424F7EA1500FDD9F4 /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7224F7EA0F00FDD9F4 /* PrebidMobileGAMEventHandlers.framework */; };
+		34B64D7524F7EA1500FDD9F4 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7224F7EA0F00FDD9F4 /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		34B64DAC24F7FD6E00FDD9F4 /* OpenXApolloMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64DAA24F7FD6000FDD9F4 /* OpenXApolloMoPubAdapters.framework */; };
 		34B64DAD24F7FD6E00FDD9F4 /* OpenXApolloMoPubAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64DAA24F7FD6000FDD9F4 /* OpenXApolloMoPubAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		34BA95FE249CBF05006AE372 /* PrebidGAMInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BA95FD249CBF05006AE372 /* PrebidGAMInterstitialController.swift */; };
@@ -197,7 +197,7 @@
 			files = (
 				34B64DAD24F7FD6E00FDD9F4 /* OpenXApolloMoPubAdapters.framework in Embed Frameworks */,
 				D08680812398088A00E70E60 /* OpenXMockServer.framework in Embed Frameworks */,
-				34B64D7524F7EA1500FDD9F4 /* OpenXApolloGAMEventHandlers.framework in Embed Frameworks */,
+				34B64D7524F7EA1500FDD9F4 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
 				348A0A7D24EE803A00A6659F /* OpenXApolloSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -237,7 +237,7 @@
 		34A8DDDA2493B82000924E99 /* PrebidExamplesUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidExamplesUITest.swift; sourceTree = "<group>"; };
 		34B10A2F255017DE00B5FE09 /* ThreadCheckingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadCheckingButton.swift; sourceTree = "<group>"; };
 		34B5CEE025D2D05C008C0CBC /* PrebidNativeAdRenderingConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdRenderingConfigurationController.swift; sourceTree = "<group>"; };
-		34B64D7224F7EA0F00FDD9F4 /* OpenXApolloGAMEventHandlers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenXApolloGAMEventHandlers.framework; path = ../../Products/OpenXApolloGAMEventHandlers.framework; sourceTree = "<group>"; };
+		34B64D7224F7EA0F00FDD9F4 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PrebidMobileGAMEventHandlers.framework; path = ../../Products/PrebidMobileGAMEventHandlers.framework; sourceTree = "<group>"; };
 		34B64DA924F7FD3900FDD9F4 /* OXASDKConfiguration+InternalState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OXASDKConfiguration+InternalState.h"; path = "../../../../OpenXSDKCore/OpenXSDKCore/Prebid/OXACore/OXASDKConfiguration+InternalState.h"; sourceTree = "<group>"; };
 		34B64DAA24F7FD6000FDD9F4 /* OpenXApolloMoPubAdapters.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenXApolloMoPubAdapters.framework; path = ../../Products/OpenXApolloMoPubAdapters.framework; sourceTree = "<group>"; };
 		34BA95FD249CBF05006AE372 /* PrebidGAMInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMInterstitialController.swift; sourceTree = "<group>"; };
@@ -392,7 +392,7 @@
 				D08680A42399294C00E70E60 /* OpenXMockServer.framework in Frameworks */,
 				5B5830AF20B43727002B2596 /* WatchConnectivity.framework in Frameworks */,
 				5BD84735252F23E80092AF74 /* CoreServices.framework in Frameworks */,
-				34B64D7424F7EA1500FDD9F4 /* OpenXApolloGAMEventHandlers.framework in Frameworks */,
+				34B64D7424F7EA1500FDD9F4 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
 				5B5830AD20B4371F002B2596 /* WebKit.framework in Frameworks */,
 				5B5830AB20B43717002B2596 /* SystemConfiguration.framework in Frameworks */,
 				5B5830A920B4370D002B2596 /* StoreKit.framework in Frameworks */,
@@ -755,7 +755,7 @@
 			isa = PBXGroup;
 			children = (
 				348A0A4A24EE6EFD00A6659F /* OpenXApolloSDK.framework */,
-				34B64D7224F7EA0F00FDD9F4 /* OpenXApolloGAMEventHandlers.framework */,
+				34B64D7224F7EA0F00FDD9F4 /* PrebidMobileGAMEventHandlers.framework */,
 				34B64DAA24F7FD6000FDD9F4 /* OpenXApolloMoPubAdapters.framework */,
 				5B3C2A9C2100BC4900BD733C /* PrebidMobileDemoRendering */,
 				35F94D141F93F85D00CF46DB /* PrebidMobileDemoRenderingUITests */,
