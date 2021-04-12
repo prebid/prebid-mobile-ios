@@ -43,7 +43,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         Targeting.shared.clearContextData()
         Targeting.shared.clearContextKeywords()
         Targeting.shared.clearUserKeywords()
-        Targeting.shared.resetExternalUserIds()
+        Targeting.shared.clearLocalStoredExternalUserIds()
         Prebid.shared.externalUserIdArray = []
     }
 
@@ -337,11 +337,11 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testPostDataWithTargetingExternalUserIds() throws {
 
         //given
-        Targeting.shared.setExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
-        Targeting.shared.setExternalUserId(ExternalUserId(source: "netid.de", identifier: "999888777"))
-        Targeting.shared.setExternalUserId(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
-        Targeting.shared.setExternalUserId(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
-        Targeting.shared.setExternalUserId(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "netid.de", identifier: "999888777"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -388,6 +388,25 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual(1, sharedIdUids[0]["atype"] as! Int)
         let sharedIdExt = sharedIdUids[0]["ext"] as! [String : AnyObject]
         XCTAssertEqual("01ERJWE5FS4RAZKG6SKQ3ZYSKV", sharedIdExt["third"] as! String)
+    }
+    
+    func testPostDataWithTargetingExternalUserIdsForEmptySourceAndUserId() throws {
+
+        //given
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "", identifier: "", atype: nil, ext: nil))
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let user = jsonRequestBody["user"] as? [String: Any] else {
+            XCTFail("parsing error")
+            return
+        }
+
+        let ext = user["ext"] as? [String: Any]
+        let eids = ext?["eids"] as? [[String: AnyObject]]
+        //then
+        XCTAssertNil(eids)
     }
     
     //MARK: - GDPR Subject

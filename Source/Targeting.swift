@@ -186,19 +186,19 @@ import CoreLocation
     /**
      * This method allows to save External User Id in the User Defaults
      */
-    public func setExternalUserId(_ externalUserId: ExternalUserId) {
-        if !externalUserIds.contains(where: { $0.source == externalUserId.source }) {
-            externalUserIds.append(externalUserId)
-            StorageUtils.setExternalUserIds(value: externalUserIds)
+    public func storeExternalUserId(_ externalUserId: ExternalUserId) {
+        if let index = externalUserIds.firstIndex(where: {$0.source == externalUserId.source}) {
+            externalUserIds[index] = externalUserId
         }else{
-            Log.error("Error:- UserId with source \(externalUserId.source) is already added")
+            externalUserIds.append(externalUserId)
         }
+        StorageUtils.setExternalUserIds(value: externalUserIds)
         
     }
     /**
      * This method allows to get External User Id from User Defaults by passing respective 'source' string as param
      */
-    public func getExternalUserId(_ source : String)->ExternalUserId? {
+    public func fetchStoredExternalUserId(_ source : String)->ExternalUserId? {
         guard let array = StorageUtils.getExternalUserIds(), let externalUserId = array.first(where: {$0.source == source}) else{
             return nil
         }
@@ -207,7 +207,7 @@ import CoreLocation
     /**
      * This method allows to remove all the External User Ids from User Defaults 
      */
-    public func resetExternalUserIds() {
+    public func clearLocalStoredExternalUserIds() {
         if var arrayExternalUserIds = StorageUtils.getExternalUserIds(){
             arrayExternalUserIds.removeAll()
             StorageUtils.setExternalUserIds(value: arrayExternalUserIds)

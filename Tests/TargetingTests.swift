@@ -263,22 +263,22 @@ class TargetingTests: XCTestCase {
     //MARK: - External UserIds
     func testPbExternalUserIds() {
         //given
-        Targeting.shared.setExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
-        Targeting.shared.setExternalUserId(ExternalUserId(source: "netid.de", identifier: "999888777"))
-        Targeting.shared.setExternalUserId(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
-        Targeting.shared.setExternalUserId(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
-        Targeting.shared.setExternalUserId(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "netid.de", identifier: "999888777"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
         
         defer {
-            Targeting.shared.resetExternalUserIds()
+            Targeting.shared.clearLocalStoredExternalUserIds()
         }
 
         //when
-        let externalUserIdAdserver = Targeting.shared.getExternalUserId("adserver.org")
-        let externalUserIdNetID = Targeting.shared.getExternalUserId("netid.de")
-        let externalUserIdCriteo = Targeting.shared.getExternalUserId("criteo.com")
-        let externalUserIdLiveRamp = Targeting.shared.getExternalUserId("liveramp.com")
-        let externalUserIdSharedId = Targeting.shared.getExternalUserId("sharedid.org")
+        let externalUserIdAdserver = Targeting.shared.fetchStoredExternalUserId("adserver.org")
+        let externalUserIdNetID = Targeting.shared.fetchStoredExternalUserId("netid.de")
+        let externalUserIdCriteo = Targeting.shared.fetchStoredExternalUserId("criteo.com")
+        let externalUserIdLiveRamp = Targeting.shared.fetchStoredExternalUserId("liveramp.com")
+        let externalUserIdSharedId = Targeting.shared.fetchStoredExternalUserId("sharedid.org")
 
         //then
         XCTAssertEqual("adserver.org", externalUserIdAdserver!.source)
@@ -298,6 +298,26 @@ class TargetingTests: XCTestCase {
         XCTAssertEqual("111111111111", externalUserIdSharedId!.identifier)
         XCTAssertEqual(1, externalUserIdSharedId!.atype)
         XCTAssertEqual(["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"], externalUserIdSharedId!.ext as! [String : String])
+
+    }
+    
+    func testPbExternalUserIdsOverRiding() {
+        //given
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "222222222222", ext: ["rtiPartner" : "LFTD"]))
+        
+        defer {
+            Targeting.shared.clearLocalStoredExternalUserIds()
+        }
+
+        //when
+        let externalUserIdAdserver = Targeting.shared.fetchStoredExternalUserId("adserver.org")
+
+        //then
+        XCTAssertEqual("adserver.org", externalUserIdAdserver!.source)
+        XCTAssertEqual("222222222222", externalUserIdAdserver!.identifier)
+        XCTAssertEqual(["rtiPartner" : "LFTD"], externalUserIdAdserver!.ext as! [String : String])
+
 
     }
 
