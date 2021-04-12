@@ -1,0 +1,10 @@
+framework module GoogleMobileAdsMediationTestSuite {
+  umbrella header "GoogleMobileAdsMediationTestSuite.h"
+
+  export *
+  module * { export * }
+
+  link framework "Foundation"
+  link framework "UIKit"
+
+}

@@ -1,0 +1,263 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+
+default_platform(:ios)
+
+platform :ios do
+
+    before_all do
+        OUTPUT_DIR          = './fastlane/Builds'
+        SDK_WORKSPACE       = "ios-sdk-v3.xcworkspace"
+        
+        # The device name for SDK building
+        BUILD_SIMULATOR_NAME    = "iPhone 11"
+        BUILD_SIMULATOR_OS      = "14.4"
+        # The Simulators' names for fastlane scan
+        # The name of Simulator with the last major OS version to test the backward compatibility
+        SIMULATOR_IOS_PREVIOUS  = "iPhone 11 (13.5)"
+        
+        # The name of Simulator with the latest iOS version supported by the current Xcode on the build machines
+        SIMULATOR_IOS_LATEST    = "iPhone 11 (14.4)"
+    end
+
+# ------------------------------------------
+# ====== Build ======
+# ------------------------------------------
+
+    lane :build_sdk do
+        sdk_schemes = ["OpenXApolloSDK", "OpenXInternalTestApp"]
+        sdk_schemes.each { |scheme|
+            UI.header "Build #{scheme}"
+            xcodebuildCustom("../#{SDK_WORKSPACE}", scheme, "'platform=iOS Simulator,name=#{BUILD_SIMULATOR_NAME},OS=#{BUILD_SIMULATOR_OS}'", "clean build", "Builds")
+        }
+    end
+    
+# ------------------------------------------
+# Unit Tests
+# ------------------------------------------
+
+    lane :UnitTests_SDK_iOS_Previous do |options|
+      scheme   = 'OpenXApolloSDK'
+      
+      testsForScheme(SDK_WORKSPACE, scheme, [SIMULATOR_IOS_PREVIOUS], 1, false, options)
+    end
+
+    lane :UnitTests_SDK_iOS_Latest do |options|
+      scheme   = 'OpenXApolloSDK'
+      
+      testsForScheme(SDK_WORKSPACE, scheme, [SIMULATOR_IOS_LATEST], 1, false, options)
+    end
+
+    lane :UnitTests_GAM_EH_iOS_Previous do |options|
+      scheme   = 'OpenXApolloGAMEventHandlers'
+      
+      testsForScheme(SDK_WORKSPACE, scheme, [SIMULATOR_IOS_PREVIOUS], 1, false, options)
+    end
+
+    lane :UnitTests_GAM_EH_iOS_Latest do |options|
+      scheme   = 'OpenXApolloGAMEventHandlers'
+      
+      testsForScheme(SDK_WORKSPACE, scheme, [SIMULATOR_IOS_LATEST], 1, false, options)
+    end
+
+# ------------------------------------------
+# UI Tests
+# ------------------------------------------
+
+    lane :UITests_InternalTestApp do |options|
+      scheme   = 'OpenXInternalTestApp'
+      
+      testsForScheme(SDK_WORKSPACE, scheme, [SIMULATOR_IOS_LATEST], 5, true, options)
+    end
+
+# ------------------------------------------
+# Slack Notification
+# ------------------------------------------
+
+    desc "Sends a notification to the Slack channel"
+    lane :send_slack_message do |options|
+      step      = options[:step]
+      url       = options[:build_url]
+      warning   = options[:warning]
+      
+      slack_warning_message(step, url, warning)
+    end
+
+    
+# ------------------------------------------
+# Helpers
+# ------------------------------------------
+
+    desc "Running UI tests for scheme"
+    def testsForScheme(workspace, scheme, devices, tries, use_multi_scan, options)
+
+        sh("bash ./DisableWebProxyIfNeeded.sh")
+
+        clean_project(workspace, scheme)
+
+        # Start testing!
+        failed_test_array = []
+        test_run_block = lambda do |testrun_info|
+            failed_test = testrun_info[:failed]
+            if failed_test.size > 0
+                failed_test_array << failed_test
+            end
+        end
+
+        if use_multi_scan then
+            multi_scan(
+                workspace: workspace,
+                scheme: scheme,
+                try_count: tries,
+                devices: devices,
+                output_types: 'junit',
+                output_files: 'report.junit',
+                xcargs: "BUILD_ENV=#{{"q" => ENV.to_hash.to_json}.to_json.scan(/\{"q":(.*)\}/)}",
+                code_coverage: true,
+                testrun_completed_block: test_run_block
+            )
+        else
+            scan(
+                workspace: workspace,
+                scheme: scheme,
+                devices: devices,
+                output_types: 'junit',
+                output_files: 'report.junit',
+                xcargs: "BUILD_ENV=#{{"q" => ENV.to_hash.to_json}.to_json.scan(/\{"q":(.*)\}/)}",
+                code_coverage: true
+            )
+        end
+        if options[:report_coverage] == true then
+            xcov(
+                workspace: workspace,
+                scheme: scheme,
+                output_directory: "fastlane/xcov_output"
+            )
+        end
+
+        unless failed_test_array.empty?
+            UI.important "Restarted failed tests: #{failed_test_array}"
+        end
+
+    end
+
+    desc "Build app with xcodebuild by workspace and scheme"
+    def xcodebuildCustom(workspace, scheme, destination, command, resultLocation="")
+        sh ("xcodebuild -workspace #{workspace} -scheme #{scheme} \
+        -destination #{destination} \
+        -derivedDataPath #{resultLocation} \
+        -quiet \
+        CODE_SIGN_IDENTITY="" \
+        CODE_SIGNING_REQUIRED=NO \
+        #{command}")
+    end
+
+    desc "Send successful/failed message to Slack"
+    def slack_message(scheme, build_url, exception)
+
+        # Do not send the Slack message from the dev machine
+        return if not is_ci
+
+        message = exception ? "#{scheme} build failed!" : "#{scheme} build successful!"
+
+        payload = {
+            "Build Date" => Time.new.to_s,
+            "Build Machine" => sh("hostname"),
+            "Platform" => "iOS"
+        }
+
+        if build_url then
+            payload[:"FirebaseAppDistribution dashboard: "] = build_url
+        end
+
+        attachment_properties = nil
+        if exception then
+            attachment_properties = {
+                fields: [{ title: "Error", value: exception }]
+            }
+        end
+
+        slack(
+            message: message,
+            success: exception ? false : true,
+            slack_url: SLACK_URL,
+            channel: SLACK_CHANNEL,
+            username: "Jenkins",
+            default_payloads: [:git_branch],
+            payload: payload,
+            attachment_properties: attachment_properties
+        )
+
+        if exception then
+            UI.user_error!("Error: #{exception}")
+        end
+    end
+    
+    def slack_warning_message(scheme, build_url, warning)
+
+        # Do not send the Slack message from the dev machine
+        return if not is_ci
+
+        message = scheme
+
+        payload = {
+            "Build Date" => Time.new.to_s,
+            "Build Machine" => sh("hostname"),
+            "Platform" => "iOS"
+        }
+
+        if build_url then
+            payload[:"Build URL "] = build_url
+        end
+
+        attachment_properties = {
+            fields: [{ title: "Message", value: warning }]
+        }
+
+        slack(
+            message: message,
+            success: false,
+            slack_url: SLACK_URL,
+            channel: SLACK_CHANNEL,
+            username: "Jenkins",
+            default_payloads: [:git_branch],
+            payload: payload,
+            attachment_properties: attachment_properties
+        )
+    end
+
+    def clean_project(workspace, scheme)
+
+        xcclean(
+            workspace:  workspace,
+            scheme: scheme
+        )
+
+        clear_derived_data
+    end
+
+    def clean_sdk_framework()
+        # To avoid errors like:
+        # 
+        # Building for iOS, but the linked and embedded framework 'OpenXApolloSDK.framework' was built for iOS Simulator. 
+        # (in target 'OpenXInternalTestApp' from project 'OpenXInternalTestApp')
+        # 
+        sh ("rm -rf ./Products/OpenX*.framework")
+        sh ("rm -rf ./OpenXInternalTestApp/OpenXInternalTestApp/OpenXInternalTestApp/Frameworks/OpenX*.framework")
+
+    end
+
+end

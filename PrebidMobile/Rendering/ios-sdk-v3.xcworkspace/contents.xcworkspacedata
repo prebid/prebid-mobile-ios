@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:OpenXSDKCore/OpenXSDKCore.xcodeproj">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "Integration Test Apps">
+      <Group
+         location = "container:"
+         name = "Internal Test App">
+         <FileRef
+            location = "group:OpenXInternalTestApp/OpenXInternalTestApp/OpenXInternalTestApp.xcodeproj">
+         </FileRef>
+      </Group>
+   </Group>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:EventHandlers/EventHandlers.xcodeproj">
+   </FileRef>
+</Workspace>
