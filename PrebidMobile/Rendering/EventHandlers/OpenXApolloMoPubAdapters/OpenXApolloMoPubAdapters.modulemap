@@ -1,0 +1,22 @@
+//
+//  OpenXApolloMoPubAdapters.modulemap
+//  OpenXApolloMoPubAdapters
+//
+//  Copyright © 2020 OpenX. All rights reserved.
+//
+
+framework module OpenXApolloMoPubAdapters {
+    
+    header "OpenXApolloMoPubAdapters.h"
+    
+    header "OXAMoPubAdapterConfiguration.h"
+    header "OXAMoPubBannerAdapter.h"
+    header "OXAMoPubInterstitialAdapter.h"
+    header "OXAMoPubRewardedVideoAdapter.h"
+    header "OXAMoPubVideoInterstitialAdapter.h"
+    
+    header "OXAMoPubNativeAdRenderer.h"
+    header "OXAMoPubNativeAdAdapter.h"
+    header "OXAMoPubNativeCustomEvent.h"
+    header "OXAMoPubNativeAdUtils.h"
+}

@@ -1,0 +1,16 @@
+//
+//  OpenXApolloGAMEventHandlers.modulemap
+//  OpenXApolloGAMEventHandlers
+//
+//  Copyright © 2020 OpenX. All rights reserved.
+//
+
+framework module OpenXApolloGAMEventHandlers {
+    
+    header "OpenXApolloGAMEventHandlers.h"
+    
+    header "OXAGAMBannerEventHandler.h"
+    header "OXAGAMInterstitialEventHandler.h"
+    header "OXAGAMRewardedEventHandler.h"
+    header "OXAGAMUtils.h"
+}

@@ -1,0 +1,68 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '10.0'
+
+workspace 'ios-sdk-v3'
+
+project 'OpenXInternalTestApp/OpenXInternalTestApp/OpenXInternalTestApp.xcodeproj'
+
+def mopub_pods
+  pod 'mopub-ios-sdk', '5.15'
+end
+
+def admob_pods
+    pod 'Google-Mobile-Ads-SDK'
+end
+
+def event_handlers_project
+  project 'EventHandlers/EventHandlers.xcodeproj'
+  use_frameworks!
+end
+
+
+
+target 'OpenXApolloGAMEventHandlers' do
+  platform :ios, '9.0'
+  event_handlers_project
+  admob_pods
+end
+target 'OpenXApolloGAMEventHandlersTests' do
+  event_handlers_project
+  admob_pods
+end
+
+target 'OpenXApolloMoPubAdapters' do
+  event_handlers_project
+  mopub_pods
+end
+
+
+
+def internalTestApp_pods
+  pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'xcode12'
+  pod 'GoogleMobileAdsMediationTestSuite'
+  pod 'SVProgressHUD'
+  mopub_pods
+  admob_pods
+end
+
+target 'OpenXInternalTestApp' do
+  use_frameworks!
+  project 'OpenXInternalTestApp/OpenXInternalTestApp/OpenXInternalTestApp.xcodeproj'
+  internalTestApp_pods
+end
+
+target 'OpenXMockServer' do
+  use_frameworks!
+  pod 'Alamofire', '4.9.1'
+  pod 'RxSwift'
+end
+
+
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['COMPILER_INDEX_STORE_ENABLE'] = "NO"
+        end
+    end
+end
