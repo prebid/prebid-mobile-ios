@@ -43,7 +43,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         Targeting.shared.clearContextData()
         Targeting.shared.clearContextKeywords()
         Targeting.shared.clearUserKeywords()
-        Targeting.shared.clearLocalStoredExternalUserIds()
+        Targeting.shared.removeStoredExternalUserIds()
         Prebid.shared.externalUserIdArray = []
     }
 

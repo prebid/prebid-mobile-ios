@@ -270,7 +270,7 @@ class TargetingTests: XCTestCase {
         Targeting.shared.storeExternalUserId(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
         
         defer {
-            Targeting.shared.clearLocalStoredExternalUserIds()
+            Targeting.shared.removeStoredExternalUserIds()
         }
 
         //when
@@ -307,7 +307,7 @@ class TargetingTests: XCTestCase {
         Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "222222222222", ext: ["rtiPartner" : "LFTD"]))
         
         defer {
-            Targeting.shared.clearLocalStoredExternalUserIds()
+            Targeting.shared.removeStoredExternalUserIds()
         }
 
         //when
@@ -343,7 +343,7 @@ class TargetingTests: XCTestCase {
         Targeting.shared.storeExternalUserId(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
         
         defer {
-            Targeting.shared.clearLocalStoredExternalUserIds()
+            Targeting.shared.removeStoredExternalUserIds()
         }
 
         //when

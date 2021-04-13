@@ -222,7 +222,7 @@ import CoreLocation
     /**
      * This method allows to remove all the External User Ids from User Defaults 
      */
-    public func clearLocalStoredExternalUserIds() {
+    public func removeStoredExternalUserIds() {
         if var arrayExternalUserIds = StorageUtils.getExternalUserIds(){
             arrayExternalUserIds.removeAll()
             StorageUtils.setExternalUserIds(value: arrayExternalUserIds)
