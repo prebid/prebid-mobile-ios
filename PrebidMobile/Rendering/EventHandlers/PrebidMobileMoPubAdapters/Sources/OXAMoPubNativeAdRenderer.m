@@ -6,7 +6,7 @@
 //
 #import <MoPub/MoPub.h>
 
-@import OpenXApolloSDK;
+#import <PrebidMobileRendering/OXANativeAd.h>
 
 #import "OXAMoPubNativeAdRenderer.h"
 

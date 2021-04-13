@@ -8,7 +8,7 @@
 #import "OXAGAMBannerEventHandler.h"
 
 #import <GoogleMobileAds/GoogleMobileAds.h>
-#import <OpenXApolloSDK/OXABid.h>
+#import <PrebidMobileRendering/OXABid.h>
 #import "OXADFPBanner.h"
 #import "OXADFPRequest.h"
 #import "OXAGAMError.h"

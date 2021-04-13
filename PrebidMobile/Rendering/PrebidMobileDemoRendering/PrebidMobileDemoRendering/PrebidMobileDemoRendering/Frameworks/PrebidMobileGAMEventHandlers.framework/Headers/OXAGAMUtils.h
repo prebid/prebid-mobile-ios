@@ -6,8 +6,8 @@
 //
 
 @import Foundation;
-#import <OpenXApolloSDK/OXADemandResponseInfo.h>
-#import <OpenXApolloSDK/OXANativeAdDetectionListener.h>
+#import <PrebidMobileRendering/OXADemandResponseInfo.h>
+#import <PrebidMobileRendering/OXANativeAdDetectionListener.h>
 
 @class DFPRequest;
 @class GADNativeCustomTemplateAd;

@@ -6,19 +6,19 @@
 	<dict>
 		<key>Headers/OXAGAMBannerEventHandler.h</key>
 		<data>
-		YnQQXxRsZtVc3K69yLUww0A0Bm8=
+		ExiwS0PO5hg9AeWZufTZVkVtUpU=
 		</data>
 		<key>Headers/OXAGAMInterstitialEventHandler.h</key>
 		<data>
-		3C5f44Gz5eYhYx2sc5yyEJhR034=
+		j+wsIQRMbxPmvmZBembcSQaS6wU=
 		</data>
 		<key>Headers/OXAGAMRewardedEventHandler.h</key>
 		<data>
-		ljEtOkkcRuc4xQJI2RZejNBZCk0=
+		2H97BUU7QOCtEna6MQiULd4RvIk=
 		</data>
 		<key>Headers/OXAGAMUtils.h</key>
 		<data>
-		2i1/DFwXWmoL3dJWp3rj+5PAWy4=
+		9LzCeY+lm0gzrBhjxF5OTZpww5A=
 		</data>
 		<key>Headers/OpenXApolloGAMEventHandlers.h</key>
 		<data>
@@ -39,44 +39,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			YnQQXxRsZtVc3K69yLUww0A0Bm8=
+			ExiwS0PO5hg9AeWZufTZVkVtUpU=
 			</data>
 			<key>hash2</key>
 			<data>
-			c8B4JyAcv1O2/ZPj5Uv1PU913mBR+8jYUGiHNL3ApQU=
+			Ic2e4161SVKpY68+Fd3kSDh6QZpDq4hFJh6On/iieas=
 			</data>
 		</dict>
 		<key>Headers/OXAGAMInterstitialEventHandler.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			3C5f44Gz5eYhYx2sc5yyEJhR034=
+			j+wsIQRMbxPmvmZBembcSQaS6wU=
 			</data>
 			<key>hash2</key>
 			<data>
-			aKeH8/G57/5L24GSprwswdpk6xfN3EIdaV1iHl/NjNQ=
+			eMMg8F1qe9u0GHzpnA/sDhv1tFF+uwcIFp27ITpEjQs=
 			</data>
 		</dict>
 		<key>Headers/OXAGAMRewardedEventHandler.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ljEtOkkcRuc4xQJI2RZejNBZCk0=
+			2H97BUU7QOCtEna6MQiULd4RvIk=
 			</data>
 			<key>hash2</key>
 			<data>
-			f0pVbL6IFRRkHZI+DSK1LRzRU2Vo8ctv5hulpSgGpcM=
+			IX+vyaY3Cf9MbUqmhxzUlD1YwDGaeX3b2U/7PZnbyzQ=
 			</data>
 		</dict>
 		<key>Headers/OXAGAMUtils.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			2i1/DFwXWmoL3dJWp3rj+5PAWy4=
+			9LzCeY+lm0gzrBhjxF5OTZpww5A=
 			</data>
 			<key>hash2</key>
 			<data>
-			CrLMaY3C5HqhNu8qJPkU3ZqYx/tzAabGJTpEN3BIF5s=
+			FUi/6VpEA9EwhBhgXS952FwsDSL1jABOaMMZKpcWnnU=
 			</data>
 		</dict>
 		<key>Headers/OpenXApolloGAMEventHandlers.h</key>

@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <OpenXApolloSDK/OXABannerEventHandler.h>
+#import <PrebidMobileRendering/OXABannerEventHandler.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -9,7 +9,7 @@
 
 #import <MoPub/MoPub.h>
 
-#import <OpenXApolloSDK/OXANativeAdDetectionListener.h>
+#import <PrebidMobileRendering/OXANativeAdDetectionListener.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

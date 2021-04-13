@@ -4,7 +4,7 @@
 //
 //  Copyright © 2021 OpenX. All rights reserved.
 //
-#import <OpenXApolloSDK/OXALocalResponseInfoCache.h>
+#import <PrebidMobileRendering/OXALocalResponseInfoCache.h>
 #import "OXALocalResponseInfoCache+Internal.h"
 
 #import "OXAMoPubNativeAdUtils.h"

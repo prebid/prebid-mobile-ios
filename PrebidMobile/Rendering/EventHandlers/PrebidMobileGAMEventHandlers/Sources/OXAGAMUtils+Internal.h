@@ -6,7 +6,7 @@
 //
 
 #import "OXAGAMUtils.h"
-#import <OpenXApolloSDK/OXALocalResponseInfoCache.h>
+#import <PrebidMobileRendering/OXALocalResponseInfoCache.h>
 #import "OXALocalResponseInfoCache+Internal.h"
 
 NS_ASSUME_NONNULL_BEGIN

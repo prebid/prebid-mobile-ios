@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <OpenXApolloSDK/OXANativeAdConfiguration.h>
+#import <PrebidMobileRendering/OXANativeAdConfiguration.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -5,7 +5,8 @@
 //  Copyright © 2020 OpenX. All rights reserved.
 //
 #import <MoPub/MoPub.h>
-@import OpenXApolloSDK;
+
+#import <PrebidMobileRendering/OXAInterstitialController.h>
 
 #import "OXAMoPubVideoInterstitialAdapter.h"
 

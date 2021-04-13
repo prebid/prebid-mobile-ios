@@ -6,8 +6,8 @@
 //
 
 #import "NSError+oxmError.h"
-#import <OpenXApolloSDK/OXAPublicConstants.h>
-#import <OpenXApolloSDK/OXAErrorCode.h>
+#import <PrebidMobileRendering/OXAPublicConstants.h>
+#import <PrebidMobileRendering/OXAErrorCode.h>
 
 @implementation NSError (oxmError)
 

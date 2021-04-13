@@ -5,9 +5,11 @@
 //  Copyright © 2019 OpenX, Inc. All rights reserved.
 //
 #import <MoPub/MoPub.h>
+
+#import <PrebidMobileRendering/OXASDKConfiguration.h>
+#import <PrebidMobileRendering/OXALogLevel.h>
+
 #import "OXAMoPubAdapterConfiguration.h"
-#import <OpenXApolloSDK/OXASDKConfiguration.h>
-#import <OpenXApolloSDK/OXALogLevel.h>
 
 static NSString * const OXA_MOPUB_ADAPTER_VERSION = @"0";
 

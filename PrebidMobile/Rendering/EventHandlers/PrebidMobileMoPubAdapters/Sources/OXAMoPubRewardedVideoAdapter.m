@@ -6,7 +6,7 @@
 //
 #import <MoPub/MoPub.h>
 
-#import <OpenXApolloSDK/OXAInterstitialController.h>
+#import <PrebidMobileRendering/OXAInterstitialController.h>
 
 #import "OXAMoPubRewardedVideoAdapter.h"
 

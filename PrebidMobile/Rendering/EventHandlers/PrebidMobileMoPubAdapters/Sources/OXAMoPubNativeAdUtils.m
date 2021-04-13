@@ -5,7 +5,7 @@
 //  Copyright © 2021 OpenX. All rights reserved.
 //
 #import <MoPub/MoPub.h>
-#import <OpenXApolloSDK/OXAMoPubUtils.h>
+#import <PrebidMobileRendering/OXAMoPubUtils.h>
 
 #import "NSTimer+OXAScheduledTimerFactory.h"
 

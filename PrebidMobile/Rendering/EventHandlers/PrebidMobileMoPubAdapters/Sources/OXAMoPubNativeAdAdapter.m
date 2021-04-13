@@ -7,7 +7,7 @@
 
 #import <MoPub/MoPub.h>
 
-#import <OpenXApolloSDK/OXANativeAd.h>
+#import <PrebidMobileRendering/OXANativeAd.h>
 
 #import "OXAMoPubNativeAdAdapter.h"
 

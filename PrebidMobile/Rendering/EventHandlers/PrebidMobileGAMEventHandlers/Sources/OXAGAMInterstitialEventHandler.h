@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <OpenXApolloSDK/OXAInterstitialEventHandler.h>
+#import <PrebidMobileRendering/OXAInterstitialEventHandler.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

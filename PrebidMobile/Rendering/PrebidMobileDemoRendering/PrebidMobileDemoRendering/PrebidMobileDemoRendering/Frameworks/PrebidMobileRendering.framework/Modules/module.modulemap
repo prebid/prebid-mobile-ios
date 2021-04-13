@@ -1,0 +1,115 @@
+//
+//  PrebidMobileRendering.modulemap
+//  PrebidMobileRendering
+//
+//  Copyright © 2020 OpenX. All rights reserved.
+//
+
+framework module PrebidMobileRendering {
+    
+    // Versions
+    header "OpenXApolloSDK.h"
+    // Constants
+    header "OXAPublicConstants.h"
+    // Enums
+    header "OXAAdFormat.h"
+    header "OXAErrorCode.h"
+    header "OXAErrorType.h"
+    header "OXALogLevel.h"
+    header "OXAAdPosition.h"
+    header "OXAVideoPlacementType.h"
+    
+    // OXACore
+    header "OXAAdUnitConfig.h"
+    header "OXABid.h"
+    header "OXABidResponse.h"
+    header "OXABidRequesterProtocol.h"
+    header "OXABidRequester.h"
+    header "OXAGender.h"
+    header "OXAFetchDemandResult.h"
+    header "OXANetworkType.h"
+    header "OXASDKConfiguration.h"
+    header "OXATargeting.h"
+    
+    // OXACacheRenderers
+    header "OXADisplayView.h"
+    header "OXADisplayViewLoadingDelegate.h"
+    header "OXADisplayViewInteractionDelegate.h"
+    header "OXAInterstitialController.h"
+    header "OXAInterstitialControllerLoadingDelegate.h"
+    header "OXAInterstitialControllerInteractionDelegate.h"
+    
+    
+    // OXB Integration GAM
+    
+    header "OXAPrimaryAdRequesterProtocol.h"
+    
+    header "OXABannerEventLoadingDelegate.h"
+    header "OXABannerEventInteractionDelegate.h"
+    header "OXABannerEventHandler.h"
+    header "OXABannerViewDelegate.h"
+    header "OXABannerView.h"
+    
+    header "OXABaseAdUnit.h"
+    header "OXABaseInterstitialAdUnit.h"
+    header "OXADemandResponseInfo.h"
+    
+    header "OXAInterstitialAdUnit.h"
+    header "OXAInterstitialAdUnitDelegate.h"
+    header "OXAInterstitialEventLoadingDelegate.h"
+    header "OXAInterstitialEventInteractionDelegate.h"
+    header "OXAInterstitialEventHandler.h"
+    
+    header "OXARewardedAdUnit.h"
+    header "OXARewardedAdUnitDelegate.h"
+    header "OXARewardedEventLoadingDelegate.h"
+    header "OXARewardedEventInteractionDelegate.h"
+    header "OXARewardedEventHandler.h"
+    
+    
+    // OXA Native Ads (enums)
+    header "OXADataAssetType.h"
+    header "OXAImageAssetType.h"
+    header "OXADataAssetType.h"
+    header "OXANativeEventTrackingMethod.h"
+    header "OXANativeEventType.h"
+    // OXA Native Ads (request)
+    header "OXANativeAdConfiguration.h"
+    header "OXANativeAdUnit.h"
+    header "OXANativeAsset.h"
+    header "OXANativeAssetData.h"
+    header "OXANativeAssetImage.h"
+    header "OXANativeAssetTitle.h"
+    header "OXANativeAssetVideo.h"
+    header "OXANativeContextType.h"
+    header "OXANativeContextSubtype.h"
+    header "OXANativeEventTracker.h"
+    header "OXANativePlacementType.h"
+    // OXA Native Ads (response)
+    header "OXANativeAd.h"
+    header "OXANativeAdTrackingDelegate.h"
+    header "OXANativeAdUIDelegate.h"
+    header "OXANativeAdAsset.h"
+    header "OXANativeAdData.h"
+    header "OXANativeAdElementType.h"
+    header "OXANativeAdEventTracker.h"
+    header "OXANativeAdHandler.h"
+    header "OXANativeAdImage.h"
+    header "OXANativeAdTitle.h"
+    header "OXANativeAdVideo.h"
+    // OXA Native Ads (rendering)
+    header "OXAMediaData.h"
+    header "OXAMediaView.h"
+    header "OXAMediaViewDelegate.h"
+    // OXA Native Ads (for Primary SDK Utils)
+    header "OXALocalResponseInfoCache.h"
+    header "OXANativeAdDetectionListener.h"
+    
+    // OXB Integration MoPub
+    header "OXAMoPubBannerAdUnit.h"
+    header "OXAMoPubBaseInterstitialAdUnit.h"
+    header "OXAMoPubInterstitialAdUnit.h"
+    header "OXAMoPubRewardedAdUnit.h"
+    header "OXAMoPubUtils.h"
+    header "OXAMoPubNativeAdUnit.h"
+}

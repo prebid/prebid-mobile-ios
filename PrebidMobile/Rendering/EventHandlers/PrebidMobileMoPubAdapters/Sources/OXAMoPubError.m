@@ -5,7 +5,7 @@
 //  Copyright © 2021 OpenX. All rights reserved.
 //
 
-#import <OpenXApolloSDK/OXAErrorCode.h>
+#import <PrebidMobileRendering/OXAErrorCode.h>
 #import "OXAMoPubConstants.h"
 
 #import "OXAMoPubError.h"

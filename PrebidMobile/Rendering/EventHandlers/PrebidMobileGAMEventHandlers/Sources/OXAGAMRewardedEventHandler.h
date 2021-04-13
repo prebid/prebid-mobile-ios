@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <OpenXApolloSDK/OXARewardedEventHandler.h>
+#import <PrebidMobileRendering/OXARewardedEventHandler.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

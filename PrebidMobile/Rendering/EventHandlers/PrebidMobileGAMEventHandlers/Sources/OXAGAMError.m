@@ -7,7 +7,7 @@
 
 #import "OXAGAMError.h"
 
-#import <OpenXApolloSDK/OXAErrorCode.h>
+#import <PrebidMobileRendering/OXAErrorCode.h>
 #import "OXAGAMConstants.h"
 
 @interface OXAGAMError ()

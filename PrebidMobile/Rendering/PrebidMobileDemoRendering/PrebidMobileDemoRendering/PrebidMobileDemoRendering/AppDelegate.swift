@@ -10,7 +10,7 @@ import CoreLocation
 import MoPub
 import GoogleMobileAds
 
-import OpenXApolloSDK
+import PrebidMobileRendering
 import PrebidMobileMoPubAdapters
 
 @UIApplicationMain

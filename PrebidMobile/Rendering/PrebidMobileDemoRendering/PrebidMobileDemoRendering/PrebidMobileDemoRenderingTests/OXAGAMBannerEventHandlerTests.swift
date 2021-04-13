@@ -6,11 +6,11 @@
 //
 
 import Foundation
-
-
 import XCTest
-import OpenXApolloGAMEventHandlers
+
 import GoogleMobileAds
+
+import PrebidMobileGAMEventHandlers
 
 class OXAGAMBannerEventHandlerTests: XCTestCase {
     
