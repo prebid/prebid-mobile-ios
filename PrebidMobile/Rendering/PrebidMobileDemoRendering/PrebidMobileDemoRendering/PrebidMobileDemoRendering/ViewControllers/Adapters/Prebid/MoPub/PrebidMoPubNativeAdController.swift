@@ -8,7 +8,7 @@
 import UIKit
 import MoPub
 
-import OpenXApolloMoPubAdapters
+import PrebidMobileMoPubAdapters
 
 class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigurableNativeAdCompatibleController {
     

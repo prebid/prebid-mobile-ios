@@ -7,7 +7,7 @@
 
 import UIKit
 import GoogleMobileAds
-import OpenXApolloGAMEventHandlers
+import PrebidMobileGAMEventHandlers
 
 class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfigurableController, OXAInterstitialAdUnitDelegate {
     

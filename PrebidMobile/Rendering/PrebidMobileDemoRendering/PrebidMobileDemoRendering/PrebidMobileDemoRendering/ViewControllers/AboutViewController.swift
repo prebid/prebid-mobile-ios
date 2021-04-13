@@ -9,8 +9,8 @@ import UIKit
 
 import Eureka
 
-import OpenXApolloGAMEventHandlers
-import OpenXApolloMoPubAdapters
+import PrebidMobileGAMEventHandlers
+import PrebidMobileMoPubAdapters
 import GoogleMobileAds
 import MoPub
 

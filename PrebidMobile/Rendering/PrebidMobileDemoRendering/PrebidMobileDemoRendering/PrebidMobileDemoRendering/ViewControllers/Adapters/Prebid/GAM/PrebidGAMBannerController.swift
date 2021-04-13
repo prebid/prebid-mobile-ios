@@ -7,7 +7,7 @@
 
 import Foundation
 import GoogleMobileAds
-import OpenXApolloGAMEventHandlers
+import PrebidMobileGAMEventHandlers
 
 class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, OXABannerViewDelegate {
     

@@ -8,7 +8,7 @@
 import UIKit
 
 import GoogleMobileAds
-import OpenXApolloGAMEventHandlers
+import PrebidMobileGAMEventHandlers
 
 class FeedGAMAdTableViewCell: UITableViewCell {
     @IBOutlet weak var bannerView: UIView!

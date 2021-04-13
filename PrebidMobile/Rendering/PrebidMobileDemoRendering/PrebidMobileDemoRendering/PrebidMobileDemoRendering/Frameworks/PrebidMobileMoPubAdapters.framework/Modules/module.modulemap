@@ -5,7 +5,7 @@
 //  Copyright © 2020 OpenX. All rights reserved.
 //
 
-framework module OpenXApolloMoPubAdapters {
+framework module PrebidMobileMoPubAdapters {
     
     header "OpenXApolloMoPubAdapters.h"
     

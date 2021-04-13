@@ -11,7 +11,7 @@ import MoPub
 import GoogleMobileAds
 
 import OpenXApolloSDK
-import OpenXApolloMoPubAdapters
+import PrebidMobileMoPubAdapters
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

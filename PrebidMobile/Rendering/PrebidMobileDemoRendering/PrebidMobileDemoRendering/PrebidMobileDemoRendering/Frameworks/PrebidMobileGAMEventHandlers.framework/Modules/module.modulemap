@@ -5,7 +5,7 @@
 //  Copyright © 2020 OpenX. All rights reserved.
 //
 
-framework module OpenXApolloGAMEventHandlers {
+framework module PrebidMobileGAMEventHandlers {
     
     header "OpenXApolloGAMEventHandlers.h"
     

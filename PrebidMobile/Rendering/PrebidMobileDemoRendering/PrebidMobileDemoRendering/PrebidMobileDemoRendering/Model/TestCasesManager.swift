@@ -9,7 +9,7 @@ import Foundation
 import OpenXMockServer
 import UIKit
 import GoogleMobileAds
-import OpenXApolloGAMEventHandlers
+import PrebidMobileGAMEventHandlers
 
 let nativeStylesCreative = """
 <html><body>

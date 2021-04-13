@@ -7,7 +7,7 @@
 
 import UIKit
 import GoogleMobileAds
-import OpenXApolloGAMEventHandlers
+import PrebidMobileGAMEventHandlers
 
 class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurableNativeAdCompatibleController {
     var prebidConfigId = ""
