@@ -38,7 +38,7 @@ platform :ios do
 # ------------------------------------------
 
     lane :build_sdk do
-        sdk_schemes = ["OpenXApolloSDK", "OpenXInternalTestApp"]
+        sdk_schemes = ["PrebidMobileRendering", "PrebidMobileDemoRendering"]
         sdk_schemes.each { |scheme|
             UI.header "Build #{scheme}"
             xcodebuildCustom("../#{SDK_WORKSPACE}", scheme, "'platform=iOS Simulator,name=#{BUILD_SIMULATOR_NAME},OS=#{BUILD_SIMULATOR_OS}'", "clean build", "Builds")
@@ -50,25 +50,25 @@ platform :ios do
 # ------------------------------------------
 
     lane :UnitTests_SDK_iOS_Previous do |options|
-      scheme   = 'OpenXApolloSDK'
+      scheme   = 'PrebidMobileRendering'
       
       testsForScheme(SDK_WORKSPACE, scheme, [SIMULATOR_IOS_PREVIOUS], 1, false, options)
     end
 
     lane :UnitTests_SDK_iOS_Latest do |options|
-      scheme   = 'OpenXApolloSDK'
+      scheme   = 'PrebidMobileRendering'
       
       testsForScheme(SDK_WORKSPACE, scheme, [SIMULATOR_IOS_LATEST], 1, false, options)
     end
 
     lane :UnitTests_GAM_EH_iOS_Previous do |options|
-      scheme   = 'OpenXApolloGAMEventHandlers'
+      scheme   = 'PrebidMobileGAMEventHandlers'
       
       testsForScheme(SDK_WORKSPACE, scheme, [SIMULATOR_IOS_PREVIOUS], 1, false, options)
     end
 
     lane :UnitTests_GAM_EH_iOS_Latest do |options|
-      scheme   = 'OpenXApolloGAMEventHandlers'
+      scheme   = 'PrebidMobileGAMEventHandlers'
       
       testsForScheme(SDK_WORKSPACE, scheme, [SIMULATOR_IOS_LATEST], 1, false, options)
     end
@@ -78,7 +78,7 @@ platform :ios do
 # ------------------------------------------
 
     lane :UITests_InternalTestApp do |options|
-      scheme   = 'OpenXInternalTestApp'
+      scheme   = 'PrebidMobileDemoRendering'
       
       testsForScheme(SDK_WORKSPACE, scheme, [SIMULATOR_IOS_LATEST], 5, true, options)
     end
@@ -252,11 +252,11 @@ platform :ios do
     def clean_sdk_framework()
         # To avoid errors like:
         # 
-        # Building for iOS, but the linked and embedded framework 'OpenXApolloSDK.framework' was built for iOS Simulator. 
+        # Building for iOS, but the linked and embedded framework 'PrebidMobile*.framework' was built for iOS Simulator. 
         # (in target 'OpenXInternalTestApp' from project 'OpenXInternalTestApp')
         # 
-        sh ("rm -rf ./Products/OpenX*.framework")
-        sh ("rm -rf ./OpenXInternalTestApp/OpenXInternalTestApp/OpenXInternalTestApp/Frameworks/OpenX*.framework")
+        sh ("rm -rf ./Products/PrebidMobile*.framework")
+        sh ("rm -rf ./PrebidMobileDemoRendering/PrebidMobileDemoRendering/PrebidMobileDemoRendering/Frameworks/PrebidMobile*.framework")
 
     end
 
