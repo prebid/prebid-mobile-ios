@@ -196,6 +196,12 @@ import CoreLocation
         
     }
     /**
+     * This method allows to get All External User Ids from User Defaults 
+     */
+    public func fetchStoredExternalUserIds()->[ExternalUserId]? {
+        return StorageUtils.getExternalUserIds()
+    }
+    /**
      * This method allows to get External User Id from User Defaults by passing respective 'source' string as param
      */
     public func fetchStoredExternalUserId(_ source : String)->ExternalUserId? {
