@@ -1622,9 +1622,4 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         }
     }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        Location.shared.location = locations.last!
-
-    }
 }
