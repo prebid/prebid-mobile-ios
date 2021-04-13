@@ -113,8 +113,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60EE7AFC21F12477000B12A8 /* PrebidMobile.framework in Frameworks */,
 				B8247B83B2A4DAD259E550EB /* Pods_PrebidDemo.framework in Frameworks */,
+				60EE7AFC21F12477000B12A8 /* PrebidMobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,9 +135,9 @@
 		600CF06422088CD400C95176 /* PrebidDemoTests */ = {
 			isa = PBXGroup;
 			children = (
-				600CF06522088CD400C95176 /* PrebidDemoTests.swift */,
 				97AACE44220C67FC0070EC46 /* Constants.swift */,
 				600CF06722088CD400C95176 /* Info.plist */,
+				600CF06522088CD400C95176 /* PrebidDemoTests.swift */,
 			);
 			path = PrebidDemoTests;
 			sourceTree = "<group>";
@@ -154,12 +154,12 @@
 		60D7931E2180E2730080F428 = {
 			isa = PBXGroup;
 			children = (
-				60A610972180F3010095746C /* PrebidMobile.xcodeproj */,
+				60D793562180E3770080F428 /* Frameworks */,
+				2949C97550D64CBD36532A38 /* Pods */,
 				60D793292180E2730080F428 /* PrebidDemo */,
 				600CF06422088CD400C95176 /* PrebidDemoTests */,
 				60D793282180E2730080F428 /* Products */,
-				60D793562180E3770080F428 /* Frameworks */,
-				2949C97550D64CBD36532A38 /* Pods */,
+				60A610972180F3010095746C /* PrebidMobile.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -176,13 +176,13 @@
 			isa = PBXGroup;
 			children = (
 				60D7932A2180E2730080F428 /* AppDelegate.swift */,
-				60D7932C2180E2730080F428 /* BannerController.swift */,
-				60D7932E2180E2730080F428 /* Main.storyboard */,
 				60D793312180E2750080F428 /* Assets.xcassets */,
-				60D793332180E2750080F428 /* LaunchScreen.storyboard */,
-				60D793362180E2750080F428 /* Info.plist */,
+				60D7932C2180E2730080F428 /* BannerController.swift */,
 				607B047C21963820000C0879 /* IndexController.swift */,
+				60D793362180E2750080F428 /* Info.plist */,
 				60EE7B0821F770A4000B12A8 /* InterstitialViewController.swift */,
+				60D793332180E2750080F428 /* LaunchScreen.storyboard */,
+				60D7932E2180E2730080F428 /* Main.storyboard */,
 				F5E1E37C233A6CD10007C736 /* NativeController.swift */,
 			);
 			path = PrebidDemo;
@@ -315,8 +315,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60D793352180E2750080F428 /* LaunchScreen.storyboard in Resources */,
 				60D793322180E2750080F428 /* Assets.xcassets in Resources */,
+				60D793352180E2750080F428 /* LaunchScreen.storyboard in Resources */,
 				60D793302180E2730080F428 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,8 +384,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				600CF06622088CD400C95176 /* PrebidDemoTests.swift in Sources */,
 				97AACE45220C67FC0070EC46 /* Constants.swift in Sources */,
+				600CF06622088CD400C95176 /* PrebidDemoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,10 +393,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60EE7B0921F770A4000B12A8 /* InterstitialViewController.swift in Sources */,
-				607B047D21963820000C0879 /* IndexController.swift in Sources */,
 				60D7932B2180E2730080F428 /* AppDelegate.swift in Sources */,
 				97AACE4A220C70210070EC46 /* BannerController.swift in Sources */,
+				607B047D21963820000C0879 /* IndexController.swift in Sources */,
+				60EE7B0921F770A4000B12A8 /* InterstitialViewController.swift in Sources */,
 				F5E1E37D233A6CD10007C736 /* NativeController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
