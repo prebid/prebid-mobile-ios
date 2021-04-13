@@ -321,6 +321,20 @@ class TargetingTests: XCTestCase {
 
     }
 
+    func testPbExternalUserIdsRemoveSpecificID() {
+        //given
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
+
+        //when
+        Targeting.shared.removeStoredExternalUserId("adserver.org")
+
+        //then
+        let externalUserIdAdserver = Targeting.shared.fetchStoredExternalUserId("adserver.org")
+        XCTAssertNil(externalUserIdAdserver)
+
+    }
+
+    
     //MARK: - PurposeConsents
     func testPurposeConsentsPB() throws {
         //given

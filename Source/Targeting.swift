@@ -205,6 +205,15 @@ import CoreLocation
         return externalUserId
     }
     /**
+     * This method allows to remove specific External User Id from User Defaults by passing respective 'source' string as param
+     */
+    public func removeStoredExternalUserId(_ source : String) {
+        if let index = externalUserIds.firstIndex(where: {$0.source == source}) {
+            externalUserIds.remove(at: index)
+            StorageUtils.setExternalUserIds(value: externalUserIds)
+        }
+    }
+    /**
      * This method allows to remove all the External User Ids from User Defaults 
      */
     public func clearLocalStoredExternalUserIds() {
