@@ -59,6 +59,14 @@ class RequestBuilder: NSObject {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
+        let gdprApplies = Targeting.shared.subjectToGDPR
+        let deviceAccessConsent = Targeting.shared.getDeviceAccessConsent()
+        
+        // HTTP cookies should not be allowed when we do not have deviceAccessConsent
+        if ((deviceAccessConsent == nil && (gdprApplies == nil || gdprApplies == true)) || deviceAccessConsent == false) {
+            request.httpShouldHandleCookies = false
+        }
+        
         let stringObject = String.init(data: requestBodyJSON, encoding: String.Encoding.utf8)
         Log.info("Prebid Request post body \(stringObject ?? "nil")")
         

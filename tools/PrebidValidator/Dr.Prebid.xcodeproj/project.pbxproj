@@ -262,23 +262,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAC9E2042327EFB000113B04 /* PrebidMobile.framework in Frameworks */,
-				60CFB2EA2097A4C4006FCF7C /* WebKit.framework in Frameworks */,
-				60CFB2EB2097A4C4006FCF7C /* StoreKit.framework in Frameworks */,
-				60CFB2EC2097A4C4006FCF7C /* SafariServices.framework in Frameworks */,
-				60CFB2ED2097A4C4006FCF7C /* CoreTelephony.framework in Frameworks */,
-				60CFB2EE2097A4C4006FCF7C /* MediaPlayer.framework in Frameworks */,
-				60CFB2EF2097A4C4006FCF7C /* Foundation.framework in Frameworks */,
-				60CFB2F02097A4C4006FCF7C /* QuartzCore.framework in Frameworks */,
-				60CFB2F12097A4C4006FCF7C /* UIKit.framework in Frameworks */,
-				60CFB2F22097A4C4006FCF7C /* SystemConfiguration.framework in Frameworks */,
-				60CFB2DC2097A44C006FCF7C /* CoreGraphics.framework in Frameworks */,
 				60CFB2DD2097A44C006FCF7C /* AdSupport.framework in Frameworks */,
+				60CFB2E02097A44C006FCF7C /* AVFoundation.framework in Frameworks */,
+				60CFB2DC2097A44C006FCF7C /* CoreGraphics.framework in Frameworks */,
 				60CFB2DE2097A44C006FCF7C /* CoreLocation.framework in Frameworks */,
 				60CFB2DF2097A44C006FCF7C /* CoreMedia.framework in Frameworks */,
-				60CFB2E02097A44C006FCF7C /* AVFoundation.framework in Frameworks */,
+				60CFB2ED2097A4C4006FCF7C /* CoreTelephony.framework in Frameworks */,
+				60CFB2EF2097A4C4006FCF7C /* Foundation.framework in Frameworks */,
+				60CFB2EE2097A4C4006FCF7C /* MediaPlayer.framework in Frameworks */,
 				605A56CB2076C89A00E92376 /* MessageUI.framework in Frameworks */,
 				7A557DBFCFAE372590F751D6 /* Pods_Dr_Prebid.framework in Frameworks */,
+				FAC9E2042327EFB000113B04 /* PrebidMobile.framework in Frameworks */,
+				60CFB2F02097A4C4006FCF7C /* QuartzCore.framework in Frameworks */,
+				60CFB2EC2097A4C4006FCF7C /* SafariServices.framework in Frameworks */,
+				60CFB2EB2097A4C4006FCF7C /* StoreKit.framework in Frameworks */,
+				60CFB2F22097A4C4006FCF7C /* SystemConfiguration.framework in Frameworks */,
+				60CFB2F12097A4C4006FCF7C /* UIKit.framework in Frameworks */,
+				60CFB2EA2097A4C4006FCF7C /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,24 +297,24 @@
 		609172E320F3E50F001B94A8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				D15C104E20F6EB32004CBC18 /* AdSizeController.m */,
+				60F9F62724EC5F940027648F /* AdFormatController.h */,
+				60F9F62824EC5F940027648F /* AdFormatController.m */,
 				D15C105120F6EB4F004CBC18 /* AdSizeController.h */,
-				609172E520F3E58D001B94A8 /* SettingsTableViewController.h */,
-				609172E620F3E58D001B94A8 /* SettingsTableViewController.m */,
-				609172E820F50C32001B94A8 /* SegmentCell.h */,
-				609172E920F50C32001B94A8 /* SegmentCell.m */,
-				609172EB20F50F42001B94A8 /* LabelAccessoryCell.h */,
-				609172EC20F50F42001B94A8 /* LabelAccessoryCell.m */,
+				D15C104E20F6EB32004CBC18 /* AdSizeController.m */,
+				602CF6E021AEEEC10097F6C9 /* FooterCell.h */,
+				602CF6E121AEEEC10097F6C9 /* FooterCell.m */,
 				609172EE20F5314E001B94A8 /* HeaderCell.h */,
 				609172EF20F5314E001B94A8 /* HeaderCell.m */,
 				609172F120F53C74001B94A8 /* IdCell.h */,
 				609172F220F53C74001B94A8 /* IdCell.m */,
-				F5CF71AA20FD180100972EA6 /* IDInputViewController.m */,
 				F5CF71AD20FD181100972EA6 /* IDInputViewController.h */,
-				602CF6E021AEEEC10097F6C9 /* FooterCell.h */,
-				602CF6E121AEEEC10097F6C9 /* FooterCell.m */,
-				60F9F62724EC5F940027648F /* AdFormatController.h */,
-				60F9F62824EC5F940027648F /* AdFormatController.m */,
+				F5CF71AA20FD180100972EA6 /* IDInputViewController.m */,
+				609172EB20F50F42001B94A8 /* LabelAccessoryCell.h */,
+				609172EC20F50F42001B94A8 /* LabelAccessoryCell.m */,
+				609172E820F50C32001B94A8 /* SegmentCell.h */,
+				609172E920F50C32001B94A8 /* SegmentCell.m */,
+				609172E520F3E58D001B94A8 /* SettingsTableViewController.h */,
+				609172E620F3E58D001B94A8 /* SettingsTableViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -324,6 +324,8 @@
 			children = (
 				60924F1A21484A650019DD12 /* DemandHeaderCell.h */,
 				60924F1521484A650019DD12 /* DemandHeaderCell.m */,
+				6013E445221C605500FEE2B1 /* DemandRequestBuilder.h */,
+				6013E446221C605500FEE2B1 /* DemandRequestBuilder.m */,
 				60924F1D21484A650019DD12 /* DemandValidator.h */,
 				60924F1621484A650019DD12 /* DemandValidator.m */,
 				60924F1821484A650019DD12 /* DemandViewCell.h */,
@@ -333,8 +335,6 @@
 				60924F1921484A650019DD12 /* DemandViewController.m */,
 				60924F1B21484A650019DD12 /* RRViewController.h */,
 				60924F1721484A650019DD12 /* RRViewController.m */,
-				6013E445221C605500FEE2B1 /* DemandRequestBuilder.h */,
-				6013E446221C605500FEE2B1 /* DemandRequestBuilder.m */,
 			);
 			path = DemandValidation;
 			sourceTree = "<group>";
@@ -342,20 +342,20 @@
 		60A2CC262121B65300EA6ACF /* TestSummary */ = {
 			isa = PBXGroup;
 			children = (
-				60A2CC282121B71200EA6ACF /* TestSummaryViewController.h */,
-				60A2CC292121B71200EA6ACF /* TestSummaryViewController.m */,
+				60CFB28D2097820D006FCF7C /* AdServerValidation */,
+				60924F1221484A650019DD12 /* DemandValidation */,
+				F59C6B29212610B100A5B8AE /* SDKIntegrationValidation */,
+				60D124662126E1F300EC6EE2 /* CPMSectionCell.h */,
+				60D124672126E1F300EC6EE2 /* CPMSectionCell.m */,
+				60D124682126E1F300EC6EE2 /* CPMSectionCell.xib */,
 				60A2CC312123554200EA6ACF /* SectionCell.h */,
 				60A2CC322123554200EA6ACF /* SectionCell.m */,
 				60A2CC332123554200EA6ACF /* SectionCell.xib */,
 				60A2CC36212358F800EA6ACF /* TestHeaderCell.h */,
 				60A2CC37212358F800EA6ACF /* TestHeaderCell.m */,
 				60A2CC38212358F800EA6ACF /* TestHeaderCell.xib */,
-				60D124662126E1F300EC6EE2 /* CPMSectionCell.h */,
-				60D124672126E1F300EC6EE2 /* CPMSectionCell.m */,
-				60D124682126E1F300EC6EE2 /* CPMSectionCell.xib */,
-				60CFB28D2097820D006FCF7C /* AdServerValidation */,
-				60924F1221484A650019DD12 /* DemandValidation */,
-				F59C6B29212610B100A5B8AE /* SDKIntegrationValidation */,
+				60A2CC282121B71200EA6ACF /* TestSummaryViewController.h */,
+				60A2CC292121B71200EA6ACF /* TestSummaryViewController.m */,
 			);
 			path = TestSummary;
 			sourceTree = "<group>";
@@ -363,11 +363,11 @@
 		60C678762073D7B0003A7A1D = {
 			isa = PBXGroup;
 			children = (
-				FA12E520231FD3BD00CAA05B /* PrebidMobile.xcodeproj */,
-				60CFB2562097820D006FCF7C /* Dr.Prebid */,
-				60C678802073D7B0003A7A1D /* Products */,
 				60C678AC2073F879003A7A1D /* Frameworks */,
 				1ABF9B5A2E02436FF8CEA1EF /* Pods */,
+				60C678802073D7B0003A7A1D /* Products */,
+				60CFB2562097820D006FCF7C /* Dr.Prebid */,
+				FA12E520231FD3BD00CAA05B /* PrebidMobile.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -382,23 +382,23 @@
 		60C678AC2073F879003A7A1D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				60CFB2D82097A44B006FCF7C /* AdSupport.framework */,
+				60CFB2DB2097A44B006FCF7C /* AVFoundation.framework */,
+				60CFB2D72097A44B006FCF7C /* CoreGraphics.framework */,
+				60CFB2D92097A44B006FCF7C /* CoreLocation.framework */,
+				60CFB2DA2097A44B006FCF7C /* CoreMedia.framework */,
 				60CFB2E42097A4C4006FCF7C /* CoreTelephony.framework */,
 				60CFB2E62097A4C4006FCF7C /* Foundation.framework */,
+				0D7DFE449C9FE5570D88DDD6 /* libPods-PrebidValidator.a */,
 				60CFB2E52097A4C4006FCF7C /* MediaPlayer.framework */,
+				605A56CA2076C89A00E92376 /* MessageUI.framework */,
+				A3E59CE17F9B673A68B9666D /* Pods_Dr_Prebid.framework */,
 				60CFB2E72097A4C4006FCF7C /* QuartzCore.framework */,
 				60CFB2E32097A4C4006FCF7C /* SafariServices.framework */,
 				60CFB2E22097A4C4006FCF7C /* StoreKit.framework */,
 				60CFB2E92097A4C4006FCF7C /* SystemConfiguration.framework */,
 				60CFB2E82097A4C4006FCF7C /* UIKit.framework */,
 				60CFB2E12097A4C4006FCF7C /* WebKit.framework */,
-				60CFB2D82097A44B006FCF7C /* AdSupport.framework */,
-				60CFB2DB2097A44B006FCF7C /* AVFoundation.framework */,
-				60CFB2D72097A44B006FCF7C /* CoreGraphics.framework */,
-				60CFB2D92097A44B006FCF7C /* CoreLocation.framework */,
-				60CFB2DA2097A44B006FCF7C /* CoreMedia.framework */,
-				605A56CA2076C89A00E92376 /* MessageUI.framework */,
-				0D7DFE449C9FE5570D88DDD6 /* libPods-PrebidValidator.a */,
-				A3E59CE17F9B673A68B9666D /* Pods_Dr_Prebid.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -406,13 +406,13 @@
 		60CFB2562097820D006FCF7C /* Dr.Prebid */ = {
 			isa = PBXGroup;
 			children = (
+				60CFB2682097820D006FCF7C /* Common */,
 				F54C7F5821497F6C00025B23 /* Intro */,
-				60A2CC262121B65300EA6ACF /* TestSummary */,
 				609172E320F3E50F001B94A8 /* Settings */,
+				60A2CC262121B65300EA6ACF /* TestSummary */,
 				60CFB2592097820D006FCF7C /* AppDelegate.h */,
 				60CFB29C2097820D006FCF7C /* AppDelegate.m */,
 				60CFB25C2097820D006FCF7C /* Assets.xcassets */,
-				60CFB2682097820D006FCF7C /* Common */,
 				60CFB2AD2097820D006FCF7C /* Info.plist */,
 				60CFB2632097820D006FCF7C /* LaunchScreen.storyboard */,
 				60CFB28C2097820D006FCF7C /* main.m */,
@@ -424,22 +424,22 @@
 		60CFB2682097820D006FCF7C /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				607999BF21B727E700EE3007 /* ToolReachability.h */,
-				607999C021B727E700EE3007 /* ToolReachability.m */,
 				F5D1856021011548001DF99A /* HelpPagesAssets */,
-				609172F420F686A8001B94A8 /* HelpViewController.h */,
-				609172F520F686A8001B94A8 /* HelpViewController.m */,
-				60CFB25B2097820D006FCF7C /* PBVSharedConstants.h */,
-				60CFB2AC2097820D006FCF7C /* PBVSharedConstants.m */,
-				F56AE890209A3809000CE29F /* PBViewTool.h */,
-				F56AE88F209A3808000CE29F /* PBViewTool.m */,
 				60CFB2802097820D006FCF7C /* QRCodeReaderViewController */,
-				F533B16D21349D09001977C2 /* ColorTool.m */,
 				F533B16F21349D16001977C2 /* ColorTool.h */,
-				F5944B3A21B87F4E00E04A34 /* NSURLSessionConfiguration+PBProtocols.h */,
-				F5944B3B21B87F9C00E04A34 /* NSURLSessionConfiguration+PBProtocols.m */,
+				F533B16D21349D09001977C2 /* ColorTool.m */,
 				600073C421DE65CA00F4738B /* CustomTextView.h */,
 				600073C521DE65CA00F4738B /* CustomTextView.m */,
+				609172F420F686A8001B94A8 /* HelpViewController.h */,
+				609172F520F686A8001B94A8 /* HelpViewController.m */,
+				F5944B3A21B87F4E00E04A34 /* NSURLSessionConfiguration+PBProtocols.h */,
+				F5944B3B21B87F9C00E04A34 /* NSURLSessionConfiguration+PBProtocols.m */,
+				F56AE890209A3809000CE29F /* PBViewTool.h */,
+				F56AE88F209A3808000CE29F /* PBViewTool.m */,
+				60CFB25B2097820D006FCF7C /* PBVSharedConstants.h */,
+				60CFB2AC2097820D006FCF7C /* PBVSharedConstants.m */,
+				607999BF21B727E700EE3007 /* ToolReachability.h */,
+				607999C021B727E700EE3007 /* ToolReachability.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -447,17 +447,17 @@
 		60CFB2802097820D006FCF7C /* QRCodeReaderViewController */ = {
 			isa = PBXGroup;
 			children = (
-				60CFB2812097820D006FCF7C /* QRCodeReaderView.h */,
-				60CFB2822097820D006FCF7C /* QRToggleTorchButton.m */,
-				60CFB2832097820D006FCF7C /* QRCodeReaderDelegate.h */,
+				60CFB2892097820D006FCF7C /* QRCameraSwitchButton.h */,
 				60CFB2842097820D006FCF7C /* QRCameraSwitchButton.m */,
 				60CFB2852097820D006FCF7C /* QRCodeReader.h */,
-				60CFB2862097820D006FCF7C /* QRCodeReaderViewController.m */,
-				60CFB2872097820D006FCF7C /* QRCodeReaderView.m */,
-				60CFB2882097820D006FCF7C /* QRToggleTorchButton.h */,
-				60CFB2892097820D006FCF7C /* QRCameraSwitchButton.h */,
-				60CFB28A2097820D006FCF7C /* QRCodeReaderViewController.h */,
 				60CFB28B2097820D006FCF7C /* QRCodeReader.m */,
+				60CFB2832097820D006FCF7C /* QRCodeReaderDelegate.h */,
+				60CFB2812097820D006FCF7C /* QRCodeReaderView.h */,
+				60CFB2872097820D006FCF7C /* QRCodeReaderView.m */,
+				60CFB28A2097820D006FCF7C /* QRCodeReaderViewController.h */,
+				60CFB2862097820D006FCF7C /* QRCodeReaderViewController.m */,
+				60CFB2882097820D006FCF7C /* QRToggleTorchButton.h */,
+				60CFB2822097820D006FCF7C /* QRToggleTorchButton.m */,
 			);
 			path = QRCodeReaderViewController;
 			sourceTree = "<group>";
@@ -465,20 +465,20 @@
 		60CFB28D2097820D006FCF7C /* AdServerValidation */ = {
 			isa = PBXGroup;
 			children = (
-				F553098120E53CF500A7B552 /* AdServerValidationURLProtocol.m */,
+				F533B1692130955A001977C2 /* AdServerResponseViewController.h */,
+				F533B16721309548001977C2 /* AdServerResponseViewController.m */,
+				F533B1722134A372001977C2 /* AdServerValidationMockInterstitial.h */,
+				F533B1702134A361001977C2 /* AdServerValidationMockInterstitial.m */,
 				F533B1662130882E001977C2 /* AdServerValidationURLProtocol.h */,
+				F553098120E53CF500A7B552 /* AdServerValidationURLProtocol.m */,
+				605C15A121E3E23B00BB9636 /* KeyValueController.h */,
+				605C15A221E3E23B00BB9636 /* KeyValueController.m */,
+				60D124622126DBAD00EC6EE2 /* KVViewController.h */,
+				60D124632126DBAD00EC6EE2 /* KVViewController.m */,
 				60CFB2912097820D006FCF7C /* LineItemKeywordsManager.h */,
 				60CFB2972097820D006FCF7C /* LineItemKeywordsManager.m */,
 				F56AE893209A383B000CE29F /* PBVLineItemsSetupValidator.h */,
 				F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */,
-				60D124622126DBAD00EC6EE2 /* KVViewController.h */,
-				60D124632126DBAD00EC6EE2 /* KVViewController.m */,
-				F533B16721309548001977C2 /* AdServerResponseViewController.m */,
-				F533B1692130955A001977C2 /* AdServerResponseViewController.h */,
-				F533B1702134A361001977C2 /* AdServerValidationMockInterstitial.m */,
-				F533B1722134A372001977C2 /* AdServerValidationMockInterstitial.h */,
-				605C15A121E3E23B00BB9636 /* KeyValueController.h */,
-				605C15A221E3E23B00BB9636 /* KeyValueController.m */,
 			);
 			path = AdServerValidation;
 			sourceTree = "<group>";
@@ -486,8 +486,8 @@
 		F54C7F5821497F6C00025B23 /* Intro */ = {
 			isa = PBXGroup;
 			children = (
-				F54C7F592149804300025B23 /* IntroViewController.m */,
 				F54C7F5B2149804F00025B23 /* IntroViewController.h */,
+				F54C7F592149804300025B23 /* IntroViewController.m */,
 			);
 			path = Intro;
 			sourceTree = "<group>";
@@ -497,10 +497,10 @@
 			children = (
 				F59C6B542126123E00A5B8AE /* PBVPrebidSDKValidator.h */,
 				F59C6B532126123E00A5B8AE /* PBVPrebidSDKValidator.m */,
-				F54C7F44214700C600025B23 /* SDKValidationURLProtocol.m */,
-				F54C7F462147012A00025B23 /* SDKValidationURLProtocol.h */,
-				F54C7F4E21483C9000025B23 /* SDKValidationResponseViewController.m */,
 				F54C7F5121483CAB00025B23 /* SDKValidationResponseViewController.h */,
+				F54C7F4E21483C9000025B23 /* SDKValidationResponseViewController.m */,
+				F54C7F462147012A00025B23 /* SDKValidationURLProtocol.h */,
+				F54C7F44214700C600025B23 /* SDKValidationURLProtocol.m */,
 			);
 			path = SDKIntegrationValidation;
 			sourceTree = "<group>";
@@ -509,12 +509,12 @@
 			isa = PBXGroup;
 			children = (
 				F5D1856221011570001DF99A /* about.html */,
-				F54C7F412146F3AD00025B23 /* test-ad-server.html */,
-				F54C7F402146F3AD00025B23 /* test-real-time-demand.html */,
-				F54C7F5221484AD500025B23 /* test-full-sdk.html */,
 				F5D1856121011570001DF99A /* info-ad-server.html */,
 				F5D1856421011571001DF99A /* info-general.html */,
 				F5D1856321011570001DF99A /* info-prebid-server.html */,
+				F54C7F412146F3AD00025B23 /* test-ad-server.html */,
+				F54C7F5221484AD500025B23 /* test-full-sdk.html */,
+				F54C7F402146F3AD00025B23 /* test-real-time-demand.html */,
 			);
 			path = HelpPagesAssets;
 			sourceTree = "<group>";
@@ -523,8 +523,8 @@
 			isa = PBXGroup;
 			children = (
 				FA12E526231FD3BD00CAA05B /* PrebidMobile.framework */,
-				FA12E528231FD3BD00CAA05B /* PrebidMobileTests.xctest */,
 				FA282EB32327ECD800C9D477 /* PrebidMobile.framework */,
+				FA12E528231FD3BD00CAA05B /* PrebidMobileTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -621,20 +621,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F54C7F5321484AD500025B23 /* test-full-sdk.html in Resources */,
-				F54C7F422146F3AE00025B23 /* test-real-time-demand.html in Resources */,
 				F5D1856621011571001DF99A /* about.html in Resources */,
 				60CFB2B02097820D006FCF7C /* Assets.xcassets in Resources */,
-				60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */,
-				60924F2321484A650019DD12 /* DemandViewCell.xib in Resources */,
-				F5D1856821011571001DF99A /* info-general.html in Resources */,
-				60A2CC3A212358F800EA6ACF /* TestHeaderCell.xib in Resources */,
 				60D1246A2126E1F300EC6EE2 /* CPMSectionCell.xib in Resources */,
-				F54C7F432146F3AE00025B23 /* test-ad-server.html in Resources */,
-				60CFB2B42097820D006FCF7C /* LaunchScreen.storyboard in Resources */,
-				F5D1856721011571001DF99A /* info-prebid-server.html in Resources */,
+				60924F2321484A650019DD12 /* DemandViewCell.xib in Resources */,
 				F5D1856521011571001DF99A /* info-ad-server.html in Resources */,
+				F5D1856821011571001DF99A /* info-general.html in Resources */,
+				F5D1856721011571001DF99A /* info-prebid-server.html in Resources */,
+				60CFB2B42097820D006FCF7C /* LaunchScreen.storyboard in Resources */,
+				60CFB2B52097820D006FCF7C /* Main.storyboard in Resources */,
 				60A2CC352123554200EA6ACF /* SectionCell.xib in Resources */,
+				F54C7F432146F3AE00025B23 /* test-ad-server.html in Resources */,
+				F54C7F5321484AD500025B23 /* test-full-sdk.html in Resources */,
+				F54C7F422146F3AE00025B23 /* test-real-time-demand.html in Resources */,
+				60A2CC3A212358F800EA6ACF /* TestHeaderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,50 +692,50 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60CFB2C12097820D006FCF7C /* QRToggleTorchButton.m in Sources */,
-				60CFB2D32097820D006FCF7C /* PBVSharedConstants.m in Sources */,
-				60CFB2CB2097820D006FCF7C /* LineItemKeywordsManager.m in Sources */,
-				600073C621DE65CA00F4738B /* CustomTextView.m in Sources */,
-				60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */,
-				609172F020F5314E001B94A8 /* HeaderCell.m in Sources */,
-				60924F2221484A650019DD12 /* DemandViewController.m in Sources */,
-				60CFB2C22097820D006FCF7C /* QRCameraSwitchButton.m in Sources */,
-				F54C7F5A2149804300025B23 /* IntroViewController.m in Sources */,
-				609172ED20F50F42001B94A8 /* LabelAccessoryCell.m in Sources */,
-				60D124692126E1F300EC6EE2 /* CPMSectionCell.m in Sources */,
-				F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */,
-				F533B16821309548001977C2 /* AdServerResponseViewController.m in Sources */,
 				60F9F62924EC5F940027648F /* AdFormatController.m in Sources */,
-				602CF6E221AEEEC10097F6C9 /* FooterCell.m in Sources */,
-				F54C7F45214700C600025B23 /* SDKValidationURLProtocol.m in Sources */,
-				60924F2021484A650019DD12 /* DemandValidator.m in Sources */,
-				F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */,
-				F533B16E21349D09001977C2 /* ColorTool.m in Sources */,
-				F54C7F4F21483C9000025B23 /* SDKValidationResponseViewController.m in Sources */,
-				6013E447221C605500FEE2B1 /* DemandRequestBuilder.m in Sources */,
-				60924F2121484A650019DD12 /* RRViewController.m in Sources */,
-				F553098220E53CF500A7B552 /* AdServerValidationURLProtocol.m in Sources */,
-				60924F1E21484A650019DD12 /* DemandViewCell.m in Sources */,
-				60CFB2C42097820D006FCF7C /* QRCodeReaderView.m in Sources */,
+				F533B16821309548001977C2 /* AdServerResponseViewController.m in Sources */,
 				F533B1712134A361001977C2 /* AdServerValidationMockInterstitial.m in Sources */,
+				F553098220E53CF500A7B552 /* AdServerValidationURLProtocol.m in Sources */,
 				D15C104F20F6EB32004CBC18 /* AdSizeController.m in Sources */,
 				60CFB2CD2097820D006FCF7C /* AppDelegate.m in Sources */,
+				F533B16E21349D09001977C2 /* ColorTool.m in Sources */,
+				60D124692126E1F300EC6EE2 /* CPMSectionCell.m in Sources */,
+				600073C621DE65CA00F4738B /* CustomTextView.m in Sources */,
 				60924F1F21484A650019DD12 /* DemandHeaderCell.m in Sources */,
-				60CFB2C52097820D006FCF7C /* QRCodeReader.m in Sources */,
-				607999C121B727E700EE3007 /* ToolReachability.m in Sources */,
-				F56AE891209A3809000CE29F /* PBViewTool.m in Sources */,
-				60A2CC342123554200EA6ACF /* SectionCell.m in Sources */,
-				609172F320F53C74001B94A8 /* IdCell.m in Sources */,
-				60A2CC2A2121B71200EA6ACF /* TestSummaryViewController.m in Sources */,
+				6013E447221C605500FEE2B1 /* DemandRequestBuilder.m in Sources */,
+				60924F2021484A650019DD12 /* DemandValidator.m in Sources */,
+				60924F1E21484A650019DD12 /* DemandViewCell.m in Sources */,
+				60924F2221484A650019DD12 /* DemandViewController.m in Sources */,
+				602CF6E221AEEEC10097F6C9 /* FooterCell.m in Sources */,
+				609172F020F5314E001B94A8 /* HeaderCell.m in Sources */,
 				609172F620F686A8001B94A8 /* HelpViewController.m in Sources */,
+				609172F320F53C74001B94A8 /* IdCell.m in Sources */,
+				F5CF71AB20FD180100972EA6 /* IDInputViewController.m in Sources */,
+				F54C7F5A2149804300025B23 /* IntroViewController.m in Sources */,
+				605C15A321E3E23B00BB9636 /* KeyValueController.m in Sources */,
+				60D124642126DBAD00EC6EE2 /* KVViewController.m in Sources */,
+				609172ED20F50F42001B94A8 /* LabelAccessoryCell.m in Sources */,
+				60CFB2CB2097820D006FCF7C /* LineItemKeywordsManager.m in Sources */,
 				60CFB2C62097820D006FCF7C /* main.m in Sources */,
 				F5944B3C21B87F9C00E04A34 /* NSURLSessionConfiguration+PBProtocols.m in Sources */,
-				609172EA20F50C32001B94A8 /* SegmentCell.m in Sources */,
-				605C15A321E3E23B00BB9636 /* KeyValueController.m in Sources */,
-				60CFB2C32097820D006FCF7C /* QRCodeReaderViewController.m in Sources */,
-				60D124642126DBAD00EC6EE2 /* KVViewController.m in Sources */,
-				609172E720F3E58D001B94A8 /* SettingsTableViewController.m in Sources */,
+				F56AE891209A3809000CE29F /* PBViewTool.m in Sources */,
+				F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */,
 				F59C6B632126123F00A5B8AE /* PBVPrebidSDKValidator.m in Sources */,
+				60CFB2D32097820D006FCF7C /* PBVSharedConstants.m in Sources */,
+				60CFB2C22097820D006FCF7C /* QRCameraSwitchButton.m in Sources */,
+				60CFB2C52097820D006FCF7C /* QRCodeReader.m in Sources */,
+				60CFB2C42097820D006FCF7C /* QRCodeReaderView.m in Sources */,
+				60CFB2C32097820D006FCF7C /* QRCodeReaderViewController.m in Sources */,
+				60CFB2C12097820D006FCF7C /* QRToggleTorchButton.m in Sources */,
+				60924F2121484A650019DD12 /* RRViewController.m in Sources */,
+				F54C7F4F21483C9000025B23 /* SDKValidationResponseViewController.m in Sources */,
+				F54C7F45214700C600025B23 /* SDKValidationURLProtocol.m in Sources */,
+				60A2CC342123554200EA6ACF /* SectionCell.m in Sources */,
+				609172EA20F50C32001B94A8 /* SegmentCell.m in Sources */,
+				609172E720F3E58D001B94A8 /* SettingsTableViewController.m in Sources */,
+				60A2CC39212358F800EA6ACF /* TestHeaderCell.m in Sources */,
+				60A2CC2A2121B71200EA6ACF /* TestSummaryViewController.m in Sources */,
+				607999C121B727E700EE3007 /* ToolReachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

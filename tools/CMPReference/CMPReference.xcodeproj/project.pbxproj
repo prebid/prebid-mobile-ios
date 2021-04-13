@@ -96,9 +96,9 @@
 			isa = PBXGroup;
 			children = (
 				0E1B939C20B6105500949400 /* CMPActivityIndicatorView.h */,
-				0E1B939D20B6105500949400 /* CMPConsentViewController.m */,
 				0E1B939E20B6105500949400 /* CMPActivityIndicatorView.m */,
 				0E1B939F20B6105500949400 /* CMPConsentViewController.h */,
+				0E1B939D20B6105500949400 /* CMPConsentViewController.m */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -110,12 +110,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E1B93A320B6105500949400 /* CMPSettings.h in Headers */,
-				0E1B938E20B6103A00949400 /* CMPReference.h in Headers */,
-				0E1B93A220B6105500949400 /* CMPStorageProtocol.h in Headers */,
-				0E1B93A020B6105500949400 /* CMPStorage.h in Headers */,
 				0E1B93A520B6105500949400 /* CMPActivityIndicatorView.h in Headers */,
 				0E1B93A820B6105500949400 /* CMPConsentViewController.h in Headers */,
+				0E1B938E20B6103A00949400 /* CMPReference.h in Headers */,
+				0E1B93A320B6105500949400 /* CMPSettings.h in Headers */,
+				0E1B93A020B6105500949400 /* CMPStorage.h in Headers */,
+				0E1B93A220B6105500949400 /* CMPStorageProtocol.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,10 +187,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E1B93A620B6105500949400 /* CMPConsentViewController.m in Sources */,
-				0E1B93A120B6105500949400 /* CMPStorage.m in Sources */,
 				0E1B93A720B6105500949400 /* CMPActivityIndicatorView.m in Sources */,
+				0E1B93A620B6105500949400 /* CMPConsentViewController.m in Sources */,
 				0E1B93A420B6105500949400 /* CMPSettings.m in Sources */,
+				0E1B93A120B6105500949400 /* CMPStorage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
