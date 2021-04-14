@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import OpenXApolloGAMEventHandlers
+@testable import PrebidMobileGAMEventHandlers
 
 extension GADAdSize: Equatable {
     public static func == (lhs: Self, rhs: Self) -> Bool {

@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import OpenXApolloGAMEventHandlers
+@testable import PrebidMobileGAMEventHandlers
 
 class OXADFPRequestTest: XCTestCase {
     func testProperties() {
