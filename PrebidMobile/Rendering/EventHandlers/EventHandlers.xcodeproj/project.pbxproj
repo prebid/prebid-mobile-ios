@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		30C652FBB80C47AFC06E2B57 /* Pods_OpenXApolloGAMEventHandlersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83248AAFDF3FB8E502728AC9 /* Pods_OpenXApolloGAMEventHandlersTests.framework */; };
-		3405F94A250A555800268A77 /* OpenXApolloGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D5C24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.framework */; };
+		3405F94A250A555800268A77 /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D5C24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers.framework */; };
 		3405F951250A55AE00268A77 /* OXADFPBannerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3405F950250A55AE00268A77 /* OXADFPBannerTest.swift */; };
 		344A7F02250B6C4E00743A93 /* OXADFPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 344A7F00250B6C4E00743A93 /* OXADFPRequest.h */; };
 		344A7F03250B6C4E00743A93 /* OXADFPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F01250B6C4E00743A93 /* OXADFPRequest.m */; };
@@ -30,7 +29,7 @@
 		34B64D6A24F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D6924F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.m */; };
 		34B64D6B24F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D6624F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.m */; };
 		34B64D6C24F7E51300FDD9F4 /* OXAGAMBannerEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D6724F7E51300FDD9F4 /* OXAGAMBannerEventHandler.m */; };
-		34B64D7124F7E8A100FDD9F4 /* OpenXApolloSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7024F7E8A100FDD9F4 /* OpenXApolloSDK.framework */; };
+		34B64D7124F7E8A100FDD9F4 /* PrebidMobileRendering.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7024F7E8A100FDD9F4 /* PrebidMobileRendering.framework */; };
 		34B64D7624F7EA8300FDD9F4 /* OXAGAMBannerEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D6524F7E51300FDD9F4 /* OXAGAMBannerEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34B64D7724F7EA8300FDD9F4 /* OXAGAMInterstitialEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D6424F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34B64D7824F7EA8300FDD9F4 /* OXAGAMRewardedEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D6824F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -43,7 +42,7 @@
 		34B64DA524F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D9D24F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34B64DA624F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D9E24F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.m */; };
 		34B64DA724F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D9F24F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34B64DAE24F7FD8100FDD9F4 /* OpenXApolloSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7024F7E8A100FDD9F4 /* OpenXApolloSDK.framework */; };
+		34B64DAE24F7FD8100FDD9F4 /* PrebidMobileRendering.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7024F7E8A100FDD9F4 /* PrebidMobileRendering.framework */; };
 		34C7964325DD59370072A898 /* OXAGAMUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7964125DD59370072A898 /* OXAGAMUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34C7964425DD59370072A898 /* OXAGAMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7964225DD59370072A898 /* OXAGAMUtils.m */; };
 		34C7965125DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7964F25DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.h */; };
@@ -55,14 +54,15 @@
 		34C7C9EC2509018B0021C6D0 /* OXADFPBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7C9EA2509018B0021C6D0 /* OXADFPBanner.m */; };
 		34C7C9F3250A1B610021C6D0 /* OXAInvocationHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7C9F1250A1B610021C6D0 /* OXAInvocationHelper.h */; };
 		34C7C9F4250A1B610021C6D0 /* OXAInvocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7C9F2250A1B610021C6D0 /* OXAInvocationHelper.m */; };
-		371F4B3C6A31093A058D4DF9 /* Pods_OpenXApolloMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC94A9D54E941090D53CFFC4 /* Pods_OpenXApolloMoPubAdapters.framework */; };
-		8328A6139C17EC57CD5D3A0F /* Pods_OpenXApolloGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6AA24E8ECDC447CB5116398 /* Pods_OpenXApolloGAMEventHandlers.framework */; };
+		92F182B3E3AC2C869402CDEE /* Pods_PrebidMobileGAMEventHandlersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 492E16D3B90411A699792B3D /* Pods_PrebidMobileGAMEventHandlersTests.framework */; };
 		AC47330825D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = AC47330625D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC47330925D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AC47330725D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.m */; };
 		AC4733B025D55BD70041EEBA /* OXAMoPubNativeAdRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4733AF25D55BD70041EEBA /* OXAMoPubNativeAdRenderer.m */; };
 		AC4733B125D55BD70041EEBA /* OXAMoPubNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4733AE25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.m */; };
 		AC4733CB25D56A400041EEBA /* OXAMoPubNativeAdRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = AC4733AC25D55BD50041EEBA /* OXAMoPubNativeAdRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC4733D225D56A5D0041EEBA /* OXAMoPubNativeAdAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = AC4733AD25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC707B022625BD3E00FACDF0 /* NSTimer+OXAScheduledTimerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3826725EFCA50000A071B /* NSTimer+OXAScheduledTimerFactory.h */; };
+		AC707B062625BD5700FACDF0 /* OXAScheduledTimerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3825F25EFCA1B000A071B /* OXAScheduledTimerFactory.h */; };
 		ACF3824225EFBD8A000A071B /* OXAMoPubConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3824025EFBD89000A071B /* OXAMoPubConstants.h */; };
 		ACF3824325EFBD8A000A071B /* OXAMoPubConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF3824125EFBD89000A071B /* OXAMoPubConstants.m */; };
 		ACF3824C25EFC147000A071B /* OXAMoPubNativeAdUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3824A25EFC147000A071B /* OXAMoPubNativeAdUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -72,6 +72,8 @@
 		ACF3826925EFCAD9000A071B /* OXAMoPubNativeAdUtils+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3826825EFCAD9000A071B /* OXAMoPubNativeAdUtils+Internal.h */; };
 		ACF3831C25F0F91D000A071B /* OXAMoPubError.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3831A25F0F91C000A071B /* OXAMoPubError.h */; };
 		ACF3831D25F0F91D000A071B /* OXAMoPubError.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF3831B25F0F91C000A071B /* OXAMoPubError.m */; };
+		B350DB86FED9B5A5A7AACCF0 /* Pods_PrebidMobileMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C075C2B228DD2006BDA58005 /* Pods_PrebidMobileMoPubAdapters.framework */; };
+		C3E45723C24D15415F4FAB0C /* Pods_PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC52FAF1C12304695E019A4D /* Pods_PrebidMobileGAMEventHandlers.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +87,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3405F945250A555800268A77 /* OpenXApolloGAMEventHandlersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenXApolloGAMEventHandlersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22D54DBD4A18A8BDA6235BEB /* Pods-PrebidMobileMoPubAdapters.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileMoPubAdapters.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobileMoPubAdapters/Pods-PrebidMobileMoPubAdapters.release.xcconfig"; sourceTree = "<group>"; };
+		3405F945250A555800268A77 /* PrebidMobileGAMEventHandlersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileGAMEventHandlersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3405F949250A555800268A77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3405F950250A55AE00268A77 /* OXADFPBannerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXADFPBannerTest.swift; sourceTree = "<group>"; };
 		3405F952250A5A5800268A77 /* OpenXApolloGAMEventHandlersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenXApolloGAMEventHandlersTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -106,7 +109,7 @@
 		346A9C9724F8F4CF002892BC /* OXAMoPubAdapterConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubAdapterConfiguration.m; sourceTree = "<group>"; };
 		346C50EA250BC05A00435A73 /* OXAGAMError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMError.h; sourceTree = "<group>"; };
 		346C50EB250BC05A00435A73 /* OXAGAMError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMError.m; sourceTree = "<group>"; };
-		34B64D5C24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenXApolloGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		34B64D5C24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B64D5E24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenXApolloGAMEventHandlers.h; sourceTree = "<group>"; };
 		34B64D5F24F7E41600FDD9F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34B64D6424F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMInterstitialEventHandler.h; sourceTree = "<group>"; };
@@ -116,8 +119,8 @@
 		34B64D6824F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMRewardedEventHandler.h; sourceTree = "<group>"; };
 		34B64D6924F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMRewardedEventHandler.m; sourceTree = "<group>"; };
 		34B64D6E24F7E6C400FDD9F4 /* OpenXApolloGAMEventHandlers.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = OpenXApolloGAMEventHandlers.modulemap; sourceTree = "<group>"; };
-		34B64D7024F7E8A100FDD9F4 /* OpenXApolloSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenXApolloSDK.framework; path = ../Products/OpenXApolloSDK.framework; sourceTree = "<group>"; };
-		34B64D7E24F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenXApolloMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		34B64D7024F7E8A100FDD9F4 /* PrebidMobileRendering.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PrebidMobileRendering.framework; path = ../Products/PrebidMobileRendering.framework; sourceTree = "<group>"; };
+		34B64D7E24F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34B64D8024F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenXApolloMoPubAdapters.h; sourceTree = "<group>"; };
 		34B64D8124F7ED9600FDD9F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34B64D9724F7EEA700FDD9F4 /* OpenXApolloMoPubAdapters.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = OpenXApolloMoPubAdapters.modulemap; sourceTree = "<group>"; };
@@ -134,9 +137,9 @@
 		34C7964B25DD5AFA0072A898 /* OXAGAMUtils+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OXAGAMUtils+Internal.h"; sourceTree = "<group>"; };
 		34C7964F25DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGADNativeCustomTemplateAd.h; sourceTree = "<group>"; };
 		34C7965025DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGADNativeCustomTemplateAd.m; sourceTree = "<group>"; };
-		34C7965725DD67470072A898 /* OXALocalResponseInfoCache+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "OXALocalResponseInfoCache+Internal.h"; path = "../../../../OpenXSDKCore/OpenXSDKCore/Prebid/Integrations/PrimarySDKUtilHelpers/OXALocalResponseInfoCache+Internal.h"; sourceTree = "<group>"; };
-		34C7965C25DD68170072A898 /* OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OXAScheduledTimerFactory.h; path = ../../../../OpenXSDKCore/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/OXAScheduledTimerFactory.h; sourceTree = "<group>"; };
-		34C7965D25DD68170072A898 /* NSTimer+OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTimer+OXAScheduledTimerFactory.h"; path = "../../../../OpenXSDKCore/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/NSTimer+OXAScheduledTimerFactory.h"; sourceTree = "<group>"; };
+		34C7965725DD67470072A898 /* OXALocalResponseInfoCache+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "OXALocalResponseInfoCache+Internal.h"; path = "../../../../PrebidMobileRendering/OpenXSDKCore/Prebid/Integrations/PrimarySDKUtilHelpers/OXALocalResponseInfoCache+Internal.h"; sourceTree = "<group>"; };
+		34C7965C25DD68170072A898 /* OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OXAScheduledTimerFactory.h; path = ../../../../PrebidMobileRendering/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/OXAScheduledTimerFactory.h; sourceTree = "<group>"; };
+		34C7965D25DD68170072A898 /* NSTimer+OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTimer+OXAScheduledTimerFactory.h"; path = "../../../../PrebidMobileRendering/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/NSTimer+OXAScheduledTimerFactory.h"; sourceTree = "<group>"; };
 		34C7966325DD69160072A898 /* DO_NOT_MOVE_THESE_FILES.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = DO_NOT_MOVE_THESE_FILES.txt; sourceTree = "<group>"; };
 		34C7967925DE52CD0072A898 /* OXAGAMConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMConstants.h; sourceTree = "<group>"; };
 		34C7967A25DE52CD0072A898 /* OXAGAMConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMConstants.m; sourceTree = "<group>"; };
@@ -144,32 +147,31 @@
 		34C7C9EA2509018B0021C6D0 /* OXADFPBanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXADFPBanner.m; sourceTree = "<group>"; };
 		34C7C9F1250A1B610021C6D0 /* OXAInvocationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAInvocationHelper.h; sourceTree = "<group>"; };
 		34C7C9F2250A1B610021C6D0 /* OXAInvocationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAInvocationHelper.m; sourceTree = "<group>"; };
-		3FEDB3441581AD2740D0FD55 /* Pods-OpenXApolloGAMEventHandlersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXApolloGAMEventHandlersTests.debug.xcconfig"; path = "Target Support Files/Pods-OpenXApolloGAMEventHandlersTests/Pods-OpenXApolloGAMEventHandlersTests.debug.xcconfig"; sourceTree = "<group>"; };
-		74A8BF7A4E7A6F80D6A4AD3A /* Pods-OpenXApolloGAMEventHandlers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXApolloGAMEventHandlers.release.xcconfig"; path = "Target Support Files/Pods-OpenXApolloGAMEventHandlers/Pods-OpenXApolloGAMEventHandlers.release.xcconfig"; sourceTree = "<group>"; };
-		83248AAFDF3FB8E502728AC9 /* Pods_OpenXApolloGAMEventHandlersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenXApolloGAMEventHandlersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		92831E907BEC58ECDD9AB0B0 /* Pods-OpenXApolloGAMEventHandlersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXApolloGAMEventHandlersTests.release.xcconfig"; path = "Target Support Files/Pods-OpenXApolloGAMEventHandlersTests/Pods-OpenXApolloGAMEventHandlersTests.release.xcconfig"; sourceTree = "<group>"; };
-		A16A0485A8ADF00DFD4EF782 /* Pods-OpenXApolloMoPubAdapters.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXApolloMoPubAdapters.release.xcconfig"; path = "Target Support Files/Pods-OpenXApolloMoPubAdapters/Pods-OpenXApolloMoPubAdapters.release.xcconfig"; sourceTree = "<group>"; };
+		492E16D3B90411A699792B3D /* Pods_PrebidMobileGAMEventHandlersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidMobileGAMEventHandlersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		914C447D75BBE960CE43225D /* Pods-PrebidMobileGAMEventHandlers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileGAMEventHandlers.debug.xcconfig"; path = "Target Support Files/Pods-PrebidMobileGAMEventHandlers/Pods-PrebidMobileGAMEventHandlers.debug.xcconfig"; sourceTree = "<group>"; };
+		9258904A9C1DF637C07F290B /* Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobileGAMEventHandlersTests/Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig"; sourceTree = "<group>"; };
 		AC47330625D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubNativeCustomEvent.h; sourceTree = "<group>"; };
 		AC47330725D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubNativeCustomEvent.m; sourceTree = "<group>"; };
 		AC4733AC25D55BD50041EEBA /* OXAMoPubNativeAdRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubNativeAdRenderer.h; sourceTree = "<group>"; };
 		AC4733AD25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubNativeAdAdapter.h; sourceTree = "<group>"; };
 		AC4733AE25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubNativeAdAdapter.m; sourceTree = "<group>"; };
 		AC4733AF25D55BD70041EEBA /* OXAMoPubNativeAdRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubNativeAdRenderer.m; sourceTree = "<group>"; };
-		AC94A9D54E941090D53CFFC4 /* Pods_OpenXApolloMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenXApolloMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACF3824025EFBD89000A071B /* OXAMoPubConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubConstants.h; sourceTree = "<group>"; };
 		ACF3824125EFBD89000A071B /* OXAMoPubConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubConstants.m; sourceTree = "<group>"; };
 		ACF3824A25EFC147000A071B /* OXAMoPubNativeAdUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubNativeAdUtils.h; sourceTree = "<group>"; };
 		ACF3824B25EFC147000A071B /* OXAMoPubNativeAdUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubNativeAdUtils.m; sourceTree = "<group>"; };
 		ACF3825525EFC86D000A071B /* DO_NOT_MOVE_THESE_FILES.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DO_NOT_MOVE_THESE_FILES.txt; sourceTree = "<group>"; };
-		ACF3825A25EFC8E5000A071B /* OXALocalResponseInfoCache+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "OXALocalResponseInfoCache+Internal.h"; path = "../../../../OpenXSDKCore/OpenXSDKCore/Prebid/Integrations/PrimarySDKUtilHelpers/OXALocalResponseInfoCache+Internal.h"; sourceTree = "<group>"; };
-		ACF3825F25EFCA1B000A071B /* OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OXAScheduledTimerFactory.h; path = ../../../../OpenXSDKCore/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/OXAScheduledTimerFactory.h; sourceTree = "<group>"; };
-		ACF3826725EFCA50000A071B /* NSTimer+OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTimer+OXAScheduledTimerFactory.h"; path = "../../../../OpenXSDKCore/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/NSTimer+OXAScheduledTimerFactory.h"; sourceTree = "<group>"; };
+		ACF3825A25EFC8E5000A071B /* OXALocalResponseInfoCache+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "OXALocalResponseInfoCache+Internal.h"; path = "../../../../PrebidMobileRendering/OpenXSDKCore/Prebid/Integrations/PrimarySDKUtilHelpers/OXALocalResponseInfoCache+Internal.h"; sourceTree = "<group>"; };
+		ACF3825F25EFCA1B000A071B /* OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OXAScheduledTimerFactory.h; path = ../../../../PrebidMobileRendering/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/OXAScheduledTimerFactory.h; sourceTree = "<group>"; };
+		ACF3826725EFCA50000A071B /* NSTimer+OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTimer+OXAScheduledTimerFactory.h"; path = "../../../../PrebidMobileRendering/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/NSTimer+OXAScheduledTimerFactory.h"; sourceTree = "<group>"; };
 		ACF3826825EFCAD9000A071B /* OXAMoPubNativeAdUtils+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OXAMoPubNativeAdUtils+Internal.h"; sourceTree = "<group>"; };
 		ACF3831A25F0F91C000A071B /* OXAMoPubError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubError.h; sourceTree = "<group>"; };
 		ACF3831B25F0F91C000A071B /* OXAMoPubError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubError.m; sourceTree = "<group>"; };
-		B4F634A2CD51206A74B992F5 /* Pods-OpenXApolloMoPubAdapters.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXApolloMoPubAdapters.debug.xcconfig"; path = "Target Support Files/Pods-OpenXApolloMoPubAdapters/Pods-OpenXApolloMoPubAdapters.debug.xcconfig"; sourceTree = "<group>"; };
-		E6F16A5619567130256104BF /* Pods-OpenXApolloGAMEventHandlers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXApolloGAMEventHandlers.debug.xcconfig"; path = "Target Support Files/Pods-OpenXApolloGAMEventHandlers/Pods-OpenXApolloGAMEventHandlers.debug.xcconfig"; sourceTree = "<group>"; };
-		F6AA24E8ECDC447CB5116398 /* Pods_OpenXApolloGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenXApolloGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C075C2B228DD2006BDA58005 /* Pods_PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1B77165045D380B64491D0E /* Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidMobileGAMEventHandlersTests/Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EC52FAF1C12304695E019A4D /* Pods_PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F06F98153B4FCC7F187B0A60 /* Pods-PrebidMobileGAMEventHandlers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileGAMEventHandlers.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobileGAMEventHandlers/Pods-PrebidMobileGAMEventHandlers.release.xcconfig"; sourceTree = "<group>"; };
+		FF96E70D5607DCCF4E12F2B9 /* Pods-PrebidMobileMoPubAdapters.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileMoPubAdapters.debug.xcconfig"; path = "Target Support Files/Pods-PrebidMobileMoPubAdapters/Pods-PrebidMobileMoPubAdapters.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,8 +179,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3405F94A250A555800268A77 /* OpenXApolloGAMEventHandlers.framework in Frameworks */,
-				30C652FBB80C47AFC06E2B57 /* Pods_OpenXApolloGAMEventHandlersTests.framework in Frameworks */,
+				3405F94A250A555800268A77 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
+				92F182B3E3AC2C869402CDEE /* Pods_PrebidMobileGAMEventHandlersTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,8 +188,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8328A6139C17EC57CD5D3A0F /* Pods_OpenXApolloGAMEventHandlers.framework in Frameworks */,
-				34B64D7124F7E8A100FDD9F4 /* OpenXApolloSDK.framework in Frameworks */,
+				34B64D7124F7E8A100FDD9F4 /* PrebidMobileRendering.framework in Frameworks */,
+				C3E45723C24D15415F4FAB0C /* Pods_PrebidMobileGAMEventHandlers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,15 +197,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				371F4B3C6A31093A058D4DF9 /* Pods_OpenXApolloMoPubAdapters.framework in Frameworks */,
-				34B64DAE24F7FD8100FDD9F4 /* OpenXApolloSDK.framework in Frameworks */,
+				34B64DAE24F7FD8100FDD9F4 /* PrebidMobileRendering.framework in Frameworks */,
+				B350DB86FED9B5A5A7AACCF0 /* Pods_PrebidMobileMoPubAdapters.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3405F946250A555800268A77 /* OpenXApolloGAMEventHandlersTests */ = {
+		3386E5027DFDA876BC9AC49B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EC52FAF1C12304695E019A4D /* Pods_PrebidMobileGAMEventHandlers.framework */,
+				492E16D3B90411A699792B3D /* Pods_PrebidMobileGAMEventHandlersTests.framework */,
+				C075C2B228DD2006BDA58005 /* Pods_PrebidMobileMoPubAdapters.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3405F946250A555800268A77 /* PrebidMobileGAMEventHandlersTests */ = {
 			isa = PBXGroup;
 			children = (
 				344A7F0A250B743900743A93 /* Extensions */,
@@ -212,7 +224,7 @@
 				3405F949250A555800268A77 /* Info.plist */,
 				3405F952250A5A5800268A77 /* OpenXApolloGAMEventHandlersTests-Bridging-Header.h */,
 			);
-			path = OpenXApolloGAMEventHandlersTests;
+			path = PrebidMobileGAMEventHandlersTests;
 			sourceTree = "<group>";
 		};
 		344A7F06250B73A700743A93 /* BoxTests */ = {
@@ -245,27 +257,27 @@
 		34B64D4224F7D95800FDD9F4 = {
 			isa = PBXGroup;
 			children = (
-				34B64D7024F7E8A100FDD9F4 /* OpenXApolloSDK.framework */,
-				34B64D5D24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers */,
-				34B64D7F24F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters */,
-				3405F946250A555800268A77 /* OpenXApolloGAMEventHandlersTests */,
+				34B64D7024F7E8A100FDD9F4 /* PrebidMobileRendering.framework */,
+				34B64D5D24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers */,
+				34B64D7F24F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters */,
+				3405F946250A555800268A77 /* PrebidMobileGAMEventHandlersTests */,
 				34B64D4D24F7D95800FDD9F4 /* Products */,
-				CC2CD67F9CF37B42D798F5DD /* Pods */,
-				C2145F51A9F0F90E814B8F9A /* Frameworks */,
+				C9E3CE99A87F745FB5BFAA17 /* Pods */,
+				3386E5027DFDA876BC9AC49B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		34B64D4D24F7D95800FDD9F4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				34B64D5C24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.framework */,
-				34B64D7E24F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.framework */,
-				3405F945250A555800268A77 /* OpenXApolloGAMEventHandlersTests.xctest */,
+				34B64D5C24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers.framework */,
+				34B64D7E24F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters.framework */,
+				3405F945250A555800268A77 /* PrebidMobileGAMEventHandlersTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		34B64D5D24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers */ = {
+		34B64D5D24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers */ = {
 			isa = PBXGroup;
 			children = (
 				34B64D6D24F7E54700FDD9F4 /* Sources */,
@@ -273,7 +285,7 @@
 				34B64D6E24F7E6C400FDD9F4 /* OpenXApolloGAMEventHandlers.modulemap */,
 				34B64D5F24F7E41600FDD9F4 /* Info.plist */,
 			);
-			path = OpenXApolloGAMEventHandlers;
+			path = PrebidMobileGAMEventHandlers;
 			sourceTree = "<group>";
 		};
 		34B64D6D24F7E54700FDD9F4 /* Sources */ = {
@@ -298,7 +310,7 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		34B64D7F24F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters */ = {
+		34B64D7F24F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters */ = {
 			isa = PBXGroup;
 			children = (
 				34B64D8624F7ED9D00FDD9F4 /* Sources */,
@@ -306,7 +318,7 @@
 				34B64D9724F7EEA700FDD9F4 /* OpenXApolloMoPubAdapters.modulemap */,
 				34B64D8124F7ED9600FDD9F4 /* Info.plist */,
 			);
-			path = OpenXApolloMoPubAdapters;
+			path = PrebidMobileMoPubAdapters;
 			sourceTree = "<group>";
 		};
 		34B64D8624F7ED9D00FDD9F4 /* Sources */ = {
@@ -391,25 +403,15 @@
 			path = InternalAPIExtensions;
 			sourceTree = "<group>";
 		};
-		C2145F51A9F0F90E814B8F9A /* Frameworks */ = {
+		C9E3CE99A87F745FB5BFAA17 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F6AA24E8ECDC447CB5116398 /* Pods_OpenXApolloGAMEventHandlers.framework */,
-				AC94A9D54E941090D53CFFC4 /* Pods_OpenXApolloMoPubAdapters.framework */,
-				83248AAFDF3FB8E502728AC9 /* Pods_OpenXApolloGAMEventHandlersTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		CC2CD67F9CF37B42D798F5DD /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				E6F16A5619567130256104BF /* Pods-OpenXApolloGAMEventHandlers.debug.xcconfig */,
-				74A8BF7A4E7A6F80D6A4AD3A /* Pods-OpenXApolloGAMEventHandlers.release.xcconfig */,
-				B4F634A2CD51206A74B992F5 /* Pods-OpenXApolloMoPubAdapters.debug.xcconfig */,
-				A16A0485A8ADF00DFD4EF782 /* Pods-OpenXApolloMoPubAdapters.release.xcconfig */,
-				3FEDB3441581AD2740D0FD55 /* Pods-OpenXApolloGAMEventHandlersTests.debug.xcconfig */,
-				92831E907BEC58ECDD9AB0B0 /* Pods-OpenXApolloGAMEventHandlersTests.release.xcconfig */,
+				914C447D75BBE960CE43225D /* Pods-PrebidMobileGAMEventHandlers.debug.xcconfig */,
+				F06F98153B4FCC7F187B0A60 /* Pods-PrebidMobileGAMEventHandlers.release.xcconfig */,
+				D1B77165045D380B64491D0E /* Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig */,
+				9258904A9C1DF637C07F290B /* Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig */,
+				FF96E70D5607DCCF4E12F2B9 /* Pods-PrebidMobileMoPubAdapters.debug.xcconfig */,
+				22D54DBD4A18A8BDA6235BEB /* Pods-PrebidMobileMoPubAdapters.release.xcconfig */,
 			);
 			name = Pods;
 			path = ../Pods;
@@ -445,6 +447,7 @@
 			files = (
 				ACF3831C25F0F91D000A071B /* OXAMoPubError.h in Headers */,
 				AC47330825D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.h in Headers */,
+				AC707B062625BD5700FACDF0 /* OXAScheduledTimerFactory.h in Headers */,
 				ACF3824225EFBD8A000A071B /* OXAMoPubConstants.h in Headers */,
 				34B64DA224F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.h in Headers */,
 				AC4733D225D56A5D0041EEBA /* OXAMoPubNativeAdAdapter.h in Headers */,
@@ -454,6 +457,7 @@
 				34B64DA724F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.h in Headers */,
 				346A9C9824F8F4CF002892BC /* OXAMoPubAdapterConfiguration.h in Headers */,
 				AC4733CB25D56A400041EEBA /* OXAMoPubNativeAdRenderer.h in Headers */,
+				AC707B022625BD3E00FACDF0 /* NSTimer+OXAScheduledTimerFactory.h in Headers */,
 				ACF3824C25EFC147000A071B /* OXAMoPubNativeAdUtils.h in Headers */,
 				34B64DA524F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.h in Headers */,
 				ACF3826925EFCAD9000A071B /* OXAMoPubNativeAdUtils+Internal.h in Headers */,
@@ -463,31 +467,31 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3405F944250A555800268A77 /* OpenXApolloGAMEventHandlersTests */ = {
+		3405F944250A555800268A77 /* PrebidMobileGAMEventHandlersTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3405F94F250A555800268A77 /* Build configuration list for PBXNativeTarget "OpenXApolloGAMEventHandlersTests" */;
+			buildConfigurationList = 3405F94F250A555800268A77 /* Build configuration list for PBXNativeTarget "PrebidMobileGAMEventHandlersTests" */;
 			buildPhases = (
-				91AC585089E542FF66ED87D3 /* [CP] Check Pods Manifest.lock */,
+				8838AB1D42241AECB9FED65F /* [CP] Check Pods Manifest.lock */,
 				3405F941250A555800268A77 /* Sources */,
 				3405F942250A555800268A77 /* Frameworks */,
 				3405F943250A555800268A77 /* Resources */,
-				4B9C28B1840A80798F3DED3A /* [CP] Embed Pods Frameworks */,
+				424232A817DFB4750CC17935 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				3405F94C250A555800268A77 /* PBXTargetDependency */,
 			);
-			name = OpenXApolloGAMEventHandlersTests;
+			name = PrebidMobileGAMEventHandlersTests;
 			productName = OpenXApolloGAMEventHandlersTests;
-			productReference = 3405F945250A555800268A77 /* OpenXApolloGAMEventHandlersTests.xctest */;
+			productReference = 3405F945250A555800268A77 /* PrebidMobileGAMEventHandlersTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		34B64D5B24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers */ = {
+		34B64D5B24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 34B64D6124F7E41600FDD9F4 /* Build configuration list for PBXNativeTarget "OpenXApolloGAMEventHandlers" */;
+			buildConfigurationList = 34B64D6124F7E41600FDD9F4 /* Build configuration list for PBXNativeTarget "PrebidMobileGAMEventHandlers" */;
 			buildPhases = (
-				7886EF329E9F7CAA55680571 /* [CP] Check Pods Manifest.lock */,
+				7DCB1F16C9EAAFFED77C483D /* [CP] Check Pods Manifest.lock */,
 				34B64D5724F7E41600FDD9F4 /* Headers */,
 				34B64D5824F7E41600FDD9F4 /* Sources */,
 				34B64D5924F7E41600FDD9F4 /* Frameworks */,
@@ -498,16 +502,16 @@
 			);
 			dependencies = (
 			);
-			name = OpenXApolloGAMEventHandlers;
+			name = PrebidMobileGAMEventHandlers;
 			productName = OpenXApolloGAMEventHandlers;
-			productReference = 34B64D5C24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.framework */;
+			productReference = 34B64D5C24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		34B64D7D24F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters */ = {
+		34B64D7D24F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 34B64D8324F7ED9600FDD9F4 /* Build configuration list for PBXNativeTarget "OpenXApolloMoPubAdapters" */;
+			buildConfigurationList = 34B64D8324F7ED9600FDD9F4 /* Build configuration list for PBXNativeTarget "PrebidMobileMoPubAdapters" */;
 			buildPhases = (
-				8578B2143F38A543205DDFB9 /* [CP] Check Pods Manifest.lock */,
+				5CC2C50D04642134274C187C /* [CP] Check Pods Manifest.lock */,
 				34B64D7924F7ED9600FDD9F4 /* Headers */,
 				34B64D7A24F7ED9600FDD9F4 /* Sources */,
 				34B64D7B24F7ED9600FDD9F4 /* Frameworks */,
@@ -518,9 +522,9 @@
 			);
 			dependencies = (
 			);
-			name = OpenXApolloMoPubAdapters;
+			name = PrebidMobileMoPubAdapters;
 			productName = OpenXApolloMoPubAdapters;
-			productReference = 34B64D7E24F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.framework */;
+			productReference = 34B64D7E24F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -531,7 +535,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1170;
 				LastUpgradeCheck = 1210;
-				ORGANIZATIONNAME = OpenX;
+				ORGANIZATIONNAME = Prebid;
 				TargetAttributes = {
 					3405F944250A555800268A77 = {
 						CreatedOnToolsVersion = 11.7;
@@ -558,9 +562,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				34B64D5B24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers */,
-				34B64D7D24F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters */,
-				3405F944250A555800268A77 /* OpenXApolloGAMEventHandlersTests */,
+				34B64D5B24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers */,
+				34B64D7D24F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters */,
+				3405F944250A555800268A77 /* PrebidMobileGAMEventHandlersTests */,
 			);
 		};
 /* End PBXProject section */
@@ -625,24 +629,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellScript = "$SRCROOT/../copy_framework_to_apps.sh\n";
 		};
-		4B9C28B1840A80798F3DED3A /* [CP] Embed Pods Frameworks */ = {
+		424232A817DFB4750CC17935 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OpenXApolloGAMEventHandlersTests/Pods-OpenXApolloGAMEventHandlersTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-PrebidMobileGAMEventHandlersTests/Pods-PrebidMobileGAMEventHandlersTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OpenXApolloGAMEventHandlersTests/Pods-OpenXApolloGAMEventHandlersTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-PrebidMobileGAMEventHandlersTests/Pods-PrebidMobileGAMEventHandlersTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OpenXApolloGAMEventHandlersTests/Pods-OpenXApolloGAMEventHandlersTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PrebidMobileGAMEventHandlersTests/Pods-PrebidMobileGAMEventHandlersTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7886EF329E9F7CAA55680571 /* [CP] Check Pods Manifest.lock */ = {
+		5CC2C50D04642134274C187C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -657,36 +661,14 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-OpenXApolloGAMEventHandlers-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8578B2143F38A543205DDFB9 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-OpenXApolloMoPubAdapters-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-PrebidMobileMoPubAdapters-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		91AC585089E542FF66ED87D3 /* [CP] Check Pods Manifest.lock */ = {
+		7DCB1F16C9EAAFFED77C483D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -701,7 +683,29 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-OpenXApolloGAMEventHandlersTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-PrebidMobileGAMEventHandlers-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8838AB1D42241AECB9FED65F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PrebidMobileGAMEventHandlersTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -767,7 +771,7 @@
 /* Begin PBXTargetDependency section */
 		3405F94C250A555800268A77 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 34B64D5B24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers */;
+			target = 34B64D5B24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers */;
 			targetProxy = 3405F94B250A555800268A77 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -775,24 +779,24 @@
 /* Begin XCBuildConfiguration section */
 		3405F94D250A555800268A77 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3FEDB3441581AD2740D0FD55 /* Pods-OpenXApolloGAMEventHandlersTests.debug.xcconfig */;
+			baseConfigurationReference = D1B77165045D380B64491D0E /* Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = FQD5T8P989;
-				INFOPLIST_FILE = OpenXApolloGAMEventHandlersTests/Info.plist;
+				INFOPLIST_FILE = PrebidMobileGAMEventHandlersTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.openx.OpenXApolloGAMEventHandlersTests;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.GAMEventHandlersTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "OpenXApolloGAMEventHandlersTests/OpenXApolloGAMEventHandlersTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PrebidMobileGAMEventHandlersTests/OpenXApolloGAMEventHandlersTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -801,24 +805,24 @@
 		};
 		3405F94E250A555800268A77 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 92831E907BEC58ECDD9AB0B0 /* Pods-OpenXApolloGAMEventHandlersTests.release.xcconfig */;
+			baseConfigurationReference = 9258904A9C1DF637C07F290B /* Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = FQD5T8P989;
-				INFOPLIST_FILE = OpenXApolloGAMEventHandlersTests/Info.plist;
+				INFOPLIST_FILE = PrebidMobileGAMEventHandlersTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.openx.OpenXApolloGAMEventHandlersTests;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.GAMEventHandlersTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OBJC_BRIDGING_HEADER = "OpenXApolloGAMEventHandlersTests/OpenXApolloGAMEventHandlersTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PrebidMobileGAMEventHandlersTests/OpenXApolloGAMEventHandlersTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -946,7 +950,7 @@
 		};
 		34B64D6224F7E41600FDD9F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6F16A5619567130256104BF /* Pods-OpenXApolloGAMEventHandlers.debug.xcconfig */;
+			baseConfigurationReference = 914C447D75BBE960CE43225D /* Pods-PrebidMobileGAMEventHandlers.debug.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -958,7 +962,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = "i386 x86_64";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 arm64e armv7 armv7s";
-				INFOPLIST_FILE = OpenXApolloGAMEventHandlers/Info.plist;
+				INFOPLIST_FILE = PrebidMobileGAMEventHandlers/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -967,8 +971,8 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.3.0;
-				MODULEMAP_FILE = OpenXApolloGAMEventHandlers/OpenXApolloGAMEventHandlers.modulemap;
-				PRODUCT_BUNDLE_IDENTIFIER = com.openx.apollo.GAMEventHandlers;
+				MODULEMAP_FILE = PrebidMobileGAMEventHandlers/OpenXApolloGAMEventHandlers.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.GAMEventHandlers;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -979,7 +983,7 @@
 		};
 		34B64D6324F7E41600FDD9F4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 74A8BF7A4E7A6F80D6A4AD3A /* Pods-OpenXApolloGAMEventHandlers.release.xcconfig */;
+			baseConfigurationReference = F06F98153B4FCC7F187B0A60 /* Pods-PrebidMobileGAMEventHandlers.release.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_STYLE = Manual;
@@ -990,7 +994,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = "i386 x86_64";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 arm64e armv7 armv7s";
-				INFOPLIST_FILE = OpenXApolloGAMEventHandlers/Info.plist;
+				INFOPLIST_FILE = PrebidMobileGAMEventHandlers/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -999,8 +1003,8 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.3.0;
-				MODULEMAP_FILE = OpenXApolloGAMEventHandlers/OpenXApolloGAMEventHandlers.modulemap;
-				PRODUCT_BUNDLE_IDENTIFIER = com.openx.apollo.GAMEventHandlers;
+				MODULEMAP_FILE = PrebidMobileGAMEventHandlers/OpenXApolloGAMEventHandlers.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.GAMEventHandlers;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -1011,7 +1015,7 @@
 		};
 		34B64D8424F7ED9600FDD9F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B4F634A2CD51206A74B992F5 /* Pods-OpenXApolloMoPubAdapters.debug.xcconfig */;
+			baseConfigurationReference = FF96E70D5607DCCF4E12F2B9 /* Pods-PrebidMobileMoPubAdapters.debug.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1021,7 +1025,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = OpenXApolloMoPubAdapters/Info.plist;
+				INFOPLIST_FILE = PrebidMobileMoPubAdapters/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1030,8 +1034,8 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.3.0;
-				MODULEMAP_FILE = OpenXApolloMoPubAdapters/OpenXApolloMoPubAdapters.modulemap;
-				PRODUCT_BUNDLE_IDENTIFIER = com.openx.OpenXApolloMoPubAdapters;
+				MODULEMAP_FILE = PrebidMobileMoPubAdapters/OpenXApolloMoPubAdapters.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.MoPubAdapters;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -1042,7 +1046,7 @@
 		};
 		34B64D8524F7ED9600FDD9F4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A16A0485A8ADF00DFD4EF782 /* Pods-OpenXApolloMoPubAdapters.release.xcconfig */;
+			baseConfigurationReference = 22D54DBD4A18A8BDA6235BEB /* Pods-PrebidMobileMoPubAdapters.release.xcconfig */;
 			buildSettings = {
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_STYLE = Manual;
@@ -1051,7 +1055,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = OpenXApolloMoPubAdapters/Info.plist;
+				INFOPLIST_FILE = PrebidMobileMoPubAdapters/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1060,8 +1064,8 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.3.0;
-				MODULEMAP_FILE = OpenXApolloMoPubAdapters/OpenXApolloMoPubAdapters.modulemap;
-				PRODUCT_BUNDLE_IDENTIFIER = com.openx.OpenXApolloMoPubAdapters;
+				MODULEMAP_FILE = PrebidMobileMoPubAdapters/OpenXApolloMoPubAdapters.modulemap;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.MoPubAdapters;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -1073,7 +1077,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3405F94F250A555800268A77 /* Build configuration list for PBXNativeTarget "OpenXApolloGAMEventHandlersTests" */ = {
+		3405F94F250A555800268A77 /* Build configuration list for PBXNativeTarget "PrebidMobileGAMEventHandlersTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3405F94D250A555800268A77 /* Debug */,
@@ -1091,7 +1095,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		34B64D6124F7E41600FDD9F4 /* Build configuration list for PBXNativeTarget "OpenXApolloGAMEventHandlers" */ = {
+		34B64D6124F7E41600FDD9F4 /* Build configuration list for PBXNativeTarget "PrebidMobileGAMEventHandlers" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				34B64D6224F7E41600FDD9F4 /* Debug */,
@@ -1100,7 +1104,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		34B64D8324F7ED9600FDD9F4 /* Build configuration list for PBXNativeTarget "OpenXApolloMoPubAdapters" */ = {
+		34B64D8324F7ED9600FDD9F4 /* Build configuration list for PBXNativeTarget "PrebidMobileMoPubAdapters" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				34B64D8424F7ED9600FDD9F4 /* Debug */,

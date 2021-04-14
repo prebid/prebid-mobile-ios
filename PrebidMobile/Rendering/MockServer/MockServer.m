@@ -7,7 +7,7 @@
 
 @import Foundation;
 
-@import OpenXApolloSDK;
+@import PrebidMobileRendering;
 
 #import "OXMServerConnection.h"
 #import "MockServer.h"
