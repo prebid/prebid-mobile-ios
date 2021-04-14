@@ -129,8 +129,8 @@ class StorageUtils {
     
     //External User Ids
     static func getExternalUserIds() -> [ExternalUserId]? {
-        guard let value = UserDefaults.standard.object(forKey: StorageUtils.PB_ExternalUserIdsKey) as? Data else{
-          return nil
+        guard let value: Data = getObjectFromUserDefaults(forKey: StorageUtils.PB_ExternalUserIdsKey) else{
+            return nil
         }
         return NSKeyedUnarchiver.unarchiveObject(with: value) as? [ExternalUserId]
     }

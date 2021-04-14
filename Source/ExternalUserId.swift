@@ -34,7 +34,7 @@ import UIKit
     - Parameter atype: (Optional) Int of the External User Id.
     - Parameter ext: (Optional) Dictionary of the External User Id.
     */
-    @objc public init(source:String, identifier:String, atype:NSNumber? = nil, ext:[String: Any]? = nil) {
+    public init(source:String, identifier:String, atype:NSNumber? = nil, ext:[String: Any]? = nil) {
         self.source = source
         self.identifier = identifier
         self.atype = atype

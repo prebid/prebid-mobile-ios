@@ -466,9 +466,7 @@ class RequestBuilder: NSObject {
 
         requestUserExt["data"] = Targeting.shared.getUserDataDictionary().getCopyWhereValueIsArray()
         
-        if let externalUserIdArray = getExternalUserIds(), externalUserIdArray.count != 0{
-            requestUserExt["eids"] = externalUserIdArray
-        }
+        requestUserExt["eids"] = getExternalUserIds()
 
         userDict["ext"] = requestUserExt
 
