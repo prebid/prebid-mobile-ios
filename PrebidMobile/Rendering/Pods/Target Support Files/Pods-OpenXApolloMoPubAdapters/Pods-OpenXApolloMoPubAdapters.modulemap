@@ -1,6 +1,0 @@
-framework module Pods_OpenXApolloMoPubAdapters {
-  umbrella header "Pods-OpenXApolloMoPubAdapters-umbrella.h"
-
-  export *
-  module * { export * }
-}

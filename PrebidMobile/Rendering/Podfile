@@ -3,7 +3,7 @@ platform :ios, '10.0'
 
 workspace 'ios-sdk-v3'
 
-project 'OpenXInternalTestApp/OpenXInternalTestApp/OpenXInternalTestApp.xcodeproj'
+project 'PrebidMobileDemoRendering/PrebidMobileDemoRendering/PrebidMobileDemoRendering.xcodeproj'
 
 def mopub_pods
   pod 'mopub-ios-sdk', '5.15'
@@ -20,17 +20,17 @@ end
 
 
 
-target 'OpenXApolloGAMEventHandlers' do
+target 'PrebidMobileGAMEventHandlers' do
   platform :ios, '9.0'
   event_handlers_project
   admob_pods
 end
-target 'OpenXApolloGAMEventHandlersTests' do
+target 'PrebidMobileGAMEventHandlersTests' do
   event_handlers_project
   admob_pods
 end
 
-target 'OpenXApolloMoPubAdapters' do
+target 'PrebidMobileMoPubAdapters' do
   event_handlers_project
   mopub_pods
 end
@@ -45,9 +45,9 @@ def internalTestApp_pods
   admob_pods
 end
 
-target 'OpenXInternalTestApp' do
+target 'PrebidMobileDemoRendering' do
   use_frameworks!
-  project 'OpenXInternalTestApp/OpenXInternalTestApp/OpenXInternalTestApp.xcodeproj'
+  project 'PrebidMobileDemoRendering/PrebidMobileDemoRendering/PrebidMobileDemoRendering.xcodeproj'
   internalTestApp_pods
 end
 

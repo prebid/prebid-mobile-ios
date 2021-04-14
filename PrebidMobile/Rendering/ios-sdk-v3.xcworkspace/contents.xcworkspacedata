@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:OpenXSDKCore/OpenXSDKCore.xcodeproj">
+      location = "group:PrebidMobileRendering/PrebidMobileRendering.xcodeproj">
    </FileRef>
    <Group
       location = "container:"
@@ -20,5 +20,8 @@
    </FileRef>
    <FileRef
       location = "group:EventHandlers/EventHandlers.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:PrebidMobileDemoRendering/PrebidMobileDemoRendering/PrebidMobileDemoRendering.xcodeproj">
    </FileRef>
 </Workspace>
