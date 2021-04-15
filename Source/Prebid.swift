@@ -40,15 +40,7 @@ import Foundation
     /**
     * This property is set by the developer when he is willing to share the location for better ad targeting
     **/
-    public var shareGeoLocation = false {
-        didSet {
-            if (shareGeoLocation == true) {
-                Location.shared.startCapture()
-            } else {
-                Location.shared.stopCapture()
-            }
-        }
-    }
+    public var shareGeoLocation = false
 
     public var prebidServerHost: PrebidHost = PrebidHost.Custom {
         didSet {
@@ -61,6 +53,11 @@ import Foundation
      * Set the desidered verbosity of the logs
      */
     public var logLevel: LogLevel = .debug
+    
+    /**
+     * Array  containing objects that hold External UserId parameters.
+     */
+    public var externalUserIdArray = [ExternalUserId]()
     
     /**
      * Set the desidered verbosity of the logs

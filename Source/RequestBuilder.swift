@@ -405,24 +405,25 @@ class RequestBuilder: NSObject {
 
     func openrtbGeo() -> [AnyHashable: Any]? {
 
-        if let location = Location.shared.location {
-            var geoDict: [AnyHashable: Any] = [:]
-            let latitude = location.coordinate.latitude
-            let longitude = location.coordinate.longitude
-
-            geoDict["lat"] = latitude
-            geoDict["lon"] = longitude
-
-            let locationTimestamp = location.timestamp
-            let ageInSeconds: TimeInterval = -1.0 * locationTimestamp.timeIntervalSinceNow
-            let ageInMilliseconds = Int64(ageInSeconds * 1000)
-
-            geoDict["lastfix"] = ageInMilliseconds
-            geoDict["accuracy"] = Int(location.horizontalAccuracy)
-
-            return geoDict
+        guard Prebid.shared.shareGeoLocation, let location = CLLocationManager().location else {
+            return nil
         }
-        return nil
+        
+        var geoDict: [AnyHashable: Any] = [:]
+        let latitude = location.coordinate.latitude
+        let longitude = location.coordinate.longitude
+
+        geoDict["lat"] = latitude
+        geoDict["lon"] = longitude
+
+        let locationTimestamp = location.timestamp
+        let ageInSeconds: TimeInterval = -1.0 * locationTimestamp.timeIntervalSinceNow
+        let ageInMilliseconds = Int64(ageInSeconds * 1000)
+
+        geoDict["lastfix"] = ageInMilliseconds
+        geoDict["accuracy"] = Int(location.horizontalAccuracy)
+
+        return geoDict
     }
 
     func openrtbRegs() -> [AnyHashable: Any] {
@@ -480,10 +481,40 @@ class RequestBuilder: NSObject {
         }
 
         requestUserExt["data"] = Targeting.shared.getUserDataDictionary().getCopyWhereValueIsArray()
+        
+        requestUserExt["eids"] = getExternalUserIds()
 
         userDict["ext"] = requestUserExt
 
         return userDict
+    }
+    
+    func getExternalUserIds() -> [[AnyHashable: Any]]? {
+       
+        var externalUserIdArray = [ExternalUserId]()
+        if Prebid.shared.externalUserIdArray.count != 0 {
+            externalUserIdArray = Prebid.shared.externalUserIdArray
+        }
+        else if Targeting.shared.externalUserIds.count != 0{
+            externalUserIdArray = Targeting.shared.externalUserIds
+        }
+        var transformedUserIdArray = [[AnyHashable: Any]]()
+        for externaluserId in externalUserIdArray {
+            var transformedeuidDic = [AnyHashable: Any]()
+            guard externaluserId.source.count != 0 && externaluserId.identifier.count != 0 else {
+                return nil
+            }
+            transformedeuidDic["source"] = externaluserId.source
+            var uidArray = [[AnyHashable: Any]]()
+            var uidDic = [AnyHashable: Any]()
+            uidDic["id"] = externaluserId.identifier
+            uidDic["atype"] = externaluserId.atype
+            uidDic["ext"] = externaluserId.ext
+            uidArray.append(uidDic)
+            transformedeuidDic["uids"] = uidArray
+            transformedUserIdArray.append(transformedeuidDic)
+        }
+        return transformedUserIdArray
     }
 
     class func precisionNumberFormatter() -> NumberFormatter? {

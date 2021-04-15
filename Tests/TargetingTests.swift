@@ -259,7 +259,123 @@ class TargetingTests: XCTestCase {
         //then
         XCTAssertEqual(gdprConsentString, result)
     }
+    
+    //MARK: - External UserIds
+    func testPbExternalUserIds() {
+        //given
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "netid.de", identifier: "999888777"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
+        
+        defer {
+            Targeting.shared.removeStoredExternalUserIds()
+        }
 
+        //when
+        let externalUserIdAdserver = Targeting.shared.fetchStoredExternalUserId("adserver.org")
+        let externalUserIdNetID = Targeting.shared.fetchStoredExternalUserId("netid.de")
+        let externalUserIdCriteo = Targeting.shared.fetchStoredExternalUserId("criteo.com")
+        let externalUserIdLiveRamp = Targeting.shared.fetchStoredExternalUserId("liveramp.com")
+        let externalUserIdSharedId = Targeting.shared.fetchStoredExternalUserId("sharedid.org")
+
+        //then
+        XCTAssertEqual("adserver.org", externalUserIdAdserver!.source)
+        XCTAssertEqual("111111111111", externalUserIdAdserver!.identifier)
+        XCTAssertEqual(["rtiPartner" : "TDID"], externalUserIdAdserver!.ext as! [String : String])
+        
+        XCTAssertEqual("netid.de", externalUserIdNetID!.source)
+        XCTAssertEqual("999888777", externalUserIdNetID!.identifier)
+
+        XCTAssertEqual("criteo.com", externalUserIdCriteo!.source)
+        XCTAssertEqual("_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N", externalUserIdCriteo!.identifier)
+
+        XCTAssertEqual("liveramp.com", externalUserIdLiveRamp!.source)
+        XCTAssertEqual("AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg", externalUserIdLiveRamp!.identifier)
+
+        XCTAssertEqual("sharedid.org", externalUserIdSharedId!.source)
+        XCTAssertEqual("111111111111", externalUserIdSharedId!.identifier)
+        XCTAssertEqual(1, externalUserIdSharedId!.atype)
+        XCTAssertEqual(["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"], externalUserIdSharedId!.ext as! [String : String])
+
+    }
+    
+    func testPbExternalUserIdsOverRiding() {
+        //given
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "222222222222", ext: ["rtiPartner" : "LFTD"]))
+        
+        defer {
+            Targeting.shared.removeStoredExternalUserIds()
+        }
+
+        //when
+        let externalUserIdAdserver = Targeting.shared.fetchStoredExternalUserId("adserver.org")
+
+        //then
+        XCTAssertEqual("adserver.org", externalUserIdAdserver!.source)
+        XCTAssertEqual("222222222222", externalUserIdAdserver!.identifier)
+        XCTAssertEqual(["rtiPartner" : "LFTD"], externalUserIdAdserver!.ext as! [String : String])
+
+
+    }
+
+    func testPbExternalUserIdsRemoveSpecificID() {
+        //given
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
+
+        //when
+        Targeting.shared.removeStoredExternalUserId("adserver.org")
+
+        //then
+        let externalUserIdAdserver = Targeting.shared.fetchStoredExternalUserId("adserver.org")
+        XCTAssertNil(externalUserIdAdserver)
+
+    }
+    
+    func testPbExternalUserIdsGetAllExternalUserIDs() {
+        //given
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "adserver.org", identifier: "111111111111", ext: ["rtiPartner" : "TDID"]))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "netid.de", identifier: "999888777"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
+        Targeting.shared.storeExternalUserId(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
+        
+        defer {
+            Targeting.shared.removeStoredExternalUserIds()
+        }
+
+        //when
+        let externalUserIdsArray = Targeting.shared.fetchStoredExternalUserIds()
+        let externalUserIdAdserver = externalUserIdsArray![0]
+        let externalUserIdNetID = externalUserIdsArray![1]
+        let externalUserIdCriteo = externalUserIdsArray![2]
+        let externalUserIdLiveRamp = externalUserIdsArray![3]
+        let externalUserIdSharedId = externalUserIdsArray![4]
+
+        //then
+        XCTAssertEqual("adserver.org", externalUserIdAdserver.source)
+        XCTAssertEqual("111111111111", externalUserIdAdserver.identifier)
+        XCTAssertEqual(["rtiPartner" : "TDID"], externalUserIdAdserver.ext as! [String : String])
+        
+        XCTAssertEqual("netid.de", externalUserIdNetID.source)
+        XCTAssertEqual("999888777", externalUserIdNetID.identifier)
+
+        XCTAssertEqual("criteo.com", externalUserIdCriteo.source)
+        XCTAssertEqual("_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N", externalUserIdCriteo.identifier)
+
+        XCTAssertEqual("liveramp.com", externalUserIdLiveRamp.source)
+        XCTAssertEqual("AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg", externalUserIdLiveRamp.identifier)
+
+        XCTAssertEqual("sharedid.org", externalUserIdSharedId.source)
+        XCTAssertEqual("111111111111", externalUserIdSharedId.identifier)
+        XCTAssertEqual(1, externalUserIdSharedId.atype)
+        XCTAssertEqual(["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"], externalUserIdSharedId.ext as! [String : String])
+
+    }
+
+    
     //MARK: - PurposeConsents
     func testPurposeConsentsPB() throws {
         //given
