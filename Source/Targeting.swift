@@ -181,6 +181,55 @@ import CoreLocation
         }
     }
     
+    // MARK: - External UserIds
+    var externalUserIds = [ExternalUserId]()
+    /**
+     * This method allows to save External User Id in the User Defaults
+     */
+    public func storeExternalUserId(_ externalUserId: ExternalUserId) {
+        if let index = externalUserIds.firstIndex(where: {$0.source == externalUserId.source}) {
+            externalUserIds[index] = externalUserId
+        }else{
+            externalUserIds.append(externalUserId)
+        }
+        StorageUtils.setExternalUserIds(value: externalUserIds)
+        
+    }
+    /**
+     * This method allows to get All External User Ids from User Defaults 
+     */
+    public func fetchStoredExternalUserIds()->[ExternalUserId]? {
+        return StorageUtils.getExternalUserIds()
+    }
+    /**
+     * This method allows to get External User Id from User Defaults by passing respective 'source' string as param
+     */
+    public func fetchStoredExternalUserId(_ source : String)->ExternalUserId? {
+        guard let array = StorageUtils.getExternalUserIds(), let externalUserId = array.first(where: {$0.source == source}) else{
+            return nil
+        }
+        return externalUserId
+    }
+    /**
+     * This method allows to remove specific External User Id from User Defaults by passing respective 'source' string as param
+     */
+    public func removeStoredExternalUserId(_ source : String) {
+        if let index = externalUserIds.firstIndex(where: {$0.source == source}) {
+            externalUserIds.remove(at: index)
+            StorageUtils.setExternalUserIds(value: externalUserIds)
+        }
+    }
+    /**
+     * This method allows to remove all the External User Ids from User Defaults 
+     */
+    public func removeStoredExternalUserIds() {
+        if var arrayExternalUserIds = StorageUtils.getExternalUserIds(){
+            arrayExternalUserIds.removeAll()
+            StorageUtils.setExternalUserIds(value: arrayExternalUserIds)
+        }
+    }
+    
+    
     // MARK: - TCFv2
 
     public var purposeConsents: String? {
