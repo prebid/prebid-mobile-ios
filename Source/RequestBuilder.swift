@@ -58,6 +58,7 @@ class RequestBuilder: NSObject {
         //HTTP HeadersExpression implicitly coerced from '[AnyHashable : Any]?' to Any
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpShouldHandleCookies = isAllowedAccessDeviceData()
         
         let gdprApplies = Targeting.shared.subjectToGDPR
         let deviceAccessConsent = Targeting.shared.getDeviceAccessConsent()
@@ -351,26 +352,7 @@ class RequestBuilder: NSObject {
         // Limit ad tracking
         deviceDict["lmt"] = NSNumber(value: lmtAd).intValue
         
-        //fetch advertising identifier based TCF 2.0 Purpose1 value
-        //truth table
-        /*
-                            deviceAccessConsent=true  deviceAccessConsent=false  deviceAccessConsent undefined
-         gdprApplies=false        Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
-         gdprApplies=true         Yes, read IDFA       No, don’t read IDFA           No, don’t read IDFA
-         gdprApplies=undefined    Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
-         */
-          
-        var setDeviceId: Bool = false
-        
-        let gdprApplies = Targeting.shared.subjectToGDPR
-        let deviceAccessConsent = Targeting.shared.getDeviceAccessConsent()
-        
-        if ((deviceAccessConsent == nil && (gdprApplies == nil || gdprApplies == false))
-            || deviceAccessConsent == true) {
-            setDeviceId = true
-        }
-        
-        if (setDeviceId) {
+        if (isAllowedAccessDeviceData()) {
             let deviceId = RequestBuilder.DeviceUUID()
                 if deviceId != "" {
                     deviceDict["ifa"] = deviceId
@@ -390,6 +372,25 @@ class RequestBuilder: NSObject {
 
         return deviceDict
 
+    }
+    
+    //fetch advertising identifier based TCF 2.0 Purpose1 value
+    //truth table
+    /*
+                        deviceAccessConsent=true  deviceAccessConsent=false  deviceAccessConsent undefined
+     gdprApplies=false        Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
+     gdprApplies=true         Yes, read IDFA       No, don’t read IDFA           No, don’t read IDFA
+     gdprApplies=undefined    Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
+     */
+    func isAllowedAccessDeviceData() -> Bool {
+        let gdprApplies = Targeting.shared.subjectToGDPR
+        let deviceAccessConsent = Targeting.shared.getDeviceAccessConsent()
+        
+        if ((deviceAccessConsent == nil && (gdprApplies == nil || gdprApplies == false)) || deviceAccessConsent == true) {
+            return true
+        }
+        
+        return false
     }
 
     // OpenRTB 2.5 Object: Geo in section 3.2.19
