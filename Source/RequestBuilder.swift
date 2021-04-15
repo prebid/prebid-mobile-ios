@@ -212,7 +212,7 @@ class RequestBuilder: NSObject {
         adUnitExt["context"] = prebidAdUnitExtContext
 
         var skAdNet: [AnyHashable: Any] = [:]
-        skAdNet["version"] = Targeting.shared.versions
+        skAdNet["version"] = Targeting.shared.skAdNetVersions
         skAdNet["sourceapp"] = Targeting.shared.itunesID
 
         var skAdNetList: [AnyHashable: Any] = [:]

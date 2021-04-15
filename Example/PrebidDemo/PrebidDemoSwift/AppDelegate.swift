@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         }
         
-        Targeting.shared.versions = ["2.0", "2.1"]
+        Targeting.shared.skAdNetVersions = ["2.0", "2.1"]
         Targeting.shared.skAdNetListMax = 306
         Targeting.shared.skAdNetListExcl = [2, 8, 10, 55]
         Targeting.shared.skAdNetListAddl = ["cDkw7geQsH.skadnetwork", "qyJfv329m4.skadnetwork"]
