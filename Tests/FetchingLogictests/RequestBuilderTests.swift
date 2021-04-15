@@ -568,29 +568,29 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
      gdprApplies=true         (4)Yes, read IDFA       (5)No, don’t read IDFA           (6)No, don’t read IDFA
      gdprApplies=undefined    (7)Yes, read IDFA       (8)No, don’t read IDFA           (9)Yes, read IDFA
      */
-    func testPostDataIfaPermission() throws {
+    func testIsAllowedAccessDeviceData() throws {
         //(1)
-        try! postDataIfaHelper(gdprApplies: false, purposeConsents: "100000000000000000000000", hasIfa: true)
+        try! postDeviceDataHelper(gdprApplies: false, purposeConsents: "100000000000000000000000", expected: true)
         //(2)
-        try! postDataIfaHelper(gdprApplies: false, purposeConsents: "000000000000000000000000", hasIfa: false)
+        try! postDeviceDataHelper(gdprApplies: false, purposeConsents: "000000000000000000000000", expected: false)
         //(3)
-        try! postDataIfaHelper(gdprApplies: false, purposeConsents: nil, hasIfa: true)
+        try! postDeviceDataHelper(gdprApplies: false, purposeConsents: nil, expected: true)
         //(4)
-        try! postDataIfaHelper(gdprApplies: true, purposeConsents: "100000000000000000000000", hasIfa: true)
+        try! postDeviceDataHelper(gdprApplies: true, purposeConsents: "100000000000000000000000", expected: true)
         //(5)
-        try! postDataIfaHelper(gdprApplies: true, purposeConsents: "000000000000000000000000", hasIfa: false)
+        try! postDeviceDataHelper(gdprApplies: true, purposeConsents: "000000000000000000000000", expected: false)
         //(6)
-        try! postDataIfaHelper(gdprApplies: true, purposeConsents: nil, hasIfa: false)
+        try! postDeviceDataHelper(gdprApplies: true, purposeConsents: nil, expected: false)
         //(7)
-        try! postDataIfaHelper(gdprApplies: nil, purposeConsents: "100000000000000000000000", hasIfa: true)
+        try! postDeviceDataHelper(gdprApplies: nil, purposeConsents: "100000000000000000000000", expected: true)
         //(8)
-        try! postDataIfaHelper(gdprApplies: nil, purposeConsents: "000000000000000000000000", hasIfa: false)
+        try! postDeviceDataHelper(gdprApplies: nil, purposeConsents: "000000000000000000000000", expected: false)
         //(9)
-        try! postDataIfaHelper(gdprApplies: nil, purposeConsents: nil, hasIfa: true)
+        try! postDeviceDataHelper(gdprApplies: nil, purposeConsents: nil, expected: true)
 
     }
 
-    func postDataIfaHelper(gdprApplies: Bool?, purposeConsents:String?, hasIfa: Bool) throws {
+    func postDeviceDataHelper(gdprApplies: Bool?, purposeConsents:String?, expected: Bool) throws {
         //given
         let targeting = Targeting.shared
         targeting.subjectToGDPR = gdprApplies
@@ -613,7 +613,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let ifa = regs["ifa"] as? String
 
         //then
-        XCTAssertEqual(hasIfa, ifa != nil)
+        XCTAssertEqual(expected, RequestBuilder.shared.isAllowedAccessDeviceData())
+        XCTAssertEqual(expected, ifa != nil)
     }
 
     //MARK: - COPPA
