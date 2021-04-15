@@ -27,6 +27,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     Targeting.shared.gender = GenderMale;
     
+    // User Id from External Third Party Sources
+    NSMutableArray<ExternalUserId *>  *externalUserIdArray  = [[NSMutableArray<ExternalUserId *> alloc] init];
+    [externalUserIdArray addObject:[[ExternalUserId alloc]initWithSource:@"adserver.org" identifier:@"111111111111" atype:nil ext:@{@"rtiPartner" : @"TDID"}]];
+    [externalUserIdArray addObject:[[ExternalUserId alloc]initWithSource:@"netid.de" identifier:@"999888777" atype:nil ext:nil]];
+    [externalUserIdArray addObject:[[ExternalUserId alloc]initWithSource:@"criteo.com" identifier:@"_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N" atype:nil ext:nil]];
+    [externalUserIdArray addObject:[[ExternalUserId alloc]initWithSource:@"liveramp.com" identifier:@"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg" atype:nil ext:nil]];
+    [externalUserIdArray addObject:[[ExternalUserId alloc]initWithSource:@"sharedid.org" identifier:@"111111111111" atype:[NSNumber numberWithInt:1] ext:@{@"third" : @"01ERJWE5FS4RAZKG6SKQ3ZYSKV"}]];
+    
+    Prebid.shared.externalUserIdArray = externalUserIdArray;
+    
     // Override point for customization after application launch.
     MPMoPubConfiguration *sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"a935eac11acd416f92640411234fbba6"];
     sdkConfig.globalMediationSettings = @[];

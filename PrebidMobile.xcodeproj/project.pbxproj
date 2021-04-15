@@ -17,6 +17,8 @@
 		380188F32555588B0089CA84 /* TrackerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188F12555588B0089CA84 /* TrackerInfo.swift */; };
 		380D2E5B2577A3C400507B76 /* NativeAd.json in Resources */ = {isa = PBXBuildFile; fileRef = 380D2E5A2577A3C400507B76 /* NativeAd.json */; };
 		382B11E6256E933800B81CA9 /* NativeAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 382B11E5256E933800B81CA9 /* NativeAdResponse.json */; };
+		3857FFF125F65F6A00D1EEBE /* ExternalUserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3857FFF025F65F6A00D1EEBE /* ExternalUserId.swift */; };
+		3857FFF225F65F6A00D1EEBE /* ExternalUserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3857FFF025F65F6A00D1EEBE /* ExternalUserId.swift */; };
 		3868489E2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
 		3868489F2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
 		38F03B272576421400E026A2 /* CacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B262576421400E026A2 /* CacheManagerTests.swift */; };
@@ -72,7 +74,6 @@
 		FA29A3D9232255DF00F13F61 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1BB2188F6C200CE1BA3 /* RequestBuilder.swift */; };
 		FA29A3DA232255DF00F13F61 /* AdViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5C30BA22E5E86900DA23C4 /* AdViewUtils.swift */; };
 		FA29A3DB232255DF00F13F61 /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */; };
-		FA29A3DC232255DF00F13F61 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6013E3F12214A4CA00FEE2B1 /* Location.swift */; };
 		FA29A3DD232255DF00F13F61 /* ResultCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D79313217E31150080F428 /* ResultCode.swift */; };
 		FA29A3DE232255DF00F13F61 /* PbFindSizeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5C30BC22E5ECF700DA23C4 /* PbFindSizeError.swift */; };
 		FA29A3DF232255DF00F13F61 /* AdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1AB21878CFB00CE1BA3 /* AdUnit.swift */; };
@@ -112,7 +113,6 @@
 		FAAA00D423227F5B009DC7D6 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1C2218BFC7A00CE1BA3 /* Reachability.swift */; };
 		FAAA00D523227F5B009DC7D6 /* BidResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607B04792194AC79000C0879 /* BidResponse.swift */; };
 		FAAA00D623227F5B009DC7D6 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600072FE21BAFD2F00F4738B /* Dispatcher.swift */; };
-		FAAA00D723227F5B009DC7D6 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6013E3F12214A4CA00FEE2B1 /* Location.swift */; };
 		FAAA00D823227F5B009DC7D6 /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */; };
 		FAAA00D923227F65009DC7D6 /* BannerAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D79311217E2CF20080F428 /* BannerAdUnit.swift */; };
 		FAAA00DA23227F65009DC7D6 /* AdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1AB21878CFB00CE1BA3 /* AdUnit.swift */; };
@@ -157,13 +157,13 @@
 		380188F12555588B0089CA84 /* TrackerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerInfo.swift; sourceTree = "<group>"; };
 		380D2E5A2577A3C400507B76 /* NativeAd.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAd.json; sourceTree = "<group>"; };
 		382B11E5256E933800B81CA9 /* NativeAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAdResponse.json; sourceTree = "<group>"; };
+		3857FFF025F65F6A00D1EEBE /* ExternalUserId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalUserId.swift; sourceTree = "<group>"; };
 		3868489D2551712800234314 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		38F03B262576421400E026A2 /* CacheManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerTests.swift; sourceTree = "<group>"; };
 		38F03B322576624C00E026A2 /* TrackerManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackerManagerTests.swift; sourceTree = "<group>"; };
 		600072FE21BAFD2F00F4738B /* Dispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 		600CF06F2208963500C95176 /* UtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
 		600CF13D220CDFA700C95176 /* responseinvalidSize.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = responseinvalidSize.json; sourceTree = "<group>"; };
-		6013E3F12214A4CA00FEE2B1 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		6013E3F72215C82900FEE2B1 /* CLLocationManager+Swizzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+Swizzle.swift"; sourceTree = "<group>"; };
 		6013E3F92215C92C00FEE2B1 /* MockCLLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCLLocationManager.swift; sourceTree = "<group>"; };
 		6062B19B218243FA00CE1BA3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -368,10 +368,10 @@
 				6062B1C2218BFC7A00CE1BA3 /* Reachability.swift */,
 				607B04792194AC79000C0879 /* BidResponse.swift */,
 				600072FE21BAFD2F00F4738B /* Dispatcher.swift */,
-				6013E3F12214A4CA00FEE2B1 /* Location.swift */,
 				FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */,
 				380188EB255432820089CA84 /* UIViewExtension.swift */,
 				FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */,
+				3857FFF025F65F6A00D1EEBE /* ExternalUserId.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -754,7 +754,6 @@
 				FA0AA1A723797433004B7A44 /* NativeAsset.swift in Sources */,
 				FA29A3DA232255DF00F13F61 /* AdViewUtils.swift in Sources */,
 				FA29A3DB232255DF00F13F61 /* CollectionExtension.swift in Sources */,
-				FA29A3DC232255DF00F13F61 /* Location.swift in Sources */,
 				FA29A3DD232255DF00F13F61 /* ResultCode.swift in Sources */,
 				FA29A3DE232255DF00F13F61 /* PbFindSizeError.swift in Sources */,
 				FA29A3DF232255DF00F13F61 /* AdUnit.swift in Sources */,
@@ -772,6 +771,7 @@
 				FA0AA1A823797435004B7A44 /* NativeEventTracker.swift in Sources */,
 				FA29A3E6232255DF00F13F61 /* Host.swift in Sources */,
 				FA29A3E7232255DF00F13F61 /* Constants.swift in Sources */,
+				3857FFF225F65F6A00D1EEBE /* ExternalUserId.swift in Sources */,
 				FAD4D547235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */,
 				FA29A3E8232255DF00F13F61 /* Logging.swift in Sources */,
 				FAE17D59242A29AC0052719A /* Signals.swift in Sources */,
@@ -802,7 +802,6 @@
 				FAAA00D523227F5B009DC7D6 /* BidResponse.swift in Sources */,
 				FAAA00DE23227F6A009DC7D6 /* PbFindSizeError.swift in Sources */,
 				60C2A368234D214C00628C9D /* NativeAsset.swift in Sources */,
-				FAAA00D723227F5B009DC7D6 /* Location.swift in Sources */,
 				FAAA00CC23227F5B009DC7D6 /* Logging.swift in Sources */,
 				FAAA00CD23227F5B009DC7D6 /* Prebid.swift in Sources */,
 				60BB98D7254B241D00D94C12 /* IMAUtils.swift in Sources */,
@@ -822,6 +821,7 @@
 				380188E7255402F10089CA84 /* NativeAdEventDelegate.swift in Sources */,
 				FAAA00DD23227F6A009DC7D6 /* AdViewUtils.swift in Sources */,
 				FAE17D58242A29AC0052719A /* Signals.swift in Sources */,
+				3857FFF125F65F6A00D1EEBE /* ExternalUserId.swift in Sources */,
 				FAD9527B241BA30800A03AB6 /* BannerBaseAdUnit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1012,6 +1012,7 @@
 		FA29A3F0232255DF00F13F61 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
@@ -1036,6 +1037,7 @@
 		FA29A3F1232255DF00F13F61 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
@@ -1060,6 +1062,7 @@
 		FAAA00C32322733E009DC7D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
@@ -1067,6 +1070,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1084,6 +1091,7 @@
 		FAAA00C42322733E009DC7D6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
@@ -1091,6 +1099,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
