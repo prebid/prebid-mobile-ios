@@ -41,6 +41,9 @@ class StorageUtils {
     //CCPA
     static let IABUSPrivacy_StringKey = "IABUSPrivacy_String"
     
+    //External UserIds
+    static let PB_ExternalUserIdsKey = "kPBExternalUserIds"
+    
     //MARK: - getters and setters
     
     //COPPA
@@ -122,6 +125,21 @@ class StorageUtils {
     //CCPA
     static func iabCcpa() -> String? {
         return getObjectFromUserDefaults(forKey: StorageUtils.IABUSPrivacy_StringKey)
+    }
+    
+    //External User Ids
+    static func getExternalUserIds() -> [ExternalUserId]? {
+        guard let value: Data = getObjectFromUserDefaults(forKey: StorageUtils.PB_ExternalUserIdsKey) else{
+            return nil
+        }
+        return NSKeyedUnarchiver.unarchiveObject(with: value) as? [ExternalUserId]
+    }
+    
+    static func setExternalUserIds(value: [ExternalUserId]?) {
+        if let value = value {
+            let encodeData = NSKeyedArchiver.archivedData(withRootObject: value)
+            setUserDefaults(value: encodeData, forKey: StorageUtils.PB_ExternalUserIdsKey)
+        }
     }
     
     //MARK: - private zone
