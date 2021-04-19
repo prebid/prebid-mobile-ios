@@ -8,19 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		380188E7255402F10089CA84 /* NativeAdEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188E6255402F10089CA84 /* NativeAdEventDelegate.swift */; };
-		380188E8255402F10089CA84 /* NativeAdEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188E6255402F10089CA84 /* NativeAdEventDelegate.swift */; };
 		380188EC255432820089CA84 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188EB255432820089CA84 /* UIViewExtension.swift */; };
-		380188ED255432820089CA84 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188EB255432820089CA84 /* UIViewExtension.swift */; };
 		380188EF255551890089CA84 /* TrackerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188EE255551890089CA84 /* TrackerManager.swift */; };
-		380188F0255551890089CA84 /* TrackerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188EE255551890089CA84 /* TrackerManager.swift */; };
 		380188F22555588B0089CA84 /* TrackerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188F12555588B0089CA84 /* TrackerInfo.swift */; };
-		380188F32555588B0089CA84 /* TrackerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380188F12555588B0089CA84 /* TrackerInfo.swift */; };
 		380D2E5B2577A3C400507B76 /* NativeAd.json in Resources */ = {isa = PBXBuildFile; fileRef = 380D2E5A2577A3C400507B76 /* NativeAd.json */; };
 		382B11E6256E933800B81CA9 /* NativeAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 382B11E5256E933800B81CA9 /* NativeAdResponse.json */; };
 		3857FFF125F65F6A00D1EEBE /* ExternalUserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3857FFF025F65F6A00D1EEBE /* ExternalUserId.swift */; };
-		3857FFF225F65F6A00D1EEBE /* ExternalUserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3857FFF025F65F6A00D1EEBE /* ExternalUserId.swift */; };
 		3868489E2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
-		3868489F2551712800234314 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3868489D2551712800234314 /* CacheManager.swift */; };
 		38F03B272576421400E026A2 /* CacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B262576421400E026A2 /* CacheManagerTests.swift */; };
 		38F03B332576624C00E026A2 /* TrackerManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F03B322576624C00E026A2 /* TrackerManagerTests.swift */; };
 		600CF0702208963500C95176 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600CF06F2208963500C95176 /* UtilsTests.swift */; };
@@ -57,36 +51,12 @@
 		9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */; };
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
 		CEEA4530240FCBEF0003CDE7 /* VideoBaseAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEA452F240FCBEF0003CDE7 /* VideoBaseAdUnit.swift */; };
-		CEEA4531240FCBEF0003CDE7 /* VideoBaseAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEA452F240FCBEF0003CDE7 /* VideoBaseAdUnit.swift */; };
 		F5400CB22209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json in Resources */ = {isa = PBXBuildFile; fileRef = F5400CB12209E8210018F6B1 /* responseInvalidResponseWithoutCacheId.json */; };
 		F5400CB62209EBF50018F6B1 /* PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json in Resources */ = {isa = PBXBuildFile; fileRef = F5400CB52209EBF50018F6B1 /* PrebidServerValidResponseAppNexusNoCacheIdAndRunbiconHasCacheId.json */; };
 		F5400CB82209F19B0018F6B1 /* responseInvalidNoTopCacheId.json in Resources */ = {isa = PBXBuildFile; fileRef = F5400CB72209F19B0018F6B1 /* responseInvalidNoTopCacheId.json */; };
 		F543D52F220E101B00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D52E220E101A00F1EF8F /* responseValidTwoBidsOnTheSameSeat.json */; };
 		F543D532220E193200F1EF8F /* noBidResponseTmaxTooLarge.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D530220E193200F1EF8F /* noBidResponseTmaxTooLarge.json */; };
 		F543D533220E193200F1EF8F /* noBidResponseNoTmax.json in Resources */ = {isa = PBXBuildFile; fileRef = F543D531220E193200F1EF8F /* noBidResponseNoTmax.json */; };
-		FA0AA1A623797413004B7A44 /* NativeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A364234B9AC100628C9D /* NativeRequest.swift */; };
-		FA0AA1A723797433004B7A44 /* NativeAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A367234D214C00628C9D /* NativeAsset.swift */; };
-		FA0AA1A823797435004B7A44 /* NativeEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C2A36D2354C7BA00628C9D /* NativeEventTracker.swift */; };
-		FA282DE22327B4D600C9D477 /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D792F5217E229A0080F428 /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FA29A3D5232255DF00F13F61 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1C2218BFC7A00CE1BA3 /* Reachability.swift */; };
-		FA29A3D6232255DF00F13F61 /* BidManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E517231FCD1400CAA05B /* BidManager.swift */; };
-		FA29A3D7232255DF00F13F61 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600072FE21BAFD2F00F4738B /* Dispatcher.swift */; };
-		FA29A3D9232255DF00F13F61 /* RequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1BB2188F6C200CE1BA3 /* RequestBuilder.swift */; };
-		FA29A3DA232255DF00F13F61 /* AdViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5C30BA22E5E86900DA23C4 /* AdViewUtils.swift */; };
-		FA29A3DB232255DF00F13F61 /* CollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F89EB22DC95E30065B652 /* CollectionExtension.swift */; };
-		FA29A3DD232255DF00F13F61 /* ResultCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D79313217E31150080F428 /* ResultCode.swift */; };
-		FA29A3DE232255DF00F13F61 /* PbFindSizeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5C30BC22E5ECF700DA23C4 /* PbFindSizeError.swift */; };
-		FA29A3DF232255DF00F13F61 /* AdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1AB21878CFB00CE1BA3 /* AdUnit.swift */; };
-		FA29A3E0232255DF00F13F61 /* BannerAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D79311217E2CF20080F428 /* BannerAdUnit.swift */; };
-		FA29A3E1232255DF00F13F61 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60EE7B0521F26329000B12A8 /* Utils.swift */; };
-		FA29A3E2232255DF00F13F61 /* Targeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D79315217E39D90080F428 /* Targeting.swift */; };
-		FA29A3E3232255DF00F13F61 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1AF21889EC600CE1BA3 /* Global.swift */; };
-		FA29A3E4232255DF00F13F61 /* BidResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607B04792194AC79000C0879 /* BidResponse.swift */; };
-		FA29A3E5232255DF00F13F61 /* InterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1AD2188783B00CE1BA3 /* InterstitialAdUnit.swift */; };
-		FA29A3E6232255DF00F13F61 /* Host.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D7930F217E27960080F428 /* Host.swift */; };
-		FA29A3E7232255DF00F13F61 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D79317217F7F3E0080F428 /* Constants.swift */; };
-		FA29A3E8232255DF00F13F61 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1A321835DF300CE1BA3 /* Logging.swift */; };
-		FA495E792326F50500894166 /* Prebid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D7930C217E23F90080F428 /* Prebid.swift */; };
 		FA495E7A2326F50B00894166 /* Targeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D79315217E39D90080F428 /* Targeting.swift */; };
 		FA5AD5E42271FA4100C8F274 /* ConstantsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */; };
 		FA7C3EB5225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB4225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json */; };
@@ -120,24 +90,15 @@
 		FAAA00DD23227F6A009DC7D6 /* AdViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5C30BA22E5E86900DA23C4 /* AdViewUtils.swift */; };
 		FAAA00DE23227F6A009DC7D6 /* PbFindSizeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5C30BC22E5ECF700DA23C4 /* PbFindSizeError.swift */; };
 		FAAB5F9723B9F734001715A7 /* RewardedVideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB5F9623B9F734001715A7 /* RewardedVideoAdUnit.swift */; };
-		FAAB5F9823B9F73B001715A7 /* RewardedVideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAB5F9623B9F734001715A7 /* RewardedVideoAdUnit.swift */; };
 		FAC837D82321583500565051 /* CollectionExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC837D72321583500565051 /* CollectionExtensionTest.swift */; };
 		FAD4D543235DCCAB00140012 /* VideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4D542235DCCAB00140012 /* VideoAdUnit.swift */; };
-		FAD4D544235DCCAB00140012 /* VideoAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4D542235DCCAB00140012 /* VideoAdUnit.swift */; };
 		FAD4D546235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4D545235DCCCF00140012 /* VideoInterstitialAdUnit.swift */; };
-		FAD4D547235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD4D545235DCCCF00140012 /* VideoInterstitialAdUnit.swift */; };
 		FAD9527B241BA30800A03AB6 /* BannerBaseAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9527A241BA30800A03AB6 /* BannerBaseAdUnit.swift */; };
-		FAD9527C241BA30800A03AB6 /* BannerBaseAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD9527A241BA30800A03AB6 /* BannerBaseAdUnit.swift */; };
 		FAE17D58242A29AC0052719A /* Signals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE17D57242A29AC0052719A /* Signals.swift */; };
-		FAE17D59242A29AC0052719A /* Signals.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE17D57242A29AC0052719A /* Signals.swift */; };
 		FAEBF29F237EC7B1006BA972 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */; };
-		FAEBF2A0237EC7B1006BA972 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */; };
 		FAEBF2A2237ECFEF006BA972 /* StorageUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */; };
-		FAEE4BD8262DB05800AD9966 /* IMAUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BB98D6254B241D00D94C12 /* IMAUtils.swift */; };
 		FCE4276D255042A800C95FAD /* NativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE4276C255042A800C95FAD /* NativeAd.swift */; };
-		FCE4276E2550436F00C95FAD /* NativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE4276C255042A800C95FAD /* NativeAd.swift */; };
 		FCE42773255043A600C95FAD /* NativeAdDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE42772255043A600C95FAD /* NativeAdDelegate.swift */; };
-		FCE42774255043A600C95FAD /* NativeAdDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE42772255043A600C95FAD /* NativeAdDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -231,7 +192,6 @@
 		F543D530220E193200F1EF8F /* noBidResponseTmaxTooLarge.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponseTmaxTooLarge.json; sourceTree = "<group>"; };
 		F543D531220E193200F1EF8F /* noBidResponseNoTmax.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noBidResponseNoTmax.json; sourceTree = "<group>"; };
 		FA12E517231FCD1400CAA05B /* BidManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BidManager.swift; sourceTree = "<group>"; };
-		FA29A3F2232255DF00F13F61 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA4A88432497A99D00FDCBB6 /* Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swizzling.swift; sourceTree = "<group>"; };
 		FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTest.swift; sourceTree = "<group>"; };
 		FA5C30BA22E5E86900DA23C4 /* AdViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewUtils.swift; sourceTree = "<group>"; };
@@ -263,13 +223,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		60D792F8217E229B0080F428 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FA29A3E9232255DF00F13F61 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -340,7 +293,6 @@
 			isa = PBXGroup;
 			children = (
 				60D792FB217E229B0080F428 /* PrebidMobileTests.xctest */,
-				FA29A3F2232255DF00F13F61 /* PrebidMobile.framework */,
 				FAAA00BD2322733E009DC7D6 /* PrebidMobile.framework */,
 			);
 			name = Products;
@@ -539,14 +491,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		FA29A3EC232255DF00F13F61 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FA282DE22327B4D600C9D477 /* PrebidMobile.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		FAAA00B82322733E009DC7D6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -575,24 +519,6 @@
 			productName = PrebidMobileTests;
 			productReference = 60D792FB217E229B0080F428 /* PrebidMobileTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		FA29A3D2232255DF00F13F61 /* PrebidMobileCore */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FA29A3EF232255DF00F13F61 /* Build configuration list for PBXNativeTarget "PrebidMobileCore" */;
-			buildPhases = (
-				FA29A3EC232255DF00F13F61 /* Headers */,
-				FA29A3D4232255DF00F13F61 /* Sources */,
-				FA29A3E9232255DF00F13F61 /* Frameworks */,
-				FA29A3EE232255DF00F13F61 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = PrebidMobileCore;
-			productName = PrebidMobile;
-			productReference = FA29A3F2232255DF00F13F61 /* PrebidMobile.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 		FAAA00BC2322733E009DC7D6 /* PrebidMobile */ = {
 			isa = PBXNativeTarget;
@@ -646,7 +572,6 @@
 			targets = (
 				FAAA00BC2322733E009DC7D6 /* PrebidMobile */,
 				60D792FA217E229B0080F428 /* PrebidMobileTests */,
-				FA29A3D2232255DF00F13F61 /* PrebidMobileCore */,
 			);
 		};
 /* End PBXProject section */
@@ -674,13 +599,6 @@
 				FA7C3EB5225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json in Resources */,
 				380D2E5B2577A3C400507B76 /* NativeAd.json in Resources */,
 				FA7C3EB9225E518000D2F128 /* noBidResponseRubicon.json in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FA29A3EE232255DF00F13F61 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,51 +651,6 @@
 				FAEBF2A2237ECFEF006BA972 /* StorageUtilsTests.swift in Sources */,
 				FAA299122434C769002ACBF2 /* UtilsObjCTests.m in Sources */,
 				60D79301217E229B0080F428 /* PrebidMobileTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FA29A3D4232255DF00F13F61 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FCE4276E2550436F00C95FAD /* NativeAd.swift in Sources */,
-				FAEBF2A0237EC7B1006BA972 /* StorageUtils.swift in Sources */,
-				380188F0255551890089CA84 /* TrackerManager.swift in Sources */,
-				FA29A3D5232255DF00F13F61 /* Reachability.swift in Sources */,
-				FA29A3D6232255DF00F13F61 /* BidManager.swift in Sources */,
-				FA29A3D7232255DF00F13F61 /* Dispatcher.swift in Sources */,
-				380188E8255402F10089CA84 /* NativeAdEventDelegate.swift in Sources */,
-				380188F32555588B0089CA84 /* TrackerInfo.swift in Sources */,
-				FA0AA1A623797413004B7A44 /* NativeRequest.swift in Sources */,
-				FAD4D544235DCCAB00140012 /* VideoAdUnit.swift in Sources */,
-				FA29A3D9232255DF00F13F61 /* RequestBuilder.swift in Sources */,
-				FA0AA1A723797433004B7A44 /* NativeAsset.swift in Sources */,
-				FA29A3DA232255DF00F13F61 /* AdViewUtils.swift in Sources */,
-				FA29A3DB232255DF00F13F61 /* CollectionExtension.swift in Sources */,
-				FA29A3DD232255DF00F13F61 /* ResultCode.swift in Sources */,
-				FA29A3DE232255DF00F13F61 /* PbFindSizeError.swift in Sources */,
-				FA29A3DF232255DF00F13F61 /* AdUnit.swift in Sources */,
-				FA29A3E0232255DF00F13F61 /* BannerAdUnit.swift in Sources */,
-				FA29A3E1232255DF00F13F61 /* Utils.swift in Sources */,
-				FA29A3E2232255DF00F13F61 /* Targeting.swift in Sources */,
-				FA495E792326F50500894166 /* Prebid.swift in Sources */,
-				3868489F2551712800234314 /* CacheManager.swift in Sources */,
-				FAAB5F9823B9F73B001715A7 /* RewardedVideoAdUnit.swift in Sources */,
-				FA29A3E3232255DF00F13F61 /* Global.swift in Sources */,
-				FA29A3E4232255DF00F13F61 /* BidResponse.swift in Sources */,
-				FA29A3E5232255DF00F13F61 /* InterstitialAdUnit.swift in Sources */,
-				380188ED255432820089CA84 /* UIViewExtension.swift in Sources */,
-				CEEA4531240FCBEF0003CDE7 /* VideoBaseAdUnit.swift in Sources */,
-				FA0AA1A823797435004B7A44 /* NativeEventTracker.swift in Sources */,
-				FA29A3E6232255DF00F13F61 /* Host.swift in Sources */,
-				FA29A3E7232255DF00F13F61 /* Constants.swift in Sources */,
-				3857FFF225F65F6A00D1EEBE /* ExternalUserId.swift in Sources */,
-				FAD4D547235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */,
-				FA29A3E8232255DF00F13F61 /* Logging.swift in Sources */,
-				FAE17D59242A29AC0052719A /* Signals.swift in Sources */,
-				FAEE4BD8262DB05800AD9966 /* IMAUtils.swift in Sources */,
-				FAD9527C241BA30800A03AB6 /* BannerBaseAdUnit.swift in Sources */,
-				FCE42774255043A600C95FAD /* NativeAdDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1009,56 +882,6 @@
 			};
 			name = Release;
 		};
-		FA29A3F0232255DF00F13F61 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.11;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		FA29A3F1232255DF00F13F61 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.11;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		FAAA00C32322733E009DC7D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1134,15 +957,6 @@
 			buildConfigurations = (
 				60D7930A217E229B0080F428 /* Debug */,
 				60D7930B217E229B0080F428 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FA29A3EF232255DF00F13F61 /* Build configuration list for PBXNativeTarget "PrebidMobileCore" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FA29A3F0232255DF00F13F61 /* Debug */,
-				FA29A3F1232255DF00F13F61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
