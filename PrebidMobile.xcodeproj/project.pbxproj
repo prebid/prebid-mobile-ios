@@ -88,7 +88,6 @@
 		FA29A3E8232255DF00F13F61 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6062B1A321835DF300CE1BA3 /* Logging.swift */; };
 		FA495E792326F50500894166 /* Prebid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D7930C217E23F90080F428 /* Prebid.swift */; };
 		FA495E7A2326F50B00894166 /* Targeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D79315217E39D90080F428 /* Targeting.swift */; };
-		FA4A88442497A99D00FDCBB6 /* Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4A88432497A99D00FDCBB6 /* Swizzling.swift */; };
 		FA5AD5E42271FA4100C8F274 /* ConstantsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */; };
 		FA7C3EB5225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB4225E464300D2F128 /* PrebidServerOneBidFromAppNexusOneBidFromRubicon.json */; };
 		FA7C3EB7225E4C2200D2F128 /* responseRubiconPBM.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7C3EB6225E4C2200D2F128 /* responseRubiconPBM.json */; };
@@ -134,6 +133,7 @@
 		FAEBF29F237EC7B1006BA972 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */; };
 		FAEBF2A0237EC7B1006BA972 /* StorageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF29E237EC7B1006BA972 /* StorageUtils.swift */; };
 		FAEBF2A2237ECFEF006BA972 /* StorageUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBF2A1237ECFEF006BA972 /* StorageUtilsTests.swift */; };
+		FAEE4BD8262DB05800AD9966 /* IMAUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BB98D6254B241D00D94C12 /* IMAUtils.swift */; };
 		FCE4276D255042A800C95FAD /* NativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE4276C255042A800C95FAD /* NativeAd.swift */; };
 		FCE4276E2550436F00C95FAD /* NativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE4276C255042A800C95FAD /* NativeAd.swift */; };
 		FCE42773255043A600C95FAD /* NativeAdDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE42772255043A600C95FAD /* NativeAdDelegate.swift */; };
@@ -775,6 +775,7 @@
 				FAD4D547235DCCCF00140012 /* VideoInterstitialAdUnit.swift in Sources */,
 				FA29A3E8232255DF00F13F61 /* Logging.swift in Sources */,
 				FAE17D59242A29AC0052719A /* Signals.swift in Sources */,
+				FAEE4BD8262DB05800AD9966 /* IMAUtils.swift in Sources */,
 				FAD9527C241BA30800A03AB6 /* BannerBaseAdUnit.swift in Sources */,
 				FCE42774255043A600C95FAD /* NativeAdDelegate.swift in Sources */,
 			);
@@ -788,7 +789,6 @@
 				FAEBF29F237EC7B1006BA972 /* StorageUtils.swift in Sources */,
 				FCE42773255043A600C95FAD /* NativeAdDelegate.swift in Sources */,
 				FAAA00D223227F5B009DC7D6 /* Global.swift in Sources */,
-				FA4A88442497A99D00FDCBB6 /* Swizzling.swift in Sources */,
 				3868489E2551712800234314 /* CacheManager.swift in Sources */,
 				380188EC255432820089CA84 /* UIViewExtension.swift in Sources */,
 				FAAA00D823227F5B009DC7D6 /* CollectionExtension.swift in Sources */,
