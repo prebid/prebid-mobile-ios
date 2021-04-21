@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 workspace 'PrebidMobile'
 
@@ -35,4 +35,11 @@ target 'Dr.Prebid' do
   project 'tools/PrebidValidator/Dr.Prebid.xcodeproj'
   
   prebid_demo_pods
+end
+
+target 'PrebidDemoTemp' do
+  project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
+  
+#  pod 'PrebidMobile', :path => '/Users/alex/Desktop/GL/RubiconProject/Prebid/ios/SDKPrebid/contributing.0/prebid-mobile-ios/PrebidMobile.podspec'
+pod 'PrebidMobileAdditional', :path => '/Users/alex/Desktop/GL/RubiconProject/Prebid/ios/SDKPrebid/contributing.0/prebid-mobile-ios/PrebidMobileAdditional.podspec'
 end

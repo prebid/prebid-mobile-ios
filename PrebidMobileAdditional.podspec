@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 
-  s.name         = "PrebidMobile"
+  s.name         = "PrebidMobileAdditional"
   s.version      = "1.11"
   s.summary      = "PrebidMobile is a lightweight framework that integrates directly with Prebid Server."
 
@@ -41,11 +41,7 @@ Pod::Spec.new do |s|
 }
   s.framework  = ['CoreTelephony', 'SystemConfiguration', 'UIKit', 'Foundation']
 
-  # Support previous intagration
-  s.default_subspec = 'core'
+  s.dependency 'PrebidMobile', '1.11'
 
-  s.subspec 'core' do |core|
-    core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
-  end
-
+  s.source_files = 'PrebidMobileAdditional/**/*.{h,m,swift}'
 end
