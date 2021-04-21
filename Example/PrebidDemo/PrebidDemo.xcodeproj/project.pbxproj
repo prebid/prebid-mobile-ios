@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -51,6 +51,16 @@
 		FA7E5530239E87FA0063B028 /* RewardedVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */; };
 		FAC9E216232800DB00113B04 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; };
 		FAC9E217232800DB00113B04 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FAEE4E3C262ECE6900AD9966 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4E3B262ECE6900AD9966 /* AppDelegate.swift */; };
+		FAEE4E3E262ECE6900AD9966 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4E3D262ECE6900AD9966 /* SceneDelegate.swift */; };
+		FAEE4E40262ECE6900AD9966 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4E3F262ECE6900AD9966 /* ViewController.swift */; };
+		FAEE4E43262ECE6900AD9966 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEE4E41262ECE6900AD9966 /* Main.storyboard */; };
+		FAEE4E45262ECE6B00AD9966 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAEE4E44262ECE6B00AD9966 /* Assets.xcassets */; };
+		FAEE4E48262ECE6B00AD9966 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEE4E46262ECE6B00AD9966 /* LaunchScreen.storyboard */; };
+		FAEE5090263075D700AD9966 /* XCPrebidMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEE508F263075D700AD9966 /* XCPrebidMobile.xcframework */; };
+		FAEE5091263075D700AD9966 /* XCPrebidMobile.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAEE508F263075D700AD9966 /* XCPrebidMobile.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FAEE5095263075DA00AD9966 /* XCPrebidMobileAdditional.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAEE5094263075DA00AD9966 /* XCPrebidMobileAdditional.xcframework */; };
+		FAEE5096263075DA00AD9966 /* XCPrebidMobileAdditional.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAEE5094263075DA00AD9966 /* XCPrebidMobileAdditional.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,19 +92,26 @@
 			remoteGlobalIDString = FAAA00BC2322733E009DC7D6;
 			remoteInfo = PrebidMobile;
 		};
-		FA851C3523266408004DB172 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FA12E472231E9DAA00CAA05B /* PrebidMobile.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FA29A3F2232255DF00F13F61;
-			remoteInfo = PrebidMobileCore;
-		};
 		FAC9E218232800DB00113B04 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FA12E472231E9DAA00CAA05B /* PrebidMobile.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = FAAA00BC2322733E009DC7D6;
 			remoteInfo = PrebidMobile;
+		};
+		FAEE4E4E262ECE6B00AD9966 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA12E472231E9DAA00CAA05B /* PrebidMobile.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FAEE4E20262ECD2300AD9966;
+			remoteInfo = PrebidMobileAdditional;
+		};
+		FAEE4E82262ED15000AD9966 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA12E472231E9DAA00CAA05B /* PrebidMobile.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FAEE4E6B262ECFA300AD9966;
+			remoteInfo = PrebidMobileAdditional2;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -117,6 +134,18 @@
 			dstSubfolderSpec = 10;
 			files = (
 				FAC9E217232800DB00113B04 /* PrebidMobile.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAEE5092263075D700AD9966 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FAEE5091263075D700AD9966 /* XCPrebidMobile.xcframework in Embed Frameworks */,
+				FAEE5096263075DA00AD9966 /* XCPrebidMobileAdditional.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,6 +226,16 @@
 		FA12E50E231EBC8E00CAA05B /* PrebidNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidNavigationController.h; sourceTree = "<group>"; };
 		FA12E510231EBC8E00CAA05B /* PrebidNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidNavigationController.m; sourceTree = "<group>"; };
 		FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedVideoController.swift; sourceTree = "<group>"; };
+		FAEE4E39262ECE6900AD9966 /* PrebidDemoTemp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidDemoTemp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAEE4E3B262ECE6900AD9966 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FAEE4E3D262ECE6900AD9966 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		FAEE4E3F262ECE6900AD9966 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FAEE4E42262ECE6900AD9966 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FAEE4E44262ECE6B00AD9966 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FAEE4E47262ECE6B00AD9966 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FAEE4E49262ECE6B00AD9966 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAEE508F263075D700AD9966 /* XCPrebidMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = XCPrebidMobile.xcframework; path = ../../generated/output/XCPrebidMobile.xcframework; sourceTree = "<group>"; };
+		FAEE5094263075DA00AD9966 /* XCPrebidMobileAdditional.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = XCPrebidMobileAdditional.xcframework; path = ../../generated/output/XCPrebidMobileAdditional.xcframework; sourceTree = "<group>"; };
 		FE42FA136DE4051164482E98 /* Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod-PrebidDemoPodTests/Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig"; sourceTree = "<group>"; };
 		FF998B08BBD628EE19A4C031 /* Pods-PrebidDemoSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwiftTests/Pods-PrebidDemoSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -225,6 +264,15 @@
 			files = (
 				FA282EAB2327EC2800C9D477 /* PrebidMobile.framework in Frameworks */,
 				C7A1F0B942F152B467C71A70 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAEE4E36262ECE6900AD9966 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAEE5090263075D700AD9966 /* XCPrebidMobile.xcframework in Frameworks */,
+				FAEE5095263075DA00AD9966 /* XCPrebidMobileAdditional.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +376,8 @@
 		99D7F73A394177471348CDD1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAEE5094263075DA00AD9966 /* XCPrebidMobileAdditional.xcframework */,
+				FAEE508F263075D700AD9966 /* XCPrebidMobile.xcframework */,
 				0B64CCFCC9D513DEAA95A372 /* Pods_PrebidDemoObjectiveC.framework */,
 				AF90F6986E7080A5ED825D44 /* Pods_PrebidDemoPodCoreTests.framework */,
 				CCB7672FEF160D36049C2D3D /* Pods_PrebidDemoPodTests.framework */,
@@ -344,6 +394,7 @@
 				FA12E4B5231EB04100CAA05B /* PrebidDemoSwift */,
 				FA12E4F7231EB99D00CAA05B /* PrebidDemoObjectiveC */,
 				FA12E4E7231EB52D00CAA05B /* PrebidDemoTests */,
+				FAEE4E3A262ECE6900AD9966 /* PrebidDemoTemp */,
 				FA12E45C231E9C5900CAA05B /* Products */,
 				464FE826217632CAB58ABF2E /* Pods */,
 				99D7F73A394177471348CDD1 /* Frameworks */,
@@ -356,6 +407,7 @@
 				FA12E4B4231EB04100CAA05B /* PrebidDemoSwift.app */,
 				FA12E4E6231EB52D00CAA05B /* PrebidDemoTests.xctest */,
 				FA12E4F6231EB99D00CAA05B /* PrebidDemoObjectiveC.app */,
+				FAEE4E39262ECE6900AD9966 /* PrebidDemoTemp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -365,7 +417,8 @@
 			children = (
 				FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */,
 				FA12E47A231E9DAA00CAA05B /* PrebidMobileTests.xctest */,
-				FA851C3623266408004DB172 /* PrebidMobile.framework */,
+				FAEE4E4F262ECE6B00AD9966 /* PrebidMobileAdditional.framework */,
+				FAEE4E83262ED15000AD9966 /* PrebidMobileAdditional2.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -418,6 +471,20 @@
 				FA12E507231EB99E00CAA05B /* main.m */,
 			);
 			path = PrebidDemoObjectiveC;
+			sourceTree = "<group>";
+		};
+		FAEE4E3A262ECE6900AD9966 /* PrebidDemoTemp */ = {
+			isa = PBXGroup;
+			children = (
+				FAEE4E3B262ECE6900AD9966 /* AppDelegate.swift */,
+				FAEE4E3D262ECE6900AD9966 /* SceneDelegate.swift */,
+				FAEE4E3F262ECE6900AD9966 /* ViewController.swift */,
+				FAEE4E41262ECE6900AD9966 /* Main.storyboard */,
+				FAEE4E44262ECE6B00AD9966 /* Assets.xcassets */,
+				FAEE4E46262ECE6B00AD9966 /* LaunchScreen.storyboard */,
+				FAEE4E49262ECE6B00AD9966 /* Info.plist */,
+			);
+			path = PrebidDemoTemp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -484,13 +551,31 @@
 			productReference = FA12E4F6231EB99D00CAA05B /* PrebidDemoObjectiveC.app */;
 			productType = "com.apple.product-type.application";
 		};
+		FAEE4E38262ECE6900AD9966 /* PrebidDemoTemp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FAEE4E50262ECE6B00AD9966 /* Build configuration list for PBXNativeTarget "PrebidDemoTemp" */;
+			buildPhases = (
+				FAEE4E35262ECE6900AD9966 /* Sources */,
+				FAEE4E36262ECE6900AD9966 /* Frameworks */,
+				FAEE4E37262ECE6900AD9966 /* Resources */,
+				FAEE5092263075D700AD9966 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PrebidDemoTemp;
+			productName = PrebidDemoTemp;
+			productReference = FAEE4E39262ECE6900AD9966 /* PrebidDemoTemp.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		FA12E453231E9C5900CAA05B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
+				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Prebid;
 				TargetAttributes = {
@@ -504,6 +589,9 @@
 					FA12E4F5231EB99D00CAA05B = {
 						CreatedOnToolsVersion = 10.2.1;
 						LastSwiftMigration = 1170;
+					};
+					FAEE4E38262ECE6900AD9966 = {
+						CreatedOnToolsVersion = 12.4;
 					};
 				};
 			};
@@ -529,6 +617,7 @@
 				FA12E4B3231EB04100CAA05B /* PrebidDemoSwift */,
 				FA12E4F5231EB99D00CAA05B /* PrebidDemoObjectiveC */,
 				FA12E4E5231EB52D00CAA05B /* PrebidDemoTests */,
+				FAEE4E38262ECE6900AD9966 /* PrebidDemoTemp */,
 			);
 		};
 /* End PBXProject section */
@@ -548,11 +637,18 @@
 			remoteRef = FA12E479231E9DAA00CAA05B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		FA851C3623266408004DB172 /* PrebidMobile.framework */ = {
+		FAEE4E4F262ECE6B00AD9966 /* PrebidMobileAdditional.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = PrebidMobile.framework;
-			remoteRef = FA851C3523266408004DB172 /* PBXContainerItemProxy */;
+			path = PrebidMobileAdditional.framework;
+			remoteRef = FAEE4E4E262ECE6B00AD9966 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FAEE4E83262ED15000AD9966 /* PrebidMobileAdditional2.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = PrebidMobileAdditional2.framework;
+			remoteRef = FAEE4E82262ED15000AD9966 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -588,6 +684,16 @@
 				FA12E502231EB99E00CAA05B /* Assets.xcassets in Resources */,
 				3801890A255AC5560089CA84 /* NativeAdView.xib in Resources */,
 				FA12E500231EB99D00CAA05B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FAEE4E37262ECE6900AD9966 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAEE4E48262ECE6B00AD9966 /* LaunchScreen.storyboard in Resources */,
+				FAEE4E45262ECE6B00AD9966 /* Assets.xcassets in Resources */,
+				FAEE4E43262ECE6900AD9966 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,6 +849,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FAEE4E35262ECE6900AD9966 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAEE4E40262ECE6900AD9966 /* ViewController.swift in Sources */,
+				FAEE4E3C262ECE6900AD9966 /* AppDelegate.swift in Sources */,
+				FAEE4E3E262ECE6900AD9966 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -792,6 +908,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA12E504231EB99E00CAA05B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		FAEE4E41262ECE6900AD9966 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FAEE4E42262ECE6900AD9966 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FAEE4E46262ECE6B00AD9966 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FAEE4E47262ECE6B00AD9966 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1046,6 +1178,46 @@
 			};
 			name = Release;
 		};
+		FAEE4E4A262ECE6B00AD9966 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PrebidDemoTemp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.PrebidDemoTemp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FAEE4E4B262ECE6B00AD9966 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PrebidDemoTemp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.PrebidDemoTemp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1081,6 +1253,15 @@
 			buildConfigurations = (
 				FA12E509231EB99E00CAA05B /* Debug */,
 				FA12E50A231EB99E00CAA05B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FAEE4E50262ECE6B00AD9966 /* Build configuration list for PBXNativeTarget "PrebidDemoTemp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FAEE4E4A262ECE6B00AD9966 /* Debug */,
+				FAEE4E4B262ECE6B00AD9966 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

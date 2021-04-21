@@ -30,7 +30,8 @@ Pod::Spec.new do |s|
   s.author             = { "Prebid.org, Inc." => "info@prebid.org" }
   s.platform     = :ios, "10.0"
   s.swift_version = '5.0'
-  s.source       = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
+  # s.source       = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
+  s.source = { :git => '/Users/alex/Desktop/GL/RubiconProject/Prebid/ios/SDKPrebid/contributing.0/prebid-mobile-ios/', :tag => "feature/rearch_modularization" }
   s.xcconfig = {
 :LIBRARY_SEARCH_PATHS => '$(inherited)',
 :OTHER_CFLAGS => '$(inherited)',
@@ -40,8 +41,14 @@ Pod::Spec.new do |s|
 }
   s.framework  = ['CoreTelephony', 'SystemConfiguration', 'UIKit', 'Foundation']
 
+  s.default_subspec = 'core'
+
   s.subspec 'core' do |core|
-    core.source_files = 'Source/**/*.{h,m,swift}'
+    core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
+  end
+
+  s.subspec 'additional' do |additional|
+    additional.source_files = 'PrebidMobileAdditional/**/*.{h,m,swift}'
   end
 
 end
