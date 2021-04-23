@@ -47,18 +47,12 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
-  - PrebidMobile (1.11):
-    - PrebidMobile/core (= 1.11)
-  - PrebidMobile/core (1.11)
-  - PrebidMobileAdditional (1.11):
-    - PrebidMobile (= 1.11)
   - PromisesObjC (1.2.12)
 
 DEPENDENCIES:
   - Google-Mobile-Ads-SDK
   - GoogleAds-IMA-iOS-SDK
   - mopub-ios-sdk
-  - PrebidMobileAdditional (from `/Users/alex/Desktop/GL/RubiconProject/Prebid/ios/SDKPrebid/contributing.0/prebid-mobile-ios/PrebidMobileAdditional.podspec`)
 
 SPEC REPOS:
   trunk:
@@ -69,12 +63,7 @@ SPEC REPOS:
     - GoogleUtilities
     - mopub-ios-sdk
     - nanopb
-    - PrebidMobile
     - PromisesObjC
-
-EXTERNAL SOURCES:
-  PrebidMobileAdditional:
-    :path: "/Users/alex/Desktop/GL/RubiconProject/Prebid/ios/SDKPrebid/contributing.0/prebid-mobile-ios/PrebidMobileAdditional.podspec"
 
 SPEC CHECKSUMS:
   Google-Mobile-Ads-SDK: 093c3bf0aed3b7d1b8707221a15e3b6634f92dec
@@ -84,10 +73,8 @@ SPEC CHECKSUMS:
   GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
   mopub-ios-sdk: ce5aa12abe59d42cb8866b1297bdff7b6a42e273
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
-  PrebidMobile: 7e653f8fc521be2f235058930b6c992e4b6161aa
-  PrebidMobileAdditional: 35ad4bc4d95fe968594684fdbb70ade741cf4e93
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
 
-PODFILE CHECKSUM: c4edfc42a6b050f2eb2bb2b3dd8ec76b0f3f4ec0
+PODFILE CHECKSUM: a3fe970d56a5290ff851d401bce7b59615513d01
 
 COCOAPODS: 1.10.1

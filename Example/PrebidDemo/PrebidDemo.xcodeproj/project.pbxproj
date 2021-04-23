@@ -28,7 +28,6 @@
 		3884A0EA258CD0F1005D0163 /* NativeAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 3884A0E7258CD0F1005D0163 /* NativeAdResponse.json */; };
 		6069716C25224655000EE732 /* InstreamVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6069716B25224655000EE732 /* InstreamVideoViewController.swift */; };
 		609C52C32395F17F001FA5BD /* NativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609C52C22395F17F001FA5BD /* NativeViewController.swift */; };
-		955ED4FA71B18622882E46FE /* libPods-PrebidDemoTemp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9D0FB3FB82797198388ED55 /* libPods-PrebidDemoTemp.a */; };
 		C7A1F0B942F152B467C71A70 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B64CCFCC9D513DEAA95A372 /* Pods_PrebidDemoObjectiveC.framework */; };
 		DADFB9F410588613B69275BC /* Pods_PrebidDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5976732304BFCF6E222040EE /* Pods_PrebidDemoTests.framework */; };
 		FA12E4B7231EB04100CAA05B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E4B6231EB04100CAA05B /* AppDelegate.swift */; };
@@ -177,16 +176,13 @@
 		71D584CFFA6132CB2B6B74A6 /* Pods-PrebidDemoObjectiveC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoObjectiveC.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoObjectiveC/Pods-PrebidDemoObjectiveC.debug.xcconfig"; sourceTree = "<group>"; };
 		725E7FE27DFBC5E532A78D55 /* Pods-PrebidDemoObjectiveC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoObjectiveC.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoObjectiveC/Pods-PrebidDemoObjectiveC.release.xcconfig"; sourceTree = "<group>"; };
 		77A5CA8BEA1E8A52B2345013 /* Pods-PrebidDemoPodCoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPodCoreTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPodCoreTests/Pods-PrebidDemoPodCoreTests.release.xcconfig"; sourceTree = "<group>"; };
-		8683A9DAF2A1CFC1BE2C5763 /* Pods-PrebidDemoTemp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoTemp.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoTemp/Pods-PrebidDemoTemp.release.xcconfig"; sourceTree = "<group>"; };
 		9818E214AF5A142F667B1692 /* Pods-PrebidDemoPod-PrebidDemoPodCoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod-PrebidDemoPodCoreTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod-PrebidDemoPodCoreTests/Pods-PrebidDemoPod-PrebidDemoPodCoreTests.release.xcconfig"; sourceTree = "<group>"; };
 		A37D8539AD93B0EDA6D8CA6F /* Pods-PrebidDemoPod-PrebidDemoPodCoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod-PrebidDemoPodCoreTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod-PrebidDemoPodCoreTests/Pods-PrebidDemoPod-PrebidDemoPodCoreTests.debug.xcconfig"; sourceTree = "<group>"; };
-		ACDFAD5D5E9C2E98E2B42710 /* Pods-PrebidDemoTemp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoTemp.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoTemp/Pods-PrebidDemoTemp.debug.xcconfig"; sourceTree = "<group>"; };
 		AF90F6986E7080A5ED825D44 /* Pods_PrebidDemoPodCoreTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoPodCoreTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA2C237381964CC29C2EC365 /* Pods-PrebidDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoTests/Pods-PrebidDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		BF0177D90B948D57DD24AEB9 /* Pods_PrebidDemoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCB7672FEF160D36049C2D3D /* Pods_PrebidDemoPodTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoPodTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D901AB4B1A61718B9CE81816 /* Pods-PrebidDemoPod.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod/Pods-PrebidDemoPod.release.xcconfig"; sourceTree = "<group>"; };
-		F9D0FB3FB82797198388ED55 /* libPods-PrebidDemoTemp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrebidDemoTemp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA12E472231E9DAA00CAA05B /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../PrebidMobile.xcodeproj; sourceTree = "<group>"; };
 		FA12E4B4231EB04100CAA05B /* PrebidDemoSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidDemoSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA12E4B6231EB04100CAA05B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -259,7 +255,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				955ED4FA71B18622882E46FE /* libPods-PrebidDemoTemp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,8 +350,6 @@
 				77A5CA8BEA1E8A52B2345013 /* Pods-PrebidDemoPodCoreTests.release.xcconfig */,
 				5CA527E4B4E05598C6D7B462 /* Pods-PrebidDemoTests.debug.xcconfig */,
 				BA2C237381964CC29C2EC365 /* Pods-PrebidDemoTests.release.xcconfig */,
-				ACDFAD5D5E9C2E98E2B42710 /* Pods-PrebidDemoTemp.debug.xcconfig */,
-				8683A9DAF2A1CFC1BE2C5763 /* Pods-PrebidDemoTemp.release.xcconfig */,
 			);
 			name = Pods;
 			path = ../../Pods;
@@ -372,7 +365,6 @@
 				CCB7672FEF160D36049C2D3D /* Pods_PrebidDemoPodTests.framework */,
 				BF0177D90B948D57DD24AEB9 /* Pods_PrebidDemoSwift.framework */,
 				5976732304BFCF6E222040EE /* Pods_PrebidDemoTests.framework */,
-				F9D0FB3FB82797198388ED55 /* libPods-PrebidDemoTemp.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -545,7 +537,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAEE4E50262ECE6B00AD9966 /* Build configuration list for PBXNativeTarget "PrebidDemoTemp" */;
 			buildPhases = (
-				7C29AFE4898AF6C939A72FD0 /* [CP] Check Pods Manifest.lock */,
 				FAEE4E35262ECE6900AD9966 /* Sources */,
 				FAEE4E36262ECE6900AD9966 /* Frameworks */,
 				FAEE4E37262ECE6900AD9966 /* Resources */,
@@ -705,28 +696,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7C29AFE4898AF6C939A72FD0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PrebidDemoTemp-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8F2BB7DE6F598C4B8C1369A7 /* [CP] Check Pods Manifest.lock */ = {
@@ -1192,7 +1161,6 @@
 		};
 		FAEE4E4A262ECE6B00AD9966 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ACDFAD5D5E9C2E98E2B42710 /* Pods-PrebidDemoTemp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1213,7 +1181,6 @@
 		};
 		FAEE4E4B262ECE6B00AD9966 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8683A9DAF2A1CFC1BE2C5763 /* Pods-PrebidDemoTemp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
