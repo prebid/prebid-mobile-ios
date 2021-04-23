@@ -35,7 +35,8 @@ let package = Package(
     targets: [
         .target(
             name: "PrebidMobile",
-            path: "PrebidMobile"
+            path: "PrebidMobile",
+            publicHeadersPath: "PrebidMobile/PrebidMobile.h"
         ),
         
         .target(
