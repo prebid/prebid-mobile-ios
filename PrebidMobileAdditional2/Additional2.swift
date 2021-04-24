@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import UIKit
 
 public class Additional {
     public static func foo() {
-        
+        let l = CGSize()
     }
 }

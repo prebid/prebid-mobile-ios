@@ -9,7 +9,6 @@ let package = Package(
 
     name: "PrebidMobile",
 
-    //Supported platforms
     platforms: [
         .iOS(.v10)
     ],
@@ -17,13 +16,13 @@ let package = Package(
     //Product list - executable binary
     products: [
         
-        .library(
-            name: "PrebidMobile",
-            targets: ["PrebidMobile"]),
-
-        .library(
-            name: "PrebidMobileAdditional",
-            targets: ["PrebidMobileAdditional"]),
+//        .library(
+//            name: "PrebidMobile",
+//            targets: ["PrebidMobile"]),
+//
+//        .library(
+//            name: "PrebidMobileAdditional",
+//            targets: ["PrebidMobileAdditional"]),
 
         .library(
             name: "PrebidMobileAdditional2",
@@ -35,8 +34,7 @@ let package = Package(
     targets: [
         .target(
             name: "PrebidMobile",
-            path: "PrebidMobile",
-            publicHeadersPath: "."
+            path: "PrebidMobile"
         ),
         
         .target(
@@ -49,11 +47,10 @@ let package = Package(
         
         .target(
             name: "PrebidMobileAdditional2",
-            dependencies: [
-                "PrebidMobile"
-            ],
             path: "PrebidMobileAdditional2"
         )
-    ]
+    ],
+    
+    swiftLanguageVersions: [.v5]
 
 )

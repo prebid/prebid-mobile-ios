@@ -121,13 +121,6 @@
 			remoteGlobalIDString = FAAA00BC2322733E009DC7D6;
 			remoteInfo = PrebidMobile;
 		};
-		FAEE4E7D262ED12E00AD9966 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 60D792E9217E229A0080F428 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FAAA00BC2322733E009DC7D6;
-			remoteInfo = PrebidMobile;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -650,7 +643,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				FAEE4E7E262ED12E00AD9966 /* PBXTargetDependency */,
 			);
 			name = PrebidMobileAdditional2;
 			productName = PrebidMobileAdditional2;
@@ -871,11 +863,6 @@
 			isa = PBXTargetDependency;
 			target = FAAA00BC2322733E009DC7D6 /* PrebidMobile */;
 			targetProxy = FAEE4E30262ECDEB00AD9966 /* PBXContainerItemProxy */;
-		};
-		FAEE4E7E262ED12E00AD9966 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FAAA00BC2322733E009DC7D6 /* PrebidMobile */;
-			targetProxy = FAEE4E7D262ED12E00AD9966 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
