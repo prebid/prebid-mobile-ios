@@ -31,7 +31,17 @@ let package = Package(
     targets: [
         .target(
             name: "PrebidMobile",
-            path: "PrebidMobile"
+
+            path: "PrebidMobile",
+            cSettings: [
+                   .unsafeFlags(["-emit-objc-header", "-emit-objc-header-path ./Headers/Greeter-Swift.h", "-emit-module-path ./Modules/"]),
+
+               ],
+            swiftSettings: [
+                   .unsafeFlags(["-emit-objc-header"]),
+
+               ]
+            
         ),
 
         .target(

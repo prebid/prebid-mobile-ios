@@ -100,10 +100,6 @@
 		FAEE4D2D262DC2B200AD9966 /* ResultCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4D05262DC2B200AD9966 /* ResultCode.swift */; };
 		FAEE4D2F262DC2B200AD9966 /* Targeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4D07262DC2B200AD9966 /* Targeting.swift */; };
 		FAEE4DBA262DCBB800AD9966 /* Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4A88432497A99D00FDCBB6 /* Swizzling.swift */; };
-		FAEE4E24262ECD2400AD9966 /* PrebidMobileAdditional.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEE4E22262ECD2300AD9966 /* PrebidMobileAdditional.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FAEE4E2C262ECDCA00AD9966 /* Additional.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4E2B262ECDCA00AD9966 /* Additional.swift */; };
-		FAEE4E6F262ECFA300AD9966 /* PrebidMobileAdditional2.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEE4E6D262ECFA300AD9966 /* PrebidMobileAdditional2.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FAEE4E78262ED09E00AD9966 /* Additional2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4E77262ED09E00AD9966 /* Additional2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -232,13 +228,7 @@
 		FAEE4D06262DC2B200AD9966 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAEE4D07262DC2B200AD9966 /* Targeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Targeting.swift; sourceTree = "<group>"; };
 		FAEE4E20262ECD2300AD9966 /* PrebidMobileAdditional.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobileAdditional.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAEE4E22262ECD2300AD9966 /* PrebidMobileAdditional.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMobileAdditional.h; sourceTree = "<group>"; };
-		FAEE4E23262ECD2400AD9966 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FAEE4E2B262ECDCA00AD9966 /* Additional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Additional.swift; sourceTree = "<group>"; };
 		FAEE4E6B262ECFA300AD9966 /* PrebidMobileAdditional2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobileAdditional2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAEE4E6D262ECFA300AD9966 /* PrebidMobileAdditional2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMobileAdditional2.h; sourceTree = "<group>"; };
-		FAEE4E6E262ECFA300AD9966 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FAEE4E77262ED09E00AD9966 /* Additional2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Additional2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -286,8 +276,6 @@
 			children = (
 				FAEE4CDC262DC2B200AD9966 /* PrebidMobile */,
 				FAEE4D8C262DC8CD00AD9966 /* PrebidMobileTests */,
-				FAEE4E21262ECD2300AD9966 /* PrebidMobileAdditional */,
-				FAEE4E6C262ECFA300AD9966 /* PrebidMobileAdditional2 */,
 				60D792F3217E229A0080F428 /* Products */,
 				6062B19A218243FA00CE1BA3 /* Frameworks */,
 				EE09B07119B6562CC4356195 /* Pods */,
@@ -526,26 +514,6 @@
 			path = PrebidMobileTests;
 			sourceTree = "<group>";
 		};
-		FAEE4E21262ECD2300AD9966 /* PrebidMobileAdditional */ = {
-			isa = PBXGroup;
-			children = (
-				FAEE4E22262ECD2300AD9966 /* PrebidMobileAdditional.h */,
-				FAEE4E23262ECD2400AD9966 /* Info.plist */,
-				FAEE4E2B262ECDCA00AD9966 /* Additional.swift */,
-			);
-			path = PrebidMobileAdditional;
-			sourceTree = "<group>";
-		};
-		FAEE4E6C262ECFA300AD9966 /* PrebidMobileAdditional2 */ = {
-			isa = PBXGroup;
-			children = (
-				FAEE4E6D262ECFA300AD9966 /* PrebidMobileAdditional2.h */,
-				FAEE4E6E262ECFA300AD9966 /* Info.plist */,
-				FAEE4E77262ED09E00AD9966 /* Additional2.swift */,
-			);
-			path = PrebidMobileAdditional2;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -561,7 +529,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAEE4E24262ECD2400AD9966 /* PrebidMobileAdditional.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,7 +536,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAEE4E6F262ECFA300AD9966 /* PrebidMobileAdditional2.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -839,7 +805,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAEE4E2C262ECDCA00AD9966 /* Additional.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,7 +812,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAEE4E78262ED09E00AD9966 /* Additional2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
