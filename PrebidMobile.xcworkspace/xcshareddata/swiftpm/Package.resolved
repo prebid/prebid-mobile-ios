@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "PrebidMobile",
+        "repositoryURL": "/Users/alex/Desktop/GL/RubiconProject/Prebid/ios/SDKPrebid/contributing.0/prebid-mobile-ios/",
+        "state": {
+          "branch": "feature/rearch_modularization",
+          "revision": "bdfe4de4ee5582b55385fb6f76bdbb6d71e4038a",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
