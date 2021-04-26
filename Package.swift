@@ -1,8 +1,6 @@
 // swift-tools-version:5.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
-
-
 import PackageDescription
 
 let package = Package(
@@ -13,16 +11,15 @@ let package = Package(
         .iOS(.v10)
     ],
     
-    //Product list - executable binary
     products: [
         
-//        .library(
-//            name: "PrebidMobile",
-//            targets: ["PrebidMobile"]),
-//
-//        .library(
-//            name: "PrebidMobileAdditional",
-//            targets: ["PrebidMobileAdditional"]),
+        .library(
+            name: "PrebidMobile",
+            targets: ["PrebidMobile"]),
+
+        .library(
+            name: "PrebidMobileAdditional",
+            targets: ["PrebidMobileAdditional"]),
 
         .library(
             name: "PrebidMobileAdditional2",
@@ -47,6 +44,9 @@ let package = Package(
         
         .target(
             name: "PrebidMobileAdditional2",
+            dependencies: [
+                "PrebidMobile"
+            ],
             path: "PrebidMobileAdditional2"
         )
     ],

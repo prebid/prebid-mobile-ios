@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import PrebidMobile
-import PrebidMobileAdditional
+//import PrebidMobile
+import PrebidMobileAdditional2
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let a = PrebidHost.Appnexus
+//        let a = PrebidHost.Appnexus
         Additional.foo()
         return true
     }

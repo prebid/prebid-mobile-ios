@@ -6,7 +6,6 @@
 //  Copyright © 2021 AppNexus. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 public class Additional {

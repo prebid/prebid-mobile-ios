@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 //! Project version number for PrebidMobileAdditional2.
 FOUNDATION_EXPORT double PrebidMobileAdditional2VersionNumber;

@@ -57,7 +57,7 @@
 		FAEE4E43262ECE6900AD9966 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEE4E41262ECE6900AD9966 /* Main.storyboard */; };
 		FAEE4E45262ECE6B00AD9966 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAEE4E44262ECE6B00AD9966 /* Assets.xcassets */; };
 		FAEE4E48262ECE6B00AD9966 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEE4E46262ECE6B00AD9966 /* LaunchScreen.storyboard */; };
-		FAEE521826332A4A00AD9966 /* PrebidMobile in Frameworks */ = {isa = PBXBuildFile; productRef = FAEE521726332A4A00AD9966 /* PrebidMobile */; };
+		FAEE525526348F8F00AD9966 /* PrebidMobileAdditional2 in Frameworks */ = {isa = PBXBuildFile; productRef = FAEE525426348F8F00AD9966 /* PrebidMobileAdditional2 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -256,7 +256,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAEE521826332A4A00AD9966 /* PrebidMobile in Frameworks */,
+				FAEE525526348F8F00AD9966 /* PrebidMobileAdditional2 in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,7 +549,7 @@
 			);
 			name = PrebidDemoTemp;
 			packageProductDependencies = (
-				FAEE521726332A4A00AD9966 /* PrebidMobile */,
+				FAEE525426348F8F00AD9966 /* PrebidMobileAdditional2 */,
 			);
 			productName = PrebidDemoTemp;
 			productReference = FAEE4E39262ECE6900AD9966 /* PrebidDemoTemp.app */;
@@ -1269,10 +1269,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FAEE521726332A4A00AD9966 /* PrebidMobile */ = {
+		FAEE525426348F8F00AD9966 /* PrebidMobileAdditional2 */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FAEE51E42633285700AD9966 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */;
-			productName = PrebidMobile;
+			productName = PrebidMobileAdditional2;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

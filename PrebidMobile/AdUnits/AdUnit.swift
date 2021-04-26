@@ -10,7 +10,7 @@
  limitations under the License.
  */
 
-import Foundation
+import UIKit
 import ObjectiveC.runtime
 
 @objcMembers public class AdUnit: NSObject, DispatcherDelegate {

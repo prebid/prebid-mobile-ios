@@ -13,7 +13,7 @@
  limitations under the License.
  */
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for PrebidMobile.
 FOUNDATION_EXPORT double PrebidMobileVersionNumber;
