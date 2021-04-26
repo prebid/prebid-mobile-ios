@@ -22,7 +22,7 @@ let package = Package(
             targets: ["PrebidMobileAdditional"]),
 
         .library(
-            name: "PrebidMobileAdditional2",
+            name: "SomeLibbraryName",
             targets: ["PrebidMobileAdditional2"])
         
             

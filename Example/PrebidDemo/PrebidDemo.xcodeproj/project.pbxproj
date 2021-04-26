@@ -48,16 +48,16 @@
 		FA12E511231EBC8E00CAA05B /* PrebidNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA12E510231EBC8E00CAA05B /* PrebidNavigationController.m */; };
 		FA282EAB2327EC2800C9D477 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; };
 		FA282EAC2327EC2800C9D477 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FA7997B22636E35B00B746EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7997B12636E35B00B746EF /* AppDelegate.swift */; };
+		FA7997B42636E35B00B746EF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7997B32636E35B00B746EF /* SceneDelegate.swift */; };
+		FA7997B62636E35B00B746EF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7997B52636E35B00B746EF /* ViewController.swift */; };
+		FA7997B92636E35B00B746EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA7997B72636E35B00B746EF /* Main.storyboard */; };
+		FA7997BB2636E35B00B746EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA7997BA2636E35B00B746EF /* Assets.xcassets */; };
+		FA7997BE2636E35B00B746EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA7997BC2636E35B00B746EF /* LaunchScreen.storyboard */; };
+		FA7997C62636E37300B746EF /* PrebidMobileAdditional in Frameworks */ = {isa = PBXBuildFile; productRef = FA7997C52636E37300B746EF /* PrebidMobileAdditional */; };
 		FA7E5530239E87FA0063B028 /* RewardedVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */; };
 		FAC9E216232800DB00113B04 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; };
 		FAC9E217232800DB00113B04 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FAEE4E3C262ECE6900AD9966 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4E3B262ECE6900AD9966 /* AppDelegate.swift */; };
-		FAEE4E3E262ECE6900AD9966 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4E3D262ECE6900AD9966 /* SceneDelegate.swift */; };
-		FAEE4E40262ECE6900AD9966 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4E3F262ECE6900AD9966 /* ViewController.swift */; };
-		FAEE4E43262ECE6900AD9966 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEE4E41262ECE6900AD9966 /* Main.storyboard */; };
-		FAEE4E45262ECE6B00AD9966 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAEE4E44262ECE6B00AD9966 /* Assets.xcassets */; };
-		FAEE4E48262ECE6B00AD9966 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEE4E46262ECE6B00AD9966 /* LaunchScreen.storyboard */; };
-		FAEE525526348F8F00AD9966 /* PrebidMobileAdditional2 in Frameworks */ = {isa = PBXBuildFile; productRef = FAEE525426348F8F00AD9966 /* PrebidMobileAdditional2 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,15 +210,15 @@
 		FA12E507231EB99E00CAA05B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FA12E50E231EBC8E00CAA05B /* PrebidNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidNavigationController.h; sourceTree = "<group>"; };
 		FA12E510231EBC8E00CAA05B /* PrebidNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidNavigationController.m; sourceTree = "<group>"; };
+		FA7997AF2636E35B00B746EF /* someApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = someApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA7997B12636E35B00B746EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FA7997B32636E35B00B746EF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		FA7997B52636E35B00B746EF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FA7997B82636E35B00B746EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FA7997BA2636E35B00B746EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA7997BD2636E35B00B746EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FA7997BF2636E35B00B746EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedVideoController.swift; sourceTree = "<group>"; };
-		FAEE4E39262ECE6900AD9966 /* PrebidDemoTemp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidDemoTemp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAEE4E3B262ECE6900AD9966 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FAEE4E3D262ECE6900AD9966 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FAEE4E3F262ECE6900AD9966 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		FAEE4E42262ECE6900AD9966 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		FAEE4E44262ECE6B00AD9966 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		FAEE4E47262ECE6B00AD9966 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		FAEE4E49262ECE6B00AD9966 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAEE508F263075D700AD9966 /* XCPrebidMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = XCPrebidMobile.xcframework; path = ../../generated/output/XCPrebidMobile.xcframework; sourceTree = "<group>"; };
 		FAEE5094263075DA00AD9966 /* XCPrebidMobileAdditional.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = XCPrebidMobileAdditional.xcframework; path = ../../generated/output/XCPrebidMobileAdditional.xcframework; sourceTree = "<group>"; };
 		FE42FA136DE4051164482E98 /* Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod-PrebidDemoPodTests/Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -252,11 +252,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FAEE4E36262ECE6900AD9966 /* Frameworks */ = {
+		FA7997AC2636E35B00B746EF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAEE525526348F8F00AD9966 /* PrebidMobileAdditional2 in Frameworks */,
+				FA7997C62636E37300B746EF /* PrebidMobileAdditional in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,7 +378,7 @@
 				FA12E4B5231EB04100CAA05B /* PrebidDemoSwift */,
 				FA12E4F7231EB99D00CAA05B /* PrebidDemoObjectiveC */,
 				FA12E4E7231EB52D00CAA05B /* PrebidDemoTests */,
-				FAEE4E3A262ECE6900AD9966 /* PrebidDemoTemp */,
+				FA7997B02636E35B00B746EF /* someApp */,
 				FA12E45C231E9C5900CAA05B /* Products */,
 				464FE826217632CAB58ABF2E /* Pods */,
 				99D7F73A394177471348CDD1 /* Frameworks */,
@@ -391,7 +391,7 @@
 				FA12E4B4231EB04100CAA05B /* PrebidDemoSwift.app */,
 				FA12E4E6231EB52D00CAA05B /* PrebidDemoTests.xctest */,
 				FA12E4F6231EB99D00CAA05B /* PrebidDemoObjectiveC.app */,
-				FAEE4E39262ECE6900AD9966 /* PrebidDemoTemp.app */,
+				FA7997AF2636E35B00B746EF /* someApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -457,18 +457,18 @@
 			path = PrebidDemoObjectiveC;
 			sourceTree = "<group>";
 		};
-		FAEE4E3A262ECE6900AD9966 /* PrebidDemoTemp */ = {
+		FA7997B02636E35B00B746EF /* someApp */ = {
 			isa = PBXGroup;
 			children = (
-				FAEE4E3B262ECE6900AD9966 /* AppDelegate.swift */,
-				FAEE4E3D262ECE6900AD9966 /* SceneDelegate.swift */,
-				FAEE4E3F262ECE6900AD9966 /* ViewController.swift */,
-				FAEE4E41262ECE6900AD9966 /* Main.storyboard */,
-				FAEE4E44262ECE6B00AD9966 /* Assets.xcassets */,
-				FAEE4E46262ECE6B00AD9966 /* LaunchScreen.storyboard */,
-				FAEE4E49262ECE6B00AD9966 /* Info.plist */,
+				FA7997B12636E35B00B746EF /* AppDelegate.swift */,
+				FA7997B32636E35B00B746EF /* SceneDelegate.swift */,
+				FA7997B52636E35B00B746EF /* ViewController.swift */,
+				FA7997B72636E35B00B746EF /* Main.storyboard */,
+				FA7997BA2636E35B00B746EF /* Assets.xcassets */,
+				FA7997BC2636E35B00B746EF /* LaunchScreen.storyboard */,
+				FA7997BF2636E35B00B746EF /* Info.plist */,
 			);
-			path = PrebidDemoTemp;
+			path = someApp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -535,24 +535,24 @@
 			productReference = FA12E4F6231EB99D00CAA05B /* PrebidDemoObjectiveC.app */;
 			productType = "com.apple.product-type.application";
 		};
-		FAEE4E38262ECE6900AD9966 /* PrebidDemoTemp */ = {
+		FA7997AE2636E35B00B746EF /* someApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FAEE4E50262ECE6B00AD9966 /* Build configuration list for PBXNativeTarget "PrebidDemoTemp" */;
+			buildConfigurationList = FA7997C02636E35B00B746EF /* Build configuration list for PBXNativeTarget "someApp" */;
 			buildPhases = (
-				FAEE4E35262ECE6900AD9966 /* Sources */,
-				FAEE4E36262ECE6900AD9966 /* Frameworks */,
-				FAEE4E37262ECE6900AD9966 /* Resources */,
+				FA7997AB2636E35B00B746EF /* Sources */,
+				FA7997AC2636E35B00B746EF /* Frameworks */,
+				FA7997AD2636E35B00B746EF /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = PrebidDemoTemp;
+			name = someApp;
 			packageProductDependencies = (
-				FAEE525426348F8F00AD9966 /* PrebidMobileAdditional2 */,
+				FA7997C52636E37300B746EF /* PrebidMobileAdditional */,
 			);
-			productName = PrebidDemoTemp;
-			productReference = FAEE4E39262ECE6900AD9966 /* PrebidDemoTemp.app */;
+			productName = someApp;
+			productReference = FA7997AF2636E35B00B746EF /* someApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -576,7 +576,7 @@
 						CreatedOnToolsVersion = 10.2.1;
 						LastSwiftMigration = 1170;
 					};
-					FAEE4E38262ECE6900AD9966 = {
+					FA7997AE2636E35B00B746EF = {
 						CreatedOnToolsVersion = 12.4;
 					};
 				};
@@ -606,7 +606,7 @@
 				FA12E4B3231EB04100CAA05B /* PrebidDemoSwift */,
 				FA12E4F5231EB99D00CAA05B /* PrebidDemoObjectiveC */,
 				FA12E4E5231EB52D00CAA05B /* PrebidDemoTests */,
-				FAEE4E38262ECE6900AD9966 /* PrebidDemoTemp */,
+				FA7997AE2636E35B00B746EF /* someApp */,
 			);
 		};
 /* End PBXProject section */
@@ -676,13 +676,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FAEE4E37262ECE6900AD9966 /* Resources */ = {
+		FA7997AD2636E35B00B746EF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAEE4E48262ECE6B00AD9966 /* LaunchScreen.storyboard in Resources */,
-				FAEE4E45262ECE6B00AD9966 /* Assets.xcassets in Resources */,
-				FAEE4E43262ECE6900AD9966 /* Main.storyboard in Resources */,
+				FA7997BE2636E35B00B746EF /* LaunchScreen.storyboard in Resources */,
+				FA7997BB2636E35B00B746EF /* Assets.xcassets in Resources */,
+				FA7997B92636E35B00B746EF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -838,13 +838,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FAEE4E35262ECE6900AD9966 /* Sources */ = {
+		FA7997AB2636E35B00B746EF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAEE4E40262ECE6900AD9966 /* ViewController.swift in Sources */,
-				FAEE4E3C262ECE6900AD9966 /* AppDelegate.swift in Sources */,
-				FAEE4E3E262ECE6900AD9966 /* SceneDelegate.swift in Sources */,
+				FA7997B62636E35B00B746EF /* ViewController.swift in Sources */,
+				FA7997B22636E35B00B746EF /* AppDelegate.swift in Sources */,
+				FA7997B42636E35B00B746EF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -901,18 +901,18 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		FAEE4E41262ECE6900AD9966 /* Main.storyboard */ = {
+		FA7997B72636E35B00B746EF /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FAEE4E42262ECE6900AD9966 /* Base */,
+				FA7997B82636E35B00B746EF /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		FAEE4E46262ECE6B00AD9966 /* LaunchScreen.storyboard */ = {
+		FA7997BC2636E35B00B746EF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FAEE4E47262ECE6B00AD9966 /* Base */,
+				FA7997BD2636E35B00B746EF /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1167,40 +1167,40 @@
 			};
 			name = Release;
 		};
-		FAEE4E4A262ECE6B00AD9966 /* Debug */ = {
+		FA7997C12636E35B00B746EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = PrebidDemoTemp/Info.plist;
+				INFOPLIST_FILE = someApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.PrebidDemoTemp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.someApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		FAEE4E4B262ECE6B00AD9966 /* Release */ = {
+		FA7997C22636E35B00B746EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = PrebidDemoTemp/Info.plist;
+				INFOPLIST_FILE = someApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.PrebidDemoTemp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.someApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1246,11 +1246,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FAEE4E50262ECE6B00AD9966 /* Build configuration list for PBXNativeTarget "PrebidDemoTemp" */ = {
+		FA7997C02636E35B00B746EF /* Build configuration list for PBXNativeTarget "someApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FAEE4E4A262ECE6B00AD9966 /* Debug */,
-				FAEE4E4B262ECE6B00AD9966 /* Release */,
+				FA7997C12636E35B00B746EF /* Debug */,
+				FA7997C22636E35B00B746EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1269,10 +1269,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FAEE525426348F8F00AD9966 /* PrebidMobileAdditional2 */ = {
+		FA7997C52636E37300B746EF /* PrebidMobileAdditional */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FAEE51E42633285700AD9966 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */;
-			productName = PrebidMobileAdditional2;
+			productName = PrebidMobileAdditional;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
