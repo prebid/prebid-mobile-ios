@@ -54,7 +54,14 @@
 		FA7997B92636E35B00B746EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA7997B72636E35B00B746EF /* Main.storyboard */; };
 		FA7997BB2636E35B00B746EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA7997BA2636E35B00B746EF /* Assets.xcassets */; };
 		FA7997BE2636E35B00B746EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA7997BC2636E35B00B746EF /* LaunchScreen.storyboard */; };
-		FA7997CA2636EA5300B746EF /* SomeLibbraryName in Frameworks */ = {isa = PBXBuildFile; productRef = FA7997C92636EA5300B746EF /* SomeLibbraryName */; };
+		FA7997E12636EB1700B746EF /* SomeLibraryName in Frameworks */ = {isa = PBXBuildFile; productRef = FA7997E02636EB1700B746EF /* SomeLibraryName */; };
+		FA7998252636EC5200B746EF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7998242636EC5200B746EF /* AppDelegate.m */; };
+		FA7998282636EC5200B746EF /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7998272636EC5200B746EF /* SceneDelegate.m */; };
+		FA79982B2636EC5200B746EF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA79982A2636EC5200B746EF /* ViewController.m */; };
+		FA79982E2636EC5200B746EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA79982C2636EC5200B746EF /* Main.storyboard */; };
+		FA7998302636EC5300B746EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA79982F2636EC5300B746EF /* Assets.xcassets */; };
+		FA7998332636EC5300B746EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA7998312636EC5300B746EF /* LaunchScreen.storyboard */; };
+		FA7998362636EC5300B746EF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7998352636EC5300B746EF /* main.m */; };
 		FA7E5530239E87FA0063B028 /* RewardedVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */; };
 		FAC9E216232800DB00113B04 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; };
 		FAC9E217232800DB00113B04 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -218,6 +225,18 @@
 		FA7997BA2636E35B00B746EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA7997BD2636E35B00B746EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FA7997BF2636E35B00B746EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA7998212636EC5200B746EF /* SomeAppObjc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SomeAppObjc.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA7998232636EC5200B746EF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		FA7998242636EC5200B746EF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		FA7998262636EC5200B746EF /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		FA7998272636EC5200B746EF /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		FA7998292636EC5200B746EF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		FA79982A2636EC5200B746EF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		FA79982D2636EC5200B746EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FA79982F2636EC5300B746EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA7998322636EC5300B746EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FA7998342636EC5300B746EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA7998352636EC5300B746EF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedVideoController.swift; sourceTree = "<group>"; };
 		FAEE508F263075D700AD9966 /* XCPrebidMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = XCPrebidMobile.xcframework; path = ../../generated/output/XCPrebidMobile.xcframework; sourceTree = "<group>"; };
 		FAEE5094263075DA00AD9966 /* XCPrebidMobileAdditional.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = XCPrebidMobileAdditional.xcframework; path = ../../generated/output/XCPrebidMobileAdditional.xcframework; sourceTree = "<group>"; };
@@ -256,7 +275,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA7997CA2636EA5300B746EF /* SomeLibbraryName in Frameworks */,
+				FA7997E12636EB1700B746EF /* SomeLibraryName in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA79981E2636EC5200B746EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +405,7 @@
 				FA12E4F7231EB99D00CAA05B /* PrebidDemoObjectiveC */,
 				FA12E4E7231EB52D00CAA05B /* PrebidDemoTests */,
 				FA7997B02636E35B00B746EF /* someApp */,
+				FA7998222636EC5200B746EF /* SomeAppObjc */,
 				FA12E45C231E9C5900CAA05B /* Products */,
 				464FE826217632CAB58ABF2E /* Pods */,
 				99D7F73A394177471348CDD1 /* Frameworks */,
@@ -392,6 +419,7 @@
 				FA12E4E6231EB52D00CAA05B /* PrebidDemoTests.xctest */,
 				FA12E4F6231EB99D00CAA05B /* PrebidDemoObjectiveC.app */,
 				FA7997AF2636E35B00B746EF /* someApp.app */,
+				FA7998212636EC5200B746EF /* SomeAppObjc.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -469,6 +497,24 @@
 				FA7997BF2636E35B00B746EF /* Info.plist */,
 			);
 			path = someApp;
+			sourceTree = "<group>";
+		};
+		FA7998222636EC5200B746EF /* SomeAppObjc */ = {
+			isa = PBXGroup;
+			children = (
+				FA7998232636EC5200B746EF /* AppDelegate.h */,
+				FA7998242636EC5200B746EF /* AppDelegate.m */,
+				FA7998262636EC5200B746EF /* SceneDelegate.h */,
+				FA7998272636EC5200B746EF /* SceneDelegate.m */,
+				FA7998292636EC5200B746EF /* ViewController.h */,
+				FA79982A2636EC5200B746EF /* ViewController.m */,
+				FA79982C2636EC5200B746EF /* Main.storyboard */,
+				FA79982F2636EC5300B746EF /* Assets.xcassets */,
+				FA7998312636EC5300B746EF /* LaunchScreen.storyboard */,
+				FA7998342636EC5300B746EF /* Info.plist */,
+				FA7998352636EC5300B746EF /* main.m */,
+			);
+			path = SomeAppObjc;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -549,10 +595,27 @@
 			);
 			name = someApp;
 			packageProductDependencies = (
-				FA7997C92636EA5300B746EF /* SomeLibbraryName */,
+				FA7997E02636EB1700B746EF /* SomeLibraryName */,
 			);
 			productName = someApp;
 			productReference = FA7997AF2636E35B00B746EF /* someApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FA7998202636EC5200B746EF /* SomeAppObjc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA7998372636EC5300B746EF /* Build configuration list for PBXNativeTarget "SomeAppObjc" */;
+			buildPhases = (
+				FA79981D2636EC5200B746EF /* Sources */,
+				FA79981E2636EC5200B746EF /* Frameworks */,
+				FA79981F2636EC5200B746EF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SomeAppObjc;
+			productName = SomeAppObjc;
+			productReference = FA7998212636EC5200B746EF /* SomeAppObjc.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -577,6 +640,9 @@
 						LastSwiftMigration = 1170;
 					};
 					FA7997AE2636E35B00B746EF = {
+						CreatedOnToolsVersion = 12.4;
+					};
+					FA7998202636EC5200B746EF = {
 						CreatedOnToolsVersion = 12.4;
 					};
 				};
@@ -607,6 +673,7 @@
 				FA12E4F5231EB99D00CAA05B /* PrebidDemoObjectiveC */,
 				FA12E4E5231EB52D00CAA05B /* PrebidDemoTests */,
 				FA7997AE2636E35B00B746EF /* someApp */,
+				FA7998202636EC5200B746EF /* SomeAppObjc */,
 			);
 		};
 /* End PBXProject section */
@@ -683,6 +750,16 @@
 				FA7997BE2636E35B00B746EF /* LaunchScreen.storyboard in Resources */,
 				FA7997BB2636E35B00B746EF /* Assets.xcassets in Resources */,
 				FA7997B92636E35B00B746EF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA79981F2636EC5200B746EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA7998332636EC5300B746EF /* LaunchScreen.storyboard in Resources */,
+				FA7998302636EC5300B746EF /* Assets.xcassets in Resources */,
+				FA79982E2636EC5200B746EF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -848,6 +925,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FA79981D2636EC5200B746EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA79982B2636EC5200B746EF /* ViewController.m in Sources */,
+				FA7998252636EC5200B746EF /* AppDelegate.m in Sources */,
+				FA7998362636EC5300B746EF /* main.m in Sources */,
+				FA7998282636EC5200B746EF /* SceneDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -913,6 +1001,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				FA7997BD2636E35B00B746EF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		FA79982C2636EC5200B746EF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA79982D2636EC5200B746EF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FA7998312636EC5300B746EF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA7998322636EC5300B746EF /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1207,6 +1311,44 @@
 			};
 			name = Release;
 		};
+		FA7998382636EC5300B746EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SomeAppObjc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.SomeAppObjc;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FA7998392636EC5300B746EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SomeAppObjc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.SomeAppObjc;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1255,6 +1397,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		FA7998372636EC5300B746EF /* Build configuration list for PBXNativeTarget "SomeAppObjc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA7998382636EC5300B746EF /* Debug */,
+				FA7998392636EC5300B746EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -1269,10 +1420,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FA7997C92636EA5300B746EF /* SomeLibbraryName */ = {
+		FA7997E02636EB1700B746EF /* SomeLibraryName */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FAEE51E42633285700AD9966 /* XCRemoteSwiftPackageReference "prebid-mobile-ios" */;
-			productName = SomeLibbraryName;
+			productName = SomeLibraryName;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

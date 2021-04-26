@@ -13,13 +13,13 @@ let package = Package(
     
     products: [
         
-//        .library(
-//            name: "PrebidMobile",
-//            targets: ["PrebidMobile"]),
-//
-//        .library(
-//            name: "PrebidMobileAdditional",
-//            targets: ["PrebidMobileAdditional"]),
+        .library(
+            name: "PrebidMobile",
+            targets: ["PrebidMobile"]),
+
+        .library(
+            name: "PrebidMobileAdditional",
+            targets: ["PrebidMobileAdditional"]),
 
         .library(
             name: "SomeLibraryName",
@@ -29,24 +29,24 @@ let package = Package(
     ],
 
     targets: [
-//        .target(
-//            name: "PrebidMobile",
-//            path: "PrebidMobile"
-//        ),
-//        
-//        .target(
-//            name: "PrebidMobileAdditional",
-//            dependencies: [
-//                "PrebidMobile"
-//            ],
-//            path: "PrebidMobileAdditional"
-//        ),
+        .target(
+            name: "PrebidMobile",
+            path: "PrebidMobile"
+        ),
+
+        .target(
+            name: "PrebidMobileAdditional",
+            dependencies: [
+                "PrebidMobile"
+            ],
+            path: "PrebidMobileAdditional"
+        ),
         
         .target(
             name: "PrebidMobileAdditional2",
-//            dependencies: [
-//                "PrebidMobile"
-//            ],
+            dependencies: [
+                "PrebidMobile"
+            ],
             path: "PrebidMobileAdditional2"
         )
     ],
