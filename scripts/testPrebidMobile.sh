@@ -15,6 +15,15 @@ echo $PWD
 gem install xcpretty --user-install
 gem install xcpretty-travis-formatter --user-install
 
+echo -e "\n${GREEN}Building Swift Package Manager${NC} \n"
+swift build -Xswiftc "-sdk" -Xswiftc "`xcrun --sdk iphonesimulator --show-sdk-path`" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios13.0-simulator" | xcpretty -f `xcpretty-travis-formatter` --color --test
+if [[ ${PIPESTATUS[0]} == 0 ]]; then
+    echo "✅ Swift Package Manager Passed"
+else
+    echo "🔴 Swift Package Manager Failed"
+    exit 1
+fi
+
 gem install cocoapods --user-install
 pod install --repo-update
 
@@ -40,3 +49,4 @@ fi
 
 # echo -e "\n${GREEN}Running swiftlint tests${NC} \n"
 # swiftlint --config .swiftlint.yml
+

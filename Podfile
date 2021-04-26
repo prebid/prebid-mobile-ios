@@ -36,10 +36,3 @@ target 'Dr.Prebid' do
   
   prebid_demo_pods
 end
-
-#target 'PrebidDemoTemp' do
-#  project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
-  
-#  pod 'PrebidMobile', :path => '/Users/alex/Desktop/GL/RubiconProject/Prebid/ios/SDKPrebid/contributing.0/prebid-mobile-ios/PrebidMobile.podspec'
-#  pod 'PrebidMobileAdditional', :path => '/Users/alex/Desktop/GL/RubiconProject/Prebid/ios/SDKPrebid/contributing.0/prebid-mobile-ios/PrebidMobileAdditional.podspec'
-#end
