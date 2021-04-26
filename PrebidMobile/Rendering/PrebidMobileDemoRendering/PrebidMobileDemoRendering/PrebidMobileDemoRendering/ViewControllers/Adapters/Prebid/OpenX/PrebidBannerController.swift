@@ -7,16 +7,16 @@
 
 import UIKit
 
-class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, OXABannerViewDelegate {
+class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, PBMBannerViewDelegate {
     
     var refreshInterval: TimeInterval = 0
     
     var prebidConfigId = ""
     var adSizes = [CGSize]()
-    var adFormat: OXAAdFormat?
-    var nativeAdConfig: OXANativeAdConfiguration?
+    var adFormat: PBMAdFormat?
+    var nativeAdConfig: PBMNativeAdConfiguration?
     
-    var adBannerView : OXABannerView?
+    var adBannerView : PBMBannerView?
     
     weak var rootController: AdapterViewController?
     
@@ -51,7 +51,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         let size = adSizes[0]
-        adBannerView = OXABannerView(frame: CGRect(origin: .zero, size: size), configId: prebidConfigId, adSize: size)
+        adBannerView = PBMBannerView(frame: CGRect(origin: .zero, size: size), configId: prebidConfigId, adSize: size)
         
         if (refreshInterval > 0) {
             adBannerView?.refreshInterval = refreshInterval
@@ -73,7 +73,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         
         adBannerView?.nativeAdConfig = self.nativeAdConfig
         adBannerView?.delegate = self
-        adBannerView?.accessibilityIdentifier = "OXABannerView"
+        adBannerView?.accessibilityIdentifier = "PBMBannerView"
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
@@ -100,13 +100,13 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         rootController?.bannerView.addConstraints([widthConstraint, heightConstraint])
     }
     
-    // MARK: - OXABannerViewDelegate
+    // MARK: - PBMBannerViewDelegate
     
     func bannerViewPresentationController() -> UIViewController? {
         return rootController
     }
     
-    func bannerViewDidReceiveAd(_ bannerView: OXABannerView, adSize: CGSize) {
+    func bannerViewDidReceiveAd(_ bannerView: PBMBannerView, adSize: CGSize) {
         resetEvents()
         reloadButton.isEnabled = true
         adViewDidReceiveAdButton.isEnabled = true
@@ -116,21 +116,21 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         lastLoadedAdSizeLabel.text = "Ad Size: \(adSize.width)x\(adSize.height)"
     }
     
-    func bannerView(_ bannerView: OXABannerView, didFailToReceiveAdWithError error: Error?) {
+    func bannerView(_ bannerView: PBMBannerView, didFailToReceiveAdWithError error: Error?) {
         resetEvents()
         reloadButton.isEnabled = true
         adViewDidFailToLoadAdButton.isEnabled = true
     }
     
-    func bannerViewWillPresentModal(_ bannerView: OXABannerView) {
+    func bannerViewWillPresentModal(_ bannerView: PBMBannerView) {
         adViewWillPresentScreenButton.isEnabled = true
     }
     
-    func bannerViewDidDismissModal(_ bannerView: OXABannerView) {
+    func bannerViewDidDismissModal(_ bannerView: PBMBannerView) {
         adViewDidDismissScreenButton.isEnabled = true
     }
     
-    func bannerViewWillLeaveApplication(_ bannerView: OXABannerView) {
+    func bannerViewWillLeaveApplication(_ bannerView: PBMBannerView) {
         adViewWillLeaveApplicationButton.isEnabled = true
     }
     

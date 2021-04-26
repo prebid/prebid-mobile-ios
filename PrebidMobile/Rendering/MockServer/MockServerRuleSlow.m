@@ -73,7 +73,7 @@
 //When the last chunk is sent, calls urlProtocolDidFinishLoading.
 -(void) sendChunk:(NSURLProtocol*)nsURLProtocol index:(int)index {
     if (!self.chunks) {
-        NSError* error = [NSError  errorWithDomain:@"OpenX MockServer Error Domain"
+        NSError* error = [NSError  errorWithDomain:@"PrebidMobileRendering MockServer Error Domain"
                                               code:0
                                           userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to find chunks for MockServerRuleSlow", nil) }
                           ];

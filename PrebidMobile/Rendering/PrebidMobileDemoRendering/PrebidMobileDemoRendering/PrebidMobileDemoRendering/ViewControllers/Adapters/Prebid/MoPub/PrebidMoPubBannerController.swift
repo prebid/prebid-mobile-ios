@@ -16,8 +16,8 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
     var moPubAdUnitId = ""
     var adUnitSize = CGSize()
     var additionalAdSizes = [CGSize]()
-    var adFormat: OXAAdFormat?
-    var nativeAdConfig: OXANativeAdConfiguration?
+    var adFormat: PBMAdFormat?
+    var nativeAdConfig: PBMNativeAdConfiguration?
     
     private var adBannerView : MPAdView?
     
@@ -34,7 +34,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
     private let stopRefreshButton = ThreadCheckingButton()
     private let configIdLabel = UILabel()
     
-    private var adUnit: OXAMoPubBannerAdUnit?
+    private var adUnit: PBMMoPubBannerAdUnit?
     
     // MARK: - AdaptedController
     
@@ -59,7 +59,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         adBannerView = MPAdView(adUnitId: moPubAdUnitId)
         adBannerView?.delegate = self
         
-        adUnit = OXAMoPubBannerAdUnit(configId: prebidConfigId, size: adUnitSize)
+        adUnit = PBMMoPubBannerAdUnit(configId: prebidConfigId, size: adUnitSize)
         if (refreshInterval > 0) {
             adUnit?.refreshInterval = refreshInterval
         }

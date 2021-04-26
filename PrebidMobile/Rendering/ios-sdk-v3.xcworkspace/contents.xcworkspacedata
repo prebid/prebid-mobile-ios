@@ -4,17 +4,6 @@
    <FileRef
       location = "group:PrebidMobileRendering/PrebidMobileRendering.xcodeproj">
    </FileRef>
-   <Group
-      location = "container:"
-      name = "Integration Test Apps">
-      <Group
-         location = "container:"
-         name = "Internal Test App">
-         <FileRef
-            location = "group:OpenXInternalTestApp/OpenXInternalTestApp/OpenXInternalTestApp.xcodeproj">
-         </FileRef>
-      </Group>
-   </Group>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>

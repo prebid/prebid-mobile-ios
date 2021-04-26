@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PrebidFeedTableViewController: UITableViewController, ConfigurableViewController, OXABannerViewDelegate {
+class PrebidFeedTableViewController: UITableViewController, ConfigurableViewController, PBMBannerViewDelegate {
     
     var showConfigurationBeforeLoad = false
     var testCases: [TestCaseForTableCell] = []
@@ -66,28 +66,28 @@ class PrebidFeedTableViewController: UITableViewController, ConfigurableViewCont
         return 305;
     }
     
-    // MARK: - OXABannerViewDelegate
+    // MARK: - PBMBannerViewDelegate
     
     func bannerViewPresentationController() -> UIViewController? {
         return self
     }
     
-    func bannerViewDidReceiveAd(_ bannerView: OXABannerView, adSize: CGSize) {
+    func bannerViewDidReceiveAd(_ bannerView: PBMBannerView, adSize: CGSize) {
     }
     
-    func bannerView(_ bannerView: OXABannerView, didFailToReceiveAdWithError error: Error?) {
+    func bannerView(_ bannerView: PBMBannerView, didFailToReceiveAdWithError error: Error?) {
     }
     
-    func bannerViewWillPresentModal(_ bannerView: OXABannerView) {
+    func bannerViewWillPresentModal(_ bannerView: PBMBannerView) {
     }
     
     //TODO: do we need this ??
-    func bannerViewWillDismissModal(_ bannerView: OXABannerView) {
+    func bannerViewWillDismissModal(_ bannerView: PBMBannerView) {
     }
     
-    func bannerViewDidDismissModal(_ bannerView: OXABannerView) {
+    func bannerViewDidDismissModal(_ bannerView: PBMBannerView) {
     }
     
-    func bannerViewWillLeaveApplication(_ bannerView: OXABannerView) {
+    func bannerViewWillLeaveApplication(_ bannerView: PBMBannerView) {
     }
 }

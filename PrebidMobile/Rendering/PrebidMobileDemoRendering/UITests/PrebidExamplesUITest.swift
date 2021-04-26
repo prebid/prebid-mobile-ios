@@ -421,12 +421,12 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
     }
     
     func testMoPubNativeAd_OK() {
-        checkNativeAdLoadResult(exampleName: "Native Ad (MoPub) [OK, OXA Native AdAdapter]",
+        checkNativeAdLoadResult(exampleName: "Native Ad (MoPub) [OK, PBM Native AdAdapter]",
                                 successCallback: "getNativeAd success")
     }
     
     func testMoPubNativeAdNib_OK() {
-        checkNativeAdLoadResult(exampleName: "Native Ad (MoPub) [OK, OXA Native AdAdapter, Nib]",
+        checkNativeAdLoadResult(exampleName: "Native Ad (MoPub) [OK, PBM Native AdAdapter, Nib]",
                                 successCallback: "getNativeAd success")
     }
     
@@ -441,7 +441,7 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
     }
     
     func testMoPubNativeAd_Video() {
-        checkNativeAdLoadResult(exampleName: "Native Ad Video (MoPub) [OK, OXA Native AdAdapter]",
+        checkNativeAdLoadResult(exampleName: "Native Ad Video (MoPub) [OK, PBM Native AdAdapter]",
                                 successCallback: "getNativeAd success")
     }
 }

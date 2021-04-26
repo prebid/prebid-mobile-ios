@@ -12,7 +12,7 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
     
     var prebidConfigId = ""
     var moPubAdUnitId = ""
-    var adFormat: OXAAdFormat?
+    var adFormat: PBMAdFormat?
 
     private var interstitialController : MPInterstitialAdController?
     
@@ -29,7 +29,7 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
     
     private let configIdLabel = UILabel()
     
-    private var adUnit: OXAMoPubInterstitialAdUnit?
+    private var adUnit: PBMMoPubInterstitialAdUnit?
     
     // MARK: - AdaptedController
     required init(rootController: AdapterViewController) {
@@ -51,7 +51,7 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
         interstitialController = MPInterstitialAdController.init(forAdUnitId: self.moPubAdUnitId)
         interstitialController?.delegate = self
         
-        adUnit = OXAMoPubInterstitialAdUnit(configId: prebidConfigId, minSizePercentage: CGSize(width: 30, height: 30))
+        adUnit = PBMMoPubInterstitialAdUnit(configId: prebidConfigId, minSizePercentage: CGSize(width: 30, height: 30))
         if let adFormat = adFormat {
             adUnit?.adFormat = adFormat
         }

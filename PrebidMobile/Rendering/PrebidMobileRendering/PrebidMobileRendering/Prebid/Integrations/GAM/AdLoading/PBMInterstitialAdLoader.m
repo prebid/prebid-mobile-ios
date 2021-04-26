@@ -1,0 +1,127 @@
+//
+//  PBMInterstitialAdLoader.m
+//  OpenXApolloSDK
+//
+//  Copyright © 2020 OpenX. All rights reserved.
+//
+
+#import "PBMInterstitialAdLoader.h"
+
+#import "PBMAdLoaderFlowDelegate.h"
+#import "PBMInterstitialEventHandler.h"
+#import "PBMInterstitialController.h"
+#import "PBMInterstitialControllerLoadingDelegate.h"
+
+#import "PBMMacros.h"
+
+@interface PBMInterstitialAdLoader () <PBMInterstitialControllerLoadingDelegate>
+@property (nonatomic, weak, nullable, readonly) id<PBMInterstitialAdLoaderDelegate> delegate;
+@end
+
+
+
+@implementation PBMInterstitialAdLoader
+
+@synthesize flowDelegate = _flowDelegate;
+
+// MARK: - Lifecycle
+
+- (instancetype)initWithDelegate:(id<PBMInterstitialAdLoaderDelegate>)delegate {
+    if (!(self = [super init])) {
+        return nil;
+    }
+    _delegate = delegate;
+    return self;
+}
+
+// MARK: - PBMAdLoaderProtocol
+
+- (id<PBMPrimaryAdRequesterProtocol>)primaryAdRequester {
+    return self.delegate.eventHandler;
+}
+
+- (void)createPrebidAdWithBid:(PBMBid *)bid
+                 adUnitConfig:(PBMAdUnitConfig *)adUnitConfig
+                adObjectSaver:(void (^)(id))adObjectSaver
+            loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker
+{
+    PBMInterstitialController * const controller = [[PBMInterstitialController alloc] initWithBid:bid
+                                                                                  adConfiguration:adUnitConfig];
+    adObjectSaver(controller);
+    @weakify(self);
+    loadMethodInvoker(^{
+        @strongify(self);
+        controller.loadingDelegate = self;
+        [self.delegate interstitialAdLoader:self createdInterstitialController:controller];
+        [controller loadAd];
+    });
+}
+
+- (void)reportSuccessWithAdObject:(id)adObject adSize:(nullable NSValue *)adSize {
+    if ([adObject isKindOfClass:[PBMInterstitialController class]]) {
+        PBMInterstitialController * const controller = (PBMInterstitialController *)adObject;
+        [self.delegate interstitialAdLoader:self
+                                   loadedAd:^(UIViewController *targetController) {
+            [controller show];
+        } isReadyBlock:^BOOL{
+            return YES;
+        }];
+        return;
+    }
+    if ([adObject conformsToProtocol:@protocol(PBMInterstitialEventHandler)]) {
+        id<PBMInterstitialEventHandler> const eventHandler = (id<PBMInterstitialEventHandler>)adObject;
+        [self.delegate interstitialAdLoader:self
+                                   loadedAd:^(UIViewController *targetController) {
+            [eventHandler showFromViewController:targetController];
+        } isReadyBlock:^BOOL{
+            return eventHandler.isReady;
+        }];
+        return;
+    }
+    [self.delegate interstitialAdLoader:self
+                               loadedAd:^(UIViewController *targetController) { } // nop
+                           isReadyBlock:^BOOL{ return NO; }];
+}
+
+// MARK: - PBMInterstitialControllerLoadingDelegate
+
+- (void)interstitialControllerDidLoadAd:(PBMInterstitialController *)interstitialController {
+    [self.flowDelegate adLoaderLoadedPrebidAd:self];
+}
+
+- (void)interstitialController:(PBMInterstitialController *)interstitialController didFailWithError:(NSError *)error {
+    [self.flowDelegate adLoader:self failedWithPrebidError:error];
+}
+
+// MARK: - PBMInterstitialEventLoadingDelegate
+
+- (void)prebidDidWin {
+    [self.flowDelegate adLoaderDidWinPrebid:self];
+}
+
+- (void)adServerDidWin {
+    [self.flowDelegate adLoader:self loadedPrimaryAd:self.delegate.eventHandler adSize:nil];
+}
+
+- (void)failedWithError:(nullable NSError *)error {
+    [self.flowDelegate adLoader:self failedWithPrimarySDKError:error];
+}
+
+// MARK: - PBMRewardedEventLoadingDelegate
+
+- (NSObject *)reward {
+    id<PBMInterstitialAdLoaderDelegate> const delegate = self.delegate;
+    if ([delegate respondsToSelector:@selector(reward)]) {
+        return [delegate reward];
+    }
+    return nil;
+}
+
+- (void)setReward:(NSObject *)reward {
+    id<PBMInterstitialAdLoaderDelegate> const delegate = self.delegate;
+    if ([delegate respondsToSelector:@selector(setReward:)]) {
+        return [delegate setReward:reward];
+    }
+}
+
+@end

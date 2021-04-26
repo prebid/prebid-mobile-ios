@@ -19,22 +19,22 @@ class AboutViewController : FormViewController {
     
     private let info = [
         ("Components", [
-            "OpenX Apollo SDK": OXASDKConfiguration.sdkVersion,
+            "Prebid Mobile Rendering SDK": PBMSDKConfiguration.sdkVersion,
         ]),
         ("Ad Server SDKs", [
             "GoogleMobileAds SDK": GADMobileAds.sharedInstance().sdkVersion,
             "MoPub SDK": MP_SDK_VERSION,
         ]),
         ("Bridging SDKs", [
-            "GAM Event Handlers": versionOfBundle(providing: OXAGAMBannerEventHandler.self),
-            "MoPub Adapters": versionOfBundle(providing: OXAMoPubBannerAdapter.self),
+            "GAM Event Handlers": versionOfBundle(providing: PBMGAMBannerEventHandler.self),
+            "MoPub Adapters": versionOfBundle(providing: PrebidMoPubBannerAdapter.self),
         ]),
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "OpenX Configuration"
+        title = "PrebidMobileRendering Configuration"
         createForm()
     }
     

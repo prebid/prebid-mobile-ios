@@ -10,10 +10,10 @@ import UIKit
 protocol NativeAdViewBoxProtocol: class {
     func setUpDummyValues()
     func embedIntoView(_ view: UIView)
-    func renderNativeAd(_ nativeAd: OXANativeAd)
-    func registerViews(_ nativeAd: OXANativeAd)
+    func renderNativeAd(_ nativeAd: PBMNativeAd)
+    func registerViews(_ nativeAd: PBMNativeAd)
     
     var showOnlyMediaView: Bool {get set}
     var autoPlayOnVisible: Bool {get set}
-    var mediaViewDelegate: OXAMediaViewDelegate? {get set}
+    var mediaViewDelegate: PBMMediaViewDelegate? {get set}
 }

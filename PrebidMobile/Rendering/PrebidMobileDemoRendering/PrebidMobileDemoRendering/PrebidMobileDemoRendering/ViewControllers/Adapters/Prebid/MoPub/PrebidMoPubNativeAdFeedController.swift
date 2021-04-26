@@ -13,10 +13,10 @@ import PrebidMobileMoPubAdapters
 class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCompatibleController {
     var prebidConfigId = ""
     var moPubAdUnitId = ""
-    var nativeAdConfig = OXANativeAdConfiguration?.none
+    var nativeAdConfig = PBMNativeAdConfiguration?.none
     var adRenderingViewClass: AnyClass?
     
-    private var adUnit: OXAMoPubNativeAdUnit?
+    private var adUnit: PBMMoPubNativeAdUnit?
     private var theNativeAd: MPNativeAd?
     
     private var adLoadingAllowed = false
@@ -106,7 +106,7 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCom
         
         self.cleanUp(cell: cell)
         
-        adUnit = OXAMoPubNativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
+        adUnit = PBMMoPubNativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
                 adUnit?.addContextData(dataPair.value, forKey: dataPair.key)
@@ -122,11 +122,11 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCom
         
             let settings = MPStaticNativeAdRendererSettings();
             settings.renderingViewClass = self.adRenderingViewClass
-            let apolloConfig = OXAMoPubNativeAdRenderer.rendererConfiguration(with: settings);
+            let prebidConfig = PrebidMoPubNativeAdRenderer.rendererConfiguration(with: settings);
             let mopubConfig = MPStaticNativeAdRenderer.rendererConfiguration(with: settings);
             
             let adRequest = MPNativeAdRequest.init(adUnitIdentifier: self.moPubAdUnitId,
-                                                   rendererConfigurations: [apolloConfig, mopubConfig!])
+                                                   rendererConfigurations: [prebidConfig, mopubConfig!])
             adRequest?.targeting = targeting
             
             adRequest?.start { [weak self, weak cell] _, response , error in
@@ -160,15 +160,15 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCom
             return
         }
         
-        guard let adView = try? nativeAd.retrieveAdView(), let oxaAdView = adView.subviews.first else {
+        guard let adView = try? nativeAd.retrieveAdView(), let pbmAdView = adView.subviews.first else {
             return
         }
         
         cell?.adView = adView
         
         adView.addConstraints([
-            adView.widthAnchor.constraint(equalTo: oxaAdView.widthAnchor),
-            adView.heightAnchor.constraint(equalTo: oxaAdView.heightAnchor),
+            adView.widthAnchor.constraint(equalTo: pbmAdView.widthAnchor),
+            adView.heightAnchor.constraint(equalTo: pbmAdView.heightAnchor),
         ])
         adView.translatesAutoresizingMaskIntoConstraints = false
         bannerView.addSubview(adView)
@@ -179,8 +179,8 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCom
     }
 }
 
-extension PrebidMoPubNativeAdFeedController: OXANativeAdUIDelegate {
-    func viewPresentationController(for nativeAd: OXANativeAd) -> UIViewController? {
+extension PrebidMoPubNativeAdFeedController: PBMNativeAdUIDelegate {
+    func viewPresentationController(for nativeAd: PBMNativeAd) -> UIViewController? {
         return rootTableViewController
     }
 }

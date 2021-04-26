@@ -10,7 +10,7 @@ import UIKit
 class PrebidNativeAdController: NSObject, AdaptedController, PrebidConfigurableNativeAdRenderingController {
     
     var prebidConfigId = ""
-    var nativeAdConfig = OXANativeAdConfiguration?.none
+    var nativeAdConfig = PBMNativeAdConfiguration?.none
     
     var autoPlayOnVisible: Bool {
         get {
@@ -34,8 +34,8 @@ class PrebidNativeAdController: NSObject, AdaptedController, PrebidConfigurableN
     
     private var nativeAdViewBox: NativeAdViewBoxProtocol?
     
-    private var adUnit: OXANativeAdUnit?
-    private var theNativeAd: OXANativeAd?
+    private var adUnit: PBMNativeAdUnit?
+    private var theNativeAd: PBMNativeAd?
     
     private let fetchDemandSuccessButton = EventReportContainer()
     private let fetchDemandFailedButton = EventReportContainer()
@@ -51,7 +51,7 @@ class PrebidNativeAdController: NSObject, AdaptedController, PrebidConfigurableN
     private let mediaPlaybackUnmutedButton = EventReportContainer()
     private let mediaLoadingFinishedButton = EventReportContainer()
     
-    private let nativeAdDidLogEventButtons: [(event: OXANativeEventType, name: String, button: EventReportContainer)] = [
+    private let nativeAdDidLogEventButtons: [(event: PBMNativeEventType, name: String, button: EventReportContainer)] = [
         (.impression, "impression", .init()),
         (.MRC50, "MRC50", .init()),
         (.MRC100, "MRC100", .init()),
@@ -146,7 +146,7 @@ class PrebidNativeAdController: NSObject, AdaptedController, PrebidConfigurableN
         guard let nativeAdConfig = nativeAdConfig else {
             return
         }
-        adUnit = OXANativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
+        adUnit = PBMNativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
@@ -188,50 +188,50 @@ class PrebidNativeAdController: NSObject, AdaptedController, PrebidConfigurableN
     }
 }
 
-extension PrebidNativeAdController: OXANativeAdTrackingDelegate {
-    func nativeAd(_ nativeAd: OXANativeAd, didLogEvent nativeEvent: OXANativeEventType) {
+extension PrebidNativeAdController: PBMNativeAdTrackingDelegate {
+    func nativeAd(_ nativeAd: PBMNativeAd, didLogEvent nativeEvent: PBMNativeEventType) {
         nativeAdDidLogEventButtons.first{$0.event == nativeEvent}?.button.isEnabled = true
     }
-    func nativeAdDidLogClick(_ nativeAd: OXANativeAd) {
+    func nativeAdDidLogClick(_ nativeAd: PBMNativeAd) {
         nativeAdDidClickButton.isEnabled = true
     }
 }
 
-extension PrebidNativeAdController: OXANativeAdUIDelegate {
-    func viewPresentationController(for nativeAd: OXANativeAd) -> UIViewController? {
+extension PrebidNativeAdController: PBMNativeAdUIDelegate {
+    func viewPresentationController(for nativeAd: PBMNativeAd) -> UIViewController? {
         return rootController
     }
-    func nativeAdWillLeaveApplication(_ nativeAd: OXANativeAd) {
+    func nativeAdWillLeaveApplication(_ nativeAd: PBMNativeAd) {
         nativeAdWillLeaveAppButton.isEnabled = true
     }
-    func nativeAdWillPresentModal(_ nativeAd: OXANativeAd) {
+    func nativeAdWillPresentModal(_ nativeAd: PBMNativeAd) {
         nativeAdWillPresentModalButton.isEnabled = true
     }
-    func nativeAdDidDismissModal(_ nativeAd: OXANativeAd) {
+    func nativeAdDidDismissModal(_ nativeAd: PBMNativeAd) {
         nativeAdDidDismissModalButton.isEnabled = true
     }
 }
 
-extension PrebidNativeAdController: OXAMediaViewDelegate {
-    func onMediaPlaybackStarted(_ mediaView: OXAMediaView) {
+extension PrebidNativeAdController: PBMMediaViewDelegate {
+    func onMediaPlaybackStarted(_ mediaView: PBMMediaView) {
         mediaPlaybackStartedButton.isEnabled = true
     }
-    func onMediaPlaybackFinished(_ mediaView: OXAMediaView) {
+    func onMediaPlaybackFinished(_ mediaView: PBMMediaView) {
         mediaPlaybackFinishedButton.isEnabled = true
     }
-    func onMediaPlaybackPaused(_ mediaView: OXAMediaView) {
+    func onMediaPlaybackPaused(_ mediaView: PBMMediaView) {
         mediaPlaybackPausedButton.isEnabled = true
     }
-    func onMediaPlaybackResumed(_ mediaView: OXAMediaView) {
+    func onMediaPlaybackResumed(_ mediaView: PBMMediaView) {
         mediaPlaybackResumedButton.isEnabled = true
     }
-    func onMediaPlaybackMuted(_ mediaView: OXAMediaView) {
+    func onMediaPlaybackMuted(_ mediaView: PBMMediaView) {
         mediaPlaybackMutedButton.isEnabled = true
     }
-    func onMediaPlaybackUnmuted(_ mediaView: OXAMediaView) {
+    func onMediaPlaybackUnmuted(_ mediaView: PBMMediaView) {
         mediaPlaybackUnmutedButton.isEnabled = true
     }
-    func onMediaLoadingFinished(_ mediaView: OXAMediaView) {
+    func onMediaLoadingFinished(_ mediaView: PBMMediaView) {
         mediaLoadingFinishedButton.isEnabled = true
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 class PrebidNativeAdFeedController: NSObject, PrebidConfigurableNativeAdRenderingController {
     var prebidConfigId = ""
-    var nativeAdConfig = OXANativeAdConfiguration?.none
+    var nativeAdConfig = PBMNativeAdConfiguration?.none
 
     var autoPlayOnVisible = true
     var showOnlyMediaView = false
@@ -17,7 +17,7 @@ class PrebidNativeAdFeedController: NSObject, PrebidConfigurableNativeAdRenderin
     private var adLoadingAllowed = false
     private var onAdLoadingAllowed: (()->())?
     
-    private var adUnit: OXANativeAdUnit?
+    private var adUnit: PBMNativeAdUnit?
     
     private weak var rootTableViewController: PrebidFeedTableViewController?
     
@@ -82,7 +82,7 @@ class PrebidNativeAdFeedController: NSObject, PrebidConfigurableNativeAdRenderin
         
         self.cleanUp(cell: cell)
         
-        let adUnit = OXANativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
+        let adUnit = PBMNativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
         self.adUnit = adUnit
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
@@ -152,8 +152,8 @@ class PrebidNativeAdFeedController: NSObject, PrebidConfigurableNativeAdRenderin
     }
 }
 
-extension PrebidNativeAdFeedController: OXANativeAdUIDelegate {
-    func viewPresentationController(for nativeAd: OXANativeAd) -> UIViewController? {
+extension PrebidNativeAdFeedController: PBMNativeAdUIDelegate {
+    func viewPresentationController(for nativeAd: PBMNativeAd) -> UIViewController? {
         return rootTableViewController
     }
 }

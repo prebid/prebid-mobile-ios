@@ -11,9 +11,9 @@ import UIKit
 import Eureka
 
 class NativeEventTrackerController : FormViewController, RowBuildHelpConsumer {
-    var eventTracker: OXANativeEventTracker!
+    var eventTracker: PBMNativeEventTracker!
     
-    var dataContainer: OXANativeEventTracker? {
+    var dataContainer: PBMNativeEventTracker? {
         get { eventTracker }
         set { eventTracker = newValue }
     }
@@ -43,7 +43,7 @@ class NativeEventTrackerController : FormViewController, RowBuildHelpConsumer {
             <<< makeRequiredEnumRow("event", keyPath: \.event, defVal: .impression)
         
         addRequiredIntArrayField(field: "methods", keyPath: \.methods)
-        addExtRow(field: "ext", src: \.ext, dst: OXANativeEventTracker.setExt(_:))
+        addExtRow(field: "ext", src: \.ext, dst: PBMNativeEventTracker.setExt(_:))
     }
     
     override func viewWillDisappear(_ animated: Bool) {

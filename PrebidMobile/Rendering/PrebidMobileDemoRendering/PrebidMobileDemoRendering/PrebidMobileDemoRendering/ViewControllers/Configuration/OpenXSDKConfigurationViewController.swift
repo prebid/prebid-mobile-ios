@@ -1,5 +1,5 @@
 //
-//  OXASDKConfigurationViewController.swift
+//  PBMSDKConfigurationViewController.swift
 //  OpenXInternalTestApp
 //
 //  Copyright © 2018 OpenX. All rights reserved.
@@ -10,8 +10,8 @@ import Eureka
 
 final class OpenXSDKConfigurationController : FormViewController {
     
-    var sdkConfig: OXASDKConfiguration {
-        return OXASDKConfiguration.singleton
+    var sdkConfig: PBMSDKConfiguration {
+        return PBMSDKConfiguration.singleton
     }
     
     override func viewDidLoad() {
@@ -39,7 +39,7 @@ final class OpenXSDKConfigurationController : FormViewController {
                     row.cell.textField.accessibilityIdentifier = "creativeFactoryTimeoutTextField"
                 }
                 .onChange { row in
-                    self.sdkConfig.creativeFactoryTimeout = row.value.oxm_toTimeInterval()
+                    self.sdkConfig.creativeFactoryTimeout = row.value.pbm_toTimeInterval()
             }
             <<< TextRow() {row in
                     row.title = "Pre Render Content"
@@ -47,7 +47,7 @@ final class OpenXSDKConfigurationController : FormViewController {
                     row.cell.textField.accessibilityIdentifier = "creativeFactoryTimeoutPreRenderContentTextField"
                 }
                 .onChange { row in
-                    self.sdkConfig.creativeFactoryTimeoutPreRenderContent = row.value.oxm_toTimeInterval()
+                    self.sdkConfig.creativeFactoryTimeoutPreRenderContent = row.value.pbm_toTimeInterval()
             }
     }
     

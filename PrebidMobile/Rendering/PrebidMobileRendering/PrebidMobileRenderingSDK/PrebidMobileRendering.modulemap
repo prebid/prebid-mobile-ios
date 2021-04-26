@@ -1,0 +1,115 @@
+//
+//  PrebidMobileRendering.modulemap
+//  PrebidMobileRendering
+//
+//  Copyright © 2020 OpenX. All rights reserved.
+//
+
+framework module PrebidMobileRendering {
+    
+    // Versions
+    header "PrebidMobileRenderingSDK.h"
+    // Constants
+    header "PBMPublicConstants.h"
+    // Enums
+    header "PBMAdFormat.h"
+    header "PBMErrorCode.h"
+    header "PBMErrorType.h"
+    header "PBMLogLevel.h"
+    header "PBMAdPosition.h"
+    header "PBMVideoPlacementType.h"
+    
+    // PBMCore
+    header "PBMAdUnitConfig.h"
+    header "PBMBid.h"
+    header "PBMBidResponse.h"
+    header "PBMBidRequesterProtocol.h"
+    header "PBMBidRequester.h"
+    header "PBMGender.h"
+    header "PBMFetchDemandResult.h"
+    header "PBMNetworkType.h"
+    header "PBMSDKConfiguration.h"
+    header "PBMTargeting.h"
+    
+    // PBMCacheRenderers
+    header "PBMDisplayView.h"
+    header "PBMDisplayViewLoadingDelegate.h"
+    header "PBMDisplayViewInteractionDelegate.h"
+    header "PBMInterstitialController.h"
+    header "PBMInterstitialControllerLoadingDelegate.h"
+    header "PBMInterstitialControllerInteractionDelegate.h"
+    
+    
+    // OXB Integration GAM
+    
+    header "PBMPrimaryAdRequesterProtocol.h"
+    
+    header "PBMBannerEventLoadingDelegate.h"
+    header "PBMBannerEventInteractionDelegate.h"
+    header "PBMBannerEventHandler.h"
+    header "PBMBannerViewDelegate.h"
+    header "PBMBannerView.h"
+    
+    header "PBMBaseAdUnit.h"
+    header "PBMBaseInterstitialAdUnit.h"
+    header "PBMDemandResponseInfo.h"
+    
+    header "PBMInterstitialAdUnit.h"
+    header "PBMInterstitialAdUnitDelegate.h"
+    header "PBMInterstitialEventLoadingDelegate.h"
+    header "PBMInterstitialEventInteractionDelegate.h"
+    header "PBMInterstitialEventHandler.h"
+    
+    header "PBMRewardedAdUnit.h"
+    header "PBMRewardedAdUnitDelegate.h"
+    header "PBMRewardedEventLoadingDelegate.h"
+    header "PBMRewardedEventInteractionDelegate.h"
+    header "PBMRewardedEventHandler.h"
+    
+    
+    // PBM Native Ads (enums)
+    header "PBMDataAssetType.h"
+    header "PBMImageAssetType.h"
+    header "PBMDataAssetType.h"
+    header "PBMNativeEventTrackingMethod.h"
+    header "PBMNativeEventType.h"
+    // PBM Native Ads (request)
+    header "PBMNativeAdConfiguration.h"
+    header "PBMNativeAdUnit.h"
+    header "PBMNativeAsset.h"
+    header "PBMNativeAssetData.h"
+    header "PBMNativeAssetImage.h"
+    header "PBMNativeAssetTitle.h"
+    header "PBMNativeAssetVideo.h"
+    header "PBMNativeContextType.h"
+    header "PBMNativeContextSubtype.h"
+    header "PBMNativeEventTracker.h"
+    header "PBMNativePlacementType.h"
+    // PBM Native Ads (response)
+    header "PBMNativeAd.h"
+    header "PBMNativeAdTrackingDelegate.h"
+    header "PBMNativeAdUIDelegate.h"
+    header "PBMNativeAdAsset.h"
+    header "PBMNativeAdData.h"
+    header "PBMNativeAdElementType.h"
+    header "PBMNativeAdEventTracker.h"
+    header "PBMNativeAdHandler.h"
+    header "PBMNativeAdImage.h"
+    header "PBMNativeAdTitle.h"
+    header "PBMNativeAdVideo.h"
+    // PBM Native Ads (rendering)
+    header "PBMMediaData.h"
+    header "PBMMediaView.h"
+    header "PBMMediaViewDelegate.h"
+    // PBM Native Ads (for Primary SDK Utils)
+    header "PBMLocalResponseInfoCache.h"
+    header "PBMNativeAdDetectionListener.h"
+    
+    // PBM Integration MoPub
+    header "PBMMoPubBannerAdUnit.h"
+    header "PBMMoPubBaseInterstitialAdUnit.h"
+    header "PBMMoPubInterstitialAdUnit.h"
+    header "PBMMoPubRewardedAdUnit.h"
+    header "PBMMoPubUtils.h"
+    header "PBMMoPubNativeAdUnit.h"
+}

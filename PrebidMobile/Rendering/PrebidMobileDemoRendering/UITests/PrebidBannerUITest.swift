@@ -21,7 +21,7 @@ class PrebidBannerUITest: RepeatedUITestCase {
             navigateToExamplesSection()
             navigateToExample("Banner 320x50 (PPM)")
             
-            let bannerView = app.descendants(matching: .other)["OXABannerView"]
+            let bannerView = app.descendants(matching: .other)["PBMBannerView"]
             
             waitAd()
             
@@ -31,7 +31,7 @@ class PrebidBannerUITest: RepeatedUITestCase {
             bannerView.tap(withNumberOfTaps: 10, numberOfTouches: 1)
             
             // Wait for the close button, then press it.
-            let interstitialCloseBtn = app.buttons["OXMCloseButtonClickThroughBrowser"]
+            let interstitialCloseBtn = app.buttons["PBMCloseButtonClickThroughBrowser"]
             waitForExists(element: interstitialCloseBtn, waitSeconds: 12)
             interstitialCloseBtn.tap()
 
@@ -56,7 +56,7 @@ class PrebidBannerUITest: RepeatedUITestCase {
                 let link = app.staticTexts[linkText]
                 link.tap()
                 
-                let closeButton = app.buttons["OXMCloseButtonClickThroughBrowser"]
+                let closeButton = app.buttons["PBMCloseButtonClickThroughBrowser"]
                 waitForExists(element: closeButton, waitSeconds: waitingTimeout)
                 closeButton.tap()
             }
@@ -101,7 +101,7 @@ class PrebidBannerUITest: RepeatedUITestCase {
             
                 let views = app.descendants(matching: .webView)
                 viewsLoop: for view in views.allElementsBoundByAccessibilityElement {
-                    if view.identifier == "OXMInternalWebViewAccessibilityIdentifier" {
+                    if view.identifier == "PBMInternalWebViewAccessibilityIdentifier" {
                         isAdLoaded = true
                         break
                     }

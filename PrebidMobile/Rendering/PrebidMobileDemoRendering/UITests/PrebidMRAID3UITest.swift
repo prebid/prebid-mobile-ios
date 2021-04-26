@@ -10,9 +10,7 @@ import XCTest
 class PrebidMRAID3UITest: RepeatedUITestCase {
 
     private let viewabilityComplianceTitle = "MRAID 3.0: Viewability Compliance (PPM)"
-    // See: https://openxtechinc.atlassian.net/wiki/spaces/MOB/pages/766437/MRAID+Test+Ads#MRAIDTestAds-LoadandEvents
     private let loadAndEventsTitle = "MRAID 3.0: Load And Events (PPM)"
-    // See: https://openxtechinc.atlassian.net/wiki/spaces/MOB/pages/766437/MRAID+Test+Ads#MRAIDTestAds-Resizenegative
     private let resizeNegativeTestTitle = "MRAID 3.0: Resize Negative Test (PPM)"
     private let waitingTimeout = 10.0
     private let timeout = 7.0
@@ -36,7 +34,7 @@ class PrebidMRAID3UITest: RepeatedUITestCase {
             var isExposureErrorFound = false
             var isMRAIDEnvErrorFound = false
             
-            let testWebView = app.webViews["OXMInternalWebViewAccessibilityIdentifier"]
+            let testWebView = app.webViews["PBMInternalWebViewAccessibilityIdentifier"]
             let allStaticTexts = testWebView.staticTexts.allElementsBoundByIndex
             
             // There are two possible errors
@@ -65,7 +63,7 @@ class PrebidMRAID3UITest: RepeatedUITestCase {
             
             waitForExists(element: app.staticTexts["Tap SDK Close Button"], waitSeconds: timeout)
             
-            let browserCloseButton = app.buttons["OXMCloseButton"]
+            let browserCloseButton = app.buttons["PBMCloseButton"]
             waitForHittable(element: browserCloseButton, waitSeconds: timeout)
             browserCloseButton.tap()
             
@@ -90,7 +88,7 @@ class PrebidMRAID3UITest: RepeatedUITestCase {
             openAndWaitAd(title: resizeNegativeTestTitle)
             
             Thread.sleep(forTimeInterval: 8)
-            let testWebView = app.webViews["OXMInternalWebViewAccessibilityIdentifier"]
+            let testWebView = app.webViews["PBMInternalWebViewAccessibilityIdentifier"]
             
             var passedTestsCount = 0;
             

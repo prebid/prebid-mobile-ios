@@ -30,7 +30,7 @@ class PrebidVideoInterstitialUITest: RepeatedUITestCase {
             waitForExists(element: LearnMoreBtn, waitSeconds: 5 )
             
             // Wait for Close
-            let interstitialCloseBtn = app.buttons["OXMCloseButton"]
+            let interstitialCloseBtn = app.buttons["PBMCloseButton"]
             waitForHittable(element: interstitialCloseBtn, waitSeconds: 5)
             interstitialCloseBtn.tap()
             
@@ -49,11 +49,11 @@ class PrebidVideoInterstitialUITest: RepeatedUITestCase {
             LearnMoreBtn.tap()
             
             // Wait for the click through browser to come up.
-            let clickthroughBrowserCloseBtn = app.buttons["OXMCloseButtonClickThroughBrowser"]
+            let clickthroughBrowserCloseBtn = app.buttons["PBMCloseButtonClickThroughBrowser"]
             waitForHittable(element: clickthroughBrowserCloseBtn, waitSeconds: 5)
             clickthroughBrowserCloseBtn.tap()
             
-            let videoCloseBtn = app.buttons["OXMCloseButton"]
+            let videoCloseBtn = app.buttons["PBMCloseButton"]
             waitForHittable(element: videoCloseBtn, waitSeconds: 5)
             videoCloseBtn.tap()
             
@@ -65,7 +65,7 @@ class PrebidVideoInterstitialUITest: RepeatedUITestCase {
         repeatTesting(times: 7) {
             openVideo(title: videoInterstitialTitle)
             
-            let videoCloseBtn = app.buttons["OXMCloseButton"]
+            let videoCloseBtn = app.buttons["PBMCloseButton"]
             waitForHittable(element: videoCloseBtn, waitSeconds: 5)
             
             // The close button should disappear
@@ -89,7 +89,7 @@ class PrebidVideoInterstitialUITest: RepeatedUITestCase {
             endCardLink.tap()
             
             // Close button should be present
-            let videoCloseBtn = app.buttons["OXMCloseButtonClickThroughBrowser"]
+            let videoCloseBtn = app.buttons["PBMCloseButtonClickThroughBrowser"]
             waitForHittable(element: videoCloseBtn, waitSeconds: 5)
             videoCloseBtn.tap()
             

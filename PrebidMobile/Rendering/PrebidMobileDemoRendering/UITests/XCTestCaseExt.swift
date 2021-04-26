@@ -189,7 +189,7 @@ extension BaseUITestCase {
     }
     enum AdServer: String, CaseIterable {
         // Note: order defines search priority during the detection
-        case apollo = "Apollo "
+        case inapp = "In-App"
         case gam    = "GAM"
         case mopub  = "MoPub"
     }

@@ -8,70 +8,70 @@
 
 /* Begin PBXBuildFile section */
 		3405F94A250A555800268A77 /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D5C24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers.framework */; };
-		3405F951250A55AE00268A77 /* OXADFPBannerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3405F950250A55AE00268A77 /* OXADFPBannerTest.swift */; };
-		344A7F02250B6C4E00743A93 /* OXADFPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 344A7F00250B6C4E00743A93 /* OXADFPRequest.h */; };
-		344A7F03250B6C4E00743A93 /* OXADFPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F01250B6C4E00743A93 /* OXADFPRequest.m */; };
+		3405F951250A55AE00268A77 /* PBMDFPBannerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3405F950250A55AE00268A77 /* PBMDFPBannerTest.swift */; };
+		344A7F02250B6C4E00743A93 /* PBMDFPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 344A7F00250B6C4E00743A93 /* PBMDFPRequest.h */; };
+		344A7F03250B6C4E00743A93 /* PBMDFPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F01250B6C4E00743A93 /* PBMDFPRequest.m */; };
 		344A7F09250B73FA00743A93 /* PropertyTestModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F08250B73FA00743A93 /* PropertyTestModels.swift */; };
 		344A7F0C250B744D00743A93 /* GADAdSize+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F0B250B744D00743A93 /* GADAdSize+Equatable.swift */; };
-		344A7F0E250B749600743A93 /* OXADFPRequestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F0D250B749600743A93 /* OXADFPRequestTest.swift */; };
-		344A7F11250B7A5100743A93 /* OXADFPInterstitial.h in Headers */ = {isa = PBXBuildFile; fileRef = 344A7F0F250B7A5100743A93 /* OXADFPInterstitial.h */; };
-		344A7F12250B7A5100743A93 /* OXADFPInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F10250B7A5100743A93 /* OXADFPInterstitial.m */; };
-		344A7F14250B823F00743A93 /* OXADFPInterstitialTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F13250B823F00743A93 /* OXADFPInterstitialTest.swift */; };
-		344A7F17250B83E200743A93 /* OXAGADRewardedAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 344A7F15250B83E200743A93 /* OXAGADRewardedAd.h */; };
-		344A7F18250B83E200743A93 /* OXAGADRewardedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F16250B83E200743A93 /* OXAGADRewardedAd.m */; };
-		344A7F1A250B8E5400743A93 /* OXAGADRewardedAdTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F19250B8E5400743A93 /* OXAGADRewardedAdTest.swift */; };
-		3459DF4D25E8D8B4004EC761 /* OXAGADUnifiedNativeAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3459DF4C25E8D8B4004EC761 /* OXAGADUnifiedNativeAd.m */; };
-		346A9C9824F8F4CF002892BC /* OXAMoPubAdapterConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 346A9C9624F8F4CE002892BC /* OXAMoPubAdapterConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		346A9C9924F8F4CF002892BC /* OXAMoPubAdapterConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 346A9C9724F8F4CF002892BC /* OXAMoPubAdapterConfiguration.m */; };
-		346C50EC250BC05A00435A73 /* OXAGAMError.h in Headers */ = {isa = PBXBuildFile; fileRef = 346C50EA250BC05A00435A73 /* OXAGAMError.h */; };
-		346C50ED250BC05A00435A73 /* OXAGAMError.m in Sources */ = {isa = PBXBuildFile; fileRef = 346C50EB250BC05A00435A73 /* OXAGAMError.m */; };
-		34B64D6024F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D5E24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34B64D6A24F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D6924F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.m */; };
-		34B64D6B24F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D6624F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.m */; };
-		34B64D6C24F7E51300FDD9F4 /* OXAGAMBannerEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D6724F7E51300FDD9F4 /* OXAGAMBannerEventHandler.m */; };
+		344A7F0E250B749600743A93 /* PBMDFPRequestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F0D250B749600743A93 /* PBMDFPRequestTest.swift */; };
+		344A7F11250B7A5100743A93 /* PBMDFPInterstitial.h in Headers */ = {isa = PBXBuildFile; fileRef = 344A7F0F250B7A5100743A93 /* PBMDFPInterstitial.h */; };
+		344A7F12250B7A5100743A93 /* PBMDFPInterstitial.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F10250B7A5100743A93 /* PBMDFPInterstitial.m */; };
+		344A7F14250B823F00743A93 /* PBMDFPInterstitialTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F13250B823F00743A93 /* PBMDFPInterstitialTest.swift */; };
+		344A7F17250B83E200743A93 /* PBMGADRewardedAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 344A7F15250B83E200743A93 /* PBMGADRewardedAd.h */; };
+		344A7F18250B83E200743A93 /* PBMGADRewardedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F16250B83E200743A93 /* PBMGADRewardedAd.m */; };
+		344A7F1A250B8E5400743A93 /* PBMGADRewardedAdTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344A7F19250B8E5400743A93 /* PBMGADRewardedAdTest.swift */; };
+		3459DF4D25E8D8B4004EC761 /* PBMGADUnifiedNativeAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3459DF4C25E8D8B4004EC761 /* PBMGADUnifiedNativeAd.m */; };
+		346A9C9824F8F4CF002892BC /* PrebidMoPubAdapterConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 346A9C9624F8F4CE002892BC /* PrebidMoPubAdapterConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		346A9C9924F8F4CF002892BC /* PrebidMoPubAdapterConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 346A9C9724F8F4CF002892BC /* PrebidMoPubAdapterConfiguration.m */; };
+		346C50EC250BC05A00435A73 /* PBMGAMError.h in Headers */ = {isa = PBXBuildFile; fileRef = 346C50EA250BC05A00435A73 /* PBMGAMError.h */; };
+		346C50ED250BC05A00435A73 /* PBMGAMError.m in Sources */ = {isa = PBXBuildFile; fileRef = 346C50EB250BC05A00435A73 /* PBMGAMError.m */; };
+		34B64D6024F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D5E24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64D6A24F7E51300FDD9F4 /* PBMGAMRewardedEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D6924F7E51300FDD9F4 /* PBMGAMRewardedEventHandler.m */; };
+		34B64D6B24F7E51300FDD9F4 /* PBMGAMInterstitialEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D6624F7E51300FDD9F4 /* PBMGAMInterstitialEventHandler.m */; };
+		34B64D6C24F7E51300FDD9F4 /* PBMGAMBannerEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D6724F7E51300FDD9F4 /* PBMGAMBannerEventHandler.m */; };
 		34B64D7124F7E8A100FDD9F4 /* PrebidMobileRendering.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7024F7E8A100FDD9F4 /* PrebidMobileRendering.framework */; };
-		34B64D7624F7EA8300FDD9F4 /* OXAGAMBannerEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D6524F7E51300FDD9F4 /* OXAGAMBannerEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34B64D7724F7EA8300FDD9F4 /* OXAGAMInterstitialEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D6424F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34B64D7824F7EA8300FDD9F4 /* OXAGAMRewardedEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D6824F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34B64D8224F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D8024F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34B64DA024F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D9824F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34B64DA124F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D9924F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.m */; };
-		34B64DA224F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D9A24F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34B64DA324F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D9B24F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.m */; };
-		34B64DA424F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D9C24F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.m */; };
-		34B64DA524F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D9D24F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34B64DA624F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D9E24F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.m */; };
-		34B64DA724F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D9F24F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64D7624F7EA8300FDD9F4 /* PBMGAMBannerEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D6524F7E51300FDD9F4 /* PBMGAMBannerEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64D7724F7EA8300FDD9F4 /* PBMGAMInterstitialEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D6424F7E51300FDD9F4 /* PBMGAMInterstitialEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64D7824F7EA8300FDD9F4 /* PBMGAMRewardedEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D6824F7E51300FDD9F4 /* PBMGAMRewardedEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64D8224F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D8024F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64DA024F7EF2E00FDD9F4 /* PrebidMoPubBannerAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D9824F7EF2E00FDD9F4 /* PrebidMoPubBannerAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64DA124F7EF2E00FDD9F4 /* PrebidMoPubInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D9924F7EF2E00FDD9F4 /* PrebidMoPubInterstitialAdapter.m */; };
+		34B64DA224F7EF2E00FDD9F4 /* PrebidMoPubVideoInterstitialAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D9A24F7EF2E00FDD9F4 /* PrebidMoPubVideoInterstitialAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64DA324F7EF2E00FDD9F4 /* PrebidMoPubVideoInterstitialAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D9B24F7EF2E00FDD9F4 /* PrebidMoPubVideoInterstitialAdapter.m */; };
+		34B64DA424F7EF2E00FDD9F4 /* PrebidMoPubBannerAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D9C24F7EF2E00FDD9F4 /* PrebidMoPubBannerAdapter.m */; };
+		34B64DA524F7EF2E00FDD9F4 /* PrebidMoPubInterstitialAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D9D24F7EF2E00FDD9F4 /* PrebidMoPubInterstitialAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34B64DA624F7EF2E00FDD9F4 /* PrebidMoPubRewardedVideoAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B64D9E24F7EF2E00FDD9F4 /* PrebidMoPubRewardedVideoAdapter.m */; };
+		34B64DA724F7EF2E00FDD9F4 /* PrebidMoPubRewardedVideoAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B64D9F24F7EF2E00FDD9F4 /* PrebidMoPubRewardedVideoAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34B64DAE24F7FD8100FDD9F4 /* PrebidMobileRendering.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7024F7E8A100FDD9F4 /* PrebidMobileRendering.framework */; };
-		34C7964325DD59370072A898 /* OXAGAMUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7964125DD59370072A898 /* OXAGAMUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34C7964425DD59370072A898 /* OXAGAMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7964225DD59370072A898 /* OXAGAMUtils.m */; };
-		34C7965125DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7964F25DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.h */; };
-		34C7965225DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7965025DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.m */; };
-		34C7965825DD67470072A898 /* OXALocalResponseInfoCache+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7965725DD67470072A898 /* OXALocalResponseInfoCache+Internal.h */; };
-		34C7967B25DE52CD0072A898 /* OXAGAMConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7967925DE52CD0072A898 /* OXAGAMConstants.h */; };
-		34C7967C25DE52CD0072A898 /* OXAGAMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7967A25DE52CD0072A898 /* OXAGAMConstants.m */; };
-		34C7C9EB2509018B0021C6D0 /* OXADFPBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7C9E92509018B0021C6D0 /* OXADFPBanner.h */; };
-		34C7C9EC2509018B0021C6D0 /* OXADFPBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7C9EA2509018B0021C6D0 /* OXADFPBanner.m */; };
-		34C7C9F3250A1B610021C6D0 /* OXAInvocationHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7C9F1250A1B610021C6D0 /* OXAInvocationHelper.h */; };
-		34C7C9F4250A1B610021C6D0 /* OXAInvocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7C9F2250A1B610021C6D0 /* OXAInvocationHelper.m */; };
+		34C7964325DD59370072A898 /* PBMGAMUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7964125DD59370072A898 /* PBMGAMUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		34C7964425DD59370072A898 /* PBMGAMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7964225DD59370072A898 /* PBMGAMUtils.m */; };
+		34C7965125DD5BEF0072A898 /* PBMGADNativeCustomTemplateAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7964F25DD5BEF0072A898 /* PBMGADNativeCustomTemplateAd.h */; };
+		34C7965225DD5BEF0072A898 /* PBMGADNativeCustomTemplateAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7965025DD5BEF0072A898 /* PBMGADNativeCustomTemplateAd.m */; };
+		34C7965825DD67470072A898 /* PBMLocalResponseInfoCache+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7965725DD67470072A898 /* PBMLocalResponseInfoCache+Internal.h */; };
+		34C7967B25DE52CD0072A898 /* PBMGAMConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7967925DE52CD0072A898 /* PBMGAMConstants.h */; };
+		34C7967C25DE52CD0072A898 /* PBMGAMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7967A25DE52CD0072A898 /* PBMGAMConstants.m */; };
+		34C7C9EB2509018B0021C6D0 /* PBMDFPBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7C9E92509018B0021C6D0 /* PBMDFPBanner.h */; };
+		34C7C9EC2509018B0021C6D0 /* PBMDFPBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7C9EA2509018B0021C6D0 /* PBMDFPBanner.m */; };
+		34C7C9F3250A1B610021C6D0 /* PBMInvocationHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 34C7C9F1250A1B610021C6D0 /* PBMInvocationHelper.h */; };
+		34C7C9F4250A1B610021C6D0 /* PBMInvocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 34C7C9F2250A1B610021C6D0 /* PBMInvocationHelper.m */; };
 		92F182B3E3AC2C869402CDEE /* Pods_PrebidMobileGAMEventHandlersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 492E16D3B90411A699792B3D /* Pods_PrebidMobileGAMEventHandlersTests.framework */; };
-		AC47330825D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = AC47330625D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AC47330925D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AC47330725D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.m */; };
-		AC4733B025D55BD70041EEBA /* OXAMoPubNativeAdRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4733AF25D55BD70041EEBA /* OXAMoPubNativeAdRenderer.m */; };
-		AC4733B125D55BD70041EEBA /* OXAMoPubNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4733AE25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.m */; };
-		AC4733CB25D56A400041EEBA /* OXAMoPubNativeAdRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = AC4733AC25D55BD50041EEBA /* OXAMoPubNativeAdRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AC4733D225D56A5D0041EEBA /* OXAMoPubNativeAdAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = AC4733AD25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AC707B022625BD3E00FACDF0 /* NSTimer+OXAScheduledTimerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3826725EFCA50000A071B /* NSTimer+OXAScheduledTimerFactory.h */; };
-		AC707B062625BD5700FACDF0 /* OXAScheduledTimerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3825F25EFCA1B000A071B /* OXAScheduledTimerFactory.h */; };
-		ACF3824225EFBD8A000A071B /* OXAMoPubConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3824025EFBD89000A071B /* OXAMoPubConstants.h */; };
-		ACF3824325EFBD8A000A071B /* OXAMoPubConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF3824125EFBD89000A071B /* OXAMoPubConstants.m */; };
-		ACF3824C25EFC147000A071B /* OXAMoPubNativeAdUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3824A25EFC147000A071B /* OXAMoPubNativeAdUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ACF3824D25EFC147000A071B /* OXAMoPubNativeAdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF3824B25EFC147000A071B /* OXAMoPubNativeAdUtils.m */; };
+		AC47330825D3F6F20041EEBA /* PrebidMoPubNativeCustomEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = AC47330625D3F6F20041EEBA /* PrebidMoPubNativeCustomEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC47330925D3F6F20041EEBA /* PrebidMoPubNativeCustomEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = AC47330725D3F6F20041EEBA /* PrebidMoPubNativeCustomEvent.m */; };
+		AC4733B025D55BD70041EEBA /* PrebidMoPubNativeAdRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4733AF25D55BD70041EEBA /* PrebidMoPubNativeAdRenderer.m */; };
+		AC4733B125D55BD70041EEBA /* PrebidMoPubNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4733AE25D55BD60041EEBA /* PrebidMoPubNativeAdAdapter.m */; };
+		AC4733CB25D56A400041EEBA /* PrebidMoPubNativeAdRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = AC4733AC25D55BD50041EEBA /* PrebidMoPubNativeAdRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC4733D225D56A5D0041EEBA /* PrebidMoPubNativeAdAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = AC4733AD25D55BD60041EEBA /* PrebidMoPubNativeAdAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC707B022625BD3E00FACDF0 /* NSTimer+PBMScheduledTimerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3826725EFCA50000A071B /* NSTimer+PBMScheduledTimerFactory.h */; };
+		AC707B062625BD5700FACDF0 /* PBMScheduledTimerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3825F25EFCA1B000A071B /* PBMScheduledTimerFactory.h */; };
+		ACF3824225EFBD8A000A071B /* PrebidMoPubConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3824025EFBD89000A071B /* PrebidMoPubConstants.h */; };
+		ACF3824325EFBD8A000A071B /* PrebidMoPubConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF3824125EFBD89000A071B /* PrebidMoPubConstants.m */; };
+		ACF3824C25EFC147000A071B /* PrebidMoPubNativeAdUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3824A25EFC147000A071B /* PrebidMoPubNativeAdUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ACF3824D25EFC147000A071B /* PrebidMoPubNativeAdUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF3824B25EFC147000A071B /* PrebidMoPubNativeAdUtils.m */; };
 		ACF3825625EFC86D000A071B /* DO_NOT_MOVE_THESE_FILES.txt in Resources */ = {isa = PBXBuildFile; fileRef = ACF3825525EFC86D000A071B /* DO_NOT_MOVE_THESE_FILES.txt */; };
-		ACF3825B25EFC8E5000A071B /* OXALocalResponseInfoCache+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3825A25EFC8E5000A071B /* OXALocalResponseInfoCache+Internal.h */; };
-		ACF3826925EFCAD9000A071B /* OXAMoPubNativeAdUtils+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3826825EFCAD9000A071B /* OXAMoPubNativeAdUtils+Internal.h */; };
-		ACF3831C25F0F91D000A071B /* OXAMoPubError.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3831A25F0F91C000A071B /* OXAMoPubError.h */; };
-		ACF3831D25F0F91D000A071B /* OXAMoPubError.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF3831B25F0F91C000A071B /* OXAMoPubError.m */; };
+		ACF3825B25EFC8E5000A071B /* PBMLocalResponseInfoCache+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3825A25EFC8E5000A071B /* PBMLocalResponseInfoCache+Internal.h */; };
+		ACF3826925EFCAD9000A071B /* PrebidMoPubNativeAdUtils+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3826825EFCAD9000A071B /* PrebidMoPubNativeAdUtils+Internal.h */; };
+		ACF3831C25F0F91D000A071B /* PrebidMoPubError.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3831A25F0F91C000A071B /* PrebidMoPubError.h */; };
+		ACF3831D25F0F91D000A071B /* PrebidMoPubError.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF3831B25F0F91C000A071B /* PrebidMoPubError.m */; };
 		B350DB86FED9B5A5A7AACCF0 /* Pods_PrebidMobileMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C075C2B228DD2006BDA58005 /* Pods_PrebidMobileMoPubAdapters.framework */; };
 		C3E45723C24D15415F4FAB0C /* Pods_PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC52FAF1C12304695E019A4D /* Pods_PrebidMobileGAMEventHandlers.framework */; };
 /* End PBXBuildFile section */
@@ -90,83 +90,83 @@
 		22D54DBD4A18A8BDA6235BEB /* Pods-PrebidMobileMoPubAdapters.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileMoPubAdapters.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobileMoPubAdapters/Pods-PrebidMobileMoPubAdapters.release.xcconfig"; sourceTree = "<group>"; };
 		3405F945250A555800268A77 /* PrebidMobileGAMEventHandlersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileGAMEventHandlersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3405F949250A555800268A77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3405F950250A55AE00268A77 /* OXADFPBannerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXADFPBannerTest.swift; sourceTree = "<group>"; };
-		3405F952250A5A5800268A77 /* OpenXApolloGAMEventHandlersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenXApolloGAMEventHandlersTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		344A7F00250B6C4E00743A93 /* OXADFPRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXADFPRequest.h; sourceTree = "<group>"; };
-		344A7F01250B6C4E00743A93 /* OXADFPRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXADFPRequest.m; sourceTree = "<group>"; };
+		3405F950250A55AE00268A77 /* PBMDFPBannerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMDFPBannerTest.swift; sourceTree = "<group>"; };
+		3405F952250A5A5800268A77 /* PrebidMobileGAMEventHandlersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileGAMEventHandlersTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		344A7F00250B6C4E00743A93 /* PBMDFPRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMDFPRequest.h; sourceTree = "<group>"; };
+		344A7F01250B6C4E00743A93 /* PBMDFPRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMDFPRequest.m; sourceTree = "<group>"; };
 		344A7F08250B73FA00743A93 /* PropertyTestModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTestModels.swift; sourceTree = "<group>"; };
 		344A7F0B250B744D00743A93 /* GADAdSize+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GADAdSize+Equatable.swift"; sourceTree = "<group>"; };
-		344A7F0D250B749600743A93 /* OXADFPRequestTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXADFPRequestTest.swift; sourceTree = "<group>"; };
-		344A7F0F250B7A5100743A93 /* OXADFPInterstitial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXADFPInterstitial.h; sourceTree = "<group>"; };
-		344A7F10250B7A5100743A93 /* OXADFPInterstitial.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXADFPInterstitial.m; sourceTree = "<group>"; };
-		344A7F13250B823F00743A93 /* OXADFPInterstitialTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXADFPInterstitialTest.swift; sourceTree = "<group>"; };
-		344A7F15250B83E200743A93 /* OXAGADRewardedAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGADRewardedAd.h; sourceTree = "<group>"; };
-		344A7F16250B83E200743A93 /* OXAGADRewardedAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGADRewardedAd.m; sourceTree = "<group>"; };
-		344A7F19250B8E5400743A93 /* OXAGADRewardedAdTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXAGADRewardedAdTest.swift; sourceTree = "<group>"; };
-		3459DF4B25E8D87F004EC761 /* OXAGADUnifiedNativeAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGADUnifiedNativeAd.h; sourceTree = "<group>"; };
-		3459DF4C25E8D8B4004EC761 /* OXAGADUnifiedNativeAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGADUnifiedNativeAd.m; sourceTree = "<group>"; };
-		346A9C9624F8F4CE002892BC /* OXAMoPubAdapterConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OXAMoPubAdapterConfiguration.h; sourceTree = "<group>"; };
-		346A9C9724F8F4CF002892BC /* OXAMoPubAdapterConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubAdapterConfiguration.m; sourceTree = "<group>"; };
-		346C50EA250BC05A00435A73 /* OXAGAMError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMError.h; sourceTree = "<group>"; };
-		346C50EB250BC05A00435A73 /* OXAGAMError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMError.m; sourceTree = "<group>"; };
+		344A7F0D250B749600743A93 /* PBMDFPRequestTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMDFPRequestTest.swift; sourceTree = "<group>"; };
+		344A7F0F250B7A5100743A93 /* PBMDFPInterstitial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMDFPInterstitial.h; sourceTree = "<group>"; };
+		344A7F10250B7A5100743A93 /* PBMDFPInterstitial.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMDFPInterstitial.m; sourceTree = "<group>"; };
+		344A7F13250B823F00743A93 /* PBMDFPInterstitialTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMDFPInterstitialTest.swift; sourceTree = "<group>"; };
+		344A7F15250B83E200743A93 /* PBMGADRewardedAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMGADRewardedAd.h; sourceTree = "<group>"; };
+		344A7F16250B83E200743A93 /* PBMGADRewardedAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMGADRewardedAd.m; sourceTree = "<group>"; };
+		344A7F19250B8E5400743A93 /* PBMGADRewardedAdTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMGADRewardedAdTest.swift; sourceTree = "<group>"; };
+		3459DF4B25E8D87F004EC761 /* PBMGADUnifiedNativeAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMGADUnifiedNativeAd.h; sourceTree = "<group>"; };
+		3459DF4C25E8D8B4004EC761 /* PBMGADUnifiedNativeAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMGADUnifiedNativeAd.m; sourceTree = "<group>"; };
+		346A9C9624F8F4CE002892BC /* PrebidMoPubAdapterConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMoPubAdapterConfiguration.h; sourceTree = "<group>"; };
+		346A9C9724F8F4CF002892BC /* PrebidMoPubAdapterConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMoPubAdapterConfiguration.m; sourceTree = "<group>"; };
+		346C50EA250BC05A00435A73 /* PBMGAMError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMGAMError.h; sourceTree = "<group>"; };
+		346C50EB250BC05A00435A73 /* PBMGAMError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMGAMError.m; sourceTree = "<group>"; };
 		34B64D5C24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		34B64D5E24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenXApolloGAMEventHandlers.h; sourceTree = "<group>"; };
+		34B64D5E24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMobileGAMEventHandlers.h; sourceTree = "<group>"; };
 		34B64D5F24F7E41600FDD9F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		34B64D6424F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMInterstitialEventHandler.h; sourceTree = "<group>"; };
-		34B64D6524F7E51300FDD9F4 /* OXAGAMBannerEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMBannerEventHandler.h; sourceTree = "<group>"; };
-		34B64D6624F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMInterstitialEventHandler.m; sourceTree = "<group>"; };
-		34B64D6724F7E51300FDD9F4 /* OXAGAMBannerEventHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMBannerEventHandler.m; sourceTree = "<group>"; };
-		34B64D6824F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMRewardedEventHandler.h; sourceTree = "<group>"; };
-		34B64D6924F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMRewardedEventHandler.m; sourceTree = "<group>"; };
-		34B64D6E24F7E6C400FDD9F4 /* OpenXApolloGAMEventHandlers.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = OpenXApolloGAMEventHandlers.modulemap; sourceTree = "<group>"; };
+		34B64D6424F7E51300FDD9F4 /* PBMGAMInterstitialEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMGAMInterstitialEventHandler.h; sourceTree = "<group>"; };
+		34B64D6524F7E51300FDD9F4 /* PBMGAMBannerEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMGAMBannerEventHandler.h; sourceTree = "<group>"; };
+		34B64D6624F7E51300FDD9F4 /* PBMGAMInterstitialEventHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMGAMInterstitialEventHandler.m; sourceTree = "<group>"; };
+		34B64D6724F7E51300FDD9F4 /* PBMGAMBannerEventHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMGAMBannerEventHandler.m; sourceTree = "<group>"; };
+		34B64D6824F7E51300FDD9F4 /* PBMGAMRewardedEventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMGAMRewardedEventHandler.h; sourceTree = "<group>"; };
+		34B64D6924F7E51300FDD9F4 /* PBMGAMRewardedEventHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMGAMRewardedEventHandler.m; sourceTree = "<group>"; };
+		34B64D6E24F7E6C400FDD9F4 /* PrebidMobileGAMEventHandlers.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = PrebidMobileGAMEventHandlers.modulemap; sourceTree = "<group>"; };
 		34B64D7024F7E8A100FDD9F4 /* PrebidMobileRendering.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PrebidMobileRendering.framework; path = ../Products/PrebidMobileRendering.framework; sourceTree = "<group>"; };
 		34B64D7E24F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		34B64D8024F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenXApolloMoPubAdapters.h; sourceTree = "<group>"; };
+		34B64D8024F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMobileMoPubAdapters.h; sourceTree = "<group>"; };
 		34B64D8124F7ED9600FDD9F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		34B64D9724F7EEA700FDD9F4 /* OpenXApolloMoPubAdapters.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = OpenXApolloMoPubAdapters.modulemap; sourceTree = "<group>"; };
-		34B64D9824F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OXAMoPubBannerAdapter.h; sourceTree = "<group>"; };
-		34B64D9924F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubInterstitialAdapter.m; sourceTree = "<group>"; };
-		34B64D9A24F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OXAMoPubVideoInterstitialAdapter.h; sourceTree = "<group>"; };
-		34B64D9B24F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubVideoInterstitialAdapter.m; sourceTree = "<group>"; };
-		34B64D9C24F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubBannerAdapter.m; sourceTree = "<group>"; };
-		34B64D9D24F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OXAMoPubInterstitialAdapter.h; sourceTree = "<group>"; };
-		34B64D9E24F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubRewardedVideoAdapter.m; sourceTree = "<group>"; };
-		34B64D9F24F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OXAMoPubRewardedVideoAdapter.h; sourceTree = "<group>"; };
-		34C7964125DD59370072A898 /* OXAGAMUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMUtils.h; sourceTree = "<group>"; };
-		34C7964225DD59370072A898 /* OXAGAMUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMUtils.m; sourceTree = "<group>"; };
-		34C7964B25DD5AFA0072A898 /* OXAGAMUtils+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OXAGAMUtils+Internal.h"; sourceTree = "<group>"; };
-		34C7964F25DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGADNativeCustomTemplateAd.h; sourceTree = "<group>"; };
-		34C7965025DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGADNativeCustomTemplateAd.m; sourceTree = "<group>"; };
-		34C7965725DD67470072A898 /* OXALocalResponseInfoCache+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "OXALocalResponseInfoCache+Internal.h"; path = "../../../../PrebidMobileRendering/OpenXSDKCore/Prebid/Integrations/PrimarySDKUtilHelpers/OXALocalResponseInfoCache+Internal.h"; sourceTree = "<group>"; };
-		34C7965C25DD68170072A898 /* OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OXAScheduledTimerFactory.h; path = ../../../../PrebidMobileRendering/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/OXAScheduledTimerFactory.h; sourceTree = "<group>"; };
-		34C7965D25DD68170072A898 /* NSTimer+OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTimer+OXAScheduledTimerFactory.h"; path = "../../../../PrebidMobileRendering/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/NSTimer+OXAScheduledTimerFactory.h"; sourceTree = "<group>"; };
+		34B64D9724F7EEA700FDD9F4 /* PrebidMoPubAdapters.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = PrebidMoPubAdapters.modulemap; sourceTree = "<group>"; };
+		34B64D9824F7EF2E00FDD9F4 /* PrebidMoPubBannerAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMoPubBannerAdapter.h; sourceTree = "<group>"; };
+		34B64D9924F7EF2E00FDD9F4 /* PrebidMoPubInterstitialAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMoPubInterstitialAdapter.m; sourceTree = "<group>"; };
+		34B64D9A24F7EF2E00FDD9F4 /* PrebidMoPubVideoInterstitialAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMoPubVideoInterstitialAdapter.h; sourceTree = "<group>"; };
+		34B64D9B24F7EF2E00FDD9F4 /* PrebidMoPubVideoInterstitialAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMoPubVideoInterstitialAdapter.m; sourceTree = "<group>"; };
+		34B64D9C24F7EF2E00FDD9F4 /* PrebidMoPubBannerAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMoPubBannerAdapter.m; sourceTree = "<group>"; };
+		34B64D9D24F7EF2E00FDD9F4 /* PrebidMoPubInterstitialAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMoPubInterstitialAdapter.h; sourceTree = "<group>"; };
+		34B64D9E24F7EF2E00FDD9F4 /* PrebidMoPubRewardedVideoAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidMoPubRewardedVideoAdapter.m; sourceTree = "<group>"; };
+		34B64D9F24F7EF2E00FDD9F4 /* PrebidMoPubRewardedVideoAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMoPubRewardedVideoAdapter.h; sourceTree = "<group>"; };
+		34C7964125DD59370072A898 /* PBMGAMUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMGAMUtils.h; sourceTree = "<group>"; };
+		34C7964225DD59370072A898 /* PBMGAMUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMGAMUtils.m; sourceTree = "<group>"; };
+		34C7964B25DD5AFA0072A898 /* PBMGAMUtils+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMGAMUtils+Internal.h"; sourceTree = "<group>"; };
+		34C7964F25DD5BEF0072A898 /* PBMGADNativeCustomTemplateAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMGADNativeCustomTemplateAd.h; sourceTree = "<group>"; };
+		34C7965025DD5BEF0072A898 /* PBMGADNativeCustomTemplateAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMGADNativeCustomTemplateAd.m; sourceTree = "<group>"; };
+		34C7965725DD67470072A898 /* PBMLocalResponseInfoCache+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PBMLocalResponseInfoCache+Internal.h"; path = "../../../../PrebidMobileRendering/PrebidMobileRendering/Prebid/Integrations/PrimarySDKUtilHelpers/PBMLocalResponseInfoCache+Internal.h"; sourceTree = "<group>"; };
+		34C7965C25DD68170072A898 /* PBMScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMScheduledTimerFactory.h; path = ../../../../PrebidMobileRendering/PrebidMobileRendering/ExtensionsAndWrappers/NSTimer/PBMScheduledTimerFactory.h; sourceTree = "<group>"; };
+		34C7965D25DD68170072A898 /* NSTimer+PBMScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTimer+PBMScheduledTimerFactory.h"; path = "../../../../PrebidMobileRendering/PrebidMobileRendering/ExtensionsAndWrappers/NSTimer/NSTimer+PBMScheduledTimerFactory.h"; sourceTree = "<group>"; };
 		34C7966325DD69160072A898 /* DO_NOT_MOVE_THESE_FILES.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = DO_NOT_MOVE_THESE_FILES.txt; sourceTree = "<group>"; };
-		34C7967925DE52CD0072A898 /* OXAGAMConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAGAMConstants.h; sourceTree = "<group>"; };
-		34C7967A25DE52CD0072A898 /* OXAGAMConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAGAMConstants.m; sourceTree = "<group>"; };
-		34C7C9E92509018B0021C6D0 /* OXADFPBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXADFPBanner.h; sourceTree = "<group>"; };
-		34C7C9EA2509018B0021C6D0 /* OXADFPBanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXADFPBanner.m; sourceTree = "<group>"; };
-		34C7C9F1250A1B610021C6D0 /* OXAInvocationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAInvocationHelper.h; sourceTree = "<group>"; };
-		34C7C9F2250A1B610021C6D0 /* OXAInvocationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAInvocationHelper.m; sourceTree = "<group>"; };
+		34C7967925DE52CD0072A898 /* PBMGAMConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMGAMConstants.h; sourceTree = "<group>"; };
+		34C7967A25DE52CD0072A898 /* PBMGAMConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMGAMConstants.m; sourceTree = "<group>"; };
+		34C7C9E92509018B0021C6D0 /* PBMDFPBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMDFPBanner.h; sourceTree = "<group>"; };
+		34C7C9EA2509018B0021C6D0 /* PBMDFPBanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMDFPBanner.m; sourceTree = "<group>"; };
+		34C7C9F1250A1B610021C6D0 /* PBMInvocationHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMInvocationHelper.h; sourceTree = "<group>"; };
+		34C7C9F2250A1B610021C6D0 /* PBMInvocationHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMInvocationHelper.m; sourceTree = "<group>"; };
 		492E16D3B90411A699792B3D /* Pods_PrebidMobileGAMEventHandlersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidMobileGAMEventHandlersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		914C447D75BBE960CE43225D /* Pods-PrebidMobileGAMEventHandlers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileGAMEventHandlers.debug.xcconfig"; path = "Target Support Files/Pods-PrebidMobileGAMEventHandlers/Pods-PrebidMobileGAMEventHandlers.debug.xcconfig"; sourceTree = "<group>"; };
 		9258904A9C1DF637C07F290B /* Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobileGAMEventHandlersTests/Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig"; sourceTree = "<group>"; };
-		AC47330625D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubNativeCustomEvent.h; sourceTree = "<group>"; };
-		AC47330725D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubNativeCustomEvent.m; sourceTree = "<group>"; };
-		AC4733AC25D55BD50041EEBA /* OXAMoPubNativeAdRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubNativeAdRenderer.h; sourceTree = "<group>"; };
-		AC4733AD25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubNativeAdAdapter.h; sourceTree = "<group>"; };
-		AC4733AE25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubNativeAdAdapter.m; sourceTree = "<group>"; };
-		AC4733AF25D55BD70041EEBA /* OXAMoPubNativeAdRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubNativeAdRenderer.m; sourceTree = "<group>"; };
-		ACF3824025EFBD89000A071B /* OXAMoPubConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubConstants.h; sourceTree = "<group>"; };
-		ACF3824125EFBD89000A071B /* OXAMoPubConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubConstants.m; sourceTree = "<group>"; };
-		ACF3824A25EFC147000A071B /* OXAMoPubNativeAdUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubNativeAdUtils.h; sourceTree = "<group>"; };
-		ACF3824B25EFC147000A071B /* OXAMoPubNativeAdUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubNativeAdUtils.m; sourceTree = "<group>"; };
+		AC47330625D3F6F20041EEBA /* PrebidMoPubNativeCustomEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMoPubNativeCustomEvent.h; sourceTree = "<group>"; };
+		AC47330725D3F6F20041EEBA /* PrebidMoPubNativeCustomEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidMoPubNativeCustomEvent.m; sourceTree = "<group>"; };
+		AC4733AC25D55BD50041EEBA /* PrebidMoPubNativeAdRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMoPubNativeAdRenderer.h; sourceTree = "<group>"; };
+		AC4733AD25D55BD60041EEBA /* PrebidMoPubNativeAdAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMoPubNativeAdAdapter.h; sourceTree = "<group>"; };
+		AC4733AE25D55BD60041EEBA /* PrebidMoPubNativeAdAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidMoPubNativeAdAdapter.m; sourceTree = "<group>"; };
+		AC4733AF25D55BD70041EEBA /* PrebidMoPubNativeAdRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidMoPubNativeAdRenderer.m; sourceTree = "<group>"; };
+		ACF3824025EFBD89000A071B /* PrebidMoPubConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMoPubConstants.h; sourceTree = "<group>"; };
+		ACF3824125EFBD89000A071B /* PrebidMoPubConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidMoPubConstants.m; sourceTree = "<group>"; };
+		ACF3824A25EFC147000A071B /* PrebidMoPubNativeAdUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMoPubNativeAdUtils.h; sourceTree = "<group>"; };
+		ACF3824B25EFC147000A071B /* PrebidMoPubNativeAdUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidMoPubNativeAdUtils.m; sourceTree = "<group>"; };
 		ACF3825525EFC86D000A071B /* DO_NOT_MOVE_THESE_FILES.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DO_NOT_MOVE_THESE_FILES.txt; sourceTree = "<group>"; };
-		ACF3825A25EFC8E5000A071B /* OXALocalResponseInfoCache+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "OXALocalResponseInfoCache+Internal.h"; path = "../../../../PrebidMobileRendering/OpenXSDKCore/Prebid/Integrations/PrimarySDKUtilHelpers/OXALocalResponseInfoCache+Internal.h"; sourceTree = "<group>"; };
-		ACF3825F25EFCA1B000A071B /* OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OXAScheduledTimerFactory.h; path = ../../../../PrebidMobileRendering/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/OXAScheduledTimerFactory.h; sourceTree = "<group>"; };
-		ACF3826725EFCA50000A071B /* NSTimer+OXAScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTimer+OXAScheduledTimerFactory.h"; path = "../../../../PrebidMobileRendering/OpenXSDKCore/ExtensionsAndWrappers/NSTimer/NSTimer+OXAScheduledTimerFactory.h"; sourceTree = "<group>"; };
-		ACF3826825EFCAD9000A071B /* OXAMoPubNativeAdUtils+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OXAMoPubNativeAdUtils+Internal.h"; sourceTree = "<group>"; };
-		ACF3831A25F0F91C000A071B /* OXAMoPubError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OXAMoPubError.h; sourceTree = "<group>"; };
-		ACF3831B25F0F91C000A071B /* OXAMoPubError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OXAMoPubError.m; sourceTree = "<group>"; };
+		ACF3825A25EFC8E5000A071B /* PBMLocalResponseInfoCache+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PBMLocalResponseInfoCache+Internal.h"; path = "../../../../PrebidMobileRendering/PrebidMobileRendering/Prebid/Integrations/PrimarySDKUtilHelpers/PBMLocalResponseInfoCache+Internal.h"; sourceTree = "<group>"; };
+		ACF3825F25EFCA1B000A071B /* PBMScheduledTimerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBMScheduledTimerFactory.h; path = ../../../../PrebidMobileRendering/PrebidMobileRendering/ExtensionsAndWrappers/NSTimer/PBMScheduledTimerFactory.h; sourceTree = "<group>"; };
+		ACF3826725EFCA50000A071B /* NSTimer+PBMScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTimer+PBMScheduledTimerFactory.h"; path = "../../../../PrebidMobileRendering/PrebidMobileRendering/ExtensionsAndWrappers/NSTimer/NSTimer+PBMScheduledTimerFactory.h"; sourceTree = "<group>"; };
+		ACF3826825EFCAD9000A071B /* PrebidMoPubNativeAdUtils+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMoPubNativeAdUtils+Internal.h"; sourceTree = "<group>"; };
+		ACF3831A25F0F91C000A071B /* PrebidMoPubError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMoPubError.h; sourceTree = "<group>"; };
+		ACF3831B25F0F91C000A071B /* PrebidMoPubError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidMoPubError.m; sourceTree = "<group>"; };
 		C075C2B228DD2006BDA58005 /* Pods_PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B77165045D380B64491D0E /* Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidMobileGAMEventHandlersTests/Pods-PrebidMobileGAMEventHandlersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EC52FAF1C12304695E019A4D /* Pods_PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,7 +222,7 @@
 				344A7F07250B73BA00743A93 /* TestModels */,
 				344A7F06250B73A700743A93 /* BoxTests */,
 				3405F949250A555800268A77 /* Info.plist */,
-				3405F952250A5A5800268A77 /* OpenXApolloGAMEventHandlersTests-Bridging-Header.h */,
+				3405F952250A5A5800268A77 /* PrebidMobileGAMEventHandlersTests-Bridging-Header.h */,
 			);
 			path = PrebidMobileGAMEventHandlersTests;
 			sourceTree = "<group>";
@@ -230,10 +230,10 @@
 		344A7F06250B73A700743A93 /* BoxTests */ = {
 			isa = PBXGroup;
 			children = (
-				3405F950250A55AE00268A77 /* OXADFPBannerTest.swift */,
-				344A7F0D250B749600743A93 /* OXADFPRequestTest.swift */,
-				344A7F13250B823F00743A93 /* OXADFPInterstitialTest.swift */,
-				344A7F19250B8E5400743A93 /* OXAGADRewardedAdTest.swift */,
+				3405F950250A55AE00268A77 /* PBMDFPBannerTest.swift */,
+				344A7F0D250B749600743A93 /* PBMDFPRequestTest.swift */,
+				344A7F13250B823F00743A93 /* PBMDFPInterstitialTest.swift */,
+				344A7F19250B8E5400743A93 /* PBMGADRewardedAdTest.swift */,
 			);
 			path = BoxTests;
 			sourceTree = "<group>";
@@ -281,8 +281,8 @@
 			isa = PBXGroup;
 			children = (
 				34B64D6D24F7E54700FDD9F4 /* Sources */,
-				34B64D5E24F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.h */,
-				34B64D6E24F7E6C400FDD9F4 /* OpenXApolloGAMEventHandlers.modulemap */,
+				34B64D5E24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers.h */,
+				34B64D6E24F7E6C400FDD9F4 /* PrebidMobileGAMEventHandlers.modulemap */,
 				34B64D5F24F7E41600FDD9F4 /* Info.plist */,
 			);
 			path = PrebidMobileGAMEventHandlers;
@@ -292,20 +292,20 @@
 			isa = PBXGroup;
 			children = (
 				34C7965625DD67110072A898 /* InternalAPIExtensions */,
-				34C7967925DE52CD0072A898 /* OXAGAMConstants.h */,
-				34C7967A25DE52CD0072A898 /* OXAGAMConstants.m */,
-				346C50EA250BC05A00435A73 /* OXAGAMError.h */,
-				346C50EB250BC05A00435A73 /* OXAGAMError.m */,
+				34C7967925DE52CD0072A898 /* PBMGAMConstants.h */,
+				34C7967A25DE52CD0072A898 /* PBMGAMConstants.m */,
+				346C50EA250BC05A00435A73 /* PBMGAMError.h */,
+				346C50EB250BC05A00435A73 /* PBMGAMError.m */,
 				34C7C9E8250901410021C6D0 /* Boxes */,
-				34B64D6524F7E51300FDD9F4 /* OXAGAMBannerEventHandler.h */,
-				34B64D6724F7E51300FDD9F4 /* OXAGAMBannerEventHandler.m */,
-				34B64D6424F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.h */,
-				34B64D6624F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.m */,
-				34B64D6824F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.h */,
-				34B64D6924F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.m */,
-				34C7964B25DD5AFA0072A898 /* OXAGAMUtils+Internal.h */,
-				34C7964125DD59370072A898 /* OXAGAMUtils.h */,
-				34C7964225DD59370072A898 /* OXAGAMUtils.m */,
+				34B64D6524F7E51300FDD9F4 /* PBMGAMBannerEventHandler.h */,
+				34B64D6724F7E51300FDD9F4 /* PBMGAMBannerEventHandler.m */,
+				34B64D6424F7E51300FDD9F4 /* PBMGAMInterstitialEventHandler.h */,
+				34B64D6624F7E51300FDD9F4 /* PBMGAMInterstitialEventHandler.m */,
+				34B64D6824F7E51300FDD9F4 /* PBMGAMRewardedEventHandler.h */,
+				34B64D6924F7E51300FDD9F4 /* PBMGAMRewardedEventHandler.m */,
+				34C7964B25DD5AFA0072A898 /* PBMGAMUtils+Internal.h */,
+				34C7964125DD59370072A898 /* PBMGAMUtils.h */,
+				34C7964225DD59370072A898 /* PBMGAMUtils.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -314,8 +314,8 @@
 			isa = PBXGroup;
 			children = (
 				34B64D8624F7ED9D00FDD9F4 /* Sources */,
-				34B64D8024F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.h */,
-				34B64D9724F7EEA700FDD9F4 /* OpenXApolloMoPubAdapters.modulemap */,
+				34B64D8024F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters.h */,
+				34B64D9724F7EEA700FDD9F4 /* PrebidMoPubAdapters.modulemap */,
 				34B64D8124F7ED9600FDD9F4 /* Info.plist */,
 			);
 			path = PrebidMobileMoPubAdapters;
@@ -325,29 +325,29 @@
 			isa = PBXGroup;
 			children = (
 				ACF3825425EFC86D000A071B /* InternalAPIExtensions */,
-				ACF3824025EFBD89000A071B /* OXAMoPubConstants.h */,
-				ACF3824125EFBD89000A071B /* OXAMoPubConstants.m */,
-				ACF3831A25F0F91C000A071B /* OXAMoPubError.h */,
-				ACF3831B25F0F91C000A071B /* OXAMoPubError.m */,
-				ACF3826825EFCAD9000A071B /* OXAMoPubNativeAdUtils+Internal.h */,
-				ACF3824A25EFC147000A071B /* OXAMoPubNativeAdUtils.h */,
-				ACF3824B25EFC147000A071B /* OXAMoPubNativeAdUtils.m */,
-				346A9C9624F8F4CE002892BC /* OXAMoPubAdapterConfiguration.h */,
-				346A9C9724F8F4CF002892BC /* OXAMoPubAdapterConfiguration.m */,
-				34B64D9824F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.h */,
-				34B64D9C24F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.m */,
-				34B64D9D24F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.h */,
-				34B64D9924F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.m */,
-				34B64D9F24F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.h */,
-				34B64D9E24F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.m */,
-				34B64D9A24F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.h */,
-				34B64D9B24F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.m */,
-				AC4733AD25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.h */,
-				AC4733AE25D55BD60041EEBA /* OXAMoPubNativeAdAdapter.m */,
-				AC4733AC25D55BD50041EEBA /* OXAMoPubNativeAdRenderer.h */,
-				AC4733AF25D55BD70041EEBA /* OXAMoPubNativeAdRenderer.m */,
-				AC47330625D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.h */,
-				AC47330725D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.m */,
+				ACF3824025EFBD89000A071B /* PrebidMoPubConstants.h */,
+				ACF3824125EFBD89000A071B /* PrebidMoPubConstants.m */,
+				ACF3831A25F0F91C000A071B /* PrebidMoPubError.h */,
+				ACF3831B25F0F91C000A071B /* PrebidMoPubError.m */,
+				ACF3826825EFCAD9000A071B /* PrebidMoPubNativeAdUtils+Internal.h */,
+				ACF3824A25EFC147000A071B /* PrebidMoPubNativeAdUtils.h */,
+				ACF3824B25EFC147000A071B /* PrebidMoPubNativeAdUtils.m */,
+				346A9C9624F8F4CE002892BC /* PrebidMoPubAdapterConfiguration.h */,
+				346A9C9724F8F4CF002892BC /* PrebidMoPubAdapterConfiguration.m */,
+				34B64D9824F7EF2E00FDD9F4 /* PrebidMoPubBannerAdapter.h */,
+				34B64D9C24F7EF2E00FDD9F4 /* PrebidMoPubBannerAdapter.m */,
+				34B64D9D24F7EF2E00FDD9F4 /* PrebidMoPubInterstitialAdapter.h */,
+				34B64D9924F7EF2E00FDD9F4 /* PrebidMoPubInterstitialAdapter.m */,
+				34B64D9F24F7EF2E00FDD9F4 /* PrebidMoPubRewardedVideoAdapter.h */,
+				34B64D9E24F7EF2E00FDD9F4 /* PrebidMoPubRewardedVideoAdapter.m */,
+				34B64D9A24F7EF2E00FDD9F4 /* PrebidMoPubVideoInterstitialAdapter.h */,
+				34B64D9B24F7EF2E00FDD9F4 /* PrebidMoPubVideoInterstitialAdapter.m */,
+				AC4733AD25D55BD60041EEBA /* PrebidMoPubNativeAdAdapter.h */,
+				AC4733AE25D55BD60041EEBA /* PrebidMoPubNativeAdAdapter.m */,
+				AC4733AC25D55BD50041EEBA /* PrebidMoPubNativeAdRenderer.h */,
+				AC4733AF25D55BD70041EEBA /* PrebidMoPubNativeAdRenderer.m */,
+				AC47330625D3F6F20041EEBA /* PrebidMoPubNativeCustomEvent.h */,
+				AC47330725D3F6F20041EEBA /* PrebidMoPubNativeCustomEvent.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -356,9 +356,9 @@
 			isa = PBXGroup;
 			children = (
 				34C7966325DD69160072A898 /* DO_NOT_MOVE_THESE_FILES.txt */,
-				34C7965725DD67470072A898 /* OXALocalResponseInfoCache+Internal.h */,
-				34C7965C25DD68170072A898 /* OXAScheduledTimerFactory.h */,
-				34C7965D25DD68170072A898 /* NSTimer+OXAScheduledTimerFactory.h */,
+				34C7965725DD67470072A898 /* PBMLocalResponseInfoCache+Internal.h */,
+				34C7965C25DD68170072A898 /* PBMScheduledTimerFactory.h */,
+				34C7965D25DD68170072A898 /* NSTimer+PBMScheduledTimerFactory.h */,
 			);
 			path = InternalAPIExtensions;
 			sourceTree = "<group>";
@@ -367,18 +367,18 @@
 			isa = PBXGroup;
 			children = (
 				34C7C9F5250A1B680021C6D0 /* InvocationHelper */,
-				34C7C9E92509018B0021C6D0 /* OXADFPBanner.h */,
-				34C7C9EA2509018B0021C6D0 /* OXADFPBanner.m */,
-				344A7F00250B6C4E00743A93 /* OXADFPRequest.h */,
-				344A7F01250B6C4E00743A93 /* OXADFPRequest.m */,
-				344A7F0F250B7A5100743A93 /* OXADFPInterstitial.h */,
-				344A7F10250B7A5100743A93 /* OXADFPInterstitial.m */,
-				344A7F15250B83E200743A93 /* OXAGADRewardedAd.h */,
-				344A7F16250B83E200743A93 /* OXAGADRewardedAd.m */,
-				34C7964F25DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.h */,
-				34C7965025DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.m */,
-				3459DF4B25E8D87F004EC761 /* OXAGADUnifiedNativeAd.h */,
-				3459DF4C25E8D8B4004EC761 /* OXAGADUnifiedNativeAd.m */,
+				34C7C9E92509018B0021C6D0 /* PBMDFPBanner.h */,
+				34C7C9EA2509018B0021C6D0 /* PBMDFPBanner.m */,
+				344A7F00250B6C4E00743A93 /* PBMDFPRequest.h */,
+				344A7F01250B6C4E00743A93 /* PBMDFPRequest.m */,
+				344A7F0F250B7A5100743A93 /* PBMDFPInterstitial.h */,
+				344A7F10250B7A5100743A93 /* PBMDFPInterstitial.m */,
+				344A7F15250B83E200743A93 /* PBMGADRewardedAd.h */,
+				344A7F16250B83E200743A93 /* PBMGADRewardedAd.m */,
+				34C7964F25DD5BEF0072A898 /* PBMGADNativeCustomTemplateAd.h */,
+				34C7965025DD5BEF0072A898 /* PBMGADNativeCustomTemplateAd.m */,
+				3459DF4B25E8D87F004EC761 /* PBMGADUnifiedNativeAd.h */,
+				3459DF4C25E8D8B4004EC761 /* PBMGADUnifiedNativeAd.m */,
 			);
 			path = Boxes;
 			sourceTree = "<group>";
@@ -386,8 +386,8 @@
 		34C7C9F5250A1B680021C6D0 /* InvocationHelper */ = {
 			isa = PBXGroup;
 			children = (
-				34C7C9F1250A1B610021C6D0 /* OXAInvocationHelper.h */,
-				34C7C9F2250A1B610021C6D0 /* OXAInvocationHelper.m */,
+				34C7C9F1250A1B610021C6D0 /* PBMInvocationHelper.h */,
+				34C7C9F2250A1B610021C6D0 /* PBMInvocationHelper.m */,
 			);
 			path = InvocationHelper;
 			sourceTree = "<group>";
@@ -396,9 +396,9 @@
 			isa = PBXGroup;
 			children = (
 				ACF3825525EFC86D000A071B /* DO_NOT_MOVE_THESE_FILES.txt */,
-				ACF3825A25EFC8E5000A071B /* OXALocalResponseInfoCache+Internal.h */,
-				ACF3825F25EFCA1B000A071B /* OXAScheduledTimerFactory.h */,
-				ACF3826725EFCA50000A071B /* NSTimer+OXAScheduledTimerFactory.h */,
+				ACF3825A25EFC8E5000A071B /* PBMLocalResponseInfoCache+Internal.h */,
+				ACF3825F25EFCA1B000A071B /* PBMScheduledTimerFactory.h */,
+				ACF3826725EFCA50000A071B /* NSTimer+PBMScheduledTimerFactory.h */,
 			);
 			path = InternalAPIExtensions;
 			sourceTree = "<group>";
@@ -424,20 +424,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				344A7F17250B83E200743A93 /* OXAGADRewardedAd.h in Headers */,
-				344A7F11250B7A5100743A93 /* OXADFPInterstitial.h in Headers */,
-				346C50EC250BC05A00435A73 /* OXAGAMError.h in Headers */,
-				34B64D6024F7E41600FDD9F4 /* OpenXApolloGAMEventHandlers.h in Headers */,
-				344A7F02250B6C4E00743A93 /* OXADFPRequest.h in Headers */,
-				34C7C9F3250A1B610021C6D0 /* OXAInvocationHelper.h in Headers */,
-				34C7964325DD59370072A898 /* OXAGAMUtils.h in Headers */,
-				34C7965825DD67470072A898 /* OXALocalResponseInfoCache+Internal.h in Headers */,
-				34C7965125DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.h in Headers */,
-				34B64D7824F7EA8300FDD9F4 /* OXAGAMRewardedEventHandler.h in Headers */,
-				34B64D7624F7EA8300FDD9F4 /* OXAGAMBannerEventHandler.h in Headers */,
-				34C7967B25DE52CD0072A898 /* OXAGAMConstants.h in Headers */,
-				34C7C9EB2509018B0021C6D0 /* OXADFPBanner.h in Headers */,
-				34B64D7724F7EA8300FDD9F4 /* OXAGAMInterstitialEventHandler.h in Headers */,
+				344A7F17250B83E200743A93 /* PBMGADRewardedAd.h in Headers */,
+				344A7F11250B7A5100743A93 /* PBMDFPInterstitial.h in Headers */,
+				346C50EC250BC05A00435A73 /* PBMGAMError.h in Headers */,
+				34B64D6024F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers.h in Headers */,
+				344A7F02250B6C4E00743A93 /* PBMDFPRequest.h in Headers */,
+				34C7C9F3250A1B610021C6D0 /* PBMInvocationHelper.h in Headers */,
+				34C7964325DD59370072A898 /* PBMGAMUtils.h in Headers */,
+				34C7965825DD67470072A898 /* PBMLocalResponseInfoCache+Internal.h in Headers */,
+				34C7965125DD5BEF0072A898 /* PBMGADNativeCustomTemplateAd.h in Headers */,
+				34B64D7824F7EA8300FDD9F4 /* PBMGAMRewardedEventHandler.h in Headers */,
+				34B64D7624F7EA8300FDD9F4 /* PBMGAMBannerEventHandler.h in Headers */,
+				34C7967B25DE52CD0072A898 /* PBMGAMConstants.h in Headers */,
+				34C7C9EB2509018B0021C6D0 /* PBMDFPBanner.h in Headers */,
+				34B64D7724F7EA8300FDD9F4 /* PBMGAMInterstitialEventHandler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,22 +445,22 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACF3831C25F0F91D000A071B /* OXAMoPubError.h in Headers */,
-				AC47330825D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.h in Headers */,
-				AC707B062625BD5700FACDF0 /* OXAScheduledTimerFactory.h in Headers */,
-				ACF3824225EFBD8A000A071B /* OXAMoPubConstants.h in Headers */,
-				34B64DA224F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.h in Headers */,
-				AC4733D225D56A5D0041EEBA /* OXAMoPubNativeAdAdapter.h in Headers */,
-				ACF3825B25EFC8E5000A071B /* OXALocalResponseInfoCache+Internal.h in Headers */,
-				34B64D8224F7ED9600FDD9F4 /* OpenXApolloMoPubAdapters.h in Headers */,
-				34B64DA024F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.h in Headers */,
-				34B64DA724F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.h in Headers */,
-				346A9C9824F8F4CF002892BC /* OXAMoPubAdapterConfiguration.h in Headers */,
-				AC4733CB25D56A400041EEBA /* OXAMoPubNativeAdRenderer.h in Headers */,
-				AC707B022625BD3E00FACDF0 /* NSTimer+OXAScheduledTimerFactory.h in Headers */,
-				ACF3824C25EFC147000A071B /* OXAMoPubNativeAdUtils.h in Headers */,
-				34B64DA524F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.h in Headers */,
-				ACF3826925EFCAD9000A071B /* OXAMoPubNativeAdUtils+Internal.h in Headers */,
+				ACF3831C25F0F91D000A071B /* PrebidMoPubError.h in Headers */,
+				AC47330825D3F6F20041EEBA /* PrebidMoPubNativeCustomEvent.h in Headers */,
+				AC707B062625BD5700FACDF0 /* PBMScheduledTimerFactory.h in Headers */,
+				ACF3824225EFBD8A000A071B /* PrebidMoPubConstants.h in Headers */,
+				34B64DA224F7EF2E00FDD9F4 /* PrebidMoPubVideoInterstitialAdapter.h in Headers */,
+				AC4733D225D56A5D0041EEBA /* PrebidMoPubNativeAdAdapter.h in Headers */,
+				ACF3825B25EFC8E5000A071B /* PBMLocalResponseInfoCache+Internal.h in Headers */,
+				34B64D8224F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters.h in Headers */,
+				34B64DA024F7EF2E00FDD9F4 /* PrebidMoPubBannerAdapter.h in Headers */,
+				34B64DA724F7EF2E00FDD9F4 /* PrebidMoPubRewardedVideoAdapter.h in Headers */,
+				346A9C9824F8F4CF002892BC /* PrebidMoPubAdapterConfiguration.h in Headers */,
+				AC4733CB25D56A400041EEBA /* PrebidMoPubNativeAdRenderer.h in Headers */,
+				AC707B022625BD3E00FACDF0 /* NSTimer+PBMScheduledTimerFactory.h in Headers */,
+				ACF3824C25EFC147000A071B /* PrebidMoPubNativeAdUtils.h in Headers */,
+				34B64DA524F7EF2E00FDD9F4 /* PrebidMoPubInterstitialAdapter.h in Headers */,
+				ACF3826925EFCAD9000A071B /* PrebidMoPubNativeAdUtils+Internal.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,11 +720,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				344A7F09250B73FA00743A93 /* PropertyTestModels.swift in Sources */,
-				344A7F0E250B749600743A93 /* OXADFPRequestTest.swift in Sources */,
-				344A7F1A250B8E5400743A93 /* OXAGADRewardedAdTest.swift in Sources */,
-				344A7F14250B823F00743A93 /* OXADFPInterstitialTest.swift in Sources */,
+				344A7F0E250B749600743A93 /* PBMDFPRequestTest.swift in Sources */,
+				344A7F1A250B8E5400743A93 /* PBMGADRewardedAdTest.swift in Sources */,
+				344A7F14250B823F00743A93 /* PBMDFPInterstitialTest.swift in Sources */,
 				344A7F0C250B744D00743A93 /* GADAdSize+Equatable.swift in Sources */,
-				3405F951250A55AE00268A77 /* OXADFPBannerTest.swift in Sources */,
+				3405F951250A55AE00268A77 /* PBMDFPBannerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -732,19 +732,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34C7C9EC2509018B0021C6D0 /* OXADFPBanner.m in Sources */,
-				344A7F12250B7A5100743A93 /* OXADFPInterstitial.m in Sources */,
-				34C7967C25DE52CD0072A898 /* OXAGAMConstants.m in Sources */,
-				34C7C9F4250A1B610021C6D0 /* OXAInvocationHelper.m in Sources */,
-				34B64D6B24F7E51300FDD9F4 /* OXAGAMInterstitialEventHandler.m in Sources */,
-				344A7F18250B83E200743A93 /* OXAGADRewardedAd.m in Sources */,
-				344A7F03250B6C4E00743A93 /* OXADFPRequest.m in Sources */,
-				34C7964425DD59370072A898 /* OXAGAMUtils.m in Sources */,
-				34C7965225DD5BEF0072A898 /* OXAGADNativeCustomTemplateAd.m in Sources */,
-				34B64D6C24F7E51300FDD9F4 /* OXAGAMBannerEventHandler.m in Sources */,
-				3459DF4D25E8D8B4004EC761 /* OXAGADUnifiedNativeAd.m in Sources */,
-				34B64D6A24F7E51300FDD9F4 /* OXAGAMRewardedEventHandler.m in Sources */,
-				346C50ED250BC05A00435A73 /* OXAGAMError.m in Sources */,
+				34C7C9EC2509018B0021C6D0 /* PBMDFPBanner.m in Sources */,
+				344A7F12250B7A5100743A93 /* PBMDFPInterstitial.m in Sources */,
+				34C7967C25DE52CD0072A898 /* PBMGAMConstants.m in Sources */,
+				34C7C9F4250A1B610021C6D0 /* PBMInvocationHelper.m in Sources */,
+				34B64D6B24F7E51300FDD9F4 /* PBMGAMInterstitialEventHandler.m in Sources */,
+				344A7F18250B83E200743A93 /* PBMGADRewardedAd.m in Sources */,
+				344A7F03250B6C4E00743A93 /* PBMDFPRequest.m in Sources */,
+				34C7964425DD59370072A898 /* PBMGAMUtils.m in Sources */,
+				34C7965225DD5BEF0072A898 /* PBMGADNativeCustomTemplateAd.m in Sources */,
+				34B64D6C24F7E51300FDD9F4 /* PBMGAMBannerEventHandler.m in Sources */,
+				3459DF4D25E8D8B4004EC761 /* PBMGADUnifiedNativeAd.m in Sources */,
+				34B64D6A24F7E51300FDD9F4 /* PBMGAMRewardedEventHandler.m in Sources */,
+				346C50ED250BC05A00435A73 /* PBMGAMError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,17 +752,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACF3824D25EFC147000A071B /* OXAMoPubNativeAdUtils.m in Sources */,
-				34B64DA324F7EF2E00FDD9F4 /* OXAMoPubVideoInterstitialAdapter.m in Sources */,
-				34B64DA124F7EF2E00FDD9F4 /* OXAMoPubInterstitialAdapter.m in Sources */,
-				ACF3831D25F0F91D000A071B /* OXAMoPubError.m in Sources */,
-				34B64DA624F7EF2E00FDD9F4 /* OXAMoPubRewardedVideoAdapter.m in Sources */,
-				AC4733B125D55BD70041EEBA /* OXAMoPubNativeAdAdapter.m in Sources */,
-				346A9C9924F8F4CF002892BC /* OXAMoPubAdapterConfiguration.m in Sources */,
-				34B64DA424F7EF2E00FDD9F4 /* OXAMoPubBannerAdapter.m in Sources */,
-				AC4733B025D55BD70041EEBA /* OXAMoPubNativeAdRenderer.m in Sources */,
-				AC47330925D3F6F20041EEBA /* OXAMoPubNativeCustomEvent.m in Sources */,
-				ACF3824325EFBD8A000A071B /* OXAMoPubConstants.m in Sources */,
+				ACF3824D25EFC147000A071B /* PrebidMoPubNativeAdUtils.m in Sources */,
+				34B64DA324F7EF2E00FDD9F4 /* PrebidMoPubVideoInterstitialAdapter.m in Sources */,
+				34B64DA124F7EF2E00FDD9F4 /* PrebidMoPubInterstitialAdapter.m in Sources */,
+				ACF3831D25F0F91D000A071B /* PrebidMoPubError.m in Sources */,
+				34B64DA624F7EF2E00FDD9F4 /* PrebidMoPubRewardedVideoAdapter.m in Sources */,
+				AC4733B125D55BD70041EEBA /* PrebidMoPubNativeAdAdapter.m in Sources */,
+				346A9C9924F8F4CF002892BC /* PrebidMoPubAdapterConfiguration.m in Sources */,
+				34B64DA424F7EF2E00FDD9F4 /* PrebidMoPubBannerAdapter.m in Sources */,
+				AC4733B025D55BD70041EEBA /* PrebidMoPubNativeAdRenderer.m in Sources */,
+				AC47330925D3F6F20041EEBA /* PrebidMoPubNativeCustomEvent.m in Sources */,
+				ACF3824325EFBD8A000A071B /* PrebidMoPubConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,7 +796,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = "PrebidMobileGAMEventHandlersTests/OpenXApolloGAMEventHandlersTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PrebidMobileGAMEventHandlersTests/PrebidMobileGAMEventHandlersTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -822,7 +822,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OBJC_BRIDGING_HEADER = "PrebidMobileGAMEventHandlersTests/OpenXApolloGAMEventHandlersTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "PrebidMobileGAMEventHandlersTests/PrebidMobileGAMEventHandlersTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -971,7 +971,7 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.3.0;
-				MODULEMAP_FILE = PrebidMobileGAMEventHandlers/OpenXApolloGAMEventHandlers.modulemap;
+				MODULEMAP_FILE = PrebidMobileGAMEventHandlers/PrebidMobileGAMEventHandlers.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.GAMEventHandlers;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1003,7 +1003,7 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.3.0;
-				MODULEMAP_FILE = PrebidMobileGAMEventHandlers/OpenXApolloGAMEventHandlers.modulemap;
+				MODULEMAP_FILE = PrebidMobileGAMEventHandlers/PrebidMobileGAMEventHandlers.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.GAMEventHandlers;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1034,7 +1034,7 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.3.0;
-				MODULEMAP_FILE = PrebidMobileMoPubAdapters/OpenXApolloMoPubAdapters.modulemap;
+				MODULEMAP_FILE = PrebidMobileMoPubAdapters/PrebidMoPubAdapters.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.MoPubAdapters;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1064,7 +1064,7 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.3.0;
-				MODULEMAP_FILE = PrebidMobileMoPubAdapters/OpenXApolloMoPubAdapters.modulemap;
+				MODULEMAP_FILE = PrebidMobileMoPubAdapters/PrebidMoPubAdapters.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.MoPubAdapters;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

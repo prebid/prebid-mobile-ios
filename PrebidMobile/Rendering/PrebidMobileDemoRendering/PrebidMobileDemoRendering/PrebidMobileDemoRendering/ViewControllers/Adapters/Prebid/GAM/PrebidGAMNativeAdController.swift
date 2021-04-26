@@ -14,7 +14,7 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurab
     var gamAdUnitId = ""
     var gamCustomTemplateIDs: [String] = []
     var adTypes: [GADAdLoaderAdType] = []
-    var nativeAdConfig = OXANativeAdConfiguration?.none
+    var nativeAdConfig = PBMNativeAdConfiguration?.none
     
     
     private weak var rootController: AdapterViewController?
@@ -24,8 +24,8 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurab
     /// The native ad view that is being presented.
     private var nativeAdView: GADUnifiedNativeAdView?
     
-    private var adUnit: OXANativeAdUnit?
-    private var theNativeAd: OXANativeAd?
+    private var adUnit: PBMNativeAdUnit?
+    private var theNativeAd: PBMNativeAd?
     
     private var adLoader: GADAdLoader?
     
@@ -42,7 +42,7 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurab
     private let nativeAdInvalidButton = EventReportContainer()
     private let nativeAdDidClickButton = EventReportContainer()
     
-    private let nativeAdDidLogEventButtons: [(event: OXANativeEventType, name: String, button: EventReportContainer)] = [
+    private let nativeAdDidLogEventButtons: [(event: PBMNativeEventType, name: String, button: EventReportContainer)] = [
         (.impression, "impression", .init()),
         (.MRC50, "MRC50", .init()),
         (.MRC100, "MRC100", .init()),
@@ -113,7 +113,7 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurab
         guard let nativeAdConfig = nativeAdConfig else {
             return
         }
-        adUnit = OXANativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
+        adUnit = PBMNativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
@@ -132,7 +132,7 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurab
             }
             
             let dfpRequest = DFPRequest()
-            OXAGAMUtils.shared().prepare(dfpRequest, demandResponseInfo: demandResponseInfo)
+            PBMGAMUtils.shared().prepare(dfpRequest, demandResponseInfo: demandResponseInfo)
             self.adLoader = GADAdLoader(adUnitID: self.gamAdUnitId,
                                         rootViewController: self.rootController,
                                         adTypes: self.adTypes,
@@ -143,26 +143,26 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurab
     }
 }
 
-extension PrebidGAMNativeAdController: OXANativeAdTrackingDelegate {
-    func nativeAd(_ nativeAd: OXANativeAd, didLogEvent nativeEvent: OXANativeEventType) {
+extension PrebidGAMNativeAdController: PBMNativeAdTrackingDelegate {
+    func nativeAd(_ nativeAd: PBMNativeAd, didLogEvent nativeEvent: PBMNativeEventType) {
         nativeAdDidLogEventButtons.first{$0.event == nativeEvent}?.button.isEnabled = true
     }
-    func nativeAdDidLogClick(_ nativeAd: OXANativeAd) {
+    func nativeAdDidLogClick(_ nativeAd: PBMNativeAd) {
         nativeAdDidClickButton.isEnabled = true
     }
 }
 
-extension PrebidGAMNativeAdController: OXANativeAdUIDelegate {
-    func viewPresentationController(for nativeAd: OXANativeAd) -> UIViewController? {
+extension PrebidGAMNativeAdController: PBMNativeAdUIDelegate {
+    func viewPresentationController(for nativeAd: PBMNativeAd) -> UIViewController? {
         return rootController
     }
-    func nativeAdWillLeaveApplication(_ nativeAd: OXANativeAd) {
+    func nativeAdWillLeaveApplication(_ nativeAd: PBMNativeAd) {
         nativeAdWillLeaveAppButton.isEnabled = true
     }
-    func nativeAdWillPresentModal(_ nativeAd: OXANativeAd) {
+    func nativeAdWillPresentModal(_ nativeAd: PBMNativeAd) {
         nativeAdWillPresentModalButton.isEnabled = true
     }
-    func nativeAdDidDismissModal(_ nativeAd: OXANativeAd) {
+    func nativeAdDidDismissModal(_ nativeAd: PBMNativeAd) {
         nativeAdDidDismissModalButton.isEnabled = true
     }
 }
@@ -176,7 +176,7 @@ extension PrebidGAMNativeAdController: GADNativeCustomTemplateAdLoaderDelegate {
         customAdRequestSuccessful.isEnabled = true
         customTemplateAd = nil
         
-        let nativeAdDetectionListener = OXANativeAdDetectionListener { [weak self] nativeAd in
+        let nativeAdDetectionListener = PBMNativeAdDetectionListener { [weak self] nativeAd in
             guard let self = self else {
                 return
             }
@@ -201,7 +201,7 @@ extension PrebidGAMNativeAdController: GADNativeCustomTemplateAdLoaderDelegate {
             self?.nativeAdInvalidButton.isEnabled = true
         }
 
-        OXAGAMUtils.shared().findNativeAd(in: nativeCustomTemplateAd,
+        PBMGAMUtils.shared().findNativeAd(in: nativeCustomTemplateAd,
                                           nativeAdDetectionListener: nativeAdDetectionListener)
     }
     
@@ -223,16 +223,16 @@ extension PrebidGAMNativeAdController: GADUnifiedNativeAdLoaderDelegate {
         unifiedAdRequestSuccessful.isEnabled = true
         customTemplateAd = nil
         
-        let nativeAdDetectionListener = OXANativeAdDetectionListener { [weak self] apolloNativeAd in
+        let nativeAdDetectionListener = PBMNativeAdDetectionListener { [weak self] prebidNativeAd in
             guard let self = self else {
                 return
             }
             self.nativeAdLoadedButton.isEnabled = true
-            self.nativeAdViewBox.renderNativeAd(apolloNativeAd)
-            self.nativeAdViewBox.registerViews(apolloNativeAd)
-            self.theNativeAd = apolloNativeAd // Note: RETAIN! or the tracking will not occur!
-            apolloNativeAd.trackingDelegate = self
-            apolloNativeAd.uiDelegate = self
+            self.nativeAdViewBox.renderNativeAd(prebidNativeAd)
+            self.nativeAdViewBox.registerViews(prebidNativeAd)
+            self.theNativeAd = prebidNativeAd // Note: RETAIN! or the tracking will not occur!
+            prebidNativeAd.trackingDelegate = self
+            prebidNativeAd.uiDelegate = self
             
             // TODO: Implement(?)
             // self.customTemplateAd = nativeCustomTemplateAd
@@ -259,7 +259,7 @@ extension PrebidGAMNativeAdController: GADUnifiedNativeAdLoaderDelegate {
             self?.nativeAdInvalidButton.isEnabled = true
         }
 
-        OXAGAMUtils.shared().findNativeAd(in: nativeAd, nativeAdDetectionListener: nativeAdDetectionListener)
+        PBMGAMUtils.shared().findNativeAd(in: nativeAd, nativeAdDetectionListener: nativeAdDetectionListener)
     }
     
     private func setAdView(_ view: GADUnifiedNativeAdView) {

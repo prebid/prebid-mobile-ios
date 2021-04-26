@@ -106,7 +106,7 @@ class PrebidMRAIDResizeUITest: RepeatedUITestCase {
         
         showResizedView()
         
-        let mraidView = app.otherElements["OXMWebView"]
+        let mraidView = app.otherElements["PBMWebView"]
         waitForExists(element: mraidView, waitSeconds: 5)
         waitForHittable(element: mraidView, waitSeconds: 5)
         waitForEnabled(element: mraidView, waitSeconds: 5)
@@ -138,13 +138,13 @@ class PrebidMRAIDResizeUITest: RepeatedUITestCase {
     }
     
     private func resizeMMRAIDView() {
-        let bannerView = app.descendants(matching: .other)["OXABannerView"]
+        let bannerView = app.descendants(matching: .other)["PBMBannerView"]
         bannerView.tap()
         waitForEnabled(element: app.buttons["adViewWillPresentScreen called"], waitSeconds: waitingTimeout)
     }
     
     private func closeResizedView() {
-        let closeBtn = app.buttons["OXMCloseButton"]
+        let closeBtn = app.buttons["PBMCloseButton"]
         waitForHittable(element: closeBtn, waitSeconds: 5)
         closeBtn.tap()
         waitForEnabled(element: app.buttons["adViewDidDismissScreen called"], waitSeconds: waitingTimeout)
@@ -163,11 +163,11 @@ class PrebidMRAIDResizeUITest: RepeatedUITestCase {
         
         // Wait for the close button, then press it.
         Thread.sleep(forTimeInterval: 3)
-        let browserCloseButton = app.buttons["OXMCloseButtonClickThroughBrowser"]
+        let browserCloseButton = app.buttons["PBMCloseButtonClickThroughBrowser"]
         waitForHittable(element: browserCloseButton, waitSeconds: waitingTimeout)
         browserCloseButton.tap()
         
-        let bannerAdView = app.buttons["OXMAdView"]
+        let bannerAdView = app.buttons["PBMAdView"]
         waitForExists(element: bannerAdView, waitSeconds: 5)
     }
 

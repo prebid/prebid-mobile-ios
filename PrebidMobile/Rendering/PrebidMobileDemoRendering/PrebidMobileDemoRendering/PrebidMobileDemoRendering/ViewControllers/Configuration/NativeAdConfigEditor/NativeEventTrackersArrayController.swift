@@ -9,7 +9,7 @@ import UIKit
 import Eureka
 
 class NativeEventTrackersArrayController : FormViewController {
-    var nativeAdConfig: OXANativeAdConfiguration!
+    var nativeAdConfig: PBMNativeAdConfiguration!
     
     private var eventTrackersSection: MultivaluedSection!
     
@@ -21,8 +21,8 @@ class NativeEventTrackersArrayController : FormViewController {
     }
     
     func buildForm() {
-        func makeEventTrackerRow(eventTracker: OXANativeEventTracker) -> ButtonRowOf<OXANativeEventTracker> {
-            return ButtonRowOf<OXANativeEventTracker> { row in
+        func makeEventTrackerRow(eventTracker: PBMNativeEventTracker) -> ButtonRowOf<PBMNativeEventTracker> {
+            return ButtonRowOf<PBMNativeEventTracker> { row in
                 row.value = eventTracker
                 row.title = try! eventTracker.toJsonString()
             }
@@ -42,7 +42,7 @@ class NativeEventTrackersArrayController : FormViewController {
                 }
             }
             section.multivaluedRowToInsertAt = { _ in
-                makeEventTrackerRow(eventTracker: OXANativeEventTracker(event: .impression, methods: []))
+                makeEventTrackerRow(eventTracker: PBMNativeEventTracker(event: .impression, methods: []))
             }
             for nextEventTracker in nativeAdConfig.eventtrackers! {
                 section <<< makeEventTrackerRow(eventTracker: nextEventTracker)
@@ -55,7 +55,7 @@ class NativeEventTrackersArrayController : FormViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        eventTrackersSection.allRows.compactMap { $0 as? ButtonRowOf<OXANativeEventTracker> }.forEach {
+        eventTrackersSection.allRows.compactMap { $0 as? ButtonRowOf<PBMNativeEventTracker> }.forEach {
             $0.title = try! $0.value!.toJsonString()
             $0.updateCell()
         }
@@ -63,6 +63,6 @@ class NativeEventTrackersArrayController : FormViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        nativeAdConfig.eventtrackers = eventTrackersSection.values().compactMap { $0 as? OXANativeEventTracker }
+        nativeAdConfig.eventtrackers = eventTrackersSection.values().compactMap { $0 as? PBMNativeEventTracker }
     }
 }

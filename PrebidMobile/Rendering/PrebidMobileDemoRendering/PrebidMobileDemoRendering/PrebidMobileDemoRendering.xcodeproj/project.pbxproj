@@ -49,10 +49,10 @@
 		34C9ADF72563C9C300EB6F72 /* NativeAssetDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C9ADF62563C9C300EB6F72 /* NativeAssetDataController.swift */; };
 		34C9AE2A2563CED600EB6F72 /* NativeAssetImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C9AE292563CED600EB6F72 /* NativeAssetImageController.swift */; };
 		34C9AE342563FA6000EB6F72 /* NativeAssetVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C9AE332563FA6000EB6F72 /* NativeAssetVideoController.swift */; };
-		34C9AED32564191100EB6F72 /* OXANativeAsset+FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C9AED22564191100EB6F72 /* OXANativeAsset+FromJSON.swift */; };
-		34C9AF022564286E00EB6F72 /* OXANativeEventTracker+FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C9AF012564286E00EB6F72 /* OXANativeEventTracker+FromJSON.swift */; };
-		34C9AF082564295800EB6F72 /* OXANativeAdConfiguration+FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C9AF072564295800EB6F72 /* OXANativeAdConfiguration+FromJSON.swift */; };
-		34D70F6524E53B920048CC78 /* NSError+oxmError.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D70F6424E53B920048CC78 /* NSError+oxmError.m */; };
+		34C9AED32564191100EB6F72 /* PBMNativeAsset+FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C9AED22564191100EB6F72 /* PBMNativeAsset+FromJSON.swift */; };
+		34C9AF022564286E00EB6F72 /* PBMNativeEventTracker+FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C9AF012564286E00EB6F72 /* PBMNativeEventTracker+FromJSON.swift */; };
+		34C9AF082564295800EB6F72 /* PBMNativeAdConfiguration+FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C9AF072564295800EB6F72 /* PBMNativeAdConfiguration+FromJSON.swift */; };
+		34D70F6524E53B920048CC78 /* NSError+pbmError.m in Sources */ = {isa = PBXBuildFile; fileRef = 34D70F6424E53B920048CC78 /* NSError+pbmError.m */; };
 		34D70F6B24E546DD0048CC78 /* LogInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D70F6A24E546DD0048CC78 /* LogInfo.swift */; };
 		34DB0CFA255ED29000970F9E /* NativeAdConfigController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DB0CF9255ED29000970F9E /* NativeAdConfigController.swift */; };
 		34E5698A237DB96900B47B01 /* UtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E56989237DB96900B47B01 /* UtilitiesViewController.swift */; };
@@ -100,7 +100,7 @@
 		AC23A0CD251B932000983ABF /* PrebidBannerConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC23A0CC251B932000983ABF /* PrebidBannerConfigurationController.swift */; };
 		AC27E9E224D9A51B000CD7EC /* FeedAdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC27E9E124D9A51B000CD7EC /* FeedAdTableViewCell.swift */; };
 		AC27E9E624D9A69A000CD7EC /* FeedAdTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC27E9E524D9A69A000CD7EC /* FeedAdTableViewCell.xib */; };
-		AC368F5B256C4E5D000D5E1B /* OXANativeAdConfiguration+Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC368F5A256C4E5D000D5E1B /* OXANativeAdConfiguration+Testing.swift */; };
+		AC368F5B256C4E5D000D5E1B /* PBMNativeAdConfiguration+Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC368F5A256C4E5D000D5E1B /* PBMNativeAdConfiguration+Testing.swift */; };
 		AC4732B325D2E8BB0041EEBA /* PrebidMoPubNativeAdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4732B225D2E8BA0041EEBA /* PrebidMoPubNativeAdController.swift */; };
 		AC47859025F7BEE7001C75C5 /* PrebidNativeVideoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC47858F25F7BEE7001C75C5 /* PrebidNativeVideoUITests.swift */; };
 		AC4F253925DFF6300095C601 /* NativeAdViewBoxLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4F253825DFF6300095C601 /* NativeAdViewBoxLinks.swift */; };
@@ -209,9 +209,9 @@
 		2F097F6238E0EB831B507463 /* Pods_OpenXMockServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenXMockServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		340241142382B7E60038D61F /* RepeatedUITestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatedUITestCase.swift; sourceTree = "<group>"; };
 		341CC2E42562B04800186F29 /* NativeAssetsArrayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetsArrayController.swift; sourceTree = "<group>"; };
-		341CC2EA2562B3DB00186F29 /* OXANativeAsset+InternalState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OXANativeAsset+InternalState.h"; sourceTree = "<group>"; };
+		341CC2EA2562B3DB00186F29 /* PBMNativeAsset+InternalState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMNativeAsset+InternalState.h"; sourceTree = "<group>"; };
 		341CC2F52562B97600186F29 /* NativeEventTrackersArrayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackersArrayController.swift; sourceTree = "<group>"; };
-		341CC2FF2562BA1800186F29 /* OXANativeEventTracker+InternalState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OXANativeEventTracker+InternalState.h"; sourceTree = "<group>"; };
+		341CC2FF2562BA1800186F29 /* PBMNativeEventTracker+InternalState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMNativeEventTracker+InternalState.h"; sourceTree = "<group>"; };
 		341CC3042562BD2300186F29 /* NativeEventTrackerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackerController.swift; sourceTree = "<group>"; };
 		341CC30A2562C8D000186F29 /* BaseNativeAssetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNativeAssetController.swift; sourceTree = "<group>"; };
 		341CC3132562C9D000186F29 /* FormViewController+RowBuildHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormViewController+RowBuildHelpers.swift"; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 		34B10A2F255017DE00B5FE09 /* ThreadCheckingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadCheckingButton.swift; sourceTree = "<group>"; };
 		34B5CEE025D2D05C008C0CBC /* PrebidNativeAdRenderingConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdRenderingConfigurationController.swift; sourceTree = "<group>"; };
 		34B64D7224F7EA0F00FDD9F4 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PrebidMobileGAMEventHandlers.framework; path = ../../Products/PrebidMobileGAMEventHandlers.framework; sourceTree = "<group>"; };
-		34B64DA924F7FD3900FDD9F4 /* OXASDKConfiguration+InternalState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OXASDKConfiguration+InternalState.h"; path = "../../../../PrebidMobileRendering/OpenXSDKCore/Prebid/OXACore/OXASDKConfiguration+InternalState.h"; sourceTree = "<group>"; };
+		34B64DA924F7FD3900FDD9F4 /* PBMSDKConfiguration+InternalState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PBMSDKConfiguration+InternalState.h"; path = "../../../../PrebidMobileRendering/PrebidMobileRendering/Prebid/PBMCore/PBMSDKConfiguration+InternalState.h"; sourceTree = "<group>"; };
 		34B64DAA24F7FD6000FDD9F4 /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PrebidMobileMoPubAdapters.framework; path = ../../Products/PrebidMobileMoPubAdapters.framework; sourceTree = "<group>"; };
 		34BA95FD249CBF05006AE372 /* PrebidGAMInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMInterstitialController.swift; sourceTree = "<group>"; };
 		34BA95FF249CC118006AE372 /* PrebidRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidRewardedController.swift; sourceTree = "<group>"; };
@@ -251,14 +251,14 @@
 		34C9ADF62563C9C300EB6F72 /* NativeAssetDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetDataController.swift; sourceTree = "<group>"; };
 		34C9AE292563CED600EB6F72 /* NativeAssetImageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetImageController.swift; sourceTree = "<group>"; };
 		34C9AE332563FA6000EB6F72 /* NativeAssetVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetVideoController.swift; sourceTree = "<group>"; };
-		34C9AED22564191100EB6F72 /* OXANativeAsset+FromJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OXANativeAsset+FromJSON.swift"; sourceTree = "<group>"; };
-		34C9AF012564286E00EB6F72 /* OXANativeEventTracker+FromJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OXANativeEventTracker+FromJSON.swift"; sourceTree = "<group>"; };
-		34C9AF072564295800EB6F72 /* OXANativeAdConfiguration+FromJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OXANativeAdConfiguration+FromJSON.swift"; sourceTree = "<group>"; };
-		34D70F6324E53B920048CC78 /* NSError+oxmError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+oxmError.h"; sourceTree = "<group>"; };
-		34D70F6424E53B920048CC78 /* NSError+oxmError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+oxmError.m"; sourceTree = "<group>"; };
+		34C9AED22564191100EB6F72 /* PBMNativeAsset+FromJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBMNativeAsset+FromJSON.swift"; sourceTree = "<group>"; };
+		34C9AF012564286E00EB6F72 /* PBMNativeEventTracker+FromJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBMNativeEventTracker+FromJSON.swift"; sourceTree = "<group>"; };
+		34C9AF072564295800EB6F72 /* PBMNativeAdConfiguration+FromJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBMNativeAdConfiguration+FromJSON.swift"; sourceTree = "<group>"; };
+		34D70F6324E53B920048CC78 /* NSError+pbmError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSError+pbmError.h"; sourceTree = "<group>"; };
+		34D70F6424E53B920048CC78 /* NSError+pbmError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSError+pbmError.m"; sourceTree = "<group>"; };
 		34D70F6A24E546DD0048CC78 /* LogInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInfo.swift; sourceTree = "<group>"; };
 		34DB0CF9255ED29000970F9E /* NativeAdConfigController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdConfigController.swift; sourceTree = "<group>"; };
-		34DB0D32255ED58000970F9E /* OXANativeAdConfiguration+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OXANativeAdConfiguration+Internal.h"; sourceTree = "<group>"; };
+		34DB0D32255ED58000970F9E /* PBMNativeAdConfiguration+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMNativeAdConfiguration+Internal.h"; sourceTree = "<group>"; };
 		34E56989237DB96900B47B01 /* UtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesViewController.swift; sourceTree = "<group>"; };
 		34FC0CF324ADD3A80045553E /* PrebidInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidInterstitialController.swift; sourceTree = "<group>"; };
 		34FC0CF524ADD5640045553E /* PrebidGAMRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMRewardedController.swift; sourceTree = "<group>"; };
@@ -316,7 +316,7 @@
 		AC23A0CC251B932000983ABF /* PrebidBannerConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidBannerConfigurationController.swift; sourceTree = "<group>"; };
 		AC27E9E124D9A51B000CD7EC /* FeedAdTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAdTableViewCell.swift; sourceTree = "<group>"; };
 		AC27E9E524D9A69A000CD7EC /* FeedAdTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedAdTableViewCell.xib; sourceTree = "<group>"; };
-		AC368F5A256C4E5D000D5E1B /* OXANativeAdConfiguration+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OXANativeAdConfiguration+Testing.swift"; sourceTree = "<group>"; };
+		AC368F5A256C4E5D000D5E1B /* PBMNativeAdConfiguration+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBMNativeAdConfiguration+Testing.swift"; sourceTree = "<group>"; };
 		AC4732B225D2E8BA0041EEBA /* PrebidMoPubNativeAdController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMoPubNativeAdController.swift; sourceTree = "<group>"; };
 		AC47858F25F7BEE7001C75C5 /* PrebidNativeVideoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeVideoUITests.swift; sourceTree = "<group>"; };
 		AC4F253825DFF6300095C601 /* NativeAdViewBoxLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdViewBoxLinks.swift; sourceTree = "<group>"; };
@@ -547,9 +547,9 @@
 		34C9AECD256418D700EB6F72 /* NativeAdConfig_fromJson */ = {
 			isa = PBXGroup;
 			children = (
-				34C9AF072564295800EB6F72 /* OXANativeAdConfiguration+FromJSON.swift */,
-				34C9AED22564191100EB6F72 /* OXANativeAsset+FromJSON.swift */,
-				34C9AF012564286E00EB6F72 /* OXANativeEventTracker+FromJSON.swift */,
+				34C9AF072564295800EB6F72 /* PBMNativeAdConfiguration+FromJSON.swift */,
+				34C9AED22564191100EB6F72 /* PBMNativeAsset+FromJSON.swift */,
+				34C9AF012564286E00EB6F72 /* PBMNativeEventTracker+FromJSON.swift */,
 			);
 			path = NativeAdConfig_fromJson;
 			sourceTree = "<group>";
@@ -593,13 +593,13 @@
 		5B1BDB822100D6C100B46B43 /* TestExtensions */ = {
 			isa = PBXGroup;
 			children = (
-				AC368F5A256C4E5D000D5E1B /* OXANativeAdConfiguration+Testing.swift */,
-				34D70F6324E53B920048CC78 /* NSError+oxmError.h */,
-				34D70F6424E53B920048CC78 /* NSError+oxmError.m */,
-				34DB0D32255ED58000970F9E /* OXANativeAdConfiguration+Internal.h */,
-				341CC2EA2562B3DB00186F29 /* OXANativeAsset+InternalState.h */,
-				341CC2FF2562BA1800186F29 /* OXANativeEventTracker+InternalState.h */,
-				34B64DA924F7FD3900FDD9F4 /* OXASDKConfiguration+InternalState.h */,
+				AC368F5A256C4E5D000D5E1B /* PBMNativeAdConfiguration+Testing.swift */,
+				34D70F6324E53B920048CC78 /* NSError+pbmError.h */,
+				34D70F6424E53B920048CC78 /* NSError+pbmError.m */,
+				34DB0D32255ED58000970F9E /* PBMNativeAdConfiguration+Internal.h */,
+				341CC2EA2562B3DB00186F29 /* PBMNativeAsset+InternalState.h */,
+				341CC2FF2562BA1800186F29 /* PBMNativeEventTracker+InternalState.h */,
+				34B64DA924F7FD3900FDD9F4 /* PBMSDKConfiguration+InternalState.h */,
 				34C9AECD256418D700EB6F72 /* NativeAdConfig_fromJson */,
 			);
 			path = TestExtensions;
@@ -1219,7 +1219,7 @@
 				34BA95FE249CBF05006AE372 /* PrebidGAMInterstitialController.swift in Sources */,
 				3461834425A5EA6800783A2C /* PrebidNativeAdController.swift in Sources */,
 				ACF3823125ED058F000A071B /* PrebidMoPubNativeAdFeedController.swift in Sources */,
-				AC368F5B256C4E5D000D5E1B /* OXANativeAdConfiguration+Testing.swift in Sources */,
+				AC368F5B256C4E5D000D5E1B /* PBMNativeAdConfiguration+Testing.swift in Sources */,
 				34BAD451239547420042DB33 /* IABConsentHelper.swift in Sources */,
 				ACBBDF852397E10F006D5FE6 /* CommandArgsViewController.swift in Sources */,
 				34215B0F25C4598E00C74A09 /* ProcessArgumentsParser.swift in Sources */,
@@ -1227,7 +1227,7 @@
 				3493022224740BEE004A6086 /* PrebidBannerController.swift in Sources */,
 				ACF3558025CD8C3000B9C8E5 /* PrebidNativeAdFeedController.swift in Sources */,
 				5B3EEDE52101FB8800BAA0C4 /* TestCase.swift in Sources */,
-				34C9AED32564191100EB6F72 /* OXANativeAsset+FromJSON.swift in Sources */,
+				34C9AED32564191100EB6F72 /* PBMNativeAsset+FromJSON.swift in Sources */,
 				34BA9602249CC164006AE372 /* PrebidMoPubInterstitialController.swift in Sources */,
 				34FC0CF424ADD3A80045553E /* PrebidInterstitialController.swift in Sources */,
 				34930E122420E899007A0DBA /* GlobalVars.swift in Sources */,
@@ -1236,7 +1236,7 @@
 				34DB0CFA255ED29000970F9E /* NativeAdConfigController.swift in Sources */,
 				AC4F254B25E0112C0095C601 /* NativeAdViewBoxProtocol.swift in Sources */,
 				341CC3052562BD2300186F29 /* NativeEventTrackerController.swift in Sources */,
-				34D70F6524E53B920048CC78 /* NSError+oxmError.m in Sources */,
+				34D70F6524E53B920048CC78 /* NSError+pbmError.m in Sources */,
 				AC27E9E224D9A51B000CD7EC /* FeedAdTableViewCell.swift in Sources */,
 				34C9AE2A2563CED600EB6F72 /* NativeAssetImageController.swift in Sources */,
 				5B3EEDD12101D2A100BAA0C4 /* UtilitiesForTesting.swift in Sources */,
@@ -1248,7 +1248,7 @@
 				5B3EEDD32101D2CF00BAA0C4 /* StringExtensions.swift in Sources */,
 				5B3EEDC12101D1AF00BAA0C4 /* OpenXSDKConfigurationViewController.swift in Sources */,
 				5B209B4A21075E0A00C0F5CE /* BaseConfigurationController.swift in Sources */,
-				34C9AF022564286E00EB6F72 /* OXANativeEventTracker+FromJSON.swift in Sources */,
+				34C9AF022564286E00EB6F72 /* PBMNativeEventTracker+FromJSON.swift in Sources */,
 				5BCCA3D62136D2E800DA3B5A /* ConfigurableViewController.swift in Sources */,
 				AC4732B325D2E8BB0041EEBA /* PrebidMoPubNativeAdController.swift in Sources */,
 				341CC2F62562B97600186F29 /* NativeEventTrackersArrayController.swift in Sources */,
@@ -1265,7 +1265,7 @@
 				AC812BE52600CEC100370A33 /* PrebidGAMNativeAdFeedController.swift in Sources */,
 				34B5CEE125D2D05C008C0CBC /* PrebidNativeAdRenderingConfigurationController.swift in Sources */,
 				AC92994A25DD655800CD482E /* MoPubNativeAdViewWithNib.swift in Sources */,
-				34C9AF082564295800EB6F72 /* OXANativeAdConfiguration+FromJSON.swift in Sources */,
+				34C9AF082564295800EB6F72 /* PBMNativeAdConfiguration+FromJSON.swift in Sources */,
 				341CC2E52562B04800186F29 /* NativeAssetsArrayController.swift in Sources */,
 				ACF3823725ED47E4000A071B /* MoPubNativeVideoAdView.swift in Sources */,
 				34FC0CF624ADD5640045553E /* PrebidGAMRewardedController.swift in Sources */,

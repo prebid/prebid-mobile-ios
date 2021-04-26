@@ -15,8 +15,8 @@ class FeedGAMAdTableViewCell: UITableViewCell {
     
     var gamCustomTemplateIDs: [String] = []
     
-    private var adUnit: OXANativeAdUnit?
-    private var theNativeAd: OXANativeAd?
+    private var adUnit: PBMNativeAdUnit?
+    private var theNativeAd: PBMNativeAd?
     
     private let nativeAdViewBox = NativeAdViewBox()
     
@@ -27,13 +27,13 @@ class FeedGAMAdTableViewCell: UITableViewCell {
     private weak var rootController: UIViewController?
     
     func loadAd(configID: String,
-                nativeAdConfig: OXANativeAdConfiguration,
+                nativeAdConfig: PBMNativeAdConfiguration,
                 GAMAdUnitID: String,
                 rootViewController: UIViewController,
                 adTypes: [GADAdLoaderAdType]) {
         
         self.rootController = rootViewController
-        self.adUnit = OXANativeAdUnit(configID: configID, nativeAdConfiguration: nativeAdConfig)
+        self.adUnit = PBMNativeAdUnit(configID: configID, nativeAdConfiguration: nativeAdConfig)
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
@@ -50,7 +50,7 @@ class FeedGAMAdTableViewCell: UITableViewCell {
             }
             
             let dfpRequest = DFPRequest()
-            OXAGAMUtils.shared().prepare(dfpRequest, demandResponseInfo: demandResponseInfo)
+            PBMGAMUtils.shared().prepare(dfpRequest, demandResponseInfo: demandResponseInfo)
             self.adLoader = GADAdLoader(adUnitID: GAMAdUnitID,
                                         rootViewController: rootViewController,
                                         adTypes: adTypes,
@@ -69,7 +69,7 @@ extension FeedGAMAdTableViewCell: GADNativeCustomTemplateAdLoaderDelegate {
     func adLoader(_ adLoader: GADAdLoader, didReceive nativeCustomTemplateAd: GADNativeCustomTemplateAd) {
         customTemplateAd = nil
         
-        let nativeAdDetectionListener = OXANativeAdDetectionListener { [weak self] nativeAd in
+        let nativeAdDetectionListener = PBMNativeAdDetectionListener { [weak self] nativeAd in
             guard let self = self else {
                 return
             }
@@ -93,7 +93,7 @@ extension FeedGAMAdTableViewCell: GADNativeCustomTemplateAdLoaderDelegate {
 
         }
 
-        OXAGAMUtils.shared().findNativeAd(in: nativeCustomTemplateAd,
+        PBMGAMUtils.shared().findNativeAd(in: nativeCustomTemplateAd,
                                           nativeAdDetectionListener: nativeAdDetectionListener)
     }
     
@@ -123,8 +123,8 @@ extension FeedGAMAdTableViewCell: GADNativeCustomTemplateAdLoaderDelegate {
     }
 }
 
-extension FeedGAMAdTableViewCell: OXANativeAdUIDelegate {
-    func viewPresentationController(for nativeAd: OXANativeAd) -> UIViewController? {
+extension FeedGAMAdTableViewCell: PBMNativeAdUIDelegate {
+    func viewPresentationController(for nativeAd: PBMNativeAd) -> UIViewController? {
         return rootController
     }
 }
