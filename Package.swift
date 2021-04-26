@@ -15,49 +15,13 @@ let package = Package(
         
         .library(
             name: "PrebidMobile",
-            targets: ["PrebidMobile"]),
-
-        .library(
-            name: "PrebidMobileAdditional",
-            targets: ["PrebidMobileAdditional"]),
-
-        .library(
-            name: "SomeLibraryName",
-            targets: ["PrebidMobileAdditional2"])
-        
-            
+            targets: ["PrebidMobile"])
     ],
 
     targets: [
         .target(
             name: "PrebidMobile",
-
-            path: "PrebidMobile",
-            cSettings: [
-                   .unsafeFlags(["-emit-objc-header", "-emit-objc-header-path ./Headers/Greeter-Swift.h", "-emit-module-path ./Modules/"]),
-
-               ],
-            swiftSettings: [
-                   .unsafeFlags(["-emit-objc-header"]),
-
-               ]
-            
-        ),
-
-        .target(
-            name: "PrebidMobileAdditional",
-            dependencies: [
-                "PrebidMobile"
-            ],
-            path: "PrebidMobileAdditional"
-        ),
-        
-        .target(
-            name: "PrebidMobileAdditional2",
-            dependencies: [
-                "PrebidMobile"
-            ],
-            path: "PrebidMobileAdditional2"
+            path: "PrebidMobile"
         )
     ],
     
