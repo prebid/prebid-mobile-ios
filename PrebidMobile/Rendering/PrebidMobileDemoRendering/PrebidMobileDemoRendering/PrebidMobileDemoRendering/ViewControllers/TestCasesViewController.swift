@@ -98,11 +98,11 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
         
         //Set up the default account id here
         //as it can be changed in any test cases
-        OXASDKConfiguration.singleton.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        PBMSDKConfiguration.singleton.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
         if AppConfiguration.shared.useMockServer {
-            OXASDKConfiguration.singleton.serverURL = "https://10.0.2.2:8000/openrtb2/auction"
+            PBMSDKConfiguration.singleton.serverURL = "https://10.0.2.2:8000/openrtb2/auction"
         } else {
-            OXASDKConfiguration.singleton.serverURL = OXASDKConfiguration.prodServerURL
+            PBMSDKConfiguration.singleton.serverURL = PBMSDKConfiguration.prodServerURL
         }
         
         example.configurationClosure?(vc)
@@ -112,7 +112,7 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
            let bannerExample = adapterVC.adapter as? PrebidConfigurableBannerController
         {
             let nativeStylesCreativeFromExample = bannerExample.nativeAdConfig?.nativeStylesCreative
-            bannerExample.nativeAdConfig = nativeConfigOverride.copy() as? OXANativeAdConfiguration
+            bannerExample.nativeAdConfig = nativeConfigOverride.copy() as? PBMNativeAdConfiguration
             bannerExample.nativeAdConfig?.nativeStylesCreative = nativeStylesCreativeFromExample
         }
         
@@ -131,7 +131,7 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        OXASDKConfiguration.singleton.locationUpdatesEnabled = (status == .authorizedAlways) || (status == .authorizedWhenInUse)
+        PBMSDKConfiguration.singleton.locationUpdatesEnabled = (status == .authorizedAlways) || (status == .authorizedWhenInUse)
     }
     
     // MARK: - Private Methods

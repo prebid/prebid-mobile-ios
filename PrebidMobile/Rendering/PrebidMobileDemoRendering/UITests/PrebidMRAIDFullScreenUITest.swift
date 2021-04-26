@@ -46,7 +46,7 @@ class PrebidMRAIDFullScreenUITest: RepeatedUITestCase {
     }
     
     private func getTimerValues(app: XCUIApplication) throws -> (String, String) {
-        let testWebView = app.webViews["OXMInternalWebViewAccessibilityIdentifier"]
+        let testWebView = app.webViews["PBMInternalWebViewAccessibilityIdentifier"]
         let allStaticTexts = testWebView.staticTexts.allElementsBoundByIndex
         
         var offScreenTimerFrame: CGRect?

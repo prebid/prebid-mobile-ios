@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         //Set up SDK.
-        OXASDKConfiguration.initializeSDK()
+        PBMSDKConfiguration.initializeSDK()
                 
         // Set up MockServer
         processArgumentsParser.addOption("useMockServer", fireOnce: true) { params in
@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         processArgumentsParser.addOption("EXTRA_NATIVE", paramsCount: 1, fireOnce: true) { params in
             if let nativeConfigData = params[0].data(using: .utf8),
                let nativeConfigObj = try? JSONSerialization.jsonObject(with: nativeConfigData, options: []) as? [String: Any],
-               let nativeAdConfig = OXANativeAdConfiguration(json: nativeConfigObj)
+               let nativeAdConfig = PBMNativeAdConfiguration(json: nativeConfigObj)
             {
                 // TODO: Add error alert(?)
                 AppConfiguration.shared.nativeAdConfig = nativeAdConfig
@@ -51,13 +51,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         processArgumentsParser.addOption("AD_POSITION", paramsCount: 1, fireOnce: true) { params in
-            if let adPositionInt = Int(params[0]), let adPosition = OXAAdPosition(rawValue: adPositionInt) {
+            if let adPositionInt = Int(params[0]), let adPosition = PBMAdPosition(rawValue: adPositionInt) {
                 AppConfiguration.shared.adPosition = adPosition
             }
         }
         
         processArgumentsParser.addOption("VIDEO_PLACEMENT_TYPE", paramsCount: 1, fireOnce: true) { params in
-            if let placementTypeInt = Int(params[0]), let placementType = OXAVideoPlacementType(rawValue: placementTypeInt) {
+            if let placementTypeInt = Int(params[0]), let placementType = PBMVideoPlacementType(rawValue: placementTypeInt) {
                 AppConfiguration.shared.videoPlacementType = placementType
             }
         }
@@ -69,13 +69,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         processArgumentsParser.addOption("ADD_USER_DATA", paramsCount: 2) { params in
-            OXATargeting.shared().addUserData(params[1], forKey: params[0])
+            PBMTargeting.shared().addUserData(params[1], forKey: params[0])
         }
         processArgumentsParser.addOption("ADD_APP_CONTEXT", paramsCount: 2) { params in
-            OXATargeting.shared().addContextData(params[1], forKey: params[0])
+            PBMTargeting.shared().addContextData(params[1], forKey: params[0])
         }
         processArgumentsParser.addOption("BIDDER_ACCESS_CONTROL_LIST", acceptedParamsRange: (min: 1, max: nil)) { params in
-            params.forEach(OXATargeting.shared().addBidder(toAccessControlList:))
+            params.forEach(PBMTargeting.shared().addBidder(toAccessControlList:))
         }
         processArgumentsParser.addOption("ADD_ADUNIT_CONTEXT", paramsCount: 2) { params in
             let appConfig = AppConfiguration.shared
@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // MoPub
         let mopubConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "0cde6f47aa6842e49c8575492cf9ee3f")
         mopubConfig.loggingLevel = .info
-        mopubConfig.additionalNetworks = [OXAMoPubAdapterConfiguration.self]
+        mopubConfig.additionalNetworks = [PrebidMoPubAdapterConfiguration.self]
         MoPub.sharedInstance().initializeSdk(with: mopubConfig, completion: GlobalVars.reactiveMoPubInitFlag.markSdkInitialized)
 
         // AdMob
@@ -97,13 +97,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             GlobalVars.reactiveGAMInitFlag.markSdkInitialized()
         };
         
-        OXASDKConfiguration.singleton.logLevel = OXALogLevel.info
-        OXASDKConfiguration.singleton.debugLogFileEnabled = true
+        PBMSDKConfiguration.singleton.logLevel = PBMLogLevel.info
+        PBMSDKConfiguration.singleton.debugLogFileEnabled = true
         
         // OpenX's ads include Open Measurement scripts that sometime require additional time for loading.
-        OXASDKConfiguration.singleton.creativeFactoryTimeout = 20;
+        PBMSDKConfiguration.singleton.creativeFactoryTimeout = 20;
         
-        OXASDKConfiguration.singleton.locationUpdatesEnabled = false
+        PBMSDKConfiguration.singleton.locationUpdatesEnabled = false
         
 		return true
 	}

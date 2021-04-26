@@ -15,7 +15,7 @@ class NativeAdViewBox: NativeAdViewBoxProtocol {
     let ctaButton = UIButton(type: .system)
     let mainImage = UIImageView()
     let iconImage = UIImageView()
-    let mediaView = OXAMediaView()
+    let mediaView = PBMMediaView()
     
     let contentView: UIView
     private let mediaViewContainer: UIView
@@ -43,7 +43,7 @@ class NativeAdViewBox: NativeAdViewBoxProtocol {
         }
     }
     
-    weak var mediaViewDelegate: OXAMediaViewDelegate? {
+    weak var mediaViewDelegate: PBMMediaViewDelegate? {
         get { mediaView.delegate }
         set { mediaView.delegate = newValue }
     }
@@ -86,11 +86,11 @@ class NativeAdViewBox: NativeAdViewBoxProtocol {
         let muteMedia = UIButton(type: .system)
         let unmuteMedia = UIButton(type: .system)
         
-        playMedia.addTarget(mediaView, action: #selector(OXAMediaView.play), for: .touchUpInside)
-        pauseMedia.addTarget(mediaView, action: #selector(OXAMediaView.pause), for: .touchUpInside)
-        resumeMedia.addTarget(mediaView, action: #selector(OXAMediaView.resume), for: .touchUpInside)
-        muteMedia.addTarget(mediaView, action: #selector(OXAMediaView.mute), for: .touchUpInside)
-        unmuteMedia.addTarget(mediaView, action: #selector(OXAMediaView.unmute), for: .touchUpInside)
+        playMedia.addTarget(mediaView, action: #selector(PBMMediaView.play), for: .touchUpInside)
+        pauseMedia.addTarget(mediaView, action: #selector(PBMMediaView.pause), for: .touchUpInside)
+        resumeMedia.addTarget(mediaView, action: #selector(PBMMediaView.resume), for: .touchUpInside)
+        muteMedia.addTarget(mediaView, action: #selector(PBMMediaView.mute), for: .touchUpInside)
+        unmuteMedia.addTarget(mediaView, action: #selector(PBMMediaView.unmute), for: .touchUpInside)
         
         playMedia.setTitle("[play]", for: .normal)
         pauseMedia.setTitle("[pause]", for: .normal)
@@ -169,7 +169,7 @@ class NativeAdViewBox: NativeAdViewBoxProtocol {
         ])
     }
     
-    private func setDesiredImageSize(imageView: UIImageView, nativeImageInfo: OXANativeAdImage) {
+    private func setDesiredImageSize(imageView: UIImageView, nativeImageInfo: PBMNativeAdImage) {
         if let h = nativeImageInfo.height {
             let heightConstraint = imageView.heightAnchor.constraint(equalToConstant: CGFloat(h.floatValue))
             heightConstraint.priority = .defaultLow
@@ -206,7 +206,7 @@ extension NativeAdViewBox {
 }
 
 extension NativeAdViewBox {
-    func renderNativeAd(_ nativeAd: OXANativeAd) {
+    func renderNativeAd(_ nativeAd: PBMNativeAd) {
         textLabel.text = nativeAd.text
         ctaButton.setTitle(nativeAd.callToAction, for: .normal) 
         brandLabel.text = nativeAd.dataObjects(of: .sponsored).first?.value ?? ""
@@ -228,7 +228,7 @@ extension NativeAdViewBox {
         }
      }
     
-    func registerViews(_ nativeAd: OXANativeAd) {
+    func registerViews(_ nativeAd: PBMNativeAd) {
         nativeAd.register(contentView, clickableViews: [])
         nativeAd.registerClick(ctaButton, nativeAdElementType: .callToAction)
         nativeAd.registerClick(iconImage, nativeAdElementType: .icon)

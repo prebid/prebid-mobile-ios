@@ -1,5 +1,5 @@
 //
-//  OXMMockServer.swift
+//  PBMMockServer.swift
 //  MockServer
 //
 //  Created by Volodymyr Parunakian on 12/4/19.
@@ -13,7 +13,7 @@ public enum ResponseType: String {
     case video
 }
 
-public final class OXMMockServer {
+public final class PBMMockServer {
     private let requestManager = MockServerManager()
     private let disposeBag = DisposeBag()
     

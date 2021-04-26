@@ -9,13 +9,13 @@ import UIKit
 import GoogleMobileAds
 import PrebidMobileGAMEventHandlers
 
-class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfigurableController, OXAInterstitialAdUnitDelegate {
+class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfigurableController, PBMInterstitialAdUnitDelegate {
     
     var prebidConfigId = ""
     var gamAdUnitId = ""
-    var adFormat: OXAAdFormat?
+    var adFormat: PBMAdFormat?
     
-    private var interstitialController : OXAInterstitialAdUnit?
+    private var interstitialController : PBMInterstitialAdUnit?
     
     private weak var adapterViewController: AdapterViewController?
     
@@ -45,8 +45,8 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        let eventHandler = OXAGAMInterstitialEventHandler(adUnitID: gamAdUnitId)
-        interstitialController = OXAInterstitialAdUnit(configId: prebidConfigId,
+        let eventHandler = PBMGAMInterstitialEventHandler(adUnitID: gamAdUnitId)
+        interstitialController = PBMInterstitialAdUnit(configId: prebidConfigId,
                                                        minSizePercentage: CGSize(width: 30, height: 30),
                                                        eventHandler: eventHandler)
         interstitialController?.delegate = self
@@ -66,28 +66,28 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
     // MARK: - GADInterstitialDelegate
     
     
-    func interstitialDidReceiveAd(_ interstitial: OXAInterstitialAdUnit) {
+    func interstitialDidReceiveAd(_ interstitial: PBMInterstitialAdUnit) {
         adapterViewController?.showButton.isEnabled = true
         interstitialDidReceiveAdButton.isEnabled = true
     }
 
-    func interstitial(_ interstitial: OXAInterstitialAdUnit, didFailToReceiveAdWithError error: Error?) {
+    func interstitial(_ interstitial: PBMInterstitialAdUnit, didFailToReceiveAdWithError error: Error?) {
         interstitialDidFailToReceiveAdButton.isEnabled = true
     }
     
-    func interstitialWillPresentAd(_ interstitial: OXAInterstitialAdUnit) {
+    func interstitialWillPresentAd(_ interstitial: PBMInterstitialAdUnit) {
         interstitialWillPresentAdButton.isEnabled = true
     }
     
-    func interstitialDidDismissAd(_ interstitial: OXAInterstitialAdUnit) {
+    func interstitialDidDismissAd(_ interstitial: PBMInterstitialAdUnit) {
         interstitialDidDismissAdButton.isEnabled = true
     }
     
-    func interstitialWillLeaveApplication(_ interstitial: OXAInterstitialAdUnit) {
+    func interstitialWillLeaveApplication(_ interstitial: PBMInterstitialAdUnit) {
         interstitialWillLeaveApplicationButton.isEnabled = true
     }
     
-    func interstitialDidClickAd(_ interstitial: OXAInterstitialAdUnit) {
+    func interstitialDidClickAd(_ interstitial: PBMInterstitialAdUnit) {
         interstitialDidClickAdButton.isEnabled = true
     }
     

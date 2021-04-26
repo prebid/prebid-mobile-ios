@@ -27,7 +27,7 @@ class PrebidMoPubRewardedVideoController: NSObject, AdaptedController, PrebidCon
     
     private let configIdLabel = UILabel()
     
-    private var adUnit: OXAMoPubRewardedAdUnit?
+    private var adUnit: PBMMoPubRewardedAdUnit?
     
     // MARK: - AdaptedController
     
@@ -52,9 +52,9 @@ class PrebidMoPubRewardedVideoController: NSObject, AdaptedController, PrebidCon
         adapterViewController?.activityIndicator.isHidden = true
         adapterViewController?.activityIndicator.startAnimating()
         
-        adUnit = OXAMoPubRewardedAdUnit(configId: prebidConfigId)
+        adUnit = PBMMoPubRewardedAdUnit(configId: prebidConfigId)
         
-        let bidInfoWrapper = OXAMoPubBidInfoWrapper()
+        let bidInfoWrapper = PBMMoPubBidInfoWrapper()
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {

@@ -41,11 +41,11 @@ class PrebidVideoOutstreamUITest: RepeatedUITestCase {
         repeatTesting(times: 7) {
             openVideo(title: videoOutstreamTitle)
             
-            let bannerView = app.descendants(matching: .other)["OXABannerView"]
+            let bannerView = app.descendants(matching: .other)["PBMBannerView"]
             bannerView.tap()
 
             // Wait for the click through browser to come up.
-            let clickthroughBrowserCloseBtn = app.buttons["OXMCloseButtonClickThroughBrowser"]
+            let clickthroughBrowserCloseBtn = app.buttons["PBMCloseButtonClickThroughBrowser"]
             waitForHittable(element: clickthroughBrowserCloseBtn, waitSeconds: 5)
             clickthroughBrowserCloseBtn.tap()
 
@@ -64,7 +64,7 @@ class PrebidVideoOutstreamUITest: RepeatedUITestCase {
             waitForExists(element: endCardLink, waitSeconds: videoDuration)
             endCardLink.tap()
 
-            let videoCloseBtn = app.buttons["OXMCloseButtonClickThroughBrowser"]
+            let videoCloseBtn = app.buttons["PBMCloseButtonClickThroughBrowser"]
             
             waitForExists(element: videoCloseBtn, waitSeconds: 10)
             videoCloseBtn.tap()

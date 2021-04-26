@@ -44,8 +44,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9319862419A7DD8D007ED468"
-               BuildableName = "OpenXSDKCoreTests.xctest"
-               BlueprintName = "OpenXSDKCoreTests"
+               BuildableName = "PrebidMobileRenderingTests.xctest"
+               BlueprintName = "PrebidMobileRenderingTests"
                ReferencedContainer = "container:PrebidMobileRendering.xcodeproj">
             </BuildableReference>
             <SkippedTests>

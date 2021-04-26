@@ -9,9 +9,9 @@ import UIKit
 import Eureka
 
 class NativeAdConfigController : FormViewController, RowBuildHelpConsumer {
-    var nativeAdConfig: OXANativeAdConfiguration?
+    var nativeAdConfig: PBMNativeAdConfiguration?
     
-    var dataContainer: OXANativeAdConfiguration? {
+    var dataContainer: PBMNativeAdConfiguration? {
         get { nativeAdConfig }
         set { nativeAdConfig = newValue }
     }
@@ -59,7 +59,7 @@ class NativeAdConfigController : FormViewController, RowBuildHelpConsumer {
             self?.navigationController?.pushViewController(eventTrackersEditor, animated: true)
         }
         addOptionalInt("privacy", keyPath: \.privacy)
-        addExtRow(field: "ext", src: \.ext, dst: OXANativeAdConfiguration.setExt(_:))
+        addExtRow(field: "ext", src: \.ext, dst: PBMNativeAdConfiguration.setExt(_:))
     }
     
     override func viewWillAppear(_ animated: Bool) {

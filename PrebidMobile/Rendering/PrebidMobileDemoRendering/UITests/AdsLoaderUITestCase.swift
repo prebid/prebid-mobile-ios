@@ -61,7 +61,7 @@ class AdsLoaderUITestCase: RepeatedUITestCase {
 
             let expectedOutcomeButton = app.buttons[successCallback]
             let unexpectedOutcomeButton = failCallback.map { app.buttons[$0] }
-            let bannerView = app.descendants(matching: .other)["OXABannerView"]
+            let bannerView = app.descendants(matching: .other)["PBMBannerView"]
             
             if !doNotCheckBannerView {
                 waitForExists(element: bannerView)

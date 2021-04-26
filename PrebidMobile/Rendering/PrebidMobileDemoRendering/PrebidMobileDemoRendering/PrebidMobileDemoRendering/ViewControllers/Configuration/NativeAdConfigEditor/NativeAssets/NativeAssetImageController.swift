@@ -8,7 +8,7 @@
 import UIKit
 import Eureka
 
-class NativeAssetImageController: BaseNativeAssetController<OXANativeAssetImage> {
+class NativeAssetImageController: BaseNativeAssetController<PBMNativeAssetImage> {
     override func buildForm() {
         super.buildForm()
         

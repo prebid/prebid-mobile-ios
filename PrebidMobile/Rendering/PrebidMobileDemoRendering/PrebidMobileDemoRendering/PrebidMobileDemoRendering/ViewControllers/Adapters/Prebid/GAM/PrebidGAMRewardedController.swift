@@ -9,12 +9,12 @@ import UIKit
 import GoogleMobileAds
 import PrebidMobileGAMEventHandlers
 
-class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurableController, OXARewardedAdUnitDelegate {
+class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurableController, PBMRewardedAdUnitDelegate {
     
     var prebidConfigId = ""
     var gamAdUnitId = ""
     
-    private var rewardedAdController : OXARewardedAdUnit?
+    private var rewardedAdController : PBMRewardedAdUnit?
     
     private weak var adapterViewController: AdapterViewController?
     
@@ -45,8 +45,8 @@ class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurab
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        let eventHandler = OXAGAMRewardedEventHandler(adUnitID: gamAdUnitId)
-        rewardedAdController = OXARewardedAdUnit(configId: prebidConfigId, eventHandler: eventHandler)
+        let eventHandler = PBMGAMRewardedEventHandler(adUnitID: gamAdUnitId)
+        rewardedAdController = PBMRewardedAdUnit(configId: prebidConfigId, eventHandler: eventHandler)
         rewardedAdController?.delegate = self
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
@@ -61,32 +61,32 @@ class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurab
     // MARK: - GADRewardedDelegate
     
     
-    func rewardedAdDidReceiveAd(_ rewardedAd: OXARewardedAdUnit) {
+    func rewardedAdDidReceiveAd(_ rewardedAd: PBMRewardedAdUnit) {
         adapterViewController?.showButton.isEnabled = true
         rewardedAdDidReceiveAdButton.isEnabled = true
     }
 
-    func rewardedAd(_ rewardedAd: OXARewardedAdUnit, didFailToReceiveAdWithError error: Error?) {
+    func rewardedAd(_ rewardedAd: PBMRewardedAdUnit, didFailToReceiveAdWithError error: Error?) {
         rewardedAdDidFailToReceiveAdButton.isEnabled = true
     }
     
-    func rewardedAdWillPresentAd(_ rewardedAd: OXARewardedAdUnit) {
+    func rewardedAdWillPresentAd(_ rewardedAd: PBMRewardedAdUnit) {
         rewardedAdWillPresentAdButton.isEnabled = true
     }
     
-    func rewardedAdDidDismissAd(_ rewardedAd: OXARewardedAdUnit) {
+    func rewardedAdDidDismissAd(_ rewardedAd: PBMRewardedAdUnit) {
         rewardedAdDidDismissAdButton.isEnabled = true
     }
     
-    func rewardedAdWillLeaveApplication(_ rewardedAd: OXARewardedAdUnit) {
+    func rewardedAdWillLeaveApplication(_ rewardedAd: PBMRewardedAdUnit) {
         rewardedAdWillLeaveApplicationButton.isEnabled = true
     }
     
-    func rewardedAdDidClickAd(_ rewardedAd: OXARewardedAdUnit) {
+    func rewardedAdDidClickAd(_ rewardedAd: PBMRewardedAdUnit) {
         rewardedAdDidClickAdButton.isEnabled = true
     }
     
-    func rewardedAdUserDidEarnReward(_ rewardedAd: OXARewardedAdUnit) {
+    func rewardedAdUserDidEarnReward(_ rewardedAd: PBMRewardedAdUnit) {
         rewardedAdUserDidEarnRewardButton.isEnabled = true
     }
     

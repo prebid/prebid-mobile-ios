@@ -5,9 +5,9 @@
 //  Copyright © 2017 OpenX. All rights reserved.
 //
 
-#import "OXASDKConfiguration+InternalState.h"
-#import "OXANativeAdConfiguration+Internal.h"
-#import "OXANativeAsset+InternalState.h"
-#import "OXANativeEventTracker+InternalState.h"
+#import "PBMSDKConfiguration+InternalState.h"
+#import "PBMNativeAdConfiguration+Internal.h"
+#import "PBMNativeAsset+InternalState.h"
+#import "PBMNativeEventTracker+InternalState.h"
 
-#import "NSError+oxmError.h"
+#import "NSError+pbmError.h"

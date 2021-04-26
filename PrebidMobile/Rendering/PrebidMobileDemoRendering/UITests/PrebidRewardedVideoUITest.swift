@@ -79,7 +79,7 @@ class PrebidRewardedVideoUITest: RepeatedUITestCase {
     
     func closeAndVerifyPostEvents(expectClick: Bool) {
         
-        let closeBtn = app.buttons[expectClick ? "OXMCloseButtonClickThroughBrowser" : "OXMCloseButton"]
+        let closeBtn = app.buttons[expectClick ? "PBMCloseButtonClickThroughBrowser" : "PBMCloseButton"]
         waitForExists(element: closeBtn, waitSeconds: 5)
         closeBtn.tap()
         

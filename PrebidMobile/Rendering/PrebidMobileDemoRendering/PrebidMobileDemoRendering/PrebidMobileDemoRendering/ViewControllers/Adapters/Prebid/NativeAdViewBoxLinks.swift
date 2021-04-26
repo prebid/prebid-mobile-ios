@@ -19,7 +19,7 @@ class NativeAdViewBoxLinks: NativeAdViewBoxProtocol {
     var showOnlyMediaView = false
     var autoPlayOnVisible = false
     
-    weak var mediaViewDelegate: OXAMediaViewDelegate?
+    weak var mediaViewDelegate: PBMMediaViewDelegate?
     
     init() {
         let rightStackView = UIStackView(arrangedSubviews: [linkRootButton, deepLinkOkButton])
@@ -63,7 +63,7 @@ extension NativeAdViewBoxLinks {
 }
 
 extension NativeAdViewBoxLinks {
-    func renderNativeAd(_ nativeAd: OXANativeAd) {
+    func renderNativeAd(_ nativeAd: PBMNativeAd) {
         linkRootButton.setTitle(nativeAd.callToAction, for: .normal)
         deepLinkOkButton.setTitle(nativeAd.text, for: .normal)
         
@@ -71,7 +71,7 @@ extension NativeAdViewBoxLinks {
         sponsoredButton.setTitle(nativeAd.dataObjects(of: .sponsored).first?.value ?? "", for: .normal)
     }
     
-    func registerViews(_ nativeAd: OXANativeAd) {
+    func registerViews(_ nativeAd: PBMNativeAd) {
         nativeAd.register(contentView, clickableViews: [])
         nativeAd.registerClick(linkRootButton, nativeAdElementType: .callToAction)
         nativeAd.registerClick(deepLinkOkButton, nativeAdElementType: .text)
