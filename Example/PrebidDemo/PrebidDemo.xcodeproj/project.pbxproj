@@ -89,20 +89,6 @@
 			remoteGlobalIDString = FAAA00BC2322733E009DC7D6;
 			remoteInfo = PrebidMobile;
 		};
-		FAEE4E4E262ECE6B00AD9966 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FA12E472231E9DAA00CAA05B /* PrebidMobile.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FAEE4E20262ECD2300AD9966;
-			remoteInfo = PrebidMobileAdditional;
-		};
-		FAEE4E82262ED15000AD9966 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FA12E472231E9DAA00CAA05B /* PrebidMobile.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FAEE4E6B262ECFA300AD9966;
-			remoteInfo = PrebidMobileAdditional2;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -376,8 +362,6 @@
 			children = (
 				FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */,
 				FA12E47A231E9DAA00CAA05B /* PrebidMobileTests.xctest */,
-				FAEE4E4F262ECE6B00AD9966 /* PrebidMobileAdditional.framework */,
-				FAEE4E83262ED15000AD9966 /* PrebidMobileAdditional2.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -560,20 +544,6 @@
 			fileType = wrapper.cfbundle;
 			path = PrebidMobileTests.xctest;
 			remoteRef = FA12E479231E9DAA00CAA05B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		FAEE4E4F262ECE6B00AD9966 /* PrebidMobileAdditional.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = PrebidMobileAdditional.framework;
-			remoteRef = FAEE4E4E262ECE6B00AD9966 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		FAEE4E83262ED15000AD9966 /* PrebidMobileAdditional2.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = PrebidMobileAdditional2.framework;
-			remoteRef = FAEE4E82262ED15000AD9966 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

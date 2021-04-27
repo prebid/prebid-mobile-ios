@@ -28,11 +28,12 @@ GENERATED_DIR_NAME="generated"
 	XCODE_BUILD_DIR="$GENERATED_DIR_NAME/xcodebuild"
 
 	XCODE_ARCHIVE_DIR="$GENERATED_DIR_NAME/archive"
+	XCODE_ARCHIVE_DIR_ABSOLUTE="$PWD/$GENERATED_DIR_NAME/archive"
 
 	OUTPUT_DIR="$GENERATED_DIR_NAME/output"
 	OUTPUT_DIR_ABSOLUTE="$PWD/$OUTPUT_DIR"
 
-BITCODE_FLAG="marker"
+BITCODE_FLAG=NO
 
 # If remnants from a previous build exist, delete them.
 if [ -d "$GENERATED_DIR_NAME" ]; then
@@ -45,7 +46,7 @@ touch "$LOG_FILE_FRAMEWORK"
 echo -n "Embed bitcode (y/n)?"
 read bitcodeAnswer
 if [ "$bitcodeAnswer" != "${bitcodeAnswer#[Yy]}" ] ;then
-    BITCODE_FLAG="bitcode"
+    BITCODE_FLAG=YES
 fi
 
 echo -n "\nBITCODE_FLAG: $BITCODE_FLAG\n"
@@ -54,7 +55,7 @@ echo $PWD
 gem install cocoapods --user-install
 pod install --repo-update
 
-schemes=("PrebidMobile" "PrebidMobileAdditional")
+schemes=("PrebidMobile")
 
 for(( n=0; n<${#schemes[@]}; n++ ))
 do
@@ -63,6 +64,10 @@ do
 	echo -e "\n${GREEN} - Archiving ${schemes[$n]} for device${NC}"
 
 	xcodebuild archive \
+	only_active_arch=NO \
+	defines_module=YES \
+	ENABLE_BITCODE=$BITCODE_FLAG \
+	SKIP_INSTALL=NO \
 	-workspace PrebidMobile.xcworkspace \
 	-scheme "${schemes[$n]}" \
 	-configuration Release \
@@ -70,15 +75,14 @@ do
 	-sdk "iphoneos" \
 	-derivedDataPath $XCODE_BUILD_DIR \
 	-archivePath "$XCODE_ARCHIVE_DIR/${schemes[$n]}.xcarchive" \
-	only_active_arch=no \
-	defines_module=yes \
-	BITCODE_GENERATION_MODE="$BITCODE_FLAG" \
-	SKIP_INSTALL=NO \
 	> "$LOG_FILE_FRAMEWORK" 2>&1 || { echo -e "${RED}Error in build check log "$LOG_FILE_FRAMEWORK_ABSOLUTE"${NC}"; exit 1;}
 
 	echo -e "${GREEN} - Archiving ${schemes[$n]} for simulator${NC}"
 
 	xcodebuild archive \
+	only_active_arch=NO \
+	defines_module=YES \
+	SKIP_INSTALL=NO \
 	-workspace PrebidMobile.xcworkspace \
 	-scheme "${schemes[$n]}" \
 	-configuration Release \
@@ -86,18 +90,32 @@ do
 	-sdk "iphonesimulator" \
 	-derivedDataPath $XCODE_BUILD_DIR \
 	-archivePath "$XCODE_ARCHIVE_DIR/${schemes[$n]}$POSTFIX_SIMULATOR.xcarchive" \
-	only_active_arch=no \
-	defines_module=yes \
-	BITCODE_GENERATION_MODE="$BITCODE_FLAG" \
-	SKIP_INSTALL=NO \
 	> "$LOG_FILE_FRAMEWORK" 2>&1 || { echo -e "${RED}Error in build check log "$LOG_FILE_FRAMEWORK_ABSOLUTE"${NC}"; exit 1;}
 
 	echo -e "${GREEN} - Creating ${schemes[$n]} XCFramework${NC}"
 	# Create XCFramework
+
+	# find all .bcsymbolmap and concatinate -debug-symbols
+	debugSymbolsBcsymbolmap=""
+
+	while read bcsymbolmapsFileName
+	do
+	    # echo "BCSymbolMap: '$bcsymbolmapsFileName'"
+	    debugSymbolsBcsymbolmap="$debugSymbolsBcsymbolmap -debug-symbols \"$bcsymbolmapsFileName\""
+	done < <(find "$XCODE_ARCHIVE_DIR_ABSOLUTE/${schemes[$n]}.xcarchive/BCSymbolMaps" -name "*.bcsymbolmap")
+
+	# echo "debugSymbolsBcsymbolmap: '$debugSymbolsBcsymbolmap'"
+
+	# eval
+	eval " 
 	xcodebuild -create-xcframework \
 	    -framework "$XCODE_ARCHIVE_DIR/${schemes[$n]}.xcarchive/Products/Library/Frameworks/${schemes[$n]}.framework" \
+	    -debug-symbols "$XCODE_ARCHIVE_DIR_ABSOLUTE/${schemes[$n]}.xcarchive/dSYMs/${schemes[$n]}.framework.dSYM" \
+	    $debugSymbolsBcsymbolmap \
 	    -framework "$XCODE_ARCHIVE_DIR/${schemes[$n]}$POSTFIX_SIMULATOR.xcarchive/Products/Library/Frameworks/${schemes[$n]}.framework" \
+	    -debug-symbols "$XCODE_ARCHIVE_DIR_ABSOLUTE/${schemes[$n]}$POSTFIX_SIMULATOR.xcarchive/dSYMs/${schemes[$n]}.framework.dSYM" \
 	    -output "$OUTPUT_DIR/XC${schemes[$n]}.xcframework"
+	"
 
 done
 
