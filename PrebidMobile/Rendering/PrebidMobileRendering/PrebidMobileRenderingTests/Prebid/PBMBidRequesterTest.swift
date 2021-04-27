@@ -16,7 +16,8 @@ class PBMBidRequesterTest: XCTestCase {
     override func setUp() {
         super.setUp()
         sdkConfiguration = PBMSDKConfiguration()
-        sdkConfiguration.serverURL = PBMSDKConfiguration.devintServerURL
+//        sdkConfiguration.serverURL = PBMSDKConfiguration.devintServerURL
+        try! sdkConfiguration.setCustomPrebidServer(url: PBMSDKConfiguration.devintServerURL)
         sdkConfiguration.accountID = PBMSDKConfiguration.devintAccountID
     }
 

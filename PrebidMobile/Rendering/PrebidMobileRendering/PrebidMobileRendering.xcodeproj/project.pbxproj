@@ -785,6 +785,8 @@
 		5CF31F201F830747004B04E9 /* PBMAdRequesterVASTTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF31F1F1F830747004B04E9 /* PBMAdRequesterVASTTest.swift */; };
 		AC0AF6B525022A8900A07297 /* PBMORTBBidExtSkadn.h in Headers */ = {isa = PBXBuildFile; fileRef = AC0AF6B325022A8900A07297 /* PBMORTBBidExtSkadn.h */; };
 		AC0AF6B625022A8900A07297 /* PBMORTBBidExtSkadn.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF6B425022A8900A07297 /* PBMORTBBidExtSkadn.m */; };
+		AC14279526331575005E47CC /* PBMHost.h in Headers */ = {isa = PBXBuildFile; fileRef = AC14279326331573005E47CC /* PBMHost.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC14279626331575005E47CC /* PBMHost.m in Sources */ = {isa = PBXBuildFile; fileRef = AC14279426331574005E47CC /* PBMHost.m */; };
 		AC24DA962508F3E10060D6D9 /* PBMORTBDeviceExtAtts.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24DA932508EB9F0060D6D9 /* PBMORTBDeviceExtAtts.m */; };
 		AC27E9E824DD8618000CD7EC /* PBMMoPubUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC27E9E724DD8618000CD7EC /* PBMMoPubUtilsTest.swift */; };
 		AC2A57F423213F64007E4A1B /* PBMMRAIDControllerTest_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2A57F323213F64007E4A1B /* PBMMRAIDControllerTest_Base.swift */; };
@@ -1656,6 +1658,8 @@
 		AC04860E24AB708B000106D4 /* PBMMoPubUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMMoPubUtils.m; sourceTree = "<group>"; };
 		AC0AF6B325022A8900A07297 /* PBMORTBBidExtSkadn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBBidExtSkadn.h; sourceTree = "<group>"; };
 		AC0AF6B425022A8900A07297 /* PBMORTBBidExtSkadn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBBidExtSkadn.m; sourceTree = "<group>"; };
+		AC14279326331573005E47CC /* PBMHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMHost.h; sourceTree = "<group>"; };
+		AC14279426331574005E47CC /* PBMHost.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMHost.m; sourceTree = "<group>"; };
 		AC24DA922508EB9F0060D6D9 /* PBMORTBDeviceExtAtts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBDeviceExtAtts.h; sourceTree = "<group>"; };
 		AC24DA932508EB9F0060D6D9 /* PBMORTBDeviceExtAtts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBDeviceExtAtts.m; sourceTree = "<group>"; };
 		AC27E9E724DD8618000CD7EC /* PBMMoPubUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMMoPubUtilsTest.swift; sourceTree = "<group>"; };
@@ -2507,6 +2511,8 @@
 				340DF1A6247D3DDA0040814B /* PBMSDKConfiguration+InternalState.h */,
 				34DF8FEB247C0C890091D6E5 /* PBMSDKConfiguration.h */,
 				34DF8FEC247C0C890091D6E5 /* PBMSDKConfiguration.m */,
+				AC14279326331573005E47CC /* PBMHost.h */,
+				AC14279426331574005E47CC /* PBMHost.m */,
 				34F135AC25CAA3EC004414D6 /* TransactionFactory */,
 				34DF6CCF25CC4AC700167598 /* PBMViewControllerProvider.h */,
 				34A023BD25822E08004EBB0C /* PBMWinNotifier+Private.h */,
@@ -3729,6 +3735,7 @@
 				34F135B225CAA66C004414D6 /* PBMDisplayTransactionFactory.h in Headers */,
 				34D0AA8F258CBBFD001D5447 /* PBMNativeAdTitle.h in Headers */,
 				3461BB1124E58595008148CC /* PrebidMobileRenderingSDK.h in Headers */,
+				AC14279526331575005E47CC /* PBMHost.h in Headers */,
 				34D7111024E580620048CC78 /* PBMLocationManagerProtocol.h in Headers */,
 				34D7111224E580620048CC78 /* PBMOpenMeasurementEventTracker.h in Headers */,
 				34D7111324E580620048CC78 /* PBMORTBBidRequestExtPrebid.h in Headers */,
@@ -4134,6 +4141,7 @@
 				34D70FF024E580620048CC78 /* PBMDeviceInfoParameterBuilder.m in Sources */,
 				34E2FEB825AF302D0003C0EA /* PBMViewabilityEventStatus.m in Sources */,
 				34D70FF124E580620048CC78 /* PBMInterstitialController.m in Sources */,
+				AC14279626331575005E47CC /* PBMHost.m in Sources */,
 				34D70FF224E580620048CC78 /* PBMOpenMeasurementFriendlyObstructionTypeBridge.m in Sources */,
 				34D70FF324E580620048CC78 /* PBMAdModelEventTracker.m in Sources */,
 				34D0AAC0258CCC0E001D5447 /* PBMErrorFamily.m in Sources */,

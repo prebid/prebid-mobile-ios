@@ -33,7 +33,7 @@ class PBMSDKConfigurationTest: XCTestCase {
         // Prebid-specific
         
         XCTAssertEqual(sdkConfiguration.accountID, "")
-        XCTAssertEqual(sdkConfiguration.serverURL, PBMSDKConfiguration.prodServerURL)
+        XCTAssertEqual(sdkConfiguration.prebidServerHost, .custom)
     }
     
     func testInitializeSDK() {
@@ -92,5 +92,21 @@ class PBMSDKConfigurationTest: XCTestCase {
         PBMSDKConfiguration.resetSingleton()
         let newConfig = PBMSDKConfiguration.singleton
         XCTAssertNotEqual(firstConfig, newConfig)
+    }
+    
+    func testPrebidHost() {
+        let sdkConfig = PBMSDKConfiguration.singleton
+        XCTAssertEqual(sdkConfig.prebidServerHost, .custom)
+        
+        sdkConfig.prebidServerHost = .appnexus
+        XCTAssertEqual(try! PBMHost.shared.getHostURL(host:sdkConfig.prebidServerHost), "https://prebid.adnxs.com/pbs/v1/openrtb2/auction")
+        
+        let _ = try! PBMSDKConfiguration.singleton.setCustomPrebidServer(url: "https://10.0.2.2:8000/openrtb2/auction")
+        XCTAssertEqual(sdkConfig.prebidServerHost, .custom)
+        
+    }
+    
+    func testServerHostCustomInvalid() throws {
+        XCTAssertThrowsError(try PBMSDKConfiguration.singleton.setCustomPrebidServer(url: "wrong url"))
     }
 }

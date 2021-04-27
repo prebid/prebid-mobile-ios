@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PBMLogLevel.h"
+#import "PBMHost.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, class, readonly) NSString *sdkVersion;
 
 // MARK: - Bidding properties
-@property (nonatomic, copy, readonly) NSString *serverURL;
+@property (nonatomic, assign) PBMPrebidHost prebidServerHost;
 @property (nonatomic, copy) NSString *accountID;
 
 @property (nonatomic, assign) NSInteger bidRequestTimeoutMillis;
@@ -46,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 // MARK: - SDK Initialization
 
 + (void)initializeSDK;
+
+- (nullable NSString*)setCustomPrebidServerWithUrl:(nonnull NSString *)url error:(NSError* _Nullable __autoreleasing * _Nullable)error NS_SWIFT_NAME(setCustomPrebidServer(url:));
 
 @end
 

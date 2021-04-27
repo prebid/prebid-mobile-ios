@@ -17,8 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSNumber *bidRequestTimeoutDynamic;
 @property (nonatomic, readonly) NSLock *bidRequestTimeoutLock;
 
-@property (nonatomic, copy) NSString *serverURL;
-
 @property (nonatomic, class, readonly) NSString *prodServerURL;
 
 @end

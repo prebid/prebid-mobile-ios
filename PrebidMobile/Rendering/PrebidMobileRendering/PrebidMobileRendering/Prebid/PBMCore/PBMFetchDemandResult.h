@@ -13,6 +13,7 @@ typedef NS_ENUM(NSUInteger, PBMFetchDemandResult) {
     PBMFetchDemandResult_ServerError,
     PBMFetchDemandResult_DemandNoBids,
     PBMFetchDemandResult_DemandTimedOut,
+    PBMFetchDemandResult_InvalidHostUrl,
     
     PBMFetchDemandResult_InvalidResponseStructure = 1000,
     

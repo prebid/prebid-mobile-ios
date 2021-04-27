@@ -91,7 +91,7 @@ class AdsLoaderUITestCase: RepeatedUITestCase {
             let expectedOutcomeButton = app.buttons["\(callbacks(!expectFailure)) called"]
             let unexpectedOutcomeButton = app.buttons["\(callbacks(expectFailure)) called"]
             
-            let loadTimeout = 8.0 // default setting for DFP
+            let loadTimeout = 12.0 // default setting for DFP
             
             waitForEnabled(element: expectedOutcomeButton,
                            failElement: unexpectedOutcomeButton,
