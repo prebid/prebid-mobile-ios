@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		357880CCDA9464E1BC8B6ACE /* Pods_PrebidDemoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0177D90B948D57DD24AEB9 /* Pods_PrebidDemoSwift.framework */; };
+		2C158B109FDAC83E55842EFD /* Pods_PrebidDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B881728A2AC4EBA354CACEC3 /* Pods_PrebidDemoTests.framework */; };
 		38018907255AC5560089CA84 /* NativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38018905255AC5560089CA84 /* NativeAdView.swift */; };
 		38018908255AC5560089CA84 /* NativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38018905255AC5560089CA84 /* NativeAdView.swift */; };
 		38018909255AC5560089CA84 /* NativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38018906255AC5560089CA84 /* NativeAdView.xib */; };
@@ -15,21 +15,11 @@
 		383E9CA32571281F006FA6F4 /* NativeInAppNativeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CA22571281F006FA6F4 /* NativeInAppNativeTest.swift */; };
 		383E9CA525712879006FA6F4 /* NativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38018905255AC5560089CA84 /* NativeAdView.swift */; };
 		383E9CA62571287C006FA6F4 /* NativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38018906255AC5560089CA84 /* NativeAdView.xib */; };
-		383E9CC92571297F006FA6F4 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CAA2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.m */; };
-		383E9CDC2571297F006FA6F4 /* PBTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CBF2571297E006FA6F4 /* PBTestGlobal.m */; };
-		383E9CDD2571297F006FA6F4 /* PBHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CC22571297E006FA6F4 /* PBHTTPStubURLProtocol.m */; };
-		383E9CDE2571297F006FA6F4 /* PBURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CC32571297E006FA6F4 /* PBURLConnectionStub.m */; };
-		383E9CDF2571297F006FA6F4 /* PBHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CC42571297E006FA6F4 /* PBHTTPStubbingManager.m */; };
-		383E9CE02571297F006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CC52571297E006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m */; };
-		383E9CEC25712D06006FA6F4 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = 383E9CEA25712D06006FA6F4 /* NSObject+Swizzling.m */; };
 		38450A6225514EA6000DCF6D /* NativeInAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38450A6125514EA6000DCF6D /* NativeInAppViewController.swift */; };
-		3884A0E8258CD0F1005D0163 /* NativeAdInvalidResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 3884A0E5258CD0F0005D0163 /* NativeAdInvalidResponse.json */; };
-		3884A0E9258CD0F1005D0163 /* NativeAd.json in Resources */ = {isa = PBXBuildFile; fileRef = 3884A0E6258CD0F1005D0163 /* NativeAd.json */; };
-		3884A0EA258CD0F1005D0163 /* NativeAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 3884A0E7258CD0F1005D0163 /* NativeAdResponse.json */; };
 		6069716C25224655000EE732 /* InstreamVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6069716B25224655000EE732 /* InstreamVideoViewController.swift */; };
 		609C52C32395F17F001FA5BD /* NativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609C52C22395F17F001FA5BD /* NativeViewController.swift */; };
-		C7A1F0B942F152B467C71A70 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B64CCFCC9D513DEAA95A372 /* Pods_PrebidDemoObjectiveC.framework */; };
-		DADFB9F410588613B69275BC /* Pods_PrebidDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5976732304BFCF6E222040EE /* Pods_PrebidDemoTests.framework */; };
+		7A5EF9716CD8081552A53A2C /* Pods_PrebidDemoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9062CC2EEBA1A7F525A4D3AA /* Pods_PrebidDemoSwift.framework */; };
+		9292C6B7506986A7F501E561 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 022C426932D62F4F7C3973DB /* Pods_PrebidDemoObjectiveC.framework */; };
 		FA12E4B7231EB04100CAA05B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E4B6231EB04100CAA05B /* AppDelegate.swift */; };
 		FA12E4BC231EB04100CAA05B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA12E4BA231EB04100CAA05B /* Main.storyboard */; };
 		FA12E4BE231EB04200CAA05B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA12E4BD231EB04200CAA05B /* Assets.xcassets */; };
@@ -51,6 +41,16 @@
 		FA7E5530239E87FA0063B028 /* RewardedVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */; };
 		FAC9E216232800DB00113B04 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; };
 		FAC9E217232800DB00113B04 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FAFDEF94263858D900D83C02 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFDEF012638509D00D83C02 /* NSURLRequest+HTTPBodyTesting.m */; };
+		FAFDEFB926385AA800D83C02 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFDEFB326385A7100D83C02 /* NSObject+Swizzling.m */; };
+		FAFDEFBF26385B0F00D83C02 /* NativeAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FAFDEF122638509D00D83C02 /* NativeAd.json */; };
+		FAFDEFC126385B1100D83C02 /* NativeAdInvalidResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FAFDEF152638509D00D83C02 /* NativeAdInvalidResponse.json */; };
+		FAFDEFC326385B1300D83C02 /* NativeAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FAFDEF102638509D00D83C02 /* NativeAdResponse.json */; };
+		FAFDEFC526385B1F00D83C02 /* PBTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFDEF172638509D00D83C02 /* PBTestGlobal.m */; };
+		FAFDEFC726385B3300D83C02 /* PBHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFDEF1A2638509D00D83C02 /* PBHTTPStubURLProtocol.m */; };
+		FAFDEFC926385B3700D83C02 /* PBURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFDEF1B2638509D00D83C02 /* PBURLConnectionStub.m */; };
+		FAFDEFCB26385B3C00D83C02 /* PBHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFDEF1C2638509D00D83C02 /* PBHTTPStubbingManager.m */; };
+		FAFDEFCD26385B4000D83C02 /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFDEF1D2638509D00D83C02 /* PBURLConnectionStub+NSURLSessionConfiguration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,37 +117,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		022C426932D62F4F7C3973DB /* Pods_PrebidDemoObjectiveC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoObjectiveC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0465C43EA3BA3E692260ABDB /* Pods-PrebidDemoPod-PrebidDemoPodTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod-PrebidDemoPodTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod-PrebidDemoPodTests/Pods-PrebidDemoPod-PrebidDemoPodTests.debug.xcconfig"; sourceTree = "<group>"; };
-		0B64CCFCC9D513DEAA95A372 /* Pods_PrebidDemoObjectiveC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoObjectiveC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D087975EEE7CB85E7E7050 /* Pods-PrebidDemoSwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwiftTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwiftTests/Pods-PrebidDemoSwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		27A7BB2D11AE790948BFB336 /* Pods-PrebidDemoSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.release.xcconfig"; sourceTree = "<group>"; };
 		30744DA255EA063B76D484F9 /* Pods-PrebidDemoSwift-PrebidDemoSwiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift-PrebidDemoSwiftTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift-PrebidDemoSwiftTests/Pods-PrebidDemoSwift-PrebidDemoSwiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		38018905255AC5560089CA84 /* NativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdView.swift; sourceTree = "<group>"; };
 		38018906255AC5560089CA84 /* NativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NativeAdView.xib; sourceTree = "<group>"; };
 		383E9CA22571281F006FA6F4 /* NativeInAppNativeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeInAppNativeTest.swift; sourceTree = "<group>"; };
-		383E9CAA2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
-		383E9CAB2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
-		383E9CBF2571297E006FA6F4 /* PBTestGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTestGlobal.m; sourceTree = "<group>"; };
-		383E9CC12571297E006FA6F4 /* PBHTTPStubbingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBHTTPStubbingManager.h; sourceTree = "<group>"; };
-		383E9CC22571297E006FA6F4 /* PBHTTPStubURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBHTTPStubURLProtocol.m; sourceTree = "<group>"; };
-		383E9CC32571297E006FA6F4 /* PBURLConnectionStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBURLConnectionStub.m; sourceTree = "<group>"; };
-		383E9CC42571297E006FA6F4 /* PBHTTPStubbingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBHTTPStubbingManager.m; sourceTree = "<group>"; };
-		383E9CC52571297E006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PBURLConnectionStub+NSURLSessionConfiguration.m"; sourceTree = "<group>"; };
-		383E9CC62571297E006FA6F4 /* PBHTTPStubURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBHTTPStubURLProtocol.h; sourceTree = "<group>"; };
-		383E9CC72571297E006FA6F4 /* PBURLConnectionStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBURLConnectionStub.h; sourceTree = "<group>"; };
-		383E9CC82571297E006FA6F4 /* PBTestGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTestGlobal.h; sourceTree = "<group>"; };
 		383E9CE325712AC3006FA6F4 /* PrebidDemoTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidDemoTests-Bridging-Header.h"; sourceTree = "<group>"; };
-		383E9CEA25712D06006FA6F4 /* NSObject+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Swizzling.m"; path = "../../../NSObject+Swizzling.m"; sourceTree = "<group>"; };
-		383E9CEB25712D06006FA6F4 /* NSObject+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+Swizzling.h"; path = "../../../NSObject+Swizzling.h"; sourceTree = "<group>"; };
 		38450A6125514EA6000DCF6D /* NativeInAppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeInAppViewController.swift; sourceTree = "<group>"; };
-		3884A0E5258CD0F0005D0163 /* NativeAdInvalidResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAdInvalidResponse.json; sourceTree = "<group>"; };
-		3884A0E6258CD0F1005D0163 /* NativeAd.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAd.json; sourceTree = "<group>"; };
-		3884A0E7258CD0F1005D0163 /* NativeAdResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = NativeAdResponse.json; sourceTree = "<group>"; };
 		398C46797E3B11F6932E9BDA /* Pods-PrebidDemoPod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod/Pods-PrebidDemoPod.debug.xcconfig"; sourceTree = "<group>"; };
 		3C3DD5560D8F19EE9F2158E7 /* Pods-PrebidDemoSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		5197A13C51AEAF0782B64F40 /* Pods-PrebidDemoPodCoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPodCoreTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPodCoreTests/Pods-PrebidDemoPodCoreTests.debug.xcconfig"; sourceTree = "<group>"; };
 		55EA1793258A4B187A300E8E /* Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift-PrebidDemoSwiftTests/Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
-		5976732304BFCF6E222040EE /* Pods_PrebidDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CA527E4B4E05598C6D7B462 /* Pods-PrebidDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoTests/Pods-PrebidDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6069716B25224655000EE732 /* InstreamVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InstreamVideoViewController.swift; path = ../../../example/PrebidDemo/PrebidDemoSwift/InstreamVideoViewController.swift; sourceTree = "<group>"; };
 		609C52C22395F17F001FA5BD /* NativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NativeViewController.swift; path = ../../../example/PrebidDemo/PrebidDemoSwift/NativeViewController.swift; sourceTree = "<group>"; };
@@ -156,12 +139,11 @@
 		71D584CFFA6132CB2B6B74A6 /* Pods-PrebidDemoObjectiveC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoObjectiveC.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoObjectiveC/Pods-PrebidDemoObjectiveC.debug.xcconfig"; sourceTree = "<group>"; };
 		725E7FE27DFBC5E532A78D55 /* Pods-PrebidDemoObjectiveC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoObjectiveC.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoObjectiveC/Pods-PrebidDemoObjectiveC.release.xcconfig"; sourceTree = "<group>"; };
 		77A5CA8BEA1E8A52B2345013 /* Pods-PrebidDemoPodCoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPodCoreTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPodCoreTests/Pods-PrebidDemoPodCoreTests.release.xcconfig"; sourceTree = "<group>"; };
+		9062CC2EEBA1A7F525A4D3AA /* Pods_PrebidDemoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9818E214AF5A142F667B1692 /* Pods-PrebidDemoPod-PrebidDemoPodCoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod-PrebidDemoPodCoreTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod-PrebidDemoPodCoreTests/Pods-PrebidDemoPod-PrebidDemoPodCoreTests.release.xcconfig"; sourceTree = "<group>"; };
 		A37D8539AD93B0EDA6D8CA6F /* Pods-PrebidDemoPod-PrebidDemoPodCoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod-PrebidDemoPodCoreTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod-PrebidDemoPodCoreTests/Pods-PrebidDemoPod-PrebidDemoPodCoreTests.debug.xcconfig"; sourceTree = "<group>"; };
-		AF90F6986E7080A5ED825D44 /* Pods_PrebidDemoPodCoreTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoPodCoreTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B881728A2AC4EBA354CACEC3 /* Pods_PrebidDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA2C237381964CC29C2EC365 /* Pods-PrebidDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoTests/Pods-PrebidDemoTests.release.xcconfig"; sourceTree = "<group>"; };
-		BF0177D90B948D57DD24AEB9 /* Pods_PrebidDemoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CCB7672FEF160D36049C2D3D /* Pods_PrebidDemoPodTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoPodTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D901AB4B1A61718B9CE81816 /* Pods-PrebidDemoPod.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod/Pods-PrebidDemoPod.release.xcconfig"; sourceTree = "<group>"; };
 		FA12E472231E9DAA00CAA05B /* PrebidMobile.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PrebidMobile.xcodeproj; path = ../../PrebidMobile.xcodeproj; sourceTree = "<group>"; };
 		FA12E4B4231EB04100CAA05B /* PrebidDemoSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidDemoSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,7 +173,22 @@
 		FA12E510231EBC8E00CAA05B /* PrebidNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidNavigationController.m; sourceTree = "<group>"; };
 		FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedVideoController.swift; sourceTree = "<group>"; };
 		FAEE508F263075D700AD9966 /* XCPrebidMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = XCPrebidMobile.xcframework; path = ../../generated/output/XCPrebidMobile.xcframework; sourceTree = "<group>"; };
-		FAEE5094263075DA00AD9966 /* XCPrebidMobileAdditional.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = XCPrebidMobileAdditional.xcframework; path = ../../generated/output/XCPrebidMobileAdditional.xcframework; sourceTree = "<group>"; };
+		FAFDEF012638509D00D83C02 /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
+		FAFDEF022638509D00D83C02 /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
+		FAFDEF102638509D00D83C02 /* NativeAdResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NativeAdResponse.json; sourceTree = "<group>"; };
+		FAFDEF122638509D00D83C02 /* NativeAd.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NativeAd.json; sourceTree = "<group>"; };
+		FAFDEF152638509D00D83C02 /* NativeAdInvalidResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NativeAdInvalidResponse.json; sourceTree = "<group>"; };
+		FAFDEF172638509D00D83C02 /* PBTestGlobal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBTestGlobal.m; sourceTree = "<group>"; };
+		FAFDEF192638509D00D83C02 /* PBHTTPStubbingManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBHTTPStubbingManager.h; sourceTree = "<group>"; };
+		FAFDEF1A2638509D00D83C02 /* PBHTTPStubURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBHTTPStubURLProtocol.m; sourceTree = "<group>"; };
+		FAFDEF1B2638509D00D83C02 /* PBURLConnectionStub.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBURLConnectionStub.m; sourceTree = "<group>"; };
+		FAFDEF1C2638509D00D83C02 /* PBHTTPStubbingManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBHTTPStubbingManager.m; sourceTree = "<group>"; };
+		FAFDEF1D2638509D00D83C02 /* PBURLConnectionStub+NSURLSessionConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PBURLConnectionStub+NSURLSessionConfiguration.m"; sourceTree = "<group>"; };
+		FAFDEF1E2638509D00D83C02 /* PBHTTPStubURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBHTTPStubURLProtocol.h; sourceTree = "<group>"; };
+		FAFDEF1F2638509D00D83C02 /* PBURLConnectionStub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBURLConnectionStub.h; sourceTree = "<group>"; };
+		FAFDEF202638509D00D83C02 /* PBTestGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBTestGlobal.h; sourceTree = "<group>"; };
+		FAFDEFB326385A7100D83C02 /* NSObject+Swizzling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Swizzling.m"; path = "../../../NSObject+Swizzling.m"; sourceTree = "<group>"; };
+		FAFDEFB426385A7100D83C02 /* NSObject+Swizzling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSObject+Swizzling.h"; path = "../../../NSObject+Swizzling.h"; sourceTree = "<group>"; };
 		FE42FA136DE4051164482E98 /* Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod-PrebidDemoPodTests/Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig"; sourceTree = "<group>"; };
 		FF998B08BBD628EE19A4C031 /* Pods-PrebidDemoSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwiftTests/Pods-PrebidDemoSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -202,7 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAC9E216232800DB00113B04 /* PrebidMobile.framework in Frameworks */,
-				357880CCDA9464E1BC8B6ACE /* Pods_PrebidDemoSwift.framework in Frameworks */,
+				7A5EF9716CD8081552A53A2C /* Pods_PrebidDemoSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,7 +207,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DADFB9F410588613B69275BC /* Pods_PrebidDemoTests.framework in Frameworks */,
+				2C158B109FDAC83E55842EFD /* Pods_PrebidDemoTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,7 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA282EAB2327EC2800C9D477 /* PrebidMobile.framework in Frameworks */,
-				C7A1F0B942F152B467C71A70 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */,
+				9292C6B7506986A7F501E561 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,54 +239,6 @@
 				38018906255AC5560089CA84 /* NativeAdView.xib */,
 			);
 			path = NativeView;
-			sourceTree = "<group>";
-		};
-		383E9CA82571297E006FA6F4 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				383E9CA92571297E006FA6F4 /* Category */,
-				383E9CAC2571297E006FA6F4 /* Responses */,
-				383E9CBF2571297E006FA6F4 /* PBTestGlobal.m */,
-				383E9CC02571297E006FA6F4 /* Stubbing */,
-				383E9CC82571297E006FA6F4 /* PBTestGlobal.h */,
-			);
-			name = Shared;
-			path = ../../../Tests/FetchingLogictests/Shared;
-			sourceTree = "<group>";
-		};
-		383E9CA92571297E006FA6F4 /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				383E9CEB25712D06006FA6F4 /* NSObject+Swizzling.h */,
-				383E9CEA25712D06006FA6F4 /* NSObject+Swizzling.m */,
-				383E9CAA2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.m */,
-				383E9CAB2571297E006FA6F4 /* NSURLRequest+HTTPBodyTesting.h */,
-			);
-			path = Category;
-			sourceTree = "<group>";
-		};
-		383E9CAC2571297E006FA6F4 /* Responses */ = {
-			isa = PBXGroup;
-			children = (
-				3884A0E6258CD0F1005D0163 /* NativeAd.json */,
-				3884A0E5258CD0F0005D0163 /* NativeAdInvalidResponse.json */,
-				3884A0E7258CD0F1005D0163 /* NativeAdResponse.json */,
-			);
-			path = Responses;
-			sourceTree = "<group>";
-		};
-		383E9CC02571297E006FA6F4 /* Stubbing */ = {
-			isa = PBXGroup;
-			children = (
-				383E9CC12571297E006FA6F4 /* PBHTTPStubbingManager.h */,
-				383E9CC22571297E006FA6F4 /* PBHTTPStubURLProtocol.m */,
-				383E9CC32571297E006FA6F4 /* PBURLConnectionStub.m */,
-				383E9CC42571297E006FA6F4 /* PBHTTPStubbingManager.m */,
-				383E9CC52571297E006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m */,
-				383E9CC62571297E006FA6F4 /* PBHTTPStubURLProtocol.h */,
-				383E9CC72571297E006FA6F4 /* PBURLConnectionStub.h */,
-			);
-			path = Stubbing;
 			sourceTree = "<group>";
 		};
 		464FE826217632CAB58ABF2E /* Pods */ = {
@@ -323,13 +272,10 @@
 		99D7F73A394177471348CDD1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FAEE5094263075DA00AD9966 /* XCPrebidMobileAdditional.xcframework */,
 				FAEE508F263075D700AD9966 /* XCPrebidMobile.xcframework */,
-				0B64CCFCC9D513DEAA95A372 /* Pods_PrebidDemoObjectiveC.framework */,
-				AF90F6986E7080A5ED825D44 /* Pods_PrebidDemoPodCoreTests.framework */,
-				CCB7672FEF160D36049C2D3D /* Pods_PrebidDemoPodTests.framework */,
-				BF0177D90B948D57DD24AEB9 /* Pods_PrebidDemoSwift.framework */,
-				5976732304BFCF6E222040EE /* Pods_PrebidDemoTests.framework */,
+				022C426932D62F4F7C3973DB /* Pods_PrebidDemoObjectiveC.framework */,
+				9062CC2EEBA1A7F525A4D3AA /* Pods_PrebidDemoSwift.framework */,
+				B881728A2AC4EBA354CACEC3 /* Pods_PrebidDemoTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -389,7 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				383E9CE325712AC3006FA6F4 /* PrebidDemoTests-Bridging-Header.h */,
-				383E9CA82571297E006FA6F4 /* Shared */,
+				FAFDEEFF2638509D00D83C02 /* Shared */,
 				FA12E4E0231EB4BB00CAA05B /* Constants.swift */,
 				FA12E4E8231EB52D00CAA05B /* PrebidDemoTests.swift */,
 				383E9CA22571281F006FA6F4 /* NativeInAppNativeTest.swift */,
@@ -414,6 +360,54 @@
 				FA12E507231EB99E00CAA05B /* main.m */,
 			);
 			path = PrebidDemoObjectiveC;
+			sourceTree = "<group>";
+		};
+		FAFDEEFF2638509D00D83C02 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				FAFDEF002638509D00D83C02 /* Category */,
+				FAFDEF032638509D00D83C02 /* Responses */,
+				FAFDEF172638509D00D83C02 /* PBTestGlobal.m */,
+				FAFDEF182638509D00D83C02 /* Stubbing */,
+				FAFDEF202638509D00D83C02 /* PBTestGlobal.h */,
+			);
+			name = Shared;
+			path = ../../../PrebidMobileTests/FetchingLogictests/Shared;
+			sourceTree = "<group>";
+		};
+		FAFDEF002638509D00D83C02 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				FAFDEFB426385A7100D83C02 /* NSObject+Swizzling.h */,
+				FAFDEFB326385A7100D83C02 /* NSObject+Swizzling.m */,
+				FAFDEF012638509D00D83C02 /* NSURLRequest+HTTPBodyTesting.m */,
+				FAFDEF022638509D00D83C02 /* NSURLRequest+HTTPBodyTesting.h */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		FAFDEF032638509D00D83C02 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				FAFDEF122638509D00D83C02 /* NativeAd.json */,
+				FAFDEF152638509D00D83C02 /* NativeAdInvalidResponse.json */,
+				FAFDEF102638509D00D83C02 /* NativeAdResponse.json */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		FAFDEF182638509D00D83C02 /* Stubbing */ = {
+			isa = PBXGroup;
+			children = (
+				FAFDEF192638509D00D83C02 /* PBHTTPStubbingManager.h */,
+				FAFDEF1A2638509D00D83C02 /* PBHTTPStubURLProtocol.m */,
+				FAFDEF1B2638509D00D83C02 /* PBURLConnectionStub.m */,
+				FAFDEF1C2638509D00D83C02 /* PBHTTPStubbingManager.m */,
+				FAFDEF1D2638509D00D83C02 /* PBURLConnectionStub+NSURLSessionConfiguration.m */,
+				FAFDEF1E2638509D00D83C02 /* PBHTTPStubURLProtocol.h */,
+				FAFDEF1F2638509D00D83C02 /* PBURLConnectionStub.h */,
+			);
+			path = Stubbing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -512,8 +506,6 @@
 				Base,
 			);
 			mainGroup = FA12E452231E9C5900CAA05B;
-			packageReferences = (
-			);
 			productRefGroup = FA12E45C231E9C5900CAA05B /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -564,10 +556,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3884A0EA258CD0F1005D0163 /* NativeAdResponse.json in Resources */,
-				3884A0E9258CD0F1005D0163 /* NativeAd.json in Resources */,
-				3884A0E8258CD0F1005D0163 /* NativeAdInvalidResponse.json in Resources */,
+				FAFDEFC326385B1300D83C02 /* NativeAdResponse.json in Resources */,
 				383E9CA62571287C006FA6F4 /* NativeAdView.xib in Resources */,
+				FAFDEFBF26385B0F00D83C02 /* NativeAd.json in Resources */,
+				FAFDEFC126385B1100D83C02 /* NativeAdInvalidResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -709,16 +701,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				383E9CA525712879006FA6F4 /* NativeAdView.swift in Sources */,
+				FAFDEFB926385AA800D83C02 /* NSObject+Swizzling.m in Sources */,
 				FA12E4E9231EB52D00CAA05B /* PrebidDemoTests.swift in Sources */,
-				383E9CE02571297F006FA6F4 /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
-				383E9CDD2571297F006FA6F4 /* PBHTTPStubURLProtocol.m in Sources */,
-				383E9CDE2571297F006FA6F4 /* PBURLConnectionStub.m in Sources */,
-				383E9CEC25712D06006FA6F4 /* NSObject+Swizzling.m in Sources */,
-				383E9CDF2571297F006FA6F4 /* PBHTTPStubbingManager.m in Sources */,
+				FAFDEFCB26385B3C00D83C02 /* PBHTTPStubbingManager.m in Sources */,
+				FAFDEFCD26385B4000D83C02 /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
+				FAFDEFC526385B1F00D83C02 /* PBTestGlobal.m in Sources */,
 				FA12E4F0231EB53A00CAA05B /* Constants.swift in Sources */,
-				383E9CC92571297F006FA6F4 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
-				383E9CDC2571297F006FA6F4 /* PBTestGlobal.m in Sources */,
+				FAFDEF94263858D900D83C02 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				383E9CA32571281F006FA6F4 /* NativeInAppNativeTest.swift in Sources */,
+				FAFDEFC926385B3700D83C02 /* PBURLConnectionStub.m in Sources */,
+				FAFDEFC726385B3300D83C02 /* PBHTTPStubURLProtocol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
