@@ -7,6 +7,7 @@
 
 #import "PBMSDKConfiguration.h"
 #import "PBMSDKConfiguration+InternalState.h"
+#import "PBMError.h"
 #import "PBMFunctions.h"
 #import "PBMFunctions+Private.h"
 #import "PBMLocationManager.h"
@@ -24,7 +25,6 @@ static PBMSDKConfiguration *_pbmSdkConfigurationSingleton = nil;
 
 @interface PBMSDKConfiguration()
 
-@property (nonatomic, strong, nullable) NSString *rawServerURL;
 @property (nonatomic, strong, nonnull, readonly) NSLock *serverURLLock;
 
 #ifdef DEBUG
@@ -33,7 +33,6 @@ static PBMSDKConfiguration *_pbmSdkConfigurationSingleton = nil;
 #endif
 
 @end
-
 
 
 @implementation PBMSDKConfiguration
@@ -47,6 +46,7 @@ NSString *_serverURL = nil;
         return nil;
     }
     
+    _prebidServerHost = PBMPrebidHost_Custom;
     _creativeFactoryTimeout = 6.0;
     _creativeFactoryTimeoutPreRenderContent = 30.0;
     _useExternalClickthroughBrowser = NO;
@@ -108,24 +108,28 @@ NSString *_serverURL = nil;
     return [[PBMLocationManager singleton] locationUpdatesEnabled];
 }
 
-- (void)setServerURL:(NSString *)serverURL {
-    NSString * const newValue = [serverURL copy];
-    NSLock * const timeoutLock = self.bidRequestTimeoutLock;
+- (NSString *)setCustomPrebidServerWithUrl:(nonnull NSString *)url error:(NSError* _Nullable __autoreleasing * _Nullable)error {
+    if (![PBMHost.shared verifyUrl:url]) {
+        if (error) {
+            *error = [PBMError prebidServerURLInvalid:url];
+        }
+        return nil;
+    }
+    
     NSLock * const serverURLLock = self.serverURLLock;
     [serverURLLock lock];
-    [timeoutLock lock];
-    self.rawServerURL = newValue;
-    self.bidRequestTimeoutDynamic = nil;
-    [timeoutLock unlock];
+    self.prebidServerHost = PBMPrebidHost_Custom;
+    [PBMHost.shared setHostURL:url];
     [serverURLLock unlock];
+    return url;
 }
 
-- (NSString *)serverURL {
-    NSLock * const serverURLLock = self.serverURLLock;
-    [serverURLLock lock];
-    NSString * const result = self.rawServerURL;
-    [serverURLLock unlock];
-    return result ?: prodURL;
+- (void)setPrebidServerHost:(PBMPrebidHost)prebidServerHost {
+    NSLock * const timeoutLock = self.bidRequestTimeoutLock;
+    [timeoutLock lock];
+    _prebidServerHost = prebidServerHost;
+    self.bidRequestTimeoutDynamic = nil;
+    [timeoutLock unlock];
 }
 
 // MARK: - SDK Initialization

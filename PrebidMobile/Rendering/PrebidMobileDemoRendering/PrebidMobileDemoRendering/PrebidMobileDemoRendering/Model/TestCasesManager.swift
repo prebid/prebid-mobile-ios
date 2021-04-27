@@ -2383,7 +2383,7 @@ struct TestCaseManager {
                     oxbNativeAdController.prebidConfigId = "mock-banner-native-styles"
                 } else {
                     // FIXME: Switch the example from QA to the Prod server
-                    PBMSDKConfiguration.singleton.serverURL = "https://prebid.qa.openx.net/openrtb2/auction"
+                    try! PBMSDKConfiguration.singleton.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
                     PBMSDKConfiguration.singleton.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     oxbNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
                 }
@@ -2527,7 +2527,7 @@ struct TestCaseManager {
                     mopubNativeAdController.prebidConfigId = "mock-banner-native-styles"
                 } else {
                     // FIXME: Switch the example from QA to the Prod server
-                    PBMSDKConfiguration.singleton.serverURL = "https://prebid.qa.openx.net/openrtb2/auction"
+                    try! PBMSDKConfiguration.singleton.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
                     PBMSDKConfiguration.singleton.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     mopubNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
                 }
@@ -2693,7 +2693,7 @@ struct TestCaseManager {
                     gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
                 } else {
                     // FIXME: Switch the example from QA to the Prod server
-                    PBMSDKConfiguration.singleton.serverURL = "https://prebid.qa.openx.net/openrtb2/auction"
+                    try! PBMSDKConfiguration.singleton.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
                     PBMSDKConfiguration.singleton.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     gamNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
                 }
@@ -2798,7 +2798,7 @@ struct TestCaseManager {
                     gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
                 } else {
                     // FIXME: Switch the example from QA to the Prod server
-                    PBMSDKConfiguration.singleton.serverURL = "https://prebid.qa.openx.net/openrtb2/auction"
+                    try! PBMSDKConfiguration.singleton.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
                     PBMSDKConfiguration.singleton.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     gamNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
                 }

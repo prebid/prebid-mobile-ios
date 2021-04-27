@@ -107,6 +107,16 @@ static NSString * const oxbFetchDemandResultKey = @"oxbFetchDemandResultKey";
     }];
 }
 
++ (NSError *)prebidServerURLInvalid:(NSString *)url {
+    return [NSError errorWithDomain:pbmErrorDomain
+                               code:[self errorCode:4
+                                          forFamily:kPBMErrorFamily_KnownServerErrors]
+                           userInfo:@{
+        NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Prebid server URL %@ is invalid", url],
+        oxbFetchDemandResultKey: @(PBMFetchDemandResult_InvalidHostUrl),
+    }];
+}
+
 // MARK: - Unknown server text errors
 
 + (NSError *)serverError:(NSString *)errorBody {

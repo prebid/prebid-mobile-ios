@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, class, readonly) NSError *invalidSize;
 //@property (nonatomic, class, readonly) NSError *prebidDemandNoBids;
 
++ (NSError *)prebidServerURLInvalid:(NSString *)url;
+
 // MARK: - Unknown server text errors
 
 + (NSError *)serverError:(NSString *)errorBody;

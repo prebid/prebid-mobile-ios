@@ -69,7 +69,13 @@
    
     [timeoutLock lock];
     
-    NSString * const requestServerURL       = self.sdkConfiguration.serverURL;
+    NSError * hostURLError = nil;
+    NSString * const requestServerURL = [PBMHost.shared getHostURL:self.sdkConfiguration.prebidServerHost error:&hostURLError];
+    if (hostURLError) {
+        completion(nil, hostURLError);
+        return;
+    }
+    
     const NSInteger rawTimeoutMS_onRead     = self.sdkConfiguration.bidRequestTimeoutMillis;
     NSNumber * const dynamicTimeout_onRead  = self.sdkConfiguration.bidRequestTimeoutDynamic;
     
@@ -113,7 +119,7 @@
                                                       + bidResponseTimeout
                                                       + 0.2);
                 [timeoutLock lock];
-                NSString * const currentServerURL = self.sdkConfiguration.serverURL;
+                NSString * const currentServerURL = [PBMHost.shared getHostURL:self.sdkConfiguration.prebidServerHost error:nil];
                 if (self.sdkConfiguration.bidRequestTimeoutDynamic == nil && [currentServerURL isEqualToString:requestServerURL]) {
                     const NSInteger rawTimeoutMS_onWrite = self.sdkConfiguration.bidRequestTimeoutMillis;
                     const NSTimeInterval appTimeout = rawTimeoutMS_onWrite / 1000.0;

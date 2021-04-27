@@ -14,7 +14,8 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
     
     private let sdkConfiguration: PBMSDKConfiguration = {
         let config = PBMSDKConfiguration()
-        config.serverURL = PBMSDKConfiguration.devintServerURL
+//        config.serverURL = PBMSDKConfiguration.devintServerURL
+        try! config.setCustomPrebidServer(url: PBMSDKConfiguration.devintServerURL)
         config.accountID = PBMSDKConfiguration.devintAccountID
         return config
     }()

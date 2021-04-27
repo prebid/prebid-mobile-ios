@@ -8,6 +8,13 @@
 import XCTest
 
 class PrebidServerUITests: AdsLoaderUITestCase {
+    
+    override func setUp() {
+        useMockServerOnSetup = false
+        super.setUp()
+        
+        switchToPrebidXServerIfNeeded()
+    }
 
     // MARK: - Banner
     
