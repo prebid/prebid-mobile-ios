@@ -1,4 +1,0 @@
-module OMSDK_Openx {
-    header "Headers/OMIDImports.h"
-    export *
-}

@@ -5,13 +5,13 @@
 //  Copyright © 2018 OpenX. All rights reserved.
 //
 
-@import OMSDK_Openx;
+@import OMSDK_Prebidorg;
 
 @interface PBMOpenMeasurementEventTracker ()
 
-@property (nonatomic, strong) OMIDOpenxAdEvents *adEvents;
-@property (nonatomic, strong) OMIDOpenxMediaEvents *mediaEvents;
-@property (nonatomic, strong) OMIDOpenxAdSession *session;
+@property (nonatomic, strong) OMIDPrebidorgAdEvents *adEvents;
+@property (nonatomic, strong) OMIDPrebidorgMediaEvents *mediaEvents;
+@property (nonatomic, strong) OMIDPrebidorgAdSession *session;
 
 - (void)trackImpression;
 

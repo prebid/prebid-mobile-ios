@@ -14,11 +14,11 @@
 #import "PBMServerResponse.h"
 #import "PBMJSLibraryManager.h"
 
-@import OMSDK_Openx;
+@import OMSDK_Prebidorg;
 
 #pragma mark - Constants
 
-static NSString * const PBMOpenMeasurementPartnerName   = @"Openx";
+static NSString * const PBMOpenMeasurementPartnerName   = @"Prebidorg";
 static NSString * const PBMOpenMeasurementJSLibURL      = @"https://my.server.com/omsdk.js";
 static NSString * const PBMOpenMeasurementCustomRefId   = @"";
 
@@ -31,7 +31,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
 @property (nonatomic, readonly) NSString *customRefId;
 
 @property (nonatomic, copy, nullable) NSString *jsLib;
-@property (nonatomic, strong, nonnull) OMIDOpenxPartner *partner;
+@property (nonatomic, strong, nonnull) OMIDPrebidorgPartner *partner;
 
 @end
 
@@ -95,7 +95,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
         return nil;
     }
     
-    NSString *res = [OMIDOpenxScriptInjector injectScriptContent:self.jsLib
+    NSString *res = [OMIDPrebidorgScriptInjector injectScriptContent:self.jsLib
                                                         intoHTML:html
                                                            error:error];
     
@@ -105,7 +105,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
 - (nullable PBMOpenMeasurementSession *)initializeWebViewSession:(WKWebView *)webView contentUrl:(NSString *)contentUrl {
 
     NSError *contextError;
-    OMIDOpenxAdSessionContext *context = [[OMIDOpenxAdSessionContext alloc] initWithPartner:self.partner
+    OMIDPrebidorgAdSessionContext *context = [[OMIDPrebidorgAdSessionContext alloc] initWithPartner:self.partner
                                                                                     webView:webView
                                                                                  contentUrl:contentUrl
                                                                   customReferenceIdentifier:self.customRefId
@@ -118,7 +118,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     
     NSError *configurationError;
     
-    OMIDOpenxAdSessionConfiguration *config = [[OMIDOpenxAdSessionConfiguration alloc] initWithCreativeType:OMIDCreativeTypeHtmlDisplay
+    OMIDPrebidorgAdSessionConfiguration *config = [[OMIDPrebidorgAdSessionConfiguration alloc] initWithCreativeType:OMIDCreativeTypeHtmlDisplay
                                                                                              impressionType:OMIDImpressionTypeOnePixel
                                                                                             impressionOwner:OMIDNativeOwner
                                                                                            mediaEventsOwner:OMIDNoneOwner
@@ -151,7 +151,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     }
     
     NSError *contextError;
-    OMIDOpenxAdSessionContext *context = [[OMIDOpenxAdSessionContext alloc] initWithPartner:self.partner
+    OMIDPrebidorgAdSessionContext *context = [[OMIDPrebidorgAdSessionContext alloc] initWithPartner:self.partner
                                                                                      script:self.jsLib
                                                                                   resources:[self getScriptResources:verificationParameters]
                                                                                  contentUrl:nil
@@ -164,7 +164,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     
     NSError *configurationError;
     
-    OMIDOpenxAdSessionConfiguration *config = [[OMIDOpenxAdSessionConfiguration alloc] initWithCreativeType:OMIDCreativeTypeVideo
+    OMIDPrebidorgAdSessionConfiguration *config = [[OMIDPrebidorgAdSessionConfiguration alloc] initWithCreativeType:OMIDCreativeTypeVideo
                                                                                              impressionType:OMIDImpressionTypeOnePixel
                                                                                             impressionOwner:OMIDNativeOwner
                                                                                            mediaEventsOwner:OMIDNativeOwner
@@ -197,11 +197,11 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
         return nil;
     }
     
-    NSArray<OMIDOpenxVerificationScriptResource *> *resources = [self scriptResourcesFrom:omidJSUrl
+    NSArray<OMIDPrebidorgVerificationScriptResource *> *resources = [self scriptResourcesFrom:omidJSUrl
                                                                                 vendorKey:vendorKey
                                                                                parameters:verificationParameters];
     NSError *contextError;
-    OMIDOpenxAdSessionContext *context = [[OMIDOpenxAdSessionContext alloc] initWithPartner:self.partner
+    OMIDPrebidorgAdSessionContext *context = [[OMIDPrebidorgAdSessionContext alloc] initWithPartner:self.partner
                                                                                      script:self.jsLib
                                                                                   resources:resources
                                                                                  contentUrl:nil
@@ -215,7 +215,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     
     NSError *configurationError;
     
-    OMIDOpenxAdSessionConfiguration *config = [[OMIDOpenxAdSessionConfiguration alloc]      initWithCreativeType:OMIDCreativeTypeNativeDisplay
+    OMIDPrebidorgAdSessionConfiguration *config = [[OMIDPrebidorgAdSessionConfiguration alloc]      initWithCreativeType:OMIDCreativeTypeNativeDisplay
               impressionType:OMIDImpressionTypeOnePixel
              impressionOwner:OMIDNativeOwner
             mediaEventsOwner:OMIDNoneOwner
@@ -244,13 +244,13 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
 
 - (void)initializeOMSDK {
     NSError *error;
-    BOOL sdkStarted = [[OMIDOpenxSDK sharedInstance] activate];
+    BOOL sdkStarted = [[OMIDPrebidorgSDK sharedInstance] activate];
     
     if (!sdkStarted) {
         PBMLogError(@"OpenXSDK can't initialize Open Measurement SDK with error: %@", [error localizedDescription]);
     }
     
-    self.partner = [[OMIDOpenxPartner alloc] initWithName:self.partnerName
+    self.partner = [[OMIDPrebidorgPartner alloc] initWithName:self.partnerName
                                             versionString:[PBMFunctions omidVersion]];
 }
 
@@ -300,7 +300,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
 }
 
 
-- (nonnull NSArray<OMIDOpenxVerificationScriptResource *> *)getScriptResources:(PBMVideoVerificationParameters *)vastVerificationParamaters {
+- (nonnull NSArray<OMIDPrebidorgVerificationScriptResource *> *)getScriptResources:(PBMVideoVerificationParameters *)vastVerificationParamaters {
     NSMutableArray *scripts = [NSMutableArray new];
     
     for (PBMVideoVerificationResource *vastResource in vastVerificationParamaters.verificationResources) {
@@ -315,7 +315,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
             continue;
         }
         
-        OMIDOpenxVerificationScriptResource *resource = [[OMIDOpenxVerificationScriptResource alloc] initWithURL:url
+        OMIDPrebidorgVerificationScriptResource *resource = [[OMIDPrebidorgVerificationScriptResource alloc] initWithURL:url
                                                                                                        vendorKey:vastResource.vendorKey
                                                                                                       parameters:vastResource.params];
         
@@ -330,7 +330,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     return scripts;
 }
 
-- (nonnull NSArray<OMIDOpenxVerificationScriptResource *> *)scriptResourcesFrom:(NSString *)omidJSUrl
+- (nonnull NSArray<OMIDPrebidorgVerificationScriptResource *> *)scriptResourcesFrom:(NSString *)omidJSUrl
                                                                       vendorKey:(NSString *)vendorKey
                                                                      parameters:(NSString *)parameters {
     
@@ -346,7 +346,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
         return @[];
     }
          
-    OMIDOpenxVerificationScriptResource *resource = [[OMIDOpenxVerificationScriptResource alloc] initWithURL:url
+    OMIDPrebidorgVerificationScriptResource *resource = [[OMIDPrebidorgVerificationScriptResource alloc] initWithURL:url
                                                                                                    vendorKey:vendorKey
                                                                                                   parameters:parameters];
     

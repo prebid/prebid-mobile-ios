@@ -794,6 +794,8 @@
 		AC461877230C0A9800F4E0DE /* PBMMRAIDControllerObjCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AC461876230C0A9800F4E0DE /* PBMMRAIDControllerObjCTest.m */; };
 		AC4F248625DFB29A0095C601 /* PBMMoPubNativeAdUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4F248525DFB29A0095C601 /* PBMMoPubNativeAdUnitTest.swift */; };
 		AC5064122636EF4400AF61BF /* PBMBidRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = 34E3F281246EB50500ADBFC6 /* PBMBidRequester.m */; };
+		AC506428263823A500AF61BF /* OMSDK_Prebidorg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC506427263823A500AF61BF /* OMSDK_Prebidorg.framework */; };
+		AC506429263823A500AF61BF /* OMSDK_Prebidorg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC506427263823A500AF61BF /* OMSDK_Prebidorg.framework */; };
 		AC616E092588E69A0010DBBB /* PBMFunctions+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = AC616E072588E69A0010DBBB /* PBMFunctions+Testing.h */; };
 		AC616E0A2588E69A0010DBBB /* PBMFunctions+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = AC616E082588E69A0010DBBB /* PBMFunctions+Testing.m */; };
 		AC616E62258A4A600010DBBB /* PBMVideoPlacementType.h in Headers */ = {isa = PBXBuildFile; fileRef = AC616E5E258A3CF30010DBBB /* PBMVideoPlacementType.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -812,8 +814,6 @@
 		ACBD5ACE22D3501E001A17EA /* MockDelayedReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBD5ACD22D3501E001A17EA /* MockDelayedReachability.swift */; };
 		ACC43BA0249D039E0097AB46 /* PBMTargeting+TestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC43B9F249D039E0097AB46 /* PBMTargeting+TestExtension.swift */; };
 		ACCC8B402577835400F537E7 /* PBMNativeAdConfigurationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACCC8B3F2577835300F537E7 /* PBMNativeAdConfigurationTest.swift */; };
-		ACD806882614A32A0068E6D3 /* OMSDK_Openx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD8FF752611E0EA0068E6D3 /* OMSDK_Openx.framework */; };
-		ACD8FF792611E0F90068E6D3 /* OMSDK_Openx.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD8FF752611E0EA0068E6D3 /* OMSDK_Openx.framework */; };
 		ACE31EC024E2B3F5003E5508 /* PBMMoPubInterstitialAdUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE31EBF24E2B3F5003E5508 /* PBMMoPubInterstitialAdUnitTest.swift */; };
 		ACE5AFE0256BDCFE004121BA /* PBMNativeMarkupRequestObject.h in Headers */ = {isa = PBXBuildFile; fileRef = ACE5AFDE256BDCFE004121BA /* PBMNativeMarkupRequestObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ACE5AFE1256BDCFE004121BA /* PBMNativeMarkupRequestObject.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE5AFDF256BDCFE004121BA /* PBMNativeMarkupRequestObject.m */; };
@@ -1672,6 +1672,7 @@
 		AC4A5333244867DD00EFC08D /* PBMCreativeViewabilityTracker+pbmTestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMCreativeViewabilityTracker+pbmTestExtension.h"; sourceTree = "<group>"; };
 		AC4F248525DFB29A0095C601 /* PBMMoPubNativeAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMMoPubNativeAdUnitTest.swift; sourceTree = "<group>"; };
 		AC4F24C725DFBF620095C601 /* PBMMoPubNativeAdUnit+TestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMMoPubNativeAdUnit+TestExtension.h"; sourceTree = "<group>"; };
+		AC506427263823A500AF61BF /* OMSDK_Prebidorg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OMSDK_Prebidorg.framework; path = Frameworks/OMSDK_Prebidorg.framework; sourceTree = "<group>"; };
 		AC616E072588E69A0010DBBB /* PBMFunctions+Testing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PBMFunctions+Testing.h"; path = "Utilities/PBMFunctions+Testing.h"; sourceTree = "<group>"; };
 		AC616E082588E69A0010DBBB /* PBMFunctions+Testing.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "PBMFunctions+Testing.m"; path = "Utilities/PBMFunctions+Testing.m"; sourceTree = "<group>"; };
 		AC616E5E258A3CF30010DBBB /* PBMVideoPlacementType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMVideoPlacementType.h; path = AdTypes/AdView/PBMVideoPlacementType.h; sourceTree = "<group>"; };
@@ -1702,7 +1703,6 @@
 		ACC43B9F249D039E0097AB46 /* PBMTargeting+TestExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBMTargeting+TestExtension.swift"; sourceTree = "<group>"; };
 		ACCC8B3B2576908F00F537E7 /* PBMNativeAdConfiguration+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMNativeAdConfiguration+Internal.h"; sourceTree = "<group>"; };
 		ACCC8B3F2577835300F537E7 /* PBMNativeAdConfigurationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMNativeAdConfigurationTest.swift; sourceTree = "<group>"; };
-		ACD8FF752611E0EA0068E6D3 /* OMSDK_Openx.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OMSDK_Openx.framework; path = Frameworks/OMSDK_Openx.framework; sourceTree = "<group>"; };
 		ACE08B1D2461AB1D00935BF9 /* PBMExposureChangeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBMExposureChangeDelegate.h; path = AdTypes/AdView/PBMExposureChangeDelegate.h; sourceTree = "<group>"; };
 		ACE31EBD24E2AC9F003E5508 /* PBMMoPubBannerAdUnit+TestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMMoPubBannerAdUnit+TestExtension.h"; sourceTree = "<group>"; };
 		ACE31EBE24E2B235003E5508 /* PBMMoPubUtils+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMMoPubUtils+Private.h"; sourceTree = "<group>"; };
@@ -1811,9 +1811,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACD8FF792611E0F90068E6D3 /* OMSDK_Openx.framework in Frameworks */,
 				34D7102F24E580620048CC78 /* SystemConfiguration.framework in Frameworks */,
 				34D7103124E580620048CC78 /* CoreLocation.framework in Frameworks */,
+				AC506429263823A500AF61BF /* OMSDK_Prebidorg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1821,7 +1821,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACD806882614A32A0068E6D3 /* OMSDK_Openx.framework in Frameworks */,
+				AC506428263823A500AF61BF /* OMSDK_Prebidorg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1894,7 +1894,7 @@
 		2B98E1C31A803DC8001DBDE7 /* Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				ACD8FF752611E0EA0068E6D3 /* OMSDK_Openx.framework */,
+				AC506427263823A500AF61BF /* OMSDK_Prebidorg.framework */,
 				44C864341AAFC85200E9F1F9 /* SystemConfiguration.framework */,
 				2B09E79E1AB393720047F9CC /* MapKit.framework */,
 				2B09E79C1AB3936A0047F9CC /* CoreLocation.framework */,

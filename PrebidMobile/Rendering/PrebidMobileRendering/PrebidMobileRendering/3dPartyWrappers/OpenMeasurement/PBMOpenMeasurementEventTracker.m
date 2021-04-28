@@ -11,20 +11,20 @@
 #import "PBMEventTrackerProtocol.h"
 #import "PBMVideoVerificationParameters.h"
 
-@import OMSDK_Openx;
+@import OMSDK_Prebidorg;
 
 @interface PBMOpenMeasurementEventTracker()
 
-@property (nonatomic, strong) OMIDOpenxAdSession *session;
+@property (nonatomic, strong) OMIDPrebidorgAdSession *session;
 
-@property (nonatomic, strong) OMIDOpenxAdEvents *adEvents;
-@property (nonatomic, strong) OMIDOpenxMediaEvents *mediaEvents;
+@property (nonatomic, strong) OMIDPrebidorgAdEvents *adEvents;
+@property (nonatomic, strong) OMIDPrebidorgMediaEvents *mediaEvents;
 
 @end
 
 @implementation PBMOpenMeasurementEventTracker
 
-- (instancetype)initWithSession:(OMIDOpenxAdSession *)session {
+- (instancetype)initWithSession:(OMIDPrebidorgAdSession *)session {
     self = [super init];
     if (self) {
         self.session = session;
@@ -77,7 +77,7 @@
 
 - (void)trackVideoAdLoaded:(PBMVideoVerificationParameters *)parameters {
     NSError *error = nil;
-    [self.adEvents loadedWithVastProperties:[[OMIDOpenxVASTProperties alloc] initWithAutoPlay:parameters.autoPlay position:OMIDPositionStandalone] error:&error];
+    [self.adEvents loadedWithVastProperties:[[OMIDPrebidorgVASTProperties alloc] initWithAutoPlay:parameters.autoPlay position:OMIDPositionStandalone] error:&error];
     if (error != nil) {
         PBMLogError(@"%@", [error localizedDescription]);
     }
@@ -96,14 +96,14 @@
 - (void)initOMEventTrackers {
     
     NSError *adEventsError;
-    self.adEvents = [[OMIDOpenxAdEvents alloc] initWithAdSession:self.session error:&adEventsError];
+    self.adEvents = [[OMIDPrebidorgAdEvents alloc] initWithAdSession:self.session error:&adEventsError];
     if (adEventsError) {
         PBMLogError(@"Open Measurement can't create ad events with error: %@", [adEventsError localizedDescription]);
     }
     
     if (self.session.configuration.mediaEventsOwner == OMIDNativeOwner) {
         NSError *videoEventsError;
-        self.mediaEvents = [[OMIDOpenxMediaEvents alloc] initWithAdSession:self.session error:&videoEventsError];
+        self.mediaEvents = [[OMIDPrebidorgMediaEvents alloc] initWithAdSession:self.session error:&videoEventsError];
         if (videoEventsError) {
             PBMLogError(@"Open Measurement can't create video events with error: %@", [videoEventsError localizedDescription]);
         }

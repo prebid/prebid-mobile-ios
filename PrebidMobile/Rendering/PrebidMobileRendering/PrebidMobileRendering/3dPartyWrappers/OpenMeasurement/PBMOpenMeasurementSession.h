@@ -10,8 +10,8 @@
 #import "PBMEventTrackerProtocol.h"
 #import "PBMOpenMeasurementFriendlyObstructionPurpose.h"
 
-@class OMIDOpenxAdSessionContext;
-@class OMIDOpenxAdSessionConfiguration;
+@class OMIDPrebidorgAdSessionContext;
+@class OMIDPrebidorgAdSessionConfiguration;
 @class PBMVideoVerificationParameters;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -19,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) id<PBMEventTrackerProtocol> eventTracker;
 
-- (nonnull)initWithContext:(OMIDOpenxAdSessionContext *)context
-             configuration:(OMIDOpenxAdSessionConfiguration *)configuration;
+- (nonnull)initWithContext:(OMIDPrebidorgAdSessionContext *)context
+             configuration:(OMIDPrebidorgAdSessionConfiguration *)configuration;
 
 #pragma mark - PBMOpenMeasurementSessionProtocol
 
