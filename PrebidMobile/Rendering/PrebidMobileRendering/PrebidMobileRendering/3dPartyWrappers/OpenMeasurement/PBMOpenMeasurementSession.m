@@ -10,11 +10,11 @@
 #import "PBMOpenMeasurementEventTracker.h"
 #import "PBMOpenMeasurementFriendlyObstructionTypeBridge.h"
 
-@import OMSDK_Openx;
+@import OMSDK_Prebidorg;
 
 @interface PBMOpenMeasurementSession ()
 
-@property (nonatomic, strong) OMIDOpenxAdSession *session;
+@property (nonatomic, strong) OMIDPrebidorgAdSession *session;
 
 @property (nonatomic, strong) id<PBMEventTrackerProtocol> eventTracker;
 
@@ -24,8 +24,8 @@
 
 #pragma mark - Initialization
 
-- (instancetype)initWithContext:(OMIDOpenxAdSessionContext *)context
-                  configuration:(OMIDOpenxAdSessionConfiguration *)configuration {
+- (instancetype)initWithContext:(OMIDPrebidorgAdSessionContext *)context
+                  configuration:(OMIDPrebidorgAdSessionConfiguration *)configuration {
     self = [super init];
     if (self) {
         if ([self initializeOMSessionWithContext:context configuration:configuration]) {
@@ -106,10 +106,10 @@
 
 #pragma mark - Internal Methods
 
-- (BOOL)initializeOMSessionWithContext:(OMIDOpenxAdSessionContext *)context
-                         configuration:(OMIDOpenxAdSessionConfiguration *)configuration {
+- (BOOL)initializeOMSessionWithContext:(OMIDPrebidorgAdSessionContext *)context
+                         configuration:(OMIDPrebidorgAdSessionConfiguration *)configuration {
     NSError *sessionError;
-    self.session = [[OMIDOpenxAdSession alloc] initWithConfiguration:configuration
+    self.session = [[OMIDPrebidorgAdSession alloc] initWithConfiguration:configuration
                                                     adSessionContext:context
                                                                error:&sessionError];
     if (sessionError) {

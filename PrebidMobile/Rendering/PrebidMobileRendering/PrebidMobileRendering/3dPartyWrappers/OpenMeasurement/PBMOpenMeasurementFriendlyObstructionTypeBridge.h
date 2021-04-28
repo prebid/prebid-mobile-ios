@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "PBMOpenMeasurementFriendlyObstructionPurpose.h"
 
-@import OMSDK_Openx;
+@import OMSDK_Prebidorg;
 
 NS_ASSUME_NONNULL_BEGIN
 

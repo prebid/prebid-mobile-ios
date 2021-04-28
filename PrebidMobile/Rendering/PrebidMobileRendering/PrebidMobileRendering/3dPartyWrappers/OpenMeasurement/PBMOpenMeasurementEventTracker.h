@@ -8,8 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "PBMEventTrackerProtocol.h"
 
-@class OMIDOpenxAdSession;
-@class OMIDOpenxVASTProperties;
+@class OMIDPrebidorgAdSession;
+@class OMIDPrebidorgVASTProperties;
 
 /**
     Implements PBMEventTrackerProtocol according to the OM specification.
@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMOpenMeasurementEventTracker : NSObject <PBMEventTrackerProtocol>
 
-- (instancetype)initWithSession:(OMIDOpenxAdSession *)session;
+- (instancetype)initWithSession:(OMIDPrebidorgAdSession *)session;
 
 @end
 NS_ASSUME_NONNULL_END
