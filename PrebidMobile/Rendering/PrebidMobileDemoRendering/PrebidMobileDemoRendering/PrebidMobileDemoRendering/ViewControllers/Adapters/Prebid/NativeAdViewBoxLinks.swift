@@ -19,7 +19,7 @@ class NativeAdViewBoxLinks: NativeAdViewBoxProtocol {
     var showOnlyMediaView = false
     var autoPlayOnVisible = false
     
-    weak var mediaViewDelegate: PBMMediaViewDelegate?
+    weak var mediaViewDelegate: MediaViewDelegate?
     
     init() {
         let rightStackView = UIStackView(arrangedSubviews: [linkRootButton, deepLinkOkButton])

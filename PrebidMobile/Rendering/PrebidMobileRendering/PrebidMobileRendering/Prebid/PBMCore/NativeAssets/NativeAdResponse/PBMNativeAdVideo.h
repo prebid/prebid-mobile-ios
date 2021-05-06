@@ -7,14 +7,14 @@
 
 #import "PBMNativeAdAsset.h"
 
-@class PBMMediaData;
+@class MediaData;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMNativeAdVideo : PBMNativeAdAsset
 
 /// Media data describing this asset
-@property (nonatomic, strong, nonnull, readonly) PBMMediaData *mediaData;
+@property (nonatomic, strong, nonnull, readonly) MediaData *mediaData;
 
 @end
 

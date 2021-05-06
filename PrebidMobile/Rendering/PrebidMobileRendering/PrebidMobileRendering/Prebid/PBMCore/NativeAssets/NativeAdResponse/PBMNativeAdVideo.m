@@ -5,13 +5,15 @@
 //  Copyright © 2020 OpenX. All rights reserved.
 //
 
+#import "PBMPlayable.h"
+#import "PBMAdViewManagerDelegate.h"
+
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
+
 #import "PBMNativeAdVideo.h"
 #import "PBMNativeAdVideo+Internal.h"
 #import "PBMNativeAdAsset+Protected.h"
 #import "PBMNativeAdAssetBoxingError.h"
-
-#import "PBMMediaData.h"
-#import "PBMMediaData+Internal.h"
 
 @implementation PBMNativeAdVideo
 
@@ -30,7 +32,7 @@
     if (!(self = [super initWithNativeAdMarkupAsset:nativeAdMarkupAsset error:error])) {
         return nil;
     }
-    _mediaData = [[PBMMediaData alloc] initWithMediaAsset:nativeAdMarkupAsset nativeAdHooks:nativeAdHooks];
+    _mediaData = [[MediaData alloc] initWithMediaAsset:nativeAdMarkupAsset nativeAdHooks:nativeAdHooks];
     return self;
 }
 

@@ -13,7 +13,7 @@
 #import "PBMGADUnifiedNativeAd.h"
 #import "PBMGAMConstants.h"
 #import "PBMGAMError.h"
-#import "NSTimer+PBMScheduledTimerFactory.h"
+//#import "NSTimer+PBMScheduledTimerFactory.h"
 
 
 static NSTimeInterval const LOCAL_CACHE_EXPIRATION_INTERVAL = 3600;

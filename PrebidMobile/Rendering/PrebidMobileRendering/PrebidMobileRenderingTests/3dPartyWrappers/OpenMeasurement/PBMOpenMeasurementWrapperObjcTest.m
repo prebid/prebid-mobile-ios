@@ -7,7 +7,6 @@
 
 #import <XCTest/XCTest.h>
 
-#import "PBMFunctions+Private.h"
 #import "PBMOpenMeasurementWrapper.h"
 #import "PBMOpenMeasurementWrapper+pbmTestExtension.h"
 

@@ -13,7 +13,7 @@
 
 @interface PrebidMoPubNativeAdAdapter () <PBMNativeAdUIDelegate, PBMNativeAdTrackingDelegate>
 
-@property (nonatomic, readonly) PBMMediaView *mediaView;
+@property (nonatomic, readonly) MediaView *mediaView;
 
 @end
 
@@ -56,12 +56,12 @@
         properties[kAdStarRatingKey] = ratingNum;
     }
     
-    PBMMediaData *mediaData = nativeAd.videoAd.mediaData;
+    MediaData *mediaData = nativeAd.videoAd.mediaData;
     
     if (mediaData) {
-        _mediaView = [[PBMMediaView alloc] init];
+        _mediaView = [[MediaView alloc] init];
         properties[kAdMainMediaViewKey] = _mediaView;
-        [_mediaView loadMedia:mediaData];
+        [_mediaView load:mediaData];
     }
     
     _properties = properties;

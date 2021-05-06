@@ -212,26 +212,26 @@ extension PrebidNativeAdController: PBMNativeAdUIDelegate {
     }
 }
 
-extension PrebidNativeAdController: PBMMediaViewDelegate {
-    func onMediaPlaybackStarted(_ mediaView: PBMMediaView) {
+extension PrebidNativeAdController: MediaViewDelegate {
+    func onMediaViewPlaybackStarted(_ mediaView: MediaView) {
         mediaPlaybackStartedButton.isEnabled = true
     }
-    func onMediaPlaybackFinished(_ mediaView: PBMMediaView) {
+    func onMediaViewPlaybackFinished(_ mediaView: MediaView) {
         mediaPlaybackFinishedButton.isEnabled = true
     }
-    func onMediaPlaybackPaused(_ mediaView: PBMMediaView) {
+    func onMediaViewPlaybackPaused(_ mediaView: MediaView) {
         mediaPlaybackPausedButton.isEnabled = true
     }
-    func onMediaPlaybackResumed(_ mediaView: PBMMediaView) {
+    func onMediaViewPlaybackResumed(_ mediaView: MediaView) {
         mediaPlaybackResumedButton.isEnabled = true
     }
-    func onMediaPlaybackMuted(_ mediaView: PBMMediaView) {
+    func onMediaViewPlaybackMuted(_ mediaView: MediaView) {
         mediaPlaybackMutedButton.isEnabled = true
     }
-    func onMediaPlaybackUnmuted(_ mediaView: PBMMediaView) {
+    func onMediaViewPlaybackUnmuted(_ mediaView: MediaView) {
         mediaPlaybackUnmutedButton.isEnabled = true
     }
-    func onMediaLoadingFinished(_ mediaView: PBMMediaView) {
+    func onMediaViewLoadingFinished(_ mediaView: MediaView) {
         mediaLoadingFinishedButton.isEnabled = true
     }
 }

@@ -6,8 +6,9 @@
 //
 
 #import <XCTest/XCTest.h>
+
 #import "PBMClickthroughBrowserView.h"
-#import "PBMFunctions+Private.h"
+#import "PBMFunctions.h"
 
 @interface PBMClickthroughBrowserViewObjCTest : XCTestCase
 

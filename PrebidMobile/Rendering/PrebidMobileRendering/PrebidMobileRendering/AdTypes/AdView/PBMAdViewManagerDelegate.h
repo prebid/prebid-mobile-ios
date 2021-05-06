@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol PBMAdViewManagerDelegate <NSObject>
 
 @required
-- (UIViewController *)viewControllerForModalPresentation;
+- (nullable UIViewController *)viewControllerForModalPresentation;
 
 - (void)adLoaded:(PBMAdDetails *)pbmAdDetails;
 - (void)failedToLoad:(NSError *)error;
