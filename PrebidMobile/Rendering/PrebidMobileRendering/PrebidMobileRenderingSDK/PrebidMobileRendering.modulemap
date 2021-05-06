@@ -8,7 +8,7 @@
 framework module PrebidMobileRendering {
     
     // Versions
-    header "PrebidMobileRenderingSDK.h"
+    header "PrebidMobileRendering.h"
     // Constants
     header "PBMPublicConstants.h"
     // Enums
@@ -97,10 +97,7 @@ framework module PrebidMobileRendering {
     header "PBMNativeAdImage.h"
     header "PBMNativeAdTitle.h"
     header "PBMNativeAdVideo.h"
-    // PBM Native Ads (rendering)
-    header "PBMMediaData.h"
-    header "PBMMediaView.h"
-    header "PBMMediaViewDelegate.h"
+
     // PBM Native Ads (for Primary SDK Utils)
     header "PBMLocalResponseInfoCache.h"
     header "PBMNativeAdDetectionListener.h"
@@ -112,4 +109,52 @@ framework module PrebidMobileRendering {
     header "PBMMoPubRewardedAdUnit.h"
     header "PBMMoPubUtils.h"
     header "PBMMoPubNativeAdUnit.h"
+    
+    // ===
+    //Temp. for converting
+    header "PBMNativeAdMediaHooks.h"
+    header "PBMViewControllerProvider.h"
+    header "PBMCreativeClickHandlerBlock.h"
+    header "PBMVoidBlock.h"
+    header "PBMNativeAdMarkupAsset.h"
+    
+    header "PBMNativeAdMarkupData.h"
+    header "PBMNativeAdMarkupImage.h"
+    header "PBMNativeAdMarkupLink.h"
+    header "PBMNativeAdMarkupTitle.h"
+    header "PBMNativeAdMarkupVideo.h"
+
+    header "PBMJsonDecodable.h"
+    header "PBMConstants.h"
+    
+    
+    header "PBMAdViewManagerDelegate.h"
+    header "PBMAdDetails.h"
+    header "PBMTransaction.h"
+    header "PBMAdConfiguration.h"
+    header "PBMAdFormatInternal.h"
+    header "PBMAutoRefreshCountConfig.h"
+    header "PBMInterstitialLayout.h"
+    header "PBMServerConnectionProtocol.h"
+    
+    header "PBMScheduledTimerFactory.h"
+    header "NSTimer+PBMScheduledTimerFactory.h"
+    header "NSTimer+PBMTimerInterface.h"
+    header "PBMTimerInterface.h"
+    
+    header "PBMVastTransactionFactory.h"
+    header "PBMTransactionFactoryCallback.h"
+    header "PBMPlayable.h"
+    header "PBMError.h"
+    header "PBMServerConnection.h"
+    header "PBMModalManagerDelegate.h"
+    header "PBMAdLoadManagerDelegate.h"
+    header "PBMCreativeViewDelegate.h"
+    header "PBMAbstractCreative.h"
+    header "PBMAdViewManager.h"
+    header "PBMViewExposureProvider.h"
+    header "PBMViewExposure.h"
+    
+    header "PBMViewabilityPlaybackBinder.h"
+    header "PBMViewExposureProviders.h"
 }

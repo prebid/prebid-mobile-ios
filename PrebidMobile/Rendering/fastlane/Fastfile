@@ -24,13 +24,13 @@ platform :ios do
         
         # The device name for SDK building
         BUILD_SIMULATOR_NAME    = "iPhone 11"
-        BUILD_SIMULATOR_OS      = "14.4"
+        BUILD_SIMULATOR_OS      = "14.5"
         # The Simulators' names for fastlane scan
         # The name of Simulator with the last major OS version to test the backward compatibility
         SIMULATOR_IOS_PREVIOUS  = "iPhone 11 (13.5)"
         
         # The name of Simulator with the latest iOS version supported by the current Xcode on the build machines
-        SIMULATOR_IOS_LATEST    = "iPhone 11 (14.4)"
+        SIMULATOR_IOS_LATEST    = "iPhone 11 (14.5)"
     end
 
 # ------------------------------------------

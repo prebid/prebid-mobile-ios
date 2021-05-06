@@ -7,7 +7,7 @@
 #import <MoPub/MoPub.h>
 #import <PrebidMobileRendering/PBMMoPubUtils.h>
 
-#import "NSTimer+PBMScheduledTimerFactory.h"
+//#import "NSTimer+PBMScheduledTimerFactory.h"
 
 #import "PrebidMoPubConstants.h"
 #import "PrebidMoPubError.h"

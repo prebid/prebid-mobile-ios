@@ -291,7 +291,7 @@ class PBMAdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     
     //MARK: PBMAdViewManagerDelegate
     
-    func viewControllerForModalPresentation() -> UIViewController {
+    func viewControllerForModalPresentation() -> UIViewController? {
         return UIViewController()
     }
     

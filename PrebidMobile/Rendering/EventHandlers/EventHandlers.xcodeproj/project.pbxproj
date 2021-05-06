@@ -61,8 +61,6 @@
 		AC4733B125D55BD70041EEBA /* PrebidMoPubNativeAdAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = AC4733AE25D55BD60041EEBA /* PrebidMoPubNativeAdAdapter.m */; };
 		AC4733CB25D56A400041EEBA /* PrebidMoPubNativeAdRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = AC4733AC25D55BD50041EEBA /* PrebidMoPubNativeAdRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC4733D225D56A5D0041EEBA /* PrebidMoPubNativeAdAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = AC4733AD25D55BD60041EEBA /* PrebidMoPubNativeAdAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AC707B022625BD3E00FACDF0 /* NSTimer+PBMScheduledTimerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3826725EFCA50000A071B /* NSTimer+PBMScheduledTimerFactory.h */; };
-		AC707B062625BD5700FACDF0 /* PBMScheduledTimerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3825F25EFCA1B000A071B /* PBMScheduledTimerFactory.h */; };
 		ACF3824225EFBD8A000A071B /* PrebidMoPubConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3824025EFBD89000A071B /* PrebidMoPubConstants.h */; };
 		ACF3824325EFBD8A000A071B /* PrebidMoPubConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = ACF3824125EFBD89000A071B /* PrebidMoPubConstants.m */; };
 		ACF3824C25EFC147000A071B /* PrebidMoPubNativeAdUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF3824A25EFC147000A071B /* PrebidMoPubNativeAdUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -138,8 +136,6 @@
 		34C7964F25DD5BEF0072A898 /* PBMGADNativeCustomTemplateAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMGADNativeCustomTemplateAd.h; sourceTree = "<group>"; };
 		34C7965025DD5BEF0072A898 /* PBMGADNativeCustomTemplateAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMGADNativeCustomTemplateAd.m; sourceTree = "<group>"; };
 		34C7965725DD67470072A898 /* PBMLocalResponseInfoCache+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PBMLocalResponseInfoCache+Internal.h"; path = "../../../../PrebidMobileRendering/PrebidMobileRendering/Prebid/Integrations/PrimarySDKUtilHelpers/PBMLocalResponseInfoCache+Internal.h"; sourceTree = "<group>"; };
-		34C7965C25DD68170072A898 /* PBMScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMScheduledTimerFactory.h; path = ../../../../PrebidMobileRendering/PrebidMobileRendering/ExtensionsAndWrappers/NSTimer/PBMScheduledTimerFactory.h; sourceTree = "<group>"; };
-		34C7965D25DD68170072A898 /* NSTimer+PBMScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTimer+PBMScheduledTimerFactory.h"; path = "../../../../PrebidMobileRendering/PrebidMobileRendering/ExtensionsAndWrappers/NSTimer/NSTimer+PBMScheduledTimerFactory.h"; sourceTree = "<group>"; };
 		34C7966325DD69160072A898 /* DO_NOT_MOVE_THESE_FILES.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = DO_NOT_MOVE_THESE_FILES.txt; sourceTree = "<group>"; };
 		34C7967925DE52CD0072A898 /* PBMGAMConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMGAMConstants.h; sourceTree = "<group>"; };
 		34C7967A25DE52CD0072A898 /* PBMGAMConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMGAMConstants.m; sourceTree = "<group>"; };
@@ -162,8 +158,6 @@
 		ACF3824B25EFC147000A071B /* PrebidMoPubNativeAdUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidMoPubNativeAdUtils.m; sourceTree = "<group>"; };
 		ACF3825525EFC86D000A071B /* DO_NOT_MOVE_THESE_FILES.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DO_NOT_MOVE_THESE_FILES.txt; sourceTree = "<group>"; };
 		ACF3825A25EFC8E5000A071B /* PBMLocalResponseInfoCache+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PBMLocalResponseInfoCache+Internal.h"; path = "../../../../PrebidMobileRendering/PrebidMobileRendering/Prebid/Integrations/PrimarySDKUtilHelpers/PBMLocalResponseInfoCache+Internal.h"; sourceTree = "<group>"; };
-		ACF3825F25EFCA1B000A071B /* PBMScheduledTimerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBMScheduledTimerFactory.h; path = ../../../../PrebidMobileRendering/PrebidMobileRendering/ExtensionsAndWrappers/NSTimer/PBMScheduledTimerFactory.h; sourceTree = "<group>"; };
-		ACF3826725EFCA50000A071B /* NSTimer+PBMScheduledTimerFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSTimer+PBMScheduledTimerFactory.h"; path = "../../../../PrebidMobileRendering/PrebidMobileRendering/ExtensionsAndWrappers/NSTimer/NSTimer+PBMScheduledTimerFactory.h"; sourceTree = "<group>"; };
 		ACF3826825EFCAD9000A071B /* PrebidMoPubNativeAdUtils+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMoPubNativeAdUtils+Internal.h"; sourceTree = "<group>"; };
 		ACF3831A25F0F91C000A071B /* PrebidMoPubError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMoPubError.h; sourceTree = "<group>"; };
 		ACF3831B25F0F91C000A071B /* PrebidMoPubError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidMoPubError.m; sourceTree = "<group>"; };
@@ -357,8 +351,6 @@
 			children = (
 				34C7966325DD69160072A898 /* DO_NOT_MOVE_THESE_FILES.txt */,
 				34C7965725DD67470072A898 /* PBMLocalResponseInfoCache+Internal.h */,
-				34C7965C25DD68170072A898 /* PBMScheduledTimerFactory.h */,
-				34C7965D25DD68170072A898 /* NSTimer+PBMScheduledTimerFactory.h */,
 			);
 			path = InternalAPIExtensions;
 			sourceTree = "<group>";
@@ -397,8 +389,6 @@
 			children = (
 				ACF3825525EFC86D000A071B /* DO_NOT_MOVE_THESE_FILES.txt */,
 				ACF3825A25EFC8E5000A071B /* PBMLocalResponseInfoCache+Internal.h */,
-				ACF3825F25EFCA1B000A071B /* PBMScheduledTimerFactory.h */,
-				ACF3826725EFCA50000A071B /* NSTimer+PBMScheduledTimerFactory.h */,
 			);
 			path = InternalAPIExtensions;
 			sourceTree = "<group>";
@@ -447,7 +437,6 @@
 			files = (
 				ACF3831C25F0F91D000A071B /* PrebidMoPubError.h in Headers */,
 				AC47330825D3F6F20041EEBA /* PrebidMoPubNativeCustomEvent.h in Headers */,
-				AC707B062625BD5700FACDF0 /* PBMScheduledTimerFactory.h in Headers */,
 				ACF3824225EFBD8A000A071B /* PrebidMoPubConstants.h in Headers */,
 				34B64DA224F7EF2E00FDD9F4 /* PrebidMoPubVideoInterstitialAdapter.h in Headers */,
 				AC4733D225D56A5D0041EEBA /* PrebidMoPubNativeAdAdapter.h in Headers */,
@@ -457,7 +446,6 @@
 				34B64DA724F7EF2E00FDD9F4 /* PrebidMoPubRewardedVideoAdapter.h in Headers */,
 				346A9C9824F8F4CF002892BC /* PrebidMoPubAdapterConfiguration.h in Headers */,
 				AC4733CB25D56A400041EEBA /* PrebidMoPubNativeAdRenderer.h in Headers */,
-				AC707B022625BD3E00FACDF0 /* NSTimer+PBMScheduledTimerFactory.h in Headers */,
 				ACF3824C25EFC147000A071B /* PrebidMoPubNativeAdUtils.h in Headers */,
 				34B64DA524F7EF2E00FDD9F4 /* PrebidMoPubInterstitialAdapter.h in Headers */,
 				ACF3826925EFCAD9000A071B /* PrebidMoPubNativeAdUtils+Internal.h in Headers */,

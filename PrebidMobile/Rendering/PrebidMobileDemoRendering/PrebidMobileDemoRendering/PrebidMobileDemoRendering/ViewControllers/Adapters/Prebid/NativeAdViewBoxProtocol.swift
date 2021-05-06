@@ -15,5 +15,5 @@ protocol NativeAdViewBoxProtocol: class {
     
     var showOnlyMediaView: Bool {get set}
     var autoPlayOnVisible: Bool {get set}
-    var mediaViewDelegate: PBMMediaViewDelegate? {get set}
+    var mediaViewDelegate: MediaViewDelegate? {get set}
 }

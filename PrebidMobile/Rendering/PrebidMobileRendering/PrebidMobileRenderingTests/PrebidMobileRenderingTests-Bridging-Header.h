@@ -217,7 +217,6 @@
 #import "PBMNativeAdAssetBoxingError.h"
 #import "PBMNativeAdEventTracker+FromMarkup.h"
 #import "PBMNativeAdVideo+Internal.h"
-#import "PBMMediaData+Internal.h"
 // NativeAds (Event Tracking)
 #import "PBMNativeAdImpressionReporting.h"
 #import "PBMNativeClickableViewRegistry.h"

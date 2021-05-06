@@ -16,7 +16,11 @@
 @implementation PBMMRAIDControllerObjCTest
 
 - (void) testCommandWithBadParams {
-    PBMMRAIDController *controller = [PBMMRAIDController new];
+    PBMMRAIDController *controller = [[PBMMRAIDController alloc] initWithCreative:nil
+                                                      viewControllerForPresenting:nil
+                                                                          webView:nil
+                                                             creativeViewDelegate:nil
+                                                                    downloadBlock:nil];
 
     XCTAssertThrows([controller commandFromURL:nil]);
 }

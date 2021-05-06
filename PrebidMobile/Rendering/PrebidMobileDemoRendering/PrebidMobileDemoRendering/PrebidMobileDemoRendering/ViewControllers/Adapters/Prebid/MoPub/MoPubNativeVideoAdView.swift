@@ -67,12 +67,12 @@ class MoPubNativeVideoAdView: UIStackView, MPNativeAdRendering {
     }
     
     func setupMediaControls() {
-        if let mediaView = mainImageView.subviews.first as? PBMMediaView {
-            playMedia.addTarget(mediaView, action: #selector(PBMMediaView.play), for: .touchUpInside)
-            pauseMedia.addTarget(mediaView, action: #selector(PBMMediaView.pause), for: .touchUpInside)
-            resumeMedia.addTarget(mediaView, action: #selector(PBMMediaView.resume), for: .touchUpInside)
-            muteMedia.addTarget(mediaView, action: #selector(PBMMediaView.mute), for: .touchUpInside)
-            unmuteMedia.addTarget(mediaView, action: #selector(PBMMediaView.unmute), for: .touchUpInside)
+        if let mediaView = mainImageView.subviews.first as? MediaView {
+            playMedia.addTarget(mediaView, action: #selector(MediaView.play), for: .touchUpInside)
+            pauseMedia.addTarget(mediaView, action: #selector(MediaView.pause), for: .touchUpInside)
+            resumeMedia.addTarget(mediaView, action: #selector(MediaView.resume), for: .touchUpInside)
+            muteMedia.addTarget(mediaView, action: #selector(MediaView.mute), for: .touchUpInside)
+            unmuteMedia.addTarget(mediaView, action: #selector(MediaView.unmute), for: .touchUpInside)
         }
     }
     
