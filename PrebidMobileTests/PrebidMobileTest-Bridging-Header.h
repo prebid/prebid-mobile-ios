@@ -16,7 +16,4 @@
 #ifndef PrebidMobileTests_Bridging_Header_h
 #define PrebidMobileTests_Bridging_Header_h
 
-#import "PBHTTPStubbingManager.h"
-#import "PBHTTPStubURLProtocol.h"
-
 #endif /* PrebidMobileTests_Bridging_Header_h */

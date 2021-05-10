@@ -21,6 +21,7 @@ import AdSupport
 import AppTrackingTransparency
 #endif
 import WebKit
+import TestUtils
 @testable import PrebidMobile
 
 class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {

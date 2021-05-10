@@ -41,16 +41,6 @@
 		FA7E5530239E87FA0063B028 /* RewardedVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */; };
 		FAC9E216232800DB00113B04 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; };
 		FAC9E217232800DB00113B04 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA12E478231E9DAA00CAA05B /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FAFDEF94263858D900D83C02 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFDEF012638509D00D83C02 /* NSURLRequest+HTTPBodyTesting.m */; };
-		FAFDEFB926385AA800D83C02 /* NSObject+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFDEFB326385A7100D83C02 /* NSObject+Swizzling.m */; };
-		FAFDEFBF26385B0F00D83C02 /* NativeAd.json in Resources */ = {isa = PBXBuildFile; fileRef = FAFDEF122638509D00D83C02 /* NativeAd.json */; };
-		FAFDEFC126385B1100D83C02 /* NativeAdInvalidResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FAFDEF152638509D00D83C02 /* NativeAdInvalidResponse.json */; };
-		FAFDEFC326385B1300D83C02 /* NativeAdResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = FAFDEF102638509D00D83C02 /* NativeAdResponse.json */; };
-		FAFDEFC526385B1F00D83C02 /* PBTestGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFDEF172638509D00D83C02 /* PBTestGlobal.m */; };
-		FAFDEFC726385B3300D83C02 /* PBHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFDEF1A2638509D00D83C02 /* PBHTTPStubURLProtocol.m */; };
-		FAFDEFC926385B3700D83C02 /* PBURLConnectionStub.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFDEF1B2638509D00D83C02 /* PBURLConnectionStub.m */; };
-		FAFDEFCB26385B3C00D83C02 /* PBHTTPStubbingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFDEF1C2638509D00D83C02 /* PBHTTPStubbingManager.m */; };
-		FAFDEFCD26385B4000D83C02 /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = FAFDEF1D2638509D00D83C02 /* PBURLConnectionStub+NSURLSessionConfiguration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +71,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = FAAA00BC2322733E009DC7D6;
 			remoteInfo = PrebidMobile;
+		};
+		FA85F9D4264951FD00B8BE72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA85F9D1264951FD00B8BE72 /* TestUtils.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = FA9E5E0C2649420C0049B214;
+			remoteInfo = TestUtils;
+		};
+		FA85F9D8264951FD00B8BE72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA85F9D1264951FD00B8BE72 /* TestUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FA9E5E0D2649420C0049B214;
+			remoteInfo = TestUtils;
 		};
 		FAC9E218232800DB00113B04 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -172,23 +176,8 @@
 		FA12E50E231EBC8E00CAA05B /* PrebidNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidNavigationController.h; sourceTree = "<group>"; };
 		FA12E510231EBC8E00CAA05B /* PrebidNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrebidNavigationController.m; sourceTree = "<group>"; };
 		FA7E552F239E87FA0063B028 /* RewardedVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardedVideoController.swift; sourceTree = "<group>"; };
+		FA85F9D1264951FD00B8BE72 /* TestUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TestUtils.xcodeproj; path = "/Users/alex/Desktop/GL/RubiconProject/Prebid/ios/SDKPrebid/contributing.0/prebid-mobile-ios/tools/TestUtils/TestUtils.xcodeproj"; sourceTree = "<absolute>"; };
 		FAEE508F263075D700AD9966 /* XCPrebidMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = XCPrebidMobile.xcframework; path = ../../generated/output/XCPrebidMobile.xcframework; sourceTree = "<group>"; };
-		FAFDEF012638509D00D83C02 /* NSURLRequest+HTTPBodyTesting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+HTTPBodyTesting.m"; sourceTree = "<group>"; };
-		FAFDEF022638509D00D83C02 /* NSURLRequest+HTTPBodyTesting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+HTTPBodyTesting.h"; sourceTree = "<group>"; };
-		FAFDEF102638509D00D83C02 /* NativeAdResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NativeAdResponse.json; sourceTree = "<group>"; };
-		FAFDEF122638509D00D83C02 /* NativeAd.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NativeAd.json; sourceTree = "<group>"; };
-		FAFDEF152638509D00D83C02 /* NativeAdInvalidResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NativeAdInvalidResponse.json; sourceTree = "<group>"; };
-		FAFDEF172638509D00D83C02 /* PBTestGlobal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBTestGlobal.m; sourceTree = "<group>"; };
-		FAFDEF192638509D00D83C02 /* PBHTTPStubbingManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBHTTPStubbingManager.h; sourceTree = "<group>"; };
-		FAFDEF1A2638509D00D83C02 /* PBHTTPStubURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBHTTPStubURLProtocol.m; sourceTree = "<group>"; };
-		FAFDEF1B2638509D00D83C02 /* PBURLConnectionStub.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBURLConnectionStub.m; sourceTree = "<group>"; };
-		FAFDEF1C2638509D00D83C02 /* PBHTTPStubbingManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBHTTPStubbingManager.m; sourceTree = "<group>"; };
-		FAFDEF1D2638509D00D83C02 /* PBURLConnectionStub+NSURLSessionConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PBURLConnectionStub+NSURLSessionConfiguration.m"; sourceTree = "<group>"; };
-		FAFDEF1E2638509D00D83C02 /* PBHTTPStubURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBHTTPStubURLProtocol.h; sourceTree = "<group>"; };
-		FAFDEF1F2638509D00D83C02 /* PBURLConnectionStub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBURLConnectionStub.h; sourceTree = "<group>"; };
-		FAFDEF202638509D00D83C02 /* PBTestGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBTestGlobal.h; sourceTree = "<group>"; };
-		FAFDEFB326385A7100D83C02 /* NSObject+Swizzling.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSObject+Swizzling.m"; path = "../../../NSObject+Swizzling.m"; sourceTree = "<group>"; };
-		FAFDEFB426385A7100D83C02 /* NSObject+Swizzling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSObject+Swizzling.h"; path = "../../../NSObject+Swizzling.h"; sourceTree = "<group>"; };
 		FE42FA136DE4051164482E98 /* Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod-PrebidDemoPodTests/Pods-PrebidDemoPod-PrebidDemoPodTests.release.xcconfig"; sourceTree = "<group>"; };
 		FF998B08BBD628EE19A4C031 /* Pods-PrebidDemoSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwiftTests/Pods-PrebidDemoSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -290,6 +279,7 @@
 				FA12E45C231E9C5900CAA05B /* Products */,
 				464FE826217632CAB58ABF2E /* Pods */,
 				99D7F73A394177471348CDD1 /* Frameworks */,
+				FA85F9D1264951FD00B8BE72 /* TestUtils.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -335,7 +325,6 @@
 			isa = PBXGroup;
 			children = (
 				383E9CE325712AC3006FA6F4 /* PrebidDemoTests-Bridging-Header.h */,
-				FAFDEEFF2638509D00D83C02 /* Shared */,
 				FA12E4E0231EB4BB00CAA05B /* Constants.swift */,
 				FA12E4E8231EB52D00CAA05B /* PrebidDemoTests.swift */,
 				383E9CA22571281F006FA6F4 /* NativeInAppNativeTest.swift */,
@@ -362,52 +351,12 @@
 			path = PrebidDemoObjectiveC;
 			sourceTree = "<group>";
 		};
-		FAFDEEFF2638509D00D83C02 /* Shared */ = {
+		FA85F9D2264951FD00B8BE72 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FAFDEF002638509D00D83C02 /* Category */,
-				FAFDEF032638509D00D83C02 /* Responses */,
-				FAFDEF172638509D00D83C02 /* PBTestGlobal.m */,
-				FAFDEF182638509D00D83C02 /* Stubbing */,
-				FAFDEF202638509D00D83C02 /* PBTestGlobal.h */,
+				FA85F9D9264951FD00B8BE72 /* TestUtils.framework */,
 			);
-			name = Shared;
-			path = ../../../PrebidMobileTests/FetchingLogictests/Shared;
-			sourceTree = "<group>";
-		};
-		FAFDEF002638509D00D83C02 /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				FAFDEFB426385A7100D83C02 /* NSObject+Swizzling.h */,
-				FAFDEFB326385A7100D83C02 /* NSObject+Swizzling.m */,
-				FAFDEF012638509D00D83C02 /* NSURLRequest+HTTPBodyTesting.m */,
-				FAFDEF022638509D00D83C02 /* NSURLRequest+HTTPBodyTesting.h */,
-			);
-			path = Category;
-			sourceTree = "<group>";
-		};
-		FAFDEF032638509D00D83C02 /* Responses */ = {
-			isa = PBXGroup;
-			children = (
-				FAFDEF122638509D00D83C02 /* NativeAd.json */,
-				FAFDEF152638509D00D83C02 /* NativeAdInvalidResponse.json */,
-				FAFDEF102638509D00D83C02 /* NativeAdResponse.json */,
-			);
-			path = Responses;
-			sourceTree = "<group>";
-		};
-		FAFDEF182638509D00D83C02 /* Stubbing */ = {
-			isa = PBXGroup;
-			children = (
-				FAFDEF192638509D00D83C02 /* PBHTTPStubbingManager.h */,
-				FAFDEF1A2638509D00D83C02 /* PBHTTPStubURLProtocol.m */,
-				FAFDEF1B2638509D00D83C02 /* PBURLConnectionStub.m */,
-				FAFDEF1C2638509D00D83C02 /* PBHTTPStubbingManager.m */,
-				FAFDEF1D2638509D00D83C02 /* PBURLConnectionStub+NSURLSessionConfiguration.m */,
-				FAFDEF1E2638509D00D83C02 /* PBHTTPStubURLProtocol.h */,
-				FAFDEF1F2638509D00D83C02 /* PBURLConnectionStub.h */,
-			);
-			path = Stubbing;
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -446,6 +395,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				FA85F9D5264951FD00B8BE72 /* PBXTargetDependency */,
 				FA12E4EC231EB52D00CAA05B /* PBXTargetDependency */,
 			);
 			name = PrebidDemoTests;
@@ -513,6 +463,10 @@
 					ProductGroup = FA12E473231E9DAA00CAA05B /* Products */;
 					ProjectRef = FA12E472231E9DAA00CAA05B /* PrebidMobile.xcodeproj */;
 				},
+				{
+					ProductGroup = FA85F9D2264951FD00B8BE72 /* Products */;
+					ProjectRef = FA85F9D1264951FD00B8BE72 /* TestUtils.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -538,6 +492,13 @@
 			remoteRef = FA12E479231E9DAA00CAA05B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		FA85F9D9264951FD00B8BE72 /* TestUtils.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = TestUtils.framework;
+			remoteRef = FA85F9D8264951FD00B8BE72 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -556,10 +517,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAFDEFC326385B1300D83C02 /* NativeAdResponse.json in Resources */,
 				383E9CA62571287C006FA6F4 /* NativeAdView.xib in Resources */,
-				FAFDEFBF26385B0F00D83C02 /* NativeAd.json in Resources */,
-				FAFDEFC126385B1100D83C02 /* NativeAdInvalidResponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,16 +659,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				383E9CA525712879006FA6F4 /* NativeAdView.swift in Sources */,
-				FAFDEFB926385AA800D83C02 /* NSObject+Swizzling.m in Sources */,
 				FA12E4E9231EB52D00CAA05B /* PrebidDemoTests.swift in Sources */,
-				FAFDEFCB26385B3C00D83C02 /* PBHTTPStubbingManager.m in Sources */,
-				FAFDEFCD26385B4000D83C02 /* PBURLConnectionStub+NSURLSessionConfiguration.m in Sources */,
-				FAFDEFC526385B1F00D83C02 /* PBTestGlobal.m in Sources */,
 				FA12E4F0231EB53A00CAA05B /* Constants.swift in Sources */,
-				FAFDEF94263858D900D83C02 /* NSURLRequest+HTTPBodyTesting.m in Sources */,
 				383E9CA32571281F006FA6F4 /* NativeInAppNativeTest.swift in Sources */,
-				FAFDEFC926385B3700D83C02 /* PBURLConnectionStub.m in Sources */,
-				FAFDEFC726385B3300D83C02 /* PBHTTPStubURLProtocol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -738,6 +689,11 @@
 			isa = PBXTargetDependency;
 			name = PrebidMobile;
 			targetProxy = FA282EAD2327EC2800C9D477 /* PBXContainerItemProxy */;
+		};
+		FA85F9D5264951FD00B8BE72 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TestUtils;
+			targetProxy = FA85F9D4264951FD00B8BE72 /* PBXContainerItemProxy */;
 		};
 		FAC9E219232800DB00113B04 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

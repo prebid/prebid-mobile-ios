@@ -11,6 +11,9 @@
       location = "group:tools/PrebidValidator/Dr.Prebid.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:tools/TestUtils/TestUtils.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>

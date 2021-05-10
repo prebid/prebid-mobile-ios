@@ -14,6 +14,7 @@
  */
 
 import XCTest
+import TestUtils
 @testable import PrebidMobile
 //@testable import GoogleMobileAds
 //@testable import MoPub
@@ -300,7 +301,7 @@ class BidManagerTests: XCTestCase {
 
     // MARK: - Stubbing
     func stubAppNexusRequestWithResponse(_ responseName: String?) {
-        let currentBundle = Bundle(for: type(of: self))
+        let currentBundle = Bundle(for: TestUtils.PBHTTPStubbingManager.self)
         let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: responseName, ofType: "json") ?? "", encoding: .utf8)
         let requestStub = PBURLConnectionStub()
         requestStub.requestURL = "https://prebid.adnxs.com/pbs/v1/openrtb2/auction"
@@ -310,7 +311,7 @@ class BidManagerTests: XCTestCase {
     }
     
     func stubRubiconRequestWithResponse(_ responseName: String?) {
-        let currentBundle = Bundle(for: type(of: self))
+        let currentBundle = Bundle(for: TestUtils.PBHTTPStubbingManager.self)
         let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: responseName, ofType: "json") ?? "", encoding: .utf8)
         let requestStub = PBURLConnectionStub()
         requestStub.requestURL = "https://prebid-server.rubiconproject.com/openrtb2/auction"

@@ -16,7 +16,4 @@ limitations under the License.
 #ifndef PrebidDemoTests_Bridging_Header_h
 #define PrebidDemoTests_Bridging_Header_h
 
-#import "PBHTTPStubbingManager.h"
-#import "PBHTTPStubURLProtocol.h"
-
 #endif /* PrebidDemoTests_Bridging_Header_h */

@@ -14,6 +14,7 @@
  */
 
 import XCTest
+import TestUtils
 @testable import PrebidMobile
 
 @objcMembers class DFPORequest: NSObject {
@@ -912,7 +913,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
 
         prebidNativeAdLoadedExpectation = expectation(description: "\(#function)")
         let mpNativeAd = MPNativeAd()
-        let currentBundle = Bundle(for: type(of: self))
+        let currentBundle = Bundle(for: TestUtils.PBHTTPStubbingManager.self)
         let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "NativeAd", ofType: "json") ?? "", encoding: .utf8)
         if let cacheId = CacheManager.shared.save(content: baseResponse!), !cacheId.isEmpty{
             mpNativeAd.p_customProperties["hb_cache_id_local"] = cacheId as AnyObject
@@ -940,7 +941,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
 
         prebidNativeAdNotFoundExpectation = expectation(description: "\(#function)")
         let mpNativeAd = MPNativeAd()
-        let currentBundle = Bundle(for: type(of: self))
+        let currentBundle = Bundle(for: TestUtils.PBHTTPStubbingManager.self)
         let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "NativeAd", ofType: "json") ?? "", encoding: .utf8)
         if let cacheId = CacheManager.shared.save(content: baseResponse!), !cacheId.isEmpty{
             mpNativeAd.p_customProperties["hb_cache_id_local"] = cacheId as AnyObject
@@ -956,7 +957,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         
         prebidNativeAdLoadedExpectation = expectation(description: "\(#function)")
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
-        let currentBundle = Bundle(for: type(of: self))
+        let currentBundle = Bundle(for: TestUtils.PBHTTPStubbingManager.self)
         let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "NativeAd", ofType: "json") ?? "", encoding: .utf8)
         if let cacheId = CacheManager.shared.save(content: baseResponse!), !cacheId.isEmpty{
             gadNativeCustomTemplateAd.setValue("1", forKey: "isPrebid")
@@ -986,7 +987,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
 
         prebidNativeAdNotFoundExpectation = expectation(description: "\(#function)")
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
-        let currentBundle = Bundle(for: type(of: self))
+        let currentBundle = Bundle(for: TestUtils.PBHTTPStubbingManager.self)
         let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "NativeAd", ofType: "json") ?? "", encoding: .utf8)
         if let cacheId = CacheManager.shared.save(content: baseResponse!), !cacheId.isEmpty{
             gadNativeCustomTemplateAd.setValue("0", forKey: "isPrebid")
