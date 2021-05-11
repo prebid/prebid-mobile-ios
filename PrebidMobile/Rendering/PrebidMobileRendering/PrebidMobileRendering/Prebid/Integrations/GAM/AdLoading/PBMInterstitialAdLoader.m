@@ -11,6 +11,7 @@
 #import "PBMInterstitialEventHandler.h"
 #import "PBMInterstitialController.h"
 #import "PBMInterstitialControllerLoadingDelegate.h"
+#import "PBMRewardedEventHandler.h"
 
 #import "PBMMacros.h"
 
@@ -77,10 +78,21 @@
             return eventHandler.isReady;
         }];
         return;
+    } else if ([adObject conformsToProtocol:@protocol(PBMRewardedEventHandler)]) {
+        id<PBMRewardedEventHandler> const eventHandler = (id<PBMRewardedEventHandler>)adObject;
+        [self.delegate interstitialAdLoader:self
+                                   loadedAd:^(UIViewController *targetController) {
+            [eventHandler showFromViewController:targetController];
+        } isReadyBlock:^BOOL{
+            return eventHandler.isReady;
+        }];
+        return;
     }
     [self.delegate interstitialAdLoader:self
                                loadedAd:^(UIViewController *targetController) { } // nop
-                           isReadyBlock:^BOOL{ return NO; }];
+                           isReadyBlock:^BOOL{ return NO;
+        
+    }];
 }
 
 // MARK: - PBMInterstitialControllerLoadingDelegate

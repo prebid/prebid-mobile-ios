@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithScheduledTimerFactory:(PBMScheduledTimerFactory)scheduledTimerFactory
                            expirationInterval:(NSTimeInterval)expirationInterval NS_DESIGNATED_INITIALIZER;
 
+- (instancetype)initWithExpirationInterval:(NSTimeInterval)expirationInterval NS_DESIGNATED_INITIALIZER;
+
 @end
 
 NS_ASSUME_NONNULL_END

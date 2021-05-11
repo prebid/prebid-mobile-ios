@@ -8,9 +8,9 @@
 #import "PBMGAMUtils.h"
 #import "PBMGAMUtils+Internal.h"
 
-#import "PBMDFPRequest.h"
-#import "PBMGADNativeCustomTemplateAd.h"
-#import "PBMGADUnifiedNativeAd.h"
+#import "PBMGAMRequest.h"
+#import "PBMGADCustomNativeAd.h"
+#import "PBMGADNativeAd.h"
 #import "PBMGAMConstants.h"
 #import "PBMGAMError.h"
 //#import "NSTimer+PBMScheduledTimerFactory.h"
@@ -50,12 +50,13 @@ static NSString * const PREBID_KEYWORD_PREFIX = @"hb_";
     return singleton;
 }
     
-- (void)prepareRequest:(DFPRequest *)request demandResponseInfo:(PBMDemandResponseInfo *)demandResponseInfo {
-    if (![PBMDFPRequest classesFound]) {
+- (void)prepareRequest:(GAMRequest *)request
+    demandResponseInfo:(PBMDemandResponseInfo *)demandResponseInfo {
+    if (![PBMGAMRequest classesFound]) {
         return;
     }
     NSString * const localCacheID = [self.localCache storeResponseInfo:demandResponseInfo];
-    PBMDFPRequest * const boxedRequest = [[PBMDFPRequest alloc] initWithDFPRequest:request];
+    PBMGAMRequest * const boxedRequest = [[PBMGAMRequest alloc] initWithDFPRequest:request];
     NSMutableDictionary<NSString *, NSString *> * const mergedTargeting = [self cleanTargetingFromRequest:boxedRequest];
     NSDictionary<NSString *, NSString *> * const bidTargeting = demandResponseInfo.bid.targetingInfo;
     if (bidTargeting != nil) {
@@ -65,7 +66,7 @@ static NSString * const PREBID_KEYWORD_PREFIX = @"hb_";
     boxedRequest.customTargeting = mergedTargeting;
 }
 
-- (NSMutableDictionary<NSString *, NSString *> *)cleanTargetingFromRequest:(PBMDFPRequest *)request {
+- (NSMutableDictionary<NSString *, NSString *> *)cleanTargetingFromRequest:(PBMGAMRequest *)request {
     NSMutableDictionary<NSString *, NSString *> * const result = [[NSMutableDictionary alloc] init];
     NSDictionary * const requestTargeting = request.customTargeting;
     if (requestTargeting != nil) {
@@ -78,15 +79,15 @@ static NSString * const PREBID_KEYWORD_PREFIX = @"hb_";
     return result;
 }
 
-- (void)findNativeAdInCustomTemplateAd:(GADNativeCustomTemplateAd *)nativeCustomTemplateAd
+- (void)findNativeAdInCustomTemplateAd:(GADCustomNativeAd *)nativeCustomTemplateAd
              nativeAdDetectionListener:(PBMNativeAdDetectionListener *)nativeAdDetectionListener
 {
     PBMInvalidNativeAdHandler const reportError = nativeAdDetectionListener.onNativeAdInvalid ?: ^(NSError *error) {};
-    if (![PBMGADNativeCustomTemplateAd classesFound]) {
+    if (![PBMGADCustomNativeAd classesFound]) {
         reportError([PBMGAMError gamClassesNotFound]);
         return;
     }
-    PBMGADNativeCustomTemplateAd * const wrappedAd = [[PBMGADNativeCustomTemplateAd alloc] initWithCustomTemplateAd:nativeCustomTemplateAd];
+    PBMGADCustomNativeAd * const wrappedAd = [[PBMGADCustomNativeAd alloc] initWithCustomNativeAd:nativeCustomTemplateAd];
     [self findNativeAdWithFlagLookupBlock:^BOOL{
         return [self findPrebidCreativeFlagInNativeCustomTemplateAd:wrappedAd];
     } localCacheIDExtractor:^NSString * _Nullable{
@@ -94,15 +95,15 @@ static NSString * const PREBID_KEYWORD_PREFIX = @"hb_";
     } nativeAdDetectionListener:nativeAdDetectionListener];
 }
 
-- (void)findNativeAdInUnifiedNativeAd:(GADUnifiedNativeAd *)unifiedNativeAd
+- (void)findNativeAdInUnifiedNativeAd:(GADNativeAd *)unifiedNativeAd
             nativeAdDetectionListener:(PBMNativeAdDetectionListener *)nativeAdDetectionListener
 {
     PBMInvalidNativeAdHandler const reportError = nativeAdDetectionListener.onNativeAdInvalid ?: ^(NSError *error) {};
-    if (![PBMGADUnifiedNativeAd classesFound]) {
+    if (![PBMGADNativeAd classesFound]) {
         reportError([PBMGAMError gamClassesNotFound]);
         return;
     }
-    PBMGADUnifiedNativeAd * const wrappedAd = [[PBMGADUnifiedNativeAd alloc] initWithUnifiedNativeAd:unifiedNativeAd];
+    PBMGADNativeAd * const wrappedAd = [[PBMGADNativeAd alloc] initWithNativeAd:unifiedNativeAd];
     [self findNativeAdWithFlagLookupBlock:^BOOL{
         return [self findPrebidCreativeFlagInUnifiedNativeAd:wrappedAd];
     } localCacheIDExtractor:^NSString * _Nullable{
@@ -147,7 +148,7 @@ static NSString * const PREBID_KEYWORD_PREFIX = @"hb_";
 
 // MARK: NativeCustomTemplateAd decomposition
 
-- (BOOL)findPrebidCreativeFlagInNativeCustomTemplateAd:(PBMGADNativeCustomTemplateAd *)nativeCustomTemplateAd {
+- (BOOL)findPrebidCreativeFlagInNativeCustomTemplateAd:(PBMGADCustomNativeAd *)nativeCustomTemplateAd {
     NSString * const isPrebidCreativeVar = [nativeCustomTemplateAd stringForKey:PREBID_GAM_PREBID_CREATIVE_FLAG_KEY];
     if ([isPrebidCreativeVar isEqualToString:PREBID_GAM_PREBID_CREATIVE_FLAG_VALUE]) {
         return YES;
@@ -156,17 +157,17 @@ static NSString * const PREBID_KEYWORD_PREFIX = @"hb_";
     return NO;
 }
 
-- (NSString *)localCacheIDFromNativeCustomTemplateAd:(PBMGADNativeCustomTemplateAd *)nativeCustomTemplateAd {
+- (NSString *)localCacheIDFromNativeCustomTemplateAd:(PBMGADCustomNativeAd *)nativeCustomTemplateAd {
     return [nativeCustomTemplateAd stringForKey:PREBID_GAM_LOCAL_CACHE_ID_TARGETING_KEY];
 }
 
 // MARK: UnifiedNativeAd decomposition
 
-- (BOOL)findPrebidCreativeFlagInUnifiedNativeAd:(PBMGADUnifiedNativeAd *)unifiedNativeAd {
+- (BOOL)findPrebidCreativeFlagInUnifiedNativeAd:(PBMGADNativeAd *)unifiedNativeAd {
     return [unifiedNativeAd.body isEqualToString:PREBID_GAM_PREBID_CREATIVE_FLAG_KEY];
 }
 
-- (NSString *)localCacheIDFromUnifiedNativeAd:(PBMGADUnifiedNativeAd *)unifiedNativeAd {
+- (NSString *)localCacheIDFromUnifiedNativeAd:(PBMGADNativeAd *)unifiedNativeAd {
     return unifiedNativeAd.callToAction;
 }
 

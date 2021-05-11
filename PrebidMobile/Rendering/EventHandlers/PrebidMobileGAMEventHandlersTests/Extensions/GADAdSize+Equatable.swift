@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GoogleMobileAds
 @testable import PrebidMobileGAMEventHandlers
 
 extension GADAdSize: Equatable {

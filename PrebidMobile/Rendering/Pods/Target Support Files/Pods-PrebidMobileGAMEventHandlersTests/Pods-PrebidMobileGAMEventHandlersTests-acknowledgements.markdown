@@ -3,15 +3,15 @@ This application makes use of the following third party libraries:
 
 ## Google-Mobile-Ads-SDK
 
-Copyright 2020 Google
+Copyright 2021 Google
 
 ## GoogleAppMeasurement
 
-Copyright 2020 Google
+Copyright 2021 Google
 
 ## GoogleUserMessagingPlatform
 
-Copyright 2020 Google
+Copyright 2021 Google
 
 ## GoogleUtilities
 

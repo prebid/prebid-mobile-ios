@@ -45,7 +45,7 @@ class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurab
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        let eventHandler = PBMGAMRewardedEventHandler(adUnitID: gamAdUnitId)
+        let eventHandler = GAMRewardedAdEventHandler(adUnitID: gamAdUnitId)
         rewardedAdController = PBMRewardedAdUnit(configId: prebidConfigId, eventHandler: eventHandler)
         rewardedAdController?.delegate = self
         

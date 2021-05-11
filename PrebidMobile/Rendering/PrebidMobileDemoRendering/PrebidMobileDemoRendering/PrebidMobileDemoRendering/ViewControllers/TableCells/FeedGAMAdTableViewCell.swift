@@ -22,7 +22,7 @@ class FeedGAMAdTableViewCell: UITableViewCell {
     
     private var adLoader: GADAdLoader?
     
-    private var customTemplateAd: GADNativeCustomTemplateAd?
+    private var customTemplateAd: GADCustomNativeAd?
     
     private weak var rootController: UIViewController?
     
@@ -49,8 +49,8 @@ class FeedGAMAdTableViewCell: UITableViewCell {
                 return
             }
             
-            let dfpRequest = DFPRequest()
-            PBMGAMUtils.shared().prepare(dfpRequest, demandResponseInfo: demandResponseInfo)
+            let dfpRequest = GAMRequest()
+            GAMUtils.shared.prepareRequest(dfpRequest, demandResponseInfo: demandResponseInfo)
             self.adLoader = GADAdLoader(adUnitID: GAMAdUnitID,
                                         rootViewController: rootViewController,
                                         adTypes: adTypes,
@@ -61,12 +61,13 @@ class FeedGAMAdTableViewCell: UITableViewCell {
     }
 }
 
-extension FeedGAMAdTableViewCell: GADNativeCustomTemplateAdLoaderDelegate {
-    func nativeCustomTemplateIDs(for adLoader: GADAdLoader) -> [String] {
+extension FeedGAMAdTableViewCell: GADCustomNativeAdLoaderDelegate {
+    func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
         return gamCustomTemplateIDs
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didReceive nativeCustomTemplateAd: GADNativeCustomTemplateAd) {
+    func adLoader(_ adLoader: GADAdLoader, didReceive
+                    nativeCustomTemplateAd: GADCustomNativeAd) {
         customTemplateAd = nil
         
         let nativeAdDetectionListener = PBMNativeAdDetectionListener { [weak self] nativeAd in
@@ -93,11 +94,11 @@ extension FeedGAMAdTableViewCell: GADNativeCustomTemplateAdLoaderDelegate {
 
         }
 
-        PBMGAMUtils.shared().findNativeAd(in: nativeCustomTemplateAd,
-                                          nativeAdDetectionListener: nativeAdDetectionListener)
+        GAMUtils.shared.findCustomNativeAd(for: nativeCustomTemplateAd,
+                                           nativeAdDetectionListener: nativeAdDetectionListener)
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: GADRequestError) {
+    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
     }
     
     private func setupBanner() {

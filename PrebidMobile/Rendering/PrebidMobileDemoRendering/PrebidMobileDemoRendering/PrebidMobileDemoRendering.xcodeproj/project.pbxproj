@@ -892,7 +892,6 @@
 				35D3FDAD1EA561D900C19A63 /* Embed Frameworks */,
 				5CB781591F0478C4007A2F6B /* ShellScript */,
 				802528B749910E5695D54FCF /* [CP] Embed Pods Frameworks */,
-				07A53AF39D3422E92107A851 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1053,24 +1052,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		07A53AF39D3422E92107A851 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PrebidMobileDemoRendering/Pods-PrebidMobileDemoRendering-resources.sh",
-				"${PODS_ROOT}/GoogleMobileAdsMediationTestSuite/Resources/GoogleMobileAdsMediationTestSuite.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMobileAdsMediationTestSuite.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PrebidMobileDemoRendering/Pods-PrebidMobileDemoRendering-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		484200C8E7CBBACB19DC5AB3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1113,14 +1094,11 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-PrebidMobileDemoRendering/Pods-PrebidMobileDemoRendering-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities-iOS10.0/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/PromisesObjC-iOS10.0/FBLPromises.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb-iOS10.0/nanopb.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 				"${BUILT_PRODUCTS_DIR}/mopub-ios-sdk/MoPub.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
-				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
-				"${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework",
-				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
@@ -1132,9 +1110,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MoPub.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFTextAccessibility.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",

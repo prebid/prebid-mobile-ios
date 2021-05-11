@@ -53,6 +53,26 @@ class RefPropTest<T, V: NSObjectProtocol>: BasePropTest<T> {
     }
 }
 
+class RefProxyPropTest<T, V: NSObjectProtocol>: BasePropTest<T> {
+    let keyPath: ReferenceWritableKeyPath<T, V?>
+    let value: V
+    
+    init(keyPath: ReferenceWritableKeyPath<T, V?>, value: V, file: StaticString = #file, line: UInt = #line) {
+        self.keyPath = keyPath
+        self.value = value
+        super.init(file: file, line: line)
+    }
+    
+    override func run(object: T) {
+        object[keyPath: keyPath] = value
+        
+        let _ = object[keyPath: keyPath]
+        
+        // Do nothing since there is no storage for value yet. We just test properties.
+        //XCTAssertEqual(readValue as? NSObject?, value as? NSObject, file: file, line: line)
+    }
+}
+
 class DicPropTest<T, K: Hashable, V>: BasePropTest<T> {
     let keyPath: ReferenceWritableKeyPath<T, [K: V]?>
     let value: [K: V]

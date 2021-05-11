@@ -9,7 +9,7 @@ def mopub_pods
   pod 'mopub-ios-sdk', '5.15'
 end
 
-def admob_pods
+def gma_pods
     pod 'Google-Mobile-Ads-SDK'
 end
 
@@ -18,16 +18,14 @@ def event_handlers_project
   use_frameworks!
 end
 
-
-
 target 'PrebidMobileGAMEventHandlers' do
-  platform :ios, '9.0'
   event_handlers_project
-  admob_pods
+  gma_pods
 end
+
 target 'PrebidMobileGAMEventHandlersTests' do
   event_handlers_project
-  admob_pods
+  gma_pods
 end
 
 target 'PrebidMobileMoPubAdapters' do
@@ -36,13 +34,11 @@ target 'PrebidMobileMoPubAdapters' do
 end
 
 
-
 def internalTestApp_pods
   pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'xcode12'
-  pod 'GoogleMobileAdsMediationTestSuite'
   pod 'SVProgressHUD'
   mopub_pods
-  admob_pods
+  gma_pods
 end
 
 target 'PrebidMobileDemoRendering' do
@@ -56,8 +52,6 @@ target 'OpenXMockServer' do
   pod 'Alamofire', '4.9.1'
   pod 'RxSwift'
 end
-
-
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|

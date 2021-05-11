@@ -26,7 +26,7 @@ class AboutViewController : FormViewController {
             "MoPub SDK": MP_SDK_VERSION,
         ]),
         ("Bridging SDKs", [
-            "GAM Event Handlers": versionOfBundle(providing: PBMGAMBannerEventHandler.self),
+            "GAM Event Handlers": versionOfBundle(providing: GAMBannerEventHandler.self),
             "MoPub Adapters": versionOfBundle(providing: PrebidMoPubBannerAdapter.self),
         ]),
     ]

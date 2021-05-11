@@ -8,7 +8,6 @@
 #import <Foundation/Foundation.h>
 
 #import <PrebidMobileRendering/PBMLocalResponseInfoCache.h>
-#import "PBMLocalResponseInfoCache+Internal.h"
 
 #import "PBMMoPubUtils.h"
 

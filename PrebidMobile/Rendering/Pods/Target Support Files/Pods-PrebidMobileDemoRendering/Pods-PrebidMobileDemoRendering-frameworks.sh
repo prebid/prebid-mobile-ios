@@ -175,27 +175,21 @@ code_sign_if_enabled() {
 }
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities-iOS10.0/GoogleUtilities.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/PromisesObjC-iOS10.0/FBLPromises.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS10.0/nanopb.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/mopub-ios-sdk/MoPub.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities-iOS10.0/GoogleUtilities.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/PromisesObjC-iOS10.0/FBLPromises.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/nanopb-iOS10.0/nanopb.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/mopub-ios-sdk/MoPub.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework"

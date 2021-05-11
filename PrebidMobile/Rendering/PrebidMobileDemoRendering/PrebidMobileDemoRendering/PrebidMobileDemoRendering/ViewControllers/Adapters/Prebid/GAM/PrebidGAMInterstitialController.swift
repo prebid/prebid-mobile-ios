@@ -45,7 +45,7 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        let eventHandler = PBMGAMInterstitialEventHandler(adUnitID: gamAdUnitId)
+        let eventHandler = GAMInterstitialEventHandler(adUnitID: gamAdUnitId)
         interstitialController = PBMInterstitialAdUnit(configId: prebidConfigId,
                                                        minSizePercentage: CGSize(width: 30, height: 30),
                                                        eventHandler: eventHandler)
