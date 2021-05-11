@@ -6,10 +6,11 @@
 //
 
 #import "PBMLocalResponseInfoCache.h"
-#import "PBMLocalResponseInfoCache+Internal.h"
 
 #import "PBMCachedResponseInfo.h"
 #import "PBMWeakTimerTargetBox.h"
+
+#import "NSTimer+PBMScheduledTimerFactory.h"
 
 
 @interface PBMLocalResponseInfoCache ()
@@ -21,6 +22,12 @@
 
 
 @implementation PBMLocalResponseInfoCache
+
+- (instancetype)initWithExpirationInterval:(NSTimeInterval)expirationInterval {
+    return [self initWithScheduledTimerFactory:[NSTimer pbmScheduledTimerFactory]
+                            expirationInterval:expirationInterval];
+}
+
 
 - (instancetype)initWithScheduledTimerFactory:(PBMScheduledTimerFactory)scheduledTimerFactory
                            expirationInterval:(NSTimeInterval)expirationInterval

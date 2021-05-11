@@ -8,9 +8,8 @@
 import AppTrackingTransparency
 import UIKit
 import Eureka
-import GoogleMobileAdsMediationTestSuite
 
-class UtilitiesViewController: FormViewController, GMTSMediationTestSuiteDelegate {
+class UtilitiesViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +23,6 @@ class UtilitiesViewController: FormViewController, GMTSMediationTestSuiteDelegat
             <<< makeActionRow(title: "PrebidMobileRendering Configuration", action: { AboutViewController() }) {
                 $0.accessoryType = .detailDisclosureButton
             }
-            <<< makeActionRow(title: "Ad Mob Mediation Test Suite", action: {
-                GoogleMobileAdsMediationTestSuite.present(on:self, delegate:self)
-                return nil
-            })
             <<< makeActionRow(title: "IAB Consent Settings", action: { IABConsentViewController() })
             <<< makeActionRow(title: "Command Line Args", action: { CommandArgsViewController() })
             <<< makeActionRow(title: "App Settings", action: { SettingsViewController() })
@@ -117,11 +112,5 @@ class UtilitiesViewController: FormViewController, GMTSMediationTestSuiteDelegat
                 self?.present(dialogMessage, animated: true, completion: nil)
             }
         }
-    }
-    
-    // MARK: - GMTSMediationTestSuiteDelegate
-    
-    func mediationTestSuiteWasDismissed() {
-        // nop
     }
 }

@@ -1613,7 +1613,7 @@ struct TestCaseManager {
                         let gamAdUnitId = "/21808260008/prebid_oxb_outstream_video_reandom"
                         let validAdSize = kGADAdSizeMediumRectangle
                         let adSize = validAdSize.size
-                        let adEventHandler = PBMGAMBannerEventHandler(adUnitID: gamAdUnitId, validGADAdSizes: [NSValueFromGADAdSize(validAdSize)])
+                        let adEventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitId, validGADAdSizes: [NSValueFromGADAdSize(validAdSize)])
                         let adBannerView = PBMBannerView(configId: prebidConfigId,
                                                          eventHandler: adEventHandler)
                         adBannerView.adFormat = .video
@@ -2698,7 +2698,7 @@ struct TestCaseManager {
                     gamNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
                 }
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
-                gamNativeAdController.adTypes = [.nativeCustomTemplate]
+                gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
                         
                 let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
@@ -2721,7 +2721,7 @@ struct TestCaseManager {
                         
                 gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
-                gamNativeAdController.adTypes = [.nativeCustomTemplate]
+                gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11982639"]
                         
                 let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
@@ -2744,7 +2744,7 @@ struct TestCaseManager {
                         
                 gamNativeAdController.prebidConfigId = "mock-native-video-with-end-card--dummy"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
-                gamNativeAdController.adTypes = [.nativeCustomTemplate]
+                gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11982639"]
                         
                 let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
@@ -2768,7 +2768,7 @@ struct TestCaseManager {
                         
                 gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
-                gamNativeAdController.adTypes = [.nativeCustomTemplate]
+                gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
                         
                 let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
@@ -2803,7 +2803,7 @@ struct TestCaseManager {
                     gamNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
                 }
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit"
-                gamNativeAdController.adTypes = [.unifiedNative]
+                gamNativeAdController.adTypes = [.native]
                         
                 let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
@@ -2825,7 +2825,7 @@ struct TestCaseManager {
                         
                 gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit_static"
-                gamNativeAdController.adTypes = [.unifiedNative]
+                gamNativeAdController.adTypes = [.native]
                         
                 let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
@@ -2847,7 +2847,7 @@ struct TestCaseManager {
                         
                 gamNativeAdController.prebidConfigId = "mock-native-video-with-end-card--dummy"
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit_static"
-                gamNativeAdController.adTypes = [.unifiedNative]
+                gamNativeAdController.adTypes = [.native]
                         
                 let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative

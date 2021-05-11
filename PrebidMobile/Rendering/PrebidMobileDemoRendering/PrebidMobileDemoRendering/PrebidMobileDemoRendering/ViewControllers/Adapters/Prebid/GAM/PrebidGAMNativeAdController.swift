@@ -22,14 +22,14 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurab
     private let nativeAdViewBox = NativeAdViewBox()
     
     /// The native ad view that is being presented.
-    private var nativeAdView: GADUnifiedNativeAdView?
+    private var nativeAdView: GADNativeAdView?
     
     private var adUnit: PBMNativeAdUnit?
     private var theNativeAd: PBMNativeAd?
     
     private var adLoader: GADAdLoader?
     
-    private var customTemplateAd: GADNativeCustomTemplateAd?
+    private var customTemplateAd: GADCustomNativeAd?
     
     private let fetchDemandSuccessButton = EventReportContainer()
     private let fetchDemandFailedButton = EventReportContainer()
@@ -131,8 +131,11 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurab
                 self.fetchDemandFailedButton.isEnabled = true
             }
             
-            let dfpRequest = DFPRequest()
-            PBMGAMUtils.shared().prepare(dfpRequest, demandResponseInfo: demandResponseInfo)
+            let dfpRequest = GAMRequest()
+            GAMUtils.shared.prepareRequest(dfpRequest, demandResponseInfo: demandResponseInfo)
+            
+            print(">>> \(String(describing: dfpRequest.customTargeting))")
+            
             self.adLoader = GADAdLoader(adUnitID: self.gamAdUnitId,
                                         rootViewController: self.rootController,
                                         adTypes: self.adTypes,
@@ -167,12 +170,14 @@ extension PrebidGAMNativeAdController: PBMNativeAdUIDelegate {
     }
 }
 
-extension PrebidGAMNativeAdController: GADNativeCustomTemplateAdLoaderDelegate {
-    func nativeCustomTemplateIDs(for adLoader: GADAdLoader) -> [String] {
+extension PrebidGAMNativeAdController: GADCustomNativeAdLoaderDelegate {
+    
+    func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
         return gamCustomTemplateIDs
+
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didReceive nativeCustomTemplateAd: GADNativeCustomTemplateAd) {
+    func adLoader(_ adLoader: GADAdLoader, didReceive nativeCustomTemplateAd: GADCustomNativeAd) {
         customAdRequestSuccessful.isEnabled = true
         customTemplateAd = nil
         
@@ -200,16 +205,16 @@ extension PrebidGAMNativeAdController: GADNativeCustomTemplateAdLoaderDelegate {
         } onNativeAdInvalid: { [weak self] error in
             self?.nativeAdInvalidButton.isEnabled = true
         }
-
-        PBMGAMUtils.shared().findNativeAd(in: nativeCustomTemplateAd,
-                                          nativeAdDetectionListener: nativeAdDetectionListener)
+        
+        GAMUtils.shared.findCustomNativeAd(for: nativeCustomTemplateAd,
+                                           nativeAdDetectionListener: nativeAdDetectionListener)
     }
     
     func adLoaderDidFinishLoading(_ adLoader: GADAdLoader) {
         // nop
     }
     
-    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: GADRequestError) {
+    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
         primaryAdRequestFailed.isEnabled = true
     }
     
@@ -218,8 +223,9 @@ extension PrebidGAMNativeAdController: GADNativeCustomTemplateAdLoaderDelegate {
     }
 }
 
-extension PrebidGAMNativeAdController: GADUnifiedNativeAdLoaderDelegate {
-    func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADUnifiedNativeAd) {
+extension PrebidGAMNativeAdController: GADNativeAdLoaderDelegate {
+    
+    func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADNativeAd) {
         unifiedAdRequestSuccessful.isEnabled = true
         customTemplateAd = nil
         
@@ -252,6 +258,7 @@ extension PrebidGAMNativeAdController: GADUnifiedNativeAdLoaderDelegate {
             else {
                 assert(false, "Could not load nib file for adView")
             }
+            
             self.setAdView(adView)
             
             adView.renderUnifiedNativeAd(nativeAd)
@@ -259,10 +266,11 @@ extension PrebidGAMNativeAdController: GADUnifiedNativeAdLoaderDelegate {
             self?.nativeAdInvalidButton.isEnabled = true
         }
 
-        PBMGAMUtils.shared().findNativeAd(in: nativeAd, nativeAdDetectionListener: nativeAdDetectionListener)
+        GAMUtils.shared.findNativeAd(for: nativeAd,
+                                     nativeAdDetectionListener: nativeAdDetectionListener)
     }
     
-    private func setAdView(_ view: GADUnifiedNativeAdView) {
+    private func setAdView(_ view: GADNativeAdView) {
         // Remove the previous ad view.
         nativeAdView = view
         rootController?.bannerView.addSubview(view)

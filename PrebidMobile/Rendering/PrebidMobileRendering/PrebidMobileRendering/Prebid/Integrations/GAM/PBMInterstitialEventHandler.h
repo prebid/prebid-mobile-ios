@@ -13,15 +13,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol PBMInterstitialEventHandler <PBMPrimaryAdRequesterProtocol>
+@protocol PBMInterstitialAd <PBMPrimaryAdRequesterProtocol>
 
 @required
-
-/// Delegate for custom event handler to inform the PBM SDK about the events related to the ad server communication.
-@property (nonatomic, weak, nullable) id<PBMInterstitialEventLoadingDelegate> loadingDelegate;
-
-/// Delegate for custom event handler to inform the PBM SDK about the events related to the user's interaction with the ad.
-@property (nonatomic, weak, nullable) id<PBMInterstitialEventInteractionDelegate> interactionDelegate;
 
 /*!
  @abstract Return whether an interstitial is ready for display
@@ -40,6 +34,18 @@ NS_ASSUME_NONNULL_BEGIN
   @abstract Called by PBM SDK to notify primary ad server.
  */
 - (void)trackImpression;
+
+@end
+
+@protocol PBMInterstitialEventHandler <PBMInterstitialAd>
+
+@required
+
+/// Delegate for custom event handler to inform the PBM SDK about the events related to the ad server communication.
+@property (nonatomic, weak, nullable) id<PBMInterstitialEventLoadingDelegate> loadingDelegate;
+
+/// Delegate for custom event handler to inform the PBM SDK about the events related to the user's interaction with the ad.
+@property (nonatomic, weak, nullable) id<PBMInterstitialEventInteractionDelegate> interactionDelegate;
 
 @end
 

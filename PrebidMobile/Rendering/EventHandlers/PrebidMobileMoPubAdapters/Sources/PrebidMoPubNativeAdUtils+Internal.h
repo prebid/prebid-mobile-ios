@@ -5,7 +5,6 @@
 //  Copyright © 2021 OpenX. All rights reserved.
 //
 #import <PrebidMobileRendering/PBMLocalResponseInfoCache.h>
-#import "PBMLocalResponseInfoCache+Internal.h"
 
 #import "PrebidMoPubNativeAdUtils.h"
 

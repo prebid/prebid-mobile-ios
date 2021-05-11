@@ -53,7 +53,7 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        let adEventHandler = PBMGAMBannerEventHandler(adUnitID: gamAdUnitId, validGADAdSizes: validAdSizes.map(NSValueFromGADAdSize))
+        let adEventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitId, validGADAdSizes: validAdSizes.map(NSValueFromGADAdSize))
         adBannerView = PBMBannerView(configId: prebidConfigId, eventHandler: adEventHandler)
        
         if (refreshInterval > 0) {

@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol PBMRewardedEventHandler <PBMInterstitialEventHandler>
+@protocol PBMRewardedEventHandler <PBMInterstitialAd>
 
 @required
 

@@ -1,170 +1,40 @@
 PODS:
   - Alamofire (4.9.1)
   - Eureka (5.2.1)
-  - Google-Mobile-Ads-SDK (7.66.0):
-    - GoogleAppMeasurement (~> 6.0)
-    - GoogleUserMessagingPlatform (~> 1.1)
-  - GoogleAppMeasurement (6.9.0):
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
-    - GoogleUtilities/MethodSwizzler (~> 6.7)
-    - GoogleUtilities/Network (~> 6.7)
-    - "GoogleUtilities/NSData+zlib (~> 6.7)"
-    - nanopb (~> 1.30906.0)
-  - GoogleMobileAdsMediationTestSuite (1.3.0):
-    - Google-Mobile-Ads-SDK (>= 7.47.0)
-    - MaterialComponents/Cards (~> 111.0)
-    - MaterialComponents/Dialogs (~> 111.0)
-    - "MaterialComponents/Dialogs+Theming (~> 111.0)"
-    - MaterialComponents/Tabs (~> 111.0)
-  - GoogleUserMessagingPlatform (1.2.0)
-  - GoogleUtilities/AppDelegateSwizzler (6.7.2):
+  - Google-Mobile-Ads-SDK (8.4.0):
+    - GoogleAppMeasurement (~> 7.0)
+    - GoogleUserMessagingPlatform (>= 1.1)
+  - GoogleAppMeasurement (7.11.0):
+    - GoogleAppMeasurement/AdIdSupport (= 7.11.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
+    - GoogleUtilities/MethodSwizzler (~> 7.0)
+    - GoogleUtilities/Network (~> 7.0)
+    - "GoogleUtilities/NSData+zlib (~> 7.0)"
+    - nanopb (~> 2.30908.0)
+  - GoogleAppMeasurement/AdIdSupport (7.11.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
+    - GoogleUtilities/MethodSwizzler (~> 7.0)
+    - GoogleUtilities/Network (~> 7.0)
+    - "GoogleUtilities/NSData+zlib (~> 7.0)"
+    - nanopb (~> 2.30908.0)
+  - GoogleUserMessagingPlatform (2.0.0)
+  - GoogleUtilities/AppDelegateSwizzler (7.3.1):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.7.2):
+  - GoogleUtilities/Environment (7.3.1):
     - PromisesObjC (~> 1.2)
-  - GoogleUtilities/Logger (6.7.2):
+  - GoogleUtilities/Logger (7.3.1):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.7.2):
+  - GoogleUtilities/MethodSwizzler (7.3.1):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (6.7.2):
+  - GoogleUtilities/Network (7.3.1):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.7.2)"
-  - GoogleUtilities/Reachability (6.7.2):
+  - "GoogleUtilities/NSData+zlib (7.3.1)"
+  - GoogleUtilities/Reachability (7.3.1):
     - GoogleUtilities/Logger
-  - MaterialComponents/AnimationTiming (111.0.0)
-  - MaterialComponents/Availability (111.0.0)
-  - MaterialComponents/Buttons (111.0.0):
-    - MaterialComponents/Elevation
-    - MaterialComponents/Ink
-    - MaterialComponents/private/Math
-    - MaterialComponents/Ripple
-    - MaterialComponents/ShadowElevations
-    - MaterialComponents/ShadowLayer
-    - MaterialComponents/ShapeLibrary
-    - MaterialComponents/Shapes
-    - MaterialComponents/Typography
-    - MDFInternationalization
-    - MDFTextAccessibility
-  - "MaterialComponents/Buttons+ColorThemer (111.0.0)":
-    - MaterialComponents/Buttons
-    - MaterialComponents/schemes/Color
-  - "MaterialComponents/Buttons+ShapeThemer (111.0.0)":
-    - MaterialComponents/Buttons
-    - MaterialComponents/schemes/Shape
-  - "MaterialComponents/Buttons+Theming (111.0.0)":
-    - MaterialComponents/Buttons
-    - "MaterialComponents/Buttons+ColorThemer"
-    - "MaterialComponents/Buttons+ShapeThemer"
-    - "MaterialComponents/Buttons+TypographyThemer"
-    - MaterialComponents/schemes/Container
-    - MaterialComponents/ShadowElevations
-  - "MaterialComponents/Buttons+TypographyThemer (111.0.0)":
-    - MaterialComponents/Buttons
-    - MaterialComponents/schemes/Typography
-  - MaterialComponents/Cards (111.0.0):
-    - MaterialComponents/Elevation
-    - MaterialComponents/Ink
-    - MaterialComponents/private/Icons/ic_check_circle
-    - MaterialComponents/private/Math
-    - MaterialComponents/Ripple
-    - MaterialComponents/ShadowLayer
-    - MaterialComponents/Shapes
-  - MaterialComponents/Dialogs (111.0.0):
-    - MaterialComponents/Buttons
-    - MaterialComponents/Elevation
-    - MaterialComponents/private/KeyboardWatcher
-    - MaterialComponents/private/Math
-    - MaterialComponents/ShadowElevations
-    - MaterialComponents/ShadowLayer
-    - MaterialComponents/Typography
-    - MDFInternationalization
-  - "MaterialComponents/Dialogs+ColorThemer (111.0.0)":
-    - "MaterialComponents/Buttons+ColorThemer"
-    - MaterialComponents/Dialogs
-    - MaterialComponents/Themes
-  - "MaterialComponents/Dialogs+Theming (111.0.0)":
-    - "MaterialComponents/Buttons+Theming"
-    - MaterialComponents/Dialogs
-    - "MaterialComponents/Dialogs+ColorThemer"
-    - "MaterialComponents/Dialogs+TypographyThemer"
-    - MaterialComponents/schemes/Container
-    - MaterialComponents/ShadowElevations
-  - "MaterialComponents/Dialogs+TypographyThemer (111.0.0)":
-    - "MaterialComponents/Buttons+TypographyThemer"
-    - MaterialComponents/Dialogs
-    - MaterialComponents/schemes/Typography
-  - MaterialComponents/Elevation (111.0.0):
-    - MaterialComponents/Availability
-    - MaterialComponents/private/Color
-    - MaterialComponents/private/Math
-  - MaterialComponents/Ink (111.0.0):
-    - MaterialComponents/Availability
-    - MaterialComponents/private/Color
-    - MaterialComponents/private/Math
-  - MaterialComponents/Palettes (111.0.0)
-  - MaterialComponents/private/Application (111.0.0)
-  - MaterialComponents/private/Color (111.0.0):
-    - MaterialComponents/Availability
-  - MaterialComponents/private/Icons/Base (111.0.0)
-  - MaterialComponents/private/Icons/ic_check_circle (111.0.0):
-    - MaterialComponents/private/Icons/Base
-  - MaterialComponents/private/KeyboardWatcher (111.0.0):
-    - MaterialComponents/private/Application
-  - MaterialComponents/private/Math (111.0.0)
-  - MaterialComponents/Ripple (111.0.0):
-    - MaterialComponents/AnimationTiming
-    - MaterialComponents/Availability
-    - MaterialComponents/private/Color
-    - MaterialComponents/private/Math
-  - MaterialComponents/schemes/Color (111.0.0):
-    - MaterialComponents/Availability
-    - MaterialComponents/private/Color
-  - MaterialComponents/schemes/Container (111.0.0):
-    - MaterialComponents/schemes/Color
-    - MaterialComponents/schemes/Shape
-    - MaterialComponents/schemes/Typography
-  - MaterialComponents/schemes/Shape (111.0.0):
-    - MaterialComponents/ShapeLibrary
-    - MaterialComponents/Shapes
-  - MaterialComponents/schemes/Typography (111.0.0):
-    - "MaterialComponents/schemes/Typography+BasicFontScheme"
-    - "MaterialComponents/schemes/Typography+Scheming"
-    - MaterialComponents/Typography
-  - "MaterialComponents/schemes/Typography+BasicFontScheme (111.0.0)"
-  - "MaterialComponents/schemes/Typography+Scheming (111.0.0)"
-  - MaterialComponents/ShadowElevations (111.0.0)
-  - MaterialComponents/ShadowLayer (111.0.0):
-    - MaterialComponents/ShadowElevations
-  - MaterialComponents/ShapeLibrary (111.0.0):
-    - MaterialComponents/private/Math
-    - MaterialComponents/Shapes
-  - MaterialComponents/Shapes (111.0.0):
-    - MaterialComponents/private/Color
-    - MaterialComponents/private/Math
-    - MaterialComponents/ShadowLayer
-  - MaterialComponents/Tabs (111.0.0):
-    - MaterialComponents/AnimationTiming
-    - MaterialComponents/Elevation
-    - MaterialComponents/Ink
-    - MaterialComponents/Palettes
-    - MaterialComponents/private/Math
-    - MaterialComponents/Ripple
-    - MaterialComponents/ShadowElevations
-    - MaterialComponents/ShadowLayer
-    - MaterialComponents/Typography
-    - MDFInternationalization
-  - MaterialComponents/Themes (111.0.0):
-    - MaterialComponents/schemes/Color
-    - MaterialComponents/schemes/Typography
-  - MaterialComponents/Typography (111.0.0):
-    - MaterialComponents/private/Application
-    - MaterialComponents/private/Math
-    - MDFTextAccessibility
-  - MDFInternationalization (2.0.0)
-  - MDFTextAccessibility (2.0.0)
   - mopub-ios-sdk (5.15.0):
     - mopub-ios-sdk/MoPubSDK (= 5.15.0)
   - mopub-ios-sdk/Core (5.15.0)
@@ -173,20 +43,19 @@ PODS:
     - mopub-ios-sdk/NativeAds
   - mopub-ios-sdk/NativeAds (5.15.0):
     - mopub-ios-sdk/Core
-  - nanopb (1.30906.0):
-    - nanopb/decode (= 1.30906.0)
-    - nanopb/encode (= 1.30906.0)
-  - nanopb/decode (1.30906.0)
-  - nanopb/encode (1.30906.0)
-  - PromisesObjC (1.2.11)
-  - RxSwift (5.1.1)
+  - nanopb (2.30908.0):
+    - nanopb/decode (= 2.30908.0)
+    - nanopb/encode (= 2.30908.0)
+  - nanopb/decode (2.30908.0)
+  - nanopb/encode (2.30908.0)
+  - PromisesObjC (1.2.12)
+  - RxSwift (6.1.0)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - Alamofire (= 4.9.1)
   - Eureka (from `https://github.com/xmartlabs/Eureka.git`, branch `xcode12`)
   - Google-Mobile-Ads-SDK
-  - GoogleMobileAdsMediationTestSuite
   - mopub-ios-sdk (= 5.15)
   - RxSwift
   - SVProgressHUD
@@ -196,12 +65,8 @@ SPEC REPOS:
     - Alamofire
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
-    - GoogleMobileAdsMediationTestSuite
     - GoogleUserMessagingPlatform
     - GoogleUtilities
-    - MaterialComponents
-    - MDFInternationalization
-    - MDFTextAccessibility
     - mopub-ios-sdk
     - nanopb
     - PromisesObjC
@@ -221,20 +86,16 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Eureka: c883105488e05bc65539f583246ecf9657cabbfe
-  Google-Mobile-Ads-SDK: 7d7074359c040f5add4e0963bf860e14690060d0
-  GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
-  GoogleMobileAdsMediationTestSuite: f46b44f1360a17f5ad275eb1b8245848a63c30a9
-  GoogleUserMessagingPlatform: c85530d930ba509583aa5a6d50a10aca22cf8502
-  GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
-  MaterialComponents: 533042da998b97ad13a6f544268f8026e8161cc5
-  MDFInternationalization: 010097556d6b09d2c4ea38e0820ea6d37be6a314
-  MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
+  Google-Mobile-Ads-SDK: 093c3bf0aed3b7d1b8707221a15e3b6634f92dec
+  GoogleAppMeasurement: fd19169c3034975cb934e865e5667bfdce59df7f
+  GoogleUserMessagingPlatform: ab890ce5f6620f293a21b6bdd82e416a2c73aeca
+  GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
   mopub-ios-sdk: a21098174b9420a291aca9fcdae832d0f2e2a368
-  nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
-  PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
-  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 8aeb59d87cca617d446b2f5af038678803f73b60
+PODFILE CHECKSUM: a81833336209200108b6fdcf7aa0fb8821bd8334
 
 COCOAPODS: 1.10.1

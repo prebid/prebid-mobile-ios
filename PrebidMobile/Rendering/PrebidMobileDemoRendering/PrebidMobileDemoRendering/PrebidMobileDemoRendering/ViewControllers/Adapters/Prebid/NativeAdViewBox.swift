@@ -250,7 +250,7 @@ extension NativeAdViewBox {
 }
 
 extension NativeAdViewBox {
-    func renderCustomTemplateAd(_ customTemplateAd: GADNativeCustomTemplateAd) {
+    func renderCustomTemplateAd(_ customTemplateAd: GADCustomNativeAd) {
         textLabel.text = customTemplateAd.string(forKey: "text")
         ctaButton.setTitle(customTemplateAd.string(forKey: "cta"), for: .normal)
         brandLabel.text = customTemplateAd.string(forKey: "sponsoredBy")

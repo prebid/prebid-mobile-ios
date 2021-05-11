@@ -1,6 +1,0 @@
-framework module GoogleUtilities {
-  umbrella header "GoogleUtilities-iOS9.0-umbrella.h"
-
-  export *
-  module * { export * }
-}
