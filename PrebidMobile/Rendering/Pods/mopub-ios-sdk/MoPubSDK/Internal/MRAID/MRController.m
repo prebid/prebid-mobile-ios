@@ -1,16 +1,20 @@
 //
 //  MRController.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MRController.h"
-#if __has_include(<MoPub/MoPub-Swift.h>)
-    #import <MoPub/MoPub-Swift.h>
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
 #else
-    #import "MoPub-Swift.h"
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
 #endif
 #import "MoPub.h"
 #import "MPAdDestinationDisplayAgent.h"
@@ -24,7 +28,6 @@
 #import "MPLogging.h"
 #import "MRProperty.h"
 #import "MPSKAdNetworkClickthroughData.h"
-#import "MPTimer.h"
 #import "MPURLRequest.h"
 #import "NSHTTPURLResponse+MPAdditions.h"
 #import "NSURL+MPAdditions.h"
@@ -42,7 +45,7 @@ static NSString *const kMRAIDCommandResize = @"resize";
 @property (nonatomic, strong) MPAdContainerView *mraidAdView;
 @property (nonatomic, strong) MPAdContainerView *mraidAdViewTwoPart;
 @property (nonatomic, strong) UIView *resizeBackgroundView;
-@property (nonatomic, strong) MPTimer *adPropertyUpdateTimer;
+@property (nonatomic, strong) MPResumableTimer *adPropertyUpdateTimer;
 @property (nonatomic, assign) MRAdViewPlacementType placementType;
 @property (nonatomic, strong) MRExpandModalViewController *expandModalViewController;
 @property (nonatomic, weak) MPFullscreenAdViewController *interstitialViewController;
@@ -116,10 +119,10 @@ static NSString *const kMRAIDCommandResize = @"resize";
         _mraidDefaultAdFrame = adViewFrame;
 
         __typeof__(self) __weak weakSelf = self;
-        _adPropertyUpdateTimer = [MPTimer timerWithTimeInterval:kAdPropertyUpdateTimerInterval
-                                                        repeats:YES
-                                                    runLoopMode:NSRunLoopCommonModes
-                                                          block:^(MPTimer * _Nonnull timer) {
+        _adPropertyUpdateTimer = [[MPResumableTimer alloc] initWithInterval:kAdPropertyUpdateTimerInterval
+                                                                    repeats:YES
+                                                                runLoopMode:NSRunLoopCommonModes
+                                                                    closure:^(MPResumableTimer * _Nonnull timer) {
             __typeof__(self) strongSelf = weakSelf;
             [strongSelf updateMRAIDProperties];
         }];
@@ -170,11 +173,10 @@ static NSString *const kMRAIDCommandResize = @"resize";
 
     self.skAdNetworkClickthroughData = configuration.skAdNetworkClickthroughData;
 
-    // Rewarded video and rewarded playable always allowed to use custom close since it utilizes JS
+    // Rewarded ads always allowed to use custom close since it utilizes JS
     // and MRAID to render the locked countdown experience and then show the close button.
     self.allowCustomClose = (configuration.mraidAllowCustomClose
-                             || [configuration.adType isEqualToString:kAdTypeRewardedVideo]
-                             || [configuration.adType isEqualToString:kAdTypeRewardedPlayable]);
+                             || configuration.isRewarded);
 
     NSArray<WKUserScript *> *scripts = configuration.viewabilityContext.resourcesAsScripts;
     [self commonSetupBeforeMRAIDBridgeLoadAdWithWebViewScripts:scripts];
@@ -1336,16 +1338,16 @@ static NSString *const kMRAIDCommandResize = @"resize";
     }
 }
 
-- (void)adWillPresentModalViewByExpanding:(BOOL)wasExpended
+- (void)adWillPresentModalViewByExpanding:(BOOL)wasExpanded
 {
     self.modalViewCount++;
-    if (self.modalViewCount >= 1 && !wasExpended) {
+    if (self.modalViewCount >= 1 && !wasExpanded) {
         [self appShouldSuspend];
     }
 
     // Notify listeners that the ad is expanding or resizing to present
     // a modal view.
-    if (wasExpended && [self.delegate respondsToSelector:@selector(mraidAdWillExpand:)]) {
+    if (wasExpanded && [self.delegate respondsToSelector:@selector(mraidAdWillExpand:)]) {
         [self.delegate mraidAdWillExpand:self.mraidAdView];
     }
 }

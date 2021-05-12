@@ -1,19 +1,27 @@
 //
 //  MPURLResolver.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <StoreKit/StoreKit.h>
 #import <WebKit/WebKit.h>
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
+#else
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
+#endif
 #import "MPURLResolver.h"
 #import "MPHTTPNetworkSession.h"
 #import "NSURL+MPAdditions.h"
 #import "NSHTTPURLResponse+MPAdditions.h"
 #import "MPLogging.h"
-#import "MPDeviceInformation.h"
 #import "MOPUBExperimentProvider.h"
 #import "NSURL+MPAdditions.h"
 #import "MPURLRequest.h"

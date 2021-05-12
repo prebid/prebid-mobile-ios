@@ -1,32 +1,35 @@
 //
 //  MPAdServerURLBuilder.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPAdServerURLBuilder.h"
+#import <CoreTelephony/CTCarrier.h>
 
 #import <CoreLocation/CoreLocation.h>
-#if __has_include(<MoPub/MoPub-Swift.h>)
-    #import <MoPub/MoPub-Swift.h>
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
 #else
-    #import "MoPub-Swift.h"
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
 #endif
 
 #import "MPAdServerKeys.h"
 #import "MPConsentManager.h"
 #import "MPConstants.h"
 #import "MPCoreInstanceProvider+MRAID.h"
-#import "MPDeviceInformation.h"
 #import "MPError.h"
 #import "MPGlobal.h"
 #import "MPIdentityProvider.h"
 #import "MPLogging.h"
 #import "MPMediationManager.h"
 #import "MPRateLimitManager.h"
-#import "MPReachabilityManager.h"
 #import "MPSKAdNetworkManager.h"
 #import "MPViewabilityManager.h"
 #import "NSString+MPAdditions.h"
@@ -83,14 +86,23 @@ static NSInteger const kAdSequenceNone = -1;
 
 #pragma mark - Static Properties
 
-static MPEngineInfo * _engineInfo = nil;
+static NSString* _engineName = nil;
+static NSString* _engineVersion = nil;
 
-+ (MPEngineInfo *)engineInformation {
-    return _engineInfo;
++ (NSString *)engineName {
+    return _engineName;
 }
 
-+ (void)setEngineInformation:(MPEngineInfo *)engineInformation {
-    _engineInfo = engineInformation;
++ (void)setEngineName:(NSString *)name {
+    _engineName = name;
+}
+
++ (NSString *)engineVersion {
+    return _engineVersion;
+}
+
++ (void)setEngineVersion:(NSString *)version {
+    _engineVersion = version;
 }
 
 #pragma mark - URL Building
@@ -111,8 +123,8 @@ static MPEngineInfo * _engineInfo = nil;
     queryParameters[kSDKVersionKey] = MP_SDK_VERSION;
 
     // REQUIRED: SDK Engine Information
-    queryParameters[kSDKEngineNameKey] = [self engineNameValue];
-    queryParameters[kSDKEngineVersionKey] = [self engineVersionValue];
+    queryParameters[kSDKEngineNameKey] = self.engineName;
+    queryParameters[kSDKEngineVersionKey] = self.engineVersion;
 
     // REQUIRED: Application Version
     queryParameters[kApplicationVersionKey] = [self applicationVersion];
@@ -157,7 +169,7 @@ static MPEngineInfo * _engineInfo = nil;
 
     // REQUIRED: Location authorization status
     MPLocationAuthorizationStatus locationAuthorizationStatus = [self locationAuthorizationStatus];
-    queryParameters[kLocationAuthorizationStatusKey] = NSStringFromMPLocationAuthorizationStatus(locationAuthorizationStatus);
+    queryParameters[kLocationAuthorizationStatusKey] = [MPDeviceInformation stringFromLocationAuthorizationStatus:locationAuthorizationStatus];
 
     return queryParameters;
 }
@@ -173,14 +185,6 @@ static MPEngineInfo * _engineInfo = nil;
 
 + (NSString *)applicationVersion {
     return MPDeviceInformation.applicationVersion;
-}
-
-+ (NSString *)engineNameValue {
-    return self.engineInformation.name;
-}
-
-+ (NSString *)engineVersionValue {
-    return self.engineInformation.version;
 }
 
 + (NSString *)deviceNameValue
@@ -241,10 +245,10 @@ static MPEngineInfo * _engineInfo = nil;
     queryParams[kTimeZoneKey]                      = [self timeZoneValue];
     queryParams[kIsMRAIDEnabledSDKKey]             = [self isMRAIDEnabledSDKValue];
     queryParams[kConnectionTypeKey]                = [self connectionTypeValue];
-    queryParams[kCarrierNameKey]                   = MPDeviceInformation.carrierName;
-    queryParams[kISOCountryCodeKey]                = MPDeviceInformation.isoCountryCode;
-    queryParams[kMobileNetworkCodeKey]             = MPDeviceInformation.mobileNetworkCode;
-    queryParams[kMobileCountryCodeKey]             = MPDeviceInformation.mobileCountryCode;
+    queryParams[kCarrierNameKey]                   = MPDeviceInformation.cellularService.carrier.carrierName;
+    queryParams[kISOCountryCodeKey]                = MPDeviceInformation.cellularService.carrier.isoCountryCode;
+    queryParams[kMobileNetworkCodeKey]             = MPDeviceInformation.cellularService.carrier.mobileNetworkCode;
+    queryParams[kMobileCountryCodeKey]             = MPDeviceInformation.cellularService.carrier.mobileCountryCode;
     queryParams[kDesiredAdAssetsKey]               = [self desiredAdAssetsValue:assets];
     queryParams[kAdSequenceKey]                    = [self adSequenceValue:adSequence];
     queryParams[kScreenResolutionWidthKey]         = [self physicalScreenResolutionWidthValue];
@@ -302,7 +306,7 @@ static MPEngineInfo * _engineInfo = nil;
 
 + (NSString *)connectionTypeValue
 {
-    return [NSString stringWithFormat:@"%ld", (long)MPReachabilityManager.sharedManager.currentStatus];
+    return [NSString stringWithFormat:@"%ld", (long)MPDeviceInformation.currentNetworkStatus];
 }
 
 + (NSString *)desiredAdAssetsValue:(NSArray *)assets
@@ -340,7 +344,7 @@ static MPEngineInfo * _engineInfo = nil;
 
 + (NSString *)appTransportSecurityStatusValue
 {
-    return [NSString stringWithFormat:@"%@", @(MPDeviceInformation.appTransportSecuritySettings)];
+    return [NSString stringWithFormat:@"%@", @(MPDeviceInformation.appTransportSecuritySettingsValue)];
 }
 
 + (NSString *)keywordsValue:(NSString *)keywords

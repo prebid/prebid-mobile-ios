@@ -1,7 +1,7 @@
 //
 //  MPInterstitialAdControllerDelegate.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -37,7 +37,7 @@
 
  @param interstitial The interstitial ad object sending the message.
  */
-- (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial;
+- (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial __deprecated_msg("Use `interstitialDidFailToLoadAd:withError:` instead.");
 
 /**
  Sent when an interstitial ad object fails to load an ad.
@@ -74,7 +74,7 @@
 
  @param interstitial The interstitial ad object sending the message.
  */
-- (void)interstitialWillDisappear:(MPInterstitialAdController *)interstitial;
+- (void)interstitialWillDisappear:(MPInterstitialAdController *)interstitial DEPRECATED_MSG_ATTRIBUTE("interstitialWillDisappear: is deprecated. Use interstitialWillDismiss: instead.");
 
 /**
  Sent after an interstitial ad object has been dismissed from the screen, returning control
@@ -85,7 +85,28 @@
 
  @param interstitial The interstitial ad object sending the message.
  */
-- (void)interstitialDidDisappear:(MPInterstitialAdController *)interstitial;
+- (void)interstitialDidDisappear:(MPInterstitialAdController *)interstitial DEPRECATED_MSG_ATTRIBUTE("interstitialDidDisappear: is deprecated. Use interstitialDidDismiss: instead.");
+
+/**
+ Sent immediately before an interstitial ad object will be dismissed from the screen.
+
+ Your implementation of this method should resume any application activity that was paused
+ prior to the interstitial being presented on-screen.
+
+ @param interstitial The interstitial ad object sending the message.
+ */
+- (void)interstitialWillDismiss:(MPInterstitialAdController *)interstitial;
+
+/**
+ Sent after an interstitial ad object has been dismissed from the screen, returning control
+ to your application.
+
+ Your implementation of this method should resume any application activity that was paused
+ prior to the interstitial being presented on-screen.
+
+ @param interstitial The interstitial ad object sending the message.
+ */
+- (void)interstitialDidDismiss:(MPInterstitialAdController *)interstitial;
 
 /** @name Detecting When an Interstitial Ad Expires */
 

@@ -1,7 +1,7 @@
 //
 //  MPCollectionViewAdPlacer.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -9,11 +9,20 @@
 #import "MPCollectionViewAdPlacer.h"
 #import "MPStreamAdPlacer.h"
 #import "MPAdPlacerInvocation.h"
-#import "MPTimer.h"
 #import "MPNativeAdUtils.h"
 #import "MPCollectionViewAdPlacerCell.h"
 #import "MPNativeAdRendererConfiguration.h"
 #import <objc/runtime.h>
+
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
+#else
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
+#endif
 
 static NSString * const kCollectionViewAdPlacerReuseIdentifier = @"MPCollectionViewAdPlacerReuseIdentifier";
 
@@ -25,7 +34,7 @@ static NSString * const kCollectionViewAdPlacerReuseIdentifier = @"MPCollectionV
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, weak) id<UICollectionViewDataSource> originalDataSource;
 @property (nonatomic, weak) id<UICollectionViewDelegate> originalDelegate;
-@property (nonatomic, strong) MPTimer *insertionTimer;
+@property (nonatomic, strong) MPResumableTimer *insertionTimer;
 
 @end
 
@@ -56,7 +65,7 @@ static NSString * const kCollectionViewAdPlacerReuseIdentifier = @"MPCollectionV
         _streamAdPlacer.delegate = self;
 
         __typeof__(self) __weak weakSelf = self;
-        _insertionTimer = [MPTimer timerWithTimeInterval:kUpdateVisibleCellsInterval repeats:YES runLoopMode:NSRunLoopCommonModes block:^(MPTimer * _Nonnull timer) {
+        _insertionTimer = [[MPResumableTimer alloc] initWithInterval:kUpdateVisibleCellsInterval repeats:YES runLoopMode:NSRunLoopCommonModes closure:^(MPResumableTimer *timer) {
             __typeof__(self) strongSelf = weakSelf;
             [strongSelf updateVisibleCells];
         }];

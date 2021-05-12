@@ -1,7 +1,7 @@
 //
 //  MPDiskLRUCache.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -282,30 +282,78 @@
  Note: The cached file referenced by the returned URL may not exist. After the remote data is
  downloaded, use `storeData:forRemoteSourceFileURL:` to store it to the returned cache file URL.
  */
-- (NSURL *)cachedFileURLForRemoteFileURL:(NSURL *)remoteFileURL {
-    NSString *cacheKey = [self cacheKeyForRemoteMediaURL:remoteFileURL];
+- (NSURL * _Nullable)cachedFileURLForRemoteFile:(MPVASTMediaFile *)remoteFile {
+    // The media URL doesn't exist.
+    NSURL *mediaUrl = remoteFile.URL;
+    if (mediaUrl == nil || mediaUrl.absoluteString.length == 0) {
+        return nil;
+    }
+
+    // Generate the filename in the cache based upon the cacheKey.
+    NSString *cacheKey = [self cacheKeyForRemoteMediaURL:mediaUrl];
     NSURL *pathWithoutExtension = [NSURL fileURLWithPath:[self cacheFilePathForKey:cacheKey]];
-    return [pathWithoutExtension URLByAppendingPathExtension:remoteFileURL.pathExtension];
+
+    // In the event that the media's URL does not have a file extension,
+    // fall back to using the file extension for the media file's MIME type.
+    // Note that in the event that the MIME type is invalid/unsupported, there
+    // will still be no file extension.
+    NSString *fileExtension = (remoteFile.URL.pathExtension.length == 0 ? remoteFile.fileExtensionForMimeType : remoteFile.URL.pathExtension);
+    if (fileExtension.length == 0) {
+        return nil;
+    }
+
+    return [pathWithoutExtension URLByAppendingPathExtension:fileExtension];
 }
 
-- (BOOL)isRemoteFileCached:(NSURL *)remoteFileURL {
+- (BOOL)isRemoteFileCached:(MPVASTMediaFile *)remoteFile {
+    // Invalid input
+    if (remoteFile == nil) {
+        return NO;
+    }
+
+    // Validate that the remote file translates into a cache file URL.
+    NSURL *localCacheFileURL = [self cachedFileURLForRemoteFile:remoteFile];
+    if (localCacheFileURL == nil) {
+        return NO;
+    }
+
     __block BOOL result = NO;
-    NSURL *localCacheFileURL = [self cachedFileURLForRemoteFileURL:remoteFileURL];
     dispatch_sync(self.diskIOQueue, ^{
         result = [self.fileManager fileExistsAtPath:localCacheFileURL.path];
     });
     return result;
 }
 
-- (void)storeData:(NSData *)data forRemoteSourceFileURL:(NSURL *)remoteFileURL {
+- (void)storeData:(NSData *)data forRemoteSourceFile:(MPVASTMediaFile *)remoteFile {
+    // Invalid input
+    if (remoteFile == nil) {
+        return;
+    }
+
+    // Validate that the remote file translates into a cache file URL.
+    NSURL *localCacheFileURL = [self cachedFileURLForRemoteFile:remoteFile];
+    if (localCacheFileURL == nil) {
+        return;
+    }
+
     dispatch_sync(self.diskIOQueue, ^{
-        [data writeToURL:[self cachedFileURLForRemoteFileURL:remoteFileURL] atomically:YES];
+        [data writeToURL:localCacheFileURL atomically:YES];
     });
 }
 
-- (void)touchCachedFileForRemoteFile:(NSURL *)remoteFileURL {
-    NSString *cacheKey = [self cacheKeyForRemoteMediaURL:remoteFileURL];
-    NSURL *localCacheFileURL = [self cachedFileURLForRemoteFileURL:remoteFileURL];
+- (void)touchCachedFileForRemoteFile:(MPVASTMediaFile *)remoteFile {
+    // Invalid input
+    if (remoteFile == nil) {
+        return;
+    }
+
+    // Validate that the remote file translates into a cache file URL.
+    NSURL *localCacheFileURL = [self cachedFileURLForRemoteFile:remoteFile];
+    if (localCacheFileURL == nil) {
+        return;
+    }
+
+    NSString *cacheKey = [self cacheKeyForRemoteMediaURL:remoteFile.URL];
     if ([self cachedDataExistsForKey:cacheKey]) {
         [self touchCacheFileAtPath:localCacheFileURL.path];
     }

@@ -12,7 +12,7 @@ import Eureka
 import PrebidMobileGAMEventHandlers
 import PrebidMobileMoPubAdapters
 import GoogleMobileAds
-import MoPub
+import MoPubSDK
 
 
 class AboutViewController : FormViewController {

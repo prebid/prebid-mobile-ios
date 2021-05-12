@@ -1,7 +1,7 @@
 //
 //  MPTableViewAdPlacer.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -9,13 +9,22 @@
 #import "MPTableViewAdPlacer.h"
 #import "MPStreamAdPlacer.h"
 #import "MPAdPlacerInvocation.h"
-#import "MPTimer.h"
 #import "MPNativeAdRendering.h"
 #import "MPNativeAdUtils.h"
 #import "MPGlobal.h"
 #import "MPNativeAdRendererConfiguration.h"
 #import "MPTableViewAdPlacerCell.h"
 #import <objc/runtime.h>
+
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
+#else
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
+#endif
 
 static NSString * const kTableViewAdPlacerReuseIdentifier = @"MPTableViewAdPlacerReuseIdentifier";
 
@@ -25,7 +34,7 @@ static NSString * const kTableViewAdPlacerReuseIdentifier = @"MPTableViewAdPlace
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, weak) id<UITableViewDataSource> originalDataSource;
 @property (nonatomic, weak) id<UITableViewDelegate> originalDelegate;
-@property (nonatomic, strong) MPTimer *insertionTimer;
+@property (nonatomic, strong) MPResumableTimer *insertionTimer;
 
 @end
 
@@ -83,7 +92,7 @@ static NSString * const kTableViewAdPlacerReuseIdentifier = @"MPTableViewAdPlace
 {
     if (!self.insertionTimer) {
         __typeof__(self) __weak weakSelf = self;
-        self.insertionTimer = [MPTimer timerWithTimeInterval:kUpdateVisibleCellsInterval repeats:YES runLoopMode:NSRunLoopCommonModes block:^(MPTimer * _Nonnull timer) {
+        self.insertionTimer = [[MPResumableTimer alloc] initWithInterval:kUpdateVisibleCellsInterval repeats:YES runLoopMode:NSRunLoopCommonModes closure:^(MPResumableTimer *timer) {
             __typeof__(self) strongSelf = weakSelf;
             [strongSelf updateVisibleCells];
         }];

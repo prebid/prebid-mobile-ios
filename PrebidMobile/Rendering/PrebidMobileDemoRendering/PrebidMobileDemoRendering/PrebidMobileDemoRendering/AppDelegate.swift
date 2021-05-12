@@ -7,7 +7,7 @@
 
 import UIKit
 import CoreLocation
-import MoPub
+import MoPubSDK
 import GoogleMobileAds
 
 import PrebidMobileRendering

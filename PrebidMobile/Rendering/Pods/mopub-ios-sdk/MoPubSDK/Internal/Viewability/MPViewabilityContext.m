@@ -1,7 +1,7 @@
 //
 //  MPViewabilityContext.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -50,18 +50,18 @@ static const struct MPParseResult MPParseResultNone = {
     if (self = [super init]) {
         _notExecutedTrackers = [NSMutableArray array];
         _resources = [NSMutableArray array];
-        
+
         // Parsing
         struct MPParseResult parseResult = [self parseAdVerifications:verificationNode];
         if (parseResult.resources != nil) {
             [_resources addObjectsFromArray:parseResult.resources];
         }
-        
+
         if (parseResult.notExecutedTrackers != nil) {
             [_notExecutedTrackers addObjectsFromArray:parseResult.notExecutedTrackers];
         }
     }
-    
+
     return self;
 }
 
@@ -69,18 +69,18 @@ static const struct MPParseResult MPParseResultNone = {
     if (self = [super init]) {
         _notExecutedTrackers = [NSMutableArray array];
         _resources = [NSMutableArray array];
-        
+
         // Parsing
         struct MPParseResult parseResult = [self parseVerificationResourcesJSON:json];
         if (parseResult.resources != nil) {
             [_resources addObjectsFromArray:parseResult.resources];
         }
-        
+
         if (parseResult.notExecutedTrackers != nil) {
             [_notExecutedTrackers addObjectsFromArray:parseResult.notExecutedTrackers];
         }
     }
-    
+
     return self;
 }
 
@@ -99,7 +99,7 @@ static const struct MPParseResult MPParseResultNone = {
     if (self.resources.count == 0) {
         return nil;
     }
-    
+
     NSMutableArray<WKUserScript *> *scripts = [NSMutableArray array];
     [self.resources enumerateObjectsUsingBlock:^(OMIDMopubVerificationScriptResource * _Nonnull resource, NSUInteger idx, BOOL * _Nonnull stop) {
         // Retrieve the OMID JavaScript resource URL as a string.
@@ -107,11 +107,11 @@ static const struct MPParseResult MPParseResultNone = {
         if (resourceUrlString.length == 0) {
             return;
         }
-        
+
         // `WKUserScript` is not able to take a JavaScript source URL as an option, so the following
         // script will create a <script src=/> element and append it to the <head> of the HTML document.
         NSString *scriptSource = [NSString stringWithFormat:@"var script = document.createElement('script');\nscript.src = '%@';\nscript.type = 'text/javascript';\ndocument.getElementsByTagName('head')[0].appendChild(script);", resourceUrlString];
-        
+
         // Generate the script.
         // The script must be run at Document end to allow the OM SDK JS to load first and then this OM resource
         // script can execute.
@@ -120,7 +120,7 @@ static const struct MPParseResult MPParseResultNone = {
             [scripts addObject:script];
         }
     }];
-    
+
     return (scripts.count > 0 ? scripts : nil);
 }
 
@@ -131,7 +131,7 @@ static const struct MPParseResult MPParseResultNone = {
     if (parseResult.resources != nil) {
         [_resources addObjectsFromArray:parseResult.resources];
     }
-    
+
     if (parseResult.notExecutedTrackers != nil) {
         [_notExecutedTrackers addObjectsFromArray:parseResult.notExecutedTrackers];
     }
@@ -142,16 +142,16 @@ static const struct MPParseResult MPParseResultNone = {
 - (MPParseResult)parseAdVerifications:(MPVASTAdVerifications * _Nullable)adVerifications {
     // Result
     struct MPParseResult result = MPParseResultNone;
-    
+
     // Nothing to parse
     if (adVerifications == nil) {
         return result;
     }
-    
+
     // Parse results
     NSMutableArray<OMIDMopubVerificationScriptResource *> *parsedResources = [NSMutableArray array];
     NSMutableArray<NSURL *> *parsedTrackers = [NSMutableArray array];
-    
+
     // Parse each Verification item in the node
     // The Javascript resource and the verification not executed trackers are parsed simultaneously, but only
     // one will be added to their final parsed results. For example, if we successfully parse an OMID resource,
@@ -160,7 +160,7 @@ static const struct MPParseResult MPParseResultNone = {
     [adVerifications.verifications enumerateObjectsUsingBlock:^(MPVASTVerification * _Nonnull verification, NSUInteger idx, BOOL * _Nonnull stop) {
         // Extract the `verificationNotExecuted` tracking events (if any).
         NSArray<MPVASTTrackingEvent *> *trackers = verification.trackingEvents[kViewabilityResourceNotExecutedTrackingEvent];
-        
+
         // REQUIRED: Javascript resource
         MPVASTJavaScriptResource *jsResource = verification.javascriptResource;
         if (jsResource == nil) {
@@ -168,14 +168,14 @@ static const struct MPParseResult MPParseResultNone = {
             [parsedTrackers addObjectsFromArray:[self expandTrackers:trackers errorReason:MPVASTVerificationErrorReasonResourceLoadError]];
             return;
         }
-        
+
         // Only handle Open Measurement resources
         if (![jsResource.apiFramework isEqualToString:kViewabilityResourceOMSDKValue]) {
             MPLogWarn(@"%@ viewability framework is not supported by the MoPub SDK", jsResource.apiFramework);
             [parsedTrackers addObjectsFromArray:[self expandTrackers:trackers errorReason:MPVASTVerificationErrorReasonVerificationNotSupported]];
             return;
         }
-        
+
         // Validate javascript resource has a valid URL
         NSURL *javascriptUrl = jsResource.resourceUrl;
         if (javascriptUrl == nil) {
@@ -183,12 +183,12 @@ static const struct MPParseResult MPParseResultNone = {
             [parsedTrackers addObjectsFromArray:[self expandTrackers:trackers errorReason:MPVASTVerificationErrorReasonResourceLoadError]];
             return;
         }
-        
+
         // OPTIONAL: parameters
         // Verification parameters are optional and have different initializers depending
         // on whether there are parameters or not.
         NSString *parameters = verification.verificationParameters;
-        
+
         // CONDITIONALLY REQUIRED: vendor
         // Vendor is only required when there are parameters.
         NSString *vendor = verification.vendor;
@@ -197,7 +197,7 @@ static const struct MPParseResult MPParseResultNone = {
             [parsedTrackers addObjectsFromArray:[self expandTrackers:trackers errorReason:MPVASTVerificationErrorReasonResourceLoadError]];
             return;
         }
-        
+
         // Generate the Open Measurement resource script
         OMIDMopubVerificationScriptResource *omidResource = nil;
         if (parameters.length > 0) {
@@ -208,41 +208,41 @@ static const struct MPParseResult MPParseResultNone = {
         else {
             omidResource = [[OMIDMopubVerificationScriptResource alloc] initWithURL:javascriptUrl];
         }
-        
+
         if (omidResource == nil) {
             MPLogWarn(@"Failed to generate OMIDMopubVerificationScriptResource using:\nJavascript URL: %@\nVendor: %@\nParameters: %@", javascriptUrl, vendor, parameters);
             [parsedTrackers addObjectsFromArray:[self expandTrackers:trackers errorReason:MPVASTVerificationErrorReasonResourceLoadError]];
             return;
         }
-        
+
         [parsedResources addObject:omidResource];
     }];
-    
+
     // Set the results
     if (parsedResources.count > 0) {
         result.resources = parsedResources;
     }
-    
+
     if (parsedTrackers.count > 0) {
         result.notExecutedTrackers = parsedTrackers;
     }
-    
+
     return result;
 }
 
 - (MPParseResult)parseVerificationResourcesJSON:(NSArray<NSDictionary *> * _Nullable)json {
     // Result
     struct MPParseResult result = MPParseResultNone;
-    
+
     // No resources to parse
     if (json.count == 0) {
         return result;
     }
-    
+
     // Results
     NSMutableArray<OMIDMopubVerificationScriptResource *> *parsedResources = [NSMutableArray array];
     NSMutableArray<NSURL *> *parsedTrackers = [NSMutableArray array];
-    
+
     // Parse each resource entry
     // The Javascript resource and the verification not executed trackers are parsed simultaneously, but only
     // one will be added to their final parsed results. For example, if we successfully parse an OMID resource,
@@ -256,10 +256,10 @@ static const struct MPParseResult MPParseResultNone = {
             MPLogWarn(@"Encountered unexpected viewability resource class type %@", NSStringFromClass([viewabilityResourceJson class]));
             return;
         }
-        
+
         // Down cast for safety.
         NSDictionary *viewabilityResource = (NSDictionary *)viewabilityResourceJson;
-        
+
         // Extract the `verificationNotExecuted` tracking events (if any).
         NSArray<NSURL *> *trackers = ({
             NSArray<NSString *> *trackerUrlStrings = viewabilityResource[kViewabilityResourceTrackersKey][kViewabilityResourceNotExecutedTrackingEvent];
@@ -270,10 +270,10 @@ static const struct MPParseResult MPParseResultNone = {
                     [trackerUrls addObject:url];
                 }
             }];
-            
+
             trackerUrls;
         });
-        
+
         // Only handle Open Measurement resources
         NSString * apiFramework = viewabilityResource[kViewabilityResourceApiFrameworkKey];
         if (![apiFramework isEqualToString:kViewabilityResourceOMSDKValue]) {
@@ -281,7 +281,7 @@ static const struct MPParseResult MPParseResultNone = {
             [parsedTrackers addObjectsFromArray:[self expandTrackingUrls:trackers errorReason:MPVASTVerificationErrorReasonVerificationNotSupported]];
             return;
         }
-        
+
         // REQUIRED: Javascript resource
         NSString *javascriptUrlString = viewabilityResource[kViewabilityResourceJavascriptUrlKey];
         if (javascriptUrlString == nil) {
@@ -289,7 +289,7 @@ static const struct MPParseResult MPParseResultNone = {
             [parsedTrackers addObjectsFromArray:[self expandTrackingUrls:trackers errorReason:MPVASTVerificationErrorReasonResourceLoadError]];
             return;
         }
-                
+
         // Validate javascript resource has a valid URL
         NSURL *javascriptUrl = [NSURL URLWithString:javascriptUrlString];
         if (javascriptUrl == nil) {
@@ -297,12 +297,12 @@ static const struct MPParseResult MPParseResultNone = {
             [parsedTrackers addObjectsFromArray:[self expandTrackingUrls:trackers errorReason:MPVASTVerificationErrorReasonResourceLoadError]];
             return;
         }
-        
+
         // OPTIONAL: parameters
         // Verification parameters are optional and have different initializers depending
         // on whether there are parameters or not.
         NSString *parameters = viewabilityResource[kViewabilityResourceParametersKey];
-        
+
         // CONDITIONALLY REQUIRED: vendor
         // Vendor is only required when there are parameters.
         NSString *vendor = viewabilityResource[kViewabilityResourceVendorKey];
@@ -311,7 +311,7 @@ static const struct MPParseResult MPParseResultNone = {
             [parsedTrackers addObjectsFromArray:[self expandTrackingUrls:trackers errorReason:MPVASTVerificationErrorReasonResourceLoadError]];
             return;
         }
-        
+
         // Generate the Open Measurement resource script
         OMIDMopubVerificationScriptResource *omidResource = nil;
         if (parameters.length > 0) {
@@ -322,25 +322,25 @@ static const struct MPParseResult MPParseResultNone = {
         else {
             omidResource = [[OMIDMopubVerificationScriptResource alloc] initWithURL:javascriptUrl];
         }
-        
+
         if (omidResource == nil) {
             MPLogWarn(@"Failed to generate OMIDMopubVerificationScriptResource using:\nJavascript URL: %@\nVendor: %@\nParameters: %@", javascriptUrlString, vendor, parameters);
             [parsedTrackers addObjectsFromArray:[self expandTrackingUrls:trackers errorReason:MPVASTVerificationErrorReasonResourceLoadError]];
             return;
         }
-        
+
         [parsedResources addObject:omidResource];
     }];
-    
+
     // Set the results
     if (parsedResources.count > 0) {
         result.resources = parsedResources;
     }
-    
+
     if (parsedTrackers.count > 0) {
         result.notExecutedTrackers = parsedTrackers;
     }
-    
+
     return result;
 }
 
@@ -351,7 +351,7 @@ static const struct MPParseResult MPParseResultNone = {
                          errorReason:(MPVASTVerificationErrorReason)reason {
     // Transform into array of array of URLs
     NSArray<NSURL *> *trackerUrls = [trackers valueForKey:@"URL"];
-    
+
     return [self expandTrackingUrls:trackerUrls errorReason:reason];
 }
 
@@ -363,12 +363,12 @@ static const struct MPParseResult MPParseResultNone = {
     if (trackers.count == 0) {
         return @[];
     }
-    
+
     NSMutableSet<NSURL *> *processedURLs = [NSMutableSet new];
     for (NSURL *url in trackers) {
         [processedURLs addObject:[MPVASTMacroProcessor macroExpandedURLForURL:url verificationErrorReason:reason]];
     }
-    
+
     return processedURLs.allObjects;
 }
 
@@ -379,7 +379,7 @@ static const struct MPParseResult MPParseResultNone = {
     if (context == nil) {
         return;
     }
-    
+
     [self.notExecutedTrackers addObjectsFromArray:context.notExecutedTrackers];
     [self.resources addObjectsFromArray:context.resources];
 }

@@ -1,7 +1,7 @@
 //
-//  MPRewardedVideoConnection.m
+//  MPRewardedAdConnection.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -10,7 +10,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MPRewardedVideoConnection.h"
+#import "MPRewardedAdConnection.h"
 #import "MPHTTPNetworkSession.h"
 #import "MPURLRequest.h"
 
@@ -19,19 +19,19 @@ static const NSTimeInterval kMinimumRequestRetryInterval = 5.0;
 static const NSTimeInterval kMaximumBackoffTime = 60.0;
 static const CGFloat kRetryIntervalBackoffMultiplier = 2.0;
 
-@interface MPRewardedVideoConnection()
+@interface MPRewardedAdConnection()
 
 @property (nonatomic, strong) NSURLSessionTask *task;
 @property (nonatomic) NSURL *url;
 @property (nonatomic) NSUInteger retryCount;
 @property (nonatomic) NSTimeInterval accumulatedRetryInterval;
-@property (nonatomic, weak) id<MPRewardedVideoConnectionDelegate> delegate;
+@property (nonatomic, weak) id<MPRewardedAdConnectionDelegate> delegate;
 
 @end
 
-@implementation MPRewardedVideoConnection
+@implementation MPRewardedAdConnection
 
-- (instancetype)initWithUrl:(NSURL *)url delegate:(id<MPRewardedVideoConnectionDelegate>)delegate
+- (instancetype)initWithUrl:(NSURL *)url delegate:(id<MPRewardedAdConnectionDelegate>)delegate
 {
     if (self = [super init]) {
         _url = url;
@@ -40,7 +40,7 @@ static const CGFloat kRetryIntervalBackoffMultiplier = 2.0;
     return self;
 }
 
-- (void)sendRewardedVideoCompletionRequest
+- (void)sendRewardedAdCompletionRequest
 {
     MPURLRequest *request = [MPURLRequest requestWithURL:self.url];
     [self.task cancel];
@@ -55,7 +55,7 @@ static const CGFloat kRetryIntervalBackoffMultiplier = 2.0;
         if (statusCode >= 500 && statusCode <= 599) {
             [strongSelf retryRewardedVideoCompletionRequest];
         } else {
-            [strongSelf.delegate rewardedVideoConnectionCompleted:strongSelf url:strongSelf.url];
+            [strongSelf.delegate rewardedAdConnectionCompleted:strongSelf url:strongSelf.url];
         }
     } errorHandler:^(NSError * _Nonnull error) {
         __typeof__(self) strongSelf = weakSelf;
@@ -65,7 +65,7 @@ static const CGFloat kRetryIntervalBackoffMultiplier = 2.0;
             error.code == NSURLErrorNotConnectedToInternet) {
             [strongSelf retryRewardedVideoCompletionRequest];
         } else {
-            [strongSelf.delegate rewardedVideoConnectionCompleted:strongSelf url:strongSelf.url];
+            [strongSelf.delegate rewardedAdConnectionCompleted:strongSelf url:strongSelf.url];
         }
     }];
 }
@@ -77,9 +77,9 @@ static const CGFloat kRetryIntervalBackoffMultiplier = 2.0;
     self.accumulatedRetryInterval += retryInterval;
 
     if (self.accumulatedRetryInterval < kMaximumRequestRetryInterval) {
-        [self performSelector:@selector(sendRewardedVideoCompletionRequest) withObject:nil afterDelay:retryInterval];
+        [self performSelector:@selector(sendRewardedAdCompletionRequest) withObject:nil afterDelay:retryInterval];
     } else {
-        [self.delegate rewardedVideoConnectionCompleted:self url:self.url];
+        [self.delegate rewardedAdConnectionCompleted:self url:self.url];
         [self.task cancel];
     }
     self.retryCount++;

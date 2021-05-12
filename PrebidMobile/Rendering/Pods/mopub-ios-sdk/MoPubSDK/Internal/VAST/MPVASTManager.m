@@ -1,7 +1,7 @@
 //
 //  MPVASTManager.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -69,10 +69,9 @@ static NSString * const kMPVASTManagerErrorDomain = @"com.mopub.MPVASTManager";
         return;
     }
 
-    NSError *XMLParserError = nil;
     MPXMLParser *parser = [[MPXMLParser alloc] init];
-    NSDictionary *dictionary = [parser dictionaryWithData:data error:&XMLParserError];
-    if (XMLParserError) {
+    NSDictionary *dictionary = [parser dictionaryWithData:data];
+    if (dictionary == nil || dictionary.count == 0) {
         completion(nil, [NSError errorWithDomain:kMPVASTManagerErrorDomain code:MPVASTErrorXMLParseFailure userInfo:nil]);
         return;
     }

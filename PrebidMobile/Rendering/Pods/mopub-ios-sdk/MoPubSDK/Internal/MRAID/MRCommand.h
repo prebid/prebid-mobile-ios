@@ -1,7 +1,7 @@
 //
 //  MRCommand.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -13,7 +13,6 @@
 
 @protocol MRCommandDelegate <NSObject>
 
-- (void)mrCommand:(MRCommand *)command playVideoWithURL:(NSURL *)url;
 - (void)mrCommand:(MRCommand *)command shouldUseCustomClose:(BOOL)useCustomClose;
 - (void)mrCommand:(MRCommand *)command setOrientationPropertiesWithForceOrientation:(UIInterfaceOrientationMask)forceOrientation;
 - (void)mrCommand:(MRCommand *)command openURL:(NSURL *)url;
@@ -75,11 +74,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 @interface MROpenCommand : MRCommand
-
-@end
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@interface MRPlayVideoCommand : MRCommand
 
 @end

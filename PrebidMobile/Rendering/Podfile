@@ -6,7 +6,7 @@ workspace 'ios-sdk-v3'
 project 'PrebidMobileDemoRendering/PrebidMobileDemoRendering/PrebidMobileDemoRendering.xcodeproj'
 
 def mopub_pods
-  pod 'mopub-ios-sdk', '5.15'
+  pod 'mopub-ios-sdk'
 end
 
 def gma_pods

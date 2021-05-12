@@ -1,7 +1,7 @@
 //
 //  MPMoPubNativeAdAdapter.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -88,7 +88,7 @@ static const CGFloat kMoPubRequiredViewVisibilityPercentage = 0.5;
             _impressionTimer = [[MPAdImpressionTimer alloc] initWithRequiredSecondsForImpression:requiredSecondsForImpression
                                                                           requiredViewVisibilityPixels:config.impressionMinVisiblePixels];
         } else {
-            CGFloat requiredViewVisibilityPercentage = config.isImpressionMinVisiblePercentValid ? (config.impressionMinVisiblePercent / 100.0) : kMoPubRequiredViewVisibilityPercentage;
+            CGFloat requiredViewVisibilityPercentage = config.isImpressionMinVisiblePercentValid ? config.impressionMinVisiblePercent : kMoPubRequiredViewVisibilityPercentage;
             _impressionTimer = [[MPAdImpressionTimer alloc] initWithRequiredSecondsForImpression:requiredSecondsForImpression
                                                                       requiredViewVisibilityPercentage:requiredViewVisibilityPercentage];
         }

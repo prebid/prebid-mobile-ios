@@ -1,7 +1,7 @@
 //
 //  MPAdContainerView+Private.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -15,6 +15,8 @@
 #import "MPViewableVisualEffectView.h"
 #import "MPWebView.h"
 
+@class MPImageCreativeView;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MPAdContainerView ()
@@ -22,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MPAdViewOverlay *overlay;
 @property (nonatomic, strong) MPWebView *webContentView;
+@property (nonatomic, strong) MPImageCreativeView *imageCreativeView;
 
 #pragma mark - Video
 /**

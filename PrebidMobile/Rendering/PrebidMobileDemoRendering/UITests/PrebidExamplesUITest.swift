@@ -326,6 +326,26 @@ class PrebidExamplesUITest: AdsLoaderUITestCase {
                                 callbacks: mopubRewardedCallbacks)
     }
     
+    func testMoPubRewarded_Ok_DeprecatedAPI() {
+        checkRewardedLoadResult(exampleName: "[Deprecated API] Video Rewarded 320x480 (MoPub) [OK, OXB Adapter]",
+                                callbacks: mopubRewardedCallbacks)
+    }
+    
+    func testMoPubRewarded_Ok_Random_DeprecatedAPI() {
+        checkRewardedLoadResult(exampleName: "[Deprecated API] Video Rewarded 320x480 (MoPub) [OK, Random]",
+                                callbacks: mopubRewardedCallbacks)
+    }
+    
+    func testMoPubRewarded_noBids_DeprecatedAPI() {
+        checkRewardedLoadResult(exampleName: "[Deprecated API] Video Rewarded 320x480 (MoPub) [noBids, MoPub Ad]",
+                                callbacks: mopubRewardedCallbacks)
+    }
+    
+    func testMoPubRewarded_noEndCard_Ok_DeprecatedAPI() {
+        checkRewardedLoadResult(exampleName: "[Deprecated API] Video Rewarded 320x480 without End Card (MoPub) [OK, OXB Adapter]",
+                                callbacks: mopubRewardedCallbacks)
+    }
+    
     // MARK: - MRAID
     
     func testMRAID_Resize_PPM() {

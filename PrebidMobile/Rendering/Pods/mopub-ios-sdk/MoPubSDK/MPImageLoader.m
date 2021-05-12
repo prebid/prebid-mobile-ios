@@ -1,15 +1,19 @@
 //
 //  MPImageLoader.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
-#if __has_include(<MoPub/MoPub-Swift.h>)
-    #import <MoPub/MoPub-Swift.h>
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
 #else
-    #import "MoPub-Swift.h"
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
 #endif
 #import "MPImageLoader.h"
 #import "MPLogging.h"
@@ -70,14 +74,19 @@
             __weak __typeof__(self) weakSelf = self;
             [self.imageDownloadQueue addDownloadImageURLs:@[imageURL]
                                           completionBlock:^(NSDictionary <NSURL *, UIImage *> *result, NSArray *errors) {
-                                              __strong __typeof__(self) strongSelf = weakSelf;
-                                              if (strongSelf) {
-                                                  UIImage *image = result[imageURL];
-                                                  if (image != nil && errors.count == 0) {
-                                                      [strongSelf safeMainQueueSetImage:image intoImageView:imageView];
-                                                  }
-                                              }
-                                          }];
+                __strong __typeof__(self) strongSelf = weakSelf;
+                if (strongSelf == nil) {
+                    return;
+                }
+
+                UIImage *image = result[imageURL];
+                if (image != nil && errors.count == 0) {
+                    [strongSelf safeMainQueueSetImage:image intoImageView:imageView];
+                }
+                else {
+                    [strongSelf safeMainQueueFailureToDownloadWithError:errors.firstObject];
+                }
+            }];
         }
     });
 }
@@ -95,6 +104,14 @@
             if ([self.delegate respondsToSelector:@selector(imageLoader:didLoadImageIntoImageView:)]) {
                 [self.delegate imageLoader:self didLoadImageIntoImageView:imageView];
             }
+        }
+    });
+}
+
+- (void)safeMainQueueFailureToDownloadWithError:(NSError *)error {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self.delegate respondsToSelector:@selector(imageLoaderDidFailToLoadImageWithError:)]) {
+            [self.delegate imageLoaderDidFailToLoadImageWithError:error];
         }
     });
 }

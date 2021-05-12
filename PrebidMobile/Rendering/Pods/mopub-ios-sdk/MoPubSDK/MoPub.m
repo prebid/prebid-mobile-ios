@@ -1,19 +1,27 @@
 //
 //  MoPub.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MoPub.h"
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
+#else
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
+#endif
 #import "MPAdServerURLBuilder.h"
 #import "MPConsentManager.h"
 #import "MPConstants.h"
-#import "MPDeviceInformation.h"
 #import "MPLogging.h"
 #import "MPMediationManager.h"
-#import "MPRewardedVideo.h"
+#import "MPRewardedAds.h"
 #import "MPIdentityProvider.h"
 #import "MPWebView.h"
 #import "MOPUBExperimentProvider.h"
@@ -60,8 +68,6 @@ static NSString * const kPublisherEnteredAdUnitIdStorageKey = @"com.mopub.mopub-
  */
 - (void)commonInitWithExperimentProvider:(MOPUBExperimentProvider *)experimentProvider
 {
-    // Processing personal data if a user is in GDPR region.
-    [self handlePersonalData];
     _experimentProvider = experimentProvider;
 }
 
@@ -139,6 +145,8 @@ static NSString * const kPublisherEnteredAdUnitIdStorageKey = @"com.mopub.mopub-
         }
         MPConsentManager.sharedManager.adUnitIdUsedForConsent = configuration.adUnitIdForAppInitialization;
         MPConsentManager.sharedManager.allowLegitimateInterest = configuration.allowLegitimateInterest;
+        // Process personal data if a user is in GDPR region.
+        [[MPConsentManager sharedManager] checkForIfaChange];
         [MPConsentManager.sharedManager checkForDoNotTrackAndTransition];
         [MPConsentManager.sharedManager synchronizeConsentWithCompletion:^(NSError * _Nullable error) {
             dispatch_group_leave(initializationGroup);
@@ -164,6 +172,12 @@ static NSString * const kPublisherEnteredAdUnitIdStorageKey = @"com.mopub.mopub-
             dispatch_group_leave(initializationGroup);
         }];
 
+        // Start MPDeviceInformation to pre-cache carrier information.
+        dispatch_group_enter(initializationGroup);
+        [MPDeviceInformation startWithCompletion:^{
+            dispatch_group_leave(initializationGroup);
+        }];
+
         // Once all of the asynchronous tasks have completed, notify the
         // completion handler.
         dispatch_group_notify(initializationGroup, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -174,11 +188,6 @@ static NSString * const kPublisherEnteredAdUnitIdStorageKey = @"com.mopub.mopub-
             }
         });
     }
-}
-
-- (void)handlePersonalData
-{
-    [[MPConsentManager sharedManager] checkForIfaChange];
 }
 
 - (id<MPMediationSettingsProtocol>)globalMediationSettingsForClass:(Class)aClass
@@ -206,7 +215,14 @@ static NSString * const kPublisherEnteredAdUnitIdStorageKey = @"com.mopub.mopub-
 
 - (void)setEngineInformation:(MPEngineInfo *)info
 {
-    MPAdServerURLBuilder.engineInformation = info;
+    MPAdServerURLBuilder.engineName = info.name;
+    MPAdServerURLBuilder.engineVersion = info.version;
+}
+
+- (void)setEngineName:(NSString *)name version:(NSString *)version
+{
+    MPAdServerURLBuilder.engineName = name;
+    MPAdServerURLBuilder.engineVersion = version;
 }
 
 @end

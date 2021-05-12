@@ -1,7 +1,7 @@
 //
 //  MPAdConfiguration.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -14,6 +14,7 @@
 #import "MPVideoEvent.h"
 #import "MPViewabilityContext.h"
 
+@class MPImageCreativeData;
 @class MPReward;
 @class MPVASTTrackingEvent;
 
@@ -67,6 +68,7 @@ extern NSString * const kAdTypeNative;
 extern NSString * const kAdTypeRewardedVideo;
 extern NSString * const kAdTypeRewardedPlayable;
 extern NSString * const kAdTypeVAST;
+extern NSString * const kAdTypeFullscreen;
 
 extern NSString * const kClickthroughExperimentBrowserAgent;
 
@@ -104,18 +106,18 @@ extern NSString * const kBannerImpressionMinPixelMetadataKey;
 @property (nonatomic, copy) NSString *creativeId;
 @property (nonatomic, copy) NSString *metadataAdType;
 @property (nonatomic, assign) CGFloat nativeImpressionMinVisiblePixels;
-@property (nonatomic, assign) NSInteger nativeImpressionMinVisiblePercent; // The pixels Metadata takes priority over percentage, but percentage is left for backwards compatibility
+@property (nonatomic, assign) CGFloat nativeImpressionMinVisiblePercent; // The pixels Metadata takes priority over percentage, but percentage is left for backwards compatibility
 @property (nonatomic, assign) NSTimeInterval nativeImpressionMinVisibleTimeInterval;
 @property (nonatomic) NSDictionary<MPVideoEvent, NSArray<MPVASTTrackingEvent *> *> *vastVideoTrackers;
 @property (nonatomic, readonly) NSArray<MPReward *> *availableRewards;
 @property (nonatomic, strong) MPReward *selectedReward;
 @property (nonatomic, strong) NSArray<NSString *> *rewardedVideoCompletionUrls;
 @property (nonatomic, assign) NSTimeInterval rewardedDuration;
-@property (nonatomic, assign) BOOL rewardedPlayableShouldRewardOnClick;
 @property (nonatomic, copy) NSString *advancedBidPayload;
 @property (nonatomic, strong) MPImpressionData *impressionData;
 @property (nonatomic, strong) MPSKAdNetworkClickthroughData *skAdNetworkClickthroughData;
 @property (nonatomic, assign) BOOL enableEarlyClickthroughForNonRewardedVideo;
+@property (nonatomic, strong) MPImageCreativeData *imageCreativeData; // Will be nil if unable to parse
 
 @property (nonatomic, strong, readonly) MPViewabilityContext *viewabilityContext;
 

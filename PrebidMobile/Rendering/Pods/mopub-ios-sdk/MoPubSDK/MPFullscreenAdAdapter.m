@@ -1,7 +1,7 @@
 //
 //  MPFullscreenAdAdapter.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -15,6 +15,7 @@
 #import "MPConstants.h"
 #import "MPCoreInstanceProvider.h"
 #import "MPError.h"
+#import "MPFullscreenAdAdapter+Image.h"
 #import "MPFullscreenAdAdapter+MPAdAdapter.h"
 #import "MPFullscreenAdAdapter+MPFullscreenAdAdapterDelegate.h"
 #import "MPFullscreenAdAdapter+MPFullscreenAdViewControllerDelegate.h"
@@ -29,6 +30,16 @@
 #import "MPLogging.h"
 #import "MPOpenMeasurementTracker.h"
 #import "NSObject+MPAdditions.h"
+
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
+#else
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
+#endif
 
 static const NSUInteger kExcessiveCustomDataLength = 8196;
 
@@ -46,7 +57,7 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
     [self.adDestinationDisplayAgent cancel];
     [self.timeoutTimer invalidate];
 
-    // The rewarded video system now no longer holds references to the adapter. The adapter
+    // The rewarded ad system now no longer holds references to the adapter. The adapter
     // may have a system that holds extra references to the adapter. Let's tell the adapter
     // that we no longer need it.
     [self handleDidInvalidateAd];
@@ -78,6 +89,9 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
     self.localExtras = localExtras;
 
     switch (self.adContentType) {
+        case MPAdContentTypeImage:
+            _adDestinationDisplayAgent = [MPAdDestinationDisplayAgent agentWithDelegate:self];
+            break;
         case MPAdContentTypeVideo:
             _adDestinationDisplayAgent = [MPAdDestinationDisplayAgent agentWithDelegate:self];
             _mediaFileCache = [MPDiskLRUCache sharedDiskCache];
@@ -113,7 +127,7 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
 
     if (timeInterval > 0) {
         __typeof__(self) __weak weakSelf = self;
-        self.timeoutTimer = [MPTimer timerWithTimeInterval:timeInterval repeats:NO block:^(MPTimer * _Nonnull timer) {
+        self.timeoutTimer = [[MPResumableTimer alloc] initWithInterval:timeInterval repeats:NO runLoopMode:NSDefaultRunLoopMode closure:^(MPResumableTimer *timer) {
             __typeof__(self) strongSelf = weakSelf;
             [strongSelf timeout];
         }];
@@ -122,7 +136,7 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
 }
 
 - (void)timeout {
-    NSError *error = [NSError errorWithCode:MOPUBErrorAdRequestTimedOut localizedDescription:@"Rewarded video ad request timed out"];
+    NSError *error = [NSError errorWithCode:MOPUBErrorAdRequestTimedOut localizedDescription:@"Rewarded ad request timed out"];
     [self.adapterDelegate adapter:self didFailToLoadAdWithError:error];
     self.adapterDelegate = nil;
 }
@@ -205,9 +219,6 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
             if (self.enableAutomaticImpressionAndClickTracking) {
                 [self trackClick];
             }
-            [self provideRewardToUser:self.configuration.selectedReward
-           forRewardCountdownComplete:NO
-                      forUserInteract:YES];
             [self.adapterDelegate adAdapter:self handleFullscreenAdEvent:event];
             break;
         // intentionally fall through for default delegate callback
@@ -332,6 +343,9 @@ static const NSUInteger kExcessiveCustomDataLength = 8196;
             break; // no op
         case MPAdContentTypeVideo:
             [self fetchAndLoadVideoAd];
+            break;
+        case MPAdContentTypeImage:
+            [self loadImageAd];
             break;
         case MPAdContentTypeWebNoMRAID:
             self.viewController = [[MPFullscreenAdViewController alloc] initWithAdContentType:self.adContentType];

@@ -1,7 +1,7 @@
 //
 //  MPNativeAdConfigValues.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -11,11 +11,11 @@
 @interface MPNativeAdConfigValues : NSObject
 
 @property (nonatomic, readonly) CGFloat impressionMinVisiblePixels;
-@property (nonatomic, readonly) NSInteger impressionMinVisiblePercent;
+@property (nonatomic, readonly) CGFloat impressionMinVisiblePercent;
 @property (nonatomic, readonly) NSTimeInterval impressionMinVisibleSeconds;
 
 - (instancetype)initWithImpressionMinVisiblePixels:(CGFloat)impressionMinVisiblePixels
-                       impressionMinVisiblePercent:(NSInteger)impressionMinVisiblePercent
+                       impressionMinVisiblePercent:(CGFloat)impressionMinVisiblePercent
                        impressionMinVisibleSeconds:(NSTimeInterval)impressionMinVisibleSeconds NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, readonly) BOOL isImpressionMinVisiblePercentValid;

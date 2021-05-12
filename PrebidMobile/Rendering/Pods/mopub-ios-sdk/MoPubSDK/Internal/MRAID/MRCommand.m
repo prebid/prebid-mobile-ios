@@ -1,7 +1,7 @@
 //
 //  MRCommand.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -22,7 +22,6 @@
         [self registerCommand:[MRUseCustomCloseCommand self]];
         [self registerCommand:[MRSetOrientationPropertiesCommand self]];
         [self registerCommand:[MROpenCommand self]];
-        [self registerCommand:[MRPlayVideoCommand self]];
     }
 }
 
@@ -305,30 +304,6 @@
 - (BOOL)executeWithParams:(NSDictionary *)params
 {
     [self.delegate mrCommand:self openURL:[self urlFromParameters:params forKey:@"url"]];
-
-    return YES;
-}
-
-@end
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-@implementation MRPlayVideoCommand
-
-+ (NSString *)commandType
-{
-    return @"playVideo";
-}
-
-- (BOOL)requiresUserInteractionForPlacementType:(NSUInteger)placementType
-{
-    // allow interstitials to auto-play video
-    return placementType != MRAdViewPlacementTypeInterstitial;
-}
-
-- (BOOL)executeWithParams:(NSDictionary *)params
-{
-    [self.delegate mrCommand:self playVideoWithURL:[self urlFromParameters:params forKey:@"uri"]];
 
     return YES;
 }

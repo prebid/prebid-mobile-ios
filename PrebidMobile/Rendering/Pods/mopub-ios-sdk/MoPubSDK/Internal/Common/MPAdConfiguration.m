@@ -1,7 +1,7 @@
 //
 //  MPAdConfiguration.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -27,6 +27,16 @@
 
 #if __has_include("MPVASTTrackingEvent.h")
 #import "MPVASTTrackingEvent.h"
+#endif
+
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
+#else
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
 #endif
 
 // MACROS
@@ -77,10 +87,11 @@ NSString * const kAdTypeClear = @"clear";
 NSString * const kAdTypeNative = @"json";
 NSString * const kAdTypeRewardedVideo = @"rewarded_video";
 NSString * const kAdTypeRewardedPlayable = @"rewarded_playable";
+NSString * const kAdTypeFullscreen = @"fullscreen";
 NSString * const kAdTypeVAST = @"vast"; // a possible value of "x-fulladtype"
 NSString * const kAdTypeCustom = @"custom"; // do not overwrite "custom" ad type with full ad type
 
-// rewarded video
+// rewarded
 NSString * const kRewardedVideoCurrencyNameMetadataKey = @"x-rewarded-video-currency-name";
 NSString * const kRewardedVideoCurrencyAmountMetadataKey = @"x-rewarded-video-currency-amount";
 NSString * const kRewardedVideoCompletionUrlMetadataKey = @"x-rewarded-video-completion-url";
@@ -219,6 +230,8 @@ NSString * const kVASTClickabilityExperimentKey = @"vast-click-enabled";
 
     self.enableEarlyClickthroughForNonRewardedVideo = [metadata mp_boolForKey:kVASTClickabilityExperimentKey defaultValue:NO];
 
+    self.imageCreativeData = [[MPImageCreativeData alloc] initWithServerResponseData:data];
+
     // Organize impression tracking URLs
     NSArray <NSURL *> * URLs = [self URLsFromMetadata:metadata forKey:kImpressionTrackersMetadataKey];
     // Check to see if the array actually contains URLs
@@ -229,7 +242,7 @@ NSString * const kVASTClickabilityExperimentKey = @"vast-click-enabled";
         self.impressionTrackingURLs = [self URLsFromMetadata:metadata forKey:kImpressionTrackerMetadataKey];
     }
 
-    // rewarded video
+    // rewarded
 
     // Attempt to parse the multiple currency Metadata first since this will take
     // precedence over the older single currency approach.
@@ -266,7 +279,6 @@ NSString * const kVASTClickabilityExperimentKey = @"vast-click-enabled";
 
     // rewarded playables
     self.rewardedDuration = [self timeIntervalFromMetadata:metadata forKey:kRewardedDurationMetadataKey];
-    self.rewardedPlayableShouldRewardOnClick = [[metadata objectForKey:kRewardedPlayableRewardOnClickMetadataKey] boolValue];
 
     // clickthrough experiment
     self.clickthroughExperimentBrowserAgent = [self clickthroughExperimentVariantFromMetadata:metadata forKey:kClickthroughExperimentBrowserAgent];
@@ -295,17 +307,23 @@ NSString * const kVASTClickabilityExperimentKey = @"vast-click-enabled";
 {
     NSDictionary *adapterTable;
     if (self.isFullscreenAd) {
-        adapterTable = @{@"admob_full": @"MPGoogleAdMobInterstitialCustomEvent", // optional class
-        kAdTypeHtml: NSStringFromClass([MPMoPubFullscreenAdAdapter class]),
-        kAdTypeMraid: NSStringFromClass([MPMoPubFullscreenAdAdapter class]),
-        kAdTypeRewardedVideo: NSStringFromClass([MPMoPubFullscreenAdAdapter class]),
-        kAdTypeRewardedPlayable: NSStringFromClass([MPMoPubFullscreenAdAdapter class]),
-        kAdTypeVAST: NSStringFromClass([MPMoPubFullscreenAdAdapter class])};
+        adapterTable = @{
+            @"admob_full": @"MPGoogleAdMobInterstitialCustomEvent", // optional class
+            kAdTypeHtml: NSStringFromClass([MPMoPubFullscreenAdAdapter class]),
+            kAdTypeMraid: NSStringFromClass([MPMoPubFullscreenAdAdapter class]),
+            kAdTypeRewardedVideo: NSStringFromClass([MPMoPubFullscreenAdAdapter class]),
+            kAdTypeRewardedPlayable: NSStringFromClass([MPMoPubFullscreenAdAdapter class]),
+            kAdTypeFullscreen: NSStringFromClass([MPMoPubFullscreenAdAdapter class]),
+            kAdTypeVAST: NSStringFromClass([MPMoPubFullscreenAdAdapter class]),
+            kAdTypeNative: NSStringFromClass([MPMoPubFullscreenAdAdapter class]) // Native static image ads
+        };
     } else {
-        adapterTable = @{@"admob_native": @"MPGoogleAdMobBannerCustomEvent", // optional class
-        kAdTypeHtml: NSStringFromClass([MPHTMLBannerCustomEvent class]),
-        kAdTypeMraid: NSStringFromClass([MPMoPubInlineAdAdapter class]),
-        kAdTypeNative: @"MPMoPubNativeCustomEvent"};        // optional native class
+        adapterTable = @{
+            @"admob_native": @"MPGoogleAdMobBannerCustomEvent", // optional class
+            kAdTypeHtml: NSStringFromClass([MPHTMLBannerCustomEvent class]),
+            kAdTypeMraid: NSStringFromClass([MPMoPubInlineAdAdapter class]),
+            kAdTypeNative: @"MPMoPubNativeCustomEvent" // optional native class
+        };
     }
 
     NSString *adapterClassName = metadata[kCustomEventClassNameMetadataKey];
@@ -358,11 +376,15 @@ NSString * const kVASTClickabilityExperimentKey = @"vast-click-enabled";
     }
     else if ([self.adType isEqualToString:kAdTypeMraid]
              || [self.adType isEqualToString:kAdTypeRewardedPlayable]
-             || [self.adType isEqualToString:kAdTypeRewardedVideo]) {
+             || [self.adType isEqualToString:kAdTypeRewardedVideo]
+             || [self.adType isEqualToString:kAdTypeFullscreen]) {
         return MPAdContentTypeWebWithMRAID;
     }
     else if ([self.adType isEqualToString:kAdTypeVAST]) {
         return MPAdContentTypeVideo;
+    }
+    else if ([self.adType isEqualToString:kAdTypeNative]) {
+        return MPAdContentTypeImage;
     }
     else {
         return MPAdContentTypeUndefined;
@@ -440,7 +462,7 @@ NSString * const kVASTClickabilityExperimentKey = @"vast-click-enabled";
 
 - (BOOL)isRewarded
 {
-    return [self.format isEqualToString:kAdTypeRewardedVideo] || [self.format isEqualToString:kAdTypeRewardedPlayable];
+    return self.rewardedDuration > 0;
 }
 
 #pragma mark - Private
@@ -595,9 +617,9 @@ NSString * const kVASTClickabilityExperimentKey = @"vast-click-enabled";
     return interval;
 }
 
-- (NSInteger)percentFromMetadata:(NSDictionary *)metadata forKey:(NSString *)key
+- (CGFloat)percentFromMetadata:(NSDictionary *)metadata forKey:(NSString *)key
 {
-    return [metadata mp_integerForKey:key defaultValue:-1];
+    return ([metadata mp_integerForKey:key defaultValue:-100]) / 100.0f ;
 
 }
 

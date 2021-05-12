@@ -1,7 +1,7 @@
 //
 //  MPEngineInfo.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  SDK Engine information specifying the wrapper name and version for the MoPub SDK.
  */
+DEPRECATED_MSG_ATTRIBUTE("MPEngineInfo is deprecated.")
 @interface MPEngineInfo : NSObject <NSCoding>
 /**
  Name of the engine using the MoPub SDK. This field is @c nil for platform native integrations.

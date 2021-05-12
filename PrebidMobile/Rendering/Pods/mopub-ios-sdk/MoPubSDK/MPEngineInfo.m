@@ -1,13 +1,16 @@
 //
 //  MPEngineInfo.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPEngineInfo.h"
 #import "MPAdServerKeys.h"
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-implementations"
 
 @implementation MPEngineInfo
 
@@ -53,3 +56,5 @@
 }
 
 @end
+
+#pragma GCC diagnostic pop

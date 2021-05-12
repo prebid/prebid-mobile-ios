@@ -1,7 +1,7 @@
 //
 //  MPLogEvent.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -88,8 +88,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)adTapped;
 + (instancetype)adWillAppear;
 + (instancetype)adDidAppear;
-+ (instancetype)adWillDisappear;
-+ (instancetype)adDidDisappear;
++ (instancetype)adWillDismiss;
++ (instancetype)adDidDismiss;
 + (instancetype)adShouldRewardUserWithReward:(MPReward *)reward;
 + (instancetype)adWillLeaveApplication;
 @end

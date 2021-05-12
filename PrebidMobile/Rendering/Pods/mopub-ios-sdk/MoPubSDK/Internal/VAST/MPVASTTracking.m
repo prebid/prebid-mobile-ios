@@ -1,7 +1,7 @@
 //
 //  MPVASTTracking.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -228,6 +228,8 @@ disallowPreviouslySentURLs:(BOOL)disallowPreviouslySentURLs
             return @"General Linear error. Media player is unable to display the Linear Ad.";
         case MPVASTErrorTimeoutOfMediaFileURI:
             return @"File not found. Unable to find Linear/MediaFile from URI.";
+        case MPVASTErrorSupportedMediaFileNotFound:
+            return @"File not supported. Unable to play Linear/MediaFile.";
         case MPVASTErrorMezzanineIsBeingProccessed:
             return @"Mezzanine is in the process of being downloaded for the first time.";
         case MPVASTErrorGeneralCompanionAdsError:

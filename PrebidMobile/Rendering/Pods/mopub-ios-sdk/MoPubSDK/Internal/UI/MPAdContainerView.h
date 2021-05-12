@@ -1,7 +1,7 @@
 //
 //  MPAdContainerView.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -16,6 +16,8 @@
 #import "MPWebView.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@class MPImageCreativeView;
 
 @protocol MPAdContainerViewWebAdDelegate;
 
@@ -33,7 +35,21 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) id<MPVideoPlayerDelegate> videoPlayerDelegate; // only for video ads
 @property (nonatomic, weak) id<MPCountdownTimerDelegate> countdownTimerDelegate;
 
+/**
+ Initializes @c MPAdContainerView to a given frame with a given web content view.
+
+ @param frame The frame of the view
+ @param webContentView The web view that will contain the content of the ad
+ */
 - (instancetype)initWithFrame:(CGRect)frame webContentView:(MPWebView *)webContentView;
+
+/**
+ Initializes @c MPAdContainerView to a given frame with a given image content view.
+
+ @param frame The frame of the view
+ @param imageCreativeView The image view that will contain the content of the ad
+ */
+- (instancetype)initWithFrame:(CGRect)frame imageCreativeView:(MPImageCreativeView *)imageCreativeView;
 
 /**
  Provided the ad size and Close button location, returns the frame of the Close button.
@@ -59,6 +75,16 @@ NS_ASSUME_NONNULL_BEGIN
  Show the countdown timer.
  */
 - (void)showCountdownTimer:(NSTimeInterval)duration;
+
+/**
+ Pauses the countdown timer.
+ */
+- (void)pauseCountdownTimer;
+
+/**
+ Resumes a paused countdown timer.
+ */
+- (void)resumeCountdownTimer;
 
 @end
 

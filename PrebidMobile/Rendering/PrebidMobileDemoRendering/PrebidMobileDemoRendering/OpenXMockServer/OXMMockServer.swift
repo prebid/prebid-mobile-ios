@@ -23,7 +23,7 @@ public final class PBMMockServer {
     
     public func getLogs() {
         requestManager.makeRequestWithParsing(method: .get, endpoint: .getLogs())
-            .catchError { error -> Observable<Requests> in
+            .catch { error -> Observable<Requests> in
                 print(error.localizedDescription)
                 return .empty()
             }
@@ -35,7 +35,7 @@ public final class PBMMockServer {
     
     public func setRandomNoBids() {
         requestManager.makeRequestWithParsing(method: .post, endpoint: .setRandomNoBids())
-            .catchError { error -> Observable<Requests> in
+            .catch { error -> Observable<Requests> in
                 print(error.localizedDescription)
                 return .empty()
             }
@@ -46,7 +46,7 @@ public final class PBMMockServer {
     
     public func cancelRandomNoBids() {
         requestManager.makeRequestWithParsing(method: .get, endpoint: .cancelRandomNoBids())
-            .catchError { error -> Observable<Requests> in
+            .catch { error -> Observable<Requests> in
                 print(error.localizedDescription)
                 return .empty()
             }
@@ -59,7 +59,7 @@ public final class PBMMockServer {
         let parameters = ["auid": auid, "mock": mock, "type": type.rawValue]
         requestManager.makeRequestWithParsing(method: .post, endpoint: .addMock(),
                                               parameters: parameters)
-            .catchError { error -> Observable<AddMockResponse> in
+            .catch { error -> Observable<AddMockResponse> in
                 print(error.localizedDescription)
                 return .empty()
             }

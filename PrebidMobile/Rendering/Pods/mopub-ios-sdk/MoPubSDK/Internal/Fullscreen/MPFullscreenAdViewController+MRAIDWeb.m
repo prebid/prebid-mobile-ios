@@ -1,7 +1,7 @@
 //
 //  MPFullscreenAdViewController+MRAIDWeb.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -60,6 +60,9 @@
 
 - (void)fullscreenMRAIDWebAdWillAppear {
     [self.mraidController enableRequestHandling];
+
+    // Resume reward timer
+    [self resumeTimer];
 }
 
 - (void)fullscreenMRAIDWebAdDidAppear {
@@ -68,6 +71,9 @@
 
 - (void)fullscreenMRAIDWebAdWillDisappear {
     [self.mraidController disableRequestHandling];
+
+    // pause reward timer upon click
+    [self pauseTimer];
 }
 
 - (void)fullscreenMRAIDWebAdDidDisappear {

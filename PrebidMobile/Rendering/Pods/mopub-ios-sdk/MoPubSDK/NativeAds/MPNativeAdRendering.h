@@ -1,7 +1,7 @@
 //
 //  MPNativeAdRendering.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -74,14 +74,6 @@
  of "Sponsored by <sponsorName>"
  */
 + (NSString *)localizedSponsoredByTextWithSponsorName:(NSString *)sponsorName;
-
-/**
- Return the UIView that your view is using for the video.
- You only need to implement this when you are serving video ads.
-
- @return a UIView that is used to hold the video.
- */
-- (UIView *)nativeVideoView __attribute__((deprecated("This API is deprecated and will be removed in a future version.")));
 
 /**
  Returns the UILabel that your view is using for the call to action (cta) text.

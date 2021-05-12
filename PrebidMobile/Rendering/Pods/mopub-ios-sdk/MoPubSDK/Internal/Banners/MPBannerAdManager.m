@@ -1,7 +1,7 @@
 //
 //  MPBannerAdManager.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -12,7 +12,6 @@
 #import "MPCoreInstanceProvider.h"
 #import "MPBannerAdManagerDelegate.h"
 #import "MPError.h"
-#import "MPTimer.h"
 #import "MPConstants.h"
 #import "MPLogging.h"
 #import "MPStopwatch.h"
@@ -20,6 +19,16 @@
 #import "NSMutableArray+MPAdditions.h"
 #import "NSDate+MPAdditions.h"
 #import "NSError+MPAdditions.h"
+
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
+#else
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
+#endif
 
 @interface MPBannerAdManager ()
 
@@ -30,7 +39,7 @@
 @property (nonatomic, strong) MPAdConfiguration *requestingConfiguration;
 @property (nonatomic, strong) MPAdTargeting *targeting;
 @property (nonatomic, strong) NSMutableArray<MPAdConfiguration *> *remainingConfigurations;
-@property (nonatomic, strong) MPTimer *refreshTimer;
+@property (nonatomic, strong) MPResumableTimer *refreshTimer;
 @property (nonatomic, strong) NSURL *mostRecentlyLoadedURL; // ADF-4286: avoid infinite ad reloads
 @property (nonatomic, assign) BOOL adActionInProgress;
 @property (nonatomic, assign) BOOL automaticallyRefreshesContents;
@@ -101,6 +110,27 @@
         return;
     }
 
+    // Validate that the creative safe size has valid values. This is to handle
+    // the case where the caller has specified a flexible dimension constant without
+    // actually specifying a frame size, or the frame size has not been set.
+    if (targeting.creativeSafeSize.width <= 0) {
+        NSError *error = [NSError frameWidthNotSetForFlexibleSize];
+        MPLogEvent *event = [MPLogEvent error:error message:nil];
+        MPLogEvent(event);
+
+        [self.delegate managerDidFailToLoadAdWithError:error];
+        return;
+    }
+
+    if (targeting.creativeSafeSize.height <= 0) {
+        NSError *error = [NSError frameHeightNotSetForFlexibleSize];
+        MPLogEvent *event = [MPLogEvent error:error message:nil];
+        MPLogEvent(event);
+
+        [self.delegate managerDidFailToLoadAdWithError:error];
+        return;
+    }
+
     self.targeting = targeting;
     [self loadAdWithURL:nil];
 }
@@ -130,7 +160,7 @@
 - (void)resumeRefreshTimer
 {
     if ([self.refreshTimer isValid]) {
-        [self.refreshTimer resume];
+        [self.refreshTimer scheduleNow];
     }
 }
 
@@ -146,7 +176,7 @@
     self.automaticallyRefreshesContents = YES;
 
     if ([self.refreshTimer isValid]) {
-        [self.refreshTimer resume];
+        [self.refreshTimer scheduleNow];
     } else if (self.refreshTimer) {
         [self scheduleRefreshTimer];
     }
@@ -190,7 +220,7 @@
 
     if (self.automaticallyRefreshesContents && timeInterval > 0) {
         __typeof__(self) __weak weakSelf = self;
-        self.refreshTimer = [MPTimer timerWithTimeInterval:timeInterval repeats:NO block:^(MPTimer * _Nonnull timer) {
+        self.refreshTimer = [[MPResumableTimer alloc] initWithInterval:timeInterval repeats:NO runLoopMode:NSDefaultRunLoopMode closure:^(MPResumableTimer *timer) {
             __typeof__(self) strongSelf = weakSelf;
             [strongSelf refreshTimerDidFire];
         }];

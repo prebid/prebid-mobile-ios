@@ -1,14 +1,23 @@
 //
 //  MPCountdownTimerView.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPCountdownTimerView.h"
 #import "MPLogging.h"
-#import "MPTimer.h"
+
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
+#else
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
+#endif
 
 static NSTimeInterval const kCountdownTimerInterval = 0.05; // internal timer firing frequency in seconds
 static CGFloat const kTimerStartAngle = -M_PI * 0.5; // 12 o'clock position
@@ -26,7 +35,7 @@ static NSString * const kAnimationKey = @"Timer";
 
 @property (nonatomic, copy) void(^completionBlock)(BOOL);
 @property (nonatomic, assign) NSTimeInterval remainingSeconds;
-@property (nonatomic, strong) MPTimer * timer; // timer instantiation is deferred to `start`
+@property (nonatomic, strong) MPResumableTimer * timer; // timer instantiation is deferred to `start`
 @property (nonatomic, strong) CAShapeLayer * backgroundRingLayer;
 @property (nonatomic, strong) CAShapeLayer * animatingRingLayer;
 @property (nonatomic, strong) UILabel * countdownLabel;
@@ -150,10 +159,11 @@ static NSString * const kAnimationKey = @"Timer";
 
     // Fire the timer
     __typeof__(self) __weak weakSelf = self;
-    self.timer = [MPTimer timerWithTimeInterval:kCountdownTimerInterval repeats:YES block:^(MPTimer * _Nonnull timer) {
+    self.timer = [[MPResumableTimer alloc] initWithInterval:kCountdownTimerInterval repeats:YES runLoopMode:NSDefaultRunLoopMode closure:^(MPResumableTimer *timer) {
         __typeof__(self) strongSelf = weakSelf;
         [strongSelf onTimerUpdate:timer];
     }];
+
     [self.timer scheduleNow];
 
     MPLogInfo(@"MPCountdownTimerView started");
@@ -215,7 +225,7 @@ static NSString * const kAnimationKey = @"Timer";
         MPLogInfo(@"MPCountdownTimerView is already running");
         return; // avoid wrong animation timing
     }
-    [self.timer resume];
+    [self.timer scheduleNow];
 
     // See documentation for pausing and resuming animation:
     // https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreAnimation_guide/AdvancedAnimationTricks/AdvancedAnimationTricks.html
@@ -229,9 +239,9 @@ static NSString * const kAnimationKey = @"Timer";
     MPLogInfo(@"MPCountdownTimerView resumed");
 }
 
-#pragma mark - MPTimer
+#pragma mark - MPResumableTimer
 
-- (void)onTimerUpdate:(MPTimer *)sender {
+- (void)onTimerUpdate:(MPResumableTimer *)sender {
     // Update the count.
     self.remainingSeconds -= kCountdownTimerInterval;
     self.countdownLabel.text = [NSString stringWithFormat:@"%.0f", ceil(self.remainingSeconds)];

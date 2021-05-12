@@ -1,7 +1,7 @@
 //
 //  MPFullscreenAdViewController.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -71,9 +71,10 @@
                 // intentional `switch` fallthrough: no op, countdown timer is controlled by the video player logic
                 break;
             }
+            case MPAdContentTypeImage:
             case MPAdContentTypeWebNoMRAID:
             case MPAdContentTypeWebWithMRAID:
-                // intentional `switch` fallthrough for web ads
+                // intentional `switch` fallthrough for web and image ads
                 if (strongSelf.rewardCountdownDuration > 0) {
                     [strongSelf.adContainerView showCountdownTimer:strongSelf.rewardCountdownDuration];
                 }
@@ -119,6 +120,7 @@
 
     switch (self.adContentType) {
         case MPAdContentTypeUndefined:
+        case MPAdContentTypeImage:
         case MPAdContentTypeVideo: {
             return super.supportedInterfaceOrientations;
         }
@@ -157,6 +159,7 @@
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     switch (self.adContentType) {
         case MPAdContentTypeUndefined:
+        case MPAdContentTypeImage:
         case MPAdContentTypeVideo: {
             return super.preferredInterfaceOrientationForPresentation;
         }
@@ -188,6 +191,8 @@
     switch (self.adContentType) {
         case MPAdContentTypeUndefined:
             break; // no op
+        case MPAdContentTypeImage:
+            // Intentional fall-through to video logic
         case MPAdContentTypeVideo:
             // Use a `MPAdContainerView` instead of the plain `UIView` for `self.view` because
             // `adContainerView` is allocated in `initWithVideoURL:videoConfig:`
@@ -214,6 +219,8 @@
             break;
         case MPAdContentTypeVideo:
             break;
+        case MPAdContentTypeImage:
+            break;
         case MPAdContentTypeWebNoMRAID:
             [self fullscreenWebAdWillAppear];
             break;
@@ -231,6 +238,8 @@
         case MPAdContentTypeUndefined:
             break;
         case MPAdContentTypeVideo:
+            break;
+        case MPAdContentTypeImage:
             break;
         case MPAdContentTypeWebNoMRAID:
             [self fullscreenWebAdDidAppear];
@@ -250,6 +259,8 @@
             break;
         case MPAdContentTypeVideo:
             break;
+        case MPAdContentTypeImage:
+            break;
         case MPAdContentTypeWebNoMRAID:
             [self fullscreenWebAdWillDisappear];
             break;
@@ -267,6 +278,8 @@
         case MPAdContentTypeUndefined:
             break;
         case MPAdContentTypeVideo:
+            break;
+        case MPAdContentTypeImage:
             break;
         case MPAdContentTypeWebNoMRAID:
             [self fullscreenWebAdDidDisappear];
@@ -292,6 +305,9 @@
         case MPAdContentTypeVideo:
             // no op
             break;
+        case MPAdContentTypeImage:
+            // no op
+            break;
         case MPAdContentTypeWebNoMRAID:
             [self willPresentFullscreenWebAd];
             break;
@@ -312,6 +328,9 @@
         case MPAdContentTypeVideo:
             // no op
             break;
+        case MPAdContentTypeImage:
+            // no op
+            break;
         case MPAdContentTypeWebNoMRAID:
             [self didPresentFullscreenWebAd];
             break;
@@ -329,6 +348,8 @@
         case MPAdContentTypeUndefined:
             break;
         case MPAdContentTypeVideo:
+            break;
+        case MPAdContentTypeImage:
             break;
         case MPAdContentTypeWebNoMRAID:
             [self willDismissFullscreenWebAd];
@@ -350,6 +371,8 @@
             break;
         case MPAdContentTypeVideo:
             break;
+        case MPAdContentTypeImage:
+            break;
         case MPAdContentTypeWebNoMRAID:
             [self didDismissFullscreenWebAd];
             break;
@@ -359,6 +382,16 @@
     }
 
     [self.appearanceDelegate fullscreenAdDidDismiss:self];
+}
+
+#pragma mark - Timer methods
+
+- (void)pauseTimer {
+    [self.adContainerView pauseCountdownTimer];
+}
+
+- (void)resumeTimer {
+    [self.adContainerView resumeCountdownTimer];
 }
 
 @end

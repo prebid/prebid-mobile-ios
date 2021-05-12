@@ -1,7 +1,7 @@
 //
 //  MPFullscreenAdAdapter+Reward.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -18,9 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSTimeInterval)rewardCountdownDuration;
 
 /**
- Reward the user at most once after the reward countdown duration, or after user interaction if
- `rewardedPlayableShouldRewardOnClick` is YES.
- 
+ Reward the user at most once after the reward countdown duration.
+
  Note: This method is the centralized location for reward validation business logic. All code paths
  in @c MPFullscreenAdAdapter that provide a reward to the user must pass through this method.
  */
