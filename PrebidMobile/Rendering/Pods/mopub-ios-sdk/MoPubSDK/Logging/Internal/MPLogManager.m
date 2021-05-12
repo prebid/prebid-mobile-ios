@@ -1,22 +1,17 @@
 //
 //  MPLogManager.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPLogManager.h"
 #import "MPConsoleLogger.h"
-#import "MPIdentityProvider.h"
 
 // Log format constants
 static NSString * const kInfoFormat = @"%@][%@";
 static NSString * const kLogFormat = @"\n\t[MoPub][%@] %@";
-
-// Cached IDFA strings used to obfuscate the real IDFA with a sanitized version.
-static NSString * sIdentifier;
-static NSString * const sObfuscatedIfa = @"XXXX";
 
 @interface MPLogManager()
 
@@ -88,23 +83,12 @@ static NSString * const sObfuscatedIfa = @"XXXX";
         return;
     }
 
-    // Lazily retrieve the IDFA
-    if (sIdentifier == nil) {
-        sIdentifier = MPIdentityProvider.ifa;
-    }
-
-    // Obfuscate the identifier when logging.
-    NSString * logMessage = message;
-    if (sIdentifier != nil) {
-        logMessage = [logMessage stringByReplacingOccurrencesOfString:sIdentifier withString:sObfuscatedIfa];
-    }
-
     // Queue up the message for logging.
     __weak __typeof__(self) weakSelf = self;
     dispatch_async(self.queue, ^{
         [weakSelf.loggers enumerateObjectsUsingBlock:^(id<MPBLogger> logger, NSUInteger idx, BOOL *stop) {
             if (logger.logLevel <= level) {
-                [logger logMessage:logMessage];
+                [logger logMessage:message];
             }
         }];
     });

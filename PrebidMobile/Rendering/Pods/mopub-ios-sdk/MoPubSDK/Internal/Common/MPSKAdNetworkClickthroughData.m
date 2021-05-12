@@ -1,7 +1,7 @@
 //
 //  MPSKAdNetworkClickthroughData.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -13,7 +13,7 @@
 // Intentionally casting to suppress the static analyzer.
 // Since we validate that all values are non-nil in `isClickthroughDataValid`,
 // we'll never return an object with nil values from init.
-#define NULLABLE_STRING_TO_NULLABLE_NSNUMBER(str) str == nil ? (id _Nonnull)nil : (id _Nonnull)@([str integerValue])
+#define NULLABLE_STRING_TO_NULLABLE_NSNUMBER(str) str == nil ? (id _Nonnull)nil : (id _Nonnull)@([str longLongValue])
 
 static NSString *const kAdServerVersionKey                       = @"version";
 static NSString *const kAdServerNetworkKey                       = @"network";

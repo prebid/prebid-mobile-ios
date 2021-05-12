@@ -1,7 +1,7 @@
 //
 //  MPReward.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -22,14 +22,14 @@ extern NSInteger const kMPRewardCurrencyAmountUnspecified;
 
 /**
  The type of currency that should be rewarded to the user.
-
+ 
  An undefined currency type should be specified as `kMPRewardCurrencyTypeUnspecified`.
  */
 @property (nonatomic, readonly) NSString *currencyType;
 
 /**
  The amount of currency to reward to the user.
-
+ 
  An undefined currency amount should be specified as `kMPRewardCurrencyAmountUnspecified` wrapped as
  an NSNumber.
  */
@@ -37,14 +37,14 @@ extern NSInteger const kMPRewardCurrencyAmountUnspecified;
 
 /**
  Initialize with an undefined currency type @c kMPRewardCurrencyTypeUnspecified and the provided amount.
-
+ 
  @param amount The amount of currency the user is receiving.
  */
 - (instancetype)initWithCurrencyAmount:(NSNumber *)amount;
 
 /**
  Initialize with @c the currencyType and @c amount.
-
+ 
  @param currencyType The type of currency the user is receiving.
  @param amount The amount of currency the user is receiving.
  */

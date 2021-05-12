@@ -1,7 +1,7 @@
 //
 //  MPNativeAdRequest.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -28,11 +28,20 @@
 #import "MPNativeAdRendererConfiguration.h"
 #import "NSMutableArray+MPAdditions.h"
 #import "MPStopwatch.h"
-#import "MPTimer.h"
 #import "MPError.h"
 #import "NSDate+MPAdditions.h"
 #import "NSError+MPAdditions.h"
 #import "MPOpenMeasurementTracker.h"
+
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
+#else
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
+#endif
 
 static NSString * const kNativeAdErrorDomain = @"com.mopub.NativeAd";
 
@@ -50,7 +59,7 @@ static NSString * const kNativeAdErrorDomain = @"com.mopub.NativeAd";
 @property (nonatomic, strong) NSMutableArray<MPAdConfiguration *> *remainingConfigurations;
 @property (nonatomic) id<MPNativeAdRenderer> customEventRenderer;
 @property (nonatomic, assign) BOOL loading;
-@property (nonatomic, strong) MPTimer *timeoutTimer;
+@property (nonatomic, strong) MPResumableTimer *timeoutTimer;
 @property (nonatomic, strong) MPStopwatch *loadStopwatch;
 @property (nonatomic, strong) NSURL *mostRecentlyLoadedURL;  // ADF-4286: avoid infinite ad reloads
 
@@ -397,7 +406,7 @@ static NSString * const kNativeAdErrorDomain = @"com.mopub.NativeAd";
 
     if (timeInterval > 0) {
         __typeof__(self) __weak weakSelf = self;
-        self.timeoutTimer = [MPTimer timerWithTimeInterval:timeInterval repeats:NO block:^(MPTimer * _Nonnull timer) {
+        self.timeoutTimer = [[MPResumableTimer alloc] initWithInterval:timeInterval repeats:NO runLoopMode:NSDefaultRunLoopMode closure:^(MPResumableTimer *timer) {
             __typeof__(self) strongSelf = weakSelf;
             [strongSelf timeout];
         }];

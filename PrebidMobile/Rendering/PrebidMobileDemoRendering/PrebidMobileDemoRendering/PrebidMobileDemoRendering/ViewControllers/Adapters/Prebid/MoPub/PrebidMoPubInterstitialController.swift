@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import MoPub
+import MoPubSDK
 
 class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConfigurableController, MPInterstitialAdControllerDelegate {
     

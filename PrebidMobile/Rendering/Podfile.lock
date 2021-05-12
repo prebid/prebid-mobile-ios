@@ -35,13 +35,13 @@ PODS:
   - "GoogleUtilities/NSData+zlib (7.3.1)"
   - GoogleUtilities/Reachability (7.3.1):
     - GoogleUtilities/Logger
-  - mopub-ios-sdk (5.15.0):
-    - mopub-ios-sdk/MoPubSDK (= 5.15.0)
-  - mopub-ios-sdk/Core (5.15.0)
-  - mopub-ios-sdk/MoPubSDK (5.15.0):
+  - mopub-ios-sdk (5.16.2):
+    - mopub-ios-sdk/MoPubSDK (= 5.16.2)
+  - mopub-ios-sdk/Core (5.16.2)
+  - mopub-ios-sdk/MoPubSDK (5.16.2):
     - mopub-ios-sdk/Core
     - mopub-ios-sdk/NativeAds
-  - mopub-ios-sdk/NativeAds (5.15.0):
+  - mopub-ios-sdk/NativeAds (5.16.2):
     - mopub-ios-sdk/Core
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -56,7 +56,7 @@ DEPENDENCIES:
   - Alamofire (= 4.9.1)
   - Eureka (from `https://github.com/xmartlabs/Eureka.git`, branch `xcode12`)
   - Google-Mobile-Ads-SDK
-  - mopub-ios-sdk (= 5.15)
+  - mopub-ios-sdk
   - RxSwift
   - SVProgressHUD
 
@@ -90,12 +90,12 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: fd19169c3034975cb934e865e5667bfdce59df7f
   GoogleUserMessagingPlatform: ab890ce5f6620f293a21b6bdd82e416a2c73aeca
   GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
-  mopub-ios-sdk: a21098174b9420a291aca9fcdae832d0f2e2a368
+  mopub-ios-sdk: ce5aa12abe59d42cb8866b1297bdff7b6a42e273
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: a81833336209200108b6fdcf7aa0fb8821bd8334
+PODFILE CHECKSUM: 8d71344e2734e6b3a877a068d97be06445d5eb1b
 
 COCOAPODS: 1.10.1

@@ -1,7 +1,7 @@
 //
 //  MPInterstitialAdController.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -130,7 +130,10 @@
     if ([self.delegate respondsToSelector:@selector(interstitialDidFailToLoadAd:withError:)]) {
         [self.delegate interstitialDidFailToLoadAd:self withError:error];
     } else if ([self.delegate respondsToSelector:@selector(interstitialDidFailToLoadAd:)]) {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
         [self.delegate interstitialDidFailToLoadAd:self];
+#pragma GCC diagnostic pop
     }
 }
 
@@ -150,15 +153,31 @@
 
 - (void)managerWillDismissInterstitial:(MPInterstitialAdManager *)manager
 {
+    if ([self.delegate respondsToSelector:@selector(interstitialWillDismiss:)]) {
+        [self.delegate interstitialWillDismiss:self];
+    }
+
+    // Deprecated API slated for removal.
     if ([self.delegate respondsToSelector:@selector(interstitialWillDisappear:)]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [self.delegate interstitialWillDisappear:self];
+#pragma clang diagnostic pop
     }
 }
 
 - (void)managerDidDismissInterstitial:(MPInterstitialAdManager *)manager
 {
+    if ([self.delegate respondsToSelector:@selector(interstitialDidDismiss:)]) {
+        [self.delegate interstitialDidDismiss:self];
+    }
+
+    // Deprecated API slated for removal.
     if ([self.delegate respondsToSelector:@selector(interstitialDidDisappear:)]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [self.delegate interstitialDidDisappear:self];
+#pragma clang diagnostic pop
     }
 }
 

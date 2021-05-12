@@ -1,7 +1,7 @@
 //
 //  MPMediaFileCache.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -25,31 +25,36 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MPMediaFileCache <NSObject>
 
 /**
- Obtain the expected local cache file URL provided the remote file URL.
- Note: The cached file referenced by the returned URL may not exist. After the remote data is
- downloaded, use `storeData:forRemoteSourceFileURL:` to store it to the returned cache file URL.
+ Obtain the expected local cache file URL provided the remote file.
+ @note: The cached file referenced by the returned URL may not exist. After the remote data is
+ downloaded, use @c storeData:forRemoteSourceFile: to store it to the returned cache file URL.
+ @param remoteFile Source media file.
+ @return The cached file URL for the @c remoteFile or @c nil if it is not possible to generate a  cache URL from @c remoteFile.
  */
-- (NSURL *)cachedFileURLForRemoteFileURL:(NSURL *)remoteFileURL;
+- (NSURL * _Nullable)cachedFileURLForRemoteFile:(MPVASTMediaFile *)remoteFile;
 
 /**
  Determine whether a remote media file has been locally cached.
+ @param remoteFile Source media file.
+ @return Returns whether or not the @c remoteFile is currently cached.
  */
-- (BOOL)isRemoteFileCached:(NSURL *)remoteFileURL;
+- (BOOL)isRemoteFileCached:(MPVASTMediaFile *)remoteFile;
 
 /**
  Store data to the cache directory.
  @param data The data to write.
- @param remoteFileURL The original remote URL that the file was hosted.
+ @param remoteFile Source media file.
  */
-- (void)storeData:(NSData *)data forRemoteSourceFileURL:(NSURL *)remoteFileURL;
+- (void)storeData:(NSData *)data forRemoteSourceFile:(MPVASTMediaFile *)remoteFile;
 
 @optional
 
 /**
  "Touch" (update with current date) @c NSFileModificationDate of the file for LRU tracking or other
  purpose. @c NSFileModificationDate is updated because iOS doesn't provide "last opened date" access.
+ @param remoteFile Source media file.
  */
-- (void)touchCachedFileForRemoteFile:(NSURL *)remoteFileURL;
+- (void)touchCachedFileForRemoteFile:(MPVASTMediaFile *)remoteFile;
 
 @end
 

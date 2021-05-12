@@ -1,7 +1,7 @@
 //
 //  MPInlineAdAdapter.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -17,6 +17,16 @@
 #import "MPError.h"
 #import "MPLogging.h"
 #import "MPOpenMeasurementTracker.h"
+
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
+#else
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
+#endif
 
 static CGFloat const kDefaultRequiredPixelsInViewForImpression         = 1.0;
 static NSTimeInterval const kDefaultRequiredSecondsInViewForImpression = 0.0;
@@ -87,7 +97,7 @@ static NSTimeInterval const kDefaultRequiredSecondsInViewForImpression = 0.0;
 
     if (timeInterval > 0) {
         __typeof__(self) __weak weakSelf = self;
-        self.timeoutTimer = [MPTimer timerWithTimeInterval:timeInterval repeats:NO block:^(MPTimer * _Nonnull timer) {
+        self.timeoutTimer = [[MPResumableTimer alloc] initWithInterval:timeInterval repeats:NO runLoopMode:NSDefaultRunLoopMode closure:^(MPResumableTimer *timer) {
             __typeof__(self) strongSelf = weakSelf;
             [strongSelf timeout];
         }];

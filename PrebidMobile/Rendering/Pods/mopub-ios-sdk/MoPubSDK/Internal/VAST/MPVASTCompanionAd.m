@@ -1,7 +1,7 @@
 //
 //  MPVASTCompanionAd.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -103,20 +103,18 @@
 }
 
 - (MPVASTResource * _Nullable)resourceToDisplay {
-    // format score = 1, display priority = A
-    for (MPVASTResource *resource in self.staticResources) {
+    // format score = 1.2, display priority = A
+    for (MPVASTResource *resource in self.HTMLResources) {
         if (resource.content.length > 0) {
-            if (resource.isStaticCreativeTypeJavaScript) {
-                resource.type = MPVASTResourceType_StaticScript;
-                return resource;
-            }
+            resource.type = MPVASTResourceType_HTML;
+            return resource;
         }
     }
 
     // format score = 1, display priority = B
-    for (MPVASTResource *resource in self.HTMLResources) {
-        if (resource.content.length > 0) {
-            resource.type = MPVASTResourceType_HTML;
+    for (MPVASTResource *resource in self.staticResources) {
+        if (resource.content.length > 0 && resource.isStaticCreativeTypeJavaScript) {
+            resource.type = MPVASTResourceType_StaticScript;
             return resource;
         }
     }
@@ -143,20 +141,16 @@
 }
 
 + (MPVASTCompanionAd * _Nullable)bestCompanionAdForCandidates:(NSArray<MPVASTCompanionAd *> *)candidates
-                                      containerSize:(CGSize)containerSize {
-    if (candidates.count == 0 || containerSize.width <= 0 || containerSize.height <= 0) {
-        return nil;
-    }
-
-    CGFloat highestScore = CGFLOAT_MIN;
-    MPVASTCompanionAd *result;
+                                                containerSize:(CGSize)containerSize {
+    CGFloat highestScore = -1;
+    MPVASTCompanionAd *result = nil;
 
     // It is possible that none of the candidate fits into the screen perfectly, but we will pick the
     // best one and then aspect fit it
     for (MPVASTCompanionAd *candidate in candidates) {
         if (candidate.resourceToDisplay != nil) {
             CGFloat score = [candidate selectionScoreForContainerSize:containerSize];
-            if (highestScore < score) {
+            if (score > highestScore) {
                 highestScore = score;
                 result = candidate;
             }
@@ -178,8 +172,17 @@
     return NO;
 }
 
-/// Note: Static image resource is not considered as a web markup (HTML) resource.
-- (BOOL)hasWebMarkupResource {
+- (BOOL)hasHTMLResource {
+    for (MPVASTResource *resource in self.HTMLResources) {
+        if (resource.content.length > 0) {
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
+- (BOOL)hasJavaScriptOrIFrameResource {
     for (MPVASTResource *resource in self.staticResources) {
         if (resource.content.length > 0 && resource.isStaticCreativeTypeJavaScript) {
             return YES;
@@ -192,17 +195,14 @@
         }
     }
 
-    for (MPVASTResource *resource in self.HTMLResources) {
-        if (resource.content.length > 0) {
-            return YES;
-        }
-    }
-
     return NO;
 }
 
 - (CGFloat)formatScore {
-    if (self.hasWebMarkupResource) {
+    if (self.hasHTMLResource) {
+        return 1.2;
+    }
+    else if (self.hasJavaScriptOrIFrameResource) {
         return 1;
     }
     else if (self.hasStaticImageResource) {
@@ -217,7 +217,10 @@
  See scoring algorithm documentation at http://go/adf-vast-video-selection.
  */
 - (CGFloat)selectionScoreForContainerSize:(CGSize)containerSize {
-    if (self.width == 0 || self.height == 0) {
+    if (self.width == 0
+        || self.height == 0
+        || containerSize.width == 0
+        || containerSize.height == 0) {
         return 0;
     }
 

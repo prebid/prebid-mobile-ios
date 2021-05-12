@@ -1,7 +1,7 @@
 //
 //  MPFullscreenAdViewController+Web.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -9,11 +9,6 @@
 #import "MPFullscreenAdViewController+Private.h"
 #import "MPFullscreenAdViewController+Web.h"
 #import "UIView+MPAdditions.h"
-
-@interface MPFullscreenAdViewController (MPAdContainerViewWebAdDelegate) <MPAdContainerViewWebAdDelegate>
-@end
-
-#pragma mark -
 
 @interface MPFullscreenAdViewController (MPAdWebViewAgentDelegate) <MPAdWebViewAgentDelegate>
 @end
@@ -84,6 +79,9 @@
 - (void)fullscreenWebAdWillAppear {
     [self.webViewAgent enableRequestHandling];
     [self.webViewAgent didAppear];
+
+    // Resume timer (if it exists) upon resuming ad
+    [self resumeTimer];
 }
 
 - (void)fullscreenWebAdDidAppear {
@@ -92,6 +90,9 @@
 
 - (void)fullscreenWebAdWillDisappear {
     [self.webViewAgent disableRequestHandling];
+
+    // Pause timer (if it exists) upon ad clickthrough
+    [self pauseTimer];
 }
 
 - (void)fullscreenWebAdDidDisappear {

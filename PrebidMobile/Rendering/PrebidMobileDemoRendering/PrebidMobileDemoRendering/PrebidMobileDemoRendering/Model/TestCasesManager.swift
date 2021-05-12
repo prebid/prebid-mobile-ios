@@ -1790,7 +1790,7 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let mopubRewardedAdController = PrebidMoPubRewardedVideoController(rootController: adapterVC)
+                let mopubRewardedAdController = PrebidMoPubRewardedAdController(rootController: adapterVC)
                 mopubRewardedAdController.moPubAdUnitId = "7538cc74d2984c348bc14caafa3e3395"
                         
                 if AppConfiguration.shared.useMockServer {
@@ -1811,7 +1811,7 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let mopubRewardedAdController = PrebidMoPubRewardedVideoController(rootController: adapterVC)
+                let mopubRewardedAdController = PrebidMoPubRewardedAdController(rootController: adapterVC)
                 mopubRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
                 mopubRewardedAdController.moPubAdUnitId = "39ed12ae7c8f4cceafb55b698401a15d"
                 adapterVC.setup(adapter: mopubRewardedAdController)
@@ -1820,6 +1820,79 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Video Rewarded 320x480 (MoPub) [noBids, MoPub Ad]",
+                     tags: [.video, .mopub, .server, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let mopubRewardedAdController = PrebidMoPubRewardedAdController(rootController: adapterVC)
+                if AppConfiguration.shared.useMockServer {
+                    mopubRewardedAdController.prebidConfigId = "mock-no-bids"
+                } else {
+                    PBMSDKConfiguration.singleton.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    mopubRewardedAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
+                }
+                mopubRewardedAdController.moPubAdUnitId = "cf3f015774b148ea9979d27da8c4f8ed"
+                adapterVC.setup(adapter: mopubRewardedAdController)
+                        
+                setupCustomParams(for: mopubRewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded 320x480 without End Card (MoPub) [OK, OXB Adapter]",
+                     tags: [.video, .mopub, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let mopubRewardedAdController = PrebidMoPubRewardedAdController(rootController: adapterVC)
+                mopubRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480-without-end-card"
+                mopubRewardedAdController.moPubAdUnitId = "7538cc74d2984c348bc14caafa3e3395"
+                adapterVC.setup(adapter: mopubRewardedAdController)
+                        
+                setupCustomParams(for: mopubRewardedAdController.prebidConfigId)
+            }),
+            
+            // MARK: ---- Video Rewarded (MoPub) [Deprecated API]----
+            
+            TestCase(title: "[Deprecated API] Video Rewarded 320x480 (MoPub) [OK, OXB Adapter]",
+                     tags: [.video, .mopub, .server, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let mopubRewardedAdController = PrebidMoPubRewardedVideoController(rootController: adapterVC)
+                mopubRewardedAdController.moPubAdUnitId = "7538cc74d2984c348bc14caafa3e3395"
+                        
+                if AppConfiguration.shared.useMockServer {
+                    mopubRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                } else {
+                    mopubRewardedAdController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
+                }
+                 
+                adapterVC.setup(adapter: mopubRewardedAdController)
+                        
+                setupCustomParams(for: mopubRewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "[Deprecated API] Video Rewarded 320x480 (MoPub) [OK, Random]",
+                     tags: [.video, .mopub, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let mopubRewardedAdController = PrebidMoPubRewardedVideoController(rootController: adapterVC)
+                mopubRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                mopubRewardedAdController.moPubAdUnitId = "39ed12ae7c8f4cceafb55b698401a15d"
+                adapterVC.setup(adapter: mopubRewardedAdController)
+                        
+                setupCustomParams(for: mopubRewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "[Deprecated API] Video Rewarded 320x480 (MoPub) [noBids, MoPub Ad]",
                      tags: [.video, .mopub, .server, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1839,7 +1912,7 @@ struct TestCaseManager {
                 setupCustomParams(for: mopubRewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded 320x480 without End Card (MoPub) [OK, OXB Adapter]",
+            TestCase(title: "[Deprecated API] Video Rewarded 320x480 without End Card (MoPub) [OK, OXB Adapter]",
                      tags: [.video, .mopub, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in

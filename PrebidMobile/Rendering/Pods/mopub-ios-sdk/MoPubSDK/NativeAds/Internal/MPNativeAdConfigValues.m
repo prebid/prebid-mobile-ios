@@ -1,7 +1,7 @@
 //
 //  MPNativeAdConfigValues.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -12,7 +12,7 @@
 @implementation MPNativeAdConfigValues
 
 - (instancetype)initWithImpressionMinVisiblePixels:(CGFloat)impressionMinVisiblePixels
-                       impressionMinVisiblePercent:(NSInteger)impressionMinVisiblePercent
+                       impressionMinVisiblePercent:(CGFloat)impressionMinVisiblePercent
                        impressionMinVisibleSeconds:(NSTimeInterval)impressionMinVisibleSeconds {
     if (self = [super init]) {
         _impressionMinVisiblePixels = impressionMinVisiblePixels;

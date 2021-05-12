@@ -1,7 +1,7 @@
 //
 //  MPFullscreenAdAdapter+Private.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -18,11 +18,16 @@
 #import "MPFullscreenAdAdapter.h"
 #import "MPFullscreenAdAdapterDelegate.h"
 #import "MPFullscreenAdViewController+Web.h"
-#import "MPTimer.h"
+#import "MPImageLoader.h"
 #import "MPVASTTracking.h"
 #import "MPVideoConfig.h"
 #import "MPViewabilityTracker.h"
 #import "MPWebView.h"
+
+// Forward declarations of Swift objects required since it is not
+// possible to import MoPub-Swift.h from header files.
+@class MPImageCreativeView;
+@class MPResumableTimer;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,8 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) MPAdContentType adContentType;
 @property (nonatomic, strong) MPAdTargeting *targeting;
-@property (nonatomic, strong) MPTimer *timeoutTimer;
+@property (nonatomic, strong) MPResumableTimer *timeoutTimer;
 @property (nonatomic, assign, readwrite) BOOL hasAdAvailable;
+@property (nonatomic, strong) id<MPAdDestinationDisplayAgent> adDestinationDisplayAgent; // Note: only used for video and static image
 
 // Once an ad successfully loads, we want to block sending more successful load events.
 @property (nonatomic, assign) BOOL hasSuccessfullyLoaded;
@@ -64,13 +70,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, readwrite) id<MPFullscreenAdAdapterDelegate> delegate; // default to `self` in `init`
 @property (nonatomic, copy) NSDictionary *localExtras;
 
-#pragma mark - (Video) Properties
+#pragma mark - Video Properties
 
-@property (nonatomic, strong) id<MPAdDestinationDisplayAgent> adDestinationDisplayAgent;
 @property (nonatomic, strong) id<MPVASTTracking> vastTracking;
 @property (nonatomic, strong) id<MPMediaFileCache> mediaFileCache;
 @property (nonatomic, strong) MPVASTMediaFile *remoteMediaFileToPlay;
 @property (nonatomic, strong) MPVideoConfig *videoConfig;
+
+#pragma mark - Image Properties
+
+@property (nonatomic, strong) MPImageLoader *imageLoader;
+@property (nonatomic, strong) MPImageCreativeView *imageCreativeView;
 
 #pragma mark - Methods
 

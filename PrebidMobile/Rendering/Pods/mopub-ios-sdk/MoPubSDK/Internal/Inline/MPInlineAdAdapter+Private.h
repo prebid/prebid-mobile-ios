@@ -1,7 +1,7 @@
 //
 //  MPInlineAdAdapter+Private.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -16,8 +16,11 @@
 #import "MPAdContainerView.h"
 #import "MPAdImpressionTimer.h"
 #import "MPAnalyticsTracker.h"
-#import "MPTimer.h"
 #import "MPViewabilityTracker.h"
+
+// Forward declarations of Swift objects required since it is not
+// possible to import MoPub-Swift.h from header files.
+@class MPResumableTimer;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MPAdConfiguration *configuration;
 @property (nonatomic) MPAdImpressionTimer *impressionTimer;
-@property (nonatomic, strong) MPTimer *timeoutTimer;
+@property (nonatomic, strong) MPResumableTimer *timeoutTimer;
 
 @property (nonatomic, assign) BOOL hasTrackedImpression;
 @property (nonatomic, assign) BOOL hasTrackedClick;

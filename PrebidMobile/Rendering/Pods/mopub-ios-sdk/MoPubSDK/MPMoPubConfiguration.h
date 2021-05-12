@@ -1,7 +1,7 @@
 //
 //  MPMoPubConfiguration.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -10,7 +10,7 @@
 #import "MPAdapterConfiguration.h"
 #import "MPBLogLevel.h"
 #import "MPMediationSettingsProtocol.h"
-#import "MPRewardedVideo.h"
+#import "MPRewardedAds.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

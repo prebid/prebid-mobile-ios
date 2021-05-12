@@ -4,7 +4,7 @@
 //
 //  Copyright © 2019 OpenX, Inc. All rights reserved.
 //
-#import <MoPub/MoPub.h>
+#import <MoPub.h>
 
 #import <PrebidMobileRendering/PBMSDKConfiguration.h>
 #import <PrebidMobileRendering/PBMLogLevel.h>

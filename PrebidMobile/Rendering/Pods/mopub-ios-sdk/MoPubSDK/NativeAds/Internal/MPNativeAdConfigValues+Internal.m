@@ -1,7 +1,7 @@
 //
 //  MPNativeAdConfigValues+Internal.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -10,9 +10,9 @@
 
 @implementation MPNativeAdConfigValues (Internal)
 
-- (BOOL)isValidPercentage:(NSInteger)percentage
+- (BOOL)isValidPercentage:(CGFloat)percentage
 {
-    return (percentage >= 0 && percentage <= 100);
+    return (percentage >= 0.0 && percentage <= 1.0);
 }
 
 - (BOOL)isValidTimeInterval:(NSTimeInterval)timeInterval

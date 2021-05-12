@@ -1,7 +1,7 @@
 //
 //  MPReward.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -47,7 +47,6 @@ NSInteger const kMPRewardCurrencyAmountUnspecified = 0;
     return NO == [self.currencyType isEqualToString:kMPRewardCurrencyTypeUnspecified];
 }
 
-// Need to implement both `isEqual:` and `hash` for `MPReward` VS `MPRewardedVideoReward` equality check.
 - (BOOL)isEqual:(id)other
 {
     if (other == self) {
@@ -61,7 +60,6 @@ NSInteger const kMPRewardCurrencyAmountUnspecified = 0;
     }
 }
 
-// Need to implement both `isEqual:` and `hash` for `MPReward` VS `MPRewardedVideoReward` equality check.
 - (NSUInteger)hash
 {
     return self.currencyType.hash ^ self.amount.hash;

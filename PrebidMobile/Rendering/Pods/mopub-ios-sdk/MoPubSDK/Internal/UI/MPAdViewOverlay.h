@@ -1,7 +1,7 @@
 //
 //  MPAdViewOverlay.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -57,6 +57,21 @@ MPVideoPlayerViewOverlayDelegate
  Set the Close button location with UI update.
  */
 - (void)setCloseButtonType:(MPAdViewCloseButtonType)closeButtonType;
+
+/**
+ Pause the timer.
+ */
+- (void)pauseTimer;
+
+/**
+ Resume the timer.
+*/
+- (void)resumeTimer;
+
+/**
+ Invalidates the timer.
+ */
+- (void)stopTimer;
 
 @end
 

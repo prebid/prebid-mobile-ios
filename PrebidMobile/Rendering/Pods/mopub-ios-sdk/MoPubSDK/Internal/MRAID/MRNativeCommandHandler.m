@@ -1,7 +1,7 @@
 //
 //  MRNativeCommandHandler.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -10,12 +10,10 @@
 #import "MRCommand.h"
 #import "MPGlobal.h"
 #import "MPLogging.h"
-#import "MRVideoPlayerManager.h"
 
-@interface MRNativeCommandHandler () <MRCommandDelegate, MRVideoPlayerManagerDelegate>
+@interface MRNativeCommandHandler () <MRCommandDelegate>
 
 @property (nonatomic, weak) id <MRNativeCommandHandlerDelegate>delegate;
-@property (nonatomic, strong) MRVideoPlayerManager *videoPlayerManager;
 
 @end
 
@@ -26,8 +24,6 @@
     self = [super init];
     if (self) {
         _delegate = delegate;
-
-        _videoPlayerManager = [[MRVideoPlayerManager alloc] initWithDelegate:self];
     }
 
     return self;
@@ -66,11 +62,6 @@
 
 #pragma mark - MRCommandDelegate
 
-- (void)mrCommand:(MRCommand *)command playVideoWithURL:(NSURL *)url
-{
-    [self.videoPlayerManager playVideo:url];
-}
-
 - (void)mrCommand:(MRCommand *)command shouldUseCustomClose:(BOOL)useCustomClose
 {
     [self.delegate handleMRAIDUseCustomClose:useCustomClose];
@@ -99,28 +90,6 @@
 - (void)mrCommandClose:(MRCommand *)command
 {
     [self.delegate handleMRAIDClose];
-}
-
-#pragma mark - <MRVideoPlayerManagerDelegate>
-
-- (void)videoPlayerManager:(MRVideoPlayerManager *)manager didFailToPlayVideoWithErrorMessage:(NSString *)message
-{
-    [self.delegate nativeCommandFailed:@"playVideo" withMessage:message];
-}
-
-- (void)videoPlayerManagerWillPresentVideo:(MRVideoPlayerManager *)manager
-{
-    [self.delegate nativeCommandWillPresentModalView];
-}
-
-- (void)videoPlayerManagerDidDismissVideo:(MRVideoPlayerManager *)manager
-{
-    [self.delegate nativeCommandDidDismissModalView];
-}
-
-- (UIViewController *)viewControllerForPresentingVideoPlayer
-{
-    return [self.delegate viewControllerForPresentingModalView];
 }
 
 @end

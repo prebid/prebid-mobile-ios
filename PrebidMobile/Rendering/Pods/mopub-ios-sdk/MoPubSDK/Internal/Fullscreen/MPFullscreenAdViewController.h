@@ -1,7 +1,7 @@
 //
 //  MPFullscreenAdViewController.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  The purpose of this @c MPFullscreenAdViewController protocol is to define the common interface
  between interstitial view controllers without forcing them to subclass @c MPFullscreenAdViewController.
- 
+
  @c MPFullscreenAdViewController uses @c MPAdContainerView for @c self.view instead of the
  plain @c UIView. All the video playing logics are contained in @c MPVideoPlayerView, and this view
  controller is designed to be a thin container of the video player view. If this view controller
@@ -40,6 +40,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)dismiss;
 
 - (void)showCloseButton;
+
+/**
+ Pauses the reward timer.
+ */
+- (void)pauseTimer;
+
+/**
+ Resumes the reward timer.
+ */
+- (void)resumeTimer;
 
 @end
 

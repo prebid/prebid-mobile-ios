@@ -1,7 +1,7 @@
 //
 //  MPImpressionData.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -98,6 +98,10 @@ static NSString * const kPrecisionOptionUndisclosedKey      = @"undisclosed";
     return [self nullableImpressionDataObjectForKey:kImpressionDataPublisherRevenueKey];
 }
 
+- (NSDictionary<NSString *, NSString *> *)demandPartnerData {
+    return [self nullableImpressionDataObjectForKey:kImpressionDataDemandPartnerDataKey];
+}
+
 - (MPImpressionDataPrecision)precision {
     // Return the precision value if it was already set
     if (self.isPrecisionSet) {
@@ -185,7 +189,7 @@ static NSString * const kPrecisionOptionUndisclosedKey      = @"undisclosed";
                                                                                     options:0
                                                                                       error:nil];
 
-    return [NSString stringWithFormat:@"Impression Data %@:\n\nImpression ID: %@\nApp Version: %@\nPublisher Revenue: %@\nCurrency: %@\nAd Unit ID: %@\nAd Unit Name: %@\nAd Unit Format: %@\nAd Group ID: %@\nAd Group Name: %@\nAd Group Type: %@\nAd Group Priority: %@\nPrecision: %@\nCountry: %@\nNetwork Name: %@\nNetwork Placement ID: %@\n\nJSON Representation:\n%@",
+    return [NSString stringWithFormat:@"Impression Data %@:\n\nImpression ID: %@\nApp Version: %@\nPublisher Revenue: %@\nCurrency: %@\nAd Unit ID: %@\nAd Unit Name: %@\nAd Unit Format: %@\nAd Group ID: %@\nAd Group Name: %@\nAd Group Type: %@\nAd Group Priority: %@\nPrecision: %@\nCountry: %@\nNetwork Name: %@\nNetwork Placement ID: %@\nDemand Partner Data:%@\n\nJSON Representation:\n%@",
             [super description],
             self.impressionID,
             self.appVersion,
@@ -202,6 +206,7 @@ static NSString * const kPrecisionOptionUndisclosedKey      = @"undisclosed";
             self.country,
             self.networkName,
             self.networkPlacementID,
+            self.demandPartnerData,
             jsonRepresentationDeserialized];
 }
 

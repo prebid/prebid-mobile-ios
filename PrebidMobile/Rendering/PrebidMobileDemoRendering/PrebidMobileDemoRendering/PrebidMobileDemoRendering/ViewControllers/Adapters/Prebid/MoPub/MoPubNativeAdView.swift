@@ -5,7 +5,7 @@
 //  Copyright © 2021 OpenX. All rights reserved.
 //
 import UIKit
-import MoPub
+import MoPubSDK
 
 class MoPubNativeAdView: UIStackView, MPNativeAdRendering {
     let titleLabel = UILabel()

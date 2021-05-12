@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import MoPub
+import MoPubSDK
 
 class MoPubNativeVideoAdView: UIStackView, MPNativeAdRendering {
     let callToActionLabel = UILabel()

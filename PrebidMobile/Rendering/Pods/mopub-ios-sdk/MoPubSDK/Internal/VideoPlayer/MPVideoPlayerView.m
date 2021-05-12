@@ -1,7 +1,7 @@
 //
 //  MPVideoPlayerView.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -34,8 +34,8 @@ NSTimeInterval const kPlayTimeTolerance = 0.1;
 @property (nonatomic, strong) MPVideoConfig *videoConfig;
 @property (nonatomic, strong) NSNotificationCenter *notificationCenter;
 
-@property (nonatomic, assign) BOOL didLoadVideo; // set to YES after `loadVideo` is called for the first time; never set back to NO again
-@property (nonatomic, assign) BOOL hasStartedPlaying; // set to YES after `play` is called for the first time; never set back to NO again
+@property (nonatomic, assign) BOOL isVideoLoaded; // set to YES after `loadVideo` is called for the first time; never set back to NO again
+@property (nonatomic, assign) BOOL isVideoPlaying; // set to YES after `play` is called for the first time; never set back to NO again
 @property (nonatomic, assign) BOOL didPlayToEndTime; // set to YES after the video ended
 @property (nonatomic, assign) BOOL isAutoPlayPauseEnabled;
 @property (nonatomic, assign) BOOL didFireStartEvent;
@@ -114,10 +114,10 @@ NSTimeInterval const kPlayTimeTolerance = 0.1;
 }
 
 - (void)loadVideo {
-    if (self.didLoadVideo) {
+    if (self.isVideoLoaded) {
         return;
     }
-    self.didLoadVideo = YES;
+    self.isVideoLoaded = YES;
 
     [self setUpVideoPlayer];
     [self setUpProgressBar];
@@ -128,10 +128,10 @@ NSTimeInterval const kPlayTimeTolerance = 0.1;
     // rather than starting playback. This needs to be set before
     // `hasStartedPlaying` is set since it is our indication that this is
     // a resume event.
-    BOOL isResumingPlayback = self.hasStartedPlaying;
+    BOOL isResumingPlayback = self.isVideoPlaying;
 
-    if (self.hasStartedPlaying == NO) {
-        self.hasStartedPlaying = YES;
+    if (self.isVideoPlaying == NO) {
+        self.isVideoPlaying = YES;
 
         [self observeProgressTimeForTracking];
         [self observeBoundaryTimeForTracking];
@@ -144,7 +144,7 @@ NSTimeInterval const kPlayTimeTolerance = 0.1;
 
     // Notify that the video player is resuming playback
     if (isResumingPlayback) {
-        [self.delegate videoPlayerView:self didTriggerEvent:MPVideoPlayerEvent_Resume videoProgress:self.videoProgress];
+        [self.delegate videoPlayerView:self didTriggerEvent:MPVideoEventResume videoProgress:self.videoProgress];
     }
 }
 
@@ -152,7 +152,7 @@ NSTimeInterval const kPlayTimeTolerance = 0.1;
     [self.player pause];
 
     // Notify that the video player is pausing playback.
-    [self.delegate videoPlayerView:self didTriggerEvent:MPVideoPlayerEvent_Pause videoProgress:self.videoProgress];
+    [self.delegate videoPlayerView:self didTriggerEvent:MPVideoEventPause videoProgress:self.videoProgress];
 }
 
 - (void)stopVideo {
@@ -162,15 +162,18 @@ NSTimeInterval const kPlayTimeTolerance = 0.1;
     }
 
     // No video has been loaded, so there is nothing to tear down.
-    if (!self.didLoadVideo) {
+    if (!self.isVideoLoaded) {
         return;
     }
+
+    // Remove this observer before pausing so that we do not get a notification
+    // with NaN as a value.
+    [self.player removeTimeObserver: self.progressBarTimeObserver];
 
     // Pause the video first to stop playback just in case the player session does not stop in time
     [self.player pause];
 
     // Remove all event and notification observers that were setup in `loadVideo`.
-    [self.player removeTimeObserver: self.progressBarTimeObserver];
     [self.player removeTimeObserver: self.progressTrackingTimeObserver];
     [self.player removeTimeObserver: self.boundaryTrackingTimeObserver];
     [self.player removeTimeObserver: self.industryIconShowTimeObserver];
@@ -353,11 +356,11 @@ NSTimeInterval const kPlayTimeTolerance = 0.1;
     }
 
     __weak __typeof__(self) weakSelf = self;
-    [self.player addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(0.1, kPreferredTimescale)
-                                              queue:dispatch_get_main_queue()
-                                         usingBlock:^(CMTime time) {
-                                             [weakSelf updateProgressBarProgress];
-                                         }];
+    self.progressBarTimeObserver = [self.player addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(0.1, kPreferredTimescale)
+                                                                             queue:dispatch_get_main_queue()
+                                                                        usingBlock:^(CMTime time) {
+        [weakSelf updateProgressBarProgress];
+    }];
 }
 
 /**

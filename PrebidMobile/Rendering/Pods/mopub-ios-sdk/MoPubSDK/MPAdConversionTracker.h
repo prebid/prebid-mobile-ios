@@ -1,15 +1,12 @@
 //
 //  MPAdConversionTracker.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <Foundation/Foundation.h>
-
-#define MOPUB_CONVERSION_DEFAULTS_KEY @"com.mopub.conversion"
-#define MOPUB_CONVERSION_APP_ID_KEY @"com.mopub.conversion.appId"
 
 /**
  The `MPAdConversionTracker` class provides a mechanism for reporting application download

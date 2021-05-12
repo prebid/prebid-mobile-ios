@@ -1,7 +1,7 @@
 //
 //  MPFullscreenAdAdapter+Video.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -16,10 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Parse the VAST XML and resolve potential wrapper chain, and then precache the media file if needed,
  and finally create the view controller with the media file automatially loaded into it.
- 
+
  Note: `MPAdConfiguration.precacheRequired` is ignored because video precaching is always enforced
  for VAST. See MoPub documentation: https://developers.mopub.com/dsps/ad-formats/video/
- 
+
  Prerequisite: `self.configuration` is not nil.
  */
 - (void)fetchAndLoadVideoAd;

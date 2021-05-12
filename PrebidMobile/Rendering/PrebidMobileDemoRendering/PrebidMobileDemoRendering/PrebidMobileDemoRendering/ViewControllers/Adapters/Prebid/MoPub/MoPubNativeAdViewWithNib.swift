@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import MoPub
+import MoPubSDK
 
 class MoPubNativeAdViewWithNib: UIView,  MPNativeAdRendering {
     @IBOutlet weak var titleLabel: UILabel!

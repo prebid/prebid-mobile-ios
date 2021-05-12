@@ -1,7 +1,7 @@
 //
 //  MPVASTError.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -84,7 +84,7 @@ typedef NS_ENUM(NSUInteger, MPVASTError) {
 
     /// Couldn’t find MediaFile that is supported by this media player, based on the attributes of the
     /// MediaFile element.
-    //MPVASTErrorSupportedMediaFileNotFound = 403,
+    MPVASTErrorSupportedMediaFileNotFound = 403,
 
     /// Problem displaying MediaFile. Media player found a MediaFile with supported type but couldn’t
     /// display it. MediaFile may include: unsupported codecs, different MIME type than MediaFile@type,

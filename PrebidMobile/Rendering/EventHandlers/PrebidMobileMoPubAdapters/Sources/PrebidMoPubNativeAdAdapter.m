@@ -5,7 +5,7 @@
 //  Copyright © 2021 OpenX. All rights reserved.
 //
 
-#import <MoPub/MoPub.h>
+#import <MoPub.h>
 
 #import <PrebidMobileRendering/PBMNativeAd.h>
 

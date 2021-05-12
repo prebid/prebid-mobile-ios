@@ -1,20 +1,29 @@
 //
 //  MPAdImpressionTimer.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPAdImpressionTimer.h"
-#import "MPTimer.h"
 #import "MPGlobal.h"
 #import "MPLogging.h"
+
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
+#else
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
+#endif
 
 @interface MPAdImpressionTimer ()
 
 @property (nonatomic) UIView *adView;
-@property (nonatomic) MPTimer *viewVisibilityTimer;
+@property (nonatomic) MPResumableTimer *viewVisibilityTimer;
 @property (nonatomic) NSTimeInterval firstVisibilityTimestamp;
 @property (nonatomic) CGFloat pixelsRequiredForViewVisibility;
 @property (nonatomic) CGFloat percentageRequiredForViewVisibility;
@@ -32,7 +41,10 @@ static const CGFloat kDefaultPixelCountWhenUsingPercentage = CGFLOAT_MIN;
 {
     if (self = [super init]) {
         __typeof__(self) __weak weakSelf = self;
-        _viewVisibilityTimer = [MPTimer timerWithTimeInterval:kImpressionTimerInterval repeats:YES runLoopMode:NSRunLoopCommonModes block:^(MPTimer * _Nonnull timer) {
+        _viewVisibilityTimer = [[MPResumableTimer alloc] initWithInterval:kImpressionTimerInterval
+                                                                  repeats:YES
+                                                              runLoopMode:NSRunLoopCommonModes
+                                                                  closure:^(MPResumableTimer * _Nonnull timer) {
             __typeof__(self) strongSelf = weakSelf;
             [strongSelf tick:timer];
         }];
@@ -51,7 +63,10 @@ static const CGFloat kDefaultPixelCountWhenUsingPercentage = CGFLOAT_MIN;
         _pixelsRequiredForViewVisibility = kDefaultPixelCountWhenUsingPercentage;
 
         __typeof__(self) __weak weakSelf = self;
-        _viewVisibilityTimer = [MPTimer timerWithTimeInterval:kImpressionTimerInterval repeats:YES runLoopMode:NSRunLoopCommonModes block:^(MPTimer * _Nonnull timer) {
+        _viewVisibilityTimer = [[MPResumableTimer alloc] initWithInterval:kImpressionTimerInterval
+                                                                  repeats:YES
+                                                              runLoopMode:NSRunLoopCommonModes
+                                                                  closure:^(MPResumableTimer * _Nonnull timer) {
             __typeof__(self) strongSelf = weakSelf;
             [strongSelf tick:timer];
         }];
@@ -86,9 +101,9 @@ static const CGFloat kDefaultPixelCountWhenUsingPercentage = CGFLOAT_MIN;
     self.adView = view;
 }
 
-#pragma mark - MPTimer
+#pragma mark - MPResumableTimer
 
-- (void)tick:(MPTimer *)timer
+- (void)tick:(MPResumableTimer *)timer
 {
     CGFloat adViewArea = CGRectGetWidth(self.adView.bounds) * CGRectGetHeight(self.adView.bounds);
     if (adViewArea == 0) {

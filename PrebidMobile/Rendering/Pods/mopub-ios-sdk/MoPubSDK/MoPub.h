@@ -1,7 +1,7 @@
 //
 //  MoPub.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -41,14 +41,23 @@
 #import "MPMoPubConfiguration.h"
 #import "MPRealTimeTimer.h"
 #import "MPReward.h"
-#import "MPRewardedVideo.h"
-#import "MPRewardedVideoReward.h" // deprecated: use `MPReward` instead
-#import "MPRewardedVideoError.h"
+#import "MPRewardedAds.h"
+#import "MPRewardedAdsError.h"
+#import "MPRewardedVideo.h" // Deprecated
+#import "MPRewardedVideoError.h" // Deprecated
+#import "MPRewardedVideoReward.h" // Deprecated
 #import "MPViewabilityOption.h"
 
 #if __has_include("MPNativeAds.h")
     #import "MPNativeAds.h"
 #endif
+
+// These are internal headers exposed for Swift bridging and will be
+// removed once those systems have been converted to Swift.
+#import "MPAdServerURLBuilder.h"
+#import "MPHTTPNetworkSession.h"
+#import "MPURL.h"
+#import "MPURLRequest.h"
 
 // Import these frameworks for module support.
 #import <AdSupport/AdSupport.h>
@@ -160,7 +169,14 @@ NS_ASSUME_NONNULL_BEGIN
  Sets the engine that is using this MoPub SDK.
  @param info Engine information.
  */
-- (void)setEngineInformation:(MPEngineInfo *)info;
+- (void)setEngineInformation:(MPEngineInfo *)info DEPRECATED_MSG_ATTRIBUTE("setEngineInformation: is deprecated. Use setEngineName:version: instead.");
+
+/**
+ Sets the name and version of the engine that is using this MoPub SDK.
+ @param name Name of the engine using the MoPub SDK.
+ @param version Version of the engine using the MoPub SDK.
+ */
+- (void)setEngineName:(NSString *)name version:(NSString *)version;
 
 @end
 

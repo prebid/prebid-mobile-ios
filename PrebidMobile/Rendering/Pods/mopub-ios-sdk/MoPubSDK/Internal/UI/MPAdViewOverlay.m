@@ -1,7 +1,7 @@
 //
 //  MPAdViewOverlay.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -10,7 +10,6 @@
 #import "MPCountdownTimerView.h"
 #import "MPGlobal.h"
 #import "MPLogging.h"
-#import "MPTimer.h"
 #import "MPVASTConstant.h"
 #import "MPVideoPlayer.h"
 #import "MPViewableButton.h"
@@ -18,16 +17,26 @@
 #import "UIImage+MPAdditions.h"
 #import "UIView+MPAdditions.h"
 
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
+#else
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
+#endif
+
 static CGFloat const kRectangleButtonPadding = 16;
 static CGFloat const kSkipButtonDimension = 50; // 50x50, same size as the Close button
 
-@interface MPAdViewOverlay ()
+@interface MPAdViewOverlay () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) MPVideoPlayerViewOverlayConfig *config;
 @property (nonatomic, assign) MPAdViewCloseButtonLocation closeButtonLocation; // setter has UI side effect
 @property (nonatomic, assign) MPAdViewCloseButtonType closeButtonType; // setter has UI side effect
 @property (nonatomic, assign) BOOL allowPassthroughForTouches; // if NO, touches won't reach the content view underneath
-@property (nonatomic, strong) MPTimer *clickThroughEnablingTimer;
+@property (nonatomic, strong) MPResumableTimer *clickThroughEnablingTimer;
 @property (nonatomic, strong) NSNotificationCenter *notificationCenter;
 
 // UI elements that are considered friendly Viewability obstructions.
@@ -40,6 +49,8 @@ static CGFloat const kSkipButtonDimension = 50; // 50x50, same size as the Close
 @property (nonatomic, strong) NSLayoutConstraint *iconViewWidthConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *iconViewHeightConstraint;
 @property (nonatomic, strong) MPCountdownTimerView *timerView; // located at the top-right corner
+@property (nonatomic, assign) BOOL hasCountdownTimerCompleted;
+@property (nonatomic, assign) BOOL videoCompleted;
 
 @end
 
@@ -225,23 +236,48 @@ static CGFloat const kSkipButtonDimension = 50; // 50x50, same size as the Close
         return;
     }
 
+    self.hasCountdownTimerCompleted = NO;
+
     __weak __typeof__(self) weakSelf = self;
     MPCountdownTimerView *timerView = [[MPCountdownTimerView alloc] initWithDuration:skipOffset timerCompletion:^(BOOL hasElapsed) {
-        if (skipOffset < totalDuration) {
+        weakSelf.hasCountdownTimerCompleted = YES;
+
+        // Only show the skip button if a video is still playing and
+        // it has a companion ad.
+        if (skipOffset < totalDuration && weakSelf.config.hasCompanionAd) {
             [weakSelf showSkipButton];
         } else {
             [weakSelf showCloseButton];
         }
         [weakSelf.timerView removeFromSuperview];
         [weakSelf.delegate videoPlayerViewOverlayDidFinishCountdown:weakSelf];
+
+        // If the ad is a rewarded ad, show CTA when reward duration completes
+        if (weakSelf.config.isRewardExpected) {
+            [weakSelf showCallToActionButton];
+        }
     }];
 
+    // With user interaction disabled, when the user touches the timer,
+    // the tap gesture recognizer's touch.view comes back as the overlay
+    // and not the timer. This is fixed by enabling user interaction on the timer.
+    [timerView setUserInteractionEnabled:YES];
     self.timerView = timerView;
 
     [self addSubview:timerView];
     timerView.translatesAutoresizingMaskIntoConstraints = NO;
     [[timerView.topAnchor constraintEqualToAnchor:self.mp_safeTopAnchor] setActive:YES];
     [[timerView.trailingAnchor constraintEqualToAnchor:self.mp_safeTrailingAnchor] setActive:YES];
+
+    // Add notifications to pause the timer if needed
+    [self.notificationCenter addObserver:self
+                                selector:@selector(pauseTimer)
+                                    name:UIApplicationDidEnterBackgroundNotification
+                                  object:nil];
+    [self.notificationCenter addObserver:self
+                                selector:@selector(resumeTimer)
+                                    name:UIApplicationWillEnterForegroundNotification
+                                  object:nil];
 
     [timerView start];
 }
@@ -255,7 +291,10 @@ static CGFloat const kSkipButtonDimension = 50; // 50x50, same size as the Close
 
     // See click-through timing definition at https://developers.mopub.com/dsps/ad-formats/video/
     __typeof__(self) __weak weakSelf = self;
-    self.clickThroughEnablingTimer = [MPTimer timerWithTimeInterval:MIN(skipOffset, videoDuration) repeats:NO block:^(MPTimer * _Nonnull timer) {
+    self.clickThroughEnablingTimer = [[MPResumableTimer alloc] initWithInterval:MIN(skipOffset, videoDuration)
+                                                                        repeats:NO
+                                                                    runLoopMode:NSDefaultRunLoopMode
+                                                                        closure:^(MPResumableTimer * _Nonnull timer) {
         __typeof__(self) strongSelf = weakSelf;
         [strongSelf enableClickthrough];
     }];
@@ -267,13 +306,22 @@ static CGFloat const kSkipButtonDimension = 50; // 50x50, same size as the Close
         return;
     }
 
-    [self addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleClickThrough)]];
-    [self showCallToActionButton];
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleClickThrough)];
+    tapGestureRecognizer.delegate = self;
+    [self addGestureRecognizer:tapGestureRecognizer];
+
+    // If the ad is not a rewarded ad, show the CTA immediately when the clickthrough is enabled
+    if (!self.config.isRewardExpected) {
+        [self showCallToActionButton];
+    }
 }
 
 - (void)showCallToActionButton {
-    // Per Format Unification Phase 2 item 1.2.1, for rewarded video, do not consider companion
-    // ad for showing the CTA button - just show it after the skip threshold }
+    // If this ad has a companion, and the video has already completed (i.e., the companion ad is already on-screen),
+    // do not show the call-to-action button.
+    if (self.config.hasCompanionAd && self.videoCompleted) {
+        return;
+    }
 
     if (self.config.isClickthroughAllowed == NO || self.config.callToActionButtonTitle.length == 0) {
         return;
@@ -299,7 +347,7 @@ static CGFloat const kSkipButtonDimension = 50; // 50x50, same size as the Close
 }
 
 - (void)handleClickThrough {
-    [self.delegate videoPlayerViewOverlay:self didTriggerEvent:MPVideoPlayerEvent_ClickThrough];
+    [self.delegate videoPlayerViewOverlay:self didTriggerEvent:MPVideoEventClick];
 }
 
 #pragma mark - Private: Skip Button
@@ -334,13 +382,38 @@ static CGFloat const kSkipButtonDimension = 50; // 50x50, same size as the Close
 }
 
 - (void)didHitSkipButton {
-    [self.delegate videoPlayerViewOverlay:self didTriggerEvent:MPVideoPlayerEvent_Skip];
+    [self.delegate videoPlayerViewOverlay:self didTriggerEvent:MPVideoEventSkip];
+}
+
+#pragma mark - Timer Control
+
+- (void)pauseTimer {
+    [self.clickThroughEnablingTimer pause];
+    [self.timerView pause];
+}
+
+- (void)resumeTimer {
+    [self.clickThroughEnablingTimer scheduleNow];
+    [self.timerView resume];
+}
+
+- (void)stopTimer {
+    // Invalidate the timers
+    [self.clickThroughEnablingTimer invalidate];
+    [self.timerView stopAndSignalCompletion:NO];
+
+    // Remove the timer view from the view hierarchy
+    [self.timerView removeFromSuperview];
+
+    // Immediately deallocate the timers
+    self.clickThroughEnablingTimer = nil;
+    self.timerView = nil;
 }
 
 #pragma mark - Private: Close Button
 
 - (void)didHitCloseButton:(UIButton *)button {
-    [self.delegate videoPlayerViewOverlay:self didTriggerEvent:MPVideoPlayerEvent_Close];
+    [self.delegate videoPlayerViewOverlay:self didTriggerEvent:MPVideoEventClose];
 }
 
 - (void)showCloseButton {
@@ -355,6 +428,14 @@ static CGFloat const kSkipButtonDimension = 50; // 50x50, same size as the Close
 
 - (MPViewabilityObstructionName)viewabilityObstructionName {
     return MPViewabilityObstructionNameOverlay;
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    // Ignore touches on the countdown timer (or any subview), since they
+    // do not count as clickthroughs.
+    return ![touch.view isDescendantOfView:self.timerView];
 }
 
 @end
@@ -373,29 +454,6 @@ static CGFloat const kSkipButtonDimension = 50; // 50x50, same size as the Close
     return self;
 }
 
-- (void)pauseTimer {
-    [self.clickThroughEnablingTimer pause];
-    [self.timerView pause];
-}
-
-- (void)resumeTimer {
-    [self.clickThroughEnablingTimer resume];
-    [self.timerView resume];
-}
-
-- (void)stopTimer {
-    // Invalidate the timers
-    [self.clickThroughEnablingTimer invalidate];
-    [self.timerView stopAndSignalCompletion:NO];
-
-    // Remove the timer view from the view hierarchy
-    [self.timerView removeFromSuperview];
-
-    // Immediately deallocate the timers
-    self.clickThroughEnablingTimer = nil;
-    self.timerView = nil;
-}
-
 - (void)showCountdownTimerForDuration:(NSTimeInterval)duration {
     [self showTimerViewForSkipOffset:duration totalDuration:duration];
 }
@@ -407,8 +465,14 @@ static CGFloat const kSkipButtonDimension = 50; // 50x50, same size as the Close
         return;
     }
 
+    NSTimeInterval actualSkipOffset = skipOffset;
+
     // Watch out for the case of the actual video duration being less than the skip offset.
-    NSTimeInterval actualSkipOffset = MIN(skipOffset, videoDuration);
+    // For rewarded ads, this only applies in the case that they do not have an end card.
+    if (!self.config.isRewardExpected || !self.config.hasCompanionAd) {
+        actualSkipOffset = MIN(skipOffset, videoDuration);
+    }
+
     if (actualSkipOffset <= 0) { // Invalid `skipOffset`: need a valid one
         if (self.config.isRewardExpected) { // rewarded ads
             /*
@@ -449,33 +513,30 @@ static CGFloat const kSkipButtonDimension = 50; // 50x50, same size as the Close
     [self showTimerViewForSkipOffset:actualSkipOffset totalDuration:videoDuration];
 
     // for Call To Action button ("Learn More") and enabling clickability
-    if (self.config.isRewardExpected) {
-        /*
-         Per requirement 1.14 of the Rewarded Ads Project (2020), users can click rewarded ads before
-         the skippability threshold has been met. On the other hand, the reward is provided after
-         reaching the skippability threshold.
-         */
+    if (!self.config.isRewardExpected && self.config.enableEarlyClickthroughForNonRewardedVideo) {
+        // Enable clickthrough immediately when non-rewarded, and `vast-click-enabled` ad response flag is true
         [self enableClickthrough];
-    } else { // non-rewarded video
-        if (self.config.enableEarlyClickthroughForNonRewardedVideo) { // "vast-click-enabled" in ad response
-            [self enableClickthrough];
-        } else {
-            [self setUpClickthroughForOffset:actualSkipOffset videoDuration:videoDuration];
-        }
+    } else {
+        // Enable clickthrough after the skip offset (reward duration for rewarded) in all other cases
+        [self setUpClickthroughForOffset:actualSkipOffset videoDuration:videoDuration];
     }
-
-    [self.notificationCenter addObserver:self
-                                selector:@selector(pauseTimer)
-                                    name:UIApplicationDidEnterBackgroundNotification
-                                  object:nil];
-    [self.notificationCenter addObserver:self
-                                selector:@selector(resumeTimer)
-                                    name:UIApplicationWillEnterForegroundNotification
-                                  object:nil];
 }
 
 - (void)handleVideoComplete {
-    [self showCloseButton];
+    if (self.videoCompleted) {
+        return;
+    }
+    self.videoCompleted = YES;
+
+    // For rewarded video, when the video ends, only if the countdown timer
+    // has completed (i.e. the video is longer than the reward duration)
+    // should we show the close button. Otherwise, the close button will be
+    // shown when the countdown timer completes.
+    // For non-rewarded, the countdown duration will never be longer than
+    // the video itself, so they will both trigger around the same time.
+    if (self.hasCountdownTimerCompleted) {
+        [self showCloseButton];
+    }
 
     if (self.config.hasCompanionAd) {
         self.allowPassthroughForTouches = YES;

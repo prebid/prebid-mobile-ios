@@ -1,7 +1,7 @@
 //
 //  MPFullscreenAdAdapter+Video.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -43,7 +43,7 @@
 
         MPVideoConfig *videoConfig = [[MPVideoConfig alloc] initWithVASTResponse:response
                                                               additionalTrackers:self.adConfig.vastVideoTrackers];
-        videoConfig.isRewardExpected = self.adConfig.hasValidRewardFromMoPubSDK;
+        videoConfig.isRewardExpected = self.adConfig.isRewarded;
         videoConfig.enableEarlyClickthroughForNonRewardedVideo = self.adConfig.enableEarlyClickthroughForNonRewardedVideo;
 
         if (videoConfig == nil || videoConfig.mediaFiles == nil) {
@@ -65,10 +65,19 @@
             return;
         }
 
+        // AVPlayer requires files have extensions. There is no known file extension for this
+        // media file, so it is considered unsupported.
+        NSURL *cacheFileURL = [self.mediaFileCache cachedFileURLForRemoteFile:remoteMediaFile];
+        if (cacheFileURL == nil) {
+            errorHandler([NSError errorWithDomain:kMPVASTErrorDomain
+                                             code:MPVASTErrorSupportedMediaFileNotFound
+                                         userInfo:nil]);
+            return;
+        }
+
         self.remoteMediaFileToPlay = remoteMediaFile;
         self.vastTracking = [[MPVASTTracking alloc] initWithVideoConfig:videoConfig
                                                                videoURL:remoteMediaFile.URL];
-        NSURL *cacheFileURL = [self.mediaFileCache cachedFileURLForRemoteFileURL:remoteMediaFile.URL];
 
         void (^loadVideo)(void) = ^() {
             self.viewController = [[MPFullscreenAdViewController alloc]  initWithVideoURL:cacheFileURL
@@ -97,13 +106,13 @@
         };
 
         // `MPVideoPlayerViewController.init` automatically loads the video and triggers delegate callback
-        if ([self.mediaFileCache isRemoteFileCached:remoteMediaFile.URL]) {
-            [self.mediaFileCache touchCachedFileForRemoteFile:remoteMediaFile.URL]; // for LRU
+        if ([self.mediaFileCache isRemoteFileCached:remoteMediaFile]) {
+            [self.mediaFileCache touchCachedFileForRemoteFile:remoteMediaFile]; // for LRU
             loadVideo();
         } else {
             MPURLRequest *request = [MPURLRequest requestWithURL:remoteMediaFile.URL];
             [MPHTTPNetworkSession startTaskWithHttpRequest:request responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
-                [self.mediaFileCache storeData:data forRemoteSourceFileURL:remoteMediaFile.URL];
+                [self.mediaFileCache storeData:data forRemoteSourceFile:remoteMediaFile];
                 dispatch_async(dispatch_get_main_queue(), loadVideo);
             } errorHandler:errorHandler];
         }
@@ -170,13 +179,6 @@
 
 - (void)videoPlayerDidCompleteVideo:(id<MPVideoPlayer>)videoPlayer duration:(NSTimeInterval)duration {
     [self.vastTracking handleVideoEvent:MPVideoEventComplete videoTimeOffset:duration];
-
-    // Note: Do not hold back the reward if `isRewardExpected` is NO, because it's possible that
-    // the rewarded is not defined in the ad response / ad configuration, but is defined after
-    // the reward condition has been satisfied (for 3rd party ad SDK's).
-    if (self.configuration.selectedReward != nil) {
-        [self.delegate fullscreenAdAdapter:self willRewardUser:self.configuration.selectedReward];
-    }
 }
 
 - (void)videoPlayer:(id<MPVideoPlayer>)videoPlayer
@@ -186,53 +188,46 @@ videoDidReachProgressTime:(NSTimeInterval)videoProgress
 }
 
 - (void)videoPlayer:(id<MPVideoPlayer>)videoPlayer
-    didTriggerEvent:(MPVideoPlayerEvent)event
+    didTriggerEvent:(MPVideoEvent)event
       videoProgress:(NSTimeInterval)videoProgress {
-    switch (event) {
-        case MPVideoPlayerEvent_ClickThrough: {
-            [self.adDestinationDisplayAgent displayDestinationForURL:self.videoConfig.clickThroughURL skAdNetworkClickthroughData:self.configuration.skAdNetworkClickthroughData];
+    if ([event isEqualToString:MPVideoEventClick]) {
+        [self.adDestinationDisplayAgent displayDestinationForURL:self.videoConfig.clickThroughURL skAdNetworkClickthroughData:self.configuration.skAdNetworkClickthroughData];
 
-            // need to take care of both VAST level and ad level click tracking
-            [self.vastTracking handleVideoEvent:MPVideoEventClick videoTimeOffset:videoProgress];
+        // need to take care of both VAST level and ad level click tracking
+        [self.vastTracking handleVideoEvent:MPVideoEventClick videoTimeOffset:videoProgress];
 
-            // ad level click tracking
-            // Note: Do not call `[self.vastTracking uniquelySendURLs:self.adConfig.clickTrackingURLs]`
-            // because the ad level click trackers are sent by `handleAdEvent:MPFullscreenAdEventDidReceiveTap`.
-            [self.delegate fullscreenAdAdapterDidReceiveTap:self];
-            break;
-        }
-        case MPVideoPlayerEvent_Close: {
-            // Typically the creative only has one of the "close" tracker and the "closeLinear"
-            // tracker. If it has both trackers, we send both as it asks for.
+        // ad level click tracking
+        // Note: Do not call `[self.vastTracking uniquelySendURLs:self.adConfig.clickTrackingURLs]`
+        // because the ad level click trackers are sent by `handleAdEvent:MPFullscreenAdEventDidReceiveTap`.
+        [self.delegate fullscreenAdAdapterDidReceiveTap:self];
+    } else if ([event isEqualToString:MPVideoEventClose]) {
+        // Typically the creative only has one of the "close" tracker and the "closeLinear"
+        // tracker. If it has both trackers, we send both as it asks for.
+        [self.vastTracking handleVideoEvent:MPVideoEventClose videoTimeOffset:videoProgress];
+        [self.vastTracking handleVideoEvent:MPVideoEventCloseLinear videoTimeOffset:videoProgress];
+        [self dismissPlayerViewController];
+    } else if ([event isEqualToString:MPVideoEventPause]) {
+        // Forward the event to the VAST tracker
+        [self.vastTracking handleVideoEvent:MPVideoEventPause videoTimeOffset:videoProgress];
+    } else if ([event isEqualToString:MPVideoEventResume]) {
+        // Forward the event to the VAST tracker
+        [self.vastTracking handleVideoEvent:MPVideoEventResume videoTimeOffset:videoProgress];
+    } else if ([event isEqualToString:MPVideoEventSkip]) {
+        // Skipping the video should stop playback.
+        // This is required since the Viewability tracker may hold onto the `videoPlayer`
+        // reference after the fullscreen has dismissed (causing the audio playback of the
+        // video player to continue).
+        [videoPlayer stopVideo];
+
+        // Typically the creative only has one of the "close" tracker and the "closeLinear"
+        // tracker. If it has both trackers, we send both as it asks for.
+        [self.vastTracking handleVideoEvent:MPVideoEventSkip videoTimeOffset:videoProgress];
+
+        // Do not close the ad if it has an end card, instead we will skip to the end card.
+        if (!self.videoConfig.hasCompanionAd) {
             [self.vastTracking handleVideoEvent:MPVideoEventClose videoTimeOffset:videoProgress];
             [self.vastTracking handleVideoEvent:MPVideoEventCloseLinear videoTimeOffset:videoProgress];
             [self dismissPlayerViewController];
-            break;
-        }
-        case MPVideoPlayerEvent_Pause: {
-            // Forward the event to the VAST tracker
-            [self.vastTracking handleVideoEvent:MPVideoEventPause videoTimeOffset:videoProgress];
-            break;
-        }
-        case MPVideoPlayerEvent_Resume: {
-            // Forward the event to the VAST tracker
-            [self.vastTracking handleVideoEvent:MPVideoEventResume videoTimeOffset:videoProgress];
-            break;
-        }
-        case MPVideoPlayerEvent_Skip: {
-            // Skipping the video should stop playback.
-            // This is required since the Viewability tracker may hold onto the `videoPlayer`
-            // reference after the fullscreen has dismissed (causing the audio playback of the
-            // video player to continue).
-            [videoPlayer stopVideo];
-
-            // Typically the creative only has one of the "close" tracker and the "closeLinear"
-            // tracker. If it has both trackers, we send both as it asks for.
-            [self.vastTracking handleVideoEvent:MPVideoEventSkip videoTimeOffset:videoProgress];
-            [self.vastTracking handleVideoEvent:MPVideoEventClose videoTimeOffset:videoProgress];
-            [self.vastTracking handleVideoEvent:MPVideoEventCloseLinear videoTimeOffset:videoProgress];
-            [self dismissPlayerViewController];
-            break;
         }
     }
 }

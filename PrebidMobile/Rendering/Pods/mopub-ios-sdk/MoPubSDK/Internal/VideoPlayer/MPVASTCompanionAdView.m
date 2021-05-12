@@ -1,7 +1,7 @@
 //
 //  MPVASTCompanionAdView.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -154,7 +154,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
     return YES;
 }
 
-- (void)imageLoader:(MPImageLoader *)imageLoaded didLoadImageIntoImageView:(UIImageView *)imageView {
+- (void)imageLoader:(MPImageLoader *)imageLoader didLoadImageIntoImageView:(UIImageView *)imageView {
     if (self.imageView != imageView) {
         return;
     }

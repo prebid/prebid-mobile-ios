@@ -1,16 +1,20 @@
 //
 //  MPConsentManager.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import <AdSupport/AdSupport.h>
-#if __has_include(<MoPub/MoPub-Swift.h>)
-    #import <MoPub/MoPub-Swift.h>
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
 #else
-    #import "MoPub-Swift.h"
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
 #endif
 #import "MPAdServerURLBuilder.h"
 #import "MPAdServerKeys.h"
@@ -23,7 +27,6 @@
 #import "MPHTTPNetworkSession.h"
 #import "MPIdentityProvider.h"
 #import "MPLogging.h"
-#import "MPTimer.h"
 #import "MPURLRequest.h"
 #import "NSString+MPConsentStatus.h"
 #import "MPAdConversionTracker.h"
@@ -98,7 +101,7 @@ static NSString * const kDeprecatedIfaPrefixToRemove = @"ifa:";
  everytime `synchronizeConsentWithCompletion:` is explcitly called. The timer
  frequency is determined by `self.syncFrequency`.
  */
-@property (nonatomic, strong, nullable) MPTimer * nextUpdateTimer;
+@property (nonatomic, strong, nullable) MPResumableTimer * nextUpdateTimer;
 
 /**
  Queries the raw consent status value that is stored in @c kConsentStatusStorageKey
@@ -133,6 +136,11 @@ static NSString * const kDeprecatedIfaPrefixToRemove = @"ifa:";
  */
 @property (nonatomic, copy) void (^consentDialogDidDismissCompletionBlock)(void);
 
+/**
+ The network session used to sync GDPR consent status changes. @c MPConsentSyncSerialNetworkSession is used in place of @c MPHTTPNetworkSession to assist with the serialization and discarding of duplicate consent requests.
+ */
+@property (nonatomic, strong) MPConsentSyncSerialNetworkSession * consentSyncNetworkSession;
+
 @end
 
 @implementation MPConsentManager
@@ -160,6 +168,9 @@ static NSString * const kDeprecatedIfaPrefixToRemove = @"ifa:";
         // Initializing the timer must be done last since it depends on the
         // value of _syncFrequency
         _nextUpdateTimer = [self newNextUpdateTimer];
+
+        // Initialize the consent sync network session.
+        _consentSyncNetworkSession = [[MPConsentSyncSerialNetworkSession alloc] init];
     }
 
     return self;
@@ -539,15 +550,12 @@ static NSString * const kDeprecatedIfaPrefixToRemove = @"ifa:";
 - (void)synchronizeConsentWithCompletion:(void (^ _Nonnull)(NSError * error))completion {
     MPLogEvent(MPLogEvent.consentSyncAttempted);
 
-    // Invalidate the next update timer since we are synchronizing right now.
-    [self.nextUpdateTimer invalidate];
-    self.nextUpdateTimer = nil;
-
     // If GDPR does not apply to the user, synchronizing with the ad server
-    // is no longer required. This call will complete without error and no
-    // next update timer will be created.
+    // is no longer required. This call will complete without error, the current
+    // update timer will be stopped, and no next update timer will be created.
     if (self.isGDPRApplicable == MPBoolNo) {
         MPLogEvent([MPLogEvent consentSyncCompletedWithMessage:@"GDPR not applicable, consent synchronization will complete immediately"]);
+        [self stopUpdateTimer];
         completion(nil);
         return;
     }
@@ -560,6 +568,7 @@ static NSString * const kDeprecatedIfaPrefixToRemove = @"ifa:";
     // to determine the final state.
     if (!MPIdentityProvider.advertisingTrackingEnabled && self.ifaForConsent == nil && self.rawIsGDPRApplicable != MPBoolUnknown) {
         MPLogEvent([MPLogEvent consentSyncCompletedWithMessage:@"Currently in a do not track state, consent synchronization will complete immediately"]);
+        [self stopUpdateTimer];
         completion(nil);
         return;
     }
@@ -583,13 +592,13 @@ static NSString * const kDeprecatedIfaPrefixToRemove = @"ifa:";
 
     // Send the synchronization request out.
     __weak __typeof__(self) weakSelf = self;
-    [MPHTTPNetworkSession startTaskWithHttpRequest:syncRequest responseHandler:^(NSData * _Nonnull data, NSHTTPURLResponse * _Nonnull response) {
+    [self.consentSyncNetworkSession attemptTaskWith:syncRequest responseHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response) {
         __typeof__(self) strongSelf = weakSelf;
 
         [strongSelf didFinishSynchronizationWithData:data
                                   synchronizedStatus:synchronizedStatus
                                           completion:completion];
-    } errorHandler:^(NSError * _Nonnull error) {
+    } errorHandler:^(NSError * _Nullable error) {
         __typeof__(self) strongSelf = weakSelf;
 
         [strongSelf didFailSynchronizationWithError:error completion:completion];
@@ -632,12 +641,18 @@ static NSString * const kDeprecatedIfaPrefixToRemove = @"ifa:";
         completion(nil);
     }
 
+    // Stop the previous update timer.
+    [self stopUpdateTimer];
+
     // `updateConsentStateWithParameters` might update `syncFrequency`, which is referenced in
     // `newNextUpdateTimer`, so, call `updateConsentStateWithParameters` before `newNextUpdateTimer`
     self.nextUpdateTimer = [self newNextUpdateTimer];
 }
 
 - (void)didFailSynchronizationWithError:(NSError *)error completion:(void (^ _Nonnull)(NSError * error))completion {
+    // Stop the previous update timer.
+    [self stopUpdateTimer];
+
     // Schedule the next timer and complete with error.
     self.nextUpdateTimer = [self newNextUpdateTimer];
     MPLogEvent([MPLogEvent consentSyncFailedWithError:error]);
@@ -651,9 +666,9 @@ static NSString * const kDeprecatedIfaPrefixToRemove = @"ifa:";
  will repeat.
  @return A new timer instance.
  */
-- (MPTimer * _Nonnull)newNextUpdateTimer {
+- (MPResumableTimer * _Nonnull)newNextUpdateTimer {
     __typeof__(self) __weak weakSelf = self;
-    MPTimer * timer = [MPTimer timerWithTimeInterval:self.syncFrequency repeats:YES block:^(MPTimer * _Nonnull timer) {
+    MPResumableTimer * timer = [[MPResumableTimer alloc] initWithInterval:self.syncFrequency repeats:YES runLoopMode:NSDefaultRunLoopMode closure:^(MPResumableTimer *timer) {
         __typeof__(self) strongSelf = weakSelf;
         [strongSelf onNextUpdateFiredWithTimer];
     }];
@@ -668,6 +683,11 @@ static NSString * const kDeprecatedIfaPrefixToRemove = @"ifa:";
         // Consent synchronization success/fail logging is already handled
         // by `synchronizeConsentWithCompletion:`.
     }];
+}
+
+- (void)stopUpdateTimer {
+    [self.nextUpdateTimer invalidate];
+    self.nextUpdateTimer = nil;
 }
 
 #pragma mark - Internal State Synchronization
@@ -1276,11 +1296,7 @@ static NSString * const kDeprecatedIfaPrefixToRemove = @"ifa:";
  */
 - (void)updateAppConversionTracking {
     if ([MPConsentManager sharedManager].canCollectPersonalInfo) {
-        NSString *appId = [NSUserDefaults.standardUserDefaults stringForKey:MOPUB_CONVERSION_APP_ID_KEY];
-        BOOL hasAlreadyCheckedAppConversion = [NSUserDefaults.standardUserDefaults boolForKey:MOPUB_CONVERSION_DEFAULTS_KEY];
-        if (!hasAlreadyCheckedAppConversion && appId.length > 0) {
-            [[MPAdConversionTracker sharedConversionTracker] reportApplicationOpenForApplicationID:appId];
-        }
+        [MPConversionManager trackConversion];
     }
 }
 

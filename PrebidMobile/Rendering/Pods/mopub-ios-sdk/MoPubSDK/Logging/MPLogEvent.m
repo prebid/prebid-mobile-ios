@@ -1,7 +1,7 @@
 //
 //  MPLogEvent.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -114,13 +114,13 @@
     return [[MPLogEvent alloc] initWithMessage:message];
 }
 
-+ (instancetype)adWillDisappear {
-    static NSString * const message = @"Ad will disappear";
++ (instancetype)adWillDismiss {
+    static NSString * const message = @"Ad will dismiss";
     return [[MPLogEvent alloc] initWithMessage:message];
 }
 
-+ (instancetype)adDidDisappear {
-    static NSString * const message = @"Ad did disappear";
++ (instancetype)adDidDismiss {
+    static NSString * const message = @"Ad did dismiss";
     return [[MPLogEvent alloc] initWithMessage:message];
 }
 

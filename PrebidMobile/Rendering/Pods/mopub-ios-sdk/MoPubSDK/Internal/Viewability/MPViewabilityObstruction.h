@@ -1,7 +1,7 @@
 //
 //  MPViewabilityObstruction.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -24,12 +24,12 @@ typedef NS_ENUM(NSUInteger, MPViewabilityObstructionType) {
      The obstruction relates to closing an ad (such as a close button).
      */
     MPViewabilityObstructionTypeClose,
-    
+
     /**
      The obstruction is not visibly obstructing the ad but may seem so due to technical limitations.
      */
     MPViewabilityObstructionTypeNotVisible,
-    
+
     /**
      The obstruction is obstructing for any purpose not already described.
      */

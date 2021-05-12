@@ -1,17 +1,26 @@
 //
 //  MPRealTimeTimer.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
 
 #import "MPRealTimeTimer.h"
-#import "MPTimer.h"
+
+// For non-module targets, UIKit must be explicitly imported
+// since MoPubSDK-Swift.h will not import it.
+#if __has_include(<MoPubSDK/MoPubSDK-Swift.h>)
+    #import <UIKit/UIKit.h>
+    #import <MoPubSDK/MoPubSDK-Swift.h>
+#else
+    #import <UIKit/UIKit.h>
+    #import "MoPubSDK-Swift.h"
+#endif
 
 @interface MPRealTimeTimer ()
 
-@property (strong, nonatomic) MPTimer *timer;
+@property (strong, nonatomic) MPResumableTimer *timer;
 @property (copy, nonatomic) void (^block)(MPRealTimeTimer *);
 @property (assign, nonatomic) NSTimeInterval interval;
 @property (assign, nonatomic, readwrite) BOOL isScheduled;
@@ -66,10 +75,10 @@
 
 - (void)setTimerWithCurrentTimeInterval {
     __typeof__(self) __weak weakSelf = self;
-    self.timer = [MPTimer timerWithTimeInterval:self.currentTimeInterval
-                                        repeats:NO
-                                    runLoopMode:NSRunLoopCommonModes
-                                          block:^(MPTimer * _Nonnull timer) {
+    self.timer = [[MPResumableTimer alloc] initWithInterval:self.currentTimeInterval
+                                                    repeats:NO
+                                                runLoopMode:NSRunLoopCommonModes
+                                                    closure:^(MPResumableTimer * _Nonnull timer) {
         __typeof__(self) strongSelf = weakSelf;
         [strongSelf fire];
     }];

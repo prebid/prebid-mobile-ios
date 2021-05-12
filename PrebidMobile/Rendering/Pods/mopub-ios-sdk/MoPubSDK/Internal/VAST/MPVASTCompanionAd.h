@@ -1,7 +1,7 @@
 //
 //  MPVASTCompanionAd.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -93,7 +93,7 @@ NS_ASSUME_NONNULL_BEGIN
  Return the best @c MPVASTResource that should be displayed. Per VAST specification
  (https://developers.mopub.com/dsps/ad-formats/video/):
     We will prioritize processing companion banners in the following order once we’ve picked the
-    best size: Static, HTML, iframe." Here we pick the "best size" that has the number of pixels
+    best size: HTML, JavaScript, iframe, image." Here we pick the "best size" that has the number of pixels
     closest to the ad container.
 
  Note: The @c type of the returned @c MPVASTResource is determined and assigned.
@@ -104,7 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
  Return best @c MPVASTCompanionAd that should be displayed.
  */
 + (MPVASTCompanionAd * _Nullable)bestCompanionAdForCandidates:(NSArray<MPVASTCompanionAd *> *)candidates
-                                      containerSize:(CGSize)containerSize;
+                                                containerSize:(CGSize)containerSize;
 
 @end
 

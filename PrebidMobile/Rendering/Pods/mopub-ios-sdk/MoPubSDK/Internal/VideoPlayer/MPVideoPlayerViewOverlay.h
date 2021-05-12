@@ -1,7 +1,7 @@
 //
 //  MPVideoPlayerViewOverlay.h
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSString *callToActionButtonTitle;
 
 /**
- Whether this overlay is for a rewarded video.
+ Whether this overlay is for a rewarded ad.
  */
 @property (nonatomic, readonly) BOOL isRewardExpected;
 
@@ -71,21 +71,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithVideoOverlayConfig:(MPVideoPlayerViewOverlayConfig *)config;
 
 /**
- Pause the timer.
- */
-- (void)pauseTimer;
-
-/**
- Pause the timer.
-*/
-- (void)resumeTimer;
-
-/**
- Invalidates the timer.
- */
-- (void)stopTimer;
-
-/**
  Show a countdown timer. The Skip button is irrelevant, and only the Close button will be shown in the end.
  */
 - (void)showCountdownTimerForDuration:(NSTimeInterval)duration;
@@ -116,9 +101,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
 @protocol MPVideoPlayerViewOverlayDelegate <NSObject>
 
-- (void)videoPlayerViewOverlay:(id<MPVideoPlayerViewOverlay>)overlay didTriggerEvent:(MPVideoPlayerEvent)event;
+- (void)videoPlayerViewOverlay:(id<MPVideoPlayerViewOverlay>)overlay didTriggerEvent:(MPVideoEvent)event;
 
 - (void)videoPlayerViewOverlayDidFinishCountdown:(id<MPVideoPlayerViewOverlay>)overlay;
 

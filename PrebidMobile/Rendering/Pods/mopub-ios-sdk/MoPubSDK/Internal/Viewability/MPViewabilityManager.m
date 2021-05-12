@@ -1,7 +1,7 @@
 //
 //  MPViewabilityManager.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -50,7 +50,7 @@ static NSTimeInterval const kDeallocationDelay = 1; // seconds
     dispatch_once(&onceToken, ^{
         manager = [[MPViewabilityManager alloc] init];
     });
-    
+
     return manager;
 }
 
@@ -61,7 +61,7 @@ static NSTimeInterval const kDeallocationDelay = 1; // seconds
         _omidPartner = nil;
         _adaptersScheduledForDeallocation = [NSMutableArray array];
     }
-    
+
     return self;
 }
 
@@ -73,7 +73,7 @@ static NSTimeInterval const kDeallocationDelay = 1; // seconds
             complete(self.isInitialized);
             return;
         }
-        
+
         // Attempt to activate the Open Measurement SDK.
         // If it fails to initialize, so does this manager.
         BOOL openMeasurementSdkStarted = [OMIDMopubSDK.sharedInstance activate];
@@ -81,10 +81,10 @@ static NSTimeInterval const kDeallocationDelay = 1; // seconds
             complete(self.isInitialized);
             return;
         }
-        
+
         // Initialization is now complete
         self.isInitialized = YES;
-        
+
         MPLogInfo(@"Initialized OM SDK version: %@", OMIDMopubSDK.versionString);
         complete(self.isInitialized);
     }
@@ -102,11 +102,11 @@ static NSTimeInterval const kDeallocationDelay = 1; // seconds
         self.isEnabled = NO;
         self.omidPartner = nil;
     }
-    
+
     // Log the event before broadcasting in case the notification handlers
     // also have their own logging. This is to preserve log event ordering.
     MPLogEvent([MPLogEvent viewabilityDisabled]);
-    
+
     // Broadcast that Viewability tracking has been disabled.
     [NSNotificationCenter.defaultCenter postNotificationName:kDisableViewabilityTrackerNotification object:nil userInfo:nil];
 }
@@ -115,14 +115,14 @@ static NSTimeInterval const kDeallocationDelay = 1; // seconds
 
 + (NSString * _Nullable)bundledOMIDLibrary {
     NSError *error = nil;
-    
+
     // Attempt to read the contents of the pre-bundled Open Measurement Javascript Library
     NSString *bundledJsFilePath = MPResourcePathForResource(@"omsdk-v1.js");
     NSString *bundledJs = [NSString stringWithContentsOfFile:bundledJsFilePath encoding:NSUTF8StringEncoding error:&error];
-    
+
     NSAssert(bundledJsFilePath != nil, @"Cannot find file omsdk-v1.js in the bundle");
     NSAssert(bundledJs.length > 0, @"The contents of omsdk-v1.js is empty or non-existent");
-    
+
     return bundledJs;
 }
 
@@ -140,7 +140,7 @@ static NSTimeInterval const kDeallocationDelay = 1; // seconds
     if (!self.isEnabled || !self.isInitialized || html.length == 0) {
         return html;
     }
-    
+
     // Inject the JS service into the ad response that is loaded inside the ad WebView
     NSError *error = nil;
     return [OMIDMopubScriptInjector injectScriptContent:self.omidJsLibrary intoHTML:html error:&error];
@@ -149,14 +149,14 @@ static NSTimeInterval const kDeallocationDelay = 1; // seconds
 - (NSString * _Nullable)omidJsLibrary {
     // Retrieve the cached Open Measurement Javascript library.
     NSString *cachedJsLibrary = [NSUserDefaults.standardUserDefaults stringForKey:kCachedOMJSLibraryKey];
-    
+
     // Inject the locally distributed Open Measurement Javascript library
     // into the cache if it doesn't exist in the cache.
     if (cachedJsLibrary == nil) {
         cachedJsLibrary = MPViewabilityManager.bundledOMIDLibrary;
         [NSUserDefaults.standardUserDefaults setObject:cachedJsLibrary forKey:kCachedOMJSLibraryKey];
     }
-    
+
     return cachedJsLibrary;
 }
 
@@ -167,7 +167,7 @@ static NSTimeInterval const kDeallocationDelay = 1; // seconds
             _omidPartner = [[OMIDMopubPartner alloc] initWithName:kOMIDPartnerName versionString:MP_SDK_VERSION];
         }
     } // End synchronized(self)
-    
+
     return _omidPartner;
 }
 
@@ -186,19 +186,19 @@ static NSTimeInterval const kDeallocationDelay = 1; // seconds
     if (adapter == nil) {
         return;
     }
-    
+
     // Viewability is not initialized or not enabled.
     if (!self.isEnabled || !self.isInitialized) {
         return;
     }
-    
+
     @synchronized (self) {
         // Automatically end the Viewability tracking session
         [adapter stopViewabilitySession];
-        
+
         // Add the adapter scheduled for deallocation
         [self.adaptersScheduledForDeallocation addObject:adapter];
-        
+
         // Schedule the deallocation
         __weak __typeof__(self) weakSelf = self;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kDeallocationDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -212,7 +212,7 @@ static NSTimeInterval const kDeallocationDelay = 1; // seconds
     if (adapter == nil) {
         return;
     }
-    
+
     @synchronized (self) {
         // Removing the adapter from the array should trigger deallocation
         // since it's the last strong reference.

@@ -1,7 +1,7 @@
 //
 //  MPVASTMediaFile.m
 //
-//  Copyright 2018-2020 Twitter, Inc.
+//  Copyright 2018-2021 Twitter, Inc.
 //  Licensed under the MoPub SDK License Agreement
 //  http://www.mopub.com/legal/sdk-license-agreement/
 //
@@ -35,13 +35,7 @@ static NSString * const kVideoMIMETypeXM4V = @"video/x-m4v";
 + (MPVASTMediaFile *)bestMediaFileFromCandidates:(NSArray<MPVASTMediaFile *> *)candidates
                                 forContainerSize:(CGSize)containerSize
                             containerScaleFactor:(CGFloat)containerScaleFactor {
-    if (containerSize.width <= 0
-        || containerSize.height <= 0
-        || containerScaleFactor <= 0) {
-        return nil;
-    }
-
-    CGFloat highestScore = CGFLOAT_MIN;
+    CGFloat highestScore = -1;
     MPVASTMediaFile *result;
 
     for (MPVASTMediaFile *candidate in candidates) {
@@ -73,7 +67,11 @@ static NSString * const kVideoMIMETypeXM4V = @"video/x-m4v";
 
 - (CGFloat)fitScoreForContainerSize:(CGSize)containerSize
                containerScaleFactor:(CGFloat)containerScaleFactor {
-    if (self.width == 0 || self.height == 0) {
+    if (self.width == 0
+        || self.height == 0
+        || containerSize.width == 0
+        || containerSize.height == 0
+        || containerScaleFactor == 0) {
         return 0;
     }
 
@@ -103,6 +101,22 @@ static NSString * const kVideoMIMETypeXM4V = @"video/x-m4v";
     CGFloat fitScore = [self fitScoreForContainerSize:containerSize
                                  containerScaleFactor: containerScaleFactor];
     return self.formatScore / (1 + fitScore + self.qualityScore);
+}
+
+@end
+
+@implementation MPVASTMediaFile (MimeType)
+
+- (NSString *)fileExtensionForMimeType {
+    // Access the mime type once.
+    NSString *mimeType = self.mimeType;
+
+    if ([mimeType isEqualToString:kVideoMIMETypeMP4]) { return @"mp4"; }            // mp4
+    else if ([mimeType isEqualToString:kVideoMIMETypeQuickTime]) { return @"qt"; }  // quicktime
+    else if ([mimeType isEqualToString:kVideoMIMEType3GPP]) { return @"3gp"; }      // 3gpp
+    else if ([mimeType isEqualToString:kVideoMIMEType3GPP2]) { return @"3g2"; }     // 3gpp2
+    else if ([mimeType isEqualToString:kVideoMIMETypeXM4V]) { return @"m4v"; }      // x-m4v
+    else { return nil; }                                                            // unsupported
 }
 
 @end

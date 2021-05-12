@@ -197,6 +197,16 @@ class PrebidServerUITests: AdsLoaderUITestCase {
         checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 (MoPub) [noBids, MoPub Ad]",
                                 callbacks: mopubRewardedCallbacks)
     }
+    
+    func testMoPubRewarded_DeprecatedAPI() {
+        checkRewardedLoadResult(exampleName: "[Deprecated API] Video Rewarded 320x480 (MoPub) [OK, OXB Adapter]",
+                                callbacks: mopubRewardedCallbacks)
+    }
+    
+    func testMoPubRewarded_noBids_DeprecatedAPI() {
+        checkRewardedLoadResult(exampleName: "[Deprecated API] Video Rewarded 320x480 (MoPub) [noBids, MoPub Ad]",
+                                callbacks: mopubRewardedCallbacks)
+    }
 
     // MARK: - Native Styles
     
