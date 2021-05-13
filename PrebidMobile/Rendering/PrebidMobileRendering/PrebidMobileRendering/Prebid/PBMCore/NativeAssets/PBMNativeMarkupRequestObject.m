@@ -4,11 +4,17 @@
 //
 //  Copyright © 2020 OpenX. All rights reserved.
 //
+#import "PBMPlayable.h"
+#import "PBMAdViewManagerDelegate.h"
+#import "PBMConstants.h"
+#import "PBMDataAssetType.h"
+#import "PBMJsonCodable.h"
+
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 #import "PBMNativeMarkupRequestObject.h"
 #import "PBMNativeMarkupRequestObject+Internal.h"
 
-#import "PBMNativeAsset+Internal.h"
 #import "PBMNativeEventTracker+Internal.h"
 
 #import "PBMFunctions.h"
@@ -18,7 +24,7 @@
 #import "NSDictionary+PBMORTBNativeExt.h"
 
 @interface PBMNativeMarkupRequestObject ()
-@property (nonatomic, strong) NSArray<PBMNativeAsset *> *rawAssets;
+@property (nonatomic, strong) NSArray<NativeAsset *> *rawAssets;
 @property (nonatomic, strong, nullable) NSString *rawVersion;
 @property (nonatomic, strong, nullable) NSArray<PBMNativeEventTracker *> *rawEventTrackers;
 @end
@@ -26,7 +32,7 @@
 
 @implementation PBMNativeMarkupRequestObject
 
-- (instancetype)initWithAssets:(NSArray<PBMNativeAsset *> *)assets {
+- (instancetype)initWithAssets:(NSArray<NativeAsset *> *)assets {
     if(!(self = [super init])) {
         return nil;
     }
@@ -37,11 +43,11 @@
 
 // MARK: - Raw Property Accessors
 
-- (NSArray<PBMNativeAsset *> *)rawAssets {
+- (NSArray<NativeAsset *> *)rawAssets {
     return _assets;
 }
 
-- (void)setRawAssets:(NSArray<PBMNativeAsset *> *)rawAssets {
+- (void)setRawAssets:(NSArray<NativeAsset *> *)rawAssets {
     _assets = rawAssets;
 }
 
@@ -90,7 +96,7 @@
 
 - (NSArray<PBMJsonDictionary *> *)jsonAssets {
     NSMutableArray<PBMJsonDictionary *> * const serializedAssets = [[NSMutableArray alloc] initWithCapacity:self.assets.count];
-    for(PBMNativeAsset *nextAsset in self.assets) {
+    for(NativeAsset *nextAsset in self.assets) {
         [serializedAssets addObject:nextAsset.jsonDictionary];
     }
     return serializedAssets;

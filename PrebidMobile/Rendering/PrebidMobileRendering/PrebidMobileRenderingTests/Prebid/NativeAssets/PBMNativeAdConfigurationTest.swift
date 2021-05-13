@@ -12,7 +12,7 @@ import XCTest
 class PBMNativeAdConfigurationTest: XCTestCase {
 
     func testSetupConfig() {
-        let desc = PBMNativeAssetData(dataType: .desc)
+        let desc = NativeAssetData(dataType: .desc)
         let nativeAdConfig = PBMNativeAdConfiguration.init(assets:[desc])
         
         nativeAdConfig.context = .socialCentric

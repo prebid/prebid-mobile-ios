@@ -15,7 +15,7 @@ class PBMAdUnitConfigTest: XCTestCase {
         let adUnitConfig = PBMAdUnitConfig(configId: "dummy-config-id")
         XCTAssertFalse(adUnitConfig.adConfiguration.isNative)
         
-        let nativeAdConfig = PBMNativeAdConfiguration(assets: [PBMNativeAssetTitle(length: 25)])
+        let nativeAdConfig = PBMNativeAdConfiguration(assets: [NativeAssetTitle(length: 25)])
         adUnitConfig.nativeAdConfig = nativeAdConfig
         XCTAssertTrue(adUnitConfig.adConfiguration.isNative)
     }

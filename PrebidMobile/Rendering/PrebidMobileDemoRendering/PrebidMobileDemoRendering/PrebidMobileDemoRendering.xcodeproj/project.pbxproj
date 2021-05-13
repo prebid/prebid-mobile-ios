@@ -130,6 +130,7 @@
 		ACC41ACA2444E50B00B9A3A7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC41AC92444E50B00B9A3A7 /* SettingsViewController.swift */; };
 		ACC41ACD2444EADB00B9A3A7 /* AppSettingsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC41ACC2444EADB00B9A3A7 /* AppSettingsKeys.swift */; };
 		ACD76C78251A37E900F34589 /* PrebidBannerUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD76C77251A37E900F34589 /* PrebidBannerUITest.swift */; };
+		ACE6E80D264D121A009324AC /* NativeAsset+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE6E80C264D121A009324AC /* NativeAsset+Extensions.swift */; };
 		ACF3558025CD8C3000B9C8E5 /* PrebidNativeAdFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF3557F25CD8C3000B9C8E5 /* PrebidNativeAdFeedController.swift */; };
 		ACF3823125ED058F000A071B /* PrebidMoPubNativeAdFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF3823025ED058E000A071B /* PrebidMoPubNativeAdFeedController.swift */; };
 		ACF3823725ED47E4000A071B /* MoPubNativeVideoAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF3823625ED47E4000A071B /* MoPubNativeVideoAdView.swift */; };
@@ -210,7 +211,6 @@
 		2F097F6238E0EB831B507463 /* Pods_OpenXMockServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenXMockServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		340241142382B7E60038D61F /* RepeatedUITestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepeatedUITestCase.swift; sourceTree = "<group>"; };
 		341CC2E42562B04800186F29 /* NativeAssetsArrayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetsArrayController.swift; sourceTree = "<group>"; };
-		341CC2EA2562B3DB00186F29 /* PBMNativeAsset+InternalState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMNativeAsset+InternalState.h"; sourceTree = "<group>"; };
 		341CC2F52562B97600186F29 /* NativeEventTrackersArrayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackersArrayController.swift; sourceTree = "<group>"; };
 		341CC2FF2562BA1800186F29 /* PBMNativeEventTracker+InternalState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMNativeEventTracker+InternalState.h"; sourceTree = "<group>"; };
 		341CC3042562BD2300186F29 /* NativeEventTrackerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackerController.swift; sourceTree = "<group>"; };
@@ -347,6 +347,7 @@
 		ACC41AC92444E50B00B9A3A7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		ACC41ACC2444EADB00B9A3A7 /* AppSettingsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsKeys.swift; sourceTree = "<group>"; };
 		ACD76C77251A37E900F34589 /* PrebidBannerUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidBannerUITest.swift; sourceTree = "<group>"; };
+		ACE6E80C264D121A009324AC /* NativeAsset+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeAsset+Extensions.swift"; sourceTree = "<group>"; };
 		ACF3557F25CD8C3000B9C8E5 /* PrebidNativeAdFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdFeedController.swift; sourceTree = "<group>"; };
 		ACF3823025ED058E000A071B /* PrebidMoPubNativeAdFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMoPubNativeAdFeedController.swift; sourceTree = "<group>"; };
 		ACF3823625ED47E4000A071B /* MoPubNativeVideoAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoPubNativeVideoAdView.swift; sourceTree = "<group>"; };
@@ -448,6 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				341CC3132562C9D000186F29 /* FormViewController+RowBuildHelpers.swift */,
+				ACE6E80C264D121A009324AC /* NativeAsset+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -600,7 +602,6 @@
 				34D70F6324E53B920048CC78 /* NSError+pbmError.h */,
 				34D70F6424E53B920048CC78 /* NSError+pbmError.m */,
 				34DB0D32255ED58000970F9E /* PBMNativeAdConfiguration+Internal.h */,
-				341CC2EA2562B3DB00186F29 /* PBMNativeAsset+InternalState.h */,
 				341CC2FF2562BA1800186F29 /* PBMNativeEventTracker+InternalState.h */,
 				34B64DA924F7FD3900FDD9F4 /* PBMSDKConfiguration+InternalState.h */,
 				34C9AECD256418D700EB6F72 /* NativeAdConfig_fromJson */,
@@ -1206,6 +1207,7 @@
 				ACF3558025CD8C3000B9C8E5 /* PrebidNativeAdFeedController.swift in Sources */,
 				5B3EEDE52101FB8800BAA0C4 /* TestCase.swift in Sources */,
 				34C9AED32564191100EB6F72 /* PBMNativeAsset+FromJSON.swift in Sources */,
+				ACE6E80D264D121A009324AC /* NativeAsset+Extensions.swift in Sources */,
 				34BA9602249CC164006AE372 /* PrebidMoPubInterstitialController.swift in Sources */,
 				34FC0CF424ADD3A80045553E /* PrebidInterstitialController.swift in Sources */,
 				34930E122420E899007A0DBA /* GlobalVars.swift in Sources */,

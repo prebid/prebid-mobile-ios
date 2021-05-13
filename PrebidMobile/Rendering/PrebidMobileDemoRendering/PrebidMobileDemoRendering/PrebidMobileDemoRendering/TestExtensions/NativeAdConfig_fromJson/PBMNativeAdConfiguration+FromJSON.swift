@@ -12,7 +12,7 @@ extension PBMNativeAdConfiguration {
         guard let rawAssets = json["assets"] as? [[String: Any]] else {
             return nil
         }
-        self.init(assets: rawAssets.compactMap(PBMNativeAsset.parse(json:)))
+        self.init(assets: rawAssets.compactMap(NativeAsset.parse(json:)))
         version = json["ver"] as? String
         
         context = enumValue(json["context"])

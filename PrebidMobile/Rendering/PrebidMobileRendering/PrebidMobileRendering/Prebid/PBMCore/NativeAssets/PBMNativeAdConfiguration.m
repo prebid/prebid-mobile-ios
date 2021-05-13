@@ -16,7 +16,7 @@
 
 @implementation PBMNativeAdConfiguration
 
-- (instancetype)initWithAssets:(NSArray<PBMNativeAsset *> *)assets {
+- (instancetype)initWithAssets:(NSArray<NativeAsset *> *)assets {
     if (!(self = [super init])) {
         return nil;
     }
@@ -64,11 +64,11 @@
     return self.markupRequestObject.seq;
 }
 
-- (void)setAssets:(NSArray<PBMNativeAsset *> *)assets {
+- (void)setAssets:(NSArray<NativeAsset *> *)assets {
     self.markupRequestObject.assets = assets;
 }
 
-- (NSArray<PBMNativeAsset *> *)assets {
+- (NSArray<NativeAsset *> *)assets {
     return self.markupRequestObject.assets;
 }
 

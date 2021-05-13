@@ -7,15 +7,15 @@
 
 import Foundation
 
-extension PBMNativeAsset {
-    class func parse(json: [String:Any]) -> PBMNativeAsset? {
-        var asset: PBMNativeAsset!
+extension NativeAsset {
+    class func parse(json: [String:Any]) -> NativeAsset? {
+        var asset: NativeAsset!
         var childDic: [String: Any]!
-        let parsers: [String: ([String: Any])->PBMNativeAsset?] = [
-            "data": PBMNativeAssetData.init(childJson:),
-            "img": PBMNativeAssetImage.init(childJson:),
-            "title": PBMNativeAssetTitle.init(childJson:),
-            "video": PBMNativeAssetVideo.init(childJson:),
+        let parsers: [String: ([String: Any])->NativeAsset?] = [
+            "data": NativeAssetData.init(childJson:),
+            "img": NativeAssetImage.init(childJson:),
+            "title": NativeAssetTitle.init(childJson:),
+            "video": NativeAssetVideo.init(childJson:),
         ]
         for (key, builder) in parsers {
             if let dic = json[key] as? [String: Any], let result = builder(dic) {
@@ -32,7 +32,7 @@ extension PBMNativeAsset {
     }
 }
 
-fileprivate extension PBMNativeAssetTitle {
+fileprivate extension NativeAssetTitle {
     convenience init?(childJson: [String: Any]) {
         guard let length = childJson["len"] as? NSNumber else {
             return nil
@@ -41,7 +41,7 @@ fileprivate extension PBMNativeAssetTitle {
     }
 }
 
-fileprivate extension PBMNativeAssetData {
+fileprivate extension NativeAssetData {
     convenience init?(childJson: [String: Any]) {
         guard let rawDataType = childJson["type"] as? NSNumber,
               let dataType = PBMDataAssetType(rawValue: rawDataType.intValue)
@@ -53,7 +53,7 @@ fileprivate extension PBMNativeAssetData {
     }
 }
 
-fileprivate extension PBMNativeAssetImage {
+fileprivate extension NativeAssetImage {
     convenience init?(childJson: [String: Any]) {
         self.init()
         imageType = childJson["type"] as? NSNumber
@@ -65,7 +65,7 @@ fileprivate extension PBMNativeAssetImage {
     }
 }
 
-fileprivate extension PBMNativeAssetVideo {
+fileprivate extension NativeAssetVideo {
     convenience init?(childJson: [String: Any]) {
         guard let mimes = childJson["mimes"] as? [String],
               let minDuration = childJson["minDuration"] as? NSNumber,

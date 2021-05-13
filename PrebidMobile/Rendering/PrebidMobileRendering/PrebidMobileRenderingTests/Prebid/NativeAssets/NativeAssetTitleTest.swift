@@ -9,14 +9,14 @@ import XCTest
 
 @testable import PrebidMobileRendering
 
-class PBMNativeAssetTitleTest: XCTestCase {
+class NativeAssetTitleTest: XCTestCase {
     func testDesignatedInitAndToJsonString() {
-        let title = PBMNativeAssetTitle(length: 25)
+        let title = NativeAssetTitle(length: 25)
         title.required = true
         try! title.setAssetExt(["topKey": "topVal"])
         try! title.setTitleExt(["boxedKey": "boxedVal"])
         title.assetID = 42
-        let clone = title.copy() as! PBMNativeAssetTitle
+        let clone = title.copy() as! NativeAssetTitle
         XCTAssertEqual(clone.jsonDictionary as NSDictionary?, [
             "id": 42,
             "required": 1,

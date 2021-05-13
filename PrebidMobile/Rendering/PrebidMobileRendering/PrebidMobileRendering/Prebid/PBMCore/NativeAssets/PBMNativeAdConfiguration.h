@@ -7,11 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PBMNativeAsset.h"
 #import "PBMNativeContextType.h"
 #import "PBMNativeContextSubtype.h"
 #import "PBMNativePlacementType.h"
 #import "PBMNativeEventTracker.h"
+
+@class NativeAsset;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -48,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// [Required]
 /// An array of Asset Objects. Any objects bid response must comply with the array of elements expressed in the bid request.
-@property (nonatomic, copy) NSArray<PBMNativeAsset *> *assets;
+@property (nonatomic, copy) NSArray<NativeAsset *> *assets;
 
 // NOT SUPPORTED:
 // /// [Integer]
@@ -85,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *nativeStylesCreative;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithAssets:(NSArray<PBMNativeAsset *> *)assets NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithAssets:(NSArray<NativeAsset *> *)assets NS_DESIGNATED_INITIALIZER;
 
 @end
 

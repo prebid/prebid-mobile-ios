@@ -7,15 +7,15 @@
 
 import Foundation
 
-extension Array where Self.Element == PBMNativeAsset {
-    static let defaultNativeRequestAssets: [PBMNativeAsset] = [
+extension Array where Self.Element == NativeAsset {
+    static let defaultNativeRequestAssets: [NativeAsset] = [
         {
-            let title = PBMNativeAssetTitle(length: 90)
+            let title = NativeAssetTitle(length: 90)
             title.required = true
             return title
         }(),
         {
-            let icon = PBMNativeAssetImage()
+            let icon = NativeAssetImage()
             icon.widthMin = 50
             icon.heightMin = 50
             icon.required = true
@@ -23,7 +23,7 @@ extension Array where Self.Element == PBMNativeAsset {
             return icon
         }(),
         {
-            let image = PBMNativeAssetImage()
+            let image = NativeAssetImage()
             image.widthMin = 150
             image.heightMin = 50
             image.required = true
@@ -31,17 +31,17 @@ extension Array where Self.Element == PBMNativeAsset {
             return image
         }(),
         {
-            let desc = PBMNativeAssetData(dataType: .desc)
+            let desc = NativeAssetData(dataType: .desc)
             desc.required = true
             return desc
         }(),
         {
-            let cta = PBMNativeAssetData(dataType: .ctaText)
+            let cta = NativeAssetData(dataType: .ctaText)
             cta.required = true
             return cta
         }(),
         {
-            let sponsored = PBMNativeAssetData(dataType: .sponsored)
+            let sponsored = NativeAssetData(dataType: .sponsored)
             sponsored.required = true
             return sponsored
         }(),
@@ -50,7 +50,7 @@ extension Array where Self.Element == PBMNativeAsset {
 
 // TODO: additional parameters for trackers, context, etc. (?)
 extension PBMNativeAdConfiguration {
-    convenience init(testConfigWithAssets assets: [PBMNativeAsset]) {
+    convenience init(testConfigWithAssets assets: [NativeAsset]) {
         self.init(assets: assets)
         
         self.eventtrackers = [

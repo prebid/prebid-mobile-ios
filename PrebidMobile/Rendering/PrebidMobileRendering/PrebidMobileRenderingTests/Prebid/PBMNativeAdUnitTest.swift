@@ -13,7 +13,7 @@ class PBMNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
     func testDesignatedInit_noBlockCalled() {
         let configID = "some-base-config-ID"
         
-        let nativeAdConfig = PBMNativeAdConfiguration(assets: [PBMNativeAssetTitle(length: 25)])
+        let nativeAdConfig = PBMNativeAdConfiguration(assets: [NativeAssetTitle(length: 25)])
         
         let noRequesterCreated = expectation(description: "no requester created")
         noRequesterCreated.isInverted = true
@@ -60,7 +60,7 @@ class PBMNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         
         let configID = "the-config-ID"
         let bidPrice = 0.85
-        let nativeAdConfig = PBMNativeAdConfiguration(assets: [PBMNativeAssetTitle(length: 25)])
+        let nativeAdConfig = PBMNativeAdConfiguration(assets: [NativeAssetTitle(length: 25)])
         
         for nextMarkup in testBlocks {
             let expectedAdMarkup = nextMarkup.adMarkup
@@ -124,7 +124,7 @@ class PBMNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         
         let configID = "the-config-ID"
         let bidPrice = 0.85
-        let nativeAdConfig = PBMNativeAdConfiguration(assets: [PBMNativeAssetTitle(length: 25)])
+        let nativeAdConfig = PBMNativeAdConfiguration(assets: [NativeAssetTitle(length: 25)])
         
         let bidResponse = makeWinningBidResponse(bidPrice: bidPrice)
         
