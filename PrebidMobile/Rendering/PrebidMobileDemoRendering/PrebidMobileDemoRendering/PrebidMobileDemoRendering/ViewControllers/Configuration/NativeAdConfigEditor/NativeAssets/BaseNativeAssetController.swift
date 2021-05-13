@@ -8,7 +8,7 @@
 import UIKit
 import Eureka
 
-class BaseNativeAssetController<T: PBMNativeAsset> : FormViewController, RowBuildHelpConsumer {
+class BaseNativeAssetController<T: NativeAsset> : FormViewController, RowBuildHelpConsumer {
     var nativeAsset: T!
     
     var dataContainer: T? {
@@ -27,8 +27,10 @@ class BaseNativeAssetController<T: PBMNativeAsset> : FormViewController, RowBuil
         
         buildForm()
         
-        addExtRow(field: "assetExt", src: \.assetExt, dst: PBMNativeAsset.setAssetExt)
-        addExtRow(field: "\(nativeAsset.childType)Ext", src: \.childExt, dst: PBMNativeAsset.setChildExt)
+        addExtRow(field: "assetExt", src: \.assetExt, dst: NativeAsset.setAssetExt)
+        addExtRow(field: "\(nativeAsset.name)Ext",
+                  src: \.childExt,
+                  dst: NativeAsset.setChildExt)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

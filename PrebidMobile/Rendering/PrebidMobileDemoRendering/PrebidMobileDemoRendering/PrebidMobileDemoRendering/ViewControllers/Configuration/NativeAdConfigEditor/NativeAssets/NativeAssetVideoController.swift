@@ -8,7 +8,7 @@
 import UIKit
 import Eureka
 
-class NativeAssetVideoController: BaseNativeAssetController<PBMNativeAssetVideo> {
+class NativeAssetVideoController: BaseNativeAssetController<NativeAssetVideo> {
     override func buildForm() {
         super.buildForm()
         

@@ -11,7 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NSDictionary<NSString *, id> PBMJsonDictionary;
+@compatibility_alias JsonDictionary PBMJsonDictionary;
+
 typedef NSMutableDictionary<NSString *, id> PBMMutableJsonDictionary;
+@compatibility_alias MutableJsonDictionary PBMMutableJsonDictionary;
 
 typedef NSDictionary<NSString *, NSString *> PBMStringDictionary;
 typedef NSMutableDictionary<NSString *, NSString *> PBMMutableStringDictionary;

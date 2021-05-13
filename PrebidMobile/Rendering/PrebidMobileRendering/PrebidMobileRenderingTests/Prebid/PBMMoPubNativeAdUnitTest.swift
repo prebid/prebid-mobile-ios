@@ -11,7 +11,7 @@ import XCTest
 
 class PBMMoPubNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
     let configID = "testConfigID"
-    let nativeAdConfig = PBMNativeAdConfiguration(assets: [PBMNativeAssetTitle(length: 25)])
+    let nativeAdConfig = PBMNativeAdConfiguration(assets: [NativeAssetTitle(length: 25)])
 
     func testWrongAdObject() {
         let adUnit = PBMMoPubNativeAdUnit(configID: configID, nativeAdConfiguration: nativeAdConfig)

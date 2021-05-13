@@ -7,7 +7,6 @@
 
 #import "PBMSDKConfiguration+InternalState.h"
 #import "PBMNativeAdConfiguration+Internal.h"
-#import "PBMNativeAsset+InternalState.h"
 #import "PBMNativeEventTracker+InternalState.h"
 
 #import "NSError+pbmError.h"

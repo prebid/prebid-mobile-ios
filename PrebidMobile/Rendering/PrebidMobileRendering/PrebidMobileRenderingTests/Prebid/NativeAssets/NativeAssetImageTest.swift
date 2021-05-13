@@ -9,20 +9,20 @@ import XCTest
 
 @testable import PrebidMobileRendering
 
-class PBMNativeAssetImageTest: XCTestCase {
+class NativeAssetImageTest: XCTestCase {
     func testDesignatedInitAndToJsonString() {
-        let image = PBMNativeAssetImage()
+        let image = NativeAssetImage()
         image.imageType = PBMImageAssetType.main.rawValue as NSNumber
         image.width = 120
         image.height = 240
         image.widthMin = 96
         image.heightMin = 128
         image.mimeTypes = ["image/png","image/jpeg"]
-        image.required = true
+        image.required = 1
         try! image.setAssetExt(["topKey": "topVal"])
         try! image.setImageExt(["boxedKey": "boxedVal"])
         image.assetID = 42
-        let clone = image.copy() as! PBMNativeAssetImage
+        let clone = image.copy() as! NativeAssetImage
         XCTAssertEqual(clone.jsonDictionary as NSDictionary?, [
             "id": 42,
             "required": 1,

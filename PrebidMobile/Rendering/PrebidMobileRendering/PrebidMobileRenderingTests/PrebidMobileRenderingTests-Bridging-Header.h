@@ -196,7 +196,6 @@
 // NativeAds (Request)
 #import "PBMNativeAdConfiguration+Internal.h"
 #import "PBMNativeAdUnit+Testing.h"
-#import "PBMNativeAsset+Internal.h"
 #import "PBMNativeEventTracker+Internal.h"
 #import "PBMNativeMarkupRequestObject+Internal.h"
 // NativeAds (Response model)
