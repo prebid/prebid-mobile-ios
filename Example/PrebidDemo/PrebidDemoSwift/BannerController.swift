@@ -71,14 +71,11 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        prebidSKAdNetworkHelper.viewAppear()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         // important to remove the time instance
         adUnit?.stopAutoRefresh()
-        prebidSKAdNetworkHelper.viewDisappear()
-        
     }
 
     //MARK: Banner
@@ -107,7 +104,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     }
 
     func setupPBRubiconBanner(width: Int, height: Int) {
-        //setupPBBanner(host: .Rubicon, accountId: "1001", configId: "1001-1", storedResponse: "1001-rubicon-300x250", width: width, height: height)
+//        setupPBBanner(host: .Rubicon, accountId: "1001", configId: "1001-1", storedResponse: "1001-rubicon-300x250", width: width, height: height)
         
         // SKAdNetwork
         setupPBBanner(host: .Rubicon, accountId: "1001", configId: "1001-1", storedResponse: "1001-rubicon-300x250-skadnetwork", width: width, height: height)
