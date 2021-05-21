@@ -11,7 +11,7 @@ import XCTest
 
 class PBMMoPubRewardedAdUnitTest: XCTestCase {
     func testDefaultSettings() {
-        let adUnit = PBMMoPubRewardedAdUnit(configId: "prebidConfigId")
+        let adUnit = MoPubRewardedAdUnit(configId: "prebidConfigId")
         let adUnitConfig = adUnit.adUnitConfig
         
         XCTAssertTrue(adUnitConfig.isInterstitial)

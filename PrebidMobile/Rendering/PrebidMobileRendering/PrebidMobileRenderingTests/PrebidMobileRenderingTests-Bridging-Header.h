@@ -186,7 +186,6 @@
 #import "PBMBidResponse+Testing.h"
 #import "PBMDemandResponseInfo+Internal.h"
 #import "PBMError.h"
-#import "PBMMoPubBannerAdUnit+InternalState.h"
 #import "PBMPrebidParameterBuilder.h"
 #import "PBMRewardedAdUnit+Protected.h"
 #import "PBMSDKConfiguration+InternalState.h"
@@ -226,13 +225,11 @@
 #import "PBMORTBBidResponse+Internal.h"
 #import "PBMORTBSeatBid+Internal.h"
 
-// MoPub Adapters
-#import "PBMMoPubUtils.h"
-#import "PBMMoPubUtils+Private.h"
-#import "PBMMoPubBannerAdUnit+TestExtension.h"
-#import "PBMMoPubInterstitialAdUnit+TestExtension.h"
-#import "PBMMoPubBaseInterstitialAdUnit+Protected.h"
-#import "PBMMoPubNativeAdUnit+TestExtension.h"
-
 // PBM Native Ads support
 #import "PBMNativeFunctions.h"
+
+#import "UIView+PBMViewExposure.h"
+
+#import "MoPubNativeAdUnit+TestExtension.h"
+#import "MoPubInterstitialAdUnit+TestExtension.h"
+#import "MoPubBannerAdUnit+TestExtension.h"

@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)interstitialControllerDidLeaveApp:(PBMInterstitialController *)interstitialController;
 
 
-- (UIViewController *)viewControllerForModalPresentationFrom:(PBMInterstitialController *)interstitialController;
+- (nullable UIViewController *)viewControllerForModalPresentationFrom:(PBMInterstitialController *)interstitialController;
 
 @optional
 

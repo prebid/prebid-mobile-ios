@@ -336,6 +336,9 @@
         if (dismissParent) {
             dismissParent();
         }
+        
+        // FIXME: this return leads to the wrong behaviour for rewarded ads with EndCard.
+        // delegate's method creativeDidComplete is not called
         return;
     }
     

@@ -1,5 +1,5 @@
 //
-//  PBMMoPubBannerAdUnitTest.swift
+//  MoPubBannerAdUnitTest.swift
 //  OpenXSDKCoreTests
 //
 //  Copyright © 2020 OpenX. All rights reserved.
@@ -22,7 +22,7 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
     private let targeting = PBMTargeting.withDisabledLock
     
     func testConfigSetup() {
-        let bannerAdUnit = PBMMoPubBannerAdUnit(configId: testID, size: primarySize)
+        let bannerAdUnit = MoPubBannerAdUnit(configID: testID, size: primarySize)
         let adUnitConfig = bannerAdUnit.adUnitConfig
         
         XCTAssertEqual(adUnitConfig.configId, testID)
@@ -47,7 +47,7 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
     }
     
     func testWrongAdObject() {
-        let adUnit = PBMMoPubBannerAdUnit(configId: testID, size: primarySize)
+        let adUnit = MoPubBannerAdUnit(configID: testID, size: primarySize)
         let asyncExpectation = expectation(description: "fetchDemand executed")
         adUnit.fetchDemand(with: NSString()) { result in
             XCTAssertEqual(result, .wrongArguments)
@@ -57,9 +57,9 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
     }
     
     func testAdObjectSetUpCleanUp() {
-        @objc class MoPubAdObject: NSObject, PBMMoPubAdObjectProtocol  {
-            var keywords: String?
-            var localExtras: [AnyHashable : Any]?
+        @objc class MoPubAdObject: NSObject {
+            @objc var keywords: String?
+            @objc var localExtras: [AnyHashable : Any]?
         }
         
         //a good response with a bid
@@ -72,7 +72,7 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
         adObject.keywords = initialKeywords
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnit = PBMMoPubBannerAdUnit(configId: configId, size: primarySize)
+        let adUnit = MoPubBannerAdUnit(configID: configId, size: primarySize)
         
         let asyncExpectation = expectation(description: "fetchDemand executed")
         

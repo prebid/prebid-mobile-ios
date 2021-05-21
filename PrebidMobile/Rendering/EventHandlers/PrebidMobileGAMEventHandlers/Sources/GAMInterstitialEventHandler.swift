@@ -70,8 +70,9 @@ public class GAMInterstitialEventHandler :
             return
         }
         
-        guard let _ = requestInterstitial,
-              let _ = proxyInterstitial else {
+        if let _ = requestInterstitial,
+           let _ = proxyInterstitial {
+            // Request in progress
             return;
         }
 

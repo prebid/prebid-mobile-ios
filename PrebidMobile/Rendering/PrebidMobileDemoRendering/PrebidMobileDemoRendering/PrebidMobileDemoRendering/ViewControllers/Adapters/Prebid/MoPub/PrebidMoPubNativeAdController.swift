@@ -21,7 +21,7 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigur
     
     private let nativeAdViewBox = NativeAdViewBox()
     
-    private var adUnit: PBMMoPubNativeAdUnit?
+    private var adUnit: MoPubNativeAdUnit?
     private var theMoPubNativeAd: MPNativeAd?
     private var thePrebidNativeAd: PBMNativeAd?
     
@@ -108,7 +108,7 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigur
             return
         }
         
-        adUnit = PBMMoPubNativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
+        adUnit = MoPubNativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
                 adUnit?.addContextData(dataPair.value, forKey: dataPair.key)
@@ -134,7 +134,7 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigur
             let mopubConfig = MPStaticNativeAdRenderer.rendererConfiguration(with: settings);
             
             
-            PrebidMoPubNativeAdUtils.shared().prepareAdObject(targeting!)
+            PrebidMoPubAdaptersUtils.shared.prepareAdObject(targeting!)
             
             let adRequest = MPNativeAdRequest.init(adUnitIdentifier: self.moPubAdUnitId, rendererConfigurations: [prebidConfig, mopubConfig!])
             adRequest?.targeting = targeting
@@ -170,8 +170,8 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigur
                     self?.nativeAdInvalidButton.isEnabled = true
                 }
                 
-                PrebidMoPubNativeAdUtils.shared().findNativeAd(in: moPubNativeAd,
-                                                            nativeAdDetectionListener: nativeAdDetectionListener)
+                PrebidMoPubAdaptersUtils.shared.find(nativeAd: moPubNativeAd,
+                                       nativeAdDetectionListener: nativeAdDetectionListener)
             }
         }
     }

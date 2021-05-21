@@ -218,7 +218,6 @@
 		341CC3132562C9D000186F29 /* FormViewController+RowBuildHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormViewController+RowBuildHelpers.swift"; sourceTree = "<group>"; };
 		341CC3192562CE5C00186F29 /* NativeAssetTitleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetTitleController.swift; sourceTree = "<group>"; };
 		34215B0E25C4598E00C74A09 /* ProcessArgumentsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessArgumentsParser.swift; sourceTree = "<group>"; };
-		34239CA824E29A7200D58C30 /* DO_NOT_MOVE_THESE_FILES.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = DO_NOT_MOVE_THESE_FILES.txt; sourceTree = "<group>"; };
 		343796A22355E450007C208B /* BaseUITestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseUITestCase.swift; sourceTree = "<group>"; };
 		343796A52355E490007C208B /* XCUIElementExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCUIElementExt.swift; sourceTree = "<group>"; };
 		3443BB7523859F410091DDDC /* XCTestCase+Throwing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+Throwing.h"; sourceTree = "<group>"; };
@@ -457,7 +456,6 @@
 		34239CA624E2978900D58C30 /* InternallyExposedFiles */ = {
 			isa = PBXGroup;
 			children = (
-				34239CA824E29A7200D58C30 /* DO_NOT_MOVE_THESE_FILES.txt */,
 			);
 			path = InternallyExposedFiles;
 			sourceTree = "<group>";

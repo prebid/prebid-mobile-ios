@@ -8,8 +8,10 @@
 #import <UIKit/UIKit.h>
 
 #import "UIView+PBMExtensions.h"
+#import "UIView+PBMViewExposure.h"
 
 #import "PBMLog.h"
+
 
 @implementation UIView (PBMExtensions)
 

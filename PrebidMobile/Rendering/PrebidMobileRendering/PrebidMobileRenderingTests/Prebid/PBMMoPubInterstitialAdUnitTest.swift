@@ -20,7 +20,7 @@ class PBMMoPubInterstitialAdUnitTest: XCTestCase {
     private let targeting = PBMTargeting.withDisabledLock
     
     func testDefaultSettings() {
-        let adUnit = PBMMoPubInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30))
+        let adUnit = MoPubInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30))
         let adUnitConfig = adUnit.adUnitConfig
         
         XCTAssertTrue(adUnitConfig.isInterstitial)
@@ -29,7 +29,7 @@ class PBMMoPubInterstitialAdUnitTest: XCTestCase {
     }
     
     func testWrongAdObject() {
-        let adUnit = PBMMoPubInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30))
+        let adUnit = MoPubInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30))
         let asyncExpectation = expectation(description: "fetchDemand executed")
         adUnit.fetchDemand(with: NSString()) { result in
             XCTAssertEqual(result, .wrongArguments)
@@ -39,9 +39,9 @@ class PBMMoPubInterstitialAdUnitTest: XCTestCase {
     }
     
     func testAdObjectSetUpCleanUp() {
-        @objc class MoPubAdObject: NSObject, PBMMoPubAdObjectProtocol  {
-            var keywords: String?
-            var localExtras: [AnyHashable : Any]?
+        @objc class MoPubAdObject: NSObject  {
+            @objc var keywords: String?
+            @objc var localExtras: [AnyHashable : Any]?
         }
         
         //a good response with a bid
@@ -54,7 +54,7 @@ class PBMMoPubInterstitialAdUnitTest: XCTestCase {
         adObject.keywords = initialKeywords
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnit = PBMMoPubInterstitialAdUnit(configId: configId, minSizePercentage: CGSize(width: 30, height: 30))
+        let adUnit = MoPubInterstitialAdUnit(configId: configId, minSizePercentage: CGSize(width: 30, height: 30))
         
         let asyncExpectation = expectation(description: "fetchDemand executed")
         

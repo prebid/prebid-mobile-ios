@@ -1,5 +1,5 @@
 //
-//  PBMMoPubUtilsTest.swift
+//  MoPubUtilsTest.swift
 //  OpenXSDKCoreTests
 //
 //  Copyright © 2020 OpenX. All rights reserved.
@@ -9,29 +9,28 @@ import XCTest
 
 @testable import PrebidMobileRendering
 
-@objc class MoPubAdObject: NSObject, PBMMoPubAdObjectProtocol  {
-    var keywords: String?
-    
-    var localExtras: [AnyHashable : Any]?
+@objc class MoPubAdObject: NSObject  {
+    @objc var keywords: String?
+    @objc var localExtras: [AnyHashable : Any]?
 }
 
 class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
 
     func testIsCorrectAdObject() {
-        XCTAssertTrue(PBMMoPubUtils.isCorrectAdObject(MoPubAdObject()))
+        XCTAssertTrue(MoPubUtils.isCorrectAdObject(MoPubAdObject()))
         
-        XCTAssertFalse(PBMMoPubUtils.isCorrectAdObject(UILabel()))
+        XCTAssertFalse(MoPubUtils.isCorrectAdObject(UILabel()))
         
         
         @objc class WrongAdObject1: NSObject {
             @objc var keywords: NSString?
         }
-        XCTAssertFalse(PBMMoPubUtils.isCorrectAdObject(WrongAdObject1()))
+        XCTAssertFalse(MoPubUtils.isCorrectAdObject(WrongAdObject1()))
         
         @objc class WrongAdObject2: NSObject {
             @objc var localExtras: NSDictionary?
         }
-        XCTAssertFalse(PBMMoPubUtils.isCorrectAdObject(WrongAdObject2()))
+        XCTAssertFalse(MoPubUtils.isCorrectAdObject(WrongAdObject2()))
         
         @objc class WrongAdObject3: NSObject {
             @objc var keywords: NSString {
@@ -41,7 +40,7 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
             }
             @objc var localExtras: NSDictionary?
         }
-        XCTAssertFalse(PBMMoPubUtils.isCorrectAdObject(WrongAdObject3()))
+        XCTAssertFalse(MoPubUtils.isCorrectAdObject(WrongAdObject3()))
         
         @objc class WrongAdObject4: NSObject {
             @objc var keywords: NSString?
@@ -51,7 +50,7 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
                 }
             }
         }
-        XCTAssertFalse(PBMMoPubUtils.isCorrectAdObject(WrongAdObject4()))
+        XCTAssertFalse(MoPubUtils.isCorrectAdObject(WrongAdObject4()))
     }
     
     func testAdObjectSetUpCleanUp() {
@@ -68,11 +67,14 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
         let adObject = MoPubAdObject()
         adObject.keywords = initialKeyWords
         
-        PBMMoPubUtils.setUpAdObject(adObject,
-                                    withConfigId: configId,
-                                    targetingInfo: targetingInfo,
-                                    extraObject: bid,
-                                    forKey: PBMMoPubAdUnitBidKey)
+        guard MoPubUtils.setUpAdObject(adObject,
+                                 configID: configId,
+                                 targetingInfo: targetingInfo,
+                                 extraObject: bid,
+                                 forKey: PBMMoPubAdUnitBidKey) else {
+            XCTFail()
+            return
+        }
         
         let bidKeywords = adObject.keywords?.components(separatedBy: ",").sorted()
         
@@ -80,7 +82,7 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
         XCTAssertEqual(adObject.localExtras?[PBMMoPubAdUnitBidKey] as! PBMBid, bid)
         XCTAssertEqual(adObject.localExtras?[PBMMoPubConfigIdKey] as! String, configId)
         
-        PBMMoPubUtils.cleanUpAdObject(adObject)
+        MoPubUtils.cleanUpAdObject(adObject)
         
         XCTAssertEqual(adObject.keywords, initialKeyWords)
         XCTAssertEqual(adObject.localExtras?.count, 0)
@@ -89,7 +91,7 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
     func testFindNativeAd() {
         let emptyExtras: [AnyHashable : Any] = [:]
         let errorExpectation = expectation(description: "Error finding native ad expectation")
-        PBMMoPubUtils.findNativeAd(emptyExtras) { _, error in
+        MoPubUtils.findNativeAd(emptyExtras) { _, error in
             if error != nil {
                 errorExpectation.fulfill()
             }
@@ -111,14 +113,17 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
         ];
         
         let adObject = MoPubAdObject()
-        PBMMoPubUtils.setUpAdObject(adObject,
-                                    withConfigId: configId,
-                                    targetingInfo: targetingInfo,
-                                    extraObject: responseInfo,
-                                    forKey: PBMMoPubAdNativeResponseKey)
+        guard MoPubUtils.setUpAdObject(adObject,
+                                       configID: configId,
+                                       targetingInfo: targetingInfo,
+                                       extraObject: responseInfo,
+                                       forKey: PBMMoPubAdNativeResponseKey) else {
+            XCTFail()
+            return
+        }
         
         let successExpectation = expectation(description: "Success finding Native Ad expectation")
-        PBMMoPubUtils.findNativeAd(adObject.localExtras) { nativeAd, _ in
+        MoPubUtils.findNativeAd(adObject.localExtras!) { nativeAd, _ in
             if nativeAd != nil {
                 successExpectation.fulfill()
             }
