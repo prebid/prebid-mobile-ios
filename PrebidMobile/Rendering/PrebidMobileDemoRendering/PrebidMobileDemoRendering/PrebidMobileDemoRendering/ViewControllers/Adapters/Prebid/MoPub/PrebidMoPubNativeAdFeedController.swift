@@ -16,7 +16,7 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCom
     var nativeAdConfig = PBMNativeAdConfiguration?.none
     var adRenderingViewClass: AnyClass?
     
-    private var adUnit: PBMMoPubNativeAdUnit?
+    private var adUnit: MoPubNativeAdUnit?
     private var theNativeAd: MPNativeAd?
     
     private var adLoadingAllowed = false
@@ -106,7 +106,7 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCom
         
         self.cleanUp(cell: cell)
         
-        adUnit = PBMMoPubNativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
+        adUnit = MoPubNativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
                 adUnit?.addContextData(dataPair.value, forKey: dataPair.key)

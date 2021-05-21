@@ -34,7 +34,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
     private let stopRefreshButton = ThreadCheckingButton()
     private let configIdLabel = UILabel()
     
-    private var adUnit: PBMMoPubBannerAdUnit?
+    private var adUnit: MoPubBannerAdUnit?
     
     // MARK: - AdaptedController
     
@@ -59,7 +59,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         adBannerView = MPAdView(adUnitId: moPubAdUnitId)
         adBannerView?.delegate = self
         
-        adUnit = PBMMoPubBannerAdUnit(configId: prebidConfigId, size: adUnitSize)
+        adUnit = MoPubBannerAdUnit(configID: prebidConfigId, size: adUnitSize)
         if (refreshInterval > 0) {
             adUnit?.refreshInterval = refreshInterval
         }
@@ -84,7 +84,6 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
             else {
                 return
             }
-            adBannerView.loadAd()
             adBannerView.translatesAutoresizingMaskIntoConstraints = false
             let widthConstraint  = NSLayoutConstraint(item: adBannerView,
                                                       attribute: .width,
@@ -101,6 +100,9 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
                                                       multiplier: 1,
                                                       constant: 0)
             container.addConstraints([widthConstraint, heightConstraint])
+            container.layoutSubviews()
+            
+            adBannerView.loadAd(withMaxAdSize: kMPPresetMaxAdSize280Height)
         }
         
         rootController?.bannerView.addSubview(self.adBannerView!)
@@ -126,7 +128,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         reloadButton.isEnabled = true
         self.adViewDidFailButton.isEnabled = true
         
-        adUnit?.adObject(view, didFailToLoadAdWithError: error)
+        adUnit?.adObjectDidFailToLoadAd(adObject: view, with: error)
     }
     
     

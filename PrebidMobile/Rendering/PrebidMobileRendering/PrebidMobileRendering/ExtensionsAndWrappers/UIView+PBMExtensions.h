@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIView+PBMViewExposure.h"
 
 @interface UIView (PBMExtensions)
 

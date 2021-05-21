@@ -97,17 +97,15 @@ framework module PrebidMobileRendering {
     header "PBMLocalResponseInfoCache.h"
     header "PBMNativeAdDetectionListener.h"
     
-    // PBM Integration MoPub
-    header "PBMMoPubBannerAdUnit.h"
-    header "PBMMoPubBaseInterstitialAdUnit.h"
-    header "PBMMoPubInterstitialAdUnit.h"
-    header "PBMMoPubRewardedAdUnit.h"
-    header "PBMMoPubUtils.h"
-    header "PBMMoPubNativeAdUnit.h"
-    
-    // ======================
+    // ===
     //Temp. for converting
-    header "PBMLog.h"
+    header "PBMJsonCodable.h"
+    header "PBMFunctions.h"
+    header "PBMFunctions+Private.h"
+    header "PBMFunctions+Testing.h"
+    header "PBMUIApplicationProtocol.h"
+    header "NSDictionary+PBMORTBNativeExt.h"
+    
     header "PBMNativeAdMediaHooks.h"
     header "PBMViewControllerProvider.h"
     header "PBMCreativeClickHandlerBlock.h"
@@ -154,12 +152,10 @@ framework module PrebidMobileRendering {
     header "PBMViewabilityPlaybackBinder.h"
     header "PBMViewExposureProviders.h"
     
-    // PBM Native Ads (response)
-    header "NSNumber+PBMORTBNative.h"
+    header "PBMBidRequester.h"
+    header "PBMLog.h"
+    header "PBMAutoRefreshManager.h"
     
-    header "PBMJsonCodable.h"
-    header "PBMFunctions.h"
-    header "PBMFunctions+Private.h"
-    header "PBMUIApplicationProtocol.h"
-    header "NSDictionary+PBMORTBNativeExt.h"
+    header "UIView+PBMExtensions.h"
+    header "PBMAdUnitConfig+Internal.h"
 }
