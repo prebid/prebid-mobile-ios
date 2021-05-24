@@ -14,7 +14,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     var prebidConfigId = ""
     var adSizes = [CGSize]()
     var adFormat: PBMAdFormat?
-    var nativeAdConfig: PBMNativeAdConfiguration?
+    var nativeAdConfig: NativeAdConfiguration?
     
     var adBannerView : PBMBannerView?
     

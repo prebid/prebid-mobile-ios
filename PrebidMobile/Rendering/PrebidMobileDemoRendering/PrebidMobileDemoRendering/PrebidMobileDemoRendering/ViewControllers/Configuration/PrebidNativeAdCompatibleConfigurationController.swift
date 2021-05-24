@@ -9,7 +9,7 @@ import Foundation
 import Eureka
 
 protocol PrebidConfigurableNativeAdCompatibleController: PrebidConfigurableController {
-    var nativeAdConfig: PBMNativeAdConfiguration? { get set }
+    var nativeAdConfig: NativeAdConfiguration? { get set }
 }
 
 class PrebidNativeAdCompatibleConfigurationController: BaseConfigurationController {
@@ -18,7 +18,7 @@ class PrebidNativeAdCompatibleConfigurationController: BaseConfigurationControll
             <<< nativeAdConfigRow
     }
     
-    private var nativeAdConfig: PBMNativeAdConfiguration? {
+    private var nativeAdConfig: NativeAdConfiguration? {
         get {
             (self.controller as? PrebidConfigurableBannerController)?.nativeAdConfig
         }
@@ -63,7 +63,7 @@ class PrebidNativeAdCompatibleConfigurationController: BaseConfigurationControll
     
     private func editNativeAdConfig() {
         if nativeAdConfig == nil {
-            nativeAdConfig = PBMNativeAdConfiguration(assets: [])
+            nativeAdConfig = NativeAdConfiguration(assets: [])
         }
         let editor = NativeAdConfigController()
         editor.nativeAdConfig = nativeAdConfig

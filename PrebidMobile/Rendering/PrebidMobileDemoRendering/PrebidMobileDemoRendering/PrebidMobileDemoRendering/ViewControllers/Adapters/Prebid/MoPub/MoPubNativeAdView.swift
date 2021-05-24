@@ -112,7 +112,7 @@ class MoPubNativeAdView: UIStackView, MPNativeAdRendering {
         imageView.contentMode = .scaleAspectFit
     }
     
-    private func setDesiredImageSize(imageView: UIImageView, nativeImageInfo: PBMNativeAdImage) {
+    private func setDesiredImageSize(imageView: UIImageView, nativeImageInfo: NativeAdImage) {
         if let h = nativeImageInfo.height {
             let heightConstraint = imageView.heightAnchor.constraint(equalToConstant: CGFloat(h.floatValue))
             heightConstraint.priority = .defaultLow

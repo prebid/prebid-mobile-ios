@@ -11,7 +11,7 @@ public class MoPubNativeAdUnit : NSObject {
     
     weak var adObject: NSObject?
     var completion: ((PBMFetchDemandResult) -> Void)?
-    var nativeAdUnit: PBMNativeAdUnit
+    var nativeAdUnit: NativeAdUnit
     
     // MARK: - Public Properties
     
@@ -19,15 +19,15 @@ public class MoPubNativeAdUnit : NSObject {
         nativeAdUnit.configId
     }
     
-    var nativeAdConfiguration: PBMNativeAdConfiguration {
+    var nativeAdConfiguration: NativeAdConfiguration {
         nativeAdUnit.nativeAdConfig
     }
     
     // MARK: - Public Methods
     
     convenience public init(configID: String,
-                nativeAdConfiguration: PBMNativeAdConfiguration) {
-        self.init(nativeAdUnit: PBMNativeAdUnit(configID: configID,
+                nativeAdConfiguration: NativeAdConfiguration) {
+        self.init(nativeAdUnit: NativeAdUnit(configID: configID,
                                        nativeAdConfiguration: nativeAdConfiguration))
     }
     
@@ -89,7 +89,7 @@ public class MoPubNativeAdUnit : NSObject {
     // MARK: - Private Methods
     
     // NOTE: do not use `private` to expose this method to unit tests
-    init(nativeAdUnit: PBMNativeAdUnit) {
+    init(nativeAdUnit: NativeAdUnit) {
         self.nativeAdUnit = nativeAdUnit
     }
     

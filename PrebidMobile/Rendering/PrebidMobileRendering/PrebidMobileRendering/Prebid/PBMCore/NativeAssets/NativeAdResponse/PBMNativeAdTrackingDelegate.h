@@ -7,15 +7,15 @@
 
 #import "PBMNativeEventType.h"
 
-@class PBMNativeAd;
+@class NativeAd;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol PBMNativeAdTrackingDelegate <NSObject>
 
 @optional
-- (void)nativeAdDidLogClick:(PBMNativeAd *)nativeAd;
-- (void)nativeAd:(PBMNativeAd *)nativeAd didLogEvent:(PBMNativeEventType)nativeEvent;
+- (void)nativeAdDidLogClick:(NativeAd *)nativeAd;
+- (void)nativeAd:(NativeAd *)nativeAd didLogEvent:(PBMNativeEventType)nativeEvent;
 
 @end
 

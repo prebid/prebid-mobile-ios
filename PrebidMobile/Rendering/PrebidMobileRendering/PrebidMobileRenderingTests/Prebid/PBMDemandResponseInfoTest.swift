@@ -101,7 +101,7 @@ class PBMDemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
     func testGetNativeAd() {
         let someLinkUrl = "some link URL"
         
-        let testBlocks: [(adMarkup: String?, expectedNativeAd: PBMNativeAd?)] = [
+        let testBlocks: [(adMarkup: String?, expectedNativeAd: NativeAd?)] = [
             nil,
             "not a real native ad",
             """
@@ -109,7 +109,7 @@ class PBMDemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
 """,
         ].map { adString in
             if let adString = adString, let nativeAdMarkup = try? PBMNativeAdMarkup(jsonString: adString) {
-                return (adString, PBMNativeAd(nativeAdMarkup: nativeAdMarkup))
+                return (adString, NativeAd(nativeAdMarkup: nativeAdMarkup))
             } else {
                 return (adString, nil)
             }

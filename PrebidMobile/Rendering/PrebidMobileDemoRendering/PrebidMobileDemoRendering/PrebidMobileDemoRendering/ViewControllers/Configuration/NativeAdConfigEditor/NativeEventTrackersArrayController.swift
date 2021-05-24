@@ -9,7 +9,7 @@ import UIKit
 import Eureka
 
 class NativeEventTrackersArrayController : FormViewController {
-    var nativeAdConfig: PBMNativeAdConfiguration!
+    var nativeAdConfig: NativeAdConfiguration!
     
     private var eventTrackersSection: MultivaluedSection!
     

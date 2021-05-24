@@ -26,7 +26,7 @@ final class AppConfiguration: NSObject {
             useMockServerSubject.onNext(newValue)
         }
     }
-    var nativeAdConfig: PBMNativeAdConfiguration?
+    var nativeAdConfig: NativeAdConfiguration?
     var adPosition: PBMAdPosition?
     var videoPlacementType: PBMVideoPlacementType?
     var adUnitContext: [(key: String, value: String)]?

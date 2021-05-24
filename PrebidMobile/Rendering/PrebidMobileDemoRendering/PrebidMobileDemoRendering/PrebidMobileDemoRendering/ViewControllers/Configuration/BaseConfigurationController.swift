@@ -8,7 +8,7 @@
 import Foundation
 import Eureka
 
-protocol PrebidConfigurableController: class {
+protocol PrebidConfigurableController: AnyObject {
     var prebidConfigId: String {get set}
     func configurationController() -> BaseConfigurationController?
 }

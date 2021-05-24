@@ -2259,7 +2259,7 @@ struct TestCaseManager {
                     oxbBannerController.prebidConfigId = "621da6c1-6ab6-464d-a955-b4e447eaedcb"
                 }
                  
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
                 oxbBannerController.nativeAdConfig = nativeAdConfig
                         
@@ -2280,7 +2280,7 @@ struct TestCaseManager {
                 oxbBannerController.prebidConfigId = "mock-banner-native-styles"
                 oxbBannerController.adSizes = [CGSize(width: 320, height: 240)]
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreativeKeys
                 oxbBannerController.nativeAdConfig = nativeAdConfig
                         
@@ -2301,7 +2301,7 @@ struct TestCaseManager {
                 oxbBannerController.prebidConfigId = "mock-banner-native-styles"
                 oxbBannerController.adSizes = [CGSize(width: 320, height: 240)]
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(assets: [])
+                let nativeAdConfig = NativeAdConfiguration(assets: [])
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreativeKeys
                 oxbBannerController.nativeAdConfig = nativeAdConfig
                         
@@ -2321,7 +2321,7 @@ struct TestCaseManager {
                 oxbBannerController.prebidConfigId = "mock-banner-native-styles"       
                 oxbBannerController.adSizes = [CGSize(width: 320, height: 240)]
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 //NOTE: there is no `nativeStylesCreative` in the nativeConfig
                 oxbBannerController.nativeAdConfig = nativeAdConfig
                         
@@ -2349,7 +2349,7 @@ struct TestCaseManager {
                  
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_native_fixed"
                 gamBannerController.validAdSizes = [kGADAdSizeMediumRectangle]
-                gamBannerController.nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                gamBannerController.nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                         
                 adapterVC.setup(adapter: gamBannerController)
                         
@@ -2368,7 +2368,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "mock-banner-native-styles"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_native_fixed"
                 gamBannerController.validAdSizes = [kGADAdSizeMediumRectangle]
-                gamBannerController.nativeAdConfig = PBMNativeAdConfiguration(assets: [])
+                gamBannerController.nativeAdConfig = NativeAdConfiguration(assets: [])
                         
                 adapterVC.setup(adapter: gamBannerController)
                         
@@ -2387,7 +2387,7 @@ struct TestCaseManager {
                 gamBannerController.prebidConfigId = "mock-banner-native-styles"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_native"
                 gamBannerController.validAdSizes = [kGADAdSizeFluid]
-                gamBannerController.nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                gamBannerController.nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                         
                 adapterVC.setup(adapter: gamBannerController)
                         
@@ -2414,7 +2414,7 @@ struct TestCaseManager {
                         
                 mopubBannerController.moPubAdUnitId = "76936a9fe0cb4801b193e4f263511ca4"
                 mopubBannerController.adUnitSize = CGSize(width: 300, height: 250);
-                mopubBannerController.nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                mopubBannerController.nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                         
                 adapterVC.setup(adapter: mopubBannerController)
                         
@@ -2433,7 +2433,7 @@ struct TestCaseManager {
                 mopubBannerController.prebidConfigId = "mock-banner-native-styles"
                 mopubBannerController.moPubAdUnitId = "76936a9fe0cb4801b193e4f263511ca4"
                 mopubBannerController.adUnitSize = CGSize(width: 300, height: 250);
-                mopubBannerController.nativeAdConfig = PBMNativeAdConfiguration(assets: [])
+                mopubBannerController.nativeAdConfig = NativeAdConfiguration(assets: [])
                         
                 adapterVC.setup(adapter: mopubBannerController)
                         
@@ -2461,7 +2461,7 @@ struct TestCaseManager {
                     oxbNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
                 }
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
                 oxbNativeAdController.nativeAdConfig = nativeAdConfig
                         
@@ -2482,7 +2482,7 @@ struct TestCaseManager {
                 
                 oxbNativeAdController.prebidConfigId = "mock-native-links"
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
                 oxbNativeAdController.nativeAdConfig = nativeAdConfig
                         
@@ -2504,7 +2504,7 @@ struct TestCaseManager {
                         
                 oxbNativeAdFeedController.prebidConfigId = "mock-banner-native-styles"
                                 
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
                 oxbNativeAdFeedController.nativeAdConfig = nativeAdConfig
                         
@@ -2529,7 +2529,7 @@ struct TestCaseManager {
                         
                 oxbNativeAdController.prebidConfigId = "mock-native-video-with-end-card"
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
                 oxbNativeAdController.nativeAdConfig = nativeAdConfig
                         
@@ -2552,7 +2552,7 @@ struct TestCaseManager {
                         
                 oxbNativeAdFeedController.prebidConfigId = "mock-native-video-with-end-card"
                                 
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
                 oxbNativeAdFeedController.nativeAdConfig = nativeAdConfig
                         
@@ -2576,7 +2576,7 @@ struct TestCaseManager {
                         
                 oxbNativeAdController.prebidConfigId = "mock-native-video-with-end-card"
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
                 oxbNativeAdController.nativeAdConfig = nativeAdConfig
                         
@@ -2607,7 +2607,7 @@ struct TestCaseManager {
                 mopubNativeAdController.moPubAdUnitId = "dc125bad5c124b0b896ef1407b9dfd86"
                 mopubNativeAdController.adRenderingViewClass = MoPubNativeAdView.self
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 mopubNativeAdController.nativeAdConfig = nativeAdConfig
                         
                 adapterVC.setup(adapter: mopubNativeAdController)
@@ -2628,7 +2628,7 @@ struct TestCaseManager {
                 mopubNativeAdController.moPubAdUnitId = "dc125bad5c124b0b896ef1407b9dfd86"
                 mopubNativeAdController.adRenderingViewClass = MoPubNativeAdViewWithNib.self
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 mopubNativeAdController.nativeAdConfig = nativeAdConfig
                         
                 adapterVC.setup(adapter: mopubNativeAdController)
@@ -2649,7 +2649,7 @@ struct TestCaseManager {
                 mopubNativeAdFeedController.moPubAdUnitId = "dc125bad5c124b0b896ef1407b9dfd86"
                 mopubNativeAdFeedController.adRenderingViewClass = MoPubNativeAdView.self
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 mopubNativeAdFeedController.nativeAdConfig = nativeAdConfig
                         
                 feedVC.adapter = mopubNativeAdFeedController
@@ -2672,7 +2672,7 @@ struct TestCaseManager {
                 mopubNativeAdController.moPubAdUnitId = "fcd2188bcce74b63859b663ed1334763"
                 mopubNativeAdController.adRenderingViewClass = MoPubNativeAdView.self
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 mopubNativeAdController.nativeAdConfig = nativeAdConfig
                         
                 adapterVC.setup(adapter: mopubNativeAdController)
@@ -2699,7 +2699,7 @@ struct TestCaseManager {
                 mopubNativeAdController.moPubAdUnitId = "3c7add479268476394a1aeae88ee426f"
                 mopubNativeAdController.adRenderingViewClass = MoPubNativeAdView.self
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 mopubNativeAdController.nativeAdConfig = nativeAdConfig
                         
                 adapterVC.setup(adapter: mopubNativeAdController)
@@ -2720,7 +2720,7 @@ struct TestCaseManager {
                 mopubNativeAdFeedController.moPubAdUnitId = "3c7add479268476394a1aeae88ee426f"
                 mopubNativeAdFeedController.adRenderingViewClass = MoPubNativeAdView.self
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 mopubNativeAdFeedController.nativeAdConfig = nativeAdConfig
                         
                 feedVC.adapter = mopubNativeAdFeedController
@@ -2743,7 +2743,7 @@ struct TestCaseManager {
                 mopubNativeAdController.moPubAdUnitId = "dc125bad5c124b0b896ef1407b9dfd86"
                 mopubNativeAdController.adRenderingViewClass = MoPubNativeVideoAdView.self
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 mopubNativeAdController.nativeAdConfig = nativeAdConfig
                         
                 adapterVC.setup(adapter: mopubNativeAdController)
@@ -2774,7 +2774,7 @@ struct TestCaseManager {
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
                 gamNativeAdController.nativeAdConfig = nativeAdConfig
                         
@@ -2797,7 +2797,7 @@ struct TestCaseManager {
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11982639"]
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
                 gamNativeAdController.nativeAdConfig = nativeAdConfig
                         
@@ -2820,7 +2820,7 @@ struct TestCaseManager {
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11982639"]
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
                 gamNativeAdController.nativeAdConfig = nativeAdConfig
                         
@@ -2844,7 +2844,7 @@ struct TestCaseManager {
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
                 gamNativeAdController.nativeAdConfig = nativeAdConfig
                         
@@ -2878,7 +2878,7 @@ struct TestCaseManager {
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit"
                 gamNativeAdController.adTypes = [.native]
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
                 gamNativeAdController.nativeAdConfig = nativeAdConfig
                         
@@ -2900,7 +2900,7 @@ struct TestCaseManager {
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit_static"
                 gamNativeAdController.adTypes = [.native]
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
                 gamNativeAdController.nativeAdConfig = nativeAdConfig
                         
@@ -2922,7 +2922,7 @@ struct TestCaseManager {
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit_static"
                 gamNativeAdController.adTypes = [.native]
                         
-                let nativeAdConfig = PBMNativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
+                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
                 gamNativeAdController.nativeAdConfig = nativeAdConfig
                         

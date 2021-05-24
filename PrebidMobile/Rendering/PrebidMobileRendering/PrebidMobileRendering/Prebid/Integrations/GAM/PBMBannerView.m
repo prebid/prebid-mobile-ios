@@ -12,7 +12,6 @@
 
 #import "PBMAdUnitConfig.h"
 #import "PBMAdUnitConfig+Internal.h"
-#import "PBMNativeAdConfiguration.h"
 #import "PBMAdLoadFlowController.h"
 #import "PBMAdLoadFlowControllerDelegate.h"
 #import "PBMBannerAdLoader.h"
@@ -31,6 +30,25 @@
 #import "PBMServerConnection.h"
 
 #import "PBMMacros.h"
+
+#import "PBMAdViewManagerDelegate.h"
+#import "PBMDataAssetType.h"
+#import "PBMPlayable.h"
+#import "PBMJsonCodable.h"
+#import "PBMNativeContextType.h"
+#import "PBMNativeContextSubtype.h"
+#import "PBMNativeEventType.h"
+#import "PBMNativeEventTrackingMethod.h"
+#import "PBMNativePlacementType.h"
+
+#import "PBMBaseAdUnit.h"
+#import "PBMBidRequesterFactoryBlock.h"
+#import "PBMWinNotifierBlock.h"
+
+#import "PBMImageAssetType.h"
+#import "PBMNativeAdElementType.h"
+
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 @interface PBMBannerView () <PBMAdLoadFlowControllerDelegate, PBMBannerEventInteractionDelegate, PBMDisplayViewInteractionDelegate, PBMBannerAdLoaderDelegate>
 
@@ -183,11 +201,11 @@
     self.adUnitConfig.videoPlacementType = videoPlacementType;
 }
 
-- (PBMNativeAdConfiguration *)nativeAdConfig {
+- (NativeAdConfiguration *)nativeAdConfig {
     return self.adUnitConfig.nativeAdConfig;
 }
 
-- (void)setNativeAdConfig:(PBMNativeAdConfiguration *)nativeAdConfig {
+- (void)setNativeAdConfig:(NativeAdConfiguration *)nativeAdConfig {
     self.adUnitConfig.nativeAdConfig = nativeAdConfig;
 }
 

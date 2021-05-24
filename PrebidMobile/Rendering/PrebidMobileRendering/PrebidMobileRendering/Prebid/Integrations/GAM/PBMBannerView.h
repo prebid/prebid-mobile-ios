@@ -13,7 +13,7 @@
 #import "PBMVideoPlacementType.h"
 
 @protocol PBMBannerEventHandler;
-@class PBMNativeAdConfiguration;
+@class NativeAdConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic) PBMAdFormat adFormat;
 @property (atomic) PBMAdPosition adPosition;
 @property (atomic, assign) PBMVideoPlacementType videoPlacementType;
-@property (atomic, copy, nullable) PBMNativeAdConfiguration *nativeAdConfig;
+@property (atomic, copy, nullable) NativeAdConfiguration *nativeAdConfig;
 
 @property (atomic, weak, nullable) id<PBMBannerViewDelegate> delegate;
 

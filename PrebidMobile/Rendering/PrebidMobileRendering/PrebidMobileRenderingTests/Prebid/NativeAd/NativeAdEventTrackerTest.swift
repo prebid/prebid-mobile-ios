@@ -1,5 +1,5 @@
 //
-//  PBMNativeAdEventTrackerTest.swift
+//  NativeAdEventTrackerTest.swift
 //  OpenXSDKCoreTests
 //
 //  Copyright © 2020 OpenX. All rights reserved.
@@ -9,11 +9,11 @@ import XCTest
 
 @testable import PrebidMobileRendering
 
-class PBMNativeAdEventTrackerTest: XCTestCase {
+class NativeAdEventTrackerTest: XCTestCase {
     func testInitFromMarkup() {
-        let requiredProperties: [(Decoding.PropertyCheck<PBMNativeAdMarkupEventTracker, PBMNativeAdEventTracker>, Error)] = []
+        let requiredProperties: [(Decoding.PropertyCheck<PBMNativeAdMarkupEventTracker, NativeAdEventTracker>, Error)] = []
 
-        let optionalEventTrackerProperties: [Decoding.BaseOptionalCheck<PBMNativeAdMarkupEventTracker, PBMNativeAdEventTracker>] = [
+        let optionalEventTrackerProperties: [Decoding.BaseOptionalCheck<PBMNativeAdMarkupEventTracker, NativeAdEventTracker>] = [
             // MARK: - EventTracker properties
             Decoding.OptionalPropertyCheck(value: .impression,
                                            writer: { $0.event = $1 },
@@ -35,21 +35,21 @@ class PBMNativeAdEventTrackerTest: XCTestCase {
         let eventTrackerTester = Decoding.Tester(template: PBMNativeAdMarkupEventTracker(event: .MRC50,
                                                                                          method: .JS,
                                                                                          url: ""),
-                                                 generator: PBMNativeAdEventTracker.init(nativeAdMarkupEventTracker:),
+                                                 generator: NativeAdEventTracker.init(nativeAdMarkupEventTracker:),
                                                  requiredPropertyChecks: requiredProperties,
                                                  optionalPropertyChecks: optionalEventTrackerProperties)
         eventTrackerTester.run()
     }
     
     func testIsEqual() {
-        XCTAssertNotEqual(PBMNativeAdEventTracker(nativeAdMarkupEventTracker: .init(event: .MRC50, method: .JS, url: "")),
+        XCTAssertNotEqual(NativeAdEventTracker(nativeAdMarkupEventTracker: .init(event: .MRC50, method: .JS, url: "")),
                           NSObject())
-        XCTAssertEqual(PBMNativeAdEventTracker(nativeAdMarkupEventTracker: .init(event: .MRC50, method: .JS, url: "")),
-                       PBMNativeAdEventTracker(nativeAdMarkupEventTracker: .init(event: .MRC50, method: .JS, url: "")))
-        XCTAssertEqual(PBMNativeAdEventTracker(nativeAdMarkupEventTracker: .init(event: .MRC100, method: .JS, url: "")),
-                       PBMNativeAdEventTracker(nativeAdMarkupEventTracker: .init(event: .MRC100, method: .JS, url: "")))
-        XCTAssertNotEqual(PBMNativeAdEventTracker(nativeAdMarkupEventTracker: .init(event: .MRC50, method: .JS, url: "")),
-                          PBMNativeAdEventTracker(nativeAdMarkupEventTracker: .init(event: .MRC100, method: .JS, url: "")))
+        XCTAssertEqual(NativeAdEventTracker(nativeAdMarkupEventTracker: .init(event: .MRC50, method: .JS, url: "")),
+                       NativeAdEventTracker(nativeAdMarkupEventTracker: .init(event: .MRC50, method: .JS, url: "")))
+        XCTAssertEqual(NativeAdEventTracker(nativeAdMarkupEventTracker: .init(event: .MRC100, method: .JS, url: "")),
+                       NativeAdEventTracker(nativeAdMarkupEventTracker: .init(event: .MRC100, method: .JS, url: "")))
+        XCTAssertNotEqual(NativeAdEventTracker(nativeAdMarkupEventTracker: .init(event: .MRC50, method: .JS, url: "")),
+                          NativeAdEventTracker(nativeAdMarkupEventTracker: .init(event: .MRC100, method: .JS, url: "")))
     }
 }
 

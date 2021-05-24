@@ -30,10 +30,10 @@ class PBMErrorTest: XCTestCase {
             PBMError.noWinningBid,
             PBMError.noNativeCreative,
             
-            PBMNativeAdAssetBoxingError.noDataInsideNativeAdMarkupAsset,
-            PBMNativeAdAssetBoxingError.noImageInsideNativeAdMarkupAsset,
-            PBMNativeAdAssetBoxingError.noTitleInsideNativeAdMarkupAsset,
-            PBMNativeAdAssetBoxingError.noVideoInsideNativeAdMarkupAsset,
+            NativeAdAssetBoxingError.noDataInsideNativeAdMarkupAsset,
+            NativeAdAssetBoxingError.noImageInsideNativeAdMarkupAsset,
+            NativeAdAssetBoxingError.noTitleInsideNativeAdMarkupAsset,
+            NativeAdAssetBoxingError.noVideoInsideNativeAdMarkupAsset,
             
         ].map { $0 as NSError }
         

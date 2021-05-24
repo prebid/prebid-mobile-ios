@@ -6,10 +6,10 @@
 //
 
 
-@class PBMNativeAdUnit;
+@class NativeAdUnit;
 
 @interface MoPubNativeAdUnit ()
 
-- (instancetype)initWithNativeAdUnit:(PBMNativeAdUnit *)nativeAdUnit;
+- (instancetype)initWithNativeAdUnit:(NativeAdUnit *)nativeAdUnit;
 
 @end

@@ -17,7 +17,7 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
     var gamAdUnitId = ""
     var validAdSizes = [GADAdSize]()
     var adFormat: PBMAdFormat?
-    var nativeAdConfig: PBMNativeAdConfiguration?
+    var nativeAdConfig: NativeAdConfiguration?
     
     var adBannerView : PBMBannerView?
     

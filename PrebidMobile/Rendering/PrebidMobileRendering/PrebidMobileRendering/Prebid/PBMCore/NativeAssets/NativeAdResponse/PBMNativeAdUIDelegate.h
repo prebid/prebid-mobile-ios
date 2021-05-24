@@ -7,7 +7,7 @@
 
 @import UIKit;
 
-@class PBMNativeAd;
+@class NativeAd;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
  as a result of user interaction on an ad. Usual implementation may simply return self,
  if it is view controller class.
  */
-- (nullable UIViewController *)viewPresentationControllerForNativeAd:(PBMNativeAd *)nativeAd;
+- (nullable UIViewController *)viewPresentationControllerForNativeAd:(NativeAd *)nativeAd;
 
 @optional
 
@@ -27,21 +27,21 @@ NS_ASSUME_NONNULL_BEGIN
  @abstract Notifies the delegate whenever current app goes in the background due to user click.
  @param nativeAd The PBMNativeAd instance sending the message.
  */
-- (void)nativeAdWillLeaveApplication:(PBMNativeAd *)nativeAd;
+- (void)nativeAdWillLeaveApplication:(NativeAd *)nativeAd;
 
 /*!
  @abstract Notifies delegate that the native ad will launch a modal
  on top of the current view controller, as a result of user interaction.
  @param nativeAd The PBMNativeAd instance sending the message.
  */
-- (void)nativeAdWillPresentModal:(PBMNativeAd *)nativeAd;
+- (void)nativeAdWillPresentModal:(NativeAd *)nativeAd;
 
 /*!
  @abstract Notifies delegate that the native ad has dismissed the modal on top of
  the current view controller.
  @param nativeAd The PBMNativeAd instance sending the message.
  */
-- (void)nativeAdDidDismissModal:(PBMNativeAd *)nativeAd;
+- (void)nativeAdDidDismissModal:(NativeAd *)nativeAd;
 
 @end
 

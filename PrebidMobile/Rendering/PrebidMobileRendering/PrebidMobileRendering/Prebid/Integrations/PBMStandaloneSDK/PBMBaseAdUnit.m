@@ -5,6 +5,8 @@
 //  Copyright © 2020 OpenX. All rights reserved.
 //
 
+#include <objc/objc-sync.h>
+
 #import "PBMBaseAdUnit.h"
 #import "PBMBaseAdUnit+Protected.h"
 
@@ -89,6 +91,7 @@
             self.bidRequester = self.bidRequesterFactory(self.adUnitConfig);
         }
     }
+    
     if (requestAlreadyInProgress) {
         PBMFetchDemandResult const previousFetchNotCompletedYet = PBMFetchDemandResult_SDKMisuse_PreviousFetchNotCompletedYet;
         completion([[PBMDemandResponseInfo alloc] initWithFetchDemandResult:previousFetchNotCompletedYet
@@ -125,6 +128,12 @@
 }
 
 // MARK: - Protected methods
+
+- (void)synchronized:(id)lock closure:(void (^)(void))synchronizedBlock {
+    objc_sync_enter(lock);
+    synchronizedBlock();
+    objc_sync_exit(lock);
+}
 
 // MARK: - Private methods
 

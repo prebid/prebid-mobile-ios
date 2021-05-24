@@ -1,5 +1,5 @@
 //
-//  PBMNativeAdConfiguration+Testing.swift
+//  NativeAdConfiguration+Testing.swift
 //  OpenXInternalTestApp
 //
 //  Copyright © 2020 OpenX. All rights reserved.
@@ -18,7 +18,7 @@ extension Array where Self.Element == NativeAsset {
             let icon = NativeAssetImage()
             icon.widthMin = 50
             icon.heightMin = 50
-            icon.required = true
+            icon.required = 1
             icon.imageType = NSNumber(value: PBMImageAssetType.icon.rawValue)
             return icon
         }(),
@@ -26,30 +26,30 @@ extension Array where Self.Element == NativeAsset {
             let image = NativeAssetImage()
             image.widthMin = 150
             image.heightMin = 50
-            image.required = true
+            image.required = 1
             image.imageType = NSNumber(value: PBMImageAssetType.main.rawValue)
             return image
         }(),
         {
             let desc = NativeAssetData(dataType: .desc)
-            desc.required = true
+            desc.required = 1
             return desc
         }(),
         {
             let cta = NativeAssetData(dataType: .ctaText)
-            cta.required = true
+            cta.required = 1
             return cta
         }(),
         {
             let sponsored = NativeAssetData(dataType: .sponsored)
-            sponsored.required = true
+            sponsored.required = 1
             return sponsored
         }(),
     ]
 }
 
 // TODO: additional parameters for trackers, context, etc. (?)
-extension PBMNativeAdConfiguration {
+extension NativeAdConfiguration {
     convenience init(testConfigWithAssets assets: [NativeAsset]) {
         self.init(assets: assets)
         

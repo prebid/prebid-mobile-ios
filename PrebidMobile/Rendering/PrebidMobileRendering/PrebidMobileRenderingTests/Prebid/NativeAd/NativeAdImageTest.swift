@@ -1,5 +1,5 @@
 //
-//  PBMNativeAdImageTest.swift
+//  NativeAdImageTest.swift
 //  OpenXSDKCoreTests
 //
 //  Copyright © 2020 OpenX. All rights reserved.
@@ -9,7 +9,7 @@ import XCTest
 
 @testable import PrebidMobileRendering
 
-class PBMNativeAdImageTest: XCTestCase {
+class NativeAdImageTest: XCTestCase {
     func testInitFromMarkup_withUrl() {
         testInitFromMarkup(imageUrl: "Some Image url")
     }
@@ -18,13 +18,13 @@ class PBMNativeAdImageTest: XCTestCase {
     }
     
     func testInitFromMarkup(imageUrl: String?) {
-        let requiredProperties: [(Decoding.PropertyCheck<PBMNativeAdMarkupAsset, PBMNativeAdImage>, Error)] = [
+        let requiredProperties: [(Decoding.PropertyCheck<PBMNativeAdMarkupAsset, NativeAdImage>, Error)] = [
             (.init(saver: { $0.img = .init(url: imageUrl) },
                    checker: { XCTAssertEqual($0.url, imageUrl ?? "") }),
-             PBMNativeAdAssetBoxingError.noImageInsideNativeAdMarkupAsset),
+             NativeAdAssetBoxingError.noImageInsideNativeAdMarkupAsset),
         ]
         
-        let optionalImageProperties: [Decoding.BaseOptionalCheck<PBMNativeAdMarkupAsset, PBMNativeAdImage>] = [
+        let optionalImageProperties: [Decoding.BaseOptionalCheck<PBMNativeAdMarkupAsset, NativeAdImage>] = [
             // MARK: - Asset properties
             Decoding.OptionalPropertyCheck(value: 149578,
                                            writer: { $0.assetID = $1 },
@@ -53,22 +53,22 @@ class PBMNativeAdImageTest: XCTestCase {
         let markupAssetFactory = { PBMNativeAdMarkupAsset(title: .init(text: "")) }
         
         let imageTester = Decoding.Tester(templateFactory: markupAssetFactory,
-                                          generator: PBMNativeAdImage.init(nativeAdMarkupAsset:),
+                                          generator: NativeAdImage.init(nativeAdMarkupAsset:),
                                           requiredPropertyChecks: requiredProperties,
                                           optionalPropertyChecks: optionalImageProperties)
         imageTester.run()
     }
     
     func testIsEqual() {
-        XCTAssertNotEqual(try! PBMNativeAdImage(nativeAdMarkupAsset: .init(image: .init(url: "v1"))), NSObject())
-        XCTAssertEqual(try! PBMNativeAdImage(nativeAdMarkupAsset: .init(image: .init())),
-                       try! PBMNativeAdImage(nativeAdMarkupAsset: .init(image: .init())))
-        XCTAssertEqual(try! PBMNativeAdImage(nativeAdMarkupAsset: .init(image: .init(url: "v1"))),
-                       try! PBMNativeAdImage(nativeAdMarkupAsset: .init(image: .init(url: "v1"))))
-        XCTAssertEqual(try! PBMNativeAdImage(nativeAdMarkupAsset: .init(image: .init(url: "w2"))),
-                       try! PBMNativeAdImage(nativeAdMarkupAsset: .init(image: .init(url: "w2"))))
-        XCTAssertNotEqual(try! PBMNativeAdImage(nativeAdMarkupAsset: .init(image: .init(url: "v1"))),
-                          try! PBMNativeAdImage(nativeAdMarkupAsset: .init(image: .init(url: "w2"))))
+        XCTAssertNotEqual(try! NativeAdImage(nativeAdMarkupAsset: .init(image: .init(url: "v1"))), NSObject())
+        XCTAssertEqual(try! NativeAdImage(nativeAdMarkupAsset: .init(image: .init())),
+                       try! NativeAdImage(nativeAdMarkupAsset: .init(image: .init())))
+        XCTAssertEqual(try! NativeAdImage(nativeAdMarkupAsset: .init(image: .init(url: "v1"))),
+                       try! NativeAdImage(nativeAdMarkupAsset: .init(image: .init(url: "v1"))))
+        XCTAssertEqual(try! NativeAdImage(nativeAdMarkupAsset: .init(image: .init(url: "w2"))),
+                       try! NativeAdImage(nativeAdMarkupAsset: .init(image: .init(url: "w2"))))
+        XCTAssertNotEqual(try! NativeAdImage(nativeAdMarkupAsset: .init(image: .init(url: "v1"))),
+                          try! NativeAdImage(nativeAdMarkupAsset: .init(image: .init(url: "w2"))))
     }
 }
 

@@ -169,7 +169,7 @@ class NativeAdViewBox: NativeAdViewBoxProtocol {
         ])
     }
     
-    private func setDesiredImageSize(imageView: UIImageView, nativeImageInfo: PBMNativeAdImage) {
+    private func setDesiredImageSize(imageView: UIImageView, nativeImageInfo: NativeAdImage) {
         if let h = nativeImageInfo.height {
             let heightConstraint = imageView.heightAnchor.constraint(equalToConstant: CGFloat(h.floatValue))
             heightConstraint.priority = .defaultLow
@@ -206,7 +206,7 @@ extension NativeAdViewBox {
 }
 
 extension NativeAdViewBox {
-    func renderNativeAd(_ nativeAd: PBMNativeAd) {
+    func renderNativeAd(_ nativeAd: NativeAd) {
         textLabel.text = nativeAd.text
         ctaButton.setTitle(nativeAd.callToAction, for: .normal) 
         brandLabel.text = nativeAd.dataObjects(of: .sponsored).first?.value ?? ""
@@ -228,16 +228,16 @@ extension NativeAdViewBox {
         }
      }
     
-    func registerViews(_ nativeAd: PBMNativeAd) {
-        nativeAd.register(contentView, clickableViews: [])
-        nativeAd.registerClick(ctaButton, nativeAdElementType: .callToAction)
-        nativeAd.registerClick(iconImage, nativeAdElementType: .icon)
+    func registerViews(_ nativeAd: NativeAd) {
+        nativeAd.registerView(contentView, clickableViews: [])
+        nativeAd.registerClickView(ctaButton, nativeAdElementType: .callToAction)
+        nativeAd.registerClickView(iconImage, nativeAdElementType: .icon)
         if let brandAsset = nativeAd.dataObjects(of: .sponsored).first {
-            nativeAd.registerClick(brandLabel, nativeAdAsset: brandAsset)
+            nativeAd.registerClickView(brandLabel, nativeAdAsset: brandAsset)
         }
         
         if let _ = nativeAd.videoAd?.mediaData {
-            nativeAd.registerClick(mediaView, nativeAdElementType: .videoAd)
+            nativeAd.registerClickView(mediaView, nativeAdElementType: .videoAd)
         }
     }
     

@@ -13,7 +13,7 @@
 #import "PBMAdPosition.h"
 #import "PBMVideoPlacementType.h"
 
-@class PBMNativeAdConfiguration;
+@class NativeAdConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,7 +28,7 @@ FOUNDATION_EXPORT const NSTimeInterval PBMAdPrefetchTime;
 
 @property (nonatomic, assign) PBMAdFormat adFormat;
 
-@property (nonatomic, copy, nullable) PBMNativeAdConfiguration *nativeAdConfig;
+@property (nonatomic, copy, nullable) NativeAdConfiguration *nativeAdConfig;
 
 @property (nonatomic, strong, nullable, readonly) NSValue *adSize;
 @property (nonatomic, copy, nullable) NSArray<NSValue *> *additionalSizes;

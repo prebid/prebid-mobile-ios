@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol NativeAdViewBoxProtocol: class {
+protocol NativeAdViewBoxProtocol: AnyObject {
     func setUpDummyValues()
     func embedIntoView(_ view: UIView)
-    func renderNativeAd(_ nativeAd: PBMNativeAd)
-    func registerViews(_ nativeAd: PBMNativeAd)
+    func renderNativeAd(_ nativeAd: NativeAd)
+    func registerViews(_ nativeAd: NativeAd)
     
     var showOnlyMediaView: Bool {get set}
     var autoPlayOnVisible: Bool {get set}

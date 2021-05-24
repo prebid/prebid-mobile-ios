@@ -1,5 +1,5 @@
 //
-//  PBMNativeAdConfigurationTest.swift
+//  NativeAdConfigurationTest.swift
 //  OpenXSDKCoreTests
 //
 //  Copyright © 2020 OpenX. All rights reserved.
@@ -9,11 +9,11 @@ import XCTest
 
 @testable import PrebidMobileRendering
 
-class PBMNativeAdConfigurationTest: XCTestCase {
+class NativeAdConfigurationTest: XCTestCase {
 
     func testSetupConfig() {
         let desc = NativeAssetData(dataType: .desc)
-        let nativeAdConfig = PBMNativeAdConfiguration.init(assets:[desc])
+        let nativeAdConfig = NativeAdConfiguration.init(assets:[desc])
         
         nativeAdConfig.context = .socialCentric
         nativeAdConfig.contextsubtype = .applicationStore

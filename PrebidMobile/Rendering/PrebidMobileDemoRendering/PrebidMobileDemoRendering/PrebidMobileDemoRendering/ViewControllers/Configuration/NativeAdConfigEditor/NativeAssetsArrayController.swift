@@ -9,7 +9,7 @@ import UIKit
 import Eureka
 
 class NativeAssetsArrayController : FormViewController {
-    var nativeAdConfig: PBMNativeAdConfiguration!
+    var nativeAdConfig: NativeAdConfiguration!
     
     private var assetsSection: MultivaluedSection!
     

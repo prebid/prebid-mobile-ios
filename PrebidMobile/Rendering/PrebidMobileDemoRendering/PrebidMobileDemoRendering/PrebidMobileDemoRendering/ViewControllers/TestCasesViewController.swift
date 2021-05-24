@@ -112,7 +112,7 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
            let bannerExample = adapterVC.adapter as? PrebidConfigurableBannerController
         {
             let nativeStylesCreativeFromExample = bannerExample.nativeAdConfig?.nativeStylesCreative
-            bannerExample.nativeAdConfig = nativeConfigOverride.copy() as? PBMNativeAdConfiguration
+            bannerExample.nativeAdConfig = nativeConfigOverride.copy() as? NativeAdConfiguration
             bannerExample.nativeAdConfig?.nativeStylesCreative = nativeStylesCreativeFromExample
         }
         
