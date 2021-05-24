@@ -39,7 +39,7 @@ public class MoPubUtils {
      Calls the provided callback with the finded native ad object or error
      */
     public static func findNativeAd(_ extras: [AnyHashable : Any],
-                                    completion: @escaping (PBMNativeAd?, Error?) -> Void) {
+                                    completion: @escaping (NativeAd?, Error?) -> Void) {
     
         guard let response = extras[PBMMoPubAdNativeResponseKey] as? PBMDemandResponseInfo else {
             let error = PBMError.error(description: "The Response object is absent in the extras")

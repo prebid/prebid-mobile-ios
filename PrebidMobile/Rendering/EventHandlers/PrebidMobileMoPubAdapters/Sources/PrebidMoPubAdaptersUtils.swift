@@ -45,7 +45,7 @@ public class PrebidMoPubAdaptersUtils : NSObject {
     }
     
     public func find(nativeAd: MPNativeAd,
-                     nativeAdDetectionListener: PBMNativeAdDetectionListener) {
+                     nativeAdDetectionListener: NativeAdDetectionListener) {
         guard isPrebidAd(nativeAd: nativeAd) == true else {
             nativeAdDetectionListener.onPrimaryAdWin?()
             return

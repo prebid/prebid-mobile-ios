@@ -10,7 +10,7 @@ import UIKit
 class PrebidNativeAdController: NSObject, AdaptedController, PrebidConfigurableNativeAdRenderingController {
     
     var prebidConfigId = ""
-    var nativeAdConfig = PBMNativeAdConfiguration?.none
+    var nativeAdConfig = NativeAdConfiguration?.none
     
     var autoPlayOnVisible: Bool {
         get {
@@ -34,8 +34,8 @@ class PrebidNativeAdController: NSObject, AdaptedController, PrebidConfigurableN
     
     private var nativeAdViewBox: NativeAdViewBoxProtocol?
     
-    private var adUnit: PBMNativeAdUnit?
-    private var theNativeAd: PBMNativeAd?
+    private var adUnit: NativeAdUnit?
+    private var theNativeAd: NativeAd?
     
     private let fetchDemandSuccessButton = EventReportContainer()
     private let fetchDemandFailedButton = EventReportContainer()
@@ -146,7 +146,7 @@ class PrebidNativeAdController: NSObject, AdaptedController, PrebidConfigurableN
         guard let nativeAdConfig = nativeAdConfig else {
             return
         }
-        adUnit = PBMNativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
+        adUnit = NativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
@@ -189,25 +189,25 @@ class PrebidNativeAdController: NSObject, AdaptedController, PrebidConfigurableN
 }
 
 extension PrebidNativeAdController: PBMNativeAdTrackingDelegate {
-    func nativeAd(_ nativeAd: PBMNativeAd, didLogEvent nativeEvent: PBMNativeEventType) {
+    func nativeAd(_ nativeAd: NativeAd, didLogEvent nativeEvent: PBMNativeEventType) {
         nativeAdDidLogEventButtons.first{$0.event == nativeEvent}?.button.isEnabled = true
     }
-    func nativeAdDidLogClick(_ nativeAd: PBMNativeAd) {
+    func nativeAdDidLogClick(_ nativeAd: NativeAd) {
         nativeAdDidClickButton.isEnabled = true
     }
 }
 
 extension PrebidNativeAdController: PBMNativeAdUIDelegate {
-    func viewPresentationController(for nativeAd: PBMNativeAd) -> UIViewController? {
+    func viewPresentationController(for nativeAd: NativeAd) -> UIViewController? {
         return rootController
     }
-    func nativeAdWillLeaveApplication(_ nativeAd: PBMNativeAd) {
+    func nativeAdWillLeaveApplication(_ nativeAd: NativeAd) {
         nativeAdWillLeaveAppButton.isEnabled = true
     }
-    func nativeAdWillPresentModal(_ nativeAd: PBMNativeAd) {
+    func nativeAdWillPresentModal(_ nativeAd: NativeAd) {
         nativeAdWillPresentModalButton.isEnabled = true
     }
-    func nativeAdDidDismissModal(_ nativeAd: PBMNativeAd) {
+    func nativeAdDidDismissModal(_ nativeAd: NativeAd) {
         nativeAdDidDismissModalButton.isEnabled = true
     }
 }

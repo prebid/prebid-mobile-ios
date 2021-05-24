@@ -1,5 +1,5 @@
 //
-//  PBMNativeAdUnitTest.swift
+//  NativeAdUnitTest.swift
 //  OpenXSDKCoreTests
 //
 //  Copyright © 2021 OpenX. All rights reserved.
@@ -9,16 +9,16 @@ import XCTest
 
 @testable import PrebidMobileRendering
 
-class PBMNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
+class NativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
     func testDesignatedInit_noBlockCalled() {
         let configID = "some-base-config-ID"
         
-        let nativeAdConfig = PBMNativeAdConfiguration(assets: [NativeAssetTitle(length: 25)])
+        let nativeAdConfig = NativeAdConfiguration(assets: [NativeAssetTitle(length: 25)])
         
         let noRequesterCreated = expectation(description: "no requester created")
         noRequesterCreated.isInverted = true
-        
-        let adUnit = PBMNativeAdUnit(configID: configID, nativeAdConfiguration: nativeAdConfig) { adUnitConfig in
+
+        let adUnit = NativeAdUnit(configID: configID, nativeAdConfiguration: nativeAdConfig) { adUnitConfig in
             XCTFail()
             return MockBidRequester(expectedCalls: [])
         } winNotifierBlock: { (bid, adMarkupStringHandler) in
@@ -31,7 +31,7 @@ class PBMNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         XCTAssertNotEqual(adUnit.nativeAdConfig, nativeAdConfig) // copy; 'isEqual' not overridden
         
         //NOTE: temporary disabled as PBS doesnt support OM event trackers
-        //OMID event tracker which is set by PBMNativeAdUnit
+        //OMID event tracker which is set by NativeAdUnit
 //        nativeAdConfig.eventtrackers = [PBMNativeEventTracker(event: .OMID,
 //                                                              methods:
 //                                                                [NSNumber(value:PBMNativeEventTrackingMethod.JS.rawValue)])]
@@ -44,7 +44,7 @@ class PBMNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
     func testGetNativeAd() {
         let someLinkUrl = "some link URL"
         
-        let testBlocks: [(adMarkup: String?, expectedNativeAd: PBMNativeAd?)] = [
+        let testBlocks: [(adMarkup: String?, expectedNativeAd: NativeAd?)] = [
             nil,
             "not a real native ad",
             """
@@ -52,7 +52,7 @@ class PBMNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
 """,
         ].map { adString in
             if let adString = adString, let nativeAdMarkup = try? PBMNativeAdMarkup(jsonString: adString) {
-                return (adString, PBMNativeAd(nativeAdMarkup: nativeAdMarkup))
+                return (adString, NativeAd(nativeAdMarkup: nativeAdMarkup))
             } else {
                 return (adString, nil)
             }
@@ -60,7 +60,7 @@ class PBMNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         
         let configID = "the-config-ID"
         let bidPrice = 0.85
-        let nativeAdConfig = PBMNativeAdConfiguration(assets: [NativeAssetTitle(length: 25)])
+        let nativeAdConfig = NativeAdConfiguration(assets: [NativeAssetTitle(length: 25)])
         
         for nextMarkup in testBlocks {
             let expectedAdMarkup = nextMarkup.adMarkup
@@ -73,7 +73,7 @@ class PBMNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
             
             let winNotification = NSMutableArray(object: winNotNotified)
             
-            let adUnit = PBMNativeAdUnit(configID: configID, nativeAdConfiguration: nativeAdConfig) { adUnitConfig in
+            let adUnit = NativeAdUnit(configID: configID, nativeAdConfiguration: nativeAdConfig) { adUnitConfig in
                 requesterCreated.fulfill()
                 return MockBidRequester(expectedCalls: [
                     { responseHandler in
@@ -120,11 +120,11 @@ class PBMNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         let expectedAdMarkup = """
 {"link": {"url": "\(someLinkUrl)"}}
 """
-        let expectedNativeAd = PBMNativeAd(nativeAdMarkup: try! PBMNativeAdMarkup(jsonString: expectedAdMarkup))
+        let expectedNativeAd = NativeAd(nativeAdMarkup: try! PBMNativeAdMarkup(jsonString: expectedAdMarkup))
         
         let configID = "the-config-ID"
         let bidPrice = 0.85
-        let nativeAdConfig = PBMNativeAdConfiguration(assets: [NativeAssetTitle(length: 25)])
+        let nativeAdConfig = NativeAdConfiguration(assets: [NativeAssetTitle(length: 25)])
         
         let bidResponse = makeWinningBidResponse(bidPrice: bidPrice)
         
@@ -136,7 +136,7 @@ class PBMNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         
         let winNotification = NSMutableArray(object: winNotNotified)
         
-        let adUnit = PBMNativeAdUnit(configID: configID, nativeAdConfiguration: nativeAdConfig) { adUnitConfig in
+        let adUnit = NativeAdUnit(configID: configID, nativeAdConfiguration: nativeAdConfig) { adUnitConfig in
             (requesterCreatedNotification[0] as! XCTestExpectation).fulfill()
             return MockBidRequester(expectedCalls: [
                 { responseHandler in

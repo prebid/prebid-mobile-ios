@@ -10,5 +10,5 @@ import UIKit
 class FeedAdTableViewCell: UITableViewCell {
     @IBOutlet weak var bannerView: UIView!
     weak var adView: UIView?
-    var nativeAd: PBMNativeAd?
+    var nativeAd: NativeAd?
 }

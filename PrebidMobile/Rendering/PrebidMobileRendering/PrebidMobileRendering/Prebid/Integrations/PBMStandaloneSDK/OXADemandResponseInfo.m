@@ -8,11 +8,32 @@
 #import "PBMDemandResponseInfo.h"
 #import "PBMDemandResponseInfo+Internal.h"
 
-#import "PBMNativeAd+FromMarkup.h"
 #import "PBMNativeAdMarkup.h"
 
 #import "PBMLog.h"
 #import "PBMMacros.h"
+
+// ==
+#import "PBMPlayable.h"
+#import "PBMAdViewManagerDelegate.h"
+#import "PBMConstants.h"
+#import "PBMDataAssetType.h"
+#import "PBMJsonCodable.h"
+
+#import "PBMNativeEventType.h"
+#import "PBMNativeEventTrackingMethod.h"
+
+#import "PBMNativeContextType.h"
+#import "PBMNativeContextSubtype.h"
+#import "PBMNativePlacementType.h"
+#import "PBMBaseAdUnit.h"
+#import "PBMBidRequesterFactoryBlock.h"
+#import "PBMWinNotifierBlock.h"
+
+#import "PBMImageAssetType.h"
+#import "PBMNativeAdElementType.h"
+
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 @implementation PBMDemandResponseInfo
 
@@ -57,7 +78,7 @@
             return;
         }
         
-        completion([[PBMNativeAd alloc] initWithNativeAdMarkup:nativeAdMarkup]);
+        completion([[NativeAd alloc] initWithNativeAdMarkup:nativeAdMarkup]);
     }];
 }
 

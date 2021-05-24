@@ -81,7 +81,7 @@ public class PrebidMoPubNativeAdRenderer : NSObject, MPNativeAdRenderer, MPNativ
         }
         
         adView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        adapter.nativeAd.register(adView, clickableViews: nil)
+        adapter.nativeAd.registerView(adView, clickableViews: nil)
         
         if (moPubAdView.responds(to: #selector(MPNativeAdRendering.nativeMainTextLabel))) {
             moPubAdView.nativeMainTextLabel?()?.text = adapter.properties[kAdTextKey] as? String;
@@ -94,7 +94,7 @@ public class PrebidMoPubNativeAdRenderer : NSObject, MPNativeAdRenderer, MPNativ
         if (moPubAdView.responds(to: #selector(MPNativeAdRendering.nativeCallToActionTextLabel))) {
             if let ctaLabel = moPubAdView.nativeCallToActionTextLabel?() {
                 ctaLabel.text = adapter.properties[kAdCTATextKey] as? String;
-                adapter.nativeAd.registerClick(ctaLabel, nativeAdElementType: .callToAction)
+                adapter.nativeAd.registerClickView(ctaLabel, nativeAdElementType: .callToAction)
             }
         }
         
@@ -105,14 +105,14 @@ public class PrebidMoPubNativeAdRenderer : NSObject, MPNativeAdRenderer, MPNativ
             sponsoredLabel.text = sponsoredText
             
             if let brandAsset = adapter.nativeAd.dataObjects(of: .sponsored).first {
-                adapter.nativeAd.registerClick(sponsoredLabel, nativeAdAsset: brandAsset)
+                adapter.nativeAd.registerClickView(sponsoredLabel, nativeAdAsset: brandAsset)
             }
         }
         
         if let _ = adapter.properties[kAdIconImageKey],
            moPubAdView.responds(to: #selector(MPNativeAdRendering.nativeIconImageView)),
            let iconView =  moPubAdView.nativeIconImageView?() {
-            adapter.nativeAd.registerClick(iconView, nativeAdElementType: .icon)
+            adapter.nativeAd.registerClickView(iconView, nativeAdElementType: .icon)
         }
         
         if shouldLoadMediaView(),

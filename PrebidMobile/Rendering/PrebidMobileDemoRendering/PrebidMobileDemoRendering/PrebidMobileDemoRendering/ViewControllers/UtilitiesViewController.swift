@@ -89,7 +89,7 @@ class UtilitiesViewController: FormViewController {
     
     private func editNativeAdConfig() {
         if AppConfiguration.shared.nativeAdConfig == nil {
-            AppConfiguration.shared.nativeAdConfig = PBMNativeAdConfiguration(assets: [])
+            AppConfiguration.shared.nativeAdConfig = NativeAdConfiguration(assets: [])
             updateNativeAdConfigRow(nativeAdConfigRow)
         }
         let editor = NativeAdConfigController()

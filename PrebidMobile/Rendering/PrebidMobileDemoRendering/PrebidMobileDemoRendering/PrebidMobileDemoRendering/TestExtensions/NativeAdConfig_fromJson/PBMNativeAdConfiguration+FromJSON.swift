@@ -1,5 +1,5 @@
 //
-//  PBMNativeAdConfiguration+FromJSON.swift
+//  NativeAdConfiguration+FromJSON.swift
 //  OpenXInternalTestApp
 //
 //  Copyright © 2020 OpenX. All rights reserved.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension PBMNativeAdConfiguration {
+extension NativeAdConfiguration {
     convenience init?(json: [String: Any]) {
         guard let rawAssets = json["assets"] as? [[String: Any]] else {
             return nil

@@ -5,6 +5,6 @@
 //  Copyright © 2021 OpenX. All rights reserved.
 //
 
-#import "PBMNativeAd.h"
+@class NativeAd;
 
-typedef void (^PBMNativeAdHandler)(PBMNativeAd * _Nullable nativeAd);
+typedef void (^PBMNativeAdHandler)(NativeAd * _Nullable nativeAd);

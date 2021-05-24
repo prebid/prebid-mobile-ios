@@ -18,7 +18,7 @@ class PrebidGAMNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCompa
     var gamCustomTemplateIDs: [String] = []
     var adTypes: [GADAdLoaderAdType] = []
     
-    var nativeAdConfig = PBMNativeAdConfiguration?.none
+    var nativeAdConfig = NativeAdConfiguration?.none
     
     private var adLoadingAllowed = false
     private var onAdLoadingAllowed: (()->())?

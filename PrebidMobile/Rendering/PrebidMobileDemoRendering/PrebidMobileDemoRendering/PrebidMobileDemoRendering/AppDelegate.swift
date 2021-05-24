@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         processArgumentsParser.addOption("EXTRA_NATIVE", paramsCount: 1, fireOnce: true) { params in
             if let nativeConfigData = params[0].data(using: .utf8),
                let nativeConfigObj = try? JSONSerialization.jsonObject(with: nativeConfigData, options: []) as? [String: Any],
-               let nativeAdConfig = PBMNativeAdConfiguration(json: nativeConfigObj)
+               let nativeAdConfig = NativeAdConfiguration(json: nativeConfigObj)
             {
                 // TODO: Add error alert(?)
                 AppConfiguration.shared.nativeAdConfig = nativeAdConfig

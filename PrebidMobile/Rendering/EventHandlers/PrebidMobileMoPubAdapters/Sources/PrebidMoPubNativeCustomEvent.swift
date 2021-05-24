@@ -40,7 +40,7 @@ public class PrebidMoPubNativeCustomEvent : MPNativeCustomEvent {
     
     // MARK: Private Methods
     
-    func nativeAdDidLoad(_ nativeAd: PBMNativeAd) {
+    func nativeAdDidLoad(_ nativeAd: NativeAd) {
         
         let adAdapter = PrebidMoPubNativeAdAdapter(nativeAd: nativeAd)
         let interfaceAd = MPNativeAd(adAdapter: adAdapter)

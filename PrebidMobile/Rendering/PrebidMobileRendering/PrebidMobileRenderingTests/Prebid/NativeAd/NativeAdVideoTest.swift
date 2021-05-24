@@ -1,5 +1,5 @@
 //
-//  PBMNativeAdVideoTest.swift
+//  NativeAdVideoTest.swift
 //  OpenXSDKCoreTests
 //
 //  Copyright © 2020 OpenX. All rights reserved.
@@ -9,7 +9,7 @@ import XCTest
 
 @testable import PrebidMobileRendering
 
-class PBMNativeAdVideoTest: XCTestCase {
+class NativeAdVideoTest: XCTestCase {
     func testInitFromMarkup_withVastTag() {
         testInitFromMarkup(videoVast: "VAST Tag XML")
     }
@@ -18,13 +18,13 @@ class PBMNativeAdVideoTest: XCTestCase {
     }
     
     func testInitFromMarkup(videoVast: String?) {
-        let requiredProperties: [(Decoding.PropertyCheck<PBMNativeAdMarkupAsset, PBMNativeAdVideo>, Error)] = [
+        let requiredProperties: [(Decoding.PropertyCheck<PBMNativeAdMarkupAsset, NativeAdVideo>, Error)] = [
             (.init(saver: { $0.video = .init(vastTag: videoVast) },
                    checker: { XCTAssertEqual($0.mediaData.mediaAsset.video?.vasttag, videoVast) }),
-             PBMNativeAdAssetBoxingError.noVideoInsideNativeAdMarkupAsset),
+             NativeAdAssetBoxingError.noVideoInsideNativeAdMarkupAsset),
         ]
 
-        let optionalVideoProperties: [Decoding.BaseOptionalCheck<PBMNativeAdMarkupAsset, PBMNativeAdVideo>] = [
+        let optionalVideoProperties: [Decoding.BaseOptionalCheck<PBMNativeAdMarkupAsset, NativeAdVideo>] = [
             // MARK: - Asset properties
             Decoding.OptionalPropertyCheck(value: 149578,
                                            writer: { $0.assetID = $1 },
@@ -43,7 +43,7 @@ class PBMNativeAdVideoTest: XCTestCase {
         let nativeAdHooks = PBMNativeAdMediaHooks(viewControllerProvider: { nil }, clickHandlerOverride: { _ in })
         
         let videoTester = Decoding.Tester(templateFactory: markupAssetFactory,
-                                          generator: { try PBMNativeAdVideo(nativeAdMarkupAsset: $0,
+                                          generator: { try NativeAdVideo(nativeAdMarkupAsset: $0,
                                                                             nativeAdHooks: nativeAdHooks) },
                                           requiredPropertyChecks: requiredProperties,
                                           optionalPropertyChecks: optionalVideoProperties)
@@ -51,15 +51,15 @@ class PBMNativeAdVideoTest: XCTestCase {
     }
     
     func testIsEqual() {
-        XCTAssertNotEqual(try! PBMNativeAdVideo(nativeAdMarkupAsset: .init(video: .init(vastTag: "v1"))), NSObject())
-        XCTAssertEqual(try! PBMNativeAdVideo(nativeAdMarkupAsset: .init(video: .init())),
-                       try! PBMNativeAdVideo(nativeAdMarkupAsset: .init(video: .init())))
-        XCTAssertEqual(try! PBMNativeAdVideo(nativeAdMarkupAsset: .init(video: .init(vastTag: "v1"))),
-                       try! PBMNativeAdVideo(nativeAdMarkupAsset: .init(video: .init(vastTag: "v1"))))
-        XCTAssertEqual(try! PBMNativeAdVideo(nativeAdMarkupAsset: .init(video: .init(vastTag: "w2"))),
-                       try! PBMNativeAdVideo(nativeAdMarkupAsset: .init(video: .init(vastTag: "w2"))))
-        XCTAssertNotEqual(try! PBMNativeAdVideo(nativeAdMarkupAsset: .init(video: .init(vastTag: "v1"))),
-                          try! PBMNativeAdVideo(nativeAdMarkupAsset: .init(video: .init(vastTag: "w2"))))
+        XCTAssertNotEqual(try! NativeAdVideo(nativeAdMarkupAsset: .init(video: .init(vastTag: "v1"))), NSObject())
+        XCTAssertEqual(try! NativeAdVideo(nativeAdMarkupAsset: .init(video: .init())),
+                       try! NativeAdVideo(nativeAdMarkupAsset: .init(video: .init())))
+        XCTAssertEqual(try! NativeAdVideo(nativeAdMarkupAsset: .init(video: .init(vastTag: "v1"))),
+                       try! NativeAdVideo(nativeAdMarkupAsset: .init(video: .init(vastTag: "v1"))))
+        XCTAssertEqual(try! NativeAdVideo(nativeAdMarkupAsset: .init(video: .init(vastTag: "w2"))),
+                       try! NativeAdVideo(nativeAdMarkupAsset: .init(video: .init(vastTag: "w2"))))
+        XCTAssertNotEqual(try! NativeAdVideo(nativeAdMarkupAsset: .init(video: .init(vastTag: "v1"))),
+                          try! NativeAdVideo(nativeAdMarkupAsset: .init(video: .init(vastTag: "w2"))))
     }
 }
 

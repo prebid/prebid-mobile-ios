@@ -1,5 +1,5 @@
 //
-//  PBMNativeAdAssetTest.swift
+//  NativeAdAssetTest.swift
 //  OpenXSDKCoreTests
 //
 //  Copyright © 2020 OpenX. All rights reserved.
@@ -9,11 +9,11 @@ import XCTest
 
 @testable import PrebidMobileRendering
 
-class PBMNativeAdAssetTest: XCTestCase {
+class NativeAdAssetTest: XCTestCase {
     func testInitFromMarkup() {
-        let requiredProperties: [(Decoding.PropertyCheck<PBMNativeAdMarkupAsset, PBMNativeAdAsset>, Error)] = []
+        let requiredProperties: [(Decoding.PropertyCheck<PBMNativeAdMarkupAsset, NativeAdAsset>, Error)] = []
         
-        let optionalAssetProperties: [Decoding.BaseOptionalCheck<PBMNativeAdMarkupAsset, PBMNativeAdAsset>] = [
+        let optionalAssetProperties: [Decoding.BaseOptionalCheck<PBMNativeAdMarkupAsset, NativeAdAsset>] = [
             // MARK: - Asset properties
             Decoding.OptionalPropertyCheck(value: 149578,
                                            writer: { $0.assetID = $1 },
@@ -29,22 +29,22 @@ class PBMNativeAdAssetTest: XCTestCase {
         let markupAssetFactory = { PBMNativeAdMarkupAsset(title: .init(text: "")) }
         
         let assetTester = Decoding.Tester(templateFactory: markupAssetFactory,
-                                          generator: PBMNativeAdAsset.init(nativeAdMarkupAsset:),
+                                          generator: NativeAdAsset.init(nativeAdMarkupAsset:),
                                           requiredPropertyChecks: requiredProperties,
                                           optionalPropertyChecks: optionalAssetProperties)
         assetTester.run()
     }
     
     func testIsEqual() {
-        XCTAssertNotEqual(try! PBMNativeAdAsset(nativeAdMarkupAsset: .init(data: .init(value: "v1"))), NSObject())
-        XCTAssertEqual(try! PBMNativeAdAsset(nativeAdMarkupAsset: .init(data: .init())),
-                       try! PBMNativeAdAsset(nativeAdMarkupAsset: .init(data: .init())))
-        XCTAssertEqual(try! PBMNativeAdAsset(nativeAdMarkupAsset: .init(data: .init(value: "v1"))),
-                       try! PBMNativeAdAsset(nativeAdMarkupAsset: .init(data: .init(value: "v1"))))
-        XCTAssertEqual(try! PBMNativeAdAsset(nativeAdMarkupAsset: .init(data: .init(value: "w2"))),
-                       try! PBMNativeAdAsset(nativeAdMarkupAsset: .init(data: .init(value: "w2"))))
-        XCTAssertNotEqual(try! PBMNativeAdAsset(nativeAdMarkupAsset: .init(data: .init(value: "v1"))),
-                          try! PBMNativeAdAsset(nativeAdMarkupAsset: .init(data: .init(value: "w2"))))
+        XCTAssertNotEqual(try! NativeAdAsset(nativeAdMarkupAsset: .init(data: .init(value: "v1"))), NSObject())
+        XCTAssertEqual(try! NativeAdAsset(nativeAdMarkupAsset: .init(data: .init())),
+                       try! NativeAdAsset(nativeAdMarkupAsset: .init(data: .init())))
+        XCTAssertEqual(try! NativeAdAsset(nativeAdMarkupAsset: .init(data: .init(value: "v1"))),
+                       try! NativeAdAsset(nativeAdMarkupAsset: .init(data: .init(value: "v1"))))
+        XCTAssertEqual(try! NativeAdAsset(nativeAdMarkupAsset: .init(data: .init(value: "w2"))),
+                       try! NativeAdAsset(nativeAdMarkupAsset: .init(data: .init(value: "w2"))))
+        XCTAssertNotEqual(try! NativeAdAsset(nativeAdMarkupAsset: .init(data: .init(value: "v1"))),
+                          try! NativeAdAsset(nativeAdMarkupAsset: .init(data: .init(value: "w2"))))
     }
 }
 

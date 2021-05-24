@@ -168,7 +168,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     func testNative() {
         let nativeVer = "1.2"
         let desc = NativeAssetData(dataType: .desc)
-        let nativeAdConfig = PBMNativeAdConfiguration.init(assets:[desc])
+        let nativeAdConfig = NativeAdConfiguration.init(assets:[desc])
         nativeAdConfig.context = .socialCentric
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
@@ -201,7 +201,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     }
     
     func testFirstPartyData() {
-        let nativeAdConfig = PBMNativeAdConfiguration.init(assets: [
+        let nativeAdConfig = NativeAdConfiguration.init(assets: [
             NativeAssetData(dataType: .desc),
         ])
         

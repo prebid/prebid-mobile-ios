@@ -63,7 +63,7 @@ extension NativeAdViewBoxLinks {
 }
 
 extension NativeAdViewBoxLinks {
-    func renderNativeAd(_ nativeAd: PBMNativeAd) {
+    func renderNativeAd(_ nativeAd: NativeAd) {
         linkRootButton.setTitle(nativeAd.callToAction, for: .normal)
         deepLinkOkButton.setTitle(nativeAd.text, for: .normal)
         
@@ -71,17 +71,17 @@ extension NativeAdViewBoxLinks {
         sponsoredButton.setTitle(nativeAd.dataObjects(of: .sponsored).first?.value ?? "", for: .normal)
     }
     
-    func registerViews(_ nativeAd: PBMNativeAd) {
-        nativeAd.register(contentView, clickableViews: [])
-        nativeAd.registerClick(linkRootButton, nativeAdElementType: .callToAction)
-        nativeAd.registerClick(deepLinkOkButton, nativeAdElementType: .text)
+    func registerViews(_ nativeAd: NativeAd) {
+        nativeAd.registerView(contentView, clickableViews: [])
+        nativeAd.registerClickView(linkRootButton, nativeAdElementType: .callToAction)
+        nativeAd.registerClickView(deepLinkOkButton, nativeAdElementType: .text)
         
         if let ratingAsset = nativeAd.dataObjects(of: .rating).first {
-            nativeAd.registerClick(ratingButton, nativeAdAsset: ratingAsset)
+            nativeAd.registerClickView(ratingButton, nativeAdAsset: ratingAsset)
         }
         
         if let brandAsset = nativeAd.dataObjects(of: .sponsored).first {
-            nativeAd.registerClick(sponsoredButton, nativeAdAsset: brandAsset)
+            nativeAd.registerClickView(sponsoredButton, nativeAdAsset: brandAsset)
         }
     }
 }

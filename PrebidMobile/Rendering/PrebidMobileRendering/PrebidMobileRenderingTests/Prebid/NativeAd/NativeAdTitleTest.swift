@@ -1,5 +1,5 @@
 //
-//  PBMNativeAdTitleTest.swift
+//  NativeAdTitleTest.swift
 //  OpenXSDKCoreTests
 //
 //  Copyright © 2020 OpenX. All rights reserved.
@@ -9,7 +9,7 @@ import XCTest
 
 @testable import PrebidMobileRendering
 
-class PBMNativeAdTitleTest: XCTestCase {
+class NativeAdTitleTest: XCTestCase {
     func testInitFromMarkup_withText() {
         testInitFromMarkup(titleText: "Some Title value")
     }
@@ -18,13 +18,13 @@ class PBMNativeAdTitleTest: XCTestCase {
     }
     
     func testInitFromMarkup(titleText: String?) {
-        let requiredProperties: [(Decoding.PropertyCheck<PBMNativeAdMarkupAsset, PBMNativeAdTitle>, Error)] = [
+        let requiredProperties: [(Decoding.PropertyCheck<PBMNativeAdMarkupAsset, NativeAdTitle>, Error)] = [
             (.init(saver: { $0.title = .init(text: titleText)},
                    checker: { XCTAssertEqual($0.text, titleText ?? "") }),
-             PBMNativeAdAssetBoxingError.noTitleInsideNativeAdMarkupAsset),
+             NativeAdAssetBoxingError.noTitleInsideNativeAdMarkupAsset),
         ]
 
-        let optionalTitleProperties: [Decoding.BaseOptionalCheck<PBMNativeAdMarkupAsset, PBMNativeAdTitle>] = [
+        let optionalTitleProperties: [Decoding.BaseOptionalCheck<PBMNativeAdMarkupAsset, NativeAdTitle>] = [
             // MARK: - Asset properties
             Decoding.OptionalPropertyCheck(value: 149578,
                                            writer: { $0.assetID = $1 },
@@ -47,22 +47,22 @@ class PBMNativeAdTitleTest: XCTestCase {
         let markupAssetFactory = { PBMNativeAdMarkupAsset(data: .init(value: "")) }
         
         let titleTester = Decoding.Tester(templateFactory: markupAssetFactory,
-                                         generator: PBMNativeAdTitle.init(nativeAdMarkupAsset:),
+                                         generator: NativeAdTitle.init(nativeAdMarkupAsset:),
                                          requiredPropertyChecks: requiredProperties,
                                          optionalPropertyChecks: optionalTitleProperties)
         titleTester.run()
     }
     
     func testIsEqual() {
-        XCTAssertNotEqual(try! PBMNativeAdTitle(nativeAdMarkupAsset: .init(title: .init(text: "v1"))), NSObject())
-        XCTAssertEqual(try! PBMNativeAdTitle(nativeAdMarkupAsset: .init(title: .init())),
-                       try! PBMNativeAdTitle(nativeAdMarkupAsset: .init(title: .init())))
-        XCTAssertEqual(try! PBMNativeAdTitle(nativeAdMarkupAsset: .init(title: .init(text: "v1"))),
-                       try! PBMNativeAdTitle(nativeAdMarkupAsset: .init(title: .init(text: "v1"))))
-        XCTAssertEqual(try! PBMNativeAdTitle(nativeAdMarkupAsset: .init(title: .init(text: "w2"))),
-                       try! PBMNativeAdTitle(nativeAdMarkupAsset: .init(title: .init(text: "w2"))))
-        XCTAssertNotEqual(try! PBMNativeAdTitle(nativeAdMarkupAsset: .init(title: .init(text: "v1"))),
-                          try! PBMNativeAdTitle(nativeAdMarkupAsset: .init(title: .init(text: "w2"))))
+        XCTAssertNotEqual(try! NativeAdTitle(nativeAdMarkupAsset: .init(title: .init(text: "v1"))), NSObject())
+        XCTAssertEqual(try! NativeAdTitle(nativeAdMarkupAsset: .init(title: .init())),
+                       try! NativeAdTitle(nativeAdMarkupAsset: .init(title: .init())))
+        XCTAssertEqual(try! NativeAdTitle(nativeAdMarkupAsset: .init(title: .init(text: "v1"))),
+                       try! NativeAdTitle(nativeAdMarkupAsset: .init(title: .init(text: "v1"))))
+        XCTAssertEqual(try! NativeAdTitle(nativeAdMarkupAsset: .init(title: .init(text: "w2"))),
+                       try! NativeAdTitle(nativeAdMarkupAsset: .init(title: .init(text: "w2"))))
+        XCTAssertNotEqual(try! NativeAdTitle(nativeAdMarkupAsset: .init(title: .init(text: "v1"))),
+                          try! NativeAdTitle(nativeAdMarkupAsset: .init(title: .init(text: "w2"))))
     }
 }
 

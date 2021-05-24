@@ -193,8 +193,6 @@
 #import "PBMViewabilityEventDetector.h"
 #import "PBMWinNotifier+Private.h"
 // NativeAds (Request)
-#import "PBMNativeAdConfiguration+Internal.h"
-#import "PBMNativeAdUnit+Testing.h"
 #import "PBMNativeEventTracker+Internal.h"
 #import "PBMNativeMarkupRequestObject+Internal.h"
 // NativeAds (Response model)
@@ -207,14 +205,7 @@
 #import "PBMNativeAdMarkupLink.h"
 #import "PBMNativeAdMarkupTitle.h"
 #import "PBMNativeAdMarkupVideo.h"
-// NativeAds (Response facade)
-#import "PBMNativeAd+FromMarkup.h"
-#import "PBMNativeAd+Testing.h"
-#import "PBMNativeAdAsset+FromMarkup.h"
-#import "PBMNativeAdAsset+Protected.h"
-#import "PBMNativeAdAssetBoxingError.h"
-#import "PBMNativeAdEventTracker+FromMarkup.h"
-#import "PBMNativeAdVideo+Internal.h"
+
 // NativeAds (Event Tracking)
 #import "PBMNativeAdImpressionReporting.h"
 #import "PBMNativeClickableViewRegistry.h"

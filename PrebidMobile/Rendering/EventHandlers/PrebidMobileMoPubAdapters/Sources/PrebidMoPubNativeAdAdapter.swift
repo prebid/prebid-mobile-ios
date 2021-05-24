@@ -22,7 +22,7 @@ class PrebidMoPubNativeAdAdapter:
     // MARK: - Public Properties
     
     weak var delegate: MPNativeAdAdapterDelegate?
-    var nativeAd: PBMNativeAd
+    var nativeAd: NativeAd
     
     // MARK: - Internal Properties
     
@@ -30,7 +30,7 @@ class PrebidMoPubNativeAdAdapter:
     
     // MARK: - Public Methods
     
-    init(nativeAd: PBMNativeAd) {
+    init(nativeAd: NativeAd) {
         self.nativeAd = nativeAd
         
         super.init()
@@ -85,30 +85,30 @@ class PrebidMoPubNativeAdAdapter:
         self.mediaView
     }
     
-    // MARK: - PBMNativeAdUIDelegate
+    // MARK: - NativeAdUIDelegate
     
-    func viewPresentationController(for nativeAd: PBMNativeAd) -> UIViewController? {
+    func viewPresentationController(for nativeAd: NativeAd) -> UIViewController? {
         delegate?.viewControllerForPresentingModalView()
     }
     
-    func nativeAdWillLeaveApplication(_ nativeAd: PBMNativeAd) {
+    func nativeAdWillLeaveApplication(_ nativeAd: NativeAd) {
         MPLogging.logEvent(MPLogEvent.adWillLeaveApplication(forAdapter: Self.className()), source: nil, from: nil)
         delegate?.nativeAdWillLeaveApplication(from: self)
     }
     
-    func nativeAdWillPresentModal(_ nativeAd: PBMNativeAd) {
+    func nativeAdWillPresentModal(_ nativeAd: NativeAd) {
         MPLogging.logEvent(MPLogEvent.adWillPresentModal(forAdapter: Self.className()), source: nil, from: nil)
         delegate?.nativeAdWillPresentModal(for: self)
     }
     
-    func nativeAdDidDismissModal(_ nativeAd: PBMNativeAd) {
+    func nativeAdDidDismissModal(_ nativeAd: NativeAd) {
         MPLogging.logEvent(MPLogEvent.adDidDismissModal(forAdapter: Self.className()), source: nil, from: nil)
         delegate?.nativeAdDidDismissModal(for: self)
     }
     
-    // MARK: - PBMNativeAdTrackingDelegate
+    // MARK: - NativeAdTrackingDelegate
     
-    func nativeAdDidLogClick(_ nativeAd: PBMNativeAd) {
+    func nativeAdDidLogClick(_ nativeAd: NativeAd) {
         guard let delegate = delegate,
            delegate.responds(to: #selector(MPNativeAdAdapterDelegate.nativeAdDidClick)) else {
             return
@@ -118,7 +118,7 @@ class PrebidMoPubNativeAdAdapter:
         delegate.nativeAdDidClick?(self)
     }
     
-    func nativeAd(_ nativeAd: PBMNativeAd, didLogEvent nativeEvent: PBMNativeEventType) {
+    func nativeAd(_ nativeAd: NativeAd, didLogEvent nativeEvent: PBMNativeEventType) {
         guard nativeEvent == .impression,
               let delegate = delegate,
               delegate.responds(to: #selector(MPNativeAdAdapterDelegate.nativeAdWillLogImpression)) else {

@@ -44,7 +44,7 @@ public class GAMUtils {
     }
     
     public func findNativeAd(for nativeAd: GADNativeAd,
-                             nativeAdDetectionListener: PBMNativeAdDetectionListener) {
+                             nativeAdDetectionListener: NativeAdDetectionListener) {
         
         guard let wrappedAd = GADNativeAdWrapper(nativeAd: nativeAd) else {
             nativeAdDetectionListener.onNativeAdInvalid?(GAMEventHandlerError.gamClassesNotFound)
@@ -59,7 +59,7 @@ public class GAMUtils {
     }
     
     public func findCustomNativeAd(for customNativeAd: GADCustomNativeAd,
-                            nativeAdDetectionListener: PBMNativeAdDetectionListener) {
+                            nativeAdDetectionListener: NativeAdDetectionListener) {
         
         guard let wrappedAd = GADCustomNativeAdWrapper(customNativeAd: customNativeAd) else {
             nativeAdDetectionListener.onNativeAdInvalid?(GAMEventHandlerError.gamClassesNotFound)
@@ -92,7 +92,7 @@ public class GAMUtils {
     
     private func findNativeAd(flagLookupClosure: () -> Bool,
                               localCacheIDExtractor: () -> String?,
-                              nativeAdDetectionListener: PBMNativeAdDetectionListener) {
+                              nativeAdDetectionListener: NativeAdDetectionListener) {
         
         if !flagLookupClosure() {
             nativeAdDetectionListener.onPrimaryAdWin?()
