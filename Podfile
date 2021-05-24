@@ -11,8 +11,8 @@ def prebid_demo_pods
   use_frameworks!
   
   pod 'Google-Mobile-Ads-SDK'
-  pod 'mopub-ios-sdk', '5.15.0'
-  pod 'GoogleAds-IMA-iOS-SDK', '3.11.4'
+  pod 'mopub-ios-sdk'
+  pod 'GoogleAds-IMA-iOS-SDK'
 end
 
 target 'PrebidDemoSwift' do
