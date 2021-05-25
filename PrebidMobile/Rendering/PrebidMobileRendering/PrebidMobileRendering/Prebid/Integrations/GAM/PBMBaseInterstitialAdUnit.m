@@ -22,7 +22,9 @@
 
 #import "PBMMacros.h"
 
-@interface PBMBaseInterstitialAdUnit () <PBMAdLoadFlowControllerDelegate, PBMInterstitialAdLoaderDelegate, PBMInterstitialControllerInteractionDelegate>
+@interface PBMBaseInterstitialAdUnit () <PBMAdLoadFlowControllerDelegate,
+                                         PBMInterstitialAdLoaderDelegate,
+                                         PBMInterstitialControllerInteractionDelegate>
 
 @property (nonatomic, strong, nonnull, readonly) PBMAdLoadFlowController *adLoadFlowController;
 @property (nonatomic, strong, nonnull, readonly) NSObject *blocksLockToken;

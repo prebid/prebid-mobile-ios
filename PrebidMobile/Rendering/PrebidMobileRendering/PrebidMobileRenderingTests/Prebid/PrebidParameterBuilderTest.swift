@@ -64,7 +64,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func testAdPositionFullScreen() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let interstitialAdUnit =  PBMInterstitialAdUnit(configId: configId)
+        let interstitialAdUnit =  InterstitialAdUnit(configId: configId)
         
         let builder = PBMBasicParameterBuilder(adConfiguration: interstitialAdUnit.adUnitConfig.adConfiguration,
                                                sdkConfiguration: sdkConfiguration,

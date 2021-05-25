@@ -20,28 +20,28 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
     private let configId = "someConfigId"
     
     func testInterstitialDelegateCalls_noOptionalMethods() {
-        let adUnit = PBMInterstitialAdUnit(configId: configId)
+        let adUnit = InterstitialAdUnit(configId: configId)
         let delegate = DummyInterstitialDelegate()
         adUnit.delegate = delegate
         callInterstitialDelegateMethods(adUnit: adUnit)
     }
     
     func testInterstitialDelegateCalls_receiveAllMethods() {
-        let adUnit = PBMInterstitialAdUnit(configId: configId)
+        let adUnit = InterstitialAdUnit(configId: configId)
         let delegate = InterstitialProxyDelegate()
         adUnit.delegate = delegate
         callInterstitialDelegateMethods(adUnit: adUnit, proxyDelegate: delegate)
     }
     
     func testRewardedAdDelegateCalls_noOptionalMethods() {
-        let adUnit = PBMRewardedAdUnit(configId: configId)
+        let adUnit = RewardedAdUnit(configId: configId)
         let delegate = DummyRewardedAdDelegate()
         adUnit.delegate = delegate
         callRewardedAdDelegateMethods(adUnit: adUnit)
     }
     
     func testRewardedAdDelegateCalls_receiveAllMethods() {
-        let adUnit = PBMRewardedAdUnit(configId: configId)
+        let adUnit = RewardedAdUnit(configId: configId)
         let delegate = RewardedAdProxyDelegate()
         adUnit.delegate = delegate
         callRewardedAdDelegateMethods(adUnit: adUnit, proxyDelegate: delegate)
@@ -52,14 +52,14 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
         
         PBMSDKConfiguration.singleton.accountID = ""
         
-        let interstitial = PBMInterstitialAdUnit(configId: testID)
+        let interstitial = InterstitialAdUnit(configId: testID)
         let exp = expectation(description: "loading callback called")
         let delegate = InterstitialProxyDelegate()
         interstitial.delegate = delegate
         delegate.onCall = { selector, args in
             XCTAssertEqual(selector, "interstitial:didFailToReceiveAdWithError:")
             XCTAssertEqual(args.count, 2)
-            XCTAssertEqual(args[0] as? PBMInterstitialAdUnit, interstitial)
+            XCTAssertEqual(args[0] as? InterstitialAdUnit, interstitial)
             XCTAssertEqual(args[1] as? NSError, PBMError.invalidAccountId as NSError?)
             exp.fulfill()
         }
@@ -74,14 +74,14 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
         
         PBMSDKConfiguration.singleton.accountID = ""
         
-        let rewarded = PBMRewardedAdUnit(configId: testID)
+        let rewarded = RewardedAdUnit(configId: testID)
         let exp = expectation(description: "loading callback called")
         let delegate = RewardedAdProxyDelegate()
         rewarded.delegate = delegate
         delegate.onCall = { selector, args in
             XCTAssertEqual(selector, "rewardedAd:didFailToReceiveAdWithError:")
             XCTAssertEqual(args.count, 2)
-            XCTAssertEqual(args[0] as? PBMRewardedAdUnit, rewarded)
+            XCTAssertEqual(args[0] as? RewardedAdUnit, rewarded)
             XCTAssertEqual(args[1] as? NSError, PBMError.invalidAccountId as NSError?)
             exp.fulfill()
         }
@@ -117,46 +117,46 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
     }
     
     private class InterstitialProxyDelegate: BaseProxyDelegate, PBMInterstitialAdUnitDelegate {
-        func interstitialDidReceiveAd(_ interstitial: PBMInterstitialAdUnit) {
+        func interstitialDidReceiveAd(_ interstitial: InterstitialAdUnit) {
             report(selectorName: "interstitialDidReceiveAd:", args: [interstitial])
         }
-        func interstitial(_ interstitial: PBMInterstitialAdUnit, didFailToReceiveAdWithError error: Error?) {
+        func interstitial(_ interstitial: InterstitialAdUnit, didFailToReceiveAdWithError error: Error?) {
             report(selectorName: "interstitial:didFailToReceiveAdWithError:", args: [interstitial, error as Any])
         }
-        func interstitialWillPresentAd(_ interstitial: PBMInterstitialAdUnit) {
+        func interstitialWillPresentAd(_ interstitial: InterstitialAdUnit) {
             report(selectorName: "interstitialWillPresentAd:", args: [interstitial])
         }
-        func interstitialDidDismissAd(_ interstitial: PBMInterstitialAdUnit) {
+        func interstitialDidDismissAd(_ interstitial: InterstitialAdUnit) {
             report(selectorName: "interstitialDidDismissAd:", args: [interstitial])
         }
-        func interstitialWillLeaveApplication(_ interstitial: PBMInterstitialAdUnit) {
+        func interstitialWillLeaveApplication(_ interstitial: InterstitialAdUnit) {
             report(selectorName: "interstitialWillLeaveApplication:", args: [interstitial])
         }
-        func interstitialDidClickAd(_ interstitial: PBMInterstitialAdUnit) {
+        func interstitialDidClickAd(_ interstitial: InterstitialAdUnit) {
             report(selectorName: "interstitialDidClickAd:", args: [interstitial])
         }
     }
     
     private class RewardedAdProxyDelegate: BaseProxyDelegate, PBMRewardedAdUnitDelegate {
-        func rewardedAdDidReceiveAd(_ rewardedAd: PBMRewardedAdUnit) {
+        func rewardedAdDidReceiveAd(_ rewardedAd: RewardedAdUnit) {
             report(selectorName: "rewardedAdDidReceiveAd:", args: [rewardedAd])
         }
-        func rewardedAd(_ rewardedAd: PBMRewardedAdUnit, didFailToReceiveAdWithError error: Error?) {
+        func rewardedAd(_ rewardedAd: RewardedAdUnit, didFailToReceiveAdWithError error: Error?) {
             report(selectorName: "rewardedAd:didFailToReceiveAdWithError:", args: [rewardedAd, error as Any])
         }
-        func rewardedAdWillPresentAd(_ rewardedAd: PBMRewardedAdUnit) {
+        func rewardedAdWillPresentAd(_ rewardedAd: RewardedAdUnit) {
             report(selectorName: "rewardedAdWillPresentAd:", args: [rewardedAd])
         }
-        func rewardedAdDidDismissAd(_ rewardedAd: PBMRewardedAdUnit) {
+        func rewardedAdDidDismissAd(_ rewardedAd: RewardedAdUnit) {
             report(selectorName: "rewardedAdDidDismissAd:", args: [rewardedAd])
         }
-        func rewardedAdWillLeaveApplication(_ rewardedAd: PBMRewardedAdUnit) {
+        func rewardedAdWillLeaveApplication(_ rewardedAd: RewardedAdUnit) {
             report(selectorName: "rewardedAdWillLeaveApplication:", args: [rewardedAd])
         }
-        func rewardedAdDidClickAd(_ rewardedAd: PBMRewardedAdUnit) {
+        func rewardedAdDidClickAd(_ rewardedAd: RewardedAdUnit) {
             report(selectorName: "rewardedAdDidClickAd:", args: [rewardedAd])
         }
-        func rewardedAdUserDidEarnReward(_ rewardedAd: PBMRewardedAdUnit) {
+        func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit) {
             report(selectorName: "rewardedAdUserDidEarnReward:", args: [rewardedAd])
         }
     }
@@ -245,7 +245,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
         }
     }
     
-    private func callInterstitialDelegateMethods(adUnit: PBMInterstitialAdUnit,
+    private func callInterstitialDelegateMethods(adUnit: InterstitialAdUnit,
                                                  proxyDelegate: InterstitialProxyDelegate? = nil,
                                                  file: StaticString = #file, line: UInt = #line)
     {
@@ -255,7 +255,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
                                file: file, line: line)
     }
     
-    private func callRewardedAdDelegateMethods(adUnit: PBMRewardedAdUnit,
+    private func callRewardedAdDelegateMethods(adUnit: RewardedAdUnit,
                                                proxyDelegate: RewardedAdProxyDelegate? = nil,
                                                file: StaticString = #file, line: UInt = #line)
     {
