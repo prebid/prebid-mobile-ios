@@ -13,14 +13,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMBaseInterstitialAdUnit<__covariant EventHandlerType, __covariant DelegateType> : NSObject
+@interface PBMBaseInterstitialAdUnit : NSObject
 
 @property (nonatomic, readonly) NSString *configId;
 @property (nonatomic, readonly) BOOL isReady;
 
-@property (nonatomic, weak, nullable) DelegateType delegate;
+@property (nonatomic, weak, nullable) id delegate;
 
-- (instancetype)initWithConfigId:(NSString *)configId eventHandler:(EventHandlerType)eventHandler;
+- (instancetype)initWithConfigId:(NSString *)configId eventHandler:(id)eventHandler;
 - (instancetype)initWithConfigId:(NSString *)configId;
 
 - (void)loadAd;

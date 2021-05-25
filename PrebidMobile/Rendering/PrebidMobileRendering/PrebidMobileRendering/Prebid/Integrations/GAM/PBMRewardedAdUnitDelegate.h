@@ -6,7 +6,7 @@
 //
 #import <Foundation/Foundation.h>
 
-@class PBMRewardedAdUnit;
+@class RewardedAdUnit;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,26 +20,26 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 /// Called when an ad is loaded and ready for display
-- (void)rewardedAdDidReceiveAd:(PBMRewardedAdUnit *)rewardedAd;
+- (void)rewardedAdDidReceiveAd:(RewardedAdUnit *)rewardedAd;
 
 /// Called when user is able to receive a reward from the app
-- (void)rewardedAdUserDidEarnReward:(PBMRewardedAdUnit *)rewardedAd;
+- (void)rewardedAdUserDidEarnReward:(RewardedAdUnit *)rewardedAd;
 
 /// Called when the load process fails to produce a viable ad
-- (void)rewardedAd:(PBMRewardedAdUnit *)rewardedAd
+- (void)rewardedAd:(RewardedAdUnit *)rewardedAd
 didFailToReceiveAdWithError:(nullable NSError *)error;
 
 /// Called when the interstitial view will be launched,  as a result of show() method.
-- (void)rewardedAdWillPresentAd:(PBMRewardedAdUnit *)rewardedAd;
+- (void)rewardedAdWillPresentAd:(RewardedAdUnit *)rewardedAd;
 
 /// Called when the interstial is dismissed by the user
-- (void)rewardedAdDidDismissAd:(PBMRewardedAdUnit *)rewardedAd;
+- (void)rewardedAdDidDismissAd:(RewardedAdUnit *)rewardedAd;
 
 /// Called when an ad causes the sdk to leave the app
-- (void)rewardedAdWillLeaveApplication:(PBMRewardedAdUnit *)rewardedAd;
+- (void)rewardedAdWillLeaveApplication:(RewardedAdUnit *)rewardedAd;
 
 /// Called when user clicked the ad
-- (void)rewardedAdDidClickAd:(PBMRewardedAdUnit *)rewardedAd;
+- (void)rewardedAdDidClickAd:(RewardedAdUnit *)rewardedAd;
 
 @end
 

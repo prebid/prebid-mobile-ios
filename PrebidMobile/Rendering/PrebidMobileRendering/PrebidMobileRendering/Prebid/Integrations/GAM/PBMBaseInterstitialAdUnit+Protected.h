@@ -39,23 +39,23 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface PBMBaseInterstitialAdUnit<__covariant EventHandlerType, __covariant DelegateType> ()  <PBMBaseInterstitialAdUnitProtocol, PBMInterstitialEventInteractionDelegate>
+@interface PBMBaseInterstitialAdUnit()  <PBMBaseInterstitialAdUnitProtocol, PBMInterstitialEventInteractionDelegate>
 
 @property (nonatomic, strong, nonnull, readonly) PBMAdUnitConfig *adUnitConfig;
-@property (nonatomic, strong, nullable, readonly) EventHandlerType eventHandler;
+@property (nonatomic, strong, nullable, readonly) id eventHandler;
 
 @property (nonatomic) PBMAdFormat adFormat;
 
 - (instancetype)initWithConfigId:(NSString *)configId
                minSizePercentage:(CGSize)minSizePercentage
-                    eventHandler:(EventHandlerType)eventHandler;
+                    eventHandler:(id)eventHandler;
 
 - (instancetype)initWithConfigId:(NSString *)configId
                minSizePercentage:(CGSize)minSizePercentage;
 
 - (instancetype)initWithConfigId:(NSString *)configId
                      minSizePerc:(nullable NSValue *)minSizePerc
-                    eventHandler:(nullable EventHandlerType)eventHandler;
+                    eventHandler:(nullable id)eventHandler;
 
 @end
 

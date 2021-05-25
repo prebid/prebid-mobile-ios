@@ -187,7 +187,6 @@
 #import "PBMDemandResponseInfo+Internal.h"
 #import "PBMError.h"
 #import "PBMPrebidParameterBuilder.h"
-#import "PBMRewardedAdUnit+Protected.h"
 #import "PBMSDKConfiguration+InternalState.h"
 #import "PBMTargeting+InternalState.h"
 #import "PBMViewabilityEventDetector.h"

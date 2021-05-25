@@ -12,7 +12,7 @@ class PrebidRewardedController: NSObject, AdaptedController, PBMRewardedAdUnitDe
     
     var prebidConfigId = ""
     
-    private var rewardedAdController : PBMRewardedAdUnit?
+    private var rewardedAdController : RewardedAdUnit?
     
     private weak var adapterViewController: AdapterViewController?
     
@@ -39,7 +39,7 @@ class PrebidRewardedController: NSObject, AdaptedController, PBMRewardedAdUnitDe
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        rewardedAdController = PBMRewardedAdUnit(configId: prebidConfigId)
+        rewardedAdController = RewardedAdUnit(configId: prebidConfigId)
         rewardedAdController?.delegate = self
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
@@ -54,32 +54,32 @@ class PrebidRewardedController: NSObject, AdaptedController, PBMRewardedAdUnitDe
     // MARK: - GADRewardedDelegate
     
     
-    func rewardedAdDidReceiveAd(_ rewardedAd: PBMRewardedAdUnit) {
+    func rewardedAdDidReceiveAd(_ rewardedAd: RewardedAdUnit) {
         adapterViewController?.showButton.isEnabled = true
         rewardedAdDidReceiveAdButton.isEnabled = true
     }
 
-    func rewardedAd(_ rewardedAd: PBMRewardedAdUnit, didFailToReceiveAdWithError error: Error?) {
+    func rewardedAd(_ rewardedAd: RewardedAdUnit, didFailToReceiveAdWithError error: Error?) {
         rewardedAdDidFailToReceiveAdButton.isEnabled = true
     }
     
-    func rewardedAdWillPresentAd(_ rewardedAd: PBMRewardedAdUnit) {
+    func rewardedAdWillPresentAd(_ rewardedAd: RewardedAdUnit) {
         rewardedAdWillPresentAdButton.isEnabled = true
     }
     
-    func rewardedAdDidDismissAd(_ rewardedAd: PBMRewardedAdUnit) {
+    func rewardedAdDidDismissAd(_ rewardedAd: RewardedAdUnit) {
         rewardedAdDidDismissAdButton.isEnabled = true
     }
     
-    func rewardedAdWillLeaveApplication(_ rewardedAd: PBMRewardedAdUnit) {
+    func rewardedAdWillLeaveApplication(_ rewardedAd: RewardedAdUnit) {
         rewardedAdWillLeaveApplicationButton.isEnabled = true
     }
     
-    func rewardedAdDidClickAd(_ rewardedAd: PBMRewardedAdUnit) {
+    func rewardedAdDidClickAd(_ rewardedAd: RewardedAdUnit) {
         rewardedAdDidClickAdButton.isEnabled = true
     }
     
-    func rewardedAdUserDidEarnReward(_ rewardedAd: PBMRewardedAdUnit) {
+    func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit) {
         rewardedAdUserDidEarnRewardButton.isEnabled = true
     }
     

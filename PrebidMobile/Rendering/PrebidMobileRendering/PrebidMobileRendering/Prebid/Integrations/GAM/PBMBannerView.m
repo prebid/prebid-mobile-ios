@@ -48,6 +48,9 @@
 #import "PBMImageAssetType.h"
 #import "PBMNativeAdElementType.h"
 
+#import "PBMBaseInterstitialAdUnit.h"
+#import "PBMRewardedEventInteractionDelegate.h"
+
 #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 @interface PBMBannerView () <PBMAdLoadFlowControllerDelegate, PBMBannerEventInteractionDelegate, PBMDisplayViewInteractionDelegate, PBMBannerAdLoaderDelegate>
