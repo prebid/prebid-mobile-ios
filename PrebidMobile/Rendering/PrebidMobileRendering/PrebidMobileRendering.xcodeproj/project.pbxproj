@@ -261,7 +261,6 @@
 		34D70FEE24E580620048CC78 /* PBMAdLoadManagerVAST.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E3827213FC57D0085FB0B /* PBMAdLoadManagerVAST.m */; };
 		34D70FEF24E580620048CC78 /* PBMVastCreativeNonLinearAds.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B68A49202C317700F85809 /* PBMVastCreativeNonLinearAds.m */; };
 		34D70FF024E580620048CC78 /* PBMDeviceInfoParameterBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 10199C5C202B30F40026B02A /* PBMDeviceInfoParameterBuilder.m */; };
-		34D70FF124E580620048CC78 /* PBMInterstitialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 34BA9604249CD2D9006AE372 /* PBMInterstitialController.m */; };
 		34D70FF224E580620048CC78 /* PBMOpenMeasurementFriendlyObstructionTypeBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 34343DFA23C7388800A24978 /* PBMOpenMeasurementFriendlyObstructionTypeBridge.m */; };
 		34D70FF324E580620048CC78 /* PBMAdModelEventTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B80F69C211D7F6F00C8A20F /* PBMAdModelEventTracker.m */; };
 		34D70FF424E580620048CC78 /* PBMORTBPublisher.m in Sources */ = {isa = PBXBuildFile; fileRef = 34B58E5E2481229700DF4CA1 /* PBMORTBPublisher.m */; };
@@ -359,7 +358,7 @@
 		34D7106D24E580620048CC78 /* PBMViewExposure.h in Headers */ = {isa = PBXBuildFile; fileRef = 346C533523EAED390028385D /* PBMViewExposure.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34D7106E24E580620048CC78 /* UIWindow+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B1D936220317B6D0026C685 /* UIWindow+PBMExtensions.h */; };
 		34D7106F24E580620048CC78 /* PBMORTBBid.h in Headers */ = {isa = PBXBuildFile; fileRef = 34FBBCD824814FA300BC7B0A /* PBMORTBBid.h */; };
-		34D7107124E580620048CC78 /* PBMTransactionFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 34BCCA602497CF7900691007 /* PBMTransactionFactory.h */; };
+		34D7107124E580620048CC78 /* PBMTransactionFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 34BCCA602497CF7900691007 /* PBMTransactionFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34D7107324E580620048CC78 /* PBMAdRequestResponseVAST.h in Headers */ = {isa = PBXBuildFile; fileRef = 35EE15DC209A81C30067830E /* PBMAdRequestResponseVAST.h */; };
 		34D7107424E580620048CC78 /* PBMHTMLCreative.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BEBB4DC203DA87B008852BD /* PBMHTMLCreative.h */; };
 		34D7107524E580620048CC78 /* PBMModalState.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B2BC51521CCDAC60039DCA0 /* PBMModalState.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -372,7 +371,7 @@
 		34D7107D24E580620048CC78 /* PBMORTBFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B58E4D2481219100DF4CA1 /* PBMORTBFormat.h */; };
 		34D7107F24E580620048CC78 /* PBMOpenMeasurementWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B481A2D20EB658300A860C7 /* PBMOpenMeasurementWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34D7108124E580620048CC78 /* PBMORTBBidResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 34FBBCCC24813F1500BC7B0A /* PBMORTBBidResponse.h */; };
-		34D7108224E580620048CC78 /* PBMInterstitialDisplayProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B2BC53521CCDB930039DCA0 /* PBMInterstitialDisplayProperties.h */; };
+		34D7108224E580620048CC78 /* PBMInterstitialDisplayProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B2BC53521CCDB930039DCA0 /* PBMInterstitialDisplayProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34D7108424E580620048CC78 /* UIView+PBMViewExposure.h in Headers */ = {isa = PBXBuildFile; fileRef = 346C533B23EAEE5D0028385D /* UIView+PBMViewExposure.h */; };
 		34D7108524E580620048CC78 /* PBMPublicConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 34D70F5F24E537220048CC78 /* PBMPublicConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34D7108624E580620048CC78 /* PBMInterstitialEventHandlerStandalone.h in Headers */ = {isa = PBXBuildFile; fileRef = 34BA95F2249CB21B006AE372 /* PBMInterstitialEventHandlerStandalone.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -510,7 +509,6 @@
 		34D7111E24E580620048CC78 /* PBMAdLoadManagerBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC626D3212D75B600B6E9D0 /* PBMAdLoadManagerBase.h */; };
 		34D7111F24E580620048CC78 /* PBMAppInfoParameterBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 10199C56202AF99F0026B02A /* PBMAppInfoParameterBuilder.h */; };
 		34D7112024E580620048CC78 /* PBMBid.h in Headers */ = {isa = PBXBuildFile; fileRef = 3470AD0B248929680086F7A2 /* PBMBid.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		34D7112224E580620048CC78 /* PBMInterstitialController.h in Headers */ = {isa = PBXBuildFile; fileRef = 34BA9603249CD2D9006AE372 /* PBMInterstitialController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34D7112324E580620048CC78 /* PBMORTBGeo.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B58E652481233500DF4CA1 /* PBMORTBGeo.h */; };
 		34D7112424E580620048CC78 /* PBMORTBSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 342988BA24B8872100362A8C /* PBMORTBSource.h */; };
 		34D7112524E580620048CC78 /* PBMModalViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B2BC50C21CCDAC50039DCA0 /* PBMModalViewController.h */; };
@@ -782,6 +780,7 @@
 		AC461875230ADE3C00F4E0DE /* PBMMRAIDControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC461874230ADE3C00F4E0DE /* PBMMRAIDControllerTest.swift */; };
 		AC461877230C0A9800F4E0DE /* PBMMRAIDControllerObjCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AC461876230C0A9800F4E0DE /* PBMMRAIDControllerObjCTest.m */; };
 		AC4F248625DFB29A0095C601 /* PBMMoPubNativeAdUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4F248525DFB29A0095C601 /* PBMMoPubNativeAdUnitTest.swift */; };
+		AC5CAE3D265D1A1900E422A3 /* InterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5CAE3C265D1A1900E422A3 /* InterstitialController.swift */; };
 		AC616E092588E69A0010DBBB /* PBMFunctions+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = AC616E072588E69A0010DBBB /* PBMFunctions+Testing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC616E0A2588E69A0010DBBB /* PBMFunctions+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = AC616E082588E69A0010DBBB /* PBMFunctions+Testing.m */; };
 		AC616E62258A4A600010DBBB /* PBMVideoPlacementType.h in Headers */ = {isa = PBXBuildFile; fileRef = AC616E5E258A3CF30010DBBB /* PBMVideoPlacementType.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1151,8 +1150,6 @@
 		34BA95F1249CB04B006AE372 /* PBMInterstitialEventInteractionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMInterstitialEventInteractionDelegate.h; sourceTree = "<group>"; };
 		34BA95F2249CB21B006AE372 /* PBMInterstitialEventHandlerStandalone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMInterstitialEventHandlerStandalone.h; sourceTree = "<group>"; };
 		34BA95F3249CB21B006AE372 /* PBMInterstitialEventHandlerStandalone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMInterstitialEventHandlerStandalone.m; sourceTree = "<group>"; };
-		34BA9603249CD2D9006AE372 /* PBMInterstitialController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMInterstitialController.h; sourceTree = "<group>"; };
-		34BA9604249CD2D9006AE372 /* PBMInterstitialController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMInterstitialController.m; sourceTree = "<group>"; };
 		34BA9607249CD2DF006AE372 /* PBMInterstitialControllerInteractionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMInterstitialControllerInteractionDelegate.h; sourceTree = "<group>"; };
 		34BA9609249CF9CE006AE372 /* PBMORTBDeviceExtPrebid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBDeviceExtPrebid.h; sourceTree = "<group>"; };
 		34BA960A249CF9CE006AE372 /* PBMORTBDeviceExtPrebid.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBDeviceExtPrebid.m; sourceTree = "<group>"; };
@@ -1642,6 +1639,7 @@
 		AC4A5333244867DD00EFC08D /* PBMCreativeViewabilityTracker+pbmTestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMCreativeViewabilityTracker+pbmTestExtension.h"; sourceTree = "<group>"; };
 		AC4F248525DFB29A0095C601 /* PBMMoPubNativeAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMMoPubNativeAdUnitTest.swift; sourceTree = "<group>"; };
 		AC4F24C725DFBF620095C601 /* MoPubNativeAdUnit+TestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoPubNativeAdUnit+TestExtension.h"; sourceTree = "<group>"; };
+		AC5CAE3C265D1A1900E422A3 /* InterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialController.swift; sourceTree = "<group>"; };
 		AC616E072588E69A0010DBBB /* PBMFunctions+Testing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PBMFunctions+Testing.h"; path = "Utilities/PBMFunctions+Testing.h"; sourceTree = "<group>"; };
 		AC616E082588E69A0010DBBB /* PBMFunctions+Testing.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "PBMFunctions+Testing.m"; path = "Utilities/PBMFunctions+Testing.m"; sourceTree = "<group>"; };
 		AC616E5E258A3CF30010DBBB /* PBMVideoPlacementType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMVideoPlacementType.h; path = AdTypes/AdView/PBMVideoPlacementType.h; sourceTree = "<group>"; };
@@ -2480,8 +2478,7 @@
 				34E3F26E246EB17500ADBFC6 /* PBMDisplayView.m */,
 				34C65239257E578200E26ABA /* PBMInterstitialControllerLoadingDelegate.h */,
 				34BA9607249CD2DF006AE372 /* PBMInterstitialControllerInteractionDelegate.h */,
-				34BA9603249CD2D9006AE372 /* PBMInterstitialController.h */,
-				34BA9604249CD2D9006AE372 /* PBMInterstitialController.m */,
+				AC5CAE3C265D1A1900E422A3 /* InterstitialController.swift */,
 			);
 			path = PBMCacheRenderers;
 			sourceTree = "<group>";
@@ -3714,7 +3711,6 @@
 				34D7111E24E580620048CC78 /* PBMAdLoadManagerBase.h in Headers */,
 				34D7111F24E580620048CC78 /* PBMAppInfoParameterBuilder.h in Headers */,
 				34D7112024E580620048CC78 /* PBMBid.h in Headers */,
-				34D7112224E580620048CC78 /* PBMInterstitialController.h in Headers */,
 				34431E8525B5C5B700596FA7 /* PBMNativeClickTrackingEntry.h in Headers */,
 				34C65232257E535600E26ABA /* PBMRewardedEventLoadingDelegate.h in Headers */,
 				34D7112324E580620048CC78 /* PBMORTBGeo.h in Headers */,
@@ -4100,7 +4096,6 @@
 				34D70FEF24E580620048CC78 /* PBMVastCreativeNonLinearAds.m in Sources */,
 				34D70FF024E580620048CC78 /* PBMDeviceInfoParameterBuilder.m in Sources */,
 				34E2FEB825AF302D0003C0EA /* PBMViewabilityEventStatus.m in Sources */,
-				34D70FF124E580620048CC78 /* PBMInterstitialController.m in Sources */,
 				ACE6E81E264D26DE009324AC /* NativeAdTitle.swift in Sources */,
 				5B2FB0E2264428E400912342 /* PBMHost.m in Sources */,
 				34D70FF224E580620048CC78 /* PBMOpenMeasurementFriendlyObstructionTypeBridge.m in Sources */,
@@ -4124,6 +4119,7 @@
 				34D70FFE24E580620048CC78 /* PBMMRAIDConstants.m in Sources */,
 				ACE6E867264D42B9009324AC /* NativeAdData.swift in Sources */,
 				34C65292257E6F2100E26ABA /* PBMBannerAdLoader.m in Sources */,
+				AC5CAE3D265D1A1900E422A3 /* InterstitialController.swift in Sources */,
 				34D7100024E580620048CC78 /* PBMModalViewController.m in Sources */,
 				AC368FE3256C635D000D5E1B /* PBMNativeFunctions.m in Sources */,
 				34D7100124E580620048CC78 /* PBMDeviceAccessManagerKeys.m in Sources */,

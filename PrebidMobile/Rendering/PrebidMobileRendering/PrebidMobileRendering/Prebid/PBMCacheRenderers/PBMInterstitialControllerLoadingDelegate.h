@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class PBMInterstitialController;
+@class InterstitialController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,8 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @required
 
-- (void)interstitialControllerDidLoadAd:(PBMInterstitialController *)interstitialController;
-- (void)interstitialController:(PBMInterstitialController *)interstitialController
+- (void)interstitialControllerDidLoadAd:(InterstitialController *)interstitialController;
+- (void)interstitialController:(InterstitialController *)interstitialController
               didFailWithError:(NSError *)error;
 
 @end

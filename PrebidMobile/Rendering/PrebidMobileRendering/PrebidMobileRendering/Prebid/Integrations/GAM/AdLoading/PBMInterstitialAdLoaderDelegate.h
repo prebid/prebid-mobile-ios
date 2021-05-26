@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class PBMInterstitialAdLoader;
-@class PBMInterstitialController;
+@class InterstitialController;
 @protocol PBMInterstitialEventHandler;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Hook to insert interaction delegate
 - (void) interstitialAdLoader:(PBMInterstitialAdLoader *)interstitialAdLoader
-createdInterstitialController:(PBMInterstitialController *)interstitialController;
+createdInterstitialController:(InterstitialController *)interstitialController;
 
 @optional
 
