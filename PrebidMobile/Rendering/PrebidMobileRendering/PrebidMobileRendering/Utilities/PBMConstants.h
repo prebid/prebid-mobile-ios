@@ -47,6 +47,8 @@ typedef NS_ENUM(NSInteger, PBMLocationSourceValues) {
 
 @property (class, readonly) NSString *VideoAdView;
 
+@property (class, readonly) NSString *BannerView;
+
 @end
 
 //MARK: MRAID

@@ -21,7 +21,7 @@ class PrebidBannerUITest: RepeatedUITestCase {
             navigateToExamplesSection()
             navigateToExample("Banner 320x50 (PPM)")
             
-            let bannerView = app.descendants(matching: .other)["PBMBannerView"]
+            let bannerView = app.descendants(matching: .other)["PrebidBannerView"]
             
             waitAd()
             

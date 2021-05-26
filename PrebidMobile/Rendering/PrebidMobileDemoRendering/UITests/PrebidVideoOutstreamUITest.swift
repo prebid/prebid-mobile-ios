@@ -41,7 +41,7 @@ class PrebidVideoOutstreamUITest: RepeatedUITestCase {
         repeatTesting(times: 7) {
             openVideo(title: videoOutstreamTitle)
             
-            let bannerView = app.descendants(matching: .other)["PBMBannerView"]
+            let bannerView = app.descendants(matching: .other)["PrebidBannerView"]
             bannerView.tap()
 
             // Wait for the click through browser to come up.

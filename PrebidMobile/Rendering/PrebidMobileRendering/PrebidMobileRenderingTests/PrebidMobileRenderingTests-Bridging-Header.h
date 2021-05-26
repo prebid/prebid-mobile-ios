@@ -177,7 +177,6 @@
 // Prebid
 #import "PBMAdLoadFlowController+PrivateState.h"
 #import "PBMAdUnitConfig+Internal.h"
-#import "PBMBannerView+InternalState.h"
 #import "PBMBaseAdUnit+Protected.h"
 #import "PBMBaseInterstitialAdUnit+Protected.h"
 #import "PBMBid+Internal.h"

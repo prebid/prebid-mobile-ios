@@ -855,7 +855,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 
 - (void)updateLegalButton {
     // Currently, in the case of HTML ad, we must place the legal button to the superview to show it properly in interstitial mode.
-    // For the banner ad, the button will be placed in PBMBannerView.
+    // For the banner ad, the button will be placed in BannerView.
     // For Interstitial in the intermediate view that fills the modal controller.
     // TODO: Make the structure of Banner, HTML Interstitial and Video Interstitial ads more similar.  It will give the ability to manage our buttons on the same level.
     

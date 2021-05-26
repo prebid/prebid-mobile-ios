@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PrebidFeedTableViewController: UITableViewController, ConfigurableViewController, PBMBannerViewDelegate {
+class PrebidFeedTableViewController: UITableViewController, ConfigurableViewController, BannerViewDelegate {
     
     var showConfigurationBeforeLoad = false
     var testCases: [TestCaseForTableCell] = []
@@ -66,28 +66,28 @@ class PrebidFeedTableViewController: UITableViewController, ConfigurableViewCont
         return 305;
     }
     
-    // MARK: - PBMBannerViewDelegate
+    // MARK: - BannerViewDelegate
     
     func bannerViewPresentationController() -> UIViewController? {
         return self
     }
     
-    func bannerViewDidReceiveAd(_ bannerView: PBMBannerView, adSize: CGSize) {
+    func bannerView(_ bannerView: BannerView, didReceiveAdWithAdSize adSize: CGSize) {
     }
     
-    func bannerView(_ bannerView: PBMBannerView, didFailToReceiveAdWithError error: Error?) {
+    func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {
     }
     
-    func bannerViewWillPresentModal(_ bannerView: PBMBannerView) {
+    func bannerViewWillPresentModal(_ bannerView: BannerView) {
     }
     
     //TODO: do we need this ??
-    func bannerViewWillDismissModal(_ bannerView: PBMBannerView) {
+    func bannerViewWillDismissModal(_ bannerView: BannerView) {
     }
     
-    func bannerViewDidDismissModal(_ bannerView: PBMBannerView) {
+    func bannerViewDidDismissModal(_ bannerView: BannerView) {
     }
     
-    func bannerViewWillLeaveApplication(_ bannerView: PBMBannerView) {
+    func bannerViewWillLeaveApplication(_ bannerView: BannerView) {
     }
 }

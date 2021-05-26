@@ -33,8 +33,14 @@
 #import "PBMImageAssetType.h"
 #import "PBMNativeAdElementType.h"
 
+#import "PBMAdLoadFlowControllerDelegate.h"
+#import "PBMBannerAdLoaderDelegate.h"
+#import "PBMBannerEventInteractionDelegate.h"
+#import "PBMDisplayViewInteractionDelegate.h"
 #import "PBMBaseInterstitialAdUnit.h"
 #import "PBMRewardedEventInteractionDelegate.h"
+#import "PBMAdPosition.h"
+#import "PBMVideoPlacementType.h"
 
 #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 

@@ -42,8 +42,12 @@ NSString * const PBM_PRECACHE_CONFIGURATION_KEY          = @"precache_configurat
     return @"PBMWebView";
 }
 
-+ (NSString *) VideoAdView {
++ (NSString *)VideoAdView {
     return @"PBMVideoAdView";
+}
+
++ (NSString *)BannerView {
+    return @"PrebidBannerView";
 }
 
 @end

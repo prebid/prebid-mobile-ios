@@ -171,18 +171,23 @@ public class MoPubBannerAdUnit : NSObject {
                                        targeting: targeting,
                                        adUnitConfiguration: adUnitConfig)
         
-        bidRequester?.requestBids(completion: { [weak self] bidResponse, error in
-            guard let self = self else { return }
-            
-            if self.isRefreshStopped {
-                self.markLoadingFinished()
-                return
-            }
-            
-            if let response = bidResponse {
-                self.handlePrebidResponse(response: response)
-            } else {
-                self.handlePrebidError(error: error)
+        bidRequester?.requestBids(completion: { bidResponse, error in
+            // Note: we have to run the completion on the main thread since
+            // the handlePrebidResponse changes the MoPub object which is UIView
+            // This point to switch the context to the main thread looks the most accurate.
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                
+                if self.isRefreshStopped {
+                    self.markLoadingFinished()
+                    return
+                }
+                
+                if let response = bidResponse {
+                    self.handlePrebidResponse(response: response)
+                } else {
+                    self.handlePrebidError(error: error)
+                }
             }
         })
     }

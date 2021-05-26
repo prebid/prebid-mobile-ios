@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
  @abstract Returns a view controller instance to be used by ad server SDK for showing modals
  @result a UIViewController instance for showing modals
  */
-@property (nonatomic, readonly) UIViewController *viewControllerForPresentingModal;
+@property (nonatomic, readonly, nullable) UIViewController *viewControllerForPresentingModal;
 
 @end
 
