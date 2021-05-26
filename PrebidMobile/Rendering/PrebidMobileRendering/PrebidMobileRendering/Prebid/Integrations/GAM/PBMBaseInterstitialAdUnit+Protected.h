@@ -14,13 +14,13 @@
 #import "PBMInterstitialEventInteractionDelegate.h"
 
 @class PBMBidResponse;
-@class PBMInterstitialController;
+@class InterstitialController;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol PBMBaseInterstitialAdUnitProtocol <NSObject>
 
-- (void)interstitialControllerDidCloseAd:(PBMInterstitialController *)interstitialController;
+- (void)interstitialControllerDidCloseAd:(InterstitialController *)interstitialController;
 
 - (void)callDelegate_didReceiveAd;
 - (void)callDelegate_didFailToReceiveAdWithError:(NSError *)error;

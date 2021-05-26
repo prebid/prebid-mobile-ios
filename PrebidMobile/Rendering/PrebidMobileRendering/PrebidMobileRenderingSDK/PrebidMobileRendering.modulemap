@@ -36,7 +36,6 @@ framework module PrebidMobileRendering {
     header "PBMDisplayView.h"
     header "PBMDisplayViewLoadingDelegate.h"
     header "PBMDisplayViewInteractionDelegate.h"
-    header "PBMInterstitialController.h"
     header "PBMInterstitialControllerLoadingDelegate.h"
     header "PBMInterstitialControllerInteractionDelegate.h"
     
@@ -147,8 +146,10 @@ framework module PrebidMobileRendering {
     header "NSTimer+PBMTimerInterface.h"
     header "PBMTimerInterface.h"
     
+    header "PBMTransactionFactory.h"
     header "PBMVastTransactionFactory.h"
     header "PBMTransactionFactoryCallback.h"
+    
     header "PBMPlayable.h"
     header "PBMError.h"
     header "PBMServerConnection.h"
@@ -221,4 +222,7 @@ framework module PrebidMobileRendering {
     header "PBMModalManager.h"
     header "PBMModalState.h"
     header "PBMModalViewControllerDelegate.h"
+    
+    // Interstitial
+    header "PBMInterstitialDisplayProperties.h"
 }

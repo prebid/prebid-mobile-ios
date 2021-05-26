@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class PBMInterstitialController;
+@class InterstitialController;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,23 +15,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 @required
 
-- (void)trackImpressionForInterstitialController:(PBMInterstitialController *)interstitialController;
+- (void)trackImpressionForInterstitialController:(InterstitialController *)interstitialController;
 
 
-- (void)interstitialControllerDidClickAd:(PBMInterstitialController *)interstitialController;
-- (void)interstitialControllerDidCloseAd:(PBMInterstitialController *)interstitialController;
-- (void)interstitialControllerDidLeaveApp:(PBMInterstitialController *)interstitialController;
+- (void)interstitialControllerDidClickAd:(InterstitialController *)interstitialController;
+- (void)interstitialControllerDidCloseAd:(InterstitialController *)interstitialController;
+- (void)interstitialControllerDidLeaveApp:(InterstitialController *)interstitialController;
 
 
-- (nullable UIViewController *)viewControllerForModalPresentationFrom:(PBMInterstitialController *)interstitialController;
+- (nullable UIViewController *)viewControllerForModalPresentationFrom:(InterstitialController *)interstitialController;
 
 @optional
 
 /// Called after an ad has rendered to the device's screen
-- (void)interstitialControllerDidDisplay:(PBMInterstitialController *) interstitialController;
+- (void)interstitialControllerDidDisplay:(InterstitialController *) interstitialController;
 
 /// Called once an ad has finished displaying all of it's creatives
-- (void)interstitialControllerDidComplete:(PBMInterstitialController *) interstitialController;
+- (void)interstitialControllerDidComplete:(InterstitialController *) interstitialController;
 
 @end
 

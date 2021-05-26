@@ -48,7 +48,7 @@ public class RewardedAdUnit: PBMBaseInterstitialAdUnit,
     
     // MARK: - PBMBaseInterstitialAdUnitProtocol protocol
     
-    @objc public override func interstitialControllerDidCloseAd(_ interstitialController: PBMInterstitialController) {
+    @objc public override func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
         callDelegate_rewardedAdUserDidEarnReward()
         super.interstitialControllerDidCloseAd(interstitialController)
     }

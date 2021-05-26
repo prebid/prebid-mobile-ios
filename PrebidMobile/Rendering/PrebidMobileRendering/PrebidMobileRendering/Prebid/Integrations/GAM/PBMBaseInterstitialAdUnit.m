@@ -14,13 +14,45 @@
 #import "PBMBidResponse.h"
 #import "PBMError.h"
 #import "PBMInterstitialAdLoader.h"
-#import "PBMInterstitialController.h"
 #import "PBMSDKConfiguration.h"
 #import "PBMTargeting.h"
 #import "PBMAdViewManager.h"
 #import "PBMServerConnection.h"
 
 #import "PBMMacros.h"
+
+#import "PBMPlayable.h"
+#import "PBMAdViewManagerDelegate.h"
+#import "PBMConstants.h"
+#import "PBMDataAssetType.h"
+#import "PBMJsonCodable.h"
+
+#import "PBMNativeEventType.h"
+#import "PBMNativeEventTrackingMethod.h"
+
+#import "PBMNativeContextType.h"
+#import "PBMNativeContextSubtype.h"
+#import "PBMNativePlacementType.h"
+#import "PBMBaseAdUnit.h"
+#import "PBMBidRequesterFactoryBlock.h"
+#import "PBMWinNotifierBlock.h"
+
+#import "PBMImageAssetType.h"
+#import "PBMNativeAdElementType.h"
+
+#import "PBMAdFormat.h"
+
+#import "PBMInterstitialControllerInteractionDelegate.h"
+#import "PBMRewardedEventInteractionDelegate.h"
+
+#import "PBMAdLoadFlowControllerDelegate.h"
+#import "PBMBannerAdLoaderDelegate.h"
+#import "PBMBannerEventInteractionDelegate.h"
+#import "PBMAdPosition.h"
+#import "PBMVideoPlacementType.h"
+#import "PBMDisplayViewInteractionDelegate.h"
+
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 @interface PBMBaseInterstitialAdUnit () <PBMAdLoadFlowControllerDelegate,
                                          PBMInterstitialAdLoaderDelegate,
@@ -174,7 +206,7 @@
 }
 
 - (void) interstitialAdLoader:(PBMInterstitialAdLoader *)interstitialAdLoader
-createdInterstitialController:(PBMInterstitialController *)interstitialController
+createdInterstitialController:(InterstitialController *)interstitialController
 {
     interstitialController.interactionDelegate = self;
 }
@@ -236,7 +268,7 @@ createdInterstitialController:(PBMInterstitialController *)interstitialControlle
 
 // MARK: - PBMInterstitialControllerInteractionDelegate protocol
 
-- (void)trackImpressionForInterstitialController:(PBMInterstitialController *)interstitialController {
+- (void)trackImpressionForInterstitialController:(InterstitialController *)interstitialController {
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
@@ -244,25 +276,25 @@ createdInterstitialController:(PBMInterstitialController *)interstitialControlle
     });
 }
 
-- (void)interstitialControllerDidClickAd:(PBMInterstitialController *)interstitialController {
+- (void)interstitialControllerDidClickAd:(InterstitialController *)interstitialController {
     // This method is called from UI-mutating code
     PBMAssertExt(NSThread.isMainThread, @"Expected to only be called on the main thread");
     [self callDelegate_didClickAd];
 }
 
-- (void)interstitialControllerDidCloseAd:(PBMInterstitialController *)interstitialController {
+- (void)interstitialControllerDidCloseAd:(InterstitialController *)interstitialController {
     // This method is called from UI-mutating code
     PBMAssertExt(NSThread.isMainThread, @"Expected to only be called on the main thread");
     [self callDelegate_didDismissAd];
 }
 
-- (void)interstitialControllerDidLeaveApp:(PBMInterstitialController *)interstitialController {
+- (void)interstitialControllerDidLeaveApp:(InterstitialController *)interstitialController {
     // This method is called as the result of UI interaction
     PBMAssertExt(NSThread.isMainThread, @"Expected to only be called on the main thread");
     [self callDelegate_willLeaveApplication];
 }
 
-- (UIViewController *)viewControllerForModalPresentationFrom:(PBMInterstitialController *)interstitialController {
+- (UIViewController *)viewControllerForModalPresentationFrom:(InterstitialController *)interstitialController {
     return self.targetController;
 }
 
