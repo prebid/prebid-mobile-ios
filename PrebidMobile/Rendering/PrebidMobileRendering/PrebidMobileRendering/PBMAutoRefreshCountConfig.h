@@ -19,7 +19,7 @@
 @property (nonatomic, copy, nullable) NSNumber *autoRefreshDelay;
 
 /**
- Maximum number of times the pbmBannerView should refresh.
+ Maximum number of times the BannerView should refresh.
 
  This value will be overwritten with any values received from the server.
  Using a value of 0 indicates there is no maximum.
@@ -29,7 +29,7 @@
 @property (nonatomic, copy, nullable) NSNumber *autoRefreshMax;
 
 /**
- The number of times the PBMBannerView has been refreshed.
+ The number of times the BannerView has been refreshed.
  */
 @property (nonatomic, assign) NSUInteger numRefreshes;
 

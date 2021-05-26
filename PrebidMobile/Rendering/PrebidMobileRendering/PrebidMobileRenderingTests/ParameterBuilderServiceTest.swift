@@ -14,7 +14,7 @@ import CoreLocation
 
 class ParameterBuilderServiceTest : XCTestCase {
 
-    var sdkVersion: String { return Bundle(for: PBMBannerView.self).infoDictionary!["CFBundleShortVersionString"] as! String }
+    var sdkVersion: String { return Bundle(for: BannerView.self).infoDictionary!["CFBundleShortVersionString"] as! String }
         
     func testBuildParamsDict() {
         let url = "https://openx.com"

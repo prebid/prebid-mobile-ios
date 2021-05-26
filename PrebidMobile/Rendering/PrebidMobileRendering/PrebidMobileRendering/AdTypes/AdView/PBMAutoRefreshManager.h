@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithPrefetchTime:(NSTimeInterval)prefetchTime
                         lockingQueue:(nullable dispatch_queue_t)lockingQueue
-                        lockProvider:(id<NSLocking> (^ _Nullable)(void))lockProvider
+                        lockProvider:(_Nullable id<NSLocking> (^ _Nullable)(void))lockProvider
                    refreshDelayBlock:(NSNumber * _Nullable (^)(void))refreshDelayBlock
                   mayRefreshNowBlock:(BOOL (^)(void))mayRefreshNowBlock
                         refreshBlock:(void (^)(void))refreshBlock NS_DESIGNATED_INITIALIZER;

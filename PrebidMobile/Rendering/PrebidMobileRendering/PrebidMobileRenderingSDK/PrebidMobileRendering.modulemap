@@ -23,6 +23,7 @@ framework module PrebidMobileRendering {
     header "PBMAdUnitConfig.h"
     header "PBMBid.h"
     header "PBMBidResponse.h"
+    header "PBMBidRequester.h"
     header "PBMBidRequesterProtocol.h"
     header "PBMGender.h"
     header "PBMFetchDemandResult.h"
@@ -47,8 +48,6 @@ framework module PrebidMobileRendering {
     header "PBMBannerEventLoadingDelegate.h"
     header "PBMBannerEventInteractionDelegate.h"
     header "PBMBannerEventHandler.h"
-    header "PBMBannerViewDelegate.h"
-    header "PBMBannerView.h"
     
     header "PBMBaseAdUnit.h"
     header "PBMBaseAdUnit+Protected.h"
@@ -105,6 +104,8 @@ framework module PrebidMobileRendering {
     header "PBMViewControllerProvider.h"
     header "PBMCreativeClickHandlerBlock.h"
     header "PBMVoidBlock.h"
+    header "PBMNativeAdMarkupAsset.h"
+
     header "PBMErrorFamily.h"
     
     // PBM Native Ads (markup)
@@ -166,6 +167,7 @@ framework module PrebidMobileRendering {
     header "PBMLog.h"
     header "PBMAutoRefreshManager.h"
     
+
     header "UIView+PBMExtensions.h"
     header "PBMAdUnitConfig+Internal.h"
     header "NSNumber+PBMORTBNative.h"
@@ -176,6 +178,15 @@ framework module PrebidMobileRendering {
     header "PBMUIApplicationProtocol.h"
     header "NSDictionary+PBMORTBNativeExt.h"
     
+    header "PBMAutoRefreshManager.h"
+    header "PBMAdLoadFlowController.h"
+    header "PBMAdLoadFlowControllerDelegate.h"
+    header "PBMAdLoaderProtocol.h"
+    header "PBMBannerAdLoader.h"
+    header "PBMBannerAdLoaderDelegate.h"
+
+    
+    header "PBMBannerEventHandlerStandalone.h"
     header "PBMBidRequesterFactoryBlock.h"
     header "PBMWinNotifierBlock.h"
     header "PBMAdMarkupStringHandler.h"

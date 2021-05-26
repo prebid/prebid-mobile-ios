@@ -138,14 +138,14 @@ class PrebidMRAIDResizeUITest: RepeatedUITestCase {
     }
     
     private func resizeMMRAIDView() {
-        let bannerView = app.descendants(matching: .other)["PBMBannerView"]
+        let bannerView = app.descendants(matching: .other)["PrebidBannerView"]
         bannerView.tap()
         waitForEnabled(element: app.buttons["adViewWillPresentScreen called"], waitSeconds: waitingTimeout)
     }
     
     private func closeResizedView() {
         let closeBtn = app.buttons["PBMCloseButton"]
-        waitForHittable(element: closeBtn, waitSeconds: 5)
+        waitForHittable(element: closeBtn, waitSeconds: 10)
         closeBtn.tap()
         waitForEnabled(element: app.buttons["adViewDidDismissScreen called"], waitSeconds: waitingTimeout)
     }

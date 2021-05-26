@@ -12,6 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// TODO: try to make me private
 @protocol PBMAdLoadFlowControllerDelegate<NSObject>
 
 @property (nonatomic, strong, nonnull, readonly) PBMAdUnitConfig *adUnitConfig;

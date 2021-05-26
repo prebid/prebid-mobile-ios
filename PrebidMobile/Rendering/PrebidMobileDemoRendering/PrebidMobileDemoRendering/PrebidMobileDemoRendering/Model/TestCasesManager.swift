@@ -1462,13 +1462,13 @@ struct TestCaseManager {
                         
                         var prebidConfigId = "mock-video-outstream"
                         let adSize = CGSize(width: 300, height: 250)
-                        let adBannerView = PBMBannerView(frame: CGRect(origin: .zero, size: adSize),
-                                                         configId: prebidConfigId,
-                                                         adSize: adSize)
+                        let adBannerView = BannerView(frame: CGRect(origin: .zero, size: adSize),
+                                                      configID: prebidConfigId,
+                                                      adSize: adSize)
                         adBannerView.adFormat = .video
                         adBannerView.videoPlacementType = .inFeed
                         adBannerView.delegate = feedVC
-                        adBannerView.accessibilityIdentifier = "PBMBannerView"
+                        adBannerView.accessibilityIdentifier = "PrebidBannerView"
                         
                         if let adUnitContext = AppConfiguration.shared.adUnitContext {
                             for dataPair in adUnitContext {
@@ -1614,11 +1614,11 @@ struct TestCaseManager {
                         let validAdSize = kGADAdSizeMediumRectangle
                         let adSize = validAdSize.size
                         let adEventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitId, validGADAdSizes: [NSValueFromGADAdSize(validAdSize)])
-                        let adBannerView = PBMBannerView(configId: prebidConfigId,
-                                                         eventHandler: adEventHandler)
+                        let adBannerView = BannerView(configID: prebidConfigId,
+                                                      eventHandler: adEventHandler)
                         adBannerView.adFormat = .video
                         adBannerView.delegate = feedVC
-                        adBannerView.accessibilityIdentifier = "PBMBannerView"
+                        adBannerView.accessibilityIdentifier = "PrebidBannerView"
                         
                         if let adUnitContext = AppConfiguration.shared.adUnitContext {
                             for dataPair in adUnitContext {

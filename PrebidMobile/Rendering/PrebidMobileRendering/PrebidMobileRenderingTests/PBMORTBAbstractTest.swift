@@ -12,7 +12,7 @@ import XCTest
 class PBMORTBAbstractTest : XCTestCase {
 
     private var sdkVersion: String {
-        let infoDic = Bundle(for: PBMBannerView.self).infoDictionary
+        let infoDic = Bundle(for: BannerView.self).infoDictionary
         return infoDic!["CFBundleShortVersionString"] as! String
     }
     

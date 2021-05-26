@@ -22,7 +22,7 @@ class PBMBannerViewTest: XCTestCase {
 
         let primarySize = CGSize(width: 320, height: 50)
         
-        let bannerView = PBMBannerView(frame: CGRect(origin: .zero, size: primarySize), configId: testID, adSize: primarySize)
+        let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: testID, adSize: primarySize)
         let adUnitConfig = bannerView.adUnitConfig
         
         XCTAssertEqual(adUnitConfig.configId, testID)
@@ -52,7 +52,7 @@ class PBMBannerViewTest: XCTestCase {
         PBMSDKConfiguration.singleton.accountID = ""
         let primarySize = CGSize(width: 320, height: 50)
         
-        let bannerView = PBMBannerView(frame: CGRect(origin: .zero, size: primarySize), configId: testID, adSize: primarySize)
+        let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: testID, adSize: primarySize)
         let exp = expectation(description: "loading callback called")
         let delegate = TestBannerDelegate(exp: exp)
         bannerView.delegate = delegate
@@ -62,7 +62,7 @@ class PBMBannerViewTest: XCTestCase {
         waitForExpectations(timeout: 3)
     }
     
-    @objc private class TestBannerDelegate: NSObject, PBMBannerViewDelegate {
+    @objc private class TestBannerDelegate: NSObject, BannerViewDelegate {
         let exp: XCTestExpectation
         
         init(exp: XCTestExpectation) {
@@ -73,13 +73,13 @@ class PBMBannerViewTest: XCTestCase {
             return nil
         }
         
-        func bannerViewDidReceiveAd(_ bannerView: PBMBannerView, adSize: CGSize) {
-            XCTFail("Ad unexpectedly loaded successfully...")
+        func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {
+            XCTAssertEqual(error as NSError?, PBMError.invalidAccountId as NSError?)
             exp.fulfill()
         }
         
-        func bannerView(_ bannerView: PBMBannerView, didFailToReceiveAdWithError error: Error?) {
-            XCTAssertEqual(error as NSError?, PBMError.invalidAccountId as NSError?)
+        func bannerView(_ bannerView: BannerView, didReceiveAdWithAdSize adSize: CGSize) {
+            XCTFail("Ad unexpectedly loaded successfully...")
             exp.fulfill()
         }
     }

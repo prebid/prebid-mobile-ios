@@ -61,8 +61,10 @@ class AdsLoaderUITestCase: RepeatedUITestCase {
 
             let expectedOutcomeButton = app.buttons[successCallback]
             let unexpectedOutcomeButton = failCallback.map { app.buttons[$0] }
-            let bannerView = app.descendants(matching: .other)["PBMBannerView"]
             
+            // After migration of the code base
+            let bannerView = app.otherElements["PrebidBannerView"]
+
             if !doNotCheckBannerView {
                 waitForExists(element: bannerView)
             }
