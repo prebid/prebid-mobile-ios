@@ -1,4 +1,4 @@
-/*   Copyright 2019-2020 Prebid.org, Inc.
+/*   Copyright 2018-2019 Prebid.org, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,7 +13,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-#ifndef PrebidDemoTests_Bridging_Header_h
-#define PrebidDemoTests_Bridging_Header_h
+import UIKit
 
-#endif /* PrebidDemoTests_Bridging_Header_h */
+public class RewardedVideoAdUnit: VideoBaseAdUnit {
+
+    public init(configId: String) {
+        super.init(configId: configId, size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    }
+
+}

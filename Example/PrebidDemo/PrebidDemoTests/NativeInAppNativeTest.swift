@@ -14,6 +14,7 @@
  */
 
 import XCTest
+import TestUtils
 @testable import PrebidMobile
 @testable import PrebidDemoSwift
 
@@ -233,7 +234,7 @@ class NativeInAppNativeTest: XCTestCase, NativeAdDelegate, NativeAdEventDelegate
     func testNativeInAppAdWithAdDidExpired() {
         adExpiredAPIForNativeAd = expectation(description: "\(#function)")
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
-        let currentBundle = Bundle(for: type(of: self))
+        let currentBundle = Bundle(for: TestUtils.PBHTTPStubbingManager.self)
         let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: "NativeAd", ofType: "json") ?? "", encoding: .utf8)
         if let cacheId = CacheManager.shared.testSave(content: baseResponse!), !cacheId.isEmpty{
             gadNativeCustomTemplateAd.setValue("1", forKey: "isPrebid")
@@ -367,7 +368,7 @@ class NativeInAppNativeTest: XCTestCase, NativeAdDelegate, NativeAdEventDelegate
     
     // MARK: - Stubbing
     func stubAppNexusRequestWithResponse(_ responseName: String?) {
-        let currentBundle = Bundle(for: type(of: self))
+        let currentBundle = Bundle(for: TestUtils.PBHTTPStubbingManager.self)
         let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: responseName, ofType: "json") ?? "", encoding: .utf8)
         let requestStub = PBURLConnectionStub()
         requestStub.requestURL = "https://prebid.adnxs.com/pbs/v1/openrtb2/auction"

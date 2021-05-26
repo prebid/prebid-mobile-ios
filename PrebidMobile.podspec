@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
 
   s.license      = { :type => "Apache License, Version 2.0", :text => <<-LICENSE
-    Copyright 2018-2019 Prebid.org, Inc.
+    Copyright 2018-2021 Prebid.org, Inc.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -40,8 +40,11 @@ Pod::Spec.new do |s|
 }
   s.framework  = ['CoreTelephony', 'SystemConfiguration', 'UIKit', 'Foundation']
 
+  # Support previous intagration
+  s.default_subspec = 'core'
+
   s.subspec 'core' do |core|
-    core.source_files = 'Source/**/*.{h,m,swift}'
+    core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
   end
 
 end
