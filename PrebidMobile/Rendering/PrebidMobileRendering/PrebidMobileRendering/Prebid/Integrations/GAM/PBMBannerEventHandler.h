@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// The array of the CGRect entries for each valid ad sizes.
 /// The first size is treated as a frame for related ad unit.
+// TODO: make me CGSize on migration to Swift
 @property (nonatomic, strong, readonly, nonnull) NSArray<NSValue *> *adSizes;
 
 @property (nonatomic, assign, readonly) BOOL isCreativeRequiredForNativeAds;

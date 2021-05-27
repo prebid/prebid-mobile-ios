@@ -19,6 +19,8 @@ typedef NSMutableDictionary<NSString *, id> PBMMutableJsonDictionary;
 typedef NSDictionary<NSString *, NSString *> PBMStringDictionary;
 typedef NSMutableDictionary<NSString *, NSString *> PBMMutableStringDictionary;
 
+FOUNDATION_EXPORT const NSTimeInterval PBMAdPrefetchTime;
+
 FOUNDATION_EXPORT NSString * const PBM_DOMAIN_KEY;
 FOUNDATION_EXPORT NSString * const PBM_TRANSACTION_STATE_KEY;
 FOUNDATION_EXPORT NSString * const PBM_TRACKING_URL_TEMPLATE;

@@ -7,15 +7,15 @@
 
 #import <Foundation/Foundation.h>
 
+@class AdUnitConfig;
 @class PBMAdLoadFlowController;
-@class PBMAdUnitConfig;
 
 NS_ASSUME_NONNULL_BEGIN
 
 // TODO: try to make me private
 @protocol PBMAdLoadFlowControllerDelegate<NSObject>
 
-@property (nonatomic, strong, nonnull, readonly) PBMAdUnitConfig *adUnitConfig;
+@property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adUnitConfig;
 
 // Loading callbacks
 - (void)adLoadFlowController:(PBMAdLoadFlowController *)adLoadFlowController failedWithError:(nullable NSError *)error;

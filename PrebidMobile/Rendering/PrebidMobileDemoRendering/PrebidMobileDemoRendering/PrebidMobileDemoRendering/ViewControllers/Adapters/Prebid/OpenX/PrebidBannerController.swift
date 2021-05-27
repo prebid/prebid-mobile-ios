@@ -60,7 +60,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         }
         
         if adSizes.count > 1 {
-            adBannerView?.additionalSizes = adSizes[1...].map(NSValue.init)
+            adBannerView?.additionalSizes = Array(adSizes.suffix(from: 1))
         }
         if let adFormat = adFormat {
             adBannerView?.adFormat = adFormat

@@ -12,7 +12,7 @@ import XCTest
 
 class MockAdLoadFlowControllerDelegate: NSObject, PBMAdLoadFlowControllerDelegate {
     enum ExpectedCall {
-        case adUnitConfig(provider: ()->PBMAdUnitConfig)
+        case adUnitConfig(provider: ()->AdUnitConfig)
         case failedWithError(handler: (PBMAdLoadFlowController, Error?)->())
         case willSendBidRequest(handler: (PBMAdLoadFlowController)->())
         case willRequestPrimaryAd(handler: (PBMAdLoadFlowController)->())
@@ -34,8 +34,8 @@ class MockAdLoadFlowControllerDelegate: NSObject, PBMAdLoadFlowControllerDelegat
     
     // MARK: - PBMAdLoadFlowControllerDelegate
     
-    var adUnitConfig: PBMAdUnitConfig {
-        let provider: (()->PBMAdUnitConfig)? = syncQueue.sync {
+    var adUnitConfig: AdUnitConfig {
+        let provider: (()->AdUnitConfig)? = syncQueue.sync {
             guard nextCallIndex < expectedCalls.count else {
                 XCTFail("[MockAdLoadFlowControllerDelegate] Call index out of bounds: \(nextCallIndex) < \(expectedCalls.count)",
                         file: file, line: line)
@@ -51,7 +51,7 @@ class MockAdLoadFlowControllerDelegate: NSObject, PBMAdLoadFlowControllerDelegat
                 return nil
             }
         }
-        return provider?() ?? PBMAdUnitConfig()
+        return provider?() ?? AdUnitConfig(configID: "")
     }
     
     func adLoadFlowController(_ adLoadFlowController: PBMAdLoadFlowController, failedWithError error: Error?) {

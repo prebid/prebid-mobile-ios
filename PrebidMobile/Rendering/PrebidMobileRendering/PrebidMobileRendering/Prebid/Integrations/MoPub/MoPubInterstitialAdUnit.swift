@@ -17,9 +17,9 @@ public class MoPubInterstitialAdUnit : MoPubBaseInterstitialAdUnit {
         set { adUnitConfig.adFormat = newValue }
     }
     
-    public var additionalSizes: [NSValue]? {
+    public var additionalSizes: [CGSize]? {
         get { adUnitConfig.additionalSizes }
-        set { adUnitConfig.additionalSizes  = newValue }
+        set { adUnitConfig.additionalSizes = newValue }
     }
     
     // MARK: - Public Methods
@@ -39,6 +39,6 @@ public class MoPubInterstitialAdUnit : MoPubBaseInterstitialAdUnit {
     // MARK: - Computed Properties
     
     public override var configId: String {
-        adUnitConfig.configId
+        adUnitConfig.configID
     }
 }

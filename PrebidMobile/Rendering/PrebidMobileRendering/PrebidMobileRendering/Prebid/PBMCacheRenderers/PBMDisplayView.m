@@ -10,8 +10,6 @@
 #import "PBMDisplayView.h"
 #import "PBMDisplayView+InternalState.h"
 
-#import "PBMAdUnitConfig.h"
-#import "PBMAdUnitConfig+Internal.h"
 #import "PBMBid.h"
 #import "PBMTransactionFactory.h"
 #import "PBMWinNotifier.h"
@@ -22,12 +20,15 @@
 #import "PBMServerConnection.h"
 #import "PBMServerConnectionProtocol.h"
 
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
+
 #import "PBMMacros.h"
 
 @interface PBMDisplayView () <PBMAdViewManagerDelegate, PBMModalManagerDelegate>
 
 @property (nonatomic, strong, readonly, nonnull) PBMBid *bid;
-@property (nonatomic, strong, readonly, nonnull) PBMAdUnitConfig *adConfiguration;
+@property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
 
 @property (nonatomic, strong, nullable) PBMTransactionFactory *transactionFactory;
 @property (nonatomic, strong, nullable) PBMAdViewManager *adViewManager;
@@ -42,10 +43,10 @@
 
 // MARK: - Public API
 - (instancetype)initWithFrame:(CGRect)frame bid:(PBMBid *)bid configId:(NSString *)configId {
-    return self = [self initWithFrame:frame bid:bid adConfiguration:[[PBMAdUnitConfig alloc] initWithConfigId:configId size:bid.size]];
+    return self = [self initWithFrame:frame bid:bid adConfiguration:[[AdUnitConfig alloc] initWithConfigID:configId size:bid.size]];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame bid:(PBMBid *)bid adConfiguration:(PBMAdUnitConfig *)adConfiguration {
+- (instancetype)initWithFrame:(CGRect)frame bid:(PBMBid *)bid adConfiguration:(AdUnitConfig *)adConfiguration {
     if (!(self = [super initWithFrame:frame])) {
         return nil;
     }

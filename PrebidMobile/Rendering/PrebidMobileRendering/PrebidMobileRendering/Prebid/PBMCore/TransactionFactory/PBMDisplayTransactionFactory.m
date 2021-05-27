@@ -9,7 +9,6 @@
 
 #import "PBMBid.h"
 #import "PBMNativeFunctions.h"
-#import "PBMAdUnitConfig+Internal.h"
 #import "PBMCreativeModel.h"
 #import "PBMLog.h"
 #import "PBMTransaction.h"
@@ -33,20 +32,15 @@
 
 #import "PBMImageAssetType.h"
 #import "PBMNativeAdElementType.h"
+#import "PBMAdFormatInternal.h"
 
-#import "PBMAdLoadFlowControllerDelegate.h"
-#import "PBMBannerAdLoaderDelegate.h"
-#import "PBMBannerEventInteractionDelegate.h"
-#import "PBMDisplayViewInteractionDelegate.h"
-#import "PBMBaseInterstitialAdUnit.h"
-#import "PBMRewardedEventInteractionDelegate.h"
-
+#import "PrebidMobileRenderingSwiftHeaders.h"
 #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 @interface PBMDisplayTransactionFactory() <PBMTransactionDelegate>
 
 @property (nonatomic, strong, readonly, nonnull) PBMBid *bid;
-@property (nonatomic, strong, readonly, nonnull) PBMAdUnitConfig *adConfiguration;
+@property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
 @property (nonatomic, strong, readonly, nonnull) id<PBMServerConnectionProtocol> connection;
 
 // NOTE: need to call the completion callback only in the main thread
@@ -65,7 +59,7 @@
 // MARK: - Public API
 
 - (instancetype)initWithBid:(PBMBid *)bid
-            adConfiguration:(PBMAdUnitConfig *)adConfiguration
+            adConfiguration:(AdUnitConfig *)adConfiguration
                  connection:(id<PBMServerConnectionProtocol>)connection
                    callback:(PBMTransactionFactoryCallback)callback
 {
@@ -124,17 +118,17 @@
 
 - (PBMCreativeModel *)htmlCreativeModelFromBid:(PBMBid *)bid
                                       adMarkup:(NSString *)adMarkup
-                               adConfiguration:(PBMAdUnitConfig *)adConfiguration {
+                               adConfiguration:(AdUnitConfig *)adConfiguration {
     PBMCreativeModel * const model = [[PBMCreativeModel alloc] init];
     NSString *html = nil;
     if (adConfiguration.adFormat != PBMAdFormatNativeInternal) {
         model.html = adMarkup;
     } else {
-        if (adConfiguration.nativeAdConfig.nativeStylesCreative.length == 0) {
+        if (adConfiguration.nativeAdConfiguration.nativeStylesCreative.length == 0) {
             PBMLogError(@"Native Styles creative string is empty.");
             model.html = @"";
         } else {
-            html = [PBMNativeFunctions populateNativeAdTemplate:adConfiguration.nativeAdConfig.nativeStylesCreative
+            html = [PBMNativeFunctions populateNativeAdTemplate:adConfiguration.nativeAdConfiguration.nativeStylesCreative
                                                   withTargeting:bid.targetingInfo
                                                           error:nil];
             model.html = html ?: @"";

@@ -11,7 +11,7 @@ public class NativeAdUnit: PBMBaseAdUnit {
     
     // MARK: - Required properties
     @objc public override var configId: String { super.configId }
-    @objc public var nativeAdConfig: NativeAdConfiguration { adUnitConfig.nativeAdConfig! }
+    @objc public var nativeAdConfig: NativeAdConfiguration { adUnitConfig.nativeAdConfiguration! }
     
     var hasStartedFetching = false
     
@@ -71,7 +71,7 @@ public class NativeAdUnit: PBMBaseAdUnit {
         //NOTE: At the moment (10 March 2021) PBS doesn't support OM event trackers:
         //https://github.com/prebid/prebid-server/issues/1732
         //Remove the next line
-        adUnitConfig.nativeAdConfig = nativeAdConfiguration
+        adUnitConfig.nativeAdConfiguration = nativeAdConfiguration
         //and uncomment the next one when PBS be ready
         //setupNativeAdConfiguration(nativeAdConfiguration)
     }
@@ -87,6 +87,6 @@ public class NativeAdUnit: PBMBaseAdUnit {
         eventtrackers.append(omidEventTracker)
         nativeAdConfig.eventtrackers = eventtrackers
 
-        adUnitConfig.nativeAdConfig = nativeAdConfig
+        adUnitConfig.nativeAdConfiguration = nativeAdConfig
     }
 }

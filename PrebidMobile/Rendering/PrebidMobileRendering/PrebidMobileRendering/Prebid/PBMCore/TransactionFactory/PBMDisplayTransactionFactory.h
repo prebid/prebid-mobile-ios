@@ -7,9 +7,9 @@
 
 #import "PBMTransactionFactoryCallback.h"
 
+@class AdUnitConfig;
 @class PBMBid;
 @class PBMAdConfiguration;
-@class PBMAdUnitConfig;
 
 @protocol PBMServerConnectionProtocol;
 
@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PBMDisplayTransactionFactory : NSObject
 
 - (instancetype)initWithBid:(PBMBid *)bid
-            adConfiguration:(PBMAdUnitConfig *)adConfiguration
+            adConfiguration:(AdUnitConfig *)adConfiguration
                  connection:(id<PBMServerConnectionProtocol>)connection
                    callback:(PBMTransactionFactoryCallback)callback;
 

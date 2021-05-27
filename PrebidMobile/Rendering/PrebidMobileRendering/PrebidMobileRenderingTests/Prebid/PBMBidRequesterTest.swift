@@ -28,7 +28,7 @@ class PBMBidRequesterTest: XCTestCase {
     
     func testBanner_300x250() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = PBMAdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             callback(PBMBidResponseTransformer.someValidResponse)
             }])
@@ -52,7 +52,7 @@ class PBMBidRequesterTest: XCTestCase {
     
     func testBanner_invalidAccountID_noRequest() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = PBMAdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection()
         let requester = PBMBidRequester(connection: connection,
                                         sdkConfiguration: sdkConfiguration,
@@ -74,7 +74,7 @@ class PBMBidRequesterTest: XCTestCase {
     func testBanner_invalidAccountID_rejectedByServer() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let accountID = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = PBMAdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             callback(PBMBidResponseTransformer.invalidAccountIDResponse(accountID: accountID))
             }])
@@ -96,7 +96,7 @@ class PBMBidRequesterTest: XCTestCase {
     }
     
     func testBanner_invalidConfigID_noRequest() {
-        let adUnitConfig = PBMAdUnitConfig(configId: " \t \t  ", size: CGSize(width: 300, height: 250))
+        let adUnitConfig = AdUnitConfig(configID: " \t \t  ", size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection()
         let requester = PBMBidRequester(connection: connection,
                                         sdkConfiguration: sdkConfiguration,
@@ -115,7 +115,7 @@ class PBMBidRequesterTest: XCTestCase {
     
     func testBanner_invalidConfigID_rejectedByServer() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = PBMAdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             callback(PBMBidResponseTransformer.invalidConfigIdResponse(configId: configId))
             }])
@@ -135,7 +135,7 @@ class PBMBidRequesterTest: XCTestCase {
     }
     
     func testBanner_invalidSize() {
-        let adUnitConfig = PBMAdUnitConfig(configId: "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4", size: CGSize(width: -300, height: 250))
+        let adUnitConfig = AdUnitConfig(configID: "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4", size: CGSize(width: -300, height: 250))
         let connection = MockServerConnection()
         let requester = PBMBidRequester(connection: connection,
                                         sdkConfiguration: sdkConfiguration,
@@ -153,8 +153,8 @@ class PBMBidRequesterTest: XCTestCase {
     }
     
     func testBanner_invalidAdditionalSize() {
-        let adUnitConfig = PBMAdUnitConfig(configId: "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4", size: CGSize(width: 300, height: 250))
-        adUnitConfig.additionalSizes = [NSValue(cgSize: CGSize(width: -320, height: 50))]
+        let adUnitConfig = AdUnitConfig(configID: "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4", size: CGSize(width: 300, height: 250))
+        adUnitConfig.additionalSizes = [CGSize(width: -320, height: 50)]
         
         let connection = MockServerConnection()
         let requester = PBMBidRequester(connection: connection,
@@ -174,7 +174,7 @@ class PBMBidRequesterTest: XCTestCase {
     
     func testBanner_requestInProgress() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = PBMAdUnitConfig(configId: configId, size: CGSize(width: 300, height: 250))
+        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 300, height: 250))
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 callback(PBMBidResponseTransformer.someValidResponse)

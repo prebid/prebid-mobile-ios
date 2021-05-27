@@ -11,13 +11,13 @@
 #import "PBMAdLoaderProtocol.h"
 #import "PBMBidRequesterProtocol.h"
 
-@class PBMAdUnitConfig;
+@class AdUnitConfig;
 @class PBMSDKConfiguration;
 @protocol PBMServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef BOOL(^PBMAdUnitConfigValidationBlock)(PBMAdUnitConfig *adUnitConfig, BOOL renderWithPrebid);
+typedef BOOL(^PBMAdUnitConfigValidationBlock)(AdUnitConfig *adUnitConfig, BOOL renderWithPrebid);
 
 @interface PBMAdLoadFlowController : NSObject
 
@@ -31,7 +31,7 @@ typedef BOOL(^PBMAdUnitConfigValidationBlock)(PBMAdUnitConfig *adUnitConfig, BOO
 /// Should only be access
 @property (nonatomic, assign, readonly) BOOL hasFailedLoading;
 
-- (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(PBMAdUnitConfig *))bidRequesterFactory
+- (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(AdUnitConfig *))bidRequesterFactory
                                    adLoader:(id<PBMAdLoaderProtocol>)adLoader
                                    delegate:(id<PBMAdLoadFlowControllerDelegate>)delegate
                       configValidationBlock:(PBMAdUnitConfigValidationBlock)configValidationBlock;

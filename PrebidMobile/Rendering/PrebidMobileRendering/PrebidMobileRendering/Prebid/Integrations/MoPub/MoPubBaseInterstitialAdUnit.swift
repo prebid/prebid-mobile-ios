@@ -9,10 +9,10 @@ import Foundation
 
 public class MoPubBaseInterstitialAdUnit : NSObject {
     
-    let adUnitConfig: PBMAdUnitConfig
+    let adUnitConfig: AdUnitConfig
     
     public var configId: String {
-        adUnitConfig.configId
+        adUnitConfig.configID
     }
     
     var bidRequester: PBMBidRequester?
@@ -22,7 +22,7 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
     
     init(configId: String) {
         
-        adUnitConfig = PBMAdUnitConfig(configId: configId)
+        adUnitConfig = AdUnitConfig(configID: configId)
         adUnitConfig.isInterstitial = true
         adUnitConfig.adPosition = .fullScreen
         adUnitConfig.videoPlacementType = .sliderOrFloating

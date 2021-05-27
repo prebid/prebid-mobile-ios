@@ -8,8 +8,6 @@
 #import "PBMBidRequester.h"
 #import "PBMBidResponseTransformer.h"
 #import "PBMBidResponse+Internal.h"
-#import "PBMAdUnitConfig.h"
-#import "PBMAdUnitConfig+Internal.h"
 #import "PBMError.h"
 #import "PBMORTBPrebid.h"
 #import "PBMPrebidParameterBuilder.h"
@@ -20,6 +18,9 @@
 #import "PBMServerConnectionProtocol.h"
 #import "PBMServerResponse.h"
 
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
+
 #import "PBMMacros.h"
 
 @interface PBMBidRequester ()
@@ -27,7 +28,7 @@
 @property (nonatomic, strong, nonnull, readonly) id<PBMServerConnectionProtocol> connection;
 @property (nonatomic, strong, nonnull, readonly) PBMSDKConfiguration *sdkConfiguration;
 @property (nonatomic, strong, nonnull, readonly) PBMTargeting *targeting;
-@property (nonatomic, strong, nonnull, readonly) PBMAdUnitConfig *adUnitConfiguration;
+@property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adUnitConfiguration;
 
 @property (nonatomic, copy, nullable) void (^completion)(PBMBidResponse *, NSError *);
 
@@ -38,7 +39,7 @@
 - (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
                   sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration
                          targeting:(PBMTargeting *)targeting
-               adUnitConfiguration:(PBMAdUnitConfig *)adUnitConfiguration {
+               adUnitConfiguration:(AdUnitConfig *)adUnitConfiguration {
     if (!(self = [super init])) {
         return nil;
     }
@@ -150,8 +151,9 @@
 }
 
 - (NSError *)findErrorInSettings {
-    if (self.adUnitConfiguration.adSize) {
-        if ([self isInvalidSize:self.adUnitConfiguration.adSize]) {
+    if (!CGSizeEqualToSize(self.adUnitConfiguration.adSize, CGSizeZero)) {
+        
+        if ([self isInvalidSize:[NSValue valueWithCGSize:self.adUnitConfiguration.adSize]]) {
             return [PBMError invalidSize];
         }
     }
@@ -162,7 +164,7 @@
             }
         }
     }
-    if ([self isInvalidID:self.adUnitConfiguration.configId]) {
+    if ([self isInvalidID:self.adUnitConfiguration.configID]) {
         return [PBMError invalidConfigId];
     }
     if ([self isInvalidID:self.sdkConfiguration.accountID]) {
