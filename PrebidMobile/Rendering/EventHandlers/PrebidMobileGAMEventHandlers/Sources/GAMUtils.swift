@@ -16,10 +16,10 @@ public class GAMUtils {
     
     // MARK: - Private Properties
     
-    private let localCache: PBMLocalResponseInfoCache
+    private let localCache: LocalResponseInfoCache
     
     private init() {
-        localCache = PBMLocalResponseInfoCache(expirationInterval: localCacheExpirationInterval)
+        localCache = LocalResponseInfoCache(expirationInterval: localCacheExpirationInterval)
     }
     
     // MARK: - Public

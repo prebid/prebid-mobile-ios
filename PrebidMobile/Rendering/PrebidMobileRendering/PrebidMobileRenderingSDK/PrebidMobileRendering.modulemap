@@ -85,9 +85,6 @@ framework module PrebidMobileRendering {
     header "PBMNativeAdUIDelegate.h"
     header "PBMNativeAdElementType.h"
     header "PBMNativeAdHandler.h"
-
-    // PBM Native Ads (for Primary SDK Utils)
-    header "PBMLocalResponseInfoCache.h"
     
     // ===
     //Temp. for converting
@@ -223,4 +220,6 @@ framework module PrebidMobileRendering {
     
     // Interstitial
     header "PBMInterstitialDisplayProperties.h"
+    header "PBMCachedResponseInfo.h"
+    header "PBMWeakTimerTargetBox.h"
 }
