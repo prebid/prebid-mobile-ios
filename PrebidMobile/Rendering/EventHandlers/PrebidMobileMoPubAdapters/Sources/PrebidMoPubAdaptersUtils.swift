@@ -21,7 +21,7 @@ public class PrebidMoPubAdaptersUtils : NSObject {
     
     // MARK: - Internal Properties
     
-    let localCache: PBMLocalResponseInfoCache
+    let localCache: LocalResponseInfoCache
     
     // MARK: - Public Methods
     
@@ -74,7 +74,7 @@ public class PrebidMoPubAdaptersUtils : NSObject {
     // MARK: - Private Methods
     
     private override init () {
-        localCache = PBMLocalResponseInfoCache(expirationInterval: localCacheExpirationInterval)
+        localCache = LocalResponseInfoCache(expirationInterval: localCacheExpirationInterval)
     }
     
     private func isPrebidAd(nativeAd: MPNativeAd) -> Bool {
