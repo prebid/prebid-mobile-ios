@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "PBMBidRequesterProtocol.h"
 
-@class PBMAdUnitConfig;
+@class AdUnitConfig;
 @class PBMSDKConfiguration;
 @class PBMTargeting;
 @protocol PBMServerConnectionProtocol;
@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
                   sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration
                          targeting:(PBMTargeting *)targeting
-               adUnitConfiguration:(PBMAdUnitConfig *)adUnitConfiguration;
+               adUnitConfiguration:(AdUnitConfig *)adUnitConfiguration;
 
 - (void)requestBidsWithCompletion:(void (^)(PBMBidResponse * _Nullable, NSError * _Nullable))completion;
 

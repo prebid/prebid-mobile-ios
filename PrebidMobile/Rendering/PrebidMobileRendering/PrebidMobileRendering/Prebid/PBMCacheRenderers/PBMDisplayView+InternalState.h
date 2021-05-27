@@ -10,8 +10,7 @@
 
 #import "PBMDisplayView.h"
 
-@class PBMAdUnitConfig;
-
+@class AdUnitConfig;
 @protocol PBMServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly, nullable) id<PBMServerConnectionProtocol> connection;
 
-- (instancetype)initWithFrame:(CGRect)frame bid:(PBMBid *)bid adConfiguration:(PBMAdUnitConfig *)adConfiguration;
+- (instancetype)initWithFrame:(CGRect)frame bid:(PBMBid *)bid adConfiguration:(AdUnitConfig *)adConfiguration;
 
 @end
 

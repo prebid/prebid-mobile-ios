@@ -10,7 +10,6 @@
 #import "PBMBaseAdUnit.h"
 #import "PBMBaseAdUnit+Protected.h"
 
-#import "PBMAdUnitConfig.h"
 #import "PBMBidRequester.h"
 #import "PBMBidRequesterFactory.h"
 #import "PBMBidResponse.h"
@@ -18,6 +17,9 @@
 #import "PBMError.h"
 #import "PBMWinNotifier.h"
 #import "PBMServerConnection.h"
+
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 #import "PBMConstants.h"
 #import "PBMMacros.h"
@@ -47,7 +49,7 @@
     if (!(self = [super init])) {
         return nil;
     }
-    _adUnitConfig = [[PBMAdUnitConfig alloc] initWithConfigId:configID];
+    _adUnitConfig = [[AdUnitConfig alloc] initWithConfigID:configID];
     _bidRequesterFactory = [bidRequesterFactory copy];
     _winNotifierBlock = [winNotifierBlock copy];
     
@@ -59,7 +61,7 @@
 // MARK: - Computed public properties
 
 - (NSString *)configId {
-    return self.adUnitConfig.configId;
+    return self.adUnitConfig.configID;
 }
 
 // MARK: - Computed protected properties

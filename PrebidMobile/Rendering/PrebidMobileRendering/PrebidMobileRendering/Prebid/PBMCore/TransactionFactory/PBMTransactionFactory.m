@@ -7,18 +7,20 @@
 
 #import "PBMTransactionFactory.h"
 
-#import "PBMAdUnitConfig+Internal.h"
 #import "PBMBid.h"
 #import "PBMDisplayTransactionFactory.h"
 #import "PBMVastTransactionFactory.h"
 #import "PBMTransaction.h"
+
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 #import "PBMMacros.h"
 
 @interface PBMTransactionFactory()
 
 @property (nonatomic, strong, readonly, nonnull) PBMBid *bid;
-@property (nonatomic, strong, readonly, nonnull) PBMAdUnitConfig *adConfiguration;
+@property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
 @property (nonatomic, strong, readonly, nonnull) id<PBMServerConnectionProtocol> connection;
 
 // NOTE: need to call the completion callback only in the main thread
@@ -40,7 +42,7 @@
 // MARK: - Public API
 
 - (instancetype)initWithBid:(PBMBid *)bid
-            adConfiguration:(PBMAdUnitConfig *)adConfiguration
+            adConfiguration:(AdUnitConfig *)adConfiguration
                  connection:(id<PBMServerConnectionProtocol>)connection
                    callback:(PBMTransactionFactoryCallback)callback
 {

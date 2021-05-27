@@ -21,7 +21,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func testAdPositionHeader() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = PBMAdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 320, height: 50))
         adUnitConfig.adFormat = .display
         
         let builder = PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
@@ -96,7 +96,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func testAdditionalSizes() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = PBMAdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 320, height: 50))
         adUnitConfig.adFormat = .display
         
         let bidRequest = PBMORTBBidRequest()
@@ -122,7 +122,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(banner.format.first?.w, 320)
         PBMAssertEq(banner.format.first?.h, 50)
         
-        adUnitConfig.additionalSizes = [NSValue.init(cgSize:CGSize(width: 728, height: 90))]
+        adUnitConfig.additionalSizes = [CGSize(width: 728, height: 90)]
         PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
                                   sdkConfiguration: sdkConfiguration,
                                   targeting: targeting,
@@ -136,7 +136,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func testVideo() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = PBMAdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 320, height: 50))
         adUnitConfig.adFormat = .video
         adUnitConfig.adPosition = .header
         
@@ -172,9 +172,9 @@ class PrebidParameterBuilderTest: XCTestCase {
         nativeAdConfig.context = .socialCentric
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = PBMAdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 320, height: 50))
         adUnitConfig.adFormat = .display
-        adUnitConfig.nativeAdConfig = nativeAdConfig
+        adUnitConfig.nativeAdConfiguration = nativeAdConfig
         
         let bidRequest = PBMORTBBidRequest()
         
@@ -206,8 +206,8 @@ class PrebidParameterBuilderTest: XCTestCase {
         ])
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = PBMAdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
-        adUnitConfig.nativeAdConfig = nativeAdConfig
+        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 320, height: 50))
+        adUnitConfig.nativeAdConfiguration = nativeAdConfig
         
         let bidRequest = PBMORTBBidRequest()
         

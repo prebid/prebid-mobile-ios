@@ -9,7 +9,6 @@
 #import "PBMBaseInterstitialAdUnit+Protected.h"
 
 #import "PBMAdLoadFlowController.h"
-#import "PBMAdUnitConfig+Internal.h"
 #import "PBMBidRequester.h"
 #import "PBMBidResponse.h"
 #import "PBMError.h"
@@ -40,18 +39,7 @@
 #import "PBMImageAssetType.h"
 #import "PBMNativeAdElementType.h"
 
-#import "PBMAdFormat.h"
-
-#import "PBMInterstitialControllerInteractionDelegate.h"
-#import "PBMRewardedEventInteractionDelegate.h"
-
-#import "PBMAdLoadFlowControllerDelegate.h"
-#import "PBMBannerAdLoaderDelegate.h"
-#import "PBMBannerEventInteractionDelegate.h"
-#import "PBMAdPosition.h"
-#import "PBMVideoPlacementType.h"
-#import "PBMDisplayViewInteractionDelegate.h"
-
+#import "PrebidMobileRenderingSwiftHeaders.h"
 #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 @interface PBMBaseInterstitialAdUnit () <PBMAdLoadFlowControllerDelegate,
@@ -81,7 +69,7 @@
         return nil;
     }
     
-    _adUnitConfig = [[PBMAdUnitConfig alloc] initWithConfigId:configId];
+    _adUnitConfig = [[AdUnitConfig alloc] initWithConfigID:configId];
     _adUnitConfig.isInterstitial = YES;
     _adUnitConfig.minSizePerc = minSizePerc;
     _adUnitConfig.adPosition = PBMAdPosition_FullScreen;
@@ -92,12 +80,12 @@
     PBMInterstitialAdLoader * const interstitialAdLoader = [[PBMInterstitialAdLoader alloc] initWithDelegate:self];
     [self callEventHandler_setLoadingDelegate:interstitialAdLoader];
     
-    PBMAdUnitConfigValidationBlock const configValidator = ^BOOL(PBMAdUnitConfig *adUnitConfig, BOOL renderWithPrebid) {
+    PBMAdUnitConfigValidationBlock const configValidator = ^BOOL(AdUnitConfig *adUnitConfig, BOOL renderWithPrebid) {
         return YES;
     };
 
     _adLoadFlowController = [[PBMAdLoadFlowController alloc]
-                             initWithBidRequesterFactory:^id<PBMBidRequesterProtocol> (PBMAdUnitConfig * adUnitConfig) {
+                             initWithBidRequesterFactory:^id<PBMBidRequesterProtocol> (AdUnitConfig * adUnitConfig) {
         return [[PBMBidRequester alloc] initWithConnection:[PBMServerConnection singleton]
                                           sdkConfiguration:[PBMSDKConfiguration singleton]
                                                  targeting:[PBMTargeting shared]
@@ -132,7 +120,7 @@
 // MARK: - Computed properties
 
 - (NSString *)configId {
-    return self.adUnitConfig.configId;
+    return self.adUnitConfig.configID;
 }
 
 - (PBMAdFormat)adFormat {

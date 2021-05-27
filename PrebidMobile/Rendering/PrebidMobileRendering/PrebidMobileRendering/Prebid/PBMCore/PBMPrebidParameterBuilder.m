@@ -7,8 +7,6 @@
 
 #import "PBMPrebidParameterBuilder.h"
 
-#import "PBMAdUnitConfig.h"
-#import "PBMAdUnitConfig+Internal.h"
 #import "PBMNativeMarkupRequestObject+Internal.h"
 #import "PBMSDKConfiguration.h"
 #import "PBMTargeting+Private.h"
@@ -30,18 +28,12 @@
 #import "PBMImageAssetType.h"
 #import "PBMNativeAdElementType.h"
 
-#import "PBMAdLoadFlowControllerDelegate.h"
-#import "PBMBannerAdLoaderDelegate.h"
-#import "PBMBannerEventInteractionDelegate.h"
-#import "PBMDisplayViewInteractionDelegate.h"
-#import "PBMBaseInterstitialAdUnit.h"
-#import "PBMRewardedEventInteractionDelegate.h"
-
+#import "PrebidMobileRenderingSwiftHeaders.h"
 #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 @interface PBMPrebidParameterBuilder ()
 
-@property (nonatomic, strong, nonnull, readonly) PBMAdUnitConfig *adConfiguration;
+@property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adConfiguration;
 @property (nonatomic, strong, nonnull, readonly) PBMSDKConfiguration *sdkConfiguration;
 @property (nonatomic, strong, nonnull, readonly) PBMTargeting *targeting;
 @property (nonatomic, strong, nonnull, readonly) PBMUserAgentService *userAgentService;
@@ -50,7 +42,7 @@
 
 @implementation PBMPrebidParameterBuilder
 
-- (instancetype)initWithAdConfiguration:(PBMAdUnitConfig *)adConfiguration
+- (instancetype)initWithAdConfiguration:(AdUnitConfig *)adConfiguration
                        sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration
                               targeting:(PBMTargeting *)targeting
                        userAgentService:(PBMUserAgentService *)userAgentService
@@ -82,12 +74,13 @@
     bidRequest.device.ua        = [self.userAgentService getFullUserAgent];
     
     NSArray<PBMORTBFormat *> *formats = nil;
-    const NSInteger formatsCount = (self.adConfiguration.adSize ? 1 : 0) + self.adConfiguration.additionalSizes.count;
+    const NSInteger formatsCount = (CGSizeEqualToSize(self.adConfiguration.adSize, CGSizeZero) ? 0 : 1) + self.adConfiguration.additionalSizes.count;
     
     if (formatsCount > 0) {
         NSMutableArray<PBMORTBFormat *> * const newFormats = [[NSMutableArray alloc] initWithCapacity:formatsCount];
-        if (self.adConfiguration.adSize) {
-            [newFormats addObject:[PBMPrebidParameterBuilder ortbFormatWithSize:self.adConfiguration.adSize]];
+        if (!CGSizeEqualToSize(self.adConfiguration.adSize, CGSizeZero)) {
+            NSValue *value = [NSValue valueWithCGSize:self.adConfiguration.adSize];
+            [newFormats addObject:[PBMPrebidParameterBuilder ortbFormatWithSize: value]];
         }
         for (NSValue *nextSize in self.adConfiguration.additionalSizes) {
             [newFormats addObject:[PBMPrebidParameterBuilder ortbFormatWithSize:nextSize]];
@@ -116,7 +109,7 @@
     
     for (PBMORTBImp *nextImp in bidRequest.imp) {
         nextImp.impID = [NSUUID UUID].UUIDString;
-        nextImp.extPrebid.storedRequestID = self.adConfiguration.configId;
+        nextImp.extPrebid.storedRequestID = self.adConfiguration.configID;
         nextImp.extPrebid.isRewardedInventory = self.adConfiguration.isOptIn;
         nextImp.extContextData = self.adConfiguration.contextDataDictionary;
         switch (adFormat) {
@@ -147,8 +140,8 @@
                 
             case PBMAdFormatNativeInternal: {
                 PBMORTBNative * const nextNative = nextImp.native;
-                nextNative.request = [self.adConfiguration.nativeAdConfig.markupRequestObject toJsonStringWithError:nil];
-                NSString * const ver = self.adConfiguration.nativeAdConfig.version;
+                nextNative.request = [self.adConfiguration.nativeAdConfiguration.markupRequestObject toJsonStringWithError:nil];
+                NSString * const ver = self.adConfiguration.nativeAdConfiguration.version;
                 if (ver) {
                     nextNative.ver = ver;
                 }

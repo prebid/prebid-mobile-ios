@@ -25,19 +25,19 @@ class PBMBannerViewTest: XCTestCase {
         let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: testID, adSize: primarySize)
         let adUnitConfig = bannerView.adUnitConfig
         
-        XCTAssertEqual(adUnitConfig.configId, testID)
-        XCTAssertEqual(adUnitConfig.adSize?.cgSizeValue, primarySize)
+        XCTAssertEqual(adUnitConfig.configID, testID)
+        XCTAssertEqual(adUnitConfig.adSize, primarySize)
         
         let moreSizes = [
             CGSize(width: 300, height: 250),
             CGSize(width: 728, height: 90),
         ]
         
-        bannerView.additionalSizes = moreSizes.map(NSValue.init(cgSize:))
+        bannerView.additionalSizes = moreSizes
         
         XCTAssertEqual(adUnitConfig.additionalSizes?.count, moreSizes.count)
         for i in 0..<moreSizes.count {
-            XCTAssertEqual(adUnitConfig.additionalSizes?[i].cgSizeValue, moreSizes[i])
+            XCTAssertEqual(adUnitConfig.additionalSizes?[i], moreSizes[i])
         }
         
         let refreshInterval: TimeInterval = 40;

@@ -12,16 +12,16 @@ import XCTest
 class PBMAdUnitConfigTest: XCTestCase {
     
     func testIsNativeAd() {
-        let adUnitConfig = PBMAdUnitConfig(configId: "dummy-config-id")
+        let adUnitConfig = AdUnitConfig(configID: "dummy-config-id")
         XCTAssertFalse(adUnitConfig.adConfiguration.isNative)
         
         let nativeAdConfig = NativeAdConfiguration(assets: [NativeAssetTitle(length: 25)])
-        adUnitConfig.nativeAdConfig = nativeAdConfig
+        adUnitConfig.nativeAdConfiguration = nativeAdConfig
         XCTAssertTrue(adUnitConfig.adConfiguration.isNative)
     }
 
     func testSetRefreshInterval() {
-        let adUnitConfig = PBMAdUnitConfig(configId: "dummy-config-id")
+        let adUnitConfig = AdUnitConfig(configID: "dummy-config-id")
         
         XCTAssertEqual(adUnitConfig.refreshInterval, 60)
         

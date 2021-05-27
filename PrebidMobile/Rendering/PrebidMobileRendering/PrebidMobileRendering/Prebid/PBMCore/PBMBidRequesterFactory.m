@@ -24,7 +24,7 @@
                                              sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration
                                                     targeting:(PBMTargeting *)targeting
 {
-    return ^id<PBMBidRequesterProtocol> (PBMAdUnitConfig * adUnitConfig) {
+    return ^id<PBMBidRequesterProtocol> (AdUnitConfig * adUnitConfig) {
         return [[PBMBidRequester alloc] initWithConnection:connection
                                           sdkConfiguration:sdkConfiguration
                                                  targeting:targeting

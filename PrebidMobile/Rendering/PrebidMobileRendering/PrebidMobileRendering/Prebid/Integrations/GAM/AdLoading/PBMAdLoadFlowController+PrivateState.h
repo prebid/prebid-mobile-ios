@@ -7,7 +7,6 @@
 
 #import "PBMAdLoadFlowController.h"
 
-#import "PBMAdUnitConfig.h"
 #import "PBMBidRequester.h"
 #import "PBMBidResponse.h"
 #import "PBMAdLoadFlowState.h"
@@ -19,13 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMAdLoadFlowController () <PBMAdLoaderFlowDelegate>
 
-@property (nonatomic, copy, nonnull, readonly) id<PBMBidRequesterProtocol> (^bidRequesterFactory)(PBMAdUnitConfig *);
+@property (nonatomic, copy, nonnull, readonly) id<PBMBidRequesterProtocol> (^bidRequesterFactory)(AdUnitConfig *);
 @property (nonatomic, strong, nonnull, readonly) id<PBMAdLoaderProtocol> adLoader;
 @property (nonatomic, weak, nullable, readonly) id<PBMAdLoadFlowControllerDelegate> delegate;
 @property (nonatomic, copy, nonnull, readonly) PBMAdUnitConfigValidationBlock configValidationBlock;
 
 @property (nonatomic, assign) PBMAdLoadFlowState flowState;
-@property (nonatomic, copy, nullable) PBMAdUnitConfig *savedAdUnitConfig;
+@property (nonatomic, copy, nullable) AdUnitConfig *savedAdUnitConfig;
 
 // State: BidRequest
 @property (nonatomic, strong, nullable) PBMBidRequester *bidRequester;

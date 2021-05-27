@@ -8,11 +8,11 @@
 #import <Foundation/Foundation.h>
 #import "PBMBaseInterstitialAdUnit.h"
 
-#import "PBMAdUnitConfig.h"
 #import "PBMInterstitialEventLoadingDelegate.h"
 #import "PBMRewardedEventLoadingDelegate.h"
 #import "PBMInterstitialEventInteractionDelegate.h"
 
+@class AdUnitConfig;
 @class PBMBidResponse;
 @class InterstitialController;
 
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMBaseInterstitialAdUnit()  <PBMBaseInterstitialAdUnitProtocol, PBMInterstitialEventInteractionDelegate>
 
-@property (nonatomic, strong, nonnull, readonly) PBMAdUnitConfig *adUnitConfig;
+@property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adUnitConfig;
 @property (nonatomic, strong, nullable, readonly) id eventHandler;
 
 @property (nonatomic) PBMAdFormat adFormat;

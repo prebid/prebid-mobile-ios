@@ -7,7 +7,6 @@
 
 #import "PBMBaseAdUnit.h"
 
-#import "PBMAdUnitConfig.h"
 #import "PBMBidRequesterFactoryBlock.h"
 #import "PBMBidResponse.h"
 #import "PBMSDKConfiguration.h"
@@ -21,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 // MARK: - Properties
 
 // MARK: + (assigned on init)
-@property (nonatomic, strong, nonnull, readonly) PBMAdUnitConfig *adUnitConfig;
+@property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adUnitConfig;
 @property (nonatomic, copy, nonnull, readonly) PBMWinNotifierBlock winNotifierBlock;
 
 // MARK: + (updated on every BidRequester callback)

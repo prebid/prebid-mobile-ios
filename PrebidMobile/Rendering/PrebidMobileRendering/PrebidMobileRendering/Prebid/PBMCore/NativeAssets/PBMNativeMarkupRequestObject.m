@@ -22,18 +22,8 @@
 
 #import "PBMImageAssetType.h"
 #import "PBMNativeAdElementType.h"
-// Fix Build
-#import "PBMAdLoadFlowControllerDelegate.h"
-#import "PBMBannerAdLoaderDelegate.h"
-#import "PBMBannerEventInteractionDelegate.h"
-#import "PBMDisplayViewInteractionDelegate.h"
 
-#import "PBMBaseInterstitialAdUnit.h"
-#import "PBMRewardedEventInteractionDelegate.h"
-#import "PBMAdPosition.h"
-#import "PBMVideoPlacementType.h"
-#import "PBMAdFormat.h"
-
+#import "PrebidMobileRenderingSwiftHeaders.h"
 #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 #import "PBMNativeMarkupRequestObject.h"

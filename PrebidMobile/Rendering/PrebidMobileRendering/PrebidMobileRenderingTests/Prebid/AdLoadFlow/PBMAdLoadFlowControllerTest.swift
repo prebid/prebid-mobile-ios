@@ -36,7 +36,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
     }
     
     func testPrimaryAd_happyPath(preFailed: Bool) {
-        let adUnitConfig = PBMAdUnitConfig(configId: "configID")
+        let adUnitConfig = AdUnitConfig(configID: "configID")
         
         let flowControllerBox = NSMutableArray()
         let flowController: ()->PBMAdLoadFlowController = { flowControllerBox[0] as! PBMAdLoadFlowController }
@@ -120,7 +120,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
     }
     
     func testPrebidAd_happyPath(preFailed: Bool) {
-        let adUnitConfig = PBMAdUnitConfig(configId: "configID")
+        let adUnitConfig = AdUnitConfig(configID: "configID")
         
         let flowControllerBox = NSMutableArray()
         let flowController: ()->PBMAdLoadFlowController = { flowControllerBox[0] as! PBMAdLoadFlowController }
@@ -204,7 +204,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
     }
     
     func testPrimaryAd_noBids() {
-        let adUnitConfig = PBMAdUnitConfig(configId: "configID")
+        let adUnitConfig = AdUnitConfig(configID: "configID")
         
         let flowControllerBox = NSMutableArray()
         let flowController: ()->PBMAdLoadFlowController = { flowControllerBox[0] as! PBMAdLoadFlowController }
@@ -283,7 +283,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
     }
     
     func testPrimaryAd_noBids_noPrimaryAd() {
-        let adUnitConfig = PBMAdUnitConfig(configId: "configID")
+        let adUnitConfig = AdUnitConfig(configID: "configID")
         
         let flowControllerBox = NSMutableArray()
         let flowController: ()->PBMAdLoadFlowController = { flowControllerBox[0] as! PBMAdLoadFlowController }
@@ -353,7 +353,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
     }
     
     func testPrebidAd_didFail() {
-        let adUnitConfig = PBMAdUnitConfig(configId: "configID")
+        let adUnitConfig = AdUnitConfig(configID: "configID")
         
         let flowControllerBox = NSMutableArray()
         let flowController: ()->PBMAdLoadFlowController = { flowControllerBox[0] as! PBMAdLoadFlowController }
@@ -427,7 +427,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
     }
     
     func testPrimaryAdFail_withBids_fallbackToPrebid() {
-        let adUnitConfig = PBMAdUnitConfig(configId: "configID")
+        let adUnitConfig = AdUnitConfig(configID: "configID")
         
         let flowControllerBox = NSMutableArray()
         let flowController: ()->PBMAdLoadFlowController = { flowControllerBox[0] as! PBMAdLoadFlowController }
@@ -509,7 +509,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
     }
     
     func testPrimaryAd_noBids_primarySDKError() {
-        let adUnitConfig = PBMAdUnitConfig(configId: "configID")
+        let adUnitConfig = AdUnitConfig(configID: "configID")
         
         let flowControllerBox = NSMutableArray()
         let flowController: ()->PBMAdLoadFlowController = { flowControllerBox[0] as! PBMAdLoadFlowController }
@@ -584,7 +584,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
     }
     
     func testConfigInvalid_forEventHandler() {
-        let adUnitConfig = PBMAdUnitConfig(configId: "configID")
+        let adUnitConfig = AdUnitConfig(configID: "configID")
         
         let flowControllerBox = NSMutableArray()
         let flowController: ()->PBMAdLoadFlowController = { flowControllerBox[0] as! PBMAdLoadFlowController }
@@ -621,7 +621,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
     }
     
     func testConfigInvalid_forPrebid() {
-        let adUnitConfig = PBMAdUnitConfig(configId: "configID")
+        let adUnitConfig = AdUnitConfig(configID: "configID")
         
         let flowControllerBox = NSMutableArray()
         let flowController: ()->PBMAdLoadFlowController = { flowControllerBox[0] as! PBMAdLoadFlowController }
@@ -684,7 +684,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
     }
     
     func testPrebidWin_noWinningBidInBidResponse() {
-        let adUnitConfig = PBMAdUnitConfig(configId: "configID")
+        let adUnitConfig = AdUnitConfig(configID: "configID")
         
         let flowControllerBox = NSMutableArray()
         let flowController: ()->PBMAdLoadFlowController = { flowControllerBox[0] as! PBMAdLoadFlowController }
@@ -748,7 +748,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
     }
     
     func testPrebidAd_happyPath_spamRefresh() {
-        let adUnitConfig = PBMAdUnitConfig(configId: "configID")
+        let adUnitConfig = AdUnitConfig(configID: "configID")
         
         let flowControllerBox = NSMutableArray()
         let flowController: ()->PBMAdLoadFlowController = { flowControllerBox[0] as! PBMAdLoadFlowController }
@@ -835,7 +835,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
     }
     
     func testPrebidAd_happyPath_freezeOnShouldContinue() {
-        let adUnitConfig = PBMAdUnitConfig(configId: "configID")
+        let adUnitConfig = AdUnitConfig(configID: "configID")
         
         let flowControllerBox = NSMutableArray()
         let flowController: ()->PBMAdLoadFlowController = { flowControllerBox[0] as! PBMAdLoadFlowController }

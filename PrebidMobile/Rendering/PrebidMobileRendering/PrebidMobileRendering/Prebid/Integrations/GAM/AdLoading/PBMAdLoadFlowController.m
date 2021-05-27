@@ -13,6 +13,9 @@
 #import "PBMDisplayView+InternalState.h"
 #import "PBMError.h"
 
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
+
 #import "PBMMacros.h"
 
 // MARK: - Implementation
@@ -22,7 +25,7 @@
 // MARK: - Lifecycle
 
 
-- (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(PBMAdUnitConfig *))bidRequesterFactory
+- (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(AdUnitConfig *))bidRequesterFactory
                                    adLoader:(id<PBMAdLoaderProtocol>)adLoader
                                    delegate:(id<PBMAdLoadFlowControllerDelegate>)delegate
                       configValidationBlock:(PBMAdUnitConfigValidationBlock)configValidationBlock
@@ -168,7 +171,7 @@
 }
 
 - (void)tryLaunchingAdRequestFlow {
-    PBMAdUnitConfig * const configClone = [self.delegate.adUnitConfig copy];
+    AdUnitConfig * const configClone = [self.delegate.adUnitConfig copy];
     const BOOL configIsValid = self.configValidationBlock(configClone, NO);
     if (!configIsValid) {
         [self reportLoadingFailedWithError:[PBMError noNativeCreative]];
@@ -239,7 +242,7 @@
     }
     
     self.flowState = PBMAdLoadFlowState_LoadingDisplayView;
-    PBMAdUnitConfig * const adUnitConfig = self.savedAdUnitConfig;
+    AdUnitConfig * const adUnitConfig = self.savedAdUnitConfig;
     @weakify(self);
     dispatch_sync(dispatch_get_main_queue(), ^{
         @strongify(self);

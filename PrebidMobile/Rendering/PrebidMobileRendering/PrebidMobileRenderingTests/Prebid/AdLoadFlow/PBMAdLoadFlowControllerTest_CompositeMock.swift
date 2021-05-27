@@ -13,7 +13,7 @@ import XCTest
 class PBMAdLoadFlowControllerTest_CompositeMock {
     enum ExpectedCall {
         typealias BidRequestCall = (requesterOffset: Int, call: MockBidRequester.ExpectedCall)
-        typealias BidRequesterFactoryCall = (PBMAdUnitConfig, PBMBidRequesterProtocol)->PBMBidRequesterProtocol
+        typealias BidRequesterFactoryCall = (AdUnitConfig, PBMBidRequesterProtocol)->PBMBidRequesterProtocol
         
         case flowControllerDelegate(call: MockAdLoadFlowControllerDelegate.ExpectedCall)
         case adLoader(call: MockAdLoader.ExpectedCall)
@@ -26,7 +26,7 @@ class PBMAdLoadFlowControllerTest_CompositeMock {
     let mockFlowControllerDelegate: PBMAdLoadFlowControllerDelegate
     let mockAdLoader: PBMAdLoaderProtocol
     let mockPrimaryAdRequester: PBMPrimaryAdRequesterProtocol
-    let mockRequesterFactory: (PBMAdUnitConfig)->PBMBidRequesterProtocol
+    let mockRequesterFactory: (AdUnitConfig)->PBMBidRequesterProtocol
     let mockConfigValidator: PBMAdUnitConfigValidationBlock
     
     let getProgress: ()->(done: Int, total: Int)

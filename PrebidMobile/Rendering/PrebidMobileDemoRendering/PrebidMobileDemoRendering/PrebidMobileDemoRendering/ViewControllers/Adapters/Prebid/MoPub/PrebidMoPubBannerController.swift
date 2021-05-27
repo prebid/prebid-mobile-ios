@@ -64,7 +64,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
             adUnit?.refreshInterval = refreshInterval
         }
         if additionalAdSizes.count > 0 {
-            adUnit?.additionalSizes = additionalAdSizes.map { NSValue(cgSize: $0) }
+            adUnit?.additionalSizes = additionalAdSizes
         }
         if let adFormat = adFormat {
             adUnit?.adFormat = adFormat

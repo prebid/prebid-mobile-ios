@@ -36,13 +36,7 @@
 #import "PBMBaseInterstitialAdUnit.h"
 #import "PBMAdFormat.h"
 
-#import "PBMAdLoadFlowControllerDelegate.h"
-#import "PBMBannerAdLoaderDelegate.h"
-#import "PBMBannerEventInteractionDelegate.h"
-#import "PBMAdPosition.h"
-#import "PBMVideoPlacementType.h"
-#import "PBMDisplayViewInteractionDelegate.h"
-
+#import "PrebidMobileRenderingSwiftHeaders.h"
 #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 @interface PBMInterstitialAdLoader () <PBMInterstitialControllerLoadingDelegate>
@@ -72,7 +66,7 @@
 }
 
 - (void)createPrebidAdWithBid:(PBMBid *)bid
-                 adUnitConfig:(PBMAdUnitConfig *)adUnitConfig
+                 adUnitConfig:(AdUnitConfig *)adUnitConfig
                 adObjectSaver:(void (^)(id))adObjectSaver
             loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker
 {

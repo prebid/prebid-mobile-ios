@@ -15,7 +15,7 @@ class MockAdLoader: NSObject, PBMAdLoaderProtocol {
         case getFlowDelegate(provider: ()->PBMAdLoaderFlowDelegate?)
         case setFlowDelegate(handler: (PBMAdLoaderFlowDelegate?)->())
         case primaryAdRequester(provider: ()->PBMPrimaryAdRequesterProtocol)
-        case createPrebidAd(handler: (PBMBid, PBMAdUnitConfig, (Any)->(), (@escaping ()->())->())->())
+        case createPrebidAd(handler: (PBMBid, AdUnitConfig, (Any)->(), (@escaping ()->())->())->())
         case reportSuccess(handler: (Any, NSValue?)->())
     }
 
@@ -95,8 +95,8 @@ class MockAdLoader: NSObject, PBMAdLoaderProtocol {
         return provider?() ?? MockPrimaryAdRequester(expectedCalls: [], file: file, line: line)
     }
 
-    func createPrebidAd(with bid: PBMBid, adUnitConfig: PBMAdUnitConfig, adObjectSaver: @escaping (Any) -> Void, loadMethodInvoker: @escaping (@escaping () -> Void) -> Void) {
-        let handler: ((PBMBid, PBMAdUnitConfig, (Any)->(), (@escaping ()->())->())->())? = syncQueue.sync {
+    func createPrebidAd(with bid: PBMBid, adUnitConfig: AdUnitConfig, adObjectSaver: @escaping (Any) -> Void, loadMethodInvoker: @escaping (@escaping () -> Void) -> Void) {
+        let handler: ((PBMBid, AdUnitConfig, (Any)->(), (@escaping ()->())->())->())? = syncQueue.sync {
             guard nextCallIndex < expectedCalls.count else {
                 XCTFail("[MockAdLoader] Call index out of bounds: \(nextCallIndex) < \(expectedCalls.count)",
                         file: file, line: line)

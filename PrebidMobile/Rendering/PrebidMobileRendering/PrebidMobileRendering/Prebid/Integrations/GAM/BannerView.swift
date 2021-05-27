@@ -15,13 +15,13 @@ public class BannerView: UIView,
                   PBMBannerEventInteractionDelegate,
                   PBMDisplayViewInteractionDelegate {
 
-    public let adUnitConfig: PBMAdUnitConfig
+    public let adUnitConfig: AdUnitConfig
     public let eventHandler: PBMBannerEventHandler?
     
     // MARK: - Public Properties
     
     @objc public var configID: String {
-        adUnitConfig.configId
+        adUnitConfig.configID
     }
 
     @objc public var refreshInterval: TimeInterval {
@@ -29,7 +29,7 @@ public class BannerView: UIView,
         set { adUnitConfig.refreshInterval = newValue }
     }
     
-    @objc public var additionalSizes: [NSValue]? {
+    @objc public var additionalSizes: [CGSize]? {
         get { adUnitConfig.additionalSizes }
         set { adUnitConfig.additionalSizes = newValue }
     }
@@ -50,14 +50,12 @@ public class BannerView: UIView,
     }
     
     @objc public var nativeAdConfig: NativeAdConfiguration? {
-        get { adUnitConfig.nativeAdConfig }
-        set { adUnitConfig.nativeAdConfig = newValue }
+        get { adUnitConfig.nativeAdConfiguration }
+        set { adUnitConfig.nativeAdConfiguration = newValue }
     }
 
     @objc public weak var delegate: BannerViewDelegate?
     
-    // MARK: - Internal properties
-
     // MARK: Readonly storage
     
     var autoRefreshManager: PBMAutoRefreshManager?
@@ -98,7 +96,7 @@ public class BannerView: UIView,
                 eventHandler: PBMBannerEventHandler) {
         
         
-        adUnitConfig = PBMAdUnitConfig(configId: configID, size: adSize)
+        adUnitConfig = AdUnitConfig(configID: configID, size: adSize)
         self.eventHandler = eventHandler
         
         super.init(frame: frame)
@@ -152,7 +150,8 @@ public class BannerView: UIView,
                   eventHandler: eventHandler)
         
         if eventHandler.adSizes.count > 1 {
-            self.additionalSizes = Array(eventHandler.adSizes.suffix(from: 1))
+            self.additionalSizes = Array(eventHandler.adSizes.suffix(from: 1)
+                                            .compactMap { $0.cgSizeValue })
         }
     }
     
@@ -368,13 +367,13 @@ public class BannerView: UIView,
     // MARK: - Static Helpers
 
     private static func canEventHandler(eventHandler:PBMBannerEventHandler,
-                                        displayAdWithConfiguration adUnitConfig: PBMAdUnitConfig ) -> Bool {
+                                        displayAdWithConfiguration adUnitConfig: AdUnitConfig ) -> Bool {
         if adUnitConfig.adConfiguration.adFormat != .nativeInternal {
             return true;
         }
         
         if eventHandler.isCreativeRequiredForNativeAds {
-            if let nativeStyleCreative = adUnitConfig.nativeAdConfig?.nativeStylesCreative {
+            if let nativeStyleCreative = adUnitConfig.nativeAdConfiguration?.nativeStylesCreative {
                 return !nativeStyleCreative.isEmpty
             } else {
                 return false
@@ -384,12 +383,12 @@ public class BannerView: UIView,
         return true;
     }
 
-    private static func canPrebidDisplayAd(withConfiguration adUnitConfig:PBMAdUnitConfig) -> Bool {
+    private static func canPrebidDisplayAd(withConfiguration adUnitConfig:AdUnitConfig) -> Bool {
         if adUnitConfig.adConfiguration.adFormat != .nativeInternal {
             return true;
         }
         
-        if let nativeStyleCreative = adUnitConfig.nativeAdConfig?.nativeStylesCreative {
+        if let nativeStyleCreative = adUnitConfig.nativeAdConfiguration?.nativeStylesCreative {
             return !nativeStyleCreative.isEmpty
         }
         
