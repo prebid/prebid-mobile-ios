@@ -61,7 +61,7 @@ public class GAMInterstitialEventHandler :
         }
     }
     
-    public func requestAd(with bidResponse: PBMBidResponse?) {
+    public func requestAd(with bidResponse: BidResponse?) {
         guard let currentInterstitialAd = GAMInterstitialAdWrapper(adUnitID: adUnitID),
               let request = GAMRequestWrapper() else {
             let error = GAMEventHandlerError.gamClassesNotFound

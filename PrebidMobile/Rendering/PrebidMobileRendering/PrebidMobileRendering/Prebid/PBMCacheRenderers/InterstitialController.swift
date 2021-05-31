@@ -24,7 +24,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     @objc public weak var loadingDelegate: PBMInterstitialControllerLoadingDelegate?
     @objc public weak var interactionDelegate: PBMInterstitialControllerInteractionDelegate?
     
-    var bid: PBMBid
+    var bid: Bid
     var adConfiguration: AdUnitConfig
     var displayProperties: PBMInterstitialDisplayProperties
     
@@ -33,13 +33,13 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     
     // MARK: - Life cycle
     
-    @objc public init(bid: PBMBid, adConfiguration: AdUnitConfig) {
+    @objc public init(bid: Bid, adConfiguration: AdUnitConfig) {
         self.bid = bid
         self.adConfiguration = adConfiguration
         displayProperties = PBMInterstitialDisplayProperties()
     }
     
-    @objc public convenience init(bid: PBMBid, configId: String) {
+    @objc public convenience init(bid: Bid, configId: String) {
         let adConfig = AdUnitConfig(configID: configId)
         adConfig.isInterstitial = true
         self.init(bid: bid, adConfiguration: adConfig)

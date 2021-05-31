@@ -30,7 +30,7 @@ public class LocalResponseInfoCache {
     
     // MARK: - Internal API
     
-    public func store(_ responseInfo: PBMDemandResponseInfo) -> String {
+    public func store(_ responseInfo: DemandResponseInfo) -> String {
         let uuid = UUID()
         let localCacheID = "Prebid_\(uuid.uuidString)"
         
@@ -44,7 +44,7 @@ public class LocalResponseInfoCache {
         return localCacheID
     }
 
-    public func getStoredResponseInfo(_ localCacheID: String) -> PBMDemandResponseInfo? {
+    public func getStoredResponseInfo(_ localCacheID: String) -> DemandResponseInfo? {
         return getAndRemoveCachedResponseInfo(localCacheID)
     }
     
@@ -63,7 +63,7 @@ public class LocalResponseInfoCache {
         notifyResponseInfoExpired(expiredResponse)
     }
     
-    func getAndRemoveCachedResponseInfo(_ localCacheID: String) -> PBMDemandResponseInfo? {
+    func getAndRemoveCachedResponseInfo(_ localCacheID: String) -> DemandResponseInfo? {
         var cachedEntry: PBMCachedResponseInfo? = nil
         
         objc_sync_enter(cacheLock)
@@ -75,7 +75,7 @@ public class LocalResponseInfoCache {
         return cachedEntry?.responseInfo
     }
     
-    func notifyResponseInfoExpired(_ expiredResponseInfo: PBMDemandResponseInfo?) {
+    func notifyResponseInfoExpired(_ expiredResponseInfo: DemandResponseInfo?) {
         // TODO: Implement
     }
 }

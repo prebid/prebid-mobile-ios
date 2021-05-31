@@ -13,7 +13,7 @@
 @synthesize interactionDelegate = _interactionDelegate;
 @synthesize adSizes = _adSizes;
 
-- (void)requestAdWithBidResponse:(nullable PBMBidResponse *)bidResponse {
+- (void)requestAdWithBidResponse:(nullable BidResponse *)bidResponse {
     [self.loadingDelegate prebidDidWin];
 }
 

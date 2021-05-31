@@ -89,7 +89,7 @@ class NativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
             XCTAssertEqual(adUnit.configId, configID)
             
             let fetchDemandReturned = expectation(description: "fetch demand result returned")
-            var returnedDemandResponseInfo: PBMDemandResponseInfo?
+            var returnedDemandResponseInfo: DemandResponseInfo?
             adUnit.fetchDemand { demandResponseInfo in
                 returnedDemandResponseInfo = demandResponseInfo
                 fetchDemandReturned.fulfill()
@@ -154,7 +154,7 @@ class NativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         let requesterCreated = expectation(description: "requester created")
         requesterCreatedNotification[0] = requesterCreated
         
-        var returnedDemandResponseInfo: PBMDemandResponseInfo?
+        var returnedDemandResponseInfo: DemandResponseInfo?
         
         let fetchDemandReturned = expectation(description: "fetch demand result returned")
         adUnit.fetchDemand { demandResponseInfo in

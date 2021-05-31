@@ -231,7 +231,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
             .makeBidRequester(handler: { config, mockRequester in mockRequester }),
             .bidRequester(call: (requesterOffset: 0, { completion in
                 let rawResponse = PBMBidResponseTransformer.invalidAccountIDResponse(accountID: "some id")
-                var bidResponse: PBMBidResponse?
+                var bidResponse: BidResponse?
                 do {
                     bidResponse = try PBMBidResponseTransformer.transform(rawResponse)
                 } catch {
@@ -308,7 +308,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
             .makeBidRequester(handler: { config, mockRequester in mockRequester }),
             .bidRequester(call: (requesterOffset: 0, { completion in
                 let rawResponse = PBMBidResponseTransformer.invalidAccountIDResponse(accountID: "some id")
-                var bidResponse: PBMBidResponse?
+                var bidResponse: BidResponse?
                 do {
                     bidResponse = try PBMBidResponseTransformer.transform(rawResponse)
                 } catch {
@@ -536,7 +536,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
             .makeBidRequester(handler: { config, mockRequester in mockRequester }),
             .bidRequester(call: (requesterOffset: 0, { completion in
                 let rawResponse = PBMBidResponseTransformer.invalidAccountIDResponse(accountID: "some id")
-                var bidResponse: PBMBidResponse?
+                var bidResponse: BidResponse?
                 do {
                     bidResponse = try PBMBidResponseTransformer.transform(rawResponse)
                 } catch {

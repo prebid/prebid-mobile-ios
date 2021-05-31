@@ -14,28 +14,6 @@
 
 #import "PBMMacros.h"
 
-#import "PBMPlayable.h"
-#import "PBMAdViewManagerDelegate.h"
-#import "PBMConstants.h"
-#import "PBMDataAssetType.h"
-#import "PBMJsonCodable.h"
-
-#import "PBMNativeEventType.h"
-#import "PBMNativeEventTrackingMethod.h"
-
-#import "PBMNativeContextType.h"
-#import "PBMNativeContextSubtype.h"
-#import "PBMNativePlacementType.h"
-#import "PBMBaseAdUnit.h"
-#import "PBMBidRequesterFactoryBlock.h"
-#import "PBMWinNotifierBlock.h"
-
-#import "PBMImageAssetType.h"
-#import "PBMNativeAdElementType.h"
-
-#import "PBMBaseInterstitialAdUnit.h"
-#import "PBMAdFormat.h"
-
 #import "PrebidMobileRenderingSwiftHeaders.h"
 #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
@@ -65,7 +43,7 @@
     return self.delegate.eventHandler;
 }
 
-- (void)createPrebidAdWithBid:(PBMBid *)bid
+- (void)createPrebidAdWithBid:(Bid *)bid
                  adUnitConfig:(AdUnitConfig *)adUnitConfig
                 adObjectSaver:(void (^)(id))adObjectSaver
             loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker

@@ -8,10 +8,11 @@
 #import "PBMBaseAdUnit.h"
 
 #import "PBMBidRequesterFactoryBlock.h"
-#import "PBMBidResponse.h"
 #import "PBMSDKConfiguration.h"
 #import "PBMWinNotifierBlock.h"
 #import "PBMServerConnectionProtocol.h"
+
+@class BidResponse;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,8 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nonnull, readonly) PBMWinNotifierBlock winNotifierBlock;
 
 // MARK: + (updated on every BidRequester callback)
-@property (atomic, strong, nullable, readonly) PBMBidResponse *lastBidResponse;
-@property (atomic, strong, nullable, readonly) PBMDemandResponseInfo *lastDemandResponseInfo;
+@property (atomic, strong, nullable, readonly) BidResponse *lastBidResponse;
+@property (atomic, strong, nullable, readonly) DemandResponseInfo *lastDemandResponseInfo;
 
 // MARK: + (locks)
 @property (nonatomic, strong, nonnull, readonly) NSObject *stateLockToken; /// guards 'bidRequester', 'lastResponse'' etc.

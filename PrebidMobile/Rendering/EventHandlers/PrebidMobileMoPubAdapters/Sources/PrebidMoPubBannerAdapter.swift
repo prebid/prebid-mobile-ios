@@ -38,7 +38,7 @@ public class PrebidMoPubBannerAdapter :
             return
         }
         
-        guard let bid = localExtras[PBMMoPubAdUnitBidKey] as? PBMBid else {
+        guard let bid = localExtras[PBMMoPubAdUnitBidKey] as? Bid else {
             let error = MoPubAdaptersError.noBidInLocalExtras
             MPLogging.logEvent(MPLogEvent.adLoadFailed(forAdapter: Self.className(), error: error), source: adUnitId, from: nil)
             delegate?.inlineAdAdapter(self, didFailToLoadAdWithError: error)

@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class PBMBid;
+@class Bid;
 @class AdUnitConfig;
 
 @protocol PBMAdLoaderFlowDelegate;
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, readonly) id<PBMPrimaryAdRequesterProtocol> primaryAdRequester;
 
-- (void)createPrebidAdWithBid:(PBMBid *)bid
+- (void)createPrebidAdWithBid:(Bid *)bid
                  adUnitConfig:(AdUnitConfig *)adUnitConfig
                 adObjectSaver:(void (^)(id))adObjectSaver
             loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker;

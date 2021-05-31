@@ -6,10 +6,11 @@
 //
 #import <UIKit/UIKit.h>
 
-#import "PBMBidResponse.h"
 #import "PBMInterstitialEventLoadingDelegate.h"
 #import "PBMInterstitialEventInteractionDelegate.h"
 #import "PBMPrimaryAdRequesterProtocol.h"
+
+@class BidResponse;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -9,7 +9,7 @@
 
 @implementation PBMCachedResponseInfo
 
-- (instancetype)initWithResponseInfo:(PBMDemandResponseInfo *)responseInfo
+- (instancetype)initWithResponseInfo:(DemandResponseInfo *)responseInfo
                      expirationTimer:(id<PBMTimerInterface>)expirationTimer
 {
     if (!(self = [super init])) {

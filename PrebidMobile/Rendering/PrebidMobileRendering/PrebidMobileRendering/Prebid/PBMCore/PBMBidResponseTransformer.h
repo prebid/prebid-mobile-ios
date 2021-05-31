@@ -7,13 +7,13 @@
 
 #import <Foundation/Foundation.h>
 
-@class PBMBidResponse;
+@class BidResponse;
 @class PBMServerResponse;
 
 @interface PBMBidResponseTransformer : NSObject
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
 
-+ (PBMBidResponse * _Nullable)transformResponse:(PBMServerResponse * _Nonnull)response error:(NSError * _Nullable __autoreleasing * _Nullable)error;
++ (BidResponse * _Nullable)transformResponse:(PBMServerResponse * _Nonnull)response error:(NSError * _Nullable __autoreleasing * _Nullable)error;
 
 @end

@@ -13,3 +13,4 @@
 @class PBMORTBBidResponse<ExtType, SeatBidExtType, BidExtType>;
 
 typedef PBMORTBBidResponse<PBMORTBBidResponseExt *, NSDictionary *, PBMORTBBidExt *> PBMRawBidResponse;
+@compatibility_alias RawBidResponse PBMRawBidResponse;

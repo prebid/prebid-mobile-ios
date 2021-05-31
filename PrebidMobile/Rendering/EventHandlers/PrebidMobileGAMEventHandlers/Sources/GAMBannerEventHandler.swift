@@ -52,7 +52,7 @@ public class GAMBannerEventHandler :
         false
     }
     
-    public func requestAd(with bidResponse: PBMBidResponse?) {
+    public func requestAd(with bidResponse: BidResponse?) {
        
         guard let bannerViewWrapper = GAMBannerViewWrapper(),
               let request = GAMRequestWrapper() else {

@@ -16,7 +16,7 @@
     return NO;
 }
 
-- (void)requestAdWithBidResponse:(nullable PBMBidResponse *)bidResponse {
+- (void)requestAdWithBidResponse:(nullable BidResponse *)bidResponse {
     [self.loadingDelegate prebidDidWin];
 }
 

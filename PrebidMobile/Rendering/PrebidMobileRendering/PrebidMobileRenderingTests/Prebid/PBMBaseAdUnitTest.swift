@@ -114,7 +114,7 @@ class PBMBaseAdUnitTest: XCTestCase, WinningBidResponseFabricator {
     func testFetchDemand_NoBids() {
         let configID = "some-base-config-ID"
         
-        let bidResponse = PBMBidResponse(rawBidResponse: .init())
+        let bidResponse = BidResponse(rawBidResponse: .init())
         
         let requesterCreated = expectation(description: "requester created")
         

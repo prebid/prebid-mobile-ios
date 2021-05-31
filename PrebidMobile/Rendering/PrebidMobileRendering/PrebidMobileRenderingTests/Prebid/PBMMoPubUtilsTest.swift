@@ -61,7 +61,8 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
             "hb_size": "320x50"
         ];
         let sortedKeywords = ["hb_pb:0.10", "hb_size:320x50", "key1", "key2"]
-        let bid = PBMBid()
+        let rawBid = makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: "some-cache-id")
+        let bid = Bid(bid: rawBid)
         let configId = "configId"
         
         let adObject = MoPubAdObject()
@@ -79,7 +80,7 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
         let bidKeywords = adObject.keywords?.components(separatedBy: ",").sorted()
         
         XCTAssertEqual(bidKeywords, sortedKeywords)
-        XCTAssertEqual(adObject.localExtras?[PBMMoPubAdUnitBidKey] as! PBMBid, bid)
+        XCTAssertEqual(adObject.localExtras?[PBMMoPubAdUnitBidKey] as! Bid, bid)
         XCTAssertEqual(adObject.localExtras?[PBMMoPubConfigIdKey] as! String, configId)
         
         MoPubUtils.cleanUpAdObject(adObject)
@@ -104,8 +105,8 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
 "link": {"url": "http://www.openx.com"}}
 """
         let rawBid = makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: "some-cache-id")
-        let bid = PBMBid(bid: rawBid)!
-        let responseInfo = PBMDemandResponseInfo(fetchDemandResult: .ok, bid: bid, configId: configId) {
+        let bid = Bid(bid: rawBid)
+        let responseInfo = DemandResponseInfo(fetchDemandResult: .ok, bid: bid, configId: configId) {
             $1(markupString)
         }
         let targetingInfo = [

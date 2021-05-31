@@ -8,17 +8,18 @@
 #import "PBMWinNotifier.h"
 #import "PBMWinNotifier+Private.h"
 
-#import "PBMBid.h"
-#import "PBMBid+Internal.h"
 #import "PBMORTBMacrosHelper.h"
 #import "PBMFunctions+Private.h"
 #import "PBMServerConnectionProtocol.h"
 #import "PBMServerResponse.h"
 
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
+
 @implementation PBMWinNotifier
 
 + (void)notifyThroughConnection:(id<PBMServerConnectionProtocol>)connection
-                     winningBid:(PBMBid *)bid
+                     winningBid:(Bid *)bid
                        callback:(PBMAdMarkupStringHandler)adMarkupConsumer
 {
     PBMORTBMacrosHelper * const macrosHelper = [[PBMORTBMacrosHelper alloc] initWithBid:bid.bid];
@@ -64,7 +65,7 @@
 }
 
 + (PBMWinNotifierBlock)winNotifierBlockWithConnection:(id<PBMServerConnectionProtocol>)connection {
-    return ^(PBMBid *bid, PBMAdMarkupStringHandler adMarkupConsumer) {
+    return ^(Bid *bid, PBMAdMarkupStringHandler adMarkupConsumer) {
         [PBMWinNotifier notifyThroughConnection:connection winningBid:bid callback:adMarkupConsumer];
     };
 }

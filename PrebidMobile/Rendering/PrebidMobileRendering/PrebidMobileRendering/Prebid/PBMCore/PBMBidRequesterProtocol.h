@@ -7,13 +7,13 @@
 
 @import Foundation;
 
-@class PBMBidResponse;
+@class BidResponse;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol PBMBidRequesterProtocol <NSObject>
 
-- (void)requestBidsWithCompletion:(void (^)(PBMBidResponse * _Nullable, NSError * _Nullable))completion;
+- (void)requestBidsWithCompletion:(void (^)(BidResponse * _Nullable, NSError * _Nullable))completion;
 
 @end
 

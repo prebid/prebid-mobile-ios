@@ -189,7 +189,7 @@
     
     self.bidRequester = self.bidRequesterFactory(self.savedAdUnitConfig);
     @weakify(self);
-    [self.bidRequester requestBidsWithCompletion:^(PBMBidResponse *response, NSError *error) {
+    [self.bidRequester requestBidsWithCompletion:^(BidResponse *response, NSError *error) {
         @strongify(self);
         [self enqueueGatedBlock:^{
             @strongify(self);
@@ -198,7 +198,7 @@
     }];
 }
 
-- (void)handleBidResponse:(nullable PBMBidResponse *)response error:(nullable NSError *)error {
+- (void)handleBidResponse:(nullable BidResponse *)response error:(nullable NSError *)error {
     self.bidResponse = (response && !error) ? response : nil;
     self.bidRequestError = error;
     
@@ -208,7 +208,7 @@
     [self enqueueNextStepAttempt];
 }
 
-- (void)requestPrimaryAdServer:(nullable PBMBidResponse *)bidResponse {
+- (void)requestPrimaryAdServer:(nullable BidResponse *)bidResponse {
     self.flowState = PBMAdLoadFlowState_PrimaryAdRequest;
     
     [self.delegate adLoadFlowControllerWillRequestPrimaryAd:self];
@@ -235,7 +235,7 @@
         return;
     }
     
-    PBMBid * const bid = self.bidResponse.winningBid;
+    Bid * const bid = self.bidResponse.winningBid;
     if (!bid) {
         [self reportLoadingFailedWithError:[PBMError noWinningBid]];
         return;

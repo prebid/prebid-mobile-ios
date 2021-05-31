@@ -111,7 +111,7 @@ public class RewardedAdUnit: PBMBaseInterstitialAdUnit,
         }
     }
 
-    @objc public override func callEventHandler_requestAd(with bidResponse: PBMBidResponse?) {
+    @objc public override func callEventHandler_requestAd(with bidResponse: BidResponse?) {
         if let eventHandler = self.eventHandler as? PBMRewardedEventHandler {
             eventHandler.requestAd(with: bidResponse)
         }

@@ -8,11 +8,12 @@
 #import "PBMAdLoadFlowController.h"
 
 #import "PBMBidRequester.h"
-#import "PBMBidResponse.h"
 #import "PBMAdLoadFlowState.h"
 #import "PBMAdLoaderFlowDelegate.h"
 #import "PBMBannerEventLoadingDelegate.h"
 #import "PBMDisplayViewLoadingDelegate.h"
+
+@class BidResponse;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSError *bidRequestError;
 
 // State: DemandReceived
-@property (nonatomic, strong, nullable) PBMBidResponse *bidResponse;
+@property (nonatomic, strong, nullable) BidResponse *bidResponse;
 
 // State: PrimaryAdRequest
 // _(no relevant properties)_

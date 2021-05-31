@@ -13,7 +13,7 @@
 #import "PBMInterstitialEventInteractionDelegate.h"
 
 @class AdUnitConfig;
-@class PBMBidResponse;
+@class BidResponse;
 @class InterstitialController;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)callEventHandler_isReady;
 - (void)callEventHandler_setLoadingDelegate:(id<PBMRewardedEventLoadingDelegate>)loadingDelegate;
 - (void)callEventHandler_setInteractionDelegate;
-- (void)callEventHandler_requestAdWithBidResponse:(nullable PBMBidResponse *)bidResponse;
+- (void)callEventHandler_requestAdWithBidResponse:(nullable BidResponse *)bidResponse;
 - (void)callEventHandler_showFromViewController:(nullable UIViewController *)controller;
 - (void)callEventHandler_trackImpression;
 

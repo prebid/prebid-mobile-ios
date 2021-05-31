@@ -27,7 +27,7 @@ public class GAMUtils {
     public static let shared = GAMUtils()
     
     public func prepareRequest(_ request: GAMRequest,
-                               demandResponseInfo: PBMDemandResponseInfo)  {
+                               demandResponseInfo: DemandResponseInfo)  {
         guard let boxedRequest = GAMRequestWrapper(request: request) else {
             return
         }
