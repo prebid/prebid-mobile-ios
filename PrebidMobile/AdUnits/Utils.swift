@@ -340,12 +340,6 @@ public class Utils: NSObject {
                 let html = value as! String
                 processHTMLContent(html)
             })
-        } else if webView is UIWebView {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1){
-                let ui = webView as! UIWebView
-                let html = ui.stringByEvaluatingJavaScript(from: self.INNNER_HTML_SCRIPT)
-                processHTMLContent(html!)
-            }
         } else {
             processNextWebView(index)
         }
