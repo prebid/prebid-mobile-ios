@@ -90,7 +90,7 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
             XCTAssertEqual(resultExtras.count, 2)
             XCTAssertEqual(resultExtras[PBMMoPubConfigIdKey] as? String, configId)
             let bid = resultExtras[PBMMoPubAdUnitBidKey] as! NSObject
-            XCTAssertTrue(bid.isKind(of: PBMBid.self))
+            XCTAssertTrue(bid.isKind(of: Bid.self))
             
             asyncExpectation.fulfill()
         }

@@ -6,14 +6,16 @@
 //
 
 #import "PBMBidResponseTransformer.h"
-#import "PBMBidResponse+Internal.h"
 #import "PBMError.h"
 #import "PBMServerResponse.h"
 #import "PBMORTBAbstract+Protected.h"
 
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
+
 @implementation PBMBidResponseTransformer
 
-+ (PBMBidResponse *)transformResponse:(PBMServerResponse *)response error:(NSError **)error {
++ (BidResponse *)transformResponse:(PBMServerResponse *)response error:(NSError **)error {
     NSString * const responseBody = [[NSString alloc] initWithData:response.rawData encoding:NSUTF8StringEncoding];
     if ([responseBody containsString:@"Invalid request"]) {
         if (error) {
@@ -27,7 +29,7 @@
         }
         return nil;
     }
-    PBMBidResponse * const bidResponse = [[PBMBidResponse alloc] initWithJsonDictionary:response.jsonDict];
+    BidResponse * const bidResponse = [[BidResponse alloc] initWithJsonDictionary:response.jsonDict];
     if (!bidResponse) {
         if (error) {
             *error = [PBMError responseDeserializationFailed];

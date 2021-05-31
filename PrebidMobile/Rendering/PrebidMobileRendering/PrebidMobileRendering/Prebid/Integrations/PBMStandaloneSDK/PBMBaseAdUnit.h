@@ -5,14 +5,14 @@
 //  Copyright © 2020 OpenX. All rights reserved.
 //
 
-#import "PBMDemandResponseInfo.h"
+@import Foundation;
 
-//@class PBMNativeAd;
+@class DemandResponseInfo;
 @class NativeAdConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^PBMFetchDemandCompletionHandler)(PBMDemandResponseInfo * _Nonnull demandResponseInfo);
+typedef void(^PBMFetchDemandCompletionHandler)(DemandResponseInfo * _Nonnull demandResponseInfo);
 
 @interface PBMBaseAdUnit : NSObject
 

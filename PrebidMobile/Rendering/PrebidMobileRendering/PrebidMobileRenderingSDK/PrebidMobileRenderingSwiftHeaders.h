@@ -21,8 +21,6 @@
 #import "PBMBaseAdUnit+Protected.h"
 #import "PBMBaseInterstitialAdUnit.h"
 #import "PBMBaseInterstitialAdUnit+Protected.h"
-#import "PBMDemandResponseInfo.h"
-#import "PBMDemandResponseInfo+Internal.h"
 
 #import "PBMInterstitialAdUnitDelegate.h"
 #import "PBMInterstitialEventLoadingDelegate.h"
@@ -45,8 +43,6 @@
 #import "PBMNativeAdUIDelegate.h"
 #import "PBMNativeAdElementType.h"
 #import "PBMNativeAdHandler.h"
-
-#import "PBMLocalResponseInfoCache.h"
 
 #import "PBMNativeAdMarkup.h"
 #import "PBMNativeAdMarkupAsset.h"
@@ -77,3 +73,7 @@
 #import "PBMBannerAdLoader.h"
 #import "PBMBannerAdLoaderDelegate.h"
 
+// Bid
+#import "PBMORTBBid.h"
+#import "PBMORTBBidExt.h"
+#import "PBMRawBidResponse.h"

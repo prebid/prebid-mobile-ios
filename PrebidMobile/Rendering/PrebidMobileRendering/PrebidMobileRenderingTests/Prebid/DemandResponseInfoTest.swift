@@ -1,5 +1,5 @@
 //
-//  PBMDemandResponseInfoTest.swift
+//  DemandResponseInfoTest.swift
 //  OpenXSDKCoreTests
 //
 //  Copyright © 2021 OpenX. All rights reserved.
@@ -9,10 +9,10 @@ import XCTest
 
 @testable import PrebidMobileRendering
 
-class PBMDemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
-    private func makeWinningBid() -> PBMBid {
+class DemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
+    private func makeWinningBid() -> Bid {
         let rawBid = makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: "some-cache-id")
-        let bid = PBMBid(bid: rawBid)!
+        let bid = Bid(bid: rawBid)
         XCTAssert(bid.isWinning)
         return bid
     }
@@ -20,9 +20,9 @@ class PBMDemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
     func testInit() {
         let winningBid = makeWinningBid()
         
-        let testBlocks: [(fetchDemandResult: PBMFetchDemandResult, bid: PBMBid?, configId: String?)] = [
+        let testBlocks: [(fetchDemandResult: PBMFetchDemandResult, bid: Bid?, configId: String?)] = [
             (.demandNoBids, nil, nil),
-            (.ok, PBMBid(bid: PBMORTBBid<PBMORTBBidExt>()), "configID-1"),
+            (.ok, Bid(bid: PBMORTBBid<PBMORTBBidExt>()), "configID-1"),
             (.ok, winningBid, "configID-2"),
         ]
         
@@ -32,7 +32,7 @@ class PBMDemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
                 markupStringHandler(nil)
             }
             
-            let responseInfo = PBMDemandResponseInfo(fetchDemandResult: initArgs.fetchDemandResult,
+            let responseInfo = DemandResponseInfo(fetchDemandResult: initArgs.fetchDemandResult,
                                                      bid: initArgs.bid,
                                                      configId: initArgs.configId,
                                                      winNotifierBlock: notifier)
@@ -59,7 +59,7 @@ class PBMDemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
         let expectationToCall = NSMutableArray(object: noCallExpectation)
         let adMarkupString = "<div>Some Ad markup</div>"
         
-        let responseInfo = PBMDemandResponseInfo(fetchDemandResult: .ok, bid: winningBid, configId: configID) {
+        let responseInfo = DemandResponseInfo(fetchDemandResult: .ok, bid: winningBid, configId: configID) {
             (expectationToCall[0] as! XCTestExpectation).fulfill()
             XCTAssertEqual($0, winningBid)
             $1(adMarkupString)
@@ -82,7 +82,7 @@ class PBMDemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
     }
     
     func testGetAdMarkupString_NoBid() {
-        let responseInfo = PBMDemandResponseInfo(fetchDemandResult: .ok, bid: nil, configId: nil) { _, _ in
+        let responseInfo = DemandResponseInfo(fetchDemandResult: .ok, bid: nil, configId: nil) { _, _ in
             XCTFail()
         }
         
@@ -126,7 +126,7 @@ class PBMDemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
             let expectationToCall = NSMutableArray(object: noCallExpectation)
             let adMarkupString = nextMarkup.adMarkup
             
-            let responseInfo = PBMDemandResponseInfo(fetchDemandResult: .ok, bid: winningBid, configId: configID) {
+            let responseInfo = DemandResponseInfo(fetchDemandResult: .ok, bid: winningBid, configId: configID) {
                 (expectationToCall[0] as! XCTestExpectation).fulfill()
                 XCTAssertEqual($0, winningBid)
                 $1(adMarkupString)

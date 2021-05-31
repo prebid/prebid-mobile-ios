@@ -312,7 +312,7 @@ class PBMWinNotifierTest: XCTestCase {
             bidExt.prebid = bidExtPrebid
             ortbBid.ext = bidExt
         }
-        let bid = PBMBid(bid: ortbBid)!
+        let bid = Bid(bid: ortbBid)
         
         let nextCallbackIndexBox = NSMutableArray(object: NSNumber(0))
         let connection = MockServerConnection(onDownload: expectedUrls.map { expectedDestination in { url, callback in

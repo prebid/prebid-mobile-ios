@@ -9,7 +9,7 @@
 #import "PBMDisplayViewLoadingDelegate.h"
 #import "PBMDisplayViewInteractionDelegate.h"
 
-@class PBMBid;
+@class Bid;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic, weak, nullable) id<PBMDisplayViewInteractionDelegate> interactionDelegate;
 @property (nonatomic, readonly) BOOL isCreativeOpened;
 
-- (instancetype)initWithFrame:(CGRect)frame bid:(PBMBid *)bid configId:(NSString *)configId;
+- (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid configId:(NSString *)configId;
 
 - (void)displayAd;
 

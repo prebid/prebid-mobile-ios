@@ -206,7 +206,7 @@ public class MoPubBannerAdUnit : NSObject {
         bidRequester = nil;
     }
     
-    private func handlePrebidResponse(response: PBMBidResponse) {
+    private func handlePrebidResponse(response: BidResponse) {
         var demandResult = PBMFetchDemandResult.demandNoBids
         
         if  let adObject = self.adObject,

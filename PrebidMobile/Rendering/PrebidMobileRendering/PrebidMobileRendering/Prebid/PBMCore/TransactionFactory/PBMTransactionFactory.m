@@ -7,7 +7,6 @@
 
 #import "PBMTransactionFactory.h"
 
-#import "PBMBid.h"
 #import "PBMDisplayTransactionFactory.h"
 #import "PBMVastTransactionFactory.h"
 #import "PBMTransaction.h"
@@ -19,7 +18,7 @@
 
 @interface PBMTransactionFactory()
 
-@property (nonatomic, strong, readonly, nonnull) PBMBid *bid;
+@property (nonatomic, strong, readonly, nonnull) Bid *bid;
 @property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
 @property (nonatomic, strong, readonly, nonnull) id<PBMServerConnectionProtocol> connection;
 
@@ -41,7 +40,7 @@
 
 // MARK: - Public API
 
-- (instancetype)initWithBid:(PBMBid *)bid
+- (instancetype)initWithBid:(Bid *)bid
             adConfiguration:(AdUnitConfig *)adConfiguration
                  connection:(id<PBMServerConnectionProtocol>)connection
                    callback:(PBMTransactionFactoryCallback)callback

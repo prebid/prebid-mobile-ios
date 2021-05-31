@@ -96,7 +96,7 @@ class PBMBidResponseTransformerTest: XCTestCase {
         
         let serverResponse = PBMBidResponseTransformer.buildResponse(realResponseBody)
         let response = try! PBMBidResponseTransformer.transform(serverResponse)
-        let serializedResponse = try! response.rawResponse.toJsonString()
+        let serializedResponse = try! response.rawResponse?.toJsonString()
         
         XCTAssertEqual(realResponseBodyAbc, serializedResponse)
     }
@@ -119,7 +119,7 @@ class PBMBidResponseTransformerTest: XCTestCase {
         let serverResponse = PBMBidResponseTransformer.buildResponse(responseBody)
         let response = try! PBMBidResponseTransformer.transform(serverResponse)
         
-        func checkReplacements(keyPath: KeyPath<PBMBid, String?>, src: String) {
+        func checkReplacements(keyPath: KeyPath<Bid, String?>, src: String) {
             var expectedResult = src
             for (key, value) in replacements {
                 expectedResult = expectedResult.replacingOccurrences(of: "${\(key)}", with: value)

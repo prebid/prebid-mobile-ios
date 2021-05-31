@@ -12,12 +12,14 @@
 #import "PBMAdLoaderFlowDelegate.h"
 #import "PBMBannerEventHandler.h"
 #import "PBMBannerEventLoadingDelegate.h"
-#import "PBMBid.h"
 #import "PBMDisplayView.h"
 #import "PBMDisplayView+InternalState.h"
 #import "PBMDisplayViewLoadingDelegate.h"
 
 #import "PBMMacros.h"
+
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 
 @interface PBMBannerAdLoader () <PBMDisplayViewLoadingDelegate, PBMBannerEventLoadingDelegate>
@@ -48,7 +50,7 @@
     return eventHandler;
 }
 
-- (void)createPrebidAdWithBid:(PBMBid *)bid
+- (void)createPrebidAdWithBid:(Bid *)bid
                  adUnitConfig:(AdUnitConfig *)adUnitConfig
                 adObjectSaver:(void (^)(id))adObjectSaver
             loadMethodInvoker:(void (^)(dispatch_block_t))loadMethodInvoker

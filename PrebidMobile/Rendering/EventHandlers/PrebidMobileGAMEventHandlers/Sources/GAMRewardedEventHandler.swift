@@ -73,7 +73,7 @@ public class GAMRewardedAdEventHandler :
         }
     }
     
-    public func requestAd(with bidResponse: PBMBidResponse?) {
+    public func requestAd(with bidResponse: BidResponse?) {
         guard let currentRequestRewarded = GADRewardedAdWrapper(adUnitID: adUnitID),
               let request = GAMRequestWrapper() else {
             let error = GAMEventHandlerError.gamClassesNotFound

@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithBid:(PBMORTBBid<PBMORTBBidExt *> *)bid NS_DESIGNATED_INITIALIZER;
 
 // MARK: - API
-- (NSString *)replaceMacrosInString:(nullable NSString *)sourceString;
+- (nullable NSString *)replaceMacrosInString:(nullable NSString *)sourceString;
 
 // MARK: - Overrides
 - (instancetype)init NS_UNAVAILABLE;

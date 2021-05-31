@@ -10,7 +10,6 @@
 #import "PBMDisplayView.h"
 #import "PBMDisplayView+InternalState.h"
 
-#import "PBMBid.h"
 #import "PBMTransactionFactory.h"
 #import "PBMWinNotifier.h"
 #import "PBMAdViewManager.h"
@@ -27,7 +26,7 @@
 
 @interface PBMDisplayView () <PBMAdViewManagerDelegate, PBMModalManagerDelegate>
 
-@property (nonatomic, strong, readonly, nonnull) PBMBid *bid;
+@property (nonatomic, strong, readonly, nonnull) Bid *bid;
 @property (nonatomic, strong, readonly, nonnull) AdUnitConfig *adConfiguration;
 
 @property (nonatomic, strong, nullable) PBMTransactionFactory *transactionFactory;
@@ -42,11 +41,11 @@
 @implementation PBMDisplayView
 
 // MARK: - Public API
-- (instancetype)initWithFrame:(CGRect)frame bid:(PBMBid *)bid configId:(NSString *)configId {
+- (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid configId:(NSString *)configId {
     return self = [self initWithFrame:frame bid:bid adConfiguration:[[AdUnitConfig alloc] initWithConfigID:configId size:bid.size]];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame bid:(PBMBid *)bid adConfiguration:(AdUnitConfig *)adConfiguration {
+- (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid adConfiguration:(AdUnitConfig *)adConfiguration {
     if (!(self = [super initWithFrame:frame])) {
         return nil;
     }

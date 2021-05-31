@@ -20,8 +20,6 @@ framework module PrebidMobileRendering {
     header "PBMVideoPlacementType.h"
     
     // PBMCore
-    header "PBMBid.h"
-    header "PBMBidResponse.h"
     header "PBMBidRequester.h"
     header "PBMBidRequesterProtocol.h"
     header "PBMGender.h"
@@ -51,8 +49,6 @@ framework module PrebidMobileRendering {
     header "PBMBaseAdUnit+Protected.h"
     header "PBMBaseInterstitialAdUnit.h"
     header "PBMBaseInterstitialAdUnit+Protected.h"
-    header "PBMDemandResponseInfo.h"
-    header "PBMDemandResponseInfo+Internal.h"
     
     header "PBMInterstitialAdUnitDelegate.h"
     header "PBMInterstitialEventLoadingDelegate.h"
@@ -222,4 +218,23 @@ framework module PrebidMobileRendering {
     header "PBMInterstitialDisplayProperties.h"
     header "PBMCachedResponseInfo.h"
     header "PBMWeakTimerTargetBox.h"
+    
+    // Bid
+    header "PBMORTBAbstract.h"
+    header "PBMORTBAbstract+Protected.h"
+    header "PBMORTBAbstractResponse.h"
+    header "PBMORTBAbstractResponse+Protected.h"
+    header "PBMRawBidResponse.h"
+    header "PBMORTBBidResponse.h"
+    header "PBMORTBBidResponse+Internal.h"
+    header "PBMORTBBidResponseExt.h"
+    header "PBMORTBBid.h"
+    header "PBMORTBBidExt.h"
+    header "PBMORTBSeatBid.h"
+    header "PBMORTBBidExtPrebid.h"
+    header "PBMORTBBidExtSkadn.h"
+    header "PBMORTBMacrosHelper.h"
+
+    header "NSDictionary+PBMExtensions.h"
+    header "NSMutableDictionary+PBMExtensions.h"
 }

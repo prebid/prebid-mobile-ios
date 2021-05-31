@@ -28,7 +28,7 @@ public class PrebidMoPubAdaptersUtils : NSObject {
     public func prepareAdObject(_ adObject: NSObject) {
         guard MoPubUtils.isCorrectAdObject(adObject),
               let localExtras = adObject.value(forKey: "localExtras") as? [AnyHashable : Any],
-              let demandResponseInfo = localExtras[PBMMoPubAdNativeResponseKey] as? PBMDemandResponseInfo else {
+              let demandResponseInfo = localExtras[PBMMoPubAdNativeResponseKey] as? DemandResponseInfo else {
             return
         }
         

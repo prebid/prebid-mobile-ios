@@ -10,7 +10,6 @@
 
 #import "PBMAdLoadFlowController.h"
 #import "PBMBidRequester.h"
-#import "PBMBidResponse.h"
 #import "PBMError.h"
 #import "PBMInterstitialAdLoader.h"
 #import "PBMSDKConfiguration.h"
@@ -19,25 +18,6 @@
 #import "PBMServerConnection.h"
 
 #import "PBMMacros.h"
-
-#import "PBMPlayable.h"
-#import "PBMAdViewManagerDelegate.h"
-#import "PBMConstants.h"
-#import "PBMDataAssetType.h"
-#import "PBMJsonCodable.h"
-
-#import "PBMNativeEventType.h"
-#import "PBMNativeEventTrackingMethod.h"
-
-#import "PBMNativeContextType.h"
-#import "PBMNativeContextSubtype.h"
-#import "PBMNativePlacementType.h"
-#import "PBMBaseAdUnit.h"
-#import "PBMBidRequesterFactoryBlock.h"
-#import "PBMWinNotifierBlock.h"
-
-#import "PBMImageAssetType.h"
-#import "PBMNativeAdElementType.h"
 
 #import "PrebidMobileRenderingSwiftHeaders.h"
 #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
@@ -342,7 +322,7 @@ createdInterstitialController:(InterstitialController *)interstitialController
     // to be overridden in subclass
 }
 
-- (void)callEventHandler_requestAdWithBidResponse:(nullable PBMBidResponse *)bidResponse {
+- (void)callEventHandler_requestAdWithBidResponse:(nullable BidResponse *)bidResponse {
     // to be overridden in subclass
 }
 

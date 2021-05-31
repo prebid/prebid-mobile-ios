@@ -10,7 +10,7 @@
 #import "PBMRewardedEventLoadingDelegate.h"
 #import "PBMRewardedEventInteractionDelegate.h"
 
-@class PBMBidResponse;
+@class BidResponse;
 
 NS_ASSUME_NONNULL_BEGIN
 

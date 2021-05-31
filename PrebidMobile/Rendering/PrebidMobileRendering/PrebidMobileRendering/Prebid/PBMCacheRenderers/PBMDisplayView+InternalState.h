@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly, nullable) id<PBMServerConnectionProtocol> connection;
 
-- (instancetype)initWithFrame:(CGRect)frame bid:(PBMBid *)bid adConfiguration:(AdUnitConfig *)adConfiguration;
+- (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid adConfiguration:(AdUnitConfig *)adConfiguration;
 
 @end
 
