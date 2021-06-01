@@ -114,6 +114,7 @@ class AdapterViewController: UIViewController, ConfigurableViewController {
         
         if let accessibilityLabel = accessibilityLabel {
             eventReportContainer.button.accessibilityLabel = accessibilityLabel
+            eventReportContainer.accessibilityIdentifier = accessibilityLabel
         }
     }
     

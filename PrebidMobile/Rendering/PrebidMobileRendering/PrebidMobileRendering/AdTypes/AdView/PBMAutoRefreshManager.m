@@ -142,7 +142,10 @@
 - (void)refresh {
     //Check to see if the current creative is invisible or "opened" (expanded, resized, or showing a clickThrough)
     //If it is then skip this load. In the second case we already have a pre-loaded transaction.
-    if (self.mayRefreshNowBlock()) {
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    BOOL isBackground = state == UIApplicationStateBackground || state == UIApplicationStateInactive;
+   
+    if ( !isBackground && self.mayRefreshNowBlock()) {
         self.refreshBlock();
     } else {
         PBMLogInfo(@"Creative is invisible or opened. Skipping refresh.");

@@ -150,7 +150,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     }
     
     private func setupActions() {
-        rootController?.setupAction(adViewDidReceiveAdButton, "adViewDidReceiveAd called")
+        rootController?.setupAction(adViewDidReceiveAdButton, "adViewDidReceiveAd called", accessibilityLabel: "adViewDidReceiveAd called")
         rootController?.setupAction(adViewDidFailToLoadAdButton, "adViewDidFailToLoadAd called")
         rootController?.setupAction(adViewWillPresentScreenButton, "adViewWillPresentScreen called")
         rootController?.setupAction(adViewDidDismissScreenButton, "adViewDidDismissScreen called")

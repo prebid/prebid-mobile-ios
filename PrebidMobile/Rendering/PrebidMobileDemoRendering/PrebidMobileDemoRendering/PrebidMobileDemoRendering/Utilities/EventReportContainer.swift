@@ -54,6 +54,17 @@ import UIKit
         }
     }
     
+    var accessibilityIdentifier: String? {
+        get {
+            return button.accessibilityIdentifier
+        }
+        set {
+            button.accessibilityIdentifier = newValue
+            totalCountLabel.accessibilityIdentifier = newValue?.appending(" times total")
+            deltaCountLabel.accessibilityIdentifier = newValue?.appending(" times delta")
+        }
+    }
+    
     override init() {
         button = ThreadCheckingButton()
         
