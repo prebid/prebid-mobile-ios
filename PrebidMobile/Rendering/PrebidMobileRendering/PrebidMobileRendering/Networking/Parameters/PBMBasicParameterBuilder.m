@@ -5,12 +5,14 @@
 //  Copyright © 2018 OpenX. All rights reserved.
 //
 
-#import "PBMTargeting+Private.h"
 #import "PBMConstants.h"
 #import "PBMMacros.h"
 #import "PBMORTB.h"
 
 #import "PBMBasicParameterBuilder.h"
+
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 #pragma mark - Internal Extension
 
@@ -20,8 +22,8 @@
 // TODO: Prove that 'init' arguments are never nil; convert to 'readonly'; remove redundant checks and tests.
 
 @property (nonatomic, strong, readwrite) PBMAdConfiguration *adConfiguration;
-@property (nonatomic, strong, readwrite) PBMSDKConfiguration *sdkConfiguration;
-@property (nonatomic, strong, readwrite) PBMTargeting *targeting;
+@property (nonatomic, strong, readwrite) PrebidRenderingConfig *sdkConfiguration;
+@property (nonatomic, strong, readwrite) PrebidRenderingTargeting *targeting;
 @property (nonatomic, copy, readwrite) NSString *sdkVersion;
 
 @end
@@ -67,9 +69,9 @@
 #pragma mark - Initialization
 
 - (instancetype)initWithAdConfiguration:(PBMAdConfiguration *)adConfiguration
-                       sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration
+                       sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
                              sdkVersion:(NSString *)sdkVersion
-                              targeting:(PBMTargeting *)targeting
+                              targeting:(PrebidRenderingTargeting *)targeting
 {
     if (!(self = [super init])) {
         return nil;

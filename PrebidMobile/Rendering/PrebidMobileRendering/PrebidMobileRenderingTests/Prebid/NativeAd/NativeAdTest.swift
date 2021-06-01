@@ -174,7 +174,7 @@ class NativeAdTest: XCTestCase {
     func testMeassurementSession() {
         let application = MockUIApplication()
         let connection = MockServerConnection()
-        let sdkConfiguration = PBMSDKConfiguration()
+        let sdkConfiguration = PrebidRenderingConfig.mock
         
         let measurement = MockMeasurementWrapper()
         
@@ -227,7 +227,7 @@ class NativeAdTest: XCTestCase {
     func testMeassurementSessionWithoutTracker() {
         let application = MockUIApplication()
         let connection = MockServerConnection()
-        let sdkConfiguration = PBMSDKConfiguration()
+        let sdkConfiguration = PrebidRenderingConfig.mock
         
         let measurement = MockMeasurementWrapper()
         

@@ -39,14 +39,16 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
     override func tearDown() {
         MockServer.singleton().reset()
         
-        PBMSDKConfiguration.resetSingleton()
+        PrebidRenderingConfig.reset()
         
         super.tearDown()
     }
     
     func testEvents() {
         self.initExpectations()
-        PBMSDKConfiguration.singleton.forcedIsViewable = true
+        PrebidRenderingConfig.forcedIsViewable = true
+        defer { PrebidRenderingConfig.reset() }
+
 
         let connection = UtilitiesForTesting.createConnectionForMockedTest()
         let adConfiguration = self.initAdConfiguration()

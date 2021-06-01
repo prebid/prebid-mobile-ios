@@ -10,13 +10,17 @@ import XCTest
 
 class PrebidParameterBuilderTest: XCTestCase {
     
-    private let sdkConfiguration = PBMSDKConfiguration()
-    private var targeting: PBMTargeting!
+    private let sdkConfiguration = PrebidRenderingConfig.mock
+    private var targeting: PrebidRenderingTargeting!
     
     override func setUp() {
         super.setUp()
-        
-        targeting = PBMTargeting.withDisabledLock
+        targeting = PrebidRenderingTargeting.shared
+        UtilitiesForTesting.resetTargeting(targeting)
+    }
+    
+    override func tearDown() {
+        UtilitiesForTesting.resetTargeting(targeting)
     }
     
     func testAdPositionHeader() {
@@ -231,8 +235,16 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         
         XCTAssertEqual(bidRequest.extPrebid.dataBidders, ["prebid-mobile"])
-        XCTAssertEqual(bidRequest.app.extPrebid.data, ["last_search_keywords": ["pet", "wolf"]])
-        XCTAssertEqual(bidRequest.user.ext!["data"] as? NSObject, ["fav_colors": ["red", "orange"]] as NSObject)
+        
+        let extData = bidRequest.app.extPrebid.data!
+        XCTAssertTrue(extData.keys.count == 1)
+        let extValues = extData["last_search_keywords"]!.sorted()
+        XCTAssertEqual(extValues, ["pet", "wolf"])
+        
+        let userData = bidRequest.user.ext!["data"] as! [String :AnyHashable]
+        XCTAssertTrue(userData.keys.count == 1)
+        let userValues = userData["fav_colors"] as! Set<String>
+        XCTAssertEqual(userValues, ["red", "orange"])
         
         guard let imp = bidRequest.imp.first else {
             XCTFail("No Impression object!")

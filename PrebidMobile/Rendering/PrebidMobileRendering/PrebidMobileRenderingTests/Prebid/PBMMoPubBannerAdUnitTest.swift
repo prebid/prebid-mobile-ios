@@ -9,17 +9,18 @@ import XCTest
 @testable import PrebidMobileRendering
 
 class PBMMoPubBannerAdUnitTest: XCTestCase {
+    
     let testID = "auid"
     let primarySize = CGSize(width: 320, height: 50)
     
-    private let sdkConfiguration: PBMSDKConfiguration = {
-        let config = PBMSDKConfiguration()
-//        config.serverURL = PBMSDKConfiguration.devintServerURL
-        try! config.setCustomPrebidServer(url: PBMSDKConfiguration.devintServerURL)
-        config.accountID = PBMSDKConfiguration.devintAccountID
+    private func getSDKConfiguration() -> PrebidRenderingConfig {
+        let config = PrebidRenderingConfig.mock
+        try! config.setCustomPrebidServer(url: PrebidRenderingConfig.devintServerURL)
+        config.accountID = PrebidRenderingConfig.devintAccountID
         return config
-    }()
-    private let targeting = PBMTargeting.withDisabledLock
+    }
+    
+    private let targeting = PrebidRenderingTargeting.shared
     
     func testConfigSetup() {
         let bannerAdUnit = MoPubBannerAdUnit(configID: testID, size: primarySize)
@@ -78,7 +79,7 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
         
         adUnit.fetchDemand(with: adObject,
                            connection: connection,
-                           sdkConfiguration: sdkConfiguration,
+                           sdkConfiguration: getSDKConfiguration(),
                            targeting: targeting)
         { result in
             XCTAssertEqual(result, .ok)
@@ -106,7 +107,7 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
         
         adUnit.fetchDemand(with: adObject,
                            connection: noBidConnection,
-                           sdkConfiguration: sdkConfiguration,
+                           sdkConfiguration: getSDKConfiguration(),
                            targeting: targeting)
         { result in
             XCTAssertEqual(result, .serverError)

@@ -15,7 +15,6 @@
 #import "NSString+PBMExtensions.h"
 #import "UIView+PBMExtensions.h"
 
-#import "PBMTargeting.h"
 #import "PBMAdConfiguration.h"
 #import "PBMClickthroughBrowserView.h"
 #import "PBMConstants.h"
@@ -33,7 +32,6 @@
 #import "PBMModalViewController.h"
 #import "PBMMRAIDCommand.h"
 #import "PBMMRAIDConstants.h"
-#import "PBMSDKConfiguration.h"
 #import "PBMTransaction.h"
 #import "PBMVideoView.h"
 #import "PBMWebView.h"
@@ -41,6 +39,9 @@
 #import "PBMPathBuilder.h"
 #import "PBMMRAIDController.h"
 #import "PBMCreativeViewabilityTracker.h"
+
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 #pragma mark - Private Extension
 
@@ -51,7 +52,7 @@
 
 @property (nonatomic, strong) NSURL *baseURL;
 @property (nonatomic, strong) PBMWebView *prebidWebView;
-@property (nonatomic, strong) PBMSDKConfiguration *sdkConfiguration;
+@property (nonatomic, strong) PrebidRenderingConfig *sdkConfiguration;
 @property (nonatomic, strong) PBMMRAIDController *MRAIDController;
 @property (nonatomic, assign) BOOL isAdChoicesOpened;
 
@@ -68,7 +69,7 @@
     self = [self initWithCreativeModel:creativeModel
                            transaction:transaction
                                webView:nil
-                      sdkConfiguration:PBMSDKConfiguration.singleton];
+                      sdkConfiguration:PrebidRenderingConfig.shared];
     
     return self;
 }
@@ -76,7 +77,7 @@
 - (nonnull instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
                                   transaction:(PBMTransaction *)transaction
                                       webView:(PBMWebView *)webView
-                             sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration {
+                             sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration {
     self = [super initWithCreativeModel:creativeModel transaction:transaction];
     if (self) {
         self.sdkConfiguration = sdkConfiguration;
@@ -122,8 +123,8 @@
     CGRect rect = CGRectMake(0.0, 0.0, self.creativeModel.width, self.creativeModel.height);
     if (!self.prebidWebView) {
         self.prebidWebView = [[PBMWebView alloc] initWithFrame:rect
-                                                creativeModel:self.creativeModel
-                                                    targeting:[PBMTargeting shared]];
+                                                 creativeModel:self.creativeModel
+                                                     targeting:PrebidRenderingTargeting.shared];
         
         BOOL isCompanionAdForBuiltInVideo = self.creativeModel.adConfiguration.isBuiltInVideo && self.creativeModel.isCompanionAd;
         
@@ -362,7 +363,7 @@
 #pragma mark - Helper Methods
 
 - (void)handleClickthrough:(NSURL*)url
-          sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration
+          sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
          completionHandler:(void (^)(BOOL success))completion
                     onExit:(PBMVoidBlock)onClickthroughExitBlock {
     @weakify(self);

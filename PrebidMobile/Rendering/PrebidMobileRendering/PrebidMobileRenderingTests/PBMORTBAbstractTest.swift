@@ -20,7 +20,7 @@ class PBMORTBAbstractTest : XCTestCase {
         return PBMFunctions.omidVersion();
     }
     
-    private let userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 OpenXSDK/\(PBMSDKConfiguration.sdkVersion)"
+    private let userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 OpenXSDK/\(PrebidRenderingConfig.shared.version)"
     
     private var logToFile: LogToFileLock?
     

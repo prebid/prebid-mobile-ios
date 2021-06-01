@@ -48,7 +48,7 @@ class PBMHTMLCreativeTest_Base: XCTestCase, PBMCreativeViewDelegate {
             creativeModel: mockCreativeModel,
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             webView: mockWebView,
-               sdkConfiguration: PBMSDKConfiguration()
+               sdkConfiguration: PrebidRenderingConfig.mock
         )
         
         htmlCreative.downloadBlock = createLoader(connection: serverConnection)

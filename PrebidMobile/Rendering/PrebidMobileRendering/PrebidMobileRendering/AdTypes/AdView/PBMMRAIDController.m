@@ -29,7 +29,6 @@
 #import "PBMModalState.h"
 #import "PBMModalViewController.h"
 #import "PBMOpenMeasurementSession.h"
-#import "PBMSDKConfiguration.h"
 #import "PBMTransaction.h"
 #import "PBMVideoView.h"
 #import "PBMWebView.h"
@@ -37,6 +36,9 @@
 #import "PBMExposureChangeDelegate.h"
 
 #import "PBMMRAIDController.h"
+
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 @interface PBMMRAIDController () <PBMExposureChangeDelegate>
 
@@ -50,7 +52,7 @@
 @property (nonatomic, weak) PBMWebView *prebidWebView;
 
 @property (nonatomic, assign) BOOL playingMRAIDVideo;
-@property (nonatomic, strong) PBMSDKConfiguration* sdkConfiguration;
+@property (nonatomic, strong) PrebidRenderingConfig* sdkConfiguration;
 
 @property (nonatomic, copy, nullable) PBMVoidBlock dismissExpandedModalState;
 @property (nonatomic, copy, nullable) PBMVoidBlock dismissResizedModalState;
@@ -81,7 +83,7 @@
              creativeViewDelegate:creativeViewDelegate
                     downloadBlock:downloadBlock
          deviceAccessManagerClass:nil
-                 sdkConfiguration:PBMSDKConfiguration.singleton];
+                 sdkConfiguration:PrebidRenderingConfig.shared];
     return self;
 }
 
@@ -91,7 +93,7 @@
             creativeViewDelegate:(id<PBMCreativeViewDelegate>)creativeViewDelegate
                    downloadBlock:(PBMCreativeFactoryDownloadDataCompletionClosure)downloadBlock
         deviceAccessManagerClass:(Class)deviceAccessManagerClass
-                sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration
+                sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
 {
     self = [super init];
     if (self) {

@@ -26,11 +26,9 @@
 #import "PBMNSThreadProtocol.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMORTB.h"
-#import "PBMSDKConfiguration.h"
 #import "PBMTouchDownRecognizer.h"
 #import "PBMViewExposure.h"
 #import "PBMCreativeViewabilityTracker.h"
-#import "PBMTargeting.h"
 #import "PBMAgeUtils.h"
 #import "PBMWKScriptMessageHandlerLeakAvoider.h"
 #import "UIView+PBMExtensions.h"
@@ -39,6 +37,9 @@
 #import "PBMWebView.h"
 
 #import "PBMAdViewManagerDelegate.h"
+
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 #pragma mark - Constants
 
@@ -75,7 +76,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 @property (nonatomic, assign) BOOL isPollingForDocumentReady;
 
 
-@property (nonatomic, strong, readonly, nonnull) PBMTargeting *targeting;
+@property (nonatomic, strong, readonly, nonnull) PrebidRenderingTargeting *targeting;
 
 @end
 
@@ -86,13 +87,13 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 #pragma mark - Initialization
  
 - (nonnull instancetype)initWithFrame:(CGRect)frame {
-    self = [self initWithFrame:frame creativeModel:nil targeting:[PBMTargeting shared]];
+    self = [self initWithFrame:frame creativeModel:nil targeting:PrebidRenderingTargeting.shared];
     return self;
 }
  
 - (nonnull instancetype)initWithFrame:(CGRect)frame
                         creativeModel:(PBMCreativeModel *)creativeModel
-                            targeting:(PBMTargeting *)targeting
+                            targeting:(PrebidRenderingTargeting *)targeting
 {
     if (!(self = [super initWithFrame:frame])) {
         return nil;
@@ -696,7 +697,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 }
 
 - (void)MRAID_updateLocation {
-    if (PBMSDKConfiguration.singleton.locationUpdatesEnabled && PBMLocationManager.singleton.coordinatesAreValid) {
+    if (PrebidRenderingConfig.shared.locationUpdatesEnabled && PBMLocationManager.singleton.coordinatesAreValid) {
         PBMLocationManager *locationManager = PBMLocationManager.singleton;
         [self evaluateJavaScript:[PBMMRAIDJavascriptCommands updateLocation:locationManager.coordinates
                                                                    accuracy:locationManager.horizontalAccuracy

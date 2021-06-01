@@ -11,12 +11,14 @@
 #import "PBMVideoCreative.h"
 #import "PBMAbstractCreative.h"
 #import "PBMAdConfiguration.h"
-#import "PBMSDKConfiguration.h"
 #import "PBMDownloadDataHelper.h"
 #import "PBMTransaction.h"
 #import "PBMMacros.h"
 #import "PBMError.h"
 #import "PBMError.h"
+
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 @interface PBMCreativeFactoryJob ()
 
@@ -191,9 +193,9 @@
 - (NSTimeInterval)getTimeInterval {
     PBMAdConfiguration *adConfig = self.creativeModel.adConfiguration;
     if (adConfig.adFormat == PBMAdFormatVideoInternal || adConfig.presentAsInterstitial) {
-        return PBMSDKConfiguration.singleton.creativeFactoryTimeoutPreRenderContent;
+        return PrebidRenderingConfig.shared.creativeFactoryTimeoutPreRenderContent;
     } else {
-        return PBMSDKConfiguration.singleton.creativeFactoryTimeout;
+        return PrebidRenderingConfig.shared.creativeFactoryTimeout;
     }
 }
 

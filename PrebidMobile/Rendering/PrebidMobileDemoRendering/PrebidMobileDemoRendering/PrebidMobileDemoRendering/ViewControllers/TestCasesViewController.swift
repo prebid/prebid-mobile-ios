@@ -98,11 +98,11 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
         
         //Set up the default account id here
         //as it can be changed in any test cases
-        PBMSDKConfiguration.singleton.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        PrebidRenderingConfig.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
         if AppConfiguration.shared.useMockServer {
-            let _ = try? PBMSDKConfiguration.singleton.setCustomPrebidServer(url:"https://10.0.2.2:8000/openrtb2/auction")
+            let _ = try? PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://10.0.2.2:8000/openrtb2/auction")
         } else {
-            let _ = try? PBMSDKConfiguration.singleton.setCustomPrebidServer(url:PBMSDKConfiguration.prodServerURL)
+            let _ = try? PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
         }
         
         example.configurationClosure?(vc)
@@ -131,7 +131,7 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        PBMSDKConfiguration.singleton.locationUpdatesEnabled = (status == .authorizedAlways) || (status == .authorizedWhenInUse)
+        PrebidRenderingConfig.shared.locationUpdatesEnabled = (status == .authorizedAlways) || (status == .authorizedWhenInUse)
     }
     
     // MARK: - Private Methods

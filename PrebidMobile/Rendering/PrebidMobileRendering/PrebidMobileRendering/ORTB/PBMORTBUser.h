@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 //Additional user data. Each Data object represents a different data source
 
 // Placeholder for exchange-specific extensions to OpenRTB.
-@property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, id> *ext;
+@property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, NSObject *> *ext;
 
 - (instancetype)init;
 

@@ -6,8 +6,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PBMLocationManagerProtocol.h"
-#import "PBMNSThreadProtocol.h"
+#import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+
+@protocol PBMLocationManagerProtocol;
+@protocol PBMNSThreadProtocol;
 
 @interface PBMLocationManager : NSObject
 

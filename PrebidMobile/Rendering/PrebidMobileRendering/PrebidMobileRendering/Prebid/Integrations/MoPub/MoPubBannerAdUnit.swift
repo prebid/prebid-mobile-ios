@@ -105,8 +105,8 @@ public class MoPubBannerAdUnit : NSObject {
                                                     
                                                     self.fetchDemand(with: adObject,
                                                                      connection: PBMServerConnection.singleton(),
-                                                                     sdkConfiguration: PBMSDKConfiguration.singleton,
-                                                                     targeting: PBMTargeting.shared(),
+                                                                     sdkConfiguration: PrebidRenderingConfig.shared,
+                                                                     targeting: PrebidRenderingTargeting.shared,
                                                                      completion: completion)
                                                     
                                                    })
@@ -117,8 +117,8 @@ public class MoPubBannerAdUnit : NSObject {
         
         fetchDemand(with: adObject,
                     connection: PBMServerConnection.singleton(),
-                    sdkConfiguration: PBMSDKConfiguration.singleton,
-                    targeting: PBMTargeting.shared(),
+                    sdkConfiguration: PrebidRenderingConfig.shared,
+                    targeting: PrebidRenderingTargeting.shared,
                     completion: completion)
     }
     
@@ -138,8 +138,8 @@ public class MoPubBannerAdUnit : NSObject {
     // NOTE: do not use `private` to expose this method to unit tests
     func fetchDemand(with adObject: NSObject,
                              connection: PBMServerConnectionProtocol,
-                             sdkConfiguration: PBMSDKConfiguration,
-                             targeting: PBMTargeting,
+                             sdkConfiguration: PrebidRenderingConfig,
+                             targeting: PrebidRenderingTargeting,
                              completion: ((PBMFetchDemandResult)->Void)?) {
         guard bidRequester == nil else {
             // Request in progress

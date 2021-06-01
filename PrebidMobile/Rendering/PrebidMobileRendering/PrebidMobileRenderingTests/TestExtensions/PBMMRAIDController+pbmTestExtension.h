@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
             creativeViewDelegate:(id<PBMCreativeViewDelegate>)creativeViewDelegate
                    downloadBlock:(PBMCreativeFactoryDownloadDataCompletionClosure)downloadBlock
         deviceAccessManagerClass:(Class)deviceAccessManagerClass
-                sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration;
+                sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration;
 
 - (PBMMRAIDCommand*)commandFromURL:(nullable NSURL*)url;
 @end

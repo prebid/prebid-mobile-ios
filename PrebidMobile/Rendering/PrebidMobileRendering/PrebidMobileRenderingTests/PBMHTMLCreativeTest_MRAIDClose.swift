@@ -39,7 +39,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
             creativeModel: model,
             transaction: transaction,
             webView: mockWebView,
-               sdkConfiguration: PBMSDKConfiguration()
+               sdkConfiguration: PrebidRenderingConfig.mock
         )
         
         let popModalExpectation = self.expectation(description: "Should pop modal")
@@ -77,7 +77,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
             creativeModel: model,
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             webView: mockWebView,
-               sdkConfiguration: PBMSDKConfiguration()
+               sdkConfiguration: PrebidRenderingConfig.mock
         )
         
         htmlCreative.modalManager = PBMModalManager()

@@ -5,7 +5,6 @@
 //  Copyright © 2021 OpenX. All rights reserved.
 //
 
-#import "PBMSDKConfiguration.h"
 #import "PBMURLOpenAttempterBlock.h"
 #import "PBMViewControllerProvider.h"
 #import "PBMAdConfiguration.h"
@@ -14,13 +13,15 @@
 #import "PBMModalState.h"
 #import "PBMOpenMeasurementSession.h"
 
+@class PrebidRenderingConfig;
+
 typedef PBMOpenMeasurementSession * _Nullable (^PBMOpenMeasurementSessionProvider)(void);
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMClickthroughBrowserOpener : NSObject
 
-- (instancetype)initWithSDKConfiguration:(PBMSDKConfiguration *)sdkConfiguration
+- (instancetype)initWithSDKConfiguration:(PrebidRenderingConfig *)sdkConfiguration
                          adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
                             modalManager:(PBMModalManager *)modalManager
                   viewControllerProvider:(PBMViewControllerProvider)viewControllerProvider

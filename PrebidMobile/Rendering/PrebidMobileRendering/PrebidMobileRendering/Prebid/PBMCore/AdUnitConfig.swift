@@ -12,7 +12,7 @@ public let refreshIntervalMin: TimeInterval  = 15
 public let refreshIntervalMax: TimeInterval = 120
 public let refreshIntervalDefault: TimeInterval  = 60
 
-@objc public class AdUnitConfig: NSObject, NSCopying {
+public class AdUnitConfig: NSObject, NSCopying {
     
     // MARK: - Properties
        

@@ -25,9 +25,11 @@
 #import "PBMNSThreadProtocol.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementWrapper.h"
-#import "PBMSDKConfiguration.h"
 #import "PBMTransaction.h"
 #import "PBMWindowLocker.h"
+
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 @interface PBMAbstractCreative() <SKStoreProductViewControllerDelegate>
 
@@ -141,13 +143,13 @@
 - (void)handleClickthrough:(NSURL*)url {
     // Call overridden method with empty non-null closures
     [self handleClickthrough:url
-            sdkConfiguration:PBMSDKConfiguration.singleton
+            sdkConfiguration:PrebidRenderingConfig.shared
            completionHandler:^(BOOL success){}
                       onExit:^{}];
 }
 
 - (void)handleClickthrough:(NSURL*)url
-          sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration {
+          sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration {
     [self handleClickthrough:url
             sdkConfiguration:sdkConfiguration
            completionHandler:^(BOOL success){}
@@ -158,13 +160,13 @@
          completionHandler:(void (^)(BOOL success))completion
                     onExit:(PBMVoidBlock)onClickthroughExitBlock {
     [self handleClickthrough:url
-            sdkConfiguration:PBMSDKConfiguration.singleton
+            sdkConfiguration:PrebidRenderingConfig.shared
            completionHandler:completion
                       onExit:onClickthroughExitBlock];
 }
 
 - (void)handleClickthrough:(NSURL*)url
-          sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration
+          sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
          completionHandler:(void (^)(BOOL success))completion
                     onExit:(PBMVoidBlock)onClickthroughExitBlock {
     if (self.creativeModel.adConfiguration.clickHandlerOverride != nil) {
@@ -201,7 +203,7 @@
 //checks the given URL and process it if it's a deep link
 //return YES if the given URL is deeplink
 - (BOOL)handleDeepLinkIfNeeded:(NSURL*)url
-              sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration
+              sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
              completionHandler:(void (^)(BOOL success))completion
                         onExit:(PBMVoidBlock)onClickthroughExitBlock {
     NSURL *effectiveURL = url;
@@ -246,7 +248,7 @@
 
 //Returns true if the clickthrough is presented
 - (BOOL)handleNormalClickthrough:(NSURL *)url
-                sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration
+                sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
                           onExit:(nonnull PBMVoidBlock)onClickthroughExitBlock {
     
     @weakify(self);
