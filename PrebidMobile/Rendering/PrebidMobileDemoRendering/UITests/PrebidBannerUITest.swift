@@ -187,6 +187,96 @@ class PrebidBannerUITest: RepeatedUITestCase {
         }
     }
     
+    func testNoRefreshInBackground() {
+        repeatTesting(times: 7) {
+            
+            let settingsItem = app.buttons["⚙"]
+            settingsItem.tap()
+            
+            let tablesQuery = app.tables
+            let listItem = tablesQuery.staticTexts["Banner 320x50 (PPM)"]
+            waitForExists(element: listItem, waitSeconds: 5)
+            listItem.tap()
+            
+            Thread.sleep(forTimeInterval: 1)
+            
+            let autoRefreshDelayField = tablesQuery.textFields["refreshInterval_field"]
+            waitForExists(element: autoRefreshDelayField, waitSeconds: 5)
+            autoRefreshDelayField.tap()
+            autoRefreshDelayField.typeText("1")
+            
+            let loadButton = tablesQuery.buttons["load_ad"]
+            XCTAssert(loadButton.isEnabled)
+            loadButton.tap()
+            
+            Thread.sleep(forTimeInterval: 3)
+
+            let labelTotal = self.app.staticTexts["adViewDidReceiveAd called times total"].firstMatch
+            XCTAssertEqual(labelTotal.label, "1")
+            
+            let expectation = expectation(description: "total count")
+            XCUIDevice.shared.press(XCUIDevice.Button.home)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 40) {
+                self.app.activate()
+                
+                // We wait 3 refresh cycles and want to see only to ad requests
+                let labelTotal = self.app.staticTexts.element(matching:.any, identifier:"adViewDidReceiveAd called times total")
+                XCTAssertEqual(labelTotal.label, "1")
+                expectation.fulfill()
+            }
+                 
+            waitForExpectations(timeout: 45)
+        }
+    }
+    
+    func testNoRefreshInNewTab() {
+        repeatTesting(times: 7) {
+            
+            let settingsItem = app.buttons["⚙"]
+            settingsItem.tap()
+            
+            let tablesQuery = app.tables
+            let listItem = tablesQuery.staticTexts["Banner 320x50 (PPM)"]
+            waitForExists(element: listItem, waitSeconds: 5)
+            listItem.tap()
+            
+            Thread.sleep(forTimeInterval: 1)
+            
+            let autoRefreshDelayField = tablesQuery.textFields["refreshInterval_field"]
+            waitForExists(element: autoRefreshDelayField, waitSeconds: 5)
+            autoRefreshDelayField.tap()
+            autoRefreshDelayField.typeText("1")
+            
+            let loadButton = tablesQuery.buttons["load_ad"]
+            XCTAssert(loadButton.isEnabled)
+            loadButton.tap()
+            
+            Thread.sleep(forTimeInterval: 2)
+
+            let labelTotal = self.app.staticTexts["adViewDidReceiveAd called times total"].firstMatch
+            XCTAssertEqual(labelTotal.label, "1")
+            
+            let expectation = expectation(description: "total count")
+            
+            app.tabBars.buttons.element(boundBy: 1).tap()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 40) {
+                self.app.tabBars.buttons.element(boundBy: 0).tap()
+                
+                Thread.sleep(forTimeInterval: 2)
+
+                
+                // We wait 3 refresh cycles and want to see only to ad requests
+                let labelTotal = self.app.staticTexts.element(matching:.any, identifier:"adViewDidReceiveAd called times total")
+                XCTAssertEqual(labelTotal.label, "1")
+                expectation.fulfill()
+            }
+                 
+            waitForExpectations(timeout: 45)
+        }
+    }
+    
     // MARK: - Private methods
     private func waitAd() {
         let adReceivedButton = app.buttons["adViewDidReceiveAd called"]

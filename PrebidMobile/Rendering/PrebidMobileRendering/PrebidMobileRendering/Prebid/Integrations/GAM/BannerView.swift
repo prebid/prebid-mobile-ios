@@ -69,11 +69,15 @@ public class BannerView: UIView,
     // MARK: Computed helpers
     
     var mayRefreshNow: Bool {
-        if let _ = adLoadFlowController?.hasFailedLoading {
+        guard let controller = adLoadFlowController else {
+            return false
+        }
+        
+        if controller.hasFailedLoading {
             return  true
         }
         
-        if isAdOpened || pbmIsVisible() || isCreativeOpened {
+        if isAdOpened || !pbmIsVisible() || isCreativeOpened {
             return false
         }
         
