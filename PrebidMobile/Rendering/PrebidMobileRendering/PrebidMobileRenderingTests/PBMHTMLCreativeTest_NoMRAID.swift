@@ -21,7 +21,7 @@ class PBMHTMLCreativeTest_NoMRAID : PBMHTMLCreativeTest_Base {
     func testNoMRAID() {
         logToFile = .init()
         
-        let sdkConfiguration = PBMSDKConfiguration()
+        let sdkConfiguration = PrebidRenderingConfig.mock
         
         
         let serverConnection = PBMServerConnection(userAgentService: MockUserAgentService())

@@ -9,7 +9,7 @@
 
 @class PBMVastParser;
 @class PBMVastResponse;
-@class PBMSDKConfiguration;
+@class PrebidRenderingConfig;
 @class PBMVastAbstractAd;
 
 @protocol PBMServerConnectionProtocol;

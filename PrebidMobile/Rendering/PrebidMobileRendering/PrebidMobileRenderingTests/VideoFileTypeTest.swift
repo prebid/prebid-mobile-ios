@@ -26,13 +26,15 @@ class VideoFileTypeTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDeleg
     override func tearDown() {
         MockServer.singleton().reset()
         
-        PBMSDKConfiguration.resetSingleton()
+        PrebidRenderingConfig.reset()
         
         super.tearDown()
     }
     
     func testTypes() {
-        PBMSDKConfiguration.singleton.forcedIsViewable = true
+        PrebidRenderingConfig.forcedIsViewable = true
+        defer { PrebidRenderingConfig.reset() }
+
         self.continueAfterFailure = true
         
         let typesToTest: [(MockServerMimeType, String)] = [

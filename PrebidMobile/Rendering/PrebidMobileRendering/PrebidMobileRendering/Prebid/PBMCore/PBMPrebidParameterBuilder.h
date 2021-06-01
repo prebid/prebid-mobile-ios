@@ -9,8 +9,8 @@
 #import "PBMParameterBuilderProtocol.h"
 
 @class AdUnitConfig;
-@class PBMSDKConfiguration;
-@class PBMTargeting;
+@class PrebidRenderingConfig;
+@class PrebidRenderingTargeting;
 @class PBMUserAgentService;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -19,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithAdConfiguration:(AdUnitConfig *)adConfiguration
-                       sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration
-                              targeting:(PBMTargeting *)targeting
+                       sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
+                              targeting:(PrebidRenderingTargeting *)targeting
                        userAgentService:(PBMUserAgentService *)userAgentService NS_DESIGNATED_INITIALIZER;
 
 @end

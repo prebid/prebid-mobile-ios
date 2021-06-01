@@ -12,7 +12,7 @@ import XCTest
 
 class PBMBannerViewTest: XCTestCase {
     override func tearDown() {
-        PBMSDKConfiguration.resetSingleton()
+        PrebidRenderingConfig.reset()
         
         super.tearDown()
     }
@@ -49,7 +49,7 @@ class PBMBannerViewTest: XCTestCase {
     func testAccountErrorPropagation() {
         let testID = "auid"
         
-        PBMSDKConfiguration.singleton.accountID = ""
+        PrebidRenderingConfig.shared.accountID = ""
         let primarySize = CGSize(width: 320, height: 50)
         
         let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: testID, adSize: primarySize)

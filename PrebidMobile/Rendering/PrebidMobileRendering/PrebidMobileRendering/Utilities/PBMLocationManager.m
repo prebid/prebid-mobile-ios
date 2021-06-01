@@ -10,6 +10,9 @@
 #import "PBMNSThreadProtocol.h"
 #import "PBMMacros.h"
 
+#import "PBMLocationManagerProtocol.h"
+#import "PBMNSThreadProtocol.h"
+
 @interface PBMLocationManager () <CLLocationManagerDelegate>
 @property (strong, nullable) CLLocation *location;
 @property (strong) id<PBMLocationManagerProtocol> locationManager;

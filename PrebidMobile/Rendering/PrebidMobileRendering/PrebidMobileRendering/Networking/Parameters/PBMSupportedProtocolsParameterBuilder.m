@@ -8,8 +8,10 @@
 #import "PBMSupportedProtocolsParameterBuilder.h"
 #import "PBMLog.h"
 #import "PBMMacros.h"
-#import "PBMSDKConfiguration.h"
 #import "PBMORTB.h"
+
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 #pragma mark - Constants
 
@@ -23,7 +25,7 @@ static int const PBMSupportOpenMeasurementProtocol = 7;
 
 @interface PBMSupportedProtocolsParameterBuilder ()
 
-@property (nonatomic, strong) PBMSDKConfiguration *sdkConfiguration;
+@property (nonatomic, strong) PrebidRenderingConfig *sdkConfiguration;
 
 @end
 
@@ -39,7 +41,7 @@ static int const PBMSupportOpenMeasurementProtocol = 7;
 
 #pragma mark - Initialization
 
-- (nonnull instancetype)initWithSDKConfiguration:(nonnull PBMSDKConfiguration *)sdkConfiguration {
+- (nonnull instancetype)initWithSDKConfiguration:(nonnull PrebidRenderingConfig *)sdkConfiguration {
     self = [super init];
     if (self) {
         PBMAssert(sdkConfiguration);

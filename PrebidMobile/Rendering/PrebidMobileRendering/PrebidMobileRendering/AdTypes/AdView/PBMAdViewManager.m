@@ -17,7 +17,6 @@
 #import "PBMLog.h"
 #import "PBMModalManager.h"
 #import "PBMNSThreadProtocol.h"
-#import "PBMSDKConfiguration.h"
 #import "PBMServerConnectionProtocol.h"
 #import "PBMTransaction.h"
 #import "PBMVideoCreative.h"

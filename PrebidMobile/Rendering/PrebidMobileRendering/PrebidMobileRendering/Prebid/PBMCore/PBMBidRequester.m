@@ -10,9 +10,6 @@
 #import "PBMError.h"
 #import "PBMORTBPrebid.h"
 #import "PBMPrebidParameterBuilder.h"
-#import "PBMSDKConfiguration.h"
-#import "PBMSDKConfiguration+InternalState.h"
-#import "PBMTargeting.h"
 #import "PBMParameterBuilderService.h"
 #import "PBMServerConnectionProtocol.h"
 #import "PBMServerResponse.h"
@@ -25,8 +22,8 @@
 @interface PBMBidRequester ()
 
 @property (nonatomic, strong, nonnull, readonly) id<PBMServerConnectionProtocol> connection;
-@property (nonatomic, strong, nonnull, readonly) PBMSDKConfiguration *sdkConfiguration;
-@property (nonatomic, strong, nonnull, readonly) PBMTargeting *targeting;
+@property (nonatomic, strong, nonnull, readonly) PrebidRenderingConfig *sdkConfiguration;
+@property (nonatomic, strong, nonnull, readonly) PrebidRenderingTargeting *targeting;
 @property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adUnitConfiguration;
 
 @property (nonatomic, copy, nullable) void (^completion)(BidResponse *, NSError *);
@@ -36,8 +33,8 @@
 @implementation PBMBidRequester
 
 - (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
-                  sdkConfiguration:(PBMSDKConfiguration *)sdkConfiguration
-                         targeting:(PBMTargeting *)targeting
+                  sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
+                         targeting:(PrebidRenderingTargeting *)targeting
                adUnitConfiguration:(AdUnitConfig *)adUnitConfiguration {
     if (!(self = [super init])) {
         return nil;
@@ -64,11 +61,7 @@
     self.completion = completion ?: ^(BidResponse *r, NSError *e) {};
     
     NSString * const requestString = [self getRTBRequest];
-    
-    NSLock * const timeoutLock = self.sdkConfiguration.bidRequestTimeoutLock;
-   
-    [timeoutLock lock];
-    
+           
     NSError * hostURLError = nil;
     NSString * const requestServerURL = [PBMHost.shared getHostURL:self.sdkConfiguration.prebidServerHost error:&hostURLError];
     if (hostURLError) {
@@ -78,9 +71,7 @@
     
     const NSInteger rawTimeoutMS_onRead     = self.sdkConfiguration.bidRequestTimeoutMillis;
     NSNumber * const dynamicTimeout_onRead  = self.sdkConfiguration.bidRequestTimeoutDynamic;
-    
-    [timeoutLock unlock];
-    
+        
     const NSTimeInterval postTimeout = (dynamicTimeout_onRead
                                         ? dynamicTimeout_onRead.doubleValue
                                         : (rawTimeoutMS_onRead / 1000.0));
@@ -118,7 +109,6 @@
                 const NSTimeInterval remoteTimeout = ([responseDate timeIntervalSinceDate:requestDate]
                                                       + bidResponseTimeout
                                                       + 0.2);
-                [timeoutLock lock];
                 NSString * const currentServerURL = [PBMHost.shared getHostURL:self.sdkConfiguration.prebidServerHost error:nil];
                 if (self.sdkConfiguration.bidRequestTimeoutDynamic == nil && [currentServerURL isEqualToString:requestServerURL]) {
                     const NSInteger rawTimeoutMS_onWrite = self.sdkConfiguration.bidRequestTimeoutMillis;
@@ -126,7 +116,6 @@
                     const NSTimeInterval updatedTimeout = MIN(remoteTimeout, appTimeout);
                     self.sdkConfiguration.bidRequestTimeoutDynamic = @(updatedTimeout);
                 };
-                [timeoutLock unlock];
             }
         }
         

@@ -818,7 +818,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
     private func runTestPrepareForMRAIDWithWindow(coppaValue:Int, coppaFlag:Bool) {
         let frame = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
         
-        let targeting = PBMTargeting.withDisabledLock
+        let targeting = PrebidRenderingTargeting.shared
         let webView = PBMWebView(frame: frame, creativeModel: nil, targeting: targeting)
         webView.delegate = self
 

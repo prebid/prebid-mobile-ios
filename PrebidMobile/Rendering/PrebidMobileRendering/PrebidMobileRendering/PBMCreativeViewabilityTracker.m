@@ -18,7 +18,9 @@
 #import "UIView+PBMExtensions.h"
 
 #ifdef DEBUG
-#   import "PBMSDKConfiguration+pbmTestExtension.h"
+    #import "PrebidRenderingConfig+TestExtension.h"
+    #import "PrebidMobileRenderingSwiftHeaders.h"
+    #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 #endif
 
 @interface PBMCreativeViewabilityTracker()
@@ -105,7 +107,7 @@
 
 - (BOOL)isVisibleView:(UIView *)view {
 #ifdef DEBUG
-    if ([PBMSDKConfiguration singleton].forcedIsViewable) {
+    if (PrebidRenderingConfig.shared.forcedIsViewable) {
         return YES;
     }
 #endif

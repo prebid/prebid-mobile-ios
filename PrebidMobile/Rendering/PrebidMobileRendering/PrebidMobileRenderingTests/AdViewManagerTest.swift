@@ -33,7 +33,7 @@ class PBMAdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         adViewManager = PBMAdViewManager(connection: PBMServerConnection(), modalManagerDelegate: nil)
         
         adViewManager.adViewManagerDelegate = self
-        PBMSDKConfiguration.singleton.forcedIsViewable = false
+        PrebidRenderingConfig.forcedIsViewable = false
         loadError = nil;
     }
     
@@ -60,7 +60,7 @@ class PBMAdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         
         nilExpectations()
         
-        PBMSDKConfiguration.resetSingleton()
+        PrebidRenderingConfig.reset()
         
         super.tearDown()
     }
@@ -89,7 +89,7 @@ class PBMAdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         adDidDisplayExpectation = expectation(description: "adDidDisplayExpectation")
         
         //Force viewability
-        PBMSDKConfiguration.singleton.forcedIsViewable = true
+        PrebidRenderingConfig.forcedIsViewable = true
         
         let transaction = UtilitiesForTesting.createTransactionWithHTMLCreative(withView: true)
         adViewManager.handleExternalTransaction(transaction)
@@ -103,7 +103,7 @@ class PBMAdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         adLoadedExpectation = expectation(description: "Expected a delegate function adLoaded to fire")
         
         //Force viewability
-        PBMSDKConfiguration.singleton.forcedIsViewable = true
+        PrebidRenderingConfig.forcedIsViewable = true
 
         // turn off autoDisplay and then alert the adViewManager that the ad is ready
         adViewManager.autoDisplayOnLoad = false
@@ -130,7 +130,7 @@ class PBMAdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         adDidDisplayExpectation = expectation(description: "adDidDisplayExpectation")
         
         //Force viewability
-        PBMSDKConfiguration.singleton.forcedIsViewable = true
+        PrebidRenderingConfig.forcedIsViewable = true
         
         // create an ad with one creative
         adViewManager.handleExternalTransaction(UtilitiesForTesting.createTransactionWithHTMLCreative(withView: true))
@@ -166,7 +166,7 @@ class PBMAdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         adDidDisplayExpectation = expectation(description: "adDidDisplayExpectation")
         
         //Force viewability
-        PBMSDKConfiguration.singleton.forcedIsViewable = true
+        PrebidRenderingConfig.forcedIsViewable = true
         
         adViewManager.handleExternalTransaction(UtilitiesForTesting.createTransactionWithHTMLCreative(withView: true))
         XCTAssertNotNil(adViewManager.externalTransaction)

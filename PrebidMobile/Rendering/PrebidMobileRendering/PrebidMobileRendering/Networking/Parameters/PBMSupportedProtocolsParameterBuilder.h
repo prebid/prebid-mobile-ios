@@ -9,7 +9,7 @@
 
 #import "PBMParameterBuilderProtocol.h"
 
-@class PBMSDKConfiguration;
+@class PrebidRenderingConfig;
 
 // Supported versions:
 // MRAID: 3,5
@@ -20,6 +20,6 @@
 @property (class, readonly, nonnull) NSString *supportedVersionsParamKey;
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
-- (nonnull instancetype)initWithSDKConfiguration:(nonnull PBMSDKConfiguration *)sdkConfiguration NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithSDKConfiguration:(nonnull PrebidRenderingConfig *)sdkConfiguration NS_DESIGNATED_INITIALIZER;
 
 @end

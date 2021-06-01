@@ -8,7 +8,6 @@
 #import "PBMBaseAdUnit.h"
 
 #import "PBMBidRequesterFactoryBlock.h"
-#import "PBMSDKConfiguration.h"
 #import "PBMWinNotifierBlock.h"
 #import "PBMServerConnectionProtocol.h"
 

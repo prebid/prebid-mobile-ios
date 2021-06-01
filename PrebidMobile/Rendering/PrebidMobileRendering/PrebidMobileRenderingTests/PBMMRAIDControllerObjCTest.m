@@ -7,7 +7,6 @@
 
 #import <XCTest/XCTest.h>
 
-#import "PBMSDKConfiguration.h"
 #import "PrebidMobileRenderingTests-Swift.h"
 
 @interface PBMMRAIDControllerObjCTest : XCTestCase

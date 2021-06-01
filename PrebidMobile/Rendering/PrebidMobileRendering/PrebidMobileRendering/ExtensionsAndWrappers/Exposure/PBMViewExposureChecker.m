@@ -8,7 +8,9 @@
 #import "PBMViewExposureChecker.h"
 
 #ifdef DEBUG
-#   import "PBMSDKConfiguration+pbmTestExtension.h"
+    #import "PrebidRenderingConfig+TestExtension.h"
+    #import "PrebidMobileRenderingSwiftHeaders.h"
+    #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 #endif
 
 @interface PBMViewExposureChecker()
@@ -18,8 +20,6 @@
 @property (nonatomic, nonnull, strong, readonly) NSMutableArray<NSValue *> *obstructions; // [CGRect]
 
 @end
-
-
 
 @implementation PBMViewExposureChecker
 
@@ -43,7 +43,7 @@
     [self.obstructions removeAllObjects];
         
 #   ifdef DEBUG
-    if ([PBMSDKConfiguration singleton].forcedIsViewable) {
+    if (PrebidRenderingConfig.shared.forcedIsViewable) {
         return [[PBMViewExposure alloc] initWithExposureFactor:1 visibleRectangle:self.testedView.bounds occlusionRectangles:nil];
     }
 #   endif

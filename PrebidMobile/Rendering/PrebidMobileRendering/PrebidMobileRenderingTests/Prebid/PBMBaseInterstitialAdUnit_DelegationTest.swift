@@ -12,7 +12,7 @@ import XCTest
 
 class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
     override func tearDown() {
-        PBMSDKConfiguration.resetSingleton()
+        PrebidRenderingConfig.reset()
         
         super.tearDown()
     }
@@ -50,7 +50,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
     func testAccountErrorPropagationByInterstitial() {
         let testID = "auid"
         
-        PBMSDKConfiguration.singleton.accountID = ""
+        PrebidRenderingConfig.shared.accountID = ""
         
         let interstitial = InterstitialAdUnit(configId: testID)
         let exp = expectation(description: "loading callback called")
@@ -72,7 +72,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
     func testAccountErrorPropagationByRewardedAd() {
         let testID = "auid"
         
-        PBMSDKConfiguration.singleton.accountID = ""
+        PrebidRenderingConfig.shared.accountID = ""
         
         let rewarded = RewardedAdUnit(configId: testID)
         let exp = expectation(description: "loading callback called")

@@ -8,8 +8,6 @@
 #import <MapKit/MapKit.h>
 
 #import "PBMAgeUtils.h"
-#import "PBMTargeting.h"
-#import "PBMTargeting+Private.h"
 #import "PBMAdConfiguration.h"
 #import "PBMAppInfoParameterBuilder.h"
 #import "PBMBasicParameterBuilder.h"
@@ -22,7 +20,6 @@
 #import "PBMNetworkParameterBuilder.h"
 #import "PBMORTBParameterBuilder.h"
 #import "PBMParameterBuilderProtocol.h"
-#import "PBMSDKConfiguration.h"
 #import "PBMSupportedProtocolsParameterBuilder.h"
 #import "PBMSKAdNetworksParameterBuilder.h"
 #import "PBMUserConsentDataManager.h"
@@ -31,6 +28,9 @@
 
 #import "PBMParameterBuilderService.h"
 
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
+
 @implementation PBMParameterBuilderService
 
 + (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull PBMAdConfiguration *)adConfiguration {
@@ -38,18 +38,16 @@
 }
 
 + (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull PBMAdConfiguration *)adConfiguration extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders {
-    PBMTargeting * const targetingClone = [[PBMTargeting shared] copy];
-    targetingClone.disableLockUsage = YES;
     return [self buildParamsDictWithAdConfiguration:adConfiguration
                                              bundle:NSBundle.mainBundle
                                  pbmLocationManager:PBMLocationManager.singleton
                              pbmDeviceAccessManager:[[PBMDeviceAccessManager alloc] initWithRootViewController: nil]
                              ctTelephonyNetworkInfo:[CTTelephonyNetworkInfo new]
                                        reachability:[PBMReachability reachabilityForInternetConnection]
-                                   sdkConfiguration:PBMSDKConfiguration.singleton
+                                   sdkConfiguration:PrebidRenderingConfig.shared
                                          sdkVersion:[PBMFunctions sdkVersion]
                               pbmUserConsentManager:[PBMUserConsentDataManager singleton]
-                                          targeting:targetingClone
+                                          targeting:PrebidRenderingTargeting.shared
                              extraParameterBuilders:extraParameterBuilders];
 }
 
@@ -61,10 +59,10 @@
                                                               pbmDeviceAccessManager:(nonnull PBMDeviceAccessManager *)pbmDeviceAccessManager
                                                               ctTelephonyNetworkInfo:(nonnull CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo
                                                                         reachability:(nonnull PBMReachability *)reachability
-                                                                    sdkConfiguration:(nonnull PBMSDKConfiguration *)sdkConfiguration
+                                                                    sdkConfiguration:(nonnull PrebidRenderingConfig *)sdkConfiguration
                                                                           sdkVersion:(nonnull NSString *)sdkVersion
                                                                pbmUserConsentManager:(nonnull PBMUserConsentDataManager *) pbmUserConsentManager
-                                                                           targeting:(nonnull PBMTargeting *)targeting
+                                                                           targeting:(nonnull PrebidRenderingTargeting *)targeting
                                                               extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders{
   
     PBMORTBBidRequest *bidRequest = [PBMParameterBuilderService createORTBBidRequestWithTargeting:targeting];
@@ -95,11 +93,11 @@
     return [PBMORTBParameterBuilder buildOpenRTBFor:bidRequest];
 }
 
-+ (nonnull PBMORTBBidRequest *)createORTBBidRequestWithTargeting:(nonnull PBMTargeting *)targeting {
++ (nonnull PBMORTBBidRequest *)createORTBBidRequestWithTargeting:(nonnull PrebidRenderingTargeting *)targeting {
     PBMORTBBidRequest *bidRequest = [PBMORTBBidRequest new];
     
     bidRequest.user.yob = targeting.userAge > 0 ?
-        @([PBMAgeUtils yobForAge:targeting.userAge])
+        @([PBMAgeUtils yobForAge:targeting.userAge.intValue])
         : nil;
     
     bidRequest.user.gender      = targeting.userGenderDescription;
@@ -108,7 +106,7 @@
     bidRequest.user.customdata  = targeting.userCustomData;
    
     if (targeting.userExt) {
-        bidRequest.user.ext = targeting.userExt;
+        bidRequest.user.ext = [targeting.userExt mutableCopy];
     }
     
     if (targeting.eids) {

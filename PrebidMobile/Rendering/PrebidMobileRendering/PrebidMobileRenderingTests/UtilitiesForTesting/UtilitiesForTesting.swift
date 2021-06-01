@@ -259,6 +259,42 @@ typealias JsonDictionary = [String:Any]
         return log
     }
     
+    @objc public class func resetTargeting(_ targeting: PrebidRenderingTargeting)  {
+        
+        targeting.userAge = nil
+        targeting.userGender = .unknown
+        targeting.userID = nil
+        targeting.buyerUID = nil
+        targeting.publisherName = nil
+        targeting.appStoreMarketURL = nil
+        targeting.userCustomData = nil
+        targeting.userExt = nil
+        targeting.eids = nil
+        targeting.IP = nil
+        targeting.keywords = nil
+        targeting.networkType = .unknown
+        
+        targeting.parameterDictionary = [:]
+        
+        checkInitialValues(targeting)
+    }
+
+    @objc public class func checkInitialValues(_ targeting: PrebidRenderingTargeting) {
+        XCTAssertNil(targeting.userAge)
+        XCTAssertEqual(targeting.userGender, .unknown)
+        XCTAssertNil(targeting.userID)
+        XCTAssertNil(targeting.buyerUID)
+        XCTAssertNil(targeting.publisherName)
+        XCTAssertNil(targeting.appStoreMarketURL)
+        XCTAssertNil(targeting.userCustomData)
+        XCTAssertNil(targeting.userExt)
+        XCTAssertNil(targeting.eids)
+        XCTAssertNil(targeting.IP)
+        XCTAssertNil(targeting.keywords)
+        XCTAssertEqual(targeting.networkType, .unknown)
+        XCTAssert(targeting.parameterDictionary == [:])
+    }
+    
     // Prepends "mraid:" and converts to a URL.
     class func getMRAIDURL(_ command: String) -> URL {
         guard let url = URL(string: "mraid:\(command)") else {

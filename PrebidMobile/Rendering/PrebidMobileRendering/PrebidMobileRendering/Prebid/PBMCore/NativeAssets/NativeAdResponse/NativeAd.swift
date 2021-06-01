@@ -137,7 +137,7 @@ public class NativeAd: NSObject {
          application: PBMUIApplicationProtocol,
          measurementWrapper: PBMOpenMeasurementWrapper,
          serverConnection: PBMServerConnectionProtocol,
-         sdkConfiguration: PBMSDKConfiguration) {
+         sdkConfiguration: PrebidRenderingConfig) {
             
         self.nativeAdMarkup = nativeAdMarkup
         
@@ -246,7 +246,7 @@ public class NativeAd: NSObject {
                   application: UIApplication.shared,
                   measurementWrapper: PBMOpenMeasurementWrapper.singleton,
                   serverConnection: PBMServerConnection.singleton(),
-                  sdkConfiguration: PBMSDKConfiguration.singleton)
+                  sdkConfiguration: PrebidRenderingConfig.shared)
     }
 
     // MARK: - Overrides

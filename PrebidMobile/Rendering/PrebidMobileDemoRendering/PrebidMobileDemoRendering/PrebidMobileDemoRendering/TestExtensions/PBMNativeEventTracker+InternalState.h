@@ -5,6 +5,7 @@
 //  Copyright © 2020 OpenX. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import <PrebidMobileRendering/PrebidMobileRendering.h>
 
 NS_ASSUME_NONNULL_BEGIN

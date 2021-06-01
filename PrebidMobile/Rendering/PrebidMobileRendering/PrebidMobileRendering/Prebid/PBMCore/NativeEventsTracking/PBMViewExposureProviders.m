@@ -7,10 +7,15 @@
 
 #import "PBMViewExposureProviders.h"
 
-#import "PBMSDKConfiguration.h"
-#import "PBMSDKConfiguration+pbmTestExtension.h"
 #import "PBMViewExposureChecker.h"
 #import "UIView+PBMExtensions.h"
+
+#ifdef DEBUG
+    #import "PrebidRenderingConfig+TestExtension.h"
+#endif
+
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 @implementation PBMViewExposureProviders
 
@@ -25,7 +30,7 @@
     return ^ PBMViewExposure * {
         BOOL isViewVisible = (view && [view pbmIsVisibleInViewLegacy:view.superview] && (view.window != nil));
 #       ifdef DEBUG
-        if ([PBMSDKConfiguration singleton].forcedIsViewable) {
+        if (PrebidRenderingConfig.shared.forcedIsViewable) {
             isViewVisible = YES;
         }
 #       endif

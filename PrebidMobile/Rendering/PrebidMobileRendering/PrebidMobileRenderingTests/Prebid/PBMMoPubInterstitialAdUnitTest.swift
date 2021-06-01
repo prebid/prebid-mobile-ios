@@ -10,14 +10,14 @@ import XCTest
 @testable import PrebidMobileRendering
 
 class PBMMoPubInterstitialAdUnitTest: XCTestCase {
-    private let sdkConfiguration: PBMSDKConfiguration = {
-        let config = PBMSDKConfiguration()
-//        config.serverURL = PBMSDKConfiguration.devintServerURL
-        try! config.setCustomPrebidServer(url: PBMSDKConfiguration.devintServerURL)
-        config.accountID = PBMSDKConfiguration.devintAccountID
+    private let sdkConfiguration: PrebidRenderingConfig = {
+        let config = PrebidRenderingConfig.mock
+//        config.serverURL = PrebidRenderingConfig.devintServerURL
+        try! config.setCustomPrebidServer(url: PrebidRenderingConfig.devintServerURL)
+        config.accountID = PrebidRenderingConfig.devintAccountID
         return config
     }()
-    private let targeting = PBMTargeting.withDisabledLock
+    private let targeting = PrebidRenderingTargeting.shared
     
     func testDefaultSettings() {
         let adUnit = MoPubInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30))

@@ -16,12 +16,15 @@
 #import "PBMModalViewController.h"
 #import "PBMWindowLocker.h"
 
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
+
 #import "PBMMacros.h"
 
 
 @interface PBMClickthroughBrowserOpener ()
 
-@property (nonatomic, strong, nonnull, readonly) PBMSDKConfiguration *sdkConfiguration;
+@property (nonatomic, strong, nonnull, readonly) PrebidRenderingConfig *sdkConfiguration;
 @property (nonatomic, strong, nullable, readonly) PBMAdConfiguration *adConfiguration;
 @property (nonatomic, strong, nonnull, readonly) PBMModalManager *modalManager;
 
@@ -38,7 +41,7 @@
 
 @implementation PBMClickthroughBrowserOpener
 
-- (instancetype)initWithSDKConfiguration:(PBMSDKConfiguration *)sdkConfiguration
+- (instancetype)initWithSDKConfiguration:(PrebidRenderingConfig *)sdkConfiguration
                          adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
                             modalManager:(PBMModalManager *)modalManager
                   viewControllerProvider:(PBMViewControllerProvider)viewControllerProvider

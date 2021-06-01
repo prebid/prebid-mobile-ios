@@ -7,12 +7,12 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     
     private var logToFile: LogToFileLock?
     
-    private var targeting: PBMTargeting!
+    private var targeting: PrebidRenderingTargeting!
     
     override func setUp() {
         super.setUp()
         
-        targeting = .withDisabledLock
+        targeting = .shared
         targeting.parameterDictionary["foo"] = "bar"
         targeting.userAge = 10
     }
@@ -29,7 +29,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         let adConfiguration = PBMAdConfiguration()
         adConfiguration.isInterstitialAd = false
         
-        let sdkConfiguration = PBMSDKConfiguration()
+        let sdkConfiguration = PrebidRenderingConfig.mock
         let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
                                                   sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
@@ -68,7 +68,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     func testParameterBuilderExternalBrowser() {
         let adConfiguration = PBMAdConfiguration()
         
-        let sdkConfiguration = PBMSDKConfiguration()
+        let sdkConfiguration = PrebidRenderingConfig.mock
         sdkConfiguration.useExternalClickthroughBrowser = true
         let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
                                                   sdkConfiguration:sdkConfiguration,
@@ -92,7 +92,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         let adConfiguration = adUnit.adUnitConfig.adConfiguration
         
         //Run the Builder
-        let sdkConfiguration = PBMSDKConfiguration()
+        let sdkConfiguration = PrebidRenderingConfig.mock
         let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
                                                   sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
@@ -128,7 +128,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         adConfiguration.size = CGSize(width: 300, height: 250)
         
         //Run the Builder
-        let sdkConfiguration = PBMSDKConfiguration()
+        let sdkConfiguration = PrebidRenderingConfig.mock
         let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
                                                   sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
@@ -160,7 +160,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         let adConfiguration = PBMAdConfiguration()
         adConfiguration.isInterstitialAd = false
         
-        let sdkConfiguration = PBMSDKConfiguration()
+        let sdkConfiguration = PrebidRenderingConfig.mock
         let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
                                                   sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
@@ -189,7 +189,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
             targeting.coppa = coppa
         }
         
-        let sdkConfiguration = PBMSDKConfiguration()
+        let sdkConfiguration = PrebidRenderingConfig.mock
         let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
                                                   sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
@@ -206,7 +206,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     func testInvalidProperties() {
         let adConfiguration = PBMAdConfiguration()
         
-        let sdkConfiguration = PBMSDKConfiguration()
+        let sdkConfiguration = PrebidRenderingConfig.mock
         let bidRequest = PBMORTBBidRequest()
         
         let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
@@ -275,7 +275,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
             adConfiguration = adUnit.adUnitConfig.adConfiguration
         }
 
-        let sdkConfiguration = PBMSDKConfiguration()
+        let sdkConfiguration = PrebidRenderingConfig.mock
         let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
                                                   sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",
@@ -304,7 +304,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         targeting.addParam("rab", withName: "foo")
         adConfiguration.isInterstitialAd = false
         
-        let sdkConfiguration = PBMSDKConfiguration()
+        let sdkConfiguration = PrebidRenderingConfig.mock
         let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
                                                   sdkConfiguration:sdkConfiguration,
                                                sdkVersion:"MOCK_SDK_VERSION",

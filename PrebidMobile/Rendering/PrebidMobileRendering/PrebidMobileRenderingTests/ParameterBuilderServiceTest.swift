@@ -13,6 +13,14 @@ import CoreLocation
 @testable import PrebidMobileRendering
 
 class ParameterBuilderServiceTest : XCTestCase {
+    
+    override func setUp() {
+        UtilitiesForTesting.resetTargeting(.shared)
+    }
+    
+    override func tearDown() {
+        UtilitiesForTesting.resetTargeting(.shared)
+    }
 
     var sdkVersion: String { return Bundle(for: BannerView.self).infoDictionary!["CFBundleShortVersionString"] as! String }
         
@@ -22,19 +30,19 @@ class ParameterBuilderServiceTest : XCTestCase {
     
         let adConfiguration = PBMAdConfiguration()
         
-        let oxbTargeting = PBMTargeting.withDisabledLock
-        oxbTargeting.parameterDictionary.removeAllObjects()
-        oxbTargeting.parameterDictionary["foo"] = "bar"
-        oxbTargeting.userAge = 10
-        oxbTargeting.coppa = 1
-        oxbTargeting.userGender = .male
-        oxbTargeting.buyerUID = "buyerUID"
-        oxbTargeting.appStoreMarketURL = url
-        oxbTargeting.keywords = "keyword1,keyword2"
-        oxbTargeting.userCustomData = "customDataString"
-        oxbTargeting.publisherName = publisherName
+        let targeting = PrebidRenderingTargeting.shared
+        targeting.parameterDictionary.removeAll()
+        targeting.parameterDictionary["foo"] = "bar"
+        targeting.userAge = 10
+        targeting.coppa = 1
+        targeting.userGender = .male
+        targeting.buyerUID = "buyerUID"
+        targeting.appStoreMarketURL = url
+        targeting.keywords = "keyword1,keyword2"
+        targeting.userCustomData = "customDataString"
+        targeting.publisherName = publisherName
         
-        let sdkConfiguration = PBMSDKConfiguration()
+        let sdkConfiguration = PrebidRenderingConfig.mock
         
         let mockBundle = MockBundle()
         let mockDeviceAccessManager = MockDeviceAccessManager(rootViewController: nil)
@@ -58,7 +66,7 @@ class ParameterBuilderServiceTest : XCTestCase {
             sdkConfiguration: sdkConfiguration,
             sdkVersion: "MOCK_SDK_VERSION",
             pbmUserConsentManager: pbmUserConsentManager,
-            targeting: oxbTargeting,
+            targeting: targeting,
             extraParameterBuilders: nil
         )
         
@@ -116,7 +124,7 @@ class ParameterBuilderServiceTest : XCTestCase {
             return
         }
 
-        let yob = PBMAgeUtils.yob(forAge:oxbTargeting.userAge)
+        let yob = PBMAgeUtils.yob(forAge:targeting.userAge as! Int)
         let omidVersion = PBMFunctions.omidVersion()
         var deviceExt = ""
         if #available(iOS 14.0, *) {

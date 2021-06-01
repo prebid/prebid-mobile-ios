@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         //Set up SDK.
-        PBMSDKConfiguration.initializeSDK()
+        PrebidRenderingConfig.initializeRenderingModule()
                 
         // Set up MockServer
         processArgumentsParser.addOption("useMockServer", fireOnce: true) { params in
@@ -69,13 +69,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         processArgumentsParser.addOption("ADD_USER_DATA", paramsCount: 2) { params in
-            PBMTargeting.shared().addUserData(params[1], forKey: params[0])
+            PrebidRenderingTargeting.shared.addUserData(params[1], forKey: params[0])
         }
         processArgumentsParser.addOption("ADD_APP_CONTEXT", paramsCount: 2) { params in
-            PBMTargeting.shared().addContextData(params[1], forKey: params[0])
+            PrebidRenderingTargeting.shared.addContextData(params[1], forKey: params[0])
         }
         processArgumentsParser.addOption("BIDDER_ACCESS_CONTROL_LIST", acceptedParamsRange: (min: 1, max: nil)) { params in
-            params.forEach(PBMTargeting.shared().addBidder(toAccessControlList:))
+            params.forEach(PrebidRenderingTargeting.shared.addBidder(toAccessControlList:))
         }
         processArgumentsParser.addOption("ADD_ADUNIT_CONTEXT", paramsCount: 2) { params in
             let appConfig = AppConfiguration.shared
@@ -97,13 +97,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             GlobalVars.reactiveGAMInitFlag.markSdkInitialized()
         };
         
-        PBMSDKConfiguration.singleton.logLevel = PBMLogLevel.info
-        PBMSDKConfiguration.singleton.debugLogFileEnabled = true
+        PrebidRenderingConfig.shared.logLevel = PBMLogLevel.info
+        PrebidRenderingConfig.shared.debugLogFileEnabled = true
         
         // OpenX's ads include Open Measurement scripts that sometime require additional time for loading.
-        PBMSDKConfiguration.singleton.creativeFactoryTimeout = 20;
+        PrebidRenderingConfig.shared.creativeFactoryTimeout = 20;
         
-        PBMSDKConfiguration.singleton.locationUpdatesEnabled = false
+        PrebidRenderingConfig.shared.locationUpdatesEnabled = false
         
 		return true
 	}

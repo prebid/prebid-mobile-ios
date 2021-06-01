@@ -96,9 +96,7 @@
 #import "PBMAdRequesterVAST.h"
 #import "PBMCreativeModelCollectionMakerVAST.h"
 #import "PBMTransaction.h"
-#import "PBMTargeting.h"
 #import "PBMAgeUtils.h"
-#import "PBMTargeting+Private.h"
 #import "PBMVideoCreative.h"
 #import "PBMVideoView.h"
 #import "PBMVideoViewDelegate.h"
@@ -171,7 +169,6 @@
 #import "PBMBasicParameterBuilder+PBMTestExtension.h"
 #import "PBMJSLibraryManager+PBMTestExtension.h"
 #import "PBMMRAIDController+PBMTestExtension.h"
-#import "PBMSDKConfiguration+PBMTestExtension.h"
 #import "PBMCreativeViewabilityTracker+PBMTestExtension.h"
 
 // Prebid
@@ -181,8 +178,6 @@
 #import "PBMBidResponseTransformer.h"
 #import "PBMError.h"
 #import "PBMPrebidParameterBuilder.h"
-#import "PBMSDKConfiguration+InternalState.h"
-#import "PBMTargeting+InternalState.h"
 #import "PBMViewabilityEventDetector.h"
 #import "PBMWinNotifier+Private.h"
 // NativeAds (Request)
@@ -217,3 +212,4 @@
 #import "MoPubNativeAdUnit+TestExtension.h"
 #import "MoPubInterstitialAdUnit+TestExtension.h"
 #import "MoPubBannerAdUnit+TestExtension.h"
+#import "PBMLocationManagerProtocol.h"

@@ -10,7 +10,6 @@
 #import "PBMAdRequesterVAST.h"
 #import "PBMCreativeModelCollectionMakerVAST.h"
 #import "PBMMacros.h"
-#import "PBMSDKConfiguration.h"
 #import "PBMMacros.h"
 #import "PBMAdDetails.h"
 #import "PBMServerResponse.h"

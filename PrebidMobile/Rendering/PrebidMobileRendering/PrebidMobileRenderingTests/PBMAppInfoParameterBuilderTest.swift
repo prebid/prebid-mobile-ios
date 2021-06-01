@@ -14,13 +14,13 @@ class PBMAppInfoParameterBuilderTest: XCTestCase {
     var bidRequest: PBMORTBBidRequest!
     var mockBundle: MockBundle!
     var builder: PBMAppInfoParameterBuilder!
-    var targeting: PBMTargeting!
+    var targeting: PrebidRenderingTargeting!
 
     override func setUp() {
         super.setUp()
         bidRequest = PBMORTBBidRequest()
         mockBundle = MockBundle()
-        targeting = PBMTargeting.withDisabledLock
+        targeting = PrebidRenderingTargeting.shared
         targeting.publisherName = publisherName
         
         builder = PBMAppInfoParameterBuilder(bundle: mockBundle, targeting: targeting)

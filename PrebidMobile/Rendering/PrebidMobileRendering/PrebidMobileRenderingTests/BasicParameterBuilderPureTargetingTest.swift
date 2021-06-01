@@ -7,9 +7,9 @@ import XCTest
 class BasicParameterBuilderPureTargetingTest: XCTestCase {
     
     func testParameterBuilderNoUserAgeNoCoppa() {
-        let targeting = PBMTargeting.withDisabledLock
+        let targeting = PrebidRenderingTargeting.shared
         let builder = PBMBasicParameterBuilder(adConfiguration:PBMAdConfiguration(),
-                                                  sdkConfiguration:PBMSDKConfiguration(),
+                                                  sdkConfiguration:PrebidRenderingConfig.mock,
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
         

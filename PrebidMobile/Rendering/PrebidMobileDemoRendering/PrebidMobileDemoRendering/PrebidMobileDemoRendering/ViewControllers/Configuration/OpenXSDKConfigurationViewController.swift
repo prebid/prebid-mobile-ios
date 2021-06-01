@@ -10,8 +10,8 @@ import Eureka
 
 final class OpenXSDKConfigurationController : FormViewController {
     
-    var sdkConfig: PBMSDKConfiguration {
-        return PBMSDKConfiguration.singleton
+    var sdkConfig: PrebidRenderingConfig {
+        return PrebidRenderingConfig.shared
     }
     
     override func viewDidLoad() {

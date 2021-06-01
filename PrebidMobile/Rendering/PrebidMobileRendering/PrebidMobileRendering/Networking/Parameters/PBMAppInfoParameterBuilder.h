@@ -7,11 +7,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PBMTargeting.h"
 #import "PBMBundleProtocol.h"
 #import "PBMParameterBuilderProtocol.h"
 
-@class PBMSDKConfiguration;
+@class PrebidRenderingConfig;
+@class PrebidRenderingTargeting;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMAppInfoParameterBuilder : NSObject <PBMParameterBuilder>
@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithBundle:(id<PBMBundleProtocol>)bundle
-                     targeting:(PBMTargeting *)targeting NS_DESIGNATED_INITIALIZER;
+                     targeting:(PrebidRenderingTargeting *)targeting NS_DESIGNATED_INITIALIZER;
 
 @end
 NS_ASSUME_NONNULL_END
