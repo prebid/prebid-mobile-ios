@@ -10,6 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @class PBMDeviceAccessManager;
+@class PBMUserConsentDataManager;
 
 NS_SWIFT_NAME(DeviceInfoParameterBuilder)
 @interface PBMDeviceInfoParameterBuilder : NSObject <PBMParameterBuilder>
@@ -22,7 +23,8 @@ NS_SWIFT_NAME(DeviceInfoParameterBuilder)
 
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
-- (nonnull instancetype)initWithDeviceAccessManager:(nonnull PBMDeviceAccessManager *)deviceAccessManager NS_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithDeviceAccessManager:(nonnull PBMDeviceAccessManager *)deviceAccessManager
+                                 userConsentManager:(nullable PBMUserConsentDataManager *)userConsentManager NS_DESIGNATED_INITIALIZER;
 
 @end
 NS_ASSUME_NONNULL_END

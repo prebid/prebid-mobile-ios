@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, nullable, readonly, getter=isSubjectToGDPR) NSNumber *subjectToGDPR;
 @property (nonatomic, nullable, readonly) NSString *gdprConsentString;
+@property (nonatomic, assign, readonly) BOOL canAccessDeviceData;
 
 - (instancetype)initWithConsentDataManager:(PBMUserConsentDataManager *)consentDataManager;
 

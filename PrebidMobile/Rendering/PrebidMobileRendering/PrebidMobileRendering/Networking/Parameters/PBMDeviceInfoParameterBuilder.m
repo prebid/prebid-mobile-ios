@@ -12,12 +12,15 @@
 #import "PBMORTBAbstract+Protected.h"
 #import "PBMDeviceAccessManager.h"
 #import "PBMMacros.h"
+#import "PBMUserConsentDataManager.h"
+#import "PBMUserConsentResolver.h"
 
 #pragma mark - Internal Extension
 
 @interface PBMDeviceInfoParameterBuilder()
 
 @property (nonatomic, strong) PBMDeviceAccessManager *deviceAccessManager;
+@property (nonatomic, strong) PBMUserConsentDataManager *userConsentManager;
 
 @end
 
@@ -45,12 +48,14 @@
 
 #pragma mark - Initialization
 
-- (nonnull instancetype)initWithDeviceAccessManager:(nonnull PBMDeviceAccessManager *)deviceAccessManager {
+- (nonnull instancetype)initWithDeviceAccessManager:(nonnull PBMDeviceAccessManager *)deviceAccessManager
+                                 userConsentManager:(nullable PBMUserConsentDataManager *)userConsentManager{
     self = [super init];
     if (self) {
         PBMAssert(deviceAccessManager);
         
         self.deviceAccessManager = deviceAccessManager;
+        self.userConsentManager = userConsentManager ?: [PBMUserConsentDataManager singleton];
     }
     
     return self;
@@ -74,7 +79,9 @@
     //     “Limit Ad Tracking” signal commercially endorsed (e.g., iOS, Android), where 0 = tracking
     //     is unrestricted, 1 = tracking must be limited per commercial guidelines.
     NSNumber *lmt = @(!self.deviceAccessManager.advertisingTrackingEnabled);
-    NSString *ifa = self.deviceAccessManager.advertisingIdentifier;
+    
+    PBMUserConsentResolver *consentResolver = [[PBMUserConsentResolver alloc] initWithConsentDataManager:self.userConsentManager];
+    NSString *ifa = consentResolver.canAccessDeviceData ? self.deviceAccessManager.advertisingIdentifier : nil;
     
     bidRequest.device.lmt = lmt;
     bidRequest.device.ifa = ifa;

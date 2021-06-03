@@ -75,7 +75,7 @@
                                                         targeting:targeting],
         [[PBMGeoLocationParameterBuilder alloc] initWithLocationManager:pbmLocationManager],
         [[PBMAppInfoParameterBuilder alloc] initWithBundle:bundle targeting:targeting],
-        [[PBMDeviceInfoParameterBuilder alloc] initWithDeviceAccessManager:pbmDeviceAccessManager],
+        [[PBMDeviceInfoParameterBuilder alloc] initWithDeviceAccessManager:pbmDeviceAccessManager userConsentManager:pbmUserConsentManager],
         [[PBMNetworkParameterBuilder alloc] initWithCtTelephonyNetworkInfo:ctTelephonyNetworkInfo reachability:reachability],
         [[PBMSupportedProtocolsParameterBuilder alloc] initWithSDKConfiguration:sdkConfiguration],
         [[PBMUserConsentParameterBuilder alloc] initWithUserConsentManager:pbmUserConsentManager],

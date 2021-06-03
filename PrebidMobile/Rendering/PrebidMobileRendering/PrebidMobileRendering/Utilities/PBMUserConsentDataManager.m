@@ -7,13 +7,17 @@
 
 #import "PBMUserConsentDataManager.h"
 
+// TCF v1 constants
 NSString *const IABConsentSubjectToGDPRKey = @"IABConsent_SubjectToGDPR";
 NSString *const IABConsentConsentStringKey = @"IABConsent_ConsentString";
 
+// TCF v2 constants
 NSString *const IABTCF2CMPSDKIDKey = @"IABTCF_CmpSdkID";
 NSString *const IABTCF2SubjectToGDPRKey = @"IABTCF_gdprApplies";
 NSString *const IABTCF2ConsentStringKey = @"IABTCF_TCString";
+NSString *const IABTCF2PurposeConsentsStringKey = @"IABTCF_PurposeConsents";
 
+// CCPA
 NSString *const IABUSPrivacyStringKey = @"IABUSPrivacy_String";
 
 @implementation PBMUserConsentDataManager {
@@ -73,6 +77,7 @@ NSString *const IABUSPrivacyStringKey = @"IABUSPrivacy_String";
     self.tcf2cmpSdkID = [_userDefaults stringForKey:IABTCF2CMPSDKIDKey];
     self.tcf2gdrpApplies = [_userDefaults stringForKey:IABTCF2SubjectToGDPRKey];
     self.tcf2consentString = [_userDefaults stringForKey:IABTCF2ConsentStringKey];
+    self.tcf2purposeConsentsString = [_userDefaults stringForKey:IABTCF2PurposeConsentsStringKey];
 }
 
 - (void)userDefaultsChanged {
