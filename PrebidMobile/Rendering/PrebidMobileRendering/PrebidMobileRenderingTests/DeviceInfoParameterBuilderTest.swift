@@ -7,16 +7,21 @@ import XCTest
 class DeviceInfoParameterBuilderTest: XCTestCase {
 
     let initialDict = [String:String]()
+    var userDefaults: UserDefaults!
     var deviceInfoParameterBuilder: DeviceInfoParameterBuilder!
+    var userConsentManager: PBMUserConsentDataManager!
     var bidRequest: PBMORTBBidRequest!
 
     override func setUp() {
-        self.deviceInfoParameterBuilder = DeviceInfoParameterBuilder(deviceAccessManager: MockDeviceAccessManager(rootViewController: nil))
+        self.userDefaults = UserDefaults()
+        self.userConsentManager = PBMUserConsentDataManager(userDefaults: userDefaults)
+        self.deviceInfoParameterBuilder = DeviceInfoParameterBuilder(deviceAccessManager: MockDeviceAccessManager(rootViewController: nil),     userConsentManager: userConsentManager)
         self.bidRequest = PBMORTBBidRequest()
     }
 
     override func tearDown() {
         MockDeviceAccessManager.reset()
+        cleanUpUserDefaults()
     }
 
     func testDeviceSize() {
@@ -75,5 +80,29 @@ class DeviceInfoParameterBuilderTest: XCTestCase {
         self.deviceInfoParameterBuilder.build(self.bidRequest)
 
         XCTAssertNil(self.bidRequest.device.language)
+    }
+    
+    func testDisabledAccessDeviceData() {
+        disableAccessDeviceData()
+        
+        deviceInfoParameterBuilder.build(bidRequest)
+        XCTAssertNil(bidRequest.device.ifa)
+    }
+    
+    // MARK: - private helpers
+    let cmpSDKIDKey = "IABTCF_CmpSdkID"
+    let subjectToGDPRKey = "IABTCF_gdprApplies"
+    let purposeConsentsStringKey = "IABTCF_PurposeConsents"
+    
+    func disableAccessDeviceData() {
+        userDefaults.set(42, forKey: cmpSDKIDKey)
+        userDefaults.set(true, forKey: subjectToGDPRKey)
+        userDefaults.set("0000", forKey: purposeConsentsStringKey)
+    }
+    
+    func cleanUpUserDefaults() {
+        userDefaults.removeObject(forKey: cmpSDKIDKey)
+        userDefaults.removeObject(forKey: subjectToGDPRKey)
+        userDefaults.removeObject(forKey: purposeConsentsStringKey)
     }
 }

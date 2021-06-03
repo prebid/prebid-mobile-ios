@@ -45,6 +45,7 @@ typedef NS_CLOSED_ENUM(NSUInteger, PBMIABConsentSubjectToGDPR) {
 @property (nonatomic, strong, nullable) NSString *tcf2cmpSdkID;
 @property (nonatomic, strong, nullable) NSString *tcf2gdrpApplies;
 @property (nonatomic, strong, nullable) NSString *tcf2consentString;
+@property (nonatomic, strong, nullable) NSString *tcf2purposeConsentsString;
 
 
 /*

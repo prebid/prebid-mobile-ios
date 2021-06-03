@@ -12,6 +12,7 @@ protocol TCFEdition {
     var cmpSDKIDKey: String? { get }
     var subjectToGDPRKey: String { get }
     var consentStringKey: String { get }
+    var purposeConsentsStringKey : String? { get }
 }
 
 class PBMUserConsentDataManagerTest: XCTestCase {
@@ -23,20 +24,25 @@ class PBMUserConsentDataManagerTest: XCTestCase {
         static let v2 = TCF2()
 
         struct TCF1: TCFEdition {
-            let cmpSDKIDKey: String? = nil;
+            let cmpSDKIDKey: String? = nil
             let subjectToGDPRKey = "IABConsent_SubjectToGDPR"
             let consentStringKey = "IABConsent_ConsentString"
+            let purposeConsentsStringKey: String? = nil
         }
 
         struct TCF2: TCFEdition {
-            let cmpSDKIDKey: String? = "IABTCF_CmpSdkID";
-            let subjectToGDPRKey = "IABTCF_gdprApplies";
-            let consentStringKey = "IABTCF_TCString";
+            let cmpSDKIDKey: String? = "IABTCF_CmpSdkID"
+            let subjectToGDPRKey = "IABTCF_gdprApplies"
+            let consentStringKey = "IABTCF_TCString"
+            let purposeConsentsStringKey: String? = "IABTCF_PurposeConsents"
         }
     }
     
     let consentString1 = "consentstring1"
     let consentString2 = "consentstring2"
+    
+    let purposeConsentsString0 = "00000000"
+    let purposeConsentsString1 = "11111111"
     
     let usPrivacyStringKey = "IABUSPrivacy_String"
     
@@ -45,17 +51,18 @@ class PBMUserConsentDataManagerTest: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
         self.userDefaults = UserDefaults()
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         self.userDefaults.removeObject(forKey: TCF.v1.subjectToGDPRKey)
         self.userDefaults.removeObject(forKey: TCF.v1.consentStringKey)
+        
         self.userDefaults.removeObject(forKey: TCF.v2.cmpSDKIDKey!)
         self.userDefaults.removeObject(forKey: TCF.v2.subjectToGDPRKey)
         self.userDefaults.removeObject(forKey: TCF.v2.consentStringKey)
+        self.userDefaults.removeObject(forKey: TCF.v2.purposeConsentsStringKey!)
+        
         self.userDefaults.removeObject(forKey: usPrivacyStringKey)
         super.tearDown()
     }
@@ -166,6 +173,11 @@ class PBMUserConsentDataManagerTest: XCTestCase {
         setGDPRConsentString(tcf: TCF.v2, val: consentString1)
         assertExpectedConsent(subjectToGDPR: .yes, consentString: consentString1)
     }
+    
+    func testTCFv2_PurposeConsentsString() {
+        self.setPurposeConsentsString(val: purposeConsentsString1)
+        assertPurposeConsentsString(purposeConsentsString1)
+    }
 
     // MARK: User defaults changes
     func testIABConsent_ConsentString_Changed() {
@@ -213,6 +225,19 @@ class PBMUserConsentDataManagerTest: XCTestCase {
 
         self.assertExpectedConsent(subjectToGDPR: .no, consentString: self.consentString1)
     }
+    
+    func testIABConsent_PurposeConsentsString_Changed() {
+        self.setPurposeConsentsString(val: purposeConsentsString1)
+        self.assertPurposeConsentsString(purposeConsentsString1)
+        
+        self.setPurposeConsentsString(val: purposeConsentsString0)
+
+        let exp = self.expectation(description: "notificationwaiter")
+        exp.isInverted = true
+        self.waitForExpectations(timeout: 1, handler: nil)
+        
+        self.assertPurposeConsentsString(purposeConsentsString0)
+    }
 
     func testIABConsent_usPrivacyString_Changed() {
         self.setUSPrivacyString(val: usPrivacyStringNotASubject)
@@ -225,6 +250,70 @@ class PBMUserConsentDataManagerTest: XCTestCase {
         self.waitForExpectations(timeout: 1, handler: nil)
         
         self.assertUSPrivacyString(usPrivacyStringNoOptOut)
+    }
+    
+    //fetch advertising identifier based TCF 2.0 Purpose1 value
+    //truth table
+    /*
+                         deviceAccessConsent=true   deviceAccessConsent=false  deviceAccessConsent undefined
+    gdprApplies=false        Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
+    gdprApplies=true         Yes, read IDFA             No, don’t read IDFA           No, don’t read IDFA
+    gdprApplies=undefined    Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
+    */
+    func testCanAccessDeviceDataGDPRFalse() {
+        setCMPSDKID(tcf: TCF.v2, val: 42)
+        self.setSubjectToGDPR(tcf: TCF.v2, bool: false)
+        
+        let userConsentManager = PBMUserConsentDataManager(userDefaults: self.userDefaults)
+        let resolver = PBMUserConsentResolver(consentDataManager: userConsentManager)
+        
+        // deviceAccessConsent undefined -> YES
+        XCTAssertTrue(resolver.canAccessDeviceData)
+        
+        // deviceAccessConsent 0 -> NO
+        self.setPurposeConsentsString(val: purposeConsentsString0)
+        XCTAssertFalse(resolver.canAccessDeviceData)
+        
+        // deviceAccessConsent 1 -> YES
+        self.setPurposeConsentsString(val: purposeConsentsString1)
+        XCTAssertTrue(resolver.canAccessDeviceData)
+    }
+    
+    func testCanAccessDeviceDataGDPRTrue() {
+        setCMPSDKID(tcf: TCF.v2, val: 42)
+        self.setSubjectToGDPR(tcf: TCF.v2, bool: true)
+        
+        let userConsentManager = PBMUserConsentDataManager(userDefaults: self.userDefaults)
+        let resolver = PBMUserConsentResolver(consentDataManager: userConsentManager)
+        
+        // deviceAccessConsent undefined -> NO
+        XCTAssertFalse(resolver.canAccessDeviceData)
+        
+        // deviceAccessConsent 0 -> NO
+        self.setPurposeConsentsString(val: purposeConsentsString0)
+        XCTAssertFalse(resolver.canAccessDeviceData)
+        
+        // deviceAccessConsent 1 -> YES
+        self.setPurposeConsentsString(val: purposeConsentsString1)
+        XCTAssertTrue(resolver.canAccessDeviceData)
+    }
+    
+    func testCanAccessDeviceDataGDPRUndefined() {
+        setCMPSDKID(tcf: TCF.v2, val: 42)
+        
+        let userConsentManager = PBMUserConsentDataManager(userDefaults: self.userDefaults)
+        let resolver = PBMUserConsentResolver(consentDataManager: userConsentManager)
+        
+        // deviceAccessConsent undefined -> YES
+        XCTAssertTrue(resolver.canAccessDeviceData)
+        
+        // deviceAccessConsent 0 -> NO
+        self.setPurposeConsentsString(val: purposeConsentsString0)
+        XCTAssertFalse(resolver.canAccessDeviceData)
+        
+        // deviceAccessConsent 1 -> YES
+        self.setPurposeConsentsString(val: purposeConsentsString1)
+        XCTAssertTrue(resolver.canAccessDeviceData)
     }
 
     // MARK: Helpers
@@ -244,6 +333,12 @@ class PBMUserConsentDataManagerTest: XCTestCase {
         self.userDefaults.set(val, forKey: tcf.consentStringKey)
     }
     
+    func setGDPRPurposeConsentsString(tcf: TCFEdition = TCF.v2, val: String) {
+        if let key = tcf.purposeConsentsStringKey {
+            self.userDefaults.set(val, forKey: key)
+        }
+    }
+    
     func setCMPSDKID(tcf: TCFEdition, val: Int?) {
         if let key = tcf.cmpSDKIDKey {
             self.userDefaults.set(val, forKey: key)
@@ -252,6 +347,10 @@ class PBMUserConsentDataManagerTest: XCTestCase {
     
     func setUSPrivacyString(val: String?) {
         self.userDefaults.set(val, forKey: usPrivacyStringKey)
+    }
+    
+    func setPurposeConsentsString(val: String?) {
+        self.userDefaults.set(val, forKey: TCF.v2.purposeConsentsStringKey!)
     }
 
     func assertExpectedConsent(subjectToGDPR: PBMIABConsentSubjectToGDPR, consentString: String?, file: StaticString = #file, line: UInt = #line) {
@@ -271,5 +370,10 @@ class PBMUserConsentDataManagerTest: XCTestCase {
     func assertUSPrivacyString(_ usPrivacyString: String?, file: StaticString = #file, line: UInt = #line) {
         let userConsentManager = PBMUserConsentDataManager(userDefaults: self.userDefaults)
         XCTAssertEqual(userConsentManager.usPrivacyString, usPrivacyString)
+    }
+    
+    func assertPurposeConsentsString(_ purposeConsentsString: String?) {
+        let userConsentManager = PBMUserConsentDataManager(userDefaults: self.userDefaults)
+        XCTAssertEqual(userConsentManager.tcf2purposeConsentsString, purposeConsentsString)
     }
 }

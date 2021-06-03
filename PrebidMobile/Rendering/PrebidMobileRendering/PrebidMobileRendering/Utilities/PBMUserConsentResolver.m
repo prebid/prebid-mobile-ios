@@ -48,6 +48,42 @@
     }
 }
 
+//fetch advertising identifier based TCF 2.0 Purpose1 value
+//truth table
+/*
+                     deviceAccessConsent=true   deviceAccessConsent=false  deviceAccessConsent undefined
+gdprApplies=false        Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
+gdprApplies=true         Yes, read IDFA             No, don’t read IDFA           No, don’t read IDFA
+gdprApplies=undefined    Yes, read IDFA             No, don’t read IDFA           Yes, read IDFA
+*/
+- (BOOL)canAccessDeviceData {
+    const NSNumber *gdprApplies = self.isSubjectToGDPR;
+    const NSUInteger deviceAccessConsentIndex = 0;
+    const NSNumber *deviceAccessConsent = [self getPurposeConsent:deviceAccessConsentIndex];
+    
+    // deviceAccess undefined and gdprApplies undefined
+    if (deviceAccessConsent == nil && gdprApplies == nil) {
+        return YES;
+    }
+    
+    // deviceAccess undefined and gdprApplies false
+    if (deviceAccessConsent == nil && gdprApplies.boolValue == false) {
+        return YES;
+    }
+    
+    // gdprApplies = true
+    // deviceAccess is set (true/false) or still is nil (i.e. false)
+    return deviceAccessConsent.boolValue;
+}
+
+- (NSNumber *)getPurposeConsent:(NSUInteger)index {
+    const NSString * purposeConstentsString = self.consentDataManager.tcf2purposeConsentsString;
+    if (!purposeConstentsString || purposeConstentsString.length <= index) {
+        return nil;
+    }
+    return @([purposeConstentsString characterAtIndex:index] == '1');
+}
+
 // MARK: - Private Helpers
 
 - (BOOL)shouldReturnGDRPConsentData {
