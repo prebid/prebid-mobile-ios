@@ -19,7 +19,7 @@ import PrebidMobile
 
 import GoogleMobileAds
 
-import MoPub
+import MoPubSDK
 
 enum BannerFormat: Int {
     case html

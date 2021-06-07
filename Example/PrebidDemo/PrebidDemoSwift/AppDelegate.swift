@@ -17,7 +17,7 @@ import UIKit
 import PrebidMobile
 import CoreLocation
 import GoogleMobileAds
-import MoPub
+import MoPubSDK
 #if canImport(AppTrackingTransparency)
 import AppTrackingTransparency
 #endif

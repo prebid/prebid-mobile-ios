@@ -15,7 +15,7 @@ limitations under the License.
 
 import UIKit
 import GoogleMobileAds
-import MoPub
+import MoPubSDK
 import PrebidMobile
 
 class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GADCustomNativeAdLoaderDelegate {
