@@ -12,7 +12,7 @@ import PrebidMobile
 
 import GoogleMobileAds
 
-import MoPub
+import MoPubSDK
 
 class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDelegate {
 

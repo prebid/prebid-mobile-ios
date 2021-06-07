@@ -19,7 +19,7 @@ import Foundation
 
 import GoogleMobileAds
 import PrebidMobile
-import MoPub
+import MoPubSDK
 
 
 class RewardedVideoController: UIViewController, MPRewardedVideoDelegate {

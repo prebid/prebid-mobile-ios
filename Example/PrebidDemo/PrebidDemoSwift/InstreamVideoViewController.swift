@@ -158,7 +158,7 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
             if (ResultCode == .prebidDemandFetchSuccess){
                 do {
                     let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(adUnitID: self.adUnitID, adSlotSizes: [.Size640x480,.Size400x300], customKeywords: prebidKeys!)
-                    let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.appInstreamView)
+                    let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.appInstreamView, viewController: self)
                     // Create an ad request with our ad tag, display container, and optional user context.
                     let request = IMAAdsRequest(adTagUrl: adServerTag, adDisplayContainer: adDisplayContainer, contentPlayhead: nil, userContext: nil)
                     self.adsLoader.requestAds(with: request)
@@ -179,12 +179,8 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
         adsManager = adsLoadedData.adsManager
         adsManager?.delegate = self
 
-        // Create ads rendering settings and tell the SDK to use the in-app browser.
-        let adsRenderingSettings = IMAAdsRenderingSettings()
-        adsRenderingSettings.webOpenerPresentingController = self
-
         // Initialize the ads manager.
-        adsManager?.initialize(with: adsRenderingSettings)
+        adsManager?.initialize(with: nil)
     }
     
     func adsLoader(_ loader: IMAAdsLoader!, failedWith adErrorData: IMAAdLoadingErrorData!) {
