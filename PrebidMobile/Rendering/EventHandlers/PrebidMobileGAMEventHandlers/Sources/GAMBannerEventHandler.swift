@@ -53,7 +53,7 @@ public class GAMBannerEventHandler :
     }
     
     public func trackImpression() {
-        
+        proxyBanner?.recordImpression()
     }
     
     public func requestAd(with bidResponse: BidResponse?) {
