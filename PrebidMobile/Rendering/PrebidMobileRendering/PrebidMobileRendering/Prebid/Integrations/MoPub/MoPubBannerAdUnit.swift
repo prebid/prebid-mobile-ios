@@ -14,10 +14,10 @@ public class MoPubBannerAdUnit : NSObject {
     //This is an MPAdView object
     //But we can't use it indirectly as don't want to have additional MoPub dependency in the SDK core
     weak var adObject: NSObject?
-    var completion: ((PBMFetchDemandResult) -> Void)?
+    var completion: ((FetchDemandResult) -> Void)?
 
     weak var lastAdObject: NSObject?
-    var lastCompletion: ((PBMFetchDemandResult) -> Void)?
+    var lastCompletion: ((FetchDemandResult) -> Void)?
 
     var isRefreshStopped = false
     var autoRefreshManager: PBMAutoRefreshManager?
@@ -32,19 +32,19 @@ public class MoPubBannerAdUnit : NSObject {
         adUnitConfig.configID
     }
 
-    public var adFormat: PBMAdFormat {
+    public var adFormat: AdFormat {
         get { adUnitConfig.adFormat }
         set { adUnitConfig.adFormat = newValue }
     }
 
-    public var adPosition: PBMAdPosition {
+    public var adPosition: AdPosition {
         get { adUnitConfig.adPosition }
         set { adUnitConfig.adPosition = newValue }
     }
     
-    public var videoPlacementType: PBMVideoPlacementType {
-        get { adUnitConfig.videoPlacementType }
-        set { adUnitConfig.videoPlacementType = newValue }
+    public var videoPlacementType: VideoPlacementType {
+        get { VideoPlacementType(rawValue: adUnitConfig.videoPlacementType.rawValue) ?? .undefined }
+        set { adUnitConfig.videoPlacementType = PBMVideoPlacementType(rawValue: newValue.rawValue) ?? .undefined }
     }
 
     public var nativeAdConfig: NativeAdConfiguration? {
@@ -113,7 +113,7 @@ public class MoPubBannerAdUnit : NSObject {
     }
     
     public func fetchDemand(with adObject: NSObject,
-                            completion: ((PBMFetchDemandResult)->Void)?) {
+                            completion: ((FetchDemandResult)->Void)?) {
         
         fetchDemand(with: adObject,
                     connection: PBMServerConnection.singleton(),
@@ -140,7 +140,7 @@ public class MoPubBannerAdUnit : NSObject {
                              connection: PBMServerConnectionProtocol,
                              sdkConfiguration: PrebidRenderingConfig,
                              targeting: PrebidRenderingTargeting,
-                             completion: ((PBMFetchDemandResult)->Void)?) {
+                             completion: ((FetchDemandResult)->Void)?) {
         guard bidRequester == nil else {
             // Request in progress
             return
@@ -207,7 +207,7 @@ public class MoPubBannerAdUnit : NSObject {
     }
     
     private func handlePrebidResponse(response: BidResponse) {
-        var demandResult = PBMFetchDemandResult.demandNoBids
+        var demandResult = FetchDemandResult.demandNoBids
         
         if  let adObject = self.adObject,
             let winningBid = response.winningBid {
@@ -228,10 +228,10 @@ public class MoPubBannerAdUnit : NSObject {
     }
 
     private func handlePrebidError(error: Error?) {
-        completeWithResult(PBMError.demandResult(fromError: error))
+        completeWithResult(PBMError.demandResult(from: error))
     }
     
-    private func completeWithResult(_ fetchDemandResult: PBMFetchDemandResult) {
+    private func completeWithResult(_ fetchDemandResult: FetchDemandResult) {
         defer {
             markLoadingFinished()
         }

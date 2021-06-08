@@ -1,5 +1,5 @@
 //
-//  PBMNativeMarkupRequestObjectTest.swift
+//  NativeMarkupRequestObjectTest.swift
 //  OpenXSDKCoreTests
 //
 //  Copyright © 2020 OpenX. All rights reserved.
@@ -14,7 +14,7 @@ class PBMNativeMarkupRequestObjectTest: XCTestCase {
     
     func testMarkupRequestObjectInitToJson() {
         let desc = NativeAssetData(dataType: .desc)
-        let markupObject = PBMNativeMarkupRequestObject.init(assets:[desc])
+        let markupObject = NativeMarkupRequestObject.init(assets:[desc])
         
         XCTAssertEqual(markupObject.version, defVer)
         XCTAssertNil(markupObject.context)
@@ -53,7 +53,7 @@ class PBMNativeMarkupRequestObjectTest: XCTestCase {
 """)
         
         let title = NativeAssetTitle(length: 25)
-        let markupObject2 = PBMNativeMarkupRequestObject(assets: [desc, title])
+        let markupObject2 = NativeMarkupRequestObject(assets: [desc, title])
         
         XCTAssertEqual(markupObject2.assets as NSArray, [desc, title] as NSArray)
         
@@ -72,34 +72,34 @@ class PBMNativeMarkupRequestObjectTest: XCTestCase {
     
     func testMarkupRequestCopyToJsonString() {
         let desc = NativeAssetData(dataType: .desc)
-        let markupObject = PBMNativeMarkupRequestObject.init(assets:[desc])
+        let markupObject = NativeMarkupRequestObject.init(assets:[desc])
         
         let title = NativeAssetTitle(length: 25)
-        let impTraker = PBMNativeEventTracker(event: .impression,
-                                              methods: [NSNumber(value: PBMNativeEventTrackingMethod.JS.rawValue)])
+        let impTraker = NativeEventTracker(event: NativeEventType.impression.rawValue,
+                                           methods: [NativeEventTrackingMethod.js.rawValue])
         
         let testVer = "7.13"
         XCTAssertNotEqual(markupObject.version, testVer)
         markupObject.version = testVer
-        markupObject.context = NSNumber(value: PBMNativeContextType.product.rawValue)
-        markupObject.contextsubtype = NSNumber(value: PBMNativeContextSubtype.applicationStore.rawValue)
-        markupObject.plcmttype = NSNumber(value: PBMNativePlacementType.outsideCoreContent.rawValue)
+        markupObject.context = NativeContextType.product.rawValue
+        markupObject.contextsubtype = NativeContextSubtype.applicationStore.rawValue
+        markupObject.plcmttype = NativePlacementType.outsideCoreContent.rawValue
         markupObject.plcmtcnt = 13
         markupObject.seq = 7
         markupObject.assets = [desc, title]
-        markupObject.aurlsupport = true
-        markupObject.durlsupport = true
+        markupObject.aurlsupport = 1
+        markupObject.durlsupport = 1
         markupObject.eventtrackers = [impTraker]
-        markupObject.privacy = true
+        markupObject.privacy = 1
         try! markupObject.setExt(["theKey": "theValue"])
         
-        let clone = markupObject.copy() as! PBMNativeMarkupRequestObject
+        let clone = markupObject.copy() as! NativeMarkupRequestObject
         
         XCTAssertEqual(clone.jsonDictionary as NSDictionary?, [
             "ver": testVer,
-            "context": PBMNativeContextType.product.rawValue,
-            "contextsubtype": PBMNativeContextSubtype.applicationStore.rawValue,
-            "plcmttype": PBMNativePlacementType.outsideCoreContent.rawValue,
+            "context": NativeContextType.product.rawValue,
+            "contextsubtype": NativeContextSubtype.applicationStore.rawValue,
+            "plcmttype": NativePlacementType.outsideCoreContent.rawValue,
             "plcmtcnt": 13,
             "seq": 7,
             "assets": [
@@ -118,7 +118,7 @@ class PBMNativeMarkupRequestObjectTest: XCTestCase {
         ] as NSDictionary)
         
         XCTAssertEqual(try? clone.toJsonString(), """
-{"assets":[\(try! desc.toJsonString()),\(try! title.toJsonString())],"aurlsupport":1,"context":\(PBMNativeContextType.product.rawValue),"contextsubtype":\(PBMNativeContextSubtype.applicationStore.rawValue),"durlsupport":1,"eventtrackers":[\(try! impTraker.toJsonString())],"ext":{"theKey":"theValue"},"plcmtcnt":13,"plcmttype":\(PBMNativePlacementType.outsideCoreContent.rawValue),"privacy":1,"seq":7,"ver":"\(testVer)"}
+{"assets":[\(try! desc.toJsonString()),\(try! title.toJsonString())],"aurlsupport":1,"context":\(NativeContextType.product.rawValue),"contextsubtype":\(NativeContextSubtype.applicationStore.rawValue),"durlsupport":1,"eventtrackers":[\(try! impTraker.toJsonString())],"ext":{"theKey":"theValue"},"plcmtcnt":13,"plcmttype":\(NativePlacementType.outsideCoreContent.rawValue),"privacy":1,"seq":7,"ver":"\(testVer)"}
 """)
         
     }

@@ -15,8 +15,8 @@ import PrebidMobileRendering
 class PrebidMoPubNativeAdAdapter:
     NSObject,
     MPNativeAdAdapter,
-    PBMNativeAdUIDelegate,
-    PBMNativeAdTrackingDelegate
+    NativeAdUIDelegate,
+    NativeAdTrackingDelegate
 {
     
     // MARK: - Public Properties
@@ -87,7 +87,7 @@ class PrebidMoPubNativeAdAdapter:
     
     // MARK: - NativeAdUIDelegate
     
-    func viewPresentationController(for nativeAd: NativeAd) -> UIViewController? {
+    func viewPresentationControllerForNativeAd(_ nativeAd: NativeAd) -> UIViewController? {
         delegate?.viewControllerForPresentingModalView()
     }
     
@@ -118,7 +118,7 @@ class PrebidMoPubNativeAdAdapter:
         delegate.nativeAdDidClick?(self)
     }
     
-    func nativeAd(_ nativeAd: NativeAd, didLogEvent nativeEvent: PBMNativeEventType) {
+    func nativeAd(_ nativeAd: NativeAd, didLogEvent nativeEvent: NativeEventType) {
         guard nativeEvent == .impression,
               let delegate = delegate,
               delegate.responds(to: #selector(MPNativeAdAdapterDelegate.nativeAdWillLogImpression)) else {

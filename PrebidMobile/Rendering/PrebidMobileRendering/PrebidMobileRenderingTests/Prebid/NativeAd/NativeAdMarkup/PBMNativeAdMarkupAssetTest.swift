@@ -14,13 +14,13 @@ class PBMNativeAdMarkupAssetTest: XCTestCase {
         let dataDic: [String: Any] = [
             "len": 15,
             "value": "some data value",
-            "type": PBMDataAssetType.desc.rawValue,
+            "type": NativeDataAssetType.desc.rawValue,
             "ext": ["da": "db"],
         ]
         let imageDic: [String: Any] = [
             "w": 320,
             "h": 240,
-            "type": PBMImageAssetType.main.rawValue,
+            "type": NativeImageAssetType.main.rawValue,
             "url": "image url",
             "ext": ["ia": "ib"],
         ]

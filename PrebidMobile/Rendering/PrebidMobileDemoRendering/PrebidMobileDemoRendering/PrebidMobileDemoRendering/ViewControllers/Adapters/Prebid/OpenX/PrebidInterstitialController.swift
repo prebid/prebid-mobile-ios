@@ -7,11 +7,12 @@
 
 import UIKit
 import GoogleMobileAds
+import PrebidMobileRendering
 
-class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigurableController, PBMInterstitialAdUnitDelegate {
+class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigurableController, InterstitialAdUnitDelegate {
     
     var prebidConfigId = ""
-    var adFormat: PBMAdFormat?
+    var adFormat: AdFormat?
     
     private var interstitialController : InterstitialAdUnit?
     
@@ -43,7 +44,7 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        interstitialController = InterstitialAdUnit(configId: prebidConfigId,
+        interstitialController = InterstitialAdUnit(configID: prebidConfigId,
                                                        minSizePercentage: CGSize(width: 30, height: 30))
         interstitialController?.delegate = self
         if let adFormat = adFormat {

@@ -8,6 +8,8 @@
 import UIKit
 import MoPubSDK
 
+import PrebidMobileRendering
+
 class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfigurableController, MPRewardedAdsDelegate {
     
     var prebidConfigId = ""

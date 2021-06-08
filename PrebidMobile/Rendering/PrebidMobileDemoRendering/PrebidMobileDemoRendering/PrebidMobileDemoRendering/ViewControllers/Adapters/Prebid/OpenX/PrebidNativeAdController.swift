@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PrebidMobileRendering
 
 class PrebidNativeAdController: NSObject, AdaptedController, PrebidConfigurableNativeAdRenderingController {
     
@@ -51,10 +52,10 @@ class PrebidNativeAdController: NSObject, AdaptedController, PrebidConfigurableN
     private let mediaPlaybackUnmutedButton = EventReportContainer()
     private let mediaLoadingFinishedButton = EventReportContainer()
     
-    private let nativeAdDidLogEventButtons: [(event: PBMNativeEventType, name: String, button: EventReportContainer)] = [
+    private let nativeAdDidLogEventButtons: [(event: NativeEventType, name: String, button: EventReportContainer)] = [
         (.impression, "impression", .init()),
-        (.MRC50, "MRC50", .init()),
-        (.MRC100, "MRC100", .init()),
+        (.mrc50, "MRC50", .init()),
+        (.mrc100, "MRC100", .init()),
         (.video50, "video50", .init()),
     ]
     private let nativeAdWillPresentModalButton = EventReportContainer()
@@ -188,8 +189,8 @@ class PrebidNativeAdController: NSObject, AdaptedController, PrebidConfigurableN
     }
 }
 
-extension PrebidNativeAdController: PBMNativeAdTrackingDelegate {
-    func nativeAd(_ nativeAd: NativeAd, didLogEvent nativeEvent: PBMNativeEventType) {
+extension PrebidNativeAdController: NativeAdTrackingDelegate {
+    func nativeAd(_ nativeAd: NativeAd, didLogEvent nativeEvent: NativeEventType) {
         nativeAdDidLogEventButtons.first{$0.event == nativeEvent}?.button.isEnabled = true
     }
     func nativeAdDidLogClick(_ nativeAd: NativeAd) {
@@ -197,8 +198,8 @@ extension PrebidNativeAdController: PBMNativeAdTrackingDelegate {
     }
 }
 
-extension PrebidNativeAdController: PBMNativeAdUIDelegate {
-    func viewPresentationController(for nativeAd: NativeAd) -> UIViewController? {
+extension PrebidNativeAdController: NativeAdUIDelegate {
+    func viewPresentationControllerForNativeAd(_ nativeAd: NativeAd) -> UIViewController? {
         return rootController
     }
     func nativeAdWillLeaveApplication(_ nativeAd: NativeAd) {

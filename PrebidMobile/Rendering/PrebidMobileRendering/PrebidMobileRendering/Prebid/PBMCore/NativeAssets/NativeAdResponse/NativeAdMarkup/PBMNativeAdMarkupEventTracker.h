@@ -5,9 +5,6 @@
 //  Copyright © 2020 OpenX. All rights reserved.
 //
 
-#import "PBMNativeEventTrackingMethod.h"
-#import "PBMNativeEventType.h"
-
 #import "PBMJsonDecodable.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -16,11 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Type of event to track.
 /// See Event Types table.
-@property (nonatomic, assign) PBMNativeEventType event;
+@property (nonatomic, assign) NSInteger event;
 
 /// Type of tracking requested.
 /// See Event Tracking Methods table.
-@property (nonatomic, assign) PBMNativeEventTrackingMethod method;
+@property (nonatomic, assign) NSInteger method;
 
 /// The URL of the image or js.
 /// Required for image or js, optional for custom.
@@ -33,7 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// This object is a placeholder that may contain custom JSON agreed to by the parties to support flexibility beyond the standard defined in this specification
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, id> *ext;
 
-- (instancetype)initWithEvent:(PBMNativeEventType)event method:(PBMNativeEventTrackingMethod)method url:(NSString *)url;
+- (instancetype)initWithEvent:(NSInteger)event
+                       method:(NSInteger) method
+                          url:(NSString *)url;
 
 @end
 

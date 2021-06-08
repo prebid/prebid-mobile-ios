@@ -12,5 +12,5 @@
                    connection:(id<PBMServerConnectionProtocol>)connection
              sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
                     targeting:(PrebidRenderingTargeting *)targeting
-                   completion:(void (^)(PBMFetchDemandResult))completion;
+                   completion:(void (^)(FetchDemandResult))completion;
 @end

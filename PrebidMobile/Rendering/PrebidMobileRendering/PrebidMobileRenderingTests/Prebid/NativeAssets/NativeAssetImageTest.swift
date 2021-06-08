@@ -12,7 +12,7 @@ import XCTest
 class NativeAssetImageTest: XCTestCase {
     func testDesignatedInitAndToJsonString() {
         let image = NativeAssetImage()
-        image.imageType = PBMImageAssetType.main.rawValue as NSNumber
+        image.imageType = NativeImageAssetType.main.rawValue as NSNumber
         image.width = 120
         image.height = 240
         image.widthMin = 96

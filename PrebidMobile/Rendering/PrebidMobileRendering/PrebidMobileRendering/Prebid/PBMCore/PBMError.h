@@ -9,7 +9,6 @@
 
 #import "PBMErrorCode.h"
 #import "PBMErrorType.h"
-#import "PBMFetchDemandResult.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -62,9 +61,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)createError:(NSError* _Nullable __autoreleasing * _Nullable)error description:(NSString *)description statusCode:(PBMErrorCode)code;
 + (BOOL)createError:(NSError* _Nullable __autoreleasing * _Nullable)error message:(NSString *)message type:(PBMErrorType)type;
 
-// MARK: - PBMFetchDemandResult parsing
-
-+ (PBMFetchDemandResult)demandResultFromError:(nullable NSError *)error;
 
 @end
 

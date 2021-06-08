@@ -1,5 +1,5 @@
 //
-//  PBMMediaViewDelegate.swift
+//  MediaViewDelegate.swift
 //  PrebidMobileRendering
 //
 //  Copyright © 2021 Prebid. All rights reserved.

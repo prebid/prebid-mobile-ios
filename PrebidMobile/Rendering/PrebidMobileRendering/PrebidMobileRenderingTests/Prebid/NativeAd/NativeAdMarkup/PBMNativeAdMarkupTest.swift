@@ -26,7 +26,7 @@ class PBMNativeAdMarkupTest: XCTestCase {
             "img": [
                 "w": 320,
                 "h": 240,
-                "type": PBMImageAssetType.main.rawValue,
+                "type": NativeImageAssetType.main.rawValue,
                 "url": "image url",
                 "ext": ["ia": "ib"],
             ],
@@ -39,8 +39,8 @@ class PBMNativeAdMarkupTest: XCTestCase {
             "ext": ["aa": "ba"]
         ]
         let eventTrackerDic: [String: Any] = [
-            "event": PBMNativeEventType.impression.rawValue,
-            "method": PBMNativeEventTrackingMethod.img.rawValue,
+            "event": NativeEventType.impression.rawValue,
+            "method": NativeEventTrackingMethod.img.rawValue,
             "url": "event tracker url",
             "customdata": ["g": "h"],
             "ext": ["eta": "etb"],
@@ -89,9 +89,9 @@ class PBMNativeAdMarkupTest: XCTestCase {
                 Equality.Check(values: ["only"], ["first", "last"], keyPath: \.imptrackers),
                 Equality.Check(values: "u://i.o/p", "s://d.f:v/", keyPath: \.jstracker),
                 Equality.Check(values: [
-                    PBMNativeAdMarkupEventTracker(event: .MRC50, method: .JS, url: "event url 1"),
+                    PBMNativeAdMarkupEventTracker(event: NativeEventType.mrc50.rawValue, method: NativeEventTrackingMethod.js.rawValue, url: "event url 1"),
                 ], [
-                    PBMNativeAdMarkupEventTracker(event: .impression, method: .img, url: "event-2 url"),
+                    PBMNativeAdMarkupEventTracker(event: NativeEventType.impression.rawValue, method: NativeEventTrackingMethod.img.rawValue, url: "event-2 url"),
                 ], keyPath: \.eventtrackers),
                 Equality.Check(values: "some privacy", "we are watching you", keyPath: \.privacy),
                 Equality.Check(values: ["a":"b"], ["c":1]) { $0.ext = $1 },

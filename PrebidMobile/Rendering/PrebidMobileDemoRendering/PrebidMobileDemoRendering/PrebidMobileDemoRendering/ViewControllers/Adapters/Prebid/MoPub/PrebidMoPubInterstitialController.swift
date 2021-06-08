@@ -7,12 +7,13 @@
 
 import UIKit
 import MoPubSDK
+import PrebidMobileRendering
 
 class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConfigurableController, MPInterstitialAdControllerDelegate {
     
     var prebidConfigId = ""
     var moPubAdUnitId = ""
-    var adFormat: PBMAdFormat?
+    var adFormat: AdFormat?
 
     private var interstitialController : MPInterstitialAdController?
     

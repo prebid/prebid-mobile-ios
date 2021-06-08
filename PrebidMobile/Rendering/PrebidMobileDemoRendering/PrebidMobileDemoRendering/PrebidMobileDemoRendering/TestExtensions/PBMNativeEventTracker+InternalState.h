@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMNativeEventTracker (InternalState)
+@interface NativeEventTracker (InternalState)
 
 - (nullable NSString *)toJsonStringWithError:(NSError * _Nullable __autoreleasing * _Nullable)error;
 

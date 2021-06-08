@@ -7,6 +7,7 @@
 
 import UIKit
 import GoogleMobileAds
+import PrebidMobileRendering
 import PrebidMobileGAMEventHandlers
 
 class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurableNativeAdCompatibleController {
@@ -42,10 +43,10 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurab
     private let nativeAdInvalidButton = EventReportContainer()
     private let nativeAdDidClickButton = EventReportContainer()
     
-    private let nativeAdDidLogEventButtons: [(event: PBMNativeEventType, name: String, button: EventReportContainer)] = [
+    private let nativeAdDidLogEventButtons: [(event: NativeEventType, name: String, button: EventReportContainer)] = [
         (.impression, "impression", .init()),
-        (.MRC50, "MRC50", .init()),
-        (.MRC100, "MRC100", .init()),
+        (.mrc50, "MRC50", .init()),
+        (.mrc100, "MRC100", .init()),
         (.video50, "video50", .init()),
     ]
     private let nativeAdWillPresentModalButton = EventReportContainer()
@@ -146,8 +147,8 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurab
     }
 }
 
-extension PrebidGAMNativeAdController: PBMNativeAdTrackingDelegate {
-    func nativeAd(_ nativeAd: NativeAd, didLogEvent nativeEvent: PBMNativeEventType) {
+extension PrebidGAMNativeAdController: NativeAdTrackingDelegate {
+    func nativeAd(_ nativeAd: NativeAd, didLogEvent nativeEvent: NativeEventType) {
         nativeAdDidLogEventButtons.first{$0.event == nativeEvent}?.button.isEnabled = true
     }
     func nativeAdDidLogClick(_ nativeAd: NativeAd) {
@@ -155,8 +156,8 @@ extension PrebidGAMNativeAdController: PBMNativeAdTrackingDelegate {
     }
 }
 
-extension PrebidGAMNativeAdController: PBMNativeAdUIDelegate {
-    func viewPresentationController(for nativeAd: NativeAd) -> UIViewController? {
+extension PrebidGAMNativeAdController: NativeAdUIDelegate {
+    func viewPresentationControllerForNativeAd(_ nativeAd: NativeAd) -> UIViewController? {
         return rootController
     }
     func nativeAdWillLeaveApplication(_ nativeAd: NativeAd) {

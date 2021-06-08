@@ -31,8 +31,8 @@ public class NativeAdAsset: NSObject {
 
     /// This object is a placeholder that may contain custom JSON agreed to by the parties to support
     /// flexibility beyond the standard defined in this specification
-    @objc public var assetExt: [String : Any]? {
-        nativeAdMarkupAsset.ext
+    @objc public var assetExt: [String : AnyHashable]? {
+        nativeAdMarkupAsset.ext as? [String : AnyHashable]
     }
     
     private(set) var nativeAdMarkupAsset: PBMNativeAdMarkupAsset

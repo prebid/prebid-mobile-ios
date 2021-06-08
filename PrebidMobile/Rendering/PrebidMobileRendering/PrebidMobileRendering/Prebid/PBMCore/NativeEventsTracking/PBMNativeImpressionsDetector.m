@@ -12,6 +12,9 @@
 #import "PBMViewExposureProviders.h"
 #import "PBMMacros.h"
 
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
+
 
 @interface PBMNativeImpressionsDetector ()
 
@@ -45,7 +48,7 @@
     PBMViewabilityEventDetector * const renderedImpressionDetector = [[PBMViewabilityEventDetector alloc]
                                                                       initWithViewabilityEvents:@[
         [PBMNativeImpressionsDetector renderedImpressionEventWithCallback:^{
-            impressionDetectionHandler(PBMNativeEventType_Impression);
+            impressionDetectionHandler(NativeEventTypeImpression);
         }],
     ] onLastEventDetected:^{
         @strongify(self);
@@ -56,13 +59,13 @@
     PBMViewabilityEventDetector * const viewableImpressionsDetector = [[PBMViewabilityEventDetector alloc]
                                                                        initWithViewabilityEvents:@[
         [PBMNativeImpressionsDetector mrc50ImpressionEventWithCallback:^{
-            impressionDetectionHandler(PBMNativeEventType_MRC50);
+            impressionDetectionHandler(NativeEventTypeMrc50);
         }],
         [PBMNativeImpressionsDetector mrc100ImpressionEventWithCallback:^{
-            impressionDetectionHandler(PBMNativeEventType_MRC100);
+            impressionDetectionHandler(NativeEventTypeMrc100);
         }],
         [PBMNativeImpressionsDetector video50ImpressionEventWithCallback:^{
-            impressionDetectionHandler(PBMNativeEventType_Video50);
+            impressionDetectionHandler(NativeEventTypeVideo50);
         }],
     ] onLastEventDetected:^{
         @strongify(self);

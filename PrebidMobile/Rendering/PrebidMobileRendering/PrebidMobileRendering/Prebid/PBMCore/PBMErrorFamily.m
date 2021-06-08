@@ -7,7 +7,7 @@
 
 #import "PBMErrorFamily.h"
 
-NSString * const pbmErrorDomain = @"org.prebid.mobile.rendering";
+NSString * const PrebidRenderingErrorDomain = @"org.prebid.mobile.rendering";
 
 NSInteger pbmErrorCode(PBMErrorFamily errorFamily, NSInteger errorCodeWithinFamily) {
     return -((NSInteger)errorFamily * 100 + errorCodeWithinFamily);

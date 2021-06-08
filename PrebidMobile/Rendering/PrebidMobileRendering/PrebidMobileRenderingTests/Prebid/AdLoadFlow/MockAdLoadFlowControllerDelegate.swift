@@ -10,7 +10,7 @@ import XCTest
 
 @testable import PrebidMobileRendering
 
-class MockAdLoadFlowControllerDelegate: NSObject, PBMAdLoadFlowControllerDelegate {
+class MockAdLoadFlowControllerDelegate: NSObject, AdLoadFlowControllerDelegate {
     enum ExpectedCall {
         case adUnitConfig(provider: ()->AdUnitConfig)
         case failedWithError(handler: (PBMAdLoadFlowController, Error?)->())
@@ -32,7 +32,7 @@ class MockAdLoadFlowControllerDelegate: NSObject, PBMAdLoadFlowControllerDelegat
         self.line = line
     }
     
-    // MARK: - PBMAdLoadFlowControllerDelegate
+    // MARK: - AdLoadFlowControllerDelegate
     
     var adUnitConfig: AdUnitConfig {
         let provider: (()->AdUnitConfig)? = syncQueue.sync {

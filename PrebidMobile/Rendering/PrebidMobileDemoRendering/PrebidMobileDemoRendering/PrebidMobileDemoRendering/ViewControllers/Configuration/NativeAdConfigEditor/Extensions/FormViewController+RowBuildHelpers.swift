@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 import Eureka
 
+import PrebidMobileRendering
+
 protocol RowBuildHelpConsumer: FormViewController {
     associatedtype DataContainer
     var dataContainer: DataContainer? { get }
@@ -164,6 +166,11 @@ extension RowBuildHelpConsumer {
             }
     }
     
+    func addInt(_ field:String, keyPath: ReferenceWritableKeyPath<DataContainer, Int>) {
+        let valueRow = makeRequiredIntRow(field, keyPath: keyPath)
+        requiredPropertiesSection <<< valueRow
+    }
+    
     func addEnum<T: RawRepresentable>(_ field:String, keyPath: ReferenceWritableKeyPath<DataContainer, T>, defVal: T) where T.RawValue == Int {
         let valueRow = makeRequiredEnumRow(field, keyPath: keyPath, defVal: defVal)
         optionalPropertiesValuesSection <<< valueRow
@@ -264,6 +271,15 @@ extension RowBuildHelpConsumer {
                                        defVal: 0)
     }
     
+    func addRequiredIntArrayField(field: String, keyPath: ReferenceWritableKeyPath<DataContainer, [Int]>) {
+        form
+            +++ makeMultiValuesSection(field: field,
+                                       getter: { [weak self] in self?.dataContainer?[keyPath: keyPath].map { $0 } },
+                                       setter: { [weak self] in self?.dataContainer?[keyPath: keyPath] = ($0 ?? []) },
+                                       rowGen: IntRow.init,
+                                       defVal: 0)
+    }
+    
     func addRequiredStringArrayField(field: String, keyPath: ReferenceWritableKeyPath<DataContainer, [String]>) {
         form
             +++ makeMultiValuesSection(field: field,
@@ -302,7 +318,7 @@ extension RowBuildHelpConsumer {
                     try? dst(dataContainer)([:])
                     valueRow.value = "{}"
                 } else {
-                    try? dst(dataContainer)(nil)
+                    try? dst(dataContainer)([:])
                     valueRow.value = nil
                 }
                 valueRow.updateCell()

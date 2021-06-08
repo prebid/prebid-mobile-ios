@@ -10,9 +10,12 @@
 #import "PBMError.h"
 #import "PBMConstants.h"
 
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
+
 @implementation PBMNativeAdMarkupEventTracker
 
-- (instancetype)initWithEvent:(PBMNativeEventType)event method:(PBMNativeEventTrackingMethod)method url:(NSString *)url
+- (instancetype)initWithEvent:(NSInteger)event method:(NSInteger)method url:(NSString *)url
 {
     if (!(self = [super init])) {
         return nil;

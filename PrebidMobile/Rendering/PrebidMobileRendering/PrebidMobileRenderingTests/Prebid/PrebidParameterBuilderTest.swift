@@ -63,12 +63,12 @@ class PrebidParameterBuilderTest: XCTestCase {
                                   userAgentService: MockUserAgentService())
             .build(bidRequest)
         
-        XCTAssertEqual(banner.pos?.intValue, PBMAdPosition.header.rawValue)
+        XCTAssertEqual(banner.pos?.intValue, AdPosition.header.rawValue)
     }
     
     func testAdPositionFullScreen() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let interstitialAdUnit =  InterstitialAdUnit(configId: configId)
+        let interstitialAdUnit =  InterstitialAdUnit(configID: configId)
         
         let builder = PBMBasicParameterBuilder(adConfiguration: interstitialAdUnit.adUnitConfig.adConfiguration,
                                                sdkConfiguration: sdkConfiguration,
@@ -95,7 +95,7 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTFail("No Banner object!")
             return
         }
-        XCTAssertEqual(banner.pos?.intValue, PBMAdPosition.fullScreen.rawValue)
+        XCTAssertEqual(banner.pos?.intValue, AdPosition.fullScreen.rawValue)
     }
     
     func testAdditionalSizes() {
@@ -166,14 +166,14 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.linearity, 1)
         PBMAssertEq(video.w, 320)
         PBMAssertEq(video.h, 50)
-        XCTAssertEqual(video.pos.intValue, PBMAdPosition.header.rawValue)
+        XCTAssertEqual(video.pos.intValue, AdPosition.header.rawValue)
     }
     
     func testNative() {
         let nativeVer = "1.2"
         let desc = NativeAssetData(dataType: .desc)
         let nativeAdConfig = NativeAdConfiguration.init(assets:[desc])
-        nativeAdConfig.context = .socialCentric
+        nativeAdConfig.context = NativeContextType.socialCentric.rawValue
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 320, height: 50))

@@ -122,10 +122,7 @@
         
         bidRequest.app.publisher.name = targeting.publisherName;
     }
-    
-    bidRequest.device.carrier = targeting.carrier;
-    bidRequest.device.connectiontype = @(targeting.networkType);
-    
+        
     NSValue * const coordObj = targeting.coordinate;
     if (coordObj) {
         const CLLocationCoordinate2D coord2d = coordObj.MKCoordinateValue;

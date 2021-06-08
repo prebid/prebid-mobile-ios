@@ -7,68 +7,70 @@
 
 import UIKit
 
-public class InterstitialAdUnit: PBMBaseInterstitialAdUnit {
+public class InterstitialAdUnit: BaseInterstitialAdUnit {
 
-    @objc public override init(configId: String) {
-        super.init(configId: configId, eventHandler: PBMInterstitialEventHandlerStandalone())
+    @objc public init(configID: String) {
+        super.init(configID: configID,
+                   minSizePerc: nil,
+                   eventHandler: InterstitialEventHandlerStandalone())
     }
 
-    @objc public override init(configId: String, minSizePercentage: CGSize) {
+    @objc public init(configID: String, minSizePercentage: CGSize) {
         super.init(
-            configId: configId,
-            minSizePercentage: minSizePercentage,
-            eventHandler: PBMInterstitialEventHandlerStandalone())
+            configID: configID,
+            minSizePerc: NSValue(cgSize: minSizePercentage),
+            eventHandler: InterstitialEventHandlerStandalone())
     }
 
-    @objc public override init(configId: String, minSizePercentage:CGSize, eventHandler: Any) {
+    @objc public init(configID: String, minSizePercentage:CGSize, eventHandler: AnyObject) {
         super.init(
-            configId: configId,
-            minSizePercentage: minSizePercentage,
+            configID: configID,
+            minSizePerc: NSValue(cgSize: minSizePercentage),
             eventHandler: eventHandler)
     }
     
-    override init(configId:String, minSizePerc: NSValue?, eventHandler:Any?) {
+    @objc required init(configID:String, minSizePerc: NSValue?, eventHandler:AnyObject?) {
         super.init(
-            configId: configId,
-            minSizePerc:minSizePerc,
-            eventHandler:eventHandler)
+            configID: configID,
+            minSizePerc: minSizePerc,
+            eventHandler: eventHandler)
     }
     
     
     // MARK: - Protected overrides
 
     @objc public override func callDelegate_didReceiveAd() {
-        if let delegate = self.delegate as? PBMInterstitialAdUnitDelegate {
+        if let delegate = self.delegate as? InterstitialAdUnitDelegate {
             delegate.interstitialDidReceiveAd?(self)
         }
     }
     
-    @objc public override func callDelegate_didFailToReceiveAdWithError(_ error: Error?) {
-        if let delegate = self.delegate as? PBMInterstitialAdUnitDelegate {
+    @objc public override func callDelegate_didFailToReceiveAd(with error: Error?) {
+        if let delegate = self.delegate as? InterstitialAdUnitDelegate {
             delegate.interstitial?(self, didFailToReceiveAdWithError: error)
         }
     }
 
     @objc public override func callDelegate_willPresentAd() {
-        if let delegate = self.delegate as? PBMInterstitialAdUnitDelegate {
+        if let delegate = self.delegate as? InterstitialAdUnitDelegate {
             delegate.interstitialWillPresentAd?(self)
         }
     }
 
     @objc public override func callDelegate_didDismissAd() {
-        if let delegate = self.delegate as? PBMInterstitialAdUnitDelegate {
+        if let delegate = self.delegate as? InterstitialAdUnitDelegate {
             delegate.interstitialDidDismissAd?(self)
         }
     }
 
     @objc public override func callDelegate_willLeaveApplication() {
-        if let delegate = self.delegate as? PBMInterstitialAdUnitDelegate {
+        if let delegate = self.delegate as? InterstitialAdUnitDelegate {
             delegate.interstitialWillLeaveApplication?(self)
         }
     }
 
     @objc public override func callDelegate_didClickAd() {
-        if let delegate = self.delegate as? PBMInterstitialAdUnitDelegate {
+        if let delegate = self.delegate as? InterstitialAdUnitDelegate {
             delegate.interstitialDidClickAd?(self)
         }
     }
@@ -76,40 +78,30 @@ public class InterstitialAdUnit: PBMBaseInterstitialAdUnit {
     
     
     @objc public override func callEventHandler_isReady() -> Bool {
-        if let eventHandler = self.eventHandler as? PBMInterstitialEventHandler {
-            return eventHandler.isReady
-        } else {
-            return false
-        }
+        interstitialEventHandler?.isReady ?? false
     }
 
-    @objc public override func callEventHandler_setLoadingDelegate(_ loadingDelegate: PBMRewardedEventLoadingDelegate?) {
-        if let eventHandler = self.eventHandler as? PBMInterstitialEventHandler {
-            eventHandler.loadingDelegate = loadingDelegate
-        }
+    @objc public override func callEventHandler_setLoadingDelegate(_ loadingDelegate: NSObject?) {
+        interstitialEventHandler?.loadingDelegate = loadingDelegate as? RewardedEventLoadingDelegate
     }
 
     @objc public override func callEventHandler_setInteractionDelegate() {
-        if let eventHandler = self.eventHandler as? PBMInterstitialEventHandler {
-            eventHandler.interactionDelegate = self
-        }
+        interstitialEventHandler?.interactionDelegate = self
     }
 
     @objc public override func callEventHandler_requestAd(with bidResponse: BidResponse?) {
-        if let eventHandler = self.eventHandler as? PBMInterstitialEventHandler {
-            eventHandler.requestAd(with: bidResponse)
-        }
+        interstitialEventHandler?.requestAd(with: bidResponse)
     }
 
     @objc public override func callEventHandler_show(from controller: UIViewController?) {
-        if let eventHandler = self.eventHandler as? PBMInterstitialEventHandler {
-            eventHandler.show(from: controller)
-        }
+        interstitialEventHandler?.show(from: controller)
     }
 
     @objc public override func callEventHandler_trackImpression() {
-        if let eventHandler = self.eventHandler as? PBMInterstitialEventHandler {
-            eventHandler.trackImpression?()
-        }
+        interstitialEventHandler?.trackImpression?()
+    }
+    
+    private var interstitialEventHandler: InterstitialEventHandlerProtocol?  {
+        eventHandler as? InterstitialEventHandlerProtocol
     }
 }

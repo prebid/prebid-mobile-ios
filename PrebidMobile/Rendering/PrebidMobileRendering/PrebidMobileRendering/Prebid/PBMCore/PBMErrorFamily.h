@@ -18,6 +18,6 @@ typedef NS_ENUM(NSInteger, PBMErrorFamily) {
     kPBMErrorFamily_SDKMisuseErrors,
 };
 
-FOUNDATION_EXPORT NSString * const pbmErrorDomain;
+FOUNDATION_EXPORT NSString * const PrebidRenderingErrorDomain;
 
 FOUNDATION_EXPORT NSInteger pbmErrorCode(PBMErrorFamily errorFamily, NSInteger errorCodeWithinFamily);

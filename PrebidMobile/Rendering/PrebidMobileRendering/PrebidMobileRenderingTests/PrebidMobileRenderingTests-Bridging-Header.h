@@ -174,15 +174,12 @@
 // Prebid
 #import "PBMAdLoadFlowController+PrivateState.h"
 #import "PBMBaseAdUnit+Protected.h"
-#import "PBMBaseInterstitialAdUnit+Protected.h"
 #import "PBMBidResponseTransformer.h"
 #import "PBMError.h"
 #import "PBMPrebidParameterBuilder.h"
 #import "PBMViewabilityEventDetector.h"
 #import "PBMWinNotifier+Private.h"
 // NativeAds (Request)
-#import "PBMNativeEventTracker+Internal.h"
-#import "PBMNativeMarkupRequestObject+Internal.h"
 // NativeAds (Response model)
 #import "PBMNativeAdMarkup.h"
 #import "PBMNativeAdMarkupAsset.h"

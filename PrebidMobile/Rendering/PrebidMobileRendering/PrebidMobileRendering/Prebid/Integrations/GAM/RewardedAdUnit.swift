@@ -7,34 +7,35 @@
 
 import UIKit
 
-public class RewardedAdUnit: PBMBaseInterstitialAdUnit,
-                         PBMRewardedEventInteractionDelegate {
+public class RewardedAdUnit: BaseInterstitialAdUnit,
+                             RewardedEventInteractionDelegate {
    
     @objc public private(set) var reward: NSObject?
     
     // MARK: - Lifecycle
     
-    @objc public override init(configId: String, eventHandler: Any) {
-        super.init(
-            configId: configId,
+    @objc public convenience init(configID: String, eventHandler: AnyObject) {
+        self.init(
+            configID: configID,
+            minSizePerc: nil,
             eventHandler: eventHandler)
-            
-        adUnitConfig.isOptIn = true
-        adFormat = .video
     }
 
-    @objc public override convenience init(configId: String) {
+    @objc public convenience init(configID: String) {
         self.init(
-            configId: configId,
-            eventHandler: PBMRewardedEventHandlerStandalone())
+            configID: configID,
+            minSizePerc: nil,
+            eventHandler: RewardedEventHandlerStandalone())
     }
     
-    override init(configId:String, minSizePerc: NSValue?, eventHandler:Any?) {
+    @objc required init(configID:String, minSizePerc: NSValue?, eventHandler: AnyObject?) {
         super.init(
-            configId: configId,
-            minSizePerc:minSizePerc,
-            eventHandler:eventHandler)
+            configID: configID,
+            minSizePerc: minSizePerc,
+            eventHandler: eventHandler)
         
+        adUnitConfig.isOptIn = true
+        adFormat = .video
     }
     
     // MARK: - PBMRewardedEventDelegate
@@ -46,7 +47,7 @@ public class RewardedAdUnit: PBMBaseInterstitialAdUnit,
         
     }
     
-    // MARK: - PBMBaseInterstitialAdUnitProtocol protocol
+    // MARK: - BaseInterstitialAdUnitProtocol protocol
     
     @objc public override func interstitialControllerDidCloseAd(_ interstitialController: InterstitialController) {
         callDelegate_rewardedAdUserDidEarnReward()
@@ -56,75 +57,75 @@ public class RewardedAdUnit: PBMBaseInterstitialAdUnit,
     // MARK: - Protected overrides
     
     @objc public override func callDelegate_didReceiveAd() {
-        if let delegate = self.delegate as? PBMRewardedAdUnitDelegate {
+        if let delegate = self.delegate as? RewardedAdUnitDelegate {
             delegate.rewardedAdDidReceiveAd?(self)
         }
     }
 
-    @objc public override func callDelegate_didFailToReceiveAdWithError(_ error: Error?) {
-        if let delegate = self.delegate as? PBMRewardedAdUnitDelegate {
+    @objc public override func callDelegate_didFailToReceiveAd(with error: Error?) {
+        if let delegate = self.delegate as? RewardedAdUnitDelegate {
             delegate.rewardedAd?(self, didFailToReceiveAdWithError: error)
         }
     }
     
     @objc public override func callDelegate_willPresentAd() {
-        if let delegate = self.delegate as? PBMRewardedAdUnitDelegate {
+        if let delegate = self.delegate as? RewardedAdUnitDelegate {
             delegate.rewardedAdWillPresentAd?(self)
         }
     }
 
     @objc public override func callDelegate_didDismissAd() {
-        if let delegate = self.delegate as? PBMRewardedAdUnitDelegate {
+        if let delegate = self.delegate as? RewardedAdUnitDelegate {
             delegate.rewardedAdDidDismissAd?(self)
         }
     }
 
     @objc public override func callDelegate_willLeaveApplication() {
-        if let delegate = self.delegate as? PBMRewardedAdUnitDelegate {
+        if let delegate = self.delegate as? RewardedAdUnitDelegate {
             delegate.rewardedAdWillLeaveApplication?(self)
         }
     }
 
     @objc public override func callDelegate_didClickAd() {
-        if let delegate = self.delegate as? PBMRewardedAdUnitDelegate {
+        if let delegate = self.delegate as? RewardedAdUnitDelegate {
             delegate.rewardedAdDidClickAd?(self)
         }
     }
     
     @objc public override func callEventHandler_isReady() -> Bool {
-        if let eventHandler = self.eventHandler as? PBMRewardedEventHandler {
+        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
             return eventHandler.isReady
         } else {
             return false
         }
     }
 
-    @objc public override func callEventHandler_setLoadingDelegate(_ loadingDelegate: PBMRewardedEventLoadingDelegate) {
-        if let eventHandler = self.eventHandler as? PBMRewardedEventHandler {
-            eventHandler.loadingDelegate = loadingDelegate
+    @objc public override func callEventHandler_setLoadingDelegate(_ loadingDelegate: NSObject?) {
+        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
+            eventHandler.loadingDelegate = loadingDelegate as? RewardedEventLoadingDelegate
         }
     }
 
     @objc public override func callEventHandler_setInteractionDelegate() {
-        if let eventHandler = self.eventHandler as? PBMRewardedEventHandler {
+        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.interactionDelegate = self
         }
     }
 
     @objc public override func callEventHandler_requestAd(with bidResponse: BidResponse?) {
-        if let eventHandler = self.eventHandler as? PBMRewardedEventHandler {
+        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.requestAd(with: bidResponse)
         }
     }
 
     @objc public override func callEventHandler_show(from controller: UIViewController?) {
-        if let eventHandler = self.eventHandler as? PBMRewardedEventHandler {
+        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.show(from: controller)
         }
     }
 
     @objc public override func callEventHandler_trackImpression() {
-        if let eventHandler = self.eventHandler as? PBMRewardedEventHandler {
+        if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
             eventHandler.trackImpression?()
         }
     }
@@ -132,7 +133,7 @@ public class RewardedAdUnit: PBMBaseInterstitialAdUnit,
     // MARK: - Private helpers
     
     func callDelegate_rewardedAdUserDidEarnReward() {
-        if let delegate = self.delegate as? PBMRewardedAdUnitDelegate {
+        if let delegate = self.delegate as? RewardedAdUnitDelegate {
             delegate.rewardedAdUserDidEarnReward?(self)
         }
     }

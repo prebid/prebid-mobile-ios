@@ -7,6 +7,7 @@
 
 import UIKit
 import Eureka
+import PrebidMobileRendering
 
 class NativeAdConfigController : FormViewController, RowBuildHelpConsumer {
     var nativeAdConfig: NativeAdConfiguration?
@@ -46,9 +47,9 @@ class NativeAdConfigController : FormViewController, RowBuildHelpConsumer {
             }
         
         addOptionalString("version", keyPath: \.version)
-        addEnum("context", keyPath: \.context, defVal: .undefined)
-        addEnum("contextsubtype", keyPath: \.contextsubtype, defVal: .undefined)
-        addEnum("plcmttype", keyPath: \.plcmttype, defVal: .undefined)
+        addInt("context", keyPath: \.context)
+        addInt("contextsubtype", keyPath: \.contextsubtype)
+        addInt("plcmttype", keyPath: \.plcmttype)
 //        addOptionalInt("plcmtcnt", keyPath: \.plcmtcnt)
         addOptionalInt("seq", keyPath: \.seq)
 //        addOptionalInt("aurlsupport", keyPath: \.aurlsupport)

@@ -15,11 +15,11 @@ class PBMNativeAdMarkupImageTest: XCTestCase {
         
         let optionalImageProperties: [JSONDecoding.BaseOptionalCheck<PBMNativeAdMarkupImage>] = [
             JSONDecoding.OptionalPropertyCheck(value: "Some Image value", dicKey: "url", keyPath: \.url),
-            JSONDecoding.OptionalPropertyCheck(value: PBMImageAssetType.main,
+            JSONDecoding.OptionalPropertyCheck(value: NativeImageAssetType.main,
                                                writer: { $0["type"] = NSNumber(value: $1.rawValue) },
-                                               reader: { (image: PBMNativeAdMarkupImage) -> PBMImageAssetType? in
+                                               reader: { (image: PBMNativeAdMarkupImage) -> NativeImageAssetType? in
                                                 if let rawType = image.imageType?.intValue {
-                                                    return PBMImageAssetType(rawValue: rawType)
+                                                    return NativeImageAssetType(rawValue: rawType)
                                                 } else {
                                                     return nil
                                                 }
@@ -42,7 +42,7 @@ class PBMNativeAdMarkupImageTest: XCTestCase {
                 Equality.Check(values: "some url", "other url", keyPath: \.url),
                 Equality.Check(values: 320, 640, keyPath: \.width),
                 Equality.Check(values: 240, 480, keyPath: \.height),
-                Equality.Check(values: PBMImageAssetType.main, .icon) { $0.imageType = NSNumber(value: $1.rawValue) },
+                Equality.Check(values: NativeImageAssetType.main, .icon) { $0.imageType = NSNumber(value: $1.rawValue) },
                 Equality.Check(values: ["a":"b"], ["c":1]) { $0.ext = $1 },
             ])
         tester.run()

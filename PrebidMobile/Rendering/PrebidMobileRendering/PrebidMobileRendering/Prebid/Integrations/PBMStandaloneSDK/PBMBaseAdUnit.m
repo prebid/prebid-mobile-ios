@@ -91,7 +91,7 @@
     }
     
     if (requestAlreadyInProgress) {
-        PBMFetchDemandResult const previousFetchNotCompletedYet = PBMFetchDemandResult_SDKMisuse_PreviousFetchNotCompletedYet;
+        FetchDemandResult const previousFetchNotCompletedYet = FetchDemandResultSdkMisusePreviousFetchNotCompletedYet;
         completion([[DemandResponseInfo alloc] initWithFetchDemandResult:previousFetchNotCompletedYet
                                                                         bid:nil
                                                                    configId:self.configId
@@ -147,17 +147,17 @@
         self.lastResponseUnsafe = bidResponse;
         
         if (error) {
-            result = [[DemandResponseInfo alloc] initWithFetchDemandResult:[PBMError demandResultFromError:error]
+            result = [[DemandResponseInfo alloc] initWithFetchDemandResult:[PBMError demandResultFrom:error]
                                                                           bid:nil
                                                                      configId:self.configId
                                                              winNotifierBlock:self.winNotifierBlock];
         } else if (!bidResponse.winningBid) {
-            result = [[DemandResponseInfo alloc] initWithFetchDemandResult:PBMFetchDemandResult_DemandNoBids
+            result = [[DemandResponseInfo alloc] initWithFetchDemandResult:FetchDemandResultDemandNoBids
                                                                           bid:nil
                                                                      configId:self.configId
                                                              winNotifierBlock:self.winNotifierBlock];
         } else {
-            result = [[DemandResponseInfo alloc] initWithFetchDemandResult:PBMFetchDemandResult_Ok
+            result = [[DemandResponseInfo alloc] initWithFetchDemandResult:FetchDemandResultOk
                                                                           bid:bidResponse.winningBid
                                                                      configId:self.configId
                                                              winNotifierBlock:self.winNotifierBlock];

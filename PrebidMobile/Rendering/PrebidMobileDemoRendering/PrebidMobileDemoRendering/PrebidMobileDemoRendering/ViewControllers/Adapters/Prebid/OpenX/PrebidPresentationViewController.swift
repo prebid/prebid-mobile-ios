@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PrebidMobileRendering
 
 class PrebidPresentationViewController: UIViewController {
     

@@ -7,6 +7,7 @@
 
 import UIKit
 import MoPubSDK
+import PrebidMobileRendering
 
 class MoPubNativeVideoAdView: UIStackView, MPNativeAdRendering {
     let callToActionLabel = UILabel()

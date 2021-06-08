@@ -30,7 +30,7 @@ public class NativeAdUnit: PBMBaseAdUnit {
         //@synchronized (self.stateLockToken) {..}
         objc_sync_enter(self.stateLockToken)
         if hasStartedFetching {
-            completion(DemandResponseInfo(fetchDemandResult: .sdkMisuse_NativeAdUnitFetchedAgain,
+            completion(DemandResponseInfo(fetchDemandResult: .sdkMisuseNativeAdUnitFetchedAgain,
                                              bid: nil,
                                              configId: nil,
                                              winNotifierBlock: winNotifierBlock))
@@ -82,8 +82,8 @@ public class NativeAdUnit: PBMBaseAdUnit {
         }
 
         var eventtrackers = nativeAdConfig.eventtrackers ?? []
-        let omidEventTracker = PBMNativeEventTracker(event: .OMID,
-                                                     methods: [NSNumber(value: PBMNativeEventTrackingMethod.JS.rawValue)])
+        let omidEventTracker = NativeEventTracker(event: NativeEventType.omid.rawValue,
+                                                  methods: [NativeEventTrackingMethod.js.rawValue])
         eventtrackers.append(omidEventTracker)
         nativeAdConfig.eventtrackers = eventtrackers
 

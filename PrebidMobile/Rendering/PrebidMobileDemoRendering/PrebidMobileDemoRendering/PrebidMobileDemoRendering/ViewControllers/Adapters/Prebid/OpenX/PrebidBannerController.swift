@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PrebidMobileRendering
 
 class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, BannerViewDelegate {
     
@@ -13,7 +14,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     
     var prebidConfigId = ""
     var adSizes = [CGSize]()
-    var adFormat: PBMAdFormat?
+    var adFormat: AdFormat?
     var nativeAdConfig: NativeAdConfiguration?
     
     var adBannerView : BannerView?

@@ -10,7 +10,7 @@ import Foundation
 public class MoPubNativeAdUnit : NSObject {
     
     weak var adObject: NSObject?
-    var completion: ((PBMFetchDemandResult) -> Void)?
+    var completion: ((FetchDemandResult) -> Void)?
     var nativeAdUnit: NativeAdUnit
     
     // MARK: - Public Properties
@@ -32,7 +32,7 @@ public class MoPubNativeAdUnit : NSObject {
     }
     
     public func fetchDemand(with adObject: NSObject,
-                            completion: ((PBMFetchDemandResult)->Void)?) {
+                            completion: ((FetchDemandResult)->Void)?) {
         
         if !MoPubUtils.isCorrectAdObject(adObject) {
             completion?(.wrongArguments)
@@ -54,7 +54,7 @@ public class MoPubNativeAdUnit : NSObject {
                 return
             }
             
-            var fetchDemandResult: PBMFetchDemandResult = .wrongArguments
+            var fetchDemandResult: FetchDemandResult = .wrongArguments
             
             if MoPubUtils.setUpAdObject(adObject,
                                         configID: self.configID,
@@ -93,7 +93,7 @@ public class MoPubNativeAdUnit : NSObject {
         self.nativeAdUnit = nativeAdUnit
     }
     
-    private func completeWithResult(_ fetchDemandResult: PBMFetchDemandResult) {
+    private func completeWithResult(_ fetchDemandResult: FetchDemandResult) {
         guard let completion = self.completion else {
             return
         }

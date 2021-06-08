@@ -6,6 +6,9 @@
 //
 
 #import "PBMNativeAdImpressionReporting.h"
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
+
 
 @implementation PBMNativeAdImpressionReporting
 
@@ -13,14 +16,14 @@
                                                                 urlVisitor:(PBMTrackingURLVisitorBlock)urlVisitor
                                                           
 {
-    return ^(PBMNativeEventType impressionType) {
+    return ^(NSInteger impressionType) {
         if (eventTrackers.count <= 0) {
             return;
         }
         NSMutableArray <NSString *> * const trackingUrls = [[NSMutableArray alloc] initWithCapacity:eventTrackers.count];
         for (PBMNativeAdMarkupEventTracker *nextEventTracker in eventTrackers) {
             if (nextEventTracker.event == impressionType
-                && nextEventTracker.method == PBMNativeEventTrackingMethod_Img
+                && nextEventTracker.method == NativeEventTrackingMethodImg
                 && nextEventTracker.url != nil)
             {
                 [trackingUrls addObject:nextEventTracker.url];

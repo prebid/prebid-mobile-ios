@@ -7,7 +7,7 @@
 
 import UIKit
 import GoogleMobileAds
-
+import PrebidMobileRendering
 import PrebidMobileGAMEventHandlers
 
 class PrebidGAMNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCompatibleController {

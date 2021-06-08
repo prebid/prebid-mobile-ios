@@ -5,6 +5,6 @@
 //  Copyright © 2021 OpenX. All rights reserved.
 //
 
-#import "PBMNativeEventType.h"
+#import <Foundation/Foundation.h>
 
-typedef void(^PBMNativeImpressionDetectionHandler)(PBMNativeEventType impressionType);
+typedef void(^PBMNativeImpressionDetectionHandler)(NSInteger impressionType);

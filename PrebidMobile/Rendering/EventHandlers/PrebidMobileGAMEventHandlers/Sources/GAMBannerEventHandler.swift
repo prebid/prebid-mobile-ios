@@ -11,7 +11,7 @@ import PrebidMobileRendering
 
 public class GAMBannerEventHandler :
     NSObject,
-    PBMBannerEventHandler,
+    BannerEventHandler,
     GADBannerViewDelegate,
     GADAppEventDelegate,
     GADAdSizeDelegate
@@ -40,16 +40,20 @@ public class GAMBannerEventHandler :
         validAdSizes = validGADAdSizes
     }
     
-    // MARK: - PBMBannerEventHandler
+    // MARK: - BannerEventHandler
     
-    public var loadingDelegate: PBMBannerEventLoadingDelegate?
+    public weak var loadingDelegate: BannerEventLoadingDelegate?
     
-    public var interactionDelegate: PBMBannerEventInteractionDelegate?
+    public weak var interactionDelegate: BannerEventInteractionDelegate?
     
-    public var adSizes: [NSValue]
+    public var adSizes: [CGSize]
     
     public var isCreativeRequiredForNativeAds: Bool {
         false
+    }
+    
+    public func trackImpression() {
+        
     }
     
     public func requestAd(with bidResponse: BidResponse?) {
@@ -104,7 +108,7 @@ public class GAMBannerEventHandler :
     // MARK: - GADBannerViewDelegate
     
     public func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
-        if requestBanner?.banner == bannerView {
+        if requestBanner?.banner === bannerView {
             primaryAdReceived()
         }
     }
@@ -233,9 +237,9 @@ public class GAMBannerEventHandler :
         proxyBanner = nil
     }
     
-    class func convertGADSizes(_ inSizes: [NSValue]) -> [NSValue] {
+    class func convertGADSizes(_ inSizes: [NSValue]) -> [CGSize] {
         inSizes.map {
-            CGSizeFromGADAdSize(GADAdSizeFromNSValue( $0 )) as NSValue
+            CGSizeFromGADAdSize(GADAdSizeFromNSValue( $0 ))
         }
     }
     

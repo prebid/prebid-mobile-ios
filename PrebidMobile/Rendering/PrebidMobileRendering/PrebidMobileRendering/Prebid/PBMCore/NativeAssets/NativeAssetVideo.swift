@@ -59,7 +59,7 @@ public class NativeAssetVideo: NativeAsset {
         return result
     }
 
-    @objc public func setVideoExt(_ videoExt: [String : Any]?) throws {
+    @objc public func setVideoExt(_ videoExt: [String : Any]) throws {
         try setChildExt(videoExt)
     }
 

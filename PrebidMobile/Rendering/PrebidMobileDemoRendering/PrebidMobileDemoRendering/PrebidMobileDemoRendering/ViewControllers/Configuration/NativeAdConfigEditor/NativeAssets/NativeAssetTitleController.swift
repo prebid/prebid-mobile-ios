@@ -8,6 +8,8 @@
 import UIKit
 import Eureka
 
+import PrebidMobileRendering
+
 class NativeAssetTitleController: BaseNativeAssetController<NativeAssetTitle> {
     override func buildForm() {
         super.buildForm()

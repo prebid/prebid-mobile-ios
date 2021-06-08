@@ -10,7 +10,7 @@ import UIKit
 
 public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     
-    @objc public var adFormat: PBMAdFormat {
+    @objc public var adFormat: AdFormat {
         get { adConfiguration.adFormat }
         set { adConfiguration.adFormat = newValue }
     }
@@ -21,8 +21,8 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         set { adConfiguration.isOptIn = newValue }
     }
     
-    @objc public weak var loadingDelegate: PBMInterstitialControllerLoadingDelegate?
-    @objc public weak var interactionDelegate: PBMInterstitialControllerInteractionDelegate?
+    @objc public weak var loadingDelegate: InterstitialControllerLoadingDelegate?
+    @objc public weak var interactionDelegate: InterstitialControllerInteractionDelegate?
     
     var bid: Bid
     var adConfiguration: AdUnitConfig
@@ -99,13 +99,13 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
 
     @objc public func adDidComplete() {
         if let delegate = interactionDelegate {
-            delegate.interstitialControllerDidComplete?(self)
+            delegate.interstitialControllerDidComplete(self)
         }
     }
     
     @objc public func adDidDisplay() {
         if let delegate = interactionDelegate {
-            delegate.interstitialControllerDidDisplay?(self)
+            delegate.interstitialControllerDidDisplay(self)
         }
     }
     
@@ -156,7 +156,8 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     
     func reportFailureWithError(_ error: Error?) {
         transactionFactory = nil
-        if let error = error, let loadingDelegate = loadingDelegate {
+        if let error = error,
+           let loadingDelegate = loadingDelegate {
             loadingDelegate.interstitialController(self, didFailWithError: error)
         }
     }

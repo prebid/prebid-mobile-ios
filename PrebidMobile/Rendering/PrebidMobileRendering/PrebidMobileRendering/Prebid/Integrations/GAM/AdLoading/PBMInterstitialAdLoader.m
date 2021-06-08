@@ -9,15 +9,14 @@
 
 #import "PBMAdLoaderFlowDelegate.h"
 #import "PBMInterstitialEventHandler.h"
-#import "PBMInterstitialControllerLoadingDelegate.h"
-#import "PBMRewardedEventHandler.h"
+#import "PBMInterstitialAdLoaderDelegate.h"
 
 #import "PBMMacros.h"
 
 #import "PrebidMobileRenderingSwiftHeaders.h"
 #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
-@interface PBMInterstitialAdLoader () <PBMInterstitialControllerLoadingDelegate>
+@interface PBMInterstitialAdLoader () <InterstitialControllerLoadingDelegate, RewardedEventLoadingDelegate>
 @property (nonatomic, weak, nullable, readonly) id<PBMInterstitialAdLoaderDelegate> delegate;
 @end
 
@@ -71,17 +70,8 @@
         }];
         return;
     }
-    if ([adObject conformsToProtocol:@protocol(PBMInterstitialEventHandler)]) {
-        id<PBMInterstitialEventHandler> const eventHandler = (id<PBMInterstitialEventHandler>)adObject;
-        [self.delegate interstitialAdLoader:self
-                                   loadedAd:^(UIViewController *targetController) {
-            [eventHandler showFromViewController:targetController];
-        } isReadyBlock:^BOOL{
-            return eventHandler.isReady;
-        }];
-        return;
-    } else if ([adObject conformsToProtocol:@protocol(PBMRewardedEventHandler)]) {
-        id<PBMRewardedEventHandler> const eventHandler = (id<PBMRewardedEventHandler>)adObject;
+    if ([adObject conformsToProtocol:@protocol(PBMInterstitialAd)]) {
+        id<PBMInterstitialAd> const eventHandler = (id<PBMInterstitialAd>)adObject;
         [self.delegate interstitialAdLoader:self
                                    loadedAd:^(UIViewController *targetController) {
             [eventHandler showFromViewController:targetController];
@@ -90,6 +80,7 @@
         }];
         return;
     }
+    
     [self.delegate interstitialAdLoader:self
                                loadedAd:^(UIViewController *targetController) { } // nop
                            isReadyBlock:^BOOL{ return NO;
@@ -97,7 +88,7 @@
     }];
 }
 
-// MARK: - PBMInterstitialControllerLoadingDelegate
+// MARK: - InterstitialControllerLoadingDelegate
 
 - (void)interstitialControllerDidLoadAd:(InterstitialController *)interstitialController {
     [self.flowDelegate adLoaderLoadedPrebidAd:self];
@@ -107,7 +98,7 @@
     [self.flowDelegate adLoader:self failedWithPrebidError:error];
 }
 
-// MARK: - PBMInterstitialEventLoadingDelegate
+// MARK: - InterstitialEventLoadingDelegate
 
 - (void)prebidDidWin {
     [self.flowDelegate adLoaderDidWinPrebid:self];
@@ -121,21 +112,6 @@
     [self.flowDelegate adLoader:self failedWithPrimarySDKError:error];
 }
 
-// MARK: - PBMRewardedEventLoadingDelegate
-
-- (NSObject *)reward {
-    id<PBMInterstitialAdLoaderDelegate> const delegate = self.delegate;
-    if ([delegate respondsToSelector:@selector(reward)]) {
-        return [delegate reward];
-    }
-    return nil;
-}
-
-- (void)setReward:(NSObject *)reward {
-    id<PBMInterstitialAdLoaderDelegate> const delegate = self.delegate;
-    if ([delegate respondsToSelector:@selector(setReward:)]) {
-        return [delegate setReward:reward];
-    }
-}
+@synthesize reward;
 
 @end

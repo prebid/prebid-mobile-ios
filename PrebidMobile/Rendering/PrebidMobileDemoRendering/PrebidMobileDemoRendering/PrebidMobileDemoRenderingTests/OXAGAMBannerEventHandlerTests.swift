@@ -55,9 +55,9 @@ class PBMGAMBannerEventHandlerTests: XCTestCase {
         
         XCTAssertEqual(eventHandler.adSizes.count, 3)
         
-        XCTAssertEqual(eventHandler.adSizes[0].cgSizeValue  , CGSize(width: 320, height: 50))
-        XCTAssertEqual(eventHandler.adSizes[1].cgSizeValue  , CGSize(width: 300, height: 250))
-        XCTAssertEqual(eventHandler.adSizes[2].cgSizeValue  , CGSize(width: 0, height: 0))
+        XCTAssertEqual(eventHandler.adSizes[0]  , CGSize(width: 320, height: 50))
+        XCTAssertEqual(eventHandler.adSizes[1]  , CGSize(width: 300, height: 250))
+        XCTAssertEqual(eventHandler.adSizes[2]  , CGSize(width: 0, height: 0))
     }
     
     func testInvalidValue() {
@@ -71,7 +71,7 @@ class PBMGAMBannerEventHandlerTests: XCTestCase {
         let eventHandler = GAMBannerEventHandler(adUnitID: "some_id", validGADAdSizes: [NSValueFromGADAdSize(GADSize)]);
         let val = eventHandler.adSizes.first!
         
-        XCTAssertEqual(val.cgSizeValue, size, file: file, line: line)
+        XCTAssertEqual(val, size, file: file, line: line)
     }
     
     func runCheckInvalidValue(_ value: NSValue, file: StaticString = #file, line: UInt = #line) {
@@ -79,7 +79,7 @@ class PBMGAMBannerEventHandlerTests: XCTestCase {
         let eventHandler = GAMBannerEventHandler(adUnitID: "some_id", validGADAdSizes: [value]);
         let val = eventHandler.adSizes.first!
         
-        XCTAssertEqual(val.cgSizeValue, CGSize(width: 0, height: 0), file: file, line: line)
+        XCTAssertEqual(val, CGSize(width: 0, height: 0), file: file, line: line)
     }
 }
 

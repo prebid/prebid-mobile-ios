@@ -6,6 +6,7 @@
 //
 import UIKit
 import MoPubSDK
+import PrebidMobileRendering
 
 class MoPubNativeAdView: UIStackView, MPNativeAdRendering {
     let titleLabel = UILabel()

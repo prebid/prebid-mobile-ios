@@ -8,13 +8,14 @@
 #import <Foundation/Foundation.h>
 
 #import "PBMAdLoaderProtocol.h"
-#import "PBMBannerAdLoaderDelegate.h"
+
+@protocol BannerAdLoaderDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMBannerAdLoader : NSObject <PBMAdLoaderProtocol>
 
-- (instancetype)initWithDelegate:(id<PBMBannerAdLoaderDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<BannerAdLoaderDelegate>)delegate;
 
 @end
 

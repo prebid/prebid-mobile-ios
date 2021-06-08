@@ -15,11 +15,11 @@ class PBMNativeAdMarkupDataTest: XCTestCase {
 
         let optionalDataProperties: [JSONDecoding.BaseOptionalCheck<PBMNativeAdMarkupData>] = [
             JSONDecoding.OptionalPropertyCheck(value: "Some Data value", dicKey: "value", keyPath: \.value),
-            JSONDecoding.OptionalPropertyCheck(value: PBMDataAssetType.desc,
+            JSONDecoding.OptionalPropertyCheck(value: NativeDataAssetType.desc,
                                                writer: { $0["type"] = NSNumber(value: $1.rawValue) },
-                                               reader: { (data: PBMNativeAdMarkupData) -> PBMDataAssetType? in
+                                               reader: { (data: PBMNativeAdMarkupData) -> NativeDataAssetType? in
                                                 if let rawType = data.dataType?.intValue {
-                                                 return PBMDataAssetType(rawValue: rawType)
+                                                 return NativeDataAssetType(rawValue: rawType)
                                                 } else {
                                                  return nil
                                                 }
@@ -38,7 +38,7 @@ class PBMNativeAdMarkupDataTest: XCTestCase {
         let tester: Equality.Tester<PBMNativeAdMarkupData> =
             Equality.Tester(template: PBMNativeAdMarkupData(value: ""), checks: [
                 Equality.Check(values: "some url", "other url", keyPath: \.value),
-                Equality.Check(values: PBMDataAssetType.desc, .rating) { $0.dataType = NSNumber(value: $1.rawValue) },
+                Equality.Check(values: NativeDataAssetType.desc, .rating) { $0.dataType = NSNumber(value: $1.rawValue) },
                 Equality.Check(values: 12, 49, keyPath: \.length),
                 Equality.Check(values: ["a":"b"], ["c":1]) { $0.ext = $1 },
             ])

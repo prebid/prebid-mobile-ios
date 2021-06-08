@@ -13,7 +13,7 @@ public class NativeAssetData : NativeAsset {
     /// Type ID of the element supported by the publisher.
     /// The publisher can display this information in an appropriate format.
     /// See Data Asset Types table for commonly used examples.
-    @objc public var dataType: PBMDataAssetType
+    @objc public var dataType: NativeDataAssetType
     
     /// [Integer]
     /// Maximum length of the text in the element’s response.
@@ -25,7 +25,7 @@ public class NativeAssetData : NativeAsset {
     
     // MARK: - Lifecycle
     
-    @objc public required init(dataType: PBMDataAssetType) {
+    @objc public required init(dataType: NativeDataAssetType) {
         self.dataType = dataType
         super.init(childType: "data")
     }
@@ -45,7 +45,7 @@ public class NativeAssetData : NativeAsset {
         }
     }
     
-    @objc public func setDataExt(_ dataExt: [String : Any]?) throws {
+    @objc public func setDataExt(_ dataExt: [String : Any]) throws {
         try setChildExt(dataExt)
     }
 

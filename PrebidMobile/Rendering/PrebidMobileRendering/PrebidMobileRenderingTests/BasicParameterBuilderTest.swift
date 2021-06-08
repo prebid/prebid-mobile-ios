@@ -87,7 +87,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     }
     
     func testParameterBuilderInterstitialVAST() {
-        let adUnit = InterstitialAdUnit.init(configId: "configId")
+        let adUnit = InterstitialAdUnit.init(configID: "configId")
         adUnit.adFormat = .video
         let adConfiguration = adUnit.adUnitConfig.adConfiguration
         
@@ -257,13 +257,13 @@ class PBMBasicParameterBuilderTest: XCTestCase {
                                        expectedPlacement: 5)
     }
     
-    func testParameterBuilderVideo(placement: PBMVideoPlacementType,
+    func testParameterBuilderVideo(placement: VideoPlacementType,
                                    isInterstitial: Bool,
                                    expectedPlacement:Int) {
         
         var adConfiguration: PBMAdConfiguration
         if (isInterstitial) {
-            let adUnit = InterstitialAdUnit.init(configId: "configId")
+            let adUnit = InterstitialAdUnit.init(configID: "configId")
             adUnit.adFormat = .video
             adConfiguration = adUnit.adUnitConfig.adConfiguration
         } else {
