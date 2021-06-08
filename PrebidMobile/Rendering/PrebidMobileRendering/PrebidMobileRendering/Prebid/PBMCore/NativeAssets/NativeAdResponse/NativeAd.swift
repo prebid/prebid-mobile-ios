@@ -13,8 +13,8 @@ fileprivate let viewabilityPollingInterval : TimeInterval = 0.2
 
 public class NativeAd: NSObject {
     
-    @objc public weak var uiDelegate: PBMNativeAdUIDelegate?
-    @objc public weak var trackingDelegate: PBMNativeAdTrackingDelegate?
+    @objc public weak var uiDelegate: NativeAdUIDelegate?
+    @objc public weak var trackingDelegate: NativeAdTrackingDelegate?
     
     // MARK: - Root properties
     
@@ -79,7 +79,7 @@ public class NativeAd: NSObject {
         
         let viewControllerProvider: PBMViewControllerProvider = { [weak self] in
             if let self = self {
-                return self.uiDelegate?.viewPresentationController(for: self)
+                return self.uiDelegate?.viewPresentationControllerForNativeAd(self)
             } else {
                 return nil
             }
@@ -110,11 +110,11 @@ public class NativeAd: NSObject {
     
     // MARK: - Filtered array getters
     
-    @objc public func dataObjects(of dataType: PBMDataAssetType) -> [NativeAdData] {
+    @objc public func dataObjects(of dataType: NativeDataAssetType) -> [NativeAdData] {
         dataObjects.filter { $0.dataType?.intValue == dataType.rawValue }
     }
 
-    @objc public func images(of imageType: PBMImageAssetType) -> [NativeAdImage] {
+    @objc public func images(of imageType: NativeImageAssetType) -> [NativeAdImage] {
         images.filter { $0.imageType?.intValue == imageType.rawValue }
     }
     
@@ -157,7 +157,7 @@ public class NativeAd: NSObject {
             guard let self = self else {
                 return nil
             }
-            return self.uiDelegate?.viewPresentationController(for: self)
+            return self.uiDelegate?.viewPresentationControllerForNativeAd(self)
         },
         measurementSessionProvider: { [weak self] in
             self?.measurementSession
@@ -274,13 +274,13 @@ public class NativeAd: NSObject {
                 return
             }
             
-            if impressionType == .impression {
+                                                            if impressionType == NativeEventType.impression.rawValue {
                 self.trackOMEvent(.impression)
             }
                                                                 
             self.fireEventTrackersBlock(impressionType)
             if let delegate = self.trackingDelegate {
-                delegate.nativeAd?(self, didLogEvent: impressionType)
+                delegate.nativeAd?(self, didLogEvent: NativeEventType(rawValue: impressionType) ?? .exchangeSpecific)
             }
         })
         
@@ -293,7 +293,7 @@ public class NativeAd: NSObject {
         createOpenMeasurementSessionFor(adView)
     }
 
-    @objc public func registerClickView(_ adView: UIView, nativeAdElementType: PBMNativeAdElementType) {
+    @objc public func registerClickView(_ adView: UIView, nativeAdElementType: NativeAdElementType) {
         if let relevantAsset = self.findAssetForElementType(nativeAdElementType) {
             registerClickView(adView, nativeAdAsset: relevantAsset)
         }
@@ -307,7 +307,7 @@ public class NativeAd: NSObject {
     }
     
     // MARK: - Private Helpers
-    func findAssetForElementType(_ nativeAdElementType: PBMNativeAdElementType) -> NativeAdAsset? {
+    func findAssetForElementType(_ nativeAdElementType: NativeAdElementType) -> NativeAdAsset? {
         var assets: [NativeAdAsset]? = nil
         switch(nativeAdElementType) {
             case .title:
@@ -343,7 +343,10 @@ public class NativeAd: NSObject {
     }
     
     func findOMIDTracker() -> PBMNativeAdMarkupEventTracker? {
-        nativeAdMarkup.eventtrackers?.first {$0.event == .OMID && $0.method == .JS && $0.url != nil}
+        nativeAdMarkup.eventtrackers?.first { tracker in
+            print("\(tracker)")
+            return tracker.event == NativeEventType.omid.rawValue && tracker.method == NativeEventTrackingMethod.js.rawValue && tracker.url != nil
+        }
     }
     
     func trackOMEvent(_ event: PBMTrackingEvent) {

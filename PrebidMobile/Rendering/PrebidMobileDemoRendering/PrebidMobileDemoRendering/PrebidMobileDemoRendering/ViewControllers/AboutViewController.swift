@@ -13,6 +13,7 @@ import PrebidMobileGAMEventHandlers
 import PrebidMobileMoPubAdapters
 import GoogleMobileAds
 import MoPubSDK
+import PrebidMobileRendering
 
 
 class AboutViewController : FormViewController {

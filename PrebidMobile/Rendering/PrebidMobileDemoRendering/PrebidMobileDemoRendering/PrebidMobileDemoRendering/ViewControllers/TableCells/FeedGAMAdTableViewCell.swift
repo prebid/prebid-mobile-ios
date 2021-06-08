@@ -8,6 +8,7 @@
 import UIKit
 
 import GoogleMobileAds
+import PrebidMobileRendering
 import PrebidMobileGAMEventHandlers
 
 class FeedGAMAdTableViewCell: UITableViewCell {
@@ -124,8 +125,8 @@ extension FeedGAMAdTableViewCell: GADCustomNativeAdLoaderDelegate {
     }
 }
 
-extension FeedGAMAdTableViewCell: PBMNativeAdUIDelegate {
-    func viewPresentationController(for nativeAd: NativeAd) -> UIViewController? {
+extension FeedGAMAdTableViewCell: NativeAdUIDelegate {
+    func viewPresentationControllerForNativeAd(_ nativeAd: NativeAd) -> UIViewController? {
         return rootController
     }
 }

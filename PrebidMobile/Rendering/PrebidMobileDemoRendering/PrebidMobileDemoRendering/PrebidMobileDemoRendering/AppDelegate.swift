@@ -51,13 +51,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         processArgumentsParser.addOption("AD_POSITION", paramsCount: 1, fireOnce: true) { params in
-            if let adPositionInt = Int(params[0]), let adPosition = PBMAdPosition(rawValue: adPositionInt) {
+            if let adPositionInt = Int(params[0]), let adPosition = AdPosition(rawValue: adPositionInt) {
                 AppConfiguration.shared.adPosition = adPosition
             }
         }
         
         processArgumentsParser.addOption("VIDEO_PLACEMENT_TYPE", paramsCount: 1, fireOnce: true) { params in
-            if let placementTypeInt = Int(params[0]), let placementType = PBMVideoPlacementType(rawValue: placementTypeInt) {
+            if let placementTypeInt = Int(params[0]), let placementType = VideoPlacementType(rawValue: placementTypeInt) {
                 AppConfiguration.shared.videoPlacementType = placementType
             }
         }

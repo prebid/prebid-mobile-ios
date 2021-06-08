@@ -7,6 +7,8 @@
 
 import Foundation
 
+import PrebidMobileRendering
+
 extension NativeAdConfiguration {
     convenience init?(json: [String: Any]) {
         guard let rawAssets = json["assets"] as? [[String: Any]] else {
@@ -15,19 +17,19 @@ extension NativeAdConfiguration {
         self.init(assets: rawAssets.compactMap(NativeAsset.parse(json:)))
         version = json["ver"] as? String
         
-        context = enumValue(json["context"])
-        contextsubtype = enumValue(json["contextsubtype"])
-        plcmttype = enumValue(json["plcmttype"])
+        context = json["context"] as? Int ?? 0
+        contextsubtype = json["contextsubtype"] as? Int ?? 0
+        plcmttype = json["plcmttype"] as? Int ?? 0
 
 //        plcmtcnt = json["plcmtcnt"] as? NSNumber
         seq = json["seq"] as? NSNumber
 //        aurlsupport = json["aurlsupport"] as? NSNumber
 //        durlsupport = json["durlsupport"] as? NSNumber
         if let rawTrackers = json["eventtrackers"] as? [[String: Any]] {
-            eventtrackers = rawTrackers.compactMap(PBMNativeEventTracker.init(json:))
+            eventtrackers = rawTrackers.compactMap(NativeEventTracker.init(json:))
         }
         privacy = json["privacy"] as? NSNumber
-        try? setExt(json["ext"] as? [String: Any])
+        try? setExt((json["ext"] as? [String: AnyHashable])!)
     }
     
     private func enumValue<T: RawRepresentable>(_ value: Any?) -> T! where T.RawValue == Int {

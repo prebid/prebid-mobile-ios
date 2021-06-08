@@ -7,6 +7,7 @@
 
 import UIKit
 import Eureka
+import PrebidMobileRendering
 
 final class OpenXSDKConfigurationController : FormViewController {
     

@@ -7,6 +7,7 @@
 
 import Foundation
 import GoogleMobileAds
+import PrebidMobileRendering
 import PrebidMobileGAMEventHandlers
 
 class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, BannerViewDelegate {
@@ -16,7 +17,7 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
     var prebidConfigId = ""
     var gamAdUnitId = ""
     var validAdSizes = [GADAdSize]()
-    var adFormat: PBMAdFormat?
+    var adFormat: AdFormat?
     var nativeAdConfig: NativeAdConfiguration?
     
     var adBannerView : BannerView?

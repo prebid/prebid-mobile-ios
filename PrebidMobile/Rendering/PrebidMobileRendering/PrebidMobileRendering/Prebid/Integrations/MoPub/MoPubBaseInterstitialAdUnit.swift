@@ -18,7 +18,7 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
     var bidRequester: PBMBidRequester?
     
     var adObject: NSObject?
-    var completion: ((PBMFetchDemandResult) -> Void)?
+    var completion: ((FetchDemandResult) -> Void)?
     
     init(configId: String) {
         
@@ -29,7 +29,7 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
     }
     
     public func fetchDemand(with adObject: NSObject,
-                            completion: ((PBMFetchDemandResult)->Void)?) {
+                            completion: ((FetchDemandResult)->Void)?) {
         
         fetchDemand(with: adObject,
                     connection: PBMServerConnection.singleton(),
@@ -63,7 +63,7 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
                              connection: PBMServerConnectionProtocol,
                              sdkConfiguration: PrebidRenderingConfig,
                              targeting: PrebidRenderingTargeting,
-                             completion: ((PBMFetchDemandResult)->Void)?) {
+                             completion: ((FetchDemandResult)->Void)?) {
         guard bidRequester == nil else {
             // Request in progress
             return
@@ -96,7 +96,7 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
     // MARK: - Private Methods
     
     private func handleBidResponse(_ bidResponse: BidResponse) {
-        var demandResult = PBMFetchDemandResult.demandNoBids
+        var demandResult = FetchDemandResult.demandNoBids
         
         if let adObject = self.adObject,
            let winningBid = bidResponse.winningBid,
@@ -120,10 +120,10 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
     }
     
     private func handleBidRequestError(_ error: Error?) {
-        completeWithResult(PBMError.demandResult(fromError: error))
+        completeWithResult(PBMError.demandResult(from: error))
     }
     
-    private func completeWithResult(_ demandResult: PBMFetchDemandResult) {
+    private func completeWithResult(_ demandResult: FetchDemandResult) {
         if let completion = self.completion {
             DispatchQueue.main.async {
                 completion(demandResult)

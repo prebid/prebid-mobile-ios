@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import PrebidMobileRendering
 
 extension Array where Self.Element == NativeAsset {
     static let defaultNativeRequestAssets: [NativeAsset] = [
@@ -19,7 +20,7 @@ extension Array where Self.Element == NativeAsset {
             icon.widthMin = 50
             icon.heightMin = 50
             icon.required = 1
-            icon.imageType = NSNumber(value: PBMImageAssetType.icon.rawValue)
+            icon.imageType = NSNumber(value: NativeImageAssetType.icon.rawValue)
             return icon
         }(),
         {
@@ -27,7 +28,7 @@ extension Array where Self.Element == NativeAsset {
             image.widthMin = 150
             image.heightMin = 50
             image.required = 1
-            image.imageType = NSNumber(value: PBMImageAssetType.main.rawValue)
+            image.imageType = NSNumber(value: NativeImageAssetType.main.rawValue)
             return image
         }(),
         {
@@ -54,15 +55,15 @@ extension NativeAdConfiguration {
         self.init(assets: assets)
         
         self.eventtrackers = [
-            PBMNativeEventTracker(event: .impression,
+            NativeEventTracker(event: NativeEventType.impression.rawValue,
                                   methods: [
-                                    PBMNativeEventTrackingMethod.img,
-                                    .JS,
-                                  ].map { NSNumber(value: $0.rawValue) }),
+                                    NativeEventTrackingMethod.img,
+                                    .js,
+                                  ].map { $0.rawValue }),
         ]
         
-        self.context = .socialCentric
-        self.contextsubtype = .social
-        self.plcmttype = .feedGridListing
+        self.context = NativeContextType.socialCentric.rawValue
+        self.contextsubtype = NativeContextSubtype.social.rawValue
+        self.plcmttype = NativePlacementType.feedGridListing.rawValue
     }
 }

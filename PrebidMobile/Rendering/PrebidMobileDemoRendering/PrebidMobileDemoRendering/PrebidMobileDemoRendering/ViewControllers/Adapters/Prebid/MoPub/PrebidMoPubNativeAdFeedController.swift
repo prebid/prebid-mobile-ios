@@ -8,6 +8,7 @@
 import UIKit
 import MoPubSDK
 
+import PrebidMobileRendering
 import PrebidMobileMoPubAdapters
 
 class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCompatibleController {
@@ -179,8 +180,8 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCom
     }
 }
 
-extension PrebidMoPubNativeAdFeedController: PBMNativeAdUIDelegate {
-    func viewPresentationController(for nativeAd: NativeAd) -> UIViewController? {
+extension PrebidMoPubNativeAdFeedController: NativeAdUIDelegate {
+    func viewPresentationControllerForNativeAd(_ nativeAd: NativeAd) -> UIViewController? {
         return rootTableViewController
     }
 }

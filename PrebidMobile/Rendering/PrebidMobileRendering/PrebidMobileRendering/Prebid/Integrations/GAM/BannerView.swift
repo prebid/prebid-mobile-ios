@@ -10,13 +10,13 @@ import UIKit
 fileprivate let assertionMessageMainThread = "Expected to only be called on the main thread"
 
 public class BannerView: UIView,
-                  PBMBannerAdLoaderDelegate,
-                  PBMAdLoadFlowControllerDelegate,
-                  PBMBannerEventInteractionDelegate,
-                  PBMDisplayViewInteractionDelegate {
-
+                  BannerAdLoaderDelegate,
+                  AdLoadFlowControllerDelegate,
+                  BannerEventInteractionDelegate,
+                  DisplayViewInteractionDelegate {
+    
     public let adUnitConfig: AdUnitConfig
-    public let eventHandler: PBMBannerEventHandler?
+    public let eventHandler: BannerEventHandler?
     
     // MARK: - Public Properties
     
@@ -34,19 +34,19 @@ public class BannerView: UIView,
         set { adUnitConfig.additionalSizes = newValue }
     }
     
-    @objc public var adFormat: PBMAdFormat {
+    @objc public var adFormat: AdFormat {
         get { adUnitConfig.adFormat }
         set { adUnitConfig.adFormat = newValue }
     }
     
-    @objc public var adPosition: PBMAdPosition {
+    @objc public var adPosition: AdPosition {
         get { adUnitConfig.adPosition }
         set { adUnitConfig.adPosition = newValue }
     }
     
-    @objc public var videoPlacementType: PBMVideoPlacementType {
-        get { adUnitConfig.videoPlacementType }
-        set { adUnitConfig.videoPlacementType = newValue }
+    @objc public var videoPlacementType: VideoPlacementType {
+        get { VideoPlacementType(rawValue: adUnitConfig.videoPlacementType.rawValue) ?? .undefined }
+        set { adUnitConfig.videoPlacementType = PBMVideoPlacementType(rawValue: newValue.rawValue) ?? .undefined }
     }
     
     @objc public var nativeAdConfig: NativeAdConfiguration? {
@@ -97,8 +97,7 @@ public class BannerView: UIView,
     @objc public init(frame: CGRect,
                 configID: String,
                 adSize: CGSize,
-                eventHandler: PBMBannerEventHandler) {
-        
+                eventHandler: BannerEventHandler) {
         
         adUnitConfig = AdUnitConfig(configID: configID, size: adSize)
         self.eventHandler = eventHandler
@@ -144,8 +143,9 @@ public class BannerView: UIView,
     }
     
     @objc public convenience init(configID: String,
-                            eventHandler: PBMBannerEventHandler) {
-        let size = eventHandler.adSizes.first?.cgSizeValue ?? CGSize()
+                                  eventHandler: BannerEventHandler) {
+        
+        let size = eventHandler.adSizes.first ?? CGSize()
         let frame = CGRect(origin: CGPoint.zero, size: size)
         
         self.init(frame: frame,
@@ -154,8 +154,7 @@ public class BannerView: UIView,
                   eventHandler: eventHandler)
         
         if eventHandler.adSizes.count > 1 {
-            self.additionalSizes = Array(eventHandler.adSizes.suffix(from: 1)
-                                            .compactMap { $0.cgSizeValue })
+            self.additionalSizes = Array(eventHandler.adSizes.suffix(from: 1))
         }
     }
     
@@ -165,7 +164,7 @@ public class BannerView: UIView,
         self.init(frame: frame,
                   configID: configID,
                   adSize: adSize,
-                  eventHandler: PBMBannerEventHandlerStandalone())
+                  eventHandler: BannerEventHandlerStandalone())
     }
     
     required init?(coder: NSCoder) {
@@ -200,15 +199,15 @@ public class BannerView: UIView,
         adUnitConfig.clearContextData()
     }
     
-    // MARK: - PBMDisplayViewInteractionDelegate
+    // MARK: - DisplayViewInteractionDelegate
     
     public func trackImpression(for displayView: PBMDisplayView) {
         guard let eventHandler = self.eventHandler,
-              eventHandler.responds(to: #selector(PBMBannerEventHandler.trackImpression)) else {
+              eventHandler.responds(to: #selector(BannerEventHandler.trackImpression)) else {
             return
         }
         
-        eventHandler.trackImpression?()
+        eventHandler.trackImpression()
     }
     
     public func viewControllerForModalPresentation(from displayView: PBMDisplayView) -> UIViewController? {
@@ -219,15 +218,15 @@ public class BannerView: UIView,
         willLeaveApp()
     }
     
-    public func displayViewWillPresentModal(_ displayView: PBMDisplayView) {
+    public func willPresentModal(from displayView: PBMDisplayView) {
         willPresentModal()
     }
     
-    public func displayViewDidDismissModal(_ displayView: PBMDisplayView) {
+    public func didDismissModal(from displayView: PBMDisplayView) {
         didDismissModal()
     }
     
-    // MARK: - PBMBannerAdLoaderDelegate
+    // MARK: - BannerAdLoaderDelegate
     
     public func bannerAdLoader(_ bannerAdLoader: PBMBannerAdLoader, loadedAdView adView: UIView, adSize: CGSize) {
         deployView(adView)
@@ -258,7 +257,7 @@ public class BannerView: UIView,
         !isRefreshStopped
     }
     
-    // MARK: - PBMBannerEventInteractionDelegate
+    // MARK: - BannerEventInteractionDelegate
     
     public func willPresentModal() {
         assert(Thread.isMainThread, assertionMessageMainThread)
@@ -370,7 +369,7 @@ public class BannerView: UIView,
 
     // MARK: - Static Helpers
 
-    private static func canEventHandler(eventHandler:PBMBannerEventHandler,
+    private static func canEventHandler(eventHandler:BannerEventHandler,
                                         displayAdWithConfiguration adUnitConfig: AdUnitConfig ) -> Bool {
         if adUnitConfig.adConfiguration.adFormat != .nativeInternal {
             return true;

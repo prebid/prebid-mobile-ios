@@ -6,7 +6,6 @@
 //
 
 #import "PBMJsonDecodable.h"
-#import "PBMImageAssetType.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -10,10 +10,9 @@
 #import "PBMBidRequester.h"
 #import "PBMAdLoadFlowState.h"
 #import "PBMAdLoaderFlowDelegate.h"
-#import "PBMBannerEventLoadingDelegate.h"
-#import "PBMDisplayViewLoadingDelegate.h"
 
 @class BidResponse;
+@protocol AdLoadFlowControllerDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, nonnull, readonly) id<PBMBidRequesterProtocol> (^bidRequesterFactory)(AdUnitConfig *);
 @property (nonatomic, strong, nonnull, readonly) id<PBMAdLoaderProtocol> adLoader;
-@property (nonatomic, weak, nullable, readonly) id<PBMAdLoadFlowControllerDelegate> delegate;
+@property (nonatomic, weak, nullable, readonly) id<AdLoadFlowControllerDelegate> delegate;
 @property (nonatomic, copy, nonnull, readonly) PBMAdUnitConfigValidationBlock configValidationBlock;
 
 @property (nonatomic, assign) PBMAdLoadFlowState flowState;

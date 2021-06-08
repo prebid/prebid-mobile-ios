@@ -9,76 +9,28 @@ framework module PrebidMobileRendering {
     
     // Versions
     header "PrebidMobileRendering.h"
-    // Constants
-    header "PBMPublicConstants.h"
     // Enums
-    header "PBMAdFormat.h"
     header "PBMErrorCode.h"
     header "PBMErrorType.h"
     header "PBMLogLevel.h"
-    header "PBMAdPosition.h"
     header "PBMVideoPlacementType.h"
     
     // PBMCore
     header "PBMBidRequester.h"
     header "PBMBidRequesterProtocol.h"
-    header "PBMGender.h"
-    header "PBMFetchDemandResult.h"
     header "PBMHost.h"
-    header "PBMNetworkType.h"
     
     // PBMCacheRenderers
     header "PBMDisplayView.h"
-    header "PBMDisplayViewLoadingDelegate.h"
-    header "PBMDisplayViewInteractionDelegate.h"
-    header "PBMInterstitialControllerLoadingDelegate.h"
-    header "PBMInterstitialControllerInteractionDelegate.h"
-    
     
     // OXB Integration GAM
     
     header "PBMPrimaryAdRequesterProtocol.h"
-    
-    header "PBMBannerEventLoadingDelegate.h"
-    header "PBMBannerEventInteractionDelegate.h"
-    header "PBMBannerEventHandler.h"
-    
+        
     header "PBMBaseAdUnit.h"
     header "PBMBaseAdUnit+Protected.h"
-    header "PBMBaseInterstitialAdUnit.h"
-    header "PBMBaseInterstitialAdUnit+Protected.h"
     
-    header "PBMInterstitialAdUnitDelegate.h"
-    header "PBMInterstitialEventLoadingDelegate.h"
-    header "PBMInterstitialEventInteractionDelegate.h"
     header "PBMInterstitialEventHandler.h"
-    header "PBMInterstitialEventHandlerStandalone.h"
-    
-    header "PBMRewardedAdUnitDelegate.h"
-    header "PBMRewardedEventLoadingDelegate.h"
-    header "PBMRewardedEventInteractionDelegate.h"
-    header "PBMRewardedEventHandler.h"
-    header "PBMRewardedEventHandlerStandalone.h"
-    
-    
-    // PBM Native Ads (enums)
-    header "PBMDataAssetType.h"
-    header "PBMImageAssetType.h"
-    header "PBMDataAssetType.h"
-    header "PBMNativeEventTrackingMethod.h"
-    header "PBMNativeEventType.h"
-    // PBM Native Ads (request)
-    header "PBMNativeContextType.h"
-    header "PBMNativeContextSubtype.h"
-    header "PBMNativeEventTracker.h"
-    header "PBMNativePlacementType.h"
-    
-    // PBM Native Ads (response)
-//    header "PBMNativeAd.h"
-    header "PBMNativeAdTrackingDelegate.h"
-    header "PBMNativeAdUIDelegate.h"
-    header "PBMNativeAdElementType.h"
-    header "PBMNativeAdHandler.h"
     
     // ===
     //Temp. for converting
@@ -106,10 +58,7 @@ framework module PrebidMobileRendering {
     header "PBMNativeAdMarkupTitle.h"
     header "PBMNativeAdMarkupVideo.h"
     header "PBMNativeAdMarkupEventTracker.h"
-    
-    header "PBMNativeMarkupRequestObject.h"
-    header "PBMNativeMarkupRequestObject+Internal.h"
-    
+        
     header "PBMNativeClickableViewRegistry.h"
     header "PBMNativeClickTrackerBinderFactoryBlock.h"
     header"PBMNativeViewClickHandlerBlock.h"
@@ -170,13 +119,10 @@ framework module PrebidMobileRendering {
     
     header "PBMAutoRefreshManager.h"
     header "PBMAdLoadFlowController.h"
-    header "PBMAdLoadFlowControllerDelegate.h"
     header "PBMAdLoaderProtocol.h"
     header "PBMBannerAdLoader.h"
-    header "PBMBannerAdLoaderDelegate.h"
 
     
-    header "PBMBannerEventHandlerStandalone.h"
     header "PBMBidRequesterFactoryBlock.h"
     header "PBMWinNotifierBlock.h"
     header "PBMAdMarkupStringHandler.h"
@@ -237,4 +183,7 @@ framework module PrebidMobileRendering {
     header "NSMutableDictionary+PBMExtensions.h"
     header "PBMLocationManager.h"
     header "PBMUserConsentDataManager.h"
+    
+    header "PBMInterstitialAdLoader.h"
+    header "PBMInterstitialAdLoaderDelegate.h"
 }

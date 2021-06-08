@@ -12,15 +12,15 @@ import XCTest
 
 class PBMNativeAdImpressionReportingTest: XCTestCase {
     private let trackers: [PBMNativeAdMarkupEventTracker] = [
-        .init(event: .impression, method: .img, url: "Imp-Img"),
+        .init(event: NativeEventType.impression.rawValue, method: NativeEventTrackingMethod.img.rawValue, url: "Imp-Img"),
         
-        .init(event: .MRC50, method: .img, url: "MRC50-ImgA"),
-        .init(event: .MRC50, method: .img, url: "MRC50-ImgZ"),
-        .init(event: .MRC50, method: .JS, url: "MRC50-JS"),
-        .init(event: .MRC50, method: .img, url: "MRC50-ImgQ"),
-        .init(event: .MRC50, method: PBMNativeEventTrackingMethod(rawValue: 555)!, url: "MRC50-OM"),
+        .init(event: NativeEventType.mrc50.rawValue, method: NativeEventTrackingMethod.img.rawValue, url: "MRC50-ImgA"),
+        .init(event: NativeEventType.mrc50.rawValue, method: NativeEventTrackingMethod.img.rawValue, url: "MRC50-ImgZ"),
+        .init(event: NativeEventType.mrc50.rawValue, method: NativeEventTrackingMethod.js.rawValue, url: "MRC50-JS"),
+        .init(event: NativeEventType.mrc50.rawValue, method: NativeEventTrackingMethod.img.rawValue, url: "MRC50-ImgQ"),
+        .init(event: NativeEventType.mrc50.rawValue, method: NativeEventTrackingMethod(rawValue: 555)?.rawValue ?? 42, url: "MRC50-OM"),
         
-        .init(event: PBMNativeEventType(rawValue: 700)!, method: .img, url: "700-Img"),
+        .init(event: 700, method: NativeEventTrackingMethod.img.rawValue, url: "700-Img"),
     ]
     
     func testSingleTracker() {
@@ -29,7 +29,7 @@ class PBMNativeAdImpressionReportingTest: XCTestCase {
             urlsTracked.fulfill()
             XCTAssertEqual(urlStrings, ["Imp-Img"])
         }
-        detectionHandler(.impression)
+        detectionHandler(NativeEventType.impression.rawValue)
         waitForExpectations(timeout: 1)
         let additionalTimeout = expectation(description: "no more new events")
         additionalTimeout.isInverted = true
@@ -42,7 +42,7 @@ class PBMNativeAdImpressionReportingTest: XCTestCase {
             urlsTracked.fulfill()
             XCTAssertEqual(urlStrings, [])
         }
-        detectionHandler(.video50)
+        detectionHandler(NativeEventType.video50.rawValue)
         waitForExpectations(timeout: 1)
         let additionalTimeout = expectation(description: "no more new events")
         additionalTimeout.isInverted = true
@@ -55,7 +55,7 @@ class PBMNativeAdImpressionReportingTest: XCTestCase {
             urlsTracked.fulfill()
             XCTAssertEqual(urlStrings, ["MRC50-ImgA", "MRC50-ImgZ", "MRC50-ImgQ"])
         }
-        detectionHandler(.MRC50)
+        detectionHandler(NativeEventType.mrc50.rawValue)
         waitForExpectations(timeout: 1)
         let additionalTimeout = expectation(description: "no more new events")
         additionalTimeout.isInverted = true
@@ -72,7 +72,7 @@ class PBMNativeAdImpressionReportingTest: XCTestCase {
             urlsTracked.fulfill()
             XCTAssertEqual(urlStrings, ["700-Img"])
         }
-        detectionHandler(PBMNativeEventType(rawValue: 700)!)
+        detectionHandler(700)
         waitForExpectations(timeout: 1)
         let additionalTimeout = expectation(description: "no more new events")
         additionalTimeout.isInverted = true

@@ -12,7 +12,7 @@ public class MoPubInterstitialAdUnit : MoPubBaseInterstitialAdUnit {
     
     // MARK: - Public Properties
     
-    public var adFormat: PBMAdFormat {
+    public var adFormat: AdFormat {
         get { adUnitConfig.adFormat }
         set { adUnitConfig.adFormat = newValue }
     }

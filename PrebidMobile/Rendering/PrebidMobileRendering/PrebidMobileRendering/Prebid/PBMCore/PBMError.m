@@ -6,11 +6,12 @@
 //
 
 #import "PBMError.h"
-#import "PBMPublicConstants.h"
 #import "PBMErrorFamily.h"
 #import "PBMLog.h"
 
-static NSString * const oxbFetchDemandResultKey = @"oxbFetchDemandResultKey";
+#import "PrebidMobileRenderingSwiftHeaders.h"
+#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
+
 
 @implementation PBMError
 
@@ -25,7 +26,7 @@ static NSString * const oxbFetchDemandResultKey = @"oxbFetchDemandResultKey";
                                NSLocalizedDescriptionKey: NSLocalizedString(description, nil)
                                };
     
-    return [PBMError errorWithDomain:PBMErrorDomain
+    return [PBMError errorWithDomain:PrebidRenderingErrorDomain
                                 code:code
                             userInfo:userInfo];
 }
@@ -33,7 +34,7 @@ static NSString * const oxbFetchDemandResultKey = @"oxbFetchDemandResultKey";
 + (PBMError *)errorWithMessage:(NSString *)message type:(PBMErrorType)type {
     NSString *desc = [NSString stringWithFormat:@"%@: %@", type, message];
     NSDictionary *userInfo = @{NSLocalizedDescriptionKey:desc};
-    return [PBMError errorWithDomain:PBMErrorDomain code:0 userInfo:userInfo];
+    return [PBMError errorWithDomain:PrebidRenderingErrorDomain code:0 userInfo:userInfo];
 }
 
 + (BOOL)createError:(NSError *__autoreleasing  _Nullable *)error description:(NSString *)description {
@@ -65,189 +66,174 @@ static NSString * const oxbFetchDemandResultKey = @"oxbFetchDemandResultKey";
 
 
 + (NSError *)requestInProgress {
-    return [NSError errorWithDomain:pbmErrorDomain
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:1
                                           forFamily:kPBMErrorFamily_SetupErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Network request already in progress",
         NSLocalizedRecoverySuggestionErrorKey: @"Wait for a competion handler to fire before attempting to send new requests",
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_InternalSDKError),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInternalSDKError),
     }];
 }
 
 // MARK: - Known server text errors
 
 + (NSError *)invalidAccountId {
-    return [NSError errorWithDomain:pbmErrorDomain
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:1
                                           forFamily:kPBMErrorFamily_KnownServerErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Prebid server does not recognize Account Id",
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_InvalidAccountId),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidAccountId),
     }];
 }
 
 + (NSError *)invalidConfigId {
-    return [NSError errorWithDomain:pbmErrorDomain
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:2
                                           forFamily:kPBMErrorFamily_KnownServerErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Prebid server does not recognize Config Id",
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_InvalidConfigId),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidConfigId),
     }];
 }
 
 + (NSError *)invalidSize {
-    return [NSError errorWithDomain:pbmErrorDomain
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:3
                                           forFamily:kPBMErrorFamily_KnownServerErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Prebid server does not recognize the size requested",
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_InvalidSize),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidSize),
     }];
 }
 
 + (NSError *)prebidServerURLInvalid:(NSString *)url {
-    return [NSError errorWithDomain:pbmErrorDomain
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:4
                                           forFamily:kPBMErrorFamily_KnownServerErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Prebid server URL %@ is invalid", url],
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_InvalidHostUrl),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidHostUrl),
     }];
 }
 
 // MARK: - Unknown server text errors
 
 + (NSError *)serverError:(NSString *)errorBody {
-    return [NSError errorWithDomain:pbmErrorDomain
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:1
                                           forFamily:kPBMErrorFamily_UnknownServerErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Prebid Server Error",
         NSLocalizedFailureReasonErrorKey: errorBody,
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_ServerError),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultServerError),
     }];
 }
 
 // MARK: - Response processing errors
 
 + (NSError *)jsonDictNotFound {
-    return [NSError errorWithDomain:pbmErrorDomain
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:1
                                           forFamily:kPBMErrorFamily_ResponseProcessingErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"The response does not contain a valid json dictionary",
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_InvalidResponseStructure),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidResponseStructure),
     }];
 }
 
 + (NSError *)responseDeserializationFailed {
-    return [NSError errorWithDomain:pbmErrorDomain
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:2
                                           forFamily:kPBMErrorFamily_ResponseProcessingErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Failed to deserialize jsonDict from response into a proper BidResponse object",
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_InvalidResponseStructure),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidResponseStructure),
     }];
 }
 
 + (NSError *)noEventForNativeAdMarkupEventTracker {
-    return [NSError errorWithDomain:pbmErrorDomain
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:3
                                           forFamily:kPBMErrorFamily_ResponseProcessingErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Required property 'event' is absent in jsonDict for nativeEventTracker",
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_InvalidResponseStructure),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidResponseStructure),
     }];
 }
 
 + (NSError *)noMethodForNativeAdMarkupEventTracker {
-    return [NSError errorWithDomain:pbmErrorDomain
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:4
                                           forFamily:kPBMErrorFamily_ResponseProcessingErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Required property 'method' is absent in jsonDict for nativeEventTracker",
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_InvalidResponseStructure),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidResponseStructure),
     }];
 }
 
 + (NSError *)noUrlForNativeAdMarkupEventTracker {
-    return [NSError errorWithDomain:pbmErrorDomain
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:5
                                           forFamily:kPBMErrorFamily_ResponseProcessingErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Required property 'url' is absent in jsonDict for nativeEventTracker",
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_InvalidResponseStructure),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidResponseStructure),
     }];
 }
 
 // MARK: - Integration layer errors
 
 + (NSError *)noWinningBid {
-    return [NSError errorWithDomain:pbmErrorDomain
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:1
                                           forFamily:kPBMErrorFamily_IntegrationLayerErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"There is no winning bid in the bid response.",
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_DemandNoBids),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultDemandNoBids),
     }];
 }
 
 + (NSError *)noNativeCreative {
-    return [NSError errorWithDomain:pbmErrorDomain
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:2
                                           forFamily:kPBMErrorFamily_IntegrationLayerErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"There is no Native Style Creative in the Native config.",
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_SDKMisuse_NoNativeCreative),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultSdkMisuseNoNativeCreative),
     }];
 }
 
 + (NSError *)noVastTagInMediaData {
-    return [NSError errorWithDomain:pbmErrorDomain
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:3
                                           forFamily:kPBMErrorFamily_IntegrationLayerErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Failed to find VAST Tag inside the provided Media Data.",
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_NoVastTagInMediaData),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultNoVastTagInMediaData),
     }];
 }
 
 // MARK: - SDK Misuse Errors
 
 + (NSError *)replacingMediaDataInMediaView {
-    return [NSError errorWithDomain:pbmErrorDomain
-                               code:[self errorCode:(PBMFetchDemandResult_SDKMisuse_AttemptedToReplaceMediaDataInMediaView - PBMFetchDemandResult_SDKMisuse)
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
+                               code:[self errorCode:(FetchDemandResultSdkMisuseAttemptedToReplaceMediaDataInMediaView - FetchDemandResultSdkMisuse)
                                           forFamily:kPBMErrorFamily_SDKMisuseErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Attempted to replace MediaData in MediaView.",
-        oxbFetchDemandResultKey: @(PBMFetchDemandResult_SDKMisuse_AttemptedToReplaceMediaDataInMediaView),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultSdkMisuseAttemptedToReplaceMediaDataInMediaView),
     }];
 }
 
-// MARK: - PBMFetchDemandResult parsing
-
-+ (PBMFetchDemandResult)demandResultFromError:(NSError *)error {
-    if (!error) {
-        return PBMFetchDemandResult_Ok;
-    }
-    if ([error.domain isEqualToString:pbmErrorDomain]) {
-        NSNumber * const demandCode = error.userInfo[oxbFetchDemandResultKey];
-        return demandCode ? (PBMFetchDemandResult)demandCode.integerValue : PBMFetchDemandResult_InternalSDKError;
-    }
-    if ([error.domain isEqualToString:NSURLErrorDomain] && (error.code == NSURLErrorTimedOut)) {
-        return PBMFetchDemandResult_DemandTimedOut;
-    }
-    return PBMFetchDemandResult_NetworkError;
-}
 
 - (instancetype)init:(nonnull NSString*)msg {
     NSDictionary *userInfo = @{
                                NSLocalizedDescriptionKey: NSLocalizedString(msg, nil)
                                };
     
-    self = [super initWithDomain:PBMErrorDomain code:PBMErrorCodeGeneral userInfo:userInfo];
+    self = [super initWithDomain:PrebidRenderingErrorDomain code:PBMErrorCodeGeneral userInfo:userInfo];
     if (self) {
         self.message = msg;
     }

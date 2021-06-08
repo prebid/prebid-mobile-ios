@@ -187,7 +187,7 @@ class PBMBaseAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         adUnit.fetchDemand { demandResponseInfo in
             fetchDemandFailed.fulfill()
             XCTAssertTrue(Thread.isMainThread)
-            XCTAssertEqual(demandResponseInfo.fetchDemandResult, .sdkMisuse_PreviousFetchNotCompletedYet)
+            XCTAssertEqual(demandResponseInfo.fetchDemandResult, .sdkMisusePreviousFetchNotCompletedYet)
         }
 
         waitForExpectations(timeout: 2)

@@ -12,6 +12,7 @@ import GoogleMobileAds
 import PrebidMobileGAMEventHandlers
 
 import OpenXMockServer
+import PrebidMobileRendering
 
 let nativeStylesCreative = """
 <html><body>
@@ -202,12 +203,6 @@ struct TestCaseManager {
             targeting.appStoreMarketURL = value
         }
         
-        if let value = openRtb["crr"] as? String {
-            targeting.carrier = value
-        }
-        if let value = openRtb["ip"] as? String {
-            targeting.IP = value
-        }
         if let value = openRtb["gen"] as? String {
             targeting.userGender = TestCaseManager.strToGender(value)
         }
@@ -2950,7 +2945,7 @@ struct TestCaseManager {
     }
     
     // MALE, FEMALE, OTHER to PBMGender {
-    private static func strToGender(_ gender: String) -> PBMGender {
+    private static func strToGender(_ gender: String) -> Gender {
         switch gender {
             case "MALE":
                 return .male

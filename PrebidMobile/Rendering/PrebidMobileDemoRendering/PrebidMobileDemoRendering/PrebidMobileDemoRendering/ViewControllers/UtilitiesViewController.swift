@@ -9,6 +9,8 @@ import AppTrackingTransparency
 import UIKit
 import Eureka
 
+import PrebidMobileRendering
+
 class UtilitiesViewController: FormViewController {
     
     override func viewDidLoad() {

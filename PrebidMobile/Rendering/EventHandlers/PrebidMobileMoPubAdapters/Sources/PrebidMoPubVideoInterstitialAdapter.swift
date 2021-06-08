@@ -14,8 +14,8 @@ import PrebidMobileRendering
 @objc(PrebidMoPubVideoInterstitialAdapter)
 public class PrebidMoPubVideoInterstitialAdapter :
     MPFullscreenAdAdapter,
-    PBMInterstitialControllerLoadingDelegate,
-    PBMInterstitialControllerInteractionDelegate {
+    InterstitialControllerLoadingDelegate,
+    InterstitialControllerInteractionDelegate {
     
     // MARK: - Private Properties
     
@@ -76,7 +76,7 @@ public class PrebidMoPubVideoInterstitialAdapter :
         }
     }
         
-    // MARK: - PBMInterstitialControllerLoadingDelegate
+    // MARK: - InterstitialControllerLoadingDelegate
     
     public func interstitialControllerDidLoadAd(_ interstitialController: InterstitialController) {
         adAvailable = true
@@ -92,7 +92,7 @@ public class PrebidMoPubVideoInterstitialAdapter :
         delegate?.fullscreenAdAdapter(self, didFailToLoadAdWithError: error)
     }
     
-    // MARK: - PBMInterstitialControllerInteractionDelegate
+    // MARK: - InterstitialControllerInteractionDelegate
     
     public func trackImpression(for interstitialController: InterstitialController) {
         //Impressions will be tracked automatically
@@ -135,5 +135,9 @@ public class PrebidMoPubVideoInterstitialAdapter :
 
         delegate?.fullscreenAdAdapterAdWillAppear(self)
         delegate?.fullscreenAdAdapterAdDidAppear(self)
+    }
+    
+    public func interstitialControllerDidComplete(_ interstitialController: InterstitialController) {
+        
     }
 }

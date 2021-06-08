@@ -10,7 +10,7 @@ import MapKit
 
 @testable import PrebidMobileRendering
 
-extension PBMGender: CaseIterable {
+extension Gender: CaseIterable {
     public static let allCases: [Self] = [
         .unknown,
         .male,
@@ -95,7 +95,7 @@ class PrebidRenderingTargetingTest: XCTestCase {
         XCTAssert(targeting.userGender == .unknown)
         
         //Set
-        for gender in PBMGender.allCases {
+        for gender in Gender.allCases {
             targeting.userGender = gender
             XCTAssertEqual(targeting.userGender, gender)
             
@@ -241,68 +241,6 @@ class PrebidRenderingTargetingTest: XCTestCase {
         PrebidRenderingTargeting.setLatitude(lat, longitude: lon)
         XCTAssertEqual(PrebidRenderingTargeting.coordinate?.mkCoordinateValue.latitude, lat)
         XCTAssertEqual(PrebidRenderingTargeting.coordinate?.mkCoordinateValue.longitude, lon)
-    }
-    
-    //MARK: - Network
-    func testCarrier() {
-        
-        //Init (the default is nil but it doesn't send a value)
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        XCTAssertNil(PrebidRenderingTargeting.carrier)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
-        
-        //Set
-        let carrier = "AT&T"
-        PrebidRenderingTargeting.carrier = carrier
-        XCTAssertEqual(PrebidRenderingTargeting.carrier, carrier)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == ["crr":carrier], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
-        
-        //Unset
-        PrebidRenderingTargeting.carrier = nil
-        XCTAssertNil(PrebidRenderingTargeting.carrier)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
-    }
-    
-    func testIP() {
-
-        //Init
-        //Note: on init, the default is nil but it doesn't send a value.
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        XCTAssertNil(PrebidRenderingTargeting.IP)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
-        
-        //Set
-        PrebidRenderingTargeting.IP = "127.0.0.1"
-        XCTAssertEqual(PrebidRenderingTargeting.IP, "127.0.0.1")
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == ["ip":"127.0.0.1"], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
-        
-        //Unset
-        PrebidRenderingTargeting.IP = nil
-        XCTAssertNil(PrebidRenderingTargeting.IP)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
-    }
-    
-    //Note: no way to currently un-set networkType
-    func testNetworkType() {
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        
-        //Note: on init, the default is cell but it doesn't send a value.
-        XCTAssert(PrebidRenderingTargeting.networkType == .unknown)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
-        
-
-        PrebidRenderingTargeting.networkType = .cell
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == ["net":"cell"], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
-
-        PrebidRenderingTargeting.networkType = .wifi
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == ["net":"wifi"], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
- 
-        PrebidRenderingTargeting.networkType = .offline
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == ["net":"offline"], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
-
-        PrebidRenderingTargeting.networkType = .unknown
-        XCTAssert(PrebidRenderingTargeting.networkType == .unknown)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
     }
     
     //MARK: - Custom Params

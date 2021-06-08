@@ -19,16 +19,16 @@ class NativeAdTest: XCTestCase {
         let titles = twoStrings.map{"\($0) title text"}.map(PBMNativeAdMarkupTitle.init).map(PBMNativeAdMarkupAsset.init)
         
         let descs = twoStrings.map{"\($0) description"}.map(PBMNativeAdMarkupData.init).map(PBMNativeAdMarkupAsset.init)
-        descs.forEach { $0.data?.dataType = NSNumber(value: PBMDataAssetType.desc.rawValue) }
+        descs.forEach { $0.data?.dataType = NSNumber(value: NativeDataAssetType.desc.rawValue) }
         
         let ctas = twoStrings.map{"\($0) CTA!"}.map(PBMNativeAdMarkupData.init).map(PBMNativeAdMarkupAsset.init)
-        ctas.forEach { $0.data?.dataType = NSNumber(value: PBMDataAssetType.ctaText.rawValue) }
+        ctas.forEach { $0.data?.dataType = NSNumber(value: NativeDataAssetType.ctaText.rawValue) }
         
         let icons = twoStrings.map{"\($0) icon URL"}.map(PBMNativeAdMarkupImage.init).map(PBMNativeAdMarkupAsset.init)
-        icons.forEach { $0.img?.imageType = NSNumber(value: PBMImageAssetType.icon.rawValue) }
+        icons.forEach { $0.img?.imageType = NSNumber(value: NativeImageAssetType.icon.rawValue) }
         
         let images = twoStrings.map{"\($0) image URL"}.map(PBMNativeAdMarkupImage.init).map(PBMNativeAdMarkupAsset.init)
-        images.forEach { $0.img?.imageType = NSNumber(value: PBMImageAssetType.main.rawValue) }
+        images.forEach { $0.img?.imageType = NSNumber(value: NativeImageAssetType.main.rawValue) }
         
         let videos = twoStrings.map{"\($0) VAST xml"}.map(PBMNativeAdMarkupVideo.init).map(PBMNativeAdMarkupAsset.init)
         
@@ -205,9 +205,9 @@ class NativeAdTest: XCTestCase {
         ]
         
         let nativeMarkup = PBMNativeAdMarkup(link: .init(url: ""))
-        nativeMarkup.eventtrackers = [PBMNativeAdMarkupEventTracker(event: .OMID,
-                                                           method: .JS,
-                                                           url: .init(""))]
+        nativeMarkup.eventtrackers = [PBMNativeAdMarkupEventTracker(event: NativeEventType.omid.rawValue,
+                                                                    method: NativeEventTrackingMethod.js.rawValue,
+                                                                    url: .init(""))]
         
         var nativeAd: NativeAd? = NativeAd(nativeAdMarkup: nativeMarkup,
                                                  application: application,

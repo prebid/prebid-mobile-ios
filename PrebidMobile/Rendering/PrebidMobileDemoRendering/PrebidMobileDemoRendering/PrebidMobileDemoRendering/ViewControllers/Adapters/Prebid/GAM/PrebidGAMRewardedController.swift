@@ -7,9 +7,10 @@
 
 import UIKit
 import GoogleMobileAds
+import PrebidMobileRendering
 import PrebidMobileGAMEventHandlers
 
-class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurableController, PBMRewardedAdUnitDelegate {
+class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurableController, RewardedAdUnitDelegate {
     
     var prebidConfigId = ""
     var gamAdUnitId = ""
@@ -46,7 +47,7 @@ class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurab
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         let eventHandler = GAMRewardedAdEventHandler(adUnitID: gamAdUnitId)
-        rewardedAdController = RewardedAdUnit(configId: prebidConfigId, eventHandler: eventHandler)
+        rewardedAdController = RewardedAdUnit(configID: prebidConfigId, eventHandler: eventHandler)
         rewardedAdController?.delegate = self
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {

@@ -10,6 +10,7 @@ import XCTest
 @testable import PrebidMobileRendering
 
 class NativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
+    
     func testDesignatedInit_noBlockCalled() {
         let configID = "some-base-config-ID"
         
@@ -30,11 +31,11 @@ class NativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         XCTAssertNotNil(adUnit.nativeAdConfig)
         XCTAssertNotEqual(adUnit.nativeAdConfig, nativeAdConfig) // copy; 'isEqual' not overridden
         
-        //NOTE: temporary disabled as PBS doesnt support OM event trackers
+        //NOTE: temporary disabled as PBS doesn't support OM event trackers
         //OMID event tracker which is set by NativeAdUnit
-//        nativeAdConfig.eventtrackers = [PBMNativeEventTracker(event: .OMID,
-//                                                              methods:
-//                                                                [NSNumber(value:PBMNativeEventTrackingMethod.JS.rawValue)])]
+        nativeAdConfig.eventtrackers = [NativeEventTracker(event: NativeEventType.omid.rawValue,
+                                                           methods:[NativeEventTrackingMethod.js.rawValue])]
+        
         XCTAssertEqual(adUnit.nativeAdConfig.markupRequestObject.jsonDictionary as NSDictionary?,
                        nativeAdConfig.markupRequestObject.jsonDictionary as NSDictionary?)
 
@@ -183,7 +184,7 @@ class NativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         adUnit.fetchDemand { demandResponseInfo in
             fetchDemandFailed.fulfill()
             XCTAssertTrue(Thread.isMainThread)
-            XCTAssertEqual(demandResponseInfo.fetchDemandResult, .sdkMisuse_NativeAdUnitFetchedAgain)
+            XCTAssertEqual(demandResponseInfo.fetchDemandResult, .sdkMisuseNativeAdUnitFetchedAgain)
         }
 
         waitForExpectations(timeout: 1)

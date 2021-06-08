@@ -35,7 +35,7 @@ public class NativeAssetTitle: NativeAsset {
     }
 
     
-    @objc public func setTitleExt(_ titleExt: [String : Any]? ) throws {
+    @objc public func setTitleExt(_ titleExt: [String : Any] ) throws {
         try setChildExt(titleExt)
     }
 

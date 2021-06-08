@@ -23,7 +23,7 @@ class PBMAdLoadFlowControllerTest_CompositeMock {
         case configValidation(call: PBMAdUnitConfigValidationBlock)
     }
     
-    let mockFlowControllerDelegate: PBMAdLoadFlowControllerDelegate
+    let mockFlowControllerDelegate: AdLoadFlowControllerDelegate
     let mockAdLoader: PBMAdLoaderProtocol
     let mockPrimaryAdRequester: PBMPrimaryAdRequesterProtocol
     let mockRequesterFactory: (AdUnitConfig)->PBMBidRequesterProtocol

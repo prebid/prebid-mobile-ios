@@ -11,15 +11,21 @@ public class NativeAdEventTracker: NSObject {
 
     /// Type of event to track.
     /// See Event Types table.
-    @objc public var event: PBMNativeEventType { nativeAdMarkupEventTracker.event }
+    @objc public var event: NativeEventType {
+        NativeEventType(rawValue: nativeAdMarkupEventTracker.event) ?? .exchangeSpecific
+    }
 
     /// Type of tracking requested.
     /// See Event Tracking Methods table.
-    @objc public var method: PBMNativeEventTrackingMethod { nativeAdMarkupEventTracker.method }
+    @objc public var method: Int {
+        nativeAdMarkupEventTracker.method
+    }
 
     /// The URL of the image or js.
     /// Required for image or js, optional for custom.
-    @objc public var url: String? { nativeAdMarkupEventTracker.url }
+    @objc public var url: String? {
+        nativeAdMarkupEventTracker.url
+    }
 
     /// To be agreed individually with the exchange, an array of key:value objects for custom tracking,
     /// for example the account number of the DSP with a tracking company. IE {“accountnumber”:”123”}.
@@ -27,7 +33,9 @@ public class NativeAdEventTracker: NSObject {
 
     /// This object is a placeholder that may contain custom JSON agreed to by the parties to support
     /// flexibility beyond the standard defined in this specification
-    @objc public var ext: [String : Any]? { nativeAdMarkupEventTracker.ext }
+    @objc public var ext: [String : Any]? {
+        nativeAdMarkupEventTracker.ext
+    }
     
     var nativeAdMarkupEventTracker: PBMNativeAdMarkupEventTracker!
 

@@ -36,7 +36,7 @@ class NativeAdDataTest: XCTestCase {
                                            writer: { asset, extDic in asset.ext = extDic as? [String: Any] },
                                            reader: { $0.assetExt as NSDictionary? }),
             // MARK: - Data properties
-            Decoding.OptionalPropertyCheck(value: NSNumber(value: PBMDataAssetType.desc.rawValue),
+            Decoding.OptionalPropertyCheck(value: NSNumber(value: NativeDataAssetType.desc.rawValue),
                                            writer: { $0.data?.dataType = $1 },
                                            reader: { $0.dataType }),
             Decoding.OptionalPropertyCheck(value: 15,

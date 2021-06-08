@@ -270,9 +270,7 @@ typealias JsonDictionary = [String:Any]
         targeting.userCustomData = nil
         targeting.userExt = nil
         targeting.eids = nil
-        targeting.IP = nil
         targeting.keywords = nil
-        targeting.networkType = .unknown
         
         targeting.parameterDictionary = [:]
         
@@ -289,9 +287,7 @@ typealias JsonDictionary = [String:Any]
         XCTAssertNil(targeting.userCustomData)
         XCTAssertNil(targeting.userExt)
         XCTAssertNil(targeting.eids)
-        XCTAssertNil(targeting.IP)
         XCTAssertNil(targeting.keywords)
-        XCTAssertEqual(targeting.networkType, .unknown)
         XCTAssert(targeting.parameterDictionary == [:])
     }
     

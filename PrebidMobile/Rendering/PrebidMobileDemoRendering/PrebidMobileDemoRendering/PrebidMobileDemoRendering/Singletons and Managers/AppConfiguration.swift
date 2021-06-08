@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import PrebidMobileRendering
 
 final class AppConfiguration: NSObject {
     private let keyUseMockServer = "KeyUseMockServer"
@@ -27,7 +28,7 @@ final class AppConfiguration: NSObject {
         }
     }
     var nativeAdConfig: NativeAdConfiguration?
-    var adPosition: PBMAdPosition?
-    var videoPlacementType: PBMVideoPlacementType?
+    var adPosition: AdPosition?
+    var videoPlacementType: VideoPlacementType?
     var adUnitContext: [(key: String, value: String)]?
 }

@@ -7,24 +7,16 @@
 
 #import "PBMPrebidParameterBuilder.h"
 
-#import "PBMNativeMarkupRequestObject+Internal.h"
 #import "PBMORTB.h"
 #import "PBMUserAgentService.h"
 
 #import "PBMAdViewManagerDelegate.h"
 #import "PBMPlayable.h"
 #import "PBMJsonCodable.h"
-#import "PBMNativeContextType.h"
-#import "PBMNativeContextSubtype.h"
-#import "PBMNativePlacementType.h"
 
-#import "PBMDataAssetType.h"
 #import "PBMBaseAdUnit.h"
 #import "PBMBidRequesterFactoryBlock.h"
 #import "PBMWinNotifierBlock.h"
-
-#import "PBMImageAssetType.h"
-#import "PBMNativeAdElementType.h"
 
 #import "PrebidMobileRenderingSwiftHeaders.h"
 #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
@@ -116,7 +108,7 @@
                 if (formats) {
                     nextBanner.format = formats;
                 }
-                if (self.adConfiguration.adPosition != PBMAdPosition_Undefined) {
+                if (self.adConfiguration.adPosition != AdPositionUndefined) {
                     nextBanner.pos = @(self.adConfiguration.adPosition);
                 }
                 break;
@@ -130,7 +122,7 @@
                     nextVideo.w = primarySize.w;
                     nextVideo.h = primarySize.h;
                 }
-                if (self.adConfiguration.adPosition != PBMAdPosition_Undefined) {
+                if (self.adConfiguration.adPosition != AdPositionUndefined) {
                     nextVideo.pos = @(self.adConfiguration.adPosition);
                 }
                 break;

@@ -11,7 +11,7 @@ import PrebidMobileRendering
 
 public class GAMInterstitialEventHandler :
     NSObject,
-    PBMInterstitialEventHandler,
+    InterstitialEventHandlerProtocol,
     GADFullScreenContentDelegate,
     GADAppEventDelegate {
     
@@ -38,9 +38,9 @@ public class GAMInterstitialEventHandler :
     
     // MARK: - PBMInterstitialAd
     
-    public var loadingDelegate: PBMInterstitialEventLoadingDelegate?
+    public weak var loadingDelegate: InterstitialEventLoadingDelegate?
     
-    public var interactionDelegate: PBMInterstitialEventInteractionDelegate?
+    public weak var interactionDelegate: InterstitialEventInteractionDelegate?
     
     public var isReady: Bool {
         if let _ = requestInterstitial {

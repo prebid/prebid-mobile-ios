@@ -10,10 +10,7 @@ import CoreLocation
 import MapKit
 
 fileprivate let PrebidTargetingKey_AGE = "age"
-fileprivate let PrebidTargetingKey_CARRIER = "crr"
 fileprivate let PrebidTargetingKey_GENDER = "gen"
-fileprivate let PrebidTargetingKey_IP_ADDRESS = "ip"
-fileprivate let PrebidTargetingKey_NETWORK_TYPE = "net"
 fileprivate let PrebidTargetingKey_USER_ID = "xid"
 fileprivate let PrebidTargetingKey_PUB_PROVIDED_PREFIX = "c."
 
@@ -54,19 +51,18 @@ public class PrebidRenderingTargeting: NSObject {
     /**
      Indicates the end-user's gender.
      */
-    @objc public var userGender: PBMGender {
+    
+    @objc public var userGender: Gender {
         get {
-            guard let currentValue = parameterDictionary[PrebidTargetingKey_GENDER]  else {
+            guard let currentValue = parameterDictionary[PrebidTargetingKey_GENDER] else {
                 return .unknown
             }
                         
-            return pbmGenderFromDescription(PBMGenderDescription(currentValue))
+            return GenderFromDescription(currentValue)
         }
         
         set {
-            let value = pbmDescriptionOfGender(newValue)
-            
-            parameterDictionary[PrebidTargetingKey_GENDER] = value?.rawValue
+            parameterDictionary[PrebidTargetingKey_GENDER] = DescriptionOfGender(newValue)
         }
     }
     
@@ -74,12 +70,12 @@ public class PrebidRenderingTargeting: NSObject {
      String representation of the users gender,
      where “M” = male, “F” = female, “O” = known to be other (i.e., omitted is unknown)
      */
-    @objc public func userGenderDescription() -> PBMGenderDescription {
+    @objc public func userGenderDescription() -> String? {
         guard let currentValue = parameterDictionary[PrebidTargetingKey_GENDER] else {
-            return PBMGenderDescription.unknown
+            return nil
         }
         
-        return PBMGenderDescription(currentValue)
+        return GenderDescription(rawValue: currentValue)?.rawValue
     }
     
     /**
@@ -144,35 +140,6 @@ public class PrebidRenderingTargeting: NSObject {
 
     
     // MARK: - Location and connection information
-    
-    @objc public var IP: String? {
-        get { parameterDictionary[PrebidTargetingKey_IP_ADDRESS] }
-        set { parameterDictionary[PrebidTargetingKey_IP_ADDRESS] = newValue }
-    }
-    
-    @objc public var carrier: String? {
-        get { parameterDictionary[PrebidTargetingKey_CARRIER] }
-        set { parameterDictionary[PrebidTargetingKey_CARRIER] = newValue }
-    }
-    
-    @objc public var networkType: PBMNetworkType {
-        get {
-            guard let currentValue = parameterDictionary[PrebidTargetingKey_NETWORK_TYPE]  else {
-                return .unknown
-            }
-                        
-            return pbmNetworkTypeFromDescription(PBMNetworkTypeDescription(currentValue))
-        }
-        
-        set {
-            if newValue == .unknown {
-                parameterDictionary.removeValue(forKey: PrebidTargetingKey_NETWORK_TYPE)
-            }
-            else {
-                parameterDictionary[PrebidTargetingKey_NETWORK_TYPE] = pbmDescriptionOfNetworkType(newValue)?.rawValue
-            }
-        }
-    }
     
     /**
      CLLocationCoordinate2D.

@@ -5,6 +5,7 @@
 //  Copyright © 2021 OpenX. All rights reserved.
 //
 import UIKit
+import PrebidMobileRendering
 
 class NativeAdViewBoxLinks: NativeAdViewBoxProtocol {
     

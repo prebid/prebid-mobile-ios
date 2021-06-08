@@ -16,6 +16,8 @@ NSString * const PBM_ORIGINAL_ADUNIT_KEY                 = @"OriginalAdUnitID";
 NSString * const PBM_MOPUB_INITIALIZATION_OPTIONS_KEY    = @"prebid_mobile_sdk_rendering_initialization_options";
 NSString * const PBM_PRECACHE_CONFIGURATION_KEY          = @"precache_configuration";
 
+NSString * const PBM_FETCH_DEMAND_RESULT_KEY = @"oxbFetchDemandResultKey";
+
 const NSTimeInterval PBMAdPrefetchTime = 3;
 
 #pragma mark - PBMAccesibility

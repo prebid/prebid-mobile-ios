@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PrebidMobileRendering
 
 class FeedAdTableViewCell: UITableViewCell {
     @IBOutlet weak var bannerView: UIView!

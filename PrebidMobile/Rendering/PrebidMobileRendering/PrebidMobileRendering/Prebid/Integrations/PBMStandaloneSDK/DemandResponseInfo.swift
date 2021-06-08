@@ -9,14 +9,14 @@ import Foundation
 
 public class DemandResponseInfo: NSObject {
     
-    @objc public private(set) var fetchDemandResult: PBMFetchDemandResult
+    @objc public private(set) var fetchDemandResult: FetchDemandResult
     
     private(set) var configId: String?
     @objc public private(set) var bid: Bid?
     
     var winNotifierBlock: PBMWinNotifierBlock
 
-    @objc public required init(fetchDemandResult: PBMFetchDemandResult,
+    @objc public required init(fetchDemandResult: FetchDemandResult,
                   bid: Bid?,
                   configId: String?,
                   winNotifierBlock: @escaping PBMWinNotifierBlock
@@ -27,7 +27,7 @@ public class DemandResponseInfo: NSObject {
         self.winNotifierBlock = winNotifierBlock
     }
     
-    @objc public func getNativeAd(withCompletion completion: @escaping PBMNativeAdHandler) {
+    @objc public func getNativeAd(withCompletion completion: @escaping (NativeAd?) -> Void) {
         getAdMarkupString(withCompletion: { adMarkupString in
             
             guard let adMarkupString = adMarkupString else {

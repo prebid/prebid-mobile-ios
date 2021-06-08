@@ -48,7 +48,7 @@ class PBMErrorTest: XCTestCase {
     }
     
     func testErrorParsing() {
-        let errors: [(Error?, PBMFetchDemandResult)] = [
+        let errors: [(Error?, FetchDemandResult)] = [
             (PBMError.requestInProgress, .internalSDKError),
         
             (PBMError.invalidAccountId, .invalidAccountId),
@@ -62,7 +62,7 @@ class PBMErrorTest: XCTestCase {
             
             (PBMError.noWinningBid, .demandNoBids),
             
-            (PBMError.noNativeCreative, .sdkMisuse_NoNativeCreative),
+            (PBMError.noNativeCreative, .sdkMisuseNoNativeCreative),
             
             (NSError(domain: NSURLErrorDomain, code: NSURLErrorTimedOut), .demandTimedOut),
             (NSError(domain: NSURLErrorDomain, code: NSURLErrorBadURL), .networkError),
@@ -71,7 +71,7 @@ class PBMErrorTest: XCTestCase {
         ]
         
         for (error, code) in errors {
-            XCTAssertEqual(PBMError.demandResult(fromError: error), code)
+            XCTAssertEqual(PBMError.demandResult(from: error), code)
         }
     }
     
@@ -84,7 +84,7 @@ class PBMErrorTest: XCTestCase {
         let error = PBMError.error(description: "MyErrorDescription")
         
         // Verify default values
-        XCTAssert(error.domain == PBMErrorDomain)
+        XCTAssert(error.domain == PrebidRenderingErrorDomain)
         XCTAssert(error.code == 700)
         XCTAssert(error.userInfo["NSLocalizedDescription"] as! String == "MyErrorDescription")
     }

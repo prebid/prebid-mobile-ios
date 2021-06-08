@@ -8,7 +8,6 @@
 #import "PBMAdLoadFlowController.h"
 #import "PBMAdLoadFlowController+PrivateState.h"
 
-#import "PBMBannerEventHandler.h"
 #import "PBMDisplayView.h"
 #import "PBMDisplayView+InternalState.h"
 #import "PBMError.h"
@@ -27,7 +26,7 @@
 
 - (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(AdUnitConfig *))bidRequesterFactory
                                    adLoader:(id<PBMAdLoaderProtocol>)adLoader
-                                   delegate:(id<PBMAdLoadFlowControllerDelegate>)delegate
+                                   delegate:(id<AdLoadFlowControllerDelegate>)delegate
                       configValidationBlock:(PBMAdUnitConfigValidationBlock)configValidationBlock
 {
     if (!(self = [super init])) {

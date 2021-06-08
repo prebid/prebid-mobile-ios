@@ -20,7 +20,7 @@ public class AdUnitConfig: NSObject, NSCopying {
     
     @objc public let adConfiguration = PBMAdConfiguration();
     
-    @objc public var adFormat: PBMAdFormat {
+    @objc public var adFormat: AdFormat {
         didSet {
             updateAdFormat()
         }
@@ -39,7 +39,7 @@ public class AdUnitConfig: NSObject, NSCopying {
     @objc public var adSize: CGSize
     @objc public var minSizePerc: NSValue?
     
-    @objc public var adPosition = PBMAdPosition.undefined
+    @objc public var adPosition = AdPosition.undefined
     
     @objc public var contextDataDictionary: [String : [String]] {
         extensionData.mapValues { Array($0) }

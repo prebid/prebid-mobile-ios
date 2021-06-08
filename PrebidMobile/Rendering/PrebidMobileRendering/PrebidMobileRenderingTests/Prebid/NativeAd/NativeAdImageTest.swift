@@ -36,7 +36,7 @@ class NativeAdImageTest: XCTestCase {
                                            writer: { asset, extDic in asset.ext = extDic as? [String: Any] },
                                            reader: { $0.assetExt as NSDictionary? }),
             // MARK: - Image properties
-            Decoding.OptionalPropertyCheck(value: NSNumber(value: PBMImageAssetType.main.rawValue),
+            Decoding.OptionalPropertyCheck(value: NSNumber(value: NativeImageAssetType.main.rawValue),
                                            writer: { $0.img?.imageType = $1 },
                                            reader: { $0.imageType }),
             Decoding.OptionalPropertyCheck(value: 320,

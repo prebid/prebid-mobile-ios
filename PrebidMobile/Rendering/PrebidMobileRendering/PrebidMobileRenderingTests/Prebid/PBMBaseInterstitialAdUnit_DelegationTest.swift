@@ -20,28 +20,28 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
     private let configId = "someConfigId"
     
     func testInterstitialDelegateCalls_noOptionalMethods() {
-        let adUnit = InterstitialAdUnit(configId: configId)
+        let adUnit = InterstitialAdUnit(configID: configId)
         let delegate = DummyInterstitialDelegate()
         adUnit.delegate = delegate
         callInterstitialDelegateMethods(adUnit: adUnit)
     }
     
     func testInterstitialDelegateCalls_receiveAllMethods() {
-        let adUnit = InterstitialAdUnit(configId: configId)
+        let adUnit = InterstitialAdUnit(configID: configId)
         let delegate = InterstitialProxyDelegate()
         adUnit.delegate = delegate
         callInterstitialDelegateMethods(adUnit: adUnit, proxyDelegate: delegate)
     }
     
     func testRewardedAdDelegateCalls_noOptionalMethods() {
-        let adUnit = RewardedAdUnit(configId: configId)
+        let adUnit = RewardedAdUnit(configID: configId)
         let delegate = DummyRewardedAdDelegate()
         adUnit.delegate = delegate
         callRewardedAdDelegateMethods(adUnit: adUnit)
     }
     
     func testRewardedAdDelegateCalls_receiveAllMethods() {
-        let adUnit = RewardedAdUnit(configId: configId)
+        let adUnit = RewardedAdUnit(configID: configId)
         let delegate = RewardedAdProxyDelegate()
         adUnit.delegate = delegate
         callRewardedAdDelegateMethods(adUnit: adUnit, proxyDelegate: delegate)
@@ -52,7 +52,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
         
         PrebidRenderingConfig.shared.accountID = ""
         
-        let interstitial = InterstitialAdUnit(configId: testID)
+        let interstitial = InterstitialAdUnit(configID: testID)
         let exp = expectation(description: "loading callback called")
         let delegate = InterstitialProxyDelegate()
         interstitial.delegate = delegate
@@ -74,7 +74,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
         
         PrebidRenderingConfig.shared.accountID = ""
         
-        let rewarded = RewardedAdUnit(configId: testID)
+        let rewarded = RewardedAdUnit(configID: testID)
         let exp = expectation(description: "loading callback called")
         let delegate = RewardedAdProxyDelegate()
         rewarded.delegate = delegate
@@ -93,8 +93,8 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
     
     // MARK: - Helper classes
     
-    private class DummyInterstitialDelegate: NSObject, PBMInterstitialAdUnitDelegate {}
-    private class DummyRewardedAdDelegate: NSObject, PBMRewardedAdUnitDelegate {}
+    private class DummyInterstitialDelegate: NSObject, InterstitialAdUnitDelegate {}
+    private class DummyRewardedAdDelegate: NSObject, RewardedAdUnitDelegate {}
     
     private class BaseProxyDelegate: NSObject {
         let file: StaticString
@@ -116,7 +116,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
         }
     }
     
-    private class InterstitialProxyDelegate: BaseProxyDelegate, PBMInterstitialAdUnitDelegate {
+    private class InterstitialProxyDelegate: BaseProxyDelegate, InterstitialAdUnitDelegate {
         func interstitialDidReceiveAd(_ interstitial: InterstitialAdUnit) {
             report(selectorName: "interstitialDidReceiveAd:", args: [interstitial])
         }
@@ -137,7 +137,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
         }
     }
     
-    private class RewardedAdProxyDelegate: BaseProxyDelegate, PBMRewardedAdUnitDelegate {
+    private class RewardedAdProxyDelegate: BaseProxyDelegate, RewardedAdUnitDelegate {
         func rewardedAdDidReceiveAd(_ rewardedAd: RewardedAdUnit) {
             report(selectorName: "rewardedAdDidReceiveAd:", args: [rewardedAd])
         }
@@ -206,7 +206,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
         XCTAssertEqual(called, proxyDelegate != nil, "delegate method [\(expectedSelector)] not called", file: file, line: line)
     }
     
-    private func callProtectedSelectors(baseAdUnit: PBMBaseInterstitialAdUnitProtocol,
+    private func callProtectedSelectors(baseAdUnit: BaseInterstitialAdUnitProtocol,
                                         proxyDelegate: BaseProxyDelegate?,
                                         selectorPrefix: String?,
                                         file: StaticString = #file, line: UInt = #line)
@@ -229,7 +229,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
             baseAdUnit.callDelegate_didReceiveAd()
         }
         testCall("\(prefix):didFailToReceiveAdWithError:", args: [baseAdUnit, FakeError.someFakeError]) {
-            baseAdUnit.callDelegate_didFailToReceiveAdWithError(FakeError.someFakeError)
+            baseAdUnit.callDelegate_didFailToReceiveAd(with: FakeError.someFakeError)
         }
         testCall("\(prefix)WillPresentAd:", args: [baseAdUnit]) {
             baseAdUnit.callDelegate_willPresentAd()

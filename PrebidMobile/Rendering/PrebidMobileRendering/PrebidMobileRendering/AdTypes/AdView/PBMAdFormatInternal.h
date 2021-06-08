@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <PrebidMobileRendering/PBMAdFormat.h>
 
 #pragma mark - PBMAdFormatInternal
 
@@ -17,8 +16,8 @@
  - PBMAdFormatVideoInternal: use vastURL
  */
 typedef NS_ENUM(NSInteger, PBMAdFormatInternal) {
-    PBMAdFormatDisplayInternal = PBMAdFormatDisplay,
-    PBMAdFormatVideoInternal = PBMAdFormatVideo,
+    PBMAdFormatDisplayInternal,// = PBMAdFormatDisplay,
+    PBMAdFormatVideoInternal,// = PBMAdFormatVideo,
     PBMAdFormatNativeInternal,
     //PBMAdFormatMultiformatInternal,
 };

@@ -10,11 +10,8 @@
 #import <UIKit/UIKit.h>
 
 #import "PBMAdLoaderFlowDelegate.h"
-#import "PBMBannerEventHandler.h"
-#import "PBMBannerEventLoadingDelegate.h"
 #import "PBMDisplayView.h"
 #import "PBMDisplayView+InternalState.h"
-#import "PBMDisplayViewLoadingDelegate.h"
 
 #import "PBMMacros.h"
 
@@ -22,8 +19,8 @@
 #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
 
 
-@interface PBMBannerAdLoader () <PBMDisplayViewLoadingDelegate, PBMBannerEventLoadingDelegate>
-@property (nonatomic, weak, nullable, readonly) id<PBMBannerAdLoaderDelegate> delegate;
+@interface PBMBannerAdLoader () <DisplayViewLoadingDelegate, BannerEventLoadingDelegate>
+@property (nonatomic, weak, nullable, readonly) id<BannerAdLoaderDelegate> delegate;
 @end
 
 
@@ -34,7 +31,7 @@
 
 // MARK: - Lifecycle
 
-- (instancetype)initWithDelegate:(id<PBMBannerAdLoaderDelegate>)delegate {
+- (instancetype)initWithDelegate:(id<BannerAdLoaderDelegate>)delegate {
     if (!(self = [super init])) {
         return nil;
     }
@@ -45,7 +42,7 @@
 // MARK: - PBMAdLoaderProtocol
 
 - (id<PBMPrimaryAdRequesterProtocol>)primaryAdRequester {
-    id<PBMBannerEventHandler> const eventHandler = self.delegate.eventHandler;
+    id<BannerEventHandler> const eventHandler = self.delegate.eventHandler;
     eventHandler.loadingDelegate = self;
     return eventHandler;
 }
@@ -73,7 +70,7 @@
     [self.delegate bannerAdLoader:self loadedAdView:adObject adSize:adSize.CGSizeValue];
 }
 
-// MARK: - PBMDisplayViewLoadingDelegate
+// MARK: - DisplayViewLoadingDelegate
 
 - (void)displayViewDidLoadAd:(PBMDisplayView *)displayView {
     [self.flowDelegate adLoaderLoadedPrebidAd:self];
@@ -83,7 +80,7 @@
     [self.flowDelegate adLoader:self failedWithPrebidError:error];
 }
 
-// MARK: - PBMBannerEventLoadingDelegate
+// MARK: - BannerEventLoadingDelegate
 
 - (void)prebidDidWin {
     [self.flowDelegate adLoaderDidWinPrebid:self];

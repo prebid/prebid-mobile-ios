@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PBMPublicConstants.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,6 +26,8 @@ FOUNDATION_EXPORT NSString * const PBM_TRACKING_URL_TEMPLATE;
 FOUNDATION_EXPORT NSString * const PBM_ORIGINAL_ADUNIT_KEY;
 FOUNDATION_EXPORT NSString * const PBM_MOPUB_INITIALIZATION_OPTIONS_KEY;
 FOUNDATION_EXPORT NSString * const PBM_PRECACHE_CONFIGURATION_KEY;
+
+FOUNDATION_EXPORT NSString * const PBM_FETCH_DEMAND_RESULT_KEY;
 
 typedef NS_ENUM(NSInteger, PBMLocationSourceValues) {
     PBMLocationSourceValuesGPS NS_SWIFT_NAME(GPS) = 1,                              //From Location Service

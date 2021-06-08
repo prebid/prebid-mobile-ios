@@ -7,13 +7,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PBMAdLoadFlowControllerDelegate.h"
 #import "PBMAdLoaderProtocol.h"
 #import "PBMBidRequesterProtocol.h"
 
 @class AdUnitConfig;
 @class PrebidRenderingConfig;
 @protocol PBMServerConnectionProtocol;
+@protocol AdLoadFlowControllerDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -33,7 +33,7 @@ typedef BOOL(^PBMAdUnitConfigValidationBlock)(AdUnitConfig *adUnitConfig, BOOL r
 
 - (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(AdUnitConfig *))bidRequesterFactory
                                    adLoader:(id<PBMAdLoaderProtocol>)adLoader
-                                   delegate:(id<PBMAdLoadFlowControllerDelegate>)delegate
+                                   delegate:(id<AdLoadFlowControllerDelegate>)delegate
                       configValidationBlock:(PBMAdUnitConfigValidationBlock)configValidationBlock;
 
 /// Starts new flow of loading the ad (if idle or failed) or continues previously paused flow
