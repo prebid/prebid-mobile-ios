@@ -19,7 +19,6 @@
 @interface PBMVideoView ()
 
 @property (nonatomic, weak, nullable) PBMVideoCreative *creative;
-@property (nonatomic, strong, nonnull) PBMLegalButtonDecorator *legalButtonDecorator;
 
 - (void)updateControls;
 - (CGFloat)requiredVideoDuration;

@@ -55,7 +55,7 @@ class PBMAdViewButtonDecoratorTests: XCTestCase {
         XCTAssertEqual(buttonSize, CGSize(width:10, height:10))
         
         //The button size should be equal to the image size
-        let image = UIImage(named: "adchoices-expanded-bottom-right",
+        let image = UIImage(named: "PBM_closeButton",
                             in: Bundle(for: type(of: self)), compatibleWith: nil)
         buttonDecorator.setImage(image!)
         buttonSize = buttonDecorator.getButtonSize()

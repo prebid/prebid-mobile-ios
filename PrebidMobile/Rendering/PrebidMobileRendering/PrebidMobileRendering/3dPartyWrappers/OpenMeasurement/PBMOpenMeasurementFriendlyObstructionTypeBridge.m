@@ -39,8 +39,6 @@
             return @"Fullscreen UI locker or loading the ad";
         case PBMOpenMeasurementFriendlyObstructionWindowLockerActivityIndicator:
             return @"Activity Indicator for loading the ad";
-        case PBMOpenMeasurementFriendlyObstructionLegalButtonDecorator:
-            return @"Ad Choices button";
         case PBMOpenMeasurementFriendlyObstructionModalViewControllerView:
             return @"Fullscreen modal ad view container";
         case PBMOpenMeasurementFriendlyObstructionModalViewControllerClose:

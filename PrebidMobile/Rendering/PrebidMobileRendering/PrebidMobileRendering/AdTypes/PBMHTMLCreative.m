@@ -33,7 +33,6 @@
 #import "PBMFunctions+Private.h"
 #import "PBMHTMLCreative.h"
 #import "PBMHTMLFormatter.h"
-#import "PBMLegalButtonDecorator.h"
 #import "PBMMacros.h"
 #import "PBMModalManager.h"
 #import "PBMModalState.h"
@@ -62,7 +61,6 @@
 @property (nonatomic, strong) PBMWebView *prebidWebView;
 @property (nonatomic, strong) PrebidRenderingConfig *sdkConfiguration;
 @property (nonatomic, strong) PBMMRAIDController *MRAIDController;
-@property (nonatomic, assign) BOOL isAdChoicesOpened;
 
 @end
 
@@ -105,7 +103,7 @@
 #pragma mark - PBMAbstractCreative
 
 - (BOOL)isOpened {
-    return self.clickthroughVisible || (self.MRAIDController && self.MRAIDController.mraidState != PBMMRAIDStateDefault) || self.isAdChoicesOpened;
+    return self.clickthroughVisible || (self.MRAIDController && self.MRAIDController.mraidState != PBMMRAIDStateDefault);
 }
 
 - (NSNumber *)displayInterval {
@@ -132,33 +130,6 @@
         self.prebidWebView = [[PBMWebView alloc] initWithFrame:rect
                                                  creativeModel:self.creativeModel
                                                      targeting:PrebidRenderingTargeting.shared];
-        
-        BOOL isCompanionAdForBuiltInVideo = self.creativeModel.adConfiguration.isBuiltInVideo && self.creativeModel.isCompanionAd;
-        
-        if (!self.creativeModel.adConfiguration.presentAsInterstitial || isCompanionAdForBuiltInVideo) {
-            PBMPosition pos = isCompanionAdForBuiltInVideo ? PBMPositionBottomRight : PBMPositionTopRight;
-            self.prebidWebView.legalButtonDecorator = [[PBMLegalButtonDecorator alloc] initWithPosition:pos];
-            @weakify(self);
-            self.prebidWebView.legalButtonDecorator.buttonTouchUpInsideBlock = ^{
-                @strongify(self);
-                self.isAdChoicesOpened = YES;
-                PBMClickthroughBrowserView *clickthroughBrowserView = [self.prebidWebView.legalButtonDecorator clickthroughBrowserView];
-                if (clickthroughBrowserView) {
-                    @weakify(self);
-                    PBMModalState *state = [PBMModalState modalStateWithView:clickthroughBrowserView
-                                                             adConfiguration:nil
-                                                           displayProperties:nil
-                                                          onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
-                        @strongify(self);
-                        [self modalManagerDidFinishPop:poppedState];
-                    } onStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
-                        @strongify(self);
-                        [self modalManagerDidLeaveApp:leavingState];
-                    }];
-                    [self.modalManager pushModal:state fromRootViewController:self.viewControllerForPresentingModals animated:YES shouldReplace:NO completionHandler:nil];
-                }
-            };
-        }
     } else {
         self.prebidWebView.frame = rect;
     }
@@ -266,10 +237,6 @@
                   injectMraidJs:YES];
 }
 
-- (void)updateLegalButtonDecorator {
-    [self.prebidWebView updateLegalButtonForCreative:self];
-}
-
 #pragma mark - PBMWebViewDelegate
 
 - (void)webViewReadyToDisplay:(PBMWebView *)webView {
@@ -310,8 +277,6 @@
 #pragma mark - PBMModalManagerDelegate
 
 - (void)modalManagerDidFinishPop:(PBMModalState *)state {
-    // adChoice should be closed now
-    self.isAdChoicesOpened = NO;
     
     // TODO: Refactor
     // This method illustrates very precisely that we should have different creatives

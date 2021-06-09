@@ -40,7 +40,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         XCTAssertNotNil(self.videoCreative.videoView)
         XCTAssertNotNil(self.videoCreative.videoView.videoViewDelegate)
     }
-    
+    /*
     func testButtonTouchUpInsideBlock() {
         let vc = UIViewController()
         let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
@@ -58,7 +58,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         buttonDecorator.buttonTouchUpInsideBlock!()
         UtilitiesForTesting.checkLogContains("Attempted to pause a VideoView with no avPlayer")
     }
-    
+    */
     func testCreativeDisplayabilityDelegate() {
         self.setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
         self.expectationDownloadCompleted = self.expectation(description: "expectationCreativeReady")

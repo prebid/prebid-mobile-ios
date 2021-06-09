@@ -21,7 +21,6 @@
 #import "PBMError.h"
 #import "PBMEventManager.h"
 #import "PBMFunctions+Private.h"
-#import "PBMLegalButtonDecorator.h"
 #import "PBMMacros.h"
 #import "PBMModalManager.h"
 #import "PBMModalState.h"
@@ -51,7 +50,6 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 @property (nonatomic, weak) PBMVideoCreative *creative;
 @property (nonatomic, strong) PBMEventManager *eventManager;
 @property (nonatomic, strong) PBMTouchDownRecognizer *tapdownGestureRecognizer;
-@property (nonatomic, strong) PBMLegalButtonDecorator *legalButtonDecorator;
 @property (nonatomic, assign) BOOL showLearnMore;
 
 #pragma mark UI
@@ -188,7 +186,6 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)updateControls {
-    [self updateLegalButtonDecorator];
     [self updateLearnMoreButton];
     
     [self resetMuteControls];
@@ -904,46 +901,6 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     }
     
     [self resetMuteControls];
-}
-
-- (void)updateLegalButtonDecorator {
-    
-    if (!self.creative || !self.creative.viewControllerForPresentingModals) {
-        // We need a viewControllerForPresentingModals to present webWiew
-        return;
-    }    
-    
-    if (self.legalButtonDecorator) {
-        return;
-    }
-
-    self.legalButtonDecorator = [[PBMLegalButtonDecorator alloc] initWithPosition:PBMPositionBottomRight];
-    @weakify(self);
-    self.legalButtonDecorator.buttonTouchUpInsideBlock = ^{
-        @strongify(self);
-        
-        PBMClickthroughBrowserView *clickthroughBrowserView = [self.legalButtonDecorator clickthroughBrowserView];
-        if (clickthroughBrowserView) {
-            [self pause];
-            
-            @weakify(self);
-            PBMModalState *state = [PBMModalState modalStateWithView:clickthroughBrowserView
-                                                     adConfiguration:nil
-                                                   displayProperties:nil
-                                                  onStatePopFinished:^(PBMModalState * _Nonnull poppedState) {
-                @strongify(self);
-                [self modalManagerDidFinishPop:poppedState];
-            } onStateHasLeftApp:^(PBMModalState * _Nonnull leavingState) {
-                @strongify(self);
-                [self modalManagerDidLeaveApp:leavingState];
-            }];
-            
-            PBMModalManager *modalManager = self.creative.modalManager;            
-            [modalManager pushModal:state fromRootViewController:self.creative.viewControllerForPresentingModals animated:YES shouldReplace:NO completionHandler:nil];
-        }
-    };
-    
-    [self.legalButtonDecorator addButtonToView:self displayView:self];
 }
 
 - (void)setupTapRecognizer {

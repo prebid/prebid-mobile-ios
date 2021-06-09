@@ -269,8 +269,6 @@
     self.currentCreative.creativeModel.adConfiguration.forceInterstitialPresentation = nil;
     [self.currentCreative.eventManager trackEvent:PBMTrackingEventNormal];
     
-    [self.currentCreative updateLegalButtonDecorator];
-    
     [self.adViewManagerDelegate.displayView addSubview:self.currentCreative.view];
     
     [self.currentCreative displayWithRootViewController:[self.adViewManagerDelegate viewControllerForModalPresentation]];

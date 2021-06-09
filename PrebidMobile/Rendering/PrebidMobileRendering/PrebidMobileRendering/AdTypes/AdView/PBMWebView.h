@@ -27,7 +27,6 @@
 @class PrebidRenderingTargeting;
 @class PBMAbstractCreative;
 @class PBMTouchDownRecognizer;
-@class PBMLegalButtonDecorator;
 @class PBMViewExposure;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -55,7 +54,6 @@ typedef NS_ENUM(NSInteger, PBMWebViewState) {
 @property (nonatomic, weak, nullable) id<PBMWebViewDelegate> delegate;
 @property (nonatomic, weak, nullable) id<PBMExposureChangeDelegate> exposureDelegate;
 @property (nonatomic, strong) PBMTouchDownRecognizer *tapdownGestureRecognizer;
-@property (nonatomic, strong, nullable) PBMLegalButtonDecorator *legalButtonDecorator;
 
 @property (nonatomic, copy) PBMMRAIDState mraidState;
 @property (nonatomic, assign, readonly) PBMWebViewState state;
@@ -75,8 +73,6 @@ typedef NS_ENUM(NSInteger, PBMWebViewState) {
 - (void)loadHTML:(NSString *)html baseURL:(nullable NSURL *)baseURL injectMraidJs:(BOOL)injectMraidJs;
 
 - (void)expand:(NSURL *)url;
-
-- (void)updateLegalButtonForCreative:(PBMAbstractCreative *)creative;
 
 #pragma mark - MRAID
 
