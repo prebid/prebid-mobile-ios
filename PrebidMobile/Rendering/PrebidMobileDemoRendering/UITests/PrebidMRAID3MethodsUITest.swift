@@ -52,7 +52,7 @@ extension PrebidMRAID3MethodsUITest {
 // See: https://openxtechinc.atlassian.net/wiki/spaces/MOB/pages/766437/MRAID+Test+Ads#MRAIDTestAds-MRAIDOX:TestMethods3.0
 class PrebidMRAID3MethodsUITest: RepeatedUITestCase {
 
-    private let title = "MRAID OX: Test Methods 3.0 (PPM)"
+    private let title = "MRAID OX: Test Methods 3.0 (In-App)"
     private let loadingTimeout = 10.0
     private let timeout = 7.0
     

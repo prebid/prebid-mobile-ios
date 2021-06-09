@@ -124,7 +124,7 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
         navigationController?.pushViewController(vc, animated: true)
         
         //A small hack to request location permissions only for the manual getlocation test
-        if (example.title == "MRAID OX: Test Properties 3.0" || example.title == "MRAID OX: Test Properties 3.0 (PPM)") {
+        if (example.title == "MRAID OX: Test Properties 3.0" || example.title == "MRAID OX: Test Properties 3.0 (In-App)") {
             clLocationManager = CLLocationManager()
             clLocationManager.delegate = self as CLLocationManagerDelegate
             clLocationManager.requestWhenInUseAuthorization()

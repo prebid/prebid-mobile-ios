@@ -48,7 +48,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         }
         
         PBMAssertEq(imp.instl, 0)
-        PBMAssertEq(imp.displaymanager, "prebid")
+        PBMAssertEq(imp.displaymanager, "prebid-mobile")
         PBMAssertEq(imp.displaymanagerver, "MOCK_SDK_VERSION")
         PBMAssertEq(imp.secure, 1)
         PBMAssertEq(imp.clickbrowser, 0)

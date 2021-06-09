@@ -32,11 +32,11 @@ class PBMORTBAbstractTest : XCTestCase {
     //Check default values of all objects decending from PBMORTBAbstract
     func testDefaultToJsonString() {
 
-        codeAndDecode(abstract:PBMORTBBidRequest(), expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Openx\",\"omidpv\":\"\(omidVersion)\"}},\"user\":{}}")
+        codeAndDecode(abstract:PBMORTBBidRequest(), expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Prebid\",\"omidpv\":\"\(omidVersion)\"}},\"user\":{}}")
         
         //Source not implemented
         codeAndDecode(abstract:PBMORTBRegs(), expectedString: "{}")
-        codeAndDecode(abstract:PBMORTBImp(), expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"prebid\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}")
+        codeAndDecode(abstract:PBMORTBImp(), expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}")
         
         //Metric not implemented
         codeAndDecode(abstract:PBMORTBBanner(), expectedString: "{\"api\":[]}")
@@ -154,15 +154,15 @@ class PBMORTBAbstractTest : XCTestCase {
         let uuid = UUID().uuidString
         pbmORTBBidRequest.requestID = uuid
         
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Openx\",\"omidpv\":\"\(omidVersion)\"}},\"user\":{}}")
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Prebid\",\"omidpv\":\"\(omidVersion)\"}},\"user\":{}}")
         
         pbmORTBBidRequest.tmax = 2000
         
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Openx\",\"omidpv\":\"\(omidVersion)\"}},\"tmax\":2000,\"user\":{}}")
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Prebid\",\"omidpv\":\"\(omidVersion)\"}},\"tmax\":2000,\"user\":{}}")
         
         pbmORTBBidRequest.test = 2
         
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Openx\",\"omidpv\":\"\(omidVersion)\"}},\"test\":2,\"tmax\":2000,\"user\":{}}")
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"id\":\"\(uuid)\",\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Prebid\",\"omidpv\":\"\(omidVersion)\"}},\"test\":2,\"tmax\":2000,\"user\":{}}")
     }
     
     func testBidRequestExtPrebidToJsonString() {
@@ -175,7 +175,7 @@ class PBMORTBAbstractTest : XCTestCase {
         let pbmORTBBidRequest = PBMORTBBidRequest()
         pbmORTBBidRequest.extPrebid = extPrebid
         
-        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"ext\":{\"prebid\":{\"cache\":{\"bids\":{},\"vastxml\":{}},\"data\":{\"bidders\":[\"openx\",\"prebid\",\"thanatos\"]},\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"},\"targeting\":{}}},\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Openx\",\"omidpv\":\"\(omidVersion)\"}},\"user\":{}}")
+        codeAndDecode(abstract: pbmORTBBidRequest, expectedString: "{\"app\":{},\"device\":{\"geo\":{}},\"ext\":{\"prebid\":{\"cache\":{\"bids\":{},\"vastxml\":{}},\"data\":{\"bidders\":[\"openx\",\"prebid\",\"thanatos\"]},\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"},\"targeting\":{}}},\"imp\":[{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"dlp\":1},\"instl\":0,\"secure\":0}],\"source\":{\"ext\":{\"omidpn\":\"Prebid\",\"omidpv\":\"\(omidVersion)\"}},\"user\":{}}")
     }
     
     func testSourceToJsonString() {
@@ -188,7 +188,7 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBSource.tid = tid
         pbmORTBSource.pchain = pchain
         
-        codeAndDecode(abstract: pbmORTBSource, expectedString: "{\"ext\":{\"omidpn\":\"Openx\",\"omidpv\":\"\(omidVersion)\"},\"fd\":0,\"pchain\":\"\(pchain)\",\"tid\":\"\(tid)\"}")
+        codeAndDecode(abstract: pbmORTBSource, expectedString: "{\"ext\":{\"omidpn\":\"Prebid\",\"omidpv\":\"\(omidVersion)\"},\"fd\":0,\"pchain\":\"\(pchain)\",\"tid\":\"\(tid)\"}")
     }
     
     func testRegsToJsonString() {
@@ -256,7 +256,7 @@ class PBMORTBAbstractTest : XCTestCase {
         let pbmORTBImp = PBMORTBImp()
         pbmORTBImp.extPrebid = extPrebid
         
-        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"prebid\",\"ext\":{\"prebid\":{\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
+        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"prebid\":{\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
     }
     
     func testImpExtPrebidToJsonStringRewarded() {
@@ -269,7 +269,7 @@ class PBMORTBAbstractTest : XCTestCase {
         let pbmORTBImp = PBMORTBImp()
         pbmORTBImp.extPrebid = extPrebid
         
-        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"prebid\",\"ext\":{\"prebid\":{\"is_rewarded_inventory\":1,\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
+        codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"clickbrowser\":0,\"displaymanager\":\"prebid-mobile\",\"ext\":{\"prebid\":{\"is_rewarded_inventory\":1,\"storedrequest\":{\"id\":\"b4eb1475-4e3d-4186-97b7-25b6a6cf8618\"}}},\"instl\":0,\"secure\":0}")
     }
     
     func testBannerToJsonString() {

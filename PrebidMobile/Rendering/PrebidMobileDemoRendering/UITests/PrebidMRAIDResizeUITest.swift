@@ -21,7 +21,7 @@ class PrebidMRAIDResizeUITest: RepeatedUITestCase {
         case calendarEvent = "Create Calendar Event"
         case clickToCall = "Click to Call"
     }
-    private let title = "MRAID 2.0: Resize (PPM)"
+    private let title = "MRAID 2.0: Resize (In-App)"
     
     override func setUp() {
         useMockServerOnSetup = true

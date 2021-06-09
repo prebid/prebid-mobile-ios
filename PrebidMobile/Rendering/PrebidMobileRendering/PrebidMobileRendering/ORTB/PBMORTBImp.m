@@ -23,7 +23,7 @@
     }
     //_impID = nil;
     _pmp = [PBMORTBPmp new];
-    _displaymanager = @"prebid";
+    _displaymanager = @"prebid-mobile";
     _instl = @0;
     _clickbrowser = @0;
     _secure = @0;

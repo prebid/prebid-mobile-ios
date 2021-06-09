@@ -55,7 +55,7 @@ class PrebidMRAIDResizeExpandableUITest: RepeatedUITestCase {
     private let timeout = 7.0
     private var mode: Ad.Mode = .default
     
-    private let title = "MRAID OX: Resize (Expandable) (PPM)"
+    private let title = "MRAID OX: Resize (Expandable) (In-App)"
     
     override func setUp() {
         useMockServerOnSetup = true

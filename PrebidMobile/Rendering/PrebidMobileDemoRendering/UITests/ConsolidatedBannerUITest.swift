@@ -17,7 +17,7 @@ final class ConsolidatedBannerUITest: BaseUITestCase {
         settingsItem.tap()
         
         let tablesQuery = app.tables
-        let listItem = tablesQuery.staticTexts["Banner 320x50 (PPM)"]
+        let listItem = tablesQuery.staticTexts["Banner 320x50 (In-App)"]
         waitForExists(element: listItem, waitSeconds: 5)
         listItem.tap()
         

@@ -14,7 +14,7 @@
     if (!(self = [super init])) {
         return nil;
     }
-    _omidpn = @"Openx";
+    _omidpn = @"Prebid";
     _omidpv = [PBMFunctions omidVersion];
     return self;
 }

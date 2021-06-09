@@ -27,7 +27,8 @@ enum TestCaseTag : String, Comparable {
     
     
     //SDK (Integration)
-    case inapp = " In-App"
+//    case inapp = " In-App"
+    case inapp  = "In-App"
     case gam    = "GAM"
     case mopub  = "MoPub"
     

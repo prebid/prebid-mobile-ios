@@ -12,8 +12,8 @@ class PrebidRewardedVideoUITest: RepeatedUITestCase {
     private let waitingTimeout = 5.0
     private let videoDuration = TimeInterval(17)
     
-    let videoRewardedTitle = "Video Rewarded 320x480 without End Card (PPM)"
-    let videoRewardedEndCardTitle = "Video Rewarded 320x480 (PPM)"
+    let videoRewardedTitle = "Video Rewarded 320x480 without End Card (In-App)"
+    let videoRewardedEndCardTitle = "Video Rewarded 320x480 (In-App)"
     
     override func setUp() {
         useMockServerOnSetup = true
