@@ -19,7 +19,7 @@ class PrebidBannerUITest: RepeatedUITestCase {
     func testMultiClick() {
         repeatTesting(times: 7) {
             navigateToExamplesSection()
-            navigateToExample("Banner 320x50 (PPM)")
+            navigateToExample("Banner 320x50 (In-App)")
             
             let bannerView = app.descendants(matching: .other)["PrebidBannerView"]
             
@@ -47,7 +47,7 @@ class PrebidBannerUITest: RepeatedUITestCase {
     func testOpenInNewTab() {
         repeatTesting(times: 7) {
             navigateToExamplesSection()
-            navigateToExample("Banner 320x50 (PPM) [New Tab]")
+            navigateToExample("Banner 320x50 (In-App) [New Tab]")
             
             waitAd()
             
@@ -66,7 +66,7 @@ class PrebidBannerUITest: RepeatedUITestCase {
     func testIncorrectVastData() {
         repeatTesting(times: 7) {
             navigateToExamplesSection()
-            navigateToExample("Banner 320x50 (PPM) [Incorrect VAST]")
+            navigateToExample("Banner 320x50 (In-App) [Incorrect VAST]")
             
             // Wait for the ad to load.
             waitForEnabled(element: app.buttons["adViewDidFailToLoadAd called"], waitSeconds: 5)
@@ -171,10 +171,10 @@ class PrebidBannerUITest: RepeatedUITestCase {
         }
     }
     
-    func testPPMBannerNativeStyle_NoCreative() {
+    func testInAppBannerNativeStyle_NoCreative() {
         repeatTesting(times: 7) {
             navigateToExamplesSection()
-            navigateToExample("Banner Native Styles No Creative (PPM)")
+            navigateToExample("Banner Native Styles No Creative (In-App)")
             
             // Wait for the ad to load.
             waitForEnabled(element: app.buttons["adViewDidFailToLoadAd called"], waitSeconds: 5)
@@ -194,7 +194,7 @@ class PrebidBannerUITest: RepeatedUITestCase {
             settingsItem.tap()
             
             let tablesQuery = app.tables
-            let listItem = tablesQuery.staticTexts["Banner 320x50 (PPM)"]
+            let listItem = tablesQuery.staticTexts["Banner 320x50 (In-App)"]
             waitForExists(element: listItem, waitSeconds: 5)
             listItem.tap()
             
@@ -237,7 +237,7 @@ class PrebidBannerUITest: RepeatedUITestCase {
             settingsItem.tap()
             
             let tablesQuery = app.tables
-            let listItem = tablesQuery.staticTexts["Banner 320x50 (PPM)"]
+            let listItem = tablesQuery.staticTexts["Banner 320x50 (In-App)"]
             waitForExists(element: listItem, waitSeconds: 5)
             listItem.tap()
             

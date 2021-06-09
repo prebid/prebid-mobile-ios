@@ -240,9 +240,9 @@ struct TestCaseManager {
     private static let prebidExamples: [TestCase] = {
         return [
         
-            // MARK: ---- Banner (PPM) ----
+            // MARK: ---- Banner (In-App) ----
             
-            TestCase(title: "Banner 320x50 (PPM)",
+            TestCase(title: "Banner 320x50 (In-App)",
                      tags: [.banner, .inapp, .server, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -264,7 +264,7 @@ struct TestCaseManager {
                setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 (PPM) [noBids]",
+            TestCase(title: "Banner 320x50 (In-App) [noBids]",
                      tags: [.banner, .inapp, .server, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -287,7 +287,7 @@ struct TestCaseManager {
                setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 (PPM) [Items]",
+            TestCase(title: "Banner 320x50 (In-App) [Items]",
                      tags: [.banner, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -303,7 +303,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 (PPM) [New Tab]",
+            TestCase(title: "Banner 320x50 (In-App) [New Tab]",
                      tags: [.banner, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -319,7 +319,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 (PPM) [Incorrect VAST]",
+            TestCase(title: "Banner 320x50 (In-App) [Incorrect VAST]",
                      tags: [.banner, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -335,7 +335,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 (PPM) [DeepLink+]",
+            TestCase(title: "Banner 320x50 (In-App) [DeepLink+]",
                      tags: [.banner, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -351,7 +351,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 (PPM) [Scrollable]",
+            TestCase(title: "Banner 320x50 (In-App) [Scrollable]",
                      tags: [.banner, .inapp, .mock],
                      exampleVCStoryboardID: "ScrollableAdapterViewController",
                      configurationClosure: { vc in
@@ -367,7 +367,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 300x250 (PPM)",
+            TestCase(title: "Banner 300x250 (In-App)",
                      tags: [.banner, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -383,7 +383,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 728x90 (PPM)",
+            TestCase(title: "Banner 728x90 (In-App)",
                      tags: [.banner, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -398,7 +398,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner Multisize (PPM)",
+            TestCase(title: "Banner Multisize (In-App)",
                      tags: [.banner, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -413,7 +413,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 (PPM) ATS",
+            TestCase(title: "Banner 320x50 (In-App) ATS",
                      tags: [.banner, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -442,7 +442,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 (PPM) [SKAdN]",
+            TestCase(title: "Banner 320x50 (In-App) [SKAdN]",
                      tags: [.banner, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -778,9 +778,9 @@ struct TestCaseManager {
                 setupCustomParams(for: mopubBannerController.prebidConfigId)
             }),
             
-            // MARK: ---- Interstitial (PPM) ----
+            // MARK: ---- Interstitial (In-App) ----
             
-            TestCase(title: "Display Interstitial 320x480 (PPM)",
+            TestCase(title: "Display Interstitial 320x480 (In-App)",
                      tags: [.interstitial, .inapp, .server, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -800,7 +800,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Display Interstitial 320x480 (PPM) [noBids]",
+            TestCase(title: "Display Interstitial 320x480 (In-App) [noBids]",
                      tags: [.interstitial, .inapp, .server, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -819,7 +819,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Display Interstitial 320x480 (PPM) [Presentation]",
+            TestCase(title: "Display Interstitial 320x480 (In-App) [Presentation]",
                      tags: [.interstitial, .inapp, .mock],
                      exampleVCStoryboardID: "PrebidPresentationViewController",
                      configurationClosure: { vc in
@@ -831,7 +831,7 @@ struct TestCaseManager {
                 setupCustomParams(for: presentationVC.prebidConfigId)
             }),
             
-            TestCase(title: "Display Interstitial Multisize (PPM)",
+            TestCase(title: "Display Interstitial Multisize (In-App)",
                      tags: [.interstitial, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -845,7 +845,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Display Interstitial 320x480 (PPM) [SKAdN]",
+            TestCase(title: "Display Interstitial 320x480 (In-App) [SKAdN]",
                      tags: [.interstitial, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1036,9 +1036,9 @@ struct TestCaseManager {
                 setupCustomParams(for: mopubInterstitialController.prebidConfigId)
             }),
             
-            // MARK: ---- Video Interstitial (PPM) ----
+            // MARK: ---- Video Interstitial (In-App) ----
             
-            TestCase(title: "Video Interstitial 320x480 (PPM)",
+            TestCase(title: "Video Interstitial 320x480 (In-App)",
                      tags: [.video, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1053,7 +1053,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbInterstitialController.prebidConfigId)
             }),
 
-            TestCase(title: "Video Interstitial 320x480 (PPM) [noBids]",
+            TestCase(title: "Video Interstitial 320x480 (In-App) [noBids]",
                      tags: [.video, .inapp, .server, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1073,7 +1073,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial 320x480 with End Card (PPM)",
+            TestCase(title: "Video Interstitial 320x480 with End Card (In-App)",
                      tags: [.video, .inapp, .server, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1092,7 +1092,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial Vertical (PPM)",
+            TestCase(title: "Video Interstitial Vertical (In-App)",
                      tags: [.video, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1107,7 +1107,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial 320x480 DeepLink+ (PPM)",
+            TestCase(title: "Video Interstitial 320x480 DeepLink+ (In-App)",
                      tags: [.video, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1123,7 +1123,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial 320x480 SkipOffset (PPM)",
+            TestCase(title: "Video Interstitial 320x480 SkipOffset (In-App)",
                      tags: [.video, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1139,7 +1139,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial 320x480 .mp4 (PPM)",
+            TestCase(title: "Video Interstitial 320x480 .mp4 (In-App)",
                      tags: [.video, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1155,7 +1155,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial 320x480 .m4v (PPM)",
+            TestCase(title: "Video Interstitial 320x480 .m4v (In-App)",
                      tags: [.video, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1171,7 +1171,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial 320x480 .mov (PPM)",
+            TestCase(title: "Video Interstitial 320x480 .mov (In-App)",
                      tags: [.video, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1187,7 +1187,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial 320x480 with MRAID End Card (PPM)",
+            TestCase(title: "Video Interstitial 320x480 with MRAID End Card (In-App)",
                      tags: [.video, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1203,7 +1203,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbInterstitialController.prebidConfigId)
             }),
 
-            TestCase(title: "Video Interstitial 320x480 (PPM) [SKAdN]",
+            TestCase(title: "Video Interstitial 320x480 (In-App) [SKAdN]",
                      tags: [.video, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1371,9 +1371,9 @@ struct TestCaseManager {
                 setupCustomParams(for: mopubInterstitialController.prebidConfigId)
             }),
             
-            // MARK: ---- Video (PPM) ----
+            // MARK: ---- Video (In-App) ----
             
-            TestCase(title: "Video Outstream (PPM)",
+            TestCase(title: "Video Outstream (In-App)",
                      tags: [.video, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1390,7 +1390,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Outstream (PPM) [noBids]",
+            TestCase(title: "Video Outstream (In-App) [noBids]",
                      tags: [.video, .inapp, .server, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1411,7 +1411,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Outstream with End Card (PPM)",
+            TestCase(title: "Video Outstream with End Card (In-App)",
                      tags: [.video, .inapp, .server, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1434,7 +1434,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Outstream Feed (PPM)",
+            TestCase(title: "Video Outstream Feed (In-App)",
                      tags: [.video, .inapp, .mock],
                      exampleVCStoryboardID: "PrebidFeedTableViewController",
                      configurationClosure: { vc in
@@ -1488,7 +1488,7 @@ struct TestCaseManager {
                 ];
             }),
             
-            TestCase(title: "Video Outstream (PPM) [SKAdN]",
+            TestCase(title: "Video Outstream (In-App) [SKAdN]",
                      tags: [.video, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1638,9 +1638,9 @@ struct TestCaseManager {
                 ];
             }),
             
-            // MARK: ---- Video Rewarded (PPM) ----
+            // MARK: ---- Video Rewarded (In-App) ----
             
-            TestCase(title: "Video Rewarded 320x480 (PPM)",
+            TestCase(title: "Video Rewarded 320x480 (In-App)",
                      tags: [.video, .inapp, .server, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1660,7 +1660,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbRewardedAdController.prebidConfigId)
             }),
 
-            TestCase(title: "Video Rewarded 320x480 (PPM) [noBids]",
+            TestCase(title: "Video Rewarded 320x480 (In-App) [noBids]",
                      tags: [.video, .inapp, .server, .mock],
                      exampleVCStoryboardID: "AdapterViewController", configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -1678,7 +1678,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbRewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded 320x480 without End Card (PPM)",
+            TestCase(title: "Video Rewarded 320x480 without End Card (In-App)",
                      tags: [.video, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1692,7 +1692,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbRewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded 480x320 (PPM)",
+            TestCase(title: "Video Rewarded 480x320 (In-App)",
                      tags: [.video, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1925,9 +1925,9 @@ struct TestCaseManager {
                 setupCustomParams(for: mopubRewardedAdController.prebidConfigId)
             }),
             
-            // MARK: ---- MRAID (PPM) ----
+            // MARK: ---- MRAID (In-App) ----
             
-            TestCase(title: "MRAID 2.0: Expand - 1 Part (PPM)",
+            TestCase(title: "MRAID 2.0: Expand - 1 Part (In-App)",
                      tags: [.mraid, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1942,7 +1942,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "MRAID 2.0: Expand - 2 Part (PPM)",
+            TestCase(title: "MRAID 2.0: Expand - 2 Part (In-App)",
                      tags: [.mraid, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1958,7 +1958,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "MRAID 2.0: Resize (PPM)",
+            TestCase(title: "MRAID 2.0: Resize (In-App)",
                      tags: [.mraid, .inapp, .server, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1980,7 +1980,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "MRAID 2.0: Resize with Errors (PPM)",
+            TestCase(title: "MRAID 2.0: Resize with Errors (In-App)",
                      tags: [.mraid, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -1995,7 +1995,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "MRAID 2.0: Fullscreen (PPM)",
+            TestCase(title: "MRAID 2.0: Fullscreen (In-App)",
                      tags: [.mraid, .inapp, .mock],
                      exampleVCStoryboardID: "ScrollableAdapterViewController",
                      configurationClosure: { vc in
@@ -2010,7 +2010,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
 
-            TestCase(title: "MRAID 2.0: Video Interstitial (PPM)",
+            TestCase(title: "MRAID 2.0: Video Interstitial (In-App)",
                      tags: [.mraid, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2024,7 +2024,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "MRAID 3.0: Viewability Compliance (PPM)",
+            TestCase(title: "MRAID 3.0: Viewability Compliance (In-App)",
                      tags: [.mraid, .inapp, .mock],
                      exampleVCStoryboardID: "ScrollableAdapterViewController",
                      configurationClosure: { vc in
@@ -2039,7 +2039,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "MRAID 3.0: Resize Negative Test (PPM)",
+            TestCase(title: "MRAID 3.0: Resize Negative Test (In-App)",
                      tags: [.mraid, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2055,7 +2055,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "MRAID 3.0: Load And Events (PPM)",
+            TestCase(title: "MRAID 3.0: Load And Events (In-App)",
                      tags: [.mraid, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2070,7 +2070,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "MRAID OX: Test Properties 3.0 (PPM)",
+            TestCase(title: "MRAID OX: Test Properties 3.0 (In-App)",
                      tags: [.mraid, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2085,7 +2085,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "MRAID OX: Test Methods 3.0 (PPM)",
+            TestCase(title: "MRAID OX: Test Methods 3.0 (In-App)",
                      tags: [.mraid, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2100,7 +2100,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "MRAID OX: Resize (Expandable) (PPM)",
+            TestCase(title: "MRAID OX: Resize (Expandable) (In-App)",
                      tags: [.mraid, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2116,7 +2116,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "MRAID OX: Resize (With Scroll) (PPM)",
+            TestCase(title: "MRAID OX: Resize (With Scroll) (In-App)",
                      tags: [.mraid, .inapp, .mock],
                      exampleVCStoryboardID: "ScrollableAdapterViewController",
                      configurationClosure: { vc in
@@ -2239,9 +2239,9 @@ struct TestCaseManager {
                 setupCustomParams(for: mopubInterstitialController.prebidConfigId)
             }),
             
-            // MARK: ---- Native Styles (PPM) ----
+            // MARK: ---- Native Styles (In-App) ----
             
-            TestCase(title: "Banner Native Styles (PPM) [MAP]",
+            TestCase(title: "Banner Native Styles (In-App) [MAP]",
                      tags: [.native, .inapp, .server, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2266,7 +2266,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner Native Styles (PPM) [KEYS]",
+            TestCase(title: "Banner Native Styles (In-App) [KEYS]",
                      tags: [.native, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2287,7 +2287,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner Native Styles No Assets (PPM)",
+            TestCase(title: "Banner Native Styles No Assets (In-App)",
                      tags: [.native, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2308,7 +2308,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner Native Styles No Creative (PPM)",
+            TestCase(title: "Banner Native Styles No Creative (In-App)",
                      tags: [.native, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2438,9 +2438,9 @@ struct TestCaseManager {
                 setupCustomParams(for: mopubBannerController.prebidConfigId)
             }),
             
-            // MARK: ---- Native (PPM) ----
+            // MARK: ---- Native (In-App) ----
             
-            TestCase(title: "Native Ad (PPM)",
+            TestCase(title: "Native Ad (In-App)",
                      tags: [.native, .inapp, .server, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2468,7 +2468,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbNativeAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Native Ad Links (PPM)",
+            TestCase(title: "Native Ad Links (In-App)",
                      tags: [.native, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2489,7 +2489,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbNativeAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Native Ad Feed (PPM)",
+            TestCase(title: "Native Ad Feed (In-App)",
                      tags: [.native, .inapp, .mock],
                      exampleVCStoryboardID: "PrebidFeedTableViewController",
                      configurationClosure: { vc in
@@ -2514,7 +2514,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbNativeAdFeedController.prebidConfigId)
             }),
             
-            TestCase(title: "Native Ad - Video with End Card (PPM)",
+            TestCase(title: "Native Ad - Video with End Card (In-App)",
                      tags: [.native, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2536,7 +2536,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbNativeAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Native Ad Feed - Video with End Card (PPM)",
+            TestCase(title: "Native Ad Feed - Video with End Card (In-App)",
                      tags: [.native, .inapp, .mock],
                      exampleVCStoryboardID: "PrebidFeedTableViewController",
                      configurationClosure: { vc in
@@ -2562,7 +2562,7 @@ struct TestCaseManager {
                 setupCustomParams(for: oxbNativeAdFeedController.prebidConfigId)
             }),
             
-            TestCase(title: "Native Ad - All Assets with End Card (PPM)",
+            TestCase(title: "Native Ad - All Assets with End Card (In-App)",
                      tags: [.native, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in

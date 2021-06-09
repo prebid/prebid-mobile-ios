@@ -12,8 +12,8 @@ class PrebidVideoOutstreamUITest: RepeatedUITestCase {
     private let waitingTimeout = 30.0
     private let videoDuration = TimeInterval(17) + 2
 
-    let videoOutstreamTitle = "Video Outstream (PPM)"
-    let videoOutstreamEndCardTitle = "Video Outstream with End Card (PPM)"
+    let videoOutstreamTitle = "Video Outstream (In-App)"
+    let videoOutstreamEndCardTitle = "Video Outstream with End Card (In-App)"
     
     override func setUp() {
         useMockServerOnSetup = true

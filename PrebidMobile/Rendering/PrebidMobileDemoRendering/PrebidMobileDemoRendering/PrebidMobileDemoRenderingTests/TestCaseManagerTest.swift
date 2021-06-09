@@ -15,7 +15,7 @@ class TestCaseManagerTest: XCTestCase {
             let manager = TestCaseManager()
             
             let tagMarkers: [(tag: TestCaseTag, nameFragment: String)] = [
-                (.inapp, "(PPM)"),
+                (.inapp, "(In-App)"),
                 (.gam, "(GAM)"),
                 (.mopub, "(MoPub)"),
             ]

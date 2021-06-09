@@ -19,7 +19,7 @@ class PrebidInterstitialUITest: RepeatedUITestCase {
     func testPresentationShow() {
         repeatTesting(times: 3) {
             navigateToExamplesSection()
-            navigateToExample("Display Interstitial 320x480 (PPM) [Presentation]")
+            navigateToExample("Display Interstitial 320x480 (In-App) [Presentation]")
         
             let adReceivedButton = app.buttons["interstitialDidReceiveAd called"]
             
@@ -33,7 +33,7 @@ class PrebidInterstitialUITest: RepeatedUITestCase {
     func testShow() {
         repeatTesting(times: 3) {
             navigateToExamplesSection()
-            navigateToExample("Display Interstitial 320x480 (PPM)")
+            navigateToExample("Display Interstitial 320x480 (In-App)")
         
             let adReceivedButton = app.buttons["interstitialDidReceiveAd called"]
             

@@ -12,8 +12,8 @@ class PrebidVideoInterstitialUITest: RepeatedUITestCase {
     private let waitingTimeout = 5.0
     private let videoDuration = TimeInterval(17)
 
-    let videoInterstitialTitle = "Video Interstitial 320x480 (PPM)"
-    let videoInterstitialEndCardTitle = "Video Interstitial 320x480 with End Card (PPM)"
+    let videoInterstitialTitle = "Video Interstitial 320x480 (In-App)"
+    let videoInterstitialEndCardTitle = "Video Interstitial 320x480 with End Card (In-App)"
     
     override func setUp() {
         useMockServerOnSetup = true

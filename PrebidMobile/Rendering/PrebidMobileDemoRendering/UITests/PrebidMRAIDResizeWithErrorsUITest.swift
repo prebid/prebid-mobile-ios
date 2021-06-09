@@ -9,7 +9,7 @@ import XCTest
 
 class PrebidMRAIDResizeWithErrorsUITest: RepeatedUITestCase {
     
-    private let title = "MRAID 2.0: Resize with Errors (PPM)"
+    private let title = "MRAID 2.0: Resize with Errors (In-App)"
     private let waitingTimeout = 10.0
     
     override func setUp() {

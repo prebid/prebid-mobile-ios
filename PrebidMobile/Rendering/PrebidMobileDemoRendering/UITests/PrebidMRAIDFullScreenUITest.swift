@@ -13,7 +13,7 @@ extension String: Error{}
 class PrebidMRAIDFullScreenUITest: RepeatedUITestCase {
 
     private let waitingTimeout = 8.0
-    private let title = "MRAID 2.0: Fullscreen (PPM)"
+    private let title = "MRAID 2.0: Fullscreen (In-App)"
     
     override func setUp() {
         useMockServerOnSetup = true

@@ -9,9 +9,9 @@ import XCTest
 
 class PrebidMRAID3UITest: RepeatedUITestCase {
 
-    private let viewabilityComplianceTitle = "MRAID 3.0: Viewability Compliance (PPM)"
-    private let loadAndEventsTitle = "MRAID 3.0: Load And Events (PPM)"
-    private let resizeNegativeTestTitle = "MRAID 3.0: Resize Negative Test (PPM)"
+    private let viewabilityComplianceTitle = "MRAID 3.0: Viewability Compliance (In-App)"
+    private let loadAndEventsTitle = "MRAID 3.0: Load And Events (In-App)"
+    private let resizeNegativeTestTitle = "MRAID 3.0: Resize Negative Test (In-App)"
     private let waitingTimeout = 10.0
     private let timeout = 7.0
     

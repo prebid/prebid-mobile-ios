@@ -37,7 +37,7 @@ class BaseUITestCase: XCTestCase {
     
     func switchToMockServerIfNeeded () {
         let useMockServerButton = app.switches["useMockServerSwitch"]
-        waitForHittable(element: useMockServerButton, waitSeconds: 6)
+        waitForHittable(element: useMockServerButton, waitSeconds: 10)
         if !useMockServerButton.isOn {
             useMockServerButton.tap()
         }
@@ -45,7 +45,7 @@ class BaseUITestCase: XCTestCase {
     
     func switchToPrebidXServerIfNeeded() {
         let useMockServerButton = app.switches["useMockServerSwitch"]
-        waitForHittable(element: useMockServerButton, waitSeconds: 6)
+        waitForHittable(element: useMockServerButton, waitSeconds: 10)
         if useMockServerButton.isOn {
             useMockServerButton.tap()
         }

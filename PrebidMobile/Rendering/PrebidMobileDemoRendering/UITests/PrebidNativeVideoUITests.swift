@@ -20,7 +20,7 @@ class PrebidNativeVideoUITest: RepeatedUITestCase {
     func testMediaPlaybackEvents() {
         repeatTesting(times: 7) {
             navigateToExamplesSection()
-            navigateToExample("Native Ad - Video with End Card (PPM)")
+            navigateToExample("Native Ad - Video with End Card (In-App)")
             
             waitAd()
             
