@@ -27,6 +27,7 @@
 #import "PBMEventManager.h"
 #import "PBMFunctions+Private.h"
 #import "PBMFunctions.h"
+#import "PBMInterstitialDisplayProperties.h"
 #import "PBMMacros.h"
 #import "PBMModalManager.h"
 #import "PBMModalState.h"
@@ -126,8 +127,6 @@
     [containerView addSubview:self.view];
     
     displayProperties.closeDelayLeft = displayProperties.closeDelay;
-    
-    [self updateLegalButtonDecorator];
     
     //Create ModalState and push
 
@@ -357,10 +356,6 @@
         [self onAdDisplayed];
         self.adWasShown = YES;
     }
-}
-
-- (void)updateLegalButtonDecorator {
-    // Implement in particular creatives
 }
 
 - (void)pause {

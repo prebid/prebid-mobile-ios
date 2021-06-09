@@ -17,7 +17,6 @@
 
 #import "PBMClickthroughBrowserViewDelegate.h"
 #import "PBMModalViewControllerDelegate.h"
-#import "PBMLegalButtonDecorator.h"
 
 @class PBMAbstractCreative;
 @class PBMModalState;
@@ -35,7 +34,6 @@
 @property (nonatomic, strong, nullable) UIView *contentView;
 @property (nonatomic, readonly, nullable) UIView *displayView;
 @property (nonatomic, readonly, nullable) PBMInterstitialDisplayProperties *displayProperties;
-@property (nonatomic, strong, nullable) PBMLegalButtonDecorator *legalButtonDecorator;
 @property (nonatomic, assign, getter=isRotationEnabled) BOOL rotationEnabled;
 
 - (void)setupState:(nonnull PBMModalState *)modalState;

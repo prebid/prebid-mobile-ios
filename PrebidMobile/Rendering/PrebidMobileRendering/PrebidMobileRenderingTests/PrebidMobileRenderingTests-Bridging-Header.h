@@ -111,7 +111,6 @@
 #import "PBMWebView.h"
 #import "PBMWebViewDelegate.h"
 #import "PBMCloseButtonDecorator.h"
-#import "PBMLegalButtonDecorator.h"
 #import "PBMAdRequestResponseVAST.h"
 #import "PBMCircularProgressBarLayer.h"
 #import "PBMInterstitialLayoutConfigurator.h"

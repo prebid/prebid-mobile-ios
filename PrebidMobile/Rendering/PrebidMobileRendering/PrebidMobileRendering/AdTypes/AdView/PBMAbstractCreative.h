@@ -80,7 +80,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)displayWithRootViewController:(UIViewController *)viewController;
 - (void)showAsInterstitialFromRootViewController:(UIViewController *)viewController displayProperties:(PBMInterstitialDisplayProperties *)displayProperties;
 - (void)handleClickthrough:(NSURL *)url;
-- (void)updateLegalButtonDecorator;
 
 //Resolution
 - (void)onResolutionCompleted;

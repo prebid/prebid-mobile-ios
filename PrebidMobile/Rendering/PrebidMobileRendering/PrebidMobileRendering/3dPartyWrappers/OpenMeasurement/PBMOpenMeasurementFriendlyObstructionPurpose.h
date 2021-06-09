@@ -13,13 +13,9 @@
  limitations under the License.
  */
 
-#ifndef PBMOpenMeasurementFriendlyObstructionPurpose_h
-#define PBMOpenMeasurementFriendlyObstructionPurpose_h
-
 typedef NS_ENUM(NSUInteger, PBMOpenMeasurementFriendlyObstructionPurpose) {
     PBMOpenMeasurementFriendlyObstructionWindowLockerBackground = 0,
     PBMOpenMeasurementFriendlyObstructionWindowLockerActivityIndicator,
-    PBMOpenMeasurementFriendlyObstructionLegalButtonDecorator,
     PBMOpenMeasurementFriendlyObstructionModalViewControllerView,
     PBMOpenMeasurementFriendlyObstructionModalViewControllerClose,
     PBMOpenMeasurementFriendlyObstructionVideoViewLearnMoreButton,
@@ -28,5 +24,3 @@ typedef NS_ENUM(NSUInteger, PBMOpenMeasurementFriendlyObstructionPurpose) {
     PBMOpenMeasurementFriendlyObstruction_PurposesCount,
 };
 
-
-#endif /* PBMOpenMeasurementFriendlyObstructionPurpose_h */

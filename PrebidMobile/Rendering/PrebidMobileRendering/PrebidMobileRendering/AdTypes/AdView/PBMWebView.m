@@ -25,7 +25,6 @@
 #import "PBMFunctions+Private.h"
 #import "PBMInterstitialDisplayProperties.h"
 #import "PBMJSLibraryManager.h"
-#import "PBMLegalButtonDecorator.h"
 #import "PBMLocationManager.h"
 #import "PBMLog.h"
 #import "PBMMRAIDController.h"
@@ -68,8 +67,6 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 @property (nonatomic, strong) NSDate *lastTapTimestamp;
 
 @property (nonatomic, assign) BOOL isVolumeObserverSetup;
-
-@property (nonatomic, assign) PBMPosition originLegalButtonPosition;
 
 // viewability polling
 @property (nonatomic, strong, nullable) PBMCreativeViewabilityTracker *viewabilityTracker;
@@ -118,7 +115,6 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     self.mraidState = PBMMRAIDStateNotEnabled;
     _mraidLastSentFrame = CGRectZero;
     _bundle = [PBMFunctions bundleForSDK];
-    _originLegalButtonPosition = PBMPositionUndefined;
     _isVolumeObserverSetup = NO;
     
     //Setup MRAID-required properties
@@ -220,7 +216,6 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
          self.state = PBMWebViewStateLoading;
         
          [self.internalWebView loadHTMLString:html baseURL:nil];
-         [self updateLegalButton];
     } onError:^(NSError * _Nullable error) {
         PBMLogError(@"%@", error.localizedDescription);
     }];
@@ -652,7 +647,6 @@ static PBMError *extracted(NSString *errorMessage) {
 // updates the state of the webview in mraid.js
 - (void)MRAID_onStateChange:(PBMMRAIDState)state {
     [self evaluateJavaScript:[PBMMRAIDJavascriptCommands onStateChange:state]];
-    [self updateLegalButton];
 }
 
 // updates the viewable flag in mraid.js
@@ -856,36 +850,6 @@ static PBMError *extracted(NSString *errorMessage) {
     return fabs([self.lastTapTimestamp timeIntervalSinceNow]) < PBMTimeInterval.AD_CLICKED_ALLOWED_INTERVAL;
 }
 
-- (void)updateLegalButtonForCreative:(PBMAbstractCreative *)creative {
-
-    if (creative.creativeModel.adConfiguration.presentAsInterstitial) {
-        [self.legalButtonDecorator removeButtonFromSuperview];
-        return;
-    }
-    
-    [self updateLegalButton];
-}
-
-- (void)updateLegalButton {
-    // Currently, in the case of HTML ad, we must place the legal button to the superview to show it properly in interstitial mode.
-    // For the banner ad, the button will be placed in BannerView.
-    // For Interstitial in the intermediate view that fills the modal controller.
-    // TODO: Make the structure of Banner, HTML Interstitial and Video Interstitial ads more similar.  It will give the ability to manage our buttons on the same level.
-    
-    [self.legalButtonDecorator removeButtonFromSuperview];
-    
-    if (self.mraidState == PBMMRAIDStateExpanded || self.mraidState == PBMMRAIDStateResized) {
-        self.originLegalButtonPosition = self.legalButtonDecorator.buttonPosition;
-        self.legalButtonDecorator.buttonPosition = PBMPositionBottomRight;
-    } else if (self.mraidState == PBMMRAIDStateDefault && self.originLegalButtonPosition != PBMPositionUndefined) {
-        self.legalButtonDecorator.buttonPosition = self.originLegalButtonPosition;
-    }
-    
-    [self.legalButtonDecorator addButtonToView:self displayView:self];
-    
-    [self.legalButtonDecorator bringButtonToFront];
-}
-
 #pragma mark - Orientation changing support
 
 - (void)onStatusBarOrientationChanged {    
@@ -904,7 +868,6 @@ static PBMError *extracted(NSString *errorMessage) {
 #pragma mark - Open Measurement
 
 - (void)addFriendlyObstructionsToMeasurementSession:(PBMOpenMeasurementSession *)session {
-    [session addFriendlyObstruction:self.legalButtonDecorator.button purpose:PBMOpenMeasurementFriendlyObstructionLegalButtonDecorator];
 }
 
 #pragma mark - Utilities

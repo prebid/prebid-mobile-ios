@@ -50,7 +50,6 @@
     [super viewDidLoad];
     
     [self setupCloseButton];
-    [self setupLegalButton];
     [self setupContentView];
 }
 
@@ -125,7 +124,6 @@
 
     [self configureSubView];
     [self configureCloseButton];
-    [self configureLegalButton: modalState];
     [self configureClickThroughDelegate];
 }
 
@@ -136,7 +134,6 @@
 - (void)addFriendlyObstructionsToMeasurementSession:(PBMOpenMeasurementSession *)session {
     [session addFriendlyObstruction:self.view purpose:PBMOpenMeasurementFriendlyObstructionModalViewControllerView];
     [session addFriendlyObstruction:self.closeButtonDecorator.button purpose:PBMOpenMeasurementFriendlyObstructionModalViewControllerClose];
-    [session addFriendlyObstruction:self.legalButtonDecorator.button purpose:PBMOpenMeasurementFriendlyObstructionLegalButtonDecorator];
 }
 
 #pragma mark - Internal Methods
@@ -144,11 +141,6 @@
 - (void)setupCloseButton {
     self.closeButtonDecorator = [PBMCloseButtonDecorator new];
     self.closeButtonDecorator.button.hidden = YES;
-}
-
-- (void)setupLegalButton {
-    self.legalButtonDecorator = [[PBMLegalButtonDecorator alloc] initWithPosition:PBMPositionBottomRight];
-    self.legalButtonDecorator.button.hidden = YES;
 }
 
 - (void)setupContentView {
@@ -283,43 +275,6 @@
     }
     else {
         self.closeButtonDecorator.button.hidden = NO;
-    }
-}
-
-- (void)configureLegalButton:(nonnull PBMModalState *)modalState {
-    [self.legalButtonDecorator addButtonToView:self.view displayView:self.displayView];
-    [self.legalButtonDecorator updateButtonConstraints];
-    @weakify(self);
-    self.legalButtonDecorator.buttonTouchUpInsideBlock = ^{
-        @strongify(self);
-        if (modalState.onModalPushedBlock != nil) {
-            modalState.onModalPushedBlock();
-        }
-        PBMClickthroughBrowserView *clickthroughBrowserView = [self.legalButtonDecorator clickthroughBrowserView];
-        if (clickthroughBrowserView) {
-            // FIXME: (mk) Check closure chaining
-            PBMModalState *state = [PBMModalState modalStateWithView:clickthroughBrowserView
-                                                     adConfiguration:nil
-                                                   displayProperties:nil
-                                                  onStatePopFinished:self.modalState.nextOnStatePopFinished
-                                                   onStateHasLeftApp:self.modalState.nextOnStateHasLeftApp];
-            [self.modalManager pushModal:state fromRootViewController:self animated:YES shouldReplace:NO completionHandler:nil];
-        }
-    };
-    
-    [self setupLegalButtonVisibility];
-}
-
-- (void)setupLegalButtonVisibility {
-    [self.legalButtonDecorator bringButtonToFront];
-    if ([self.displayView isKindOfClass:[PBMClickthroughBrowserView class]]) {
-        [self.legalButtonDecorator sendSubviewToBack];
-        return; // Must be hidden
-    } else if (self.modalState.adConfiguration.adFormat == PBMAdFormatVideoInternal) {
-        [self.legalButtonDecorator sendSubviewToBack];
-        return; // Must be hidden for opt-in and insterstitial videos
-    } else {
-        self.legalButtonDecorator.button.hidden = NO;
     }
 }
 

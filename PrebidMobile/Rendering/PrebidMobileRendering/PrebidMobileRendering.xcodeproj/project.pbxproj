@@ -168,7 +168,6 @@
 		34D70F9C24E580620048CC78 /* PBMModalPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2BC54A21CCDD6A0039DCA0 /* PBMModalPresentationController.m */; };
 		34D70F9D24E580620048CC78 /* PBMVastAdsBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = D528B91720358B8F007099D8 /* PBMVastAdsBuilder.m */; };
 		34D70F9E24E580620048CC78 /* PBMWindowLocker.m in Sources */ = {isa = PBXBuildFile; fileRef = 34A3BB79236B2D000008FA2F /* PBMWindowLocker.m */; };
-		34D70F9F24E580620048CC78 /* PBMLegalButtonDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = D577E9C7212AC63900F67665 /* PBMLegalButtonDecorator.m */; };
 		34D70FA024E580620048CC78 /* PBMORTBBid.m in Sources */ = {isa = PBXBuildFile; fileRef = 34FBBCD924814FA300BC7B0A /* PBMORTBBid.m */; };
 		34D70FA124E580620048CC78 /* PBMCreativeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D0802BF022EEF76A00F13C15 /* PBMCreativeFactory.m */; };
 		34D70FA224E580620048CC78 /* PBMGeoLocationParameterBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 10199C60202B44810026B02A /* PBMGeoLocationParameterBuilder.m */; };
@@ -436,7 +435,6 @@
 		34D7110124E580620048CC78 /* PBMDeepLinkPlus.h in Headers */ = {isa = PBXBuildFile; fileRef = 34FF2BC723630664008D9638 /* PBMDeepLinkPlus.h */; };
 		34D7110224E580620048CC78 /* PBMExposureChangeDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = ACE08B1D2461AB1D00935BF9 /* PBMExposureChangeDelegate.h */; };
 		34D7110324E580620048CC78 /* PBMDeviceAccessManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1068D64220298E8B0030AF28 /* PBMDeviceAccessManager.h */; };
-		34D7110424E580620048CC78 /* PBMLegalButtonDecorator.h in Headers */ = {isa = PBXBuildFile; fileRef = D577E9C6212AC63900F67665 /* PBMLegalButtonDecorator.h */; };
 		34D7110524E580620048CC78 /* PBMORTBBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 34B58E45248120B900DF4CA1 /* PBMORTBBanner.h */; };
 		34D7110724E580620048CC78 /* PBMVastParser.h in Headers */ = {isa = PBXBuildFile; fileRef = D528B92220379FDD007099D8 /* PBMVastParser.h */; };
 		34D7110924E580620048CC78 /* UIView+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 108E02CD202DC176006AE20F /* UIView+PBMExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -826,7 +824,6 @@
 		D0FA69BC22A7EED600EF5D9E /* MockOXMHTMLCreative.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FA69BB22A7EED600EF5D9E /* MockOXMHTMLCreative.swift */; };
 		D5079298226E07D2003A1F5F /* MockOXMAdLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5079297226E07D2003A1F5F /* MockOXMAdLoadManager.swift */; };
 		D529F15F21FCF26E0067E07A /* PBMAdViewButtonDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529F15E21FCF26E0067E07A /* PBMAdViewButtonDecoratorTests.swift */; };
-		D529F16121FD3B5F0067E07A /* PBMLegalButtonDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D529F16021FD3B5F0067E07A /* PBMLegalButtonDecoratorTests.swift */; };
 		D538F25A20486F6C0010EDEC /* PBMAbstractCreativeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D538F25920486F6C0010EDEC /* PBMAbstractCreativeTest.swift */; };
 		D54E837520F362BE004A0CF5 /* PBMHTMLFormatterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54E837420F362BE004A0CF5 /* PBMHTMLFormatterTest.swift */; };
 		D57B0C402200783C00AD2413 /* PBMCircularProgressBarViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57B0C3F2200783C00AD2413 /* PBMCircularProgressBarViewTests.swift */; };
@@ -1677,7 +1674,6 @@
 		D528B92120379FDD007099D8 /* PBMVastParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBMVastParser.m; path = AdTypes/Video/Vast/PBMVastParser.m; sourceTree = "<group>"; };
 		D528B92220379FDD007099D8 /* PBMVastParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBMVastParser.h; path = AdTypes/Video/Vast/PBMVastParser.h; sourceTree = "<group>"; };
 		D529F15E21FCF26E0067E07A /* PBMAdViewButtonDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMAdViewButtonDecoratorTests.swift; sourceTree = "<group>"; };
-		D529F16021FD3B5F0067E07A /* PBMLegalButtonDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMLegalButtonDecoratorTests.swift; sourceTree = "<group>"; };
 		D532FC7D22A557A700E405F5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D538F25920486F6C0010EDEC /* PBMAbstractCreativeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBMAbstractCreativeTest.swift; sourceTree = "<group>"; };
 		D53DA35D203257A3004F0AF0 /* PBMTrackingEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBMTrackingEvent.m; path = AdTypes/AdView/PBMTrackingEvent.m; sourceTree = "<group>"; };
@@ -1703,8 +1699,6 @@
 		D577E9BF212AA2A600F67665 /* PBMAdViewButtonDecorator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PBMAdViewButtonDecorator.m; path = AdTypes/AdView/PBMAdViewButtonDecorator.m; sourceTree = "<group>"; };
 		D577E9C2212AA99300F67665 /* PBMCloseButtonDecorator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMCloseButtonDecorator.h; path = AdTypes/AdView/PBMCloseButtonDecorator.h; sourceTree = "<group>"; };
 		D577E9C3212AA99300F67665 /* PBMCloseButtonDecorator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PBMCloseButtonDecorator.m; path = AdTypes/AdView/PBMCloseButtonDecorator.m; sourceTree = "<group>"; };
-		D577E9C6212AC63900F67665 /* PBMLegalButtonDecorator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMLegalButtonDecorator.h; path = AdTypes/AdView/PBMLegalButtonDecorator.h; sourceTree = "<group>"; };
-		D577E9C7212AC63900F67665 /* PBMLegalButtonDecorator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PBMLegalButtonDecorator.m; path = AdTypes/AdView/PBMLegalButtonDecorator.m; sourceTree = "<group>"; };
 		D57B0C3F2200783C00AD2413 /* PBMCircularProgressBarViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMCircularProgressBarViewTests.swift; sourceTree = "<group>"; };
 		D586022F2200644D009785EA /* PBMCircularProgressBarLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMCircularProgressBarLayerTests.swift; sourceTree = "<group>"; };
 		D5A7A75A21020405000F5284 /* PBMMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMMacros.h; path = Utilities/PBMMacros.h; sourceTree = "<group>"; };
@@ -2899,8 +2893,6 @@
 				5B2BC53821CCDB930039DCA0 /* PBMInterstitialDisplayProperties.m */,
 				D06BEBAC22C23CCC007EB6BE /* PBMInterstitialLayoutConfigurator.h */,
 				D06BEBAD22C23CCC007EB6BE /* PBMInterstitialLayoutConfigurator.m */,
-				D577E9C6212AC63900F67665 /* PBMLegalButtonDecorator.h */,
-				D577E9C7212AC63900F67665 /* PBMLegalButtonDecorator.m */,
 				449427F5200977C000FDB439 /* PBMServerResponse.h */,
 				449427F4200977BF00FDB439 /* PBMServerResponse.m */,
 				3477B7F12371DF1F00D1B890 /* PBMWKNavigationActionCompatible.h */,
@@ -3235,7 +3227,6 @@
 				2B59DC0F1BF1533600B00331 /* PBMWebViewTest.swift */,
 				ACB6F7732472BCA500EDBEC3 /* PBMCreativeViewabilityTrackerTest.swift */,
 				D529F15E21FCF26E0067E07A /* PBMAdViewButtonDecoratorTests.swift */,
-				D529F16021FD3B5F0067E07A /* PBMLegalButtonDecoratorTests.swift */,
 				D586022F2200644D009785EA /* PBMCircularProgressBarLayerTests.swift */,
 				D57B0C3F2200783C00AD2413 /* PBMCircularProgressBarViewTests.swift */,
 				5C8073781FA3D83400995FA3 /* ParameterBuilder Tests */,
@@ -3564,7 +3555,6 @@
 				34D7110124E580620048CC78 /* PBMDeepLinkPlus.h in Headers */,
 				34D7110224E580620048CC78 /* PBMExposureChangeDelegate.h in Headers */,
 				34D7110324E580620048CC78 /* PBMDeviceAccessManager.h in Headers */,
-				34D7110424E580620048CC78 /* PBMLegalButtonDecorator.h in Headers */,
 				34D7110524E580620048CC78 /* PBMORTBBanner.h in Headers */,
 				34D7110724E580620048CC78 /* PBMVastParser.h in Headers */,
 				34D7110924E580620048CC78 /* UIView+PBMExtensions.h in Headers */,
@@ -3873,7 +3863,6 @@
 				34D70F9C24E580620048CC78 /* PBMModalPresentationController.m in Sources */,
 				34D70F9D24E580620048CC78 /* PBMVastAdsBuilder.m in Sources */,
 				34D70F9E24E580620048CC78 /* PBMWindowLocker.m in Sources */,
-				34D70F9F24E580620048CC78 /* PBMLegalButtonDecorator.m in Sources */,
 				5BC0A5A4266DFF3C005EFEFB /* FetchDemandResult.swift in Sources */,
 				5BD2C329265FA8F4005D3337 /* PrebidRenderingConfig+TestExtension.m in Sources */,
 				34D70FA024E580620048CC78 /* PBMORTBBid.m in Sources */,
@@ -4293,7 +4282,6 @@
 				5B073CB02105AF74008BC83B /* PBMOpenMeasurementWrapperObjcTest.m in Sources */,
 				34D0AADB258CF630001D5447 /* NativeAdTitleTest.swift in Sources */,
 				5CE7825D205C483E00902261 /* PBMORTBBidRequestTest.swift in Sources */,
-				D529F16121FD3B5F0067E07A /* PBMLegalButtonDecoratorTests.swift in Sources */,
 				44D09B2B1BA90B2600BF74CC /* PBMFunctionsTest.swift in Sources */,
 				5BBD8DCC2279928D00999BC4 /* MockOXMVideoCreative.swift in Sources */,
 				34D0AACD258CF528001D5447 /* NativeAdImageTest.swift in Sources */,
