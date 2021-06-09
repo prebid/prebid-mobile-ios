@@ -1,9 +1,17 @@
-//
-//  PBMFunctions.m
-//  OpenXSDKCore
-//
-//  Copyright © 2018 OpenX. All rights reserved.
-//
+/*   Copyright 2018-2021 Prebid.org, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 
 #import "PBMFunctions.h"
 #import "PBMFunctions+Private.h"
@@ -218,7 +226,7 @@ static NSString * const PBMPlistExt = @"plist";
     //getting the SDK bundle.
 
     NSBundle * mainBundle = [NSBundle bundleForClass:[self class]];
-    NSString * pathToResourcesBundle = [mainBundle pathForResource:@"OpenXSDKCoreResources" ofType:@"bundle"];
+    NSString * pathToResourcesBundle = [mainBundle pathForResource:@"PrebidSDKCoreResources" ofType:@"bundle"];
     if (pathToResourcesBundle) {
         return [NSBundle bundleWithPath:pathToResourcesBundle];
     }

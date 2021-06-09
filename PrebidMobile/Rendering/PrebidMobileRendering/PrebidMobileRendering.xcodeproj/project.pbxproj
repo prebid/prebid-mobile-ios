@@ -1679,7 +1679,6 @@
 		D529F15E21FCF26E0067E07A /* PBMAdViewButtonDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMAdViewButtonDecoratorTests.swift; sourceTree = "<group>"; };
 		D529F16021FD3B5F0067E07A /* PBMLegalButtonDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMLegalButtonDecoratorTests.swift; sourceTree = "<group>"; };
 		D532FC7D22A557A700E405F5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		D53709EB21F1F48200F523E5 /* PBMModalPresentationController+pbmTestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMModalPresentationController+pbmTestExtension.h"; sourceTree = "<group>"; };
 		D538F25920486F6C0010EDEC /* PBMAbstractCreativeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBMAbstractCreativeTest.swift; sourceTree = "<group>"; };
 		D53DA35D203257A3004F0AF0 /* PBMTrackingEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PBMTrackingEvent.m; path = AdTypes/AdView/PBMTrackingEvent.m; sourceTree = "<group>"; };
 		D53DA35E203257A3004F0AF0 /* PBMTrackingEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PBMTrackingEvent.h; path = AdTypes/AdView/PBMTrackingEvent.h; sourceTree = "<group>"; };
@@ -2616,7 +2615,6 @@
 				5B1CF8282105B97E00238340 /* PBMLocationManager+pbmTestExtension.h */,
 				5B2BC55221CCF4530039DCA0 /* PBMModalAnimator+pbmTestExtension.h */,
 				34984F72240691D3003DB149 /* PBMModalManager+pbmTestExtension.h */,
-				D53709EB21F1F48200F523E5 /* PBMModalPresentationController+pbmTestExtension.h */,
 				5B8F054820FCACA900EEC6CF /* PBMModalViewController+pbmTestExtension.h */,
 				5B80F6A6211D9BFA00C8A20F /* PBMOpenMeasurementEventTracker+pbmTestExtension.h */,
 				5B17DDB122577858001EDE29 /* PBMOpenMeasurementSession+pbmTestExtension.h */,
