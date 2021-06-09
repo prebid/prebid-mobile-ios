@@ -1,9 +1,17 @@
-//
-//  TestCasesManager.swift
-//  OpenXInternalTestApp
-//
-//  Copyright © 2018 OpenX. All rights reserved.
-//
+/*   Copyright 2018-2021 Prebid.org, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 
 import Foundation
 import UIKit
@@ -250,18 +258,18 @@ struct TestCaseManager {
                     return
                 }
                 
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
                         
                 if AppConfiguration.shared.useMockServer {
-                    oxbBannerController.prebidConfigId = "mock-banner-320-50"
+                    bannerController.prebidConfigId = "mock-banner-320-50"
                 } else {
-                    oxbBannerController.prebidConfigId = "50699c03-0910-477c-b4a4-911dbe2b9d42"
+                    bannerController.prebidConfigId = "50699c03-0910-477c-b4a4-911dbe2b9d42"
                 }
                         
-                adapterVC.setup(adapter: oxbBannerController)
+                adapterVC.setup(adapter: bannerController)
                         
-               setupCustomParams(for: oxbBannerController.prebidConfigId)
+               setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [noBids]",
@@ -272,19 +280,19 @@ struct TestCaseManager {
                     return
                 }
                 
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
                         
                 if AppConfiguration.shared.useMockServer {
-                    oxbBannerController.prebidConfigId = "mock-no-bids"
+                    bannerController.prebidConfigId = "mock-no-bids"
                 } else {
                     PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
-                    oxbBannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
+                    bannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                         
-                adapterVC.setup(adapter: oxbBannerController)
+                adapterVC.setup(adapter: bannerController)
                         
-               setupCustomParams(for: oxbBannerController.prebidConfigId)
+               setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [Items]",
@@ -295,12 +303,12 @@ struct TestCaseManager {
                     return
                 }
                 
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-banner-items"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-banner-items"
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [New Tab]",
@@ -311,12 +319,12 @@ struct TestCaseManager {
                     return
                 }
                         
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-banner-newtab"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-banner-newtab"
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [Incorrect VAST]",
@@ -327,12 +335,12 @@ struct TestCaseManager {
                     return
                 }
                         
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-banner-incorrect-vast"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-banner-incorrect-vast"
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [DeepLink+]",
@@ -343,12 +351,12 @@ struct TestCaseManager {
                     return
                 }
                 
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-banner-deeplink"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-banner-deeplink"
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [Scrollable]",
@@ -359,12 +367,12 @@ struct TestCaseManager {
                     return
                 }
                 
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-banner-320-50"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-banner-320-50"
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner 300x250 (In-App)",
@@ -375,12 +383,12 @@ struct TestCaseManager {
                     return
                 }
                         
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-banner-300-250"
-                oxbBannerController.adSizes = [CGSize(width: 300, height: 250)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-banner-300-250"
+                bannerController.adSizes = [CGSize(width: 300, height: 250)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner 728x90 (In-App)",
@@ -390,12 +398,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-banner-728-90"
-                oxbBannerController.adSizes = [CGSize(width: 728, height: 90)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-banner-728-90"
+                bannerController.adSizes = [CGSize(width: 728, height: 90)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner Multisize (In-App)",
@@ -405,12 +413,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-banner-multisize"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50), CGSize(width: 728, height: 90)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-banner-multisize"
+                bannerController.adSizes = [CGSize(width: 320, height: 50), CGSize(width: 728, height: 90)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner 320x50 (In-App) ATS",
@@ -434,12 +442,12 @@ struct TestCaseManager {
                     ]
                 ]
                         
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-banner-320-50"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-banner-320-50"
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [SKAdN]",
@@ -449,13 +457,13 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-banner-320-50-skadn"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-banner-320-50-skadn"
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
 
-                adapterVC.setup(adapter: oxbBannerController)
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             // MARK: ---- Banner (GAM) ----
@@ -787,17 +795,17 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 
                 if AppConfiguration.shared.useMockServer {
-                    oxbInterstitialController.prebidConfigId = "mock-display-interstitial-320-480"
+                    interstitialController.prebidConfigId = "mock-display-interstitial-320-480"
                 } else {
-                    oxbInterstitialController.prebidConfigId = "5a4b8dcf-f984-4b04-9448-6529908d6cb6"
+                    interstitialController.prebidConfigId = "5a4b8dcf-f984-4b04-9448-6529908d6cb6"
                 }
                  
-                adapterVC.setup(adapter: oxbInterstitialController)
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             TestCase(title: "Display Interstitial 320x480 (In-App) [noBids]",
@@ -807,16 +815,16 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    oxbInterstitialController.prebidConfigId = "mock-no-bids"
+                    interstitialController.prebidConfigId = "mock-no-bids"
                 } else {
                     PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
-                    oxbInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
+                    interstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
-                adapterVC.setup(adapter: oxbInterstitialController)
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             TestCase(title: "Display Interstitial 320x480 (In-App) [Presentation]",
@@ -838,11 +846,11 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
-                oxbInterstitialController.prebidConfigId = "mock-display-interstitial-multisize"
-                adapterVC.setup(adapter: oxbInterstitialController)
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "mock-display-interstitial-multisize"
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             TestCase(title: "Display Interstitial 320x480 (In-App) [SKAdN]",
@@ -852,12 +860,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
-                oxbInterstitialController.prebidConfigId = "mock-display-interstitial-320-480-skadn"
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "mock-display-interstitial-320-480-skadn"
 
-                adapterVC.setup(adapter: oxbInterstitialController)
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             // MARK: ---- Interstitial (GAM) ----
@@ -1045,12 +1053,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
-                oxbInterstitialController.prebidConfigId = "mock-video-interstitial-320-480"
-                oxbInterstitialController.adFormat = .video
-                adapterVC.setup(adapter: oxbInterstitialController)
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "mock-video-interstitial-320-480"
+                interstitialController.adFormat = .video
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
 
             TestCase(title: "Video Interstitial 320x480 (In-App) [noBids]",
@@ -1060,17 +1068,17 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    oxbInterstitialController.prebidConfigId = "mock-no-bids"
+                    interstitialController.prebidConfigId = "mock-no-bids"
                 } else {
                     PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
-                    oxbInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
+                    interstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
-                oxbInterstitialController.adFormat = .video
-                adapterVC.setup(adapter: oxbInterstitialController)
+                interstitialController.adFormat = .video
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             TestCase(title: "Video Interstitial 320x480 with End Card (In-App)",
@@ -1080,16 +1088,16 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    oxbInterstitialController.prebidConfigId = "mock-video-interstitial-320-480-with-end-card"
+                    interstitialController.prebidConfigId = "mock-video-interstitial-320-480-with-end-card"
                 } else {
-                    oxbInterstitialController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
+                    interstitialController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
-                oxbInterstitialController.adFormat = .video
-                adapterVC.setup(adapter: oxbInterstitialController)
+                interstitialController.adFormat = .video
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             TestCase(title: "Video Interstitial Vertical (In-App)",
@@ -1099,12 +1107,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
-                oxbInterstitialController.prebidConfigId = "mock-video-interstitial-vertical"
-                oxbInterstitialController.adFormat = .video
-                adapterVC.setup(adapter: oxbInterstitialController)
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "mock-video-interstitial-vertical"
+                interstitialController.adFormat = .video
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             TestCase(title: "Video Interstitial 320x480 DeepLink+ (In-App)",
@@ -1114,13 +1122,13 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
-                oxbInterstitialController.prebidConfigId = "mock-video-interstitial-320-480-deeplink"
-                oxbInterstitialController.adFormat = .video
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "mock-video-interstitial-320-480-deeplink"
+                interstitialController.adFormat = .video
                 
-                adapterVC.setup(adapter: oxbInterstitialController)
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             TestCase(title: "Video Interstitial 320x480 SkipOffset (In-App)",
@@ -1130,13 +1138,13 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
-                oxbInterstitialController.prebidConfigId = "mock-video-interstitial-320-480-skip-offset"
-                oxbInterstitialController.adFormat = .video
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "mock-video-interstitial-320-480-skip-offset"
+                interstitialController.adFormat = .video
                 
-                adapterVC.setup(adapter: oxbInterstitialController)
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             TestCase(title: "Video Interstitial 320x480 .mp4 (In-App)",
@@ -1146,13 +1154,13 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
-                oxbInterstitialController.prebidConfigId = "mock-video-interstitial-mp4"
-                oxbInterstitialController.adFormat = .video
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "mock-video-interstitial-mp4"
+                interstitialController.adFormat = .video
                 
-                adapterVC.setup(adapter: oxbInterstitialController)
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             TestCase(title: "Video Interstitial 320x480 .m4v (In-App)",
@@ -1162,13 +1170,13 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
-                oxbInterstitialController.prebidConfigId = "mock-video-interstitial-m4v"
-                oxbInterstitialController.adFormat = .video
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "mock-video-interstitial-m4v"
+                interstitialController.adFormat = .video
                 
-                adapterVC.setup(adapter: oxbInterstitialController)
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             TestCase(title: "Video Interstitial 320x480 .mov (In-App)",
@@ -1178,13 +1186,13 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
-                oxbInterstitialController.prebidConfigId = "mock-video-interstitial-mov"
-                oxbInterstitialController.adFormat = .video
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "mock-video-interstitial-mov"
+                interstitialController.adFormat = .video
                 
-                adapterVC.setup(adapter: oxbInterstitialController)
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             TestCase(title: "Video Interstitial 320x480 with MRAID End Card (In-App)",
@@ -1194,13 +1202,13 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
-                oxbInterstitialController.prebidConfigId = "mock-video-interstitial-mraid-end-card"
-                oxbInterstitialController.adFormat = .video
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "mock-video-interstitial-mraid-end-card"
+                interstitialController.adFormat = .video
                 
-                adapterVC.setup(adapter: oxbInterstitialController)
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
 
             TestCase(title: "Video Interstitial 320x480 (In-App) [SKAdN]",
@@ -1210,13 +1218,13 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
-                oxbInterstitialController.prebidConfigId = "mock-video-interstitial-320-480-skadn"
-                oxbInterstitialController.adFormat = .video
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "mock-video-interstitial-320-480-skadn"
+                interstitialController.adFormat = .video
                 
-                adapterVC.setup(adapter: oxbInterstitialController)
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             // MARK: ---- Video Interstitial (GAM) ----
@@ -1380,14 +1388,14 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-video-outstream"
-                oxbBannerController.adSizes = [CGSize(width: 300, height: 250)]
-                oxbBannerController.adFormat = .video
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-video-outstream"
+                bannerController.adSizes = [CGSize(width: 300, height: 250)]
+                bannerController.adFormat = .video
                         
-                adapterVC.setup(adapter: oxbBannerController)
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Video Outstream (In-App) [noBids]",
@@ -1397,18 +1405,18 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    oxbBannerController.prebidConfigId = "mock-no-bids"
+                    bannerController.prebidConfigId = "mock-no-bids"
                 } else {
                     PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
-                    oxbBannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
+                    bannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
-                oxbBannerController.adSizes = [CGSize(width: 300, height: 250)]
-                oxbBannerController.adFormat = .video
-                adapterVC.setup(adapter: oxbBannerController)
+                bannerController.adSizes = [CGSize(width: 300, height: 250)]
+                bannerController.adFormat = .video
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Video Outstream with End Card (In-App)",
@@ -1418,20 +1426,20 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
                 
-                oxbBannerController.adSizes = [CGSize(width: 300, height: 250)]
-                oxbBannerController.adFormat = .video
+                bannerController.adSizes = [CGSize(width: 300, height: 250)]
+                bannerController.adFormat = .video
                         
                 if AppConfiguration.shared.useMockServer {
-                    oxbBannerController.prebidConfigId = "mock-video-outstream-with-end-card"
+                    bannerController.prebidConfigId = "mock-video-outstream-with-end-card"
                 } else {
-                    oxbBannerController.prebidConfigId = "9007b76d-c73c-49c6-b0a8-1c7890a84b33"
+                    bannerController.prebidConfigId = "9007b76d-c73c-49c6-b0a8-1c7890a84b33"
                 }
                  
-                adapterVC.setup(adapter: oxbBannerController)
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Video Outstream Feed (In-App)",
@@ -1495,14 +1503,14 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-video-outstream-skadn"
-                oxbBannerController.adSizes = [CGSize(width: 300, height: 250)]
-                oxbBannerController.adFormat = .video
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-video-outstream-skadn"
+                bannerController.adSizes = [CGSize(width: 300, height: 250)]
+                bannerController.adFormat = .video
                 
-                adapterVC.setup(adapter: oxbBannerController)
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             // MARK: ---- Video (GAM) ----
@@ -1647,17 +1655,17 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbRewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 
                 if AppConfiguration.shared.useMockServer {
-                    oxbRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                    rewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
                 } else {
-                    oxbRewardedAdController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
+                    rewardedAdController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
                  
-                adapterVC.setup(adapter: oxbRewardedAdController)
+                adapterVC.setup(adapter: rewardedAdController)
                         
-                setupCustomParams(for: oxbRewardedAdController.prebidConfigId)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
 
             TestCase(title: "Video Rewarded 320x480 (In-App) [noBids]",
@@ -1666,16 +1674,16 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbRewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    oxbRewardedAdController.prebidConfigId = "mock-no-bids"
+                    rewardedAdController.prebidConfigId = "mock-no-bids"
                 } else {
                     PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
-                    oxbRewardedAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
+                    rewardedAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
-                adapterVC.setup(adapter: oxbRewardedAdController)
+                adapterVC.setup(adapter: rewardedAdController)
                         
-                setupCustomParams(for: oxbRewardedAdController.prebidConfigId)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
             
             TestCase(title: "Video Rewarded 320x480 without End Card (In-App)",
@@ -1685,11 +1693,11 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbRewardedAdController = PrebidRewardedController(rootController: adapterVC)
-                oxbRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480-without-end-card"
-                adapterVC.setup(adapter: oxbRewardedAdController)
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "mock-video-rewarded-320-480-without-end-card"
+                adapterVC.setup(adapter: rewardedAdController)
                         
-                setupCustomParams(for: oxbRewardedAdController.prebidConfigId)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
             
             TestCase(title: "Video Rewarded 480x320 (In-App)",
@@ -1699,11 +1707,11 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbRewardedAdController = PrebidRewardedController(rootController: adapterVC)
-                oxbRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
-                adapterVC.setup(adapter: oxbRewardedAdController)
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                rewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                adapterVC.setup(adapter: rewardedAdController)
                         
-                setupCustomParams(for: oxbRewardedAdController.prebidConfigId)
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
             }),
             
             // MARK: ---- Video Rewarded (GAM) ----
@@ -1934,12 +1942,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-mraid-expand-1-part"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-mraid-expand-1-part"
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "MRAID 2.0: Expand - 2 Part (In-App)",
@@ -1949,13 +1957,13 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-mraid-expand-2-part"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-mraid-expand-2-part"
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
                  
-                adapterVC.setup(adapter: oxbBannerController)
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "MRAID 2.0: Resize (In-App)",
@@ -1965,19 +1973,19 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
                 
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
                         
                 if AppConfiguration.shared.useMockServer {
-                    oxbBannerController.prebidConfigId = "mock-mraid-resize"
+                    bannerController.prebidConfigId = "mock-mraid-resize"
                 } else {
-                    oxbBannerController.prebidConfigId = "758bef6c-a811-497e-8234-9a583daf92e0"
+                    bannerController.prebidConfigId = "758bef6c-a811-497e-8234-9a583daf92e0"
                 }
                  
-                adapterVC.setup(adapter: oxbBannerController)
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "MRAID 2.0: Resize with Errors (In-App)",
@@ -1987,12 +1995,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-mraid-resize-with-errors"
-                oxbBannerController.adSizes = [CGSize(width: 300, height: 250)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-mraid-resize-with-errors"
+                bannerController.adSizes = [CGSize(width: 300, height: 250)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "MRAID 2.0: Fullscreen (In-App)",
@@ -2002,12 +2010,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-mraid-fullscreen"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-mraid-fullscreen"
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
 
             TestCase(title: "MRAID 2.0: Video Interstitial (In-App)",
@@ -2017,11 +2025,11 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbInterstitialController = PrebidInterstitialController(rootController: adapterVC)
-                oxbInterstitialController.prebidConfigId = "mock-mraid-video-interstitial"
-                adapterVC.setup(adapter: oxbInterstitialController)
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "mock-mraid-video-interstitial"
+                adapterVC.setup(adapter: interstitialController)
                         
-                setupCustomParams(for: oxbInterstitialController.prebidConfigId)
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             TestCase(title: "MRAID 3.0: Viewability Compliance (In-App)",
@@ -2031,12 +2039,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-mraid-viewability-compliance"
-                oxbBannerController.adSizes = [CGSize(width: 300, height: 250)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-mraid-viewability-compliance"
+                bannerController.adSizes = [CGSize(width: 300, height: 250)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "MRAID 3.0: Resize Negative Test (In-App)",
@@ -2047,12 +2055,12 @@ struct TestCaseManager {
                     return
                 }
                         
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-mraid-resize-negative-test"
-                oxbBannerController.adSizes = [CGSize(width: 300, height: 250)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-mraid-resize-negative-test"
+                bannerController.adSizes = [CGSize(width: 300, height: 250)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "MRAID 3.0: Load And Events (In-App)",
@@ -2062,12 +2070,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-mraid-load-and-events"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-mraid-load-and-events"
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "MRAID OX: Test Properties 3.0 (In-App)",
@@ -2077,12 +2085,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-mraid-test-properties-3"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-mraid-test-properties-3"
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "MRAID OX: Test Methods 3.0 (In-App)",
@@ -2092,12 +2100,12 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-mraid-test-methods-3"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 50)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-mraid-test-methods-3"
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "MRAID OX: Resize (Expandable) (In-App)",
@@ -2108,12 +2116,12 @@ struct TestCaseManager {
                     return
                 }
                         
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-mraid-resize-expandable"
-                oxbBannerController.adSizes = [CGSize(width: 300, height: 50)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-mraid-resize-expandable"
+                bannerController.adSizes = [CGSize(width: 300, height: 50)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "MRAID OX: Resize (With Scroll) (In-App)",
@@ -2124,12 +2132,12 @@ struct TestCaseManager {
                     return
                 }
                         
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-mraid-resize"
-                oxbBannerController.adSizes = [CGSize(width: 300, height: 50)]
-                adapterVC.setup(adapter: oxbBannerController)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-mraid-resize"
+                bannerController.adSizes = [CGSize(width: 300, height: 50)]
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             // MARK: ---- MRAID (GAM) ----
@@ -2248,22 +2256,22 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 240)]
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.adSizes = [CGSize(width: 320, height: 240)]
                         
                 if AppConfiguration.shared.useMockServer {
-                    oxbBannerController.prebidConfigId = "mock-banner-native-styles"
+                    bannerController.prebidConfigId = "mock-banner-native-styles"
                 } else {
-                    oxbBannerController.prebidConfigId = "621da6c1-6ab6-464d-a955-b4e447eaedcb"
+                    bannerController.prebidConfigId = "621da6c1-6ab6-464d-a955-b4e447eaedcb"
                 }
                  
                 let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
-                oxbBannerController.nativeAdConfig = nativeAdConfig
+                bannerController.nativeAdConfig = nativeAdConfig
                         
-                adapterVC.setup(adapter: oxbBannerController)
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner Native Styles (In-App) [KEYS]",
@@ -2273,18 +2281,18 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
                 
-                oxbBannerController.prebidConfigId = "mock-banner-native-styles"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 240)]
+                bannerController.prebidConfigId = "mock-banner-native-styles"
+                bannerController.adSizes = [CGSize(width: 320, height: 240)]
                         
                 let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreativeKeys
-                oxbBannerController.nativeAdConfig = nativeAdConfig
+                bannerController.nativeAdConfig = nativeAdConfig
                         
-                adapterVC.setup(adapter: oxbBannerController)
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner Native Styles No Assets (In-App)",
@@ -2294,18 +2302,18 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
+                let bannerController = PrebidBannerController(rootController: adapterVC)
                 
-                oxbBannerController.prebidConfigId = "mock-banner-native-styles"
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 240)]
+                bannerController.prebidConfigId = "mock-banner-native-styles"
+                bannerController.adSizes = [CGSize(width: 320, height: 240)]
                         
                 let nativeAdConfig = NativeAdConfiguration(assets: [])
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreativeKeys
-                oxbBannerController.nativeAdConfig = nativeAdConfig
+                bannerController.nativeAdConfig = nativeAdConfig
                         
-                adapterVC.setup(adapter: oxbBannerController)
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner Native Styles No Creative (In-App)",
@@ -2315,17 +2323,17 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbBannerController = PrebidBannerController(rootController: adapterVC)
-                oxbBannerController.prebidConfigId = "mock-banner-native-styles"       
-                oxbBannerController.adSizes = [CGSize(width: 320, height: 240)]
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-banner-native-styles"
+                bannerController.adSizes = [CGSize(width: 320, height: 240)]
                         
                 let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 //NOTE: there is no `nativeStylesCreative` in the nativeConfig
-                oxbBannerController.nativeAdConfig = nativeAdConfig
+                bannerController.nativeAdConfig = nativeAdConfig
                         
-                adapterVC.setup(adapter: oxbBannerController)
+                adapterVC.setup(adapter: bannerController)
                         
-                setupCustomParams(for: oxbBannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             // MARK: ---- Native Styles (GAM) ----
@@ -2447,25 +2455,25 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbNativeAdController = PrebidNativeAdController(rootController: adapterVC)
-                oxbNativeAdController.setupNativeAdView(NativeAdViewBox())
+                let nativeAdController = PrebidNativeAdController(rootController: adapterVC)
+                nativeAdController.setupNativeAdView(NativeAdViewBox())
                 
                 if AppConfiguration.shared.useMockServer {
-                    oxbNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                    nativeAdController.prebidConfigId = "mock-banner-native-styles"
                 } else {
                     // FIXME: Switch the example from QA to the Prod server
                     try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
                     PrebidRenderingConfig.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
-                    oxbNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
+                    nativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
                 }
                         
                 let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
-                oxbNativeAdController.nativeAdConfig = nativeAdConfig
+                nativeAdController.nativeAdConfig = nativeAdConfig
                         
-                adapterVC.setup(adapter: oxbNativeAdController)
+                adapterVC.setup(adapter: nativeAdController)
                         
-                setupCustomParams(for: oxbNativeAdController.prebidConfigId)
+                setupCustomParams(for: nativeAdController.prebidConfigId)
             }),
             
             TestCase(title: "Native Ad Links (In-App)",
@@ -2475,18 +2483,18 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbNativeAdController = PrebidNativeAdController(rootController: adapterVC)
-                oxbNativeAdController.setupNativeAdView(NativeAdViewBoxLinks())
+                let nativeAdController = PrebidNativeAdController(rootController: adapterVC)
+                nativeAdController.setupNativeAdView(NativeAdViewBoxLinks())
                 
-                oxbNativeAdController.prebidConfigId = "mock-native-links"
+                nativeAdController.prebidConfigId = "mock-native-links"
                         
                 let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
-                oxbNativeAdController.nativeAdConfig = nativeAdConfig
+                nativeAdController.nativeAdConfig = nativeAdConfig
                         
-                adapterVC.setup(adapter: oxbNativeAdController)
+                adapterVC.setup(adapter: nativeAdController)
                         
-                setupCustomParams(for: oxbNativeAdController.prebidConfigId)
+                setupCustomParams(for: nativeAdController.prebidConfigId)
             }),
             
             TestCase(title: "Native Ad Feed (In-App)",
@@ -2498,20 +2506,20 @@ struct TestCaseManager {
                     return
                 }
                         
-                let oxbNativeAdFeedController = PrebidNativeAdFeedController(rootTableViewController: feedVC)
+                let nativeAdFeedController = PrebidNativeAdFeedController(rootTableViewController: feedVC)
                         
-                oxbNativeAdFeedController.prebidConfigId = "mock-banner-native-styles"
+                nativeAdFeedController.prebidConfigId = "mock-banner-native-styles"
                                 
                 let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
-                oxbNativeAdFeedController.nativeAdConfig = nativeAdConfig
+                nativeAdFeedController.nativeAdConfig = nativeAdConfig
                         
-                feedVC.adapter = oxbNativeAdFeedController
-                feedVC.loadAdClosure = oxbNativeAdFeedController.allowLoadingAd
+                feedVC.adapter = nativeAdFeedController
+                feedVC.loadAdClosure = nativeAdFeedController.allowLoadingAd
                         
-                oxbNativeAdFeedController.createCells()
+                nativeAdFeedController.createCells()
                                 
-                setupCustomParams(for: oxbNativeAdFeedController.prebidConfigId)
+                setupCustomParams(for: nativeAdFeedController.prebidConfigId)
             }),
             
             TestCase(title: "Native Ad - Video with End Card (In-App)",
@@ -2521,19 +2529,19 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbNativeAdController = PrebidNativeAdController(rootController: adapterVC)
-                oxbNativeAdController.setupNativeAdView(NativeAdViewBox())
-                oxbNativeAdController.showOnlyMediaView = true
+                let nativeAdController = PrebidNativeAdController(rootController: adapterVC)
+                nativeAdController.setupNativeAdView(NativeAdViewBox())
+                nativeAdController.showOnlyMediaView = true
                         
-                oxbNativeAdController.prebidConfigId = "mock-native-video-with-end-card"
+                nativeAdController.prebidConfigId = "mock-native-video-with-end-card"
                         
                 let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
-                oxbNativeAdController.nativeAdConfig = nativeAdConfig
+                nativeAdController.nativeAdConfig = nativeAdConfig
                         
-                adapterVC.setup(adapter: oxbNativeAdController)
+                adapterVC.setup(adapter: nativeAdController)
                         
-                setupCustomParams(for: oxbNativeAdController.prebidConfigId)
+                setupCustomParams(for: nativeAdController.prebidConfigId)
             }),
             
             TestCase(title: "Native Ad Feed - Video with End Card (In-App)",
@@ -2545,21 +2553,21 @@ struct TestCaseManager {
                     return
                 }
                         
-                let oxbNativeAdFeedController = PrebidNativeAdFeedController(rootTableViewController: feedVC)
-                oxbNativeAdFeedController.showOnlyMediaView = true
+                let nativeAdFeedController = PrebidNativeAdFeedController(rootTableViewController: feedVC)
+                nativeAdFeedController.showOnlyMediaView = true
                         
-                oxbNativeAdFeedController.prebidConfigId = "mock-native-video-with-end-card"
+                nativeAdFeedController.prebidConfigId = "mock-native-video-with-end-card"
                                 
                 let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
-                oxbNativeAdFeedController.nativeAdConfig = nativeAdConfig
+                nativeAdFeedController.nativeAdConfig = nativeAdConfig
                         
-                feedVC.adapter = oxbNativeAdFeedController
-                feedVC.loadAdClosure = oxbNativeAdFeedController.allowLoadingAd
+                feedVC.adapter = nativeAdFeedController
+                feedVC.loadAdClosure = nativeAdFeedController.allowLoadingAd
                         
-                oxbNativeAdFeedController.createCells()
+                nativeAdFeedController.createCells()
                                 
-                setupCustomParams(for: oxbNativeAdFeedController.prebidConfigId)
+                setupCustomParams(for: nativeAdFeedController.prebidConfigId)
             }),
             
             TestCase(title: "Native Ad - All Assets with End Card (In-App)",
@@ -2569,18 +2577,18 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                let oxbNativeAdController = PrebidNativeAdController(rootController: adapterVC)
-                oxbNativeAdController.setupNativeAdView(NativeAdViewBox())
+                let nativeAdController = PrebidNativeAdController(rootController: adapterVC)
+                nativeAdController.setupNativeAdView(NativeAdViewBox())
                         
-                oxbNativeAdController.prebidConfigId = "mock-native-video-with-end-card"
+                nativeAdController.prebidConfigId = "mock-native-video-with-end-card"
                         
                 let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
                 nativeAdConfig.nativeStylesCreative = nativeStylesCreative
-                oxbNativeAdController.nativeAdConfig = nativeAdConfig
+                nativeAdController.nativeAdConfig = nativeAdConfig
                         
-                adapterVC.setup(adapter: oxbNativeAdController)
+                adapterVC.setup(adapter: nativeAdController)
                         
-                setupCustomParams(for: oxbNativeAdController.prebidConfigId)
+                setupCustomParams(for: nativeAdController.prebidConfigId)
             }),
 
             // MARK: ---- Native (MoPub) ----
