@@ -77,7 +77,7 @@ class PBMORTBAbstractTest : XCTestCase {
         let abstract = try! PBMORTBAbstract.from(jsonString: "")
         let _ = try! abstract.toJsonString()
         
-        let log = PBMLog.singleton.getLogFileAsString()
+        let log = PBMLog.shared.getLogFileAsString()
         XCTAssert(log.contains("You should not initialize abstract class directly"))
         XCTAssert(log.contains("You must override toJsonDictionary in a subclass"))
     }

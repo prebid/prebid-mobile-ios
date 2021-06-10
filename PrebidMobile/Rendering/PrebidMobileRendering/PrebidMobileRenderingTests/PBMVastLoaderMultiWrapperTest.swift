@@ -24,18 +24,18 @@ class PBMVastLoaderMultiWrapperTest: XCTestCase {
     var vastServerResponse: PBMAdRequestResponseVAST?
     override func setUp() {
         self.continueAfterFailure = true
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     override func tearDown() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     func testVastTooManyWrappers () {
         
         let conn = UtilitiesForTesting.createConnectionForMockedTest()
 
-        MockServer.singleton().resetRules([
+        MockServer.shared.resetRules([
             MockServerRule(urlNeedle: "http://foo.com/", mimeType:  MockServerMimeType.XML.rawValue, connectionID: conn.internalID, fileName: "document_with_one_wrapper_ad.xml")
             ])
         

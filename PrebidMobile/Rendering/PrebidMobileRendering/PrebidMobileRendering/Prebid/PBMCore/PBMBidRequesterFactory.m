@@ -24,7 +24,7 @@
 @implementation PBMBidRequesterFactory
 
 + (PBMBidRequesterFactoryBlock)requesterFactoryWithSingletons {
-    return [self requesterFactoryWithConnection:[PBMServerConnection singleton]
+    return [self requesterFactoryWithConnection:[PBMServerConnection shared]
                                sdkConfiguration:[PrebidRenderingConfig shared]
                                       targeting:[PrebidRenderingTargeting shared]];
 }

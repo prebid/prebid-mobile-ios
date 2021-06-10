@@ -22,7 +22,7 @@
 
 @interface PBMLocationManager : NSObject
 
-@property (class, readonly, nonnull) PBMLocationManager *singleton;
+@property (class, readonly, nonnull) PBMLocationManager *shared;
 
 @property (assign, readonly) CLLocationCoordinate2D coordinates;
 @property (assign, readonly) CLLocationAccuracy horizontalAccuracy;

@@ -107,7 +107,7 @@ public class MediaView: UIView, PBMPlayable, PBMAdViewManagerDelegate {
             onClickthroughExitBlock();
         }
         
-        let connection = self.connection ?? PBMServerConnection.singleton()
+        let connection = self.connection ?? PBMServerConnection.shared
         vastTransactionFactory = PBMVastTransactionFactory(connection: connection,
                                                                 adConfiguration: adConfiguration!,
                                                                 callback: { [weak self] transaction, error in
@@ -267,7 +267,7 @@ public class MediaView: UIView, PBMPlayable, PBMAdViewManagerDelegate {
     }
 
     func display(transaction: PBMTransaction) {
-        let connection = self.connection ?? PBMServerConnection.singleton()
+        let connection = self.connection ?? PBMServerConnection.shared
         adViewManager = PBMAdViewManager(connection: connection, modalManagerDelegate: nil)
         adViewManager?.adViewManagerDelegate = self
         adViewManager?.adConfiguration = adConfiguration!

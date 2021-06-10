@@ -82,9 +82,9 @@ class PBMHTMLCreativeTest_MRAIDPlayVideo: PBMHTMLCreativeTest_Base {
         
         let strVideoURL = "http://get_video/small.mp4"
         
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         let rule = MockServerRule(urlNeedle: strVideoURL, mimeType:  MockServerMimeType.MP4.rawValue, connectionID: UUID(), fileName: "small.mp4")
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
 
         let expectationModalPushed = self.expectation(description: "Modal should be pushed")
         self.mockModalManager.mock_pushModalClosure = { _, _, _, _, _ in

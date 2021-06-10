@@ -55,7 +55,7 @@ class PBMVastLoaderCheckForAds : XCTestCase {
         response2.noAdsResponseURI = "http://response2/noAds"
         response3.noAdsResponseURI = "http://response3/noAds"
         
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         let rule1 =  MockServerRule(fireAndForgetURLNeedle: response1.noAdsResponseURI!, connectionID: connection.internalID)
         rule1.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
             self.fulfillOrFail(self.expectationResponse1ErrorURICalled, "expectationResponse1ErrorURICalled")
@@ -71,7 +71,7 @@ class PBMVastLoaderCheckForAds : XCTestCase {
             self.fulfillOrFail(self.expectationResponse3ErrorURICalled, "expectationResponse3ErrorURICalled")
         }
         
-        MockServer.singleton().resetRules([rule1, rule2, rule3])
+        MockServer.shared.resetRules([rule1, rule2, rule3])
     }
     
     override func tearDown() {
@@ -79,7 +79,7 @@ class PBMVastLoaderCheckForAds : XCTestCase {
         self.expectationResponse1ErrorURICalled = nil
         self.expectationResponse2ErrorURICalled = nil
         self.expectationResponse3ErrorURICalled = nil
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     

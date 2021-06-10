@@ -434,7 +434,7 @@ class PBMUIViewTests: XCTestCase {
         
         // Check log
         
-        let log = PBMLog.singleton.getLogFileAsString()
+        let log = PBMLog.shared.getLogFileAsString()
         
         XCTAssertTrue(log.contains("LOGGING VIEW HIERARCHY"))
         

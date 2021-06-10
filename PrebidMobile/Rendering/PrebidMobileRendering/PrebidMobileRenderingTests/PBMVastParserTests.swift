@@ -8,12 +8,12 @@ class PBMVastParserTests: XCTestCase {
     
     override func setUp() {
         self.continueAfterFailure = true
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     override func tearDown() {
         logToFile = nil
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         super.tearDown()
     }
     // MARK: - Tests
@@ -244,7 +244,7 @@ class PBMVastParserTests: XCTestCase {
         
         parse(PBMVastParser())
         
-        let log = PBMLog.singleton.getLogFileAsString()
+        let log = PBMLog.shared.getLogFileAsString()
         
         XCTAssertTrue(log.contains(expectedLog), "Log: \"\(log)\" not contains: \"\(expectedLog)\"", file: file, line: line)
     }

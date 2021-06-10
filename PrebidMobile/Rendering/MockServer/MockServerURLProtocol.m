@@ -8,7 +8,7 @@
 
 //Check every outbound URL.
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
-    BOOL ret = [[MockServer singleton] canHandle:request];
+    BOOL ret = [[MockServer shared] canHandle:request];
     if (ret) {
         NSLog(@"MockServerURLProtocol handling request: [%@]", request.URL.absoluteString);
     } else {
@@ -22,7 +22,7 @@
 }
 
 - (void)startLoading {
-    [[MockServer singleton] mockServerInteraction:self];
+    [[MockServer shared] mockServerInteraction:self];
 }
 
 - (void)stopLoading {

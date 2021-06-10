@@ -32,7 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<NSURLProtocol *> *protocolClasses;
 @property (nonatomic, strong, readonly) NSUUID *internalID;
 
-+ (instancetype)singleton;
+@property (class, readonly, nonnull) PBMServerConnection *shared;
+
 - (instancetype)init:(PBMUserAgentService *)userAgentService NS_SWIFT_NAME(init(userAgentService:));
 
 @end

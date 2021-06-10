@@ -22,7 +22,7 @@ class DownloadSizeHelperTest: XCTestCase {
     private let nonexistsFile = "nonexist"
     
     override func tearDown() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     func testSize() {
@@ -39,7 +39,7 @@ class DownloadSizeHelperTest: XCTestCase {
             let connection = UtilitiesForTesting.createConnectionForMockedTest()
 
             let rule = MockServerRule(urlNeedle: "http://get_video", mimeType:  MockServerMimeType.MP4.rawValue, connectionID: connection.internalID, fileName: filename)
-            MockServer.singleton().resetRules([rule])
+            MockServer.shared.resetRules([rule])
             
             let expectationNoRestriction = self.expectation(description: "expectationNoRestriction")
             let expectationWithRestriction = self.expectation(description: "expectationWithRestriction")

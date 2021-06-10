@@ -25,7 +25,7 @@ class PBMUserAgentServiceTest: XCTestCase {
 
         expectationUserAgentExecuted = expectation(description: "expectationUserAgentExecuted")
         
-        let userAgentService = PBMUserAgentService.singleton()
+        let userAgentService = PBMUserAgentService.shared
         
         // Waiting for JS userAgent execute asynchronously
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -53,8 +53,8 @@ class PBMUserAgentServiceTest: XCTestCase {
 
     func testInjectedSDKVersion() {
         let injectedSDKVersion = "x.y.z"
-        PBMUserAgentService.singleton().sdkVersion = injectedSDKVersion
-        let userAgentString = PBMUserAgentService.singleton().getFullUserAgent()
+        PBMUserAgentService.shared.sdkVersion = injectedSDKVersion
+        let userAgentString = PBMUserAgentService.shared.getFullUserAgent()
 
         let didFindInjectedSDKVersion = userAgentString.PBMdoesMatch("PrebidMobileRendering/\(injectedSDKVersion)")
         XCTAssert(didFindInjectedSDKVersion)
@@ -62,17 +62,17 @@ class PBMUserAgentServiceTest: XCTestCase {
         let didFindDefaultSDKVersion = userAgentString.PBMdoesMatch("PrebidMobileRendering/\(sdkVersion)")
         XCTAssertFalse(didFindDefaultSDKVersion)
         
-        PBMUserAgentService.singleton().sdkVersion = PBMFunctions.sdkVersion()
+        PBMUserAgentService.shared.sdkVersion = PBMFunctions.sdkVersion()
     }
 
-    func testSingletonCreation() {
-        let uaServiceSingleton = PBMUserAgentService.singleton()
-        XCTAssertNotNil(uaServiceSingleton)
-        XCTAssert(uaServiceSingleton === PBMUserAgentService.singleton())
+    func testSharedCreation() {
+        let uaServiceShared = PBMUserAgentService.shared
+        XCTAssertNotNil(uaServiceShared)
+        XCTAssert(uaServiceShared === PBMUserAgentService.shared)
     }
 
-    func testSingletonSDKVersion() {
-        let userAgentString = PBMUserAgentService.singleton().getFullUserAgent()
+    func testSharedSDKVersion() {
+        let userAgentString = PBMUserAgentService.shared.getFullUserAgent()
         let didFindDefaultSDKVersion = userAgentString.PBMdoesMatch("PrebidMobileRendering/\(sdkVersion)")
         XCTAssert(didFindDefaultSDKVersion)
     }
@@ -81,7 +81,7 @@ class PBMUserAgentServiceTest: XCTestCase {
         let expectationCheckThread = self.expectation(description: "Check thread expectation")
 
         DispatchQueue.global(qos: .background).async {
-            let userAgentString = PBMUserAgentService.singleton().getFullUserAgent()
+            let userAgentString = PBMUserAgentService.shared.getFullUserAgent()
             let didFindDefaultSDKVersion = userAgentString.PBMdoesMatch("PrebidMobileRendering/\(self.sdkVersion)")
             XCTAssert(didFindDefaultSDKVersion)
             
@@ -92,7 +92,7 @@ class PBMUserAgentServiceTest: XCTestCase {
     }
     
     func testSetUserAgentInBackgroundThread() {
-        let service = PBMUserAgentService.singleton()
+        let service = PBMUserAgentService.shared
         
         let expectationCheckThread = self.expectation(description: "Check thread expectation")
         expectationCheckThread.expectedFulfillmentCount = 2

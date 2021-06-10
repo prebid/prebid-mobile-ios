@@ -27,7 +27,7 @@
 @implementation PBMUserConsentParameterBuilder
 
 - (instancetype)init {
-    return [self initWithUserConsentManager:[PBMUserConsentDataManager singleton]];
+    return [self initWithUserConsentManager:PBMUserConsentDataManager.shared];
 }
 
 - (instancetype)initWithUserConsentManager:(PBMUserConsentDataManager *)userConsentManager {
@@ -36,7 +36,7 @@
         return nil;
     }
 
-    self.userConsentManager = (userConsentManager) ? userConsentManager : [PBMUserConsentDataManager singleton];
+    self.userConsentManager = (userConsentManager) ? userConsentManager : PBMUserConsentDataManager.shared;
 
     return self;
 }

@@ -23,7 +23,7 @@
 @interface PBMOpenMeasurementWrapper : NSObject 
 
 NS_ASSUME_NONNULL_BEGIN
-@property (class, readonly, nonnull) PBMOpenMeasurementWrapper *singleton;
+@property (class, readonly, nonnull) PBMOpenMeasurementWrapper *shared;
 
 #pragma mark - PBMMeasurementProtocol
 

@@ -30,7 +30,7 @@
 
 #pragma mark - Private Initialization
 
-+ (instancetype)singleton {
++ (nonnull instancetype)shared {
     static id singleton = nil;
     
     static dispatch_once_t onceToken;

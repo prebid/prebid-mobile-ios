@@ -35,15 +35,15 @@
 
 #pragma mark - Class Properties
 
-+ (instancetype)singleton {
-    static PBMUserAgentService *singleton;
++ (nonnull instancetype)shared {
+    static PBMUserAgentService *shared;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        singleton = [PBMUserAgentService new];
+        shared = [[PBMUserAgentService alloc] init];
     });
 
-    return singleton;
+    return shared;
 }
 
 #pragma mark - Init

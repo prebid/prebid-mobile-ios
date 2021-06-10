@@ -252,8 +252,8 @@ public class NativeAd: NSObject {
     @objc public convenience init(nativeAdMarkup: PBMNativeAdMarkup) {
         self.init(nativeAdMarkup: nativeAdMarkup,
                   application: UIApplication.shared,
-                  measurementWrapper: PBMOpenMeasurementWrapper.singleton,
-                  serverConnection: PBMServerConnection.singleton(),
+                  measurementWrapper: PBMOpenMeasurementWrapper.shared,
+                  serverConnection: PBMServerConnection.shared,
                   sdkConfiguration: PrebidRenderingConfig.shared)
     }
 

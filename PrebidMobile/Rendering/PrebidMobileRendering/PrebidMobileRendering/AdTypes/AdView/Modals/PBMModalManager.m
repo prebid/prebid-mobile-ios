@@ -70,8 +70,6 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
 }
 
 - (void) dealloc {
-    PBMLogWhereAmI();
-    
     if (_modalViewController) {
         __weak id<PBMModalManagerDelegate> delegate = _delegate;
         [_modalViewController dismissViewControllerAnimated:true completion:^{
