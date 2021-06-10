@@ -76,12 +76,7 @@ public class NativeAdUnit: PBMBaseAdUnit {
                    bidRequesterFactory: bidRequesterFactory,
                    winNotifierBlock: winNotifierBlock)
         
-        //NOTE: At the moment (10 March 2021) PBS doesn't support OM event trackers:
-        //https://github.com/prebid/prebid-server/issues/1732
-        //Remove the next line
-        adUnitConfig.nativeAdConfiguration = nativeAdConfiguration
-        //and uncomment the next one when PBS be ready
-        //setupNativeAdConfiguration(nativeAdConfiguration)
+        setupNativeAdConfiguration(nativeAdConfiguration)
     }
     
     private func setupNativeAdConfiguration(_ nativeAdConfiguration: NativeAdConfiguration) {
