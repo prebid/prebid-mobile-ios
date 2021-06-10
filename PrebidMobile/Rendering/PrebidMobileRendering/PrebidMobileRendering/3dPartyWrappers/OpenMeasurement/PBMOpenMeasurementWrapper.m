@@ -49,15 +49,15 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
 
 #pragma mark - Initialization
 
-+ (instancetype)singleton {
-    static PBMOpenMeasurementWrapper *singleton;
++ (instancetype)shared {
+    static PBMOpenMeasurementWrapper *shared;
     
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        singleton = [PBMOpenMeasurementWrapper new];
+        shared = [[PBMOpenMeasurementWrapper alloc] init];
     });
     
-    return singleton;
+    return shared;
 }
 
 - (instancetype)init {

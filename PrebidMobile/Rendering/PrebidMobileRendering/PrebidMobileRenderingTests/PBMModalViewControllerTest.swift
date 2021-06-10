@@ -40,7 +40,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
         // displayView
         logToFile = .init()
         controller.configureSubView()
-        var log = PBMLog.singleton.getLogFileAsString()
+        var log = PBMLog.shared.getLogFileAsString()
         XCTAssertTrue(log.contains("Attempted to display a nil view"))
         
         // contentView
@@ -53,7 +53,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
         logToFile = .init()
         
         controller.configureSubView()
-        log = PBMLog.singleton.getLogFileAsString()
+        log = PBMLog.shared.getLogFileAsString()
         XCTAssertTrue(log.contains("ContentView not yet set up by InterfaceBuilder. Nothing to add content to"))
         
         controller.contentView = UIView()
@@ -62,7 +62,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
         logToFile = .init()
         
         controller.configureSubView()
-        log = PBMLog.singleton.getLogFileAsString()
+        log = PBMLog.shared.getLogFileAsString()
         XCTAssertTrue(log.contains("currentDisplayView is already a child of self.view"))
 }
     

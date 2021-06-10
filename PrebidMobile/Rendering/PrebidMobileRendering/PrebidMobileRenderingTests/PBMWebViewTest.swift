@@ -387,7 +387,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         }
         
         //Make sure the log contains a "before" and "after" message to verify that the window.open command ran without error.
-        let log = PBMLog.singleton.getLogFileAsString()
+        let log = PBMLog.shared.getLogFileAsString()
         XCTAssertTrue(log.contains("Before window.open"))
         XCTAssertTrue(log.contains("After window.open"))
         
@@ -406,7 +406,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
 
         // Test: no url
         webView.webView(webView.internalWebView, decidePolicyFor: WKNavigationAction(), decisionHandler: { policy in
-            XCTAssertTrue(PBMLog.singleton.getLogFileAsString().contains("No URL found on WKWebView navigation"))
+            XCTAssertTrue(PBMLog.shared.getLogFileAsString().contains("No URL found on WKWebView navigation"))
             XCTAssertEqual(policy, .cancel)
         })
 
@@ -421,14 +421,14 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         // Test: view in some intermediate state
         webView.state = .unloaded
         webView.webView(webView.internalWebView, decidePolicyFor: navigationAction, decisionHandler: { policy in
-            XCTAssertTrue(PBMLog.singleton.getLogFileAsString().contains("Unexpected state "))
+            XCTAssertTrue(PBMLog.shared.getLogFileAsString().contains("Unexpected state "))
             XCTAssertEqual(policy, .cancel)
         })
 
         // Test: Prevent malicious auto-clicking
         webView.state = .loaded
         webView.webView(webView.internalWebView, decidePolicyFor: navigationAction, decisionHandler: { policy in
-            XCTAssertTrue(PBMLog.singleton.getLogFileAsString().contains("User has not recently tapped."))
+            XCTAssertTrue(PBMLog.shared.getLogFileAsString().contains("User has not recently tapped."))
             XCTAssertEqual(policy, .cancel)
         })
     }
@@ -719,7 +719,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         
         webView.MRAID_error("test error", action: PBMMRAIDAction.log)
         
-        let log = PBMLog.singleton.getLogFileAsString()
+        let log = PBMLog.shared.getLogFileAsString()
         
         XCTAssertTrue(log.contains("Action: [\(PBMMRAIDAction.log.rawValue)] generated error with message [test error]"))
     }

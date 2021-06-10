@@ -41,11 +41,11 @@ class RewardedVideo_CompanionTest: XCTestCase  {
     let trackingUrlCompanionClickTracking = "http://CompanionClickTracking"
     
     override func setUp() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     override func tearDown() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     func testCompanionCreativeCreation() {
@@ -166,10 +166,10 @@ class RewardedVideo_CompanionTest: XCTestCase  {
             // Received a Companion click tracking event
             self.expectationTrackingEventCompanionClickTracking.fulfill()
         }
-        MockServer.singleton().resetRules([ruleInline, ruleTrack1, ruleTrack2])
+        MockServer.shared.resetRules([ruleInline, ruleTrack1, ruleTrack2])
         
         //Handle 404's
-        MockServer.singleton().notFoundRule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
+        MockServer.shared.notFoundRule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
             XCTFail("Unexpected request for \(urlRequest)")
         }
     }

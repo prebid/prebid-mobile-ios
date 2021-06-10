@@ -39,7 +39,7 @@ class PBMSDKConfigurationTest: XCTestCase {
         
         PrebidRenderingConfig.initializeRenderingModule()
         
-        let log = PBMLog.singleton.getLogFileAsString()
+        let log = PBMLog.shared.getLogFileAsString()
         
         XCTAssert(log.contains("prebid-mobile-sdk-rendering \(PBMFunctions.sdkVersion()) Initialized"))
     }
@@ -49,12 +49,12 @@ class PBMSDKConfigurationTest: XCTestCase {
         
         let sdkConfiguration = PrebidRenderingConfig.shared
 
-        XCTAssertEqual(sdkConfiguration.logLevel, PBMLog.singleton.logLevel)
+        XCTAssertEqual(sdkConfiguration.logLevel, PBMLog.shared.logLevel)
         
         sdkConfiguration.logLevel = PBMLogLevel.none
-        XCTAssertEqual(PBMLog.singleton.logLevel, PBMLogLevel.none)
+        XCTAssertEqual(PBMLog.shared.logLevel, PBMLogLevel.none)
         
-        PBMLog.singleton.logLevel = PBMLogLevel.info
+        PBMLog.shared.logLevel = PBMLogLevel.info
         XCTAssertEqual(sdkConfiguration.logLevel, PBMLogLevel.info)
     }
     
@@ -63,12 +63,12 @@ class PBMSDKConfigurationTest: XCTestCase {
         let sdkConfiguration = PrebidRenderingConfig.shared
         let initialValue = sdkConfiguration.debugLogFileEnabled
         
-        XCTAssertEqual(initialValue, PBMLog.singleton.logToFile)
+        XCTAssertEqual(initialValue, PBMLog.shared.logToFile)
         
         sdkConfiguration.debugLogFileEnabled = !initialValue
-        XCTAssertEqual(PBMLog.singleton.logToFile, !initialValue)
+        XCTAssertEqual(PBMLog.shared.logToFile, !initialValue)
 
-        PBMLog.singleton.logToFile = initialValue
+        PBMLog.shared.logToFile = initialValue
         XCTAssertEqual(sdkConfiguration.debugLogFileEnabled, initialValue)
     }
     
@@ -79,13 +79,13 @@ class PBMSDKConfigurationTest: XCTestCase {
         XCTAssertFalse(sdkConfiguration.locationUpdatesEnabled)
     }
     
-    func testSingleton() {
+    func testShared() {
         let firstConfig = PrebidRenderingConfig.shared
         let newConfig = PrebidRenderingConfig.shared
         XCTAssertEqual(firstConfig, newConfig)
     }
     
-    func testResetSingleton() {
+    func testResetShared() {
         let firstConfig = PrebidRenderingConfig.shared
         firstConfig.accountID = "test"
         PrebidRenderingConfig.reset()

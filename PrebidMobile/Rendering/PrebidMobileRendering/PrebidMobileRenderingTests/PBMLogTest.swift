@@ -25,7 +25,7 @@ class PBMLogTest: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        PBMLog.singleton.logLevel = .info
+        PBMLog.shared.logLevel = .info
     }
     
     override func tearDown() {
@@ -49,7 +49,7 @@ class PBMLogTest: XCTestCase {
         }
         
         waitForExpectations(timeout: 1, handler: { _ in
-            let log = PBMLog.singleton.getLogFileAsString()
+            let log = PBMLog.shared.getLogFileAsString()
             
             let threadNumber = descr
                                 .split(separator:"=")[1]
@@ -117,19 +117,19 @@ class PBMLogTest: XCTestCase {
 
         // Check default
         let initialLogLevel: PBMLogLevel = .info
-        XCTAssertEqual(PBMLog.singleton.logLevel, initialLogLevel)
+        XCTAssertEqual(PBMLog.shared.logLevel, initialLogLevel)
         
         PBMLog.warn(message)
         checkLogAndClean(level: "WARNING", withParams: false)
         
         // Test: warning message should be skipped
-        PBMLog.singleton.logLevel = .error
+        PBMLog.shared.logLevel = .error
         
         PBMLog.warn(message)
-        XCTAssertEqual(PBMLog.singleton.getLogFileAsString(), "")
+        XCTAssertEqual(PBMLog.shared.getLogFileAsString(), "")
         
         // Rreturn to the initial state
-        PBMLog.singleton.logLevel = initialLogLevel
+        PBMLog.shared.logLevel = initialLogLevel
 
         PBMLog.warn(message)
         checkLogAndClean(level: "WARNING", withParams: false)
@@ -138,7 +138,7 @@ class PBMLogTest: XCTestCase {
     // MARK: Internal Methods
     
     func checkLogAndClean(level: String, withParams: Bool, file: StaticString = #file, line: UInt = #line) {
-        let log = PBMLog.singleton.getLogFileAsString()
+        let log = PBMLog.shared.getLogFileAsString()
         
         let sdkVersionString = level != "ERROR" ? "" : "v\(sdkVersion) ";
         
@@ -160,16 +160,16 @@ class PBMLogTest: XCTestCase {
     func testLogInternal() {
         logToFile = .init()
         
-        PBMLog.singleton.logInternal("MSG", logLevel:.info, file:#file, line:10, function:#function)
-        let log = PBMLog.singleton.getLogFileAsString()
+        PBMLog.shared.logInternal("MSG", logLevel:.info, file:#file, line:10, function:#function)
+        let log = PBMLog.shared.getLogFileAsString()
         XCTAssert(log.contains("prebid-mobile-sdk-rendering INFO [MAIN]"))
         XCTAssert(log.contains("PBMLogTest.swift testLogInternal() [Line 10]: MSG"))
         
         logToFile = nil
         logToFile = .init()
         
-        PBMLog.singleton.logLevel = .warn
-        PBMLog.singleton.logInternal("MSG", logLevel:.info, file:#file, line:10, function:#function)
-        XCTAssert(PBMLog.singleton.getLogFileAsString().isEmpty)
+        PBMLog.shared.logLevel = .warn
+        PBMLog.shared.logInternal("MSG", logLevel:.info, file:#file, line:10, function:#function)
+        XCTAssert(PBMLog.shared.getLogFileAsString().isEmpty)
     }
 }

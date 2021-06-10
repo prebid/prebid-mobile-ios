@@ -100,7 +100,7 @@ class ModalManagerTestDisplayInInterstitial : XCTestCase {
         modalManager.popModal()
         PBMAssertEq(modalManager.modalStateStack.count, 0)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute:{
-            let log = PBMLog.singleton.getLogFileAsString()
+            let log = PBMLog.shared.getLogFileAsString()
             XCTAssert(log.contains("popModal called on empty modalStateStack!"))
         })
     }

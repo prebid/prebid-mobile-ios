@@ -60,7 +60,7 @@
 
 #pragma mark - Public
 
-+ (instancetype)singleton {
++ (instancetype)shared {
     static id singleton = nil;
     
     static dispatch_once_t onceToken;
@@ -80,7 +80,7 @@
     NSString *fileName = file ? [NSString stringWithUTF8String:file] : nil;
     NSString *functionName = function ? [NSString stringWithUTF8String:function] : nil;
     
-    [self.singleton logInternal:message
+    [self.shared logInternal:message
                        logLevel:logLevel
                            file:fileName
                            line:line
@@ -104,19 +104,19 @@
 }
 
 + (void)info:(NSString *)message file:(NSString *)file line:(unsigned int)line function:(NSString *)function {
-    [self.singleton logInternal:message logLevel:PBMLogLevelInfo file:file line:line function:function];
+    [self.shared logInternal:message logLevel:PBMLogLevelInfo file:file line:line function:function];
 }
 
 + (void)warn:(NSString *)message file:(NSString *)file line:(unsigned int)line function:(NSString *)function {
-    [self.singleton logInternal:message logLevel:PBMLogLevelWarn file:file line:line function:function];
+    [self.shared logInternal:message logLevel:PBMLogLevelWarn file:file line:line function:function];
 }
 
 + (void)error:(NSString *)message file:(NSString *)file line:(unsigned int)line function:(NSString *)function {
-    [self.singleton logInternal:message logLevel:PBMLogLevelError file:file line:line function:function];
+    [self.shared logInternal:message logLevel:PBMLogLevelError file:file line:line function:function];
 }
 
 + (void)message:(NSString *)message file:(NSString *)file line:(unsigned int)line function:(NSString *)function {
-    [self.singleton logInternal:message logLevel:PBMLogLevelNone file:file line:line function:function];
+    [self.shared logInternal:message logLevel:PBMLogLevelNone file:file line:line function:function];
 }
 
 #pragma mark - Private

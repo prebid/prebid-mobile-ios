@@ -39,7 +39,7 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
                             completion: ((FetchDemandResult)->Void)?) {
         
         fetchDemand(with: adObject,
-                    connection: PBMServerConnection.singleton(),
+                    connection: PBMServerConnection.shared,
                     sdkConfiguration: PrebidRenderingConfig.shared,
                     targeting: PrebidRenderingTargeting.shared,
                     completion: completion)

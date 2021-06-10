@@ -201,17 +201,17 @@ typealias JsonDictionary = [String:Any]
     
     // MARK - Log
     @objc class func prepareLogFile() {
-        PBMLog.singleton.clearLogFile()
-        PBMLog.singleton.logToFile = true;
+        PBMLog.shared.clearLogFile()
+        PBMLog.shared.logToFile = true;
     }
     
     @objc class func releaseLogFile() {
-        PBMLog.singleton.logToFile = false;
-        PBMLog.singleton.clearLogFile()
+        PBMLog.shared.logToFile = false;
+        PBMLog.shared.clearLogFile()
     }
     
     class func checkLogContains(_ log: String, cleanFile: Bool = true, file:StaticString = #file, line:UInt = #line) {
-        let log = PBMLog.singleton.getLogFileAsString()
+        let log = PBMLog.shared.getLogFileAsString()
         XCTAssertTrue(log.contains(log), file: file, line: line)
         
         if cleanFile {
@@ -225,7 +225,7 @@ typealias JsonDictionary = [String:Any]
      - testClosure: Run code that will generate log messages here
      - checkLogFor: XCTAssert that the log will contain the following messages
      */
-    class func executeTestClosure(_ testClosure:() -> Void, checkLogFor:[String], logger: PBMLog = PBMLog.singleton, file:StaticString = #file, line:UInt = #line) {
+    class func executeTestClosure(_ testClosure:() -> Void, checkLogFor:[String], logger: PBMLog = PBMLog.shared, file:StaticString = #file, line:UInt = #line) {
 
         let log = UtilitiesForTesting.executeTestClosure(testClosure)
         
@@ -242,7 +242,7 @@ typealias JsonDictionary = [String:Any]
      
      - returns: The log file as a String
      */
-    class func executeTestClosure(_ testClosure:() -> Void, logger: PBMLog = PBMLog.singleton, file:StaticString = #file, line:UInt = #line) -> String {
+    class func executeTestClosure(_ testClosure:() -> Void, logger: PBMLog = PBMLog.shared, file:StaticString = #file, line:UInt = #line) -> String {
         
         logger.clearLogFile()
         

@@ -34,11 +34,11 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCr
     // MARK: - Setup
     
     override func setUp() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     override func tearDown() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     // MARK: - Tests
@@ -156,7 +156,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCr
     // MARK: - Helper Methods
     private func setupVideoCreative(videoFileURL:String = "http://get_video/small.mp4", localVideoFileName:String = "small.mp4") {
         let rule = MockServerRule(urlNeedle: videoFileURL, mimeType: MockServerMimeType.MP4.rawValue, connectionID: connection.internalID, fileName: localVideoFileName)
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
         
         //Create model
         let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())

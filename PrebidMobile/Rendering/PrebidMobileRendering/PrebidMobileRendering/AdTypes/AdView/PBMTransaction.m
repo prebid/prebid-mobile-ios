@@ -46,7 +46,7 @@
         self.serverConnection = connection;
         self.adConfiguration = adConfiguration;
         self.creativeModels = creativeModels;
-        self.measurementWrapper = PBMOpenMeasurementWrapper.singleton;
+        self.measurementWrapper = PBMOpenMeasurementWrapper.shared;
         self.creatives = [NSMutableArray array];
     }
     

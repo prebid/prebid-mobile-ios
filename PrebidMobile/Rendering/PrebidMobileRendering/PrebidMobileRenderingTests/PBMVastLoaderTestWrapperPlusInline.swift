@@ -11,11 +11,11 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
     
     override func setUp() {
         self.continueAfterFailure = true
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     override func tearDown() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         self.didFetchInline = nil
         self.vastRequestSuccessfulExpectation = nil
     }
@@ -30,17 +30,17 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         ////////////////////////////
         //Mock a server at "foo.com"
         ////////////////////////////
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         let ruleInline =  MockServerRule(urlNeedle: "foo.com/inline/vast", mimeType:  MockServerMimeType.XML.rawValue, connectionID: conn.internalID, fileName: "document_with_one_inline_ad.xml")
         ruleInline.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
             PBMLog.info("didFetchInline.fulfill()")
             self.didFetchInline.fulfill()
         }
         
-        MockServer.singleton().resetRules([ruleInline])
+        MockServer.shared.resetRules([ruleInline])
         
         //Handle 404's
-        MockServer.singleton().notFoundRule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
+        MockServer.shared.notFoundRule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
             XCTFail("Unexpected request for \(urlRequest)")
         }
         

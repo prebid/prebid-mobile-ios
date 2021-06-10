@@ -35,16 +35,15 @@ class PBMLocationManagerTest: XCTestCase {
         super.tearDown()
     }
 
-    func testSingletonCreation() {
-        let locationManagerSingleton = PBMLocationManager.singleton
-        XCTAssertNotNil(locationManagerSingleton)
-        XCTAssert(locationManagerSingleton === PBMLocationManager.singleton)
+    func testSharedCreation() {
+        let locationManagerShared = PBMLocationManager.shared
+        XCTAssertNotNil(locationManagerShared)
+        XCTAssert(locationManagerShared === PBMLocationManager.shared)
     }
     
     func testInitializationFromBackground() {
         
-        //Expect 2 fulfillments because hitting the singleton will run initializeInternalLocationManager and so will 
-        
+        //Expect 2 fulfillments because hitting the shared will run initializeInternalLocationManager and so will
         
         let expectationCheckThread = self.expectation(description: "Check thread expectation")
         expectationCheckThread.expectedFulfillmentCount = 1
@@ -52,10 +51,8 @@ class PBMLocationManagerTest: XCTestCase {
             expectationCheckThread.fulfill()
         }
         
-        
         let _ = PBMLocationManager(thread:thread)
         
-
         waitForExpectations(timeout: 4)
     }
 
@@ -256,7 +253,7 @@ class PBMLocationManagerTest: XCTestCase {
     
     func testValidLocation() {
         let invalidLocation = CLLocation(latitude: 0, longitude: 0)
-        let locationManagerSingleton = PBMLocationManager.singleton
+        let locationManagerSingleton = PBMLocationManager.shared
         XCTAssertTrue(locationManagerSingleton.locationIsValid(location))
         XCTAssertFalse(locationManagerSingleton.locationIsValid(invalidLocation))
         XCTAssertFalse(locationManagerSingleton.locationIsValid(nil))

@@ -62,7 +62,7 @@ typedef NS_CLOSED_ENUM(NSUInteger, PBMIABConsentSubjectToGDPR) {
 /**
  Preferred method of using `PBMUserConsentDataManager`.
  */
-+ (nonnull instancetype)singleton;
+@property (class, readonly, nonnull) PBMUserConsentDataManager *shared;
 
 /**
  Convenience initializer that uses the shared user defaults object.

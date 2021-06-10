@@ -32,15 +32,15 @@ NSString *const IABUSPrivacyStringKey = @"IABUSPrivacy_String";
     NSUserDefaults *_userDefaults;
 }
 
-+ (instancetype)singleton {
-    static id singleton = nil;
++ (nonnull instancetype)shared {
+    static id shared = nil;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        singleton = [[[self class] alloc] init];
+        shared = [[[self class] alloc] init];
     });
 
-    return singleton;
+    return shared;
 }
 
 - (instancetype)init {

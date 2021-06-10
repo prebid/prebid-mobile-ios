@@ -247,8 +247,8 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
         super.setUp()
 
         //There should be no network traffic
-        MockServer.singleton().reset()
-        MockServer.singleton().notFoundRule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
+        MockServer.shared.reset()
+        MockServer.shared.notFoundRule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
             XCTFail("Unexpected request for \(urlRequest)")
         }
         
@@ -293,7 +293,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
         self.htmlCreative.display(withRootViewController:mockViewController)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute:{
-            let log = PBMLog.singleton.getLogFileAsString()
+            let log = PBMLog.shared.getLogFileAsString()
             XCTAssertTrue(log.contains("PBMWebView is ready to display"))
             self.expectationBlockForAWhile?.fulfill()
         })
@@ -312,7 +312,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
         self.htmlCreative.webView(webView, failedToLoadWithError:PBMError.error(message: "Failed to load html", type: .internalError))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute:{
-            let log = PBMLog.singleton.getLogFileAsString()
+            let log = PBMLog.shared.getLogFileAsString()
             XCTAssertTrue(log.contains("Failed to load html"))
             self.expectationDownloadFailed?.fulfill()
         })

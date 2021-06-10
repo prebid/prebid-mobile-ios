@@ -25,11 +25,11 @@ class PBMAdRequesterVASTTest: XCTestCase {
     var vastServerResponse: PBMAdRequestResponseVAST?
     
     override func setUp() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     override func tearDown() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         self.successfulExpectation = nil
         self.failedExpectation = nil
     }
@@ -42,7 +42,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
 
         let ruleInline =  MockServerRule(urlNeedle: "foo.com/inline/vast", mimeType:  MockServerMimeType.XML.rawValue, connectionID: conn.internalID, fileName: "document_with_one_inline_ad.xml")
         
-        MockServer.singleton().resetRules([ruleInline])
+        MockServer.shared.resetRules([ruleInline])
         
         let adConfiguration = PBMAdConfiguration()
         

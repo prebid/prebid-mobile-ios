@@ -38,7 +38,7 @@
     return self;
 }
 
-+(nonnull instancetype) singleton {
++(nonnull instancetype) shared {
     static MockServer *ret = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

@@ -23,7 +23,7 @@
 @implementation PBMLocationManagerObjCTest
 
 - (void)testValidLocationWithNSObject {
-    PBMLocationManager *locationManager = [PBMLocationManager singleton];
+    PBMLocationManager *locationManager = [PBMLocationManager shared];
     XCTAssertFalse([locationManager locationIsValid: (CLLocation*)[NSObject new]]);
 }
 

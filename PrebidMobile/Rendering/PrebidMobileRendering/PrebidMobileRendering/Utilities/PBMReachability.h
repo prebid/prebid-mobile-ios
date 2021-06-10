@@ -32,9 +32,9 @@ typedef void (^PBMNetworkReachableBlock)(PBMReachability *reachability);
 + (nullable instancetype)reachabilityForInternetConnection;
 
 /**
- * Singleton instance for checking whether the default route is available.
+ * Shared instance for checking whether the default route is available.
  */
-+ (instancetype)singleton;
+@property (class, readonly, nonnull) PBMReachability *shared;
 
 /**
  * Returns true is network is reachable otherwise returns false

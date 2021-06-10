@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) PBMLogLevel logLevel;
 @property (nonatomic, assign) BOOL logToFile;
 
-@property (class, readonly) PBMLog *singleton;
+@property (class, readonly) PBMLog *shared;
 
 + (void)logObjC:(NSString *)message
        logLevel:(PBMLogLevel)logLevel

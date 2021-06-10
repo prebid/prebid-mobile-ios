@@ -34,11 +34,11 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
     // MARK: - Setup
     
     override func setUp() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
 
     override func tearDown() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         self.videoCreative = nil
         self.expectationDownloadCompleted = nil
         self.expectationCreativeReady = nil
@@ -310,7 +310,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
     
     private func setupVideoCreative(videoFileURL:String = "http://get_video/small.mp4", localVideoFileName:String = "small.mp4") {
         let rule = MockServerRule(urlNeedle: videoFileURL, mimeType: MockServerMimeType.MP4.rawValue, connectionID: connection.internalID, fileName: localVideoFileName)
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
         
         //Create model
         let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())

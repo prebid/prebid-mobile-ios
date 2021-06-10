@@ -51,7 +51,7 @@ class PBMORTBParameterBuilderTest: XCTestCase {
         
         PBMORTBParameterBuilder.buildOpenRTB(for: MockedRequest())
         
-        let log = PBMLog.singleton.getLogFileAsString()
+        let log = PBMLog.shared.getLogFileAsString()
         XCTAssert(log.contains(errorMessage))
     }
 }

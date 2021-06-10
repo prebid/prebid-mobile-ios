@@ -18,7 +18,9 @@
 @class NSURLRequest;
 
 @interface MockServer : NSObject
-+(nonnull instancetype) singleton;
+
+@property (class, readonly, nonnull) MockServer *shared;
+
 @property BOOL useNotFoundRule;
 
 // The key in the header of NSURLRequest added by ServerConnection.

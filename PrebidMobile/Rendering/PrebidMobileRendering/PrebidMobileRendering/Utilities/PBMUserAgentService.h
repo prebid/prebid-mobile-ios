@@ -18,14 +18,14 @@
 /**
  * Service for retrieving PrebidMobile SDK's User-Agent string.
  *
- * The `singleton` class property should be used rather than instantiating directly.
+ * The `shared` class property should be used rather than instantiating directly.
  */
 @interface PBMUserAgentService : NSObject
 
 /**
  * Entry point for accessing official SDK User-Agent.
  */
-+ (nonnull instancetype)singleton;
+@property (class, readonly, nonnull) PBMUserAgentService *shared;
 
 /**
  * Returns the `WKWebView`'s User-Agent with the SDK version appened.

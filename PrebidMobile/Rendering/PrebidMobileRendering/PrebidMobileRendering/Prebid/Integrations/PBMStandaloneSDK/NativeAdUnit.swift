@@ -28,7 +28,7 @@ public class NativeAdUnit: PBMBaseAdUnit {
     @objc public convenience init(configID: String, nativeAdConfiguration: NativeAdConfiguration) {
         self.init(configID: configID,
                   nativeAdConfiguration: nativeAdConfiguration,
-                  serverConnection: PBMServerConnection.singleton(),
+                  serverConnection: PBMServerConnection.shared,
                   sdkConfiguration: PrebidRenderingConfig.shared,
                   targeting: PrebidRenderingTargeting.shared)
     }

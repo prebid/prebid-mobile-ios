@@ -41,11 +41,11 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
     var pbmVideoCreative:PBMVideoCreative!
     
     override func setUp() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     override func tearDown() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         
         PrebidRenderingConfig.reset()
         
@@ -61,7 +61,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
         let connection = UtilitiesForTesting.createConnectionForMockedTest()
         let adConfiguration = self.initAdConfiguration()
         
-        MockServer.singleton().resetRules(
+        MockServer.shared.resetRules(
                 self.createGeneralMockServerRules(connectionID: connection.internalID) +
                 self.createTrackingEventRuleAndExpectations_BeforeMidpoint(connectionID: connection.internalID) +
                 self.createTrackingEventRuleAndExpectations_AfterMidpoint(connectionID: connection.internalID)
@@ -195,7 +195,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
     
     func createGeneralMockServerRules(connectionID: UUID) -> [MockServerRule] {
         //Mock a server at "foo.com"
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         
         let ruleInline = MockServerRule(urlNeedle: "foo.com/inline", mimeType:  MockServerMimeType.XML.rawValue, connectionID: connectionID, fileName: "document_with_one_inline_ad.xml")
         ruleInline.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
@@ -213,7 +213,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
         }
         
         //Handle 404's
-        MockServer.singleton().notFoundRule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
+        MockServer.shared.notFoundRule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
             XCTFail("Unexpected request for \(urlRequest)")
         }
         

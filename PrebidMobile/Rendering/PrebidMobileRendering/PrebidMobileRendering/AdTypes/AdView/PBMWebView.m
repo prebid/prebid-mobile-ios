@@ -703,8 +703,8 @@ static PBMError *extracted(NSString *errorMessage) {
 }
 
 - (void)MRAID_updateLocation {
-    if (PrebidRenderingConfig.shared.locationUpdatesEnabled && PBMLocationManager.singleton.coordinatesAreValid) {
-        PBMLocationManager *locationManager = PBMLocationManager.singleton;
+    if (PrebidRenderingConfig.shared.locationUpdatesEnabled && PBMLocationManager.shared.coordinatesAreValid) {
+        PBMLocationManager *locationManager = PBMLocationManager.shared;
         [self evaluateJavaScript:[PBMMRAIDJavascriptCommands updateLocation:locationManager.coordinates
                                                                    accuracy:locationManager.horizontalAccuracy
                                                                     timeStamp:[locationManager.timestamp timeIntervalSince1970]]];

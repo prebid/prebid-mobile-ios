@@ -29,23 +29,23 @@ class PBMServerConnectionTest : XCTestCase {
     var responseHandledExpectation:XCTestExpectation!
     
     override func setUp() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     override func tearDown() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         self.didTalkToServerExpectation = nil
         self.responseHandledExpectation = nil
     }
     
-    func testSingletonCreation() {
-        let serverConnectionSingleton = PBMServerConnection.singleton()
-        XCTAssertNotNil(serverConnectionSingleton)
+    func testSharedCreation() {
+        let serverConnectionShared = PBMServerConnection.shared
+        XCTAssertNotNil(serverConnectionShared)
         
-        XCTAssert(serverConnectionSingleton === PBMServerConnection.singleton())
+        XCTAssert(serverConnectionShared === PBMServerConnection.shared)
 
         let serverConnectionInstance = PBMServerConnection()
-        XCTAssert(serverConnectionSingleton !== serverConnectionInstance)
+        XCTAssert(serverConnectionShared !== serverConnectionInstance)
     }
     
     func testFireAndForget() {
@@ -69,7 +69,7 @@ class PBMServerConnectionTest : XCTestCase {
             
             self.didTalkToServerExpectation.fulfill()
         }
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
 
         //Test
         connection.fireAndForget("http://foo.com/bo?param_key=abc123")
@@ -90,7 +90,7 @@ class PBMServerConnectionTest : XCTestCase {
         rule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
             self.didTalkToServerExpectation.fulfill()
         }
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
         
         //Test
         connection.fireAndForget("http://foo.com/bo?param_key={abc123}")
@@ -123,7 +123,7 @@ class PBMServerConnectionTest : XCTestCase {
             XCTAssertEqual(expectedRequestHeaders, actualRequestHeaders, "expected \(expectedRequestHeaders), got \(actualRequestHeaders)")
             self.didTalkToServerExpectation.fulfill()
         }
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
         
         //Test
         connection.get("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in
@@ -193,7 +193,7 @@ class PBMServerConnectionTest : XCTestCase {
             XCTAssertEqual(expectedRequestHeaders, actualRequestHeaders, "expected \(expectedRequestHeaders), got \(actualRequestHeaders)")
             self.didTalkToServerExpectation.fulfill()
         }
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
         
         //Test
         connection.head("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in
@@ -255,7 +255,7 @@ class PBMServerConnectionTest : XCTestCase {
             let actualRequestHeaders = urlRequest.allHTTPHeaderFields!
             XCTAssertEqual(expectedRequestHeaders, actualRequestHeaders, "expected \(actualRequestHeaders), got \(actualRequestHeaders)")
         }
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
         
         let postData = strPostData.data(using: .utf8)!
         connection.post("http://foo.com/bo?param_key=abc123", data:postData, timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in
@@ -311,10 +311,10 @@ class PBMServerConnectionTestJSON : XCTestCase {
         let conn = UtilitiesForTesting.createConnectionForMockedTest()
         
         //Make a "server" that will respond with json specifying empty html as the ad content
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         let rule = MockServerRule(urlNeedle: "foo.com", mimeType:  MockServerMimeType.JSON.rawValue, connectionID: conn.internalID, fileName: "ACJEmptyHTML.json")
         rule.statusCode = 200
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
 
         //Run the test
         self.callbackCalledExpectation = self.expectation(description: "Expected PBMServerConnection to fire callback")
@@ -370,7 +370,7 @@ class PBMServerConnectionTestJSON : XCTestCase {
         let testURL = "test.com"
         let invalidJSONData = "{".data(using: .utf8)!
         let invalidJSONRule = MockServerRule(urlNeedle: testURL, mimeType:  MockServerMimeType.JSON.rawValue, connectionID: connection.internalID, data: invalidJSONData)
-        MockServer.singleton().resetRules([invalidJSONRule])
+        MockServer.shared.resetRules([invalidJSONRule])
 
         connection.post(testURL, data: Data(), timeout: 0.5, callback: { (serverResponse) in
             guard let error = serverResponse.error else {
@@ -403,7 +403,7 @@ class PBMServerConnectionTestJSONSlow : XCTestCase {
         //MockServer that will respond with json specifying empty html as the ad content
         let rule = MockServerRuleSlow(urlNeedle: "foo.com", mimeType:  MockServerMimeType.JSON.rawValue, connectionID: conn.internalID, fileName: "ACJEmptyHTML.json")
         rule.statusCode = 200
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
         
         //Run the test
         self.callbackCalledExpectation = self.expectation(description: "Expected PBMServerConnection to fire callback")
@@ -470,7 +470,7 @@ class PBMServerConnectionTest_Redirect: XCTestCase {
         let connection = getMockedServerConnection()
 
         //Mock a server to respond with a 302 redirect and then a real response
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         let firstRule = MockServerRuleRedirect(urlNeedle: firstURL, mimeType: MockServerMimeType.HTML.rawValue, connectionID: connection.internalID, strResponse:"")
         firstRule.redirectRequest = URLRequest(url: URL(string:secondURL)!)
         firstRule.redirectRequest?.allHTTPHeaderFields = [
@@ -505,7 +505,7 @@ class PBMServerConnectionTest_Redirect: XCTestCase {
             
             expectationSecondRuleHandled.fulfill()
         }
-        MockServer.singleton().resetRules([firstRule, secondRule])
+        MockServer.shared.resetRules([firstRule, secondRule])
         
         // Test PBMServerConnection
         connection.get(firstURL, timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in

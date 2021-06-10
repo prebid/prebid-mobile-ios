@@ -54,20 +54,20 @@ public class PrebidRenderingConfig : NSObject {
 
     //Controls the verbosity of PrebidMobileRendering's internal logger. Options are (from most to least noisy) .info, .warn, .error and .none. Defaults to .info.
     @objc public var logLevel: PBMLogLevel {
-        get { PBMLog.singleton.logLevel }
-        set { PBMLog.singleton.logLevel = newValue }
+        get { PBMLog.shared.logLevel }
+        set { PBMLog.shared.logLevel = newValue }
     }
 
     //If set to true, the output of PrebidMobileRendering's internal logger is written to a text file. This can be helpful for debugging. Defaults to false.
     @objc public var debugLogFileEnabled: Bool {
-        get { PBMLog.singleton.logToFile }
-        set { PBMLog.singleton.logToFile = newValue }
+        get { PBMLog.shared.logToFile }
+        set { PBMLog.shared.logToFile = newValue }
     }
 
     //If true, the SDK will periodically try to listen for location updates in order to request location-based ads.
     @objc public var locationUpdatesEnabled: Bool {
-        get { PBMLocationManager.singleton.locationUpdatesEnabled }
-        set { PBMLocationManager.singleton.locationUpdatesEnabled = newValue }
+        get { PBMLocationManager.shared.locationUpdatesEnabled }
+        set { PBMLocationManager.shared.locationUpdatesEnabled = newValue }
     }
     
     // MARK: - Public Methods
@@ -82,10 +82,10 @@ public class PrebidRenderingConfig : NSObject {
     }
     
     @objc public static func initializeRenderingModule() {
-        PBMServerConnection.singleton()
-        let _ = PBMLocationManager.singleton
-        PBMUserConsentDataManager.singleton()
-        PBMOpenMeasurementWrapper.singleton.initializeJSLib(with: PBMFunctions.bundleForSDK())
+        let _ = PBMServerConnection.shared
+        let _ = PBMLocationManager.shared
+        let _ = PBMUserConsentDataManager.shared
+        PBMOpenMeasurementWrapper.shared.initializeJSLib(with: PBMFunctions.bundleForSDK())
         
         PBMLog.info("prebid-mobile-sdk-rendering \(PBMFunctions.sdkVersion()) Initialized")
     }

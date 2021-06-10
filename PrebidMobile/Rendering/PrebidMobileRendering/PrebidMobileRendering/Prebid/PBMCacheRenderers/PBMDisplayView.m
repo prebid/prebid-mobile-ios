@@ -71,7 +71,7 @@
     @weakify(self);
     self.transactionFactory = [[PBMTransactionFactory alloc] initWithBid:self.bid
                                                          adConfiguration:self.adConfiguration
-                                                              connection:self.connection ?: [PBMServerConnection singleton]
+                                                              connection:self.connection ?: PBMServerConnection.shared
                                                                 callback:^(PBMTransaction * _Nullable transaction,
                                                                            NSError * _Nullable error) {
         @strongify(self);
@@ -81,7 +81,7 @@
             [self displayTransaction:transaction];
         }
     }];
-    [PBMWinNotifier notifyThroughConnection:[PBMServerConnection singleton]
+    [PBMWinNotifier notifyThroughConnection:PBMServerConnection.shared
                                  winningBid:self.bid
                                    callback:^(NSString *adMarkup) {
         @strongify(self);
@@ -183,7 +183,7 @@
 }
 
 - (void)displayTransaction:(PBMTransaction *)transaction {
-    id<PBMServerConnectionProtocol> const connection = self.connection ?: [PBMServerConnection singleton];
+    id<PBMServerConnectionProtocol> const connection = self.connection ?: PBMServerConnection.shared;
     self.adViewManager = [[PBMAdViewManager alloc] initWithConnection:connection modalManagerDelegate:self];
     self.adViewManager.adViewManagerDelegate = self;
     self.adViewManager.adConfiguration = self.adConfiguration.adConfiguration;

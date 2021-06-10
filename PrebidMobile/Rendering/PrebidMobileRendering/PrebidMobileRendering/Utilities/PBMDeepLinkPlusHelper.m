@@ -43,7 +43,7 @@
     id<PBMUIApplicationProtocol> const application = self.application ?: [UIApplication sharedApplication];
     PBMExternalURLOpenerBlock const urlOpener = [PBMExternalURLOpeners applicationAsExternalUrlOpener:application];
     
-    id<PBMServerConnectionProtocol> connection = self.connection ?: [PBMServerConnection singleton];
+    id<PBMServerConnectionProtocol> connection = self.connection ?: [PBMServerConnection shared];
     PBMTrackingURLVisitorBlock const trackingUrlVisitor = [PBMTrackingURLVisitors connectionAsTrackingURLVisitor:connection];
     
     PBMExternalLinkHandler * const externalLinkHandler = [[PBMExternalLinkHandler alloc] initWithPrimaryUrlOpener:urlOpener
@@ -61,7 +61,7 @@
 }
 
 + (void)visitTrackingUrlStrings:(NSArray<NSString *> *)trackingUrlStrings {
-    id<PBMServerConnectionProtocol> connection = self.connection ?: [PBMServerConnection singleton];
+    id<PBMServerConnectionProtocol> connection = self.connection ?: [PBMServerConnection shared];
     PBMTrackingURLVisitorBlock const visitorBlock = [PBMTrackingURLVisitors connectionAsTrackingURLVisitor:connection];
     visitorBlock(trackingUrlStrings);
 }

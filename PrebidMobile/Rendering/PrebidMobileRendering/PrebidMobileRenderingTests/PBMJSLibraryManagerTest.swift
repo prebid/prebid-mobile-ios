@@ -22,12 +22,12 @@ class PBMJSLibraryManagerTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     override func tearDown() {
         super.tearDown()
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         libraryManager.clearData()
     }
     
@@ -83,7 +83,7 @@ class PBMJSLibraryManagerTest: XCTestCase {
         rule.mockServerReceivedRequestHandler = { (urlRequest: URLRequest) in
             expectationFailToLoad.fulfill()
         }
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
 
         //should fail to load (no remoteLibrary)
         libraryManager.updateJSLibrariesIfNeeded(withConnection: connection)
@@ -99,7 +99,7 @@ class PBMJSLibraryManagerTest: XCTestCase {
         rule.mockServerReceivedRequestHandler = { (urlRequest: URLRequest) in
             expectationLoadLibrary.fulfill()
         }
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
 
         remoteJSLibrary.version = "3.1"
         libraryManager.remoteMRAIDLibrary = remoteJSLibrary
@@ -121,7 +121,7 @@ class PBMJSLibraryManagerTest: XCTestCase {
         rule.mockServerReceivedRequestHandler = { (urlRequest: URLRequest) in
             expectationFailToLoad.fulfill()
         }
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
         
         //should fail to load (no remoteLibrary)
         libraryManager.updateJSLibrariesIfNeeded(withConnection: connection)
@@ -137,7 +137,7 @@ class PBMJSLibraryManagerTest: XCTestCase {
         rule.mockServerReceivedRequestHandler = { (urlRequest: URLRequest) in
             expectationLoadLibrary.fulfill()
         }
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
         
         remoteJSLibrary.version = "3.1.1"
         libraryManager.remoteOMSDKLibrary = remoteJSLibrary

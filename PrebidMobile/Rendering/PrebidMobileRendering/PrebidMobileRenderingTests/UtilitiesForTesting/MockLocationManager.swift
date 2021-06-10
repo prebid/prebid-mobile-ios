@@ -8,7 +8,7 @@ class MockLocationManagerSuccessful : PBMLocationManager {
     static let testState = "CA"
     static let testZipCode = "91601"
     
-    override class var singleton: MockLocationManagerSuccessful {
+    override class var shared: MockLocationManagerSuccessful {
         return MockLocationManagerSuccessful(thread: Thread.current)
     }
     

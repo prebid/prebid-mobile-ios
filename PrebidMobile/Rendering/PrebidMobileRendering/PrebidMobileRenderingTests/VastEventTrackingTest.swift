@@ -177,7 +177,7 @@ class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
         //A second time, to actually download it.
         addExpectation("didFetchVideo", count: 2, for: ruleVideo)
         
-        MockServer.singleton().resetRules([
+        MockServer.shared.resetRules([
             //Load the ad
             ruleInline,
             ruleVideo,
@@ -232,7 +232,7 @@ class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
             ])
         
         //Handle 404's
-        MockServer.singleton().notFoundRule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
+        MockServer.shared.notFoundRule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
             XCTFail("Unexpected request for \(urlRequest)")
         }
     }

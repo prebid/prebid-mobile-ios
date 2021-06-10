@@ -54,7 +54,7 @@ class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
         logToFile = .init()
         let state = PBMModalState(view: PBMWebView(), adConfiguration:PBMAdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
         self.pbmAbstractCreative.modalManagerDidFinishPop(state)
-		let log = PBMLog.singleton.getLogFileAsString()
+		let log = PBMLog.shared.getLogFileAsString()
         XCTAssertTrue(log.contains(msgAbstractFunctionCalled))
     }
 
@@ -62,7 +62,7 @@ class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
         logToFile = .init()
         let state = PBMModalState(view: PBMWebView(), adConfiguration:PBMAdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
         pbmAbstractCreative.modalManagerDidLeaveApp(state)
-        let log = PBMLog.singleton.getLogFileAsString()
+        let log = PBMLog.shared.getLogFileAsString()
         XCTAssertTrue(log.contains(msgAbstractFunctionCalled))
     }
     

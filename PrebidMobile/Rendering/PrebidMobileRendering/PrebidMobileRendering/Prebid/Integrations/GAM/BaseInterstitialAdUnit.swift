@@ -86,7 +86,7 @@ public class BaseInterstitialAdUnit :
         callEventHandler_setLoadingDelegate(adLoader)
         
         adLoadFlowController =  PBMAdLoadFlowController(bidRequesterFactory: { adUnitConfig in
-            return PBMBidRequester(connection: PBMServerConnection.singleton(),
+            return PBMBidRequester(connection: PBMServerConnection.shared,
                                    sdkConfiguration: PrebidRenderingConfig.shared,
                                    targeting: PrebidRenderingTargeting.shared,
                                    adUnitConfiguration: adUnitConfig)

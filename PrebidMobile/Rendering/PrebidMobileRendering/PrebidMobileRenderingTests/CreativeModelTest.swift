@@ -20,7 +20,7 @@ class CreativeModelTest: XCTestCase {
         rule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
             self.fireAndForgetExpectation.fulfill()
         }
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
 
         //Track an event
         let creativeModel = PBMCreativeModel(adConfiguration:PBMAdConfiguration())

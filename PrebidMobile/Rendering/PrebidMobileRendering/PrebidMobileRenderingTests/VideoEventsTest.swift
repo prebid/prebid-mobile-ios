@@ -31,11 +31,11 @@ class VideoEventsTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDelegat
     override func setUp() {
         super.setUp()
         
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     override func tearDown() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         
         PrebidRenderingConfig.reset()
         
@@ -66,7 +66,7 @@ class VideoEventsTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDelegat
         
         //Add a rule for video File
         let ruleVideo = MockServerRule(urlNeedle: "http://get_video_file", mimeType:  MockServerMimeType.MP4.rawValue, connectionID: connection.internalID, fileName: "small.mp4")
-        MockServer.singleton().resetRules([ruleVAST, ruleVideo])
+        MockServer.shared.resetRules([ruleVAST, ruleVideo])
         
         //Create adConfiguration
         let adConfiguration = PBMAdConfiguration()

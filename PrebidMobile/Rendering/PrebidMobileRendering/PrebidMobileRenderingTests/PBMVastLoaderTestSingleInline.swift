@@ -8,11 +8,11 @@ class PBMVastLoaderTestSingleInline: XCTestCase {
 
     override func setUp() {
         self.continueAfterFailure = true
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
     }
     
     override func tearDown() {
-        MockServer.singleton().reset()
+        MockServer.shared.reset()
         self.vastRequestSuccessfulExpectation = nil
     }
     

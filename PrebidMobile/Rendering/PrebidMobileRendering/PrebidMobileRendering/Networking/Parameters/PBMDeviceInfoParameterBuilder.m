@@ -63,7 +63,7 @@
         PBMAssert(deviceAccessManager);
         
         self.deviceAccessManager = deviceAccessManager;
-        self.userConsentManager = userConsentManager ?: [PBMUserConsentDataManager singleton];
+        self.userConsentManager = userConsentManager ?: PBMUserConsentDataManager.shared;
     }
     
     return self;

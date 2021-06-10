@@ -25,7 +25,7 @@
 @interface PBMUserConsentParameterBuilder : NSObject <PBMParameterBuilder>
 
 /**
- Convenience initializer that uses the @c PBMUserConsentDataManager singleton.
+ Convenience initializer that uses the @c PBMUserConsentDataManager shared.
  */
 - (nonnull instancetype)init;
 

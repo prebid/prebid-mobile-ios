@@ -112,7 +112,7 @@ public class MoPubBannerAdUnit : NSObject {
                                                     }
                                                     
                                                     self.fetchDemand(with: adObject,
-                                                                     connection: PBMServerConnection.singleton(),
+                                                                     connection: PBMServerConnection.shared,
                                                                      sdkConfiguration: PrebidRenderingConfig.shared,
                                                                      targeting: PrebidRenderingTargeting.shared,
                                                                      completion: completion)
@@ -124,7 +124,7 @@ public class MoPubBannerAdUnit : NSObject {
                             completion: ((FetchDemandResult)->Void)?) {
         
         fetchDemand(with: adObject,
-                    connection: PBMServerConnection.singleton(),
+                    connection: PBMServerConnection.shared,
                     sdkConfiguration: PrebidRenderingConfig.shared,
                     targeting: PrebidRenderingTargeting.shared,
                     completion: completion)

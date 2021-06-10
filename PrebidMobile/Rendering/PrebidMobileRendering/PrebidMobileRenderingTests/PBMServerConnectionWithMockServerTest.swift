@@ -33,7 +33,7 @@ class PBMServerConnectionWithMockServer: XCTestCase {
             exp1.fulfill()
         }
         
-        MockServer.singleton().resetRules([rule1])
+        MockServer.shared.resetRules([rule1])
         
         connection.fireAndForget(testNeedle1)
         wait(for: [exp1], timeout: 1)
@@ -44,7 +44,7 @@ class PBMServerConnectionWithMockServer: XCTestCase {
             exp2.fulfill()
         }
         
-        MockServer.singleton().resetRules([rule2])
+        MockServer.shared.resetRules([rule2])
         
         connection.fireAndForget(testNeedle1)
         
@@ -72,7 +72,7 @@ class PBMServerConnectionWithMockServer: XCTestCase {
             exp2.fulfill()
         }
         
-        MockServer.singleton().resetRules([rule1, rule2])
+        MockServer.shared.resetRules([rule1, rule2])
         
         connection.fireAndForget(testNeedle1)
         connection.fireAndForget(testNeedle1)
@@ -98,7 +98,7 @@ class PBMServerConnectionWithMockServer: XCTestCase {
             exp2.fulfill()
         }
         
-        MockServer.singleton().resetRules([rule1, rule2])
+        MockServer.shared.resetRules([rule1, rule2])
         
         connection1.fireAndForget(testNeedle1)
         connection2.fireAndForget(testNeedle1)
@@ -124,7 +124,7 @@ class PBMServerConnectionWithMockServer: XCTestCase {
             exp2.fulfill()
         }
         
-        MockServer.singleton().resetRules([rule1, rule2])
+        MockServer.shared.resetRules([rule1, rule2])
         
         connection1.fireAndForget(testNeedle1)
         connection2.fireAndForget(testNeedle2)
@@ -149,7 +149,7 @@ class PBMServerConnectionWithMockServer: XCTestCase {
             exp2.fulfill()
         }
         
-        MockServer.singleton().resetRules([rule1, rule2])
+        MockServer.shared.resetRules([rule1, rule2])
         
         connection.fireAndForget(testNeedle1)
         connection.fireAndForget(testNeedle2)
@@ -169,7 +169,7 @@ class PBMServerConnectionWithMockServer: XCTestCase {
             exp.fulfill()
         }
         
-        MockServer.singleton().resetRules([rule])
+        MockServer.shared.resetRules([rule])
         
         connection.fireAndForget(testNeedle1)
         

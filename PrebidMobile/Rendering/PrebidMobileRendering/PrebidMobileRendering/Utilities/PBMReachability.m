@@ -111,7 +111,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 @implementation PBMReachability
 
 #pragma mark - Initialization
-+ (instancetype)singleton {
++ (nonnull instancetype)shared {
     static PBMReachability *singleton = nil;
     
     static dispatch_once_t onceToken;

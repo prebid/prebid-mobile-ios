@@ -28,13 +28,13 @@
 
 @implementation PBMLocationManager
 # pragma mark - Init
-+ (nonnull instancetype)singleton {
-    static PBMLocationManager *singleton;
++ (nonnull instancetype)shared {
+    static PBMLocationManager *shared;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        singleton = [[PBMLocationManager alloc] initWithThread:[NSThread currentThread]];
+        shared = [[PBMLocationManager alloc] initWithThread:[NSThread currentThread]];
     });
-    return singleton;
+    return shared;
 }
 
 - (nonnull instancetype)initWithThread:(nonnull id<PBMNSThreadProtocol>)thread {
