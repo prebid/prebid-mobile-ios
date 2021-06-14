@@ -28,7 +28,6 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
     var completion: ((FetchDemandResult) -> Void)?
     
     init(configId: String) {
-        
         adUnitConfig = AdUnitConfig(configID: configId)
         adUnitConfig.isInterstitial = true
         adUnitConfig.adPosition = .fullScreen
@@ -37,7 +36,6 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
     
     public func fetchDemand(with adObject: NSObject,
                             completion: ((FetchDemandResult)->Void)?) {
-        
         fetchDemand(with: adObject,
                     connection: PBMServerConnection.shared,
                     sdkConfiguration: PrebidRenderingConfig.shared,

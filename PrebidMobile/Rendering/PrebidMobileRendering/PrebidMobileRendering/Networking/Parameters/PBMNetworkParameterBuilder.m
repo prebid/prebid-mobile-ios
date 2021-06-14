@@ -53,14 +53,14 @@
         return;
     }
     
+    // reachability type
+    PBMNetworkType networkStatus = [self.reachability currentReachabilityStatus];
+    bidRequest.device.connectiontype = [NSNumber numberWithInteger:networkStatus];
+    
     CTCarrier *carrier = self.ctTelephonyNetworkInfo.subscriberCellularProvider;
     if (!carrier) {
         return;
     }
-    
-    // reachability type
-    PBMNetworkType networkStatus = [self.reachability currentReachabilityStatus];
-    bidRequest.device.connectiontype = [NSNumber numberWithInteger:networkStatus];
     
     //Update params dict
     NSString *countryCode = carrier.mobileCountryCode;

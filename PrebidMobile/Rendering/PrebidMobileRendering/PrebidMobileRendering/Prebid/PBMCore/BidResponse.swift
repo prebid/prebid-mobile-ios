@@ -77,5 +77,4 @@ public class BidResponse: NSObject {
         self.targetingInfo = targetingInfo.count > 0 ? targetingInfo : nil
         tmaxrequest = rawBidResponse.ext.tmaxrequest
     }
- 
 }

@@ -24,7 +24,6 @@ public class BaseInterstitialAdUnit :
     InterstitialEventInteractionDelegate,
     BaseInterstitialAdUnitProtocol {
     
-    
     // MARK: - Public Properties
     
     public var configID: String {
@@ -50,14 +49,14 @@ public class BaseInterstitialAdUnit :
 
     public weak var delegate: AnyObject?
     
+    public let adUnitConfig: AdUnitConfig
+    
     // MARK: - Private Properties
     
     private var adLoadFlowController: PBMAdLoadFlowController!
     
     private let blocksLockToken: NSObject
-    
-    public let adUnitConfig: AdUnitConfig
-    
+        
     private var showBlock: ((UIViewController?) -> Void)?
     private var currentAdBlock: ((UIViewController?) -> Void)?
     private var isReadyBlock: (() -> Bool)?
@@ -69,7 +68,6 @@ public class BaseInterstitialAdUnit :
     required public init(configID: String,
                 minSizePerc: NSValue?,
                 eventHandler: AnyObject?) {
-        
         
         adUnitConfig = AdUnitConfig(configID: configID)
         adUnitConfig.isInterstitial = true
