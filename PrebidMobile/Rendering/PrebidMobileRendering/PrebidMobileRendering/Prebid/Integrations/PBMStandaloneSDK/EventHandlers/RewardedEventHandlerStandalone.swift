@@ -32,6 +32,4 @@ public class RewardedEventHandlerStandalone: NSObject, RewardedEventHandlerProto
     public func requestAd(with bidResponse: BidResponse?) {
         loadingDelegate?.prebidDidWin()
     }
-    
-    
 }

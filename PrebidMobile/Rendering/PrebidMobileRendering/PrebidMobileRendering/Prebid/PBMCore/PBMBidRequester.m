@@ -71,7 +71,8 @@
     NSString * const requestString = [self getRTBRequest];
            
     NSError * hostURLError = nil;
-    NSString * const requestServerURL = [PBMHost.shared getHostURL:self.sdkConfiguration.prebidServerHost error:&hostURLError];
+    NSString * const requestServerURL = [Host.shared getHostURLFor:self.sdkConfiguration.prebidServerHost error:&hostURLError];
+    
     if (hostURLError) {
         completion(nil, hostURLError);
         return;
@@ -117,7 +118,7 @@
                 const NSTimeInterval remoteTimeout = ([responseDate timeIntervalSinceDate:requestDate]
                                                       + bidResponseTimeout
                                                       + 0.2);
-                NSString * const currentServerURL = [PBMHost.shared getHostURL:self.sdkConfiguration.prebidServerHost error:nil];
+                NSString * const currentServerURL = [Host.shared getHostURLFor:self.sdkConfiguration.prebidServerHost error:nil];
                 if (self.sdkConfiguration.bidRequestTimeoutDynamic == nil && [currentServerURL isEqualToString:requestServerURL]) {
                     const NSInteger rawTimeoutMS_onWrite = self.sdkConfiguration.bidRequestTimeoutMillis;
                     const NSTimeInterval appTimeout = rawTimeoutMS_onWrite / 1000.0;

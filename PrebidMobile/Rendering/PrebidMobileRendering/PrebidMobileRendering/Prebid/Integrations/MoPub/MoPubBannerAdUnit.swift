@@ -116,7 +116,6 @@ public class MoPubBannerAdUnit : NSObject {
                                                                      sdkConfiguration: PrebidRenderingConfig.shared,
                                                                      targeting: PrebidRenderingTargeting.shared,
                                                                      completion: completion)
-                                                    
                                                    })
     }
     

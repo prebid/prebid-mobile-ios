@@ -44,7 +44,6 @@ public class InterstitialAdUnit: BaseInterstitialAdUnit {
             eventHandler: eventHandler)
     }
     
-    
     // MARK: - Protected overrides
 
     @objc public override func callDelegate_didReceiveAd() {
@@ -82,9 +81,7 @@ public class InterstitialAdUnit: BaseInterstitialAdUnit {
             delegate.interstitialDidClickAd?(self)
         }
     }
-    
-    
-    
+        
     @objc public override func callEventHandler_isReady() -> Bool {
         interstitialEventHandler?.isReady ?? false
     }

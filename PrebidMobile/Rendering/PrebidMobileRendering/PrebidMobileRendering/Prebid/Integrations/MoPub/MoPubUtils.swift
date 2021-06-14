@@ -15,19 +15,18 @@
 
 import Foundation
 
-public let PBMMoPubAdUnitBidKey        = "PBM_BID"
-public let PBMMoPubConfigIdKey         = "PBM_CONFIG_ID"
-public let PBMMoPubAdNativeResponseKey = "PBM_NATIVE_RESPONSE"
+public let PBMMoPubAdUnitBidKey                 = "PBM_BID"
+public let PBMMoPubConfigIdKey                  = "PBM_CONFIG_ID"
+public let PBMMoPubAdNativeResponseKey          = "PBM_NATIVE_RESPONSE"
 
-fileprivate let keywordsSeparator = ","
-fileprivate let HBKeywordPrefix = "hb_"
+fileprivate let keywordsSeparator               = ","
+fileprivate let HBKeywordPrefix                 = "hb_"
 
-fileprivate let MoPubSelector_localExtras = "localExtras"
-fileprivate let MoPubSelector_setLocalExtras = "setLocalExtras:"
+fileprivate let MoPubSelector_localExtras       = "localExtras"
+fileprivate let MoPubSelector_setLocalExtras    = "setLocalExtras:"
 
-fileprivate let MoPubSelector_keywords  = "keywords"
-fileprivate let MoPubSelector_setKeywords  = "setKeywords:"
-
+fileprivate let MoPubSelector_keywords          = "keywords"
+fileprivate let MoPubSelector_setKeywords       = "setKeywords:"
 
 public class MoPubUtils {
     /**
@@ -140,6 +139,4 @@ public class MoPubUtils {
             .filter { !$0.hasPrefix(HBKeywordPrefix) }
             .joined(separator: keywordsSeparator)
     }
-
-
 }

@@ -18,7 +18,12 @@ import UIKit
 fileprivate let defaultViewabilityPollingInterval: TimeInterval = 0.2
 
 enum MediaViewState {
-    case undefined, playbackNotStarted, playing, pausedByUser, pausedAuto, playbackFinished
+    case undefined
+    case playbackNotStarted
+    case playing
+    case pausedByUser
+    case pausedAuto
+    case playbackFinished
 }
 
 public class MediaView: UIView, PBMPlayable, PBMAdViewManagerDelegate {
@@ -38,8 +43,14 @@ public class MediaView: UIView, PBMPlayable, PBMAdViewManagerDelegate {
     var adViewManager: PBMAdViewManager?
     
     var state: MediaViewState = .undefined
-    var isPaused: Bool { state == .pausedAuto || state == .pausedByUser }
-    var isActive: Bool { state == .playing || isPaused }
+    
+    var isPaused: Bool {
+        state == .pausedAuto || state == .pausedByUser
+    }
+    
+    var isActive: Bool {
+        state == .playing || isPaused
+    }
     
     @IBInspectable @objc public var autoPlayOnVisible = true {
         didSet {
@@ -53,6 +64,7 @@ public class MediaView: UIView, PBMPlayable, PBMAdViewManagerDelegate {
         get {
             viewabilityPlaybackBinder != nil
         }
+        
         set(bindPlaybackToViewability) {
             if !bindPlaybackToViewability {
                 // -> turn OFF
@@ -73,7 +85,7 @@ public class MediaView: UIView, PBMPlayable, PBMAdViewManagerDelegate {
         }
     }
     
-     var shouldBindPlaybackToViewability: Bool {
+    var shouldBindPlaybackToViewability: Bool {
         autoPlayOnVisible && mediaData != nil
     }
     
@@ -101,7 +113,6 @@ public class MediaView: UIView, PBMPlayable, PBMAdViewManagerDelegate {
         adConfiguration?.isNative = true
         adConfiguration?.isInterstitialAd = false
         adConfiguration?.isBuiltInVideo = true
-        
 
         adConfiguration?.clickHandlerOverride =  { onClickthroughExitBlock in
             onClickthroughExitBlock();

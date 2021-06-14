@@ -35,6 +35,4 @@ public class InterstitialEventHandlerStandalone: NSObject, InterstitialEventHand
     public func requestAd(with bidResponse: BidResponse?) {
         loadingDelegate?.prebidDidWin()
     }
-    
-    
 }

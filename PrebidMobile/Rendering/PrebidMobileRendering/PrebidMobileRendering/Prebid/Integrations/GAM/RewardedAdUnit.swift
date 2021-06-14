@@ -52,7 +52,6 @@ public class RewardedAdUnit: BaseInterstitialAdUnit,
             self?.reward = reward
             self?.callDelegate_rewardedAdUserDidEarnReward()
         })
-        
     }
     
     // MARK: - BaseInterstitialAdUnitProtocol protocol
