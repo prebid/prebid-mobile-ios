@@ -72,6 +72,7 @@ class PrebidParameterBuilderTest: XCTestCase {
             .build(bidRequest)
         
         XCTAssertEqual(banner.pos?.intValue, AdPosition.header.rawValue)
+        XCTAssertEqual(banner.pos?.intValue, 4)
     }
     
     func testAdPositionFullScreen() {
@@ -104,6 +105,7 @@ class PrebidParameterBuilderTest: XCTestCase {
             return
         }
         XCTAssertEqual(banner.pos?.intValue, AdPosition.fullScreen.rawValue)
+        XCTAssertEqual(banner.pos?.intValue, 7)
     }
     
     func testAdditionalSizes() {
@@ -175,6 +177,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.w, 320)
         PBMAssertEq(video.h, 50)
         XCTAssertEqual(video.pos.intValue, AdPosition.header.rawValue)
+        XCTAssertEqual(video.pos.intValue, 4)
     }
     
     func testNative() {
