@@ -14,7 +14,7 @@
  */
 
 import UIKit
-import PrebidMobileRendering
+import PrebidMobile
 
 class PrebidFeedTableViewController: UITableViewController, ConfigurableViewController, BannerViewDelegate {
     

@@ -61,7 +61,6 @@ class GADCustomNativeAdWrapper {
                 return false
             }
         }
-        
         return true
     }
 }

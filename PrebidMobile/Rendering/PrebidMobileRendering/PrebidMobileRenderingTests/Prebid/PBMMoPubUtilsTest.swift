@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 @objc class MoPubAdObject: NSObject  {
     @objc var keywords: String?

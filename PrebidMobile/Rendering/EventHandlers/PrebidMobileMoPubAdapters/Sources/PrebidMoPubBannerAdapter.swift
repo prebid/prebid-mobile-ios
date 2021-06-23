@@ -17,7 +17,8 @@ import Foundation
 
 import MoPubSDK
 
-import PrebidMobileRendering
+//import PrebidMobile
+import PrebidMobile
 
 /**
  Note: Prebid SDK passes to the localExtras two objects: Bid, configId

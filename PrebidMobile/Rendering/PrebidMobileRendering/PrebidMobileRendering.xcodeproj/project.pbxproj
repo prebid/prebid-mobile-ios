@@ -590,7 +590,6 @@
 		5B45D4BE20580AD200CE12F0 /* PBMConstantsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B45D4BD20580AD200CE12F0 /* PBMConstantsTests.swift */; };
 		5B45D4C020581D7100CE12F0 /* PBMMRAIDConstantsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B45D4BF20581D7100CE12F0 /* PBMMRAIDConstantsTest.swift */; };
 		5B481A3820EBB62C00A860C7 /* PBMOpenMeasurementWrapperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B481A3720EBB62C00A860C7 /* PBMOpenMeasurementWrapperTest.swift */; };
-		5B4B29B5213D445D00FD7481 /* TransactionsCacheFileForTests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B4B29B4213D445D00FD7481 /* TransactionsCacheFileForTests.plist */; };
 		5B4D1C2F204FF35B00696F07 /* PBMUIWindowTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4D1C2E204FF35B00696F07 /* PBMUIWindowTest.swift */; };
 		5B4D1C3120501C0B00696F07 /* PBMVastIconTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4D1C3020501C0B00696F07 /* PBMVastIconTest.swift */; };
 		5B4D1C33205020BA00696F07 /* PBMTrackingRecordTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4D1C32205020BA00696F07 /* PBMTrackingRecordTest.swift */; };
@@ -761,6 +760,8 @@
 		AC461875230ADE3C00F4E0DE /* PBMMRAIDControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC461874230ADE3C00F4E0DE /* PBMMRAIDControllerTest.swift */; };
 		AC461877230C0A9800F4E0DE /* PBMMRAIDControllerObjCTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AC461876230C0A9800F4E0DE /* PBMMRAIDControllerObjCTest.m */; };
 		AC4F248625DFB29A0095C601 /* PBMMoPubNativeAdUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4F248525DFB29A0095C601 /* PBMMoPubNativeAdUnitTest.swift */; };
+		AC5A999B267A2BD10064A2CA /* PBMWebView+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = AC5A999A267A2BD10064A2CA /* PBMWebView+Internal.h */; };
+		AC5A99A5267B5E680064A2CA /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = AC5A99A4267B5E680064A2CA /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC5CAE3D265D1A1900E422A3 /* InterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5CAE3C265D1A1900E422A3 /* InterstitialController.swift */; };
 		AC5CAE8A265D4C2300E422A3 /* LocalResponseInfoCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC5CAE89265D4C2300E422A3 /* LocalResponseInfoCache.swift */; };
 		AC616E092588E69A0010DBBB /* PBMFunctions+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = AC616E072588E69A0010DBBB /* PBMFunctions+Testing.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1146,7 +1147,7 @@
 		34D42CC825CD610B008EE1D3 /* PBMURLOpenResultHandlerBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMURLOpenResultHandlerBlock.h; sourceTree = "<group>"; };
 		34D70F6624E53C850048CC78 /* PBMErrorCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMErrorCode.h; path = Utilities/PBMErrorCode.h; sourceTree = "<group>"; };
 		34D70F6724E53C950048CC78 /* PBMErrorType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMErrorType.h; sourceTree = "<group>"; };
-		34D7113424E580620048CC78 /* PrebidMobileRendering.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobileRendering.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		34D7113424E580620048CC78 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34D7113524E580630048CC78 /* PrebidMobileRendering-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PrebidMobileRendering-Info.plist"; sourceTree = "<group>"; };
 		34D9E887256BE3B200D40497 /* PBMAgeUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMAgeUtils.h; sourceTree = "<group>"; };
 		34D9E888256BE3B200D40497 /* PBMAgeUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMAgeUtils.m; sourceTree = "<group>"; };
@@ -1373,7 +1374,6 @@
 		5B481A3920EBB86F00A860C7 /* PBMOpenMeasurementWrapper+pbmTestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMOpenMeasurementWrapper+pbmTestExtension.h"; sourceTree = "<group>"; };
 		5B48920E225600A6003BD266 /* PBMWKScriptMessageHandlerLeakAvoider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMWKScriptMessageHandlerLeakAvoider.h; path = Utilities/PBMWKScriptMessageHandlerLeakAvoider.h; sourceTree = "<group>"; };
 		5B48920F225600A6003BD266 /* PBMWKScriptMessageHandlerLeakAvoider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PBMWKScriptMessageHandlerLeakAvoider.m; path = Utilities/PBMWKScriptMessageHandlerLeakAvoider.m; sourceTree = "<group>"; };
-		5B4B29B4213D445D00FD7481 /* TransactionsCacheFileForTests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TransactionsCacheFileForTests.plist; sourceTree = "<group>"; };
 		5B4D1C2E204FF35B00696F07 /* PBMUIWindowTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMUIWindowTest.swift; sourceTree = "<group>"; };
 		5B4D1C3020501C0B00696F07 /* PBMVastIconTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMVastIconTest.swift; sourceTree = "<group>"; };
 		5B4D1C32205020BA00696F07 /* PBMTrackingRecordTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMTrackingRecordTest.swift; sourceTree = "<group>"; };
@@ -1598,6 +1598,8 @@
 		AC4A5333244867DD00EFC08D /* PBMCreativeViewabilityTracker+pbmTestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMCreativeViewabilityTracker+pbmTestExtension.h"; sourceTree = "<group>"; };
 		AC4F248525DFB29A0095C601 /* PBMMoPubNativeAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMMoPubNativeAdUnitTest.swift; sourceTree = "<group>"; };
 		AC4F24C725DFBF620095C601 /* MoPubNativeAdUnit+TestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoPubNativeAdUnit+TestExtension.h"; sourceTree = "<group>"; };
+		AC5A999A267A2BD10064A2CA /* PBMWebView+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMWebView+Internal.h"; sourceTree = "<group>"; };
+		AC5A99A4267B5E680064A2CA /* PrebidMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMobile.h; sourceTree = "<group>"; };
 		AC5CAE3C265D1A1900E422A3 /* InterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialController.swift; sourceTree = "<group>"; };
 		AC5CAE89265D4C2300E422A3 /* LocalResponseInfoCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalResponseInfoCache.swift; sourceTree = "<group>"; };
 		AC616E072588E69A0010DBBB /* PBMFunctions+Testing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PBMFunctions+Testing.h"; path = "Utilities/PBMFunctions+Testing.h"; sourceTree = "<group>"; };
@@ -1779,6 +1781,7 @@
 				AC461870230ADB9800F4E0DE /* PBMMRAIDController.h */,
 				AC461871230ADB9800F4E0DE /* PBMMRAIDController.m */,
 				5B23893B203D596F00DFB7B3 /* PBMWebView.h */,
+				AC5A999A267A2BD10064A2CA /* PBMWebView+Internal.h */,
 				5B23893A203D596F00DFB7B3 /* PBMWebView.m */,
 				5B23893D203D596F00DFB7B3 /* PBMWebViewDelegate.h */,
 				ACE08B1D2461AB1D00935BF9 /* PBMExposureChangeDelegate.h */,
@@ -2269,6 +2272,7 @@
 		34D7113624E580A40048CC78 /* PrebidMobileRenderingSDK */ = {
 			isa = PBXGroup;
 			children = (
+				AC5A99A4267B5E680064A2CA /* PrebidMobile.h */,
 				5BD2C31A265E80B3005D3337 /* PrebidMobileRenderingSwiftHeaders.h */,
 				5B2FB0F32644294500912342 /* PrebidMobileRendering.h */,
 				34D7113524E580630048CC78 /* PrebidMobileRendering-Info.plist */,
@@ -3017,7 +3021,6 @@
 				358586572044DECD0002CF95 /* Plist_NSCalendarsUsageDescription_Without.plist */,
 				5C7E8CA31F8D86EA00005D61 /* PlistWith_NSPhotoLibraryUsageDescription.plist */,
 				5C7E8CA41F8D86EA00005D61 /* PlistWithout_NSPhotoLibraryUsageDescription.plist */,
-				5B4B29B4213D445D00FD7481 /* TransactionsCacheFileForTests.plist */,
 			);
 			path = Plist;
 			sourceTree = "<group>";
@@ -3261,7 +3264,7 @@
 			isa = PBXGroup;
 			children = (
 				9319862519A7DD8D007ED468 /* PrebidMobileRenderingTests.xctest */,
-				34D7113424E580620048CC78 /* PrebidMobileRendering.framework */,
+				34D7113424E580620048CC78 /* PrebidMobile.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3439,6 +3442,7 @@
 				5B2FB13226442C8800912342 /* PBMNativeAdMarkupTitle.h in Headers */,
 				34D7109D24E580620048CC78 /* PBMBasicParameterBuilder.h in Headers */,
 				ACE60BE126553BB800F58C3B /* PBMURLOpenResultHandlerBlock.h in Headers */,
+				AC5A99A5267B5E680064A2CA /* PrebidMobile.h in Headers */,
 				5B2FB12426442C7D00912342 /* PBMNativeAdMarkupImage.h in Headers */,
 				34D7109E24E580620048CC78 /* PBMDisplayView+InternalState.h in Headers */,
 				34D7109F24E580620048CC78 /* PBMORTBBidExtPrebidCacheBids.h in Headers */,
@@ -3594,6 +3598,7 @@
 				34D7112624E580620048CC78 /* PBMTouchDownRecognizer.h in Headers */,
 				34D7112924E580620048CC78 /* PBMDisplayView.h in Headers */,
 				ACE60BE4265544B500F58C3B /* PBMClickthroughBrowserOpener.h in Headers */,
+				AC5A999B267A2BD10064A2CA /* PBMWebView+Internal.h in Headers */,
 				34C652C0257E7AE300E26ABA /* PBMInterstitialAdLoader.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3616,8 +3621,8 @@
 			dependencies = (
 			);
 			name = PrebidMobileRendering;
-			productName = OpenXSDKCore;
-			productReference = 34D7113424E580620048CC78 /* PrebidMobileRendering.framework */;
+			productName = PrebidMobileRendering;
+			productReference = 34D7113424E580620048CC78 /* PrebidMobile.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		9319862419A7DD8D007ED468 /* PrebidMobileRenderingTests */ = {
@@ -3635,7 +3640,7 @@
 				347E72142565855400EC5CC3 /* PBXTargetDependency */,
 			);
 			name = PrebidMobileRenderingTests;
-			productName = OpenXSDKCoreTests;
+			productName = PrebidMobileRenderingTests;
 			productReference = 9319862519A7DD8D007ED468 /* PrebidMobileRenderingTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -3730,7 +3735,6 @@
 				5C7E8CC91F8D86EB00005D61 /* vast.3.0.xml in Resources */,
 				5C7E8CBD1F8D86EB00005D61 /* ACJPublisherRevenue500.json in Resources */,
 				5B24E2B72046B2C3003F8233 /* mraid.js in Resources */,
-				5B4B29B5213D445D00FD7481 /* TransactionsCacheFileForTests.plist in Resources */,
 				5C8DEA4A1F8EC19C0075736E /* small.mov in Resources */,
 				5C7E8CC31F8D86EB00005D61 /* document_with_one_wrapper_ad.xml in Resources */,
 				5C7E8CC41F8D86EB00005D61 /* inline_with_padding_on_urls.xml in Resources */,
@@ -3772,7 +3776,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "echo Plist update for testing.\nset -x -e\n/usr/libexec/PlistBuddy -c 'Delete :NSDummyUsageDescription' $CODESIGNING_FOLDER_PATH/Info.plist || true\n/usr/libexec/PlistBuddy -c 'Add :NSDummyUsageDescription string Testing' $CODESIGNING_FOLDER_PATH/Info.plist";
+			shellScript = "echo Plist update for testing.\nset -x -e\n/usr/libexec/PlistBuddy -c 'Delete :NSDummyUsageDescription' $CODESIGNING_FOLDER_PATH/Info.plist || true\n/usr/libexec/PlistBuddy -c 'Add :NSDummyUsageDescription string Testing' $CODESIGNING_FOLDER_PATH/Info.plist\n";
 		};
 		D0F90EF9223FEEA9001C1167 /* OCLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3790,7 +3794,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "source ~/.bash_profile\ncd {$SCROOT}\nrm xcodebuild.log compile_commands.json \nxcodebuild clean build -target OpenXSDKCore -configuration Debug -scheme OpenXSDKCore | tee xcodebuild.log\noclint-xcodebuild\noclint-json-compilation-database -- -report-type xcode\nrm xcodebuild.log compile_commands.json\n";
+			shellScript = "source ~/.bash_profile\ncd {$SCROOT}\nrm xcodebuild.log compile_commands.json \nxcodebuild clean build -target PrebidMobileRendering -configuration Debug -scheme PrebidMobileRendering | tee xcodebuild.log\noclint-xcodebuild\noclint-json-compilation-database -- -report-type xcode\nrm xcodebuild.log compile_commands.json\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -4361,7 +4365,7 @@
 				MODULEMAP_FILE = PrebidMobileRenderingSDK/PrebidMobileRendering.modulemap;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PrebidMobile;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/PrebidMobileRendering/ProjectModule";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -4402,7 +4406,7 @@
 				MODULEMAP_FILE = PrebidMobileRenderingSDK/PrebidMobileRendering.modulemap;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PrebidMobile;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/PrebidMobileRendering/ProjectModule";
 				SWIFT_OBJC_BRIDGING_HEADER = "";

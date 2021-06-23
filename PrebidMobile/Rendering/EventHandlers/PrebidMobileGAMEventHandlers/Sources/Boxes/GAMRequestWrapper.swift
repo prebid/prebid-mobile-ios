@@ -72,7 +72,6 @@ class GAMRequestWrapper {
                 return false
             }
         }
-        
         return true
     }
 }

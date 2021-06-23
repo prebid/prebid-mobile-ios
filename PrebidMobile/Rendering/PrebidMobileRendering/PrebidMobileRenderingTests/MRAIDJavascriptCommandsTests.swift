@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 // This test case was created during porting SDK to Objective-C.
 // The purpose of these tests is to be sure that methods' parameters are converted to the output strings properly.

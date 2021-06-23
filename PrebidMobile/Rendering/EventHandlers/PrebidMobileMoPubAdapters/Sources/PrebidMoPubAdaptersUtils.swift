@@ -17,7 +17,8 @@ import Foundation
 
 import MoPubSDK
 
-import PrebidMobileRendering
+//import PrebidMobile
+import PrebidMobile
 
 fileprivate let localCacheExpirationInterval: TimeInterval = 3600
 

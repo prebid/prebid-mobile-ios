@@ -18,7 +18,7 @@
 #import "PBMOpenMeasurementWrapper.h"
 #import "PBMOpenMeasurementWrapper+pbmTestExtension.h"
 
-@import PrebidMobileRendering;
+@import PrebidMobile;
 
 @interface PBMOpenMeasurementWrapperObjcTest : XCTestCase
 

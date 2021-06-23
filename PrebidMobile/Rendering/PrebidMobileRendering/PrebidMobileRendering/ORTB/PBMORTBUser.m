@@ -24,14 +24,14 @@
     if (!(self = [super init])) {
         return nil;
     }
-    _geo = [PBMORTBGeo new];
-    _ext = [PBMMutableJsonDictionary new];
+    _geo = [[PBMORTBGeo alloc] init];
+    _ext = [[NSMutableDictionary<NSString *, NSObject *> alloc] init];
     
     return self;
 }
 
 - (nonnull PBMJsonDictionary *)toJsonDictionary {
-    PBMMutableJsonDictionary *ret = [PBMMutableJsonDictionary new];
+    PBMMutableJsonDictionary *ret = [[PBMMutableJsonDictionary alloc] init];
     
     ret[@"yob"] = self.yob;
     ret[@"gender"] = self.gender;

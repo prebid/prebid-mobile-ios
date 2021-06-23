@@ -15,7 +15,7 @@
 
 import Foundation
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 typealias PBMDeviceAccessManagerCompletionHandler = (Bool, String) -> Void
 

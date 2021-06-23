@@ -18,7 +18,7 @@ import XCTest
 
 import UIKit
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class ModalManagerTestDisplayInInterstitial : XCTestCase {
     

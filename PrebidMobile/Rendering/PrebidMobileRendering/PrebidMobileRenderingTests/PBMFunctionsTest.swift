@@ -15,7 +15,7 @@
 
 import UIKit
 import XCTest
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class TestPBMFunctions: XCTestCase {
 
@@ -246,7 +246,7 @@ class TestPBMFunctions: XCTestCase {
         
         //Basic tests
         var result = PBMFunctions.infoPlistValue("CFBundleExecutable")
-        XCTAssert(result?.PBMdoesMatch("PrebidMobileRendering") == true, "Got \(String(describing: result))")
+        XCTAssert(result?.PBMdoesMatch("PrebidMobile") == true, "Got \(String(describing: result))")
         
         result = PBMFunctions.infoPlistValue("CFBundleIdentifier")
         XCTAssert(result?.PBMdoesMatch("org.prebid.mobile.rendering") == true, "Got \(String(describing: result))")

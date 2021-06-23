@@ -18,7 +18,7 @@ import XCTest
 
 import UIKit
 import AdSupport
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 // MARK: - Mocks
 

@@ -18,7 +18,12 @@
 #ifdef DEBUG
     #import "PrebidRenderingConfig+TestExtension.h"
     #import "PrebidMobileRenderingSwiftHeaders.h"
-    #import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
+
+    #if __has_include("PrebidMobile-Swift.h")
+        #import "PrebidMobile-Swift.h"
+    #else
+        #import <PrebidMobile/PrebidMobile-Swift.h>
+    #endif
 #endif
 
 @interface PBMViewExposureChecker()

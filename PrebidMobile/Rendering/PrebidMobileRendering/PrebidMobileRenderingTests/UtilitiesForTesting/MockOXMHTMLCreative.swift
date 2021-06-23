@@ -15,7 +15,7 @@
 
 import Foundation
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class MockPBMHTMLCreative: PBMHTMLCreative {
     var mockUIApplication: PBMUIApplicationProtocol?

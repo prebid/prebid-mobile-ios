@@ -15,7 +15,7 @@
 
 import UIKit
 import MoPubSDK
-import PrebidMobileRendering
+import PrebidMobile
 
 class PrebidMoPubRewardedVideoController: NSObject, AdaptedController, PrebidConfigurableController, MPRewardedVideoDelegate {
     

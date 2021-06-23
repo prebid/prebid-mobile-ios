@@ -14,7 +14,7 @@
  */
 
 import XCTest
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeViewDelegate, PBMVideoViewDelegate {
 

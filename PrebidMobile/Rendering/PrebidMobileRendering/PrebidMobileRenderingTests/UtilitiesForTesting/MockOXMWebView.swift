@@ -15,7 +15,7 @@
 
 import Foundation
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 typealias MockMRAIDResizeHandler = (MRAIDResizeProperties?) -> Void
 typealias MockMRAIDExpandHandler = (MRAIDExpandProperties?) -> Void

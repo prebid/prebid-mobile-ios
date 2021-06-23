@@ -245,7 +245,7 @@ static NSString *PBMIsPBMRequestKey = @"PBMIsPBMRequest";
     config.HTTPCookieAcceptPolicy = NSHTTPCookieAcceptPolicyNever;
     config.HTTPCookieStorage = nil;
     config.timeoutIntervalForRequest = timeout;
-    config.protocolClasses = self.protocolClasses;
+    config.protocolClasses = [self.protocolClasses copy];
     
 #ifdef DEBUG
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];

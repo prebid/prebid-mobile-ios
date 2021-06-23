@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class NativeAdDataTest: XCTestCase {
     func testInitFromMarkup_withValue() {

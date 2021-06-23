@@ -4,7 +4,7 @@ import UIKit
 import XCTest
 import AVFoundation
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeViewDelegate, PBMVideoViewDelegate {
    

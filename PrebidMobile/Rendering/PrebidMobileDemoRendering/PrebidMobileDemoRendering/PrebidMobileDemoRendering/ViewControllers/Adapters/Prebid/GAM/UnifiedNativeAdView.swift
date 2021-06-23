@@ -15,7 +15,7 @@
 
 
 import GoogleMobileAds
-import PrebidMobileRendering
+import PrebidMobile
 
 class UnifiedNativeAdView: GADNativeAdView {
     /// The height constraint applied to the ad view, where necessary.

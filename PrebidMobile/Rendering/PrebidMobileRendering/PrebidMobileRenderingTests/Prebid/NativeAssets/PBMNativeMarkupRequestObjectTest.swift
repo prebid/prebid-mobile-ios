@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class PBMNativeMarkupRequestObjectTest: XCTestCase {
     private let defVer = "1.2"

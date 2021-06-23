@@ -14,7 +14,7 @@
  */
 import XCTest
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class DemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
     private func makeWinningBid() -> Bid {

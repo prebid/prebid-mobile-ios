@@ -14,7 +14,7 @@
  */
 
 import UIKit
-import PrebidMobileRendering
+import PrebidMobile
 
 class PrebidNativeAdFeedController: NSObject, PrebidConfigurableNativeAdRenderingController {
     var prebidConfigId = ""

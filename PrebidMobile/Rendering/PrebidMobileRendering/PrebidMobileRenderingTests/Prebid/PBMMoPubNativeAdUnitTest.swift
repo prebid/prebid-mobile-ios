@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class PBMMoPubNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
     let configID = "testConfigID"

@@ -1,5 +1,5 @@
 import XCTest
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class URLComponentsTests:XCTestCase {
 

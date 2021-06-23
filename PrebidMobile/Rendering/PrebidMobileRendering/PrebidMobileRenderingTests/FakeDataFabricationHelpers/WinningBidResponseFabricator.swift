@@ -16,7 +16,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 protocol WinningBidResponseFabricator: RawWinningBidFabricator {
     // see extension below

@@ -16,7 +16,7 @@
 import XCTest
 import MapKit
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 extension Gender: CaseIterable {
     public static let allCases: [Self] = [

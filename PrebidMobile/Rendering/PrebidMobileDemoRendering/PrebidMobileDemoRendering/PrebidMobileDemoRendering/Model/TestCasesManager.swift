@@ -20,7 +20,7 @@ import GoogleMobileAds
 import PrebidMobileGAMEventHandlers
 
 import OpenXMockServer
-import PrebidMobileRendering
+import PrebidMobile
 
 let nativeStylesCreative = """
 <html><body>
