@@ -13,7 +13,7 @@
  limitations under the License.
  */
 import XCTest
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class PBMHTMLCreativeTest_MRAIDResize: PBMHTMLCreativeTest_Base {
 

@@ -17,7 +17,7 @@ import Foundation
 
 import UIKit
 import Eureka
-import PrebidMobileRendering
+import PrebidMobile
 
 class NativeEventTrackerController : FormViewController, RowBuildHelpConsumer {
     var eventTracker: NativeEventTracker!

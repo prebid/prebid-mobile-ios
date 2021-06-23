@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class NativeAdVideoTest: XCTestCase {
     func testInitFromMarkup_withVastTag() {

@@ -2,7 +2,7 @@
 import AppTrackingTransparency
 import UIKit
 import XCTest
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class DeviceInfoParameterBuilderTest: XCTestCase {
 

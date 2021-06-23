@@ -2,7 +2,7 @@ import UIKit
 import XCTest
 import CoreLocation
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class GeoLocationParameterBuilderTest : XCTestCase {
 

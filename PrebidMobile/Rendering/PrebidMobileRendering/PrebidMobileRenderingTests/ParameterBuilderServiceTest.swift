@@ -18,7 +18,7 @@ import AppTrackingTransparency
 import XCTest
 import CoreLocation
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class ParameterBuilderServiceTest : XCTestCase {
     

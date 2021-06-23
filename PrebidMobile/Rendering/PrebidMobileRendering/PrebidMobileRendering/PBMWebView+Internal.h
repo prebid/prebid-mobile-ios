@@ -1,3 +1,4 @@
+//
 /*   Copyright 2018-2021 Prebid.org, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,18 +14,13 @@
  limitations under the License.
  */
 
-import UIKit
-import Eureka
 
-import PrebidMobile
+#import "PBMWebView.h"
 
-class NativeAssetDataController: BaseNativeAssetController<NativeAssetData> {
-    override func buildForm() {
-        super.buildForm()
-        
-        requiredPropertiesSection
-            <<< makeRequiredEnumRow("dataType", keyPath: \.dataType, defVal: .sponsored)
-        
-        addOptionalInt("length", keyPath: \.length)
-    }
-}
+NS_ASSUME_NONNULL_BEGIN
+
+@interface PBMWebView ()
+@property (nonatomic, assign, readwrite) PBMWebViewState state;
+@end
+
+NS_ASSUME_NONNULL_END

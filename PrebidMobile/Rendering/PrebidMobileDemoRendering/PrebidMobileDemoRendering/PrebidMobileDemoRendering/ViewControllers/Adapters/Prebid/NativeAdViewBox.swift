@@ -15,7 +15,8 @@
 
 import UIKit
 import GoogleMobileAds
-import PrebidMobileRendering
+//import PrebidMobile
+import PrebidMobile
 
 class NativeAdViewBox: NativeAdViewBoxProtocol {
     let titleLabel = UILabel()

@@ -25,8 +25,6 @@
 		3461834A25A5FE7100783A2C /* PrebidNativeAdCompatibleConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3461834925A5FE7100783A2C /* PrebidNativeAdCompatibleConfigurationController.swift */; };
 		3461835525A6020500783A2C /* NativeAdViewBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3461835425A6020500783A2C /* NativeAdViewBox.swift */; };
 		346C6F5725DFAB7E00457DD3 /* ReactiveSdkInitFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346C6F5625DFAB7E00457DD3 /* ReactiveSdkInitFlag.swift */; };
-		348A0A7C24EE803A00A6659F /* PrebidMobileRendering.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 348A0A4A24EE6EFD00A6659F /* PrebidMobileRendering.framework */; };
-		348A0A7D24EE803A00A6659F /* PrebidMobileRendering.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 348A0A4A24EE6EFD00A6659F /* PrebidMobileRendering.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3493021C2473F408004A6086 /* PrebidGAMBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3493021B2473F408004A6086 /* PrebidGAMBannerController.swift */; };
 		3493021F2473FFE8004A6086 /* PrebidMoPubBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3493021E2473FFE8004A6086 /* PrebidMoPubBannerController.swift */; };
 		3493022224740BEE004A6086 /* PrebidBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3493022124740BEE004A6086 /* PrebidBannerController.swift */; };
@@ -57,7 +55,7 @@
 		34E5698A237DB96900B47B01 /* UtilitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E56989237DB96900B47B01 /* UtilitiesViewController.swift */; };
 		34FC0CF424ADD3A80045553E /* PrebidInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FC0CF324ADD3A80045553E /* PrebidInterstitialController.swift */; };
 		34FC0CF624ADD5640045553E /* PrebidGAMRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FC0CF524ADD5640045553E /* PrebidGAMRewardedController.swift */; };
-		5B03D44624F5455F002F2B35 /* OXAGAMBannerEventHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B03D44524F5455F002F2B35 /* OXAGAMBannerEventHandlerTests.swift */; };
+		5B03D44624F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */; };
 		5B1BDB7F2100D59000B46B43 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7A2100D59000B46B43 /* LaunchScreen.xib */; };
 		5B1BDB802100D59000B46B43 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB7C2100D59000B46B43 /* Main.storyboard */; };
 		5B1BDB882100D6EA00B46B43 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B1BDB872100D6EA00B46B43 /* Images.xcassets */; };
@@ -65,7 +63,7 @@
 		5B209B4A21075E0A00C0F5CE /* BaseConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B209B4921075E0A00C0F5CE /* BaseConfigurationController.swift */; };
 		5B3621E52122CC4F0030F196 /* TestCaseTagTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3621E42122CC4F0030F196 /* TestCaseTagTest.swift */; };
 		5B3C2AC52100BC4900BD733C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3C2AAE2100BC4900BD733C /* AppDelegate.swift */; };
-		5B3EEDC12101D1AF00BAA0C4 /* OpenXSDKConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3EEDB42101D1AF00BAA0C4 /* OpenXSDKConfigurationViewController.swift */; };
+		5B3EEDC12101D1AF00BAA0C4 /* PrebidMobileRenderingConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3EEDB42101D1AF00BAA0C4 /* PrebidMobileRenderingConfigurationViewController.swift */; };
 		5B3EEDCB2101D1AF00BAA0C4 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3EEDBE2101D1AF00BAA0C4 /* AboutViewController.swift */; };
 		5B3EEDD12101D2A100BAA0C4 /* UtilitiesForTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3EEDCF2101D2A100BAA0C4 /* UtilitiesForTesting.swift */; };
 		5B3EEDD32101D2CF00BAA0C4 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3EEDD22101D2CF00BAA0C4 /* StringExtensions.swift */; };
@@ -105,6 +103,8 @@
 		AC47859025F7BEE7001C75C5 /* PrebidNativeVideoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC47858F25F7BEE7001C75C5 /* PrebidNativeVideoUITests.swift */; };
 		AC4F253925DFF6300095C601 /* NativeAdViewBoxLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4F253825DFF6300095C601 /* NativeAdViewBoxLinks.swift */; };
 		AC4F254B25E0112C0095C601 /* NativeAdViewBoxProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4F254A25E0112C0095C601 /* NativeAdViewBoxProtocol.swift */; };
+		AC5A99AF267B63B70064A2CA /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC5A99AE267B63B70064A2CA /* PrebidMobile.framework */; };
+		AC5A99B0267B63B70064A2CA /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AC5A99AE267B63B70064A2CA /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AC616FAC2594EE960010DBBB /* PrebidServerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC616FAB2594EE950010DBBB /* PrebidServerUITests.swift */; };
 		AC616FC42595DF920010DBBB /* AdsLoaderUITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC616FC32595DF920010DBBB /* AdsLoaderUITestCase.swift */; };
 		AC676D04253442AE0043F0DE /* PrebidMRAIDResizeUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC676D03253442AE0043F0DE /* PrebidMRAIDResizeUITest.swift */; };
@@ -199,7 +199,7 @@
 				34B64DAD24F7FD6E00FDD9F4 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */,
 				D08680812398088A00E70E60 /* OpenXMockServer.framework in Embed Frameworks */,
 				34B64D7524F7EA1500FDD9F4 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
-				348A0A7D24EE803A00A6659F /* PrebidMobileRendering.framework in Embed Frameworks */,
+				AC5A99B0267B63B70064A2CA /* PrebidMobile.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,7 +228,7 @@
 		3461834925A5FE7100783A2C /* PrebidNativeAdCompatibleConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdCompatibleConfigurationController.swift; sourceTree = "<group>"; };
 		3461835425A6020500783A2C /* NativeAdViewBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdViewBox.swift; sourceTree = "<group>"; };
 		346C6F5625DFAB7E00457DD3 /* ReactiveSdkInitFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveSdkInitFlag.swift; sourceTree = "<group>"; };
-		348A0A4A24EE6EFD00A6659F /* PrebidMobileRendering.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PrebidMobileRendering.framework; path = ../../Products/PrebidMobileRendering.framework; sourceTree = "<group>"; };
+		348A0A4A24EE6EFD00A6659F /* PrebidMobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PrebidMobile.framework; path = ../../Products/PrebidMobile.framework; sourceTree = "<group>"; };
 		3493021B2473F408004A6086 /* PrebidGAMBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMBannerController.swift; sourceTree = "<group>"; };
 		3493021E2473FFE8004A6086 /* PrebidMoPubBannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMoPubBannerController.swift; sourceTree = "<group>"; };
 		3493022124740BEE004A6086 /* PrebidBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidBannerController.swift; sourceTree = "<group>"; };
@@ -262,7 +262,7 @@
 		35F94D171F93F85D00CF46DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44946A466398075CBE626334 /* Pods-PrebidMobileDemoRendering.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileDemoRendering.debug.xcconfig"; path = "Target Support Files/Pods-PrebidMobileDemoRendering/Pods-PrebidMobileDemoRendering.debug.xcconfig"; sourceTree = "<group>"; };
 		56A0AE8843DFB9BBB0CF1492 /* Pods-PrebidMobileDemoRendering.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileDemoRendering.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobileDemoRendering/Pods-PrebidMobileDemoRendering.release.xcconfig"; sourceTree = "<group>"; };
-		5B03D44524F5455F002F2B35 /* OXAGAMBannerEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OXAGAMBannerEventHandlerTests.swift; sourceTree = "<group>"; };
+		5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMGAMBannerEventHandlerTests.swift; sourceTree = "<group>"; };
 		5B1BDB792100D59000B46B43 /* PrebidMobileDemoRendering-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileDemoRendering-Bridging-Header.h"; sourceTree = "<group>"; };
 		5B1BDB7B2100D59000B46B43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		5B1BDB7D2100D59000B46B43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -274,7 +274,7 @@
 		5B3C2AAE2100BC4900BD733C /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B3C2AE52100C22900BD733C /* PrebidMobileDemoRenderingUITests-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileDemoRenderingUITests-Bridging-Header.h"; sourceTree = "<group>"; };
 		5B3DC7B62074AF3400F3CAB9 /* UnityAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UnityAds.framework; path = ../../Other/UnityAdsCreative/UnityAds.framework; sourceTree = "<group>"; };
-		5B3EEDB42101D1AF00BAA0C4 /* OpenXSDKConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenXSDKConfigurationViewController.swift; sourceTree = "<group>"; };
+		5B3EEDB42101D1AF00BAA0C4 /* PrebidMobileRenderingConfigurationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMobileRenderingConfigurationViewController.swift; sourceTree = "<group>"; };
 		5B3EEDBE2101D1AF00BAA0C4 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		5B3EEDCF2101D2A100BAA0C4 /* UtilitiesForTesting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilitiesForTesting.swift; sourceTree = "<group>"; };
 		5B3EEDD22101D2CF00BAA0C4 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
@@ -318,6 +318,7 @@
 		AC47858F25F7BEE7001C75C5 /* PrebidNativeVideoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeVideoUITests.swift; sourceTree = "<group>"; };
 		AC4F253825DFF6300095C601 /* NativeAdViewBoxLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdViewBoxLinks.swift; sourceTree = "<group>"; };
 		AC4F254A25E0112C0095C601 /* NativeAdViewBoxProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdViewBoxProtocol.swift; sourceTree = "<group>"; };
+		AC5A99AE267B63B70064A2CA /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC616FAB2594EE950010DBBB /* PrebidServerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidServerUITests.swift; sourceTree = "<group>"; };
 		AC616FC32595DF920010DBBB /* AdsLoaderUITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsLoaderUITestCase.swift; sourceTree = "<group>"; };
 		AC676D03253442AE0043F0DE /* PrebidMRAIDResizeUITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMRAIDResizeUITest.swift; sourceTree = "<group>"; };
@@ -386,9 +387,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				348A0A7C24EE803A00A6659F /* PrebidMobileRendering.framework in Frameworks */,
 				D08680A42399294C00E70E60 /* OpenXMockServer.framework in Frameworks */,
 				5B5830AF20B43727002B2596 /* WatchConnectivity.framework in Frameworks */,
+				AC5A99AF267B63B70064A2CA /* PrebidMobile.framework in Frameworks */,
 				5BD84735252F23E80092AF74 /* CoreServices.framework in Frameworks */,
 				34B64D7424F7EA1500FDD9F4 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
 				5B5830AD20B4371F002B2596 /* WebKit.framework in Frameworks */,
@@ -603,6 +604,7 @@
 		5B2ECE432072637900A4FB48 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC5A99AE267B63B70064A2CA /* PrebidMobile.framework */,
 				5BD84734252F23E70092AF74 /* CoreServices.framework */,
 				5B5830AE20B43727002B2596 /* WatchConnectivity.framework */,
 				5B5830AC20B4371F002B2596 /* WebKit.framework */,
@@ -676,7 +678,7 @@
 			isa = PBXGroup;
 			children = (
 				5B209B4921075E0A00C0F5CE /* BaseConfigurationController.swift */,
-				5B3EEDB42101D1AF00BAA0C4 /* OpenXSDKConfigurationViewController.swift */,
+				5B3EEDB42101D1AF00BAA0C4 /* PrebidMobileRenderingConfigurationViewController.swift */,
 				3461834925A5FE7100783A2C /* PrebidNativeAdCompatibleConfigurationController.swift */,
 				34B5CEE025D2D05C008C0CBC /* PrebidNativeAdRenderingConfigurationController.swift */,
 				AC23A0CC251B932000983ABF /* PrebidBannerConfigurationController.swift */,
@@ -715,7 +717,7 @@
 			children = (
 				5B6EB0132122CAA400C5B072 /* Info.plist */,
 				5B3621E42122CC4F0030F196 /* TestCaseTagTest.swift */,
-				5B03D44524F5455F002F2B35 /* OXAGAMBannerEventHandlerTests.swift */,
+				5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */,
 				ACF7155625B08A80008A0186 /* TestCaseManagerTest.swift */,
 			);
 			path = PrebidMobileDemoRenderingTests;
@@ -749,7 +751,7 @@
 		93FED9BA1A376EFE009A6E9F = {
 			isa = PBXGroup;
 			children = (
-				348A0A4A24EE6EFD00A6659F /* PrebidMobileRendering.framework */,
+				348A0A4A24EE6EFD00A6659F /* PrebidMobile.framework */,
 				34B64D7224F7EA0F00FDD9F4 /* PrebidMobileGAMEventHandlers.framework */,
 				34B64DAA24F7FD6000FDD9F4 /* PrebidMobileMoPubAdapters.framework */,
 				5B3C2A9C2100BC4900BD733C /* PrebidMobileDemoRendering */,
@@ -1080,7 +1082,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This script removes unused architectures from PrebidMobileRendering.framework\n\n#Check if lipo exists on this system\nif ! which lipo > /dev/null; then\necho \"error: lipo is missing\"\nexit 1\nfi\n\n#Get the path to the .app file inside the derived data directory\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n#Get the path to PrebidMobileRendering.framework/PrebidMobileRendering\necho \"Searching APP_PATH for PrebidMobileRendering: [$APP_PATH]\"\nPrebidMobileRendering_PATH=$(find \"$APP_PATH\" -name 'PrebidMobileRendering' -type f)\n\n#Bail if $OpenXApolloSDK_PATH is empty string\nif [ -z \"$PrebidMobileRendering_PATH\" ]; then\necho \"error: Could not find PrebidMobileRendering!\"\nexit 1\nfi\n\n#Bail if the path is not found\nif [ ! -f \"$PrebidMobileRendering_PATH\" ]; then\necho \"error: File not found: $PrebidMobileRendering_PATH\"\nexit 1\nfi\necho \"OpenXApolloSDK found at [$PrebidMobileRendering_PATH]\"\n\n#Get the list of architectures in the framework\nSDK_ARCHS=$(lipo -info \"$PrebidMobileRendering_PATH\" | sed -e \"s/^.*are: //\")\n\necho \"Architectures supported by PrebidMobileRendering: $SDK_ARCHS\"\necho \"Architectures supported by the application: $ARCHS\"\n\n\n#Convert space-delimited lists to arrays\nARCHS=($ARCHS)\nSDK_ARCHS=($SDK_ARCHS)\nREMOVE_THESE_ARCHITECTURES=()\n\n#Find which archs are in $ARCHS but not in $OPENX_ARCHS\n#Walk architechtures in the framework\nfor i in \"${SDK_ARCHS[@]}\"\ndo\nFOUND=0\n\n#Walk the architectures supported by this application.\n#If the openx arch is not found in the app arches, flag it for removal.\nfor j in \"${ARCHS[@]}\"\ndo\nif [ $i == $j ]; then\nFOUND=1\nbreak\nfi\ndone\n\nif [ $FOUND -eq 0 ]; then\nREMOVE_THESE_ARCHITECTURES+=($i)\nfi\ndone\n\n#Are there any architectures to remove?\nif [ ${#REMOVE_THESE_ARCHITECTURES[@]} -eq 0 ]; then\n    echo \"No need to remove any architechtures from PrebidMobileRendering. Exiting.\"\n    exit 0\n    fi\n    \n    #Use lipo to remove the unused architechtures\n    for i in \"${REMOVE_THESE_ARCHITECTURES[@]}\"\n    do\n    echo \"Removing unused architecture $i\"\n    lipo \"$PrebidMobileRendering_PATH\" -remove $i -output \"$PrebidMobileRendering_PATH\"\n    done\n    \n    echo \"Done!\"\n";
+			shellScript = "# This script removes unused architectures from PrebidMobileRendering.framework\n\n#Check if lipo exists on this system\nif ! which lipo > /dev/null; then\necho \"error: lipo is missing\"\nexit 1\nfi\n\n#Get the path to the .app file inside the derived data directory\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n#Get the path to PrebidMobileRendering.framework/PrebidMobileRendering\necho \"Searching APP_PATH for PrebidMobileRendering: [$APP_PATH]\"\nPrebidMobileRendering_PATH=$(find \"$APP_PATH\" -name 'PrebidMobile' -type f)\n\n#Bail if $OpenXApolloSDK_PATH is empty string\nif [ -z \"$PrebidMobileRendering_PATH\" ]; then\necho \"error: Could not find PrebidMobileRendering!\"\nexit 1\nfi\n\n#Bail if the path is not found\nif [ ! -f \"$PrebidMobileRendering_PATH\" ]; then\necho \"error: File not found: $PrebidMobileRendering_PATH\"\nexit 1\nfi\necho \"PrebidMobile found at [$PrebidMobileRendering_PATH]\"\n\n#Get the list of architectures in the framework\nSDK_ARCHS=$(lipo -info \"$PrebidMobileRendering_PATH\" | sed -e \"s/^.*are: //\")\n\necho \"Architectures supported by PrebidMobile: $SDK_ARCHS\"\necho \"Architectures supported by the application: $ARCHS\"\n\n\n#Convert space-delimited lists to arrays\nARCHS=($ARCHS)\nSDK_ARCHS=($SDK_ARCHS)\nREMOVE_THESE_ARCHITECTURES=()\n\n#Find which archs are in $ARCHS but not in $OPENX_ARCHS\n#Walk architechtures in the framework\nfor i in \"${SDK_ARCHS[@]}\"\ndo\nFOUND=0\n\n#Walk the architectures supported by this application.\n#If the зкуишв arch is not found in the app arches, flag it for removal.\nfor j in \"${ARCHS[@]}\"\ndo\nif [ $i == $j ]; then\nFOUND=1\nbreak\nfi\ndone\n\nif [ $FOUND -eq 0 ]; then\nREMOVE_THESE_ARCHITECTURES+=($i)\nfi\ndone\n\n#Are there any architectures to remove?\nif [ ${#REMOVE_THESE_ARCHITECTURES[@]} -eq 0 ]; then\n    echo \"No need to remove any architechtures from PrebidMobile. Exiting.\"\n    exit 0\n    fi\n    \n    #Use lipo to remove the unused architechtures\n    for i in \"${REMOVE_THESE_ARCHITECTURES[@]}\"\n    do\n    echo \"Removing unused architecture $i\"\n    lipo \"$PrebidMobileRendering_PATH\" -remove $i -output \"$PrebidMobileRendering_PATH\"\n    done\n    \n    echo \"Done!\"\n";
 		};
 		802528B749910E5695D54FCF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1172,7 +1174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B3621E52122CC4F0030F196 /* TestCaseTagTest.swift in Sources */,
-				5B03D44624F5455F002F2B35 /* OXAGAMBannerEventHandlerTests.swift in Sources */,
+				5B03D44624F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift in Sources */,
 				ACF7155725B08A80008A0186 /* TestCaseManagerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1216,7 +1218,7 @@
 				5B3EEDDC2101DB7900BAA0C4 /* TabViewController.swift in Sources */,
 				ACC41ACA2444E50B00B9A3A7 /* SettingsViewController.swift in Sources */,
 				5B3EEDD32101D2CF00BAA0C4 /* StringExtensions.swift in Sources */,
-				5B3EEDC12101D1AF00BAA0C4 /* OpenXSDKConfigurationViewController.swift in Sources */,
+				5B3EEDC12101D1AF00BAA0C4 /* PrebidMobileRenderingConfigurationViewController.swift in Sources */,
 				5B209B4A21075E0A00C0F5CE /* BaseConfigurationController.swift in Sources */,
 				34C9AF022564286E00EB6F72 /* PBMNativeEventTracker+FromJSON.swift in Sources */,
 				5BCCA3D62136D2E800DA3B5A /* ConfigurableViewController.swift in Sources */,

@@ -15,7 +15,7 @@
 
 import Foundation
 import GoogleMobileAds
-import PrebidMobileRendering
+import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
 class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, BannerViewDelegate {

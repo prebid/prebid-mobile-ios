@@ -15,7 +15,7 @@
 
 import UIKit
 import CoreLocation
-import PrebidMobileRendering
+import PrebidMobile
 
 class TestCasesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CLLocationManagerDelegate {
     
@@ -146,7 +146,7 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: - Private Methods
     
     @objc private func showConfig(sender: UIBarButtonItem) {
-        let configViewController = OpenXSDKConfigurationController()
+        let configViewController = PrebidMobileRenderingXSDKConfigurationController()
         
         navigationController?.pushViewController(configViewController, animated: true)
     }

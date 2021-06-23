@@ -253,7 +253,7 @@ platform :ios do
         # To avoid errors like:
         # 
         # Building for iOS, but the linked and embedded framework 'PrebidMobile*.framework' was built for iOS Simulator. 
-        # (in target 'OpenXInternalTestApp' from project 'OpenXInternalTestApp')
+        # (in target 'PrebidMobileDemoRendering' from project 'PrebidMobileDemoRendering')
         # 
         sh ("rm -rf ./Products/PrebidMobile*.framework")
         sh ("rm -rf ./PrebidMobileDemoRendering/PrebidMobileDemoRendering/PrebidMobileDemoRendering/Frameworks/PrebidMobile*.framework")

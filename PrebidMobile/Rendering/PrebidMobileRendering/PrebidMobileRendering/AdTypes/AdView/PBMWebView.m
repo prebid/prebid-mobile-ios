@@ -39,14 +39,19 @@
 #import "PBMAgeUtils.h"
 #import "PBMWKScriptMessageHandlerLeakAvoider.h"
 #import "UIView+PBMExtensions.h"
-#import "PBMWebView+pbmTestExtension.h"
 
 #import "PBMWebView.h"
+#import "PBMWebView+Internal.h"
 
 #import "PBMAdViewManagerDelegate.h"
 
 #import "PrebidMobileRenderingSwiftHeaders.h"
-#import <PrebidMobileRendering/PrebidMobileRendering-Swift.h>
+
+#if __has_include("PrebidMobile-Swift.h")
+#import "PrebidMobile-Swift.h"
+#else
+#import <PrebidMobile/PrebidMobile-Swift.h>
+#endif
 
 #pragma mark - Constants
 

@@ -14,7 +14,7 @@
  */
 
 import XCTest
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 protocol TCFEdition {
     var cmpSDKIDKey: String? { get }

@@ -15,7 +15,7 @@
 
 import Foundation
 import XCTest
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class PBMHTMLCreativeTest_NoMRAID : PBMHTMLCreativeTest_Base {
     

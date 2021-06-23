@@ -17,7 +17,8 @@ import Foundation
 
 import MoPubSDK
 
-import PrebidMobileRendering
+//import PrebidMobile
+import PrebidMobile
 
 @objc(PrebidMoPubAdapterConfiguration)
 public class PrebidMoPubAdapterConfiguration : MPBaseAdapterConfiguration {

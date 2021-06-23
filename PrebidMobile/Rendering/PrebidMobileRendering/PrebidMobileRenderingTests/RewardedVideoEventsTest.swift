@@ -18,7 +18,7 @@ import Foundation
 import XCTest
 import CoreFoundation
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
     

@@ -13,6 +13,8 @@
  limitations under the License.
  */
 
+#ifdef DEBUG
+
 #import "PrebidRenderingConfig+TestExtension.h"
 
 @implementation PrebidRenderingConfig (Test)
@@ -29,3 +31,5 @@
 
 
 @end
+
+#endif

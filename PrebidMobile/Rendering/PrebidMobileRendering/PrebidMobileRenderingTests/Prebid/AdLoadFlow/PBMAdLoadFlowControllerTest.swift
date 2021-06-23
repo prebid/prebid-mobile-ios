@@ -16,7 +16,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobileRendering
+@testable import PrebidMobile
 
 class PBMAdLoadFlowControllerTest: XCTestCase {
     private typealias CompositeMock = PBMAdLoadFlowControllerTest_CompositeMock

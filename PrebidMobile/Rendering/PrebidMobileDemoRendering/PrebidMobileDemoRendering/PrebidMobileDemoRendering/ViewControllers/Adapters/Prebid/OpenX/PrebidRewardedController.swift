@@ -15,7 +15,7 @@
 
 import UIKit
 import GoogleMobileAds
-import PrebidMobileRendering
+import PrebidMobile
 
 class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDelegate {
     
