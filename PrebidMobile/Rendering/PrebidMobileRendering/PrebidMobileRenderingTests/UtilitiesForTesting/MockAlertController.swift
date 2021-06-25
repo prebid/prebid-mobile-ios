@@ -14,7 +14,7 @@
  */
 
 import UIKit
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class MockAlertController: UIAlertController {
     var successResult = true

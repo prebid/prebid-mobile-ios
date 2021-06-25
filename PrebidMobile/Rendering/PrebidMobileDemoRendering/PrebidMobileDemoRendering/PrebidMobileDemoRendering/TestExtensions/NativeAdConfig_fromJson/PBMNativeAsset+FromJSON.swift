@@ -15,7 +15,7 @@
 
 import Foundation
 
-import PrebidMobile
+import PrebidMobileRendering
 
 extension NativeAsset {
     class func parse(json: [String:Any]) -> NativeAsset? {

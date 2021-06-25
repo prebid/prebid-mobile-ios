@@ -15,7 +15,7 @@
 
 import Foundation
 
-import PrebidMobile
+import PrebidMobileRendering
 
 extension NativeAdConfiguration {
     convenience init?(json: [String: Any]) {

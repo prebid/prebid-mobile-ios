@@ -18,7 +18,7 @@ import CoreLocation
 import MoPubSDK
 import GoogleMobileAds
 
-import PrebidMobile
+import PrebidMobileRendering
 import PrebidMobileMoPubAdapters
 
 @UIApplicationMain

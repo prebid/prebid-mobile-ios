@@ -15,8 +15,8 @@
 
 import Foundation
 import GoogleMobileAds
-//import PrebidMobile
-import PrebidMobile
+
+import PrebidMobileRendering
 
 public class GAMRewardedAdEventHandler :
     NSObject,

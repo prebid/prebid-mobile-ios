@@ -17,8 +17,7 @@ import Foundation
 
 import MoPubSDK
 
-//import PrebidMobile
-import PrebidMobile
+import PrebidMobileRendering
 
 // @objc is required for instantiating in the MoPub SDK
 @objc(PrebidMoPubNativeCustomEvent)

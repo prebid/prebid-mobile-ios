@@ -16,7 +16,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class MockBidRequester: NSObject, PBMBidRequesterProtocol {
     typealias ExpectedCall = (@escaping (BidResponse?, Error?)->())->()

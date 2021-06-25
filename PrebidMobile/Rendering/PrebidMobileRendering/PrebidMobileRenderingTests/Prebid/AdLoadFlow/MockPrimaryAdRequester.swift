@@ -16,7 +16,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class MockPrimaryAdRequester: NSObject, PBMPrimaryAdRequesterProtocol {
     typealias ExpectedCall = (BidResponse?)->()

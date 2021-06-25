@@ -14,7 +14,7 @@
  */
 
 import Foundation
-import PrebidMobile
+import PrebidMobileRendering
 
 extension NativeAsset {
     var name: String

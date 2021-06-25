@@ -14,7 +14,7 @@
  */
 
 import UIKit
-import PrebidMobile
+import PrebidMobileRendering
 
 class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, BannerViewDelegate {
     

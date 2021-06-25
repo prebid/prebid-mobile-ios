@@ -1,5 +1,5 @@
 import XCTest
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 //This is a test of EnumSequence, NOT neccessarily a test of TrackingEvent (which was the first enum to implement EnumSequence)
 class EnumSequenceTest: XCTestCase {

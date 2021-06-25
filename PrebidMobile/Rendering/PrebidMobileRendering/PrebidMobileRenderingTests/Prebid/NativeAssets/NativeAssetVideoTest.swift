@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class NativeAssetVideoTest: XCTestCase {
     func testDesignatedInitAndToJsonString() {

@@ -15,7 +15,7 @@
 
 import UIKit
 import RxSwift
-import PrebidMobile
+import PrebidMobileRendering
 
 final class AppConfiguration: NSObject {
     private let keyUseMockServer = "KeyUseMockServer"

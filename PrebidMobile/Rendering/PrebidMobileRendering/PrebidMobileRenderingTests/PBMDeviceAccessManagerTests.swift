@@ -17,7 +17,7 @@ import Foundation
 import XCTest
 import UIKit
 
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class PBMDeviceAccessManagerTests : XCTestCase {
     

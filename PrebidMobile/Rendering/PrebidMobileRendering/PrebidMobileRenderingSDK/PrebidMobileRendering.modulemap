@@ -13,12 +13,11 @@
  limitations under the License.
  */
 
-//framework module PrebidMobileRendering {
-framework module PrebidMobile {
+framework module PrebidMobileRendering {
     
     // Versions
-//    header "PrebidMobileRendering.h"
-    header "PrebidMobile.h"
+    header "PrebidMobileRendering.h"
+    
     // Enums
     header "PBMErrorCode.h"
     header "PBMErrorType.h"

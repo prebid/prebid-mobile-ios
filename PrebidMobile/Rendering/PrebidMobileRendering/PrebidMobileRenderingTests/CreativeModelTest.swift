@@ -1,7 +1,7 @@
 import Foundation
 import XCTest
 
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 //TODO: Refactor to use MockServer
 

@@ -2,7 +2,7 @@ import Foundation
 import XCTest
 
 import UIKit
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class PBMMRAIDCommandTest : XCTestCase {
     

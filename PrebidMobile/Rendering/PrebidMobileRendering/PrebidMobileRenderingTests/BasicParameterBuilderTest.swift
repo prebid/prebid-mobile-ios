@@ -1,7 +1,7 @@
 
 import UIKit
 import XCTest
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class PBMBasicParameterBuilderTest: XCTestCase {
     

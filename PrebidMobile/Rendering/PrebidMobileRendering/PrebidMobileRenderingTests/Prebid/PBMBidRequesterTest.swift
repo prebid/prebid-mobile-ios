@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class PBMBidRequesterTest: XCTestCase {
     private var sdkConfiguration: PrebidRenderingConfig!

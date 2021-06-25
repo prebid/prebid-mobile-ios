@@ -16,7 +16,7 @@
 import UIKit
 import MoPubSDK
 
-import PrebidMobile
+import PrebidMobileRendering
 import PrebidMobileMoPubAdapters
 
 class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigurableNativeAdCompatibleController {

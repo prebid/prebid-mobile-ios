@@ -16,7 +16,7 @@
 import UIKit
 import Eureka
 
-import PrebidMobile
+import PrebidMobileRendering
 
 class NativeAssetDataController: BaseNativeAssetController<NativeAssetData> {
     override func buildForm() {
