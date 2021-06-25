@@ -15,7 +15,7 @@
 
 import UIKit
 import Eureka
-import PrebidMobile
+import PrebidMobileRendering
 
 class BaseNativeAssetController<T: NativeAsset> : FormViewController, RowBuildHelpConsumer {
     var nativeAsset: T!

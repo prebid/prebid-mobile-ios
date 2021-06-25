@@ -15,7 +15,7 @@
 
 import UIKit
 import Eureka
-import PrebidMobile
+import PrebidMobileRendering
 
 final class PrebidMobileRenderingXSDKConfigurationController : FormViewController {
     

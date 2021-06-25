@@ -15,7 +15,7 @@
 
 @import Foundation;
 
-@import PrebidMobile;
+@import PrebidMobileRendering;
 
 #import "PBMServerConnection.h"
 #import "MockServer.h"

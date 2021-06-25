@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class PBMBaseAdUnitTest: XCTestCase, WinningBidResponseFabricator {
     func testDesignatedInit_noBlockCalled() {

@@ -14,7 +14,7 @@
  */
 
 import XCTest
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class PBMJSLibraryManagerTest: XCTestCase {
     private let connection = UtilitiesForTesting.createConnectionForMockedTest()

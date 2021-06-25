@@ -1,6 +1,6 @@
 import XCTest
 
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class PBMVastLoaderTestOMVerificationInExtension: XCTestCase {
     

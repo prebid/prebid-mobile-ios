@@ -15,7 +15,7 @@
 
 import XCTest
 
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class PBMNativeAdMarkupEventTrackerTest: XCTestCase {
     func testInitFromJson() {

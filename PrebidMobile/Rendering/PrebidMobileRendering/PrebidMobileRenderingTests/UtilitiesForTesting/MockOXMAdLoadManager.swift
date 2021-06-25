@@ -15,7 +15,7 @@
 
 import UIKit
 
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class MockPBMAdLoadManagerVAST: PBMAdLoadManagerVAST {
     

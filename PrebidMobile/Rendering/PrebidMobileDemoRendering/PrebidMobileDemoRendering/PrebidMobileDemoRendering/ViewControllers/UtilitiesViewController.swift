@@ -17,7 +17,7 @@ import AppTrackingTransparency
 import UIKit
 import Eureka
 
-import PrebidMobile
+import PrebidMobileRendering
 
 class UtilitiesViewController: FormViewController {
     

@@ -15,7 +15,7 @@
 
 import UIKit
 import Eureka
-import PrebidMobile
+import PrebidMobileRendering
 
 class NativeEventTrackersArrayController : FormViewController {
     var nativeAdConfig: NativeAdConfiguration!

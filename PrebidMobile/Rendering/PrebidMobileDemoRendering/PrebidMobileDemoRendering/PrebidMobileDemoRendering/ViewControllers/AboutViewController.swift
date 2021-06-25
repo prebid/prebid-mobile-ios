@@ -18,11 +18,12 @@ import UIKit
 
 import Eureka
 
-import PrebidMobileGAMEventHandlers
-import PrebidMobileMoPubAdapters
 import GoogleMobileAds
 import MoPubSDK
-import PrebidMobile
+
+import PrebidMobileRendering
+import PrebidMobileGAMEventHandlers
+import PrebidMobileMoPubAdapters
 
 
 class AboutViewController : FormViewController {

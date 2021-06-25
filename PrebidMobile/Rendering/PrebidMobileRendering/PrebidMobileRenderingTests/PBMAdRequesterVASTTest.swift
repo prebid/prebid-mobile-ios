@@ -15,7 +15,7 @@
 
 import Foundation
 import XCTest
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class PBMAdRequesterVASTTest: XCTestCase {
     

@@ -14,7 +14,7 @@
  */
 
 import UIKit
-import PrebidMobile
+import PrebidMobileRendering
 
 protocol NativeAdViewBoxProtocol: AnyObject {
     func setUpDummyValues()

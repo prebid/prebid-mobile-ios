@@ -15,7 +15,7 @@
 
 import Foundation
 
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class MockMeasurementWrapper : PBMOpenMeasurementWrapper {
 

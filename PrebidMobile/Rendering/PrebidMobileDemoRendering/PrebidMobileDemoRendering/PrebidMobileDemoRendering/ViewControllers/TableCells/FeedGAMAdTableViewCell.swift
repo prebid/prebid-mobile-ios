@@ -16,7 +16,7 @@
 import UIKit
 
 import GoogleMobileAds
-import PrebidMobile
+import PrebidMobileRendering
 import PrebidMobileGAMEventHandlers
 
 class FeedGAMAdTableViewCell: UITableViewCell {

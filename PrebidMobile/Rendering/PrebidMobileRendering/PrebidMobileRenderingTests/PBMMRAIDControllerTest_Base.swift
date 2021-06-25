@@ -14,7 +14,7 @@
  */
 
 import XCTest
-@testable import PrebidMobile
+@testable import PrebidMobileRendering
 
 class PBMMRAIDControllerTest_Base: XCTestCase, PBMCreativeViewDelegate {
     

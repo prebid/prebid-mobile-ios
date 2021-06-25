@@ -14,7 +14,7 @@
  */
 
 import Foundation
-import PrebidMobile
+import PrebidMobileRendering
 
 extension NativeEventTracker {
     convenience init?(json: [String: Any]) {

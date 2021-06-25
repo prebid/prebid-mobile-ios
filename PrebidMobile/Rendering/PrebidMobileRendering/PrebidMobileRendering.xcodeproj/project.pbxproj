@@ -1147,7 +1147,7 @@
 		34D42CC825CD610B008EE1D3 /* PBMURLOpenResultHandlerBlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMURLOpenResultHandlerBlock.h; sourceTree = "<group>"; };
 		34D70F6624E53C850048CC78 /* PBMErrorCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMErrorCode.h; path = Utilities/PBMErrorCode.h; sourceTree = "<group>"; };
 		34D70F6724E53C950048CC78 /* PBMErrorType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMErrorType.h; sourceTree = "<group>"; };
-		34D7113424E580620048CC78 /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		34D7113424E580620048CC78 /* PrebidMobileRendering.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobileRendering.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34D7113524E580630048CC78 /* PrebidMobileRendering-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PrebidMobileRendering-Info.plist"; sourceTree = "<group>"; };
 		34D9E887256BE3B200D40497 /* PBMAgeUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMAgeUtils.h; sourceTree = "<group>"; };
 		34D9E888256BE3B200D40497 /* PBMAgeUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMAgeUtils.m; sourceTree = "<group>"; };
@@ -3264,7 +3264,7 @@
 			isa = PBXGroup;
 			children = (
 				9319862519A7DD8D007ED468 /* PrebidMobileRenderingTests.xctest */,
-				34D7113424E580620048CC78 /* PrebidMobile.framework */,
+				34D7113424E580620048CC78 /* PrebidMobileRendering.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3622,7 +3622,7 @@
 			);
 			name = PrebidMobileRendering;
 			productName = PrebidMobileRendering;
-			productReference = 34D7113424E580620048CC78 /* PrebidMobile.framework */;
+			productReference = 34D7113424E580620048CC78 /* PrebidMobileRendering.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		9319862419A7DD8D007ED468 /* PrebidMobileRenderingTests */ = {
@@ -3661,7 +3661,6 @@
 					};
 					9319862419A7DD8D007ED468 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = FQD5T8P989;
 						LastSwiftMigration = 1020;
 					};
 					D0F90EF5223FEE91001C1167 = {
@@ -4365,7 +4364,7 @@
 				MODULEMAP_FILE = PrebidMobileRenderingSDK/PrebidMobileRendering.modulemap;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering;
-				PRODUCT_NAME = PrebidMobile;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/PrebidMobileRendering/ProjectModule";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -4406,7 +4405,7 @@
 				MODULEMAP_FILE = PrebidMobileRenderingSDK/PrebidMobileRendering.modulemap;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering;
-				PRODUCT_NAME = PrebidMobile;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/PrebidMobileRendering/ProjectModule";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -4545,7 +4544,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = FQD5T8P989;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4572,7 +4571,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = FQD5T8P989;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				FRAMEWORK_SEARCH_PATHS = (

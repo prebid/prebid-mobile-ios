@@ -14,7 +14,7 @@
  */
 
 import Foundation
-import PrebidMobile
+import PrebidMobileRendering
 
 extension Array where Self.Element == NativeAsset {
     static let defaultNativeRequestAssets: [NativeAsset] = [
