@@ -1,0 +1,20 @@
+{
+    "ads": {
+        "chain": "1",
+        "medium": "ma",
+        "record_tmpl": "http://ox-d.mobile.servedbyopenx.com/{medium}/1.0/{rtype}?did.ia=D2CE768F-91BB-4572-82CF-252DCC4CD748&ts={txn_state}",
+        "adunits": [{
+            "auid": "537253378",
+            "chain": [{
+                "is_fallback": "0",
+                "html": "<a href='http://ox-d.mobile.servedbyopenx.com/ma/1.0/rc?did.ia=D2CE768F-91BB-4572-82CF-252DCC4CD748&ts=1fHU9MXxyaWQ9ZTdiODQ2MjMtOGI4Zi00YzlmLThiMzctZmM5MGVmZTM4NzNjfHJ0PTE0MTkzNjc4NDR8YXVpZD01MzcyNTMzNzh8YXVtPURNSUQuTU9CSUxFfHNpZD01MzcxNTMxNTB8cHViPTUzNzEwMDQ4M3xwYz1VU0R8cmFpZD0yMjk2OTBiMS1iNGNhLTRjZGUtYWFlNy0zN2I0YTVlMzY3MjR8Y2w9MXxhaWQ9NTM3NTA3MjQ5fHQ9OXxhcz0zMjB4NTB8bGlkPTUzNzMyOTkxOHxvaWQ9NTM3MjE0ODc4fHA9MTB8cHI9MTB8YWR2PTUzNzEwMDQ4NHxhYz1VU0R8cG09UFJJQ0lORy5DUE18Ym09QlVZSU5HLk5PTkdVQVJBTlRFRUR8Y2k9MXx1cj1uckg1N1o2VmNu' target='_blank'><img src='http://ox-i.mobile.servedbyopenx.com/a51/a51065ab-17ee-4394-b5a7-32debc04780a/6ad/6adbfc450ad743d497a3f70d7bdc6a46.png' height='50' width='320' border='0' alt=''/></a>\n",
+                "ts": "1fHU9MXxyaWQ9ZTdiODQ2MjMtOGI4Zi00YzlmLThiMzctZmM5MGVmZTM4NzNjfHJ0PTE0MTkzNjc4NDR8YXVpZD01MzcyNTMzNzh8YXVtPURNSUQuTU9CSUxFfHNpZD01MzcxNTMxNTB8cHViPTUzNzEwMDQ4M3xwYz1VU0R8cmFpZD0yMjk2OTBiMS1iNGNhLTRjZGUtYWFlNy0zN2I0YTVlMzY3MjR8Y2w9MXxhaWQ9NTM3NTA3MjQ5fHQ9OXxhcz0zMjB4NTB8bGlkPTUzNzMyOTkxOHxvaWQ9NTM3MjE0ODc4fHA9MTB8cHI9MTB8YWR2PTUzNzEwMDQ4NHxhYz1VU0R8cG09UFJJQ0lORy5DUE18Ym09QlVZSU5HLk5PTkdVQVJBTlRFRUR8Y2k9MXx1cj1uckg1N1o2VmNu",
+                "sdk_params": "{mediation_method=native_sdk, network_uid=MobPub, adUnit=b8385229fc8a4b198e235f9684166b64}",
+                "type": "image",
+                "width": "320",
+                "height": "50",
+                "mediation_url": ""
+            }]
+        }]
+    }
+}

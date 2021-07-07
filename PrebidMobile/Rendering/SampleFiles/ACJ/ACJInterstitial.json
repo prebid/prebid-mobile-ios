@@ -1,0 +1,44 @@
+{
+    "ads": {
+        "chain": 1,
+        "medium": "ma",
+        "record_tmpl": "http://qa-v2-i16-lmi.del-qa.openx.net/{medium}/1.0/{rtype}?ai=365a5611-1bf6-4e84-9286-4b03c59568ed&ts={txn_state}",
+        "adunits": [{
+            "auid": "1610810552",
+            "chain": [
+                {
+                    "is_fallback": 0,
+                    "html": "",
+                    "ts": "1fHU9MXxyaWQ9ZGUzMjY4YzUtNWQ1Ny00ZjI0LWE2YzQtMDY5ZTEwODkyZjE0fHJ0PTE0MTE1MDQ4NjN8YXVpZD0xNjEwODEwNTUyfGF1bT1ETUlELk1PQklMRXxzaWQ9MTYxMDgwMDI3M3xwdWI9MTYxMDg3OTc5MnxwYz1VU0R8eHQ9Y29udHJvbCxhcGlfc3luY193cml0ZXxyYWlkPTUxMTc3NzRjLTY0YzEtNDViNC04NDFiLWQwMDI1M2MxNWYyMnxjbD0yfGFpZD0xNjExMDg3NDEwfHQ9MTV8YXM9MzIweDUwfGxpZD0xNjEwOTU2Mjk2fG9pZD0xNjEwODg0NTk4fHA9NTB8cHI9NTB8YWR2PTE2MTEwMTAzMTV8YWM9VVNEfHBtPVBSSUNJTkcuQ1BNfGJtPUJVWUlORy5OT05HVUFSQU5URUVEfGNpPTF8dXI9ZDNnUnFxMWU2Ng",
+                    "sdk_params": "{mediation_method=native_sdk, network_uid=AdColony,appid=appc4d9553b4f114c4893,zoneid=vzb79568d9b45a49ccb4}",
+                    "type": "mediation",
+                    "mediation_url": ""
+                },
+                {
+                    "is_fallback": 0,
+                    "html": "",
+                    "ts": "1fHU9MXxyaWQ9ZGUzMjY4YzUtNWQ1Ny00ZjI0LWE2YzQtMDY5ZTEwODkyZjE0fHJ0PTE0MTE1MDQ4NjN8YXVpZD0xNjEwODEwNTUyfGF1bT1ETUlELk1PQklMRXxzaWQ9MTYxMDgwMDI3M3xwdWI9MTYxMDg3OTc5MnxwYz1VU0R8eHQ9Y29udHJvbCxhcGlfc3luY193cml0ZXxyYWlkPTUxMTc3NzRjLTY0YzEtNDViNC04NDFiLWQwMDI1M2MxNWYyMnxjbD0yfGFpZD0xNjExMDg3NDEwfHQ9MTV8YXM9MzIweDUwfGxpZD0xNjEwOTU2Mjk2fG9pZD0xNjEwODg0NTk4fHA9NTB8cHI9NTB8YWR2PTE2MTEwMTAzMTV8YWM9VVNEfHBtPVBSSUNJTkcuQ1BNfGJtPUJVWUlORy5OT05HVUFSQU5URUVEfGNpPTF8dXI9ZDNnUnFxMWU2Ng",
+                    "sdk_params": "{mediation_method=native_sdk, network_uid=OpenX, domain=mobile-d.openx.net,portraitAdUnit=537123784,landscapeAdUnit=537123784}",
+                    "type": "mediation",
+                    "mediation_url": ""
+                },
+                {
+                    "is_fallback": 0,
+                    "html": "",
+                    "ts": "1fHU9MXxyaWQ9ZGUzMjY4YzUtNWQ1Ny00ZjI0LWE2YzQtMDY5ZTEwODkyZjE0fHJ0PTE0MTE1MDQ4NjN8YXVpZD0xNjEwODEwNTUyfGF1bT1ETUlELk1PQklMRXxzaWQ9MTYxMDgwMDI3M3xwdWI9MTYxMDg3OTc5MnxwYz1VU0R8eHQ9Y29udHJvbCxhcGlfc3luY193cml0ZXxyYWlkPTUxMTc3NzRjLTY0YzEtNDViNC04NDFiLWQwMDI1M2MxNWYyMnxjbD0yfGFpZD0xNjExMDg3NDEwfHQ9MTV8YXM9MzIweDUwfGxpZD0xNjEwOTU2Mjk2fG9pZD0xNjEwODg0NTk4fHA9NTB8cHI9NTB8YWR2PTE2MTEwMTAzMTV8YWM9VVNEfHBtPVBSSUNJTkcuQ1BNfGJtPUJVWUlORy5OT05HVUFSQU5URUVEfGNpPTF8dXI9ZDNnUnFxMWU2Ng",
+                    "sdk_params": "{mediation_method=native_sdk, network_uid=Admob, adUnit=ca-app-pub-7296733787711441/8757355531}",
+                    "type": "mediation",
+                    "mediation_url": ""
+                },
+                {
+                    "is_fallback": 0,
+                    "html": "<html><font color=\"red\">This is the 320x50 iOS SDK Mediation Fallback HTML Ad on i16</font></html>",
+                    "ts": "1fHU9MXxyaWQ9ZGUzMjY4YzUtNWQ1Ny00ZjI0LWE2YzQtMDY5ZTEwODkyZjE0fHJ0PTE0MTE1MDQ4NjN8YXVpZD0xNjEwODEwNTUyfGF1bT1ETUlELk1PQklMRXxzaWQ9MTYxMDgwMDI3M3xwdWI9MTYxMDg3OTc5MnxwYz1VU0R8eHQ9Y29udHJvbCxhcGlfc3luY193cml0ZXxyYWlkPTUxMTc3NzRjLTY0YzEtNDViNC04NDFiLWQwMDI1M2MxNWYyMnxjbD0yfGFpZD0xNjExMDg3NDIwfHQ9MTB8YXM9MzIweDUwfGxpZD0xNjEwOTU2MzA0fG9pZD0xNjEwODg2MTAxfHA9MHxwcj0wfGFkdj0xNjEwODc5Nzg1fGFjPVVTRHxwbT1QUklDSU5HLkNQTXxibT1CVVlJTkcuSE9VU0V8Y2k9Mnx1cj1kM2dScXExZTY2",
+                    "sdk_params": "",
+                    "type": "html",
+                    "mediation_url": ""
+                }
+            ]
+        }]
+    }
+}

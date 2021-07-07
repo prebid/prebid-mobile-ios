@@ -1,0 +1,22 @@
+{
+    "ads": {
+        "medium": "ma",
+        "record_tmpl": "http://mobile-d.openx.net/{medium}/1.0/{rtype}?ts={txn_state}",
+        "adunits": [{
+            "auid": "537123776",
+            "refresh_delay":"30",
+            "refresh_max":"5",
+            "chain": [{
+                "is_fallback": 0,
+                "ad_id": "537241353",
+                "width": "320",
+                "height": "50",
+                "html": "<div id=\"ad\">\n<a href=\"http://openx.com/product/ad-exchange-for-ad-buyers/\">\n<img src=\"http://imageshack.com/a/img202/6679/nnik.jpg\" alt=\"Banner Advertisement\" height=\"50\" width=\"320\"></a>\n</div>",
+                "target": "_blank",
+                "ts": "1fHJpZD0zOTdiOTg3Ni1lODcwLTQ2N2UtYmM0Mi0zNmM3ODc5YTZlMjB8cnQ9MTQyMDc1MTU3MnxhdWlkPTUzNzEyMzc3NnxhdW09RE1JRC5NT0JJTEV8c2lkPTUzNzA5MjIwNHxwdWI9NTM3MDc5Mzc3fHBjPVVTRHxyYWlkPTQwN2E2YzNkLTIyYmMtNGQwYi05ZjQ0LTYwY2YxMjljZmUzOHxhaWQ9NTM3MjQxMzUzfHQ9MTB8YXM9MzIweDUwfGxpZD01MzcxNzQ4MjZ8b2lkPTUzNzEzNTIxM3xwPTUwMHxwcj01MDB8YWR2PTUzNzA3OTM3NnxhYz1VU0R8cG09UFJJQ0lORy5DUE18Ym09QlVZSU5HLkdVQVJBTlRFRURFWENMVVNJVkV8dXI9V0VKRnA1MDJjYQ",
+                "type": "html",
+                "ad_url": "<div id=\"ad\">\n<a href=\"http://openx.com/product/ad-exchange-for-ad-buyers/\">\n<img src=\"http://imageshack.com/a/img202/6679/nnik.jpg\" alt=\"Banner Advertisement\" height=\"50\" width=\"320\"></a>\n</div>"
+            }]
+        }]
+    }
+}

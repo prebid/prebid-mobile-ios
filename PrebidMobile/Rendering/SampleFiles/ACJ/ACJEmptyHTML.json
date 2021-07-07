@@ -1,0 +1,22 @@
+{
+    "ads": {
+        "chain": 1,
+        "medium": "ma",
+        "record_tmpl": "http://ox-d.mobile.servedbyopenx.com/{medium}/1.0/{rtype}?did.ai.md5=166aa42f47aefb03aa47e69956cf0317&did.ai.sha1=2c7f513869e2d0c09e4b1901d715795fe50647da&did.adid=bff8ff74-2330-40b8-8f2e-0b819cb3e21d&did.ma.md5=e3f5536a141811db40efd6400f1d0a4e&did.ma.sha1=6024a02ea5577bcb6442a70d0bfa791935839db3&did.o1=2c7f513869e2d0c09e4b1901d715795fe50647da&ts={txn_state}",
+        "oxt": 55.365,
+        "adunits": [{
+                    "auid": "538528672",
+                    "chain": [{
+                              "is_fallback": 0,
+                              "html": "<div></div>",
+                              "ts": "1fHU9MXxyaWQ9OTUyM2I5ZGMtNjA2OC00YWIzLWEwZWYtYzJjOTRlYTJkNjdifHJ0PTE0OTkyODMyMjJ8YXVpZD01Mzg1Mjg2NzJ8YXVtPURNSUQuTU9CSUxFfGF1cGY9aW50ZXJzdGl0aWFsfHNpZD01MzcyNzkwMDh8cHViPTUzNzEwNjQ2NnxwYz1VU0R8cmFpZD04Zjk0NjRiNy02ZWI0LTRkNWItYWZkZi02MzQ5YzdkNGVmMzZ8cnM9MXxjbD0xfGFpZD01MzgyNjUzOTh8dD0xMHxhcz0zMjB4NDgwfGxpZD01Mzc2NDA4NTB8b2lkPTUzNzMwMjUyNHxwPTUwfHByPTUwfGF0Yj01MHxhZHY9NTM3MTI0Mjc2fGFjPVVTRHxwbT1QUklDSU5HLkNQTXxibT1CVVlJTkcuSE9VU0V8bGl0PUh8Y2k9MXx1cj1SRUZRMGNUdDhy",
+                              "sdk_params": "",
+                              "type": "html",
+                              "pub_rev": "50",
+                              "width": "320",
+                              "height": "480",
+                              "mediation_url": ""
+                              }]
+                    }]
+    }
+}

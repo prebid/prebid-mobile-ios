@@ -1,0 +1,38 @@
+/*   Copyright 2018-2021 Prebid.org, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+import Foundation
+
+/*!
+ The interstitial custom event delegate. It is used to inform ad server events back to the OpenWrap SDK
+ */
+@objc public protocol InterstitialEventLoadingDelegate where Self: NSObject {
+
+    /*!
+     @abstract Call this when the ad server SDK signals about partner bid win
+     */
+    func prebidDidWin()
+
+    /*!
+     @abstract Call this when the ad server SDK renders its own ad
+     */
+    func adServerDidWin()
+
+    /*!
+     @abstract Call this when the ad server SDK fails to load the ad
+     @param error detailed error object describing the cause of ad failure
+     */
+    func failedWithError(_ error: Error?)
+}

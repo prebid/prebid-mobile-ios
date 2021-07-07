@@ -1,0 +1,11 @@
+{
+    "ads": {
+        "chain": "1",
+        "medium": "ma",
+        "record_tmpl": "http://ox-d.mobile.servedbyopenx.com/{medium}/1.0/{rtype}?did.ia=D2CE768F-91BB-4572-82CF-252DCC4CD748&ts={txn_state}",
+        "adunits": [{
+            "auid": "537253378",
+            "chain": []
+        }]
+    }
+}

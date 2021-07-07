@@ -1,0 +1,12 @@
+platform :ios, '10.0'
+
+target 'TestPodspecModules' do
+    use_frameworks!
+
+    pod 'PrebidMobileRendering'
+    pod 'PrebidMobileMoPubAdapters' 
+    pod 'PrebidMobileGAMEventHandlers'
+
+    pod 'Google-Mobile-Ads-SDK'
+    pod 'mopub-ios-sdk', '5.16.2'
+end

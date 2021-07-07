@@ -1,0 +1,4 @@
+module OMSDK_Prebidorg {
+    header "Headers/OMIDImports.h"
+    export *
+}

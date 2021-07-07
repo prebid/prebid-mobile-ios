@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="yGp-pc-RDe" customClass="FeedAdTableViewCell" customModule="OpenXInternalTestApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="270"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yGp-pc-RDe" id="y3w-aR-jX1">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="270"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4i2-uu-qDG">
+                        <rect key="frame" x="5" y="5" width="310" height="260"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ohn-ow-hjb" userLabel="Banner View">
+                                <rect key="frame" x="5" y="5" width="300" height="250"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="995-vw-FdH"/>
+                                    <constraint firstAttribute="width" constant="300" id="h6d-it-DZX"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="uyb-os-Jeu"/>
+                        <constraints>
+                            <constraint firstItem="ohn-ow-hjb" firstAttribute="centerX" secondItem="4i2-uu-qDG" secondAttribute="centerX" id="TuO-wy-vLl"/>
+                            <constraint firstItem="ohn-ow-hjb" firstAttribute="centerY" secondItem="4i2-uu-qDG" secondAttribute="centerY" id="XSR-y2-aml"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="4i2-uu-qDG" secondAttribute="trailing" constant="5" id="3uR-ej-onA"/>
+                    <constraint firstItem="4i2-uu-qDG" firstAttribute="leading" secondItem="y3w-aR-jX1" secondAttribute="leading" constant="5" id="9Gd-8o-F4A"/>
+                    <constraint firstAttribute="bottom" secondItem="4i2-uu-qDG" secondAttribute="bottom" constant="5" id="c67-I8-XTx"/>
+                    <constraint firstItem="4i2-uu-qDG" firstAttribute="top" secondItem="y3w-aR-jX1" secondAttribute="top" constant="5" id="chu-Vo-9is"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="k0J-wd-7ci"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="bannerView" destination="ohn-ow-hjb" id="O0y-Rf-bf0"/>
+            </connections>
+            <point key="canvasLocation" x="133" y="155"/>
+        </tableViewCell>
+    </objects>
+</document>

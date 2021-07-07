@@ -1,0 +1,76 @@
+{
+    "ads": {
+        "chain": 1,
+        "medium": "ma",
+        "record_tmpl": "http://qa-v2-i16-lmi.del-qa.openx.net/{medium}/1.0/{rtype}?ai=365a5611-1bf6-4e84-9286-4b03c59568ed&ts={txn_state}",
+        "adunits": [
+            {
+                "auid": "1610810552",
+                "refresh_delay":"30",
+                "refresh_max":"5",
+                "chain": [
+                    {
+                        "is_fallback": 0,
+                        "html": "[SGTE Warning: template: attribute - key html not found on line 2]",
+                        "ts": "1fHJpZD02YzMyZGUxMS0zYmI4LTQ4YTMtYjZjMC1iMGQ5ODJmYThhMWR8cnQ9MTQxMjI2ODUzNnxhdWlkPTE2MTA4MTA5MTR8YXVtPURNSUQuTU9CSUxFfHNpZD0xNjEwODAwMjczfHB1Yj0xNjEwODc5NzkyfHBjPVVTRHx4dD1jb250cm9sLGFwaV9zeW5jX3dyaXRlfHJhaWQ9NGI5YzYwYjAtNTI5MC00Y2RjLTlkNGQtY2QwNWEzNzU5MmY5fGNsPTV8YWlkPTE2MTEwOTc0Mjl8dD0xM3xhcz0zMjB4NTB8bGlkPTE2MTA5NjQ2MjZ8b2lkPTE2MTA4OTIzOTd8cD01MHxwcj01MHxhZHY9MTYxMTAyNzk4OHxhYz1VU0R8cG09UFJJQ0lORy5DUE18Ym09QlVZSU5HLk5PTkdVQVJBTlRFRUR8Y2k9NHx1cj1YelFTZ2ZlS25Y",
+                        "sdk_params": "",
+                        "type": "apihtml",
+                        "width": "320",
+                        "height": "50",
+                        "mediation_url": "http://qa-v2-i16-lmi.del-qa.openx.net/ssmnw?r=http%3A%2F%2F127.0.0.1%2Frequest.php%3Fs%3Dssp%26network_id%3DSMAATO%26ex_password%3Dopenx123%26ex_username%3Dmobiledemand%40openx.com%26ex_publisher_id%3D923864966%26ex_adspace_id%3D65846196%26o_size%3D320x50%26o%3D%26o_mcsha1%3D%26o_mcmd5%3D%26o_devid%3D%26o_iosadvid%3D%26o_andmd5%3D%26o_andsha1%3D%26o_lat%3D%26o_lon%3D%26o_age%3D%26o_gen%3D%26o_eth%3D%26o_mar%3D%26o_inc%3D%26o_dma%3D%26o_zip%3D%26o_city%3D%26o_state%3D%26o_country%3D%26o_mnc%3D%26o_dmake%3Ddesktop%26o_dtype%3Dbrowser%26user_agent%3DMozilla%252F5.0%2B%2528Macintosh%253B%2BIntel%2BMac%2BOS%2BX%2B10_9_5%2529%2BAppleWebKit%252F537.78.2%2B%2528KHTML%252C%2Blike%2BGecko%2529%2BVersion%252F7.0.6%2BSafari%252F537.78.2%26ip_address%3D10.0.13.93%26referrer_url%3D%26o_androidadvid%3D"
+                    },
+                    {
+                        "is_fallback": 0,
+                        "html": "",
+                        "ts": "1fHU9MXxyaWQ9ZGUzMjY4YzUtNWQ1Ny00ZjI0LWE2YzQtMDY5ZTEwODkyZjE0fHJ0PTE0MTE1MDQ4NjN8YXVpZD0xNjEwODEwNTUyfGF1bT1ETUlELk1PQklMRXxzaWQ9MTYxMDgwMDI3M3xwdWI9MTYxMDg3OTc5MnxwYz1VU0R8eHQ9Y29udHJvbCxhcGlfc3luY193cml0ZXxyYWlkPTUxMTc3NzRjLTY0YzEtNDViNC04NDFiLWQwMDI1M2MxNWYyMnxjbD0yfGFpZD0xNjExMDg3NDEwfHQ9MTV8YXM9MzIweDUwfGxpZD0xNjEwOTU2Mjk2fG9pZD0xNjEwODg0NTk4fHA9NTB8cHI9NTB8YWR2PTE2MTEwMTAzMTV8YWM9VVNEfHBtPVBSSUNJTkcuQ1BNfGJtPUJVWUlORy5OT05HVUFSQU5URUVEfGNpPTF8dXI9ZDNnUnFxMWU2Ng",
+                        "sdk_params": "{mediation_method=native_sdk, network_uid=Admob, adUnit=ca-app-pub-7296733787711441/1679157935}",
+                        "type": "mediation",
+                        "mediation_url": "",
+                        "width": "320",
+                        "height": "50"
+                    },
+                    {
+                        "is_fallback": 0,
+                        "html": "",
+                        "ts": "1fHU9MXxyaWQ9ZGUzMjY4YzUtNWQ1Ny00ZjI0LWE2YzQtMDY5ZTEwODkyZjE0fHJ0PTE0MTE1MDQ4NjN8YXVpZD0xNjEwODEwNTUyfGF1bT1ETUlELk1PQklMRXxzaWQ9MTYxMDgwMDI3M3xwdWI9MTYxMDg3OTc5MnxwYz1VU0R8eHQ9Y29udHJvbCxhcGlfc3luY193cml0ZXxyYWlkPTUxMTc3NzRjLTY0YzEtNDViNC04NDFiLWQwMDI1M2MxNWYyMnxjbD0yfGFpZD0xNjExMDg3NDEwfHQ9MTV8YXM9MzIweDUwfGxpZD0xNjEwOTU2Mjk2fG9pZD0xNjEwODg0NTk4fHA9NTB8cHI9NTB8YWR2PTE2MTEwMTAzMTV8YWM9VVNEfHBtPVBSSUNJTkcuQ1BNfGJtPUJVWUlORy5OT05HVUFSQU5URUVEfGNpPTF8dXI9ZDNnUnFxMWU2Ng",
+                        "sdk_params": "{mediation_method=native_sdk, network_uid=OpenX, domain=oxcs-d.openxenterprise.com,portraitAdUnit=458439,landscapeAdUnit=458439}",
+                        "type": "mediation",
+                        "mediation_url": "",
+                        "width": "320",
+                        "height": "50"
+                    },
+                    {
+                        "is_fallback": 0,
+                        "html": "",
+                        "ts": "1fHU9MXxyaWQ9ZGUzMjY4YzUtNWQ1Ny00ZjI0LWE2YzQtMDY5ZTEwODkyZjE0fHJ0PTE0MTE1MDQ4NjN8YXVpZD0xNjEwODEwNTUyfGF1bT1ETUlELk1PQklMRXxzaWQ9MTYxMDgwMDI3M3xwdWI9MTYxMDg3OTc5MnxwYz1VU0R8eHQ9Y29udHJvbCxhcGlfc3luY193cml0ZXxyYWlkPTUxMTc3NzRjLTY0YzEtNDViNC04NDFiLWQwMDI1M2MxNWYyMnxjbD0yfGFpZD0xNjExMDg3NDEwfHQ9MTV8YXM9MzIweDUwfGxpZD0xNjEwOTU2Mjk2fG9pZD0xNjEwODg0NTk4fHA9NTB8cHI9NTB8YWR2PTE2MTEwMTAzMTV8YWM9VVNEfHBtPVBSSUNJTkcuQ1BNfGJtPUJVWUlORy5OT05HVUFSQU5URUVEfGNpPTF8dXI9ZDNnUnFxMWU2Ng",
+                        "sdk_params": "{mediation_method=native_sdk, network_uid=Millennial, apid=168001}",
+                        "type": "mediation",
+                        "mediation_url": "",
+                        "width": "320",
+                        "height": "50"
+                    },
+                    {
+                        "is_fallback": 0,
+                        "html": "",
+                        "ts": "1fHU9MXxyaWQ9ZGUzMjY4YzUtNWQ1Ny00ZjI0LWE2YzQtMDY5ZTEwODkyZjE0fHJ0PTE0MTE1MDQ4NjN8YXVpZD0xNjEwODEwNTUyfGF1bT1ETUlELk1PQklMRXxzaWQ9MTYxMDgwMDI3M3xwdWI9MTYxMDg3OTc5MnxwYz1VU0R8eHQ9Y29udHJvbCxhcGlfc3luY193cml0ZXxyYWlkPTUxMTc3NzRjLTY0YzEtNDViNC04NDFiLWQwMDI1M2MxNWYyMnxjbD0yfGFpZD0xNjExMDg3NDEwfHQ9MTV8YXM9MzIweDUwfGxpZD0xNjEwOTU2Mjk2fG9pZD0xNjEwODg0NTk4fHA9NTB8cHI9NTB8YWR2PTE2MTEwMTAzMTV8YWM9VVNEfHBtPVBSSUNJTkcuQ1BNfGJtPUJVWUlORy5OT05HVUFSQU5URUVEfGNpPTF8dXI9ZDNnUnFxMWU2Ng",
+                        "sdk_params": "{mediation_method=native_sdk, network_uid=MobPub, adUnit=b8385229fc8a4b198e235f9684166b64}",
+                        "type": "mediation",
+                        "mediation_url": "",
+                        "width": "320",
+                        "height": "50"
+                    },
+                    {
+                        "is_fallback": 0,
+                        "html": "<html><font color=\"red\">This is the 320x50 iOS SDK Mediation Fallback HTML Ad on i16</font></html>",
+                        "ts": "1fHU9MXxyaWQ9ZGUzMjY4YzUtNWQ1Ny00ZjI0LWE2YzQtMDY5ZTEwODkyZjE0fHJ0PTE0MTE1MDQ4NjN8YXVpZD0xNjEwODEwNTUyfGF1bT1ETUlELk1PQklMRXxzaWQ9MTYxMDgwMDI3M3xwdWI9MTYxMDg3OTc5MnxwYz1VU0R8eHQ9Y29udHJvbCxhcGlfc3luY193cml0ZXxyYWlkPTUxMTc3NzRjLTY0YzEtNDViNC04NDFiLWQwMDI1M2MxNWYyMnxjbD0yfGFpZD0xNjExMDg3NDIwfHQ9MTB8YXM9MzIweDUwfGxpZD0xNjEwOTU2MzA0fG9pZD0xNjEwODg2MTAxfHA9MHxwcj0wfGFkdj0xNjEwODc5Nzg1fGFjPVVTRHxwbT1QUklDSU5HLkNQTXxibT1CVVlJTkcuSE9VU0V8Y2k9Mnx1cj1kM2dScXExZTY2",
+                        "sdk_params": "",
+                        "type": "html",
+                        "mediation_url": "",
+                        "width": "320",
+                        "height": "50"
+                    }
+                ]
+            }
+        ]
+    }
+}
