@@ -209,13 +209,18 @@ import ObjectiveC.runtime
      */
     public func setAutoRefreshMillis(time: Double) {
 
-        stopDispatcher()
-
         guard checkRefreshTime(time) else {
             Log.error("auto refresh not set as the refresh time is less than to \(AdUnit.PB_MIN_RefreshTime as Double) seconds")
             return
         }
-
+        
+        if self.dispatcher?.state == .stopped {
+            self.dispatcher?.setAutoRefreshMillis(time: time)
+            return
+        }
+        
+        stopDispatcher()
+        
         initDispatcher(refreshTime: time)
 
         if isInitialFetchDemandCallMade {
@@ -228,6 +233,14 @@ import ObjectiveC.runtime
      */
     public func stopAutoRefresh() {
         stopDispatcher()
+    }
+    
+    public func resumeAutoRefresh() {
+        if self.dispatcher?.state == .stopped {
+            if isInitialFetchDemandCallMade {
+                startDispatcher()
+            }
+        }
     }
 
     dynamic func checkRefreshTime(_ time: Double) -> Bool {
@@ -257,7 +270,6 @@ import ObjectiveC.runtime
             Log.verbose("Dispatcher is nil")
             return
         }
-
         dispatcher.start()
     }
 
@@ -266,9 +278,7 @@ import ObjectiveC.runtime
             Log.verbose("Dispatcher is nil")
             return
         }
-
         dispatcher.stop()
-        self.dispatcher = nil
     }
 
 }

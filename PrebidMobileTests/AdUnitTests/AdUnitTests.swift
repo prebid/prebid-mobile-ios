@@ -118,6 +118,48 @@ class AdUnitTests: XCTestCase {
 
     }
     
+    func testFetchDemandResumeAutoRefresh() {
+        PBHTTPStubbingManager.shared().enable()
+        PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
+        PBHTTPStubbingManager.shared().broadcastRequests = true
+        
+        AdUnitSwizzleHelper.toggleCheckRefreshTime()
+        //given
+        let expectedFetchDemandCount = 2
+        let exception = expectation(description: "\(#function)")
+        exception.expectedFulfillmentCount = expectedFetchDemandCount
+        exception.assertForOverFulfill = false
+        
+        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
+        Prebid.shared.prebidServerAccountId = "1001"
+        let adUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        adUnit.setAutoRefreshMillis(time: 800.0)
+        let testObject: AnyObject = () as AnyObject
+        
+        var fetchDemandCount = 0
+        
+        //when
+        adUnit.fetchDemand(adObject: testObject) { (code: ResultCode) in
+            fetchDemandCount += 1
+            exception.fulfill()
+        }
+        
+        adUnit.stopAutoRefresh()
+        sleep(1)
+        adUnit.resumeAutoRefresh()
+        
+        waitForExpectations(timeout: 2, handler: nil)
+        AdUnitSwizzleHelper.toggleCheckRefreshTime()
+        
+        PBHTTPStubbingManager.shared().disable()
+        PBHTTPStubbingManager.shared().removeAllStubs()
+        PBHTTPStubbingManager.shared().broadcastRequests = false
+        
+        //then
+        XCTAssertEqual(expectedFetchDemandCount, fetchDemandCount)
+
+    }
+    
     func testFetchDemandBidsAutoRefresh() {
         PBHTTPStubbingManager.shared().enable()
         PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
@@ -186,7 +228,7 @@ class AdUnitTests: XCTestCase {
         adUnit.stopDispatcher()
         
         //then
-        XCTAssertNil(adUnit.dispatcher)
+        XCTAssertNil(adUnit.dispatcher?.timer)
     }
     
     // MARK: - adunit context data aka inventory data (imp[].ext.context.data)

@@ -28,9 +28,11 @@ enum BannerFormat: Int {
 
 class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegate {
 
-   @IBOutlet var appBannerView: UIView!
+    @IBOutlet var appBannerView: UIView!
 
     @IBOutlet var adServerLabel: UILabel!
+    
+    @IBOutlet var toggleRefreshButton: UIButton!
 
     var bannerFormat: BannerFormat = .html
     var adServerName: String = ""
@@ -41,6 +43,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     private var amBanner: GAMBannerView!
     
     private var mpBanner: MPAdView!
+    
+    private var isRefreshEnabled = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +64,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         } else if (adServerName == "MoPub") {
             setupAndLoadMPBanner()
         }
+        
+        toggleRefreshButton.addTarget(self, action: #selector(toggleRefresh), for: .touchUpInside)
 
 //        enableCOPPA()
 //        addFirstPartyData(adUnit: adUnit)
@@ -71,6 +77,16 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     override func viewDidDisappear(_ animated: Bool) {
         // important to remove the time instance
         adUnit?.stopAutoRefresh()
+    }
+    
+    @objc private func toggleRefresh() {
+        isRefreshEnabled = !isRefreshEnabled
+        toggleRefreshButton.setTitle((isRefreshEnabled ? "Stop Refresh" : "Resume Refresh"), for: .normal)
+        if (isRefreshEnabled) {
+            adUnit?.resumeAutoRefresh()
+        } else {
+            adUnit?.stopAutoRefresh()
+        }
     }
 
     //MARK: Banner
@@ -116,7 +132,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         
         self.adUnit = adUnit
 
-        //adUnit.setAutoRefreshMillis(time: 35000)
+        adUnit.setAutoRefreshMillis(time: 30000)
+        toggleRefreshButton.isHidden = false
     }
 
     func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {

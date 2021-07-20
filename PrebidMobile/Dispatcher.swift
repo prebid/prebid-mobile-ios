@@ -15,25 +15,41 @@
 
 import Foundation
 
-protocol DispatcherDelegate: class {
+protocol DispatcherDelegate: AnyObject {
     func refreshDemand()
 }
 
 class Dispatcher: NSObject {
+    
+    enum State {
+        case notStarted
+        case running
+        case stopped
+    }
+    
+    private (set) var state = State.notStarted
 
     var timer: Timer?
 
     var delegate: DispatcherDelegate!
 
     var repeatInSeconds: Double = 0
-
+    
+    var firingTime: Date?
+    var stoppingTime: Date?
+    
     init(withDelegate: DispatcherDelegate, autoRefreshMillies: Double) {
 
-        //timer takes values in seconds...
-        repeatInSeconds = autoRefreshMillies/1000
         delegate = withDelegate
 
         super.init()
+        
+        setAutoRefreshMillis(time: autoRefreshMillies)
+    }
+    
+    func setAutoRefreshMillis(time: Double) {
+        //timer takes values in seconds...
+        repeatInSeconds = time/1000
     }
 
     func invalidate() {
@@ -42,24 +58,58 @@ class Dispatcher: NSObject {
     }
 
     func start() {
+        
+        var remainSeconds: Double? = nil
+        if let stoppingTime = self.stoppingTime, let firingTime = self.firingTime {
+            remainSeconds = min(repeatInSeconds, max(0, (repeatInSeconds - stoppingTime.timeIntervalSince(firingTime))))
+        }
 
         stop()
-
-        self.timer = Timer.scheduledTimer(timeInterval: repeatInSeconds, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+        
+        state = .running
+        stoppingTime = nil
+        firingTime = Date()
+        
+        if let remainSeconds = remainSeconds {
+            self.timer = Timer.scheduledTimer(timeInterval: remainSeconds,
+                                              target: self,
+                                              selector: #selector(fireTimerOnce),
+                                              userInfo: nil,
+                                              repeats: false)
+        } else {
+            self.timer = Timer.scheduledTimer(timeInterval: repeatInSeconds,
+                                              target: self,
+                                              selector: #selector(fireTimer),
+                                              userInfo: nil,
+                                              repeats: true)
+        }
 
         RunLoop.main.add(self.timer!, forMode: .common)
 
     }
 
     func stop() {
+        state = .stopped
+        
         if (self.timer != nil) {
             self.timer?.invalidate()
             self.timer = nil
+            
+            stoppingTime = Date()
         }
     }
 
     @objc func fireTimer() {
+        firingTime = Date()
+
         delegate?.refreshDemand()
+    }
+    
+    @objc func fireTimerOnce() {
+        fireTimer()
+        stoppingTime = nil
+        //run a regural timer with the set interval
+        start()
     }
 
 }

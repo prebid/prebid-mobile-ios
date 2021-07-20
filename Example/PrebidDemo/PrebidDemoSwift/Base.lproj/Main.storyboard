@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -301,14 +301,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f9u-XW-Qe5" userLabel="Toggle Refresh Button">
+                                <rect key="frame" x="143" y="478.5" width="89" height="30"/>
+                                <state key="normal" title="Stop Refresh"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="jGy-I6-dpO"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="f9u-XW-Qe5" firstAttribute="centerX" secondItem="TqC-IG-bhU" secondAttribute="centerX" id="1Gz-l1-HS4"/>
                             <constraint firstItem="2ys-Rb-Auo" firstAttribute="centerY" secondItem="TqC-IG-bhU" secondAttribute="centerY" id="3zT-Cn-57s"/>
                             <constraint firstItem="jGy-I6-dpO" firstAttribute="trailing" secondItem="yQh-8P-TfB" secondAttribute="trailing" constant="10" id="AaQ-ZF-rfR"/>
                             <constraint firstItem="yQh-8P-TfB" firstAttribute="leading" secondItem="jGy-I6-dpO" secondAttribute="leading" constant="10" id="CFW-Vd-PXj"/>
                             <constraint firstItem="2ys-Rb-Auo" firstAttribute="centerX" secondItem="TqC-IG-bhU" secondAttribute="centerX" id="fzC-0m-Ss9"/>
+                            <constraint firstItem="f9u-XW-Qe5" firstAttribute="top" secondItem="2ys-Rb-Auo" secondAttribute="bottom" constant="20" id="mbV-ag-NGx"/>
                             <constraint firstItem="yQh-8P-TfB" firstAttribute="top" secondItem="jGy-I6-dpO" secondAttribute="top" constant="25" id="roO-2e-Lef"/>
                         </constraints>
                     </view>
@@ -316,6 +322,7 @@
                     <connections>
                         <outlet property="adServerLabel" destination="yQh-8P-TfB" id="G6P-NP-8aN"/>
                         <outlet property="appBannerView" destination="2ys-Rb-Auo" id="aZu-7F-8qc"/>
+                        <outlet property="toggleRefreshButton" destination="f9u-XW-Qe5" id="mjD-FA-zrt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y1z-cd-7BR" userLabel="First Responder" sceneMemberID="firstResponder"/>
