@@ -21,8 +21,28 @@ class IABConsentHelper {
     private var timer: Timer?
     private var nextUpdate = 0
     
+    static var isGDPREnabled: Bool {
+        get {
+            let userDefaults = UserDefaults.standard
+            return userDefaults.string(forKey: IABConsentSettingKey.TCF.v2.cmpSdkId) == nil ||
+                   userDefaults.string(forKey: IABConsentSettingKey.TCF.v2.subjectToGDPR) == "1";
+            }
+        set {
+            let userDefaults = UserDefaults.standard
+            if (newValue) {
+                userDefaults.removeObject(forKey: IABConsentSettingKey.TCF.v2.cmpSdkId)
+                userDefaults.removeObject(forKey: IABConsentSettingKey.TCF.v2.subjectToGDPR)
+            } else {
+                //just set fake params to disable DGPR
+                userDefaults.set("123", forKey: IABConsentSettingKey.TCF.v2.cmpSdkId)
+                userDefaults.set("0", forKey: IABConsentSettingKey.TCF.v2.subjectToGDPR)
+            }
+        }
+    }
+    
     func eraseIrrelevantUserDefaults() {
         let userDefaults = UserDefaults.standard
+        
         if userDefaults.bool(forKey: IABConsentSettingKey.keepSettings) == false {
             userDefaults.removeObject(forKey: IABConsentSettingKey.TCF.v1.cmpPresent)
             userDefaults.removeObject(forKey: IABConsentSettingKey.TCF.v1.subjectToGDPR)

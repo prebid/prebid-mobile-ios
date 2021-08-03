@@ -35,6 +35,10 @@ final class AppConfiguration: NSObject {
             useMockServerSubject.onNext(newValue)
         }
     }
+    var isGDPREnabled: Bool {
+        get { IABConsentHelper.isGDPREnabled }
+        set { IABConsentHelper.isGDPREnabled = newValue }
+    }
     var nativeAdConfig: NativeAdConfiguration?
     var adPosition: AdPosition?
     var videoPlacementType: VideoPlacementType?

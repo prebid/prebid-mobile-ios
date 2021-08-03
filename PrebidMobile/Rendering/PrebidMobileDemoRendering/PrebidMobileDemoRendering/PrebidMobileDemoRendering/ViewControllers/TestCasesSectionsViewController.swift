@@ -23,6 +23,7 @@ class TestCasesSectionsViewController: UIViewController {
     @IBOutlet var integrationsControl: UISegmentedControl!
     @IBOutlet var configurableButton: UIButton!
     @IBOutlet var mockServerSwitch: UISwitch!
+    @IBOutlet var gdprSwitch: UISwitch!
     
     private var sections: [TestCaseTag] = []
     private var integrations: [TestCaseTag] = []
@@ -42,6 +43,8 @@ class TestCasesSectionsViewController: UIViewController {
         setupSegmentedControl(sectionsControl, with: sections)
         setupSegmentedControl(integrationsControl, with: integrations)
         setupMockServerSwitch()
+        
+        setupGDPRSwitch()
         
         DispatchQueue.main.async {
             self.tagChangedCallback?(self.collectTags())
@@ -79,6 +82,12 @@ class TestCasesSectionsViewController: UIViewController {
         let currentValue = AppConfiguration.shared.useMockServer
         mockServerSwitch.setOn(currentValue, animated: false)
         mockServerSwitch.accessibilityIdentifier = "useMockServerSwitch"
+    }
+    
+    private func setupGDPRSwitch() {
+        let currentValue = AppConfiguration.shared.isGDPREnabled
+        gdprSwitch.setOn(currentValue, animated: false)
+        gdprSwitch.accessibilityIdentifier = "GDPRSwitch"
     }
     
     private func setupSegmentedControl(_ segmentedControl: UISegmentedControl, with tags: [TestCaseTag]) {
@@ -134,5 +143,10 @@ class TestCasesSectionsViewController: UIViewController {
     
     @IBAction func onMockServerSwitchAction(sender: UISwitch) {
         AppConfiguration.shared.useMockServer = sender.isOn
+    }
+    
+    @IBAction func onGdprSwitchAction(sender: UISwitch) {
+        print("GDPR: \(sender.isOn)")
+        AppConfiguration.shared.isGDPREnabled = sender.isOn
     }
 }
