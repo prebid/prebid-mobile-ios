@@ -79,7 +79,7 @@ class AdsLoaderUITestCase: RepeatedUITestCase {
             
             waitForEnabled(element: expectedOutcomeButton,
                            failElement: unexpectedOutcomeButton,
-                           waitSeconds: 10,
+                           waitSeconds: 20,
                            file: file, line: line)
             
             if !doNotCheckBannerView {

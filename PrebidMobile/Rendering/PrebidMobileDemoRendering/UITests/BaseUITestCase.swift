@@ -58,5 +58,21 @@ class BaseUITestCase: XCTestCase {
             useMockServerButton.tap()
         }
     }
+    
+    func disableGDPRIfNeeded() {
+        let enableGDPRButton = app.switches["GDPRSwitch"]
+        waitForHittable(element: enableGDPRButton, waitSeconds: 10)
+        if enableGDPRButton.isOn {
+            enableGDPRButton.tap()
+        }
+    }
+    
+    func enableGDPRIfNeeded() {
+        let enableGDPRButton = app.switches["GDPRSwitch"]
+        waitForHittable(element: enableGDPRButton, waitSeconds: 10)
+        if !enableGDPRButton.isOn {
+            enableGDPRButton.tap()
+        }
+    }
 }
 

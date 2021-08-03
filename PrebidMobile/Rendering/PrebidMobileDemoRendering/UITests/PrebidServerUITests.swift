@@ -22,12 +22,19 @@ class PrebidServerUITests: AdsLoaderUITestCase {
         super.setUp()
         
         switchToPrebidXServerIfNeeded()
+        disableGDPRIfNeeded()
     }
 
     // MARK: - Banner
     
     func testBanner() {
         checkBannerLoadResult(exampleName: "Banner 320x50 (In-App)")
+    }
+    
+    func testBannerWithGDPR() {
+        enableGDPRIfNeeded()
+        checkBannerLoadResult(exampleName: "Banner 320x50 (In-App)",
+                              expectFailure: true)
     }
     
     func testInAppBanner_noBids() {
