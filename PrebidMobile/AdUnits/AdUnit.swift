@@ -16,6 +16,8 @@ import ObjectiveC.runtime
 @objcMembers public class AdUnit: NSObject, DispatcherDelegate {
 
     public var pbAdSlot: String? = nil
+    
+    public var content: ContentType?
 
     private static let PB_MIN_RefreshTime = 30000.0
 
@@ -271,4 +273,14 @@ import ObjectiveC.runtime
         self.dispatcher = nil
     }
 
+}
+
+/// Describes an [OpenRTB](https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf) app: content object
+
+@objc(PBAdUnitContentType)
+public class ContentType: NSObject {
+    
+    @objc
+    public var url: String?
+    
 }
