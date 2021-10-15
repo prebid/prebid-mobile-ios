@@ -1624,4 +1624,28 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         }
     }
+    
+    func testOpenRtbAppObjectWithContentUrl() throws {
+        //given
+        let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
+        let expectedUrl = "https://random.content.url"
+        
+        let appContent = ContentType()
+        appContent.url = expectedUrl
+        
+        adUnit.content = appContent
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+        
+        guard let app = jsonRequestBody["app"] as? [String: Any],
+              let content = app["content"] as? [String: Any],
+              let actualUrl = content["url"] as? String else {
+            XCTFail("parsing error")
+            return
+        }
+        
+        //then
+        XCTAssertEqual(expectedUrl, actualUrl)
+    }
 }
