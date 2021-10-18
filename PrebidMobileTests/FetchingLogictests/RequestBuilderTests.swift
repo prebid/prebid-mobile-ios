@@ -1633,7 +1633,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let appContent = ContentType()
         appContent.url = expectedUrl
         
-        adUnit.content = appContent
+        adUnit.setAppContent(appContent: appContent)
         
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody

@@ -303,7 +303,7 @@ class RequestBuilder: NSObject {
             app["domain"] = domain
         }
         
-        if let url = adUnit?.content?.url, !url.isEmpty {
+        if let appContent = adUnit?.getAppContent(), let url = appContent.url, !url.isEmpty {
             app["content"] = ["url": url]
         }
 

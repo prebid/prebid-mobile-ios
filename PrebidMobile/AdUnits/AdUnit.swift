@@ -16,8 +16,6 @@ import ObjectiveC.runtime
 @objcMembers public class AdUnit: NSObject, DispatcherDelegate {
 
     public var pbAdSlot: String? = nil
-    
-    public var content: ContentType?
 
     private static let PB_MIN_RefreshTime = 30000.0
 
@@ -46,6 +44,8 @@ import ObjectiveC.runtime
 
     //notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     var timeOutSignalSent: Bool! = false
+    
+    private var appContent: ContentType?
 
     init(configId: String, size: CGSize?) {
         prebidConfigId = configId
@@ -271,6 +271,14 @@ import ObjectiveC.runtime
 
         dispatcher.stop()
         self.dispatcher = nil
+    }
+    
+    public func setAppContent(appContent: ContentType) {
+        self.appContent = appContent
+    }
+    
+    func getAppContent() -> ContentType? {
+        return self.appContent
     }
 
 }
