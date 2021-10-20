@@ -1630,7 +1630,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
         let expectedUrl = "https://random.content.url"
         
-        let appContent = ContentType()
+        let appContent = ContentObject()
         appContent.url = expectedUrl
         
         adUnit.setAppContent(appContent: appContent)
