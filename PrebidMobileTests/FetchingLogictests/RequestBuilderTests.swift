@@ -1514,6 +1514,30 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         //then
         XCTAssertEqual("/1111111/homepage/med-rect-2", adslot)
     }
+    
+    func testOpenRtbAppObjectWithContentUrl() throws {
+        //given
+        let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
+        let expectedUrl = "https://corresponding.section.publishers.website"
+        
+        let appContent = ContentObject()
+        appContent.url = expectedUrl
+        
+        adUnit.setAppContent(appContent: appContent)
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+        
+        guard let app = jsonRequestBody["app"] as? [String: Any],
+              let content = app["content"] as? [String: Any],
+              let actualUrl = content["url"] as? String else {
+            XCTFail("parsing error")
+            return
+        }
+        
+        //then
+        XCTAssertEqual(expectedUrl, actualUrl)
+    }
 
     private func getPostDataHelper(adUnit: AdUnit) throws -> (urlRequest: URLRequest, jsonRequestBody: [AnyHashable: Any]) {
         var resultUrlRequest: URLRequest? = nil
