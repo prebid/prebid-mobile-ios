@@ -15,7 +15,7 @@
 
 import Foundation
 
-protocol DispatcherDelegate: class {
+protocol DispatcherDelegate: AnyObject {
     func refreshDemand()
 }
 

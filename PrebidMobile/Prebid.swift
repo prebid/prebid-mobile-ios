@@ -78,7 +78,7 @@ import Foundation
      */
     private override init() {
         timeoutMillisDynamic = timeoutMillis
-        
+                
         super.init()
         if (RequestBuilder.myUserAgent == "") {
             RequestBuilder.UserAgent {(userAgentString) in
