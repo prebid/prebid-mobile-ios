@@ -158,11 +158,12 @@ import UIKit
     
     //MARK: registerView function
     @discardableResult 
-    public func registerView(view :UIView, clickableViews :[UIView]? ) -> Bool{
-        guard view != nil else {
+    public func registerView(view: UIView?, clickableViews: [UIView]? ) -> Bool {
+        guard let view = view else {
             Log.error("A valid view is required for tracking")
             return false
         }
+        
         guard !expired else {
             Log.error("The native Ad is expired, cannot use it for tracking")
             return false

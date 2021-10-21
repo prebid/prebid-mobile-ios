@@ -38,7 +38,7 @@ class TrackerManager: NSObject {
     private override init() {
         super.init()
         self.reachability = Reachability()
-        self.internetIsReachable = self.reachability.isReachable
+        self.internetIsReachable = self.reachability.connection != .none
         NotificationCenter.default.addObserver(self, selector:#selector(self.reachabilityChanged), name: NSNotification.Name.reachabilityChanged, object: nil)
         do {
             try self.reachability.startNotifier()
