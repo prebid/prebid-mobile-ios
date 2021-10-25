@@ -25,7 +25,7 @@ public class NativeAsset: NSObject {
         required = isRequired
     }
     
-    func getAssetObject() -> [AnyHashable: Any] {
+    func getAssetObject(id : Int) -> [AnyHashable: Any] {
         var asset: [AnyHashable: Any] = [:]
         
         //asset["id"] = Int.random(in: 0...1000)
@@ -38,6 +38,7 @@ public class NativeAsset: NSObject {
         } else if let dataObject = self as? NativeAssetData {
             asset["data"] = dataObject.getDataObject()
         }
+        asset["id"] = id
         return asset
     }
     
