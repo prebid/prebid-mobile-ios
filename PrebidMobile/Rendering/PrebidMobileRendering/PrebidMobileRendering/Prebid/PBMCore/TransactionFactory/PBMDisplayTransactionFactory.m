@@ -101,7 +101,7 @@
                                                         adConfiguration:self.adConfiguration.adConfiguration
                                                                  models:creativeModels];
     self.transaction.delegate = self;
-    self.transaction.skadnetProductParameters = self.bid.skadnInfo;
+    self.transaction.skadInfo = self.bid.skadn;
     [self.transaction startCreativeFactory];
 }
 

@@ -183,8 +183,10 @@
         return;
     }
     BOOL clickthroughOpened = NO;
-    if (self.transaction.skadnetProductParameters) {
-        clickthroughOpened = [self handleProductClickthrough:self.transaction.skadnetProductParameters
+    NSDictionary<NSString *, id> * skadnetProductParameters = [self.transaction.skadInfo getSkadnInfoForFidelityType:@1];
+    
+    if (skadnetProductParameters) {
+        clickthroughOpened = [self handleProductClickthrough:skadnetProductParameters
                                                       onExit:onClickthroughExitBlock];
     } else {
         
