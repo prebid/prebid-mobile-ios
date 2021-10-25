@@ -751,6 +751,8 @@
 		5CEB767F1F86A8D800A7D49D /* PBMVastLoaderCheckForAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEB767E1F86A8D800A7D49D /* PBMVastLoaderCheckForAds.swift */; };
 		5CEFAA26208E9F1B007DBD3E /* PBMHTMLCreativeTest_NoMRAID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEFAA25208E9F1B007DBD3E /* PBMHTMLCreativeTest_NoMRAID.swift */; };
 		5CF31F201F830747004B04E9 /* PBMAdRequesterVASTTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF31F1F1F830747004B04E9 /* PBMAdRequesterVASTTest.swift */; };
+		922150D72726CCC700B9FB5C /* PBMSkadnEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922150D62726CCC600B9FB5C /* PBMSkadnEventTracker.swift */; };
+		922150D92726CE3300B9FB5C /* PBMAbstractCreative+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922150D82726CE3300B9FB5C /* PBMAbstractCreative+Extensions.swift */; };
 		922345332726C2360098B1CB /* PBMORTBSkadnFidelity.h in Headers */ = {isa = PBXBuildFile; fileRef = 922345322726C2360098B1CB /* PBMORTBSkadnFidelity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		922345352726C2520098B1CB /* PBMORTBSkadnFidelity.m in Sources */ = {isa = PBXBuildFile; fileRef = 922345342726C2520098B1CB /* PBMORTBSkadnFidelity.m */; };
 		AC0AF6B525022A8900A07297 /* PBMORTBBidExtSkadn.h in Headers */ = {isa = PBXBuildFile; fileRef = AC0AF6B325022A8900A07297 /* PBMORTBBidExtSkadn.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1583,6 +1585,8 @@
 		5CEFAA25208E9F1B007DBD3E /* PBMHTMLCreativeTest_NoMRAID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBMHTMLCreativeTest_NoMRAID.swift; sourceTree = "<group>"; };
 		5CF31F181F82BFD2004B04E9 /* PBMVideoCreativeTestCloseDelay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMVideoCreativeTestCloseDelay.swift; sourceTree = "<group>"; };
 		5CF31F1F1F830747004B04E9 /* PBMAdRequesterVASTTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMAdRequesterVASTTest.swift; sourceTree = "<group>"; };
+		922150D62726CCC600B9FB5C /* PBMSkadnEventTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMSkadnEventTracker.swift; sourceTree = "<group>"; };
+		922150D82726CE3300B9FB5C /* PBMAbstractCreative+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBMAbstractCreative+Extensions.swift"; sourceTree = "<group>"; };
 		922345322726C2360098B1CB /* PBMORTBSkadnFidelity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMORTBSkadnFidelity.h; path = ../../../../../../../../../../../../../../../Pictures/PBMORTBSkadnFidelity.h; sourceTree = "<group>"; };
 		922345342726C2520098B1CB /* PBMORTBSkadnFidelity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSkadnFidelity.m; sourceTree = "<group>"; };
 		9319862519A7DD8D007ED468 /* PrebidMobileRenderingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileRenderingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1794,6 +1798,7 @@
 				3464DDC8236C713800C7DE46 /* PBMAbstractCreative+Protected.h */,
 				449C00CF201A7F07001B34A3 /* PBMAbstractCreative.h */,
 				449C00D0201A7F07001B34A3 /* PBMAbstractCreative.m */,
+				922150D82726CE3300B9FB5C /* PBMAbstractCreative+Extensions.swift */,
 				D016891223631FED00139680 /* PBMCreativeViewabilityTracker.h */,
 				D016891323631FED00139680 /* PBMCreativeViewabilityTracker.m */,
 				5C90DF3520E558DB00A02A33 /* PBMCreativeResolutionDelegate.h */,
@@ -2912,6 +2917,7 @@
 				5B8E3836213FC5B30085FB0B /* TransactionCache */,
 				5BC0A5822668E0B7005EFEFB /* AdPosition.swift */,
 				5BC0A5842668E3C8005EFEFB /* VideoPlacementType.swift */,
+				922150D62726CCC600B9FB5C /* PBMSkadnEventTracker.swift */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -3912,6 +3918,7 @@
 				34D70FBC24E580620048CC78 /* PBMORTBUser.m in Sources */,
 				34D70FBD24E580620048CC78 /* PBMVastCreativeLinear.m in Sources */,
 				34D70FBE24E580620048CC78 /* PBMORTBSeatBid.m in Sources */,
+				922150D92726CE3300B9FB5C /* PBMAbstractCreative+Extensions.swift in Sources */,
 				34D70FBF24E580620048CC78 /* PBMFunctions.m in Sources */,
 				34431EF425B70B9900596FA7 /* PBMExternalLinkHandler.m in Sources */,
 				348E114A25B1A552000085BF /* PBMNativeImpressionsTracker.m in Sources */,
@@ -4012,6 +4019,7 @@
 				34D70FFD24E580620048CC78 /* NSString+PBMExtensions.m in Sources */,
 				ACE6EB482653C1D5009324AC /* NativeAd.swift in Sources */,
 				34D7113924E5834E0048CC78 /* PBMAdConfiguration.m in Sources */,
+				922150D72726CCC700B9FB5C /* PBMSkadnEventTracker.swift in Sources */,
 				34D70FFE24E580620048CC78 /* PBMMRAIDConstants.m in Sources */,
 				5BC0A55C266654C1005EFEFB /* BannerEventHandlerStandalone.swift in Sources */,
 				ACE6E867264D42B9009324AC /* NativeAdData.swift in Sources */,
