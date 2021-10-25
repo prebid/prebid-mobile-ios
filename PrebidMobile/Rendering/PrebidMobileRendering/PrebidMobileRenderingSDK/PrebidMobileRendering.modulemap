@@ -194,4 +194,6 @@ framework module PrebidMobileRendering {
     
     header "PBMInterstitialAdLoader.h"
     header "PBMInterstitialAdLoaderDelegate.h"
+    
+    header "PBMORTBSkadnFidelity.h"
 }

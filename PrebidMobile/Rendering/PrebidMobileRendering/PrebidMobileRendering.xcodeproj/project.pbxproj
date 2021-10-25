@@ -751,6 +751,8 @@
 		5CEB767F1F86A8D800A7D49D /* PBMVastLoaderCheckForAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEB767E1F86A8D800A7D49D /* PBMVastLoaderCheckForAds.swift */; };
 		5CEFAA26208E9F1B007DBD3E /* PBMHTMLCreativeTest_NoMRAID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEFAA25208E9F1B007DBD3E /* PBMHTMLCreativeTest_NoMRAID.swift */; };
 		5CF31F201F830747004B04E9 /* PBMAdRequesterVASTTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF31F1F1F830747004B04E9 /* PBMAdRequesterVASTTest.swift */; };
+		922345332726C2360098B1CB /* PBMORTBSkadnFidelity.h in Headers */ = {isa = PBXBuildFile; fileRef = 922345322726C2360098B1CB /* PBMORTBSkadnFidelity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		922345352726C2520098B1CB /* PBMORTBSkadnFidelity.m in Sources */ = {isa = PBXBuildFile; fileRef = 922345342726C2520098B1CB /* PBMORTBSkadnFidelity.m */; };
 		AC0AF6B525022A8900A07297 /* PBMORTBBidExtSkadn.h in Headers */ = {isa = PBXBuildFile; fileRef = AC0AF6B325022A8900A07297 /* PBMORTBBidExtSkadn.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC0AF6B625022A8900A07297 /* PBMORTBBidExtSkadn.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF6B425022A8900A07297 /* PBMORTBBidExtSkadn.m */; };
 		AC24DA962508F3E10060D6D9 /* PBMORTBDeviceExtAtts.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24DA932508EB9F0060D6D9 /* PBMORTBDeviceExtAtts.m */; };
@@ -1581,6 +1583,8 @@
 		5CEFAA25208E9F1B007DBD3E /* PBMHTMLCreativeTest_NoMRAID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBMHTMLCreativeTest_NoMRAID.swift; sourceTree = "<group>"; };
 		5CF31F181F82BFD2004B04E9 /* PBMVideoCreativeTestCloseDelay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMVideoCreativeTestCloseDelay.swift; sourceTree = "<group>"; };
 		5CF31F1F1F830747004B04E9 /* PBMAdRequesterVASTTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMAdRequesterVASTTest.swift; sourceTree = "<group>"; };
+		922345322726C2360098B1CB /* PBMORTBSkadnFidelity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMORTBSkadnFidelity.h; path = ../../../../../../../../../../../../../../../Pictures/PBMORTBSkadnFidelity.h; sourceTree = "<group>"; };
+		922345342726C2520098B1CB /* PBMORTBSkadnFidelity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSkadnFidelity.m; sourceTree = "<group>"; };
 		9319862519A7DD8D007ED468 /* PrebidMobileRenderingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileRenderingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9319862819A7DD8D007ED468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		938A611819FB1EDD003E0481 /* BasicParameterBuilderTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicParameterBuilderTest.swift; sourceTree = "<group>"; };
@@ -1912,6 +1916,8 @@
 				343DA1A924853B8900D25D44 /* PBMORTBBidExtPrebidCacheBids.m */,
 				AC0AF6B325022A8900A07297 /* PBMORTBBidExtSkadn.h */,
 				AC0AF6B425022A8900A07297 /* PBMORTBBidExtSkadn.m */,
+				922345322726C2360098B1CB /* PBMORTBSkadnFidelity.h */,
+				922345342726C2520098B1CB /* PBMORTBSkadnFidelity.m */,
 			);
 			path = Prebid;
 			sourceTree = "<group>";
@@ -3479,6 +3485,7 @@
 				ACE6EB4F2653CF0F009324AC /* PBMNativeAdMarkup.h in Headers */,
 				34D710B324E580620048CC78 /* PBMORTBAbstract.h in Headers */,
 				34DBD6E42551AD0B004A07A1 /* PBMORTBNative.h in Headers */,
+				922345332726C2360098B1CB /* PBMORTBSkadnFidelity.h in Headers */,
 				34D710B424E580620048CC78 /* PBMAutoRefreshManager.h in Headers */,
 				34D710B524E580620048CC78 /* PBMSupportedProtocolsParameterBuilder.h in Headers */,
 				34D42CBD25CD6037008EE1D3 /* PBMExternalURLOpenCallbacks.h in Headers */,
@@ -3850,6 +3857,7 @@
 				34D70F9024E580620048CC78 /* PBMORTBImp.m in Sources */,
 				5BD50A1B2660D2FE001EF831 /* PrebidRenderingTargeting.swift in Sources */,
 				34DBD6E52551AD0B004A07A1 /* PBMORTBNative.m in Sources */,
+				922345352726C2520098B1CB /* PBMORTBSkadnFidelity.m in Sources */,
 				5BBCF73626550C91006A0356 /* MoPubBannerAdUnit.swift in Sources */,
 				34D70F9124E580620048CC78 /* PBMUserConsentResolver.m in Sources */,
 				34D70F9224E580620048CC78 /* PBMDateFormatService.m in Sources */,
