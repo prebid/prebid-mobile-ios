@@ -44,8 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 //Placeholder for exchange-specific extensions to OpenRTB.
 //Note: ext object not supported.
 
-- (NSDictionary<NSString *, id> * _Nullable) getSkadnInfo;
-
 - (NSDictionary<NSString *, id> * _Nullable) getSkadnInfoForFidelityType:(NSNumber *) fidelityType;
 
 - (NSArray<NSNumber *> * _Nullable) getFidelityTypes;

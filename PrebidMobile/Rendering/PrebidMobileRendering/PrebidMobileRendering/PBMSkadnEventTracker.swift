@@ -28,6 +28,14 @@ public class PBMSkadnEventTracker: NSObject, PBMEventTrackerProtocol {
         self.imp = imp
     }
     
+    deinit {
+        SKAdNetwork.endImpression(imp) { error in
+            if let error = error {
+                PBMLog.error(error.localizedDescription)
+            }
+        }
+    }
+    
     public func trackEvent(_ event: PBMTrackingEvent) {
         switch event {
         case .impression:
@@ -52,6 +60,4 @@ public class PBMSkadnEventTracker: NSObject, PBMEventTrackerProtocol {
     public func trackVolumeChanged(_ playerVolume: CGFloat, deviceVolume: CGFloat) {
         
     }
-    
-    
 }

@@ -19,6 +19,12 @@
 #import "PBMORTBAbstract+Protected.h"
 #import "PBMORTBBidExtSkadn.h"
 
+@interface PBMORTBSkadnFidelity ()
+
+- (NSDictionary<NSString *, id> * _Nullable) getSkadnInfo;
+
+@end
+
 @implementation PBMORTBBidExtSkadn
 
 - (instancetype)initWithJsonDictionary:(PBMJsonDictionary *)jsonDictionary {
@@ -31,7 +37,16 @@
         _sourceapp = jsonDictionary[@"sourceapp"];
         _timestamp = jsonDictionary[@"timestamp"];
         _signature = jsonDictionary[@"signature"];
-        _fidelities = jsonDictionary[@"fidelities"];
+        
+        NSMutableArray<PBMORTBSkadnFidelity *> *fidelities = [NSMutableArray<PBMORTBSkadnFidelity *> new];
+        NSMutableArray<PBMJsonDictionary *> *fidelitiesData = jsonDictionary[@"fidelities"];
+        
+        for (PBMJsonDictionary *fidelityData in fidelitiesData) {
+            if (fidelityData && [fidelityData isKindOfClass:[NSDictionary class]])
+                [fidelities addObject:[[PBMORTBSkadnFidelity alloc] initWithJsonDictionary:fidelityData]];
+        }
+        
+        _fidelities = fidelities;
     }
     return self;
 }
@@ -53,9 +68,9 @@
     return ret;
 }
 
-- (NSDictionary<NSString *, id> * _Nullable) getSkadnInfo {
+- (NSMutableDictionary<NSString *, id> * _Nullable) getSkadnInfo {
     if (@available(iOS 14.0, *)) {
-        NSDictionary<NSString * , id> *productParams = [NSDictionary alloc];
+        NSMutableDictionary<NSString * , id> *productParams = [[NSMutableDictionary alloc] init];
         
         if (self.itunesitem != nil &&
             self.network != nil &&
@@ -82,8 +97,8 @@
     return nil;
 }
 
-- (NSDictionary<NSString *, id> * _Nullable) getSkadnInfoForFidelityType:(NSNumber *) fidelityType {
-    NSDictionary<NSString *, id> * _Nullable productParams = self.getSkadnInfo;
+- (NSMutableDictionary<NSString *, id> * _Nullable) getSkadnInfoForFidelityType:(NSNumber *) fidelityType {
+    NSMutableDictionary<NSString *, id> * _Nullable productParams = self.getSkadnInfo;
     if (@available(iOS 14.5, *)) {
         if (self.fidelities != nil) {
             for(PBMORTBSkadnFidelity *fid in self.fidelities) {
