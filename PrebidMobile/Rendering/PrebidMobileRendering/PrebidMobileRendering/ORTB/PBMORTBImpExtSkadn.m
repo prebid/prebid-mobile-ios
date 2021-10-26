@@ -16,8 +16,6 @@
 #import "PBMORTBImpExtSkadn.h"
 #import "PBMORTBAbstract+Protected.h"
 
-static NSString * const SKAdNetworkVersion = @"2.0";
-
 @implementation PBMORTBImpExtSkadn
 
 - (instancetype )init {

@@ -76,21 +76,13 @@
         
         if(@available(iOS 14.5, *)) {
             if (self.transaction.skadInfo) {
-                NSArray<NSNumber *>  * fidelities = [self.transaction.skadInfo getFidelityTypes];
-                if (fidelities != nil) {
-                    for (PBMORTBSkadnFidelity *fid in fidelities) {
-                        if ([fid isEqual: @0]) {
-                            SKAdImpression *imp = [self buildSKAdNetworkImpression];
-                            if (imp != nil) {
-                                PBMSkadnEventTracker *skadnTracker = [[PBMSkadnEventTracker alloc] initWith:imp];
-                                [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) skadnTracker];
-                            }
-                        }
-                    }
+                SKAdImpression *imp = [self.transaction.skadInfo getSKAdNetworkImpression];
+                if (imp) {
+                    PBMSkadnEventTracker *skadnTracker = [[PBMSkadnEventTracker alloc] initWith:imp];
+                    [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) skadnTracker];
                 }
             }
         }
-       
     }
 
     return self;
@@ -200,7 +192,7 @@
         return;
     }
     BOOL clickthroughOpened = NO;
-    NSDictionary<NSString *, id> * skadnetProductParameters = [self.transaction.skadInfo getSkadnInfoForFidelityType:@1];
+    NSDictionary<NSString *, id> * skadnetProductParameters = [self.transaction.skadInfo getSkadnProductParameters];
     
     if (skadnetProductParameters) {
         clickthroughOpened = [self handleProductClickthrough:skadnetProductParameters

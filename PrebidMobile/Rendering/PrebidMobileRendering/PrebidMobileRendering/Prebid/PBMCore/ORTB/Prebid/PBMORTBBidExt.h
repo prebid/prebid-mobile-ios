@@ -14,9 +14,8 @@
  */
 
 #import "PBMORTBAbstract.h"
-
+#import "PBMORTBBidExtSkadn.h"
 @class PBMORTBBidExtPrebid;
-@class PBMORTBBidExtSkadn;
 
 NS_ASSUME_NONNULL_BEGIN
 

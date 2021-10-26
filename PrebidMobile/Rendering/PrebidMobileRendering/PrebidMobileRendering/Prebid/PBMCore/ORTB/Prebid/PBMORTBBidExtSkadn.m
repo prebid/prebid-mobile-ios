@@ -97,12 +97,12 @@
     return nil;
 }
 
-- (NSMutableDictionary<NSString *, id> * _Nullable) getSkadnInfoForFidelityType:(NSNumber *) fidelityType {
+- (NSMutableDictionary<NSString *, id> * _Nullable) getSkadnProductParameters {
     NSMutableDictionary<NSString *, id> * _Nullable productParams = self.getSkadnInfo;
     if (@available(iOS 14.5, *)) {
         if (self.fidelities != nil) {
             for(PBMORTBSkadnFidelity *fid in self.fidelities) {
-                if ([fid.fidelity isEqual:fidelityType]) {
+                if ([fid.fidelity isEqual:@1]) {
                     [productParams setValue:SKStoreProductParameterAdNetworkTimestamp forKey: fid.timestamp.stringValue];
                     [productParams setValue:SKStoreProductParameterAdNetworkNonce forKey: fid.nonce.UUIDString];
                     [productParams setValue:SKStoreProductParameterAdNetworkAttributionSignature forKey: fid.signature];
@@ -112,17 +112,6 @@
     }
     
     return productParams;
-}
-
-- (NSArray<NSNumber *> * _Nullable) getFidelityTypes {
-    if (self.fidelities != nil) {
-        NSMutableArray<NSNumber *> *fids = [[NSMutableArray alloc] initWithCapacity:2];
-        for(PBMORTBSkadnFidelity *fid in self.fidelities) {
-            [fids addObject:fid.fidelity];
-            return fids;
-        }
-    }
-    return  nil;
 }
 
 @end
