@@ -50,6 +50,7 @@ public class SkadnParametersManager: NSObject {
             imp.adImpressionIdentifier = nonce.uuidString
             imp.timestamp = timestamp
             imp.signature = signature
+            return imp
         }
         return nil
     }
