@@ -14,16 +14,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <StoreKit/StoreKit.h>
 
 #import "PBMORTBAbstract+Protected.h"
 #import "PBMORTBBidExtSkadn.h"
-
-@interface PBMORTBSkadnFidelity ()
-
-- (NSDictionary<NSString *, id> * _Nullable) getSkadnInfo;
-
-@end
 
 @implementation PBMORTBBidExtSkadn
 
@@ -66,52 +59,6 @@
     [ret pbmRemoveEmptyVals];
     
     return ret;
-}
-
-- (NSMutableDictionary<NSString *, id> * _Nullable) getSkadnInfo {
-    if (@available(iOS 14.0, *)) {
-        NSMutableDictionary<NSString * , id> *productParams = [[NSMutableDictionary alloc] init];
-        
-        if (self.itunesitem != nil &&
-            self.network != nil &&
-            self.campaign != nil &&
-            self.version != nil &&
-            self.sourceapp != nil) {
-            [productParams setValue:SKStoreProductParameterITunesItemIdentifier forKey:self.itunesitem.stringValue];
-            [productParams setValue:SKStoreProductParameterAdNetworkIdentifier forKey:self.network];
-            [productParams setValue:SKStoreProductParameterAdNetworkCampaignIdentifier forKey:self.campaign.stringValue];
-            [productParams setValue:SKStoreProductParameterAdNetworkVersion forKey:self.version];
-            [productParams setValue:SKStoreProductParameterAdNetworkSourceAppStoreIdentifier forKey:self.sourceapp.stringValue];
-            
-            if(self.timestamp != nil &&
-               self.nonce != nil &&
-               self.signature != nil) {
-                [productParams setValue:SKStoreProductParameterAdNetworkTimestamp forKey:self.timestamp.stringValue];
-                [productParams setValue:SKStoreProductParameterAdNetworkNonce forKey:self.nonce.UUIDString];
-                [productParams setValue:SKStoreProductParameterAdNetworkAttributionSignature forKey:self.signature];
-            }
-            
-            return productParams;
-        }
-    }
-    return nil;
-}
-
-- (NSMutableDictionary<NSString *, id> * _Nullable) getSkadnProductParameters {
-    NSMutableDictionary<NSString *, id> * _Nullable productParams = self.getSkadnInfo;
-    if (@available(iOS 14.5, *)) {
-        if (self.fidelities != nil) {
-            for(PBMORTBSkadnFidelity *fid in self.fidelities) {
-                if ([fid.fidelity isEqual:@1]) {
-                    [productParams setValue:SKStoreProductParameterAdNetworkTimestamp forKey: fid.timestamp.stringValue];
-                    [productParams setValue:SKStoreProductParameterAdNetworkNonce forKey: fid.nonce.UUIDString];
-                    [productParams setValue:SKStoreProductParameterAdNetworkAttributionSignature forKey: fid.signature];
-                }
-            }
-        }
-    }
-    
-    return productParams;
 }
 
 @end

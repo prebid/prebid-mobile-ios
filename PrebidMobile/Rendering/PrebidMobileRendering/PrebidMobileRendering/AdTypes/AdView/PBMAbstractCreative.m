@@ -76,9 +76,9 @@
         
         if(@available(iOS 14.5, *)) {
             if (self.transaction.skadInfo) {
-                SKAdImpression *imp = [self.transaction.skadInfo getSKAdNetworkImpression];
+                SKAdImpression *imp = [SkadnParametersManager getSkadnImpressionFor:self.transaction.skadInfo];
                 if (imp) {
-                    PBMSkadnEventTracker *skadnTracker = [[PBMSkadnEventTracker alloc] initWith:imp];
+                    SkadnEventTracker *skadnTracker = [[SkadnEventTracker alloc] initWith:imp];
                     [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) skadnTracker];
                 }
             }
@@ -192,7 +192,7 @@
         return;
     }
     BOOL clickthroughOpened = NO;
-    NSDictionary<NSString *, id> * skadnetProductParameters = [self.transaction.skadInfo getSkadnProductParameters];
+    NSDictionary<NSString *, id> * skadnetProductParameters = [SkadnParametersManager getSkadnProductParametersFor:self.transaction.skadInfo];
     
     if (skadnetProductParameters) {
         clickthroughOpened = [self handleProductClickthrough:skadnetProductParameters

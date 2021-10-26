@@ -20,7 +20,7 @@ import StoreKit
 
 @available(iOS 14.5, *)
 @objcMembers
-public class PBMSkadnEventTracker: NSObject, PBMEventTrackerProtocol {
+public class SkadnEventTracker: NSObject, PBMEventTrackerProtocol {
     
     let imp: SKAdImpression
     
