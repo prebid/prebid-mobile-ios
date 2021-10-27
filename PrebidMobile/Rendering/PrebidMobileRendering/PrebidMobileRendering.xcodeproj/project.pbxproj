@@ -752,9 +752,11 @@
 		5CEFAA26208E9F1B007DBD3E /* PBMHTMLCreativeTest_NoMRAID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CEFAA25208E9F1B007DBD3E /* PBMHTMLCreativeTest_NoMRAID.swift */; };
 		5CF31F201F830747004B04E9 /* PBMAdRequesterVASTTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CF31F1F1F830747004B04E9 /* PBMAdRequesterVASTTest.swift */; };
 		92043BFC27281DFB00697205 /* SkadnParametersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92043BFB27281DFB00697205 /* SkadnParametersManager.swift */; };
+		921570EB272863BC00C6AA12 /* SkadnParametersManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921570EA272863BC00C6AA12 /* SkadnParametersManagerTest.swift */; };
 		922150D72726CCC700B9FB5C /* SkadnEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922150D62726CCC600B9FB5C /* SkadnEventTracker.swift */; };
 		922345332726C2360098B1CB /* PBMORTBSkadnFidelity.h in Headers */ = {isa = PBXBuildFile; fileRef = 922345322726C2360098B1CB /* PBMORTBSkadnFidelity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		922345352726C2520098B1CB /* PBMORTBSkadnFidelity.m in Sources */ = {isa = PBXBuildFile; fileRef = 922345342726C2520098B1CB /* PBMORTBSkadnFidelity.m */; };
+		926645532729676A0064F7BD /* SkadnUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926645522729676A0064F7BD /* SkadnUtilities.swift */; };
 		AC0AF6B525022A8900A07297 /* PBMORTBBidExtSkadn.h in Headers */ = {isa = PBXBuildFile; fileRef = AC0AF6B325022A8900A07297 /* PBMORTBBidExtSkadn.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC0AF6B625022A8900A07297 /* PBMORTBBidExtSkadn.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF6B425022A8900A07297 /* PBMORTBBidExtSkadn.m */; };
 		AC24DA962508F3E10060D6D9 /* PBMORTBDeviceExtAtts.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24DA932508EB9F0060D6D9 /* PBMORTBDeviceExtAtts.m */; };
@@ -1586,9 +1588,11 @@
 		5CF31F181F82BFD2004B04E9 /* PBMVideoCreativeTestCloseDelay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMVideoCreativeTestCloseDelay.swift; sourceTree = "<group>"; };
 		5CF31F1F1F830747004B04E9 /* PBMAdRequesterVASTTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMAdRequesterVASTTest.swift; sourceTree = "<group>"; };
 		92043BFB27281DFB00697205 /* SkadnParametersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnParametersManager.swift; sourceTree = "<group>"; };
+		921570EA272863BC00C6AA12 /* SkadnParametersManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnParametersManagerTest.swift; sourceTree = "<group>"; };
 		922150D62726CCC600B9FB5C /* SkadnEventTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnEventTracker.swift; sourceTree = "<group>"; };
 		922345322726C2360098B1CB /* PBMORTBSkadnFidelity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMORTBSkadnFidelity.h; path = ../../../../../../../../../../../../../../../Pictures/PBMORTBSkadnFidelity.h; sourceTree = "<group>"; };
 		922345342726C2520098B1CB /* PBMORTBSkadnFidelity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSkadnFidelity.m; sourceTree = "<group>"; };
+		926645522729676A0064F7BD /* SkadnUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnUtilities.swift; sourceTree = "<group>"; };
 		9319862519A7DD8D007ED468 /* PrebidMobileRenderingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileRenderingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9319862819A7DD8D007ED468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		938A611819FB1EDD003E0481 /* BasicParameterBuilderTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicParameterBuilderTest.swift; sourceTree = "<group>"; };
@@ -3174,6 +3178,8 @@
 		5CCFCA871CA46B8F009DD67E /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				921570EA272863BC00C6AA12 /* SkadnParametersManagerTest.swift */,
+				926645522729676A0064F7BD /* SkadnUtilities.swift */,
 				5BE0A32F24EA7B7600028EBA /* BasicParameterBuilderPureTargetingTest.swift */,
 				ACBB37B4254061A800958CD4 /* PBMAdUnitConfigTest.swift */,
 				34BF11ED2476C6BB007A09F1 /* Prebid */,
@@ -4225,6 +4231,7 @@
 				35D3744820CC794200771E10 /* RewardedVideo_CompanionTest.swift in Sources */,
 				40E93316204C9ED500EB9E80 /* PBMHTMLCreativeTest_MRAIDCalendarEvent.swift in Sources */,
 				34D0AA55258BBCEC001D5447 /* Equality_BaseCheck.swift in Sources */,
+				921570EB272863BC00C6AA12 /* SkadnParametersManagerTest.swift in Sources */,
 				446A92E6204CC26D005BBB25 /* PBMHTMLCreativeTest_MRAIDStorePicture.swift in Sources */,
 				AC61D15A25419ED900741392 /* UIViewExtensionsTest.swift in Sources */,
 				5CAAA85A20A4CE0E005FA8F9 /* MockModalViewController.swift in Sources */,
@@ -4319,6 +4326,7 @@
 				5C803E7A1E416E220054DBBD /* PBMVastLoaderTestWrapperPlusInline.swift in Sources */,
 				3512256C2069AEF200C98E9F /* PBMRewardedVideoViewTest.swift in Sources */,
 				AC461877230C0A9800F4E0DE /* PBMMRAIDControllerObjCTest.m in Sources */,
+				926645532729676A0064F7BD /* SkadnUtilities.swift in Sources */,
 				5BD5D4BD2656D6FA00DFB8B2 /* NativeAssetVideoTest.swift in Sources */,
 				34BF11EF2476C6DF007A09F1 /* PBMBannerViewTest.swift in Sources */,
 				5CA3BEE81CCFEAE000E855C9 /* DeviceInfoParameterBuilderTest.swift in Sources */,
