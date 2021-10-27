@@ -75,7 +75,7 @@ public class SkadnParametersManager: NSObject {
                    let nonce = skadnInfo.nonce,
                    let signature = skadnInfo.signature {
                     productParams[SKStoreProductParameterAdNetworkTimestamp] = timestamp
-                    productParams[SKStoreProductParameterAdNetworkNonce] = nonce
+                    productParams[SKStoreProductParameterAdNetworkNonce] = nonce.uuidString
                     productParams[SKStoreProductParameterAdNetworkAttributionSignature] = signature
                     
                     return productParams
@@ -88,7 +88,7 @@ public class SkadnParametersManager: NSObject {
                        let nonce = fidelity.nonce,
                        let signature = fidelity.signature {
                         productParams[SKStoreProductParameterAdNetworkTimestamp] = timestamp
-                        productParams[SKStoreProductParameterAdNetworkNonce] = nonce
+                        productParams[SKStoreProductParameterAdNetworkNonce] = nonce.uuidString
                         productParams[SKStoreProductParameterAdNetworkAttributionSignature] = signature
                         
                         return productParams

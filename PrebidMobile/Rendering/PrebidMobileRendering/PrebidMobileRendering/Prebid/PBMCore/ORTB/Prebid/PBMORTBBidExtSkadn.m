@@ -55,7 +55,13 @@
     ret[@"sourceapp"] = self.sourceapp;
     ret[@"timestamp"] = self.timestamp;
     ret[@"signature"] = self.signature;
-    ret[@"fidelities"] = self.fidelities;
+    NSMutableArray<PBMJsonDictionary *> *jsonFidelities = [NSMutableArray<PBMJsonDictionary *> new];
+    for (PBMORTBSkadnFidelity *fidelity in self.fidelities) {
+        PBMJsonDictionary *jsonFidelity = [fidelity toJsonDictionary];
+        [jsonFidelities addObject:jsonFidelity];
+    }
+    
+    ret[@"fidelities"] = jsonFidelities;
     [ret pbmRemoveEmptyVals];
     
     return ret;
