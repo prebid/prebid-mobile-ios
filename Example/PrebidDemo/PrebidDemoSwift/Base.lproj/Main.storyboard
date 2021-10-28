@@ -99,6 +99,7 @@
                                 <segments>
                                     <segment title="DFP"/>
                                     <segment title="MoPub"/>
+                                    <segment title="In-App"/>
                                 </segments>
                                 <connections>
                                     <action selector="onAdServerSwidshed:" destination="BYZ-38-t0r" eventType="valueChanged" id="j2N-Nn-Vqk"/>

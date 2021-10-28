@@ -671,7 +671,7 @@
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/mopub-ios-sdk/MoPubSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OMSDK_Mopub/OMSDK_Mopub.framework/OMSDK_Mopub",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/mopub-ios-sdk/Core/OMSDK_Mopub.framework/OMSDK_Mopub",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
