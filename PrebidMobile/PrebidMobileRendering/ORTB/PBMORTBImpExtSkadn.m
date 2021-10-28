@@ -35,7 +35,12 @@ static NSString * const SKAdNetworkVersion = @"2.0";
     PBMMutableJsonDictionary * const ret = [PBMMutableJsonDictionary new];
     
     if (self.sourceapp && self.skadnetids.count > 0) {
-        ret[@"version"] = SKAdNetworkVersion;
+        if (@available(iOS 14.5, *)) {
+            ret[@"versions"] = @[@"2.0", @"2.1", @"2.2"];
+        } else {
+            ret[@"versions"] = @[@"2.0", @"2.1"];
+        }
+        
         ret[@"sourceapp"] = self.sourceapp;
         ret[@"skadnetids"] = self.skadnetids;
     }

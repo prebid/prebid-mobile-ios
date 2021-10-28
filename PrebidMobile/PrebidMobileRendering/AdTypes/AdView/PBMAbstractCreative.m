@@ -73,6 +73,16 @@
         } else {
             PBMLogError(@"Creative model must be provided with event tracker");
         }
+        
+        if(@available(iOS 14.5, *)) {
+            if (self.transaction.skadInfo) {
+                SKAdImpression *imp = [SkadnParametersManager getSkadnImpressionFor:self.transaction.skadInfo];
+                if (imp) {
+                    SkadnEventTracker *skadnTracker = [[SkadnEventTracker alloc] initWith:imp];
+                    [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) skadnTracker];
+                }
+            }
+        }
 
     }
 
@@ -183,8 +193,10 @@
         return;
     }
     BOOL clickthroughOpened = NO;
-    if (self.transaction.skadnetProductParameters) {
-        clickthroughOpened = [self handleProductClickthrough:self.transaction.skadnetProductParameters
+    PBMJsonDictionary * skadnetProductParameters = [SkadnParametersManager getSkadnProductParametersFor:self.transaction.skadInfo];
+    
+    if (skadnetProductParameters) {
+        clickthroughOpened = [self handleProductClickthrough:skadnetProductParameters
                                                       onExit:onClickthroughExitBlock];
     } else {
         

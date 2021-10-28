@@ -14,6 +14,8 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "PBMORTBBidExtSkadn.h"
+
 @protocol PBMTransactionDelegate;
 
 @class WKWebView;
@@ -41,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
  SKAdNetwork parameters about an App Store product.
  Used in the StoreKit
  */
-@property (nonatomic, strong, nullable) NSDictionary<NSString *, id> *skadnetProductParameters;
+@property (nonatomic, strong, nullable) PBMORTBBidExtSkadn *skadInfo;
 
 @property (atomic, weak, nullable) id<PBMTransactionDelegate> delegate;
 
