@@ -26,7 +26,7 @@ enum BannerFormat: Int {
     case vast
 }
 
-class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegate {
+class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegate, BannerViewDelegate {
 
    @IBOutlet var appBannerView: UIView!
 
@@ -41,10 +41,12 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     private var amBanner: GAMBannerView!
     
     private var mpBanner: MPAdView!
+    
+    private var pbBanner: BannerView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         adServerLabel.text = adServerName
 
         if (adServerName == "DFP") {
@@ -59,6 +61,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
         } else if (adServerName == "MoPub") {
             setupAndLoadMPBanner()
+        } else if (adServerName == "In-App") {
+            setupAndLoadInAppBanner()
         }
 
 //        enableCOPPA()
@@ -91,6 +95,18 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         setupMPRubiconBanner(width: width, height: height)
         loadMPBanner()
 
+    }
+    
+    func setupAndLoadInAppBanner() {
+        let size = CGSize(width: 300, height: 250)
+        pbBanner = BannerView(frame: CGRect(origin: .zero, size: size),
+                              configID: "50699c03-0910-477c-b4a4-911dbe2b9d42",
+                              adSize: CGSize(width: 320, height: 50))
+                                
+        pbBanner.loadAd()
+        pbBanner.delegate = self
+        
+        appBannerView.addSubview(pbBanner)
     }
 
     //setup PB
@@ -266,6 +282,12 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
     func enablePbsDebug() {
         Prebid.shared.pbsDebug = true
+    }
+    
+    // MARK: - BannerViewDelegate
+    
+    func bannerViewPresentationController() -> UIViewController? {
+        return self
     }
 
     //MARK: - GADBannerViewDelegate

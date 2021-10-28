@@ -1,0 +1,197 @@
+/*   Copyright 2018-2021 Prebid.org, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+framework module PrebidMobile {
+        
+    // Versions
+    header "PrebidMobile.h"
+
+    // Enums
+    header "PBMErrorCode.h"
+    header "PBMErrorType.h"
+    header "PBMLogLevel.h"
+    header "PBMVideoPlacementType.h"
+
+    // PBMCore
+    header "PBMBidRequester.h"
+    header "PBMBidRequesterProtocol.h"
+
+    // PBMCacheRenderers
+    header "PBMDisplayView.h"
+
+    // Integration GAM
+
+    header "PBMPrimaryAdRequesterProtocol.h"
+
+    header "PBMBaseAdUnit.h"
+    header "PBMBaseAdUnit+Protected.h"
+
+    header "PBMInterstitialEventHandler.h"
+
+    // ===
+    //Temp. for converting
+    header "PBMJsonCodable.h"
+    header "PBMFunctions.h"
+    header "PBMFunctions+Private.h"
+    header "PBMFunctions+Testing.h"
+    header "PBMUIApplicationProtocol.h"
+    header "NSDictionary+PBMORTBNativeExt.h"
+
+    header "PBMNativeAdMediaHooks.h"
+    header "PBMViewControllerProvider.h"
+    header "PBMCreativeClickHandlerBlock.h"
+    header "PBMVoidBlock.h"
+    header "PBMNativeAdMarkupAsset.h"
+
+    header "PBMErrorFamily.h"
+
+    // PBM Native Ads (markup)
+    header "PBMNativeAdMarkup.h"
+    header "PBMNativeAdMarkupAsset.h"
+    header "PBMNativeAdMarkupData.h"
+    header "PBMNativeAdMarkupImage.h"
+    header "PBMNativeAdMarkupLink.h"
+    header "PBMNativeAdMarkupTitle.h"
+    header "PBMNativeAdMarkupVideo.h"
+    header "PBMNativeAdMarkupEventTracker.h"
+
+    header "PBMNativeClickableViewRegistry.h"
+    header "PBMNativeClickTrackerBinderFactoryBlock.h"
+    header "PBMNativeViewClickHandlerBlock.h"
+    header "PBMNativeClickTrackerBinderBlock.h"
+
+    header "PBMNativeAdImpressionReporting.h"
+    header "PBMNativeClickTrackerBinders.h"
+
+    header "PBMJsonDecodable.h"
+      header "PBMConstants.h"
+
+
+    header "PBMAdViewManagerDelegate.h"
+    header "PBMAdDetails.h"
+    header "PBMTransaction.h"
+    header "PBMAdConfiguration.h"
+    header "PBMAdFormatInternal.h"
+    header "PBMAutoRefreshCountConfig.h"
+    header "PBMInterstitialLayout.h"
+    header "PBMServerConnectionProtocol.h"
+
+    header "PBMScheduledTimerFactory.h"
+    header "NSTimer+PBMScheduledTimerFactory.h"
+    header "NSTimer+PBMTimerInterface.h"
+    header "PBMTimerInterface.h"
+
+    header "PBMTransactionFactory.h"
+    header "PBMVastTransactionFactory.h"
+    header "PBMTransactionFactoryCallback.h"
+
+    header "PBMPlayable.h"
+    header "PBMError.h"
+    header "PBMServerConnection.h"
+    header "PBMModalManagerDelegate.h"
+    header "PBMAdLoadManagerDelegate.h"
+    header "PBMCreativeViewDelegate.h"
+    header "PBMAbstractCreative.h"
+    header "PBMAdViewManager.h"
+    header "PBMViewExposureProvider.h"
+    header "PBMViewExposure.h"
+
+    header "PBMViewabilityPlaybackBinder.h"
+    header "PBMViewExposureProviders.h"
+
+    header "PBMBidRequester.h"
+      header "PBMLog.h"
+    header "PBMAutoRefreshManager.h"
+
+
+    header "UIView+PBMExtensions.h"
+    header "NSNumber+PBMORTBNative.h"
+
+    header "PBMJsonCodable.h"
+    header "PBMFunctions.h"
+    header "PBMFunctions+Private.h"
+    header "PBMUIApplicationProtocol.h"
+    header "NSDictionary+PBMORTBNativeExt.h"
+
+    header "PBMAutoRefreshManager.h"
+    header "PBMAdLoadFlowController.h"
+    header "PBMAdLoaderProtocol.h"
+    header "PBMBannerAdLoader.h"
+
+
+    header "PBMBidRequesterFactoryBlock.h"
+    header "PBMWinNotifierBlock.h"
+    header "PBMAdMarkupStringHandler.h"
+    header "PBMBidRequesterFactory.h"
+    header "PBMWinNotifier.h"
+    header "PBMWinNotifierFactoryBlock.h"
+
+    // OM tracking
+    header "PBMOpenMeasurementWrapper.h"
+    header "PBMOpenMeasurementSession.h"
+    header "PBMVideoVerificationParameters.h"
+    header "PBMEventTrackerProtocol.h"
+    header "PBMOpenMeasurementFriendlyObstructionPurpose.h"
+    header "PBMTrackingEvent.h"
+    header "PBMNativeImpressionsTracker.h"
+    header "PBMNativeImpressionDetectionHandler.h"
+
+    // Urls openers
+    header "PBMExternalURLOpeners.h"
+    header "PBMExternalURLOpenerBlock.h"
+    header "PBMURLOpenResultHandlerBlock.h"
+    header "PBMTrackingURLVisitors.h"
+    header "PBMTrackingURLVisitorBlock.h"
+    header "PBMExternalLinkHandler.h"
+    header "PBMURLOpenAttempterBlock.h"
+    header "PBMExternalURLOpenCallbacks.h"
+    header "PBMClickthroughBrowserOpener.h"
+    header "PBMDeepLinkPlusHelper.h"
+    header "PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h"
+
+    // ModalManager
+    header "PBMModalManager.h"
+    header "PBMModalState.h"
+    header "PBMModalViewControllerDelegate.h"
+
+    // Interstitial
+    header "PBMInterstitialDisplayProperties.h"
+    header "PBMCachedResponseInfo.h"
+    header "PBMWeakTimerTargetBox.h"
+
+    // Bid
+    header "PBMORTBAbstract.h"
+    header "PBMORTBAbstract+Protected.h"
+    header "PBMORTBAbstractResponse.h"
+    header "PBMORTBAbstractResponse+Protected.h"
+    header "PBMRawBidResponse.h"
+    header "PBMORTBBidResponse.h"
+    header "PBMORTBBidResponse+Internal.h"
+    header "PBMORTBBidResponseExt.h"
+    header "PBMORTBBid.h"
+    header "PBMORTBBidExt.h"
+    header "PBMORTBSeatBid.h"
+    header "PBMORTBBidExtPrebid.h"
+    header "PBMORTBBidExtSkadn.h"
+    header "PBMORTBMacrosHelper.h"
+
+    header "NSDictionary+PBMExtensions.h"
+    header "NSMutableDictionary+PBMExtensions.h"
+    header "PBMLocationManager.h"
+    header "PBMUserConsentDataManager.h"
+
+    header "PBMInterstitialAdLoader.h"
+    header "PBMInterstitialAdLoaderDelegate.h"
+}
