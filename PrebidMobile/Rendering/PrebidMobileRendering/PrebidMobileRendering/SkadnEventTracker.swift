@@ -26,7 +26,7 @@ public class SkadnEventTracker: NSObject, PBMEventTrackerProtocol {
     
     private let queue = DispatchQueue(label: "impressionQueue", qos: .background)
     
-    private var arrayOfTasks = [ImpressionTask]()
+    private(set) var arrayOfTasks = [ImpressionTask]()
     
     public init(with imp: SKAdImpression) {
         self.imp = imp
@@ -47,27 +47,25 @@ public class SkadnEventTracker: NSObject, PBMEventTrackerProtocol {
     
     private func executeImpressionTasks() {
         let arrayIsEmpty = arrayOfTasks.isEmpty
-        let startImpressionTask = ImpressionTask(task: { (completion) in
-            SKAdNetwork.startImpression(self.imp, completionHandler: { error in
-                if let error = error {
-                    PBMLog.error(error.localizedDescription)
-                }
+        
+        arrayOfTasks = [
+            ImpressionTask(task: { (completion) in
+                SKAdNetwork.startImpression(self.imp, completionHandler: { error in
+                    if let error = error {
+                        PBMLog.error(error.localizedDescription)
+                    }
+                    completion()
+                })
+            }, delayInterval: 5),
+            ImpressionTask(task: { (completion) in
+                SKAdNetwork.endImpression(self.imp, completionHandler: { error in
+                    if let error = error {
+                        PBMLog.error(error.localizedDescription)
+                    }
+                })
                 completion()
-            })
-        }, delayInterval: 5)
-        
-        arrayOfTasks.append(startImpressionTask)
-        
-        let endImpressionTask = ImpressionTask(task: { (completion) in
-            SKAdNetwork.endImpression(self.imp, completionHandler: { error in
-                if let error = error {
-                    PBMLog.error(error.localizedDescription)
-                }
-            })
-            completion()
-        }, delayInterval: 0)
-        
-        arrayOfTasks.append(endImpressionTask)
+            }, delayInterval: 0)
+        ]
         
         if arrayIsEmpty {
             queue.async { [weak self] in

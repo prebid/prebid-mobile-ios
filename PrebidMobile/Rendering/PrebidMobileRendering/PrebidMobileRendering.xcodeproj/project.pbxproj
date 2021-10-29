@@ -757,6 +757,7 @@
 		922345332726C2360098B1CB /* PBMORTBSkadnFidelity.h in Headers */ = {isa = PBXBuildFile; fileRef = 922345322726C2360098B1CB /* PBMORTBSkadnFidelity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		922345352726C2520098B1CB /* PBMORTBSkadnFidelity.m in Sources */ = {isa = PBXBuildFile; fileRef = 922345342726C2520098B1CB /* PBMORTBSkadnFidelity.m */; };
 		9263AAFA272BEC28008999CF /* ImpressionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9263AAF9272BEC27008999CF /* ImpressionTask.swift */; };
+		9263AAFC272C306D008999CF /* SkadnEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9263AAFB272C306D008999CF /* SkadnEventTrackerTests.swift */; };
 		926645532729676A0064F7BD /* SkadnUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926645522729676A0064F7BD /* SkadnUtilities.swift */; };
 		AC0AF6B525022A8900A07297 /* PBMORTBBidExtSkadn.h in Headers */ = {isa = PBXBuildFile; fileRef = AC0AF6B325022A8900A07297 /* PBMORTBBidExtSkadn.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC0AF6B625022A8900A07297 /* PBMORTBBidExtSkadn.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF6B425022A8900A07297 /* PBMORTBBidExtSkadn.m */; };
@@ -1594,6 +1595,7 @@
 		922345322726C2360098B1CB /* PBMORTBSkadnFidelity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMORTBSkadnFidelity.h; path = ../../../../../../../../../../../../../../../Pictures/PBMORTBSkadnFidelity.h; sourceTree = "<group>"; };
 		922345342726C2520098B1CB /* PBMORTBSkadnFidelity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSkadnFidelity.m; sourceTree = "<group>"; };
 		9263AAF9272BEC27008999CF /* ImpressionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressionTask.swift; sourceTree = "<group>"; };
+		9263AAFB272C306D008999CF /* SkadnEventTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnEventTrackerTests.swift; sourceTree = "<group>"; };
 		926645522729676A0064F7BD /* SkadnUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnUtilities.swift; sourceTree = "<group>"; };
 		9319862519A7DD8D007ED468 /* PrebidMobileRenderingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileRenderingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9319862819A7DD8D007ED468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -3182,6 +3184,7 @@
 			isa = PBXGroup;
 			children = (
 				921570EA272863BC00C6AA12 /* SkadnParametersManagerTest.swift */,
+				9263AAFB272C306D008999CF /* SkadnEventTrackerTests.swift */,
 				926645522729676A0064F7BD /* SkadnUtilities.swift */,
 				5BE0A32F24EA7B7600028EBA /* BasicParameterBuilderPureTargetingTest.swift */,
 				ACBB37B4254061A800958CD4 /* PBMAdUnitConfigTest.swift */,
@@ -4151,6 +4154,7 @@
 				44684C4D20450D25005C4649 /* MockOXMCreativeModel.swift in Sources */,
 				5B1CF82E2105BB7E00238340 /* MockNSThread.swift in Sources */,
 				5B4D1C33205020BA00696F07 /* PBMTrackingRecordTest.swift in Sources */,
+				9263AAFC272C306D008999CF /* SkadnEventTrackerTests.swift in Sources */,
 				4416E265209B849600533DB6 /* PBMUserConsentParameterBuilderTest.swift in Sources */,
 				34EF29DF258B4150000E8404 /* JSONDecoding.swift in Sources */,
 				358DF520206D93E20041963D /* PBMVideoCreativeTestCloseDelay.swift in Sources */,
