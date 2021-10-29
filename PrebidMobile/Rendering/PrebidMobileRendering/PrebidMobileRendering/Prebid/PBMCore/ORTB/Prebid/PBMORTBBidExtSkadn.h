@@ -30,14 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSNumber *campaign;
 // ID of advertiser’s app in Apple’s app store
 @property (nonatomic, copy, nullable) NSNumber *itunesitem;
-// An id unique to each ad response
-@property (nonatomic, copy, nullable) NSUUID   *nonce;
 // ID of publisher’s app in Apple’s app store
 @property (nonatomic, copy, nullable) NSNumber *sourceapp;
-// Unix time in millis used at the time of signature
-@property (nonatomic, copy, nullable) NSNumber *timestamp;
-// SKAdNetwork signature as specified by Apple
-@property (nonatomic, copy, nullable) NSString *signature;
 // Supports multiple fidelity types introduced in SKAdNetwork v2.2
 @property (nonatomic, copy, nullable) NSArray<PBMORTBSkadnFidelity *>  *fidelities;
 
