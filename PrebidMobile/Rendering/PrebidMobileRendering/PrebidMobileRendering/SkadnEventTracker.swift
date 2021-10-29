@@ -24,6 +24,10 @@ public class SkadnEventTracker: NSObject, PBMEventTrackerProtocol {
     
     let imp: SKAdImpression
     
+    private let queue = DispatchQueue(label: "impressionQueue", qos: .background)
+    
+    private var arrayOfTasks = [ImpressionTask]()
+    
     public init(with imp: SKAdImpression) {
         self.imp = imp
     }
@@ -33,21 +37,56 @@ public class SkadnEventTracker: NSObject, PBMEventTrackerProtocol {
     public func trackEvent(_ event: PBMTrackingEvent) {
         switch event {
         case .impression:
-            startImpression(attempts: 5, timeInterval: 1.0, repeats: true) { [weak self] error in
-                guard let self = self else { return }
-                if let error = error {
-                    PBMLog.error(error.localizedDescription)
-                } else {
-                    self.endImpression(timeInterval: 5.0) { error in
-                        if let error = error {
-                            PBMLog.error(error.localizedDescription)
-                        }
-                    }
-                }
-                
+            queue.async {
+                self.executeImpressionTasks()
             }
         default:
             break
+        }
+    }
+    
+    private func executeImpressionTasks() {
+        let arrayIsEmpty = arrayOfTasks.isEmpty
+        let startImpressionTask = ImpressionTask(task: { (completion) in
+            SKAdNetwork.startImpression(self.imp, completionHandler: { error in
+                if let error = error {
+                    PBMLog.error(error.localizedDescription)
+                }
+                completion()
+            })
+        }, delayInterval: 5)
+        
+        arrayOfTasks.append(startImpressionTask)
+        
+        let endImpressionTask = ImpressionTask(task: { (completion) in
+            SKAdNetwork.endImpression(self.imp, completionHandler: { error in
+                if let error = error {
+                    PBMLog.error(error.localizedDescription)
+                }
+            })
+            completion()
+        }, delayInterval: 0)
+        
+        arrayOfTasks.append(endImpressionTask)
+        
+        if arrayIsEmpty {
+            queue.async { [weak self] in
+                self?.runFirstTask()
+            }
+        }
+    }
+    
+    private func runFirstTask() {
+        let firstTask = arrayOfTasks.removeFirst()
+        queue.async {
+            firstTask.task({ [weak self] in
+                guard let self = self else { return }
+                if !self.arrayOfTasks.isEmpty {
+                    self.queue.asyncAfter(deadline: .now() + firstTask.delayInterval) {
+                        self.runFirstTask()
+                    }
+                }
+            })
         }
     }
     
@@ -61,38 +100,5 @@ public class SkadnEventTracker: NSObject, PBMEventTrackerProtocol {
     
     public func trackVolumeChanged(_ playerVolume: CGFloat, deviceVolume: CGFloat) {
         
-    }
-    
-    // MARK: - Private methods
-    
-    private func startImpression(attempts: Int, timeInterval: Double, repeats: Bool, completion: @escaping (Error?) -> Void) {
-        var runCount = 0
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: repeats) { [weak self] timer in
-            guard let self = self else { return }
-            
-            SKAdNetwork.startImpression(self.imp) { error in
-                completion(error)
-                
-                if error == nil {
-                    timer.invalidate()
-                }
-            }
-            
-            runCount += 1
-            
-            if runCount >= attempts {
-                timer.invalidate()
-            }
-        }
-    }
-    
-    private func endImpression(timeInterval: Double, completion: @escaping (Error?) -> Void) {
-        Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: false) { [weak self] timer in
-            guard let self = self else { return }
-            
-            SKAdNetwork.endImpression(self.imp) { error in
-                completion(error)
-            }
-        }
     }
 }
