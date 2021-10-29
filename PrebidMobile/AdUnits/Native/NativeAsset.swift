@@ -38,7 +38,9 @@ public class NativeAsset: NSObject {
         } else if let dataObject = self as? NativeAssetData {
             asset["data"] = dataObject.getDataObject()
         }
-        asset["id"] = id
+        if(id > 0){
+            asset["id"] = id
+        }
         return asset
     }
     
