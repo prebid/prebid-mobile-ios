@@ -20,23 +20,7 @@ import StoreKit
 
 @testable import PrebidMobileRendering
 
-class SkadnUtilities {
-    class func createSkadnExt() -> PBMORTBBidExtSkadn {
-        let skadn = PBMORTBBidExtSkadn()
-        
-        skadn.version = "2.0"
-        skadn.network = "cDkw7geQsH.skadnetwork"
-        skadn.campaign = 45
-        skadn.itunesitem = 123456789
-        skadn.nonce = UUID()
-        skadn.sourceapp = 880047117
-        skadn.timestamp = 1594406341
-        skadn.signature = "MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg=="
-        skadn.fidelities = nil
-        
-        return skadn
-    }
-    
+class SkadnUtilities {    
     class func createSkadnExtWithFidelities() -> PBMORTBBidExtSkadn {
         let skadn = PBMORTBBidExtSkadn()
         

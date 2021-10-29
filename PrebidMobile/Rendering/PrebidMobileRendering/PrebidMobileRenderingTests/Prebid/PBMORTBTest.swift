@@ -199,12 +199,6 @@ class PBMORTBTest: XCTestCase {
     
     // MARK: - Skadn ext
     
-    func testExtSkadn() {
-        let skadn = SkadnUtilities.createSkadnExt()
-        
-        codeAndDecode(abstract: skadn, expectedString: "{\"campaign\":45,\"fidelities\":[],\"itunesitem\":123456789,\"network\":\"cDkw7geQsH.skadnetwork\",\"nonce\":\"\(skadn.nonce!.uuidString)\",\"signature\":\"MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg==\",\"sourceapp\":880047117,\"timestamp\":1594406341,\"version\":\"2.0\"}")
-    }
-    
     func testExtSkadnWithFidelities() {
         let skadn = SkadnUtilities.createSkadnExtWithFidelities()
         
@@ -259,7 +253,7 @@ class PBMORTBTest: XCTestCase {
             ],
             "next_highest_bid_price": 0.099,
         ]
-        let skadn = SkadnUtilities.createSkadnExt()
+        let skadn = SkadnUtilities.createSkadnExtWithFidelities()
         bidExt.skadn = skadn
         
         // MARK: response.ext
@@ -294,7 +288,10 @@ class PBMORTBTest: XCTestCase {
         
         // MARK: validation
         
-        codeAndDecode(abstract: response, expectedString: "{\"cur\":\"USD\",\"ext\":{\"responsetimemillis\":{\"openx\":16},\"tmaxrequest\":3000},\"id\":\"CCF0B31C-1813-43C5-A365-C12C785BA3D2\",\"seatbid\":[{\"bid\":[{\"adid\":\"test-ad-id-12345\",\"adm\":\"<html><div>You Won! This is a test bid<\\/div><\\/html>\",\"adomain\":[\"openx.com\"],\"crid\":\"test-creative-id-1\",\"ext\":{\"bidder\":{\"ad_ox_cats\":[2],\"agency_id\":\"agency_10\",\"brand_id\":\"brand_10\",\"buyer_id\":\"buyer_10\",\"matching_ad_id\":{\"campaign_id\":1,\"creative_id\":3,\"placement_id\":2},\"next_highest_bid_price\":0.099000000000000005},\"prebid\":{\"cache\":{\"bids\":{\"cacheId\":\"32541b8f-5d49-446d-ae26-18629273a6fe\",\"url\":\"prebid.devint.openx.net\\/cache?uuid=32541b8f-5d49-446d-ae26-18629273a6fe\"},\"key\":\"kkk\",\"url\":\"some\\/url\"},\"targeting\":{\"hb_bidder\":\"openx\",\"hb_cache_host\":\"prebid.devint.openx.net\",\"hb_cache_id\":\"32541b8f-5d49-446d-ae26-18629273a6fe\",\"hb_cache_path\":\"\\/cache\"},\"type\":\"banner\"},\"skadn\":{\"campaign\":45,\"fidelities\":[],\"itunesitem\":123456789,\"network\":\"cDkw7geQsH.skadnetwork\",\"nonce\":\"\(skadn.nonce!.uuidString)\",\"signature\":\"MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg==\",\"sourceapp\":880047117,\"timestamp\":1594406341,\"version\":\"2.0\"}},\"h\":250,\"id\":\"test-bid-id-1\",\"impid\":\"62B86D48-D7FA-4190-8F4E-65A170A731E6\",\"price\":0.10903999999610946,\"w\":300}],\"seat\":\"openx\"}]}") { dic in
+        let nonce0 = skadn.fidelities!.filter({ $0.fidelity == 0 }).first!.nonce!.uuidString
+        let nonce1 = skadn.fidelities!.filter({ $0.fidelity == 1 }).first!.nonce!.uuidString
+        
+        codeAndDecode(abstract: response, expectedString: "{\"cur\":\"USD\",\"ext\":{\"responsetimemillis\":{\"openx\":16},\"tmaxrequest\":3000},\"id\":\"CCF0B31C-1813-43C5-A365-C12C785BA3D2\",\"seatbid\":[{\"bid\":[{\"adid\":\"test-ad-id-12345\",\"adm\":\"<html><div>You Won! This is a test bid<\\/div><\\/html>\",\"adomain\":[\"openx.com\"],\"crid\":\"test-creative-id-1\",\"ext\":{\"bidder\":{\"ad_ox_cats\":[2],\"agency_id\":\"agency_10\",\"brand_id\":\"brand_10\",\"buyer_id\":\"buyer_10\",\"matching_ad_id\":{\"campaign_id\":1,\"creative_id\":3,\"placement_id\":2},\"next_highest_bid_price\":0.099000000000000005},\"prebid\":{\"cache\":{\"bids\":{\"cacheId\":\"32541b8f-5d49-446d-ae26-18629273a6fe\",\"url\":\"prebid.devint.openx.net\\/cache?uuid=32541b8f-5d49-446d-ae26-18629273a6fe\"},\"key\":\"kkk\",\"url\":\"some\\/url\"},\"targeting\":{\"hb_bidder\":\"openx\",\"hb_cache_host\":\"prebid.devint.openx.net\",\"hb_cache_id\":\"32541b8f-5d49-446d-ae26-18629273a6fe\",\"hb_cache_path\":\"\\/cache\"},\"type\":\"banner\"},\"skadn\":{\"campaign\":45,\"fidelities\":[{\"fidelity\":0,\"nonce\":\"\(nonce0)\",\"signature\":\"MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg==\",\"timestamp\":1594406342},{\"fidelity\":1,\"nonce\":\"\(nonce1)\",\"signature\":\"MEQCIEQlmZRNfYzKBSE8QnhLTIHZZZWCFgZpRqRxHss65KoFAiAJgJKjdrWdkLUOCCjuEx2RmFS7daRzSVZRVZ8RyMyUXg==\",\"timestamp\":1594406341}],\"itunesitem\":123456789,\"network\":\"cDkw7geQsH.skadnetwork\",\"sourceapp\":880047117,\"version\":\"2.2\"}},\"h\":250,\"id\":\"test-bid-id-1\",\"impid\":\"62B86D48-D7FA-4190-8F4E-65A170A731E6\",\"price\":0.10903999999610946,\"w\":300}],\"seat\":\"openx\"}]}") { dic in
             PBMORTBBidResponse(jsonDictionary: dic, extParser: PBMORTBBidResponseExt.init(jsonDictionary:), seatBidExtParser: { $0 as NSDictionary }, bidExtParser: PBMORTBBidExt.init(jsonDictionary:))
         }
     }

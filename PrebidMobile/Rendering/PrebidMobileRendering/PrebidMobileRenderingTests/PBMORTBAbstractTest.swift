@@ -246,7 +246,7 @@ class PBMORTBAbstractTest : XCTestCase {
         skadn.sourceapp = "12345678"
         skadn.skadnetids = ["1", "2", "3"]
         
-        codeAndDecode(abstract: skadn, expectedString: "{\"skadnetids\":[\"1\",\"2\",\"3\"],\"sourceapp\":\"12345678\",\"versions\":[\"2.0\",\"2.1\",\"2.2\"]}")
+        codeAndDecode(abstract: skadn, expectedString: "{\"skadnetids\":[\"1\",\"2\",\"3\"],\"sourceapp\":\"12345678\",\"versions\":[\"2.2\"]}")
     }
     
     func testNativeToJsonString() {
