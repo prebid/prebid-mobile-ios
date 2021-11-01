@@ -756,8 +756,9 @@
 		922150D72726CCC700B9FB5C /* SkadnEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922150D62726CCC600B9FB5C /* SkadnEventTracker.swift */; };
 		922345332726C2360098B1CB /* PBMORTBSkadnFidelity.h in Headers */ = {isa = PBXBuildFile; fileRef = 922345322726C2360098B1CB /* PBMORTBSkadnFidelity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		922345352726C2520098B1CB /* PBMORTBSkadnFidelity.m in Sources */ = {isa = PBXBuildFile; fileRef = 922345342726C2520098B1CB /* PBMORTBSkadnFidelity.m */; };
+		9236A642272F3BD500ABBEF4 /* ImpressionTasksExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9236A641272F3BD500ABBEF4 /* ImpressionTasksExecutor.swift */; };
+		9236A644272F49B500ABBEF4 /* ImpressionTasksExecutorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9236A643272F49B500ABBEF4 /* ImpressionTasksExecutorTest.swift */; };
 		9263AAFA272BEC28008999CF /* ImpressionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9263AAF9272BEC27008999CF /* ImpressionTask.swift */; };
-		9263AAFC272C306D008999CF /* SkadnEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9263AAFB272C306D008999CF /* SkadnEventTrackerTests.swift */; };
 		926645532729676A0064F7BD /* SkadnUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926645522729676A0064F7BD /* SkadnUtilities.swift */; };
 		AC0AF6B525022A8900A07297 /* PBMORTBBidExtSkadn.h in Headers */ = {isa = PBXBuildFile; fileRef = AC0AF6B325022A8900A07297 /* PBMORTBBidExtSkadn.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AC0AF6B625022A8900A07297 /* PBMORTBBidExtSkadn.m in Sources */ = {isa = PBXBuildFile; fileRef = AC0AF6B425022A8900A07297 /* PBMORTBBidExtSkadn.m */; };
@@ -1594,8 +1595,9 @@
 		922150D62726CCC600B9FB5C /* SkadnEventTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnEventTracker.swift; sourceTree = "<group>"; };
 		922345322726C2360098B1CB /* PBMORTBSkadnFidelity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PBMORTBSkadnFidelity.h; path = ../../../../../../../../../../../../../../../Pictures/PBMORTBSkadnFidelity.h; sourceTree = "<group>"; };
 		922345342726C2520098B1CB /* PBMORTBSkadnFidelity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSkadnFidelity.m; sourceTree = "<group>"; };
+		9236A641272F3BD500ABBEF4 /* ImpressionTasksExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressionTasksExecutor.swift; sourceTree = "<group>"; };
+		9236A643272F49B500ABBEF4 /* ImpressionTasksExecutorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressionTasksExecutorTest.swift; sourceTree = "<group>"; };
 		9263AAF9272BEC27008999CF /* ImpressionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressionTask.swift; sourceTree = "<group>"; };
-		9263AAFB272C306D008999CF /* SkadnEventTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnEventTrackerTests.swift; sourceTree = "<group>"; };
 		926645522729676A0064F7BD /* SkadnUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnUtilities.swift; sourceTree = "<group>"; };
 		9319862519A7DD8D007ED468 /* PrebidMobileRenderingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileRenderingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9319862819A7DD8D007ED468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2926,6 +2928,7 @@
 				5BC0A5842668E3C8005EFEFB /* VideoPlacementType.swift */,
 				92043BFB27281DFB00697205 /* SkadnParametersManager.swift */,
 				922150D62726CCC600B9FB5C /* SkadnEventTracker.swift */,
+				9236A641272F3BD500ABBEF4 /* ImpressionTasksExecutor.swift */,
 				9263AAF9272BEC27008999CF /* ImpressionTask.swift */,
 			);
 			name = Main;
@@ -3184,7 +3187,6 @@
 			isa = PBXGroup;
 			children = (
 				921570EA272863BC00C6AA12 /* SkadnParametersManagerTest.swift */,
-				9263AAFB272C306D008999CF /* SkadnEventTrackerTests.swift */,
 				926645522729676A0064F7BD /* SkadnUtilities.swift */,
 				5BE0A32F24EA7B7600028EBA /* BasicParameterBuilderPureTargetingTest.swift */,
 				ACBB37B4254061A800958CD4 /* PBMAdUnitConfigTest.swift */,
@@ -3267,6 +3269,7 @@
 				AC461874230ADE3C00F4E0DE /* PBMMRAIDControllerTest.swift */,
 				AC461876230C0A9800F4E0DE /* PBMMRAIDControllerObjCTest.m */,
 				AC7CE88D256403EA0048475F /* PBMNativeFunctionsTest.swift */,
+				9236A643272F49B500ABBEF4 /* ImpressionTasksExecutorTest.swift */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -3869,6 +3872,7 @@
 				5BC0A56426666111005EFEFB /* RewardedEventInteractionDelegate.swift in Sources */,
 				34D70F8A24E580620048CC78 /* PBMTransactionFactory.m in Sources */,
 				5BA8094C26721880007DB351 /* PrebidHost.swift in Sources */,
+				9236A642272F3BD500ABBEF4 /* ImpressionTasksExecutor.swift in Sources */,
 				34431E9025B5CB7800596FA7 /* PBMNativeClickTrackerBinders.m in Sources */,
 				5BC0A57E2667B50A005EFEFB /* BaseInterstitialAdUnit.swift in Sources */,
 				34D70F8E24E580620048CC78 /* PBMVastIcon.m in Sources */,
@@ -4154,7 +4158,6 @@
 				44684C4D20450D25005C4649 /* MockOXMCreativeModel.swift in Sources */,
 				5B1CF82E2105BB7E00238340 /* MockNSThread.swift in Sources */,
 				5B4D1C33205020BA00696F07 /* PBMTrackingRecordTest.swift in Sources */,
-				9263AAFC272C306D008999CF /* SkadnEventTrackerTests.swift in Sources */,
 				4416E265209B849600533DB6 /* PBMUserConsentParameterBuilderTest.swift in Sources */,
 				34EF29DF258B4150000E8404 /* JSONDecoding.swift in Sources */,
 				358DF520206D93E20041963D /* PBMVideoCreativeTestCloseDelay.swift in Sources */,
@@ -4338,6 +4341,7 @@
 				926645532729676A0064F7BD /* SkadnUtilities.swift in Sources */,
 				5BD5D4BD2656D6FA00DFB8B2 /* NativeAssetVideoTest.swift in Sources */,
 				34BF11EF2476C6DF007A09F1 /* PBMBannerViewTest.swift in Sources */,
+				9236A644272F49B500ABBEF4 /* ImpressionTasksExecutorTest.swift in Sources */,
 				5CA3BEE81CCFEAE000E855C9 /* DeviceInfoParameterBuilderTest.swift in Sources */,
 				5C90DF3420E2DD8B00A02A33 /* UIDevice+TestExtension.swift in Sources */,
 				5B91DD7F205688A300EBD34F /* PBMLogObjCTest.m in Sources */,
