@@ -41,7 +41,8 @@ public class SkadnParametersManager: NSObject {
            let sourceapp = skadnInfo.sourceapp,
            let nonce = fidelity.nonce,
            let timestamp = fidelity.timestamp,
-           let signature = fidelity.signature {
+           let signature = fidelity.signature,
+           let version = skadnInfo.version {
             imp.sourceAppStoreItemIdentifier = sourceapp
             imp.advertisedAppStoreItemIdentifier = itunesitem
             imp.adNetworkIdentifier = network
@@ -49,6 +50,7 @@ public class SkadnParametersManager: NSObject {
             imp.adImpressionIdentifier = nonce.uuidString
             imp.timestamp = timestamp
             imp.signature = signature
+            imp.version = version
             return imp
         }
         return nil
