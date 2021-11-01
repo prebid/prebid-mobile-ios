@@ -55,44 +55,30 @@ public class SkadnParametersManager: NSObject {
     }
     
     public static func getSkadnProductParameters(for skadnInfo: PBMORTBBidExtSkadn) -> Dictionary<String, Any>? {
-        if #available(iOS 14.0, *) {
+        // >= SKAdNetwork 2.2
+        if #available(iOS 14.5, *) {
+            guard let fidelity = SkadnParametersManager.getFidelity(from: skadnInfo, fidelityType: 1) else { return nil }
+            
             var productParams = Dictionary<String, Any>()
             
             if let itunesitem = skadnInfo.itunesitem,
                let network = skadnInfo.network,
                let campaign = skadnInfo.campaign,
                let sourceapp = skadnInfo.sourceapp,
-               let version = skadnInfo.version {
+               let version = skadnInfo.version,
+               let timestamp = fidelity.timestamp,
+               let nonce = fidelity.nonce,
+               let signature = fidelity.signature {
                 productParams[SKStoreProductParameterITunesItemIdentifier] = itunesitem
                 productParams[SKStoreProductParameterAdNetworkIdentifier] = network
                 productParams[SKStoreProductParameterAdNetworkCampaignIdentifier] = campaign
                 productParams[SKStoreProductParameterAdNetworkVersion] = version
                 productParams[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier] = sourceapp
+                productParams[SKStoreProductParameterAdNetworkTimestamp] = timestamp
+                productParams[SKStoreProductParameterAdNetworkNonce] = nonce.uuidString
+                productParams[SKStoreProductParameterAdNetworkAttributionSignature] = signature
                 
-                // SKAdNetwork 2.0, 2.1
-                if let timestamp = skadnInfo.timestamp,
-                   let nonce = skadnInfo.nonce,
-                   let signature = skadnInfo.signature {
-                    productParams[SKStoreProductParameterAdNetworkTimestamp] = timestamp
-                    productParams[SKStoreProductParameterAdNetworkNonce] = nonce.uuidString
-                    productParams[SKStoreProductParameterAdNetworkAttributionSignature] = signature
-                    
-                    return productParams
-                }
-                
-                // >= SKAdNetwork 2.2
-                if #available(iOS 14.5, *) {
-                    guard let fidelity = SkadnParametersManager.getFidelity(from: skadnInfo, fidelityType: 1) else { return nil }
-                    if let timestamp = fidelity.timestamp,
-                       let nonce = fidelity.nonce,
-                       let signature = fidelity.signature {
-                        productParams[SKStoreProductParameterAdNetworkTimestamp] = timestamp
-                        productParams[SKStoreProductParameterAdNetworkNonce] = nonce.uuidString
-                        productParams[SKStoreProductParameterAdNetworkAttributionSignature] = signature
-                        
-                        return productParams
-                    }
-                }
+                return productParams
             }
         }
         return nil

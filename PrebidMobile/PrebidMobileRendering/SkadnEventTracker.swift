@@ -26,25 +26,38 @@ public class SkadnEventTracker: NSObject, PBMEventTrackerProtocol {
         self.imp = imp
     }
     
-    deinit {
-        SKAdNetwork.endImpression(imp) { error in
-            if let error = error {
-                PBMLog.error(error.localizedDescription)
-            }
-        }
-    }
+    // MARK: - PBMEventTrackerProtocol
     
     public func trackEvent(_ event: PBMTrackingEvent) {
         switch event {
         case .impression:
-            SKAdNetwork.startImpression(imp) { error in
-                if let error = error {
-                    PBMLog.error(error.localizedDescription)
-                }
-            }
+            executeImpressionTask()
         default:
             break
         }
+    }
+    
+    private func executeImpressionTask() {
+        let arrayOfTasks = [
+            ImpressionTask(task: { (completion) in
+                SKAdNetwork.startImpression(self.imp, completionHandler: { error in
+                    if let error = error {
+                        PBMLog.error(error.localizedDescription)
+                    }
+                })
+                completion()
+            }, delayInterval: 5),
+            ImpressionTask(task: { (completion) in
+                SKAdNetwork.endImpression(self.imp, completionHandler: { error in
+                    if let error = error {
+                        PBMLog.error(error.localizedDescription)
+                    }
+                })
+                completion()
+            }, delayInterval: 0)
+        ]
+        
+        ImpressionTasksExecutor.shared.add(tasks: arrayOfTasks)
     }
     
     public func trackVideoAdLoaded(_ parameters: PBMVideoVerificationParameters!) {

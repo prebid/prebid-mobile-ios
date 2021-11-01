@@ -27,6 +27,11 @@ class ImpressionTasksExecutorTest: XCTestCase {
     
     var log = ""
     
+    override func tearDown() {
+        self.log = ""
+        super.tearDown()
+    }
+    
     func testImpessionTaskExecution() {
         let expectation = expectation(description: "test execute time")
         expectation.expectedFulfillmentCount = 3

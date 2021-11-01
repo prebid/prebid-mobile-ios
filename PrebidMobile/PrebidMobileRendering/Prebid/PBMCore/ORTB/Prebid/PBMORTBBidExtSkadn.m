@@ -26,10 +26,7 @@
         _network = jsonDictionary[@"network"];
         _campaign = jsonDictionary[@"campaign"];
         _itunesitem = jsonDictionary[@"itunesitem"];
-        _nonce = [[NSUUID alloc] initWithUUIDString:jsonDictionary[@"nonce"]];
         _sourceapp = jsonDictionary[@"sourceapp"];
-        _timestamp = jsonDictionary[@"timestamp"];
-        _signature = jsonDictionary[@"signature"];
         
         NSMutableArray<PBMORTBSkadnFidelity *> *fidelities = [NSMutableArray<PBMORTBSkadnFidelity *> new];
         NSMutableArray<PBMJsonDictionary *> *fidelitiesData = jsonDictionary[@"fidelities"];
@@ -51,11 +48,7 @@
     ret[@"network"] = self.network;
     ret[@"campaign"] = self.campaign;
     ret[@"itunesitem"] = self.itunesitem;
-    ret[@"nonce"] = [self.nonce UUIDString];
     ret[@"sourceapp"] = self.sourceapp;
-    ret[@"timestamp"] = self.timestamp;
-    ret[@"signature"] = self.signature;
-    
     NSMutableArray<PBMJsonDictionary *> *jsonFidelities = [NSMutableArray<PBMJsonDictionary *> new];
     for (PBMORTBSkadnFidelity *fidelity in self.fidelities) {
         PBMJsonDictionary *jsonFidelity = [fidelity toJsonDictionary];
@@ -63,7 +56,6 @@
     }
     
     ret[@"fidelities"] = jsonFidelities;
-    
     [ret pbmRemoveEmptyVals];
     
     return ret;
