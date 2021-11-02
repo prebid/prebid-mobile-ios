@@ -38,7 +38,8 @@ import UIKit
     }
 }
 
-class Host: NSObject {
+@objcMembers
+public class Host: NSObject {
 
     var prebidServerURL: String? = .EMPTY_String
 
@@ -68,7 +69,7 @@ class Host: NSObject {
     /**
      * This function retrieves the prebid server URL for the selected host
      */
-    func getHostURL(host: PrebidHost) throws -> String {
+    public func getHostURL(host: PrebidHost) throws -> String {
         if (host == PrebidHost.Custom) {
             if (verifyUrl(urlString: self.prebidServerURL) == false) {
                 throw ErrorCode.prebidServerURLInvalid(self.prebidServerURL!)
@@ -82,7 +83,7 @@ class Host: NSObject {
     /**
      * This function verifies if the prebid server URL is in the url format
      */
-    func verifyUrl (urlString: String?) -> Bool {
+    public func verifyUrl (urlString: String?) -> Bool {
         //Check for nil
         if let urlString = urlString {
             // create NSURL instance

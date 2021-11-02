@@ -29,7 +29,7 @@ public class PrebidRenderingConfig : NSObject {
     
     // MARK: - Public Properties (Prebid)
     
-    @objc public var prebidServerHost: PBRPrebidHost = .custom {
+    @objc public var prebidServerHost: PrebidHost = .Custom {
         didSet {
             bidRequestTimeoutDynamic = nil
         }
@@ -73,12 +73,8 @@ public class PrebidRenderingConfig : NSObject {
     // MARK: - Public Methods
     
     @objc public func setCustomPrebidServer(url: String) throws {
-        guard let customHostURL = URL(string: url) else {
-            throw PBMError.prebidServerURLInvalid(url)
-        }
-        
-        prebidServerHost = .custom
-        PBRHost.shared.setCustomHostURL(customHostURL)
+        prebidServerHost = .Custom
+        Host.shared.setHostURL = url
     }
     
     @objc public static func initializeRenderingModule() {
