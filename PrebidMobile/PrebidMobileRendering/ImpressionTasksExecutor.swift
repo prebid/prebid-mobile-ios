@@ -14,7 +14,6 @@
   limitations under the License.
   */
 
-
 import Foundation
 
 public class ImpressionTasksExecutor {
@@ -25,8 +24,8 @@ public class ImpressionTasksExecutor {
     
     private(set) var arrayOfTasks = [ImpressionTask]() {
         didSet {
-            if !isExecuting {
-                queue.async {
+            queue.async {
+                if !self.isExecuting {
                     self.runFirstTask()
                 }
             }
@@ -44,18 +43,17 @@ public class ImpressionTasksExecutor {
     }
     
     func runFirstTask() {
+        guard !self.arrayOfTasks.isEmpty else { return }
+        guard !self.isExecuting else { return }
+        self.isExecuting = true
+        let firstTask = self.arrayOfTasks.removeFirst()
         queue.async {
-            guard !self.arrayOfTasks.isEmpty else { return }
-            
-            let firstTask = self.arrayOfTasks.removeFirst()
             firstTask.task({ [weak self] in
                 guard let self = self else { return }
-                self.queue.asyncAfter(deadline: .now() + firstTask.delayInterval) {
-                    self.isExecuting = !self.arrayOfTasks.isEmpty
-                    if self.isExecuting {
-                        self.queue.async {
-                            self.runFirstTask()
-                        }
+                self.isExecuting = false
+                self.queue.asyncAfter(deadline: .now() + .seconds(firstTask.delayInterval)) {
+                    if !self.arrayOfTasks.isEmpty {
+                        self.runFirstTask()
                     }
                 }
             })

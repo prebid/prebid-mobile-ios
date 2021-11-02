@@ -77,7 +77,7 @@ public class SkadnParametersManager: NSObject {
                 productParams[SKStoreProductParameterAdNetworkVersion] = version
                 productParams[SKStoreProductParameterAdNetworkSourceAppStoreIdentifier] = sourceapp
                 productParams[SKStoreProductParameterAdNetworkTimestamp] = timestamp
-                productParams[SKStoreProductParameterAdNetworkNonce] = nonce.uuidString
+                productParams[SKStoreProductParameterAdNetworkNonce] = nonce
                 productParams[SKStoreProductParameterAdNetworkAttributionSignature] = signature
                 
                 return productParams
