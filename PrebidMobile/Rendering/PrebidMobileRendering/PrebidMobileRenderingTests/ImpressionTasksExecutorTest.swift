@@ -38,12 +38,14 @@ class ImpressionTasksExecutorTest: XCTestCase {
         
         let task1 = ImpressionTask(task: { [weak self](completion) in
             guard let self = self else { return }
-            print("startImpression is called 1\n")
+            print("startImpression is called 1")
+            print("startImpression \(Date())")
             self.log += "startImpression is called 1\n"
             completion()
         }, delayInterval: 5)
         let task2 = ImpressionTask(task: { (completion) in
             print("endImpression is called 1")
+            print("endImpression \(Date())")
             self.log += "endImpression is called 1\n"
             expectation.fulfill()
             completion()
@@ -51,11 +53,13 @@ class ImpressionTasksExecutorTest: XCTestCase {
         ImpressionTasksExecutor.shared.add(tasks: [task1, task2])
         let task3 = ImpressionTask(task: { (completion) in
             print("startImpression is called 2")
+            print("startImpression \(Date())")
             self.log += "startImpression is called 2\n"
             completion()
         }, delayInterval: 5)
         let task4 = ImpressionTask(task: { (completion) in
             print("endImpression is called 2")
+            print("endImpression \(Date())")
             self.log += "endImpression is called 2\n"
             expectation.fulfill()
             completion()
@@ -63,17 +67,19 @@ class ImpressionTasksExecutorTest: XCTestCase {
         ImpressionTasksExecutor.shared.add(tasks: [task3, task4])
         let task5 = ImpressionTask(task: { (completion) in
             print("startImpression is called 3")
+            print("startImpression \(Date())")
             self.log += "startImpression is called 3\n"
             completion()
         }, delayInterval: 5)
         let task6 = ImpressionTask(task: { (completion) in
             print("endImpression is called 3")
+            print("endImpression \(Date())")
             self.log += "endImpression is called 3\n"
             expectation.fulfill()
             completion()
         }, delayInterval: 0)
         ImpressionTasksExecutor.shared.add(tasks: [task5, task6])
-        waitForExpectations(timeout: 15, handler: nil)
+        waitForExpectations(timeout: 16, handler: nil)
 //        print("Log \(self.log)")
         XCTAssertTrue(log == "startImpression is called 1\nendImpression is called 1\nstartImpression is called 2\nendImpression is called 2\nstartImpression is called 3\nendImpression is called 3\n")
     }

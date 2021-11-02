@@ -19,5 +19,5 @@ import Foundation
 
 struct ImpressionTask {
     let task: (_ completion: @escaping (() -> Void)) -> Void
-    let delayInterval: Double
+    let delayInterval: Int
 }
