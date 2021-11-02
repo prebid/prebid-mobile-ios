@@ -37,6 +37,15 @@ import Foundation
     
     var storedBidResponses: [String: String] = [:]
 
+    
+    
+    /**
+    * This property is set by the developer when he is willing to assign the assetID for Native ad.
+    **/
+    public var shouldAssignNativeAssetID : Bool = false
+
+    
+    
     /**
     * This property is set by the developer when he is willing to share the location for better ad targeting
     **/

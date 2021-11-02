@@ -75,11 +75,14 @@ public class NativeRequest: AdUnit {
         
         requestObject["ext"] = ext
         requestObject["plcmtcnt"] = placementCount
-        
+        var idCount: Int = 0
         if let assets = assets {
             var assetsObjects:[Any] = []
             for asset:NativeAsset in assets {
-                assetsObjects.append(asset.getAssetObject())
+                if(Prebid.shared.shouldAssignNativeAssetID){
+                    idCount += 1
+                }
+                assetsObjects.append(asset.getAssetObject(id: idCount))
             }
             
             requestObject["assets"] = assetsObjects
