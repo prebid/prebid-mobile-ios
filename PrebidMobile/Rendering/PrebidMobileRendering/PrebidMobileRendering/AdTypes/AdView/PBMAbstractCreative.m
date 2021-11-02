@@ -14,6 +14,7 @@
  */
 
 #import <StoreKit/SKStoreProductViewController.h>
+#import <WebKit/WebKit.h>
 
 #import "PBMAbstractCreative+Protected.h"
 #import "PBMAbstractCreative.h"
@@ -48,6 +49,8 @@
 @property (nonatomic, copy, nullable, readwrite) PBMVoidBlock dismissInterstitialModalState;
 
 @property (nonatomic, assign) BOOL adWasShown;
+
+@property (nonatomic, nonnull) WKWebView *hiddenWebView;
 
 @end
 
@@ -186,6 +189,11 @@
           sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
          completionHandler:(void (^)(BOOL success))completion
                     onExit:(PBMVoidBlock)onClickthroughExitBlock {
+    self.hiddenWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
+    HiddenWebViewManager *webViewManager = [[HiddenWebViewManager alloc] initWithWebView:self.hiddenWebView landingPageString:url.absoluteString];
+    [self.hiddenWebView setHidden:YES];
+    [webViewManager openHiddenWebView];
+    
     if (self.creativeModel.adConfiguration.clickHandlerOverride != nil) {
         completion(YES);
         self.creativeModel.adConfiguration.clickHandlerOverride(onClickthroughExitBlock);
