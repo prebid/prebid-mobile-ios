@@ -16,7 +16,7 @@
 import Foundation
 import GoogleMobileAds
 
-import PrebidMobileRendering
+import PrebidMobile
 
 public class GAMRewardedAdEventHandler :
     NSObject,
@@ -84,7 +84,7 @@ public class GAMRewardedAdEventHandler :
         }
     }
     
-    public func requestAd(with bidResponse: BidResponse?) {
+    public func requestAd(withBidResponse bidResponse: BidResponseForRendering?) {
         guard let currentRequestRewarded = GADRewardedAdWrapper(adUnitID: adUnitID),
               let request = GAMRequestWrapper() else {
             let error = GAMEventHandlerError.gamClassesNotFound

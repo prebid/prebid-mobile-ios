@@ -16,7 +16,7 @@
 import Foundation
 import GoogleMobileAds
 
-import PrebidMobileRendering
+import PrebidMobile
 
 public class GAMBannerEventHandler :
     NSObject,
@@ -65,7 +65,7 @@ public class GAMBannerEventHandler :
         proxyBanner?.recordImpression()
     }
     
-    public func requestAd(with bidResponse: BidResponse?) {
+    public func requestAd(withBidResponse bidResponse: BidResponseForRendering?) {
        
         guard let bannerViewWrapper = GAMBannerViewWrapper(),
               let request = GAMRequestWrapper() else {
