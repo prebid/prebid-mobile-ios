@@ -15,7 +15,7 @@
 
 import UIKit
 
-public class PBRInterstitialAdUnit: BaseInterstitialAdUnit {
+public class InterstitialRenderingAdUnit: BaseInterstitialAdUnit {
 
     @objc public init(configID: String) {
         super.init(configID: configID,

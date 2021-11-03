@@ -463,7 +463,7 @@
 		5BC37A8A271F1D0000444D5E /* BannerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37847271F1CFF00444D5E /* BannerViewDelegate.swift */; };
 		5BC37A8B271F1D0000444D5E /* BannerEventInteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37848271F1CFF00444D5E /* BannerEventInteractionDelegate.swift */; };
 		5BC37A8C271F1D0000444D5E /* BaseInterstitialAdUnitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37849271F1CFF00444D5E /* BaseInterstitialAdUnitProtocol.swift */; };
-		5BC37A8D271F1D0000444D5E /* PBRInterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3784A271F1CFF00444D5E /* PBRInterstitialAdUnit.swift */; };
+		5BC37A8D271F1D0000444D5E /* InterstitialRenderingAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3784A271F1CFF00444D5E /* InterstitialRenderingAdUnit.swift */; };
 		5BC37A8E271F1D0000444D5E /* RewardedAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3784B271F1CFF00444D5E /* RewardedAdUnit.swift */; };
 		5BC37A8F271F1D0000444D5E /* BaseInterstitialAdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3784C271F1CFF00444D5E /* BaseInterstitialAdUnit.swift */; };
 		5BC37A90271F1D0000444D5E /* InterstitialAdUnitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3784D271F1CFF00444D5E /* InterstitialAdUnitDelegate.swift */; };
@@ -1159,7 +1159,7 @@
 		5BC37847271F1CFF00444D5E /* BannerViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerViewDelegate.swift; sourceTree = "<group>"; };
 		5BC37848271F1CFF00444D5E /* BannerEventInteractionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerEventInteractionDelegate.swift; sourceTree = "<group>"; };
 		5BC37849271F1CFF00444D5E /* BaseInterstitialAdUnitProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseInterstitialAdUnitProtocol.swift; sourceTree = "<group>"; };
-		5BC3784A271F1CFF00444D5E /* PBRInterstitialAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBRInterstitialAdUnit.swift; sourceTree = "<group>"; };
+		5BC3784A271F1CFF00444D5E /* InterstitialRenderingAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialRenderingAdUnit.swift; sourceTree = "<group>"; };
 		5BC3784B271F1CFF00444D5E /* RewardedAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RewardedAdUnit.swift; sourceTree = "<group>"; };
 		5BC3784C271F1CFF00444D5E /* BaseInterstitialAdUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseInterstitialAdUnit.swift; sourceTree = "<group>"; };
 		5BC3784D271F1CFF00444D5E /* InterstitialAdUnitDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterstitialAdUnitDelegate.swift; sourceTree = "<group>"; };
@@ -2077,7 +2077,7 @@
 				5BC37847271F1CFF00444D5E /* BannerViewDelegate.swift */,
 				5BC37848271F1CFF00444D5E /* BannerEventInteractionDelegate.swift */,
 				5BC37849271F1CFF00444D5E /* BaseInterstitialAdUnitProtocol.swift */,
-				5BC3784A271F1CFF00444D5E /* PBRInterstitialAdUnit.swift */,
+				5BC3784A271F1CFF00444D5E /* InterstitialRenderingAdUnit.swift */,
 				5BC3784B271F1CFF00444D5E /* RewardedAdUnit.swift */,
 				5BC3784C271F1CFF00444D5E /* BaseInterstitialAdUnit.swift */,
 				5BC3784D271F1CFF00444D5E /* InterstitialAdUnitDelegate.swift */,
@@ -3153,7 +3153,7 @@
 				5BC37AF4271F2D3500444D5E /* NativeAdConfiguration.swift in Sources */,
 				5BC37A58271F1D0000444D5E /* PBMORTBNoBidReason.m in Sources */,
 				5BC37A85271F1D0000444D5E /* BannerEventLoadingDelegate.swift in Sources */,
-				5BC37A8D271F1D0000444D5E /* PBRInterstitialAdUnit.swift in Sources */,
+				5BC37A8D271F1D0000444D5E /* InterstitialRenderingAdUnit.swift in Sources */,
 				5BC379C0271F1D0000444D5E /* PBMInterstitialDisplayProperties.m in Sources */,
 				5BC378AF271F1CFF00444D5E /* PBMNetworkType.m in Sources */,
 				5BC3793D271F1D0000444D5E /* PBMUserAgentService.m in Sources */,

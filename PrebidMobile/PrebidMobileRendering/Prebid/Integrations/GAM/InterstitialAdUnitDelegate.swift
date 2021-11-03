@@ -23,21 +23,21 @@ import Foundation
 @objc public protocol InterstitialAdUnitDelegate where Self: NSObject {
 
     /// Called when an ad is loaded and ready for display
-    @objc optional func interstitialDidReceiveAd(_ interstitial: PBRInterstitialAdUnit)
+    @objc optional func interstitialDidReceiveAd(_ interstitial: InterstitialRenderingAdUnit)
 
     /// Called when the load process fails to produce a viable ad
-    @objc optional func interstitial(_ interstitial: PBRInterstitialAdUnit,
+    @objc optional func interstitial(_ interstitial: InterstitialRenderingAdUnit,
                                      didFailToReceiveAdWithError error:Error? )
 
     /// Called when the interstitial view will be launched,  as a result of show() method.
-    @objc optional func interstitialWillPresentAd(_ interstitial: PBRInterstitialAdUnit)
+    @objc optional func interstitialWillPresentAd(_ interstitial: InterstitialRenderingAdUnit)
 
     /// Called when the interstitial is dismissed by the user
-    @objc optional func interstitialDidDismissAd(_ interstitial: PBRInterstitialAdUnit)
+    @objc optional func interstitialDidDismissAd(_ interstitial: InterstitialRenderingAdUnit)
 
     /// Called when an ad causes the sdk to leave the app
-    @objc optional func interstitialWillLeaveApplication(_ interstitial: PBRInterstitialAdUnit)
+    @objc optional func interstitialWillLeaveApplication(_ interstitial: InterstitialRenderingAdUnit)
 
     /// Called when user clicked the ad
-    @objc optional func interstitialDidClickAd(_ interstitial: PBRInterstitialAdUnit)
+    @objc optional func interstitialDidClickAd(_ interstitial: InterstitialRenderingAdUnit)
 }
