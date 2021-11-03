@@ -30,7 +30,7 @@ import UIKit
     @objc func callEventHandler_isReady() -> Bool
     @objc func callEventHandler_setLoadingDelegate(_ loadingDelegate: NSObject?)
     @objc func callEventHandler_setInteractionDelegate()
-    @objc func callEventHandler_requestAd(with bidResponse: PBRBidResponse?)
+    @objc func callEventHandler_requestAd(with bidResponse: BidResponseForRendering?)
     @objc func callEventHandler_show(from controller: UIViewController?)
     @objc func callEventHandler_trackImpression()
 }

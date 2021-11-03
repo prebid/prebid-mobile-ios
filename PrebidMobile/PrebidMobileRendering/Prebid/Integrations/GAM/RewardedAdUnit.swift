@@ -119,9 +119,9 @@ public class RewardedAdUnit: BaseInterstitialAdUnit,
         }
     }
 
-    @objc public override func callEventHandler_requestAd(with bidResponse: PBRBidResponse?) {
+    @objc public override func callEventHandler_requestAd(with bidResponse: BidResponseForRendering?) {
         if let eventHandler = self.eventHandler as? RewardedEventHandlerProtocol {
-            eventHandler.requestAd(with: bidResponse)
+            eventHandler.requestAd(withBidResponse: bidResponse)
         }
     }
 

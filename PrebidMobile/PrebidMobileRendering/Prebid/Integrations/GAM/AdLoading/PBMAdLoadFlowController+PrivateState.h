@@ -19,7 +19,7 @@
 #import "PBMAdLoadFlowState.h"
 #import "PBMAdLoaderFlowDelegate.h"
 
-@class PBRBidResponse;
+@class BidResponseForRendering;
 @protocol AdLoadFlowControllerDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSError *bidRequestError;
 
 // State: DemandReceived
-@property (nonatomic, strong, nullable) PBRBidResponse *bidResponse;
+@property (nonatomic, strong, nullable) BidResponseForRendering *bidResponse;
 
 // State: PrimaryAdRequest
 // _(no relevant properties)_

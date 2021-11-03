@@ -15,7 +15,7 @@
 
 import Foundation
 
-public class PBRBidResponse: NSObject {
+public class BidResponseForRendering: NSObject {
     
     @objc public private(set) var allBids: [Bid]?
     @objc public private(set) var winningBid: Bid?

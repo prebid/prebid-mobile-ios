@@ -36,7 +36,7 @@
 @property (nonatomic, strong, nullable) id<PBMBidRequesterProtocol> bidRequester; /// also serves as 'isLoading' flag
 @property (nonatomic, copy, nullable) PBMFetchDemandCompletionHandler completion;
 
-@property (nonatomic, strong, nullable) PBRBidResponse *lastResponseUnsafe; /// backing storage, not protected by 'stateLockToken'
+@property (nonatomic, strong, nullable) BidResponseForRendering *lastResponseUnsafe; /// backing storage, not protected by 'stateLockToken'
 @property (nonatomic, strong, nullable) DemandResponseInfo *lastDemandResponseInfoUnsafe; /// backing storage, not protected by 'stateLockToken'
 
 @end
@@ -70,8 +70,8 @@
 
 // MARK: - Computed protected properties
 
-- (PBRBidResponse *)lastBidResponse {
-    PBRBidResponse *result = nil;
+- (BidResponseForRendering *)lastBidResponse {
+    BidResponseForRendering *result = nil;
     @synchronized (self.stateLockToken) {
         result = self.lastResponseUnsafe;
     }
@@ -109,7 +109,7 @@
     self.completion = [completion copy];
     
     @weakify(self);
-    [self.bidRequester requestBidsWithCompletion:^(PBRBidResponse *response, NSError *error) {
+    [self.bidRequester requestBidsWithCompletion:^(BidResponseForRendering *response, NSError *error) {
         @strongify(self);
         [self handleDemandResponse:response error:error];
     }];
@@ -143,7 +143,7 @@
 
 // MARK: - Private methods
 
-- (void)handleDemandResponse:(PBRBidResponse *)bidResponse error:(NSError *)error {
+- (void)handleDemandResponse:(BidResponseForRendering *)bidResponse error:(NSError *)error {
     PBMFetchDemandCompletionHandler theCompletion = nil;
     DemandResponseInfo *result = nil;
     
