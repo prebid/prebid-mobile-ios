@@ -44,20 +44,16 @@ public class ImpressionTasksExecutor {
     }
     
     func runFirstTask() {
-        guard !self.arrayOfTasks.isEmpty else { return }
-        guard !self.isExecuting else { return }
-        self.isExecuting = true
-        let firstTask = self.arrayOfTasks.removeFirst()
-        queue.async {
-            firstTask.task({ [weak self] in
-                guard let self = self else { return }
-                self.isExecuting = false
-                self.queue.asyncAfter(deadline: .now() + .seconds(firstTask.delayInterval)) {
-                    if !self.arrayOfTasks.isEmpty {
-                        self.runFirstTask()
-                    }
+        isExecuting = !arrayOfTasks.isEmpty
+        guard isExecuting else { return }
+        let firstTask = arrayOfTasks.removeFirst()
+        firstTask.task({ [weak self] in
+            guard let self = self else { return }
+            self.queue.asyncAfter(deadline: .now() + .seconds(firstTask.delayInterval)) {
+                if !self.arrayOfTasks.isEmpty {
+                    self.runFirstTask()
                 }
-            })
-        }
+            }
+        })
     }
 }
