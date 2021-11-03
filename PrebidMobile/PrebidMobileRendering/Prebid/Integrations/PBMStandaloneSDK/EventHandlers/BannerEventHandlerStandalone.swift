@@ -27,7 +27,7 @@ public class BannerEventHandlerStandalone: NSObject, BannerEventHandler {
         true
     }
     
-    public func requestAd(with bidResponse: PBRBidResponse?) {
+    public func requestAd(withBidResponse bidResponse: BidResponseForRendering?) {
         loadingDelegate?.prebidDidWin()
     }
     

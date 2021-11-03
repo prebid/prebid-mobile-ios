@@ -32,7 +32,7 @@ public class InterstitialEventHandlerStandalone: NSObject, InterstitialEventHand
         assertionFailure("should never be called, as PBM SDK always wins")
     }
     
-    public func requestAd(with bidResponse: PBRBidResponse?) {
+    public func requestAd(withBidResponse bidResponse: BidResponseForRendering?) {
         loadingDelegate?.prebidDidWin()
     }
 }

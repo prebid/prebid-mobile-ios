@@ -213,7 +213,7 @@ public class MoPubBannerAdUnit : NSObject {
         bidRequester = nil;
     }
     
-    private func handlePrebidResponse(response: PBRBidResponse) {
+    private func handlePrebidResponse(response: BidResponseForRendering) {
         var demandResult = FetchDemandResult.demandNoBids
         
         if  let adObject = self.adObject,
