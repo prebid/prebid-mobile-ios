@@ -438,7 +438,7 @@
 		5BC37A6F271F1D0000444D5E /* PBMORTBAbstractResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37828271F1CFF00444D5E /* PBMORTBAbstractResponse.m */; };
 		5BC37A70271F1D0000444D5E /* PBMORTBAbstractResponse+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37829271F1CFF00444D5E /* PBMORTBAbstractResponse+Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37A71271F1D0000444D5E /* PBMORTBSeatBid.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3782A271F1CFF00444D5E /* PBMORTBSeatBid.m */; };
-		5BC37A72271F1D0000444D5E /* PBRBidResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3782B271F1CFF00444D5E /* PBRBidResponse.swift */; };
+		5BC37A72271F1D0000444D5E /* BidResponseForRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3782B271F1CFF00444D5E /* BidResponseForRendering.swift */; };
 		5BC37A73271F1D0000444D5E /* PBMNativeAdMediaHooks.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3782C271F1CFF00444D5E /* PBMNativeAdMediaHooks.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37A74271F1D0000444D5E /* PBMWinNotifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3782D271F1CFF00444D5E /* PBMWinNotifier.m */; };
 		5BC37A75271F1D0000444D5E /* PBMClickthroughBrowserOpener.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3782E271F1CFF00444D5E /* PBMClickthroughBrowserOpener.m */; };
@@ -1134,7 +1134,7 @@
 		5BC37828271F1CFF00444D5E /* PBMORTBAbstractResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMORTBAbstractResponse.m; sourceTree = "<group>"; };
 		5BC37829271F1CFF00444D5E /* PBMORTBAbstractResponse+Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMORTBAbstractResponse+Protected.h"; sourceTree = "<group>"; };
 		5BC3782A271F1CFF00444D5E /* PBMORTBSeatBid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSeatBid.m; sourceTree = "<group>"; };
-		5BC3782B271F1CFF00444D5E /* PBRBidResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBRBidResponse.swift; sourceTree = "<group>"; };
+		5BC3782B271F1CFF00444D5E /* BidResponseForRendering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BidResponseForRendering.swift; sourceTree = "<group>"; };
 		5BC3782C271F1CFF00444D5E /* PBMNativeAdMediaHooks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMNativeAdMediaHooks.h; sourceTree = "<group>"; };
 		5BC3782D271F1CFF00444D5E /* PBMWinNotifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMWinNotifier.m; sourceTree = "<group>"; };
 		5BC3782E271F1CFF00444D5E /* PBMClickthroughBrowserOpener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMClickthroughBrowserOpener.m; sourceTree = "<group>"; };
@@ -1843,7 +1843,7 @@
 				5BC3780D271F1CFF00444D5E /* PBMWinNotifierFactoryBlock.h */,
 				5BC3780E271F1CFF00444D5E /* PBMErrorFamily.h */,
 				5BC3780F271F1CFF00444D5E /* ORTB */,
-				5BC3782B271F1CFF00444D5E /* PBRBidResponse.swift */,
+				5BC3782B271F1CFF00444D5E /* BidResponseForRendering.swift */,
 				5BC3782C271F1CFF00444D5E /* PBMNativeAdMediaHooks.h */,
 				5BC3782D271F1CFF00444D5E /* PBMWinNotifier.m */,
 				5BC3782E271F1CFF00444D5E /* PBMClickthroughBrowserOpener.m */,
@@ -3065,7 +3065,7 @@
 				5BC37A62271F1D0000444D5E /* PBMORTBBidExtPrebidCacheBids.m in Sources */,
 				5BC37997271F1D0000444D5E /* PBMAbstractCreative.m in Sources */,
 				5BC3790D271F1CFF00444D5E /* PBMUserConsentResolver.m in Sources */,
-				5BC37A72271F1D0000444D5E /* PBRBidResponse.swift in Sources */,
+				5BC37A72271F1D0000444D5E /* BidResponseForRendering.swift in Sources */,
 				5BC379C8271F1D0000444D5E /* PBMAutoRefreshManager.m in Sources */,
 				5BC37950271F1D0000444D5E /* PBMCreativeFactory.m in Sources */,
 				5BC37AD6271F1D0100444D5E /* PBMORTBParameterBuilder.m in Sources */,

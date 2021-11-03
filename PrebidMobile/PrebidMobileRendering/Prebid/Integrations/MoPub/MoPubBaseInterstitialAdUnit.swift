@@ -100,7 +100,7 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
     
     // MARK: - Private Methods
     
-    private func handleBidResponse(_ bidResponse: PBRBidResponse) {
+    private func handleBidResponse(_ bidResponse: BidResponseForRendering) {
         var demandResult = FetchDemandResult.demandNoBids
         
         if let adObject = self.adObject,

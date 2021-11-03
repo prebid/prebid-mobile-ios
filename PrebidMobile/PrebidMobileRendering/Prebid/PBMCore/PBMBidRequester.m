@@ -34,7 +34,7 @@
 @property (nonatomic, strong, nonnull, readonly) PrebidRenderingTargeting *targeting;
 @property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adUnitConfiguration;
 
-@property (nonatomic, copy, nullable) void (^completion)(PBRBidResponse *, NSError *);
+@property (nonatomic, copy, nullable) void (^completion)(BidResponseForRendering *, NSError *);
 
 @end
 
@@ -54,7 +54,7 @@
     return self;
 }
 
-- (void)requestBidsWithCompletion:(void (^)(PBRBidResponse *, NSError *))completion {
+- (void)requestBidsWithCompletion:(void (^)(BidResponseForRendering *, NSError *))completion {
     NSError * const setupError = [self findErrorInSettings];
     if (setupError) {
         completion(nil, setupError);
@@ -66,7 +66,7 @@
         return;
     }
     
-    self.completion = completion ?: ^(PBRBidResponse *r, NSError *e) {};
+    self.completion = completion ?: ^(BidResponseForRendering *r, NSError *e) {};
     
     NSString * const requestString = [self getRTBRequest];
            
@@ -96,7 +96,7 @@
             return;
         }
         
-        void (^ const completion)(PBRBidResponse *, NSError *) = self.completion;
+        void (^ const completion)(BidResponseForRendering *, NSError *) = self.completion;
         self.completion = nil;
         if (serverResponse.error) {
             PBMLogInfo(@"Bid Request Error: %@", [serverResponse.error localizedDescription]);
@@ -107,7 +107,7 @@
         PBMLogInfo(@"Bid Response: %@", [[NSString alloc] initWithData:serverResponse.rawData encoding:NSUTF8StringEncoding]);
         
         NSError *trasformationError = nil;
-        PBRBidResponse * const _Nullable bidResponse = [PBMBidResponseTransformer transformResponse:serverResponse error:&trasformationError];
+        BidResponseForRendering * const _Nullable bidResponse = [PBMBidResponseTransformer transformResponse:serverResponse error:&trasformationError];
         
         if (bidResponse && !trasformationError) {
             NSNumber * const tmaxrequest = bidResponse.tmaxrequest;

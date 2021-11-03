@@ -15,7 +15,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class PBRBidResponse;
+@class BidResponseForRendering;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
  @discussion Note that, if the PBM SDK does not have valid bids, `requestAdWithBidResponse:` will be called with a `nil` bid value.
  @param bidResponse bid response object having useful information that can be passed to the ad server SDK
 */
-- (void)requestAdWithBidResponse:(nullable PBRBidResponse *)bidResponse;
+- (void)requestAdWithBidResponse:(nullable BidResponseForRendering *)bidResponse;
 
 @end
 

@@ -290,7 +290,7 @@ public class BaseInterstitialAdUnit :
 
     // MARK: - BaseInterstitialAdUnitProtocol
     
-    public func callEventHandler_requestAd(with bidResponse: PBRBidResponse?) {
+    public func callEventHandler_requestAd(with bidResponse: BidResponseForRendering?) {
         
     }
     
