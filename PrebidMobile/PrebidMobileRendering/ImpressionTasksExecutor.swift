@@ -22,29 +22,23 @@ public class ImpressionTasksExecutor {
     
     private let queue = DispatchQueue(label: "impressionQueue", qos: .background)
     
-    private(set) var arrayOfTasks = [ImpressionTask]() {
-        didSet {
-            queue.async {
-                if !self.isExecuting {
-                    self.runFirstTask()
-                }
-            }
-        }
-    }
-    
-    private(set) var isExecuting = false
+    private(set) var arrayOfTasks = [ImpressionTask]()
     
     private init() {}
     
     func add(tasks: [ImpressionTask]) {
         queue.async {
+            let initialArrayIsEmpty = self.arrayOfTasks.isEmpty
             self.arrayOfTasks += tasks
+            
+            if initialArrayIsEmpty {
+                self.runFirstTask()
+            }
         }
     }
     
     func runFirstTask() {
-        isExecuting = !arrayOfTasks.isEmpty
-        guard isExecuting else { return }
+        guard !arrayOfTasks.isEmpty else { return }
         let firstTask = arrayOfTasks.removeFirst()
         firstTask.task({ [weak self] in
             guard let self = self else { return }
