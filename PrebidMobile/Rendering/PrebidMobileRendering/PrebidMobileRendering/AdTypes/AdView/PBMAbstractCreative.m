@@ -14,6 +14,7 @@
  */
 
 #import <StoreKit/SKStoreProductViewController.h>
+#import <WebKit/WebKit.h>
 
 #import "PBMAbstractCreative+Protected.h"
 #import "PBMAbstractCreative.h"
@@ -49,6 +50,8 @@
 
 @property (nonatomic, assign) BOOL adWasShown;
 
+@property (nonatomic, nonnull) WKWebView *hiddenWebView;
+
 @end
 
 @implementation PBMAbstractCreative
@@ -73,7 +76,16 @@
         } else {
             PBMLogError(@"Creative model must be provided with event tracker");
         }
-
+        
+        if(@available(iOS 14.5, *)) {
+            if (self.transaction.skadInfo) {
+                SKAdImpression *imp = [SkadnParametersManager getSkadnImpressionFor:self.transaction.skadInfo];
+                if (imp) {
+                    SkadnEventTracker *skadnTracker = [[SkadnEventTracker alloc] initWith:imp];
+                    [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) skadnTracker];
+                }
+            }
+        }
     }
 
     return self;
@@ -177,14 +189,21 @@
           sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
          completionHandler:(void (^)(BOOL success))completion
                     onExit:(PBMVoidBlock)onClickthroughExitBlock {
+    self.hiddenWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
+    HiddenWebViewManager *webViewManager = [[HiddenWebViewManager alloc] initWithWebView:self.hiddenWebView landingPageString:url.absoluteString];
+    [self.hiddenWebView setHidden:YES];
+    [webViewManager openHiddenWebView];
+    
     if (self.creativeModel.adConfiguration.clickHandlerOverride != nil) {
         completion(YES);
         self.creativeModel.adConfiguration.clickHandlerOverride(onClickthroughExitBlock);
         return;
     }
     BOOL clickthroughOpened = NO;
-    if (self.transaction.skadnetProductParameters) {
-        clickthroughOpened = [self handleProductClickthrough:self.transaction.skadnetProductParameters
+    NSDictionary<NSString *, id> * skadnetProductParameters = [SkadnParametersManager getSkadnProductParametersFor:self.transaction.skadInfo];
+    
+    if (skadnetProductParameters) {
+        clickthroughOpened = [self handleProductClickthrough:skadnetProductParameters
                                                       onExit:onClickthroughExitBlock];
     } else {
         

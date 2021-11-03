@@ -16,8 +16,6 @@
 #import "PBMORTBImpExtSkadn.h"
 #import "PBMORTBAbstract+Protected.h"
 
-static NSString * const SKAdNetworkVersion = @"2.0";
-
 @implementation PBMORTBImpExtSkadn
 
 - (instancetype )init {
@@ -35,7 +33,7 @@ static NSString * const SKAdNetworkVersion = @"2.0";
     PBMMutableJsonDictionary * const ret = [PBMMutableJsonDictionary new];
     
     if (self.sourceapp && self.skadnetids.count > 0) {
-        ret[@"version"] = SKAdNetworkVersion;
+        ret[@"versions"] = @[@"2.2"];
         ret[@"sourceapp"] = self.sourceapp;
         ret[@"skadnetids"] = self.skadnetids;
     }

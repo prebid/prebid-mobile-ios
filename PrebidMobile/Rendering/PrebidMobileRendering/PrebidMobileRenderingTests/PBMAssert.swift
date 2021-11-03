@@ -16,6 +16,16 @@
 import Foundation
 import XCTest
 
+// Use to test equality of values that have type 'Any' 
+public func PBMAssertEq<T: Equatable>(type: T.Type, actual: Any, expected: Any, file: StaticString = #file, line: UInt = #line) {
+    guard let actual = actual as? T, let expected = expected as? T else {
+        PBMFail(actual, expected, file:file, line:line)
+        return
+    }
+
+    XCTAssertTrue(actual == expected)
+}
+
 public func PBMAssertEq<T:Equatable>(_ actual:T?, _ expected:T?, file: StaticString = #file, line: UInt = #line) {
     if (expected != actual) {
         PBMFail(actual, expected, file:file, line:line)

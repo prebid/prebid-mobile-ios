@@ -50,35 +50,8 @@ public class Bid: NSObject {
         bid.ext.prebid?.targeting
     }
     
-    /// A dictionary with information about SKAdNetwork for loadProcut
-    @objc public var skadnInfo: [String : Any]? {
-        guard let skadn = bid.ext.skadn else {
-            return nil
-        }
-        if #available(iOS 14.0, *) {
-            if let itunesitem = skadn.itunesitem,
-               let network = skadn.network,
-               let campaign = skadn.campaign,
-               let timestamp = skadn.timestamp,
-               let nonce = skadn.nonce,
-               let signature = skadn.signature,
-               let sourceapp = skadn.sourceapp,
-               let version = skadn.version {
-                return [
-                    SKStoreProductParameterITunesItemIdentifier: itunesitem,
-                    SKStoreProductParameterAdNetworkIdentifier: network,
-                    SKStoreProductParameterAdNetworkCampaignIdentifier: campaign,
-                    SKStoreProductParameterAdNetworkTimestamp: timestamp,
-                    SKStoreProductParameterAdNetworkNonce: nonce,
-                    SKStoreProductParameterAdNetworkAttributionSignature: signature,
-                    SKStoreProductParameterAdNetworkSourceAppStoreIdentifier: sourceapp,
-                    SKStoreProductParameterAdNetworkVersion: version
-                ]
-            }
-            return nil
-        } else {
-            return nil
-        }
+    @objc public var skadn: PBMORTBBidExtSkadn? {
+        return bid.ext.skadn
     }
     
     /// Returns YES if this bid is intented for display.

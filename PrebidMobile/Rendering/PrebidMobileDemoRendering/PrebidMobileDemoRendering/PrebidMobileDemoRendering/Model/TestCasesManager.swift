@@ -466,6 +466,22 @@ struct TestCaseManager {
                 setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
+            TestCase(title: "Banner 320x50 (In-App) [SKAdN 2.2]",
+                     tags: [.banner, .inapp, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "mock-banner-320-50-skadn-v22"
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
             // MARK: ---- Banner (GAM) ----
             
             TestCase(title: "Banner 320x50 (GAM) [OK, AppEvent]",
