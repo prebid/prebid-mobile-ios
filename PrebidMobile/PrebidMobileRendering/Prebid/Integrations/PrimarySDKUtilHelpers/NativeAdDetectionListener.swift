@@ -15,7 +15,7 @@
 
 import Foundation
 
-public typealias NativeAdLoadedHandler = (NativeAd) -> Void
+public typealias NativeAdLoadedHandler = (PBRNativeAd) -> Void
 public typealias PrimaryAdServerWinHandler = () -> Void
 public typealias InvalidNativeAdHandler = (Error) -> Void
 

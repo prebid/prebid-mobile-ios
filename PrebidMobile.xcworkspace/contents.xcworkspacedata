@@ -8,6 +8,9 @@
       location = "group:Example/PrebidDemo/PrebidDemo.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:Pods/../EventHandlers/EventHandlers.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:tools/PrebidValidator/Dr.Prebid.xcodeproj">
    </FileRef>
    <FileRef
