@@ -69,6 +69,8 @@ class PBMORTBAbstractTest : XCTestCase {
         
         codeAndDecode(abstract:PBMORTBBidRequestExtPrebid(), expectedString: "{}")
         codeAndDecode(abstract:PBMORTBImpExtPrebid(), expectedString: "{}")
+        
+        codeAndDecode(abstract: PBMORTBImpExtSkadn(), expectedString: "{}")
     }
     
     func testAbstractMethods() {
@@ -217,6 +219,8 @@ class PBMORTBAbstractTest : XCTestCase {
         XCTAssertEqual(pbmORTBRegs.coppa, nil)
         codeAndDecode(abstract:pbmORTBRegs, expectedString:"{}")
     }
+    
+    // MARK: PBMORTBImp
 
     func testImpToJsonString() {
         let pbmORTBImp = PBMORTBImp()
@@ -235,6 +239,14 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBImp.extContextData = ["lookup_words": ["dragon", "flame"]]
         
         codeAndDecode(abstract: pbmORTBImp, expectedString: "{\"banner\":{\"api\":[]},\"clickbrowser\":0,\"displaymanager\":\"MOCK_SDK_NAME\",\"displaymanagerver\":\"MOCK_SDK_VERSION\",\"ext\":{\"context\":{\"data\":{\"lookup_words\":[\"dragon\",\"flame\"]}},\"dlp\":1},\"id\":\"\(uuid)\",\"instl\":1,\"native\":{\"ver\":\"1.2\"},\"secure\":1,\"tagid\":\"tagid\",\"video\":{\"delivery\":[3],\"mimes\":[\"video\\/mp4\",\"video\\/quicktime\",\"video\\/x-m4v\",\"video\\/3gpp\",\"video\\/3gpp2\"],\"playbackend\":2,\"pos\":7,\"protocols\":[2,5]}}")
+    }
+    
+    func testPBMORTBImpExtSkadnToJsonString() {
+        let skadn = PBMORTBImpExtSkadn()
+        skadn.sourceapp = "12345678"
+        skadn.skadnetids = ["1", "2", "3"]
+        
+        codeAndDecode(abstract: skadn, expectedString: "{\"skadnetids\":[\"1\",\"2\",\"3\"],\"sourceapp\":\"12345678\",\"versions\":[\"2.2\"]}")
     }
     
     func testNativeToJsonString() {

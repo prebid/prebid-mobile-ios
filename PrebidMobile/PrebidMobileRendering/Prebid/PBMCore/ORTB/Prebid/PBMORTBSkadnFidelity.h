@@ -13,18 +13,24 @@
  limitations under the License.
  */
 
+
 #import "PBMORTBAbstract.h"
-@class PBMORTBBidExtPrebid;
-@class PBMORTBBidExtSkadn;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMORTBBidExt : PBMORTBAbstract
+@interface PBMORTBSkadnFidelity : PBMORTBAbstract
 
-@property (nonatomic, strong, nullable) PBMORTBBidExtPrebid *prebid;
-@property (nonatomic, copy, nullable) NSDictionary *bidder;
+// The fidelity-type of the attribution to track
+@property (nonatomic, copy, nullable) NSNumber *fidelity;
 
-@property (nonatomic, strong, nullable) PBMORTBBidExtSkadn *skadn;
+// SKAdNetwork signature as specified by Apple
+@property (nonatomic, copy, nullable) NSString *signature;
+
+// An id unique to each ad response. Refer to Apple’s documentation for the proper UUID format requirements
+@property (nonatomic, copy, nullable) NSUUID *nonce;
+
+// Unix time in millis string used at the time of signature
+@property (nonatomic, copy, nullable) NSNumber *timestamp;
 
 @end
 

@@ -108,8 +108,8 @@
 
 - (void)onFinishedWithTransaction:(PBMTransaction *)transaction error:(NSError *)error {
     self.currentFactory = nil;
-    if (self.bid.skadnInfo) {
-        transaction.skadnetProductParameters = self.bid.skadnInfo;
+    if (self.bid.skadn) {
+        transaction.skadInfo = self.bid.skadn;
     }
     self.callback(transaction, error);
 }

@@ -1,3 +1,4 @@
+//
 /*   Copyright 2018-2021 Prebid.org, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,19 +14,10 @@
  limitations under the License.
  */
 
-#import "PBMORTBAbstract.h"
-@class PBMORTBBidExtPrebid;
-@class PBMORTBBidExtSkadn;
 
-NS_ASSUME_NONNULL_BEGIN
+import Foundation
 
-@interface PBMORTBBidExt : PBMORTBAbstract
-
-@property (nonatomic, strong, nullable) PBMORTBBidExtPrebid *prebid;
-@property (nonatomic, copy, nullable) NSDictionary *bidder;
-
-@property (nonatomic, strong, nullable) PBMORTBBidExtSkadn *skadn;
-
-@end
-
-NS_ASSUME_NONNULL_END
+struct ImpressionTask {
+    let task: (_ completion: @escaping (() -> Void)) -> Void
+    let delayInterval: Int
+}

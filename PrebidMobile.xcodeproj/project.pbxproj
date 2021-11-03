@@ -589,6 +589,13 @@
 		60C038212204AF5D0082B32C /* RequestBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FAC1E21FFAF46008EAE5E /* RequestBuilderTests.swift */; };
 		60C038242204AF5D0082B32C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97826AA621FB4F1B001E2C05 /* Constants.swift */; };
 		60D79301217E229B0080F428 /* PrebidMobileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60D79300217E229B0080F428 /* PrebidMobileTests.swift */; };
+		9236A64E272FEAFE00ABBEF4 /* ImpressionTasksExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9236A64D272FEAFE00ABBEF4 /* ImpressionTasksExecutor.swift */; };
+		9236A650272FEC5A00ABBEF4 /* ImpressionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9236A64F272FEC5A00ABBEF4 /* ImpressionTask.swift */; };
+		925A641627317A39009E72F9 /* HiddenWebViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925A641527317A39009E72F9 /* HiddenWebViewManager.swift */; };
+		92664565272AB5BB0064F7BD /* PBMORTBSkadnFidelity.h in Headers */ = {isa = PBXBuildFile; fileRef = 92664564272AB5BB0064F7BD /* PBMORTBSkadnFidelity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		92664567272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m in Sources */ = {isa = PBXBuildFile; fileRef = 92664566272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m */; };
+		92664569272AB9120064F7BD /* SkadnEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92664568272AB9120064F7BD /* SkadnEventTracker.swift */; };
+		9266456B272AB9610064F7BD /* SkadnParametersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266456A272AB9610064F7BD /* SkadnParametersManager.swift */; };
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
 		9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */; };
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
@@ -1254,6 +1261,13 @@
 		60D792FB217E229B0080F428 /* PrebidMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		60D79300217E229B0080F428 /* PrebidMobileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobileTests.swift; sourceTree = "<group>"; };
 		60D79302217E229B0080F428 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9236A64D272FEAFE00ABBEF4 /* ImpressionTasksExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressionTasksExecutor.swift; sourceTree = "<group>"; };
+		9236A64F272FEC5A00ABBEF4 /* ImpressionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressionTask.swift; sourceTree = "<group>"; };
+		925A641527317A39009E72F9 /* HiddenWebViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenWebViewManager.swift; sourceTree = "<group>"; };
+		92664564272AB5BB0064F7BD /* PBMORTBSkadnFidelity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBSkadnFidelity.h; sourceTree = "<group>"; };
+		92664566272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSkadnFidelity.m; sourceTree = "<group>"; };
+		92664568272AB9120064F7BD /* SkadnEventTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnEventTracker.swift; sourceTree = "<group>"; };
+		9266456A272AB9610064F7BD /* SkadnParametersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnParametersManager.swift; sourceTree = "<group>"; };
 		9720387B2358771600F8025A /* NativeRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeRequestTests.swift; sourceTree = "<group>"; };
 		9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetTests.swift; sourceTree = "<group>"; };
 		9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackerTests.swift; sourceTree = "<group>"; };
@@ -1698,6 +1712,7 @@
 				5BC3776E271F1CFE00444D5E /* PBMAbstractCreative.h */,
 				5BC3776F271F1CFE00444D5E /* PBMWKWebViewCompatible.h */,
 				5BC37770271F1CFE00444D5E /* PBMAdFormatInternal.h */,
+				925A641527317A39009E72F9 /* HiddenWebViewManager.swift */,
 				5BC37771271F1CFE00444D5E /* PBMClickthroughBrowserNavigationHandler.m */,
 				5BC37772271F1CFE00444D5E /* PBMAdRequesterVAST.m */,
 				5BC37773271F1CFE00444D5E /* PBMAdViewButtonDecorator.m */,
@@ -1996,19 +2011,21 @@
 		5BC37814271F1CFF00444D5E /* Prebid */ = {
 			isa = PBXGroup;
 			children = (
-				5BC37815271F1CFF00444D5E /* PBMORTBBidExtPrebidCacheBids.h */,
-				5BC37816271F1CFF00444D5E /* PBMORTBBidExtPrebidCache.m */,
-				5BC37817271F1CFF00444D5E /* PBMORTBBidResponseExt.m */,
-				5BC37818271F1CFF00444D5E /* PBMORTBBidExtSkadn.m */,
-				5BC37819271F1CFF00444D5E /* PBMORTBBidExtPrebid.m */,
-				5BC3781A271F1CFF00444D5E /* PBMORTBBidExt.m */,
-				5BC3781B271F1CFF00444D5E /* PBMORTBBidExtPrebidCacheBids.m */,
-				5BC3781C271F1CFF00444D5E /* PBMORTBPrebid.h */,
-				5BC3781D271F1CFF00444D5E /* PBMORTBBidResponseExt.h */,
-				5BC3781E271F1CFF00444D5E /* PBMORTBBidExtPrebidCache.h */,
-				5BC3781F271F1CFF00444D5E /* PBMORTBBidExtSkadn.h */,
 				5BC37820271F1CFF00444D5E /* PBMORTBBidExt.h */,
+				5BC3781A271F1CFF00444D5E /* PBMORTBBidExt.m */,
 				5BC37821271F1CFF00444D5E /* PBMORTBBidExtPrebid.h */,
+				5BC37819271F1CFF00444D5E /* PBMORTBBidExtPrebid.m */,
+				5BC3781E271F1CFF00444D5E /* PBMORTBBidExtPrebidCache.h */,
+				5BC37816271F1CFF00444D5E /* PBMORTBBidExtPrebidCache.m */,
+				5BC37815271F1CFF00444D5E /* PBMORTBBidExtPrebidCacheBids.h */,
+				5BC3781B271F1CFF00444D5E /* PBMORTBBidExtPrebidCacheBids.m */,
+				5BC3781F271F1CFF00444D5E /* PBMORTBBidExtSkadn.h */,
+				5BC37818271F1CFF00444D5E /* PBMORTBBidExtSkadn.m */,
+				92664564272AB5BB0064F7BD /* PBMORTBSkadnFidelity.h */,
+				92664566272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m */,
+				5BC3781D271F1CFF00444D5E /* PBMORTBBidResponseExt.h */,
+				5BC37817271F1CFF00444D5E /* PBMORTBBidResponseExt.m */,
+				5BC3781C271F1CFF00444D5E /* PBMORTBPrebid.h */,
 			);
 			path = Prebid;
 			sourceTree = "<group>";
@@ -2269,6 +2286,10 @@
 				5BC376A9271F1CFE00444D5E /* Utilities */,
 				5BC37670271F1CFD00444D5E /* VideoPlacementType.swift */,
 				5BC378A7271F1CFF00444D5E /* WKNavigationAction+PBMWKNavigationActionCompatible.h */,
+				92664568272AB9120064F7BD /* SkadnEventTracker.swift */,
+				9266456A272AB9610064F7BD /* SkadnParametersManager.swift */,
+				9236A64D272FEAFE00ABBEF4 /* ImpressionTasksExecutor.swift */,
+				9236A64F272FEC5A00ABBEF4 /* ImpressionTask.swift */,
 			);
 			path = PrebidMobileRendering;
 			sourceTree = "<group>";
@@ -2647,6 +2668,7 @@
 				5BC37A9E271F1D0000444D5E /* PBMAdLoadFlowState.h in Headers */,
 				5BC379BD271F1D0000444D5E /* PBMAdRefreshOptions.h in Headers */,
 				5BC378F8271F1CFF00444D5E /* PBMORTBPmp.h in Headers */,
+				92664565272AB5BB0064F7BD /* PBMORTBSkadnFidelity.h in Headers */,
 				5BC37984271F1D0000444D5E /* PBMCloseButtonDecorator.h in Headers */,
 				5BC3797F271F1D0000444D5E /* PBMMRAIDCommand.h in Headers */,
 				5BC37ADD271F1D0100444D5E /* PBMTrackingRecord.h in Headers */,
@@ -2953,6 +2975,7 @@
 				FAEE4D0D262DC2B200AD9966 /* Logging.swift in Sources */,
 				5BC37A99271F1D0000444D5E /* PBMInterstitialAdLoader.m in Sources */,
 				FAEE4D2B262DC2B200AD9966 /* BidManager.swift in Sources */,
+				9236A650272FEC5A00ABBEF4 /* ImpressionTask.swift in Sources */,
 				5BC379F6271F1D0000444D5E /* PBMNativeClickTrackingEntry.m in Sources */,
 				5BC37A97271F1D0000444D5E /* InterstitialEventHandlerProtocol.swift in Sources */,
 				5BC37AEF271F2D3000444D5E /* NativeAdTitle.swift in Sources */,
@@ -2995,6 +3018,7 @@
 				5BC37916271F1CFF00444D5E /* PBMDateFormatService.m in Sources */,
 				5BC37AA5271F1D0000444D5E /* MoPubBaseInterstitialAdUnit.swift in Sources */,
 				5BC3797D271F1D0000444D5E /* PBMHTMLFormatter.m in Sources */,
+				9236A64E272FEAFE00ABBEF4 /* ImpressionTasksExecutor.swift in Sources */,
 				FAEE4D26262DC2B200AD9966 /* ExternalUserId.swift in Sources */,
 				5BC379A0271F1D0000444D5E /* PBMTouchForwardingView.m in Sources */,
 				FAEE4D11262DC2B200AD9966 /* RequestBuilder.swift in Sources */,
@@ -3037,6 +3061,7 @@
 				5BC378F9271F1CFF00444D5E /* PBMORTBPublisher.m in Sources */,
 				FAEE4D27262DC2B200AD9966 /* BidResponse.swift in Sources */,
 				5BC379D6271F1D0000444D5E /* PBMWebView.m in Sources */,
+				92664569272AB9120064F7BD /* SkadnEventTracker.swift in Sources */,
 				5BC37A62271F1D0000444D5E /* PBMORTBBidExtPrebidCacheBids.m in Sources */,
 				5BC37997271F1D0000444D5E /* PBMAbstractCreative.m in Sources */,
 				5BC3790D271F1CFF00444D5E /* PBMUserConsentResolver.m in Sources */,
@@ -3049,6 +3074,7 @@
 				5BC37A7A271F1D0000444D5E /* PBMDisplayTransactionFactory.m in Sources */,
 				5BC37AFC271F2D3500444D5E /* NativeAssetVideo.swift in Sources */,
 				5BC378B9271F1CFF00444D5E /* PBMViewExposure.m in Sources */,
+				92664567272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m in Sources */,
 				5BC378D9271F1CFF00444D5E /* PBMORTBSourceExtOMID.m in Sources */,
 				5BC37AAB271F1D0000444D5E /* MoPubInterstitialAdUnit.swift in Sources */,
 				5BC378FC271F1CFF00444D5E /* PBMORTBDevice.m in Sources */,
@@ -3180,6 +3206,7 @@
 				5BC37A90271F1D0000444D5E /* InterstitialAdUnitDelegate.swift in Sources */,
 				5BC37A88271F1D0000444D5E /* RewardedAdUnitDelegate.swift in Sources */,
 				5BC378DB271F1CFF00444D5E /* PBMORTBDeal.m in Sources */,
+				925A641627317A39009E72F9 /* HiddenWebViewManager.swift in Sources */,
 				5BC3796C271F1D0000444D5E /* PBMVastCreativeLinear.m in Sources */,
 				5BC37A20271F1D0000444D5E /* PBMORTBMacrosHelper.m in Sources */,
 				5BC378BB271F1CFF00444D5E /* NSNumber+PBMORTBNative.m in Sources */,
@@ -3233,6 +3260,7 @@
 				5BC378C0271F1CFF00444D5E /* NSDictionary+PBMExtensions.m in Sources */,
 				5BC3796B271F1D0000444D5E /* PBMVastCreativeAbstract.m in Sources */,
 				5BC37AFB271F2D3500444D5E /* NativeEventTrackingMethod.swift in Sources */,
+				9266456B272AB9610064F7BD /* SkadnParametersManager.swift in Sources */,
 				5BC379D0271F1D0000444D5E /* PBMAdLoadManagerVAST.m in Sources */,
 				5BC3791E271F1CFF00444D5E /* PBMReachability.m in Sources */,
 				5BC37983271F1D0000444D5E /* PBMAdViewManager.m in Sources */,
@@ -3439,6 +3467,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -3474,6 +3503,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";

@@ -45,3 +45,5 @@
 #import "PBMLogPrivate.h"
 
 #import "PBMInterstitialAdLoaderDelegate.h"
+
+#import "PBMEventTrackerProtocol.h"
