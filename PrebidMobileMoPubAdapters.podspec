@@ -2,11 +2,9 @@ Pod::Spec.new do |s|
 
   s.name         = "PrebidMobileMoPubAdapters"
   s.version      = "1.13"
-  s.summary      = "The bridge between Prebid-Mobile-SDK Rendering module and MoPub framework."
+  s.summary      = "The bridge between PrebidMobile SDK and MoPub SDK."
 
-  s.description  = <<-DESC
-    Prebid-Mobile-SDK is a lightweight framework that integrates directly with Prebid Server to increase yield for publishers by adding more mobile buyers."
-    DESC
+  s.description  = "MoPub Adatpers manages rendering of Prebid ads in the case of integration with MoPub as a Primary Ad Server."
   s.homepage     = "https://www.prebid.org"
 
 
@@ -42,11 +40,11 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s'}
   s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s'}
 
-  s.source_files = 'PrebidMobile/Rendering/EventHandlers/PrebidMobileMoPubAdapters/**/*.{h,m,swift}'
+  s.source_files = 'EventHandlers/PrebidMobileMoPubAdapters/**/*.{h,m,swift}'
 
   s.static_framework = true
 
-  s.dependency 'PrebidMobileRendering'
-  s.dependency 'mopub-ios-sdk', '5.16.2'
+  s.dependency 'PrebidMobile'
+  s.dependency 'mopub-ios-sdk',
 
 end
