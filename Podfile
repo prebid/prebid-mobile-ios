@@ -65,3 +65,24 @@ target 'Dr.Prebid' do
   
   prebid_demo_pods
 end
+
+def internalTestApp_pods
+  pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'xcode12'
+  pod 'SVProgressHUD'
+  mopub_pods
+  gma_pods
+end
+
+target 'PrebidMobileDemoRendering' do
+  use_frameworks!
+  project 'InternalTestApp/PrebidMobileDemoRendering.xcodeproj'
+  internalTestApp_pods
+end
+
+target 'OpenXMockServer' do
+  use_frameworks!
+  project 'InternalTestApp/PrebidMobileDemoRendering.xcodeproj'
+  
+  pod 'Alamofire', '4.9.1'
+  pod 'RxSwift'
+end
