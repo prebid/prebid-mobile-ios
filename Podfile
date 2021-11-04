@@ -4,8 +4,37 @@ platform :ios, '10.0'
 workspace 'PrebidMobile'
 
 project 'PrebidMobile.xcodeproj'
+project 'EventHandlers/EventHandlers.xcodeproj'
 project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
 project 'tools/PrebidValidator/Dr.Prebid.xcodeproj'
+
+def mopub_pods
+  pod 'mopub-ios-sdk'
+end
+
+def gma_pods
+    pod 'Google-Mobile-Ads-SDK'
+end
+
+def event_handlers_project
+  project 'EventHandlers/EventHandlers.xcodeproj'
+  use_frameworks!
+end
+
+target 'PrebidMobileGAMEventHandlers' do
+  event_handlers_project
+  gma_pods
+end
+
+target 'PrebidMobileGAMEventHandlersTests' do
+  event_handlers_project
+  gma_pods
+end
+
+target 'PrebidMobileMoPubAdapters' do
+  event_handlers_project
+  mopub_pods
+end
 
 def prebid_demo_pods
   use_frameworks!
