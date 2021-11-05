@@ -17,14 +17,14 @@ import Foundation
 
 import PrebidMobile
 
-extension NativeAsset {
-    class func parse(json: [String:Any]) -> NativeAsset? {
-        var asset: NativeAsset!
+extension PBRNativeAsset {
+    class func parse(json: [String:Any]) -> PBRNativeAsset? {
+        var asset: PBRNativeAsset!
         var childDic: [String: Any]!
-        let parsers: [String: ([String: Any])->NativeAsset?] = [
-            "data": NativeAssetData.init(childJson:),
-            "img": NativeAssetImage.init(childJson:),
-            "title": NativeAssetTitle.init(childJson:),
+        let parsers: [String: ([String: Any])->PBRNativeAsset?] = [
+            "data": PBRNativeAssetData.init(childJson:),
+            "img": PBRNativeAssetImage.init(childJson:),
+            "title": PBRNativeAssetTitle.init(childJson:),
             "video": NativeAssetVideo.init(childJson:),
         ]
         for (key, builder) in parsers {
@@ -42,7 +42,7 @@ extension NativeAsset {
     }
 }
 
-fileprivate extension NativeAssetTitle {
+fileprivate extension PBRNativeAssetTitle {
     convenience init?(childJson: [String: Any]) {
         guard let length = childJson["len"] as? NSNumber else {
             return nil
@@ -51,7 +51,7 @@ fileprivate extension NativeAssetTitle {
     }
 }
 
-fileprivate extension NativeAssetData {
+fileprivate extension PBRNativeAssetData {
     convenience init?(childJson: [String: Any]) {
         guard let rawDataType = childJson["type"] as? NSNumber,
               let dataType = NativeDataAssetType(rawValue: rawDataType.intValue)
@@ -63,7 +63,7 @@ fileprivate extension NativeAssetData {
     }
 }
 
-fileprivate extension NativeAssetImage {
+fileprivate extension PBRNativeAssetImage {
     convenience init?(childJson: [String: Any]) {
         self.init()
         imageType = childJson["type"] as? NSNumber

@@ -32,7 +32,7 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigur
     
     private var adUnit: MoPubNativeAdUnit?
     private var theMoPubNativeAd: MPNativeAd?
-    private var thePrebidNativeAd: NativeAd?
+    private var thePrebidNativeAd: PBRNativeAd?
     
     private let fetchDemandSuccessButton = EventReportContainer()
     private let fetchDemandFailedButton = EventReportContainer()
@@ -215,7 +215,7 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigur
         ])
     }
     
-    private func setupPrebidNativeAd(_ nativeAd: NativeAd) {
+    private func setupPrebidNativeAd(_ nativeAd: PBRNativeAd) {
         self.nativeAdLoadedButton.isEnabled = true
         self.thePrebidNativeAd = nativeAd
         
@@ -254,28 +254,28 @@ extension PrebidMoPubNativeAdController: MPNativeAdDelegate {
 }
 
 extension PrebidMoPubNativeAdController: NativeAdTrackingDelegate {
-    func nativeAd(_ nativeAd: NativeAd, didLogEvent nativeEvent: NativeEventType) {
+    func nativeAd(_ nativeAd: PBRNativeAd, didLogEvent nativeEvent: NativeEventType) {
         nativeAdDidLogEventButtons.first{$0.event == nativeEvent}?.button.isEnabled = true
     }
-    func nativeAdDidLogClick(_ nativeAd: NativeAd) {
+    func nativeAdDidLogClick(_ nativeAd: PBRNativeAd) {
         nativeAdDidClickButton.isEnabled = true
     }
-    func nativeAdDidExpire(_ nativeAd: NativeAd) {
+    func nativeAdDidExpire(_ nativeAd: PBRNativeAd) {
         nativeAdDidExpireButton.isEnabled = true
     }
 }
 
 extension PrebidMoPubNativeAdController: NativeAdUIDelegate {
-    func viewPresentationControllerForNativeAd(_ nativeAd: NativeAd) -> UIViewController? {
+    func viewPresentationControllerForNativeAd(_ nativeAd: PBRNativeAd) -> UIViewController? {
         return rootController
     }
-    func nativeAdWillLeaveApplication(_ nativeAd: NativeAd) {
+    func nativeAdWillLeaveApplication(_ nativeAd: PBRNativeAd) {
         nativeAdWillLeaveAppButton.isEnabled = true
     }
-    func nativeAdWillPresentModal(_ nativeAd: NativeAd) {
+    func nativeAdWillPresentModal(_ nativeAd: PBRNativeAd) {
         nativeAdWillPresentModalButton.isEnabled = true
     }
-    func nativeAdDidDismissModal(_ nativeAd: NativeAd) {
+    func nativeAdDidDismissModal(_ nativeAd: PBRNativeAd) {
         nativeAdDidDismissModalButton.isEnabled = true
     }
 }

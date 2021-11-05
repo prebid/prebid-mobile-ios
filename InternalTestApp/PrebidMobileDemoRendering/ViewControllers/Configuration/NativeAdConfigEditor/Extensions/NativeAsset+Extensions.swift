@@ -16,7 +16,7 @@
 import Foundation
 import PrebidMobile
 
-extension NativeAsset {
+extension PBRNativeAsset {
     var name: String
-        { String(String(describing: type(of: self)).dropFirst("NativeAsset".count)).lowercased() }
+        { String(String(describing: type(of: self)).dropFirst("PBRNativeAsset".count)).lowercased() }
 }

@@ -30,8 +30,8 @@ class NativeEventTrackersArrayController : FormViewController {
     }
     
     func buildForm() {
-        func makeEventTrackerRow(eventTracker: NativeEventTracker) -> ButtonRowOf<NativeEventTracker> {
-            return ButtonRowOf<NativeEventTracker> { row in
+        func makeEventTrackerRow(eventTracker: PBRNativeEventTracker) -> ButtonRowOf<PBRNativeEventTracker> {
+            return ButtonRowOf<PBRNativeEventTracker> { row in
                 row.value = eventTracker
                 row.title = try! eventTracker.toJsonString()
             }
@@ -51,7 +51,7 @@ class NativeEventTrackersArrayController : FormViewController {
                 }
             }
             section.multivaluedRowToInsertAt = { _ in
-                makeEventTrackerRow(eventTracker: NativeEventTracker(event: NativeEventType.impression.rawValue, methods: []))
+                makeEventTrackerRow(eventTracker: PBRNativeEventTracker(event: NativeEventType.impression.rawValue, methods: []))
             }
             for nextEventTracker in nativeAdConfig.eventtrackers! {
                 section <<< makeEventTrackerRow(eventTracker: nextEventTracker)
@@ -64,7 +64,7 @@ class NativeEventTrackersArrayController : FormViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        eventTrackersSection.allRows.compactMap { $0 as? ButtonRowOf<NativeEventTracker> }.forEach {
+        eventTrackersSection.allRows.compactMap { $0 as? ButtonRowOf<PBRNativeEventTracker> }.forEach {
             $0.title = try! $0.value!.toJsonString()
             $0.updateCell()
         }
@@ -72,6 +72,6 @@ class NativeEventTrackersArrayController : FormViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        nativeAdConfig.eventtrackers = eventTrackersSection.values().compactMap { $0 as? NativeEventTracker }
+        nativeAdConfig.eventtrackers = eventTrackersSection.values().compactMap { $0 as? PBRNativeEventTracker }
     }
 }

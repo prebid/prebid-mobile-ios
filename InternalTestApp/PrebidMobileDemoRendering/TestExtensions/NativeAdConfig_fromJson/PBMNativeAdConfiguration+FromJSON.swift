@@ -22,7 +22,7 @@ extension NativeAdConfiguration {
         guard let rawAssets = json["assets"] as? [[String: Any]] else {
             return nil
         }
-        self.init(assets: rawAssets.compactMap(NativeAsset.parse(json:)))
+        self.init(assets: rawAssets.compactMap(PBRNativeAsset.parse(json:)))
         version = json["ver"] as? String
         
         context = json["context"] as? Int ?? 0
@@ -34,7 +34,7 @@ extension NativeAdConfiguration {
 //        aurlsupport = json["aurlsupport"] as? NSNumber
 //        durlsupport = json["durlsupport"] as? NSNumber
         if let rawTrackers = json["eventtrackers"] as? [[String: Any]] {
-            eventtrackers = rawTrackers.compactMap(NativeEventTracker.init(json:))
+            eventtrackers = rawTrackers.compactMap(PBRNativeEventTracker.init(json:))
         }
         privacy = json["privacy"] as? NSNumber
         try? setExt((json["ext"] as? [String: AnyHashable])!)

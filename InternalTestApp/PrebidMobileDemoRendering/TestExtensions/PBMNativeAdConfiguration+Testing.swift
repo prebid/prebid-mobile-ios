@@ -16,15 +16,15 @@
 import Foundation
 import PrebidMobile
 
-extension Array where Self.Element == NativeAsset {
-    static let defaultNativeRequestAssets: [NativeAsset] = [
+extension Array where Self.Element == PBRNativeAsset {
+    static let defaultNativeRequestAssets: [PBRNativeAsset] = [
         {
-            let title = NativeAssetTitle(length: 90)
+            let title = PBRNativeAssetTitle(length: 90)
             title.required = true
             return title
         }(),
         {
-            let icon = NativeAssetImage()
+            let icon = PBRNativeAssetImage()
             icon.widthMin = 50
             icon.heightMin = 50
             icon.required = 1
@@ -32,7 +32,7 @@ extension Array where Self.Element == NativeAsset {
             return icon
         }(),
         {
-            let image = NativeAssetImage()
+            let image = PBRNativeAssetImage()
             image.widthMin = 150
             image.heightMin = 50
             image.required = 1
@@ -40,17 +40,17 @@ extension Array where Self.Element == NativeAsset {
             return image
         }(),
         {
-            let desc = NativeAssetData(dataType: .desc)
+            let desc = PBRNativeAssetData(dataType: .desc)
             desc.required = 1
             return desc
         }(),
         {
-            let cta = NativeAssetData(dataType: .ctaText)
+            let cta = PBRNativeAssetData(dataType: .ctaText)
             cta.required = 1
             return cta
         }(),
         {
-            let sponsored = NativeAssetData(dataType: .sponsored)
+            let sponsored = PBRNativeAssetData(dataType: .sponsored)
             sponsored.required = 1
             return sponsored
         }(),
@@ -59,11 +59,11 @@ extension Array where Self.Element == NativeAsset {
 
 // TODO: additional parameters for trackers, context, etc. (?)
 extension NativeAdConfiguration {
-    convenience init(testConfigWithAssets assets: [NativeAsset]) {
+    convenience init(testConfigWithAssets assets: [PBRNativeAsset]) {
         self.init(assets: assets)
         
         self.eventtrackers = [
-            NativeEventTracker(event: NativeEventType.impression.rawValue,
+            PBRNativeEventTracker(event: NativeEventType.impression.rawValue,
                                   methods: [
                                     NativeEventTrackingMethod.img,
                                     .js,

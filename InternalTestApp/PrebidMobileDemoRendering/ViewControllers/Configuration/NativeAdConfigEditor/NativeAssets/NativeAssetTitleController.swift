@@ -18,7 +18,7 @@ import Eureka
 
 import PrebidMobile
 
-class NativeAssetTitleController: BaseNativeAssetController<NativeAssetTitle> {
+class NativeAssetTitleController: BaseNativeAssetController<PBRNativeAssetTitle> {
     override func buildForm() {
         super.buildForm()
         

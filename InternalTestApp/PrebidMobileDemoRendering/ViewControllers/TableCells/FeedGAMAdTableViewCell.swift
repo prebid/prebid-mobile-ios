@@ -25,7 +25,7 @@ class FeedGAMAdTableViewCell: UITableViewCell {
     var gamCustomTemplateIDs: [String] = []
     
     private var adUnit: NativeAdUnit?
-    private var theNativeAd: NativeAd?
+    private var theNativeAd: PBRNativeAd?
     
     private let nativeAdViewBox = NativeAdViewBox()
     
@@ -134,7 +134,7 @@ extension FeedGAMAdTableViewCell: GADCustomNativeAdLoaderDelegate {
 }
 
 extension FeedGAMAdTableViewCell: NativeAdUIDelegate {
-    func viewPresentationControllerForNativeAd(_ nativeAd: NativeAd) -> UIViewController? {
+    func viewPresentationControllerForNativeAd(_ nativeAd: PBRNativeAd) -> UIViewController? {
         return rootController
     }
 }

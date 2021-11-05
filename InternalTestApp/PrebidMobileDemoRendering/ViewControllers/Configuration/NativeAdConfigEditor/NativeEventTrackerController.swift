@@ -20,9 +20,9 @@ import Eureka
 import PrebidMobile
 
 class NativeEventTrackerController : FormViewController, RowBuildHelpConsumer {
-    var eventTracker: NativeEventTracker!
+    var eventTracker: PBRNativeEventTracker!
     
-    var dataContainer: NativeEventTracker? {
+    var dataContainer: PBRNativeEventTracker? {
         get { eventTracker }
         set { eventTracker = newValue }
     }
@@ -52,7 +52,7 @@ class NativeEventTrackerController : FormViewController, RowBuildHelpConsumer {
             <<< makeRequiredIntRow("event", keyPath: \.event)
         
         addRequiredIntArrayField(field: "methods", keyPath: \.methods)
-        addExtRow(field: "ext", src: \.ext, dst: NativeEventTracker.setExt(_:))
+        addExtRow(field: "ext", src: \.ext, dst: PBRNativeEventTracker.setExt(_:))
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -19,8 +19,8 @@ import PrebidMobile
 protocol NativeAdViewBoxProtocol: AnyObject {
     func setUpDummyValues()
     func embedIntoView(_ view: UIView)
-    func renderNativeAd(_ nativeAd: NativeAd)
-    func registerViews(_ nativeAd: NativeAd)
+    func renderNativeAd(_ nativeAd: PBRNativeAd)
+    func registerViews(_ nativeAd: PBRNativeAd)
     
     var showOnlyMediaView: Bool {get set}
     var autoPlayOnVisible: Bool {get set}

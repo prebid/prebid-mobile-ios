@@ -162,7 +162,7 @@ class PrebidNativeAdFeedController: NSObject, PrebidConfigurableNativeAdRenderin
 }
 
 extension PrebidNativeAdFeedController: NativeAdUIDelegate {
-    func viewPresentationControllerForNativeAd(_ nativeAd: NativeAd) -> UIViewController? {
+    func viewPresentationControllerForNativeAd(_ nativeAd: PBRNativeAd) -> UIViewController? {
         return rootTableViewController
     }
 }

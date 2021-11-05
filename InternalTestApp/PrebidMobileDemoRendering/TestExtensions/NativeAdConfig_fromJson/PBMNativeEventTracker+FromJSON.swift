@@ -16,7 +16,7 @@
 import Foundation
 import PrebidMobile
 
-extension NativeEventTracker {
+extension PBRNativeEventTracker {
     convenience init?(json: [String: Any]) {
         guard let rawEvent = json["event"] as? NSNumber,
               let methods = json["methods"] as? [Int]

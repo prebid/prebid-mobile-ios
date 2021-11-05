@@ -216,7 +216,7 @@ extension NativeAdViewBox {
 }
 
 extension NativeAdViewBox {
-    func renderNativeAd(_ nativeAd: NativeAd) {
+    func renderNativeAd(_ nativeAd: PBRNativeAd) {
         textLabel.text = nativeAd.text
         ctaButton.setTitle(nativeAd.callToAction, for: .normal) 
         brandLabel.text = nativeAd.dataObjects(of: .sponsored).first?.value ?? ""
@@ -238,7 +238,7 @@ extension NativeAdViewBox {
         }
      }
     
-    func registerViews(_ nativeAd: NativeAd) {
+    func registerViews(_ nativeAd: PBRNativeAd) {
         nativeAd.registerView(contentView, clickableViews: [])
         nativeAd.registerClickView(ctaButton, nativeAdElementType: .callToAction)
         nativeAd.registerClickView(iconImage, nativeAdElementType: .icon)

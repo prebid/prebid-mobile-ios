@@ -30,25 +30,25 @@ class NativeAssetsArrayController : FormViewController {
     }
     
     func buildForm() {
-        let makeAssetRow: (NativeAsset) -> ButtonRowOf<NativeAsset> = { [weak self] asset in
-            return ButtonRowOf<NativeAsset> { row in
+        let makeAssetRow: (PBRNativeAsset) -> ButtonRowOf<PBRNativeAsset> = { [weak self] asset in
+            return ButtonRowOf<PBRNativeAsset> { row in
                 row.value = asset
                 row.title = asset.name
             }
             .onCellSelection { [weak self] cell, row in
                 print("Edit -- \(try! asset.toJsonString())")
                 guard let self = self, let navigator = self.navigationController, let editor: UIViewController = {
-                    if let data = asset as? NativeAssetData {
+                    if let data = asset as? PBRNativeAssetData {
                         let editor = NativeAssetDataController()
                         editor.nativeAsset = data
                         return editor
                     }
-                    if let image = asset as? NativeAssetImage {
+                    if let image = asset as? PBRNativeAssetImage {
                         let editor = NativeAssetImageController()
                         editor.nativeAsset = image
                         return editor
                     }
-                    if let title = asset as? NativeAssetTitle {
+                    if let title = asset as? PBRNativeAssetTitle {
                         let editor = NativeAssetTitleController()
                         editor.nativeAsset = title
                         return editor
@@ -77,14 +77,14 @@ class NativeAssetsArrayController : FormViewController {
             }
         }
         
-        func makeAddAssetRow(title: String, asset: NativeAsset) -> ButtonRowOf<NativeAsset> {
-            return ButtonRowOf<NativeAsset>() { row in
+        func makeAddAssetRow(title: String, asset: PBRNativeAsset) -> ButtonRowOf<PBRNativeAsset> {
+            return ButtonRowOf<PBRNativeAsset>() { row in
                 row.title = title
                 row.value = asset
             }
             .onCellSelection { [weak self] cell, row in
                 cell.isSelected = false
-                self?.assetsSection.append(makeAssetRow(row.value!.copy() as! NativeAsset))
+                self?.assetsSection.append(makeAssetRow(row.value!.copy() as! PBRNativeAsset))
             }
         }
         
@@ -92,9 +92,9 @@ class NativeAssetsArrayController : FormViewController {
             +++ assetsSection
             
             +++ Section()
-            <<< makeAddAssetRow(title: "Add Title", asset: NativeAssetTitle(length: 25))
-            <<< makeAddAssetRow(title: "Add Image", asset: NativeAssetImage())
-            <<< makeAddAssetRow(title: "Add Data", asset: NativeAssetData(dataType: .desc))
+            <<< makeAddAssetRow(title: "Add Title", asset: PBRNativeAssetTitle(length: 25))
+            <<< makeAddAssetRow(title: "Add Image", asset: PBRNativeAssetImage())
+            <<< makeAddAssetRow(title: "Add Data", asset: PBRNativeAssetData(dataType: .desc))
             <<< makeAddAssetRow(title: "Add Video", asset: NativeAssetVideo(mimeTypes: [],
                                                                                minDuration: 0,
                                                                                maxDuration: 60,
@@ -103,6 +103,6 @@ class NativeAssetsArrayController : FormViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        nativeAdConfig.assets = assetsSection.values().compactMap { $0 as? NativeAsset }
+        nativeAdConfig.assets = assetsSection.values().compactMap { $0 as? PBRNativeAsset }
     }
 }

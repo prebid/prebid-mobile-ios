@@ -73,7 +73,7 @@ extension NativeAdViewBoxLinks {
 }
 
 extension NativeAdViewBoxLinks {
-    func renderNativeAd(_ nativeAd: NativeAd) {
+    func renderNativeAd(_ nativeAd: PBRNativeAd) {
         linkRootButton.setTitle(nativeAd.callToAction, for: .normal)
         deepLinkOkButton.setTitle(nativeAd.text, for: .normal)
         
@@ -81,7 +81,7 @@ extension NativeAdViewBoxLinks {
         sponsoredButton.setTitle(nativeAd.dataObjects(of: .sponsored).first?.value ?? "", for: .normal)
     }
     
-    func registerViews(_ nativeAd: NativeAd) {
+    func registerViews(_ nativeAd: PBRNativeAd) {
         nativeAd.registerView(contentView, clickableViews: [])
         nativeAd.registerClickView(linkRootButton, nativeAdElementType: .callToAction)
         nativeAd.registerClickView(deepLinkOkButton, nativeAdElementType: .text)

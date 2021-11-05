@@ -552,7 +552,7 @@
 		5BC37AE4271F1D4500444D5E /* PrebidMobileSwiftHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37AE3271F1D4500444D5E /* PrebidMobileSwiftHeaders.h */; };
 		5BC37AE5271F2D0F00444D5E /* NativeContextSubtype.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377DF271F1CFF00444D5E /* NativeContextSubtype.swift */; };
 		5BC37AE6271F2D0F00444D5E /* NativeAssetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377DE271F1CFF00444D5E /* NativeAssetData.swift */; };
-		5BC37AE7271F2D0F00444D5E /* NativeAssetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377DC271F1CFF00444D5E /* NativeAssetImage.swift */; };
+		5BC37AE7271F2D0F00444D5E /* PBRNativeAssetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377DC271F1CFF00444D5E /* PBRNativeAssetImage.swift */; };
 		5BC37AE8271F2D0F00444D5E /* NativeImageAssetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377DD271F1CFF00444D5E /* NativeImageAssetType.swift */; };
 		5BC37AE9271F2D1200444D5E /* NativeAdData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377E1271F1CFF00444D5E /* NativeAdData.swift */; };
 		5BC37AEA271F2D3000444D5E /* NativeAdEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377F5271F1CFF00444D5E /* NativeAdEventTracker.swift */; };
@@ -1059,7 +1059,7 @@
 		5BC377D8271F1CFF00444D5E /* PBMError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMError.m; sourceTree = "<group>"; };
 		5BC377D9271F1CFF00444D5E /* PBMCreativeClickHandlerBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMCreativeClickHandlerBlock.h; sourceTree = "<group>"; };
 		5BC377DA271F1CFF00444D5E /* PBMBidRequesterFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMBidRequesterFactory.m; sourceTree = "<group>"; };
-		5BC377DC271F1CFF00444D5E /* NativeAssetImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAssetImage.swift; sourceTree = "<group>"; };
+		5BC377DC271F1CFF00444D5E /* PBRNativeAssetImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PBRNativeAssetImage.swift; sourceTree = "<group>"; };
 		5BC377DD271F1CFF00444D5E /* NativeImageAssetType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeImageAssetType.swift; sourceTree = "<group>"; };
 		5BC377DE271F1CFF00444D5E /* NativeAssetData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAssetData.swift; sourceTree = "<group>"; };
 		5BC377DF271F1CFF00444D5E /* NativeContextSubtype.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeContextSubtype.swift; sourceTree = "<group>"; };
@@ -1925,7 +1925,7 @@
 		5BC377DB271F1CFF00444D5E /* NativeAssets */ = {
 			isa = PBXGroup;
 			children = (
-				5BC377DC271F1CFF00444D5E /* NativeAssetImage.swift */,
+				5BC377DC271F1CFF00444D5E /* PBRNativeAssetImage.swift */,
 				5BC377DD271F1CFF00444D5E /* NativeImageAssetType.swift */,
 				5BC377DE271F1CFF00444D5E /* NativeAssetData.swift */,
 				5BC377DF271F1CFF00444D5E /* NativeContextSubtype.swift */,
@@ -3070,7 +3070,7 @@
 				5BC37950271F1D0000444D5E /* PBMCreativeFactory.m in Sources */,
 				5BC37AD6271F1D0100444D5E /* PBMORTBParameterBuilder.m in Sources */,
 				5BC378E9271F1CFF00444D5E /* PBMORTBRegs.m in Sources */,
-				5BC37AE7271F2D0F00444D5E /* NativeAssetImage.swift in Sources */,
+				5BC37AE7271F2D0F00444D5E /* PBRNativeAssetImage.swift in Sources */,
 				5BC37A7A271F1D0000444D5E /* PBMDisplayTransactionFactory.m in Sources */,
 				5BC37AFC271F2D3500444D5E /* NativeAssetVideo.swift in Sources */,
 				5BC378B9271F1CFF00444D5E /* PBMViewExposure.m in Sources */,

@@ -17,7 +17,7 @@ import UIKit
 import Eureka
 import PrebidMobile
 
-class BaseNativeAssetController<T: NativeAsset> : FormViewController, RowBuildHelpConsumer {
+class BaseNativeAssetController<T: PBRNativeAsset> : FormViewController, RowBuildHelpConsumer {
     var nativeAsset: T!
     
     var dataContainer: T? {
@@ -36,10 +36,10 @@ class BaseNativeAssetController<T: NativeAsset> : FormViewController, RowBuildHe
         
         buildForm()
         
-        addExtRow(field: "assetExt", src: \.assetExt, dst: NativeAsset.setAssetExt)
+        addExtRow(field: "assetExt", src: \.assetExt, dst: PBRNativeAsset.setAssetExt)
         addExtRow(field: "\(nativeAsset.name)Ext",
                   src: \.childExt,
-                  dst: NativeAsset.setChildExt)
+                  dst: PBRNativeAsset.setChildExt)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

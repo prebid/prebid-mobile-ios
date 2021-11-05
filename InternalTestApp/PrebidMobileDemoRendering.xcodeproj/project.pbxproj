@@ -893,7 +893,6 @@
 				93FED9C01A376EFE009A6E9F /* Frameworks */,
 				93FED9C11A376EFE009A6E9F /* Resources */,
 				35D3FDAD1EA561D900C19A63 /* Embed Frameworks */,
-				5CB781591F0478C4007A2F6B /* ShellScript */,
 				802528B749910E5695D54FCF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -1073,19 +1072,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		5CB781591F0478C4007A2F6B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This script removes unused architectures from PrebidMobileRendering.framework\n\n#Check if lipo exists on this system\nif ! which lipo > /dev/null; then\necho \"error: lipo is missing\"\nexit 1\nfi\n\n#Get the path to the .app file inside the derived data directory\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\n#Get the path to PrebidMobileRendering.framework/PrebidMobileRendering\necho \"Searching APP_PATH for PrebidMobileRendering: [$APP_PATH]\"\nPrebidMobileRendering_PATH=$(find \"$APP_PATH\" -name 'PrebidMobileRendering' -type f)\n\n#Bail if $OpenXApolloSDK_PATH is empty string\nif [ -z \"$PrebidMobileRendering_PATH\" ]; then\necho \"error: Could not find PrebidMobileRendering!\"\nexit 1\nfi\n\n#Bail if the path is not found\nif [ ! -f \"$PrebidMobileRendering_PATH\" ]; then\necho \"error: File not found: $PrebidMobileRendering_PATH\"\nexit 1\nfi\necho \"PrebidMobile found at [$PrebidMobileRendering_PATH]\"\n\n#Get the list of architectures in the framework\nSDK_ARCHS=$(lipo -info \"$PrebidMobileRendering_PATH\" | sed -e \"s/^.*are: //\")\n\necho \"Architectures supported by PrebidMobile: $SDK_ARCHS\"\necho \"Architectures supported by the application: $ARCHS\"\n\n\n#Convert space-delimited lists to arrays\nARCHS=($ARCHS)\nSDK_ARCHS=($SDK_ARCHS)\nREMOVE_THESE_ARCHITECTURES=()\n\n#Find which archs are in $ARCHS but not in $OPENX_ARCHS\n#Walk architechtures in the framework\nfor i in \"${SDK_ARCHS[@]}\"\ndo\nFOUND=0\n\n#Walk the architectures supported by this application.\n#If the зкуишв arch is not found in the app arches, flag it for removal.\nfor j in \"${ARCHS[@]}\"\ndo\nif [ $i == $j ]; then\nFOUND=1\nbreak\nfi\ndone\n\nif [ $FOUND -eq 0 ]; then\nREMOVE_THESE_ARCHITECTURES+=($i)\nfi\ndone\n\n#Are there any architectures to remove?\nif [ ${#REMOVE_THESE_ARCHITECTURES[@]} -eq 0 ]; then\n    echo \"No need to remove any architechtures from PrebidMobile. Exiting.\"\n    exit 0\n    fi\n    \n    #Use lipo to remove the unused architechtures\n    for i in \"${REMOVE_THESE_ARCHITECTURES[@]}\"\n    do\n    echo \"Removing unused architecture $i\"\n    lipo \"$PrebidMobileRendering_PATH\" -remove $i -output \"$PrebidMobileRendering_PATH\"\n    done\n    \n    echo \"Done!\"\n";
 		};
 		802528B749910E5695D54FCF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

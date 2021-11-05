@@ -22,7 +22,7 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
     var prebidConfigId = ""
     var adFormat: AdFormat?
     
-    private var interstitialController : InterstitialAdUnit?
+    private var interstitialController : InterstitialRenderingAdUnit?
     
     private weak var adapterViewController: AdapterViewController?
     
@@ -52,7 +52,7 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        interstitialController = InterstitialAdUnit(configID: prebidConfigId,
+        interstitialController = InterstitialRenderingAdUnit(configID: prebidConfigId,
                                                        minSizePercentage: CGSize(width: 30, height: 30))
         interstitialController?.delegate = self
         if let adFormat = adFormat {
@@ -71,28 +71,28 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
     // MARK: - GADInterstitialDelegate
     
     
-    func interstitialDidReceiveAd(_ interstitial: InterstitialAdUnit) {
+    func interstitialDidReceiveAd(_ interstitial: InterstitialRenderingAdUnit) {
         adapterViewController?.showButton.isEnabled = true
         interstitialDidReceiveAdButton.isEnabled = true
     }
 
-    func interstitial(_ interstitial: InterstitialAdUnit, didFailToReceiveAdWithError error: Error?) {
+    func interstitial(_ interstitial: InterstitialRenderingAdUnit, didFailToReceiveAdWithError error: Error?) {
         interstitialDidFailToReceiveAdButton.isEnabled = true
     }
     
-    func interstitialWillPresentAd(_ interstitial: InterstitialAdUnit) {
+    func interstitialWillPresentAd(_ interstitial: InterstitialRenderingAdUnit) {
         interstitialWillPresentAdButton.isEnabled = true
     }
     
-    func interstitialDidDismissAd(_ interstitial: InterstitialAdUnit) {
+    func interstitialDidDismissAd(_ interstitial: InterstitialRenderingAdUnit) {
         interstitialDidDismissAdButton.isEnabled = true
     }
     
-    func interstitialWillLeaveApplication(_ interstitial: InterstitialAdUnit) {
+    func interstitialWillLeaveApplication(_ interstitial: InterstitialRenderingAdUnit) {
         interstitialWillLeaveApplicationButton.isEnabled = true
     }
     
-    func interstitialDidClickAd(_ interstitial: InterstitialAdUnit) {
+    func interstitialDidClickAd(_ interstitial: InterstitialRenderingAdUnit) {
         interstitialDidClickAdButton.isEnabled = true
     }
         
