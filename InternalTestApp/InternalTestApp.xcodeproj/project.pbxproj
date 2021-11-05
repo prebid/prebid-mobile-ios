@@ -96,7 +96,6 @@
 		5BCCF23E2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF23C2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5BD84735252F23E80092AF74 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD84734252F23E70092AF74 /* CoreServices.framework */; };
 		909FCC2CA24F6E94B696B736 /* Pods_OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F097F6238E0EB831B507463 /* Pods_OpenXMockServer.framework */; };
-		91796B0A50F707D22B531856 /* Pods_PrebidMobileDemoRendering.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E19D50551E992AB79A04959F /* Pods_PrebidMobileDemoRendering.framework */; };
 		AC23A0CD251B932000983ABF /* PrebidBannerConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC23A0CC251B932000983ABF /* PrebidBannerConfigurationController.swift */; };
 		AC27E9E224D9A51B000CD7EC /* FeedAdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC27E9E124D9A51B000CD7EC /* FeedAdTableViewCell.swift */; };
 		AC27E9E624D9A69A000CD7EC /* FeedAdTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC27E9E524D9A69A000CD7EC /* FeedAdTableViewCell.xib */; };
@@ -149,6 +148,7 @@
 		D08680AB23992A2900E70E60 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D086808D2398092600E70E60 /* NetworkManager.swift */; };
 		D551B96F21491AAA00FFF51D /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D551B96E21491AAA00FFF51D /* AppConfiguration.swift */; };
 		D551B9712149207500FFF51D /* TabNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D551B9702149207500FFF51D /* TabNavigationController.swift */; };
+		F17BBB614B4DCA82E4E1AEAC /* Pods_InternalTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -258,9 +258,10 @@
 		34E56989237DB96900B47B01 /* UtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesViewController.swift; sourceTree = "<group>"; };
 		34FC0CF324ADD3A80045553E /* PrebidInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidInterstitialController.swift; sourceTree = "<group>"; };
 		34FC0CF524ADD5640045553E /* PrebidGAMRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMRewardedController.swift; sourceTree = "<group>"; };
-		35F94D131F93F85D00CF46DB /* PrebidMobileDemoRenderingUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileDemoRenderingUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		35F94D131F93F85D00CF46DB /* InternalTestAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InternalTestAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		35F94D171F93F85D00CF46DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44946A466398075CBE626334 /* Pods-PrebidMobileDemoRendering.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileDemoRendering.debug.xcconfig"; path = "../PREBID_IOS/Pods/Target Support Files/Pods-PrebidMobileDemoRendering/Pods-PrebidMobileDemoRendering.debug.xcconfig"; sourceTree = "<group>"; };
+		4C7A852B654320BAA3CF129A /* Pods-InternalTestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestApp.release.xcconfig"; path = "../PREBID_IOS/Pods/Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp.release.xcconfig"; sourceTree = "<group>"; };
 		56A0AE8843DFB9BBB0CF1492 /* Pods-PrebidMobileDemoRendering.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileDemoRendering.release.xcconfig"; path = "../PREBID_IOS/Pods/Target Support Files/Pods-PrebidMobileDemoRendering/Pods-PrebidMobileDemoRendering.release.xcconfig"; sourceTree = "<group>"; };
 		5B03D44524F5455F002F2B35 /* PBMGAMBannerEventHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMGAMBannerEventHandlerTests.swift; sourceTree = "<group>"; };
 		5B1BDB792100D59000B46B43 /* PrebidMobileDemoRendering-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileDemoRendering-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -300,7 +301,7 @@
 		5B5830AA20B43717002B2596 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5B5830AC20B4371F002B2596 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		5B5830AE20B43727002B2596 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
-		5B6EB00F2122CAA400C5B072 /* PrebidMobileDemoRenderingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileDemoRenderingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B6EB00F2122CAA400C5B072 /* InternalTestAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InternalTestAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6EB0132122CAA400C5B072 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B6EB3CC211336D300317ED9 /* AdapterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdapterViewController.swift; sourceTree = "<group>"; };
 		5B7B1464264ABAAD00EBF42A /* PrebidMoPubRewardedAdController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMoPubRewardedAdController.swift; sourceTree = "<group>"; };
@@ -311,8 +312,9 @@
 		5BCCF239273420710046CCFC /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BCCF23C2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD84734252F23E70092AF74 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InternalTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6400E1CF82B20C2CD2343158 /* Pods-OpenXMockServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXMockServer.debug.xcconfig"; path = "../PREBID_IOS/Pods/Target Support Files/Pods-OpenXMockServer/Pods-OpenXMockServer.debug.xcconfig"; sourceTree = "<group>"; };
-		93FED9C31A376EFE009A6E9F /* PrebidMobileDemoRendering.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrebidMobileDemoRendering.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93FED9C31A376EFE009A6E9F /* InternalTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InternalTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC23A0CC251B932000983ABF /* PrebidBannerConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidBannerConfigurationController.swift; sourceTree = "<group>"; };
 		AC27E9E124D9A51B000CD7EC /* FeedAdTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAdTableViewCell.swift; sourceTree = "<group>"; };
 		AC27E9E524D9A69A000CD7EC /* FeedAdTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedAdTableViewCell.xib; sourceTree = "<group>"; };
@@ -368,7 +370,7 @@
 		D08680A223980B7300E70E60 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		D551B96E21491AAA00FFF51D /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		D551B9702149207500FFF51D /* TabNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNavigationController.swift; sourceTree = "<group>"; };
-		E19D50551E992AB79A04959F /* Pods_PrebidMobileDemoRendering.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidMobileDemoRendering.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEBA94FAB2164756D7D6788C /* Pods-InternalTestApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestApp.debug.xcconfig"; path = "../PREBID_IOS/Pods/Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -409,7 +411,7 @@
 				5B58309720B436B6002B2596 /* AudioToolbox.framework in Frameworks */,
 				5B58309520B436AC002B2596 /* AdSupport.framework in Frameworks */,
 				5B58309320B436A1002B2596 /* libz.1.2.5.tbd in Frameworks */,
-				91796B0A50F707D22B531856 /* Pods_PrebidMobileDemoRendering.framework in Frameworks */,
+				F17BBB614B4DCA82E4E1AEAC /* Pods_InternalTestApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,7 +632,7 @@
 				5B58308F20B435FD002B2596 /* AdColony.framework */,
 				5B3DC7B62074AF3400F3CAB9 /* UnityAds.framework */,
 				2F097F6238E0EB831B507463 /* Pods_OpenXMockServer.framework */,
-				E19D50551E992AB79A04959F /* Pods_PrebidMobileDemoRendering.framework */,
+				5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -749,6 +751,8 @@
 				BEA57206B9513930E41DB0CD /* Pods-OpenXMockServer.release.xcconfig */,
 				44946A466398075CBE626334 /* Pods-PrebidMobileDemoRendering.debug.xcconfig */,
 				56A0AE8843DFB9BBB0CF1492 /* Pods-PrebidMobileDemoRendering.release.xcconfig */,
+				EEBA94FAB2164756D7D6788C /* Pods-InternalTestApp.debug.xcconfig */,
+				4C7A852B654320BAA3CF129A /* Pods-InternalTestApp.release.xcconfig */,
 			);
 			name = Pods;
 			path = ../../Pods;
@@ -774,9 +778,9 @@
 		93FED9C41A376EFE009A6E9F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				93FED9C31A376EFE009A6E9F /* PrebidMobileDemoRendering.app */,
-				35F94D131F93F85D00CF46DB /* PrebidMobileDemoRenderingUITests.xctest */,
-				5B6EB00F2122CAA400C5B072 /* PrebidMobileDemoRenderingTests.xctest */,
+				93FED9C31A376EFE009A6E9F /* InternalTestApp.app */,
+				35F94D131F93F85D00CF46DB /* InternalTestAppUITests.xctest */,
+				5B6EB00F2122CAA400C5B072 /* InternalTestAppTests.xctest */,
 				D086806B2398088A00E70E60 /* OpenXMockServer.framework */,
 				D08680732398088A00E70E60 /* OpenXMockServerTests.xctest */,
 			);
@@ -848,9 +852,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		35F94D121F93F85D00CF46DB /* PrebidMobileDemoRenderingUITests */ = {
+		35F94D121F93F85D00CF46DB /* InternalTestAppUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 35F94D1A1F93F85D00CF46DB /* Build configuration list for PBXNativeTarget "PrebidMobileDemoRenderingUITests" */;
+			buildConfigurationList = 35F94D1A1F93F85D00CF46DB /* Build configuration list for PBXNativeTarget "InternalTestAppUITests" */;
 			buildPhases = (
 				35F94D0F1F93F85D00CF46DB /* Sources */,
 				35F94D101F93F85D00CF46DB /* Frameworks */,
@@ -861,14 +865,14 @@
 			dependencies = (
 				35F94D191F93F85D00CF46DB /* PBXTargetDependency */,
 			);
-			name = PrebidMobileDemoRenderingUITests;
+			name = InternalTestAppUITests;
 			productName = OpenXInternalTestAppSwiftUITests;
-			productReference = 35F94D131F93F85D00CF46DB /* PrebidMobileDemoRenderingUITests.xctest */;
+			productReference = 35F94D131F93F85D00CF46DB /* InternalTestAppUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		5B6EB00E2122CAA400C5B072 /* PrebidMobileDemoRenderingTests */ = {
+		5B6EB00E2122CAA400C5B072 /* InternalTestAppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5B6EB0182122CAA400C5B072 /* Build configuration list for PBXNativeTarget "PrebidMobileDemoRenderingTests" */;
+			buildConfigurationList = 5B6EB0182122CAA400C5B072 /* Build configuration list for PBXNativeTarget "InternalTestAppTests" */;
 			buildPhases = (
 				5B6EB00B2122CAA400C5B072 /* Sources */,
 				5B6EB00C2122CAA400C5B072 /* Frameworks */,
@@ -879,14 +883,14 @@
 			dependencies = (
 				5B6EB0152122CAA400C5B072 /* PBXTargetDependency */,
 			);
-			name = PrebidMobileDemoRenderingTests;
+			name = InternalTestAppTests;
 			productName = OpenXInternalTestAppTests;
-			productReference = 5B6EB00F2122CAA400C5B072 /* PrebidMobileDemoRenderingTests.xctest */;
+			productReference = 5B6EB00F2122CAA400C5B072 /* InternalTestAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		93FED9C21A376EFE009A6E9F /* PrebidMobileDemoRendering */ = {
+		93FED9C21A376EFE009A6E9F /* InternalTestApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 93FED9E21A376EFE009A6E9F /* Build configuration list for PBXNativeTarget "PrebidMobileDemoRendering" */;
+			buildConfigurationList = 93FED9E21A376EFE009A6E9F /* Build configuration list for PBXNativeTarget "InternalTestApp" */;
 			buildPhases = (
 				90D5D4446C04F6514B2ED802 /* [CP] Check Pods Manifest.lock */,
 				93FED9BF1A376EFE009A6E9F /* Sources */,
@@ -900,9 +904,9 @@
 			dependencies = (
 				D086807F2398088A00E70E60 /* PBXTargetDependency */,
 			);
-			name = PrebidMobileDemoRendering;
+			name = InternalTestApp;
 			productName = OpenXInternalTestApp;
-			productReference = 93FED9C31A376EFE009A6E9F /* PrebidMobileDemoRendering.app */;
+			productReference = 93FED9C31A376EFE009A6E9F /* InternalTestApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D086806A2398088A00E70E60 /* OpenXMockServer */ = {
@@ -982,7 +986,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 93FED9BE1A376EFE009A6E9F /* Build configuration list for PBXProject "PrebidMobileDemoRendering" */;
+			buildConfigurationList = 93FED9BE1A376EFE009A6E9F /* Build configuration list for PBXProject "InternalTestApp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -995,9 +999,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				93FED9C21A376EFE009A6E9F /* PrebidMobileDemoRendering */,
-				35F94D121F93F85D00CF46DB /* PrebidMobileDemoRenderingUITests */,
-				5B6EB00E2122CAA400C5B072 /* PrebidMobileDemoRenderingTests */,
+				93FED9C21A376EFE009A6E9F /* InternalTestApp */,
+				35F94D121F93F85D00CF46DB /* InternalTestAppUITests */,
+				5B6EB00E2122CAA400C5B072 /* InternalTestAppTests */,
 				D086806A2398088A00E70E60 /* OpenXMockServer */,
 				D08680722398088A00E70E60 /* OpenXMockServerTests */,
 			);
@@ -1079,7 +1083,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PrebidMobileDemoRendering/Pods-PrebidMobileDemoRendering-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -1104,7 +1108,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PrebidMobileDemoRendering/Pods-PrebidMobileDemoRendering-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		90D5D4446C04F6514B2ED802 /* [CP] Check Pods Manifest.lock */ = {
@@ -1122,7 +1126,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PrebidMobileDemoRendering-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-InternalTestApp-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1279,12 +1283,12 @@
 /* Begin PBXTargetDependency section */
 		35F94D191F93F85D00CF46DB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 93FED9C21A376EFE009A6E9F /* PrebidMobileDemoRendering */;
+			target = 93FED9C21A376EFE009A6E9F /* InternalTestApp */;
 			targetProxy = 35F94D181F93F85D00CF46DB /* PBXContainerItemProxy */;
 		};
 		5B6EB0152122CAA400C5B072 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 93FED9C21A376EFE009A6E9F /* PrebidMobileDemoRendering */;
+			target = 93FED9C21A376EFE009A6E9F /* InternalTestApp */;
 			targetProxy = 5B6EB0142122CAA400C5B072 /* PBXContainerItemProxy */;
 		};
 		D08680762398088A00E70E60 /* PBXTargetDependency */ = {
@@ -1294,7 +1298,7 @@
 		};
 		D08680782398088A00E70E60 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 93FED9C21A376EFE009A6E9F /* PrebidMobileDemoRendering */;
+			target = 93FED9C21A376EFE009A6E9F /* InternalTestApp */;
 			targetProxy = D08680772398088A00E70E60 /* PBXContainerItemProxy */;
 		};
 		D086807F2398088A00E70E60 /* PBXTargetDependency */ = {
@@ -1418,7 +1422,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrebidMobileDemoRendering.app/PrebidMobileDemoRendering";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InternalTestApp.app/InternalTestApp";
 			};
 			name = Debug;
 		};
@@ -1449,7 +1453,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrebidMobileDemoRendering.app/PrebidMobileDemoRendering";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InternalTestApp.app/InternalTestApp";
 			};
 			name = Release;
 		};
@@ -1564,7 +1568,7 @@
 		};
 		93FED9E31A376EFE009A6E9F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 44946A466398075CBE626334 /* Pods-PrebidMobileDemoRendering.debug.xcconfig */;
+			baseConfigurationReference = EEBA94FAB2164756D7D6788C /* Pods-InternalTestApp.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1588,7 +1592,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp;
-				PRODUCT_NAME = PrebidMobileDemoRendering;
+				PRODUCT_NAME = InternalTestApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PrebidMobileDemoRendering/Resources/PrebidMobileDemoRendering-Bridging-Header.h";
@@ -1598,7 +1602,7 @@
 		};
 		93FED9E41A376EFE009A6E9F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56A0AE8843DFB9BBB0CF1492 /* Pods-PrebidMobileDemoRendering.release.xcconfig */;
+			baseConfigurationReference = 4C7A852B654320BAA3CF129A /* Pods-InternalTestApp.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1622,7 +1626,7 @@
 					"$(inherited)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.renderingtestapp;
-				PRODUCT_NAME = PrebidMobileDemoRendering;
+				PRODUCT_NAME = InternalTestApp;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "PrebidMobileDemoRendering/Resources/PrebidMobileDemoRendering-Bridging-Header.h";
@@ -1737,7 +1741,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrebidMobileDemoRendering.app/PrebidMobileDemoRendering";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InternalTestApp.app/InternalTestApp";
 			};
 			name = Debug;
 		};
@@ -1763,14 +1767,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PrebidMobileDemoRendering.app/PrebidMobileDemoRendering";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/InternalTestApp.app/InternalTestApp";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		35F94D1A1F93F85D00CF46DB /* Build configuration list for PBXNativeTarget "PrebidMobileDemoRenderingUITests" */ = {
+		35F94D1A1F93F85D00CF46DB /* Build configuration list for PBXNativeTarget "InternalTestAppUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				35F94D1B1F93F85D00CF46DB /* Debug */,
@@ -1779,7 +1783,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5B6EB0182122CAA400C5B072 /* Build configuration list for PBXNativeTarget "PrebidMobileDemoRenderingTests" */ = {
+		5B6EB0182122CAA400C5B072 /* Build configuration list for PBXNativeTarget "InternalTestAppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5B6EB0162122CAA400C5B072 /* Debug */,
@@ -1788,7 +1792,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		93FED9BE1A376EFE009A6E9F /* Build configuration list for PBXProject "PrebidMobileDemoRendering" */ = {
+		93FED9BE1A376EFE009A6E9F /* Build configuration list for PBXProject "InternalTestApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				93FED9E01A376EFE009A6E9F /* Debug */,
@@ -1797,7 +1801,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		93FED9E21A376EFE009A6E9F /* Build configuration list for PBXNativeTarget "PrebidMobileDemoRendering" */ = {
+		93FED9E21A376EFE009A6E9F /* Build configuration list for PBXNativeTarget "InternalTestApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				93FED9E31A376EFE009A6E9F /* Debug */,

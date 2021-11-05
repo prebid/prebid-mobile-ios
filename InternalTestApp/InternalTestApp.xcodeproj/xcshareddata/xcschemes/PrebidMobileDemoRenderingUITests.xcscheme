@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "35F94D121F93F85D00CF46DB"
-               BuildableName = "PrebidMobileDemoRenderingUITests.xctest"
-               BlueprintName = "PrebidMobileDemoRenderingUITests"
-               ReferencedContainer = "container:PrebidMobileDemoRendering.xcodeproj">
+               BuildableName = "InternalTestAppUITests.xctest"
+               BlueprintName = "InternalTestAppUITests"
+               ReferencedContainer = "container:InternalTestApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "35F94D121F93F85D00CF46DB"
-               BuildableName = "PrebidMobileDemoRenderingUITests.xctest"
-               BlueprintName = "PrebidMobileDemoRenderingUITests"
-               ReferencedContainer = "container:PrebidMobileDemoRendering.xcodeproj">
+               BuildableName = "InternalTestAppUITests.xctest"
+               BlueprintName = "InternalTestAppUITests"
+               ReferencedContainer = "container:InternalTestApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "35F94D121F93F85D00CF46DB"
-            BuildableName = "PrebidMobileDemoRenderingUITests.xctest"
-            BlueprintName = "PrebidMobileDemoRenderingUITests"
-            ReferencedContainer = "container:PrebidMobileDemoRendering.xcodeproj">
+            BuildableName = "InternalTestAppUITests.xctest"
+            BlueprintName = "InternalTestAppUITests"
+            ReferencedContainer = "container:InternalTestApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </LaunchAction>

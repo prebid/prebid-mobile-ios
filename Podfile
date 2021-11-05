@@ -73,15 +73,15 @@ def internalTestApp_pods
   gma_pods
 end
 
-target 'PrebidMobileDemoRendering' do
+target 'InternalTestApp' do
   use_frameworks!
-  project 'InternalTestApp/PrebidMobileDemoRendering.xcodeproj'
+  project 'InternalTestApp/InternalTestApp.xcodeproj'
   internalTestApp_pods
 end
 
 target 'OpenXMockServer' do
   use_frameworks!
-  project 'InternalTestApp/PrebidMobileDemoRendering.xcodeproj'
+  project 'InternalTestApp/InternalTestApp.xcodeproj'
   
   pod 'Alamofire', '4.9.1'
   pod 'RxSwift'

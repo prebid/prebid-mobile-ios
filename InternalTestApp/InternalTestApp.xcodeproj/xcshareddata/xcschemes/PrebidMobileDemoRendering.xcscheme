@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "93FED9C21A376EFE009A6E9F"
-               BuildableName = "PrebidMobileDemoRendering.app"
-               BlueprintName = "PrebidMobileDemoRendering"
-               ReferencedContainer = "container:PrebidMobileDemoRendering.xcodeproj">
+               BuildableName = "InternalTestApp.app"
+               BlueprintName = "InternalTestApp"
+               ReferencedContainer = "container:InternalTestApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -38,9 +38,9 @@
                   <BuildableReference
                      BuildableIdentifier = "primary"
                      BlueprintIdentifier = "93FED9C21A376EFE009A6E9F"
-                     BuildableName = "PrebidMobileDemoRendering.app"
-                     BlueprintName = "PrebidMobileDemoRendering"
-                     ReferencedContainer = "container:PrebidMobileDemoRendering.xcodeproj">
+                     BuildableName = "InternalTestApp.app"
+                     BlueprintName = "InternalTestApp"
+                     ReferencedContainer = "container:InternalTestApp.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
             </ActionContent>
@@ -50,9 +50,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "93FED9C21A376EFE009A6E9F"
-            BuildableName = "PrebidMobileDemoRendering.app"
-            BlueprintName = "PrebidMobileDemoRendering"
-            ReferencedContainer = "container:PrebidMobileDemoRendering.xcodeproj">
+            BuildableName = "InternalTestApp.app"
+            BlueprintName = "InternalTestApp"
+            ReferencedContainer = "container:InternalTestApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "35F94D121F93F85D00CF46DB"
-               BuildableName = "PrebidMobileDemoRenderingUITests.xctest"
-               BlueprintName = "PrebidMobileDemoRenderingUITests"
-               ReferencedContainer = "container:PrebidMobileDemoRendering.xcodeproj">
+               BuildableName = "InternalTestAppUITests.xctest"
+               BlueprintName = "InternalTestAppUITests"
+               ReferencedContainer = "container:InternalTestApp.xcodeproj">
             </BuildableReference>
             <SkippedTests>
                <Test
@@ -85,9 +85,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5B6EB00E2122CAA400C5B072"
-               BuildableName = "PrebidMobileDemoRenderingTests.xctest"
-               BlueprintName = "PrebidMobileDemoRenderingTests"
-               ReferencedContainer = "container:PrebidMobileDemoRendering.xcodeproj">
+               BuildableName = "InternalTestAppTests.xctest"
+               BlueprintName = "InternalTestAppTests"
+               ReferencedContainer = "container:InternalTestApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -97,7 +97,7 @@
                BlueprintIdentifier = "D08680722398088A00E70E60"
                BuildableName = "OpenXMockServerTests.xctest"
                BlueprintName = "OpenXMockServerTests"
-               ReferencedContainer = "container:PrebidMobileDemoRendering.xcodeproj">
+               ReferencedContainer = "container:InternalTestApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -117,9 +117,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "93FED9C21A376EFE009A6E9F"
-            BuildableName = "PrebidMobileDemoRendering.app"
-            BlueprintName = "PrebidMobileDemoRendering"
-            ReferencedContainer = "container:PrebidMobileDemoRendering.xcodeproj">
+            BuildableName = "InternalTestApp.app"
+            BlueprintName = "InternalTestApp"
+            ReferencedContainer = "container:InternalTestApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -196,9 +196,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "93FED9C21A376EFE009A6E9F"
-            BuildableName = "PrebidMobileDemoRendering.app"
-            BlueprintName = "PrebidMobileDemoRendering"
-            ReferencedContainer = "container:PrebidMobileDemoRendering.xcodeproj">
+            BuildableName = "InternalTestApp.app"
+            BlueprintName = "InternalTestApp"
+            ReferencedContainer = "container:InternalTestApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
