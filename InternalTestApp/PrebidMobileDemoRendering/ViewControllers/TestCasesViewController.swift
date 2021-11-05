@@ -15,7 +15,7 @@
 
 import UIKit
 import CoreLocation
-import PrebidMobileRendering
+import PrebidMobile
 
 class TestCasesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CLLocationManagerDelegate {
     

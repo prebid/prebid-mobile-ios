@@ -15,7 +15,7 @@
 
 import Foundation
 import Eureka
-import PrebidMobileRendering
+import PrebidMobile
 
 protocol PrebidConfigurableNativeAdCompatibleController: PrebidConfigurableController {
     var nativeAdConfig: NativeAdConfiguration? { get set }

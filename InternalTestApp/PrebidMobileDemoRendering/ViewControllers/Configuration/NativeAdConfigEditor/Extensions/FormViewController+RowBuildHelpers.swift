@@ -17,7 +17,7 @@ import Foundation
 import UIKit
 import Eureka
 
-import PrebidMobileRendering
+import PrebidMobile
 
 protocol RowBuildHelpConsumer: FormViewController {
     associatedtype DataContainer

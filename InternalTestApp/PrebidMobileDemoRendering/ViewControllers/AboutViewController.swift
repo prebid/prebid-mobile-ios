@@ -21,7 +21,7 @@ import Eureka
 import GoogleMobileAds
 import MoPubSDK
 
-import PrebidMobileRendering
+import PrebidMobile
 import PrebidMobileGAMEventHandlers
 import PrebidMobileMoPubAdapters
 
