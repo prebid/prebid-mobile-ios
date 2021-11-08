@@ -16,11 +16,11 @@
 import Foundation
 import Eureka
 
-protocol PrebidConfigurableBannerController: PrebidConfigurableNativeAdCompatibleController {
+protocol PrebidConfigurableBannerController: PrebidConfigurableController {
     var refreshInterval: TimeInterval { get set }
 }
 
-class PrebidBannerConfigurationController: PrebidNativeAdCompatibleConfigurationController {
+class PrebidBannerConfigurationController: BaseConfigurationController {
     
     var refreshInterval: TimeInterval = 0
     

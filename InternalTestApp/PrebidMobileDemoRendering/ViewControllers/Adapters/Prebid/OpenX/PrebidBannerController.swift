@@ -23,7 +23,8 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     var prebidConfigId = ""
     var adSizes = [CGSize]()
     var adFormat: AdFormat?
-    var nativeAdConfig: NativeAdConfiguration?
+    
+//    var nativeAdConfig: NativeAdConfiguration?
     
     var adBannerView : BannerView?
     
@@ -82,7 +83,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
             adBannerView?.adPosition = adPosition
         }
         
-        adBannerView?.nativeAdConfig = self.nativeAdConfig
+//        adBannerView?.nativeAdConfig = self.nativeAdConfig
         adBannerView?.delegate = self
         adBannerView?.accessibilityIdentifier = "PrebidBannerView"
         

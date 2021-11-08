@@ -26,7 +26,8 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
     var adUnitSize = CGSize()
     var additionalAdSizes = [CGSize]()
     var adFormat: AdFormat?
-    var nativeAdConfig: NativeAdConfiguration?
+    
+//    var nativeAdConfig: NativeAdConfiguration?
     
     private var adBannerView : MPAdView?
     
@@ -78,7 +79,8 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         if let adFormat = adFormat {
             adUnit?.adFormat = adFormat
         }
-        adUnit?.nativeAdConfig = self.nativeAdConfig
+        
+//        adUnit?.nativeAdConfig = self.nativeAdConfig
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
