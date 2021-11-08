@@ -93,8 +93,11 @@ import Foundation
         if (Host.shared.verifyUrl(urlString: url) == false) {
             throw ErrorCode.prebidServerURLInvalid(url)
         } else {
+            guard let validUrl = URL(string: url) else {
+                throw PBMError.prebidServerURLInvalid(url)
+            }
             prebidServerHost = PrebidHost.Custom
-            Host.shared.setHostURL = url
+            Host.shared.setCustomHostURL(validUrl)
         }
     }
     

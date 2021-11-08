@@ -73,12 +73,12 @@ public class PrebidRenderingConfig : NSObject {
     // MARK: - Public Methods
     
     @objc public func setCustomPrebidServer(url: String) throws {
-        guard Host.shared.verifyUrl(urlString: url) else {
+        guard let validUrl = URL(string: url) else {
             throw PBMError.prebidServerURLInvalid(url)
         }
         
         prebidServerHost = .Custom
-        Host.shared.setHostURL = url
+        Host.shared.setCustomHostURL(validUrl)
     }
     
     @objc public static func initializeRenderingModule() {

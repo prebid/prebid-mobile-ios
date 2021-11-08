@@ -52,11 +52,15 @@ class PrebidTests: XCTestCase {
 //        try! Prebid.shared.setCustomPrebidServer(url: customHost)
         
         Prebid.shared.prebidServerHost = PrebidHost.Custom
-        Host.shared.setHostURL = customHost
+        guard let validUrl = URL(string: customHost) else {
+            throw PBMError.prebidServerURLInvalid(customHost)
+        }
+        Host.shared.setCustomHostURL(validUrl)
         
         //then
         XCTAssertEqual(PrebidHost.Custom, Prebid.shared.prebidServerHost)
-        XCTAssertEqual(customHost, Host.shared.setHostURL)
+        let getHostURLResult = try Host.shared.getHostURL(host: .Custom)
+        XCTAssertEqual(customHost, getHostURLResult)
     }
     
     func testServerHostCustomInvalid() throws {

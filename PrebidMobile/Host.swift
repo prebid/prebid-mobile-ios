@@ -41,7 +41,7 @@ import UIKit
 @objcMembers
 public class Host: NSObject {
 
-    var prebidServerURL: String? = .EMPTY_String
+    private var customHostURL: URL?
 
     /**
      * The class is created as a singleton object & used
@@ -55,15 +55,9 @@ public class Host: NSObject {
     /**
      * The CustomHost property holds the URL for the custom prebid adaptor
      */
-    public var setHostURL: String {
-        get {
-            return self.prebidServerURL!
-        }
-        set {
-
-            self.prebidServerURL = newValue
-
-        }
+    
+    @objc public func setCustomHostURL(_ url: URL?) {
+        customHostURL = url
     }
 
     /**
@@ -71,10 +65,13 @@ public class Host: NSObject {
      */
     public func getHostURL(host: PrebidHost) throws -> String {
         if (host == PrebidHost.Custom) {
-            if (verifyUrl(urlString: self.prebidServerURL) == false) {
-                throw ErrorCode.prebidServerURLInvalid(self.prebidServerURL!)
+
+            if let customHostURL = customHostURL {
+                return customHostURL.absoluteString
+            } else {
+                let urlString = customHostURL?.absoluteString ?? ""
+                throw ErrorCode.prebidServerURLInvalid(urlString)
             }
-            return self.prebidServerURL!
         }
 
         return host.name()
