@@ -15,7 +15,7 @@
 
 import Foundation
 
-public class NativeAdConfiguration: NSObject, NSCopying {
+class NativeAdConfiguration: NSObject, NSCopying {
 
     /// Version of the Native Markup version in use.
     @objc public var version: String? {

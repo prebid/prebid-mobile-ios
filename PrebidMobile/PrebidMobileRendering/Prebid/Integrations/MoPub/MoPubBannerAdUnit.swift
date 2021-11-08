@@ -55,7 +55,9 @@ public class MoPubBannerAdUnit : NSObject {
         set { adUnitConfig.videoPlacementType = PBMVideoPlacementType(rawValue: newValue.rawValue) ?? .undefined }
     }
 
-    public var nativeAdConfig: NativeAdConfiguration? {
+    // The feature is not available. Use original Prebid Native API
+    // TODO: Merge Native engine from original SDK and rendering codebase
+    var nativeAdConfig: NativeAdConfiguration? {
         get { adUnitConfig.nativeAdConfiguration }
         set { adUnitConfig.nativeAdConfiguration = newValue }
     }

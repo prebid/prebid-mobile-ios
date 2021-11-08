@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc public enum NativePlacementType : Int {
+@objc enum NativePlacementType : Int {
     
     case undefined              = 0
     case feedGridListing        = 1 /// feed/grid/listing/carousel.

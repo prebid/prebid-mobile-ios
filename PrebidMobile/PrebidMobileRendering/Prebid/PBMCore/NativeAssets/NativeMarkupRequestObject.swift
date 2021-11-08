@@ -15,7 +15,7 @@
 
 import Foundation
 
-public class NativeMarkupRequestObject : NSObject, NSCopying, PBMJsonCodable {
+class NativeMarkupRequestObject : NSObject, NSCopying, PBMJsonCodable {
     
     /// Version of the Native Markup version in use.
     public var version: String?

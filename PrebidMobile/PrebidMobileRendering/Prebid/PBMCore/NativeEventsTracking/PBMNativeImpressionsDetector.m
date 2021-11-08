@@ -56,7 +56,9 @@
     PBMViewabilityEventDetector * const renderedImpressionDetector = [[PBMViewabilityEventDetector alloc]
                                                                       initWithViewabilityEvents:@[
         [PBMNativeImpressionsDetector renderedImpressionEventWithCallback:^{
-            impressionDetectionHandler(NativeEventTypeImpression);
+        // The feature is not available. Use original Prebid Native API
+        // TODO: Merge Native engine from original SDK and rendering codebase
+        //    impressionDetectionHandler(NativeEventTypeImpression);
         }],
     ] onLastEventDetected:^{
         @strongify(self);
@@ -67,13 +69,20 @@
     PBMViewabilityEventDetector * const viewableImpressionsDetector = [[PBMViewabilityEventDetector alloc]
                                                                        initWithViewabilityEvents:@[
         [PBMNativeImpressionsDetector mrc50ImpressionEventWithCallback:^{
-            impressionDetectionHandler(NativeEventTypeMrc50);
+        
+        // The feature is not available. Use original Prebid Native API
+        // TODO: Merge Native engine from original SDK and rendering codebase
+        // impressionDetectionHandler(NativeEventTypeMrc50);
         }],
         [PBMNativeImpressionsDetector mrc100ImpressionEventWithCallback:^{
-            impressionDetectionHandler(NativeEventTypeMrc100);
+        // The feature is not available. Use original Prebid Native API
+        // TODO: Merge Native engine from original SDK and rendering codebase
+        // impressionDetectionHandler(NativeEventTypeMrc100);
         }],
         [PBMNativeImpressionsDetector video50ImpressionEventWithCallback:^{
-            impressionDetectionHandler(NativeEventTypeVideo50);
+        // The feature is not available. Use original Prebid Native API
+        // TODO: Merge Native engine from original SDK and rendering codebase
+        // impressionDetectionHandler(NativeEventTypeVideo50);
         }],
     ] onLastEventDetected:^{
         @strongify(self);

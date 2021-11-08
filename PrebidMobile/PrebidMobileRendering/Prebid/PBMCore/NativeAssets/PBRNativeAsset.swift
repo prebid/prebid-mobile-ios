@@ -15,7 +15,7 @@
 
 import Foundation
 
-public class PBRNativeAsset: NSObject, NSCopying, PBMJsonCodable {
+class PBRNativeAsset: NSObject, NSCopying, PBMJsonCodable {
     
     /// [Required]
     /// [Integer]
