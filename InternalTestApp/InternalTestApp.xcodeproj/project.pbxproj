@@ -455,13 +455,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		34239CA624E2978900D58C30 /* InternallyExposedFiles */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = InternallyExposedFiles;
-			sourceTree = "<group>";
-		};
 		349302192473F2EF004A6086 /* Prebid */ = {
 			isa = PBXGroup;
 			children = (
@@ -653,7 +646,6 @@
 				5B3C2AAE2100BC4900BD733C /* AppDelegate.swift */,
 				34215B0E25C4598E00C74A09 /* ProcessArgumentsParser.swift */,
 				5B1BDB782100D59000B46B43 /* Resources */,
-				34239CA624E2978900D58C30 /* InternallyExposedFiles */,
 				5B1BDB822100D6C100B46B43 /* TestExtensions */,
 				5B3EEDCD2101D2A100BAA0C4 /* Utilities */,
 				5B3EEDB12101D1AF00BAA0C4 /* ViewControllers */,

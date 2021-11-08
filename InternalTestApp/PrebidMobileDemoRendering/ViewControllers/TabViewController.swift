@@ -37,7 +37,7 @@ class TabViewController: UITabBarController {
     private func createTabs() {
         
         let tabBarList = [
-            { self.createTab(navBarTitle: "Prebid Examples", iconName: "OpenXIconAdapters", tag: $0) },
+            { self.createTab(navBarTitle: "Prebid Examples", iconName: "list.bullet", tag: $0) },
             createTabUtilities,
         ].enumerated().compactMap { $1($0) }
         
@@ -51,7 +51,7 @@ class TabViewController: UITabBarController {
         vc.navigationBar.tintColor = .white
         vc.navigationBar.titleTextAttributes = convertToOptionalNSAttributedStringKeyDictionary([NSAttributedString.Key.foregroundColor.rawValue: UIColor.white])
         
-        vc.tabBarItem = UITabBarItem(title: "Examples", image: UIImage(named: iconName), tag: tag)
+        vc.tabBarItem = getTabBarItem(title: "Examples", sysName: iconName, tag: tag)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let controller = storyboard.instantiateViewController(withIdentifier: "TestCasesViewController") as? TestCasesViewController else {
@@ -94,12 +94,21 @@ class TabViewController: UITabBarController {
     private func createTabUtilities(tag: Int) -> UIViewController? {
         let controller = UtilitiesViewController()
         
-        controller.tabBarItem = UITabBarItem(title: "Utilities", image: UIImage(named: "About"), tag: tag)
-        
+        controller.tabBarItem = getTabBarItem(title: "Utilities", sysName: "info.circle", tag: tag)
+
         let navigator = UINavigationController(rootViewController: controller)
         
         return navigator
     }
+    
+    private func getTabBarItem(title: String, sysName: String, tag: Int) -> UITabBarItem {
+        if #available(iOS 13.0, *) {
+            return UITabBarItem(title: title, image: UIImage(systemName: sysName), tag: tag)
+        } else {
+            return UITabBarItem(title: title, image: nil, tag: tag)
+        }
+    }
+    
 }
 
 // Helper function inserted by Swift 4.2 migrator.
