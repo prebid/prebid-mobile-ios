@@ -827,7 +827,6 @@
 		925D5E422737F09900A8A2B5 /* TestUtilitiesForTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E412737F09900A8A2B5 /* TestUtilitiesForTesting.swift */; };
 		925D5E442737F0C800A8A2B5 /* EnumSequenceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E432737F0C800A8A2B5 /* EnumSequenceTest.swift */; };
 		925D5E462737F0ED00A8A2B5 /* TestPBMFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E452737F0ED00A8A2B5 /* TestPBMFunctions.swift */; };
-		925D5E472737F13400A8A2B5 /* mraid.js in Resources */ = {isa = PBXBuildFile; fileRef = 5BC376EB271F1CFE00444D5E /* mraid.js */; };
 		925D5E492737F18500A8A2B5 /* PBMUserAgentServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E482737F18500A8A2B5 /* PBMUserAgentServiceTest.swift */; };
 		925D5E4B2737F1AA00A8A2B5 /* TestStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E4A2737F1AA00A8A2B5 /* TestStringExtension.swift */; };
 		925D5E4D2737F1DA00A8A2B5 /* DateFormatServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E4C2737F1DA00A8A2B5 /* DateFormatServiceTest.swift */; };
@@ -3997,7 +3996,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				925D5E472737F13400A8A2B5 /* mraid.js in Resources */,
 				922AFD1627371A2D00732C53 /* images.xcassets in Resources */,
 				47D9A8F8729D6F644AFB9E6F /* ACJNonChainingAdUnit.json in Resources */,
 				47D9A008EA5B9DF894E98CA2 /* ACJRefreshTest_0.json in Resources */,
