@@ -23,10 +23,7 @@
 		5B6967802642A56A0042372E /* PrebidMobileGAMEventHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B69677F2642A56A0042372E /* PrebidMobileGAMEventHandlers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5B7B133F26455C9600EBF42A /* GADCustomNativeAdWrapperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B133E26455C9600EBF42A /* GADCustomNativeAdWrapperTest.swift */; };
 		5B7B134C26455E5400EBF42A /* GADNativeAdWrapperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B134B26455E5400EBF42A /* GADNativeAdWrapperTest.swift */; };
-		5B7B1498264BBF5E00EBF42A /* PrebidMoPubNativeCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B1497264BBF5E00EBF42A /* PrebidMoPubNativeCustomEvent.swift */; };
 		5B7B149D264BC27000EBF42A /* MoPubAdaptersError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B149C264BC27000EBF42A /* MoPubAdaptersError.swift */; };
-		5B7B14A8264BFE8900EBF42A /* PrebidMoPubNativeAdRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B14A7264BFE8900EBF42A /* PrebidMoPubNativeAdRenderer.swift */; };
-		5B7B1507264D3D8100EBF42A /* PrebidMoPubNativeAdAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B1506264D3D8100EBF42A /* PrebidMoPubNativeAdAdapter.swift */; };
 		5B7B1512264D4EA600EBF42A /* PrebidMoPubAdaptersUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B1511264D4EA500EBF42A /* PrebidMoPubAdaptersUtils.swift */; };
 		5B7B151A264D532D00EBF42A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B1519264D532D00EBF42A /* Constants.swift */; };
 		5B7B1528264D62A100EBF42A /* PrebidMoPubBannerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B1527264D62A100EBF42A /* PrebidMoPubBannerAdapter.swift */; };
@@ -605,12 +602,9 @@
 				5B7B153E264E9FFA00EBF42A /* PrebidMoPubVideoInterstitialAdapter.swift in Sources */,
 				5B7B1528264D62A100EBF42A /* PrebidMoPubBannerAdapter.swift in Sources */,
 				5B7B1512264D4EA600EBF42A /* PrebidMoPubAdaptersUtils.swift in Sources */,
-				5B7B14A8264BFE8900EBF42A /* PrebidMoPubNativeAdRenderer.swift in Sources */,
 				5B7B149D264BC27000EBF42A /* MoPubAdaptersError.swift in Sources */,
-				5B7B1507264D3D8100EBF42A /* PrebidMoPubNativeAdAdapter.swift in Sources */,
 				5B7B151A264D532D00EBF42A /* Constants.swift in Sources */,
 				5B7B1549264EA79700EBF42A /* PrebidMoPubRewardedVideoAdapter.swift in Sources */,
-				5B7B1498264BBF5E00EBF42A /* PrebidMoPubNativeCustomEvent.swift in Sources */,
 				5B7B1554264EC61C00EBF42A /* PrebidMoPubAdapterConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

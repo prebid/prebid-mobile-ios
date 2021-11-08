@@ -19,6 +19,9 @@ import MoPubSDK
 
 import PrebidMobile
 
+// The feature is not available. Use original Prebid Native API
+// TODO: Merge Native engine from original SDK and rendering codebase
+
 // @objc is required for instantiating in the MoPub SDK
 @objc(PrebidMoPubNativeCustomEvent)
 public class PrebidMoPubNativeCustomEvent : MPNativeCustomEvent {
