@@ -69,8 +69,7 @@ public class Host: NSObject {
             if let customHostURL = customHostURL {
                 return customHostURL.absoluteString
             } else {
-                let urlString = customHostURL?.absoluteString ?? ""
-                throw ErrorCode.prebidServerURLInvalid(urlString)
+                throw ErrorCode.prebidServerURLInvalid("")
             }
         }
 
