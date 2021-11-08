@@ -91,8 +91,7 @@
 #import "PBMUserConsentResolver.h"
 #import "PBMVastCreativeCompanionAds.h"
 #import "PBMVastIcon.h"
-//#import "PBMOpenMeasurementFriendlyObstructionPurpose.h"
-//#import "PBMOpenMeasurementFriendlyObstructionTypeBridge.h"
+#import "PBMOpenMeasurementFriendlyObstructionTypeBridge.h"
 
 #import "UIWindow+PBMExtensions.h"
 #import "PBMParameterBuilderService.h"

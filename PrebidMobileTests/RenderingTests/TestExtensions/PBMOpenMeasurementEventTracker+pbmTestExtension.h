@@ -13,14 +13,14 @@
   limitations under the License.
   */
 
-//@import OMSDK_Prebidorg;
-//
-//@interface PBMOpenMeasurementEventTracker ()
-//
-//@property (nonatomic, strong) OMIDPrebidorgAdEvents *adEvents;
-//@property (nonatomic, strong) OMIDPrebidorgMediaEvents *mediaEvents;
-//@property (nonatomic, strong) OMIDPrebidorgAdSession *session;
-//
-//- (void)trackImpression;
-//
-//@end
+@import OMSDK_Prebidorg;
+
+@interface PBMOpenMeasurementEventTracker ()
+
+@property (nonatomic, strong) OMIDPrebidorgAdEvents *adEvents;
+@property (nonatomic, strong) OMIDPrebidorgMediaEvents *mediaEvents;
+@property (nonatomic, strong) OMIDPrebidorgAdSession *session;
+
+- (void)trackImpression;
+
+@end

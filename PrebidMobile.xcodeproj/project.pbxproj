@@ -629,7 +629,6 @@
 		5BC37AFC271F2D3500444D5E /* NativeAssetVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37803271F1CFF00444D5E /* NativeAssetVideo.swift */; };
 		5BC37AFD271F2D3500444D5E /* NativePlacementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377FF271F1CFF00444D5E /* NativePlacementType.swift */; };
 		5BC37AFE271F2D3500444D5E /* NativeMarkupRequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377FD271F1CFF00444D5E /* NativeMarkupRequestObject.swift */; };
-		5BC37B03271FF8D900444D5E /* OMSDK_Prebidorg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC37B01271FF8C400444D5E /* OMSDK_Prebidorg.framework */; };
 		600CF0702208963500C95176 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600CF06F2208963500C95176 /* UtilsTests.swift */; };
 		6013E3F82215C82900FEE2B1 /* CLLocationManager+Swizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6013E3F72215C82900FEE2B1 /* CLLocationManager+Swizzle.swift */; };
 		6013E3FA2215C92C00FEE2B1 /* MockCLLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6013E3F92215C92C00FEE2B1 /* MockCLLocationManager.swift */; };
@@ -855,6 +854,8 @@
 		925D5E782737F60100A8A2B5 /* VastEventTrackingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E772737F60100A8A2B5 /* VastEventTrackingTest.swift */; };
 		925D5E7A2737F62500A8A2B5 /* VideoFileTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E792737F62500A8A2B5 /* VideoFileTypeTest.swift */; };
 		925D5E7C2737F66000A8A2B5 /* PBMVASTFailToLoadTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5E7B2737F66000A8A2B5 /* PBMVASTFailToLoadTest.swift */; };
+		925D5EB6273914AA00A8A2B5 /* OMSDK_Prebidorg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC37B01271FF8C400444D5E /* OMSDK_Prebidorg.framework */; };
+		925D5EB92739158E00A8A2B5 /* OMSDK_Prebidorg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BC37B01271FF8C400444D5E /* OMSDK_Prebidorg.framework */; };
 		92664565272AB5BB0064F7BD /* PBMORTBSkadnFidelity.h in Headers */ = {isa = PBXBuildFile; fileRef = 92664564272AB5BB0064F7BD /* PBMORTBSkadnFidelity.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92664567272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m in Sources */ = {isa = PBXBuildFile; fileRef = 92664566272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m */; };
 		92664569272AB9120064F7BD /* SkadnEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92664568272AB9120064F7BD /* SkadnEventTracker.swift */; };
@@ -1895,6 +1896,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				925D5EB92739158E00A8A2B5 /* OMSDK_Prebidorg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1902,7 +1904,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BC37B03271FF8D900444D5E /* OMSDK_Prebidorg.framework in Frameworks */,
+				925D5EB6273914AA00A8A2B5 /* OMSDK_Prebidorg.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4810,6 +4812,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = PrebidMobileTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4832,6 +4838,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = PrebidMobileTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
