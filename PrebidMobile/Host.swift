@@ -56,7 +56,10 @@ public class Host: NSObject {
      * The CustomHost property holds the URL for the custom prebid adaptor
      */
     
-    @objc public func setCustomHostURL(_ url: URL?) {
+    @objc public func setCustomHostURL(_ urlString: String?) throws {
+        guard let url = URL(string: urlString!) else {
+            throw ErrorCode.prebidServerURLInvalid(urlString ?? "")
+        }
         customHostURL = url
     }
 
