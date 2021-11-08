@@ -45,7 +45,7 @@ class SkadnParametersManagerTest: XCTestCase {
         PBMAssertEq(type: Int.self, actual: actual[SKStoreProductParameterAdNetworkCampaignIdentifier]!, expected: expected[SKStoreProductParameterAdNetworkCampaignIdentifier]!)
         PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkVersion]!, expected: expected[SKStoreProductParameterAdNetworkVersion]!)
         PBMAssertEq(type: Int.self, actual: actual[SKStoreProductParameterAdNetworkTimestamp]!, expected: expected[SKStoreProductParameterAdNetworkTimestamp]!)
-        PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkNonce]!, expected: expected[SKStoreProductParameterAdNetworkNonce]!)
+        PBMAssertEq(type: UUID.self, actual: actual[SKStoreProductParameterAdNetworkNonce]!, expected: expected[SKStoreProductParameterAdNetworkNonce]!)
         PBMAssertEq(type: String.self, actual: actual[SKStoreProductParameterAdNetworkAttributionSignature]!, expected: expected[SKStoreProductParameterAdNetworkAttributionSignature]!)
     }
 }
@@ -84,7 +84,7 @@ class SkadnUtilities {
             SKStoreProductParameterAdNetworkVersion : skadn.version!,
             SKStoreProductParameterAdNetworkSourceAppStoreIdentifier : skadn.sourceapp!,
             SKStoreProductParameterAdNetworkTimestamp : fidelity1.timestamp!,
-            SKStoreProductParameterAdNetworkNonce : fidelity1.nonce!.uuidString,
+            SKStoreProductParameterAdNetworkNonce : fidelity1.nonce!,
             SKStoreProductParameterAdNetworkAttributionSignature : fidelity1.signature!
         ]
         
