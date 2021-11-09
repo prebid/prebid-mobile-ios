@@ -18,7 +18,7 @@ import GoogleMobileAds
 import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
-class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, BannerViewDelegate {
+class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, BannerViewDelegate, PrebidConfigurableController {
     
     var refreshInterval: TimeInterval = 0
     
@@ -26,7 +26,8 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
     var gamAdUnitId = ""
     var validAdSizes = [GADAdSize]()
     var adFormat: AdFormat?
-    var nativeAdConfig: NativeAdConfiguration?
+    
+//    var nativeAdConfig: NativeAdConfiguration?
     
     var adBannerView : BannerView?
     
@@ -76,7 +77,8 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
                 adBannerView?.videoPlacementType = AppConfiguration.shared.videoPlacementType ?? .inBanner
             }
         }
-        adBannerView?.nativeAdConfig = self.nativeAdConfig
+       
+//        adBannerView?.nativeAdConfig = self.nativeAdConfig
        
         adBannerView?.delegate = self
         adBannerView?.accessibilityIdentifier = "BannerView"
@@ -126,12 +128,14 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
             lastLoadedAdSizeLabel.text = "Ad Size: \(bannerSize.width)x\(bannerSize.height)"
         }
         
-        if nativeAdConfig == nil {
-            setBannerSize(adSize)
-        } else {
-            // FIXME: (PB-X) Read from bid???
-            setBannerSize(CGSize(width: 300, height: 250))
-        }
+//        if nativeAdConfig == nil {
+//            setBannerSize(adSize)
+//        } else {
+//            // FIXME: (PB-X) Read from bid???
+//            setBannerSize(CGSize(width: 300, height: 250))
+//        }
+        
+        setBannerSize(adSize)
     }
     
     func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {

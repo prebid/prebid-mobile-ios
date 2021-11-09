@@ -34,8 +34,10 @@ public class AdUnitConfig: NSObject, NSCopying {
         }
     }
     
+    // The feature is not available. Use original Prebid Native API
+    // TODO: Merge Native engine from original SDK and rendering codebase
     var _nativeAdConfiguration: NativeAdConfiguration?
-    @objc public var nativeAdConfiguration: NativeAdConfiguration? {
+    var nativeAdConfiguration: NativeAdConfiguration? {
         get { _nativeAdConfiguration }
         set {
             _nativeAdConfiguration = newValue?.copy() as? NativeAdConfiguration

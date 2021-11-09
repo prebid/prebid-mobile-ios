@@ -15,12 +15,12 @@
 
 import Foundation
 
-public typealias NativeAdLoadedHandler = (PBRNativeAd) -> Void
-public typealias PrimaryAdServerWinHandler = () -> Void
-public typealias InvalidNativeAdHandler = (Error) -> Void
+typealias NativeAdLoadedHandler = (PBRNativeAd) -> Void
+typealias PrimaryAdServerWinHandler = () -> Void
+typealias InvalidNativeAdHandler = (Error) -> Void
 
 /// Immutable container for 3 mutually exclusive outcomes of an asynchronous native ad detection attempt.
-public class NativeAdDetectionListener: NSObject, NSCopying {
+class NativeAdDetectionListener: NSObject, NSCopying {
     
     @objc public private(set) var onNativeAdLoaded: NativeAdLoadedHandler?
     @objc public private(set) var onPrimaryAdWin: PrimaryAdServerWinHandler?

@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc public enum NativeEventType : Int {
+@objc enum NativeEventType : Int {
     case impression         = 1     /// Impression
     case mrc50              = 2     /// Visible impression using MRC definition at 50% in view for 1 second
     case mrc100             = 3     /// 100% in view for 1 second (ie GroupM standard)

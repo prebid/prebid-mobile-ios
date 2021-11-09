@@ -52,33 +52,6 @@ public class PrebidMoPubAdaptersUtils : NSObject {
         }
     }
     
-    public func find(nativeAd: MPNativeAd,
-                     nativeAdDetectionListener: NativeAdDetectionListener) {
-        guard isPrebidAd(nativeAd: nativeAd) == true else {
-            nativeAdDetectionListener.onPrimaryAdWin?()
-            return
-        }
-        
-        guard let localCacheID = nativeAd.properties[Constants.targetingKeyLocalCacheID] as? String else {
-            nativeAdDetectionListener.onNativeAdInvalid?(MoPubAdaptersError.noLocalCacheID)
-            return
-        }
-        
-        guard let cachedResponse = localCache.getStoredResponseInfo(localCacheID) else {
-            nativeAdDetectionListener.onNativeAdInvalid?(MoPubAdaptersError.invalidLocalCacheID)
-            return
-        }
-        
-        cachedResponse.getNativeAd { ad in
-            guard let nativeAd = ad else {
-                nativeAdDetectionListener.onNativeAdInvalid?(MoPubAdaptersError.invalidNativeAd)
-                return
-            }
-            
-            nativeAdDetectionListener.onNativeAdLoaded?(nativeAd)
-        }
-    }
-    
     // MARK: - Private Methods
     
     private override init () {
@@ -98,4 +71,37 @@ public class PrebidMoPubAdaptersUtils : NSObject {
         
         return false
     }
+}
+
+extension PrebidMoPubAdaptersUtils {
+    
+    // The feature is not available. Use original Prebid Native API
+    // TODO: Merge Native engine from original SDK and rendering codebase
+
+//    public func find(nativeAd: MPNativeAd,
+//                     nativeAdDetectionListener: NativeAdDetectionListener) {
+//        guard isPrebidAd(nativeAd: nativeAd) == true else {
+//            nativeAdDetectionListener.onPrimaryAdWin?()
+//            return
+//        }
+//        
+//        guard let localCacheID = nativeAd.properties[Constants.targetingKeyLocalCacheID] as? String else {
+//            nativeAdDetectionListener.onNativeAdInvalid?(MoPubAdaptersError.noLocalCacheID)
+//            return
+//        }
+//        
+//        guard let cachedResponse = localCache.getStoredResponseInfo(localCacheID) else {
+//            nativeAdDetectionListener.onNativeAdInvalid?(MoPubAdaptersError.invalidLocalCacheID)
+//            return
+//        }
+//        
+//        cachedResponse.getNativeAd { ad in
+//            guard let nativeAd = ad else {
+//                nativeAdDetectionListener.onNativeAdInvalid?(MoPubAdaptersError.invalidNativeAd)
+//                return
+//            }
+//            
+//            nativeAdDetectionListener.onNativeAdLoaded?(nativeAd)
+//        }
+//    }
 }

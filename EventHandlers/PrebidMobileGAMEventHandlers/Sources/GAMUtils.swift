@@ -51,36 +51,6 @@ public class GAMUtils {
         boxedRequest.customTargeting = mergedTargeting
     }
     
-    public func findNativeAd(for nativeAd: GADNativeAd,
-                             nativeAdDetectionListener: NativeAdDetectionListener) {
-        
-        guard let wrappedAd = GADNativeAdWrapper(nativeAd: nativeAd) else {
-            nativeAdDetectionListener.onNativeAdInvalid?(GAMEventHandlerError.gamClassesNotFound)
-            return
-        }
-        
-        findNativeAd(flagLookupClosure: {
-            GAMUtils.findPrebidFlagInNativeAd(wrappedAd)
-        }, localCacheIDExtractor: {
-            GAMUtils.localCacheIDFromNativeAd(wrappedAd)
-        }, nativeAdDetectionListener: nativeAdDetectionListener)
-    }
-    
-    public func findCustomNativeAd(for customNativeAd: GADCustomNativeAd,
-                            nativeAdDetectionListener: NativeAdDetectionListener) {
-        
-        guard let wrappedAd = GADCustomNativeAdWrapper(customNativeAd: customNativeAd) else {
-            nativeAdDetectionListener.onNativeAdInvalid?(GAMEventHandlerError.gamClassesNotFound)
-            return
-        }
-        
-        findNativeAd(flagLookupClosure: {
-            GAMUtils.findCreativeFlagInCustomNativeAd(wrappedAd)
-        }, localCacheIDExtractor: {
-            GAMUtils.localCacheIDFromCustomNativeAd(wrappedAd)
-        }, nativeAdDetectionListener: nativeAdDetectionListener)
-    }
-    
     class func log(error: GAMEventHandlerError) {
         // TODO: use unified Logging system from the Rendering or Prebid SDK
         NSLog(error.localizedDescription)
@@ -98,34 +68,7 @@ public class GAMUtils {
         }
     }
     
-    private func findNativeAd(flagLookupClosure: () -> Bool,
-                              localCacheIDExtractor: () -> String?,
-                              nativeAdDetectionListener: NativeAdDetectionListener) {
-        
-        if !flagLookupClosure() {
-            nativeAdDetectionListener.onPrimaryAdWin?()
-            return
-        }
-        
-        guard let localCacheID = localCacheIDExtractor() else {
-            nativeAdDetectionListener.onNativeAdInvalid?(GAMEventHandlerError.noLocalCacheID)
-            return
-        }
-        
-        guard let cacheResponse = localCache.getStoredResponseInfo(localCacheID) else {
-            nativeAdDetectionListener.onNativeAdInvalid?(GAMEventHandlerError.invalidLocalCacheID)
-            return
-        }
-        
-        cacheResponse.getNativeAd {
-            guard let nativeAd = $0 else {
-                nativeAdDetectionListener.onNativeAdInvalid?(GAMEventHandlerError.invalidNativeAd)
-                return
-            }
-            
-            nativeAdDetectionListener.onNativeAdLoaded?(nativeAd)
-        }
-    }
+    
     
     // MARK: UnifiedNativeAd decomposition
 
@@ -151,4 +94,68 @@ public class GAMUtils {
     private class func localCacheIDFromCustomNativeAd(_ customNativeAd: GADCustomNativeAdWrapper) -> String? {
         customNativeAd.string(forKey: Constants.targetingKeyLocalCacheID)
     }
+}
+
+extension GAMUtils {
+    
+    // The feature is not available. Use original Prebid Native API
+    // TODO: Merge Native engine from original SDK and rendering codebase
+//    public func findNativeAd(for nativeAd: GADNativeAd,
+//                             nativeAdDetectionListener: NativeAdDetectionListener) {
+//
+//        guard let wrappedAd = GADNativeAdWrapper(nativeAd: nativeAd) else {
+//            nativeAdDetectionListener.onNativeAdInvalid?(GAMEventHandlerError.gamClassesNotFound)
+//            return
+//        }
+//
+//        findNativeAd(flagLookupClosure: {
+//            GAMUtils.findPrebidFlagInNativeAd(wrappedAd)
+//        }, localCacheIDExtractor: {
+//            GAMUtils.localCacheIDFromNativeAd(wrappedAd)
+//        }, nativeAdDetectionListener: nativeAdDetectionListener)
+//    }
+    
+//    public func findCustomNativeAd(for customNativeAd: GADCustomNativeAd,
+//                            nativeAdDetectionListener: NativeAdDetectionListener) {
+//
+//        guard let wrappedAd = GADCustomNativeAdWrapper(customNativeAd: customNativeAd) else {
+//            nativeAdDetectionListener.onNativeAdInvalid?(GAMEventHandlerError.gamClassesNotFound)
+//            return
+//        }
+//
+//        findNativeAd(flagLookupClosure: {
+//            GAMUtils.findCreativeFlagInCustomNativeAd(wrappedAd)
+//        }, localCacheIDExtractor: {
+//            GAMUtils.localCacheIDFromCustomNativeAd(wrappedAd)
+//        }, nativeAdDetectionListener: nativeAdDetectionListener)
+//    }
+    
+//    private func findNativeAd(flagLookupClosure: () -> Bool,
+//                              localCacheIDExtractor: () -> String?,
+//                              nativeAdDetectionListener: NativeAdDetectionListener) {
+//        
+//        if !flagLookupClosure() {
+//            nativeAdDetectionListener.onPrimaryAdWin?()
+//            return
+//        }
+//        
+//        guard let localCacheID = localCacheIDExtractor() else {
+//            nativeAdDetectionListener.onNativeAdInvalid?(GAMEventHandlerError.noLocalCacheID)
+//            return
+//        }
+//        
+//        guard let cacheResponse = localCache.getStoredResponseInfo(localCacheID) else {
+//            nativeAdDetectionListener.onNativeAdInvalid?(GAMEventHandlerError.invalidLocalCacheID)
+//            return
+//        }
+//        
+//        cacheResponse.getNativeAd {
+//            guard let nativeAd = $0 else {
+//                nativeAdDetectionListener.onNativeAdInvalid?(GAMEventHandlerError.invalidNativeAd)
+//                return
+//            }
+//            
+//            nativeAdDetectionListener.onNativeAdLoaded?(nativeAd)
+//        }
+//    }
 }

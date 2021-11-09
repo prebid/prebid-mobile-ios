@@ -19,5 +19,5 @@ import PrebidMobile
 class FeedAdTableViewCell: UITableViewCell {
     @IBOutlet weak var bannerView: UIView!
     weak var adView: UIView?
-    var nativeAd: PBRNativeAd?
+   //  var nativeAd: PBRNativeAd?
 }

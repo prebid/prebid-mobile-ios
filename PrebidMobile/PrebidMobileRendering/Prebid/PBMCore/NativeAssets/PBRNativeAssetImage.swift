@@ -15,7 +15,7 @@
 
 import Foundation
 
-public class PBRNativeAssetImage: PBRNativeAsset {
+class PBRNativeAssetImage: PBRNativeAsset {
     
     /// [Integer]
     /// Type ID of the image element supported by the publisher. The publisher can display

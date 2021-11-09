@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc public protocol NativeAdTrackingDelegate where Self: NSObject {
+@objc protocol NativeAdTrackingDelegate where Self: NSObject {
     
     @objc optional func nativeAdDidLogClick(_ nativeAd: PBRNativeAd)
     @objc optional func nativeAd(_ nativeAd: PBRNativeAd,
