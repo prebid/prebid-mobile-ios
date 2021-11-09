@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -95,11 +95,13 @@
                                 </subviews>
                             </stackView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fwP-lp-368">
-                                <rect key="frame" x="100" y="69" width="175" height="32"/>
+                                <rect key="frame" x="20" y="69" width="335" height="32"/>
                                 <segments>
                                     <segment title="DFP"/>
                                     <segment title="MoPub"/>
                                     <segment title="In-App"/>
+                                    <segment title="GAM + Rendering"/>
+                                    <segment title="MoPub + Rendering"/>
                                 </segments>
                                 <connections>
                                     <action selector="onAdServerSwidshed:" destination="BYZ-38-t0r" eventType="valueChanged" id="j2N-Nn-Vqk"/>
@@ -110,12 +112,12 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Jeh-3U-EHA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="I5D-Bl-QZ5"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fwP-lp-368" secondAttribute="trailing" constant="100" id="IjW-xZ-d3E"/>
                             <constraint firstItem="fwP-lp-368" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="25" id="TB7-Cg-dlk"/>
                             <constraint firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TVT-40-hfI"/>
                             <constraint firstItem="Jeh-3U-EHA" firstAttribute="top" secondItem="fwP-lp-368" secondAttribute="bottom" constant="60" id="WkA-Ux-ytE"/>
+                            <constraint firstAttribute="trailing" secondItem="fwP-lp-368" secondAttribute="trailing" constant="20" id="h8d-Dz-EFS"/>
+                            <constraint firstItem="fwP-lp-368" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="u5u-MC-ShX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Jeh-3U-EHA" secondAttribute="trailing" constant="20" id="ukx-1v-bCp"/>
-                            <constraint firstItem="fwP-lp-368" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="yte-Ky-7os"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="blE-VU-00S"/>
@@ -245,7 +247,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V4N-fP-62I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-710" y="844"/>
+            <point key="canvasLocation" x="-1054" y="860"/>
         </scene>
         <!--Rewarded Video Controller-->
         <scene sceneID="o2o-ve-AgX">

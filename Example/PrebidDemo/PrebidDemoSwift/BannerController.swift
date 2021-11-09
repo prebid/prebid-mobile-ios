@@ -20,6 +20,7 @@ import PrebidMobile
 import GoogleMobileAds
 
 import MoPubSDK
+import PrebidMobileGAMEventHandlers
 
 enum BannerFormat: Int {
     case html
@@ -57,6 +58,7 @@ class BannerController:
     private var mpBanner: MPAdView!
     
     private var pbBanner: BannerView!
+    private var pbMoPubAdUnit: MoPubBannerAdUnit!
     
     // MARK: - UIViewController
 
@@ -79,8 +81,12 @@ class BannerController:
             setupAndLoadMPBanner()
         } else if (adServerName == "In-App") {
             setupAndLoadInAppBanner()
+        } else if (adServerName == "GAM + Rendering") {
+            setupAndLoadGAMRendering()
+        } else if (adServerName == "MoPub + Rendering") {
+            setupAndLoadMoPubRendering()
         }
-
+ 
 //        enableCOPPA()
 //        addFirstPartyData(adUnit: adUnit)
 //        setStoredResponse()
@@ -113,6 +119,20 @@ class BannerController:
         setupOpenxRenderingBanner()
         
         loadInAppBanner()
+    }
+    
+    func setupAndLoadGAMRendering() {
+        setupOpenxRenderingBanner()
+        
+        loadGAMRenderingBanner()
+    }
+    
+    func setupAndLoadMoPubRendering() {
+        setupOpenxRenderingBanner()
+        
+        setupMoPubRenderingBanner(width: 320, height: 50)
+        
+        loadMoPubRenderingBanner()
     }
     
     // MARK: Setup PBS
@@ -190,6 +210,10 @@ class BannerController:
         setupMPBanner(adUnitId: "a108b8dd5ebc472098167e6f1c118120", width: width, height: height)
     }
     
+    func setupMoPubRenderingBanner(width: Int, height: Int) {
+        setupMPBanner(adUnitId: "0df35635801e4110b65e762a62437698", width: width, height: height)
+    }
+    
     func setupMPBanner(adUnitId: String, width: Int, height: Int) {
         let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: adUnitId)
         sdkConfig.globalMediationSettings = []
@@ -243,6 +267,39 @@ class BannerController:
         appBannerView.addSubview(pbBanner)
         
         pbBanner.loadAd()
+    }
+    
+    func loadGAMRenderingBanner() {
+        let size = CGSize(width: width, height: height)
+        
+        let eventHandler = GAMBannerEventHandler(adUnitID: "/21808260008/prebid_oxb_320x50_banner", validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
+        pbBanner = BannerView(frame: CGRect(origin: .zero, size: size),
+                              configID: "50699c03-0910-477c-b4a4-911dbe2b9d42",
+                              adSize: CGSize(width: 320, height: 50),
+                              eventHandler: eventHandler)
+                                
+        pbBanner.delegate = self
+        
+        appBannerView.addSubview(pbBanner)
+        
+        pbBanner.loadAd()
+    }
+    
+    func loadMoPubRenderingBanner() {
+        mpBanner.delegate = self
+        appBannerView.addSubview(mpBanner)
+        
+        mpBanner.backgroundColor = .red
+        
+        let size = CGSize(width: 320, height: 50)
+        pbMoPubAdUnit = MoPubBannerAdUnit(configID: "50699c03-0910-477c-b4a4-911dbe2b9d42", size: size)
+
+        // Do any additional setup after loading the view, typically from a nib.
+        pbMoPubAdUnit.fetchDemand(with: mpBanner) { [weak self] result in
+            print("Prebid demand fetch for MoPub \(result.rawValue)")
+
+            self?.mpBanner.loadAd()
+        }
     }
 
     //MARK: Banner VAST
