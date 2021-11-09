@@ -55,7 +55,7 @@ class PBMLogTest: XCTestCase {
                 .split(separator:"=")[1]
                 .split(separator:",").first?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
             
-            XCTAssert(log.contains("prebid-mobile-sdk-rendering INFO [\(threadNumber!)]"))
+            XCTAssert(log.contains("prebid-mobile-sdk INFO [\(threadNumber!)]"))
             XCTAssertFalse(log.contains("[Line "))
         })
     }
@@ -143,7 +143,7 @@ class PBMLogTest: XCTestCase {
         let sdkVersionString = level != "ERROR" ? "" : "v\(sdkVersion) ";
         
         XCTAssert(log.contains(message), file: file, line: line)
-        XCTAssert(log.contains("prebid-mobile-sdk-rendering \(sdkVersionString)\(level) [MAIN]"), file: file, line: line)
+        XCTAssert(log.contains("prebid-mobile-sdk \(sdkVersionString)\(level) [MAIN]"), file: file, line: line)
         XCTAssert(log.contains("[Line ") == withParams, file: file, line: line)
         
         logToFile = nil
@@ -162,7 +162,7 @@ class PBMLogTest: XCTestCase {
         
         PBMLog.shared.logInternal("MSG", logLevel:.info, file:#file, line:10, function:#function)
         let log = PBMLog.shared.getLogFileAsString()
-        XCTAssert(log.contains("prebid-mobile-sdk-rendering INFO [MAIN]"))
+        XCTAssert(log.contains("prebid-mobile-sdk INFO [MAIN]"))
         XCTAssert(log.contains("PBMLogTest.swift testLogInternal() [Line 10]: MSG"))
         
         logToFile = nil

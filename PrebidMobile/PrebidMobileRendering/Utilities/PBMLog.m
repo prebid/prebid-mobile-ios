@@ -42,7 +42,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.SDKName = @"prebid-mobile-sdk-rendering";
+        self.SDKName = @"prebid-mobile-sdk";
         
         self.loggingQueue = dispatch_queue_create([self.SDKName UTF8String], NULL);
         self.dateFormatter = [NSDateFormatter new];

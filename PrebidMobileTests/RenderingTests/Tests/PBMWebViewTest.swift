@@ -330,6 +330,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
     
     // MARK: - Test WKUIDelegate
     func testWindowOpenTargets() {
+        PBMLog.shared.logToFile = true
         for sendTap in [true, false] {
             
             //This is the "target" field for window.open(url, target)
@@ -388,6 +389,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         
         //Make sure the log contains a "before" and "after" message to verify that the window.open command ran without error.
         let log = PBMLog.shared.getLogFileAsString()
+        print("Log: \(log)")
         XCTAssertTrue(log.contains("Before window.open"))
         XCTAssertTrue(log.contains("After window.open"))
         

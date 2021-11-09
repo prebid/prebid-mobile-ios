@@ -41,7 +41,7 @@ class PBMSDKConfigurationTest: XCTestCase {
         
         let log = PBMLog.shared.getLogFileAsString()
         
-        XCTAssert(log.contains("prebid-mobile-sdk-rendering \(PBMFunctions.sdkVersion()) Initialized"))
+        XCTAssert(log.contains("prebid-mobile-sdk \(PBMFunctions.sdkVersion()) Initialized"))
     }
     
     func testLogLevel() {

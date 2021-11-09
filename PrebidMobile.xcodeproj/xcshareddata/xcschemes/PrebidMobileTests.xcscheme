@@ -45,6 +45,9 @@
                   Identifier = "AdUnitTests/testFetchDemandBidsAutoRefresh()">
                </Test>
                <Test
+                  Identifier = "PBMAutoRefreshManagerTest/testAllowRefreshOnSecondAtempt()">
+               </Test>
+               <Test
                   Identifier = "RequestBuilderTests/testPostDataWithShareLocationOff()">
                </Test>
                <Test

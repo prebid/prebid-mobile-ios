@@ -859,6 +859,7 @@
 		92664567272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m in Sources */ = {isa = PBXBuildFile; fileRef = 92664566272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m */; };
 		92664569272AB9120064F7BD /* SkadnEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92664568272AB9120064F7BD /* SkadnEventTracker.swift */; };
 		9266456B272AB9610064F7BD /* SkadnParametersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266456A272AB9610064F7BD /* SkadnParametersManager.swift */; };
+		92D43D3E273A80060037DD20 /* mraid.js in Resources */ = {isa = PBXBuildFile; fileRef = 47D9AADC57CCCE64C374E101 /* mraid.js */; };
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
 		9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */; };
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
@@ -3996,6 +3997,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92D43D3E273A80060037DD20 /* mraid.js in Resources */,
 				922AFD1627371A2D00732C53 /* images.xcassets in Resources */,
 				47D9A8F8729D6F644AFB9E6F /* ACJNonChainingAdUnit.json in Resources */,
 				47D9A008EA5B9DF894E98CA2 /* ACJRefreshTest_0.json in Resources */,
