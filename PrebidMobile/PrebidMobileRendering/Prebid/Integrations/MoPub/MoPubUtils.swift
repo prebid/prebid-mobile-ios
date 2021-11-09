@@ -45,7 +45,9 @@ public class MoPubUtils {
      Finds an native ad object in the given extra dictionary.
      Calls the provided callback with the finded native ad object or error
      */
-    public static func findNativeAd(_ extras: [AnyHashable : Any],
+    // The feature is not available. Use original Prebid Native API
+    // TODO: Merge Native engine from original SDK and rendering codebase
+    static func findNativeAd(_ extras: [AnyHashable : Any],
                                     completion: @escaping (PBRNativeAd?, Error?) -> Void) {
     
         guard let response = extras[PBMMoPubAdNativeResponseKey] as? DemandResponseInfo else {

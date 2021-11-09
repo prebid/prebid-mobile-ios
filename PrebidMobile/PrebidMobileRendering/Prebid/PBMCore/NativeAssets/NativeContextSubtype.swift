@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc public enum NativeContextSubtype : Int {
+@objc enum NativeContextSubtype : Int {
     case undefined          = 0
     case generalOrMixed     = 10 /// General or mixed content.
     case article            = 11 /// Primarily article content (which of course could include images etc as part of the article)

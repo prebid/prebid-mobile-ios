@@ -15,7 +15,7 @@
 
 import Foundation
 
-public class PBRNativeEventTracker : NSObject, NSCopying, PBMJsonCodable {
+class PBRNativeEventTracker : NSObject, NSCopying, PBMJsonCodable {
     
     /// [Required]
     /// Type of event available for tracking.

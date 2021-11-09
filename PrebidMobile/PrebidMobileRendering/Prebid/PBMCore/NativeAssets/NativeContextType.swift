@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc public enum NativeContextType : Int {
+@objc enum NativeContextType : Int {
     case undefined          = 0
     case contentCentric     = 1 /// Content-centric context such as newsfeed, article, image gallery, video gallery, or similar.
     case socialCentric      = 2 /// Social-centric context such as social network feed, email, chat, or similar.

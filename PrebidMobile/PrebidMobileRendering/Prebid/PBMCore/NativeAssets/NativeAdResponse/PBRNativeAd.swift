@@ -19,7 +19,7 @@ import UIKit
 fileprivate let viewabilityPollingInterval : TimeInterval = 0.2
 
 
-public class PBRNativeAd: NSObject {
+class PBRNativeAd: NSObject {
     
     @objc public weak var uiDelegate: NativeAdUIDelegate?
     @objc public weak var trackingDelegate: NativeAdTrackingDelegate?

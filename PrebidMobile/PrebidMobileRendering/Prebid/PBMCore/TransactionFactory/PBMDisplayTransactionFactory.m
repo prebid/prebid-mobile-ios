@@ -111,19 +111,21 @@
                                       adMarkup:(NSString *)adMarkup
                                adConfiguration:(AdUnitConfig *)adConfiguration {
     PBMCreativeModel * const model = [[PBMCreativeModel alloc] init];
-    NSString *html = nil;
     if (adConfiguration.adFormat != PBMAdFormatNativeInternal) {
         model.html = adMarkup;
     } else {
-        if (adConfiguration.nativeAdConfiguration.nativeStylesCreative.length == 0) {
-            PBMLogError(@"Native Styles creative string is empty.");
-            model.html = @"";
-        } else {
-            html = [PBMNativeFunctions populateNativeAdTemplate:adConfiguration.nativeAdConfiguration.nativeStylesCreative
-                                                  withTargeting:bid.targetingInfo
-                                                          error:nil];
-            model.html = html ?: @"";
-        }
+        // The feature is not available. Use original Prebid Native API
+        // TODO: Merge Native engine from original SDK and rendering codebase
+//        NSString *html = nil;
+//        if (adConfiguration.nativeAdConfiguration.nativeStylesCreative.length == 0) {
+//            PBMLogError(@"Native Styles creative string is empty.");
+//            model.html = @"";
+//        } else {
+//            html = [PBMNativeFunctions populateNativeAdTemplate:adConfiguration.nativeAdConfiguration.nativeStylesCreative
+//                                                  withTargeting:bid.targetingInfo
+//                                                          error:nil];
+//            model.html = html ?: @"";
+//        }
     }
     
     model.width = bid.size.width;

@@ -15,7 +15,7 @@
 
 import Foundation
 
-public class NativeAdEventTracker: NSObject {
+class NativeAdEventTracker: NSObject {
 
     /// Type of event to track.
     /// See Event Types table.

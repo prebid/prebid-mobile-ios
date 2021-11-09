@@ -28,15 +28,19 @@
         if (eventTrackers.count <= 0) {
             return;
         }
+        
         NSMutableArray <NSString *> * const trackingUrls = [[NSMutableArray alloc] initWithCapacity:eventTrackers.count];
-        for (PBMNativeAdMarkupEventTracker *nextEventTracker in eventTrackers) {
-            if (nextEventTracker.event == impressionType
-                && nextEventTracker.method == NativeEventTrackingMethodImg
-                && nextEventTracker.url != nil)
-            {
-                [trackingUrls addObject:nextEventTracker.url];
-            }
-        }
+
+        // The feature is not available. Use original Prebid Native API
+        // TODO: Merge Native engine from original SDK and rendering codebase
+//        for (PBMNativeAdMarkupEventTracker *nextEventTracker in eventTrackers) {
+//            if (nextEventTracker.event == impressionType
+//                && nextEventTracker.method == NativeEventTrackingMethodImg
+//                && nextEventTracker.url != nil)
+//            {
+//                [trackingUrls addObject:nextEventTracker.url];
+//            }
+//        }
         urlVisitor(trackingUrls);
     };
 }

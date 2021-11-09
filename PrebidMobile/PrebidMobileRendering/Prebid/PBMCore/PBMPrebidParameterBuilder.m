@@ -137,13 +137,15 @@
             }
                 
             case PBMAdFormatNativeInternal: {
-                PBMORTBNative * const nextNative = nextImp.native;
-                nextNative.request = [self.adConfiguration.nativeAdConfiguration.markupRequestObject toJsonStringWithError:nil];
-                NSString * const ver = self.adConfiguration.nativeAdConfiguration.version;
-                if (ver) {
-                    nextNative.ver = ver;
-                }
-                break;
+                // The feature is not available. Use original Prebid Native API
+                // TODO: Merge Native engine from original SDK and rendering codebase
+//                PBMORTBNative * const nextNative = nextImp.native;
+//                nextNative.request = [self.adConfiguration.nativeAdConfiguration.markupRequestObject toJsonStringWithError:nil];
+//                NSString * const ver = self.adConfiguration.nativeAdConfiguration.version;
+//                if (ver) {
+//                    nextNative.ver = ver;
+//                }
+//                break;
             }
                 
             default:

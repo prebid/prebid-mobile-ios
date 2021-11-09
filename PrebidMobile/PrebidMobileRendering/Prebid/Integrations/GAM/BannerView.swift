@@ -57,7 +57,9 @@ public class BannerView: UIView,
         set { adUnitConfig.videoPlacementType = PBMVideoPlacementType(rawValue: newValue.rawValue) ?? .undefined }
     }
     
-    @objc public var nativeAdConfig: NativeAdConfiguration? {
+    // The feature is not available. Use original Prebid Native API
+    // TODO: Merge Native engine from original SDK and rendering codebase
+    var nativeAdConfig: NativeAdConfiguration? {
         get { adUnitConfig.nativeAdConfiguration }
         set { adUnitConfig.nativeAdConfiguration = newValue }
     }

@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc public enum NativeDataAssetType : Int {
+@objc enum NativeDataAssetType : Int {
     case undefined  = 0
     case sponsored  = 1 /// Sponsored By message where response should contain the brand name of the sponsor.
     case desc       = 2 /// Descriptive text associated with the product or service being advertised. Longer length of text in response may be truncated or ellipsed by the exchange.
