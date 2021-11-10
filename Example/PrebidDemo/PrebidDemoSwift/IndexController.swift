@@ -17,8 +17,19 @@ import Foundation
 
 import UIKit
 
+enum IntegrationKind: String, CaseIterable {
+    case originalGAM    = "GAM"
+    case originalMoPub  = "MoPub"
+    case inApp          = "In-App"
+    case renderingGAM   = "GAM + Rendering"
+    case renderingMoPub = "MoPUb + Rendering"
+    
+    case undefined      = "Undefined"
+}
+
 
 class IndexController: UIViewController {
+    
     @IBOutlet var adServerSegment: UISegmentedControl!
     @IBOutlet var bannerVideo: UIButton!
     @IBOutlet var interstitialVideo: UIButton!
@@ -27,6 +38,11 @@ class IndexController: UIViewController {
         super.viewDidLoad()
 
         self.title = "Prebid Demo"
+        
+        adServerSegment.removeAllSegments()
+        IntegrationKind.allCases.forEach {
+            adServerSegment.insertSegment(withTitle: $0.rawValue, at: adServerSegment.numberOfSegments, animated: false)
+        }
     }
     
     @IBAction func onAdServerSwidshed(_ sender: UISegmentedControl) {
@@ -56,7 +72,7 @@ class IndexController: UIViewController {
         switch segue.destination {
             
         case let vc as BannerController:
-            vc.adServerName = adServerName
+            vc.integrationKind = IntegrationKind(rawValue: adServerName) ?? .undefined
             
             if buttonText == "Banner Video" {
                 vc.bannerFormat = .vast

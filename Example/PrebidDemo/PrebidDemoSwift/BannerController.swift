@@ -42,50 +42,46 @@ class BannerController:
     
     // MARK: - Public Properties
 
-    var bannerFormat: BannerFormat = .html
-    var adServerName: String = ""
+    var bannerFormat    : BannerFormat = .html
+    var integrationKind : IntegrationKind = .undefined
     
     // MARK: - Private Properties
     
     let width = 300
     let height = 250
-
-    private var adUnit: AdUnit!
+    
+    // GAM
     
     private let gamRequest = GAMRequest()
     private var gamBanner: GAMBannerView!
     
+    // MoPub
     private var mpBanner: MPAdView!
+
+    // Prebid Original
+    private var prebidAdUnit: AdUnit!
     
-    private var pbBanner: BannerView!
-    private var pbMoPubAdUnit: MoPubBannerAdUnit!
+    // Prebid Rendering
+    private var prebidBannerView: BannerView!
+    private var prebidMoPubAdUnit: MoPubBannerAdUnit!
     
     // MARK: - UIViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        adServerLabel.text = adServerName
-
-        if (adServerName == "DFP") {
-            
-            switch bannerFormat {
-                
-            case .html:
-                setupAndLoadGAMBanner()
-            case .vast:
-                setupAndLoadGAMBannerVAST()
-            }
-
-        } else if (adServerName == "MoPub") {
-            setupAndLoadMPBanner()
-        } else if (adServerName == "In-App") {
-            setupAndLoadInAppBanner()
-        } else if (adServerName == "GAM + Rendering") {
-            setupAndLoadGAMRendering()
-        } else if (adServerName == "MoPub + Rendering") {
-            setupAndLoadMoPubRendering()
+        adServerLabel.text = integrationKind.rawValue
+        
+        switch integrationKind {
+            case .originalGAM       : setupAndLoadGAM()
+            case .originalMoPub     : setupAndLoadMPBanner()
+            case .inApp             : setupAndLoadInAppBanner()
+            case .renderingGAM      : setupAndLoadGAMRendering()
+            case .renderingMoPub    : setupAndLoadMoPubRendering()
+            case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
+
+        
  
 //        enableCOPPA()
 //        addFirstPartyData(adUnit: adUnit)
@@ -96,10 +92,20 @@ class BannerController:
 
     override func viewDidDisappear(_ animated: Bool) {
         // important to remove the time instance
-        adUnit?.stopAutoRefresh()
+        prebidAdUnit?.stopAutoRefresh()
     }
 
     //MARK: - Internal Methods
+    
+    func setupAndLoadGAM() {
+        switch bannerFormat {
+            
+        case .html:
+            setupAndLoadGAMBanner()
+        case .vast:
+            setupAndLoadGAMBannerVAST()
+        }
+    }
     
     func setupAndLoadGAMBanner() {
         setupRubiconBanner(width: width, height: height)
@@ -167,7 +173,7 @@ class BannerController:
         
         bannerAdUnit.parameters = parameters
         
-        adUnit = bannerAdUnit
+        prebidAdUnit = bannerAdUnit
     }
 
     func setupPrebidServer(host: PrebidHost, accountId: String, storedResponse: String) {
@@ -236,7 +242,7 @@ class BannerController:
         
         appBannerView.addSubview(gamBanner)
 
-        adUnit.fetchDemand(adObject: self.gamRequest) { [weak self] (resultCode: ResultCode) in
+        prebidAdUnit.fetchDemand(adObject: self.gamRequest) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for AdManager \(resultCode.name())")
             self?.gamBanner.load(self?.gamRequest)
         }
@@ -249,7 +255,7 @@ class BannerController:
         mpBanner.backgroundColor = .red
 
         // Do any additional setup after loading the view, typically from a nib.
-        adUnit.fetchDemand(adObject: mpBanner) { [weak self] (resultCode: ResultCode) in
+        prebidAdUnit.fetchDemand(adObject: mpBanner) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for MoPub \(resultCode.name())")
 
             self?.mpBanner.loadAd()
@@ -258,31 +264,31 @@ class BannerController:
     
     func loadInAppBanner() {
         let size = CGSize(width: width, height: height)
-        pbBanner = BannerView(frame: CGRect(origin: .zero, size: size),
+        prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
                               configID: "50699c03-0910-477c-b4a4-911dbe2b9d42",
                               adSize: CGSize(width: 320, height: 50))
                                 
-        pbBanner.delegate = self
+        prebidBannerView.delegate = self
         
-        appBannerView.addSubview(pbBanner)
+        appBannerView.addSubview(prebidBannerView)
         
-        pbBanner.loadAd()
+        prebidBannerView.loadAd()
     }
     
     func loadGAMRenderingBanner() {
         let size = CGSize(width: width, height: height)
         
         let eventHandler = GAMBannerEventHandler(adUnitID: "/21808260008/prebid_oxb_320x50_banner", validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
-        pbBanner = BannerView(frame: CGRect(origin: .zero, size: size),
+        prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
                               configID: "50699c03-0910-477c-b4a4-911dbe2b9d42",
                               adSize: CGSize(width: 320, height: 50),
                               eventHandler: eventHandler)
                                 
-        pbBanner.delegate = self
+        prebidBannerView.delegate = self
         
-        appBannerView.addSubview(pbBanner)
+        appBannerView.addSubview(prebidBannerView)
         
-        pbBanner.loadAd()
+        prebidBannerView.loadAd()
     }
     
     func loadMoPubRenderingBanner() {
@@ -292,10 +298,10 @@ class BannerController:
         mpBanner.backgroundColor = .red
         
         let size = CGSize(width: 320, height: 50)
-        pbMoPubAdUnit = MoPubBannerAdUnit(configID: "50699c03-0910-477c-b4a4-911dbe2b9d42", size: size)
+        prebidMoPubAdUnit = MoPubBannerAdUnit(configID: "50699c03-0910-477c-b4a4-911dbe2b9d42", size: size)
 
         // Do any additional setup after loading the view, typically from a nib.
-        pbMoPubAdUnit.fetchDemand(with: mpBanner) { [weak self] result in
+        prebidMoPubAdUnit.fetchDemand(with: mpBanner) { [weak self] result in
             print("Prebid demand fetch for MoPub \(result.rawValue)")
 
             self?.mpBanner.loadAd()
@@ -330,7 +336,7 @@ class BannerController:
 
         adUnit.parameters = parameters
 
-        self.adUnit = adUnit
+        self.prebidAdUnit = adUnit
     }
 
     func setupAMRubiconBannerVAST(width: Int, height: Int) {
