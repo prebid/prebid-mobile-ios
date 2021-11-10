@@ -25,7 +25,7 @@ class InterstitialViewController: UIViewController, MPInterstitialAdControllerDe
 
     @IBOutlet var adServerLabel: UILabel!
 
-    var adServerName: String = ""
+    var integrationKind: IntegrationKind = .undefined
     var bannerFormat: BannerFormat = .html
     
     private var adUnit: AdUnit!
@@ -38,11 +38,10 @@ class InterstitialViewController: UIViewController, MPInterstitialAdControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        adServerLabel.text = adServerName
-
-        if (adServerName == "DFP") {
-            print("entered \(adServerName) loop" )
-            
+        adServerLabel.text = integrationKind.rawValue
+        
+        switch integrationKind {
+        case .originalGAM:
             switch bannerFormat {
             case .html:
                 setupAndLoadAMInterstitial()
@@ -50,15 +49,21 @@ class InterstitialViewController: UIViewController, MPInterstitialAdControllerDe
                 setupAndLoadAMInterstitialVAST()
             }
 
-        } else if (adServerName == "MoPub") {
-            print("entered \(adServerName) loop" )
-            
+        case .originalMoPub:
             switch bannerFormat {
             case .html:
                 setupAndLoadMPInterstitial()
             case .vast:
                 setupAndLoadMPInterstitialVAST()
             }
+        case .inApp:
+            print("TODO: Add Example")
+        case .renderingGAM:
+            print("TODO: Add Example")
+        case .renderingMoPub:
+            print("TODO: Add Example")
+        case .undefined:
+            assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }
 

@@ -26,7 +26,7 @@ class RewardedVideoController: UIViewController, MPRewardedVideoDelegate {
     
     @IBOutlet var adServerLabel: UILabel!
     
-    var adServerName: String = ""
+    var integrationKind: IntegrationKind = .undefined
     
     private var adUnit: AdUnit!
     
@@ -37,12 +37,21 @@ class RewardedVideoController: UIViewController, MPRewardedVideoDelegate {
     
     override func viewDidLoad() {
         
-        adServerLabel.text = adServerName
+        adServerLabel.text = integrationKind.rawValue
         
-        if (adServerName == "DFP") {
+        switch integrationKind {
+        case .originalGAM:
             setupAndLoadAMRewardedVideo()
-        } else if (adServerName == "MoPub") {
+        case .originalMoPub:
             setupAndLoadMPRewardedVideo()
+        case .inApp:
+            print("TODO: Add Example")
+        case .renderingGAM:
+            print("TODO: Add Example")
+        case .renderingMoPub:
+            print("TODO: Add Example")
+        case .undefined:
+            assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }
     

@@ -31,7 +31,7 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
     var nativeAdView: NativeAdView?
     var nativeUnit: NativeRequest!
     var eventTrackers: NativeEventTracker!
-    var adServerName: String = ""
+    var integrationKind: IntegrationKind = .undefined
 
     
     public var screenWidth: CGFloat {
@@ -44,14 +44,19 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
     //MARK: : ViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if (adServerName == "DFP") {
-            print("entered \(adServerName) loop" )
+        switch integrationKind {
+        case .originalGAM:
             setupAndLoadNativeInAppForDFP()
-            
-        } else if (adServerName == "MoPub") {
-            print("entered \(adServerName) loop" )
+        case .originalMoPub:
             setupAndLoadNativeInAppForMoPub()
+        case .inApp:
+            print("TODO: Add Example")
+        case .renderingGAM:
+            print("TODO: Add Example")
+        case .renderingMoPub:
+            print("TODO: Add Example")
+        case .undefined:
+            assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }
     
@@ -268,7 +273,7 @@ extension NativeInAppViewController : NativeAdDelegate{
     }
     
     func nativeAdNotFound() {
-        if (adServerName == "MoPub") {
+        if (integrationKind == .originalMoPub) {
             renderMoPubNativeAd( )
         }else {
             print("nativeAdNotFound")

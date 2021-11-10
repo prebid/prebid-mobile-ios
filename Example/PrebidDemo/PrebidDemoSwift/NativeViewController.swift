@@ -18,7 +18,7 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
 
     var nativeUnit: NativeRequest!
     
-    var adServerName: String = ""
+    var integrationKind: IntegrationKind = .undefined
     
     @IBOutlet var nativeView: UIView!
     
@@ -34,17 +34,22 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
         Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
         
         loadNativeAssets()
-            
-        if (adServerName == "DFP") {
-            print("entered \(adServerName) loop" )
-            loadDFPNative()
-
-        } else if (adServerName == "MoPub") {
-            print("entered \(adServerName) loop" )
-            loadMoPubNative()
-
-        }
         
+        switch integrationKind {
+        case .originalGAM:
+            loadDFPNative()
+        case .originalMoPub:
+            loadMoPubNative()
+        case .inApp:
+            print("TODO: Add Example")
+        case .renderingGAM:
+            print("TODO: Add Example")
+        case .renderingMoPub:
+            print("TODO: Add Example")
+        case .undefined:
+            assertionFailure("The integration kind is: \(integrationKind.rawValue)")
+        }
+
         // Do any additional setup after loading the view.
         }
         

@@ -69,33 +69,35 @@ class IndexController: UIViewController {
            buttonText = text
         }
         
+        let integrationKind = IntegrationKind(rawValue: adServerName) ?? .undefined
+        
         switch segue.destination {
             
         case let vc as BannerController:
-            vc.integrationKind = IntegrationKind(rawValue: adServerName) ?? .undefined
+            vc.integrationKind = integrationKind
             
             if buttonText == "Banner Video" {
                 vc.bannerFormat = .vast
             }
             
         case let vc as InterstitialViewController:
-            vc.adServerName = adServerName
+            vc.integrationKind = integrationKind
             
             if buttonText == "Interstitial Video" {
                 vc.bannerFormat = .vast
             }
             
         case let vc as NativeViewController:
-            vc.adServerName = adServerName
+            vc.integrationKind = integrationKind
             
         case let vc as RewardedVideoController:
-            vc.adServerName = adServerName
-            
+            vc.integrationKind = integrationKind
+
         case let vc as NativeInAppViewController:
-            vc.adServerName = adServerName
+            vc.integrationKind = integrationKind
 
         case let vc as InstreamVideoViewController:
-            vc.adServerName = adServerName
+            vc.integrationKind = integrationKind
 
         default:
             print("wrong controller")
