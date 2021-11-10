@@ -18,11 +18,13 @@ import Foundation
 import UIKit
 
 enum IntegrationKind: String, CaseIterable {
+    
     case originalGAM    = "GAM"
     case originalMoPub  = "MoPub"
+    
     case inApp          = "In-App"
-    case renderingGAM   = "GAM + Rendering"
-    case renderingMoPub = "MoPUb + Rendering"
+    case renderingGAM   = "GAM (R)"
+    case renderingMoPub = "MoPub (R)"
     
     case undefined      = "Undefined"
 }
@@ -40,8 +42,12 @@ class IndexController: UIViewController {
         self.title = "Prebid Demo"
         
         adServerSegment.removeAllSegments()
-        IntegrationKind.allCases.forEach {
-            adServerSegment.insertSegment(withTitle: $0.rawValue, at: adServerSegment.numberOfSegments, animated: false)
+        
+        IntegrationKind
+            .allCases
+            .filter { $0 != .undefined }
+            .forEach {
+                adServerSegment.insertSegment(withTitle: $0.rawValue, at: adServerSegment.numberOfSegments, animated: false)
         }
     }
     

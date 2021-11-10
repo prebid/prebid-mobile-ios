@@ -51,7 +51,6 @@ class BannerController:
     let height = 250
     
     // GAM
-    
     private let gamRequest = GAMRequest()
     private var gamBanner: GAMBannerView!
     
