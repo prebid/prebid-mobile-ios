@@ -74,7 +74,7 @@ public class PrebidRenderingConfig : NSObject {
     
     @objc public func setCustomPrebidServer(url: String) throws {
         prebidServerHost = .Custom
-        Host.shared.setHostURL = url
+        try Host.shared.setCustomHostURL(url)
     }
     
     @objc public static func initializeRenderingModule() {
@@ -83,7 +83,7 @@ public class PrebidRenderingConfig : NSObject {
         let _ = PBMUserConsentDataManager.shared
         PBMOpenMeasurementWrapper.shared.initializeJSLib(with: PBMFunctions.bundleForSDK())
         
-        PBMLog.info("prebid-mobile-sdk-rendering \(PBMFunctions.sdkVersion()) Initialized")
+        PBMLog.info("prebid-mobile-sdk \(PBMFunctions.sdkVersion()) Initialized")
     }
     
     // MARK: - Private Methods

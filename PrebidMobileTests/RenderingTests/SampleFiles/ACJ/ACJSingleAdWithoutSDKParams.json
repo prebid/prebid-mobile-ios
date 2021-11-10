@@ -1,0 +1,24 @@
+{
+    "ads": {
+        "chain": 1,
+        "medium": "ma",
+        "record_tmpl": "http://mobile-d.openx.net/{medium}/1.0/{rtype}?ts={txn_state}",
+        "adunits": [{
+            "auid": "1610998380",
+            "trax_id": "ce19c897-7631-4b92-aab0-d08fd61c2798",
+            "trax_time": "1449872860",
+            "pub_account_id": "1611281547",
+            "pub_site_id": "1610881630",
+            "chain": [{
+                "is_fallback": 0,
+                "html": "<a href='http://www.openx.com' target='_blank'>Mocked Ad</a>\n",
+                "ts": "1fHU9MXxyaWQ9Y2UxOWM4OTctNzYzMS00YjkyLWFhYjAtZDA4ZmQ2MWMyNzk4fHJ0PTE0NDk4NzI4NjB8YXVpZD0xNjEwOTk4MzgwfGF1bT1ETUlELk1PQklMRXxzaWQ9MTYxMDg4MTYzMHxwdWI9MTYxMTI4MTU0N3xwYz1VU0R8eHQ9YXBpX3N5bmNfd3JpdGV8cmFpZD0xMDdiNDdiNy0yZjZiLTQ4ZjEtYTcxNC1hZmRiZmQwMjNiMjN8Y2w9MXxhaWQ9MTYxMTMwOTQ0MXx0PTl8YXM9MzIweDUwfGxpZD0xNjExMTAwNTkyfG9pZD0xNjEwOTk5MTUxfHA9MTB8cHI9MTB8YXRiPTEwfGFkdj0xNjExMjgxNTQ4fGFjPVVTRHxwbT1QUklDSU5HLkNQTXxibT1CVVlJTkcuTk9OR1VBUkFOVEVFRHxjaT0xfHVyPXh5NjRNUDB3ZkY",
+                "sdk_params": "",
+                "type": "image",
+                "width": "320",
+                "height": "50",
+                "mediation_url": ""
+            }]
+        }]
+    }
+}

@@ -94,7 +94,7 @@ import Foundation
             throw ErrorCode.prebidServerURLInvalid(url)
         } else {
             prebidServerHost = PrebidHost.Custom
-            Host.shared.setHostURL = url
+            try Host.shared.setCustomHostURL(url)
         }
     }
     

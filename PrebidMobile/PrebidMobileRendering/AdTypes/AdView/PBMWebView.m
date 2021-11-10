@@ -505,7 +505,7 @@ static PBMError *extracted(NSString *errorMessage) {
     };
     [s appendString:@"window.MRAID_ENV = {"];
     nextFeed(); [s appendString:@"version: '3.0'"];
-    nextFeed(); [s appendString:@"sdk: 'prebid-mobile-sdk-rendering'"];
+    nextFeed(); [s appendString:@"sdk: 'prebid-mobile-sdk'"];
     nextFeed(); [s appendFormat:@"sdkVersion: '%@'", [PBMFunctions sdkVersion]];
     nextFeed(); [s appendFormat:@"appId: '%@'", [NSBundle mainBundle].bundleIdentifier];
     nextFeed(); [s appendFormat:@"ifa: '%@'", [ASIdentifierManager.sharedManager advertisingIdentifier].UUIDString];
