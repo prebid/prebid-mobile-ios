@@ -25,6 +25,7 @@ class PrebidNativeVideoUITest: RepeatedUITestCase {
         super.setUp()
     }
     
+    // TODO: This test schould be restored in the issue: https://github.com/prebid/prebid-mobile-ios/issues/431
     func testMediaPlaybackEvents() {
         repeatTesting(times: 7) {
             navigateToExamplesSection()
