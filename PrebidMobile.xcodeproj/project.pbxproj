@@ -1776,7 +1776,6 @@
 		925D5E212737EA1E00A8A2B5 /* PBMMoPubBannerAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMMoPubBannerAdUnitTest.swift; sourceTree = "<group>"; };
 		925D5E232737EAE500A8A2B5 /* MoPubBannerAdUnit+TestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoPubBannerAdUnit+TestExtension.h"; sourceTree = "<group>"; };
 		925D5E242737EB5400A8A2B5 /* MoPubInterstitialAdUnit+TestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoPubInterstitialAdUnit+TestExtension.h"; sourceTree = "<group>"; };
-		925D5E252737EB6300A8A2B5 /* MoPubNativeAdUnit+TestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MoPubNativeAdUnit+TestExtension.h"; sourceTree = "<group>"; };
 		925D5E262737EC5E00A8A2B5 /* PBMMoPubInterstitialAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMMoPubInterstitialAdUnitTest.swift; sourceTree = "<group>"; };
 		925D5E282737EC9400A8A2B5 /* PBMMoPubRewardedAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMMoPubRewardedAdUnitTest.swift; sourceTree = "<group>"; };
 		925D5E2A2737ECBB00A8A2B5 /* PBMMoPubNativeAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMMoPubNativeAdUnitTest.swift; sourceTree = "<group>"; };
@@ -3187,7 +3186,6 @@
 				925D5DB62737C60D00A8A2B5 /* PBMBidResponseTransformer+TestExtension.swift */,
 				925D5E232737EAE500A8A2B5 /* MoPubBannerAdUnit+TestExtension.h */,
 				925D5E242737EB5400A8A2B5 /* MoPubInterstitialAdUnit+TestExtension.h */,
-				925D5E252737EB6300A8A2B5 /* MoPubNativeAdUnit+TestExtension.h */,
 			);
 			path = Prebid;
 			sourceTree = "<group>";
