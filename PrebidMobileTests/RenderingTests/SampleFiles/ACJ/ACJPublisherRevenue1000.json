@@ -1,0 +1,33 @@
+{
+    "ads": {
+        "chain": 1,
+        "client_timeout": "2500",        
+        "medium": "ma",
+        "record_tmpl": "http://oxdemo-d.openx.net/{medium}/1.0/{rtype}?ts={txn_state}",
+        "adunits": [{
+            "auid": "538196604",
+            "refresh_delay":"16",
+            "refresh_max":"1",
+            "chain_timeout": "",
+            "chain_revenue": "500",
+            "chain": [{
+                "is_fallback": 0,
+                "ad_id": "538055428",
+                "adv_acct_id": "1459",
+                "is_ng": 1,
+                "adv_id": ":1459",
+                "brand_id": "",
+                "cpipc": 0,
+                "auct_win_is_deal": 0,
+                "pub_rev_rounded": "1000",
+                "width": "320",
+                "height": "50",
+                "html": "<div id=\"ad\">\n    <a href=\"http://openx.com/product/ad-server/\">\n        <img src=\"http://i-cdn.openx.com/5a7/5a731840-5ae7-4dca-ba66-6e959bb763e2/a84/a84fc59c61eb4cf2938062e7bc8ae948.png\" alt=\"Banner Advertisement\" height=\"50\" width=\"320\">\n    </a>\n</div>",
+                "target": "_blank",
+                "ts": "1fHJpZD1kYzc0NDQ2ZC0xNTBlLTQyZDUtYTkwYy02ZmY1Nzg5NzdlMmJ8cnQ9MTQ1MTQyNjcyOHxhdWlkPTUzODE5NjYwNHxhdW09RE1JRC5NT0JJTEV8c2lkPTUzNzIzMjM1M3xwdWI9MTQ1OHxwYz1VU0R8cmFpZD01ZjFhNjIzNS03MzU5LTRmNTEtOGY5Yi0xMTllNDg1NTQ1M2R8Y2w9MXxhaWQ9NTM4MDU1NDI4fHQ9MTB8YXM9MzIweDUwfGxpZD01Mzc2MDE0NjF8b2lkPTUzNzMwMDU2MHxwPTUwMHxwcj01MDB8YXRiPTUwMHxhZHY9MTQ1OXxhYz1VU0R8cG09UFJJQ0lORy5DUE18Ym09QlVZSU5HLk5PTkdVQVJBTlRFRUR8Y2k9MXx1cj1EUDZlYkpwMzBi",
+                "type": "html",
+                "ad_url": "<div id=\"ad\">\n    <a href=\"http://openx.com/product/ad-server/\">\n        <img src=\"http://i-cdn.openx.com/5a7/5a731840-5ae7-4dca-ba66-6e959bb763e2/a84/a84fc59c61eb4cf2938062e7bc8ae948.png\" alt=\"Banner Advertisement\" height=\"50\" width=\"320\">\n    </a>\n</div>"
+            }]
+        }]
+    }
+}

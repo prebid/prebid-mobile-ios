@@ -1,0 +1,143 @@
+<!-- VAST document with one InLine ad -->
+<VAST version="4.1">
+	<Error><![CDATA[http://myErrorURL/inline/Error]]></Error>
+    <Ad id="601364">
+        <InLine>
+            <AdSystem version="1.0">Inline AdSystem</AdSystem>
+            <AdTitle>VAST .0 Instream Test 1</AdTitle>
+            <Description>VAST 2.0 Instream Test 1</Description>
+            <Advertiser>Example Advertiser</Advertiser>
+            
+            <Survey><![CDATA[http://mySurveyURL/survey]]></Survey>
+            <Error><![CDATA[http://myErrorURL/AdError]]></Error>
+            <Impression id="first"><![CDATA[http://myTrackingURL/inline/impression]]></Impression>
+            <Impression id="second"><![CDATA[http://myTrackingURL/inline/anotherImpression]]></Impression>
+            
+            <AdVerifications>
+                <Verification vendor="OpenX1">
+                    <JavaScriptResource apiFramework="omidOpenx1">
+                        <![CDATA[https://measurement.domain.com/tag.js]]>
+                    </JavaScriptResource>
+                    <VerificationParameters>
+                        <![CDATA[{1}]]>
+                    </VerificationParameters>
+                </Verification>
+                <Verification vendor="OpenX2">
+                    <JavaScriptResource apiFramework="omidOpenx2">
+                        <![CDATA[https://measurement.domain.com/tag2.js]]>
+                    </JavaScriptResource>
+                    <VerificationParameters>
+                        <![CDATA[{2}]]>
+                    </VerificationParameters>
+                </Verification>
+            </AdVerifications>
+            
+            <Creatives>
+                <Creative id="6012" AdID="601364" sequence="1">
+                    <Linear>
+                        <Duration>00:00:03</Duration>
+                        <TrackingEvents>
+                            <Tracking event="creativeView"><![CDATA[http://myTrackingURL/inline/creativeView]]></Tracking>
+                            <Tracking event="start"><![CDATA[http://myTrackingURL/inline/start1]]></Tracking>
+                            <Tracking event="start"><![CDATA[http://myTrackingURL/inline/start2]]></Tracking>
+                            <Tracking event="midpoint"><![CDATA[http://myTrackingURL/inline/midpoint]]></Tracking>
+                            <Tracking event="firstQuartile"><![CDATA[http://myTrackingURL/inline/firstQuartile]]></Tracking>
+                            <Tracking event="thirdQuartile"><![CDATA[http://myTrackingURL/inline/thirdQuartile]]></Tracking>
+                            <Tracking event="complete"><![CDATA[http://myTrackingURL/inline/complete]]></Tracking>
+                            <Tracking event="mute"><![CDATA[http://myTrackingURL/inline/mute]]></Tracking>
+                            <Tracking event="unmute"><![CDATA[http://myTrackingURL/inline/unmute]]></Tracking>
+                            <Tracking event="pause"><![CDATA[http://myTrackingURL/inline/pause]]></Tracking>
+                            <Tracking event="rewind"><![CDATA[http://myTrackingURL/inline/rewind]]></Tracking>
+                            <Tracking event="resume"><![CDATA[http://myTrackingURL/inline/resume]]></Tracking>
+                            <Tracking event="fullscreen"><![CDATA[http://myTrackingURL/inline/fullscreen]]></Tracking>
+                            <Tracking event="expand"><![CDATA[http://myTrackingURL/inline/expand]]></Tracking>
+                            <Tracking event="collapse"><![CDATA[http://myTrackingURL/inline/collapse]]></Tracking>
+                            <Tracking event="acceptInvitation"><![CDATA[http://myTrackingURL/inline/acceptInvitation]]></Tracking>
+                            <Tracking event="close"><![CDATA[http://myTrackingURL/inline/close]]></Tracking>
+                        </TrackingEvents>
+                        <AdParameters><![CDATA[params=for&request=gohere]]></AdParameters>
+                        <VideoClicks>
+                            <ClickThrough>
+                                <![CDATA[http://www.openx.com]]>
+                            </ClickThrough>
+                            <ClickTracking id="first"><![CDATA[http://myTrackingURL/inline/click1]]></ClickTracking>
+                            <ClickTracking id="second"><![CDATA[http://myTrackingURL/inline/click2]]></ClickTracking>
+                            <CustomClick id="customOne"><![CDATA[http://myTrackingURL/inline/custom1]]></CustomClick>
+                            <CustomClick id="customTwo"><![CDATA[http://myTrackingURL/inline/custom2]]></CustomClick>
+                        </VideoClicks>
+                        <MediaFiles>
+                            <MediaFile id="firstFile" delivery="progressive" type="video/mp4" bitrate="500" width="400" height="300" scalable="true" maintainAspectRatio="true"  apiFramework="VPAID">
+                              <![CDATA[http://get_video_file]]>
+                            </MediaFile>
+                        </MediaFiles>
+                    </Linear>
+                </Creative>
+                
+                <Creative AdID="601364-Companion">
+                    <CompanionAds>
+                        
+                        <Companion id="big_box" width="300" height="250" expandedWidth="600" expandedHeight="500" apiFramework="VPAID">
+                            <StaticResource creativeType="image/jpeg">http://demo.tremormedia.com/proddev/vast/Blistex1.jpg</StaticResource>
+                            <TrackingEvents>
+                                <Tracking event="creativeView">http://myTrackingURL/inline/firstCompanionCreativeView</Tracking>
+                            </TrackingEvents>
+                            <CompanionClickThrough>http://www.openx.com</CompanionClickThrough>
+                            <CompanionClickTracking>http://CompanionClickTracking</CompanionClickTracking>
+                            <AltText>Display this instead of the ad</AltText>
+                        </Companion>
+                        
+                        <Companion width="728" height="90">
+                            <IFrameResource>
+                              <![CDATA[http://ad3.liverail.com/util/companions.php]]>
+                            </IFrameResource>
+                            <CompanionClickThrough>
+                              http://www.openx.com
+                            </CompanionClickThrough>
+                        </Companion>
+                        
+                    </CompanionAds>
+                </Creative>
+                
+                <Creative AdID="601365">
+                   <NonLinearAds>
+                       
+                        <NonLinear id="special_overlay" width="300" height="50" expandedWidth="600" expandedHeight="500" apiFramework="VPAID" scalable="true" maintainAspectRatio="true">
+                            <StaticResource creativeType="image/jpeg">
+                                <![CDATA[http://cdn.liverail.com/adasset/228/330/overlay.jpg]]>
+                            </StaticResource>
+                            <NonLinearClickThrough>
+                                <![CDATA[http://t3.liverail.com]]>
+                            </NonLinearClickThrough>
+                        </NonLinear>
+                        
+                        <NonLinear width="728" height="90">
+                            <IFrameResource>
+                                <![CDATA[http://ad3.liverail.com/util/non_linear.php]]>
+                            </IFrameResource>
+                            <NonLinearClickThrough>http://www.openx.com</NonLinearClickThrough>
+                        </NonLinear>
+                        
+                    </NonLinearAds>
+                </Creative>
+                
+            </Creatives>
+            
+            <Extensions>
+                <Extension type="DART">
+                    <AdServingData>
+                        <DeliveryData>
+                            <GeoData><![CDATA[ct=CA&st=ON&ac=905&zp=L6V1X9&bw=0&dma=1&city=1869]]></GeoData>
+                        </DeliveryData>
+                    </AdServingData>
+                </Extension>
+                
+                <Extension type="value">
+                    <CostPerThousand currency="CAD">
+                       125.00
+                    </CostPerThousand>
+                </Extension>
+            </Extensions>
+	   </InLine>
+    </Ad>
+	
+</VAST>

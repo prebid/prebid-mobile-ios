@@ -19,7 +19,7 @@
 #import "PBMWinNotifierBlock.h"
 #import "PBMServerConnectionProtocol.h"
 
-@class BidResponse;
+@class BidResponseForRendering;
 
 NS_ASSUME_NONNULL_BEGIN
 
