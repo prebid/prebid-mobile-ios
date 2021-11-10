@@ -34,7 +34,9 @@ class PBMNativeAdImpressionReportingTest: XCTestCase {
         let urlsTracked = expectation(description: "URLs tracked")
         let detectionHandler = PBMNativeAdImpressionReporting.impressionReporter(with: trackers) { urlStrings in
             urlsTracked.fulfill()
-            // This assert fails due to changes in PBMNativeAdImpressionReporting(#430)
+            // This assert fails due to changes in PBMNativeAdImpressionReporting
+            // This assert should be restored in the issue
+            // TODO: https://github.com/prebid/prebid-mobile-ios/issues/431
 //            XCTAssertEqual(urlStrings, ["Imp-Img"])
         }
         detectionHandler(NativeEventType.impression.rawValue)
@@ -61,7 +63,9 @@ class PBMNativeAdImpressionReportingTest: XCTestCase {
         let urlsTracked = expectation(description: "URLs tracked")
         let detectionHandler = PBMNativeAdImpressionReporting.impressionReporter(with: trackers) { urlStrings in
             urlsTracked.fulfill()
-            // This assert fails due to changes in PBMNativeAdImpressionReporting(#430)
+            // This assert fails due to changes in PBMNativeAdImpressionReporting
+            // This assert should be restored in the issue
+            // TODO: https://github.com/prebid/prebid-mobile-ios/issues/431
 //            XCTAssertEqual(urlStrings, ["MRC50-ImgA", "MRC50-ImgZ", "MRC50-ImgQ"])
         }
         detectionHandler(NativeEventType.mrc50.rawValue)
@@ -79,7 +83,9 @@ class PBMNativeAdImpressionReportingTest: XCTestCase {
         let urlsTracked = expectation(description: "URLs tracked")
         let detectionHandler = PBMNativeAdImpressionReporting.impressionReporter(with: trackers) { urlStrings in
             urlsTracked.fulfill()
-            // This assert fails due to changes in PBMNativeAdImpressionReporting(#430)
+            // This assert fails due to changes in PBMNativeAdImpressionReporting
+            // This assert should be restored in the issue
+            // TODO: https://github.com/prebid/prebid-mobile-ios/issues/431
 //            XCTAssertEqual(urlStrings, ["700-Img"])
         }
         detectionHandler(700)

@@ -211,7 +211,9 @@ class PrebidParameterBuilderTest: XCTestCase {
         }
         
         PBMAssertEq(imp.native?.ver, nativeVer)
-        // This assert fails cause of changes in PBMPrebidParameterBuilder.buildRequest(#430)
+        // This assert fails cause of changes in PBMPrebidParameterBuilder.buildRequest
+        // This assert should be restored in the issue
+        // TODO: https://github.com/prebid/prebid-mobile-ios/issues/431
 //        PBMAssertEq(imp.native?.request,
 //                    "{\"assets\":[{\"data\":{\"type\":2}}],\"context\":2,\"ver\":\"\(nativeVer)\"}")
     }
@@ -263,7 +265,9 @@ class PrebidParameterBuilderTest: XCTestCase {
             return
         }
         
-        // This assert fails cause of changes in PBMPrebidParameterBuilder.buildRequest(#430)
+        // This assert fails cause of changes in PBMPrebidParameterBuilder.buildRequest
+        // This assert should be restored in the issue
+        // TODO: https://github.com/prebid/prebid-mobile-ios/issues/431
 //        PBMAssertEq(imp.native?.request, try! nativeAdConfig.markupRequestObject.toJsonString())
         
         XCTAssertEqual(imp.extContextData, ["buy": ["mushrooms"]])

@@ -62,6 +62,15 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "PBMAutoRefreshManagerTest/testAllowRefreshOnSecondAtempt()">
+               </Test>
+               <Test
+                  Identifier = "PBMWebViewTest/testPrepareForMRAIDWithWindow()">
+               </Test>
+               <Test
+                  Identifier = "PBMWebViewTest/testWindowOpenTargets()">
+               </Test>
+               <Test
                   Identifier = "RequestBuilderTests/testPostDataWithShareLocationOn()">
                </Test>
             </SkippedTests>
