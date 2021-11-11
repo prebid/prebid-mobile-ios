@@ -50,19 +50,19 @@ class BannerController:
     let width = 300
     let height = 250
     
+    // Prebid Original
+    private var prebidAdUnit: AdUnit!
+    
     // GAM
     private let gamRequest = GAMRequest()
     private var gamBanner: GAMBannerView!
     
     // MoPub
     private var mpBanner: MPAdView!
-
-    // Prebid Original
-    private var prebidAdUnit: AdUnit!
     
     // Prebid Rendering
-    private var prebidBannerView: BannerView!
-    private var prebidMoPubAdUnit: MoPubBannerAdUnit!
+    private var prebidBannerView: BannerView!           // (In-App and GAM)
+    private var prebidMoPubAdUnit: MoPubBannerAdUnit!   // (MoPub)
     
     // MARK: - UIViewController
 
@@ -80,8 +80,6 @@ class BannerController:
             case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
 
-        
- 
 //        enableCOPPA()
 //        addFirstPartyData(adUnit: adUnit)
 //        setStoredResponse()
@@ -299,10 +297,7 @@ class BannerController:
         let size = CGSize(width: 320, height: 50)
         prebidMoPubAdUnit = MoPubBannerAdUnit(configID: "50699c03-0910-477c-b4a4-911dbe2b9d42", size: size)
 
-        // Do any additional setup after loading the view, typically from a nib.
         prebidMoPubAdUnit.fetchDemand(with: mpBanner) { [weak self] result in
-            print("Prebid demand fetch for MoPub \(result.rawValue)")
-
             self?.mpBanner.loadAd()
         }
     }

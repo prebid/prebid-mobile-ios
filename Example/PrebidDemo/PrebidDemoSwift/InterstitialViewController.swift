@@ -162,17 +162,15 @@ class InterstitialViewController:
         self.mpInterstitial = MPInterstitialAdController(forAdUnitId: adUnitId)
         self.mpInterstitial.delegate = self
     }
-    
-    // MARK: - Setup OpenX
-    
+        
     func setupOpenxRendering() {
         PrebidRenderingConfig.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
         try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
     }
     
-    //Load
+    // MARK: - Load
+    
     func loadAMInterstitial(_ adUnitID: String) {
-        
         adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
             
@@ -184,7 +182,6 @@ class InterstitialViewController:
                     ad.present(fromRootViewController: self!)
                 }
             }
-
         }
     }
     
@@ -196,11 +193,7 @@ class InterstitialViewController:
             self?.mpInterstitial.loadAd()
         }
     }
-    
-    
-    
-    // MARK: Rendering
-    
+            
     func loadInAppInterstitial() {
         renderingInterstitial = InterstitialRenderingAdUnit(configID: "5a4b8dcf-f984-4b04-9448-6529908d6cb6")
         renderingInterstitial.delegate = self
