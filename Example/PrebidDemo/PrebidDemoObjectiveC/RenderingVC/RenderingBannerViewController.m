@@ -12,7 +12,9 @@
 @import PrebidMobileGAMEventHandlers;
 @import PrebidMobileMoPubAdapters;
 
-@interface RenderingBannerViewController () <BannerViewDelegate>
+@import MoPubSDK;
+
+@interface RenderingBannerViewController () <BannerViewDelegate, MPAdViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *adView;
 
@@ -20,6 +22,9 @@
 @property (nonatomic) CGRect frame;
 
 @property (strong, nullable) BannerView *bannerView;
+@property (strong, nullable) MoPubBannerAdUnit *mopubBannerAdUnit;
+
+@property (strong, nullable) MPAdView *mopubBannerView;
 
 @end
 
@@ -67,7 +72,6 @@
 
 - (void)loadInAppBanner {
     
-    
     self.bannerView = [[BannerView alloc] initWithFrame:self.frame
                                                configID:@"50699c03-0910-477c-b4a4-911dbe2b9d42"
                                                  adSize:self.size];
@@ -95,7 +99,14 @@
 }
 
 - (void)loadMoPubRenderingBanner {
+    self.mopubBannerView = [[MPAdView alloc] initWithAdUnitId:@"0df35635801e4110b65e762a62437698" size:self.size];
+    self.mopubBannerView.delegate = self;
+    [self.adView addSubview:self.mopubBannerView];
     
+    self.mopubBannerAdUnit = [[MoPubBannerAdUnit alloc] initWithConfigID:@"50699c03-0910-477c-b4a4-911dbe2b9d42" size:self.size];
+    [self.mopubBannerAdUnit fetchDemandWith:_mopubBannerView completion:^(FetchDemandResult result) {
+        [self.mopubBannerView loadAd];
+    }];
 }
 
 #pragma mark - BannerViewDelegate
@@ -110,8 +121,22 @@
 
 - (void)bannerView:(BannerView *)bannerView didFailToReceiveAdWith:(NSError *)error {
     NSLog(@"InApp bannerView:didFailToReceiveAdWith: %@", [error localizedDescription]);
-
 }
 
+#pragma mark - MPAdViewDelegate
+
+- (UIViewController *)viewControllerForPresentingModalView {
+    return self;
+}
+
+- (void)adViewDidLoadAd:(MPAdView *)view adSize:(CGSize)adSize {
+    NSLog(@"MoPub adViewDidLoadAd:");
+}
+
+- (void)adView:(MPAdView *)view didFailToLoadAdWithError:(NSError *)error {
+    NSLog(@"MoPub adView:didFailToLoadAdWithError: %@", [error localizedDescription]);
+}
 
 @end
+
+

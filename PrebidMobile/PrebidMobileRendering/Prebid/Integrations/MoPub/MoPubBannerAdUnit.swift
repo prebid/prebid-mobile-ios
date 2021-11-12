@@ -16,6 +16,7 @@
 import Foundation
 import UIKit
 
+@objcMembers
 public class MoPubBannerAdUnit : NSObject {
     
     var bidRequester: PBMBidRequester?
