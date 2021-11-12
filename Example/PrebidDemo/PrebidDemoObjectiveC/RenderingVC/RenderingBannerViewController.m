@@ -9,6 +9,8 @@
 #import "RenderingBannerViewController.h"
 
 @import PrebidMobile;
+@import PrebidMobileGAMEventHandlers;
+@import PrebidMobileMoPubAdapters;
 
 @interface RenderingBannerViewController () <BannerViewDelegate>
 
