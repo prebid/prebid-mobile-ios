@@ -20,9 +20,14 @@ import Foundation
 import GoogleMobileAds
 import PrebidMobile
 import MoPubSDK
+import PrebidMobileGAMEventHandlers
 
 
-class RewardedVideoController: UIViewController, MPRewardedVideoDelegate {
+class RewardedVideoController:
+        UIViewController,
+        MPRewardedVideoDelegate,
+        RewardedAdUnitDelegate,
+        MPRewardedAdsDelegate {
     
     @IBOutlet var adServerLabel: UILabel!
     
@@ -32,6 +37,9 @@ class RewardedVideoController: UIViewController, MPRewardedVideoDelegate {
     
     private let amRequest = GAMRequest()
     
+    private var rewardedAdUnit: RewardedAdUnit!
+    public var mopubRewardedAdUnit: MoPubRewardedAdUnit!
+    
     private let amRubiconAdUnitId = "/5300653/test_adunit_vast_rewarded-video_pavliuchyk"
     private let mpRubiconAdUnitId = "46d2ebb3ccd340b38580b5d3581c6434"
     
@@ -40,24 +48,18 @@ class RewardedVideoController: UIViewController, MPRewardedVideoDelegate {
         adServerLabel.text = integrationKind.rawValue
         
         switch integrationKind {
-        case .originalGAM:
-            setupAndLoadAMRewardedVideo()
-        case .originalMoPub:
-            setupAndLoadMPRewardedVideo()
-        case .inApp:
-            print("TODO: Add Example")
-        case .renderingGAM:
-            print("TODO: Add Example")
-        case .renderingMoPub:
-            print("TODO: Add Example")
-        case .undefined:
-            assertionFailure("The integration kind is: \(integrationKind.rawValue)")
+        case .originalGAM       : setupAndLoadGAMRewardedVideo()
+        case .originalMoPub     : setupAndLoadMPRewardedVideo()
+        case .inApp             : setupAndLoadInAppRewarded()
+        case .renderingGAM      : setupAndLoadGAMRenderingRewarded()
+        case .renderingMoPub    : setupAndLoadMoPubRenderingRewardedVideo()
+        case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }
     
-    func setupAndLoadAMRewardedVideo() {
+    func setupAndLoadGAMRewardedVideo() {
         setupPBRubiconRewardedVideo()
-        loadAMRewardedVideo()
+        loadGAMRewardedVideo()
     }
     
     func setupAndLoadMPRewardedVideo() {
@@ -66,7 +68,24 @@ class RewardedVideoController: UIViewController, MPRewardedVideoDelegate {
         loadMPRewardedVideo()
     }
     
-    //Setup PB
+    func setupAndLoadInAppRewarded() {
+        setupOpenXPrebid()
+        loadInAppRewardedVideo()
+    }
+    
+    func setupAndLoadGAMRenderingRewarded() {
+        setupOpenXPrebid()
+        loadGAMRenderingRewardedVideo()
+    }
+    
+    func setupAndLoadMoPubRenderingRewardedVideo() {
+        setupOpenXPrebid()
+        
+        loadMoPubRenderingRewardedVideo()
+    }
+    
+    // MARK: - Setup Servers
+    
     func setupPBRubiconRewardedVideo() {
 
         setupPB(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
@@ -85,7 +104,6 @@ class RewardedVideoController: UIViewController, MPRewardedVideoDelegate {
         adUnit.parameters = parameters
         
         self.adUnit = adUnit
-        
     }
     
     func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
@@ -94,14 +112,20 @@ class RewardedVideoController: UIViewController, MPRewardedVideoDelegate {
         Prebid.shared.storedAuctionResponse = storedResponse
     }
     
+    func setupOpenXPrebid() {
+        PrebidRenderingConfig.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
+    }
+    
     //Setup AdServer
     
     func setupMPRubiconRewardedVideo() {
         MPRewardedVideo.setDelegate(self, forAdUnitId: mpRubiconAdUnitId)
     }
     
-    //Load
-    func loadAMRewardedVideo() {
+    // MARK: Load Ad
+    
+    func loadGAMRewardedVideo() {
         
         adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: ResultCode) in
             
@@ -138,13 +162,72 @@ class RewardedVideoController: UIViewController, MPRewardedVideoDelegate {
             MPRewardedVideo.loadAd(withAdUnitID: self?.mpRubiconAdUnitId, keywords: keywords, userDataKeywords: nil, location: nil, mediationSettings: nil)
         }
     }
+    
+    func loadInAppRewardedVideo() {
+        rewardedAdUnit = RewardedAdUnit(configID: "12f58bc2-b664-4672-8d19-638bcc96fd5c")
+        rewardedAdUnit.delegate = self
+        
+        rewardedAdUnit.loadAd()
+    }
+    
+    func loadGAMRenderingRewardedVideo() {
+        let eventHandler = GAMRewardedAdEventHandler(adUnitID: "/21808260008/prebid_oxb_rewarded_video_test")
+        rewardedAdUnit = RewardedAdUnit(configID: "12f58bc2-b664-4672-8d19-638bcc96fd5c", eventHandler: eventHandler)
+        rewardedAdUnit.delegate = self
+        
+        rewardedAdUnit.loadAd()
+    }
+    
+    func loadMoPubRenderingRewardedVideo() {
+        
+        mopubRewardedAdUnit = MoPubRewardedAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c")
+        
+        let bidInfoWrapper = MoPubBidInfoWrapper()
 
-    //MARK: - MPRewardedVideoDelegate
+        mopubRewardedAdUnit.fetchDemand(with: bidInfoWrapper) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            MPRewardedAds.setDelegate(self, forAdUnitId: "7538cc74d2984c348bc14caafa3e3395")
+            MPRewardedAds.loadRewardedAd(withAdUnitID: "7538cc74d2984c348bc14caafa3e3395",
+                                         keywords: bidInfoWrapper.keywords as String?,
+                                         userDataKeywords: nil,
+                                         customerId: "testCustomerId",
+                                         mediationSettings: [],
+                                         localExtras: bidInfoWrapper.localExtras)
+        }
+    }
+
+    // MARK: - MPRewardedVideoDelegate
+    
     func rewardedVideoAdDidLoad(forAdUnitID adUnitID: String!) {
         MPRewardedVideo.presentAd(forAdUnitID: adUnitID, from: self, with: nil)
     }
     
     func rewardedVideoAdDidFailToLoad(forAdUnitID adUnitID: String!, error: Error!) {
         print("rewardedVideoAdDidFailToLoad:\(error.localizedDescription)")
+    }
+    
+    // MARK: - MPRewardedAdsDelegate
+    
+    func rewardedAdDidLoad(forAdUnitID adUnitID: String!) {
+        MPRewardedAds.presentRewardedAd(forAdUnitID: adUnitID,
+                                        from: self,
+                                        with: nil)
+    }
+    
+    func rewardedAdDidFailToLoad(forAdUnitID adUnitID: String!, error: Error!) {
+        print("rewardedAdDidFailToLoad with error: \(error.localizedDescription)")
+    }
+    
+    // MARK: - RewardedAdUnitDelegate
+    
+    func rewardedAdDidReceiveAd(_ rewardedAd: RewardedAdUnit) {
+        rewardedAdUnit.show(from: self)
+    }
+    
+    func rewardedAd(_ rewardedAd: RewardedAdUnit, didFailToReceiveAdWithError error: Error?) {
+        print("In-App failed to load ad unit: \(error?.localizedDescription ?? "")")
     }
 }
