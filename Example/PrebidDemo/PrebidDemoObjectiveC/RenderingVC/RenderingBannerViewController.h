@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IntegrationKind.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RenderingBannerViewController : UIViewController
 
-@property (nonatomic, strong) NSString *adServer;
-@property (nonatomic, strong) NSString *adUnit;
+@property (nonatomic) IntegrationKind integrationKind;
 
 @end
 

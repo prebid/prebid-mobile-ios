@@ -15,6 +15,7 @@
 
 #import "PrebidNavigationController.h"
 #import "ViewController.h"
+#import "RenderingBannerViewController.h"
 
 @interface PrebidNavigationController ()
 
@@ -32,7 +33,7 @@
     
     self.title = @"Prebid Demo";
     
-    self.adServerList = @[@"DFP", @"MoPub", @"In-App"];
+    self.adServerList = @[@"DFP", @"MoPub", @"In-App", @"Rendering GAM", @"Rendering MoPub"];
     self.adUnitList = @[@"Banner", @"Interstitial", @"InAppNative"];
 }
 
@@ -70,9 +71,16 @@
         viewController.adUnit = [self.adUnitList objectAtIndex:indexPath.row];
         [self.navigationController pushViewController:viewController animated:YES];
     } else if (indexPath.section == 2) {
-        ViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
-        viewController.adServer = [self.adServerList objectAtIndex:indexPath.section];
-        viewController.adUnit = [self.adUnitList objectAtIndex:indexPath.row];
+        RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
+        viewController.integrationKind = IntegrationKind_InApp;
+        [self.navigationController pushViewController:viewController animated:YES];
+    } else if (indexPath.section == 3) {
+        RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
+        viewController.integrationKind = IntegrationKind_RenderingGAM;
+        [self.navigationController pushViewController:viewController animated:YES];
+    } else if (indexPath.section == 4) {
+        RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
+        viewController.integrationKind = IntegrationKind_RenderingMoPub;
         [self.navigationController pushViewController:viewController animated:YES];
     }
 }

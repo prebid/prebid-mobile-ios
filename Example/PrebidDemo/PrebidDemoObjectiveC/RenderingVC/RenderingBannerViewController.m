@@ -16,6 +16,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *adView;
 
+@property (nonatomic) CGSize size;
+@property (nonatomic) CGRect frame;
+
 @property (strong, nullable) BannerView *bannerView;
 
 @end
@@ -26,9 +29,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.size = CGSizeMake(320, 50);
+    self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
+    
     [self initRendering];
     
-    [self loadInAppBanner];
+    switch (self.integrationKind) {
+        case IntegrationKind_InApp          : [self loadInAppBanner]            ; break;
+        case IntegrationKind_RenderingGAM   : [self loadGAMRenderingBanner]     ; break;
+        case IntegrationKind_RenderingMoPub : [self loadMoPubRenderingBanner]   ; break;
+
+        default:
+            break;
+    }
+    
 }
 
 /*
@@ -52,17 +66,36 @@
 }
 
 - (void)loadInAppBanner {
-    const CGSize size = CGSizeMake(320, 50);
-    const CGRect frame = CGRectMake(0, 0, size.width, size.height);
     
-    self.bannerView = [[BannerView alloc] initWithFrame:frame
+    
+    self.bannerView = [[BannerView alloc] initWithFrame:self.frame
                                                configID:@"50699c03-0910-477c-b4a4-911dbe2b9d42"
-                                                 adSize:size];
+                                                 adSize:self.size];
     
     [self.bannerView loadAd];
     self.bannerView.delegate = self;
     
     [self.adView addSubview:self.bannerView];
+}
+
+- (void)loadGAMRenderingBanner {
+    
+    GAMBannerEventHandler *eventHandler = [[GAMBannerEventHandler alloc] initWithAdUnitID:@"/21808260008/prebid_oxb_320x50_banner"
+                                                                          validGADAdSizes:@[[NSValue valueWithCGSize:self.size]]];
+    
+    self.bannerView = [[BannerView alloc] initWithFrame:self.frame
+                                               configID:@"50699c03-0910-477c-b4a4-911dbe2b9d42"
+                                                 adSize:self.size
+                                           eventHandler:eventHandler];
+    
+    [self.bannerView loadAd];
+    self.bannerView.delegate = self;
+    
+    [self.adView addSubview:self.bannerView];
+}
+
+- (void)loadMoPubRenderingBanner {
+    
 }
 
 #pragma mark - BannerViewDelegate

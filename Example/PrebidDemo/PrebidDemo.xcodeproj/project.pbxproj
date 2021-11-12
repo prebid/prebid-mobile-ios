@@ -154,6 +154,7 @@
 		5BD98F09273EB4190030ACC3 /* RenderingBannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderingBannerViewController.m; sourceTree = "<group>"; };
 		5BD98F0B273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BD98F0E273EC0D60030ACC3 /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BD98F11273EC47B0030ACC3 /* IntegrationKind.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegrationKind.h; sourceTree = "<group>"; };
 		5CA527E4B4E05598C6D7B462 /* Pods-PrebidDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoTests/Pods-PrebidDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6069716B25224655000EE732 /* InstreamVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InstreamVideoViewController.swift; path = ../../../example/PrebidDemo/PrebidDemoSwift/InstreamVideoViewController.swift; sourceTree = "<group>"; };
 		609C52C22395F17F001FA5BD /* NativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NativeViewController.swift; path = ../../../example/PrebidDemo/PrebidDemoSwift/NativeViewController.swift; sourceTree = "<group>"; };
@@ -286,6 +287,7 @@
 			children = (
 				5BD98F08273EB4190030ACC3 /* RenderingBannerViewController.h */,
 				5BD98F09273EB4190030ACC3 /* RenderingBannerViewController.m */,
+				5BD98F11273EC47B0030ACC3 /* IntegrationKind.h */,
 			);
 			path = RenderingVC;
 			sourceTree = "<group>";
