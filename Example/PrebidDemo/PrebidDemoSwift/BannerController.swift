@@ -22,7 +22,7 @@ import GoogleMobileAds
 import MoPubSDK
 import PrebidMobileGAMEventHandlers
 
-enum BannerFormat: Int {
+enum AdFormat: Int {
     case html
     case vast
 }
@@ -42,7 +42,7 @@ class BannerController:
     
     // MARK: - Public Properties
 
-    var bannerFormat    : BannerFormat = .html
+    var bannerFormat    : AdFormat = .html
     var integrationKind : IntegrationKind = .undefined
     
     // MARK: - Private Properties

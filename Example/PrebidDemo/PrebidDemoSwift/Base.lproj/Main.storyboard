@@ -123,7 +123,10 @@
                     <navigationItem key="navigationItem" id="blE-VU-00S"/>
                     <connections>
                         <outlet property="adServerSegment" destination="fwP-lp-368" id="oHh-cj-Nkb"/>
+                        <outlet property="bannerNative" destination="0gT-aH-qqc" id="t2i-IV-0Ua"/>
                         <outlet property="bannerVideo" destination="2BF-DS-686" id="5Fb-nV-c6O"/>
+                        <outlet property="inAppNative" destination="8ga-uv-oWc" id="FdH-cu-eJ1"/>
+                        <outlet property="instreamVideo" destination="Xoo-vz-hax" id="P6W-qL-JZK"/>
                         <outlet property="interstitialVideo" destination="H9f-Yj-Von" id="6Af-yT-nRW"/>
                     </connections>
                 </viewController>

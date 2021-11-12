@@ -33,7 +33,7 @@ class InterstitialViewController:
     
     // MARK: - Public Properties
 
-    var bannerFormat: BannerFormat = .html
+    var adFormat: AdFormat = .html
     var integrationKind: IntegrationKind = .undefined
 
     // MARK: - Ad Units
@@ -70,7 +70,7 @@ class InterstitialViewController:
     //MARK: - Interstitial
     
     func setupAndLoadGAM() {
-        switch bannerFormat {
+        switch adFormat {
         case .html:
             setupAndLoadAMInterstitial()
         case .vast:
@@ -79,7 +79,7 @@ class InterstitialViewController:
     }
     
     func setupAndLoadMoPub() {
-        switch bannerFormat {
+        switch adFormat {
         case .html:
             setupAndLoadMPInterstitial()
         case .vast:
@@ -103,19 +103,34 @@ class InterstitialViewController:
     func setupAndLoadInAppInterstitial() {
         setupOpenxRendering()
         
-        loadInAppInterstitial()
+        switch adFormat {
+        case .html:
+            loadInAppInterstitial()
+        case .vast:
+            loadInAppVideoInterstitial()
+        }
     }
     
     func setupAndLoadGAMRenderingInterstitial() {
         setupOpenxRendering()
         
-        loadGAMRenderingInterstitial()
+        switch adFormat {
+        case .html:
+            loadGAMRenderingInterstitial()
+        case .vast:
+            loadGAMRenderingVideoInterstitial()
+        }
     }
     
     func setupAndLoadMoPubRenderingInterstitial() {
         setupOpenxRendering()
         
-        loadGAMRenderingInterstitial()
+        switch adFormat {
+        case .html:
+            loadMoPubRenderingInterstitial()
+        case .vast:
+            loadMoPubRenderingVideoInterstitial()
+        }
     }
     
     //Setup PB
@@ -231,6 +246,34 @@ class InterstitialViewController:
         setupPBRubiconInterstitialVAST()
         setupMPRubiconInterstitialVAST()
         loadMPInterstitial()
+    }
+    
+    func loadInAppVideoInterstitial() {
+        renderingInterstitial = InterstitialRenderingAdUnit(configID: "12f58bc2-b664-4672-8d19-638bcc96fd5c")
+        renderingInterstitial.adFormat = .video
+        renderingInterstitial.delegate = self
+        
+        renderingInterstitial.loadAd()
+    }
+    
+    func loadGAMRenderingVideoInterstitial() {
+        let eventHandler = GAMInterstitialEventHandler(adUnitID: "/21808260008/prebid_oxb_interstitial_video")
+        renderingInterstitial = InterstitialRenderingAdUnit(configID: "12f58bc2-b664-4672-8d19-638bcc96fd5c", eventHandler: eventHandler)
+        renderingInterstitial.adFormat = .video
+        renderingInterstitial.delegate = self
+        
+        renderingInterstitial.loadAd()
+    }
+    
+    func loadMoPubRenderingVideoInterstitial() {
+        renderingMoPubInterstitial = MoPubInterstitialAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c")
+        
+        mpInterstitial = MPInterstitialAdController(forAdUnitId: "7e3146fc0c744afebc8547a4567da895")
+        mpInterstitial.delegate = self
+
+        renderingMoPubInterstitial.fetchDemand(with: mpInterstitial) { [weak self] _ in
+            self?.mpInterstitial.loadAd()
+        }
     }
     
     //Setup PB
