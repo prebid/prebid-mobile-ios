@@ -32,7 +32,7 @@
     
     self.title = @"Prebid Demo";
     
-    self.adServerList = @[@"DFP", @"MoPub"];
+    self.adServerList = @[@"DFP", @"MoPub", @"In-App"];
     self.adUnitList = @[@"Banner", @"Interstitial", @"InAppNative"];
 }
 
@@ -64,9 +64,16 @@
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * storyboardName = @"Main";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-    ViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"viewController"];
-    viewController.adServer = [self.adServerList objectAtIndex:indexPath.section];
-    viewController.adUnit = [self.adUnitList objectAtIndex:indexPath.row];
-    [self.navigationController pushViewController:viewController animated:YES];
+    if (indexPath.section < 2) {
+        ViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"viewController"];
+        viewController.adServer = [self.adServerList objectAtIndex:indexPath.section];
+        viewController.adUnit = [self.adUnitList objectAtIndex:indexPath.row];
+        [self.navigationController pushViewController:viewController animated:YES];
+    } else if (indexPath.section == 2) {
+        ViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
+        viewController.adServer = [self.adServerList objectAtIndex:indexPath.section];
+        viewController.adUnit = [self.adUnitList objectAtIndex:indexPath.row];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 @end

@@ -97,7 +97,6 @@
 }
     
     
-    
 -(void) loadDFPBanner {
     
     [self.bannerUnit setAutoRefreshMillisWithTime:35000];
