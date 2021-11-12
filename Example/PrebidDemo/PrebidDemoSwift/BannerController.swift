@@ -121,13 +121,23 @@ class BannerController:
     func setupAndLoadInAppBanner() {
         setupOpenxRenderingBanner()
         
-        loadInAppBanner()
+        switch bannerFormat {
+        case .html:
+            loadInAppBanner()
+        case .vast:
+            loadInAppVideoBanner()
+        }
     }
     
     func setupAndLoadGAMRendering() {
         setupOpenxRenderingBanner()
         
-        loadGAMRenderingBanner()
+        switch bannerFormat {
+        case .html:
+            loadGAMRenderingBanner()
+        case .vast:
+            loadGAMRenderingVideoBanner()
+        }
     }
     
     func setupAndLoadMoPubRendering() {
@@ -337,6 +347,41 @@ class BannerController:
         setupGAMBanner(width: width, height: height, adUnitId: "/5300653/test_adunit_vast_pavliuchyk")
     }
     
+    func loadInAppVideoBanner() {
+        let size = CGSize(width: 300, height: 250)
+        prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
+                              configID: "9007b76d-c73c-49c6-b0a8-1c7890a84b33",
+                              adSize: CGSize(width: 300, height: 250))
+        
+        prebidBannerView.adFormat = .video
+        prebidBannerView.videoPlacementType = .inBanner
+                                
+        prebidBannerView.delegate = self
+        
+        appBannerView.addSubview(prebidBannerView)
+        
+        prebidBannerView.loadAd()
+    }
+    
+    func loadGAMRenderingVideoBanner() {
+        let size = CGSize(width: 300, height: 250)
+        
+        let eventHandler = GAMBannerEventHandler(adUnitID: "/21808260008/prebid_oxb_300x250_banner", validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
+        prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
+                              configID: "9007b76d-c73c-49c6-b0a8-1c7890a84b33",
+                              adSize: CGSize(width: 300, height: 250),
+                              eventHandler: eventHandler)
+                                
+        prebidBannerView.delegate = self
+        prebidBannerView.adFormat = .video
+        
+        appBannerView.addSubview(prebidBannerView)
+        
+        prebidBannerView.loadAd()
+    }
+    
+    // MARK: - Utils
+    
     func enableCOPPA() {
         Targeting.shared.subjectToCOPPA = true
     }
@@ -383,6 +428,14 @@ class BannerController:
     
     func bannerViewPresentationController() -> UIViewController? {
         return self
+    }
+    
+    func bannerView(_ bannerView: BannerView, didReceiveAdWithAdSize adSize: CGSize) {
+        
+    }
+    
+    func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {
+        print(">>>>>  \(error.localizedDescription)")
     }
 
     //MARK: - GADBannerViewDelegate
