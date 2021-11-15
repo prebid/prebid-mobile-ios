@@ -10,17 +10,25 @@
 #define IntegrationKind_h
 
 typedef NS_ENUM(NSUInteger, IntegrationKind) {
-    IntegrationKind_Undefined = 0,
+    IntegrationKind_OriginalGAM,
+    IntegrationKind_OriginalMoPub,
     
     IntegrationKind_InApp,
     IntegrationKind_RenderingGAM,
     IntegrationKind_RenderingMoPub
 };
 
-typedef NS_ENUM(NSUInteger, AdFormat) {
-    AdFormat_Display,
-    AdFormat_Video
+typedef NS_ENUM(NSUInteger, IntegrationAdFormat) {
+    IntegrationAdFormat_Banner,
+    
+    IntegrationAdFormat_Interstitial,
+    IntegrationAdFormat_InterstitialVideo,
+    
+    IntegrationAdFormat_NativeInApp,
+    
+    IntegrationAdFormat_Rewarded
 };
 
 
 #endif /* IntegrationKind_h */
+

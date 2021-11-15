@@ -14,12 +14,13 @@
  */
 
 #import <UIKit/UIKit.h>
+#import "IntegrationKind.h"
 
 @interface ViewController : UIViewController
 
-@property (nonatomic, strong) NSString *adServer;
+@property (nonatomic) IntegrationKind adServer;
 
-@property (nonatomic, strong) NSString *adUnit;
+@property (nonatomic) IntegrationAdFormat adUnit;
 
 
 @end
