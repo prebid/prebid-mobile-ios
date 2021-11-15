@@ -89,6 +89,7 @@
         } else if (integrationAdFormat == IntegrationAdFormat_Interstitial) {
             RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
             viewController.integrationKind = IntegrationKind_InApp;
+            viewController.integrationAdFormat = IntegrationAdFormat_Interstitial;
             [self.navigationController pushViewController:viewController animated:YES];
         } else if (integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
             RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
@@ -109,6 +110,7 @@
         } else if (integrationAdFormat == IntegrationAdFormat_Interstitial) {
             RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
             viewController.integrationKind = IntegrationKind_RenderingGAM;
+            viewController.integrationAdFormat = IntegrationAdFormat_Interstitial;
             [self.navigationController pushViewController:viewController animated:YES];
         } else if (integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
             RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
@@ -129,6 +131,7 @@
         } else if (integrationAdFormat == IntegrationAdFormat_Interstitial) {
             RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
             viewController.integrationKind = IntegrationKind_RenderingMoPub;
+            viewController.integrationAdFormat = IntegrationAdFormat_Interstitial;
             [self.navigationController pushViewController:viewController animated:YES];
         } else if (integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
             RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
