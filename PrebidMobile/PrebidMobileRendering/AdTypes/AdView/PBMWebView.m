@@ -140,7 +140,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
                     @"headTag.appendChild(style);";
     
     //Run JS
-    WKUserScript *script = [[WKUserScript alloc] initWithSource:js injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
+    WKUserScript *script = [[WKUserScript alloc] initWithSource:js injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:NO];
     [wkUserContentController addUserScript:script];
     
     //Create the WKWebView
@@ -343,6 +343,8 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 
 - (void)checkDocumentReadyState {
     @weakify(self);
+    WKUserScript *script = [[WKUserScript alloc] initWithSource:@"document.readyState" injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [self.internalWebView.configuration.userContentController addUserScript:script];
     [self.internalWebView evaluateJavaScript:@"document.readyState" completionHandler:^(NSString * _Nullable readyState, NSError * _Nullable error) {
         // This callback always runs on main thread
         
@@ -452,6 +454,8 @@ static PBMError *extracted(NSString *errorMessage) {
     
     //Execute mraid.js
     @weakify(self);
+    WKUserScript *script = [[WKUserScript alloc] initWithSource:mraidScript injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [self.internalWebView.configuration.userContentController addUserScript:script];
     [self.internalWebView evaluateJavaScript:mraidScript completionHandler:^(id _Nullable jsRet, NSError * _Nullable error) {
         @strongify(self);
         if (error) {
@@ -466,6 +470,8 @@ static PBMError *extracted(NSString *errorMessage) {
             [PBMMRAIDJavascriptCommands onReadyExpanded] :
             [PBMMRAIDJavascriptCommands onReady];
         
+        WKUserScript *script = [[WKUserScript alloc] initWithSource:command injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [self.internalWebView.configuration.userContentController addUserScript:script];
         [self.internalWebView evaluateJavaScript:command completionHandler:^(id _Nullable javaScriptString, NSError * _Nullable error) {
             //When the state has finished changing, update our own MRAID state
             if (error) {
@@ -481,6 +487,8 @@ static PBMError *extracted(NSString *errorMessage) {
 }
 
 - (void)injectMRAIDEnvAndExecute:(nonnull PBMVoidBlock)completionBlock onError:(void (^_Nullable)(NSError * _Nonnull error))onError {
+    WKUserScript *script = [[WKUserScript alloc] initWithSource:[self buildMraidEnvObject] injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [self.internalWebView.configuration.userContentController addUserScript:script];
     [self.internalWebView evaluateJavaScript:[self buildMraidEnvObject] completionHandler:^(id _Nullable jsRet, NSError * _Nullable error) {
         if (error) {
             if (onError) {
@@ -619,6 +627,8 @@ static PBMError *extracted(NSString *errorMessage) {
 - (void)MRAID_nativeCallComplete {
     NSString *command = [PBMMRAIDJavascriptCommands nativeCallComplete];
     if (NSThread.isMainThread) {
+        WKUserScript *script = [[WKUserScript alloc] initWithSource:command injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [self.internalWebView.configuration.userContentController addUserScript:script];
         [self.internalWebView evaluateJavaScript:command completionHandler:^(id _Nullable jsRet, NSError * _Nullable error) {
             if (error) {
                 PBMLogError(@"Error of executing command %@", command);
@@ -721,6 +731,8 @@ static PBMError *extracted(NSString *errorMessage) {
 - (void)MRAID_getExpandProperties:(void(^)(PBMMRAIDExpandProperties *))completionHandler {
     
     NSString *command = [PBMMRAIDJavascriptCommands getExpandProperties];
+    WKUserScript *script = [[WKUserScript alloc] initWithSource:command injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [self.internalWebView.configuration.userContentController addUserScript:script];
     [self.internalWebView evaluateJavaScript:command completionHandler:^(id _Nullable jsRet, NSError * _Nullable error) {
         if (error) {
             PBMLogError(@"Error getting expand properties: %@", error.localizedDescription);
@@ -754,6 +766,8 @@ static PBMError *extracted(NSString *errorMessage) {
     }
     
     NSString *command = [PBMMRAIDJavascriptCommands getResizeProperties];
+    WKUserScript *script = [[WKUserScript alloc] initWithSource:command injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+    [self.internalWebView.configuration.userContentController addUserScript:script];
     [self.internalWebView evaluateJavaScript:command completionHandler:^(id _Nullable jsRet, NSError * _Nullable error) {
         if (error) {
             PBMLogError(@"Error getting Resize Properties: %@", error.localizedDescription);
@@ -817,9 +831,11 @@ static PBMError *extracted(NSString *errorMessage) {
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         // ATTENTION: the invoking of "evaluateJavaScript" not from main thread leads to the crash.
+        WKUserScript *script = [[WKUserScript alloc] initWithSource:jsCommand injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+        [self.internalWebView.configuration.userContentController addUserScript:script];
         [self.internalWebView evaluateJavaScript:jsCommand completionHandler:^(id _Nullable jsRes, NSError * _Nullable error) {
             @strongify(self);
-            
+
             if (self.jsEvaluatingCompletion) {
                 self.jsEvaluatingCompletion(jsCommand, jsRes, error);
             }
