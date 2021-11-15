@@ -47,6 +47,7 @@ public class BaseInterstitialAdUnit :
         return false
     }
 
+    @objc
     public weak var delegate: AnyObject?
     
     public let adUnitConfig: AdUnitConfig
@@ -126,10 +127,12 @@ public class BaseInterstitialAdUnit :
     
     // MARK: - Public Methods
     
+    @objc
     public func loadAd() {
         adLoadFlowController.refresh()
     }
     
+    @objc
     public func show(from controller: UIViewController) {
         // It is expected from the user to call this method on main thread
         assert(Thread.isMainThread, "Expected to only be called on the main thread");

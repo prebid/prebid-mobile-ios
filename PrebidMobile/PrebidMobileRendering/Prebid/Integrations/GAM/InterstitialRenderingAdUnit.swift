@@ -15,6 +15,7 @@
 
 import UIKit
 
+@objcMembers
 public class InterstitialRenderingAdUnit: BaseInterstitialAdUnit {
 
     @objc public init(configID: String) {

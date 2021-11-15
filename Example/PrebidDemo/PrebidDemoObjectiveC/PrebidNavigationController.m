@@ -16,6 +16,7 @@
 #import "PrebidNavigationController.h"
 #import "ViewController.h"
 #import "RenderingBannerViewController.h"
+#import "RenderingInterstitialViewController.h"
 
 @interface PrebidNavigationController ()
 
@@ -71,17 +72,35 @@
         viewController.adUnit = [self.adUnitList objectAtIndex:indexPath.row];
         [self.navigationController pushViewController:viewController animated:YES];
     } else if (indexPath.section == 2) {
-        RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
-        viewController.integrationKind = IntegrationKind_InApp;
-        [self.navigationController pushViewController:viewController animated:YES];
+        if (indexPath.row == 0) {
+            RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
+            viewController.integrationKind = IntegrationKind_InApp;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (indexPath.row == 1) {
+            RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
+            viewController.integrationKind = IntegrationKind_InApp;
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
     } else if (indexPath.section == 3) {
-        RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
-        viewController.integrationKind = IntegrationKind_RenderingGAM;
-        [self.navigationController pushViewController:viewController animated:YES];
+        if (indexPath.row == 0) {
+            RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
+            viewController.integrationKind = IntegrationKind_RenderingGAM;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (indexPath.row == 1) {
+            RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
+            viewController.integrationKind = IntegrationKind_RenderingGAM;
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
     } else if (indexPath.section == 4) {
-        RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
-        viewController.integrationKind = IntegrationKind_RenderingMoPub;
-        [self.navigationController pushViewController:viewController animated:YES];
+        if (indexPath.row == 0) {
+            RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
+            viewController.integrationKind = IntegrationKind_RenderingMoPub;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (indexPath.row == 1) {
+            RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
+            viewController.integrationKind = IntegrationKind_RenderingMoPub;
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
     }
 }
 @end
