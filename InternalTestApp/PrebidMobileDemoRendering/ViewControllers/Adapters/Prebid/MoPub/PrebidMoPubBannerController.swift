@@ -46,6 +46,8 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
     
     private var adUnit: MoPubBannerAdUnit?
     
+    private var viewControllerForPresentingModalViewIsCalled = false
+    
     // MARK: - AdaptedController
     
     required init(rootController:AdapterViewController) {
@@ -122,7 +124,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
     // MARK: - MPAdViewDelegate
     
     func viewControllerForPresentingModalView() -> UIViewController! {
-        self.viewControllerForPresentingModalViewButton.isEnabled = true
+        self.viewControllerForPresentingModalViewIsCalled = true
         return rootController
     }
     
@@ -130,6 +132,10 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         resetEvents()
         reloadButton.isEnabled = true
         self.adViewDidLoadAdButton.isEnabled = true
+        if viewControllerForPresentingModalViewIsCalled {
+            self.viewControllerForPresentingModalViewButton.isEnabled = true
+            self.viewControllerForPresentingModalViewIsCalled = false
+        }
         rootController?.bannerView.constraints.first { $0.firstAttribute == .width }?.constant = adSize.width
         rootController?.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = adSize.height
     }
