@@ -80,33 +80,48 @@
         viewController.adUnit = (IntegrationAdFormat) [IntegrationKindUtilites.IntegrationAdFormatOriginal[indexPath.row] intValue];
         [self.navigationController pushViewController:viewController animated:YES];
     } else if (indexPath.section == IntegrationKind_InApp) {
-        if (indexPath.row == 0) {
+        if (indexPath.row == IntegrationAdFormat_Banner) {
             RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
             viewController.integrationKind = IntegrationKind_InApp;
             [self.navigationController pushViewController:viewController animated:YES];
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == IntegrationAdFormat_Interstitial) {
             RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
             viewController.integrationKind = IntegrationKind_InApp;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (indexPath.row == IntegrationAdFormat_InterstitialVideo) {
+            RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
+            viewController.integrationKind = IntegrationKind_InApp;
+            viewController.integrationAdFormat = IntegrationAdFormat_InterstitialVideo;
             [self.navigationController pushViewController:viewController animated:YES];
         }
     } else if (indexPath.section == IntegrationKind_RenderingGAM) {
-        if (indexPath.row == 0) {
+        if (indexPath.row == IntegrationAdFormat_Banner) {
             RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
             viewController.integrationKind = IntegrationKind_RenderingGAM;
             [self.navigationController pushViewController:viewController animated:YES];
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == IntegrationAdFormat_Interstitial) {
             RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
             viewController.integrationKind = IntegrationKind_RenderingGAM;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (indexPath.row == IntegrationAdFormat_InterstitialVideo) {
+            RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
+            viewController.integrationKind = IntegrationKind_RenderingGAM;
+            viewController.integrationAdFormat = IntegrationAdFormat_InterstitialVideo;
             [self.navigationController pushViewController:viewController animated:YES];
         }
     } else if (indexPath.section == IntegrationKind_RenderingMoPub) {
-        if (indexPath.row == 0) {
+        if (indexPath.row == IntegrationAdFormat_Banner) {
             RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
             viewController.integrationKind = IntegrationKind_RenderingMoPub;
             [self.navigationController pushViewController:viewController animated:YES];
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == IntegrationAdFormat_Interstitial) {
             RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
             viewController.integrationKind = IntegrationKind_RenderingMoPub;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (indexPath.row == IntegrationAdFormat_InterstitialVideo) {
+            RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
+            viewController.integrationKind = IntegrationKind_RenderingMoPub;
+            viewController.integrationAdFormat = IntegrationAdFormat_InterstitialVideo;
             [self.navigationController pushViewController:viewController animated:YES];
         }
     }

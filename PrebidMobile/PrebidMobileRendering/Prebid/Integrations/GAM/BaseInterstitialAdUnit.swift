@@ -26,15 +26,18 @@ public class BaseInterstitialAdUnit :
     
     // MARK: - Public Properties
     
+    @objc
     public var configID: String {
         adUnitConfig.configID
     }
     
+    @objc
     public var adFormat: AdFormat {
         get { adUnitConfig.adFormat }
         set { adUnitConfig.adFormat = newValue }
     }
-        
+     
+    @objc
     public var isReady: Bool {
         objc_sync_enter(blocksLockToken)
         if let block = isReadyBlock {

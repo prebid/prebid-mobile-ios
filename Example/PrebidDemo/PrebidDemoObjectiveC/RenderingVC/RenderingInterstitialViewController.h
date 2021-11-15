@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RenderingInterstitialViewController : UIViewController
 
 @property (nonatomic) IntegrationKind integrationKind;
+@property (nonatomic) IntegrationAdFormat integrationAdFormat;
 
 @end
 
