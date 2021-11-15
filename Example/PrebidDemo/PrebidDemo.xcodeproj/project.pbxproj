@@ -22,6 +22,7 @@
 		5BA4CF71273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BA4CF6D273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5BD798952742483700CE9385 /* RenderingInterstitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD798942742483700CE9385 /* RenderingInterstitialViewController.m */; };
 		5BD7989827425B4900CE9385 /* IntegrationKindUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD7989727425B4900CE9385 /* IntegrationKindUtilites.m */; };
+		5BD7989B2742A9C500CE9385 /* RenderingRewardedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD798992742A9C400CE9385 /* RenderingRewardedViewController.m */; };
 		5BD98F0A273EB4190030ACC3 /* RenderingBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD98F09273EB4190030ACC3 /* RenderingBannerViewController.m */; };
 		5BD98F0C273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD98F0B273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework */; };
 		5BD98F0D273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD98F0B273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -156,6 +157,8 @@
 		5BD798942742483700CE9385 /* RenderingInterstitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderingInterstitialViewController.m; sourceTree = "<group>"; };
 		5BD7989627425B4900CE9385 /* IntegrationKindUtilites.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegrationKindUtilites.h; sourceTree = "<group>"; };
 		5BD7989727425B4900CE9385 /* IntegrationKindUtilites.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntegrationKindUtilites.m; sourceTree = "<group>"; };
+		5BD798992742A9C400CE9385 /* RenderingRewardedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderingRewardedViewController.m; sourceTree = "<group>"; };
+		5BD7989A2742A9C400CE9385 /* RenderingRewardedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderingRewardedViewController.h; sourceTree = "<group>"; };
 		5BD98F08273EB4190030ACC3 /* RenderingBannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderingBannerViewController.h; sourceTree = "<group>"; };
 		5BD98F09273EB4190030ACC3 /* RenderingBannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderingBannerViewController.m; sourceTree = "<group>"; };
 		5BD98F0B273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -291,6 +294,8 @@
 		5BD98F07273EB4190030ACC3 /* RenderingVC */ = {
 			isa = PBXGroup;
 			children = (
+				5BD7989A2742A9C400CE9385 /* RenderingRewardedViewController.h */,
+				5BD798992742A9C400CE9385 /* RenderingRewardedViewController.m */,
 				5BD798922742483700CE9385 /* RenderingInterstitialViewController.h */,
 				5BD798942742483700CE9385 /* RenderingInterstitialViewController.m */,
 				5BD98F08273EB4190030ACC3 /* RenderingBannerViewController.h */,
@@ -720,6 +725,7 @@
 			files = (
 				5BD798952742483700CE9385 /* RenderingInterstitialViewController.m in Sources */,
 				5BD7989827425B4900CE9385 /* IntegrationKindUtilites.m in Sources */,
+				5BD7989B2742A9C500CE9385 /* RenderingRewardedViewController.m in Sources */,
 				38018908255AC5560089CA84 /* NativeAdView.swift in Sources */,
 				FA12E4FD231EB99D00CAA05B /* ViewController.m in Sources */,
 				FA12E511231EBC8E00CAA05B /* PrebidNavigationController.m in Sources */,

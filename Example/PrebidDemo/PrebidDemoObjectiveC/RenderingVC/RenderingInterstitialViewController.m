@@ -14,20 +14,14 @@
 
 @import MoPubSDK;
 
-@interface RenderingInterstitialViewController () <InterstitialAdUnitDelegate, MPInterstitialAdControllerDelegate, BannerViewDelegate, MPAdViewDelegate>
+@interface RenderingInterstitialViewController () <InterstitialAdUnitDelegate, MPInterstitialAdControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *adView;
 
-@property (nonatomic) CGSize size;
-@property (nonatomic) CGRect frame;
-
-@property (strong, nullable) BannerView *bannerView;
 @property (strong, nullable) InterstitialRenderingAdUnit *interstitialAdUnit;
 
-@property (strong, nullable) MoPubBannerAdUnit *mopubBannerAdUnit;
 @property (strong, nullable) MoPubInterstitialAdUnit *mopubInterstitialAdUnit;
 
-@property (strong, nullable) MPAdView *mopubBannerView;
 @property (strong, nullable) MPInterstitialAdController *mopubInterstitial;
 
 @end
@@ -37,9 +31,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.size = CGSizeMake(320, 50);
-    self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
     
     [self initRendering];
     
@@ -150,34 +141,6 @@
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial withError:(NSError *)error {
     NSLog(@"MoPub interstitialDidFailToLoadAd: %@", [error localizedDescription]);
-}
-
-#pragma mark - BannerViewDelegate
-
-- (UIViewController * _Nullable)bannerViewPresentationController {
-    return self;
-}
-
-- (void)bannerView:(BannerView *)bannerView didReceiveAdWithAdSize:(CGSize)adSize {
-    NSLog(@"InApp bannerView:didReceiveAdWithAdSize");
-}
-
-- (void)bannerView:(BannerView *)bannerView didFailToReceiveAdWith:(NSError *)error {
-    NSLog(@"InApp bannerView:didFailToReceiveAdWith: %@", [error localizedDescription]);
-}
-
-#pragma mark - MPAdViewDelegate
-
-- (UIViewController *)viewControllerForPresentingModalView {
-    return self;
-}
-
-- (void)adViewDidLoadAd:(MPAdView *)view adSize:(CGSize)adSize {
-    NSLog(@"MoPub adViewDidLoadAd:");
-}
-
-- (void)adView:(MPAdView *)view didFailToLoadAdWithError:(NSError *)error {
-    NSLog(@"MoPub adView:didFailToLoadAdWithError: %@", [error localizedDescription]);
 }
 
 @end
