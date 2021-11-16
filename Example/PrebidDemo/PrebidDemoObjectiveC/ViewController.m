@@ -63,28 +63,28 @@
 //    [self setStoredResponse];
 //    [self setRequestTimeoutMillis];//
     
-    if([self.adUnit isEqualToString:@"Banner"]) {
+    if(self.adUnit == IntegrationAdFormat_Banner) {
         self.bannerView.hidden = false;
         self.adContainerView.hidden = true;
-        if ([self.adServer isEqualToString:@"DFP"]) {
+        if (self.adServer == IntegrationKind_OriginalGAM) {
             [self loadDFPBanner];
-        } else if ([self.adServer isEqualToString:@"MoPub"]) {
+        } else if (self.adServer == IntegrationKind_OriginalMoPub) {
             [self loadMoPubBanner];
         }
-    } else if ([self.adUnit isEqualToString:@"Interstitial"]) {
+    } else if (self.adUnit == IntegrationAdFormat_Interstitial) {
         self.bannerView.hidden = false;
         self.adContainerView.hidden = true;
-        if ([self.adServer isEqualToString:@"DFP"]) {
+        if (self.adServer == IntegrationKind_OriginalGAM) {
             [self loadDFPInterstitial];
-        } else if ([self.adServer isEqualToString:@"MoPub"]) {
+        } else if (self.adServer == IntegrationKind_OriginalMoPub) {
             [self loadMoPubInterstitial];
         }
-    } else if ([self.adUnit isEqualToString:@"InAppNative"]) {
+    } else if (self.adUnit == IntegrationAdFormat_NativeInApp) {
         self.bannerView.hidden = true;
         self.adContainerView.hidden = false;
-        if ([self.adServer isEqualToString:@"DFP"]) {
+        if (self.adServer == IntegrationKind_OriginalGAM) {
             [self loadDFPPrebidNative];
-        } else if ([self.adServer isEqualToString:@"MoPub"]) {
+        } else if (self.adServer == IntegrationKind_OriginalMoPub) {
             [self loadMopubPrebidNative];
         }
     }
@@ -95,7 +95,6 @@
     [super viewDidDisappear:animated];
     [self.bannerUnit stopAutoRefresh];
 }
-    
     
     
 -(void) loadDFPBanner {

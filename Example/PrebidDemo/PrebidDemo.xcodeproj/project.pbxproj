@@ -16,6 +16,18 @@
 		383E9CA525712879006FA6F4 /* NativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38018905255AC5560089CA84 /* NativeAdView.swift */; };
 		383E9CA62571287C006FA6F4 /* NativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38018906255AC5560089CA84 /* NativeAdView.xib */; };
 		38450A6225514EA6000DCF6D /* NativeInAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38450A6125514EA6000DCF6D /* NativeInAppViewController.swift */; };
+		5BA4CF6E273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BA4CF6C273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework */; };
+		5BA4CF6F273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BA4CF6C273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5BA4CF70273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BA4CF6D273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework */; };
+		5BA4CF71273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BA4CF6D273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5BD798952742483700CE9385 /* RenderingInterstitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD798942742483700CE9385 /* RenderingInterstitialViewController.m */; };
+		5BD7989827425B4900CE9385 /* IntegrationKindUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD7989727425B4900CE9385 /* IntegrationKindUtilites.m */; };
+		5BD7989B2742A9C500CE9385 /* RenderingRewardedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD798992742A9C400CE9385 /* RenderingRewardedViewController.m */; };
+		5BD98F0A273EB4190030ACC3 /* RenderingBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD98F09273EB4190030ACC3 /* RenderingBannerViewController.m */; };
+		5BD98F0C273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD98F0B273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework */; };
+		5BD98F0D273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD98F0B273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5BD98F0F273EC0D60030ACC3 /* PrebidMobileMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD98F0E273EC0D60030ACC3 /* PrebidMobileMoPubAdapters.framework */; };
+		5BD98F10273EC0D60030ACC3 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD98F0E273EC0D60030ACC3 /* PrebidMobileMoPubAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6069716C25224655000EE732 /* InstreamVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6069716B25224655000EE732 /* InstreamVideoViewController.swift */; };
 		609C52C32395F17F001FA5BD /* NativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609C52C22395F17F001FA5BD /* NativeViewController.swift */; };
 		7A5EF9716CD8081552A53A2C /* Pods_PrebidDemoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9062CC2EEBA1A7F525A4D3AA /* Pods_PrebidDemoSwift.framework */; };
@@ -102,7 +114,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				5BD98F0D273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
 				FA282EAC2327EC2800C9D477 /* PrebidMobile.framework in Embed Frameworks */,
+				5BD98F10273EC0D60030ACC3 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -113,7 +127,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				5BA4CF6F273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
 				FAC9E217232800DB00113B04 /* PrebidMobile.framework in Embed Frameworks */,
+				5BA4CF71273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -135,6 +151,19 @@
 		3C3DD5560D8F19EE9F2158E7 /* Pods-PrebidDemoSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		5197A13C51AEAF0782B64F40 /* Pods-PrebidDemoPodCoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPodCoreTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPodCoreTests/Pods-PrebidDemoPodCoreTests.debug.xcconfig"; sourceTree = "<group>"; };
 		55EA1793258A4B187A300E8E /* Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift-PrebidDemoSwiftTests/Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
+		5BA4CF6C273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BA4CF6D273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BD798922742483700CE9385 /* RenderingInterstitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderingInterstitialViewController.h; sourceTree = "<group>"; };
+		5BD798942742483700CE9385 /* RenderingInterstitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderingInterstitialViewController.m; sourceTree = "<group>"; };
+		5BD7989627425B4900CE9385 /* IntegrationKindUtilites.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegrationKindUtilites.h; sourceTree = "<group>"; };
+		5BD7989727425B4900CE9385 /* IntegrationKindUtilites.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntegrationKindUtilites.m; sourceTree = "<group>"; };
+		5BD798992742A9C400CE9385 /* RenderingRewardedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderingRewardedViewController.m; sourceTree = "<group>"; };
+		5BD7989A2742A9C400CE9385 /* RenderingRewardedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderingRewardedViewController.h; sourceTree = "<group>"; };
+		5BD98F08273EB4190030ACC3 /* RenderingBannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderingBannerViewController.h; sourceTree = "<group>"; };
+		5BD98F09273EB4190030ACC3 /* RenderingBannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderingBannerViewController.m; sourceTree = "<group>"; };
+		5BD98F0B273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BD98F0E273EC0D60030ACC3 /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BD98F11273EC47B0030ACC3 /* IntegrationKind.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegrationKind.h; sourceTree = "<group>"; };
 		5CA527E4B4E05598C6D7B462 /* Pods-PrebidDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoTests/Pods-PrebidDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6069716B25224655000EE732 /* InstreamVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InstreamVideoViewController.swift; path = ../../../example/PrebidDemo/PrebidDemoSwift/InstreamVideoViewController.swift; sourceTree = "<group>"; };
 		609C52C22395F17F001FA5BD /* NativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NativeViewController.swift; path = ../../../example/PrebidDemo/PrebidDemoSwift/NativeViewController.swift; sourceTree = "<group>"; };
@@ -187,8 +216,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BA4CF70273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework in Frameworks */,
 				FAC9E216232800DB00113B04 /* PrebidMobile.framework in Frameworks */,
 				7A5EF9716CD8081552A53A2C /* Pods_PrebidDemoSwift.framework in Frameworks */,
+				5BA4CF6E273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,8 +235,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BD98F0F273EC0D60030ACC3 /* PrebidMobileMoPubAdapters.framework in Frameworks */,
 				FA282EAB2327EC2800C9D477 /* PrebidMobile.framework in Frameworks */,
 				9292C6B7506986A7F501E561 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */,
+				5BD98F0C273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,9 +291,26 @@
 			path = ../../Pods;
 			sourceTree = "<group>";
 		};
+		5BD98F07273EB4190030ACC3 /* RenderingVC */ = {
+			isa = PBXGroup;
+			children = (
+				5BD7989A2742A9C400CE9385 /* RenderingRewardedViewController.h */,
+				5BD798992742A9C400CE9385 /* RenderingRewardedViewController.m */,
+				5BD798922742483700CE9385 /* RenderingInterstitialViewController.h */,
+				5BD798942742483700CE9385 /* RenderingInterstitialViewController.m */,
+				5BD98F08273EB4190030ACC3 /* RenderingBannerViewController.h */,
+				5BD98F09273EB4190030ACC3 /* RenderingBannerViewController.m */,
+			);
+			path = RenderingVC;
+			sourceTree = "<group>";
+		};
 		99D7F73A394177471348CDD1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5BD98F0E273EC0D60030ACC3 /* PrebidMobileMoPubAdapters.framework */,
+				5BD98F0B273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework */,
+				5BA4CF6C273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework */,
+				5BA4CF6D273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework */,
 				FAEE508F263075D700AD9966 /* XCPrebidMobile.xcframework */,
 				022C426932D62F4F7C3973DB /* Pods_PrebidDemoObjectiveC.framework */,
 				9062CC2EEBA1A7F525A4D3AA /* Pods_PrebidDemoSwift.framework */,
@@ -336,6 +386,8 @@
 		FA12E4F7231EB99D00CAA05B /* PrebidDemoObjectiveC */ = {
 			isa = PBXGroup;
 			children = (
+				5BD98F07273EB4190030ACC3 /* RenderingVC */,
+				5BD98F11273EC47B0030ACC3 /* IntegrationKind.h */,
 				FA12E50E231EBC8E00CAA05B /* PrebidNavigationController.h */,
 				FA12E510231EBC8E00CAA05B /* PrebidNavigationController.m */,
 				FA12E4F8231EB99D00CAA05B /* AppDelegate.h */,
@@ -347,6 +399,8 @@
 				FA12E503231EB99E00CAA05B /* LaunchScreen.storyboard */,
 				FA12E506231EB99E00CAA05B /* Info.plist */,
 				FA12E507231EB99E00CAA05B /* main.m */,
+				5BD7989627425B4900CE9385 /* IntegrationKindUtilites.h */,
+				5BD7989727425B4900CE9385 /* IntegrationKindUtilites.m */,
 			);
 			path = PrebidDemoObjectiveC;
 			sourceTree = "<group>";
@@ -669,11 +723,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BD798952742483700CE9385 /* RenderingInterstitialViewController.m in Sources */,
+				5BD7989827425B4900CE9385 /* IntegrationKindUtilites.m in Sources */,
+				5BD7989B2742A9C500CE9385 /* RenderingRewardedViewController.m in Sources */,
 				38018908255AC5560089CA84 /* NativeAdView.swift in Sources */,
 				FA12E4FD231EB99D00CAA05B /* ViewController.m in Sources */,
 				FA12E511231EBC8E00CAA05B /* PrebidNavigationController.m in Sources */,
 				FA12E508231EB99E00CAA05B /* main.m in Sources */,
 				FA12E4FA231EB99D00CAA05B /* AppDelegate.m in Sources */,
+				5BD98F0A273EB4190030ACC3 /* RenderingBannerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

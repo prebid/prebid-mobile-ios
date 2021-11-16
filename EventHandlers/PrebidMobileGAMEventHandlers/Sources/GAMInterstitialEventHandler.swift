@@ -18,6 +18,7 @@ import GoogleMobileAds
 
 import PrebidMobile
 
+@objcMembers
 public class GAMInterstitialEventHandler :
     NSObject,
     InterstitialEventHandlerProtocol,

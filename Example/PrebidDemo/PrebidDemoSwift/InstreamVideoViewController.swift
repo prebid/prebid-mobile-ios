@@ -24,7 +24,7 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     @IBOutlet var appInstreamView: UIView!
     @IBOutlet weak var playButton: UIButton!
     
-    var adServerName: String = ""
+    var integrationKind: IntegrationKind = .undefined
     let parameters = VideoBaseAdUnit.Parameters()
     var adUnitID: String!
     
@@ -43,7 +43,7 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     override func viewDidLoad() {
         super.viewDidLoad()
         playButton.layer.zPosition = CGFloat.greatestFiniteMagnitude
-        adServerLabel.text = adServerName
+        adServerLabel.text = integrationKind.rawValue
         setUpContentPlayer()
     }
     
@@ -55,12 +55,22 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     }
     
     @IBAction func onPlayButtonTouch(_ sender: AnyObject) {
-        if (adServerName == "DFP") {
+        
+        switch integrationKind {
+        case .originalGAM:
             setupAndLoadAMInstreamVideo()
-            
-        } else if (adServerName == "MoPub") {
+        case .originalMoPub:
             contentPlayer?.play()
             print("mopub not supported")
+
+        case .inApp:
+            print("TODO: Add Example")
+        case .renderingGAM:
+            print("TODO: Add Example")
+        case .renderingMoPub:
+            print("TODO: Add Example")
+        case .undefined:
+            assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
         
         playButton.isHidden = true

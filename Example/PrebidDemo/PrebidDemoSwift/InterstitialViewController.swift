@@ -20,49 +20,73 @@ import PrebidMobile
 import GoogleMobileAds
 
 import MoPubSDK
+import PrebidMobileGAMEventHandlers
 
-class InterstitialViewController: UIViewController, MPInterstitialAdControllerDelegate {
+class InterstitialViewController:
+    UIViewController,
+    MPInterstitialAdControllerDelegate,
+    InterstitialAdUnitDelegate {
 
-    @IBOutlet var adServerLabel: UILabel!
-
-    var adServerName: String = ""
-    var bannerFormat: BannerFormat = .html
+    // MARK: - UI Properties
     
+    @IBOutlet var adServerLabel: UILabel!
+    
+    // MARK: - Public Properties
+
+    var adFormat: AdFormat = .html
+    var integrationKind: IntegrationKind = .undefined
+
+    // MARK: - Ad Units
+    
+    // Prebid Original
     private var adUnit: AdUnit!
     
+    // GAM (Original)
     private let amRequest = GAMRequest()
     private var amInterstitial: GAMInterstitialAd!
 
+    // MoPub (Original)
     private var mpInterstitial: MPInterstitialAdController!
+    
+    // In-App
+    private var renderingInterstitial: InterstitialRenderingAdUnit!
+    private var renderingMoPubInterstitial: MoPubInterstitialAdUnit!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        adServerLabel.text = adServerName
-
-        if (adServerName == "DFP") {
-            print("entered \(adServerName) loop" )
-            
-            switch bannerFormat {
-            case .html:
-                setupAndLoadAMInterstitial()
-            case .vast:
-                setupAndLoadAMInterstitialVAST()
-            }
-
-        } else if (adServerName == "MoPub") {
-            print("entered \(adServerName) loop" )
-            
-            switch bannerFormat {
-            case .html:
-                setupAndLoadMPInterstitial()
-            case .vast:
-                setupAndLoadMPInterstitialVAST()
-            }
+        adServerLabel.text = integrationKind.rawValue
+        
+        switch integrationKind {
+        case .originalGAM       : setupAndLoadGAM()
+        case .originalMoPub     : setupAndLoadMoPub()
+        case .inApp             : setupAndLoadInAppInterstitial()
+        case .renderingGAM      : setupAndLoadGAMRenderingInterstitial()
+        case .renderingMoPub    : setupAndLoadMoPubRenderingInterstitial()
+        case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }
 
     //MARK: - Interstitial
+    
+    func setupAndLoadGAM() {
+        switch adFormat {
+        case .html:
+            setupAndLoadAMInterstitial()
+        case .vast:
+            setupAndLoadAMInterstitialVAST()
+        }
+    }
+    
+    func setupAndLoadMoPub() {
+        switch adFormat {
+        case .html:
+            setupAndLoadMPInterstitial()
+        case .vast:
+            setupAndLoadMPInterstitialVAST()
+        }
+    }
+    
     func setupAndLoadAMInterstitial() {
         setupPBRubiconInterstitial()
 
@@ -74,6 +98,39 @@ class InterstitialViewController: UIViewController, MPInterstitialAdControllerDe
         setupPBRubiconInterstitial()
         setupMPRubiconInterstitial()
         loadMPInterstitial()
+    }
+    
+    func setupAndLoadInAppInterstitial() {
+        setupOpenxRendering()
+        
+        switch adFormat {
+        case .html:
+            loadInAppInterstitial()
+        case .vast:
+            loadInAppVideoInterstitial()
+        }
+    }
+    
+    func setupAndLoadGAMRenderingInterstitial() {
+        setupOpenxRendering()
+        
+        switch adFormat {
+        case .html:
+            loadGAMRenderingInterstitial()
+        case .vast:
+            loadGAMRenderingVideoInterstitial()
+        }
+    }
+    
+    func setupAndLoadMoPubRenderingInterstitial() {
+        setupOpenxRendering()
+        
+        switch adFormat {
+        case .html:
+            loadMoPubRenderingInterstitial()
+        case .vast:
+            loadMoPubRenderingVideoInterstitial()
+        }
     }
     
     //Setup PB
@@ -120,10 +177,15 @@ class InterstitialViewController: UIViewController, MPInterstitialAdControllerDe
         self.mpInterstitial = MPInterstitialAdController(forAdUnitId: adUnitId)
         self.mpInterstitial.delegate = self
     }
-    
-    //Load
-    func loadAMInterstitial(_ adUnitID: String) {
         
+    func setupOpenxRendering() {
+        PrebidRenderingConfig.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
+    }
+    
+    // MARK: - Load
+    
+    func loadAMInterstitial(_ adUnitID: String) {
         adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
             
@@ -135,7 +197,6 @@ class InterstitialViewController: UIViewController, MPInterstitialAdControllerDe
                     ad.present(fromRootViewController: self!)
                 }
             }
-
         }
     }
     
@@ -147,8 +208,35 @@ class InterstitialViewController: UIViewController, MPInterstitialAdControllerDe
             self?.mpInterstitial.loadAd()
         }
     }
+            
+    func loadInAppInterstitial() {
+        renderingInterstitial = InterstitialRenderingAdUnit(configID: "5a4b8dcf-f984-4b04-9448-6529908d6cb6")
+        renderingInterstitial.delegate = self
+        
+        renderingInterstitial.loadAd()
+    }
+    
+    func loadGAMRenderingInterstitial() {
+        let eventHandler = GAMInterstitialEventHandler(adUnitID: "/21808260008/prebid_oxb_html_interstitial")
+        renderingInterstitial = InterstitialRenderingAdUnit(configID: "5a4b8dcf-f984-4b04-9448-6529908d6cb6", eventHandler: eventHandler)
+        renderingInterstitial.delegate = self
+        
+        renderingInterstitial.loadAd()
+    }
+    
+    func loadMoPubRenderingInterstitial() {
+        renderingMoPubInterstitial = MoPubInterstitialAdUnit(configId: "5a4b8dcf-f984-4b04-9448-6529908d6cb6")
+        
+        mpInterstitial = MPInterstitialAdController(forAdUnitId: "e979c52714434796909993e21c8fc8da")
+        mpInterstitial.delegate = self
+
+        renderingMoPubInterstitial.fetchDemand(with: mpInterstitial) { [weak self] _ in
+            self?.mpInterstitial.loadAd()
+        }
+    }
     
     //MARK: - Interstitial VAST
+    
     func setupAndLoadAMInterstitialVAST() {
         setupPBRubiconInterstitialVAST()
         loadAMInterstitial("/5300653/test_adunit_vast_pavliuchyk")
@@ -160,7 +248,36 @@ class InterstitialViewController: UIViewController, MPInterstitialAdControllerDe
         loadMPInterstitial()
     }
     
+    func loadInAppVideoInterstitial() {
+        renderingInterstitial = InterstitialRenderingAdUnit(configID: "12f58bc2-b664-4672-8d19-638bcc96fd5c")
+        renderingInterstitial.adFormat = .video
+        renderingInterstitial.delegate = self
+        
+        renderingInterstitial.loadAd()
+    }
+    
+    func loadGAMRenderingVideoInterstitial() {
+        let eventHandler = GAMInterstitialEventHandler(adUnitID: "/21808260008/prebid_oxb_interstitial_video")
+        renderingInterstitial = InterstitialRenderingAdUnit(configID: "12f58bc2-b664-4672-8d19-638bcc96fd5c", eventHandler: eventHandler)
+        renderingInterstitial.adFormat = .video
+        renderingInterstitial.delegate = self
+        
+        renderingInterstitial.loadAd()
+    }
+    
+    func loadMoPubRenderingVideoInterstitial() {
+        renderingMoPubInterstitial = MoPubInterstitialAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c")
+        
+        mpInterstitial = MPInterstitialAdController(forAdUnitId: "7e3146fc0c744afebc8547a4567da895")
+        mpInterstitial.delegate = self
+
+        renderingMoPubInterstitial.fetchDemand(with: mpInterstitial) { [weak self] _ in
+            self?.mpInterstitial.loadAd()
+        }
+    }
+    
     //Setup PB
+    
     func setupPBRubiconInterstitialVAST() {
         setupPB(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
         
@@ -197,5 +314,10 @@ class InterstitialViewController: UIViewController, MPInterstitialAdControllerDe
     func interstitialDidFail(toLoadAd interstitial: MPInterstitialAdController!) {
         print("Ad not ready")
     }
+    
+    // MARK: - InterstitialAdUnitDelegate
 
+    func interstitialDidReceiveAd(_ interstitial: InterstitialRenderingAdUnit) {
+        interstitial.show(from: self)
+    }
 }

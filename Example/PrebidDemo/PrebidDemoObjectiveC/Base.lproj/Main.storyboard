@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="J2c-DA-xgU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="J2c-DA-xgU">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -52,6 +52,38 @@
             </objects>
             <point key="canvasLocation" x="-223" y="-131"/>
         </scene>
+        <!--Rendering Banner View Controller-->
+        <scene sceneID="tQo-KI-sHN">
+            <objects>
+                <viewController storyboardIdentifier="RenderingBannerVC" id="sp3-fi-hDD" customClass="RenderingBannerViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Tf0-Oi-iYg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qSs-V0-6w8" colorLabel="IBBuiltInLabel-Red">
+                                <rect key="frame" x="27.5" y="20" width="320" height="50"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="n7b-gv-q3x"/>
+                                    <constraint firstAttribute="height" constant="50" id="qUs-k4-kH3"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="WZM-Se-Ivu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="qSs-V0-6w8" firstAttribute="top" secondItem="WZM-Se-Ivu" secondAttribute="top" constant="20" id="KEB-ZO-XqF"/>
+                            <constraint firstItem="qSs-V0-6w8" firstAttribute="centerX" secondItem="Tf0-Oi-iYg" secondAttribute="centerX" id="o2K-gL-0K0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="adView" destination="qSs-V0-6w8" id="kcq-gb-4ai"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8bp-qK-7tw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-219" y="568"/>
+        </scene>
         <!--Prebid Demo-->
         <scene sceneID="kJN-vV-5x8">
             <objects>
@@ -62,7 +94,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="Im7-hr-d5n">
-                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="44.5" width="375" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Im7-hr-d5n" id="FaX-Ec-ecT">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -97,10 +129,43 @@
             </objects>
             <point key="canvasLocation" x="-1898" y="-130"/>
         </scene>
+        <!--Rendering Interstitial View Controller-->
+        <scene sceneID="1Q0-XA-aHu">
+            <objects>
+                <viewController storyboardIdentifier="RenderingInterstitialVC" id="dMs-W8-gKd" customClass="RenderingInterstitialViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oSk-YK-kI8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="m1s-S1-JCL"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wlx-FM-j3R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-220" y="1261"/>
+        </scene>
+        <!--Rendering Rewarded View Controller-->
+        <scene sceneID="MGg-lk-ewg">
+            <objects>
+                <viewController storyboardIdentifier="RenderingRewardedVC" id="DLv-4v-qQI" customClass="RenderingRewardedViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="72k-Cq-SZA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="TyL-s5-hfa"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oPL-ae-cDY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-220" y="1964"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

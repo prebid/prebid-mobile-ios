@@ -15,6 +15,7 @@
 
 import UIKit
 
+@objc
 public class RewardedAdUnit: BaseInterstitialAdUnit,
                              RewardedEventInteractionDelegate {
    
