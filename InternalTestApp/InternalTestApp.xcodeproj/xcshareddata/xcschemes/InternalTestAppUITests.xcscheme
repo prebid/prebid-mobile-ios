@@ -38,6 +38,68 @@
                BlueprintName = "InternalTestAppUITests"
                ReferencedContainer = "container:InternalTestApp.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "PrebidBannerUITest/testInAppBannerNativeStyle_NoCreative()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testGAMBannerNativeStyle_Fluid_OK()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testGAMBannerNativeStyle_MRect_NoAssets()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testGAMBannerNativeStyle_MRect_OK()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testInAppBannerNativeStyleKeys_OK()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testInAppBannerNativeStyleMap_OK()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testInAppBannerNativeStyle_NoAssets()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testInAppNativeAd_Links()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testInAppNativeAd_OK()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testMoPubBannerNativeStyle_NoAssets()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testMoPubBannerNativeStyle_OK()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testMoPubNativeAdNib_OK()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testMoPubNativeAd_OK()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testMoPubNativeAd_Video()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testMoPubNativeAd_WithoutAdapters()">
+               </Test>
+               <Test
+                  Identifier = "PrebidExamplesUITest/testMoPubNativeAd_noBids()">
+               </Test>
+               <Test
+                  Identifier = "PrebidNativeVideoUITest/testMediaPlaybackEvents()">
+               </Test>
+               <Test
+                  Identifier = "PrebidServerUITests/testBannerNativeStyle()">
+               </Test>
+               <Test
+                  Identifier = "PrebidServerUITests/testGAMBannerNativeStyle_MRect()">
+               </Test>
+               <Test
+                  Identifier = "PrebidServerUITests/testMoPubBannerNativeStyle_OK()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
