@@ -14,6 +14,7 @@
  */
 import Foundation
 
+@objcMembers
 public class MoPubBaseInterstitialAdUnit : NSObject {
     
     let adUnitConfig: AdUnitConfig

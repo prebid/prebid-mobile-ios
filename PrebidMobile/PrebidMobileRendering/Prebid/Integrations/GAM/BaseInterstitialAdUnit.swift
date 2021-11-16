@@ -26,15 +26,18 @@ public class BaseInterstitialAdUnit :
     
     // MARK: - Public Properties
     
+    @objc
     public var configID: String {
         adUnitConfig.configID
     }
     
+    @objc
     public var adFormat: AdFormat {
         get { adUnitConfig.adFormat }
         set { adUnitConfig.adFormat = newValue }
     }
-        
+     
+    @objc
     public var isReady: Bool {
         objc_sync_enter(blocksLockToken)
         if let block = isReadyBlock {
@@ -47,6 +50,7 @@ public class BaseInterstitialAdUnit :
         return false
     }
 
+    @objc
     public weak var delegate: AnyObject?
     
     public let adUnitConfig: AdUnitConfig
@@ -126,10 +130,12 @@ public class BaseInterstitialAdUnit :
     
     // MARK: - Public Methods
     
+    @objc
     public func loadAd() {
         adLoadFlowController.refresh()
     }
     
+    @objc
     public func show(from controller: UIViewController) {
         // It is expected from the user to call this method on main thread
         assert(Thread.isMainThread, "Expected to only be called on the main thread");

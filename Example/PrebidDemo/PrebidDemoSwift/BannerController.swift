@@ -20,49 +20,64 @@ import PrebidMobile
 import GoogleMobileAds
 
 import MoPubSDK
+import PrebidMobileGAMEventHandlers
 
-enum BannerFormat: Int {
+enum AdFormat: Int {
     case html
     case vast
 }
 
-class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegate, BannerViewDelegate {
+class BannerController:
+        UIViewController,
+        GADBannerViewDelegate,      // GMA SDK
+        MPAdViewDelegate,           // MoPub
+        BannerViewDelegate          // Prebid Rendering
+{
 
-   @IBOutlet var appBannerView: UIView!
+    // MARK: - UI Properties
+    
+    @IBOutlet var appBannerView: UIView!
 
     @IBOutlet var adServerLabel: UILabel!
-
-    var bannerFormat: BannerFormat = .html
-    var adServerName: String = ""
-
-    private var adUnit: AdUnit!
     
-    private let amRequest = GAMRequest()
-    private var amBanner: GAMBannerView!
+    // MARK: - Public Properties
+
+    var bannerFormat    : AdFormat = .html
+    var integrationKind : IntegrationKind = .undefined
     
+    // MARK: - Private Properties
+    
+    let width = 300
+    let height = 250
+    
+    // Prebid Original
+    private var prebidAdUnit: AdUnit!
+    
+    // GAM
+    private let gamRequest = GAMRequest()
+    private var gamBanner: GAMBannerView!
+    
+    // MoPub
     private var mpBanner: MPAdView!
     
-    private var pbBanner: BannerView!
+    // Prebid Rendering
+    private var prebidBannerView: BannerView!           // (In-App and GAM)
+    private var prebidMoPubAdUnit: MoPubBannerAdUnit!   // (MoPub)
+    
+    // MARK: - UIViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        adServerLabel.text = adServerName
-
-        if (adServerName == "DFP") {
-            
-            switch bannerFormat {
-                
-            case .html:
-                setupAndLoadAMBanner()
-            case .vast:
-                setupAndLoadAMBannerVAST()
-            }
-
-        } else if (adServerName == "MoPub") {
-            setupAndLoadMPBanner()
-        } else if (adServerName == "In-App") {
-            setupAndLoadInAppBanner()
+        adServerLabel.text = integrationKind.rawValue
+        
+        switch integrationKind {
+            case .originalGAM       : setupAndLoadGAM()
+            case .originalMoPub     : setupAndLoadMPBanner()
+            case .inApp             : setupAndLoadInAppBanner()
+            case .renderingGAM      : setupAndLoadGAMRendering()
+            case .renderingMoPub    : setupAndLoadMoPubRendering()
+            case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
 
 //        enableCOPPA()
@@ -74,95 +89,142 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
     override func viewDidDisappear(_ animated: Bool) {
         // important to remove the time instance
-        adUnit?.stopAutoRefresh()
+        prebidAdUnit?.stopAutoRefresh()
     }
 
-    //MARK: Banner
-    func setupAndLoadAMBanner() {
-        let width = 300
-        let height = 250
+    //MARK: - Internal Methods
+    
+    func setupAndLoadGAM() {
+        switch bannerFormat {
+            
+        case .html:
+            setupAndLoadGAMBanner()
+        case .vast:
+            setupAndLoadGAMBannerVAST()
+        }
+    }
+    
+    func setupAndLoadGAMBanner() {
+        setupRubiconBanner(width: width, height: height)
+        setupGAMBannerRubicon(width: width, height: height)
         
-        setupPBRubiconBanner(width: width, height: height)
-        setupAMRubiconBanner(width: width, height: height)
-        loadAMBanner()
+        loadGAMBanner()
     }
 
     func setupAndLoadMPBanner() {
-        let width = 300
-        let height = 250
+        setupRubiconBanner(width: width, height: height)
+        setupMPBannerRubicon(width: width, height: height)
         
-        setupPBRubiconBanner(width: width, height: height)
-        setupMPRubiconBanner(width: width, height: height)
         loadMPBanner()
-
     }
     
     func setupAndLoadInAppBanner() {
-        let size = CGSize(width: 300, height: 250)
-        pbBanner = BannerView(frame: CGRect(origin: .zero, size: size),
-                              configID: "50699c03-0910-477c-b4a4-911dbe2b9d42",
-                              adSize: CGSize(width: 320, height: 50))
-                                
-        pbBanner.loadAd()
-        pbBanner.delegate = self
+        setupOpenxRenderingBanner()
         
-        appBannerView.addSubview(pbBanner)
-    }
-
-    //setup PB
-    func setupPBAppNexusBanner(width: Int, height: Int) {
-        setupPBBanner(host: .Appnexus, accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0", configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", storedResponse: "", width: width, height: height)
-    }
-
-    func setupPBRubiconBanner(width: Int, height: Int) {
-        setupPBBanner(host: .Rubicon, accountId: "1001", configId: "1001-1", storedResponse: "1001-rubicon-300x250", width: width, height: height)
+        switch bannerFormat {
+        case .html:
+            loadInAppBanner()
+        case .vast:
+            loadInAppVideoBanner()
+        }
     }
     
-    func setupPBBanner(host: PrebidHost, accountId: String, configId: String, storedResponse: String, width: Int, height: Int) {
+    func setupAndLoadGAMRendering() {
+        setupOpenxRenderingBanner()
         
-        setupPB(host: host, accountId: accountId, storedResponse: storedResponse)
-        let adUnit = BannerAdUnit(configId: configId, size: CGSize(width: width, height: height))
+        switch bannerFormat {
+        case .html:
+            loadGAMRenderingBanner()
+        case .vast:
+            loadGAMRenderingVideoBanner()
+        }
+    }
+    
+    func setupAndLoadMoPubRendering() {
+        setupOpenxRenderingBanner()
+        
+        setupMoPubRenderingBanner(width: 320, height: 50)
+        
+        loadMoPubRenderingBanner()
+    }
+    
+    // MARK: Setup PBS
+    
+    func setupAppNexusBanner(width: Int, height: Int) {
+        setupBannerAdUnit(host: .Appnexus,
+                          accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0",
+                          configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45",
+                          storedResponse: "",
+                          width: width, height: height)
+    }
+
+    func setupRubiconBanner(width: Int, height: Int) {
+        setupBannerAdUnit(host: .Rubicon,
+                          accountId: "1001",
+                          configId: "1001-1",
+                          storedResponse: "1001-rubicon-300x250",
+                          width: width, height: height)
+    }
+    
+    func setupBannerAdUnit(host: PrebidHost, accountId: String, configId: String, storedResponse: String, width: Int, height: Int) {
+        
+        setupPrebidServer(host: host,
+                          accountId: accountId,
+                          storedResponse: storedResponse)
+        
+        let bannerAdUnit = BannerAdUnit(configId: configId, size: CGSize(width: width, height: height))
         
         let parameters = BannerAdUnit.Parameters()
 
         parameters.api = [Signals.Api.MRAID_2]
-//        parameters.api = [Signals.Api(5)]
-
-        adUnit.parameters = parameters
         
-        self.adUnit = adUnit
-
-        //adUnit.setAutoRefreshMillis(time: 35000)
+        bannerAdUnit.parameters = parameters
+        
+        prebidAdUnit = bannerAdUnit
     }
 
-    func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
+    func setupPrebidServer(host: PrebidHost, accountId: String, storedResponse: String) {
         Prebid.shared.prebidServerHost = host
         Prebid.shared.prebidServerAccountId = accountId
         Prebid.shared.storedAuctionResponse = storedResponse
     }
-
-    //Setup AdServer
-    func setupAMAppNexusBanner(width: Int, height: Int) {
-        setupAMBanner(width: width, height: height, adUnitId: "/19968336/PrebidMobileValidator_Banner_All_Sizes")
+    
+    // MARK: Setup PBS Rendering
+    
+    func setupOpenxRenderingBanner() {
+        PrebidRenderingConfig.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
     }
 
-    func setupAMRubiconBanner(width: Int, height: Int) {
-        setupAMBanner(width: width, height: height, adUnitId: "/5300653/pavliuchyk_test_adunit_1x1_puc")
+    // MARK: Setup AdServer - GAM
+    
+    func setupGAMBannerAppNexus(width: Int, height: Int) {
+        setupGAMBanner(width: width, height: height, adUnitId: "/19968336/PrebidMobileValidator_Banner_All_Sizes")
     }
 
-    func setupAMBanner(width: Int, height:Int, adUnitId: String) {
+    func setupGAMBannerRubicon(width: Int, height: Int) {
+        setupGAMBanner(width: width, height: height, adUnitId: "/5300653/pavliuchyk_test_adunit_1x1_puc")
+    }
+
+    func setupGAMBanner(width: Int, height:Int, adUnitId: String) {
         let customAdSize = GADAdSizeFromCGSize(CGSize(width: width, height: height))
         
-        amBanner = GAMBannerView(adSize: customAdSize)
-        amBanner.adUnitID = adUnitId
+        gamBanner = GAMBannerView(adSize: customAdSize)
+        gamBanner.adUnitID = adUnitId
     }
+    
+    // MARK: Setup AdServer - MoPub
 
-    func setupMPAppNexusBanner(width: Int, height: Int) {
+    func setupMPBannerAppNexus(width: Int, height: Int) {
         setupMPBanner(adUnitId: "a935eac11acd416f92640411234fbba6", width: width, height: height)
     }
     
-    func setupMPRubiconBanner(width: Int, height: Int) {
+    func setupMPBannerRubicon(width: Int, height: Int) {
         setupMPBanner(adUnitId: "a108b8dd5ebc472098167e6f1c118120", width: width, height: height)
+    }
+    
+    func setupMoPubRenderingBanner(width: Int, height: Int) {
+        setupMPBanner(adUnitId: "0df35635801e4110b65e762a62437698", width: width, height: height)
     }
     
     func setupMPBanner(adUnitId: String, width: Int, height: Int) {
@@ -170,54 +232,97 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         sdkConfig.globalMediationSettings = []
 
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {
-
         }
 
         mpBanner = MPAdView(adUnitId: adUnitId)
         mpBanner.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        mpBanner.delegate = self
-        appBannerView.addSubview(mpBanner)
     }
     
-    //Load
-    func loadAMBanner() {
+    // MARK: Load
+    
+    func loadGAMBanner() {
         print("Google Mobile Ads SDK version: \(GADMobileAds.sharedInstance().sdkVersion)")
         
-        amBanner.backgroundColor = .red
-        amBanner.rootViewController = self
-        amBanner.delegate = self
-        appBannerView.addSubview(amBanner)
+        gamBanner.backgroundColor = .red
+        gamBanner.rootViewController = self
+        gamBanner.delegate = self
+        
+        appBannerView.addSubview(gamBanner)
 
-        adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: ResultCode) in
+        prebidAdUnit.fetchDemand(adObject: self.gamRequest) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for AdManager \(resultCode.name())")
-            self?.amBanner.load(self?.amRequest)
+            self?.gamBanner.load(self?.gamRequest)
         }
     }
 
     func loadMPBanner() {
+        mpBanner.delegate = self
+        appBannerView.addSubview(mpBanner)
+        
         mpBanner.backgroundColor = .red
 
         // Do any additional setup after loading the view, typically from a nib.
-        adUnit.fetchDemand(adObject: mpBanner) { [weak self] (resultCode: ResultCode) in
+        prebidAdUnit.fetchDemand(adObject: mpBanner) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for MoPub \(resultCode.name())")
 
             self?.mpBanner.loadAd()
         }
     }
+    
+    func loadInAppBanner() {
+        let size = CGSize(width: width, height: height)
+        prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
+                              configID: "50699c03-0910-477c-b4a4-911dbe2b9d42",
+                              adSize: CGSize(width: 320, height: 50))
+                                
+        prebidBannerView.delegate = self
+        
+        appBannerView.addSubview(prebidBannerView)
+        
+        prebidBannerView.loadAd()
+    }
+    
+    func loadGAMRenderingBanner() {
+        let size = CGSize(width: width, height: height)
+        
+        let eventHandler = GAMBannerEventHandler(adUnitID: "/21808260008/prebid_oxb_320x50_banner", validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
+        prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
+                              configID: "50699c03-0910-477c-b4a4-911dbe2b9d42",
+                              adSize: CGSize(width: 320, height: 50),
+                              eventHandler: eventHandler)
+                                
+        prebidBannerView.delegate = self
+        
+        appBannerView.addSubview(prebidBannerView)
+        
+        prebidBannerView.loadAd()
+    }
+    
+    func loadMoPubRenderingBanner() {
+        mpBanner.delegate = self
+        appBannerView.addSubview(mpBanner)
+        
+        mpBanner.backgroundColor = .red
+        
+        let size = CGSize(width: 320, height: 50)
+        prebidMoPubAdUnit = MoPubBannerAdUnit(configID: "50699c03-0910-477c-b4a4-911dbe2b9d42", size: size)
+
+        prebidMoPubAdUnit.fetchDemand(with: mpBanner) { [weak self] result in
+            self?.mpBanner.loadAd()
+        }
+    }
 
     //MARK: Banner VAST
-    func setupAndLoadAMBannerVAST() {
-        let width = 300
-        let height = 250
-
+    
+    func setupAndLoadGAMBannerVAST() {
         setupPBRubiconBannerVAST(width: width, height: height)
         setupAMRubiconBannerVAST(width: width, height: height)
-        loadAMBanner()
+        loadGAMBanner()
     }
 
     func setupPBRubiconBannerVAST(width: Int, height: Int) {
 
-        setupPB(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
+        setupPrebidServer(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
 
         let adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: width, height: height))
 
@@ -235,12 +340,47 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
         adUnit.parameters = parameters
 
-        self.adUnit = adUnit
+        self.prebidAdUnit = adUnit
     }
 
     func setupAMRubiconBannerVAST(width: Int, height: Int) {
-        setupAMBanner(width: width, height: height, adUnitId: "/5300653/test_adunit_vast_pavliuchyk")
+        setupGAMBanner(width: width, height: height, adUnitId: "/5300653/test_adunit_vast_pavliuchyk")
     }
+    
+    func loadInAppVideoBanner() {
+        let size = CGSize(width: 300, height: 250)
+        prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
+                              configID: "9007b76d-c73c-49c6-b0a8-1c7890a84b33",
+                              adSize: CGSize(width: 300, height: 250))
+        
+        prebidBannerView.adFormat = .video
+        prebidBannerView.videoPlacementType = .inBanner
+                                
+        prebidBannerView.delegate = self
+        
+        appBannerView.addSubview(prebidBannerView)
+        
+        prebidBannerView.loadAd()
+    }
+    
+    func loadGAMRenderingVideoBanner() {
+        let size = CGSize(width: 300, height: 250)
+        
+        let eventHandler = GAMBannerEventHandler(adUnitID: "/21808260008/prebid_oxb_300x250_banner", validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
+        prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
+                              configID: "9007b76d-c73c-49c6-b0a8-1c7890a84b33",
+                              adSize: CGSize(width: 300, height: 250),
+                              eventHandler: eventHandler)
+                                
+        prebidBannerView.delegate = self
+        prebidBannerView.adFormat = .video
+        
+        appBannerView.addSubview(prebidBannerView)
+        
+        prebidBannerView.loadAd()
+    }
+    
+    // MARK: - Utils
     
     func enableCOPPA() {
         Targeting.shared.subjectToCOPPA = true
@@ -289,8 +429,17 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func bannerViewPresentationController() -> UIViewController? {
         return self
     }
+    
+    func bannerView(_ bannerView: BannerView, didReceiveAdWithAdSize adSize: CGSize) {
+        
+    }
+    
+    func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {
+        print(">>>>>  \(error.localizedDescription)")
+    }
 
     //MARK: - GADBannerViewDelegate
+    
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("adViewDidReceiveAd")
         
@@ -314,6 +463,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     }
 
     //MARK: - MPAdViewDelegate
+    
     func viewControllerForPresentingModalView() -> UIViewController! {
         return self
     }
@@ -325,5 +475,4 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
         print("adView: didFailToLoadAdWithError: \(error.localizedDescription)" )
     }
-
 }

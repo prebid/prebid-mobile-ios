@@ -20,7 +20,8 @@ import Foundation
  *
  * All messages will be invoked on the main thread.
  */
-@objc public protocol InterstitialAdUnitDelegate where Self: NSObject {
+@objc
+public protocol InterstitialAdUnitDelegate where Self: NSObject {
 
     /// Called when an ad is loaded and ready for display
     @objc optional func interstitialDidReceiveAd(_ interstitial: InterstitialRenderingAdUnit)

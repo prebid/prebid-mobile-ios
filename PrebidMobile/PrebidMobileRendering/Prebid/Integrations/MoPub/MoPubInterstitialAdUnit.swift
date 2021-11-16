@@ -16,6 +16,7 @@
 import Foundation
 import UIKit
 
+@objcMembers
 public class MoPubInterstitialAdUnit : MoPubBaseInterstitialAdUnit {
     
     // MARK: - Public Properties

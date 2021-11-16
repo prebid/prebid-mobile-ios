@@ -15,6 +15,7 @@
 
 import Foundation
 
+@objcMembers
 public class MoPubRewardedAdUnit : MoPubBaseInterstitialAdUnit {
     
     // - MARK: Public Methods
