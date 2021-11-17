@@ -38,7 +38,7 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
     
     private let configIdLabel = UILabel()
     
-    private var adUnit: MoPubInterstitialAdUnit?
+    private var adUnit: MediationInterstitialAdUnit?
     
     // MARK: - AdaptedController
     required init(rootController: AdapterViewController) {
@@ -60,7 +60,7 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
         interstitialController = MPInterstitialAdController.init(forAdUnitId: self.moPubAdUnitId)
         interstitialController?.delegate = self
         
-        adUnit = MoPubInterstitialAdUnit(configId: prebidConfigId, minSizePercentage: CGSize(width: 30, height: 30))
+        adUnit = MediationInterstitialAdUnit(configId: prebidConfigId, minSizePercentage: CGSize(width: 30, height: 30))
         if let adFormat = adFormat {
             adUnit?.adFormat = adFormat
         }

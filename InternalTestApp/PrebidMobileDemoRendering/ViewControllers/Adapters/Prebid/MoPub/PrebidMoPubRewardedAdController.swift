@@ -37,7 +37,7 @@ class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfig
     
     private let configIdLabel = UILabel()
     
-    private var adUnit: MoPubRewardedAdUnit?
+    private var adUnit: MediationRewardedAdUnit?
     
     // MARK: - AdaptedController
     
@@ -62,9 +62,9 @@ class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfig
         adapterViewController?.activityIndicator.isHidden = true
         adapterViewController?.activityIndicator.startAnimating()
         
-        adUnit = MoPubRewardedAdUnit(configId: prebidConfigId)
+        adUnit = MediationRewardedAdUnit(configId: prebidConfigId)
         
-        let bidInfoWrapper = MoPubBidInfoWrapper()
+        let bidInfoWrapper = MediationBidInfoWrapper()
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {

@@ -38,7 +38,7 @@ class RewardedVideoController:
     private let amRequest = GAMRequest()
     
     private var rewardedAdUnit: RewardedAdUnit!
-    public var mopubRewardedAdUnit: MoPubRewardedAdUnit!
+    public var mopubRewardedAdUnit: MediationRewardedAdUnit!
     
     private let amRubiconAdUnitId = "/5300653/test_adunit_vast_rewarded-video_pavliuchyk"
     private let mpRubiconAdUnitId = "46d2ebb3ccd340b38580b5d3581c6434"
@@ -180,9 +180,9 @@ class RewardedVideoController:
     
     func loadMoPubRenderingRewardedVideo() {
         
-        mopubRewardedAdUnit = MoPubRewardedAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c")
+        mopubRewardedAdUnit = MediationRewardedAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c")
         
-        let bidInfoWrapper = MoPubBidInfoWrapper()
+        let bidInfoWrapper = MediationBidInfoWrapper()
 
         mopubRewardedAdUnit.fetchDemand(with: bidInfoWrapper) { [weak self] result in
             guard let self = self else {

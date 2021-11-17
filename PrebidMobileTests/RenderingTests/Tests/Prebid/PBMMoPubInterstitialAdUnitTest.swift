@@ -28,7 +28,7 @@ class PBMMoPubInterstitialAdUnitTest: XCTestCase {
     private let targeting = PrebidRenderingTargeting.shared
     
     func testDefaultSettings() {
-        let adUnit = MoPubInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30))
+        let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30))
         let adUnitConfig = adUnit.adUnitConfig
         
         XCTAssertTrue(adUnitConfig.isInterstitial)
@@ -37,7 +37,7 @@ class PBMMoPubInterstitialAdUnitTest: XCTestCase {
     }
     
     func testWrongAdObject() {
-        let adUnit = MoPubInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30))
+        let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30))
         let asyncExpectation = expectation(description: "fetchDemand executed")
         adUnit.fetchDemand(with: NSString()) { result in
             XCTAssertEqual(result, .wrongArguments)
@@ -62,7 +62,7 @@ class PBMMoPubInterstitialAdUnitTest: XCTestCase {
         adObject.keywords = initialKeywords
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnit = MoPubInterstitialAdUnit(configId: configId, minSizePercentage: CGSize(width: 30, height: 30))
+        let adUnit = MediationInterstitialAdUnit(configId: configId, minSizePercentage: CGSize(width: 30, height: 30))
         
         let asyncExpectation = expectation(description: "fetchDemand executed")
         

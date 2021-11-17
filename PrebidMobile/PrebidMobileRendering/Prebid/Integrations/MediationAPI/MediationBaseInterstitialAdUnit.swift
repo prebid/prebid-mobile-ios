@@ -1,21 +1,21 @@
 /*   Copyright 2018-2021 Prebid.org, Inc.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  */
 import Foundation
 
 @objcMembers
-public class MoPubBaseInterstitialAdUnit : NSObject {
+public class MediationBaseInterstitialAdUnit : NSObject {
     
     let adUnitConfig: AdUnitConfig
     
@@ -28,7 +28,10 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
     var adObject: NSObject?
     var completion: ((FetchDemandResult) -> Void)?
     
-    init(configId: String) {
+    var mediationDelegate: PrebidMediationDelegate
+    
+    init(configId: String, mediationDelegate: PrebidMediationDelegate) {
+        self.mediationDelegate = mediationDelegate
         adUnitConfig = AdUnitConfig(configID: configId)
         adUnitConfig.isInterstitial = true
         adUnitConfig.adPosition = .fullScreen
@@ -45,7 +48,7 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
     }
     
     // MARK: - Context Data
-
+    
     public func addContextData(_ data: String, forKey key: String) {
         adUnitConfig.addContextData(data, forKey: key)
     }
@@ -66,16 +69,16 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
     
     // NOTE: do not use `private` to expose this method to unit tests
     func fetchDemand(with adObject: NSObject,
-                             connection: PBMServerConnectionProtocol,
-                             sdkConfiguration: PrebidRenderingConfig,
-                             targeting: PrebidRenderingTargeting,
-                             completion: ((FetchDemandResult)->Void)?) {
+                     connection: PBMServerConnectionProtocol,
+                     sdkConfiguration: PrebidRenderingConfig,
+                     targeting: PrebidRenderingTargeting,
+                     completion: ((FetchDemandResult)->Void)?) {
         guard bidRequester == nil else {
             // Request in progress
             return
         }
         
-        if !MoPubUtils.isCorrectAdObject(adObject) {
+        if !mediationDelegate.isCorrectAdObject(adObject) {
             completion?(.wrongArguments)
             return
         }
@@ -83,7 +86,7 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
         self.adObject = adObject
         self.completion = completion
         
-        MoPubUtils.cleanUpAdObject(adObject)
+        mediationDelegate.cleanUpAdObject(adObject)
         
         bidRequester = PBMBidRequester(connection: connection,
                                        sdkConfiguration: sdkConfiguration,
@@ -108,11 +111,10 @@ public class MoPubBaseInterstitialAdUnit : NSObject {
            let winningBid = bidResponse.winningBid,
            let targetingInfo = winningBid.targetingInfo {
             
-            if MoPubUtils.setUpAdObject(adObject,
-                                        configID: configId,
-                                        targetingInfo: targetingInfo,
-                                        extraObject: winningBid,
-                                        forKey: PBMMoPubAdUnitBidKey) {
+            if mediationDelegate.setUpAdObject(adObject,
+                                               configID: configId,
+                                               targetingInfo: targetingInfo,
+                                               extraObject: winningBid) {
                 demandResult = .ok
             } else {
                 demandResult = .wrongArguments

@@ -31,7 +31,7 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
     private let targeting = PrebidRenderingTargeting.shared
     
     func testConfigSetup() {
-        let bannerAdUnit = MoPubBannerAdUnit(configID: testID, size: primarySize)
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize)
         let adUnitConfig = bannerAdUnit.adUnitConfig
         
         XCTAssertEqual(adUnitConfig.configID, testID)
@@ -56,7 +56,7 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
     }
     
     func testWrongAdObject() {
-        let adUnit = MoPubBannerAdUnit(configID: testID, size: primarySize)
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize)
         let asyncExpectation = expectation(description: "fetchDemand executed")
         adUnit.fetchDemand(with: NSString()) { result in
             XCTAssertEqual(result, .wrongArguments)
@@ -81,7 +81,7 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
         adObject.keywords = initialKeywords
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnit = MoPubBannerAdUnit(configID: configId, size: primarySize)
+        let adUnit = MediationBannerAdUnit(configID: configId, size: primarySize)
         
         let asyncExpectation = expectation(description: "fetchDemand executed")
         

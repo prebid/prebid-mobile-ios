@@ -15,15 +15,7 @@
 
 import Foundation
 
-@objcMembers
-public class MoPubRewardedAdUnit : MoPubBaseInterstitialAdUnit {
-    
-    // - MARK: Public Methods
-    
-    public override init(configId: String) {
-        super.init(configId: configId)
-        
-        adUnitConfig.isOptIn = true
-        adUnitConfig.adFormat = .video
-    }
+public class MediationBidInfoWrapper : NSObject {
+    @objc public var keywords: String?
+    @objc public var localExtras: [AnyHashable : Any]?
 }

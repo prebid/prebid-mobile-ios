@@ -62,7 +62,7 @@ class BannerController:
     
     // Prebid Rendering
     private var prebidBannerView: BannerView!           // (In-App and GAM)
-    private var prebidMoPubAdUnit: MoPubBannerAdUnit!   // (MoPub)
+    private var prebidMoPubAdUnit: MediationBannerAdUnit!   // (MoPub)
     
     // MARK: - UIViewController
 
@@ -305,7 +305,7 @@ class BannerController:
         mpBanner.backgroundColor = .red
         
         let size = CGSize(width: 320, height: 50)
-        prebidMoPubAdUnit = MoPubBannerAdUnit(configID: "50699c03-0910-477c-b4a4-911dbe2b9d42", size: size)
+        prebidMoPubAdUnit = MediationBannerAdUnit(configID: "50699c03-0910-477c-b4a4-911dbe2b9d42", size: size)
 
         prebidMoPubAdUnit.fetchDemand(with: mpBanner) { [weak self] result in
             self?.mpBanner.loadAd()

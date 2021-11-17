@@ -13,19 +13,11 @@
   limitations under the License.
   */
 
-import XCTest
+import Foundation
 
-@testable import PrebidMobile
-
-class PBMMoPubRewardedAdUnitTest: XCTestCase {
-    func testDefaultSettings() {
-        let adUnit = MediationRewardedAdUnit(configId: "prebidConfigId")
-        let adUnitConfig = adUnit.adUnitConfig
-        
-        XCTAssertTrue(adUnitConfig.isInterstitial)
-        XCTAssertTrue(adUnitConfig.isOptIn)
-        PBMAssertEq(adUnitConfig.adPosition, .fullScreen)
-        PBMAssertEq(adUnitConfig.adFormat, .video)
-        XCTAssertEqual(adUnitConfig.videoPlacementType.rawValue, 5)
-    }
+public protocol PrebidMediationDelegate {
+    func isCorrectAdObject(_ adObject: NSObject) -> Bool
+    func cleanUpAdObject(_ adObject: NSObject)
+    func setUpAdObject(_ adObject: NSObject, configID: String, targetingInfo: [String : String],
+                       extraObject: Any?) -> Bool
 }
