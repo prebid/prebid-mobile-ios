@@ -16,6 +16,7 @@
 import UIKit
 import MoPubSDK
 import PrebidMobile
+import PrebidMobileMoPubAdapters
 
 class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, MPAdViewDelegate {
     
@@ -46,6 +47,8 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
     
     private var adUnit: MediationBannerAdUnit?
     
+    private let mediationDelegate = MoPubMediationUtils()
+    
     // MARK: - AdaptedController
     
     required init(rootController:AdapterViewController) {
@@ -69,7 +72,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         adBannerView = MPAdView(adUnitId: moPubAdUnitId)
         adBannerView?.delegate = self
         
-        adUnit = MediationBannerAdUnit(configID: prebidConfigId, size: adUnitSize)
+        adUnit = MediationBannerAdUnit(configID: prebidConfigId, size: adUnitSize, mediationDelegate: mediationDelegate)
         if (refreshInterval > 0) {
             adUnit?.refreshInterval = refreshInterval
         }

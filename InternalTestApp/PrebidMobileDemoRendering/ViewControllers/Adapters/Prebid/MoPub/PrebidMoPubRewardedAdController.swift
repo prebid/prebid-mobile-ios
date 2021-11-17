@@ -17,6 +17,7 @@ import UIKit
 import MoPubSDK
 
 import PrebidMobile
+import PrebidMobileMoPubAdapters
 
 class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfigurableController, MPRewardedAdsDelegate {
     
@@ -38,6 +39,8 @@ class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfig
     private let configIdLabel = UILabel()
     
     private var adUnit: MediationRewardedAdUnit?
+    
+    private let mediationDelegate = MoPubMediationUtils()
     
     // MARK: - AdaptedController
     
@@ -62,7 +65,7 @@ class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfig
         adapterViewController?.activityIndicator.isHidden = true
         adapterViewController?.activityIndicator.startAnimating()
         
-        adUnit = MediationRewardedAdUnit(configId: prebidConfigId)
+        adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate)
         
         let bidInfoWrapper = MediationBidInfoWrapper()
         
