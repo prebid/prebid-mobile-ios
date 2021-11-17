@@ -29,7 +29,8 @@ fileprivate let MoPubSelector_setLocalExtras    = "setLocalExtras:"
 fileprivate let MoPubSelector_keywords          = "keywords"
 fileprivate let MoPubSelector_setKeywords       = "setKeywords:"
 
-public class MoPubMediationUtils: PrebidMediationDelegate {
+@objcMembers
+public class MoPubMediationUtils: NSObject, PrebidMediationDelegate {
     /**
      Finds an native ad object in the given extra dictionary.
      Calls the provided callback with the finded native ad object or error
@@ -56,7 +57,7 @@ public class MoPubMediationUtils: PrebidMediationDelegate {
     //        }
     //    }
     
-    public init() {
+    public override init() {
         
     }
     /**

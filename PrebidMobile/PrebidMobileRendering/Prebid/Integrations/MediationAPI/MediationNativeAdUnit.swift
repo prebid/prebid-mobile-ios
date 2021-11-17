@@ -21,7 +21,7 @@ class MediationNativeAdUnit : NSObject {
     var completion: ((FetchDemandResult) -> Void)?
     var nativeAdUnit: NativeAdUnit
     
-    var mediationDelegate: PrebidMediationDelegate
+    let mediationDelegate: PrebidMediationDelegate
     
     // MARK: - Public Properties
     

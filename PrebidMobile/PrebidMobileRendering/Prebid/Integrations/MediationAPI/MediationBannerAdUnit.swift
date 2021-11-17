@@ -35,7 +35,7 @@ public class MediationBannerAdUnit : NSObject {
     
     var adUnitConfig: AdUnitConfig
     
-    var mediationDelegate: PrebidMediationDelegate
+    public let mediationDelegate: PrebidMediationDelegate
     
     // MARK: - Computed properties
     

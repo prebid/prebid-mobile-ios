@@ -28,7 +28,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     var adObject: NSObject?
     var completion: ((FetchDemandResult) -> Void)?
     
-    var mediationDelegate: PrebidMediationDelegate
+    let mediationDelegate: PrebidMediationDelegate
     
     init(configId: String, mediationDelegate: PrebidMediationDelegate) {
         self.mediationDelegate = mediationDelegate

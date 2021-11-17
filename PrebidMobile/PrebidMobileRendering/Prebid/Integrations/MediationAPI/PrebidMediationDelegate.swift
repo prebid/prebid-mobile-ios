@@ -15,6 +15,7 @@
 
 import Foundation
 
+@objc
 public protocol PrebidMediationDelegate {
     func isCorrectAdObject(_ adObject: NSObject) -> Bool
     func cleanUpAdObject(_ adObject: NSObject)
