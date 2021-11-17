@@ -31,17 +31,6 @@ fileprivate let MoPubSelector_setKeywords       = "setKeywords:"
 
 public class MoPubMediationUtils: PrebidMediationDelegate {
     /**
-     Checks that a passed object confirms to the PBMMoPubAdObjectProtocol
-     @return YES if the passed object is correct, FALSE otherwise
-     */
-    public func isCorrectAdObject(_ adObject: NSObject) -> Bool {
-        return adObject.responds(to: Selector((MoPubSelector_localExtras))) &&
-        adObject.responds(to: Selector((MoPubSelector_setLocalExtras))) &&
-        adObject.responds(to: Selector((MoPubSelector_setKeywords))) &&
-        adObject.responds(to: Selector((MoPubSelector_keywords)))
-    }
-    
-    /**
      Finds an native ad object in the given extra dictionary.
      Calls the provided callback with the finded native ad object or error
      */
@@ -66,6 +55,20 @@ public class MoPubMediationUtils: PrebidMediationDelegate {
     //            completion(nativeAd, nil)
     //        }
     //    }
+    
+    public init() {
+        
+    }
+    /**
+     Checks that a passed object confirms to the PBMMoPubAdObjectProtocol
+     @return YES if the passed object is correct, FALSE otherwise
+     */
+    public func isCorrectAdObject(_ adObject: NSObject) -> Bool {
+        return adObject.responds(to: Selector((MoPubSelector_localExtras))) &&
+        adObject.responds(to: Selector((MoPubSelector_setLocalExtras))) &&
+        adObject.responds(to: Selector((MoPubSelector_setKeywords))) &&
+        adObject.responds(to: Selector((MoPubSelector_keywords)))
+    }
     
     /**
      Removes an bid info from ad object's localExtra
