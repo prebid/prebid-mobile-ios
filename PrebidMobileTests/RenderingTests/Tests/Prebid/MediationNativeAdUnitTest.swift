@@ -17,12 +17,15 @@ import XCTest
 
 @testable import PrebidMobile
 
-class PBMMoPubNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
+class MediationNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
     let configID = "testConfigID"
     let nativeAdConfig = NativeAdConfiguration(assets: [PBRNativeAssetTitle(length: 25)])
     
+    let mediationDelegate: PrebidMediationDelegate = MockMediationUtils()
+    
+    
     func testWrongAdObject() {
-        let adUnit = MediationNativeAdUnit(configID: configID, nativeAdConfiguration: nativeAdConfig)
+        let adUnit = MediationNativeAdUnit(configID: configID, nativeAdConfiguration: nativeAdConfig, mediationDelegate: mediationDelegate)
         let badObjexpectation = expectation(description: "fetchDemand executed")
         
         adUnit.fetchDemand(with: NSString()) { result in
@@ -51,14 +54,14 @@ class PBMMoPubNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
             adMarkupStringHandler(markupString)
         }
         
-        let moPubAdUnit = MediationNativeAdUnit(nativeAdUnit: adUnit)
+        let mockAdUnit = MediationNativeAdUnit(nativeAdUnit: adUnit, mediationDelegate: mediationDelegate)
         
         let fetchExpectation = expectation(description: "fetchDemand executed")
         
-        let targeting = MoPubAdObject()
-        moPubAdUnit.fetchDemand(with: targeting) { result in
+        let targeting = MockAdObject()
+        mockAdUnit.fetchDemand(with: targeting) { result in
             XCTAssertEqual(result, .ok)
-            PBMAssertEq(targeting.localExtras?[PBMMoPubAdNativeResponseKey] as? DemandResponseInfo, adUnit.lastDemandResponseInfo)
+            PBMAssertEq(targeting.localExtras?[MockMediationAdUnitBidKey] as? DemandResponseInfo, adUnit.lastDemandResponseInfo)
             fetchExpectation.fulfill()
         }
         waitForExpectations(timeout: 0.2)

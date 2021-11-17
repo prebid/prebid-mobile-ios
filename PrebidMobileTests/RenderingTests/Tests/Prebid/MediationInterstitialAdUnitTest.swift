@@ -14,49 +14,32 @@
   */
 
 import XCTest
+
 @testable import PrebidMobile
 
-class PBMMoPubBannerAdUnitTest: XCTestCase {
-    
-    let testID = "auid"
-    let primarySize = CGSize(width: 320, height: 50)
-    
-    private func getSDKConfiguration() -> PrebidRenderingConfig {
+class MediationInterstitialAdUnitTest: XCTestCase {
+    private let sdkConfiguration: PrebidRenderingConfig = {
         let config = PrebidRenderingConfig.mock
+        //        config.serverURL = PrebidRenderingConfig.devintServerURL
         try! config.setCustomPrebidServer(url: PrebidRenderingConfig.devintServerURL)
         config.accountID = PrebidRenderingConfig.devintAccountID
         return config
-    }
-    
+    }()
     private let targeting = PrebidRenderingTargeting.shared
     
-    func testConfigSetup() {
-        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize)
-        let adUnitConfig = bannerAdUnit.adUnitConfig
+    let mediationDelegate: PrebidMediationDelegate = MockMediationUtils()
+    
+    func testDefaultSettings() {
+        let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30), mediationDelegate: mediationDelegate)
+        let adUnitConfig = adUnit.adUnitConfig
         
-        XCTAssertEqual(adUnitConfig.configID, testID)
-        XCTAssertEqual(adUnitConfig.adSize, primarySize)
-        
-        let moreSizes = [
-            CGSize(width: 300, height: 250),
-            CGSize(width: 728, height: 90),
-        ]
-        
-        bannerAdUnit.additionalSizes = moreSizes
-        
-        XCTAssertEqual(adUnitConfig.additionalSizes?.count, moreSizes.count)
-        for i in 0..<moreSizes.count {
-            XCTAssertEqual(adUnitConfig.additionalSizes?[i], moreSizes[i])
-        }
-        
-        let refreshInterval: TimeInterval = 40;
-        
-        bannerAdUnit.refreshInterval = refreshInterval
-        XCTAssertEqual(adUnitConfig.refreshInterval, refreshInterval)
+        XCTAssertTrue(adUnitConfig.isInterstitial)
+        PBMAssertEq(adUnitConfig.adPosition, .fullScreen)
+        XCTAssertEqual(adUnitConfig.videoPlacementType.rawValue, 5)
     }
     
     func testWrongAdObject() {
-        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize)
+        let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30), mediationDelegate: mediationDelegate)
         let asyncExpectation = expectation(description: "fetchDemand executed")
         adUnit.fetchDemand(with: NSString()) { result in
             XCTAssertEqual(result, .wrongArguments)
@@ -66,7 +49,7 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
     }
     
     func testAdObjectSetUpCleanUp() {
-        @objc class MoPubAdObject: NSObject {
+        @objc class MoPubAdObject: NSObject  {
             @objc var keywords: String?
             @objc var localExtras: [AnyHashable : Any]?
         }
@@ -81,13 +64,13 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
         adObject.keywords = initialKeywords
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnit = MediationBannerAdUnit(configID: configId, size: primarySize)
+        let adUnit = MediationInterstitialAdUnit(configId: configId, minSizePercentage: CGSize(width: 30, height: 30), mediationDelegate: mediationDelegate)
         
         let asyncExpectation = expectation(description: "fetchDemand executed")
         
         adUnit.fetchDemand(with: adObject,
                            connection: connection,
-                           sdkConfiguration: getSDKConfiguration(),
+                           sdkConfiguration: sdkConfiguration,
                            targeting: targeting)
         { result in
             XCTAssertEqual(result, .ok)
@@ -97,8 +80,8 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
             
             let resultExtras: [AnyHashable : Any] = adObject.localExtras!
             XCTAssertEqual(resultExtras.count, 2)
-            XCTAssertEqual(resultExtras[PBMMoPubConfigIdKey] as? String, configId)
-            let bid = resultExtras[PBMMoPubAdUnitBidKey] as! NSObject
+            XCTAssertEqual(resultExtras[MockMediationConfigIdKey] as? String, configId)
+            let bid = resultExtras[MockMediationAdUnitBidKey] as! NSObject
             XCTAssertTrue(bid.isKind(of: Bid.self))
             
             asyncExpectation.fulfill()
@@ -115,7 +98,7 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
         
         adUnit.fetchDemand(with: adObject,
                            connection: noBidConnection,
-                           sdkConfiguration: getSDKConfiguration(),
+                           sdkConfiguration: sdkConfiguration,
                            targeting: targeting)
         { result in
             XCTAssertEqual(result, .serverError)

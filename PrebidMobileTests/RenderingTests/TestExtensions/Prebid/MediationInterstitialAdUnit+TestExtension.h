@@ -15,7 +15,7 @@
 
 @protocol PBMServerConnectionProtocol;
 
-@interface MoPubInterstitialAdUnit ()
+@interface MediationInterstitialAdUnit ()
 - (void)fetchDemandWithObject:(NSObject *)adObject
                    connection:(id<PBMServerConnectionProtocol>)connection
              sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration

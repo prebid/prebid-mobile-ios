@@ -17,9 +17,12 @@ import XCTest
 
 @testable import PrebidMobile
 
-class PBMMoPubRewardedAdUnitTest: XCTestCase {
+class MediationRewardedAdUnitTest: XCTestCase {
+    
+    let mediationDelegate: PrebidMediationDelegate = MockMediationUtils()
+    
     func testDefaultSettings() {
-        let adUnit = MediationRewardedAdUnit(configId: "prebidConfigId")
+        let adUnit = MediationRewardedAdUnit(configId: "prebidConfigId", mediationDelegate: mediationDelegate)
         let adUnitConfig = adUnit.adUnitConfig
         
         XCTAssertTrue(adUnitConfig.isInterstitial)
