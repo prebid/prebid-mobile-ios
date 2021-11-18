@@ -30,7 +30,7 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigur
     
     private let nativeAdViewBox = NativeAdViewBox()
     
-    private var adUnit: MoPubNativeAdUnit?
+    private var adUnit: MediationNativeAdUnit?
     private var theMoPubNativeAd: MPNativeAd?
     private var thePrebidNativeAd: PBRNativeAd?
     
@@ -117,7 +117,7 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigur
             return
         }
         
-        adUnit = MoPubNativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
+        adUnit = MediationNativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
                 adUnit?.addContextData(dataPair.value, forKey: dataPair.key)

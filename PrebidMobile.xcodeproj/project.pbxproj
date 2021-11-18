@@ -2820,8 +2820,8 @@
 			isa = PBXGroup;
 			children = (
 				5BC37864271F1CFF00444D5E /* MediationBaseInterstitialAdUnit.swift */,
-				5BC37865271F1CFF00444D5E /* MediationBidInfoWrapper.swift */,
 				5BC37866271F1CFF00444D5E /* MediationBannerAdUnit.swift */,
+				5BC37865271F1CFF00444D5E /* MediationBidInfoWrapper.swift */,
 				5BC37867271F1CFF00444D5E /* MediationRewardedAdUnit.swift */,
 				5BC37868271F1CFF00444D5E /* MediationNativeAdUnit.swift */,
 				5BC3786A271F1CFF00444D5E /* MediationInterstitialAdUnit.swift */,
