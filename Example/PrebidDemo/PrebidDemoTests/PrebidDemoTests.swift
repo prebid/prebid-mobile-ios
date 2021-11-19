@@ -14,7 +14,7 @@
  */
 
 import XCTest
-import MoPub
+import MoPubSDK
 import GoogleMobileAds
 import WebKit
 @testable import PrebidMobile

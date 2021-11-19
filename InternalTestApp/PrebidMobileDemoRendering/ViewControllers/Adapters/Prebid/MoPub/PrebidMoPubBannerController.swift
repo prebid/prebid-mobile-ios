@@ -154,6 +154,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         self.didDismissModalViewButton.isEnabled = true
     }
     
+    // FIXME: not called because an approppriate delegate method is missing in PBMDisplayViewInteractionDelegate
     func willLeaveApplication(fromAd view: MPAdView!) {
         self.willLeaveApplicationButton.isEnabled = true;
     }
