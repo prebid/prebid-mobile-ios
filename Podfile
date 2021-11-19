@@ -36,6 +36,11 @@ target 'PrebidMobileMoPubAdapters' do
   mopub_pods
 end
 
+target 'PrebidMobileMoPubAdaptersTests' do
+  event_handlers_project
+  mopub_pods
+end
+
 def prebid_demo_pods
   use_frameworks!
   

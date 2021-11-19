@@ -19,7 +19,9 @@
 @property (weak, nonatomic) IBOutlet UIView *adView;
 
 @property (strong, nullable) RewardedAdUnit *rewardedAdUnit;
-@property (strong, nullable) MoPubRewardedAdUnit *mopubRewardedAdUnit;
+@property (strong, nullable) MediationRewardedAdUnit *mopubRewardedAdUnit;
+
+@property (strong, nullable) MoPubMediationUtils *mediationDelegate;
 
 @end
 
@@ -82,8 +84,8 @@
 
 - (void)loadMoPubRenderingRewarded {
     
-    self.mopubRewardedAdUnit = [[MoPubRewardedAdUnit alloc] initWithConfigId:@"12f58bc2-b664-4672-8d19-638bcc96fd5c"];
-    MoPubBidInfoWrapper *bidInfoWrapper = [[MoPubBidInfoWrapper alloc] init];
+    self.mopubRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:@"12f58bc2-b664-4672-8d19-638bcc96fd5c" mediationDelegate: self.mediationDelegate];
+    MediationBidInfoWrapper *bidInfoWrapper = [[MediationBidInfoWrapper alloc] init];
     
     [self.mopubRewardedAdUnit fetchDemandWith:bidInfoWrapper completion:^(FetchDemandResult result) {
         [MPRewardedAds setDelegate:self forAdUnitId:@"7538cc74d2984c348bc14caafa3e3395"];

@@ -48,14 +48,14 @@ public class PrebidMoPubInterstitialAdapter :
             return
         }
         
-        guard let bid = localExtras[PBMMoPubAdUnitBidKey] as? Bid else {
+        guard let bid = localExtras[PBMMediationAdUnitBidKey] as? Bid else {
             let error = MoPubAdaptersError.noBidInLocalExtras
             MPLogging.logEvent(MPLogEvent.adLoadFailed(forAdapter: Self.className(), error: error), source: adUnitId, from: nil)
             delegate?.fullscreenAdAdapter(self, didFailToLoadAdWithError: error)
             return
         }
         
-        guard let configID = localExtras[PBMMoPubConfigIdKey] as? String else {
+        guard let configID = localExtras[PBMMediationConfigIdKey] as? String else {
             let error = MoPubAdaptersError.noConfigIDInLocalExtras
             MPLogging.logEvent(MPLogEvent.adLoadFailed(forAdapter: Self.className(), error: error), source: adUnitId, from: nil)
             delegate?.fullscreenAdAdapter(self, didFailToLoadAdWithError: error)

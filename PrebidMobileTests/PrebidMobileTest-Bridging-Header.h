@@ -213,6 +213,6 @@
 
 #import "UIView+PBMViewExposure.h"
 
-#import "MoPubInterstitialAdUnit+TestExtension.h"
-#import "MoPubBannerAdUnit+TestExtension.h"
+#import "MediationInterstitialAdUnit+TestExtension.h"
+#import "MediationBannerAdUnit+TestExtension.h"
 #import "PBMLocationManagerProtocol.h"
