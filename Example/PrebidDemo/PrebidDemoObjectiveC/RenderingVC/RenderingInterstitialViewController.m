@@ -20,9 +20,11 @@
 
 @property (strong, nullable) InterstitialRenderingAdUnit *interstitialAdUnit;
 
-@property (strong, nullable) MoPubInterstitialAdUnit *mopubInterstitialAdUnit;
+@property (strong, nullable) MediationInterstitialAdUnit *mopubInterstitialAdUnit;
 
 @property (strong, nullable) MPInterstitialAdController *mopubInterstitial;
+
+@property (strong, nullable) MoPubMediationUtils *mediationDelegate;
 
 @end
 
@@ -109,12 +111,12 @@
         self.mopubInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"e979c52714434796909993e21c8fc8da"];
         self.mopubInterstitial.delegate = self;
         
-        self.mopubInterstitialAdUnit = [[MoPubInterstitialAdUnit alloc] initWithConfigId:@"5a4b8dcf-f984-4b04-9448-6529908d6cb6"];
+        self.mopubInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"5a4b8dcf-f984-4b04-9448-6529908d6cb6" mediationDelegate:self.mediationDelegate];
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
         self.mopubInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"7e3146fc0c744afebc8547a4567da895"];
         self.mopubInterstitial.delegate = self;
         
-        self.mopubInterstitialAdUnit = [[MoPubInterstitialAdUnit alloc] initWithConfigId:@"12f58bc2-b664-4672-8d19-638bcc96fd5c"];
+        self.mopubInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"12f58bc2-b664-4672-8d19-638bcc96fd5c"mediationDelegate:self.mediationDelegate];
     }
     
     [self.mopubInterstitialAdUnit fetchDemandWith:self.mopubInterstitial completion:^(FetchDemandResult result) {

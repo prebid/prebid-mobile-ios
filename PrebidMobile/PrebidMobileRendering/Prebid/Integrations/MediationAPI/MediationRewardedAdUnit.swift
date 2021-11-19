@@ -15,7 +15,15 @@
 
 import Foundation
 
-public class MoPubBidInfoWrapper : NSObject {
-    @objc public var keywords: String?
-    @objc public var localExtras: [AnyHashable : Any]?
+@objcMembers
+public class MediationRewardedAdUnit : MediationBaseInterstitialAdUnit {
+    
+    // - MARK: Public Methods
+    
+    public override init(configId: String, mediationDelegate: PrebidMediationDelegate) {
+        super.init(configId: configId, mediationDelegate: mediationDelegate)
+        
+        adUnitConfig.isOptIn = true
+        adUnitConfig.adFormat = .video
+    }
 }

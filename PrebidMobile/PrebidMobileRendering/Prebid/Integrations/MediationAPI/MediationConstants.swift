@@ -13,19 +13,8 @@
   limitations under the License.
   */
 
-import XCTest
+import Foundation
 
-@testable import PrebidMobile
-
-class PBMMoPubRewardedAdUnitTest: XCTestCase {
-    func testDefaultSettings() {
-        let adUnit = MoPubRewardedAdUnit(configId: "prebidConfigId")
-        let adUnitConfig = adUnit.adUnitConfig
-        
-        XCTAssertTrue(adUnitConfig.isInterstitial)
-        XCTAssertTrue(adUnitConfig.isOptIn)
-        PBMAssertEq(adUnitConfig.adPosition, .fullScreen)
-        PBMAssertEq(adUnitConfig.adFormat, .video)
-        XCTAssertEqual(adUnitConfig.videoPlacementType.rawValue, 5)
-    }
-}
+public let PBMMediationAdUnitBidKey                 = "PBM_BID"
+public let PBMMediationConfigIdKey                  = "PBM_CONFIG_ID"
+public let PBMMediationAdNativeResponseKey          = "PBM_NATIVE_RESPONSE"

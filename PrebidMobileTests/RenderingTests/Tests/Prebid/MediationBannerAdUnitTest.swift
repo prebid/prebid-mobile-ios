@@ -16,7 +16,9 @@
 import XCTest
 @testable import PrebidMobile
 
-class PBMMoPubBannerAdUnitTest: XCTestCase {
+class MediationBannerAdUnitTest: XCTestCase {
+    
+    let mediationDelegate: PrebidMediationDelegate = MockMediationUtils()
     
     let testID = "auid"
     let primarySize = CGSize(width: 320, height: 50)
@@ -31,7 +33,7 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
     private let targeting = PrebidRenderingTargeting.shared
     
     func testConfigSetup() {
-        let bannerAdUnit = MoPubBannerAdUnit(configID: testID, size: primarySize)
+        let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate)
         let adUnitConfig = bannerAdUnit.adUnitConfig
         
         XCTAssertEqual(adUnitConfig.configID, testID)
@@ -56,7 +58,7 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
     }
     
     func testWrongAdObject() {
-        let adUnit = MoPubBannerAdUnit(configID: testID, size: primarySize)
+        let adUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate)
         let asyncExpectation = expectation(description: "fetchDemand executed")
         adUnit.fetchDemand(with: NSString()) { result in
             XCTAssertEqual(result, .wrongArguments)
@@ -66,7 +68,7 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
     }
     
     func testAdObjectSetUpCleanUp() {
-        @objc class MoPubAdObject: NSObject {
+        @objc class MockAdObject: NSObject {
             @objc var keywords: String?
             @objc var localExtras: [AnyHashable : Any]?
         }
@@ -77,11 +79,11 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
         }])
         let initialKeywords = "key1,key2"
         
-        let adObject = MoPubAdObject()
+        let adObject = MockAdObject()
         adObject.keywords = initialKeywords
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnit = MoPubBannerAdUnit(configID: configId, size: primarySize)
+        let adUnit = MediationBannerAdUnit(configID: configId, size: primarySize, mediationDelegate: mediationDelegate)
         
         let asyncExpectation = expectation(description: "fetchDemand executed")
         
@@ -97,8 +99,8 @@ class PBMMoPubBannerAdUnitTest: XCTestCase {
             
             let resultExtras: [AnyHashable : Any] = adObject.localExtras!
             XCTAssertEqual(resultExtras.count, 2)
-            XCTAssertEqual(resultExtras[PBMMoPubConfigIdKey] as? String, configId)
-            let bid = resultExtras[PBMMoPubAdUnitBidKey] as! NSObject
+            XCTAssertEqual(resultExtras[MockMediationConfigIdKey] as? String, configId)
+            let bid = resultExtras[MockMediationAdUnitBidKey] as! NSObject
             XCTAssertTrue(bid.isKind(of: Bid.self))
             
             asyncExpectation.fulfill()

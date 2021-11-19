@@ -16,6 +16,7 @@
 import UIKit
 import MoPubSDK
 import PrebidMobile
+import PrebidMobileMoPubAdapters
 
 class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurableBannerController, MPAdViewDelegate {
     
@@ -44,7 +45,9 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
     private let stopRefreshButton = ThreadCheckingButton()
     private let configIdLabel = UILabel()
     
-    private var adUnit: MoPubBannerAdUnit?
+    private var adUnit: MediationBannerAdUnit?
+    
+    private let mediationDelegate = MoPubMediationUtils()
     
     // MARK: - AdaptedController
     
@@ -69,7 +72,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         adBannerView = MPAdView(adUnitId: moPubAdUnitId)
         adBannerView?.delegate = self
         
-        adUnit = MoPubBannerAdUnit(configID: prebidConfigId, size: adUnitSize)
+        adUnit = MediationBannerAdUnit(configID: prebidConfigId, size: adUnitSize, mediationDelegate: mediationDelegate)
         if (refreshInterval > 0) {
             adUnit?.refreshInterval = refreshInterval
         }

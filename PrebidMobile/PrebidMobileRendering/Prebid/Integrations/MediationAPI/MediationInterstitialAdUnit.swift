@@ -17,7 +17,7 @@ import Foundation
 import UIKit
 
 @objcMembers
-public class MoPubInterstitialAdUnit : MoPubBaseInterstitialAdUnit {
+public class MediationInterstitialAdUnit : MediationBaseInterstitialAdUnit {
     
     // MARK: - Public Properties
     
@@ -33,12 +33,12 @@ public class MoPubInterstitialAdUnit : MoPubBaseInterstitialAdUnit {
     
     // MARK: - Public Methods
     
-    public override convenience init(configId: String) {
-        self.init(configId: configId, minSizePercentage: nil)
+    public override convenience init(configId: String, mediationDelegate: PrebidMediationDelegate) {
+        self.init(configId: configId, minSizePercentage: nil, mediationDelegate: mediationDelegate)
     }
     
-    public init(configId: String, minSizePercentage: CGSize?) {
-        super.init(configId: configId)
+    public init(configId: String, minSizePercentage: CGSize?, mediationDelegate: PrebidMediationDelegate) {
+        super.init(configId: configId, mediationDelegate: mediationDelegate)
         
         if let size = minSizePercentage {
             adUnitConfig.minSizePerc = NSValue(cgSize: size)
