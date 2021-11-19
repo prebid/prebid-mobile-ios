@@ -68,7 +68,8 @@ class MockMediationUtils: PrebidMediationDelegate {
     public func setUpAdObject(_ adObject: NSObject,
                               configID:String,
                               targetingInfo: [String : String],
-                              extraObject:Any?) -> Bool {
+                              extraObject:Any?,
+                              forKey: String) -> Bool {
         guard isCorrectAdObject(adObject) else {
             return false
         }
@@ -78,7 +79,7 @@ class MockMediationUtils: PrebidMediationDelegate {
         
         //Pass our objects via the localExtra property
         var mutableExtras = extras ?? [:]
-        mutableExtras[MockMediationAdUnitBidKey] = extraObject
+        mutableExtras[forKey] = extraObject
         mutableExtras[MockMediationConfigIdKey] = configID
         
         adObject.setValue(mutableExtras, forKey: MockSelector_localExtras)

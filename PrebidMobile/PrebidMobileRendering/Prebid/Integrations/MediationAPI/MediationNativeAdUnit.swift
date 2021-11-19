@@ -69,7 +69,8 @@ class MediationNativeAdUnit : NSObject {
             if self.mediationDelegate.setUpAdObject(adObject,
                                                     configID: self.configID,
                                                     targetingInfo: fetchDemandInfo.bid?.targetingInfo ?? [:],
-                                                    extraObject: fetchDemandInfo) {
+                                                    extraObject: fetchDemandInfo,
+                                                    forKey: PBMMediationAdUnitBidKey) {
                 fetchDemandResult = .ok
             }
             

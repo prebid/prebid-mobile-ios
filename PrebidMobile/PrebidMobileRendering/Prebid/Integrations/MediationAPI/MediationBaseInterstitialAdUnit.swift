@@ -114,7 +114,8 @@ public class MediationBaseInterstitialAdUnit : NSObject {
             if mediationDelegate.setUpAdObject(adObject,
                                                configID: configId,
                                                targetingInfo: targetingInfo,
-                                               extraObject: winningBid) {
+                                               extraObject: winningBid,
+                                               forKey: PBMMediationAdUnitBidKey) {
                 demandResult = .ok
             } else {
                 demandResult = .wrongArguments

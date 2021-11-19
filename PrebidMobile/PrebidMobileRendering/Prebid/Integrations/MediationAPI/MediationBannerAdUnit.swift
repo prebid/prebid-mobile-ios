@@ -226,7 +226,8 @@ public class MediationBannerAdUnit : NSObject {
             if mediationDelegate.setUpAdObject(adObject,
                                                configID: configID,
                                                targetingInfo: winningBid.targetingInfo ?? [:],
-                                               extraObject: winningBid) { 
+                                               extraObject: winningBid,
+                                               forKey: PBMMediationAdUnitBidKey) { 
                 demandResult = .ok
             } else {
                 demandResult = .wrongArguments

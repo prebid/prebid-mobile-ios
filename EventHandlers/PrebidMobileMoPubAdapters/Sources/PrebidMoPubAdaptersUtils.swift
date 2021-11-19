@@ -31,14 +31,14 @@ public class PrebidMoPubAdaptersUtils : NSObject {
     
     let localCache: LocalResponseInfoCache
     
-    var mediationDelegate: PrebidMediationDelegate
+    lazy var mediationDelegate: PrebidMediationDelegate = MoPubMediationUtils()
     
     // MARK: - Public Methods
     
     public func prepareAdObject(_ adObject: NSObject) {
         guard mediationDelegate.isCorrectAdObject(adObject),
               let localExtras = adObject.value(forKey: "localExtras") as? [AnyHashable : Any],
-              let demandResponseInfo = localExtras[PBMMoPubAdNativeResponseKey] as? DemandResponseInfo else {
+              let demandResponseInfo = localExtras[PBMMediationAdNativeResponseKey] as? DemandResponseInfo else {
             return
         }
         
@@ -58,7 +58,6 @@ public class PrebidMoPubAdaptersUtils : NSObject {
     
     private override init () {
         localCache = LocalResponseInfoCache(expirationInterval: localCacheExpirationInterval)
-        self.mediationDelegate = MoPubMediationUtils()
     }
     
     private func isPrebidAd(nativeAd: MPNativeAd) -> Bool {

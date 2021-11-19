@@ -82,7 +82,7 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
         guard mediationDelegate.setUpAdObject(adObject,
                                        configID: configId,
                                        targetingInfo: targetingInfo,
-                                       extraObject: bid) else {
+                                       extraObject: bid, forKey: PBMMediationAdUnitBidKey) else {
             XCTFail()
             return
         }
@@ -90,8 +90,8 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
         let bidKeywords = adObject.keywords?.components(separatedBy: ",").sorted()
         
         XCTAssertEqual(bidKeywords, sortedKeywords)
-        XCTAssertEqual(adObject.localExtras?[PBMMoPubAdUnitBidKey] as! Bid, bid)
-        XCTAssertEqual(adObject.localExtras?[PBMMoPubConfigIdKey] as! String, configId)
+        XCTAssertEqual(adObject.localExtras?[PBMMediationAdUnitBidKey] as! Bid, bid)
+        XCTAssertEqual(adObject.localExtras?[PBMMediationConfigIdKey] as! String, configId)
         
         mediationDelegate.cleanUpAdObject(adObject)
         

@@ -16,10 +16,6 @@
 import Foundation
 import PrebidMobile
 
-public let PBMMoPubAdUnitBidKey                 = "PBM_BID"
-public let PBMMoPubConfigIdKey                  = "PBM_CONFIG_ID"
-public let PBMMoPubAdNativeResponseKey          = "PBM_NATIVE_RESPONSE"
-
 fileprivate let keywordsSeparator               = ","
 fileprivate let HBKeywordPrefix                 = "hb_"
 
@@ -31,39 +27,10 @@ fileprivate let MoPubSelector_setKeywords       = "setKeywords:"
 
 @objcMembers
 public class MoPubMediationUtils: NSObject, PrebidMediationDelegate {
-    /**
-     Finds an native ad object in the given extra dictionary.
-     Calls the provided callback with the finded native ad object or error
-     */
-    // The feature is not available. Use original Prebid Native API
-    // TODO: Merge Native engine from original SDK and rendering codebase
-    //    static func findNativeAd(_ extras: [AnyHashable : Any],
-    //                             completion: @escaping (PBRNativeAd?, Error?) -> Void) {
-    //
-    //        guard let response = extras[PBMMoPubAdNativeResponseKey] as? DemandResponseInfo else {
-    //            let error = PBMError.error(description: "The Response object is absent in the extras")
-    //            completion(nil, error)
-    //            return
-    //        }
-    //
-    //        response.getNativeAd { ad in
-    //            guard let nativeAd = ad else {
-    //                let error = PBMError.error(description: "The Native Ad object is absent in the extras")
-    //                completion(nil, error)
-    //                return
-    //            }
-    //
-    //            completion(nativeAd, nil)
-    //        }
-    //    }
-    
     public override init() {
         
     }
-    /**
-     Checks that a passed object confirms to the PBMMoPubAdObjectProtocol
-     @return YES if the passed object is correct, FALSE otherwise
-     */
+   
     public func isCorrectAdObject(_ adObject: NSObject) -> Bool {
         return adObject.responds(to: Selector((MoPubSelector_localExtras))) &&
         adObject.responds(to: Selector((MoPubSelector_setLocalExtras))) &&
@@ -71,10 +38,6 @@ public class MoPubMediationUtils: NSObject, PrebidMediationDelegate {
         adObject.responds(to: Selector((MoPubSelector_keywords)))
     }
     
-    /**
-     Removes an bid info from ad object's localExtra
-     and prebid-specific keywords from ad object's keywords
-     */
     public func cleanUpAdObject(_ adObject: NSObject) {
         guard isCorrectAdObject(adObject),
               let adExtras = adObject.value(forKey: MoPubSelector_localExtras) as? [AnyHashable : Any],
@@ -85,7 +48,7 @@ public class MoPubMediationUtils: NSObject, PrebidMediationDelegate {
         let keywords = removeHBKeywordsFrom(adKeywords)
         adObject.setValue(keywords, forKey: MoPubSelector_keywords)
         
-        let HBKeys = [PBMMoPubAdUnitBidKey, PBMMoPubConfigIdKey, PBMMoPubAdNativeResponseKey]
+        let HBKeys = [PBMMediationAdUnitBidKey, PBMMediationConfigIdKey, PBMMediationAdNativeResponseKey]
         let extras = adExtras.filter {
             guard let key = $0.key as? String else { return true }
             return !HBKeys.contains(key)
@@ -94,15 +57,11 @@ public class MoPubMediationUtils: NSObject, PrebidMediationDelegate {
         adObject.setValue(extras, forKey: MoPubSelector_localExtras)
     }
     
-    /**
-     Puts to ad object's localExtra the ad object (winning bid or native ad) and configId
-     and populates adObject's keywords by targeting info
-     @return YES on success and NO otherwise (when the passed ad has wrong type)
-     */
     public func setUpAdObject(_ adObject: NSObject,
                               configID:String,
                               targetingInfo: [String : String],
-                              extraObject:Any?) -> Bool {
+                              extraObject:Any?,
+                              forKey:String) -> Bool {
         guard isCorrectAdObject(adObject) else {
             return false
         }
@@ -112,8 +71,8 @@ public class MoPubMediationUtils: NSObject, PrebidMediationDelegate {
         
         //Pass our objects via the localExtra property
         var mutableExtras = extras ?? [:]
-        mutableExtras[PBMMoPubAdUnitBidKey] = extraObject
-        mutableExtras[PBMMoPubConfigIdKey] = configID
+        mutableExtras[forKey] = extraObject
+        mutableExtras[PBMMediationConfigIdKey] = configID
         
         adObject.setValue(mutableExtras, forKey: MoPubSelector_localExtras)
         
@@ -144,4 +103,31 @@ public class MoPubMediationUtils: NSObject, PrebidMediationDelegate {
             .filter { !$0.hasPrefix(HBKeywordPrefix) }
             .joined(separator: keywordsSeparator)
     }
+    
+    /**
+     Finds an native ad object in the given extra dictionary.
+     Calls the provided callback with the finded native ad object or error
+     */
+    // The feature is not available. Use original Prebid Native API
+    // TODO: Merge Native engine from original SDK and rendering codebase
+    //    static func findNativeAd(_ extras: [AnyHashable : Any],
+    //                             completion: @escaping (PBRNativeAd?, Error?) -> Void) {
+    //
+    //        guard let response = extras[PBMMoPubAdNativeResponseKey] as? DemandResponseInfo else {
+    //            let error = PBMError.error(description: "The Response object is absent in the extras")
+    //            completion(nil, error)
+    //            return
+    //        }
+    //
+    //        response.getNativeAd { ad in
+    //            guard let nativeAd = ad else {
+    //                let error = PBMError.error(description: "The Native Ad object is absent in the extras")
+    //                completion(nil, error)
+    //                return
+    //            }
+    //
+    //            completion(nativeAd, nil)
+    //        }
+    //    }
+    
 }
