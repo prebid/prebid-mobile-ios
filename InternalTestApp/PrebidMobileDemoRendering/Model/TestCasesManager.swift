@@ -1640,6 +1640,7 @@ struct TestCaseManager {
                         let adBannerView = BannerView(configID: prebidConfigId,
                                                       eventHandler: adEventHandler)
                         adBannerView.adFormat = .video
+                        adBannerView.videoPlacementType = .inFeed
                         adBannerView.delegate = feedVC
                         adBannerView.accessibilityIdentifier = "PrebidBannerView"
                         
