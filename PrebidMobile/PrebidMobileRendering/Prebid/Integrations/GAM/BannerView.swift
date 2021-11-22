@@ -28,6 +28,10 @@ public class BannerView: UIView,
     
     // MARK: - Public Properties
     
+    public var lastBidResponse: BidResponseForRendering? {
+        adLoadFlowController?.bidResponse
+    }
+    
     @objc public var configID: String {
         adUnitConfig.configID
     }
