@@ -28,9 +28,9 @@ class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfig
 
     private let rewardedVideoAdDidLoadButton = EventReportContainer()
     private let rewardedVideoAdDidFailToLoadButton = EventReportContainer()
-    private let rewardedVideoAdWillAppearButton = EventReportContainer()
-    private let rewardedVideoAdDidAppearButton = EventReportContainer()
-    private let rewardedVideoAdWillDisappearButton = EventReportContainer()
+    private let rewardedVideoAdWillPresentButton = EventReportContainer()
+    private let rewardedVideoAdDidPresentButton = EventReportContainer()
+    private let rewardedVideoAdWillDismissButton = EventReportContainer()
     private let rewardedVideoAdDidDisappearButton = EventReportContainer()
     private let rewardedVideoAdDidExpireButton = EventReportContainer()
     private let rewardedVideoAdDidReceiveTapEventButton = EventReportContainer()
@@ -107,15 +107,15 @@ class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfig
     }
     
     func rewardedAdWillPresent(forAdUnitID adUnitID: String!) {
-        rewardedVideoAdWillAppearButton.isEnabled = true
+        rewardedVideoAdWillPresentButton.isEnabled = true
     }
     
     func rewardedAdDidPresent(forAdUnitID adUnitID: String!) {
-        rewardedVideoAdDidAppearButton.isEnabled = true
+        rewardedVideoAdDidPresentButton.isEnabled = true
     }
     
     func rewardedAdWillDismiss(forAdUnitID adUnitID: String!) {
-        rewardedVideoAdWillDisappearButton.isEnabled = true
+        rewardedVideoAdWillDismissButton.isEnabled = true
     }
     
     func rewardedAdDidDismiss(forAdUnitID adUnitID: String!) {
@@ -152,17 +152,17 @@ class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfig
     }
     
     private func setupShowButton() {
-        adapterViewController?.showButton.isEnabled = false
+        adapterViewController?.showButton.isEnabled = MPRewardedAds.hasAdAvailable(forAdUnitID: moPubAdUnitId)
         adapterViewController?.showButton.addTarget(self, action:#selector(self.showButtonClicked), for: .touchUpInside)
     }
     
     private func setupActions() {
         adapterViewController?.setupAction(rewardedVideoAdDidLoadButton, "rewardedVideoAdDidLoad called")
         adapterViewController?.setupAction(rewardedVideoAdDidFailToLoadButton, "rewardedVideoAdDidFailToLoad called")
-        adapterViewController?.setupAction(rewardedVideoAdWillAppearButton, "rewardedVideoAdWillAppearButton called")
-        adapterViewController?.setupAction(rewardedVideoAdDidAppearButton, "rewardedVideoAdDidAppearButton called")
-        adapterViewController?.setupAction(rewardedVideoAdWillDisappearButton, "rewardedVideoAdWillDisappearButton called")
-        adapterViewController?.setupAction(rewardedVideoAdDidDisappearButton, "rewardedVideoAdDidDisappear called")
+        adapterViewController?.setupAction(rewardedVideoAdWillPresentButton, "rewardedAdWillPresent called")
+        adapterViewController?.setupAction(rewardedVideoAdDidPresentButton, "rewardedAdDidPresent called")
+        adapterViewController?.setupAction(rewardedVideoAdWillDismissButton, "rewardedAdWillDismiss called")
+        adapterViewController?.setupAction(rewardedVideoAdDidDisappearButton, "rewardedAdDidDismiss called")
         adapterViewController?.setupAction(rewardedVideoAdDidExpireButton, "rewardedVideoAdDidExpire called")
         adapterViewController?.setupAction(rewardedVideoAdDidReceiveTapEventButton, "rewardedVideoAdDidReceiveTapEvent called")
         adapterViewController?.setupAction(rewardedVideoAdShouldRewardButton, "rewardedVideoAdShouldReward called")

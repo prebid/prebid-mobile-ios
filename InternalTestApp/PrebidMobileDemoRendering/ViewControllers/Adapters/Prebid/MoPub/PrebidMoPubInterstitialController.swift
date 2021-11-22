@@ -30,10 +30,10 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
 
     private let interstitialDidLoadAdButton = EventReportContainer()
     private let interstitialDidFailButton = EventReportContainer()
-    private let interstitialWillAppearButton = EventReportContainer()
-    private let interstitialDidAppearButton = EventReportContainer()
-    private let interstitialWillDisappearButton = EventReportContainer()
-    private let interstitialDidDisappearButton = EventReportContainer()
+    private let interstitialWillPresentButton = EventReportContainer()
+    private let interstitialDidPresentButton = EventReportContainer()
+    private let interstitialWillDismissButton = EventReportContainer()
+    private let interstitialDidDismissButton = EventReportContainer()
     private let interstitialDidExpireButton = EventReportContainer()
     private let interstitialDidReceiveTapEventButton = EventReportContainer()
     
@@ -87,25 +87,27 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
         }
     }
     
-    func interstitialDidFail(toLoadAd interstitial: MPInterstitialAdController!) {
+    func interstitialDidFail(toLoadAd interstitial: MPInterstitialAdController!, withError error: Error!) {
+        PBMLog.error(error.localizedDescription)
+        resetEvents()
         interstitialDidFailButton.isEnabled = true
     }
     
-    func interstitialWillAppear(_ interstitial: MPInterstitialAdController!) {
-        interstitialWillAppearButton.isEnabled = true
+    func interstitialWillPresent(_ interstitial: MPInterstitialAdController!) {
+        interstitialWillPresentButton.isEnabled = true
     }
     
-    func interstitialDidAppear(_ interstitial: MPInterstitialAdController!) {
-        interstitialDidAppearButton.isEnabled = true
+    func interstitialDidPresent(_ interstitial: MPInterstitialAdController!) {
+        interstitialDidPresentButton.isEnabled = true
     }
     
-    func interstitialWillDisappear(_ interstitial: MPInterstitialAdController!) {
+    func interstitialWillDismiss(_ interstitial: MPInterstitialAdController!) {
         interstitialController?.loadAd()
-        interstitialWillDisappearButton.isEnabled = true
+        interstitialWillDismissButton.isEnabled = true
     }
     
-    func interstitialDidDisappear(_ interstitial: MPInterstitialAdController!) {
-        interstitialDidDisappearButton.isEnabled = true
+    func interstitialDidDismiss(_ interstitial: MPInterstitialAdController!) {
+        interstitialDidDismissButton.isEnabled = true
         adapterViewController?.showButton.isEnabled = false
     }
     
@@ -136,12 +138,23 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
     private func setupActions() {
         adapterViewController?.setupAction(interstitialDidLoadAdButton, "interstitialDidLoadAd called")
         adapterViewController?.setupAction(interstitialDidFailButton, "interstitialDidFail called")
-        adapterViewController?.setupAction(interstitialWillAppearButton, "interstitialWillAppear called")
-        adapterViewController?.setupAction(interstitialDidAppearButton, "interstitialDidAppear called")
-        adapterViewController?.setupAction(interstitialWillDisappearButton, "interstitialWillDisappear called")
-        adapterViewController?.setupAction(interstitialDidDisappearButton, "interstitialDidDisappear called")
+        adapterViewController?.setupAction(interstitialWillPresentButton, "interstitialWillPresent called")
+        adapterViewController?.setupAction(interstitialDidPresentButton, "interstitialDidPresent called")
+        adapterViewController?.setupAction(interstitialWillDismissButton, "interstitialWillDismiss called")
+        adapterViewController?.setupAction(interstitialDidDismissButton, "interstitialDidDismiss called")
         adapterViewController?.setupAction(interstitialDidExpireButton, "interstitialDidExpire called")
         adapterViewController?.setupAction(interstitialDidReceiveTapEventButton, "interstitialDidReceiveTapEvent called")
+    }
+    
+    private func resetEvents() {
+        interstitialDidLoadAdButton.isEnabled = false
+        interstitialDidFailButton.isEnabled = false
+        interstitialWillPresentButton.isEnabled = false
+        interstitialDidPresentButton.isEnabled = false
+        interstitialWillDismissButton.isEnabled = false
+        interstitialDidDismissButton.isEnabled = false
+        interstitialDidExpireButton.isEnabled = false
+        interstitialDidReceiveTapEventButton.isEnabled = false
     }
     
     @IBAction func showButtonClicked() {

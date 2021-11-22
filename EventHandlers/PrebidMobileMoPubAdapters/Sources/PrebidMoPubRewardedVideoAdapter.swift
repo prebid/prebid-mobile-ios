@@ -126,8 +126,8 @@ public class PrebidMoPubRewardedVideoAdapter :
         MPLogging.logEvent(MPLogEvent.adWillDisappear(forAdapter: Self.className()), source: adUnitId, from: nil)
         MPLogging.logEvent(MPLogEvent.adDidDisappear(forAdapter: Self.className()), source: adUnitId, from: nil)
 
-        delegate?.fullscreenAdAdapterAdWillDisappear(self)
-        delegate?.fullscreenAdAdapterAdDidDisappear(self)
+        delegate?.fullscreenAdAdapterAdWillDismiss(self)
+        delegate?.fullscreenAdAdapterAdDidDismiss(self)
     }
     
     public func interstitialControllerDidLeaveApp(_ interstitialController: InterstitialController) {
@@ -146,8 +146,8 @@ public class PrebidMoPubRewardedVideoAdapter :
         MPLogging.logEvent(MPLogEvent.adDidAppear(forAdapter: className), source: adUnitId, from: nil)
         MPLogging.logEvent(MPLogEvent.adShowSuccess(forAdapter: className), source: adUnitId, from: nil)
 
-        delegate?.fullscreenAdAdapterAdWillAppear(self)
-        delegate?.fullscreenAdAdapterAdDidAppear(self)
+        delegate?.fullscreenAdAdapterAdWillPresent(self)
+        delegate?.fullscreenAdAdapterAdDidPresent(self)
     }
     
     public func interstitialControllerDidComplete(_ interstitialController: InterstitialController) {
