@@ -39,9 +39,10 @@ class NativeAdUnit: PBMBaseAdUnit {
         objc_sync_enter(self.stateLockToken)
         if hasStartedFetching {
             completion(DemandResponseInfo(fetchDemandResult: .sdkMisuseNativeAdUnitFetchedAgain,
-                                             bid: nil,
-                                             configId: nil,
-                                             winNotifierBlock: winNotifierBlock))
+                                          bid: nil,
+                                          configId: nil,
+                                          winNotifierBlock: winNotifierBlock,
+                                          bidResponse: nil))
             objc_sync_exit(self.stateLockToken)
             return
         }

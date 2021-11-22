@@ -23,12 +23,16 @@ public class DemandResponseInfo: NSObject {
     @objc public private(set) var bid: Bid?
     
     var winNotifierBlock: PBMWinNotifierBlock
+    
+    private(set) var bidResponse: BidResponseForRendering?
 
     @objc public required init(fetchDemandResult: FetchDemandResult,
-                  bid: Bid?,
-                  configId: String?,
-                  winNotifierBlock: @escaping PBMWinNotifierBlock
+                               bid: Bid?,
+                               configId: String?,
+                               winNotifierBlock: @escaping PBMWinNotifierBlock,
+                               bidResponse: BidResponseForRendering?
     ) {
+        self.bidResponse = bidResponse
         self.fetchDemandResult = fetchDemandResult
         self.bid = bid
         self.configId = configId
