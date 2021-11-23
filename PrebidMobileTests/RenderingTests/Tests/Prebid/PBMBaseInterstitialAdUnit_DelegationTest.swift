@@ -18,6 +18,18 @@ import XCTest
 
 @testable import PrebidMobile
 
+class MockInterstitialAdUnit: InterstitialRenderingAdUnit, WinningBidResponseFabricator {
+    override var lastBidResponse: BidResponseForRendering? {
+        return makeWinningBidResponse(bidPrice: 0.85)
+    }
+}
+
+class MockRewardedAdUnit: RewardedAdUnit, WinningBidResponseFabricator {
+    override var lastBidResponse: BidResponseForRendering? {
+        return makeWinningBidResponse(bidPrice: 0.85)
+    }
+}
+
 class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
     override func tearDown() {
         PrebidRenderingConfig.reset()
@@ -28,28 +40,28 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
     private let configId = "someConfigId"
     
     func testInterstitialDelegateCalls_noOptionalMethods() {
-        let adUnit = InterstitialRenderingAdUnit(configID: configId)
+        let adUnit = MockInterstitialAdUnit(configID: configId)
         let delegate = DummyInterstitialDelegate()
         adUnit.delegate = delegate
         callInterstitialDelegateMethods(adUnit: adUnit)
     }
     
     func testInterstitialDelegateCalls_receiveAllMethods() {
-        let adUnit = InterstitialRenderingAdUnit(configID: configId)
+        let adUnit = MockInterstitialAdUnit(configID: configId)
         let delegate = InterstitialProxyDelegate()
         adUnit.delegate = delegate
         callInterstitialDelegateMethods(adUnit: adUnit, proxyDelegate: delegate)
     }
     
     func testRewardedAdDelegateCalls_noOptionalMethods() {
-        let adUnit = RewardedAdUnit(configID: configId)
+        let adUnit = MockRewardedAdUnit(configID: configId, minSizePerc: nil, eventHandler: RewardedEventHandlerStandalone())
         let delegate = DummyRewardedAdDelegate()
         adUnit.delegate = delegate
         callRewardedAdDelegateMethods(adUnit: adUnit)
     }
     
     func testRewardedAdDelegateCalls_receiveAllMethods() {
-        let adUnit = RewardedAdUnit(configID: configId)
+        let adUnit = MockRewardedAdUnit(configID: configId, minSizePerc: nil, eventHandler: RewardedEventHandlerStandalone())
         let delegate = RewardedAdProxyDelegate()
         adUnit.delegate = delegate
         callRewardedAdDelegateMethods(adUnit: adUnit, proxyDelegate: delegate)
@@ -60,14 +72,14 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
         
         PrebidRenderingConfig.shared.accountID = ""
         
-        let interstitial = InterstitialRenderingAdUnit(configID: testID)
+        let interstitial = MockInterstitialAdUnit(configID: testID)
         let exp = expectation(description: "loading callback called")
         let delegate = InterstitialProxyDelegate()
         interstitial.delegate = delegate
         delegate.onCall = { selector, args in
             XCTAssertEqual(selector, "interstitial:didFailToReceiveAdWithError:")
             XCTAssertEqual(args.count, 2)
-            XCTAssertEqual(args[0] as? InterstitialRenderingAdUnit, interstitial)
+            XCTAssertEqual(args[0] as? MockInterstitialAdUnit, interstitial)
             XCTAssertEqual(args[1] as? NSError, PBMError.invalidAccountId as NSError?)
             exp.fulfill()
         }
@@ -82,14 +94,14 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
         
         PrebidRenderingConfig.shared.accountID = ""
         
-        let rewarded = RewardedAdUnit(configID: testID)
+        let rewarded = MockRewardedAdUnit(configID: testID, minSizePerc: nil, eventHandler: RewardedEventHandlerStandalone())
         let exp = expectation(description: "loading callback called")
         let delegate = RewardedAdProxyDelegate()
         rewarded.delegate = delegate
         delegate.onCall = { selector, args in
             XCTAssertEqual(selector, "rewardedAd:didFailToReceiveAdWithError:")
             XCTAssertEqual(args.count, 2)
-            XCTAssertEqual(args[0] as? RewardedAdUnit, rewarded)
+            XCTAssertEqual(args[0] as? MockRewardedAdUnit, rewarded)
             XCTAssertEqual(args[1] as? NSError, PBMError.invalidAccountId as NSError?)
             exp.fulfill()
         }
@@ -127,45 +139,58 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
     private class InterstitialProxyDelegate: BaseProxyDelegate, InterstitialAdUnitDelegate {
         func interstitialDidReceiveAd(_ interstitial: InterstitialRenderingAdUnit) {
             report(selectorName: "interstitialDidReceiveAd:", args: [interstitial])
+            XCTAssertNotNil(interstitial.lastBidResponse)
         }
         func interstitial(_ interstitial: InterstitialRenderingAdUnit, didFailToReceiveAdWithError error: Error?) {
             report(selectorName: "interstitial:didFailToReceiveAdWithError:", args: [interstitial, error as Any])
+            XCTAssertNotNil(interstitial.lastBidResponse)
         }
         func interstitialWillPresentAd(_ interstitial: InterstitialRenderingAdUnit) {
             report(selectorName: "interstitialWillPresentAd:", args: [interstitial])
+            XCTAssertNotNil(interstitial.lastBidResponse)
         }
         func interstitialDidDismissAd(_ interstitial: InterstitialRenderingAdUnit) {
             report(selectorName: "interstitialDidDismissAd:", args: [interstitial])
+            XCTAssertNotNil(interstitial.lastBidResponse)
         }
         func interstitialWillLeaveApplication(_ interstitial: InterstitialRenderingAdUnit) {
             report(selectorName: "interstitialWillLeaveApplication:", args: [interstitial])
+            XCTAssertNotNil(interstitial.lastBidResponse)
         }
         func interstitialDidClickAd(_ interstitial: InterstitialRenderingAdUnit) {
             report(selectorName: "interstitialDidClickAd:", args: [interstitial])
+            XCTAssertNotNil(interstitial.lastBidResponse)
         }
     }
     
     private class RewardedAdProxyDelegate: BaseProxyDelegate, RewardedAdUnitDelegate {
         func rewardedAdDidReceiveAd(_ rewardedAd: RewardedAdUnit) {
             report(selectorName: "rewardedAdDidReceiveAd:", args: [rewardedAd])
+            XCTAssertNotNil(rewardedAd.lastBidResponse)
         }
         func rewardedAd(_ rewardedAd: RewardedAdUnit, didFailToReceiveAdWithError error: Error?) {
             report(selectorName: "rewardedAd:didFailToReceiveAdWithError:", args: [rewardedAd, error as Any])
+            XCTAssertNotNil(rewardedAd.lastBidResponse)
         }
         func rewardedAdWillPresentAd(_ rewardedAd: RewardedAdUnit) {
             report(selectorName: "rewardedAdWillPresentAd:", args: [rewardedAd])
+            XCTAssertNotNil(rewardedAd.lastBidResponse)
         }
         func rewardedAdDidDismissAd(_ rewardedAd: RewardedAdUnit) {
             report(selectorName: "rewardedAdDidDismissAd:", args: [rewardedAd])
+            XCTAssertNotNil(rewardedAd.lastBidResponse)
         }
         func rewardedAdWillLeaveApplication(_ rewardedAd: RewardedAdUnit) {
             report(selectorName: "rewardedAdWillLeaveApplication:", args: [rewardedAd])
+            XCTAssertNotNil(rewardedAd.lastBidResponse)
         }
         func rewardedAdDidClickAd(_ rewardedAd: RewardedAdUnit) {
             report(selectorName: "rewardedAdDidClickAd:", args: [rewardedAd])
+            XCTAssertNotNil(rewardedAd.lastBidResponse)
         }
         func rewardedAdUserDidEarnReward(_ rewardedAd: RewardedAdUnit) {
             report(selectorName: "rewardedAdUserDidEarnReward:", args: [rewardedAd])
+            XCTAssertNotNil(rewardedAd.lastBidResponse)
         }
     }
     

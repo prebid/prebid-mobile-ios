@@ -103,7 +103,8 @@
         completion([[DemandResponseInfo alloc] initWithFetchDemandResult:previousFetchNotCompletedYet
                                                                         bid:nil
                                                                    configId:self.configId
-                                                           winNotifierBlock:self.winNotifierBlock]);
+                                                           winNotifierBlock:self.winNotifierBlock
+                                                                bidResponse:nil]);
         return;
     }
     self.completion = [completion copy];
@@ -158,17 +159,20 @@
             result = [[DemandResponseInfo alloc] initWithFetchDemandResult:[PBMError demandResultFrom:error]
                                                                           bid:nil
                                                                      configId:self.configId
-                                                             winNotifierBlock:self.winNotifierBlock];
+                                                             winNotifierBlock:self.winNotifierBlock
+                                                                  bidResponse:bidResponse];
         } else if (!bidResponse.winningBid) {
             result = [[DemandResponseInfo alloc] initWithFetchDemandResult:FetchDemandResultDemandNoBids
                                                                           bid:nil
                                                                      configId:self.configId
-                                                             winNotifierBlock:self.winNotifierBlock];
+                                                             winNotifierBlock:self.winNotifierBlock
+                                                                  bidResponse:bidResponse];
         } else {
             result = [[DemandResponseInfo alloc] initWithFetchDemandResult:FetchDemandResultOk
                                                                           bid:bidResponse.winningBid
                                                                      configId:self.configId
-                                                             winNotifierBlock:self.winNotifierBlock];
+                                                             winNotifierBlock:self.winNotifierBlock
+                                                                  bidResponse:bidResponse];
         }
         
         self.lastDemandResponseInfoUnsafe = result;

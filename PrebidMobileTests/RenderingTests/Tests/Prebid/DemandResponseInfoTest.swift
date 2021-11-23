@@ -42,7 +42,8 @@ class DemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
             let responseInfo = DemandResponseInfo(fetchDemandResult: initArgs.fetchDemandResult,
                                                   bid: initArgs.bid,
                                                   configId: initArgs.configId,
-                                                  winNotifierBlock: notifier)
+                                                  winNotifierBlock: notifier,
+                                                  bidResponse: nil)
             
             XCTAssertEqual(responseInfo.fetchDemandResult, initArgs.fetchDemandResult)
             XCTAssertEqual(responseInfo.bid, initArgs.bid)
@@ -66,11 +67,11 @@ class DemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
         let expectationToCall = NSMutableArray(object: noCallExpectation)
         let adMarkupString = "<div>Some Ad markup</div>"
         
-        let responseInfo = DemandResponseInfo(fetchDemandResult: .ok, bid: winningBid, configId: configID) {
+        let responseInfo = DemandResponseInfo(fetchDemandResult: .ok, bid: winningBid, configId: configID, winNotifierBlock: {
             (expectationToCall[0] as! XCTestExpectation).fulfill()
             XCTAssertEqual($0, winningBid)
             $1(adMarkupString)
-        }
+        }, bidResponse: nil)
         
         waitForExpectations(timeout: 1)
         
@@ -89,9 +90,9 @@ class DemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
     }
     
     func testGetAdMarkupString_NoBid() {
-        let responseInfo = DemandResponseInfo(fetchDemandResult: .ok, bid: nil, configId: nil) { _, _ in
+        let responseInfo = DemandResponseInfo(fetchDemandResult: .ok, bid: nil, configId: nil, winNotifierBlock: { _, _ in
             XCTFail()
-        }
+        }, bidResponse: nil)
         
         let noWinNotifierCall = expectation(description: "win notifier not called")
         noWinNotifierCall.isInverted = true
@@ -133,11 +134,11 @@ class DemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
             let expectationToCall = NSMutableArray(object: noCallExpectation)
             let adMarkupString = nextMarkup.adMarkup
             
-            let responseInfo = DemandResponseInfo(fetchDemandResult: .ok, bid: winningBid, configId: configID) {
+            let responseInfo = DemandResponseInfo(fetchDemandResult: .ok, bid: winningBid, configId: configID, winNotifierBlock: {
                 (expectationToCall[0] as! XCTestExpectation).fulfill()
                 XCTAssertEqual($0, winningBid)
                 $1(adMarkupString)
-            }
+            }, bidResponse: nil)
             
             waitForExpectations(timeout: 1)
             

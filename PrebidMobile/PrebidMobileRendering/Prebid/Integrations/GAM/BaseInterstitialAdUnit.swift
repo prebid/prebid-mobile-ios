@@ -26,6 +26,10 @@ public class BaseInterstitialAdUnit :
     
     // MARK: - Public Properties
     
+    public var lastBidResponse: BidResponseForRendering? {
+        return adLoadFlowController?.bidResponse
+    }
+    
     @objc
     public var configID: String {
         adUnitConfig.configID

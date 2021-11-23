@@ -39,6 +39,9 @@ typedef BOOL(^PBMAdUnitConfigValidationBlock)(AdUnitConfig *adUnitConfig, BOOL r
 /// Should only be access
 @property (nonatomic, assign, readonly) BOOL hasFailedLoading;
 
+// State: DemandReceived
+@property (nonatomic, strong, nullable) BidResponseForRendering *bidResponse;
+
 - (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(AdUnitConfig *))bidRequesterFactory
                                    adLoader:(id<PBMAdLoaderProtocol>)adLoader
                                    delegate:(id<AdLoadFlowControllerDelegate>)delegate
