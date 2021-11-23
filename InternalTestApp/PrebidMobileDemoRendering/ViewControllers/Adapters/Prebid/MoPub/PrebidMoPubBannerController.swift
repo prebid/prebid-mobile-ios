@@ -46,9 +46,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
     private let configIdLabel = UILabel()
     
     private var adUnit: MediationBannerAdUnit?
-    
-    private let mediationDelegate = MoPubMediationUtils()
-    
+        
     // MARK: - AdaptedController
     
     required init(rootController:AdapterViewController) {
@@ -72,7 +70,9 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         adBannerView = MPAdView(adUnitId: moPubAdUnitId)
         adBannerView?.delegate = self
         
-        adUnit = MediationBannerAdUnit(configID: prebidConfigId, size: adUnitSize, mediationDelegate: mediationDelegate)
+        adUnit = MediationBannerAdUnit(configID: prebidConfigId,
+                                       size: adUnitSize,
+                                       mediationDelegate: MoPubMediationUtils())
         if (refreshInterval > 0) {
             adUnit?.refreshInterval = refreshInterval
         }
