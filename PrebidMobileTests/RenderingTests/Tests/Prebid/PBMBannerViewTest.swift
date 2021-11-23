@@ -17,6 +17,12 @@ import XCTest
 
 @testable import PrebidMobile
 
+class MockBannerView: BannerView, WinningBidResponseFabricator {
+    override var lastBidResponse: BidResponseForRendering? {
+        return makeWinningBidResponse(bidPrice: 0.85)
+    }
+}
+
 class PBMBannerViewTest: XCTestCase {
     override func tearDown() {
         PrebidRenderingConfig.reset()
@@ -29,7 +35,7 @@ class PBMBannerViewTest: XCTestCase {
         
         let primarySize = CGSize(width: 320, height: 50)
         
-        let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: testID, adSize: primarySize)
+        let bannerView = MockBannerView(frame: CGRect(origin: .zero, size: primarySize), configID: testID, adSize: primarySize, eventHandler: BannerEventHandlerStandalone())
         let adUnitConfig = bannerView.adUnitConfig
         
         XCTAssertEqual(adUnitConfig.configID, testID)
@@ -59,7 +65,7 @@ class PBMBannerViewTest: XCTestCase {
         PrebidRenderingConfig.shared.accountID = ""
         let primarySize = CGSize(width: 320, height: 50)
         
-        let bannerView = BannerView(frame: CGRect(origin: .zero, size: primarySize), configID: testID, adSize: primarySize)
+        let bannerView = MockBannerView(frame: CGRect(origin: .zero, size: primarySize), configID: testID, adSize: primarySize, eventHandler: BannerEventHandlerStandalone())
         let exp = expectation(description: "loading callback called")
         let delegate = TestBannerDelegate(exp: exp)
         bannerView.delegate = delegate
@@ -82,6 +88,7 @@ class PBMBannerViewTest: XCTestCase {
         
         func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {
             XCTAssertEqual(error as NSError?, PBMError.invalidAccountId as NSError?)
+            XCTAssertNotNil(bannerView.lastBidResponse)
             exp.fulfill()
         }
         

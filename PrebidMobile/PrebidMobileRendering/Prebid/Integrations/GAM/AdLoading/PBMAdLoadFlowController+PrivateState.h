@@ -38,9 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) PBMBidRequester *bidRequester;
 @property (nonatomic, strong, nullable) NSError *bidRequestError;
 
-// State: DemandReceived
-@property (nonatomic, strong, nullable) BidResponseForRendering *bidResponse;
-
 // State: PrimaryAdRequest
 // _(no relevant properties)_
 
