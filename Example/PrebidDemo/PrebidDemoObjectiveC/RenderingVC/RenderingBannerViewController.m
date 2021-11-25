@@ -26,8 +26,6 @@
 
 @property (strong, nullable) MPAdView *mopubBannerView;
 
-@property (strong, nullable) MoPubMediationUtils *mediationDelegate;
-
 @end
 
 @implementation RenderingBannerViewController
@@ -105,7 +103,9 @@
     self.mopubBannerView.delegate = self;
     [self.adView addSubview:self.mopubBannerView];
     
-    self.mopubBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"50699c03-0910-477c-b4a4-911dbe2b9d42" size:self.size mediationDelegate:self.mediationDelegate];
+    self.mopubBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"50699c03-0910-477c-b4a4-911dbe2b9d42"
+                                                                        size:self.size
+                                                           mediationDelegate:[MoPubMediationUtils new]];
     
     [self.mopubBannerAdUnit fetchDemandWith:_mopubBannerView completion:^(FetchDemandResult result) {
         [self.mopubBannerView loadAd];
