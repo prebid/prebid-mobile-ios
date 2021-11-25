@@ -71,6 +71,8 @@
     bidRequest.source.tid       = [NSUUID UUID].UUIDString;
     bidRequest.device.ua        = [self.userAgentService getFullUserAgent];
     
+    bidRequest.app.content = [self.adConfiguration getAppContent];
+    
     NSArray<PBMORTBFormat *> *formats = nil;
     const NSInteger formatsCount = (CGSizeEqualToSize(self.adConfiguration.adSize, CGSizeZero) ? 0 : 1) + self.adConfiguration.additionalSizes.count;
     

@@ -17,6 +17,7 @@
 
 @class PBMORTBPublisher;
 @class PBMORTBAppExtPrebid;
+@class PBMORTBAppContent;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -62,6 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Details about the publisher of the site
 @property (nonatomic, strong, nullable) PBMORTBPublisher *publisher;
+
+//This object describes the content in which the impression will appear, which may be syndicated or nonsyndicated content.
+@property (nonatomic, strong, nullable) PBMORTBAppContent *content;
 
 //Note: Content object not supported
 //Details about the content of the site

@@ -18,6 +18,7 @@
 
 #import "PBMORTBPublisher.h"
 #import "PBMORTBAppExtPrebid.h"
+#import "PBMORTBAppContent.h"
 
 @implementation PBMORTBApp
 
@@ -30,6 +31,7 @@
     _pagecat = @[];
     _publisher = [[PBMORTBPublisher alloc] init];
     _extPrebid = [[PBMORTBAppExtPrebid alloc] init];
+    _content = [[PBMORTBAppContent alloc] init];
     
     return self;
 }
@@ -59,6 +61,7 @@
     ret[@"paid"] = self.paid;
     ret[@"keywords"] = self.keywords;
     ret[@"publisher"] = [[self.publisher toJsonDictionary] nullIfEmpty];
+    ret[@"content"] = [[self.content toJsonDictionary] nullIfEmpty];
     
     PBMJsonDictionary * const extPrebidDic = [self.extPrebid toJsonDictionary];
     if (extPrebidDic.count) {
@@ -88,6 +91,7 @@
     _publisher = [[PBMORTBPublisher alloc] initWithJsonDictionary:jsonDictionary[@"publisher"]];
     _keywords = jsonDictionary[@"keywords"];
     _extPrebid = [[PBMORTBAppExtPrebid alloc] initWithJsonDictionary:jsonDictionary[@"ext"][@"prebid"]];
+    _content = [[PBMORTBAppContent alloc] initWithJsonDictionary:jsonDictionary[@"content"]];
     
     return self;
 }
