@@ -38,9 +38,7 @@ class PrebidMoPubRewardedVideoController: NSObject, AdaptedController, PrebidCon
     private let configIdLabel = UILabel()
     
     private var adUnit: MediationRewardedAdUnit?
-    
-    private let mediationDelegate = MoPubMediationUtils()
-    
+        
     // MARK: - AdaptedController
     
     required init(rootController: AdapterViewController) {
@@ -64,7 +62,8 @@ class PrebidMoPubRewardedVideoController: NSObject, AdaptedController, PrebidCon
         adapterViewController?.activityIndicator.isHidden = true
         adapterViewController?.activityIndicator.startAnimating()
         
-        adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate)
+        adUnit = MediationRewardedAdUnit(configId: prebidConfigId,
+                                         mediationDelegate: MoPubMediationUtils())
         
         let bidInfoWrapper = MediationBidInfoWrapper()
         

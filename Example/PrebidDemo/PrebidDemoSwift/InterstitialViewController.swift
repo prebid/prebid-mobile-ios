@@ -53,8 +53,6 @@ class InterstitialViewController:
     private var renderingInterstitial: InterstitialRenderingAdUnit!
     private var renderingMoPubInterstitial: MediationInterstitialAdUnit!
     
-    private let mediationDelegate: PrebidMediationDelegate = MoPubMediationUtils()
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -228,7 +226,8 @@ class InterstitialViewController:
     }
     
     func loadMoPubRenderingInterstitial() {
-        renderingMoPubInterstitial = MediationInterstitialAdUnit(configId: "5a4b8dcf-f984-4b04-9448-6529908d6cb6", mediationDelegate: mediationDelegate)
+        renderingMoPubInterstitial = MediationInterstitialAdUnit(configId: "5a4b8dcf-f984-4b04-9448-6529908d6cb6",
+                                                                 mediationDelegate: MoPubMediationUtils())
         
         mpInterstitial = MPInterstitialAdController(forAdUnitId: "e979c52714434796909993e21c8fc8da")
         mpInterstitial.delegate = self
@@ -269,7 +268,8 @@ class InterstitialViewController:
     }
     
     func loadMoPubRenderingVideoInterstitial() {
-        renderingMoPubInterstitial = MediationInterstitialAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c", mediationDelegate: mediationDelegate)
+        renderingMoPubInterstitial = MediationInterstitialAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c",
+                                                                 mediationDelegate: MoPubMediationUtils())
         
         mpInterstitial = MPInterstitialAdController(forAdUnitId: "7e3146fc0c744afebc8547a4567da895")
         mpInterstitial.delegate = self
