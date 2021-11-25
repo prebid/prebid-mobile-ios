@@ -44,6 +44,8 @@ import ObjectiveC.runtime
 
     //notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     var timeOutSignalSent: Bool! = false
+    
+    private var appContent: ContentObject?
 
     init(configId: String, size: CGSize?) {
         prebidConfigId = configId
@@ -270,5 +272,23 @@ import ObjectiveC.runtime
         dispatcher.stop()
         self.dispatcher = nil
     }
+    
+    public func setAppContent(appContent: ContentObject) {
+        self.appContent = appContent
+    }
+    
+    func getAppContent() -> ContentObject? {
+        return self.appContent
+    }
 
+}
+
+/// Describes an [OpenRTB](https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf) app: content object
+
+@objc(PBAdUnitContentObject)
+public class ContentObject: NSObject {
+    
+    @objc
+    public var url: String?
+    
 }
