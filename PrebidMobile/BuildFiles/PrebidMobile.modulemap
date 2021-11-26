@@ -188,6 +188,8 @@ framework module PrebidMobile {
     header "PBMORTBSkadnFidelity.h"
     header "PBMORTBMacrosHelper.h"
     
+    header "PBMORTBAppContent.h"
+    
     header "NSDictionary+PBMExtensions.h"
     header "NSMutableDictionary+PBMExtensions.h"
     header "PBMLocationManager.h"

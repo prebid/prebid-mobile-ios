@@ -54,7 +54,9 @@ public class AdUnitConfig: NSObject, NSCopying {
     @objc public var contextDataDictionary: [String : [String]] {
         extensionData.mapValues { Array($0) }
     }
-        
+    
+    public var appContent: PBMORTBAppContent?
+    
     // MARK: - Computed Properties
     
     @objc public var additionalSizes: [CGSize]? {
@@ -115,6 +117,16 @@ public class AdUnitConfig: NSObject, NSCopying {
         
         adConfiguration.autoRefreshDelay = 0
         adConfiguration.size = adSize
+    }
+    
+    @objc
+    public func setAppContent(appContent: PBMORTBAppContent) {
+        self.appContent = appContent
+    }
+    
+    @objc
+    public func getAppContent() -> PBMORTBAppContent? {
+        return self.appContent
     }
     
     @objc public func addContextData(_ data: String, forKey key: String) {
