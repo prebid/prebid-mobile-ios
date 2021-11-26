@@ -859,6 +859,8 @@
 		92664567272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m in Sources */ = {isa = PBXBuildFile; fileRef = 92664566272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m */; };
 		92664569272AB9120064F7BD /* SkadnEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92664568272AB9120064F7BD /* SkadnEventTracker.swift */; };
 		9266456B272AB9610064F7BD /* SkadnParametersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266456A272AB9610064F7BD /* SkadnParametersManager.swift */; };
+		92AFE57D274FCD8700B0430C /* PBMORTBAppContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 92AFE57C274FCD8200B0430C /* PBMORTBAppContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		92AFE57F274FCD9900B0430C /* PBMORTBAppContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AFE57E274FCD9900B0430C /* PBMORTBAppContent.m */; };
 		92D43D3E273A80060037DD20 /* mraid.js in Resources */ = {isa = PBXBuildFile; fileRef = 47D9AADC57CCCE64C374E101 /* mraid.js */; };
 		92D8BEB22747B464006BD78E /* MediationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D8BEB12747B464006BD78E /* MediationConstants.swift */; };
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
@@ -1825,6 +1827,8 @@
 		92664566272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSkadnFidelity.m; sourceTree = "<group>"; };
 		92664568272AB9120064F7BD /* SkadnEventTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnEventTracker.swift; sourceTree = "<group>"; };
 		9266456A272AB9610064F7BD /* SkadnParametersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnParametersManager.swift; sourceTree = "<group>"; };
+		92AFE57C274FCD8200B0430C /* PBMORTBAppContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBAppContent.h; sourceTree = "<group>"; };
+		92AFE57E274FCD9900B0430C /* PBMORTBAppContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBAppContent.m; sourceTree = "<group>"; };
 		92D8BEB12747B464006BD78E /* MediationConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediationConstants.swift; sourceTree = "<group>"; };
 		9720387B2358771600F8025A /* NativeRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeRequestTests.swift; sourceTree = "<group>"; };
 		9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetTests.swift; sourceTree = "<group>"; };
@@ -2179,6 +2183,8 @@
 				5BC376A3271F1CFD00444D5E /* PBMORTBGeo.m */,
 				5BC376A4271F1CFD00444D5E /* PBMORTBVideo.m */,
 				5BC376A5271F1CFD00444D5E /* PBMORTBRegs.h */,
+				92AFE57C274FCD8200B0430C /* PBMORTBAppContent.h */,
+				92AFE57E274FCD9900B0430C /* PBMORTBAppContent.m */,
 			);
 			path = ORTB;
 			sourceTree = "<group>";
@@ -3654,6 +3660,7 @@
 				5BC378B1271F1CFF00444D5E /* NSString+PBMExtensions.h in Headers */,
 				5BC37AC9271F1D0100444D5E /* PBMBundleProtocol.h in Headers */,
 				5BC37A68271F1D0000444D5E /* PBMORTBBidExtPrebid.h in Headers */,
+				92AFE57D274FCD8700B0430C /* PBMORTBAppContent.h in Headers */,
 				5BC378EB271F1CFF00444D5E /* PBMORTB_NotImplemented.h in Headers */,
 				5BC379E1271F1D0000444D5E /* PBMNativeAdImpressionReporting.h in Headers */,
 				5BC378EA271F1CFF00444D5E /* PBMORTBVideo.h in Headers */,
@@ -4454,6 +4461,7 @@
 				5BC378F9271F1CFF00444D5E /* PBMORTBPublisher.m in Sources */,
 				FAEE4D27262DC2B200AD9966 /* BidResponse.swift in Sources */,
 				5BC379D6271F1D0000444D5E /* PBMWebView.m in Sources */,
+				92AFE57F274FCD9900B0430C /* PBMORTBAppContent.m in Sources */,
 				92664569272AB9120064F7BD /* SkadnEventTracker.swift in Sources */,
 				5BC37A62271F1D0000444D5E /* PBMORTBBidExtPrebidCacheBids.m in Sources */,
 				5BC37997271F1D0000444D5E /* PBMAbstractCreative.m in Sources */,

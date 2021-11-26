@@ -371,8 +371,10 @@ class PBMORTBAbstractTest : XCTestCase {
         pbmORTBApp.privacypolicy = 1
         pbmORTBApp.paid = 1
         pbmORTBApp.keywords = "foo,bar,baz"
+        pbmORTBApp.content = PBMORTBAppContent()
+        pbmORTBApp.content?.url = "https://corresponding.section.publishers.website"
         
-        codeAndDecode(abstract: pbmORTBApp, expectedString: "{\"bundle\":\"com.PubApp\",\"domain\":\"pubapp.com\",\"id\":\"foo\",\"keywords\":\"foo,bar,baz\",\"name\":\"PubApp\",\"paid\":1,\"privacypolicy\":1,\"storeurl\":\"itunes.com?pubapp\",\"ver\":\"1.2\"}")
+        codeAndDecode(abstract: pbmORTBApp, expectedString: "{\"bundle\":\"com.PubApp\",\"content\":{\"url\":\"https:\\/\\/corresponding.section.publishers.website\"},\"domain\":\"pubapp.com\",\"id\":\"foo\",\"keywords\":\"foo,bar,baz\",\"name\":\"PubApp\",\"paid\":1,\"privacypolicy\":1,\"storeurl\":\"itunes.com?pubapp\",\"ver\":\"1.2\"}")
     }
     
     func testAppExtPrebidToJsonString() {
