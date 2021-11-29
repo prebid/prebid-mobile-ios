@@ -15,15 +15,6 @@ echo $PWD
 gem install xcpretty --user-install
 gem install xcpretty-travis-formatter --user-install
 
-echo -e "\n${GREEN}Building Swift Package Manager${NC} \n"
-swift build -Xswiftc "-sdk" -Xswiftc "`xcrun --sdk iphonesimulator --show-sdk-path`" -Xswiftc "-target" -Xswiftc "x86_64-apple-ios13.0-simulator" | xcpretty -f `xcpretty-travis-formatter` --color --test
-if [[ ${PIPESTATUS[0]} == 0 ]]; then
-    echo "✅ Swift Package Manager Passed"
-else
-    echo "🔴 Swift Package Manager Failed"
-    exit 1
-fi
-
 gem install cocoapods --user-install
 pod install --repo-update
 
@@ -37,13 +28,33 @@ else
     exit 1
 fi
 
-echo -e "\n${GREEN}Running unit tests${NC} \n"
+echo -e "\n${GREEN}Running PrebidMobile unit tests${NC} \n"
 xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
-    echo "✅ Unit Tests Passed"
+    echo "✅ PrebidMobile Unit Tests Passed"
 else
-    echo "🔴 Unit Tests Failed"
+    echo "🔴 PrebidMobile Unit Tests Failed"
+    exit 1
+fi
+
+echo -e "\n${GREEN}Running PrebidMobileGAMEventHandlers unit tests${NC} \n"
+xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileGAMEventHandlersTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
+
+if [[ ${PIPESTATUS[0]} == 0 ]]; then
+    echo "✅ PrebidMobileGAMEventHandlers Unit Tests Passed"
+else
+    echo "🔴 PrebidMobileGAMEventHandlers Unit Tests Failed"
+    exit 1
+fi
+
+echo -e "\n${GREEN}Running PrebidMobileMoPubAdapters unit tests${NC} \n"
+xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileMoPubAdaptersTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
+
+if [[ ${PIPESTATUS[0]} == 0 ]]; then
+    echo "✅ PrebidMobileMoPubAdapters Unit Tests Passed"
+else
+    echo "🔴 PrebidMobileMoPubAdapters Unit Tests Failed"
     exit 1
 fi
 
