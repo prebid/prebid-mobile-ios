@@ -1,6 +1,0 @@
-framework module Pods_PrebidMobileMoPubAdapters {
-  umbrella header "Pods-PrebidMobileMoPubAdapters-umbrella.h"
-
-  export *
-  module * { export * }
-}

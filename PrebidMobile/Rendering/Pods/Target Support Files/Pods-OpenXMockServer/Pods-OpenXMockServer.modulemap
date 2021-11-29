@@ -1,6 +1,0 @@
-framework module Pods_OpenXMockServer {
-  umbrella header "Pods-OpenXMockServer-umbrella.h"
-
-  export *
-  module * { export * }
-}
