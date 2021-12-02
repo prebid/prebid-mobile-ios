@@ -101,9 +101,9 @@ class BannerController:
         isRefreshEnabled = !isRefreshEnabled
         toggleRefreshButton.setTitle((isRefreshEnabled ? "Stop Refresh" : "Resume Refresh"), for: .normal)
         if (isRefreshEnabled) {
-            adUnit?.resumeAutoRefresh()
+            prebidAdUnit?.resumeAutoRefresh()
         } else {
-            adUnit?.stopAutoRefresh()
+            prebidAdUnit?.stopAutoRefresh()
         }
     }
 
