@@ -48,11 +48,34 @@ class DispatcherTests: XCTestCase, DispatcherDelegate {
 
     func testStopDispatcher() {
         let dispatcher = Dispatcher(withDelegate: self, autoRefreshMillies: 10.0)
+        XCTAssertEqual(dispatcher.state, .notStarted)
+        
         dispatcher.start()
+        XCTAssertEqual(dispatcher.state, .running)
         XCTAssertNotNil(dispatcher.timer)
         XCTAssertTrue(dispatcher.timer!.isValid)
+        
         dispatcher.stop()
+        XCTAssertEqual(dispatcher.state, .stopped)
         XCTAssertNil(dispatcher.timer)
+        XCTAssertNotNil(dispatcher.stoppingTime)
+        XCTAssertNotNil(dispatcher.firingTime)
+    }
+    
+    func testAutorefreshDispatcher() {
+        let dispatcher = Dispatcher(withDelegate: self, autoRefreshMillies: 10.0)
+        dispatcher.start()
+        loadSuccesfulException = expectation(description: "\(#function)")
+        waitForExpectations(timeout: timeoutForRequest, handler: nil)
+        sleep(5)
+        
+        dispatcher.stop()
+        XCTAssertNotNil(dispatcher.stoppingTime)
+        XCTAssertNotNil(dispatcher.firingTime)
+        
+        let remainTime = dispatcher.stoppingTime?.timeIntervalSince(dispatcher.firingTime!)
+        XCTAssertNotNil(remainTime)
+        XCTAssertEqual(remainTime!, 5.0, accuracy: 0.5)
     }
 
     // MARK: - DispatcherDelegate method
