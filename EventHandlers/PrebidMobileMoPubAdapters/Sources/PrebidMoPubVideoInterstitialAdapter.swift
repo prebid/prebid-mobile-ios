@@ -121,6 +121,10 @@ public class PrebidMoPubVideoInterstitialAdapter :
         MPLogging.logEvent(MPLogEvent.adWillDisappear(forAdapter: Self.className()), source: adUnitId, from: nil)
         MPLogging.logEvent(MPLogEvent.adDidDisappear(forAdapter: Self.className()), source: adUnitId, from: nil)
 
+        // fullscreenAdAdapterAdWillDisappear, fullscreenAdAdapterAdDidDisappear are called to finish automatic impression tracking
+        delegate?.fullscreenAdAdapterAdWillDisappear(self)
+        delegate?.fullscreenAdAdapterAdDidDisappear(self)
+        // fullscreenAdAdapterAdWillDismiss, fullscreenAdAdapterAdDidDismiss are called when ad did close
         delegate?.fullscreenAdAdapterAdWillDismiss(self)
         delegate?.fullscreenAdAdapterAdDidDismiss(self)
     }
@@ -141,6 +145,10 @@ public class PrebidMoPubVideoInterstitialAdapter :
         MPLogging.logEvent(MPLogEvent.adDidAppear(forAdapter: className), source: adUnitId, from: nil)
         MPLogging.logEvent(MPLogEvent.adShowSuccess(forAdapter: className), source: adUnitId, from: nil)
 
+        // fullscreenAdAdapterAdWillAppear, fullscreenAdAdapterAdDidAppear are called to start automatic impression tracking
+        delegate?.fullscreenAdAdapterAdWillAppear(self)
+        delegate?.fullscreenAdAdapterAdDidAppear(self)
+        // fullscreenAdAdapterAdWillPresent, fullscreenAdAdapterAdDidPresent are called when ad did displayed
         delegate?.fullscreenAdAdapterAdWillPresent(self)
         delegate?.fullscreenAdAdapterAdDidPresent(self)
     }
