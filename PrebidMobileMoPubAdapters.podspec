@@ -45,6 +45,6 @@ Pod::Spec.new do |s|
   s.static_framework = true
 
   s.dependency 'PrebidMobile'
-  s.dependency 'mopub-ios-sdk',
+  s.dependency 'mopub-ios-sdk'
 
 end
