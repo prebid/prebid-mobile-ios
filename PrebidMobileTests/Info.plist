@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BUILD_ENV_VARS</key>
+	<string>$(BUILD_ENV)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -16,6 +18,31 @@
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>NSPrincipalClass</key>
+	<string>PrebidMobileTests.SetupTests</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>127.0.0.1</key>
+			<dict>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<string>0</string>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<string>1</string>
+			</dict>
+		</dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Need Calendar Access for MRAID</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Need Photo Access for MRAID</string>
+	<key>NSDummyUsageDescription</key>
+	<string>Need Calendar Access for MRAID</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 </dict>

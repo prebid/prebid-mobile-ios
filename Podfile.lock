@@ -1,4 +1,6 @@
 PODS:
+  - Alamofire (4.9.1)
+  - Eureka (5.2.1)
   - Google-Mobile-Ads-SDK (8.5.0):
     - GoogleAppMeasurement (< 9.0, >= 7.0)
     - GoogleUserMessagingPlatform (>= 1.1)
@@ -48,14 +50,21 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (1.2.12)
+  - RxSwift (6.2.0)
+  - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
+  - Alamofire (= 4.9.1)
+  - Eureka (from `https://github.com/xmartlabs/Eureka.git`, branch `xcode12`)
   - Google-Mobile-Ads-SDK
   - GoogleAds-IMA-iOS-SDK
   - mopub-ios-sdk
+  - RxSwift
+  - SVProgressHUD
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Google-Mobile-Ads-SDK
     - GoogleAds-IMA-iOS-SDK
     - GoogleAppMeasurement
@@ -64,8 +73,22 @@ SPEC REPOS:
     - mopub-ios-sdk
     - nanopb
     - PromisesObjC
+    - RxSwift
+    - SVProgressHUD
+
+EXTERNAL SOURCES:
+  Eureka:
+    :branch: xcode12
+    :git: https://github.com/xmartlabs/Eureka.git
+
+CHECKOUT OPTIONS:
+  Eureka:
+    :commit: 5c54e2607632ce586010e50e91d9adcb6bb3909e
+    :git: https://github.com/xmartlabs/Eureka.git
 
 SPEC CHECKSUMS:
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Eureka: c883105488e05bc65539f583246ecf9657cabbfe
   Google-Mobile-Ads-SDK: 6f5c41bf73db1656e5b203ba9c31e3d0899a128d
   GoogleAds-IMA-iOS-SDK: 2a9b7b14bda4993306f05287f952dce41b5be4ad
   GoogleAppMeasurement: 9ff7b9e23cced93a5a41736c09bdeb5b5b7fb111
@@ -74,7 +97,9 @@ SPEC CHECKSUMS:
   mopub-ios-sdk: 36d322902674b79b0560a1cb8d15af0548d364ea
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 6cafa0cba9f87b210c1aea843c343dfec41d5cf4
+PODFILE CHECKSUM: 70d3af733d91701648c67c4c4d29032fc0594841
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2

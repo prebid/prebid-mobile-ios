@@ -87,7 +87,7 @@ import Foundation
      */
     private override init() {
         timeoutMillisDynamic = timeoutMillis
-        
+                
         super.init()
         if (RequestBuilder.myUserAgent == "") {
             RequestBuilder.UserAgent {(userAgentString) in
@@ -103,7 +103,7 @@ import Foundation
             throw ErrorCode.prebidServerURLInvalid(url)
         } else {
             prebidServerHost = PrebidHost.Custom
-            Host.shared.setHostURL = url
+            try Host.shared.setCustomHostURL(url)
         }
     }
     

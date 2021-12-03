@@ -282,7 +282,7 @@ class RequestBuilder: NSObject {
             app["ver"] = version
             Log.info("Prebid version: \(version)")
         }
-        app["publisher"] = ["id": Prebid.shared.prebidServerAccountId ?? 0] as NSDictionary
+        app["publisher"] = ["id": Prebid.shared.prebidServerAccountId] as NSDictionary
 
         var requestAppExt: [AnyHashable: Any] = [:]
 

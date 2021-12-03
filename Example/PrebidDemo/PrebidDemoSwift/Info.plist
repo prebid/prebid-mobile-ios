@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -20,13 +25,6 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-		<key>NSAllowsArbitraryLoadsInWebContent</key>
-		<true/>
-	</dict>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -56,14 +54,11 @@
 	<string>Need to use location for better ad targeting</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Need to use location for better ad targeting</string>
-
-    <key>GADIsAdManagerApp</key>
-    <true/>
-    <key>gad_preferred_webview</key>
-    <string>wkwebview</string>
-    
-    <key>NSUserTrackingUsageDescription</key>
-    <string>By selecting allow, you give the Prebid Demo Application permission to use your IDFA for testing purposes. This a one time prompt per user. You are still able to change your decision in “Settings > Privacy” to test multiple opt-in scenarios</string>
-    
+	<key>GADIsAdManagerApp</key>
+	<true/>
+	<key>gad_preferred_webview</key>
+	<string>wkwebview</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>By selecting allow, you give the Prebid Demo Application permission to use your IDFA for testing purposes. This a one time prompt per user. You are still able to change your decision in “Settings &gt; Privacy” to test multiple opt-in scenarios</string>
 </dict>
 </plist>
