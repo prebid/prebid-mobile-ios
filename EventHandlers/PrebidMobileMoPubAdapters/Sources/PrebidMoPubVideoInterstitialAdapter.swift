@@ -121,6 +121,8 @@ public class PrebidMoPubVideoInterstitialAdapter :
         MPLogging.logEvent(MPLogEvent.adWillDisappear(forAdapter: Self.className()), source: adUnitId, from: nil)
         MPLogging.logEvent(MPLogEvent.adDidDisappear(forAdapter: Self.className()), source: adUnitId, from: nil)
 
+        delegate?.fullscreenAdAdapterAdWillDisappear(self)
+        delegate?.fullscreenAdAdapterAdDidDisappear(self)
         delegate?.fullscreenAdAdapterAdWillDismiss(self)
         delegate?.fullscreenAdAdapterAdDidDismiss(self)
     }
@@ -141,6 +143,8 @@ public class PrebidMoPubVideoInterstitialAdapter :
         MPLogging.logEvent(MPLogEvent.adDidAppear(forAdapter: className), source: adUnitId, from: nil)
         MPLogging.logEvent(MPLogEvent.adShowSuccess(forAdapter: className), source: adUnitId, from: nil)
 
+        delegate?.fullscreenAdAdapterAdWillAppear(self)
+        delegate?.fullscreenAdAdapterAdDidAppear(self)
         delegate?.fullscreenAdAdapterAdWillPresent(self)
         delegate?.fullscreenAdAdapterAdDidPresent(self)
     }
