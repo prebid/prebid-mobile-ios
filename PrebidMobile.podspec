@@ -44,11 +44,12 @@ Pod::Spec.new do |s|
                    'Foundation', 
                    'MapKit', 
                    'SafariServices', 
+				   'SystemConfiguration',
                    'AVFoundation',
                    'CoreGraphics',
                    'CoreLocation',
+				   'CoreTelephony',
                    'CoreMedia',
-                   'MediaPlayer',
                    'QuartzCore'
                  ]
   s.weak_frameworks  = [ 'AdSupport', 'StoreKit', 'WebKit' ]
