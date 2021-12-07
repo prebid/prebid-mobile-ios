@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobile"
-  s.version      = "1.12.1"
+  s.version      = "1.13.0-beta1"
   s.summary      = "PrebidMobile is a lightweight framework that integrates directly with Prebid Server."
 
   s.description  = <<-DESC
@@ -38,13 +38,34 @@ Pod::Spec.new do |s|
 :HEADER_SEARCH_PATHS => '$(inherited)',
 :FRAMEWORK_SEARCH_PATHS => '$(inherited)'
 }
-  s.framework  = ['CoreTelephony', 'SystemConfiguration', 'UIKit', 'Foundation']
+  s.requires_arc = true
+
+  s.frameworks = [ 'UIKit', 
+                   'Foundation', 
+                   'MapKit', 
+                   'SafariServices', 
+                   'SystemConfiguration',
+                   'AVFoundation',
+                   'CoreGraphics',
+                   'CoreLocation',
+                   'CoreTelephony',
+                   'CoreMedia',
+                   'QuartzCore'
+                 ]
+  s.weak_frameworks  = [ 'AdSupport', 'StoreKit', 'WebKit' ]
+
+  s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s'}
+  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s'}
+  s.module_map   = 'PrebidMobile/BuildFiles/PrebidMobile.modulemap'
 
   # Support previous intagration
   s.default_subspec = 'core'
 
   s.subspec 'core' do |core|
     core.source_files = 'PrebidMobile/**/*.{h,m,swift}'
+    
+    core.resources    = 'PrebidMobile/PrebidMobileRendering/Assets/**/*.{json,png,js,html,xib}'
+    core.vendored_frameworks = 'Frameworks/OMSDK_Prebidorg.framework'
   end
 
 end

@@ -18,6 +18,9 @@ import XCTest
 @testable import PrebidMobile
 
 class TestPBMFunctions: XCTestCase {
+    
+    // Source: https://github.com/semver/semver/issues/232
+    let versionValidatorRegExpr = "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(-(0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(\\.(0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\\+[0-9a-zA-Z-]+(\\.[0-9a-zA-Z-]+)*)?$"
 
     func testAttemptToOpenURL() {
         
@@ -253,7 +256,7 @@ class TestPBMFunctions: XCTestCase {
         
         //Version number should start and end with an unbroken string of numbers or periods.
         result = PBMFunctions.infoPlistValue("CFBundleShortVersionString")
-        XCTAssert(result?.PBMdoesMatch("^[a-z0-9\\.]+$") == true, "Got \(String(describing: result))")
+        XCTAssert(result?.PBMdoesMatch(versionValidatorRegExpr) == true, "Got \(String(describing: result))")
         
         //Expected failures
         result = PBMFunctions.infoPlistValue("DERP")
@@ -266,7 +269,7 @@ class TestPBMFunctions: XCTestCase {
     func testsdkVersion() {
         let version = PBMFunctions.sdkVersion()
         XCTAssert(version.count > 0)
-        XCTAssert(version.PBMdoesMatch("^[a-z0-9\\.]+$") == true, "Got \(String(describing: version))")
+        XCTAssert(version.PBMdoesMatch(versionValidatorRegExpr) == true, "Got \(String(describing: version))")
     }
     
     func testStatusBarHeight() {

@@ -14,7 +14,6 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <MediaPlayer/MediaPlayer.h>
 
 #import "PBMModalManagerDelegate.h"
 #import "PBMModalViewControllerDelegate.h"
