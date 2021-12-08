@@ -43,7 +43,9 @@
     ret[@"album"] = self.album;
     ret[@"isrc"] = self.isrc;
     
-    ret[@"producer"] = [self.producer toJsonDictionary];;
+    if(self.producer) {
+        ret[@"producer"] = [self.producer toJsonDictionary];;
+    }
     
     ret[@"url"] = self.url;
     ret[@"cat"] = self.cat;
@@ -59,12 +61,14 @@
     ret[@"language"] = self.language;
     ret[@"embeddable"] = self.embeddable;
     
-    NSMutableArray<PBMJsonDictionary *> *dataArray = [NSMutableArray<PBMJsonDictionary *> new];
-    for (PBMORTBContentData *dataObject in self.data) {
-        [dataArray addObject:[dataObject toJsonDictionary]];
+    if(self.data) {
+        NSMutableArray<PBMJsonDictionary *> *dataArray = [NSMutableArray<PBMJsonDictionary *> new];
+        for (PBMORTBContentData *dataObject in self.data) {
+            [dataArray addObject:[dataObject toJsonDictionary]];
+        }
+        
+        ret[@"data"] = dataArray;
     }
-    
-    ret[@"data"] = dataArray;
     
     ret = [ret pbmCopyWithoutEmptyVals];
     
@@ -86,7 +90,10 @@
     _album = jsonDictionary[@"album"];
     _isrc = jsonDictionary[@"isrc"];
     
-    _producer = [[PBMORTBContentProducer alloc] initWithJsonDictionary:jsonDictionary[@"producer"]];
+    PBMORTBContentProducer *producerJsonDictionary = jsonDictionary[@"producer"];
+    if (producerJsonDictionary) {
+        _producer = [[PBMORTBContentProducer alloc] initWithJsonDictionary:jsonDictionary[@"producer"]];
+    }
     
     _url = jsonDictionary[@"url"];
     _cat = jsonDictionary[@"cat"];
@@ -104,13 +111,15 @@
     
     NSMutableArray<PBMORTBContentData *> *dataArray = [NSMutableArray<PBMORTBContentData *> new];
     NSMutableArray<PBMJsonDictionary *> *dataDicts = jsonDictionary[@"data"];
-    for (PBMJsonDictionary *dataDict in dataDicts) {
-        if (dataDict && [dataDict isKindOfClass:[NSDictionary class]])
-            [dataArray addObject:[[PBMORTBContentData alloc] initWithJsonDictionary:dataDict]];
+    if (dataDicts.count > 0) {
+        for (PBMJsonDictionary *dataDict in dataDicts) {
+            if (dataDict && [dataDict isKindOfClass:[NSDictionary class]])
+                [dataArray addObject:[[PBMORTBContentData alloc] initWithJsonDictionary:dataDict]];
+        }
+        
+        _data = dataArray;
     }
-    
-    _data = dataArray;
-    
+  
     return self;
 }
 

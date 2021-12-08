@@ -35,12 +35,14 @@
     ret[@"id"] = self.id;
     ret[@"name"] = self.name;
     
-    NSMutableArray<PBMJsonDictionary *> *segmentsArray = [NSMutableArray<PBMJsonDictionary *> new];
-    for (PBMORTBContentSegment *segmentObject in self.segment) {
-        [segmentsArray addObject:[segmentObject toJsonDictionary]];
+    if(self.segment) {
+        NSMutableArray<PBMJsonDictionary *> *segmentsArray = [NSMutableArray<PBMJsonDictionary *> new];
+        for (PBMORTBContentSegment *segmentObject in self.segment) {
+            [segmentsArray addObject:[segmentObject toJsonDictionary]];
+        }
+        
+        ret[@"segment"] = segmentsArray;
     }
-    
-    ret[@"segment"] = segmentsArray;
     
     ret = [ret pbmCopyWithoutEmptyVals];
     
@@ -57,12 +59,13 @@
     
     NSMutableArray<PBMORTBContentSegment *> *segmentsArray = [NSMutableArray<PBMORTBContentSegment *> new];
     NSMutableArray<PBMJsonDictionary *> *segmentsData = jsonDictionary[@"segment"];
-    for (PBMJsonDictionary *segmentData in segmentsData) {
-        if (segmentData && [segmentData isKindOfClass:[NSDictionary class]])
-            [segmentsArray addObject:[[PBMORTBContentSegment alloc] initWithJsonDictionary:segmentData]];
+    if (segmentsData.count > 0) {
+        for (PBMJsonDictionary *segmentData in segmentsData) {
+            if (segmentData && [segmentData isKindOfClass:[NSDictionary class]])
+                [segmentsArray addObject:[[PBMORTBContentSegment alloc] initWithJsonDictionary:segmentData]];
+        }
+        _segment = segmentsArray;
     }
-    
-    _segment = segmentsArray;
     
     return self;
 }
