@@ -37,16 +37,6 @@
 //Note: Site not supported.
 
 
-#pragma mark - 3.2.16: Content
-
-//This object describes the content in which the impression will appear, which may be syndicated or nonsyndicated
-//content. This object may be useful when syndicated content contains impressions and does
-//not necessarily match the publisher’s general content. The exchange might or might not have
-//knowledge of the page where the content is running, as a result of the syndication method. For
-//example might be a video impression embedded in an iframe on an unknown web property or device.
-//Note: Content not supported.
-
-
 #pragma mark - 3.2.17: Producer
 
 //This object defines the producer of the content in which the ad will be shown. This is particularly useful

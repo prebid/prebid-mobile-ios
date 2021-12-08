@@ -189,6 +189,9 @@ framework module PrebidMobile {
     header "PBMORTBMacrosHelper.h"
     
     header "PBMORTBAppContent.h"
+    header "PBMORTBContentProducer.h"
+    header "PBMORTBContentData.h"
+    header "PBMORTBContentSegment.h"
     
     header "NSDictionary+PBMExtensions.h"
     header "NSMutableDictionary+PBMExtensions.h"
