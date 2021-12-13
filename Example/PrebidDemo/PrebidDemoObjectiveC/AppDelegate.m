@@ -14,8 +14,11 @@
  */
 
 #import "AppDelegate.h"
-@import PrebidMobile;
 #import "MoPub.h"
+
+@import PrebidMobile;
+@import GoogleMobileAds;
+@import PrebidMobileGAMEventHandlers;
 
 @interface AppDelegate ()
 
@@ -36,6 +39,9 @@
     [externalUserIdArray addObject:[[ExternalUserId alloc]initWithSource:@"sharedid.org" identifier:@"111111111111" atype:[NSNumber numberWithInt:1] ext:@{@"third" : @"01ERJWE5FS4RAZKG6SKQ3ZYSKV"}]];
     
     Prebid.shared.externalUserIdArray = externalUserIdArray;
+    
+    [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
+    [GAMInitializer initializeGAM];
     
     // Override point for customization after application launch.
     MPMoPubConfiguration *sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"a935eac11acd416f92640411234fbba6"];
