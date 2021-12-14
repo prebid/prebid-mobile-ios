@@ -377,6 +377,50 @@ class PBMORTBAbstractTest : XCTestCase {
         codeAndDecode(abstract: pbmORTBApp, expectedString: "{\"bundle\":\"com.PubApp\",\"content\":{\"url\":\"https:\\/\\/corresponding.section.publishers.website\"},\"domain\":\"pubapp.com\",\"id\":\"foo\",\"keywords\":\"foo,bar,baz\",\"name\":\"PubApp\",\"paid\":1,\"privacypolicy\":1,\"storeurl\":\"itunes.com?pubapp\",\"ver\":\"1.2\"}")
     }
     
+    func testAppContentToJsonString() {
+        let appContent = PBMORTBAppContent()
+        appContent.episode = 2
+        appContent.title = "title"
+        appContent.series = "series"
+        appContent.season = "season"
+        appContent.artist = "artist"
+        appContent.genre = "genre"
+        appContent.album = "album"
+        appContent.isrc = "isrc"
+        
+        let producer = PBMORTBContentProducer()
+        producer.name = "producerName"
+        producer.cat = ["producerCat"]
+        producer.domain = "domain"
+        
+        appContent.producer = producer
+        appContent.cat = ["cat"]
+        appContent.prodq = 1
+        appContent.context = 1
+        appContent.contentrating = "contentrating"
+        appContent.userrating = "userrating"
+        appContent.qagmediarating = 1
+        appContent.keywords = "keywords"
+        appContent.livestream = 0
+        appContent.sourcerelationship = 0
+        appContent.len = 1
+        appContent.language = "language"
+        appContent.embeddable = 0
+        
+        let data = PBMORTBContentData()
+        data.name = "dataName"
+        
+        let segment = PBMORTBContentSegment()
+        segment.name = "segmentName"
+        segment.value = ["segmentValue"]
+        data.segment = [segment]
+        
+        appContent.data = [data]
+        appContent.url = "https://www.url.com"
+        
+        codeAndDecode(abstract: appContent, expectedString: "{\"album\":\"album\",\"artist\":\"artist\",\"cat\":[\"cat\"],\"contentrating\":\"contentrating\",\"context\":1,\"data\":[{\"name\":\"dataName\",\"segment\":[{\"name\":\"segmentName\",\"value\":[\"segmentValue\"]}]}],\"embeddable\":0,\"episode\":2,\"genre\":\"genre\",\"isrc\":\"isrc\",\"keywords\":\"keywords\",\"language\":\"language\",\"len\":1,\"livestream\":0,\"prodq\":1,\"producer\":{\"cat\":[\"producerCat\"],\"domain\":\"domain\",\"name\":\"producerName\"},\"qagmediarating\":1,\"season\":\"season\",\"series\":\"series\",\"sourcerelationship\":0,\"title\":\"title\",\"url\":\"https:\\/\\/www.url.com\",\"userrating\":\"userrating\"}")
+    }
+    
     func testAppExtPrebidToJsonString() {
         let pbmORTBApp = PBMORTBApp()
         let appExtPrebid = pbmORTBApp.extPrebid

@@ -290,15 +290,4 @@ import ObjectiveC.runtime
     func getAppContent() -> ContentObject? {
         return self.appContent
     }
-
-}
-
-/// Describes an [OpenRTB](https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf) app: content object
-
-@objc(PBAdUnitContentObject)
-public class ContentObject: NSObject {
-    
-    @objc
-    public var url: String?
-    
 }
