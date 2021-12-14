@@ -40,7 +40,6 @@
     
     Prebid.shared.externalUserIdArray = externalUserIdArray;
     
-    [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
     [GAMInitializer initializeGAM];
     
     // Override point for customization after application launch.
