@@ -1515,6 +1515,125 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual("/1111111/homepage/med-rect-2", adslot)
     }
 
+    func testOpenRtbAppContentObject() throws {
+        let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
+        let expectedUrl = "https://corresponding.section.publishers.website"
+
+        let appContent = ContentObject()
+        appContent.id = UUID().uuidString
+        appContent.episode = 2
+        appContent.title = "title"
+        appContent.series = "series"
+        appContent.season = "season"
+        appContent.artist = "artist"
+        appContent.genre = "genre"
+        appContent.album = "album"
+        appContent.isrc = "isrc"
+
+        let producer = ContentProducerObject()
+        producer.id = UUID().uuidString
+        producer.name = "producerName"
+        producer.cat = ["producerCat"]
+        producer.domain = "domain"
+
+        appContent.producer = producer
+        appContent.cat = ["cat"]
+        appContent.prodq = 1
+        appContent.context = 1
+        appContent.contentrating = "contentrating"
+        appContent.userrating = "userrating"
+        appContent.qagmediarating = 1
+        appContent.keywords = "keywords"
+        appContent.livestream = 0
+        appContent.sourcerelationship = 0
+        appContent.len = 1
+        appContent.language = "language"
+        appContent.embeddable = 0
+
+        let data = ContentDataObject()
+        data.id = UUID().uuidString
+        data.name = "dataName"
+
+        let segment = ContentSegmentObject()
+        segment.id = UUID().uuidString
+        segment.name = "segmentName"
+        segment.value = ["segmentValue"]
+        data.segment = [segment]
+
+        appContent.data = [data]
+        appContent.url = expectedUrl
+
+        adUnit.setAppContent(appContent: appContent)
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let app = jsonRequestBody["app"] as? [String: Any],
+              let content = app["content"] as? [String: Any],
+              let _ = content["id"] as? String,
+              let _ = content["episode"] as? Int,
+              let _ = content["title"] as? String,
+              let _ = content["series"] as? String,
+              let _ = content["season"] as? String,
+              let _ = content["artist"] as? String,
+              let _ = content["genre"] as? String,
+              let _ = content["album"] as? String,
+              let _ = content["isrc"] as? String,
+              let producer = content["producer"] as? [String: Any],
+              let _ = producer["id"] as? String,
+              let _ = producer["name"] as? String,
+              let _ = producer["cat"] as? [String],
+              let _ = producer["domain"] as? String,
+              let _ = content["cat"] as? [String],
+              let _ = content["prodq"] as? Int,
+              let _ = content["context"] as? Int,
+              let _ = content["contentrating"] as? String,
+              let _ = content["userrating"] as? String,
+              let _ = content["qagmediarating"] as? Int,
+              let _ = content["keywords"] as? String,
+              let _ = content["livestream"] as? Int,
+              let _ = content["sourcerelationship"] as? Int,
+              let _ = content["len"] as? Int,
+              let _ = content["language"] as? String,
+              let _ = content["embeddable"] as? Int,
+              let data = content["data"] as? [[String: Any]],
+              let _ = data.first!["id"] as? String,
+              let _ = data.first!["name"] as? String,
+              let segment = data.first!["segment"] as? [[String: Any]],
+              let _ = segment.first!["id"] as? String,
+              let _ = segment.first!["name"] as? String,
+              let _ = segment.first!["value"] as? [String],
+              let _ = content["url"] as? String
+        else {
+            XCTFail("parsing error")
+            return
+        }
+    }
+
+    func testOpenRtbAppObjectWithContentUrl() throws {
+        //given
+        let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
+        let expectedUrl = "https://corresponding.section.publishers.website"
+
+        let appContent = ContentObject()
+        appContent.url = expectedUrl
+
+        adUnit.setAppContent(appContent: appContent)
+
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let app = jsonRequestBody["app"] as? [String: Any],
+              let content = app["content"] as? [String: Any],
+              let actualUrl = content["url"] as? String else {
+            XCTFail("parsing error")
+            return
+        }
+
+        //then
+        XCTAssertEqual(expectedUrl, actualUrl)
+    }
+
     private func getPostDataHelper(adUnit: AdUnit) throws -> (urlRequest: URLRequest, jsonRequestBody: [AnyHashable: Any]) {
         var resultUrlRequest: URLRequest? = nil
         var resultJsonRequestBody: [AnyHashable: Any]? = nil

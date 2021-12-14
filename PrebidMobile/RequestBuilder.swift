@@ -78,7 +78,7 @@ class RequestBuilder: NSObject {
 
         requestDict["id"] = UUID().uuidString
         requestDict["source"] = openrtbSource()
-        requestDict["app"] = openrtbApp()
+        requestDict["app"] = openrtbApp(adUnit: adUnit)
         requestDict["device"] = openrtbDevice(adUnit: adUnit)
         requestDict["regs"] = openrtbRegs()
         requestDict["user"] = openrtbUser(adUnit: adUnit)
@@ -264,7 +264,7 @@ class RequestBuilder: NSObject {
 
     // OpenRTB 2.5 Object: App in section 3.2.14
 
-    func openrtbApp() -> [AnyHashable: Any]? {
+    func openrtbApp(adUnit: AdUnit?) -> [AnyHashable: Any]? {
         var app: [AnyHashable: Any] = [:]
 
         let itunesID: String? = Targeting.shared.itunesID
@@ -282,7 +282,7 @@ class RequestBuilder: NSObject {
             app["ver"] = version
             Log.info("Prebid version: \(version)")
         }
-        app["publisher"] = ["id": Prebid.shared.prebidServerAccountId ?? 0] as NSDictionary
+        app["publisher"] = ["id": Prebid.shared.prebidServerAccountId] as NSDictionary
 
         var requestAppExt: [AnyHashable: Any] = [:]
 
@@ -302,7 +302,11 @@ class RequestBuilder: NSObject {
         if let domain = Targeting.shared.domain, !domain.isEmpty {
             app["domain"] = domain
         }
-
+        
+        if let appContent = adUnit?.getAppContent()?.toJSONDictionary() {
+            app["content"] = appContent
+        }
+        
         return app
     }
 

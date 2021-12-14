@@ -45,6 +45,8 @@ import ObjectiveC.runtime
     //notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     var timeOutSignalSent: Bool! = false
 
+    private var appContent: ContentObject?
+
     init(configId: String, size: CGSize?) {
         prebidConfigId = configId
         if let givenSize = size {
@@ -268,7 +270,14 @@ import ObjectiveC.runtime
         }
 
         dispatcher.stop()
-        self.dispatcher = nil
     }
 
+    public func setAppContent(appContent: ContentObject) {
+        self.appContent = appContent
+    }
+
+
+    func getAppContent() -> ContentObject? {
+        return self.appContent
+    }
 }
