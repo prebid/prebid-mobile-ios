@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		13A48E28958C60CADF9C2D4D /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		13A48E28958C60CADF9C2D4D /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		27B42DD897A78A3ED5BE10C0 /* Pods_PrebidMobileMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52CBE87750DA32B6049DBA11 /* Pods_PrebidMobileMoPubAdapters.framework */; };
 		3405F94A250A555800268A77 /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D5C24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers.framework */; };
 		3405F951250A55AE00268A77 /* GAMBannerViewWrapperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3405F950250A55AE00268A77 /* GAMBannerViewWrapperTest.swift */; };
@@ -205,7 +205,7 @@
 			files = (
 				5BCCF2092732C6340046CCFC /* PrebidMobile.framework in Frameworks */,
 				27B42DD897A78A3ED5BE10C0 /* Pods_PrebidMobileMoPubAdapters.framework in Frameworks */,
-				13A48E28958C60CADF9C2D4D /* BuildFile in Frameworks */,
+				13A48E28958C60CADF9C2D4D /* (null) in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,8 +632,8 @@
 			projectRoot = "";
 			targets = (
 				34B64D5B24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers */,
-				34B64D7D24F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters */,
 				3405F944250A555800268A77 /* PrebidMobileGAMEventHandlersTests */,
+				34B64D7D24F7ED9600FDD9F4 /* PrebidMobileMoPubAdapters */,
 				923B55082745286000E00C88 /* PrebidMobileMoPubAdaptersTests */,
 				92F4389527688E8600FDC950 /* PrebidMobileAdMobAdapters */,
 				92F4389C27688E8600FDC950 /* PrebidMobileAdMobAdaptersTests */,
