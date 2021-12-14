@@ -74,7 +74,7 @@
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * storyboardName = @"Main";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-    if (indexPath.section == IntegrationKind_OriginalGAM || indexPath.section == IntegrationKind_OriginalMoPub) {
+    if (indexPath.section == IntegrationKind_OriginalGAM || indexPath.section == IntegrationKind_OriginalMoPub || indexPath.section == IntegrationKind_OriginalAdMob) {
         ViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"viewController"];
         NSNumber *num = (NSNumber *) self.integrationsList[indexPath.section];
         viewController.adServer = (IntegrationKind) [num intValue];
@@ -141,6 +141,27 @@
         } else if (integrationAdFormat == IntegrationAdFormat_Rewarded) {
             RenderingRewardedViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingRewardedVC"];
             viewController.integrationKind = IntegrationKind_RenderingMoPub;
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+    } else if (indexPath.section == IntegrationKind_RenderingAdMob) {
+        IntegrationAdFormat integrationAdFormat = [IntegrationKindUtilites.IntegrationAdFormatRendering[indexPath.row] intValue];
+        if (integrationAdFormat == IntegrationAdFormat_Banner) {
+            RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
+            viewController.integrationKind = IntegrationKind_RenderingAdMob;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (integrationAdFormat == IntegrationAdFormat_Interstitial) {
+            RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
+            viewController.integrationKind = IntegrationKind_RenderingAdMob;
+            viewController.integrationAdFormat = IntegrationAdFormat_Interstitial;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
+            RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
+            viewController.integrationKind = IntegrationKind_RenderingAdMob;
+            viewController.integrationAdFormat = IntegrationAdFormat_InterstitialVideo;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (integrationAdFormat == IntegrationAdFormat_Rewarded) {
+            RenderingRewardedViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingRewardedVC"];
+            viewController.integrationKind = IntegrationKind_RenderingAdMob;
             [self.navigationController pushViewController:viewController animated:YES];
         }
     }
