@@ -97,6 +97,8 @@
 		92700C8F273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7A273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift */; };
 		92700C90273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7B273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift */; };
 		92700C91273C029F0006E9FA /* PrebidExamplesUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */; };
+		92F438B72768953100FDC950 /* PrebidMobileAdMobAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F438B62768953100FDC950 /* PrebidMobileAdMobAdapters.framework */; };
+		92F438B82768954400FDC950 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 92F438B62768953100FDC950 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AC27E9E624D9A69A000CD7EC /* FeedAdTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC27E9E524D9A69A000CD7EC /* FeedAdTableViewCell.xib */; };
 		AC812BF52600E5E400370A33 /* FeedGAMAdTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC812BF42600E5E400370A33 /* FeedGAMAdTableViewCell.xib */; };
 		ACAF055724D8384B0089DFB1 /* PrebidFeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF055624D8384B0089DFB1 /* PrebidFeedTableViewController.swift */; };
@@ -165,10 +167,11 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5BF6905927737A7900AABA45 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */,
-				5BF6905527737A6D00AABA45 /* PrebidMobile.framework in Embed Frameworks */,
-				9262A8AD27720DE6009441A3 /* OpenXMockServer.framework in Embed Frameworks */,
-				5BF6905727737A7700AABA45 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
+				5BCCF238273420690046CCFC /* PrebidMobile.framework in Embed Frameworks */,
+				D08680812398088A00E70E60 /* OpenXMockServer.framework in Embed Frameworks */,
+				5BCCF23B273420710046CCFC /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
+				5BCCF23E2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */,
+				92F438B82768954400FDC950 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -192,7 +195,6 @@
 		3461834925A5FE7100783A2C /* PrebidNativeAdCompatibleConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdCompatibleConfigurationController.swift; sourceTree = "<group>"; };
 		3461835425A6020500783A2C /* NativeAdViewBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdViewBox.swift; sourceTree = "<group>"; };
 		346C6F5625DFAB7E00457DD3 /* ReactiveSdkInitFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveSdkInitFlag.swift; sourceTree = "<group>"; };
-		348A0A4A24EE6EFD00A6659F /* PrebidMobileRendering.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PrebidMobileRendering.framework; path = ../../Products/PrebidMobileRendering.framework; sourceTree = "<group>"; };
 		3493021B2473F408004A6086 /* PrebidGAMBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMBannerController.swift; sourceTree = "<group>"; };
 		3493021E2473FFE8004A6086 /* PrebidMoPubBannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMoPubBannerController.swift; sourceTree = "<group>"; };
 		3493022124740BEE004A6086 /* PrebidBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidBannerController.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 		92700C7A273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAID3MethodsUITest.swift; sourceTree = "<group>"; };
 		92700C7B273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAIDResizeWithErrorsUITest.swift; sourceTree = "<group>"; };
 		92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidExamplesUITest.swift; sourceTree = "<group>"; };
+		92F438B62768953100FDC950 /* PrebidMobileAdMobAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileAdMobAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93FED9C31A376EFE009A6E9F /* InternalTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InternalTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC23A0CC251B932000983ABF /* PrebidBannerConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidBannerConfigurationController.swift; sourceTree = "<group>"; };
 		AC27E9E124D9A51B000CD7EC /* FeedAdTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAdTableViewCell.swift; sourceTree = "<group>"; };
@@ -306,7 +309,6 @@
 		AC4732B225D2E8BA0041EEBA /* PrebidMoPubNativeAdController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMoPubNativeAdController.swift; sourceTree = "<group>"; };
 		AC4F253825DFF6300095C601 /* NativeAdViewBoxLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdViewBoxLinks.swift; sourceTree = "<group>"; };
 		AC4F254A25E0112C0095C601 /* NativeAdViewBoxProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdViewBoxProtocol.swift; sourceTree = "<group>"; };
-		AC5A99AE267B63B70064A2CA /* PrebidMobileRendering.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileRendering.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC812BE42600CEC000370A33 /* PrebidGAMNativeAdFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMNativeAdFeedController.swift; sourceTree = "<group>"; };
 		AC812BEE2600E57100370A33 /* FeedGAMAdTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedGAMAdTableViewCell.swift; sourceTree = "<group>"; };
 		AC812BF42600E5E400370A33 /* FeedGAMAdTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedGAMAdTableViewCell.xib; sourceTree = "<group>"; };
@@ -372,6 +374,9 @@
 				5BF6905427737A6D00AABA45 /* PrebidMobile.framework in Frameworks */,
 				5B5830A120B436E7002B2596 /* JavaScriptCore.framework in Frameworks */,
 				5B58309F20B436DD002B2596 /* EventKit.framework in Frameworks */,
+				5BCCF23A273420710046CCFC /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
+				5BCCF23D2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework in Frameworks */,
+				92F438B72768953100FDC950 /* PrebidMobileAdMobAdapters.framework in Frameworks */,
 				5B58309D20B436D5002B2596 /* CoreTelephony.framework in Frameworks */,
 				5BF6905827737A7900AABA45 /* PrebidMobileMoPubAdapters.framework in Frameworks */,
 				5B58309B20B436CC002B2596 /* CoreMedia.framework in Frameworks */,
@@ -541,10 +546,10 @@
 		5B2ECE432072637900A4FB48 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				92F438B62768953100FDC950 /* PrebidMobileAdMobAdapters.framework */,
 				5BCCF23C2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework */,
 				5BCCF239273420710046CCFC /* PrebidMobileGAMEventHandlers.framework */,
 				5BCCF236273420690046CCFC /* PrebidMobile.framework */,
-				AC5A99AE267B63B70064A2CA /* PrebidMobileRendering.framework */,
 				5BD84734252F23E70092AF74 /* CoreServices.framework */,
 				5B5830AE20B43727002B2596 /* WatchConnectivity.framework */,
 				5B5830AC20B4371F002B2596 /* WebKit.framework */,
@@ -721,7 +726,6 @@
 		93FED9BA1A376EFE009A6E9F = {
 			isa = PBXGroup;
 			children = (
-				348A0A4A24EE6EFD00A6659F /* PrebidMobileRendering.framework */,
 				34B64D7224F7EA0F00FDD9F4 /* PrebidMobileGAMEventHandlers.framework */,
 				34B64DAA24F7FD6000FDD9F4 /* PrebidMobileMoPubAdapters.framework */,
 				5B3C2A9C2100BC4900BD733C /* PrebidMobileDemoRendering */,

@@ -21,10 +21,12 @@ enum IntegrationKind: String, CaseIterable {
     
     case originalGAM    = "GAM"
     case originalMoPub  = "MoPub"
+    case originalAdMob = "AdMob"
     
     case inApp          = "In-App"
     case renderingGAM   = "GAM (R)"
     case renderingMoPub = "MoPub (R)"
+    case renderingAdMob = "AdMob (R)"
     
     case undefined      = "Undefined"
 }
@@ -47,6 +49,7 @@ class IndexController: UIViewController {
         
         adServerSegment.removeAllSegments()
         
+        UILabel.appearance(whenContainedInInstancesOf: [UISegmentedControl.self]).numberOfLines = 0
         IntegrationKind
             .allCases
             .filter { $0 != .undefined }

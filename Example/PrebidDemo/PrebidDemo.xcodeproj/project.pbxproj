@@ -36,6 +36,10 @@
 		609C52C32395F17F001FA5BD /* NativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 609C52C22395F17F001FA5BD /* NativeViewController.swift */; };
 		9262A8AF27720E08009441A3 /* Pods_PrebidDemoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9062CC2EEBA1A7F525A4D3AA /* Pods_PrebidDemoSwift.framework */; };
 		9292C6B7506986A7F501E561 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 022C426932D62F4F7C3973DB /* Pods_PrebidDemoObjectiveC.framework */; };
+		92F438C62768982700FDC950 /* PrebidMobileAdMobAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F438C52768982700FDC950 /* PrebidMobileAdMobAdapters.framework */; };
+		92F438C72768983500FDC950 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 92F438C52768982700FDC950 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		92F438C92768B23100FDC950 /* PrebidMobileAdMobAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F438C82768B23100FDC950 /* PrebidMobileAdMobAdapters.framework */; };
+		92F438CA2768B23C00FDC950 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 92F438C82768B23100FDC950 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FA12E4B7231EB04100CAA05B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12E4B6231EB04100CAA05B /* AppDelegate.swift */; };
 		FA12E4BC231EB04100CAA05B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA12E4BA231EB04100CAA05B /* Main.storyboard */; };
 		FA12E4BE231EB04200CAA05B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA12E4BD231EB04200CAA05B /* Assets.xcassets */; };
@@ -114,9 +118,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5BF6906227737AEE00AABA45 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
-				5BF6905E27737AEC00AABA45 /* PrebidMobile.framework in Embed Frameworks */,
-				5BF6906427737AF200AABA45 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */,
+				FA282EAC2327EC2800C9D477 /* PrebidMobile.framework in Embed Frameworks */,
+				5BD98F0D273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
+				5BD98F10273EC0D60030ACC3 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */,
+				92F438CA2768B23C00FDC950 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,9 +132,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5BF6906927737AFA00AABA45 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
-				5BF6906627737AF800AABA45 /* PrebidMobile.framework in Embed Frameworks */,
-				5BF6906B27737AFC00AABA45 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */,
+				FAC9E217232800DB00113B04 /* PrebidMobile.framework in Embed Frameworks */,
+				5BA4CF6F273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
+				5BA4CF71273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */,
+				92F438C72768983500FDC950 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,6 +179,8 @@
 		725E7FE27DFBC5E532A78D55 /* Pods-PrebidDemoObjectiveC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoObjectiveC.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoObjectiveC/Pods-PrebidDemoObjectiveC.release.xcconfig"; sourceTree = "<group>"; };
 		77A5CA8BEA1E8A52B2345013 /* Pods-PrebidDemoPodCoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPodCoreTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPodCoreTests/Pods-PrebidDemoPodCoreTests.release.xcconfig"; sourceTree = "<group>"; };
 		9062CC2EEBA1A7F525A4D3AA /* Pods_PrebidDemoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		92F438C52768982700FDC950 /* PrebidMobileAdMobAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileAdMobAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		92F438C82768B23100FDC950 /* PrebidMobileAdMobAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileAdMobAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9818E214AF5A142F667B1692 /* Pods-PrebidDemoPod-PrebidDemoPodCoreTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod-PrebidDemoPodCoreTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod-PrebidDemoPodCoreTests/Pods-PrebidDemoPod-PrebidDemoPodCoreTests.release.xcconfig"; sourceTree = "<group>"; };
 		A37D8539AD93B0EDA6D8CA6F /* Pods-PrebidDemoPod-PrebidDemoPodCoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod-PrebidDemoPodCoreTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod-PrebidDemoPodCoreTests/Pods-PrebidDemoPod-PrebidDemoPodCoreTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B881728A2AC4EBA354CACEC3 /* Pods_PrebidDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrebidDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -216,10 +224,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BF6906327737AF200AABA45 /* PrebidMobileMoPubAdapters.framework in Frameworks */,
-				5BF6906127737AEE00AABA45 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
-				5BF6905D27737AEC00AABA45 /* PrebidMobile.framework in Frameworks */,
-				9262A8AF27720E08009441A3 /* Pods_PrebidDemoSwift.framework in Frameworks */,
+				FAC9E216232800DB00113B04 /* PrebidMobile.framework in Frameworks */,
+				7A5EF9716CD8081552A53A2C /* Pods_PrebidDemoSwift.framework in Frameworks */,
+				5BA4CF6E273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
+				5BA4CF70273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework in Frameworks */,
+				92F438C62768982700FDC950 /* PrebidMobileAdMobAdapters.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,10 +244,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BF6906A27737AFC00AABA45 /* PrebidMobileMoPubAdapters.framework in Frameworks */,
-				5BF6906827737AFA00AABA45 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
-				5BF6906527737AF800AABA45 /* PrebidMobile.framework in Frameworks */,
+				FA282EAB2327EC2800C9D477 /* PrebidMobile.framework in Frameworks */,
 				9292C6B7506986A7F501E561 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */,
+				5BD98F0C273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
+				5BD98F0F273EC0D60030ACC3 /* PrebidMobileMoPubAdapters.framework in Frameworks */,
+				92F438C92768B23100FDC950 /* PrebidMobileAdMobAdapters.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +317,8 @@
 		99D7F73A394177471348CDD1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				92F438C82768B23100FDC950 /* PrebidMobileAdMobAdapters.framework */,
+				92F438C52768982700FDC950 /* PrebidMobileAdMobAdapters.framework */,
 				5BD98F0E273EC0D60030ACC3 /* PrebidMobileMoPubAdapters.framework */,
 				5BD98F0B273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework */,
 				5BA4CF6C273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework */,

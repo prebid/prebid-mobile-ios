@@ -50,9 +50,11 @@ class RewardedVideoController:
         switch integrationKind {
         case .originalGAM       : setupAndLoadGAMRewardedVideo()
         case .originalMoPub     : setupAndLoadMPRewardedVideo()
+        case .originalAdMob     : print("TODO: Add Example")
         case .inApp             : setupAndLoadInAppRewarded()
         case .renderingGAM      : setupAndLoadGAMRenderingRewarded()
         case .renderingMoPub    : setupAndLoadMoPubRenderingRewardedVideo()
+        case .renderingAdMob    : print("TODO: Add Example")
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }
