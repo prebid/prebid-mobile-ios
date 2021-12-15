@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1210"
+   LastUpgradeVersion = "1310"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "34B64D7D24F7ED9600FDD9F4"
-               BuildableName = "PrebidMobileMoPubAdapters.framework"
-               BlueprintName = "PrebidMobileMoPubAdapters"
-               ReferencedContainer = "container:EventHandlers.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "923B55082745286000E00C88"
-               BuildableName = "PrebidMobileMoPubAdaptersTests.xctest"
-               BlueprintName = "PrebidMobileMoPubAdaptersTests"
+               BlueprintIdentifier = "92F4389527688E8600FDC950"
+               BuildableName = "PrebidMobileAdMobAdapters.framework"
+               BlueprintName = "PrebidMobileAdMobAdapters"
                ReferencedContainer = "container:EventHandlers.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,6 +28,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "92F4389C27688E8600FDC950"
+               BuildableName = "PrebidMobileAdMobAdaptersTests.xctest"
+               BlueprintName = "PrebidMobileAdMobAdaptersTests"
+               ReferencedContainer = "container:EventHandlers.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -64,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "34B64D7D24F7ED9600FDD9F4"
-            BuildableName = "PrebidMobileMoPubAdapters.framework"
-            BlueprintName = "PrebidMobileMoPubAdapters"
+            BlueprintIdentifier = "92F4389527688E8600FDC950"
+            BuildableName = "PrebidMobileAdMobAdapters.framework"
+            BlueprintName = "PrebidMobileAdMobAdapters"
             ReferencedContainer = "container:EventHandlers.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

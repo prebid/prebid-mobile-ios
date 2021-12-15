@@ -16,10 +16,11 @@
     return @[
         [NSNumber numberWithInteger:IntegrationKind_OriginalGAM],
         [NSNumber numberWithInteger:IntegrationKind_OriginalMoPub],
-             
+        [NSNumber numberWithInteger:IntegrationKind_OriginalAdMob],
         [NSNumber numberWithInteger:IntegrationKind_InApp],
         [NSNumber numberWithInteger:IntegrationKind_RenderingGAM],
-        [NSNumber numberWithInteger:IntegrationKind_RenderingMoPub]
+        [NSNumber numberWithInteger:IntegrationKind_RenderingMoPub],
+        [NSNumber numberWithInteger:IntegrationKind_RenderingAdMob]
     ];
 }
 
@@ -27,10 +28,11 @@
     return @{
         [NSNumber numberWithInteger:IntegrationKind_OriginalGAM]        : @"Original GAM",
         [NSNumber numberWithInteger:IntegrationKind_OriginalMoPub]      : @"Original MoPub",
-             
+        [NSNumber numberWithInteger:IntegrationKind_OriginalAdMob]      : @"Original AdMob",
         [NSNumber numberWithInteger:IntegrationKind_InApp]              : @"In-App",
         [NSNumber numberWithInteger:IntegrationKind_RenderingGAM]       : @"Rendering GAM",
-        [NSNumber numberWithInteger:IntegrationKind_RenderingMoPub]     : @"Rendering MoPub"
+        [NSNumber numberWithInteger:IntegrationKind_RenderingMoPub]     : @"Rendering MoPub",
+        [NSNumber numberWithInteger:IntegrationKind_RenderingAdMob]     : @"Rendering AdMob"
     };
 }
 
@@ -80,7 +82,8 @@
     return
         integrationKind == IntegrationKind_InApp ||
         integrationKind == IntegrationKind_RenderingGAM ||
-        integrationKind == IntegrationKind_RenderingMoPub;
+        integrationKind == IntegrationKind_RenderingMoPub ||
+        integrationKind == IntegrationKind_RenderingAdMob;
 }
 
 @end

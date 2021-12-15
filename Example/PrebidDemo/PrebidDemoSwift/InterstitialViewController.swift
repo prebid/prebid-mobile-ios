@@ -61,9 +61,11 @@ class InterstitialViewController:
         switch integrationKind {
         case .originalGAM       : setupAndLoadGAM()
         case .originalMoPub     : setupAndLoadMoPub()
+        case .originalAdMob     : print("TODO: Add Example")
         case .inApp             : setupAndLoadInAppInterstitial()
         case .renderingGAM      : setupAndLoadGAMRenderingInterstitial()
         case .renderingMoPub    : setupAndLoadMoPubRenderingInterstitial()
+        case .renderingAdMob    : print("TODO: Add Example")
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }

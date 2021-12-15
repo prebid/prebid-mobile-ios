@@ -77,9 +77,11 @@ class BannerController:
         switch integrationKind {
             case .originalGAM       : setupAndLoadGAM()
             case .originalMoPub     : setupAndLoadMPBanner()
+            case .originalAdMob     : print("TODO: Add Example")
             case .inApp             : setupAndLoadInAppBanner()
             case .renderingGAM      : setupAndLoadGAMRendering()
             case .renderingMoPub    : setupAndLoadMoPubRendering()
+            case .renderingAdMob    : print("TODO: Add Example")
             case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
         
