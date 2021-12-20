@@ -108,7 +108,7 @@
                                                                         size:self.size
                                                            mediationDelegate:mediationDelegate];
     
-    [self.mopubBannerAdUnit fetchDemandWith:_mopubBannerView completion:^(FetchDemandResult result) {
+    [self.mopubBannerAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
         [self.mopubBannerView loadAd];
     }];
 }

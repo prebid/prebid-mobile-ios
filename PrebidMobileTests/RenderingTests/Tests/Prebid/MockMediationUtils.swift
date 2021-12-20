@@ -57,15 +57,15 @@ class MockMediationUtils: PrebidMediationDelegate {
     
     public func setUpAdObject(configID:String,
                               targetingInfo: [String : String],
-                              extraObject:Any?,
-                              forKey: String) -> Bool {
+                              extrasObject:Any?,
+                              for key: String) -> Bool {
     
         let extras = adObject.localExtras ?? [:]
         let adKeywords = adObject.keywords ?? ""
         
         //Pass our objects via the localExtra property
         var mutableExtras = extras
-        mutableExtras[forKey] = extraObject
+        mutableExtras[key] = extrasObject
         mutableExtras[MockMediationConfigIdKey] = configID
         
         adObject.localExtras = mutableExtras
@@ -78,6 +78,10 @@ class MockMediationUtils: PrebidMediationDelegate {
         }
         
         return true
+    }
+    
+    func getAdView() -> UIView? {
+        return adObject
     }
     
     // MARK: - Private Methods

@@ -80,8 +80,7 @@ class MediationBannerAdUnitTest: XCTestCase {
         
         let asyncExpectation = expectation(description: "fetchDemand executed")
         
-        adUnit.fetchDemand(with: adObject!,
-                           connection: connection,
+        adUnit.fetchDemand(connection: connection,
                            sdkConfiguration: getSDKConfiguration(),
                            targeting: targeting)
         { [weak self] result in
@@ -108,8 +107,7 @@ class MediationBannerAdUnitTest: XCTestCase {
         
         let asyncExpectation2 = expectation(description: "fetchDemand executed")
         
-        adUnit.fetchDemand(with: adObject!,
-                           connection: noBidConnection,
+        adUnit.fetchDemand(connection: noBidConnection,
                            sdkConfiguration: getSDKConfiguration(),
                            targeting: targeting)
         { [weak self] result in

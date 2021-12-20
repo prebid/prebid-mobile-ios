@@ -14,6 +14,7 @@
   */
 
 import Foundation
+import UIKit
 
 // This protocol is dedicated to manage the work with Mediation SDKs.
 @objc
@@ -26,12 +27,16 @@ public protocol PrebidMediationDelegate {
      */
     func setUpAdObject(configID: String,
                        targetingInfo: [String : String],
-                       extraObject: Any?,
-                       forKey: String) -> Bool
-    
+                       extrasObject: Any?,
+                       for key: String) -> Bool
     /**
      Removes an bid info from ad object's localExtra
      and prebid-specific keywords from ad object's keywords
      */
     func cleanUpAdObject()
+    /**
+     Returns ad view that was passed into PrebidMediationDelegate earlier.
+     Returns nil if there was no view passed.
+     */
+    func getAdView() -> UIView?
 }

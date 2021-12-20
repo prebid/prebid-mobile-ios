@@ -329,7 +329,7 @@ class BannerController:
                                                   size: size,
                                                   mediationDelegate: MoPubMediationBannerUtils(mopubView: mpBanner))
 
-        prebidMoPubAdUnit.fetchDemand(with: mpBanner) { [weak self] result in
+        prebidMoPubAdUnit.fetchDemand { [weak self] result in
             self?.mpBanner.loadAd()
         }
     }

@@ -28,15 +28,15 @@ public class MoPubMediationInterstitialUtils: NSObject, PrebidMediationDelegate 
     
     public func setUpAdObject(configID: String,
                               targetingInfo: [String : String],
-                              extraObject: Any?,
-                              forKey: String) -> Bool {
+                              extrasObject: Any?,
+                              for key: String) -> Bool {
         
         let extras = mopubController.localExtras ?? [AnyHashable: Any]()
         let adKeywords = mopubController.keywords ?? ""
         
         //Pass our objects via the localExtra property
         var mutableExtras = extras
-        mutableExtras[forKey] = extraObject
+        mutableExtras[key] = extrasObject
         mutableExtras[PBMMediationConfigIdKey] = configID
         
         mopubController.localExtras = mutableExtras
@@ -68,5 +68,9 @@ public class MoPubMediationInterstitialUtils: NSObject, PrebidMediationDelegate 
         }
         
         mopubController.localExtras = extras
+    }
+    
+    public func getAdView() -> UIView? {
+        return nil
     }
 }
