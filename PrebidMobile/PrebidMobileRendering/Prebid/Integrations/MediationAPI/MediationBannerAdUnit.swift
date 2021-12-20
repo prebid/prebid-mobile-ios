@@ -20,12 +20,11 @@ import UIKit
 public class MediationBannerAdUnit : NSObject {
     
     var bidRequester: PBMBidRequester?
-    //This is an MPAdView object
-    //But we can't use it indirectly as don't want to have additional MoPub dependency in the SDK core
-    weak var adObject: NSObject?
+    // The view in which ad is displayed
+    weak var adObject: UIView?
     var completion: ((FetchDemandResult) -> Void)?
     
-    weak var lastAdObject: NSObject?
+    weak var lastAdObject: UIView?
     var lastCompletion: ((FetchDemandResult) -> Void)?
     
     var isRefreshStopped = false
@@ -124,7 +123,7 @@ public class MediationBannerAdUnit : NSObject {
         })
     }
     
-    public func fetchDemand(with adObject: NSObject,
+    public func fetchDemand(with adObject: UIView,
                             completion: ((FetchDemandResult)->Void)?) {
         
         fetchDemand(with: adObject,
@@ -138,7 +137,7 @@ public class MediationBannerAdUnit : NSObject {
         isRefreshStopped = true
     }
     
-    public func adObjectDidFailToLoadAd(adObject: NSObject,
+    public func adObjectDidFailToLoadAd(adObject: UIView,
                                         with error: Error) {
         if adObject === self.adObject || adObject === self.lastAdObject {
             self.adRequestError = error;
@@ -148,7 +147,7 @@ public class MediationBannerAdUnit : NSObject {
     // MARK: Private functions
     
     // NOTE: do not use `private` to expose this method to unit tests
-    func fetchDemand(with adObject: NSObject,
+    func fetchDemand(with adObject: UIView,
                      connection: PBMServerConnectionProtocol,
                      sdkConfiguration: PrebidRenderingConfig,
                      targeting: PrebidRenderingTargeting,
@@ -156,11 +155,6 @@ public class MediationBannerAdUnit : NSObject {
         guard bidRequester == nil else {
             // Request in progress
             return
-        }
-        
-        guard mediationDelegate.isCorrectAdObject(adObject) else {
-            completion?(.wrongArguments)
-            return;
         }
         
         autoRefreshManager?.cancelRefreshTimer()
@@ -176,7 +170,7 @@ public class MediationBannerAdUnit : NSObject {
         lastCompletion = nil
         adRequestError = nil
         
-        mediationDelegate.cleanUpAdObject(adObject)
+        mediationDelegate.cleanUpAdObject()
         
         bidRequester = PBMBidRequester(connection: connection,
                                        sdkConfiguration: sdkConfiguration,
@@ -205,11 +199,11 @@ public class MediationBannerAdUnit : NSObject {
     }
     
     private func isAdObjectVisible() -> Bool {
-        if let adObject = lastAdObject as? UIView {
-            return adObject.pbmIsVisible()
+        guard let adObject = adObject else {
+            return false
         }
-        
-        return true;
+
+        return adObject.pbmIsVisible()
     }
     
     private func markLoadingFinished() {
@@ -221,13 +215,12 @@ public class MediationBannerAdUnit : NSObject {
     private func handlePrebidResponse(response: BidResponseForRendering) {
         var demandResult = FetchDemandResult.demandNoBids
         
-        if  let adObject = self.adObject,
-            let winningBid = response.winningBid {
-            if mediationDelegate.setUpAdObject(adObject,
-                                               configID: configID,
+        if let adObject = self.adObject,
+           let winningBid = response.winningBid {
+            if mediationDelegate.setUpAdObject(configID: configID,
                                                targetingInfo: winningBid.targetingInfo ?? [:],
                                                extraObject: winningBid,
-                                               forKey: PBMMediationAdUnitBidKey) { 
+                                               forKey: PBMMediationAdUnitBidKey) {
                 demandResult = .ok
             } else {
                 demandResult = .wrongArguments

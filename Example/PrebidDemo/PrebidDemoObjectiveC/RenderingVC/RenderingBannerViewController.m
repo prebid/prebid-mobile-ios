@@ -103,9 +103,10 @@
     self.mopubBannerView.delegate = self;
     [self.adView addSubview:self.mopubBannerView];
     
+    MoPubMediationBannerUtils *mediationDelegate = [[MoPubMediationBannerUtils alloc] initWithMopubView:self.mopubBannerView];
     self.mopubBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"50699c03-0910-477c-b4a4-911dbe2b9d42"
                                                                         size:self.size
-                                                           mediationDelegate:[MoPubMediationUtils new]];
+                                                           mediationDelegate:mediationDelegate];
     
     [self.mopubBannerAdUnit fetchDemandWith:_mopubBannerView completion:^(FetchDemandResult result) {
         [self.mopubBannerView loadAd];

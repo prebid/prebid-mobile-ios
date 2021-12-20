@@ -44,15 +44,10 @@ class MediationNativeAdUnit : NSObject {
     public func fetchDemand(with adObject: NSObject,
                             completion: ((FetchDemandResult)->Void)?) {
         
-        if !mediationDelegate.isCorrectAdObject(adObject) {
-            completion?(.wrongArguments)
-            return
-        }
-        
         self.completion = completion
         self.adObject = adObject
         
-        mediationDelegate.cleanUpAdObject(adObject)
+        mediationDelegate.cleanUpAdObject()
         
         nativeAdUnit.fetchDemand { [weak self] fetchDemandInfo in
             guard let self = self else {
@@ -66,8 +61,7 @@ class MediationNativeAdUnit : NSObject {
             
             var fetchDemandResult: FetchDemandResult = .wrongArguments
             
-            if self.mediationDelegate.setUpAdObject(adObject,
-                                                    configID: self.configID,
+            if self.mediationDelegate.setUpAdObject(configID: self.configID,
                                                     targetingInfo: fetchDemandInfo.bid?.targetingInfo ?? [:],
                                                     extraObject: fetchDemandInfo,
                                                     forKey: PBMMediationAdUnitBidKey) {

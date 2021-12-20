@@ -72,7 +72,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         
         adUnit = MediationBannerAdUnit(configID: prebidConfigId,
                                        size: adUnitSize,
-                                       mediationDelegate: MoPubMediationUtils())
+                                       mediationDelegate: MoPubMediationBannerUtils(mopubView: adBannerView!))
         if (refreshInterval > 0) {
             adUnit?.refreshInterval = refreshInterval
         }

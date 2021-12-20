@@ -26,4 +26,8 @@ enum Constants {
     static let adapterVersion               = "0"
     
     static let mopubNetworkName             = "Prebid"
+    
+    static let keywordsSeparator               = ","
+    
+    static let HBKeywordPrefix                 = "hb_"
 }

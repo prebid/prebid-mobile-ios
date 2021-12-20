@@ -82,12 +82,14 @@
 
 - (void)loadMoPubRenderingRewarded {
     
-    self.mopubRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:@"12f58bc2-b664-4672-8d19-638bcc96fd5c"
-                                                               mediationDelegate: [MoPubMediationUtils new]];
-    
     MediationBidInfoWrapper *bidInfoWrapper = [[MediationBidInfoWrapper alloc] init];
     
-    [self.mopubRewardedAdUnit fetchDemandWith:bidInfoWrapper completion:^(FetchDemandResult result) {
+    MoPubMediationRewardedUtils *mediationDelegate = [[MoPubMediationRewardedUtils alloc] initWithBidInfoWrapper:bidInfoWrapper];
+    
+    self.mopubRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:@"12f58bc2-b664-4672-8d19-638bcc96fd5c"
+                                                                mediationDelegate: mediationDelegate];
+    
+    [self.mopubRewardedAdUnit fetchDemandWithCompletion: ^(FetchDemandResult result) {
         [MPRewardedAds setDelegate:self forAdUnitId:@"7538cc74d2984c348bc14caafa3e3395"];
         
         [MPRewardedAds loadRewardedAdWithAdUnitID:@"7538cc74d2984c348bc14caafa3e3395"

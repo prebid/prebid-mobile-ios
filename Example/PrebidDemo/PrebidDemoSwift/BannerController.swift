@@ -327,7 +327,7 @@ class BannerController:
         let size = CGSize(width: 320, height: 50)
         prebidMoPubAdUnit = MediationBannerAdUnit(configID: "50699c03-0910-477c-b4a4-911dbe2b9d42",
                                                   size: size,
-                                                  mediationDelegate: MoPubMediationUtils())
+                                                  mediationDelegate: MoPubMediationBannerUtils(mopubView: mpBanner))
 
         prebidMoPubAdUnit.fetchDemand(with: mpBanner) { [weak self] result in
             self?.mpBanner.loadAd()

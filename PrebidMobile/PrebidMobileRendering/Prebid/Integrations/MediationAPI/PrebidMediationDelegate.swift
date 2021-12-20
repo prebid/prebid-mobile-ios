@@ -18,24 +18,20 @@ import Foundation
 // This protocol is dedicated to manage the work with Mediation SDKs.
 @objc
 public protocol PrebidMediationDelegate {
-    /**
-     Checks that a passed object is correct in the context of Mediation SDK.
-     @return YES if the passed object is correct, FALSE otherwise
-     */
-    func isCorrectAdObject(_ adObject: NSObject) -> Bool
-    /**
-     Removes an bid info from ad object's localExtra
-     and prebid-specific keywords from ad object's keywords
-     */
-    func cleanUpAdObject(_ adObject: NSObject)
+    
     /**
      Puts to ad object's localExtra the ad object (winning bid or native ad) and configId
      and populates adObject's keywords by targeting info
      @return YES on success and NO otherwise (when the passed ad has wrong type)
      */
-    func setUpAdObject(_ adObject: NSObject,
-                       configID: String,
+    func setUpAdObject(configID: String,
                        targetingInfo: [String : String],
                        extraObject: Any?,
-                       forKey:String) -> Bool
+                       forKey: String) -> Bool
+    
+    /**
+     Removes an bid info from ad object's localExtra
+     and prebid-specific keywords from ad object's keywords
+     */
+    func cleanUpAdObject()
 }

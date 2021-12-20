@@ -25,7 +25,7 @@ import PrebidMobile
 
 class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
     
-    let mediationDelegate = MoPubMediationUtils()
+    let mediationDelegate = MoPubMediationBannerUtils()
     
     func testIsCorrectAdObject() {
         XCTAssertTrue(mediationDelegate.isCorrectAdObject(MoPubAdObject()))
