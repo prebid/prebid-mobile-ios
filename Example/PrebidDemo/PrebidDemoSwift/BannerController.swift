@@ -57,6 +57,7 @@ class BannerController:
     // GAM
     private let gamRequest = GAMRequest()
     private var gamBanner: GAMBannerView!
+    private var gadBanner: GADBannerView!
     
     // MoPub
     private var mpBanner: MPAdView!

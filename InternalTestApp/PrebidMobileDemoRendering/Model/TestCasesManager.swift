@@ -2265,6 +2265,31 @@ struct TestCaseManager {
                 setupCustomParams(for: mopubInterstitialController.prebidConfigId)
             }),
             
+            // MARK: ---- Banner (AdMob) ----
+            
+            TestCase(title: "Banner 320x50 (AdMob) [OK, OXB Adapter]",
+                     tags: [.banner, .admob, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
+//                admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/5576454297"
+//                admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/6274318673"
+//                admobBannerController.adMobAdUnitId = "ca-app-pub-4276983034653276/7635963543"
+                admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
+                admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
+                        
+                if AppConfiguration.shared.useMockServer {
+                    admobBannerController.prebidConfigId = "mock-banner-320-50"
+                }
+                 
+                adapterVC.setup(adapter: admobBannerController)
+                        
+                setupCustomParams(for: admobBannerController.prebidConfigId)
+            }),
+            
             // MARK: ---- Native Styles (In-App) ----
             
 //            TestCase(title: "Banner Native Styles (In-App) [MAP]",

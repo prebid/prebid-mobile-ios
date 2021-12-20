@@ -20,6 +20,7 @@ import GoogleMobileAds
 
 import PrebidMobile
 import PrebidMobileMoPubAdapters
+import PrebidMobileAdMobAdapters
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -104,6 +105,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //Registered so that DownloadHelper gets covered by this
             GlobalVars.reactiveGAMInitFlag.markSdkInitialized()
         };
+        
+        GAMInitializer.initialize()
         
         PrebidRenderingConfig.shared.logLevel = PBMLogLevel.info
         PrebidRenderingConfig.shared.debugLogFileEnabled = true
