@@ -20,19 +20,25 @@ import PrebidMobile
 fileprivate let localCacheExpirationInterval: TimeInterval = 3600
 fileprivate let prebidKeywordPrefix = "hb_"
 
-public class GAMUtils {
+@objcMembers
+public class GAMUtils: NSObject {
     
     // MARK: - Private Properties
     
     private let localCache: LocalResponseInfoCache
     
-    private init() {
+    private override init() {
         localCache = LocalResponseInfoCache(expirationInterval: localCacheExpirationInterval)
+        super.init()
     }
     
     // MARK: - Public
     
     public static let shared = GAMUtils()
+    
+    public func initializeGAM() {
+        GADMobileAds.sharedInstance().start()
+    }
     
     public func prepareRequest(_ request: GAMRequest,
                                demandResponseInfo: DemandResponseInfo)  {
