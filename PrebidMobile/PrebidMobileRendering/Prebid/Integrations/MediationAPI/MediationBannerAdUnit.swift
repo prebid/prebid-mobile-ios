@@ -213,10 +213,11 @@ public class MediationBannerAdUnit : NSObject {
         
         if self.adView != nil,
            let winningBid = response.winningBid {
-            if mediationDelegate.setUpAdObject(configID: configID,
+            if mediationDelegate.setUpAdObject(configId: configID,
+                                               configIdKey: PBMMediationConfigIdKey,
                                                targetingInfo: winningBid.targetingInfo ?? [:],
                                                extrasObject: winningBid,
-                                               for: PBMMediationAdUnitBidKey) {
+                                               extrasObjectKey: PBMMediationAdUnitBidKey) {
                 demandResult = .ok
             } else {
                 demandResult = .wrongArguments

@@ -100,10 +100,11 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         if let winningBid = bidResponse.winningBid,
            let targetingInfo = winningBid.targetingInfo {
             
-            if mediationDelegate.setUpAdObject(configID: configId,
+            if mediationDelegate.setUpAdObject(configId: configId,
+                                               configIdKey: PBMMediationConfigIdKey,
                                                targetingInfo: targetingInfo,
                                                extrasObject: winningBid,
-                                               for: PBMMediationAdUnitBidKey) {
+                                               extrasObjectKey: PBMMediationAdUnitBidKey) {
                 demandResult = .ok
             } else {
                 demandResult = .wrongArguments

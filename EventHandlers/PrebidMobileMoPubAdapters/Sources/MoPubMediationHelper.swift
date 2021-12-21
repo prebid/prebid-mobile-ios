@@ -32,4 +32,22 @@ class MoPubMediationHelper {
             .joined(separator: Constants.keywordsSeparator)
     }
     
+    static func getExtras(configId: String,
+                          configIdKey: String,
+                          extrasObject: Any?,
+                          extrasObjectKey: String) -> [AnyHashable: Any] {
+        var extras = [AnyHashable: Any]()
+        extras[configIdKey] = configId
+        extras[extrasObjectKey] = extrasObject
+        return extras
+    }
+    
+    static func getKeywords(targetingInfo: [String: String]) -> String {
+        if targetingInfo.count > 0 {
+            return targetingInfo
+                .map { $0 + ":" + $1 }
+                .joined(separator: Constants.keywordsSeparator)
+        }
+        return ""
+    }
 }

@@ -25,10 +25,11 @@ public protocol PrebidMediationDelegate {
      and populates adObject's keywords by targeting info
      @return YES on success and NO otherwise (when the passed ad has wrong type)
      */
-    func setUpAdObject(configID: String,
+    func setUpAdObject(configId: String,
+                       configIdKey: String,
                        targetingInfo: [String : String],
                        extrasObject: Any?,
-                       for key: String) -> Bool
+                       extrasObjectKey: String) -> Bool
     /**
      Removes an bid info from ad object's localExtra
      and prebid-specific keywords from ad object's keywords

@@ -26,28 +26,23 @@ public class MoPubMediationRewardedUtils: NSObject, PrebidMediationDelegate {
         self.bidInfoWrapper = bidInfoWrapper
     }
     
-    public func setUpAdObject(configID: String,
+    public func setUpAdObject(configId: String,
+                              configIdKey: String,
                               targetingInfo: [String : String],
                               extrasObject: Any?,
-                              for key: String) -> Bool {
+                              extrasObjectKey: String) -> Bool {
         
         let extras = bidInfoWrapper.localExtras ?? [AnyHashable: Any]()
+        var newExtras = MoPubMediationHelper.getExtras(configId: configId,
+                                                       configIdKey: configIdKey,
+                                                       extrasObject: extrasObject,
+                                                       extrasObjectKey: extrasObjectKey)
+        extras.forEach { (key, value) in newExtras[key] = value }
+        bidInfoWrapper.localExtras = newExtras
+        
         let adKeywords = bidInfoWrapper.keywords ?? ""
-        
-        //Pass our objects via the localExtra property
-        var mutableExtras = extras
-        mutableExtras[key] = extrasObject
-        mutableExtras[PBMMediationConfigIdKey] = configID
-        
-        bidInfoWrapper.localExtras = mutableExtras
-        
-        //Setup bid targeting keyword
-        if targetingInfo.count > 0 {
-            let bidKeywords = MoPubMediationHelper.keywordsFrom(targetingInfo)
-            let keywords = adKeywords.isEmpty ? bidKeywords : adKeywords + "," + bidKeywords
-            
-            bidInfoWrapper.keywords = keywords
-        }
+        let newKeywords = MoPubMediationHelper.getKeywords(targetingInfo: targetingInfo)
+        bidInfoWrapper.keywords = adKeywords.isEmpty ? newKeywords: adKeywords + "," + newKeywords
         
         return true
     }

@@ -44,10 +44,11 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
         
         adView!.keywords = initialKeyWords
         
-        guard mediationDelegate!.setUpAdObject(configID: configId,
+        guard mediationDelegate!.setUpAdObject(configId: configId,
+                                               configIdKey: PBMMediationConfigIdKey,
                                                targetingInfo: targetingInfo,
                                                extrasObject: bid,
-                                               for: PBMMediationAdUnitBidKey) else {
+                                               extrasObjectKey: PBMMediationAdUnitBidKey) else {
             XCTFail()
             return
         }
