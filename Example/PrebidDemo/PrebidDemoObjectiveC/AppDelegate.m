@@ -40,7 +40,7 @@
     
     Prebid.shared.externalUserIdArray = externalUserIdArray;
     
-    [GAMInitializer initializeGAM];
+    [GAMUtils.shared initializeGAM];
     
     // Override point for customization after application launch.
     MPMoPubConfiguration *sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"a935eac11acd416f92640411234fbba6"];
