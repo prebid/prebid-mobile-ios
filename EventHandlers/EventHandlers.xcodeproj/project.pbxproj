@@ -922,7 +922,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.13.0-beta1";
+				MARKETING_VERSION = "1.13.0-beta2";
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.GAMEventHandlers;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -957,7 +957,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.13.0-beta1";
+				MARKETING_VERSION = "1.13.0-beta2";
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.GAMEventHandlers;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -990,7 +990,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.13.0-beta1";
+				MARKETING_VERSION = "1.13.0-beta2";
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.MoPubAdapters;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1023,7 +1023,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.13.0-beta1";
+				MARKETING_VERSION = "1.13.0-beta2";
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.MoPubAdapters;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
