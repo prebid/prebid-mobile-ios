@@ -49,7 +49,7 @@ Pod::Spec.new do |s|
   s.source_files = 'EventHandlers/PrebidMobileGAMEventHandlers/**/*.{h,m,swift}'
   s.static_framework = true
 
-  s.dependency 'PrebidMobile', '1.13.0-beta1'
+  s.dependency 'PrebidMobile', '1.13.0-beta2'
   s.dependency 'Google-Mobile-Ads-SDK'
 
 end
