@@ -39,4 +39,17 @@ class AdMobMediationHelper {
         }
         return []
     }
+    
+    static func stringToDictionaryString(dataString: String) -> [String]? {
+        let data = Data(dataString.utf8)
+        do {
+            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: String] {
+                return json.map { "\($0)" + ":" + "\($1)" }
+            }
+        } catch let error as NSError {
+            print("Failed to load: \(error.localizedDescription)")
+        }
+        
+        return nil
+    }
 }

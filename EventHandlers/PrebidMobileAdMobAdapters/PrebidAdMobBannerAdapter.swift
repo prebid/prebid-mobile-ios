@@ -53,6 +53,32 @@ public class PrebidAdMobBannerAdapter:
             return
         }
         
+        guard let serverParameter = serverParameter else {
+            let error = AdMobAdaptersError.noServerParameter
+            delegate?.customEventBanner(self, didFailAd: error)
+            return
+        }
+        
+        guard let jsonServerParameters = AdMobMediationHelper.stringToDictionaryString(dataString: serverParameter) else {
+            let error = AdMobAdaptersError.serverParameterInWrongFormat
+            delegate?.customEventBanner(self, didFailAd: error)
+            return
+        }
+        
+        guard let keywords = request.userKeywords as? [String] else {
+            let error = AdMobAdaptersError.emptyCustomEventExtras
+            delegate?.customEventBanner(self, didFailAd: error)
+            return
+        }
+        
+        for parameter in jsonServerParameters {
+            guard keywords.contains(parameter) else {
+                let error = AdMobAdaptersError.emptyCustomEventExtras
+                delegate?.customEventBanner(self, didFailAd: error)
+                return
+            }
+        }
+    
         let frame = CGRect(origin: .zero, size: bid.size)
         
         displayView = PBMDisplayView(frame: frame, bid: bid, configId: configId)

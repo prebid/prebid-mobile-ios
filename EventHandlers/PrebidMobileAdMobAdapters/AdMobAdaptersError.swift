@@ -19,17 +19,23 @@ enum AdMobAdaptersError {
     case emptyCustomEventExtras
     case noBidInEventExtras
     case noConfigIDInEventExtras
-    
+    case noServerParameter
+    case serverParameterInWrongFormat
+    case emptyUserKeywords
+    case wrongServerParameter
 }
 
 extension AdMobAdaptersError: LocalizedError {
     public var errorDescription: String? {
         switch self {
             
-        case .emptyCustomEventExtras  : return "The custom event extras is empty"
-        case .noBidInEventExtras      : return "The Bid object is absent in the extras"
-        case .noConfigIDInEventExtras : return "The Config ID absent in the extras"
-            
+        case .emptyCustomEventExtras        : return "The custom event extras is empty"
+        case .noBidInEventExtras            : return "The Bid object is absent in the extras"
+        case .noConfigIDInEventExtras       : return "The Config ID is absent in the extras"
+        case .noServerParameter             : return "Server parameter is absent in request"
+        case .serverParameterInWrongFormat  : return "Got server parameter in wrong format"
+        case .emptyUserKeywords             : return "User keywords is empty"
+        case .wrongServerParameter          : return "User keywords does not contain server parameter"
         }
     }
 }
