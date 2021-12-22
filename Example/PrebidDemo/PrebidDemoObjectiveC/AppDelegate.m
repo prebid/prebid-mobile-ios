@@ -15,6 +15,7 @@
 
 #import "AppDelegate.h"
 @import PrebidMobile;
+@import PrebidMobileAdMobAdapters;
 #import "MoPub.h"
 
 @interface AppDelegate ()
@@ -41,6 +42,8 @@
     MPMoPubConfiguration *sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"a935eac11acd416f92640411234fbba6"];
     sdkConfig.globalMediationSettings = @[];
     [MoPub.sharedInstance initializeSdkWithConfiguration:sdkConfig completion:nil];
+    
+    [AdMobUtils initializeGAD];
     return YES;
 }
 

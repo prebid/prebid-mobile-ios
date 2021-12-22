@@ -9,8 +9,10 @@
 #import "RenderingBannerViewController.h"
 
 @import PrebidMobile;
+@import GoogleMobileAds;
 @import PrebidMobileGAMEventHandlers;
 @import PrebidMobileMoPubAdapters;
+@import PrebidMobileAdMobAdapters;
 
 @import MoPubSDK;
 
@@ -25,6 +27,12 @@
 @property (strong, nullable) MediationBannerAdUnit *mopubBannerAdUnit;
 
 @property (strong, nullable) MPAdView *mopubBannerView;
+
+// AdMob
+@property (nonatomic, strong) GADBannerView *gadBannerView;
+@property (nonatomic, strong) AdMobMediationBannerUtils *mediationDelegate;
+@property (nonatomic, strong) GADRequest *gadRequest;
+@property (nonatomic, strong) MediationBannerAdUnit *admobBannerAdUnit;
 
 @end
 
@@ -43,6 +51,7 @@
         case IntegrationKind_InApp          : [self loadInAppBanner]            ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingBanner]     ; break;
         case IntegrationKind_RenderingMoPub : [self loadMoPubRenderingBanner]   ; break;
+        case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingBanner]   ; break;
 
         default:
             break;
@@ -110,6 +119,21 @@
     
     [self.mopubBannerAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
         [self.mopubBannerView loadAd];
+    }];
+}
+
+- (void)loadAdMobRenderingBanner {
+    self.gadBannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+    self.gadBannerView.adUnitID = @"ca-app-pub-5922967660082475/9483570409";
+    self.gadRequest = [GADRequest new];
+    self.mediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest bannerView:self.gadBannerView];
+    self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"50699c03-0910-477c-b4a4-911dbe2b9d42" size:self.size mediationDelegate:self.mediationDelegate];
+    
+    [self.admobBannerAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
+        GADCustomEventExtras *extras = [GADCustomEventExtras new];
+        [extras setExtras:[self.mediationDelegate getEventExtras] forLabel:@"PrebidAdMobCustomEvent"];
+        [self.gadRequest registerAdNetworkExtras:extras];
+        [self.gadBannerView loadRequest:self.gadRequest];
     }];
 }
 

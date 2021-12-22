@@ -2268,6 +2268,28 @@ struct TestCaseManager {
             // MARK: ---- Banner (AdMob) ----
             
             TestCase(title: "Banner 320x50 (AdMob) [OK, OXB Adapter]",
+                     tags: [.banner, .admob, .mock, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
+                admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
+                admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
+                        
+                if AppConfiguration.shared.useMockServer {
+                    admobBannerController.prebidConfigId = "mock-banner-320-50"
+                } else {
+                    admobBannerController.prebidConfigId = "50699c03-0910-477c-b4a4-911dbe2b9d42"
+                }
+                 
+                adapterVC.setup(adapter: admobBannerController)
+                        
+                setupCustomParams(for: admobBannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner 320x50 (AdMob) [OK, Random]",
                      tags: [.banner, .admob, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2275,16 +2297,89 @@ struct TestCaseManager {
                     return
                 }
                 let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
-//                admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/5576454297"
-//                admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/6274318673"
-//                admobBannerController.adMobAdUnitId = "ca-app-pub-4276983034653276/7635963543"
+                admobBannerController.prebidConfigId = "mock-banner-320-50"
                 admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
                 admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
+                adapterVC.setup(adapter: admobBannerController)
                         
-                if AppConfiguration.shared.useMockServer {
-                    admobBannerController.prebidConfigId = "mock-banner-320-50"
+                setupCustomParams(for: admobBannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner 320x50 (AdMob) [noBids, AdMob Ad]",
+                     tags: [.banner, .admob, .server, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
                 }
-                 
+                let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
+
+                if AppConfiguration.shared.useMockServer {
+                    admobBannerController.prebidConfigId = "mock-no-bids"
+                } else {
+                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    admobBannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
+                }
+                admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
+                admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
+                adapterVC.setup(adapter: admobBannerController)
+                        
+                setupCustomParams(for: admobBannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner 320x50 (AdMob) [Random, Respective]",
+                     tags: [.banner, .admob, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                        
+                let mockServer = PBMMockServer()
+                mockServer.setRandomNoBids();
+                        
+                adapterVC.postActionClosure = {
+                    let mockServer = PBMMockServer()
+                    mockServer.cancelRandomNoBids();
+                }
+
+                let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
+                admobBannerController.prebidConfigId = "mock-banner-320-50"
+                admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
+                admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
+                adapterVC.setup(adapter: admobBannerController)
+                        
+                setupCustomParams(for: admobBannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner 300x250 (AdMob)",
+                     tags: [.banner, .admob, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
+                admobBannerController.prebidConfigId = "mock-banner-300-250"
+                admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
+                admobBannerController.adUnitSize = CGSize(width: 300, height: 250);
+                adapterVC.setup(adapter: admobBannerController)
+                        
+                setupCustomParams(for: admobBannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner Adaptive (AdMob)",
+                     tags: [.banner, .admob, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
+                admobBannerController.prebidConfigId = "mock-banner-multisize"
+                admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
+//                admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
+                admobBannerController.additionalAdSizes = [CGSize(width: 320, height: 50), CGSize(width: 728, height: 90)]
                 adapterVC.setup(adapter: admobBannerController)
                         
                 setupCustomParams(for: admobBannerController.prebidConfigId)

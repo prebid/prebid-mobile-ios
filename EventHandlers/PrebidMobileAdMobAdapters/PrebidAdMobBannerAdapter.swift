@@ -82,7 +82,6 @@ public class PrebidAdMobBannerAdapter:
         let frame = CGRect(origin: .zero, size: bid.size)
         
         displayView = PBMDisplayView(frame: frame, bid: bid, configId: configId)
-        
         displayView?.interactionDelegate = self
         displayView?.loadingDelegate = self
         
@@ -103,7 +102,8 @@ public class PrebidAdMobBannerAdapter:
     // MARK: - PBMDisplayViewInteractionDelegate
     
     public func trackImpression(for displayView: PBMDisplayView) {
-        
+        //Impressions will be tracked automatically
+        //unless enableAutomaticImpressionAndClickTracking = NO
     }
     
     public func viewControllerForModalPresentation(from displayView: PBMDisplayView) -> UIViewController? {

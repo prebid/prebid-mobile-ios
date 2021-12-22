@@ -37,6 +37,8 @@ class PrebidAdMobBannerViewController:
     
     private var adBannerView : GADBannerView?
     
+    private var prebidBanner: PBMDisplayView?
+    
     private weak var rootController: AdapterViewController?
     
     private let adViewDidLoadAdButton = EventReportContainer()
@@ -130,6 +132,15 @@ class PrebidAdMobBannerViewController:
             let prebidExtras = self.mediationDelegate?.getEventExtras()
             extras.setExtras(prebidExtras, forLabel: "PrebidAdMobCustomEvent")
             self.request.register(extras)
+            if !self.additionalAdSizes.isEmpty {
+                let sizeWithMaxWidth = self.additionalAdSizes.max {
+                    $0.width < $1.width
+                }
+                adBannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(sizeWithMaxWidth!.width)
+            } else {
+                adBannerView.adSize = GADAdSizeFromCGSize(self.adUnitSize)
+            }
+            
             adBannerView.load(self.request)
         }
         
