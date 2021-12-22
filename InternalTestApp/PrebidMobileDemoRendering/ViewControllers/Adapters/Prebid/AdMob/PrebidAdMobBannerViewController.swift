@@ -19,6 +19,11 @@ import PrebidMobile
 import PrebidMobileAdMobAdapters
 import Alamofire
 
+enum GADAdSizeType {
+    case regular
+    case adaptiveAnchored
+}
+
 class PrebidAdMobBannerViewController:
         NSObject,
         AdaptedController,
@@ -34,6 +39,8 @@ class PrebidAdMobBannerViewController:
     var adFormat: AdFormat?
     
     var request = GADRequest()
+    
+    var gadAdSizeType: GADAdSizeType
     
     private var adBannerView : GADBannerView?
     
@@ -60,6 +67,7 @@ class PrebidAdMobBannerViewController:
     
     required init(rootController:AdapterViewController) {
         self.rootController = rootController
+        gadAdSizeType = .regular
         super.init()
         
         reloadButton.addTarget(self, action: #selector(reload), for: .touchUpInside)
@@ -132,15 +140,18 @@ class PrebidAdMobBannerViewController:
             let prebidExtras = self.mediationDelegate?.getEventExtras()
             extras.setExtras(prebidExtras, forLabel: "PrebidAdMobCustomEvent")
             self.request.register(extras)
-            if !self.additionalAdSizes.isEmpty {
-                let sizeWithMaxWidth = self.additionalAdSizes.max {
-                    $0.width < $1.width
-                }
-                adBannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(sizeWithMaxWidth!.width)
-            } else {
-                adBannerView.adSize = GADAdSizeFromCGSize(self.adUnitSize)
+            
+            let sizeWithMaxWidth = self.additionalAdSizes.max {
+                $0.width < $1.width
             }
             
+            switch self.gadAdSizeType {
+            case .regular:
+                adBannerView.adSize = GADAdSizeFromCGSize(self.adUnitSize)
+            case .adaptiveAnchored:
+                adBannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(sizeWithMaxWidth?.width ?? self.adUnitSize.width)
+            }
+
             adBannerView.load(self.request)
         }
         
