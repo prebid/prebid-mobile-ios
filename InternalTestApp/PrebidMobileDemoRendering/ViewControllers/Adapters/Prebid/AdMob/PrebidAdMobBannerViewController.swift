@@ -19,7 +19,11 @@ import PrebidMobile
 import PrebidMobileAdMobAdapters
 import Alamofire
 
-class PrebidAdMobBannerViewController: NSObject, AdaptedController, PrebidConfigurableBannerController, GADBannerViewDelegate {
+class PrebidAdMobBannerViewController:
+        NSObject,
+        AdaptedController,
+        PrebidConfigurableBannerController,
+        GADBannerViewDelegate {
     
     var refreshInterval: TimeInterval = 0
     
@@ -47,6 +51,8 @@ class PrebidAdMobBannerViewController: NSObject, AdaptedController, PrebidConfig
     private let configIdLabel = UILabel()
     
     private var adUnit: MediationBannerAdUnit?
+    
+    private var mediationDelegate: AdMobMediationBannerUtils?
         
     // MARK: - AdaptedController
     
@@ -73,9 +79,11 @@ class PrebidAdMobBannerViewController: NSObject, AdaptedController, PrebidConfig
         adBannerView?.rootViewController = rootController
         adBannerView?.delegate = self
         
+        mediationDelegate = AdMobMediationBannerUtils(gadRequest: request, bannerView: adBannerView!)
+        
         adUnit = MediationBannerAdUnit(configID: prebidConfigId,
                                        size: adUnitSize,
-                                       mediationDelegate: AdMobMediationUtils(gadRequest: request))
+                                       mediationDelegate: mediationDelegate!)
         if (refreshInterval > 0) {
             adUnit?.refreshInterval = refreshInterval
         }
@@ -93,7 +101,7 @@ class PrebidAdMobBannerViewController: NSObject, AdaptedController, PrebidConfig
             }
         }
         
-        adUnit?.fetchDemand(with: adBannerView!) { [weak self] result in
+        adUnit?.fetchDemand { [weak self] result in
             guard let self = self,
                   let adBannerView = self.adBannerView,
                   let container = self.rootController?.bannerView
@@ -117,6 +125,11 @@ class PrebidAdMobBannerViewController: NSObject, AdaptedController, PrebidConfig
                                                       constant: 0)
             container.addConstraints([widthConstraint, heightConstraint])
             container.layoutSubviews()
+            
+            let extras = GADCustomEventExtras()
+            let prebidExtras = self.mediationDelegate?.getEventExtras()
+            extras.setExtras(prebidExtras, forLabel: "PrebidAdMobCustomEvent")
+            self.request.register(extras)
             adBannerView.load(self.request)
         }
         
@@ -198,7 +211,11 @@ class PrebidAdMobBannerViewController: NSObject, AdaptedController, PrebidConfig
         
         resetEvents()
         
-        adUnit?.fetchDemand(with: adBannerView!) { [weak self] result in
+        adUnit?.fetchDemand { [weak self] result in
+            let extras = GADCustomEventExtras()
+            let prebidExtras = self?.mediationDelegate?.getEventExtras()
+            extras.setExtras(prebidExtras, forLabel: "PrebidAdMobCustomEvent")
+            self?.request.register(extras)
             self?.adBannerView?.load(self?.request)
         }
     }

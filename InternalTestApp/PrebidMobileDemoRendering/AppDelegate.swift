@@ -106,7 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             GlobalVars.reactiveGAMInitFlag.markSdkInitialized()
         };
         
-        GAMInitializer.initialize()
+        AdMobUtils.initializeGAD()
         
         PrebidRenderingConfig.shared.logLevel = PBMLogLevel.info
         PrebidRenderingConfig.shared.debugLogFileEnabled = true

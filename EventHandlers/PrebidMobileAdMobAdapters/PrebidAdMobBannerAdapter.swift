@@ -30,16 +30,10 @@ public class PrebidAdMobBannerAdapter:
     
     required public override init() {
         super.init()
-        
-        print("PrebidAdMobBannerAdapter")
     }
     
     
     public func requestAd(_ adSize: GADAdSize, parameter serverParameter: String?, label serverLabel: String?, request: GADCustomEventRequest) {
-
-        print(serverParameter)
-        print("extras : \(request.additionalParameters)")
-        print(request.userKeywords)
         
         guard let eventExtras = request.additionalParameters, !eventExtras.isEmpty else {
             let error = AdMobAdaptersError.emptyCustomEventExtras

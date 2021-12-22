@@ -16,8 +16,9 @@
 import Foundation
 import GoogleMobileAds
 
-public class GAMInitializer {
-    public static func initialize() {
+@objcMembers
+public class AdMobUtils: NSObject {
+    public static func initializeGAD() {
         GADMobileAds.sharedInstance().start(completionHandler: nil)
     }
 }

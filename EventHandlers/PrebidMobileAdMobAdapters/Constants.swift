@@ -19,5 +19,4 @@ enum Constants {
     
     static let HBKeywordPrefix                 = "hb_"
     
-    static let customEventLabel                =  "PrebidAdMobCustomEvent"
 }
