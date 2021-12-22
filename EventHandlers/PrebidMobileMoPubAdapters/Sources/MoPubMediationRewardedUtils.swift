@@ -56,13 +56,11 @@ public class MoPubMediationRewardedUtils: NSObject, PrebidMediationDelegate {
         let keywords = MoPubMediationHelper.removeHBKeywordsFrom(adKeywords)
         bidInfoWrapper.keywords = keywords
         
-        let HBKeys = [PBMMediationAdUnitBidKey, PBMMediationConfigIdKey, PBMMediationAdNativeResponseKey]
-        let extras = adExtras.filter {
-            guard let key = $0.key as? String else { return true }
-            return !HBKeys.contains(key)
-        }
+        let filteredExtras = MoPubMediationHelper
+            .removeHBFromExtras(adExtras,
+                                hbKeys: [PBMMediationAdUnitBidKey, PBMMediationConfigIdKey, PBMMediationAdNativeResponseKey])
         
-        bidInfoWrapper.localExtras = extras
+        bidInfoWrapper.localExtras = filteredExtras
     }
     
     public func getAdView() -> UIView? {

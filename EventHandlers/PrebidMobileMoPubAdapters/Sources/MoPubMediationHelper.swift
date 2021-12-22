@@ -19,17 +19,18 @@ class MoPubMediationHelper {
     
     private init() {}
     
-    static func keywordsFrom(_ targetingInfo: [String : String]) -> String {
-        return targetingInfo
-            .map { $0 + ":" + $1 }
-            .joined(separator: Constants.keywordsSeparator)
-    }
-    
     static func removeHBKeywordsFrom(_ keywords: String) -> String  {
         return keywords
             .components(separatedBy: Constants.keywordsSeparator)
             .filter { !$0.hasPrefix(Constants.HBKeywordPrefix) }
             .joined(separator: Constants.keywordsSeparator)
+    }
+    
+    static func removeHBFromExtras(_ extras: [AnyHashable: Any], hbKeys: [String]) -> [AnyHashable: Any] {
+        return extras.filter {
+            guard let key = $0.key as? String else { return true }
+            return !hbKeys.contains(key)
+        }
     }
     
     static func getExtras(configId: String,

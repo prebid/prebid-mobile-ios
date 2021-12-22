@@ -56,13 +56,10 @@ public class MoPubMediationInterstitialUtils: NSObject, PrebidMediationDelegate 
         let keywords = MoPubMediationHelper.removeHBKeywordsFrom(adKeywords)
         mopubController.keywords = keywords
         
-        let HBKeys = [PBMMediationAdUnitBidKey, PBMMediationConfigIdKey, PBMMediationAdNativeResponseKey]
-        let extras = adExtras.filter {
-            guard let key = $0.key as? String else { return true }
-            return !HBKeys.contains(key)
-        }
-        
-        mopubController.localExtras = extras
+        let filteredExtras = MoPubMediationHelper
+            .removeHBFromExtras(adExtras,
+                                hbKeys: [PBMMediationAdUnitBidKey, PBMMediationConfigIdKey, PBMMediationAdNativeResponseKey])
+        mopubController.localExtras = filteredExtras
     }
     
     public func getAdView() -> UIView? {

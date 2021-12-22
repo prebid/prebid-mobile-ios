@@ -25,7 +25,7 @@ public class MoPubMediationBannerUtils: NSObject, PrebidMediationDelegate {
     public init(mopubView: MPAdView) {
         self.mopubView = mopubView
     }
-        
+    
     public func setUpAdObject(configId: String,
                               configIdKey: String,
                               targetingInfo: [String : String],
@@ -56,13 +56,11 @@ public class MoPubMediationBannerUtils: NSObject, PrebidMediationDelegate {
         let keywords = MoPubMediationHelper.removeHBKeywordsFrom(adKeywords)
         mopubView.keywords = keywords
         
-        let HBKeys = [PBMMediationAdUnitBidKey, PBMMediationConfigIdKey, PBMMediationAdNativeResponseKey]
-        let extras = adExtras.filter {
-            guard let key = $0.key as? String else { return true }
-            return !HBKeys.contains(key)
-        }
+        let filteredExtras = MoPubMediationHelper
+            .removeHBFromExtras(adExtras,
+                                hbKeys: [PBMMediationAdUnitBidKey, PBMMediationConfigIdKey, PBMMediationAdNativeResponseKey])
         
-        mopubView.localExtras = extras
+        mopubView.localExtras = filteredExtras
     }
     
     public func getAdView() -> UIView? {
