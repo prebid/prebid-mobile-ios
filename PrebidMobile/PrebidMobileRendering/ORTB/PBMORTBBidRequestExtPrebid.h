@@ -24,6 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *storedRequestID;
 @property (nonatomic, strong, nullable) NSArray<NSString *> *dataBidders;
 
+//Set as type string, stored auction responses signal Prebid Server to respond with a static response
+//matching the storedAuctionResponse found in the Prebid Server Database,
+//useful for debugging and integration testing.
+@property (nonatomic, strong, nullable) NSString *storedAuctionResponse;
+
 @end
 
 NS_ASSUME_NONNULL_END

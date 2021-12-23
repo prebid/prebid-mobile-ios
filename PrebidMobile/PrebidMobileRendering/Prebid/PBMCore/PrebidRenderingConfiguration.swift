@@ -38,6 +38,8 @@ public class PrebidRenderingConfig : NSObject {
     
     @objc public var bidRequestTimeoutMillis: Int
     @objc public var bidRequestTimeoutDynamic: NSNumber?
+    
+    @objc public var storedAuctionResponse: String?
 
 
     // MARK: - Public Properties (SDK)
