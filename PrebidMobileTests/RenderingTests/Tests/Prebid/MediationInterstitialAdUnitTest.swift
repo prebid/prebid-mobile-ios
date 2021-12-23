@@ -27,10 +27,17 @@ class MediationInterstitialAdUnitTest: XCTestCase {
     }()
     private let targeting = PrebidRenderingTargeting.shared
     
-    let mediationDelegate: PrebidMediationDelegate = MockMediationUtils()
+    var adObject: MockAdObject?
+    var mediationDelegate: PrebidMediationDelegate?
+    
+    override func setUp() {
+        adObject = MockAdObject()
+        mediationDelegate = MockMediationUtils(adObject: adObject!)
+        super.setUp()
+    }
     
     func testDefaultSettings() {
-        let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30), mediationDelegate: mediationDelegate)
+        let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30), mediationDelegate: mediationDelegate!)
         let adUnitConfig = adUnit.adUnitConfig
         
         XCTAssertTrue(adUnitConfig.isInterstitial)
@@ -38,47 +45,30 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         XCTAssertEqual(adUnitConfig.videoPlacementType.rawValue, 5)
     }
     
-    func testWrongAdObject() {
-        let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30), mediationDelegate: mediationDelegate)
-        let asyncExpectation = expectation(description: "fetchDemand executed")
-        adUnit.fetchDemand(with: NSString()) { result in
-            XCTAssertEqual(result, .wrongArguments)
-            asyncExpectation.fulfill()
-        }
-        waitForExpectations(timeout: 0.1)
-    }
-    
     func testAdObjectSetUpCleanUp() {
-        @objc class MoPubAdObject: NSObject  {
-            @objc var keywords: String?
-            @objc var localExtras: [AnyHashable : Any]?
-        }
-        
         //a good response with a bid
         let connection = MockServerConnection(onPost: [{ (url, data, timeout, callback) in
             callback(PBMBidResponseTransformer.someValidResponse)
         }])
         let initialKeywords = "key1,key2"
         
-        let adObject = MoPubAdObject()
-        adObject.keywords = initialKeywords
+        adObject!.keywords = initialKeywords
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnit = MediationInterstitialAdUnit(configId: configId, minSizePercentage: CGSize(width: 30, height: 30), mediationDelegate: mediationDelegate)
+        let adUnit = MediationInterstitialAdUnit(configId: configId, minSizePercentage: CGSize(width: 30, height: 30), mediationDelegate: mediationDelegate!)
         
         let asyncExpectation = expectation(description: "fetchDemand executed")
         
-        adUnit.fetchDemand(with: adObject,
-                           connection: connection,
+        adUnit.fetchDemand(connection: connection,
                            sdkConfiguration: sdkConfiguration,
                            targeting: targeting)
-        { result in
+        { [weak self] result in
             XCTAssertEqual(result, .ok)
             
-            let resultKeywords = adObject.keywords!
+            let resultKeywords = self!.adObject!.keywords!
             XCTAssertTrue(resultKeywords.contains("hb_pb:0.10"))
             
-            let resultExtras: [AnyHashable : Any] = adObject.localExtras!
+            let resultExtras: [AnyHashable : Any] = self!.adObject!.localExtras!
             XCTAssertEqual(resultExtras.count, 2)
             XCTAssertEqual(resultExtras[MockMediationConfigIdKey] as? String, configId)
             let bid = resultExtras[MockMediationAdUnitBidKey] as! NSObject
@@ -96,16 +86,15 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         
         let asyncExpectation2 = expectation(description: "fetchDemand executed")
         
-        adUnit.fetchDemand(with: adObject,
-                           connection: noBidConnection,
+        adUnit.fetchDemand(connection: noBidConnection,
                            sdkConfiguration: sdkConfiguration,
                            targeting: targeting)
-        { result in
+        { [weak self] result in
             XCTAssertEqual(result, .serverError)
             
-            let resultKeywords = adObject.keywords!
+            let resultKeywords = self!.adObject!.keywords!
             XCTAssertEqual(resultKeywords, initialKeywords)
-            let resultExtras: [AnyHashable : Any] = adObject.localExtras!
+            let resultExtras: [AnyHashable : Any] = self!.adObject!.localExtras!
             XCTAssertEqual(resultExtras.count, 0)
             
             asyncExpectation2.fulfill()
