@@ -74,7 +74,6 @@
                                                               extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders{
   
     PBMORTBBidRequest *bidRequest = [PBMParameterBuilderService createORTBBidRequestWithTargeting:targeting];
-    bidRequest.extPrebid.storedAuctionResponse = PrebidRenderingConfig.shared.storedAuctionResponse;
     NSMutableArray<id<PBMParameterBuilder> > * const parameterBuilders = [[NSMutableArray alloc] init];
     [parameterBuilders addObjectsFromArray:@[
         [[PBMBasicParameterBuilder alloc] initWithAdConfiguration:adConfiguration

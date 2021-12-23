@@ -62,9 +62,10 @@
     BOOL const isInterstitial = self.adConfiguration.isInterstitial;
     
     bidRequest.requestID = [NSUUID UUID].UUIDString;
-    bidRequest.extPrebid.storedRequestID    = self.sdkConfiguration.accountID;
-    bidRequest.extPrebid.dataBidders        = self.targeting.accessControlList;
-    bidRequest.app.publisher.publisherID    = self.sdkConfiguration.accountID;
+    bidRequest.extPrebid.storedRequestID        = self.sdkConfiguration.accountID;
+    bidRequest.extPrebid.storedAuctionResponse  = PrebidRenderingConfig.shared.storedAuctionResponse;
+    bidRequest.extPrebid.dataBidders            = self.targeting.accessControlList;
+    bidRequest.app.publisher.publisherID        = self.sdkConfiguration.accountID;
     
     bidRequest.app.ver          = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
     bidRequest.device.pxratio   = @([UIScreen mainScreen].scale);
@@ -110,6 +111,7 @@
     for (PBMORTBImp *nextImp in bidRequest.imp) {
         nextImp.impID = [NSUUID UUID].UUIDString;
         nextImp.extPrebid.storedRequestID = self.adConfiguration.configID;
+        nextImp.extPrebid.storedAuctionResponse = PrebidRenderingConfig.shared.storedAuctionResponse;
         nextImp.extPrebid.isRewardedInventory = self.adConfiguration.isOptIn;
         nextImp.extContextData = self.adConfiguration.contextDataDictionary;
         switch (adFormat) {
