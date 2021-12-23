@@ -19,7 +19,7 @@ import XCTest
 
 class MediationRewardedAdUnitTest: XCTestCase {
     
-    let mediationDelegate: PrebidMediationDelegate = MockMediationUtils()
+    let mediationDelegate: PrebidMediationDelegate = MockMediationUtils(adObject: MockAdObject())
     
     func testDefaultSettings() {
         let adUnit = MediationRewardedAdUnit(configId: "prebidConfigId", mediationDelegate: mediationDelegate)

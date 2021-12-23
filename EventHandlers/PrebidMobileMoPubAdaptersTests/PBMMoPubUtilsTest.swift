@@ -14,54 +14,20 @@
   */
 
 import XCTest
-
+import MoPubSDK
 import PrebidMobile
 @testable import PrebidMobileMoPubAdapters
 
-@objc class MoPubAdObject: NSObject  {
-    @objc var keywords: String?
-    @objc var localExtras: [AnyHashable : Any]?
-}
-
 class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
     
-    let mediationDelegate = MoPubMediationUtils()
+    var adView: MPAdView?
     
-    func testIsCorrectAdObject() {
-        XCTAssertTrue(mediationDelegate.isCorrectAdObject(MoPubAdObject()))
-        
-        XCTAssertFalse(mediationDelegate.isCorrectAdObject(UILabel()))
-        
-        
-        @objc class WrongAdObject1: NSObject {
-            @objc var keywords: NSString?
-        }
-        XCTAssertFalse(mediationDelegate.isCorrectAdObject(WrongAdObject1()))
-        
-        @objc class WrongAdObject2: NSObject {
-            @objc var localExtras: NSDictionary?
-        }
-        XCTAssertFalse(mediationDelegate.isCorrectAdObject(WrongAdObject2()))
-        
-        @objc class WrongAdObject3: NSObject {
-            @objc var keywords: NSString {
-                get {
-                    return ""
-                }
-            }
-            @objc var localExtras: NSDictionary?
-        }
-        XCTAssertFalse(mediationDelegate.isCorrectAdObject(WrongAdObject3()))
-        
-        @objc class WrongAdObject4: NSObject {
-            @objc var keywords: NSString?
-            @objc var localExtras: NSDictionary {
-                get {
-                    return NSDictionary()
-                }
-            }
-        }
-        XCTAssertFalse(mediationDelegate.isCorrectAdObject(WrongAdObject4()))
+    var mediationDelegate: PrebidMediationDelegate?
+    
+    override func setUp() {
+        super.setUp()
+        adView = MPAdView()
+        mediationDelegate = MoPubMediationBannerUtils(mopubView: adView!)
     }
     
     func testAdObjectSetUpCleanUp() {
@@ -76,27 +42,27 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
         let bid = Bid(bid: rawBid)
         let configId = "configId"
         
-        let adObject = MoPubAdObject()
-        adObject.keywords = initialKeyWords
+        adView!.keywords = initialKeyWords
         
-        guard mediationDelegate.setUpAdObject(adObject,
-                                       configID: configId,
-                                       targetingInfo: targetingInfo,
-                                       extraObject: bid, forKey: PBMMediationAdUnitBidKey) else {
+        guard mediationDelegate!.setUpAdObject(configId: configId,
+                                               configIdKey: PBMMediationConfigIdKey,
+                                               targetingInfo: targetingInfo,
+                                               extrasObject: bid,
+                                               extrasObjectKey: PBMMediationAdUnitBidKey) else {
             XCTFail()
             return
         }
         
-        let bidKeywords = adObject.keywords?.components(separatedBy: ",").sorted()
+        let bidKeywords = adView!.keywords?.components(separatedBy: ",").sorted()
         
         XCTAssertEqual(bidKeywords, sortedKeywords)
-        XCTAssertEqual(adObject.localExtras?[PBMMediationAdUnitBidKey] as! Bid, bid)
-        XCTAssertEqual(adObject.localExtras?[PBMMediationConfigIdKey] as! String, configId)
+        XCTAssertEqual(adView!.localExtras?[PBMMediationAdUnitBidKey] as! Bid, bid)
+        XCTAssertEqual(adView!.localExtras?[PBMMediationConfigIdKey] as! String, configId)
         
-        mediationDelegate.cleanUpAdObject(adObject)
+        mediationDelegate!.cleanUpAdObject()
         
-        XCTAssertEqual(adObject.keywords, initialKeyWords)
-        XCTAssertEqual(adObject.localExtras?.count, 0)
+        XCTAssertEqual(adView!.keywords, initialKeyWords)
+        XCTAssertEqual(adView!.localExtras?.count, 0)
     }
     
     // This test is not compilable due to changes in MoPubMediationUtils

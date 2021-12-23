@@ -63,7 +63,7 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
         
         adUnit = MediationInterstitialAdUnit(configId: prebidConfigId,
                                              minSizePercentage: CGSize(width: 30, height: 30),
-                                             mediationDelegate: MoPubMediationUtils())
+                                             mediationDelegate: MoPubMediationInterstitialUtils(mopubController: interstitialController!))
         if let adFormat = adFormat {
             adUnit?.adFormat = adFormat
         }
@@ -74,7 +74,7 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
             }
         }
         
-        adUnit?.fetchDemand(with: interstitialController!) { [weak self] result in
+        adUnit?.fetchDemand { [weak self] result in
             self?.interstitialController?.loadAd()
         }
     }

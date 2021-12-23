@@ -20,18 +20,17 @@ import UIKit
 public class MediationBannerAdUnit : NSObject {
     
     var bidRequester: PBMBidRequester?
-    //This is an MPAdView object
-    //But we can't use it indirectly as don't want to have additional MoPub dependency in the SDK core
-    weak var adObject: NSObject?
+    // The view in which ad is displayed
+    weak var adView: UIView?
     var completion: ((FetchDemandResult) -> Void)?
     
-    weak var lastAdObject: NSObject?
+    weak var lastAdView: UIView?
     var lastCompletion: ((FetchDemandResult) -> Void)?
     
     var isRefreshStopped = false
     var autoRefreshManager: PBMAutoRefreshManager?
     
-    var  adRequestError: Error?
+    var adRequestError: Error?
     
     var adUnitConfig: AdUnitConfig
     
@@ -111,24 +110,21 @@ public class MediationBannerAdUnit : NSObject {
             return self.isAdObjectVisible() || self.adRequestError != nil
         }, refreshBlock: { [weak self] in
             guard let self = self,
-                  let adObject = self.lastAdObject,
+                  self.lastAdView != nil,
                   let completion = self.lastCompletion else {
                       return
                   }
             
-            self.fetchDemand(with: adObject,
-                             connection: PBMServerConnection.shared,
+            self.fetchDemand(connection: PBMServerConnection.shared,
                              sdkConfiguration: PrebidRenderingConfig.shared,
                              targeting: PrebidRenderingTargeting.shared,
                              completion: completion)
         })
     }
     
-    public func fetchDemand(with adObject: NSObject,
-                            completion: ((FetchDemandResult)->Void)?) {
+    public func fetchDemand(completion: ((FetchDemandResult)->Void)?) {
         
-        fetchDemand(with: adObject,
-                    connection: PBMServerConnection.shared,
+        fetchDemand(connection: PBMServerConnection.shared,
                     sdkConfiguration: PrebidRenderingConfig.shared,
                     targeting: PrebidRenderingTargeting.shared,
                     completion: completion)
@@ -138,18 +134,17 @@ public class MediationBannerAdUnit : NSObject {
         isRefreshStopped = true
     }
     
-    public func adObjectDidFailToLoadAd(adObject: NSObject,
+    public func adObjectDidFailToLoadAd(adObject: UIView,
                                         with error: Error) {
-        if adObject === self.adObject || adObject === self.lastAdObject {
-            self.adRequestError = error;
+        if adObject === self.adView || adObject === self.lastAdView {
+            self.adRequestError = error
         }
     }
     
     // MARK: Private functions
     
     // NOTE: do not use `private` to expose this method to unit tests
-    func fetchDemand(with adObject: NSObject,
-                     connection: PBMServerConnectionProtocol,
+    func fetchDemand(connection: PBMServerConnectionProtocol,
                      sdkConfiguration: PrebidRenderingConfig,
                      targeting: PrebidRenderingTargeting,
                      completion: ((FetchDemandResult)->Void)?) {
@@ -158,25 +153,20 @@ public class MediationBannerAdUnit : NSObject {
             return
         }
         
-        guard mediationDelegate.isCorrectAdObject(adObject) else {
-            completion?(.wrongArguments)
-            return;
-        }
-        
         autoRefreshManager?.cancelRefreshTimer()
         
         if isRefreshStopped {
             return
         }
         
-        self.adObject = adObject
+        self.adView = mediationDelegate.getAdView()
         self.completion = completion
         
-        lastAdObject = nil
+        lastAdView = nil
         lastCompletion = nil
         adRequestError = nil
         
-        mediationDelegate.cleanUpAdObject(adObject)
+        mediationDelegate.cleanUpAdObject()
         
         bidRequester = PBMBidRequester(connection: connection,
                                        sdkConfiguration: sdkConfiguration,
@@ -205,29 +195,29 @@ public class MediationBannerAdUnit : NSObject {
     }
     
     private func isAdObjectVisible() -> Bool {
-        if let adObject = lastAdObject as? UIView {
-            return adObject.pbmIsVisible()
+        guard let adObject = adView else {
+            return false
         }
-        
-        return true;
+
+        return adObject.pbmIsVisible()
     }
     
     private func markLoadingFinished() {
-        adObject = nil;
-        completion = nil;
-        bidRequester = nil;
+        adView = nil
+        completion = nil
+        bidRequester = nil
     }
     
     private func handlePrebidResponse(response: BidResponseForRendering) {
         var demandResult = FetchDemandResult.demandNoBids
         
-        if  let adObject = self.adObject,
-            let winningBid = response.winningBid {
-            if mediationDelegate.setUpAdObject(adObject,
-                                               configID: configID,
+        if self.adView != nil,
+           let winningBid = response.winningBid {
+            if mediationDelegate.setUpAdObject(configId: configID,
+                                               configIdKey: PBMMediationConfigIdKey,
                                                targetingInfo: winningBid.targetingInfo ?? [:],
-                                               extraObject: winningBid,
-                                               forKey: PBMMediationAdUnitBidKey) { 
+                                               extrasObject: winningBid,
+                                               extrasObjectKey: PBMMediationAdUnitBidKey) {
                 demandResult = .ok
             } else {
                 demandResult = .wrongArguments
@@ -248,12 +238,12 @@ public class MediationBannerAdUnit : NSObject {
             markLoadingFinished()
         }
         
-        guard let adObject = self .adObject,
+        guard let adObject = self .adView,
               let completion = self.completion else {
                   return
               }
         
-        lastAdObject = adObject
+        lastAdView = adObject
         lastCompletion = completion
         
         autoRefreshManager?.setupRefreshTimer()

@@ -31,13 +31,12 @@ public class PrebidMoPubAdaptersUtils : NSObject {
     
     let localCache: LocalResponseInfoCache
     
-    lazy var mediationDelegate: PrebidMediationDelegate = MoPubMediationUtils()
+    lazy var mediationDelegate: PrebidMediationDelegate = MoPubMediationBannerUtils(mopubView: MPAdView())
     
     // MARK: - Public Methods
     
     public func prepareAdObject(_ adObject: NSObject) {
-        guard mediationDelegate.isCorrectAdObject(adObject),
-              let localExtras = adObject.value(forKey: "localExtras") as? [AnyHashable : Any],
+        guard let localExtras = adObject.value(forKey: "localExtras") as? [AnyHashable : Any],
               let demandResponseInfo = localExtras[PBMMediationAdNativeResponseKey] as? DemandResponseInfo else {
             return
         }

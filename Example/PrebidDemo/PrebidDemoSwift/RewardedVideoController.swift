@@ -182,12 +182,12 @@ class RewardedVideoController:
     
     func loadMoPubRenderingRewardedVideo() {
         
-        mopubRewardedAdUnit = MediationRewardedAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c",
-                                                      mediationDelegate: MoPubMediationUtils())
-        
         let bidInfoWrapper = MediationBidInfoWrapper()
+        
+        mopubRewardedAdUnit = MediationRewardedAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c",
+                                                      mediationDelegate: MoPubMediationRewardedUtils(bidInfoWrapper: bidInfoWrapper))
 
-        mopubRewardedAdUnit.fetchDemand(with: bidInfoWrapper) { [weak self] result in
+        mopubRewardedAdUnit.fetchDemand { [weak self] result in
             guard let self = self else {
                 return
             }

@@ -25,7 +25,6 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     
     var bidRequester: PBMBidRequester?
     
-    var adObject: NSObject?
     var completion: ((FetchDemandResult) -> Void)?
     
     let mediationDelegate: PrebidMediationDelegate
@@ -38,10 +37,8 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         adUnitConfig.videoPlacementType = .sliderOrFloating
     }
     
-    public func fetchDemand(with adObject: NSObject,
-                            completion: ((FetchDemandResult)->Void)?) {
-        fetchDemand(with: adObject,
-                    connection: PBMServerConnection.shared,
+    public func fetchDemand(completion: ((FetchDemandResult)->Void)?) {
+        fetchDemand(connection: PBMServerConnection.shared,
                     sdkConfiguration: PrebidRenderingConfig.shared,
                     targeting: PrebidRenderingTargeting.shared,
                     completion: completion)
@@ -68,8 +65,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     // MARK: - Internal Methods
     
     // NOTE: do not use `private` to expose this method to unit tests
-    func fetchDemand(with adObject: NSObject,
-                     connection: PBMServerConnectionProtocol,
+    func fetchDemand(connection: PBMServerConnectionProtocol,
                      sdkConfiguration: PrebidRenderingConfig,
                      targeting: PrebidRenderingTargeting,
                      completion: ((FetchDemandResult)->Void)?) {
@@ -78,15 +74,9 @@ public class MediationBaseInterstitialAdUnit : NSObject {
             return
         }
         
-        if !mediationDelegate.isCorrectAdObject(adObject) {
-            completion?(.wrongArguments)
-            return
-        }
-        
-        self.adObject = adObject
         self.completion = completion
         
-        mediationDelegate.cleanUpAdObject(adObject)
+        mediationDelegate.cleanUpAdObject()
         
         bidRequester = PBMBidRequester(connection: connection,
                                        sdkConfiguration: sdkConfiguration,
@@ -107,15 +97,14 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     private func handleBidResponse(_ bidResponse: BidResponseForRendering) {
         var demandResult = FetchDemandResult.demandNoBids
         
-        if let adObject = self.adObject,
-           let winningBid = bidResponse.winningBid,
+        if let winningBid = bidResponse.winningBid,
            let targetingInfo = winningBid.targetingInfo {
             
-            if mediationDelegate.setUpAdObject(adObject,
-                                               configID: configId,
+            if mediationDelegate.setUpAdObject(configId: configId,
+                                               configIdKey: PBMMediationConfigIdKey,
                                                targetingInfo: targetingInfo,
-                                               extraObject: winningBid,
-                                               forKey: PBMMediationAdUnitBidKey) {
+                                               extrasObject: winningBid,
+                                               extrasObjectKey: PBMMediationAdUnitBidKey) {
                 demandResult = .ok
             } else {
                 demandResult = .wrongArguments
@@ -145,7 +134,6 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     }
     
     private func markLoadingFinished() {
-        adObject = nil
         completion = nil
         bidRequester = nil
     }

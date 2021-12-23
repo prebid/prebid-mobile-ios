@@ -72,7 +72,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         
         adUnit = MediationBannerAdUnit(configID: prebidConfigId,
                                        size: adUnitSize,
-                                       mediationDelegate: MoPubMediationUtils())
+                                       mediationDelegate: MoPubMediationBannerUtils(mopubView: adBannerView!))
         if (refreshInterval > 0) {
             adUnit?.refreshInterval = refreshInterval
         }
@@ -91,7 +91,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
             }
         }
         
-        adUnit?.fetchDemand(with: adBannerView!) { [weak self] result in
+        adUnit?.fetchDemand { [weak self] result in
             guard let self = self,
                   let adBannerView = self.adBannerView,
                   let container = self.rootController?.bannerView
@@ -199,7 +199,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         
         resetEvents()
         
-        adUnit?.fetchDemand(with: adBannerView!) { [weak self] result in
+        adUnit?.fetchDemand { [weak self] result in
             self?.adBannerView?.loadAd()
         }
     }
