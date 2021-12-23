@@ -32,14 +32,13 @@ public class MoPubMediationRewardedUtils: NSObject, PrebidMediationDelegate {
                               extrasObject: Any?,
                               extrasObjectKey: String) -> Bool {
         
-        let extras = bidInfoWrapper.localExtras ?? [AnyHashable: Any]()
-        bidInfoWrapper.localExtras = MoPubMediationHelper.getExtras(existingExtras: extras,
+        bidInfoWrapper.localExtras = MoPubMediationHelper.getExtras(existingExtras: bidInfoWrapper.localExtras,
                                                                     configId: configId,
                                                                     configIdKey: configIdKey,
                                                                     extrasObject: extrasObject,
                                                                     extrasObjectKey: extrasObjectKey)
-        let adKeywords = bidInfoWrapper.keywords ?? ""
-        bidInfoWrapper.keywords = MoPubMediationHelper.getKeywords(existingKeywords: adKeywords,
+
+        bidInfoWrapper.keywords = MoPubMediationHelper.getKeywords(existingKeywords: bidInfoWrapper.keywords ?? "",
                                                                    targetingInfo: targetingInfo)
         return true
     }

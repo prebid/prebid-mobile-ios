@@ -35,12 +35,12 @@ class MoPubMediationHelper {
         }
     }
     
-    static func getExtras(existingExtras: [AnyHashable: Any],
+    static func getExtras(existingExtras: [AnyHashable: Any]?,
                           configId: String,
                           configIdKey: String,
                           extrasObject: Any?,
                           extrasObjectKey: String) -> [AnyHashable: Any] {
-        var extras = existingExtras
+        var extras = existingExtras ?? [AnyHashable: Any]()
         extras[configIdKey] = configId
         extras[extrasObjectKey] = extrasObject
         return extras

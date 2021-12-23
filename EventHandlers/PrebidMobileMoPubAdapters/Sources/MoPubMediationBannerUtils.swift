@@ -31,15 +31,14 @@ public class MoPubMediationBannerUtils: NSObject, PrebidMediationDelegate {
                               targetingInfo: [String : String],
                               extrasObject: Any?,
                               extrasObjectKey: String) -> Bool {
-        
-        let extras = mopubView.localExtras ?? [AnyHashable: Any]()
-        mopubView.localExtras = MoPubMediationHelper.getExtras(existingExtras: extras,
+    
+        mopubView.localExtras = MoPubMediationHelper.getExtras(existingExtras: mopubView.localExtras,
                                                                configId: configId,
                                                                configIdKey: configIdKey,
                                                                extrasObject: extrasObject,
                                                                extrasObjectKey: extrasObjectKey)
-        let adKeywords = mopubView.keywords ?? ""
-        mopubView.keywords = MoPubMediationHelper.getKeywords(existingKeywords: adKeywords,
+
+        mopubView.keywords = MoPubMediationHelper.getKeywords(existingKeywords: mopubView.keywords ?? "",
                                                               targetingInfo: targetingInfo)
         return true
     }

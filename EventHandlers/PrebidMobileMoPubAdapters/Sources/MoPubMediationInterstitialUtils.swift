@@ -32,14 +32,13 @@ public class MoPubMediationInterstitialUtils: NSObject, PrebidMediationDelegate 
                               extrasObject: Any?,
                               extrasObjectKey: String) -> Bool {
         
-        let extras = mopubController.localExtras ?? [AnyHashable: Any]()
-        mopubController.localExtras = MoPubMediationHelper.getExtras(existingExtras: extras,
+        mopubController.localExtras = MoPubMediationHelper.getExtras(existingExtras: mopubController.localExtras,
                                                                      configId: configId,
                                                                      configIdKey: configIdKey,
                                                                      extrasObject: extrasObject,
                                                                      extrasObjectKey: extrasObjectKey)
-        let adKeywords = mopubController.keywords ?? ""
-        mopubController.keywords = MoPubMediationHelper.getKeywords(existingKeywords: adKeywords,
+        
+        mopubController.keywords = MoPubMediationHelper.getKeywords(existingKeywords: mopubController.keywords ?? "",
                                                                     targetingInfo: targetingInfo)
         return true
     }
