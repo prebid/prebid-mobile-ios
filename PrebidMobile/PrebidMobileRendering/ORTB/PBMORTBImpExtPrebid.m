@@ -44,6 +44,10 @@
         ret[@"is_rewarded_inventory"] = @(1);
     }
     
+    if(self.storedAuctionResponse) {
+        ret[@"storedauctionresponse"] = @{@"id":self.storedAuctionResponse};
+    }
+    
     return ret;
 }
 
@@ -54,6 +58,8 @@
     
     _storedRequestID = jsonDictionary[@"storedrequest"][@"id"];
     _isRewardedInventory = jsonDictionary[@"is_rewarded_inventory"] != nil;
+    
+    _storedAuctionResponse = jsonDictionary[@"storedauctionresponse"][@"id"];
     
     return self;
 }
