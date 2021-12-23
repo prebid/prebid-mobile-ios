@@ -14,6 +14,7 @@
   */
 
 import Foundation
+import PrebidMobile
 
 class MoPubMediationHelper {
     
@@ -26,28 +27,32 @@ class MoPubMediationHelper {
             .joined(separator: Constants.keywordsSeparator)
     }
     
-    static func removeHBFromExtras(_ extras: [AnyHashable: Any], hbKeys: [String]) -> [AnyHashable: Any] {
+    static func removeHBFromExtras(_ extras: [AnyHashable: Any]) -> [AnyHashable: Any] {
+        let hbKeys = [PBMMediationAdUnitBidKey, PBMMediationConfigIdKey, PBMMediationAdNativeResponseKey]
         return extras.filter {
             guard let key = $0.key as? String else { return true }
             return !hbKeys.contains(key)
         }
     }
     
-    static func getExtras(configId: String,
+    static func getExtras(existingExtras: [AnyHashable: Any],
+                          configId: String,
                           configIdKey: String,
                           extrasObject: Any?,
                           extrasObjectKey: String) -> [AnyHashable: Any] {
-        var extras = [AnyHashable: Any]()
+        var extras = existingExtras
         extras[configIdKey] = configId
         extras[extrasObjectKey] = extrasObject
         return extras
     }
     
-    static func getKeywords(targetingInfo: [String: String]) -> String {
+    static func getKeywords(existingKeywords: String,
+                            targetingInfo: [String: String]) -> String {
         if targetingInfo.count > 0 {
-            return targetingInfo
+             let newKeywords = targetingInfo
                 .map { $0 + ":" + $1 }
                 .joined(separator: Constants.keywordsSeparator)
+            return existingKeywords.isEmpty ? newKeywords: existingKeywords + "," + newKeywords
         }
         return ""
     }
