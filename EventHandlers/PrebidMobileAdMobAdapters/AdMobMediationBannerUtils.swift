@@ -43,9 +43,7 @@ public class AdMobMediationBannerUtils: NSObject, PrebidMediationDelegate {
                                                      extrasObject: extrasObject,
                                                      extrasObjectKey: extrasObjectKey)
         
-        let adKeywords = gadRequest.keywords ?? [String]()
-        let newKeywords = AdMobMediationHelper.getKeywords(targetingInfo: targetingInfo)
-        gadRequest.keywords = adKeywords.isEmpty ? newKeywords: adKeywords + newKeywords
+        gadRequest.keywords = AdMobMediationHelper.getKeywords(targetingInfo: targetingInfo)
         
         return true
     }
