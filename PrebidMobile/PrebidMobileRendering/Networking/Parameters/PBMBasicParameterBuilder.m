@@ -115,7 +115,6 @@
         rtbImp.secure = @1;
         
         rtbImp.clickbrowser = @(self.sdkConfiguration.useExternalClickthroughBrowser ? 1 : 0);
-        rtbImp.extPrebid.storedAuctionResponse = PrebidRenderingConfig.shared.storedAuctionResponse;
     }
     
     bidRequest.regs.coppa = self.targeting.coppa;
