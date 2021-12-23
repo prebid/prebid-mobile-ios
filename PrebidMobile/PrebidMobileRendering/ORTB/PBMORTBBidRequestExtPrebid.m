@@ -44,6 +44,10 @@
         };
     };
     
+    if(self.storedAuctionResponse) {
+        ret[@"storedauctionresponse"] = @{@"id":self.storedAuctionResponse};
+    }
+    
     return ret;
 }
 
@@ -53,6 +57,7 @@
     }
     _storedRequestID = jsonDictionary[@"storedrequest"][@"id"];
     _dataBidders = jsonDictionary[@"data"][@"bidders"];
+    _storedAuctionResponse = jsonDictionary[@"storedauctionresponse"][@"id"];
     return self;
 }
 
