@@ -15,8 +15,8 @@
 
 import Foundation
 
-enum Constants {
-    
-    static let HBKeywordPrefix                 = "hb_"
-    
+@objcMembers
+public class AdMobConstants: NSObject {
+    public static let PrebidAdMobEventExtrasLabel = "PrebidAdMobCustomEventExtras"
 }
+

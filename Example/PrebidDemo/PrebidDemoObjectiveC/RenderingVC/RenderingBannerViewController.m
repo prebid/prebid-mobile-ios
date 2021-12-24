@@ -131,7 +131,9 @@
     
     [self.admobBannerAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
         GADCustomEventExtras *extras = [GADCustomEventExtras new];
-        [extras setExtras:[self.mediationDelegate getEventExtras] forLabel:@"PrebidAdMobCustomEvent"];
+        NSDictionary *prebidExtras = [self.mediationDelegate getEventExtras];
+        NSString *prebidExtrasLabel = AdMobConstants.PrebidAdMobEventExtrasLabel;
+        [extras setExtras:prebidExtras forLabel: prebidExtrasLabel];
         [self.gadRequest registerAdNetworkExtras:extras];
         [self.gadBannerView loadRequest:self.gadRequest];
     }];

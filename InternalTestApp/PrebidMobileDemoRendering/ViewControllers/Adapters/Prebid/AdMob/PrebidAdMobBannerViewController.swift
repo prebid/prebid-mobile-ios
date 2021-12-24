@@ -138,7 +138,7 @@ class PrebidAdMobBannerViewController:
             
             let extras = GADCustomEventExtras()
             let prebidExtras = self.mediationDelegate?.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: "PrebidAdMobCustomEvent")
+            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
             self.request.register(extras)
             
             let sizeWithMaxWidth = self.additionalAdSizes.max {
@@ -236,7 +236,7 @@ class PrebidAdMobBannerViewController:
         adUnit?.fetchDemand { [weak self] result in
             let extras = GADCustomEventExtras()
             let prebidExtras = self?.mediationDelegate?.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: "PrebidAdMobCustomEvent")
+            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
             self?.request.register(extras)
             self?.adBannerView?.load(self?.request)
         }

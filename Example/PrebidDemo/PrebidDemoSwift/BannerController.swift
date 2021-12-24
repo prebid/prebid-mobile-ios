@@ -368,7 +368,7 @@ class BannerController:
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
             let extras = GADCustomEventExtras()
             let prebidExtras = self?.mediationDelegate.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: "PrebidAdMobCustomEvent")
+            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
             self?.gadRequest.register(extras)
             self?.gadBanner.load(self?.gadRequest)
         }

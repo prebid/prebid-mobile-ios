@@ -38,12 +38,12 @@ public class AdMobMediationBannerUtils: NSObject, PrebidMediationDelegate {
                               extrasObject: Any?,
                               extrasObjectKey: String) -> Bool {
         
-        eventExtras = AdMobMediationHelper.getExtras(configId: configId,
-                                                     configIdKey: configIdKey,
-                                                     extrasObject: extrasObject,
-                                                     extrasObjectKey: extrasObjectKey)
+        eventExtras = AdMobUtils.buildExtras(configId: configId,
+                                             configIdKey: configIdKey,
+                                             extrasObject: extrasObject,
+                                             extrasObjectKey: extrasObjectKey)
         
-        gadRequest.keywords = AdMobMediationHelper.getKeywords(targetingInfo: targetingInfo)
+        gadRequest.keywords = AdMobUtils.buildKeywords(targetingInfo: targetingInfo)
         
         return true
     }
@@ -52,7 +52,7 @@ public class AdMobMediationBannerUtils: NSObject, PrebidMediationDelegate {
         guard let gadKeywords = gadRequest.keywords as? [String] else {
             return
         }
-        gadRequest.keywords = AdMobMediationHelper.removeHBKeywordsFrom(gadKeywords)
+        gadRequest.keywords = AdMobUtils.removeHBKeywordsFrom(gadKeywords)
     }
     
     public func getAdView() -> UIView? {
