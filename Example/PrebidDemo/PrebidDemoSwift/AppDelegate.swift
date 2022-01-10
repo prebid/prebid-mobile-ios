@@ -20,6 +20,7 @@ import GoogleMobileAds
 import MoPubSDK
 #if canImport(AppTrackingTransparency)
 import AppTrackingTransparency
+import PrebidMobileAdMobAdapters
 #endif
 
 @UIApplicationMain
@@ -57,6 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =  [ (kGADSimulatorID as! String), "cc7ca766f86b43ab6cdc92bed424069b"]
         GADMobileAds.sharedInstance().start()
+        
+        AdMobUtils.initializeGAD()
         let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
         sdkConfig.globalMediationSettings = []
 
