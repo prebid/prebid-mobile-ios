@@ -24,6 +24,7 @@ import MoPubSDK
 import PrebidMobile
 import PrebidMobileGAMEventHandlers
 import PrebidMobileMoPubAdapters
+import PrebidMobileAdMobAdapters
 
 
 class AboutViewController : FormViewController {
@@ -40,6 +41,7 @@ class AboutViewController : FormViewController {
         ("Bridging SDKs", [
             "GAM Event Handlers": versionOfBundle(providing: GAMBannerEventHandler.self),
             "MoPub Adapters": versionOfBundle(providing: PrebidMoPubBannerAdapter.self),
+            "AdMob Adapters": versionOfBundle(providing: PrebidAdMobBannerAdapter.self),
         ]),
     ]
     

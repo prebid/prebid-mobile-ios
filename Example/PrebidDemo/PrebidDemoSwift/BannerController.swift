@@ -22,6 +22,7 @@ import GoogleMobileAds
 import MoPubSDK
 import PrebidMobileGAMEventHandlers
 import PrebidMobileMoPubAdapters
+import PrebidMobileAdMobAdapters
 
 enum AdFormat: Int {
     case html
@@ -66,6 +67,12 @@ class BannerController:
     // Prebid Rendering
     private var prebidBannerView: BannerView!               // (In-App and GAM)
     private var prebidMoPubAdUnit: MediationBannerAdUnit!   // (MoPub)
+    
+    // AdMob
+    private var gadBanner: GADBannerView!
+    private let gadRequest = GADRequest()
+    private var prebidAdMobMediaitonAdUnit: MediationBannerAdUnit!
+    private var mediationDelegate: AdMobMediationBannerUtils!
         
     // MARK: - UIViewController
 
@@ -81,7 +88,7 @@ class BannerController:
             case .inApp             : setupAndLoadInAppBanner()
             case .renderingGAM      : setupAndLoadGAMRendering()
             case .renderingMoPub    : setupAndLoadMoPubRendering()
-            case .renderingAdMob    : print("TODO: Add Example")
+            case .renderingAdMob    : setupAndLoadAdMobRendering()
             case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
         
@@ -163,6 +170,13 @@ class BannerController:
         setupMoPubRenderingBanner(width: 320, height: 50)
         
         loadMoPubRenderingBanner()
+    }
+    
+    func setupAndLoadAdMobRendering() {
+        setupOpenxRenderingBanner()
+        
+        setupAdMobBanner(adUnitId: "ca-app-pub-5922967660082475/9483570409", width: 320, height: 50)
+        loadAdMobRenderingBanner()
     }
     
     // MARK: Setup PBS
@@ -258,6 +272,11 @@ class BannerController:
         mpBanner.frame = CGRect(x: 0, y: 0, width: width, height: height)
     }
     
+    func setupAdMobBanner(adUnitId: String, width: Int, height: Int) {
+        gadBanner = GADBannerView(adSize: GADAdSizeFromCGSize(CGSize(width: width, height: height)))
+        gadBanner.adUnitID = adUnitId
+    }
+    
     // MARK: Load
     
     func loadGAMBanner() {
@@ -332,6 +351,28 @@ class BannerController:
         prebidMoPubAdUnit.fetchDemand { [weak self] result in
             self?.mpBanner.loadAd()
         }
+    }
+    
+    func loadAdMobRenderingBanner() {
+        gadBanner.delegate = self
+        appBannerView.addSubview(gadBanner)
+        gadBanner.backgroundColor = .red
+        gadBanner.rootViewController = self
+        
+        
+        let size = CGSize(width: 320, height: 50)
+        
+        mediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: gadBanner)
+        prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: "50699c03-0910-477c-b4a4-911dbe2b9d42", size: size, mediationDelegate: mediationDelegate)
+        
+        prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
+            let extras = GADCustomEventExtras()
+            let prebidExtras = self?.mediationDelegate.getEventExtras()
+            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
+            self?.gadRequest.register(extras)
+            self?.gadBanner.load(self?.gadRequest)
+        }
+        
     }
 
     //MARK: Banner VAST

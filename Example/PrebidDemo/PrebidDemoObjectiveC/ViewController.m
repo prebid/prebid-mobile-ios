@@ -15,6 +15,7 @@
 
 @import GoogleMobileAds;
 @import PrebidMobile;
+@import PrebidMobileAdMobAdapters;
 
 #import "ViewController.h"
 #import "MoPub.h"
