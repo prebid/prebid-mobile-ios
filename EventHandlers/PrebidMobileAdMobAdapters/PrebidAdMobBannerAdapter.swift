@@ -35,24 +35,6 @@ public class PrebidAdMobBannerAdapter:
     
     public func requestAd(_ adSize: GADAdSize, parameter serverParameter: String?, label serverLabel: String?, request: GADCustomEventRequest) {
         
-        guard let eventExtras = request.additionalParameters, !eventExtras.isEmpty else {
-            let error = AdMobAdaptersError.emptyCustomEventExtras
-            delegate?.customEventBanner(self, didFailAd: error)
-            return
-        }
-        
-        guard let bid = eventExtras[PBMMediationAdUnitBidKey] as? Bid else {
-            let error = AdMobAdaptersError.noBidInEventExtras
-            delegate?.customEventBanner(self, didFailAd: error)
-            return
-        }
-        
-        guard let configId = eventExtras[PBMMediationConfigIdKey] as? String else {
-            let error = AdMobAdaptersError.noConfigIDInEventExtras
-            delegate?.customEventBanner(self, didFailAd: error)
-            return
-        }
-        
         guard let serverParameter = serverParameter else {
             let error = AdMobAdaptersError.noServerParameter
             delegate?.customEventBanner(self, didFailAd: error)
@@ -67,6 +49,24 @@ public class PrebidAdMobBannerAdapter:
         
         guard AdMobUtils.isServerParameterInKeywords(serverParameter, keywords) else {
             let error = AdMobAdaptersError.wrongServerParameter
+            delegate?.customEventBanner(self, didFailAd: error)
+            return
+        }
+        
+        guard let eventExtras = request.additionalParameters, !eventExtras.isEmpty else {
+            let error = AdMobAdaptersError.emptyCustomEventExtras
+            delegate?.customEventBanner(self, didFailAd: error)
+            return
+        }
+        
+        guard let bid = eventExtras[PBMMediationAdUnitBidKey] as? Bid else {
+            let error = AdMobAdaptersError.noBidInEventExtras
+            delegate?.customEventBanner(self, didFailAd: error)
+            return
+        }
+        
+        guard let configId = eventExtras[PBMMediationConfigIdKey] as? String else {
+            let error = AdMobAdaptersError.noConfigIDInEventExtras
             delegate?.customEventBanner(self, didFailAd: error)
             return
         }

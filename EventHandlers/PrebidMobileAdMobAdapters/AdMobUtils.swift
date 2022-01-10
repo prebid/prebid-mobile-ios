@@ -50,28 +50,28 @@ public class AdMobUtils: NSObject {
     
     static func isServerParameterInKeywords(_ serverParameter: String, _ keywords: [String]) -> Bool {
         guard let serverParametersDictionary = stringToDictionary(dataString: serverParameter) else {
-            PBMLog.error("Wrong server parameter format.")
+            PBMLog.message("Wrong server parameter format.")
             return false
         }
         
         guard !serverParametersDictionary.isEmpty else {
-            PBMLog.error("Empty server parameter.")
+            PBMLog.message("Empty server parameter.")
             return false
         }
         
         guard let keywordsDictionary = arrayStringToDictionary(dataStringArray: keywords) else {
-            PBMLog.error("Wrong user keywords format.")
+            PBMLog.message("Wrong user keywords format.")
             return false
         }
         
         guard !keywordsDictionary.isEmpty else {
-            PBMLog.error("Empty user keywords.")
+            PBMLog.message("Empty user keywords.")
             return false
         }
         
         for parameter in serverParametersDictionary {
             if keywordsDictionary[parameter.key] != parameter.value {
-                PBMLog.error("Server parameter is absent in user keywords.")
+                PBMLog.message("Server parameter is absent in user keywords.")
                 return false
             }
         }
@@ -87,7 +87,7 @@ public class AdMobUtils: NSObject {
                 return json
             }
         } catch let error as NSError {
-            print("Failed to load: \(error.localizedDescription)")
+            PBMLog.message("Failed to load: \(error.localizedDescription)")
         }
         
         return nil
