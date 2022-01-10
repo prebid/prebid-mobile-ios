@@ -15,6 +15,7 @@
 
 import Foundation
 import GoogleMobileAds
+import PrebidMobile
 
 fileprivate let HBKeywordPrefix = "hb_"
 
@@ -47,28 +48,35 @@ public class AdMobUtils: NSObject {
         return []
     }
     
-    static func isServerParameterInKeywords(_ serverParameter: String, _ keywords: [String]) throws {
+    static func isServerParameterInKeywords(_ serverParameter: String, _ keywords: [String]) -> Bool {
         guard let serverParametersDictionary = stringToDictionary(dataString: serverParameter) else {
-            throw AdMobAdaptersError.wrongServerParameterFormat
+            PBMLog.error("Wrong server parameter format.")
+            return false
         }
         
         guard !serverParametersDictionary.isEmpty else {
-            throw AdMobAdaptersError.emptyServerParameter
+            PBMLog.error("Empty server parameter.")
+            return false
         }
         
         guard let keywordsDictionary = arrayStringToDictionary(dataStringArray: keywords) else {
-            throw AdMobAdaptersError.wrongUserKeywordsFormat
+            PBMLog.error("Wrong user keywords format.")
+            return false
         }
         
         guard !keywordsDictionary.isEmpty else {
-            throw AdMobAdaptersError.emptyUserKeywords
+            PBMLog.error("Empty user keywords.")
+            return false
         }
         
         for parameter in serverParametersDictionary {
             if keywordsDictionary[parameter.key] != parameter.value {
-                throw AdMobAdaptersError.wrongServerParameter
+                PBMLog.error("Server parameter is absent in user keywords.")
+                return false
             }
         }
+        
+        return true
     }
     
     // Private methods

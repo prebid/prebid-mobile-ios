@@ -20,10 +20,6 @@ enum AdMobAdaptersError {
     case noBidInEventExtras
     case noConfigIDInEventExtras
     case noServerParameter
-    case emptyUserKeywords
-    case wrongUserKeywordsFormat
-    case emptyServerParameter
-    case wrongServerParameterFormat
     case wrongServerParameter
 }
 
@@ -35,11 +31,7 @@ extension AdMobAdaptersError: LocalizedError {
         case .noBidInEventExtras            : return "The Bid object is absent in the extras"
         case .noConfigIDInEventExtras       : return "The Config ID is absent in the extras"
         case .noServerParameter             : return "Server parameter is absent in request"
-        case .emptyUserKeywords             : return "User keywords are empty"
-        case .wrongUserKeywordsFormat       : return "User keywords are in a wrong format"
-        case .emptyServerParameter          : return "The server parameter is empty"
-        case .wrongServerParameterFormat    : return "The server parameter is in a wrong format"
-        case .wrongServerParameter          : return "User keywords don't not contain server parameter"
+        case .wrongServerParameter          : return "User keywords don't contain server parameter"
         }
     }
 }
