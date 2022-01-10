@@ -41,11 +41,8 @@ public class AdMobUtils: NSObject {
     }
     
     static func buildKeywords(targetingInfo: [String: String]) -> [String] {
-        if targetingInfo.count > 0 {
-            return targetingInfo
-                .map { $0 + ":" + $1 }
-        }
-        return []
+        return targetingInfo
+            .map { $0 + ":" + $1 }
     }
     
     static func isServerParameterInKeywords(_ serverParameter: String, _ keywords: [String]) -> Bool {

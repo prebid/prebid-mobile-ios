@@ -40,8 +40,15 @@ class AdMobUtilsTest: XCTestCase {
         XCTAssertFalse(AdMobUtils.isServerParameterInKeywords(serverParameter, keywords))
     }
     
-    func testEmptyServerParameter() {
+    func testEmptyJSONServerParameter() {
         let serverParameter = "{}"
+        let keywords = ["hb_size:320x50", "hb_pb:0.10", "hb_size_openx:320x50"]
+        
+        XCTAssertFalse(AdMobUtils.isServerParameterInKeywords(serverParameter, keywords))
+    }
+    
+    func testEmptyServerParameter() {
+        let serverParameter = ""
         let keywords = ["hb_size:320x50", "hb_pb:0.10", "hb_size_openx:320x50"]
         
         XCTAssertFalse(AdMobUtils.isServerParameterInKeywords(serverParameter, keywords))
