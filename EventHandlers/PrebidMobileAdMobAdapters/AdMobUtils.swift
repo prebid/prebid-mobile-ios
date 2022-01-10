@@ -47,24 +47,28 @@ public class AdMobUtils: NSObject {
         return []
     }
     
-    static func isServerParameterInKeywords(_ serverParameter: String, _ keywords: [String]) -> Bool {
-        guard let serverParameterDictionary = stringToDictionary(dataString: serverParameter) else {
-            return false
+    static func isServerParameterInKeywords(_ serverParameter: String, _ keywords: [String]) throws {
+        guard let serverParametersDictionary = stringToDictionary(dataString: serverParameter) else {
+            throw AdMobAdaptersError.wrongServerParameterFormat
+        }
+        
+        guard !serverParametersDictionary.isEmpty else {
+            throw AdMobAdaptersError.emptyServerParameter
         }
         
         guard let keywordsDictionary = arrayStringToDictionary(dataStringArray: keywords) else {
-            return false
+            throw AdMobAdaptersError.wrongUserKeywordsFormat
         }
         
-        for parameter in serverParameterDictionary {
-            if !keywordsDictionary.contains(where: { key, value in
-                return key == parameter.key && value == parameter.value
-            }) {
-                return false
+        guard !keywordsDictionary.isEmpty else {
+            throw AdMobAdaptersError.emptyUserKeywords
+        }
+        
+        for parameter in serverParametersDictionary {
+            if keywordsDictionary[parameter.key] != parameter.value {
+                throw AdMobAdaptersError.wrongServerParameter
             }
         }
-        
-        return true
     }
     
     // Private methods
@@ -85,7 +89,7 @@ public class AdMobUtils: NSObject {
         var dataStringDictionary = [String: String]()
         
         for dataString in dataStringArray {
-            let components = dataString.components(separatedBy: ":")
+            let components = dataString.components(separatedBy: .whitespaces).joined().components(separatedBy: ":")
             guard components.count == 2 else { return nil }
             dataStringDictionary[components[0]] = components[1]
         }

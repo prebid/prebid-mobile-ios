@@ -22,14 +22,84 @@ class AdMobUtilsTest: XCTestCase {
         let serverParameter = "{\"hb_pb\":\"0.10\"}"
         let keywords = ["hb_size:320x50", "hb_pb:0.10", "hb_size_openx:320x50"]
         
-        XCTAssertTrue(AdMobUtils.isServerParameterInKeywords(serverParameter, keywords))
+        do {
+            try AdMobUtils.isServerParameterInKeywords(serverParameter, keywords)
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    func testMultipleServerParameterChecking() {
+        let serverParameter = "{\"hb_pb\":\"0.10\", \"hb_size\":\"320x50\"}"
+        let keywords = ["hb_size:320x50", "hb_pb:0.10", "hb_size_openx:320x50"]
+        
+        do {
+            try AdMobUtils.isServerParameterInKeywords(serverParameter, keywords)
+        } catch {
+            XCTFail()
+        }
+    }
+    
+    func testMultipleWrongServerParameter() {
+        let serverParameter = "{\"hb_pb\":\"0.50\", \"hb_size\":\"300x250\"}"
+        let keywords = ["hb_size:320x50", "hb_pb:0.10", "hb_size_openx:320x50"]
+        
+        XCTAssertThrowsError(try AdMobUtils.isServerParameterInKeywords(serverParameter, keywords))
+    }
+    
+    func testEmptyServerParameter() {
+        let serverParameter = "{}"
+        let keywords = ["hb_size:320x50", "hb_pb:0.10", "hb_size_openx:320x50"]
+        
+        do {
+            try AdMobUtils.isServerParameterInKeywords(serverParameter, keywords)
+        } catch {
+            XCTAssertEqual(error as! AdMobAdaptersError, AdMobAdaptersError.emptyServerParameter)
+        }
+    }
+    
+    func testWrongServerParameterFormat() {
+        let serverParameter = "hb_size:320x50"
+        let keywords = ["hb_size:320x50", "hb_pb:0.10", "hb_size_openx:320x50"]
+        
+        do {
+            try AdMobUtils.isServerParameterInKeywords(serverParameter, keywords)
+        } catch {
+            XCTAssertEqual(error as! AdMobAdaptersError, AdMobAdaptersError.wrongServerParameterFormat)
+        }
     }
     
     func testWrongServerParameter() {
         let serverParameter = "{\"par\":\"123\"}"
         let keywords = ["hb_size:320x50", "hb_pb:0.10", "hb_size_openx:320x50"]
         
-        XCTAssertFalse(AdMobUtils.isServerParameterInKeywords(serverParameter, keywords))
+        do {
+            try AdMobUtils.isServerParameterInKeywords(serverParameter, keywords)
+        } catch {
+            XCTAssertEqual(error as! AdMobAdaptersError, AdMobAdaptersError.wrongServerParameter)
+        }
+    }
+    
+    func testWrongUserKeywordsFormat() {
+        let serverParameter = "{\"par\":\"123\"}"
+        let keywords = ["hb_size;320x50"]
+        
+        do {
+            try AdMobUtils.isServerParameterInKeywords(serverParameter, keywords)
+        } catch {
+            XCTAssertEqual(error as! AdMobAdaptersError, AdMobAdaptersError.wrongUserKeywordsFormat)
+        }
+    }
+    
+    func testEmptyUserKeywords() {
+        let serverParameter = "{\"par\":\"123\"}"
+        let keywords = [String]()
+        
+        do {
+            try AdMobUtils.isServerParameterInKeywords(serverParameter, keywords)
+        } catch {
+            XCTAssertEqual(error as! AdMobAdaptersError, AdMobAdaptersError.emptyUserKeywords)
+        }
     }
 
     func testRemoveHBKeywords() {
