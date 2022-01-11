@@ -2429,6 +2429,21 @@ struct TestCaseManager {
                 setupCustomParams(for: admobInterstitialController.prebidConfigId)
             }),
             
+            TestCase(title: "Display Interstitial 320x480 (AdMob) [OK, Random]",
+                     tags: [.interstitial, .admob, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
+                admobInterstitialController.prebidConfigId = "mock-display-interstitial-320-480"
+                admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
+                adapterVC.setup(adapter: admobInterstitialController)
+                        
+                setupCustomParams(for: admobInterstitialController.prebidConfigId)
+            }),
+            
             
             // MARK: ---- Native Styles (In-App) ----
             
