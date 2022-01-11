@@ -2,11 +2,11 @@
 
 # Prebid Mobile iOS SDK
 
-Get started with Prebid Mobile by creating a Prebid Server account [here](http://prebid.org/prebid-mobile/prebid-mobile-pbs.html)
+To work with Prebid Mobile, you will need accesss to a Prebid Server. See [this page](http://prebid.org/prebid-mobile/prebid-mobile-pbs.html) for options.
 
 ## Use Cocoapods?
 
-Easily include the Prebid Mobile SDK for your priamy ad server in your Podfile/
+Easily include the Prebid Mobile SDK for your primary ad server in your Podfile/
 
 ```
 platform :ios, '11.0'
