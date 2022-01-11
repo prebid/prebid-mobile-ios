@@ -21,6 +21,7 @@ enum AdMobAdaptersError {
     case noConfigIDInEventExtras
     case noServerParameter
     case wrongServerParameter
+    case noAd
 }
 
 extension AdMobAdaptersError: LocalizedError {
@@ -32,6 +33,7 @@ extension AdMobAdaptersError: LocalizedError {
         case .noConfigIDInEventExtras       : return "The Config ID is absent in the extras"
         case .noServerParameter             : return "Server parameter is absent in request"
         case .wrongServerParameter          : return "User keywords don't contain server parameter"
+        case .noAd                          : return "No ad available"
         }
     }
 }

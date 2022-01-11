@@ -52,6 +52,8 @@
 		923B55172745297E00E00C88 /* PBMMoPubUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923B55162745297E00E00C88 /* PBMMoPubUtilsTest.swift */; };
 		923B551927452A1F00E00C88 /* RawWinningBidFabricator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923B551827452A1F00E00C88 /* RawWinningBidFabricator.swift */; };
 		9267B400276FCF9300F1ADF1 /* AdMobConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267B3FF276FCF9300F1ADF1 /* AdMobConstants.swift */; };
+		926CBF1C278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926CBF1B278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift */; };
+		926CBF1E278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926CBF1D278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift */; };
 		928310092775FF7600D28142 /* AdMobUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928310082775FF7600D28142 /* AdMobUtilsTest.swift */; };
 		92A2380D27731B48000157AA /* AdMobUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A2380C27731B48000157AA /* AdMobUtils.swift */; };
 		92BDEEDC276FE23100878723 /* MoPubMediationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BDEEDB276FE23100878723 /* MoPubMediationHelper.swift */; };
@@ -174,6 +176,8 @@
 		923B551827452A1F00E00C88 /* RawWinningBidFabricator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawWinningBidFabricator.swift; sourceTree = "<group>"; };
 		9258904A9C1DF637C07F290B /* Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobileGAMEventHandlersTests/Pods-PrebidMobileGAMEventHandlersTests.release.xcconfig"; sourceTree = "<group>"; };
 		9267B3FF276FCF9300F1ADF1 /* AdMobConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobConstants.swift; sourceTree = "<group>"; };
+		926CBF1B278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobInterstitialAdapter.swift; sourceTree = "<group>"; };
+		926CBF1D278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobMediationInterstitialUtils.swift; sourceTree = "<group>"; };
 		928310072775FF7500D28142 /* PrebidMobileAdMobAdaptersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileAdMobAdaptersTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		928310082775FF7600D28142 /* AdMobUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobUtilsTest.swift; sourceTree = "<group>"; };
 		92A2380C27731B48000157AA /* AdMobUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobUtils.swift; sourceTree = "<group>"; };
@@ -426,12 +430,14 @@
 		92F4389727688E8600FDC950 /* PrebidMobileAdMobAdapters */ = {
 			isa = PBXGroup;
 			children = (
-				92F4389827688E8600FDC950 /* PrebidMobileAdMobAdapters.h */,
 				92E924FE276A193E002B57F3 /* AdMobAdaptersError.swift */,
-				92E924FA2769ED96002B57F3 /* PrebidAdMobBannerAdapter.swift */,
-				92E924FC276A0FD8002B57F3 /* AdMobMediationBannerUtils.swift */,
 				9267B3FF276FCF9300F1ADF1 /* AdMobConstants.swift */,
+				92E924FC276A0FD8002B57F3 /* AdMobMediationBannerUtils.swift */,
+				926CBF1D278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift */,
 				92A2380C27731B48000157AA /* AdMobUtils.swift */,
+				92E924FA2769ED96002B57F3 /* PrebidAdMobBannerAdapter.swift */,
+				926CBF1B278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift */,
+				92F4389827688E8600FDC950 /* PrebidMobileAdMobAdapters.h */,
 			);
 			path = PrebidMobileAdMobAdapters;
 			sourceTree = "<group>";
@@ -974,6 +980,8 @@
 				9267B400276FCF9300F1ADF1 /* AdMobConstants.swift in Sources */,
 				92E924FD276A0FD8002B57F3 /* AdMobMediationBannerUtils.swift in Sources */,
 				92E924FF276A193E002B57F3 /* AdMobAdaptersError.swift in Sources */,
+				926CBF1E278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift in Sources */,
+				926CBF1C278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift in Sources */,
 				92A2380D27731B48000157AA /* AdMobUtils.swift in Sources */,
 				92E924FB2769ED96002B57F3 /* PrebidAdMobBannerAdapter.swift in Sources */,
 			);
