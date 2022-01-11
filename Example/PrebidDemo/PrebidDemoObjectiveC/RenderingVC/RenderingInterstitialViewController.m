@@ -11,18 +11,23 @@
 @import PrebidMobile;
 @import PrebidMobileGAMEventHandlers;
 @import PrebidMobileMoPubAdapters;
+@import PrebidMobileAdMobAdapters;
 
 @import MoPubSDK;
+@import GoogleMobileAds;
 
-@interface RenderingInterstitialViewController () <InterstitialAdUnitDelegate, MPInterstitialAdControllerDelegate>
+@interface RenderingInterstitialViewController () <InterstitialAdUnitDelegate, MPInterstitialAdControllerDelegate, GADFullScreenContentDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *adView;
 
+// In-App
 @property (strong, nullable) InterstitialRenderingAdUnit *interstitialAdUnit;
-
+// MoPub
 @property (strong, nullable) MediationInterstitialAdUnit *mopubInterstitialAdUnit;
-
 @property (strong, nullable) MPInterstitialAdController *mopubInterstitial;
+// AdMob
+@property (strong, nullable) MediationInterstitialAdUnit *admobInterstitialAdUnit;
+@property (strong, nullable) GADInterstitialAd *interstitial;
 
 @end
 
@@ -38,7 +43,8 @@
         case IntegrationKind_InApp          : [self loadInAppInterstitial]            ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingInterstitial]     ; break;
         case IntegrationKind_RenderingMoPub : [self loadMoPubRenderingInterstitial]   ; break;
-
+        case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingInterstitial]   ; break;
+            
         default:
             break;
     }
@@ -124,6 +130,32 @@
     }];
 }
 
+- (void)loadAdMobRenderingInterstitial {
+    GADRequest *request = [GADRequest new];
+    AdMobMediationInterstitialUtils *mediationDelegate = [[AdMobMediationInterstitialUtils alloc] initWithGadRequest:request];
+    if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
+        self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"5a4b8dcf-f984-4b04-9448-6529908d6cb6"
+                                                                           mediationDelegate:mediationDelegate];
+
+    } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
+        self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"12f58bc2-b664-4672-8d19-638bcc96fd5c"
+                                                                           mediationDelegate:mediationDelegate];
+    }
+    
+    [self.admobInterstitialAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
+        [GADInterstitialAd loadWithAdUnitID:@"ca-app-pub-5922967660082475/3383099861"
+                                    request:request
+                          completionHandler:^(GADInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"AdMob interstitial failed: %@", [error localizedDescription]);
+            }
+            self.interstitial = interstitialAd;
+            self.interstitial.fullScreenContentDelegate = self;
+            [self.interstitial presentFromRootViewController:self];
+        }];
+    }];
+}
+
 #pragma mark - InterstitialAdUnitDelegate
 
 - (void)interstitialDidReceiveAd:(InterstitialRenderingAdUnit *)interstitial {
@@ -142,6 +174,28 @@
 
 - (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial withError:(NSError *)error {
     NSLog(@"MoPub interstitialDidFailToLoadAd: %@", [error localizedDescription]);
+}
+
+#pragma mark - GADFullScreenContentDelegate
+
+- (void)ad:(id<GADFullScreenPresentingAd>)ad didFailToPresentFullScreenContentWithError:(NSError *)error {
+    NSLog(@"didFailToPresentFullScreenContentWithError: %@", [error localizedDescription]);
+}
+
+- (void)adDidPresentFullScreenContent:(id<GADFullScreenPresentingAd>)ad {
+    NSLog(@"adDidPresentFullScreenContent");
+}
+
+- (void)adWillDismissFullScreenContent:(id<GADFullScreenPresentingAd>)ad {
+    NSLog(@"adWillDismissFullScreenContent");
+}
+
+- (void)adDidDismissFullScreenContent:(id<GADFullScreenPresentingAd>)ad {
+    NSLog(@"adDidDismissFullScreenContent");
+}
+
+- (void)adDidRecordImpression:(id<GADFullScreenPresentingAd>)ad {
+    NSLog(@"adDidRecordImpression");
 }
 
 @end
