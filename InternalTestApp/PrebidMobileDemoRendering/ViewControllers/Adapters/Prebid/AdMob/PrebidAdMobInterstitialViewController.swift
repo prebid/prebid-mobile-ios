@@ -142,8 +142,8 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
     
     @IBAction func showButtonClicked() {
         guard let adapterViewController = adapterViewController else { return }
-        adapterViewController.showButton.isEnabled = false
         if interstitial != nil {
+            adapterViewController.showButton.isEnabled = false
             interstitial?.present(fromRootViewController: adapterViewController)
         }
     }
