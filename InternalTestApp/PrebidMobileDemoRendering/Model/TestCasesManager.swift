@@ -2386,6 +2386,65 @@ struct TestCaseManager {
                 setupCustomParams(for: admobBannerController.prebidConfigId)
             }),
             
+            // MARK: ---- Interstitial (AdMob) ----
+            
+            TestCase(title: "Display Interstitial 320x480 (AdMob) [OK, OXB Adapter]",
+                     tags: [.interstitial, .admob, .server, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
+                admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
+                        
+                if AppConfiguration.shared.useMockServer {
+                    admobInterstitialController.prebidConfigId = "mock-display-interstitial-320-480"
+                } else {
+                    admobInterstitialController.prebidConfigId = "5a4b8dcf-f984-4b04-9448-6529908d6cb6"
+                }
+                 
+                adapterVC.setup(adapter: admobInterstitialController)
+                        
+                setupCustomParams(for: admobInterstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Display Interstitial 320x480 (AdMob) [noBids, AdMob Ad]",
+                     tags: [.interstitial, .admob, .server, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
+                if AppConfiguration.shared.useMockServer {
+                    admobInterstitialController.prebidConfigId = "mock-no-bids"
+                } else {
+                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    admobInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
+                }
+                admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
+                adapterVC.setup(adapter: admobInterstitialController)
+                        
+                setupCustomParams(for: admobInterstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Display Interstitial 320x480 (AdMob) [OK, Random]",
+                     tags: [.interstitial, .admob, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
+                admobInterstitialController.prebidConfigId = "mock-display-interstitial-320-480"
+                admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
+                adapterVC.setup(adapter: admobInterstitialController)
+                        
+                setupCustomParams(for: admobInterstitialController.prebidConfigId)
+            }),
+            
+            
             // MARK: ---- Native Styles (In-App) ----
             
 //            TestCase(title: "Banner Native Styles (In-App) [MAP]",
