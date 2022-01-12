@@ -74,6 +74,7 @@
 		5BF6905827737A7900AABA45 /* PrebidMobileMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF23C2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework */; };
 		5BF6905927737A7900AABA45 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF23C2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		909FCC2CA24F6E94B696B736 /* Pods_OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F097F6238E0EB831B507463 /* Pods_OpenXMockServer.framework */; };
+		926CBF20278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926CBF1F278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift */; };
 		9262A8AC27720DE6009441A3 /* OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; };
 		9262A8AD27720DE6009441A3 /* OpenXMockServer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92700C7D273C029F0006E9FA /* PrebidMRAID3UITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */; };
@@ -279,6 +280,7 @@
 		5BD84734252F23E70092AF74 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InternalTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6400E1CF82B20C2CD2343158 /* Pods-OpenXMockServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXMockServer.debug.xcconfig"; path = "../prebid-mobile-ios/Pods/Target Support Files/Pods-OpenXMockServer/Pods-OpenXMockServer.debug.xcconfig"; sourceTree = "<group>"; };
+		926CBF1F278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobInterstitialViewController.swift; sourceTree = "<group>"; };
 		92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAID3UITest.swift; sourceTree = "<group>"; };
 		92700C68273C029F0006E9FA /* XCTestCaseExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestCaseExt.swift; sourceTree = "<group>"; };
 		92700C69273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidVideoOutstreamUITest.swift; sourceTree = "<group>"; };
@@ -716,6 +718,7 @@
 			isa = PBXGroup;
 			children = (
 				92E92501276B299F002B57F3 /* PrebidAdMobBannerViewController.swift */,
+				926CBF1F278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift */,
 			);
 			path = AdMob;
 			sourceTree = "<group>";
@@ -1158,6 +1161,7 @@
 				34E5698A237DB96900B47B01 /* UtilitiesViewController.swift in Sources */,
 				34BA95FE249CBF05006AE372 /* PrebidGAMInterstitialController.swift in Sources */,
 				34BAD451239547420042DB33 /* IABConsentHelper.swift in Sources */,
+				926CBF20278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift in Sources */,
 				5BA4CF632739876200197C62 /* FeedAdTableViewCell.swift in Sources */,
 				ACBBDF852397E10F006D5FE6 /* CommandArgsViewController.swift in Sources */,
 				34215B0F25C4598E00C74A09 /* ProcessArgumentsParser.swift in Sources */,
