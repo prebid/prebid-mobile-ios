@@ -1,31 +1,31 @@
-/*   Copyright 2018-2021 Prebid.org, Inc.
+/*   Copyright 2018-2021 Prebid.org, Inc.
  
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
  
-  http://www.apache.org/licenses/LICENSE-2.0
+  http://www.apache.org/licenses/LICENSE-2.0
  
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-  */
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  */
 
 import UIKit
 import GoogleMobileAds
 import PrebidMobile
 import PrebidMobileAdMobAdapters
 
-class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConfigurableController, GADFullScreenContentDelegate {
+class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, PrebidConfigurableController, GADFullScreenContentDelegate {
     
     var prebidConfigId = ""
     var adMobAdUnitId = ""
     
     private weak var adapterViewController: AdapterViewController?
     
-    private var rewardedAd: GADRewardedAd?
+    private var interstitial: GADInterstitialAd?
     
     private let adDidFailToPresentFullScreenContentWithErrorButton = EventReportContainer()
     private let adDidPresentFullScreenContentButton = EventReportContainer()
@@ -35,14 +35,15 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     
     private let configIdLabel = UILabel()
     
-    private var adUnit: MediationRewardedAdUnit?
-    private var mediationDelegate: AdMobMediationRewardedUtils?
+    private var adUnit: MediationInterstitialAdUnit?
+    private var mediationDelegate: AdMobMediationInterstitialUtils?
     
     var request = GADRequest()
     
     required init(rootController: AdapterViewController) {
         self.adapterViewController = rootController
         super.init()
+        
         setupAdapterController()
     }
     
@@ -54,9 +55,11 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
+        mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: request)
         
-        adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
+        adUnit = MediationInterstitialAdUnit(configId: prebidConfigId,
+                                             minSizePercentage: CGSize(width: 30, height: 30),
+                                             mediationDelegate: mediationDelegate!)
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
@@ -66,22 +69,18 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
         
         adUnit?.fetchDemand { [weak self] result in
             guard let self = self else { return }
-//            let extras = GADCustomEventExtras()
-//            let prebidExtras = self.mediationDelegate?.getEventExtras()
-//            extras.setExtras(prebidExtras, forLabel: "PrebidAdMobCustomEventExtras")
-//            self.request.register(extras)
-            GADRewardedAd.load(withAdUnitID: "ca-app-pub-5922967660082475/7397370641", request: self.request) { [weak self] ad, error in
+            let extras = GADCustomEventExtras()
+            let prebidExtras = self.mediationDelegate?.getEventExtras()
+            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
+            self.request.register(extras)
+            GADInterstitialAd.load(withAdUnitID: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
                     PBMLog.error(error.localizedDescription)
                     return
                 }
-                self.rewardedAd = ad
-                self.rewardedAd?.fullScreenContentDelegate = self
-                
-                self.rewardedAd?.present(fromRootViewController: self.adapterViewController!, userDidEarnRewardHandler: {
-                    print("User rewarded")
-                })
+                self.interstitial = ad
+                self.interstitial?.fullScreenContentDelegate = self
             }
         }
     }
@@ -103,7 +102,7 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     
     func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
         adDidDismissFullScreenContentButton.isEnabled = true
-        rewardedAd = nil
+        interstitial = nil
     }
     
     func adDidRecordImpression(_ ad: GADFullScreenPresentingAd) {
@@ -143,9 +142,9 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     
     @IBAction func showButtonClicked() {
         guard let adapterViewController = adapterViewController else { return }
-        if rewardedAd != nil {
+        if interstitial != nil {
             adapterViewController.showButton.isEnabled = false
-            
+            interstitial?.present(fromRootViewController: adapterViewController)
         }
     }
 }

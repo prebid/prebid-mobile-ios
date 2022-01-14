@@ -2444,6 +2444,28 @@ struct TestCaseManager {
                 setupCustomParams(for: admobInterstitialController.prebidConfigId)
             }),
             
+            TestCase(title: "Video Rewarded 320x480 (AdMob) [OK, OXB Adapter]",
+                     tags: [.video, .admob, .server, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
+//                admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/8369270026"
+                         admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/1233618671"
+//                         ca-app-pub-5922967660082475/1233618671
+                if AppConfiguration.shared.useMockServer {
+                    admobRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                } else {
+                    admobRewardedAdController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
+                }
+                 
+                adapterVC.setup(adapter: admobRewardedAdController)
+                        
+                setupCustomParams(for: admobRewardedAdController.prebidConfigId)
+            }),
+            
             
             // MARK: ---- Native Styles (In-App) ----
             

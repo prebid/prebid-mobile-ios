@@ -23,17 +23,9 @@ public class PrebidAdMobRewardedAdapter:
     GADMediationAdapter,
     GADMediationRewardedAd {
     
-    // MARK: - Private Properties
-    
-    var interstitialController: InterstitialController?
-    weak var rootViewController: UIViewController?
-    var configID: String?
-    var adAvailable = false
-    
-    public var delegate: GADMediationRewardedAdEventDelegate?
-    
     required public override init() {
         super.init()
+        print("PrebidAdMobRewardedAdapter")
     }
     
     public static func adapterVersion() -> GADVersionNumber {
@@ -56,48 +48,12 @@ public class PrebidAdMobRewardedAdapter:
         return nil
     }
     
-    
     public func present(from viewController: UIViewController) {
-        
+     print("present:")
     }
     
     public func loadRewardedAd(for adConfiguration: GADMediationRewardedAdConfiguration, completionHandler: @escaping GADMediationRewardedLoadCompletionHandler) {
-        guard let serverParameter = adConfiguration.credentials.settings["parameter"] else {
-            let error = AdMobAdaptersError.noServerParameter
-            delegate?.didFailToPresentWithError(error)
-            return
-        }
-        
-        print(adConfiguration.bidResponse)
-//        guard let keywords = adConfiguration.credentials.user as? [String] else {
-//            let error = AdMobAdaptersError.emptyCustomEventExtras
-//            delegate?.didFailToPresentWithError(error)
-//            return
-//        }
-        
-//        guard AdMobUtils.isServerParameterInKeywords(serverParameter, keywords) else {
-//            let error = AdMobAdaptersError.wrongServerParameter
-//            delegate?.customEventBanner(self, didFailAd: error)
-//            return
-//        }
-//
-//        guard let eventExtras = request.additionalParameters, !eventExtras.isEmpty else {
-//            let error = AdMobAdaptersError.emptyCustomEventExtras
-//            delegate?.customEventBanner(self, didFailAd: error)
-//            return
-//        }
-//
-//        guard let bid = eventExtras[PBMMediationAdUnitBidKey] as? Bid else {
-//            let error = AdMobAdaptersError.noBidInEventExtras
-//            delegate?.customEventBanner(self, didFailAd: error)
-//            return
-//        }
-//
-//        guard let configId = eventExtras[PBMMediationConfigIdKey] as? String else {
-//            let error = AdMobAdaptersError.noConfigIDInEventExtras
-//            delegate?.customEventBanner(self, didFailAd: error)
-//            return
-//        }
+        print("loadRewardedAd")
     }
     
 }

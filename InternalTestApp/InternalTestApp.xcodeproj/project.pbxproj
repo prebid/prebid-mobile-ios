@@ -96,6 +96,7 @@
 		92700C8F273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7A273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift */; };
 		92700C90273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7B273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift */; };
 		92700C91273C029F0006E9FA /* PrebidExamplesUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */; };
+		92DDA440278EF42B0035F03E /* PrebidAdMobRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DDA43F278EF42A0035F03E /* PrebidAdMobRewardedViewController.swift */; };
 		92E92502276B299F002B57F3 /* PrebidAdMobBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E92501276B299F002B57F3 /* PrebidAdMobBannerViewController.swift */; };
 		92F438B72768953100FDC950 /* PrebidMobileAdMobAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F438B62768953100FDC950 /* PrebidMobileAdMobAdapters.framework */; };
 		92F438B82768954400FDC950 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 92F438B62768953100FDC950 /* PrebidMobileAdMobAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -303,6 +304,7 @@
 		92700C7A273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAID3MethodsUITest.swift; sourceTree = "<group>"; };
 		92700C7B273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAIDResizeWithErrorsUITest.swift; sourceTree = "<group>"; };
 		92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidExamplesUITest.swift; sourceTree = "<group>"; };
+		92DDA43F278EF42A0035F03E /* PrebidAdMobRewardedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobRewardedViewController.swift; sourceTree = "<group>"; };
 		92E92501276B299F002B57F3 /* PrebidAdMobBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobBannerViewController.swift; sourceTree = "<group>"; };
 		92F438B62768953100FDC950 /* PrebidMobileAdMobAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileAdMobAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93FED9C31A376EFE009A6E9F /* InternalTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InternalTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -717,6 +719,7 @@
 			children = (
 				92E92501276B299F002B57F3 /* PrebidAdMobBannerViewController.swift */,
 				926CBF1F278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift */,
+				92DDA43F278EF42A0035F03E /* PrebidAdMobRewardedViewController.swift */,
 			);
 			path = AdMob;
 			sourceTree = "<group>";
@@ -1186,6 +1189,7 @@
 				5B3C2AC52100BC4900BD733C /* AppDelegate.swift in Sources */,
 				3493021F2473FFE8004A6086 /* PrebidMoPubBannerController.swift in Sources */,
 				5B7B1465264ABAAE00EBF42A /* PrebidMoPubRewardedAdController.swift in Sources */,
+				92DDA440278EF42B0035F03E /* PrebidAdMobRewardedViewController.swift in Sources */,
 				34B10A30255017DE00B5FE09 /* ThreadCheckingButton.swift in Sources */,
 				ACAF055724D8384B0089DFB1 /* PrebidFeedTableViewController.swift in Sources */,
 				5B3EEDDF2101EA9200BAA0C4 /* TestCasesViewController.swift in Sources */,

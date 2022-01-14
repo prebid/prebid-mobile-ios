@@ -54,11 +54,14 @@
 		9267B400276FCF9300F1ADF1 /* AdMobConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267B3FF276FCF9300F1ADF1 /* AdMobConstants.swift */; };
 		926CBF1C278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926CBF1B278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift */; };
 		926CBF1E278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926CBF1D278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift */; };
+		9272A7FA2790791600009316 /* PrebidAdMobNetworkExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9272A7F92790791600009316 /* PrebidAdMobNetworkExtras.swift */; };
 		928310092775FF7600D28142 /* AdMobUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928310082775FF7600D28142 /* AdMobUtilsTest.swift */; };
 		92A2380D27731B48000157AA /* AdMobUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A2380C27731B48000157AA /* AdMobUtils.swift */; };
 		92BDEEDC276FE23100878723 /* MoPubMediationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BDEEDB276FE23100878723 /* MoPubMediationHelper.swift */; };
 		92BDEEDE276FE4B000878723 /* MoPubMediationInterstitialUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BDEEDD276FE4B000878723 /* MoPubMediationInterstitialUtils.swift */; };
 		92BDEEE0276FE50100878723 /* MoPubMediationRewardedUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BDEEDF276FE50100878723 /* MoPubMediationRewardedUtils.swift */; };
+		92DDA43C278EE8ED0035F03E /* PrebidAdMobRewardedAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DDA43B278EE8EC0035F03E /* PrebidAdMobRewardedAdapter.swift */; };
+		92DDA43E278EF29E0035F03E /* AdMobMediationRewardedUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DDA43D278EF29E0035F03E /* AdMobMediationRewardedUtils.swift */; };
 		92E924FB2769ED96002B57F3 /* PrebidAdMobBannerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E924FA2769ED96002B57F3 /* PrebidAdMobBannerAdapter.swift */; };
 		92E924FD276A0FD8002B57F3 /* AdMobMediationBannerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E924FC276A0FD8002B57F3 /* AdMobMediationBannerUtils.swift */; };
 		92E924FF276A193E002B57F3 /* AdMobAdaptersError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E924FE276A193E002B57F3 /* AdMobAdaptersError.swift */; };
@@ -178,12 +181,15 @@
 		9267B3FF276FCF9300F1ADF1 /* AdMobConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobConstants.swift; sourceTree = "<group>"; };
 		926CBF1B278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobInterstitialAdapter.swift; sourceTree = "<group>"; };
 		926CBF1D278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobMediationInterstitialUtils.swift; sourceTree = "<group>"; };
+		9272A7F92790791600009316 /* PrebidAdMobNetworkExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobNetworkExtras.swift; sourceTree = "<group>"; };
 		928310072775FF7500D28142 /* PrebidMobileAdMobAdaptersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileAdMobAdaptersTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		928310082775FF7600D28142 /* AdMobUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobUtilsTest.swift; sourceTree = "<group>"; };
 		92A2380C27731B48000157AA /* AdMobUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobUtils.swift; sourceTree = "<group>"; };
 		92BDEEDB276FE23100878723 /* MoPubMediationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoPubMediationHelper.swift; sourceTree = "<group>"; };
 		92BDEEDD276FE4B000878723 /* MoPubMediationInterstitialUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoPubMediationInterstitialUtils.swift; sourceTree = "<group>"; };
 		92BDEEDF276FE50100878723 /* MoPubMediationRewardedUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoPubMediationRewardedUtils.swift; sourceTree = "<group>"; };
+		92DDA43B278EE8EC0035F03E /* PrebidAdMobRewardedAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobRewardedAdapter.swift; sourceTree = "<group>"; };
+		92DDA43D278EF29E0035F03E /* AdMobMediationRewardedUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobMediationRewardedUtils.swift; sourceTree = "<group>"; };
 		92E924FA2769ED96002B57F3 /* PrebidAdMobBannerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobBannerAdapter.swift; sourceTree = "<group>"; };
 		92E924FC276A0FD8002B57F3 /* AdMobMediationBannerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobMediationBannerUtils.swift; sourceTree = "<group>"; };
 		92E924FE276A193E002B57F3 /* AdMobAdaptersError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobAdaptersError.swift; sourceTree = "<group>"; };
@@ -434,10 +440,13 @@
 				9267B3FF276FCF9300F1ADF1 /* AdMobConstants.swift */,
 				92E924FC276A0FD8002B57F3 /* AdMobMediationBannerUtils.swift */,
 				926CBF1D278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift */,
+				92DDA43D278EF29E0035F03E /* AdMobMediationRewardedUtils.swift */,
 				92A2380C27731B48000157AA /* AdMobUtils.swift */,
 				92E924FA2769ED96002B57F3 /* PrebidAdMobBannerAdapter.swift */,
 				926CBF1B278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift */,
+				92DDA43B278EE8EC0035F03E /* PrebidAdMobRewardedAdapter.swift */,
 				92F4389827688E8600FDC950 /* PrebidMobileAdMobAdapters.h */,
+				9272A7F92790791600009316 /* PrebidAdMobNetworkExtras.swift */,
 			);
 			path = PrebidMobileAdMobAdapters;
 			sourceTree = "<group>";
@@ -977,6 +986,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92DDA43C278EE8ED0035F03E /* PrebidAdMobRewardedAdapter.swift in Sources */,
+				92DDA43E278EF29E0035F03E /* AdMobMediationRewardedUtils.swift in Sources */,
 				9267B400276FCF9300F1ADF1 /* AdMobConstants.swift in Sources */,
 				92E924FD276A0FD8002B57F3 /* AdMobMediationBannerUtils.swift in Sources */,
 				92E924FF276A193E002B57F3 /* AdMobAdaptersError.swift in Sources */,
@@ -984,6 +995,7 @@
 				926CBF1C278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift in Sources */,
 				92A2380D27731B48000157AA /* AdMobUtils.swift in Sources */,
 				92E924FB2769ED96002B57F3 /* PrebidAdMobBannerAdapter.swift in Sources */,
+				9272A7FA2790791600009316 /* PrebidAdMobNetworkExtras.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
