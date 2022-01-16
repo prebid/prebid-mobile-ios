@@ -45,7 +45,7 @@ public class PrebidAdMobInterstitialAdapter:
         }
         
         guard let keywords = request.userKeywords as? [String] else {
-            let error = AdMobAdaptersError.emptyCustomEventExtras
+            let error = AdMobAdaptersError.emptyUserKeywords
             delegate?.customEventInterstitial(self, didFailAd: error)
             return
         }
