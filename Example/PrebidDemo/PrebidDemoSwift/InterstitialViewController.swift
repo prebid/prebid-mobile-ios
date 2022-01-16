@@ -59,7 +59,7 @@ class InterstitialViewController:
     private var gadRequest = GADRequest()
     private var interstitial: GADInterstitialAd?
     private var admobAdUnit: MediationInterstitialAdUnit?
-    private var mediationDelegate: AdMobMediationInterstitialUtils?
+    private var mediationDelegate: AdMobMediationBaseInterstitialUtils?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -262,7 +262,7 @@ class InterstitialViewController:
     // AdMob
     func loadAdMobRenderingInterstitial() {
         
-        mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: self.gadRequest)
+        mediationDelegate = AdMobMediationBaseInterstitialUtils(gadRequest: self.gadRequest)
         admobAdUnit = MediationInterstitialAdUnit(configId: "5a4b8dcf-f984-4b04-9448-6529908d6cb6", mediationDelegate: mediationDelegate!)
         admobAdUnit?.fetchDemand(completion: { [weak self]result in
             let extras = GADCustomEventExtras()
@@ -284,7 +284,7 @@ class InterstitialViewController:
     }
     
     func loadAdMobRenderingVideoInterstitial() {
-        mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: self.gadRequest)
+        mediationDelegate = AdMobMediationBaseInterstitialUtils(gadRequest: self.gadRequest)
         admobAdUnit = MediationInterstitialAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c", mediationDelegate: mediationDelegate!)
         admobAdUnit?.fetchDemand(completion: { [weak self]result in
             let extras = GADCustomEventExtras()

@@ -36,7 +36,7 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     private let configIdLabel = UILabel()
     
     private var adUnit: MediationRewardedAdUnit?
-    private var mediationDelegate: AdMobMediationRewardedUtils?
+    private var mediationDelegate: AdMobMediationBaseInterstitialUtils?
     
     var request = GADRequest()
     
@@ -54,7 +54,7 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
+        mediationDelegate = AdMobMediationBaseInterstitialUtils(gadRequest: request)
         
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
         
@@ -66,11 +66,11 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
         
         adUnit?.fetchDemand { [weak self] result in
             guard let self = self else { return }
-//            let extras = GADCustomEventExtras()
-//            let prebidExtras = self.mediationDelegate?.getEventExtras()
-//            extras.setExtras(prebidExtras, forLabel: "PrebidAdMobCustomEventExtras")
-//            self.request.register(extras)
-            GADRewardedAd.load(withAdUnitID: "ca-app-pub-5922967660082475/7397370641", request: self.request) { [weak self] ad, error in
+            let extras = GADCustomEventExtras()
+            let prebidExtras = self.mediationDelegate?.getEventExtras()
+            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
+            self.request.register(extras)
+            GADRewardedAd.load(withAdUnitID: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
                     PBMLog.error(error.localizedDescription)
@@ -78,10 +78,6 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
                 }
                 self.rewardedAd = ad
                 self.rewardedAd?.fullScreenContentDelegate = self
-                
-                self.rewardedAd?.present(fromRootViewController: self.adapterViewController!, userDidEarnRewardHandler: {
-                    print("User rewarded")
-                })
             }
         }
     }
@@ -145,7 +141,9 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
         guard let adapterViewController = adapterViewController else { return }
         if rewardedAd != nil {
             adapterViewController.showButton.isEnabled = false
-            
+            rewardedAd?.present(fromRootViewController: adapterViewController, userDidEarnRewardHandler: {
+                print("User rewarded")
+            })
         }
     }
 }
