@@ -214,6 +214,21 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         //then
         XCTAssertEqual("appdomain.com", domain)
     }
+    
+    func testPostDataWithCustomHeaders() throws {
+        let headerField = "X-JamboJambo"
+        let headerValue = "value-of-the-header-field"
+        
+        //given
+        Prebid.shared.clearCustomHeaders()
+        Prebid.shared.addCustomHeader(name: headerField, value: headerValue)
+
+        //when
+        let urlRequest = try getPostDataHelper(adUnit: adUnit).urlRequest
+
+        //then
+        XCTAssertEqual(headerValue, urlRequest.value(forHTTPHeaderField: headerField))
+    }
 
     func testPostDataWithRubiconHost() throws {
 
