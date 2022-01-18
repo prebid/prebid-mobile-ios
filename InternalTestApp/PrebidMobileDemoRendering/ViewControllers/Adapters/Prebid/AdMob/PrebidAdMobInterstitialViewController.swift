@@ -36,7 +36,7 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
     private let configIdLabel = UILabel()
     
     private var adUnit: MediationInterstitialAdUnit?
-    private var mediationDelegate: AdMobMediationBaseInterstitialUtils?
+    private var mediationDelegate: AdMobMediationInterstitialUtils?
     
     var request = GADRequest()
     
@@ -55,7 +55,7 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        mediationDelegate = AdMobMediationBaseInterstitialUtils(gadRequest: request)
+        mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: request)
         
         adUnit = MediationInterstitialAdUnit(configId: prebidConfigId,
                                              minSizePercentage: CGSize(width: 30, height: 30),

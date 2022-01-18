@@ -19,8 +19,7 @@ import GoogleMobileAds
 
 @objc(PrebidAdMobRewardedVideoAdapter)
 public class PrebidAdMobRewardedVideoAdapter:
-    NSObject,
-    GADMediationAdapter,
+    PrebidAdMobMediationBaseAdapter,
     GADMediationRewardedAd,
     InterstitialControllerLoadingDelegate,
     InterstitialControllerInteractionDelegate  {
@@ -33,31 +32,7 @@ public class PrebidAdMobRewardedVideoAdapter:
     
     weak var delegate: GADMediationRewardedAdEventDelegate?
     
-    required public override init() {
-        super.init()
-    }
-    
     // MARK: - GADMediationAdapter
-    public static func adapterVersion() -> GADVersionNumber {
-        let adapterVersionComponents = AdMobConstants.PrebidAdMobRewardedAdapterVersion.components(separatedBy: ".").map( { Int($0) ?? 0})
-        
-        return adapterVersionComponents.count == 3 ? GADVersionNumber(majorVersion: adapterVersionComponents[0],
-                                                                      minorVersion: adapterVersionComponents[1],
-                                                                      patchVersion: adapterVersionComponents[2]): GADVersionNumber()
-    }
-    
-    public static func adSDKVersion() -> GADVersionNumber {
-        let sdkVersionComponents = PrebidRenderingConfig.shared.version.components(separatedBy: ".").map( { Int($0) ?? 0})
-        
-        return sdkVersionComponents.count == 3 ? GADVersionNumber(majorVersion: sdkVersionComponents[0],
-                                                                  minorVersion: sdkVersionComponents[1],
-                                                                  patchVersion: sdkVersionComponents[2]): GADVersionNumber()
-    }
-    
-    public static func networkExtrasClass() -> GADAdNetworkExtras.Type? {
-        return nil
-    }
-        
     public func loadRewardedAd(for adConfiguration: GADMediationRewardedAdConfiguration, completionHandler: @escaping GADMediationRewardedLoadCompletionHandler) {
         guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
             let error = AdMobAdaptersError.noServerParameter
@@ -65,36 +40,31 @@ public class PrebidAdMobRewardedVideoAdapter:
             return
         }
         
-        let gadTargeting = adConfiguration.value(forKey: "targeting") as? NSObject
-        
-        guard let keywords = gadTargeting?.value(forKey: "keywords") as? [String] else {
-            let error = AdMobAdaptersError.emptyUserKeywords
-            delegate = completionHandler(nil, error)
+        guard let prebidExtras = adConfiguration.extras as? PrebidAdMobEventExtras else {
+            let error = AdMobAdaptersError.emptyCustomEventExtras
+            delegate?.didFailToPresentWithError(error)
             return
         }
         
-        guard AdMobUtils.isServerParameterInKeywords(serverParameter, keywords) else {
-            let error = AdMobAdaptersError.wrongServerParameter
-            delegate = completionHandler(nil, error)
-            return
-        }
-        
-        guard let networkExtrasMap = gadTargeting?.value(forKey: "networkExtrasMap") as? [AnyHashable: Any],
-              let customEventExtrasDictionary = networkExtrasMap["GADCustomEventExtras"] as? NSObject,
-              let extras = customEventExtrasDictionary.value(forKey: "extras") as? [AnyHashable: Any],
-              let prebidExtras = extras[AdMobConstants.PrebidAdMobEventExtrasLabel] as? [AnyHashable: Any] else {
-                  let error = AdMobAdaptersError.emptyCustomEventExtras
-                  delegate = completionHandler(nil, error)
-                  return
-              }
-        
-        guard let bid = prebidExtras[PBMMediationAdUnitBidKey] as? Bid else {
+        guard let bid = prebidExtras.additionalParameters[PBMMediationAdUnitBidKey] as? Bid else {
             let error = AdMobAdaptersError.noBidInEventExtras
             delegate = completionHandler(nil, error)
             return
         }
         
-        guard let configId = prebidExtras[PBMMediationConfigIdKey] as? String else {
+        guard let keywords = bid.targetingInfo else {
+            let error = AdMobAdaptersError.emptyUserKeywords
+            delegate = completionHandler(nil, error)
+            return
+        }
+        
+        guard AdMobUtils.isServerParameterInKeywordsDictionary(serverParameter, keywords) else {
+            let error = AdMobAdaptersError.wrongServerParameter
+            delegate = completionHandler(nil, error)
+            return
+        }
+        
+        guard let configId = prebidExtras.additionalParameters[PBMMediationConfigIdKey] as? String else {
             let error = AdMobAdaptersError.noConfigIDInEventExtras
             delegate = completionHandler(nil, error)
             return

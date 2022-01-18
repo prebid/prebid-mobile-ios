@@ -50,6 +50,15 @@ public class AdMobUtils: NSObject {
     }
     
     static func isServerParameterInKeywords(_ serverParameter: String, _ keywords: [String]) -> Bool {
+        guard let keywordsDictionary = arrayStringToDictionary(dataStringArray: keywords) else {
+            PBMLog.message("Wrong user keywords format.")
+            return false
+        }
+        
+        return isServerParameterInKeywordsDictionary(serverParameter, keywordsDictionary)
+    }
+    
+    static func isServerParameterInKeywordsDictionary(_ serverParameter: String, _ keywordsDictionary: [String: String]) -> Bool {
         guard let serverParametersDictionary = stringToDictionary(dataString: serverParameter) else {
             PBMLog.message("Wrong server parameter format.")
             return false
@@ -57,11 +66,6 @@ public class AdMobUtils: NSObject {
         
         guard !serverParametersDictionary.isEmpty else {
             PBMLog.message("Empty server parameter.")
-            return false
-        }
-        
-        guard let keywordsDictionary = arrayStringToDictionary(dataStringArray: keywords) else {
-            PBMLog.message("Wrong user keywords format.")
             return false
         }
         

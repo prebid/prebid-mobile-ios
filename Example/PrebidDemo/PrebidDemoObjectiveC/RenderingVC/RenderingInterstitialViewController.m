@@ -132,7 +132,7 @@
 
 - (void)loadAdMobRenderingInterstitial {
     GADRequest *request = [GADRequest new];
-    AdMobMediationBaseInterstitialUtils *mediationDelegate = [[AdMobMediationBaseInterstitialUtils alloc] initWithGadRequest:request];
+    AdMobMediationInterstitialUtils *mediationDelegate = [[AdMobMediationInterstitialUtils alloc] initWithGadRequest:request];
     if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
         self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"5a4b8dcf-f984-4b04-9448-6529908d6cb6"
                                                                            mediationDelegate:mediationDelegate];

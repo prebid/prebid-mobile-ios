@@ -36,7 +36,7 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     private let configIdLabel = UILabel()
     
     private var adUnit: MediationRewardedAdUnit?
-    private var mediationDelegate: AdMobMediationBaseInterstitialUtils?
+    private var mediationDelegate: AdMobMediationRewardedUtils?
     
     var request = GADRequest()
     
@@ -54,7 +54,7 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
-        mediationDelegate = AdMobMediationBaseInterstitialUtils(gadRequest: request)
+        mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
         
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
         
@@ -66,10 +66,6 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
         
         adUnit?.fetchDemand { [weak self] result in
             guard let self = self else { return }
-            let extras = GADCustomEventExtras()
-            let prebidExtras = self.mediationDelegate?.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
-            self.request.register(extras)
             GADRewardedAd.load(withAdUnitID: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {

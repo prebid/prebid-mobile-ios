@@ -214,7 +214,7 @@ class RewardedVideoController:
     
     func loadAdMobRenderingRewardedVideo() {
         let request = GADRequest()
-        let mediationDelegate = AdMobMediationBaseInterstitialUtils(gadRequest: request)
+        let mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
         admobRewardedAdUnit = MediationRewardedAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c", mediationDelegate: mediationDelegate)
         admobRewardedAdUnit.fetchDemand { [weak self] result in
             guard let self = self else { return }

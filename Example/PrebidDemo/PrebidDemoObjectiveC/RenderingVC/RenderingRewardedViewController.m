@@ -109,7 +109,7 @@
 
 - (void)loadAdMobRenderingRewarded {
     GADRequest *request = [GADRequest new];
-    AdMobMediationBaseInterstitialUtils *mediationDelegate = [[AdMobMediationBaseInterstitialUtils alloc] initWithGadRequest:request];
+    AdMobMediationRewardedUtils *mediationDelegate = [[AdMobMediationRewardedUtils alloc] initWithGadRequest:request];
     
     self.admobRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:@"5a4b8dcf-f984-4b04-9448-6529908d6cb6"
                                                                    mediationDelegate:mediationDelegate];

@@ -18,7 +18,7 @@ import PrebidMobile
 import GoogleMobileAds
 
 @objcMembers
-public class AdMobMediationBaseInterstitialUtils: NSObject, PrebidMediationDelegate {
+public class AdMobMediationInterstitialUtils: NSObject, PrebidMediationDelegate {
     
     public let gadRequest: GADRequest
     
