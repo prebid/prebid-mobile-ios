@@ -115,11 +115,6 @@
                                                                    mediationDelegate:mediationDelegate];
     
     [self.admobRewardedAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
-        GADCustomEventExtras *extras = [GADCustomEventExtras new];
-        NSDictionary *prebidExtras = [mediationDelegate getEventExtras];
-        NSString *prebidExtrasLabel = AdMobConstants.PrebidAdMobEventExtrasLabel;
-        [extras setExtras:prebidExtras forLabel: prebidExtrasLabel];
-        [request registerAdNetworkExtras:extras];
         [GADRewardedAd loadWithAdUnitID:@"ca-app-pub-5922967660082475/7397370641" request:request completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"AdMob rewarded failed: %@", [error localizedDescription]);

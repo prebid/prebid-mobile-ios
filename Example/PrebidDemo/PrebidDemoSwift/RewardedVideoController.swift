@@ -218,10 +218,6 @@ class RewardedVideoController:
         admobRewardedAdUnit = MediationRewardedAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c", mediationDelegate: mediationDelegate)
         admobRewardedAdUnit.fetchDemand { [weak self] result in
             guard let self = self else { return }
-            let extras = GADCustomEventExtras()
-            let prebidExtras = mediationDelegate.getEventExtras()
-            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
-            request.register(extras)
             GADRewardedAd.load(withAdUnitID: self.admobPrebidAdUnitId, request: request) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
