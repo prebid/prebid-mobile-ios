@@ -104,7 +104,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GADMobileAds.sharedInstance().start { (status) in
             //Registered so that DownloadHelper gets covered by this
             GlobalVars.reactiveGAMInitFlag.markSdkInitialized()
-            print(status.adapterStatusesByClassName)
         };
         
         AdMobUtils.initializeGAD()

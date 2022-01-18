@@ -23,10 +23,6 @@ fileprivate let HBKeywordPrefix = "hb_"
 public class AdMobUtils: NSObject {
     public static func initializeGAD() {
         GADMobileAds.sharedInstance().start(completionHandler: nil)
-        GADMobileAds.sharedInstance().start { status in
-            print(status.adapterStatusesByClassName)
-        }
-        print(GADMobileAds.sharedInstance().initializationStatus.adapterStatusesByClassName)
     }
     
     static func removeHBKeywordsFrom(_ keywords: [String]) -> [String]  {
