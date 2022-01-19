@@ -143,11 +143,17 @@
     }
     
     [self.admobInterstitialAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
+        GADCustomEventExtras *extras = [GADCustomEventExtras new];
+        NSDictionary *prebidExtras = [mediationDelegate getEventExtras];
+        NSString *prebidExtrasLabel = AdMobConstants.PrebidAdMobEventExtrasLabel;
+        [extras setExtras:prebidExtras forLabel: prebidExtrasLabel];
+        [request registerAdNetworkExtras:extras];
         [GADInterstitialAd loadWithAdUnitID:@"ca-app-pub-5922967660082475/3383099861"
                                     request:request
                           completionHandler:^(GADInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"AdMob interstitial failed: %@", [error localizedDescription]);
+                return;
             }
             self.interstitial = interstitialAd;
             self.interstitial.fullScreenContentDelegate = self;

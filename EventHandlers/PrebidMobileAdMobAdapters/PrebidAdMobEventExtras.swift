@@ -14,10 +14,12 @@
   */
 
 import Foundation
+import GoogleMobileAds
 
-@objcMembers
-public class AdMobConstants: NSObject {
-    public static let PrebidAdMobEventExtrasLabel = "PrebidAdMobCustomEventExtras"
-    public static let PrebidAdMobRewardedAdapterVersion = "1.0.0"
+public class PrebidAdMobEventExtras: NSObject, GADAdNetworkExtras {
+    public var additionalParameters: [AnyHashable: Any]
+    
+    public init(additionalParameters: [AnyHashable: Any]) {
+        self.additionalParameters = additionalParameters
+    }
 }
-
