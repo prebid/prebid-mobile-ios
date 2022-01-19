@@ -42,7 +42,7 @@ public class PrebidAdMobBannerAdapter:
         }
         
         guard let keywords = request.userKeywords as? [String] else {
-            let error = AdMobAdaptersError.emptyCustomEventExtras
+            let error = AdMobAdaptersError.emptyUserKeywords
             delegate?.customEventBanner(self, didFailAd: error)
             return
         }

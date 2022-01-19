@@ -11,15 +11,21 @@
 @import PrebidMobile;
 @import PrebidMobileGAMEventHandlers;
 @import PrebidMobileMoPubAdapters;
+@import PrebidMobileAdMobAdapters;
 
 @import MoPubSDK;
+@import GoogleMobileAds;
 
-@interface RenderingRewardedViewController () <RewardedAdUnitDelegate, MPRewardedAdsDelegate, InterstitialAdUnitDelegate, MPInterstitialAdControllerDelegate>
+@interface RenderingRewardedViewController () <RewardedAdUnitDelegate, MPRewardedAdsDelegate, InterstitialAdUnitDelegate, MPInterstitialAdControllerDelegate, GADFullScreenContentDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *adView;
 
 @property (strong, nullable) RewardedAdUnit *rewardedAdUnit;
 @property (strong, nullable) MediationRewardedAdUnit *mopubRewardedAdUnit;
+
+// AdMob
+@property (strong, nullable) MediationRewardedAdUnit *admobRewardedAdUnit;
+@property (strong, nullable) GADRewardedAd *rewardedAd;
 
 @end
 
@@ -35,7 +41,7 @@
         case IntegrationKind_InApp          : [self loadInAppRewarded]              ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingRewarded]       ; break;
         case IntegrationKind_RenderingMoPub : [self loadMoPubRenderingRewarded]     ; break;
-
+        case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingRewarded]     ; break;
         default:
             break;
     }
@@ -101,6 +107,28 @@
     }];
 }
 
+- (void)loadAdMobRenderingRewarded {
+    GADRequest *request = [GADRequest new];
+    AdMobMediationRewardedUtils *mediationDelegate = [[AdMobMediationRewardedUtils alloc] initWithGadRequest:request];
+    
+    self.admobRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:@"5a4b8dcf-f984-4b04-9448-6529908d6cb6"
+                                                                   mediationDelegate:mediationDelegate];
+    
+    [self.admobRewardedAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
+        [GADRewardedAd loadWithAdUnitID:@"ca-app-pub-5922967660082475/7397370641" request:request completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"AdMob rewarded failed: %@", [error localizedDescription]);
+                return;
+            }
+            self.rewardedAd = rewardedAd;
+            self.rewardedAd.fullScreenContentDelegate = self;
+            [self.rewardedAd presentFromRootViewController:self userDidEarnRewardHandler:^{
+                NSLog(@"Reward user");
+            }];
+        }];
+    }];
+}
+
 #pragma mark - RewardedAdUnitDelegate
 
 - (void)rewardedAdDidReceiveAd:(RewardedAdUnit *)rewardedAd {
@@ -121,6 +149,28 @@
 
 - (void)rewardedAdDidFailToLoadForAdUnitID:(NSString *)adUnitID error:(NSError *)error {
     NSLog(@"MoPub rewardedAdDidFailToLoadForAdUnitID: %@", [error localizedDescription]);
+}
+
+#pragma mark - GADFullScreenContentDelegate
+
+- (void)ad:(id<GADFullScreenPresentingAd>)ad didFailToPresentFullScreenContentWithError:(NSError *)error {
+    NSLog(@"didFailToPresentFullScreenContentWithError: %@", [error localizedDescription]);
+}
+
+- (void)adDidPresentFullScreenContent:(id<GADFullScreenPresentingAd>)ad {
+    NSLog(@"adDidPresentFullScreenContent");
+}
+
+- (void)adWillDismissFullScreenContent:(id<GADFullScreenPresentingAd>)ad {
+    NSLog(@"adWillDismissFullScreenContent");
+}
+
+- (void)adDidDismissFullScreenContent:(id<GADFullScreenPresentingAd>)ad {
+    NSLog(@"adDidDismissFullScreenContent");
+}
+
+- (void)adDidRecordImpression:(id<GADFullScreenPresentingAd>)ad {
+    NSLog(@"adDidRecordImpression");
 }
 
 @end
