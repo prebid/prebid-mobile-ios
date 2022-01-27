@@ -7,7 +7,7 @@ jobs:
     steps:
       - run:
           name: Build
-          command: sh scripts/buildPrebidMobile.sh
+          command: ls
 
 workflows:
   pr-workflow:
