@@ -23,6 +23,8 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
     var prebidConfigId = ""
     var adMobAdUnitId = ""
     
+    var adFormat: AdFormat?
+    
     private weak var adapterViewController: AdapterViewController?
     
     private var interstitial: GADInterstitialAd?
@@ -60,6 +62,10 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         adUnit = MediationInterstitialAdUnit(configId: prebidConfigId,
                                              minSizePercentage: CGSize(width: 30, height: 30),
                                              mediationDelegate: mediationDelegate!)
+        
+        if let adFormat = adFormat {
+            adUnit?.adFormat = adFormat
+        }
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
