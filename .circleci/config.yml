@@ -6,7 +6,8 @@ version: 2.1
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   build: 
-    xcode: 12.5.1
+    macos:
+      xcode: 12.5.1
   steps:
     - checkout
     - run:
