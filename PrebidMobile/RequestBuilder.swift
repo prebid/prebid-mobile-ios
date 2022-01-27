@@ -75,10 +75,8 @@ class RequestBuilder: NSObject {
     }
     
     func setCustomHeaders(request: inout URLRequest) {
-        if !Prebid.shared.customHeaders.isEmpty {
-            for(headerName, headerValue) in Prebid.shared.customHeaders {
-                request.addValue(headerValue, forHTTPHeaderField: headerName)
-            }
+        for(headerName, headerValue) in Prebid.shared.customHeaders {
+            request.addValue(headerValue, forHTTPHeaderField: headerName)
         }
     }
 
