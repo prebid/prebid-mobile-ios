@@ -6,8 +6,9 @@ jobs:
       xcode: 12.5.1
     steps:
 	  - run:
-	            name: Build
-	            command: sh scripts/buildPrebidMobile.sh
+          name: Build
+          command: sh scripts/buildPrebidMobile.sh
+		  
 workflows:
   pr-workflow:
     jobs: 
