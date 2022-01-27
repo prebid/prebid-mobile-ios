@@ -27,6 +27,8 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     
     private var rewardedAd: GADRewardedAd?
     
+    private let adDidReceiveButton = EventReportContainer()
+    private let adDidFailToReceiveButton = EventReportContainer()
     private let adDidFailToPresentFullScreenContentWithErrorButton = EventReportContainer()
     private let adDidPresentFullScreenContentButton = EventReportContainer()
     private let adWillDismissFullScreenContentButton = EventReportContainer()
@@ -70,10 +72,14 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
                 guard let self = self else { return }
                 if let error = error {
                     PBMLog.error(error.localizedDescription)
+                    self.resetEvents()
+                    self.adDidFailToReceiveButton.isEnabled = true
                     return
                 }
                 self.rewardedAd = ad
                 self.rewardedAd?.fullScreenContentDelegate = self
+                self.adapterViewController?.showButton.isEnabled = true
+                self.adDidReceiveButton.isEnabled = true
             }
         }
     }
@@ -114,10 +120,13 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     }
     
     private func setupShowButton() {
+        adapterViewController?.showButton.isEnabled = false
         adapterViewController?.showButton.addTarget(self, action:#selector(self.showButtonClicked), for: .touchUpInside)
     }
     
     private func setupActions() {
+        adapterViewController?.setupAction(adDidReceiveButton, "adDidReceiveButton called")
+        adapterViewController?.setupAction(adDidFailToReceiveButton, "adDidFailToReceiveButton called")
         adapterViewController?.setupAction(adDidFailToPresentFullScreenContentWithErrorButton, "adDidFailToPresentFullScreenContentWithError called")
         adapterViewController?.setupAction(adDidPresentFullScreenContentButton, "adDidPresentFullScreenContent called")
         adapterViewController?.setupAction(adWillDismissFullScreenContentButton, "adWillDismissFullScreenContent called")
@@ -126,6 +135,8 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     }
     
     private func resetEvents() {
+        adDidReceiveButton.isEnabled = false
+        adDidFailToReceiveButton.isEnabled = false
         adDidFailToPresentFullScreenContentWithErrorButton.isEnabled = false
         adDidPresentFullScreenContentButton.isEnabled = false
         adWillDismissFullScreenContentButton.isEnabled = false
@@ -136,7 +147,6 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     @IBAction func showButtonClicked() {
         guard let adapterViewController = adapterViewController else { return }
         if rewardedAd != nil {
-            adapterViewController.showButton.isEnabled = false
             rewardedAd?.present(fromRootViewController: adapterViewController, userDidEarnRewardHandler: {
                 print("User rewarded")
             })
