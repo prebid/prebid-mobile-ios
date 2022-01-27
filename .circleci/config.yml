@@ -1,22 +1,13 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
-jobs:
-  build: 
+jobs: 
+  build:
     macos:
       xcode: 12.5.1
-  steps:
-    - checkout
-    - run:
-      name: PrebidMobile
-      command: xcodebuild
+    steps:
+      - checkout
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
-    jobs:
-      - say-hello
+  pr-workflow:
+    jobs: 
+      - build
