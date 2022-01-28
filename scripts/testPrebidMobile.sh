@@ -19,7 +19,7 @@ gem install cocoapods --user-install
 pod install --repo-update
 
 echo -e "\n${GREEN}Running some unit tests for iOS 13${NC} \n"
-xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=13.0' -only-testing PrebidMobileTests/RequestBuilderTests/testPostData | xcpretty -f `xcpretty-travis-formatter` --color --test
+xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=13.7' -only-testing PrebidMobileTests/RequestBuilderTests/testPostData | xcpretty -f `xcpretty-travis-formatter` --color --test
 
 if [[ ${PIPESTATUS[0]} == 0 ]]; then
     echo "✅ unit tests for iOS 13 Passed"
