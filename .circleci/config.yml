@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run:
           name: Build
-          command: sh scripts/testPrebidMobile.sh
+          command: scripts/testPrebidMobile.sh
 
 workflows:
   pr-workflow:
