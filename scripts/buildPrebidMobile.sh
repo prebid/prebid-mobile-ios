@@ -43,17 +43,34 @@ fi
 mkdir -p "$LOG_DIR"
 touch "$LOG_FILE_FRAMEWORK"
 
-echo -n "Embed bitcode (y/n)?"
-read bitcodeAnswer
-if [ "$bitcodeAnswer" != "${bitcodeAnswer#[Yy]}" ] ;then
-    BITCODE_FLAG=YES
+bitcode_script_flag=''
+
+while getopts 'b:' flag; do
+  case "${flag}" in
+    b) bitcode_script_flag="${OPTARG}" ;;
+  esac
+done
+
+if [ -z "$bitcode_script_flag" ]
+then
+	echo -n "Embed bitcode (y/n)?"
+	read bitcodeAnswer
+	if [ "$bitcodeAnswer" != "${bitcodeAnswer#[Yy]}" ] ;then
+	    BITCODE_FLAG=YES
+	fi
+else
+	if [ "$bitcode_script_flag" != "${bitcode_script_flag#[Yy]}" ] ;then
+	    BITCODE_FLAG=YES
+	fi
 fi
+	
 
-echo -n "\nBITCODE_FLAG: $BITCODE_FLAG\n"
+printf "\nBITCODE_FLAG: $BITCODE_FLAG\n"
 
-echo $PWD
-gem install cocoapods --user-install
-pod install --repo-update
+printf "\n$PWD\n"
+
+#gem install cocoapods --user-install
+#pod install --repo-update
 
 schemes=("PrebidMobile")
 
