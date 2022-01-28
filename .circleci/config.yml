@@ -3,7 +3,7 @@ version: 2.1
 jobs: 
   build:
     macos:
-      xcode: 13.1
+      xcode: 13.1.0
     steps:
       - checkout
       - run:
