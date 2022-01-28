@@ -5,9 +5,10 @@ jobs:
     macos:
       xcode: 12.5.1
     steps:
+      - checkout
       - run:
           name: Build
-          command: pwd
+          command: ls
 
 workflows:
   pr-workflow:
