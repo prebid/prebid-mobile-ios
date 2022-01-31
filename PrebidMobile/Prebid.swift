@@ -34,6 +34,8 @@ import Foundation
     public var storedAuctionResponse: String = ""
     
     public var pbsDebug: Bool = false
+
+    var customHeaders: [String: String] = [:]
     
     var storedBidResponses: [String: String] = [:]
 
@@ -113,5 +115,13 @@ import Foundation
     
     public func clearStoredBidResponses() {
         storedBidResponses.removeAll()
+    }
+
+    public func addCustomHeader(name: String, value: String) {
+        customHeaders[name] = value
+    }
+
+    public func clearCustomHeaders() {
+        customHeaders.removeAll()
     }
 }

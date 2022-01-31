@@ -58,6 +58,7 @@ class RequestBuilder: NSObject {
         //HTTP HeadersExpression implicitly coerced from '[AnyHashable : Any]?' to Any
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
+        self.setCustomHeaders(request: &request)
         request.httpShouldHandleCookies = isAllowedAccessDeviceData()
         
         let gdprApplies = Targeting.shared.subjectToGDPR
@@ -71,6 +72,12 @@ class RequestBuilder: NSObject {
         Log.info("Prebid Request post body \(stringObject ?? "nil")")
         
         return request
+    }
+    
+    func setCustomHeaders(request: inout URLRequest) {
+        for(headerName, headerValue) in Prebid.shared.customHeaders {
+            request.addValue(headerValue, forHTTPHeaderField: headerName)
+        }
     }
 
     func openRTBRequestBody(adUnit: AdUnit?) -> [AnyHashable: Any]? {
