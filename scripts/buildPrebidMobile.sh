@@ -17,8 +17,6 @@ POSTFIX_SIMULATOR="_simulator"
 
 echo -e "\n\n${GREEN}BUILD PREBID MOBILE${NC}\n\n"
 
-PRODUCT_NAME="PrebidMobile"
-
 GENERATED_DIR_NAME="generated"
 
 	LOG_DIR="$GENERATED_DIR_NAME/log"
@@ -72,7 +70,7 @@ printf "\n$PWD\n"
 #gem install cocoapods --user-install
 #pod install --repo-update
 
-schemes=("PrebidMobile")
+schemes=("PrebidMobile" "PrebidMobileGAMEventHandlers")
 
 for(( n=0; n<${#schemes[@]}; n++ ))
 do
