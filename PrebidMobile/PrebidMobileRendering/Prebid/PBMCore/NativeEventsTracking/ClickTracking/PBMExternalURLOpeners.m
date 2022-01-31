@@ -19,14 +19,8 @@
 
 + (PBMExternalURLOpenerBlock)applicationAsExternalUrlOpener:(id<PBMUIApplicationProtocol>)application {
     return ^(NSURL *url, PBMURLOpenResultHandlerBlock completion, PBMVoidBlock _Nullable onClickthroughExitBlock) {
-        if (@available(iOS 10.0, *)) {
-            [application openURL:url options:@{} completionHandler:completion];
-        } else {
-            BOOL const result = [application openURL:url];
-            if (completion != nil) {
-                completion(result);
-            }
-        }
+        [application openURL:url options:@{} completionHandler:completion];
+       
         if (onClickthroughExitBlock != nil) {
             onClickthroughExitBlock();
         }

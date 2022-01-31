@@ -119,13 +119,7 @@ static NSString * const PBMPlistExt = @"plist";
 }
 
 + (void) attemptToOpen:(nonnull NSURL*)url pbmUIApplication:(nonnull id<PBMUIApplicationProtocol>)pbmUIApplication {
-    
-    //iOS 10 makes available a new version of openURL and deprecates the old one.
-    if (@available(iOS 10, *)) {
-        [pbmUIApplication openURL:url options:@{} completionHandler:nil];
-    } else {
-        [pbmUIApplication openURL:url];
-    }
+    [pbmUIApplication openURL:url options:@{} completionHandler:nil];
 }
 
 #pragma mark - Time
