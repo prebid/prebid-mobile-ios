@@ -21,6 +21,8 @@ import Eureka
 import GoogleMobileAds
 import MoPubSDK
 
+import OMSDK_Prebidorg
+
 import PrebidMobile
 import PrebidMobileGAMEventHandlers
 import PrebidMobileMoPubAdapters
@@ -31,6 +33,7 @@ class AboutViewController : FormViewController {
     private let info = [
         ("Components", [
             "Prebid Mobile Rendering SDK": PrebidRenderingConfig.shared.version,
+            "OMSDK_Prebidorg": OMIDPrebidorgSDK.versionString()
         ]),
         ("Ad Server SDKs", [
             "GoogleMobileAds SDK": GADMobileAds.sharedInstance().sdkVersion,
