@@ -67,8 +67,8 @@ printf "\nBITCODE_FLAG: $BITCODE_FLAG\n"
 
 printf "\n$PWD\n"
 
-#gem install cocoapods --user-install
-#pod install --repo-update
+gem install cocoapods --user-install
+pod install --repo-update
 
 schemes=("PrebidMobile" "PrebidMobileGAMEventHandlers")
 
