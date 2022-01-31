@@ -53,6 +53,7 @@ public class AdMobMediationBannerUtils: NSObject, PrebidMediationDelegate {
             return
         }
         gadRequest.keywords = AdMobUtils.removeHBKeywordsFrom(gadKeywords)
+        eventExtras = nil
     }
     
     public func getAdView() -> UIView? {

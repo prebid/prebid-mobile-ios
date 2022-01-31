@@ -65,6 +65,93 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
         XCTAssertEqual(adView!.localExtras?.count, 0)
     }
     
+    func testCorrectBannerAdObjectSetUp() {
+        let mopubView = MPAdView()
+        let testIntitialExtras = ["existingKey": "existingValue"]
+        let testInitialKeywords = "existingKey:existingValue"
+        let bid = makeRawWinningBid(price: 0.10, bidder: "TestBidder", cacheID: "testCacheId")
+        mopubView.keywords = testInitialKeywords
+        mopubView.localExtras = testIntitialExtras
+        let mediationDelegate = MoPubMediationBannerUtils(mopubView: mopubView)
+        guard mediationDelegate.setUpAdObject(configId: "testConfigId",
+                                              configIdKey: "testConfigIdKey",
+                                              targetingInfo: ["test": "test"],
+                                              extrasObject: bid,
+                                              extrasObjectKey: "testExtrasObjectKey") else {
+            XCTFail()
+            return
+        }
+        
+        XCTAssertTrue(mediationDelegate.mopubView.keywords.contains(testInitialKeywords))
+        testIntitialExtras.forEach { key, value in
+            if !mediationDelegate.mopubView.localExtras.keys.contains(key) ||
+                !mediationDelegate.mopubView.localExtras.values.contains(where: {
+                    let stringValue = $0 as? String
+                    return stringValue == value
+                }) {
+                XCTFail()
+            }
+        }
+    }
+    
+    func testCorrectInterstitialAdObjectSetUp() {
+        let mopubController = MPInterstitialAdController()
+        let testIntitialExtras = ["existingKey": "existingValue"]
+        let testInitialKeywords = "existingKey:existingValue"
+        let bid = makeRawWinningBid(price: 0.10, bidder: "TestBidder", cacheID: "testCacheId")
+        mopubController.keywords = testInitialKeywords
+        mopubController.localExtras = testIntitialExtras
+        let mediationDelegate = MoPubMediationInterstitialUtils(mopubController: mopubController)
+        guard mediationDelegate.setUpAdObject(configId: "testConfigId",
+                                              configIdKey: "testConfigIdKey",
+                                              targetingInfo: ["test": "test"],
+                                              extrasObject: bid,
+                                              extrasObjectKey: "testExtrasObjectKey") else {
+            XCTFail()
+            return
+        }
+        
+        XCTAssertTrue(mediationDelegate.mopubController.keywords.contains(testInitialKeywords))
+        testIntitialExtras.forEach { key, value in
+            if !mediationDelegate.mopubController.localExtras.keys.contains(key) ||
+                !mediationDelegate.mopubController.localExtras.values.contains(where: {
+                    let stringValue = $0 as? String
+                    return stringValue == value
+                }) {
+                XCTFail()
+            }
+        }
+    }
+    
+    func testCorrectRewardedAdObjectSetUp() {
+        let bidInfoWrapper = MediationBidInfoWrapper()
+        let testIntitialExtras = ["existingKey": "existingValue"]
+        let testInitialKeywords = "existingKey:existingValue"
+        let bid = makeRawWinningBid(price: 0.10, bidder: "TestBidder", cacheID: "testCacheId")
+        bidInfoWrapper.keywords = testInitialKeywords
+        bidInfoWrapper.localExtras = testIntitialExtras
+        let mediationDelegate = MoPubMediationRewardedUtils(bidInfoWrapper: bidInfoWrapper)
+        guard mediationDelegate.setUpAdObject(configId: "testConfigId",
+                                              configIdKey: "testConfigIdKey",
+                                              targetingInfo: ["test": "test"],
+                                              extrasObject: bid,
+                                              extrasObjectKey: "testExtrasObjectKey") else {
+            XCTFail()
+            return
+        }
+        
+        XCTAssertTrue(mediationDelegate.bidInfoWrapper.keywords!.contains(testInitialKeywords))
+        testIntitialExtras.forEach { key, value in
+            if !mediationDelegate.bidInfoWrapper.localExtras!.keys.contains(key) ||
+                !mediationDelegate.bidInfoWrapper.localExtras!.values.contains(where: {
+                    let stringValue = $0 as? String
+                    return stringValue == value
+                }) {
+                XCTFail()
+            }
+        }
+    }
+    
     // This test is not compilable due to changes in MoPubMediationUtils
     // TODO: Restore this test in https://github.com/prebid/prebid-mobile-ios/issues/431
 //    func testFindNativeAd() {

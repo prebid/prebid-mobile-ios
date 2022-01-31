@@ -50,6 +50,7 @@ public class AdMobMediationInterstitialUtils: NSObject, PrebidMediationDelegate 
             return
         }
         gadRequest.keywords = AdMobUtils.removeHBKeywordsFrom(gadKeywords)
+        eventExtras = nil
     }
     
     public func getAdView() -> UIView? {

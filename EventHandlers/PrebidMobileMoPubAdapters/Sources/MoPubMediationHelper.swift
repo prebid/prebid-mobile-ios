@@ -39,21 +39,21 @@ class MoPubMediationHelper {
                           configId: String,
                           configIdKey: String,
                           extrasObject: Any?,
-                          extrasObjectKey: String) -> [AnyHashable: Any] {
+                          extrasObjectKey: String) -> [AnyHashable: Any]? {
         var extras = existingExtras ?? [AnyHashable: Any]()
         extras[configIdKey] = configId
         extras[extrasObjectKey] = extrasObject
-        return extras
+        return !extras.isEmpty ? extras : nil
     }
     
     static func getKeywords(existingKeywords: String,
-                            targetingInfo: [String: String]) -> String {
+                            targetingInfo: [String: String]) -> String? {
         if targetingInfo.count > 0 {
              let newKeywords = targetingInfo
                 .map { $0 + ":" + $1 }
                 .joined(separator: Constants.keywordsSeparator)
             return existingKeywords.isEmpty ? newKeywords: existingKeywords + "," + newKeywords
         }
-        return ""
+        return nil
     }
 }
