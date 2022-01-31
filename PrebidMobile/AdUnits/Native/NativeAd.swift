@@ -295,9 +295,9 @@ import UIKit
     
     private func openURLWithExternalBrowser(url : URL) -> Bool{
         if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
             return true
-        }else{
+        } else {
             return false
         }
     }
