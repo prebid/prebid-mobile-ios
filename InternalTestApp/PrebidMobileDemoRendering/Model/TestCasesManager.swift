@@ -2379,7 +2379,7 @@ struct TestCaseManager {
                 admobBannerController.prebidConfigId = "mock-banner-multisize"
                 admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
                 admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
-                admobBannerController.additionalAdSizes = [CGSize(width: 320, height: 50), CGSize(width: 728, height: 90)]
+                admobBannerController.additionalAdSizes = [CGSize(width: 728, height: 90)]
                 admobBannerController.gadAdSizeType = .adaptiveAnchored
                 adapterVC.setup(adapter: admobBannerController)
                         
