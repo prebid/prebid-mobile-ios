@@ -120,6 +120,40 @@ class PrebidTests: XCTestCase {
         XCTAssertNotEqual(0, case1)
         XCTAssertEqual(0, case2)
     }
+
+    func testAddCustomHeader() {
+
+        //given
+        let sdkVersionHeader = "X-SDK-Version"
+        let bundleHeader = "X-Bundle"
+
+        let sdkVersion = "1.1.666"
+        let bundleName = "com.app.nextAd"
+
+        //when
+        Prebid.shared.addCustomHeader(name: sdkVersionHeader, value: sdkVersion)
+        Prebid.shared.addCustomHeader(name: bundleHeader, value: bundleName)
+
+        //then
+        let dict = Prebid.shared.customHeaders
+        XCTAssertEqual(2, dict.count)
+        XCTAssert(dict[sdkVersionHeader] == sdkVersion && dict[bundleHeader] == bundleName )
+    }
+
+    func testClearCustomHeaders() {
+
+        //given
+        Prebid.shared.addCustomHeader(name: "header", value: "value")
+        let case1 = Prebid.shared.customHeaders.count
+
+        //when
+        Prebid.shared.clearCustomHeaders()
+        let case2 = Prebid.shared.customHeaders.count
+
+        //then
+        XCTAssertNotEqual(0, case1)
+        XCTAssertEqual(0, case2)
+    }
     
     func testShareGeoLocation() {
         //given
