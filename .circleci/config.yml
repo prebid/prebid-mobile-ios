@@ -7,8 +7,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Build
-          command: scripts/testPrebidMobile.sh
+          name: Build Frameworks
+          command: scripts/buildPrebidMobile.sh
 
 workflows:
   pr-workflow:
