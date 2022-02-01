@@ -33,16 +33,21 @@ public class AdMobUtils: NSObject {
     static func buildExtras(configId: String,
                             configIdKey: String,
                             extrasObject: Any?,
-                            extrasObjectKey: String) -> [AnyHashable: Any] {
+                            extrasObjectKey: String) -> [AnyHashable: Any]? {
         var extras = [AnyHashable: Any]()
         extras[configIdKey] = configId
         extras[extrasObjectKey] = extrasObject
-        return extras
+        return !extras.isEmpty ? extras : nil
     }
     
-    static func buildKeywords(targetingInfo: [String: String]) -> [String] {
-        return targetingInfo
-            .map { $0 + ":" + $1 }
+    static func buildKeywords(existingKeywords: [Any]?, targetingInfo: [String: String]) -> [Any]? {
+        let prebidKeywords = targetingInfo.map { $0 + ":" + $1 }
+        if let existingKeywords = existingKeywords, !existingKeywords.isEmpty {
+            let joinedKeywords = existingKeywords + prebidKeywords
+            return !joinedKeywords.isEmpty ? joinedKeywords : nil
+        }
+       
+        return !prebidKeywords.isEmpty ? prebidKeywords : nil
     }
     
     static func isServerParameterInKeywords(_ serverParameter: String, _ keywords: [String]) -> Bool {

@@ -40,7 +40,7 @@ public class AdMobMediationRewardedUtils: NSObject, PrebidMediationDelegate {
                                              extrasObject: extrasObject,
                                              extrasObjectKey: extrasObjectKey)
         
-        gadRequest.keywords = AdMobUtils.buildKeywords(targetingInfo: targetingInfo)
+        gadRequest.keywords = AdMobUtils.buildKeywords(existingKeywords: gadRequest.keywords, targetingInfo: targetingInfo)
          
         gadRequest.register(PrebidAdMobEventExtras(additionalParameters: eventExtras ?? [:]))
         
@@ -52,6 +52,8 @@ public class AdMobMediationRewardedUtils: NSObject, PrebidMediationDelegate {
             return
         }
         gadRequest.keywords = AdMobUtils.removeHBKeywordsFrom(gadKeywords)
+        gadRequest.removeAdNetworkExtras(for: PrebidAdMobEventExtras.self)
+        eventExtras = nil
     }
     
     public func getAdView() -> UIView? {
