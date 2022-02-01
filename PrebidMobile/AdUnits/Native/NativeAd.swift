@@ -36,13 +36,44 @@ import UIKit
     private var viewabilityValue = 0
     private var impressionHasBeenTracked = false
     private var viewForTracking: UIView?
-    private var eventTrackers: [NativeEventTrackerResponse]? {
-        return nativeAdMarkup?.eventtrackers
-    }
     //Click Handling
     private var gestureRecognizerRecords = [NativeAdGestureRecognizerRecord]()
-    private var clickUrl: String? {
-        return nativeAdMarkup?.link?.url
+    
+    // MARK: - Array getters
+    
+    @objc public var titles: [NativeTitle] {
+        nativeAdMarkup?.assets?.compactMap {
+            let titleAsset = $0 as? NativeAdMarkupAssetTitle
+            return titleAsset?.title
+        } ?? []
+    }
+    
+    @objc public var dataObjects: [NativeData] {
+        nativeAdMarkup?.assets?.compactMap {
+            let dataAsset = $0 as? NativeAdMarkupAssetData
+            return dataAsset?.data
+        } ?? []
+    }
+    
+    @objc public var images: [NativeImage] {
+        nativeAdMarkup?.assets?.compactMap {
+            let imageAsset = $0 as? NativeAdMarkupAssetImage
+            return imageAsset?.img
+        } ?? []
+    }
+    
+    @objc public var eventTrackers: [NativeEventTrackerResponse]? {
+        return nativeAdMarkup?.eventtrackers
+    }
+    
+    // MARK: - Filtered array getters
+    
+    @objc public func dataObjects(of dataType: NativeDataAssetType) -> [NativeData] {
+        dataObjects.filter { $0.type == dataType.rawValue }
+    }
+
+    @objc public func images(of imageType: NativeImageAssetType) -> [NativeImage] {
+        images.filter { $0.type == imageType.rawValue }
     }
     
     public static func create(cacheId: String) -> NativeAd? {
@@ -221,7 +252,7 @@ import UIKit
     
     @objc private func handleClick() {
         self.delegate?.adWasClicked?(ad: self)
-        if let clickUrl = clickUrl,
+        if let clickUrl = nativeAdMarkup?.link?.url,
            let clickUrlString = clickUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
            let url = URL(string: clickUrlString) {
             if !openURLWithExternalBrowser(url: url) {

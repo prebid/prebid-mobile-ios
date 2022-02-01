@@ -2685,7 +2685,6 @@
 			isa = PBXGroup;
 			children = (
 				5BC377DC271F1CFF00444D5E /* PBRNativeAssetImage.swift */,
-				5BC377DD271F1CFF00444D5E /* NativeImageAssetType.swift */,
 				5BC377DE271F1CFF00444D5E /* NativeAssetData.swift */,
 				5BC377DF271F1CFF00444D5E /* NativeContextSubtype.swift */,
 				5BC377E0271F1CFF00444D5E /* NativeAdResponse */,
@@ -2696,7 +2695,6 @@
 				5BC37801271F1CFF00444D5E /* PBRNativeAsset.swift */,
 				5BC37802271F1CFF00444D5E /* PBRNativeEventTracker.swift */,
 				5BC37803271F1CFF00444D5E /* NativeAssetVideo.swift */,
-				5BC37804271F1CFF00444D5E /* NativeDataAssetType.swift */,
 				5BC37805271F1CFF00444D5E /* NativeEventTrackingMethod.swift */,
 				5BC37806271F1CFF00444D5E /* NativeAssetTitle.swift */,
 				5BC37807271F1CFF00444D5E /* NativeContextType.swift */,
@@ -3501,6 +3499,8 @@
 		92C85D5827A96A750080BAC5 /* NativeAdResponse */ = {
 			isa = PBXGroup;
 			children = (
+				5BC377DD271F1CFF00444D5E /* NativeImageAssetType.swift */,
+				5BC37804271F1CFF00444D5E /* NativeDataAssetType.swift */,
 				92C85D6D27A983150080BAC5 /* NativeAdMarkup.swift */,
 				92C85D6527A97D3A0080BAC5 /* NativeAdMarkupAssets */,
 			);

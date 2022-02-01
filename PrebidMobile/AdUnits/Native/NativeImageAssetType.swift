@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc enum NativeImageAssetType : Int {
+@objc public enum NativeImageAssetType: Int {
     case icon = 1
     case main = 3
     
