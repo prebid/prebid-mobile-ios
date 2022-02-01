@@ -877,11 +877,9 @@
 		92C85D5E27A96DBB0080BAC5 /* NativeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D5D27A96DBB0080BAC5 /* NativeData.swift */; };
 		92C85D6227A977AD0080BAC5 /* NativeAdMarkupAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D6127A977AD0080BAC5 /* NativeAdMarkupAsset.swift */; };
 		92C85D6427A979F20080BAC5 /* NativeLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D6327A979F20080BAC5 /* NativeLink.swift */; };
-		92C85D6727A97D4E0080BAC5 /* NativeAdMarkupAssetTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D6627A97D4E0080BAC5 /* NativeAdMarkupAssetTitle.swift */; };
-		92C85D6927A97EB10080BAC5 /* NativeAdMarkupAssetImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D6827A97EB10080BAC5 /* NativeAdMarkupAssetImage.swift */; };
-		92C85D6B27A97F500080BAC5 /* NativeAdMarkupAssetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D6A27A97F500080BAC5 /* NativeAdMarkupAssetData.swift */; };
 		92C85D6E27A983150080BAC5 /* NativeAdMarkup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D6D27A983150080BAC5 /* NativeAdMarkup.swift */; };
 		92C85D7027A987260080BAC5 /* NativeEventTrackerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D6F27A987260080BAC5 /* NativeEventTrackerResponse.swift */; };
+		92C85D9627A9DC9D0080BAC5 /* NativeAdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D9527A9DC9D0080BAC5 /* NativeAdTests.swift */; };
 		92D43D3E273A80060037DD20 /* mraid.js in Resources */ = {isa = PBXBuildFile; fileRef = 47D9AADC57CCCE64C374E101 /* mraid.js */; };
 		92D8BEB22747B464006BD78E /* MediationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D8BEB12747B464006BD78E /* MediationConstants.swift */; };
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
@@ -1868,6 +1866,7 @@
 		92C85D6327A979F20080BAC5 /* NativeLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeLink.swift; sourceTree = "<group>"; };
 		92C85D6D27A983150080BAC5 /* NativeAdMarkup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdMarkup.swift; sourceTree = "<group>"; };
 		92C85D6F27A987260080BAC5 /* NativeEventTrackerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackerResponse.swift; sourceTree = "<group>"; };
+		92C85D9527A9DC9D0080BAC5 /* NativeAdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdTests.swift; sourceTree = "<group>"; };
 		92D8BEB12747B464006BD78E /* MediationConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediationConstants.swift; sourceTree = "<group>"; };
 		9720387B2358771600F8025A /* NativeRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeRequestTests.swift; sourceTree = "<group>"; };
 		9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetTests.swift; sourceTree = "<group>"; };
@@ -3531,6 +3530,7 @@
 				9720387B2358771600F8025A /* NativeRequestTests.swift */,
 				9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */,
 				9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */,
+				92C85D9527A9DC9D0080BAC5 /* NativeAdTests.swift */,
 			);
 			path = NativeUnitTests;
 			sourceTree = "<group>";
@@ -4242,6 +4242,7 @@
 				925D5E6C2737F4DF00A8A2B5 /* PBMVastLoaderTestOMVerificationOneInline.swift in Sources */,
 				925D5D912737C0A300A8A2B5 /* PBMUIViewTests.swift in Sources */,
 				9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */,
+				92C85D9627A9DC9D0080BAC5 /* NativeAdTests.swift in Sources */,
 				925D5DFA2737DDB900A8A2B5 /* NativeAdImageTest.swift in Sources */,
 				922AFCE42735573900732C53 /* PBMServerConnectionTest.swift in Sources */,
 				925D5D9F2737C33800A8A2B5 /* NetworkParameterBuilderTest.swift in Sources */,
