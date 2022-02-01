@@ -14,6 +14,7 @@
  */
 
 import Foundation
+import OMSDK_Prebidorg
 
 fileprivate let defaultTimeoutMillis = 2000
 
@@ -25,6 +26,10 @@ public class PrebidRenderingConfig : NSObject {
     
     @objc public var version: String {
         PBMFunctions.sdkVersion()
+    }
+    
+    @objc public var omsdkVersion: String {
+        OMIDPrebidorgSDK.versionString()
     }
     
     // MARK: - Public Properties (Prebid)
