@@ -42,24 +42,15 @@ import UIKit
     // MARK: - Array getters
     
     @objc public var titles: [NativeTitle] {
-        nativeAdMarkup?.assets?.compactMap {
-            let titleAsset = $0 as? NativeAdMarkupAssetTitle
-            return titleAsset?.title
-        } ?? []
+        nativeAdMarkup?.assets?.compactMap { return $0.title } ?? []
     }
     
     @objc public var dataObjects: [NativeData] {
-        nativeAdMarkup?.assets?.compactMap {
-            let dataAsset = $0 as? NativeAdMarkupAssetData
-            return dataAsset?.data
-        } ?? []
+        nativeAdMarkup?.assets?.compactMap { return $0.data } ?? []
     }
     
     @objc public var images: [NativeImage] {
-        nativeAdMarkup?.assets?.compactMap {
-            let imageAsset = $0 as? NativeAdMarkupAssetImage
-            return imageAsset?.img
-        } ?? []
+        nativeAdMarkup?.assets?.compactMap { return $0.img } ?? []
     }
     
     @objc public var eventTrackers: [NativeEventTrackerResponse]? {
@@ -80,21 +71,17 @@ import UIKit
         
         guard let bidInfo = CacheManager.shared.get(cacheId: cacheId),
               let response = Utils.shared.getDictionaryFromString(bidInfo),
-              let adm = response["adm"] as? String,
-              let data = adm.data(using: .utf8)
+              let adm = Utils.shared.getDictionary(from: response["adm"])
         else {
             Log.error("Invalid native contents")
             return nil
         }
         do {
-            guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-                Log.error("Invalid native json")
-                return nil
-            }
             let ad = NativeAd()
-            let nativeAdMarkup = try NativeAdMarkup(jsonDictionary: json)
+            let nativeAdMarkup = try NativeAdMarkup(jsonDictionary: adm)
             ad.nativeAdMarkup = nativeAdMarkup
             CacheManager.shared.delegate = ad
+            return ad
         } catch let error as NSError {
             Log.error("Failed to load: \(error.localizedDescription)")
         }

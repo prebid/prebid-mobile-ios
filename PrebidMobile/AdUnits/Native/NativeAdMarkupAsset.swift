@@ -24,6 +24,17 @@ public class NativeAdMarkupAsset: NSObject, PBMJsonDecodable {
     /// Set to 1 if asset is required. (bidder requires it to be displayed).
     public var required: Int?
     
+    /// Title object for title assets.
+    /// See TitleObject definition.
+    public var title: NativeTitle?
+    
+    /// Image object for image assets.
+    /// See ImageObject definition.
+    public var img: NativeImage?
+    
+    /// Data object for ratings, prices etc.
+    public var data: NativeData?
+    
     /// Link object for call to actions.
     /// The link object applies if the asset item is activated (clicked).
     /// If there is no link object on the asset, the parent link object on the bid response applies.
@@ -42,6 +53,14 @@ public class NativeAdMarkupAsset: NSObject, PBMJsonDecodable {
         self.id = jsonDictionary["id"] as? Int
         self.required = jsonDictionary["required"] as? Int
         self.ext = jsonDictionary["ext"] as? [String: Any]
+        
+        if let titleDictionary = jsonDictionary["title"] as? [String: Any] {
+            self.title = try NativeTitle(jsonDictionary: titleDictionary)
+        } else if let imgDictionary = jsonDictionary["img"] as? [String: Any] {
+            self.img = try NativeImage(jsonDictionary: imgDictionary)
+        } else if let dataDictionary = jsonDictionary["data"] as? [String: Any] {
+            self.data = try NativeData(jsonDictionary: dataDictionary)
+        }
         
         if let linkDictionary = jsonDictionary["link"] as? [String: Any] {
             self.link = try NativeLink(jsonDictionary: linkDictionary)

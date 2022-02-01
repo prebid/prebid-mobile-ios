@@ -80,6 +80,15 @@ public class NativeAdMarkup: NSObject, PBMJsonDecodable {
         self.privacy = jsonDictionary["privacy"] as? String
         self.ext = jsonDictionary["ext"] as? [String: Any]
         
+        if let assetDictArray = jsonDictionary["assets"] as? [[String: Any]] {
+            var finalAssetArray = [NativeAdMarkupAsset]()
+            
+            for assetDict in assetDictArray {
+                finalAssetArray.append(try NativeAdMarkupAsset(jsonDictionary: assetDict))
+            }
+            self.assets = finalAssetArray
+        }
+        
         if let linkDicitonary = jsonDictionary["link"] as? [String: Any] {
             self.link = try NativeLink(jsonDictionary: linkDicitonary)
         }
