@@ -48,12 +48,10 @@ class MoPubMediationHelper {
     
     static func getKeywords(existingKeywords: String,
                             targetingInfo: [String: String]) -> String? {
-        if targetingInfo.count > 0 {
-             let newKeywords = targetingInfo
-                .map { $0 + ":" + $1 }
-                .joined(separator: Constants.keywordsSeparator)
-            return existingKeywords.isEmpty ? newKeywords: existingKeywords + "," + newKeywords
-        }
-        return nil
+        let prebidKeywords = targetingInfo
+            .map { $0 + ":" + $1 }
+            .joined(separator: Constants.keywordsSeparator)
+        let joinedKeywords = existingKeywords.isEmpty ? prebidKeywords : existingKeywords + "," + prebidKeywords
+        return !joinedKeywords.isEmpty ? joinedKeywords : nil
     }
 }

@@ -20,7 +20,7 @@ import GoogleMobileAds
 import PrebidMobile
 @testable import PrebidMobileAdMobAdapters
 
-class AdMobMediationUtilsTest: XCTest {
+class AdMobMediationUtilsTest: XCTestCase {
     func testCorrectBannerAdObjectSetUp() {
         let gadRequest = GADRequest()
         let testInitialKeywords = ["existingKey:existingValue"]

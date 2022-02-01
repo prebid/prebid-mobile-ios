@@ -40,8 +40,10 @@ public class AdMobUtils: NSObject {
         return !extras.isEmpty ? extras : nil
     }
     
-    static func buildKeywords(targetingInfo: [String: String]) -> [String]? {
-        return !targetingInfo.isEmpty ? targetingInfo.map { $0 + ":" + $1 } : nil
+    static func buildKeywords(existingKeywords: [Any], targetingInfo: [String: String]) -> [Any]? {
+        let prebidKeywords = targetingInfo.map { $0 + ":" + $1 }
+        let joinedKeywords = existingKeywords.isEmpty ? prebidKeywords : existingKeywords + prebidKeywords
+        return !joinedKeywords.isEmpty ? joinedKeywords : nil
     }
     
     static func isServerParameterInKeywords(_ serverParameter: String, _ keywords: [String]) -> Bool {

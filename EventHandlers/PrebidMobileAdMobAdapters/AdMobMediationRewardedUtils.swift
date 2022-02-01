@@ -40,7 +40,7 @@ public class AdMobMediationRewardedUtils: NSObject, PrebidMediationDelegate {
                                              extrasObject: extrasObject,
                                              extrasObjectKey: extrasObjectKey)
         
-        gadRequest.keywords = AdMobUtils.buildKeywords(targetingInfo: targetingInfo)
+        gadRequest.keywords = AdMobUtils.buildKeywords(existingKeywords: gadRequest.keywords ?? [], targetingInfo: targetingInfo)
          
         gadRequest.register(PrebidAdMobEventExtras(additionalParameters: eventExtras ?? [:]))
         
