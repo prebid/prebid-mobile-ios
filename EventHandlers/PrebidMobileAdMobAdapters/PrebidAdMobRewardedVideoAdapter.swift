@@ -34,12 +34,6 @@ public class PrebidAdMobRewardedVideoAdapter:
     
     // MARK: - GADMediationAdapter
     public func loadRewardedAd(for adConfiguration: GADMediationRewardedAdConfiguration, completionHandler: @escaping GADMediationRewardedLoadCompletionHandler) {
-        guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
-            let error = AdMobAdaptersError.noServerParameter
-            delegate?.didFailToPresentWithError(error)
-            return
-        }
-        
         guard let prebidExtras = adConfiguration.extras as? PrebidAdMobEventExtras else {
             let error = AdMobAdaptersError.emptyCustomEventExtras
             delegate?.didFailToPresentWithError(error)
@@ -55,6 +49,12 @@ public class PrebidAdMobRewardedVideoAdapter:
         guard let keywords = bid.targetingInfo else {
             let error = AdMobAdaptersError.emptyUserKeywords
             delegate = completionHandler(nil, error)
+            return
+        }
+        
+        guard let serverParameter = adConfiguration.credentials.settings["parameter"] as? String else {
+            let error = AdMobAdaptersError.noServerParameter
+            delegate?.didFailToPresentWithError(error)
             return
         }
         
