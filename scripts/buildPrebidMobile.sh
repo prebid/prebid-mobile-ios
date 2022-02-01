@@ -70,7 +70,7 @@ printf "\n$PWD\n"
 gem install cocoapods --user-install
 pod install --repo-update
 
-schemes=("PrebidMobile" "PrebidMobileGAMEventHandlers")
+schemes=("PrebidMobile" "PrebidMobileGAMEventHandlers" "PrebidMobileMoPubAdapters")
 
 for(( n=0; n<${#schemes[@]}; n++ ))
 do
