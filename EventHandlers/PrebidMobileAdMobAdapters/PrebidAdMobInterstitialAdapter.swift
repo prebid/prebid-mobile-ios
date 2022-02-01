@@ -38,14 +38,14 @@ public class PrebidAdMobInterstitialAdapter:
     
     // MARK: - GADCustomEventInterstitial
     public func requestAd(withParameter serverParameter: String?, label serverLabel: String?, request: GADCustomEventRequest) {
-        guard let serverParameter = serverParameter else {
-            let error = AdMobAdaptersError.noServerParameter
+        guard let keywords = request.userKeywords as? [String] else {
+            let error = AdMobAdaptersError.emptyUserKeywords
             delegate?.customEventInterstitial(self, didFailAd: error)
             return
         }
         
-        guard let keywords = request.userKeywords as? [String] else {
-            let error = AdMobAdaptersError.emptyUserKeywords
+        guard let serverParameter = serverParameter else {
+            let error = AdMobAdaptersError.noServerParameter
             delegate?.customEventInterstitial(self, didFailAd: error)
             return
         }
