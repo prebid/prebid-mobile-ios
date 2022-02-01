@@ -38,7 +38,7 @@ public class MoPubMediationInterstitialUtils: NSObject, PrebidMediationDelegate 
                                                                      extrasObject: extrasObject,
                                                                      extrasObjectKey: extrasObjectKey)
         
-        mopubController.keywords = MoPubMediationHelper.getKeywords(existingKeywords: mopubController.keywords ?? "",
+        mopubController.keywords = MoPubMediationHelper.getKeywords(existingKeywords: mopubController.keywords,
                                                                     targetingInfo: targetingInfo)
         return true
     }

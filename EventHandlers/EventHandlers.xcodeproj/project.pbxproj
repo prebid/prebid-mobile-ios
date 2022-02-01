@@ -51,6 +51,7 @@
 		9267B400276FCF9300F1ADF1 /* AdMobConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9267B3FF276FCF9300F1ADF1 /* AdMobConstants.swift */; };
 		926CBF1C278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926CBF1B278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift */; };
 		926CBF1E278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926CBF1D278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift */; };
+		9281F68527A82C38004F18EC /* AdMobMediationUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281F68427A82C38004F18EC /* AdMobMediationUtilsTest.swift */; };
 		928310092775FF7600D28142 /* AdMobUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928310082775FF7600D28142 /* AdMobUtilsTest.swift */; };
 		92A2380D27731B48000157AA /* AdMobUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A2380C27731B48000157AA /* AdMobUtils.swift */; };
 		92BDEEDC276FE23100878723 /* MoPubMediationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BDEEDB276FE23100878723 /* MoPubMediationHelper.swift */; };
@@ -155,6 +156,7 @@
 		9267B3FF276FCF9300F1ADF1 /* AdMobConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobConstants.swift; sourceTree = "<group>"; };
 		926CBF1B278C837800E07BF2 /* PrebidAdMobInterstitialAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobInterstitialAdapter.swift; sourceTree = "<group>"; };
 		926CBF1D278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobMediationInterstitialUtils.swift; sourceTree = "<group>"; };
+		9281F68427A82C38004F18EC /* AdMobMediationUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobMediationUtilsTest.swift; sourceTree = "<group>"; };
 		928310072775FF7500D28142 /* PrebidMobileAdMobAdaptersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileAdMobAdaptersTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		928310082775FF7600D28142 /* AdMobUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobUtilsTest.swift; sourceTree = "<group>"; };
 		92A2380C27731B48000157AA /* AdMobUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobUtils.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 			children = (
 				928310082775FF7600D28142 /* AdMobUtilsTest.swift */,
 				928310072775FF7500D28142 /* PrebidMobileAdMobAdaptersTests-Bridging-Header.h */,
+				9281F68427A82C38004F18EC /* AdMobMediationUtilsTest.swift */,
 			);
 			path = PrebidMobileAdMobAdaptersTests;
 			sourceTree = "<group>";
@@ -978,6 +981,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9281F68527A82C38004F18EC /* AdMobMediationUtilsTest.swift in Sources */,
 				928310092775FF7600D28142 /* AdMobUtilsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
