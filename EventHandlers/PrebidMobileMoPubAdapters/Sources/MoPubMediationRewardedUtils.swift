@@ -38,7 +38,7 @@ public class MoPubMediationRewardedUtils: NSObject, PrebidMediationDelegate {
                                                                     extrasObject: extrasObject,
                                                                     extrasObjectKey: extrasObjectKey)
 
-        bidInfoWrapper.keywords = MoPubMediationHelper.getKeywords(existingKeywords: bidInfoWrapper.keywords ?? "",
+        bidInfoWrapper.keywords = MoPubMediationHelper.getKeywords(existingKeywords: bidInfoWrapper.keywords,
                                                                    targetingInfo: targetingInfo)
         return true
     }

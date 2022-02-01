@@ -38,7 +38,7 @@ public class MoPubMediationBannerUtils: NSObject, PrebidMediationDelegate {
                                                                extrasObject: extrasObject,
                                                                extrasObjectKey: extrasObjectKey)
 
-        mopubView.keywords = MoPubMediationHelper.getKeywords(existingKeywords: mopubView.keywords ?? "",
+        mopubView.keywords = MoPubMediationHelper.getKeywords(existingKeywords: mopubView.keywords,
                                                               targetingInfo: targetingInfo)
         return true
     }

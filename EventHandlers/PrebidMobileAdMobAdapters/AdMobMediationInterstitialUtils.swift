@@ -40,7 +40,7 @@ public class AdMobMediationInterstitialUtils: NSObject, PrebidMediationDelegate 
                                              extrasObject: extrasObject,
                                              extrasObjectKey: extrasObjectKey)
         
-        gadRequest.keywords = AdMobUtils.buildKeywords(existingKeywords: gadRequest.keywords ?? [], targetingInfo: targetingInfo)
+        gadRequest.keywords = AdMobUtils.buildKeywords(existingKeywords: gadRequest.keywords, targetingInfo: targetingInfo)
         
         return true
     }
