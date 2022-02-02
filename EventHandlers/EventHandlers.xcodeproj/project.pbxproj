@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		13A48E28958C60CADF9C2D4D /* Pods_PrebidMobileMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 923B551A27452E4000E00C88 /* Pods_PrebidMobileMoPubAdapters.framework */; };
 		27B42DD897A78A3ED5BE10C0 /* Pods_PrebidMobileMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52CBE87750DA32B6049DBA11 /* Pods_PrebidMobileMoPubAdapters.framework */; };
 		3405F94A250A555800268A77 /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D5C24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers.framework */; };
 		3405F951250A55AE00268A77 /* GAMBannerViewWrapperTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3405F950250A55AE00268A77 /* GAMBannerViewWrapperTest.swift */; };
@@ -133,6 +132,7 @@
 		5B7B153D264E9FFA00EBF42A /* PrebidMoPubVideoInterstitialAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMoPubVideoInterstitialAdapter.swift; sourceTree = "<group>"; };
 		5B7B1548264EA79700EBF42A /* PrebidMoPubRewardedVideoAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMoPubRewardedVideoAdapter.swift; sourceTree = "<group>"; };
 		5B7B1553264EC61C00EBF42A /* PrebidMoPubAdapterConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMoPubAdapterConfiguration.swift; sourceTree = "<group>"; };
+		5BC3B4CB27A9791200C74833 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BCCF2082732C6340046CCFC /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BCCF20F2732D1B10046CCFC /* PrebidMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BF8E65A26396DB900341EE4 /* GADRewardedAdWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GADRewardedAdWrapper.swift; sourceTree = "<group>"; };
@@ -183,7 +183,6 @@
 			files = (
 				5BCCF2092732C6340046CCFC /* PrebidMobile.framework in Frameworks */,
 				27B42DD897A78A3ED5BE10C0 /* Pods_PrebidMobileMoPubAdapters.framework in Frameworks */,
-				13A48E28958C60CADF9C2D4D /* Pods_PrebidMobileMoPubAdapters.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +346,7 @@
 		923B550A2745286000E00C88 /* PrebidMobileMoPubAdaptersTests */ = {
 			isa = PBXGroup;
 			children = (
+				5BC3B4CB27A9791200C74833 /* Info.plist */,
 				923B55162745297E00E00C88 /* PBMMoPubUtilsTest.swift */,
 				923B55152745297D00E00C88 /* PrebidMobileMoPubAdaptersTests-Bridging-Header.h */,
 				923B551827452A1F00E00C88 /* RawWinningBidFabricator.swift */,
@@ -932,6 +932,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 914C447D75BBE960CE43225D /* Pods-PrebidMobileGAMEventHandlers.debug.xcconfig */;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -968,6 +969,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F06F98153B4FCC7F187B0A60 /* Pods-PrebidMobileGAMEventHandlers.release.xcconfig */;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_STYLE = Manual;
@@ -1002,6 +1004,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 553848D2FE06B31317288F97 /* Pods-PrebidMobileMoPubAdapters.debug.xcconfig */;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1036,6 +1039,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C5B3E8B0B44D8679109E1641 /* Pods-PrebidMobileMoPubAdapters.release.xcconfig */;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_STYLE = Manual;
@@ -1072,7 +1076,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PrebidMobileMoPubAdaptersTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1099,7 +1104,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = PrebidMobileMoPubAdaptersTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

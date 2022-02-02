@@ -1,0 +1,27 @@
+version: 2.1
+
+jobs: 
+  build:
+    macos:
+      xcode: 13.2.0
+    steps:
+      - checkout
+      - run:
+          name: Build Frameworks
+          command: scripts/buildPrebidMobile.sh -b no
+
+  unit-test:
+    macos:
+      xcode: 13.2.0
+    steps:
+      - checkout
+      - run:
+          name: Run Unit Tests for Frameworks
+          command: scripts/testPrebidMobile.sh -l
+
+
+workflows:
+  pr-check:
+    jobs: 
+      - build
+      - unit-test
