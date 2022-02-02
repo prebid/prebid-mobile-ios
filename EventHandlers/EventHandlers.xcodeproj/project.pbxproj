@@ -56,6 +56,7 @@
 		926CBF1E278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926CBF1D278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift */; };
 		9281F68527A82C38004F18EC /* AdMobMediationUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281F68427A82C38004F18EC /* AdMobMediationUtilsTest.swift */; };
 		928310092775FF7600D28142 /* AdMobUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928310082775FF7600D28142 /* AdMobUtilsTest.swift */; };
+		9285B46627AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285B46527AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift */; };
 		92A2380D27731B48000157AA /* AdMobUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A2380C27731B48000157AA /* AdMobUtils.swift */; };
 		92BDEEDC276FE23100878723 /* MoPubMediationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BDEEDB276FE23100878723 /* MoPubMediationHelper.swift */; };
 		92BDEEDE276FE4B000878723 /* MoPubMediationInterstitialUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92BDEEDD276FE4B000878723 /* MoPubMediationInterstitialUtils.swift */; };
@@ -186,6 +187,7 @@
 		9281F68427A82C38004F18EC /* AdMobMediationUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobMediationUtilsTest.swift; sourceTree = "<group>"; };
 		928310072775FF7500D28142 /* PrebidMobileAdMobAdaptersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileAdMobAdaptersTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		928310082775FF7600D28142 /* AdMobUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobUtilsTest.swift; sourceTree = "<group>"; };
+		9285B46527AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobVideoInterstitialAdapter.swift; sourceTree = "<group>"; };
 		92A2380C27731B48000157AA /* AdMobUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobUtils.swift; sourceTree = "<group>"; };
 		92BDEEDB276FE23100878723 /* MoPubMediationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoPubMediationHelper.swift; sourceTree = "<group>"; };
 		92BDEEDD276FE4B000878723 /* MoPubMediationInterstitialUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoPubMediationInterstitialUtils.swift; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 				92DDA43B278EE8EC0035F03E /* PrebidAdMobRewardedVideoAdapter.swift */,
 				92F4389827688E8600FDC950 /* PrebidMobileAdMobAdapters.h */,
 				92C474F82795ECDF00C26E27 /* PrebidAdMobEventExtras.swift */,
+				9285B46527AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift */,
 			);
 			path = PrebidMobileAdMobAdapters;
 			sourceTree = "<group>";
@@ -997,6 +1000,7 @@
 				92C474F92795ECDF00C26E27 /* PrebidAdMobEventExtras.swift in Sources */,
 				92C474F52795E1A600C26E27 /* PrebidAdMobMediationBaseAdapter.swift in Sources */,
 				92E924FD276A0FD8002B57F3 /* AdMobMediationBannerUtils.swift in Sources */,
+				9285B46627AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift in Sources */,
 				92E924FF276A193E002B57F3 /* AdMobAdaptersError.swift in Sources */,
 				92C474ED2795B57F00C26E27 /* AdMobMediationRewardedUtils.swift in Sources */,
 				926CBF1E278C8ADC00E07BF2 /* AdMobMediationInterstitialUtils.swift in Sources */,

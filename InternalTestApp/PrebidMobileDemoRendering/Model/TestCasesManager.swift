@@ -2460,7 +2460,7 @@ struct TestCaseManager {
                     admobInterstitialController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
                 admobInterstitialController.adFormat = .video
-                admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
+                admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                 adapterVC.setup(adapter: admobInterstitialController)
                         
                 setupCustomParams(for: admobInterstitialController.prebidConfigId)
@@ -2476,7 +2476,7 @@ struct TestCaseManager {
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 admobInterstitialController.prebidConfigId = "mock-video-interstitial-320-480"
                 admobInterstitialController.adFormat = .video
-                admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
+                admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                 adapterVC.setup(adapter: admobInterstitialController)
                         
                 setupCustomParams(for: admobInterstitialController.prebidConfigId)
@@ -2497,7 +2497,7 @@ struct TestCaseManager {
                     admobInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 admobInterstitialController.adFormat = .video
-                admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
+                admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                 adapterVC.setup(adapter: admobInterstitialController)
                         
                 setupCustomParams(for: admobInterstitialController.prebidConfigId)
