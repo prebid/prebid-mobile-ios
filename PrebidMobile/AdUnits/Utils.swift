@@ -396,6 +396,27 @@ public class Utils: NSObject {
         }
         return nil
     }
+    
+    func getDictionary(from value: Any?) -> [String: Any]? {
+          guard let stringValue = value as? String else {
+              Log.error("Can't parse given value to string type")
+              return nil
+          }
+
+          guard let data = stringValue.data(using: .utf8) else {
+              Log.error("Can't parse given value to data type")
+              return nil
+          }
+
+          do {
+              let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+              return json
+          } catch {
+              Log.error(error.localizedDescription)
+          }
+
+          return nil
+      }
 }
 
 /**

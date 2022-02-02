@@ -71,7 +71,7 @@ import UIKit
         
         guard let bidInfo = CacheManager.shared.get(cacheId: cacheId),
               let response = Utils.shared.getDictionaryFromString(bidInfo),
-              let adm = response["adm"] as? [String: Any]
+              let adm = Utils.shared.getDictionary(from: response["adm"])
         else {
             Log.error("Invalid native contents")
             return nil
