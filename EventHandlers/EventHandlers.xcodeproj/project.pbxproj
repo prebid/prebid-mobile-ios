@@ -32,9 +32,7 @@
 		5B7B1549264EA79700EBF42A /* PrebidMoPubRewardedVideoAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B1548264EA79700EBF42A /* PrebidMoPubRewardedVideoAdapter.swift */; };
 		5B7B1554264EC61C00EBF42A /* PrebidMoPubAdapterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B7B1553264EC61C00EBF42A /* PrebidMoPubAdapterConfiguration.swift */; };
 		5BCCF2092732C6340046CCFC /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF2082732C6340046CCFC /* PrebidMobile.framework */; };
-		5BCCF20A2732C6340046CCFC /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF2082732C6340046CCFC /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5BCCF2102732D1B10046CCFC /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF20F2732D1B10046CCFC /* PrebidMobile.framework */; };
-		5BCCF2112732D1B10046CCFC /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF20F2732D1B10046CCFC /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5BF8E65B26396DB900341EE4 /* GADRewardedAdWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF8E65A26396DB900341EE4 /* GADRewardedAdWrapper.swift */; };
 		5BF8E6B7263AC32800341EE4 /* GAMInterstitialEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF8E6B6263AC32800341EE4 /* GAMInterstitialEventHandler.swift */; };
 		5BF8E6C2263AE1B400341EE4 /* GAMInterstitialAdWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF8E6C1263AE1B400341EE4 /* GAMInterstitialAdWrapper.swift */; };
@@ -68,31 +66,6 @@
 			remoteInfo = PrebidMobileMoPubAdapters;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		5BCCF20B2732C6340046CCFC /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				5BCCF20A2732C6340046CCFC /* PrebidMobile.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5BCCF2122732D1B10046CCFC /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				5BCCF2112732D1B10046CCFC /* PrebidMobile.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0380A405FEB3840C25F9898F /* Pods-PrebidMobileMoPubAdaptersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidMobileMoPubAdaptersTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidMobileMoPubAdaptersTests/Pods-PrebidMobileMoPubAdaptersTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -421,7 +394,6 @@
 				34B64D5824F7E41600FDD9F4 /* Sources */,
 				34B64D5924F7E41600FDD9F4 /* Frameworks */,
 				34B64D5A24F7E41600FDD9F4 /* Resources */,
-				5BCCF2122732D1B10046CCFC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -441,7 +413,6 @@
 				34B64D7A24F7ED9600FDD9F4 /* Sources */,
 				34B64D7B24F7ED9600FDD9F4 /* Frameworks */,
 				34B64D7C24F7ED9600FDD9F4 /* Resources */,
-				5BCCF20B2732C6340046CCFC /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -952,7 +923,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.13.0-beta1";
+				MARKETING_VERSION = "1.13.0-beta2";
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.GAMEventHandlers;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -988,7 +959,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.13.0-beta1";
+				MARKETING_VERSION = "1.13.0-beta2";
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.GAMEventHandlers;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1022,7 +993,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.13.0-beta1";
+				MARKETING_VERSION = "1.13.0-beta2";
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.MoPubAdapters;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -1056,7 +1027,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.13.0-beta1";
+				MARKETING_VERSION = "1.13.0-beta2";
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.rendering.MoPubAdapters;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";

@@ -65,15 +65,17 @@
 		5B8EB5F022676914003CC15C /* DummyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5B8EB5EE22676914003CC15C /* DummyTableViewCell.xib */; };
 		5BA4CF632739876200197C62 /* FeedAdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC27E9E124D9A51B000CD7EC /* FeedAdTableViewCell.swift */; };
 		5BCCA3D62136D2E800DA3B5A /* ConfigurableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BCCA3D52136D2E800DA3B5A /* ConfigurableViewController.swift */; };
-		5BCCF237273420690046CCFC /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF236273420690046CCFC /* PrebidMobile.framework */; };
-		5BCCF238273420690046CCFC /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF236273420690046CCFC /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5BCCF23A273420710046CCFC /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF239273420710046CCFC /* PrebidMobileGAMEventHandlers.framework */; };
-		5BCCF23B273420710046CCFC /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF239273420710046CCFC /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5BCCF23D2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF23C2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework */; };
-		5BCCF23E2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF23C2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5BD84735252F23E80092AF74 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD84734252F23E70092AF74 /* CoreServices.framework */; };
 		5BDB85DA2739794900A529F6 /* PrebidBannerConfigurationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC23A0CC251B932000983ABF /* PrebidBannerConfigurationController.swift */; };
+		5BF6905427737A6D00AABA45 /* PrebidMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF236273420690046CCFC /* PrebidMobile.framework */; };
+		5BF6905527737A6D00AABA45 /* PrebidMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF236273420690046CCFC /* PrebidMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5BF6905627737A7700AABA45 /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF239273420710046CCFC /* PrebidMobileGAMEventHandlers.framework */; };
+		5BF6905727737A7700AABA45 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF239273420710046CCFC /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5BF6905827737A7900AABA45 /* PrebidMobileMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF23C2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework */; };
+		5BF6905927737A7900AABA45 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF23C2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		909FCC2CA24F6E94B696B736 /* Pods_OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F097F6238E0EB831B507463 /* Pods_OpenXMockServer.framework */; };
+		9262A8AC27720DE6009441A3 /* OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; };
+		9262A8AD27720DE6009441A3 /* OpenXMockServer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92700C7D273C029F0006E9FA /* PrebidMRAID3UITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */; };
 		92700C7E273C029F0006E9FA /* XCTestCaseExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C68273C029F0006E9FA /* XCTestCaseExt.swift */; };
 		92700C7F273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C69273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift */; };
@@ -106,14 +108,12 @@
 		D08680742398088A00E70E60 /* OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; };
 		D086807B2398088A00E70E60 /* OpenXMockServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D086807A2398088A00E70E60 /* OpenXMockServerTests.swift */; };
 		D086807D2398088A00E70E60 /* OpenXMockServer.h in Headers */ = {isa = PBXBuildFile; fileRef = D086806D2398088A00E70E60 /* OpenXMockServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D08680812398088A00E70E60 /* OpenXMockServer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D08680982398092700E70E60 /* MockServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D086808C2398092600E70E60 /* MockServerManager.swift */; };
 		D086809A2398092700E70E60 /* ApiEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D086808E2398092600E70E60 /* ApiEndpoint.swift */; };
 		D086809B2398092700E70E60 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D086808F2398092600E70E60 /* NetworkError.swift */; };
 		D086809C2398092700E70E60 /* Logs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08680912398092600E70E60 /* Logs.swift */; };
 		D08680A123980A9900E70E60 /* OXMMockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08680A023980A9900E70E60 /* OXMMockServer.swift */; };
 		D08680A323980B7300E70E60 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08680A223980B7300E70E60 /* Result.swift */; };
-		D08680A42399294C00E70E60 /* OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; };
 		D08680AB23992A2900E70E60 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D086808D2398092600E70E60 /* NetworkManager.swift */; };
 		D551B96F21491AAA00FFF51D /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D551B96E21491AAA00FFF51D /* AppConfiguration.swift */; };
 		D551B9712149207500FFF51D /* TabNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D551B9702149207500FFF51D /* TabNavigationController.swift */; };
@@ -159,16 +159,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		35D3FDAD1EA561D900C19A63 /* Embed Frameworks */ = {
+		9262A8AE27720DE6009441A3 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5BCCF23E2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */,
-				5BCCF238273420690046CCFC /* PrebidMobile.framework in Embed Frameworks */,
-				D08680812398088A00E70E60 /* OpenXMockServer.framework in Embed Frameworks */,
-				5BCCF23B273420710046CCFC /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
+				5BF6905927737A7900AABA45 /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */,
+				5BF6905527737A6D00AABA45 /* PrebidMobile.framework in Embed Frameworks */,
+				9262A8AD27720DE6009441A3 /* OpenXMockServer.framework in Embed Frameworks */,
+				5BF6905727737A7700AABA45 /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,23 +361,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BCCF237273420690046CCFC /* PrebidMobile.framework in Frameworks */,
-				D08680A42399294C00E70E60 /* OpenXMockServer.framework in Frameworks */,
 				5B5830AF20B43727002B2596 /* WatchConnectivity.framework in Frameworks */,
 				5BD84735252F23E80092AF74 /* CoreServices.framework in Frameworks */,
 				5B5830AD20B4371F002B2596 /* WebKit.framework in Frameworks */,
+				9262A8AC27720DE6009441A3 /* OpenXMockServer.framework in Frameworks */,
 				5B5830AB20B43717002B2596 /* SystemConfiguration.framework in Frameworks */,
 				5B5830A920B4370D002B2596 /* StoreKit.framework in Frameworks */,
 				5B5830A720B43704002B2596 /* Social.framework in Frameworks */,
 				5B5830A320B436F1002B2596 /* MessageUI.framework in Frameworks */,
+				5BF6905427737A6D00AABA45 /* PrebidMobile.framework in Frameworks */,
 				5B5830A120B436E7002B2596 /* JavaScriptCore.framework in Frameworks */,
 				5B58309F20B436DD002B2596 /* EventKit.framework in Frameworks */,
-				5BCCF23A273420710046CCFC /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
-				5BCCF23D2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework in Frameworks */,
 				5B58309D20B436D5002B2596 /* CoreTelephony.framework in Frameworks */,
+				5BF6905827737A7900AABA45 /* PrebidMobileMoPubAdapters.framework in Frameworks */,
 				5B58309B20B436CC002B2596 /* CoreMedia.framework in Frameworks */,
 				5B58309920B436C2002B2596 /* AVFoundation.framework in Frameworks */,
 				5B58309720B436B6002B2596 /* AudioToolbox.framework in Frameworks */,
+				5BF6905627737A7700AABA45 /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
 				5B58309520B436AC002B2596 /* AdSupport.framework in Frameworks */,
 				5B58309320B436A1002B2596 /* libz.1.2.5.tbd in Frameworks */,
 				F17BBB614B4DCA82E4E1AEAC /* Pods_InternalTestApp.framework in Frameworks */,
@@ -856,8 +856,8 @@
 				93FED9BF1A376EFE009A6E9F /* Sources */,
 				93FED9C01A376EFE009A6E9F /* Frameworks */,
 				93FED9C11A376EFE009A6E9F /* Resources */,
-				35D3FDAD1EA561D900C19A63 /* Embed Frameworks */,
 				802528B749910E5695D54FCF /* [CP] Embed Pods Frameworks */,
+				9262A8AE27720DE6009441A3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1499,7 +1499,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EEBA94FAB2164756D7D6788C /* Pods-InternalTestApp.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1533,7 +1532,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C7A852B654320BAA3CF129A /* Pods-InternalTestApp.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
