@@ -3,6 +3,21 @@ if [ -d "scripts" ]; then
 cd scripts/
 fi
 
+# Flags:
+# -b:   runs build with BITCODE.
+#       Options:
+#           "y": build with BITCODE
+#           any other: build without BITCODE
+#       It is needed for CircleCI builds.
+
+bitcode_script_flag=''
+
+while getopts 'b:' flag; do
+  case "${flag}" in
+    b) bitcode_script_flag="${OPTARG}" ;;
+  esac
+done
+
 # 1
 # Set bash script to exit immediately if any commands fail.
 set -e
@@ -15,7 +30,7 @@ NC='\033[0m' # No Color
 
 POSTFIX_SIMULATOR="_simulator"
 
-echo -e "\n\n${GREEN}BUILD PREBID MOBILE${NC}\n\n"
+echo -e "\n\n${GREEN}PREPARE BUILD ENVIRONMENT${NC}\n\n"
 
 GENERATED_DIR_NAME="generated"
 
@@ -41,14 +56,6 @@ fi
 mkdir -p "$LOG_DIR"
 touch "$LOG_FILE_FRAMEWORK"
 
-bitcode_script_flag=''
-
-while getopts 'b:' flag; do
-  case "${flag}" in
-    b) bitcode_script_flag="${OPTARG}" ;;
-  esac
-done
-
 if [ -z "$bitcode_script_flag" ]
 then
 	echo -n "Embed bitcode (y/n)?"
@@ -65,10 +72,13 @@ fi
 
 printf "\nBITCODE_FLAG: $BITCODE_FLAG\n"
 
-printf "\n$PWD\n"
+
+echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
 
 gem install cocoapods --user-install
 pod install --repo-update
+
+echo -e "\n\n${GREEN}BUILD PREBID MOBILE${NC}\n\n"
 
 schemes=("PrebidMobile" "PrebidMobileGAMEventHandlers" "PrebidMobileMoPubAdapters")
 

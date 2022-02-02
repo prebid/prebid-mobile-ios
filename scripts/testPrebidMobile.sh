@@ -2,20 +2,10 @@ if [ -d "scripts" ]; then
 cd scripts/
 fi
 
-set -e
-
-GREEN='\033[0;32m'
-NC='\033[0m' # No Color
-
-echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
-
-cd ..
-echo $PWD
-
-gem install xcpretty --user-install
-
-gem install cocoapods --user-install
-pod install --repo-update
+# Flags:
+# -l:   run tests only for the latest iOS.
+#       It is needed for CircleCI builds.
+#       Do not use this flag locally to keep everything updated.
 
 run_only_with_latest_ios="NO"
 
@@ -24,6 +14,20 @@ while getopts 'l' flag; do
     l) run_only_with_latest_ios="YES" ;;
   esac
 done
+
+set -e
+
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
+
+cd ..
+
+gem install xcpretty --user-install
+
+gem install cocoapods --user-install
+pod install --repo-update
 
 echo -e "\n\n${GREEN}TEST PREBID MOBILE${NC}\n\n"
 
