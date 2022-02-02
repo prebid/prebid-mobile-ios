@@ -355,22 +355,22 @@
 #pragma mark :- Rendering Prebid Native
 
 -(void) renderPrebidNativeAd{
-    self.nativeAdView.titleLabel.text = self.prebidNativeAd.title;
-    self.nativeAdView.bodyLabel.text = self.prebidNativeAd.text;
+    self.nativeAdView.titleLabel.text = self.prebidNativeAd.titles.firstObject.text;
+    self.nativeAdView.bodyLabel.text = [self.prebidNativeAd dataObjectsOf:NativeDataAssetTypeDesc].firstObject.value;
     dispatch_async(dispatch_get_global_queue(0,0), ^{
-        NSData * dataIcon = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: self.prebidNativeAd.iconUrl]];
+        NSData * dataIcon = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: [self.prebidNativeAd imagesOf:NativeImageAssetTypeIcon].firstObject.url]];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.nativeAdView.iconImageView.image = [UIImage imageWithData: dataIcon];
         });
     });
     dispatch_async(dispatch_get_global_queue(0,0), ^{
-        NSData * dataMainImage = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: self.prebidNativeAd.imageUrl]];
+        NSData * dataMainImage = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: [self.prebidNativeAd imagesOf:NativeImageAssetTypeMain].firstObject.url]];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.nativeAdView.mainImageView.image = [UIImage imageWithData: dataMainImage];
         });
     });
-    [self.nativeAdView.callToActionButton setTitle:self.prebidNativeAd.callToAction forState:UIControlStateNormal];
-    self.nativeAdView.sponsoredLabel.text = self.prebidNativeAd.sponsoredBy;
+    [self.nativeAdView.callToActionButton setTitle:[self.prebidNativeAd dataObjectsOf:NativeDataAssetTypeCtaText].firstObject.value forState:UIControlStateNormal];
+    self.nativeAdView.sponsoredLabel.text = [self.prebidNativeAd dataObjectsOf:NativeDataAssetTypeSponsored].firstObject.value;
 
 }
 
