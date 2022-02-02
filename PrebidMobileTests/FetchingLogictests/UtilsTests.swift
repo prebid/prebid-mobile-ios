@@ -998,6 +998,17 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         Utils.shared.findNative(adObject: gadNativeCustomTemplateAd)
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
+    
+    func testGetDictionaryFromAnyValue() {
+        let jsonString = "{\"assets\":[{\"required\":1,\"title\":{\"text\":\"OpenX (Title)\"}},{\"required\":1,\"img\":{\"type\":1,\"url\":\"https://www.saashub.com/images/app/service_logos/5/1df363c9a850/large.png?1525414023\"}},{\"required\":1,\"img\":{\"type\":3,\"url\":\"https://ssl-i.cdn.openx.com/mobile/demo-creatives/mobile-demo-banner-640x100.png\"}},{\"required\":1,\"data\":{\"type\":1,\"value\":\"OpenX (Brand)\"}},{\"required\":1,\"data\":{\"type\":2,\"value\":\"Learn all about this awesome story of someone using out OpenX SDK.\"}},{\"required\":1,\"data\":{\"type\":12,\"value\":\"Click here to visit our site\"}}],\"link\":{\"url\":\"https://www.openx.com/\"}}"
+        let jsonDic: [String: Any] = ["assets":[["required":1,"title":["text":"OpenX (Title)"]],["required":1,"img":["type":1,"url":"https://www.saashub.com/images/app/service_logos/5/1df363c9a850/large.png?1525414023"]],["required":1,"img":["type":3,"url":"https://ssl-i.cdn.openx.com/mobile/demo-creatives/mobile-demo-banner-640x100.png"]],["required":1,"data":["type":1,"value":"OpenX (Brand)"]],["required":1,"data":["type":2,"value":"Learn all about this awesome story of someone using out OpenX SDK."]],["required":1,"data":["type":12,"value":"Click here to visit our site"]]],"link":["url":"https://www.openx.com/"]]
+        
+        guard let resultDict = Utils.shared.getDictionary(from: jsonString) else {
+            XCTFail()
+            return
+        }
+        XCTAssertTrue(NSDictionary(dictionary: jsonDic).isEqual(to: resultDict))
+    }
 
     
     func nativeAdLoaded(ad:NativeAd) {
