@@ -18,11 +18,13 @@ import XCTest
 
 class NativeAdTests: XCTestCase {
     
+    let stringJsonAd = """
+                     {\"id\":\"test-bid-id-1\",\"w\":300,\"adm\":\"{ \\\"assets\\\": [{ \\\"required\\\": 1, \\\"title\\\": { \\\"text\\\": \\\"title\\\" } }, { \\\"required\\\": 1, \\\"img\\\": { \\\"type\\\": 1, \\\"url\\\": \\\"https:\\/\\/www.testUrl.com\\/images\\/app\\/service_logos\\/5\\/1df363c9a850\\/large.png?1525414023\\\" } }, { \\\"required\\\": 1, \\\"img\\\": { \\\"type\\\": 3, \\\"url\\\": \\\"https:\\/\\/testUrl.com\\/mobile\\/demo-creatives\\/mobile-demo-banner-640x100.png\\\" } }, { \\\"required\\\": 1, \\\"data\\\": { \\\"type\\\": 1, \\\"value\\\": \\\"brand\\\" } }, { \\\"required\\\": 1, \\\"data\\\": { \\\"type\\\": 2, \\\"value\\\": \\\"Learn all about this awesome story of someone using out SDK.\\\" } }, { \\\"required\\\": 1, \\\"data\\\": { \\\"type\\\": 12, \\\"value\\\": \\\"Click here to visit our site!\\\" } } ], \\\"link\\\":{ \\\"url\\\": \\\"https:\\/\\/www.testUrl.com\\/\\\", \\\"clicktrackers\\\":[\\\"https:\\/\\/testUrl.com\\/events\\/click\\/root\\/url\\\"] }, \\\"eventtrackers\\\":[ { \\\"event\\\":1, \\\"method\\\":1, \\\"url\\\":\\\"https:\\/\\/testUrl.com\\/events\\/tracker\\/impression\\\" } ] }\"}
+                     """
+    
     func testNativeAd() {
-        let stringJson = """
-                         {\"id\":\"test-bid-id-1\",\"w\":300,\"adm\":\"{ \\\"assets\\\": [{ \\\"required\\\": 1, \\\"title\\\": { \\\"text\\\": \\\"title\\\" } }, { \\\"required\\\": 1, \\\"img\\\": { \\\"type\\\": 1, \\\"url\\\": \\\"https:\\/\\/www.testUrl.com\\/images\\/app\\/service_logos\\/5\\/1df363c9a850\\/large.png?1525414023\\\" } }, { \\\"required\\\": 1, \\\"img\\\": { \\\"type\\\": 3, \\\"url\\\": \\\"https:\\/\\/testUrl.com\\/mobile\\/demo-creatives\\/mobile-demo-banner-640x100.png\\\" } }, { \\\"required\\\": 1, \\\"data\\\": { \\\"type\\\": 1, \\\"value\\\": \\\"brand\\\" } }, { \\\"required\\\": 1, \\\"data\\\": { \\\"type\\\": 2, \\\"value\\\": \\\"Learn all about this awesome story of someone using out SDK.\\\" } }, { \\\"required\\\": 1, \\\"data\\\": { \\\"type\\\": 12, \\\"value\\\": \\\"Click here to visit our site!\\\" } } ], \\\"link\\\":{ \\\"url\\\": \\\"https:\\/\\/www.testUrl.com\\/\\\", \\\"clicktrackers\\\":[\\\"https:\\/\\/testUrl.com\\/events\\/click\\/root\\/url\\\"] }, \\\"eventtrackers\\\":[ { \\\"event\\\":1, \\\"method\\\":1, \\\"url\\\":\\\"https:\\/\\/testUrl.com\\/events\\/tracker\\/impression\\\" } ] }\"}
-                         """
-        let cacheId = CacheManager.shared.save(content: stringJson)
+       
+        let cacheId = CacheManager.shared.save(content: stringJsonAd)
         let nativeAd = NativeAd.create(cacheId: cacheId!)
         
         XCTAssertEqual(nativeAd!.titles.first!.text, "title")
@@ -34,5 +36,21 @@ class NativeAdTests: XCTestCase {
         XCTAssertEqual(nativeAd!.nativeAdMarkup!.link!.url, "https://www.testUrl.com/")
         XCTAssertEqual(nativeAd!.nativeAdMarkup!.link!.clicktrackers, ["https://testUrl.com/events/click/root/url"])
         XCTAssertEqual(nativeAd!.nativeAdMarkup!.eventtrackers!.first!.url, "https://testUrl.com/events/tracker/impression")
+    }
+    
+    func testArrayGetters() {
+        let cacheId = CacheManager.shared.save(content: stringJsonAd)
+        let nativeAd = NativeAd.create(cacheId: cacheId!)
+        
+        XCTAssertEqual(nativeAd?.titles.count, 1)
+        XCTAssertEqual(nativeAd?.images.count, 2)
+        XCTAssertEqual(nativeAd?.dataObjects.count, 3)
+        
+        XCTAssertEqual(nativeAd?.images(of: .main).first?.type, 3)
+        XCTAssertEqual(nativeAd?.images(of: .icon).first?.type, 1)
+        
+        XCTAssertEqual(nativeAd?.dataObjects(of: .sponsored).first?.type, 1)
+        XCTAssertEqual(nativeAd?.dataObjects(of: .desc).first?.type, 2)
+        XCTAssertEqual(nativeAd?.dataObjects(of: .ctaText).first?.type, 12)
     }
 }
