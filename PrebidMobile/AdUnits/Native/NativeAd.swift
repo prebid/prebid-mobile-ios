@@ -102,16 +102,11 @@ import UIKit
             Log.error("Invalid native contents")
             return nil
         }
-        do {
-            let ad = NativeAd()
-            let nativeAdMarkup = try NativeAdMarkup(jsonDictionary: adm)
-            ad.nativeAdMarkup = nativeAdMarkup
-            CacheManager.shared.delegate = ad
-            return ad
-        } catch let error as NSError {
-            Log.error("Failed to load: \(error.localizedDescription)")
-        }
-        return nil
+        let ad = NativeAd()
+        let nativeAdMarkup = NativeAdMarkup(jsonDictionary: adm)
+        ad.nativeAdMarkup = nativeAdMarkup
+        CacheManager.shared.delegate = ad
+        return ad
     }
     
     private override init() {
