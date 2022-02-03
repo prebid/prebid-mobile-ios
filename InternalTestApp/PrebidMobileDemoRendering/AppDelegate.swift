@@ -21,6 +21,7 @@ import GoogleMobileAds
 import PrebidMobile
 import PrebidMobileMoPubAdapters
 import PrebidMobileAdMobAdapters
+import PrebidMobileGAMEventHandlers
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -105,6 +106,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //Registered so that DownloadHelper gets covered by this
             GlobalVars.reactiveGAMInitFlag.markSdkInitialized()
         };
+        
+        GAMUtils.shared.initializeGAM()
         
         AdMobUtils.initializeGAD()
         
