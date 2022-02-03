@@ -67,6 +67,32 @@ import UIKit
         images.filter { $0.type == imageType.rawValue }
     }
     
+    // MARK: - Property getters
+    
+    @objc public var title: String? {
+        return titles.first?.text
+    }
+    
+    @objc public var imageUrl: String? {
+        return images(of: .main).first?.url
+    }
+    
+    @objc public var iconUrl: String? {
+        return images(of: .icon).first?.url
+    }
+    
+    @objc public var sponsored: String? {
+        return dataObjects(of: .sponsored).first?.value
+    }
+    
+    @objc public var desc: String? {
+        return dataObjects(of: .desc).first?.value
+    }
+    
+    @objc public var ctaText: String? {
+        return dataObjects(of: .ctaText).first?.value
+    }
+    
     public static func create(cacheId: String) -> NativeAd? {
         
         guard let bidInfo = CacheManager.shared.get(cacheId: cacheId),
