@@ -49,4 +49,8 @@ public class NativeData: NSObject, PBMJsonDecodable {
             PBMLog.warn("There is no value property in native data response")
         }
     }
+    
+    public override init() {
+        super.init()
+    }
 }

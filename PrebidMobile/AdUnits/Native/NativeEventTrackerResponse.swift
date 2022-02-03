@@ -61,4 +61,8 @@ public class NativeEventTrackerResponse: NSObject, PBMJsonDecodable {
             PBMLog.warn("There is no url property in native event tracker response")
         }
     }
+    
+    public override init() {
+        super.init()
+    }
 }

@@ -54,4 +54,8 @@ public class NativeImage: NSObject, PBMJsonDecodable {
             PBMLog.warn("There is no url in native image response")
         }
     }
+    
+    public override init() {
+        super.init()
+    }
 }

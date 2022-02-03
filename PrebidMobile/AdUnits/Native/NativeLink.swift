@@ -46,4 +46,8 @@ public class NativeLink: NSObject, PBMJsonDecodable {
             PBMLog.warn("There is no url property in native link response")
         }
     }
+
+    public override init() {
+        super.init()
+    }
 }

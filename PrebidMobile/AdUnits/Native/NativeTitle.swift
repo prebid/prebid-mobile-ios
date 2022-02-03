@@ -42,4 +42,8 @@ public class NativeTitle: NSObject, PBMJsonDecodable {
             PBMLog.warn("There is no text property in native title response")
         }
     }
+    
+    public override init() {
+        super.init()
+    }
 }

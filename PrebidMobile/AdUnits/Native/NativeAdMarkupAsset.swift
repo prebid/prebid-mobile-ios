@@ -66,4 +66,8 @@ public class NativeAdMarkupAsset: NSObject, PBMJsonDecodable {
             self.link = try NativeLink(jsonDictionary: linkDictionary)
         }
     }
+    
+    public override init() {
+        super.init()
+    }
 }

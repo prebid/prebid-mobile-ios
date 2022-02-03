@@ -30,7 +30,7 @@ public class NativeAdMarkup: NSObject, PBMJsonDecodable {
     /// The expected response is a JSON object mirroring the assets object in the bid response,
     /// subject to certain requirements as specified in the individual objects.
     /// Where present, overrides the asset object in the response.
-    public var asseturl: String?
+    public var assetsurl: String?
     
     /// URL where a dynamic creative specification may be found for populating this ad, per the Dynamic Content Ads Specification.
     /// Note this is a beta option as the interpretation of the Dynamic Content Ads Specification and how to assign those elements
@@ -73,7 +73,7 @@ public class NativeAdMarkup: NSObject, PBMJsonDecodable {
         }
         
         self.version = jsonDictionary["ver"] as? String
-        self.asseturl = jsonDictionary["asseturl"] as? String
+        self.assetsurl = jsonDictionary["assetsurl"] as? String
         self.dcourl = jsonDictionary["dcourl"] as? String
         self.imptrackers = jsonDictionary["imptrackers"] as? [String]
         self.jstracker = jsonDictionary["jstracker"] as? String
@@ -104,5 +104,9 @@ public class NativeAdMarkup: NSObject, PBMJsonDecodable {
         if link == nil {
             PBMLog.warn("There is no link property in native ad markup response")
         }
+    }
+    
+    public override init() {
+        super.init()
     }
 }
