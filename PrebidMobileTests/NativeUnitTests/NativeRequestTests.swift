@@ -143,7 +143,6 @@ class NativeRequestTests: XCTestCase {
     
      func testNativeAdEventTrackers() {
         let nativeUnit = NativeRequest(configId: Constants.configID1)
-        XCTAssertNil(nativeUnit.eventtrackers)
         let eventTrackers1 = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
         let eventTrackers2 = NativeEventTracker(event: EventType.ViewableImpression50, methods: [EventTracking.Custom,EventTracking.Image])
         nativeUnit.eventtrackers = [eventTrackers1, eventTrackers2]
@@ -178,7 +177,6 @@ class NativeRequestTests: XCTestCase {
     
     func testNativeAdAssets() {
         let nativeUnit = NativeRequest(configId: Constants.configID1)
-        XCTAssertNil(nativeUnit.assets)
         let assetsTitle = NativeAssetTitle(length:25, required: true)
         let assetsImage = NativeAssetImage(minimumWidth: 20, minimumHeight: 30, required: true)
         nativeUnit.assets = [assetsTitle,assetsImage]

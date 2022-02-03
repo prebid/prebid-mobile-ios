@@ -356,7 +356,7 @@
 
 -(void) renderPrebidNativeAd{
     self.nativeAdView.titleLabel.text = self.prebidNativeAd.title;
-    self.nativeAdView.bodyLabel.text = self.prebidNativeAd.text;
+    self.nativeAdView.bodyLabel.text = self.prebidNativeAd.desc;
     dispatch_async(dispatch_get_global_queue(0,0), ^{
         NSData * dataIcon = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: self.prebidNativeAd.iconUrl]];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -369,8 +369,8 @@
             self.nativeAdView.mainImageView.image = [UIImage imageWithData: dataMainImage];
         });
     });
-    [self.nativeAdView.callToActionButton setTitle:self.prebidNativeAd.callToAction forState:UIControlStateNormal];
-    self.nativeAdView.sponsoredLabel.text = self.prebidNativeAd.sponsoredBy;
+    [self.nativeAdView.callToActionButton setTitle:self.prebidNativeAd.ctaText forState:UIControlStateNormal];
+    self.nativeAdView.sponsoredLabel.text = self.prebidNativeAd.sponsored;
 
 }
 

@@ -43,7 +43,9 @@ public class NativeRequest: AdUnit {
     
     public init(configId: String) {
         super.init(configId: configId, size:nil)
-        self.configId = configId;
+        self.configId = configId
+        self.assets = [NativeAsset]()
+        self.eventtrackers = [NativeEventTracker]()
     }
     
     public convenience init(configId: String, assets: Array<NativeAsset>) {
@@ -51,6 +53,14 @@ public class NativeRequest: AdUnit {
         self.assets = assets
     }
     
+    public func addNativeAssets(_ assets: Array<NativeAsset>) {
+        self.assets?.append(contentsOf: assets)
+    }
+    
+    public func addNativeEventTracker(_ eventTrackers: Array<NativeEventTracker>) {
+        self.eventtrackers?.append(contentsOf: eventTrackers)
+    }
+
     public func getNativeRequestObject() -> [AnyHashable: Any]? {
         var nativeObject: [AnyHashable:Any] = [:]
         nativeObject["ver"] = version

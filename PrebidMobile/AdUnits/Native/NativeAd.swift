@@ -1,130 +1,112 @@
 /*   Copyright 2019-2020 Prebid.org, Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 
 import Foundation
 import UIKit
 
 @objcMembers public class NativeAd: NSObject, CacheExpiryDelegate {
     
+    // MARK: - Public properties
+    
+    public var nativeAdMarkup: NativeAdMarkup?
+    public weak var delegate: NativeAdEventDelegate?
+    
+    // MARK: - Internal properties
+    
     private static let nativeAdIABShouldBeViewableForTrackingDuration = 1.0
     private static let nativeAdCheckViewabilityForTrackingFrequency = 0.25
-    
-    public private(set) var title:String?
-    public private(set) var text:String?
-    public private(set) var iconUrl:String?
-    public private(set) var imageUrl:String?
-    public private(set) var callToAction:String?
-    public private(set) var sponsoredBy:String?
-    
-    public weak var delegate: NativeAdEventDelegate?
     
     //NativeAd Expire
     private var expired = false
     //Impression Tracker
     private var targetViewabilityValue = 0
-    private var viewabilityTimer:Timer?
+    private var viewabilityTimer: Timer?
     private var viewabilityValue = 0
     private var impressionHasBeenTracked = false
-    private var viewForTracking:UIView?
-    private var impTrackers = [String]()
+    private var viewForTracking: UIView?
     //Click Handling
     private var gestureRecognizerRecords = [NativeAdGestureRecognizerRecord]()
-    private var clickUrl:String?
-
     
-    public static func  create(cacheId: String)->NativeAd? {
+    // MARK: - Array getters
+    
+    @objc public var titles: [NativeTitle] {
+        nativeAdMarkup?.assets?.compactMap { return $0.title } ?? []
+    }
+    
+    @objc public var dataObjects: [NativeData] {
+        nativeAdMarkup?.assets?.compactMap { return $0.data } ?? []
+    }
+    
+    @objc public var images: [NativeImage] {
+        nativeAdMarkup?.assets?.compactMap { return $0.img } ?? []
+    }
+    
+    @objc public var eventTrackers: [NativeEventTrackerResponse]? {
+        return nativeAdMarkup?.eventtrackers
+    }
+    
+    // MARK: - Filtered array getters
+    
+    @objc public func dataObjects(of dataType: NativeDataAssetType) -> [NativeData] {
+        dataObjects.filter { $0.type == dataType.rawValue }
+    }
+
+    @objc public func images(of imageType: NativeImageAssetType) -> [NativeImage] {
+        images.filter { $0.type == imageType.rawValue }
+    }
+    
+    // MARK: - Property getters
+    
+    @objc public var title: String? {
+        return titles.first?.text
+    }
+    
+    @objc public var imageUrl: String? {
+        return images(of: .main).first?.url
+    }
+    
+    @objc public var iconUrl: String? {
+        return images(of: .icon).first?.url
+    }
+    
+    @objc public var sponsored: String? {
+        return dataObjects(of: .sponsored).first?.value
+    }
+    
+    @objc public var desc: String? {
+        return dataObjects(of: .desc).first?.value
+    }
+    
+    @objc public var ctaText: String? {
+        return dataObjects(of: .ctaText).first?.value
+    }
+    
+    public static func create(cacheId: String) -> NativeAd? {
         
-        guard let content = CacheManager.shared.get(cacheId: cacheId), let response = Utils.shared.getDictionaryFromString(content), let adm = response["adm"] as? String, let data = adm.data(using: .utf8) else {
+        guard let bidInfo = CacheManager.shared.get(cacheId: cacheId),
+              let response = Utils.shared.getDictionaryFromString(bidInfo),
+              let adm = Utils.shared.getDictionary(from: response["adm"])
+        else {
             Log.error("Invalid native contents")
             return nil
         }
-        do {
-            guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-                Log.error("Invalid native json")
-                return nil
-            }
-            let ad:NativeAd = NativeAd()
-            //assets
-            if let assets = json["assets"] as? [AnyObject] {
-                for adObject in assets {
-                    if let adObject = adObject as? [String : AnyObject]{
-                        //title
-                        if let title = adObject["title"], let text = title["text"] as? String {
-                            ad.title = text;
-                        }
-                        //description
-                        if let id = adObject["id"] as? Int, id == 3, let description = adObject["data"], let text = description["value"] as? String {
-                            ad.text = text;
-                        }
-                        //sponsoredBy
-                        if let id = adObject["id"] as? Int, id == 5, let sponsoredBy = adObject["data"], let text = sponsoredBy["value"] as? String {
-                            ad.sponsoredBy = text;
-                        }
-                        //call to action
-                        if let id = adObject["id"] as? Int, id == 4, let callToAction = adObject["data"], let text = callToAction["value"] as? String {
-                            ad.callToAction = text;
-                        }
-                        if let img = adObject["img"]{
-                            if let id = adObject["id"] as? Int, id == 2{
-                                //img
-                                if let url = img["url"] as? String {
-                                    ad.imageUrl = url;
-                                }
-                            }else{
-                                //icon
-                                if let url = img["url"] as? String {
-                                    ad.iconUrl = url;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            
-            let price = response["price"] as? Double
-            
-            //clickUrl
-            if let link = json["link"] as? [String : AnyObject], var url = link["url"] as? String {
-                if (url.contains("{AUCTION_PRICE}") && price != nil){
-                    url = url.replacingOccurrences(of: "{AUCTION_PRICE}", with: "\(price ?? 0.0)")
-                }
-                ad.clickUrl = url;
-            }
-            //eventtrackers
-            if let eventtrackers = json["eventtrackers"] as? [AnyObject] {
-                for eventtracker in eventtrackers {
-                    if let eventtracker = eventtracker as? [String : AnyObject], var url = eventtracker["url"] as? String  {
-                        if (url.contains("{AUCTION_PRICE}") && price != nil){
-                            url = url.replacingOccurrences(of: "{AUCTION_PRICE}", with: "\(price ?? 0.0)")
-                        }
-                        ad.impTrackers.append(url)
-                    }
-                }
-            }
-            if ad.isValid() {
-                CacheManager.shared.delegate = ad
-                return ad
-            }else{
-                Log.error("Native Ad is not valid")
-                return nil
-            }
-            
-        } catch let error as NSError {
-            Log.error("Failed to load: \(error.localizedDescription)")
-        }
-        return nil
+        let ad = NativeAd()
+        let nativeAdMarkup = NativeAdMarkup(jsonDictionary: adm)
+        ad.nativeAdMarkup = nativeAdMarkup
+        CacheManager.shared.delegate = ad
+        return ad
     }
     
     private override init() {
@@ -133,15 +115,6 @@ import UIKit
     
     deinit {
         unregisterViewFromTracking()
-    }
-    
-    private func isValid() -> Bool{
-        return !(title ?? "").isEmpty
-        && !(text ?? "").isEmpty
-        && !(callToAction ?? "").isEmpty
-        && canOpenString(iconUrl)
-        && canOpenString(imageUrl)
-        && canOpenString(clickUrl)
     }
     
     private func canOpenString(_ string: String?) -> Bool {
@@ -157,7 +130,7 @@ import UIKit
     }
     
     //MARK: registerView function
-    @discardableResult 
+    @discardableResult
     public func registerView(view: UIView?, clickableViews: [UIView]? ) -> Bool {
         guard let view = view else {
             Log.error("A valid view is required for tracking")
@@ -174,7 +147,7 @@ import UIKit
         return true
     }
     
-    private func unregisterViewFromTracking(){
+    private func unregisterViewFromTracking() {
         detachAllGestureRecognizers()
         viewForTracking = nil
         invalidateTimer(viewabilityTimer)
@@ -189,7 +162,7 @@ import UIKit
         }
     }
     
-    private func invalidateTimer(_ timer :Timer?){
+    private func invalidateTimer(_ timer :Timer?) {
         if let timer = timer, timer.isValid {
             timer.invalidate()
         }
@@ -197,13 +170,13 @@ import UIKit
     
     
     //MARK: Impression Tracking
-    private func setupViewabilityTracker(){
+    private func setupViewabilityTracker() {
         let requiredAmountOfSimultaneousViewableEvents = lround(NativeAd.nativeAdIABShouldBeViewableForTrackingDuration / NativeAd.nativeAdCheckViewabilityForTrackingFrequency) + 1
         
         targetViewabilityValue = lround(pow(Double(2),Double(requiredAmountOfSimultaneousViewableEvents)) - 1)
         
         Log.debug("\n\trequiredAmountOfSimultaneousViewableEvents=\(requiredAmountOfSimultaneousViewableEvents) \n\ttargetViewabilityValue=\(targetViewabilityValue)")
-
+        
         viewabilityTimer = Timer.scheduledTimer(withTimeInterval: NativeAd.nativeAdCheckViewabilityForTrackingFrequency, repeats: true) { [weak self] timer in
             guard let strongSelf = self else {
                 timer.invalidate()
@@ -223,20 +196,21 @@ import UIKit
         }
     }
     
-    private func trackImpression(){
+    private func trackImpression() {
         if !impressionHasBeenTracked {
             Log.debug("Firing impression trackers")
-            fireImpTrackers()
+            fireEventTrackers()
             viewabilityTimer?.invalidate()
             impressionHasBeenTracked = true
         }
     }
     
-    private func fireImpTrackers(){
-        if impTrackers.count != 0 {
-            TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: impTrackers) { [weak self] isTrackerFired in
+    private func fireEventTrackers() {
+        if let eventTrackers = eventTrackers, eventTrackers.count > 0 {
+            let eventTrackersUrls = eventTrackers.compactMap { $0.url }
+            TrackerManager.shared.fireTrackerURLArray(arrayWithURLs: eventTrackersUrls) { [weak self] isTrackerFired in
                 guard let strongSelf = self else {
-                    Log.debug("FAILED TO ACQUIRE strongSelf for fireImpTrackers")
+                    Log.debug("FAILED TO ACQUIRE strongSelf for fireEventTrackers")
                     return
                 }
                 if isTrackerFired {
@@ -247,23 +221,23 @@ import UIKit
     }
     
     //MARK: Click handling
-    private func attachGestureRecognizersToNativeView(nativeView: UIView, withClickableViews clickableViews: [UIView]?){
-        if let clickableViews = clickableViews, clickableViews.count != 0 {
+    private func attachGestureRecognizersToNativeView(nativeView: UIView, withClickableViews clickableViews: [UIView]?) {
+        if let clickableViews = clickableViews, clickableViews.count > 0 {
             clickableViews.forEach { clickableView in
                 attachGestureRecognizerToView(view: clickableView)
             }
-        }else{
+        } else {
             attachGestureRecognizerToView(view: nativeView)
         }
     }
     
-    private func attachGestureRecognizerToView(view: UIView){
+    private func attachGestureRecognizerToView(view: UIView) {
         view.isUserInteractionEnabled = true
         let record = NativeAdGestureRecognizerRecord.init()
         record.viewWithTracking = view
         if let button = view as? UIButton {
             button.addTarget(self, action: #selector(handleClick), for: .touchUpInside)
-        }else{
+        } else {
             let clickRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(handleClick))
             view.addGestureRecognizer(clickRecognizer)
             record.gestureRecognizer = clickRecognizer
@@ -271,12 +245,12 @@ import UIKit
         gestureRecognizerRecords.append(record)
     }
     
-    private func detachAllGestureRecognizers(){
+    private func detachAllGestureRecognizers() {
         gestureRecognizerRecords.forEach { record in
-            if let view = record.viewWithTracking{
+            if let view = record.viewWithTracking {
                 if let button = view as? UIButton {
                     button.removeTarget(self, action: #selector(handleClick), for: .touchUpInside)
-                }else if let gesture = record.gestureRecognizer as? UITapGestureRecognizer{
+                } else if let gesture = record.gestureRecognizer as? UITapGestureRecognizer {
                     view.removeGestureRecognizer(gesture)
                 }
             }
@@ -286,14 +260,16 @@ import UIKit
     
     @objc private func handleClick() {
         self.delegate?.adWasClicked?(ad: self)
-        if let clickUrl = clickUrl, let clickUrlString = clickUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: clickUrlString) {
-            if !openURLWithExternalBrowser(url: url){
+        if let clickUrl = nativeAdMarkup?.link?.url,
+           let clickUrlString = clickUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+           let url = URL(string: clickUrlString) {
+            if !openURLWithExternalBrowser(url: url) {
                 Log.debug("Could not open click URL: \(clickUrl)")
             }
         }
     }
     
-    private func openURLWithExternalBrowser(url : URL) -> Bool{
+    private func openURLWithExternalBrowser(url : URL) -> Bool {
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             return true
@@ -305,8 +281,8 @@ import UIKit
 }
 
 private class NativeAdGestureRecognizerRecord : NSObject {
-    weak var viewWithTracking : UIView?
-    weak var gestureRecognizer : UIGestureRecognizer?
+    weak var viewWithTracking: UIView?
+    weak var gestureRecognizer: UIGestureRecognizer?
     
     override init() {
         super.init()
@@ -317,5 +293,3 @@ private class NativeAdGestureRecognizerRecord : NSObject {
         gestureRecognizer = nil
     }
 }
-
-

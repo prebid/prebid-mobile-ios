@@ -859,6 +859,14 @@
 		92664567272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m in Sources */ = {isa = PBXBuildFile; fileRef = 92664566272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m */; };
 		92664569272AB9120064F7BD /* SkadnEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92664568272AB9120064F7BD /* SkadnEventTracker.swift */; };
 		9266456B272AB9610064F7BD /* SkadnParametersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266456A272AB9610064F7BD /* SkadnParametersManager.swift */; };
+		9285B46C27AAC9C1009BD3D3 /* NativeAdMarkupTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285B46B27AAC9C1009BD3D3 /* NativeAdMarkupTest.swift */; };
+		929638B827AB19DE00D30F3D /* NativeTitleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638B727AB19DE00D30F3D /* NativeTitleTests.swift */; };
+		929638BB27AB200400D30F3D /* NativeImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638BA27AB200400D30F3D /* NativeImageTests.swift */; };
+		929638BD27AB20FB00D30F3D /* NativeDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638BC27AB20FB00D30F3D /* NativeDataTests.swift */; };
+		929638BF27AB21A500D30F3D /* NativeLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638BE27AB21A500D30F3D /* NativeLinkTests.swift */; };
+		929638C127AB224400D30F3D /* NativeEventTrackerResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638C027AB224400D30F3D /* NativeEventTrackerResponseTests.swift */; };
+		929638C527ABB64400D30F3D /* NativeAdMarkupAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638C427ABB64300D30F3D /* NativeAdMarkupAssetTests.swift */; };
+		929638C727ABD66D00D30F3D /* JsonDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638C627ABD66D00D30F3D /* JsonDecodable.swift */; };
 		92989643275FBF8C00D3C174 /* ContentObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92989642275FBF8C00D3C174 /* ContentObject.swift */; };
 		92989645275FBFC400D3C174 /* ContentProducerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92989644275FBFC400D3C174 /* ContentProducerObject.swift */; };
 		92989647275FBFE700D3C174 /* ContentDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92989646275FBFE700D3C174 /* ContentDataObject.swift */; };
@@ -872,6 +880,14 @@
 		929896592760A3DC00D3C174 /* PBMORTBContentSegment.h in Headers */ = {isa = PBXBuildFile; fileRef = 929896582760A3DC00D3C174 /* PBMORTBContentSegment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92AFE57D274FCD8700B0430C /* PBMORTBAppContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 92AFE57C274FCD8200B0430C /* PBMORTBAppContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92AFE57F274FCD9900B0430C /* PBMORTBAppContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AFE57E274FCD9900B0430C /* PBMORTBAppContent.m */; };
+		92C85D5A27A96AC50080BAC5 /* NativeTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D5927A96AC50080BAC5 /* NativeTitle.swift */; };
+		92C85D5C27A96C680080BAC5 /* NativeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D5B27A96C680080BAC5 /* NativeImage.swift */; };
+		92C85D5E27A96DBB0080BAC5 /* NativeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D5D27A96DBB0080BAC5 /* NativeData.swift */; };
+		92C85D6227A977AD0080BAC5 /* NativeAdMarkupAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D6127A977AD0080BAC5 /* NativeAdMarkupAsset.swift */; };
+		92C85D6427A979F20080BAC5 /* NativeLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D6327A979F20080BAC5 /* NativeLink.swift */; };
+		92C85D6E27A983150080BAC5 /* NativeAdMarkup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D6D27A983150080BAC5 /* NativeAdMarkup.swift */; };
+		92C85D7027A987260080BAC5 /* NativeEventTrackerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D6F27A987260080BAC5 /* NativeEventTrackerResponse.swift */; };
+		92C85D9627A9DC9D0080BAC5 /* NativeAdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D9527A9DC9D0080BAC5 /* NativeAdTests.swift */; };
 		92D43D3E273A80060037DD20 /* mraid.js in Resources */ = {isa = PBXBuildFile; fileRef = 47D9AADC57CCCE64C374E101 /* mraid.js */; };
 		92D8BEB22747B464006BD78E /* MediationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D8BEB12747B464006BD78E /* MediationConstants.swift */; };
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
@@ -1838,6 +1854,14 @@
 		92664566272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSkadnFidelity.m; sourceTree = "<group>"; };
 		92664568272AB9120064F7BD /* SkadnEventTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnEventTracker.swift; sourceTree = "<group>"; };
 		9266456A272AB9610064F7BD /* SkadnParametersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnParametersManager.swift; sourceTree = "<group>"; };
+		9285B46B27AAC9C1009BD3D3 /* NativeAdMarkupTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdMarkupTest.swift; sourceTree = "<group>"; };
+		929638B727AB19DE00D30F3D /* NativeTitleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeTitleTests.swift; sourceTree = "<group>"; };
+		929638BA27AB200400D30F3D /* NativeImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeImageTests.swift; sourceTree = "<group>"; };
+		929638BC27AB20FB00D30F3D /* NativeDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeDataTests.swift; sourceTree = "<group>"; };
+		929638BE27AB21A500D30F3D /* NativeLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeLinkTests.swift; sourceTree = "<group>"; };
+		929638C027AB224400D30F3D /* NativeEventTrackerResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackerResponseTests.swift; sourceTree = "<group>"; };
+		929638C427ABB64300D30F3D /* NativeAdMarkupAssetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdMarkupAssetTests.swift; sourceTree = "<group>"; };
+		929638C627ABD66D00D30F3D /* JsonDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonDecodable.swift; sourceTree = "<group>"; };
 		92989642275FBF8C00D3C174 /* ContentObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentObject.swift; sourceTree = "<group>"; };
 		92989644275FBFC400D3C174 /* ContentProducerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentProducerObject.swift; sourceTree = "<group>"; };
 		92989646275FBFE700D3C174 /* ContentDataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDataObject.swift; sourceTree = "<group>"; };
@@ -1851,6 +1875,14 @@
 		929896582760A3DC00D3C174 /* PBMORTBContentSegment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBContentSegment.h; sourceTree = "<group>"; };
 		92AFE57C274FCD8200B0430C /* PBMORTBAppContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBAppContent.h; sourceTree = "<group>"; };
 		92AFE57E274FCD9900B0430C /* PBMORTBAppContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBAppContent.m; sourceTree = "<group>"; };
+		92C85D5927A96AC50080BAC5 /* NativeTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeTitle.swift; sourceTree = "<group>"; };
+		92C85D5B27A96C680080BAC5 /* NativeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeImage.swift; sourceTree = "<group>"; };
+		92C85D5D27A96DBB0080BAC5 /* NativeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeData.swift; sourceTree = "<group>"; };
+		92C85D6127A977AD0080BAC5 /* NativeAdMarkupAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdMarkupAsset.swift; sourceTree = "<group>"; };
+		92C85D6327A979F20080BAC5 /* NativeLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeLink.swift; sourceTree = "<group>"; };
+		92C85D6D27A983150080BAC5 /* NativeAdMarkup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdMarkup.swift; sourceTree = "<group>"; };
+		92C85D6F27A987260080BAC5 /* NativeEventTrackerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackerResponse.swift; sourceTree = "<group>"; };
+		92C85D9527A9DC9D0080BAC5 /* NativeAdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdTests.swift; sourceTree = "<group>"; };
 		92D8BEB12747B464006BD78E /* MediationConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediationConstants.swift; sourceTree = "<group>"; };
 		9720387B2358771600F8025A /* NativeRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeRequestTests.swift; sourceTree = "<group>"; };
 		9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetTests.swift; sourceTree = "<group>"; };
@@ -2665,7 +2697,6 @@
 			isa = PBXGroup;
 			children = (
 				5BC377DC271F1CFF00444D5E /* PBRNativeAssetImage.swift */,
-				5BC377DD271F1CFF00444D5E /* NativeImageAssetType.swift */,
 				5BC377DE271F1CFF00444D5E /* NativeAssetData.swift */,
 				5BC377DF271F1CFF00444D5E /* NativeContextSubtype.swift */,
 				5BC377E0271F1CFF00444D5E /* NativeAdResponse */,
@@ -2676,7 +2707,6 @@
 				5BC37801271F1CFF00444D5E /* PBRNativeAsset.swift */,
 				5BC37802271F1CFF00444D5E /* PBRNativeEventTracker.swift */,
 				5BC37803271F1CFF00444D5E /* NativeAssetVideo.swift */,
-				5BC37804271F1CFF00444D5E /* NativeDataAssetType.swift */,
 				5BC37805271F1CFF00444D5E /* NativeEventTrackingMethod.swift */,
 				5BC37806271F1CFF00444D5E /* NativeAssetTitle.swift */,
 				5BC37807271F1CFF00444D5E /* NativeContextType.swift */,
@@ -3466,6 +3496,18 @@
 			path = VASTTests;
 			sourceTree = "<group>";
 		};
+		929638B927AB1FE900D30F3D /* NativeAssetObjectsTests */ = {
+			isa = PBXGroup;
+			children = (
+				929638B727AB19DE00D30F3D /* NativeTitleTests.swift */,
+				929638BA27AB200400D30F3D /* NativeImageTests.swift */,
+				929638BC27AB20FB00D30F3D /* NativeDataTests.swift */,
+				929638BE27AB21A500D30F3D /* NativeLinkTests.swift */,
+				929638C027AB224400D30F3D /* NativeEventTrackerResponseTests.swift */,
+			);
+			name = NativeAssetObjectsTests;
+			sourceTree = "<group>";
+		};
 		92989641275FBF6A00D3C174 /* OpenRTB */ = {
 			isa = PBXGroup;
 			children = (
@@ -3478,12 +3520,48 @@
 			path = OpenRTB;
 			sourceTree = "<group>";
 		};
+		92C85D5827A96A750080BAC5 /* NativeAdResponse */ = {
+			isa = PBXGroup;
+			children = (
+				5BC377DD271F1CFF00444D5E /* NativeImageAssetType.swift */,
+				5BC37804271F1CFF00444D5E /* NativeDataAssetType.swift */,
+				92C85D6D27A983150080BAC5 /* NativeAdMarkup.swift */,
+				92C85D6527A97D3A0080BAC5 /* NativeAdMarkupAssets */,
+			);
+			name = NativeAdResponse;
+			sourceTree = "<group>";
+		};
+		92C85D6527A97D3A0080BAC5 /* NativeAdMarkupAssets */ = {
+			isa = PBXGroup;
+			children = (
+				92C85D6C27A982E20080BAC5 /* NativeAssetObjects */,
+				92C85D6127A977AD0080BAC5 /* NativeAdMarkupAsset.swift */,
+			);
+			name = NativeAdMarkupAssets;
+			sourceTree = "<group>";
+		};
+		92C85D6C27A982E20080BAC5 /* NativeAssetObjects */ = {
+			isa = PBXGroup;
+			children = (
+				92C85D5927A96AC50080BAC5 /* NativeTitle.swift */,
+				92C85D5B27A96C680080BAC5 /* NativeImage.swift */,
+				92C85D5D27A96DBB0080BAC5 /* NativeData.swift */,
+				92C85D6327A979F20080BAC5 /* NativeLink.swift */,
+				92C85D6F27A987260080BAC5 /* NativeEventTrackerResponse.swift */,
+			);
+			name = NativeAssetObjects;
+			sourceTree = "<group>";
+		};
 		9720387A235876F000F8025A /* NativeUnitTests */ = {
 			isa = PBXGroup;
 			children = (
 				9720387B2358771600F8025A /* NativeRequestTests.swift */,
 				9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */,
 				9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */,
+				92C85D9527A9DC9D0080BAC5 /* NativeAdTests.swift */,
+				9285B46B27AAC9C1009BD3D3 /* NativeAdMarkupTest.swift */,
+				929638B927AB1FE900D30F3D /* NativeAssetObjectsTests */,
+				929638C427ABB64300D30F3D /* NativeAdMarkupAssetTests.swift */,
 			);
 			path = NativeUnitTests;
 			sourceTree = "<group>";
@@ -3579,6 +3657,7 @@
 				FAEE4D05262DC2B200AD9966 /* ResultCode.swift */,
 				FAEE4D06262DC2B200AD9966 /* Info.plist */,
 				FAEE4D07262DC2B200AD9966 /* Targeting.swift */,
+				929638C627ABD66D00D30F3D /* JsonDecodable.swift */,
 			);
 			path = PrebidMobile;
 			sourceTree = "<group>";
@@ -3604,6 +3683,7 @@
 		FAEE4CEB262DC2B200AD9966 /* Native */ = {
 			isa = PBXGroup;
 			children = (
+				92C85D5827A96A750080BAC5 /* NativeAdResponse */,
 				FAEE4CEC262DC2B200AD9966 /* NativeAdDelegate.swift */,
 				FAEE4CED262DC2B200AD9966 /* NativeAdEventDelegate.swift */,
 				FAEE4CEE262DC2B200AD9966 /* NativeRequest.swift */,
@@ -4136,6 +4216,7 @@
 				922AFD26273724A800732C53 /* PBMCreativeFactoryJobTest.swift in Sources */,
 				FAA29904242D1C27002ACBF2 /* TargetingObjCTests.m in Sources */,
 				922AFCF22736FDAF00732C53 /* PBMClickthroughBrowserViewObjCTest.m in Sources */,
+				929638BF27AB21A500D30F3D /* NativeLinkTests.swift in Sources */,
 				925D5E3B2737EF9700A8A2B5 /* OpenXPathBuildersTest.swift in Sources */,
 				6013E3FA2215C92C00FEE2B1 /* MockCLLocationManager.swift in Sources */,
 				922AFD742737340300732C53 /* PBMSDKConfigurationTest.swift in Sources */,
@@ -4188,12 +4269,14 @@
 				606FAC5222022932008EAE5E /* AdUnitSwizzleHelper.swift in Sources */,
 				925D5DF62737DD7500A8A2B5 /* NativeAdAssetTest.swift in Sources */,
 				925D5E662737F47500A8A2B5 /* PBMVastLoaderCheckForAds.swift in Sources */,
+				929638BD27AB20FB00D30F3D /* NativeDataTests.swift in Sources */,
 				60C038212204AF5D0082B32C /* RequestBuilderTests.swift in Sources */,
 				925D5D762737B85400A8A2B5 /* PBMVastCreativeCompanionAdsTest.swift in Sources */,
 				925D5E222737EA1E00A8A2B5 /* MediationBannerAdUnitTest.swift in Sources */,
 				925D5E6C2737F4DF00A8A2B5 /* PBMVastLoaderTestOMVerificationOneInline.swift in Sources */,
 				925D5D912737C0A300A8A2B5 /* PBMUIViewTests.swift in Sources */,
 				9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */,
+				92C85D9627A9DC9D0080BAC5 /* NativeAdTests.swift in Sources */,
 				925D5DFA2737DDB900A8A2B5 /* NativeAdImageTest.swift in Sources */,
 				922AFCE42735573900732C53 /* PBMServerConnectionTest.swift in Sources */,
 				925D5D9F2737C33800A8A2B5 /* NetworkParameterBuilderTest.swift in Sources */,
@@ -4215,6 +4298,7 @@
 				925D5D8C2737BF3A00A8A2B5 /* OXMOpenMeasurementEventTrackerTest.swift in Sources */,
 				922AFD4D27372A2F00732C53 /* PBMHTMLCreativeTest.swift in Sources */,
 				922AFD5427372B6900732C53 /* PBMInterstitialLayoutConfiguratorTest.swift in Sources */,
+				929638C527ABB64400D30F3D /* NativeAdMarkupAssetTests.swift in Sources */,
 				922AFD112737179500732C53 /* PBMAdConfigurationTest.swift in Sources */,
 				922AFCC727353B6300732C53 /* MockServer.m in Sources */,
 				922AFD13273718B400732C53 /* PBMAdUnitConfigTest.swift in Sources */,
@@ -4272,6 +4356,7 @@
 				922AFD432737295500732C53 /* PBMHTMLCreativeTest_MRAIDOrientationChange.swift in Sources */,
 				925D5D8A2737BB9C00A8A2B5 /* OMIDContext+pbmTestExtension.m in Sources */,
 				925D5E0E2737DFCC00A8A2B5 /* RawWinningBidFabricator.swift in Sources */,
+				929638B827AB19DE00D30F3D /* NativeTitleTests.swift in Sources */,
 				925D5E1A2737E7F600A8A2B5 /* NativeAdUnitTest.swift in Sources */,
 				922AFD04273711CF00732C53 /* CreativeModelTest.swift in Sources */,
 				922AFD612737306900732C53 /* PBMModalViewControllerTest.swift in Sources */,
@@ -4321,7 +4406,9 @@
 				922AFD5227372B3700732C53 /* PBMInterstitialDisplayPropertiesTests.swift in Sources */,
 				47D9A173B721CE2B39D98A82 /* MockMeasurementSession.swift in Sources */,
 				925D5E532737F28C00A8A2B5 /* NSString+pbmExtensionsObjCTest.m in Sources */,
+				9285B46C27AAC9C1009BD3D3 /* NativeAdMarkupTest.swift in Sources */,
 				922AFC9327352CEB00732C53 /* MockPBMVideoCreative.swift in Sources */,
+				929638C127AB224400D30F3D /* NativeEventTrackerResponseTests.swift in Sources */,
 				47D9A59A1013D9036158B7E3 /* MockModalManager.swift in Sources */,
 				925D5E122737E04B00A8A2B5 /* PBMBidRequesterTest.swift in Sources */,
 				925D5E332737EE1C00A8A2B5 /* PBMTransactionTests.swift in Sources */,
@@ -4355,6 +4442,7 @@
 				925D5D7E2737B9BE00A8A2B5 /* SkadnParametersManagerTest.swift in Sources */,
 				925D5E5C2737F38400A8A2B5 /* PBMVastLoaderTestOMVerificationInExtension.swift in Sources */,
 				922AFCEB2736FBA000732C53 /* PBMSDKConfiguration+TestExtension.swift in Sources */,
+				929638BB27AB200400D30F3D /* NativeImageTests.swift in Sources */,
 				922AFD1827371A5200732C53 /* PBMAutoRefreshManagerTest.swift in Sources */,
 				47D9A70E5960A6BCDFDC83CC /* MockPBMDeviceAccessManager.swift in Sources */,
 				922AFCD127353C3C00732C53 /* MockServerRuleSlow.m in Sources */,
@@ -4434,6 +4522,7 @@
 				5BC37AFD271F2D3500444D5E /* NativePlacementType.swift in Sources */,
 				FAEE4D1C262DC2B200AD9966 /* VideoAdUnit.swift in Sources */,
 				5BC37970271F1D0000444D5E /* PBMVastAbstractAd.m in Sources */,
+				92C85D5E27A96DBB0080BAC5 /* NativeData.swift in Sources */,
 				5BC378E4271F1CFF00444D5E /* PBMORTBImpExtSkadn.m in Sources */,
 				5BC37AEC271F2D3000444D5E /* PBRNativeAd.swift in Sources */,
 				FAEE4D2F262DC2B200AD9966 /* Targeting.swift in Sources */,
@@ -4467,10 +4556,12 @@
 				5BC379A0271F1D0000444D5E /* PBMTouchForwardingView.m in Sources */,
 				FAEE4D11262DC2B200AD9966 /* RequestBuilder.swift in Sources */,
 				5BC378D4271F1CFF00444D5E /* PBMORTBDeviceExtAtts.m in Sources */,
+				92C85D6E27A983150080BAC5 /* NativeAdMarkup.swift in Sources */,
 				5BC37905271F1CFF00444D5E /* PrebidRenderingConfig+TestExtension.m in Sources */,
 				FAEE4D15262DC2B200AD9966 /* NativeAdDelegate.swift in Sources */,
 				FAEE4D16262DC2B200AD9966 /* NativeAdEventDelegate.swift in Sources */,
 				5BC379B2271F1D0000444D5E /* PBMCreativeModelCollectionMakerVAST.m in Sources */,
+				929638C727ABD66D00D30F3D /* JsonDecodable.swift in Sources */,
 				5BC37A8E271F1D0000444D5E /* RewardedAdUnit.swift in Sources */,
 				5BC37A9A271F1D0000444D5E /* BannerAdLoaderDelegate.swift in Sources */,
 				5BC37AF9271F2D3500444D5E /* NativeDataAssetType.swift in Sources */,
@@ -4480,6 +4571,7 @@
 				5BC379DB271F1D0000444D5E /* InterstitialControllerLoadingDelegate.swift in Sources */,
 				5BC378AE271F1CFF00444D5E /* PBMAgeUtils.m in Sources */,
 				5BC3794A271F1D0000444D5E /* PBMAdDetails.m in Sources */,
+				92C85D7027A987260080BAC5 /* NativeEventTrackerResponse.swift in Sources */,
 				5BC379C7271F1D0000444D5E /* PBMVideoView.m in Sources */,
 				5BC37920271F1CFF00444D5E /* PBMDeepLinkPlusHelper.m in Sources */,
 				5BC378CF271F1CFF00444D5E /* UIWindow+PBMExtensions.m in Sources */,
@@ -4564,6 +4656,7 @@
 				5BC3795B271F1D0000444D5E /* PBMVastCreativeCompanionAdsCompanion.m in Sources */,
 				5BC37AE6271F2D0F00444D5E /* NativeAssetData.swift in Sources */,
 				5BC37A92271F1D0000444D5E /* RewardedEventLoadingDelegate.swift in Sources */,
+				92C85D5C27A96C680080BAC5 /* NativeImage.swift in Sources */,
 				5BC37A86271F1D0000444D5E /* BannerView.swift in Sources */,
 				5BC3796E271F1D0000444D5E /* PBMVastWrapperAd.m in Sources */,
 				5BC37924271F1CFF00444D5E /* PBMNativeFunctions.m in Sources */,
@@ -4607,6 +4700,7 @@
 				5BC3793D271F1D0000444D5E /* PBMUserAgentService.m in Sources */,
 				92989643275FBF8C00D3C174 /* ContentObject.swift in Sources */,
 				5BC37A51271F1D0000444D5E /* PBMPrebidParameterBuilder.m in Sources */,
+				92C85D6427A979F20080BAC5 /* NativeLink.swift in Sources */,
 				5BC3792B271F1D0000444D5E /* PBMConstants.m in Sources */,
 				5BC37ADB271F1D0100444D5E /* PBMServerResponse.m in Sources */,
 				5BC37A61271F1D0000444D5E /* PBMORTBBidExt.m in Sources */,
@@ -4632,6 +4726,7 @@
 				5BC37A30271F1D0000444D5E /* PBMNativeAdMarkupImage.m in Sources */,
 				FAEE4D14262DC2B200AD9966 /* BannerBaseAdUnit.swift in Sources */,
 				5BC37AE8271F2D0F00444D5E /* NativeImageAssetType.swift in Sources */,
+				92C85D6227A977AD0080BAC5 /* NativeAdMarkupAsset.swift in Sources */,
 				5BC378F4271F1CFF00444D5E /* PBMORTBBanner.m in Sources */,
 				FAEE4D0E262DC2B200AD9966 /* TrackerManager.swift in Sources */,
 				5BC37AEB271F2D3000444D5E /* NativeAdElementType.swift in Sources */,
@@ -4708,6 +4803,7 @@
 				5BC378D0271F1CFF00444D5E /* VideoPlacementType.swift in Sources */,
 				5BC37ABD271F1D0000444D5E /* PBMOpenMeasurementEventTracker.m in Sources */,
 				5BC37927271F1CFF00444D5E /* PBMFunctions.m in Sources */,
+				92C85D5A27A96AC50080BAC5 /* NativeTitle.swift in Sources */,
 				5BC37AA4271F1D0000444D5E /* PBMAdLoadFlowController.m in Sources */,
 				5BC378C0271F1CFF00444D5E /* NSDictionary+PBMExtensions.m in Sources */,
 				5BC3796B271F1D0000444D5E /* PBMVastCreativeAbstract.m in Sources */,
