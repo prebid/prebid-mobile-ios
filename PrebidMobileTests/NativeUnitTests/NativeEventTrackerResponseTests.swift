@@ -34,7 +34,7 @@ class NativeEventTrackerResponseTests: XCTestCase {
         expectedTrackers.customdata = ["ld": "sk"]
         expectedTrackers.ext = ["la": "ks"]
         
-        let resultTrackers = try! NativeEventTrackerResponse(jsonDictionary: trackersDict)
+        let resultTrackers = NativeEventTrackerResponse(jsonDictionary: trackersDict)
         
         XCTAssertTrue(expectedTrackers == resultTrackers)
     }

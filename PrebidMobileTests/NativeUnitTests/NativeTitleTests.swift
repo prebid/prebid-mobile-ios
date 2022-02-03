@@ -30,7 +30,7 @@ class NativeTitleTests: XCTestCase {
         expectedTitle.length = 9
         expectedTitle.ext = ["la": "ks"]
         
-        let resultTitle = try! NativeTitle(jsonDictionary: titleDict)
+        let resultTitle = NativeTitle(jsonDictionary: titleDict)
         
         XCTAssertTrue(expectedTitle == resultTitle)
     }

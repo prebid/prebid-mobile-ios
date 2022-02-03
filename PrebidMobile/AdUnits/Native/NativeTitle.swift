@@ -16,7 +16,7 @@
 import Foundation
 
 @objcMembers
-public class NativeTitle: NSObject, PBMJsonDecodable {
+public class NativeTitle: NSObject, JsonDecodable {
     /// The text associated with the text element.
     public var text: String?
     
@@ -28,7 +28,7 @@ public class NativeTitle: NSObject, PBMJsonDecodable {
     /// flexibility beyond the standard defined in this specification
     public var ext: [String: Any]?
     
-    public required init(jsonDictionary: [String: Any]) throws {
+    public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             PBMLog.warn("The native title json dicitonary is empty")
             return

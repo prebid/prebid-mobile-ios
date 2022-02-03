@@ -16,7 +16,7 @@
 import Foundation
 
 @objcMembers
-public class NativeImage: NSObject, PBMJsonDecodable {
+public class NativeImage: NSObject, JsonDecodable {
     /// The type of image element being submitted from the Image Asset Types table.
     /// Required for assetsurl or dcourl responses, not required for embedded asset responses.
     public var type: Int?
@@ -38,7 +38,7 @@ public class NativeImage: NSObject, PBMJsonDecodable {
     /// flexibility beyond the standard defined in this specification
     public var ext: [String: Any]?
     
-    public required init(jsonDictionary: [String: Any]) throws {
+    public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             PBMLog.warn("The native image json dicitonary is empty")
             return

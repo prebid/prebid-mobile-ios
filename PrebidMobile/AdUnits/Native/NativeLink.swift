@@ -16,7 +16,7 @@
 import Foundation
 
 @objcMembers
-public class NativeLink: NSObject, PBMJsonDecodable {
+public class NativeLink: NSObject, JsonDecodable {
     
     /// Landing URL of the clickable link.
     public var url: String?
@@ -31,7 +31,7 @@ public class NativeLink: NSObject, PBMJsonDecodable {
     /// This object is a placeholder that may contain custom JSON agreed to by the parties to support flexibility beyond the standard defined in this specification
     public var ext: [String: Any]?
     
-    public required init(jsonDictionary: [String: Any]) throws {
+    public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             PBMLog.warn("The native link json dicitonary is empty")
             return

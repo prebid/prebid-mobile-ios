@@ -16,7 +16,7 @@
 import Foundation
 
 @objcMembers
-public class NativeAdMarkupAsset: NSObject, PBMJsonDecodable {
+public class NativeAdMarkupAsset: NSObject, JsonDecodable {
     
     /// Optional if asseturl/dcourl is being used; required if embeded asset is being used
     public var id: Int?
@@ -44,7 +44,7 @@ public class NativeAdMarkupAsset: NSObject, PBMJsonDecodable {
     /// flexibility beyond the standard defined in this specification
     public var ext: [String: Any]?
     
-    public required init(jsonDictionary: [String: Any]) throws {
+    public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             PBMLog.warn("The native title json dicitonary is empty")
             return
@@ -55,15 +55,15 @@ public class NativeAdMarkupAsset: NSObject, PBMJsonDecodable {
         self.ext = jsonDictionary["ext"] as? [String: Any]
         
         if let titleDictionary = jsonDictionary["title"] as? [String: Any] {
-            self.title = try NativeTitle(jsonDictionary: titleDictionary)
+            self.title = NativeTitle(jsonDictionary: titleDictionary)
         } else if let imgDictionary = jsonDictionary["img"] as? [String: Any] {
-            self.img = try NativeImage(jsonDictionary: imgDictionary)
+            self.img = NativeImage(jsonDictionary: imgDictionary)
         } else if let dataDictionary = jsonDictionary["data"] as? [String: Any] {
-            self.data = try NativeData(jsonDictionary: dataDictionary)
+            self.data = NativeData(jsonDictionary: dataDictionary)
         }
         
         if let linkDictionary = jsonDictionary["link"] as? [String: Any] {
-            self.link = try NativeLink(jsonDictionary: linkDictionary)
+            self.link = NativeLink(jsonDictionary: linkDictionary)
         }
     }
     

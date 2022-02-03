@@ -16,7 +16,7 @@
 import Foundation
 
 @objcMembers
-public class NativeAdMarkup: NSObject, PBMJsonDecodable {
+public class NativeAdMarkup: NSObject, JsonDecodable {
 
     /// Version of the Native Markup version in use.
     public var version: String?
@@ -66,7 +66,7 @@ public class NativeAdMarkup: NSObject, PBMJsonDecodable {
     /// This object is a placeholder that may contain custom JSON agreed to by the parties to support flexibility beyond the standard defined in this specification
     public var ext: [String: Any]?
     
-    public required init(jsonDictionary: [String: Any]) throws {
+    public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             PBMLog.warn("The native ad markup json dicitonary is empty")
             return
@@ -84,19 +84,19 @@ public class NativeAdMarkup: NSObject, PBMJsonDecodable {
             var finalAssetArray = [NativeAdMarkupAsset]()
             
             for assetDict in assetDictArray {
-                finalAssetArray.append(try NativeAdMarkupAsset(jsonDictionary: assetDict))
+                finalAssetArray.append(NativeAdMarkupAsset(jsonDictionary: assetDict))
             }
             self.assets = finalAssetArray
         }
         
         if let linkDicitonary = jsonDictionary["link"] as? [String: Any] {
-            self.link = try NativeLink(jsonDictionary: linkDicitonary)
+            self.link = NativeLink(jsonDictionary: linkDicitonary)
         }
         
         if let eventTrackerDictArray = jsonDictionary["eventtrackers"] as? [[String: Any]] {
             var finalEventTrackers = [NativeEventTrackerResponse]()
             for eventTrackerDictionary in eventTrackerDictArray {
-                finalEventTrackers.append(try NativeEventTrackerResponse(jsonDictionary: eventTrackerDictionary))
+                finalEventTrackers.append(NativeEventTrackerResponse(jsonDictionary: eventTrackerDictionary))
             }
             self.eventtrackers = finalEventTrackers
         }

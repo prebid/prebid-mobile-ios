@@ -866,6 +866,7 @@
 		929638BF27AB21A500D30F3D /* NativeLinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638BE27AB21A500D30F3D /* NativeLinkTests.swift */; };
 		929638C127AB224400D30F3D /* NativeEventTrackerResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638C027AB224400D30F3D /* NativeEventTrackerResponseTests.swift */; };
 		929638C527ABB64400D30F3D /* NativeAdMarkupAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638C427ABB64300D30F3D /* NativeAdMarkupAssetTests.swift */; };
+		929638C727ABD66D00D30F3D /* JsonDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638C627ABD66D00D30F3D /* JsonDecodable.swift */; };
 		92989643275FBF8C00D3C174 /* ContentObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92989642275FBF8C00D3C174 /* ContentObject.swift */; };
 		92989645275FBFC400D3C174 /* ContentProducerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92989644275FBFC400D3C174 /* ContentProducerObject.swift */; };
 		92989647275FBFE700D3C174 /* ContentDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92989646275FBFE700D3C174 /* ContentDataObject.swift */; };
@@ -1860,6 +1861,7 @@
 		929638BE27AB21A500D30F3D /* NativeLinkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeLinkTests.swift; sourceTree = "<group>"; };
 		929638C027AB224400D30F3D /* NativeEventTrackerResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackerResponseTests.swift; sourceTree = "<group>"; };
 		929638C427ABB64300D30F3D /* NativeAdMarkupAssetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdMarkupAssetTests.swift; sourceTree = "<group>"; };
+		929638C627ABD66D00D30F3D /* JsonDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonDecodable.swift; sourceTree = "<group>"; };
 		92989642275FBF8C00D3C174 /* ContentObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentObject.swift; sourceTree = "<group>"; };
 		92989644275FBFC400D3C174 /* ContentProducerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentProducerObject.swift; sourceTree = "<group>"; };
 		92989646275FBFE700D3C174 /* ContentDataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDataObject.swift; sourceTree = "<group>"; };
@@ -3655,6 +3657,7 @@
 				FAEE4D05262DC2B200AD9966 /* ResultCode.swift */,
 				FAEE4D06262DC2B200AD9966 /* Info.plist */,
 				FAEE4D07262DC2B200AD9966 /* Targeting.swift */,
+				929638C627ABD66D00D30F3D /* JsonDecodable.swift */,
 			);
 			path = PrebidMobile;
 			sourceTree = "<group>";
@@ -4558,6 +4561,7 @@
 				FAEE4D15262DC2B200AD9966 /* NativeAdDelegate.swift in Sources */,
 				FAEE4D16262DC2B200AD9966 /* NativeAdEventDelegate.swift in Sources */,
 				5BC379B2271F1D0000444D5E /* PBMCreativeModelCollectionMakerVAST.m in Sources */,
+				929638C727ABD66D00D30F3D /* JsonDecodable.swift in Sources */,
 				5BC37A8E271F1D0000444D5E /* RewardedAdUnit.swift in Sources */,
 				5BC37A9A271F1D0000444D5E /* BannerAdLoaderDelegate.swift in Sources */,
 				5BC37AF9271F2D3500444D5E /* NativeDataAssetType.swift in Sources */,

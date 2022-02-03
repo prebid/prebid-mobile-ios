@@ -26,7 +26,7 @@ class NativeAdMarkupTest: XCTestCase {
             "ext": ["la": "lb"],
         ]
         
-        let linkObject = try! NativeLink(jsonDictionary: linkDic)
+        let linkObject = NativeLink(jsonDictionary: linkDic)
             
         let markupDict: [String: Any] = [
             "ver": "1.0",
@@ -49,7 +49,7 @@ class NativeAdMarkupTest: XCTestCase {
         expectedMarkup.privacy = "test privacy"
         expectedMarkup.ext = ["ls": "as"]
         
-        let resultMarkup = try! NativeAdMarkup(jsonDictionary: markupDict)
+        let resultMarkup = NativeAdMarkup(jsonDictionary: markupDict)
         
         XCTAssertTrue(expectedMarkup == resultMarkup)
     }

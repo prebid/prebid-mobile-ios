@@ -32,7 +32,7 @@ class NativeDataTests: XCTestCase {
         expectedData.value = "hello"
         expectedData.ext = ["la": "ks"]
         
-        let resultData = try! NativeData(jsonDictionary: dataDict)
+        let resultData = NativeData(jsonDictionary: dataDict)
         
         XCTAssertTrue(expectedData == resultData)
     }

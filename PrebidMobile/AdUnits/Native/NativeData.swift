@@ -16,7 +16,7 @@
 import Foundation
 
 @objcMembers
-public class NativeData: NSObject, PBMJsonDecodable {
+public class NativeData: NSObject, JsonDecodable {
     /// The type of data element being submitted from the Data Asset Types table.
     /// Required for assetsurl/dcourl responses, not required for embedded asset responses.
     public var type: Int?
@@ -34,7 +34,7 @@ public class NativeData: NSObject, PBMJsonDecodable {
     /// flexibility beyond the standard defined in this specification
     public var ext: [String: Any]?
     
-    public required init(jsonDictionary: [String: Any]) throws {
+    public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             PBMLog.warn("The native data json dicitonary is empty")
             return

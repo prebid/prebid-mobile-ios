@@ -34,7 +34,7 @@ class NativeImageTests: XCTestCase {
         expectedImage.height = 50
         expectedImage.ext = ["la": "ks"]
         
-        let resultImage = try! NativeImage(jsonDictionary: imageDict)
+        let resultImage = NativeImage(jsonDictionary: imageDict)
         
         XCTAssertTrue(expectedImage == resultImage)
     }

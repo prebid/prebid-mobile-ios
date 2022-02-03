@@ -97,9 +97,9 @@ class NativeAdMarkupAssetTests: XCTestCase {
         expectedDataAsset.data = expectedData
         expectedDataAsset.ext = ["la": "ks"]
 
-        let titleAsset = try! NativeAdMarkupAsset(jsonDictionary: titleAssetDict)
-        let imageAsset = try! NativeAdMarkupAsset(jsonDictionary: imageAssetDict)
-        let dataAsset = try! NativeAdMarkupAsset(jsonDictionary: dataAssetDict)
+        let titleAsset = NativeAdMarkupAsset(jsonDictionary: titleAssetDict)
+        let imageAsset = NativeAdMarkupAsset(jsonDictionary: imageAssetDict)
+        let dataAsset = NativeAdMarkupAsset(jsonDictionary: dataAssetDict)
         
         XCTAssertTrue(expectedTitleAsset == titleAsset)
         XCTAssertTrue(expectedImageAsset == imageAsset)
@@ -137,7 +137,7 @@ class NativeAdMarkupAssetTests: XCTestCase {
             "ext": ["la": "ks"]
         ]
         
-        let testAsset1 = try! NativeAdMarkupAsset(jsonDictionary: testAssetDict1)
+        let testAsset1 = NativeAdMarkupAsset(jsonDictionary: testAssetDict1)
         
         XCTAssertNil(testAsset1.img)
         XCTAssertNil(testAsset1.data)
@@ -150,7 +150,7 @@ class NativeAdMarkupAssetTests: XCTestCase {
             "ext": ["la": "ks"]
         ]
         
-        let testAsset2 = try! NativeAdMarkupAsset(jsonDictionary: testAssetDict2)
+        let testAsset2 = NativeAdMarkupAsset(jsonDictionary: testAssetDict2)
         
         XCTAssertNil(testAsset2.title)
         XCTAssertNil(testAsset2.data)
@@ -162,7 +162,7 @@ class NativeAdMarkupAssetTests: XCTestCase {
             "ext": ["la": "ks"]
         ]
         
-        let testAsset3 = try! NativeAdMarkupAsset(jsonDictionary: testAssetDict3)
+        let testAsset3 = NativeAdMarkupAsset(jsonDictionary: testAssetDict3)
         
         XCTAssertNil(testAsset3.title)
         XCTAssertNil(testAsset3.img)

@@ -32,7 +32,7 @@ class NativeLinkTests: XCTestCase {
         expectedLinkObject.url = "link url"
         expectedLinkObject.ext = ["la": "lb"]
         
-        let resultLinkObject = try! NativeLink(jsonDictionary: linkDict)
+        let resultLinkObject = NativeLink(jsonDictionary: linkDict)
         
         XCTAssertTrue(expectedLinkObject == resultLinkObject)
     }
