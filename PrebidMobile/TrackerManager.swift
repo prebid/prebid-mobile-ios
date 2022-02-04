@@ -74,7 +74,8 @@ class TrackerManager: NSObject {
             if let clickUrlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: clickUrlString)
             {
                 let request = URLRequest(url: url)
-                URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
+                let session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
+                session.dataTask(with: request) { [weak self] data, _, error in
                     guard error == nil else {
                         Log.debug("Internet REACHABILITY ERROR - queing tracker for firing later: \(urlString)")
                         guard let strongSelf = self else {
@@ -131,7 +132,8 @@ class TrackerManager: NSObject {
                 if let urlString = info.URL, let clickUrlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: clickUrlString)
                 {
                     let request = URLRequest(url: url)
-                    URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
+                    let session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
+                    session.dataTask(with: request) { [weak self] data, _, error in
                         guard error == nil else {
                             Log.debug("CONNECTION ERROR - queing tracker for firing later: \(urlString)")
                             guard let strongSelf = self else {
@@ -171,4 +173,10 @@ class TrackerManager: NSObject {
       }
     }
     
+}
+
+extension TrackerManager: URLSessionDelegate {
+    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        PBMFunctions.checkCertificateChallenge(challenge, completionHandler: completionHandler)
+    }
 }

@@ -30,7 +30,8 @@ class BidManager: NSObject {
         do {
             try RequestBuilder.shared.buildPrebidRequest(adUnit: prebidAdUnit) {(urlRequest) in
                 let demandFetchStartTime = self.getCurrentMillis()
-                URLSession.shared.dataTask(with: urlRequest!) { data, _, error in
+                let session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
+                session.dataTask(with: urlRequest!) { data, _, error in
                     let demandFetchEndTime = self.getCurrentMillis()
                     guard error == nil else {
                         Log.debug("error calling GET on /todos/1")
@@ -163,5 +164,11 @@ class BidManager: NSObject {
             Log.debug(error.localizedDescription)
         }
         return -1
+    }
+}
+
+extension BidManager: URLSessionDelegate {
+    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        PBMFunctions.checkCertificateChallenge(challenge, completionHandler: completionHandler)
     }
 }
