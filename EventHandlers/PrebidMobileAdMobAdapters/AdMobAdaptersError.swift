@@ -23,6 +23,7 @@ enum AdMobAdaptersError {
     case wrongServerParameter
     case emptyUserKeywords
     case noAd
+    case adNotValid
 }
 
 extension AdMobAdaptersError: LocalizedError {
@@ -36,6 +37,7 @@ extension AdMobAdaptersError: LocalizedError {
         case .wrongServerParameter          : return "User keywords don't contain server parameter"
         case .emptyUserKeywords             : return "User keywords are empty"
         case .noAd                          : return "No ad available"
+        case .adNotValid                    : return "Ad is not valid"
         }
     }
 }
