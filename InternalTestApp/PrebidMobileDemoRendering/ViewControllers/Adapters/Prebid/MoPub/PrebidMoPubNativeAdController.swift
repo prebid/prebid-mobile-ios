@@ -122,7 +122,7 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController {
             let prebidConfig = PrebidMoPubNativeAdRenderer.rendererConfiguration(with: settings)
             let mopubConfig = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)
             
-            let adRequest = MPNativeAdRequest.init(adUnitIdentifier: self.moPubAdUnitId, rendererConfigurations: [prebidConfig, mopubConfig!])
+            let adRequest = MPNativeAdRequest.init(adUnitIdentifier: self.moPubAdUnitId, rendererConfigurations: [prebidConfig!, mopubConfig!])
             adRequest?.targeting = targeting
             
             adRequest?.start(completionHandler: { [weak self] request, nativeAd, error in

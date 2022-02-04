@@ -64,7 +64,6 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableController 
             TestCaseManager.createDummyTableCell(for: tableView),
             TestCaseManager.createDummyTableCell(for: tableView),
             TestCaseManager.createDummyTableCell(for: tableView),
-//            TestCaseManager.createDummyTableCell(for: tableView),
             
             TestCaseForTableCell(configurationClosureForTableCell: { [weak self, weak tableView] cell in
                 guard let self = self else {
@@ -131,7 +130,7 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableController 
             let mopubConfig = MPStaticNativeAdRenderer.rendererConfiguration(with: settings);
             
             let adRequest = MPNativeAdRequest.init(adUnitIdentifier: self.moPubAdUnitId,
-                                                   rendererConfigurations: [prebidConfig, mopubConfig!])
+                                                   rendererConfigurations: [prebidConfig!, mopubConfig!])
             adRequest?.targeting = targeting
             
             adRequest?.start { [weak self, weak cell] _, response , error in

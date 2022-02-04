@@ -56,31 +56,4 @@ public class MoPubMediationBannerUtils: NSObject, PrebidMediationDelegate {
     public func getAdView() -> UIView? {
         return mopubView
     }
-    
-    /**
-     Finds an native ad object in the given extra dictionary.
-     Calls the provided callback with the finded native ad object or error
-     */
-    // The feature is not available. Use original Prebid Native API
-    // TODO: Merge Native engine from original SDK and rendering codebase
-    //    static func findNativeAd(_ extras: [AnyHashable : Any],
-    //                             completion: @escaping (PBRNativeAd?, Error?) -> Void) {
-    //
-    //        guard let response = extras[PBMMoPubAdNativeResponseKey] as? DemandResponseInfo else {
-    //            let error = PBMError.error(description: "The Response object is absent in the extras")
-    //            completion(nil, error)
-    //            return
-    //        }
-    //
-    //        response.getNativeAd { ad in
-    //            guard let nativeAd = ad else {
-    //                let error = PBMError.error(description: "The Native Ad object is absent in the extras")
-    //                completion(nil, error)
-    //                return
-    //            }
-    //
-    //            completion(nativeAd, nil)
-    //        }
-    //    }
-    
 }
