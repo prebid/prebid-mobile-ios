@@ -17,7 +17,7 @@ import Foundation
 
 private let kDefaultBidExpiryTime: TimeInterval = 270
 
-class BidResponse: NSObject {
+public class BidResponse: NSObject {
 
     /**
      * the adUnitId is the adUnit identifier that the bid response corresponds to
@@ -40,11 +40,10 @@ class BidResponse: NSObject {
         }
     }
 
-    init(adId: String, adServerTargeting: [String: AnyObject]) {
+    public init(adId: String, adServerTargeting: [String: AnyObject]) {
         super.init()
         adUnitId = adId
         setMyCustomKeywords(newValue: adServerTargeting as! [String: String])
-
     }
 
     func setMyCustomKeywords(newValue: [String: String]) {
