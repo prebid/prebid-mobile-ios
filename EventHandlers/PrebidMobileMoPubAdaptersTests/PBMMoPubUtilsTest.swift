@@ -38,7 +38,7 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
             "hb_size": "320x50"
         ];
         let sortedKeywords = ["hb_pb:0.10", "hb_size:320x50", "key1", "key2"]
-        let rawBid = makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: "some-cache-id")
+        let rawBid = makeRawWinningBidRendering(price: 0.75, bidder: "some bidder", cacheID: "some-cache-id")
         let bid = Bid(bid: rawBid)
         let configId = "configId"
         
@@ -69,7 +69,7 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
         let mopubView = MPAdView()
         let testIntitialExtras = ["existingKey": "existingValue"]
         let testInitialKeywords = "existingKey:existingValue"
-        let bid = makeRawWinningBid(price: 0.10, bidder: "TestBidder", cacheID: "testCacheId")
+        let bid = makeRawWinningBidRendering(price: 0.10, bidder: "TestBidder", cacheID: "testCacheId")
         mopubView.keywords = testInitialKeywords
         mopubView.localExtras = testIntitialExtras
         let mediationDelegate = MoPubMediationBannerUtils(mopubView: mopubView)
@@ -98,7 +98,7 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
         let mopubController = MPInterstitialAdController()
         let testIntitialExtras = ["existingKey": "existingValue"]
         let testInitialKeywords = "existingKey:existingValue"
-        let bid = makeRawWinningBid(price: 0.10, bidder: "TestBidder", cacheID: "testCacheId")
+        let bid = makeRawWinningBidRendering(price: 0.10, bidder: "TestBidder", cacheID: "testCacheId")
         mopubController.keywords = testInitialKeywords
         mopubController.localExtras = testIntitialExtras
         let mediationDelegate = MoPubMediationInterstitialUtils(mopubController: mopubController)
@@ -127,7 +127,7 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
         let bidInfoWrapper = MediationBidInfoWrapper()
         let testIntitialExtras = ["existingKey": "existingValue"]
         let testInitialKeywords = "existingKey:existingValue"
-        let bid = makeRawWinningBid(price: 0.10, bidder: "TestBidder", cacheID: "testCacheId")
+        let bid = makeRawWinningBidRendering(price: 0.10, bidder: "TestBidder", cacheID: "testCacheId")
         bidInfoWrapper.keywords = testInitialKeywords
         bidInfoWrapper.localExtras = testIntitialExtras
         let mediationDelegate = MoPubMediationRewardedUtils(bidInfoWrapper: bidInfoWrapper)
@@ -152,48 +152,32 @@ class PBMMoPubUtilsTest: XCTestCase, RawWinningBidFabricator {
         }
     }
     
-    // This test is not compilable due to changes in MoPubMediationUtils
-    // TODO: Restore this test in https://github.com/prebid/prebid-mobile-ios/issues/431
-//    func testFindNativeAd() {
-//        let emptyExtras: [AnyHashable : Any] = [:]
-//        let errorExpectation = expectation(description: "Error finding native ad expectation")
-//        mediationDelegate.findNativeAd(emptyExtras) { _, error in
-//            if error != nil {
-//                errorExpectation.fulfill()
-//            }
-//        }
-//        waitForExpectations(timeout: 0.1)
-//
-//        let configId = "config-id"
-//        let markupString = """
-//{"assets": [{"required": 1, "title": { "text": "OpenX (Title)" }}],
-//"link": {"url": "http://www.openx.com"}}
-//"""
-//        let rawBid = makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: "some-cache-id")
-//        let bid = Bid(bid: rawBid)
-//        let responseInfo = DemandResponseInfo(fetchDemandResult: .ok, bid: bid, configId: configId) {
-//            $1(markupString)
-//        }
-//        let targetingInfo = [
-//            "hb_pb": "0.10",
-//        ];
-//
-//        let adObject = MoPubAdObject()
-//        guard mediationDelegate.setUpAdObject(adObject,
-//                                       configID: configId,
-//                                       targetingInfo: targetingInfo,
-//                                       extraObject: responseInfo,
-//                                       forKey: PBMMoPubAdNativeResponseKey) else {
-//            XCTFail()
-//            return
-//        }
-//
-//        let successExpectation = expectation(description: "Success finding Native Ad expectation")
-//        mediationDelegate.findNativeAd(adObject.localExtras!) { nativeAd, _ in
-//            if nativeAd != nil {
-//                successExpectation.fulfill()
-//            }
-//        }
-//        waitForExpectations(timeout: 0.1)
-//    }
+    func testCorrectNativeAdObjectSetUp() {
+        let targeting = MPNativeAdRequestTargeting()!
+        let testIntitialExtras = ["existingKey": "existingValue"]
+        let testInitialKeywords = "existingKey:existingValue"
+        let bid = makeRawWinningBidRendering(price: 0.10, bidder: "TestBidder", cacheID: "testCacheId")
+        targeting.keywords = testInitialKeywords
+        targeting.localExtras = testIntitialExtras
+        let mediationDelegate = MoPubMediationNativeUtils(targeting: targeting)
+        guard mediationDelegate.setUpAdObject(configId: "testConfigId",
+                                              configIdKey: "testConfigIdKey",
+                                              targetingInfo: ["test": "test"],
+                                              extrasObject: bid,
+                                              extrasObjectKey: "testExtrasObjectKey") else {
+            XCTFail()
+            return
+        }
+        
+        XCTAssertTrue(mediationDelegate.targeting.keywords!.contains(testInitialKeywords))
+        testIntitialExtras.forEach { key, value in
+            if !mediationDelegate.targeting.localExtras!.keys.contains(key) ||
+                !mediationDelegate.targeting.localExtras!.values.contains(where: {
+                    let stringValue = $0 as? String
+                    return stringValue == value
+                }) {
+                XCTFail()
+            }
+        }
+    }
 }
