@@ -19,64 +19,41 @@ import MoPubSDK
 
 import PrebidMobile
 
-// The feature is not available. Use original Prebid Native API
-// TODO: Merge Native engine from original SDK and rendering codebase
-
 @objc(PrebidMoPubNativeAdAdapter)
 class PrebidMoPubNativeAdAdapter:
     NSObject,
     MPNativeAdAdapter,
-    NativeAdUIDelegate,
-    NativeAdTrackingDelegate
-{
+    NativeAdEventDelegate {
     // MARK: - Public Properties
     
     weak var delegate: MPNativeAdAdapterDelegate?
-    var nativeAd: PBRNativeAd
-    
-    // MARK: - Internal Properties
-    
-    var mediaView: MediaView?
+    var nativeAd: NativeAd
     
     // MARK: - Public Methods
     
-    init(nativeAd: PBRNativeAd) {
+    init(nativeAd: NativeAd) {
         self.nativeAd = nativeAd
         
         super.init()
         
-        self.nativeAd.uiDelegate = self
-        self.nativeAd.trackingDelegate = self
+        self.nativeAd.delegate = self
         
         properties[kAdTitleKey] = nativeAd.title
-        properties[kAdTextKey] = nativeAd.text
+        properties[kAdTextKey] = nativeAd.desc
        
-        let sponsored = nativeAd.dataObjects(of: .sponsored).first?.value
+        let sponsored = nativeAd.sponsored
        
-        properties[kAdSponsoredByCompanyKey] = sponsored;
-        properties[kAdCTATextKey] = nativeAd.callToAction;
+        properties[kAdSponsoredByCompanyKey] = sponsored
+        properties[kAdCTATextKey] = nativeAd.ctaText
         
-        if !nativeAd.iconURL.isEmpty {
-            properties[kAdIconImageKey] = nativeAd.iconURL.isEmpty;
+        if let iconUrl = nativeAd.iconUrl, !iconUrl.isEmpty {
+            properties[kAdIconImageKey] = iconUrl
         }
         
-        if !nativeAd.imageURL.isEmpty {
-            properties[kAdMainImageKey] = nativeAd.imageURL;
+        if let imageUrl = nativeAd.imageUrl, !imageUrl.isEmpty {
+            properties[kAdMainImageKey] = imageUrl
+        }
 
-        }
-        
-        if let ratingString = nativeAd.dataObjects(of: .rating).first?.value {
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .decimal
-            let ratingNum = formatter.number(from: ratingString)
-            properties[kAdStarRatingKey] = ratingNum
-        }
-        
-        if let mediaData = nativeAd.videoAd?.mediaData {
-            mediaView = MediaView()
-            properties[kAdMainMediaViewKey] = mediaView
-            mediaView?.load(mediaData)
-        }
     }
     
     // MARK: - MPNativeAdAdapter
@@ -92,52 +69,20 @@ class PrebidMoPubNativeAdAdapter:
     }
     
     func mainMediaView() -> UIView? {
-        self.mediaView
+        nil
     }
     
-    // MARK: - NativeAdUIDelegate
+    // MARK: - NativeAdEventDelegate
     
-    func viewPresentationControllerForNativeAd(_ nativeAd: PBRNativeAd) -> UIViewController? {
-        delegate?.viewControllerForPresentingModalView()
-    }
-    
-    func nativeAdWillLeaveApplication(_ nativeAd: PBRNativeAd) {
-        MPLogging.logEvent(MPLogEvent.adWillLeaveApplication(forAdapter: Self.className()), source: nil, from: nil)
-        delegate?.nativeAdWillLeaveApplication(from: self)
-    }
-    
-    func nativeAdWillPresentModal(_ nativeAd: NativeAd) {
-        MPLogging.logEvent(MPLogEvent.adWillPresentModal(forAdapter: Self.className()), source: nil, from: nil)
-        delegate?.nativeAdWillPresentModal(for: self)
-    }
-    
-    func nativeAdDidDismissModal(_ nativeAd: NativeAd) {
-        MPLogging.logEvent(MPLogEvent.adDidDismissModal(forAdapter: Self.className()), source: nil, from: nil)
-        delegate?.nativeAdDidDismissModal(for: self)
-    }
-    
-    // MARK: - NativeAdTrackingDelegate
-    
-    func nativeAdDidLogClick(_ nativeAd: NativeAd) {
-        guard let delegate = delegate,
-           delegate.responds(to: #selector(MPNativeAdAdapterDelegate.nativeAdDidClick)) else {
-            return
-        }
+    func adDidExpire(ad: NativeAd) {
         
-        MPLogging.logEvent(MPLogEvent.adTapped(forAdapter: Self.className()), source: nil, from: nil)
-        delegate.nativeAdDidClick?(self)
     }
     
-    func nativeAd(_ nativeAd: NativeAd, didLogEvent nativeEvent: NativeEventType) {
-        guard nativeEvent == .impression,
-              let delegate = delegate,
-              delegate.responds(to: #selector(MPNativeAdAdapterDelegate.nativeAdWillLogImpression)) else {
-            return
-        }
-        
-        MPLogging.logEvent(MPLogEvent.adShowSuccess(forAdapter: Self.className()), source: nil, from: nil)
-        MPLogging.logEvent(MPLogEvent.adWillAppear(forAdapter: Self.className()), source: nil, from: nil)
-        
-        delegate.nativeAdWillLogImpression?(self)
+    func adWasClicked(ad: NativeAd) {
+        delegate?.nativeAdDidClick?(self)
+    }
+    
+    func adDidLogImpression(ad: NativeAd) {
+        delegate?.nativeAdWillLogImpression?(self)
     }
 }

@@ -19,11 +19,13 @@ import MoPubSDK
 import PrebidMobile
 import PrebidMobileMoPubAdapters
 
-class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCompatibleController {
+class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableController {
     var prebidConfigId = ""
     var moPubAdUnitId = ""
-    var nativeAdConfig = NativeAdConfiguration?.none
     var adRenderingViewClass: AnyClass?
+    
+    public var nativeAssets: [NativeAsset]?
+    public var eventTrackers: [NativeEventTracker]?
     
     private var adUnit: MediationNativeAdUnit?
     private var theNativeAd: MPNativeAd?
@@ -35,14 +37,16 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCom
     
     private var adView = UIView()
     
+    private var mediationDelegate: MoPubMediationNativeUtils?
+    
     required init(rootTableViewController: PrebidFeedTableViewController) {
         self.rootTableViewController = rootTableViewController
     }
     
     func configurationController() -> BaseConfigurationController? {
-        return PrebidNativeAdRenderingConfigurationController(controller: self)
+        return BaseConfigurationController(controller: self)
     }
-    
+
     func allowLoadingAd() {
         adLoadingAllowed = true
         if let onAdLoadingAllowed = onAdLoadingAllowed {
@@ -57,7 +61,6 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCom
         }
         
         self.rootTableViewController?.testCases = [
-            TestCaseManager.createDummyTableCell(for: tableView),
             TestCaseManager.createDummyTableCell(for: tableView),
             TestCaseManager.createDummyTableCell(for: tableView),
             TestCaseManager.createDummyTableCell(for: tableView),
@@ -109,22 +112,14 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCom
     }
     
     private func loadAd(for cell: FeedAdTableViewCell) {
-        guard let nativeAdConfig = nativeAdConfig else {
-            return
-        }
         
         self.cleanUp(cell: cell)
         
-        adUnit = MediationNativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addContextData(dataPair.value, forKey: dataPair.key)
-            }
-        }
-        
         let targeting = MPNativeAdRequestTargeting()
+        mediationDelegate = MoPubMediationNativeUtils(targeting: targeting!)
+        setupMediationNativeAdUnit(targeting: targeting!)
         
-        adUnit?.fetchDemand(with: targeting!) { [weak self] result in
+        adUnit?.fetchDemand { [weak self] result in
             guard let self = self else {
                 return
             }
@@ -135,7 +130,7 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCom
             let mopubConfig = MPStaticNativeAdRenderer.rendererConfiguration(with: settings);
             
             let adRequest = MPNativeAdRequest.init(adUnitIdentifier: self.moPubAdUnitId,
-                                                   rendererConfigurations: [prebidConfig, mopubConfig!])
+                                                   rendererConfigurations: [prebidConfig!, mopubConfig!])
             adRequest?.targeting = targeting
             
             adRequest?.start { [weak self, weak cell] _, response , error in
@@ -153,6 +148,23 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCom
                 
                 self.setupNativeAd(nativeAd, for: cell)
             }
+        }
+    }
+    
+    // MARK: - Helpers
+    
+    private func setupMediationNativeAdUnit(targeting: MPNativeAdRequestTargeting) {
+        mediationDelegate = MoPubMediationNativeUtils(targeting: targeting)
+        adUnit = MediationNativeAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
+        adUnit!.setContextType(ContextType.Social)
+        adUnit!.setPlacementType(PlacementType.FeedContent)
+        adUnit!.setContextSubType(ContextSubType.Social)
+         
+        if let nativeAssets = nativeAssets {
+            adUnit!.addNativeAssets(nativeAssets)
+        }
+        if let eventTrackers = eventTrackers {
+            adUnit!.addEventTracker(eventTrackers)
         }
     }
     
@@ -185,12 +197,6 @@ class PrebidMoPubNativeAdFeedController: NSObject, PrebidConfigurableNativeAdCom
             bannerView.widthAnchor.constraint(equalTo: adView.widthAnchor),
             bannerView.heightAnchor.constraint(equalTo: adView.heightAnchor),
         ])
-    }
-}
-
-extension PrebidMoPubNativeAdFeedController: NativeAdUIDelegate {
-    func viewPresentationControllerForNativeAd(_ nativeAd: PBRNativeAd) -> UIViewController? {
-        return rootTableViewController
     }
 }
 

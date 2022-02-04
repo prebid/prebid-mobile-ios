@@ -2773,52 +2773,6 @@ struct TestCaseManager {
 //                setupCustomParams(for: gamBannerController.prebidConfigId)
 //            }),
 //
-//            // MARK: ---- Native Styles (MoPub) ----
-//
-//            TestCase(title: "Banner Native Styles (MoPub)",
-//                     tags: [.native, .mopub, .server, .mock],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let mopubBannerController = PrebidMoPubBannerController(rootController: adapterVC)
-//
-//                if AppConfiguration.shared.useMockServer {
-//                    mopubBannerController.prebidConfigId = "mock-banner-native-styles"
-//                } else {
-//                    mopubBannerController.prebidConfigId = "621da6c1-6ab6-464d-a955-b4e447eaedcb"
-//                }
-//
-//
-//                mopubBannerController.moPubAdUnitId = "76936a9fe0cb4801b193e4f263511ca4"
-//                mopubBannerController.adUnitSize = CGSize(width: 300, height: 250);
-//                mopubBannerController.nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//
-//                adapterVC.setup(adapter: mopubBannerController)
-//
-//                setupCustomParams(for: mopubBannerController.prebidConfigId)
-//            }),
-//
-//            TestCase(title: "Banner Native Styles No Assets (MoPub)",
-//                     tags: [.native, .mopub, .mock],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let mopubBannerController = PrebidMoPubBannerController(rootController: adapterVC)
-//
-//                mopubBannerController.prebidConfigId = "mock-banner-native-styles"
-//                mopubBannerController.moPubAdUnitId = "76936a9fe0cb4801b193e4f263511ca4"
-//                mopubBannerController.adUnitSize = CGSize(width: 300, height: 250);
-//                mopubBannerController.nativeAdConfig = NativeAdConfiguration(assets: [])
-//
-//                adapterVC.setup(adapter: mopubBannerController)
-//
-//                setupCustomParams(for: mopubBannerController.prebidConfigId)
-//            }),
-            
             // MARK: ---- Native (In-App) ----
             
 //            TestCase(title: "Native Ad (In-App)",
@@ -2966,169 +2920,143 @@ struct TestCaseManager {
 
             // MARK: ---- Native (MoPub) ----
             
-//            TestCase(title: "Native Ad (MoPub) [OK, PBM Native AdAdapter]",
-//                     tags: [.native, .mopub, .server, .mock],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let mopubNativeAdController = PrebidMoPubNativeAdController(rootController: adapterVC)
-//
-//                if AppConfiguration.shared.useMockServer {
-//                    mopubNativeAdController.prebidConfigId = "mock-banner-native-styles"
-//                } else {
-//                    // FIXME: Switch the example from QA to the Prod server
-//                    try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-//                    PrebidRenderingConfig.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
-//                    mopubNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
-//                }
-//                mopubNativeAdController.moPubAdUnitId = "dc125bad5c124b0b896ef1407b9dfd86"
-//                mopubNativeAdController.adRenderingViewClass = MoPubNativeAdView.self
-//
-//                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//                mopubNativeAdController.nativeAdConfig = nativeAdConfig
-//
-//                adapterVC.setup(adapter: mopubNativeAdController)
-//
-//                setupCustomParams(for: mopubNativeAdController.prebidConfigId)
-//            }),
-//
-//            TestCase(title: "Native Ad (MoPub) [OK, PBM Native AdAdapter, Nib]",
-//                     tags: [.native, .mopub, .mock],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//
-//                let mopubNativeAdController = PrebidMoPubNativeAdController(rootController: adapterVC)
-//                mopubNativeAdController.prebidConfigId = "mock-banner-native-styles"
-//                mopubNativeAdController.moPubAdUnitId = "dc125bad5c124b0b896ef1407b9dfd86"
-//                mopubNativeAdController.adRenderingViewClass = MoPubNativeAdViewWithNib.self
-//
-//                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//                mopubNativeAdController.nativeAdConfig = nativeAdConfig
-//
-//                adapterVC.setup(adapter: mopubNativeAdController)
-//
-//                setupCustomParams(for: mopubNativeAdController.prebidConfigId)
-//            }),
-//
-//            TestCase(title: "Native Ad Feed (MoPub) [OK, PBM Native AdAdapter]",
-//                     tags: [.native, .mopub, .mock],
-//                     exampleVCStoryboardID: "PrebidFeedTableViewController",
-//                     configurationClosure: { vc in
-//
-//                guard let feedVC = vc as? PrebidFeedTableViewController else {
-//                    return
-//                }
-//                let mopubNativeAdFeedController = PrebidMoPubNativeAdFeedController(rootTableViewController: feedVC)
-//                mopubNativeAdFeedController.prebidConfigId = "mock-banner-native-styles"
-//                mopubNativeAdFeedController.moPubAdUnitId = "dc125bad5c124b0b896ef1407b9dfd86"
-//                mopubNativeAdFeedController.adRenderingViewClass = MoPubNativeAdView.self
-//
-//                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//                mopubNativeAdFeedController.nativeAdConfig = nativeAdConfig
-//
-//                feedVC.adapter = mopubNativeAdFeedController
-//                feedVC.loadAdClosure = mopubNativeAdFeedController.allowLoadingAd
-//
-//                mopubNativeAdFeedController.createCells()
-//
-//                setupCustomParams(for: mopubNativeAdFeedController.prebidConfigId)
-//            }),
-//
-//            TestCase(title: "Native Ad (MoPub) [OK, MPNativeAd]",
-//                     tags: [.native, .mopub, .mock],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let mopubNativeAdController = PrebidMoPubNativeAdController(rootController: adapterVC)
-//                mopubNativeAdController.prebidConfigId = "mock-banner-native-styles"
-//                mopubNativeAdController.moPubAdUnitId = "fcd2188bcce74b63859b663ed1334763"
-//                mopubNativeAdController.adRenderingViewClass = MoPubNativeAdView.self
-//
-//                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//                mopubNativeAdController.nativeAdConfig = nativeAdConfig
-//
-//                adapterVC.setup(adapter: mopubNativeAdController)
-//
-//                setupCustomParams(for: mopubNativeAdController.prebidConfigId)
-//            }),
-//
-//            TestCase(title: "Native Ad (MoPub) [noBids, MPNativeAd]",
-//                     tags: [.native, .mopub, .server, .mock],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let mopubNativeAdController = PrebidMoPubNativeAdController(rootController: adapterVC)
-//
-//                if AppConfiguration.shared.useMockServer {
-//                    mopubNativeAdController.prebidConfigId = "mock-no-bids"
-//                } else {
-//                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
-//                    mopubNativeAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
-//                }
-//
-//                mopubNativeAdController.moPubAdUnitId = "3c7add479268476394a1aeae88ee426f"
-//                mopubNativeAdController.adRenderingViewClass = MoPubNativeAdView.self
-//
-//                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//                mopubNativeAdController.nativeAdConfig = nativeAdConfig
-//
-//                adapterVC.setup(adapter: mopubNativeAdController)
-//
-//                setupCustomParams(for: mopubNativeAdController.prebidConfigId)
-//            }),
-//
-//            TestCase(title: "Native Ad Feed (MoPub) [noBids, MPNativeAd]",
-//                     tags: [.native, .mopub, .mock],
-//                     exampleVCStoryboardID: "PrebidFeedTableViewController",
-//                     configurationClosure: { vc in
-//
-//                guard let feedVC = vc as? PrebidFeedTableViewController else {
-//                    return
-//                }
-//                let mopubNativeAdFeedController = PrebidMoPubNativeAdFeedController(rootTableViewController: feedVC)
-//                mopubNativeAdFeedController.prebidConfigId = "mock-no-bids"
-//                mopubNativeAdFeedController.moPubAdUnitId = "3c7add479268476394a1aeae88ee426f"
-//                mopubNativeAdFeedController.adRenderingViewClass = MoPubNativeAdView.self
-//
-//                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//                mopubNativeAdFeedController.nativeAdConfig = nativeAdConfig
-//
-//                feedVC.adapter = mopubNativeAdFeedController
-//                feedVC.loadAdClosure = mopubNativeAdFeedController.allowLoadingAd
-//
-//                mopubNativeAdFeedController.createCells()
-//
-//                setupCustomParams(for: mopubNativeAdFeedController.prebidConfigId)
-//            }),
-//
-//            TestCase(title: "Native Ad Video (MoPub) [OK, PBM Native AdAdapter]",
-//                     tags: [.native, .mopub, .mock],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let mopubNativeAdController = PrebidMoPubNativeAdController(rootController: adapterVC)
-//                mopubNativeAdController.prebidConfigId = "mock-native-video-with-end-card"
-//                mopubNativeAdController.moPubAdUnitId = "dc125bad5c124b0b896ef1407b9dfd86"
-//                mopubNativeAdController.adRenderingViewClass = MoPubNativeVideoAdView.self
-//
-//                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//                mopubNativeAdController.nativeAdConfig = nativeAdConfig
-//
-//                adapterVC.setup(adapter: mopubNativeAdController)
-//
-//                setupCustomParams(for: mopubNativeAdController.prebidConfigId)
-//            }),
+            TestCase(title: "Native Ad (MoPub) [OK, PBM Native AdAdapter]",
+                     tags: [.native, .mopub, .server, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let mopubNativeAdController = PrebidMoPubNativeAdController(rootController: adapterVC)
+
+                if AppConfiguration.shared.useMockServer {
+                    mopubNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                } else {
+                    // FIXME: Switch the example from QA to the Prod server
+                    try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
+                    PrebidRenderingConfig.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
+                    mopubNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
+                }
+                mopubNativeAdController.moPubAdUnitId = "dc125bad5c124b0b896ef1407b9dfd86"
+                mopubNativeAdController.adRenderingViewClass = MoPubNativeAdView.self
+                mopubNativeAdController.nativeAssets = .defaultNativeRequestAssets
+                mopubNativeAdController.eventTrackers = .defaultNativeEventTrackers
+
+                adapterVC.setup(adapter: mopubNativeAdController)
+
+                setupCustomParams(for: mopubNativeAdController.prebidConfigId)
+            }),
+
+            TestCase(title: "Native Ad (MoPub) [OK, PBM Native AdAdapter, Nib]",
+                     tags: [.native, .mopub, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+
+                let mopubNativeAdController = PrebidMoPubNativeAdController(rootController: adapterVC)
+                mopubNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                mopubNativeAdController.moPubAdUnitId = "dc125bad5c124b0b896ef1407b9dfd86"
+                mopubNativeAdController.adRenderingViewClass = MoPubNativeAdViewWithNib.self
+                mopubNativeAdController.nativeAssets = .defaultNativeRequestAssets
+                mopubNativeAdController.eventTrackers = .defaultNativeEventTrackers
+
+                adapterVC.setup(adapter: mopubNativeAdController)
+
+                setupCustomParams(for: mopubNativeAdController.prebidConfigId)
+            }),
+
+            TestCase(title: "Native Ad Feed (MoPub) [OK, PBM Native AdAdapter]",
+                     tags: [.native, .mopub, .mock],
+                     exampleVCStoryboardID: "PrebidFeedTableViewController",
+                     configurationClosure: { vc in
+
+                guard let feedVC = vc as? PrebidFeedTableViewController else {
+                    return
+                }
+                let mopubNativeAdFeedController = PrebidMoPubNativeAdFeedController(rootTableViewController: feedVC)
+                mopubNativeAdFeedController.prebidConfigId = "mock-banner-native-styles"
+                mopubNativeAdFeedController.moPubAdUnitId = "dc125bad5c124b0b896ef1407b9dfd86"
+                mopubNativeAdFeedController.adRenderingViewClass = MoPubNativeAdView.self
+                mopubNativeAdFeedController.nativeAssets = .defaultNativeRequestAssets
+                mopubNativeAdFeedController.eventTrackers = .defaultNativeEventTrackers
+                         
+                feedVC.adapter = mopubNativeAdFeedController
+                feedVC.loadAdClosure = mopubNativeAdFeedController.allowLoadingAd
+
+                mopubNativeAdFeedController.createCells()
+
+                setupCustomParams(for: mopubNativeAdFeedController.prebidConfigId)
+            }),
+
+            TestCase(title: "Native Ad (MoPub) [OK, MPNativeAd]",
+                     tags: [.native, .mopub, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let mopubNativeAdController = PrebidMoPubNativeAdController(rootController: adapterVC)
+                mopubNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                mopubNativeAdController.moPubAdUnitId = "fcd2188bcce74b63859b663ed1334763"
+                mopubNativeAdController.adRenderingViewClass = MoPubNativeAdView.self
+                mopubNativeAdController.nativeAssets = .defaultNativeRequestAssets
+                mopubNativeAdController.eventTrackers = .defaultNativeEventTrackers
+                         
+                adapterVC.setup(adapter: mopubNativeAdController)
+
+                setupCustomParams(for: mopubNativeAdController.prebidConfigId)
+            }),
+
+            TestCase(title: "Native Ad (MoPub) [noBids, MPNativeAd]",
+                     tags: [.native, .mopub, .server, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let mopubNativeAdController = PrebidMoPubNativeAdController(rootController: adapterVC)
+
+                if AppConfiguration.shared.useMockServer {
+                    mopubNativeAdController.prebidConfigId = "mock-no-bids"
+                } else {
+                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    mopubNativeAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
+                }
+
+                mopubNativeAdController.moPubAdUnitId = "3c7add479268476394a1aeae88ee426f"
+                mopubNativeAdController.adRenderingViewClass = MoPubNativeAdView.self
+                mopubNativeAdController.nativeAssets = .defaultNativeRequestAssets
+                mopubNativeAdController.eventTrackers = .defaultNativeEventTrackers
+
+                adapterVC.setup(adapter: mopubNativeAdController)
+
+                setupCustomParams(for: mopubNativeAdController.prebidConfigId)
+            }),
+
+            TestCase(title: "Native Ad Feed (MoPub) [noBids, MPNativeAd]",
+                     tags: [.native, .mopub, .mock],
+                     exampleVCStoryboardID: "PrebidFeedTableViewController",
+                     configurationClosure: { vc in
+
+                guard let feedVC = vc as? PrebidFeedTableViewController else {
+                    return
+                }
+                let mopubNativeAdFeedController = PrebidMoPubNativeAdFeedController(rootTableViewController: feedVC)
+                mopubNativeAdFeedController.prebidConfigId = "mock-no-bids"
+                mopubNativeAdFeedController.moPubAdUnitId = "3c7add479268476394a1aeae88ee426f"
+                mopubNativeAdFeedController.adRenderingViewClass = MoPubNativeAdView.self
+                mopubNativeAdFeedController.nativeAssets = .defaultNativeRequestAssets
+                mopubNativeAdFeedController.eventTrackers = .defaultNativeEventTrackers
+
+                feedVC.adapter = mopubNativeAdFeedController
+                feedVC.loadAdClosure = mopubNativeAdFeedController.allowLoadingAd
+
+                mopubNativeAdFeedController.createCells()
+
+                setupCustomParams(for: mopubNativeAdFeedController.prebidConfigId)
+            }),
             
             // MARK: ---- Native (GAM, CustomTemplate) ----
 

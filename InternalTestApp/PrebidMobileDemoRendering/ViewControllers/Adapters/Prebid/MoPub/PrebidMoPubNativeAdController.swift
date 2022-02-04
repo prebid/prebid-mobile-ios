@@ -19,12 +19,14 @@ import MoPubSDK
 import PrebidMobile
 import PrebidMobileMoPubAdapters
 
-class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigurableNativeAdCompatibleController {
+class PrebidMoPubNativeAdController: NSObject, AdaptedController {
     
     var prebidConfigId = ""
     var moPubAdUnitId = ""
-    var nativeAdConfig = NativeAdConfiguration?.none
     var adRenderingViewClass: AnyClass?
+    
+    public var nativeAssets: [NativeAsset]?
+    public var eventTrackers: [NativeEventTracker]?
     
     private weak var rootController: AdapterViewController?
     
@@ -32,7 +34,9 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigur
     
     private var adUnit: MediationNativeAdUnit?
     private var theMoPubNativeAd: MPNativeAd?
-    private var thePrebidNativeAd: PBRNativeAd?
+    private var thePrebidNativeAd: NativeAd?
+    
+    private var mediationDelegate: MoPubMediationNativeUtils?    
     
     private let fetchDemandSuccessButton = EventReportContainer()
     private let fetchDemandFailedButton = EventReportContainer()
@@ -45,13 +49,6 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigur
     private let nativeAdDidDismissModalButton = EventReportContainer()
     private let nativeAdWillLeaveAppButton = EventReportContainer()
     private let nativeAdDidTrackImpressionButton = EventReportContainer()
-    private let nativeAdDidLogEventButtons: [(event: NativeEventType, name: String, button: EventReportContainer)] = [
-        (.impression, "impression", .init()),
-        (.mrc50, "MRC50", .init()),
-        (.mrc100, "MRC100", .init()),
-        (.video50, "video50", .init()),
-    ]
-    
     private let nativeAdDidExpireButton = EventReportContainer()
     private let nativeAdDidClickButton = EventReportContainer()
     
@@ -99,89 +96,83 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigur
         
         rootController.setupAction(nativeAdDidExpireButton, "nativeAdDidExpire called")
         rootController.setupAction(nativeAdDidClickButton, "nativeAdDidLogClick called")
-        for nextEntry in nativeAdDidLogEventButtons {
-            rootController.setupAction(nextEntry.button, "nativeAdDidLogEvent(\(nextEntry.name)) called")
-        }
         rootController.setupAction(nativeAdWillLeaveAppButton, "nativeAdWillLeaveApplication called")
         rootController.setupAction(nativeAdWillPresentModalButton, "nativeAdWillPresentModal failed")
         rootController.setupAction(nativeAdDidDismissModalButton, "nativeAdDidDismissModal called")
         rootController.setupAction(nativeAdDidTrackImpressionButton, "nativeAdDidTrackImpression called")
     }
-    
-    func configurationController() -> BaseConfigurationController? {
-        return PrebidNativeAdCompatibleConfigurationController(controller: self)
-    }
-    
+        
     func loadAd() {
-        guard let nativeAdConfig = nativeAdConfig, let adRenderingViewClass = adRenderingViewClass else {
-            return
-        }
-        
-        adUnit = MediationNativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addContextData(dataPair.value, forKey: dataPair.key)
-            }
-        }
-        
         let targeting = MPNativeAdRequestTargeting()
-        
-        adUnit?.fetchDemand(with: targeting!) { [weak self] result in
+        mediationDelegate = MoPubMediationNativeUtils(targeting: targeting!)
+        setupMediationNativeAdUnit(targeting: targeting!)
+        adUnit?.fetchDemand(completion: { [weak self] result in
             guard let self = self else {
                 return
             }
             
-            if result != .ok {
+            if result != .prebidDemandFetchSuccess {
                 self.fetchDemandFailedButton.isEnabled = true
             } else {
                 self.fetchDemandSuccessButton.isEnabled = true
             }
             
-            let settings = MPStaticNativeAdRendererSettings();
-            settings.renderingViewClass = adRenderingViewClass
-            let prebidConfig = PrebidMoPubNativeAdRenderer.rendererConfiguration(with: settings);
-            let mopubConfig = MPStaticNativeAdRenderer.rendererConfiguration(with: settings);
+            let settings = MPStaticNativeAdRendererSettings()
+            settings.renderingViewClass = self.adRenderingViewClass
+            let prebidConfig = PrebidMoPubNativeAdRenderer.rendererConfiguration(with: settings)
+            let mopubConfig = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)
             
-            
-            PrebidMoPubAdaptersUtils.shared.prepareAdObject(targeting!)
-            
-            let adRequest = MPNativeAdRequest.init(adUnitIdentifier: self.moPubAdUnitId, rendererConfigurations: [prebidConfig, mopubConfig!])
+            let adRequest = MPNativeAdRequest.init(adUnitIdentifier: self.moPubAdUnitId, rendererConfigurations: [prebidConfig!, mopubConfig!])
             adRequest?.targeting = targeting
             
-            adRequest?.start { [weak self] request, response , error in
+            adRequest?.start(completionHandler: { [weak self] request, nativeAd, error in
                 guard let self = self else {
                     return
                 }
                 
                 guard error == nil else {
-                    self.getNativeAdFailedButton.isEnabled = true
+                    DispatchQueue.main.async {
+                        self.getNativeAdFailedButton.isEnabled = true
+                    }
                     return
                 }
                 
-                guard let moPubNativeAd = response else {
-                    self.getNativeAdFailedButton.isEnabled = true
+                guard let moPubNativeAd = nativeAd else {
+                    DispatchQueue.main.async {
+                        self.getNativeAdFailedButton.isEnabled = true
+                    }
                     return
                 }
                 
-                self.getNativeAdSuccessButton.isEnabled = true
-                
-                let nativeAdDetectionListener = NativeAdDetectionListener { [weak self] nativeAd in
-                    guard let self = self else {
-                        return
+                switch MoPubMediationNativeUtils.getPrebidNative(from: moPubNativeAd) {
+                case .success(let ad):
+                    DispatchQueue.main.async {
+                        self.setupPrebidNativeAd(ad)
                     }
-                    self.setupPrebidNativeAd(nativeAd)
-                } onPrimaryAdWin: { [weak self] in
-                    guard let self = self else {
-                        return
+                case .failure(let error):
+                    PBMLog.error(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        self.setupMoPubNativeAd(moPubNativeAd)
                     }
-                    self.setupMoPubNativeAd(moPubNativeAd)
-                } onNativeAdInvalid: { [weak self] error in
-                    self?.nativeAdInvalidButton.isEnabled = true
                 }
-                
-                PrebidMoPubAdaptersUtils.shared.find(nativeAd: moPubNativeAd,
-                                       nativeAdDetectionListener: nativeAdDetectionListener)
-            }
+            })
+        })
+    }
+    
+    // MARK: - Helpers
+    
+    private func setupMediationNativeAdUnit(targeting: MPNativeAdRequestTargeting) {
+        mediationDelegate = MoPubMediationNativeUtils(targeting: targeting)
+        adUnit = MediationNativeAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
+        adUnit!.setContextType(ContextType.Social)
+        adUnit!.setPlacementType(PlacementType.FeedContent)
+        adUnit!.setContextSubType(ContextSubType.Social)
+         
+        if let nativeAssets = nativeAssets {
+            adUnit!.addNativeAssets(nativeAssets)
+        }
+        if let eventTrackers = eventTrackers {
+            adUnit!.addEventTracker(eventTrackers)
         }
     }
     
@@ -199,10 +190,6 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigur
             return
         }
         
-        if let videoAdView = pbmAdView as? MoPubNativeVideoAdView {
-            videoAdView.setupMediaControls()
-        }
-        
         adView.addConstraints([
             adView.widthAnchor.constraint(equalTo: pbmAdView.widthAnchor),
             adView.heightAnchor.constraint(equalTo: pbmAdView.heightAnchor),
@@ -215,7 +202,7 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigur
         ])
     }
     
-    private func setupPrebidNativeAd(_ nativeAd: PBRNativeAd) {
+    private func setupPrebidNativeAd(_ nativeAd: NativeAd) {
         self.nativeAdLoadedButton.isEnabled = true
         self.thePrebidNativeAd = nativeAd
         
@@ -226,8 +213,6 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController, PrebidConfigur
         
         self.nativeAdViewBox.renderNativeAd(nativeAd)
         self.nativeAdViewBox.registerViews(nativeAd)
-        nativeAd.trackingDelegate = self
-        nativeAd.uiDelegate = self
     }
 }
 
@@ -237,46 +222,26 @@ extension PrebidMoPubNativeAdController: MPNativeAdDelegate {
     }
     
     func willPresentModal(for nativeAd: MPNativeAd!) {
-        nativeAdWillPresentModalButton.isEnabled = true
+        DispatchQueue.main.async {
+            self.nativeAdWillPresentModalButton.isEnabled = true
+        }
     }
     
     func didDismissModal(for nativeAd: MPNativeAd!) {
-        nativeAdDidDismissModalButton.isEnabled = true
+        DispatchQueue.main.async {
+            self.nativeAdDidDismissModalButton.isEnabled = true
+        }
     }
     
     func willLeaveApplication(from nativeAd: MPNativeAd!) {
-        nativeAdWillLeaveAppButton.isEnabled = true
+        DispatchQueue.main.async {
+            self.nativeAdWillLeaveAppButton.isEnabled = true
+        }
     }
     
     func mopubAd(_ ad: MPMoPubAd, didTrackImpressionWith impressionData: MPImpressionData?) {
-        nativeAdDidTrackImpressionButton.isEnabled = true
+        DispatchQueue.main.async {
+            self.nativeAdDidTrackImpressionButton.isEnabled = true
+        }
     }
 }
-
-extension PrebidMoPubNativeAdController: NativeAdTrackingDelegate {
-    func nativeAd(_ nativeAd: PBRNativeAd, didLogEvent nativeEvent: NativeEventType) {
-        nativeAdDidLogEventButtons.first{$0.event == nativeEvent}?.button.isEnabled = true
-    }
-    func nativeAdDidLogClick(_ nativeAd: PBRNativeAd) {
-        nativeAdDidClickButton.isEnabled = true
-    }
-    func nativeAdDidExpire(_ nativeAd: PBRNativeAd) {
-        nativeAdDidExpireButton.isEnabled = true
-    }
-}
-
-extension PrebidMoPubNativeAdController: NativeAdUIDelegate {
-    func viewPresentationControllerForNativeAd(_ nativeAd: PBRNativeAd) -> UIViewController? {
-        return rootController
-    }
-    func nativeAdWillLeaveApplication(_ nativeAd: PBRNativeAd) {
-        nativeAdWillLeaveAppButton.isEnabled = true
-    }
-    func nativeAdWillPresentModal(_ nativeAd: PBRNativeAd) {
-        nativeAdWillPresentModalButton.isEnabled = true
-    }
-    func nativeAdDidDismissModal(_ nativeAd: PBRNativeAd) {
-        nativeAdDidDismissModalButton.isEnabled = true
-    }
-}
-
