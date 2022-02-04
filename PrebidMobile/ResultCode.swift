@@ -26,6 +26,7 @@ import Foundation
     case prebidServerError
     case prebidDemandNoBids
     case prebidDemandTimedOut
+    case prebidUnknownError
 
     public func name () -> String {
         switch self {
@@ -39,7 +40,7 @@ import Foundation
         case .prebidServerError: return "Prebid Server Error"
         case .prebidDemandNoBids: return "Prebid Server did not return bids"
         case .prebidDemandTimedOut: return "Prebid demand timedout"
-
+        case .prebidUnknownError: return "Prebid unknown error occurred"
         }
     }
 }

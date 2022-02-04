@@ -51,11 +51,7 @@ public class AdMobUtils: NSObject {
     }
     
     static func isServerParameterInKeywords(_ serverParameter: String, _ keywords: [String]) -> Bool {
-        guard let keywordsDictionary = arrayStringToDictionary(dataStringArray: keywords) else {
-            PBMLog.message("Wrong user keywords format.")
-            return false
-        }
-        
+        let keywordsDictionary = arrayStringToDictionary(dataStringArray: keywords)
         return isServerParameterInKeywordsDictionary(serverParameter, keywordsDictionary)
     }
     
@@ -99,13 +95,12 @@ public class AdMobUtils: NSObject {
         return nil
     }
     
-    private static func arrayStringToDictionary(dataStringArray: [String]) -> [String: String]? {
+    private static func arrayStringToDictionary(dataStringArray: [String]) -> [String: String] {
         var dataStringDictionary = [String: String]()
         
         for dataString in dataStringArray {
             let components = dataString.components(separatedBy: .whitespaces).joined().components(separatedBy: ":")
-            guard components.count == 2 else { return nil }
-            dataStringDictionary[components[0]] = components[1]
+            dataStringDictionary[components[0]] = components[1...].joined(separator: ":")
         }
         
         return dataStringDictionary

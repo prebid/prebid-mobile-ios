@@ -17,6 +17,7 @@ import XCTest
 
 @testable import PrebidMobile
 
+// FIXME: fix this test during in-app native ad restoring - https://github.com/prebid/prebid-mobile-ios/issues/478
 class MediationNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
     let configID = "testConfigID"
     let nativeAdConfig = NativeAdConfiguration(assets: [PBRNativeAssetTitle(length: 25)])
@@ -50,12 +51,12 @@ class MediationNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
             adMarkupStringHandler(markupString)
         }
         
-        let mockAdUnit = MediationNativeAdUnit(nativeAdUnit: adUnit, mediationDelegate: mediationDelegate!)
+        let mockAdUnit = MediationNativeAdUnit(configId: "testConfigId", mediationDelegate: mediationDelegate!)
         
         let fetchExpectation = expectation(description: "fetchDemand executed")
         
-        mockAdUnit.fetchDemand(with: self.adObject!) { [weak self] result in
-            XCTAssertEqual(result, .ok)
+        mockAdUnit.fetchDemand { [weak self] result in
+            XCTAssertEqual(result, .prebidDemandFetchSuccess)
             PBMAssertEq(self!.adObject!.localExtras?[MockMediationAdUnitBidKey] as? DemandResponseInfo, adUnit.lastDemandResponseInfo)
             fetchExpectation.fulfill()
         }

@@ -53,7 +53,7 @@ class CacheManager: NSObject {
     }
     
     func get(cacheId: String) -> String?{
-        return self.savedValuesDict.removeValue(forKey: cacheId)
+        return self.savedValuesDict[cacheId]
     }
 }
 

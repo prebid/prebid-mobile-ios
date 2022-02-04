@@ -15,91 +15,120 @@
 
 import Foundation
 
-class MediationNativeAdUnit : NSObject {
+public class MediationNativeAdUnit : NSObject {
     
-    weak var adObject: NSObject?
-    var completion: ((FetchDemandResult) -> Void)?
-    var nativeAdUnit: NativeAdUnit
-    
+    var completion: ((ResultCode) -> Void)?
     let mediationDelegate: PrebidMediationDelegate
     
     // MARK: - Public Properties
     
-    var configID: String {
-        nativeAdUnit.configId
-    }
+    public var nativeAdUnit: NativeRequest
     
-    var nativeAdConfiguration: NativeAdConfiguration {
-        nativeAdUnit.nativeAdConfig
-    }
+    var configID: String
     
     // MARK: - Public Methods
-    
-    convenience public init(configID: String,
-                            nativeAdConfiguration: NativeAdConfiguration, mediationDelegate: PrebidMediationDelegate) {
-        self.init(nativeAdUnit: NativeAdUnit(configID: configID,
-                                             nativeAdConfiguration: nativeAdConfiguration), mediationDelegate: mediationDelegate)
+    public init(configId: String, mediationDelegate: PrebidMediationDelegate) {
+        self.configID = configId
+        self.mediationDelegate = mediationDelegate
+        self.nativeAdUnit = NativeRequest(configId: configId)
     }
     
-    public func fetchDemand(with adObject: NSObject,
-                            completion: ((FetchDemandResult)->Void)?) {
+    public func addEventTracker(_ eventTrackers: [NativeEventTracker]) {
+        nativeAdUnit.addNativeEventTracker(eventTrackers)
+    }
+    
+    public func addNativeAssets(_ assets: [NativeAsset]) {
+        nativeAdUnit.addNativeAssets(assets)
+    }
+    
+    public func setContextType(_ contextType: ContextType) {
+        nativeAdUnit.context = contextType
+    }
+    
+    public func setPlacementType(_ placementType: PlacementType) {
+        nativeAdUnit.placementType = placementType
+    }
+    
+    public func setPlacementCount(_ placementCount: Int) {
+        nativeAdUnit.placementCount = placementCount
+    }
+    
+    public func setContextSubType(_ contextSubType: ContextSubType) {
+        nativeAdUnit.contextSubType = contextSubType
+    }
+    
+    public func setSequence(_ sequence: Int) {
+        nativeAdUnit.sequence = sequence
+    }
+    
+    public func setAssetURLSupport(_ assetURLSupport: Int) {
+        nativeAdUnit.asseturlsupport = assetURLSupport
+    }
+    
+    public func setDURLSupport(_ dURLSupport: Int) {
+        nativeAdUnit.durlsupport = dURLSupport
+    }
+    
+    public func setPrivacy(_ privacy: Int) {
+        nativeAdUnit.privacy = privacy
+    }
+    
+    public func setExt(_ ext: AnyObject) {
+        nativeAdUnit.ext = ext
+    }
+    
+    public func fetchDemand(completion: ((ResultCode)->Void)?) {
         
         self.completion = completion
-        self.adObject = adObject
         
         mediationDelegate.cleanUpAdObject()
         
-        nativeAdUnit.fetchDemand { [weak self] fetchDemandInfo in
+        nativeAdUnit.fetchDemand { [weak self] result, kvResultDict in
             guard let self = self else {
                 return
             }
             
-            if fetchDemandInfo.fetchDemandResult != .ok {
-                self.completeWithResult(fetchDemandInfo.fetchDemandResult)
+            guard result == .prebidDemandFetchSuccess else {
+                self.completeWithResult(result)
                 return
             }
             
-            var fetchDemandResult: FetchDemandResult = .wrongArguments
+            guard let kvResultDict = kvResultDict,
+                  let cacheId = kvResultDict["hb_cache_id_local"],
+                  CacheManager.shared.isValid(cacheId: cacheId) else {
+                      PBMLog.error("\(String(describing: self)): no cache in kvResultDict.")
+                      return
+                  }
             
+            guard let bidString = CacheManager.shared.get(cacheId: cacheId) else {
+                PBMLog.error("\(String(describing: self)): no bid for given cache id.")
+                return
+            }
+            
+            guard var fetchDemandInfo = Utils.shared.getDictionaryFromString(bidString) else {
+                PBMLog.error("\(String(describing: self)): parsing bid string to bid dictionary failed.")
+                return
+            }
+            
+            fetchDemandInfo[PrebidLocalCacheIdKey] = cacheId as AnyObject
+            
+            var fetchDemandResult: ResultCode = .prebidUnknownError
+        
             if self.mediationDelegate.setUpAdObject(configId: self.configID,
                                                     configIdKey: PBMMediationConfigIdKey,
-                                                    targetingInfo: fetchDemandInfo.bid?.targetingInfo ?? [:],
+                                                    targetingInfo: kvResultDict,
                                                     extrasObject: fetchDemandInfo,
-                                                    extrasObjectKey: PBMMediationAdUnitBidKey) {
-                fetchDemandResult = .ok
+                                                    extrasObjectKey: PBMMediationAdNativeResponseKey) {
+                fetchDemandResult = .prebidDemandFetchSuccess
             }
             
             self.completeWithResult(fetchDemandResult)
         }
     }
     
-    // MARK: - Context Data
-    
-    public func addContextData(_ data: String, forKey key: String) {
-        nativeAdUnit.addContextData(data, forKey: key)
-    }
-    
-    public func updateContextData(_ data: Set<String>, forKey key: String) {
-        nativeAdUnit.updateContextData(data, forKey: key)
-    }
-    
-    public func removeContextDate(forKey key: String) {
-        nativeAdUnit.removeContextData(forKey: key)
-    }
-    
-    public func clearContextData() {
-        nativeAdUnit.clearContextData()
-    }
-    
     // MARK: - Private Methods
     
-    // NOTE: do not use `private` to expose this method to unit tests
-    init(nativeAdUnit: NativeAdUnit, mediationDelegate: PrebidMediationDelegate) {
-        self.nativeAdUnit = nativeAdUnit
-        self.mediationDelegate = mediationDelegate
-    }
-    
-    private func completeWithResult(_ fetchDemandResult: FetchDemandResult) {
+    private func completeWithResult(_ fetchDemandResult: ResultCode) {
         guard let completion = self.completion else {
             return
         }
@@ -108,5 +137,4 @@ class MediationNativeAdUnit : NSObject {
             completion(fetchDemandResult)
         }
     }
-    
 }

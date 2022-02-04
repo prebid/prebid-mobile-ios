@@ -94,9 +94,12 @@
 		92700C8F273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7A273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift */; };
 		92700C90273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7B273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift */; };
 		92700C91273C029F0006E9FA /* PrebidExamplesUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */; };
-		929638E627AC274000D30F3D /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64D7224F7EA0F00FDD9F4 /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		929638E727AC274300D30F3D /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 34B64DAA24F7FD6000FDD9F4 /* PrebidMobileMoPubAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		929638FB27AC27FC00D30F3D /* OpenXMockServer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		92ABD58C279DA7E200AFDFF6 /* AdMobNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABD58A279DA7E200AFDFF6 /* AdMobNativeAdView.swift */; };
+		92ABD58D279DA7E200AFDFF6 /* AdMobNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92ABD58B279DA7E200AFDFF6 /* AdMobNativeAdView.xib */; };
+		92C475122796FF8400C26E27 /* PrebidAdMobNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C475112796FF8400C26E27 /* PrebidAdMobNativeViewController.swift */; };
+		92C4E60B27A2F5D900738370 /* NativeAsset+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE6E80C264D121A009324AC /* NativeAsset+Extensions.swift */; };
+		92C4E60D27A2F6D700738370 /* NativeEventTracker+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C4E60C27A2F6D700738370 /* NativeEventTracker+Extensions.swift */; };
 		92DDA440278EF42B0035F03E /* PrebidAdMobRewardedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DDA43F278EF42A0035F03E /* PrebidAdMobRewardedViewController.swift */; };
 		92E92502276B299F002B57F3 /* PrebidAdMobBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E92501276B299F002B57F3 /* PrebidAdMobBannerViewController.swift */; };
 		92F438B72768953100FDC950 /* PrebidMobileAdMobAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F438B62768953100FDC950 /* PrebidMobileAdMobAdapters.framework */; };
@@ -170,8 +173,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				929638FB27AC27FC00D30F3D /* OpenXMockServer.framework in Embed Frameworks */,
-				929638E727AC274300D30F3D /* PrebidMobileMoPubAdapters.framework in Embed Frameworks */,
-				929638E627AC274000D30F3D /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
 				92F438B82768954400FDC950 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -202,8 +203,6 @@
 		34930E112420E899007A0DBA /* GlobalVars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVars.swift; sourceTree = "<group>"; };
 		34B10A2F255017DE00B5FE09 /* ThreadCheckingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadCheckingButton.swift; sourceTree = "<group>"; };
 		34B5CEE025D2D05C008C0CBC /* PrebidNativeAdRenderingConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdRenderingConfigurationController.swift; sourceTree = "<group>"; };
-		34B64D7224F7EA0F00FDD9F4 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PrebidMobileGAMEventHandlers.framework; path = ../../Products/PrebidMobileGAMEventHandlers.framework; sourceTree = "<group>"; };
-		34B64DAA24F7FD6000FDD9F4 /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PrebidMobileMoPubAdapters.framework; path = ../../Products/PrebidMobileMoPubAdapters.framework; sourceTree = "<group>"; };
 		34BA95FD249CBF05006AE372 /* PrebidGAMInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMInterstitialController.swift; sourceTree = "<group>"; };
 		34BA95FF249CC118006AE372 /* PrebidRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidRewardedController.swift; sourceTree = "<group>"; };
 		34BA9601249CC164006AE372 /* PrebidMoPubInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMoPubInterstitialController.swift; sourceTree = "<group>"; };
@@ -302,6 +301,10 @@
 		92700C7A273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAID3MethodsUITest.swift; sourceTree = "<group>"; };
 		92700C7B273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAIDResizeWithErrorsUITest.swift; sourceTree = "<group>"; };
 		92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidExamplesUITest.swift; sourceTree = "<group>"; };
+		92ABD58A279DA7E200AFDFF6 /* AdMobNativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdMobNativeAdView.swift; sourceTree = "<group>"; };
+		92ABD58B279DA7E200AFDFF6 /* AdMobNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdMobNativeAdView.xib; sourceTree = "<group>"; };
+		92C475112796FF8400C26E27 /* PrebidAdMobNativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobNativeViewController.swift; sourceTree = "<group>"; };
+		92C4E60C27A2F6D700738370 /* NativeEventTracker+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeEventTracker+Extensions.swift"; sourceTree = "<group>"; };
 		92DDA43F278EF42A0035F03E /* PrebidAdMobRewardedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobRewardedViewController.swift; sourceTree = "<group>"; };
 		92E92501276B299F002B57F3 /* PrebidAdMobBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobBannerViewController.swift; sourceTree = "<group>"; };
 		92F438B62768953100FDC950 /* PrebidMobileAdMobAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileAdMobAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -427,6 +430,7 @@
 			children = (
 				341CC3132562C9D000186F29 /* FormViewController+RowBuildHelpers.swift */,
 				ACE6E80C264D121A009324AC /* NativeAsset+Extensions.swift */,
+				92C4E60C27A2F6D700738370 /* NativeEventTracker+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -712,12 +716,23 @@
 			path = UITests;
 			sourceTree = "<group>";
 		};
+		92ABD589279DA7E200AFDFF6 /* NativeView */ = {
+			isa = PBXGroup;
+			children = (
+				92ABD58A279DA7E200AFDFF6 /* AdMobNativeAdView.swift */,
+				92ABD58B279DA7E200AFDFF6 /* AdMobNativeAdView.xib */,
+			);
+			path = NativeView;
+			sourceTree = "<group>";
+		};
 		92E92500276B2986002B57F3 /* AdMob */ = {
 			isa = PBXGroup;
 			children = (
+				92ABD589279DA7E200AFDFF6 /* NativeView */,
 				92E92501276B299F002B57F3 /* PrebidAdMobBannerViewController.swift */,
 				926CBF1F278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift */,
 				92DDA43F278EF42A0035F03E /* PrebidAdMobRewardedViewController.swift */,
+				92C475112796FF8400C26E27 /* PrebidAdMobNativeViewController.swift */,
 			);
 			path = AdMob;
 			sourceTree = "<group>";
@@ -739,8 +754,6 @@
 		93FED9BA1A376EFE009A6E9F = {
 			isa = PBXGroup;
 			children = (
-				34B64D7224F7EA0F00FDD9F4 /* PrebidMobileGAMEventHandlers.framework */,
-				34B64DAA24F7FD6000FDD9F4 /* PrebidMobileMoPubAdapters.framework */,
 				5B3C2A9C2100BC4900BD733C /* PrebidMobileDemoRendering */,
 				35F94D141F93F85D00CF46DB /* PrebidMobileDemoRenderingUITests */,
 				5B6EB0102122CAA400C5B072 /* PrebidMobileDemoRenderingTests */,
@@ -1004,6 +1017,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92ABD58D279DA7E200AFDFF6 /* AdMobNativeAdView.xib in Resources */,
 				5B1BDB802100D59000B46B43 /* Main.storyboard in Resources */,
 				5B1BDB882100D6EA00B46B43 /* Images.xcassets in Resources */,
 				AC27E9E624D9A69A000CD7EC /* FeedAdTableViewCell.xib in Resources */,
@@ -1158,6 +1172,7 @@
 				5B6EB3CD211336D300317ED9 /* AdapterViewController.swift in Sources */,
 				D551B9712149207500FFF51D /* TabNavigationController.swift in Sources */,
 				34E5698A237DB96900B47B01 /* UtilitiesViewController.swift in Sources */,
+				92ABD58C279DA7E200AFDFF6 /* AdMobNativeAdView.swift in Sources */,
 				34BA95FE249CBF05006AE372 /* PrebidGAMInterstitialController.swift in Sources */,
 				34BAD451239547420042DB33 /* IABConsentHelper.swift in Sources */,
 				926CBF20278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift in Sources */,
@@ -1169,6 +1184,7 @@
 				5BDB85DA2739794900A529F6 /* PrebidBannerConfigurationController.swift in Sources */,
 				5B3EEDE52101FB8800BAA0C4 /* TestCase.swift in Sources */,
 				34BA9602249CC164006AE372 /* PrebidMoPubInterstitialController.swift in Sources */,
+				92C475122796FF8400C26E27 /* PrebidAdMobNativeViewController.swift in Sources */,
 				34FC0CF424ADD3A80045553E /* PrebidInterstitialController.swift in Sources */,
 				34930E122420E899007A0DBA /* GlobalVars.swift in Sources */,
 				34C25817255D69E1000A4A73 /* EventReportContainer.swift in Sources */,
@@ -1179,6 +1195,7 @@
 				5B3EEDD32101D2CF00BAA0C4 /* StringExtensions.swift in Sources */,
 				5B3EEDC12101D1AF00BAA0C4 /* PrebidMobileRenderingConfigurationViewController.swift in Sources */,
 				5B209B4A21075E0A00C0F5CE /* BaseConfigurationController.swift in Sources */,
+				92C4E60B27A2F5D900738370 /* NativeAsset+Extensions.swift in Sources */,
 				92E92502276B299F002B57F3 /* PrebidAdMobBannerViewController.swift in Sources */,
 				5BCCA3D62136D2E800DA3B5A /* ConfigurableViewController.swift in Sources */,
 				5B1CF8302105E91000238340 /* ArrayExtension.swift in Sources */,
@@ -1201,6 +1218,7 @@
 				346C6F5725DFAB7E00457DD3 /* ReactiveSdkInitFlag.swift in Sources */,
 				5B3EEDE22101EDA200BAA0C4 /* TestCasesSectionsViewController.swift in Sources */,
 				ACC41ACD2444EADB00B9A3A7 /* AppSettingsKeys.swift in Sources */,
+				92C4E60D27A2F6D700738370 /* NativeEventTracker+Extensions.swift in Sources */,
 				34BA9600249CC118006AE372 /* PrebidRewardedController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
