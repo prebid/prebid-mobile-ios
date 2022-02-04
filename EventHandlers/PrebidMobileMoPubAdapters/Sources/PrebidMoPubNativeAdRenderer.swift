@@ -19,9 +19,6 @@ import MoPubSDK
 
 import PrebidMobile
 
-// The feature is not available. Use original Prebid Native API
-// TODO: Merge Native engine from original SDK and rendering codebase
-
 @objc(PrebidMoPubNativeAdRenderer)
 public class PrebidMoPubNativeAdRenderer : NSObject, MPNativeAdRenderer, MPNativeAdRendererImageHandlerDelegate {
  
@@ -73,8 +70,8 @@ public class PrebidMoPubNativeAdRenderer : NSObject, MPNativeAdRenderer, MPNativ
         guard let adapter               = adapter as? PrebidMoPubNativeAdAdapter,
               let renderingViewClass    = renderingViewClass,
               let mopubAdRenderingClass = renderingViewClass as? MPNativeAdRendering.Type else {
-            throw MPNativeAdNSErrorForRenderValueTypeError()
-        }
+                  throw MPNativeAdNSErrorForRenderValueTypeError()
+              }
         
         self.adapter = adapter
        
@@ -88,11 +85,12 @@ public class PrebidMoPubNativeAdRenderer : NSObject, MPNativeAdRenderer, MPNativ
         
         guard let adView = self.adView,
               let moPubAdView = adView as? MPNativeAdRendering else {
-            throw MPNativeAdNSErrorForRenderValueTypeError()
-        }
+                  throw MPNativeAdNSErrorForRenderValueTypeError()
+              }
         
         adView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        adapter.nativeAd.registerView(adView, clickableViews: nil)
+        
+        var clickableViews = [UIView]()
         
         if (moPubAdView.responds(to: #selector(MPNativeAdRendering.nativeMainTextLabel))) {
             moPubAdView.nativeMainTextLabel?()?.text = adapter.properties[kAdTextKey] as? String;
@@ -105,26 +103,25 @@ public class PrebidMoPubNativeAdRenderer : NSObject, MPNativeAdRenderer, MPNativ
         if (moPubAdView.responds(to: #selector(MPNativeAdRendering.nativeCallToActionTextLabel))) {
             if let ctaLabel = moPubAdView.nativeCallToActionTextLabel?() {
                 ctaLabel.text = adapter.properties[kAdCTATextKey] as? String;
-                adapter.nativeAd.registerClickView(ctaLabel, nativeAdElementType: .callToAction)
+                clickableViews.append(ctaLabel)
             }
         }
         
-        if  let  sponsoredText = adapter.properties[kAdSponsoredByCompanyKey] as? String,
-            moPubAdView.responds(to: #selector(MPNativeAdRendering.nativeSponsoredByCompanyTextLabel)),
-            let sponsoredLabel =  moPubAdView.nativeSponsoredByCompanyTextLabel?() {
+        if let sponsoredText = adapter.properties[kAdSponsoredByCompanyKey] as? String,
+           moPubAdView.responds(to: #selector(MPNativeAdRendering.nativeSponsoredByCompanyTextLabel)),
+           let sponsoredLabel =  moPubAdView.nativeSponsoredByCompanyTextLabel?() {
             
             sponsoredLabel.text = sponsoredText
-            
-            if let brandAsset = adapter.nativeAd.dataObjects(of: .sponsored).first {
-                adapter.nativeAd.registerClickView(sponsoredLabel, nativeAdAsset: brandAsset)
-            }
+            clickableViews.append(sponsoredLabel)
         }
         
         if let _ = adapter.properties[kAdIconImageKey],
            moPubAdView.responds(to: #selector(MPNativeAdRendering.nativeIconImageView)),
            let iconView =  moPubAdView.nativeIconImageView?() {
-            adapter.nativeAd.registerClickView(iconView, nativeAdElementType: .icon)
+            clickableViews.append(iconView)
         }
+        
+        adapter.nativeAd.registerView(view: adView, clickableViews: clickableViews)
         
         if shouldLoadMediaView(),
            moPubAdView.responds(to: #selector(MPNativeAdRendering.nativeMainImageView)),

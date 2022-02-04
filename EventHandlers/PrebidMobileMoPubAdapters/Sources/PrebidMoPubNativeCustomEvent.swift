@@ -19,9 +19,6 @@ import MoPubSDK
 
 import PrebidMobile
 
-// The feature is not available. Use original Prebid Native API
-// TODO: Merge Native engine from original SDK and rendering codebase
-
 // @objc is required for instantiating in the MoPub SDK
 @objc(PrebidMoPubNativeCustomEvent)
 public class PrebidMoPubNativeCustomEvent : MPNativeCustomEvent {
@@ -37,12 +34,12 @@ public class PrebidMoPubNativeCustomEvent : MPNativeCustomEvent {
             return
         }
         
-        MoPubUtils.findNativeAd(localExtras) { [weak self] (ad, error) in
-            if let nativeAd = ad {
-                self?.nativeAdDidLoad(nativeAd)
-            } else {
-                let error = error ?? MoPubAdaptersError.unknown
-                
+        MoPubMediationNativeUtils.findNative(localExtras) { [weak self] result in
+            switch result {
+            case .success(let ad):
+                self?.nativeAdDidLoad(ad)
+            case .failure(let error):
+                let error = error
                 MPLogging.logEvent(MPLogEvent.adLoadFailed(forAdapter: String(describing: PrebidMoPubNativeCustomEvent.self), error: error), source: nil, from: nil)
                 self?.delegate.nativeCustomEvent(self, didFailToLoadAdWithError: error)
             }
@@ -51,7 +48,7 @@ public class PrebidMoPubNativeCustomEvent : MPNativeCustomEvent {
     
     // MARK: Private Methods
     
-    func nativeAdDidLoad(_ nativeAd: PBRNativeAd) {
+    func nativeAdDidLoad(_ nativeAd: NativeAd) {
         
         let adAdapter = PrebidMoPubNativeAdAdapter(nativeAd: nativeAd)
         let interfaceAd = MPNativeAd(adAdapter: adAdapter)
