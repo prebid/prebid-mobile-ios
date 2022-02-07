@@ -217,9 +217,9 @@ extension NativeAdViewBox {
 
 extension NativeAdViewBox {
     func renderNativeAd(_ nativeAd: NativeAd) {
-        textLabel.text = nativeAd.desc
-        ctaButton.setTitle(nativeAd.ctaText, for: .normal)
-        brandLabel.text = nativeAd.sponsored
+        textLabel.text = nativeAd.text
+        ctaButton.setTitle(nativeAd.callToAction, for: .normal)
+        brandLabel.text = nativeAd.sponsoredBy
         titleLabel.text = nativeAd.title
         if let iconUrl = nativeAd.iconUrl {
             iconImage.image = imageFromUrlString(iconUrl)

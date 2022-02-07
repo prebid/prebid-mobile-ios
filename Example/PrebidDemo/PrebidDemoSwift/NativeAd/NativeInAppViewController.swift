@@ -193,7 +193,7 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
     //MARK: Rendering Prebid Native
     func renderNativeInAppAd() {
         nativeAdView?.titleLabel.text = nativeAd?.title
-        nativeAdView?.bodyLabel.text = nativeAd?.desc
+        nativeAdView?.bodyLabel.text = nativeAd?.text
         if let iconString = nativeAd?.iconUrl, let iconUrl = URL(string: iconString) {
             DispatchQueue.global().async {
                 let data = try? Data(contentsOf: iconUrl)
@@ -214,8 +214,8 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
                 }
             }
         }
-        nativeAdView?.callToActionButton.setTitle(nativeAd?.ctaText, for: .normal)
-        nativeAdView?.sponsoredLabel.text = nativeAd?.sponsored
+        nativeAdView?.callToActionButton.setTitle(nativeAd?.callToAction, for: .normal)
+        nativeAdView?.sponsoredLabel.text = nativeAd?.sponsoredBy
     }
     
     func renderMoPubNativeAd( ) {

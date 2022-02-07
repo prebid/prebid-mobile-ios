@@ -51,7 +51,7 @@ extension PrebidMediatedUnifiedNativeAd: GADMediatedUnifiedNativeAd {
     }
     
     public var body: String? {
-        nativeAd?.desc
+        nativeAd?.text
     }
     
     public var icon: GADNativeAdImage? {
@@ -59,7 +59,7 @@ extension PrebidMediatedUnifiedNativeAd: GADMediatedUnifiedNativeAd {
     }
     
     public var callToAction: String? {
-        nativeAd?.ctaText
+        nativeAd?.callToAction
     }
     
     public var starRating: NSDecimalNumber? {
@@ -75,7 +75,7 @@ extension PrebidMediatedUnifiedNativeAd: GADMediatedUnifiedNativeAd {
     }
     
     public var advertiser: String? {
-        nativeAd?.sponsored
+        nativeAd?.sponsoredBy
     }
     
     public var extraAssets: [String : Any]? {
