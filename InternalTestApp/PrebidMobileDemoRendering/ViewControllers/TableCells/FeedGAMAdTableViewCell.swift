@@ -24,8 +24,11 @@ class FeedGAMAdTableViewCell: UITableViewCell {
     
     var gamCustomTemplateIDs: [String] = []
     
-    private var adUnit: NativeAdUnit?
-    private var theNativeAd: PBRNativeAd?
+    public var nativeAssets: [NativeAsset]?
+    public var eventTrackers: [NativeEventTracker]?
+    
+    private var adUnit: NativeRequest?
+    private var theNativeAd: NativeAd?
     
     private let nativeAdViewBox = NativeAdViewBox()
     
@@ -36,37 +39,40 @@ class FeedGAMAdTableViewCell: UITableViewCell {
     private weak var rootController: UIViewController?
     
     func loadAd(configID: String,
-                nativeAdConfig: NativeAdConfiguration,
                 GAMAdUnitID: String,
                 rootViewController: UIViewController,
                 adTypes: [GADAdLoaderAdType]) {
         
+        setupNativeAdUnit(configId: configID)
         self.rootController = rootViewController
-        self.adUnit = NativeAdUnit(configID: configID, nativeAdConfiguration: nativeAdConfig)
         
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addContextData(dataPair.value, forKey: dataPair.key)
-            }
-        }
-        adUnit?.fetchDemand { [weak self] demandResponseInfo in
+        adUnit?.fetchDemand(completion: { [weak self] result, kvResultDict in
             guard let self = self else {
                 return
             }
             
-            guard demandResponseInfo.fetchDemandResult == .ok else {
+            guard result == .prebidDemandFetchSuccess else {
                 return
             }
             
             let dfpRequest = GAMRequest()
-            GAMUtils.shared.prepareRequest(dfpRequest, demandResponseInfo: demandResponseInfo)
+            GAMUtils.shared.prepareRequest(dfpRequest, bidTargeting: kvResultDict ?? [:])
             self.adLoader = GADAdLoader(adUnitID: GAMAdUnitID,
                                         rootViewController: rootViewController,
                                         adTypes: adTypes,
                                         options: [])
             self.adLoader?.delegate = self
             self.adLoader?.load(dfpRequest)
-        }
+        })
+    }
+    
+    // MARK: - Helpers
+    
+    private func setupNativeAdUnit(configId: String) {
+        adUnit = NativeRequest(configId: configId, assets: nativeAssets ?? [], eventTrackers: eventTrackers ?? [])
+        adUnit?.context = ContextType.Social
+        adUnit?.placementType = PlacementType.FeedContent
+        adUnit?.contextSubType = ContextSubType.Social
     }
 }
 
@@ -79,32 +85,24 @@ extension FeedGAMAdTableViewCell: GADCustomNativeAdLoaderDelegate {
                     nativeCustomTemplateAd: GADCustomNativeAd) {
         customTemplateAd = nil
         
-        let nativeAdDetectionListener = NativeAdDetectionListener { [weak self] nativeAd in
-            guard let self = self else {
-                return
-            }
+        let result = GAMUtils.shared.findCustomNativeAd(for: nativeCustomTemplateAd)
+        switch result {
+        case .success(let nativeAd):
             self.setupBanner()
             
             self.nativeAdViewBox.renderNativeAd(nativeAd)
             self.nativeAdViewBox.registerViews(nativeAd)
             self.theNativeAd = nativeAd // Note: RETAIN! or the tracking will not occur!
-            nativeAd.uiDelegate = self
             self.customTemplateAd = nativeCustomTemplateAd
             nativeCustomTemplateAd.customClickHandler = { assetID in }
             nativeCustomTemplateAd.recordImpression()
-        } onPrimaryAdWin: { [weak self] in
-            guard let self = self else {
-                return
+        case .failure(let error):
+            if error == GAMEventHandlerError.nonPrebidAd {
+                self.nativeAdViewBox.renderCustomTemplateAd(nativeCustomTemplateAd)
+                self.customTemplateAd = nativeCustomTemplateAd
+                nativeCustomTemplateAd.recordImpression()
             }
-            self.nativeAdViewBox.renderCustomTemplateAd(nativeCustomTemplateAd)
-            self.customTemplateAd = nativeCustomTemplateAd
-            nativeCustomTemplateAd.recordImpression()
-        } onNativeAdInvalid: { _ in
-
         }
-
-        GAMUtils.shared.findCustomNativeAd(for: nativeCustomTemplateAd,
-                                           nativeAdDetectionListener: nativeAdDetectionListener)
     }
     
     func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
@@ -130,11 +128,5 @@ extension FeedGAMAdTableViewCell: GADCustomNativeAdLoaderDelegate {
                                    constant: -10),
             ])
         }
-    }
-}
-
-extension FeedGAMAdTableViewCell: NativeAdUIDelegate {
-    func viewPresentationControllerForNativeAd(_ nativeAd: PBRNativeAd) -> UIViewController? {
-        return rootController
     }
 }

@@ -73,23 +73,25 @@ public class MoPubMediationNativeUtils: NSObject, PrebidMediationDelegate {
     }
     
     public static func findNative(_ extras: [AnyHashable : Any],
-                                  completion: @escaping (Result<NativeAd, Error>) -> Void) {
+                                  completion: @escaping (Result<NativeAd, MoPubAdaptersError>) -> Void) {
         guard let response = extras[PBMMediationAdNativeResponseKey] as? [String: AnyObject] else {
-            let error = PBMError.error(description: "The bid response dictionary is absent in the extras")
+            let error = MoPubAdaptersError.noBidInLocalExtras
             completion(.failure(error))
             return
         }
         
         guard let cacheId = response[PrebidLocalCacheIdKey] as? String else {
-            let error = PBMError.error(description: "No cache id in bid response dictionary")
+            let error = MoPubAdaptersError.noLocalCacheID
             completion(.failure(error))
             return
         }
+        
         guard CacheManager.shared.isValid(cacheId: cacheId) else {
             let error = MoPubAdaptersError.invalidLocalCacheID
             completion(.failure(error))
             return
         }
+        
         guard let nativeAd = NativeAd.create(cacheId: cacheId) else {
             let error = MoPubAdaptersError.noAd
             completion(.failure(error))
@@ -99,7 +101,7 @@ public class MoPubMediationNativeUtils: NSObject, PrebidMediationDelegate {
         completion(.success(nativeAd))
     }
     
-    public static func getPrebidNative(from mopubNativeAd: MPNativeAd) -> Result<NativeAd, Error> {
+    public static func getPrebidNative(from mopubNativeAd: MPNativeAd) -> Result<NativeAd, MoPubAdaptersError> {
         guard isPrebidAd(nativeAd: mopubNativeAd) == true else {
             return .failure(MoPubAdaptersError.nonPrebidAd)
         }

@@ -71,6 +71,10 @@
 		5BF6905627737A7700AABA45 /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF239273420710046CCFC /* PrebidMobileGAMEventHandlers.framework */; };
 		5BF6905827737A7900AABA45 /* PrebidMobileMoPubAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BCCF23C2734207A0046CCFC /* PrebidMobileMoPubAdapters.framework */; };
 		909FCC2CA24F6E94B696B736 /* Pods_OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F097F6238E0EB831B507463 /* Pods_OpenXMockServer.framework */; };
+		92102C6127B0F2FE003F12B2 /* PrebidGAMNativeAdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34C7961A25DD0C830072A898 /* PrebidGAMNativeAdController.swift */; };
+		92102C6227B0FBEB003F12B2 /* UnifiedNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3459DF7B25E8E467004EC761 /* UnifiedNativeAdView.swift */; };
+		92102C6327B0FDF7003F12B2 /* PrebidGAMNativeAdFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC812BE42600CEC000370A33 /* PrebidGAMNativeAdFeedController.swift */; };
+		92102C6427B0FE2F003F12B2 /* FeedGAMAdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC812BEE2600E57100370A33 /* FeedGAMAdTableViewCell.swift */; };
 		9262A8AC27720DE6009441A3 /* OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; };
 		926CBF20278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926CBF1F278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift */; };
 		92700C7D273C029F0006E9FA /* PrebidMRAID3UITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */; };
@@ -1191,6 +1195,7 @@
 				ACBBDF852397E10F006D5FE6 /* CommandArgsViewController.swift in Sources */,
 				34215B0F25C4598E00C74A09 /* ProcessArgumentsParser.swift in Sources */,
 				34BAD458239564740042DB33 /* IABConsentViewController.swift in Sources */,
+				92102C6227B0FBEB003F12B2 /* UnifiedNativeAdView.swift in Sources */,
 				3493022224740BEE004A6086 /* PrebidBannerController.swift in Sources */,
 				5BDB85DA2739794900A529F6 /* PrebidBannerConfigurationController.swift in Sources */,
 				5B3EEDE52101FB8800BAA0C4 /* TestCase.swift in Sources */,
@@ -1210,13 +1215,16 @@
 				5B3EEDC12101D1AF00BAA0C4 /* PrebidMobileRenderingConfigurationViewController.swift in Sources */,
 				5B209B4A21075E0A00C0F5CE /* BaseConfigurationController.swift in Sources */,
 				92C4E60B27A2F5D900738370 /* NativeAsset+Extensions.swift in Sources */,
+				92102C6127B0F2FE003F12B2 /* PrebidGAMNativeAdController.swift in Sources */,
 				92E92502276B299F002B57F3 /* PrebidAdMobBannerViewController.swift in Sources */,
 				5BCCA3D62136D2E800DA3B5A /* ConfigurableViewController.swift in Sources */,
 				5B1CF8302105E91000238340 /* ArrayExtension.swift in Sources */,
 				ACC36671253068600051D8E8 /* PrebidPresentationViewController.swift in Sources */,
 				5B3EEDE72101FDCE00BAA0C4 /* TestCasesManager.swift in Sources */,
 				5B3C2AC52100BC4900BD733C /* AppDelegate.swift in Sources */,
+				92102C6427B0FE2F003F12B2 /* FeedGAMAdTableViewCell.swift in Sources */,
 				3493021F2473FFE8004A6086 /* PrebidMoPubBannerController.swift in Sources */,
+				92102C6327B0FDF7003F12B2 /* PrebidGAMNativeAdFeedController.swift in Sources */,
 				92F9A5D027A15BB6007B0B17 /* NativeAdViewBox.swift in Sources */,
 				5B7B1465264ABAAE00EBF42A /* PrebidMoPubRewardedAdController.swift in Sources */,
 				92DDA440278EF42B0035F03E /* PrebidAdMobRewardedViewController.swift in Sources */,

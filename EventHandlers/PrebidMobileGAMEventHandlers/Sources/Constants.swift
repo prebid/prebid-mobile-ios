@@ -17,8 +17,6 @@ import Foundation
 
 enum Constants {
     
-    static let targetingKeyLocalCacheID     = "hb_cache_id_local"
-    
     static let creativeDataKeyIsPrebid      = "isPrebid"
     
     static let creativeDataValueIsPrebid    = "1"

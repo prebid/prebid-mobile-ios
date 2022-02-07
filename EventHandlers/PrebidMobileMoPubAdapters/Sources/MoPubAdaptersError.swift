@@ -15,7 +15,7 @@
 
 import Foundation
 
-enum MoPubAdaptersError : Error {
+public enum MoPubAdaptersError : Error {
     
     case emptyLocalExtras
     case noBidInLocalExtras
@@ -29,7 +29,7 @@ enum MoPubAdaptersError : Error {
     case unknown
 }
 
-enum MoPubAdaptersErrorCodes : Int {
+public enum MoPubAdaptersErrorCodes : Int {
 
     case generalLinear  = 400
     case fileNotFound   = 401
@@ -71,7 +71,7 @@ extension MoPubAdaptersError : LocalizedError {
 }
 
 extension MoPubAdaptersError :  CustomNSError {
-    static var errorDomain: String {
+    public static var errorDomain: String {
         MoPubAdaptersErrorDomain
     }
     
