@@ -49,8 +49,6 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController {
     private let nativeAdDidDismissModalButton = EventReportContainer()
     private let nativeAdWillLeaveAppButton = EventReportContainer()
     private let nativeAdDidTrackImpressionButton = EventReportContainer()
-    private let nativeAdDidExpireButton = EventReportContainer()
-    private let nativeAdDidClickButton = EventReportContainer()
     
     required init(rootController: AdapterViewController) {
         super.init()
@@ -94,8 +92,6 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController {
         rootController.setupAction(primaryAdWinButton, "onPrimaryAdWin called")
         rootController.setupAction(nativeAdInvalidButton, "onNativeAdInvalid called")
         
-        rootController.setupAction(nativeAdDidExpireButton, "nativeAdDidExpire called")
-        rootController.setupAction(nativeAdDidClickButton, "nativeAdDidLogClick called")
         rootController.setupAction(nativeAdWillLeaveAppButton, "nativeAdWillLeaveApplication called")
         rootController.setupAction(nativeAdWillPresentModalButton, "nativeAdWillPresentModal failed")
         rootController.setupAction(nativeAdDidDismissModalButton, "nativeAdDidDismissModal called")
