@@ -142,13 +142,19 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController {
                 
                 switch MoPubMediationNativeUtils.getPrebidNative(from: moPubNativeAd) {
                 case .success(let ad):
+                    self.getNativeAdSuccessButton.isEnabled = true
                     DispatchQueue.main.async {
                         self.setupPrebidNativeAd(ad)
                     }
                 case .failure(let error):
                     PBMLog.error(error.localizedDescription)
-                    DispatchQueue.main.async {
-                        self.setupMoPubNativeAd(moPubNativeAd)
+                    if error == MoPubAdaptersError.nonPrebidAd {
+                        self.getNativeAdSuccessButton.isEnabled = true
+                        DispatchQueue.main.async {
+                            self.setupMoPubNativeAd(moPubNativeAd)
+                        }
+                    } else {
+                        self.getNativeAdFailedButton.isEnabled = true
                     }
                 }
             })

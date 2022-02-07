@@ -222,26 +222,4 @@ class PrebidServerUITests: AdsLoaderUITestCase {
         checkRewardedLoadResult(exampleName: "[Deprecated API] Video Rewarded 320x480 (MoPub) [noBids, MoPub Ad]",
                                 callbacks: mopubRewardedCallbacks)
     }
-
-    // MARK: - Native Styles
-    
-    //This test are temporary disabled, as the server returns:
-    //"request.imp[0] uses native, but this bidder doesn't support it"
-    // TODO: This test schould be restored in the issue: https://github.com/prebid/prebid-mobile-ios/issues/431
-    func testBannerNativeStyle() {
-        checkBannerLoadResult(exampleName: "Banner Native Styles")
-    }
-  
-    // TODO: This test schould be restored in the issue: https://github.com/prebid/prebid-mobile-ios/issues/431
-    func testGAMBannerNativeStyle_MRect() {
-        checkBannerLoadResult(exampleName: "Banner Native Styles (GAM) [MRect]")
-    }
-    
-    // TODO: This test schould be restored in the issue: https://github.com/prebid/prebid-mobile-ios/issues/431
-    func testMoPubBannerNativeStyle_OK() {
-        checkBannerLoadResult(exampleName: "Banner Native Styles (MoPub)",
-                              adapterBased: true,
-                              callbacks: mopubBannerCallbacks)
-    }
-
 }

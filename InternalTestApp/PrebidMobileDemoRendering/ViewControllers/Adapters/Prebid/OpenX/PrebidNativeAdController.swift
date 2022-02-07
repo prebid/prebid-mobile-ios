@@ -114,6 +114,8 @@ class PrebidNativeAdController: NSObject, AdaptedController {
                 return
             }
             
+            self.getNativeAdSuccessButton.isEnabled = true
+            
             self.nativeAdViewBox?.renderNativeAd(nativeAd)
             self.nativeAdViewBox?.registerViews(nativeAd)
             self.theNativeAd = nativeAd // Note: RETAIN! or the tracking will not occur!

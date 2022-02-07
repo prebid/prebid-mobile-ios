@@ -82,7 +82,6 @@
 		92700C7D273C029F0006E9FA /* PrebidMRAID3UITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */; };
 		92700C7E273C029F0006E9FA /* XCTestCaseExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C68273C029F0006E9FA /* XCTestCaseExt.swift */; };
 		92700C7F273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C69273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift */; };
-		92700C80273C029F0006E9FA /* PrebidNativeVideoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C6A273C029F0006E9FA /* PrebidNativeVideoUITests.swift */; };
 		92700C81273C029F0006E9FA /* PrebidMRAIDFullScreenUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C6B273C029F0006E9FA /* PrebidMRAIDFullScreenUITest.swift */; };
 		92700C82273C029F0006E9FA /* XCTestCase+Throwing.m in Sources */ = {isa = PBXBuildFile; fileRef = 92700C6C273C029F0006E9FA /* XCTestCase+Throwing.m */; };
 		92700C83273C029F0006E9FA /* PrebidInterstitialUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C6D273C029F0006E9FA /* PrebidInterstitialUITest.swift */; };
@@ -297,7 +296,6 @@
 		92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAID3UITest.swift; sourceTree = "<group>"; };
 		92700C68273C029F0006E9FA /* XCTestCaseExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestCaseExt.swift; sourceTree = "<group>"; };
 		92700C69273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidVideoOutstreamUITest.swift; sourceTree = "<group>"; };
-		92700C6A273C029F0006E9FA /* PrebidNativeVideoUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidNativeVideoUITests.swift; sourceTree = "<group>"; };
 		92700C6B273C029F0006E9FA /* PrebidMRAIDFullScreenUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAIDFullScreenUITest.swift; sourceTree = "<group>"; };
 		92700C6C273C029F0006E9FA /* XCTestCase+Throwing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+Throwing.m"; sourceTree = "<group>"; };
 		92700C6D273C029F0006E9FA /* PrebidInterstitialUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidInterstitialUITest.swift; sourceTree = "<group>"; };
@@ -708,7 +706,6 @@
 				92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */,
 				92700C68273C029F0006E9FA /* XCTestCaseExt.swift */,
 				92700C69273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift */,
-				92700C6A273C029F0006E9FA /* PrebidNativeVideoUITests.swift */,
 				92700C6B273C029F0006E9FA /* PrebidMRAIDFullScreenUITest.swift */,
 				92700C6C273C029F0006E9FA /* XCTestCase+Throwing.m */,
 				92700C6D273C029F0006E9FA /* PrebidInterstitialUITest.swift */,
@@ -1160,7 +1157,6 @@
 				92700C84273C029F0006E9FA /* PrebidRewardedVideoUITest.swift in Sources */,
 				92700C83273C029F0006E9FA /* PrebidInterstitialUITest.swift in Sources */,
 				92700C8B273C029F0006E9FA /* PrebidMRAIDResizeUITest.swift in Sources */,
-				92700C80273C029F0006E9FA /* PrebidNativeVideoUITests.swift in Sources */,
 				92700C90273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift in Sources */,
 				92700C7D273C029F0006E9FA /* PrebidMRAID3UITest.swift in Sources */,
 				92700C88273C029F0006E9FA /* PrebidMRAIDResizeExpandableUITest.swift in Sources */,
