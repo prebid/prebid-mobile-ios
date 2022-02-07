@@ -2996,7 +2996,7 @@ struct TestCaseManager {
             
             // MARK: ---- Native (GAM, CustomTemplate) ----
 
-            TestCase(title: "Native Ad (GAM) [OK, PBMNativeAd]",
+            TestCase(title: "Native Ad (GAM) [OK, NativeAd]",
                      tags: [.native, .gam, .mock, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -3071,7 +3071,7 @@ struct TestCaseManager {
                 setupCustomParams(for: gamNativeAdController.prebidConfigId)
             }),
 
-            TestCase(title: "Native Ad Feed (GAM) [OK, PBMNativeAd]",
+            TestCase(title: "Native Ad Feed (GAM) [OK, NativeAd]",
                      tags: [.native, .gam, .mock],
                      exampleVCStoryboardID: "PrebidFeedTableViewController",
                      configurationClosure: { vc in
@@ -3098,7 +3098,7 @@ struct TestCaseManager {
             
             // MARK: ---- Native (GAM, Unified) ----
 
-            TestCase(title: "Native Ad (GAM) [OK, PBMNativeAd]",
+            TestCase(title: "Native Ad (GAM) [OK, NativeAd]",
                      tags: [.native, .gam, .mock, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
