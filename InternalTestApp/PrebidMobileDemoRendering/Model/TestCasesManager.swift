@@ -2709,70 +2709,6 @@ struct TestCaseManager {
 //                setupCustomParams(for: bannerController.prebidConfigId)
 //            }),
             
-            // MARK: ---- Native Styles (GAM) ----
-            
-//            TestCase(title: "Banner Native Styles (GAM) [MRect]",
-//                     tags: [.native, .gam, .server, .mock],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
-//
-//                if AppConfiguration.shared.useMockServer {
-//                    gamBannerController.prebidConfigId = "mock-banner-native-styles"
-//                } else {
-//                    gamBannerController.prebidConfigId = "621da6c1-6ab6-464d-a955-b4e447eaedcb"
-//                }
-//
-//                gamBannerController.gamAdUnitId = "/21808260008/prebid_native_fixed"
-//                gamBannerController.validAdSizes = [kGADAdSizeMediumRectangle]
-//                gamBannerController.nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//
-//                adapterVC.setup(adapter: gamBannerController)
-//
-//                setupCustomParams(for: gamBannerController.prebidConfigId)
-//            }),
-//
-//            TestCase(title: "Banner Native Styles No Assets (GAM) [MRect]",
-//                     tags: [.native, .gam, .mock],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
-//
-//                gamBannerController.prebidConfigId = "mock-banner-native-styles"
-//                gamBannerController.gamAdUnitId = "/21808260008/prebid_native_fixed"
-//                gamBannerController.validAdSizes = [kGADAdSizeMediumRectangle]
-//                gamBannerController.nativeAdConfig = NativeAdConfiguration(assets: [])
-//
-//                adapterVC.setup(adapter: gamBannerController)
-//
-//                setupCustomParams(for: gamBannerController.prebidConfigId)
-//            }),
-//
-//            TestCase(title: "Banner Native Styles (GAM) [Fluid]",
-//                     tags: [.native, .gam, .mock],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
-//
-//                gamBannerController.prebidConfigId = "mock-banner-native-styles"
-//                gamBannerController.gamAdUnitId = "/21808260008/prebid_native"
-//                gamBannerController.validAdSizes = [kGADAdSizeFluid]
-//                gamBannerController.nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//
-//                adapterVC.setup(adapter: gamBannerController)
-//
-//                setupCustomParams(for: gamBannerController.prebidConfigId)
-//            }),
-//
             // MARK: ---- Native (In-App) ----
             
 //            TestCase(title: "Native Ad (In-App)",
@@ -3060,183 +2996,179 @@ struct TestCaseManager {
             
             // MARK: ---- Native (GAM, CustomTemplate) ----
 
-//            TestCase(title: "Native Ad (GAM) [OK, PBMNativeAd]",
-//                     tags: [.native, .gam, .mock, .server],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
-//
-//                if AppConfiguration.shared.useMockServer {
-//                    gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
-//                } else {
-//                    // FIXME: Switch the example from QA to the Prod server
-//                    try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-//                    PrebidRenderingConfig.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
-//                    gamNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
-//                }
-//                gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
-//                gamNativeAdController.adTypes = [.customNative]
-//                gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
-//
-//                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//                nativeAdConfig.nativeStylesCreative = nativeStylesCreative
-//                gamNativeAdController.nativeAdConfig = nativeAdConfig
-//
-//                adapterVC.setup(adapter: gamNativeAdController)
-//
-//                setupCustomParams(for: gamNativeAdController.prebidConfigId)
-//            }),
-//
-//            TestCase(title: "Native Ad (GAM) [OK, GADNativeCustomTemplateAd]",
-//                     tags: [.native, .gam, .mock],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
-//
-//                gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
-//                gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
-//                gamNativeAdController.adTypes = [.customNative]
-//                gamNativeAdController.gamCustomTemplateIDs = ["11982639"]
-//
-//                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//                nativeAdConfig.nativeStylesCreative = nativeStylesCreative
-//                gamNativeAdController.nativeAdConfig = nativeAdConfig
-//
-//                adapterVC.setup(adapter: gamNativeAdController)
-//
-//                setupCustomParams(for: gamNativeAdController.prebidConfigId)
-//            }),
-//
-//            TestCase(title: "Native Ad (GAM) [noBids, GADNativeCustomTemplateAd]",
-//                     tags: [.native, .gam, .mock],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
-//
-//                gamNativeAdController.prebidConfigId = "mock-native-video-with-end-card--dummy"
-//                gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
-//                gamNativeAdController.adTypes = [.customNative]
-//                gamNativeAdController.gamCustomTemplateIDs = ["11982639"]
-//
-//                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//                nativeAdConfig.nativeStylesCreative = nativeStylesCreative
-//                gamNativeAdController.nativeAdConfig = nativeAdConfig
-//
-//                adapterVC.setup(adapter: gamNativeAdController)
-//
-//                setupCustomParams(for: gamNativeAdController.prebidConfigId)
-//            }),
-//
-//            TestCase(title: "Native Ad Feed (GAM) [OK, PBMNativeAd]",
-//                     tags: [.native, .gam, .mock],
-//                     exampleVCStoryboardID: "PrebidFeedTableViewController",
-//                     configurationClosure: { vc in
-//
-//                guard let feedVC = vc as? PrebidFeedTableViewController else {
-//                    return
-//                }
-//                let gamNativeAdController = PrebidGAMNativeAdFeedController(rootTableViewController: feedVC)
-//
-//                gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
-//                gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
-//                gamNativeAdController.adTypes = [.customNative]
-//                gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
-//
-//                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//                nativeAdConfig.nativeStylesCreative = nativeStylesCreative
-//                gamNativeAdController.nativeAdConfig = nativeAdConfig
-//
-//                feedVC.adapter = gamNativeAdController
-//                feedVC.loadAdClosure = gamNativeAdController.allowLoadingAd
-//
-//                gamNativeAdController.createCells()
-//
-//                setupCustomParams(for: gamNativeAdController.prebidConfigId)
-//            }),
+            TestCase(title: "Native Ad (GAM) [OK, PBMNativeAd]",
+                     tags: [.native, .gam, .mock, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
+
+                if AppConfiguration.shared.useMockServer {
+                    gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                } else {
+                    // FIXME: Switch the example from QA to the Prod server
+                    try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
+                    PrebidRenderingConfig.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
+                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
+                    Prebid.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
+                    gamNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
+                }
+                gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
+                gamNativeAdController.adTypes = [.customNative]
+                gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
+
+                gamNativeAdController.nativeAssets = .defaultNativeRequestAssets
+                gamNativeAdController.eventTrackers = .defaultNativeEventTrackers
+
+                adapterVC.setup(adapter: gamNativeAdController)
+
+                setupCustomParams(for: gamNativeAdController.prebidConfigId)
+            }),
+
+            TestCase(title: "Native Ad (GAM) [OK, GADNativeCustomTemplateAd]",
+                     tags: [.native, .gam, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
+
+                gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
+                gamNativeAdController.adTypes = [.customNative]
+                gamNativeAdController.gamCustomTemplateIDs = ["11982639"]
+
+                gamNativeAdController.nativeAssets = .defaultNativeRequestAssets
+                gamNativeAdController.eventTrackers = .defaultNativeEventTrackers
+
+                adapterVC.setup(adapter: gamNativeAdController)
+
+                setupCustomParams(for: gamNativeAdController.prebidConfigId)
+            }),
+
+            TestCase(title: "Native Ad (GAM) [noBids, GADNativeCustomTemplateAd]",
+                     tags: [.native, .gam, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
+
+                gamNativeAdController.prebidConfigId = "mock-native-video-with-end-card--dummy"
+                gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
+                gamNativeAdController.adTypes = [.customNative]
+                gamNativeAdController.gamCustomTemplateIDs = ["11982639"]
+
+                gamNativeAdController.nativeAssets = .defaultNativeRequestAssets
+                gamNativeAdController.eventTrackers = .defaultNativeEventTrackers
+
+                adapterVC.setup(adapter: gamNativeAdController)
+
+                setupCustomParams(for: gamNativeAdController.prebidConfigId)
+            }),
+
+            TestCase(title: "Native Ad Feed (GAM) [OK, PBMNativeAd]",
+                     tags: [.native, .gam, .mock],
+                     exampleVCStoryboardID: "PrebidFeedTableViewController",
+                     configurationClosure: { vc in
+
+                guard let feedVC = vc as? PrebidFeedTableViewController else {
+                    return
+                }
+                let gamNativeAdController = PrebidGAMNativeAdFeedController(rootTableViewController: feedVC)
+
+                gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
+                gamNativeAdController.adTypes = [.customNative]
+                gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
+                gamNativeAdController.nativeAssets = .defaultNativeRequestAssets
+                gamNativeAdController.eventTrackers = .defaultNativeEventTrackers
+
+                feedVC.adapter = gamNativeAdController
+                feedVC.loadAdClosure = gamNativeAdController.allowLoadingAd
+
+                gamNativeAdController.createCells()
+
+                setupCustomParams(for: gamNativeAdController.prebidConfigId)
+            }),
             
             // MARK: ---- Native (GAM, Unified) ----
 
-//            TestCase(title: "Native Ad (GAM) [OK, PBMNativeAd]",
-//                     tags: [.native, .gam, .mock, .server],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
-//                           
-//                if AppConfiguration.shared.useMockServer {
-//                    gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
-//                } else {
-//                    // FIXME: Switch the example from QA to the Prod server
-//                    try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-//                    PrebidRenderingConfig.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
-//                    gamNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
-//                }
-//                gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit"
-//                gamNativeAdController.adTypes = [.native]
-//                        
-//                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//                nativeAdConfig.nativeStylesCreative = nativeStylesCreative
-//                gamNativeAdController.nativeAdConfig = nativeAdConfig
-//                        
-//                adapterVC.setup(adapter: gamNativeAdController)
-//                        
-//                setupCustomParams(for: gamNativeAdController.prebidConfigId)
-//            }),
-//            
-//            TestCase(title: "Native Ad (GAM) [OK, GADUnifiedNativeAd]",
-//                     tags: [.native, .gam, .mock],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
-//                        
-//                gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
-//                gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit_static"
-//                gamNativeAdController.adTypes = [.native]
-//                        
-//                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//                nativeAdConfig.nativeStylesCreative = nativeStylesCreative
-//                gamNativeAdController.nativeAdConfig = nativeAdConfig
-//                        
-//                adapterVC.setup(adapter: gamNativeAdController)
-//                        
-//                setupCustomParams(for: gamNativeAdController.prebidConfigId)
-//            }),
-//            
-//            TestCase(title: "Native Ad (GAM) [noBids, GADUnifiedNativeAd]",
-//                     tags: [.native, .gam, .mock],
-//                     exampleVCStoryboardID: "AdapterViewController",
-//                     configurationClosure: { vc in
-//                guard let adapterVC = vc as? AdapterViewController else {
-//                    return
-//                }
-//                let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
-//                        
-//                gamNativeAdController.prebidConfigId = "mock-native-video-with-end-card--dummy"
-//                gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit_static"
-//                gamNativeAdController.adTypes = [.native]
-//                        
-//                let nativeAdConfig = NativeAdConfiguration(testConfigWithAssets: .defaultNativeRequestAssets)
-//                nativeAdConfig.nativeStylesCreative = nativeStylesCreative
-//                gamNativeAdController.nativeAdConfig = nativeAdConfig
-//                        
-//                adapterVC.setup(adapter: gamNativeAdController)
-//                        
-//                setupCustomParams(for: gamNativeAdController.prebidConfigId)
-//            }),
+            TestCase(title: "Native Ad (GAM) [OK, PBMNativeAd]",
+                     tags: [.native, .gam, .mock, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
+                           
+                if AppConfiguration.shared.useMockServer {
+                    gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                } else {
+                    // FIXME: Switch the example from QA to the Prod server
+                    try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
+                    PrebidRenderingConfig.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
+                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
+                    Prebid.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
+                    gamNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
+                }
+                gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit"
+                gamNativeAdController.adTypes = [.native]
+                        
+                gamNativeAdController.nativeAssets = .defaultNativeRequestAssets
+                gamNativeAdController.eventTrackers = .defaultNativeEventTrackers
+                         
+                adapterVC.setup(adapter: gamNativeAdController)
+                        
+                setupCustomParams(for: gamNativeAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Native Ad (GAM) [OK, GADUnifiedNativeAd]",
+                     tags: [.native, .gam, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
+                        
+                gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit_static"
+                gamNativeAdController.adTypes = [.native]
+                        
+                gamNativeAdController.nativeAssets = .defaultNativeRequestAssets
+                gamNativeAdController.eventTrackers = .defaultNativeEventTrackers
+                        
+                adapterVC.setup(adapter: gamNativeAdController)
+                        
+                setupCustomParams(for: gamNativeAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Native Ad (GAM) [noBids, GADUnifiedNativeAd]",
+                     tags: [.native, .gam, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
+                        
+                gamNativeAdController.prebidConfigId = "mock-native-video-with-end-card--dummy"
+                gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit_static"
+                gamNativeAdController.adTypes = [.native]
+                
+                gamNativeAdController.nativeAssets = .defaultNativeRequestAssets
+                gamNativeAdController.eventTrackers = .defaultNativeEventTrackers
+                        
+                adapterVC.setup(adapter: gamNativeAdController)
+                        
+                setupCustomParams(for: gamNativeAdController.prebidConfigId)
+            }),
         ]
     }()
     

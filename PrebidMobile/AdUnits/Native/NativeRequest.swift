@@ -29,9 +29,9 @@ public class NativeRequest: AdUnit {
     public var eventtrackers:Array<NativeEventTracker>?
     public var privacy: Int = 0
     public var ext: AnyObject?
-    private var _configId:String!
+    private var _configId: String!
     
-    public var configId:String? {
+    public var configId: String? {
         set {
             _configId = newValue!;
             super.prebidConfigId = _configId;
@@ -48,9 +48,10 @@ public class NativeRequest: AdUnit {
         self.eventtrackers = [NativeEventTracker]()
     }
     
-    public convenience init(configId: String, assets: Array<NativeAsset>) {
+    public convenience init(configId: String, assets: Array<NativeAsset>, eventTrackers: [NativeEventTracker]) {
         self.init(configId: configId)
         self.assets = assets
+        self.eventtrackers = eventtrackers
     }
     
     public func addNativeAssets(_ assets: Array<NativeAsset>) {
