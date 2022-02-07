@@ -273,16 +273,16 @@ class NativeInAppNativeTest: XCTestCase, NativeAdDelegate, NativeAdEventDelegate
         let cta = NativeAssetData(type: DataAsset.ctatext, required: true)
         
         let sponsored = NativeAssetData(type: DataAsset.sponsored, required: true)
+    
+        let event1 = EventType.Impression
+        eventTrackers = NativeEventTracker(event: event1, methods: [EventTracking.Image,EventTracking.js])
         
-        nativeUnit = NativeRequest(configId: "25e17008-5081-4676-94d5-923ced4359d3", assets: [icon,title,image,body,cta,sponsored])
-        
+        nativeUnit = NativeRequest(configId: "25e17008-5081-4676-94d5-923ced4359d3",
+                                   assets: [icon,title,image,body,cta,sponsored],
+                                   eventTrackers: [eventTrackers])
         nativeUnit.context = ContextType.Social
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
-        
-        let event1 = EventType.Impression
-        eventTrackers = NativeEventTracker(event: event1, methods: [EventTracking.Image,EventTracking.js])
-        nativeUnit.eventtrackers = [eventTrackers]
     }
     
     func removePreviousAds() {
