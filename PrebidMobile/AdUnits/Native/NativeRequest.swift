@@ -53,7 +53,7 @@ public class NativeRequest: AdUnit {
     }
     
     public func addNativeAssets(_ assets: Array<NativeAsset>) {
-        if let assets = self.assets {
+        if self.assets != nil {
             self.assets?.append(contentsOf: assets)
         } else {
             self.assets = assets
