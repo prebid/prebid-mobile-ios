@@ -180,35 +180,6 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.pos.intValue, 4)
     }
     
-    func testNative() { //REVIEW??????
-        let nativeVer = "1.2"
-        
-        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 320, height: 50))
-        adUnitConfig.adFormat = .display
-        
-        let bidRequest = PBMORTBBidRequest()
-        
-        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
-                                 sdkConfiguration: sdkConfiguration,
-                                 sdkVersion: "MOCK_SDK_VERSION",
-                                 targeting: targeting)
-            .build(bidRequest)
-        
-        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
-                                  sdkConfiguration: sdkConfiguration,
-                                  targeting: targeting,
-                                  userAgentService: MockUserAgentService())
-            .build(bidRequest)
-        
-        guard let imp = bidRequest.imp.first else {
-            XCTFail("No Impression object!")
-            return
-        }
-        print(bidRequest.imp)
-        PBMAssertEq(imp.native?.ver, nativeVer)
-    }
-    
     func testFirstPartyData() {
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
