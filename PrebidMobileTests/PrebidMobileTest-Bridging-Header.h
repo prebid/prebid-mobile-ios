@@ -186,30 +186,12 @@
 #import "PBMPrebidParameterBuilder.h"
 #import "PBMViewabilityEventDetector.h"
 #import "PBMWinNotifier+Private.h"
-// NativeAds (Request)
-// NativeAds (Response model)
-#import "PBMNativeAdMarkup.h"
-#import "PBMNativeAdMarkupAsset.h"
-#import "PBMNativeAdMarkupAsset.h"
-#import "PBMNativeAdMarkupData.h"
-#import "PBMNativeAdMarkupEventTracker.h"
-#import "PBMNativeAdMarkupImage.h"
-#import "PBMNativeAdMarkupLink.h"
-#import "PBMNativeAdMarkupTitle.h"
-#import "PBMNativeAdMarkupVideo.h"
-
-// NativeAds (Event Tracking)
-#import "PBMNativeAdImpressionReporting.h"
-#import "PBMNativeClickableViewRegistry.h"
 
 // PBMORTB
 #import "PBMORTBPrebid.h"
 #import "PBMORTBAbstractResponse+Protected.h"
 #import "PBMORTBBidResponse+Internal.h"
 #import "PBMORTBSeatBid+Internal.h"
-
-// PBM Native Ads support
-#import "PBMNativeFunctions.h"
 
 #import "UIView+PBMViewExposure.h"
 

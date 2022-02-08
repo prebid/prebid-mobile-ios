@@ -36,13 +36,7 @@ class PBMErrorTest: XCTestCase {
             PBMError.noUrlForNativeAdMarkupEventTracker,
             
             PBMError.noWinningBid,
-            PBMError.noNativeCreative,
-            
-            NativeAdAssetBoxingError.noDataInsideNativeAdMarkupAsset,
-            NativeAdAssetBoxingError.noImageInsideNativeAdMarkupAsset,
-            NativeAdAssetBoxingError.noTitleInsideNativeAdMarkupAsset,
-            NativeAdAssetBoxingError.noVideoInsideNativeAdMarkupAsset,
-            
+            PBMError.noNativeCreative
         ].map { $0 as NSError }
         
         for i in 1..<allErrors.count {

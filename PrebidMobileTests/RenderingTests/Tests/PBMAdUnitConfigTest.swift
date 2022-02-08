@@ -19,15 +19,6 @@ import XCTest
 
 class PBMAdUnitConfigTest: XCTestCase {
     
-    func testIsNativeAd() {
-        let adUnitConfig = AdUnitConfig(configID: "dummy-config-id")
-        XCTAssertFalse(adUnitConfig.adConfiguration.isNative)
-        
-        let nativeAdConfig = NativeAdConfiguration(assets: [PBRNativeAssetTitle(length: 25)])
-        adUnitConfig.nativeAdConfiguration = nativeAdConfig
-        XCTAssertTrue(adUnitConfig.adConfiguration.isNative)
-    }
-    
     func testSetRefreshInterval() {
         let adUnitConfig = AdUnitConfig(configID: "dummy-config-id")
         
