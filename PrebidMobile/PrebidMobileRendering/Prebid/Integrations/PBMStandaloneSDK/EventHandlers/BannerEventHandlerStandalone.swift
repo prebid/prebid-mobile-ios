@@ -23,10 +23,6 @@ public class BannerEventHandlerStandalone: NSObject, BannerEventHandler {
     
     public var adSizes: [CGSize] = []
     
-    public var isCreativeRequiredForNativeAds: Bool {
-        true
-    }
-    
     public func requestAd(withBidResponse bidResponse: BidResponseForRendering?) {
         loadingDelegate?.prebidDidWin()
     }

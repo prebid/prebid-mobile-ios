@@ -19,7 +19,6 @@
 #import "PBMUserAgentService.h"
 
 #import "PBMAdViewManagerDelegate.h"
-#import "PBMPlayable.h"
 #import "PBMJsonCodable.h"
 
 #import "PBMBaseAdUnit.h"

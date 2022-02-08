@@ -184,7 +184,6 @@
 #import "PBMBidResponseTransformer.h"
 #import "PBMError.h"
 #import "PBMPrebidParameterBuilder.h"
-#import "PBMViewabilityEventDetector.h"
 #import "PBMWinNotifier+Private.h"
 
 // PBMORTB

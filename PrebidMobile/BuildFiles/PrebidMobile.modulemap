@@ -76,7 +76,6 @@ framework module PrebidMobile {
     header "PBMVastTransactionFactory.h"
     header "PBMTransactionFactoryCallback.h"
     
-    header "PBMPlayable.h"
     header "PBMError.h"
     header "PBMServerConnection.h"
     header "PBMModalManagerDelegate.h"
@@ -84,11 +83,7 @@ framework module PrebidMobile {
     header "PBMCreativeViewDelegate.h"
     header "PBMAbstractCreative.h"
     header "PBMAdViewManager.h"
-    header "PBMViewExposureProvider.h"
     header "PBMViewExposure.h"
-    
-    header "PBMViewabilityPlaybackBinder.h"
-    header "PBMViewExposureProviders.h"
     
     header "PBMBidRequester.h"
     header "PBMLog.h"

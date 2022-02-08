@@ -16,7 +16,6 @@
 #import "PBMCreativeViewDelegate.h"
 #import "PBMAbstractCreative.h"
 #import "PBMAdViewManager.h"
-#import "PBMViewExposureProvider.h"
 #import "PBMViewExposure.h"
 
 #import "PBMJsonCodable.h"
