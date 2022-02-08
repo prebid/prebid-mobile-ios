@@ -1602,7 +1602,6 @@
 		925D5E242737EB5400A8A2B5 /* MediationInterstitialAdUnit+TestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MediationInterstitialAdUnit+TestExtension.h"; sourceTree = "<group>"; };
 		925D5E262737EC5E00A8A2B5 /* MediationInterstitialAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediationInterstitialAdUnitTest.swift; sourceTree = "<group>"; };
 		925D5E282737EC9400A8A2B5 /* MediationRewardedAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediationRewardedAdUnitTest.swift; sourceTree = "<group>"; };
-		925D5E2A2737ECBB00A8A2B5 /* MediationNativeAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediationNativeAdUnitTest.swift; sourceTree = "<group>"; };
 		925D5E2C2737ECEA00A8A2B5 /* PBMWinNotifierTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMWinNotifierTest.swift; sourceTree = "<group>"; };
 		925D5E2F2737ED8C00A8A2B5 /* PBMRewardedVideoViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMRewardedVideoViewTest.swift; sourceTree = "<group>"; };
 		925D5E312737EDCD00A8A2B5 /* PBMVideoView+pbmTestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMVideoView+pbmTestExtension.h"; sourceTree = "<group>"; };
@@ -3023,7 +3022,6 @@
 				925D5E212737EA1E00A8A2B5 /* MediationBannerAdUnitTest.swift */,
 				925D5E262737EC5E00A8A2B5 /* MediationInterstitialAdUnitTest.swift */,
 				925D5E282737EC9400A8A2B5 /* MediationRewardedAdUnitTest.swift */,
-				925D5E2A2737ECBB00A8A2B5 /* MediationNativeAdUnitTest.swift */,
 				925D5E2C2737ECEA00A8A2B5 /* PBMWinNotifierTest.swift */,
 				923B5520274536B400E00C88 /* MockMediationUtils.swift */,
 			);
