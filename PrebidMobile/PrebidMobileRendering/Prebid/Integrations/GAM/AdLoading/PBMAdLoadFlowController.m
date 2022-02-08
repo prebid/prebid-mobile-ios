@@ -181,7 +181,7 @@
     AdUnitConfig * const configClone = [self.delegate.adUnitConfig copy];
     const BOOL configIsValid = self.configValidationBlock(configClone, NO);
     if (!configIsValid) {
-        [self reportLoadingFailedWithError:[PBMError noNativeCreative]];
+        [self reportLoadingFailedWithError:[PBMError errorWithMessage:@"AdUnitConfig is not valid." type:PBMErrorTypeInternalError]];
         return;
     }
     
@@ -238,7 +238,7 @@
     
     const BOOL configIsValid = self.configValidationBlock(self.savedAdUnitConfig, YES);
     if (!configIsValid) {
-        [self reportLoadingFailedWithError:[PBMError noNativeCreative]];
+        [self reportLoadingFailedWithError:[PBMError errorWithMessage:@"AdUnitConfig is not valid." type:PBMErrorTypeInternalError]];
         return;
     }
     

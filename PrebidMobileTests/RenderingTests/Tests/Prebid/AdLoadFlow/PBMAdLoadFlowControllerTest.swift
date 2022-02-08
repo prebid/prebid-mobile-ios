@@ -610,7 +610,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
             }),
             .flowControllerDelegate(call: .failedWithError(handler: { (loader, error) in
                 XCTAssertEqual(loader, flowController())
-                XCTAssertEqual(error as NSError?, PBMError.noNativeCreative as NSError)
+                XCTAssertNotNil(error)
                 failureReported.fulfill()
             })),
         ])
@@ -673,7 +673,7 @@ class PBMAdLoadFlowControllerTest: XCTestCase {
             }),
             .flowControllerDelegate(call: .failedWithError(handler: { (loader, error) in
                 XCTAssertEqual(loader, flowController())
-                XCTAssertEqual(error as NSError?, PBMError.noNativeCreative as NSError)
+                XCTAssertNotNil(error)
                 failureReported.fulfill()
             })),
         ])

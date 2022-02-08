@@ -33,8 +33,5 @@ import Foundation
     case noVastTagInMediaData
 
     case sdkMisuse = 8000
-    case sdkMisuseNoNativeCreative
-    case sdkMisuseNativeAdUnitFetchedAgain
     case sdkMisusePreviousFetchNotCompletedYet
-    case sdkMisuseAttemptedToReplaceMediaDataInMediaView
 }

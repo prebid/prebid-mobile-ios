@@ -31,12 +31,7 @@ class PBMErrorTest: XCTestCase {
             PBMError.jsonDictNotFound,
             PBMError.responseDeserializationFailed,
             
-            PBMError.noEventForNativeAdMarkupEventTracker,
-            PBMError.noMethodForNativeAdMarkupEventTracker,
-            PBMError.noUrlForNativeAdMarkupEventTracker,
-            
             PBMError.noWinningBid,
-            PBMError.noNativeCreative
         ].map { $0 as NSError }
         
         for i in 1..<allErrors.count {
@@ -64,7 +59,6 @@ class PBMErrorTest: XCTestCase {
             
             (PBMError.noWinningBid, .demandNoBids),
             
-            (PBMError.noNativeCreative, .sdkMisuseNoNativeCreative),
             
             (NSError(domain: NSURLErrorDomain, code: NSURLErrorTimedOut), .demandTimedOut),
             (NSError(domain: NSURLErrorDomain, code: NSURLErrorBadURL), .networkError),
