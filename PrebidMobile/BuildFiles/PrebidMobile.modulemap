@@ -48,36 +48,15 @@ framework module PrebidMobile {
     header "PBMFunctions+Testing.h"
     header "PBMUIApplicationProtocol.h"
     header "NSDictionary+PBMORTBNativeExt.h"
-    
-    header "PBMNativeAdMediaHooks.h"
+
     header "PBMViewControllerProvider.h"
     header "PBMCreativeClickHandlerBlock.h"
     header "PBMVoidBlock.h"
-    header "PBMNativeAdMarkupAsset.h"
     
     header "PBMErrorFamily.h"
     
-    // PBM Native Ads (markup)
-    header "PBMNativeAdMarkup.h"
-    header "PBMNativeAdMarkupAsset.h"
-    header "PBMNativeAdMarkupData.h"
-    header "PBMNativeAdMarkupImage.h"
-    header "PBMNativeAdMarkupLink.h"
-    header "PBMNativeAdMarkupTitle.h"
-    header "PBMNativeAdMarkupVideo.h"
-    header "PBMNativeAdMarkupEventTracker.h"
-    
-    header "PBMNativeClickableViewRegistry.h"
-    header "PBMNativeClickTrackerBinderFactoryBlock.h"
-    header "PBMNativeViewClickHandlerBlock.h"
-    header "PBMNativeClickTrackerBinderBlock.h"
-    
-    header "PBMNativeAdImpressionReporting.h"
-    header "PBMNativeClickTrackerBinders.h"
-    
     header "PBMJsonDecodable.h"
     header "PBMConstants.h"
-    
     
     header "PBMAdViewManagerDelegate.h"
     header "PBMAdDetails.h"
@@ -145,8 +124,6 @@ framework module PrebidMobile {
     header "PBMEventTrackerProtocol.h"
     header "PBMOpenMeasurementFriendlyObstructionPurpose.h"
     header "PBMTrackingEvent.h"
-    header "PBMNativeImpressionsTracker.h"
-    header "PBMNativeImpressionDetectionHandler.h"
     
     // Urls openers
     header "PBMExternalURLOpeners.h"

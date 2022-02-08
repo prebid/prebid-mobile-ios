@@ -1,27 +1,27 @@
 /*   Copyright 2018-2021 Prebid.org, Inc.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  */
 
 import UIKit
 
 fileprivate let assertionMessageMainThread = "Expected to only be called on the main thread"
 
 public class BannerView: UIView,
-                  BannerAdLoaderDelegate,
-                  AdLoadFlowControllerDelegate,
-                  BannerEventInteractionDelegate,
-                  DisplayViewInteractionDelegate {
+                         BannerAdLoaderDelegate,
+                         AdLoadFlowControllerDelegate,
+                         BannerEventInteractionDelegate,
+                         DisplayViewInteractionDelegate {
     
     public let adUnitConfig: AdUnitConfig
     public let eventHandler: BannerEventHandler?
@@ -35,7 +35,7 @@ public class BannerView: UIView,
     @objc public var configID: String {
         adUnitConfig.configID
     }
-
+    
     @objc public var refreshInterval: TimeInterval {
         get { adUnitConfig.refreshInterval }
         set { adUnitConfig.refreshInterval = newValue }
@@ -61,25 +61,18 @@ public class BannerView: UIView,
         set { adUnitConfig.videoPlacementType = PBMVideoPlacementType(rawValue: newValue.rawValue) ?? .undefined }
     }
     
-    // The feature is not available. Use original Prebid Native API
-    // TODO: Merge Native engine from original SDK and rendering codebase
-    var nativeAdConfig: NativeAdConfiguration? {
-        get { adUnitConfig.nativeAdConfiguration }
-        set { adUnitConfig.nativeAdConfiguration = newValue }
-    }
-
     @objc public weak var delegate: BannerViewDelegate?
     
     // MARK: Readonly storage
     
     var autoRefreshManager: PBMAutoRefreshManager?
     var adLoadFlowController: PBMAdLoadFlowController?
-
+    
     // MARK: Externally observable
     var deployedView: UIView?
     var isRefreshStopped = false
     var isAdOpened = false
-
+    
     // MARK: Computed helpers
     
     /// whether auto-refresh is allowed to occur now
@@ -98,7 +91,7 @@ public class BannerView: UIView,
         
         return  true
     }
-   
+    
     var isCreativeOpened : Bool {
         if let displayView = deployedView as? PBMDisplayView {
             return displayView.isCreativeOpened
@@ -110,16 +103,16 @@ public class BannerView: UIView,
     // MARK: - Public Methods
     
     @objc public init(frame: CGRect,
-                configID: String,
-                adSize: CGSize,
-                eventHandler: BannerEventHandler) {
+                      configID: String,
+                      adSize: CGSize,
+                      eventHandler: BannerEventHandler) {
         
         adUnitConfig = AdUnitConfig(configID: configID, size: adSize)
         self.eventHandler = eventHandler
         
         super.init(frame: frame)
         accessibilityLabel = PBMAccesibility.bannerView
-
+        
         let bannerAdLoader = PBMBannerAdLoader(delegate: self)
         
         adLoadFlowController = PBMAdLoadFlowController(
@@ -132,9 +125,7 @@ public class BannerView: UIView,
             adLoader: bannerAdLoader,
             delegate: self,
             configValidationBlock: { adUnitConfig, renderWithPrebid in
-                renderWithPrebid ?
-                    BannerView.canPrebidDisplayAd(withConfiguration: adUnitConfig) :
-                    BannerView.canEventHandler(eventHandler: eventHandler, displayAdWithConfiguration: adUnitConfig)
+                true
             })
         
         autoRefreshManager = PBMAutoRefreshManager(
@@ -174,8 +165,8 @@ public class BannerView: UIView,
     }
     
     @objc public convenience init(frame: CGRect,
-                            configID: String,
-                            adSize: CGSize) {
+                                  configID: String,
+                                  adSize: CGSize) {
         self.init(frame: frame,
                   configID: configID,
                   adSize: adSize,
@@ -197,7 +188,7 @@ public class BannerView: UIView,
     }
     
     // MARK: - Context Data
-
+    
     @objc public func addContextData(_ data: String, forKey key: String) {
         adUnitConfig.addContextData(data, forKey: key)
     }
@@ -219,8 +210,8 @@ public class BannerView: UIView,
     public func trackImpression(for displayView: PBMDisplayView) {
         guard let eventHandler = self.eventHandler,
               eventHandler.responds(to: #selector(BannerEventHandler.trackImpression)) else {
-            return
-        }
+                  return
+              }
         
         eventHandler.trackImpression()
     }
@@ -290,15 +281,15 @@ public class BannerView: UIView,
     
     public func willLeaveApp() {
         assert(Thread.isMainThread, assertionMessageMainThread)
-
+        
         invokeDelegateSelector(#selector(BannerViewDelegate.bannerViewWillLeaveApplication))
     }
     
     public var viewControllerForPresentingModal: UIViewController? {
         guard let delegate = self.delegate,
               delegate.responds(to: #selector(BannerViewDelegate.bannerViewPresentationController)) else {
-            return nil
-        }
+                  return nil
+              }
         
         return delegate.bannerViewPresentationController()
     }
@@ -308,12 +299,12 @@ public class BannerView: UIView,
     private func invokeDelegateSelector(_ selector: Selector) {
         guard let delegate = self.delegate,
               delegate.responds(to: selector) else {
-            return
-        }
+                  return
+              }
         
         delegate.perform(selector, with: self)
     }
-
+    
     private func deployView(_ view: UIView) {
         guard deployedView !== view else {
             return
@@ -339,8 +330,8 @@ public class BannerView: UIView,
             guard let self = self,
                   let delegate = self.delegate,
                   delegate.responds(to: #selector(BannerViewDelegate.bannerView(_:didReceiveAdWithAdSize:))) else {
-                return
-            }
+                      return
+                  }
             
             delegate.bannerView?(self, didReceiveAdWithAdSize: size)
         }
@@ -364,52 +355,20 @@ public class BannerView: UIView,
         view.translatesAutoresizingMaskIntoConstraints = false
         
         addConstraints([
-                        NSLayoutConstraint(item: self,
-                                           attribute: .width,
-                                           relatedBy: .equal,
-                                           toItem: view,
-                                           attribute: .width,
-                                           multiplier: 1,
-                                           constant: 0),
-                        
-                        NSLayoutConstraint(item: self,
-                                           attribute: .height,
-                                           relatedBy: .equal,
-                                           toItem: view,
-                                           attribute: .height,
-                                           multiplier: 1, constant: 0)
+            NSLayoutConstraint(item: self,
+                               attribute: .width,
+                               relatedBy: .equal,
+                               toItem: view,
+                               attribute: .width,
+                               multiplier: 1,
+                               constant: 0),
+            
+            NSLayoutConstraint(item: self,
+                               attribute: .height,
+                               relatedBy: .equal,
+                               toItem: view,
+                               attribute: .height,
+                               multiplier: 1, constant: 0)
         ])
-    }
-
-
-    // MARK: - Static Helpers
-
-    private static func canEventHandler(eventHandler:BannerEventHandler,
-                                        displayAdWithConfiguration adUnitConfig: AdUnitConfig ) -> Bool {
-        if adUnitConfig.adConfiguration.adFormat != .nativeInternal {
-            return true;
-        }
-        
-        if eventHandler.isCreativeRequiredForNativeAds {
-            if let nativeStyleCreative = adUnitConfig.nativeAdConfiguration?.nativeStylesCreative {
-                return !nativeStyleCreative.isEmpty
-            } else {
-                return false
-            }
-        }
-        
-        return true;
-    }
-
-    private static func canPrebidDisplayAd(withConfiguration adUnitConfig:AdUnitConfig) -> Bool {
-        if adUnitConfig.adConfiguration.adFormat != .nativeInternal {
-            return true;
-        }
-        
-        if let nativeStyleCreative = adUnitConfig.nativeAdConfiguration?.nativeStylesCreative {
-            return !nativeStyleCreative.isEmpty
-        }
-        
-        return false
     }
 }

@@ -123,7 +123,7 @@
         PBMAdFormatInternal adType = self.creativeModel.adConfiguration.adFormat;
         if (adType == PBMAdFormatVideoInternal) {
             [self attemptVASTCreative];
-        } else if (adType == PBMAdFormatDisplayInternal || adType == PBMAdFormatNativeInternal) {
+        } else if (adType == PBMAdFormatDisplayInternal) {
             [self attemptAUIDCreative];
         }
     });

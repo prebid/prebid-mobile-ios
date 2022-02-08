@@ -34,18 +34,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         }
     }
     
-    // The feature is not available. Use original Prebid Native API
-    // TODO: Merge Native engine from original SDK and rendering codebase
-    var _nativeAdConfiguration: NativeAdConfiguration?
-    var nativeAdConfiguration: NativeAdConfiguration? {
-        get { _nativeAdConfiguration }
-        set {
-            _nativeAdConfiguration = newValue?.copy() as? NativeAdConfiguration
-            adConfiguration.isNative = _nativeAdConfiguration != nil;
-            updateAdFormat()
-        }
-    }
-    
     @objc public var adSize: CGSize
     @objc public var minSizePerc: NSValue?
     
@@ -165,7 +153,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.isInterstitialAd = self.adConfiguration.isInterstitialAd
         clone.adConfiguration.isOptIn = self.adConfiguration.isOptIn
         clone.adConfiguration.videoPlacementType = self.adConfiguration.videoPlacementType
-        clone.nativeAdConfiguration = self.nativeAdConfiguration
         clone.sizes = sizes
         clone.refreshInterval = self.refreshInterval
         clone.minSizePerc = self.minSizePerc
@@ -178,13 +165,9 @@ public class AdUnitConfig: NSObject, NSCopying {
     // MARK: - Private Methods
     
     private func getInternalAdFormat() -> PBMAdFormatInternal {
-        if let _ = nativeAdConfiguration {
-            return .nativeInternal
-        } else {
-            switch adFormat {
-                case .display   : return .displayInternal
-                case .video     : return .videoInternal
-            }
+        switch adFormat {
+        case .display   : return .displayInternal
+        case .video     : return .videoInternal
         }
     }
     

@@ -26,6 +26,5 @@
 typedef NS_ENUM(NSInteger, PBMAdFormatInternal) {
     PBMAdFormatDisplayInternal,// = PBMAdFormatDisplay,
     PBMAdFormatVideoInternal,// = PBMAdFormatVideo,
-    PBMAdFormatNativeInternal,
     //PBMAdFormatMultiformatInternal,
 };

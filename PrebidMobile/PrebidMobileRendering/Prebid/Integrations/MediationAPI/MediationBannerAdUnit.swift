@@ -57,13 +57,6 @@ public class MediationBannerAdUnit : NSObject {
         set { adUnitConfig.videoPlacementType = PBMVideoPlacementType(rawValue: newValue.rawValue) ?? .undefined }
     }
     
-    // The feature is not available. Use original Prebid Native API
-    // TODO: Merge Native engine from original SDK and rendering codebase
-    var nativeAdConfig: NativeAdConfiguration? {
-        get { adUnitConfig.nativeAdConfiguration }
-        set { adUnitConfig.nativeAdConfiguration = newValue }
-    }
-    
     public var refreshInterval: TimeInterval {
         get { adUnitConfig.refreshInterval }
         set { adUnitConfig.refreshInterval = newValue }
