@@ -114,7 +114,6 @@
 		92F9A5C227A137D5007B0B17 /* MoPubNativeAdViewWithNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC92994F25DD680900CD482E /* MoPubNativeAdViewWithNib.xib */; };
 		92F9A5C327A137D8007B0B17 /* MoPubNativeAdViewWithNib.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC92994925DD655800CD482E /* MoPubNativeAdViewWithNib.swift */; };
 		92F9A5C527A139B3007B0B17 /* PrebidMoPubNativeAdFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF3823025ED058E000A071B /* PrebidMoPubNativeAdFeedController.swift */; };
-		92F9A5C927A14F01007B0B17 /* MoPubNativeVideoAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF3823625ED47E4000A071B /* MoPubNativeVideoAdView.swift */; };
 		92F9A5D027A15BB6007B0B17 /* NativeAdViewBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3461835425A6020500783A2C /* NativeAdViewBox.swift */; };
 		92F9A5D127A15BD1007B0B17 /* NativeAdViewBoxProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4F254A25E0112C0095C601 /* NativeAdViewBoxProtocol.swift */; };
 		92F9A5D227A15D04007B0B17 /* NativeAdViewBoxLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC4F253825DFF6300095C601 /* NativeAdViewBoxLinks.swift */; };
@@ -196,19 +195,12 @@
 
 /* Begin PBXFileReference section */
 		2F097F6238E0EB831B507463 /* Pods_OpenXMockServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenXMockServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		341CC2E42562B04800186F29 /* NativeAssetsArrayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetsArrayController.swift; sourceTree = "<group>"; };
-		341CC2F52562B97600186F29 /* NativeEventTrackersArrayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackersArrayController.swift; sourceTree = "<group>"; };
-		341CC2FF2562BA1800186F29 /* PBMNativeEventTracker+InternalState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMNativeEventTracker+InternalState.h"; sourceTree = "<group>"; };
-		341CC3042562BD2300186F29 /* NativeEventTrackerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackerController.swift; sourceTree = "<group>"; };
-		341CC30A2562C8D000186F29 /* BaseNativeAssetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNativeAssetController.swift; sourceTree = "<group>"; };
 		341CC3132562C9D000186F29 /* FormViewController+RowBuildHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FormViewController+RowBuildHelpers.swift"; sourceTree = "<group>"; };
-		341CC3192562CE5C00186F29 /* NativeAssetTitleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetTitleController.swift; sourceTree = "<group>"; };
 		34215B0E25C4598E00C74A09 /* ProcessArgumentsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessArgumentsParser.swift; sourceTree = "<group>"; };
 		3452BF9324C1CDB800AE5F40 /* PrebidMoPubRewardedVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMoPubRewardedVideoController.swift; sourceTree = "<group>"; };
 		3459DF0725E8D3FB004EC761 /* UnifiedNativeAdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnifiedNativeAdView.xib; sourceTree = "<group>"; };
 		3459DF7B25E8E467004EC761 /* UnifiedNativeAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedNativeAdView.swift; sourceTree = "<group>"; };
 		3461834325A5EA6800783A2C /* PrebidNativeAdController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdController.swift; sourceTree = "<group>"; };
-		3461834925A5FE7100783A2C /* PrebidNativeAdCompatibleConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdCompatibleConfigurationController.swift; sourceTree = "<group>"; };
 		3461835425A6020500783A2C /* NativeAdViewBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdViewBox.swift; sourceTree = "<group>"; };
 		346C6F5625DFAB7E00457DD3 /* ReactiveSdkInitFlag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactiveSdkInitFlag.swift; sourceTree = "<group>"; };
 		3493021B2473F408004A6086 /* PrebidGAMBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMBannerController.swift; sourceTree = "<group>"; };
@@ -216,7 +208,6 @@
 		3493022124740BEE004A6086 /* PrebidBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidBannerController.swift; sourceTree = "<group>"; };
 		34930E112420E899007A0DBA /* GlobalVars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVars.swift; sourceTree = "<group>"; };
 		34B10A2F255017DE00B5FE09 /* ThreadCheckingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadCheckingButton.swift; sourceTree = "<group>"; };
-		34B5CEE025D2D05C008C0CBC /* PrebidNativeAdRenderingConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdRenderingConfigurationController.swift; sourceTree = "<group>"; };
 		34BA95FD249CBF05006AE372 /* PrebidGAMInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMInterstitialController.swift; sourceTree = "<group>"; };
 		34BA95FF249CC118006AE372 /* PrebidRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidRewardedController.swift; sourceTree = "<group>"; };
 		34BA9601249CC164006AE372 /* PrebidMoPubInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMoPubInterstitialController.swift; sourceTree = "<group>"; };
@@ -225,15 +216,7 @@
 		34BAD45A23957D1C0042DB33 /* IABConsentSettingKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IABConsentSettingKey.swift; sourceTree = "<group>"; };
 		34C25816255D69E1000A4A73 /* EventReportContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventReportContainer.swift; sourceTree = "<group>"; };
 		34C7961A25DD0C830072A898 /* PrebidGAMNativeAdController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMNativeAdController.swift; sourceTree = "<group>"; };
-		34C9ADF62563C9C300EB6F72 /* NativeAssetDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetDataController.swift; sourceTree = "<group>"; };
-		34C9AE292563CED600EB6F72 /* NativeAssetImageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetImageController.swift; sourceTree = "<group>"; };
-		34C9AE332563FA6000EB6F72 /* NativeAssetVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetVideoController.swift; sourceTree = "<group>"; };
-		34C9AED22564191100EB6F72 /* PBMNativeAsset+FromJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBMNativeAsset+FromJSON.swift"; sourceTree = "<group>"; };
-		34C9AF012564286E00EB6F72 /* PBMNativeEventTracker+FromJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBMNativeEventTracker+FromJSON.swift"; sourceTree = "<group>"; };
-		34C9AF072564295800EB6F72 /* PBMNativeAdConfiguration+FromJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBMNativeAdConfiguration+FromJSON.swift"; sourceTree = "<group>"; };
 		34D70F6A24E546DD0048CC78 /* LogInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInfo.swift; sourceTree = "<group>"; };
-		34DB0CF9255ED29000970F9E /* NativeAdConfigController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdConfigController.swift; sourceTree = "<group>"; };
-		34DB0D32255ED58000970F9E /* PBMNativeAdConfiguration+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMNativeAdConfiguration+Internal.h"; sourceTree = "<group>"; };
 		34E56989237DB96900B47B01 /* UtilitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesViewController.swift; sourceTree = "<group>"; };
 		34FC0CF324ADD3A80045553E /* PrebidInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidInterstitialController.swift; sourceTree = "<group>"; };
 		34FC0CF524ADD5640045553E /* PrebidGAMRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidGAMRewardedController.swift; sourceTree = "<group>"; };
@@ -325,7 +308,6 @@
 		AC23A0CC251B932000983ABF /* PrebidBannerConfigurationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidBannerConfigurationController.swift; sourceTree = "<group>"; };
 		AC27E9E124D9A51B000CD7EC /* FeedAdTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAdTableViewCell.swift; sourceTree = "<group>"; };
 		AC27E9E524D9A69A000CD7EC /* FeedAdTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedAdTableViewCell.xib; sourceTree = "<group>"; };
-		AC368F5A256C4E5D000D5E1B /* PBMNativeAdConfiguration+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PBMNativeAdConfiguration+Testing.swift"; sourceTree = "<group>"; };
 		AC4732B225D2E8BA0041EEBA /* PrebidMoPubNativeAdController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMoPubNativeAdController.swift; sourceTree = "<group>"; };
 		AC4F253825DFF6300095C601 /* NativeAdViewBoxLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdViewBoxLinks.swift; sourceTree = "<group>"; };
 		AC4F254A25E0112C0095C601 /* NativeAdViewBoxProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdViewBoxProtocol.swift; sourceTree = "<group>"; };
@@ -343,7 +325,6 @@
 		ACE6E80C264D121A009324AC /* NativeAsset+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeAsset+Extensions.swift"; sourceTree = "<group>"; };
 		ACF3557F25CD8C3000B9C8E5 /* PrebidNativeAdFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidNativeAdFeedController.swift; sourceTree = "<group>"; };
 		ACF3823025ED058E000A071B /* PrebidMoPubNativeAdFeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMoPubNativeAdFeedController.swift; sourceTree = "<group>"; };
-		ACF3823625ED47E4000A071B /* MoPubNativeVideoAdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoPubNativeVideoAdView.swift; sourceTree = "<group>"; };
 		ACF7155625B08A80008A0186 /* TestCaseManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCaseManagerTest.swift; sourceTree = "<group>"; };
 		BEA57206B9513930E41DB0CD /* Pods-OpenXMockServer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXMockServer.release.xcconfig"; path = "../prebid-mobile-ios/Pods/Target Support Files/Pods-OpenXMockServer/Pods-OpenXMockServer.release.xcconfig"; sourceTree = "<group>"; };
 		D086806B2398088A00E70E60 /* OpenXMockServer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenXMockServer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -426,18 +407,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		341CC3102562C8D700186F29 /* NativeAssets */ = {
-			isa = PBXGroup;
-			children = (
-				341CC30A2562C8D000186F29 /* BaseNativeAssetController.swift */,
-				34C9ADF62563C9C300EB6F72 /* NativeAssetDataController.swift */,
-				34C9AE292563CED600EB6F72 /* NativeAssetImageController.swift */,
-				341CC3192562CE5C00186F29 /* NativeAssetTitleController.swift */,
-				34C9AE332563FA6000EB6F72 /* NativeAssetVideoController.swift */,
-			);
-			path = NativeAssets;
-			sourceTree = "<group>";
-		};
 		341CC3122562C9AB00186F29 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -481,7 +450,6 @@
 				AC92995525DD6F9500CD482E /* MoPubNativeAdView.swift */,
 				AC92994925DD655800CD482E /* MoPubNativeAdViewWithNib.swift */,
 				AC92994F25DD680900CD482E /* MoPubNativeAdViewWithNib.xib */,
-				ACF3823625ED47E4000A071B /* MoPubNativeVideoAdView.swift */,
 				3493021E2473FFE8004A6086 /* PrebidMoPubBannerController.swift */,
 				34BA9601249CC164006AE372 /* PrebidMoPubInterstitialController.swift */,
 				AC4732B225D2E8BA0041EEBA /* PrebidMoPubNativeAdController.swift */,
@@ -506,25 +474,10 @@
 			path = OpenX;
 			sourceTree = "<group>";
 		};
-		34C9AECD256418D700EB6F72 /* NativeAdConfig_fromJson */ = {
-			isa = PBXGroup;
-			children = (
-				34C9AF072564295800EB6F72 /* PBMNativeAdConfiguration+FromJSON.swift */,
-				34C9AED22564191100EB6F72 /* PBMNativeAsset+FromJSON.swift */,
-				34C9AF012564286E00EB6F72 /* PBMNativeEventTracker+FromJSON.swift */,
-			);
-			path = NativeAdConfig_fromJson;
-			sourceTree = "<group>";
-		};
 		34DB0CF8255ED26A00970F9E /* NativeAdConfigEditor */ = {
 			isa = PBXGroup;
 			children = (
 				341CC3122562C9AB00186F29 /* Extensions */,
-				34DB0CF9255ED29000970F9E /* NativeAdConfigController.swift */,
-				341CC2F52562B97600186F29 /* NativeEventTrackersArrayController.swift */,
-				341CC3042562BD2300186F29 /* NativeEventTrackerController.swift */,
-				341CC2E42562B04800186F29 /* NativeAssetsArrayController.swift */,
-				341CC3102562C8D700186F29 /* NativeAssets */,
 			);
 			path = NativeAdConfigEditor;
 			sourceTree = "<group>";
@@ -550,17 +503,6 @@
 				5B1BDB7E2100D59000B46B43 /* Info.plist */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		5B1BDB822100D6C100B46B43 /* TestExtensions */ = {
-			isa = PBXGroup;
-			children = (
-				AC368F5A256C4E5D000D5E1B /* PBMNativeAdConfiguration+Testing.swift */,
-				34DB0D32255ED58000970F9E /* PBMNativeAdConfiguration+Internal.h */,
-				341CC2FF2562BA1800186F29 /* PBMNativeEventTracker+InternalState.h */,
-				34C9AECD256418D700EB6F72 /* NativeAdConfig_fromJson */,
-			);
-			path = TestExtensions;
 			sourceTree = "<group>";
 		};
 		5B2ECE432072637900A4FB48 /* Frameworks */ = {
@@ -610,7 +552,6 @@
 				5B3C2AAE2100BC4900BD733C /* AppDelegate.swift */,
 				34215B0E25C4598E00C74A09 /* ProcessArgumentsParser.swift */,
 				5B1BDB782100D59000B46B43 /* Resources */,
-				5B1BDB822100D6C100B46B43 /* TestExtensions */,
 				5B3EEDCD2101D2A100BAA0C4 /* Utilities */,
 				5B3EEDB12101D1AF00BAA0C4 /* ViewControllers */,
 			);
@@ -643,8 +584,6 @@
 			children = (
 				5B209B4921075E0A00C0F5CE /* BaseConfigurationController.swift */,
 				5B3EEDB42101D1AF00BAA0C4 /* PrebidMobileRenderingConfigurationViewController.swift */,
-				3461834925A5FE7100783A2C /* PrebidNativeAdCompatibleConfigurationController.swift */,
-				34B5CEE025D2D05C008C0CBC /* PrebidNativeAdRenderingConfigurationController.swift */,
 				AC23A0CC251B932000983ABF /* PrebidBannerConfigurationController.swift */,
 				34DB0CF8255ED26A00970F9E /* NativeAdConfigEditor */,
 			);
@@ -1210,7 +1149,6 @@
 				34BAD45B23957D1C0042DB33 /* IABConsentSettingKey.swift in Sources */,
 				5B3EEDDC2101DB7900BAA0C4 /* TabViewController.swift in Sources */,
 				ACC41ACA2444E50B00B9A3A7 /* SettingsViewController.swift in Sources */,
-				92F9A5C927A14F01007B0B17 /* MoPubNativeVideoAdView.swift in Sources */,
 				5B3EEDD32101D2CF00BAA0C4 /* StringExtensions.swift in Sources */,
 				5B3EEDC12101D1AF00BAA0C4 /* PrebidMobileRenderingConfigurationViewController.swift in Sources */,
 				5B209B4A21075E0A00C0F5CE /* BaseConfigurationController.swift in Sources */,

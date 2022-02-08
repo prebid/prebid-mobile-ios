@@ -39,7 +39,7 @@ final class AppConfiguration: NSObject {
         get { IABConsentHelper.isGDPREnabled }
         set { IABConsentHelper.isGDPREnabled = newValue }
     }
-//    var nativeAdConfig: NativeAdConfiguration?
+    
     var adPosition: AdPosition?
     var videoPlacementType: VideoPlacementType?
     var adUnitContext: [(key: String, value: String)]?

@@ -24,8 +24,6 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     var adSizes = [CGSize]()
     var adFormat: AdFormat?
     
-//    var nativeAdConfig: NativeAdConfiguration?
-    
     var adBannerView : BannerView?
     
     weak var rootController: AdapterViewController?
@@ -82,8 +80,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         if let adPosition = AppConfiguration.shared.adPosition {
             adBannerView?.adPosition = adPosition
         }
-        
-//        adBannerView?.nativeAdConfig = self.nativeAdConfig
+    
         adBannerView?.delegate = self
         adBannerView?.accessibilityIdentifier = "PrebidBannerView"
         

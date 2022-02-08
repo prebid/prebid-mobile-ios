@@ -27,8 +27,6 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
     var validAdSizes = [GADAdSize]()
     var adFormat: AdFormat?
     
-//    var nativeAdConfig: NativeAdConfiguration?
-    
     var adBannerView : BannerView?
     
     weak var rootController: AdapterViewController?
@@ -78,8 +76,6 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
             }
         }
        
-//        adBannerView?.nativeAdConfig = self.nativeAdConfig
-       
         adBannerView?.delegate = self
         adBannerView?.accessibilityIdentifier = "BannerView"
         
@@ -127,13 +123,6 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
             lastLoadedAdSizeLabel.isHidden = false
             lastLoadedAdSizeLabel.text = "Ad Size: \(bannerSize.width)x\(bannerSize.height)"
         }
-        
-//        if nativeAdConfig == nil {
-//            setBannerSize(adSize)
-//        } else {
-//            // FIXME: (PB-X) Read from bid???
-//            setBannerSize(CGSize(width: 300, height: 250))
-//        }
         
         setBannerSize(adSize)
     }
