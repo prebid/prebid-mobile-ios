@@ -81,15 +81,15 @@ import UIKit
         return images(of: .icon).first?.url
     }
     
-    @objc public var sponsored: String? {
+    @objc public var sponsoredBy: String? {
         return dataObjects(of: .sponsored).first?.value
     }
     
-    @objc public var desc: String? {
+    @objc public var text: String? {
         return dataObjects(of: .desc).first?.value
     }
     
-    @objc public var ctaText: String? {
+    @objc public var callToAction: String? {
         return dataObjects(of: .ctaText).first?.value
     }
     

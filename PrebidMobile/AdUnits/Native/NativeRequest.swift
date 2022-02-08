@@ -44,22 +44,28 @@ public class NativeRequest: AdUnit {
     public init(configId: String) {
         super.init(configId: configId, size:nil)
         self.configId = configId
-        self.assets = [NativeAsset]()
-        self.eventtrackers = [NativeEventTracker]()
     }
     
-    public convenience init(configId: String, assets: Array<NativeAsset>, eventTrackers: [NativeEventTracker]) {
+    public convenience init(configId: String, assets: Array<NativeAsset>? = nil, eventTrackers: Array<NativeEventTracker>? = nil) {
         self.init(configId: configId)
         self.assets = assets
         self.eventtrackers = eventtrackers
     }
     
     public func addNativeAssets(_ assets: Array<NativeAsset>) {
-        self.assets?.append(contentsOf: assets)
+        if self.assets != nil {
+            self.assets?.append(contentsOf: assets)
+        } else {
+            self.assets = assets
+        }
     }
     
     public func addNativeEventTracker(_ eventTrackers: Array<NativeEventTracker>) {
-        self.eventtrackers?.append(contentsOf: eventTrackers)
+        if eventtrackers != nil {
+            self.eventtrackers?.append(contentsOf: eventTrackers)
+        } else {
+            self.eventtrackers = eventTrackers
+        }
     }
 
     public func getNativeRequestObject() -> [AnyHashable: Any]? {

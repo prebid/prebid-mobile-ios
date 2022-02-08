@@ -75,12 +75,13 @@
 		92102C6227B0FBEB003F12B2 /* UnifiedNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3459DF7B25E8E467004EC761 /* UnifiedNativeAdView.swift */; };
 		92102C6327B0FDF7003F12B2 /* PrebidGAMNativeAdFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC812BE42600CEC000370A33 /* PrebidGAMNativeAdFeedController.swift */; };
 		92102C6427B0FE2F003F12B2 /* FeedGAMAdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC812BEE2600E57100370A33 /* FeedGAMAdTableViewCell.swift */; };
+		92102C7227B11B67003F12B2 /* PrebidNativeAdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3461834325A5EA6800783A2C /* PrebidNativeAdController.swift */; };
+		92102C7327B11DE1003F12B2 /* PrebidNativeAdFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF3557F25CD8C3000B9C8E5 /* PrebidNativeAdFeedController.swift */; };
 		9262A8AC27720DE6009441A3 /* OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; };
 		926CBF20278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926CBF1F278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift */; };
 		92700C7D273C029F0006E9FA /* PrebidMRAID3UITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */; };
 		92700C7E273C029F0006E9FA /* XCTestCaseExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C68273C029F0006E9FA /* XCTestCaseExt.swift */; };
 		92700C7F273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C69273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift */; };
-		92700C80273C029F0006E9FA /* PrebidNativeVideoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C6A273C029F0006E9FA /* PrebidNativeVideoUITests.swift */; };
 		92700C81273C029F0006E9FA /* PrebidMRAIDFullScreenUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C6B273C029F0006E9FA /* PrebidMRAIDFullScreenUITest.swift */; };
 		92700C82273C029F0006E9FA /* XCTestCase+Throwing.m in Sources */ = {isa = PBXBuildFile; fileRef = 92700C6C273C029F0006E9FA /* XCTestCase+Throwing.m */; };
 		92700C83273C029F0006E9FA /* PrebidInterstitialUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C6D273C029F0006E9FA /* PrebidInterstitialUITest.swift */; };
@@ -295,7 +296,6 @@
 		92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAID3UITest.swift; sourceTree = "<group>"; };
 		92700C68273C029F0006E9FA /* XCTestCaseExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestCaseExt.swift; sourceTree = "<group>"; };
 		92700C69273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidVideoOutstreamUITest.swift; sourceTree = "<group>"; };
-		92700C6A273C029F0006E9FA /* PrebidNativeVideoUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidNativeVideoUITests.swift; sourceTree = "<group>"; };
 		92700C6B273C029F0006E9FA /* PrebidMRAIDFullScreenUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAIDFullScreenUITest.swift; sourceTree = "<group>"; };
 		92700C6C273C029F0006E9FA /* XCTestCase+Throwing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "XCTestCase+Throwing.m"; sourceTree = "<group>"; };
 		92700C6D273C029F0006E9FA /* PrebidInterstitialUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidInterstitialUITest.swift; sourceTree = "<group>"; };
@@ -706,7 +706,6 @@
 				92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */,
 				92700C68273C029F0006E9FA /* XCTestCaseExt.swift */,
 				92700C69273C029F0006E9FA /* PrebidVideoOutstreamUITest.swift */,
-				92700C6A273C029F0006E9FA /* PrebidNativeVideoUITests.swift */,
 				92700C6B273C029F0006E9FA /* PrebidMRAIDFullScreenUITest.swift */,
 				92700C6C273C029F0006E9FA /* XCTestCase+Throwing.m */,
 				92700C6D273C029F0006E9FA /* PrebidInterstitialUITest.swift */,
@@ -1158,7 +1157,6 @@
 				92700C84273C029F0006E9FA /* PrebidRewardedVideoUITest.swift in Sources */,
 				92700C83273C029F0006E9FA /* PrebidInterstitialUITest.swift in Sources */,
 				92700C8B273C029F0006E9FA /* PrebidMRAIDResizeUITest.swift in Sources */,
-				92700C80273C029F0006E9FA /* PrebidNativeVideoUITests.swift in Sources */,
 				92700C90273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift in Sources */,
 				92700C7D273C029F0006E9FA /* PrebidMRAID3UITest.swift in Sources */,
 				92700C88273C029F0006E9FA /* PrebidMRAIDResizeExpandableUITest.swift in Sources */,
@@ -1190,8 +1188,10 @@
 				92ABD58C279DA7E200AFDFF6 /* AdMobNativeAdView.swift in Sources */,
 				34BA95FE249CBF05006AE372 /* PrebidGAMInterstitialController.swift in Sources */,
 				34BAD451239547420042DB33 /* IABConsentHelper.swift in Sources */,
+				92102C7227B11B67003F12B2 /* PrebidNativeAdController.swift in Sources */,
 				926CBF20278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift in Sources */,
 				5BA4CF632739876200197C62 /* FeedAdTableViewCell.swift in Sources */,
+				92102C7327B11DE1003F12B2 /* PrebidNativeAdFeedController.swift in Sources */,
 				ACBBDF852397E10F006D5FE6 /* CommandArgsViewController.swift in Sources */,
 				34215B0F25C4598E00C74A09 /* ProcessArgumentsParser.swift in Sources */,
 				34BAD458239564740042DB33 /* IABConsentViewController.swift in Sources */,

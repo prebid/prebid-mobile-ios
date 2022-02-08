@@ -49,11 +49,6 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
     private let customAdWinButton = EventReportContainer()
     private let unifiedAdWinButton = EventReportContainer()
     private let nativeAdInvalidButton = EventReportContainer()
-    private let nativeAdDidClickButton = EventReportContainer()
-    
-    private let nativeAdWillPresentModalButton = EventReportContainer()
-    private let nativeAdDidDismissModalButton = EventReportContainer()
-    private let nativeAdWillLeaveAppButton = EventReportContainer()
     
     required init(rootController: AdapterViewController) {
         super.init()
@@ -99,11 +94,6 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
         rootController.setupAction(customAdWinButton, "onPrimaryAdWin called (custom)")
         rootController.setupAction(unifiedAdWinButton, "onPrimaryAdWin called (unified)")
         rootController.setupAction(nativeAdInvalidButton, "onNativeAdInvalid called")
-        rootController.setupAction(nativeAdDidClickButton, "nativeAdDidLogClick called")
-        
-        rootController.setupAction(nativeAdWillLeaveAppButton, "nativeAdWillLeaveApplication called")
-        rootController.setupAction(nativeAdWillPresentModalButton, "nativeAdWillPresentModal called")
-        rootController.setupAction(nativeAdDidDismissModalButton, "nativeAdDidDismissModal called")
     }
     
     func loadAd() {

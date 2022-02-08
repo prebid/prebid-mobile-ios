@@ -39,12 +39,12 @@ class PrebidMoPubNativeAdAdapter:
         self.nativeAd.delegate = self
         
         properties[kAdTitleKey] = nativeAd.title
-        properties[kAdTextKey] = nativeAd.desc
+        properties[kAdTextKey] = nativeAd.text
        
-        let sponsored = nativeAd.sponsored
+        let sponsored = nativeAd.sponsoredBy
        
         properties[kAdSponsoredByCompanyKey] = sponsored
-        properties[kAdCTATextKey] = nativeAd.ctaText
+        properties[kAdCTATextKey] = nativeAd.callToAction
         
         if let iconUrl = nativeAd.iconUrl, !iconUrl.isEmpty {
             properties[kAdIconImageKey] = iconUrl

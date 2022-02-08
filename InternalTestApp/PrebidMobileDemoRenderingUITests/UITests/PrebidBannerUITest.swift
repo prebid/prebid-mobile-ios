@@ -178,23 +178,6 @@ class PrebidBannerUITest: RepeatedUITestCase {
         }
     }
     
-    // TODO: This test schould be restored in the issue: https://github.com/prebid/prebid-mobile-ios/issues/431
-    func testInAppBannerNativeStyle_NoCreative() {
-        repeatTesting(times: 7) {
-            navigateToExamplesSection()
-            navigateToExample("Banner Native Styles No Creative (In-App)")
-            
-            // Wait for the ad to load.
-            waitForEnabled(element: app.buttons["adViewDidFailToLoadAd called"], waitSeconds: 5)
-            
-            // Verify event labels are NOT enabled
-            XCTAssertFalse(app.buttons["adViewDidReceiveAd called"].isEnabled)
-            XCTAssertFalse(app.buttons["adViewWillPresentScreen called"].isEnabled)
-            XCTAssertFalse(app.buttons["adViewDidDismissScreen called"].isEnabled)
-            XCTAssertFalse(app.buttons["adViewWillLeaveApplication called"].isEnabled)
-        }
-    }
-    
     func testNoRefreshInBackground() {
         repeatTesting(times: 7) {
             
