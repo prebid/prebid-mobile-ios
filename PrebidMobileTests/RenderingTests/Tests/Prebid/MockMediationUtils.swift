@@ -14,6 +14,7 @@
   */
 
 import Foundation
+import UIKit
 import PrebidMobile
 
 public let MockMediationAdUnitBidKey           = "PBM_BID"
@@ -23,38 +24,27 @@ public let MockMediationAdNativeResponseKey    = "PBM_NATIVE_RESPONSE"
 fileprivate let keywordsSeparator              = ","
 fileprivate let HBKeywordPrefix                = "hb_"
 
-fileprivate let MockSelector_localExtras       = "localExtras"
-fileprivate let MockSelector_setLocalExtras    = "setLocalExtras:"
-
-fileprivate let MockSelector_keywords          = "keywords"
-fileprivate let MockSelector_setKeywords       = "setKeywords:"
-
-@objc class MockAdObject: NSObject  {
+@objc class MockAdObject: UIView {
     @objc var keywords: String?
     @objc var localExtras: [AnyHashable : Any]?
 }
 
 class MockMediationUtils: PrebidMediationDelegate {
-    public init() {
-        
+    
+    let adObject: MockAdObject
+    
+    public init(adObject: MockAdObject) {
+        self.adObject = adObject
     }
     
-    public func isCorrectAdObject(_ adObject: NSObject) -> Bool {
-        return adObject.responds(to: Selector((MockSelector_localExtras))) &&
-        adObject.responds(to: Selector((MockSelector_setLocalExtras))) &&
-        adObject.responds(to: Selector((MockSelector_setKeywords))) &&
-        adObject.responds(to: Selector((MockSelector_keywords)))
-    }
-    
-    public func cleanUpAdObject(_ adObject: NSObject) {
-        guard isCorrectAdObject(adObject),
-              let adExtras = adObject.value(forKey: MockSelector_localExtras) as? [AnyHashable : Any],
-              let adKeywords = adObject.value(forKey: MockSelector_keywords) as? String else {
+    public func cleanUpAdObject() {
+        guard let adExtras = adObject.localExtras,
+              let adKeywords = adObject.keywords else {
                   return
               }
         
         let keywords = removeHBKeywordsFrom(adKeywords)
-        adObject.setValue(keywords, forKey: MockSelector_keywords)
+        adObject.keywords = keywords
         
         let HBKeys = [MockMediationAdUnitBidKey, MockMediationConfigIdKey, MockMediationAdNativeResponseKey]
         let extras = adExtras.filter {
@@ -62,39 +52,37 @@ class MockMediationUtils: PrebidMediationDelegate {
             return !HBKeys.contains(key)
         }
         
-        adObject.setValue(extras, forKey: MockSelector_localExtras)
+        adObject.localExtras = extras
     }
     
-    public func setUpAdObject(_ adObject: NSObject,
-                              configID:String,
+    public func setUpAdObject(configId:String,
+                              configIdKey: String,
                               targetingInfo: [String : String],
-                              extraObject:Any?,
-                              forKey: String) -> Bool {
-        guard isCorrectAdObject(adObject) else {
-            return false
-        }
-        
-        let extras = adObject.value(forKey: MockSelector_localExtras) as? [AnyHashable : Any]
-        let adKeywords = (adObject.value(forKey: MockSelector_keywords) as? String) ?? ""
+                              extrasObject:Any?,
+                              extrasObjectKey: String) -> Bool {
+    
+        let extras = adObject.localExtras ?? [:]
+        let adKeywords = adObject.keywords ?? ""
         
         //Pass our objects via the localExtra property
-        var mutableExtras = extras ?? [:]
-        mutableExtras[forKey] = extraObject
-        mutableExtras[MockMediationConfigIdKey] = configID
+        var mutableExtras = extras
+        mutableExtras[extrasObjectKey] = extrasObject
+        mutableExtras[configIdKey] = configId
         
-        adObject.setValue(mutableExtras, forKey: MockSelector_localExtras)
+        adObject.localExtras = mutableExtras
         
         //Setup bid targeting keyword
         if targetingInfo.count > 0 {
             let bidKeywords = keywordsFrom(targetingInfo)
-            let keywords = adKeywords.isEmpty ?
-            bidKeywords :
-            adKeywords + "," + bidKeywords
-            
-            adObject.setValue(keywords, forKey: MockSelector_keywords)
+            let keywords = adKeywords.isEmpty ? bidKeywords : adKeywords + "," + bidKeywords
+            adObject.keywords = keywords
         }
         
         return true
+    }
+    
+    func getAdView() -> UIView? {
+        return adObject
     }
     
     // MARK: - Private Methods

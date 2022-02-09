@@ -88,5 +88,14 @@ else
     exit 1
 fi
 
+echo -e "\n${GREEN}Running PrebidMobileAdMobAdapters unit tests${NC} \n"
+xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileAdMobAdaptersTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
+
+if [[ ${PIPESTATUS[0]} == 0 ]]; then
+    echo "✅ PrebidMobileAdMobAdapters Unit Tests Passed"
+else
+    echo "🔴 PrebidMobileAdMobAdapters Unit Tests Failed"
+    exit 1
+fi
 # echo -e "\n${GREEN}Running swiftlint tests${NC} \n"
 # swiftlint --config .swiftlint.yml

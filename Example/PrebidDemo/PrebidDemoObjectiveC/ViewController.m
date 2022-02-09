@@ -15,6 +15,7 @@
 
 @import GoogleMobileAds;
 @import PrebidMobile;
+@import PrebidMobileAdMobAdapters;
 
 #import "ViewController.h"
 #import "MoPub.h"
@@ -326,15 +327,13 @@
     NativeAssetData *body = [[NativeAssetData alloc] initWithType:DataAssetDescription required:true];
     NativeAssetData *cta = [[NativeAssetData alloc] initWithType:DataAssetCtatext required:true];
     NativeAssetData *sponsored = [[NativeAssetData alloc] initWithType:DataAssetSponsored required:true];
+    
+    self.eventTrackers = [[NativeEventTracker alloc] initWithEvent:EventType.Impression methods:@[EventTracking.Image, EventTracking.js]];
 
-    self.nativeUnit = [[NativeRequest alloc] initWithConfigId:@"25e17008-5081-4676-94d5-923ced4359d3" assets:@[icon,title,image,body,cta,sponsored]];
+    self.nativeUnit = [[NativeRequest alloc] initWithConfigId:@"25e17008-5081-4676-94d5-923ced4359d3" assets:@[icon,title,image,body,cta,sponsored] eventTrackers:@[self.eventTrackers]];
     self.nativeUnit.context = ContextType.Social;
     self.nativeUnit.placementType = PlacementType.FeedContent;
     self.nativeUnit.contextSubType = ContextSubType.Social;
-
-    self.eventTrackers = [[NativeEventTracker alloc] initWithEvent:EventType.Impression methods:@[EventTracking.Image, EventTracking.js]];
-    self.nativeUnit.eventtrackers = @[self.eventTrackers];
-
 }
 
 -(void) removePreviousAds{
@@ -356,7 +355,7 @@
 
 -(void) renderPrebidNativeAd{
     self.nativeAdView.titleLabel.text = self.prebidNativeAd.title;
-    self.nativeAdView.bodyLabel.text = self.prebidNativeAd.desc;
+    self.nativeAdView.bodyLabel.text = self.prebidNativeAd.text;
     dispatch_async(dispatch_get_global_queue(0,0), ^{
         NSData * dataIcon = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: self.prebidNativeAd.iconUrl]];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -369,8 +368,8 @@
             self.nativeAdView.mainImageView.image = [UIImage imageWithData: dataMainImage];
         });
     });
-    [self.nativeAdView.callToActionButton setTitle:self.prebidNativeAd.ctaText forState:UIControlStateNormal];
-    self.nativeAdView.sponsoredLabel.text = self.prebidNativeAd.sponsored;
+    [self.nativeAdView.callToActionButton setTitle:self.prebidNativeAd.callToAction forState:UIControlStateNormal];
+    self.nativeAdView.sponsoredLabel.text = self.prebidNativeAd.sponsoredBy;
 
 }
 

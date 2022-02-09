@@ -39,20 +39,15 @@ class CacheManagerTests: XCTestCase {
         XCTAssertTrue(cacheId1!.contains("Prebid_"))
         XCTAssertTrue(CacheManager.shared.isValid(cacheId: cacheId2!))
         XCTAssertEqual(content2, CacheManager.shared.get(cacheId: cacheId2!))
-        XCTAssertFalse(CacheManager.shared.isValid(cacheId: cacheId2!))
-        XCTAssertEqual(nil, CacheManager.shared.get(cacheId: cacheId2!))
         
         XCTAssertTrue(cacheId2!.contains("Prebid_"))
         XCTAssertTrue(CacheManager.shared.isValid(cacheId: cacheId1!))
         XCTAssertEqual(content1, CacheManager.shared.get(cacheId: cacheId1!))
-        XCTAssertFalse(CacheManager.shared.isValid(cacheId: cacheId1!))
-        XCTAssertEqual(nil, CacheManager.shared.get(cacheId: cacheId1!))
+
         
         XCTAssertTrue(cacheId3!.contains("Prebid_"))
         XCTAssertTrue(CacheManager.shared.isValid(cacheId: cacheId3!))
         XCTAssertEqual(content3, CacheManager.shared.get(cacheId: cacheId3!))
-        XCTAssertFalse(CacheManager.shared.isValid(cacheId: cacheId3!))
-        XCTAssertEqual(nil, CacheManager.shared.get(cacheId: cacheId3!))
         
         
     }

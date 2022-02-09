@@ -61,31 +61,13 @@
                   Identifier = "PrebidExamplesUITest/testInAppBannerNativeStyle_NoAssets()">
                </Test>
                <Test
-                  Identifier = "PrebidExamplesUITest/testInAppNativeAd_Links()">
-               </Test>
-               <Test
-                  Identifier = "PrebidExamplesUITest/testInAppNativeAd_OK()">
-               </Test>
-               <Test
                   Identifier = "PrebidExamplesUITest/testMoPubBannerNativeStyle_NoAssets()">
                </Test>
                <Test
                   Identifier = "PrebidExamplesUITest/testMoPubBannerNativeStyle_OK()">
                </Test>
                <Test
-                  Identifier = "PrebidExamplesUITest/testMoPubNativeAdNib_OK()">
-               </Test>
-               <Test
-                  Identifier = "PrebidExamplesUITest/testMoPubNativeAd_OK()">
-               </Test>
-               <Test
                   Identifier = "PrebidExamplesUITest/testMoPubNativeAd_Video()">
-               </Test>
-               <Test
-                  Identifier = "PrebidExamplesUITest/testMoPubNativeAd_WithoutAdapters()">
-               </Test>
-               <Test
-                  Identifier = "PrebidExamplesUITest/testMoPubNativeAd_noBids()">
                </Test>
                <Test
                   Identifier = "PrebidNativeVideoUITest/testMediaPlaybackEvents()">
@@ -129,6 +111,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "35F94D121F93F85D00CF46DB"
+            BuildableName = "InternalTestAppUITests.xctest"
+            BlueprintName = "InternalTestAppUITests"
+            ReferencedContainer = "container:InternalTestApp.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

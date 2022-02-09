@@ -28,8 +28,6 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
     var additionalAdSizes = [CGSize]()
     var adFormat: AdFormat?
     
-//    var nativeAdConfig: NativeAdConfiguration?
-    
     private var adBannerView : MPAdView?
     
     private weak var rootController: AdapterViewController?
@@ -72,7 +70,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         
         adUnit = MediationBannerAdUnit(configID: prebidConfigId,
                                        size: adUnitSize,
-                                       mediationDelegate: MoPubMediationUtils())
+                                       mediationDelegate: MoPubMediationBannerUtils(mopubView: adBannerView!))
         if (refreshInterval > 0) {
             adUnit?.refreshInterval = refreshInterval
         }
@@ -83,15 +81,13 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
             adUnit?.adFormat = adFormat
         }
         
-//        adUnit?.nativeAdConfig = self.nativeAdConfig
-        
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
                 adUnit?.addContextData(dataPair.value, forKey: dataPair.key)
             }
         }
         
-        adUnit?.fetchDemand(with: adBannerView!) { [weak self] result in
+        adUnit?.fetchDemand { [weak self] result in
             guard let self = self,
                   let adBannerView = self.adBannerView,
                   let container = self.rootController?.bannerView
@@ -199,7 +195,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         
         resetEvents()
         
-        adUnit?.fetchDemand(with: adBannerView!) { [weak self] result in
+        adUnit?.fetchDemand { [weak self] result in
             self?.adBannerView?.loadAd()
         }
     }

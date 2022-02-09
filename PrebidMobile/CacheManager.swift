@@ -15,14 +15,14 @@ limitations under the License.
 
 import UIKit
 
-class CacheManager: NSObject {
+public class CacheManager: NSObject {
     
-    static let cacheManagerExpireInterval : TimeInterval = 300
+    public static let cacheManagerExpireInterval : TimeInterval = 300
     /**
      * The class is created as a singleton object & used
      */
     @objc
-    static let shared = CacheManager()
+    public static let shared = CacheManager()
     
     /**
      * The initializer that needs to be created only once
@@ -34,10 +34,10 @@ class CacheManager: NSObject {
     internal var savedValuesDict = [String : String]()
     weak var delegate: CacheExpiryDelegate?
     
-    func save(content: String, expireInterval: TimeInterval = CacheManager.cacheManagerExpireInterval) -> String?{
+    public func save(content: String, expireInterval: TimeInterval = CacheManager.cacheManagerExpireInterval) -> String? {
         if content.isEmpty {
             return nil
-        }else{
+        } else {
             let cacheId = "Prebid_" + UUID().uuidString
             self.savedValuesDict[cacheId] = content
             DispatchQueue.main.asyncAfter(deadline: .now() + expireInterval, execute: {
@@ -48,12 +48,12 @@ class CacheManager: NSObject {
         }
     }
     
-    func isValid(cacheId: String) -> Bool{
+    public func isValid(cacheId: String) -> Bool{
         return self.savedValuesDict.keys.contains(cacheId)
     }
     
-    func get(cacheId: String) -> String?{
-        return self.savedValuesDict.removeValue(forKey: cacheId)
+    public func get(cacheId: String) -> String?{
+        return self.savedValuesDict[cacheId]
     }
 }
 

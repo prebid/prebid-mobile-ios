@@ -17,13 +17,14 @@ import GoogleMobileAds
 import PrebidMobile
 import PrebidMobileGAMEventHandlers
 
-class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurableNativeAdCompatibleController {
-    var prebidConfigId = ""
-    var gamAdUnitId = ""
-    var gamCustomTemplateIDs: [String] = []
-    var adTypes: [GADAdLoaderAdType] = []
-    var nativeAdConfig = NativeAdConfiguration?.none
+class PrebidGAMNativeAdController: NSObject, AdaptedController {
+    public var prebidConfigId = ""
+    public var gamAdUnitId = ""
+    public var gamCustomTemplateIDs: [String] = []
+    public var adTypes: [GADAdLoaderAdType] = []
     
+    public var nativeAssets: [NativeAsset]?
+    public var eventTrackers: [NativeEventTracker]?
     
     private weak var rootController: AdapterViewController?
     
@@ -32,8 +33,8 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurab
     /// The native ad view that is being presented.
     private var nativeAdView: GADNativeAdView?
     
-    private var adUnit: NativeAdUnit?
-    private var theNativeAd: PBRNativeAd?
+    private var adUnit: NativeRequest?
+    private var theNativeAd: NativeAd?
     
     private var adLoader: GADAdLoader?
     
@@ -48,17 +49,6 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurab
     private let customAdWinButton = EventReportContainer()
     private let unifiedAdWinButton = EventReportContainer()
     private let nativeAdInvalidButton = EventReportContainer()
-    private let nativeAdDidClickButton = EventReportContainer()
-    
-    private let nativeAdDidLogEventButtons: [(event: NativeEventType, name: String, button: EventReportContainer)] = [
-        (.impression, "impression", .init()),
-        (.mrc50, "MRC50", .init()),
-        (.mrc100, "MRC100", .init()),
-        (.video50, "video50", .init()),
-    ]
-    private let nativeAdWillPresentModalButton = EventReportContainer()
-    private let nativeAdDidDismissModalButton = EventReportContainer()
-    private let nativeAdWillLeaveAppButton = EventReportContainer()
     
     required init(rootController: AdapterViewController) {
         super.init()
@@ -104,43 +94,24 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurab
         rootController.setupAction(customAdWinButton, "onPrimaryAdWin called (custom)")
         rootController.setupAction(unifiedAdWinButton, "onPrimaryAdWin called (unified)")
         rootController.setupAction(nativeAdInvalidButton, "onNativeAdInvalid called")
-        rootController.setupAction(nativeAdDidClickButton, "nativeAdDidLogClick called")
-        for nextEntry in nativeAdDidLogEventButtons {
-            rootController.setupAction(nextEntry.button, "nativeAdDidLogEvent(\(nextEntry.name)) called")
-        }
-        rootController.setupAction(nativeAdWillLeaveAppButton, "nativeAdWillLeaveApplication called")
-        rootController.setupAction(nativeAdWillPresentModalButton, "nativeAdWillPresentModal called")
-        rootController.setupAction(nativeAdDidDismissModalButton, "nativeAdDidDismissModal called")
-    }
-    
-    func configurationController() -> BaseConfigurationController? {
-        return PrebidNativeAdRenderingConfigurationController(controller: self)
     }
     
     func loadAd() {
-        guard let nativeAdConfig = nativeAdConfig else {
-            return
-        }
-        adUnit = NativeAdUnit(configID: prebidConfigId, nativeAdConfiguration: nativeAdConfig)
+        setupNativeAdUnit()
         
-        if let adUnitContext = AppConfiguration.shared.adUnitContext {
-            for dataPair in adUnitContext {
-                adUnit?.addContextData(dataPair.value, forKey: dataPair.key)
-            }
-        }
-        
-        adUnit?.fetchDemand { [weak self] demandResponseInfo in
+        adUnit?.fetchDemand(completion: { [weak self] result, kvResultDict in
             guard let self = self else {
                 return
             }
-            if demandResponseInfo.fetchDemandResult == .ok {
+            
+            if result == .prebidDemandFetchSuccess {
                 self.fetchDemandSuccessButton.isEnabled = true
             } else {
                 self.fetchDemandFailedButton.isEnabled = true
             }
             
             let dfpRequest = GAMRequest()
-            GAMUtils.shared.prepareRequest(dfpRequest, demandResponseInfo: demandResponseInfo)
+            GAMUtils.shared.prepareRequest(dfpRequest, bidTargeting: kvResultDict ?? [:])
             
             print(">>> \(String(describing: dfpRequest.customTargeting))")
             
@@ -150,31 +121,16 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController, PrebidConfigurab
                                         options: [])
             self.adLoader?.delegate = self
             self.adLoader?.load(dfpRequest)
-        }
+        })
     }
-}
-
-extension PrebidGAMNativeAdController: NativeAdTrackingDelegate {
-    func nativeAd(_ nativeAd: PBRNativeAd, didLogEvent nativeEvent: NativeEventType) {
-        nativeAdDidLogEventButtons.first{$0.event == nativeEvent}?.button.isEnabled = true
-    }
-    func nativeAdDidLogClick(_ nativeAd: PBRNativeAd) {
-        nativeAdDidClickButton.isEnabled = true
-    }
-}
-
-extension PrebidGAMNativeAdController: NativeAdUIDelegate {
-    func viewPresentationControllerForNativeAd(_ nativeAd: PBRNativeAd) -> UIViewController? {
-        return rootController
-    }
-    func nativeAdWillLeaveApplication(_ nativeAd: PBRNativeAd) {
-        nativeAdWillLeaveAppButton.isEnabled = true
-    }
-    func nativeAdWillPresentModal(_ nativeAd: PBRNativeAd) {
-        nativeAdWillPresentModalButton.isEnabled = true
-    }
-    func nativeAdDidDismissModal(_ nativeAd: PBRNativeAd) {
-        nativeAdDidDismissModalButton.isEnabled = true
+    
+    // MARK: - Helpers
+    
+    private func setupNativeAdUnit() {
+        adUnit = NativeRequest(configId: prebidConfigId, assets: nativeAssets ?? [], eventTrackers: eventTrackers ?? [])
+        adUnit?.context = ContextType.Social
+        adUnit?.placementType = PlacementType.FeedContent
+        adUnit?.contextSubType = ContextSubType.Social
     }
 }
 
@@ -189,33 +145,28 @@ extension PrebidGAMNativeAdController: GADCustomNativeAdLoaderDelegate {
         customAdRequestSuccessful.isEnabled = true
         customTemplateAd = nil
         
-        let nativeAdDetectionListener = NativeAdDetectionListener { [weak self] nativeAd in
-            guard let self = self else {
-                return
-            }
+        let result = GAMUtils.shared.findCustomNativeAd(for: nativeCustomTemplateAd)
+        
+        switch result {
+        case .success(let nativeAd):
             self.nativeAdLoadedButton.isEnabled = true
             self.nativeAdViewBox.renderNativeAd(nativeAd)
             self.nativeAdViewBox.registerViews(nativeAd)
             self.theNativeAd = nativeAd // Note: RETAIN! or the tracking will not occur!
-            nativeAd.trackingDelegate = self
-            nativeAd.uiDelegate = self
+ 
             self.customTemplateAd = nativeCustomTemplateAd
             nativeCustomTemplateAd.customClickHandler = { assetID in }
             nativeCustomTemplateAd.recordImpression()
-        } onPrimaryAdWin: { [weak self] in
-            guard let self = self else {
-                return
+        case .failure(let error):
+            if error == GAMEventHandlerError.nonPrebidAd {
+                self.customAdWinButton.isEnabled = true
+                self.nativeAdViewBox.renderCustomTemplateAd(nativeCustomTemplateAd)
+                self.customTemplateAd = nativeCustomTemplateAd
+                nativeCustomTemplateAd.recordImpression()
+            } else {
+                self.nativeAdInvalidButton.isEnabled = true
             }
-            self.customAdWinButton.isEnabled = true
-            self.nativeAdViewBox.renderCustomTemplateAd(nativeCustomTemplateAd)
-            self.customTemplateAd = nativeCustomTemplateAd
-            nativeCustomTemplateAd.recordImpression()
-        } onNativeAdInvalid: { [weak self] error in
-            self?.nativeAdInvalidButton.isEnabled = true
         }
-        
-        GAMUtils.shared.findCustomNativeAd(for: nativeCustomTemplateAd,
-                                           nativeAdDetectionListener: nativeAdDetectionListener)
     }
     
     func adLoaderDidFinishLoading(_ adLoader: GADAdLoader) {
@@ -236,46 +187,36 @@ extension PrebidGAMNativeAdController: GADNativeAdLoaderDelegate {
     func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADNativeAd) {
         unifiedAdRequestSuccessful.isEnabled = true
         customTemplateAd = nil
+    
+        let result = GAMUtils.shared.findNativeAd(for: nativeAd)
         
-        let nativeAdDetectionListener = NativeAdDetectionListener { [weak self] prebidNativeAd in
-            guard let self = self else {
-                return
-            }
+        switch result {
+        case .success(let prebidNativeAd):
             self.nativeAdLoadedButton.isEnabled = true
             self.nativeAdViewBox.renderNativeAd(prebidNativeAd)
             self.nativeAdViewBox.registerViews(prebidNativeAd)
             self.theNativeAd = prebidNativeAd // Note: RETAIN! or the tracking will not occur!
-            prebidNativeAd.trackingDelegate = self
-            prebidNativeAd.uiDelegate = self
             
-            // TODO: Implement(?)
-            // self.customTemplateAd = nativeCustomTemplateAd
-            // nativeCustomTemplateAd.customClickHandler = { assetID in }
-            // nativeCustomTemplateAd.recordImpression()
-        } onPrimaryAdWin: { [weak self] in
-            guard let self = self else {
-                return
+        case .failure(let error):
+            if error == GAMEventHandlerError.nonPrebidAd {
+                self.unifiedAdWinButton.isEnabled = true
+                
+                self.nativeAdView?.removeFromSuperview()
+                
+                guard
+                    let nibObjects = Bundle.main.loadNibNamed("UnifiedNativeAdView", owner: nil, options: nil),
+                    let adView = nibObjects.first as? UnifiedNativeAdView
+                else {
+                    assert(false, "Could not load nib file for adView")
+                }
+                
+                self.setAdView(adView)
+                
+                adView.renderUnifiedNativeAd(nativeAd)
+            } else {
+                nativeAdInvalidButton.isEnabled = true
             }
-            self.unifiedAdWinButton.isEnabled = true
-            
-            self.nativeAdView?.removeFromSuperview()
-            
-            guard
-                let nibObjects = Bundle.main.loadNibNamed("UnifiedNativeAdView", owner: nil, options: nil),
-                let adView = nibObjects.first as? UnifiedNativeAdView
-            else {
-                assert(false, "Could not load nib file for adView")
-            }
-            
-            self.setAdView(adView)
-            
-            adView.renderUnifiedNativeAd(nativeAd)
-        } onNativeAdInvalid: { [weak self] error in
-            self?.nativeAdInvalidButton.isEnabled = true
         }
-
-        GAMUtils.shared.findNativeAd(for: nativeAd,
-                                     nativeAdDetectionListener: nativeAdDetectionListener)
     }
     
     private func setAdView(_ view: GADNativeAdView) {

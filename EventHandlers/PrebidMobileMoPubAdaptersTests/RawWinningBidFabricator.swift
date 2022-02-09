@@ -21,7 +21,7 @@ protocol RawWinningBidFabricator {
 }
 
 extension RawWinningBidFabricator {
-    func makeRawWinningBid(price: Double, bidder: String, cacheID: String) -> PBMORTBBid<PBMORTBBidExt> {
+    func makeRawWinningBidRendering(price: Double, bidder: String, cacheID: String) -> PBMORTBBid<PBMORTBBidExt> {
         let rawBid = PBMORTBBid<PBMORTBBidExt>()
         rawBid.price = NSNumber(value: price)
         rawBid.ext = .init()
@@ -32,5 +32,22 @@ extension RawWinningBidFabricator {
             "hb_cache_id": cacheID,
         ]
         return rawBid
+    }
+    
+    func makeRawWinningBidOriginal(price: Double, bidder: String, cacheID: String) -> BidResponse {
+        let prebidKeywords: [String: String] = [
+            "hb_env": "mobile-app",
+            "hb_bidder": bidder,
+            "hb_size": "300x250",
+            "hb_pb": String(price),
+            "hb_env": "mobile-app",
+            "hb_cache_id": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d",
+            "hb_cache_id": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d",
+            "hb_pb": "0.50",
+            "hb_size": "300x250",
+            "hb_cache_id_local": cacheID
+        ]
+        
+        return BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
     }
 }

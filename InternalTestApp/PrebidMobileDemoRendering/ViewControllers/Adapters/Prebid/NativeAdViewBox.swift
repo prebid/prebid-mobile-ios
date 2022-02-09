@@ -216,39 +216,24 @@ extension NativeAdViewBox {
 }
 
 extension NativeAdViewBox {
-    func renderNativeAd(_ nativeAd: PBRNativeAd) {
+    func renderNativeAd(_ nativeAd: NativeAd) {
         textLabel.text = nativeAd.text
-        ctaButton.setTitle(nativeAd.callToAction, for: .normal) 
-        brandLabel.text = nativeAd.dataObjects(of: .sponsored).first?.value ?? ""
+        ctaButton.setTitle(nativeAd.callToAction, for: .normal)
+        brandLabel.text = nativeAd.sponsoredBy
         titleLabel.text = nativeAd.title
-        iconImage.image = imageFromUrlString(nativeAd.iconURL)
-        mainImage.image = imageFromUrlString(nativeAd.imageURL)
+        if let iconUrl = nativeAd.iconUrl {
+            iconImage.image = imageFromUrlString(iconUrl)
+        }
         
+        if let imageUrl = nativeAd.imageUrl {
+            mainImage.image = imageFromUrlString(imageUrl)
+        }
+
         textLabel.numberOfLines = 0
-        
-        if let iconInfo = nativeAd.images(of: .icon).first {
-            setDesiredImageSize(imageView: iconImage, nativeImageInfo: iconInfo)
-        }
-        if let imageInfo = nativeAd.images(of: .main).first {
-            setDesiredImageSize(imageView: mainImage, nativeImageInfo: imageInfo)
-        }
-        if let mediaData = nativeAd.videoAd?.mediaData {
-            mediaViewContainer.isHidden = false
-            mediaView.load(mediaData)
-        }
      }
     
-    func registerViews(_ nativeAd: PBRNativeAd) {
-        nativeAd.registerView(contentView, clickableViews: [])
-        nativeAd.registerClickView(ctaButton, nativeAdElementType: .callToAction)
-        nativeAd.registerClickView(iconImage, nativeAdElementType: .icon)
-        if let brandAsset = nativeAd.dataObjects(of: .sponsored).first {
-            nativeAd.registerClickView(brandLabel, nativeAdAsset: brandAsset)
-        }
-        
-        if let _ = nativeAd.videoAd?.mediaData {
-            nativeAd.registerClickView(mediaView, nativeAdElementType: .videoAd)
-        }
+    func registerViews(_ nativeAd: NativeAd) {
+        nativeAd.registerView(view: contentView, clickableViews: [ctaButton, iconImage, brandLabel])
     }
     
     private func imageFromUrlString(_ urlString: String) -> UIImage? {

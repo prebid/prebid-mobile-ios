@@ -63,10 +63,10 @@ class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfig
         adapterViewController?.activityIndicator.isHidden = true
         adapterViewController?.activityIndicator.startAnimating()
         
-        adUnit = MediationRewardedAdUnit(configId: prebidConfigId,
-                                         mediationDelegate: MoPubMediationUtils())
-        
         let bidInfoWrapper = MediationBidInfoWrapper()
+        
+        adUnit = MediationRewardedAdUnit(configId: prebidConfigId,
+                                         mediationDelegate: MoPubMediationRewardedUtils(bidInfoWrapper: bidInfoWrapper))
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
@@ -74,7 +74,7 @@ class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfig
             }
         }
         
-        adUnit?.fetchDemand(with: bidInfoWrapper) { [weak self] result in
+        adUnit?.fetchDemand() { [weak self] result in
             guard let self = self else {
                 return
             }

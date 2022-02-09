@@ -26,11 +26,6 @@ class NativeAdViewBoxLinks: NativeAdViewBoxProtocol {
     
     let contentView: UIView
     
-    var showOnlyMediaView = false
-    var autoPlayOnVisible = false
-    
-    weak var mediaViewDelegate: MediaViewDelegate?
-    
     init() {
         let rightStackView = UIStackView(arrangedSubviews: [linkRootButton, deepLinkOkButton])
         rightStackView.axis = .vertical
@@ -73,25 +68,14 @@ extension NativeAdViewBoxLinks {
 }
 
 extension NativeAdViewBoxLinks {
-    func renderNativeAd(_ nativeAd: PBRNativeAd) {
+    func renderNativeAd(_ nativeAd: NativeAd) {
         linkRootButton.setTitle(nativeAd.callToAction, for: .normal)
         deepLinkOkButton.setTitle(nativeAd.text, for: .normal)
-        
-        ratingButton.setTitle(nativeAd.dataObjects(of: .rating).first?.value ?? "", for: .normal)
-        sponsoredButton.setTitle(nativeAd.dataObjects(of: .sponsored).first?.value ?? "", for: .normal)
+    
+        sponsoredButton.setTitle(nativeAd.sponsoredBy ?? "", for: .normal)
     }
     
-    func registerViews(_ nativeAd: PBRNativeAd) {
-        nativeAd.registerView(contentView, clickableViews: [])
-        nativeAd.registerClickView(linkRootButton, nativeAdElementType: .callToAction)
-        nativeAd.registerClickView(deepLinkOkButton, nativeAdElementType: .text)
-        
-        if let ratingAsset = nativeAd.dataObjects(of: .rating).first {
-            nativeAd.registerClickView(ratingButton, nativeAdAsset: ratingAsset)
-        }
-        
-        if let brandAsset = nativeAd.dataObjects(of: .sponsored).first {
-            nativeAd.registerClickView(sponsoredButton, nativeAdAsset: brandAsset)
-        }
+    func registerViews(_ nativeAd: NativeAd) {
+        nativeAd.registerView(view: contentView, clickableViews: [linkRootButton, deepLinkOkButton, ratingButton, sponsoredButton])
     }
 }

@@ -15,6 +15,8 @@
 
 import UIKit
 
+public let PrebidLocalCacheIdKey = "hb_cache_id_local"
+
 extension String {
 
     static let EMPTY_String = ""

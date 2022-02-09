@@ -40,11 +40,15 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
             loadDFPNative()
         case .originalMoPub:
             loadMoPubNative()
+        case .originalAdMob:
+            print("TODO: Add Example")
         case .inApp:
             print("TODO: Add Example")
         case .renderingGAM:
             print("TODO: Add Example")
         case .renderingMoPub:
+            print("TODO: Add Example")
+        case .renderingAdMob:
             print("TODO: Add Example")
         case .undefined:
             assertionFailure("The integration kind is: \(integrationKind.rawValue)")

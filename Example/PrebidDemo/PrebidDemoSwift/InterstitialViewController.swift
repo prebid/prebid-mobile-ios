@@ -22,11 +22,13 @@ import GoogleMobileAds
 import MoPubSDK
 import PrebidMobileMoPubAdapters
 import PrebidMobileGAMEventHandlers
+import PrebidMobileAdMobAdapters
 
 class InterstitialViewController:
     UIViewController,
     MPInterstitialAdControllerDelegate,
-    InterstitialAdUnitDelegate {
+    InterstitialAdUnitDelegate,
+    GADFullScreenContentDelegate {
 
     // MARK: - UI Properties
     
@@ -53,6 +55,12 @@ class InterstitialViewController:
     private var renderingInterstitial: InterstitialRenderingAdUnit!
     private var renderingMoPubInterstitial: MediationInterstitialAdUnit!
     
+    // AdMob Rendering
+    private var gadRequest = GADRequest()
+    private var interstitial: GADInterstitialAd?
+    private var admobAdUnit: MediationInterstitialAdUnit?
+    private var mediationDelegate: AdMobMediationInterstitialUtils?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -61,9 +69,11 @@ class InterstitialViewController:
         switch integrationKind {
         case .originalGAM       : setupAndLoadGAM()
         case .originalMoPub     : setupAndLoadMoPub()
+        case .originalAdMob     : print("TODO: Add Example")
         case .inApp             : setupAndLoadInAppInterstitial()
         case .renderingGAM      : setupAndLoadGAMRenderingInterstitial()
         case .renderingMoPub    : setupAndLoadMoPubRenderingInterstitial()
+        case .renderingAdMob    : setupAndLoadAdMobRenderingInterstitial()
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }
@@ -131,6 +141,17 @@ class InterstitialViewController:
             loadMoPubRenderingInterstitial()
         case .vast:
             loadMoPubRenderingVideoInterstitial()
+        }
+    }
+    
+    func setupAndLoadAdMobRenderingInterstitial() {
+        setupOpenxRendering()
+        
+        switch adFormat {
+        case .html:
+            loadAdMobRenderingInterstitial()
+        case .vast:
+            loadAdMobRenderingVideoInterstitial()
         }
     }
     
@@ -226,15 +247,62 @@ class InterstitialViewController:
     }
     
     func loadMoPubRenderingInterstitial() {
-        renderingMoPubInterstitial = MediationInterstitialAdUnit(configId: "5a4b8dcf-f984-4b04-9448-6529908d6cb6",
-                                                                 mediationDelegate: MoPubMediationUtils())
         
         mpInterstitial = MPInterstitialAdController(forAdUnitId: "e979c52714434796909993e21c8fc8da")
         mpInterstitial.delegate = self
+        
+        renderingMoPubInterstitial = MediationInterstitialAdUnit(configId: "5a4b8dcf-f984-4b04-9448-6529908d6cb6",
+                                                                 mediationDelegate: MoPubMediationInterstitialUtils(mopubController: mpInterstitial))
 
-        renderingMoPubInterstitial.fetchDemand(with: mpInterstitial) { [weak self] _ in
+        renderingMoPubInterstitial.fetchDemand { [weak self] _ in
             self?.mpInterstitial.loadAd()
         }
+    }
+    
+    // AdMob
+    func loadAdMobRenderingInterstitial() {
+        
+        mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: self.gadRequest)
+        admobAdUnit = MediationInterstitialAdUnit(configId: "5a4b8dcf-f984-4b04-9448-6529908d6cb6", mediationDelegate: mediationDelegate!)
+        admobAdUnit?.fetchDemand(completion: { [weak self]result in
+            let extras = GADCustomEventExtras()
+            let prebidExtras = self?.mediationDelegate!.getEventExtras()
+            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
+            self?.gadRequest.register(extras)
+            
+            GADInterstitialAd.load(withAdUnitID: "ca-app-pub-5922967660082475/3383099861", request: self?.gadRequest) { [weak self] ad, error in
+                guard let self = self else { return }
+                if let error = error {
+                    PBMLog.error(error.localizedDescription)
+                    return
+                }
+                self.interstitial = ad
+                self.interstitial?.fullScreenContentDelegate = self
+                self.interstitial?.present(fromRootViewController: self)
+            }
+        })
+    }
+    
+    func loadAdMobRenderingVideoInterstitial() {
+        mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: self.gadRequest)
+        admobAdUnit = MediationInterstitialAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c", mediationDelegate: mediationDelegate!)
+        admobAdUnit?.fetchDemand(completion: { [weak self]result in
+            let extras = GADCustomEventExtras()
+            let prebidExtras = self?.mediationDelegate!.getEventExtras()
+            extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
+            self?.gadRequest.register(extras)
+            
+            GADInterstitialAd.load(withAdUnitID: "ca-app-pub-5922967660082475/3383099861", request: self?.gadRequest) { [weak self] ad, error in
+                guard let self = self else { return }
+                if let error = error {
+                    PBMLog.error(error.localizedDescription)
+                    return
+                }
+                self.interstitial = ad
+                self.interstitial?.fullScreenContentDelegate = self
+                self.interstitial?.present(fromRootViewController: self)
+            }
+        })
     }
     
     //MARK: - Interstitial VAST
@@ -268,13 +336,14 @@ class InterstitialViewController:
     }
     
     func loadMoPubRenderingVideoInterstitial() {
-        renderingMoPubInterstitial = MediationInterstitialAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c",
-                                                                 mediationDelegate: MoPubMediationUtils())
         
         mpInterstitial = MPInterstitialAdController(forAdUnitId: "7e3146fc0c744afebc8547a4567da895")
         mpInterstitial.delegate = self
+        
+        renderingMoPubInterstitial = MediationInterstitialAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c",
+                                                                 mediationDelegate: MoPubMediationInterstitialUtils(mopubController: mpInterstitial))
 
-        renderingMoPubInterstitial.fetchDemand(with: mpInterstitial) { [weak self] _ in
+        renderingMoPubInterstitial.fetchDemand { [weak self] _ in
             self?.mpInterstitial.loadAd()
         }
     }
@@ -322,5 +391,27 @@ class InterstitialViewController:
 
     func interstitialDidReceiveAd(_ interstitial: InterstitialRenderingAdUnit) {
         interstitial.show(from: self)
+    }
+    
+    // MARK: - GADFullScreenContentDelegate
+    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+        PBMLog.error(error.localizedDescription)
+    }
+    
+    func adDidPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        PBMLog.message("adDidPresentFullScreenContent called")
+    }
+    
+    func adWillDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        PBMLog.message("adWillDismissFullScreenContent called")
+    }
+    
+    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        PBMLog.message("adDidDismissFullScreenContent called")
+        interstitial = nil
+    }
+    
+    func adDidRecordImpression(_ ad: GADFullScreenPresentingAd) {
+        PBMLog.message("adDidRecordImpression called")
     }
 }

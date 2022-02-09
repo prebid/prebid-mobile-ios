@@ -15,7 +15,7 @@
 
 import Foundation
 
-enum MoPubAdaptersError : Error {
+public enum MoPubAdaptersError : Error {
     
     case emptyLocalExtras
     case noBidInLocalExtras
@@ -25,11 +25,11 @@ enum MoPubAdaptersError : Error {
     case noLocalCacheID
     case invalidLocalCacheID
     case invalidNativeAd
-    
+    case nonPrebidAd
     case unknown
 }
 
-enum MoPubAdaptersErrorCodes : Int {
+public enum MoPubAdaptersErrorCodes : Int {
 
     case generalLinear  = 400
     case fileNotFound   = 401
@@ -50,6 +50,7 @@ fileprivate let errDescrUnknown                 = "Unknown error has been receiv
 fileprivate let errDescrNoCacheID               = "Failed to find local cache ID (expected in ????."
 fileprivate let errDescrInvalidCacheID          = "Invalid local cache ID or the Ad already expired."
 fileprivate let errDescrInvalidNativeAd         = "Failed to load Native Ad from cached bid response."
+fileprivate let errDescrNonPrebidAd             = "The ad is not Prebid ad"
 
 extension MoPubAdaptersError : LocalizedError {
     public var errorDescription: String? {
@@ -63,14 +64,14 @@ extension MoPubAdaptersError : LocalizedError {
             case .noLocalCacheID            : return errDescrNoCacheID
             case .invalidLocalCacheID       : return errDescrInvalidCacheID
             case .invalidNativeAd           : return errDescrInvalidNativeAd
-                
+            case .nonPrebidAd               : return errDescrNonPrebidAd
             case .unknown                   : return errDescrUnknown
         }
     }
 }
 
 extension MoPubAdaptersError :  CustomNSError {
-    static var errorDomain: String {
+    public static var errorDomain: String {
         MoPubAdaptersErrorDomain
     }
     
@@ -84,7 +85,7 @@ extension MoPubAdaptersError :  CustomNSError {
             case .noLocalCacheID            : return MoPubAdaptersErrorCodes.undefined.rawValue
             case .invalidLocalCacheID       : return MoPubAdaptersErrorCodes.undefined.rawValue
             case .invalidNativeAd           : return MoPubAdaptersErrorCodes.undefined.rawValue
-                
+            case .nonPrebidAd               : return MoPubAdaptersErrorCodes.undefined.rawValue
             case .unknown                   : return MoPubAdaptersErrorCodes.undefined.rawValue
         }
     }

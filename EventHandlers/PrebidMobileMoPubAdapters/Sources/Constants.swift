@@ -16,9 +16,7 @@
 import Foundation
 
 enum Constants {
-    
-    static let targetingKeyLocalCacheID     = "hb_cache_id_local"
-    
+        
     static let creativeDataKeyIsPrebid      = "isPrebid"
 
     static let creativeDataValueIsPrebid    = "1"
@@ -26,4 +24,8 @@ enum Constants {
     static let adapterVersion               = "0"
     
     static let mopubNetworkName             = "Prebid"
+    
+    static let keywordsSeparator               = ","
+    
+    static let HBKeywordPrefix                 = "hb_"
 }

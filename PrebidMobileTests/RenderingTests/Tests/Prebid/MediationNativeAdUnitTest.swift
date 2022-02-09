@@ -17,22 +17,19 @@ import XCTest
 
 @testable import PrebidMobile
 
+// FIXME: fix this test during in-app native ad restoring - https://github.com/prebid/prebid-mobile-ios/issues/478
 class MediationNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
     let configID = "testConfigID"
     let nativeAdConfig = NativeAdConfiguration(assets: [PBRNativeAssetTitle(length: 25)])
     
-    let mediationDelegate: PrebidMediationDelegate = MockMediationUtils()
+    var adObject: MockAdObject?
+    var mediationDelegate: PrebidMediationDelegate?
     
-    
-    func testWrongAdObject() {
-        let adUnit = MediationNativeAdUnit(configID: configID, nativeAdConfiguration: nativeAdConfig, mediationDelegate: mediationDelegate)
-        let badObjexpectation = expectation(description: "fetchDemand executed")
+    override func setUp() {
+        super.setUp()
         
-        adUnit.fetchDemand(with: NSString()) { result in
-            XCTAssertEqual(result, .wrongArguments)
-            badObjexpectation.fulfill()
-        }
-        waitForExpectations(timeout: 0.2)
+        adObject = MockAdObject()
+        mediationDelegate = MockMediationUtils(adObject: adObject!)
     }
     
     func testFetch() {
@@ -54,14 +51,13 @@ class MediationNativeAdUnitTest: XCTestCase, WinningBidResponseFabricator {
             adMarkupStringHandler(markupString)
         }
         
-        let mockAdUnit = MediationNativeAdUnit(nativeAdUnit: adUnit, mediationDelegate: mediationDelegate)
+        let mockAdUnit = MediationNativeAdUnit(configId: "testConfigId", mediationDelegate: mediationDelegate!)
         
         let fetchExpectation = expectation(description: "fetchDemand executed")
         
-        let targeting = MockAdObject()
-        mockAdUnit.fetchDemand(with: targeting) { result in
-            XCTAssertEqual(result, .ok)
-            PBMAssertEq(targeting.localExtras?[MockMediationAdUnitBidKey] as? DemandResponseInfo, adUnit.lastDemandResponseInfo)
+        mockAdUnit.fetchDemand { [weak self] result in
+            XCTAssertEqual(result, .prebidDemandFetchSuccess)
+            PBMAssertEq(self!.adObject!.localExtras?[MockMediationAdUnitBidKey] as? DemandResponseInfo, adUnit.lastDemandResponseInfo)
             fetchExpectation.fulfill()
         }
         waitForExpectations(timeout: 0.2)

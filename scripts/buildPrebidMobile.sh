@@ -68,7 +68,7 @@ else
 	    BITCODE_FLAG=YES
 	fi
 fi
-	
+
 
 printf "\nBITCODE_FLAG: $BITCODE_FLAG\n"
 
