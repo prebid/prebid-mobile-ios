@@ -21,28 +21,22 @@ import TestUtils
 @testable import PrebidMobile
 @testable import PrebidDemoSwift
 
-class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPInterstitialAdControllerDelegate {
+class PrebidDemoTests: XCTestCase {
     
     var viewController: IndexController?
     var loadSuccesfulException: XCTestExpectation?
     var timeoutForRequest: TimeInterval = 0.0
     var mopubInterstitial: MPInterstitialAdController?
     var nativeUnit : NativeRequest!
-    var dfpNativeAdUnit:GAMBannerView!
-    var mopubNativeAdUnit:MPAdView!
+    var dfpNativeAdUnit: GAMBannerView!
+    var mopubNativeAdUnit: MPAdView!
     
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        PBHTTPStubbingManager.shared().disable()
-        PBHTTPStubbingManager.shared().removeAllStubs()
-        PBHTTPStubbingManager.shared().broadcastRequests = false
-        PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
+        StubbingHandler.shared.turnOff()
         setUpAppNexus()
-       // Prebid.shared.shareGeoLocation = true
         timeoutForRequest = 35.0
 
-        let storyboard = UIStoryboard(name: "Main",
-                                      bundle: Bundle.main)
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         viewController = storyboard.instantiateViewController(withIdentifier: "index") as? IndexController
         let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
         appDelegate.window?.rootViewController = viewController
@@ -50,7 +44,6 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         loadSuccesfulException = nil
         mopubInterstitial = nil
         nativeUnit = nil
@@ -61,14 +54,12 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
     func setUpAppNexus() {
         Prebid.shared.prebidServerHost = PrebidHost.Appnexus
         Prebid.shared.prebidServerAccountId = Constants.PBS_ACCOUNT_ID_APPNEXUS
-        
         Prebid.shared.timeoutMillis = 10_000;
     }
     
     func setUpAppRubicon() {
         Prebid.shared.prebidServerHost = PrebidHost.Rubicon
         Prebid.shared.prebidServerAccountId = Constants.PBS_RUBICON_ACCOUNT_ID
-        
         Prebid.shared.timeoutMillis = 10_000;
     }
     
@@ -217,9 +208,6 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
                         let bannerViewSize = CGSize(width: bannerViewFrame.width, height: bannerViewFrame.height)
                         
                         XCTAssertEqual(bannerViewSize, size)
-                        
-                        //Wait to make screenshot
-                        XCTWaiter.wait(for: [XCTestExpectation(description: "wait")], timeout: self.outer.screenshotDelaySeconds)
                     }
                     
                     self.outer.onResult(isSuccess: true, prebidbBannerAdUnit: self.prebidbBannerAdUnit, loadSuccesfulExpectation: self.loadSuccesfulExpectation, first: &self.first, second: &self.second)
@@ -296,9 +284,6 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
             loadSuccesfulExpectation.fulfill()
             
         } else {
-            //time-out
-            XCTWaiter.wait(for: [XCTestExpectation(description: "wait")], timeout: self.transactionFailDelaySeconds)
-            
             if first != -1 {
                 if first > self.transactionFailRepeatCount - 2 {
                     XCTFail("first Transaction Count == 5")
@@ -1390,19 +1375,6 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         XCTAssertEqual(2, fetchDemandCount)
     }
     
-    // MARK: - DFP delegate
-    // MARK: - GADBannerViewDelegate
-    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("adViewDidReceiveAd")
-        
-        didLoadAdByAdServerHelper(view: bannerView)
-    }
-
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
-        print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
-        loadSuccesfulException = nil
-    }
-
     //MARK: - AM Interstitial
     func interstitialCallback(_ ad: GAMInterstitialAd?, _ error: Error?) {
         if let error = error {
@@ -1417,45 +1389,6 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         ad?.present(fromRootViewController: viewController!)
 
         let _ = XCTWaiter.wait(for: [XCTestExpectation(description: "Hello World!")], timeout: 2.0)
-        didLoadAdByAdServerHelper(view: self.viewController!.presentedViewController!.view)
-    }
-    
-    // MARK: - Mopub delegate
-    //MARK: - MPAdViewDelegate
-    func viewControllerForPresentingModalView() -> UIViewController! {
-        return viewController
-    }
-    
-    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
-        print("adViewDidReceiveAd")
-        
-        didLoadAdByAdServerHelper(view: view)
-    }
-
-    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
-        print("adViewDidFail")
-        loadSuccesfulException = nil
-    }
-
-    //MARK: - MPInterstitialAdControllerDelegate
-    func interstitialDidLoadAd(_ interstitial: MPInterstitialAdController!) {
-        print("interstitialDidLoadAd")
-        if (self.mopubInterstitial?.ready ?? true) {
-            self.mopubInterstitial?.show(from: viewController)
-        }
-    }
-    
-    func interstitialDidFail(toLoadAd interstitial: MPInterstitialAdController!, withError error: Error!) {
-        print("interstitialDidFail")
-        loadSuccesfulException = nil
-    }
-    
-    func interstitialWillPresent(_ interstitial: MPInterstitialAdController!) {
-        print("interstitialWillPresent")
-    }
-    
-    func interstitialDidPresent(_ interstitial: MPInterstitialAdController!) {
-        print("interstitialDidPresent")
         didLoadAdByAdServerHelper(view: self.viewController!.presentedViewController!.view)
     }
     
@@ -1514,17 +1447,59 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
 
 }
 
-extension XCTestCase {
-    func wait(for element: XCUIElement, timeout: TimeInterval) {
-        let p = NSPredicate(format: "exists == true") // Checks for exists true
-        let e = expectation(for: p, evaluatedWith: element, handler: nil)
-        wait(for: [e], timeout: timeout)
+// MARK: - MPAdViewDelegate
+
+extension PrebidDemoTests: MPAdViewDelegate {
+    func viewControllerForPresentingModalView() -> UIViewController! {
+        return viewController
     }
-    func wait(_ interval: Int) {
-        let expectation: XCTestExpectation = self.expectation(description: "wait")
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(interval), execute: {
-            expectation.fulfill()
-        })
-        waitForExpectations(timeout: TimeInterval(interval + 1), handler: nil)
+    
+    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
+        print("adViewDidReceiveAd")
+        didLoadAdByAdServerHelper(view: view)
+    }
+
+    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
+        print("adViewDidFail")
+        loadSuccesfulException = nil
+    }
+}
+
+// MARK: - MPInterstitialAdControllerDelegate
+
+extension PrebidDemoTests: MPInterstitialAdControllerDelegate {
+    func interstitialDidLoadAd(_ interstitial: MPInterstitialAdController!) {
+        print("interstitialDidLoadAd")
+        if (self.mopubInterstitial?.ready ?? true) {
+            self.mopubInterstitial?.show(from: viewController)
+        }
+    }
+    
+    func interstitialDidFail(toLoadAd interstitial: MPInterstitialAdController!, withError error: Error!) {
+        print("interstitialDidFail")
+        loadSuccesfulException = nil
+    }
+    
+    func interstitialWillPresent(_ interstitial: MPInterstitialAdController!) {
+        print("interstitialWillPresent")
+    }
+    
+    func interstitialDidPresent(_ interstitial: MPInterstitialAdController!) {
+        print("interstitialDidPresent")
+        didLoadAdByAdServerHelper(view: self.viewController!.presentedViewController!.view)
+    }
+}
+
+// MARK: - GADBannerViewDelegate
+
+extension PrebidDemoTests: GADBannerViewDelegate {
+    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("adViewDidReceiveAd")
+        didLoadAdByAdServerHelper(view: bannerView)
+    }
+
+    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+        print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+        loadSuccesfulException = nil
     }
 }
