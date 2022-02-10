@@ -46,6 +46,20 @@
                BlueprintName = "PrebidDemoTests"
                ReferencedContainer = "container:PrebidDemo.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "PrebidDemoTests/testAppNexusDFPBannerSanityAppCheckTest()">
+               </Test>
+               <Test
+                  Identifier = "PrebidDemoTests/testAppNexusMoPubBannerSanityAppCheckTest()">
+               </Test>
+               <Test
+                  Identifier = "PrebidDemoTests/testDFPNativeSanityAppCheckTest()">
+               </Test>
+               <Test
+                  Identifier = "PrebidDemoTests/testMopubNativeSanityAppCheckTest()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

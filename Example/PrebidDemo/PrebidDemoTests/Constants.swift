@@ -32,10 +32,10 @@ struct Constants {
     // MARK: - AppNexus
     static let PBS_RUBICON_ACCOUNT_ID = "1001"
     static let PBS_CONFIG_ID_300x250_RUBICON = "1001-1"
-    static let PBS_CONFIG_ID_INTERSTITIAL_RUBICON = ""
+    static let PBS_CONFIG_ID_INTERSTITIAL_RUBICON = "1001-1"
     static let PBS_CONFIG_ID_NATIVE_RUBICON = ""
     static let MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON = "a108b8dd5ebc472098167e6f1c118120"
-    static let MOPUB_INTERSTITIAL_ADUNIT_ID_RUBICON = ""
+    static let MOPUB_INTERSTITIAL_ADUNIT_ID_RUBICON = "d5c75d9f0b8742cab579610930077c35"
     static let DFP_BANNER_ADUNIT_ID_300x250_RUBICON = "/5300653/test_adunit_pavliuchyk_300x250_prebid-server.rubiconproject.com_puc"
     static let DFP_INTERSTITIAL_ADUNIT_ID_RUBICON = ""
     static let DFP_NATIVE_ADUNIT_ID_RUBICON = ""

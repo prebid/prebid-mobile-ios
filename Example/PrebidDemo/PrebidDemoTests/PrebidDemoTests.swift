@@ -17,6 +17,7 @@ import XCTest
 import MoPubSDK
 import GoogleMobileAds
 import WebKit
+import TestUtils
 @testable import PrebidMobile
 @testable import PrebidDemoSwift
 
@@ -32,7 +33,10 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-
+        PBHTTPStubbingManager.shared().disable()
+        PBHTTPStubbingManager.shared().removeAllStubs()
+        PBHTTPStubbingManager.shared().broadcastRequests = false
+        PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
         setUpAppNexus()
        // Prebid.shared.shareGeoLocation = true
         timeoutForRequest = 35.0
@@ -101,6 +105,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         viewController?.view.addSubview(mopubNativeAdUnit!)
     }
     
+    // FIXME: Disabled because of the resultCode: Prebid Server did not return bids
     func testAppNexusDFPBannerSanityAppCheckTest() {
         
         //given
@@ -143,7 +148,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         
         //given
         setUpAppRubicon()
-        
+        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 30.0
@@ -215,8 +220,6 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
                         
                         //Wait to make screenshot
                         XCTWaiter.wait(for: [XCTestExpectation(description: "wait")], timeout: self.outer.screenshotDelaySeconds)
-                        
-                        self.outer.makeScreenShot()
                     }
                     
                     self.outer.onResult(isSuccess: true, prebidbBannerAdUnit: self.prebidbBannerAdUnit, loadSuccesfulExpectation: self.loadSuccesfulExpectation, first: &self.first, second: &self.second)
@@ -241,6 +244,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         
         //Logic
         setUpAppRubicon()
+        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
         timeoutForRequest = 30.0
         
         let prebidbBannerAdUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
@@ -321,15 +325,6 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
             }
             
         }
-    }
-    
-    func makeScreenShot() {
-        // Taking screenshot after test
-        let screenshot = XCUIScreen.main.screenshot()
-        let fullScreenshotAttachment = XCTAttachment(screenshot: screenshot)
-        fullScreenshotAttachment.lifetime = .keepAlways
-        
-        add(fullScreenshotAttachment)
     }
 
     func testDFPBannerWithoutAutoRefresh() {
@@ -453,6 +448,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         XCTAssertEqual(2, fetchDemandCount)
     }
     
+    // FIXME: Disabled because of the resultCode: Prebid Server did not return bids
     func testDFPNativeSanityAppCheckTest() {
         //given
         loadSuccesfulException = expectation(description: "\(#function)")
@@ -520,6 +516,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         XCTAssertEqual(2, fetchDemandCount)
     }
 
+    // FIXME: Disabled because of the resultCode: Prebid Server did not return bids
     func testAppNexusMoPubBannerSanityAppCheckTest() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
@@ -552,7 +549,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         
         //given
         setUpAppRubicon()
-        
+        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 20.0
@@ -636,13 +633,14 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
 
     func testMoPubInterstitialSanityAppCheckTest() {
         loadSuccesfulException = expectation(description: "\(#function)")
-        
+        setUpAppRubicon()
+        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
         timeoutForRequest = 20.0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
+        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_RUBICON)
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_RUBICON)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
+        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_RUBICON)
         mopubInterstitial?.delegate = self
         interstitialUnit.fetchDemand(adObject: mopubInterstitial!) { (resultCode: ResultCode) in
             if resultCode == ResultCode.prebidDemandFetchSuccess {
@@ -710,6 +708,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         XCTAssertEqual(2, fetchDemandCount)
     }
     
+    // FIXME: Disabled because of the resultCode: Prebid Server did not return bids
     func testMopubNativeSanityAppCheckTest() {
         //given
         loadSuccesfulException = expectation(description: "\(#function)")
@@ -979,20 +978,23 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
     func testYOBWith2018() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
+        setUpAppRubicon()
+        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
+        
         let targeting = Targeting.shared
         XCTAssertNoThrow(try targeting.setYearOfBirth(yob: 2018))
         let value = Targeting.shared.yearOfBirth
         XCTAssertTrue((value == 2018))
 
-        let adUnit = BannerAdUnit(configId: "47706260-ee91-4cd7-b656-2185aca89f59", size: CGSize(width: 300, height: 250))
+        let adUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
 
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6")
+        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
         mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
         adUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, ResultCode.prebidDemandNoBids)
+            XCTAssertEqual(resultCode, ResultCode.prebidDemandFetchSuccess, "expected:Success instead of:\(String(describing: resultCode.name))")
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -1002,20 +1004,23 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
     func testYOBWith1989() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
+        setUpAppRubicon()
+        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
+        
         let targeting = Targeting.shared
         XCTAssertNoThrow(try targeting.setYearOfBirth(yob: 1989))
         let value = Targeting.shared.yearOfBirth
         XCTAssertTrue((value == 1989))
 
-        let adUnit = BannerAdUnit(configId: "47706260-ee91-4cd7-b656-2185aca89f59", size: CGSize(width: 300, height: 250))
+        let adUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
 
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
+        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
         sdkConfig.globalMediationSettings = []
         MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6")
+        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
         mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
         adUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, ResultCode.prebidDemandFetchSuccess, "expected:Success instead of:\(resultCode.name)")
+            XCTAssertEqual(resultCode, ResultCode.prebidDemandFetchSuccess, "expected:Success instead of:\(String(describing: resultCode.name))")
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -1086,14 +1091,14 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
             fetchCount += 1
             XCTAssertNotNil(request.customTargeting)
             if fetchCount == 1 {
-                XCTAssertEqual(request.customTargeting!["key1"] as! String, "value1")
-                XCTAssertEqual(request.customTargeting!["key2"] as! String, "value2")
+                XCTAssertEqual(request.customTargeting!["key1"]!, "value1")
+                XCTAssertEqual(request.customTargeting!["key2"]!, "value2")
             } else {
-                XCTAssertNotEqual(request.customTargeting!["key1"] as! String, "value1")
-                XCTAssertNotEqual(request.customTargeting!["key2"] as! String, "value2")
-                XCTAssertEqual(request.customTargeting!["key2"] as! String, "value1")
-                XCTAssertEqual(request.customTargeting!["key3"] as! String, "value3")
-                XCTAssertEqual(request.customTargeting!["key1"] as! String, "")
+                XCTAssertNotEqual(request.customTargeting!["key1"]!, "value1")
+                XCTAssertNotEqual(request.customTargeting!["key2"]!, "value2")
+                XCTAssertEqual(request.customTargeting!["key2"]!, "value1")
+                XCTAssertEqual(request.customTargeting!["key3"]!, "value3")
+                XCTAssertEqual(request.customTargeting!["key1"]!, "")
                 self.loadSuccesfulException?.fulfill()
             }
             request.customTargeting = ["key1": "", "key2": "value1", "key3": "value3"]
@@ -1180,6 +1185,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
     }
 
     func testMultipleAdUnitsAllDemandFetched() {
+        setUpAppNexus()
         var fetchDemandCount = 0
         let bannerUnit1 = BannerAdUnit(configId: "7cd2c7c8-cebe-4206-b5a4-97b9e840729e", size: CGSize(width: 320, height: 50))
         let sdkConfig1 = MPMoPubConfiguration(adUnitIdForAppInitialization: "9a8c2ccd3dae405bb925397d35eed8f9")
@@ -1289,7 +1295,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
 
         let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
         let request = GAMRequest()
-        GAMInterstitialAd.load(withAdManagerAdUnitID: Constants.DFP_INTERSTITIAL_ADUNIT_ID_APPNEXUS, request: request, completionHandler: self.interstitialCallback)
+        GAMInterstitialAd.load(withAdManagerAdUnitID: "/5300653/test_adunit_interstitial_pavliuchyk_prebid-server.qa.rubiconproject.com", request: request, completionHandler: self.interstitialCallback)
 
         interstitialUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
             XCTAssert(resultCode == ResultCode.prebidDemandFetchSuccess || resultCode == ResultCode.prebidDemandNoBids, resultCode.name())
@@ -1403,7 +1409,7 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
             print("AM Interstitial didFailToReceiveAdWithError:\(error.localizedDescription)")
             
             self.prebidCreativeError = error
-            self.loadSuccesfulException!.fulfill()
+            self.loadSuccesfulException?.fulfill()
             return
         }
         print("interstitialDidReceiveAd")
@@ -1420,38 +1426,37 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
         return viewController
     }
     
-    func adViewDidLoadAd(_ view: MPAdView!) {
+    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
         print("adViewDidReceiveAd")
         
         didLoadAdByAdServerHelper(view: view)
     }
 
-    func adViewDidFail(toLoadAd view: MPAdView!) {
+    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
         print("adViewDidFail")
         loadSuccesfulException = nil
     }
 
     //MARK: - MPInterstitialAdControllerDelegate
     func interstitialDidLoadAd(_ interstitial: MPInterstitialAdController!) {
-        print("Ad ready")
+        print("interstitialDidLoadAd")
         if (self.mopubInterstitial?.ready ?? true) {
             self.mopubInterstitial?.show(from: viewController)
         }
     }
-
-    func interstitialDidFail(toLoadAd interstitial: MPInterstitialAdController!) {
-        print("Ad not ready")
+    
+    func interstitialDidFail(toLoadAd interstitial: MPInterstitialAdController!, withError error: Error!) {
+        print("interstitialDidFail")
         loadSuccesfulException = nil
     }
-
-    func interstitialDidAppear(_ interstitial: MPInterstitialAdController!) {
-        print("ad appeared")
-
-        didLoadAdByAdServerHelper(view: self.viewController!.presentedViewController!.view)
+    
+    func interstitialWillPresent(_ interstitial: MPInterstitialAdController!) {
+        print("interstitialWillPresent")
     }
-
-    func interstitialWillAppear(_ interstitial: MPInterstitialAdController!) {
-        print("ad appeared")
+    
+    func interstitialDidPresent(_ interstitial: MPInterstitialAdController!) {
+        print("interstitialDidPresent")
+        didLoadAdByAdServerHelper(view: self.viewController!.presentedViewController!.view)
     }
     
     //MARK: - private zone
@@ -1462,12 +1467,12 @@ class PrebidDemoTests: XCTestCase, GADBannerViewDelegate, MPAdViewDelegate, MPIn
     private func didLoadAdByAdServerHelper(view: UIView) {
         let success: (CGSize) -> Void = { s in
             self.prebidCreativeSize = s
-            self.loadSuccesfulException!.fulfill()
+            self.loadSuccesfulException?.fulfill()
         }
         
         let failure: (Error) -> Void = { err in
             self.prebidCreativeError = err
-            self.loadSuccesfulException!.fulfill()
+            self.loadSuccesfulException?.fulfill()
         }
         
         AdViewUtils.findPrebidCreativeSize(view, success: success, failure: failure)

@@ -51,9 +51,12 @@ class NativeInAppNativeTest: XCTestCase, NativeAdDelegate, NativeAdEventDelegate
         PBHTTPStubbingManager.shared().ignoreUnstubbedRequests = true
         PBHTTPStubbingManager.shared().broadcastRequests = true
         NotificationCenter.default.addObserver(self, selector: #selector(self.requestCompleted(_:)), name: NSNotification.Name.pbhttpStubURLProtocolRequestDidLoad, object: nil)
-        
+    }
+    
+    private func setupViewController(for integrationKind: IntegrationKind) {
         let storyboard = UIStoryboard(name: "Main",bundle: Bundle.main)
         viewController = storyboard.instantiateViewController(withIdentifier: "NativeInAppViewController") as? NativeInAppViewController
+        viewController?.integrationKind = integrationKind
         let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
         appDelegate.window?.rootViewController = viewController
     }
@@ -75,6 +78,7 @@ class NativeInAppNativeTest: XCTestCase, NativeAdDelegate, NativeAdEventDelegate
 
     // MARK: - Test methods.
     func testSuccessfulNativeInAppResponseForMoPub() {
+        setupViewController(for: .originalMoPub)
         nativeInAppAdLoadedExpectation = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("NativeAdResponse")
         createNativeInAppView()
@@ -97,6 +101,7 @@ class NativeInAppNativeTest: XCTestCase, NativeAdDelegate, NativeAdEventDelegate
     }
     
     func testNativeInAppResponseNotFoundForMoPub() {
+        setupViewController(for: .originalMoPub)
         nativeInAppAdNotFoundExpectation = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("NativeAdResponse")
         createNativeInAppView()
@@ -120,6 +125,7 @@ class NativeInAppNativeTest: XCTestCase, NativeAdDelegate, NativeAdEventDelegate
     }
     
     func testNativeInAppResponseNotValidForMoPub() {
+        setupViewController(for: .originalMoPub)
         nativeInAppAdNotValidExpectation = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("NativeAdInvalidResponse")
         createNativeInAppView()
@@ -142,6 +148,7 @@ class NativeInAppNativeTest: XCTestCase, NativeAdDelegate, NativeAdEventDelegate
     }
     
     func testSuccessfulNativeInAppResponseForDFP() {
+        setupViewController(for: .originalGAM)
         nativeInAppAdLoadedExpectation = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("NativeAdResponse")
         createNativeInAppView()
@@ -160,6 +167,7 @@ class NativeInAppNativeTest: XCTestCase, NativeAdDelegate, NativeAdEventDelegate
     }
     
     func testNativeInAppResponseNotFoundForDFP() {
+        setupViewController(for: .originalGAM)
         nativeInAppAdNotFoundExpectation = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("NativeAdResponse")
         createNativeInAppView()
@@ -178,6 +186,7 @@ class NativeInAppNativeTest: XCTestCase, NativeAdDelegate, NativeAdEventDelegate
     }
     
     func testNativeInAppResponseNotValidForDFP() {
+        setupViewController(for: .originalGAM)
         nativeInAppAdNotValidExpectation = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("NativeAdInvalidResponse")
         createNativeInAppView()
@@ -196,6 +205,7 @@ class NativeInAppNativeTest: XCTestCase, NativeAdDelegate, NativeAdEventDelegate
     }
     
     func testNativeInAppAdWithAdDidLogImpression() {
+        setupViewController(for: .originalGAM)
         adDidLogImpressionAPIForNativeAd = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("NativeAdResponse")
         createNativeInAppView()
@@ -214,6 +224,7 @@ class NativeInAppNativeTest: XCTestCase, NativeAdDelegate, NativeAdEventDelegate
     }
     
     func testNativeInAppAdWithAdWasClicked() {
+        setupViewController(for: .originalGAM)
         adDidClickAPIForNativeAd = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("NativeAdResponse")
         createNativeInAppView()
@@ -232,6 +243,7 @@ class NativeInAppNativeTest: XCTestCase, NativeAdDelegate, NativeAdEventDelegate
     }
     
     func testNativeInAppAdWithAdDidExpired() {
+        setupViewController(for: .originalGAM)
         adExpiredAPIForNativeAd = expectation(description: "\(#function)")
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
         let currentBundle = Bundle(for: TestUtils.PBHTTPStubbingManager.self)
