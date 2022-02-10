@@ -119,15 +119,6 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
         
         example.configurationClosure?(vc)
         
-//        if let nativeConfigOverride = AppConfiguration.shared.nativeAdConfig,
-//           let adapterVC = vc as? AdapterViewController,
-//           let bannerExample = adapterVC.adapter as? PrebidConfigurableBannerController
-//        {
-//            let nativeStylesCreativeFromExample = bannerExample.nativeAdConfig?.nativeStylesCreative
-//            bannerExample.nativeAdConfig = nativeConfigOverride.copy() as? NativeAdConfiguration
-//            bannerExample.nativeAdConfig?.nativeStylesCreative = nativeStylesCreativeFromExample
-//        }
-        
         if shouldBeConfigured, var configurableVC = vc as? ConfigurableViewController {
             configurableVC.showConfigurationBeforeLoad = true
         }

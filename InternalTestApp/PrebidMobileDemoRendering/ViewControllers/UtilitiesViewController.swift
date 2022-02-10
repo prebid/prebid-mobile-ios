@@ -36,7 +36,6 @@ class UtilitiesViewController: FormViewController {
             <<< makeActionRow(title: "IAB Consent Settings", action: { IABConsentViewController() })
             <<< makeActionRow(title: "Command Line Args", action: { CommandArgsViewController() })
             <<< makeActionRow(title: "App Settings", action: { SettingsViewController() })
-//            <<< nativeAdConfigRow
         
         if #available(iOS 14, *) {
             form.last! <<< attRequestButton
@@ -60,52 +59,6 @@ class UtilitiesViewController: FormViewController {
             }
         }
     }
-    
-//    lazy var nativeAdConfigRow = LabelRow("native_ad_config") { row in
-//        row.title = "NativeAdConfig override"
-//        row.trailingSwipe.performsFirstActionWithFullSwipe = true
-//        updateNativeAdConfigRow(row)
-//    }
-//    .cellSetup { cell, row in
-//        cell.accessibilityIdentifier = "edit_native_ad_config"
-//        cell.accessoryType = .disclosureIndicator
-//    }
-//    .onCellSelection { [weak self] cell, row in
-//        cell.setSelected(false, animated: false)
-//        self?.editNativeAdConfig()
-//    }
-    
-//    private func updateNativeAdConfigRow(_ row: LabelRow) {
-//        guard AppConfiguration.shared.nativeAdConfig != nil else {
-//            row.value = "nil"
-//            row.trailingSwipe.actions = []
-//            return
-//        }
-//        row.value = "{...}"
-//
-//        let deleteAction = SwipeAction(style: .normal, title: "Delete") { [weak self] (action, row, completionHandler) in
-//            AppConfiguration.shared.nativeAdConfig = nil
-//            if let self = self {
-//                self.updateNativeAdConfigRow(self.nativeAdConfigRow)
-//                self.nativeAdConfigRow.updateCell()
-//            }
-//            completionHandler?(true)
-//        }
-//        deleteAction.image = UIImage(named: "icon-trash")
-//        deleteAction.actionBackgroundColor = .systemRed
-//
-//        row.trailingSwipe.actions = [deleteAction]
-//    }
-//
-//    private func editNativeAdConfig() {
-//        if AppConfiguration.shared.nativeAdConfig == nil {
-//            AppConfiguration.shared.nativeAdConfig = NativeAdConfiguration(assets: [])
-//            updateNativeAdConfigRow(nativeAdConfigRow)
-//        }
-//        let editor = NativeAdConfigController()
-//        editor.nativeAdConfig = AppConfiguration.shared.nativeAdConfig
-//        navigationController?.pushViewController(editor, animated: true)
-//    }
     
     @available(iOS 14, *)
     lazy var attRequestButton = ButtonRow() {

@@ -1,21 +1,20 @@
 /*   Copyright 2018-2021 Prebid.org, Inc.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  */
 
 #import "PBMDisplayTransactionFactory.h"
 
-#import "PBMNativeFunctions.h"
 #import "PBMCreativeModel.h"
 #import "PBMLog.h"
 #import "PBMTransaction.h"
@@ -92,7 +91,7 @@
 
 - (void)loadHTMLTransaction:(NSString *)adMarkup {
     NSMutableArray<PBMCreativeModel *> * const creativeModels = [[NSMutableArray alloc] init];
-
+    
     [creativeModels addObject:[self htmlCreativeModelFromBid:self.bid
                                                     adMarkup:adMarkup
                                              adConfiguration:self.adConfiguration]];
@@ -111,23 +110,8 @@
                                       adMarkup:(NSString *)adMarkup
                                adConfiguration:(AdUnitConfig *)adConfiguration {
     PBMCreativeModel * const model = [[PBMCreativeModel alloc] init];
-    if (adConfiguration.adFormat != PBMAdFormatNativeInternal) {
-        model.html = adMarkup;
-    } else {
-        // The feature is not available. Use original Prebid Native API
-        // TODO: Merge Native engine from original SDK and rendering codebase
-//        NSString *html = nil;
-//        if (adConfiguration.nativeAdConfiguration.nativeStylesCreative.length == 0) {
-//            PBMLogError(@"Native Styles creative string is empty.");
-//            model.html = @"";
-//        } else {
-//            html = [PBMNativeFunctions populateNativeAdTemplate:adConfiguration.nativeAdConfiguration.nativeStylesCreative
-//                                                  withTargeting:bid.targetingInfo
-//                                                          error:nil];
-//            model.html = html ?: @"";
-//        }
-    }
     
+    model.html = adMarkup;
     model.width = bid.size.width;
     model.height = bid.size.height;
     model.adConfiguration = adConfiguration.adConfiguration;

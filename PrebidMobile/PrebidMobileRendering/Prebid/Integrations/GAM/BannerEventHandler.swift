@@ -28,7 +28,5 @@ import UIKit
     /// The first size is treated as a frame for related ad unit.
     var adSizes: [CGSize] { get }
 
-    var isCreativeRequiredForNativeAds: Bool { get }
-
     func trackImpression()
 }

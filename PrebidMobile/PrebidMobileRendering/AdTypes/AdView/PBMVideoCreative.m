@@ -151,10 +151,6 @@
 
 - (void)createOpenMeasurementSession {
     
-    if (self.transaction.adConfiguration.isNative) {
-        return;
-    }
-    
     if (!NSThread.currentThread.isMainThread) {
         PBMLogError(@"Open Measurement session can only be created on the main thread");
         return;

@@ -65,7 +65,6 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
     self = [super init];
     if (self) {
         self.adFormat = PBMAdFormatDisplayInternal;
-        self.isNative = NO;
         self.isInterstitialAd = NO;
         self.interstitialLayout = PBMInterstitialLayoutUndefined;
         self.isBuiltInVideo = NO;
@@ -90,7 +89,6 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
     PBMAdConfiguration *config = (PBMAdConfiguration *)object;
     
     res = res && (self.adFormat == config.adFormat);
-    res = res && (self.isNative == config.isNative);
     res = res && (self.videoPlacementType == config.videoPlacementType);
 
     return res;
@@ -104,7 +102,6 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
     PBMAdConfiguration *config = [PBMAdConfiguration new];
     
     config.adFormat = self.adFormat;
-    config.isNative = self.isNative;
     config.videoPlacementType = self.videoPlacementType;
     config.clickHandlerOverride = self.clickHandlerOverride;
     

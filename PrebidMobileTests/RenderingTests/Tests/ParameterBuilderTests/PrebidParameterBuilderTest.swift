@@ -180,52 +180,10 @@ class PrebidParameterBuilderTest: XCTestCase {
         XCTAssertEqual(video.pos.intValue, 4)
     }
     
-    func testNative() {
-        let nativeVer = "1.2"
-        let desc = PBRNativeAssetData(dataType: .desc)
-        let nativeAdConfig = NativeAdConfiguration.init(assets:[desc])
-        nativeAdConfig.context = NativeContextType.socialCentric.rawValue
-        
-        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 320, height: 50))
-        adUnitConfig.adFormat = .display
-        adUnitConfig.nativeAdConfiguration = nativeAdConfig
-        
-        let bidRequest = PBMORTBBidRequest()
-        
-        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
-                                 sdkConfiguration: sdkConfiguration,
-                                 sdkVersion: "MOCK_SDK_VERSION",
-                                 targeting: targeting)
-            .build(bidRequest)
-        
-        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
-                                  sdkConfiguration: sdkConfiguration,
-                                  targeting: targeting,
-                                  userAgentService: MockUserAgentService())
-            .build(bidRequest)
-        
-        guard let imp = bidRequest.imp.first else {
-            XCTFail("No Impression object!")
-            return
-        }
-        
-        PBMAssertEq(imp.native?.ver, nativeVer)
-        // This assert fails cause of changes in PBMPrebidParameterBuilder.buildRequest
-        // This assert should be restored in the issue
-        // TODO: https://github.com/prebid/prebid-mobile-ios/issues/431
-//        PBMAssertEq(imp.native?.request,
-//                    "{\"assets\":[{\"data\":{\"type\":2}}],\"context\":2,\"ver\":\"\(nativeVer)\"}")
-    }
-    
     func testFirstPartyData() {
-        let nativeAdConfig = NativeAdConfiguration.init(assets: [
-            PBRNativeAssetData(dataType: .desc),
-        ])
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 320, height: 50))
-        adUnitConfig.nativeAdConfiguration = nativeAdConfig
         
         let bidRequest = PBMORTBBidRequest()
         
@@ -264,11 +222,6 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTFail("No Impression object!")
             return
         }
-        
-        // This assert fails cause of changes in PBMPrebidParameterBuilder.buildRequest
-        // This assert should be restored in the issue
-        // TODO: https://github.com/prebid/prebid-mobile-ios/issues/431
-//        PBMAssertEq(imp.native?.request, try! nativeAdConfig.markupRequestObject.toJsonString())
         
         XCTAssertEqual(imp.extContextData, ["buy": ["mushrooms"]])
     }

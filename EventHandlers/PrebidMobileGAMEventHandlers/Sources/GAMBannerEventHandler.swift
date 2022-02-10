@@ -58,10 +58,6 @@ public class GAMBannerEventHandler :
     
     public var adSizes: [CGSize]
     
-    public var isCreativeRequiredForNativeAds: Bool {
-        false
-    }
-    
     public func trackImpression() {
         proxyBanner?.recordImpression()
     }

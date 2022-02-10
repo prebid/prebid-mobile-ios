@@ -121,19 +121,4 @@ class MoPubNativeAdView: UIStackView, MPNativeAdRendering {
         ])
         imageView.contentMode = .scaleAspectFit
     }
-    
-    private func setDesiredImageSize(imageView: UIImageView, nativeImageInfo: NativeAdImage) {
-        if let h = nativeImageInfo.height {
-            let heightConstraint = imageView.heightAnchor.constraint(equalToConstant: CGFloat(h.floatValue))
-            heightConstraint.priority = .defaultLow
-            imageView.addConstraint(heightConstraint)
-        }
-        if let w = nativeImageInfo.width {
-            let widthConstraint = imageView.heightAnchor.constraint(equalToConstant: CGFloat(w.floatValue))
-            widthConstraint.priority = .defaultLow
-            imageView.addConstraint(widthConstraint)
-        }
-    }
 }
-
-

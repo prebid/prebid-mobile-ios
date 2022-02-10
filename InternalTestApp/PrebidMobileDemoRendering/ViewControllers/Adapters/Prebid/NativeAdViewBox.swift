@@ -25,38 +25,8 @@ class NativeAdViewBox: NativeAdViewBoxProtocol {
     let ctaButton = UIButton(type: .system)
     let mainImage = UIImageView()
     let iconImage = UIImageView()
-    let mediaView = MediaView()
     
     let contentView: UIView
-    private let mediaViewContainer: UIView
-    
-    var showOnlyMediaView: Bool = false {
-        didSet {
-            let onlyMediaModeAssets = [
-                mediaViewContainer,
-                ctaButton,
-            ]
-            
-            contentView
-                .subviews
-                .filter { !onlyMediaModeAssets.contains($0) }
-                .forEach { $0.isHidden = showOnlyMediaView }
-        }
-    }
-    
-    var autoPlayOnVisible: Bool {
-        get {
-            mediaView.autoPlayOnVisible
-        }
-        set {
-            mediaView.autoPlayOnVisible = newValue
-        }
-    }
-    
-    weak var mediaViewDelegate: MediaViewDelegate? {
-        get { mediaView.delegate }
-        set { mediaView.delegate = newValue }
-    }
     
     init() {
         titleLabel.textAlignment = .center
@@ -90,64 +60,10 @@ class NativeAdViewBox: NativeAdViewBoxProtocol {
         let brandStackView = UIStackView(arrangedSubviews: [brandLabel, UIView()])
         brandStackView.axis = .horizontal
         
-        let playMedia = UIButton(type: .system)
-        let pauseMedia = UIButton(type: .system)
-        let resumeMedia = UIButton(type: .system)
-        let muteMedia = UIButton(type: .system)
-        let unmuteMedia = UIButton(type: .system)
-        
-        playMedia.addTarget(mediaView, action: #selector(MediaView.play), for: .touchUpInside)
-        pauseMedia.addTarget(mediaView, action: #selector(MediaView.pause), for: .touchUpInside)
-        resumeMedia.addTarget(mediaView, action: #selector(MediaView.resume), for: .touchUpInside)
-        muteMedia.addTarget(mediaView, action: #selector(MediaView.mute), for: .touchUpInside)
-        unmuteMedia.addTarget(mediaView, action: #selector(MediaView.unmute), for: .touchUpInside)
-        
-        playMedia.setTitle("[play]", for: .normal)
-        pauseMedia.setTitle("[pause]", for: .normal)
-        resumeMedia.setTitle("[resume]", for: .normal)
-        muteMedia.setTitle("[mute]", for: .normal)
-        unmuteMedia.setTitle("[unmute]", for: .normal)
-        
-        playMedia.accessibilityLabel = "playMedia"
-        pauseMedia.accessibilityLabel = "pauseMedia"
-        resumeMedia.accessibilityLabel = "resumeMedia"
-        muteMedia.accessibilityLabel = "muteMedia"
-        unmuteMedia.accessibilityLabel = "unmuteMedia"
-        
-        let leadingSpacer = UIView()
-        let trailingSpacer = UIView()
-        
-        let mediaControls = UIStackView(arrangedSubviews: [
-            leadingSpacer,
-            playMedia,
-            pauseMedia,
-            resumeMedia,
-            muteMedia,
-            unmuteMedia,
-            trailingSpacer,
-        ])
-        mediaControls.axis = .horizontal
-        
-        mediaControls.addConstraint(leadingSpacer.widthAnchor.constraint(equalTo: trailingSpacer.widthAnchor))
-        mediaControls.spacing = 16
-        
-        let mediaContainerView = UIStackView(arrangedSubviews: [
-            mediaView,
-            mediaControls,
-        ])
-        
-        mediaContainerView.axis = .vertical
-        mediaContainerView.isHidden = true
-        
-        [playMedia, pauseMedia, resumeMedia, muteMedia, unmuteMedia].forEach {
-            $0.isEnabled = true
-        }
-        
         let rootStackView = UIStackView(arrangedSubviews: [
             headerStackView,
             brandStackView,
             mainImageStackView,
-            mediaContainerView,
             ctaButton,
         ])
         rootStackView.axis = .vertical
@@ -159,12 +75,10 @@ class NativeAdViewBox: NativeAdViewBoxProtocol {
             rootStackView.backgroundColor = .white
         }
         
-        mediaViewContainer = mediaContainerView
         contentView = rootStackView
         
         setDefaultConstraints(imageView: iconImage, maxSize: CGSize(width: 72, height: 72))
         setDefaultConstraints(imageView: mainImage, maxSize: CGSize(width: 728, height: 72))
-        setDefaultConstraints(view: mediaView, maxSize: CGSize(width: 728, height: 240))
     }
     
     private func setDefaultConstraints(imageView: UIImageView, maxSize: CGSize) {
@@ -177,19 +91,6 @@ class NativeAdViewBox: NativeAdViewBoxProtocol {
             view.widthAnchor.constraint(equalToConstant: maxSize.width),
             view.heightAnchor.constraint(equalToConstant: maxSize.height),
         ])
-    }
-    
-    private func setDesiredImageSize(imageView: UIImageView, nativeImageInfo: NativeAdImage) {
-        if let h = nativeImageInfo.height {
-            let heightConstraint = imageView.heightAnchor.constraint(equalToConstant: CGFloat(h.floatValue))
-            heightConstraint.priority = .defaultLow
-            imageView.addConstraint(heightConstraint)
-        }
-        if let w = nativeImageInfo.width {
-            let widthConstraint = imageView.heightAnchor.constraint(equalToConstant: CGFloat(w.floatValue))
-            widthConstraint.priority = .defaultLow
-            imageView.addConstraint(widthConstraint)
-        }
     }
 }
 

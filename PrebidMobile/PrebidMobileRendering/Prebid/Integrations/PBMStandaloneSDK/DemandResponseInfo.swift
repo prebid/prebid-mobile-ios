@@ -39,26 +39,6 @@ public class DemandResponseInfo: NSObject {
         self.winNotifierBlock = winNotifierBlock
     }
     
-    // The feature is not available. Use original Prebid Native API
-    // TODO: Merge Native engine from original SDK and rendering codebase
-    @objc func getNativeAd(withCompletion completion: @escaping (PBRNativeAd?) -> Void) {
-        getAdMarkupString(withCompletion: { adMarkupString in
-            
-            guard let adMarkupString = adMarkupString else {
-                completion(nil)
-                return
-            }
-            
-            do {
-                let nativeAdMarkup = try PBMNativeAdMarkup(jsonString: adMarkupString)
-                completion(PBRNativeAd(nativeAdMarkup: nativeAdMarkup))
-            } catch {
-                PBMLog.error(error.localizedDescription)
-                completion(nil)
-            }
-        })
-    }
-    
     // MARK: - Private Methods
     
     func getAdMarkupString(withCompletion completion: @escaping PBMAdMarkupStringHandler) {

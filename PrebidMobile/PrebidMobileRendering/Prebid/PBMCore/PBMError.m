@@ -161,36 +161,6 @@
     }];
 }
 
-+ (NSError *)noEventForNativeAdMarkupEventTracker {
-    return [NSError errorWithDomain:PrebidRenderingErrorDomain
-                               code:[self errorCode:3
-                                          forFamily:kPBMErrorFamily_ResponseProcessingErrors]
-                           userInfo:@{
-        NSLocalizedDescriptionKey: @"Required property 'event' is absent in jsonDict for nativeEventTracker",
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidResponseStructure),
-    }];
-}
-
-+ (NSError *)noMethodForNativeAdMarkupEventTracker {
-    return [NSError errorWithDomain:PrebidRenderingErrorDomain
-                               code:[self errorCode:4
-                                          forFamily:kPBMErrorFamily_ResponseProcessingErrors]
-                           userInfo:@{
-        NSLocalizedDescriptionKey: @"Required property 'method' is absent in jsonDict for nativeEventTracker",
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidResponseStructure),
-    }];
-}
-
-+ (NSError *)noUrlForNativeAdMarkupEventTracker {
-    return [NSError errorWithDomain:PrebidRenderingErrorDomain
-                               code:[self errorCode:5
-                                          forFamily:kPBMErrorFamily_ResponseProcessingErrors]
-                           userInfo:@{
-        NSLocalizedDescriptionKey: @"Required property 'url' is absent in jsonDict for nativeEventTracker",
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidResponseStructure),
-    }];
-}
-
 // MARK: - Integration layer errors
 
 + (NSError *)noWinningBid {
@@ -203,16 +173,6 @@
     }];
 }
 
-+ (NSError *)noNativeCreative {
-    return [NSError errorWithDomain:PrebidRenderingErrorDomain
-                               code:[self errorCode:2
-                                          forFamily:kPBMErrorFamily_IntegrationLayerErrors]
-                           userInfo:@{
-        NSLocalizedDescriptionKey: @"There is no Native Style Creative in the Native config.",
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultSdkMisuseNoNativeCreative),
-    }];
-}
-
 + (NSError *)noVastTagInMediaData {
     return [NSError errorWithDomain:PrebidRenderingErrorDomain
                                code:[self errorCode:3
@@ -222,19 +182,6 @@
         PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultNoVastTagInMediaData),
     }];
 }
-
-// MARK: - SDK Misuse Errors
-
-+ (NSError *)replacingMediaDataInMediaView {
-    return [NSError errorWithDomain:PrebidRenderingErrorDomain
-                               code:[self errorCode:(FetchDemandResultSdkMisuseAttemptedToReplaceMediaDataInMediaView - FetchDemandResultSdkMisuse)
-                                          forFamily:kPBMErrorFamily_SDKMisuseErrors]
-                           userInfo:@{
-        NSLocalizedDescriptionKey: @"Attempted to replace MediaData in MediaView.",
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultSdkMisuseAttemptedToReplaceMediaDataInMediaView),
-    }];
-}
-
 
 - (instancetype)init:(nonnull NSString*)msg {
     NSDictionary *userInfo = @{

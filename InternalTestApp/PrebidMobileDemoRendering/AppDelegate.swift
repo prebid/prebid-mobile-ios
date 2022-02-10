@@ -50,16 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             AppConfiguration.shared.useMockServer = true
         }
         
-//        processArgumentsParser.addOption("EXTRA_NATIVE", paramsCount: 1, fireOnce: true) { params in
-//            if let nativeConfigData = params[0].data(using: .utf8),
-//               let nativeConfigObj = try? JSONSerialization.jsonObject(with: nativeConfigData, options: []) as? [String: Any],
-//               let nativeAdConfig = NativeAdConfiguration(json: nativeConfigObj)
-//            {
-//                // TODO: Add error alert(?)
-//                AppConfiguration.shared.nativeAdConfig = nativeAdConfig
-//            }
-//        }
-        
         processArgumentsParser.addOption("AD_POSITION", paramsCount: 1, fireOnce: true) { params in
             if let adPositionInt = Int(params[0]), let adPosition = AdPosition(rawValue: adPositionInt) {
                 AppConfiguration.shared.adPosition = adPosition

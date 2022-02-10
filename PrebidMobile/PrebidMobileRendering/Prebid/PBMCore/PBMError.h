@@ -49,17 +49,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, class, readonly) NSError *jsonDictNotFound;
 @property (nonatomic, class, readonly) NSError *responseDeserializationFailed;
-@property (nonatomic, class, readonly) NSError *noEventForNativeAdMarkupEventTracker;
-@property (nonatomic, class, readonly) NSError *noMethodForNativeAdMarkupEventTracker;
-@property (nonatomic, class, readonly) NSError *noUrlForNativeAdMarkupEventTracker;
 
 // MARK: - Integration layer errors
-@property (nonatomic, class, readonly) NSError *noNativeCreative;
 @property (nonatomic, class, readonly) NSError *noWinningBid;
 @property (nonatomic, class, readonly) NSError *noVastTagInMediaData;
-
-// MARK: - SDK Misuse Errors
-@property (nonatomic, class, readonly) NSError *replacingMediaDataInMediaView;
 
 + (PBMError *)errorWithDescription:(NSString *)description NS_SWIFT_NAME(error(description:));
 + (PBMError *)errorWithDescription:(NSString *)description statusCode:(PBMErrorCode)code NS_SWIFT_NAME(error(description:statusCode:));

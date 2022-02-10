@@ -131,11 +131,6 @@
         case PBMAdFormatVideoInternal:
             [self appendVideoParametersForRequest:bidRequest];
             break;
-            
-        case PBMAdFormatNativeInternal: {
-            [self appendNativeParametersForRequest:bidRequest];
-            break;
-        }
     }
 }
 

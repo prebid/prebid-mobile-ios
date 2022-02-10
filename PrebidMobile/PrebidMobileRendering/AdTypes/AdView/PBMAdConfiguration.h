@@ -33,13 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) PBMAdFormatInternal adFormat;
 
 /**
- Indicates whether the ad is native.
- It is used to perform some naive ad-specific actions, f.e. prevent start OM
- tracking for a native ad with video
- */
-@property (nonatomic, assign) BOOL isNative;
-
-/**
  Placement type for the video.
  */
 @property (nonatomic, assign) PBMVideoPlacementType videoPlacementType;

@@ -16,7 +16,6 @@
 @import Foundation;
 
 @class DemandResponseInfo;
-@class NativeAdConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
