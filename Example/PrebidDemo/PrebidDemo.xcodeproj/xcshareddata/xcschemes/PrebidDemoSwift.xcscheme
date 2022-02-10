@@ -57,7 +57,13 @@
                   Identifier = "PrebidDemoTests/testDFPNativeSanityAppCheckTest()">
                </Test>
                <Test
+                  Identifier = "PrebidDemoTests/testMoPubInterstitialSanityAppCheckTest()">
+               </Test>
+               <Test
                   Identifier = "PrebidDemoTests/testMopubNativeSanityAppCheckTest()">
+               </Test>
+               <Test
+                  Identifier = "PrebidDemoTests/testRubiconMoPubBannerSanityAppCheckTest()">
                </Test>
             </SkippedTests>
          </TestableReference>

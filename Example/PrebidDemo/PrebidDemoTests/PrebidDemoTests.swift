@@ -530,6 +530,7 @@ class PrebidDemoTests: XCTestCase {
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
     }
     
+    // FIXME: Disabled because of incorrect HTML creative size
     func testRubiconMoPubBannerSanityAppCheckTest() {
         
         //given
@@ -616,6 +617,7 @@ class PrebidDemoTests: XCTestCase {
         XCTAssertEqual(2, fetchDemandCount)
     }
 
+    // FIXME: Disabled because of incorrect HTML creative size
     func testMoPubInterstitialSanityAppCheckTest() {
         loadSuccesfulException = expectation(description: "\(#function)")
         setUpAppRubicon()

@@ -20,7 +20,7 @@ public final class AdViewUtils: NSObject {
 
     private static let innerHtmlScript = "document.body.innerHTML"
     private static let sizeValueRegexExpression = "[0-9]+x[0-9]+"
-    private static let sizeObjectRegexExpression = "\(sizeValueRegexExpression)" //"hb_size\\W+[0-9]+x[0-9]+"
+    private static let sizeObjectRegexExpression = "hb_size\\W+\(sizeValueRegexExpression)" //"hb_size\\W+[0-9]+x[0-9]+"
     
     private override init() {}
     
