@@ -22,7 +22,7 @@ public class PrebidAdMobNativeAdapter:
     NSObject,
     GADCustomEventNativeAd {
     
-    public var delegate: GADCustomEventNativeAdDelegate?
+    public weak var delegate: GADCustomEventNativeAdDelegate?
     
     required public override init() {
         super.init()
