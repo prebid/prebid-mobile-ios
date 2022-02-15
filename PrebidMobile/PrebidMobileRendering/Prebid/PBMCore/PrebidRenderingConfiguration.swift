@@ -56,16 +56,16 @@ public class PrebidRenderingConfig : NSObject {
     //Useful for video interstitials.
     @objc public var creativeFactoryTimeoutPreRenderContent: TimeInterval = 30.0
 
-    //Controls whether to use PrebidMobileRendering's in-app browser or the Safari App for displaying ad clickthrough content.
+    //Controls whether to use PrebidMobile's in-app browser or the Safari App for displaying ad clickthrough content.
     @objc public var useExternalClickthroughBrowser = false
 
-    //Controls the verbosity of PrebidMobileRendering's internal logger. Options are (from most to least noisy) .info, .warn, .error and .none. Defaults to .info.
+    //Controls the verbosity of PrebidMobile's internal logger. Options are (from most to least noisy) .info, .warn, .error and .none. Defaults to .info.
     @objc public var logLevel: PBMLogLevel {
         get { PBMLog.shared.logLevel }
         set { PBMLog.shared.logLevel = newValue }
     }
 
-    //If set to true, the output of PrebidMobileRendering's internal logger is written to a text file. This can be helpful for debugging. Defaults to false.
+    //If set to true, the output of PrebidMobile's internal logger is written to a text file. This can be helpful for debugging. Defaults to false.
     @objc public var debugLogFileEnabled: Bool {
         get { PBMLog.shared.logToFile }
         set { PBMLog.shared.logToFile = newValue }

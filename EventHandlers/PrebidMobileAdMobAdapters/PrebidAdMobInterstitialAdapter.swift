@@ -30,7 +30,7 @@ public class PrebidAdMobInterstitialAdapter:
     weak var rootViewController: UIViewController?
     var adAvailable = false
     
-    public var delegate: GADCustomEventInterstitialDelegate?
+    public weak var delegate: GADCustomEventInterstitialDelegate?
     
     required public override init() {
         super.init()

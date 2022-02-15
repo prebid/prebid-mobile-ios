@@ -24,14 +24,13 @@ public class PrebidAdMobBannerAdapter:
     DisplayViewLoadingDelegate,
     DisplayViewInteractionDelegate {
     
-    public var delegate: GADCustomEventBannerDelegate?
+    public weak var delegate: GADCustomEventBannerDelegate?
     
     public var displayView: PBMDisplayView?
     
     required public override init() {
         super.init()
     }
-    
     
     public func requestAd(_ adSize: GADAdSize, parameter serverParameter: String?, label serverLabel: String?, request: GADCustomEventRequest) {
         guard let keywords = request.userKeywords as? [String] else {

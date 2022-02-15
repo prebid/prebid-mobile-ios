@@ -554,8 +554,7 @@ class RequestBuilder: NSObject {
         return deviceExt
     }
 
-    class func UserAgent(callback:@escaping(_ userAgentString: String) -> Void) {
-        
+    class func UserAgent(callback: @escaping(_ userAgentString: String) -> Void) {
         DispatchQueue.main.async {
             let webViewForUserAgent = WKWebView()
             webViewForUserAgent.loadHTMLString("<html></html>", baseURL: nil)
@@ -571,7 +570,6 @@ class RequestBuilder: NSObject {
                     webViewForUserAgent.removeFromSuperview()
                 })
         }
-
     }
 
     class func DeviceUUID() -> String {
@@ -584,5 +582,4 @@ class RequestBuilder: NSObject {
 
         return uuidString
     }
-
 }

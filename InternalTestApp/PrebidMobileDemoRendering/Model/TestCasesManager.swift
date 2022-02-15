@@ -2610,8 +2610,6 @@ struct TestCaseManager {
                     Prebid.shared.prebidServerAccountId = "1768035c-74d3-4786-b056-13bd41f34bde"
                     nativeController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
-                
-                nativeController.prebidConfigId = "mock-no-bids"
                          
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
@@ -2838,7 +2836,7 @@ struct TestCaseManager {
             
             // MARK: ---- Native (GAM, CustomTemplate) ----
 
-            TestCase(title: "Native Ad (GAM) [OK, NativeAd]",
+            TestCase(title: "Native Ad Custom Templates (GAM) [OK, NativeAd]",
                      tags: [.native, .gam, .mock, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2940,7 +2938,7 @@ struct TestCaseManager {
             
             // MARK: ---- Native (GAM, Unified) ----
 
-            TestCase(title: "Native Ad (GAM) [OK, NativeAd]",
+            TestCase(title: "Native Ad Unified Ad (GAM) [OK, NativeAd]",
                      tags: [.native, .gam, .mock, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in

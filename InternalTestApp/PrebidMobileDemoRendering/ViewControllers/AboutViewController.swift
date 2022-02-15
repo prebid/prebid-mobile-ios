@@ -48,7 +48,7 @@ class AboutViewController : FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "PrebidMobileRendering Configuration"
+        title = "PrebidMobile Configuration"
         createForm()
     }
     

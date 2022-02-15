@@ -232,7 +232,7 @@ static NSString * const PBMPlistExt = @"plist";
         return nil;
     }
     
-    //Note: If PrebidMobileRendering will be delivered via source files the bundle and plist will be owned by the client app
+    //Note: If PrebidMobile will be delivered via source files the bundle and plist will be owned by the client app
     NSBundle *bundle = [PBMFunctions bundleForSDK];
     NSString* ret = [bundle objectForInfoDictionaryKey:key];
     

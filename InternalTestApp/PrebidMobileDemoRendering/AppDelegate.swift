@@ -101,6 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AdMobUtils.initializeGAD()
         
+        // Prebid Rendering Configs
         PrebidRenderingConfig.shared.logLevel = PBMLogLevel.info
         PrebidRenderingConfig.shared.debugLogFileEnabled = true
         
@@ -108,6 +109,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PrebidRenderingConfig.shared.creativeFactoryTimeout = 20;
         
         PrebidRenderingConfig.shared.locationUpdatesEnabled = false
+        
+        // Original Prebid Configs
+        Prebid.shared.shareGeoLocation = true
         
 		return true
 	}

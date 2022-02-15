@@ -106,7 +106,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         
         self.videoCreative = PBMVideoCreative(creativeModel:PBMCreativeModel(), transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
         self.videoCreative.creativeResolutionDelegate = self
-        self.videoCreative.videoViewFailedWithError(NSError(domain: "PrebidMobileRendering", code: 123, userInfo: [:]))
+        self.videoCreative.videoViewFailedWithError(NSError(domain: "PrebidMobile", code: 123, userInfo: [:]))
 
         //Create model
         let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())

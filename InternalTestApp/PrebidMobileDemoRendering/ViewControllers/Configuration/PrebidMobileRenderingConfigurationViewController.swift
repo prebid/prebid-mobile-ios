@@ -17,7 +17,7 @@ import UIKit
 import Eureka
 import PrebidMobile
 
-final class PrebidMobileRenderingXSDKConfigurationController : FormViewController {
+final class PrebidMobileXSDKConfigurationController : FormViewController {
     
     var sdkConfig: PrebidRenderingConfig {
         return PrebidRenderingConfig.shared
@@ -32,7 +32,7 @@ final class PrebidMobileRenderingXSDKConfigurationController : FormViewControlle
     // MARK: - Private Methods
     
     func createForm() {
-        title = "PrebidMobileRendering SDK Configuration"
+        title = "PrebidMobile SDK Configuration"
         
         form
             +++ sectionTimeouts

@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 //3) In-Article: Loads and plays dynamically between paragraphs of editorial content; existing as a standalone branded message.
 //4) In-Feed: Found in content, social, or product feeds.
 //5) Interstitial/Slider/Floating: Covers the entire or a portion of screen area, but is always on screen while displayed (i.e. cannot be scrolled out of view). Note that a full-screen interstitial (e.g., in mobile) can be distinguished from a floating/slider unit by the imp.instl field.
-//Note: PrebidMobileRendering supports only Interstitial right now
+//Note: PrebidMobile supports only Interstitial right now
 @property (nonatomic, strong, nullable) NSNumber *placement;
 
 //Int. Indicates if the impression must be linear, nonlinear, etc. If none specified, assume all are allowed.
@@ -126,7 +126,7 @@ NS_ASSUME_NONNULL_BEGIN
 //1) On Video Completion or when Terminated by User
 //2) On Leaving Viewport or when Terminated by User
 //3) On Leaving Viewport Continues as a Floating/Slider Unit until Video Completion or when Terminated by User
-//Note: PrebidMobileRendering supports #2
+//Note: PrebidMobile supports #2
 @property (nonatomic, strong) NSNumber *playbackend;
 
 //Int. Supported delivery methods (e.g., streaming, progressive). If none specified, assume all are supported.
@@ -134,7 +134,7 @@ NS_ASSUME_NONNULL_BEGIN
 //1) Streaming
 //2) Progressive
 //3) Download
-//Note: PrebidMobileRendering supports Streaming and Download.
+//Note: PrebidMobile supports Streaming and Download.
 //Note: Since this is not settable by the pub we can use [Int] instead of [NSNumber].
 @property (nonatomic, copy, nullable) NSArray<NSNumber *> *delivery;
 
@@ -148,7 +148,7 @@ NS_ASSUME_NONNULL_BEGIN
 //5) Footer
 //6) Sidebar
 //7) Full Screen
-//Note: PrebidMobileRendering supports Full Screen Only
+//Note: PrebidMobile supports Full Screen Only
 @property (nonatomic, strong) NSNumber *pos;
 
 //Note: companionad is not supported.
@@ -161,7 +161,7 @@ NS_ASSUME_NONNULL_BEGIN
 //3 MRAID-1
 //4 ORMMA
 //5 MRAID-2
-//Note: PrebidMobileRendering doesn't yet support Companion ads, so no apis are supported.
+//Note: PrebidMobile doesn't yet support Companion ads, so no apis are supported.
 @property (nonatomic, copy, nullable) NSArray<NSNumber *> *api;
 
 //Int. Supported VAST companion ad types. Recommended if companion Banner objects are included via the companionad array.
