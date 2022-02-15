@@ -2610,8 +2610,6 @@ struct TestCaseManager {
                     Prebid.shared.prebidServerAccountId = "1768035c-74d3-4786-b056-13bd41f34bde"
                     nativeController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
-                
-                nativeController.prebidConfigId = "mock-no-bids"
                          
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
