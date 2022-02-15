@@ -66,6 +66,8 @@ public class ContentObject: NSObject, JSONConvertible {
     public var embeddable: Int?
     ///Additional content data.
     public var data: [ContentDataObject]?
+    ///Placeholeder to exchange-specific extensions to OpenRTB
+    public var ext: [String: Any]?
     
     public func toJSONDictionary() -> [AnyHashable: Any] {
         var content = [AnyHashable: Any]()
@@ -108,6 +110,10 @@ public class ContentObject: NSObject, JSONConvertible {
             })
 
             content["data"] = dataArray
+        }
+        
+        if let ext = ext, !ext.isEmpty {
+            content["ext"] = ext
         }
         
         return content

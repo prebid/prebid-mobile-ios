@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSArray<NSString *> *cat;
 /// Highest level domain of the content producer.
 @property (nonatomic, copy, nullable) NSString *domain;
+/// Placeholder for exchange-specific extensions to OpenRTB.
+@property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, NSObject *> *ext;
 
 @end
 

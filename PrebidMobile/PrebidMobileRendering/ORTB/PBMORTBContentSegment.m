@@ -34,6 +34,10 @@
     ret[@"name"] = self.name;
     ret[@"value"] = self.value;
     
+    if (self.ext && self.ext.count) {
+        ret[@"ext"] = self.ext;
+    }
+
     ret = [ret pbmCopyWithoutEmptyVals];
     
     return ret;
@@ -47,6 +51,7 @@
     _id = jsonDictionary[@"id"];
     _name = jsonDictionary[@"name"];
     _value = jsonDictionary[@"value"];
+    _ext = jsonDictionary[@"ext"];
     
     return self;
 }

@@ -413,13 +413,13 @@ class PBMORTBAbstractTest : XCTestCase {
         
         let segment = PBMORTBContentSegment()
         segment.name = "segmentName"
-        segment.value = ["segmentValue"]
+        segment.value = "segmentValue"
         data.segment = [segment]
         
         appContent.data = [data]
         appContent.url = "https://www.url.com"
         
-        codeAndDecode(abstract: appContent, expectedString: "{\"album\":\"album\",\"artist\":\"artist\",\"cat\":[\"cat\"],\"contentrating\":\"contentrating\",\"context\":1,\"data\":[{\"name\":\"dataName\",\"segment\":[{\"name\":\"segmentName\",\"value\":[\"segmentValue\"]}]}],\"embeddable\":0,\"episode\":2,\"genre\":\"genre\",\"isrc\":\"isrc\",\"keywords\":\"keywords\",\"language\":\"language\",\"len\":1,\"livestream\":0,\"prodq\":1,\"producer\":{\"cat\":[\"producerCat\"],\"domain\":\"domain\",\"name\":\"producerName\"},\"qagmediarating\":1,\"season\":\"season\",\"series\":\"series\",\"sourcerelationship\":0,\"title\":\"title\",\"url\":\"https:\\/\\/www.url.com\",\"userrating\":\"userrating\"}")
+        codeAndDecode(abstract: appContent, expectedString: "{\"album\":\"album\",\"artist\":\"artist\",\"cat\":[\"cat\"],\"contentrating\":\"contentrating\",\"context\":1,\"data\":[{\"name\":\"dataName\",\"segment\":[{\"name\":\"segmentName\",\"value\":\"segmentValue\"}]}],\"embeddable\":0,\"episode\":2,\"genre\":\"genre\",\"isrc\":\"isrc\",\"keywords\":\"keywords\",\"language\":\"language\",\"len\":1,\"livestream\":0,\"prodq\":1,\"producer\":{\"cat\":[\"producerCat\"],\"domain\":\"domain\",\"name\":\"producerName\"},\"qagmediarating\":1,\"season\":\"season\",\"series\":\"series\",\"sourcerelationship\":0,\"title\":\"title\",\"url\":\"https:\\/\\/www.url.com\",\"userrating\":\"userrating\"}")
     }
     
     func testAppExtPrebidToJsonString() {

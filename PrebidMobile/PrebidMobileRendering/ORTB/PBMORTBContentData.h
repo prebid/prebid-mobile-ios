@@ -29,7 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *name;
 /// Segment objects are essentially key-value pairs that convey specific units of data.
 @property (nonatomic, copy, nullable) NSArray<PBMORTBContentSegment *> *segment;
-
+/// Placeholder for exchange-specific extensions to OpenRTB.
+@property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, NSObject *> *ext;
 
 @end
 

@@ -44,6 +44,10 @@
         ret[@"segment"] = segmentsArray;
     }
     
+    if (self.ext && self.ext.count) {
+        ret[@"ext"] = self.ext;
+    }
+    
     ret = [ret pbmCopyWithoutEmptyVals];
     
     return ret;
@@ -66,6 +70,8 @@
         }
         _segment = segmentsArray;
     }
+    
+    _ext = jsonDictionary[@"ext"];
     
     return self;
 }
