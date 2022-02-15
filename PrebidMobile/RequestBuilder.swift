@@ -286,14 +286,7 @@ class RequestBuilder: NSObject {
         } else if bundle != nil {
             app["bundle"] = bundle ?? ""
         }
-        //if installed from cocoapods & uses frameworks then use this
-        if let version = Bundle(identifier: "org.cocoapods.PrebidMobile")?.infoDictionary?["CFBundleShortVersionString"] as? String {
-            app["ver"] = version
-            Log.info("Prebid version: \(version)")
-        } else if let version = Bundle(identifier: "org.prebid.mobile")?.infoDictionary?["CFBundleShortVersionString"] as? String {
-            app["ver"] = version
-            Log.info("Prebid version: \(version)")
-        }
+        app["ver"] = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         app["publisher"] = ["id": Prebid.shared.prebidServerAccountId] as NSDictionary
 
         var requestAppExt: [AnyHashable: Any] = [:]
