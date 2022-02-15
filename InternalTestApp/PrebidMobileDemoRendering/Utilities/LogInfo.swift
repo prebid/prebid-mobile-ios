@@ -53,6 +53,6 @@ func logInfo(_ message: String,
         }
     }
     
-    let logMessage = "PrebidMobileRendering INFO \(threadName) \(formattedDate) \(file) \(function) [Line \(line)] \(message)"
+    let logMessage = "PrebidMobile INFO \(threadName) \(formattedDate) \(file) \(function) [Line \(line)] \(message)"
     print(logMessage)
 }

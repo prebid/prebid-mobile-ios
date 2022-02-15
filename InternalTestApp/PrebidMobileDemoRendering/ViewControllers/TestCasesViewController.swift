@@ -140,7 +140,7 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: - Private Methods
     
     @objc private func showConfig(sender: UIBarButtonItem) {
-        let configViewController = PrebidMobileRenderingXSDKConfigurationController()
+        let configViewController = PrebidMobileXSDKConfigurationController()
         
         navigationController?.pushViewController(configViewController, animated: true)
     }

@@ -25,7 +25,7 @@
 NSString *const HTTPMethodGET = @"GET";
 NSString *const HTTPMethodHEAD = @"HEAD";
 NSString *const HTTPMethodPOST = @"POST";
-NSString *const PrebidMobileRenderingErrorDomain = @"org.prebid.mobile.rendering";
+NSString *const PrebidMobileErrorDomain = @"org.prebid.mobile";
 
 
 @interface PBMServerConnection ()

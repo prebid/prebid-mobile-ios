@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6M7-3O-9SJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6M7-3O-9SJ">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,7 +12,7 @@
         <!--Tab View Controller-->
         <scene sceneID="RYE-vN-9hc">
             <objects>
-                <tabBarController id="6M7-3O-9SJ" customClass="TabViewController" customModule="PrebidMobileDemoRendering" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="6M7-3O-9SJ" customClass="TabViewController" customModule="InternalTestApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="H60-nq-zmT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -23,10 +23,10 @@
             </objects>
             <point key="canvasLocation" x="-180" y="-351"/>
         </scene>
-        <!--PrebidMobileRendering Configuration-->
+        <!--PrebidMobile Configuration-->
         <scene sceneID="Kcu-gF-emE">
             <objects>
-                <viewController storyboardIdentifier="AboutViewController" title="OpenX Configuration" id="kyY-oJ-JZ5" userLabel="PrebidMobileRendering Configuration" customClass="AboutViewController" customModule="PrebidMobileDemoRendering" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AboutViewController" title="OpenX Configuration" id="kyY-oJ-JZ5" userLabel="PrebidMobile Configuration" customClass="AboutViewController" customModule="InternalTestApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DC8-rV-rSZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -57,7 +57,7 @@
         <!--Test Cases View Controller-->
         <scene sceneID="7z5-hk-8fX">
             <objects>
-                <viewController storyboardIdentifier="TestCasesViewController" id="Jtu-9m-PDi" customClass="TestCasesViewController" customModule="PrebidMobileDemoRendering" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TestCasesViewController" id="Jtu-9m-PDi" customClass="TestCasesViewController" customModule="InternalTestApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SoY-4l-mQX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -107,7 +107,7 @@
         <!--Test Cases Sections View Controller-->
         <scene sceneID="DsB-fa-wq6">
             <objects>
-                <viewController id="LVH-wa-RTM" customClass="TestCasesSectionsViewController" customModule="PrebidMobileDemoRendering" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="LVH-wa-RTM" customClass="TestCasesSectionsViewController" customModule="InternalTestApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oKy-H5-p5v">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -201,7 +201,7 @@
         <!--Adapter View Controller-->
         <scene sceneID="7mm-6j-IrL">
             <objects>
-                <viewController storyboardIdentifier="AdapterViewController" id="9OV-EG-5P1" customClass="AdapterViewController" customModule="PrebidMobileDemoRendering" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AdapterViewController" id="9OV-EG-5P1" customClass="AdapterViewController" customModule="InternalTestApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="HJv-no-xfH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -276,7 +276,7 @@
         <!--Prebid Feed Table View Controller-->
         <scene sceneID="YYS-iU-rry">
             <objects>
-                <viewController storyboardIdentifier="PrebidFeedTableViewController" id="Zuw-IL-9Uy" customClass="PrebidFeedTableViewController" customModule="PrebidMobileDemoRendering" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PrebidFeedTableViewController" id="Zuw-IL-9Uy" customClass="PrebidFeedTableViewController" customModule="InternalTestApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Gba-fb-sZO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -290,7 +290,7 @@
         <!--Scrollable Adapter View Controller-->
         <scene sceneID="kzL-xo-oBC">
             <objects>
-                <viewController storyboardIdentifier="ScrollableAdapterViewController" id="fXg-aO-0Ju" userLabel="Scrollable Adapter View Controller" customClass="AdapterViewController" customModule="PrebidMobileDemoRendering" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScrollableAdapterViewController" id="fXg-aO-0Ju" userLabel="Scrollable Adapter View Controller" customClass="AdapterViewController" customModule="InternalTestApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oOO-tF-5JH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -375,7 +375,7 @@
         <!--Prebid Presentation View Controller-->
         <scene sceneID="tdw-Us-BGz">
             <objects>
-                <viewController storyboardIdentifier="PrebidPresentationViewController" id="GB0-od-Aqy" userLabel="Prebid Presentation View Controller" customClass="PrebidPresentationViewController" customModule="PrebidMobileDemoRendering" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PrebidPresentationViewController" id="GB0-od-Aqy" userLabel="Prebid Presentation View Controller" customClass="PrebidPresentationViewController" customModule="InternalTestApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lVO-Ih-Fp1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -30,7 +30,7 @@ class UtilitiesViewController: FormViewController {
     private func buildForm() {
         form
             +++ Section()
-            <<< makeActionRow(title: "PrebidMobileRendering Configuration", action: { AboutViewController() }) {
+            <<< makeActionRow(title: "PrebidMobile Configuration", action: { AboutViewController() }) {
                 $0.accessoryType = .detailDisclosureButton
             }
             <<< makeActionRow(title: "IAB Consent Settings", action: { IABConsentViewController() })
