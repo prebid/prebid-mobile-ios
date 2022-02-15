@@ -2838,7 +2838,7 @@ struct TestCaseManager {
             
             // MARK: ---- Native (GAM, CustomTemplate) ----
 
-            TestCase(title: "Native Ad (GAM) [OK, NativeAd]",
+            TestCase(title: "Native Ad (GAM, CustomTemplate) [OK, NativeAd]",
                      tags: [.native, .gam, .mock, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2940,7 +2940,7 @@ struct TestCaseManager {
             
             // MARK: ---- Native (GAM, Unified) ----
 
-            TestCase(title: "Native Ad (GAM) [OK, NativeAd]",
+            TestCase(title: "Native Ad (GAM, Unified) [OK, NativeAd]",
                      tags: [.native, .gam, .mock, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
