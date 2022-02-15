@@ -276,6 +276,11 @@ class RequestBuilder: NSObject {
 
         let itunesID: String? = Targeting.shared.itunesID
         let bundle = Bundle.main.bundleIdentifier
+        let bundleAppName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
+        
+        if let bundleAppName = bundleAppName {
+            app["name"] = bundleAppName
+        }
         if itunesID != nil {
             app["bundle"] = itunesID
         } else if bundle != nil {
