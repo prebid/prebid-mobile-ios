@@ -43,7 +43,7 @@ class PBMUserAgentServiceTest: XCTestCase {
             XCTAssert(userAgentString.PBMdoesMatch("AppleWebKit"))
             
             //Should end with the SDK version
-            XCTAssert(userAgentString.PBMdoesMatch(" PrebidMobileRendering/\(self.sdkVersion)$"))
+            XCTAssert(userAgentString.PBMdoesMatch(" PrebidMobile/\(self.sdkVersion)$"))
             
             self.expectationUserAgentExecuted?.fulfill()
         }
@@ -56,10 +56,10 @@ class PBMUserAgentServiceTest: XCTestCase {
         PBMUserAgentService.shared.sdkVersion = injectedSDKVersion
         let userAgentString = PBMUserAgentService.shared.getFullUserAgent()
         
-        let didFindInjectedSDKVersion = userAgentString.PBMdoesMatch("PrebidMobileRendering/\(injectedSDKVersion)")
+        let didFindInjectedSDKVersion = userAgentString.PBMdoesMatch("PrebidMobile/\(injectedSDKVersion)")
         XCTAssert(didFindInjectedSDKVersion)
         
-        let didFindDefaultSDKVersion = userAgentString.PBMdoesMatch("PrebidMobileRendering/\(sdkVersion)")
+        let didFindDefaultSDKVersion = userAgentString.PBMdoesMatch("PrebidMobile/\(sdkVersion)")
         XCTAssertFalse(didFindDefaultSDKVersion)
         
         PBMUserAgentService.shared.sdkVersion = PBMFunctions.sdkVersion()
@@ -73,7 +73,7 @@ class PBMUserAgentServiceTest: XCTestCase {
     
     func testSharedSDKVersion() {
         let userAgentString = PBMUserAgentService.shared.getFullUserAgent()
-        let didFindDefaultSDKVersion = userAgentString.PBMdoesMatch("PrebidMobileRendering/\(sdkVersion)")
+        let didFindDefaultSDKVersion = userAgentString.PBMdoesMatch("PrebidMobile/\(sdkVersion)")
         XCTAssert(didFindDefaultSDKVersion)
     }
     
@@ -82,7 +82,7 @@ class PBMUserAgentServiceTest: XCTestCase {
         
         DispatchQueue.global(qos: .background).async {
             let userAgentString = PBMUserAgentService.shared.getFullUserAgent()
-            let didFindDefaultSDKVersion = userAgentString.PBMdoesMatch("PrebidMobileRendering/\(self.sdkVersion)")
+            let didFindDefaultSDKVersion = userAgentString.PBMdoesMatch("PrebidMobile/\(self.sdkVersion)")
             XCTAssert(didFindDefaultSDKVersion)
             
             expectationCheckThread.fulfill()
