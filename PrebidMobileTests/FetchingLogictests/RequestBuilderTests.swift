@@ -1572,7 +1572,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let segment = ContentSegmentObject()
         segment.id = UUID().uuidString
         segment.name = "segmentName"
-        segment.value = ["segmentValue"]
+        segment.value = "segmentValue"
+        segment.ext = ["ext": "ext"]
         data.segment = [segment]
 
         appContent.data = [data]
@@ -1617,7 +1618,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
               let segment = data.first!["segment"] as? [[String: Any]],
               let _ = segment.first!["id"] as? String,
               let _ = segment.first!["name"] as? String,
-              let _ = segment.first!["value"] as? [String],
+              let _ = segment.first!["value"] as? String,
+              let _ = segment.first!["ext"] as? [String: Any],
               let _ = content["url"] as? String
         else {
             XCTFail("parsing error")
