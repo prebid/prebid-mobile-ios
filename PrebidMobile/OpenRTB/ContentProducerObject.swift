@@ -25,6 +25,8 @@ public class ContentProducerObject: NSObject, JSONConvertible {
     public var cat: [String]?
     ///Highest level domain of the content producer (e.g., “producer.com”).
     public var domain: String?
+    ///Placeholeder to exchange-specific extensions to OpenRTB
+    public var ext: [String: Any]?
     
     public func toJSONDictionary() -> [AnyHashable: Any] {
         var producer = [AnyHashable: Any]()
@@ -43,6 +45,10 @@ public class ContentProducerObject: NSObject, JSONConvertible {
         
         if let domain = domain {
             producer["domain"] = domain
+        }
+        
+        if let ext = ext, !ext.isEmpty {
+            producer["ext"] = ext
         }
         
         return producer

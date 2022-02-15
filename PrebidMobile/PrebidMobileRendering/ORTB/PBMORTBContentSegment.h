@@ -26,7 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Name of the data segment specific to the data provider.
 @property (nonatomic, copy, nullable) NSString *name;
 /// String representation of the data segment value.
-@property (nonatomic, copy, nullable) NSArray<NSString *> *value;
+@property (nonatomic, copy, nullable) NSString *value;
+/// Placeholder for exchange-specific extensions to OpenRTB.
+@property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, NSObject *> *ext;
 
 @end
 

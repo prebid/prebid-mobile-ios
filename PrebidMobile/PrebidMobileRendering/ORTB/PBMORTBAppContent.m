@@ -70,6 +70,10 @@
         ret[@"data"] = dataArray;
     }
     
+    if (self.ext && self.ext.count) {
+        ret[@"ext"] = self.ext;
+    }
+    
     ret = [ret pbmCopyWithoutEmptyVals];
     
     return ret;
@@ -119,6 +123,8 @@
         
         _data = dataArray;
     }
+    
+    _ext = jsonDictionary[@"ext"];
   
     return self;
 }

@@ -22,7 +22,9 @@ public class ContentSegmentObject: NSObject, JSONConvertible {
     ///Name of the data segment specific to the data provider.
     public var name: String?
     ///String representation of the data segment value.
-    public var value: [String]?
+    public var value: String?
+    ///Placeholeder to exchange-specific extensions to OpenRTB
+    public var ext: [String: Any]?
     
     public func toJSONDictionary() -> [AnyHashable: Any] {
         var segment = [AnyHashable: Any]()
@@ -36,6 +38,10 @@ public class ContentSegmentObject: NSObject, JSONConvertible {
         
         if let value = value {
             segment["value"] = value
+        }
+        
+        if let ext = ext, !ext.isEmpty {
+            segment["ext"] = ext
         }
         
         return segment

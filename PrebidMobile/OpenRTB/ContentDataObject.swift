@@ -23,6 +23,8 @@ public class ContentDataObject: NSObject, JSONConvertible {
     public var name: String?
     ///Segment objects are essentially key-value pairs that convey specific units of data.
     public var segment: [ContentSegmentObject]?
+    ///Placeholeder to exchange-specific extensions to OpenRTB
+    public var ext: [String: Any]?
     
     public func toJSONDictionary() -> [AnyHashable: Any] {
         var data = [AnyHashable: Any]()
@@ -43,6 +45,11 @@ public class ContentDataObject: NSObject, JSONConvertible {
             
             data["segment"] = segmentArray
         }
+        
+        if let ext = ext, !ext.isEmpty {
+            data["ext"] = ext
+        }
+        
         return data
     }
 }
