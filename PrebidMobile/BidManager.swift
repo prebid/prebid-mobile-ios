@@ -31,7 +31,13 @@ class BidManager: NSObject {
             try RequestBuilder.shared.buildPrebidRequest(adUnit: prebidAdUnit) {(urlRequest) in
                 let demandFetchStartTime = self.getCurrentMillis()
                 let session = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
-                session.dataTask(with: urlRequest!) { data, _, error in
+                session.dataTask(with: urlRequest!) { data, response, error in
+                    if let httpResponse = response as? HTTPURLResponse {
+                        if httpResponse.statusCode == 204 {
+                            callback(nil, .prebidDemandNoBids)
+                            return
+                        }
+                    }
                     let demandFetchEndTime = self.getCurrentMillis()
                     guard error == nil else {
                         Log.debug("error calling GET on /todos/1")
