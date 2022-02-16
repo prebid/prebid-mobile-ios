@@ -104,6 +104,11 @@
             return;
         }
         
+        if (serverResponse.statusCode == 204) {
+            completion(nil, PBMError.noWinningBid);
+            return;
+        }
+        
         PBMLogInfo(@"Bid Response: %@", [[NSString alloc] initWithData:serverResponse.rawData encoding:NSUTF8StringEncoding]);
         
         NSError *trasformationError = nil;
