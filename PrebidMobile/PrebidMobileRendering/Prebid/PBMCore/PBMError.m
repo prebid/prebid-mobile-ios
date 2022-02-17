@@ -161,6 +161,16 @@
     }];
 }
 
++ (NSError *)blankResponse {
+    return [NSError errorWithDomain:PrebidRenderingErrorDomain
+                                code:[self errorCode:1
+                                           forFamily:kPBMErrorFamily_IntegrationLayerErrors]
+                            userInfo:@{
+         NSLocalizedDescriptionKey: @"The response is blank.",
+         PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultDemandNoBids),
+     }];
+}
+
 // MARK: - Integration layer errors
 
 + (NSError *)noWinningBid {
