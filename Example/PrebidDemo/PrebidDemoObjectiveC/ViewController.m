@@ -233,7 +233,7 @@
 
 
 #pragma mark :- Mopub delegates
-git -(void) adViewDidLoadAd:(MPAdView *)view {
+- (void) adViewDidLoadAd:(MPAdView *)view {
     NSLog(@"Ad received");
 }
 
