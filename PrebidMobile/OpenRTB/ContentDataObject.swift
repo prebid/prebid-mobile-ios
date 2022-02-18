@@ -15,6 +15,7 @@
 
 import Foundation
 
+@objc(PBAdUnitContentDataObject)
 @objcMembers
 public class ContentDataObject: NSObject, JSONConvertible, JsonDecodable {
     ///Exchange-specific ID for the data provider.

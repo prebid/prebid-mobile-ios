@@ -287,7 +287,7 @@ class RequestBuilder: NSObject {
             app["bundle"] = bundle ?? ""
         }
         app["ver"] = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        let publisher = ORTBPublisher()
+        let publisher = PublisherObject()
         publisher.id = Prebid.shared.prebidServerAccountId
         app["publisher"] = publisher.toJSONDictionary()
 

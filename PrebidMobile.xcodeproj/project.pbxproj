@@ -747,7 +747,6 @@
 		929638C127AB224400D30F3D /* NativeEventTrackerResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638C027AB224400D30F3D /* NativeEventTrackerResponseTests.swift */; };
 		929638C527ABB64400D30F3D /* NativeAdMarkupAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638C427ABB64300D30F3D /* NativeAdMarkupAssetTests.swift */; };
 		929638C727ABD66D00D30F3D /* JsonDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638C627ABD66D00D30F3D /* JsonDecodable.swift */; };
-		92989643275FBF8C00D3C174 /* ContentObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92989642275FBF8C00D3C174 /* ContentObject.swift */; };
 		92989645275FBFC400D3C174 /* ContentProducerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92989644275FBFC400D3C174 /* ContentProducerObject.swift */; };
 		92989647275FBFE700D3C174 /* ContentDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92989646275FBFE700D3C174 /* ContentDataObject.swift */; };
 		92989649275FC00A00D3C174 /* ContentSegmentObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92989648275FC00A00D3C174 /* ContentSegmentObject.swift */; };
@@ -760,7 +759,7 @@
 		929896592760A3DC00D3C174 /* PBMORTBContentSegment.h in Headers */ = {isa = PBXBuildFile; fileRef = 929896582760A3DC00D3C174 /* PBMORTBContentSegment.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92AFE57D274FCD8700B0430C /* PBMORTBAppContent.h in Headers */ = {isa = PBXBuildFile; fileRef = 92AFE57C274FCD8200B0430C /* PBMORTBAppContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92AFE57F274FCD9900B0430C /* PBMORTBAppContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AFE57E274FCD9900B0430C /* PBMORTBAppContent.m */; };
-		92C0CE9227BCF50600C480EB /* ORTBPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C0CE9127BCF50600C480EB /* ORTBPublisher.swift */; };
+		92C0CE9227BCF50600C480EB /* PublisherObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C0CE9127BCF50600C480EB /* PublisherObject.swift */; };
 		92C85D5A27A96AC50080BAC5 /* NativeTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D5927A96AC50080BAC5 /* NativeTitle.swift */; };
 		92C85D5C27A96C680080BAC5 /* NativeImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D5B27A96C680080BAC5 /* NativeImage.swift */; };
 		92C85D5E27A96DBB0080BAC5 /* NativeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D5D27A96DBB0080BAC5 /* NativeData.swift */; };
@@ -1623,7 +1622,6 @@
 		929638C027AB224400D30F3D /* NativeEventTrackerResponseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackerResponseTests.swift; sourceTree = "<group>"; };
 		929638C427ABB64300D30F3D /* NativeAdMarkupAssetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdMarkupAssetTests.swift; sourceTree = "<group>"; };
 		929638C627ABD66D00D30F3D /* JsonDecodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonDecodable.swift; sourceTree = "<group>"; };
-		92989642275FBF8C00D3C174 /* ContentObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentObject.swift; sourceTree = "<group>"; };
 		92989644275FBFC400D3C174 /* ContentProducerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentProducerObject.swift; sourceTree = "<group>"; };
 		92989646275FBFE700D3C174 /* ContentDataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDataObject.swift; sourceTree = "<group>"; };
 		92989648275FC00A00D3C174 /* ContentSegmentObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSegmentObject.swift; sourceTree = "<group>"; };
@@ -1636,7 +1634,7 @@
 		929896582760A3DC00D3C174 /* PBMORTBContentSegment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBContentSegment.h; sourceTree = "<group>"; };
 		92AFE57C274FCD8200B0430C /* PBMORTBAppContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PBMORTBAppContent.h; sourceTree = "<group>"; };
 		92AFE57E274FCD9900B0430C /* PBMORTBAppContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBAppContent.m; sourceTree = "<group>"; };
-		92C0CE9127BCF50600C480EB /* ORTBPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORTBPublisher.swift; sourceTree = "<group>"; };
+		92C0CE9127BCF50600C480EB /* PublisherObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherObject.swift; sourceTree = "<group>"; };
 		92C85D5927A96AC50080BAC5 /* NativeTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeTitle.swift; sourceTree = "<group>"; };
 		92C85D5B27A96C680080BAC5 /* NativeImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeImage.swift; sourceTree = "<group>"; };
 		92C85D5D27A96DBB0080BAC5 /* NativeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeData.swift; sourceTree = "<group>"; };
@@ -3074,7 +3072,7 @@
 				92989644275FBFC400D3C174 /* ContentProducerObject.swift */,
 				92989646275FBFE700D3C174 /* ContentDataObject.swift */,
 				92989648275FC00A00D3C174 /* ContentSegmentObject.swift */,
-				92C0CE9127BCF50600C480EB /* ORTBPublisher.swift */,
+				92C0CE9127BCF50600C480EB /* PublisherObject.swift */,
 				928BAA4527BFC58100A16E3B /* ContentObject.swift */,
 			);
 			path = OpenRTB;
@@ -4142,7 +4140,7 @@
 				5BC379FA271F1D0000444D5E /* PBMExternalURLOpeners.m in Sources */,
 				5BC3794E271F1D0000444D5E /* AdPosition.swift in Sources */,
 				5BC37AA7271F1D0000444D5E /* MediationBannerAdUnit.swift in Sources */,
-				92C0CE9227BCF50600C480EB /* ORTBPublisher.swift in Sources */,
+				92C0CE9227BCF50600C480EB /* PublisherObject.swift in Sources */,
 				5BC37A8A271F1D0000444D5E /* BannerViewDelegate.swift in Sources */,
 				FAEE4D2D262DC2B200AD9966 /* ResultCode.swift in Sources */,
 				5BC378DE271F1CFF00444D5E /* PBMORTBDeviceExtPrebidInterstitial.m in Sources */,

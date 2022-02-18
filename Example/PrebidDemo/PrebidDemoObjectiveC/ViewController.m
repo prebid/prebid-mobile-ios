@@ -176,12 +176,12 @@
     [Targeting.shared addBidderToAccessControlList: Prebid.bidderNameAppNexus];
 
     //global user data
-    ContentDataObject *userData = [ContentDataObject new];
+    PBAdUnitContentDataObject *userData = [PBAdUnitContentDataObject new];
     userData.id = @"globalUserDataValue1";
     [Targeting.shared addUserDataObject:userData];
 
     //global context data
-    ContentDataObject *appData = [ContentDataObject new];
+    PBAdUnitContentDataObject *appData = [PBAdUnitContentDataObject new];
     appData.id = @"globalContextDataValue1";
     [Targeting.shared addAppDataObject:appData];
 

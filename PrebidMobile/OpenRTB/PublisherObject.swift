@@ -15,8 +15,9 @@
 
 import Foundation
 
+@objc(PBAdUnitPublisherObject)
 @objcMembers
-public class ORTBPublisher: NSObject, JSONConvertible, JsonDecodable {
+public class PublisherObject: NSObject, JSONConvertible, JsonDecodable {
     ///Exchange-specific publisher ID.
     public var id: String?
     ///Publisher name (may be aliased at the publisher’s request).

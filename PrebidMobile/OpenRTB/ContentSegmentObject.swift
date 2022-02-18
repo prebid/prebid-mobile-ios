@@ -15,6 +15,7 @@
 
 import Foundation
 
+@objc(PBAdUnitContentSegmentObject)
 @objcMembers
 public class ContentSegmentObject: NSObject, JSONConvertible, JsonDecodable {
     ///ID of the data segment specific to the data provider.
