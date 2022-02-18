@@ -845,32 +845,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual(1, bidders.count)
         XCTAssertEqual(bidders[0], Prebid.bidderNameRubiconProject)
     }
-    
-    func testPostDataWithGlobalUserData() throws {
-
-           //given
-           let targeting = Targeting.shared
-           targeting.addUserData(key: "key1", value: "value10")
-           targeting.addUserData(key: "key2", value: "value20")
-           targeting.addUserData(key: "key2", value: "value21")
-
-           //when
-           let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-
-           guard let user = jsonRequestBody["user"] as? [String: Any],
-               let ext = user["ext"] as? [String: Any],
-               let data = ext["data"] as? [String: Any],
-               let key1Set1 = data["key1"] as? [String],
-               let key2Set1 = data["key2"] as? [String] else {
-                   XCTFail("parsing fail")
-                   return
-           }
-
-           //then
-           XCTAssertEqual(2, data.count)
-           XCTAssertEqual(Set(["value10"]), Set(key1Set1))
-           XCTAssertEqual(Set(["value20", "value21"]), Set(key2Set1))
-       }
 
     func testPostDataWithGlobalUserDataObjects() throws {
 
@@ -903,33 +877,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual(2, resultDataArray.count)
         XCTAssertEqual("id1", resultDataArray.first!.id!)
         XCTAssertEqual("name1", resultDataArray.first!.name!)
-    }
-
-    func testPostDataWithGlobalContextData() throws {
-
-          //given
-          let targeting = Targeting.shared
-          targeting.addContextData(key: "key1", value: "value10")
-          targeting.addContextData(key: "key2", value: "value20")
-          targeting.addContextData(key: "key2", value: "value21")
-
-          //when
-          let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-
-          guard let app = jsonRequestBody["app"] as? [String: Any],
-              let ext = app["ext"] as? [String: Any],
-              let data = ext["data"] as? [String: Any],
-              let key1Set1 = data["key1"] as? [String],
-              let key2Set1 = data["key2"] as? [String] else {
-                  XCTFail("parsing fail")
-                  return
-          }
-
-          //then
-          XCTAssertEqual(2, data.count)
-          XCTAssertEqual(Set(["value10"]), Set(key1Set1))
-          XCTAssertEqual(Set(["value20", "value21"]), Set(key2Set1))
-
     }
 
     func testPostDataWithGlobalContextDataObjects() throws {

@@ -322,7 +322,7 @@ limitations under the License.
 
 
 - (void)testUserDataObjects {
-    PBMORTBContentData *data = [PBMORTBContentData new];
+    ContentDataObject *data = [ContentDataObject new];
     data.id = @"value10";
     [Targeting.shared addUserDataObject:data];
     [Targeting.shared removeUserDataObject:data];
@@ -343,7 +343,7 @@ limitations under the License.
 }
 
 - (void)testContextDataObjects {
-    PBMORTBContentData *data = [PBMORTBContentData new];
+    ContentDataObject *data = [ContentDataObject new];
     data.id = @"value10";
     [Targeting.shared addAppDataObject:data];
     [Targeting.shared removeAppDataObject:data];
