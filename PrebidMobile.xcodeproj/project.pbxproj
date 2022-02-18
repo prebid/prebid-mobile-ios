@@ -27,7 +27,7 @@
         92989647275FBFE700D3C174 /* ContentDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92989646275FBFE700D3C174 /* ContentDataObject.swift */; };
         92989649275FC00A00D3C174 /* ContentSegmentObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92989648275FC00A00D3C174 /* ContentSegmentObject.swift */; };
         9298964B275FD3C300D3C174 /* JSONConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9298964A275FD3C300D3C174 /* JSONConvertible.swift */; };
-        92C0CE9227BCF50600C480EB /* ORTBPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C0CE9127BCF50600C480EB /* ORTBPublisher.swift */; };
+        92C0CE9227BCF50600C480EB /* PublisherObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C0CE9127BCF50600C480EB /* PublisherObject.swift */; };
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
 		9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */; };
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
@@ -252,7 +252,7 @@
         				92989644275FBFC400D3C174 /* ContentProducerObject.swift */,
         				92989646275FBFE700D3C174 /* ContentDataObject.swift */,
         				92989648275FC00A00D3C174 /* ContentSegmentObject.swift */,
-        				92C0CE9127BCF50600C480EB /* ORTBPublisher.swift */,
+        				92C0CE9127BCF50600C480EB /* PublisherObject.swift */,
         			);
         			path = OpenRTB;
         			sourceTree = "<group>";
@@ -620,7 +620,7 @@
 				FAEE4D1A262DC2B200AD9966 /* NativeAd.swift in Sources */,
 				FAEE4D2D262DC2B200AD9966 /* ResultCode.swift in Sources */,
 				92989643275FBF8C00D3C174 /* ContentObject.swift in Sources */,
-				92C0CE9227BCF50600C480EB /* ORTBPublisher.swift in Sources */,
+				92C0CE9227BCF50600C480EB /* PublisherObject.swift in Sources */,
 				9298964B275FD3C300D3C174 /* JSONConvertible.swift in Sources */,
 				FAEE4D13262DC2B200AD9966 /* AdUnit.swift in Sources */,
 				FAEE4D19262DC2B200AD9966 /* NativeEventTracker.swift in Sources */,

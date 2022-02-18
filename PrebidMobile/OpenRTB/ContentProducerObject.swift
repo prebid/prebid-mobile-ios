@@ -15,6 +15,7 @@
 
 import Foundation
 
+@objc(PBAdUnitContentProducerObject)
 @objcMembers
 public class ContentProducerObject: NSObject, JSONConvertible, JsonDecodable {
     ///Content producer or originator ID.
