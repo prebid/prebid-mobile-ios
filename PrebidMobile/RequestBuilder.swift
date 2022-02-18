@@ -291,7 +291,12 @@ class RequestBuilder: NSObject {
 
         var requestAppExt: [AnyHashable: Any] = [:]
 
-        let prebidSdkVersion = Bundle(for: type(of: self)).infoDictionary?["CFBundleShortVersionString"] as? String
+        var prebidSdkVersion: String? = nil
+        #if SWIFT_PACKAGE
+            prebidSdkVersion = PREBID_VERSION
+        #else
+            prebidSdkVersion = Bundle(for: type(of: self)).infoDictionary?["CFBundleShortVersionString"] as? String
+        #endif
         requestAppExt["prebid"] = ["version": prebidSdkVersion, "source": "prebid-mobile"]
 
         requestAppExt["data"] = Targeting.shared.getContextDataDictionary().getCopyWhereValueIsArray()
