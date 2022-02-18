@@ -188,9 +188,17 @@ class PrebidParameterBuilderTest: XCTestCase {
         let bidRequest = PBMORTBBidRequest()
         
         targeting.addBidder(toAccessControlList: "prebid-mobile")
-        targeting.updateUserData(Set(["red", "orange"]), forKey: "fav_colors")
-        targeting.addContextData("wolf", forKey: "last_search_keywords")
-        targeting.addContextData("pet", forKey: "last_search_keywords")
+        
+        let userDataObject1 = PBMORTBContentData()
+        userDataObject1.id = "data id"
+        userDataObject1.name = "test name"
+        let userDataObject2 = PBMORTBContentData()
+        userDataObject2.id = "data id"
+        userDataObject2.name = "test name"
+        
+        PrebidRenderingTargeting.shared.setAppDataObjects([userDataObject1, userDataObject2])
+        let objects = PrebidRenderingTargeting.shared.getAppDataObjects()
+        
         adUnitConfig.addContextData("mushrooms", forKey: "buy")
         
         PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
@@ -208,15 +216,8 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         XCTAssertEqual(bidRequest.extPrebid.dataBidders, ["prebid-mobile"])
         
-        let extData = bidRequest.app.extPrebid.data!
-        XCTAssertTrue(extData.keys.count == 1)
-        let extValues = extData["last_search_keywords"]!.sorted()
-        XCTAssertEqual(extValues, ["pet", "wolf"])
-        
-        let userData = bidRequest.user.ext!["data"] as! [String :AnyHashable]
-        XCTAssertTrue(userData.keys.count == 1)
-        let userValues = userData["fav_colors"] as! Set<String>
-        XCTAssertEqual(userValues, ["red", "orange"])
+        XCTAssertEqual(2, objects.count)
+        XCTAssertEqual(objects.first, userDataObject1)
         
         guard let imp = bidRequest.imp.first else {
             XCTFail("No Impression object!")

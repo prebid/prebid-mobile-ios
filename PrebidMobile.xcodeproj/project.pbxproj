@@ -738,6 +738,7 @@
 		92664569272AB9120064F7BD /* SkadnEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92664568272AB9120064F7BD /* SkadnEventTracker.swift */; };
 		9266456B272AB9610064F7BD /* SkadnParametersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266456A272AB9610064F7BD /* SkadnParametersManager.swift */; };
 		9285B46C27AAC9C1009BD3D3 /* NativeAdMarkupTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285B46B27AAC9C1009BD3D3 /* NativeAdMarkupTest.swift */; };
+		928BAA4627BFC58100A16E3B /* ContentObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928BAA4527BFC58100A16E3B /* ContentObject.swift */; };
 		9290549227A417F00091D10D /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9290549127A417F00091D10D /* ImageHelper.swift */; };
 		929638B827AB19DE00D30F3D /* NativeTitleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638B727AB19DE00D30F3D /* NativeTitleTests.swift */; };
 		929638BB27AB200400D30F3D /* NativeImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638BA27AB200400D30F3D /* NativeImageTests.swift */; };

@@ -25,6 +25,8 @@
 #import "PBMBidRequesterFactoryBlock.h"
 #import "PBMWinNotifierBlock.h"
 
+#import "PBMORTBAppContent.h"
+
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
 
@@ -105,7 +107,7 @@
     
     PBMORTBAppExtPrebid * const appExtPrebid = bidRequest.app.extPrebid;
     
-    appExtPrebid.data = self.targeting.contextDataDictionary;
+//    appExtPrebid.data = self.targeting.contextDataDictionary;
     
     for (PBMORTBImp *nextImp in bidRequest.imp) {
         nextImp.impID = [NSUUID UUID].UUIDString;
@@ -152,8 +154,9 @@
             appExtPrebid.version = nextImp.displaymanagerver;
         }
     }
-    
-    bidRequest.user.ext[@"data"] = self.targeting.userDataDictionary;
+    bidRequest.app.content = [PBMORTBAppContent new];
+    bidRequest.app.content.data = [self.targeting getAppDataObjects];
+    bidRequest.user.data = [self.targeting getUserDataObjects];
 }
 
 + (PBMORTBFormat *)ortbFormatWithSize:(NSValue *)size {

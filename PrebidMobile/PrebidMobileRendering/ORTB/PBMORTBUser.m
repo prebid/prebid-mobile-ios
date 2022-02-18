@@ -17,6 +17,7 @@
 #import "PBMORTBAbstract+Protected.h"
 
 #import "PBMORTBGeo.h"
+#import "PBMORTBContentData.h"
 
 @implementation PBMORTBUser
 
@@ -42,6 +43,15 @@
     if (self.geo.lat && self.geo.lon) {
         ret[@"geo"] = [self.geo toJsonDictionary];
     }
+    
+    if(self.data) {
+        NSMutableArray<PBMJsonDictionary *> *dataArray = [NSMutableArray<PBMJsonDictionary *> new];
+        for (PBMORTBContentData *dataObject in self.data) {
+            [dataArray addObject:[dataObject toJsonDictionary]];
+        }
+        
+        ret[@"data"] = dataArray;
+    }
 
     if (self.ext && self.ext.count) {
         ret[@"ext"] = self.ext;
@@ -64,6 +74,17 @@
     _ext         = jsonDictionary[@"ext"];
         
     _geo = [[PBMORTBGeo alloc] initWithJsonDictionary:jsonDictionary[@"geo"]];
+    
+    NSMutableArray<PBMORTBContentData *> *dataArray = [NSMutableArray<PBMORTBContentData *> new];
+    NSMutableArray<PBMJsonDictionary *> *dataDicts = jsonDictionary[@"data"];
+    if (dataDicts.count > 0) {
+        for (PBMJsonDictionary *dataDict in dataDicts) {
+            if (dataDict && [dataDict isKindOfClass:[NSDictionary class]])
+                [dataArray addObject:[[PBMORTBContentData alloc] initWithJsonDictionary:dataDict]];
+        }
+        
+        _data = dataArray;
+    }
     
     return self;
 }

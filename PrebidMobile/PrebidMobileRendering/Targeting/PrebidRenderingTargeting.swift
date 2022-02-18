@@ -220,7 +220,7 @@ public class PrebidRenderingTargeting: NSObject {
     }
     
     // MARK: - User Data
-    
+    @available(*, deprecated, message: "This method will be removed soon. Please, use setUserDataObjects(_:[DataObjects]) or addUserDataObject(_:DataObject).")
     @objc public func addUserData(_ value: String, forKey key: String) {
         var values = rawUserDataDictionary[key] ?? Set<String>()
         values.insert(value)
@@ -228,24 +228,65 @@ public class PrebidRenderingTargeting: NSObject {
         rawUserDataDictionary[key] = values
     }
     
+    @available(*, deprecated, message: "This method will be removed soon.")
     @objc public func updateUserData(_ value: Set<String>, forKey key: String) {
         rawUserDataDictionary[key] = value
     }
     
+    @available(*, deprecated, message: "This method will be removed soon.")
     @objc public func removeUserData(forKey key: String) {
         rawUserDataDictionary.removeValue(forKey: key)
     }
     
+    @available(*, deprecated, message: "This method will be removed soon. Please, use clearUserDataObjects().")
     @objc public func clearUserData() {
         rawUserDataDictionary.removeAll()
     }
     
+    @available(*, deprecated, message: "This property will be removed soon.")
     @objc public var userDataDictionary: [String : Set<String>] {
         rawUserDataDictionary
     }
     
-    // MARK: - Context Data
+    /**
+     * This method allows to setup array of user data objects.
+     */
+    @objc public func setUserDataObjects(_ userDataObjects: [PBMORTBContentData]) {
+        self.userDataObjects = userDataObjects
+    }
     
+    /**
+     * This method allows to add a single user data object.
+     */
+    @objc public func addUserDataObject(_ userDataObject: PBMORTBContentData) {
+        userDataObjects.append(userDataObject)
+    }
+    
+    /**
+     * This method allows to get user data objects array.
+     */
+    @objc public func getUserDataObjects() -> [PBMORTBContentData] {
+        return userDataObjects
+    }
+    
+    /**
+     * This method allows to remove all occurances of specific object in user data array.
+     */
+    @objc public func removeUserDataObject(_ userDataObject: PBMORTBContentData) {
+        if userDataObjects.contains(userDataObject) {
+            userDataObjects.removeAll { $0 == userDataObject }
+        }
+    }
+    
+    /**
+     * This method allows to clear user data objects array.
+     */
+    @objc public func clearUserDataObjects() {
+        userDataObjects.removeAll()
+    }
+    
+    // MARK: - Context Data
+    @available(*, deprecated, message: "This method will be removed soon. Please, use setAppDataObjects(_:[DataObjects]) or addAppDataObject(_:DataObject).")
     @objc public func addContextData(_ value: String, forKey key: String) {
         var values = rawContextDataDictionary[key] ?? Set<String>()
         values.insert(value)
@@ -253,30 +294,72 @@ public class PrebidRenderingTargeting: NSObject {
         rawContextDataDictionary[key] = values
     }
     
+    @available(*, deprecated, message: "This method will be removed soon.")
     @objc public func updateContextData(_ value: Set<String>, forKey key: String) {
         rawContextDataDictionary[key] = value
     }
     
+    @available(*, deprecated, message: "This method will be removed soon.")
     @objc public func removeContextData(forKey key: String) {
         rawContextDataDictionary.removeValue(forKey: key)
     }
     
+    @available(*, deprecated, message: "This method will be removed soon.")
     @objc public func clearContextData() {
         rawContextDataDictionary.removeAll()
     }
     
+    @available(*, deprecated, message: "This method will be removed soon. Please, use getAppDataObjects().")
     @objc public var contextDataDictionary: [String : [String]] {
         rawContextDataDictionary.mapValues { Array($0) }
+    }
+    
+    /**
+     * This method allows to setup array of app content data objects.
+     */
+    @objc public func setAppDataObjects(_ dataObjects: [PBMORTBContentData]) {
+        self.appContentData = dataObjects
+    }
+    
+    /**
+     * This method allows to add a single app content data object.
+     */
+    @objc public func addAppDataObject(_ dataObject: PBMORTBContentData) {
+        self.appContentData.append(dataObject)
+    }
+
+    /**
+     * This method allows to remove all occurances of specific object in app content data array.
+     */
+    @objc public func removeAppDataObject(_ dataObject: PBMORTBContentData) {
+        if appContentData.contains(dataObject) {
+            appContentData.removeAll(where: { $0 == dataObject })
+        }
+    }
+    
+    /**
+     * This method allows to clear app content data objects array.
+     */
+    @objc public func clearAppDataObjects() {
+        appContentData.removeAll()
+    }
+    
+    /**
+     * This method allows to get app content data objects array.
+     */
+    @objc public func getAppDataObjects() -> [PBMORTBContentData] {
+        return appContentData
     }
         
     // MARK: - Internal Properties
     
     public var parameterDictionary = [String : String]()
     
-    private var rawAccessControlList = Set<String>()
-    private var rawUserDataDictionary = [String : Set<String>]()
-    private var rawContextDataDictionary = [String : Set<String>]()
-
+    private lazy var rawAccessControlList = Set<String>()
+    private lazy var rawUserDataDictionary = [String : Set<String>]()
+    private lazy var rawContextDataDictionary = [String : Set<String>]()
+    private lazy var userDataObjects = [PBMORTBContentData]()
+    private lazy var appContentData = [PBMORTBContentData]()
     
     // MARK: - Internal Methods
     

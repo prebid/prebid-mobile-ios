@@ -16,6 +16,7 @@
 #import "PBMORTBAbstract.h"
 
 @class PBMORTBGeo;
+@class PBMORTBContentData;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -51,8 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 //Location of the user’s home base defined by a Geo object. This is not necessarily their current location
 @property (nonatomic, strong) PBMORTBGeo *geo;
 
-//Note: Data object not supported.
-//Additional user data. Each Data object represents a different data source
+//Additional user data. Each Data object (Section 3.2.21) represents a different data source.
+@property (nonatomic, strong, nullable) NSArray<PBMORTBContentData *> *data;
 
 // Placeholder for exchange-specific extensions to OpenRTB.
 @property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, NSObject *> *ext;

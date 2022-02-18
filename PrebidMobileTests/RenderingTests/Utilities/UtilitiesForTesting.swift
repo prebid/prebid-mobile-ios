@@ -288,7 +288,8 @@ typealias JsonDictionary = [String:Any]
         targeting.keywords = nil
         
         targeting.parameterDictionary = [:]
-        
+        targeting.clearAppDataObjects()
+        targeting.clearUserDataObjects()
         checkInitialValues(targeting)
     }
     
@@ -303,6 +304,8 @@ typealias JsonDictionary = [String:Any]
         XCTAssertNil(targeting.userExt)
         XCTAssertNil(targeting.eids)
         XCTAssertNil(targeting.keywords)
+        XCTAssertTrue(targeting.getAppDataObjects().isEmpty)
+        XCTAssertTrue(targeting.getUserDataObjects().isEmpty)
         XCTAssert(targeting.parameterDictionary == [:])
     }
     
