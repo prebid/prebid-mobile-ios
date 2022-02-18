@@ -290,7 +290,7 @@ class BidManagerTests: XCTestCase {
     }
 
     func requestCompleted(_ notification: Notification?) {
-        var incomingRequest = notification?.userInfo![kPBHTTPStubURLProtocolRequest] as? URLRequest
+        let incomingRequest = notification?.userInfo![kPBHTTPStubURLProtocolRequest] as? URLRequest
         let requestString = incomingRequest?.url?.absoluteString
         let searchString = Constants.utAdRequestBaseUrl
         if request == nil && requestString?.range(of: searchString) != nil {

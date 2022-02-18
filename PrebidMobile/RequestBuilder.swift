@@ -277,7 +277,7 @@ class RequestBuilder: NSObject {
         let itunesID: String? = Targeting.shared.itunesID
         let bundle = Bundle.main.bundleIdentifier
         let bundleAppName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
-        
+
         if let bundleAppName = bundleAppName {
             app["name"] = bundleAppName
         }
@@ -287,16 +287,25 @@ class RequestBuilder: NSObject {
             app["bundle"] = bundle ?? ""
         }
         app["ver"] = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        app["publisher"] = ["id": Prebid.shared.prebidServerAccountId] as NSDictionary
+        let publisher = ORTBPublisher()
+        publisher.id = Prebid.shared.prebidServerAccountId
+        app["publisher"] = publisher.toJSONDictionary()
 
         var requestAppExt: [AnyHashable: Any] = [:]
 
         let prebidSdkVersion = Bundle(for: type(of: self)).infoDictionary?["CFBundleShortVersionString"] as? String
         requestAppExt["prebid"] = ["version": prebidSdkVersion, "source": "prebid-mobile"]
-
-        requestAppExt["data"] = Targeting.shared.getContextDataDictionary().getCopyWhereValueIsArray()
-
         app["ext"] = requestAppExt
+
+        var appContent = [AnyHashable: Any]()
+        let appDataObjects = Targeting.shared.getAppDataObjects()
+        var finalDataObjectsDicts = [[AnyHashable: Any]]()
+        for appDataObject in appDataObjects {
+            finalDataObjectsDicts.append(appDataObject.toJSONDictionary())
+        }
+        appContent["data"] = finalDataObjectsDicts
+
+        app["content"] = appContent
 
         app["keywords"] = Targeting.shared.getContextKeywordsSet().toCommaSeparatedListString()
 
@@ -480,12 +489,16 @@ class RequestBuilder: NSObject {
                 requestUserExt["consent"] = gdprConsentString
             }
         }
-
-        requestUserExt["data"] = Targeting.shared.getUserDataDictionary().getCopyWhereValueIsArray()
-        
         requestUserExt["eids"] = getExternalUserIds()
 
         userDict["ext"] = requestUserExt
+
+        var userDataDict = [[AnyHashable: Any]]()
+        Targeting.shared.getUserDataObjects().forEach { dataObject in
+            userDataDict.append(dataObject.toJSONDictionary())
+        }
+        
+        userDict["data"] = userDataDict
 
         return userDict
     }

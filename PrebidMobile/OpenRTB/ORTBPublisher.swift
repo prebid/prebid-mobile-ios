@@ -16,19 +16,19 @@
 import Foundation
 
 @objcMembers
-public class ContentProducerObject: NSObject, JSONConvertible, JsonDecodable {
-    ///Content producer or originator ID.
+public class ORTBPublisher: NSObject, JSONConvertible, JsonDecodable {
+    ///Exchange-specific publisher ID.
     public var id: String?
-    ///Content producer or originator name (e.g., “Warner Bros”).
+    ///Publisher name (may be aliased at the publisher’s request).
     public var name: String?
-    ///Array of IAB content categories that describe the content producer.
+    ///Array of IAB content categories that describe the publisher. Refer to List 5.1.
     public var cat: [String]?
-    ///Highest level domain of the content producer (e.g., “producer.com”).
+    ///Highest level domain of the publisher (e.g., “publisher.com”).
     public var domain: String?
-    ///Placeholeder to exchange-specific extensions to OpenRTB
+    ///Placeholder for exchange-specific extensions to OpenRTB.
     public var ext: [String: Any]?
     
-    public required init(jsonDictionary: [String: Any]) {
+    public required init(jsonDictionary: [String : Any]) {
         self.id = jsonDictionary["id"] as? String
         self.name = jsonDictionary["name"] as? String
         self.cat = jsonDictionary["cat"] as? [String]
@@ -40,29 +40,29 @@ public class ContentProducerObject: NSObject, JSONConvertible, JsonDecodable {
         super.init()
     }
     
-    public func toJSONDictionary() -> [AnyHashable: Any] {
-        var producer = [AnyHashable: Any]()
+    func toJSONDictionary() -> [AnyHashable: Any] {
+        var publisher = [AnyHashable: Any]()
         
         if let id = id {
-            producer["id"] = id
+            publisher["id"] = id
         }
         
         if let name = name {
-            producer["name"] = name
+            publisher["name"] = name
         }
         
         if let cat = cat {
-            producer["cat"] = cat
+            publisher["cat"] = cat
         }
         
         if let domain = domain {
-            producer["domain"] = domain
+            publisher["domain"] = domain
         }
         
-        if let ext = ext, !ext.isEmpty {
-            producer["ext"] = ext
+        if let ext = ext {
+            publisher["ext"] = ext
         }
         
-        return producer
+        return publisher
     }
 }

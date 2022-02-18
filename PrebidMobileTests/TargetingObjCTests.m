@@ -41,12 +41,14 @@ limitations under the License.
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_PurposeConsents"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+    [Targeting.shared clearContextData];
+    [Targeting.shared clearUserData];
     [Targeting.shared clearYearOfBirth];
     [Targeting.shared clearAccessControlList];
-    [Targeting.shared clearContextData];
+    [Targeting.shared clearUserDataObjects];
     [Targeting.shared clearContextKeywords];
     [Targeting.shared clearUserKeywords];
-    [Targeting.shared clearUserData];
+    [Targeting.shared clearAppDataObjects];
 }
 
 - (void)testStoreURL {
@@ -291,17 +293,40 @@ limitations under the License.
 }
 
 - (void)testUserData {
-    //given
-    NSString *key = @"key1";
-    NSString *value = @"value10";
-    NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
-    
-    //when
-    [Targeting.shared addUserDataWithKey:key value:value];
-    [Targeting.shared updateUserDataWithKey:key value:set];
-    [Targeting.shared removeUserDataForKey:key];
-    [Targeting.shared clearUserData];
+     //given
+     NSString *key = @"key1";
+     NSString *value = @"value10";
+     NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
 
+     //when
+     [Targeting.shared addUserDataWithKey:key value:value];
+     [Targeting.shared updateUserDataWithKey:key value:set];
+     [Targeting.shared removeUserDataForKey:key];
+     [Targeting.shared clearUserData];
+
+ }
+
+- (void)testContextData {
+     //given
+     NSString *key = @"key1";
+     NSString *value = @"value10";
+     NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
+
+     //when
+     [Targeting.shared addContextDataWithKey:key value:value];
+     [Targeting.shared updateContextDataWithKey:key value:set];
+     [Targeting.shared removeContextDataForKey:key];
+     [Targeting.shared clearContextData];
+
+ }
+
+
+- (void)testUserDataObjects {
+    PBMORTBContentData *data = [PBMORTBContentData new];
+    data.id = @"value10";
+    [Targeting.shared addUserDataObject:data];
+    [Targeting.shared removeUserDataObject:data];
+    [Targeting.shared clearUserDataObjects];
 }
 
 - (void)testUserKeyword {
@@ -317,18 +342,12 @@ limitations under the License.
 
 }
 
-- (void)testContextData {
-    //given
-    NSString *key = @"key1";
-    NSString *value = @"value10";
-    NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
-    
-    //when
-    [Targeting.shared addContextDataWithKey:key value:value];
-    [Targeting.shared updateContextDataWithKey:key value:set];
-    [Targeting.shared removeContextDataForKey:key];
-    [Targeting.shared clearContextData];
-
+- (void)testContextDataObjects {
+    PBMORTBContentData *data = [PBMORTBContentData new];
+    data.id = @"value10";
+    [Targeting.shared addAppDataObject:data];
+    [Targeting.shared removeAppDataObject:data];
+    [Targeting.shared clearAppDataObjects];
 }
 
 - (void)testContextKeyword {

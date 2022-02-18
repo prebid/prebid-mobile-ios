@@ -17,7 +17,7 @@ import Foundation
 
 @objc(PBAdUnitContentObject)
 @objcMembers
-public class ContentObject: NSObject, JSONConvertible {
+public class ContentObject: NSObject, JSONConvertible, JsonDecodable {
     ///ID uniquely identifying the content.
     public var id: String?
     ///Episode number.
@@ -69,6 +69,49 @@ public class ContentObject: NSObject, JSONConvertible {
     ///Placeholeder to exchange-specific extensions to OpenRTB
     public var ext: [String: Any]?
     
+    public required init(jsonDictionary: [String : Any]) {
+        self.id = jsonDictionary["id"] as? String
+        self.episode = jsonDictionary["episode"] as? Int
+        self.title = jsonDictionary["title"] as? String
+        self.series = jsonDictionary["series"] as? String
+        self.season = jsonDictionary["season"] as? String
+        self.artist = jsonDictionary["artist"] as? String
+        self.genre = jsonDictionary["genre"] as? String
+        self.album = jsonDictionary["album"] as? String
+        self.isrc = jsonDictionary["isrc"] as? String
+        
+        if let producerDict = jsonDictionary["producer"] as? [String: Any] {
+            self.producer = ContentProducerObject(jsonDictionary: producerDict)
+        }
+        
+        self.url = jsonDictionary["url"] as? String
+        self.cat = jsonDictionary["cat"] as? [String]
+        self.prodq = jsonDictionary["prodq"] as? Int
+        self.context = jsonDictionary["context"] as? Int
+        self.contentrating = jsonDictionary["contentrating"] as? String
+        self.userrating = jsonDictionary["userrating"] as? String
+        self.qagmediarating = jsonDictionary["qagmediarating"] as? Int
+        self.keywords = jsonDictionary["keywords"] as? String
+        self.livestream = jsonDictionary["livestream"] as? Int
+        self.sourcerelationship = jsonDictionary["sourcerelationship"] as? Int
+        self.len = jsonDictionary["len"] as? Int
+        self.language = jsonDictionary["language"] as? String
+        self.embeddable = jsonDictionary["embeddable"] as? Int
+        
+        if let dataDictArray = jsonDictionary["data"] as? [[String: Any]] {
+            var finalData = [ContentDataObject]()
+            for dataDict in dataDictArray {
+                finalData.append(ContentDataObject(jsonDictionary: dataDict))
+            }
+            self.data = finalData
+        }
+        self.ext = jsonDictionary["ext"] as? [String: Any]
+    }
+    
+    public override init() {
+        super.init()
+    }
+    
     public func toJSONDictionary() -> [AnyHashable: Any] {
         var content = [AnyHashable: Any]()
         
@@ -117,5 +160,33 @@ public class ContentObject: NSObject, JSONConvertible {
         }
         
         return content
+    }
+    
+    static func ==(lhs: ContentObject, rhs: ContentObject) -> Bool {
+        return lhs.id == rhs.id &&
+        lhs.episode == rhs.episode &&
+        lhs.title == rhs.title &&
+        lhs.series == rhs.series &&
+        lhs.season == rhs.season &&
+        lhs.artist == rhs.artist &&
+        lhs.genre == rhs.genre &&
+        lhs.album == rhs.album &&
+        lhs.isrc == rhs.isrc &&
+        lhs.producer == rhs.producer &&
+        lhs.url == rhs.url &&
+        lhs.cat == rhs.cat &&
+        lhs.prodq == rhs.prodq &&
+        lhs.context == rhs.context &&
+        lhs.contentrating == rhs.contentrating &&
+        lhs.userrating == rhs.userrating &&
+        lhs.qagmediarating == rhs.qagmediarating &&
+        lhs.keywords == rhs.keywords &&
+        lhs.livestream == rhs.livestream &&
+        lhs.sourcerelationship == rhs.sourcerelationship &&
+        lhs.len == rhs.len &&
+        lhs.language == rhs.language &&
+        lhs.embeddable == rhs.embeddable &&
+        lhs.data == rhs.data &&
+        NSDictionary(dictionary: lhs.ext ?? [:]).isEqual(to: rhs.ext ?? [:])
     }
 }
