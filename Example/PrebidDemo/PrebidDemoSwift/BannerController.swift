@@ -62,7 +62,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         }
 
 //        enableCOPPA()
-//        addFirstPartyData(adUnit: adUnit)
+//        addFirstPartyData(adUnit: prebidAdUnit)
 //        setStoredResponse()
 //        setRequestTimeoutMillis()
 //        enablePbsDebug()
@@ -234,14 +234,15 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         //Access Control List
         Targeting.shared.addBidderToAccessControlList(Prebid.bidderNameAppNexus)
         
-        //global user data
-        Targeting.shared.addUserData(key: "globalUserDataKey1", value: "globalUserDataValue1")
-        
         //global context data
-        Targeting.shared.addContextData(key: "globalContextDataKey1", value: "globalContextDataValue1")
+        let userData = ContentDataObject()
+        userData.id = "globalUserDataValue1"
+        Targeting.shared.addUserDataObject(userData)
         
         //adunit context data
-        adUnit.addContextData(key: "adunitContextDataKey1", value: "adunitContextDataValue1")
+        let appData = ContentDataObject()
+        appData.id = "adunitContextDataValue1"
+        Targeting.shared.addAppDataObject(appData)
         
         //global context keywords
         Targeting.shared.addContextKeyword("globalContextKeywordValue1")

@@ -16,7 +16,7 @@
 import Foundation
 
 @objcMembers
-public class ContentDataObject: NSObject, JSONConvertible {
+public class ContentDataObject: NSObject, JSONConvertible, JsonDecodable {
     ///Exchange-specific ID for the data provider.
     public var id: String?
     ///Exchange-specific name for the data provider.
@@ -25,6 +25,25 @@ public class ContentDataObject: NSObject, JSONConvertible {
     public var segment: [ContentSegmentObject]?
     ///Placeholeder to exchange-specific extensions to OpenRTB
     public var ext: [String: Any]?
+    
+    public required init(jsonDictionary: [String: Any]) {
+        self.id = jsonDictionary["id"] as? String
+        self.name = jsonDictionary["name"] as? String
+        
+        if let segmentsDictArray = jsonDictionary["segment"] as? [[String: Any]] {
+            var finalSegments = [ContentSegmentObject]()
+            for segmentDict in segmentsDictArray {
+                finalSegments.append(ContentSegmentObject(jsonDictionary: segmentDict))
+            }
+            self.segment = finalSegments
+        }
+        
+        self.ext = jsonDictionary["ext"] as? [String: Any]
+    }
+    
+    public override init() {
+        super.init()
+    }
     
     public func toJSONDictionary() -> [AnyHashable: Any] {
         var data = [AnyHashable: Any]()
@@ -51,5 +70,12 @@ public class ContentDataObject: NSObject, JSONConvertible {
         }
         
         return data
+    }
+        
+    static func ==(lhs: ContentDataObject, rhs: ContentDataObject) -> Bool {
+        return lhs.id == rhs.id &&
+        lhs.name == rhs.name &&
+        lhs.segment == rhs.segment &&
+        NSDictionary(dictionary: lhs.ext ?? [:]).isEqual(to: rhs.ext ?? [:])
     }
 }
