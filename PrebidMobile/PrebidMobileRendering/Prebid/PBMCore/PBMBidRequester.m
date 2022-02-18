@@ -98,6 +98,12 @@
         
         void (^ const completion)(BidResponseForRendering *, NSError *) = self.completion;
         self.completion = nil;
+        
+        if (serverResponse.statusCode == 204) {
+            completion(nil, PBMError.blankResponse);
+            return;
+        }
+        
         if (serverResponse.error) {
             PBMLogInfo(@"Bid Request Error: %@", [serverResponse.error localizedDescription]);
             completion(nil, serverResponse.error);

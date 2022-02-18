@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92C0CEA027BD411E00C480EB /* emptyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 92C0CE9F27BD411E00C480EB /* emptyResponse.json */; };
 		FA9E5E122649420C0049B214 /* TestUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = FA9E5E102649420C0049B214 /* TestUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAC8535B2649462E009DC0F3 /* NSURLRequest+HTTPBodyTesting.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC853592649462E009DC0F3 /* NSURLRequest+HTTPBodyTesting.m */; };
 		FAC8535C2649462E009DC0F3 /* NSURLRequest+HTTPBodyTesting.h in Headers */ = {isa = PBXBuildFile; fileRef = FAC8535A2649462E009DC0F3 /* NSURLRequest+HTTPBodyTesting.h */; };
@@ -43,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		92C0CE9F27BD411E00C480EB /* emptyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = emptyResponse.json; sourceTree = "<group>"; };
 		FA9E5E0D2649420C0049B214 /* TestUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TestUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA9E5E102649420C0049B214 /* TestUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestUtils.h; sourceTree = "<group>"; };
 		FA9E5E112649420C0049B214 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				FAC8537826494647009DC0F3 /* noBidResponseNoTmax.json */,
 				FAC8537926494647009DC0F3 /* NativeAdInvalidResponse.json */,
 				FAC8537A26494647009DC0F3 /* responseInvalidNoTopCacheId.json */,
+				92C0CE9F27BD411E00C480EB /* emptyResponse.json */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				FAC8539226494647009DC0F3 /* responseIncorrectFormat.json in Resources */,
 				FAC8538526494647009DC0F3 /* noBidResponseAppNexus.json in Resources */,
 				FAC8538426494647009DC0F3 /* noBidResponseTmaxTooLarge.json in Resources */,
+				92C0CEA027BD411E00C480EB /* emptyResponse.json in Resources */,
 				FAC8539426494647009DC0F3 /* NativeAdInvalidResponse.json in Resources */,
 				FAC8539526494647009DC0F3 /* responseInvalidNoTopCacheId.json in Resources */,
 				FAC8538726494647009DC0F3 /* responseInvalidAccountId.json in Resources */,

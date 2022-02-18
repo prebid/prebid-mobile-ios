@@ -49,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, class, readonly) NSError *jsonDictNotFound;
 @property (nonatomic, class, readonly) NSError *responseDeserializationFailed;
+@property (nonatomic, class, readonly) NSError *blankResponse;
 
 // MARK: - Integration layer errors
 @property (nonatomic, class, readonly) NSError *noWinningBid;

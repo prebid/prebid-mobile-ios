@@ -288,9 +288,22 @@ class BidManagerTests: XCTestCase {
         }
         waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
     }
+    
+    func testBlankResponseReturnsNoBid() {
+        loadAdSuccesfulException = expectation(description: "\(#function)")
+        stubAppNexusRequestWithResponse("emptyResponse", responseCode: 204)
+        let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
+        let manager: BidManager = BidManager(adUnit: bannerUnit)
+        manager.requestBidsForAdUnit { (bidResponse, resultCode) in
+            XCTAssertNil(bidResponse)
+            XCTAssertEqual(ResultCode.prebidDemandNoBids, resultCode)
+            self.loadAdSuccesfulException?.fulfill()
+        }
+        waitForExpectations(timeout: timeoutForImpbusRequest, handler: nil)
+    }
 
     func requestCompleted(_ notification: Notification?) {
-        var incomingRequest = notification?.userInfo![kPBHTTPStubURLProtocolRequest] as? URLRequest
+        let incomingRequest = notification?.userInfo![kPBHTTPStubURLProtocolRequest] as? URLRequest
         let requestString = incomingRequest?.url?.absoluteString
         let searchString = Constants.utAdRequestBaseUrl
         if request == nil && requestString?.range(of: searchString) != nil {
@@ -300,12 +313,12 @@ class BidManagerTests: XCTestCase {
     }
 
     // MARK: - Stubbing
-    func stubAppNexusRequestWithResponse(_ responseName: String?) {
+    func stubAppNexusRequestWithResponse(_ responseName: String?, responseCode: Int = 200) {
         let currentBundle = Bundle(for: TestUtils.PBHTTPStubbingManager.self)
         let baseResponse = try? String(contentsOfFile: currentBundle.path(forResource: responseName, ofType: "json") ?? "", encoding: .utf8)
         let requestStub = PBURLConnectionStub()
         requestStub.requestURL = "https://prebid.adnxs.com/pbs/v1/openrtb2/auction"
-        requestStub.responseCode = 200
+        requestStub.responseCode = responseCode
         requestStub.responseBody = baseResponse
         PBHTTPStubbingManager.shared().add(requestStub)
     }
