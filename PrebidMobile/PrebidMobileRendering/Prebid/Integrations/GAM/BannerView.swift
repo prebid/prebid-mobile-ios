@@ -205,6 +205,43 @@ public class BannerView: UIView,
         adUnitConfig.clearContextData()
     }
     
+    // MARK: - App Content
+    
+    @objc public func setAppContent(_ appContent: PBMORTBAppContent) {
+        adUnitConfig.setAppContentObject(appContent)
+    }
+    
+    @objc public func clearAppContent() {
+        adUnitConfig.clearAppContentObject()
+    }
+    
+    @objc public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
+        adUnitConfig.addAppContentDataObjects(dataObjects)
+    }
+
+    @objc public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
+        adUnitConfig.removeAppContentDataObject(dataObject)
+    }
+    
+    @objc public func clearAppContentDataObjects() {
+        adUnitConfig.clearAppContentDataObjects()
+    }
+    
+    // MARK: - User Data
+        
+    @objc public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
+        adUnitConfig.addUserDataObjects(userDataObjects)
+    }
+    
+    @objc public func removeUserData(_ userDataObject: PBMORTBContentData) {
+        adUnitConfig.removeUserDataObject(userDataObject)
+    }
+    
+    @objc public func clearUserData() {
+        adUnitConfig.clearUserDataObjects()
+    }
+    
+    
     // MARK: - DisplayViewInteractionDelegate
     
     public func trackImpression(for displayView: PBMDisplayView) {

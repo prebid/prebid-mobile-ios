@@ -196,8 +196,8 @@ class PrebidParameterBuilderTest: XCTestCase {
         userDataObject2.id = "data id"
         userDataObject2.name = "test name"
         
-        PrebidRenderingTargeting.shared.setAppDataObjects([userDataObject1, userDataObject2])
-        let objects = PrebidRenderingTargeting.shared.getAppDataObjects()
+        adUnitConfig.addUserDataObjects([userDataObject1, userDataObject2])
+        let objects = adUnitConfig.getUserDataObjects()!
         
         adUnitConfig.addContextData("mushrooms", forKey: "buy")
         

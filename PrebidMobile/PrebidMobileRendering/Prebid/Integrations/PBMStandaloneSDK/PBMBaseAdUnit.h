@@ -16,6 +16,8 @@
 @import Foundation;
 
 @class DemandResponseInfo;
+@class PBMORTBAppContent;
+@class PBMORTBContentData;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -38,6 +40,18 @@ typedef void(^PBMFetchDemandCompletionHandler)(DemandResponseInfo * _Nonnull dem
 - (void)updateContextData:(NSSet<NSString *> *)data forKey:(NSString *)key;
 - (void)removeContextDataForKey:(NSString *)key;
 - (void)clearContextData;
+
+// MARK: - App Content
+- (void)setAppContent:(PBMORTBAppContent *)appContent;
+- (void)clearAppContent;
+- (void)addAppContentData:(NSArray<PBMORTBContentData *> *)dataObjects;
+- (void)removeAppContentDataObject:(PBMORTBContentData *)dataObject;
+- (void)clearAppContentDataObjects;
+
+// MARK: - User Data
+- (void)addUserData:(NSArray<PBMORTBContentData *> *)userDataObjects;
+- (void)removeUserData:(PBMORTBContentData *)userDataObject;
+- (void)clearUserData;
 
 @end
 

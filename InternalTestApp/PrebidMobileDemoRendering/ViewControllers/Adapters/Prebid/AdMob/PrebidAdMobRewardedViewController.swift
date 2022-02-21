@@ -46,6 +46,7 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
         self.adapterViewController = rootController
         super.init()
         setupAdapterController()
+        setProccesArgumentParser()
     }
     
     func configurationController() -> BaseConfigurationController? {
@@ -151,5 +152,21 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
                 print("User rewarded")
             })
         }
+    }
+    
+    private func setProccesArgumentParser() {
+        let processArgumentsParser = ProcessArgumentsParser()
+        processArgumentsParser.addOption("ADD_USER_DATA", paramsCount: 2) { [weak self] params in
+            let userData = PBMORTBContentData()
+            userData.ext = [params[0]: params[1]]
+            self?.adUnit?.addUserData([userData])
+        }
+        
+        processArgumentsParser.addOption("ADD_APP_CONTEXT", paramsCount: 2) { [weak self] params in
+            let appData = PBMORTBContentData()
+            appData.ext = [params[0]: params[1]]
+            self?.adUnit?.addAppContentData([appData])
+        }
+        processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
     }
 }

@@ -43,7 +43,8 @@ public class AdUnitConfig: NSObject, NSCopying {
         extensionData.mapValues { Array($0) }
     }
     
-    public var appContent: PBMORTBAppContent?
+    @objc public var appContent: PBMORTBAppContent?
+    @objc public var userData: [PBMORTBContentData]?
     
     // MARK: - Computed Properties
     
@@ -107,16 +108,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         adConfiguration.size = adSize
     }
     
-    @objc
-    public func setAppContent(appContent: PBMORTBAppContent) {
-        self.appContent = appContent
-    }
-    
-    @objc
-    public func getAppContent() -> PBMORTBAppContent? {
-        return self.appContent
-    }
-    
     @objc public func addContextData(_ data: String, forKey key: String) {
         if extensionData[key] == nil {
             extensionData[key] = Set<String>()
@@ -135,6 +126,65 @@ public class AdUnitConfig: NSObject, NSCopying {
     
     @objc public func clearContextData() {
         extensionData.removeAll()
+    }
+    
+    // MARK: - App Content
+    
+    @objc public func setAppContentObject(_ appContent: PBMORTBAppContent) {
+        self.appContent = appContent
+    }
+    
+    @objc public func getAppContentObject() -> PBMORTBAppContent? {
+        return appContent
+    }
+    
+    @objc public func clearAppContentObject() {
+        appContent = nil
+    }
+    
+    @objc public func addAppContentDataObjects(_ dataObjects: [PBMORTBContentData]) {
+        if appContent == nil {
+            appContent = PBMORTBAppContent()
+        }
+        
+        if appContent?.data == nil {
+            appContent?.data = [PBMORTBContentData]()
+        }
+        
+        appContent?.data?.append(contentsOf: dataObjects)
+    }
+
+    @objc public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
+        if let appContentData = appContent?.data, appContentData.contains(dataObject) {
+            appContent?.data?.removeAll(where: { $0 == dataObject })
+        }
+    }
+    
+    @objc public func clearAppContentDataObjects() {
+        appContent?.data?.removeAll()
+    }
+    
+    // MARK: - User Data
+        
+    @objc public func getUserDataObjects() -> [PBMORTBContentData]? {
+        return userData
+    }
+    
+    @objc public func addUserDataObjects(_ userDataObjects: [PBMORTBContentData]) {
+        if userData == nil {
+            userData = [PBMORTBContentData]()
+        }
+        userData?.append(contentsOf: userDataObjects)
+    }
+    
+    @objc public func removeUserDataObject(_ userDataObject: PBMORTBContentData) {
+        if let userData = userData, userData.contains(userDataObject) {
+            self.userData?.removeAll { $0 == userDataObject }
+        }
+    }
+    
+    @objc public func clearUserDataObjects() {
+        userData?.removeAll()
     }
     
     // MARK: - Private Properties

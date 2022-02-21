@@ -43,6 +43,7 @@ class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurab
         super.init()
         
         setupAdapterController()
+        setProccesArgumentParser()
     }
     
     func configurationController() -> BaseConfigurationController? {
@@ -130,5 +131,21 @@ class PrebidGAMRewardedController: NSObject, AdaptedController, PrebidConfigurab
             adapterViewController?.showButton.isEnabled = false
             rewardedAdController.show(from: adapterViewController!)
         }
+    }
+    
+    private func setProccesArgumentParser() {
+        let processArgumentsParser = ProcessArgumentsParser()
+        processArgumentsParser.addOption("ADD_USER_DATA", paramsCount: 2) { [weak self] params in
+            let userData = PBMORTBContentData()
+            userData.ext = [params[0]: params[1]]
+            self?.rewardedAdController?.addUserData([userData])
+        }
+        
+        processArgumentsParser.addOption("ADD_APP_CONTEXT", paramsCount: 2) { [weak self] params in
+            let appData = PBMORTBContentData()
+            appData.ext = [params[0]: params[1]]
+            self?.rewardedAdController?.addAppContentData([appData])
+        }
+        processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
     }
 }

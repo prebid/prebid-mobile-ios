@@ -68,18 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.shared.keyWindow?.layer.speed = 200
         }
         
-        processArgumentsParser.addOption("ADD_USER_DATA", paramsCount: 2) { params in
-            let userData = PBMORTBContentData()
-            userData.ext = [params[0]: params[1]]
-            PrebidRenderingTargeting.shared.addUserDataObject(userData)
-        }
-        
-        processArgumentsParser.addOption("ADD_APP_CONTEXT", paramsCount: 2) { params in
-            let appData = PBMORTBContentData()
-            appData.ext = [params[0]: params[1]]
-            PrebidRenderingTargeting.shared.addAppDataObject(appData)
-        }
-        
         processArgumentsParser.addOption("BIDDER_ACCESS_CONTROL_LIST", acceptedParamsRange: (min: 1, max: nil)) { params in
             params.forEach(PrebidRenderingTargeting.shared.addBidder(toAccessControlList:))
         }
