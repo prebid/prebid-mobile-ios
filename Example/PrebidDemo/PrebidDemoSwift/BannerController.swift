@@ -237,12 +237,12 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         //global context data
         let userData = ContentDataObject()
         userData.id = "globalUserDataValue1"
-        Targeting.shared.addUserDataObject(userData)
+        adUnit.addUserDataObjects([userData])
         
         //adunit context data
         let appData = ContentDataObject()
         appData.id = "adunitContextDataValue1"
-        Targeting.shared.addAppDataObject(appData)
+        adUnit.addAppContentDataObjects([appData])
         
         //global context keywords
         Targeting.shared.addContextKeyword("globalContextKeywordValue1")

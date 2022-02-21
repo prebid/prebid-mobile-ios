@@ -302,16 +302,6 @@ class RequestBuilder: NSObject {
         requestAppExt["prebid"] = ["version": prebidSdkVersion, "source": "prebid-mobile"]
         app["ext"] = requestAppExt
 
-        var appContent = [AnyHashable: Any]()
-        let appDataObjects = Targeting.shared.getAppDataObjects()
-        var finalDataObjectsDicts = [[AnyHashable: Any]]()
-        for appDataObject in appDataObjects {
-            finalDataObjectsDicts.append(appDataObject.toJSONDictionary())
-        }
-        appContent["data"] = finalDataObjectsDicts
-
-        app["content"] = appContent
-
         app["keywords"] = Targeting.shared.getContextKeywordsSet().toCommaSeparatedListString()
 
         if let storeUrl = Targeting.shared.storeURL, !storeUrl.isEmpty {
@@ -498,13 +488,15 @@ class RequestBuilder: NSObject {
 
         userDict["ext"] = requestUserExt
 
-        var userDataDict = [[AnyHashable: Any]]()
-        Targeting.shared.getUserDataObjects().forEach { dataObject in
-            userDataDict.append(dataObject.toJSONDictionary())
+        if let userData = adUnit?.getUserDataObjects() {
+            var userDataDict = [[AnyHashable: Any]]()
+            userData.forEach { dataObject in
+                userDataDict.append(dataObject.toJSONDictionary())
+            }
+            
+            userDict["data"] = userDataDict
         }
         
-        userDict["data"] = userDataDict
-
         return userDict
     }
     

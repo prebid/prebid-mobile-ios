@@ -45,10 +45,8 @@ limitations under the License.
     [Targeting.shared clearUserData];
     [Targeting.shared clearYearOfBirth];
     [Targeting.shared clearAccessControlList];
-    [Targeting.shared clearUserDataObjects];
     [Targeting.shared clearContextKeywords];
     [Targeting.shared clearUserKeywords];
-    [Targeting.shared clearAppDataObjects];
 }
 
 - (void)testStoreURL {
@@ -320,15 +318,6 @@ limitations under the License.
 
  }
 
-
-- (void)testUserDataObjects {
-    PBAdUnitContentDataObject *data = [PBAdUnitContentDataObject new];
-    data.id = @"value10";
-    [Targeting.shared addUserDataObject:data];
-    [Targeting.shared removeUserDataObject:data];
-    [Targeting.shared clearUserDataObjects];
-}
-
 - (void)testUserKeyword {
     //given
     NSString *keyword = @"keyword";
@@ -340,14 +329,6 @@ limitations under the License.
     [Targeting.shared removeUserKeyword:keyword];
     [Targeting.shared clearUserKeywords];
 
-}
-
-- (void)testContextDataObjects {
-    PBAdUnitContentDataObject *data = [PBAdUnitContentDataObject new];
-    data.id = @"value10";
-    [Targeting.shared addAppDataObject:data];
-    [Targeting.shared removeAppDataObject:data];
-    [Targeting.shared clearAppDataObjects];
 }
 
 - (void)testContextKeyword {

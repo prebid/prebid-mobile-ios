@@ -308,4 +308,164 @@ class AdUnitTests: XCTestCase {
         //then
         XCTAssertEqual(0, set.count)
     }
+    
+    // MARK: - global context data aka inventory data (app.content.data)
+    func testSetAppContent() {
+        //given
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let appDataObject1 = ContentDataObject()
+        appDataObject1.id = "data id"
+        appDataObject1.name = "test name"
+        let appDataObject2 = ContentDataObject()
+        appDataObject2.id = "data id"
+        appDataObject2.name = "test name"
+        
+        let appContent = ContentObject()
+        appContent.album = "test album"
+        appContent.embeddable = 1
+        appContent.data = [appDataObject1, appDataObject2]
+        //when
+        adUnit.setAppContentObject(appContent)
+        let resultAppContent = adUnit.getAppContentObject()!
+
+        //then
+        XCTAssertEqual(2, resultAppContent.data!.count)
+        XCTAssertEqual(resultAppContent.data!.first, appDataObject1)
+        XCTAssertEqual(appContent, resultAppContent)
+    }
+    
+    func testClearAppContent() {
+        //given
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let appDataObject1 = ContentDataObject()
+        appDataObject1.id = "data id"
+        appDataObject1.name = "test name"
+        let appDataObject2 = ContentDataObject()
+        appDataObject2.id = "data id"
+        appDataObject2.name = "test name"
+        
+        let appContent = ContentObject()
+        appContent.album = "test album"
+        appContent.embeddable = 1
+        appContent.data = [appDataObject1, appDataObject2]
+        //when
+        adUnit.setAppContentObject(appContent)
+        
+        let resultAppContent1 = adUnit.getAppContentObject()
+        XCTAssertNotNil(resultAppContent1)
+        adUnit.clearAppContentObject()
+        let resultAppContent2 = adUnit.getAppContentObject()
+        XCTAssertNil(resultAppContent2)
+    }
+    
+    func testAddAppContentDataObject() {
+        //given
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let appDataObject1 = ContentDataObject()
+        appDataObject1.id = "data id"
+        appDataObject1.name = "test name"
+        let appDataObject2 = ContentDataObject()
+        appDataObject2.id = "data id"
+        appDataObject2.name = "test name"
+
+        //when
+        adUnit.addAppContentDataObjects([appDataObject1, appDataObject2])
+        let objects = adUnit.getAppContentObject()!.data!
+
+        //then
+        XCTAssertEqual(2, objects.count)
+        XCTAssertEqual(objects.first, appDataObject1)
+    }
+
+    func testRemoveAppContentDataObjects() {
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let appDataObject = ContentDataObject()
+        appDataObject.id = "data id"
+        appDataObject.name = "test name"
+
+        adUnit.addAppContentDataObjects([appDataObject])
+        let objects1 = adUnit.getAppContentObject()!.data!
+
+        XCTAssertEqual(1, objects1.count)
+
+        adUnit.removeAppContentDataObject(appDataObject)
+        let objects2 = adUnit.getAppContentObject()!.data!
+
+        XCTAssertEqual(0, objects2.count)
+    }
+    
+    func testClearAppContentDataObjects() {
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let appDataObject1 = ContentDataObject()
+        appDataObject1.id = "data id"
+        appDataObject1.name = "test name"
+        let appDataObject2 = ContentDataObject()
+        appDataObject2.id = "data id"
+        appDataObject2.name = "test name"
+
+        adUnit.addAppContentDataObjects([appDataObject1, appDataObject2])
+        let objects1 = adUnit.getAppContentObject()!.data!
+        
+        XCTAssertEqual(2, objects1.count)
+        adUnit.clearAppContentDataObjects()
+        let objects2 = adUnit.getAppContentObject()!.data!
+        XCTAssertEqual(0, objects2.count)
+    }
+    
+//    // MARK: - global user data aka visitor data (user.data)
+
+    func testAddUserDataObjects() {
+        //given
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let userDataObject1 = ContentDataObject()
+        userDataObject1.id = "data id"
+        userDataObject1.name = "test name"
+        let userDataObject2 = ContentDataObject()
+        userDataObject2.id = "data id"
+        userDataObject2.name = "test name"
+
+        //when
+        adUnit.addUserDataObjects([userDataObject1, userDataObject2])
+        let objects = adUnit.getUserDataObjects()!
+
+        //then
+        XCTAssertEqual(2, objects.count)
+        XCTAssertEqual(objects.first, userDataObject1)
+    }
+    
+    func testRemoveUserDataObjects() {
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let userDataObject = ContentDataObject()
+        userDataObject.id = "data id"
+        userDataObject.name = "test name"
+
+        adUnit.addUserDataObjects([userDataObject])
+        let objects1 = adUnit.getUserDataObjects()!
+
+        XCTAssertEqual(1, objects1.count)
+
+        adUnit.removeUserDataObject(userDataObject)
+        let objects2 = adUnit.getUserDataObjects()!
+
+        XCTAssertEqual(0, objects2.count)
+    }
+
+    func testClearUserDataObjects() {
+        let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
+        let userDataObject1 = ContentDataObject()
+        userDataObject1.id = "data id"
+        userDataObject1.name = "test name"
+        let userDataObject2 = ContentDataObject()
+        userDataObject2.id = "data id"
+        userDataObject2.name = "test name"
+
+        adUnit.addUserDataObjects([userDataObject1, userDataObject2])
+        let objects1 = adUnit.getUserDataObjects()!
+
+        XCTAssertEqual(2, objects1.count)
+
+        adUnit.clearUserDataObjects()
+        let objects2 = adUnit.getUserDataObjects()!
+        XCTAssertEqual(0, objects2.count)
+    }
 }

@@ -35,6 +35,8 @@ AdUnit *adUnit;
 
 - (void)tearDown {
     [Targeting.shared clearUserKeywords];
+    [adUnit clearAppContentObject];
+    [adUnit clearUserDataObjects];
 }
 
 - (void)testFetchDemand {
@@ -109,6 +111,149 @@ AdUnit *adUnit;
     [adUnit addContextKeywords:set];
     [adUnit removeContextKeyword:@"value2"];
     [adUnit clearContextKeywords];
+}
+
+// MARK: - global context data aka inventory data (app.content.data)
+
+- (void)testSetAppContent {
+    PBAdUnitContentDataObject *appDataObject1 = [PBAdUnitContentDataObject new];
+    appDataObject1.id = @"data id";
+    appDataObject1.name = @"test name";
+    
+    PBAdUnitContentDataObject *appDataObject2 = [PBAdUnitContentDataObject new];
+    appDataObject1.id = @"data id";
+    appDataObject1.name = @"test name";
+    
+    PBAdUnitContentObject *appContent = [PBAdUnitContentObject new];
+    appContent.album = @"test album";
+    appContent.data = @[appDataObject1, appDataObject2];
+    
+    [adUnit setAppContent:appContent];
+    
+    PBAdUnitContentObject *resultAppContent = [adUnit getAppContentObject];
+    XCTAssertEqual(2, resultAppContent.data.count);
+    XCTAssertEqual(resultAppContent.data.firstObject, appDataObject1);
+    XCTAssertEqual(appContent, resultAppContent);
+}
+
+- (void)testClearAppContent {
+    PBAdUnitContentDataObject *appDataObject1 = [PBAdUnitContentDataObject new];
+    appDataObject1.id = @"data id";
+    appDataObject1.name = @"test name";
+    
+    PBAdUnitContentDataObject *appDataObject2 = [PBAdUnitContentDataObject new];
+    appDataObject1.id = @"data id";
+    appDataObject1.name = @"test name";
+    
+    PBAdUnitContentObject *appContent = [PBAdUnitContentObject new];
+    appContent.album = @"test album";
+    appContent.data = @[appDataObject1, appDataObject2];
+    
+    [adUnit setAppContent:appContent];
+    
+    PBAdUnitContentObject *resultAppContent1 = [adUnit getAppContentObject];
+    XCTAssertNotNil(resultAppContent1);
+    [adUnit clearAppContentObject];
+    PBAdUnitContentObject *resultAppContent2 = [adUnit getAppContentObject];
+    XCTAssertNil(resultAppContent2);
+}
+
+- (void)testAddAppContentDataObject {
+    PBAdUnitContentDataObject *appDataObject1 = [PBAdUnitContentDataObject new];
+    appDataObject1.id = @"data id";
+    appDataObject1.name = @"test name";
+    
+    PBAdUnitContentDataObject *appDataObject2 = [PBAdUnitContentDataObject new];
+    appDataObject1.id = @"data id";
+    appDataObject1.name = @"test name";
+    
+    [adUnit addAppContentDataObjects:@[appDataObject1, appDataObject2]];
+    NSArray<PBAdUnitContentDataObject*> *objects = [adUnit getAppContentObject].data;
+    
+    XCTAssertEqual(2, objects.count);
+    XCTAssertEqual(objects.firstObject, appDataObject1);
+}
+
+- (void)testRemoveAppContentDataObjects {
+    PBAdUnitContentDataObject *appDataObject = [PBAdUnitContentDataObject new];
+    appDataObject.id = @"data id";
+    appDataObject.name = @"test name";
+    
+    [adUnit addAppContentDataObjects:@[appDataObject]];
+    NSArray<PBAdUnitContentDataObject*> *objects1 = [adUnit getAppContentObject].data;
+    XCTAssertEqual(1, objects1.count);
+    
+    [adUnit removeAppContentDataObject:appDataObject];
+    NSArray<PBAdUnitContentDataObject*> *objects2 = [adUnit getAppContentObject].data;
+    XCTAssertEqual(0, objects2.count);
+}
+
+- (void)testClearAppContentDataObjects {
+    PBAdUnitContentDataObject *appDataObject1 = [PBAdUnitContentDataObject new];
+    appDataObject1.id = @"data id";
+    appDataObject1.name = @"test name";
+    
+    PBAdUnitContentDataObject *appDataObject2 = [PBAdUnitContentDataObject new];
+    appDataObject1.id = @"data id";
+    appDataObject1.name = @"test name";
+    
+    [adUnit addAppContentDataObjects:@[appDataObject1, appDataObject2]];
+    NSArray<PBAdUnitContentDataObject*> *objects1 = [adUnit getAppContentObject].data;
+    XCTAssertEqual(2, objects1.count);
+    
+    [adUnit clearAppContentDataObjects];
+    NSArray<PBAdUnitContentDataObject*> *objects2 = [adUnit getAppContentObject].data;
+    XCTAssertEqual(0, objects2.count);
+}
+
+//    // MARK: - global user data aka visitor data (user.data)
+
+- (void)testAddUserDataObjects {
+    PBAdUnitContentDataObject *userDataObject1 = [PBAdUnitContentDataObject new];
+    userDataObject1.id = @"data id";
+    userDataObject1.name = @"test name";
+    
+    PBAdUnitContentDataObject *userDataObject2 = [PBAdUnitContentDataObject new];
+    userDataObject2.id = @"data id";
+    userDataObject2.name = @"test name";
+    
+    [adUnit addUserDataObjects:@[userDataObject1, userDataObject2]];
+    
+    NSArray<PBAdUnitContentDataObject*> *objects = [adUnit getUserDataObjects];
+    XCTAssertEqual(2, objects.count);
+    XCTAssertEqual(objects.firstObject, userDataObject1);
+}
+
+- (void)testRemoveUserDataObjects {
+    PBAdUnitContentDataObject *userDataObject1 = [PBAdUnitContentDataObject new];
+    userDataObject1.id = @"data id";
+    userDataObject1.name = @"test name";
+    
+    [adUnit addUserDataObjects:@[userDataObject1]];
+    NSArray<PBAdUnitContentDataObject*> *objects1 = [adUnit getUserDataObjects];
+    XCTAssertEqual(1, objects1.count);
+    
+    [adUnit removeUserDataObject:userDataObject1];
+    NSArray<PBAdUnitContentDataObject*> *objects2 = [adUnit getUserDataObjects];
+    XCTAssertEqual(0, objects2.count);
+}
+
+- (void)testClearUserDataObjects {
+    PBAdUnitContentDataObject *userDataObject1 = [PBAdUnitContentDataObject new];
+    userDataObject1.id = @"data id";
+    userDataObject1.name = @"test name";
+    
+    PBAdUnitContentDataObject *userDataObject2 = [PBAdUnitContentDataObject new];
+    userDataObject2.id = @"data id";
+    userDataObject2.name = @"test name";
+    
+    [adUnit addUserDataObjects:@[userDataObject1, userDataObject2]];
+    NSArray<PBAdUnitContentDataObject*> *objects1 = [adUnit getUserDataObjects];
+    XCTAssertEqual(2, objects1.count);
+    
+    [adUnit clearUserDataObjects];
+    NSArray<PBAdUnitContentDataObject*> *objects2 = [adUnit getUserDataObjects];
+    XCTAssertEqual(0, objects2.count);
 }
 
 @end
