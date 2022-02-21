@@ -77,6 +77,42 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.ext = ext
     }
     
+    // MARK: - App Content
+    
+    @objc public func setAppContent(_ appContent: ContentObject) {
+        nativeAdUnit.setAppContentObject(appContent)
+    }
+    
+    @objc public func clearAppContent() {
+        nativeAdUnit.clearAppContentObject()
+    }
+    
+    @objc public func addAppContentData(_ dataObjects: [ContentDataObject]) {
+        nativeAdUnit.addAppContentDataObjects(dataObjects)
+    }
+
+    @objc public func removeAppContentDataObject(_ dataObject: ContentDataObject) {
+        nativeAdUnit.removeAppContentDataObject(dataObject)
+    }
+    
+    @objc public func clearAppContentDataObjects() {
+        nativeAdUnit.clearAppContentDataObjects()
+    }
+    
+    // MARK: - User Data
+    
+    @objc public func addUserData(_ userDataObjects: [ContentDataObject]) {
+        nativeAdUnit.addUserDataObjects(userDataObjects)
+    }
+    
+    @objc public func removeUserData(_ userDataObject: ContentDataObject) {
+        nativeAdUnit.removeUserDataObject(userDataObject)
+    }
+    
+    @objc public func clearUserData() {
+        nativeAdUnit.clearUserDataObjects()
+    }
+    
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
         
         self.completion = completion
