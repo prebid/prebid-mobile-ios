@@ -367,8 +367,8 @@ class AdUnitTests: XCTestCase {
         appContent.embeddable = 1
         appContent.data = [appDataObject1, appDataObject2]
         //when
-        adUnit.setAppContentObject(appContent)
-        let resultAppContent = adUnit.getAppContentObject()!
+        adUnit.setAppContent(appContent)
+        let resultAppContent = adUnit.getAppContent()!
 
         //then
         XCTAssertEqual(2, resultAppContent.data!.count)
@@ -391,12 +391,12 @@ class AdUnitTests: XCTestCase {
         appContent.embeddable = 1
         appContent.data = [appDataObject1, appDataObject2]
         //when
-        adUnit.setAppContentObject(appContent)
+        adUnit.setAppContent(appContent)
         
-        let resultAppContent1 = adUnit.getAppContentObject()
+        let resultAppContent1 = adUnit.getAppContent()
         XCTAssertNotNil(resultAppContent1)
-        adUnit.clearAppContentObject()
-        let resultAppContent2 = adUnit.getAppContentObject()
+        adUnit.clearAppContent()
+        let resultAppContent2 = adUnit.getAppContent()
         XCTAssertNil(resultAppContent2)
     }
     
@@ -411,8 +411,8 @@ class AdUnitTests: XCTestCase {
         appDataObject2.name = "test name"
 
         //when
-        adUnit.addAppContentDataObjects([appDataObject1, appDataObject2])
-        let objects = adUnit.getAppContentObject()!.data!
+        adUnit.addAppContentData([appDataObject1, appDataObject2])
+        let objects = adUnit.getAppContent()!.data!
 
         //then
         XCTAssertEqual(2, objects.count)
@@ -425,13 +425,13 @@ class AdUnitTests: XCTestCase {
         appDataObject.id = "data id"
         appDataObject.name = "test name"
 
-        adUnit.addAppContentDataObjects([appDataObject])
-        let objects1 = adUnit.getAppContentObject()!.data!
+        adUnit.addAppContentData([appDataObject])
+        let objects1 = adUnit.getAppContent()!.data!
 
         XCTAssertEqual(1, objects1.count)
 
-        adUnit.removeAppContentDataObject(appDataObject)
-        let objects2 = adUnit.getAppContentObject()!.data!
+        adUnit.removeAppContentData(appDataObject)
+        let objects2 = adUnit.getAppContent()!.data!
 
         XCTAssertEqual(0, objects2.count)
     }
@@ -445,12 +445,12 @@ class AdUnitTests: XCTestCase {
         appDataObject2.id = "data id"
         appDataObject2.name = "test name"
 
-        adUnit.addAppContentDataObjects([appDataObject1, appDataObject2])
-        let objects1 = adUnit.getAppContentObject()!.data!
+        adUnit.addAppContentData([appDataObject1, appDataObject2])
+        let objects1 = adUnit.getAppContent()!.data!
         
         XCTAssertEqual(2, objects1.count)
-        adUnit.clearAppContentDataObjects()
-        let objects2 = adUnit.getAppContentObject()!.data!
+        adUnit.clearAppContentData()
+        let objects2 = adUnit.getAppContent()!.data!
         XCTAssertEqual(0, objects2.count)
     }
     
@@ -467,8 +467,8 @@ class AdUnitTests: XCTestCase {
         userDataObject2.name = "test name"
 
         //when
-        adUnit.addUserDataObjects([userDataObject1, userDataObject2])
-        let objects = adUnit.getUserDataObjects()!
+        adUnit.addUserData([userDataObject1, userDataObject2])
+        let objects = adUnit.getUserData()!
 
         //then
         XCTAssertEqual(2, objects.count)
@@ -481,13 +481,13 @@ class AdUnitTests: XCTestCase {
         userDataObject.id = "data id"
         userDataObject.name = "test name"
 
-        adUnit.addUserDataObjects([userDataObject])
-        let objects1 = adUnit.getUserDataObjects()!
+        adUnit.addUserData([userDataObject])
+        let objects1 = adUnit.getUserData()!
 
         XCTAssertEqual(1, objects1.count)
 
-        adUnit.removeUserDataObject(userDataObject)
-        let objects2 = adUnit.getUserDataObjects()!
+        adUnit.removeUserData(userDataObject)
+        let objects2 = adUnit.getUserData()!
 
         XCTAssertEqual(0, objects2.count)
     }
@@ -501,13 +501,13 @@ class AdUnitTests: XCTestCase {
         userDataObject2.id = "data id"
         userDataObject2.name = "test name"
 
-        adUnit.addUserDataObjects([userDataObject1, userDataObject2])
-        let objects1 = adUnit.getUserDataObjects()!
+        adUnit.addUserData([userDataObject1, userDataObject2])
+        let objects1 = adUnit.getUserData()!
 
         XCTAssertEqual(2, objects1.count)
 
-        adUnit.clearUserDataObjects()
-        let objects2 = adUnit.getUserDataObjects()!
+        adUnit.clearUserData()
+        let objects2 = adUnit.getUserData()!
         XCTAssertEqual(0, objects2.count)
     }
 }

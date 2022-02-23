@@ -102,7 +102,7 @@ class PrebidNativeAdController: NSObject, AdaptedController {
             for dataPair in userData {
                 let appData = ContentDataObject()
                 appData.ext = [dataPair.key: dataPair.value]
-                adUnit?.addUserDataObjects([appData])
+                adUnit?.addUserData([appData])
             }
         }
         
@@ -110,7 +110,7 @@ class PrebidNativeAdController: NSObject, AdaptedController {
             for dataPair in appData {
                 let appData = ContentDataObject()
                 appData.ext = [dataPair.key: dataPair.value]
-                adUnit?.addAppContentDataObjects([appData])
+                adUnit?.addAppContentData([appData])
             }
         }
         

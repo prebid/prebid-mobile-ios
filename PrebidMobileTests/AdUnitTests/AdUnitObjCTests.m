@@ -35,8 +35,8 @@ AdUnit *adUnit;
 
 - (void)tearDown {
     [Targeting.shared clearUserKeywords];
-    [adUnit clearAppContentObject];
-    [adUnit clearUserDataObjects];
+    [adUnit clearAppContent];
+    [adUnit clearUserData];
 }
 
 - (void)testFetchDemand {
@@ -130,7 +130,7 @@ AdUnit *adUnit;
     
     [adUnit setAppContent:appContent];
     
-    PBAdUnitContentObject *resultAppContent = [adUnit getAppContentObject];
+    PBAdUnitContentObject *resultAppContent = [adUnit getAppContent];
     XCTAssertEqual(2, resultAppContent.data.count);
     XCTAssertEqual(resultAppContent.data.firstObject, appDataObject1);
     XCTAssertEqual(appContent, resultAppContent);
@@ -151,10 +151,10 @@ AdUnit *adUnit;
     
     [adUnit setAppContent:appContent];
     
-    PBAdUnitContentObject *resultAppContent1 = [adUnit getAppContentObject];
+    PBAdUnitContentObject *resultAppContent1 = [adUnit getAppContent];
     XCTAssertNotNil(resultAppContent1);
-    [adUnit clearAppContentObject];
-    PBAdUnitContentObject *resultAppContent2 = [adUnit getAppContentObject];
+    [adUnit clearAppContent];
+    PBAdUnitContentObject *resultAppContent2 = [adUnit getAppContent];
     XCTAssertNil(resultAppContent2);
 }
 
@@ -167,8 +167,8 @@ AdUnit *adUnit;
     appDataObject1.id = @"data id";
     appDataObject1.name = @"test name";
     
-    [adUnit addAppContentDataObjects:@[appDataObject1, appDataObject2]];
-    NSArray<PBAdUnitContentDataObject*> *objects = [adUnit getAppContentObject].data;
+    [adUnit addAppContentData:@[appDataObject1, appDataObject2]];
+    NSArray<PBAdUnitContentDataObject*> *objects = [adUnit getAppContent].data;
     
     XCTAssertEqual(2, objects.count);
     XCTAssertEqual(objects.firstObject, appDataObject1);
@@ -179,12 +179,12 @@ AdUnit *adUnit;
     appDataObject.id = @"data id";
     appDataObject.name = @"test name";
     
-    [adUnit addAppContentDataObjects:@[appDataObject]];
-    NSArray<PBAdUnitContentDataObject*> *objects1 = [adUnit getAppContentObject].data;
+    [adUnit addAppContentData:@[appDataObject]];
+    NSArray<PBAdUnitContentDataObject*> *objects1 = [adUnit getAppContent].data;
     XCTAssertEqual(1, objects1.count);
     
-    [adUnit removeAppContentDataObject:appDataObject];
-    NSArray<PBAdUnitContentDataObject*> *objects2 = [adUnit getAppContentObject].data;
+    [adUnit removeAppContentData:appDataObject];
+    NSArray<PBAdUnitContentDataObject*> *objects2 = [adUnit getAppContent].data;
     XCTAssertEqual(0, objects2.count);
 }
 
@@ -197,12 +197,12 @@ AdUnit *adUnit;
     appDataObject1.id = @"data id";
     appDataObject1.name = @"test name";
     
-    [adUnit addAppContentDataObjects:@[appDataObject1, appDataObject2]];
-    NSArray<PBAdUnitContentDataObject*> *objects1 = [adUnit getAppContentObject].data;
+    [adUnit addAppContentData:@[appDataObject1, appDataObject2]];
+    NSArray<PBAdUnitContentDataObject*> *objects1 = [adUnit getAppContent].data;
     XCTAssertEqual(2, objects1.count);
     
-    [adUnit clearAppContentDataObjects];
-    NSArray<PBAdUnitContentDataObject*> *objects2 = [adUnit getAppContentObject].data;
+    [adUnit clearAppContentData];
+    NSArray<PBAdUnitContentDataObject*> *objects2 = [adUnit getAppContent].data;
     XCTAssertEqual(0, objects2.count);
 }
 
@@ -217,9 +217,9 @@ AdUnit *adUnit;
     userDataObject2.id = @"data id";
     userDataObject2.name = @"test name";
     
-    [adUnit addUserDataObjects:@[userDataObject1, userDataObject2]];
+    [adUnit addUserData:@[userDataObject1, userDataObject2]];
     
-    NSArray<PBAdUnitContentDataObject*> *objects = [adUnit getUserDataObjects];
+    NSArray<PBAdUnitContentDataObject*> *objects = [adUnit getUserData];
     XCTAssertEqual(2, objects.count);
     XCTAssertEqual(objects.firstObject, userDataObject1);
 }
@@ -229,12 +229,12 @@ AdUnit *adUnit;
     userDataObject1.id = @"data id";
     userDataObject1.name = @"test name";
     
-    [adUnit addUserDataObjects:@[userDataObject1]];
-    NSArray<PBAdUnitContentDataObject*> *objects1 = [adUnit getUserDataObjects];
+    [adUnit addUserData:@[userDataObject1]];
+    NSArray<PBAdUnitContentDataObject*> *objects1 = [adUnit getUserData];
     XCTAssertEqual(1, objects1.count);
     
-    [adUnit removeUserDataObject:userDataObject1];
-    NSArray<PBAdUnitContentDataObject*> *objects2 = [adUnit getUserDataObjects];
+    [adUnit removeUserData:userDataObject1];
+    NSArray<PBAdUnitContentDataObject*> *objects2 = [adUnit getUserData];
     XCTAssertEqual(0, objects2.count);
 }
 
@@ -247,12 +247,12 @@ AdUnit *adUnit;
     userDataObject2.id = @"data id";
     userDataObject2.name = @"test name";
     
-    [adUnit addUserDataObjects:@[userDataObject1, userDataObject2]];
-    NSArray<PBAdUnitContentDataObject*> *objects1 = [adUnit getUserDataObjects];
+    [adUnit addUserData:@[userDataObject1, userDataObject2]];
+    NSArray<PBAdUnitContentDataObject*> *objects1 = [adUnit getUserData];
     XCTAssertEqual(2, objects1.count);
     
-    [adUnit clearUserDataObjects];
-    NSArray<PBAdUnitContentDataObject*> *objects2 = [adUnit getUserDataObjects];
+    [adUnit clearUserData];
+    NSArray<PBAdUnitContentDataObject*> *objects2 = [adUnit getUserData];
     XCTAssertEqual(0, objects2.count);
 }
 

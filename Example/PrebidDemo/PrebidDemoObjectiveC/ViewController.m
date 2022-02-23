@@ -179,12 +179,12 @@
     //global user data
     PBAdUnitContentDataObject *userData = [PBAdUnitContentDataObject new];
     userData.id = @"globalUserDataValue1";
-    [adUnit addUserDataObjects:@[userData]];
+    [adUnit addUserData:@[userData]];
 
     //global context data
     PBAdUnitContentDataObject *appData = [PBAdUnitContentDataObject new];
     appData.id = @"globalContextDataValue1";
-    [adUnit addAppContentDataObjects:@[appData]];
+    [adUnit addAppContentData:@[appData]];
 
     //adunit context data
     [adUnit addContextDataWithKey:@"adunitContextDataKey1" value:@"adunitContextDataValue1"];
