@@ -70,7 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Indicator of whether or not the content is embeddable (e.g., an embeddable video player), where 0 = no, 1 = yes.
 @property (nonatomic, copy, nullable) NSNumber *embeddable;
 /// The data and segment objects together allow additional data about the related object (e.g., user, content) to be specified.
-@property (nonatomic, copy, nullable) NSArray<PBMORTBContentData *> *data;
+@property (nonatomic, strong, nullable) NSArray<PBMORTBContentData *> *data;
 /// Placeholder for exchange-specific extensions to OpenRTB.
 @property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, NSObject *> *ext;
 

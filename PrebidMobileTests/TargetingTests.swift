@@ -36,12 +36,12 @@ class TargetingTests: XCTestCase {
         UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_ConsentString)
         UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_PurposeConsents)
         
+        Targeting.shared.clearContextData()
+        Targeting.shared.clearUserData()
         Targeting.shared.clearYearOfBirth()
         Targeting.shared.clearAccessControlList()
-        Targeting.shared.clearContextData()
         Targeting.shared.clearContextKeywords()
         Targeting.shared.clearUserKeywords()
-        Targeting.shared.clearUserData()
     }
 
     func testStoreURL() {
@@ -491,128 +491,128 @@ class TargetingTests: XCTestCase {
     }
     
     // MARK: - global context data aka inventory data (app.ext.data)
-    func testAddContextData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        
-        //when
-        Targeting.shared.addContextData(key: key1, value: value1)
-        let dictionary = Targeting.shared.getContextDataDictionary()
-        let set = dictionary[key1]
+     func testAddContextData() {
+         //given
+         let key1 = "key1"
+         let value1 = "value1"
+         
+         //when
+         Targeting.shared.addContextData(key: key1, value: value1)
+         let dictionary = Targeting.shared.getContextDataDictionary()
+         let set = dictionary[key1]
 
-        //then
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertEqual(1, set?.count)
-        XCTAssert((set?.contains(value1))!)
-    }
+         //then
+         XCTAssertEqual(1, dictionary.count)
+         XCTAssertEqual(1, set?.count)
+         XCTAssert((set?.contains(value1))!)
+     }
 
-    func testUpdateContextData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let inputSet: Set = [value1]
-        
-        //when
-        Targeting.shared.updateContextData(key: key1, value: inputSet)
-        let dictionary = Targeting.shared.getContextDataDictionary()
-        let set = dictionary[key1]
+     func testUpdateContextData() {
+         //given
+         let key1 = "key1"
+         let value1 = "value1"
+         let inputSet: Set = [value1]
+         
+         //when
+         Targeting.shared.updateContextData(key: key1, value: inputSet)
+         let dictionary = Targeting.shared.getContextDataDictionary()
+         let set = dictionary[key1]
 
-        //then
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertEqual(1, set?.count)
-        XCTAssert((set?.contains(value1))!)
-    }
+         //then
+         XCTAssertEqual(1, dictionary.count)
+         XCTAssertEqual(1, set?.count)
+         XCTAssert((set?.contains(value1))!)
+     }
+     
+     func testRemoveContextData() {
+         //given
+         let key1 = "key1"
+         let value1 = "value1"
+         Targeting.shared.addContextData(key: key1, value: value1)
+         
+         //when
+         Targeting.shared.removeContextData(forKey: key1)
+         let dictionary = Targeting.shared.getContextDataDictionary()
+
+         //then
+         XCTAssertEqual(0, dictionary.count)
+     }
+     
+     func testClearContextData() {
+         //given
+         let key1 = "key1"
+         let value1 = "value1"
+         Targeting.shared.addContextData(key: key1, value: value1)
+         
+         //when
+         Targeting.shared.clearContextData()
+         let dictionary = Targeting.shared.getContextDataDictionary()
+
+         //then
+         XCTAssertEqual(0, dictionary.count)
+     }
     
-    func testRemoveContextData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        Targeting.shared.addContextData(key: key1, value: value1)
-        
-        //when
-        Targeting.shared.removeContextData(forKey: key1)
-        let dictionary = Targeting.shared.getContextDataDictionary()
-
-        //then
-        XCTAssertEqual(0, dictionary.count)
-    }
-    
-    func testClearContextData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        Targeting.shared.addContextData(key: key1, value: value1)
-        
-        //when
-        Targeting.shared.clearContextData()
-        let dictionary = Targeting.shared.getContextDataDictionary()
-
-        //then
-        XCTAssertEqual(0, dictionary.count)
-    }
-
     // MARK: - global user data aka visitor data (user.ext.data)
-    func testAddUserData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        
-        //when
-        Targeting.shared.addUserData(key: key1, value: value1)
-        let dictionary = Targeting.shared.getUserDataDictionary()
-        let set = dictionary[key1]
+       func testAddUserData() {
+           //given
+           let key1 = "key1"
+           let value1 = "value1"
+           
+           //when
+           Targeting.shared.addUserData(key: key1, value: value1)
+           let dictionary = Targeting.shared.getUserDataDictionary()
+           let set = dictionary[key1]
 
-        //then
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertEqual(1, set?.count)
-        XCTAssert((set?.contains(value1))!)
-    }
-    
-    func testupdateUserData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        let inputSet: Set = [value1]
-        
-        //when
-        Targeting.shared.updateUserData(key: key1, value: inputSet)
-        let dictionary = Targeting.shared.getUserDataDictionary()
-        let set = dictionary[key1]
+           //then
+           XCTAssertEqual(1, dictionary.count)
+           XCTAssertEqual(1, set?.count)
+           XCTAssert((set?.contains(value1))!)
+       }
+       
+       func testupdateUserData() {
+           //given
+           let key1 = "key1"
+           let value1 = "value1"
+           let inputSet: Set = [value1]
+           
+           //when
+           Targeting.shared.updateUserData(key: key1, value: inputSet)
+           let dictionary = Targeting.shared.getUserDataDictionary()
+           let set = dictionary[key1]
 
-        //then
-        XCTAssertEqual(1, dictionary.count)
-        XCTAssertEqual(1, set?.count)
-        XCTAssert((set?.contains(value1))!)
-    }
-    
-    func testRemoveUserData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        Targeting.shared.addUserData(key: key1, value: value1)
-        
-        //when
-        Targeting.shared.removeUserData(forKey: key1)
-        let dictionary = Targeting.shared.getUserDataDictionary()
+           //then
+           XCTAssertEqual(1, dictionary.count)
+           XCTAssertEqual(1, set?.count)
+           XCTAssert((set?.contains(value1))!)
+       }
+       
+       func testRemoveUserData() {
+           //given
+           let key1 = "key1"
+           let value1 = "value1"
+           Targeting.shared.addUserData(key: key1, value: value1)
+           
+           //when
+           Targeting.shared.removeUserData(forKey: key1)
+           let dictionary = Targeting.shared.getUserDataDictionary()
 
-        //then
-        XCTAssertEqual(0, dictionary.count)
-    }
+           //then
+           XCTAssertEqual(0, dictionary.count)
+       }
 
-    func testClearUserData() {
-        //given
-        let key1 = "key1"
-        let value1 = "value1"
-        Targeting.shared.addUserData(key: key1, value: value1)
-        
-        //when
-        Targeting.shared.clearUserData()
-        let dictionary = Targeting.shared.getUserDataDictionary()
+       func testClearUserData() {
+           //given
+           let key1 = "key1"
+           let value1 = "value1"
+           Targeting.shared.addUserData(key: key1, value: value1)
+           
+           //when
+           Targeting.shared.clearUserData()
+           let dictionary = Targeting.shared.getUserDataDictionary()
 
-        //then
-        XCTAssertEqual(0, dictionary.count)
-    }
+           //then
+           XCTAssertEqual(0, dictionary.count)
+       }
 
     // MARK: - global context keywords (app.keywords)
     func testAddContextKeyword() {

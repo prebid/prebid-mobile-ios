@@ -134,6 +134,42 @@
     [self.adUnitConfig clearContextData];
 }
 
+// MARK: - App Content
+
+- (void)setAppContent:(PBMORTBAppContent *)appContent {
+    [self.adUnitConfig setAppContentObject:appContent];
+}
+
+- (void)clearAppContent {
+    [self.adUnitConfig clearAppContentObject];
+}
+
+- (void)addAppContentData:(NSArray<PBMORTBContentData *> *)dataObjects {
+    [self.adUnitConfig addAppContentDataObjects:dataObjects];
+}
+
+- (void)removeAppContentDataObject:(PBMORTBContentData *)dataObject {
+    [self.adUnitConfig removeAppContentDataObject:dataObject];
+}
+
+- (void)clearAppContentDataObjects {
+    [self.adUnitConfig clearAppContentDataObjects];
+}
+
+// MARK: - User Data
+
+- (void)addUserData:(NSArray<PBMORTBContentData *> *)userDataObjects {
+    [self.adUnitConfig addUserDataObjects:userDataObjects];
+}
+
+- (void)removeUserData:(PBMORTBContentData *)userDataObject {
+    [self.adUnitConfig removeUserDataObject:userDataObject];
+}
+
+- (void)clearUserData {
+    [self.adUnitConfig clearUserDataObjects];
+}
+
 // MARK: - Protected methods
 
 - (void)synchronized:(id)lock closure:(void (^)(void))synchronizedBlock {

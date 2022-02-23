@@ -15,8 +15,9 @@
 
 import Foundation
 
+@objc(PBAdUnitContentProducerObject)
 @objcMembers
-public class ContentProducerObject: NSObject, JSONConvertible {
+public class ContentProducerObject: NSObject, JSONConvertible, JsonDecodable {
     ///Content producer or originator ID.
     public var id: String?
     ///Content producer or originator name (e.g., “Warner Bros”).
@@ -27,6 +28,18 @@ public class ContentProducerObject: NSObject, JSONConvertible {
     public var domain: String?
     ///Placeholeder to exchange-specific extensions to OpenRTB
     public var ext: [String: Any]?
+    
+    public required init(jsonDictionary: [String: Any]) {
+        self.id = jsonDictionary["id"] as? String
+        self.name = jsonDictionary["name"] as? String
+        self.cat = jsonDictionary["cat"] as? [String]
+        self.domain = jsonDictionary["domain"] as? String
+        self.ext = jsonDictionary["ext"] as? [String: Any]
+    }
+    
+    public override init() {
+        super.init()
+    }
     
     public func toJSONDictionary() -> [AnyHashable: Any] {
         var producer = [AnyHashable: Any]()

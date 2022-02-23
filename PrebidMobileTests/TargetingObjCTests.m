@@ -41,12 +41,12 @@ limitations under the License.
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"IABTCF_PurposeConsents"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+    [Targeting.shared clearContextData];
+    [Targeting.shared clearUserData];
     [Targeting.shared clearYearOfBirth];
     [Targeting.shared clearAccessControlList];
-    [Targeting.shared clearContextData];
     [Targeting.shared clearContextKeywords];
     [Targeting.shared clearUserKeywords];
-    [Targeting.shared clearUserData];
 }
 
 - (void)testStoreURL {
@@ -291,18 +291,32 @@ limitations under the License.
 }
 
 - (void)testUserData {
-    //given
-    NSString *key = @"key1";
-    NSString *value = @"value10";
-    NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
-    
-    //when
-    [Targeting.shared addUserDataWithKey:key value:value];
-    [Targeting.shared updateUserDataWithKey:key value:set];
-    [Targeting.shared removeUserDataForKey:key];
-    [Targeting.shared clearUserData];
+     //given
+     NSString *key = @"key1";
+     NSString *value = @"value10";
+     NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
 
-}
+     //when
+     [Targeting.shared addUserDataWithKey:key value:value];
+     [Targeting.shared updateUserDataWithKey:key value:set];
+     [Targeting.shared removeUserDataForKey:key];
+     [Targeting.shared clearUserData];
+
+ }
+
+- (void)testContextData {
+     //given
+     NSString *key = @"key1";
+     NSString *value = @"value10";
+     NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
+
+     //when
+     [Targeting.shared addContextDataWithKey:key value:value];
+     [Targeting.shared updateContextDataWithKey:key value:set];
+     [Targeting.shared removeContextDataForKey:key];
+     [Targeting.shared clearContextData];
+
+ }
 
 - (void)testUserKeyword {
     //given
@@ -314,20 +328,6 @@ limitations under the License.
     [Targeting.shared addUserKeywords:set];
     [Targeting.shared removeUserKeyword:keyword];
     [Targeting.shared clearUserKeywords];
-
-}
-
-- (void)testContextData {
-    //given
-    NSString *key = @"key1";
-    NSString *value = @"value10";
-    NSMutableSet *set = [[NSMutableSet alloc] initWithArray:@[@"a", @"b"]];
-    
-    //when
-    [Targeting.shared addContextDataWithKey:key value:value];
-    [Targeting.shared updateContextDataWithKey:key value:set];
-    [Targeting.shared removeContextDataForKey:key];
-    [Targeting.shared clearContextData];
 
 }
 

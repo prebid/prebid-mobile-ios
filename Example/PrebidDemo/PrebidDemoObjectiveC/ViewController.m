@@ -176,10 +176,14 @@
     [Targeting.shared addBidderToAccessControlList: Prebid.bidderNameAppNexus];
 
     //global user data
-    [Targeting.shared addUserDataWithKey:@"globalUserDataKey1" value:@"globalUserDataValue1"];
+    PBAdUnitContentDataObject *userData = [PBAdUnitContentDataObject new];
+    userData.id = @"globalUserDataValue1";
+    [adUnit addUserDataObjects:@[userData]];
 
     //global context data
-    [Targeting.shared addContextDataWithKey:@"globalContextDataKey1" value:@"globalContextDataValue1"];
+    PBAdUnitContentDataObject *appData = [PBAdUnitContentDataObject new];
+    appData.id = @"globalContextDataValue1";
+    [adUnit addAppContentDataObjects:@[appData]];
 
     //adunit context data
     [adUnit addContextDataWithKey:@"adunitContextDataKey1" value:@"adunitContextDataValue1"];
@@ -229,7 +233,7 @@
 
 
 #pragma mark :- Mopub delegates
--(void) adViewDidLoadAd:(MPAdView *)view {
+- (void) adViewDidLoadAd:(MPAdView *)view {
     NSLog(@"Ad received");
 }
 

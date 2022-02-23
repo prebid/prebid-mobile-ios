@@ -68,12 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIApplication.shared.keyWindow?.layer.speed = 200
         }
         
-        processArgumentsParser.addOption("ADD_USER_DATA", paramsCount: 2) { params in
-            PrebidRenderingTargeting.shared.addUserData(params[1], forKey: params[0])
-        }
-        processArgumentsParser.addOption("ADD_APP_CONTEXT", paramsCount: 2) { params in
-            PrebidRenderingTargeting.shared.addContextData(params[1], forKey: params[0])
-        }
         processArgumentsParser.addOption("BIDDER_ACCESS_CONTROL_LIST", acceptedParamsRange: (min: 1, max: nil)) { params in
             params.forEach(PrebidRenderingTargeting.shared.addBidder(toAccessControlList:))
         }

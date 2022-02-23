@@ -288,7 +288,6 @@ typealias JsonDictionary = [String:Any]
         targeting.keywords = nil
         
         targeting.parameterDictionary = [:]
-        
         checkInitialValues(targeting)
     }
     

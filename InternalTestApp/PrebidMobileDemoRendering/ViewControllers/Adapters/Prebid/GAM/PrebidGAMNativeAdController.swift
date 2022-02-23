@@ -60,6 +60,7 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
         setupActions(rootController: rootController)
         
         nativeAdViewBox.setUpDummyValues()
+        setProccesArgumentParser()
     }
     
     private func fillBannerArea(rootController: AdapterViewController) {
@@ -179,6 +180,22 @@ extension PrebidGAMNativeAdController: GADCustomNativeAdLoaderDelegate {
     
     @objc private func ctaClicked(sender: UIButton) {
         customTemplateAd?.performClickOnAsset(withKey: "cta")
+    }
+    
+    private func setProccesArgumentParser() {
+        let processArgumentsParser = ProcessArgumentsParser()
+        processArgumentsParser.addOption("ADD_USER_DATA", paramsCount: 2) { [weak self] params in
+            let userData = ContentDataObject()
+            userData.ext = [params[0]: params[1]]
+            self?.adUnit?.addUserDataObjects([userData])
+        }
+        
+        processArgumentsParser.addOption("ADD_APP_CONTEXT", paramsCount: 2) { [weak self] params in
+            let appData = ContentDataObject()
+            appData.ext = [params[0]: params[1]]
+            self?.adUnit?.addAppContentDataObjects([appData])
+        }
+        processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
     }
 }
 

@@ -24,11 +24,11 @@ import CoreLocation
 
 @objcMembers public class Targeting: NSObject {
 
-    private var accessControlList = Set<String>()
-    private var userDataDictionary = [String: Set<String>]()
-    private var userKeywordsSet = Set<String>()
-    private var contextDataDictionary = [String: Set<String>]()
-    private var contextKeywordsSet = Set<String>()
+    private lazy var accessControlList = Set<String>()
+    private lazy var userDataDictionary = [String: Set<String>]()
+    private lazy var userKeywordsSet = Set<String>()
+    private lazy var contextDataDictionary = [String: Set<String>]()
+    private lazy var contextKeywordsSet = Set<String>()
     
     private var yearofbirth: Int = 0
 
@@ -312,12 +312,13 @@ import CoreLocation
         return accessControlList
     }
     
-    // MARK: - global user data aka visitor data (user.ext.data)
+    // MARK: - global user data aka visitor data (user.data)
     
     /**
      * This method obtains the user data keyword & value for global user targeting
      * if the key already exists the value will be appended to the list. No duplicates will be added
      */
+    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     public func addUserData(key: String, value: String) {
         userDataDictionary.addValue(value, forKey: key)
     }
@@ -326,6 +327,7 @@ import CoreLocation
      * This method obtains the user data keyword & values set for global user targeting
      * the values if the key already exist will be replaced with the new set of values
      */
+    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     public func updateUserData(key: String, value: Set<String>) {
         userDataDictionary.updateValue(value, forKey: key)
     }
@@ -333,6 +335,7 @@ import CoreLocation
     /**
      * This method allows to remove specific user data keyword & value set from global user targeting
      */
+    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     public func removeUserData(forKey: String) {
         userDataDictionary.removeValue(forKey: forKey)
     }
@@ -340,10 +343,12 @@ import CoreLocation
     /**
      * This method allows to remove all user data set from global user targeting
      */
+    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     public func clearUserData() {
         userDataDictionary.removeAll()
     }
     
+    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     func getUserDataDictionary() -> [String: Set<String>] {
         Log.info("global user data dictionary is \(userDataDictionary)")
         return userDataDictionary
@@ -386,12 +391,13 @@ import CoreLocation
         return userKeywordsSet
     }
     
-    // MARK: - global context data aka inventory data (app.ext.data)
+    // MARK: - global context data aka inventory data (app.content.data)
     
     /**
      * This method obtains the context data keyword & value context for global context targeting
      * if the key already exists the value will be appended to the list. No duplicates will be added
      */
+    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     public func addContextData(key: String, value: String) {
         contextDataDictionary.addValue(value, forKey: key)
     }
@@ -400,6 +406,7 @@ import CoreLocation
      * This method obtains the context data keyword & values set for global context targeting.
      * the values if the key already exist will be replaced with the new set of values
      */
+    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     public func updateContextData(key: String, value: Set<String>) {
         contextDataDictionary.updateValue(value, forKey: key)
     }
@@ -407,6 +414,7 @@ import CoreLocation
     /**
      * This method allows to remove specific context data keyword & values set from global context targeting
      */
+    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     public func removeContextData(forKey: String) {
         contextDataDictionary.removeValue(forKey: forKey)
     }
@@ -414,10 +422,12 @@ import CoreLocation
     /**
      * This method allows to remove all context data set from global context targeting
      */
+    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     public func clearContextData() {
         contextDataDictionary.removeAll()
     }
     
+    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     func getContextDataDictionary() -> [String: Set<String>] {
         Log.info("gloabal context data dictionary is \(contextDataDictionary)")
         return contextDataDictionary

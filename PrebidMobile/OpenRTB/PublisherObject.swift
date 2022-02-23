@@ -15,22 +15,25 @@
 
 import Foundation
 
-@objc(PBAdUnitContentSegmentObject)
+@objc(PBAdUnitPublisherObject)
 @objcMembers
-public class ContentSegmentObject: NSObject, JSONConvertible, JsonDecodable {
-    ///ID of the data segment specific to the data provider.
+public class PublisherObject: NSObject, JSONConvertible, JsonDecodable {
+    ///Exchange-specific publisher ID.
     public var id: String?
-    ///Name of the data segment specific to the data provider.
+    ///Publisher name (may be aliased at the publisher’s request).
     public var name: String?
-    ///String representation of the data segment value.
-    public var value: String?
-    ///Placeholeder to exchange-specific extensions to OpenRTB
+    ///Array of IAB content categories that describe the publisher. Refer to List 5.1.
+    public var cat: [String]?
+    ///Highest level domain of the publisher (e.g., “publisher.com”).
+    public var domain: String?
+    ///Placeholder for exchange-specific extensions to OpenRTB.
     public var ext: [String: Any]?
     
     public required init(jsonDictionary: [String : Any]) {
         self.id = jsonDictionary["id"] as? String
         self.name = jsonDictionary["name"] as? String
-        self.value = jsonDictionary["value"] as? String
+        self.cat = jsonDictionary["cat"] as? [String]
+        self.domain = jsonDictionary["domain"] as? String
         self.ext = jsonDictionary["ext"] as? [String: Any]
     }
     
@@ -38,31 +41,29 @@ public class ContentSegmentObject: NSObject, JSONConvertible, JsonDecodable {
         super.init()
     }
     
-    public func toJSONDictionary() -> [AnyHashable: Any] {
-        var segment = [AnyHashable: Any]()
+    func toJSONDictionary() -> [AnyHashable: Any] {
+        var publisher = [AnyHashable: Any]()
+        
         if let id = id {
-            segment["id"] = id
+            publisher["id"] = id
         }
         
         if let name = name {
-            segment["name"] = name
+            publisher["name"] = name
         }
         
-        if let value = value {
-            segment["value"] = value
+        if let cat = cat {
+            publisher["cat"] = cat
         }
         
-        if let ext = ext, !ext.isEmpty {
-            segment["ext"] = ext
+        if let domain = domain {
+            publisher["domain"] = domain
         }
         
-        return segment
-    }
-    
-    static func ==(lhs: ContentSegmentObject, rhs: ContentSegmentObject) -> Bool {
-        return lhs.id == rhs.id &&
-        lhs.name == rhs.name &&
-        lhs.value == rhs.value &&
-        NSDictionary(dictionary: lhs.ext ?? [:]).isEqual(to: rhs.ext ?? [:])
+        if let ext = ext {
+            publisher["ext"] = ext
+        }
+        
+        return publisher
     }
 }

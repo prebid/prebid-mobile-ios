@@ -25,6 +25,8 @@
 #import "PBMBidRequesterFactoryBlock.h"
 #import "PBMWinNotifierBlock.h"
 
+#import "PBMORTBAppContent.h"
+
 #import "PrebidMobileSwiftHeaders.h"
 #import <PrebidMobile/PrebidMobile-Swift.h>
 
@@ -71,7 +73,7 @@
     bidRequest.source.tid       = [NSUUID UUID].UUIDString;
     bidRequest.device.ua        = [self.userAgentService getFullUserAgent];
     
-    bidRequest.app.content = [self.adConfiguration getAppContent];
+    bidRequest.app.content = [self.adConfiguration getAppContentObject];
     
     NSArray<PBMORTBFormat *> *formats = nil;
     const NSInteger formatsCount = (CGSizeEqualToSize(self.adConfiguration.adSize, CGSizeZero) ? 0 : 1) + self.adConfiguration.additionalSizes.count;
@@ -103,9 +105,12 @@
         }
     }
     
-    PBMORTBAppExtPrebid * const appExtPrebid = bidRequest.app.extPrebid;
+    NSArray<PBMORTBContentData *> *userData = [self.adConfiguration getUserDataObjects];
+    if (userData) {
+        bidRequest.user.data = userData;
+    }
     
-    appExtPrebid.data = self.targeting.contextDataDictionary;
+    PBMORTBAppExtPrebid * const appExtPrebid = bidRequest.app.extPrebid;
     
     for (PBMORTBImp *nextImp in bidRequest.imp) {
         nextImp.impID = [NSUUID UUID].UUIDString;
@@ -152,8 +157,6 @@
             appExtPrebid.version = nextImp.displaymanagerver;
         }
     }
-    
-    bidRequest.user.ext[@"data"] = self.targeting.userDataDictionary;
 }
 
 + (PBMORTBFormat *)ortbFormatWithSize:(NSValue *)size {

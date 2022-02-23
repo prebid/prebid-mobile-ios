@@ -277,7 +277,7 @@ class RequestBuilder: NSObject {
         let itunesID: String? = Targeting.shared.itunesID
         let bundle = Bundle.main.bundleIdentifier
         let bundleAppName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
-        
+
         if let bundleAppName = bundleAppName {
             app["name"] = bundleAppName
         }
@@ -287,7 +287,9 @@ class RequestBuilder: NSObject {
             app["bundle"] = bundle ?? ""
         }
         app["ver"] = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        app["publisher"] = ["id": Prebid.shared.prebidServerAccountId] as NSDictionary
+        let publisher = PublisherObject()
+        publisher.id = Prebid.shared.prebidServerAccountId
+        app["publisher"] = publisher.toJSONDictionary()
 
         var requestAppExt: [AnyHashable: Any] = [:]
 
@@ -298,9 +300,6 @@ class RequestBuilder: NSObject {
             prebidSdkVersion = Bundle(for: type(of: self)).infoDictionary?["CFBundleShortVersionString"] as? String
         #endif
         requestAppExt["prebid"] = ["version": prebidSdkVersion, "source": "prebid-mobile"]
-
-        requestAppExt["data"] = Targeting.shared.getContextDataDictionary().getCopyWhereValueIsArray()
-
         app["ext"] = requestAppExt
 
         app["keywords"] = Targeting.shared.getContextKeywordsSet().toCommaSeparatedListString()
@@ -485,13 +484,19 @@ class RequestBuilder: NSObject {
                 requestUserExt["consent"] = gdprConsentString
             }
         }
-
-        requestUserExt["data"] = Targeting.shared.getUserDataDictionary().getCopyWhereValueIsArray()
-        
         requestUserExt["eids"] = getExternalUserIds()
 
         userDict["ext"] = requestUserExt
 
+        if let userData = adUnit?.getUserDataObjects() {
+            var userDataDict = [[AnyHashable: Any]]()
+            userData.forEach { dataObject in
+                userDataDict.append(dataObject.toJSONDictionary())
+            }
+            
+            userDict["data"] = userDataDict
+        }
+        
         return userDict
     }
     

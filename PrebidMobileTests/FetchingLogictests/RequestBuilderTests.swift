@@ -844,57 +844,67 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         XCTAssertEqual(bidders[0], Prebid.bidderNameRubiconProject)
     }
     
-    func testPostDataWithGlobalUserData() throws {
-
+    func testPostDataWithGlobalUserDataObjects() throws {
+        
         //given
-        let targeting = Targeting.shared
-        targeting.addUserData(key: "key1", value: "value10")
-        targeting.addUserData(key: "key2", value: "value20")
-        targeting.addUserData(key: "key2", value: "value21")
+        let data1 = ContentDataObject()
+        data1.id = "id1"
+        data1.name = "name1"
+        let data2 = ContentDataObject()
+        data2.id = "id2"
+        data2.name = "nam2"
+        adUnit.addUserDataObjects([data1, data2])
         
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-
+        
         guard let user = jsonRequestBody["user"] as? [String: Any],
-            let ext = user["ext"] as? [String: Any],
-            let data = ext["data"] as? [String: Any],
-            let key1Set1 = data["key1"] as? [String],
-            let key2Set1 = data["key2"] as? [String] else {
-                XCTFail("parsing fail")
-                return
+              let rawDataDictArray = user["data"] as? [[String: Any]] else {
+                  XCTFail("parsing fail")
+                  return
+              }
+        
+        var resultDataArray = [ContentDataObject]()
+        
+        for dataDict in rawDataDictArray {
+            resultDataArray.append(ContentDataObject(jsonDictionary: dataDict))
         }
-
-        //then
-        XCTAssertEqual(2, data.count)
-        XCTAssertEqual(Set(["value10"]), Set(key1Set1))
-        XCTAssertEqual(Set(["value20", "value21"]), Set(key2Set1))
+        
+        XCTAssertEqual(2, resultDataArray.count)
+        XCTAssertEqual("id1", resultDataArray.first!.id!)
+        XCTAssertEqual("name1", resultDataArray.first!.name!)
     }
 
-    func testPostDataWithGlobalContextData() throws {
-
-        //given
-        let targeting = Targeting.shared
-        targeting.addContextData(key: "key1", value: "value10")
-        targeting.addContextData(key: "key2", value: "value20")
-        targeting.addContextData(key: "key2", value: "value21")
+    func testPostDataWithGlobalContextDataObjects() throws {
         
+        //given
+        let data1 = ContentDataObject()
+        data1.id = "id1"
+        data1.name = "name1"
+        let data2 = ContentDataObject()
+        data2.id = "id2"
+        data2.name = "nam2"
+        adUnit.addAppContentDataObjects([data1, data2])
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
-
+        
         guard let app = jsonRequestBody["app"] as? [String: Any],
-            let ext = app["ext"] as? [String: Any],
-            let data = ext["data"] as? [String: Any],
-            let key1Set1 = data["key1"] as? [String],
-            let key2Set1 = data["key2"] as? [String] else {
-                XCTFail("parsing fail")
-                return
+              let content = app["content"] as? [String: Any],
+              let rawDataDictArray = content["data"] as? [[String: Any]] else {
+                  XCTFail("parsing fail")
+                  return
+              }
+        var resultDataArray = [ContentDataObject]()
+        
+        for dataDict in rawDataDictArray {
+            resultDataArray.append(ContentDataObject(jsonDictionary: dataDict))
         }
-
+        
         //then
-        XCTAssertEqual(2, data.count)
-        XCTAssertEqual(Set(["value10"]), Set(key1Set1))
-        XCTAssertEqual(Set(["value20", "value21"]), Set(key2Set1))
-
+        XCTAssertEqual(2, resultDataArray.count)
+        XCTAssertEqual("id1", resultDataArray.first!.id!)
+        XCTAssertEqual("name1", resultDataArray.first!.name!)
+        
     }
     
     func testPostDataWithAdunitContextKeyword() throws {
@@ -1636,6 +1646,38 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
             XCTFail("parsing error")
             return
         }
+    }
+    
+    func testOpenRtbDataObjectsEquality() {
+        let data1 = ContentDataObject()
+        data1.id = "testId"
+        data1.name = "data name"
+        let segment = ContentSegmentObject()
+        segment.name = "segmant name"
+        segment.value = "segment value"
+        segment.ext = ["segment ext": "ext"]
+        data1.segment = [segment]
+        
+        let data2 = ContentDataObject()
+        data2.id = "testId"
+        data2.name = "data name"
+        data2.segment = [segment]
+        
+        XCTAssertTrue(data1 == data2)
+    }
+    
+    func testOpenRtbSegmentObjectsEquality() {
+        let segment1 = ContentSegmentObject()
+        segment1.name = "segmant name"
+        segment1.value = "segment value"
+        segment1.ext = ["segment ext": "ext"]
+        
+        let segment2 = ContentSegmentObject()
+        segment2.name = "segmant name"
+        segment2.value = "segment value"
+        segment2.ext = ["segment ext": "ext"]
+        
+        XCTAssertTrue(segment1 == segment2)
     }
     
     func testOpenRtbAppObjectWithContentUrl() throws {
