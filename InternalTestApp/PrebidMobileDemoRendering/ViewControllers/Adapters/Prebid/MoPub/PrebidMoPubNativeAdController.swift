@@ -58,7 +58,6 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController {
         
         setUpBannerArea(rootController: rootController)
         setupActions(rootController: rootController)
-        setProccesArgumentParser()
     }
     
     private func setUpBannerArea(rootController: AdapterViewController) {
@@ -112,6 +111,22 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController {
                 self.fetchDemandFailedButton.isEnabled = true
             } else {
                 self.fetchDemandSuccessButton.isEnabled = true
+            }
+            
+            if let userData = AppConfiguration.shared.userData {
+                for dataPair in userData {
+                    let appData = ContentDataObject()
+                    appData.ext = [dataPair.key: dataPair.value]
+                    self.adUnit?.addUserData([appData])
+                }
+            }
+            
+            if let appData = AppConfiguration.shared.appContentData {
+                for dataPair in appData {
+                    let appData = ContentDataObject()
+                    appData.ext = [dataPair.key: dataPair.value]
+                    self.adUnit?.addAppContentData([appData])
+                }
             }
             
             let settings = MPStaticNativeAdRendererSettings()
@@ -216,22 +231,6 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController {
         
         self.nativeAdViewBox.renderNativeAd(nativeAd)
         self.nativeAdViewBox.registerViews(nativeAd)
-    }
-    
-    private func setProccesArgumentParser() {
-        let processArgumentsParser = ProcessArgumentsParser()
-        processArgumentsParser.addOption("ADD_USER_DATA", paramsCount: 2) { [weak self] params in
-            let userData = ContentDataObject()
-            userData.ext = [params[0]: params[1]]
-            self?.adUnit?.addUserData([userData])
-        }
-        
-        processArgumentsParser.addOption("ADD_APP_CONTEXT", paramsCount: 2) { [weak self] params in
-            let appData = ContentDataObject()
-            appData.ext = [params[0]: params[1]]
-            self?.adUnit?.addAppContentData([appData])
-        }
-        processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
     }
 }
 

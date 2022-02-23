@@ -220,7 +220,6 @@ public class PrebidRenderingTargeting: NSObject {
     }
     
     // MARK: - User Data
-    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     @objc public func addUserData(_ value: String, forKey key: String) {
         var values = rawUserDataDictionary[key] ?? Set<String>()
         values.insert(value)
@@ -228,28 +227,24 @@ public class PrebidRenderingTargeting: NSObject {
         rawUserDataDictionary[key] = values
     }
     
-    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     @objc public func updateUserData(_ value: Set<String>, forKey key: String) {
         rawUserDataDictionary[key] = value
     }
-    
-    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
+     
     @objc public func removeUserData(forKey key: String) {
         rawUserDataDictionary.removeValue(forKey: key)
     }
     
-    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     @objc public func clearUserData() {
         rawUserDataDictionary.removeAll()
     }
     
-    @available(*, deprecated, message: "This property will be removed soon. Please, refer to AdUnit API.")
-    @objc public var userDataDictionary: [String : Set<String>] {
-        rawUserDataDictionary
+    @objc public var userDataDictionary: [String : [String]] {
+        rawUserDataDictionary.mapValues { Array($0) }
     }
-        
+    
     // MARK: - Context Data
-    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
+    
     @objc public func addContextData(_ value: String, forKey key: String) {
         var values = rawContextDataDictionary[key] ?? Set<String>()
         values.insert(value)
@@ -257,22 +252,18 @@ public class PrebidRenderingTargeting: NSObject {
         rawContextDataDictionary[key] = values
     }
     
-    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     @objc public func updateContextData(_ value: Set<String>, forKey key: String) {
         rawContextDataDictionary[key] = value
     }
     
-    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     @objc public func removeContextData(forKey key: String) {
         rawContextDataDictionary.removeValue(forKey: key)
     }
     
-    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     @objc public func clearContextData() {
         rawContextDataDictionary.removeAll()
     }
     
-    @available(*, deprecated, message: "This method will be removed soon. Please, refer to AdUnit API.")
     @objc public var contextDataDictionary: [String : [String]] {
         rawContextDataDictionary.mapValues { Array($0) }
     }
@@ -282,9 +273,10 @@ public class PrebidRenderingTargeting: NSObject {
     
     public var parameterDictionary = [String : String]()
     
-    private lazy var rawAccessControlList = Set<String>()
-    private lazy var rawUserDataDictionary = [String : Set<String>]()
-    private lazy var rawContextDataDictionary = [String : Set<String>]()
+    private var rawAccessControlList = Set<String>()
+    private var rawUserDataDictionary = [String : Set<String>]()
+    private var rawContextDataDictionary = [String : Set<String>]()
+
     
     // MARK: - Internal Methods
     

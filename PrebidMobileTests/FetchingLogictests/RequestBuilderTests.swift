@@ -762,6 +762,59 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     }
 
     //MARK: - FirstPartyData
+    
+    func testPostDataWithGlobalUserData() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.addUserData(key: "key1", value: "value10")
+        targeting.addUserData(key: "key2", value: "value20")
+        targeting.addUserData(key: "key2", value: "value21")
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let user = jsonRequestBody["user"] as? [String: Any],
+            let ext = user["ext"] as? [String: Any],
+            let data = ext["data"] as? [String: Any],
+            let key1Set1 = data["key1"] as? [String],
+            let key2Set1 = data["key2"] as? [String] else {
+                XCTFail("parsing fail")
+                return
+        }
+
+        //then
+        XCTAssertEqual(2, data.count)
+        XCTAssertEqual(Set(["value10"]), Set(key1Set1))
+        XCTAssertEqual(Set(["value20", "value21"]), Set(key2Set1))
+    }
+    
+    func testPostDataWithGlobalContextData() throws {
+
+        //given
+        let targeting = Targeting.shared
+        targeting.addContextData(key: "key1", value: "value10")
+        targeting.addContextData(key: "key2", value: "value20")
+        targeting.addContextData(key: "key2", value: "value21")
+        
+        //when
+        let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
+
+        guard let app = jsonRequestBody["app"] as? [String: Any],
+            let ext = app["ext"] as? [String: Any],
+            let data = ext["data"] as? [String: Any],
+            let key1Set1 = data["key1"] as? [String],
+            let key2Set1 = data["key2"] as? [String] else {
+                XCTFail("parsing fail")
+                return
+        }
+
+        //then
+        XCTAssertEqual(2, data.count)
+        XCTAssertEqual(Set(["value10"]), Set(key1Set1))
+        XCTAssertEqual(Set(["value20", "value21"]), Set(key2Set1))
+
+    }
 
     func testPostDataWithoutTargetingKeys() throws {
         //given
@@ -853,7 +906,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let data2 = ContentDataObject()
         data2.id = "id2"
         data2.name = "nam2"
-        adUnit.addUserDataObjects([data1, data2])
+        adUnit.addUserData([data1, data2])
         
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -884,7 +937,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let data2 = ContentDataObject()
         data2.id = "id2"
         data2.name = "nam2"
-        adUnit.addAppContentDataObjects([data1, data2])
+        adUnit.addAppContentData([data1, data2])
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
         
@@ -1600,7 +1653,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         appContent.data = [data]
         appContent.url = expectedUrl
         
-        adUnit.setAppContent(appContent: appContent)
+        adUnit.setAppContent(appContent)
         
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -1688,7 +1741,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let appContent = ContentObject()
         appContent.url = expectedUrl
         
-        adUnit.setAppContent(appContent: appContent)
+        adUnit.setAppContent(appContent)
         
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody

@@ -208,37 +208,37 @@ public class BannerView: UIView,
     // MARK: - App Content
     
     @objc public func setAppContent(_ appContent: PBMORTBAppContent) {
-        adUnitConfig.setAppContentObject(appContent)
+        adUnitConfig.setAppContent(appContent)
     }
     
     @objc public func clearAppContent() {
-        adUnitConfig.clearAppContentObject()
+        adUnitConfig.clearAppContent()
     }
     
     @objc public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
-        adUnitConfig.addAppContentDataObjects(dataObjects)
+        adUnitConfig.addAppContentData(dataObjects)
     }
 
     @objc public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
-        adUnitConfig.removeAppContentDataObject(dataObject)
+        adUnitConfig.removeAppContentData(dataObject)
     }
     
     @objc public func clearAppContentDataObjects() {
-        adUnitConfig.clearAppContentDataObjects()
+        adUnitConfig.clearAppContentData()
     }
     
     // MARK: - User Data
         
     @objc public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
-        adUnitConfig.addUserDataObjects(userDataObjects)
+        adUnitConfig.addUserData(userDataObjects)
     }
     
     @objc public func removeUserData(_ userDataObject: PBMORTBContentData) {
-        adUnitConfig.removeUserDataObject(userDataObject)
+        adUnitConfig.removeUserData(userDataObject)
     }
     
     @objc public func clearUserData() {
-        adUnitConfig.clearUserDataObjects()
+        adUnitConfig.clearUserData()
     }
     
     

@@ -58,7 +58,6 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
         }
         
         rewardedAdController?.loadAd()
-        setProccesArgumentParser()
     }
     
     // MARK: - GADRewardedDelegate
@@ -124,21 +123,5 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
             adapterViewController?.showButton.isEnabled = false
             rewardedAdController.show(from: adapterViewController!)
         }
-    }
-    
-    private func setProccesArgumentParser() {
-        let processArgumentsParser = ProcessArgumentsParser()
-        processArgumentsParser.addOption("ADD_USER_DATA", paramsCount: 2) { [weak self] params in
-            let userData = PBMORTBContentData()
-            userData.ext = [params[0]: params[1]]
-            self?.rewardedAdController?.addUserData([userData])
-        }
-        
-        processArgumentsParser.addOption("ADD_APP_CONTEXT", paramsCount: 2) { [weak self] params in
-            let appData = PBMORTBContentData()
-            appData.ext = [params[0]: params[1]]
-            self?.rewardedAdController?.addAppContentData([appData])
-        }
-        processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
     }
 }

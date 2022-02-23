@@ -80,37 +80,37 @@ public class MediationNativeAdUnit : NSObject {
     // MARK: - App Content
     
     @objc public func setAppContent(_ appContent: ContentObject) {
-        nativeAdUnit.setAppContentObject(appContent)
+        nativeAdUnit.setAppContent(appContent)
     }
     
     @objc public func clearAppContent() {
-        nativeAdUnit.clearAppContentObject()
+        nativeAdUnit.clearAppContent()
     }
     
     @objc public func addAppContentData(_ dataObjects: [ContentDataObject]) {
-        nativeAdUnit.addAppContentDataObjects(dataObjects)
+        nativeAdUnit.addAppContentData(dataObjects)
     }
 
     @objc public func removeAppContentDataObject(_ dataObject: ContentDataObject) {
-        nativeAdUnit.removeAppContentDataObject(dataObject)
+        nativeAdUnit.removeAppContentData(dataObject)
     }
     
     @objc public func clearAppContentDataObjects() {
-        nativeAdUnit.clearAppContentDataObjects()
+        nativeAdUnit.clearAppContentData()
     }
     
     // MARK: - User Data
     
     @objc public func addUserData(_ userDataObjects: [ContentDataObject]) {
-        nativeAdUnit.addUserDataObjects(userDataObjects)
+        nativeAdUnit.addUserData(userDataObjects)
     }
     
     @objc public func removeUserData(_ userDataObject: ContentDataObject) {
-        nativeAdUnit.removeUserDataObject(userDataObject)
+        nativeAdUnit.removeUserData(userDataObject)
     }
     
     @objc public func clearUserData() {
-        nativeAdUnit.clearUserDataObjects()
+        nativeAdUnit.clearUserData()
     }
     
     public func fetchDemand(completion: ((ResultCode)->Void)?) {

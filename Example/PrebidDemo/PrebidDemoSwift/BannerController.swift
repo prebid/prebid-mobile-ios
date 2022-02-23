@@ -287,7 +287,6 @@ class BannerController:
         gamBanner.delegate = self
         
         appBannerView.addSubview(gamBanner)
-
         prebidAdUnit.fetchDemand(adObject: self.gamRequest) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for AdManager \(resultCode.name())")
             self?.gamBanner.load(self?.gamRequest)
@@ -452,16 +451,18 @@ class BannerController:
     func addFirstPartyData(adUnit: AdUnit) {
         //Access Control List
         Targeting.shared.addBidderToAccessControlList(Prebid.bidderNameAppNexus)
+        Targeting.shared.addContextData(key: "globalContextDataKey1", value: "globalContextDataValue1")
+        Targeting.shared.addUserData(key: "globalUserDataKey1", value: "globalUserDataValue1")
         
         //global context data
         let userData = ContentDataObject()
         userData.id = "globalUserDataValue1"
-        adUnit.addUserDataObjects([userData])
+        adUnit.addUserData([userData])
         
         //adunit context data
         let appData = ContentDataObject()
         appData.id = "adunitContextDataValue1"
-        adUnit.addAppContentDataObjects([appData])
+        adUnit.addAppContentData([appData])
         
         //global context keywords
         Targeting.shared.addContextKeyword("globalContextKeywordValue1")

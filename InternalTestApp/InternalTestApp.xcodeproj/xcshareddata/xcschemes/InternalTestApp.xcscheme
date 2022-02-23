@@ -168,11 +168,19 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "ADD_USER_DATA alpha beta ADD_USER_DATA gamma delta ADD_USER_DATA gamma epsilon"
+            argument = "ADD_USER_EXT_DATA bravo charlie ADD_USER_EXT_DATA bravo tango ADD_USER_EXT_DATA mango sushi"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "ADD_APP_CONTEXT bravo charlie ADD_APP_CONTEXT bravo tango ADD_APP_CONTEXT mango sushi"
+            argument = "ADD_APP_EXT bravo charlie ADD_APP_EXT bravo tango ADD_APP_EXT mango sushi"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "ADD_USER_DATA_EXT bravo charlie ADD_USER_DATA_EXT bravo tango ADD_USER_DATA_EXT mango sushi"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "ADD_APP_CONTENT_DATA_EXT bravo charlie ADD_APP_CONTENT_DATA_EXT bravo tango ADD_APP_CONTENT_DATA_EXT mango sushi"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument

@@ -137,37 +137,37 @@
 // MARK: - App Content
 
 - (void)setAppContent:(PBMORTBAppContent *)appContent {
-    [self.adUnitConfig setAppContentObject:appContent];
+    [self.adUnitConfig setAppContent:appContent];
 }
 
 - (void)clearAppContent {
-    [self.adUnitConfig clearAppContentObject];
+    [self.adUnitConfig clearAppContent];
 }
 
 - (void)addAppContentData:(NSArray<PBMORTBContentData *> *)dataObjects {
-    [self.adUnitConfig addAppContentDataObjects:dataObjects];
+    [self.adUnitConfig addAppContentData:dataObjects];
 }
 
 - (void)removeAppContentDataObject:(PBMORTBContentData *)dataObject {
-    [self.adUnitConfig removeAppContentDataObject:dataObject];
+    [self.adUnitConfig removeAppContentData:dataObject];
 }
 
 - (void)clearAppContentDataObjects {
-    [self.adUnitConfig clearAppContentDataObjects];
+    [self.adUnitConfig clearAppContentData];
 }
 
 // MARK: - User Data
 
 - (void)addUserData:(NSArray<PBMORTBContentData *> *)userDataObjects {
-    [self.adUnitConfig addUserDataObjects:userDataObjects];
+    [self.adUnitConfig addUserData:userDataObjects];
 }
 
 - (void)removeUserData:(PBMORTBContentData *)userDataObject {
-    [self.adUnitConfig removeUserDataObject:userDataObject];
+    [self.adUnitConfig removeUserData:userDataObject];
 }
 
 - (void)clearUserData {
-    [self.adUnitConfig clearUserDataObjects];
+    [self.adUnitConfig clearUserData];
 }
 
 // MARK: - Protected methods
