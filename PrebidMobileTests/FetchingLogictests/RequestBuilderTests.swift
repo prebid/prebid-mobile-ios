@@ -908,7 +908,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let data2 = ContentDataObject()
         data2.id = "id2"
         data2.name = "nam2"
-        adUnit.addUserDataObjects([data1, data2])
+        adUnit.addUserData([data1, data2])
         
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -939,7 +939,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let data2 = ContentDataObject()
         data2.id = "id2"
         data2.name = "nam2"
-        adUnit.addAppContentDataObjects([data1, data2])
+        adUnit.addAppContentData([data1, data2])
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
 
@@ -1655,7 +1655,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         appContent.data = [data]
         appContent.url = expectedUrl
 
-        adUnit.setAppContent(appContent: appContent)
+        adUnit.setAppContent(appContent)
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -1742,9 +1742,9 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         let appContent = ContentObject()
         appContent.url = expectedUrl
-
-        adUnit.setAppContent(appContent: appContent)
-
+        
+        adUnit.setAppContent(appContent)
+        
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
 

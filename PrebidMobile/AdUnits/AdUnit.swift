@@ -44,9 +44,9 @@ import ObjectiveC.runtime
 
     //notification flag set to determine if delegate call needs to be made after timeout delegate is sent
     var timeOutSignalSent: Bool! = false
-
-    @objc public var appContent: ContentObject?
-    @objc public var userData: [ContentDataObject]?
+    
+    private var appContent: ContentObject?
+    private var userData: [ContentDataObject]?
 
     init(configId: String, size: CGSize?) {
         prebidConfigId = configId
@@ -204,20 +204,20 @@ import ObjectiveC.runtime
     }
 
     // MARK: - App Content
-
-    @objc public func setAppContentObject(_ appContent: ContentObject) {
-        self.appContent = appContent
+    
+    public func setAppContent(_ appContentObject: ContentObject) {
+        self.appContent = appContentObject
     }
-
-    @objc public func getAppContentObject() -> ContentObject? {
+    
+    public func getAppContent() -> ContentObject? {
         return appContent
     }
-
-    @objc public func clearAppContentObject() {
+    
+    public func clearAppContent() {
         appContent = nil
     }
-
-    @objc public func addAppContentDataObjects(_ dataObjects: [ContentDataObject]) {
+    
+    public func addAppContentData(_ dataObjects: [ContentDataObject]) {
         if appContent == nil {
             appContent = ContentObject()
         }
@@ -229,36 +229,36 @@ import ObjectiveC.runtime
         appContent?.data?.append(contentsOf: dataObjects)
     }
 
-    @objc public func removeAppContentDataObject(_ dataObject: ContentDataObject) {
+    public func removeAppContentData(_ dataObject: ContentDataObject) {
         if let appContentData = appContent?.data, appContentData.contains(dataObject) {
             appContent?.data?.removeAll(where: { $0 == dataObject })
         }
     }
-
-    @objc public func clearAppContentDataObjects() {
+    
+    public func clearAppContentData() {
         appContent?.data?.removeAll()
     }
 
     // MARK: - User Data
-
-    @objc public func getUserDataObjects() -> [ContentDataObject]? {
+        
+    public func getUserData() -> [ContentDataObject]? {
         return userData
     }
-
-    @objc public func addUserDataObjects(_ userDataObjects: [ContentDataObject]) {
+    
+    public func addUserData(_ userDataObjects: [ContentDataObject]) {
         if userData == nil {
             userData = [ContentDataObject]()
         }
         userData?.append(contentsOf: userDataObjects)
     }
-
-    @objc public func removeUserDataObject(_ userDataObject: ContentDataObject) {
+    
+    public func removeUserData(_ userDataObject: ContentDataObject) {
         if let userData = userData, userData.contains(userDataObject) {
             self.userData?.removeAll { $0 == userDataObject }
         }
     }
-
-    @objc public func clearUserDataObjects() {
+    
+    public func clearUserData() {
         userData?.removeAll()
     }
 
@@ -330,14 +330,5 @@ import ObjectiveC.runtime
         }
 
         dispatcher.stop()
-    }
-
-    public func setAppContent(appContent: ContentObject) {
-        self.appContent = appContent
-    }
-
-
-    func getAppContent() -> ContentObject? {
-        return self.appContent
     }
 }

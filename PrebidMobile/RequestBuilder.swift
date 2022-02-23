@@ -493,7 +493,7 @@ class RequestBuilder: NSObject {
 
         userDict["ext"] = requestUserExt
 
-        if let userData = adUnit?.getUserDataObjects() {
+        if let userData = adUnit?.getUserData() {
             var userDataDict = [[AnyHashable: Any]]()
             userData.forEach { dataObject in
                 userDataDict.append(dataObject.toJSONDictionary())
