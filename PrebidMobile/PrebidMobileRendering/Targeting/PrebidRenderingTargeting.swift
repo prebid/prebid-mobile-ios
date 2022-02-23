@@ -239,11 +239,12 @@ public class PrebidRenderingTargeting: NSObject {
         rawUserDataDictionary.removeAll()
     }
     
-    @objc public var userDataDictionary: [String : Set<String>] {
-        rawUserDataDictionary
+    @objc public var userDataDictionary: [String : [String]] {
+        rawUserDataDictionary.mapValues { Array($0) }
     }
-        
+    
     // MARK: - Context Data
+    
     @objc public func addContextData(_ value: String, forKey key: String) {
         var values = rawContextDataDictionary[key] ?? Set<String>()
         values.insert(value)
@@ -272,9 +273,10 @@ public class PrebidRenderingTargeting: NSObject {
     
     public var parameterDictionary = [String : String]()
     
-    private lazy var rawAccessControlList = Set<String>()
-    private lazy var rawUserDataDictionary = [String : Set<String>]()
-    private lazy var rawContextDataDictionary = [String : Set<String>]()
+    private var rawAccessControlList = Set<String>()
+    private var rawUserDataDictionary = [String : Set<String>]()
+    private var rawContextDataDictionary = [String : Set<String>]()
+
     
     // MARK: - Internal Methods
     
