@@ -300,6 +300,9 @@ class RequestBuilder: NSObject {
             prebidSdkVersion = Bundle(for: type(of: self)).infoDictionary?["CFBundleShortVersionString"] as? String
         #endif
         requestAppExt["prebid"] = ["version": prebidSdkVersion, "source": "prebid-mobile"]
+        
+        requestAppExt["data"] = Targeting.shared.getContextDataDictionary().getCopyWhereValueIsArray()
+        
         app["ext"] = requestAppExt
 
         app["keywords"] = Targeting.shared.getContextKeywordsSet().toCommaSeparatedListString()
@@ -485,6 +488,8 @@ class RequestBuilder: NSObject {
             }
         }
         requestUserExt["eids"] = getExternalUserIds()
+        
+        requestUserExt["data"] = Targeting.shared.getUserDataDictionary().getCopyWhereValueIsArray()
 
         userDict["ext"] = requestUserExt
 

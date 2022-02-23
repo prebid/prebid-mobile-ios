@@ -174,7 +174,8 @@
 -(void) addFirstPartyData:(AdUnit *)adUnit {
     //Access Control List
     [Targeting.shared addBidderToAccessControlList: Prebid.bidderNameAppNexus];
-
+    [Targeting.shared addUserDataWithKey:@"globalUserDataKey1" value:@"globalUserDataValue1"];
+    [Targeting.shared addContextDataWithKey:@"globalContextDataKey1" value:@"globalContextDataValue1"];
     //global user data
     PBAdUnitContentDataObject *userData = [PBAdUnitContentDataObject new];
     userData.id = @"globalUserDataValue1";
