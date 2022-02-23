@@ -46,8 +46,8 @@ class PBMAdUnitConfigTest: XCTestCase {
         appContent.embeddable = 1
         appContent.data = [appDataObject1, appDataObject2]
         //when
-        adUnitConfig.setAppContentObject(appContent)
-        let resultAppContent = adUnitConfig.getAppContentObject()!
+        adUnitConfig.setAppContent(appContent)
+        let resultAppContent = adUnitConfig.getAppContent()!
 
         //then
         XCTAssertEqual(2, resultAppContent.data!.count)
@@ -69,11 +69,11 @@ class PBMAdUnitConfigTest: XCTestCase {
         appContent.embeddable = 1
         appContent.data = [appDataObject1, appDataObject2]
         //when
-        adUnitConfig.setAppContentObject(appContent)
-        let resultAppContent1 = adUnitConfig.getAppContentObject()
+        adUnitConfig.setAppContent(appContent)
+        let resultAppContent1 = adUnitConfig.getAppContent()
         XCTAssertNotNil(resultAppContent1)
-        adUnitConfig.clearAppContentObject()
-        let resultAppContent2 = adUnitConfig.getAppContentObject()
+        adUnitConfig.clearAppContent()
+        let resultAppContent2 = adUnitConfig.getAppContent()
         XCTAssertNil(resultAppContent2)
     }
     
@@ -87,8 +87,8 @@ class PBMAdUnitConfigTest: XCTestCase {
         appDataObject2.name = "test name"
 
         //when
-        adUnitConfig.addAppContentDataObjects([appDataObject1, appDataObject2])
-        let objects = adUnitConfig.getAppContentObject()!.data!
+        adUnitConfig.addAppContentData([appDataObject1, appDataObject2])
+        let objects = adUnitConfig.getAppContent()!.data!
 
         //then
         XCTAssertEqual(2, objects.count)
@@ -100,13 +100,13 @@ class PBMAdUnitConfigTest: XCTestCase {
         appDataObject.id = "data id"
         appDataObject.name = "test name"
 
-        adUnitConfig.addAppContentDataObjects([appDataObject])
-        let objects1 = adUnitConfig.getAppContentObject()!.data!
+        adUnitConfig.addAppContentData([appDataObject])
+        let objects1 = adUnitConfig.getAppContent()!.data!
 
         XCTAssertEqual(1, objects1.count)
 
-        adUnitConfig.removeAppContentDataObject(appDataObject)
-        let objects2 = adUnitConfig.getAppContentObject()!.data!
+        adUnitConfig.removeAppContentData(appDataObject)
+        let objects2 = adUnitConfig.getAppContent()!.data!
 
         XCTAssertEqual(0, objects2.count)
     }
@@ -119,12 +119,12 @@ class PBMAdUnitConfigTest: XCTestCase {
         appDataObject2.id = "data id"
         appDataObject2.name = "test name"
 
-        adUnitConfig.addAppContentDataObjects([appDataObject1, appDataObject2])
-        let objects1 = adUnitConfig.getAppContentObject()!.data!
+        adUnitConfig.addAppContentData([appDataObject1, appDataObject2])
+        let objects1 = adUnitConfig.getAppContent()!.data!
         
         XCTAssertEqual(2, objects1.count)
-        adUnitConfig.clearAppContentDataObjects()
-        let objects2 = adUnitConfig.getAppContentObject()!.data!
+        adUnitConfig.clearAppContentData()
+        let objects2 = adUnitConfig.getAppContent()!.data!
         XCTAssertEqual(0, objects2.count)
     }
     
@@ -140,8 +140,8 @@ class PBMAdUnitConfigTest: XCTestCase {
         userDataObject2.name = "test name"
 
         //when
-        adUnitConfig.addUserDataObjects([userDataObject1, userDataObject2])
-        let objects = adUnitConfig.getUserDataObjects()!
+        adUnitConfig.addUserData([userDataObject1, userDataObject2])
+        let objects = adUnitConfig.getUserData()!
 
         //then
         XCTAssertEqual(2, objects.count)
@@ -153,13 +153,13 @@ class PBMAdUnitConfigTest: XCTestCase {
         userDataObject.id = "data id"
         userDataObject.name = "test name"
 
-        adUnitConfig.addUserDataObjects([userDataObject])
-        let objects1 = adUnitConfig.getUserDataObjects()!
+        adUnitConfig.addUserData([userDataObject])
+        let objects1 = adUnitConfig.getUserData()!
 
         XCTAssertEqual(1, objects1.count)
 
-        adUnitConfig.removeUserDataObject(userDataObject)
-        let objects2 = adUnitConfig.getUserDataObjects()!
+        adUnitConfig.removeUserData(userDataObject)
+        let objects2 = adUnitConfig.getUserData()!
 
         XCTAssertEqual(0, objects2.count)
     }
@@ -172,13 +172,13 @@ class PBMAdUnitConfigTest: XCTestCase {
         userDataObject2.id = "data id"
         userDataObject2.name = "test name"
 
-        adUnitConfig.addUserDataObjects([userDataObject1, userDataObject2])
-        let objects1 = adUnitConfig.getUserDataObjects()!
+        adUnitConfig.addUserData([userDataObject1, userDataObject2])
+        let objects1 = adUnitConfig.getUserData()!
 
         XCTAssertEqual(2, objects1.count)
 
-        adUnitConfig.clearUserDataObjects()
-        let objects2 = adUnitConfig.getUserDataObjects()!
+        adUnitConfig.clearUserData()
+        let objects2 = adUnitConfig.getUserData()!
         XCTAssertEqual(0, objects2.count)
     }
 }

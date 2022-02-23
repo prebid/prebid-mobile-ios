@@ -20,6 +20,7 @@ public let refreshIntervalMin: TimeInterval  = 15
 public let refreshIntervalMax: TimeInterval = 120
 public let refreshIntervalDefault: TimeInterval  = 60
 
+@objcMembers
 public class AdUnitConfig: NSObject, NSCopying {
     
     // MARK: - Properties
@@ -43,8 +44,8 @@ public class AdUnitConfig: NSObject, NSCopying {
         extensionData.mapValues { Array($0) }
     }
     
-    @objc public var appContent: PBMORTBAppContent?
-    @objc public var userData: [PBMORTBContentData]?
+    private var appContent: PBMORTBAppContent?
+    private var userData: [PBMORTBContentData]?
     
     // MARK: - Computed Properties
     
@@ -130,19 +131,19 @@ public class AdUnitConfig: NSObject, NSCopying {
     
     // MARK: - App Content
     
-    @objc public func setAppContentObject(_ appContent: PBMORTBAppContent) {
-        self.appContent = appContent
+    public func setAppContent(_ appContentObject: PBMORTBAppContent) {
+        self.appContent = appContentObject
     }
     
-    @objc public func getAppContentObject() -> PBMORTBAppContent? {
+    public func getAppContent() -> PBMORTBAppContent? {
         return appContent
     }
     
-    @objc public func clearAppContentObject() {
+    public func clearAppContent() {
         appContent = nil
     }
     
-    @objc public func addAppContentDataObjects(_ dataObjects: [PBMORTBContentData]) {
+    public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
         if appContent == nil {
             appContent = PBMORTBAppContent()
         }
@@ -154,36 +155,36 @@ public class AdUnitConfig: NSObject, NSCopying {
         appContent?.data?.append(contentsOf: dataObjects)
     }
 
-    @objc public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
+    public func removeAppContentData(_ dataObject: PBMORTBContentData) {
         if let appContentData = appContent?.data, appContentData.contains(dataObject) {
             appContent?.data?.removeAll(where: { $0 == dataObject })
         }
     }
     
-    @objc public func clearAppContentDataObjects() {
+    public func clearAppContentData() {
         appContent?.data?.removeAll()
     }
     
     // MARK: - User Data
         
-    @objc public func getUserDataObjects() -> [PBMORTBContentData]? {
+    public func getUserData() -> [PBMORTBContentData]? {
         return userData
     }
     
-    @objc public func addUserDataObjects(_ userDataObjects: [PBMORTBContentData]) {
+    public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         if userData == nil {
             userData = [PBMORTBContentData]()
         }
         userData?.append(contentsOf: userDataObjects)
     }
     
-    @objc public func removeUserDataObject(_ userDataObject: PBMORTBContentData) {
+    public func removeUserData(_ userDataObject: PBMORTBContentData) {
         if let userData = userData, userData.contains(userDataObject) {
             self.userData?.removeAll { $0 == userDataObject }
         }
     }
     
-    @objc public func clearUserDataObjects() {
+    public func clearUserData() {
         userData?.removeAll()
     }
     

@@ -73,7 +73,8 @@
     bidRequest.source.tid       = [NSUUID UUID].UUIDString;
     bidRequest.device.ua        = [self.userAgentService getFullUserAgent];
     
-    bidRequest.app.content = [self.adConfiguration getAppContentObject];
+    bidRequest.app.content = [self.adConfiguration getAppContent];
+    bidRequest.user.ext[@"data"] = self.targeting.userDataDictionary;
     
     NSArray<PBMORTBFormat *> *formats = nil;
     const NSInteger formatsCount = (CGSizeEqualToSize(self.adConfiguration.adSize, CGSizeZero) ? 0 : 1) + self.adConfiguration.additionalSizes.count;
@@ -105,12 +106,13 @@
         }
     }
     
-    NSArray<PBMORTBContentData *> *userData = [self.adConfiguration getUserDataObjects];
+    NSArray<PBMORTBContentData *> *userData = [self.adConfiguration getUserData];
     if (userData) {
         bidRequest.user.data = userData;
     }
     
     PBMORTBAppExtPrebid * const appExtPrebid = bidRequest.app.extPrebid;
+    appExtPrebid.data = self.targeting.contextDataDictionary;
     
     for (PBMORTBImp *nextImp in bidRequest.imp) {
         nextImp.impID = [NSUUID UUID].UUIDString;
