@@ -48,7 +48,6 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         stopRefreshButton.addTarget(self, action: #selector(stopRefresh), for: .touchUpInside)
         
         setupAdapterController()
-        setProccesArgumentParser()
     }
     
     func configurationController() -> BaseConfigurationController? {
@@ -88,6 +87,22 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
                 adBannerView?.addContextData(dataPair.value, forKey: dataPair.key)
+            }
+        }
+        
+        if let userData = AppConfiguration.shared.userData {
+            for dataPair in userData {
+                let appData = PBMORTBContentData()
+                appData.ext = [dataPair.key: dataPair.value]
+                adBannerView?.addUserData([appData])
+            }
+        }
+        
+        if let appData = AppConfiguration.shared.appContentData {
+            for dataPair in appData {
+                let appData = PBMORTBContentData()
+                appData.ext = [dataPair.key: dataPair.value]
+                adBannerView?.addAppContentData([appData])
             }
         }
         
@@ -191,21 +206,5 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     @objc private func stopRefresh() {
         stopRefreshButton.isEnabled = false
         adBannerView?.stopRefresh()
-    }
-    
-    private func setProccesArgumentParser() {
-        let processArgumentsParser = ProcessArgumentsParser()
-        processArgumentsParser.addOption("ADD_USER_DATA", paramsCount: 2) { [weak self] params in
-            let userData = PBMORTBContentData()
-            userData.ext = [params[0]: params[1]]
-            self?.adBannerView?.addUserData([userData])
-        }
-        
-        processArgumentsParser.addOption("ADD_APP_CONTEXT", paramsCount: 2) { [weak self] params in
-            let appData = PBMORTBContentData()
-            appData.ext = [params[0]: params[1]]
-            self?.adBannerView?.addAppContentData([appData])
-        }
-        processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
     }
 }

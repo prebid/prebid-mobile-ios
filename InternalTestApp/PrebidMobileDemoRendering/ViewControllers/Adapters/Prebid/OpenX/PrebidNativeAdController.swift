@@ -42,7 +42,6 @@ class PrebidNativeAdController: NSObject, AdaptedController {
         super.init()
         self.rootController = rootController
         rootController.showButton.isHidden = true
-        setProccesArgumentParser()
     }
     
     func setupNativeAdView(_ nativeAdViewBox: NativeAdViewBoxProtocol) {
@@ -93,6 +92,28 @@ class PrebidNativeAdController: NSObject, AdaptedController {
     func loadAd() {
         setupNativeAdUnit(configId: prebidConfigId)
         
+        if let adUnitContext = AppConfiguration.shared.adUnitContext {
+            for dataPair in adUnitContext {
+                adUnit?.addContextData(key: dataPair.value, value: dataPair.key)
+            }
+        }
+        
+        if let userData = AppConfiguration.shared.userData {
+            for dataPair in userData {
+                let appData = ContentDataObject()
+                appData.ext = [dataPair.key: dataPair.value]
+                adUnit?.addUserDataObjects([appData])
+            }
+        }
+        
+        if let appData = AppConfiguration.shared.appContentData {
+            for dataPair in appData {
+                let appData = ContentDataObject()
+                appData.ext = [dataPair.key: dataPair.value]
+                adUnit?.addAppContentDataObjects([appData])
+            }
+        }
+        
         adUnit?.fetchDemand(completion: { [weak self] result, kvResultDict in
             guard let self = self else {
                 return
@@ -131,22 +152,6 @@ class PrebidNativeAdController: NSObject, AdaptedController {
         adUnit?.context = ContextType.Social
         adUnit?.placementType = PlacementType.FeedContent
         adUnit?.contextSubType = ContextSubType.Social
-    }
-    
-    private func setProccesArgumentParser() {
-        let processArgumentsParser = ProcessArgumentsParser()
-        processArgumentsParser.addOption("ADD_USER_DATA", paramsCount: 2) { [weak self] params in
-            let userData = ContentDataObject()
-            userData.ext = [params[0]: params[1]]
-            self?.adUnit?.addUserDataObjects([userData])
-        }
-        
-        processArgumentsParser.addOption("ADD_APP_CONTEXT", paramsCount: 2) { [weak self] params in
-            let appData = ContentDataObject()
-            appData.ext = [params[0]: params[1]]
-            self?.adUnit?.addAppContentDataObjects([appData])
-        }
-        processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
     }
 }
 

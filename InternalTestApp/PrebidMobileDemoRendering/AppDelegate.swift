@@ -76,6 +76,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             appConfig.adUnitContext = (appConfig.adUnitContext ?? []) + [(key: params[0], value: params[1])]
         }
         
+        processArgumentsParser.addOption("ADD_USER_DATA", paramsCount: 2) { params in
+            let appConfig = AppConfiguration.shared
+            appConfig.userData = (appConfig.adUnitContext ?? []) + [(key: params[0], value: params[1])]
+        }
+        
+        processArgumentsParser.addOption("ADD_APP_CONTEXT", paramsCount: 2) { params in
+            let appConfig = AppConfiguration.shared
+            appConfig.appContentData = (appConfig.adUnitContext ?? []) + [(key: params[0], value: params[1])]
+        }
+        
         processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
        
         // MoPub

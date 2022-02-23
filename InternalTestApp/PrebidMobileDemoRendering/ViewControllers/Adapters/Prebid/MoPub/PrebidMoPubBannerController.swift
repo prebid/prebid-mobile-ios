@@ -55,7 +55,6 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         stopRefreshButton.addTarget(self, action: #selector(stopRefresh), for: .touchUpInside)
         
         setupAdapterController()
-        setProccesArgumentParser()
     }
     
     func configurationController() -> BaseConfigurationController? {
@@ -85,6 +84,22 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
                 adUnit?.addContextData(dataPair.value, forKey: dataPair.key)
+            }
+        }
+        
+        if let userData = AppConfiguration.shared.userData {
+            for dataPair in userData {
+                let appData = PBMORTBContentData()
+                appData.ext = [dataPair.key: dataPair.value]
+                adUnit?.addUserData([appData])
+            }
+        }
+        
+        if let appData = AppConfiguration.shared.appContentData {
+            for dataPair in appData {
+                let appData = PBMORTBContentData()
+                appData.ext = [dataPair.key: dataPair.value]
+                adUnit?.addAppContentData([appData])
             }
         }
         
@@ -204,21 +219,5 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
     @objc private func stopRefresh() {
         stopRefreshButton.isEnabled = false
         adUnit?.stopRefresh()
-    }
-    
-    private func setProccesArgumentParser() {
-        let processArgumentsParser = ProcessArgumentsParser()
-        processArgumentsParser.addOption("ADD_USER_DATA", paramsCount: 2) { [weak self] params in
-            let userData = PBMORTBContentData()
-            userData.ext = [params[0]: params[1]]
-            self?.adUnit?.addUserData([userData])
-        }
-        
-        processArgumentsParser.addOption("ADD_APP_CONTEXT", paramsCount: 2) { [weak self] params in
-            let appData = PBMORTBContentData()
-            appData.ext = [params[0]: params[1]]
-            self?.adUnit?.addAppContentData([appData])
-        }
-        processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
     }
 }
