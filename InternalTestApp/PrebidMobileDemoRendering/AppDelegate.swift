@@ -76,12 +76,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             appConfig.adUnitContext = (appConfig.adUnitContext ?? []) + [(key: params[0], value: params[1])]
         }
         
-        processArgumentsParser.addOption("ADD_USER_DATA", paramsCount: 2) { params in
+        processArgumentsParser.addOption("ADD_USER_EXT_DATA", paramsCount: 2) { params in
+            PrebidRenderingTargeting.shared.addUserData(params[1], forKey: params[0])
+        }
+        
+        processArgumentsParser.addOption("ADD_APP_EXT", paramsCount: 2) { params in
+            PrebidRenderingTargeting.shared.addContextData(params[1], forKey: params[0])
+        }
+        
+        processArgumentsParser.addOption("ADD_USER_DATA_EXT", paramsCount: 2) { params in
             let appConfig = AppConfiguration.shared
             appConfig.userData = (appConfig.userData ?? []) + [(key: params[0], value: params[1])]
         }
         
-        processArgumentsParser.addOption("ADD_APP_CONTEXT", paramsCount: 2) { params in
+        processArgumentsParser.addOption("ADD_APP_CONTENT_DATA_EXT", paramsCount: 2) { params in
             let appConfig = AppConfiguration.shared
             appConfig.appContentData = (appConfig.appContentData ?? []) + [(key: params[0], value: params[1])]
         }

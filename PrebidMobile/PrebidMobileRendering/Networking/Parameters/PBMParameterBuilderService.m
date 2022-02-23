@@ -112,6 +112,10 @@
     bidRequest.user.keywords    = targeting.keywords;
     bidRequest.user.customdata  = targeting.userCustomData;
    
+    if (targeting.userExt) {
+        bidRequest.user.ext = [targeting.userExt mutableCopy];
+    }
+    
     if (targeting.eids) {
         [bidRequest.user appendEids:targeting.eids];
     }
