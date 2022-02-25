@@ -37,14 +37,20 @@ Pod::Spec.new do |s|
 :FRAMEWORK_SEARCH_PATHS => '$(inherited)'
 }
 
-  s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s'}
-  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s'}
+  s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s', 
+                            'VALID_ARCHS[sdk=iphoneos*]': 'arm64 armv7',
+                            'VALID_ARCHS[sdk=iphonesimulator*]': 'x86_64 arm64'
+                          }
+  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s', 
+                             'VALID_ARCHS[sdk=iphoneos*]': 'arm64 armv7',
+                             'VALID_ARCHS[sdk=iphonesimulator*]': 'x86_64 arm64'
+                          }
 
   s.source_files = 'EventHandlers/PrebidMobileAdMobAdapters/**/*.{h,m,swift}'
 
   s.static_framework = true
 
   s.dependency 'PrebidMobile', '1.14.0-beta1'
-  s.dependency 'Google-Mobile-Ads-SDK'
+  s.dependency 'Google-Mobile-Ads-SDK', '8.5.0'
 
 end
