@@ -330,5 +330,6 @@ import ObjectiveC.runtime
         }
 
         dispatcher.stop()
+        self.dispatcher = nil
     }
 }
