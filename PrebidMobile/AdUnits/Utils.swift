@@ -78,7 +78,7 @@ public class Utils: NSObject {
 
                     let commaString: String = ","
                     if (targetingKeywordsString != "") {
-                        var keywordsArray = targetingKeywordsString.components(separatedBy: ",")
+                        let keywordsArray = targetingKeywordsString.components(separatedBy: ",")
                         var i = 0
                         var newString: String = ""
                         while i < keywordsArray.count {
