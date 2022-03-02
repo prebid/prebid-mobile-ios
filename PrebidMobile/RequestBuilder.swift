@@ -215,13 +215,13 @@ class RequestBuilder: NSObject {
         adUnitExt["prebid"] = prebidAdUnitExt
 
         var prebidAdUnitExtContext: [AnyHashable: Any] = [:]
-        if let contextKeywords = adUnit?.adUnitConfig.getContextKeywords().toCommaSeparatedListString() {
+        if let contextKeywords = adUnit?.getContextKeywordsSet().toCommaSeparatedListString() {
             prebidAdUnitExtContext["keywords"] = contextKeywords
         }
 
         var contextData: [AnyHashable: Any] = [:]
         
-        if let contextDataDictionary = adUnit?.adUnitConfig.getContextDataDictionary() {
+        if let contextDataDictionary = adUnit?.getContextDataDictionary() {
             contextData = contextDataDictionary
         }
         
@@ -321,7 +321,7 @@ class RequestBuilder: NSObject {
             app["domain"] = domain
         }
         
-        if let appContent = adUnit?.adUnitConfig.getAppContent()?.toJsonDictionary() {
+        if let appContent = adUnit?.getAppContent()?.toJsonDictionary() {
             app["content"] = appContent
         }
         
@@ -499,7 +499,7 @@ class RequestBuilder: NSObject {
 
         userDict["ext"] = requestUserExt
 
-        if let userData = adUnit?.adUnitConfig.getUserData() {
+        if let userData = adUnit?.getUserData() {
             var userDataDict = [[AnyHashable: Any]]()
             userData.forEach { dataObject in
                 userDataDict.append(dataObject.toJsonDictionary())
