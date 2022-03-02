@@ -15,6 +15,7 @@
 
 import Foundation
 
+@objcMembers
 public class MediationNativeAdUnit : NSObject {
     
     var completion: ((ResultCode) -> Void)?
@@ -79,19 +80,19 @@ public class MediationNativeAdUnit : NSObject {
     
     // MARK: - App Content
     
-    @objc public func setAppContent(_ appContent: ContentObject) {
+    public func setAppContent(_ appContent: PBMORTBAppContent) {
         nativeAdUnit.setAppContent(appContent)
     }
     
-    @objc public func clearAppContent() {
+    public func clearAppContent() {
         nativeAdUnit.clearAppContent()
     }
     
-    @objc public func addAppContentData(_ dataObjects: [ContentDataObject]) {
+    public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
         nativeAdUnit.addAppContentData(dataObjects)
     }
 
-    @objc public func removeAppContentDataObject(_ dataObject: ContentDataObject) {
+    public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
         nativeAdUnit.removeAppContentData(dataObject)
     }
     
@@ -101,15 +102,15 @@ public class MediationNativeAdUnit : NSObject {
     
     // MARK: - User Data
     
-    @objc public func addUserData(_ userDataObjects: [ContentDataObject]) {
+    public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         nativeAdUnit.addUserData(userDataObjects)
     }
     
-    @objc public func removeUserData(_ userDataObject: ContentDataObject) {
+    public func removeUserData(_ userDataObject: PBMORTBContentData) {
         nativeAdUnit.removeUserData(userDataObject)
     }
     
-    @objc public func clearUserData() {
+    public func clearUserData() {
         nativeAdUnit.clearUserData()
     }
     
