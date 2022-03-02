@@ -355,14 +355,14 @@ class AdUnitTests: XCTestCase {
     func testSetAppContent() {
         //given
         let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        let appDataObject1 = ContentDataObject()
+        let appDataObject1 = PBMORTBContentData()
         appDataObject1.id = "data id"
         appDataObject1.name = "test name"
-        let appDataObject2 = ContentDataObject()
+        let appDataObject2 = PBMORTBContentData()
         appDataObject2.id = "data id"
         appDataObject2.name = "test name"
         
-        let appContent = ContentObject()
+        let appContent = PBMORTBAppContent()
         appContent.album = "test album"
         appContent.embeddable = 1
         appContent.data = [appDataObject1, appDataObject2]
@@ -379,14 +379,14 @@ class AdUnitTests: XCTestCase {
     func testClearAppContent() {
         //given
         let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        let appDataObject1 = ContentDataObject()
+        let appDataObject1 = PBMORTBContentData()
         appDataObject1.id = "data id"
         appDataObject1.name = "test name"
-        let appDataObject2 = ContentDataObject()
+        let appDataObject2 = PBMORTBContentData()
         appDataObject2.id = "data id"
         appDataObject2.name = "test name"
         
-        let appContent = ContentObject()
+        let appContent = PBMORTBAppContent()
         appContent.album = "test album"
         appContent.embeddable = 1
         appContent.data = [appDataObject1, appDataObject2]
@@ -403,10 +403,10 @@ class AdUnitTests: XCTestCase {
     func testAddAppContentDataObject() {
         //given
         let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        let appDataObject1 = ContentDataObject()
+        let appDataObject1 = PBMORTBContentData()
         appDataObject1.id = "data id"
         appDataObject1.name = "test name"
-        let appDataObject2 = ContentDataObject()
+        let appDataObject2 = PBMORTBContentData()
         appDataObject2.id = "data id"
         appDataObject2.name = "test name"
 
@@ -421,7 +421,7 @@ class AdUnitTests: XCTestCase {
 
     func testRemoveAppContentDataObjects() {
         let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        let appDataObject = ContentDataObject()
+        let appDataObject = PBMORTBContentData()
         appDataObject.id = "data id"
         appDataObject.name = "test name"
 
@@ -438,10 +438,10 @@ class AdUnitTests: XCTestCase {
     
     func testClearAppContentDataObjects() {
         let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        let appDataObject1 = ContentDataObject()
+        let appDataObject1 = PBMORTBContentData()
         appDataObject1.id = "data id"
         appDataObject1.name = "test name"
-        let appDataObject2 = ContentDataObject()
+        let appDataObject2 = PBMORTBContentData()
         appDataObject2.id = "data id"
         appDataObject2.name = "test name"
 
@@ -459,10 +459,10 @@ class AdUnitTests: XCTestCase {
     func testAddUserDataObjects() {
         //given
         let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        let userDataObject1 = ContentDataObject()
+        let userDataObject1 = PBMORTBContentData()
         userDataObject1.id = "data id"
         userDataObject1.name = "test name"
-        let userDataObject2 = ContentDataObject()
+        let userDataObject2 = PBMORTBContentData()
         userDataObject2.id = "data id"
         userDataObject2.name = "test name"
 
@@ -477,7 +477,7 @@ class AdUnitTests: XCTestCase {
     
     func testRemoveUserDataObjects() {
         let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        let userDataObject = ContentDataObject()
+        let userDataObject = PBMORTBContentData()
         userDataObject.id = "data id"
         userDataObject.name = "test name"
 
@@ -494,10 +494,10 @@ class AdUnitTests: XCTestCase {
 
     func testClearUserDataObjects() {
         let adUnit = AdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        let userDataObject1 = ContentDataObject()
+        let userDataObject1 = PBMORTBContentData()
         userDataObject1.id = "data id"
         userDataObject1.name = "test name"
-        let userDataObject2 = ContentDataObject()
+        let userDataObject2 = PBMORTBContentData()
         userDataObject2.id = "data id"
         userDataObject2.name = "test name"
 
