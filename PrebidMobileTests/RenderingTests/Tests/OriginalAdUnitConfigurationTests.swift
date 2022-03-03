@@ -341,4 +341,29 @@ class OriginalAdUnitConfigurationTests: XCTestCase {
         let objects2 = adUnitConfig.getUserData()!
         XCTAssertEqual(0, objects2.count)
     }
+    
+    // MARK: - The Prebid Ad Slot
+    
+    func testSetPbAdSlot() {
+        guard let adUnitConfig = adUnitConfig else {
+            XCTFail()
+            return
+        }
+        
+        XCTAssertNil(adUnitConfig.getPbAdSlot())
+        adUnitConfig.setPbAdSlot("test-ad-slot")
+        XCTAssertEqual("test-ad-slot", adUnitConfig.getPbAdSlot())
+    }
+    
+    func testClearPbAdSlot() {
+        guard let adUnitConfig = adUnitConfig else {
+            XCTFail()
+            return
+        }
+        XCTAssertNil(adUnitConfig.getPbAdSlot())
+        adUnitConfig.setPbAdSlot("test-ad-slot")
+        XCTAssertNotNil(adUnitConfig.getPbAdSlot())
+        adUnitConfig.clearAdSlot()
+        XCTAssertNil(adUnitConfig.getPbAdSlot())
+    }
 }
