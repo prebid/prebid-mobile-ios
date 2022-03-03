@@ -15,8 +15,6 @@ import ObjectiveC.runtime
 
 @objcMembers public class AdUnit: NSObject, DispatcherDelegate {
 
-    public var pbAdSlot: String? = nil
-
     private static let PB_MIN_RefreshTime = 30000.0
 
     var identifier: String
@@ -239,6 +237,20 @@ import ObjectiveC.runtime
     
     public func clearUserData() {
         adUnitConfig.clearUserData()
+    }
+    
+    // MARK: - The Prebid Ad Slot
+    
+    func setPbAdSlot(_ newElement: String) {
+        adUnitConfig.setPbAdSlot(newElement)
+    }
+    
+    func getPbAdSlot() -> String? {
+        adUnitConfig.getPbAdSlot()
+    }
+    
+    func clearAdSlot() {
+        adUnitConfig.clearAdSlot()
     }
 
     // MARK: - others

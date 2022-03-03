@@ -19,7 +19,6 @@ public protocol OriginalAdUnitConfigurationProtocol {
     
     // MARK: - Properties
     
-    var pbAdSlot: String? { get set }
     var configId: String { get set }
     var adSize: CGSize { get set }
     var additionalSizes: [CGSize]? { get set }
@@ -55,4 +54,10 @@ public protocol OriginalAdUnitConfigurationProtocol {
     func addUserData(_ userDataObjects: [PBMORTBContentData])
     func removeUserData(_ userDataObject: PBMORTBContentData)
     func clearUserData()
+    
+    // MARK: - The Prebid Ad Slot
+    
+    func setPbAdSlot(_ newElement: String)
+    func getPbAdSlot() -> String?
+    func clearAdSlot()
 }

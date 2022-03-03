@@ -19,7 +19,7 @@ import UIKit
 public class OriginalAdUnitConfiguration: NSObject, OriginalAdUnitConfigurationProtocol {
    
     // MARK: - Public properties
-    public var pbAdSlot: String?
+    
     public var configId: String
     public var adSize: CGSize 
     public var additionalSizes: [CGSize]?
@@ -30,6 +30,7 @@ public class OriginalAdUnitConfiguration: NSObject, OriginalAdUnitConfigurationP
     private var appContent: PBMORTBAppContent?
     private var userData: [PBMORTBContentData]?
     private var contextKeywords = Set<String>()
+    private var pbAdSlot: String?
     
     // MARK: - Initialization
     
@@ -147,5 +148,19 @@ public class OriginalAdUnitConfiguration: NSObject, OriginalAdUnitConfigurationP
     
     public func clearUserData() {
         userData?.removeAll()
+    }
+    
+    // MARK: - The Prebid Ad Slot
+    
+    public func setPbAdSlot(_ newElement: String) {
+        pbAdSlot = newElement
+    }
+    
+    public func getPbAdSlot() -> String? {
+        return pbAdSlot
+    }
+    
+    public func clearAdSlot() {
+        pbAdSlot = nil
     }
 }
