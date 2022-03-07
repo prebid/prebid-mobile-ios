@@ -225,7 +225,7 @@ class RequestBuilder: NSObject {
             contextData = contextDataDictionary
         }
         
-        contextData["adslot"] = adUnit?.getPbAdSlot()
+        contextData["adslot"] = adUnit?.pbAdSlot
 
         prebidAdUnitExtContext["data"] = contextData
         

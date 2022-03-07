@@ -455,12 +455,12 @@ class BannerController:
         Targeting.shared.addUserData(key: "globalUserDataKey1", value: "globalUserDataValue1")
         
         //global context data
-        let userData = ContentDataObject()
+        let userData = PBMORTBContentData()
         userData.id = "globalUserDataValue1"
         adUnit.addUserData([userData])
         
         //adunit context data
-        let appData = ContentDataObject()
+        let appData = PBMORTBContentData()
         appData.id = "adunitContextDataValue1"
         adUnit.addAppContentData([appData])
         

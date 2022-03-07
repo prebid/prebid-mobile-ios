@@ -92,12 +92,8 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.addAppContentData(dataObjects)
     }
 
-    public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
+    public func removeAppContent(_ dataObject: PBMORTBContentData) {
         nativeAdUnit.removeAppContentData(dataObject)
-    }
-    
-    @objc public func clearAppContentDataObjects() {
-        nativeAdUnit.clearAppContentData()
     }
     
     // MARK: - User Data

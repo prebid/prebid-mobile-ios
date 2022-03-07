@@ -38,7 +38,7 @@ class OriginalAdUnitConfigurationTests: XCTestCase {
         let value1 = "value1"
         
         adUnitConfig.addContextData(key: key1, value: value1)
-        let dictionary = adUnitConfig.getContextDataDictionary()
+        let dictionary = adUnitConfig.getContextData()
         
         XCTAssertEqual(1, dictionary.count)
         XCTAssertTrue((dictionary[key1]?.contains(value1))!)
@@ -56,7 +56,7 @@ class OriginalAdUnitConfigurationTests: XCTestCase {
         
         adUnitConfig.updateContextData(key: key1, value: set)
         
-        let dictionary = adUnitConfig.getContextDataDictionary()
+        let dictionary = adUnitConfig.getContextData()
         
         XCTAssertEqual(1, dictionary.count)
         XCTAssertTrue((dictionary[key1]?.contains(value1))!)
@@ -73,7 +73,7 @@ class OriginalAdUnitConfigurationTests: XCTestCase {
         adUnitConfig.addContextData(key: key1, value: value1)
         
         adUnitConfig.removeContextData(for: key1)
-        let dictionary = adUnitConfig.getContextDataDictionary()
+        let dictionary = adUnitConfig.getContextData()
         
         XCTAssertEqual(0, dictionary.count)
     }
@@ -89,7 +89,7 @@ class OriginalAdUnitConfigurationTests: XCTestCase {
         adUnitConfig.addContextData(key: key1, value: value1)
         
         adUnitConfig.clearContextData()
-        let dictionary = adUnitConfig.getContextDataDictionary()
+        let dictionary = adUnitConfig.getContextData()
         
         XCTAssertEqual(0, dictionary.count)
     }
@@ -363,7 +363,7 @@ class OriginalAdUnitConfigurationTests: XCTestCase {
         XCTAssertNil(adUnitConfig.getPbAdSlot())
         adUnitConfig.setPbAdSlot("test-ad-slot")
         XCTAssertNotNil(adUnitConfig.getPbAdSlot())
-        adUnitConfig.clearAdSlot()
+        adUnitConfig.getPbAdSlot()
         XCTAssertNil(adUnitConfig.getPbAdSlot())
     }
 }

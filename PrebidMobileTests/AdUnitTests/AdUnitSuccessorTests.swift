@@ -39,8 +39,7 @@ class AdUnitSuccessorTests: XCTestCase {
 
     func testBannerAdUnitAddSize() {
         let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width1, height: Constants.height1))
-        adUnit.adUnitConfig.adSize = CGSize(width: Constants.width2, height: Constants.height2)
-        adUnit.adUnitConfig.additionalSizes = [CGSize(width: Constants.width1, height: Constants.height1)]
+        adUnit.adSizes = [CGSize(width: Constants.width2, height: Constants.height2), CGSize(width: Constants.width1, height: Constants.height1)]
         XCTAssertEqual(2, adUnit.adSizes.count)
     }
     

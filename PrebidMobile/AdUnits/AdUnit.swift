@@ -14,6 +14,11 @@ import UIKit
 import ObjectiveC.runtime
 
 @objcMembers public class AdUnit: NSObject, DispatcherDelegate {
+    
+    public var pbAdSlot: String? {
+        get { adUnitConfig.getPbAdSlot()}
+        set { adUnitConfig.setPbAdSlot(newValue) }
+    }
 
     private static let PB_MIN_RefreshTime = 30000.0
 
@@ -24,7 +29,16 @@ import ObjectiveC.runtime
     var adUnitConfig: OriginalAdUnitConfigurationProtocol
     
     var adSizes: [CGSize] {
-        [adUnitConfig.adSize] + (adUnitConfig.additionalSizes ?? [])
+        get { [adUnitConfig.adSize] + (adUnitConfig.additionalSizes ?? []) }
+        set {
+            if let adSize = newValue.first {
+                adUnitConfig.adSize = adSize
+            }
+            
+            if newValue.count > 1 {
+                adUnitConfig.additionalSizes = Array(newValue.dropFirst())
+            }
+        }
     }
     
     var prebidConfigId: String {
@@ -156,7 +170,7 @@ import ObjectiveC.runtime
     }
     
     func getContextDataDictionary() -> [String: [String]] {
-        return adUnitConfig.getContextDataDictionary()
+        return adUnitConfig.getContextData()
     }
     
     // MARK: - adunit context keywords (imp[].ext.context.keywords)
@@ -237,20 +251,6 @@ import ObjectiveC.runtime
     
     public func clearUserData() {
         adUnitConfig.clearUserData()
-    }
-    
-    // MARK: - The Prebid Ad Slot
-    
-    func setPbAdSlot(_ newElement: String) {
-        adUnitConfig.setPbAdSlot(newElement)
-    }
-    
-    func getPbAdSlot() -> String? {
-        adUnitConfig.getPbAdSlot()
-    }
-    
-    func clearAdSlot() {
-        adUnitConfig.clearAdSlot()
     }
 
     // MARK: - others

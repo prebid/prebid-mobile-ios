@@ -29,7 +29,7 @@ public protocol OriginalAdUnitConfigurationProtocol {
     func updateContextData(key: String, value: Set<String>)
     func removeContextData(for key: String)
     func clearContextData()
-    func getContextDataDictionary() -> [String: [String]]
+    func getContextData() -> [String: [String]]
     
     // MARK: - Context keywords (imp[].ext.context.keywords)
     
@@ -57,7 +57,6 @@ public protocol OriginalAdUnitConfigurationProtocol {
     
     // MARK: - The Prebid Ad Slot
     
-    func setPbAdSlot(_ newElement: String)
+    func setPbAdSlot(_ newElement: String?)
     func getPbAdSlot() -> String?
-    func clearAdSlot()
 }

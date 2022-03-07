@@ -65,7 +65,7 @@ public class OriginalAdUnitConfiguration: NSObject, OriginalAdUnitConfigurationP
         contextDataDictionary.removeAll()
     }
     
-    public func getContextDataDictionary() -> [String : [String]] {
+    public func getContextData() -> [String : [String]] {
         contextDataDictionary.mapValues { Array($0) }
     }
     
@@ -152,15 +152,11 @@ public class OriginalAdUnitConfiguration: NSObject, OriginalAdUnitConfigurationP
     
     // MARK: - The Prebid Ad Slot
     
-    public func setPbAdSlot(_ newElement: String) {
+    public func setPbAdSlot(_ newElement: String?) {
         pbAdSlot = newElement
     }
     
     public func getPbAdSlot() -> String? {
         return pbAdSlot
-    }
-    
-    public func clearAdSlot() {
-        pbAdSlot = nil
     }
 }
