@@ -215,11 +215,16 @@ class RequestBuilder: NSObject {
         adUnitExt["prebid"] = prebidAdUnitExt
 
         var prebidAdUnitExtContext: [AnyHashable: Any] = [:]
-        prebidAdUnitExtContext["keywords"] = adUnit?.getContextKeywordsSet().toCommaSeparatedListString()
+        if let contextKeywords = adUnit?.getContextKeywordsSet().toCommaSeparatedListString() {
+            prebidAdUnitExtContext["keywords"] = contextKeywords
+        }
 
         var contextData: [AnyHashable: Any] = [:]
         
-        contextData = adUnit?.getContextDataDictionary().getCopyWhereValueIsArray() ?? [:]
+        if let contextDataDictionary = adUnit?.getContextDataDictionary() {
+            contextData = contextDataDictionary
+        }
+        
         contextData["adslot"] = adUnit?.pbAdSlot
 
         prebidAdUnitExtContext["data"] = contextData
@@ -248,9 +253,10 @@ class RequestBuilder: NSObject {
                 placementValue = parameters.placement?.value
             }
             
-            let adSize = adUnit.adSizes[0]
-            video["w"] = adSize.width
-            video["h"] = adSize.height
+            if let adSize = adUnit.adSizes.first {
+                video["w"] = adSize.width
+                video["h"] = adSize.height
+            }
             
             if (adUnit is VideoInterstitialAdUnit || adUnit is RewardedVideoAdUnit) {
                 if (placementValue == nil) {
@@ -315,7 +321,7 @@ class RequestBuilder: NSObject {
             app["domain"] = domain
         }
         
-        if let appContent = adUnit?.getAppContent()?.toJSONDictionary() {
+        if let appContent = adUnit?.getAppContent()?.toJsonDictionary() {
             app["content"] = appContent
         }
         
@@ -496,7 +502,7 @@ class RequestBuilder: NSObject {
         if let userData = adUnit?.getUserData() {
             var userDataDict = [[AnyHashable: Any]]()
             userData.forEach { dataObject in
-                userDataDict.append(dataObject.toJSONDictionary())
+                userDataDict.append(dataObject.toJsonDictionary())
             }
             
             userDict["data"] = userDataDict

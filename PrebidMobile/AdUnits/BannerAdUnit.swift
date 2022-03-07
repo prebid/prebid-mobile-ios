@@ -18,11 +18,13 @@ import UIKit
 public class BannerAdUnit: BannerBaseAdUnit {
     
     public init(configId: String, size: CGSize) {
-        super.init(configId: configId, size: size)
+            super.init(configId: configId, size: size)
     }
 
     public func addAdditionalSize(sizes: [CGSize]) {
-        super.adSizes += sizes
+        if super.adUnitConfig.additionalSizes == nil {
+            super.adUnitConfig.additionalSizes = [CGSize]()
+        }
+        super.adUnitConfig.additionalSizes?.append(contentsOf: sizes)
     }
-
 }

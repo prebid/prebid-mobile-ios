@@ -900,13 +900,13 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testPostDataWithGlobalUserDataObjects() throws {
         
         //given
-        let data1 = ContentDataObject()
+        let data1 = PBMORTBContentData()
         data1.id = "id1"
         data1.name = "name1"
-        let data2 = ContentDataObject()
+        let data2 = PBMORTBContentData()
         data2.id = "id2"
         data2.name = "nam2"
-        adUnit.addUserData([data1, data2])
+        adUnit.adUnitConfig.addUserData([data1, data2])
         
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -931,10 +931,10 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testPostDataWithGlobalContextDataObjects() throws {
         
         //given
-        let data1 = ContentDataObject()
+        let data1 = PBMORTBContentData()
         data1.id = "id1"
         data1.name = "name1"
-        let data2 = ContentDataObject()
+        let data2 = PBMORTBContentData()
         data2.id = "id2"
         data2.name = "nam2"
         adUnit.addAppContentData([data1, data2])
@@ -1608,7 +1608,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
         let expectedUrl = "https://corresponding.section.publishers.website"
         
-        let appContent = ContentObject()
+        let appContent = PBMORTBAppContent()
         appContent.id = UUID().uuidString
         appContent.episode = 2
         appContent.title = "title"
@@ -1619,7 +1619,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         appContent.album = "album"
         appContent.isrc = "isrc"
         
-        let producer = ContentProducerObject()
+        let producer = PBMORTBContentProducer()
         producer.id = UUID().uuidString
         producer.name = "producerName"
         producer.cat = ["producerCat"]
@@ -1639,11 +1639,11 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         appContent.language = "language"
         appContent.embeddable = 0
         
-        let data = ContentDataObject()
+        let data = PBMORTBContentData()
         data.id = UUID().uuidString
         data.name = "dataName"
         
-        let segment = ContentSegmentObject()
+        let segment = PBMORTBContentSegment()
         segment.id = UUID().uuidString
         segment.name = "segmentName"
         segment.value = "segmentValue"
@@ -1738,7 +1738,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
         let expectedUrl = "https://corresponding.section.publishers.website"
         
-        let appContent = ContentObject()
+        let appContent = PBMORTBAppContent()
         appContent.url = expectedUrl
         
         adUnit.setAppContent(appContent)
