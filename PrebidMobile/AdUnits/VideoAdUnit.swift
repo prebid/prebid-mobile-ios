@@ -17,6 +17,10 @@ import UIKit
 
 public class VideoAdUnit: VideoBaseAdUnit {
     
+    public init(configId: String, size: CGSize) {
+            super.init(configId: configId, size: size)
+    }
+    
     public func addAdditionalSize(sizes: [CGSize]) {
         if super.adUnitConfig.additionalSizes == nil {
             super.adUnitConfig.additionalSizes = [CGSize]()
