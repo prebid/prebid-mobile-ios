@@ -27,4 +27,14 @@
     return [components year] - age;
 }
 
++ (BOOL)isYOBValid:(NSInteger)yob {
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    NSInteger year = [components year];
+    if(yob <= 1900 || yob >= year) {
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
 @end
