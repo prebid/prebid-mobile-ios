@@ -63,6 +63,8 @@
 		47D9AFCC0A845432C0CC1CD9 /* vast_om_verification_from_extension.xml in Resources */ = {isa = PBXBuildFile; fileRef = 47D9AEB6F79C7B8EE3EEF00A /* vast_om_verification_from_extension.xml */; };
 		47D9AFD469AA0D5B6CE79D43 /* MockDelayedReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47D9AF39FFB17935DB0C57B5 /* MockDelayedReachability.swift */; };
 		47D9AFFB2F592206309C5FF0 /* ACJInterstitial.json in Resources */ = {isa = PBXBuildFile; fileRef = 47D9ADF3B4DA145410B2AFF6 /* ACJInterstitial.json */; };
+		53EF49E727D613ED00648F0E /* OriginalTargetingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EF49E627D613ED00648F0E /* OriginalTargetingProtocol.swift */; };
+		53EF49E927D61CAC00648F0E /* PBMAgeUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EF49E827D61CAC00648F0E /* PBMAgeUtilsTest.swift */; };
 		53A9B5D227CFBC2500328F18 /* OriginalAdUnitConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9B5D127CFBC2500328F18 /* OriginalAdUnitConfiguration.swift */; };
 		53A9B5D427CFBC2D00328F18 /* OriginalAdUnitConfigurationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A9B5D327CFBC2D00328F18 /* OriginalAdUnitConfigurationProtocol.swift */; };
 		5BC378AB271F1CFF00444D5E /* PBMNetworkType.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37648271F1CFD00444D5E /* PBMNetworkType.h */; };
@@ -70,7 +72,7 @@
 		5BC378AD271F1CFF00444D5E /* PrebidRenderingTargeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3764A271F1CFD00444D5E /* PrebidRenderingTargeting.swift */; };
 		5BC378AE271F1CFF00444D5E /* PBMAgeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3764B271F1CFD00444D5E /* PBMAgeUtils.m */; };
 		5BC378AF271F1CFF00444D5E /* PBMNetworkType.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3764C271F1CFD00444D5E /* PBMNetworkType.m */; };
-		5BC378B0271F1CFF00444D5E /* PBMAgeUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3764D271F1CFD00444D5E /* PBMAgeUtils.h */; };
+		5BC378B0271F1CFF00444D5E /* PBMAgeUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3764D271F1CFD00444D5E /* PBMAgeUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC378B1271F1CFF00444D5E /* NSString+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3764F271F1CFD00444D5E /* NSString+PBMExtensions.h */; };
 		5BC378B2271F1CFF00444D5E /* UIView+PBMExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37650271F1CFD00444D5E /* UIView+PBMExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC378B3271F1CFF00444D5E /* NSException+PBMExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37651271F1CFD00444D5E /* NSException+PBMExtensions.m */; };
@@ -914,6 +916,8 @@
 		47D9AF73918A74CD0DB665DF /* ACJEmptyChain.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ACJEmptyChain.json; sourceTree = "<group>"; };
 		47D9AF9402144C399D6D4A1C /* ACJRefreshTest_0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ACJRefreshTest_0.json; sourceTree = "<group>"; };
 		47D9AFC2B7BDC0ABEDC5FC65 /* 320x50.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 320x50.jpg; sourceTree = "<group>"; };
+		53EF49E627D613ED00648F0E /* OriginalTargetingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalTargetingProtocol.swift; sourceTree = "<group>"; };
+		53EF49E827D61CAC00648F0E /* PBMAgeUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMAgeUtilsTest.swift; sourceTree = "<group>"; };
 		53A9B5D127CFBC2500328F18 /* OriginalAdUnitConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginalAdUnitConfiguration.swift; sourceTree = "<group>"; };
 		53A9B5D327CFBC2D00328F18 /* OriginalAdUnitConfigurationProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginalAdUnitConfigurationProtocol.swift; sourceTree = "<group>"; };
 		5BC37648271F1CFD00444D5E /* PBMNetworkType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMNetworkType.h; sourceTree = "<group>"; };
@@ -2850,6 +2854,7 @@
 				925D5D792737B8DD00A8A2B5 /* PBMVideoCreativeTestCloseDelay.swift */,
 				925D5D7B2737B90600A8A2B5 /* PBMVideoViewTest.swift */,
 				925D5D7D2737B9BE00A8A2B5 /* SkadnParametersManagerTest.swift */,
+				53EF49E827D61CAC00648F0E /* PBMAgeUtilsTest.swift */,
 				92CAF4BA27CFC0E200FCF196 /* OriginalAdUnitConfigurationTests.swift */,
 			);
 			path = Tests;
@@ -3225,6 +3230,7 @@
 				9298964A275FD3C300D3C174 /* JSONConvertible.swift */,
 				929638C627ABD66D00D30F3D /* JsonDecodable.swift */,
 				9290549127A417F00091D10D /* ImageHelper.swift */,
+				53EF49E627D613ED00648F0E /* OriginalTargetingProtocol.swift */,
 				53A9B5D127CFBC2500328F18 /* OriginalAdUnitConfiguration.swift */,
 				53A9B5D327CFBC2D00328F18 /* OriginalAdUnitConfigurationProtocol.swift */,
 			);
@@ -3760,6 +3766,7 @@
 				38F03B332576624C00E026A2 /* TrackerManagerTests.swift in Sources */,
 				925D5E382737EF0400A8A2B5 /* RewardedVideo_CompanionTest.swift in Sources */,
 				FAA2990E24349813002ACBF2 /* AdUnitObjCTests.m in Sources */,
+				53EF49E927D61CAC00648F0E /* PBMAgeUtilsTest.swift in Sources */,
 				FAA2990C243368A1002ACBF2 /* AdUnitSuccessorObjCTests.m in Sources */,
 				925D5E4B2737F1AA00A8A2B5 /* TestStringExtension.swift in Sources */,
 				922AFD49273729DE00732C53 /* PBMHTMLCreativeTest_MRAIDStorePicture.swift in Sources */,
@@ -4162,6 +4169,7 @@
 				9298964B275FD3C300D3C174 /* JSONConvertible.swift in Sources */,
 				5BC37A58271F1D0000444D5E /* PBMORTBNoBidReason.m in Sources */,
 				5BC37A85271F1D0000444D5E /* BannerEventLoadingDelegate.swift in Sources */,
+				53EF49E727D613ED00648F0E /* OriginalTargetingProtocol.swift in Sources */,
 				928BAA4627BFC58100A16E3B /* ContentObject.swift in Sources */,
 				5BC37A8D271F1D0000444D5E /* InterstitialRenderingAdUnit.swift in Sources */,
 				5BC379C0271F1D0000444D5E /* PBMInterstitialDisplayProperties.m in Sources */,

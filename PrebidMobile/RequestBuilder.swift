@@ -307,11 +307,11 @@ class RequestBuilder: NSObject {
         #endif
         requestAppExt["prebid"] = ["version": prebidSdkVersion, "source": "prebid-mobile"]
         
-        requestAppExt["data"] = Targeting.shared.getContextDataDictionary().getCopyWhereValueIsArray()
+        requestAppExt["data"] = Targeting.shared.getContextData()
         
         app["ext"] = requestAppExt
 
-        app["keywords"] = Targeting.shared.getContextKeywordsSet().toCommaSeparatedListString()
+        app["keywords"] = Targeting.shared.getContextKeywords().joined(separator: ",")
 
         if let storeUrl = Targeting.shared.storeURL, !storeUrl.isEmpty {
             app["storeurl"] = storeUrl
@@ -482,7 +482,7 @@ class RequestBuilder: NSObject {
         }
         userDict["gender"] = gender
 
-        let globalUserKeywordString = Targeting.shared.getUserKeywordsSet().toCommaSeparatedListString()
+        let globalUserKeywordString = Targeting.shared.getUserKeywords().joined(separator: ",")
         userDict["keywords"] = globalUserKeywordString
 
         var requestUserExt: [AnyHashable: Any] = [:]
@@ -495,7 +495,7 @@ class RequestBuilder: NSObject {
         }
         requestUserExt["eids"] = getExternalUserIds()
         
-        requestUserExt["data"] = Targeting.shared.getUserDataDictionary().getCopyWhereValueIsArray()
+        requestUserExt["data"] = Targeting.shared.getUserData()
 
         userDict["ext"] = requestUserExt
 

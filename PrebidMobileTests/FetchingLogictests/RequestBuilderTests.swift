@@ -1288,7 +1288,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testYearOfBirth() throws {
 
         let targeting = Targeting.shared
-        try targeting.setYearOfBirth(yob: 1990)
+        targeting.setYearOfBirth(yob: 1990)
+        XCTAssertTrue(targeting.yearOfBirth != 0)
         defer {
             targeting.clearYearOfBirth()
         }
@@ -1312,7 +1313,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         //given
         let targeting = Targeting.shared
-        XCTAssertThrowsError(try targeting.setYearOfBirth(yob: 1855))
+        targeting.setYearOfBirth(yob: 1855)
+        XCTAssertTrue(targeting.yearOfBirth == 0)
         defer {
             targeting.clearYearOfBirth()
         }
@@ -1338,7 +1340,6 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         //given
         let targeting = Targeting.shared
-        XCTAssertThrowsError(try targeting.setYearOfBirth(yob: -1))
         defer {
             targeting.clearYearOfBirth()
         }

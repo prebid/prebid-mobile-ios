@@ -158,7 +158,7 @@ limitations under the License.
     int yearOfBirth = 1985;
     
     //when
-    [Targeting.shared setYearOfBirthWithYob:yearOfBirth error:&error];
+    [Targeting.shared setYearOfBirthWithYob:yearOfBirth];
     long value1 = Targeting.shared.yearOfBirth;
     
     [Targeting.shared clearYearOfBirth];
@@ -172,20 +172,12 @@ limitations under the License.
 
 - (void)testYearOfBirthInvalid {
     
-    //when
-    NSError *error1 = nil;
-    NSError *error2 = nil;
-    NSError *error3 = nil;
-    
-    [Targeting.shared setYearOfBirthWithYob:-1 error:&error1];
-    [Targeting.shared setYearOfBirthWithYob:999 error:&error2];
-    [Targeting.shared setYearOfBirthWithYob:10000 error:&error3];
-    
-    //then
-    XCTAssertNotNil(error1);
-    XCTAssertNotNil(error2);
-    XCTAssertNotNil(error3);
-
+    [Targeting.shared setYearOfBirthWithYob:-1];
+    XCTAssertTrue(Targeting.shared.yearOfBirth == 0);
+    [Targeting.shared setYearOfBirthWithYob:999];
+    XCTAssertTrue(Targeting.shared.yearOfBirth == 0);
+    [Targeting.shared setYearOfBirthWithYob:10000];
+    XCTAssertTrue(Targeting.shared.yearOfBirth == 0);
 }
 
 //MARK: - COPPA
@@ -269,7 +261,7 @@ limitations under the License.
     Targeting.shared.purposeConsents = @"100000000000000000000000";
 
     //when
-    NSNumber *deviceAccessConsent = Targeting.shared.getDeviceAccessConsent;
+    NSNumber *deviceAccessConsent = [Targeting.shared getDeviceAccessConsentObjc];
 
     //then
     XCTAssertEqual(1, deviceAccessConsent.intValue);
@@ -299,7 +291,7 @@ limitations under the License.
      //when
      [Targeting.shared addUserDataWithKey:key value:value];
      [Targeting.shared updateUserDataWithKey:key value:set];
-     [Targeting.shared removeUserDataForKey:key];
+     [Targeting.shared removeUserDataFor:key];
      [Targeting.shared clearUserData];
 
  }
@@ -313,7 +305,7 @@ limitations under the License.
      //when
      [Targeting.shared addContextDataWithKey:key value:value];
      [Targeting.shared updateContextDataWithKey:key value:set];
-     [Targeting.shared removeContextDataForKey:key];
+     [Targeting.shared removeContextDataFor:key];
      [Targeting.shared clearContextData];
 
  }

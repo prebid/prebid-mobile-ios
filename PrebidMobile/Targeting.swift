@@ -22,7 +22,8 @@ import CoreLocation
     case female
 }
 
-@objcMembers public class Targeting: NSObject {
+@objcMembers
+public class Targeting: NSObject, OriginalTargetingProtocol {
 
     private lazy var accessControlList = Set<String>()
     private lazy var userDataDictionary = [String: Set<String>]()
@@ -86,22 +87,18 @@ import CoreLocation
     // MARK: - Year Of Birth
     //TODO refactor
     public var yearOfBirth: Int {
-        return yearofbirth
+        get { yearofbirth }
+        set { setYearOfBirth(yob: newValue) }
     }
 
     /**
      * This property gets the year of birth value set by the application developer
      */
-    public func setYearOfBirth(yob: Int) throws {
-        let date = Date()
-        let calendar = Calendar.current
-
-        let year = calendar.component(.year, from: date)
-
-        if (yob <= 1900 || yob >= year) {
-            throw ErrorCode.yearOfBirthInvalid
-        } else {
+    public func setYearOfBirth(yob: Int) {
+        if PBMAgeUtils.isYOBValid(yob) {
             yearofbirth = yob
+        } else {
+            Log.error("Incorrect birth year. It will be ignored.")
         }
     }
 
@@ -149,12 +146,11 @@ import CoreLocation
     }
     
     //Objective-C Api
-    @available(swift, obsoleted: 1.0)
+    
     public func setSubjectToGDPR(_ newValue: NSNumber?) {
         subjectToGDPR = newValue?.boolValue
     }
     
-    @available(swift, obsoleted: 1.0)
     public func getSubjectToGDPR() -> NSNumber? {
         return subjectToGDPR as NSNumber?
     }
@@ -182,7 +178,7 @@ import CoreLocation
     }
     
     // MARK: - External UserIds
-    var externalUserIds = [ExternalUserId]()
+    public var externalUserIds = [ExternalUserId]()
     /**
      * This method allows to save External User Id in the User Defaults
      */
@@ -260,13 +256,12 @@ import CoreLocation
     }
     
     //Objective-C Api
-    @available(swift, obsoleted: 1.0)
-    public func getDeviceAccessConsent() -> NSNumber? {
+    public func getDeviceAccessConsentObjc() -> NSNumber? {
         let deviceAccessConsent = getDeviceAccessConsent()
         return deviceAccessConsent as NSNumber?
     }
 
-    func getPurposeConsent(index: Int) -> Bool? {
+    public func getPurposeConsent(index: Int) -> Bool? {
 
         var purposeConsent: Bool? = nil
         if let savedPurposeConsents = purposeConsents, index >= 0, index < savedPurposeConsents.count {
@@ -307,9 +302,9 @@ import CoreLocation
         accessControlList.removeAll()
     }
     
-    func getAccessControlList() -> Set<String> {
+    public func getAccessControlList() -> [String] {
         Log.info("access control list is \(accessControlList)")
-        return accessControlList
+        return Array(accessControlList)
     }
     
     // MARK: - global user data aka visitor data (user.ext.data)
@@ -333,8 +328,8 @@ import CoreLocation
     /**
      * This method allows to remove specific user data keyword & value set from global user targeting
      */
-    public func removeUserData(forKey: String) {
-        userDataDictionary.removeValue(forKey: forKey)
+    public func removeUserData(for key: String) {
+        userDataDictionary.removeValue(forKey: key)
     }
     
     /**
@@ -344,9 +339,9 @@ import CoreLocation
         userDataDictionary.removeAll()
     }
     
-    func getUserDataDictionary() -> [String: Set<String>] {
+    public func getUserData() -> [String : [String]] {
         Log.info("global user data dictionary is \(userDataDictionary)")
-        return userDataDictionary
+        return userDataDictionary.mapValues { Array($0) }
     }
     
     // MARK: - global user keywords (user.keywords)
@@ -381,9 +376,9 @@ import CoreLocation
         userKeywordsSet.removeAll()
     }
     
-    func getUserKeywordsSet() -> Set<String> {
+    public func getUserKeywords() -> [String] {
         Log.info("global user keywords set is \(userKeywordsSet)")
-        return userKeywordsSet
+        return Array(userKeywordsSet)
     }
     
     // MARK: - global context data aka inventory data (app.ext.data)
@@ -407,8 +402,8 @@ import CoreLocation
     /**
      * This method allows to remove specific context data keyword & values set from global context targeting
      */
-    public func removeContextData(forKey: String) {
-        contextDataDictionary.removeValue(forKey: forKey)
+    public func removeContextData(for key: String) {
+        contextDataDictionary.removeValue(forKey: key)
     }
     
     /**
@@ -418,9 +413,9 @@ import CoreLocation
         contextDataDictionary.removeAll()
     }
     
-    func getContextDataDictionary() -> [String: Set<String>] {
+    public func getContextData() -> [String : [String]] {
         Log.info("gloabal context data dictionary is \(contextDataDictionary)")
-        return contextDataDictionary
+        return contextDataDictionary.mapValues { Array($0) }
     }
     
     // MARK: - global context keywords (app.keywords)
@@ -455,9 +450,8 @@ import CoreLocation
         contextKeywordsSet.removeAll()
     }
     
-    func getContextKeywordsSet() -> Set<String> {
+    public func getContextKeywords() -> [String] {
         Log.info("global context keywords set is \(contextKeywordsSet)")
-        return contextKeywordsSet
+        return Array(contextKeywordsSet)
     }
-
 }
