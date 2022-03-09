@@ -14,23 +14,50 @@
   */
 
 import Foundation
+import CoreLocation
 
 public protocol OriginalTargetingProtocol {
     
     // MARK: - Public properties
-    
+
     var yearOfBirth: Int { get set }
+    var subjectToCOPPA: Bool { get set }
     var subjectToGDPR: Bool? { get set }
+    var gdprConsentString: String? { get set }
+    var purposeConsents: String? { get set }
+     
+    var omidPartnerName: String? { get set }
+    var omidPartnerVersion: String? { get set }
+    
+    var gender: Gender { get set }
+    
+    var externalUserIds: [ExternalUserId] { get set }
+    
+    // TODO: - Mark as deprecated
+    var storeURL: String? { get set }
+    var domain: String? { get set }
+    var itunesID: String? { get set }
+    var location: CLLocation? { get set }
+    var locationPrecision: Int? { get set }
     
     // MARK: - Year Of Birth
     
     func setYearOfBirth(yob: Int)
     func clearYearOfBirth()
     
-    // MARK: - COPPA
+    // MARK: - GDPR
     
     func setSubjectToGDPR(_ newValue: NSNumber?)
     func getSubjectToGDPR() -> NSNumber?
+    
+    // MARK: - Device Access Consent
+    
+    func getDeviceAccessConsent() -> Bool?
+    func getDeviceAccessConsentObjc() -> NSNumber?
+    
+    // MARK: - Purpose consent
+    
+    func getPurposeConsent(index: Int) -> Bool? 
     
     // MARK: - External User Ids
     

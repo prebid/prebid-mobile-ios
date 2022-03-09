@@ -261,7 +261,7 @@ limitations under the License.
     Targeting.shared.purposeConsents = @"100000000000000000000000";
 
     //when
-    NSNumber *deviceAccessConsent = Targeting.shared.getDeviceAccessConsent;
+    NSNumber *deviceAccessConsent = [Targeting.shared getDeviceAccessConsentObjc];
 
     //then
     XCTAssertEqual(1, deviceAccessConsent.intValue);

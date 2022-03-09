@@ -178,7 +178,7 @@ public class Targeting: NSObject, OriginalTargetingProtocol {
     }
     
     // MARK: - External UserIds
-    var externalUserIds = [ExternalUserId]()
+    public var externalUserIds = [ExternalUserId]()
     /**
      * This method allows to save External User Id in the User Defaults
      */
@@ -256,13 +256,12 @@ public class Targeting: NSObject, OriginalTargetingProtocol {
     }
     
     //Objective-C Api
-    @available(swift, obsoleted: 1.0)
-    public func getDeviceAccessConsent() -> NSNumber? {
+    public func getDeviceAccessConsentObjc() -> NSNumber? {
         let deviceAccessConsent = getDeviceAccessConsent()
         return deviceAccessConsent as NSNumber?
     }
 
-    func getPurposeConsent(index: Int) -> Bool? {
+    public func getPurposeConsent(index: Int) -> Bool? {
 
         var purposeConsent: Bool? = nil
         if let savedPurposeConsents = purposeConsents, index >= 0, index < savedPurposeConsents.count {
