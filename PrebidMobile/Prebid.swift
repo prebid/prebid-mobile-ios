@@ -15,7 +15,8 @@
 
 import Foundation
 
-@objcMembers public class Prebid: NSObject {
+@objcMembers
+public class Prebid: NSObject, OriginalSDKConfigurationProtocol {
     
     public static let bidderNameAppNexus = "appnexus"
     public static let bidderNameRubiconProject = "rubicon"
@@ -26,8 +27,8 @@ import Foundation
         }
     }
     
-    var timeoutMillisDynamic: Int
-    var timeoutUpdated: Bool = false
+    public var timeoutMillisDynamic: Int
+    public var timeoutUpdated: Bool = false
 
     public var prebidServerAccountId: String = ""
     
@@ -35,9 +36,9 @@ import Foundation
     
     public var pbsDebug: Bool = false
 
-    var customHeaders: [String: String] = [:]
+    public var customHeaders: [String: String] = [:]
     
-    var storedBidResponses: [String: String] = [:]
+    public var storedBidResponses: [String: String] = [:]
 
     
     
@@ -74,7 +75,6 @@ import Foundation
      * Set the desidered verbosity of the logs
      */
     //Objective-C Api
-    @available(swift, obsoleted: 1.0)
     public func setLogLevel(_ logLevel: LogLevel_) {
         self.logLevel = logLevel.getPrimary()
     }
