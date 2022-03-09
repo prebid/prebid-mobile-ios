@@ -311,7 +311,7 @@ class RequestBuilder: NSObject {
         
         app["ext"] = requestAppExt
 
-        app["keywords"] = Targeting.shared.getContextKeywords()
+        app["keywords"] = Targeting.shared.getContextKeywords().joined(separator: ",")
 
         if let storeUrl = Targeting.shared.storeURL, !storeUrl.isEmpty {
             app["storeurl"] = storeUrl
@@ -482,7 +482,7 @@ class RequestBuilder: NSObject {
         }
         userDict["gender"] = gender
 
-        let globalUserKeywordString = Targeting.shared.getUserKeywords()
+        let globalUserKeywordString = Targeting.shared.getUserKeywords().joined(separator: ",")
         userDict["keywords"] = globalUserKeywordString
 
         var requestUserExt: [AnyHashable: Any] = [:]

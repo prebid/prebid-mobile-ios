@@ -132,10 +132,10 @@ class TargetingTests: XCTestCase {
     // MARK: - Year Of Birth
     func testYearOfBirth() {
         //given
-        let  yearOfBirth = 1985
-        
+        let yearOfBirth = 1985
+        Targeting.shared.setYearOfBirth(yob: yearOfBirth)
         //when
-        XCTAssertNoThrow(try Targeting.shared.setYearOfBirth(yob: yearOfBirth))
+        XCTAssertTrue(Targeting.shared.yearOfBirth != 0)
         let result = Targeting.shared.yearOfBirth
         
         //then
@@ -143,9 +143,12 @@ class TargetingTests: XCTestCase {
     }
 
     func testYearOfBirthInvalid() {
-        XCTAssertThrowsError(try Targeting.shared.setYearOfBirth(yob: -1))
-        XCTAssertThrowsError(try Targeting.shared.setYearOfBirth(yob: 999))
-        XCTAssertThrowsError(try Targeting.shared.setYearOfBirth(yob: 10000))
+        Targeting.shared.setYearOfBirth(yob: -1)
+        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
+        Targeting.shared.setYearOfBirth(yob: 999)
+        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
+        Targeting.shared.setYearOfBirth(yob: 10000)
+        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
     }
 
     //MARK: - COPPA
@@ -498,7 +501,7 @@ class TargetingTests: XCTestCase {
          
          //when
          Targeting.shared.addContextData(key: key1, value: value1)
-         let dictionary = Targeting.shared.getContextDataDictionary()
+         let dictionary = Targeting.shared.getContextData()
          let set = dictionary[key1]
 
          //then
@@ -515,7 +518,7 @@ class TargetingTests: XCTestCase {
          
          //when
          Targeting.shared.updateContextData(key: key1, value: inputSet)
-         let dictionary = Targeting.shared.getContextDataDictionary()
+         let dictionary = Targeting.shared.getContextData()
          let set = dictionary[key1]
 
          //then
@@ -531,8 +534,8 @@ class TargetingTests: XCTestCase {
          Targeting.shared.addContextData(key: key1, value: value1)
          
          //when
-         Targeting.shared.removeContextData(forKey: key1)
-         let dictionary = Targeting.shared.getContextDataDictionary()
+         Targeting.shared.removeContextData(for: key1)
+         let dictionary = Targeting.shared.getContextData()
 
          //then
          XCTAssertEqual(0, dictionary.count)
@@ -546,7 +549,7 @@ class TargetingTests: XCTestCase {
          
          //when
          Targeting.shared.clearContextData()
-         let dictionary = Targeting.shared.getContextDataDictionary()
+         let dictionary = Targeting.shared.getContextData()
 
          //then
          XCTAssertEqual(0, dictionary.count)
@@ -560,7 +563,7 @@ class TargetingTests: XCTestCase {
            
            //when
            Targeting.shared.addUserData(key: key1, value: value1)
-           let dictionary = Targeting.shared.getUserDataDictionary()
+           let dictionary = Targeting.shared.getUserData()
            let set = dictionary[key1]
 
            //then
@@ -577,7 +580,7 @@ class TargetingTests: XCTestCase {
            
            //when
            Targeting.shared.updateUserData(key: key1, value: inputSet)
-           let dictionary = Targeting.shared.getUserDataDictionary()
+           let dictionary = Targeting.shared.getUserData()
            let set = dictionary[key1]
 
            //then
@@ -593,8 +596,8 @@ class TargetingTests: XCTestCase {
            Targeting.shared.addUserData(key: key1, value: value1)
            
            //when
-           Targeting.shared.removeUserData(forKey: key1)
-           let dictionary = Targeting.shared.getUserDataDictionary()
+           Targeting.shared.removeUserData(for: key1)
+           let dictionary = Targeting.shared.getUserData()
 
            //then
            XCTAssertEqual(0, dictionary.count)
@@ -608,7 +611,7 @@ class TargetingTests: XCTestCase {
            
            //when
            Targeting.shared.clearUserData()
-           let dictionary = Targeting.shared.getUserDataDictionary()
+           let dictionary = Targeting.shared.getUserData()
 
            //then
            XCTAssertEqual(0, dictionary.count)
@@ -621,7 +624,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.addContextKeyword(value1)
-        let set = Targeting.shared.getContextKeywordsSet()
+        let set = Targeting.shared.getContextKeywords()
 
         //then
         XCTAssertEqual(1, set.count)
@@ -635,7 +638,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.addContextKeywords(inputSet)
-        let set = Targeting.shared.getContextKeywordsSet()
+        let set = Targeting.shared.getContextKeywords()
 
         //then
         XCTAssertEqual(1, set.count)
@@ -649,7 +652,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.removeContextKeyword(value1)
-        let set = Targeting.shared.getContextKeywordsSet()
+        let set = Targeting.shared.getContextKeywords()
 
         //then
         XCTAssertEqual(0, set.count)
@@ -662,7 +665,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.clearContextKeywords()
-        let set = Targeting.shared.getContextKeywordsSet()
+        let set = Targeting.shared.getContextKeywords()
 
         //then
         XCTAssertEqual(0, set.count)
@@ -675,7 +678,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.addUserKeyword(value1)
-        let set = Targeting.shared.getUserKeywordsSet()
+        let set = Targeting.shared.getUserKeywords()
 
         //then
         XCTAssertEqual(1, set.count)
@@ -689,7 +692,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.addUserKeywords(inputSet)
-        let set = Targeting.shared.getUserKeywordsSet()
+        let set = Targeting.shared.getUserKeywords()
 
         //then
         XCTAssertEqual(1, set.count)
@@ -703,7 +706,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.removeUserKeyword(value1)
-        let set = Targeting.shared.getUserKeywordsSet()
+        let set = Targeting.shared.getUserKeywords()
 
         //then
         XCTAssertEqual(0, set.count)
@@ -716,7 +719,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.clearUserKeywords()
-        let set = Targeting.shared.getUserKeywordsSet()
+        let set = Targeting.shared.getUserKeywords()
 
         //then
         XCTAssertEqual(0, set.count)
