@@ -53,7 +53,7 @@
     if (!(self = [super init])) {
         return nil;
     }
-    _adUnitConfig = [[AdUnitConfig alloc] initWithConfigID:configID];
+    _adUnitConfig = [[AdUnitConfig alloc] initWithConfigId:configID];
     _bidRequesterFactory = [bidRequesterFactory copy];
     _winNotifierBlock = [winNotifierBlock copy];
     
@@ -65,7 +65,7 @@
 // MARK: - Computed public properties
 
 - (NSString *)configId {
-    return self.adUnitConfig.configID;
+    return self.adUnitConfig.configId;
 }
 
 // MARK: - Computed protected properties
@@ -119,15 +119,15 @@
 // MARK: - Context Data
 
 - (void)addContextData:(NSString *)data forKey:(NSString *)key {
-    [self.adUnitConfig addContextData:data forKey:key];
+    [self.adUnitConfig addContextDataWithKey:key value:data];
 }
 
 - (void)updateContextData:(NSSet<NSString *> *)data forKey:(NSString *)key {
-    [self.adUnitConfig updateContextData:data forKey:key];
+    [self.adUnitConfig updateContextDataWithKey:key value:data];
 }
 
 - (void)removeContextDataForKey:(NSString *)key {
-    [self.adUnitConfig removeContextDataForKey:key];
+    [self.adUnitConfig removeContextDataFor:key];
 }
 
 - (void)clearContextData {

@@ -116,7 +116,7 @@
     
     for (PBMORTBImp *nextImp in bidRequest.imp) {
         nextImp.impID = [NSUUID UUID].UUIDString;
-        nextImp.extPrebid.storedRequestID = self.adConfiguration.configID;
+        nextImp.extPrebid.storedRequestID = self.adConfiguration.configId;
         nextImp.extPrebid.storedAuctionResponse = PrebidRenderingConfig.shared.storedAuctionResponse;
         nextImp.extPrebid.isRewardedInventory = self.adConfiguration.isOptIn;
         nextImp.extContextData = self.adConfiguration.contextDataDictionary;

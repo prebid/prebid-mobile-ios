@@ -39,7 +39,7 @@ public class MediationBannerAdUnit : NSObject {
     // MARK: - Computed properties
     
     public var configID: String {
-        adUnitConfig.configID
+        adUnitConfig.configId
     }
     
     public var adFormat: AdFormat {
@@ -70,15 +70,15 @@ public class MediationBannerAdUnit : NSObject {
     // MARK: - Context Data
     
     public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addContextData(data, forKey: key)
+        adUnitConfig.addContextData(key: key, value: data)
     }
     
     public func updateContextData(_ data: Set<String>, forKey key: String) {
-        adUnitConfig.updateContextData(data, forKey: key)
+        adUnitConfig.updateContextData(key: key, value: data)
     }
     
     public func removeContextDate(forKey key: String) {
-        adUnitConfig.removeContextData(forKey: key)
+        adUnitConfig.removeContextData(for: key)
     }
     
     public func clearContextData() {
@@ -124,7 +124,7 @@ public class MediationBannerAdUnit : NSObject {
     // MARK: - Public Methods
     
     public init(configID: String, size: CGSize, mediationDelegate: PrebidMediationDelegate) {
-        adUnitConfig = AdUnitConfig(configID: configID, size: size)
+        adUnitConfig = AdUnitConfig(configId: configID, size: size)
         self.mediationDelegate = mediationDelegate
         super.init()
         

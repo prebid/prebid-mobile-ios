@@ -167,7 +167,7 @@
             }
         }
     }
-    if ([self isInvalidID:self.adUnitConfiguration.configID]) {
+    if ([self isInvalidID:self.adUnitConfiguration.configId]) {
         return [PBMError invalidConfigId];
     }
     if ([self isInvalidID:self.sdkConfiguration.accountID]) {

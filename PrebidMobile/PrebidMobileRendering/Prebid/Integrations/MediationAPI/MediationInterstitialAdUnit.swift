@@ -48,6 +48,6 @@ public class MediationInterstitialAdUnit : MediationBaseInterstitialAdUnit {
     // MARK: - Computed Properties
     
     public override var configId: String {
-        adUnitConfig.configID
+        adUnitConfig.configId
     }
 }

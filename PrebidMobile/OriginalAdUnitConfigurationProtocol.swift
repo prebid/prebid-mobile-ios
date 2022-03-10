@@ -39,7 +39,7 @@ public protocol OriginalAdUnitConfigurationProtocol {
     func clearContextKeywords()
     func getContextKeywords() -> Set<String>
     
-    // MARK: - App Content (app.ext.prebid.data)
+    // MARK: - App Content (app.data)
     
     func setAppContent(_ appContent: PBMORTBAppContent)
     func getAppContent() -> PBMORTBAppContent?
@@ -48,7 +48,7 @@ public protocol OriginalAdUnitConfigurationProtocol {
     func removeAppContentData(_ dataObject: PBMORTBContentData)
     func clearAppContentData()
     
-    // MARK: - User Data (user.ext.data)
+    // MARK: - User Data (user.data)
     
     func getUserData() -> [PBMORTBContentData]?
     func addUserData(_ userDataObjects: [PBMORTBContentData])

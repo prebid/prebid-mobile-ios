@@ -50,7 +50,7 @@
 
 // MARK: - Public API
 - (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid configId:(NSString *)configId {
-    return self = [self initWithFrame:frame bid:bid adConfiguration:[[AdUnitConfig alloc] initWithConfigID:configId size:bid.size]];
+    return self = [self initWithFrame:frame bid:bid adConfiguration:[[AdUnitConfig alloc] initWithConfigId:configId size:bid.size]];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame bid:(Bid *)bid adConfiguration:(AdUnitConfig *)adConfiguration {
