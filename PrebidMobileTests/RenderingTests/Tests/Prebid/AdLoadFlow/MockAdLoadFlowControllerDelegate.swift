@@ -59,7 +59,7 @@ class MockAdLoadFlowControllerDelegate: NSObject, AdLoadFlowControllerDelegate {
                 return nil
             }
         }
-        return provider?() ?? AdUnitConfig(configID: "")
+        return provider?() ?? AdUnitConfig(configId: "")
     }
     
     func adLoadFlowController(_ adLoadFlowController: PBMAdLoadFlowController, failedWithError error: Error?) {

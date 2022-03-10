@@ -38,7 +38,7 @@ class PBMBannerViewTest: XCTestCase {
         let bannerView = MockBannerView(frame: CGRect(origin: .zero, size: primarySize), configID: testID, adSize: primarySize, eventHandler: BannerEventHandlerStandalone())
         let adUnitConfig = bannerView.adUnitConfig
         
-        XCTAssertEqual(adUnitConfig.configID, testID)
+        XCTAssertEqual(adUnitConfig.configId, testID)
         XCTAssertEqual(adUnitConfig.adSize, primarySize)
         
         let moreSizes = [
