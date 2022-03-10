@@ -31,7 +31,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     var adUnit: BannerAdUnit!
     override func setUp() {
 
-        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
+        PrebidConfiguration.shared.prebidServerHost = PrebidHost.Appnexus
         adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2))
     }
 
@@ -45,7 +45,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         Targeting.shared.clearContextKeywords()
         Targeting.shared.clearUserKeywords()
         Targeting.shared.removeStoredExternalUserIds()
-        Prebid.shared.externalUserIdArray = []
+        PrebidConfiguration.shared.externalUserIdArray = []
     }
 
     func testPostData() throws {
@@ -72,7 +72,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testPostDataWithServerAccountId() throws {
 
         //given
-        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        PrebidConfiguration.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -231,8 +231,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let headerValue = "value-of-the-header-field"
         
         //given
-        Prebid.shared.clearCustomHeaders()
-        Prebid.shared.addCustomHeader(name: headerField, value: headerValue)
+        PrebidConfiguration.shared.clearCustomHeaders()
+        PrebidConfiguration.shared.addCustomHeader(name: headerField, value: headerValue)
 
         //when
         let urlRequest = try getPostDataHelper(adUnit: adUnit).urlRequest
@@ -244,7 +244,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testPostDataWithRubiconHost() throws {
 
         //given
-        Prebid.shared.prebidServerHost = .Rubicon
+        PrebidConfiguration.shared.prebidServerHost = .Rubicon
 
         //when
         let urlRequest = try getPostDataHelper(adUnit: adUnit).urlRequest
@@ -265,7 +265,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         externalUserIdArray.append(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
         externalUserIdArray.append(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
         
-        Prebid.shared.externalUserIdArray = externalUserIdArray
+        PrebidConfiguration.shared.externalUserIdArray = externalUserIdArray
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -320,7 +320,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         var externalUserIdArray = [ExternalUserId]()
         externalUserIdArray.append(ExternalUserId(source: "", identifier: "999888777"))
 
-        Prebid.shared.externalUserIdArray = externalUserIdArray
+        PrebidConfiguration.shared.externalUserIdArray = externalUserIdArray
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -343,7 +343,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         var externalUserIdArray = [ExternalUserId]()
         externalUserIdArray.append(ExternalUserId(source: "netid.de", identifier: ""))
 
-        Prebid.shared.externalUserIdArray = externalUserIdArray
+        PrebidConfiguration.shared.externalUserIdArray = externalUserIdArray
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -1010,13 +1010,13 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
     func testPostDataWithStoredResponses() throws {
         //given
-        Prebid.shared.storedAuctionResponse = "111122223333"
-        Prebid.shared.addStoredBidResponse(bidder: "appnexus", responseId: "221144")
-        Prebid.shared.addStoredBidResponse(bidder: "rubicon", responseId: "221155")
+        PrebidConfiguration.shared.storedAuctionResponse = "111122223333"
+        PrebidConfiguration.shared.addStoredBidResponse(bidder: "appnexus", responseId: "221144")
+        PrebidConfiguration.shared.addStoredBidResponse(bidder: "rubicon", responseId: "221155")
 
         defer {
-            Prebid.shared.storedAuctionResponse = ""
-            Prebid.shared.clearStoredBidResponses()
+            PrebidConfiguration.shared.storedAuctionResponse = ""
+            PrebidConfiguration.shared.clearStoredBidResponses()
         }
 
         //when
@@ -1050,7 +1050,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         coreLocation?.swizzedRequestLocation()
 
-        Prebid.shared.shareGeoLocation = true
+        PrebidConfiguration.shared.shareGeoLocation = true
         do {
             sleep(10)
             try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
@@ -1070,7 +1070,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     }
 
     func testPostDataWithShareLocationOff() {
-        Prebid.shared.shareGeoLocation = false
+        PrebidConfiguration.shared.shareGeoLocation = false
         do {
             sleep(10)
             try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
@@ -1390,7 +1390,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
     func pbsDebugHelper(pbsDebug: Bool, expectedTest: Int?) throws {
         //given
-        Prebid.shared.pbsDebug = pbsDebug
+        PrebidConfiguration.shared.pbsDebug = pbsDebug
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -1403,7 +1403,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
     func testVideoAdUnit() throws {
         //given
-        Prebid.shared.prebidServerAccountId = "12345"
+        PrebidConfiguration.shared.prebidServerAccountId = "12345"
         let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
 
         //when
@@ -1436,7 +1436,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
      
     func testVideoInterstitialAdUnit() throws {
         //given
-        Prebid.shared.prebidServerAccountId = "12345"
+        PrebidConfiguration.shared.prebidServerAccountId = "12345"
         let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
 
         //when
@@ -1476,7 +1476,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
     func testRewardedVideoAdUnit() throws {
         //given
-        Prebid.shared.prebidServerAccountId = "12345"
+        PrebidConfiguration.shared.prebidServerAccountId = "12345"
         let adUnit = RewardedVideoAdUnit(configId: Constants.configID1)
 
         //when
@@ -1523,7 +1523,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
     func testVideoBaseAdUnit() throws {
         //given
-        Prebid.shared.prebidServerAccountId = "12345"
+        PrebidConfiguration.shared.prebidServerAccountId = "12345"
         let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
 
         let parameters = VideoBaseAdUnit.Parameters()

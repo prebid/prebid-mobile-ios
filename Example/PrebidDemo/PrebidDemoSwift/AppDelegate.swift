@@ -34,11 +34,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         //Declare in AppDelegate to the user agent could be passed in first call
-        Prebid.shared.shareGeoLocation = true
-        //Prebid.shared.timeoutMillis = 1000;
+        PrebidConfiguration.shared.shareGeoLocation = true
+        //PrebidConfiguration.shared.timeoutMillis = 1000;
         
-        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
-        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        PrebidConfiguration.shared.prebidServerHost = PrebidHost.Appnexus
+        PrebidConfiguration.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
         
         // Rendering
         PrebidConfiguration.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         externalUserIdArray.append(ExternalUserId(source: "criteo.com", identifier: "_fl7bV96WjZsbiUyQnJlQ3g4ckh5a1N"))
         externalUserIdArray.append(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
         externalUserIdArray.append(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
-        Prebid.shared.externalUserIdArray = externalUserIdArray
+        PrebidConfiguration.shared.externalUserIdArray = externalUserIdArray
 
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =  [ (kGADSimulatorID as! String), "cc7ca766f86b43ab6cdc92bed424069b"]
         GADMobileAds.sharedInstance().start()

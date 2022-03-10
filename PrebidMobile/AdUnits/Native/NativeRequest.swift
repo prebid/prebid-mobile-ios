@@ -88,7 +88,7 @@ public class NativeRequest: AdUnit {
         if let assets = assets {
             var assetsObjects:[Any] = []
             for asset:NativeAsset in assets {
-                if(Prebid.shared.shouldAssignNativeAssetID){
+                if(PrebidConfiguration.shared.shouldAssignNativeAssetID){
                     idCount += 1
                 }
                 assetsObjects.append(asset.getAssetObject(id: idCount))

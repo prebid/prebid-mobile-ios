@@ -109,22 +109,22 @@
         //NSArray *adUnits = [NSArray arrayWithObjects:adUnit, nil];
         NSString *adServerName = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
         NSString *host = [[NSUserDefaults standardUserDefaults] stringForKey:kPBHostKey];
-        Prebid.shared.prebidServerAccountId = accountId;
+        PrebidConfiguration.shared.prebidServerAccountId = accountId;
         
         //TODO: use it for testing
-//        Prebid.shared.storedAuctionResponse = @"1001-rubicon-300x250";
+//        PrebidConfiguration.shared.storedAuctionResponse = @"1001-rubicon-300x250";
         
         if ([adServerName isEqualToString:kMoPubString]) {
                 if ([host isEqualToString:kAppNexusString]) {
-                    Prebid.shared.prebidServerHost = PrebidHostAppnexus;
+                    PrebidConfiguration.shared.prebidServerHost = PrebidHostAppnexus;
                 } else if ([host isEqualToString:kRubiconString]) {
-                    Prebid.shared.prebidServerHost = PrebidHostRubicon;
+                    PrebidConfiguration.shared.prebidServerHost = PrebidHostRubicon;
                 }
         } else if([adServerName isEqualToString:kDFPString]){
                 if ([host isEqualToString:kAppNexusString]) {
-                    Prebid.shared.prebidServerHost = PrebidHostAppnexus;
+                    PrebidConfiguration.shared.prebidServerHost = PrebidHostAppnexus;
                 } else if ([host isEqualToString:kRubiconString]) {
-                    Prebid.shared.prebidServerHost = PrebidHostRubicon;
+                    PrebidConfiguration.shared.prebidServerHost = PrebidHostRubicon;
                 }
         }
         [self.delegate adUnitRegistered];
@@ -137,7 +137,7 @@
 
 - (void)setPrebidTargetingParams {
     Targeting.shared.gender = GenderFemale;
-    Prebid.shared.shareGeoLocation = TRUE;
+    PrebidConfiguration.shared.shareGeoLocation = TRUE;
     
 }
 

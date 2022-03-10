@@ -52,15 +52,15 @@ class PrebidDemoTests: XCTestCase {
     }
     
     func setUpAppNexus() {
-        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
-        Prebid.shared.prebidServerAccountId = Constants.PBS_ACCOUNT_ID_APPNEXUS
-        Prebid.shared.timeoutMillis = 10_000;
+        PrebidConfiguration.shared.prebidServerHost = PrebidHost.Appnexus
+        PrebidConfiguration.shared.prebidServerAccountId = Constants.PBS_ACCOUNT_ID_APPNEXUS
+        PrebidConfiguration.shared.timeoutMillis = 10_000;
     }
     
     func setUpAppRubicon() {
-        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
-        Prebid.shared.prebidServerAccountId = Constants.PBS_RUBICON_ACCOUNT_ID
-        Prebid.shared.timeoutMillis = 10_000;
+        PrebidConfiguration.shared.prebidServerHost = PrebidHost.Rubicon
+        PrebidConfiguration.shared.prebidServerAccountId = Constants.PBS_RUBICON_ACCOUNT_ID
+        PrebidConfiguration.shared.timeoutMillis = 10_000;
     }
     
     func loadNativeAssets(){
@@ -139,7 +139,7 @@ class PrebidDemoTests: XCTestCase {
         
         //given
         setUpAppRubicon()
-        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
+        PrebidConfiguration.shared.storedAuctionResponse = "1001-rubicon-300x250"
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 30.0
@@ -232,7 +232,7 @@ class PrebidDemoTests: XCTestCase {
         
         //Logic
         setUpAppRubicon()
-        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
+        PrebidConfiguration.shared.storedAuctionResponse = "1001-rubicon-300x250"
         timeoutForRequest = 30.0
         
         let prebidbBannerAdUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
@@ -365,7 +365,7 @@ class PrebidDemoTests: XCTestCase {
     func testAMInterstitialSanity() {
         
         setUpAppRubicon()
-        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
+        PrebidConfiguration.shared.storedAuctionResponse = "1001-rubicon-300x250"
         loadSuccesfulException = expectation(description: "\(#function)")
         
         //given
@@ -535,7 +535,7 @@ class PrebidDemoTests: XCTestCase {
         
         //given
         setUpAppRubicon()
-        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
+        PrebidConfiguration.shared.storedAuctionResponse = "1001-rubicon-300x250"
         loadSuccesfulException = expectation(description: "\(#function)")
         
         timeoutForRequest = 20.0
@@ -621,7 +621,7 @@ class PrebidDemoTests: XCTestCase {
     func testMoPubInterstitialSanityAppCheckTest() {
         loadSuccesfulException = expectation(description: "\(#function)")
         setUpAppRubicon()
-        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
+        PrebidConfiguration.shared.storedAuctionResponse = "1001-rubicon-300x250"
         timeoutForRequest = 20.0
         let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_RUBICON)
         let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_RUBICON)
@@ -801,7 +801,7 @@ class PrebidDemoTests: XCTestCase {
     func testAppNexusInvalidPrebidServerAccountId() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
-        Prebid.shared.prebidServerAccountId = Constants.PBS_INVALID_ACCOUNT_ID_APPNEXUS
+        PrebidConfiguration.shared.prebidServerAccountId = Constants.PBS_INVALID_ACCOUNT_ID_APPNEXUS
         timeoutForRequest = 10.0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
@@ -822,7 +822,7 @@ class PrebidDemoTests: XCTestCase {
         
         loadSuccesfulException = expectation(description: "\(#function)")
         
-        Prebid.shared.prebidServerAccountId = Constants.PBS_INVALID_ACCOUNT_ID_RUBICON
+        PrebidConfiguration.shared.prebidServerAccountId = Constants.PBS_INVALID_ACCOUNT_ID_RUBICON
         timeoutForRequest = 10.0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
         let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
@@ -840,7 +840,7 @@ class PrebidDemoTests: XCTestCase {
     func testEmptyPrebidServerAccountId() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
-        Prebid.shared.prebidServerAccountId = Constants.PBS_EMPTY_ACCOUNT_ID
+        PrebidConfiguration.shared.prebidServerAccountId = Constants.PBS_EMPTY_ACCOUNT_ID
         timeoutForRequest = 10.0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
         let dfpBanner = GAMBannerView(adSize: kGADAdSizeMediumRectangle)
@@ -904,9 +904,9 @@ class PrebidDemoTests: XCTestCase {
         
         loadSuccesfulException = expectation(description: "\(#function)")
         
-        Prebid.shared.prebidServerHost = PrebidHost.Rubicon
+        PrebidConfiguration.shared.prebidServerHost = PrebidHost.Rubicon
         
-        Prebid.shared.prebidServerAccountId = "1001"
+        PrebidConfiguration.shared.prebidServerAccountId = "1001"
         
         Targeting.shared.subjectToCOPPA = true
         defer {
@@ -966,7 +966,7 @@ class PrebidDemoTests: XCTestCase {
         loadSuccesfulException = expectation(description: "\(#function)")
         
         setUpAppRubicon()
-        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
+        PrebidConfiguration.shared.storedAuctionResponse = "1001-rubicon-300x250"
         
         let targeting = Targeting.shared
         XCTAssertNoThrow(try targeting.setYearOfBirth(yob: 2018))
@@ -992,7 +992,7 @@ class PrebidDemoTests: XCTestCase {
         loadSuccesfulException = expectation(description: "\(#function)")
         
         setUpAppRubicon()
-        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
+        PrebidConfiguration.shared.storedAuctionResponse = "1001-rubicon-300x250"
         
         let targeting = Targeting.shared
         XCTAssertNoThrow(try targeting.setYearOfBirth(yob: 1989))
@@ -1017,8 +1017,8 @@ class PrebidDemoTests: XCTestCase {
     func testAppNexusKeyValueTargeting() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
-        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
-        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        PrebidConfiguration.shared.prebidServerHost = PrebidHost.Appnexus
+        PrebidConfiguration.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
 
         timeoutForRequest = 20.0
         let adUnit = BannerAdUnit(configId: "67bac530-9832-4f78-8c94-fbf88ac7bd14", size: CGSize(width: 300, height: 250))
@@ -1040,8 +1040,8 @@ class PrebidDemoTests: XCTestCase {
     func testAppNexusKeyValueTargeting2() {
         loadSuccesfulException = expectation(description: "\(#function)")
         
-        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
-        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        PrebidConfiguration.shared.prebidServerHost = PrebidHost.Appnexus
+        PrebidConfiguration.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
 
         timeoutForRequest = 20.0
         let adUnit = BannerAdUnit(configId: "67bac530-9832-4f78-8c94-fbf88ac7bd14", size: CGSize(width: 300, height: 250))

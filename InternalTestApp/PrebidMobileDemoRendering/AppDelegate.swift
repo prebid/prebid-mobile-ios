@@ -123,7 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PrebidConfiguration.shared.locationUpdatesEnabled = false
         
         // Original Prebid Configs
-        Prebid.shared.shareGeoLocation = true
+        PrebidConfiguration.shared.shareGeoLocation = true
         
 		return true
 	}

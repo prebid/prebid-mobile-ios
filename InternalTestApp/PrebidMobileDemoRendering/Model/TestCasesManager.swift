@@ -2607,7 +2607,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     nativeController.prebidConfigId = "mock-no-bids"
                 } else {
-                    Prebid.shared.prebidServerAccountId = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    PrebidConfiguration.shared.prebidServerAccountId = "1768035c-74d3-4786-b056-13bd41f34bde"
                     nativeController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                          
@@ -2636,8 +2636,8 @@ struct TestCaseManager {
                     // FIXME: Switch the example from QA to the Prod server
                     try! PrebidConfiguration.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
                     PrebidConfiguration.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
-                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-                    Prebid.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
+                    try! PrebidConfiguration.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
+                    PrebidConfiguration.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     nativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
                 }
 
@@ -2709,8 +2709,8 @@ struct TestCaseManager {
                     // FIXME: Switch the example from QA to the Prod server
                     try! PrebidConfiguration.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
                     PrebidConfiguration.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
-                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-                    Prebid.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
+                    try! PrebidConfiguration.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
+                    PrebidConfiguration.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     mopubNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
                 }
                 mopubNativeAdController.moPubAdUnitId = "dc125bad5c124b0b896ef1407b9dfd86"
@@ -2851,8 +2851,8 @@ struct TestCaseManager {
                     // FIXME: Switch the example from QA to the Prod server
                     try! PrebidConfiguration.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
                     PrebidConfiguration.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
-                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-                    Prebid.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
+                    try! PrebidConfiguration.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
+                    PrebidConfiguration.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     gamNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
                 }
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
@@ -2953,8 +2953,8 @@ struct TestCaseManager {
                     // FIXME: Switch the example from QA to the Prod server
                     try! PrebidConfiguration.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
                     PrebidConfiguration.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
-                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-                    Prebid.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
+                    try! PrebidConfiguration.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
+                    PrebidConfiguration.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     gamNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
                 }
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit"

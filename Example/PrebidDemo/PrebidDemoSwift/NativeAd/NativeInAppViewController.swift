@@ -76,8 +76,8 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
     }
     
     func setupPBNativeInApp(host: PrebidHost, accountId: String, configId: String) {
-        Prebid.shared.prebidServerHost = host
-        Prebid.shared.prebidServerAccountId = accountId
+        PrebidConfiguration.shared.prebidServerHost = host
+        PrebidConfiguration.shared.prebidServerAccountId = accountId
         
         createNativeInAppView()
         loadNativeAssets(configId)

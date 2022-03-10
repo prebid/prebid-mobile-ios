@@ -39,7 +39,7 @@
     [externalUserIdArray addObject:[[ExternalUserId alloc]initWithSource:@"liveramp.com" identifier:@"AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg" atype:nil ext:nil]];
     [externalUserIdArray addObject:[[ExternalUserId alloc]initWithSource:@"sharedid.org" identifier:@"111111111111" atype:[NSNumber numberWithInt:1] ext:@{@"third" : @"01ERJWE5FS4RAZKG6SKQ3ZYSKV"}]];
     
-    Prebid.shared.externalUserIdArray = externalUserIdArray;
+    PrebidConfiguration.shared.externalUserIdArray = externalUserIdArray;
     
     [GAMUtils.shared initializeGAM];
 

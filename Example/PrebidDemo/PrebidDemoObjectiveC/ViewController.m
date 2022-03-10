@@ -46,9 +46,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    Prebid.shared.prebidServerAccountId = @"bfa84af2-bd16-4d35-96ad-31c6bb888df0";
-    Prebid.shared.prebidServerHost = PrebidHostAppnexus;
-    Prebid.shared.shareGeoLocation = true;
+    PrebidConfiguration.shared.prebidServerAccountId = @"bfa84af2-bd16-4d35-96ad-31c6bb888df0";
+    PrebidConfiguration.shared.prebidServerHost = PrebidHostAppnexus;
+    PrebidConfiguration.shared.shareGeoLocation = true;
     // NSError* err=nil;
     // [[Prebid shared] setCustomPrebidServerWithUrl:@"" error:&err];
     // if(err == nil)
@@ -203,11 +203,11 @@
 }
 
 -(void) setStoredResponse {
-    Prebid.shared.storedAuctionResponse = @"111122223333";
+    PrebidConfiguration.shared.storedAuctionResponse = @"111122223333";
 }
 
 -(void) setRequestTimeoutMillis {
-    Prebid.shared.timeoutMillis = 5000;
+    PrebidConfiguration.shared.timeoutMillis = 5000;
 }
 
 #pragma mark :- DFP banner delegates

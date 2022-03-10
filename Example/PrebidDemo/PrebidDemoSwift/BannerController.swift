@@ -218,9 +218,9 @@ class BannerController:
     }
 
     func setupPrebidServer(host: PrebidHost, accountId: String, storedResponse: String) {
-        Prebid.shared.prebidServerHost = host
-        Prebid.shared.prebidServerAccountId = accountId
-        Prebid.shared.storedAuctionResponse = storedResponse
+        PrebidConfiguration.shared.prebidServerHost = host
+        PrebidConfiguration.shared.prebidServerAccountId = accountId
+        PrebidConfiguration.shared.storedAuctionResponse = storedResponse
     }
     
     // MARK: Setup PBS Rendering
@@ -478,15 +478,15 @@ class BannerController:
     }
     
     func setStoredResponse() {
-        Prebid.shared.storedAuctionResponse = "111122223333"
+        PrebidConfiguration.shared.storedAuctionResponse = "111122223333"
     }
     
     func setRequestTimeoutMillis() {
-        Prebid.shared.timeoutMillis = 5000
+        PrebidConfiguration.shared.timeoutMillis = 5000
     }
 
     func enablePbsDebug() {
-        Prebid.shared.pbsDebug = true
+        PrebidConfiguration.shared.pbsDebug = true
     }
     
     // MARK: - BannerViewDelegate

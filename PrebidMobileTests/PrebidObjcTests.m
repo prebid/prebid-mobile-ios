@@ -36,10 +36,10 @@ limitations under the License.
     PrebidHost case2 = PrebidHostRubicon;
     
     //when
-    Prebid.shared.prebidServerHost = case1;
-    PrebidHost result1 = Prebid.shared.prebidServerHost;
-    Prebid.shared.prebidServerHost = case2;
-    PrebidHost result2 = Prebid.shared.prebidServerHost;
+    PrebidConfiguration.shared.prebidServerHost = case1;
+    PrebidHost result1 = PrebidConfiguration.shared.prebidServerHost;
+    PrebidConfiguration.shared.prebidServerHost = case2;
+    PrebidHost result2 = PrebidConfiguration.shared.prebidServerHost;
     
     //then
     XCTAssertEqual(case1, result1);
@@ -51,7 +51,7 @@ limitations under the License.
     NSError *error = nil;
     
     //when
-    [Prebid.shared setCustomPrebidServerWithUrl:@"wrong url" error:&error];
+    [PrebidConfiguration.shared setCustomPrebidServerWithUrl:@"wrong url" error:&error];
     
     //then
     XCTAssertNotNil(error);
@@ -62,10 +62,10 @@ limitations under the License.
     NSString *serverAccountId = @"123";
     
     //when
-    Prebid.shared.prebidServerAccountId = serverAccountId;
+    PrebidConfiguration.shared.prebidServerAccountId = serverAccountId;
     
     //then
-    XCTAssertEqualObjects(serverAccountId, Prebid.shared.prebidServerAccountId);
+    XCTAssertEqualObjects(serverAccountId, PrebidConfiguration.shared.prebidServerAccountId);
 }
 
 - (void)testStoredAuctionResponse {
@@ -73,18 +73,18 @@ limitations under the License.
     NSString *storedAuctionResponse = @"111122223333";
     
     //when
-    Prebid.shared.storedAuctionResponse = storedAuctionResponse;
+    PrebidConfiguration.shared.storedAuctionResponse = storedAuctionResponse;
     
     //then
-    XCTAssertEqualObjects(storedAuctionResponse, Prebid.shared.storedAuctionResponse);
+    XCTAssertEqualObjects(storedAuctionResponse, PrebidConfiguration.shared.storedAuctionResponse);
 }
 
 - (void)testAddStoredBidResponse {
-    [Prebid.shared addStoredBidResponseWithBidder:@"rubicon" responseId:@"221155"];
+    [PrebidConfiguration.shared addStoredBidResponseWithBidder:@"rubicon" responseId:@"221155"];
 }
 
 - (void)testClearStoredBidResponses {
-    [Prebid.shared clearStoredBidResponses];
+    [PrebidConfiguration.shared clearStoredBidResponses];
 }
 
 - (void)testShareGeoLocation {
@@ -93,11 +93,11 @@ limitations under the License.
     BOOL case2 = NO;
     
     //when
-    Prebid.shared.shareGeoLocation = case1;
-    BOOL result1 = Prebid.shared.shareGeoLocation;
+    PrebidConfiguration.shared.shareGeoLocation = case1;
+    BOOL result1 = PrebidConfiguration.shared.shareGeoLocation;
     
-    Prebid.shared.shareGeoLocation = case2;
-    BOOL result2 = Prebid.shared.shareGeoLocation;
+    PrebidConfiguration.shared.shareGeoLocation = case2;
+    BOOL result2 = PrebidConfiguration.shared.shareGeoLocation;
     
     //rhen
     XCTAssertEqual(case1, result1);
@@ -109,14 +109,14 @@ limitations under the License.
     int timeoutMillis =  3000;
     
     //when
-    Prebid.shared.bidRequestTimeoutMillis = timeoutMillis;
+    PrebidConfiguration.shared.bidRequestTimeoutMillis = timeoutMillis;
     
     //then
-    XCTAssertEqual(timeoutMillis, Prebid.shared.bidRequestTimeoutMillis);
+    XCTAssertEqual(timeoutMillis, PrebidConfiguration.shared.bidRequestTimeoutMillis);
 }
 
 - (void)testLogLevel {
-    [Prebid.shared setLogLevel:LogLevel_Debug];
+    [PrebidConfiguration.shared setLogLevel:LogLevel_Debug];
 }
 
 - (void)testBidderName {
@@ -129,10 +129,10 @@ limitations under the License.
     BOOL pbsDebug = true;
     
     //when
-    Prebid.shared.pbsDebug = pbsDebug;
+    PrebidConfiguration.shared.pbsDebug = pbsDebug;
     
     //then
-    XCTAssertEqual(pbsDebug, Prebid.shared.pbsDebug);
+    XCTAssertEqual(pbsDebug, PrebidConfiguration.shared.pbsDebug);
 }
 
 @end

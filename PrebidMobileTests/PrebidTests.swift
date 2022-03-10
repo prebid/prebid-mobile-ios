@@ -24,11 +24,11 @@ class OriginalSDKConfigurationTests: XCTestCase {
         let case2 = PrebidHost.Rubicon
         
         //when
-        Prebid.shared.prebidServerHost = case1
-        let result1 = Prebid.shared.prebidServerHost
+        PrebidConfiguration.shared.prebidServerHost = case1
+        let result1 = PrebidConfiguration.shared.prebidServerHost
         
-        Prebid.shared.prebidServerHost = case2
-        let result2 = Prebid.shared.prebidServerHost
+        PrebidConfiguration.shared.prebidServerHost = case2
+        let result2 = PrebidConfiguration.shared.prebidServerHost
         
         //then
         XCTAssertEqual(case1, result1)
@@ -41,20 +41,20 @@ class OriginalSDKConfigurationTests: XCTestCase {
         
         //when
         //We can not use setCustomPrebidServer() because it uses UIApplication.shared.canOpenURL
-//        try! Prebid.shared.setCustomPrebidServer(url: customHost)
+//        try! PrebidConfiguration.shared.setCustomPrebidServer(url: customHost)
         
-        Prebid.shared.prebidServerHost = PrebidHost.Custom
+        PrebidConfiguration.shared.prebidServerHost = PrebidHost.Custom
         try Host.shared.setCustomHostURL(customHost)
         
         //then
-        XCTAssertEqual(PrebidHost.Custom, Prebid.shared.prebidServerHost)
+        XCTAssertEqual(PrebidHost.Custom, PrebidConfiguration.shared.prebidServerHost)
         let getHostURLResult = try Host.shared.getHostURL(host: .Custom)
         XCTAssertEqual(customHost, getHostURLResult)
     }
     
     func testServerHostCustomInvalid() throws {
 
-        XCTAssertThrowsError(try Prebid.shared.setCustomPrebidServer(url: "wrong url"))
+        XCTAssertThrowsError(try PrebidConfiguration.shared.setCustomPrebidServer(url: "wrong url"))
     }
     
     func testAccountId() {
@@ -62,10 +62,10 @@ class OriginalSDKConfigurationTests: XCTestCase {
         let serverAccountId = "123"
         
         //when
-        Prebid.shared.prebidServerAccountId = serverAccountId
+        PrebidConfiguration.shared.prebidServerAccountId = serverAccountId
         
         //then
-        XCTAssertEqual(serverAccountId, Prebid.shared.prebidServerAccountId)
+        XCTAssertEqual(serverAccountId, PrebidConfiguration.shared.prebidServerAccountId)
     }
 
     func testStoredAuctionResponse() {
@@ -73,10 +73,10 @@ class OriginalSDKConfigurationTests: XCTestCase {
         let storedAuctionResponse = "111122223333"
         
         //when
-        Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        PrebidConfiguration.shared.storedAuctionResponse = storedAuctionResponse
         
         //then
-        XCTAssertEqual(storedAuctionResponse, Prebid.shared.storedAuctionResponse)
+        XCTAssertEqual(storedAuctionResponse, PrebidConfiguration.shared.storedAuctionResponse)
     }
     
     func testAddStoredBidResponse() {
@@ -89,11 +89,11 @@ class OriginalSDKConfigurationTests: XCTestCase {
         let rubiconResponseId = "221155"
         
         //when
-        Prebid.shared.addStoredBidResponse(bidder: appnexusBidder, responseId: appnexusResponseId)
-        Prebid.shared.addStoredBidResponse(bidder: rubiconBidder, responseId: rubiconResponseId)
+        PrebidConfiguration.shared.addStoredBidResponse(bidder: appnexusBidder, responseId: appnexusResponseId)
+        PrebidConfiguration.shared.addStoredBidResponse(bidder: rubiconBidder, responseId: rubiconResponseId)
         
         //then
-        let dict = Prebid.shared.storedBidResponses
+        let dict = PrebidConfiguration.shared.storedBidResponses
         XCTAssertEqual(2, dict.count)
         XCTAssert(dict[appnexusBidder] == appnexusResponseId && dict[rubiconBidder] == rubiconResponseId )
     }
@@ -101,12 +101,12 @@ class OriginalSDKConfigurationTests: XCTestCase {
     func testClearStoredBidResponses() {
         
         //given
-        Prebid.shared.addStoredBidResponse(bidder: "rubicon", responseId: "221155")
-        let case1 = Prebid.shared.storedBidResponses.count
+        PrebidConfiguration.shared.addStoredBidResponse(bidder: "rubicon", responseId: "221155")
+        let case1 = PrebidConfiguration.shared.storedBidResponses.count
         
         //when
-        Prebid.shared.clearStoredBidResponses()
-        let case2 = Prebid.shared.storedBidResponses.count
+        PrebidConfiguration.shared.clearStoredBidResponses()
+        let case2 = PrebidConfiguration.shared.storedBidResponses.count
         
         //then
         XCTAssertNotEqual(0, case1)
@@ -123,11 +123,11 @@ class OriginalSDKConfigurationTests: XCTestCase {
         let bundleName = "com.app.nextAd"
 
         //when
-        Prebid.shared.addCustomHeader(name: sdkVersionHeader, value: sdkVersion)
-        Prebid.shared.addCustomHeader(name: bundleHeader, value: bundleName)
+        PrebidConfiguration.shared.addCustomHeader(name: sdkVersionHeader, value: sdkVersion)
+        PrebidConfiguration.shared.addCustomHeader(name: bundleHeader, value: bundleName)
 
         //then
-        let dict = Prebid.shared.customHeaders
+        let dict = PrebidConfiguration.shared.customHeaders
         XCTAssertEqual(2, dict.count)
         XCTAssert(dict[sdkVersionHeader] == sdkVersion && dict[bundleHeader] == bundleName )
     }
@@ -135,12 +135,12 @@ class OriginalSDKConfigurationTests: XCTestCase {
     func testClearCustomHeaders() {
 
         //given
-        Prebid.shared.addCustomHeader(name: "header", value: "value")
-        let case1 = Prebid.shared.customHeaders.count
+        PrebidConfiguration.shared.addCustomHeader(name: "header", value: "value")
+        let case1 = PrebidConfiguration.shared.customHeaders.count
 
         //when
-        Prebid.shared.clearCustomHeaders()
-        let case2 = Prebid.shared.customHeaders.count
+        PrebidConfiguration.shared.clearCustomHeaders()
+        let case2 = PrebidConfiguration.shared.customHeaders.count
 
         //then
         XCTAssertNotEqual(0, case1)
@@ -153,11 +153,11 @@ class OriginalSDKConfigurationTests: XCTestCase {
         let case2 = false
         
         //when
-        Prebid.shared.shareGeoLocation = case1
-        let result1 = Prebid.shared.shareGeoLocation
+        PrebidConfiguration.shared.shareGeoLocation = case1
+        let result1 = PrebidConfiguration.shared.shareGeoLocation
         
-        Prebid.shared.shareGeoLocation = case2
-        let result2 = Prebid.shared.shareGeoLocation
+        PrebidConfiguration.shared.shareGeoLocation = case2
+        let result2 = PrebidConfiguration.shared.shareGeoLocation
         
         //rhen
         XCTAssertEqual(case1, result1)
@@ -169,10 +169,10 @@ class OriginalSDKConfigurationTests: XCTestCase {
         let timeoutMillis =  3_000
         
         //when
-        Prebid.shared.bidRequestTimeoutMillis = timeoutMillis
+        PrebidConfiguration.shared.bidRequestTimeoutMillis = timeoutMillis
         
         //then
-        XCTAssertEqual(timeoutMillis, Prebid.shared.bidRequestTimeoutMillis)
+        XCTAssertEqual(timeoutMillis, PrebidConfiguration.shared.bidRequestTimeoutMillis)
     }
     
     func testLogLevel() {
@@ -180,10 +180,10 @@ class OriginalSDKConfigurationTests: XCTestCase {
         let logLevel = LogLevel.verbose
         
         //when
-        Prebid.shared.logLevel = logLevel
+        PrebidConfiguration.shared.logLevel = logLevel
         
         //then
-        XCTAssertEqual(logLevel, Prebid.shared.logLevel)
+        XCTAssertEqual(logLevel, PrebidConfiguration.shared.logLevel)
         
     }
     
@@ -197,9 +197,9 @@ class OriginalSDKConfigurationTests: XCTestCase {
         let pbsDebug = true
         
         //when
-        Prebid.shared.pbsDebug = pbsDebug
+        PrebidConfiguration.shared.pbsDebug = pbsDebug
         
         //then
-        XCTAssertEqual(pbsDebug, Prebid.shared.pbsDebug)
+        XCTAssertEqual(pbsDebug, PrebidConfiguration.shared.pbsDebug)
     }
 }

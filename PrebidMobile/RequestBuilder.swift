@@ -48,8 +48,8 @@ class RequestBuilder: NSObject {
 
     func buildRequest(adUnit: AdUnit?) throws -> URLRequest? {
 
-        let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
-        var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Int(truncating: Prebid.shared.bidRequestTimeoutDynamic ?? NSNumber(value: .PB_Request_Timeout))))
+        let hostUrl: String = try Host.shared.getHostURL(host: PrebidConfiguration.shared.prebidServerHost)
+        var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Int(truncating: PrebidConfiguration.shared.bidRequestTimeoutDynamic ?? NSNumber(value: .PB_Request_Timeout))))
         request.httpMethod = "POST"
         let requestBody = openRTBRequestBody(adUnit: adUnit) ?? [:]
         let requestBodyJSON = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
@@ -75,7 +75,7 @@ class RequestBuilder: NSObject {
     }
     
     func setCustomHeaders(request: inout URLRequest) {
-        for(headerName, headerValue) in Prebid.shared.customHeaders {
+        for(headerName, headerValue) in PrebidConfiguration.shared.customHeaders {
             request.addValue(headerValue, forHTTPHeaderField: headerName)
         }
     }
@@ -92,7 +92,7 @@ class RequestBuilder: NSObject {
         requestDict["imp"] = openrtbImps(adUnit: adUnit)
         requestDict["ext"] = openrtbRequestExtension()
         
-        if Prebid.shared.pbsDebug {
+        if PrebidConfiguration.shared.pbsDebug {
             requestDict["test"] = 1
         }
 
@@ -136,7 +136,7 @@ class RequestBuilder: NSObject {
 
     func openrtbRequestExtension() -> [AnyHashable: Any]? {
         var requestPrebidExt: [AnyHashable: Any] = [:]
-        requestPrebidExt["storedrequest"] = ["id": Prebid.shared.prebidServerAccountId]
+        requestPrebidExt["storedrequest"] = ["id": PrebidConfiguration.shared.prebidServerAccountId]
         requestPrebidExt["data"] = ["bidders": Array(Targeting.shared.getAccessControlList())]
 
         var requestExt: [AnyHashable: Any] = [:]
@@ -190,14 +190,14 @@ class RequestBuilder: NSObject {
             prebidAdUnitExt["storedrequest"] = ["id": anId]
         }
 
-        if let storedAuctionResponse = Prebid.shared.storedAuctionResponse, !storedAuctionResponse.isEmpty {
-            prebidAdUnitExt["storedauctionresponse"] = ["id": Prebid.shared.storedAuctionResponse]
+        if let storedAuctionResponse = PrebidConfiguration.shared.storedAuctionResponse, !storedAuctionResponse.isEmpty {
+            prebidAdUnitExt["storedauctionresponse"] = ["id": PrebidConfiguration.shared.storedAuctionResponse]
         }
 
-        if !Prebid.shared.storedBidResponses.isEmpty {
+        if !PrebidConfiguration.shared.storedBidResponses.isEmpty {
             var storedBidResponses: [Any] = []
 
-            for(bidder, responseId) in Prebid.shared.storedBidResponses {
+            for(bidder, responseId) in PrebidConfiguration.shared.storedBidResponses {
                 var storedBidResponse: [String: String] = [:]
                 storedBidResponse["bidder"] = bidder
                 storedBidResponse["id"] = responseId
@@ -294,7 +294,7 @@ class RequestBuilder: NSObject {
         }
         app["ver"] = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         let publisher = PublisherObject()
-        publisher.id = Prebid.shared.prebidServerAccountId
+        publisher.id = PrebidConfiguration.shared.prebidServerAccountId
         app["publisher"] = publisher.toJSONDictionary()
 
         var requestAppExt: [AnyHashable: Any] = [:]
@@ -419,7 +419,7 @@ class RequestBuilder: NSObject {
 
     func openrtbGeo() -> [AnyHashable: Any]? {
 
-        guard Prebid.shared.shareGeoLocation, let location = CLLocationManager().location else {
+        guard PrebidConfiguration.shared.shareGeoLocation, let location = CLLocationManager().location else {
             return nil
         }
         
@@ -514,8 +514,8 @@ class RequestBuilder: NSObject {
     func getExternalUserIds() -> [[AnyHashable: Any]]? {
        
         var externalUserIdArray = [ExternalUserId]()
-        if Prebid.shared.externalUserIdArray.count != 0 {
-            externalUserIdArray = Prebid.shared.externalUserIdArray
+        if PrebidConfiguration.shared.externalUserIdArray.count != 0 {
+            externalUserIdArray = PrebidConfiguration.shared.externalUserIdArray
         }
         else if Targeting.shared.externalUserIds.count != 0{
             externalUserIdArray = Targeting.shared.externalUserIds

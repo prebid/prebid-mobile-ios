@@ -30,8 +30,8 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
-        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        PrebidConfiguration.shared.prebidServerHost = PrebidHost.Appnexus
+        PrebidConfiguration.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
         
         loadNativeAssets()
         

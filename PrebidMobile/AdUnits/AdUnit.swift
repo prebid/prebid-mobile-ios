@@ -97,7 +97,7 @@ import ObjectiveC.runtime
             completion(ResultCode.prebidInvalidConfigId)
             return
         }
-        if (Prebid.shared.prebidServerAccountId.isEmpty || (Prebid.shared.prebidServerAccountId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
+        if (PrebidConfiguration.shared.prebidServerAccountId.isEmpty || (PrebidConfiguration.shared.prebidServerAccountId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
             completion(ResultCode.prebidInvalidAccountId)
             return
         }
@@ -128,7 +128,7 @@ import ObjectiveC.runtime
             }
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int(truncating: Prebid.shared.bidRequestTimeoutDynamic ?? NSNumber(value: .PB_Request_Timeout))), execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int(truncating: PrebidConfiguration.shared.bidRequestTimeoutDynamic ?? NSNumber(value: .PB_Request_Timeout))), execute: {
             if (!self.didReceiveResponse) {
                 self.timeOutSignalSent = true
                 completion(ResultCode.prebidDemandTimedOut)

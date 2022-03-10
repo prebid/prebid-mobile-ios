@@ -119,9 +119,9 @@ class RewardedVideoController:
     }
     
     func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
-        Prebid.shared.prebidServerHost = host
-        Prebid.shared.prebidServerAccountId = accountId
-        Prebid.shared.storedAuctionResponse = storedResponse
+        PrebidConfiguration.shared.prebidServerHost = host
+        PrebidConfiguration.shared.prebidServerAccountId = accountId
+        PrebidConfiguration.shared.storedAuctionResponse = storedResponse
     }
     
     func setupOpenXPrebid() {
