@@ -71,6 +71,8 @@ class Log {
         formatter.timeZone = TimeZone.current
         return formatter
     }
+    
+    static var logLevel: LogLevel = .debug
 
     private class func isLoggingEnabled(for currentEvent: LogLevel) -> Bool {
         #if !(DEBUG)

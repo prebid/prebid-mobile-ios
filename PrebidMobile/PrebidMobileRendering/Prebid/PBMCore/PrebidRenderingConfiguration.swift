@@ -49,7 +49,10 @@ public class PrebidRenderingConfig: NSObject, OriginalSDKConfigurationProtocol {
     /**
      * Set the desidered verbosity of the logs
      */
-    public var logLevel: LogLevel = .debug
+    public var logLevel: LogLevel {
+        get { Log.logLevel }
+        set { Log.logLevel = newValue }
+    }
     
     /**
      * Array  containing objects that hold External UserId parameters.
@@ -94,12 +97,6 @@ public class PrebidRenderingConfig: NSObject, OriginalSDKConfigurationProtocol {
 
     //Controls whether to use PrebidMobile's in-app browser or the Safari App for displaying ad clickthrough content.
     public var useExternalClickthroughBrowser = false
-
-    
-//    public var logLevel: PBMLogLevel {
-//        get { PBMLog.shared.logLevel }
-//        set { PBMLog.shared.logLevel = newValue }
-//    }
 
     //If set to true, the output of PrebidMobile's internal logger is written to a text file. This can be helpful for debugging. Defaults to false.
     public var debugLogFileEnabled: Bool {
