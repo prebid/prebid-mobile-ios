@@ -157,7 +157,7 @@
 		5BC37902271F1CFF00444D5E /* PBMORTBGeo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376A3271F1CFD00444D5E /* PBMORTBGeo.m */; };
 		5BC37903271F1CFF00444D5E /* PBMORTBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376A4271F1CFD00444D5E /* PBMORTBVideo.m */; };
 		5BC37904271F1CFF00444D5E /* PBMORTBRegs.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376A5271F1CFD00444D5E /* PBMORTBRegs.h */; };
-		5BC37905271F1CFF00444D5E /* PrebidRenderingConfig+TestExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376A6271F1CFD00444D5E /* PrebidRenderingConfig+TestExtension.m */; };
+		5BC37905271F1CFF00444D5E /* PrebidConfiguration+TestExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376A6271F1CFD00444D5E /* PrebidConfiguration+TestExtension.m */; };
 		5BC37906271F1CFF00444D5E /* PBMWebView+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376A7271F1CFD00444D5E /* PBMWebView+Internal.h */; };
 		5BC37907271F1CFF00444D5E /* PBMVastGlobals.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376A8271F1CFE00444D5E /* PBMVastGlobals.m */; };
 		5BC37908271F1CFF00444D5E /* PBMFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376AA271F1CFE00444D5E /* PBMFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -226,7 +226,7 @@
 		5BC3794A271F1D0000444D5E /* PBMAdDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376EF271F1CFE00444D5E /* PBMAdDetails.m */; };
 		5BC3794B271F1D0000444D5E /* PBMAdDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376F0271F1CFE00444D5E /* PBMAdDetails.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC3794C271F1D0000444D5E /* PBMCreativeViewabilityTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376F1271F1CFE00444D5E /* PBMCreativeViewabilityTracker.h */; };
-		5BC3794D271F1D0000444D5E /* PrebidRenderingConfig+TestExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376F2271F1CFE00444D5E /* PrebidRenderingConfig+TestExtension.h */; };
+		5BC3794D271F1D0000444D5E /* PrebidConfiguration+TestExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376F2271F1CFE00444D5E /* PrebidConfiguration+TestExtension.h */; };
 		5BC3794E271F1D0000444D5E /* AdPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376F3271F1CFE00444D5E /* AdPosition.swift */; };
 		5BC3794F271F1D0000444D5E /* PBMErrorType.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376F4271F1CFE00444D5E /* PBMErrorType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37950271F1D0000444D5E /* PBMCreativeFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376F6271F1CFE00444D5E /* PBMCreativeFactory.m */; };
@@ -395,7 +395,7 @@
 		5BC37A18271F1D0000444D5E /* PBMViewControllerProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC377CC271F1CFF00444D5E /* PBMViewControllerProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37A19271F1D0000444D5E /* PBMBidRequesterFactoryBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC377CD271F1CFF00444D5E /* PBMBidRequesterFactoryBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37A1A271F1D0000444D5E /* PBMRawBidResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC377CE271F1CFF00444D5E /* PBMRawBidResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5BC37A1B271F1D0000444D5E /* PrebidRenderingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377CF271F1CFF00444D5E /* PrebidRenderingConfiguration.swift */; };
+		5BC37A1B271F1D0000444D5E /* PrebidConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377CF271F1CFF00444D5E /* PrebidConfiguration.swift */; };
 		5BC37A1C271F1D0000444D5E /* PBMErrorFamily.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377D0271F1CFF00444D5E /* PBMErrorFamily.m */; };
 		5BC37A1D271F1D0000444D5E /* PBMWinNotifier+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC377D1271F1CFF00444D5E /* PBMWinNotifier+Private.h */; };
 		5BC37A1E271F1D0000444D5E /* FetchDemandResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377D2271F1CFF00444D5E /* FetchDemandResult.swift */; };
@@ -1009,7 +1009,7 @@
 		5BC376A3271F1CFD00444D5E /* PBMORTBGeo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMORTBGeo.m; sourceTree = "<group>"; };
 		5BC376A4271F1CFD00444D5E /* PBMORTBVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMORTBVideo.m; sourceTree = "<group>"; };
 		5BC376A5271F1CFD00444D5E /* PBMORTBRegs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMORTBRegs.h; sourceTree = "<group>"; };
-		5BC376A6271F1CFD00444D5E /* PrebidRenderingConfig+TestExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PrebidRenderingConfig+TestExtension.m"; sourceTree = "<group>"; };
+		5BC376A6271F1CFD00444D5E /* PrebidConfiguration+TestExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PrebidConfiguration+TestExtension.m"; sourceTree = "<group>"; };
 		5BC376A7271F1CFD00444D5E /* PBMWebView+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMWebView+Internal.h"; sourceTree = "<group>"; };
 		5BC376A8271F1CFE00444D5E /* PBMVastGlobals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMVastGlobals.m; sourceTree = "<group>"; };
 		5BC376AA271F1CFE00444D5E /* PBMFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMFunctions.h; sourceTree = "<group>"; };
@@ -1079,7 +1079,7 @@
 		5BC376EF271F1CFE00444D5E /* PBMAdDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMAdDetails.m; sourceTree = "<group>"; };
 		5BC376F0271F1CFE00444D5E /* PBMAdDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMAdDetails.h; sourceTree = "<group>"; };
 		5BC376F1271F1CFE00444D5E /* PBMCreativeViewabilityTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMCreativeViewabilityTracker.h; sourceTree = "<group>"; };
-		5BC376F2271F1CFE00444D5E /* PrebidRenderingConfig+TestExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidRenderingConfig+TestExtension.h"; sourceTree = "<group>"; };
+		5BC376F2271F1CFE00444D5E /* PrebidConfiguration+TestExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PrebidConfiguration+TestExtension.h"; sourceTree = "<group>"; };
 		5BC376F3271F1CFE00444D5E /* AdPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdPosition.swift; sourceTree = "<group>"; };
 		5BC376F4271F1CFE00444D5E /* PBMErrorType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMErrorType.h; sourceTree = "<group>"; };
 		5BC376F6271F1CFE00444D5E /* PBMCreativeFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMCreativeFactory.m; sourceTree = "<group>"; };
@@ -1248,7 +1248,7 @@
 		5BC377CC271F1CFF00444D5E /* PBMViewControllerProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMViewControllerProvider.h; sourceTree = "<group>"; };
 		5BC377CD271F1CFF00444D5E /* PBMBidRequesterFactoryBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMBidRequesterFactoryBlock.h; sourceTree = "<group>"; };
 		5BC377CE271F1CFF00444D5E /* PBMRawBidResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMRawBidResponse.h; sourceTree = "<group>"; };
-		5BC377CF271F1CFF00444D5E /* PrebidRenderingConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidRenderingConfiguration.swift; sourceTree = "<group>"; };
+		5BC377CF271F1CFF00444D5E /* PrebidConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidConfiguration.swift; sourceTree = "<group>"; };
 		5BC377D0271F1CFF00444D5E /* PBMErrorFamily.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMErrorFamily.m; sourceTree = "<group>"; };
 		5BC377D1271F1CFF00444D5E /* PBMWinNotifier+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMWinNotifier+Private.h"; sourceTree = "<group>"; };
 		5BC377D2271F1CFF00444D5E /* FetchDemandResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchDemandResult.swift; sourceTree = "<group>"; };
@@ -2379,7 +2379,7 @@
 				5BC377D1271F1CFF00444D5E /* PBMWinNotifier+Private.h */,
 				5BC377C6271F1CFF00444D5E /* PBMWinNotifierBlock.h */,
 				5BC3780D271F1CFF00444D5E /* PBMWinNotifierFactoryBlock.h */,
-				5BC377CF271F1CFF00444D5E /* PrebidRenderingConfiguration.swift */,
+				5BC377CF271F1CFF00444D5E /* PrebidConfiguration.swift */,
 				5BC37831271F1CFF00444D5E /* TransactionFactory */,
 			);
 			path = PBMCore;
@@ -2703,8 +2703,8 @@
 				5BC376A8271F1CFE00444D5E /* PBMVastGlobals.m */,
 				5BC376A7271F1CFD00444D5E /* PBMWebView+Internal.h */,
 				5BC37785271F1CFE00444D5E /* Prebid */,
-				5BC376F2271F1CFE00444D5E /* PrebidRenderingConfig+TestExtension.h */,
-				5BC376A6271F1CFD00444D5E /* PrebidRenderingConfig+TestExtension.m */,
+				5BC376F2271F1CFE00444D5E /* PrebidConfiguration+TestExtension.h */,
+				5BC376A6271F1CFD00444D5E /* PrebidConfiguration+TestExtension.m */,
 				5BC376FB271F1CFE00444D5E /* ServerSideConfiguration */,
 				5BC37647271F1CFD00444D5E /* Targeting */,
 				5BC376A9271F1CFE00444D5E /* Utilities */,
@@ -3476,7 +3476,7 @@
 				5BC3799B271F1D0000444D5E /* PBMDeferredModalState.h in Headers */,
 				5BC37912271F1CFF00444D5E /* PBMConstants.h in Headers */,
 				5BC37A64271F1D0000444D5E /* PBMORTBBidResponseExt.h in Headers */,
-				5BC3794D271F1D0000444D5E /* PrebidRenderingConfig+TestExtension.h in Headers */,
+				5BC3794D271F1D0000444D5E /* PrebidConfiguration+TestExtension.h in Headers */,
 				5BC3796A271F1D0000444D5E /* PBMVastRequester.h in Headers */,
 				5BC379A2271F1D0000444D5E /* PBMModalAnimator.h in Headers */,
 				5BC378F5271F1CFF00444D5E /* PBMORTBFormat.h in Headers */,
@@ -4047,7 +4047,7 @@
 				FAEE4D11262DC2B200AD9966 /* RequestBuilder.swift in Sources */,
 				5BC378D4271F1CFF00444D5E /* PBMORTBDeviceExtAtts.m in Sources */,
 				92C85D6E27A983150080BAC5 /* NativeAdMarkup.swift in Sources */,
-				5BC37905271F1CFF00444D5E /* PrebidRenderingConfig+TestExtension.m in Sources */,
+				5BC37905271F1CFF00444D5E /* PrebidConfiguration+TestExtension.m in Sources */,
 				FAEE4D15262DC2B200AD9966 /* NativeAdDelegate.swift in Sources */,
 				FAEE4D16262DC2B200AD9966 /* NativeAdEventDelegate.swift in Sources */,
 				5BC379B2271F1D0000444D5E /* PBMCreativeModelCollectionMakerVAST.m in Sources */,
@@ -4141,7 +4141,7 @@
 				5BC37ADE271F1D0100444D5E /* PBMServerConnection.m in Sources */,
 				5BC3791D271F1CFF00444D5E /* PBMLogPrivate.m in Sources */,
 				FAEE4D1A262DC2B200AD9966 /* NativeAd.swift in Sources */,
-				5BC37A1B271F1D0000444D5E /* PrebidRenderingConfiguration.swift in Sources */,
+				5BC37A1B271F1D0000444D5E /* PrebidConfiguration.swift in Sources */,
 				5BC379A8271F1D0000444D5E /* PBMModalViewController.m in Sources */,
 				5BC37AC3271F1D0100444D5E /* PBMURLComponents.m in Sources */,
 				5BC37AB0271F1D0000444D5E /* PBMBaseAdUnit.m in Sources */,

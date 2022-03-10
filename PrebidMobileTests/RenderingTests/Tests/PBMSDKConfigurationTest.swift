@@ -23,13 +23,13 @@ class PBMSDKConfigurationTest: XCTestCase {
     override func tearDown() {
         logToFile = nil
         
-        PrebidRenderingConfig.reset()
+        PrebidConfiguration.reset()
         
         super.tearDown()
     }
     
     func testInitialValues() {
-        let sdkConfiguration = PrebidRenderingConfig.shared
+        let sdkConfiguration = PrebidConfiguration.shared
         
         checkInitialValue(sdkConfiguration: sdkConfiguration)
     }
@@ -37,7 +37,7 @@ class PBMSDKConfigurationTest: XCTestCase {
     func testInitializeSDK() {
         logToFile = .init()
         
-        PrebidRenderingConfig.initializeRenderingModule()
+        PrebidConfiguration.initializeRenderingModule()
         
         let log = PBMLog.shared.getLogFileAsString()
         
@@ -47,7 +47,7 @@ class PBMSDKConfigurationTest: XCTestCase {
     func testLogLevel() {
         // FIXME: fix the type mismatch after PBMLog will be ported
         
-        let sdkConfiguration = PrebidRenderingConfig.shared
+        let sdkConfiguration = PrebidConfiguration.shared
         
         XCTAssertEqual(sdkConfiguration.logLevel, Log.logLevel)
         
@@ -60,7 +60,7 @@ class PBMSDKConfigurationTest: XCTestCase {
     
     func testDebugLogFileEnabled() {
         
-        let sdkConfiguration = PrebidRenderingConfig.shared
+        let sdkConfiguration = PrebidConfiguration.shared
         let initialValue = sdkConfiguration.debugLogFileEnabled
         
         XCTAssertEqual(initialValue, PBMLog.shared.logToFile)
@@ -73,44 +73,44 @@ class PBMSDKConfigurationTest: XCTestCase {
     }
     
     func testLocationValues() {
-        let sdkConfiguration = PrebidRenderingConfig.shared
+        let sdkConfiguration = PrebidConfiguration.shared
         XCTAssertTrue(sdkConfiguration.locationUpdatesEnabled)
         sdkConfiguration.locationUpdatesEnabled = false
         XCTAssertFalse(sdkConfiguration.locationUpdatesEnabled)
     }
     
     func testShared() {
-        let firstConfig = PrebidRenderingConfig.shared
-        let newConfig = PrebidRenderingConfig.shared
+        let firstConfig = PrebidConfiguration.shared
+        let newConfig = PrebidConfiguration.shared
         XCTAssertEqual(firstConfig, newConfig)
     }
     
     func testResetShared() {
-        let firstConfig = PrebidRenderingConfig.shared
+        let firstConfig = PrebidConfiguration.shared
         firstConfig.accountID = "test"
-        PrebidRenderingConfig.reset()
+        PrebidConfiguration.reset()
         
         checkInitialValue(sdkConfiguration: firstConfig)
     }
     
     func testPrebidHost() {
-        let sdkConfig = PrebidRenderingConfig.shared
+        let sdkConfig = PrebidConfiguration.shared
         XCTAssertEqual(sdkConfig.prebidServerHost, .Custom)
         
         sdkConfig.prebidServerHost = .Appnexus
         XCTAssertEqual(try! Host.shared.getHostURL(host:sdkConfig.prebidServerHost), "https://prebid.adnxs.com/pbs/v1/openrtb2/auction")
         
-        let _ = try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://10.0.2.2:8000/openrtb2/auction")
+        let _ = try! PrebidConfiguration.shared.setCustomPrebidServer(url: "https://10.0.2.2:8000/openrtb2/auction")
         XCTAssertEqual(sdkConfig.prebidServerHost, .Custom)
     }
     
     func testServerHostCustomInvalid() throws {
-        XCTAssertThrowsError(try PrebidRenderingConfig.shared.setCustomPrebidServer(url: "wrong url"))
+        XCTAssertThrowsError(try PrebidConfiguration.shared.setCustomPrebidServer(url: "wrong url"))
     }
     
     // MARK: - Private Methods
     
-    private func checkInitialValue(sdkConfiguration: PrebidRenderingConfig, file: StaticString = #file, line: UInt = #line) {
+    private func checkInitialValue(sdkConfiguration: PrebidConfiguration, file: StaticString = #file, line: UInt = #line) {
         // PBMSDKConfiguration
         
         XCTAssertEqual(sdkConfiguration.creativeFactoryTimeout, 6.0)

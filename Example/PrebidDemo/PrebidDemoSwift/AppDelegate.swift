@@ -41,8 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
         
         // Rendering
-        PrebidRenderingConfig.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
-        try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
+        PrebidConfiguration.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        try! PrebidConfiguration.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
         
         UserDefaults.standard.set("123", forKey: "IABTCF_CmpSdkID")
         UserDefaults.standard.set("0", forKey: "IABTCF_gdprApplies")

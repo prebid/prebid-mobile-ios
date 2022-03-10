@@ -17,7 +17,7 @@
 
 @class PBMVastParser;
 @class PBMVastResponse;
-@class PrebidRenderingConfig;
+@class PrebidConfiguration;
 @class PBMVastAbstractAd;
 
 @protocol PBMServerConnectionProtocol;

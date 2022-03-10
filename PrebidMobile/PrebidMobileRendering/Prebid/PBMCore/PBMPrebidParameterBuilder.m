@@ -33,7 +33,7 @@
 @interface PBMPrebidParameterBuilder ()
 
 @property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adConfiguration;
-@property (nonatomic, strong, nonnull, readonly) PrebidRenderingConfig *sdkConfiguration;
+@property (nonatomic, strong, nonnull, readonly) PrebidConfiguration *sdkConfiguration;
 @property (nonatomic, strong, nonnull, readonly) PrebidRenderingTargeting *targeting;
 @property (nonatomic, strong, nonnull, readonly) PBMUserAgentService *userAgentService;
 
@@ -42,7 +42,7 @@
 @implementation PBMPrebidParameterBuilder
 
 - (instancetype)initWithAdConfiguration:(AdUnitConfig *)adConfiguration
-                       sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
+                       sdkConfiguration:(PrebidConfiguration *)sdkConfiguration
                               targeting:(PrebidRenderingTargeting *)targeting
                        userAgentService:(PBMUserAgentService *)userAgentService
 {
@@ -64,7 +64,7 @@
     
     bidRequest.requestID = [NSUUID UUID].UUIDString;
     bidRequest.extPrebid.storedRequestID        = self.sdkConfiguration.accountID;
-    bidRequest.extPrebid.storedAuctionResponse  = PrebidRenderingConfig.shared.storedAuctionResponse;
+    bidRequest.extPrebid.storedAuctionResponse  = PrebidConfiguration.shared.storedAuctionResponse;
     bidRequest.extPrebid.dataBidders            = self.targeting.accessControlList;
     bidRequest.app.publisher.publisherID        = self.sdkConfiguration.accountID;
     
@@ -117,7 +117,7 @@
     for (PBMORTBImp *nextImp in bidRequest.imp) {
         nextImp.impID = [NSUUID UUID].UUIDString;
         nextImp.extPrebid.storedRequestID = self.adConfiguration.configId;
-        nextImp.extPrebid.storedAuctionResponse = PrebidRenderingConfig.shared.storedAuctionResponse;
+        nextImp.extPrebid.storedAuctionResponse = PrebidConfiguration.shared.storedAuctionResponse;
         nextImp.extPrebid.isRewardedInventory = self.adConfiguration.isOptIn;
         nextImp.extContextData = self.adConfiguration.contextDataDictionary;
         switch (adFormat) {

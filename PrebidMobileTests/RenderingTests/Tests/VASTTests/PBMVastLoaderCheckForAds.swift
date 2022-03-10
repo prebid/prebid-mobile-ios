@@ -22,7 +22,7 @@ import CoreFoundation
 
 class PBMVastLoaderCheckForAds : XCTestCase {
     
-    let sdkConfiguration = PrebidRenderingConfig.mock
+    let sdkConfiguration = PrebidConfiguration.mock
     
     var wrapper1:PBMVastWrapperAd! = nil
     var wrapper2:PBMVastWrapperAd! = nil

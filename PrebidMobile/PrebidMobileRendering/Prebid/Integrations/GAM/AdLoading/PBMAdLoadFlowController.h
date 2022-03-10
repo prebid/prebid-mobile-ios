@@ -19,7 +19,7 @@
 #import "PBMBidRequesterProtocol.h"
 
 @class AdUnitConfig;
-@class PrebidRenderingConfig;
+@class PrebidConfiguration;
 @protocol PBMServerConnectionProtocol;
 @protocol AdLoadFlowControllerDelegate;
 

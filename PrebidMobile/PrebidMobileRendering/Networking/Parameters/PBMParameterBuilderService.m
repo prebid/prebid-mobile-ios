@@ -52,7 +52,7 @@
                              pbmDeviceAccessManager:[[PBMDeviceAccessManager alloc] initWithRootViewController: nil]
                              ctTelephonyNetworkInfo:[CTTelephonyNetworkInfo new]
                                        reachability:[PBMReachability reachabilityForInternetConnection]
-                                   sdkConfiguration:PrebidRenderingConfig.shared
+                                   sdkConfiguration:PrebidConfiguration.shared
                                          sdkVersion:[PBMFunctions sdkVersion]
                               pbmUserConsentManager:PBMUserConsentDataManager.shared
                                           targeting:PrebidRenderingTargeting.shared
@@ -67,7 +67,7 @@
                                                               pbmDeviceAccessManager:(nonnull PBMDeviceAccessManager *)pbmDeviceAccessManager
                                                               ctTelephonyNetworkInfo:(nonnull CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo
                                                                         reachability:(nonnull PBMReachability *)reachability
-                                                                    sdkConfiguration:(nonnull PrebidRenderingConfig *)sdkConfiguration
+                                                                    sdkConfiguration:(nonnull PrebidConfiguration *)sdkConfiguration
                                                                           sdkVersion:(nonnull NSString *)sdkVersion
                                                                pbmUserConsentManager:(nonnull PBMUserConsentDataManager *) pbmUserConsentManager
                                                                            targeting:(nonnull PrebidRenderingTargeting *)targeting

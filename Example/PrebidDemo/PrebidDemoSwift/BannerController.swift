@@ -226,8 +226,8 @@ class BannerController:
     // MARK: Setup PBS Rendering
     
     func setupOpenxRenderingBanner() {
-        PrebidRenderingConfig.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
-        try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
+        PrebidConfiguration.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        try! PrebidConfiguration.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
     }
 
     // MARK: Setup AdServer - GAM

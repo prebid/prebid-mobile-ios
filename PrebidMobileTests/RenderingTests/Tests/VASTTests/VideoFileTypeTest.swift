@@ -35,14 +35,14 @@ class VideoFileTypeTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDeleg
     override func tearDown() {
         MockServer.shared.reset()
         
-        PrebidRenderingConfig.reset()
+        PrebidConfiguration.reset()
         
         super.tearDown()
     }
     
     func testTypes() {
-        PrebidRenderingConfig.forcedIsViewable = true
-        defer { PrebidRenderingConfig.reset() }
+        PrebidConfiguration.forcedIsViewable = true
+        defer { PrebidConfiguration.reset() }
 
         self.continueAfterFailure = true
         

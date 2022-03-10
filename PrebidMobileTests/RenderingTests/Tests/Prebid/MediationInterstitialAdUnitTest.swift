@@ -18,11 +18,11 @@ import XCTest
 @testable import PrebidMobile
 
 class MediationInterstitialAdUnitTest: XCTestCase {
-    private let sdkConfiguration: PrebidRenderingConfig = {
-        let config = PrebidRenderingConfig.mock
-        //        config.serverURL = PrebidRenderingConfig.devintServerURL
-        try! config.setCustomPrebidServer(url: PrebidRenderingConfig.devintServerURL)
-        config.accountID = PrebidRenderingConfig.devintAccountID
+    private let sdkConfiguration: PrebidConfiguration = {
+        let config = PrebidConfiguration.mock
+        //        config.serverURL = PrebidConfiguration.devintServerURL
+        try! config.setCustomPrebidServer(url: PrebidConfiguration.devintServerURL)
+        config.accountID = PrebidConfiguration.devintAccountID
         return config
     }()
     private let targeting = PrebidRenderingTargeting.shared

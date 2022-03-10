@@ -23,7 +23,7 @@ import UIKit
 class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
     
     override func tearDown() {
-        PrebidRenderingConfig.reset()
+        PrebidConfiguration.reset()
         
         super.tearDown()
     }
@@ -36,7 +36,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
             creativeModel: self.mockCreativeModel,
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             webView: self.mockWebView,
-               sdkConfiguration: PrebidRenderingConfig.mock
+               sdkConfiguration: PrebidConfiguration.mock
         )
         self.htmlCreative.setupView()
         
@@ -49,7 +49,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
             creativeModel: self.mockCreativeModel,
             transaction:UtilitiesForTesting.createEmptyTransaction(),
             webView: self.mockWebView,
-               sdkConfiguration: PrebidRenderingConfig.mock
+               sdkConfiguration: PrebidConfiguration.mock
         )
         self.htmlCreative.setupView()
 
@@ -92,8 +92,8 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
 
     func testDisplay_triggersImpression() {
         
-        PrebidRenderingConfig.forcedIsViewable = true
-        defer { PrebidRenderingConfig.reset() }
+        PrebidConfiguration.forcedIsViewable = true
+        defer { PrebidConfiguration.reset() }
         
         let impressionExpectation = self.expectation(description: "Should have triggered an impression")
         var expectedEvents = [PBMTrackingEvent.loaded, .impression]
@@ -185,7 +185,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
             creativeModel: self.mockCreativeModel,
             transaction:transaction,
             webView: nil,
-               sdkConfiguration: PrebidRenderingConfig.mock
+               sdkConfiguration: PrebidConfiguration.mock
         )
         
         self.htmlCreative.setupView()
@@ -281,7 +281,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
         self.htmlCreative.creativeResolutionDelegate = self
         self.htmlCreative.creativeViewDelegate = self
         
-        PrebidRenderingConfig.forcedIsViewable = false
+        PrebidConfiguration.forcedIsViewable = false
     }
     
     override func tearDown() {
@@ -354,7 +354,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
     }
     
     func testClickthroughOpening(useExternalBrowser: Bool) {
-        let sdkConfiguration = PrebidRenderingConfig.mock
+        let sdkConfiguration = PrebidConfiguration.mock
         sdkConfiguration.useExternalClickthroughBrowser = useExternalBrowser
         
         let attemptedToOpenBrowser = expectation(description: "attemptedToOpenBrowser")

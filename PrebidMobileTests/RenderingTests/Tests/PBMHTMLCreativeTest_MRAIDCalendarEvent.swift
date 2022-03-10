@@ -55,7 +55,7 @@ class PBMHTMLCreativeTest_MRAIDCalendarEvent: PBMHTMLCreativeTest_Base {
                                                      creativeViewDelegate:self,
                                                      downloadBlock:createLoader(connection: serverConnection),
                                                      deviceAccessManagerClass: MockPBMDeviceAccessManager.self,
-                                                     sdkConfiguration: PrebidRenderingConfig.mock)
+                                                     sdkConfiguration: PrebidConfiguration.mock)
         
         self.htmlCreative.mraidController = mockMRAIDController
         
@@ -77,7 +77,7 @@ class PBMHTMLCreativeTest_MRAIDCalendarEvent: PBMHTMLCreativeTest_Base {
                                                      creativeViewDelegate:self,
                                                      downloadBlock:createLoader(connection: serverConnection),
                                                      deviceAccessManagerClass: MockPBMDeviceAccessManager.self,
-                                                     sdkConfiguration: PrebidRenderingConfig.mock)
+                                                     sdkConfiguration: PrebidConfiguration.mock)
         
         self.htmlCreative.mraidController = mockMRAIDController
         

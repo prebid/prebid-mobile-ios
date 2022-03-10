@@ -19,7 +19,7 @@ import OMSDK_Prebidorg
 fileprivate let defaultTimeoutMillis = 2000
 
 @objcMembers
-public class PrebidRenderingConfig: NSObject, OriginalSDKConfigurationProtocol {
+public class PrebidConfiguration: NSObject, OriginalSDKConfigurationProtocol {
   
     // MARK: - Public Properties (SDK)
     
@@ -59,7 +59,7 @@ public class PrebidRenderingConfig: NSObject, OriginalSDKConfigurationProtocol {
      */
     public var externalUserIdArray = [ExternalUserId]()
     
-    public static let shared = PrebidRenderingConfig()
+    public static let shared = PrebidConfiguration()
     
     public var version: String {
         PBMFunctions.sdkVersion()

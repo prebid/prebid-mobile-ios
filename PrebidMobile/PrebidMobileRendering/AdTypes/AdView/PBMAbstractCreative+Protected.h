@@ -16,7 +16,7 @@
 #import "PBMAbstractCreative.h"
 #import "PBMVoidBlock.h"
 
-@class PrebidRenderingConfig;
+@class PrebidConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,14 +24,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Clickthrough handling
 - (void)handleClickthrough:(NSURL*)url
-          sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration;
+          sdkConfiguration:(PrebidConfiguration *)sdkConfiguration;
 
 - (void)handleClickthrough:(NSURL*)url
          completionHandler:(void (^)(BOOL success))completion
                     onExit:(PBMVoidBlock)onClickthroughExitBlock;
 
 - (void)handleClickthrough:(NSURL*)url
-          sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
+          sdkConfiguration:(PrebidConfiguration *)sdkConfiguration
          completionHandler:(void (^)(BOOL success))completion
                     onExit:(PBMVoidBlock)onClickthroughExitBlock;
 

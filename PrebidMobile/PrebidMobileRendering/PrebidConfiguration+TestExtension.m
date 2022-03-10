@@ -15,9 +15,9 @@
 
 #ifdef DEBUG
 
-#import "PrebidRenderingConfig+TestExtension.h"
+#import "PrebidConfiguration+TestExtension.h"
 
-@implementation PrebidRenderingConfig (Test)
+@implementation PrebidConfiguration (Test)
 
 @dynamic forcedIsViewable;
 

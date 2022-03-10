@@ -21,7 +21,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PrebidRenderingConfig (Test)
+@interface PrebidConfiguration (Test)
 
 @property(nonatomic, assign) BOOL forcedIsViewable;
 

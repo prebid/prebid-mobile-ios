@@ -60,7 +60,7 @@
 @property (nonatomic, weak) PBMWebView *prebidWebView;
 
 @property (nonatomic, assign) BOOL playingMRAIDVideo;
-@property (nonatomic, strong) PrebidRenderingConfig* sdkConfiguration;
+@property (nonatomic, strong) PrebidConfiguration* sdkConfiguration;
 
 @property (nonatomic, copy, nullable) PBMVoidBlock dismissExpandedModalState;
 @property (nonatomic, copy, nullable) PBMVoidBlock dismissResizedModalState;
@@ -91,7 +91,7 @@
              creativeViewDelegate:creativeViewDelegate
                     downloadBlock:downloadBlock
          deviceAccessManagerClass:nil
-                 sdkConfiguration:PrebidRenderingConfig.shared];
+                 sdkConfiguration:PrebidConfiguration.shared];
     return self;
 }
 
@@ -101,7 +101,7 @@
             creativeViewDelegate:(id<PBMCreativeViewDelegate>)creativeViewDelegate
                    downloadBlock:(PBMCreativeFactoryDownloadDataCompletionClosure)downloadBlock
         deviceAccessManagerClass:(Class)deviceAccessManagerClass
-                sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
+                sdkConfiguration:(PrebidConfiguration *)sdkConfiguration
 {
     self = [super init];
     if (self) {
