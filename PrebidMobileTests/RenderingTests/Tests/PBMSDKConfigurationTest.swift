@@ -49,13 +49,13 @@ class PBMSDKConfigurationTest: XCTestCase {
         
         let sdkConfiguration = PrebidRenderingConfig.shared
         
-        XCTAssertEqual(sdkConfiguration.logLevel, PBMLog.shared.logLevel)
+        XCTAssertEqual(sdkConfiguration.logLevel, Log.logLevel)
         
-        sdkConfiguration.logLevel = PBMLogLevel.none
-        XCTAssertEqual(PBMLog.shared.logLevel, PBMLogLevel.none)
+        sdkConfiguration.logLevel = .verbose
+        XCTAssertEqual(Log.logLevel, .verbose)
         
-        PBMLog.shared.logLevel = PBMLogLevel.info
-        XCTAssertEqual(sdkConfiguration.logLevel, PBMLogLevel.info)
+        Log.logLevel = .warn
+        XCTAssertEqual(sdkConfiguration.logLevel, .warn)
     }
     
     func testDebugLogFileEnabled() {

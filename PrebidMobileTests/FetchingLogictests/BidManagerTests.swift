@@ -338,12 +338,12 @@ class BidManagerTests: XCTestCase {
         stubAppNexusRequestWithResponse("noBidResponseAppNexus")
         Prebid.shared.prebidServerHost = PrebidHost.Appnexus
         XCTAssertTrue(!Prebid.shared.timeoutUpdated)
-        XCTAssertTrue(Prebid.shared.timeoutMillisDynamic == Prebid.shared.timeoutMillis)
+        XCTAssertTrue(Prebid.shared.bidRequestTimeoutMillis == Prebid.shared.bidRequestTimeoutMillis)
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
         manager.requestBidsForAdUnit { (_, _) in
             XCTAssertTrue(Prebid.shared.timeoutUpdated)
-            XCTAssertTrue(Prebid.shared.timeoutMillisDynamic > 700 && Prebid.shared.timeoutMillisDynamic < 800)
+            XCTAssertTrue(Int(truncating: Prebid.shared.bidRequestTimeoutDynamic!) > 700 && Int(truncating: Prebid.shared.bidRequestTimeoutDynamic!) < 800)
             loadAdSuccesfulException.fulfill()
         }
 
@@ -355,12 +355,12 @@ class BidManagerTests: XCTestCase {
         stubAppNexusRequestWithResponse("noBidResponseNoTmax")
         Prebid.shared.prebidServerHost = PrebidHost.Appnexus
         XCTAssertTrue(!Prebid.shared.timeoutUpdated)
-        XCTAssertTrue(Prebid.shared.timeoutMillisDynamic == Prebid.shared.timeoutMillis)
+        XCTAssertTrue(Prebid.shared.bidRequestTimeoutDynamic as! Int == Prebid.shared.bidRequestTimeoutMillis)
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
         manager.requestBidsForAdUnit { (_, _) in
             XCTAssertTrue(!Prebid.shared.timeoutUpdated)
-            XCTAssertTrue(Prebid.shared.timeoutMillisDynamic == Prebid.shared.timeoutMillis)
+            XCTAssertTrue(Prebid.shared.bidRequestTimeoutDynamic as! Int == Prebid.shared.bidRequestTimeoutMillis)
             loadAdSuccesfulException.fulfill()
         }
 
@@ -372,12 +372,12 @@ class BidManagerTests: XCTestCase {
         stubAppNexusRequestWithResponse("noBidResponseTmaxTooLarge")
         Prebid.shared.prebidServerHost = PrebidHost.Appnexus
         XCTAssertTrue(!Prebid.shared.timeoutUpdated)
-        XCTAssertTrue(Prebid.shared.timeoutMillisDynamic == Prebid.shared.timeoutMillis)
+        XCTAssertTrue(Int(truncating: Prebid.shared.bidRequestTimeoutDynamic!) == Prebid.shared.bidRequestTimeoutMillis)
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
         manager.requestBidsForAdUnit { (_, _) in
             XCTAssertTrue(Prebid.shared.timeoutUpdated)
-            XCTAssertTrue(Prebid.shared.timeoutMillisDynamic == Prebid.shared.timeoutMillis)
+            XCTAssertTrue(Int(truncating: Prebid.shared.bidRequestTimeoutDynamic!) == Prebid.shared.bidRequestTimeoutMillis)
             loadAdSuccesfulException.fulfill()
         }
 
@@ -388,15 +388,15 @@ class BidManagerTests: XCTestCase {
         let loadAdSuccesfulException = expectation(description: "\(#function)")
         stubAppNexusRequestWithResponse("noBidResponseNoTmaxEdite")
         Prebid.shared.prebidServerHost = PrebidHost.Appnexus
-        Prebid.shared.timeoutMillis = 1000
+        Prebid.shared.bidRequestTimeoutMillis = 1000
         XCTAssertTrue(!Prebid.shared.timeoutUpdated)
-        XCTAssertTrue(Prebid.shared.timeoutMillis == 1000)
-        XCTAssertTrue(Prebid.shared.timeoutMillisDynamic == 1000)
+        XCTAssertTrue(Prebid.shared.bidRequestTimeoutMillis == 1000)
+        XCTAssertTrue(Prebid.shared.bidRequestTimeoutDynamic == 1000)
         let bannerUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
         manager.requestBidsForAdUnit { (_, _) in
             XCTAssertTrue(!Prebid.shared.timeoutUpdated)
-            XCTAssertTrue(Prebid.shared.timeoutMillisDynamic == 1000)
+            XCTAssertTrue(Prebid.shared.bidRequestTimeoutDynamic == 1000)
             loadAdSuccesfulException.fulfill()
         }
 

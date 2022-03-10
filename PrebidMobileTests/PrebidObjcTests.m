@@ -109,10 +109,10 @@ limitations under the License.
     int timeoutMillis =  3000;
     
     //when
-    Prebid.shared.timeoutMillis = timeoutMillis;
+    Prebid.shared.bidRequestTimeoutMillis = timeoutMillis;
     
     //then
-    XCTAssertEqual(timeoutMillis, Prebid.shared.timeoutMillis);
+    XCTAssertEqual(timeoutMillis, Prebid.shared.bidRequestTimeoutMillis);
 }
 
 - (void)testLogLevel {

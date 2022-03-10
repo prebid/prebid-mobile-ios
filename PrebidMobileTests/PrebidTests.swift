@@ -169,10 +169,10 @@ class OriginalSDKConfigurationTests: XCTestCase {
         let timeoutMillis =  3_000
         
         //when
-        Prebid.shared.timeoutMillis = timeoutMillis
+        Prebid.shared.bidRequestTimeoutMillis = timeoutMillis
         
         //then
-        XCTAssertEqual(timeoutMillis, Prebid.shared.timeoutMillis)
+        XCTAssertEqual(timeoutMillis, Prebid.shared.bidRequestTimeoutMillis)
     }
     
     func testLogLevel() {
