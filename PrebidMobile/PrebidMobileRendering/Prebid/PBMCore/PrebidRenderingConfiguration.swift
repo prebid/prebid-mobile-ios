@@ -18,73 +18,134 @@ import OMSDK_Prebidorg
 
 fileprivate let defaultTimeoutMillis = 2000
 
-public class PrebidRenderingConfig : NSObject {
-    
+@objcMembers
+public class PrebidRenderingConfig: NSObject, OriginalSDKConfigurationProtocol {
+  
     // MARK: - Public Properties (SDK)
     
-    @objc static public let shared = PrebidRenderingConfig()
+    public static let bidderNameAppNexus = "appnexus"
+    public static let bidderNameRubiconProject = "rubicon"
     
-    @objc public var version: String {
+    public var timeoutUpdated: Bool = false
+    
+    public var prebidServerAccountId = ""
+    
+    public var pbsDebug = false
+
+    public var customHeaders: [String: String] = [:]
+    
+    public var storedBidResponses: [String: String] = [:]
+    
+    /**
+    * This property is set by the developer when he is willing to assign the assetID for Native ad.
+    **/
+    public var shouldAssignNativeAssetID : Bool = false
+    
+    /**
+    * This property is set by the developer when he is willing to share the location for better ad targeting
+    **/
+    public var shareGeoLocation = false
+    
+    /**
+     * Set the desidered verbosity of the logs
+     */
+    public var logLevel: LogLevel = .debug
+    
+    /**
+     * Array  containing objects that hold External UserId parameters.
+     */
+    public var externalUserIdArray = [ExternalUserId]()
+    
+    public static let shared = PrebidRenderingConfig()
+    
+    public var version: String {
         PBMFunctions.sdkVersion()
     }
     
-    @objc public var omsdkVersion: String {
+    public var omsdkVersion: String {
         OMIDPrebidorgSDK.versionString()
     }
     
     // MARK: - Public Properties (Prebid)
     
-    @objc public var prebidServerHost: PrebidHost = .Custom {
+    public var prebidServerHost: PrebidHost = .Custom {
         didSet {
             bidRequestTimeoutDynamic = nil
+            timeoutUpdated = false
         }
     }
-    @objc public var accountID: String
     
-    @objc public var bidRequestTimeoutMillis: Int
-    @objc public var bidRequestTimeoutDynamic: NSNumber?
+    public var accountID: String
     
-    @objc public var storedAuctionResponse: String?
+    public var bidRequestTimeoutMillis: Int
+    public var bidRequestTimeoutDynamic: NSNumber?
+    
+    public var storedAuctionResponse: String?
 
 
     // MARK: - Public Properties (SDK)
     
     //Controls how long each creative has to load before it is considered a failure.
-    @objc public var creativeFactoryTimeout: TimeInterval = 6.0
+    public var creativeFactoryTimeout: TimeInterval = 6.0
 
     //If preRenderContent flag is set, controls how long the creative has to completely pre-render before it is considered a failure.
     //Useful for video interstitials.
-    @objc public var creativeFactoryTimeoutPreRenderContent: TimeInterval = 30.0
+    public var creativeFactoryTimeoutPreRenderContent: TimeInterval = 30.0
 
     //Controls whether to use PrebidMobile's in-app browser or the Safari App for displaying ad clickthrough content.
-    @objc public var useExternalClickthroughBrowser = false
+    public var useExternalClickthroughBrowser = false
 
-    //Controls the verbosity of PrebidMobile's internal logger. Options are (from most to least noisy) .info, .warn, .error and .none. Defaults to .info.
-    @objc public var logLevel: PBMLogLevel {
-        get { PBMLog.shared.logLevel }
-        set { PBMLog.shared.logLevel = newValue }
-    }
+    
+//    public var logLevel: PBMLogLevel {
+//        get { PBMLog.shared.logLevel }
+//        set { PBMLog.shared.logLevel = newValue }
+//    }
 
     //If set to true, the output of PrebidMobile's internal logger is written to a text file. This can be helpful for debugging. Defaults to false.
-    @objc public var debugLogFileEnabled: Bool {
+    public var debugLogFileEnabled: Bool {
         get { PBMLog.shared.logToFile }
         set { PBMLog.shared.logToFile = newValue }
     }
 
     //If true, the SDK will periodically try to listen for location updates in order to request location-based ads.
-    @objc public var locationUpdatesEnabled: Bool {
+    public var locationUpdatesEnabled: Bool {
         get { PBMLocationManager.shared.locationUpdatesEnabled }
         set { PBMLocationManager.shared.locationUpdatesEnabled = newValue }
     }
     
     // MARK: - Public Methods
     
-    @objc public func setCustomPrebidServer(url: String) throws {
+    public func setCustomPrebidServer(url: String) throws {
         prebidServerHost = .Custom
         try Host.shared.setCustomHostURL(url)
     }
     
-    @objc public static func initializeRenderingModule() {
+    // Objective C API for logLevel
+    public func setLogLevel(_ logLevel: LogLevel_) {
+        self.logLevel = logLevel.getPrimary()
+    }
+    
+    // MARK: - Stored Bid Response
+    
+    public func addStoredBidResponse(bidder: String, responseId: String) {
+        storedBidResponses[bidder] = responseId
+    }
+    
+    public func clearStoredBidResponses() {
+        storedBidResponses.removeAll()
+    }
+    
+    // MARK: - Custom Headers
+    
+    public func addCustomHeader(name: String, value: String) {
+        customHeaders[name] = value
+    }
+
+    public func clearCustomHeaders() {
+        customHeaders.removeAll()
+    }
+    
+    public static func initializeRenderingModule() {
         let _ = PBMServerConnection.shared
         let _ = PBMLocationManager.shared
         let _ = PBMUserConsentDataManager.shared

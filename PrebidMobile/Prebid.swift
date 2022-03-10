@@ -21,18 +21,18 @@ public class Prebid: NSObject, OriginalSDKConfigurationProtocol {
     public static let bidderNameAppNexus = "appnexus"
     public static let bidderNameRubiconProject = "rubicon"
     
-    public var timeoutMillis: Int = .PB_Request_Timeout {
+    public var bidRequestTimeoutMillis: Int = .PB_Request_Timeout {
         didSet {
-            timeoutMillisDynamic = timeoutMillis
+            bidRequestTimeoutDynamic = NSNumber(value: bidRequestTimeoutMillis)
         }
     }
     
-    public var timeoutMillisDynamic: Int
+    public var bidRequestTimeoutDynamic: NSNumber?
     public var timeoutUpdated: Bool = false
 
     public var prebidServerAccountId: String = ""
     
-    public var storedAuctionResponse: String = ""
+    public var storedAuctionResponse: String? = ""
     
     public var pbsDebug: Bool = false
 
@@ -56,7 +56,7 @@ public class Prebid: NSObject, OriginalSDKConfigurationProtocol {
 
     public var prebidServerHost: PrebidHost = PrebidHost.Custom {
         didSet {
-            timeoutMillisDynamic = timeoutMillis
+            bidRequestTimeoutDynamic = NSNumber(value: bidRequestTimeoutMillis)
             timeoutUpdated = false
         }
     }
@@ -88,7 +88,7 @@ public class Prebid: NSObject, OriginalSDKConfigurationProtocol {
      * The initializer that needs to be created only once
      */
     private override init() {
-        timeoutMillisDynamic = timeoutMillis
+        bidRequestTimeoutDynamic = NSNumber(value: bidRequestTimeoutMillis)
                 
         super.init()
         if (RequestBuilder.myUserAgent == "") {

@@ -20,11 +20,11 @@ public protocol OriginalSDKConfigurationProtocol {
     static var bidderNameAppNexus: String { get }
     static var bidderNameRubiconProject: String { get }
     
-    var timeoutMillis: Int { get set }
-    var timeoutMillisDynamic: Int { get set }
+    var bidRequestTimeoutMillis: Int { get set }
+    var bidRequestTimeoutDynamic: NSNumber? { get set }
     var timeoutUpdated: Bool { get set }
     var prebidServerAccountId: String { get set }
-    var storedAuctionResponse: String { get set }
+    var storedAuctionResponse: String? { get set }
     var customHeaders: [String: String] { get set }
     var storedBidResponses: [String: String] { get set }
     var pbsDebug: Bool { get set }
