@@ -31,7 +31,8 @@ public class NativeRequest: AdUnit {
     public var ext: AnyObject?
     
     public var configId: String {
-        adUnitConfig.configId
+        get { adUnitConfig.configId }
+        set { adUnitConfig.configId = newValue }
     }
     
     public init(configId: String) {
