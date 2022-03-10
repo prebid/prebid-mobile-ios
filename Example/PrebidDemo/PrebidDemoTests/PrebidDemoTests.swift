@@ -54,13 +54,13 @@ class PrebidDemoTests: XCTestCase {
     func setUpAppNexus() {
         PrebidConfiguration.shared.prebidServerHost = PrebidHost.Appnexus
         PrebidConfiguration.shared.prebidServerAccountId = Constants.PBS_ACCOUNT_ID_APPNEXUS
-        PrebidConfiguration.shared.timeoutMillis = 10_000;
+        PrebidConfiguration.shared.bidRequestTimeoutMillis = 10_000;
     }
     
     func setUpAppRubicon() {
         PrebidConfiguration.shared.prebidServerHost = PrebidHost.Rubicon
         PrebidConfiguration.shared.prebidServerAccountId = Constants.PBS_RUBICON_ACCOUNT_ID
-        PrebidConfiguration.shared.timeoutMillis = 10_000;
+        PrebidConfiguration.shared.bidRequestTimeoutMillis = 10_000;
     }
     
     func loadNativeAssets(){
