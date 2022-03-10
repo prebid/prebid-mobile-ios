@@ -21,7 +21,7 @@ public let refreshIntervalMax: TimeInterval = 120
 public let refreshIntervalDefault: TimeInterval  = 60
 
 @objcMembers
-public class AdUnitConfig: NSObject, NSCopying, OriginalAdUnitConfigurationProtocol {
+public class AdUnitConfig: NSObject, NSCopying {
 
     // MARK: - Public properties
        
