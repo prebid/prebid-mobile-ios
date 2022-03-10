@@ -33,7 +33,7 @@ public class BannerView: UIView,
     }
     
     @objc public var configID: String {
-        adUnitConfig.configID
+        adUnitConfig.configId
     }
     
     @objc public var refreshInterval: TimeInterval {
@@ -107,7 +107,7 @@ public class BannerView: UIView,
                       adSize: CGSize,
                       eventHandler: BannerEventHandler) {
         
-        adUnitConfig = AdUnitConfig(configID: configID, size: adSize)
+        adUnitConfig = AdUnitConfig(configId: configID, size: adSize)
         self.eventHandler = eventHandler
         
         super.init(frame: frame)
@@ -190,15 +190,15 @@ public class BannerView: UIView,
     // MARK: - Context Data
     
     @objc public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addContextData(data, forKey: key)
+        adUnitConfig.addContextData(key: data, value: key)
     }
     
     @objc public func updateContextData(_ data: Set<String>, forKey key: String) {
-        adUnitConfig.updateContextData(data, forKey: key)
+        adUnitConfig.updateContextData(key: key, value: data)
     }
     
     @objc public func removeContextDate(forKey key: String) {
-        adUnitConfig.removeContextData(forKey: key)
+        adUnitConfig.removeContextData(for: key)
     }
     
     @objc public func clearContextData() {

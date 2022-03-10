@@ -44,7 +44,7 @@ class MediationBannerAdUnitTest: XCTestCase {
         let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
         let adUnitConfig = bannerAdUnit.adUnitConfig
         
-        XCTAssertEqual(adUnitConfig.configID, testID)
+        XCTAssertEqual(adUnitConfig.configId, testID)
         XCTAssertEqual(adUnitConfig.adSize, primarySize)
         
         let moreSizes = [

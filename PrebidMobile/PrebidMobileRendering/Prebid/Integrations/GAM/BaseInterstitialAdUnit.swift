@@ -32,7 +32,7 @@ public class BaseInterstitialAdUnit :
     
     @objc
     public var configID: String {
-        adUnitConfig.configID
+        adUnitConfig.configId
     }
     
     @objc
@@ -77,7 +77,7 @@ public class BaseInterstitialAdUnit :
                 minSizePerc: NSValue?,
                 eventHandler: AnyObject?) {
         
-        adUnitConfig = AdUnitConfig(configID: configID)
+        adUnitConfig = AdUnitConfig(configId: configID)
         adUnitConfig.isInterstitial = true
         adUnitConfig.minSizePerc = minSizePerc
         adUnitConfig.adPosition = .fullScreen
@@ -165,15 +165,15 @@ public class BaseInterstitialAdUnit :
     // MARK: - Context Data
 
     @objc public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addContextData(data, forKey: key)
+        adUnitConfig.addContextData(key: key, value: data)
     }
     
     @objc public func updateContextData(_ data: Set<String>, forKey key: String) {
-        adUnitConfig.updateContextData(data, forKey: key)
+        adUnitConfig.updateContextData(key: key, value: data)
     }
     
     @objc public func removeContextDate(forKey key: String) {
-        adUnitConfig.removeContextData(forKey: key)
+        adUnitConfig.removeContextData(for: key)
     }
     
     @objc public func clearContextData() {

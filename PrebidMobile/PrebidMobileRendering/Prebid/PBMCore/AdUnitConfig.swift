@@ -22,40 +22,38 @@ public let refreshIntervalDefault: TimeInterval  = 60
 
 @objcMembers
 public class AdUnitConfig: NSObject, NSCopying {
-    
-    // MARK: - Properties
+
+    // MARK: - Public properties
        
-    @objc public var configID: String
+    public var configId: String
     
-    @objc public let adConfiguration = PBMAdConfiguration();
+    public let adConfiguration = PBMAdConfiguration();
     
-    @objc public var adFormat: AdFormat {
+    public var adFormat: AdFormat {
         didSet {
             updateAdFormat()
         }
     }
     
-    @objc public var adSize: CGSize
-    @objc public var minSizePerc: NSValue?
+    public var adSize: CGSize
     
-    @objc public var adPosition = AdPosition.undefined
+    public var minSizePerc: NSValue?
     
-    @objc public var contextDataDictionary: [String : [String]] {
+    public var adPosition = AdPosition.undefined
+    
+    public var contextDataDictionary: [String : [String]] {
         extensionData.mapValues { Array($0) }
     }
     
-    private var appContent: PBMORTBAppContent?
-    private var userData: [PBMORTBContentData]?
-    
     // MARK: - Computed Properties
     
-    @objc public var additionalSizes: [CGSize]? {
+    public var additionalSizes: [CGSize]? {
         get { sizes }
         set { sizes = newValue }
     }
     
     var _refreshInterval: TimeInterval = refreshIntervalDefault
-    @objc public var refreshInterval: TimeInterval {
+    public var refreshInterval: TimeInterval {
         get { _refreshInterval }
         set {
             if adFormat == .video {
@@ -78,29 +76,29 @@ public class AdUnitConfig: NSObject, NSCopying {
         }
     }
     
-    @objc public var isInterstitial: Bool {
+    public var isInterstitial: Bool {
         get { adConfiguration.isInterstitialAd }
         set { adConfiguration.isInterstitialAd = newValue }
     }
         
-    @objc public var isOptIn: Bool {
+    public var isOptIn: Bool {
         get { adConfiguration.isOptIn }
         set { adConfiguration.isOptIn = newValue }
     }
     
-    @objc public var videoPlacementType: PBMVideoPlacementType {
+    public var videoPlacementType: PBMVideoPlacementType {
         get { adConfiguration.videoPlacementType }
         set { adConfiguration.videoPlacementType = newValue }
     }
     
     // MARK: - Public Methods
     
-    @objc public convenience init(configID: String) {
-        self.init(configID: configID, size: CGSize.zero)
+    public convenience init(configId: String) {
+        self.init(configId: configId, size: CGSize.zero)
     }
     
-    @objc public init(configID: String, size: CGSize) {
-        self.configID = configID
+    public init(configId: String, size: CGSize) {
+        self.configId = configId
         self.adSize = size
         
         adFormat = .display
@@ -109,30 +107,58 @@ public class AdUnitConfig: NSObject, NSCopying {
         adConfiguration.size = adSize
     }
     
-    @objc public func addContextData(_ data: String, forKey key: String) {
+    // MARK: - Context Data (imp[].ext.context.data)
+    
+    public func addContextData(key: String, value: String) {
         if extensionData[key] == nil {
             extensionData[key] = Set<String>()
         }
         
-        extensionData[key]?.insert(data)
+        extensionData[key]?.insert(value)
     }
     
-    @objc public  func updateContextData(_ data: Set<String>, forKey key: String) {
-        extensionData[key] = data
+    public func updateContextData(key: String, value: Set<String>) {
+        extensionData[key] = value
     }
     
-    @objc public  func removeContextData(forKey key: String) {
+    public func removeContextData(for key: String) {
         extensionData.removeValue(forKey: key)
     }
     
-    @objc public func clearContextData() {
+    public func clearContextData() {
         extensionData.removeAll()
     }
     
-    // MARK: - App Content
+    public func getContextData() -> [String: [String]] {
+        contextDataDictionary
+    }
     
-    public func setAppContent(_ appContentObject: PBMORTBAppContent) {
-        self.appContent = appContentObject
+    // MARK: - Context keywords (imp[].ext.context.keywords)
+    
+    public func addContextKeyword(_ newElement: String) {
+        contextKeywords.insert(newElement)
+    }
+
+    public func addContextKeywords(_ newElements: Set<String>) {
+        contextKeywords.formUnion(newElements)
+    }
+    
+    public func removeContextKeyword(_ element: String) {
+        contextKeywords.remove(element)
+    }
+    
+    public func clearContextKeywords() {
+        contextKeywords.removeAll()
+    }
+    
+    public func getContextKeywords() -> Set<String> {
+        contextKeywords
+    }
+    
+    // MARK: - App Content (app.data)
+    
+    public func setAppContent(_ appContent: PBMORTBAppContent) {
+        self.appContent = appContent
     }
     
     public func getAppContent() -> PBMORTBAppContent? {
@@ -165,7 +191,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         appContent?.data?.removeAll()
     }
     
-    // MARK: - User Data
+    // MARK: - User Data (user.data)
         
     public func getUserData() -> [PBMORTBContentData]? {
         return userData
@@ -188,16 +214,34 @@ public class AdUnitConfig: NSObject, NSCopying {
         userData?.removeAll()
     }
     
+    // MARK: - The Prebid Ad Slot
+    
+    public func setPbAdSlot(_ newElement: String?) {
+        pbAdSlot = newElement
+    }
+    
+    public func getPbAdSlot() -> String? {
+        return pbAdSlot
+    }
+    
     // MARK: - Private Properties
     
-    var extensionData = [String : Set<String>]()
+    private var extensionData = [String : Set<String>]()
     
-    var sizes: [CGSize]?
+    private var appContent: PBMORTBAppContent?
+    
+    private var userData: [PBMORTBContentData]?
+    
+    private var contextKeywords = Set<String>()
+    
+    private var sizes: [CGSize]?
+    
+    private var pbAdSlot: String?
     
     // MARK: - NSCopying
     
     @objc public func copy(with zone: NSZone? = nil) -> Any {
-        let clone = AdUnitConfig(configID: self.configID, size: self.adSize)
+        let clone = AdUnitConfig(configId: self.configId, size: self.adSize)
         
         clone.adFormat = self.adFormat
         clone.adConfiguration.adFormat = self.adConfiguration.adFormat

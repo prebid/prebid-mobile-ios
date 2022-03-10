@@ -33,7 +33,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func testAdPositionHeader() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 320, height: 50))
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
         adUnitConfig.adFormat = .display
         
         let builder = PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
@@ -110,7 +110,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func testAdditionalSizes() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 320, height: 50))
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
         adUnitConfig.adFormat = .display
         
         let bidRequest = PBMORTBBidRequest()
@@ -150,7 +150,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     func testVideo() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 320, height: 50))
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
         adUnitConfig.adFormat = .video
         adUnitConfig.adPosition = .header
         
@@ -183,7 +183,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     func testFirstPartyData() {
         
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
-        let adUnitConfig = AdUnitConfig(configID: configId, size: CGSize(width: 320, height: 50))
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
         
         let bidRequest = PBMORTBBidRequest()
         
@@ -202,7 +202,7 @@ class PrebidParameterBuilderTest: XCTestCase {
         adUnitConfig.addUserData([userDataObject1, userDataObject2])
         let objects = adUnitConfig.getUserData()!
         
-        adUnitConfig.addContextData("mushrooms", forKey: "buy")
+        adUnitConfig.addContextData(key: "buy", value: "mushrooms")
         
         PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
                                  sdkConfiguration: sdkConfiguration,

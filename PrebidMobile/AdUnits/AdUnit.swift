@@ -26,7 +26,7 @@ import ObjectiveC.runtime
 
     var dispatcher: Dispatcher?
     
-    var adUnitConfig: OriginalAdUnitConfigurationProtocol
+    var adUnitConfig: AdUnitConfig
     
     var adSizes: [CGSize] {
         get { [adUnitConfig.adSize] + (adUnitConfig.additionalSizes ?? []) }
@@ -60,7 +60,7 @@ import ObjectiveC.runtime
     var timeOutSignalSent: Bool! = false
 
     public init(configId: String, size: CGSize?) {
-        adUnitConfig = OriginalAdUnitConfiguration(configId: configId, size: size ?? CGSize.zero)
+        adUnitConfig = AdUnitConfig(configId: configId, size: size ?? CGSize.zero)
         identifier = UUID.init().uuidString
         super.init()
     }

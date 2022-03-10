@@ -20,7 +20,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     let adUnitConfig: AdUnitConfig
     
     public var configId: String {
-        adUnitConfig.configID
+        adUnitConfig.configId
     }
     
     var bidRequester: PBMBidRequester?
@@ -31,7 +31,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     
     init(configId: String, mediationDelegate: PrebidMediationDelegate) {
         self.mediationDelegate = mediationDelegate
-        adUnitConfig = AdUnitConfig(configID: configId)
+        adUnitConfig = AdUnitConfig(configId: configId)
         adUnitConfig.isInterstitial = true
         adUnitConfig.adPosition = .fullScreen
         adUnitConfig.videoPlacementType = .sliderOrFloating
@@ -47,15 +47,15 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     // MARK: - Context Data
     
     public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addContextData(data, forKey: key)
+        adUnitConfig.addContextData(key: key, value: data)
     }
     
     public func updateContextData(_ data: Set<String>, forKey key: String) {
-        adUnitConfig.updateContextData(data, forKey: key)
+        adUnitConfig.updateContextData(key: key, value: data)
     }
     
     public func removeContextDate(forKey key: String) {
-        adUnitConfig.removeContextData(forKey: key)
+        adUnitConfig.removeContextData(for: key)
     }
     
     public func clearContextData() {
