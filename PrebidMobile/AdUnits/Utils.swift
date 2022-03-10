@@ -142,7 +142,7 @@ public class Utils: NSObject {
         }
     }
 
-    func validateAndAttachKeywords (adObject: AnyObject, bidResponse: BidResponse) {
+    func validateAndAttachKeywords (adObject: AnyObject, bidResponse: OriginalBidResponseProtocol) {
 
         let adServerObject: String = String(describing: type(of: adObject))
         if (adServerObject == .DFP_Object_Name || adServerObject == .DFP_O_Object_Name ||
