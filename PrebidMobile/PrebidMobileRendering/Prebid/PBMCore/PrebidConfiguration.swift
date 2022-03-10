@@ -19,7 +19,7 @@ import OMSDK_Prebidorg
 fileprivate let defaultTimeoutMillis = 2000
 
 @objcMembers
-public class PrebidConfiguration: NSObject, OriginalSDKConfigurationProtocol {
+public class PrebidConfiguration: NSObject {
   
     // MARK: - Public Properties (SDK)
     
@@ -73,14 +73,18 @@ public class PrebidConfiguration: NSObject, OriginalSDKConfigurationProtocol {
     
     public var prebidServerHost: PrebidHost = .Custom {
         didSet {
-            bidRequestTimeoutDynamic = nil
+            bidRequestTimeoutDynamic = NSNumber(value: bidRequestTimeoutMillis)
             timeoutUpdated = false
         }
     }
     
     public var accountID: String
     
-    public var bidRequestTimeoutMillis: Int
+    public var bidRequestTimeoutMillis: Int {
+        didSet {
+            bidRequestTimeoutDynamic = NSNumber(value: bidRequestTimeoutMillis)
+        }
+    }
     public var bidRequestTimeoutDynamic: NSNumber?
     
     public var storedAuctionResponse: String?

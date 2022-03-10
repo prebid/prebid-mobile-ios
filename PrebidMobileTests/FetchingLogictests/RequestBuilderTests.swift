@@ -878,7 +878,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         //given
         let targeting = Targeting.shared
-        targeting.addBidderToAccessControlList(Prebid.bidderNameRubiconProject)
+        targeting.addBidderToAccessControlList(PrebidConfiguration.bidderNameRubiconProject)
         
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -894,7 +894,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         //then
         XCTAssertEqual(1, bidders.count)
-        XCTAssertEqual(bidders[0], Prebid.bidderNameRubiconProject)
+        XCTAssertEqual(bidders[0], PrebidConfiguration.bidderNameRubiconProject)
     }
     
     func testPostDataWithGlobalUserDataObjects() throws {

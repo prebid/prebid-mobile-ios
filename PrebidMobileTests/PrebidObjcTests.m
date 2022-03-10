@@ -22,14 +22,6 @@ limitations under the License.
 
 @implementation PrebidObjcTests
 
-- (void)setUp {
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-}
-
 - (void)testServerHost {
     //given
     PrebidHost case1 = PrebidHostAppnexus;
@@ -120,8 +112,8 @@ limitations under the License.
 }
 
 - (void)testBidderName {
-    XCTAssertEqualObjects(@"appnexus", Prebid.bidderNameAppNexus);
-    XCTAssertEqualObjects(@"rubicon", Prebid.bidderNameRubiconProject);
+    XCTAssertEqualObjects(@"appnexus", PrebidConfiguration.bidderNameAppNexus);
+    XCTAssertEqualObjects(@"rubicon", PrebidConfiguration.bidderNameRubiconProject);
 }
 
 - (void)testPbsDebug {

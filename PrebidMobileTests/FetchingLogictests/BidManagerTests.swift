@@ -16,8 +16,6 @@
 import XCTest
 import TestUtils
 @testable import PrebidMobile
-//@testable import GoogleMobileAds
-//@testable import MoPub
 
 class BidManagerTests: XCTestCase {
 
