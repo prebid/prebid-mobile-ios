@@ -17,37 +17,29 @@ import Foundation
 
 private let kDefaultBidExpiryTime: TimeInterval = 270
 
-public class BidResponse: NSObject {
+public class BidResponse: NSObject, OriginalBidResponseProtocol {
 
     /**
      * the adUnitId is the adUnit identifier that the bid response corresponds to
      */
-    private(set) var adUnitId: String = ""
-
-    var myUnitId: String? = "" {
-        didSet {
-            adUnitId = myUnitId!
-        }
-    }
+    public let adUnitId: String
+    
     /**
      * customKeywords is a dictionary of all the response objects returned by the demand source that can be used in future
      */
-    private(set) var customKeywords: [String: String] = [:]
-
-    private var myCustomKeywords: [String: String] = [:] {
-        didSet {
-            customKeywords = myCustomKeywords
-        }
+    public var customKeywords: [String: String] {
+        myCustomKeywords
     }
 
-    public init(adId: String, adServerTargeting: [String: AnyObject]) {
-        super.init()
+    private var myCustomKeywords: [String: String] = [:] 
+
+    required public init(adId: String, adServerTargeting: [String: AnyObject]) {
         adUnitId = adId
+        super.init()
         setMyCustomKeywords(newValue: adServerTargeting as! [String: String])
     }
 
-    func setMyCustomKeywords(newValue: [String: String]) {
-        self.myCustomKeywords = newValue
+    public func setMyCustomKeywords(newValue: [String: String]) {
+        myCustomKeywords = newValue
     }
-
 }
