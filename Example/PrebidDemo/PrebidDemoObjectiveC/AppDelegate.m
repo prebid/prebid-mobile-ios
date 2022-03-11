@@ -29,7 +29,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    Targeting.shared.gender = GenderMale;
+    Targeting.shared.userGender = GenderMale;
     
     // User Id from External Third Party Sources
     NSMutableArray<ExternalUserId *>  *externalUserIdArray  = [[NSMutableArray<ExternalUserId *> alloc] init];
