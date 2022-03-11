@@ -29,7 +29,7 @@
 @interface PBMAppInfoParameterBuilder ()
 
 @property (nonatomic, strong, readonly) id<PBMBundleProtocol> bundle;
-@property (nonatomic, strong, readonly) PrebidRenderingTargeting *targeting;
+@property (nonatomic, strong, readonly) Targeting *targeting;
 
 @end
 
@@ -50,7 +50,7 @@
 
 #pragma mark - Initialization
 
-- (nonnull instancetype)initWithBundle:(id<PBMBundleProtocol>)bundle targeting:(PrebidRenderingTargeting *)targeting {
+- (nonnull instancetype)initWithBundle:(id<PBMBundleProtocol>)bundle targeting:(Targeting *)targeting {
     if (!(self = [super init])) {
         return nil;
     }

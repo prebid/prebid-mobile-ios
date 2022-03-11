@@ -19,11 +19,11 @@ import XCTest
 class PrebidParameterBuilderTest: XCTestCase {
     
     private let sdkConfiguration = Prebid.mock
-    private var targeting: PrebidRenderingTargeting!
+    private var targeting: Targeting!
     
     override func setUp() {
         super.setUp()
-        targeting = PrebidRenderingTargeting.shared
+        targeting = Targeting.shared
         UtilitiesForTesting.resetTargeting(targeting)
     }
     

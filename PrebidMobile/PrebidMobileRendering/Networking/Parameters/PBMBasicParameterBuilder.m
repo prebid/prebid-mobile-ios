@@ -31,7 +31,7 @@
 
 @property (nonatomic, strong, readwrite) PBMAdConfiguration *adConfiguration;
 @property (nonatomic, strong, readwrite) Prebid *sdkConfiguration;
-@property (nonatomic, strong, readwrite) PrebidRenderingTargeting *targeting;
+@property (nonatomic, strong, readwrite) Targeting *targeting;
 @property (nonatomic, copy, readwrite) NSString *sdkVersion;
 
 @end
@@ -79,7 +79,7 @@
 - (instancetype)initWithAdConfiguration:(PBMAdConfiguration *)adConfiguration
                        sdkConfiguration:(Prebid *)sdkConfiguration
                              sdkVersion:(NSString *)sdkVersion
-                              targeting:(PrebidRenderingTargeting *)targeting
+                              targeting:(Targeting *)targeting
 {
     if (!(self = [super init])) {
         return nil;

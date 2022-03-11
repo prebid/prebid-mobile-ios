@@ -31,7 +31,7 @@
 
 @property (nonatomic, strong, nonnull, readonly) id<PBMServerConnectionProtocol> connection;
 @property (nonatomic, strong, nonnull, readonly) Prebid *sdkConfiguration;
-@property (nonatomic, strong, nonnull, readonly) PrebidRenderingTargeting *targeting;
+@property (nonatomic, strong, nonnull, readonly) Targeting *targeting;
 @property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adUnitConfiguration;
 
 @property (nonatomic, copy, nullable) void (^completion)(BidResponseForRendering *, NSError *);
@@ -42,7 +42,7 @@
 
 - (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
                   sdkConfiguration:(Prebid *)sdkConfiguration
-                         targeting:(PrebidRenderingTargeting *)targeting
+                         targeting:(Targeting *)targeting
                adUnitConfiguration:(AdUnitConfig *)adUnitConfiguration {
     if (!(self = [super init])) {
         return nil;

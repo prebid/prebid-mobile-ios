@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc public enum PBRGender : Int {
+@objc public enum Gender : Int {
     case unknown
     case male
     case female
@@ -29,7 +29,7 @@ enum GenderDescription : String {
 }
 
 
-func GenderFromDescription(_ genderDescription: String) -> PBRGender {
+func GenderFromDescription(_ genderDescription: String) -> Gender {
     guard let knownGender = GenderDescription(rawValue: genderDescription) else {
         return .unknown
     }
@@ -41,7 +41,7 @@ func GenderFromDescription(_ genderDescription: String) -> PBRGender {
     }
 }
 
-func DescriptionOfGender(_ gender: PBRGender) -> String? {
+func DescriptionOfGender(_ gender: Gender) -> String? {
     switch gender {
         case .unknown:   return nil
         case .male:      return GenderDescription.male.rawValue

@@ -25,7 +25,7 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         config.accountID = Prebid.devintAccountID
         return config
     }()
-    private let targeting = PrebidRenderingTargeting.shared
+    private let targeting = Targeting.shared
     
     var adObject: MockAdObject?
     var mediationDelegate: PrebidMediationDelegate?

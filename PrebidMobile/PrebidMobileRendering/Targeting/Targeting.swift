@@ -23,9 +23,9 @@ fileprivate let PrebidTargetingKey_USER_ID = "xid"
 fileprivate let PrebidTargetingKey_PUB_PROVIDED_PREFIX = "c."
 
 @objcMembers
-public class PrebidRenderingTargeting: NSObject, OriginalTargetingProtocol {
+public class Targeting: NSObject {
     
-    public static var shared = PrebidRenderingTargeting()
+    public static var shared = Targeting()
     
     // MARK: - OMID Partner
     
@@ -86,7 +86,7 @@ public class PrebidRenderingTargeting: NSObject, OriginalTargetingProtocol {
     /**
      Indicates the end-user's gender.
      */
-    public var userGender: PBRGender {
+    public var userGender: Gender {
         get {
             guard let currentValue = parameterDictionary[PrebidTargetingKey_GENDER] else {
                 return .unknown

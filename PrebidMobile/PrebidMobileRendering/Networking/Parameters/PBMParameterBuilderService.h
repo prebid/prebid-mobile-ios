@@ -19,7 +19,7 @@
 @protocol PBMBundleProtocol;
 @protocol PBMParameterBuilder;
 
-@class PrebidRenderingTargeting;
+@class Targeting;
 @class PBMAdConfiguration;
 @class PBMDeviceAccessManager;
 @class PBMLocationManager;
@@ -45,6 +45,6 @@
                                                                     sdkConfiguration:(nonnull Prebid *)sdkConfiguration
                                                                           sdkVersion:(nonnull NSString *)sdkVersion
                                                                pbmUserConsentManager:(nonnull PBMUserConsentDataManager *)pbmUserConsentManager
-                                                                           targeting:(nonnull PrebidRenderingTargeting *)targeting
+                                                                           targeting:(nonnull Targeting *)targeting
                                                               extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders;
 @end

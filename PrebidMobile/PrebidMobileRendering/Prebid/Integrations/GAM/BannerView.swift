@@ -119,7 +119,7 @@ public class BannerView: UIView,
             bidRequesterFactory: { [adUnitConfig] config in
                 PBMBidRequester(connection: PBMServerConnection.shared,
                                 sdkConfiguration: Prebid.shared,
-                                targeting: PrebidRenderingTargeting.shared,
+                                targeting: Targeting.shared,
                                 adUnitConfiguration: adUnitConfig)
             },
             adLoader: bannerAdLoader,

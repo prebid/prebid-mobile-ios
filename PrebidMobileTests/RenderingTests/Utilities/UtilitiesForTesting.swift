@@ -274,7 +274,7 @@ typealias JsonDictionary = [String:Any]
         return log
     }
     
-    @objc public class func resetTargeting(_ targeting: PrebidRenderingTargeting)  {
+    @objc public class func resetTargeting(_ targeting: Targeting)  {
         
         targeting.userAge = nil
         targeting.userGender = .unknown
@@ -291,7 +291,7 @@ typealias JsonDictionary = [String:Any]
         checkInitialValues(targeting)
     }
     
-    @objc public class func checkInitialValues(_ targeting: PrebidRenderingTargeting) {
+    @objc public class func checkInitialValues(_ targeting: Targeting) {
         XCTAssertNil(targeting.userAge)
         XCTAssertEqual(targeting.userGender, .unknown)
         XCTAssertNil(targeting.userID)

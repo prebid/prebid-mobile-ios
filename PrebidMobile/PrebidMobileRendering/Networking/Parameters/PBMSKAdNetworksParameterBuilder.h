@@ -18,14 +18,14 @@
 #import "PBMBundleProtocol.h"
 #import "PBMParameterBuilderProtocol.h"
 
-@class PrebidRenderingTargeting;
+@class Targeting;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMSKAdNetworksParameterBuilder : NSObject <PBMParameterBuilder>
 
 - (nonnull instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithBundle:(id<PBMBundleProtocol>)bundle targeting:(PrebidRenderingTargeting *)targeting NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithBundle:(id<PBMBundleProtocol>)bundle targeting:(Targeting *)targeting NS_DESIGNATED_INITIALIZER;
 
 @end
 

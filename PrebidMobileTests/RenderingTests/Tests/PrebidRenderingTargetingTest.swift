@@ -18,7 +18,7 @@ import MapKit
 
 @testable import PrebidMobile
 
-extension PBRGender: CaseIterable {
+extension Gender: CaseIterable {
     public static let allCases: [Self] = [
         .unknown,
         .male,
@@ -55,7 +55,7 @@ class PrebidRenderingTargetingTest: XCTestCase {
     
     func testUserAge() {
         //Init
-        let targeting = PrebidRenderingTargeting.shared
+        let targeting = Targeting.shared
         
         XCTAssertNil(targeting.userAge)
         XCTAssert(targeting.parameterDictionary == [:], "Dict is \(targeting.parameterDictionary)")
@@ -75,26 +75,26 @@ class PrebidRenderingTargetingTest: XCTestCase {
     func testUserAgeReset() {
         //Init
         let age = 42
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        PrebidRenderingTargeting.userAge = age as NSNumber
+        let Targeting = Targeting.shared
+        Targeting.userAge = age as NSNumber
 
-        XCTAssert(PrebidRenderingTargeting.userAge as! Int == age)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == ["age":"\(age)"], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        XCTAssert(Targeting.userAge as! Int == age)
+        XCTAssert(Targeting.parameterDictionary == ["age":"\(age)"], "Dict is \(Targeting.parameterDictionary)")
         
         // Test reset
-        PrebidRenderingTargeting.resetUserAge()
-        XCTAssertNil(PrebidRenderingTargeting.userAge)
-        XCTAssertNil(PrebidRenderingTargeting.parameterDictionary["age"])
+        Targeting.resetUserAge()
+        XCTAssertNil(Targeting.userAge)
+        XCTAssertNil(Targeting.parameterDictionary["age"])
     }
 
     func testUserGender() {
         
         //Init
-        let targeting = PrebidRenderingTargeting.shared
+        let targeting = Targeting.shared
         XCTAssert(targeting.userGender == .unknown)
         
         //Set
-        for gender in PBRGender.allCases {
+        for gender in Gender.allCases {
             targeting.userGender = gender
             XCTAssertEqual(targeting.userGender, gender)
             
@@ -117,183 +117,183 @@ class PrebidRenderingTargetingTest: XCTestCase {
 
         //Init
         //Note: on init, the default is nil but it doesn't send a value.
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        XCTAssert(PrebidRenderingTargeting.userID == nil)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        let Targeting = Targeting.shared
+        XCTAssert(Targeting.userID == nil)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
         
         //Set
-        PrebidRenderingTargeting.userID = "abc123"
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == ["xid":"abc123"], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.userID = "abc123"
+        XCTAssert(Targeting.parameterDictionary == ["xid":"abc123"], "Dict is \(Targeting.parameterDictionary)")
         
         //Unset
-        PrebidRenderingTargeting.userID = nil
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.userID = nil
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
     }
     
     func testBuyerUID() {
         //Init
         //Note: on init, and it never sends a value via an odinary ad request params.
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        XCTAssertNil(PrebidRenderingTargeting.buyerUID)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.buyerUID)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
         
         //Set
         let buyerUID = "abc123"
-        PrebidRenderingTargeting.buyerUID = buyerUID
-        XCTAssertEqual(PrebidRenderingTargeting.buyerUID, buyerUID)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.buyerUID = buyerUID
+        XCTAssertEqual(Targeting.buyerUID, buyerUID)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
         
         //Unset
-        PrebidRenderingTargeting.buyerUID = nil
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.buyerUID = nil
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
     }
     
     func testUserCustomData() {
 
         //Init
         //Note: on init, and it never sends a value via an odinary ad request params.
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        XCTAssertNil(PrebidRenderingTargeting.userCustomData)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.userCustomData)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
         
         //Set
         let customData = "123"
-        PrebidRenderingTargeting.userCustomData = customData
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.userCustomData = customData
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
         
         //Unset
-        PrebidRenderingTargeting.userCustomData = nil
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.userCustomData = nil
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
     }
     
     func testUserExt() {
         //Init
         //Note: on init, and it never sends a value via an odinary ad request params.
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        XCTAssertNil(PrebidRenderingTargeting.userExt)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.userExt)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
 
         //Set
         let userExt = ["consent": "dummyConsentString"]
-        PrebidRenderingTargeting.userExt = userExt
-        XCTAssertEqual(PrebidRenderingTargeting.userExt?.count, 1)
+        Targeting.userExt = userExt
+        XCTAssertEqual(Targeting.userExt?.count, 1)
     }
     
     func testUserEids() {
         //Init
         //Note: on init, and it never sends a value via an odinary ad request params.
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        XCTAssertNil(PrebidRenderingTargeting.eids)
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.eids)
 
         //Set
         let eids: [[String: AnyHashable]] = [["key" : "value"], ["key" : "value"]]
-        PrebidRenderingTargeting.eids = eids
-        XCTAssertEqual(PrebidRenderingTargeting.eids?.count, 2)
+        Targeting.eids = eids
+        XCTAssertEqual(Targeting.eids?.count, 2)
     }
     
     func testPublisherName() {
         //Init
         //Note: on init, and it never doesn't send a value via an ad request params.
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        XCTAssertNil(PrebidRenderingTargeting.publisherName)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.publisherName)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
         
         //Set
         let publisherName = "abc123"
-        PrebidRenderingTargeting.publisherName = publisherName
-        XCTAssertEqual(PrebidRenderingTargeting.publisherName, publisherName)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.publisherName = publisherName
+        XCTAssertEqual(Targeting.publisherName, publisherName)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
         
         //Unset
-        PrebidRenderingTargeting.publisherName = nil
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.publisherName = nil
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
     }
     
     func testAppStoreMarketURL() {
         
         //Init
         //Note: on init, the default is nil but it doesn't send a value.
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        XCTAssertNil(PrebidRenderingTargeting.appStoreMarketURL)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.appStoreMarketURL)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
         
         //Set
         let storeUrl = "foo.com"
-        PrebidRenderingTargeting.appStoreMarketURL = storeUrl
-        XCTAssertEqual(PrebidRenderingTargeting.appStoreMarketURL, storeUrl)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == ["url":storeUrl], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.appStoreMarketURL = storeUrl
+        XCTAssertEqual(Targeting.appStoreMarketURL, storeUrl)
+        XCTAssert(Targeting.parameterDictionary == ["url":storeUrl], "Dict is \(Targeting.parameterDictionary)")
         
         //Unset
-        PrebidRenderingTargeting.appStoreMarketURL = nil
-        XCTAssertNil(PrebidRenderingTargeting.appStoreMarketURL)
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.appStoreMarketURL = nil
+        XCTAssertNil(Targeting.appStoreMarketURL)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
     }
 
     func testLatitudeLongitude() {
         //Init
         //Note: on init, the default is nil but it doesn't send a value.
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        XCTAssertNil(PrebidRenderingTargeting.coordinate)
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.coordinate)
         
         let lat = 123.0
         let lon = 456.0
-        PrebidRenderingTargeting.setLatitude(lat, longitude: lon)
-        XCTAssertEqual(PrebidRenderingTargeting.coordinate?.mkCoordinateValue.latitude, lat)
-        XCTAssertEqual(PrebidRenderingTargeting.coordinate?.mkCoordinateValue.longitude, lon)
+        Targeting.setLatitude(lat, longitude: lon)
+        XCTAssertEqual(Targeting.coordinate?.mkCoordinateValue.latitude, lat)
+        XCTAssertEqual(Targeting.coordinate?.mkCoordinateValue.longitude, lon)
     }
     
     //MARK: - Custom Params
     func testAddParam() {
         
         //Init
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        let Targeting = Targeting.shared
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
         
         //Set
-        PrebidRenderingTargeting.addParam("value", withName: "name")
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == ["name":"value"], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.addParam("value", withName: "name")
+        XCTAssert(Targeting.parameterDictionary == ["name":"value"], "Dict is \(Targeting.parameterDictionary)")
         
         //Unset
-        PrebidRenderingTargeting.addParam("", withName: "name")
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.addParam("", withName: "name")
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
     }
 
     func testAddCustomParam() {
         
         //Init
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        let Targeting = Targeting.shared
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
         
         //Set
-        PrebidRenderingTargeting.addCustomParam("value", withName: "name")
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == ["c.name":"value"], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.addCustomParam("value", withName: "name")
+        XCTAssert(Targeting.parameterDictionary == ["c.name":"value"], "Dict is \(Targeting.parameterDictionary)")
         
         //Unset
-        PrebidRenderingTargeting.addCustomParam("", withName: "name")
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.addCustomParam("", withName: "name")
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
     }
     
     func testSetCustomParams() {
         //Init
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == [:], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        let Targeting = Targeting.shared
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
         
         //Set
-        PrebidRenderingTargeting.setCustomParams(["name1":"value1", "name2":"value2"])
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == ["c.name1":"value1", "c.name2":"value2"], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.setCustomParams(["name1":"value1", "name2":"value2"])
+        XCTAssert(Targeting.parameterDictionary == ["c.name1":"value1", "c.name2":"value2"], "Dict is \(Targeting.parameterDictionary)")
         
         //Not currently possible to unset
-        PrebidRenderingTargeting.setCustomParams([:])
-        XCTAssert(PrebidRenderingTargeting.parameterDictionary == ["c.name1":"value1", "c.name2":"value2"], "Dict is \(PrebidRenderingTargeting.parameterDictionary)")
+        Targeting.setCustomParams([:])
+        XCTAssert(Targeting.parameterDictionary == ["c.name1":"value1", "c.name2":"value2"], "Dict is \(Targeting.parameterDictionary)")
     }
     
     func testKeywords() {
         //Init
-        let PrebidRenderingTargeting = PrebidRenderingTargeting.shared
-        XCTAssertNil(PrebidRenderingTargeting.keywords)
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.keywords)
         
         let keywords = "Key, words"
-        PrebidRenderingTargeting.keywords = keywords
-        XCTAssertEqual(PrebidRenderingTargeting.keywords, keywords)
+        Targeting.keywords = keywords
+        XCTAssertEqual(Targeting.keywords, keywords)
     }
 }

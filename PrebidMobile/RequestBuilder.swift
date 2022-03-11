@@ -470,7 +470,7 @@ class RequestBuilder: NSObject {
             userDict["yob"] = yob
         }
 
-        let genderValue: Gender = Targeting.shared.gender
+        let genderValue: Gender = Targeting.shared.userGender
         var gender: String
         switch genderValue {
         case .male:

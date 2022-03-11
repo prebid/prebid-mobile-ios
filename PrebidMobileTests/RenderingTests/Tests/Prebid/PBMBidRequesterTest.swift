@@ -19,7 +19,7 @@ import XCTest
 
 class PBMBidRequesterTest: XCTestCase {
     private var sdkConfiguration: Prebid!
-    private let targeting = PrebidRenderingTargeting.shared
+    private let targeting = Targeting.shared
     
     override func setUp() {
         super.setUp()

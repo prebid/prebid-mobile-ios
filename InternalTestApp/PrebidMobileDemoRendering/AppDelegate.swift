@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         processArgumentsParser.addOption("BIDDER_ACCESS_CONTROL_LIST", acceptedParamsRange: (min: 1, max: nil)) { params in
-            params.forEach(PrebidRenderingTargeting.shared.addBidder(toAccessControlList:))
+            params.forEach(Targeting.shared.addBidder(toAccessControlList:))
         }
         processArgumentsParser.addOption("ADD_ADUNIT_CONTEXT", paramsCount: 2) { params in
             let appConfig = AppConfiguration.shared
@@ -77,11 +77,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         processArgumentsParser.addOption("ADD_USER_EXT_DATA", paramsCount: 2) { params in
-            PrebidRenderingTargeting.shared.addUserData(params[1], forKey: params[0])
+            Targeting.shared.addUserData(params[1], forKey: params[0])
         }
         
         processArgumentsParser.addOption("ADD_APP_EXT", paramsCount: 2) { params in
-            PrebidRenderingTargeting.shared.addContextData(params[1], forKey: params[0])
+            Targeting.shared.addContextData(params[1], forKey: params[0])
         }
         
         processArgumentsParser.addOption("ADD_USER_DATA_EXT", paramsCount: 2) { params in
