@@ -30,7 +30,7 @@
 @interface PBMBidRequester ()
 
 @property (nonatomic, strong, nonnull, readonly) id<PBMServerConnectionProtocol> connection;
-@property (nonatomic, strong, nonnull, readonly) PrebidRenderingConfig *sdkConfiguration;
+@property (nonatomic, strong, nonnull, readonly) Prebid *sdkConfiguration;
 @property (nonatomic, strong, nonnull, readonly) PrebidRenderingTargeting *targeting;
 @property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adUnitConfiguration;
 
@@ -41,7 +41,7 @@
 @implementation PBMBidRequester
 
 - (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
-                  sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
+                  sdkConfiguration:(Prebid *)sdkConfiguration
                          targeting:(PrebidRenderingTargeting *)targeting
                adUnitConfiguration:(AdUnitConfig *)adUnitConfiguration {
     if (!(self = [super init])) {
@@ -78,8 +78,8 @@
         return;
     }
     
-    const NSInteger rawTimeoutMS_onRead     = self.sdkConfiguration.bidRequestTimeoutMillis;
-    NSNumber * const dynamicTimeout_onRead  = self.sdkConfiguration.bidRequestTimeoutDynamic;
+    const NSInteger rawTimeoutMS_onRead     = self.sdkConfiguration.timeoutMillis;
+    NSNumber * const dynamicTimeout_onRead  = self.sdkConfiguration.timeoutMillisDynamic;
         
     const NSTimeInterval postTimeout = (dynamicTimeout_onRead
                                         ? dynamicTimeout_onRead.doubleValue
@@ -125,11 +125,11 @@
                                                       + bidResponseTimeout
                                                       + 0.2);
                 NSString * const currentServerURL = [Host.shared getHostURLWithHost:self.sdkConfiguration.prebidServerHost error:nil];
-                if (self.sdkConfiguration.bidRequestTimeoutDynamic == nil && [currentServerURL isEqualToString:requestServerURL]) {
-                    const NSInteger rawTimeoutMS_onWrite = self.sdkConfiguration.bidRequestTimeoutMillis;
+                if (self.sdkConfiguration.timeoutMillisDynamic == nil && [currentServerURL isEqualToString:requestServerURL]) {
+                    const NSInteger rawTimeoutMS_onWrite = self.sdkConfiguration.timeoutMillis;
                     const NSTimeInterval appTimeout = rawTimeoutMS_onWrite / 1000.0;
                     const NSTimeInterval updatedTimeout = MIN(remoteTimeout, appTimeout);
-                    self.sdkConfiguration.bidRequestTimeoutDynamic = @(updatedTimeout);
+                    self.sdkConfiguration.timeoutMillisDynamic = @(updatedTimeout);
                 };
             }
         }

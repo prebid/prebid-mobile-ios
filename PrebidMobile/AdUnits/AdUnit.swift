@@ -42,7 +42,8 @@ import ObjectiveC.runtime
     }
     
     var prebidConfigId: String {
-        adUnitConfig.configId
+        get { adUnitConfig.configId }
+        set { adUnitConfig.configId = newValue }
     }
 
     //This flag is set to check if the refresh needs to be made though the user has not invoked the fetch demand after initialization
@@ -128,7 +129,7 @@ import ObjectiveC.runtime
             }
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Prebid.shared.timeoutMillisDynamic), execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int(truncating: Prebid.shared.timeoutMillisDynamic ?? NSNumber(value: .PB_Request_Timeout))), execute: {
             if (!self.didReceiveResponse) {
                 self.timeOutSignalSent = true
                 completion(ResultCode.prebidDemandTimedOut)

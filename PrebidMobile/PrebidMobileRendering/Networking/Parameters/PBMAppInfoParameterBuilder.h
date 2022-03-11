@@ -18,7 +18,7 @@
 #import "PBMBundleProtocol.h"
 #import "PBMParameterBuilderProtocol.h"
 
-@class PrebidRenderingConfig;
+@class Prebid;
 @class PrebidRenderingTargeting;
 
 NS_ASSUME_NONNULL_BEGIN

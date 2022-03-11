@@ -25,12 +25,12 @@
 
 + (PBMBidRequesterFactoryBlock)requesterFactoryWithSingletons {
     return [self requesterFactoryWithConnection:[PBMServerConnection shared]
-                               sdkConfiguration:[PrebidRenderingConfig shared]
+                               sdkConfiguration:[Prebid shared]
                                       targeting:[PrebidRenderingTargeting shared]];
 }
 
 + (PBMBidRequesterFactoryBlock)requesterFactoryWithConnection:(id<PBMServerConnectionProtocol>)connection
-                                             sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
+                                             sdkConfiguration:(Prebid *)sdkConfiguration
                                                     targeting:(PrebidRenderingTargeting *)targeting
 {
     return ^id<PBMBidRequesterProtocol> (AdUnitConfig * adUnitConfig) {

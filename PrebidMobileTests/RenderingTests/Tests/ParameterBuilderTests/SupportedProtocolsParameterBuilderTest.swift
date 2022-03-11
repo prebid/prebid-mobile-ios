@@ -24,7 +24,7 @@ class SupportedProtocolsParameterBuilderTest : XCTestCase {
         adConfiguration.adFormat = .displayInternal
         
         //Run the Builder
-        let sdkConfig = PrebidRenderingConfig.mock
+        let sdkConfig = Prebid.mock
         let targeting = PrebidRenderingTargeting.shared
         let builder = PBMBasicParameterBuilder(adConfiguration: adConfiguration,
                                                sdkConfiguration: sdkConfig,

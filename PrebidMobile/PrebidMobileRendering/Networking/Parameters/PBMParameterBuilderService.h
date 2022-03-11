@@ -23,7 +23,7 @@
 @class PBMAdConfiguration;
 @class PBMDeviceAccessManager;
 @class PBMLocationManager;
-@class PrebidRenderingConfig;
+@class Prebid;
 @class PBMUserConsentDataManager;
 @class PBMReachability;
 
@@ -42,7 +42,7 @@
                                                               pbmDeviceAccessManager:(nonnull PBMDeviceAccessManager *)pbmDeviceAccessManager
                                                               ctTelephonyNetworkInfo:(nonnull CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo
                                                                         reachability:(nonnull PBMReachability *)reachability
-                                                                    sdkConfiguration:(nonnull PrebidRenderingConfig *)sdkConfiguration
+                                                                    sdkConfiguration:(nonnull Prebid *)sdkConfiguration
                                                                           sdkVersion:(nonnull NSString *)sdkVersion
                                                                pbmUserConsentManager:(nonnull PBMUserConsentDataManager *)pbmUserConsentManager
                                                                            targeting:(nonnull PrebidRenderingTargeting *)targeting

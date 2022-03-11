@@ -15,7 +15,7 @@
 
 #import "PBMBidRequesterFactoryBlock.h"
 
-@class PrebidRenderingConfig;
+@class Prebid;
 @class PrebidRenderingTargeting;
 @protocol PBMServerConnectionProtocol;
 
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, class, readonly) PBMBidRequesterFactoryBlock requesterFactoryWithSingletons;
 
 + (PBMBidRequesterFactoryBlock)requesterFactoryWithConnection:(id<PBMServerConnectionProtocol>)connection
-                                             sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
+                                             sdkConfiguration:(Prebid *)sdkConfiguration
                                                     targeting:(PrebidRenderingTargeting *)targeting;
 
 - (instancetype)init NS_UNAVAILABLE;

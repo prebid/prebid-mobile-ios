@@ -50,7 +50,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         targeting.userCustomData = "customDataString"
         targeting.publisherName = publisherName
         
-        let sdkConfiguration = PrebidRenderingConfig.mock
+        let sdkConfiguration = Prebid.mock
         
         let mockBundle = MockBundle()
         let mockDeviceAccessManager = MockDeviceAccessManager(rootViewController: nil)

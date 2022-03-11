@@ -30,7 +30,7 @@
 // TODO: Prove that 'init' arguments are never nil; convert to 'readonly'; remove redundant checks and tests.
 
 @property (nonatomic, strong, readwrite) PBMAdConfiguration *adConfiguration;
-@property (nonatomic, strong, readwrite) PrebidRenderingConfig *sdkConfiguration;
+@property (nonatomic, strong, readwrite) Prebid *sdkConfiguration;
 @property (nonatomic, strong, readwrite) PrebidRenderingTargeting *targeting;
 @property (nonatomic, copy, readwrite) NSString *sdkVersion;
 
@@ -77,7 +77,7 @@
 #pragma mark - Initialization
 
 - (instancetype)initWithAdConfiguration:(PBMAdConfiguration *)adConfiguration
-                       sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
+                       sdkConfiguration:(Prebid *)sdkConfiguration
                              sdkVersion:(NSString *)sdkVersion
                               targeting:(PrebidRenderingTargeting *)targeting
 {

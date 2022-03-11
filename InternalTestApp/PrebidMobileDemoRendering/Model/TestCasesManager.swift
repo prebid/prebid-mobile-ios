@@ -287,7 +287,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     bannerController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     bannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                         
@@ -535,7 +535,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     gamBannerController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     gamBannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner_static"
@@ -703,7 +703,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     mopubBannerController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     mopubBannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 mopubBannerController.moPubAdUnitId = "2b664935d41c4f4f8b8148ae39d22c99"
@@ -836,7 +836,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     interstitialController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     interstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 adapterVC.setup(adapter: interstitialController)
@@ -934,7 +934,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     gamInterstitialController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     gamInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_320x480_html_interstitial_static"
@@ -1022,7 +1022,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     mopubInterstitialController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     mopubInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 mopubInterstitialController.moPubAdUnitId = "caa0c9304d6145da86bdc0e4d79e966b"
@@ -1089,7 +1089,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     interstitialController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     interstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 interstitialController.adFormat = .video
@@ -1293,7 +1293,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     gamInterstitialController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     gamInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 gamInterstitialController.adFormat = .video
@@ -1369,7 +1369,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     mopubInterstitialController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     mopubInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 mopubInterstitialController.adFormat = .video
@@ -1426,7 +1426,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     bannerController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     bannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
@@ -1596,7 +1596,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     gamBannerController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     gamBannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_outsream_video"
@@ -1696,7 +1696,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     rewardedAdController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     rewardedAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 adapterVC.setup(adapter: rewardedAdController)
@@ -1781,7 +1781,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     gamRewardedAdController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     gamRewardedAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_static"
@@ -1854,7 +1854,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     mopubRewardedAdController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     mopubRewardedAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 mopubRewardedAdController.moPubAdUnitId = "cf3f015774b148ea9979d27da8c4f8ed"
@@ -1927,7 +1927,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     mopubRewardedAdController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     mopubRewardedAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 mopubRewardedAdController.moPubAdUnitId = "cf3f015774b148ea9979d27da8c4f8ed"
@@ -2317,7 +2317,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     admobBannerController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     admobBannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
@@ -2420,7 +2420,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     admobInterstitialController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     admobInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
@@ -2493,7 +2493,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     admobInterstitialController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     admobInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 admobInterstitialController.adFormat = .video
@@ -2536,7 +2536,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     admobRewardedAdController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     admobRewardedAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
                 admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
@@ -2634,8 +2634,8 @@ struct TestCaseManager {
                     nativeAdController.prebidConfigId = "mock-banner-native-styles"
                 } else {
                     // FIXME: Switch the example from QA to the Prod server
-                    try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-                    PrebidRenderingConfig.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
+                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
+                    Prebid.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
                     Prebid.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     nativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
@@ -2707,8 +2707,8 @@ struct TestCaseManager {
                     mopubNativeAdController.prebidConfigId = "mock-banner-native-styles"
                 } else {
                     // FIXME: Switch the example from QA to the Prod server
-                    try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-                    PrebidRenderingConfig.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
+                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
+                    Prebid.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
                     Prebid.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     mopubNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
@@ -2797,7 +2797,7 @@ struct TestCaseManager {
                 if AppConfiguration.shared.useMockServer {
                     mopubNativeAdController.prebidConfigId = "mock-no-bids"
                 } else {
-                    PrebidRenderingConfig.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
+                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     mopubNativeAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
 
@@ -2849,8 +2849,8 @@ struct TestCaseManager {
                     gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
                 } else {
                     // FIXME: Switch the example from QA to the Prod server
-                    try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-                    PrebidRenderingConfig.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
+                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
+                    Prebid.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
                     Prebid.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     gamNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
@@ -2951,8 +2951,8 @@ struct TestCaseManager {
                     gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
                 } else {
                     // FIXME: Switch the example from QA to the Prod server
-                    try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-                    PrebidRenderingConfig.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
+                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
+                    Prebid.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
                     Prebid.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
                     gamNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"

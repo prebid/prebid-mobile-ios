@@ -18,14 +18,14 @@ import XCTest
 @testable import PrebidMobile
 
 class PBMBidRequesterTest: XCTestCase {
-    private var sdkConfiguration: PrebidRenderingConfig!
+    private var sdkConfiguration: Prebid!
     private let targeting = PrebidRenderingTargeting.shared
     
     override func setUp() {
         super.setUp()
-        sdkConfiguration = PrebidRenderingConfig.mock
-        try! sdkConfiguration.setCustomPrebidServer(url: PrebidRenderingConfig.devintServerURL)
-        sdkConfiguration.accountID = PrebidRenderingConfig.devintAccountID
+        sdkConfiguration = Prebid.mock
+        try! sdkConfiguration.setCustomPrebidServer(url: Prebid.devintServerURL)
+        sdkConfiguration.accountID = Prebid.devintAccountID
     }
     
     override func tearDown() {
