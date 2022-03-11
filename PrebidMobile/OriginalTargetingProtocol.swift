@@ -29,7 +29,7 @@ public protocol OriginalTargetingProtocol {
     var omidPartnerName: String? { get set }
     var omidPartnerVersion: String? { get set }
     
-    var gender: Gender { get set }
+//    var gender: Gender { get set }
     
     var externalUserIds: [ExternalUserId] { get set }
     
