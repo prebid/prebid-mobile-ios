@@ -1873,22 +1873,13 @@
 		53DBEF4927DB87330000D68E /* ConfigurationAndTargeting */ = {
 			isa = PBXGroup;
 			children = (
-				5BC377CF271F1CFF00444D5E /* Prebid.swift */,
-			);
-			path = ConfigurationAndTargeting;
-			sourceTree = "<group>";
-		};
-		5BC37647271F1CFD00444D5E /* Targeting */ = {
-			isa = PBXGroup;
-			children = (
-				5BC37648271F1CFD00444D5E /* PBMNetworkType.h */,
 				5BC37649271F1CFD00444D5E /* Gender.swift */,
 				5BC3764A271F1CFD00444D5E /* Targeting.swift */,
 				5BC3764B271F1CFD00444D5E /* PBMAgeUtils.m */,
-				5BC3764C271F1CFD00444D5E /* PBMNetworkType.m */,
 				5BC3764D271F1CFD00444D5E /* PBMAgeUtils.h */,
+				5BC377CF271F1CFF00444D5E /* Prebid.swift */,
 			);
-			path = Targeting;
+			path = ConfigurationAndTargeting;
 			sourceTree = "<group>";
 		};
 		5BC3764E271F1CFD00444D5E /* ExtensionsAndWrappers */ = {
@@ -2337,6 +2328,8 @@
 		5BC37791271F1CFE00444D5E /* PBMCore */ = {
 			isa = PBXGroup;
 			children = (
+				5BC37648271F1CFD00444D5E /* PBMNetworkType.h */,
+				5BC3764C271F1CFD00444D5E /* PBMNetworkType.m */,
 				5BC377C4271F1CFF00444D5E /* AdUnitConfig.swift */,
 				5BC3780A271F1CFF00444D5E /* Bid.swift */,
 				5BC3782B271F1CFF00444D5E /* BidResponseForRendering.swift */,
@@ -2699,7 +2692,6 @@
 				5BC376F2271F1CFE00444D5E /* Prebid+TestExtension.h */,
 				5BC376A6271F1CFD00444D5E /* Prebid+TestExtension.m */,
 				5BC376FB271F1CFE00444D5E /* ServerSideConfiguration */,
-				5BC37647271F1CFD00444D5E /* Targeting */,
 				5BC376A9271F1CFE00444D5E /* Utilities */,
 				5BC37670271F1CFD00444D5E /* VideoPlacementType.swift */,
 				5BC378A7271F1CFF00444D5E /* WKNavigationAction+PBMWKNavigationActionCompatible.h */,
