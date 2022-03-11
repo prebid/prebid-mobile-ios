@@ -647,7 +647,6 @@
 		923B5521274536B400E00C88 /* MockMediationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923B5520274536B400E00C88 /* MockMediationUtils.swift */; };
 		925A641627317A39009E72F9 /* HiddenWebViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925A641527317A39009E72F9 /* HiddenWebViewManager.swift */; };
 		925D5D6A2737B5BC00A8A2B5 /* PBMServerConnectionWithMockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D692737B5BC00A8A2B5 /* PBMServerConnectionWithMockServer.swift */; };
-		925D5D6C2737B61200A8A2B5 /* PrebidRenderingTargetingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D6B2737B61200A8A2B5 /* PrebidRenderingTargetingTest.swift */; };
 		925D5D6E2737B6B500A8A2B5 /* PBMTouchDownRecognizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D6D2737B6B500A8A2B5 /* PBMTouchDownRecognizerTests.swift */; };
 		925D5D702737B74E00A8A2B5 /* PBMTouchForwardingViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D6F2737B74E00A8A2B5 /* PBMTouchForwardingViewTest.swift */; };
 		925D5D722737B79D00A8A2B5 /* PBMTrackingRecordTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D5D712737B79D00A8A2B5 /* PBMTrackingRecordTest.swift */; };
@@ -1513,7 +1512,6 @@
 		923B5520274536B400E00C88 /* MockMediationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMediationUtils.swift; sourceTree = "<group>"; };
 		925A641527317A39009E72F9 /* HiddenWebViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenWebViewManager.swift; sourceTree = "<group>"; };
 		925D5D692737B5BC00A8A2B5 /* PBMServerConnectionWithMockServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMServerConnectionWithMockServer.swift; sourceTree = "<group>"; };
-		925D5D6B2737B61200A8A2B5 /* PrebidRenderingTargetingTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidRenderingTargetingTest.swift; sourceTree = "<group>"; };
 		925D5D6D2737B6B500A8A2B5 /* PBMTouchDownRecognizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMTouchDownRecognizerTests.swift; sourceTree = "<group>"; };
 		925D5D6F2737B74E00A8A2B5 /* PBMTouchForwardingViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMTouchForwardingViewTest.swift; sourceTree = "<group>"; };
 		925D5D712737B79D00A8A2B5 /* PBMTrackingRecordTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMTrackingRecordTest.swift; sourceTree = "<group>"; };
@@ -2837,7 +2835,6 @@
 				925D5D692737B5BC00A8A2B5 /* PBMServerConnectionWithMockServer.swift */,
 				922AFD0B2737159800732C53 /* PBMViewExposureTest.swift */,
 				922AFD1F27371E0000732C53 /* PBMWebViewTest.swift */,
-				925D5D6B2737B61200A8A2B5 /* PrebidRenderingTargetingTest.swift */,
 				925D5D6D2737B6B500A8A2B5 /* PBMTouchDownRecognizerTests.swift */,
 				925D5D6F2737B74E00A8A2B5 /* PBMTouchForwardingViewTest.swift */,
 				925D5D712737B79D00A8A2B5 /* PBMTrackingRecordTest.swift */,
@@ -3944,7 +3941,6 @@
 				925D5D6E2737B6B500A8A2B5 /* PBMTouchDownRecognizerTests.swift in Sources */,
 				922AFC8B27352BB100732C53 /* MockUserDefaults.swift in Sources */,
 				925D5E442737F0C800A8A2B5 /* EnumSequenceTest.swift in Sources */,
-				925D5D6C2737B61200A8A2B5 /* PrebidRenderingTargetingTest.swift in Sources */,
 				925D5E602737F3F200A8A2B5 /* PBMAdRequesterVASTTest.swift in Sources */,
 				47D9A23380B17E26208C3744 /* MockPBMHTMLCreative.swift in Sources */,
 				47D9AD2C9FF0091569A39907 /* MockUIApplication.swift in Sources */,

@@ -286,8 +286,33 @@ typealias JsonDictionary = [String:Any]
         targeting.userExt = nil
         targeting.eids = nil
         targeting.keywords = nil
+        targeting.location = nil
+        targeting.locationPrecision = nil
+        targeting.sourceapp = nil
+        targeting.storeURL = nil
+        targeting.domain = nil
+        targeting.itunesID = nil
+        targeting.omidPartnerName = nil
+        targeting.omidPartnerVersion = nil
         
         targeting.parameterDictionary = [:]
+        targeting.subjectToCOPPA = false
+        targeting.subjectToGDPR = nil
+        targeting.gdprConsentString = nil
+        targeting.purposeConsents = nil
+        
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_SubjectToGDPR)
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_ConsentStringKey)
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_ConsentString)
+        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_PurposeConsents)
+        
+        targeting.clearContextData()
+        targeting.clearUserData()
+        targeting.clearYearOfBirth()
+        targeting.clearAccessControlList()
+        targeting.clearContextKeywords()
+        targeting.clearUserKeywords()
         checkInitialValues(targeting)
     }
     
@@ -302,7 +327,21 @@ typealias JsonDictionary = [String:Any]
         XCTAssertNil(targeting.userExt)
         XCTAssertNil(targeting.eids)
         XCTAssertNil(targeting.keywords)
+        XCTAssertNil(targeting.location)
+        XCTAssertNil(targeting.locationPrecision)
+        XCTAssertNil(targeting.sourceapp)
+        XCTAssertNil(targeting.storeURL)
+        XCTAssertNil(targeting.domain)
+        XCTAssertNil(targeting.itunesID)
+        XCTAssertNil(targeting.omidPartnerName)
+        XCTAssertNil(targeting.omidPartnerVersion)
         XCTAssert(targeting.parameterDictionary == [:])
+        XCTAssertTrue(targeting.contextKeywords.isEmpty)
+        XCTAssertTrue(targeting.contextDataDictionary.isEmpty)
+        XCTAssertTrue(targeting.userKeywords.isEmpty)
+        XCTAssertTrue(targeting.userDataDictionary.isEmpty)
+        XCTAssertTrue(targeting.accessControlList.isEmpty)
+        XCTAssert(targeting.yearOfBirth == 0)
     }
     
     // Prepends "mraid:" and converts to a URL.

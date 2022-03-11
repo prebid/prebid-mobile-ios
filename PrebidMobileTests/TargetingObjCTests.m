@@ -78,10 +78,10 @@ limitations under the License.
     int genderFemale = GenderFemale;
     
     //when
-    Targeting.shared.gender = genderFemale;
+    Targeting.shared.userGender = genderFemale;
     
     //then
-    XCTAssertEqual(genderFemale, Targeting.shared.gender);
+    XCTAssertEqual(genderFemale, Targeting.shared.userGender);
 }
 
 - (void)testitunesID {

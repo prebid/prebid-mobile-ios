@@ -364,6 +364,14 @@ public class Targeting: NSObject {
       * The application location precision for targeting
       */
     public var locationPrecision: Int?
+    
+    public func setLocationPrecision(_ newValue: NSNumber?) {
+        locationPrecision = newValue?.intValue
+    }
+    
+    public func getLocationPrecision() -> NSNumber? {
+        return locationPrecision as NSNumber?
+    }
 
     // MARK: - Location and connection information
     
