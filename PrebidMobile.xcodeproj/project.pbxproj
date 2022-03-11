@@ -1876,6 +1876,14 @@
 			path = Plist;
 			sourceTree = "<group>";
 		};
+		53DBEF4927DB87330000D68E /* ConfigurationAndTargeting */ = {
+			isa = PBXGroup;
+			children = (
+				5BC377CF271F1CFF00444D5E /* Prebid.swift */,
+			);
+			path = ConfigurationAndTargeting;
+			sourceTree = "<group>";
+		};
 		5BC37647271F1CFD00444D5E /* Targeting */ = {
 			isa = PBXGroup;
 			children = (
@@ -2371,7 +2379,6 @@
 				5BC377D1271F1CFF00444D5E /* PBMWinNotifier+Private.h */,
 				5BC377C6271F1CFF00444D5E /* PBMWinNotifierBlock.h */,
 				5BC3780D271F1CFF00444D5E /* PBMWinNotifierFactoryBlock.h */,
-				5BC377CF271F1CFF00444D5E /* Prebid.swift */,
 				5BC37831271F1CFF00444D5E /* TransactionFactory */,
 			);
 			path = PBMCore;
@@ -3190,6 +3197,7 @@
 		FAEE4CDC262DC2B200AD9966 /* PrebidMobile */ = {
 			isa = PBXGroup;
 			children = (
+				53DBEF4927DB87330000D68E /* ConfigurationAndTargeting */,
 				5BD67818271E0100004D334E /* PrebidMobileRendering */,
 				5BD67814271DF9E5004D334E /* BuildFiles */,
 				FAEE4CDD262DC2B200AD9966 /* Constants.swift */,

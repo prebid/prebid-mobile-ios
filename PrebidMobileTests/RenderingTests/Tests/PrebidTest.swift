@@ -37,7 +37,7 @@ class PrebidTest: XCTestCase {
     func testInitializeSDK() {
         logToFile = .init()
         
-        Prebid.initializeModule()
+        Prebid.initializeSDK()
         
         let log = PBMLog.shared.getLogFileAsString()
         
@@ -254,10 +254,10 @@ class PrebidTest: XCTestCase {
         let timeoutMillis =  3_000
         
         //when
-        Prebid.shared.bidRequestTimeoutMillis = timeoutMillis
+        Prebid.shared.timeoutMillis = timeoutMillis
         
         //then
-        XCTAssertEqual(timeoutMillis, Prebid.shared.bidRequestTimeoutMillis)
+        XCTAssertEqual(timeoutMillis, Prebid.shared.timeoutMillis)
     }
     
     func testBidderName() {

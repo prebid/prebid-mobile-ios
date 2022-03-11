@@ -30,7 +30,7 @@ extension Prebid {
         Prebid.shared.prebidServerHost = PrebidHost.Custom
         Prebid.shared.accountID = ""
         
-        Prebid.shared.bidRequestTimeoutMillis = 2000
+        Prebid.shared.timeoutMillis = 2000
         
         Prebid.forcedIsViewable = false
     }

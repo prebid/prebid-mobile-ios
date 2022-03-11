@@ -42,7 +42,7 @@ public class PrebidMoPubAdapterConfiguration : MPBaseAdapterConfiguration {
     }
     
     public override func initializeNetwork(withConfiguration configuration: [String : Any]?, complete: ((Error?) -> Void)? = nil) {
-        Prebid.initializeModule()
+        Prebid.initializeSDK()
         
         Prebid.shared.logLevel = .info
         Prebid.shared.locationUpdatesEnabled = true

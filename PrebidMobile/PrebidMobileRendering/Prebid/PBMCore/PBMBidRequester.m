@@ -78,8 +78,8 @@
         return;
     }
     
-    const NSInteger rawTimeoutMS_onRead     = self.sdkConfiguration.bidRequestTimeoutMillis;
-    NSNumber * const dynamicTimeout_onRead  = self.sdkConfiguration.bidRequestTimeoutDynamic;
+    const NSInteger rawTimeoutMS_onRead     = self.sdkConfiguration.timeoutMillis;
+    NSNumber * const dynamicTimeout_onRead  = self.sdkConfiguration.timeoutMillisDynamic;
         
     const NSTimeInterval postTimeout = (dynamicTimeout_onRead
                                         ? dynamicTimeout_onRead.doubleValue
@@ -125,11 +125,11 @@
                                                       + bidResponseTimeout
                                                       + 0.2);
                 NSString * const currentServerURL = [Host.shared getHostURLWithHost:self.sdkConfiguration.prebidServerHost error:nil];
-                if (self.sdkConfiguration.bidRequestTimeoutDynamic == nil && [currentServerURL isEqualToString:requestServerURL]) {
-                    const NSInteger rawTimeoutMS_onWrite = self.sdkConfiguration.bidRequestTimeoutMillis;
+                if (self.sdkConfiguration.timeoutMillisDynamic == nil && [currentServerURL isEqualToString:requestServerURL]) {
+                    const NSInteger rawTimeoutMS_onWrite = self.sdkConfiguration.timeoutMillis;
                     const NSTimeInterval appTimeout = rawTimeoutMS_onWrite / 1000.0;
                     const NSTimeInterval updatedTimeout = MIN(remoteTimeout, appTimeout);
-                    self.sdkConfiguration.bidRequestTimeoutDynamic = @(updatedTimeout);
+                    self.sdkConfiguration.timeoutMillisDynamic = @(updatedTimeout);
                 };
             }
         }

@@ -73,19 +73,19 @@ public class Prebid: NSObject {
     
     public var prebidServerHost: PrebidHost = .Custom {
         didSet {
-            bidRequestTimeoutDynamic = NSNumber(value: bidRequestTimeoutMillis)
+            timeoutMillisDynamic = NSNumber(value: timeoutMillis)
             timeoutUpdated = false
         }
     }
     
     public var accountID: String
     
-    public var bidRequestTimeoutMillis: Int {
+    public var timeoutMillis: Int {
         didSet {
-            bidRequestTimeoutDynamic = NSNumber(value: bidRequestTimeoutMillis)
+            timeoutMillisDynamic = NSNumber(value: timeoutMillis)
         }
     }
-    public var bidRequestTimeoutDynamic: NSNumber?
+    public var timeoutMillisDynamic: NSNumber?
     
     public var storedAuctionResponse: String?
 
@@ -146,7 +146,7 @@ public class Prebid: NSObject {
         customHeaders.removeAll()
     }
     
-    public static func initializeModule() {
+    public static func initializeSDK() {
         let _ = PBMServerConnection.shared
         let _ = PBMLocationManager.shared
         let _ = PBMUserConsentDataManager.shared
@@ -160,6 +160,6 @@ public class Prebid: NSObject {
     override init() {
         accountID  = ""
         
-        bidRequestTimeoutMillis = defaultTimeoutMillis
+        timeoutMillis = defaultTimeoutMillis
     }
 }

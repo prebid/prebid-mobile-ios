@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         //Set up SDK.
-        Prebid.initializeModule()
+        Prebid.initializeSDK()
                 
         // Set up MockServer
         processArgumentsParser.addOption("useMockServer", fireOnce: true) { params in

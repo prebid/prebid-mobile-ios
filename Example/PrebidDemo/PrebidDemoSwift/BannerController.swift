@@ -482,7 +482,7 @@ class BannerController:
     }
     
     func setRequestTimeoutMillis() {
-        Prebid.shared.bidRequestTimeoutMillis = 5000
+        Prebid.shared.timeoutMillis = 5000
     }
 
     func enablePbsDebug() {

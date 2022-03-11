@@ -49,7 +49,7 @@ class RequestBuilder: NSObject {
     func buildRequest(adUnit: AdUnit?) throws -> URLRequest? {
 
         let hostUrl: String = try Host.shared.getHostURL(host: Prebid.shared.prebidServerHost)
-        var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Int(truncating: Prebid.shared.bidRequestTimeoutDynamic ?? NSNumber(value: .PB_Request_Timeout))))
+        var request: URLRequest = URLRequest(url: URL(string: hostUrl)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval(Int(truncating: Prebid.shared.timeoutMillisDynamic ?? NSNumber(value: .PB_Request_Timeout))))
         request.httpMethod = "POST"
         let requestBody = openRTBRequestBody(adUnit: adUnit) ?? [:]
         let requestBodyJSON = try JSONSerialization.data(withJSONObject: requestBody, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body

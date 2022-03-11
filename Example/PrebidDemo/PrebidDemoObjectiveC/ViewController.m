@@ -207,7 +207,7 @@
 }
 
 -(void) setRequestTimeoutMillis {
-    Prebid.shared.bidRequestTimeoutMillis = 5000;
+    Prebid.shared.timeoutMillis = 5000;
 }
 
 #pragma mark :- DFP banner delegates
