@@ -39,7 +39,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     
     public func fetchDemand(completion: ((FetchDemandResult)->Void)?) {
         fetchDemand(connection: PBMServerConnection.shared,
-                    sdkConfiguration: PrebidConfiguration.shared,
+                    sdkConfiguration: Prebid.shared,
                     targeting: PrebidRenderingTargeting.shared,
                     completion: completion)
     }
@@ -102,7 +102,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     
     // NOTE: do not use `private` to expose this method to unit tests
     func fetchDemand(connection: PBMServerConnectionProtocol,
-                     sdkConfiguration: PrebidConfiguration,
+                     sdkConfiguration: Prebid,
                      targeting: PrebidRenderingTargeting,
                      completion: ((FetchDemandResult)->Void)?) {
         guard bidRequester == nil else {

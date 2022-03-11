@@ -30,7 +30,7 @@
 @interface PBMBidRequester ()
 
 @property (nonatomic, strong, nonnull, readonly) id<PBMServerConnectionProtocol> connection;
-@property (nonatomic, strong, nonnull, readonly) PrebidConfiguration *sdkConfiguration;
+@property (nonatomic, strong, nonnull, readonly) Prebid *sdkConfiguration;
 @property (nonatomic, strong, nonnull, readonly) PrebidRenderingTargeting *targeting;
 @property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adUnitConfiguration;
 
@@ -41,7 +41,7 @@
 @implementation PBMBidRequester
 
 - (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
-                  sdkConfiguration:(PrebidConfiguration *)sdkConfiguration
+                  sdkConfiguration:(Prebid *)sdkConfiguration
                          targeting:(PrebidRenderingTargeting *)targeting
                adUnitConfiguration:(AdUnitConfig *)adUnitConfiguration {
     if (!(self = [super init])) {

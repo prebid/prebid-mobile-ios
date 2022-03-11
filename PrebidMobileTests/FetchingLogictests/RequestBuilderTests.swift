@@ -31,7 +31,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     var adUnit: BannerAdUnit!
     override func setUp() {
 
-        PrebidConfiguration.shared.prebidServerHost = PrebidHost.Appnexus
+        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
         adUnit = BannerAdUnit(configId: Constants.configID1, size: CGSize(width: Constants.width2, height: Constants.height2))
     }
 
@@ -45,7 +45,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         Targeting.shared.clearContextKeywords()
         Targeting.shared.clearUserKeywords()
         Targeting.shared.removeStoredExternalUserIds()
-        PrebidConfiguration.shared.externalUserIdArray = []
+        Prebid.shared.externalUserIdArray = []
     }
 
     func testPostData() throws {
@@ -72,7 +72,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testPostDataWithServerAccountId() throws {
 
         //given
-        PrebidConfiguration.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -231,8 +231,8 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         let headerValue = "value-of-the-header-field"
         
         //given
-        PrebidConfiguration.shared.clearCustomHeaders()
-        PrebidConfiguration.shared.addCustomHeader(name: headerField, value: headerValue)
+        Prebid.shared.clearCustomHeaders()
+        Prebid.shared.addCustomHeader(name: headerField, value: headerValue)
 
         //when
         let urlRequest = try getPostDataHelper(adUnit: adUnit).urlRequest
@@ -244,7 +244,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     func testPostDataWithRubiconHost() throws {
 
         //given
-        PrebidConfiguration.shared.prebidServerHost = .Rubicon
+        Prebid.shared.prebidServerHost = .Rubicon
 
         //when
         let urlRequest = try getPostDataHelper(adUnit: adUnit).urlRequest
@@ -265,7 +265,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         externalUserIdArray.append(ExternalUserId(source: "liveramp.com", identifier: "AjfowMv4ZHZQJFM8TpiUnYEyA81Vdgg"))
         externalUserIdArray.append(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
         
-        PrebidConfiguration.shared.externalUserIdArray = externalUserIdArray
+        Prebid.shared.externalUserIdArray = externalUserIdArray
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -320,7 +320,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         var externalUserIdArray = [ExternalUserId]()
         externalUserIdArray.append(ExternalUserId(source: "", identifier: "999888777"))
 
-        PrebidConfiguration.shared.externalUserIdArray = externalUserIdArray
+        Prebid.shared.externalUserIdArray = externalUserIdArray
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -343,7 +343,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
         var externalUserIdArray = [ExternalUserId]()
         externalUserIdArray.append(ExternalUserId(source: "netid.de", identifier: ""))
 
-        PrebidConfiguration.shared.externalUserIdArray = externalUserIdArray
+        Prebid.shared.externalUserIdArray = externalUserIdArray
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -878,7 +878,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         //given
         let targeting = Targeting.shared
-        targeting.addBidderToAccessControlList(PrebidConfiguration.bidderNameRubiconProject)
+        targeting.addBidderToAccessControlList(Prebid.bidderNameRubiconProject)
         
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -894,7 +894,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         //then
         XCTAssertEqual(1, bidders.count)
-        XCTAssertEqual(bidders[0], PrebidConfiguration.bidderNameRubiconProject)
+        XCTAssertEqual(bidders[0], Prebid.bidderNameRubiconProject)
     }
     
     func testPostDataWithGlobalUserDataObjects() throws {
@@ -1010,13 +1010,13 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
     func testPostDataWithStoredResponses() throws {
         //given
-        PrebidConfiguration.shared.storedAuctionResponse = "111122223333"
-        PrebidConfiguration.shared.addStoredBidResponse(bidder: "appnexus", responseId: "221144")
-        PrebidConfiguration.shared.addStoredBidResponse(bidder: "rubicon", responseId: "221155")
+        Prebid.shared.storedAuctionResponse = "111122223333"
+        Prebid.shared.addStoredBidResponse(bidder: "appnexus", responseId: "221144")
+        Prebid.shared.addStoredBidResponse(bidder: "rubicon", responseId: "221155")
 
         defer {
-            PrebidConfiguration.shared.storedAuctionResponse = ""
-            PrebidConfiguration.shared.clearStoredBidResponses()
+            Prebid.shared.storedAuctionResponse = ""
+            Prebid.shared.clearStoredBidResponses()
         }
 
         //when
@@ -1050,7 +1050,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         coreLocation?.swizzedRequestLocation()
 
-        PrebidConfiguration.shared.shareGeoLocation = true
+        Prebid.shared.shareGeoLocation = true
         do {
             sleep(10)
             try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
@@ -1070,7 +1070,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
     }
 
     func testPostDataWithShareLocationOff() {
-        PrebidConfiguration.shared.shareGeoLocation = false
+        Prebid.shared.shareGeoLocation = false
         do {
             sleep(10)
             try RequestBuilder.shared.buildPrebidRequest(adUnit: adUnit) { (urlRequest) in
@@ -1390,7 +1390,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
     func pbsDebugHelper(pbsDebug: Bool, expectedTest: Int?) throws {
         //given
-        PrebidConfiguration.shared.pbsDebug = pbsDebug
+        Prebid.shared.pbsDebug = pbsDebug
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody
@@ -1403,7 +1403,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
     func testVideoAdUnit() throws {
         //given
-        PrebidConfiguration.shared.prebidServerAccountId = "12345"
+        Prebid.shared.prebidServerAccountId = "12345"
         let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
 
         //when
@@ -1436,7 +1436,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
      
     func testVideoInterstitialAdUnit() throws {
         //given
-        PrebidConfiguration.shared.prebidServerAccountId = "12345"
+        Prebid.shared.prebidServerAccountId = "12345"
         let adUnit = VideoInterstitialAdUnit(configId: Constants.configID1)
 
         //when
@@ -1476,7 +1476,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
     func testRewardedVideoAdUnit() throws {
         //given
-        PrebidConfiguration.shared.prebidServerAccountId = "12345"
+        Prebid.shared.prebidServerAccountId = "12345"
         let adUnit = RewardedVideoAdUnit(configId: Constants.configID1)
 
         //when
@@ -1523,7 +1523,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
     func testVideoBaseAdUnit() throws {
         //given
-        PrebidConfiguration.shared.prebidServerAccountId = "12345"
+        Prebid.shared.prebidServerAccountId = "12345"
         let adUnit = VideoAdUnit(configId: Constants.configID1, size: CGSize(width: 300, height: 250))
 
         let parameters = VideoBaseAdUnit.Parameters()

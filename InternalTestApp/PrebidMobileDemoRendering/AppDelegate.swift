@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         //Set up SDK.
-        PrebidConfiguration.initializeRenderingModule()
+        Prebid.initializeModule()
                 
         // Set up MockServer
         processArgumentsParser.addOption("useMockServer", fireOnce: true) { params in
@@ -114,16 +114,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AdMobUtils.initializeGAD()
         
         // Prebid Rendering Configs
-        PrebidConfiguration.shared.logLevel = PBMLogLevel.info
-        PrebidConfiguration.shared.debugLogFileEnabled = true
+        Prebid.shared.logLevel = .info
+        Prebid.shared.debugLogFileEnabled = true
         
         // Ads may include Open Measurement scripts that sometime require additional time for loading.
-        PrebidConfiguration.shared.creativeFactoryTimeout = 20;
+        Prebid.shared.creativeFactoryTimeout = 20;
         
-        PrebidConfiguration.shared.locationUpdatesEnabled = false
+        Prebid.shared.locationUpdatesEnabled = false
         
         // Original Prebid Configs
-        PrebidConfiguration.shared.shareGeoLocation = true
+        Prebid.shared.shareGeoLocation = true
         
 		return true
 	}

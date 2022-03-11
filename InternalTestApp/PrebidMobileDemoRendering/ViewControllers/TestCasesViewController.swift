@@ -107,14 +107,14 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
         
         //Set up the default account id here
         //as it can be changed in any test cases
-        PrebidConfiguration.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
-        PrebidConfiguration.shared.prebidServerAccountId = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        Prebid.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        Prebid.shared.prebidServerAccountId = "0689a263-318d-448b-a3d4-b02e8a709d9d"
         if AppConfiguration.shared.useMockServer {
-            let _ = try? PrebidConfiguration.shared.setCustomPrebidServer(url: "https://10.0.2.2:8000/openrtb2/auction")
-            try? PrebidConfiguration.shared.setCustomPrebidServer(url: "https://10.0.2.2:8000/openrtb2/auction")
+            let _ = try? Prebid.shared.setCustomPrebidServer(url: "https://10.0.2.2:8000/openrtb2/auction")
+            try? Prebid.shared.setCustomPrebidServer(url: "https://10.0.2.2:8000/openrtb2/auction")
         } else {
-            let _ = try? PrebidConfiguration.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
-            try? PrebidConfiguration.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
+            let _ = try? Prebid.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
+            try? Prebid.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
         }
         
         example.configurationClosure?(vc)
@@ -134,7 +134,7 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        PrebidConfiguration.shared.locationUpdatesEnabled = (status == .authorizedAlways) || (status == .authorizedWhenInUse)
+        Prebid.shared.locationUpdatesEnabled = (status == .authorizedAlways) || (status == .authorizedWhenInUse)
     }
     
     // MARK: - Private Methods

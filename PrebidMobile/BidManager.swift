@@ -50,11 +50,11 @@ class BidManager: NSObject {
                         callback(nil, ResultCode.prebidNetworkError)
 
                     }
-                    if (!PrebidConfiguration.shared.timeoutUpdated) {
+                    if (!Prebid.shared.timeoutUpdated) {
                         let tmax = self.getTmaxRequest(data!)
                         if (tmax > 0) {
-                            PrebidConfiguration.shared.bidRequestTimeoutDynamic = NSNumber(value: min(Int(demandFetchEndTime - demandFetchStartTime) + tmax + 200, PrebidConfiguration.shared.bidRequestTimeoutMillis))
-                            PrebidConfiguration.shared.timeoutUpdated = true
+                            Prebid.shared.bidRequestTimeoutDynamic = NSNumber(value: min(Int(demandFetchEndTime - demandFetchStartTime) + tmax + 200, Prebid.shared.bidRequestTimeoutMillis))
+                            Prebid.shared.timeoutUpdated = true
                         }
                     }
                     let processData = self.processBids(data!)

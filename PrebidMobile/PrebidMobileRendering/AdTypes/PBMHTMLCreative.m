@@ -59,7 +59,7 @@
 
 @property (nonatomic, strong) NSURL *baseURL;
 @property (nonatomic, strong) PBMWebView *prebidWebView;
-@property (nonatomic, strong) PrebidConfiguration *sdkConfiguration;
+@property (nonatomic, strong) Prebid *sdkConfiguration;
 @property (nonatomic, strong) PBMMRAIDController *MRAIDController;
 
 @end
@@ -75,7 +75,7 @@
     self = [self initWithCreativeModel:creativeModel
                            transaction:transaction
                                webView:nil
-                      sdkConfiguration:PrebidConfiguration.shared];
+                      sdkConfiguration:Prebid.shared];
     
     return self;
 }
@@ -83,7 +83,7 @@
 - (nonnull instancetype)initWithCreativeModel:(PBMCreativeModel *)creativeModel
                                   transaction:(PBMTransaction *)transaction
                                       webView:(PBMWebView *)webView
-                             sdkConfiguration:(PrebidConfiguration *)sdkConfiguration {
+                             sdkConfiguration:(Prebid *)sdkConfiguration {
     self = [super initWithCreativeModel:creativeModel transaction:transaction];
     if (self) {
         self.sdkConfiguration = sdkConfiguration;
@@ -335,7 +335,7 @@
 #pragma mark - Helper Methods
 
 - (void)handleClickthrough:(NSURL*)url
-          sdkConfiguration:(PrebidConfiguration *)sdkConfiguration
+          sdkConfiguration:(Prebid *)sdkConfiguration
          completionHandler:(void (^)(BOOL success))completion
                     onExit:(PBMVoidBlock)onClickthroughExitBlock {
     @weakify(self);

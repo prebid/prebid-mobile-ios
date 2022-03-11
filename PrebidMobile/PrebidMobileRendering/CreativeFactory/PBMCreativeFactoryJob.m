@@ -201,9 +201,9 @@
 - (NSTimeInterval)getTimeInterval {
     PBMAdConfiguration *adConfig = self.creativeModel.adConfiguration;
     if (adConfig.adFormat == PBMAdFormatVideoInternal || adConfig.presentAsInterstitial) {
-        return PrebidConfiguration.shared.creativeFactoryTimeoutPreRenderContent;
+        return Prebid.shared.creativeFactoryTimeoutPreRenderContent;
     } else {
-        return PrebidConfiguration.shared.creativeFactoryTimeout;
+        return Prebid.shared.creativeFactoryTimeout;
     }
 }
 

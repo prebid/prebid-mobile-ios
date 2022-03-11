@@ -31,8 +31,8 @@ class AboutViewController : FormViewController {
     
     private let info = [
         ("Components", [
-            "Prebid Mobile Rendering SDK": PrebidConfiguration.shared.version,
-            "OMSDK_Prebidorg": PrebidConfiguration.shared.omsdkVersion
+            "Prebid Mobile Rendering SDK": Prebid.shared.version,
+            "OMSDK_Prebidorg": Prebid.shared.omsdkVersion
         ]),
         ("Ad Server SDKs", [
             "GoogleMobileAds SDK": GADMobileAds.sharedInstance().sdkVersion,

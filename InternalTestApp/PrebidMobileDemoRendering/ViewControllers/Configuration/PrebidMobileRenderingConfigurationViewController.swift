@@ -19,8 +19,8 @@ import PrebidMobile
 
 final class PrebidMobileXSDKConfigurationController : FormViewController {
     
-    var sdkConfig: PrebidConfiguration {
-        return PrebidConfiguration.shared
+    var sdkConfig: Prebid {
+        return Prebid.shared
     }
     
     override func viewDidLoad() {

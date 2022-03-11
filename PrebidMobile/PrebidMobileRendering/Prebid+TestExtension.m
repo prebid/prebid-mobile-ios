@@ -12,21 +12,24 @@
  See the License for the specific language governing permissions and
  limitations under the License.
  */
+
 #ifdef DEBUG
 
-#import <Foundation/Foundation.h>
+#import "Prebid+TestExtension.h"
 
-#import "PrebidMobileSwiftHeaders.h"
-#import <PrebidMobile/PrebidMobile-Swift.h>
+@implementation Prebid (Test)
 
-NS_ASSUME_NONNULL_BEGIN
+@dynamic forcedIsViewable;
 
-@interface PrebidConfiguration (Test)
+- (BOOL)forcedIsViewable {
+    return [NSUserDefaults.standardUserDefaults boolForKey:@"forcedIsViewable"];
+}
 
-@property(nonatomic, assign) BOOL forcedIsViewable;
+- (void)setForcedIsViewable:(BOOL) value {
+    [NSUserDefaults.standardUserDefaults setBool:value forKey:@"forcedIsViewable"];
+}
+
 
 @end
-
-NS_ASSUME_NONNULL_END
 
 #endif

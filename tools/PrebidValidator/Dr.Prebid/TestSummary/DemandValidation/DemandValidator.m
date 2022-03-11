@@ -76,12 +76,12 @@
     NSURL *url = [NSURL URLWithString:kAppNexusPrebidServerEndpoint];
     if ([host isEqualToString:kRubiconString]) {
         url = [NSURL URLWithString:kRubiconPrebidServerEndpoint];
-        PrebidConfiguration.shared.prebidServerHost = PrebidHostRubicon;
+        Prebid.shared.prebidServerHost = PrebidHostRubicon;
     } else if ([host isEqualToString:kCustomString]){
         NSString *urlString = [[NSUserDefaults standardUserDefaults] stringForKey:kCustomPrebidServerEndpoint];
         url =[NSURL URLWithString:urlString];
-        PrebidConfiguration.shared.prebidServerHost = PrebidHostCustom;
-        [PrebidConfiguration.shared setCustomPrebidServerWithUrl:urlString error:nil];
+        Prebid.shared.prebidServerHost = PrebidHostCustom;
+        [Prebid.shared setCustomPrebidServerWithUrl:urlString error:nil];
     }
     DemandRequestBuilder *builder = [[DemandRequestBuilder alloc] init];
     builder.configId = configId;

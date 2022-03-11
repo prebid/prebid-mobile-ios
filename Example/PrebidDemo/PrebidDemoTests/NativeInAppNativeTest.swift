@@ -43,8 +43,8 @@ class NativeInAppNativeTest: XCTestCase {
     }
 
     override func setUp() {
-        PrebidConfiguration.shared.prebidServerHost = .Appnexus
-        PrebidConfiguration.shared.prebidServerAccountId = Constants.PBS_ACCOUNT_ID_APPNEXUS
+        Prebid.shared.prebidServerHost = .Appnexus
+        Prebid.shared.prebidServerAccountId = Constants.PBS_ACCOUNT_ID_APPNEXUS
         timeoutForImpbusRequest = 20.0
         StubbingHandler.shared.turnOn()
         NotificationCenter.default.addObserver(self, selector: #selector(self.requestCompleted(_:)), name: NSNotification.Name.pbhttpStubURLProtocolRequestDidLoad, object: nil)

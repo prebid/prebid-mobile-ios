@@ -25,7 +25,7 @@ class MockBannerView: BannerView, WinningBidResponseFabricator {
 
 class PBMBannerViewTest: XCTestCase {
     override func tearDown() {
-        PrebidConfiguration.reset()
+        Prebid.reset()
         
         super.tearDown()
     }
@@ -62,7 +62,7 @@ class PBMBannerViewTest: XCTestCase {
     func testAccountErrorPropagation() {
         let testID = "auid"
         
-        PrebidConfiguration.shared.accountID = ""
+        Prebid.shared.accountID = ""
         let primarySize = CGSize(width: 320, height: 50)
         
         let bannerView = MockBannerView(frame: CGRect(origin: .zero, size: primarySize), configID: testID, adSize: primarySize, eventHandler: BannerEventHandlerStandalone())

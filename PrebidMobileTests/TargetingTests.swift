@@ -456,7 +456,7 @@ class TargetingTests: XCTestCase {
     // MARK: - access control list (ext.prebid.data)
     func testAddBidderToAccessControlList() {
         //given
-        let bidderNameRubicon = PrebidConfiguration.bidderNameRubiconProject
+        let bidderNameRubicon = Prebid.bidderNameRubiconProject
         
         //when
         Targeting.shared.addBidderToAccessControlList(bidderNameRubicon)
@@ -469,7 +469,7 @@ class TargetingTests: XCTestCase {
     
     func testRemoveBidderFromAccessControlList() {
         //given
-        let bidderNameRubicon = PrebidConfiguration.bidderNameRubiconProject
+        let bidderNameRubicon = Prebid.bidderNameRubiconProject
         Targeting.shared.addBidderToAccessControlList(bidderNameRubicon)
         
         //when
@@ -482,7 +482,7 @@ class TargetingTests: XCTestCase {
     
     func testClearAccessControlList() {
         //given
-        let bidderNameRubicon = PrebidConfiguration.bidderNameRubiconProject
+        let bidderNameRubicon = Prebid.bidderNameRubiconProject
         Targeting.shared.addBidderToAccessControlList(bidderNameRubicon)
         
         //when

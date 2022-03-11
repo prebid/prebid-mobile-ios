@@ -78,7 +78,7 @@ class Log {
         #if !(DEBUG)
         return false
         #endif
-        let currentLevel = PrebidConfiguration.shared.logLevel
+        let currentLevel = Prebid.shared.logLevel
         switch currentLevel {
         case .debug:
             return true

@@ -28,7 +28,7 @@ public class PrebidAdMobMediationBaseAdapter: NSObject, GADMediationAdapter {
     }
     
     public static func adSDKVersion() -> GADVersionNumber {
-        let sdkVersionComponents = PrebidConfiguration.shared.version.components(separatedBy: ".").map( { Int($0) ?? 0})
+        let sdkVersionComponents = Prebid.shared.version.components(separatedBy: ".").map( { Int($0) ?? 0})
         
         return sdkVersionComponents.count == 3 ? GADVersionNumber(majorVersion: sdkVersionComponents[0],
                                                                   minorVersion: sdkVersionComponents[1],

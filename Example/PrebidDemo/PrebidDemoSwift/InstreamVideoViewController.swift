@@ -148,9 +148,9 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     }
     
     func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
-        PrebidConfiguration.shared.prebidServerHost = host
-        PrebidConfiguration.shared.prebidServerAccountId = accountId
-        PrebidConfiguration.shared.storedAuctionResponse = storedResponse
+        Prebid.shared.prebidServerHost = host
+        Prebid.shared.prebidServerAccountId = accountId
+        Prebid.shared.storedAuctionResponse = storedResponse
     }
 
     //Setup AdServer

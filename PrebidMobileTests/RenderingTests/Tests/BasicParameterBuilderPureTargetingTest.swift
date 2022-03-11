@@ -23,7 +23,7 @@ class BasicParameterBuilderPureTargetingTest: XCTestCase {
     func testParameterBuilderNoUserAgeNoCoppa() {
         let targeting = PrebidRenderingTargeting.shared
         let builder = PBMBasicParameterBuilder(adConfiguration:PBMAdConfiguration(),
-                                               sdkConfiguration:PrebidConfiguration.mock,
+                                               sdkConfiguration:Prebid.mock,
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
         

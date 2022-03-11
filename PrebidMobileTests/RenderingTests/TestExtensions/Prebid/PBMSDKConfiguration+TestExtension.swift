@@ -16,23 +16,23 @@
 import Foundation
 import PrebidMobile
 
-extension PrebidConfiguration {
+extension Prebid {
     static let devintServerURL = "https://prebid.devint.openx.net/openrtb2/auction"
     static let devintAccountID = "4f112bad-8cd2-4c43-97d0-1ab72fd442ed"
     static let prodAccountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
     
-    static var mock: PrebidConfiguration {
-        PrebidConfiguration.reset()
-        return PrebidConfiguration.shared
+    static var mock: Prebid {
+        Prebid.reset()
+        return Prebid.shared
     }
     
     static func reset() {
-        PrebidConfiguration.shared.prebidServerHost = PrebidHost.Custom
-        PrebidConfiguration.shared.accountID = ""
+        Prebid.shared.prebidServerHost = PrebidHost.Custom
+        Prebid.shared.accountID = ""
         
-        PrebidConfiguration.shared.bidRequestTimeoutMillis = 2000
+        Prebid.shared.bidRequestTimeoutMillis = 2000
         
-        PrebidConfiguration.forcedIsViewable = false
+        Prebid.forcedIsViewable = false
     }
     
     static var forcedIsViewable: Bool {

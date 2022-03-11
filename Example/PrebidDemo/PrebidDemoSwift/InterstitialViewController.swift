@@ -175,9 +175,9 @@ class InterstitialViewController:
     }
     
     func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
-        PrebidConfiguration.shared.prebidServerHost = host
-        PrebidConfiguration.shared.prebidServerAccountId = accountId
-        PrebidConfiguration.shared.storedAuctionResponse = storedResponse
+        Prebid.shared.prebidServerHost = host
+        Prebid.shared.prebidServerAccountId = accountId
+        Prebid.shared.storedAuctionResponse = storedResponse
     }
     
     //Setup AdServer
@@ -201,8 +201,8 @@ class InterstitialViewController:
     }
         
     func setupOpenxRendering() {
-        PrebidConfiguration.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
-        try! PrebidConfiguration.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
+        Prebid.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
     }
     
     // MARK: - Load

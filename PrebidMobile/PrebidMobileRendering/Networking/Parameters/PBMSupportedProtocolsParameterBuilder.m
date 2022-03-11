@@ -33,7 +33,7 @@ static int const PBMSupportOpenMeasurementProtocol = 7;
 
 @interface PBMSupportedProtocolsParameterBuilder ()
 
-@property (nonatomic, strong) PrebidConfiguration *sdkConfiguration;
+@property (nonatomic, strong) Prebid *sdkConfiguration;
 
 @end
 
@@ -49,7 +49,7 @@ static int const PBMSupportOpenMeasurementProtocol = 7;
 
 #pragma mark - Initialization
 
-- (nonnull instancetype)initWithSDKConfiguration:(nonnull PrebidConfiguration *)sdkConfiguration {
+- (nonnull instancetype)initWithSDKConfiguration:(nonnull Prebid *)sdkConfiguration {
     self = [super init];
     if (self) {
         PBMAssert(sdkConfiguration);
