@@ -28,7 +28,7 @@ public class BannerView: UIView,
     
     // MARK: - Public Properties
     
-    public var lastBidResponse: BidResponseForRendering? {
+    public var lastBidResponse: BidResponse? {
         adLoadFlowController?.bidResponse
     }
     

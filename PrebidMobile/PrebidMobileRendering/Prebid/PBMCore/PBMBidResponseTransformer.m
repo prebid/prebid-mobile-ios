@@ -23,7 +23,7 @@
 
 @implementation PBMBidResponseTransformer
 
-+ (BidResponseForRendering *)transformResponse:(PBMServerResponse *)response error:(NSError **)error {
++ (BidResponse *)transformResponse:(PBMServerResponse *)response error:(NSError **)error {
     NSString * const responseBody = [[NSString alloc] initWithData:response.rawData encoding:NSUTF8StringEncoding];
     if ([responseBody containsString:@"Invalid request"]) {
         if (error) {
@@ -37,7 +37,7 @@
         }
         return nil;
     }
-    BidResponseForRendering * const bidResponse = [[BidResponseForRendering alloc] initWithJsonDictionary:response.jsonDict];
+    BidResponse * const bidResponse = [[BidResponse alloc] initWithJsonDictionary:response.jsonDict];
     if (!bidResponse) {
         if (error) {
             *error = [PBMError responseDeserializationFailed];

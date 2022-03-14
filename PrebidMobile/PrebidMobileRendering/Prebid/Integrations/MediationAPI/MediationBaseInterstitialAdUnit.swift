@@ -130,7 +130,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     
     // MARK: - Private Methods
     
-    private func handleBidResponse(_ bidResponse: BidResponseForRendering) {
+    private func handleBidResponse(_ bidResponse: BidResponse) {
         var demandResult = FetchDemandResult.demandNoBids
         
         if let winningBid = bidResponse.winningBid,

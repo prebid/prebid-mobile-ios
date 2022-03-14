@@ -15,17 +15,26 @@
 
 import Foundation
 
-public class BidResponseForRendering: NSObject {
+@objcMembers
+public class BidResponse: NSObject {
     
-    @objc public private(set) var allBids: [Bid]?
-    @objc public private(set) var winningBid: Bid?
-    @objc public private(set) var targetingInfo: [String : String]?
+    public var adUnitId: String?
     
-    @objc public private(set) var tmaxrequest: NSNumber?
+    public private(set) var allBids: [Bid]?
+    public private(set) var winningBid: Bid?
+    public private(set) var targetingInfo: [String: String]?
+    
+    public private(set) var tmaxrequest: NSNumber?
     
     private(set) var rawResponse: RawBidResponse<PBMORTBBidResponseExt, NSDictionary, PBMORTBBidExt>?
+    
+    public convenience init(adUnitId: String?, targetingInfo: [String: String]?) {
+        self.init(jsonDictionary: [:])
+        self.adUnitId = adUnitId
+        self.targetingInfo = targetingInfo
+    }
 
-    @objc public convenience init(jsonDictionary: JsonDictionary) {
+    public convenience init(jsonDictionary: JsonDictionary) {
         let rawResponse = PBMORTBBidResponse<PBMORTBBidResponseExt, NSDictionary, PBMORTBBidExt>(
             jsonDictionary: jsonDictionary as! [String : Any],
             extParser: { extDic in
@@ -76,5 +85,9 @@ public class BidResponseForRendering: NSObject {
         self.allBids = allBids
         self.targetingInfo = targetingInfo.count > 0 ? targetingInfo : nil
         tmaxrequest = rawBidResponse.ext.tmaxrequest
+    }
+    
+    public func setTargetingInfo(with newValue: [String : String]) {
+        targetingInfo = newValue
     }
 }

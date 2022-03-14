@@ -19,7 +19,7 @@
 #import "PBMWinNotifierBlock.h"
 #import "PBMServerConnectionProtocol.h"
 
-@class BidResponseForRendering;
+@class BidResponse;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nonnull, readonly) PBMWinNotifierBlock winNotifierBlock;
 
 // MARK: + (updated on every BidRequester callback)
-@property (atomic, strong, nullable, readonly) BidResponseForRendering *lastBidResponse;
+@property (atomic, strong, nullable, readonly) BidResponse *lastBidResponse;
 @property (atomic, strong, nullable, readonly) DemandResponseInfo *lastDemandResponseInfo;
 
 // MARK: + (locks)

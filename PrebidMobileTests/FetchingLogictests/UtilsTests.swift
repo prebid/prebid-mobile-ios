@@ -217,7 +217,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
                                               "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
         dfpAdObject?.customTargeting = ["test_key": "test_value"] as [String: AnyObject]
 
-        let bidResponse = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
+        let bidResponse = BidResponse(adUnitId: "test", targetingInfo: prebidKeywords)
 
         utils.validateAndAttachKeywords(adObject: dfpAdObject as AnyObject, bidResponse: bidResponse)
 
@@ -248,7 +248,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
                                                "hb_bidder": "rubicon",
                                                "hb_size": "300x250",
                                                "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
-        let bidResponse2: OriginalBidResponseProtocol = BidResponse(adId: "test", adServerTargeting: prebidKeywords2 as [String: AnyObject])
+        let bidResponse2 = BidResponse(adUnitId: "test", targetingInfo: prebidKeywords2)
         utils.removeHBKeywords(adObject: dfpAdObject!)
         utils.validateAndAttachKeywords(adObject: dfpAdObject as AnyObject, bidResponse: bidResponse2)
         XCTAssertTrue(((dfpAdObject?.description) != nil), "DFPNRequest")
@@ -290,8 +290,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
                                               "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
         dfpAdObject?.customTargeting = ["test_key": "test_value"] as [String: AnyObject]
 
-        let bidResponse: OriginalBidResponseProtocol = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
-
+        let bidResponse = BidResponse(adUnitId: "test", targetingInfo: prebidKeywords)
         utils.validateAndAttachKeywords(adObject: dfpAdObject as AnyObject, bidResponse: bidResponse)
 
         XCTAssertTrue(((dfpAdObject?.description) != nil), "DFPNRequest")
@@ -340,7 +339,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
                                                "hb_bidder": "rubicon",
                                                "hb_size": "300x250",
                                                "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
-        let bidResponse2: OriginalBidResponseProtocol = BidResponse(adId: "test", adServerTargeting: prebidKeywords2 as [String: AnyObject])
+        let bidResponse2 = BidResponse(adUnitId: "test", targetingInfo: prebidKeywords2)
         utils.validateAndAttachKeywords(adObject: dfpAdObject as AnyObject, bidResponse: bidResponse2)
 
         XCTAssertTrue(((dfpAdObject?.description) != nil), "DFPNRequest")
@@ -392,7 +391,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         let utils: Utils = Utils.shared
         let prebidKeywords: [String: String] = [:]
         dfpAdObject?.customTargeting = ["test_key": "test_value"] as [String: AnyObject]
-        let bidResponse: OriginalBidResponseProtocol = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
+        let bidResponse = BidResponse(adUnitId: "test", targetingInfo: prebidKeywords)
         utils.validateAndAttachKeywords(adObject: dfpAdObject as AnyObject, bidResponse: bidResponse)
 
         XCTAssertTrue(((dfpAdObject?.description) != nil), "DFPNRequest")
@@ -405,7 +404,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         let utils: Utils = Utils.shared
         let prebidKeywords: [String: String] = ["hb_env": "mobile-app", "hb_bidder_appnexus": "appnexus", "hb_size_appnexus": "300x250", "hb_pb_appnexus":
             "0.50", "hb_env_appnexus": "mobile-app", "hb_cache_id": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_cache_id_appnexus": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_pb": "0.50", "hb_bidder": "appnexus", "hb_size": "300x250", "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
-        let bidResponse: OriginalBidResponseProtocol = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
+        let bidResponse = BidResponse(adUnitId: "test", targetingInfo: prebidKeywords)
         utils.validateAndAttachKeywords(adObject: invalidDfpAdObject as AnyObject, bidResponse: bidResponse)
         XCTAssertNil(invalidDfpAdObject?.customTargeting)
 
@@ -417,7 +416,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         var prebidKeywords: [String: String] = ["hb_env": "mobile-app"]
         dfpAdObject?.customTargeting = ["test_key": "test_value"] as [String: AnyObject]
 
-        var bidResponse: OriginalBidResponseProtocol = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
+        var bidResponse = BidResponse(adUnitId: "test", targetingInfo: prebidKeywords)
 
         utils.validateAndAttachKeywords(adObject: dfpAdObject as AnyObject, bidResponse: bidResponse)
 
@@ -429,7 +428,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         XCTAssertEqual(dfpAdObject!.customTargeting["hb_env"] as! String, "mobile-app")
 
         prebidKeywords = ["app": "prebid"]
-        bidResponse = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
+        bidResponse = BidResponse(adUnitId: "test", targetingInfo: prebidKeywords)
 
         utils.validateAndAttachKeywords(adObject: dfpAdObject as AnyObject, bidResponse: bidResponse)
         XCTAssertEqual(3, dfpAdObject?.customTargeting.count)
@@ -450,7 +449,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         let prebidKeywords: [String: String] = ["hb_env": "mobile-app", "hb_bidder_appnexus": "appnexus", "hb_size_appnexus": "300x250", "hb_pb_appnexus":
             "0.50", "hb_env_appnexus": "mobile-app", "hb_cache_id": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_cache_id_appnexus": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_pb": "0.50", "hb_bidder": "appnexus", "hb_size": "300x250"]
 
-        let bidResponse: OriginalBidResponseProtocol = BidResponse(adId: "test1", adServerTargeting: prebidKeywords as [String: AnyObject])
+        let bidResponse = BidResponse(adUnitId: "test1", targetingInfo: prebidKeywords)
         mopubObject?.keywords = "test_key:test_value"
         utils.validateAndAttachKeywords(adObject: mopubObject as AnyObject, bidResponse: bidResponse)
 
@@ -485,7 +484,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
                                                "hb_bidder": "rubicon",
                                                "hb_size": "300x250"]
 
-        let bidResponse2: OriginalBidResponseProtocol = BidResponse(adId: "test2", adServerTargeting: prebidKeywords2 as [String: AnyObject])
+        let bidResponse2 = BidResponse(adUnitId: "test2", targetingInfo: prebidKeywords2)
         utils.removeHBKeywords(adObject: self.mopubObject!)
         utils.validateAndAttachKeywords(adObject: self.mopubObject as AnyObject, bidResponse: bidResponse2)
 
@@ -515,7 +514,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         let prebidKeywords: [String: String] = ["hb_env": "mobile-app", "hb_bidder_appnexus": "appnexus", "hb_size_appnexus": "300x250", "hb_pb_appnexus":
             "0.50", "hb_env_appnexus": "mobile-app", "hb_cache_id": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_cache_id_appnexus": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_pb": "0.50", "hb_bidder": "appnexus", "hb_size": "300x250"]
 
-        let bidResponse: OriginalBidResponseProtocol = BidResponse(adId: "test1", adServerTargeting: prebidKeywords as [String: AnyObject])
+        let bidResponse = BidResponse(adUnitId: "test1", targetingInfo: prebidKeywords)
         mopubObject?.keywords = "test_key:test_value"
         utils.validateAndAttachKeywords(adObject: mopubObject as AnyObject, bidResponse: bidResponse)
 
@@ -568,7 +567,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
                                                "hb_pb": "0.50",
                                                "hb_bidder": "rubicon",
                                                "hb_size": "300x250"]
-        let bidResponse2: OriginalBidResponseProtocol = BidResponse(adId: "test2", adServerTargeting: prebidKeywords2 as [String: AnyObject])
+        let bidResponse2 = BidResponse(adUnitId: "test2", targetingInfo: prebidKeywords2)
         utils.validateAndAttachKeywords(adObject: self.mopubObject as AnyObject, bidResponse: bidResponse2)
 
         XCTAssertTrue(((self.mopubObject?.description) != nil), "MPAdView")
@@ -612,7 +611,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
     func testMoPubKeywordsAbsent() {
         let utils: Utils = Utils.shared
         let prebidKeywords: [String: String] = [:]
-        let bidResponse: OriginalBidResponseProtocol = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
+        let bidResponse = BidResponse(adUnitId: "test", targetingInfo: prebidKeywords)
         mopubObject?.keywords = "test_key:test_value"
         utils.validateAndAttachKeywords(adObject: mopubObject as AnyObject, bidResponse: bidResponse)
         DispatchQueue.main.async {
@@ -629,7 +628,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         let utils: Utils = Utils.shared
         let prebidKeywords: [String: String] = ["hb_env": "mobile-app", "hb_bidder_appnexus": "appnexus", "hb_size_appnexus": "300x250", "hb_pb_appnexus":
             "0.50", "hb_env_appnexus": "mobile-app", "hb_cache_id": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_cache_id_appnexus": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_pb": "0.50", "hb_bidder": "appnexus", "hb_size": "300x250"]
-        let bidResponse: OriginalBidResponseProtocol = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
+        let bidResponse = BidResponse(adUnitId: "test", targetingInfo: prebidKeywords)
         invalidMopubObject?.keywords = "test_key:test_value"
         utils.validateAndAttachKeywords(adObject: invalidMopubObject as AnyObject, bidResponse: bidResponse)
         DispatchQueue.main.async {
@@ -651,12 +650,12 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
                                               "hb_pb": "0.50",
                                               "hb_bidder": "appnexus",
                                               "hb_size": "300x250"]
-        let bidResponse: OriginalBidResponseProtocol = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
+        let bidResponse = BidResponse(adUnitId: "test", targetingInfo: prebidKeywords)
         
         
-        XCTAssertThrowsError(try utils.generateInstreamUriForGAM(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [] ,customKeywords: bidResponse.customKeywords))
+        XCTAssertThrowsError(try utils.generateInstreamUriForGAM(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [] ,customKeywords: bidResponse.targetingInfo))
             
-        let adTagUrl = try utils.generateInstreamUriForGAM(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [.Size400x300] ,customKeywords: bidResponse.customKeywords)
+        let adTagUrl = try utils.generateInstreamUriForGAM(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [.Size400x300] ,customKeywords: bidResponse.targetingInfo)
         
         let splitUrl = adTagUrl.components(separatedBy: "?")
         
@@ -694,7 +693,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         let prebidKeywords: [String: String] = ["hb_env": "mobile-app", "hb_bidder_appnexus": "appnexus", "hb_size_appnexus": "300x250", "hb_pb_appnexus":
                                                     "0.50", "hb_env_appnexus": "mobile-app", "hb_cache_id": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_cache_id_appnexus": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_pb": "0.50", "hb_bidder": "appnexus", "hb_size": "300x250", "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
 
-        let bidResponse: OriginalBidResponseProtocol = BidResponse(adId: "test1", adServerTargeting: prebidKeywords as [String: AnyObject])
+        let bidResponse = BidResponse(adUnitId: "test1", targetingInfo: prebidKeywords)
         let mopubNativeAdRequestTargeting = MPNativeAdRequestTargeting()
         mopubNativeAdRequestTargeting.keywords = "test_key:test_value"
         mopubNativeObject?.targeting = mopubNativeAdRequestTargeting
@@ -736,7 +735,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
                                                "hb_bidder": "rubicon",
                                                "hb_size": "300x250", "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
 
-        let bidResponse2: OriginalBidResponseProtocol = BidResponse(adId: "test2", adServerTargeting: prebidKeywords2 as [String: AnyObject])
+        let bidResponse2 = BidResponse(adUnitId: "test2", targetingInfo: prebidKeywords2)
         utils.removeHBKeywords(adObject: self.mopubNativeObject!)
         utils.validateAndAttachKeywords(adObject: self.mopubNativeObject as AnyObject, bidResponse: bidResponse2)
 
@@ -770,7 +769,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         let prebidKeywords: [String: String] = ["hb_env": "mobile-app", "hb_bidder_appnexus": "appnexus", "hb_size_appnexus": "300x250", "hb_pb_appnexus":
             "0.50", "hb_env_appnexus": "mobile-app", "hb_cache_id": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_cache_id_appnexus": "d6e43a95-5ee2-4d74-ae85-e4b602b7f88d", "hb_pb": "0.50", "hb_bidder": "appnexus", "hb_size": "300x250", "hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
 
-        let bidResponse: OriginalBidResponseProtocol = BidResponse(adId: "test1", adServerTargeting: prebidKeywords as [String: AnyObject])
+        let bidResponse = BidResponse(adUnitId: "test1", targetingInfo: prebidKeywords)
         let mopubNativeAdRequestTargeting = MPNativeAdRequestTargeting()
         mopubNativeAdRequestTargeting.keywords = "test_key:test_value"
         mopubNativeObject?.targeting = mopubNativeAdRequestTargeting
@@ -835,7 +834,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
                                                "hb_pb": "0.50",
                                                "hb_bidder": "rubicon",
                                                "hb_size": "300x250","hb_cache_id_local": "Prebid_EDE1611B-D3DB-4174-B2B6-A9E63A3EFD80"]
-        let bidResponse2: OriginalBidResponseProtocol = BidResponse(adId: "test2", adServerTargeting: prebidKeywords2 as [String: AnyObject])
+        let bidResponse2 = BidResponse(adUnitId: "test2", targetingInfo: prebidKeywords2)
         utils.validateAndAttachKeywords(adObject: self.mopubNativeObject as AnyObject, bidResponse: bidResponse2)
 
         XCTAssertTrue(((self.mopubNativeObject?.description) != nil), "MPNativeAdRequest")
@@ -889,7 +888,7 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         let utils: Utils = Utils.shared
         let prebidKeywords: [String: String] = [:]
 
-        let bidResponse: OriginalBidResponseProtocol = BidResponse(adId: "test1", adServerTargeting: prebidKeywords as [String: AnyObject])
+        let bidResponse = BidResponse(adUnitId: "test1", targetingInfo: prebidKeywords)
         let mopubNativeAdRequestTargeting = MPNativeAdRequestTargeting()
         mopubNativeAdRequestTargeting.keywords = "test_key:test_value"
         mopubNativeObject?.targeting = mopubNativeAdRequestTargeting

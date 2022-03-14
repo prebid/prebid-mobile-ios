@@ -237,7 +237,7 @@ public class MediationBannerAdUnit : NSObject {
         bidRequester = nil
     }
     
-    private func handlePrebidResponse(response: BidResponseForRendering) {
+    private func handlePrebidResponse(response: BidResponse) {
         var demandResult = FetchDemandResult.demandNoBids
         
         if self.adView != nil,

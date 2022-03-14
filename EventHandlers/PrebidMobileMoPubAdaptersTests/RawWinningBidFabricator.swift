@@ -48,6 +48,6 @@ extension RawWinningBidFabricator {
             "hb_cache_id_local": cacheID
         ]
         
-        return BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
+        return BidResponse(adUnitId: "test", targetingInfo: prebidKeywords)
     }
 }

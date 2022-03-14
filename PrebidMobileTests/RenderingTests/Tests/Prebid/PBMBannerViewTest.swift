@@ -18,7 +18,7 @@ import XCTest
 @testable import PrebidMobile
 
 class MockBannerView: BannerView, WinningBidResponseFabricator {
-    override var lastBidResponse: BidResponseForRendering? {
+    override var lastBidResponse: BidResponse? {
         return makeWinningBidResponse(bidPrice: 0.85)
     }
 }
