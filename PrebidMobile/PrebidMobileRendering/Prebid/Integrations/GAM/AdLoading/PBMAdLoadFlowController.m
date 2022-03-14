@@ -196,7 +196,7 @@
     
     self.bidRequester = self.bidRequesterFactory(self.savedAdUnitConfig);
     @weakify(self);
-    [self.bidRequester requestBidsWithCompletion:^(BidResponseForRendering *response, NSError *error) {
+    [self.bidRequester requestBidsWithCompletion:^(BidResponse *response, NSError *error) {
         @strongify(self);
         [self enqueueGatedBlock:^{
             @strongify(self);
@@ -205,7 +205,7 @@
     }];
 }
 
-- (void)handleBidResponse:(nullable BidResponseForRendering *)response error:(nullable NSError *)error {
+- (void)handleBidResponse:(nullable BidResponse *)response error:(nullable NSError *)error {
     self.bidResponse = (response && !error) ? response : nil;
     self.bidRequestError = error;
     
@@ -215,7 +215,7 @@
     [self enqueueNextStepAttempt];
 }
 
-- (void)requestPrimaryAdServer:(nullable BidResponseForRendering *)bidResponse {
+- (void)requestPrimaryAdServer:(nullable BidResponse *)bidResponse {
     self.flowState = PBMAdLoadFlowState_PrimaryAdRequest;
     
     [self.delegate adLoadFlowControllerWillRequestPrimaryAd:self];

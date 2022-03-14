@@ -34,7 +34,7 @@ extension RawWinningBidFabricator {
         return rawBid
     }
     
-    func makeRawWinningBidOriginal(price: Double, bidder: String, cacheID: String) -> BidResponseForRendering {
+    func makeRawWinningBidOriginal(price: Double, bidder: String, cacheID: String) -> BidResponse {
         let prebidKeywords: [String: String] = [
             "hb_env": "mobile-app",
             "hb_bidder": bidder,
@@ -48,6 +48,6 @@ extension RawWinningBidFabricator {
             "hb_cache_id_local": cacheID
         ]
         
-        return BidResponseForRendering(adUnitId: "test", targetingInfo: prebidKeywords)
+        return BidResponse(adUnitId: "test", targetingInfo: prebidKeywords)
     }
 }

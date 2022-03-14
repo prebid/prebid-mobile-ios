@@ -62,7 +62,7 @@ public class GAMBannerEventHandler :
         proxyBanner?.recordImpression()
     }
     
-    public func requestAd(withBidResponse bidResponse: BidResponseForRendering?) {
+    public func requestAd(with bidResponse: BidResponse?) {
        
         guard let bannerViewWrapper = GAMBannerViewWrapper(),
               let request = GAMRequestWrapper() else {

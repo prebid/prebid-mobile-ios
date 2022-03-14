@@ -16,7 +16,7 @@
 import Foundation
 
 @objcMembers
-public class BidResponseForRendering: NSObject, OriginalBidResponseProtocol {
+public class BidResponse: NSObject {
     
     public var adUnitId: String?
     

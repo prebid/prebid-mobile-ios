@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
                          targeting:(Targeting *)targeting
                adUnitConfiguration:(AdUnitConfig *)adUnitConfiguration;
 
-- (void)requestBidsWithCompletion:(void (^)(BidResponseForRendering * _Nullable, NSError * _Nullable))completion;
+- (void)requestBidsWithCompletion:(void (^)(BidResponse * _Nullable, NSError * _Nullable))completion;
 
 @end
 

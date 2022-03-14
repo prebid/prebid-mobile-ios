@@ -26,7 +26,7 @@ public class BaseInterstitialAdUnit :
     
     // MARK: - Public Properties
     
-    public var lastBidResponse: BidResponseForRendering? {
+    public var lastBidResponse: BidResponse? {
         return adLoadFlowController?.bidResponse
     }
     
@@ -336,7 +336,7 @@ public class BaseInterstitialAdUnit :
 
     // MARK: - BaseInterstitialAdUnitProtocol
     
-    public func callEventHandler_requestAd(with bidResponse: BidResponseForRendering?) {
+    public func callEventHandler_requestAd(with bidResponse: BidResponse?) {
         
     }
     
