@@ -35,6 +35,7 @@ class PBMServerConnectionTest : XCTestCase {
         MockServer.shared.reset()
         self.didTalkToServerExpectation = nil
         self.responseHandledExpectation = nil
+        Prebid.shared.clearCustomHeaders()
     }
     
     func testSharedCreation() {
@@ -521,6 +522,10 @@ class PBMServerConnectionTestJSONSlow : XCTestCase {
 class PBMServerConnectionTest_Redirect: XCTestCase {
     // Test how PBMServerConnection responds to a 302 - resource moved temporarily
     // Ref: http://www.ietf.org/rfc/rfc2616.txt
+    
+    override func tearDown() {
+        Prebid.shared.clearCustomHeaders()
+    }
     
     func testServerResponse_GetReturns302() {
         

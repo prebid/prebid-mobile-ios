@@ -199,7 +199,7 @@ class PrebidTest: XCTestCase {
     }
 
     func testAddCustomHeader() {
-
+        
         //given
         let sdkVersionHeader = "X-SDK-Version"
         let bundleHeader = "X-Bundle"

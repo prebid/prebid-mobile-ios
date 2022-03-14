@@ -82,7 +82,7 @@ AdUnit *adUnit;
 }
 
 - (void)testResultCode {
-    ResultCode resultCode = ResultCodePrebidDemandFetchSuccess;
+    FetchDemandResult resultCode = FetchDemandResultOk;
     XCTAssertEqual(0, resultCode);
 }
 
