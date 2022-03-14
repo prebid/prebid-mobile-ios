@@ -119,7 +119,7 @@ class PrebidNativeAdController: NSObject, AdaptedController {
                 return
             }
             
-            guard result == .prebidDemandFetchSuccess else {
+            guard result == .ok else {
                 self.fetchDemandFailedButton.isEnabled = true
                 return
             }

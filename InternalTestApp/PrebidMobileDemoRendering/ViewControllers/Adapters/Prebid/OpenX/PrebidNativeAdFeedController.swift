@@ -91,7 +91,7 @@ class PrebidNativeAdFeedController: NSObject, PrebidConfigurableController {
                 return
             }
             
-            guard result == .prebidDemandFetchSuccess else {
+            guard result == .ok else {
                 return
             }
             

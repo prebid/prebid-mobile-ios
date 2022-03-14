@@ -40,11 +40,11 @@ AdUnit *adUnit;
     //given
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
     NSObject *testObject = [[NSObject alloc] init];
-    __block ResultCode resultCode;
+    __block FetchDemandResult resultCode;
     [AdUnitSwizzleHelper toggleFetchDemand];
     
     //when
-    [adUnit fetchDemandWithAdObject:testObject completion:^(enum ResultCode result) {
+    [adUnit fetchDemandWithAdObject:testObject completion:^(enum FetchDemandResult result) {
         resultCode = result;
         [expectation fulfill];
     }];
@@ -53,19 +53,19 @@ AdUnit *adUnit;
     [AdUnitSwizzleHelper toggleFetchDemand];
     
     //then
-    XCTAssertEqual(ResultCodePrebidDemandFetchSuccess, resultCode);
+    XCTAssertEqual(FetchDemandResultOk, resultCode);
 }
 
 - (void)testFetchDemandBids {
     
     //given
     XCTestExpectation *expectation = [self expectationWithDescription:NSStringFromSelector(_cmd)];
-    __block ResultCode resultCode;
+    __block FetchDemandResult resultCode;
     __block NSDictionary<NSString *, NSString *> *kvDictResult;
     [AdUnitSwizzleHelper toggleFetchDemand];
     
     //when
-    [adUnit fetchDemandWithCompletion:^(enum ResultCode code, NSDictionary<NSString *,NSString *> * _Nullable kvDict) {
+    [adUnit fetchDemandWithCompletion:^(enum FetchDemandResult code, NSDictionary<NSString *,NSString *> * _Nullable kvDict) {
         resultCode = code;
         kvDictResult = kvDict;
         [expectation fulfill];
@@ -75,7 +75,7 @@ AdUnit *adUnit;
     [AdUnitSwizzleHelper toggleFetchDemand];
     
     //then
-    XCTAssertEqual(ResultCodePrebidDemandFetchSuccess, resultCode);
+    XCTAssertEqual(FetchDemandResultOk, resultCode);
     XCTAssertEqual(1, kvDictResult.count);
     XCTAssertEqualObjects(@"value1", kvDictResult[@"key1"]);
 

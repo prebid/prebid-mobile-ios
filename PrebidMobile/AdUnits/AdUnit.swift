@@ -51,8 +51,8 @@ import ObjectiveC.runtime
 
     private var adServerObject: AnyObject?
 
-    private var closureAd: ((ResultCode) -> Void)?
-    private var closureBids: ((ResultCode, [String : String]?) -> Void)?
+    private var closureAd: ((FetchDemandResult) -> Void)?
+    private var closureBids: ((FetchDemandResult, [String : String]?) -> Void)?
 
     //notification flag set to check if the prebid response is received within the specified time
     var didReceiveResponse: Bool! = false
@@ -67,7 +67,7 @@ import ObjectiveC.runtime
     }
 
     //TODO: dynamic is used by tests
-    dynamic public func fetchDemand(completion: @escaping(_ result: ResultCode, _ kvResultDict: [String : String]?) -> Void) {
+    dynamic public func fetchDemand(completion: @escaping(_ result: FetchDemandResult, _ kvResultDict: [String : String]?) -> Void) {
 
         closureBids = completion
 
@@ -81,12 +81,12 @@ import ObjectiveC.runtime
     }
 
     //TODO: dynamic is used by tests
-    dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
+    dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: FetchDemandResult) -> Void) {
         
         if !(self is NativeRequest){
             for size in adSizes {
                 if (size.width < 0 || size.height < 0) {
-                    completion(ResultCode.prebidInvalidSize)
+                    completion(.invalidSize)
                     return
                 }
             }
@@ -95,11 +95,11 @@ import ObjectiveC.runtime
         Utils.shared.removeHBKeywords(adObject: adObject)
 
         if (prebidConfigId.isEmpty || (prebidConfigId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
-            completion(ResultCode.prebidInvalidConfigId)
+            completion(.invalidConfigId)
             return
         }
         if (Prebid.shared.prebidServerAccountId.isEmpty || (Prebid.shared.prebidServerAccountId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
-            completion(ResultCode.prebidInvalidAccountId)
+            completion(.invalidAccountId)
             return
         }
 
@@ -112,19 +112,24 @@ import ObjectiveC.runtime
         timeOutSignalSent = false
         self.closureAd = completion
         adServerObject = adObject
-        let manager: BidManager = BidManager(adUnit: self)
 
-        manager.requestBidsForAdUnit { (bidResponse, resultCode) in
+        let bidRequester = PBMBidRequester(connection: PBMServerConnection.shared,
+                                           sdkConfiguration: Prebid.shared,
+                                           targeting: Targeting.shared,
+                                           adUnitConfiguration: adUnitConfig)
+        
+        bidRequester.requestBids { bidResponse, error in
             self.didReceiveResponse = true
+            
             if (bidResponse != nil) {
                 if (!self.timeOutSignalSent) {
                     Utils.shared.validateAndAttachKeywords (adObject: adObject, bidResponse: bidResponse!)
-                    completion(resultCode)
+                    completion(.ok)
                 }
 
             } else {
                 if (!self.timeOutSignalSent) {
-                    completion(resultCode)
+                    completion(PBMError.demandResult(from: error))
                 }
             }
         }
@@ -132,7 +137,7 @@ import ObjectiveC.runtime
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int(truncating: Prebid.shared.timeoutMillisDynamic ?? NSNumber(value: .PB_Request_Timeout))), execute: {
             if (!self.didReceiveResponse) {
                 self.timeOutSignalSent = true
-                completion(ResultCode.prebidDemandTimedOut)
+                completion(.demandTimedOut)
 
             }
         })

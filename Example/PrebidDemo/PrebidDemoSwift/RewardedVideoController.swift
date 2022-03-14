@@ -139,7 +139,7 @@ class RewardedVideoController:
     
     func loadGAMRewardedVideo() {
         
-        adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: ResultCode) in
+        adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: FetchDemandResult) in
             
             guard let self = self else {
                 print("self is nil")
@@ -163,7 +163,7 @@ class RewardedVideoController:
     
     func loadMPRewardedVideo() {
         
-        adUnit.fetchDemand { [weak self] (resultCode: ResultCode, targetingDict: [String : String]?) in
+        adUnit.fetchDemand { [weak self] (resultCode: FetchDemandResult, targetingDict: [String : String]?) in
             print("Prebid demand fetch for mopub \(resultCode.name())")
             
             guard let targetingDict = targetingDict else {

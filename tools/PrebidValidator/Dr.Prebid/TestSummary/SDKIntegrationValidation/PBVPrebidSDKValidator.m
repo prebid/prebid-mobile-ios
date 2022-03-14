@@ -165,14 +165,14 @@
                                                          size:CGSizeMake(width, height)];
             [self.mopubAdView stopAutomaticallyRefreshingContents];
             self.mopubAdView.delegate = self;
-            [self.adUnit fetchDemandWithAdObject:self.mopubAdView completion:^(enum ResultCode result) {
+            [self.adUnit fetchDemandWithAdObject:self.mopubAdView completion:^(enum FetchDemandResult result) {
                 [self.mopubAdView loadAd];
             }];
             
         } else if([adFormatName isEqualToString:kInterstitialString]){
             self.mopubInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:adUnitID];
             self.mopubInterstitial.delegate = self;
-            [self.adUnit fetchDemandWithAdObject:self.mopubInterstitial completion:^(enum ResultCode result) {
+            [self.adUnit fetchDemandWithAdObject:self.mopubInterstitial completion:^(enum FetchDemandResult result) {
                 [self.mopubInterstitial loadAd];
             }];
         }
@@ -188,13 +188,13 @@
             self.dfpView.rootViewController = (UIViewController *)_delegate;
             
             self.request = [[GAMRequest alloc] init];
-            [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
+            [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum FetchDemandResult result) {
                 [self.dfpView loadRequest:self.request];
             }];
             
         } else if([adFormatName isEqualToString:kInterstitialString]){
             self.request = [[GAMRequest alloc] init];
-            [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
+            [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum FetchDemandResult result) {
                 
                 [GAMInterstitialAd loadWithAdManagerAdUnitID:adUnitID
                                                      request:self.request
@@ -218,7 +218,7 @@
             self.dfpView.rootViewController = (UIViewController *)_delegate;
             
             self.request = [[GAMRequest alloc] init];
-            [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
+            [self.adUnit fetchDemandWithAdObject:self.request completion:^(enum FetchDemandResult result) {
                 [self.dfpView loadRequest:self.request];
             }];
             

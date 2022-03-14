@@ -107,7 +107,7 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController {
                 return
             }
             
-            if result != .prebidDemandFetchSuccess {
+            if result != .ok {
                 self.fetchDemandFailedButton.isEnabled = true
             } else {
                 self.fetchDemandSuccessButton.isEnabled = true

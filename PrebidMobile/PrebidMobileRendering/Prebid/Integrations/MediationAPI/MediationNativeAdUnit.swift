@@ -18,7 +18,7 @@ import Foundation
 @objcMembers
 public class MediationNativeAdUnit : NSObject {
     
-    var completion: ((ResultCode) -> Void)?
+    var completion: ((FetchDemandResult) -> Void)?
     let mediationDelegate: PrebidMediationDelegate
     
     // MARK: - Public Properties
@@ -110,7 +110,7 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.clearUserData()
     }
     
-    public func fetchDemand(completion: ((ResultCode)->Void)?) {
+    public func fetchDemand(completion: ((FetchDemandResult)->Void)?) {
         
         self.completion = completion
         
@@ -121,7 +121,7 @@ public class MediationNativeAdUnit : NSObject {
                 return
             }
             
-            guard result == .prebidDemandFetchSuccess else {
+            guard result == .ok else {
                 self.completeWithResult(result)
                 return
             }
@@ -145,14 +145,14 @@ public class MediationNativeAdUnit : NSObject {
             
             fetchDemandInfo[PrebidLocalCacheIdKey] = cacheId as AnyObject
             
-            var fetchDemandResult: ResultCode = .prebidUnknownError
+            var fetchDemandResult = FetchDemandResult.wrongArguments
         
             if self.mediationDelegate.setUpAdObject(configId: self.configID,
                                                     configIdKey: PBMMediationConfigIdKey,
                                                     targetingInfo: kvResultDict,
                                                     extrasObject: fetchDemandInfo,
                                                     extrasObjectKey: PBMMediationAdNativeResponseKey) {
-                fetchDemandResult = .prebidDemandFetchSuccess
+                fetchDemandResult = .ok
             }
             
             self.completeWithResult(fetchDemandResult)
@@ -161,7 +161,7 @@ public class MediationNativeAdUnit : NSObject {
     
     // MARK: - Private Methods
     
-    private func completeWithResult(_ fetchDemandResult: ResultCode) {
+    private func completeWithResult(_ fetchDemandResult: FetchDemandResult) {
         guard let completion = self.completion else {
             return
         }

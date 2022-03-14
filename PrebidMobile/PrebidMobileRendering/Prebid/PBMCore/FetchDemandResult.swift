@@ -34,4 +34,40 @@ import Foundation
 
     case sdkMisuse = 8000
     case sdkMisusePreviousFetchNotCompletedYet
+    
+    public func name () -> String {
+        switch self {
+        
+        case .ok:
+            return "Prebid Demand Fetch Successful"
+        case .invalidAccountId:
+            return "Prebid server does not recognize account id"
+        case .invalidConfigId:
+            return "Prebid server does not recognize config id"
+        case .invalidSize:
+            return "Prebid server does not recognize the size requested"
+        case .networkError:
+            return "Network Error"
+        case .serverError:
+            return "Prebid Server Error"
+        case .demandNoBids:
+            return "Prebid Server did not return bids"
+        case .demandTimedOut:
+            return "Prebid demand timedout"
+        case .invalidHostUrl:
+            return "Host url is invalid"
+        case .invalidResponseStructure:
+            return "Response structure is invalid"
+        case .internalSDKError:
+            return "Internal SDK error"
+        case .wrongArguments:
+            return "Wrong arguments"
+        case .noVastTagInMediaData:
+            return "No VAST tag in media data"
+        case .sdkMisuse:
+            return "SDK misuse"
+        case .sdkMisusePreviousFetchNotCompletedYet:
+            return "SDK misuse, previous fetch has not complete yet. "
+        }
+    }
 }
