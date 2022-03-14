@@ -201,7 +201,7 @@ struct TestCaseManager {
     EXTRA_OPEN_RTB "[ { "auid":"537454411","openRtb":{ "auid":"537454411", "age":23, "url":"https://url.com", "crr":"carrier",  "ip":"127.0.0.1", "xid":"007", "gen":"MALE", "buyerid":"buyerid", "publisherName": "publisherName", "customdata":"customdata", "keywords":"keyword1,keyword2", "geo":{ "lat":1.0, "lon":2.0 }, "ext":{ "key1":"string", "key2":1, "object":{ "inner":"value" } } } } ]"
     */
     static func updateUserData(_ openRtb: [String: Any]) {
-        let targeting = PrebidRenderingTargeting.shared
+        let targeting = Targeting.shared
         
         if let age = openRtb["age"] as? NSNumber {
             targeting.userAge = age
@@ -432,7 +432,7 @@ struct TestCaseManager {
                         
                        
                                        
-                PrebidRenderingTargeting.shared.eids = [
+                Targeting.shared.eids = [
                     [
                         "source" : "liveramp.com",
                         "uids" : [
@@ -3026,7 +3026,7 @@ struct TestCaseManager {
     }
     
     // MALE, FEMALE, OTHER to PBMGender {
-    private static func strToGender(_ gender: String) -> PBRGender {
+    private static func strToGender(_ gender: String) -> Gender {
         switch gender {
             case "MALE":
                 return .male

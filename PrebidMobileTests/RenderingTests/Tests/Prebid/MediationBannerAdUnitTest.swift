@@ -31,7 +31,7 @@ class MediationBannerAdUnitTest: XCTestCase {
         return config
     }
     
-    private let targeting = PrebidRenderingTargeting.shared
+    private let targeting = Targeting.shared
     
     override func setUp() {
         super.setUp()

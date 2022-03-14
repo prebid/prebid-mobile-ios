@@ -913,8 +913,8 @@ class PrebidDemoTests: XCTestCase {
             Targeting.shared.subjectToCOPPA = false
         }
         
-        try Targeting.shared.setYearOfBirth(yob: 1990)
-        Targeting.shared.gender = .male
+        Targeting.shared.setYearOfBirth(yob: 1990)
+        Targeting.shared.userGender = .male
         
         let bannerUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
         let manager: BidManager = BidManager(adUnit: bannerUnit)
@@ -969,7 +969,7 @@ class PrebidDemoTests: XCTestCase {
         Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
         
         let targeting = Targeting.shared
-        XCTAssertNoThrow(try targeting.setYearOfBirth(yob: 2018))
+        targeting.setYearOfBirth(yob: 2018)
         let value = Targeting.shared.yearOfBirth
         XCTAssertTrue((value == 2018))
 
@@ -995,7 +995,7 @@ class PrebidDemoTests: XCTestCase {
         Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
         
         let targeting = Targeting.shared
-        XCTAssertNoThrow(try targeting.setYearOfBirth(yob: 1989))
+        targeting.setYearOfBirth(yob: 1989)
         let value = Targeting.shared.yearOfBirth
         XCTAssertTrue((value == 1989))
 

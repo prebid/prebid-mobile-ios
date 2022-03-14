@@ -125,7 +125,7 @@ class RequestBuilderTests: XCTestCase, CLLocationManagerDelegate {
 
         //given
         let targeting = Targeting.shared
-        targeting.gender = Gender.male
+        targeting.userGender = Gender.male
 
         //when
         let jsonRequestBody = try getPostDataHelper(adUnit: adUnit).jsonRequestBody

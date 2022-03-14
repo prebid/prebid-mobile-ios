@@ -18,7 +18,7 @@
 
 @class AdUnitConfig;
 @class Prebid;
-@class PrebidRenderingTargeting;
+@class Targeting;
 @class PBMUserAgentService;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithAdConfiguration:(AdUnitConfig *)adConfiguration
                        sdkConfiguration:(Prebid *)sdkConfiguration
-                              targeting:(PrebidRenderingTargeting *)targeting
+                              targeting:(Targeting *)targeting
                        userAgentService:(PBMUserAgentService *)userAgentService NS_DESIGNATED_INITIALIZER;
 
 @end

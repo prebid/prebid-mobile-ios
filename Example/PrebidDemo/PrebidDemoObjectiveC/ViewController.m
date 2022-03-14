@@ -177,12 +177,12 @@
     [Targeting.shared addUserDataWithKey:@"globalUserDataKey1" value:@"globalUserDataValue1"];
     [Targeting.shared addContextDataWithKey:@"globalContextDataKey1" value:@"globalContextDataValue1"];
     //global user data
-    PBAdUnitContentDataObject *userData = [PBAdUnitContentDataObject new];
+    PBMORTBContentData *userData = [PBMORTBContentData new];
     userData.id = @"globalUserDataValue1";
     [adUnit addUserData:@[userData]];
 
     //global context data
-    PBAdUnitContentDataObject *appData = [PBAdUnitContentDataObject new];
+    PBMORTBContentData *appData = [PBMORTBContentData new];
     appData.id = @"globalContextDataValue1";
     [adUnit addAppContentData:@[appData]];
 

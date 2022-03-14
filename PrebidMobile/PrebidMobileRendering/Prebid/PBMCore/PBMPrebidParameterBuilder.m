@@ -34,7 +34,7 @@
 
 @property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adConfiguration;
 @property (nonatomic, strong, nonnull, readonly) Prebid *sdkConfiguration;
-@property (nonatomic, strong, nonnull, readonly) PrebidRenderingTargeting *targeting;
+@property (nonatomic, strong, nonnull, readonly) Targeting *targeting;
 @property (nonatomic, strong, nonnull, readonly) PBMUserAgentService *userAgentService;
 
 @end
@@ -43,7 +43,7 @@
 
 - (instancetype)initWithAdConfiguration:(AdUnitConfig *)adConfiguration
                        sdkConfiguration:(Prebid *)sdkConfiguration
-                              targeting:(PrebidRenderingTargeting *)targeting
+                              targeting:(Targeting *)targeting
                        userAgentService:(PBMUserAgentService *)userAgentService
 {
     if (!(self = [super init])) {

@@ -38,7 +38,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         
         let adConfiguration = PBMAdConfiguration()
         
-        let targeting = PrebidRenderingTargeting.shared
+        let targeting = Targeting.shared
         targeting.parameterDictionary.removeAll()
         targeting.parameterDictionary["foo"] = "bar"
         targeting.userAge = 10

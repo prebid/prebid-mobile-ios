@@ -19,11 +19,11 @@ import XCTest
 class PrebidParameterBuilderTest: XCTestCase {
     
     private let sdkConfiguration = Prebid.mock
-    private var targeting: PrebidRenderingTargeting!
+    private var targeting: Targeting!
     
     override func setUp() {
         super.setUp()
-        targeting = PrebidRenderingTargeting.shared
+        targeting = Targeting.shared
         UtilitiesForTesting.resetTargeting(targeting)
     }
     
@@ -187,10 +187,10 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         let bidRequest = PBMORTBBidRequest()
         
-        targeting.addBidder(toAccessControlList: "prebid-mobile")
-        targeting.updateUserData(Set(["red", "orange"]), forKey: "fav_colors")
-        targeting.addContextData("wolf", forKey: "last_search_keywords")
-        targeting.addContextData("pet", forKey: "last_search_keywords")
+        targeting.addBidderToAccessControlList("prebid-mobile")
+        targeting.updateUserData(key: "fav_colors", value: Set(["red", "orange"]))
+        targeting.addContextData(key: "last_search_keywords", value: "wolf")
+        targeting.addContextData(key: "last_search_keywords", value: "pet")
         
         let userDataObject1 = PBMORTBContentData()
         userDataObject1.id = "data id"

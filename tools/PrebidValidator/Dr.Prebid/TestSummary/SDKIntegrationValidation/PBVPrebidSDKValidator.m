@@ -136,7 +136,7 @@
 }
 
 - (void)setPrebidTargetingParams {
-    Targeting.shared.gender = GenderFemale;
+    Targeting.shared.userGender = GenderFemale;
     Prebid.shared.shareGeoLocation = TRUE;
     
 }

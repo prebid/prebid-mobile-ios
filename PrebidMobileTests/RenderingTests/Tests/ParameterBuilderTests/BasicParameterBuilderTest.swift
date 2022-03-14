@@ -21,7 +21,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     
     private var logToFile: LogToFileLock?
     
-    private var targeting: PrebidRenderingTargeting!
+    private var targeting: Targeting!
     
     override func setUp() {
         super.setUp()

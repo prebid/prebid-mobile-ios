@@ -223,7 +223,7 @@ static NSString *const kPrebidMobileVersion = @"0.5.3";
     }
     
     NSString *gender;
-    switch ([[Targeting shared] gender]) {
+    switch ([[Targeting shared] userGender]) {
         case GenderMale:
             gender = @"M";
             break;
