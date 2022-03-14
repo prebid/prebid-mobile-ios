@@ -654,9 +654,9 @@ class UtilsTests: XCTestCase, NativeAdDelegate {
         let bidResponse: OriginalBidResponseProtocol = BidResponse(adId: "test", adServerTargeting: prebidKeywords as [String: AnyObject])
         
         
-        XCTAssertThrowsError(try utils.generateInstreamUriForGAM(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [] ,customKeywords: bidResponse.customKeywords))
+        XCTAssertThrowsError(try utils.generateInstreamUriForGAM(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [] ,customKeywords: bidResponse.targetingInfo))
             
-        let adTagUrl = try utils.generateInstreamUriForGAM(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [.Size400x300] ,customKeywords: bidResponse.customKeywords)
+        let adTagUrl = try utils.generateInstreamUriForGAM(adUnitID: "/19968336/Punnaghai_Instream_Video1", adSlotSizes: [.Size400x300] ,customKeywords: bidResponse.targetingInfo)
         
         let splitUrl = adTagUrl.components(separatedBy: "?")
         

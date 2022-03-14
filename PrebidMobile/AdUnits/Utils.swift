@@ -153,10 +153,10 @@ public class Utils: NSObject {
                 //check if the publisher has added any custom targeting. If so then merge the bid keywords to the same.
                 if (adObject.value(forKey: "customTargeting") != nil) {
                     var existingDict: [String: Any] = adObject.value(forKey: "customTargeting") as! [String: Any]
-                    existingDict.merge(dict: bidResponse.customKeywords)
+                    existingDict.merge(dict: bidResponse.targetingInfo ?? [:])
                     adObject.setValue( existingDict, forKey: "customTargeting")
                 } else {
-                    adObject.setValue( bidResponse.customKeywords, forKey: "customTargeting")
+                    adObject.setValue( bidResponse.targetingInfo, forKey: "customTargeting")
                 }
 
                 return
@@ -176,13 +176,15 @@ public class Utils: NSObject {
 
                 let commaString: String = ","
 
-                for (key, value) in bidResponse.customKeywords {
-                    if ( targetingKeywordsString == .EMPTY_String) {
-                        targetingKeywordsString = key + ":" + value
-                    } else {
-                        targetingKeywordsString += commaString + key + ":" + value
-                    }
+                if let targetingInfo = bidResponse.targetingInfo {
+                    for (key, value) in targetingInfo {
+                        if ( targetingKeywordsString == .EMPTY_String) {
+                            targetingKeywordsString = key + ":" + value
+                        } else {
+                            targetingKeywordsString += commaString + key + ":" + value
+                        }
 
+                    }
                 }
 
                 Log.info("MoPub targeting keys are \(targetingKeywordsString)")
@@ -209,13 +211,15 @@ public class Utils: NSObject {
 
                 let commaString: String = ","
 
-                for (key, value) in bidResponse.customKeywords {
-                    if ( targetingKeywordsString == .EMPTY_String) {
-                        targetingKeywordsString = key + ":" + value
-                    } else {
-                        targetingKeywordsString += commaString + key + ":" + value
-                    }
+                if let targetingInfo = bidResponse.targetingInfo {
+                    for (key, value) in targetingInfo {
+                        if ( targetingKeywordsString == .EMPTY_String) {
+                            targetingKeywordsString = key + ":" + value
+                        } else {
+                            targetingKeywordsString += commaString + key + ":" + value
+                        }
 
+                    }
                 }
 
                 Log.info("MoPub targeting keys are \(targetingKeywordsString)")
@@ -228,10 +232,11 @@ public class Utils: NSObject {
                 }
 
             }
-        } else if let dictContainer = adObject as? DictionaryContainer<String, String> {
-            dictContainer.dict = bidResponse.customKeywords
+        } else if let dictContainer = adObject as? DictionaryContainer<String, String>,
+                  let targetingInfo = bidResponse.targetingInfo {
+            dictContainer.dict = targetingInfo
         } else if let dict = adObject as? NSMutableDictionary {
-            dict.addEntries(from: bidResponse.customKeywords)
+            dict.addEntries(from: bidResponse.targetingInfo ?? [:])
         }
     }
 

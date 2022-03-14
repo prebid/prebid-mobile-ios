@@ -62,7 +62,7 @@ class BidManager: NSObject {
                     let result: ResultCode = processData.1
                     if (result == ResultCode.prebidDemandFetchSuccess) {
                             let bidResponse = BidResponse(adId: "PrebidMobile", adServerTargeting: bidMap)
-                            Log.info("Bid Successful with rounded bid targeting keys are \(bidResponse.customKeywords) for adUnit id is \(bidResponse.adUnitId)")
+                        Log.info("Bid Successful with rounded bid targeting keys are \(String(describing: bidResponse.targetingInfo)) for adUnit id is \(String(describing: bidResponse.adUnitId))")
 
                         DispatchQueue.main.async {
                             callback(bidResponse, ResultCode.prebidDemandFetchSuccess)

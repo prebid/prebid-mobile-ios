@@ -17,7 +17,7 @@ import Foundation
 
 public protocol OriginalBidResponseProtocol {
     
-    var adUnitId: String { get }
-    var customKeywords: [String: String] { get }
-    func setMyCustomKeywords(newValue: [String: String])
+    var adUnitId: String? { get }
+    var targetingInfo: [String: String]? { get }
+    func setTargetingInfo(with newValue: [String: String])
 }
