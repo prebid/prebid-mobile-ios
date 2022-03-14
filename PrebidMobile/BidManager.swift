@@ -25,7 +25,7 @@ class BidManager: NSObject {
         super.init()
     }
 
-    func requestBidsForAdUnit(callback: @escaping (_ response: BidResponse?, _ result: ResultCode) -> Void) {
+    func requestBidsForAdUnit(callback: @escaping (_ response: BidResponseForRendering?, _ result: ResultCode) -> Void) {
 
         do {
             try RequestBuilder.shared.buildPrebidRequest(adUnit: prebidAdUnit) {(urlRequest) in
@@ -61,7 +61,7 @@ class BidManager: NSObject {
                     let bidMap: [String: AnyObject] = processData.0
                     let result: ResultCode = processData.1
                     if (result == ResultCode.prebidDemandFetchSuccess) {
-                            let bidResponse = BidResponse(adId: "PrebidMobile", adServerTargeting: bidMap)
+                        let bidResponse = BidResponseForRendering(adUnitId: "PrebidMobile", targetingInfo: bidMap as? [String: String])
                         Log.info("Bid Successful with rounded bid targeting keys are \(String(describing: bidResponse.targetingInfo)) for adUnit id is \(String(describing: bidResponse.adUnitId))")
 
                         DispatchQueue.main.async {

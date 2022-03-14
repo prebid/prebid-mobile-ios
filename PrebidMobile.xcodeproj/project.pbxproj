@@ -813,7 +813,6 @@
 		FAEE4D24262DC2B200AD9966 /* PrebidMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = FAEE4CFB262DC2B200AD9966 /* PrebidMobile.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAEE4D25262DC2B200AD9966 /* TrackerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CFC262DC2B200AD9966 /* TrackerInfo.swift */; };
 		FAEE4D26262DC2B200AD9966 /* ExternalUserId.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CFD262DC2B200AD9966 /* ExternalUserId.swift */; };
-		FAEE4D27262DC2B200AD9966 /* BidResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4CFE262DC2B200AD9966 /* BidResponse.swift */; };
 		FAEE4D28262DC2B200AD9966 /* PbFindSizeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4D00262DC2B200AD9966 /* PbFindSizeError.swift */; };
 		FAEE4D29262DC2B200AD9966 /* AdViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4D01262DC2B200AD9966 /* AdViewUtils.swift */; };
 		FAEE4D2A262DC2B200AD9966 /* IMAUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEE4D02262DC2B200AD9966 /* IMAUtils.swift */; };
@@ -1694,7 +1693,6 @@
 		FAEE4CFB262DC2B200AD9966 /* PrebidMobile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrebidMobile.h; sourceTree = "<group>"; };
 		FAEE4CFC262DC2B200AD9966 /* TrackerInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackerInfo.swift; sourceTree = "<group>"; };
 		FAEE4CFD262DC2B200AD9966 /* ExternalUserId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalUserId.swift; sourceTree = "<group>"; };
-		FAEE4CFE262DC2B200AD9966 /* BidResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BidResponse.swift; sourceTree = "<group>"; };
 		FAEE4D00262DC2B200AD9966 /* PbFindSizeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PbFindSizeError.swift; sourceTree = "<group>"; };
 		FAEE4D01262DC2B200AD9966 /* AdViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdViewUtils.swift; sourceTree = "<group>"; };
 		FAEE4D02262DC2B200AD9966 /* IMAUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMAUtils.swift; sourceTree = "<group>"; };
@@ -3201,7 +3199,6 @@
 				FAEE4CFB262DC2B200AD9966 /* PrebidMobile.h */,
 				FAEE4CFC262DC2B200AD9966 /* TrackerInfo.swift */,
 				FAEE4CFD262DC2B200AD9966 /* ExternalUserId.swift */,
-				FAEE4CFE262DC2B200AD9966 /* BidResponse.swift */,
 				FAEE4CFF262DC2B200AD9966 /* Addendum */,
 				FAEE4D03262DC2B200AD9966 /* BidManager.swift */,
 				FAEE4D04262DC2B200AD9966 /* Host.swift */,
@@ -4057,7 +4054,6 @@
 				5BC3796D271F1D0000444D5E /* PBMVastCreativeNonLinearAds.m in Sources */,
 				5BC379C9271F1D0000444D5E /* PBMAdRequestResponseVAST.m in Sources */,
 				5BC378F9271F1CFF00444D5E /* PBMORTBPublisher.m in Sources */,
-				FAEE4D27262DC2B200AD9966 /* BidResponse.swift in Sources */,
 				5BC379D6271F1D0000444D5E /* PBMWebView.m in Sources */,
 				92AFE57F274FCD9900B0430C /* PBMORTBAppContent.m in Sources */,
 				92664569272AB9120064F7BD /* SkadnEventTracker.swift in Sources */,

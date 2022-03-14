@@ -28,8 +28,8 @@ public class BidResponseForRendering: NSObject, OriginalBidResponseProtocol {
     
     private(set) var rawResponse: RawBidResponse<PBMORTBBidResponseExt, NSDictionary, PBMORTBBidExt>?
     
-    public convenience init(adUnitId: String?, targetingInfo: [String: String]?, jsonDictionary: JsonDictionary) {
-        self.init(jsonDictionary: jsonDictionary)
+    public convenience init(adUnitId: String?, targetingInfo: [String: String]?) {
+        self.init(jsonDictionary: [:])
         self.adUnitId = adUnitId
         self.targetingInfo = targetingInfo
     }
