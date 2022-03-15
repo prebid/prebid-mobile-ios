@@ -28,9 +28,9 @@ class DemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
         let winningBid = makeWinningBid()
         
         let testBlocks: [(fetchDemandResult: ResultCode, bid: Bid?, configId: String?)] = [
-            (.demandNoBids, nil, nil),
-            (.ok, Bid(bid: PBMORTBBid<PBMORTBBidExt>()), "configID-1"),
-            (.ok, winningBid, "configID-2"),
+            (.prebidDemandNoBids, nil, nil),
+            (.prebidDemandFetchSuccess, Bid(bid: PBMORTBBid<PBMORTBBidExt>()), "configID-1"),
+            (.prebidDemandFetchSuccess, winningBid, "configID-2"),
         ]
         
         for initArgs in testBlocks {
@@ -67,7 +67,7 @@ class DemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
         let expectationToCall = NSMutableArray(object: noCallExpectation)
         let adMarkupString = "<div>Some Ad markup</div>"
         
-        let responseInfo = DemandResponseInfo(fetchDemandResult: .ok, bid: winningBid, configId: configID, winNotifierBlock: {
+        let responseInfo = DemandResponseInfo(fetchDemandResult: .prebidDemandFetchSuccess, bid: winningBid, configId: configID, winNotifierBlock: {
             (expectationToCall[0] as! XCTestExpectation).fulfill()
             XCTAssertEqual($0, winningBid)
             $1(adMarkupString)
@@ -90,7 +90,7 @@ class DemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
     }
     
     func testGetAdMarkupString_NoBid() {
-        let responseInfo = DemandResponseInfo(fetchDemandResult: .ok, bid: nil, configId: nil, winNotifierBlock: { _, _ in
+        let responseInfo = DemandResponseInfo(fetchDemandResult: .prebidDemandFetchSuccess, bid: nil, configId: nil, winNotifierBlock: { _, _ in
             XCTFail()
         }, bidResponse: nil)
         

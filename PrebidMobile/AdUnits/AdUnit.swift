@@ -86,7 +86,7 @@ import ObjectiveC.runtime
         if !(self is NativeRequest){
             for size in adSizes {
                 if (size.width < 0 || size.height < 0) {
-                    completion(.invalidSize)
+                    completion(.prebidInvalidSize)
                     return
                 }
             }
@@ -95,11 +95,11 @@ import ObjectiveC.runtime
         Utils.shared.removeHBKeywords(adObject: adObject)
 
         if (prebidConfigId.isEmpty || (prebidConfigId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
-            completion(.invalidConfigId)
+            completion(.prebidInvalidConfigId)
             return
         }
         if (Prebid.shared.prebidServerAccountId.isEmpty || (Prebid.shared.prebidServerAccountId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
-            completion(.invalidAccountId)
+            completion(.prebidInvalidAccountId)
             return
         }
 
@@ -124,7 +124,7 @@ import ObjectiveC.runtime
             if (bidResponse != nil) {
                 if (!self.timeOutSignalSent) {
                     Utils.shared.validateAndAttachKeywords (adObject: adObject, bidResponse: bidResponse!)
-                    completion(.ok)
+                    completion(.prebidDemandFetchSuccess)
                 }
 
             } else {
@@ -137,7 +137,7 @@ import ObjectiveC.runtime
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int(truncating: Prebid.shared.timeoutMillisDynamic ?? NSNumber(value: .PB_Request_Timeout))), execute: {
             if (!self.didReceiveResponse) {
                 self.timeOutSignalSent = true
-                completion(.demandTimedOut)
+                completion(.prebidDemandTimedOut)
 
             }
         })

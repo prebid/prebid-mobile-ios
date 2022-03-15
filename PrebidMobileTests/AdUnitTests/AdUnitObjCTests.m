@@ -53,7 +53,7 @@ AdUnit *adUnit;
     [AdUnitSwizzleHelper toggleFetchDemand];
     
     //then
-    XCTAssertEqual(ResultCodeOk, resultCode);
+    XCTAssertEqual(ResultCodePrebidDemandFetchSuccess, resultCode);
 }
 
 - (void)testFetchDemandBids {
@@ -75,14 +75,14 @@ AdUnit *adUnit;
     [AdUnitSwizzleHelper toggleFetchDemand];
     
     //then
-    XCTAssertEqual(ResultCodeOk, resultCode);
+    XCTAssertEqual(ResultCodePrebidDemandFetchSuccess, resultCode);
     XCTAssertEqual(1, kvDictResult.count);
     XCTAssertEqualObjects(@"value1", kvDictResult[@"key1"]);
 
 }
 
 - (void)testResultCode {
-    ResultCode resultCode = ResultCodeOk;
+    ResultCode resultCode = ResultCodePrebidDemandFetchSuccess;
     XCTAssertEqual(0, resultCode);
 }
 

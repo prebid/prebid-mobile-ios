@@ -114,7 +114,7 @@ class PrebidDemoTests: XCTestCase {
         
         //when
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            if resultCode == .ok {
+            if resultCode == .prebidDemandFetchSuccess {
                 dfpBanner.load(request)
             } else {
                 XCTFail("resultCode:\(resultCode.name())")
@@ -154,7 +154,7 @@ class PrebidDemoTests: XCTestCase {
         
         //when
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            if resultCode == .ok {
+            if resultCode == .prebidDemandFetchSuccess {
 
                 dfpBanner.load(request)
             } else {
@@ -256,7 +256,7 @@ class PrebidDemoTests: XCTestCase {
         
         let request = GAMRequest()
         prebidbBannerAdUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            if resultCode == .ok {
+            if resultCode == .prebidDemandFetchSuccess {
                 
                 gamBannerView.load(request)
             } else {
@@ -375,7 +375,7 @@ class PrebidDemoTests: XCTestCase {
 
         //when
         interstitialUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            if resultCode == .ok {
+            if resultCode == .prebidDemandFetchSuccess {
 
             GAMInterstitialAd.load(withAdManagerAdUnitID: "/5300653/test_adunit_interstitial_pavliuchyk_prebid-server.qa.rubiconproject.com", request: request, completionHandler: self.interstitialCallback)
 
@@ -445,7 +445,7 @@ class PrebidDemoTests: XCTestCase {
         let request = GAMRequest()
         nativeUnit.fetchDemand(adObject: request) {[weak self] (resultCode:ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
-            if resultCode == .ok{
+            if resultCode == .prebidDemandFetchSuccess{
                 self?.dfpNativeAdUnit.load(request)
             } else {
                 XCTFail("resultCode:\(resultCode.name())")
@@ -515,7 +515,7 @@ class PrebidDemoTests: XCTestCase {
         mopubBanner?.delegate = self
         viewController?.view.addSubview(mopubBanner!)
         bannerUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            if resultCode == .ok {
+            if resultCode == .prebidDemandFetchSuccess {
                 XCTAssertNotNil(mopubBanner!.keywords)
                 if let keywords = mopubBanner?.keywords{
                     XCTAssertNotNil(keywords.contains("hb_pb"))
@@ -550,7 +550,7 @@ class PrebidDemoTests: XCTestCase {
         
         //when
         bannerUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            if resultCode == .ok {
+            if resultCode == .prebidDemandFetchSuccess {
                 mopubBanner!.loadAd()
             } else {
                 XCTFail("resultCode:\(resultCode.name())")
@@ -630,7 +630,7 @@ class PrebidDemoTests: XCTestCase {
         mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_RUBICON)
         mopubInterstitial?.delegate = self
         interstitialUnit.fetchDemand(adObject: mopubInterstitial!) { (resultCode: ResultCode) in
-            if resultCode == .ok {
+            if resultCode == .prebidDemandFetchSuccess {
 
                 self.mopubInterstitial?.loadAd()
             } else {
@@ -704,7 +704,7 @@ class PrebidDemoTests: XCTestCase {
         loadNativeAssets()
         loadMopubNative()
         nativeUnit.fetchDemand(adObject: mopubNativeAdUnit!) { (resultCode: ResultCode) in
-            if resultCode == .ok {
+            if resultCode == .prebidDemandFetchSuccess {
                 self.mopubNativeAdUnit!.loadAd()
             } else {
                 XCTFail("resultCode:\(resultCode.name())")
@@ -808,7 +808,7 @@ class PrebidDemoTests: XCTestCase {
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request = GAMRequest()
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, .invalidAccountId)
+            XCTAssertEqual(resultCode, .prebidInvalidAccountId)
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -829,7 +829,7 @@ class PrebidDemoTests: XCTestCase {
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_RUBICON
         let request = GAMRequest()
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, .invalidAccountId)
+            XCTAssertEqual(resultCode, .prebidInvalidAccountId)
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -847,7 +847,7 @@ class PrebidDemoTests: XCTestCase {
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request = GAMRequest()
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, .invalidAccountId)
+            XCTAssertEqual(resultCode, .prebidInvalidAccountId)
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -864,7 +864,7 @@ class PrebidDemoTests: XCTestCase {
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request = GAMRequest()
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, .invalidConfigId)
+            XCTAssertEqual(resultCode, .prebidInvalidConfigId)
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -884,7 +884,7 @@ class PrebidDemoTests: XCTestCase {
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_RUBICON
         let request = GAMRequest()
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, .invalidConfigId)
+            XCTAssertEqual(resultCode, .prebidInvalidConfigId)
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -917,9 +917,7 @@ class PrebidDemoTests: XCTestCase {
         Targeting.shared.userGender = .male
         
         let bannerUnit = BannerAdUnit(configId: "1001-1", size: CGSize(width: 300, height: 250))
-        let manager: BidManager = BidManager(adUnit: bannerUnit)
-        manager.requestBidsForAdUnit { (bidResponse, _) in
-            
+        bannerUnit.fetchDemand { result, kvResultDict in
             sleep(2)
             self.loadSuccesfulException?.fulfill()
         }
@@ -954,7 +952,7 @@ class PrebidDemoTests: XCTestCase {
         dfpBanner.adUnitID = Constants.DFP_BANNER_ADUNIT_ID_300x250_APPNEXUS
         let request = GAMRequest()
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, .invalidConfigId)
+            XCTAssertEqual(resultCode, .prebidInvalidConfigId)
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -981,7 +979,7 @@ class PrebidDemoTests: XCTestCase {
         let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
         mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
         adUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, .ok, "expected:Success instead of:\(String(describing: resultCode.name))")
+            XCTAssertEqual(resultCode, .prebidDemandFetchSuccess, "expected:Success instead of:\(String(describing: resultCode.name))")
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -1007,7 +1005,7 @@ class PrebidDemoTests: XCTestCase {
         let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
         mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
         adUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, .ok, "expected:Success instead of:\(String(describing: resultCode.name))")
+            XCTAssertEqual(resultCode, .prebidDemandFetchSuccess, "expected:Success instead of:\(String(describing: resultCode.name))")
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -1029,7 +1027,7 @@ class PrebidDemoTests: XCTestCase {
         let mopubBanner = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6")
         mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
         adUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .ok || resultCode == .demandNoBids, resultCode.name())
+            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -1052,7 +1050,7 @@ class PrebidDemoTests: XCTestCase {
         let mopubBanner = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6")
         mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
         adUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, .demandNoBids)
+            XCTAssertEqual(resultCode, .prebidDemandNoBids)
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -1143,7 +1141,7 @@ class PrebidDemoTests: XCTestCase {
         viewController?.view.addSubview(dfpBanner)
         let request = GAMRequest()
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, .invalidSize, resultCode.name())
+            XCTAssertEqual(resultCode, .prebidInvalidSize, resultCode.name())
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -1164,7 +1162,7 @@ class PrebidDemoTests: XCTestCase {
         viewController?.view.addSubview(dfpBanner)
         let request = GAMRequest()
         bannerUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, .invalidSize)
+            XCTAssertEqual(resultCode, .prebidInvalidSize)
             self.loadSuccesfulException?.fulfill()
         }
         
@@ -1183,7 +1181,7 @@ class PrebidDemoTests: XCTestCase {
         mopubBanner1?.delegate = self
         viewController?.view.addSubview(mopubBanner1!)
         bannerUnit1.fetchDemand(adObject: mopubBanner1!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .ok || resultCode == .demandNoBids, resultCode.name())
+            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
 
@@ -1196,7 +1194,7 @@ class PrebidDemoTests: XCTestCase {
         mopubBanner2?.delegate = self
         viewController?.view.addSubview(mopubBanner2!)
         bannerUnit2.fetchDemand(adObject: mopubBanner2!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .ok || resultCode == .demandNoBids, resultCode.name())
+            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
 
@@ -1209,7 +1207,7 @@ class PrebidDemoTests: XCTestCase {
         mopubBanner3?.delegate = self
         viewController?.view.addSubview(mopubBanner3!)
         bannerUnit3.fetchDemand(adObject: mopubBanner3!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .ok || resultCode == .demandNoBids, resultCode.name())
+            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
 
@@ -1222,7 +1220,7 @@ class PrebidDemoTests: XCTestCase {
         mopubBanner4?.delegate = self
         viewController?.view.addSubview(mopubBanner4!)
         bannerUnit4.fetchDemand(adObject: mopubBanner4!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .ok || resultCode == .demandNoBids, resultCode.name())
+            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
 
@@ -1235,7 +1233,7 @@ class PrebidDemoTests: XCTestCase {
         mopubBanner5?.delegate = self
         viewController?.view.addSubview(mopubBanner5!)
         bannerUnit5.fetchDemand(adObject: mopubBanner5!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .ok || resultCode == .demandNoBids, resultCode.name())
+            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
 
@@ -1246,7 +1244,7 @@ class PrebidDemoTests: XCTestCase {
         let mopubInterstitial6 = MPInterstitialAdController(forAdUnitId: "2829868d308643edbec0795977f17437")
         
         interstitialUnit6.fetchDemand(adObject: mopubInterstitial6!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .ok || resultCode == .demandNoBids, resultCode.name())
+            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
 
@@ -1256,7 +1254,7 @@ class PrebidDemoTests: XCTestCase {
         MoPub.sharedInstance().initializeSdk(with: sdkConfig7) {}
         let mopubInterstitial7 = MPInterstitialAdController(forAdUnitId: "c3fca03154a540bfa7f0971fb984e3e8")
         interstitialUnit7.fetchDemand(adObject: mopubInterstitial7!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .ok || resultCode == .demandNoBids, resultCode.name())
+            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
 
@@ -1266,7 +1264,7 @@ class PrebidDemoTests: XCTestCase {
         MoPub.sharedInstance().initializeSdk(with: sdkConfig8) {}
         let mopubInterstitial8 = MPInterstitialAdController(forAdUnitId: "12ecf78eb8314f8bb36192a6286adc56")
         interstitialUnit8.fetchDemand(adObject: mopubInterstitial8!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .ok || resultCode == .demandNoBids, resultCode.name())
+            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
 
@@ -1276,7 +1274,7 @@ class PrebidDemoTests: XCTestCase {
         MoPub.sharedInstance().initializeSdk(with: sdkConfig9) {}
         let mopubInterstitial9 = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
         interstitialUnit9.fetchDemand(adObject: mopubInterstitial9!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .ok || resultCode == .demandNoBids, resultCode.name())
+            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
 
@@ -1285,7 +1283,7 @@ class PrebidDemoTests: XCTestCase {
         GAMInterstitialAd.load(withAdManagerAdUnitID: "/5300653/test_adunit_interstitial_pavliuchyk_prebid-server.qa.rubiconproject.com", request: request, completionHandler: self.interstitialCallback)
 
         interstitialUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .ok || resultCode == .demandNoBids, resultCode.name())
+            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
             fetchDemandCount += 1
         }
         
@@ -1334,10 +1332,10 @@ class PrebidDemoTests: XCTestCase {
         mopubBanner1?.delegate = self
         viewController?.view.addSubview(mopubBanner1!)
         bannerUnit1.fetchDemand(adObject: mopubBanner1!) { (resultCode: ResultCode) in
-            if resultCode == .demandNoBids {
+            if resultCode == .prebidDemandNoBids {
                 fetchDemandCount += 1
             } else {
-                XCTAssertEqual(resultCode, .ok)
+                XCTAssertEqual(resultCode, .prebidDemandFetchSuccess)
                 XCTAssertNotNil(mopubBanner1!.keywords)
                 let keywords = mopubBanner1!.keywords
                 if let keywordsArray = keywords?.components(separatedBy: ",") {
@@ -1358,10 +1356,10 @@ class PrebidDemoTests: XCTestCase {
         mopubBanner2?.delegate = self
         viewController?.view.addSubview(mopubBanner2!)
         bannerUnit2.fetchDemand(adObject: mopubBanner2!) { (resultCode: ResultCode) in
-            if resultCode == .demandNoBids {
+            if resultCode == .prebidDemandNoBids {
                 fetchDemandCount += 1
             } else {
-                XCTAssertEqual(resultCode, .ok, resultCode.name())
+                XCTAssertEqual(resultCode, .prebidDemandFetchSuccess, resultCode.name())
                 XCTAssertNotNil(mopubBanner2?.keywords)
                 let keywords = mopubBanner2?.keywords
                 if let keywordsArray = keywords?.components(separatedBy: ",") {

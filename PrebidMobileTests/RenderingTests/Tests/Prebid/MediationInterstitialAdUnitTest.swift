@@ -63,7 +63,7 @@ class MediationInterstitialAdUnitTest: XCTestCase {
                            sdkConfiguration: sdkConfiguration,
                            targeting: targeting)
         { [weak self] result in
-            XCTAssertEqual(result, .ok)
+            XCTAssertEqual(result, .prebidDemandFetchSuccess)
             
             let resultKeywords = self!.adObject!.keywords!
             XCTAssertTrue(resultKeywords.contains("hb_pb:0.10"))
@@ -90,7 +90,7 @@ class MediationInterstitialAdUnitTest: XCTestCase {
                            sdkConfiguration: sdkConfiguration,
                            targeting: targeting)
         { [weak self] result in
-            XCTAssertEqual(result, .serverError)
+            XCTAssertEqual(result, .prebidServerError)
             
             let resultKeywords = self!.adObject!.keywords!
             XCTAssertEqual(resultKeywords, initialKeywords)

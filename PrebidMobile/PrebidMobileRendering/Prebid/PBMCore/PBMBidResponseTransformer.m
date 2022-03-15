@@ -52,13 +52,13 @@
 
 + (NSError *)classifyRequestError:(NSString *)responseBody {
     if ([responseBody containsString:@"Stored Imp with ID"] || [responseBody containsString:@"No stored imp found"]) {
-        return [PBMError invalidConfigId];
+        return [PBMError prebidInvalidConfigId];
     }
     if ([responseBody containsString:@"Stored Request with ID"] || [responseBody containsString:@"No stored request found"]) {
-        return [PBMError invalidAccountId];
+        return [PBMError prebidInvalidAccountId];
     }
     if ([responseBody containsString:@"Invalid request: Request imp[0].banner.format"] || [responseBody containsString:@"Request imp[0].banner.format"] || [responseBody containsString:@"Unable to set interstitial size list"]) {
-        return [PBMError invalidSize];
+        return [PBMError prebidInvalidSize];
     }
     return [PBMError serverError:responseBody];
 }

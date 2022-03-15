@@ -69,7 +69,7 @@ class PBMBaseAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         adUnit.fetchDemand { demandResponseInfo in
             fetchDemandReturned.fulfill()
             XCTAssertTrue(Thread.isMainThread)
-            XCTAssertEqual(demandResponseInfo.fetchDemandResult, .ok)
+            XCTAssertEqual(demandResponseInfo.fetchDemandResult, .prebidDemandFetchSuccess)
         }
 
         waitForExpectations(timeout: 1)
@@ -97,7 +97,7 @@ class PBMBaseAdUnitTest: XCTestCase, WinningBidResponseFabricator {
             requesterCreated.fulfill()
             return MockBidRequester(expectedCalls: [
                 { responseHandler in
-                    responseHandler(nil, PBMError.invalidAccountId)
+                    responseHandler(nil, PBMError.prebidInvalidAccountId)
                 },
             ])
         } winNotifierBlock: { (bid, adMarkupStringHandler) in
@@ -111,7 +111,7 @@ class PBMBaseAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         adUnit.fetchDemand { demandResponseInfo in
             fetchDemandReturned.fulfill()
             XCTAssertTrue(Thread.isMainThread)
-            XCTAssertEqual(demandResponseInfo.fetchDemandResult, .invalidAccountId)
+            XCTAssertEqual(demandResponseInfo.fetchDemandResult, .prebidInvalidAccountId)
         }
 
         waitForExpectations(timeout: 1)
@@ -144,7 +144,7 @@ class PBMBaseAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         adUnit.fetchDemand { demandResponseInfo in
             fetchDemandReturned.fulfill()
             XCTAssertTrue(Thread.isMainThread)
-            XCTAssertEqual(demandResponseInfo.fetchDemandResult, .demandNoBids)
+            XCTAssertEqual(demandResponseInfo.fetchDemandResult, .prebidDemandNoBids)
         }
 
         waitForExpectations(timeout: 1)
@@ -188,14 +188,14 @@ class PBMBaseAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         adUnit.fetchDemand { demandResponseInfo in
             fetchDemandReturned.fulfill()
             XCTAssertTrue(Thread.isMainThread)
-            XCTAssertEqual(demandResponseInfo.fetchDemandResult, .ok)
+            XCTAssertEqual(demandResponseInfo.fetchDemandResult, .prebidDemandFetchSuccess)
         }
         
         let fetchDemandFailed = expectation(description: "fetch demand failed")
         adUnit.fetchDemand { demandResponseInfo in
             fetchDemandFailed.fulfill()
             XCTAssertTrue(Thread.isMainThread)
-            XCTAssertEqual(demandResponseInfo.fetchDemandResult, .sdkMisusePreviousFetchNotCompletedYet)
+            XCTAssertEqual(demandResponseInfo.fetchDemandResult, .prebidSDKMisusePreviousFetchNotCompletedYet)
         }
 
         waitForExpectations(timeout: 2)

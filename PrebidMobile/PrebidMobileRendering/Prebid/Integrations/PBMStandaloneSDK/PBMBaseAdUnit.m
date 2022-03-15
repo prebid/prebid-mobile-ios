@@ -99,7 +99,7 @@
     }
     
     if (requestAlreadyInProgress) {
-        ResultCode const previousFetchNotCompletedYet = ResultCodeSdkMisusePreviousFetchNotCompletedYet;
+        ResultCode const previousFetchNotCompletedYet = ResultCodePrebidSDKMisusePreviousFetchNotCompletedYet;
         completion([[DemandResponseInfo alloc] initWithFetchDemandResult:previousFetchNotCompletedYet
                                                                         bid:nil
                                                                    configId:self.configId
@@ -198,13 +198,13 @@
                                                              winNotifierBlock:self.winNotifierBlock
                                                                   bidResponse:bidResponse];
         } else if (!bidResponse.winningBid) {
-            result = [[DemandResponseInfo alloc] initWithFetchDemandResult:ResultCodeDemandNoBids
+            result = [[DemandResponseInfo alloc] initWithFetchDemandResult:ResultCodePrebidDemandNoBids
                                                                           bid:nil
                                                                      configId:self.configId
                                                              winNotifierBlock:self.winNotifierBlock
                                                                   bidResponse:bidResponse];
         } else {
-            result = [[DemandResponseInfo alloc] initWithFetchDemandResult:ResultCodeOk
+            result = [[DemandResponseInfo alloc] initWithFetchDemandResult:ResultCodePrebidDemandFetchSuccess
                                                                           bid:bidResponse.winningBid
                                                                      configId:self.configId
                                                              winNotifierBlock:self.winNotifierBlock

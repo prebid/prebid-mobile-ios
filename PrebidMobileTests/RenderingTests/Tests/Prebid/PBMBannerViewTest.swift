@@ -87,7 +87,7 @@ class PBMBannerViewTest: XCTestCase {
         }
         
         func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {
-            XCTAssertEqual(error as NSError?, PBMError.invalidAccountId as NSError?)
+            XCTAssertEqual(error as NSError?, PBMError.prebidInvalidAccountId as NSError?)
             XCTAssertNotNil(bannerView.lastBidResponse)
             exp.fulfill()
         }

@@ -21,7 +21,7 @@ public class AdUnitSwizzleHelper: NSObject {
 
     private override init() { }
     
-    static var testScenario = ResultCode.ok
+    static var testScenario = ResultCode.prebidDemandFetchSuccess
    
     class func toggleFetchDemand() {
         

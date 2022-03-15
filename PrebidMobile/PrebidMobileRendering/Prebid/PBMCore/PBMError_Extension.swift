@@ -21,7 +21,7 @@ import Foundation
     // FIX ME
     class func demandResult(from error: Error?) -> ResultCode {
         guard let error = error as NSError? else {
-            return .ok
+            return .prebidDemandFetchSuccess
         }
         
         if error.domain == PrebidRenderingErrorDomain {
@@ -29,16 +29,16 @@ import Foundation
                let res = ResultCode(rawValue: demandCode.intValue)  {
                 return res
             } else {
-                return .internalSDKError
+                return .prebidInternalSDKError
             }
         }
         
         if error.domain == NSURLErrorDomain,
            error.code == NSURLErrorTimedOut {
-            return .demandTimedOut
+            return .prebidDemandTimedOut
         }
         
-        return .networkError
+        return .prebidNetworkError
     }
     
 }

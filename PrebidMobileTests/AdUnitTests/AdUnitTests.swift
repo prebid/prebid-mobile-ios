@@ -35,7 +35,7 @@ class AdUnitTests: XCTestCase {
         let testObject: AnyObject = () as AnyObject
         var resultCode: ResultCode?
         
-        let expected = ResultCode.ok
+        let expected = ResultCode.prebidDemandFetchSuccess
         let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250))
         AdUnitSwizzleHelper.testScenario = expected
         AdUnitSwizzleHelper.toggleFetchDemand()
@@ -59,7 +59,7 @@ class AdUnitTests: XCTestCase {
         var codeResult: ResultCode?
         var kvDictResult: [String:String]?
         
-        let expected = ResultCode.ok
+        let expected = ResultCode.prebidDemandFetchSuccess
         let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250))
         AdUnitSwizzleHelper.testScenario = expected
         AdUnitSwizzleHelper.toggleFetchDemand()

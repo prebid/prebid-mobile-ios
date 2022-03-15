@@ -238,7 +238,7 @@ public class MediationBannerAdUnit : NSObject {
     }
     
     private func handlePrebidResponse(response: BidResponse) {
-        var demandResult = ResultCode.demandNoBids
+        var demandResult = ResultCode.prebidDemandNoBids
         
         if self.adView != nil,
            let winningBid = response.winningBid {
@@ -247,9 +247,9 @@ public class MediationBannerAdUnit : NSObject {
                                                targetingInfo: winningBid.targetingInfo ?? [:],
                                                extrasObject: winningBid,
                                                extrasObjectKey: PBMMediationAdUnitBidKey) {
-                demandResult = .ok
+                demandResult = .prebidDemandFetchSuccess
             } else {
-                demandResult = .wrongArguments
+                demandResult = .prebidWrongArguments
             }
         } else {
             PBMLog.error("The winning bid is absent in response!")

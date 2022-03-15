@@ -51,7 +51,7 @@ class FeedGAMAdTableViewCell: UITableViewCell {
                 return
             }
             
-            guard result == .ok else {
+            guard result == .prebidDemandFetchSuccess else {
                 return
             }
             

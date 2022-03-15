@@ -104,7 +104,7 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
                 return
             }
             
-            if result == .ok {
+            if result == .prebidDemandFetchSuccess {
                 self.fetchDemandSuccessButton.isEnabled = true
             } else {
                 self.fetchDemandFailedButton.isEnabled = true

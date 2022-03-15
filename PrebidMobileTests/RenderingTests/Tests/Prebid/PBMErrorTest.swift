@@ -22,9 +22,9 @@ class PBMErrorTest: XCTestCase {
         let allErrors = [
             PBMError.requestInProgress,
             
-            PBMError.invalidAccountId,
-            PBMError.invalidConfigId,
-            PBMError.invalidSize,
+            PBMError.prebidInvalidAccountId,
+            PBMError.prebidInvalidConfigId,
+            PBMError.prebidInvalidSize,
             
             PBMError.serverError("some error reason"),
             
@@ -46,24 +46,24 @@ class PBMErrorTest: XCTestCase {
     
     func testErrorParsing() {
         let errors: [(Error?, ResultCode)] = [
-            (PBMError.requestInProgress, .internalSDKError),
+            (PBMError.requestInProgress, .prebidInternalSDKError),
             
-            (PBMError.invalidAccountId, .invalidAccountId),
-            (PBMError.invalidConfigId, .invalidConfigId),
-            (PBMError.invalidSize, .invalidSize),
+            (PBMError.prebidInvalidAccountId, .prebidInvalidAccountId),
+            (PBMError.prebidInvalidConfigId, .prebidInvalidConfigId),
+            (PBMError.prebidInvalidSize, .prebidInvalidSize),
             
-            (PBMError.serverError("some error reason"), .serverError),
+            (PBMError.serverError("some error reason"), .prebidServerError),
             
-            (PBMError.jsonDictNotFound, .invalidResponseStructure),
-            (PBMError.responseDeserializationFailed, .invalidResponseStructure),
+            (PBMError.jsonDictNotFound, .prebidInvalidResponseStructure),
+            (PBMError.responseDeserializationFailed, .prebidInvalidResponseStructure),
             
-            (PBMError.noWinningBid, .demandNoBids),
+            (PBMError.noWinningBid, .prebidDemandNoBids),
             
             
-            (NSError(domain: NSURLErrorDomain, code: NSURLErrorTimedOut), .demandTimedOut),
-            (NSError(domain: NSURLErrorDomain, code: NSURLErrorBadURL), .networkError),
+            (NSError(domain: NSURLErrorDomain, code: NSURLErrorTimedOut), .prebidDemandTimedOut),
+            (NSError(domain: NSURLErrorDomain, code: NSURLErrorBadURL), .prebidNetworkError),
             
-            (nil, .ok),
+            (nil, .prebidDemandFetchSuccess),
         ]
         
         for (error, code) in errors {

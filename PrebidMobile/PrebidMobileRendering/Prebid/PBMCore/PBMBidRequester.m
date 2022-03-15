@@ -157,21 +157,21 @@
     if (!CGSizeEqualToSize(self.adUnitConfiguration.adSize, CGSizeZero)) {
         
         if ([self isInvalidSize:[NSValue valueWithCGSize:self.adUnitConfiguration.adSize]]) {
-            return [PBMError invalidSize];
+            return [PBMError prebidInvalidSize];
         }
     }
     if (self.adUnitConfiguration.additionalSizes) {
         for (NSValue *nextSize in self.adUnitConfiguration.additionalSizes) {
             if ([self isInvalidSize:nextSize]) {
-                return [PBMError invalidSize];
+                return [PBMError prebidInvalidSize];
             }
         }
     }
     if ([self isInvalidID:self.adUnitConfiguration.configId]) {
-        return [PBMError invalidConfigId];
+        return [PBMError prebidInvalidConfigId];
     }
     if ([self isInvalidID:self.sdkConfiguration.accountID]) {
-        return [PBMError invalidAccountId];
+        return [PBMError prebidInvalidAccountId];
     }
     return nil;
 }

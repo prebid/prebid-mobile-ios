@@ -131,7 +131,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     // MARK: - Private Methods
     
     private func handleBidResponse(_ bidResponse: BidResponse) {
-        var demandResult = ResultCode.demandNoBids
+        var demandResult = ResultCode.prebidDemandNoBids
         
         if let winningBid = bidResponse.winningBid,
            let targetingInfo = winningBid.targetingInfo {
@@ -141,9 +141,9 @@ public class MediationBaseInterstitialAdUnit : NSObject {
                                                targetingInfo: targetingInfo,
                                                extrasObject: winningBid,
                                                extrasObjectKey: PBMMediationAdUnitBidKey) {
-                demandResult = .ok
+                demandResult = .prebidDemandFetchSuccess
             } else {
-                demandResult = .wrongArguments
+                demandResult = .prebidWrongArguments
             }
             
         } else {

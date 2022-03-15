@@ -72,7 +72,7 @@ class PBMBidRequesterTest: XCTestCase {
         
         requester.requestBids { (bidResponse, error) in
             XCTAssertNil(bidResponse)
-            XCTAssertEqual(error as NSError?, PBMError.invalidAccountId as NSError?)
+            XCTAssertEqual(error as NSError?, PBMError.prebidInvalidAccountId as NSError?)
             exp.fulfill()
         }
         waitForExpectations(timeout: 5)
@@ -96,7 +96,7 @@ class PBMBidRequesterTest: XCTestCase {
         
         requester.requestBids { (bidResponse, error) in
             XCTAssertNil(bidResponse)
-            XCTAssertEqual(error as NSError?, PBMError.invalidAccountId as NSError?)
+            XCTAssertEqual(error as NSError?, PBMError.prebidInvalidAccountId as NSError?)
             exp.fulfill()
         }
         waitForExpectations(timeout: 5)
@@ -114,7 +114,7 @@ class PBMBidRequesterTest: XCTestCase {
         
         requester.requestBids { (bidResponse, error) in
             XCTAssertNil(bidResponse)
-            XCTAssertEqual(error as NSError?, PBMError.invalidConfigId as NSError?)
+            XCTAssertEqual(error as NSError?, PBMError.prebidInvalidConfigId as NSError?)
             exp.fulfill()
         }
         waitForExpectations(timeout: 5)
@@ -135,7 +135,7 @@ class PBMBidRequesterTest: XCTestCase {
         
         requester.requestBids { (bidResponse, error) in
             XCTAssertNil(bidResponse)
-            XCTAssertEqual(error as NSError?, PBMError.invalidConfigId as NSError?)
+            XCTAssertEqual(error as NSError?, PBMError.prebidInvalidConfigId as NSError?)
             exp.fulfill()
         }
         waitForExpectations(timeout: 5)
