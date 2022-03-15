@@ -93,7 +93,7 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
             dfpNativeAdUnit.backgroundColor = .green
             nativeView.addSubview(dfpNativeAdUnit)
             if(nativeUnit != nil){
-                nativeUnit.fetchDemand(adObject: self.request) { [weak self] (resultCode: FetchDemandResult) in
+                nativeUnit.fetchDemand(adObject: self.request) { [weak self] (resultCode: ResultCode) in
                     print("Prebid demand fetch for DFP \(resultCode.name())")
                     self?.dfpNativeAdUnit!.load(self?.request)
                 }
@@ -110,7 +110,7 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
 
             if(nativeUnit != nil){
                 // Do any additional setup after loading the view, typically from a nib.
-                nativeUnit.fetchDemand(adObject: mopubNativeAdUnit) { (resultCode: FetchDemandResult) in
+                nativeUnit.fetchDemand(adObject: mopubNativeAdUnit) { (resultCode: ResultCode) in
                     print("Prebid demand fetch for mopub \(resultCode.name())")
 
                     self.mopubNativeAdUnit!.loadAd()

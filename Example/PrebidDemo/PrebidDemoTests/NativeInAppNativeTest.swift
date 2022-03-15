@@ -74,7 +74,7 @@ class NativeInAppNativeTest: XCTestCase {
         let mopubNativeAdRequestTargeting = MPNativeAdRequestTargeting()
         mopubNativeObject.targeting = mopubNativeAdRequestTargeting
         
-        nativeUnit.fetchDemand(adObject: mopubNativeObject) { [weak self] (resultCode: FetchDemandResult) in
+        nativeUnit.fetchDemand(adObject: mopubNativeObject) { [weak self] (resultCode: ResultCode) in
             let array = mopubNativeObject.targeting.keywords.components(separatedBy: ",")
             for keyword in array{
                 let keywordArr = keyword.components(separatedBy: ":")
@@ -97,7 +97,7 @@ class NativeInAppNativeTest: XCTestCase {
         let mopubNativeAdRequestTargeting = MPNativeAdRequestTargeting()
         mopubNativeObject.targeting = mopubNativeAdRequestTargeting
         
-        nativeUnit.fetchDemand(adObject: mopubNativeObject) { [weak self] (resultCode: FetchDemandResult) in
+        nativeUnit.fetchDemand(adObject: mopubNativeObject) { [weak self] (resultCode: ResultCode) in
             let array = mopubNativeObject.targeting.keywords.components(separatedBy: ",")
             for keyword in array{
                 let keywordArr = keyword.components(separatedBy: ":")
@@ -121,7 +121,7 @@ class NativeInAppNativeTest: XCTestCase {
         let mopubNativeAdRequestTargeting = MPNativeAdRequestTargeting()
         mopubNativeObject.targeting = mopubNativeAdRequestTargeting
         
-        nativeUnit.fetchDemand(adObject: mopubNativeObject) { [weak self] (resultCode: FetchDemandResult) in
+        nativeUnit.fetchDemand(adObject: mopubNativeObject) { [weak self] (resultCode: ResultCode) in
             let array = mopubNativeObject.targeting.keywords.components(separatedBy: ",")
             for keyword in array{
                 let keywordArr = keyword.components(separatedBy: ":")
@@ -142,7 +142,7 @@ class NativeInAppNativeTest: XCTestCase {
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
         let dfpRequest = DFPNRequest()
         
-        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: FetchDemandResult) in
+        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: ResultCode) in
             gadNativeCustomTemplateAd.setValue("1", forKey: "isPrebid")
             gadNativeCustomTemplateAd.setValue(dfpRequest.p_customKeywords["hb_cache_id_local"], forKey: "hb_cache_id_local")
             
@@ -161,7 +161,7 @@ class NativeInAppNativeTest: XCTestCase {
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
         let dfpRequest = DFPNRequest()
         
-        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: FetchDemandResult) in
+        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: ResultCode) in
             gadNativeCustomTemplateAd.setValue("0", forKey: "isPrebid")
             gadNativeCustomTemplateAd.setValue(dfpRequest.p_customKeywords["hb_cache_id_local"], forKey: "hb_cache_id_local")
             
@@ -180,7 +180,7 @@ class NativeInAppNativeTest: XCTestCase {
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
         let dfpRequest = DFPNRequest()
         
-        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: FetchDemandResult) in
+        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: ResultCode) in
             gadNativeCustomTemplateAd.setValue("1", forKey: "isPrebid")
             gadNativeCustomTemplateAd.setValue(dfpRequest.p_customKeywords["hb_cache_id_local"], forKey: "hb_cache_id_local")
             
@@ -199,7 +199,7 @@ class NativeInAppNativeTest: XCTestCase {
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
         let dfpRequest = DFPNRequest()
         
-        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: FetchDemandResult) in
+        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: ResultCode) in
             gadNativeCustomTemplateAd.setValue("1", forKey: "isPrebid")
             gadNativeCustomTemplateAd.setValue(dfpRequest.p_customKeywords["hb_cache_id_local"], forKey: "hb_cache_id_local")
             
@@ -218,7 +218,7 @@ class NativeInAppNativeTest: XCTestCase {
         let gadNativeCustomTemplateAd = GADNativeCustomTemplateAd()
         let dfpRequest = DFPNRequest()
         
-        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: FetchDemandResult) in
+        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: ResultCode) in
             gadNativeCustomTemplateAd.setValue("1", forKey: "isPrebid")
             gadNativeCustomTemplateAd.setValue(dfpRequest.p_customKeywords["hb_cache_id_local"], forKey: "hb_cache_id_local")
             

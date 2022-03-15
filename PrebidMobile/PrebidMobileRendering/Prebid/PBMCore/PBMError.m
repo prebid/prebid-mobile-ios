@@ -80,7 +80,7 @@
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Network request already in progress",
         NSLocalizedRecoverySuggestionErrorKey: @"Wait for a competion handler to fire before attempting to send new requests",
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInternalSDKError),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(ResultCodeInternalSDKError),
     }];
 }
 
@@ -92,7 +92,7 @@
                                           forFamily:kPBMErrorFamily_KnownServerErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Prebid server does not recognize Account Id",
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidAccountId),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(ResultCodeInvalidAccountId),
     }];
 }
 
@@ -102,7 +102,7 @@
                                           forFamily:kPBMErrorFamily_KnownServerErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Prebid server does not recognize Config Id",
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidConfigId),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(ResultCodeInvalidConfigId),
     }];
 }
 
@@ -112,7 +112,7 @@
                                           forFamily:kPBMErrorFamily_KnownServerErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Prebid server does not recognize the size requested",
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidSize),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(ResultCodeInvalidSize),
     }];
 }
 
@@ -122,7 +122,7 @@
                                           forFamily:kPBMErrorFamily_KnownServerErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Prebid server URL %@ is invalid", url],
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidHostUrl),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(ResultCodeInvalidHostUrl),
     }];
 }
 
@@ -135,7 +135,7 @@
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Prebid Server Error",
         NSLocalizedFailureReasonErrorKey: errorBody,
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultServerError),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(ResultCodeServerError),
     }];
 }
 
@@ -147,7 +147,7 @@
                                           forFamily:kPBMErrorFamily_ResponseProcessingErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"The response does not contain a valid json dictionary",
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidResponseStructure),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(ResultCodeInvalidResponseStructure),
     }];
 }
 
@@ -157,7 +157,7 @@
                                           forFamily:kPBMErrorFamily_ResponseProcessingErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Failed to deserialize jsonDict from response into a proper BidResponse object",
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultInvalidResponseStructure),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(ResultCodeInvalidResponseStructure),
     }];
 }
 
@@ -167,7 +167,7 @@
                                            forFamily:kPBMErrorFamily_IntegrationLayerErrors]
                             userInfo:@{
          NSLocalizedDescriptionKey: @"The response is blank.",
-         PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultDemandNoBids),
+         PBM_FETCH_DEMAND_RESULT_KEY: @(ResultCodeDemandNoBids),
      }];
 }
 
@@ -179,7 +179,7 @@
                                           forFamily:kPBMErrorFamily_IntegrationLayerErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"There is no winning bid in the bid response.",
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultDemandNoBids),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(ResultCodeDemandNoBids),
     }];
 }
 
@@ -189,7 +189,7 @@
                                           forFamily:kPBMErrorFamily_IntegrationLayerErrors]
                            userInfo:@{
         NSLocalizedDescriptionKey: @"Failed to find VAST Tag inside the provided Media Data.",
-        PBM_FETCH_DEMAND_RESULT_KEY: @(FetchDemandResultNoVastTagInMediaData),
+        PBM_FETCH_DEMAND_RESULT_KEY: @(ResultCodeNoVastTagInMediaData),
     }];
 }
 

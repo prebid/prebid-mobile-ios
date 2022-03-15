@@ -18,7 +18,7 @@ import Foundation
 @objcMembers
 public class MediationNativeAdUnit : NSObject {
     
-    var completion: ((FetchDemandResult) -> Void)?
+    var completion: ((ResultCode) -> Void)?
     let mediationDelegate: PrebidMediationDelegate
     
     // MARK: - Public Properties
@@ -110,7 +110,7 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.clearUserData()
     }
     
-    public func fetchDemand(completion: ((FetchDemandResult)->Void)?) {
+    public func fetchDemand(completion: ((ResultCode)->Void)?) {
         
         self.completion = completion
         
@@ -145,7 +145,7 @@ public class MediationNativeAdUnit : NSObject {
             
             fetchDemandInfo[PrebidLocalCacheIdKey] = cacheId as AnyObject
             
-            var fetchDemandResult = FetchDemandResult.wrongArguments
+            var fetchDemandResult = ResultCode.wrongArguments
         
             if self.mediationDelegate.setUpAdObject(configId: self.configID,
                                                     configIdKey: PBMMediationConfigIdKey,
@@ -161,7 +161,7 @@ public class MediationNativeAdUnit : NSObject {
     
     // MARK: - Private Methods
     
-    private func completeWithResult(_ fetchDemandResult: FetchDemandResult) {
+    private func completeWithResult(_ fetchDemandResult: ResultCode) {
         guard let completion = self.completion else {
             return
         }

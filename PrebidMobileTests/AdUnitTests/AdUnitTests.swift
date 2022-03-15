@@ -33,15 +33,15 @@ class AdUnitTests: XCTestCase {
         //given
         let exception = expectation(description: "\(#function)")
         let testObject: AnyObject = () as AnyObject
-        var resultCode: FetchDemandResult?
+        var resultCode: ResultCode?
         
-        let expected = FetchDemandResult.ok
+        let expected = ResultCode.ok
         let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250))
         AdUnitSwizzleHelper.testScenario = expected
         AdUnitSwizzleHelper.toggleFetchDemand()
         
         //when
-        adUnit.fetchDemand(adObject: testObject) { (code: FetchDemandResult) in
+        adUnit.fetchDemand(adObject: testObject) { (code: ResultCode) in
             resultCode = code
             exception.fulfill()
         }
@@ -56,16 +56,16 @@ class AdUnitTests: XCTestCase {
     func testFetchDemandBids() {
         //given
         let exception = expectation(description: "\(#function)")
-        var codeResult: FetchDemandResult?
+        var codeResult: ResultCode?
         var kvDictResult: [String:String]?
         
-        let expected = FetchDemandResult.ok
+        let expected = ResultCode.ok
         let adUnit = AdUnit(configId: "138c4d03-0efb-4498-9dc6-cb5a9acb2ea4", size: CGSize(width: 300, height: 250))
         AdUnitSwizzleHelper.testScenario = expected
         AdUnitSwizzleHelper.toggleFetchDemand()
         
         //when
-        adUnit.fetchDemand() { (code: FetchDemandResult, kvDict: [String:String]?) in
+        adUnit.fetchDemand() { (code: ResultCode, kvDict: [String:String]?) in
             codeResult = code
             kvDictResult = kvDict
             exception.fulfill()
@@ -101,7 +101,7 @@ class AdUnitTests: XCTestCase {
         var fetchDemandCount = 0
         
         //when
-        adUnit.fetchDemand(adObject: testObject) { (code: FetchDemandResult) in
+        adUnit.fetchDemand(adObject: testObject) { (code: ResultCode) in
             fetchDemandCount += 1
             exception.fulfill()
         }
@@ -139,7 +139,7 @@ class AdUnitTests: XCTestCase {
         var fetchDemandCount = 0
         
         //when
-        adUnit.fetchDemand(adObject: testObject) { (code: FetchDemandResult) in
+        adUnit.fetchDemand(adObject: testObject) { (code: ResultCode) in
             fetchDemandCount += 1
             exception.fulfill()
         }
@@ -180,7 +180,7 @@ class AdUnitTests: XCTestCase {
         var fetchDemandCount = 0
         
         //when
-        adUnit.fetchDemand(completion: { (code: FetchDemandResult, kvDict: [String:String]?) in
+        adUnit.fetchDemand(completion: { (code: ResultCode, kvDict: [String:String]?) in
             fetchDemandCount += 1
             exception.fulfill()
         })

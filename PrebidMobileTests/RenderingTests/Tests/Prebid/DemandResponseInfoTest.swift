@@ -27,7 +27,7 @@ class DemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
     func testInit() {
         let winningBid = makeWinningBid()
         
-        let testBlocks: [(fetchDemandResult: FetchDemandResult, bid: Bid?, configId: String?)] = [
+        let testBlocks: [(fetchDemandResult: ResultCode, bid: Bid?, configId: String?)] = [
             (.demandNoBids, nil, nil),
             (.ok, Bid(bid: PBMORTBBid<PBMORTBBidExt>()), "configID-1"),
             (.ok, winningBid, "configID-2"),

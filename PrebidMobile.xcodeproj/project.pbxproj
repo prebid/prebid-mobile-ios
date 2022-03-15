@@ -395,7 +395,7 @@
 		5BC37A1B271F1D0000444D5E /* Prebid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377CF271F1CFF00444D5E /* Prebid.swift */; };
 		5BC37A1C271F1D0000444D5E /* PBMErrorFamily.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377D0271F1CFF00444D5E /* PBMErrorFamily.m */; };
 		5BC37A1D271F1D0000444D5E /* PBMWinNotifier+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC377D1271F1CFF00444D5E /* PBMWinNotifier+Private.h */; };
-		5BC37A1E271F1D0000444D5E /* FetchDemandResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377D2271F1CFF00444D5E /* FetchDemandResult.swift */; };
+		5BC37A1E271F1D0000444D5E /* ResultCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377D2271F1CFF00444D5E /* ResultCode.swift */; };
 		5BC37A1F271F1D0000444D5E /* PBMBidRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377D3271F1CFF00444D5E /* PBMBidRequester.m */; };
 		5BC37A20271F1D0000444D5E /* PBMORTBMacrosHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC377D4271F1CFF00444D5E /* PBMORTBMacrosHelper.m */; };
 		5BC37A21271F1D0000444D5E /* PBMJsonCodable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC377D5271F1CFF00444D5E /* PBMJsonCodable.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1229,7 +1229,7 @@
 		5BC377CF271F1CFF00444D5E /* Prebid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prebid.swift; sourceTree = "<group>"; };
 		5BC377D0271F1CFF00444D5E /* PBMErrorFamily.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMErrorFamily.m; sourceTree = "<group>"; };
 		5BC377D1271F1CFF00444D5E /* PBMWinNotifier+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMWinNotifier+Private.h"; sourceTree = "<group>"; };
-		5BC377D2271F1CFF00444D5E /* FetchDemandResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchDemandResult.swift; sourceTree = "<group>"; };
+		5BC377D2271F1CFF00444D5E /* ResultCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultCode.swift; sourceTree = "<group>"; };
 		5BC377D3271F1CFF00444D5E /* PBMBidRequester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMBidRequester.m; sourceTree = "<group>"; };
 		5BC377D4271F1CFF00444D5E /* PBMORTBMacrosHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMORTBMacrosHelper.m; sourceTree = "<group>"; };
 		5BC377D5271F1CFF00444D5E /* PBMJsonCodable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMJsonCodable.h; sourceTree = "<group>"; };
@@ -2309,7 +2309,7 @@
 				5BC377C4271F1CFF00444D5E /* AdUnitConfig.swift */,
 				5BC3780A271F1CFF00444D5E /* Bid.swift */,
 				5BC3782B271F1CFF00444D5E /* BidResponse.swift */,
-				5BC377D2271F1CFF00444D5E /* FetchDemandResult.swift */,
+				5BC377D2271F1CFF00444D5E /* ResultCode.swift */,
 				5BC37792271F1CFE00444D5E /* NativeEventsTracking */,
 				5BC3780F271F1CFF00444D5E /* ORTB */,
 				5BC37809271F1CFF00444D5E /* PBMAdMarkupStringHandler.h */,
@@ -4100,7 +4100,7 @@
 				5BC37972271F1D0000444D5E /* PBMVastTrackingEvents.m in Sources */,
 				FAEE4D19262DC2B200AD9966 /* NativeEventTracker.swift in Sources */,
 				5BC37A26271F1D0000444D5E /* PBMBidRequesterFactory.m in Sources */,
-				5BC37A1E271F1D0000444D5E /* FetchDemandResult.swift in Sources */,
+				5BC37A1E271F1D0000444D5E /* ResultCode.swift in Sources */,
 				5BC37AB9271F1D0000444D5E /* PBMOpenMeasurementWrapper.m in Sources */,
 				5BC37A55271F1D0000444D5E /* PBMBidResponseTransformer.m in Sources */,
 				5BC37955271F1D0000444D5E /* PBMJSLibraryManager.m in Sources */,

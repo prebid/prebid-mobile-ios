@@ -19,14 +19,14 @@ import Foundation
     
     // MARK: -  parsing
     // FIX ME
-    class func demandResult(from error: Error?) -> FetchDemandResult {
+    class func demandResult(from error: Error?) -> ResultCode {
         guard let error = error as NSError? else {
             return .ok
         }
         
         if error.domain == PrebidRenderingErrorDomain {
             if let demandCode = error.userInfo[PBM_FETCH_DEMAND_RESULT_KEY] as? NSNumber,
-               let res = FetchDemandResult(rawValue: demandCode.intValue)  {
+               let res = ResultCode(rawValue: demandCode.intValue)  {
                 return res
             } else {
                 return .internalSDKError

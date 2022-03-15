@@ -17,7 +17,7 @@ import Foundation
 
 public class DemandResponseInfo: NSObject {
     
-    @objc public private(set) var fetchDemandResult: FetchDemandResult
+    @objc public private(set) var fetchDemandResult: ResultCode
     
     private(set) var configId: String?
     @objc public private(set) var bid: Bid?
@@ -26,7 +26,7 @@ public class DemandResponseInfo: NSObject {
     
     private(set) var bidResponse: BidResponse?
 
-    @objc public required init(fetchDemandResult: FetchDemandResult,
+    @objc public required init(fetchDemandResult: ResultCode,
                                bid: Bid?,
                                configId: String?,
                                winNotifierBlock: @escaping PBMWinNotifierBlock,

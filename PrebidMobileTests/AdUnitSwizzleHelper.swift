@@ -21,7 +21,7 @@ public class AdUnitSwizzleHelper: NSObject {
 
     private override init() { }
     
-    static var testScenario = FetchDemandResult.ok
+    static var testScenario = ResultCode.ok
    
     class func toggleFetchDemand() {
         
@@ -33,11 +33,11 @@ public class AdUnitSwizzleHelper: NSObject {
         Swizzling.exchangeInstance(cls1: AdUnit.self, sel1: #selector(AdUnit.checkRefreshTime(_:)), cls2: AdUnitSwizzleHelper.self, sel2: #selector(AdUnitSwizzleHelper.swizzledCheckRefreshTime(_:)))
     }
 
-    func swizzledFetchDemand(adObject: AnyObject, completion: @escaping(_ result: FetchDemandResult) -> Void) {
+    func swizzledFetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
         completion(AdUnitSwizzleHelper.testScenario)
     }
     
-    func swizzledFetchDemand(completion: @escaping(_ result: FetchDemandResult, _ kvResultDict: [String : String]?) -> Void) {
+    func swizzledFetchDemand(completion: @escaping(_ result: ResultCode, _ kvResultDict: [String : String]?) -> Void) {
         completion(AdUnitSwizzleHelper.testScenario, ["key1" : "value1"])
     }
     

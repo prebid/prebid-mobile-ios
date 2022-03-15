@@ -45,7 +45,7 @@ class PBMErrorTest: XCTestCase {
     }
     
     func testErrorParsing() {
-        let errors: [(Error?, FetchDemandResult)] = [
+        let errors: [(Error?, ResultCode)] = [
             (PBMError.requestInProgress, .internalSDKError),
             
             (PBMError.invalidAccountId, .invalidAccountId),

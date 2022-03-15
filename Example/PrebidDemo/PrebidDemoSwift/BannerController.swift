@@ -287,7 +287,7 @@ class BannerController:
         gamBanner.delegate = self
         
         appBannerView.addSubview(gamBanner)
-        prebidAdUnit.fetchDemand(adObject: self.gamRequest) { [weak self] (resultCode: FetchDemandResult) in
+        prebidAdUnit.fetchDemand(adObject: self.gamRequest) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for AdManager \(resultCode.name())")
             self?.gamBanner.load(self?.gamRequest)
         }
@@ -300,7 +300,7 @@ class BannerController:
         mpBanner.backgroundColor = .red
 
         // Do any additional setup after loading the view, typically from a nib.
-        prebidAdUnit.fetchDemand(adObject: mpBanner) { [weak self] (resultCode: FetchDemandResult) in
+        prebidAdUnit.fetchDemand(adObject: mpBanner) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for MoPub \(resultCode.name())")
 
             self?.mpBanner.loadAd()

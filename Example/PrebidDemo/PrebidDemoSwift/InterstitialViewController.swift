@@ -208,7 +208,7 @@ class InterstitialViewController:
     // MARK: - Load
     
     func loadAMInterstitial(_ adUnitID: String) {
-        adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: FetchDemandResult) in
+        adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for DFP \(resultCode.name())")
             
             GAMInterstitialAd.load(withAdManagerAdUnitID: adUnitID, request: self?.amRequest) { (ad, error) in
@@ -224,7 +224,7 @@ class InterstitialViewController:
     
     func loadMPInterstitial() {
         // Do any additional setup after loading the view, typically from a nib.
-        adUnit.fetchDemand(adObject: mpInterstitial) { [weak self] (resultCode: FetchDemandResult) in
+        adUnit.fetchDemand(adObject: mpInterstitial) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for mopub \(resultCode.name())")
 
             self?.mpInterstitial.loadAd()

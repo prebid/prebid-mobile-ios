@@ -109,7 +109,7 @@
     self.dfpView.backgroundColor = [UIColor redColor];
     self.request = [[GAMRequest alloc] init];
 
-    [self.bannerUnit fetchDemandWithAdObject:self.request completion:^(enum FetchDemandResult result) {
+    [self.bannerUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
         NSLog(@"Prebid demand result %ld", (long)result);
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.dfpView loadRequest:self.request];
@@ -120,7 +120,7 @@
 -(void) loadDFPInterstitial {
     
     self.request = [[GAMRequest alloc] init];
-    [self.interstitialUnit fetchDemandWithAdObject:self.request completion:^(enum FetchDemandResult result) {
+    [self.interstitialUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
         NSLog(@"Prebid demand result %ld", (long)result);
 
         [GAMInterstitialAd loadWithAdManagerAdUnitID:@"/19968336/PrebidMobileValidator_Interstitial" request:self.request completionHandler:^(GAMInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
@@ -147,7 +147,7 @@
     [self.bannerView addSubview:self.mopubAdView];
     
     // Do any additional setup after loading the view, typically from a nib.
-    [self.bannerUnit fetchDemandWithAdObject:self.mopubAdView completion:^(enum FetchDemandResult result) {
+    [self.bannerUnit fetchDemandWithAdObject:self.mopubAdView completion:^(enum ResultCode result) {
         NSLog(@"Prebid demand result %ld", (long)result);
         [self.mopubAdView loadAd];
     }];
@@ -159,7 +159,7 @@
     [[MoPub sharedInstance] initializeSdkWithConfiguration:configuration completion:nil];
     self.mopubInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"2829868d308643edbec0795977f17437"];
     self.mopubInterstitial.delegate = self;
-    [self.interstitialUnit fetchDemandWithAdObject:self.mopubInterstitial completion:^(enum FetchDemandResult result) {
+    [self.interstitialUnit fetchDemandWithAdObject:self.mopubInterstitial completion:^(enum ResultCode result) {
         NSLog(@"Prebid demand result %ld", (long)result);
         [self.mopubInterstitial loadAd];
     }];
@@ -267,7 +267,7 @@
     MPNativeAdRequestTargeting *targeting = [MPNativeAdRequestTargeting targeting];
     self.mpNative.targeting = targeting;
 
-    [self.nativeUnit fetchDemandWithAdObject:self.mpNative completion:^(enum FetchDemandResult resultCode) {
+    [self.nativeUnit fetchDemandWithAdObject:self.mpNative completion:^(enum ResultCode resultCode) {
         dispatch_async(dispatch_get_main_queue(), ^{
               [self loadMoPub:self.mpNative];
           });
@@ -292,7 +292,7 @@
     [self createPrebidNativeView];
     [self loadNativeAssets];
     GAMRequest *dfpRequest = [[GAMRequest alloc] init];
-    [self.nativeUnit fetchDemandWithAdObject:dfpRequest completion:^(enum FetchDemandResult result) {
+    [self.nativeUnit fetchDemandWithAdObject:dfpRequest completion:^(enum ResultCode result) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self loadDFP:dfpRequest];
         });

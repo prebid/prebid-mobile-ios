@@ -131,7 +131,7 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
         let targeting:MPNativeAdRequestTargeting = MPNativeAdRequestTargeting.init()
         self.mpNative?.targeting = targeting
         
-        nativeUnit.fetchDemand(adObject: mpNative!) { [weak self] (resultCode: FetchDemandResult) in
+        nativeUnit.fetchDemand(adObject: mpNative!) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for AdManager \(resultCode.name())")
             self?.callMoPub(self?.mpNative)
         }
@@ -152,7 +152,7 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
     //MARK: Prebid NativeAd DFP
     func loadNativeInAppForDFP(){
         let dfpRequest = GAMRequest()
-        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: FetchDemandResult) in
+        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: ResultCode) in
             self?.callDFP(dfpRequest)
         }
     }

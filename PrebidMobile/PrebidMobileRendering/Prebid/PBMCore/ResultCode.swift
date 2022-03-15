@@ -15,7 +15,7 @@
 
 import Foundation
 
-@objc public enum FetchDemandResult : Int {
+@objc public enum ResultCode : Int {
     case ok = 0
     case invalidAccountId
     case invalidConfigId

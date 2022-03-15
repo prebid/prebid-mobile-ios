@@ -51,8 +51,8 @@ import ObjectiveC.runtime
 
     private var adServerObject: AnyObject?
 
-    private var closureAd: ((FetchDemandResult) -> Void)?
-    private var closureBids: ((FetchDemandResult, [String : String]?) -> Void)?
+    private var closureAd: ((ResultCode) -> Void)?
+    private var closureBids: ((ResultCode, [String : String]?) -> Void)?
 
     //notification flag set to check if the prebid response is received within the specified time
     var didReceiveResponse: Bool! = false
@@ -67,7 +67,7 @@ import ObjectiveC.runtime
     }
 
     //TODO: dynamic is used by tests
-    dynamic public func fetchDemand(completion: @escaping(_ result: FetchDemandResult, _ kvResultDict: [String : String]?) -> Void) {
+    dynamic public func fetchDemand(completion: @escaping(_ result: ResultCode, _ kvResultDict: [String : String]?) -> Void) {
 
         closureBids = completion
 
@@ -81,7 +81,7 @@ import ObjectiveC.runtime
     }
 
     //TODO: dynamic is used by tests
-    dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: FetchDemandResult) -> Void) {
+    dynamic public func fetchDemand(adObject: AnyObject, completion: @escaping(_ result: ResultCode) -> Void) {
         
         if !(self is NativeRequest){
             for size in adSizes {

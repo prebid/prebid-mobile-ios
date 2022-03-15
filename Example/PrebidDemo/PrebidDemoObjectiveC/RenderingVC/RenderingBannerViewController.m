@@ -117,7 +117,7 @@
                                                                         size:self.size
                                                            mediationDelegate:mediationDelegate];
     
-    [self.mopubBannerAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
+    [self.mopubBannerAdUnit fetchDemandWithCompletion:^(ResultCode result) {
         [self.mopubBannerView loadAd];
     }];
 }
@@ -129,7 +129,7 @@
     self.mediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest bannerView:self.gadBannerView];
     self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"50699c03-0910-477c-b4a4-911dbe2b9d42" size:self.size mediationDelegate:self.mediationDelegate];
     
-    [self.admobBannerAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
+    [self.admobBannerAdUnit fetchDemandWithCompletion:^(ResultCode result) {
         GADCustomEventExtras *extras = [GADCustomEventExtras new];
         NSDictionary *prebidExtras = [self.mediationDelegate getEventExtras];
         NSString *prebidExtrasLabel = AdMobConstants.PrebidAdMobEventExtrasLabel;
