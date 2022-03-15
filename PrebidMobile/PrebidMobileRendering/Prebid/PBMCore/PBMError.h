@@ -30,13 +30,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, class, readonly) NSError *requestInProgress;
 
 // - Transport errors
-//@property (nonatomic, class, readonly) NSError *demandTimedOut;
+//@property (nonatomic, class, readonly) NSError *prebidDemandTimedOut;
 
 // MARK: - Known server text errors
 
-@property (nonatomic, class, readonly) NSError *invalidAccountId;
-@property (nonatomic, class, readonly) NSError *invalidConfigId;
-@property (nonatomic, class, readonly) NSError *invalidSize;
+@property (nonatomic, class, readonly) NSError *prebidInvalidAccountId;
+@property (nonatomic, class, readonly) NSError *prebidInvalidConfigId;
+@property (nonatomic, class, readonly) NSError *prebidInvalidSize;
 //@property (nonatomic, class, readonly) NSError *prebidDemandNoBids;
 
 + (NSError *)prebidServerURLInvalid:(NSString *)url;
@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // MARK: - Integration layer errors
 @property (nonatomic, class, readonly) NSError *noWinningBid;
-@property (nonatomic, class, readonly) NSError *noVastTagInMediaData;
+@property (nonatomic, class, readonly) NSError *prebidNoVastTagInMediaData;
 
 + (PBMError *)errorWithDescription:(NSString *)description NS_SWIFT_NAME(error(description:));
 + (PBMError *)errorWithDescription:(NSString *)description statusCode:(PBMErrorCode)code NS_SWIFT_NAME(error(description:statusCode:));

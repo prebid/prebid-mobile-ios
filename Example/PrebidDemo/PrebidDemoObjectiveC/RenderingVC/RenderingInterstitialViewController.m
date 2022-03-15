@@ -125,7 +125,7 @@
                                                                            mediationDelegate:mediationDelegate];
     }
     
-    [self.mopubInterstitialAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
+    [self.mopubInterstitialAdUnit fetchDemandWithCompletion:^(ResultCode result) {
         [self.mopubInterstitial loadAd];
     }];
 }
@@ -142,7 +142,7 @@
                                                                            mediationDelegate:mediationDelegate];
     }
     
-    [self.admobInterstitialAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
+    [self.admobInterstitialAdUnit fetchDemandWithCompletion:^(ResultCode result) {
         GADCustomEventExtras *extras = [GADCustomEventExtras new];
         NSDictionary *prebidExtras = [mediationDelegate getEventExtras];
         NSString *prebidExtrasLabel = AdMobConstants.PrebidAdMobEventExtrasLabel;

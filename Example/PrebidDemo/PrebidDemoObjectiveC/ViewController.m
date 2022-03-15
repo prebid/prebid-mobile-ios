@@ -147,7 +147,7 @@
     [self.bannerView addSubview:self.mopubAdView];
     
     // Do any additional setup after loading the view, typically from a nib.
-    [self.bannerUnit fetchDemandWithAdObject:self.mopubAdView completion:^(enum ResultCode result) {         
+    [self.bannerUnit fetchDemandWithAdObject:self.mopubAdView completion:^(enum ResultCode result) {
         NSLog(@"Prebid demand result %ld", (long)result);
         [self.mopubAdView loadAd];
     }];

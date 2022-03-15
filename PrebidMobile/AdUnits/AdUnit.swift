@@ -86,7 +86,7 @@ import ObjectiveC.runtime
         if !(self is NativeRequest){
             for size in adSizes {
                 if (size.width < 0 || size.height < 0) {
-                    completion(ResultCode.prebidInvalidSize)
+                    completion(.prebidInvalidSize)
                     return
                 }
             }
@@ -95,11 +95,11 @@ import ObjectiveC.runtime
         Utils.shared.removeHBKeywords(adObject: adObject)
 
         if (prebidConfigId.isEmpty || (prebidConfigId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
-            completion(ResultCode.prebidInvalidConfigId)
+            completion(.prebidInvalidConfigId)
             return
         }
         if (Prebid.shared.prebidServerAccountId.isEmpty || (Prebid.shared.prebidServerAccountId.trimmingCharacters(in: CharacterSet.whitespaces)).count == 0) {
-            completion(ResultCode.prebidInvalidAccountId)
+            completion(.prebidInvalidAccountId)
             return
         }
 
@@ -112,19 +112,24 @@ import ObjectiveC.runtime
         timeOutSignalSent = false
         self.closureAd = completion
         adServerObject = adObject
-        let manager: BidManager = BidManager(adUnit: self)
 
-        manager.requestBidsForAdUnit { (bidResponse, resultCode) in
+        let bidRequester = PBMBidRequester(connection: PBMServerConnection.shared,
+                                           sdkConfiguration: Prebid.shared,
+                                           targeting: Targeting.shared,
+                                           adUnitConfiguration: adUnitConfig)
+        
+        bidRequester.requestBids { bidResponse, error in
             self.didReceiveResponse = true
+            
             if (bidResponse != nil) {
                 if (!self.timeOutSignalSent) {
                     Utils.shared.validateAndAttachKeywords (adObject: adObject, bidResponse: bidResponse!)
-                    completion(resultCode)
+                    completion(.prebidDemandFetchSuccess)
                 }
 
             } else {
                 if (!self.timeOutSignalSent) {
-                    completion(resultCode)
+                    completion(PBMError.demandResult(from: error))
                 }
             }
         }
@@ -132,7 +137,7 @@ import ObjectiveC.runtime
         DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(Int(truncating: Prebid.shared.timeoutMillisDynamic ?? NSNumber(value: .PB_Request_Timeout))), execute: {
             if (!self.didReceiveResponse) {
                 self.timeOutSignalSent = true
-                completion(ResultCode.prebidDemandTimedOut)
+                completion(.prebidDemandTimedOut)
 
             }
         })

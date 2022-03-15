@@ -20,5 +20,5 @@
                    connection:(id<PBMServerConnectionProtocol>)connection
              sdkConfiguration:(Prebid *)sdkConfiguration
                     targeting:(Targeting *)targeting
-                   completion:(void (^)(FetchDemandResult))completion;
+                   completion:(void (^)(ResultCode))completion;
 @end

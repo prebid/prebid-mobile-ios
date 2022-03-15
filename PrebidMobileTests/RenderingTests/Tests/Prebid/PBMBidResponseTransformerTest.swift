@@ -26,7 +26,7 @@ class PBMBidResponseTransformerTest: XCTestCase {
             let _ = try PBMBidResponseTransformer.transform(response)
             XCTFail("Expected error not thrown")
         } catch {
-            XCTAssertEqual(error as NSError, PBMError.invalidAccountId as NSError)
+            XCTAssertEqual(error as NSError, PBMError.prebidInvalidAccountId as NSError)
         }
     }
     
@@ -37,7 +37,7 @@ class PBMBidResponseTransformerTest: XCTestCase {
             let _ = try PBMBidResponseTransformer.transform(response)
             XCTFail("Expected error not thrown")
         } catch {
-            XCTAssertEqual(error as NSError, PBMError.invalidConfigId as NSError)
+            XCTAssertEqual(error as NSError, PBMError.prebidInvalidConfigId as NSError)
         }
     }
     
@@ -48,7 +48,7 @@ class PBMBidResponseTransformerTest: XCTestCase {
             let _ = try PBMBidResponseTransformer.transform(response)
             XCTFail("Expected error not thrown")
         } catch {
-            XCTAssertEqual(error as NSError, PBMError.invalidSize as NSError)
+            XCTAssertEqual(error as NSError, PBMError.prebidInvalidSize as NSError)
         }
     }
     

@@ -22,10 +22,10 @@ public class MediationBannerAdUnit : NSObject {
     var bidRequester: PBMBidRequester?
     // The view in which ad is displayed
     weak var adView: UIView?
-    var completion: ((FetchDemandResult) -> Void)?
+    var completion: ((ResultCode) -> Void)?
     
     weak var lastAdView: UIView?
-    var lastCompletion: ((FetchDemandResult) -> Void)?
+    var lastCompletion: ((ResultCode) -> Void)?
     
     var isRefreshStopped = false
     var autoRefreshManager: PBMAutoRefreshManager?
@@ -151,7 +151,7 @@ public class MediationBannerAdUnit : NSObject {
         })
     }
     
-    public func fetchDemand(completion: ((FetchDemandResult)->Void)?) {
+    public func fetchDemand(completion: ((ResultCode)->Void)?) {
         
         fetchDemand(connection: PBMServerConnection.shared,
                     sdkConfiguration: Prebid.shared,
@@ -176,7 +176,7 @@ public class MediationBannerAdUnit : NSObject {
     func fetchDemand(connection: PBMServerConnectionProtocol,
                      sdkConfiguration: Prebid,
                      targeting: Targeting,
-                     completion: ((FetchDemandResult)->Void)?) {
+                     completion: ((ResultCode)->Void)?) {
         guard bidRequester == nil else {
             // Request in progress
             return
@@ -238,7 +238,7 @@ public class MediationBannerAdUnit : NSObject {
     }
     
     private func handlePrebidResponse(response: BidResponse) {
-        var demandResult = FetchDemandResult.demandNoBids
+        var demandResult = ResultCode.prebidDemandNoBids
         
         if self.adView != nil,
            let winningBid = response.winningBid {
@@ -247,9 +247,9 @@ public class MediationBannerAdUnit : NSObject {
                                                targetingInfo: winningBid.targetingInfo ?? [:],
                                                extrasObject: winningBid,
                                                extrasObjectKey: PBMMediationAdUnitBidKey) {
-                demandResult = .ok
+                demandResult = .prebidDemandFetchSuccess
             } else {
-                demandResult = .wrongArguments
+                demandResult = .prebidWrongArguments
             }
         } else {
             PBMLog.error("The winning bid is absent in response!")
@@ -262,7 +262,7 @@ public class MediationBannerAdUnit : NSObject {
         completeWithResult(PBMError.demandResult(from: error))
     }
     
-    private func completeWithResult(_ fetchDemandResult: FetchDemandResult) {
+    private func completeWithResult(_ fetchDemandResult: ResultCode) {
         defer {
             markLoadingFinished()
         }

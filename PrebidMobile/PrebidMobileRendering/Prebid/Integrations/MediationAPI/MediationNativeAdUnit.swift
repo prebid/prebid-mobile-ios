@@ -145,7 +145,7 @@ public class MediationNativeAdUnit : NSObject {
             
             fetchDemandInfo[PrebidLocalCacheIdKey] = cacheId as AnyObject
             
-            var fetchDemandResult: ResultCode = .prebidUnknownError
+            var fetchDemandResult = ResultCode.prebidWrongArguments
         
             if self.mediationDelegate.setUpAdObject(configId: self.configID,
                                                     configIdKey: PBMMediationConfigIdKey,

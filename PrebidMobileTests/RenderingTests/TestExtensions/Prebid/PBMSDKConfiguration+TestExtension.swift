@@ -33,6 +33,7 @@ extension Prebid {
         Prebid.shared.timeoutMillis = 2000
         
         Prebid.forcedIsViewable = false
+        Prebid.shared.clearCustomHeaders()
     }
     
     static var forcedIsViewable: Bool {
