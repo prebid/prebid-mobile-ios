@@ -20,6 +20,10 @@ import XCTest
 
 class BasicParameterBuilderPureTargetingTest: XCTestCase {
     
+    override class func setUp() {
+        Targeting.shared.coppa = nil
+    }
+    
     func testParameterBuilderNoUserAgeNoCoppa() {
         let targeting = Targeting.shared
         let builder = PBMBasicParameterBuilder(adConfiguration:PBMAdConfiguration(),
