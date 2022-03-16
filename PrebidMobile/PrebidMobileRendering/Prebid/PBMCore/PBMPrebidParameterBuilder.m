@@ -119,7 +119,8 @@
         nextImp.extPrebid.storedRequestID = self.adConfiguration.configId;
         nextImp.extPrebid.storedAuctionResponse = Prebid.shared.storedAuctionResponse;
         nextImp.extPrebid.isRewardedInventory = self.adConfiguration.isOptIn;
-        nextImp.extContextData = self.adConfiguration.contextDataDictionary;
+        nextImp.extContextData = self.adConfiguration.contextDataDictionary.mutableCopy;
+        nextImp.extContextData[@"adslot"] = [self.adConfiguration getPbAdSlot];
         switch (adFormat) {
             case PBMAdFormatDisplayInternal: {
                 PBMORTBBanner * const nextBanner = nextImp.banner;

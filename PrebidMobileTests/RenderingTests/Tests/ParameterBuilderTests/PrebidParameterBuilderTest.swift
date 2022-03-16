@@ -239,4 +239,39 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         XCTAssertEqual(imp.extContextData, ["buy": ["mushrooms"]])
     }
+    
+    func testPbAdSlotWithContextDataDictionary() {
+        let testAdSlot = "test ad slot"
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+        
+        adUnitConfig.setPbAdSlot(testAdSlot)
+        
+        adUnitConfig.addContextData(key: "key", value: "value1")
+        adUnitConfig.addContextData(key: "key", value: "value2")
+        
+        let bidRequest = PBMORTBBidRequest()
+        
+        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
+                                 sdkConfiguration: sdkConfiguration,
+                                 sdkVersion: "MOCK_SDK_VERSION",
+                                 targeting: targeting)
+            .build(bidRequest)
+        
+        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting,
+                                  userAgentService: MockUserAgentService())
+            .build(bidRequest)
+        
+        bidRequest.imp.forEach { imp in
+            guard let extContextData = imp.extContextData as? [String: Any] else {
+                XCTFail()
+                return
+            }
+            
+            XCTAssertEqual(extContextData["key"] as? [String], ["value1", "value2"])
+            XCTAssertEqual(extContextData["adslot"] as? String, testAdSlot)
+        }
+    }
 }
