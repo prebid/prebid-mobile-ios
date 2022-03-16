@@ -114,8 +114,8 @@
         bidRequest.user.ext = [targeting.userExt mutableCopy];
     }
     
-    if (targeting.eids) {
-        [bidRequest.user appendEids:targeting.eids];
+    if ([targeting getExternalUserIds]) {
+        [bidRequest.user appendEids:[targeting getExternalUserIds]];
     }
     
     bidRequest.app.storeurl = targeting.appStoreMarketURL;

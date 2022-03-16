@@ -324,6 +324,25 @@ public class Targeting: NSObject {
         }
     }
     
+    public func getExternalUserIds() -> [[AnyHashable: Any]]? {
+        var externalUserIdArray = [ExternalUserId]()
+        if Prebid.shared.externalUserIdArray.count != 0 {
+            externalUserIdArray = Prebid.shared.externalUserIdArray
+        } else {
+            externalUserIdArray = externalUserIds
+        }
+        var transformedUserIdArray = [[AnyHashable: Any]]()
+        for externalUserId in externalUserIdArray {
+            transformedUserIdArray.append(externalUserId.toJSONDictionary())
+        }
+        
+        if let eids = eids {
+            transformedUserIdArray.append(contentsOf: eids)
+        }
+        
+        return transformedUserIdArray
+    }
+    
     // MARK: - Application Information
     
     /**
