@@ -120,6 +120,7 @@
     
     bidRequest.app.storeurl = targeting.storeURL;
     bidRequest.app.domain = targeting.domain;
+    bidRequest.app.bundle = targeting.itunesID;
     
     if (targeting.publisherName) {
         if (!bidRequest.app.publisher) {
