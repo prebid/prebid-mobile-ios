@@ -19,6 +19,9 @@
 #import "PBMConstants.h"
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #pragma mark - Internal Extension
 
 @interface PBMGeoLocationParameterBuilder()
@@ -47,6 +50,9 @@
 #pragma mark - PBMParameterBuilder
 
 - (void)buildBidRequest:(PBMORTBBidRequest *)bidRequest {
+    if (Prebid.shared.shareGeoLocation == false) {
+        return;;
+    }
     if (!(self.locationManager && bidRequest)) {
         PBMLogError(@"Invalid properties");
         return;
