@@ -119,6 +119,7 @@
     }
     
     bidRequest.app.storeurl = targeting.storeURL;
+    bidRequest.app.domain = targeting.domain;
     
     if (targeting.publisherName) {
         if (!bidRequest.app.publisher) {
