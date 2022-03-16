@@ -317,4 +317,70 @@ class PrebidParameterBuilderTest: XCTestCase {
         targeting.omidPartnerVersion = nil
         targeting.omidPartnerName = nil
     }
+    
+    func testSubjectToCOPPA() {
+        let bidRequest = PBMORTBBidRequest()
+        
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+        
+        targeting.subjectToCOPPA = true
+        
+        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
+                                 sdkConfiguration: sdkConfiguration,
+                                 sdkVersion: "MOCK_SDK_VERSION",
+                                 targeting: targeting)
+            .build(bidRequest)
+        
+        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting,
+                                  userAgentService: MockUserAgentService())
+            .build(bidRequest)
+        
+        XCTAssertEqual(bidRequest.regs.coppa, 1)
+        
+        targeting.subjectToCOPPA = false
+        
+        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
+                                 sdkConfiguration: sdkConfiguration,
+                                 sdkVersion: "MOCK_SDK_VERSION",
+                                 targeting: targeting)
+            .build(bidRequest)
+        
+        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting,
+                                  userAgentService: MockUserAgentService())
+            .build(bidRequest)
+        
+        XCTAssertEqual(bidRequest.regs.coppa, 0)
+    }
+    
+    func testSubjectToGDPR() {
+        let bidRequest = PBMORTBBidRequest()
+        
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+        
+        targeting.subjectToGDPR = true
+        
+        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
+                                 sdkConfiguration: sdkConfiguration,
+                                 sdkVersion: "MOCK_SDK_VERSION",
+                                 targeting: targeting)
+            .build(bidRequest)
+        
+        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting,
+                                  userAgentService: MockUserAgentService())
+            .build(bidRequest)
+        
+        guard let extRegs = bidRequest.regs.ext as? [String: Any] else {
+            XCTFail()
+            return
+        }
+        XCTAssertEqual(extRegs["gdpr"] as? NSNumber, 1)
+    }
 }

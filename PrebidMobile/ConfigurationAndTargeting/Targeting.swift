@@ -153,6 +153,11 @@ public class Targeting: NSObject {
  
     public var coppa: NSNumber? {
         get { NSNumber(value: subjectToCOPPA) }
+        set {
+            if let newValue = newValue?.boolValue {
+                subjectToCOPPA = newValue
+            }
+        }
     }
     
     /**
