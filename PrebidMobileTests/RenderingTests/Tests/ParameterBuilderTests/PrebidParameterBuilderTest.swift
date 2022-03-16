@@ -274,4 +274,47 @@ class PrebidParameterBuilderTest: XCTestCase {
             XCTAssertEqual(extContextData["adslot"] as? String, testAdSlot)
         }
     }
+    
+    func testSourceOMID() {
+        let bidRequest = PBMORTBBidRequest()
+        
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+        
+        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
+                                 sdkConfiguration: sdkConfiguration,
+                                 sdkVersion: "MOCK_SDK_VERSION",
+                                 targeting: targeting)
+            .build(bidRequest)
+        
+        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting,
+                                  userAgentService: MockUserAgentService())
+            .build(bidRequest)
+        
+        XCTAssertEqual(bidRequest.source.extOMID.omidpn, "Prebid")
+        XCTAssertEqual(bidRequest.source.extOMID.omidpv, PBMFunctions.omidVersion())
+        
+        targeting.omidPartnerVersion = "test omid version"
+        targeting.omidPartnerName = "test omid name"
+        
+        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
+                                 sdkConfiguration: sdkConfiguration,
+                                 sdkVersion: "MOCK_SDK_VERSION",
+                                 targeting: targeting)
+            .build(bidRequest)
+        
+        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting,
+                                  userAgentService: MockUserAgentService())
+            .build(bidRequest)
+        
+        XCTAssertEqual(bidRequest.source.extOMID.omidpn, "test omid name")
+        XCTAssertEqual(bidRequest.source.extOMID.omidpv, "test omid version")
+        
+        targeting.omidPartnerVersion = nil
+        targeting.omidPartnerName = nil
+    }
 }

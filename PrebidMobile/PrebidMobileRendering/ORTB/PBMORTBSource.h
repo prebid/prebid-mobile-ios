@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //Placeholder for exchange-specific extensions to OpenRTB.
 //Note: ext is not supported.
-@property (nonatomic, readonly) PBMORTBSourceExtOMID *extOMID;
+@property (nonatomic, strong) PBMORTBSourceExtOMID *extOMID;
 
 @end
 

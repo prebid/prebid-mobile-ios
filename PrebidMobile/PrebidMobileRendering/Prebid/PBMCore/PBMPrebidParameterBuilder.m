@@ -76,6 +76,16 @@
     bidRequest.app.content = [self.adConfiguration getAppContent];
     bidRequest.user.ext[@"data"] = self.targeting.userDataDictionary;
     
+    PBMORTBSourceExtOMID *extSource = [PBMORTBSourceExtOMID new];
+    if (Targeting.shared.omidPartnerName) {
+        extSource.omidpn = Targeting.shared.omidPartnerName;
+    }
+    if (Targeting.shared.omidPartnerVersion) {
+        extSource.omidpv = Targeting.shared.omidPartnerVersion;
+    }
+    
+    bidRequest.source.extOMID = extSource;
+    
     NSArray<PBMORTBFormat *> *formats = nil;
     const NSInteger formatsCount = (CGSizeEqualToSize(self.adConfiguration.adSize, CGSizeZero) ? 0 : 1) + self.adConfiguration.additionalSizes.count;
     
