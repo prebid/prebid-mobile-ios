@@ -150,14 +150,14 @@ public class Targeting: NSObject {
     public var userExt: [String : AnyHashable]?
     
     // MARK: - COPPA
+ 
+    public var coppa: NSNumber? {
+        get { NSNumber(value: subjectToCOPPA) }
+    }
+    
     /**
      Integer flag indicating if this request is subject to the COPPA regulations
      established by the USA FTC, where 0 = no, 1 = yes
-     */
-    public var coppa: NSNumber?
-    
-    /**
-     * The boolean value set by the user to collect user data
      */
     public var subjectToCOPPA: Bool {
         set {
