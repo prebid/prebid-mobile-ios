@@ -340,7 +340,7 @@ public class Targeting: NSObject {
             transformedUserIdArray.append(contentsOf: eids)
         }
         
-        return transformedUserIdArray
+        return transformedUserIdArray.isEmpty ? nil : transformedUserIdArray
     }
     
     // MARK: - Application Information

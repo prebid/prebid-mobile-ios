@@ -24,6 +24,7 @@ class ParameterBuilderServiceTest : XCTestCase {
     
     override func setUp() {
         UtilitiesForTesting.resetTargeting(.shared)
+        Prebid.shared.shareGeoLocation = true
     }
     
     override func tearDown() {

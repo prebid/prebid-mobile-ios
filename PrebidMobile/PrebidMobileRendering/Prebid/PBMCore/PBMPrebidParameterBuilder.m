@@ -66,6 +66,7 @@
     bidRequest.extPrebid.storedRequestID        = self.sdkConfiguration.accountID;
     bidRequest.extPrebid.storedAuctionResponse  = Prebid.shared.storedAuctionResponse;
     bidRequest.extPrebid.dataBidders            = self.targeting.accessControlList;
+    bidRequest.extPrebid.storedBidResponses     = [Prebid.shared getStoredBidResponses];
     bidRequest.app.publisher.publisherID        = self.sdkConfiguration.accountID;
     
     bidRequest.app.ver          = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];

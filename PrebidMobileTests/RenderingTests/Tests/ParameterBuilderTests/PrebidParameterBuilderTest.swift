@@ -412,4 +412,34 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         XCTAssertEqual(userExt["consent"] as? String, testGDPRConsentString)
     }
+    
+    func testStoredBidResponses() {
+        Prebid.shared.addStoredBidResponse(bidder: "testBidder", responseId: "testResponseId")
+        
+        let bidRequest = PBMORTBBidRequest()
+        
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+        
+        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
+                                 sdkConfiguration: sdkConfiguration,
+                                 sdkVersion: "MOCK_SDK_VERSION",
+                                 targeting: targeting)
+            .build(bidRequest)
+        
+        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting,
+                                  userAgentService: MockUserAgentService())
+            .build(bidRequest)
+        
+        let resultStoredBidResponses = [
+            [
+                "bidder": "testBidder",
+                "id" : "testResponseId"
+            ]
+        ]
+        
+        XCTAssertEqual(bidRequest.extPrebid.storedBidResponses, resultStoredBidResponses)  
+    }
 }
