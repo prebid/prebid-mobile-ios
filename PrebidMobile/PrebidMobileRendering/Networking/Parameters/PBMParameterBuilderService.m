@@ -136,7 +136,7 @@
         bidRequest.user.geo.lat = @(coord2d.latitude);
         bidRequest.user.geo.lon = @(coord2d.longitude);
     }
-    
+    bidRequest.ext[@"test"] = @(Prebid.shared.pbsDebug);
     return bidRequest;
 }
 

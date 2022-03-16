@@ -135,6 +135,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) PBMORTBBidRequestExtPrebid *extPrebid;
 
+// Property to set Prebid pbsDebug
+@property (nonatomic, strong) NSMutableDictionary<NSString *, id> *ext;
+
 - (instancetype)init;
 
 @end

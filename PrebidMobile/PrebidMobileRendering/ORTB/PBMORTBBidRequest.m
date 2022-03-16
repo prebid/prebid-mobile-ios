@@ -47,7 +47,7 @@
 
 - (nonnull PBMJsonDictionary *)toJsonDictionary {
     PBMMutableJsonDictionary *ret = [PBMMutableJsonDictionary new];
-    
+    ret = self.ext;
     NSMutableArray<PBMJsonDictionary *> *impressions = [NSMutableArray<PBMJsonDictionary *> new];
     for (PBMORTBImp *imp in self.imp) {
         [impressions addObject:[imp toJsonDictionary]];
