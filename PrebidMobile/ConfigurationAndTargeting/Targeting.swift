@@ -256,6 +256,24 @@ public class Targeting: NSObject {
         return purposeConsent
     }
     
+    //fetch advertising identifier based TCF 2.0 Purpose1 value
+    //truth table
+    /*
+                        deviceAccessConsent=true  deviceAccessConsent=false  deviceAccessConsent undefined
+     gdprApplies=false        Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
+     gdprApplies=true         Yes, read IDFA       No, don’t read IDFA           No, don’t read IDFA
+     gdprApplies=undefined    Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
+     */
+    public func isAllowedAccessDeviceData() -> Bool {
+        let deviceAccessConsent = getDeviceAccessConsent()
+        
+        if ((deviceAccessConsent == nil && (subjectToGDPR == nil || subjectToGDPR == false)) || deviceAccessConsent == true) {
+            return true
+        }
+        
+        return false
+    }
+    
     // MARK: - External User Ids
     
     public var externalUserIds = [ExternalUserId]()

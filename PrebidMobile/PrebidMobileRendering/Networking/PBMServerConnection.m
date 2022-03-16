@@ -282,6 +282,9 @@ static NSString *PBMIsPBMRequestKey = @"PBMIsPBMRequest";
         [request addValue:obj forHTTPHeaderField:key];
     }];
     
+    // HTTP cookies should not be allowed when we do not have deviceAccessConsent
+    request.HTTPShouldHandleCookies = [Targeting.shared isAllowedAccessDeviceData];
+    
     return request;
 }
 
