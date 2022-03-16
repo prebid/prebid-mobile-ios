@@ -32,6 +32,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     
     override func tearDown() {
         logToFile = nil
+        targeting.coppa = nil
         
         super.tearDown()
     }

@@ -47,11 +47,11 @@ class StorageUtils {
     //MARK: - getters and setters
     
     //COPPA
-    static func pbCoppa() -> Bool {
-        return UserDefaults.standard.bool(forKey: StorageUtils.PB_COPPAKey)
+    static func pbCoppa() -> Bool? {
+        return UserDefaults.standard.object(forKey: StorageUtils.PB_COPPAKey) != nil ? UserDefaults.standard.bool(forKey: StorageUtils.PB_COPPAKey) : nil
     }
     
-    static func setPbCoppa(value: Bool) {
+    static func setPbCoppa(value: Bool?) {
         setUserDefaults(value: value, forKey: StorageUtils.PB_COPPAKey)
     }
     

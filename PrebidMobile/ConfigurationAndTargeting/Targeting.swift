@@ -133,28 +133,22 @@ public class Targeting: NSObject {
     public var userExt: [String : AnyHashable]?
     
     // MARK: - COPPA
- 
+    
+    /**
+     Objective C analog of subjectToCOPPA
+     */
     public var coppa: NSNumber? {
-        get { NSNumber(value: subjectToCOPPA) }
-        set {
-            if let newValue = newValue?.boolValue {
-                subjectToCOPPA = newValue
-            }
-        }
+        set { subjectToCOPPA = newValue.boolValue }
+        get { subjectToCOPPA.nsNumberValue }
     }
     
     /**
      Integer flag indicating if this request is subject to the COPPA regulations
      established by the USA FTC, where 0 = no, 1 = yes
      */
-    public var subjectToCOPPA: Bool {
-        set {
-            StorageUtils.setPbCoppa(value: newValue)
-        }
-        
-        get {
-            return StorageUtils.pbCoppa()
-        }
+    public var subjectToCOPPA: Bool? {
+        set { StorageUtils.setPbCoppa(value: newValue) }
+        get { StorageUtils.pbCoppa() }
     }
     
     // MARK: - GDPR

@@ -265,12 +265,12 @@ class PrebidParameterBuilderTest: XCTestCase {
             .build(bidRequest)
         
         bidRequest.imp.forEach { imp in
-            guard let extContextData = imp.extContextData as? [String: Any] else {
+            guard let extContextData = imp.extContextData as? [String: Any], let result = extContextData["key"] as? [String] else {
                 XCTFail()
                 return
             }
-            
-            XCTAssertEqual(extContextData["key"] as? [String], ["value1", "value2"])
+           
+            XCTAssertEqual(Set(result), Set(["value1", "value2"]))
             XCTAssertEqual(extContextData["adslot"] as? String, testAdSlot)
         }
     }
