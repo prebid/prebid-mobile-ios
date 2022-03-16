@@ -76,6 +76,10 @@
     bidRequest.app.content = [self.adConfiguration getAppContent];
     bidRequest.user.ext[@"data"] = self.targeting.userDataDictionary;
     
+    if (self.targeting.gdprConsentString && self.targeting.gdprConsentString.length > 0) {
+        bidRequest.user.ext[@"consent"] = self.targeting.gdprConsentString;
+    }
+    
     PBMORTBSourceExtOMID *extSource = [PBMORTBSourceExtOMID new];
     if (Targeting.shared.omidPartnerName) {
         extSource.omidpn = Targeting.shared.omidPartnerName;

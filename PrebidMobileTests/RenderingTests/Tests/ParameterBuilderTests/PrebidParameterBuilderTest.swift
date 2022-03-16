@@ -383,4 +383,33 @@ class PrebidParameterBuilderTest: XCTestCase {
         }
         XCTAssertEqual(extRegs["gdpr"] as? NSNumber, 1)
     }
+    
+    func testGDPRConsentString() {
+        let testGDPRConsentString = "test gdpr consent string"
+        let bidRequest = PBMORTBBidRequest()
+        
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+        
+        targeting.gdprConsentString = testGDPRConsentString
+        
+        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
+                                 sdkConfiguration: sdkConfiguration,
+                                 sdkVersion: "MOCK_SDK_VERSION",
+                                 targeting: targeting)
+            .build(bidRequest)
+        
+        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting,
+                                  userAgentService: MockUserAgentService())
+            .build(bidRequest)
+        
+        guard let userExt = bidRequest.user.ext as? [String: Any] else {
+            XCTFail()
+            return
+        }
+        
+        XCTAssertEqual(userExt["consent"] as? String, testGDPRConsentString)
+    }
 }
