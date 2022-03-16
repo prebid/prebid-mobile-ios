@@ -49,18 +49,6 @@ class TargetingTests: XCTestCase {
         UtilitiesForTesting.resetTargeting(.shared)
     }
 
-    func testStoreURL() {
-        //given
-        let storeURL = "https://itunes.apple.com/app/id123456789"
-        
-        //when
-        Targeting.shared.storeURL = storeURL
-        let result = Targeting.shared.storeURL
-
-        //then
-        XCTAssertEqual(storeURL, result)
-    }
-
     func testDomain() {
         //given
         let domain = "appdomain.com"
@@ -864,23 +852,23 @@ class TargetingTests: XCTestCase {
         XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
     }
     
-    func testAppStoreMarketURL() {
+    func testStoreURL() {
         
         //Init
         //Note: on init, the default is nil but it doesn't send a value.
         let Targeting = Targeting.shared
-        XCTAssertNil(Targeting.appStoreMarketURL)
+        XCTAssertNil(Targeting.storeURL)
         XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
         
         //Set
         let storeUrl = "foo.com"
-        Targeting.appStoreMarketURL = storeUrl
-        XCTAssertEqual(Targeting.appStoreMarketURL, storeUrl)
+        Targeting.storeURL = storeUrl
+        XCTAssertEqual(Targeting.storeURL, storeUrl)
         XCTAssert(Targeting.parameterDictionary == ["url":storeUrl], "Dict is \(Targeting.parameterDictionary)")
         
         //Unset
-        Targeting.appStoreMarketURL = nil
-        XCTAssertNil(Targeting.appStoreMarketURL)
+        Targeting.storeURL = nil
+        XCTAssertNil(Targeting.storeURL)
         XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
     }
 

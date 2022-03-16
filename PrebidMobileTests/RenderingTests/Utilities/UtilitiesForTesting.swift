@@ -280,7 +280,7 @@ typealias JsonDictionary = [String:Any]
         targeting.userID = nil
         targeting.buyerUID = nil
         targeting.publisherName = nil
-        targeting.appStoreMarketURL = nil
+        targeting.storeURL = nil
         targeting.userCustomData = nil
         targeting.userExt = nil
         targeting.eids = nil
@@ -320,7 +320,7 @@ typealias JsonDictionary = [String:Any]
         XCTAssertNil(targeting.userID)
         XCTAssertNil(targeting.buyerUID)
         XCTAssertNil(targeting.publisherName)
-        XCTAssertNil(targeting.appStoreMarketURL)
+        XCTAssertNil(targeting.storeURL)
         XCTAssertNil(targeting.userCustomData)
         XCTAssertNil(targeting.userExt)
         XCTAssertNil(targeting.eids)

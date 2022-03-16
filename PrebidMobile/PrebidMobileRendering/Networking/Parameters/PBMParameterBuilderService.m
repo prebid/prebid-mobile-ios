@@ -118,7 +118,7 @@
         [bidRequest.user appendEids:[targeting getExternalUserIds]];
     }
     
-    bidRequest.app.storeurl = targeting.appStoreMarketURL;
+    bidRequest.app.storeurl = targeting.storeURL;
     
     if (targeting.publisherName) {
         if (!bidRequest.app.publisher) {

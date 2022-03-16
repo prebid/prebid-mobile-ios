@@ -350,11 +350,6 @@ public class Targeting: NSObject {
      */
     public var contentUrl: String?
     
-    public var appStoreMarketURL: String? {
-        get { parameterDictionary[PBMParameterKeys.APP_STORE_URL.rawValue] }
-        set { parameterDictionary[PBMParameterKeys.APP_STORE_URL.rawValue] = newValue }
-    }
-    
     /**
      App's publisher name.
      */
@@ -365,7 +360,10 @@ public class Targeting: NSObject {
      */
     public var sourceapp: String?
     
-    public var storeURL: String?
+    public var storeURL: String? {
+        get { parameterDictionary[PBMParameterKeys.APP_STORE_URL.rawValue] }
+        set { parameterDictionary[PBMParameterKeys.APP_STORE_URL.rawValue] = newValue }
+    }
     
     public var domain: String?
     

@@ -44,7 +44,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         targeting.coppa = 1
         targeting.userGender = .male
         targeting.buyerUID = "buyerUID"
-        targeting.appStoreMarketURL = url
+        targeting.storeURL = url
         targeting.keywords = "keyword1,keyword2"
         targeting.userCustomData = "customDataString"
         targeting.publisherName = publisherName
