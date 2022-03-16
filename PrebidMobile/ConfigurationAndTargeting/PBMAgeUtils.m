@@ -17,16 +17,6 @@
 
 @implementation PBMAgeUtils
 
-/*
- Returns the year of birthday for a given age
- */
-+ (NSInteger)yobForAge:(NSInteger)age {
-    //age to the year of birth (yob of Object: User on OpenRTB request)
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDateComponents *components = [calendar components:NSCalendarUnitYear fromDate:[NSDate date]];
-    return [components year] - age;
-}
-
 + (BOOL)isYOBValid:(NSInteger)yob {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
     NSInteger year = [components year];

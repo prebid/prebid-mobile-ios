@@ -36,28 +36,6 @@ public class Targeting: NSObject {
     // MARK: - User Information
     
     /**
-     Indicates the end-user's age, in years.
-     */
-    public var userAge: NSNumber? {
-        get {
-            guard let stringValue = parameterDictionary[PrebidTargetingKey_AGE] else {
-                return nil
-            }
-            
-            return Int(stringValue) as NSNumber?
-        }
-        
-        set {
-            guard let value = newValue else {
-                parameterDictionary.removeValue(forKey: PrebidTargetingKey_AGE)
-                return
-            }
-            
-            parameterDictionary[PrebidTargetingKey_AGE] = value.stringValue
-        }
-    }
-    
-    /**
      Indicates user birth year.
      */
     public var yearOfBirth: Int {
@@ -74,6 +52,11 @@ public class Targeting: NSObject {
         } else {
             Log.error("Incorrect birth year. It will be ignored.")
         }
+    }
+    
+    // Objective C API
+    public func getYearOfBirth() -> NSNumber {
+        NSNumber(value: yearOfBirth)
     }
     
     /**
@@ -388,10 +371,6 @@ public class Targeting: NSObject {
 
     
     // MARK: - Public Methods
-    
-    public func resetUserAge() {
-        userAge = nil
-    }
     
     public func addParam(_ value: String, withName: String?) {
         guard let name = withName else {

@@ -103,9 +103,7 @@
 + (nonnull PBMORTBBidRequest *)createORTBBidRequestWithTargeting:(nonnull Targeting *)targeting {
     PBMORTBBidRequest *bidRequest = [PBMORTBBidRequest new];
     
-    bidRequest.user.yob = targeting.userAge > 0 ?
-        @([PBMAgeUtils yobForAge:targeting.userAge.intValue])
-        : nil;
+    bidRequest.user.yob = [targeting getYearOfBirth];
     
     bidRequest.user.gender      = targeting.userGenderDescription;
     bidRequest.user.buyeruid    = targeting.buyerUID;

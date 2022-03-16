@@ -41,7 +41,6 @@ class ParameterBuilderServiceTest : XCTestCase {
         let targeting = Targeting.shared
         targeting.parameterDictionary.removeAll()
         targeting.parameterDictionary["foo"] = "bar"
-        targeting.userAge = 10
         targeting.coppa = 1
         targeting.userGender = .male
         targeting.buyerUID = "buyerUID"
@@ -132,7 +131,7 @@ class ParameterBuilderServiceTest : XCTestCase {
             return
         }
         
-        let yob = PBMAgeUtils.yob(forAge:targeting.userAge as! Int)
+        let yob = Targeting.shared.yearOfBirth;
         let omidVersion = PBMFunctions.omidVersion()
         var deviceExt = ""
         if #available(iOS 14.0, *) {

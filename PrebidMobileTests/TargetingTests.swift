@@ -155,6 +155,14 @@ class TargetingTests: XCTestCase {
         Targeting.shared.setYearOfBirth(yob: 10000)
         XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
     }
+    
+    func testClearYearOfBirth() {
+        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
+        Targeting.shared.setYearOfBirth(yob: 1985)
+        XCTAssertTrue(Targeting.shared.yearOfBirth == 1985)
+        Targeting.shared.clearYearOfBirth()
+        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
+    }
 
     //MARK: - COPPA
     func testSubjectToCOPPA() {
@@ -732,40 +740,6 @@ class TargetingTests: XCTestCase {
 
     func testShared() {
         UtilitiesForTesting.checkInitialValues(.shared)
-    }
-    
-    func testUserAge() {
-        //Init
-        let targeting = Targeting.shared
-        
-        XCTAssertNil(targeting.userAge)
-        XCTAssert(targeting.parameterDictionary == [:], "Dict is \(targeting.parameterDictionary)")
-        
-        //Set
-        let age = 30
-        targeting.userAge = age as NSNumber
-        XCTAssert(targeting.userAge as! Int == age)
-        XCTAssert(targeting.parameterDictionary == ["age":"\(age)"], "Dict is \(targeting.parameterDictionary)")
-        
-        //Unset
-        targeting.userAge = 0
-        XCTAssert(targeting.userAge == 0)
-        XCTAssert(targeting.parameterDictionary == ["age":"0"], "Dict is \(targeting.parameterDictionary)")
-    }
-    
-    func testUserAgeReset() {
-        //Init
-        let age = 42
-        let Targeting = Targeting.shared
-        Targeting.userAge = age as NSNumber
-
-        XCTAssert(Targeting.userAge as! Int == age)
-        XCTAssert(Targeting.parameterDictionary == ["age":"\(age)"], "Dict is \(Targeting.parameterDictionary)")
-        
-        // Test reset
-        Targeting.resetUserAge()
-        XCTAssertNil(Targeting.userAge)
-        XCTAssertNil(Targeting.parameterDictionary["age"])
     }
 
     func testUserGender() {
