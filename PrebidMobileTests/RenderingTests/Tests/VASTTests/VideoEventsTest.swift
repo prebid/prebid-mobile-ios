@@ -37,15 +37,15 @@ class VideoEventsTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDelegat
     override func tearDown() {
         MockServer.shared.reset()
         
-        PrebidRenderingConfig.reset()
+        Prebid.reset()
         
         super.tearDown()
     }
     
     func testTypes() {
         self.continueAfterFailure = true
-        PrebidRenderingConfig.forcedIsViewable = true
-        defer { PrebidRenderingConfig.reset() }
+        Prebid.forcedIsViewable = true
+        defer { Prebid.reset() }
         
         
         self.expectationDownloadCompleted = self.expectation(description: "expectationCreativeReady")

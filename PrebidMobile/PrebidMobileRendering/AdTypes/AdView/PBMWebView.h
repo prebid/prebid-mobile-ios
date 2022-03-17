@@ -24,7 +24,7 @@
 #import "PBMOpenMeasurementWrapper.h"
 #import "PBMMRAIDConstants.h"
 
-@class PrebidRenderingTargeting;
+@class Targeting;
 @class PBMAbstractCreative;
 @class PBMTouchDownRecognizer;
 @class PBMViewExposure;
@@ -66,7 +66,7 @@ typedef NS_ENUM(NSInteger, PBMWebViewState) {
 - (instancetype)initWithFrame:(CGRect)frame;
 - (instancetype)initWithFrame:(CGRect)frame
                 creativeModel:(nullable PBMCreativeModel *)creativeModel
-                    targeting:(PrebidRenderingTargeting *)targeting NS_DESIGNATED_INITIALIZER;
+                    targeting:(Targeting *)targeting NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - Public Methods
 

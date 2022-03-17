@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 //useful for debugging and integration testing.
 @property (nonatomic, strong, nullable) NSString *storedAuctionResponse;
 
+@property (nonatomic, strong, nullable) NSArray<NSDictionary<NSString *, NSString*> *> *storedBidResponses;
+
 @end
 
 NS_ASSUME_NONNULL_END

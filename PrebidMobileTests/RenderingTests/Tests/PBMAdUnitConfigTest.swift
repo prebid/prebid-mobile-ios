@@ -19,7 +19,7 @@ import XCTest
 
 class PBMAdUnitConfigTest: XCTestCase {
     
-    let adUnitConfig = AdUnitConfig(configID: "dummy-config-id")
+    let adUnitConfig = AdUnitConfig(configId: "dummy-config-id")
     
     func testSetRefreshInterval() {
         XCTAssertEqual(adUnitConfig.refreshInterval, 60)
@@ -31,7 +31,99 @@ class PBMAdUnitConfigTest: XCTestCase {
         XCTAssertEqual(adUnitConfig.refreshInterval, 120)
     }
     
-    // MARK: - global context data aka inventory data (app.content.data)
+    // MARK: - Context data aka inventory data (imp[].ext.context.data)
+    
+    func testAddContextData() {
+        let key1 = "key1"
+        let value1 = "value1"
+        
+        adUnitConfig.addContextData(key: key1, value: value1)
+        let dictionary = adUnitConfig.getContextData()
+        
+        XCTAssertEqual(1, dictionary.count)
+        XCTAssertTrue((dictionary[key1]?.contains(value1))!)
+    }
+    
+    func testUpdateContextData() {
+        let key1 = "key1"
+        let value1 = "value1"
+        let set: Set = [value1]
+        
+        adUnitConfig.updateContextData(key: key1, value: set)
+        
+        let dictionary = adUnitConfig.getContextData()
+        
+        XCTAssertEqual(1, dictionary.count)
+        XCTAssertTrue((dictionary[key1]?.contains(value1))!)
+    }
+    
+    func testRemoveContextData() {
+        let key1 = "key1"
+        let value1 = "value1"
+        adUnitConfig.addContextData(key: key1, value: value1)
+        
+        adUnitConfig.removeContextData(for: key1)
+        let dictionary = adUnitConfig.getContextData()
+        
+        XCTAssertEqual(0, dictionary.count)
+    }
+    
+    func testClearContextData() {
+        let key1 = "key1"
+        let value1 = "value1"
+        adUnitConfig.addContextData(key: key1, value: value1)
+        
+        adUnitConfig.clearContextData()
+        let dictionary = adUnitConfig.getContextData()
+        
+        XCTAssertEqual(0, dictionary.count)
+    }
+    
+    // MARK: - Context keywords (imp[].ext.context.keywords)
+    
+    func testAddContextKeyword() {
+        let element1 = "element1"
+        
+        adUnitConfig.addContextKeyword(element1)
+        let set = adUnitConfig.getContextKeywords()
+        
+        XCTAssertEqual(1, set.count)
+        XCTAssertTrue(set.contains(element1))
+    }
+    
+    func testAddContextKeywords() {
+        let element1 = "element1"
+        let inputSet: Set = [element1]
+        
+        adUnitConfig.addContextKeywords(inputSet)
+        let set = adUnitConfig.getContextKeywords()
+        
+        XCTAssertEqual(1, set.count)
+        XCTAssertTrue(set.contains(element1))
+    }
+    
+    func testRemoveContextKeyword() {
+        let element1 = "element1"
+        adUnitConfig.addContextKeyword(element1)
+        
+        adUnitConfig.removeContextKeyword(element1)
+        let set = adUnitConfig.getContextKeywords()
+        
+        XCTAssertEqual(0, set.count)
+    }
+    
+    func testClearContextKeywords() {
+        let element1 = "element1"
+        adUnitConfig.addContextKeyword(element1)
+        
+        adUnitConfig.clearContextKeywords()
+        let set = adUnitConfig.getContextKeywords()
+        
+        XCTAssertEqual(0, set.count)
+    }
+    
+    // MARK: - App Content (app.content.data)
+    
     func testSetAppContent() {
         //given
         let appDataObject1 = PBMORTBContentData()
@@ -128,7 +220,7 @@ class PBMAdUnitConfigTest: XCTestCase {
         XCTAssertEqual(0, objects2.count)
     }
     
-//    // MARK: - global user data aka visitor data (user.data)
+    // MARK: - User Data (user.data)
 
     func testAddUserDataObjects() {
         //given
@@ -180,5 +272,13 @@ class PBMAdUnitConfigTest: XCTestCase {
         adUnitConfig.clearUserData()
         let objects2 = adUnitConfig.getUserData()!
         XCTAssertEqual(0, objects2.count)
+    }
+    
+    // MARK: - The Prebid Ad Slot
+    
+    func testSetPbAdSlot() {        
+        XCTAssertNil(adUnitConfig.getPbAdSlot())
+        adUnitConfig.setPbAdSlot("test-ad-slot")
+        XCTAssertEqual("test-ad-slot", adUnitConfig.getPbAdSlot())
     }
 }

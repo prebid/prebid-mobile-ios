@@ -18,7 +18,7 @@
 @interface MediationBannerAdUnit ()
 - (void)fetchDemandWithObject:(NSObject *)adObject
                    connection:(id<PBMServerConnectionProtocol>)connection
-             sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
-                    targeting:(PrebidRenderingTargeting *)targeting
-                   completion:(void (^)(FetchDemandResult))completion;
+             sdkConfiguration:(Prebid *)sdkConfiguration
+                    targeting:(Targeting *)targeting
+                   completion:(void (^)(ResultCode))completion;
 @end

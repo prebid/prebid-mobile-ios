@@ -36,7 +36,7 @@
 @property (nonatomic, strong, nullable) id<PBMBidRequesterProtocol> bidRequester; /// also serves as 'isLoading' flag
 @property (nonatomic, copy, nullable) PBMFetchDemandCompletionHandler completion;
 
-@property (nonatomic, strong, nullable) BidResponseForRendering *lastResponseUnsafe; /// backing storage, not protected by 'stateLockToken'
+@property (nonatomic, strong, nullable) BidResponse *lastResponseUnsafe; /// backing storage, not protected by 'stateLockToken'
 @property (nonatomic, strong, nullable) DemandResponseInfo *lastDemandResponseInfoUnsafe; /// backing storage, not protected by 'stateLockToken'
 
 @end
@@ -53,7 +53,7 @@
     if (!(self = [super init])) {
         return nil;
     }
-    _adUnitConfig = [[AdUnitConfig alloc] initWithConfigID:configID];
+    _adUnitConfig = [[AdUnitConfig alloc] initWithConfigId:configID];
     _bidRequesterFactory = [bidRequesterFactory copy];
     _winNotifierBlock = [winNotifierBlock copy];
     
@@ -65,13 +65,13 @@
 // MARK: - Computed public properties
 
 - (NSString *)configId {
-    return self.adUnitConfig.configID;
+    return self.adUnitConfig.configId;
 }
 
 // MARK: - Computed protected properties
 
-- (BidResponseForRendering *)lastBidResponse {
-    BidResponseForRendering *result = nil;
+- (BidResponse *)lastBidResponse {
+    BidResponse *result = nil;
     @synchronized (self.stateLockToken) {
         result = self.lastResponseUnsafe;
     }
@@ -99,7 +99,7 @@
     }
     
     if (requestAlreadyInProgress) {
-        FetchDemandResult const previousFetchNotCompletedYet = FetchDemandResultSdkMisusePreviousFetchNotCompletedYet;
+        ResultCode const previousFetchNotCompletedYet = ResultCodePrebidSDKMisusePreviousFetchNotCompletedYet;
         completion([[DemandResponseInfo alloc] initWithFetchDemandResult:previousFetchNotCompletedYet
                                                                         bid:nil
                                                                    configId:self.configId
@@ -110,7 +110,7 @@
     self.completion = [completion copy];
     
     @weakify(self);
-    [self.bidRequester requestBidsWithCompletion:^(BidResponseForRendering *response, NSError *error) {
+    [self.bidRequester requestBidsWithCompletion:^(BidResponse *response, NSError *error) {
         @strongify(self);
         [self handleDemandResponse:response error:error];
     }];
@@ -119,15 +119,15 @@
 // MARK: - Context Data
 
 - (void)addContextData:(NSString *)data forKey:(NSString *)key {
-    [self.adUnitConfig addContextData:data forKey:key];
+    [self.adUnitConfig addContextDataWithKey:key value:data];
 }
 
 - (void)updateContextData:(NSSet<NSString *> *)data forKey:(NSString *)key {
-    [self.adUnitConfig updateContextData:data forKey:key];
+    [self.adUnitConfig updateContextDataWithKey:key value:data];
 }
 
 - (void)removeContextDataForKey:(NSString *)key {
-    [self.adUnitConfig removeContextDataForKey:key];
+    [self.adUnitConfig removeContextDataFor:key];
 }
 
 - (void)clearContextData {
@@ -180,7 +180,7 @@
 
 // MARK: - Private methods
 
-- (void)handleDemandResponse:(BidResponseForRendering *)bidResponse error:(NSError *)error {
+- (void)handleDemandResponse:(BidResponse *)bidResponse error:(NSError *)error {
     PBMFetchDemandCompletionHandler theCompletion = nil;
     DemandResponseInfo *result = nil;
     
@@ -198,13 +198,13 @@
                                                              winNotifierBlock:self.winNotifierBlock
                                                                   bidResponse:bidResponse];
         } else if (!bidResponse.winningBid) {
-            result = [[DemandResponseInfo alloc] initWithFetchDemandResult:FetchDemandResultDemandNoBids
+            result = [[DemandResponseInfo alloc] initWithFetchDemandResult:ResultCodePrebidDemandNoBids
                                                                           bid:nil
                                                                      configId:self.configId
                                                              winNotifierBlock:self.winNotifierBlock
                                                                   bidResponse:bidResponse];
         } else {
-            result = [[DemandResponseInfo alloc] initWithFetchDemandResult:FetchDemandResultOk
+            result = [[DemandResponseInfo alloc] initWithFetchDemandResult:ResultCodePrebidDemandFetchSuccess
                                                                           bid:bidResponse.winningBid
                                                                      configId:self.configId
                                                              winNotifierBlock:self.winNotifierBlock

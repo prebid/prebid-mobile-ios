@@ -26,7 +26,7 @@
 #import "UIView+PBMExtensions.h"
 
 #ifdef DEBUG
-    #import "PrebidRenderingConfig+TestExtension.h"
+    #import "Prebid+TestExtension.h"
     #import "PrebidMobileSwiftHeaders.h"
     #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
@@ -115,7 +115,7 @@
 
 - (BOOL)isVisibleView:(UIView *)view {
 #ifdef DEBUG
-    if (PrebidRenderingConfig.shared.forcedIsViewable) {
+    if (Prebid.shared.forcedIsViewable) {
         return YES;
     }
 #endif

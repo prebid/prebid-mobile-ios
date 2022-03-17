@@ -81,7 +81,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 @property (nonatomic, assign) BOOL isPollingForDocumentReady;
 
 
-@property (nonatomic, strong, readonly, nonnull) PrebidRenderingTargeting *targeting;
+@property (nonatomic, strong, readonly, nonnull) Targeting *targeting;
 
 @end
 
@@ -92,13 +92,13 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 #pragma mark - Initialization
  
 - (nonnull instancetype)initWithFrame:(CGRect)frame {
-    self = [self initWithFrame:frame creativeModel:nil targeting:PrebidRenderingTargeting.shared];
+    self = [self initWithFrame:frame creativeModel:nil targeting:Targeting.shared];
     return self;
 }
  
 - (nonnull instancetype)initWithFrame:(CGRect)frame
                         creativeModel:(PBMCreativeModel *)creativeModel
-                            targeting:(PrebidRenderingTargeting *)targeting
+                            targeting:(Targeting *)targeting
 {
     if (!(self = [super initWithFrame:frame])) {
         return nil;
@@ -713,7 +713,7 @@ static PBMError *extracted(NSString *errorMessage) {
 }
 
 - (void)MRAID_updateLocation {
-    if (PrebidRenderingConfig.shared.locationUpdatesEnabled && PBMLocationManager.shared.coordinatesAreValid) {
+    if (Prebid.shared.locationUpdatesEnabled && PBMLocationManager.shared.coordinatesAreValid) {
         PBMLocationManager *locationManager = PBMLocationManager.shared;
         [self evaluateJavaScript:[PBMMRAIDJavascriptCommands updateLocation:locationManager.coordinates
                                                                    accuracy:locationManager.horizontalAccuracy

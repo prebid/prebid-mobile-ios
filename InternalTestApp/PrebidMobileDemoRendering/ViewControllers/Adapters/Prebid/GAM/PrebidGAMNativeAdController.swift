@@ -112,7 +112,7 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
             
             if let userData = AppConfiguration.shared.userData {
                 for dataPair in userData {
-                    let appData = ContentDataObject()
+                    let appData = PBMORTBContentData()
                     appData.ext = [dataPair.key: dataPair.value]
                     self.adUnit?.addUserData([appData])
                 }
@@ -120,7 +120,7 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
             
             if let appData = AppConfiguration.shared.appContentData {
                 for dataPair in appData {
-                    let appData = ContentDataObject()
+                    let appData = PBMORTBContentData()
                     appData.ext = [dataPair.key: dataPair.value]
                     self.adUnit?.addAppContentData([appData])
                 }

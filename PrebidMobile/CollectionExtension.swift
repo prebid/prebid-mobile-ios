@@ -203,3 +203,23 @@ private func removeEntryWithoutValue(_ dict: inout [AnyHashable: Any]) {
         
     }
 }
+
+extension Optional where Wrapped == NSNumber {
+    var boolValue: Bool? {
+        switch self {
+        case 1: return true
+        case 0: return false
+        default: return nil
+        }
+    }
+}
+
+extension Optional where Wrapped == Bool {
+    var nsNumberValue: NSNumber? {
+        switch self {
+        case true: return 1
+        case false: return 0
+        default: return nil
+        }
+    }
+}

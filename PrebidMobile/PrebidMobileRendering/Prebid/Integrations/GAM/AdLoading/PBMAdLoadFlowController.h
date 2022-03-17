@@ -19,7 +19,7 @@
 #import "PBMBidRequesterProtocol.h"
 
 @class AdUnitConfig;
-@class PrebidRenderingConfig;
+@class Prebid;
 @protocol PBMServerConnectionProtocol;
 @protocol AdLoadFlowControllerDelegate;
 
@@ -40,7 +40,7 @@ typedef BOOL(^PBMAdUnitConfigValidationBlock)(AdUnitConfig *adUnitConfig, BOOL r
 @property (nonatomic, assign, readonly) BOOL hasFailedLoading;
 
 // State: DemandReceived
-@property (nonatomic, strong, nullable) BidResponseForRendering *bidResponse;
+@property (nonatomic, strong, nullable) BidResponse *bidResponse;
 
 - (instancetype)initWithBidRequesterFactory:(id<PBMBidRequesterProtocol> (^)(AdUnitConfig *))bidRequesterFactory
                                    adLoader:(id<PBMAdLoaderProtocol>)adLoader

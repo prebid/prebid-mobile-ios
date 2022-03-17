@@ -58,7 +58,7 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
         setupMediationNativeAdUnit()
         if let userData = AppConfiguration.shared.userData {
             for dataPair in userData {
-                let appData = ContentDataObject()
+                let appData = PBMORTBContentData()
                 appData.ext = [dataPair.key: dataPair.value]
                 nativeAdUnit?.addUserData([appData])
             }
@@ -66,7 +66,7 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
         
         if let appData = AppConfiguration.shared.appContentData {
             for dataPair in appData {
-                let appData = ContentDataObject()
+                let appData = PBMORTBContentData()
                 appData.ext = [dataPair.key: dataPair.value]
                 nativeAdUnit?.addAppContentData([appData])
             }

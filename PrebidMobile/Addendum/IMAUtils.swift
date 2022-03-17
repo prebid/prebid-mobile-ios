@@ -36,7 +36,7 @@ public final class IMAUtils: NSObject {
     
     private override init() {}
     
-    public func generateInstreamUriForGAM (adUnitID:String, adSlotSizes:[IMAAdSlotSize], customKeywords: [String:String]) throws -> String {
+    public func generateInstreamUriForGAM (adUnitID:String, adSlotSizes:[IMAAdSlotSize], customKeywords: [String:String]?) throws -> String {
         let adServerURL = "https://pubads.g.doubleclick.net/gampad/ads?output=xml_vast4&unviewed_position_start=1&gdfp_req=1&env=vp"
         
         if (adSlotSizes.count <= 0) {
@@ -52,11 +52,13 @@ public final class IMAUtils: NSObject {
         
         let andString: String = "&"
         var targetingKeywordsString: String = ""
-        for (key, value) in customKeywords {
-            if ( targetingKeywordsString == "") {
-                targetingKeywordsString = key + "=" + value
-            } else {
-                targetingKeywordsString += andString + key + "=" + value
+        if let customKeywords = customKeywords {
+            for (key, value) in customKeywords {
+                if ( targetingKeywordsString == "") {
+                    targetingKeywordsString = key + "=" + value
+                } else {
+                    targetingKeywordsString += andString + key + "=" + value
+                }
             }
         }
         let customAllowedSet =  NSCharacterSet(charactersIn:"&=\"#%/<>?@\\^`{|}").inverted

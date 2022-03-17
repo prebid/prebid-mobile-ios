@@ -23,7 +23,7 @@ public class BannerEventHandlerStandalone: NSObject, BannerEventHandler {
     
     public var adSizes: [CGSize] = []
     
-    public func requestAd(withBidResponse bidResponse: BidResponseForRendering?) {
+    public func requestAd(with bidResponse: BidResponse?) {
         loadingDelegate?.prebidDidWin()
     }
     

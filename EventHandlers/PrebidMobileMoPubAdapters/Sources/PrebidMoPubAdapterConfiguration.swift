@@ -25,11 +25,11 @@ public class PrebidMoPubAdapterConfiguration : MPBaseAdapterConfiguration {
     // MARK: - MPAdapterConfiguration
     
     public override var adapterVersion: String {
-        "\(PrebidRenderingConfig.shared.version).\(Constants.adapterVersion)"
+        "\(Prebid.shared.version).\(Constants.adapterVersion)"
     }
     
     public override var networkSdkVersion: String {
-        PrebidRenderingConfig.shared.version
+        Prebid.shared.version
     }
     
     // NOTE: absence of this property may lead to crash
@@ -42,11 +42,11 @@ public class PrebidMoPubAdapterConfiguration : MPBaseAdapterConfiguration {
     }
     
     public override func initializeNetwork(withConfiguration configuration: [String : Any]?, complete: ((Error?) -> Void)? = nil) {
-        PrebidRenderingConfig.initializeRenderingModule()
+        Prebid.initializeSDK()
         
-        PrebidRenderingConfig.shared.logLevel = .info
-        PrebidRenderingConfig.shared.locationUpdatesEnabled = true
-        PrebidRenderingConfig.shared.creativeFactoryTimeout = 15
+        Prebid.shared.logLevel = .info
+        Prebid.shared.locationUpdatesEnabled = true
+        Prebid.shared.creativeFactoryTimeout = 15
         
         complete?(nil)
     }

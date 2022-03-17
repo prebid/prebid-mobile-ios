@@ -35,6 +35,7 @@ class PBMServerConnectionTest : XCTestCase {
         MockServer.shared.reset()
         self.didTalkToServerExpectation = nil
         self.responseHandledExpectation = nil
+        Prebid.shared.clearCustomHeaders()
     }
     
     func testSharedCreation() {
@@ -296,6 +297,72 @@ class PBMServerConnectionTest : XCTestCase {
 
         self.waitForExpectations(timeout: 1, handler: nil)
     }
+    
+    func testCustomHeaders() {
+        let headerField = "X-JamboJambo"
+        let headerValue = "value-of-the-header-field"
+        
+        Prebid.shared.clearCustomHeaders()
+        Prebid.shared.addCustomHeader(name: headerField, value: headerValue)
+        
+        self.didTalkToServerExpectation = self.expectation(description: "didTalkToServerExpectation")
+        self.responseHandledExpectation = self.expectation(description: "responseHandledExpectation")
+        
+        let connection = getMockedServerConnection()
+
+        //Mock a server to respond with JSON
+        let rule = MockServerRule(urlNeedle: "foo.com", mimeType:  MockServerMimeType.JSON.rawValue, connectionID: connection.internalID, strResponse: self.strResponse)
+        rule.statusCode = 123
+        rule.responseHeaderFields["responseHeaderKey"] = "responseHeaderVal"
+        rule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
+            XCTAssertEqual(urlRequest.httpMethod, "GET")
+            XCTAssertEqual(urlRequest.httpBody, nil)
+            XCTAssertEqual(urlRequest.url?.absoluteString, "http://foo.com/bo?param_key=abc123")
+            
+            var expectedRequestHeaders = [
+                PBMServerConnection.userAgentHeaderKey  : MockUserAgentService.mockUserAgent,
+                PBMServerConnection.contentTypeKey      : PBMServerConnection.contentTypeVal,
+                PBMServerConnection.isPBMRequestKey     : "True",
+                PBMServerConnection.internalIDKey       : connection.internalID.uuidString
+            ]
+            
+            expectedRequestHeaders.merge(dict: Prebid.shared.customHeaders)
+            
+            let actualRequestHeaders = urlRequest.allHTTPHeaderFields!
+            XCTAssertEqual(expectedRequestHeaders, actualRequestHeaders, "expected \(expectedRequestHeaders), got \(actualRequestHeaders)")
+            self.didTalkToServerExpectation.fulfill()
+        }
+        MockServer.shared.resetRules([rule])
+        
+        //Test
+        connection.get("http://foo.com/bo?param_key=abc123", timeout:3.0, callback:{ (serverResponse:PBMServerResponse) in
+            XCTAssertNil(serverResponse.error, "\(String(describing: serverResponse.error))")
+            XCTAssertEqual(serverResponse.statusCode, 123)
+
+            let expectedResponseHeaders = [
+                "responseHeaderKey":"responseHeaderVal",
+                "Content-Type":"application/json",
+                "Content-Length":"\(self.strResponse.count)"
+            ]
+            let actualResponseHeaders = serverResponse.responseHeaders!
+            XCTAssertEqual(expectedResponseHeaders, actualResponseHeaders, "Expected \(expectedResponseHeaders), got \(actualResponseHeaders)")
+            
+            guard let jsonDict = serverResponse.jsonDict else {
+                XCTFail("jsonDict is nil")
+                return
+            }
+            
+            guard let comparableJsonDict = jsonDict as? [String:String] else {
+                XCTFail("Could not cast")
+                return
+            }
+            
+            PBMAssertEq(comparableJsonDict, self.expectedJSONDict)
+            self.responseHandledExpectation.fulfill()
+        })
+        
+        self.waitForExpectations(timeout: 4.0, handler: nil)
+    }
 
 }
 
@@ -455,6 +522,10 @@ class PBMServerConnectionTestJSONSlow : XCTestCase {
 class PBMServerConnectionTest_Redirect: XCTestCase {
     // Test how PBMServerConnection responds to a 302 - resource moved temporarily
     // Ref: http://www.ietf.org/rfc/rfc2616.txt
+    
+    override func tearDown() {
+        Prebid.shared.clearCustomHeaders()
+    }
     
     func testServerResponse_GetReturns302() {
         

@@ -20,10 +20,14 @@ import XCTest
 
 class BasicParameterBuilderPureTargetingTest: XCTestCase {
     
+    override class func setUp() {
+        Targeting.shared.coppa = nil
+    }
+    
     func testParameterBuilderNoUserAgeNoCoppa() {
-        let targeting = PrebidRenderingTargeting.shared
+        let targeting = Targeting.shared
         let builder = PBMBasicParameterBuilder(adConfiguration:PBMAdConfiguration(),
-                                               sdkConfiguration:PrebidRenderingConfig.mock,
+                                               sdkConfiguration:Prebid.mock,
                                                sdkVersion:"MOCK_SDK_VERSION",
                                                targeting: targeting)
         

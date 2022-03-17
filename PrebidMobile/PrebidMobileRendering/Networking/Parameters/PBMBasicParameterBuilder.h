@@ -18,8 +18,8 @@
 #import "PBMAdConfiguration.h"
 #import "PBMParameterBuilderProtocol.h"
 
-@class PrebidRenderingConfig;
-@class PrebidRenderingTargeting;
+@class Prebid;
+@class Targeting;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMBasicParameterBuilder : NSObject <PBMParameterBuilder>
@@ -35,9 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithAdConfiguration:(PBMAdConfiguration *)adConfiguration
-                       sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
+                       sdkConfiguration:(Prebid *)sdkConfiguration
                              sdkVersion:(NSString *)sdkVersion
-                              targeting:(PrebidRenderingTargeting *)targeting NS_DESIGNATED_INITIALIZER;
+                              targeting:(Targeting *)targeting NS_DESIGNATED_INITIALIZER;
 
 @end
 NS_ASSUME_NONNULL_END

@@ -22,10 +22,10 @@ public class MediationBannerAdUnit : NSObject {
     var bidRequester: PBMBidRequester?
     // The view in which ad is displayed
     weak var adView: UIView?
-    var completion: ((FetchDemandResult) -> Void)?
+    var completion: ((ResultCode) -> Void)?
     
     weak var lastAdView: UIView?
-    var lastCompletion: ((FetchDemandResult) -> Void)?
+    var lastCompletion: ((ResultCode) -> Void)?
     
     var isRefreshStopped = false
     var autoRefreshManager: PBMAutoRefreshManager?
@@ -39,7 +39,7 @@ public class MediationBannerAdUnit : NSObject {
     // MARK: - Computed properties
     
     public var configID: String {
-        adUnitConfig.configID
+        adUnitConfig.configId
     }
     
     public var adFormat: AdFormat {
@@ -70,15 +70,15 @@ public class MediationBannerAdUnit : NSObject {
     // MARK: - Context Data
     
     public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addContextData(data, forKey: key)
+        adUnitConfig.addContextData(key: key, value: data)
     }
     
     public func updateContextData(_ data: Set<String>, forKey key: String) {
-        adUnitConfig.updateContextData(data, forKey: key)
+        adUnitConfig.updateContextData(key: key, value: data)
     }
     
     public func removeContextDate(forKey key: String) {
-        adUnitConfig.removeContextData(forKey: key)
+        adUnitConfig.removeContextData(for: key)
     }
     
     public func clearContextData() {
@@ -124,7 +124,7 @@ public class MediationBannerAdUnit : NSObject {
     // MARK: - Public Methods
     
     public init(configID: String, size: CGSize, mediationDelegate: PrebidMediationDelegate) {
-        adUnitConfig = AdUnitConfig(configID: configID, size: size)
+        adUnitConfig = AdUnitConfig(configId: configID, size: size)
         self.mediationDelegate = mediationDelegate
         super.init()
         
@@ -145,17 +145,17 @@ public class MediationBannerAdUnit : NSObject {
                   }
             
             self.fetchDemand(connection: PBMServerConnection.shared,
-                             sdkConfiguration: PrebidRenderingConfig.shared,
-                             targeting: PrebidRenderingTargeting.shared,
+                             sdkConfiguration: Prebid.shared,
+                             targeting: Targeting.shared,
                              completion: completion)
         })
     }
     
-    public func fetchDemand(completion: ((FetchDemandResult)->Void)?) {
+    public func fetchDemand(completion: ((ResultCode)->Void)?) {
         
         fetchDemand(connection: PBMServerConnection.shared,
-                    sdkConfiguration: PrebidRenderingConfig.shared,
-                    targeting: PrebidRenderingTargeting.shared,
+                    sdkConfiguration: Prebid.shared,
+                    targeting: Targeting.shared,
                     completion: completion)
     }
     
@@ -174,9 +174,9 @@ public class MediationBannerAdUnit : NSObject {
     
     // NOTE: do not use `private` to expose this method to unit tests
     func fetchDemand(connection: PBMServerConnectionProtocol,
-                     sdkConfiguration: PrebidRenderingConfig,
-                     targeting: PrebidRenderingTargeting,
-                     completion: ((FetchDemandResult)->Void)?) {
+                     sdkConfiguration: Prebid,
+                     targeting: Targeting,
+                     completion: ((ResultCode)->Void)?) {
         guard bidRequester == nil else {
             // Request in progress
             return
@@ -237,8 +237,8 @@ public class MediationBannerAdUnit : NSObject {
         bidRequester = nil
     }
     
-    private func handlePrebidResponse(response: BidResponseForRendering) {
-        var demandResult = FetchDemandResult.demandNoBids
+    private func handlePrebidResponse(response: BidResponse) {
+        var demandResult = ResultCode.prebidDemandNoBids
         
         if self.adView != nil,
            let winningBid = response.winningBid {
@@ -247,9 +247,9 @@ public class MediationBannerAdUnit : NSObject {
                                                targetingInfo: winningBid.targetingInfo ?? [:],
                                                extrasObject: winningBid,
                                                extrasObjectKey: PBMMediationAdUnitBidKey) {
-                demandResult = .ok
+                demandResult = .prebidDemandFetchSuccess
             } else {
-                demandResult = .wrongArguments
+                demandResult = .prebidWrongArguments
             }
         } else {
             PBMLog.error("The winning bid is absent in response!")
@@ -262,7 +262,7 @@ public class MediationBannerAdUnit : NSObject {
         completeWithResult(PBMError.demandResult(from: error))
     }
     
-    private func completeWithResult(_ fetchDemandResult: FetchDemandResult) {
+    private func completeWithResult(_ fetchDemandResult: ResultCode) {
         defer {
             markLoadingFinished()
         }

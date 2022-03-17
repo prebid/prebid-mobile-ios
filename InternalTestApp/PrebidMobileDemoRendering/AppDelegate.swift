@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         //Set up SDK.
-        PrebidRenderingConfig.initializeRenderingModule()
+        Prebid.initializeSDK()
                 
         // Set up MockServer
         processArgumentsParser.addOption("useMockServer", fireOnce: true) { params in
@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         processArgumentsParser.addOption("BIDDER_ACCESS_CONTROL_LIST", acceptedParamsRange: (min: 1, max: nil)) { params in
-            params.forEach(PrebidRenderingTargeting.shared.addBidder(toAccessControlList:))
+            params.forEach(Targeting.shared.addBidderToAccessControlList(_:))
         }
         processArgumentsParser.addOption("ADD_ADUNIT_CONTEXT", paramsCount: 2) { params in
             let appConfig = AppConfiguration.shared
@@ -77,11 +77,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         processArgumentsParser.addOption("ADD_USER_EXT_DATA", paramsCount: 2) { params in
-            PrebidRenderingTargeting.shared.addUserData(params[1], forKey: params[0])
+            Targeting.shared.addUserData(key: params[0], value: params[1])
         }
         
         processArgumentsParser.addOption("ADD_APP_EXT", paramsCount: 2) { params in
-            PrebidRenderingTargeting.shared.addContextData(params[1], forKey: params[0])
+            Targeting.shared.addContextData(key: params[0], value: params[1])
         }
         
         processArgumentsParser.addOption("ADD_USER_DATA_EXT", paramsCount: 2) { params in
@@ -114,13 +114,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AdMobUtils.initializeGAD()
         
         // Prebid Rendering Configs
-        PrebidRenderingConfig.shared.logLevel = PBMLogLevel.info
-        PrebidRenderingConfig.shared.debugLogFileEnabled = true
+        Prebid.shared.logLevel = .info
+        Prebid.shared.debugLogFileEnabled = true
         
         // Ads may include Open Measurement scripts that sometime require additional time for loading.
-        PrebidRenderingConfig.shared.creativeFactoryTimeout = 20;
+        Prebid.shared.creativeFactoryTimeout = 20;
         
-        PrebidRenderingConfig.shared.locationUpdatesEnabled = false
+        Prebid.shared.locationUpdatesEnabled = false
         
         // Original Prebid Configs
         Prebid.shared.shareGeoLocation = true

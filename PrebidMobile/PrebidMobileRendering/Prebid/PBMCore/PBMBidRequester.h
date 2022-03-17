@@ -17,8 +17,8 @@
 #import "PBMBidRequesterProtocol.h"
 
 @class AdUnitConfig;
-@class PrebidRenderingConfig;
-@class PrebidRenderingTargeting;
+@class Prebid;
+@class Targeting;
 @protocol PBMServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -26,11 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PBMBidRequester : NSObject <PBMBidRequesterProtocol>
 
 - (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
-                  sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
-                         targeting:(PrebidRenderingTargeting *)targeting
+                  sdkConfiguration:(Prebid *)sdkConfiguration
+                         targeting:(Targeting *)targeting
                adUnitConfiguration:(AdUnitConfig *)adUnitConfiguration;
 
-- (void)requestBidsWithCompletion:(void (^)(BidResponseForRendering * _Nullable, NSError * _Nullable))completion;
+- (void)requestBidsWithCompletion:(void (^)(BidResponse * _Nullable, NSError * _Nullable))completion;
 
 @end
 

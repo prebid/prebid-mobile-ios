@@ -13,14 +13,21 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
+import XCTest
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface PBMAgeUtils: NSObject
-
-+ (NSInteger)yobForAge:(NSInteger)age;
-
-@end
-
-NS_ASSUME_NONNULL_END
+class PBMAgeUtilsTest: XCTestCase {
+    
+    func testIsYOBValid() {
+        let age = 1985
+        XCTAssertTrue(PBMAgeUtils.isYOBValid(age))
+    }
+    
+    func testIsYOBValidWrong() {
+        let age1 = 1800
+        XCTAssertFalse(PBMAgeUtils.isYOBValid(age1))
+        
+        let age2 = 2100
+        XCTAssertFalse(PBMAgeUtils.isYOBValid(age2))
+    }
+}

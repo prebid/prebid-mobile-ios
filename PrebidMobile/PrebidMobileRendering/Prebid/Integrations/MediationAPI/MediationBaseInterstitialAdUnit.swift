@@ -20,42 +20,42 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     let adUnitConfig: AdUnitConfig
     
     public var configId: String {
-        adUnitConfig.configID
+        adUnitConfig.configId
     }
     
     var bidRequester: PBMBidRequester?
     
-    var completion: ((FetchDemandResult) -> Void)?
+    var completion: ((ResultCode) -> Void)?
     
     let mediationDelegate: PrebidMediationDelegate
     
     init(configId: String, mediationDelegate: PrebidMediationDelegate) {
         self.mediationDelegate = mediationDelegate
-        adUnitConfig = AdUnitConfig(configID: configId)
+        adUnitConfig = AdUnitConfig(configId: configId)
         adUnitConfig.isInterstitial = true
         adUnitConfig.adPosition = .fullScreen
         adUnitConfig.videoPlacementType = .sliderOrFloating
     }
     
-    public func fetchDemand(completion: ((FetchDemandResult)->Void)?) {
+    public func fetchDemand(completion: ((ResultCode)->Void)?) {
         fetchDemand(connection: PBMServerConnection.shared,
-                    sdkConfiguration: PrebidRenderingConfig.shared,
-                    targeting: PrebidRenderingTargeting.shared,
+                    sdkConfiguration: Prebid.shared,
+                    targeting: Targeting.shared,
                     completion: completion)
     }
     
     // MARK: - Context Data
     
     public func addContextData(_ data: String, forKey key: String) {
-        adUnitConfig.addContextData(data, forKey: key)
+        adUnitConfig.addContextData(key: key, value: data)
     }
     
     public func updateContextData(_ data: Set<String>, forKey key: String) {
-        adUnitConfig.updateContextData(data, forKey: key)
+        adUnitConfig.updateContextData(key: key, value: data)
     }
     
     public func removeContextDate(forKey key: String) {
-        adUnitConfig.removeContextData(forKey: key)
+        adUnitConfig.removeContextData(for: key)
     }
     
     public func clearContextData() {
@@ -102,9 +102,9 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     
     // NOTE: do not use `private` to expose this method to unit tests
     func fetchDemand(connection: PBMServerConnectionProtocol,
-                     sdkConfiguration: PrebidRenderingConfig,
-                     targeting: PrebidRenderingTargeting,
-                     completion: ((FetchDemandResult)->Void)?) {
+                     sdkConfiguration: Prebid,
+                     targeting: Targeting,
+                     completion: ((ResultCode)->Void)?) {
         guard bidRequester == nil else {
             // Request in progress
             return
@@ -130,8 +130,8 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     
     // MARK: - Private Methods
     
-    private func handleBidResponse(_ bidResponse: BidResponseForRendering) {
-        var demandResult = FetchDemandResult.demandNoBids
+    private func handleBidResponse(_ bidResponse: BidResponse) {
+        var demandResult = ResultCode.prebidDemandNoBids
         
         if let winningBid = bidResponse.winningBid,
            let targetingInfo = winningBid.targetingInfo {
@@ -141,9 +141,9 @@ public class MediationBaseInterstitialAdUnit : NSObject {
                                                targetingInfo: targetingInfo,
                                                extrasObject: winningBid,
                                                extrasObjectKey: PBMMediationAdUnitBidKey) {
-                demandResult = .ok
+                demandResult = .prebidDemandFetchSuccess
             } else {
-                demandResult = .wrongArguments
+                demandResult = .prebidWrongArguments
             }
             
         } else {
@@ -157,7 +157,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         completeWithResult(PBMError.demandResult(from: error))
     }
     
-    private func completeWithResult(_ demandResult: FetchDemandResult) {
+    private func completeWithResult(_ demandResult: ResultCode) {
         if let completion = self.completion {
             DispatchQueue.main.async {
                 completion(demandResult)

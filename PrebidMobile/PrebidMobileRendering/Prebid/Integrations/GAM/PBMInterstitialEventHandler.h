@@ -17,7 +17,7 @@
 
 #import "PBMPrimaryAdRequesterProtocol.h"
 
-@class BidResponseForRendering;
+@class BidResponse;
 
 NS_ASSUME_NONNULL_BEGIN
 

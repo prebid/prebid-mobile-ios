@@ -95,8 +95,8 @@ public class InterstitialRenderingAdUnit: BaseInterstitialAdUnit {
         interstitialEventHandler?.interactionDelegate = self
     }
 
-    @objc public override func callEventHandler_requestAd(with bidResponse: BidResponseForRendering?) {
-        interstitialEventHandler?.requestAd(withBidResponse: bidResponse)
+    @objc public override func callEventHandler_requestAd(with bidResponse: BidResponse?) {
+        interstitialEventHandler?.requestAd(with: bidResponse)
     }
 
     @objc public override func callEventHandler_show(from controller: UIViewController?) {

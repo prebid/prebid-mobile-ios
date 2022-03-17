@@ -226,8 +226,8 @@ class BannerController:
     // MARK: Setup PBS Rendering
     
     func setupOpenxRenderingBanner() {
-        PrebidRenderingConfig.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
-        try! PrebidRenderingConfig.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
+        Prebid.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
     }
 
     // MARK: Setup AdServer - GAM
@@ -455,12 +455,12 @@ class BannerController:
         Targeting.shared.addUserData(key: "globalUserDataKey1", value: "globalUserDataValue1")
         
         //global context data
-        let userData = ContentDataObject()
+        let userData = PBMORTBContentData()
         userData.id = "globalUserDataValue1"
         adUnit.addUserData([userData])
         
         //adunit context data
-        let appData = ContentDataObject()
+        let appData = PBMORTBContentData()
         appData.id = "adunitContextDataValue1"
         adUnit.addAppContentData([appData])
         

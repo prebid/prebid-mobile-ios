@@ -19,7 +19,7 @@
 #import "PBMAdLoadFlowState.h"
 #import "PBMAdLoaderFlowDelegate.h"
 
-@class BidResponseForRendering;
+@class BidResponse;
 @protocol AdLoadFlowControllerDelegate;
 
 NS_ASSUME_NONNULL_BEGIN

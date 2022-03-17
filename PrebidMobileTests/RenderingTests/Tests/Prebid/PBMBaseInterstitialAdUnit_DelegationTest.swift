@@ -19,20 +19,20 @@ import XCTest
 @testable import PrebidMobile
 
 class MockInterstitialAdUnit: InterstitialRenderingAdUnit, WinningBidResponseFabricator {
-    override var lastBidResponse: BidResponseForRendering? {
+    override var lastBidResponse: BidResponse? {
         return makeWinningBidResponse(bidPrice: 0.85)
     }
 }
 
 class MockRewardedAdUnit: RewardedAdUnit, WinningBidResponseFabricator {
-    override var lastBidResponse: BidResponseForRendering? {
+    override var lastBidResponse: BidResponse? {
         return makeWinningBidResponse(bidPrice: 0.85)
     }
 }
 
 class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
     override func tearDown() {
-        PrebidRenderingConfig.reset()
+        Prebid.reset()
         
         super.tearDown()
     }
@@ -70,7 +70,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
     func testAccountErrorPropagationByInterstitial() {
         let testID = "auid"
         
-        PrebidRenderingConfig.shared.accountID = ""
+        Prebid.shared.accountID = ""
         
         let interstitial = MockInterstitialAdUnit(configID: testID)
         let exp = expectation(description: "loading callback called")
@@ -80,7 +80,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
             XCTAssertEqual(selector, "interstitial:didFailToReceiveAdWithError:")
             XCTAssertEqual(args.count, 2)
             XCTAssertEqual(args[0] as? MockInterstitialAdUnit, interstitial)
-            XCTAssertEqual(args[1] as? NSError, PBMError.invalidAccountId as NSError?)
+            XCTAssertEqual(args[1] as? NSError, PBMError.prebidInvalidAccountId as NSError?)
             exp.fulfill()
         }
         
@@ -92,7 +92,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
     func testAccountErrorPropagationByRewardedAd() {
         let testID = "auid"
         
-        PrebidRenderingConfig.shared.accountID = ""
+        Prebid.shared.accountID = ""
         
         let rewarded = MockRewardedAdUnit(configID: testID, minSizePerc: nil, eventHandler: RewardedEventHandlerStandalone())
         let exp = expectation(description: "loading callback called")
@@ -102,7 +102,7 @@ class PBMBaseInterstitialAdUnit_DelegationTest: XCTestCase {
             XCTAssertEqual(selector, "rewardedAd:didFailToReceiveAdWithError:")
             XCTAssertEqual(args.count, 2)
             XCTAssertEqual(args[0] as? MockRewardedAdUnit, rewarded)
-            XCTAssertEqual(args[1] as? NSError, PBMError.invalidAccountId as NSError?)
+            XCTAssertEqual(args[1] as? NSError, PBMError.prebidInvalidAccountId as NSError?)
             exp.fulfill()
         }
         

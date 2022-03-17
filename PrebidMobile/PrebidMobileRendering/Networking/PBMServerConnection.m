@@ -22,6 +22,9 @@
 #import "PBMError.h"
 #import "PBMError.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 NSString *const HTTPMethodGET = @"GET";
 NSString *const HTTPMethodHEAD = @"HEAD";
 NSString *const HTTPMethodPOST = @"POST";
@@ -271,7 +274,17 @@ static NSString *PBMIsPBMRequestKey = @"PBMIsPBMRequest";
     if (self.protocolClasses.count && self.internalID) {
         [request addValue:[self.internalID UUIDString] forHTTPHeaderField:PBMInternalIDKey];
     }
-
+    
+    // Prebid custom headers
+    NSDictionary<NSString *, NSString*> *headers = Prebid.shared.customHeaders;
+    
+    [headers enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+        [request addValue:obj forHTTPHeaderField:key];
+    }];
+    
+    // HTTP cookies should not be allowed when we do not have deviceAccessConsent
+    request.HTTPShouldHandleCookies = [Targeting.shared isAllowedAccessDeviceData];
+    
     return request;
 }
 

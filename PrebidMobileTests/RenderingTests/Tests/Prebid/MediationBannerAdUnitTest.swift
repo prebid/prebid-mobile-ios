@@ -24,14 +24,14 @@ class MediationBannerAdUnitTest: XCTestCase {
     let testID = "auid"
     let primarySize = CGSize(width: 320, height: 50)
     
-    private func getSDKConfiguration() -> PrebidRenderingConfig {
-        let config = PrebidRenderingConfig.mock
-        try! config.setCustomPrebidServer(url: PrebidRenderingConfig.devintServerURL)
-        config.accountID = PrebidRenderingConfig.devintAccountID
+    private func getSDKConfiguration() -> Prebid {
+        let config = Prebid.mock
+        try! config.setCustomPrebidServer(url: Prebid.devintServerURL)
+        config.accountID = Prebid.devintAccountID
         return config
     }
     
-    private let targeting = PrebidRenderingTargeting.shared
+    private let targeting = Targeting.shared
     
     override func setUp() {
         super.setUp()
@@ -44,7 +44,7 @@ class MediationBannerAdUnitTest: XCTestCase {
         let bannerAdUnit = MediationBannerAdUnit(configID: testID, size: primarySize, mediationDelegate: mediationDelegate!)
         let adUnitConfig = bannerAdUnit.adUnitConfig
         
-        XCTAssertEqual(adUnitConfig.configID, testID)
+        XCTAssertEqual(adUnitConfig.configId, testID)
         XCTAssertEqual(adUnitConfig.adSize, primarySize)
         
         let moreSizes = [
@@ -84,7 +84,7 @@ class MediationBannerAdUnitTest: XCTestCase {
                            sdkConfiguration: getSDKConfiguration(),
                            targeting: targeting)
         { [weak self] result in
-            XCTAssertEqual(result, .ok)
+            XCTAssertEqual(result, .prebidDemandFetchSuccess)
             
             let resultKeywords = self!.adObject!.keywords!
             XCTAssertTrue(resultKeywords.contains("hb_pb:0.10"))
@@ -111,7 +111,7 @@ class MediationBannerAdUnitTest: XCTestCase {
                            sdkConfiguration: getSDKConfiguration(),
                            targeting: targeting)
         { [weak self] result in
-            XCTAssertEqual(result, .serverError)
+            XCTAssertEqual(result, .prebidServerError)
             
             let resultKeywords = self!.adObject!.keywords!
             XCTAssertEqual(resultKeywords, initialKeywords)

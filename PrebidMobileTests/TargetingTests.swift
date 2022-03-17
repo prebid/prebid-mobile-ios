@@ -17,43 +17,36 @@ import XCTest
 import CoreLocation
 @testable import PrebidMobile
 
+extension Gender: CaseIterable {
+    public static let allCases: [Self] = [
+        .unknown,
+        .male,
+        .female,
+        .other,
+    ]
+    
+    fileprivate var paramsDicLetter: String? {
+        switch self {
+        case .unknown: return nil
+        case .male:    return "M"
+        case .female:  return "F"
+        case .other:   return "O"
+        @unknown default:
+            XCTFail("Unexpected value: \(self)")
+            return nil
+        }
+    }
+}
+
 class TargetingTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-
+        UtilitiesForTesting.resetTargeting(.shared)
     }
 
     override func tearDown() {
-        Targeting.shared.subjectToCOPPA = false
-        Targeting.shared.subjectToGDPR = nil
-        Targeting.shared.gdprConsentString = nil
-        Targeting.shared.purposeConsents = nil
-        
-        UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_SubjectToGDPRKey)
-        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_SubjectToGDPR)
-        UserDefaults.standard.removeObject(forKey: StorageUtils.IABConsent_ConsentStringKey)
-        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_ConsentString)
-        UserDefaults.standard.removeObject(forKey: StorageUtils.IABTCF_PurposeConsents)
-        
-        Targeting.shared.clearContextData()
-        Targeting.shared.clearUserData()
-        Targeting.shared.clearYearOfBirth()
-        Targeting.shared.clearAccessControlList()
-        Targeting.shared.clearContextKeywords()
-        Targeting.shared.clearUserKeywords()
-    }
-
-    func testStoreURL() {
-        //given
-        let storeURL = "https://itunes.apple.com/app/id123456789"
-        
-        //when
-        Targeting.shared.storeURL = storeURL
-        let result = Targeting.shared.storeURL
-
-        //then
-        XCTAssertEqual(storeURL, result)
+        UtilitiesForTesting.resetTargeting(.shared)
     }
 
     func testDomain() {
@@ -73,10 +66,10 @@ class TargetingTests: XCTestCase {
         let female = Gender.female
         
         //when
-        Targeting.shared.gender = female
+        Targeting.shared.userGender = female
         
         //then
-        XCTAssertEqual(female, Targeting.shared.gender)
+        XCTAssertEqual(female, Targeting.shared.userGender)
     }
 
     func testItunesID() {
@@ -132,10 +125,10 @@ class TargetingTests: XCTestCase {
     // MARK: - Year Of Birth
     func testYearOfBirth() {
         //given
-        let  yearOfBirth = 1985
-        
+        let yearOfBirth = 1985
+        Targeting.shared.setYearOfBirth(yob: yearOfBirth)
         //when
-        XCTAssertNoThrow(try Targeting.shared.setYearOfBirth(yob: yearOfBirth))
+        XCTAssertTrue(Targeting.shared.yearOfBirth != 0)
         let result = Targeting.shared.yearOfBirth
         
         //then
@@ -143,9 +136,20 @@ class TargetingTests: XCTestCase {
     }
 
     func testYearOfBirthInvalid() {
-        XCTAssertThrowsError(try Targeting.shared.setYearOfBirth(yob: -1))
-        XCTAssertThrowsError(try Targeting.shared.setYearOfBirth(yob: 999))
-        XCTAssertThrowsError(try Targeting.shared.setYearOfBirth(yob: 10000))
+        Targeting.shared.setYearOfBirth(yob: -1)
+        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
+        Targeting.shared.setYearOfBirth(yob: 999)
+        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
+        Targeting.shared.setYearOfBirth(yob: 10000)
+        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
+    }
+    
+    func testClearYearOfBirth() {
+        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
+        Targeting.shared.setYearOfBirth(yob: 1985)
+        XCTAssertTrue(Targeting.shared.yearOfBirth == 1985)
+        Targeting.shared.clearYearOfBirth()
+        XCTAssertTrue(Targeting.shared.yearOfBirth == 0)
     }
 
     //MARK: - COPPA
@@ -498,7 +502,7 @@ class TargetingTests: XCTestCase {
          
          //when
          Targeting.shared.addContextData(key: key1, value: value1)
-         let dictionary = Targeting.shared.getContextDataDictionary()
+         let dictionary = Targeting.shared.getContextData()
          let set = dictionary[key1]
 
          //then
@@ -515,7 +519,7 @@ class TargetingTests: XCTestCase {
          
          //when
          Targeting.shared.updateContextData(key: key1, value: inputSet)
-         let dictionary = Targeting.shared.getContextDataDictionary()
+         let dictionary = Targeting.shared.getContextData()
          let set = dictionary[key1]
 
          //then
@@ -531,8 +535,8 @@ class TargetingTests: XCTestCase {
          Targeting.shared.addContextData(key: key1, value: value1)
          
          //when
-         Targeting.shared.removeContextData(forKey: key1)
-         let dictionary = Targeting.shared.getContextDataDictionary()
+         Targeting.shared.removeContextData(for: key1)
+         let dictionary = Targeting.shared.getContextData()
 
          //then
          XCTAssertEqual(0, dictionary.count)
@@ -546,7 +550,7 @@ class TargetingTests: XCTestCase {
          
          //when
          Targeting.shared.clearContextData()
-         let dictionary = Targeting.shared.getContextDataDictionary()
+         let dictionary = Targeting.shared.getContextData()
 
          //then
          XCTAssertEqual(0, dictionary.count)
@@ -560,7 +564,7 @@ class TargetingTests: XCTestCase {
            
            //when
            Targeting.shared.addUserData(key: key1, value: value1)
-           let dictionary = Targeting.shared.getUserDataDictionary()
+           let dictionary = Targeting.shared.getUserData()
            let set = dictionary[key1]
 
            //then
@@ -577,7 +581,7 @@ class TargetingTests: XCTestCase {
            
            //when
            Targeting.shared.updateUserData(key: key1, value: inputSet)
-           let dictionary = Targeting.shared.getUserDataDictionary()
+           let dictionary = Targeting.shared.getUserData()
            let set = dictionary[key1]
 
            //then
@@ -593,8 +597,8 @@ class TargetingTests: XCTestCase {
            Targeting.shared.addUserData(key: key1, value: value1)
            
            //when
-           Targeting.shared.removeUserData(forKey: key1)
-           let dictionary = Targeting.shared.getUserDataDictionary()
+           Targeting.shared.removeUserData(for: key1)
+           let dictionary = Targeting.shared.getUserData()
 
            //then
            XCTAssertEqual(0, dictionary.count)
@@ -608,7 +612,7 @@ class TargetingTests: XCTestCase {
            
            //when
            Targeting.shared.clearUserData()
-           let dictionary = Targeting.shared.getUserDataDictionary()
+           let dictionary = Targeting.shared.getUserData()
 
            //then
            XCTAssertEqual(0, dictionary.count)
@@ -621,7 +625,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.addContextKeyword(value1)
-        let set = Targeting.shared.getContextKeywordsSet()
+        let set = Targeting.shared.getContextKeywords()
 
         //then
         XCTAssertEqual(1, set.count)
@@ -635,7 +639,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.addContextKeywords(inputSet)
-        let set = Targeting.shared.getContextKeywordsSet()
+        let set = Targeting.shared.getContextKeywords()
 
         //then
         XCTAssertEqual(1, set.count)
@@ -649,7 +653,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.removeContextKeyword(value1)
-        let set = Targeting.shared.getContextKeywordsSet()
+        let set = Targeting.shared.getContextKeywords()
 
         //then
         XCTAssertEqual(0, set.count)
@@ -662,7 +666,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.clearContextKeywords()
-        let set = Targeting.shared.getContextKeywordsSet()
+        let set = Targeting.shared.getContextKeywords()
 
         //then
         XCTAssertEqual(0, set.count)
@@ -675,7 +679,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.addUserKeyword(value1)
-        let set = Targeting.shared.getUserKeywordsSet()
+        let set = Targeting.shared.getUserKeywords()
 
         //then
         XCTAssertEqual(1, set.count)
@@ -689,7 +693,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.addUserKeywords(inputSet)
-        let set = Targeting.shared.getUserKeywordsSet()
+        let set = Targeting.shared.getUserKeywords()
 
         //then
         XCTAssertEqual(1, set.count)
@@ -703,7 +707,7 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.removeUserKeyword(value1)
-        let set = Targeting.shared.getUserKeywordsSet()
+        let set = Targeting.shared.getUserKeywords()
 
         //then
         XCTAssertEqual(0, set.count)
@@ -716,10 +720,223 @@ class TargetingTests: XCTestCase {
         
         //when
         Targeting.shared.clearUserKeywords()
-        let set = Targeting.shared.getUserKeywordsSet()
+        let set = Targeting.shared.getUserKeywords()
 
         //then
         XCTAssertEqual(0, set.count)
     }
 
+    func testShared() {
+        UtilitiesForTesting.checkInitialValues(.shared)
+    }
+
+    func testUserGender() {
+        
+        //Init
+        let targeting = Targeting.shared
+        XCTAssert(targeting.userGender == .unknown)
+        
+        //Set
+        for gender in Gender.allCases {
+            targeting.userGender = gender
+            XCTAssertEqual(targeting.userGender, gender)
+            
+            let expectedDic: [String: String]
+            if let letter = gender.paramsDicLetter {
+                expectedDic = ["gen": letter]
+            } else {
+                expectedDic = [:]
+            }
+            XCTAssertEqual(targeting.parameterDictionary, expectedDic, "Dict is \(targeting.parameterDictionary)")
+        }
+        
+        //Unset
+        targeting.userGender = .unknown
+        XCTAssert(targeting.userGender == .unknown)
+        XCTAssert(targeting.parameterDictionary == [:], "Dict is \(targeting.parameterDictionary)")
+    }
+
+    func testUserID() {
+
+        //Init
+        //Note: on init, the default is nil but it doesn't send a value.
+        let Targeting = Targeting.shared
+        XCTAssert(Targeting.userID == nil)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Set
+        Targeting.userID = "abc123"
+        XCTAssert(Targeting.parameterDictionary == ["xid":"abc123"], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Unset
+        Targeting.userID = nil
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+    }
+    
+    func testBuyerUID() {
+        //Init
+        //Note: on init, and it never sends a value via an odinary ad request params.
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.buyerUID)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Set
+        let buyerUID = "abc123"
+        Targeting.buyerUID = buyerUID
+        XCTAssertEqual(Targeting.buyerUID, buyerUID)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Unset
+        Targeting.buyerUID = nil
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+    }
+    
+    func testUserCustomData() {
+
+        //Init
+        //Note: on init, and it never sends a value via an odinary ad request params.
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.userCustomData)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Set
+        let customData = "123"
+        Targeting.userCustomData = customData
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Unset
+        Targeting.userCustomData = nil
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+    }
+    
+    func testUserExt() {
+        //Init
+        //Note: on init, and it never sends a value via an odinary ad request params.
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.userExt)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+
+        //Set
+        let userExt = ["consent": "dummyConsentString"]
+        Targeting.userExt = userExt
+        XCTAssertEqual(Targeting.userExt?.count, 1)
+    }
+    
+    func testUserEids() {
+        //Init
+        //Note: on init, and it never sends a value via an odinary ad request params.
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.eids)
+
+        //Set
+        let eids: [[String: AnyHashable]] = [["key" : "value"], ["key" : "value"]]
+        Targeting.eids = eids
+        XCTAssertEqual(Targeting.eids?.count, 2)
+    }
+    
+    func testPublisherName() {
+        //Init
+        //Note: on init, and it never doesn't send a value via an ad request params.
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.publisherName)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Set
+        let publisherName = "abc123"
+        Targeting.publisherName = publisherName
+        XCTAssertEqual(Targeting.publisherName, publisherName)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Unset
+        Targeting.publisherName = nil
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+    }
+    
+    func testStoreURL() {
+        
+        //Init
+        //Note: on init, the default is nil but it doesn't send a value.
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.storeURL)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Set
+        let storeUrl = "foo.com"
+        Targeting.storeURL = storeUrl
+        XCTAssertEqual(Targeting.storeURL, storeUrl)
+        XCTAssert(Targeting.parameterDictionary == ["url":storeUrl], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Unset
+        Targeting.storeURL = nil
+        XCTAssertNil(Targeting.storeURL)
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+    }
+
+    func testLatitudeLongitude() {
+        //Init
+        //Note: on init, the default is nil but it doesn't send a value.
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.coordinate)
+        
+        let lat = 123.0
+        let lon = 456.0
+        Targeting.setLatitude(lat, longitude: lon)
+        XCTAssertEqual(Targeting.coordinate?.mkCoordinateValue.latitude, lat)
+        XCTAssertEqual(Targeting.coordinate?.mkCoordinateValue.longitude, lon)
+    }
+    
+    //MARK: - Custom Params
+    func testAddParam() {
+        
+        //Init
+        let Targeting = Targeting.shared
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Set
+        Targeting.addParam("value", withName: "name")
+        XCTAssert(Targeting.parameterDictionary == ["name":"value"], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Unset
+        Targeting.addParam("", withName: "name")
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+    }
+
+    func testAddCustomParam() {
+        
+        //Init
+        let Targeting = Targeting.shared
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Set
+        Targeting.addCustomParam("value", withName: "name")
+        XCTAssert(Targeting.parameterDictionary == ["c.name":"value"], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Unset
+        Targeting.addCustomParam("", withName: "name")
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+    }
+    
+    func testSetCustomParams() {
+        //Init
+        let Targeting = Targeting.shared
+        XCTAssert(Targeting.parameterDictionary == [:], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Set
+        Targeting.setCustomParams(["name1":"value1", "name2":"value2"])
+        XCTAssert(Targeting.parameterDictionary == ["c.name1":"value1", "c.name2":"value2"], "Dict is \(Targeting.parameterDictionary)")
+        
+        //Not currently possible to unset
+        Targeting.setCustomParams([:])
+        XCTAssert(Targeting.parameterDictionary == ["c.name1":"value1", "c.name2":"value2"], "Dict is \(Targeting.parameterDictionary)")
+    }
+    
+    func testKeywords() {
+        //Init
+        let Targeting = Targeting.shared
+        XCTAssertNil(Targeting.keywords)
+        
+        let keywords = "Key, words"
+        Targeting.keywords = keywords
+        XCTAssertEqual(Targeting.keywords, keywords)
+    }
 }

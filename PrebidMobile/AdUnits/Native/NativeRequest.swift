@@ -29,21 +29,14 @@ public class NativeRequest: AdUnit {
     public var eventtrackers:Array<NativeEventTracker>?
     public var privacy: Int = 0
     public var ext: AnyObject?
-    private var _configId: String!
     
-    public var configId: String? {
-        set {
-            _configId = newValue!;
-            super.prebidConfigId = _configId;
-        }
-        get {
-            return _configId;
-        }
+    public var configId: String {
+        get { adUnitConfig.configId }
+        set { adUnitConfig.configId = newValue }
     }
     
     public init(configId: String) {
-        super.init(configId: configId, size:nil)
-        self.configId = configId
+        super.init(configId: configId, size: CGSize.zero)   
     }
     
     public convenience init(configId: String, assets: Array<NativeAsset>? = nil, eventTrackers: Array<NativeEventTracker>? = nil) {

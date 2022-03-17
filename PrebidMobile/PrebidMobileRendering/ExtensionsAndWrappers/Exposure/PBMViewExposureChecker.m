@@ -16,7 +16,7 @@
 #import "PBMViewExposureChecker.h"
 
 #ifdef DEBUG
-    #import "PrebidRenderingConfig+TestExtension.h"
+    #import "Prebid+TestExtension.h"
     #import "PrebidMobileSwiftHeaders.h"
     #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
@@ -51,7 +51,7 @@
     [self.obstructions removeAllObjects];
         
 #   ifdef DEBUG
-    if (PrebidRenderingConfig.shared.forcedIsViewable) {
+    if (Prebid.shared.forcedIsViewable) {
         return [[PBMViewExposure alloc] initWithExposureFactor:1 visibleRectangle:self.testedView.bounds occlusionRectangles:nil];
     }
 #   endif

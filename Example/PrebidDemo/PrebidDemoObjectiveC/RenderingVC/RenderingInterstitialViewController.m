@@ -63,8 +63,8 @@
 #pragma mar - Load Ad
 
 - (void)initRendering {
-    PrebidRenderingConfig.shared.accountID = @"0689a263-318d-448b-a3d4-b02e8a709d9d";
-    [PrebidRenderingConfig.shared setCustomPrebidServerWithUrl:@"https://prebid.openx.net/openrtb2/auction" error:nil];
+    Prebid.shared.accountID = @"0689a263-318d-448b-a3d4-b02e8a709d9d";
+    [Prebid.shared setCustomPrebidServerWithUrl:@"https://prebid.openx.net/openrtb2/auction" error:nil];
     
     [NSUserDefaults.standardUserDefaults setValue:@"123" forKey:@"IABTCF_CmpSdkID"];
     [NSUserDefaults.standardUserDefaults setValue:@"0" forKey:@"IABTCF_gdprApplies"];
@@ -125,7 +125,7 @@
                                                                            mediationDelegate:mediationDelegate];
     }
     
-    [self.mopubInterstitialAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
+    [self.mopubInterstitialAdUnit fetchDemandWithCompletion:^(ResultCode result) {
         [self.mopubInterstitial loadAd];
     }];
 }
@@ -142,7 +142,7 @@
                                                                            mediationDelegate:mediationDelegate];
     }
     
-    [self.admobInterstitialAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
+    [self.admobInterstitialAdUnit fetchDemandWithCompletion:^(ResultCode result) {
         GADCustomEventExtras *extras = [GADCustomEventExtras new];
         NSDictionary *prebidExtras = [mediationDelegate getEventExtras];
         NSString *prebidExtrasLabel = AdMobConstants.PrebidAdMobEventExtrasLabel;

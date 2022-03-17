@@ -60,8 +60,8 @@
 #pragma mar - Load Ad
 
 - (void)initRendering {
-    PrebidRenderingConfig.shared.accountID = @"0689a263-318d-448b-a3d4-b02e8a709d9d";
-    [PrebidRenderingConfig.shared setCustomPrebidServerWithUrl:@"https://prebid.openx.net/openrtb2/auction" error:nil];
+    Prebid.shared.accountID = @"0689a263-318d-448b-a3d4-b02e8a709d9d";
+    [Prebid.shared setCustomPrebidServerWithUrl:@"https://prebid.openx.net/openrtb2/auction" error:nil];
     
     [NSUserDefaults.standardUserDefaults setValue:@"123" forKey:@"IABTCF_CmpSdkID"];
     [NSUserDefaults.standardUserDefaults setValue:@"0" forKey:@"IABTCF_gdprApplies"];
@@ -95,7 +95,7 @@
     self.mopubRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:@"12f58bc2-b664-4672-8d19-638bcc96fd5c"
                                                                 mediationDelegate: mediationDelegate];
     
-    [self.mopubRewardedAdUnit fetchDemandWithCompletion: ^(FetchDemandResult result) {
+    [self.mopubRewardedAdUnit fetchDemandWithCompletion: ^(ResultCode result) {
         [MPRewardedAds setDelegate:self forAdUnitId:@"7538cc74d2984c348bc14caafa3e3395"];
         
         [MPRewardedAds loadRewardedAdWithAdUnitID:@"7538cc74d2984c348bc14caafa3e3395"
@@ -114,7 +114,7 @@
     self.admobRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:@"5a4b8dcf-f984-4b04-9448-6529908d6cb6"
                                                                    mediationDelegate:mediationDelegate];
     
-    [self.admobRewardedAdUnit fetchDemandWithCompletion:^(FetchDemandResult result) {
+    [self.admobRewardedAdUnit fetchDemandWithCompletion:^(ResultCode result) {
         [GADRewardedAd loadWithAdUnitID:@"ca-app-pub-5922967660082475/7397370641" request:request completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"AdMob rewarded failed: %@", [error localizedDescription]);

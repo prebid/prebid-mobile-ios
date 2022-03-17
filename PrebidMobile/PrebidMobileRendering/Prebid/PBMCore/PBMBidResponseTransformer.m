@@ -23,7 +23,7 @@
 
 @implementation PBMBidResponseTransformer
 
-+ (BidResponseForRendering *)transformResponse:(PBMServerResponse *)response error:(NSError **)error {
++ (BidResponse *)transformResponse:(PBMServerResponse *)response error:(NSError **)error {
     NSString * const responseBody = [[NSString alloc] initWithData:response.rawData encoding:NSUTF8StringEncoding];
     if ([responseBody containsString:@"Invalid request"]) {
         if (error) {
@@ -37,7 +37,7 @@
         }
         return nil;
     }
-    BidResponseForRendering * const bidResponse = [[BidResponseForRendering alloc] initWithJsonDictionary:response.jsonDict];
+    BidResponse * const bidResponse = [[BidResponse alloc] initWithJsonDictionary:response.jsonDict];
     if (!bidResponse) {
         if (error) {
             *error = [PBMError responseDeserializationFailed];
@@ -52,13 +52,13 @@
 
 + (NSError *)classifyRequestError:(NSString *)responseBody {
     if ([responseBody containsString:@"Stored Imp with ID"] || [responseBody containsString:@"No stored imp found"]) {
-        return [PBMError invalidConfigId];
+        return [PBMError prebidInvalidConfigId];
     }
     if ([responseBody containsString:@"Stored Request with ID"] || [responseBody containsString:@"No stored request found"]) {
-        return [PBMError invalidAccountId];
+        return [PBMError prebidInvalidAccountId];
     }
     if ([responseBody containsString:@"Invalid request: Request imp[0].banner.format"] || [responseBody containsString:@"Request imp[0].banner.format"] || [responseBody containsString:@"Unable to set interstitial size list"]) {
-        return [PBMError invalidSize];
+        return [PBMError prebidInvalidSize];
     }
     return [PBMError serverError:responseBody];
 }

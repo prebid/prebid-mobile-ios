@@ -21,7 +21,7 @@
 #import "PBMModalState.h"
 #import "PBMOpenMeasurementSession.h"
 
-@class PrebidRenderingConfig;
+@class Prebid;
 
 typedef PBMOpenMeasurementSession * _Nullable (^PBMOpenMeasurementSessionProvider)(void);
 
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMClickthroughBrowserOpener : NSObject
 
-- (instancetype)initWithSDKConfiguration:(PrebidRenderingConfig *)sdkConfiguration
+- (instancetype)initWithSDKConfiguration:(Prebid *)sdkConfiguration
                          adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
                             modalManager:(PBMModalManager *)modalManager
                   viewControllerProvider:(PBMViewControllerProvider)viewControllerProvider

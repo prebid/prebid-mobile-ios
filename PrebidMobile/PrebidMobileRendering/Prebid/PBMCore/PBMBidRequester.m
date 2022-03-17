@@ -30,19 +30,19 @@
 @interface PBMBidRequester ()
 
 @property (nonatomic, strong, nonnull, readonly) id<PBMServerConnectionProtocol> connection;
-@property (nonatomic, strong, nonnull, readonly) PrebidRenderingConfig *sdkConfiguration;
-@property (nonatomic, strong, nonnull, readonly) PrebidRenderingTargeting *targeting;
+@property (nonatomic, strong, nonnull, readonly) Prebid *sdkConfiguration;
+@property (nonatomic, strong, nonnull, readonly) Targeting *targeting;
 @property (nonatomic, strong, nonnull, readonly) AdUnitConfig *adUnitConfiguration;
 
-@property (nonatomic, copy, nullable) void (^completion)(BidResponseForRendering *, NSError *);
+@property (nonatomic, copy, nullable) void (^completion)(BidResponse *, NSError *);
 
 @end
 
 @implementation PBMBidRequester
 
 - (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
-                  sdkConfiguration:(PrebidRenderingConfig *)sdkConfiguration
-                         targeting:(PrebidRenderingTargeting *)targeting
+                  sdkConfiguration:(Prebid *)sdkConfiguration
+                         targeting:(Targeting *)targeting
                adUnitConfiguration:(AdUnitConfig *)adUnitConfiguration {
     if (!(self = [super init])) {
         return nil;
@@ -54,7 +54,7 @@
     return self;
 }
 
-- (void)requestBidsWithCompletion:(void (^)(BidResponseForRendering *, NSError *))completion {
+- (void)requestBidsWithCompletion:(void (^)(BidResponse *, NSError *))completion {
     NSError * const setupError = [self findErrorInSettings];
     if (setupError) {
         completion(nil, setupError);
@@ -66,7 +66,7 @@
         return;
     }
     
-    self.completion = completion ?: ^(BidResponseForRendering *r, NSError *e) {};
+    self.completion = completion ?: ^(BidResponse *r, NSError *e) {};
     
     NSString * const requestString = [self getRTBRequest];
            
@@ -78,8 +78,8 @@
         return;
     }
     
-    const NSInteger rawTimeoutMS_onRead     = self.sdkConfiguration.bidRequestTimeoutMillis;
-    NSNumber * const dynamicTimeout_onRead  = self.sdkConfiguration.bidRequestTimeoutDynamic;
+    const NSInteger rawTimeoutMS_onRead     = self.sdkConfiguration.timeoutMillis;
+    NSNumber * const dynamicTimeout_onRead  = self.sdkConfiguration.timeoutMillisDynamic;
         
     const NSTimeInterval postTimeout = (dynamicTimeout_onRead
                                         ? dynamicTimeout_onRead.doubleValue
@@ -96,7 +96,7 @@
             return;
         }
         
-        void (^ const completion)(BidResponseForRendering *, NSError *) = self.completion;
+        void (^ const completion)(BidResponse *, NSError *) = self.completion;
         self.completion = nil;
         
         if (serverResponse.statusCode == 204) {
@@ -113,7 +113,7 @@
         PBMLogInfo(@"Bid Response: %@", [[NSString alloc] initWithData:serverResponse.rawData encoding:NSUTF8StringEncoding]);
         
         NSError *trasformationError = nil;
-        BidResponseForRendering * const _Nullable bidResponse = [PBMBidResponseTransformer transformResponse:serverResponse error:&trasformationError];
+        BidResponse * const _Nullable bidResponse = [PBMBidResponseTransformer transformResponse:serverResponse error:&trasformationError];
         
         if (bidResponse && !trasformationError) {
             NSNumber * const tmaxrequest = bidResponse.tmaxrequest;
@@ -125,11 +125,12 @@
                                                       + bidResponseTimeout
                                                       + 0.2);
                 NSString * const currentServerURL = [Host.shared getHostURLWithHost:self.sdkConfiguration.prebidServerHost error:nil];
-                if (self.sdkConfiguration.bidRequestTimeoutDynamic == nil && [currentServerURL isEqualToString:requestServerURL]) {
-                    const NSInteger rawTimeoutMS_onWrite = self.sdkConfiguration.bidRequestTimeoutMillis;
+                if (self.sdkConfiguration.timeoutMillisDynamic == nil && [currentServerURL isEqualToString:requestServerURL]) {
+                    const NSInteger rawTimeoutMS_onWrite = self.sdkConfiguration.timeoutMillis;
                     const NSTimeInterval appTimeout = rawTimeoutMS_onWrite / 1000.0;
                     const NSTimeInterval updatedTimeout = MIN(remoteTimeout, appTimeout);
-                    self.sdkConfiguration.bidRequestTimeoutDynamic = @(updatedTimeout);
+                    self.sdkConfiguration.timeoutMillisDynamic = @(updatedTimeout);
+                    self.sdkConfiguration.timeoutUpdated = true;
                 };
             }
         }
@@ -157,21 +158,21 @@
     if (!CGSizeEqualToSize(self.adUnitConfiguration.adSize, CGSizeZero)) {
         
         if ([self isInvalidSize:[NSValue valueWithCGSize:self.adUnitConfiguration.adSize]]) {
-            return [PBMError invalidSize];
+            return [PBMError prebidInvalidSize];
         }
     }
     if (self.adUnitConfiguration.additionalSizes) {
         for (NSValue *nextSize in self.adUnitConfiguration.additionalSizes) {
             if ([self isInvalidSize:nextSize]) {
-                return [PBMError invalidSize];
+                return [PBMError prebidInvalidSize];
             }
         }
     }
-    if ([self isInvalidID:self.adUnitConfiguration.configID]) {
-        return [PBMError invalidConfigId];
+    if ([self isInvalidID:self.adUnitConfiguration.configId]) {
+        return [PBMError prebidInvalidConfigId];
     }
     if ([self isInvalidID:self.sdkConfiguration.accountID]) {
-        return [PBMError invalidAccountId];
+        return [PBMError prebidInvalidAccountId];
     }
     return nil;
 }

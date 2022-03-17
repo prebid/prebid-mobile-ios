@@ -48,7 +48,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     }
     
     @objc public convenience init(bid: Bid, configId: String) {
-        let adConfig = AdUnitConfig(configID: configId)
+        let adConfig = AdUnitConfig(configId: configId)
         adConfig.isInterstitial = true
         self.init(bid: bid, adConfiguration: adConfig)
     }

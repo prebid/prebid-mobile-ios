@@ -18,14 +18,14 @@ import XCTest
 @testable import PrebidMobile
 
 class MockBannerView: BannerView, WinningBidResponseFabricator {
-    override var lastBidResponse: BidResponseForRendering? {
+    override var lastBidResponse: BidResponse? {
         return makeWinningBidResponse(bidPrice: 0.85)
     }
 }
 
 class PBMBannerViewTest: XCTestCase {
     override func tearDown() {
-        PrebidRenderingConfig.reset()
+        Prebid.reset()
         
         super.tearDown()
     }
@@ -38,7 +38,7 @@ class PBMBannerViewTest: XCTestCase {
         let bannerView = MockBannerView(frame: CGRect(origin: .zero, size: primarySize), configID: testID, adSize: primarySize, eventHandler: BannerEventHandlerStandalone())
         let adUnitConfig = bannerView.adUnitConfig
         
-        XCTAssertEqual(adUnitConfig.configID, testID)
+        XCTAssertEqual(adUnitConfig.configId, testID)
         XCTAssertEqual(adUnitConfig.adSize, primarySize)
         
         let moreSizes = [
@@ -62,7 +62,7 @@ class PBMBannerViewTest: XCTestCase {
     func testAccountErrorPropagation() {
         let testID = "auid"
         
-        PrebidRenderingConfig.shared.accountID = ""
+        Prebid.shared.accountID = ""
         let primarySize = CGSize(width: 320, height: 50)
         
         let bannerView = MockBannerView(frame: CGRect(origin: .zero, size: primarySize), configID: testID, adSize: primarySize, eventHandler: BannerEventHandlerStandalone())
@@ -87,7 +87,7 @@ class PBMBannerViewTest: XCTestCase {
         }
         
         func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {
-            XCTAssertEqual(error as NSError?, PBMError.invalidAccountId as NSError?)
+            XCTAssertEqual(error as NSError?, PBMError.prebidInvalidAccountId as NSError?)
             XCTAssertNotNil(bannerView.lastBidResponse)
             exp.fulfill()
         }

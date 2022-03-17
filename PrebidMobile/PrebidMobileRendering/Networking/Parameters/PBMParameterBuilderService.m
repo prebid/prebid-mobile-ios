@@ -52,10 +52,10 @@
                              pbmDeviceAccessManager:[[PBMDeviceAccessManager alloc] initWithRootViewController: nil]
                              ctTelephonyNetworkInfo:[CTTelephonyNetworkInfo new]
                                        reachability:[PBMReachability reachabilityForInternetConnection]
-                                   sdkConfiguration:PrebidRenderingConfig.shared
+                                   sdkConfiguration:Prebid.shared
                                          sdkVersion:[PBMFunctions sdkVersion]
                               pbmUserConsentManager:PBMUserConsentDataManager.shared
-                                          targeting:PrebidRenderingTargeting.shared
+                                          targeting:Targeting.shared
                              extraParameterBuilders:extraParameterBuilders];
 }
 
@@ -67,10 +67,10 @@
                                                               pbmDeviceAccessManager:(nonnull PBMDeviceAccessManager *)pbmDeviceAccessManager
                                                               ctTelephonyNetworkInfo:(nonnull CTTelephonyNetworkInfo *)ctTelephonyNetworkInfo
                                                                         reachability:(nonnull PBMReachability *)reachability
-                                                                    sdkConfiguration:(nonnull PrebidRenderingConfig *)sdkConfiguration
+                                                                    sdkConfiguration:(nonnull Prebid *)sdkConfiguration
                                                                           sdkVersion:(nonnull NSString *)sdkVersion
                                                                pbmUserConsentManager:(nonnull PBMUserConsentDataManager *) pbmUserConsentManager
-                                                                           targeting:(nonnull PrebidRenderingTargeting *)targeting
+                                                                           targeting:(nonnull Targeting *)targeting
                                                               extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders{
   
     PBMORTBBidRequest *bidRequest = [PBMParameterBuilderService createORTBBidRequestWithTargeting:targeting];
@@ -100,12 +100,10 @@
     return [PBMORTBParameterBuilder buildOpenRTBFor:bidRequest];
 }
 
-+ (nonnull PBMORTBBidRequest *)createORTBBidRequestWithTargeting:(nonnull PrebidRenderingTargeting *)targeting {
++ (nonnull PBMORTBBidRequest *)createORTBBidRequestWithTargeting:(nonnull Targeting *)targeting {
     PBMORTBBidRequest *bidRequest = [PBMORTBBidRequest new];
     
-    bidRequest.user.yob = targeting.userAge > 0 ?
-        @([PBMAgeUtils yobForAge:targeting.userAge.intValue])
-        : nil;
+    bidRequest.user.yob = [targeting getYearOfBirth];
     
     bidRequest.user.gender      = targeting.userGenderDescription;
     bidRequest.user.buyeruid    = targeting.buyerUID;
@@ -116,11 +114,13 @@
         bidRequest.user.ext = [targeting.userExt mutableCopy];
     }
     
-    if (targeting.eids) {
-        [bidRequest.user appendEids:targeting.eids];
+    if ([targeting getExternalUserIds]) {
+        [bidRequest.user appendEids:[targeting getExternalUserIds]];
     }
     
-    bidRequest.app.storeurl = targeting.appStoreMarketURL;
+    bidRequest.app.storeurl = targeting.storeURL;
+    bidRequest.app.domain = targeting.domain;
+    bidRequest.app.bundle = targeting.itunesID;
     
     if (targeting.publisherName) {
         if (!bidRequest.app.publisher) {
@@ -136,7 +136,6 @@
         bidRequest.user.geo.lat = @(coord2d.latitude);
         bidRequest.user.geo.lon = @(coord2d.longitude);
     }
-    
     return bidRequest;
 }
 
