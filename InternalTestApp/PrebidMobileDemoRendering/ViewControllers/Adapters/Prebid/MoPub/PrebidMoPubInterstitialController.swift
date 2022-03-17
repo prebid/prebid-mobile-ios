@@ -22,7 +22,7 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
     
     var prebidConfigId = ""
     var moPubAdUnitId = ""
-    var adFormat: AdFormat?
+    var adFormats: Set<AdFormat>?
 
     private var interstitialController : MPInterstitialAdController?
     
@@ -64,8 +64,8 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
         adUnit = MediationInterstitialAdUnit(configId: prebidConfigId,
                                              minSizePercentage: CGSize(width: 30, height: 30),
                                              mediationDelegate: MoPubMediationInterstitialUtils(mopubController: interstitialController!))
-        if let adFormat = adFormat {
-            adUnit?.adFormat = adFormat
+        if let adFormats = adFormats {
+            adUnit?.adFormats = adFormats
         }
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {

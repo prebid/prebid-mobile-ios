@@ -21,9 +21,9 @@ public class MediationInterstitialAdUnit : MediationBaseInterstitialAdUnit {
     
     // MARK: - Public Properties
     
-    public var adFormat: AdFormat {
-        get { adUnitConfig.adFormat }
-        set { adUnitConfig.adFormat = newValue }
+    public var adFormats: Set<AdFormat> {
+        get { adUnitConfig.adFormats }
+        set { adUnitConfig.adFormats = newValue }
     }
     
     public var additionalSizes: [CGSize]? {

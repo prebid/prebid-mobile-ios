@@ -58,8 +58,8 @@
 
 - (void)buildBidRequest:(nonnull PBMORTBBidRequest *)bidRequest {
     
-    PBMAdFormatInternal const adFormat = self.adConfiguration.adConfiguration.adFormat;
-    BOOL const isHTML = (adFormat == PBMAdFormatDisplayInternal);
+    NSSet<AdFormat *> *adFormats = self.adConfiguration.adConfiguration.adFormats;
+    BOOL const isHTML = ([adFormats containsObject:AdFormat.display]);
     BOOL const isInterstitial = self.adConfiguration.isInterstitial;
     
     bidRequest.requestID = [NSUUID UUID].UUIDString;
@@ -80,7 +80,7 @@
     if (self.targeting.gdprConsentString && self.targeting.gdprConsentString.length > 0) {
         bidRequest.user.ext[@"consent"] = self.targeting.gdprConsentString;
     }
-    
+
     PBMORTBSourceExtOMID *extSource = [PBMORTBSourceExtOMID new];
     if (Targeting.shared.omidPartnerName) {
         extSource.omidpn = Targeting.shared.omidPartnerName;
@@ -88,9 +88,9 @@
     if (Targeting.shared.omidPartnerVersion) {
         extSource.omidpv = Targeting.shared.omidPartnerVersion;
     }
-    
+
     bidRequest.source.extOMID = extSource;
-    
+
     NSArray<PBMORTBFormat *> *formats = nil;
     const NSInteger formatsCount = (CGSizeEqualToSize(self.adConfiguration.adSize, CGSizeZero) ? 0 : 1) + self.adConfiguration.additionalSizes.count;
     
@@ -136,8 +136,8 @@
         nextImp.extPrebid.isRewardedInventory = self.adConfiguration.isOptIn;
         nextImp.extContextData = self.adConfiguration.contextDataDictionary.mutableCopy;
         nextImp.extContextData[@"adslot"] = [self.adConfiguration getPbAdSlot];
-        switch (adFormat) {
-            case PBMAdFormatDisplayInternal: {
+        for (AdFormat* adFormat in adFormats) {
+            if (adFormat == AdFormat.display) {
                 PBMORTBBanner * const nextBanner = nextImp.banner;
                 if (formats) {
                     nextBanner.format = formats;
@@ -145,10 +145,7 @@
                 if (self.adConfiguration.adPosition != AdPositionUndefined) {
                     nextBanner.pos = @(self.adConfiguration.adPosition);
                 }
-                break;
-            }
-                
-            case PBMAdFormatVideoInternal: {
+            } else if (adFormat == AdFormat.video) {
                 PBMORTBVideo * const nextVideo = nextImp.video;
                 nextVideo.linearity = @(1); // -> linear/in-steam
                 if (formats.count) {
@@ -159,11 +156,7 @@
                 if (self.adConfiguration.adPosition != AdPositionUndefined) {
                     nextVideo.pos = @(self.adConfiguration.adPosition);
                 }
-                break;
             }
-            
-            default:
-                break;
         }
         if (isInterstitial) {
             nextImp.instl = @(1);

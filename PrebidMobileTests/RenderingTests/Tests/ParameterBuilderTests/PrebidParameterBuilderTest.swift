@@ -34,7 +34,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     func testAdPositionHeader() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
-        adUnitConfig.adFormat = .display
+        adUnitConfig.adFormats = [.display]
         
         let builder = PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
                                                sdkConfiguration: sdkConfiguration,
@@ -111,7 +111,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     func testAdditionalSizes() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
-        adUnitConfig.adFormat = .display
+        adUnitConfig.adFormats = [.display]
         
         let bidRequest = PBMORTBBidRequest()
         
@@ -151,7 +151,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     func testVideo() {
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
-        adUnitConfig.adFormat = .video
+        adUnitConfig.adFormats = [.video]
         adUnitConfig.adPosition = .header
         
         let bidRequest = PBMORTBBidRequest()
@@ -239,207 +239,207 @@ class PrebidParameterBuilderTest: XCTestCase {
         
         XCTAssertEqual(imp.extContextData, ["buy": ["mushrooms"]])
     }
-    
+
     func testPbAdSlotWithContextDataDictionary() {
         let testAdSlot = "test ad slot"
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
-        
+
         adUnitConfig.setPbAdSlot(testAdSlot)
-        
+
         adUnitConfig.addContextData(key: "key", value: "value1")
         adUnitConfig.addContextData(key: "key", value: "value2")
-        
+
         let bidRequest = PBMORTBBidRequest()
-        
+
         PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
                                  sdkConfiguration: sdkConfiguration,
                                  sdkVersion: "MOCK_SDK_VERSION",
                                  targeting: targeting)
             .build(bidRequest)
-        
+
         PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
                                   sdkConfiguration: sdkConfiguration,
                                   targeting: targeting,
                                   userAgentService: MockUserAgentService())
             .build(bidRequest)
-        
+
         bidRequest.imp.forEach { imp in
             guard let extContextData = imp.extContextData as? [String: Any], let result = extContextData["key"] as? [String] else {
                 XCTFail()
                 return
             }
-           
+
             XCTAssertEqual(Set(result), Set(["value1", "value2"]))
             XCTAssertEqual(extContextData["adslot"] as? String, testAdSlot)
         }
     }
-    
+
     func testSourceOMID() {
         let bidRequest = PBMORTBBidRequest()
-        
+
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
-        
+
         PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
                                  sdkConfiguration: sdkConfiguration,
                                  sdkVersion: "MOCK_SDK_VERSION",
                                  targeting: targeting)
             .build(bidRequest)
-        
+
         PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
                                   sdkConfiguration: sdkConfiguration,
                                   targeting: targeting,
                                   userAgentService: MockUserAgentService())
             .build(bidRequest)
-        
+
         XCTAssertEqual(bidRequest.source.extOMID.omidpn, "Prebid")
         XCTAssertEqual(bidRequest.source.extOMID.omidpv, PBMFunctions.omidVersion())
-        
+
         targeting.omidPartnerVersion = "test omid version"
         targeting.omidPartnerName = "test omid name"
-        
+
         PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
                                  sdkConfiguration: sdkConfiguration,
                                  sdkVersion: "MOCK_SDK_VERSION",
                                  targeting: targeting)
             .build(bidRequest)
-        
+
         PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
                                   sdkConfiguration: sdkConfiguration,
                                   targeting: targeting,
                                   userAgentService: MockUserAgentService())
             .build(bidRequest)
-        
+
         XCTAssertEqual(bidRequest.source.extOMID.omidpn, "test omid name")
         XCTAssertEqual(bidRequest.source.extOMID.omidpv, "test omid version")
-        
+
         targeting.omidPartnerVersion = nil
         targeting.omidPartnerName = nil
     }
-    
+
     func testSubjectToCOPPA() {
         let bidRequest = PBMORTBBidRequest()
-        
+
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
-        
+
         targeting.subjectToCOPPA = true
-        
+
         PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
                                  sdkConfiguration: sdkConfiguration,
                                  sdkVersion: "MOCK_SDK_VERSION",
                                  targeting: targeting)
             .build(bidRequest)
-        
+
         PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
                                   sdkConfiguration: sdkConfiguration,
                                   targeting: targeting,
                                   userAgentService: MockUserAgentService())
             .build(bidRequest)
-        
+
         XCTAssertEqual(bidRequest.regs.coppa, 1)
-        
+
         targeting.subjectToCOPPA = false
-        
+
         PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
                                  sdkConfiguration: sdkConfiguration,
                                  sdkVersion: "MOCK_SDK_VERSION",
                                  targeting: targeting)
             .build(bidRequest)
-        
+
         PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
                                   sdkConfiguration: sdkConfiguration,
                                   targeting: targeting,
                                   userAgentService: MockUserAgentService())
             .build(bidRequest)
-        
+
         XCTAssertEqual(bidRequest.regs.coppa, 0)
     }
-    
+
     func testSubjectToGDPR() {
         let bidRequest = PBMORTBBidRequest()
-        
+
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
-        
+
         targeting.subjectToGDPR = true
-        
+
         PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
                                  sdkConfiguration: sdkConfiguration,
                                  sdkVersion: "MOCK_SDK_VERSION",
                                  targeting: targeting)
             .build(bidRequest)
-        
+
         PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
                                   sdkConfiguration: sdkConfiguration,
                                   targeting: targeting,
                                   userAgentService: MockUserAgentService())
             .build(bidRequest)
-        
+
         guard let extRegs = bidRequest.regs.ext as? [String: Any] else {
             XCTFail()
             return
         }
         XCTAssertEqual(extRegs["gdpr"] as? NSNumber, 1)
     }
-    
+
     func testGDPRConsentString() {
         let testGDPRConsentString = "test gdpr consent string"
         let bidRequest = PBMORTBBidRequest()
-        
+
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
-        
+
         targeting.gdprConsentString = testGDPRConsentString
-        
+
         PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
                                  sdkConfiguration: sdkConfiguration,
                                  sdkVersion: "MOCK_SDK_VERSION",
                                  targeting: targeting)
             .build(bidRequest)
-        
+
         PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
                                   sdkConfiguration: sdkConfiguration,
                                   targeting: targeting,
                                   userAgentService: MockUserAgentService())
             .build(bidRequest)
-        
+
         guard let userExt = bidRequest.user.ext as? [String: Any] else {
             XCTFail()
             return
         }
-        
+
         XCTAssertEqual(userExt["consent"] as? String, testGDPRConsentString)
     }
-    
+
     func testStoredBidResponses() {
         Prebid.shared.addStoredBidResponse(bidder: "testBidder", responseId: "testResponseId")
-        
+
         let bidRequest = PBMORTBBidRequest()
-        
+
         let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
         let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
-        
+
         PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
                                  sdkConfiguration: sdkConfiguration,
                                  sdkVersion: "MOCK_SDK_VERSION",
                                  targeting: targeting)
             .build(bidRequest)
-        
+
         PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
                                   sdkConfiguration: sdkConfiguration,
                                   targeting: targeting,
                                   userAgentService: MockUserAgentService())
             .build(bidRequest)
-        
+
         let resultStoredBidResponses = [
             [
                 "bidder": "testBidder",
                 "id" : "testResponseId"
             ]
         ]
-        
-        XCTAssertEqual(bidRequest.extPrebid.storedBidResponses, resultStoredBidResponses)  
+
+        XCTAssertEqual(bidRequest.extPrebid.storedBidResponses, resultStoredBidResponses)
     }
 }

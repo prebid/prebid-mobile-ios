@@ -320,7 +320,7 @@ class InterstitialViewController:
     
     func loadInAppVideoInterstitial() {
         renderingInterstitial = InterstitialRenderingAdUnit(configID: "12f58bc2-b664-4672-8d19-638bcc96fd5c")
-        renderingInterstitial.adFormat = .video
+        renderingInterstitial.adFormats = [.video]
         renderingInterstitial.delegate = self
         
         renderingInterstitial.loadAd()
@@ -329,7 +329,7 @@ class InterstitialViewController:
     func loadGAMRenderingVideoInterstitial() {
         let eventHandler = GAMInterstitialEventHandler(adUnitID: "/21808260008/prebid_oxb_interstitial_video")
         renderingInterstitial = InterstitialRenderingAdUnit(configID: "12f58bc2-b664-4672-8d19-638bcc96fd5c", eventHandler: eventHandler)
-        renderingInterstitial.adFormat = .video
+        renderingInterstitial.adFormats = [.video]
         renderingInterstitial.delegate = self
         
         renderingInterstitial.loadAd()

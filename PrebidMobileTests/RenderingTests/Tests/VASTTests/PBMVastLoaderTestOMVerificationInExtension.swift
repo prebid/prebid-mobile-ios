@@ -39,7 +39,7 @@ class PBMVastLoaderTestOMVerificationInExtension: XCTestCase {
         
         //Make an PBMAdConfiguration
         let adConfiguration = PBMAdConfiguration()
-        adConfiguration.adFormat = .videoInternal
+        adConfiguration.adFormats = [.video]
         
         let adLoadManager = MockPBMAdLoadManagerVAST(connection:conn, adConfiguration: adConfiguration)
         

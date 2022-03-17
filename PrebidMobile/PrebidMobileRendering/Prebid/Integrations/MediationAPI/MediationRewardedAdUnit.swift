@@ -24,6 +24,6 @@ public class MediationRewardedAdUnit : MediationBaseInterstitialAdUnit {
         super.init(configId: configId, mediationDelegate: mediationDelegate)
         
         adUnitConfig.isOptIn = true
-        adUnitConfig.adFormat = .video
+        adUnitConfig.adFormats = [.video]
     }
 }

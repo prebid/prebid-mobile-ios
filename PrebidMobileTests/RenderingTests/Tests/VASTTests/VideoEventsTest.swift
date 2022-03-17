@@ -70,7 +70,7 @@ class VideoEventsTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDelegat
         
         //Create adConfiguration
         let adConfiguration = PBMAdConfiguration()
-        adConfiguration.adFormat = .videoInternal
+        adConfiguration.adFormats = [.video]
         //        adConfiguration.domain = "foo.com/inline"
         
         //Create CreativeModel

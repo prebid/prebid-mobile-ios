@@ -42,9 +42,9 @@ public class MediationBannerAdUnit : NSObject {
         adUnitConfig.configId
     }
     
-    public var adFormat: AdFormat {
-        get { adUnitConfig.adFormat }
-        set { adUnitConfig.adFormat = newValue }
+    public var adFormats: Set<AdFormat> {
+        get { adUnitConfig.adFormats }
+        set { adUnitConfig.adFormats = newValue }
     }
     
     public var adPosition: AdPosition {

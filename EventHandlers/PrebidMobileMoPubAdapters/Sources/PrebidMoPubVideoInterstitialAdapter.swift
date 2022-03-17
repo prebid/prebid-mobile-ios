@@ -64,7 +64,7 @@ public class PrebidMoPubVideoInterstitialAdapter :
         interstitialController = InterstitialController(bid: bid, configId: configID)
         interstitialController?.loadingDelegate = self
         interstitialController?.interactionDelegate = self
-        interstitialController?.adFormat = .video
+        interstitialController?.adFormats = [.video]
         
         interstitialController?.loadAd()
         

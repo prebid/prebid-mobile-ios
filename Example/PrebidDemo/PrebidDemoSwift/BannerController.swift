@@ -415,7 +415,7 @@ class BannerController:
                               configID: "9007b76d-c73c-49c6-b0a8-1c7890a84b33",
                               adSize: CGSize(width: 300, height: 250))
         
-        prebidBannerView.adFormat = .video
+        prebidBannerView.adFormats = [.video]
         prebidBannerView.videoPlacementType = .inBanner
                                 
         prebidBannerView.delegate = self
@@ -435,7 +435,7 @@ class BannerController:
                               eventHandler: eventHandler)
                                 
         prebidBannerView.delegate = self
-        prebidBannerView.adFormat = .video
+        prebidBannerView.adFormats = [.video]
         
         appBannerView.addSubview(prebidBannerView)
         

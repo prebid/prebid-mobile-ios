@@ -36,7 +36,7 @@ class PrebidAdMobBannerViewController:
     var adMobAdUnitId = ""
     var adUnitSize = CGSize()
     var additionalAdSizes = [CGSize]()
-    var adFormat: AdFormat?
+    var adFormats: Set<AdFormat>?
     
     var request = GADRequest()
     
@@ -100,8 +100,8 @@ class PrebidAdMobBannerViewController:
         if additionalAdSizes.count > 0 {
             adUnit?.additionalSizes = additionalAdSizes
         }
-        if let adFormat = adFormat {
-            adUnit?.adFormat = adFormat
+        if let adFormats = adFormats {
+            adUnit?.adFormats = adFormats
         }
         
         

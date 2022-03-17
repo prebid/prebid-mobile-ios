@@ -20,7 +20,7 @@ import PrebidMobile
 class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigurableController, InterstitialAdUnitDelegate {
     
     var prebidConfigId = ""
-    var adFormat: AdFormat?
+    var adFormats: Set<AdFormat>?
     
     private var interstitialController : InterstitialRenderingAdUnit?
     
@@ -55,8 +55,8 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
         interstitialController = InterstitialRenderingAdUnit(configID: prebidConfigId,
                                                        minSizePercentage: CGSize(width: 30, height: 30))
         interstitialController?.delegate = self
-        if let adFormat = adFormat {
-            interstitialController?.adFormat = adFormat
+        if let adFormats = adFormats {
+            interstitialController?.adFormats = adFormats
         }
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {

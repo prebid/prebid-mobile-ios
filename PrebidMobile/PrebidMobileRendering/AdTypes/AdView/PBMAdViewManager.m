@@ -32,6 +32,9 @@
 
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @interface PBMAdViewManager ()
 
 @property (nonatomic, strong) id<PBMServerConnectionProtocol> serverConnection;
@@ -209,7 +212,7 @@
         if (self.currentCreative.view && self.currentCreative.view.superview) {
             [self.currentCreative.view removeFromSuperview];
         }
-    } else if (self.adConfiguration.adFormat == PBMAdFormatVideoInternal) {
+    } else if ([self.adConfiguration.adFormats containsObject:AdFormat.video]) {
         self.videoInterstitialDidClose = YES;
     }
     

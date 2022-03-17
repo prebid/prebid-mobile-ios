@@ -18,9 +18,9 @@ import UIKit
 
 public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     
-    @objc public var adFormat: AdFormat {
-        get { adConfiguration.adFormat }
-        set { adConfiguration.adFormat = newValue }
+    @objc public var adFormats: Set<AdFormat> {
+        get { adConfiguration.adFormats }
+        set { adConfiguration.adFormats = newValue }
     }
     
     /// Sets a video interstitial ad unit as an opt-in video

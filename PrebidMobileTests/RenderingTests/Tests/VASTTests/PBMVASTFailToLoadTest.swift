@@ -39,7 +39,7 @@ class PBMVASTFailToLoadTest: XCTestCase, PBMAdLoadManagerDelegate {
         let conn = UtilitiesForTesting.createConnectionForMockedTest()
         
         let adConfiguration = PBMAdConfiguration()
-        adConfiguration.adFormat = .videoInternal
+        adConfiguration.adFormats = [.video]
         
         let adLoadManager = PBMAdLoadManagerVAST(connection: conn, adConfiguration: PBMAdConfiguration())
         adLoadManager.adLoadManagerDelegate = self

@@ -102,7 +102,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     
     func testParameterBuilderInterstitialVAST() {
         let adUnit = InterstitialRenderingAdUnit.init(configID: "configId")
-        adUnit.adFormat = .video
+        adUnit.adFormats = [.video]
         let adConfiguration = adUnit.adUnitConfig.adConfiguration
         
         //Run the Builder
@@ -138,7 +138,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     
     func testParameterBuilderOutstream() {
         let adConfiguration = PBMAdConfiguration()
-        adConfiguration.adFormat = .videoInternal
+        adConfiguration.adFormats = [.video]
         adConfiguration.size = CGSize(width: 300, height: 250)
         
         //Run the Builder
@@ -278,11 +278,11 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         var adConfiguration: PBMAdConfiguration
         if (isInterstitial) {
             let adUnit = InterstitialRenderingAdUnit.init(configID: "configId")
-            adUnit.adFormat = .video
+            adUnit.adFormats = [.video]
             adConfiguration = adUnit.adUnitConfig.adConfiguration
         } else {
             let adUnit = BannerView.init(frame: CGRect.zero, configID: "configId", adSize: CGSize.zero)
-            adUnit.adFormat = .video
+            adUnit.adFormats = [.video]
             if (placement != .undefined) {
                 adUnit.videoPlacementType = placement
             }

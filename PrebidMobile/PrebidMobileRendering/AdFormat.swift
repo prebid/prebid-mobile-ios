@@ -15,7 +15,18 @@
 
 import Foundation
 
-@objc public enum AdFormat : Int {
-    case display
-    case video
+@objcMembers
+public class AdFormat: NSObject, OptionSet {
+    
+    public typealias RawValue = Int
+    
+    public let rawValue: Int
+    
+    public required init(rawValue: RawValue) {
+        self.rawValue = rawValue
+        super.init()
+    }
+    
+    public static let display = AdFormat(rawValue: 1 << 0)
+    public static let video = AdFormat(rawValue: 1 << 1)
 }

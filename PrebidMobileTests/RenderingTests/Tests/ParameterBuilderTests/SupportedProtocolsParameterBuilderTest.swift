@@ -21,7 +21,7 @@ class SupportedProtocolsParameterBuilderTest : XCTestCase {
     
     func testParameterBuilder() {
         let adConfiguration = PBMAdConfiguration()
-        adConfiguration.adFormat = .displayInternal
+        adConfiguration.adFormats = [.display]
         
         //Run the Builder
         let sdkConfig = Prebid.mock

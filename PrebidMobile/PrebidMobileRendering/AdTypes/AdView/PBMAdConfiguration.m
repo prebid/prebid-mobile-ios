@@ -17,6 +17,9 @@
 #import "PBMConstants.h"
 #import "PBMFunctions+Private.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #pragma mark - PBMAdConfiguration
 
 @implementation PBMAdConfiguration
@@ -64,7 +67,7 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
 - (nonnull instancetype)init {
     self = [super init];
     if (self) {
-        self.adFormat = PBMAdFormatDisplayInternal;
+        self.adFormats = [[NSSet alloc] initWithArray:@[AdFormat.display]];
         self.isInterstitialAd = NO;
         self.interstitialLayout = PBMInterstitialLayoutUndefined;
         self.isBuiltInVideo = NO;
@@ -88,7 +91,7 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
     
     PBMAdConfiguration *config = (PBMAdConfiguration *)object;
     
-    res = res && (self.adFormat == config.adFormat);
+    res = res && (self.adFormats == config.adFormats);
     res = res && (self.videoPlacementType == config.videoPlacementType);
 
     return res;
@@ -101,7 +104,7 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
 - (nonnull id)copyWithZone:(nullable NSZone *)zone {
     PBMAdConfiguration *config = [PBMAdConfiguration new];
     
-    config.adFormat = self.adFormat;
+    config.adFormats = self.adFormats;
     config.videoPlacementType = self.videoPlacementType;
     config.clickHandlerOverride = self.clickHandlerOverride;
     
