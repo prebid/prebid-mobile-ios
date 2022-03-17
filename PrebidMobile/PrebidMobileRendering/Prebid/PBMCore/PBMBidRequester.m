@@ -130,6 +130,7 @@
                     const NSTimeInterval appTimeout = rawTimeoutMS_onWrite / 1000.0;
                     const NSTimeInterval updatedTimeout = MIN(remoteTimeout, appTimeout);
                     self.sdkConfiguration.timeoutMillisDynamic = @(updatedTimeout);
+                    self.sdkConfiguration.timeoutUpdated = true;
                 };
             }
         }

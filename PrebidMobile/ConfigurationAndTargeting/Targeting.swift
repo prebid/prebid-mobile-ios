@@ -36,28 +36,6 @@ public class Targeting: NSObject {
     // MARK: - User Information
     
     /**
-     Indicates the end-user's age, in years.
-     */
-    public var userAge: NSNumber? {
-        get {
-            guard let stringValue = parameterDictionary[PrebidTargetingKey_AGE] else {
-                return nil
-            }
-            
-            return Int(stringValue) as NSNumber?
-        }
-        
-        set {
-            guard let value = newValue else {
-                parameterDictionary.removeValue(forKey: PrebidTargetingKey_AGE)
-                return
-            }
-            
-            parameterDictionary[PrebidTargetingKey_AGE] = value.stringValue
-        }
-    }
-    
-    /**
      Indicates user birth year.
      */
     public var yearOfBirth: Int {
@@ -74,6 +52,11 @@ public class Targeting: NSObject {
         } else {
             Log.error("Incorrect birth year. It will be ignored.")
         }
+    }
+    
+    // Objective C API
+    public func getYearOfBirth() -> NSNumber {
+        NSNumber(value: yearOfBirth)
     }
     
     /**
@@ -150,23 +133,22 @@ public class Targeting: NSObject {
     public var userExt: [String : AnyHashable]?
     
     // MARK: - COPPA
+    
+    /**
+     Objective C analog of subjectToCOPPA
+     */
+    public var coppa: NSNumber? {
+        set { subjectToCOPPA = newValue.boolValue }
+        get { subjectToCOPPA.nsNumberValue }
+    }
+    
     /**
      Integer flag indicating if this request is subject to the COPPA regulations
      established by the USA FTC, where 0 = no, 1 = yes
      */
-    public var coppa: NSNumber?
-    
-    /**
-     * The boolean value set by the user to collect user data
-     */
-    public var subjectToCOPPA: Bool {
-        set {
-            StorageUtils.setPbCoppa(value: newValue)
-        }
-        
-        get {
-            return StorageUtils.pbCoppa()
-        }
+    public var subjectToCOPPA: Bool? {
+        set { StorageUtils.setPbCoppa(value: newValue) }
+        get { StorageUtils.pbCoppa() }
     }
     
     // MARK: - GDPR
@@ -274,6 +256,24 @@ public class Targeting: NSObject {
         return purposeConsent
     }
     
+    //fetch advertising identifier based TCF 2.0 Purpose1 value
+    //truth table
+    /*
+                        deviceAccessConsent=true  deviceAccessConsent=false  deviceAccessConsent undefined
+     gdprApplies=false        Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
+     gdprApplies=true         Yes, read IDFA       No, don’t read IDFA           No, don’t read IDFA
+     gdprApplies=undefined    Yes, read IDFA       No, don’t read IDFA           Yes, read IDFA
+     */
+    public func isAllowedAccessDeviceData() -> Bool {
+        let deviceAccessConsent = getDeviceAccessConsent()
+        
+        if ((deviceAccessConsent == nil && (subjectToGDPR == nil || subjectToGDPR == false)) || deviceAccessConsent == true) {
+            return true
+        }
+        
+        return false
+    }
+    
     // MARK: - External User Ids
     
     public var externalUserIds = [ExternalUserId]()
@@ -324,17 +324,31 @@ public class Targeting: NSObject {
         }
     }
     
+    public func getExternalUserIds() -> [[AnyHashable: Any]]? {
+        var externalUserIdArray = [ExternalUserId]()
+        if Prebid.shared.externalUserIdArray.count != 0 {
+            externalUserIdArray = Prebid.shared.externalUserIdArray
+        } else {
+            externalUserIdArray = externalUserIds
+        }
+        var transformedUserIdArray = [[AnyHashable: Any]]()
+        for externalUserId in externalUserIdArray {
+            transformedUserIdArray.append(externalUserId.toJSONDictionary())
+        }
+        
+        if let eids = eids {
+            transformedUserIdArray.append(contentsOf: eids)
+        }
+        
+        return transformedUserIdArray.isEmpty ? nil : transformedUserIdArray
+    }
+    
     // MARK: - Application Information
     
     /**
      This is the deep-link URL for the app screen that is displaying the ad. This can be an iOS universal link.
      */
     public var contentUrl: String?
-    
-    public var appStoreMarketURL: String? {
-        get { parameterDictionary[PBMParameterKeys.APP_STORE_URL.rawValue] }
-        set { parameterDictionary[PBMParameterKeys.APP_STORE_URL.rawValue] = newValue }
-    }
     
     /**
      App's publisher name.
@@ -346,7 +360,10 @@ public class Targeting: NSObject {
      */
     public var sourceapp: String?
     
-    public var storeURL: String?
+    public var storeURL: String? {
+        get { parameterDictionary[PBMParameterKeys.APP_STORE_URL.rawValue] }
+        set { parameterDictionary[PBMParameterKeys.APP_STORE_URL.rawValue] = newValue }
+    }
     
     public var domain: String?
     
@@ -383,10 +400,6 @@ public class Targeting: NSObject {
 
     
     // MARK: - Public Methods
-    
-    public func resetUserAge() {
-        userAge = nil
-    }
     
     public func addParam(_ value: String, withName: String?) {
         guard let name = withName else {

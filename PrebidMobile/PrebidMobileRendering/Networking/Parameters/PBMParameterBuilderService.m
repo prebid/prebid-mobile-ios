@@ -103,9 +103,7 @@
 + (nonnull PBMORTBBidRequest *)createORTBBidRequestWithTargeting:(nonnull Targeting *)targeting {
     PBMORTBBidRequest *bidRequest = [PBMORTBBidRequest new];
     
-    bidRequest.user.yob = targeting.userAge > 0 ?
-        @([PBMAgeUtils yobForAge:targeting.userAge.intValue])
-        : nil;
+    bidRequest.user.yob = [targeting getYearOfBirth];
     
     bidRequest.user.gender      = targeting.userGenderDescription;
     bidRequest.user.buyeruid    = targeting.buyerUID;
@@ -116,11 +114,13 @@
         bidRequest.user.ext = [targeting.userExt mutableCopy];
     }
     
-    if (targeting.eids) {
-        [bidRequest.user appendEids:targeting.eids];
+    if ([targeting getExternalUserIds]) {
+        [bidRequest.user appendEids:[targeting getExternalUserIds]];
     }
     
-    bidRequest.app.storeurl = targeting.appStoreMarketURL;
+    bidRequest.app.storeurl = targeting.storeURL;
+    bidRequest.app.domain = targeting.domain;
+    bidRequest.app.bundle = targeting.itunesID;
     
     if (targeting.publisherName) {
         if (!bidRequest.app.publisher) {
@@ -136,7 +136,6 @@
         bidRequest.user.geo.lat = @(coord2d.latitude);
         bidRequest.user.geo.lon = @(coord2d.longitude);
     }
-    
     return bidRequest;
 }
 

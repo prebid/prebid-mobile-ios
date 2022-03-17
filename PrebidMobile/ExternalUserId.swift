@@ -19,7 +19,7 @@ import UIKit
  Defines the User Id Object from an External Thrid Party Source
  */
 @objcMembers
-public class ExternalUserId: NSObject, NSCoding {
+public class ExternalUserId: NSObject, NSCoding, JSONConvertible {
     
     // MARK: - Properties
     public var source: String
@@ -55,5 +55,21 @@ public class ExternalUserId: NSObject, NSCoding {
         self.identifier = coder.decodeObject(forKey: "identifier") as? String ?? ""
         self.atype = coder.decodeObject(forKey: "atype") as? NSNumber
         self.ext = coder.decodeObject(forKey: "ext") as? [String: Any]
+    }
+    
+    public func toJSONDictionary() -> [AnyHashable: Any] {
+        guard source.count != 0 && identifier.count != 0 else {
+            return [:]
+        }
+        var transformedEUIdDic = [AnyHashable: Any]()
+        transformedEUIdDic["source"] = source
+        
+        var externalUserIdDict = [AnyHashable: Any] ()
+        externalUserIdDict["id"] = identifier
+        externalUserIdDict["atype"] = atype
+        externalUserIdDict["ext"] = ext
+        
+        transformedEUIdDic["uids"] = [externalUserIdDict]
+        return transformedEUIdDic
     }
 }

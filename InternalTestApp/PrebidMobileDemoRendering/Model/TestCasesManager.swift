@@ -208,7 +208,7 @@ struct TestCaseManager {
         }
         
         if let value = openRtb["url"] as? String {
-            targeting.appStoreMarketURL = value
+            targeting.storeURL = value
         }
         
         if let value = openRtb["gen"] as? String {

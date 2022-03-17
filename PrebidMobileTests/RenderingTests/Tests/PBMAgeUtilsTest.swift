@@ -18,15 +18,6 @@ import XCTest
 
 class PBMAgeUtilsTest: XCTestCase {
     
-    func testYobForAge() {
-        let age = 42
-        let date = Date()
-        let calendar = Calendar.current
-        let yob = calendar.component(.year, from: date) - age
-        
-        XCTAssertEqual(PBMAgeUtils.yob(forAge:age), yob)
-    }
-    
     func testIsYOBValid() {
         let age = 1985
         XCTAssertTrue(PBMAgeUtils.isYOBValid(age))

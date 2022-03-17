@@ -110,7 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) PBMORTBImpExtPrebid *extPrebid;
 @property (nonatomic, strong) PBMORTBImpExtSkadn  *extSkadn;
 
-@property (nonatomic, strong, nullable) NSDictionary<NSString *, NSArray<NSString *> *> *extContextData;
+@property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, id> *extContextData;
 
 - (instancetype)init;
 

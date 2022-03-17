@@ -24,6 +24,7 @@ class ParameterBuilderServiceTest : XCTestCase {
     
     override func setUp() {
         UtilitiesForTesting.resetTargeting(.shared)
+        Prebid.shared.shareGeoLocation = true
     }
     
     override func tearDown() {
@@ -41,11 +42,10 @@ class ParameterBuilderServiceTest : XCTestCase {
         let targeting = Targeting.shared
         targeting.parameterDictionary.removeAll()
         targeting.parameterDictionary["foo"] = "bar"
-        targeting.userAge = 10
         targeting.coppa = 1
         targeting.userGender = .male
         targeting.buyerUID = "buyerUID"
-        targeting.appStoreMarketURL = url
+        targeting.storeURL = url
         targeting.keywords = "keyword1,keyword2"
         targeting.userCustomData = "customDataString"
         targeting.publisherName = publisherName
@@ -132,7 +132,7 @@ class ParameterBuilderServiceTest : XCTestCase {
             return
         }
         
-        let yob = PBMAgeUtils.yob(forAge:targeting.userAge as! Int)
+        let yob = Targeting.shared.yearOfBirth;
         let omidVersion = PBMFunctions.omidVersion()
         var deviceExt = ""
         if #available(iOS 14.0, *) {

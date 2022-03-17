@@ -44,8 +44,12 @@
         };
     };
     
-    if(self.storedAuctionResponse) {
+    if (self.storedAuctionResponse) {
         ret[@"storedauctionresponse"] = @{@"id":self.storedAuctionResponse};
+    }
+    
+    if (self.storedBidResponses) {
+        ret[@"storedbidresponse"] = self.storedBidResponses;
     }
     
     return ret;
@@ -58,6 +62,7 @@
     _storedRequestID = jsonDictionary[@"storedrequest"][@"id"];
     _dataBidders = jsonDictionary[@"data"][@"bidders"];
     _storedAuctionResponse = jsonDictionary[@"storedauctionresponse"][@"id"];
+    _storedBidResponses = jsonDictionary[@"storedbidresponse"];
     return self;
 }
 

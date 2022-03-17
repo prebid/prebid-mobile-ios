@@ -136,6 +136,18 @@ public class Prebid: NSObject {
         storedBidResponses.removeAll()
     }
     
+    public func getStoredBidResponses() -> [[String: String]]? {
+        var storedBidResponses: [[String: String]] = []
+
+        for(bidder, responseId) in Prebid.shared.storedBidResponses {
+            var storedBidResponse: [String: String] = [:]
+            storedBidResponse["bidder"] = bidder
+            storedBidResponse["id"] = responseId
+            storedBidResponses.append(storedBidResponse)
+        }
+        return storedBidResponses.isEmpty ? nil : storedBidResponses
+    }
+    
     // MARK: - Custom Headers
     
     public func addCustomHeader(name: String, value: String) {

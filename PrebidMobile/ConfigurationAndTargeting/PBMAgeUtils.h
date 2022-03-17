@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMAgeUtils: NSObject
 
-+ (NSInteger)yobForAge:(NSInteger)age;
 + (BOOL)isYOBValid:(NSInteger)yob;
 
 @end

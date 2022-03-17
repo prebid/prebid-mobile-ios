@@ -28,11 +28,11 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         targeting = .shared
         targeting.parameterDictionary["foo"] = "bar"
-        targeting.userAge = 10
     }
     
     override func tearDown() {
         logToFile = nil
+        targeting.coppa = nil
         
         super.tearDown()
     }

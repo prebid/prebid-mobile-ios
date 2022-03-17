@@ -21,6 +21,10 @@ import CoreLocation
 
 class GeoLocationParameterBuilderTest : XCTestCase {
     
+    override func setUp() {
+        Prebid.shared.shareGeoLocation = true
+    }
+    
     func testBasic() {
         let mockLocationManagerSuccessful: MockLocationManagerSuccessful = MockLocationManagerSuccessful.shared
         let builder = GeoLocationParameterBuilder(locationManager:mockLocationManagerSuccessful)

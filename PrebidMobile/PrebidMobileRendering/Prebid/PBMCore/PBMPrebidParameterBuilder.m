@@ -66,6 +66,7 @@
     bidRequest.extPrebid.storedRequestID        = self.sdkConfiguration.accountID;
     bidRequest.extPrebid.storedAuctionResponse  = Prebid.shared.storedAuctionResponse;
     bidRequest.extPrebid.dataBidders            = self.targeting.accessControlList;
+    bidRequest.extPrebid.storedBidResponses     = [Prebid.shared getStoredBidResponses];
     bidRequest.app.publisher.publisherID        = self.sdkConfiguration.accountID;
     
     bidRequest.app.ver          = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
@@ -75,6 +76,20 @@
     
     bidRequest.app.content = [self.adConfiguration getAppContent];
     bidRequest.user.ext[@"data"] = self.targeting.userDataDictionary;
+    
+    if (self.targeting.gdprConsentString && self.targeting.gdprConsentString.length > 0) {
+        bidRequest.user.ext[@"consent"] = self.targeting.gdprConsentString;
+    }
+    
+    PBMORTBSourceExtOMID *extSource = [PBMORTBSourceExtOMID new];
+    if (Targeting.shared.omidPartnerName) {
+        extSource.omidpn = Targeting.shared.omidPartnerName;
+    }
+    if (Targeting.shared.omidPartnerVersion) {
+        extSource.omidpv = Targeting.shared.omidPartnerVersion;
+    }
+    
+    bidRequest.source.extOMID = extSource;
     
     NSArray<PBMORTBFormat *> *formats = nil;
     const NSInteger formatsCount = (CGSizeEqualToSize(self.adConfiguration.adSize, CGSizeZero) ? 0 : 1) + self.adConfiguration.additionalSizes.count;
@@ -119,7 +134,8 @@
         nextImp.extPrebid.storedRequestID = self.adConfiguration.configId;
         nextImp.extPrebid.storedAuctionResponse = Prebid.shared.storedAuctionResponse;
         nextImp.extPrebid.isRewardedInventory = self.adConfiguration.isOptIn;
-        nextImp.extContextData = self.adConfiguration.contextDataDictionary;
+        nextImp.extContextData = self.adConfiguration.contextDataDictionary.mutableCopy;
+        nextImp.extContextData[@"adslot"] = [self.adConfiguration getPbAdSlot];
         switch (adFormat) {
             case PBMAdFormatDisplayInternal: {
                 PBMORTBBanner * const nextBanner = nextImp.banner;

@@ -28,7 +28,7 @@ limitations under the License.
 }
 
 - (void)tearDown {
-    Targeting.shared.subjectToCOPPA = false;
+    Targeting.shared.coppa = nil;
     Targeting.shared.subjectToGDPR = nil;
     Targeting.shared.gdprConsentString = nil;
     Targeting.shared.purposeConsents = nil;
@@ -183,17 +183,13 @@ limitations under the License.
 //MARK: - COPPA
 - (void)testSubjectToCOPPA {
     //given
-    BOOL subjectToCOPPA = YES;
-    Targeting.shared.subjectToCOPPA = subjectToCOPPA;
+    Targeting.shared.coppa = @(1);
     
-    //when
-    BOOL result = Targeting.shared.subjectToCOPPA;
-
     //then
-    XCTAssertEqual(subjectToCOPPA, result);
+    XCTAssertTrue([Targeting.shared.coppa isEqual:@(1)]);
     
     //defer
-    Targeting.shared.subjectToCOPPA = false;
+    Targeting.shared.coppa = nil;
 }
 
 //MARK: - GDPR Subject

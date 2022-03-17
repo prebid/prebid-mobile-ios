@@ -34,6 +34,7 @@ extension Prebid {
         
         Prebid.forcedIsViewable = false
         Prebid.shared.clearCustomHeaders()
+        Prebid.shared.clearStoredBidResponses()
     }
     
     static var forcedIsViewable: Bool {
