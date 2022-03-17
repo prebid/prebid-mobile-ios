@@ -168,7 +168,7 @@
 }
 
 -(void) enableCOPPA {
-    Targeting.shared.subjectToCOPPA = true;
+    Targeting.shared.coppa = @(1);
 }
 
 -(void) addFirstPartyData:(AdUnit *)adUnit {
