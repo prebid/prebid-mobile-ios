@@ -203,8 +203,8 @@ struct TestCaseManager {
     static func updateUserData(_ openRtb: [String: Any]) {
         let targeting = Targeting.shared
         
-        if let age = openRtb["age"] as? NSNumber {
-            targeting.userAge = age
+        if let age = openRtb["age"] as? Int {
+            targeting.yearOfBirth = age
         }
         
         if let value = openRtb["url"] as? String {
