@@ -885,10 +885,10 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
-            // MARK: ---- Interstitial Multiformat (In-App)
+            // MARK: ---- Multiformat Interstitial (In-App)
             
             TestCase(title: "Multiformat Interstitial 320x480 (In-App)",
-                     tags: [.interstitial, .inapp, .mock],
+                     tags: [.interstitial, .video, .inapp, .mock],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -989,6 +989,27 @@ struct TestCaseManager {
                 adapterVC.setup(adapter: gamInterstitialController)
                         
                 setupCustomParams(for: gamInterstitialController.prebidConfigId)
+            }),
+            
+            // MARK: ---- Multiformat Interstitial (GAM)
+            
+            TestCase(title: "Multiformat Interstitial 320x480 (GAM)",
+                     tags: [.interstitial, .video, .gam, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let randomId = [0, 1].randomElement() ?? 0
+                let interstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
+                let gamAdUnitIds = ["/21808260008/prebid_html_interstitial", "/21808260008/prebid_oxb_interstitial_video"]
+                interstitialController.adFormats = [.display, .video]
+                let prebidConfigIds = ["mock-display-interstitial-320-480", "mock-video-interstitial-320-480"]
+                interstitialController.prebidConfigId = prebidConfigIds[randomId]
+                interstitialController.gamAdUnitId = gamAdUnitIds[randomId]
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             // MARK: ---- Interstitial (MoPub) ----
