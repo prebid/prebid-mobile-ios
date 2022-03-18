@@ -885,6 +885,24 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
+            // MARK: ---- Interstitial Multiformat (In-App)
+            
+            TestCase(title: "Multiformat Interstitial 320x480 (In-App)",
+                     tags: [.interstitial, .inapp, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.adFormats = [.display, .video]
+                let prebidConfigIds = ["mock-display-interstitial-320-480", "mock-video-interstitial-320-480"]
+                interstitialController.prebidConfigId = prebidConfigIds.randomElement() ?? prebidConfigIds[0]
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
             // MARK: ---- Interstitial (GAM) ----
             
             TestCase(title: "Display Interstitial 320x480 (GAM) [OK, AppEvent]",
