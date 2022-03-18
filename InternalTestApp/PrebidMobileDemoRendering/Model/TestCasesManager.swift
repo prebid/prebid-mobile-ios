@@ -1100,6 +1100,27 @@ struct TestCaseManager {
                 setupCustomParams(for: mopubInterstitialController.prebidConfigId)
             }),
             
+            // MARK: ---- Multiformat Interstitial (MoPub)
+            
+            TestCase(title: "Multiformat Interstitial 320x480 (MoPub)",
+                     tags: [.interstitial, .video, .mopub, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let randomId = [0, 1].randomElement() ?? 0
+                let interstitialController = PrebidMoPubInterstitialController(rootController: adapterVC)
+                let mopubAdUnitIds = ["5a4b8dcf-f984-4b04-9448-6529908d6cb6", "106bea23b1f744e794646b4b577028a0"]
+                interstitialController.adFormats = [.display, .video]
+                let prebidConfigIds = ["mock-display-interstitial-320-480", "mock-video-interstitial-320-480"]
+                interstitialController.prebidConfigId = prebidConfigIds[randomId]
+                interstitialController.moPubAdUnitId = mopubAdUnitIds[randomId]
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
             // MARK: ---- Video Interstitial (In-App) ----
             
             TestCase(title: "Video Interstitial 320x480 (In-App)",
@@ -2540,6 +2561,27 @@ struct TestCaseManager {
                 adapterVC.setup(adapter: admobInterstitialController)
                         
                 setupCustomParams(for: admobInterstitialController.prebidConfigId)
+            }),
+            
+            // MARK: ---- Multiformat Interstitial (AdMob)
+            
+            TestCase(title: "Multiformat Interstitial 320x480 (AdMob)",
+                     tags: [.interstitial, .video, .admob, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let randomId = [0, 1].randomElement() ?? 0
+                let interstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
+                let admobAdUnitIds = ["ca-app-pub-5922967660082475/3383099861", "ca-app-pub-5922967660082475/4527792002"]
+                interstitialController.adFormats = [.display, .video]
+                let prebidConfigIds = ["mock-display-interstitial-320-480", "mock-video-interstitial-320-480"]
+                interstitialController.prebidConfigId = prebidConfigIds[randomId]
+                interstitialController.adMobAdUnitId = admobAdUnitIds[randomId]
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             // MARK: ---- Video Rewarded (AdMob) ----
