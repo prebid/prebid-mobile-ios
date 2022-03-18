@@ -187,7 +187,7 @@
     self.adViewManager = [[PBMAdViewManager alloc] initWithConnection:connection modalManagerDelegate:self];
     self.adViewManager.adViewManagerDelegate = self;
     self.adViewManager.adConfiguration = self.adConfiguration.adConfiguration;
-    if (self.adConfiguration.adConfiguration.winningBidAdFormat == AdFormat.video) {
+    if ([self.adConfiguration.adConfiguration.adFormats containsObject:AdFormat.video]) {
         self.adConfiguration.adConfiguration.isBuiltInVideo = YES;
     }
     [self.adViewManager handleExternalTransaction:transaction];

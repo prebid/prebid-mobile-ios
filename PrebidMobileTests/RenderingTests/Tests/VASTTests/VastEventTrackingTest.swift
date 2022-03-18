@@ -63,6 +63,7 @@ class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
         //Create adConfiguration
         let adConfiguration = PBMAdConfiguration()
         adConfiguration.adFormats = [.video]
+        adConfiguration.winningBidAdFormat = .video
 
         adConfiguration.isInterstitialAd = true
         

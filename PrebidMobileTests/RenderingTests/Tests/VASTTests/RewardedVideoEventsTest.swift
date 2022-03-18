@@ -60,6 +60,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
         
         let connection = UtilitiesForTesting.createConnectionForMockedTest()
         let adConfiguration = self.initAdConfiguration()
+        adConfiguration.winningBidAdFormat = .video
         
         MockServer.shared.resetRules(
             self.createGeneralMockServerRules(connectionID: connection.internalID) +
