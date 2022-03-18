@@ -68,6 +68,8 @@
         return;
     }
     
+    self.adConfiguration.adConfiguration.winningBidAdFormat = self.bid.adFormat;
+    
     @weakify(self);
     self.transactionFactory = [[PBMTransactionFactory alloc] initWithBid:self.bid
                                                          adConfiguration:self.adConfiguration
@@ -187,7 +189,7 @@
     self.adViewManager = [[PBMAdViewManager alloc] initWithConnection:connection modalManagerDelegate:self];
     self.adViewManager.adViewManagerDelegate = self;
     self.adViewManager.adConfiguration = self.adConfiguration.adConfiguration;
-    if ([self.adConfiguration.adConfiguration.adFormats containsObject:AdFormat.video]) {
+    if (self.adConfiguration.adConfiguration.winningBidAdFormat == AdFormat.video) {
         self.adConfiguration.adConfiguration.isBuiltInVideo = YES;
     }
     [self.adViewManager handleExternalTransaction:transaction];
