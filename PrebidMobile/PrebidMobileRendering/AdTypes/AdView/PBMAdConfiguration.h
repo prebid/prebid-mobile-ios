@@ -82,6 +82,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL isBuiltInVideo;
 
+@property (nonatomic, strong, nullable) AdFormat *winningBidAdFormat;
+
 #pragma mark - Impression Tracking
 
 @property (nonatomic, assign) NSTimeInterval pollFrequency;

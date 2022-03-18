@@ -56,6 +56,10 @@ public class AdUnitConfig: NSObject, NSCopying {
     public var refreshInterval: TimeInterval {
         get { _refreshInterval }
         set {
+            if adConfiguration.winningBidAdFormat == .video {
+                PBMLog.warn("'refreshInterval' property is not assignable for Outstream Video ads")
+                return
+            }
             if newValue < 0 {
                 _refreshInterval  = 0
             } else {

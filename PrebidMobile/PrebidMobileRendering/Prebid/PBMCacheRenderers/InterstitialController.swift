@@ -57,7 +57,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         guard transactionFactory == nil else {
             return
         }
-
+        print("WINNING AD FORMAT: \(adConfiguration.adConfiguration.winningBidAdFormat?.stringEquivalent)")
         transactionFactory = PBMTransactionFactory(bid: bid,
                                                    adConfiguration: adConfiguration,
                                                    connection: PBMServerConnection.shared,

@@ -212,7 +212,7 @@
         if (self.currentCreative.view && self.currentCreative.view.superview) {
             [self.currentCreative.view removeFromSuperview];
         }
-    } else if ([self.adConfiguration.adFormats containsObject:AdFormat.video]) {
+    } else if (self.adConfiguration.winningBidAdFormat == AdFormat.video) {
         self.videoInterstitialDidClose = YES;
     }
     

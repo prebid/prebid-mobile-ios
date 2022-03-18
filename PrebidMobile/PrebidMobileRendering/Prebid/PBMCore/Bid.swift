@@ -54,6 +54,11 @@ public class Bid: NSObject {
         return bid.ext.skadn
     }
     
+    /// Prebid ad format
+    @objc public var adFormat: AdFormat? {
+        AdFormat.allCases.filter { $0.stringEquivalent == bid.ext.prebid?.type }.first
+    }
+    
     /// Returns YES if this bid is intented for display.
     @objc public var isWinning: Bool {
         guard let targetingInfo = self.targetingInfo else {
