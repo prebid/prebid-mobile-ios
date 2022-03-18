@@ -282,7 +282,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
             adConfiguration = adUnit.adUnitConfig.adConfiguration
         } else {
             let adUnit = BannerView.init(frame: CGRect.zero, configID: "configId", adSize: CGSize.zero)
-            adUnit.adFormats = [.video]
+            adUnit.adFormat = .video
             if (placement != .undefined) {
                 adUnit.videoPlacementType = placement
             }
