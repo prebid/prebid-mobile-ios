@@ -121,11 +121,6 @@ public class Prebid: NSObject {
         try Host.shared.setCustomHostURL(url)
     }
     
-    // Objective C API for logLevel
-    public func setLogLevel(_ logLevel: LogLevel_) {
-        self.logLevel = logLevel.getPrimary()
-    }
-    
     // MARK: - Stored Bid Response
     
     public func addStoredBidResponse(bidder: String, responseId: String) {
