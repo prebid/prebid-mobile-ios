@@ -885,6 +885,24 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
+            // MARK: ---- Multiformat Interstitial (In-App)
+            
+            TestCase(title: "Multiformat Interstitial 320x480 (In-App)",
+                     tags: [.interstitial, .video, .inapp, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.adFormats = [.display, .video]
+                let prebidConfigIds = ["mock-display-interstitial-320-480", "mock-video-interstitial-320-480"]
+                interstitialController.prebidConfigId = prebidConfigIds.randomElement() ?? prebidConfigIds[0]
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
             // MARK: ---- Interstitial (GAM) ----
             
             TestCase(title: "Display Interstitial 320x480 (GAM) [OK, AppEvent]",
@@ -971,6 +989,27 @@ struct TestCaseManager {
                 adapterVC.setup(adapter: gamInterstitialController)
                         
                 setupCustomParams(for: gamInterstitialController.prebidConfigId)
+            }),
+            
+            // MARK: ---- Multiformat Interstitial (GAM)
+            
+            TestCase(title: "Multiformat Interstitial 320x480 (GAM)",
+                     tags: [.interstitial, .video, .gam, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let randomId = [0, 1].randomElement() ?? 0
+                let interstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
+                let gamAdUnitIds = ["/21808260008/prebid_html_interstitial", "/21808260008/prebid_oxb_interstitial_video"]
+                interstitialController.adFormats = [.display, .video]
+                let prebidConfigIds = ["mock-display-interstitial-320-480", "mock-video-interstitial-320-480"]
+                interstitialController.prebidConfigId = prebidConfigIds[randomId]
+                interstitialController.gamAdUnitId = gamAdUnitIds[randomId]
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             // MARK: ---- Interstitial (MoPub) ----
@@ -1061,6 +1100,27 @@ struct TestCaseManager {
                 setupCustomParams(for: mopubInterstitialController.prebidConfigId)
             }),
             
+            // MARK: ---- Multiformat Interstitial (MoPub)
+            
+            TestCase(title: "Multiformat Interstitial 320x480 (MoPub)",
+                     tags: [.interstitial, .video, .mopub, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let randomId = [0, 1].randomElement() ?? 0
+                let interstitialController = PrebidMoPubInterstitialController(rootController: adapterVC)
+                let mopubAdUnitIds = ["5a4b8dcf-f984-4b04-9448-6529908d6cb6", "106bea23b1f744e794646b4b577028a0"]
+                interstitialController.adFormats = [.display, .video]
+                let prebidConfigIds = ["mock-display-interstitial-320-480", "mock-video-interstitial-320-480"]
+                interstitialController.prebidConfigId = prebidConfigIds[randomId]
+                interstitialController.moPubAdUnitId = mopubAdUnitIds[randomId]
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
             // MARK: ---- Video Interstitial (In-App) ----
             
             TestCase(title: "Video Interstitial 320x480 (In-App)",
@@ -1072,7 +1132,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "mock-video-interstitial-320-480"
-                interstitialController.adFormat = .video
+                interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -1092,7 +1152,7 @@ struct TestCaseManager {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     interstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
-                interstitialController.adFormat = .video
+                interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -1111,7 +1171,7 @@ struct TestCaseManager {
                 } else {
                     interstitialController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
-                interstitialController.adFormat = .video
+                interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -1126,7 +1186,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "mock-video-interstitial-vertical"
-                interstitialController.adFormat = .video
+                interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -1141,7 +1201,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "mock-video-interstitial-320-480-deeplink"
-                interstitialController.adFormat = .video
+                interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1157,7 +1217,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "mock-video-interstitial-320-480-skip-offset"
-                interstitialController.adFormat = .video
+                interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1173,7 +1233,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "mock-video-interstitial-mp4"
-                interstitialController.adFormat = .video
+                interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1189,7 +1249,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "mock-video-interstitial-m4v"
-                interstitialController.adFormat = .video
+                interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1205,7 +1265,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "mock-video-interstitial-mov"
-                interstitialController.adFormat = .video
+                interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1221,7 +1281,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "mock-video-interstitial-mraid-end-card"
-                interstitialController.adFormat = .video
+                interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1237,7 +1297,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "mock-video-interstitial-320-480-skadn"
-                interstitialController.adFormat = .video
+                interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1259,7 +1319,7 @@ struct TestCaseManager {
                 } else {
                     gamInterstitialController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
-                gamInterstitialController.adFormat = .video
+                gamInterstitialController.adFormats = [.video]
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_interstitial_video"
                 adapterVC.setup(adapter: gamInterstitialController)
                         
@@ -1275,7 +1335,7 @@ struct TestCaseManager {
                 }
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 gamInterstitialController.prebidConfigId = "mock-video-interstitial-320-480"
-                gamInterstitialController.adFormat = .video
+                gamInterstitialController.adFormats = [.video]
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_320x480_interstitial_video_random"
                 adapterVC.setup(adapter: gamInterstitialController)
                         
@@ -1296,7 +1356,7 @@ struct TestCaseManager {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     gamInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
-                gamInterstitialController.adFormat = .video
+                gamInterstitialController.adFormats = [.video]
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_320x480_interstitial_video_static"
                 adapterVC.setup(adapter: gamInterstitialController)
                         
@@ -1312,7 +1372,7 @@ struct TestCaseManager {
                 }
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 gamInterstitialController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
-                gamInterstitialController.adFormat = .video
+                gamInterstitialController.adFormats = [.video]
                
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_interstitial_video"
                 adapterVC.setup(adapter: gamInterstitialController)
@@ -1335,7 +1395,7 @@ struct TestCaseManager {
                 } else {
                     mopubInterstitialController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
-                mopubInterstitialController.adFormat = .video
+                mopubInterstitialController.adFormats = [.video]
                 mopubInterstitialController.moPubAdUnitId = "7e3146fc0c744afebc8547a4567da895"
                 adapterVC.setup(adapter: mopubInterstitialController)
                         
@@ -1351,7 +1411,7 @@ struct TestCaseManager {
                 }
                 let mopubInterstitialController = PrebidMoPubInterstitialController(rootController: adapterVC)
                 mopubInterstitialController.prebidConfigId = "mock-video-interstitial-320-480"
-                mopubInterstitialController.adFormat = .video
+                mopubInterstitialController.adFormats = [.video]
                 mopubInterstitialController.moPubAdUnitId = "106bea23b1f744e794646b4b577028a0"
                 adapterVC.setup(adapter: mopubInterstitialController)
                         
@@ -1372,7 +1432,7 @@ struct TestCaseManager {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     mopubInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
-                mopubInterstitialController.adFormat = .video
+                mopubInterstitialController.adFormats = [.video]
                 mopubInterstitialController.moPubAdUnitId = "d9757eb3f9364aafa1eb8d7d702be36b"
                 adapterVC.setup(adapter: mopubInterstitialController)
                         
@@ -1388,7 +1448,7 @@ struct TestCaseManager {
                 }
                 let mopubInterstitialController = PrebidMoPubInterstitialController(rootController: adapterVC)
                 mopubInterstitialController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
-                mopubInterstitialController.adFormat = .video
+                mopubInterstitialController.adFormats = [.video]
                 
                 mopubInterstitialController.moPubAdUnitId = "7c97bc24de78482e9f53d8d073b3a2e4"
                 adapterVC.setup(adapter: mopubInterstitialController)
@@ -2459,7 +2519,7 @@ struct TestCaseManager {
                 } else {
                     admobInterstitialController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
-                admobInterstitialController.adFormat = .video
+                admobInterstitialController.adFormats = [.video]
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                 adapterVC.setup(adapter: admobInterstitialController)
                         
@@ -2475,7 +2535,7 @@ struct TestCaseManager {
                 }
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 admobInterstitialController.prebidConfigId = "mock-video-interstitial-320-480"
-                admobInterstitialController.adFormat = .video
+                admobInterstitialController.adFormats = [.video]
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                 adapterVC.setup(adapter: admobInterstitialController)
                         
@@ -2496,11 +2556,32 @@ struct TestCaseManager {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     admobInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
                 }
-                admobInterstitialController.adFormat = .video
+                admobInterstitialController.adFormats = [.video]
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                 adapterVC.setup(adapter: admobInterstitialController)
                         
                 setupCustomParams(for: admobInterstitialController.prebidConfigId)
+            }),
+            
+            // MARK: ---- Multiformat Interstitial (AdMob)
+            
+            TestCase(title: "Multiformat Interstitial 320x480 (AdMob)",
+                     tags: [.interstitial, .video, .admob, .mock],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let randomId = [0, 1].randomElement() ?? 0
+                let interstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
+                let admobAdUnitIds = ["ca-app-pub-5922967660082475/3383099861", "ca-app-pub-5922967660082475/4527792002"]
+                interstitialController.adFormats = [.display, .video]
+                let prebidConfigIds = ["mock-display-interstitial-320-480", "mock-video-interstitial-320-480"]
+                interstitialController.prebidConfigId = prebidConfigIds[randomId]
+                interstitialController.adMobAdUnitId = admobAdUnitIds[randomId]
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
             // MARK: ---- Video Rewarded (AdMob) ----

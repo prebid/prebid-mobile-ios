@@ -22,7 +22,7 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
     
     var prebidConfigId = ""
     var gamAdUnitId = ""
-    var adFormat: AdFormat?
+    var adFormats: Set<AdFormat>?
     
     private var interstitialController : InterstitialRenderingAdUnit?
     
@@ -59,8 +59,8 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
                                                     minSizePercentage: CGSize(width: 30, height: 30),
                                                     eventHandler: eventHandler)
         interstitialController?.delegate = self
-        if let adFormat = adFormat {
-            interstitialController?.adFormat = adFormat
+        if let adFormats = adFormats {
+            interstitialController?.adFormats = adFormats
         }
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {

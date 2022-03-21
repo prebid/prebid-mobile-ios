@@ -341,7 +341,6 @@
 		5BC379C0271F1D0000444D5E /* PBMInterstitialDisplayProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3776D271F1CFE00444D5E /* PBMInterstitialDisplayProperties.m */; };
 		5BC379C1271F1D0000444D5E /* PBMAbstractCreative.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3776E271F1CFE00444D5E /* PBMAbstractCreative.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC379C2271F1D0000444D5E /* PBMWKWebViewCompatible.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3776F271F1CFE00444D5E /* PBMWKWebViewCompatible.h */; };
-		5BC379C3271F1D0000444D5E /* PBMAdFormatInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37770271F1CFE00444D5E /* PBMAdFormatInternal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC379C4271F1D0000444D5E /* PBMClickthroughBrowserNavigationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37771271F1CFE00444D5E /* PBMClickthroughBrowserNavigationHandler.m */; };
 		5BC379C5271F1D0000444D5E /* PBMAdRequesterVAST.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37772271F1CFE00444D5E /* PBMAdRequesterVAST.m */; };
 		5BC379C6271F1D0000444D5E /* PBMAdViewButtonDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37773271F1CFE00444D5E /* PBMAdViewButtonDecorator.m */; };
@@ -1175,7 +1174,6 @@
 		5BC3776D271F1CFE00444D5E /* PBMInterstitialDisplayProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMInterstitialDisplayProperties.m; sourceTree = "<group>"; };
 		5BC3776E271F1CFE00444D5E /* PBMAbstractCreative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMAbstractCreative.h; sourceTree = "<group>"; };
 		5BC3776F271F1CFE00444D5E /* PBMWKWebViewCompatible.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMWKWebViewCompatible.h; sourceTree = "<group>"; };
-		5BC37770271F1CFE00444D5E /* PBMAdFormatInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMAdFormatInternal.h; sourceTree = "<group>"; };
 		5BC37771271F1CFE00444D5E /* PBMClickthroughBrowserNavigationHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMClickthroughBrowserNavigationHandler.m; sourceTree = "<group>"; };
 		5BC37772271F1CFE00444D5E /* PBMAdRequesterVAST.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMAdRequesterVAST.m; sourceTree = "<group>"; };
 		5BC37773271F1CFE00444D5E /* PBMAdViewButtonDecorator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMAdViewButtonDecorator.m; sourceTree = "<group>"; };
@@ -2209,7 +2207,6 @@
 				5BC3776D271F1CFE00444D5E /* PBMInterstitialDisplayProperties.m */,
 				5BC3776E271F1CFE00444D5E /* PBMAbstractCreative.h */,
 				5BC3776F271F1CFE00444D5E /* PBMWKWebViewCompatible.h */,
-				5BC37770271F1CFE00444D5E /* PBMAdFormatInternal.h */,
 				925A641527317A39009E72F9 /* HiddenWebViewManager.swift */,
 				5BC37771271F1CFE00444D5E /* PBMClickthroughBrowserNavigationHandler.m */,
 				5BC37772271F1CFE00444D5E /* PBMAdRequesterVAST.m */,
@@ -3303,7 +3300,6 @@
 				5BC37ACC271F1D0100444D5E /* PBMORTBParameterBuilder.h in Headers */,
 				5BC37A70271F1D0000444D5E /* PBMORTBAbstractResponse+Protected.h in Headers */,
 				5BC379AA271F1D0000444D5E /* PBMModalViewControllerDelegate.h in Headers */,
-				5BC379C3271F1D0000444D5E /* PBMAdFormatInternal.h in Headers */,
 				5BC3791F271F1CFF00444D5E /* PBMDeviceAccessManagerKeys.h in Headers */,
 				5BC378D2271F1CFF00444D5E /* PBMORTBBanner.h in Headers */,
 				5BC37987271F1D0000444D5E /* PBMCreativeModelMakerResult.h in Headers */,

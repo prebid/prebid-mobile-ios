@@ -124,14 +124,12 @@
 }
 
 - (void)appendFormatSpecificParametersForRequest:(PBMORTBBidRequest *)bidRequest {
-    switch (self.adConfiguration.adFormat) {
-        case PBMAdFormatDisplayInternal:
-            [self appendDisplayParametersForRequest:bidRequest];
-            break;
-            
-        case PBMAdFormatVideoInternal:
-            [self appendVideoParametersForRequest:bidRequest];
-            break;
+    if ([self.adConfiguration.adFormats containsObject:AdFormat.display]) {
+        [self appendDisplayParametersForRequest:bidRequest];
+    }
+    
+    if ([self.adConfiguration.adFormats containsObject:AdFormat.video]) {
+        [self appendVideoParametersForRequest:bidRequest];
     }
 }
 

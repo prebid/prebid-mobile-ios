@@ -17,9 +17,10 @@
 
 #import "PBMCreativeClickHandlerBlock.h"
 #import "PBMVideoPlacementType.h"
-#import "PBMAdFormatInternal.h"
 #import "PBMAutoRefreshCountConfig.h"
 #import "PBMInterstitialLayout.h"
+
+@class AdFormat;
 
 /**
  Contains all the data needed to load an ad.
@@ -30,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Request
 
-@property (nonatomic, assign) PBMAdFormatInternal adFormat;
+@property (nonatomic, strong) NSSet<AdFormat *> *adFormats;
 
 /**
  Placement type for the video.
@@ -80,6 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
  Indicates whether the ad is built-in video e.g. 300x250.
  */
 @property (nonatomic, assign) BOOL isBuiltInVideo;
+
+@property (nonatomic, strong, nullable) AdFormat *winningBidAdFormat;
 
 #pragma mark - Impression Tracking
 

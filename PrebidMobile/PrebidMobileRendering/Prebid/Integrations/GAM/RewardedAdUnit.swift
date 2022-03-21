@@ -44,7 +44,7 @@ public class RewardedAdUnit: BaseInterstitialAdUnit,
             eventHandler: eventHandler)
         
         adUnitConfig.isOptIn = true
-        adFormat = .video
+        adFormats = [.video]
     }
     
     // MARK: - PBMRewardedEventDelegate

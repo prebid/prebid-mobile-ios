@@ -43,8 +43,8 @@ public class MediationBannerAdUnit : NSObject {
     }
     
     public var adFormat: AdFormat {
-        get { adUnitConfig.adFormat }
-        set { adUnitConfig.adFormat = newValue }
+        get { adUnitConfig.adFormats.first ?? .display }
+        set { adUnitConfig.adFormats = [newValue] }
     }
     
     public var adPosition: AdPosition {

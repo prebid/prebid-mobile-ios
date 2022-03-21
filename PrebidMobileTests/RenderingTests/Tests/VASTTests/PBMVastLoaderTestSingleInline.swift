@@ -38,7 +38,7 @@ class PBMVastLoaderTestSingleInline: XCTestCase {
         //Make an PBMServerConnection and redirect its network requests to the Mock Server
         let conn = UtilitiesForTesting.createConnectionForMockedTest()
         let adConfiguration = PBMAdConfiguration()
-        adConfiguration.adFormat = .videoInternal
+        adConfiguration.adFormats = [.video]
         
         let adLoadManager = MockPBMAdLoadManagerVAST(connection:conn, adConfiguration: adConfiguration)
         

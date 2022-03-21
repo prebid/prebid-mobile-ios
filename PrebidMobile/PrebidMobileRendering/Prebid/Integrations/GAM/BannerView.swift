@@ -47,8 +47,8 @@ public class BannerView: UIView,
     }
     
     @objc public var adFormat: AdFormat {
-        get { adUnitConfig.adFormat }
-        set { adUnitConfig.adFormat = newValue }
+        get { adUnitConfig.adFormats.first ?? .display }
+        set { adUnitConfig.adFormats = [newValue] }
     }
     
     @objc public var adPosition: AdPosition {

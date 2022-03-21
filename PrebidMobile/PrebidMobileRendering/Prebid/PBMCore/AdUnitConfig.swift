@@ -29,7 +29,7 @@ public class AdUnitConfig: NSObject, NSCopying {
     
     public let adConfiguration = PBMAdConfiguration();
     
-    public var adFormat: AdFormat {
+    public var adFormats: Set<AdFormat> {
         didSet {
             updateAdFormat()
         }
@@ -40,11 +40,11 @@ public class AdUnitConfig: NSObject, NSCopying {
     public var minSizePerc: NSValue?
     
     public var adPosition = AdPosition.undefined
-    
+
     public var contextDataDictionary: [String : [String]] {
         extensionData.mapValues { Array($0) }
     }
-    
+
     // MARK: - Computed Properties
     
     public var additionalSizes: [CGSize]? {
@@ -56,11 +56,10 @@ public class AdUnitConfig: NSObject, NSCopying {
     public var refreshInterval: TimeInterval {
         get { _refreshInterval }
         set {
-            if adFormat == .video {
+            if adConfiguration.winningBidAdFormat == .video {
                 PBMLog.warn("'refreshInterval' property is not assignable for Outstream Video ads")
                 return
             }
-            
             if newValue < 0 {
                 _refreshInterval  = 0
             } else {
@@ -101,14 +100,14 @@ public class AdUnitConfig: NSObject, NSCopying {
         self.configId = configId
         self.adSize = size
         
-        adFormat = .display
+        adFormats = [.display]
         
         adConfiguration.autoRefreshDelay = 0
         adConfiguration.size = adSize
     }
     
     // MARK: - Context Data (imp[].ext.context.data)
-    
+
     public func addContextData(key: String, value: String) {
         if extensionData[key] == nil {
             extensionData[key] = Set<String>()
@@ -132,9 +131,9 @@ public class AdUnitConfig: NSObject, NSCopying {
     public func getContextData() -> [String: [String]] {
         contextDataDictionary
     }
-    
+
     // MARK: - Context keywords (imp[].ext.context.keywords)
-    
+
     public func addContextKeyword(_ newElement: String) {
         contextKeywords.insert(newElement)
     }
@@ -146,17 +145,17 @@ public class AdUnitConfig: NSObject, NSCopying {
     public func removeContextKeyword(_ element: String) {
         contextKeywords.remove(element)
     }
-    
+
     public func clearContextKeywords() {
         contextKeywords.removeAll()
     }
-    
+
     public func getContextKeywords() -> Set<String> {
         contextKeywords
     }
-    
+
     // MARK: - App Content (app.data)
-    
+
     public func setAppContent(_ appContent: PBMORTBAppContent) {
         self.appContent = appContent
     }
@@ -215,27 +214,27 @@ public class AdUnitConfig: NSObject, NSCopying {
     }
     
     // MARK: - The Prebid Ad Slot
-    
+
     public func setPbAdSlot(_ newElement: String?) {
         pbAdSlot = newElement
     }
-    
+
     public func getPbAdSlot() -> String? {
         return pbAdSlot
     }
-    
+
     // MARK: - Private Properties
     
     private var extensionData = [String : Set<String>]()
-    
+
     private var appContent: PBMORTBAppContent?
-    
+
     private var userData: [PBMORTBContentData]?
-    
+
     private var contextKeywords = Set<String>()
     
     private var sizes: [CGSize]?
-    
+
     private var pbAdSlot: String?
     
     // MARK: - NSCopying
@@ -243,8 +242,8 @@ public class AdUnitConfig: NSObject, NSCopying {
     @objc public func copy(with zone: NSZone? = nil) -> Any {
         let clone = AdUnitConfig(configId: self.configId, size: self.adSize)
         
-        clone.adFormat = self.adFormat
-        clone.adConfiguration.adFormat = self.adConfiguration.adFormat
+        clone.adFormats = self.adFormats
+        clone.adConfiguration.adFormats = self.adConfiguration.adFormats
         clone.adConfiguration.isInterstitialAd = self.adConfiguration.isInterstitialAd
         clone.adConfiguration.isOptIn = self.adConfiguration.isOptIn
         clone.adConfiguration.videoPlacementType = self.adConfiguration.videoPlacementType
@@ -258,21 +257,13 @@ public class AdUnitConfig: NSObject, NSCopying {
     }
     
     // MARK: - Private Methods
-    
-    private func getInternalAdFormat() -> PBMAdFormatInternal {
-        switch adFormat {
-        case .display   : return .displayInternal
-        case .video     : return .videoInternal
-        }
-    }
-    
+
     private func updateAdFormat() {
-        let newAdFormat = getInternalAdFormat()
-        if adConfiguration.adFormat == newAdFormat {
+        if adConfiguration.adFormats == adFormats {
             return
         }
         
-        self.adConfiguration.adFormat = newAdFormat
-        self.refreshInterval = ((newAdFormat == .videoInternal) ? 0 : refreshIntervalDefault);
+        self.adConfiguration.adFormats = adFormats
+        self.refreshInterval = ((adFormats.contains(.display)) ? refreshIntervalDefault : 0);
     }
 }

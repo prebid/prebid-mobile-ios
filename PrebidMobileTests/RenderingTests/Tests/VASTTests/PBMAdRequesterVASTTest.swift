@@ -103,7 +103,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
     func testVastLoaderFacade () {
         //Make an PBMAdConfiguration
         let adConfiguration = PBMAdConfiguration()
-        adConfiguration.adFormat = .videoInternal
+        adConfiguration.adFormats = [.video]
         
         self.successfulExpectation = self.expectation(description: "Expected VAST Load to be successful")
         

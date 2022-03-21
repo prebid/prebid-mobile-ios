@@ -120,11 +120,13 @@
             return;
         }
         
-        PBMAdFormatInternal adType = self.creativeModel.adConfiguration.adFormat;
-        if (adType == PBMAdFormatVideoInternal) {
-            [self attemptVASTCreative];
-        } else if (adType == PBMAdFormatDisplayInternal) {
+        AdFormat *adType = self.creativeModel.adConfiguration.winningBidAdFormat;
+        if (adType == AdFormat.display) {
             [self attemptAUIDCreative];
+        } else if (adType == AdFormat.video) {
+            [self attemptVASTCreative];
+        } else if (adType == nil) {
+            [PBMLog error:@"The winning bid ad format is nil."];
         }
     });
 }
@@ -200,7 +202,7 @@
 
 - (NSTimeInterval)getTimeInterval {
     PBMAdConfiguration *adConfig = self.creativeModel.adConfiguration;
-    if (adConfig.adFormat == PBMAdFormatVideoInternal || adConfig.presentAsInterstitial) {
+    if (adConfig.winningBidAdFormat == AdFormat.video || adConfig.presentAsInterstitial) {
         return Prebid.shared.creativeFactoryTimeoutPreRenderContent;
     } else {
         return Prebid.shared.creativeFactoryTimeout;

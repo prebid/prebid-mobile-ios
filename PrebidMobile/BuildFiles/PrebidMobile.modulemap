@@ -62,7 +62,6 @@ framework module PrebidMobile {
     header "PBMAdDetails.h"
     header "PBMTransaction.h"
     header "PBMAdConfiguration.h"
-    header "PBMAdFormatInternal.h"
     header "PBMAutoRefreshCountConfig.h"
     header "PBMInterstitialLayout.h"
     header "PBMServerConnectionProtocol.h"

@@ -60,6 +60,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
         
         let connection = UtilitiesForTesting.createConnectionForMockedTest()
         let adConfiguration = self.initAdConfiguration()
+        adConfiguration.winningBidAdFormat = .video
         
         MockServer.shared.resetRules(
             self.createGeneralMockServerRules(connectionID: connection.internalID) +
@@ -258,7 +259,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
     func initAdConfiguration() -> PBMAdConfiguration {
         //Create adConfiguration
         let adConfiguration = PBMAdConfiguration()
-        adConfiguration.adFormat = .videoInternal
+        adConfiguration.adFormats = [.video]
         adConfiguration.isInterstitialAd = true
         adConfiguration.isOptIn = true
         return adConfiguration

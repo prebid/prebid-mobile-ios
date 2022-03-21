@@ -77,7 +77,7 @@
        
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
         self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"12f58bc2-b664-4672-8d19-638bcc96fd5c"];
-        self.interstitialAdUnit.adFormat = AdFormatVideo;
+        self.interstitialAdUnit.adFormats = [[NSSet alloc] initWithArray:@[AdFormat.video]];
     }
     
     self.interstitialAdUnit.delegate = self;
@@ -101,7 +101,7 @@
         self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"12f58bc2-b664-4672-8d19-638bcc96fd5c"
                                                                       minSizePercentage:CGSizeMake(30, 30)
                                                                            eventHandler:eventHandler];
-        self.interstitialAdUnit.adFormat = AdFormatVideo;
+        self.interstitialAdUnit.adFormats = [[NSSet alloc] initWithArray:@[AdFormat.video]];
     }
     
     self.interstitialAdUnit.delegate = self;
