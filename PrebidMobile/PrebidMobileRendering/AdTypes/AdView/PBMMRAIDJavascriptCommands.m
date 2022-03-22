@@ -18,7 +18,9 @@
 #import "PBMFunctions+Private.h"
 
 #import "PBMViewExposure.h"
-#import "PBMLog.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 #pragma mark - Constants
 
@@ -163,7 +165,7 @@ static NSString * const PBMMRAIDCommandFormatSize = @"%@:%@";
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:supports options:0 error:nil];
     if (!data) {
-        PBMLogError(@"Could not generate support string");
+        LogError(@"Could not generate support string");
         return @"";
     }
     

@@ -28,6 +28,9 @@
 #import "PBMModalManager.h"
 #import "PBMWebView.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #pragma mark - Private Extension
 
 @interface PBMModalViewController ()
@@ -170,17 +173,17 @@
 // - the current isn't already added to the modal somewhere
 - (void)configureSubView {
     if (!self.displayView) {
-        PBMLogError(@"Attempted to display a nil view");
+        LogError(@"Attempted to display a nil view");
         return;
     }
     
     if (!self.contentView) {
-        PBMLogError(@"ContentView not yet set up by InterfaceBuilder. Nothing to add content to");
+        LogError(@"ContentView not yet set up by InterfaceBuilder. Nothing to add content to");
         return;
     }
     
     if ([self.displayView isDescendantOfView:self.view]) {
-        PBMLogError(@"currentDisplayView is already a child of self.view");
+        LogError(@"currentDisplayView is already a child of self.view");
         return;
     }
     

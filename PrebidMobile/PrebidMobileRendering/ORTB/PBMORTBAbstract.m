@@ -15,7 +15,9 @@
 
 #import "PBMORTBAbstract+Protected.h"
 #import "PBMFunctions+Private.h"
-#import "PBMLog.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @implementation PBMORTBAbstract
 
@@ -43,12 +45,12 @@
 // MARK: - Protected
 
 - (nonnull PBMJsonDictionary *)toJsonDictionary {
-    PBMLogError(@"You must override %@ in a subclass", NSStringFromSelector(_cmd));
+    LogError(@"You must override %@ in a subclass", NSStringFromSelector(_cmd));
     return [PBMJsonDictionary new];
 }
 
 - (instancetype)initWithJsonDictionary:(nonnull PBMJsonDictionary *)jsonDictionary {
-    PBMLogError(@"You should not initialize abstract class directly");
+    LogError(@"You should not initialize abstract class directly");
     return [PBMORTBAbstract new];
 }
 

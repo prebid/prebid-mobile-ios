@@ -40,7 +40,7 @@
 - (void)PBMAddTopLeftConstraintsWithViewSize:(CGSize)viewSize marginSize:(CGSize)marginSize
 NS_SWIFT_NAME(PBMAddTopLeftConstraints(viewSize:marginSize:));
 
-- (void)PBMLogViewHierarchy;
+- (void)LogViewHierarchy;
 
 - (BOOL)pbmIsVisible;
 

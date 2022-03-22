@@ -80,7 +80,7 @@ class PBMORTBAbstractTest : XCTestCase {
         let abstract = try! PBMORTBAbstract.from(jsonString: "")
         let _ = try! abstract.toJsonString()
         
-        let log = PBMLog.shared.getLogFileAsString()
+        let log = Log.getLogFileAsString() ?? ""
         XCTAssert(log.contains("You should not initialize abstract class directly"))
         XCTAssert(log.contains("You must override toJsonDictionary in a subclass"))
     }
@@ -565,7 +565,7 @@ class PBMORTBAbstractTest : XCTestCase {
     func codeAndDecode<T : PBMORTBAbstract>(abstract:T, expectedString:String, file: StaticString = #file, line: UInt = #line) {
         
         guard #available(iOS 11.0, *) else {
-            PBMLog.warn("iOS 11 or higher is needed to support the .sortedKeys option for JSONEncoding which puts keys in the order that they appear in the class. Before that, string encoding results are unpredictable.")
+            Log.warn("iOS 11 or higher is needed to support the .sortedKeys option for JSONEncoding which puts keys in the order that they appear in the class. Before that, string encoding results are unpredictable.")
             return
         }
         

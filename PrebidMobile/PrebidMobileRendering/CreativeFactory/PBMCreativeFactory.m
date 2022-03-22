@@ -21,6 +21,9 @@
 #import "PBMTransaction.h"
 #import "PBMAbstractCreative.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @interface PBMCreativeFactory ()
 
 @property (strong, nonatomic) id<PBMServerConnectionProtocol> serverConnection;
@@ -86,7 +89,7 @@
     dispatch_async(_dispatchQueue, ^{
         @strongify(self);
         if (error) {
-            PBMLogInfo(@"PBMCreativeFactory: %@", error.description);
+            LogInfo(@"PBMCreativeFactory: %@", error.description);
             self.finishedCallback(NULL, error);
             return;
         }

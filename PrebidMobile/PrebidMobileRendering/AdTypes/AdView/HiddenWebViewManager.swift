@@ -32,7 +32,7 @@ public class HiddenWebViewManager: NSObject {
     
     public func openHiddenWebView() {
         guard let landingPageURL = landingPageURL else {
-            PBMLog.error("landingPageURL is not valid.")
+            Log.error("landingPageURL is not valid.")
             return
         }
         let request = URLRequest(url: landingPageURL)

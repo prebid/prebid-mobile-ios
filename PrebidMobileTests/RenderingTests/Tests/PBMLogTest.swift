@@ -49,7 +49,7 @@ class PBMLogTest: XCTestCase {
         }
         
         waitForExpectations(timeout: 1, handler: { _ in
-            let log = PBMLog.shared.getLogFileAsString()
+            let log = Log.getLogFileAsString() ?? ""
             
             let threadNumber = descr
                 .split(separator:"=")[1]
@@ -116,29 +116,30 @@ class PBMLogTest: XCTestCase {
         logToFile = .init()
         
         // Check default
-        let initialLogLevel: PBMLogLevel = .info
-        XCTAssertEqual(PBMLog.shared.logLevel, initialLogLevel)
+        let initialLogLevel: LogLevel = .info
+        XCTAssertEqual(Log.logLevel, initialLogLevel)
         
-        PBMLog.warn(message)
+        Log.warn(message)
         checkLogAndClean(level: "WARNING", withParams: false)
         
         // Test: warning message should be skipped
-        PBMLog.shared.logLevel = .error
+        Log.logLevel = .error
         
-        PBMLog.warn(message)
-        XCTAssertEqual(PBMLog.shared.getLogFileAsString(), "")
+        Log.warn(message)
+        let log = Log.getLogFileAsString() ?? ""
+        XCTAssertEqual(log, "")
         
         // Rreturn to the initial state
-        PBMLog.shared.logLevel = initialLogLevel
+        Log.logLevel = initialLogLevel
         
-        PBMLog.warn(message)
+        Log.warn(message)
         checkLogAndClean(level: "WARNING", withParams: false)
     }
     
     // MARK: Internal Methods
     
     func checkLogAndClean(level: String, withParams: Bool, file: StaticString = #file, line: UInt = #line) {
-        let log = PBMLog.shared.getLogFileAsString()
+        let log = Log.getLogFileAsString() ?? ""
         
         let sdkVersionString = level != "ERROR" ? "" : "v\(sdkVersion) ";
         
@@ -150,26 +151,20 @@ class PBMLogTest: XCTestCase {
         logToFile = .init()
     }
     
-    func testLogLevelDescription() {
-        XCTAssertEqual("INFO", PBMLog.logLevelDescription(.info))
-        XCTAssertEqual("WARNING", PBMLog.logLevelDescription(.warn))
-        XCTAssertEqual("ERROR", PBMLog.logLevelDescription(.error))
-        XCTAssertEqual("NONE", PBMLog.logLevelDescription(.none))
-    }
     
-    func testLogInternal() {
-        logToFile = .init()
-        
-        PBMLog.shared.logInternal("MSG", logLevel:.info, file:#file, line:10, function:#function)
-        let log = PBMLog.shared.getLogFileAsString()
-        XCTAssert(log.contains("prebid-mobile-sdk INFO [MAIN]"))
-        XCTAssert(log.contains("PBMLogTest.swift testLogInternal() [Line 10]: MSG"))
-        
-        logToFile = nil
-        logToFile = .init()
-        
-        PBMLog.shared.logLevel = .warn
-        PBMLog.shared.logInternal("MSG", logLevel:.info, file:#file, line:10, function:#function)
-        XCTAssert(PBMLog.shared.getLogFileAsString().isEmpty)
-    }
+//    func testLogInternal() {
+//        logToFile = .init()
+//        
+//        PBMLog.shared.logInternal("MSG", logLevel:.info, file:#file, line:10, function:#function)
+//        let log = PBMLog.shared.getLogFileAsString()
+//        XCTAssert(log.contains("prebid-mobile-sdk INFO [MAIN]"))
+//        XCTAssert(log.contains("PBMLogTest.swift testLogInternal() [Line 10]: MSG"))
+//        
+//        logToFile = nil
+//        logToFile = .init()
+//        
+//        PBMLog.shared.logLevel = .warn
+//        PBMLog.shared.logInternal("MSG", logLevel:.info, file:#file, line:10, function:#function)
+//        XCTAssert(PBMLog.shared.getLogFileAsString().isEmpty)
+//    }
 }

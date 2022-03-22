@@ -217,17 +217,20 @@ typealias JsonDictionary = [String:Any]
     
     // MARK - Log
     @objc class func prepareLogFile() {
-        PBMLog.shared.clearLogFile()
-        PBMLog.shared.logToFile = true;
+        Log.clearLogFile()
+        Log.logToFile = true
     }
     
     @objc class func releaseLogFile() {
-        PBMLog.shared.logToFile = false;
-        PBMLog.shared.clearLogFile()
+        Log.logToFile = false
+        Log.clearLogFile()
     }
     
     class func checkLogContains(_ log: String, cleanFile: Bool = true, file:StaticString = #file, line:UInt = #line) {
-        let log = PBMLog.shared.getLogFileAsString()
+        guard let log = Log.getLogFileAsString() else {
+            XCTFail()
+            return
+        }
         XCTAssertTrue(log.contains(log), file: file, line: line)
         
         if cleanFile {
@@ -241,7 +244,7 @@ typealias JsonDictionary = [String:Any]
      - testClosure: Run code that will generate log messages here
      - checkLogFor: XCTAssert that the log will contain the following messages
      */
-    class func executeTestClosure(_ testClosure:() -> Void, checkLogFor:[String], logger: PBMLog = PBMLog.shared, file:StaticString = #file, line:UInt = #line) {
+    class func executeTestClosure(_ testClosure:() -> Void, checkLogFor:[String], file:StaticString = #file, line:UInt = #line) {
         
         let log = UtilitiesForTesting.executeTestClosure(testClosure)
         
@@ -258,20 +261,20 @@ typealias JsonDictionary = [String:Any]
      
      - returns: The log file as a String
      */
-    class func executeTestClosure(_ testClosure:() -> Void, logger: PBMLog = PBMLog.shared, file:StaticString = #file, line:UInt = #line) -> String {
+    class func executeTestClosure(_ testClosure:() -> Void, file:StaticString = #file, line:UInt = #line) -> String {
         
-        logger.clearLogFile()
+        Log.clearLogFile()
         
         //Turn on writing to the log file and defer turning it off.
         //This will keep writeToLog true until after getLogFileAsString (which is synchronous on the loggingQueue) is done.
-        logger.logToFile = true
+        Log.logToFile = true
         defer {
-            logger.clearLogFile()
+            Log.clearLogFile()
         }
         
         testClosure()
         
-        let log = logger.getLogFileAsString()
+        let log = Log.getLogFileAsString() ?? ""
         return log
     }
     

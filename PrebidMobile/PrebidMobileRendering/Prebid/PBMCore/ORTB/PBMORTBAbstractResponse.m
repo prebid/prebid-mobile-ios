@@ -16,7 +16,8 @@
 #import "PBMORTBAbstractResponse.h"
 #import "PBMORTBAbstractResponse+Protected.h"
 
-#import "PBMLog.h"
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @implementation PBMORTBAbstractResponse
 
@@ -54,7 +55,7 @@
     if ([self.ext isKindOfClass:[NSDictionary class]]) {
         return self.ext;
     }
-    PBMLogError(@"Could not convert `%@`  (instance of %@) to PBMJsonDictionary -- please override `extAsJsonDictionary` in child class (%@).", [self.ext description], NSStringFromClass([self.ext class]), NSStringFromClass([self class]));
+    LogError(@"Could not convert `%@`  (instance of %@) to PBMJsonDictionary -- please override `extAsJsonDictionary` in child class (%@).", [self.ext description], NSStringFromClass([self.ext class]), NSStringFromClass([self class]));
     return nil;
 }
 

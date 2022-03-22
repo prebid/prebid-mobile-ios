@@ -38,6 +38,8 @@
 #import "PBMInterstitialDisplayProperties.h"
 #import "PBMCreativeViewabilityTracker.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 #pragma mark - Private Extension
 
@@ -98,7 +100,7 @@
 - (void)showAsInterstitialFromRootViewController:(UIViewController *)uiViewController displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {
     NSNumber *videoDuration = self.creativeModel.displayDurationInSeconds;
     if (!videoDuration) {
-        PBMLogWarn(@"Undefined video duration.");
+        LogWarn(@"Undefined video duration.");
         // TODO: Should we return or show with default duration?
         return;
     }
@@ -152,7 +154,7 @@
 - (void)createOpenMeasurementSession {
     
     if (!NSThread.currentThread.isMainThread) {
-        PBMLogError(@"Open Measurement session can only be created on the main thread");
+        LogError(@"Open Measurement session can only be created on the main thread");
         return;
     }
     

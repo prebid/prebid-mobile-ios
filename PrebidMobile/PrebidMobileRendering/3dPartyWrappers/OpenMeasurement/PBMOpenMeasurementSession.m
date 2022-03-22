@@ -13,10 +13,12 @@
  limitations under the License.
  */
 
-#import "PBMLog.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementEventTracker.h"
 #import "PBMOpenMeasurementFriendlyObstructionTypeBridge.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @import OMSDK_Prebidorg;
 
@@ -65,7 +67,7 @@
 
 - (void)setupMainView:(UIView *)mainView {
     if (!self.session) {
-        PBMLogError(@"Measurement Session is missed.");
+        LogError(@"Measurement Session is missed.");
         return;
     }
     
@@ -74,7 +76,7 @@
 
 - (void)start {
     if (!self.session) {
-        PBMLogError(@"Measurement Session is missed.");
+        LogError(@"Measurement Session is missed.");
         return;
     }
     
@@ -83,7 +85,7 @@
 
 - (void)stop {
     if (!self.session) {
-        PBMLogError(@"Measurement Session is missed.");
+        LogError(@"Measurement Session is missed.");
         return;
     }
     
@@ -93,7 +95,7 @@
 
 - (void)addFriendlyObstruction:(nonnull UIView *)friendlyObstruction purpose:(PBMOpenMeasurementFriendlyObstructionPurpose)purpose {
     if (!self.session) {
-        PBMLogError(@"Measurement Session is missed.");
+        LogError(@"Measurement Session is missed.");
         return;
     }
     
@@ -108,7 +110,7 @@
                                    error:&error];
     
     if (error != nil) {
-        PBMLogError(@"%@", [error localizedDescription]);
+        LogError(@"%@", [error localizedDescription]);
     }
 }
 
@@ -121,7 +123,7 @@
                                                     adSessionContext:context
                                                                error:&sessionError];
     if (sessionError) {
-        PBMLogError(@"Unable to create Open Measurement session with error: %@", [sessionError localizedDescription]);
+        LogError(@"Unable to create Open Measurement session with error: %@", [sessionError localizedDescription]);
     }
     
     return self.session != nil;

@@ -14,7 +14,9 @@
  */
 
 #import "PBMEventManager.h"
-#import "PBMLog.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @interface PBMEventManager()
 
@@ -72,7 +74,7 @@
 
 - (void)unregisterTracker:(id<PBMEventTrackerProtocol>)tracker {
     if (!tracker) {
-        PBMLogError(@"Can't unregister empty event tracker");
+        LogError(@"Can't unregister empty event tracker");
         return;
     }
     

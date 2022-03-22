@@ -74,7 +74,7 @@
         if (creativeModel.eventTracker) {
             [self.eventManager registerTracker: (id<PBMEventTrackerProtocol>)creativeModel.eventTracker];
         } else {
-            PBMLogError(@"Creative model must be provided with event tracker");
+            LogError(@"Creative model must be provided with event tracker");
         }
         
         if(@available(iOS 14.5, *)) {
@@ -95,7 +95,7 @@
 - (void)dealloc {
     [self.viewabilityTracker stop];
     self.viewabilityTracker = NULL;
-    PBMLogWhereAmI();
+    LogWhereAmI();
 }
 
 #pragma mark - Properties
@@ -116,13 +116,13 @@
 
 - (void)setupViewWithThread:(id<PBMNSThreadProtocol>)thread {
     if (!thread.isMainThread) {
-        PBMLogError(@"Attempting to set up view on background thread");
+        LogError(@"Attempting to set up view on background thread");
     }
 }
 
 - (void)displayWithRootViewController:(UIViewController*)viewController {
     if (viewController == nil) {
-        PBMLogError(@"viewController is nil");
+        LogError(@"viewController is nil");
         return;
     }
     self.viewControllerForPresentingModals = viewController;
@@ -312,7 +312,7 @@
                            onExit:(nonnull PBMVoidBlock)onClickthroughExitBlock
 {
     if (!self.viewControllerForPresentingModals) {
-        PBMLogError(@"self.viewControllerForPresentingModals is nil");
+        LogError(@"self.viewControllerForPresentingModals is nil");
         return NO;
     }
     
@@ -328,7 +328,7 @@
             [self.viewControllerForPresentingModals presentViewController:skadnController animated:YES completion:nil];
             [skadnController loadProductWithParameters:productParams completionBlock:^(BOOL result, NSError *error) {
                 if (error) {
-                    PBMLogError(@"Error presenting a product: %@", error.localizedDescription);
+                    LogError(@"Error presenting a product: %@", error.localizedDescription);
                 }
             }];
         });
@@ -405,17 +405,17 @@
 #pragma mark - PBMModalManagerDelegate
 
 - (void)modalManagerDidFinishPop:(PBMModalState*)state {
-    PBMLogError(@"Abstract function called");
+    LogError(@"Abstract function called");
 }
 
 - (void)modalManagerDidLeaveApp:(PBMModalState*)state {
-    PBMLogError(@"Abstract function called");
+    LogError(@"Abstract function called");
 }
 
 #pragma mark - Open Measurement
 
 - (void)createOpenMeasurementSession {
-    PBMLogError(@"Abstract function called");
+    LogError(@"Abstract function called");
 }
 
 - (void)onAdDisplayed {

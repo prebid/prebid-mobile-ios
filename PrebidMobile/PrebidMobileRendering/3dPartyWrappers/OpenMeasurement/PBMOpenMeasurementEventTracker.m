@@ -13,11 +13,12 @@
  limitations under the License.
  */
 
-#import "PBMLog.h"
-
 #import "PBMOpenMeasurementEventTracker.h"
 #import "PBMEventTrackerProtocol.h"
 #import "PBMVideoVerificationParameters.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @import OMSDK_Prebidorg;
 
@@ -44,7 +45,7 @@
 
 - (void)trackEvent:(PBMTrackingEvent)event {
     if (!self.session) {
-        PBMLogError(@"Measurement Session is missed.");
+        LogError(@"Measurement Session is missed.");
         return;
     }
     
@@ -79,7 +80,7 @@
     NSError *error = nil;
     [self.adEvents loadedWithError:&error];
     if (error != nil) {
-        PBMLogError(@"%@", [error localizedDescription]);
+        LogError(@"%@", [error localizedDescription]);
     }
 }
 
@@ -87,7 +88,7 @@
     NSError *error = nil;
     [self.adEvents loadedWithVastProperties:[[OMIDPrebidorgVASTProperties alloc] initWithAutoPlay:parameters.autoPlay position:OMIDPositionStandalone] error:&error];
     if (error != nil) {
-        PBMLogError(@"%@", [error localizedDescription]);
+        LogError(@"%@", [error localizedDescription]);
     }
 }
 
@@ -106,14 +107,14 @@
     NSError *adEventsError;
     self.adEvents = [[OMIDPrebidorgAdEvents alloc] initWithAdSession:self.session error:&adEventsError];
     if (adEventsError) {
-        PBMLogError(@"Open Measurement can't create ad events with error: %@", [adEventsError localizedDescription]);
+        LogError(@"Open Measurement can't create ad events with error: %@", [adEventsError localizedDescription]);
     }
     
     if (self.session.configuration.mediaEventsOwner == OMIDNativeOwner) {
         NSError *videoEventsError;
         self.mediaEvents = [[OMIDPrebidorgMediaEvents alloc] initWithAdSession:self.session error:&videoEventsError];
         if (videoEventsError) {
-            PBMLogError(@"Open Measurement can't create video events with error: %@", [videoEventsError localizedDescription]);
+            LogError(@"Open Measurement can't create video events with error: %@", [videoEventsError localizedDescription]);
         }
     }
 }
@@ -124,7 +125,7 @@
     NSError *impError;
     [self.adEvents impressionOccurredWithError:&impError];
     if (impError) {
-        PBMLogError(@"Open Measurement can't track impression with error: %@", [impError localizedDescription]);
+        LogError(@"Open Measurement can't track impression with error: %@", [impError localizedDescription]);
     }
 }
 

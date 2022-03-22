@@ -18,9 +18,10 @@
 #import "PBMServerResponse.h"
 #import "PBMFunctions+Private.h"
 #import "PBMError.h"
-#import "PBMError.h"
-
 #import "PBMMacros.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 static NSString * const PBMMRAIDFileName = @"mraid.jslib";
 static NSString * const PBMMRAIDBundleName = @"mraid";
@@ -154,7 +155,7 @@ static NSString * const PBMJSLibraryFileDirectory = @"PBMJSLibraries";
     @weakify(self);
     [connection download:urlString callback:^(PBMServerResponse *response) {
         @strongify(self);
-        PBMLogInfo(@"Server Side Configuration: The %@ was updated to the version %@", fileName, remoteLibrary.version);
+        LogInfo(@"Server Side Configuration: The %@ was updated to the version %@", fileName, remoteLibrary.version);
         //updating contents string
         NSString *contentsString = [[NSString alloc] initWithData:response.rawData encoding:NSUTF8StringEncoding];
         remoteLibrary.contentsString = contentsString;

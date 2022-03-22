@@ -403,7 +403,7 @@ public class Targeting: NSObject {
     
     public func addParam(_ value: String, withName: String?) {
         guard let name = withName else {
-            PBMLog.error("Invalid user parameter.")
+            Log.error("Invalid user parameter.")
             return
         }
         

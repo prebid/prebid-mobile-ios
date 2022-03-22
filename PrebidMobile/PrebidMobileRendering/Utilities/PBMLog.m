@@ -17,6 +17,9 @@
 #import "PBMLog.h"
 #import "PBMLogPrivate.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 # pragma mark - Private Extension
 
 @interface PBMLog ()
@@ -43,7 +46,7 @@
     self = [super init];
     if (self) {
         self.SDKName = @"prebid-mobile-sdk";
-        
+
         self.loggingQueue = dispatch_queue_create([self.SDKName UTF8String], NULL);
         self.dateFormatter = [NSDateFormatter new];
         self.dateFormatter.dateFormat = @"MM-dd HH:mm:ss:SSSS";

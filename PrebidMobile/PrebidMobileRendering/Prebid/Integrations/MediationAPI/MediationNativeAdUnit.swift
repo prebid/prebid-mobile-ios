@@ -129,17 +129,17 @@ public class MediationNativeAdUnit : NSObject {
             guard let kvResultDict = kvResultDict,
                   let cacheId = kvResultDict["hb_cache_id_local"],
                   CacheManager.shared.isValid(cacheId: cacheId) else {
-                      PBMLog.error("\(String(describing: self)): no cache in kvResultDict.")
+                      Log.error("\(String(describing: self)): no cache in kvResultDict.")
                       return
                   }
             
             guard let bidString = CacheManager.shared.get(cacheId: cacheId) else {
-                PBMLog.error("\(String(describing: self)): no bid for given cache id.")
+                Log.error("\(String(describing: self)): no bid for given cache id.")
                 return
             }
             
             guard var fetchDemandInfo = Utils.shared.getDictionaryFromString(bidString) else {
-                PBMLog.error("\(String(describing: self)): parsing bid string to bid dictionary failed.")
+                Log.error("\(String(describing: self)): parsing bid string to bid dictionary failed.")
                 return
             }
             

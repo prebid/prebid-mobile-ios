@@ -234,7 +234,7 @@ class TestPBMFunctions: XCTestCase {
             let fileArray = try FileManager.default.contentsOfDirectory(atPath: path)
             
             for file in fileArray {
-                PBMLog.info("file = \(file)")
+                Log.info("file = \(file)")
             }
 
             //We expect that if this is the SDK Bundle, it will contain a few files

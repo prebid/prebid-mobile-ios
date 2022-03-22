@@ -308,7 +308,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
         self.htmlCreative.display(withRootViewController:mockViewController)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute:{
-            let log = PBMLog.shared.getLogFileAsString()
+            let log = Log.getLogFileAsString() ?? ""
             XCTAssertTrue(log.contains("PBMWebView is ready to display"))
             self.expectationBlockForAWhile?.fulfill()
         })
@@ -327,7 +327,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
         self.htmlCreative.webView(webView, failedToLoadWithError:PBMError.error(message: "Failed to load html", type: .internalError))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute:{
-            let log = PBMLog.shared.getLogFileAsString()
+            let log = Log.getLogFileAsString() ?? ""
             XCTAssertTrue(log.contains("Failed to load html"))
             self.expectationDownloadFailed?.fulfill()
         })

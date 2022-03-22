@@ -23,6 +23,8 @@
 #import "PBMServerResponse.h"
 #import "PBMTransaction.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 #pragma mark - Internal Interface
 
@@ -49,7 +51,7 @@
 
 - (BOOL)prepareForLoading {
     if (self.adRequester) {
-        PBMLogError(@"Previous load is in progress. Load() ignored.");
+        LogError(@"Previous load is in progress. Load() ignored.");
         return NO;
     }
     self.adRequester = [[PBMAdRequesterVAST alloc] initWithServerConnection:self.connection adConfiguration:self.adConfiguration];
@@ -60,14 +62,14 @@
 }
 
 - (void)requestCompletedSuccess:(PBMAdRequestResponseVAST *)adRequestResponse {
-    PBMLogWhereAmI();
+    LogWhereAmI();
     
     @weakify(self);
     [self.creativeModelCollectionMaker makeModels:adRequestResponse
                                   successCallback: ^(NSArray *creativeModels) {
                                       @strongify(self);
                                       if (!self) {
-                                          PBMLogError(@"PBMAdLoadManager is nil!");
+                                          LogError(@"PBMAdLoadManager is nil!");
                                           return;
                                       }
                                       
@@ -76,7 +78,7 @@
                                   failureCallback: ^(NSError *error) {
                                       @strongify(self);
                                       if (!self) {
-                                          PBMLogError(@"PBMAdLoadManager is nil!");
+                                          LogError(@"PBMAdLoadManager is nil!");
                                           return;
                                       }
                                       

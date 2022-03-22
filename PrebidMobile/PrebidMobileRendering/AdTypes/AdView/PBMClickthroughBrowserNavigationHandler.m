@@ -20,6 +20,9 @@
 #import "PBMFunctions+Private.h"
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @interface PBMClickthroughBrowserNavigationHandler ()
 @property (nonatomic, weak, readonly, nullable) id<PBMWKWebViewCompatible> webView;
 @property (nonatomic, strong, nullable) void (^loadingFinishedBlock)(BOOL shouldBeDisplayed);
@@ -48,12 +51,12 @@
 // MARK: - WKNavigationDelegate
 
 - (void)webView:(id<PBMWKWebViewCompatible>)webView decidePolicyForNavigationAction:(id<PBMWKNavigationActionCompatible>)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    PBMLogWhereAmI();
+    LogWhereAmI();
 
     //Get the URL
     NSURL *url = navigationAction.request.URL;
     if (!url) {
-        PBMLogError(@"No url for navigation");
+        LogError(@"No url for navigation");
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }

@@ -105,12 +105,12 @@
         }
         
         if (serverResponse.error) {
-            PBMLogInfo(@"Bid Request Error: %@", [serverResponse.error localizedDescription]);
+            LogInfo(@"Bid Request Error: %@", [serverResponse.error localizedDescription]);
             completion(nil, serverResponse.error);
             return;
         }
         
-        PBMLogInfo(@"Bid Response: %@", [[NSString alloc] initWithData:serverResponse.rawData encoding:NSUTF8StringEncoding]);
+        LogInfo(@"Bid Response: %@", [[NSString alloc] initWithData:serverResponse.rawData encoding:NSUTF8StringEncoding]);
         
         NSError *trasformationError = nil;
         BidResponse * const _Nullable bidResponse = [PBMBidResponseTransformer transformResponse:serverResponse error:&trasformationError];

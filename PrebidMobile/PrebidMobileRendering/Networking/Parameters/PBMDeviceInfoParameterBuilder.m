@@ -23,6 +23,9 @@
 #import "PBMUserConsentDataManager.h"
 #import "PBMUserConsentResolver.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #pragma mark - Internal Extension
 
 @interface PBMDeviceInfoParameterBuilder()
@@ -73,7 +76,7 @@
 
 - (void)buildBidRequest:(PBMORTBBidRequest *)bidRequest {
     if (!(self.deviceAccessManager && bidRequest)) {
-        PBMLogError(@"Invalid properties");
+        LogError(@"Invalid properties");
         return;
     }
     

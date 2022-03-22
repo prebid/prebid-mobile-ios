@@ -30,7 +30,7 @@ public class NativeTitle: NSObject, JsonDecodable {
     
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
-            PBMLog.warn("The native title json dicitonary is empty")
+            Log.warn("The native title json dicitonary is empty")
             return
         }
         
@@ -39,7 +39,7 @@ public class NativeTitle: NSObject, JsonDecodable {
         self.ext = jsonDictionary["ext"] as? [String: Any]
         
         if text == nil {
-            PBMLog.warn("There is no text property in native title response")
+            Log.warn("There is no text property in native title response")
         }
     }
     

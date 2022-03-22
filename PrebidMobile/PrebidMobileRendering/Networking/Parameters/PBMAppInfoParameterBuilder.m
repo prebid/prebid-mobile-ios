@@ -14,7 +14,6 @@
  */
 
 #import "PBMConstants.h"
-#import "PBMLog.h"
 #import "PBMMacros.h"
 #import "PBMORTB.h"
 #import "PBMORTBBidRequest.h"
@@ -65,7 +64,7 @@
 
 - (void)buildBidRequest:(PBMORTBBidRequest *)bidRequest {
     if (!(self.bundle && bidRequest)) {
-        PBMLogError(@"Invalid properties");
+        LogError(@"Invalid properties");
         return;
     }
     

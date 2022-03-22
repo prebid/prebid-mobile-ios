@@ -17,6 +17,9 @@
 #import "PBMMacros.h"
 #import "PBMAdModelEventTracker.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @implementation PBMCreativeModel
 
 #pragma mark - Initialization

@@ -98,7 +98,7 @@
 
 - (void)buildBidRequest:(PBMORTBBidRequest *)bidRequest {
     if (!(self.adConfiguration && self.sdkConfiguration && self.sdkVersion)) {
-        PBMLogError(@"Invalid properties");
+        LogError(@"Invalid properties");
         return;
     }
 

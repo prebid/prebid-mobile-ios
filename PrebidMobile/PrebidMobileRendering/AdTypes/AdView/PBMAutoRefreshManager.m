@@ -17,9 +17,11 @@
 
 #import "PBMAdRefreshOptions.h"
 #import "PBMFunctions+Private.h"
-#import "PBMLog.h"
 
 #import "PBMMacros.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 
 @interface PBMAutoRefreshManager ()
@@ -78,7 +80,7 @@
  If refreshing is disabled (either due to hitting the max or it never being enabled), bail and do nothing.
  */
 - (void)setupRefreshTimer {
-    PBMLogWhereAmI();
+    LogWhereAmI();
     
     //Bail if autorefresh is disabled or if the refresh max has been hit.
     PBMAdRefreshOptions *refreshOptions = [self getRefreshOptions];
@@ -87,7 +89,7 @@
     }
     
     NSTimeInterval refreshDelay = refreshOptions.delay;
-    PBMLogInfo(@"Will load another ad in %ld seconds", (long) refreshDelay);
+    LogInfo(@"Will load another ad in %ld seconds", (long) refreshDelay);
     
     NSLock * const lock = self.delayedBlockLock;
     [lock lock];
@@ -156,7 +158,7 @@
     if ( !isBackground && self.mayRefreshNowBlock()) {
         self.refreshBlock();
     } else {
-        PBMLogInfo(@"Creative is invisible or opened. Skipping refresh.");
+        LogInfo(@"Creative is invisible or opened. Skipping refresh.");
         [self setupRefreshTimer];
     }
 }
@@ -179,7 +181,7 @@
     }
     
     NSTimeInterval reloadTime = MAX(autoRefreshDelay.doubleValue - self.prefetchTime, 1.0);
-    PBMLogInfo(@"Will load another ad in %fl seconds",reloadTime);
+    LogInfo(@"Will load another ad in %fl seconds",reloadTime);
     
     return [[PBMAdRefreshOptions alloc] initWithType:PBMAdRefreshType_ReloadLater delay:reloadTime];
 }

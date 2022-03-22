@@ -68,7 +68,7 @@ public class NativeAdMarkup: NSObject, JsonDecodable {
     
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
-            PBMLog.warn("The native ad markup json dicitonary is empty")
+            Log.warn("The native ad markup json dicitonary is empty")
             return
         }
         
@@ -102,7 +102,7 @@ public class NativeAdMarkup: NSObject, JsonDecodable {
         }
         
         if link == nil {
-            PBMLog.warn("There is no link property in native ad markup response")
+            Log.warn("There is no link property in native ad markup response")
         }
     }
     

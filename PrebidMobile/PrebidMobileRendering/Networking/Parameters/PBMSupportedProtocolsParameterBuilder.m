@@ -14,7 +14,6 @@
  */
 
 #import "PBMSupportedProtocolsParameterBuilder.h"
-#import "PBMLog.h"
 #import "PBMMacros.h"
 #import "PBMORTB.h"
 
@@ -64,7 +63,7 @@ static int const PBMSupportOpenMeasurementProtocol = 7;
 
 - (void)buildBidRequest:(PBMORTBBidRequest *)bidRequest {
     if(!bidRequest) {
-        PBMLogError(@"Invalid properties");
+        LogError(@"Invalid properties");
         return;
     }
         

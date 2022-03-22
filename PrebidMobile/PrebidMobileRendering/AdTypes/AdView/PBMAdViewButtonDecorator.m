@@ -17,6 +17,9 @@
 #import "PBMFunctions+Private.h"
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #pragma mark - Private Interface
 
 @interface PBMAdViewButtonDecorator()
@@ -50,7 +53,7 @@
     self.displayView = displayView;
     
     if (!view || !self.displayView) {
-        PBMLogError(@"Attempted to display a nil view");
+        LogError(@"Attempted to display a nil view");
         return;
     }
     

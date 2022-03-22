@@ -14,9 +14,11 @@
  */
 
 #import "PBMORTBParameterBuilder.h"
-#import "PBMLog.h"
 #import "PBMConstants.h"
 #import "PBMORTBBidRequest.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @implementation PBMORTBParameterBuilder
 
@@ -24,7 +26,7 @@
     NSMutableDictionary<NSString *, NSString *> *ret = [NSMutableDictionary<NSString *, NSString *> new];
     
     if (!bidRequest) {
-        PBMLogError(@"Invalid properties");
+        LogError(@"Invalid properties");
         return ret;
     }
     
@@ -33,7 +35,7 @@
     if (json) {
         ret[PBMParameterKeysOPEN_RTB] = json;
     } else {
-        PBMLogError(@"%@", [error localizedDescription]);
+        LogError(@"%@", [error localizedDescription]);
     }
     
     return ret;

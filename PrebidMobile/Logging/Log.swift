@@ -18,6 +18,8 @@ import Foundation
 @objcMembers
 public class Log: NSObject {
 
+    // MARK: - Public properties
+    
     public static var dateFormat = "yyyy-MM-dd hh:mm:ssSSS"
     public static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -28,104 +30,127 @@ public class Log: NSObject {
     }
     
     public static var logLevel: LogLevel = .debug
-    
     public static var logToFile = false
 
-    /// Logs error messages on console with prefix [‼️]
-    ///
-    /// - Parameters:
-    ///   - object: Object or message to be logged
-    ///   - filename: File name from where loggin to be done
-    ///   - line: Line number in file from where the logging is done
-    ///   - column: Column number of the log message
-    ///   - funcName: Name of the function from where the logging is done
-    public static func error( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        log(level: .error, object, filename: filename, line: line, column: column, funcName: funcName)
+    public static func error(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
+        log(object, logLevel: .error, filename: filename, line: line, function: function)
     }
 
-    /// Logs info messages on console with prefix [ℹ️]
-    ///
-    /// - Parameters:
-    ///   - object: Object or message to be logged
-    ///   - filename: File name from where loggin to be done
-    ///   - line: Line number in file from where the logging is done
-    ///   - column: Column number of the log message
-    ///   - funcName: Name of the function from where the logging is done
-    public static func info ( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        log(level: .info, object, filename: filename, line: line, column: column, funcName: funcName)
+    public static func info(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
+        log(object, logLevel: .info, filename: filename, line: line, function: function)
     }
 
-    /// Logs debug messages on console with prefix [💬]
-    ///
-    /// - Parameters:
-    ///   - object: Object or message to be logged
-    ///   - filename: File name from where loggin to be done
-    ///   - line: Line number in file from where the logging is done
-    ///   - column: Column number of the log message
-    ///   - funcName: Name of the function from where the logging is done
-    public static func debug( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-       log(level: .debug, object, filename: filename, line: line, column: column, funcName: funcName)
+    public static func debug(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
+        log(object, logLevel: .debug, filename: filename, line: line, function: function)
     }
 
-    /// Logs messages verbosely on console with prefix [🔬]
-    ///
-    /// - Parameters:
-    ///   - object: Object or message to be logged
-    ///   - filename: File name from where loggin to be done
-    ///   - line: Line number in file from where the logging is done
-    ///   - column: Column number of the log message
-    ///   - funcName: Name of the function from where the logging is done
-    public static func verbose( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        log(level: .verbose, object, filename: filename, line: line, column: column, funcName: funcName)
+    public static func verbose(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
+        log(object, logLevel: .verbose, filename: filename, line: line, function: function)
     }
 
-    /// Logs warnings verbosely on console with prefix [⚠️]
-    ///
-    /// - Parameters:
-    ///   - object: Object or message to be logged
-    ///   - filename: File name from where loggin to be done
-    ///   - line: Line number in file from where the logging is done
-    ///   - column: Column number of the log message
-    ///   - funcName: Name of the function from where the logging is done
-    public static func warn( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        log(level: .warn, object, filename: filename, line: line, column: column, funcName: funcName)
+    public static func warn(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
+        log(object, logLevel: .warn, filename: filename, line: line, function: function)
     }
 
-    /// Logs severe events on console with prefix [🔥]
-    ///
-    /// - Parameters:
-    ///   - object: Object or message to be logged
-    ///   - filename: File name from where loggin to be done
-    ///   - line: Line number in file from where the logging is done
-    ///   - column: Column number of the log message
-    ///   - funcName: Name of the function from where the logging is done
-    public static func severe( _ object: Any, filename: String = #file, line: Int = #line, column: Int = #column, funcName: String = #function) {
-        log(level: .severe, object, filename: filename, line: line, column: column, funcName: funcName)
+    public static func severe(_ object: Any, filename: String = #file, line: Int = #line, function: String = #function) {
+        log(object, logLevel: .severe, filename: filename, line: line, function: function)
     }
     
-    public static func whereAmI() {
-        log(level: .info, "", filename: #file, line: #line, column: #column, funcName: #function)
+    public static func whereAmI(filename: String = #file, line: Int = #line, function: String = #function) {
+        log("", logLevel: .info, filename: filename, line: line, function: function)
     }
-
-    // MARK: - Internal methods
     
-    private static func isLoggingEnabled() -> Bool {
-        #if !(DEBUG)
-        return false
+    static func log(_ object: Any, logLevel: LogLevel, filename: String, line: Int, function: String) {
+        #if (DEBUG)
+        let finalMessage = "\(Date().toString()) \(logLevel.stringValue)[\(sourceFileName(filePath: filename))]:\(line) \(function) -> \(object)"
+        print(finalMessage)
+        serialWriteToLog(finalMessage)
         #endif
-        return true
     }
-
-    private static func log(level: LogLevel, _ object: Any, filename: String, line: Int, column: Int, funcName: String) {
-        if isLoggingEnabled() {
-            print("\(Date().toString()) \(level.stringValue)[\(sourceFileName(filePath: filename))]:\(line) \(column) \(funcName) -> \(object)")
+    
+    public static func serialWriteToLog(_ message: String) {
+        loggingQueue.async {
+            writeToLogFile(message)
         }
     }
     
-    /// Extract the file name from the file path
-    ///
-    /// - Parameter filePath: Full file path in bundle
-    /// - Returns: File Name with extension
+    public static func writeToLogFile(_ message: String) {
+        if !Log.logToFile {
+            return
+        }
+        
+        let messageWithNewline = message + "\n"
+        guard let data = messageWithNewline.data(using: .utf8) else {
+            return
+        }
+        
+        if let path = logFileURL?.path, FileManager.default.fileExists(atPath: path) {
+            if let fileHandle = FileHandle(forWritingAtPath: path) {
+                
+                if #available(iOS 13.4, *) {
+                    do {
+                        try fileHandle.seekToEnd()
+                        try fileHandle.write(contentsOf: data)
+                        try fileHandle.close()
+                    } catch {
+                        Log.error("\(sdkName) Couldn't write to log file: \(error.localizedDescription)")
+                    }
+                } else {
+                    fileHandle.seekToEndOfFile()
+                    fileHandle.write(data)
+                    fileHandle.closeFile()
+                }
+            }
+        } else {
+            if let logFileURL = logFileURL {
+                do {
+                    try data.write(to: logFileURL)
+                } catch {
+                    Log.error("\(sdkName) Couldn't write to log file URL: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    public static func getLogFileAsString() -> String? {
+        loggingQueue.sync {
+            if let logFileURL = logFileURL {
+                do {
+                    return try String(contentsOf: logFileURL, encoding: .utf8)
+                } catch {
+                    Log.error("\(sdkName) Error getting log file: \(error.localizedDescription)")
+                    return nil
+                }
+            }
+            return nil
+        }
+    }
+    
+    public static func clearLogFile() {
+        loggingQueue.sync {
+            do {
+                if let logFileURL = logFileURL {
+                    try "".data(using: .utf8)?.write(to: logFileURL)
+                }
+            } catch {
+                Log.error("\(sdkName) Error clearing log file: \(error.localizedDescription)")
+            }
+        }
+    }
+
+    // MARK: - Internal properties and methods
+    
+    private static let sdkName = "prebid-mobile-sdk"
+    
+    private static let loggingQueue = DispatchQueue(label: sdkName)
+    
+    private static var logFileURL = getURLForDoc(sdkName + ".txt")
+    
+    private static func getURLForDoc(_ docName: String) -> URL? {
+        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
+        return temporaryDirectoryURL.appendingPathComponent(docName)
+    }
+    
     private static func sourceFileName(filePath: String) -> String {
         let components = filePath.components(separatedBy: "/")
         return components.isEmpty ? "" : components.last!

@@ -147,7 +147,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
             }
             
         } else {
-            PBMLog.error("The winning bid is absent in response!")
+            Log.error("The winning bid is absent in response!")
         }
         
         completeWithResult(demandResult)

@@ -18,6 +18,9 @@
 #import "PBMOpenMeasurementSession.h"
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @interface PBMWindowLocker ()
 @property (nonatomic, assign, readwrite, getter=isLocked) BOOL locked;
 @property (nonatomic, weak, nullable, readonly) UIWindow *window;
@@ -40,12 +43,12 @@
 
 - (void)lock {
     if (self.locked) {
-        PBMLogError(@"Attempting to lock already locked window locker.");
+        LogError(@"Attempting to lock already locked window locker.");
         return;
     }
     UIView * lockingView = [self lockingView] ?: [self buildLockingView];
     if (lockingView == nil) {
-        PBMLogError(@"Failed to create window locking view.");
+        LogError(@"Failed to create window locking view.");
         return;
     }
     self.lockingView = lockingView;
@@ -62,7 +65,7 @@
 
 - (void)unlock {
     if (!self.locked) {
-        PBMLogError(@"Attempting to unlock already unlocked window locker.");
+        LogError(@"Attempting to unlock already unlocked window locker.");
         return;
     }
     [self.lockingView removeFromSuperview];

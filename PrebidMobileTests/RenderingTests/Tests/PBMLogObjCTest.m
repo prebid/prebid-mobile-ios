@@ -36,7 +36,7 @@
                line:0
            function:nil];
     
-    NSString *log = [PBMLog.shared getLogFileAsString];
+    NSString *log = [Log getLogFileAsString];
     XCTAssert(log);
     XCTAssertTrue([log rangeOfString:@"WARNING"].location != NSNotFound);
 }

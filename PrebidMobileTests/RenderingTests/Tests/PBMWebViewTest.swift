@@ -330,7 +330,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
     
     // MARK: - Test WKUIDelegate
     func testWindowOpenTargets() {
-        PBMLog.shared.logToFile = true
+        Log.logToFile = true
         for sendTap in [true, false] {
             
             //This is the "target" field for window.open(url, target)
@@ -383,12 +383,12 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         
         self.waitForExpectations(timeout: 5) { (error) in
             if error != nil {
-                PBMLog.info("sendTap:\(sendTap), target:\"\(target)\", expectClickThrough: \(expectClickThrough), expectAutoClickSuppressionMessage:\(expectAutoClickSuppressionMessage)")
+                Log.info("sendTap:\(sendTap), target:\"\(target)\", expectClickThrough: \(expectClickThrough), expectAutoClickSuppressionMessage:\(expectAutoClickSuppressionMessage)")
             }
         }
         
         //Make sure the log contains a "before" and "after" message to verify that the window.open command ran without error.
-        let log = PBMLog.shared.getLogFileAsString()
+        let log = Log.getLogFileAsString() ?? ""
         print("Log: \(log)")
         XCTAssertTrue(log.contains("Before window.open"))
         XCTAssertTrue(log.contains("After window.open"))
@@ -408,7 +408,8 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         
         // Test: no url
         webView.webView(webView.internalWebView, decidePolicyFor: WKNavigationAction(), decisionHandler: { policy in
-            XCTAssertTrue(PBMLog.shared.getLogFileAsString().contains("No URL found on WKWebView navigation"))
+            let log = Log.getLogFileAsString() ?? ""
+            XCTAssertTrue(log.contains("No URL found on WKWebView navigation"))
             XCTAssertEqual(policy, .cancel)
         })
         
@@ -423,14 +424,16 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         // Test: view in some intermediate state
         webView.state = .unloaded
         webView.webView(webView.internalWebView, decidePolicyFor: navigationAction, decisionHandler: { policy in
-            XCTAssertTrue(PBMLog.shared.getLogFileAsString().contains("Unexpected state "))
+            let log = Log.getLogFileAsString() ?? ""
+            XCTAssertTrue(log.contains("Unexpected state "))
             XCTAssertEqual(policy, .cancel)
         })
         
         // Test: Prevent malicious auto-clicking
         webView.state = .loaded
         webView.webView(webView.internalWebView, decidePolicyFor: navigationAction, decisionHandler: { policy in
-            XCTAssertTrue(PBMLog.shared.getLogFileAsString().contains("User has not recently tapped."))
+            let log = Log.getLogFileAsString() ?? ""
+            XCTAssertTrue(log.contains("User has not recently tapped."))
             XCTAssertEqual(policy, .cancel)
         })
     }
@@ -721,7 +724,7 @@ class PBMWebViewTest : XCTestCase, PBMWebViewDelegate {
         
         webView.MRAID_error("test error", action: PBMMRAIDAction.log)
         
-        let log = PBMLog.shared.getLogFileAsString()
+        let log = Log.getLogFileAsString() ?? ""
         
         XCTAssertTrue(log.contains("Action: [\(PBMMRAIDAction.log.rawValue)] generated error with message [test error]"))
     }

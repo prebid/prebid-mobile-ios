@@ -86,7 +86,7 @@ class PBMHTMLCreativeTest_MRAIDOpen: PBMHTMLCreativeTest_Base {
             self.htmlCreative.webView(self.mockWebView, receivedMRAIDLink:UtilitiesForTesting.getMRAIDURL("open/\(testURL)"))
         }
         
-        let log = PBMLog.shared.getLogFileAsString()
+        let log = Log.getLogFileAsString() ?? ""
         
         unescapedTestURLs.forEach {
             XCTAssert(log.contains("Attempting to MRAID.open() url \($0)"), "Expected log to contain \($0)")

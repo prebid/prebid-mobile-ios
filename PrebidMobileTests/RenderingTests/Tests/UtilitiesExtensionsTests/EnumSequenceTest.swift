@@ -36,7 +36,7 @@ class EnumSequenceTest: XCTestCase {
         XCTAssert(allEvents.contains(PBMTrackingEvent.error))
         
         for event in allEvents {
-            PBMLog.info(PBMTrackingEventDescription.getDescription(event))
+            Log.info(PBMTrackingEventDescription.getDescription(event))
         }
     }
 }

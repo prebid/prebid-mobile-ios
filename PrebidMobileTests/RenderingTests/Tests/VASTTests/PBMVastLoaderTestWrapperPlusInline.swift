@@ -48,7 +48,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         MockServer.shared.reset()
         let ruleInline =  MockServerRule(urlNeedle: "foo.com/inline/vast", mimeType:  MockServerMimeType.XML.rawValue, connectionID: conn.internalID, fileName: "document_with_one_inline_ad.xml")
         ruleInline.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
-            PBMLog.info("didFetchInline.fulfill()")
+            Log.info("didFetchInline.fulfill()")
             self.didFetchInline.fulfill()
         }
         

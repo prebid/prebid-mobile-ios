@@ -21,6 +21,9 @@
 #import "PBMServerConnectionProtocol.h"
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #pragma mark - Private Properties
 
 @interface PBMDownloadDataHelper()

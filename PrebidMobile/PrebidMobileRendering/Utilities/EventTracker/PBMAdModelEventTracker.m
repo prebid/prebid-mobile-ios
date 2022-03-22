@@ -18,6 +18,9 @@
 #import "PBMServerConnectionProtocol.h"
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @interface PBMAdModelEventTracker()
 
 @property (nonatomic, weak) PBMCreativeModel *creativeModel;
@@ -52,7 +55,7 @@
     
     NSArray *urls = self.creativeModel.trackingURLs[eventName];
     if (!urls) {
-        PBMLogInfo(@"No tracking URL(s) for event %@", eventName);
+        LogInfo(@"No tracking URL(s) for event %@", eventName);
         return;
     }
     

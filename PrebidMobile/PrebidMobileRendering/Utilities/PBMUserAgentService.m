@@ -19,6 +19,9 @@
 #import <WebKit/WebKit.h>
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #pragma mark - Private Extension
 
 @interface PBMUserAgentService()
@@ -93,7 +96,7 @@
         @strongify(self);
         
         if (error) {
-            PBMLogError(@"%@", error);
+            LogError(@"%@", error);
         }        
         else if (result) {
             NSString *resultString = [NSString stringWithFormat:@"%@", result];

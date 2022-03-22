@@ -22,7 +22,6 @@
 #import "PBMEventManager.h"
 #import "PBMFunctions+Private.h"
 #import "PBMInterstitialLayoutConfigurator.h"
-#import "PBMLog.h"
 #import "PBMModalManager.h"
 #import "PBMNSThreadProtocol.h"
 #import "PBMServerConnectionProtocol.h"
@@ -73,12 +72,12 @@
 
 - (BOOL)isAbleToShowCurrentCreative {
     if (!self.currentCreative) {
-        PBMLogError(@"No creative to display");
+        LogError(@"No creative to display");
         return NO;
     }
     
     if ([self isInterstitial] && ![self.adViewManagerDelegate viewControllerForModalPresentation]) {
-        PBMLogError(@"viewControllerForModalPresentation returned nil");
+        LogError(@"viewControllerForModalPresentation returned nil");
         return NO;
     }
     
@@ -92,7 +91,7 @@
     
     UIViewController* viewController = [self.adViewManagerDelegate viewControllerForModalPresentation];
     if (!viewController) {
-        PBMLogError(@"viewControllerForModalPresentation is nil. Check the implementation of Ad View Delegate.");
+        LogError(@"viewControllerForModalPresentation is nil. Check the implementation of Ad View Delegate.");
         return;
     }
     
@@ -113,7 +112,7 @@
     } else {
         UIView* creativeView = self.currentCreative.view;
         if (!creativeView) {
-            PBMLogError(@"Creative has no view");
+            LogError(@"Creative has no view");
             return;
         }
         
@@ -172,7 +171,7 @@
 }
 
 - (void)creativeDidComplete:(PBMAbstractCreative *)creative {
-    PBMLogWhereAmI();
+    LogWhereAmI();
     
     if (!self.adConfiguration.isBuiltInVideo && self.currentCreative.view && self.currentCreative.view.superview) {
         [self.currentCreative.view removeFromSuperview];
@@ -314,7 +313,7 @@
 
 - (void)setupCreative:(PBMAbstractCreative *)creative withThread:(id<PBMNSThreadProtocol>)thread {
     if (!thread.isMainThread) {
-        PBMLogError(@"setupCreative must be called on the main thread");
+        LogError(@"setupCreative must be called on the main thread");
         return;
     }
     

@@ -36,7 +36,7 @@ public class NativeData: NSObject, JsonDecodable {
     
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
-            PBMLog.warn("The native data json dicitonary is empty")
+            Log.warn("The native data json dicitonary is empty")
             return
         }
         
@@ -46,7 +46,7 @@ public class NativeData: NSObject, JsonDecodable {
         self.ext = jsonDictionary["ext"] as? [String: Any]
         
         if value == nil {
-            PBMLog.warn("There is no value property in native data response")
+            Log.warn("There is no value property in native data response")
         }
     }
     

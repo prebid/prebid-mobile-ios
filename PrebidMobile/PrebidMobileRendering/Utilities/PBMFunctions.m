@@ -20,7 +20,9 @@
 #import "PBMConstants.h"
 #import "PBMError.h"
 #import "PBMServerResponse.h"
-#import "PBMLog.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 #pragma mark - Constants
 
@@ -102,14 +104,14 @@ static NSString * const PBMPlistExt = @"plist";
     } else {
         UIApplication* uiApplication = [UIApplication sharedApplication];
         if (!uiApplication) {
-            PBMLogWarn(@"[UIApplication sharedApplication] is nil. Potentially running in Unit Test Target.");
+            LogWarn(@"[UIApplication sharedApplication] is nil. Potentially running in Unit Test Target.");
             return;
         }
         
         //Since only one UIApplication can exist at a time it can only be "mocked" by applying a protocol
         //to it that it already conforms to.
         if (![uiApplication conformsToProtocol:@protocol(PBMUIApplicationProtocol)]) {
-            PBMLogError(@"[UIApplication sharedApplication] does not conform to PBMUIApplicationProtocol.");
+            LogError(@"[UIApplication sharedApplication] does not conform to PBMUIApplicationProtocol.");
             return;
         }
         pbmUIApplication = (id<PBMUIApplicationProtocol>)uiApplication;

@@ -31,6 +31,7 @@
 #import "PBMRawBidResponse.h"
 #import "PBMLocationManager.h"
 #import "PBMLogPrivate.h"
+#import "Log+Extensions.h"
 
 #import "PBMInterstitialAdLoaderDelegate.h"
 

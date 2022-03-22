@@ -29,7 +29,6 @@
 #import "PBMEventManager.h"
 #import "PBMFunctions+Private.h"
 #import "PBMInterstitialDisplayProperties.h"
-#import "PBMLog.h"
 #import "PBMMRAIDCommand.h"
 #import "PBMMRAIDConstants.h"
 #import "PBMMacros.h"
@@ -126,7 +125,7 @@
     @try {
         [self webView:webView handleMRAIDCommand:url];
     } @catch (NSException *exception) {
-        PBMLogWarn(@"%@", [exception reason]);
+        LogWarn(@"%@", [exception reason]);
     }
 }
 
@@ -257,7 +256,7 @@
     }
     
     if (!controller) {
-        PBMLogError(@"There is no controller for presenting system feature.");
+        LogError(@"There is no controller for presenting system feature.");
     }
     
     return controller;
@@ -276,7 +275,7 @@
         @throw [NSException pbmException:[NSString stringWithFormat:@"Could not create URL from string: %@", strURL]];
     }
     
-    PBMLogInfo(@"Attempting to MRAID.open() url %@", strURL);
+    LogInfo(@"Attempting to MRAID.open() url %@", strURL);
     [self.creative handleClickthrough:url];
 }
 
@@ -322,7 +321,7 @@
             //Epanding to a URL
             NSURL *expandURL = [NSURL URLWithString:strExpandURL];
             if (!expandURL) {
-                PBMLogError(@"Could not create expand url to: %@", strExpandURL);
+                LogError(@"Could not create expand url to: %@", strExpandURL);
                 return;
             }
             
@@ -420,7 +419,7 @@
         CGRect frame = [PBMMRAIDController CGRectForResizeProperties:resizeProperties fromView:webView];
         if (CGRectIsInfinite(frame)) {
             NSString *message = @"MRAID ad attempted to resize to an invalid size";
-            PBMLogError(@"%@", message);
+            LogError(@"%@", message);
             [webView MRAID_error:message action:PBMMRAIDActionResize];
             return;
         }
@@ -479,7 +478,7 @@
 }
 
 - (void)handleMRAIDCommandUnload {
-    PBMLogWhereAmI();
+    LogWhereAmI();
     PBMAbstractCreative * const creative = self.creative;
     switch (self.prebidWebView.state) {
         case PBMWebViewStateLoaded: {
@@ -613,7 +612,7 @@
         @strongify(self);
         
         if (error) {
-            PBMLogError(@"Unable to load MRAID video. Error: %@", error);
+            LogError(@"Unable to load MRAID video. Error: %@", error);
             return;
         }
         
@@ -674,7 +673,7 @@
     
     // get the view's absolute position
     if (!fromView.superview) {
-        PBMLogInfo(@"Could not determine a global point");
+        LogInfo(@"Could not determine a global point");
         return CGRectInfinite;
     }
     
@@ -682,7 +681,7 @@
     
     // calc the resized rect based on global offset and resize properties
     CGRect basicRect = CGRectMake((NSInteger)globalPoint.x + properties.offsetX, (NSInteger)globalPoint.y + properties.offsetY, properties.width, properties.height);
-    PBMLogInfo(@"basicRect = %@", NSStringFromCGRect(basicRect));
+    LogInfo(@"basicRect = %@", NSStringFromCGRect(basicRect));
     
     // if offscreen is allowed, return with it
     if (properties.allowOffscreen) {

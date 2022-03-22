@@ -259,7 +259,7 @@ class PBMVastParserTests: XCTestCase {
         
         parse(PBMVastParser())
         
-        let log = PBMLog.shared.getLogFileAsString()
+        let log = Log.getLogFileAsString() ?? ""
         
         XCTAssertTrue(log.contains(expectedLog), "Log: \"\(log)\" not contains: \"\(expectedLog)\"", file: file, line: line)
     }

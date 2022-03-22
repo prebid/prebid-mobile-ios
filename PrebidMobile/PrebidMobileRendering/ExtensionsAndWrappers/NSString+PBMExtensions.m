@@ -14,7 +14,9 @@
  */
 
 #import "NSString+PBMExtensions.h"
-#import "PBMLog.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @implementation NSString(PBMExtensions)
 
@@ -33,7 +35,7 @@
                                                                            options:0 //NSRegularExpressionCaseInsensitive
                                                                              error:&error];
     if (error) {
-        PBMLogError(@"Error %@ parsing regex: %@", error.description, strRegex);
+        LogError(@"Error %@ parsing regex: %@", error.description, strRegex);
         return 0;
     }
 
@@ -111,7 +113,7 @@
                                                                            options:0
                                                                              error:&error];
     if (error) {
-        PBMLogError(@"Error %@ parsing regex: %@", error.description, strRegex);
+        LogError(@"Error %@ parsing regex: %@", error.description, strRegex);
         return self;
     }
 

@@ -15,10 +15,13 @@
 
 #import "PBMNetworkParameterBuilder.h"
 
-#import<CoreTelephony/CTCarrier.h>
+#import <CoreTelephony/CTCarrier.h>
 
 #import "PBMORTB.h"
 #import "PBMMacros.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 #pragma mark - Internal Extension
 
@@ -49,7 +52,7 @@
 
 - (void)buildBidRequest:(PBMORTBBidRequest *)bidRequest {
     if (!(self.ctTelephonyNetworkInfo && bidRequest)) {
-        PBMLogError(@"Invalid properties");
+        LogError(@"Invalid properties");
         return;
     }
     

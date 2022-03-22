@@ -16,6 +16,8 @@
 #import <Foundation/Foundation.h>
 #import "PBMLogLevel.h"
 
+@class Log;
+
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMLog : NSObject
 

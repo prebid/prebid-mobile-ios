@@ -57,7 +57,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         get { _refreshInterval }
         set {
             if adConfiguration.winningBidAdFormat == .video {
-                PBMLog.warn("'refreshInterval' property is not assignable for Outstream Video ads")
+                Log.warn("'refreshInterval' property is not assignable for Outstream Video ads")
                 return
             }
             if newValue < 0 {
@@ -69,7 +69,7 @@ public class AdUnitConfig: NSObject, NSCopying {
                 _refreshInterval = doubleClamped;
                 
                 if self.refreshInterval != newValue {
-                    PBMLog.warn("The value \(newValue) is out of range [\(refreshIntervalMin);\(refreshIntervalMax)]. The value \(_refreshInterval) will be used")
+                    Log.warn("The value \(newValue) is out of range [\(refreshIntervalMin);\(refreshIntervalMax)]. The value \(_refreshInterval) will be used")
                 }
             }
         }

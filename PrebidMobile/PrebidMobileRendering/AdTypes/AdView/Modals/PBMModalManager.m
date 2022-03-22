@@ -15,7 +15,6 @@
 
 #import "PBMModalManager.h"
 
-#import "PBMLog.h"
 #import "PBMAdConfiguration.h"
 #import "PBMVideoView.h"
 #import "PBMDownloadDataHelper.h"
@@ -31,6 +30,9 @@
 #import "PBMDeferredModalState.h"
 #import "PBMMacros.h"
 #import "PBMModalAnimator.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 #pragma mark - Constants
 
@@ -93,7 +95,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
         @strongify(self);
-        PBMLogInfo(@"Forcing orientation to %@", [self pbmDescription:forcedOrientation]);
+        LogInfo(@"Forcing orientation to %@", [self pbmDescription:forcedOrientation]);
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger: forcedOrientation] forKey:@"orientation"];
     });
 }
@@ -112,13 +114,13 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
     
     PBMAssert(state && fromRootViewController);
     if (!(state && fromRootViewController)) {
-        PBMLogError(@"Invalid input parameters");
+        LogError(@"Invalid input parameters");
         return nil;
     }
     
     if (self.deferredModalState != nil) {
         if (state != self.deferredModalState.modalState) {
-            PBMLogError(@"Attempting to push modal state while another deferred state is being prepared");
+            LogError(@"Attempting to push modal state while another deferred state is being prepared");
             return nil;
         } else {
             // Previously deferred modalState has been resolved and is being pushed
@@ -181,7 +183,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
         //Is the stack empty?
         PBMModalState *poppedModalState = [self.modalStateStack lastObject];
         if (!poppedModalState) {
-            PBMLogError(@"popModal called on empty modalStateStack!");
+            LogError(@"popModal called on empty modalStateStack!");
             return;
         }
                 
@@ -234,7 +236,7 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
 - (void)display:(PBMModalState *)state fromRootViewController:(UIViewController *)fromRootViewController animated:(BOOL)animated completionHandler:(nullable PBMVoidBlock)completionHandler {
     
     if (!state) {
-        PBMLogError(@"Undefined state");
+        LogError(@"Undefined state");
         return;
     }
     
@@ -246,12 +248,12 @@ static NSString * const PBMInterstitialStoryboardName  = @"Interstitial";
         if (!self.modalViewController) {
             [self createModalViewControllerWithState:state];
             if (!self.modalViewController) {
-                PBMLogError(@"Unable to create an InterstitialViewController");
+                LogError(@"Unable to create an InterstitialViewController");
                 return;
             }
             
             if (!fromRootViewController) {
-                PBMLogError(@"No root VC to present from");
+                LogError(@"No root VC to present from");
                 return;
             }
             

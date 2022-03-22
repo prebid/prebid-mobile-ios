@@ -39,7 +39,7 @@ public class NativeEventTrackerResponse: NSObject, JsonDecodable {
     
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
-            PBMLog.warn("The native event trackers json dicitonary is empty")
+            Log.warn("The native event trackers json dicitonary is empty")
             return
         }
         
@@ -50,15 +50,15 @@ public class NativeEventTrackerResponse: NSObject, JsonDecodable {
         self.ext = jsonDictionary["ext"] as? [String: Any]
         
         if event == nil {
-            PBMLog.warn("There is no event property in native event tracker response")
+            Log.warn("There is no event property in native event tracker response")
         }
         
         if method == nil {
-            PBMLog.warn("There is no method property in native event tracker response")
+            Log.warn("There is no method property in native event tracker response")
         }
         
         if url == nil {
-            PBMLog.warn("There is no url property in native event tracker response")
+            Log.warn("There is no url property in native event tracker response")
         }
     }
     

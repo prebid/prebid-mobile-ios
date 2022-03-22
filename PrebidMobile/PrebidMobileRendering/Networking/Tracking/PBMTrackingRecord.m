@@ -16,6 +16,9 @@
 #import "PBMTrackingRecord.h"
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @implementation PBMTrackingRecord
 
 #pragma mark - Initialization

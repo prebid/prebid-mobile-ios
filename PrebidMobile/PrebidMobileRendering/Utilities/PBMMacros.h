@@ -13,14 +13,12 @@
  limitations under the License.
  */
 
-#import "PBMLog.h"
-
 #pragma mark - Checking Params
 
 #define PBMAssertExt(condition, messageFormat, ...)          \
     NSAssert(condition, messageFormat, ##__VA_ARGS__);    \
     if (!condition) {                                     \
-        PBMLogError(messageFormat, ##__VA_ARGS__);        \
+        LogError(messageFormat, ##__VA_ARGS__);        \
     }
 
 #define PBMAssert(condition)                              \

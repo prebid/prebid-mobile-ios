@@ -18,8 +18,8 @@
 #import "UIView+PBMExtensions.h"
 #import "UIView+PBMViewExposure.h"
 
-#import "PBMLog.h"
-
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @implementation UIView (PBMExtensions)
 
@@ -176,8 +176,8 @@
     [self activateConstraints:constraints];
     [self.superview addConstraints:constraints];
 }
-- (void)PBMLogViewHierarchy {
-    PBMLogInfo(@"**********LOGGING VIEW HIERARCHY**********");
+- (void)LogViewHierarchy {
+    LogInfo(@"**********LOGGING VIEW HIERARCHY**********");
     [self logViewHierarchyForView:self depth:0];
 }
 
@@ -189,7 +189,7 @@
         prefix = [prefix stringByAppendingString:@"-"];
     }
     
-    PBMLogInfo(@"%@view = %@ view.constraints: %@", prefix, view, view.constraints);
+    LogInfo(@"%@view = %@ view.constraints: %@", prefix, view, view.constraints);
     
     for (UIView *subview in view.subviews) {
         [self logViewHierarchyForView:subview depth:(depth + 1)];

@@ -172,7 +172,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
         let expectation = self.expectation(description: fireAndForgetUrlNeedle)
         let rule = MockServerRule(fireAndForgetURLNeedle: fireAndForgetUrlNeedle, connectionID: connectionID)
         rule.mockServerReceivedRequestHandler = { (urlRequest:URLRequest) in
-            PBMLog.info("VAST Event: \(urlRequest.description)")
+            Log.info("VAST Event: \(urlRequest.description)")
             expectation.fulfill()
         }
         

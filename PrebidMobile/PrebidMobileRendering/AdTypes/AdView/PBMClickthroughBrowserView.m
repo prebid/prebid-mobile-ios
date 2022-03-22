@@ -17,7 +17,6 @@
 #import "PBMClickthroughBrowserView+NavigationHandler.h"
 #import "WKWebView+PBMWKWebViewCompatible.h"
 #import "PBMConstants.h"
-#import "PBMLog.h"
 #import "PBMFunctions+Private.h"
 #import "PBMMacros.h"
 

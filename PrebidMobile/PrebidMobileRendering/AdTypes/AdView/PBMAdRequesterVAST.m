@@ -24,6 +24,9 @@
 #import "PBMVastAdsBuilder.h"
 #import "PBMVastRequester.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #pragma mark - Internal Interface
 
 @interface PBMAdRequesterVAST ()
@@ -71,7 +74,7 @@
 
 - (void)buildVastAdsArray:(NSData *)rawVASTData {
     if (self.adsBuilder) {
-        PBMLogError(@"Loading of VAST is failed. Ads Builder is not intended to be re-used.");
+        LogError(@"Loading of VAST is failed. Ads Builder is not intended to be re-used.");
         return;
     }
     

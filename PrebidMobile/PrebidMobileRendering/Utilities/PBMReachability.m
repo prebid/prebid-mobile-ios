@@ -21,8 +21,10 @@
 
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <CoreFoundation/CoreFoundation.h>
-#import "PBMLog.h"
 #import "PBMReachability.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @interface PBMReachability()
 @property SCNetworkReachabilityRef reachabilityRef;
@@ -40,7 +42,7 @@
 
 #if kShouldPrintReachabilityFlags
 static void PrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char* comment) {
-    PBMLogInfo(@"Reachability Flag Status: %c%c %c%c%c%c%c%c%c %s\n",
+    LogInfo(@"Reachability Flag Status: %c%c %c%c%c%c%c%c%c %s\n",
         (flags & kSCNetworkReachabilityFlagsIsWWAN)               ? 'W' : '-',
         (flags & kSCNetworkReachabilityFlagsReachable)            ? 'R' : '-',
         (flags & kSCNetworkReachabilityFlagsTransientConnection)  ? 't' : '-',
