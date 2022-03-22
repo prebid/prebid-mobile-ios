@@ -162,9 +162,7 @@
 		5BC37908271F1CFF00444D5E /* PBMFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376AA271F1CFE00444D5E /* PBMFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37909271F1CFF00444D5E /* PBMDeepLinkPlusHelper+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376AB271F1CFE00444D5E /* PBMDeepLinkPlusHelper+Testing.h */; };
 		5BC3790B271F1CFF00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376AD271F1CFE00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.h */; };
-		5BC3790C271F1CFF00444D5E /* PBMLogLevel.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376AE271F1CFE00444D5E /* PBMLogLevel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC3790D271F1CFF00444D5E /* PBMUserConsentResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376AF271F1CFE00444D5E /* PBMUserConsentResolver.m */; };
-		5BC3790E271F1CFF00444D5E /* PBMLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376B0271F1CFE00444D5E /* PBMLog.m */; };
 		5BC3790F271F1CFF00444D5E /* PBMDeviceAccessManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376B1271F1CFE00444D5E /* PBMDeviceAccessManager.h */; };
 		5BC37910271F1CFF00444D5E /* PBMWindowLocker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376B2271F1CFE00444D5E /* PBMWindowLocker.m */; };
 		5BC37911271F1CFF00444D5E /* PBMDeepLinkPlus.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376B3271F1CFE00444D5E /* PBMDeepLinkPlus.m */; };
@@ -178,7 +176,6 @@
 		5BC37919271F1CFF00444D5E /* PBMUserConsentDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376BB271F1CFE00444D5E /* PBMUserConsentDataManager.m */; };
 		5BC3791B271F1CFF00444D5E /* PBMFunctions+Testing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376BD271F1CFE00444D5E /* PBMFunctions+Testing.m */; };
 		5BC3791C271F1CFF00444D5E /* PBMMRAIDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376BE271F1CFE00444D5E /* PBMMRAIDConstants.m */; };
-		5BC3791D271F1CFF00444D5E /* PBMLogPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376BF271F1CFE00444D5E /* PBMLogPrivate.m */; };
 		5BC3791E271F1CFF00444D5E /* PBMReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376C0271F1CFE00444D5E /* PBMReachability.m */; };
 		5BC3791F271F1CFF00444D5E /* PBMDeviceAccessManagerKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376C1271F1CFE00444D5E /* PBMDeviceAccessManagerKeys.h */; };
 		5BC37920271F1CFF00444D5E /* PBMDeepLinkPlusHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376C2271F1CFE00444D5E /* PBMDeepLinkPlusHelper.m */; };
@@ -203,7 +200,6 @@
 		5BC37934271F1D0000444D5E /* PBMVideoVerificationParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376D7271F1CFE00444D5E /* PBMVideoVerificationParameters.m */; };
 		5BC37935271F1D0000444D5E /* PBMAdModelEventTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376D8271F1CFE00444D5E /* PBMAdModelEventTracker.m */; };
 		5BC37936271F1D0000444D5E /* PBMEventManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376D9271F1CFE00444D5E /* PBMEventManager.h */; };
-		5BC37937271F1D0000444D5E /* PBMLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DA271F1CFE00444D5E /* PBMLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37938271F1D0000444D5E /* PBMMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DB271F1CFE00444D5E /* PBMMacros.h */; };
 		5BC37939271F1D0000444D5E /* PBMFunctions+Testing.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DC271F1CFE00444D5E /* PBMFunctions+Testing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC3793A271F1D0000444D5E /* PBMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376DD271F1CFE00444D5E /* PBMLocationManager.m */; };
@@ -216,7 +212,6 @@
 		5BC37941271F1D0000444D5E /* PBMReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376E4271F1CFE00444D5E /* PBMReachability.h */; };
 		5BC37942271F1D0000444D5E /* PBMDeviceAccessManagerKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376E5271F1CFE00444D5E /* PBMDeviceAccessManagerKeys.m */; };
 		5BC37943271F1D0000444D5E /* PBMDeepLinkPlusHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376E6271F1CFE00444D5E /* PBMDeepLinkPlusHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5BC37944271F1D0000444D5E /* PBMLogPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376E7271F1CFE00444D5E /* PBMLogPrivate.h */; };
 		5BC37945271F1D0000444D5E /* PBMMRAIDConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376E8271F1CFE00444D5E /* PBMMRAIDConstants.h */; };
 		5BC37946271F1D0000444D5E /* companion.html in Resources */ = {isa = PBXBuildFile; fileRef = 5BC376EA271F1CFE00444D5E /* companion.html */; };
 		5BC37947271F1D0000444D5E /* mraid.js in Resources */ = {isa = PBXBuildFile; fileRef = 5BC376EB271F1CFE00444D5E /* mraid.js */; };
@@ -996,9 +991,7 @@
 		5BC376AA271F1CFE00444D5E /* PBMFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMFunctions.h; sourceTree = "<group>"; };
 		5BC376AB271F1CFE00444D5E /* PBMDeepLinkPlusHelper+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMDeepLinkPlusHelper+Testing.h"; sourceTree = "<group>"; };
 		5BC376AD271F1CFE00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMWKScriptMessageHandlerLeakAvoider.h; sourceTree = "<group>"; };
-		5BC376AE271F1CFE00444D5E /* PBMLogLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMLogLevel.h; sourceTree = "<group>"; };
 		5BC376AF271F1CFE00444D5E /* PBMUserConsentResolver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMUserConsentResolver.m; sourceTree = "<group>"; };
-		5BC376B0271F1CFE00444D5E /* PBMLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMLog.m; sourceTree = "<group>"; };
 		5BC376B1271F1CFE00444D5E /* PBMDeviceAccessManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMDeviceAccessManager.h; sourceTree = "<group>"; };
 		5BC376B2271F1CFE00444D5E /* PBMWindowLocker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMWindowLocker.m; sourceTree = "<group>"; };
 		5BC376B3271F1CFE00444D5E /* PBMDeepLinkPlus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDeepLinkPlus.m; sourceTree = "<group>"; };
@@ -1013,7 +1006,6 @@
 		5BC376BC271F1CFE00444D5E /* PBMLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMLocationManager.h; sourceTree = "<group>"; };
 		5BC376BD271F1CFE00444D5E /* PBMFunctions+Testing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PBMFunctions+Testing.m"; sourceTree = "<group>"; };
 		5BC376BE271F1CFE00444D5E /* PBMMRAIDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMMRAIDConstants.m; sourceTree = "<group>"; };
-		5BC376BF271F1CFE00444D5E /* PBMLogPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMLogPrivate.m; sourceTree = "<group>"; };
 		5BC376C0271F1CFE00444D5E /* PBMReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMReachability.m; sourceTree = "<group>"; };
 		5BC376C1271F1CFE00444D5E /* PBMDeviceAccessManagerKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMDeviceAccessManagerKeys.h; sourceTree = "<group>"; };
 		5BC376C2271F1CFE00444D5E /* PBMDeepLinkPlusHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDeepLinkPlusHelper.m; sourceTree = "<group>"; };
@@ -1038,7 +1030,6 @@
 		5BC376D7271F1CFE00444D5E /* PBMVideoVerificationParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMVideoVerificationParameters.m; sourceTree = "<group>"; };
 		5BC376D8271F1CFE00444D5E /* PBMAdModelEventTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMAdModelEventTracker.m; sourceTree = "<group>"; };
 		5BC376D9271F1CFE00444D5E /* PBMEventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMEventManager.h; sourceTree = "<group>"; };
-		5BC376DA271F1CFE00444D5E /* PBMLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMLog.h; sourceTree = "<group>"; };
 		5BC376DB271F1CFE00444D5E /* PBMMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMMacros.h; sourceTree = "<group>"; };
 		5BC376DC271F1CFE00444D5E /* PBMFunctions+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMFunctions+Testing.h"; sourceTree = "<group>"; };
 		5BC376DD271F1CFE00444D5E /* PBMLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMLocationManager.m; sourceTree = "<group>"; };
@@ -1051,7 +1042,6 @@
 		5BC376E4271F1CFE00444D5E /* PBMReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMReachability.h; sourceTree = "<group>"; };
 		5BC376E5271F1CFE00444D5E /* PBMDeviceAccessManagerKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDeviceAccessManagerKeys.m; sourceTree = "<group>"; };
 		5BC376E6271F1CFE00444D5E /* PBMDeepLinkPlusHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMDeepLinkPlusHelper.h; sourceTree = "<group>"; };
-		5BC376E7271F1CFE00444D5E /* PBMLogPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMLogPrivate.h; sourceTree = "<group>"; };
 		5BC376E8271F1CFE00444D5E /* PBMMRAIDConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMMRAIDConstants.h; sourceTree = "<group>"; };
 		5BC376EA271F1CFE00444D5E /* companion.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = companion.html; sourceTree = "<group>"; };
 		5BC376EB271F1CFE00444D5E /* mraid.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = mraid.js; sourceTree = "<group>"; };
@@ -2024,11 +2014,6 @@
 				5BC376BC271F1CFE00444D5E /* PBMLocationManager.h */,
 				5BC376DD271F1CFE00444D5E /* PBMLocationManager.m */,
 				5BC376CB271F1CFE00444D5E /* PBMLocationManagerProtocol.h */,
-				5BC376DA271F1CFE00444D5E /* PBMLog.h */,
-				5BC376B0271F1CFE00444D5E /* PBMLog.m */,
-				5BC376AE271F1CFE00444D5E /* PBMLogLevel.h */,
-				5BC376E7271F1CFE00444D5E /* PBMLogPrivate.h */,
-				5BC376BF271F1CFE00444D5E /* PBMLogPrivate.m */,
 				5BC376DB271F1CFE00444D5E /* PBMMacros.h */,
 				5BC376E8271F1CFE00444D5E /* PBMMRAIDConstants.h */,
 				5BC376BE271F1CFE00444D5E /* PBMMRAIDConstants.m */,
@@ -3305,7 +3290,6 @@
 				5BC37930271F1D0000444D5E /* PBMVideoVerificationParameters.h in Headers */,
 				5BC37A23271F1D0000444D5E /* PBMClickthroughBrowserOpener.h in Headers */,
 				5BC378DA271F1CFF00444D5E /* PBMORTBSource.h in Headers */,
-				5BC37944271F1D0000444D5E /* PBMLogPrivate.h in Headers */,
 				5BC37A1A271F1D0000444D5E /* PBMRawBidResponse.h in Headers */,
 				5BC3796F271F1D0000444D5E /* PBMVastCreativeCompanionAdsCompanion.h in Headers */,
 				5BC378CA271F1CFF00444D5E /* PBMWeakTimerTargetBox.h in Headers */,
@@ -3469,7 +3453,6 @@
 				5BC37933271F1D0000444D5E /* PBMAdModelEventTracker.h in Headers */,
 				5BC37957271F1D0000444D5E /* PBMJSLibrary.h in Headers */,
 				5BC37A95271F1D0000444D5E /* PBMPrimaryAdRequesterProtocol.h in Headers */,
-				5BC37937271F1D0000444D5E /* PBMLog.h in Headers */,
 				5BC379AF271F1D0000444D5E /* PBMVideoView.h in Headers */,
 				5BC37938271F1D0000444D5E /* PBMMacros.h in Headers */,
 				5BC37AB7271F1D0000444D5E /* PBMOpenMeasurementWrapper.h in Headers */,
@@ -3508,7 +3491,6 @@
 				5BC379B0271F1D0000444D5E /* PBMAutoRefreshManager.h in Headers */,
 				5BC37AD3271F1D0100444D5E /* PBMBasicParameterBuilder.h in Headers */,
 				5BC3798A271F1D0000444D5E /* PBMInterstitialDisplayProperties.h in Headers */,
-				5BC3790C271F1CFF00444D5E /* PBMLogLevel.h in Headers */,
 				5BC37A9D271F1D0000444D5E /* PBMAdLoadFlowController.h in Headers */,
 				5BC37921271F1CFF00444D5E /* PBMUIApplicationProtocol.h in Headers */,
 				5BC378C5271F1CFF00444D5E /* NSMutableDictionary+PBMExtensions.h in Headers */,
@@ -4072,7 +4054,6 @@
 				5BC37A86271F1D0000444D5E /* BannerView.swift in Sources */,
 				5BC3796E271F1D0000444D5E /* PBMVastWrapperAd.m in Sources */,
 				5BC37ADE271F1D0100444D5E /* PBMServerConnection.m in Sources */,
-				5BC3791D271F1CFF00444D5E /* PBMLogPrivate.m in Sources */,
 				FAEE4D1A262DC2B200AD9966 /* NativeAd.swift in Sources */,
 				5BC37A1B271F1D0000444D5E /* Prebid.swift in Sources */,
 				5BC379A8271F1D0000444D5E /* PBMModalViewController.m in Sources */,
@@ -4161,7 +4142,6 @@
 				5BC37901271F1CFF00444D5E /* PBMORTBImp.m in Sources */,
 				5BC37AE0271F1D0100444D5E /* AdFormat.swift in Sources */,
 				5BC37AAC271F1D0000444D5E /* InterstitialEventHandlerStandalone.swift in Sources */,
-				5BC3790E271F1CFF00444D5E /* PBMLog.m in Sources */,
 				5BC37954271F1D0000444D5E /* PBMCreativeViewabilityTracker.m in Sources */,
 				5BC37A89271F1D0000444D5E /* RewardedEventInteractionDelegate.swift in Sources */,
 				9290549227A417F00091D10D /* ImageHelper.swift in Sources */,
