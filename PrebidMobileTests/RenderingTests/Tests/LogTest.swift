@@ -66,23 +66,21 @@ class LogTest: XCTestCase {
         Log.writeToLogFile(message)
         
         
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) {
-            guard let log = Log.getLogFileAsString() else {
-                XCTFail()
-                return
-            }
-            XCTAssertTrue(!log.isEmpty)
+        guard let log = Log.getLogFileAsString() else {
+            XCTFail()
+            return
         }
+        XCTAssertTrue(!log.isEmpty)
         
         Log.clearLogFile()
         
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) {
-            guard let log = Log.getLogFileAsString() else {
-                XCTFail()
-                return
-            }
-            XCTAssertTrue(log.isEmpty)
+        
+        guard let log = Log.getLogFileAsString() else {
+            XCTFail()
+            return
         }
+        XCTAssertTrue(log.isEmpty)
+        
     }
     
     func testAllKinds() {
