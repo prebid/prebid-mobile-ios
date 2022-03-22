@@ -86,6 +86,7 @@ framework module PrebidMobile {
     
     header "PBMBidRequester.h"
     header "PBMLog.h"
+    header "Log+Extensions.h"
     header "PBMAutoRefreshManager.h"
     
     
