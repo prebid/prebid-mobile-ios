@@ -89,7 +89,7 @@ public class AdMobUtils: NSObject {
                 return json
             }
         } catch let error as NSError {
-            Log.info("Failed to load: \(error.localizedDescription)")
+            Log.error("Failed to load: \(error.localizedDescription)")
         }
         
         return nil
