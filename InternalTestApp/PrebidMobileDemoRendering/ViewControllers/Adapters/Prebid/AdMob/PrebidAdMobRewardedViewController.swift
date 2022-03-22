@@ -87,7 +87,7 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
             GADRewardedAd.load(withAdUnitID: self.adMobAdUnitId, request: self.request) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
-                    PBMLog.error(error.localizedDescription)
+                    Log.error(error.localizedDescription)
                     self.resetEvents()
                     self.adDidFailToReceiveButton.isEnabled = true
                     return
@@ -102,7 +102,7 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
     
     // MARK: - GADFullScreenContentDelegate
     func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
-        PBMLog.error(error.localizedDescription)
+        Log.error(error.localizedDescription)
         resetEvents()
         adDidFailToPresentFullScreenContentWithErrorButton.isEnabled = true
     }

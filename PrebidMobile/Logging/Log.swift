@@ -61,11 +61,11 @@ public class Log: NSObject {
     }
     
     static func log(_ object: Any, logLevel: LogLevel, filename: String, line: Int, function: String) {
-        #if (DEBUG)
-        let finalMessage = "\(Date().toString()) \(logLevel.stringValue)[\(sourceFileName(filePath: filename))]:\(line) \(function) -> \(object)"
-        print(finalMessage)
-        serialWriteToLog(finalMessage)
-        #endif
+        if isLoggingEnabled(for: logLevel) {
+            let finalMessage = "\(sdkName): \(Date().toString()) \(logLevel.stringValue)[\(sourceFileName(filePath: filename))]:\(line) \(function) -> \(object)"
+            print(finalMessage)
+            serialWriteToLog(finalMessage)
+        }
     }
     
     public static func serialWriteToLog(_ message: String) {
@@ -145,6 +145,29 @@ public class Log: NSObject {
     private static let loggingQueue = DispatchQueue(label: sdkName)
     
     private static var logFileURL = getURLForDoc(sdkName + ".txt")
+    
+    private class func isLoggingEnabled(for currentEvent: LogLevel) -> Bool {
+        #if !(DEBUG)
+        return false
+        #endif
+        let currentLevel = Prebid.shared.logLevel
+        switch currentLevel {
+        case .debug:
+            return true
+        case .verbose:
+            return [ LogLevel.verbose, LogLevel.info, LogLevel.warn, LogLevel.error, LogLevel.severe].contains(currentEvent)
+        case .info:
+            return [ LogLevel.info, LogLevel.warn, LogLevel.error, LogLevel.severe].contains(currentEvent)
+        case .warn:
+            return [ LogLevel.warn, LogLevel.error, LogLevel.severe].contains(currentEvent)
+        case .error:
+            return [ LogLevel.error, LogLevel.severe].contains(currentEvent)
+        case .severe:
+            return [ LogLevel.severe].contains(currentEvent)
+        default:
+            return false
+        }
+    }
     
     private static func getURLForDoc(_ docName: String) -> URL? {
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())

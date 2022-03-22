@@ -221,7 +221,7 @@ class RewardedVideoController:
             GADRewardedAd.load(withAdUnitID: self.admobPrebidAdUnitId, request: request) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
-                    PBMLog.error(error.localizedDescription)
+                    Log.error(error.localizedDescription)
                     return
                 }
                 self.gadRewardedAd = ad

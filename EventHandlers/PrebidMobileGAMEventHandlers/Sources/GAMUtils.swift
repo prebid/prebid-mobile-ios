@@ -50,7 +50,7 @@ public class GAMUtils: NSObject {
     }
     
     class func log(error: GAMEventHandlerError) {
-        PBMLog.error(error.localizedDescription)
+        Log.error(error.localizedDescription)
     }
     
     // MARK: Private Methods

@@ -273,7 +273,7 @@ class InterstitialViewController:
             GADInterstitialAd.load(withAdUnitID: "ca-app-pub-5922967660082475/3383099861", request: self?.gadRequest) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
-                    PBMLog.error(error.localizedDescription)
+                    Log.error(error.localizedDescription)
                     return
                 }
                 self.interstitial = ad
@@ -295,7 +295,7 @@ class InterstitialViewController:
             GADInterstitialAd.load(withAdUnitID: "ca-app-pub-5922967660082475/3383099861", request: self?.gadRequest) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
-                    PBMLog.error(error.localizedDescription)
+                    Log.error(error.localizedDescription)
                     return
                 }
                 self.interstitial = ad
@@ -395,23 +395,23 @@ class InterstitialViewController:
     
     // MARK: - GADFullScreenContentDelegate
     func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
-        PBMLog.error(error.localizedDescription)
+        Log.error(error.localizedDescription)
     }
     
     func adDidPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        PBMLog.message("adDidPresentFullScreenContent called")
+        Log.info("adDidPresentFullScreenContent called")
     }
     
     func adWillDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        PBMLog.message("adWillDismissFullScreenContent called")
+        Log.info("adWillDismissFullScreenContent called")
     }
     
     func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
-        PBMLog.message("adDidDismissFullScreenContent called")
+        Log.info("adDidDismissFullScreenContent called")
         interstitial = nil
     }
     
     func adDidRecordImpression(_ ad: GADFullScreenPresentingAd) {
-        PBMLog.message("adDidRecordImpression called")
+        Log.info("adDidRecordImpression called")
     }
 }
