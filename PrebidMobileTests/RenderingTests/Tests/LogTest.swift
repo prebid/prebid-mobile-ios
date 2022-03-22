@@ -34,21 +34,55 @@ class LogTest: XCTestCase {
         super.tearDown()
     }
     
-    func testLogToFile() {
+    func testLogToFileViaLogInfo() {
         logToFile = .init()
         let logExpectation = expectation(description: "logExpectation")
 
-        DispatchQueue.global().async {
-            
-            Log.info(self.message)
-            logExpectation.fulfill()
-        }
+        Log.info(self.message)
+        logExpectation.fulfill()
 
         waitForExpectations(timeout: 1, handler: { _ in
             let log = Log.getLogFileAsString() ?? ""
             XCTAssertTrue(log.contains(self.message))
             XCTAssertTrue(log.contains(LogLevel.info.stringValue))
         })
+    }
+    
+    func testGetLogFileAsString() {
+        logToFile = .init()
+        
+        var log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log.isEmpty)
+        
+        Log.writeToLogFile(message)
+        
+        log = Log.getLogFileAsString() ?? ""
+        XCTAssertTrue(log == message.appending("\n"))
+    }
+    
+    func testClearLogFile() {
+        
+        logToFile = .init()
+        Log.writeToLogFile(message)
+        
+        
+        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) {
+            guard let log = Log.getLogFileAsString() else {
+                XCTFail()
+                return
+            }
+            XCTAssertTrue(!log.isEmpty)
+        }
+        
+        Log.clearLogFile()
+        
+        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) {
+            guard let log = Log.getLogFileAsString() else {
+                XCTFail()
+                return
+            }
+            XCTAssertTrue(log.isEmpty)
+        }
     }
     
     func testAllKinds() {

@@ -119,7 +119,6 @@ public class Log: NSObject {
                     return try String(contentsOf: logFileURL, encoding: .utf8)
                 } catch {
                     Log.error("\(sdkName) Error getting log file: \(error.localizedDescription)")
-                    return nil
                 }
             }
             return nil
