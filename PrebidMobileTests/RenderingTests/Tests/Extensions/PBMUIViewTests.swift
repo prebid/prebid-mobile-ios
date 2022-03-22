@@ -482,7 +482,7 @@ class PBMUIViewTests: XCTestCase {
             levelPrefix += "-"
         }
         
-        let logPrefix = "]: " + levelPrefix + "view = "
+        let logPrefix = "-> " + levelPrefix + "view = "
         return log.components(separatedBy: logPrefix).count - 1
     }
     
