@@ -104,7 +104,7 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
     }
     
     func interstitialDidFail(toLoadAd interstitial: MPInterstitialAdController!, withError error: Error!) {
-        PBMLog.error(error.localizedDescription)
+        Log.error(error.localizedDescription)
         resetEvents()
         interstitialDidFailButton.isEnabled = true
     }

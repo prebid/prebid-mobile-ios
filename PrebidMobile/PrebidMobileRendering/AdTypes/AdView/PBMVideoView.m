@@ -30,6 +30,9 @@
 #import "PBMVideoView.h"
 #import "UIView+PBMExtensions.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 static NSString * const PBMAVPlayerObserverKeyStatus        = @"status";
 static NSString * const PBMAVPlayerObserverKeyVolume        = @"volume";
 static NSString * const PBMAudioSessionObserverKeyVoulume   = @"outputVolume";

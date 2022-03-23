@@ -19,6 +19,9 @@
 #import <WebKit/WebKit.h>
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #pragma mark - Private Extension
 
 @interface PBMUserAgentService()

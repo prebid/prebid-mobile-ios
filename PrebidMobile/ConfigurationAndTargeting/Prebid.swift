@@ -104,8 +104,8 @@ public class Prebid: NSObject {
 
     //If set to true, the output of PrebidMobile's internal logger is written to a text file. This can be helpful for debugging. Defaults to false.
     public var debugLogFileEnabled: Bool {
-        get { PBMLog.shared.logToFile }
-        set { PBMLog.shared.logToFile = newValue }
+        get { Log.logToFile }
+        set { Log.logToFile = newValue }
     }
 
     //If true, the SDK will periodically try to listen for location updates in order to request location-based ads.
@@ -119,11 +119,6 @@ public class Prebid: NSObject {
     public func setCustomPrebidServer(url: String) throws {
         prebidServerHost = .Custom
         try Host.shared.setCustomHostURL(url)
-    }
-    
-    // Objective C API for logLevel
-    public func setLogLevel(_ logLevel: LogLevel_) {
-        self.logLevel = logLevel.getPrimary()
     }
     
     // MARK: - Stored Bid Response
@@ -164,7 +159,7 @@ public class Prebid: NSObject {
         let _ = PBMUserConsentDataManager.shared
         PBMOpenMeasurementWrapper.shared.initializeJSLib(with: PBMFunctions.bundleForSDK())
         
-        PBMLog.info("prebid-mobile-sdk \(PBMFunctions.sdkVersion()) Initialized")
+        Log.info("prebid-mobile-sdk \(PBMFunctions.sdkVersion()) Initialized")
     }
     
     // MARK: - Private Methods

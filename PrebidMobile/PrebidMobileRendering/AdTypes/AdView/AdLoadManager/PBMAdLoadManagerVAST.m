@@ -23,6 +23,8 @@
 #import "PBMServerResponse.h"
 #import "PBMTransaction.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 #pragma mark - Internal Interface
 

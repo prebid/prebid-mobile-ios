@@ -38,6 +38,8 @@
 #import "PBMInterstitialDisplayProperties.h"
 #import "PBMCreativeViewabilityTracker.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 #pragma mark - Private Extension
 

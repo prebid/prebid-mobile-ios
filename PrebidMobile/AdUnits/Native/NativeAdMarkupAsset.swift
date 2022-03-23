@@ -46,7 +46,7 @@ public class NativeAdMarkupAsset: NSObject, JsonDecodable {
     
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
-            PBMLog.warn("The native title json dicitonary is empty")
+            Log.warn("The native title json dicitonary is empty")
             return
         }
         

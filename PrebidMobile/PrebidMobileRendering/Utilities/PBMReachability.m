@@ -21,8 +21,10 @@
 
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <CoreFoundation/CoreFoundation.h>
-#import "PBMLog.h"
 #import "PBMReachability.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @interface PBMReachability()
 @property SCNetworkReachabilityRef reachabilityRef;

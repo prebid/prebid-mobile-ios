@@ -22,6 +22,9 @@
 #import "PBMServerResponse.h"
 #import "PBMJSLibraryManager.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @import OMSDK_Prebidorg;
 
 #pragma mark - Constants

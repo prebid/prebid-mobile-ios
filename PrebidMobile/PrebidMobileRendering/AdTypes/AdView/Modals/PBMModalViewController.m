@@ -28,6 +28,9 @@
 #import "PBMModalManager.h"
 #import "PBMWebView.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #pragma mark - Private Extension
 
 @interface PBMModalViewController ()

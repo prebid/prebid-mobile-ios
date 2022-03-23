@@ -33,7 +33,7 @@ public class NativeLink: NSObject, JsonDecodable {
     
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
-            PBMLog.warn("The native link json dicitonary is empty")
+            Log.warn("The native link json dicitonary is empty")
             return
         }
         
@@ -43,7 +43,7 @@ public class NativeLink: NSObject, JsonDecodable {
         self.ext = jsonDictionary["ext"] as? [String: Any]
         
         if url == nil {
-            PBMLog.warn("There is no url property in native link response")
+            Log.warn("There is no url property in native link response")
         }
     }
 

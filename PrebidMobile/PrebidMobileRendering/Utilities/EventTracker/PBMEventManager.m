@@ -14,7 +14,9 @@
  */
 
 #import "PBMEventManager.h"
-#import "PBMLog.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @interface PBMEventManager()
 

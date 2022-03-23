@@ -15,7 +15,6 @@
 
 #import "PBMModalManager.h"
 
-#import "PBMLog.h"
 #import "PBMAdConfiguration.h"
 #import "PBMVideoView.h"
 #import "PBMDownloadDataHelper.h"
@@ -31,6 +30,9 @@
 #import "PBMDeferredModalState.h"
 #import "PBMMacros.h"
 #import "PBMModalAnimator.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 #pragma mark - Constants
 

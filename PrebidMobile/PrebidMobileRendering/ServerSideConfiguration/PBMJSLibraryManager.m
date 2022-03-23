@@ -18,9 +18,10 @@
 #import "PBMServerResponse.h"
 #import "PBMFunctions+Private.h"
 #import "PBMError.h"
-#import "PBMError.h"
-
 #import "PBMMacros.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 static NSString * const PBMMRAIDFileName = @"mraid.jslib";
 static NSString * const PBMMRAIDBundleName = @"mraid";

@@ -174,12 +174,12 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
     
     func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
         admobNativeAdView = nil
-        PBMLog.error(error.localizedDescription)
+        Log.error(error.localizedDescription)
         adLoaderDidFailToReceiveAdWithErrorButton.isEnabled = true
     }
     
     func adLoaderDidFinishLoading(_ adLoader: GADAdLoader) {
-        PBMLog.message("GAD ad loader did finished loading.")
+        Log.info("GAD ad loader did finished loading.")
         adLoaderDidFinishLoadingButton.isEnabled = true
     }
 }

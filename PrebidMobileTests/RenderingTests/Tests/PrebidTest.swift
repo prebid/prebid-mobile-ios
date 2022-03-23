@@ -39,14 +39,12 @@ class PrebidTest: XCTestCase {
         
         Prebid.initializeSDK()
         
-        let log = PBMLog.shared.getLogFileAsString()
+        let log = Log.getLogFileAsString() ?? ""
         
         XCTAssert(log.contains("prebid-mobile-sdk \(PBMFunctions.sdkVersion()) Initialized"))
     }
     
     func testLogLevel() {
-        // FIXME: fix the type mismatch after PBMLog will be ported
-        
         let sdkConfiguration = Prebid.shared
         
         XCTAssertEqual(sdkConfiguration.logLevel, Log.logLevel)
@@ -63,12 +61,12 @@ class PrebidTest: XCTestCase {
         let sdkConfiguration = Prebid.shared
         let initialValue = sdkConfiguration.debugLogFileEnabled
         
-        XCTAssertEqual(initialValue, PBMLog.shared.logToFile)
+        XCTAssertEqual(initialValue, Log.logToFile)
         
         sdkConfiguration.debugLogFileEnabled = !initialValue
-        XCTAssertEqual(PBMLog.shared.logToFile, !initialValue)
+        XCTAssertEqual(Log.logToFile, !initialValue)
         
-        PBMLog.shared.logToFile = initialValue
+        Log.logToFile = initialValue
         XCTAssertEqual(sdkConfiguration.debugLogFileEnabled, initialValue)
     }
     

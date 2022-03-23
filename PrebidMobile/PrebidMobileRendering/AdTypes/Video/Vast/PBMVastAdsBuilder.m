@@ -16,8 +16,6 @@
 #import "PBMVastAdsBuilder.h"
 
 #import "PBMError.h"
-#import "PBMError.h"
-#import "PBMLog.h"
 #import "PBMAdDetails.h"
 #import "PBMConstants.h"
 #import "PBMVastParser.h"
@@ -31,6 +29,9 @@
 #import "NSException+PBMExtensions.h"
 #import "PBMVastCreativeLinear.h"
 #import "PBMMacros.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 typedef void(^PBMVastAdsBuilderWrapperCompletionBlock)(NSError *);
 

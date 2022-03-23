@@ -14,9 +14,11 @@
  */
 
 #import "PBMORTBParameterBuilder.h"
-#import "PBMLog.h"
 #import "PBMConstants.h"
 #import "PBMORTBBidRequest.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @implementation PBMORTBParameterBuilder
 

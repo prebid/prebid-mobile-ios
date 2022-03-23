@@ -54,7 +54,7 @@ class PBMHTMLCreativeTest_NoMRAID : PBMHTMLCreativeTest_Base {
         
         //non-mraid command
         pbmHTMLCreative.webView(mockWebView, receivedMRAIDLink:URL(string: "mraid:non_cmd")!)
-        let log = PBMLog.shared.getLogFileAsString()
+        let log = Log.getLogFileAsString() ?? ""
         XCTAssert(log.contains("Unrecognized MRAID command non_cmd"))
     }
 }

@@ -23,6 +23,9 @@
 #import "PBMUserConsentDataManager.h"
 #import "PBMUserConsentResolver.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #pragma mark - Internal Extension
 
 @interface PBMDeviceInfoParameterBuilder()

@@ -20,7 +20,9 @@
 #import "PBMConstants.h"
 #import "PBMError.h"
 #import "PBMServerResponse.h"
-#import "PBMLog.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 #pragma mark - Constants
 

@@ -24,6 +24,9 @@
 #import "PBMVastAdsBuilder.h"
 #import "PBMVastRequester.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #pragma mark - Internal Interface
 
 @interface PBMAdRequesterVAST ()

@@ -15,10 +15,13 @@
 
 #import "PBMNetworkParameterBuilder.h"
 
-#import<CoreTelephony/CTCarrier.h>
+#import <CoreTelephony/CTCarrier.h>
 
 #import "PBMORTB.h"
 #import "PBMMacros.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 #pragma mark - Internal Extension
 

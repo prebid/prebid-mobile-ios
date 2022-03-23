@@ -21,7 +21,6 @@ framework module PrebidMobile {
     // Enums
     header "PBMErrorCode.h"
     header "PBMErrorType.h"
-    header "PBMLogLevel.h"
     header "PBMVideoPlacementType.h"
     
     // PBMCore
@@ -85,7 +84,7 @@ framework module PrebidMobile {
     header "PBMViewExposure.h"
     
     header "PBMBidRequester.h"
-    header "PBMLog.h"
+    header "Log+Extensions.h"
     header "PBMAutoRefreshManager.h"
     
     

@@ -235,7 +235,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         builder.adConfiguration = nil
         builder.build(bidRequest)
-        var log = PBMLog.shared.getLogFileAsString()
+        var log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.contains("Invalid properties"))
         
         logToFile = nil
@@ -244,7 +244,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         builder.adConfiguration = adConfiguration
         builder.sdkConfiguration = nil
         builder.build(bidRequest)
-        log = PBMLog.shared.getLogFileAsString()
+        log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.contains("Invalid properties"))
         
         logToFile = nil
@@ -253,7 +253,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         builder.sdkConfiguration = sdkConfiguration
         builder.sdkVersion = nil
         builder.build(bidRequest)
-        log = PBMLog.shared.getLogFileAsString()
+        log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.contains("Invalid properties"))
     }
     

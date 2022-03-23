@@ -20,6 +20,9 @@
 #import "PBMFunctions+Private.h"
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @interface PBMClickthroughBrowserNavigationHandler ()
 @property (nonatomic, weak, readonly, nullable) id<PBMWKWebViewCompatible> webView;
 @property (nonatomic, strong, nullable) void (^loadingFinishedBlock)(BOOL shouldBeDisplayed);

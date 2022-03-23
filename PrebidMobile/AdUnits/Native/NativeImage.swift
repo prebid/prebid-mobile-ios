@@ -40,7 +40,7 @@ public class NativeImage: NSObject, JsonDecodable {
     
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
-            PBMLog.warn("The native image json dicitonary is empty")
+            Log.warn("The native image json dicitonary is empty")
             return
         }
         
@@ -51,7 +51,7 @@ public class NativeImage: NSObject, JsonDecodable {
         self.ext = jsonDictionary["ext"] as? [String: Any]
         
         if url == nil {
-            PBMLog.warn("There is no url in native image response")
+            Log.warn("There is no url in native image response")
         }
     }
     

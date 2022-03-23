@@ -26,7 +26,6 @@
 #import "PBMInterstitialDisplayProperties.h"
 #import "PBMJSLibraryManager.h"
 #import "PBMLocationManager.h"
-#import "PBMLog.h"
 #import "PBMMRAIDController.h"
 #import "PBMMRAIDJavascriptCommands.h"
 #import "PBMMacros.h"
@@ -612,7 +611,7 @@ static PBMError *extracted(NSString *errorMessage) {
 }
 
 - (void)updateMRAIDLayoutInfoWithForceNotification:(BOOL)forceNotification {
-    //PBMLog.log("MRAID_updateLayoutInfo HAS BEEN CALLED")
+    //PBMLogInfo(@"MRAID_updateLayoutInfo HAS BEEN CALLED");
     [self MRAID_updateCurrentPosition:self.frame forceNotification:forceNotification];
     //self.MRAID_onViewableChange(PBMFunctions.isVisible(self))
 }

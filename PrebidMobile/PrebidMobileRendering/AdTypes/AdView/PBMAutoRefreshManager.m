@@ -17,9 +17,11 @@
 
 #import "PBMAdRefreshOptions.h"
 #import "PBMFunctions+Private.h"
-#import "PBMLog.h"
 
 #import "PBMMacros.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 
 @interface PBMAutoRefreshManager ()

@@ -314,7 +314,7 @@ class PBMORTBTest: XCTestCase {
     private func cloneAndCompare<T : PBMORTBAbstract>(abstract:T, expectedString:String, file: StaticString = #file, line: UInt = #line, cloneMethod: (T) throws -> T) {
         
         guard #available(iOS 11.0, *) else {
-            PBMLog.warn("iOS 11 or higher is needed to support the .sortedKeys option for JSONEncoding which puts keys in the order that they appear in the class. Before that, string encoding results are unpredictable.")
+            Log.warn("iOS 11 or higher is needed to support the .sortedKeys option for JSONEncoding which puts keys in the order that they appear in the class. Before that, string encoding results are unpredictable.")
             return
         }
         

@@ -18,7 +18,9 @@
 #import "PBMFunctions+Private.h"
 
 #import "PBMViewExposure.h"
-#import "PBMLog.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 #pragma mark - Constants
 

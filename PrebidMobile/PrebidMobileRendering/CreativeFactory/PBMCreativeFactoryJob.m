@@ -126,7 +126,7 @@
         } else if (adType == AdFormat.video) {
             [self attemptVASTCreative];
         } else if (adType == nil) {
-            [PBMLog error:@"The winning bid ad format is nil."];
+            PBMLogError(@"The winning bid ad format is nil.")
         }
     });
 }

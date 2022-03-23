@@ -430,11 +430,11 @@ class PBMUIViewTests: XCTestCase {
         
         // Call test method
         
-        testView.pbmLogViewHierarchy();
+        testView.logViewHierarchy()
         
         // Check log
         
-        let log = PBMLog.shared.getLogFileAsString()
+        let log = Log.getLogFileAsString() ?? ""
         
         XCTAssertTrue(log.contains("LOGGING VIEW HIERARCHY"))
         
@@ -482,7 +482,7 @@ class PBMUIViewTests: XCTestCase {
             levelPrefix += "-"
         }
         
-        let logPrefix = "]: " + levelPrefix + "view = "
+        let logPrefix = "-> " + levelPrefix + "view = "
         return log.components(separatedBy: logPrefix).count - 1
     }
     

@@ -18,6 +18,9 @@
 #import "PBMOpenMeasurementSession.h"
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @interface PBMWindowLocker ()
 @property (nonatomic, assign, readwrite, getter=isLocked) BOOL locked;
 @property (nonatomic, weak, nullable, readonly) UIWindow *window;

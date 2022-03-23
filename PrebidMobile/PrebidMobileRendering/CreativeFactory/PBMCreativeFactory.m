@@ -21,6 +21,9 @@
 #import "PBMTransaction.h"
 #import "PBMAbstractCreative.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @interface PBMCreativeFactory ()
 
 @property (strong, nonatomic) id<PBMServerConnectionProtocol> serverConnection;

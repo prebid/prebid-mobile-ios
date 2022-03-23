@@ -14,7 +14,9 @@
  */
 
 #import "NSString+PBMExtensions.h"
-#import "PBMLog.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @implementation NSString(PBMExtensions)
 

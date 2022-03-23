@@ -18,6 +18,9 @@
 #import "PBMServerConnectionProtocol.h"
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @interface PBMAdModelEventTracker()
 
 @property (nonatomic, weak) PBMCreativeModel *creativeModel;

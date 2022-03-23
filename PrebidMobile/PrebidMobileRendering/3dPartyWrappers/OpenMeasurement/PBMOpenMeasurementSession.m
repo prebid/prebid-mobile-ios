@@ -13,10 +13,12 @@
  limitations under the License.
  */
 
-#import "PBMLog.h"
 #import "PBMOpenMeasurementSession.h"
 #import "PBMOpenMeasurementEventTracker.h"
 #import "PBMOpenMeasurementFriendlyObstructionTypeBridge.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @import OMSDK_Prebidorg;
 

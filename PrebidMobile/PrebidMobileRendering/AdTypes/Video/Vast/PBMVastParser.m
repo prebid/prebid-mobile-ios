@@ -15,7 +15,6 @@
 
 #import "PBMVastParser.h"
 
-#import "PBMLog.h"
 #import "PBMVastGlobals.h"
 #import "PBMVastResponse.h"
 #import "PBMVastInlineAd.h"
@@ -30,6 +29,9 @@
 #import "PBMVastCreativeNonLinearAdsNonLinear.h"
 
 #import "PBMVideoVerificationParameters.h"
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @interface PBMVastParser ()
 

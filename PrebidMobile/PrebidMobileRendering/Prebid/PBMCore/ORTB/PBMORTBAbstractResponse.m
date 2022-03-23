@@ -16,7 +16,8 @@
 #import "PBMORTBAbstractResponse.h"
 #import "PBMORTBAbstractResponse+Protected.h"
 
-#import "PBMLog.h"
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 @implementation PBMORTBAbstractResponse
 

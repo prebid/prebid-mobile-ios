@@ -42,7 +42,7 @@ public class SkadnEventTracker: NSObject, PBMEventTrackerProtocol {
             ImpressionTask(task: { (completion) in
                 SKAdNetwork.startImpression(self.imp, completionHandler: { error in
                     if let error = error {
-                        PBMLog.error(error.localizedDescription)
+                        Log.error(error.localizedDescription)
                     }
                 })
                 completion()
@@ -50,7 +50,7 @@ public class SkadnEventTracker: NSObject, PBMEventTrackerProtocol {
             ImpressionTask(task: { (completion) in
                 SKAdNetwork.endImpression(self.imp, completionHandler: { error in
                     if let error = error {
-                        PBMLog.error(error.localizedDescription)
+                        Log.error(error.localizedDescription)
                     }
                 })
                 completion()
