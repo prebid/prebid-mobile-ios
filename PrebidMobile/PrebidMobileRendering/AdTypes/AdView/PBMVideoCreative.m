@@ -97,13 +97,7 @@
     [self.videoView PBMAddFillSuperviewConstraints];
 }
 
-- (void)showAsInterstitialFromRootViewController:(UIViewController *)uiViewController displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {
-    NSNumber *videoDuration = self.creativeModel.displayDurationInSeconds;
-    if (!videoDuration) {
-        PBMLogError(@"Undefined video duration.");
-        return;
-    }
-    
+- (void)showAsInterstitialFromRootViewController:(UIViewController *)uiViewController displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {  
     @weakify(self);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         @strongify(self);
