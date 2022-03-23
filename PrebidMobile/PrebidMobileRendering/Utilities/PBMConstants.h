@@ -141,7 +141,7 @@ NS_SWIFT_NAME(ParseKey)
 @end
 
 
-@interface PBMVideo : NSObject
+@interface PBMVideoConstants : NSObject
 
 @property (class, readonly) NSInteger VIDEO_TIMESCALE                   NS_SWIFT_NAME(VIDEO_TIMESCALE);
 @property (class, readonly) NSNumber *DEFAULT_MAX_VIDEO_DURATION        NS_SWIFT_NAME(DEFAULT_MAX_VIDEO_DURATION);

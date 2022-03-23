@@ -77,6 +77,7 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
         self.viewableArea = 1;
         self.viewableDuration = 0;
         self.videoPlacementType = PBMVideoPlacementType_Undefined;
+        self.maxVideoDuration = PBMVideoConstants.DEFAULT_MAX_VIDEO_DURATION;
     }
     
     return self;

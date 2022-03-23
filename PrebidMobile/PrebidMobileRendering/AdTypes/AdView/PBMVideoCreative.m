@@ -100,8 +100,7 @@
 - (void)showAsInterstitialFromRootViewController:(UIViewController *)uiViewController displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {
     NSNumber *videoDuration = self.creativeModel.displayDurationInSeconds;
     if (!videoDuration) {
-        PBMLogWarn(@"Undefined video duration.");
-        // TODO: Should we return or show with default duration?
+        PBMLogError(@"Undefined video duration.");
         return;
     }
     

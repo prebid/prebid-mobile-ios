@@ -209,9 +209,9 @@ PBMParameterKeys const PBMParameterKeysOPEN_RTB = @"openrtb";
 @end
 
 
-#pragma mark - PBMVideo
+#pragma mark - PBMVideoConstants
 
-@implementation PBMVideo
+@implementation PBMVideoConstants
 
 +(NSInteger)VIDEO_TIMESCALE {
     return 1000;
