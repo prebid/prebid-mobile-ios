@@ -209,12 +209,16 @@ PBMParameterKeys const PBMParameterKeysOPEN_RTB = @"openrtb";
 @end
 
 
-#pragma mark - PBMTimeScale
+#pragma mark - PBMVideo
 
-@implementation PBMTimeScale
+@implementation PBMVideo
 
 +(NSInteger)VIDEO_TIMESCALE {
     return 1000;
+}
+
++(NSNumber *)DEFAULT_MAX_VIDEO_DURATION {
+    return [[NSNumber alloc] initWithDouble:3600];
 }
 
 @end

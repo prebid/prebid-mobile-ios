@@ -82,7 +82,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL isBuiltInVideo;
 
+/**
+ This property indicated winning bid ad format (ext.prebid.type)
+ */
 @property (nonatomic, strong, nullable) AdFormat *winningBidAdFormat;
+
+/**
+ This property indicates the maximum available playback time in seconds.
+ */
+@property (nonatomic, strong) NSNumber* maxVideoDuration;
 
 #pragma mark - Impression Tracking
 
