@@ -16,19 +16,28 @@
 import Foundation
 
 @objcMembers
-public class LogLevel: NSObject {
+public class LogLevel: NSObject, RawRepresentable {
+    
+    public typealias RawValue = Int
+  
+    public var rawValue: Int
     
     public var stringValue = ""
     
-    public required init(stringValue: String) {
+    public convenience init(stringValue: String, rawValue: RawValue) {
+        self.init(rawValue: rawValue)
         self.stringValue = stringValue
+    }
+    
+    public required init(rawValue: RawValue) {
+        self.rawValue = rawValue
         super.init()
     }
     
-    public static let debug = LogLevel(stringValue: "[💬]")
-    public static let verbose = LogLevel(stringValue: "[🔬]")
-    public static let info = LogLevel(stringValue: "[ℹ️]")
-    public static let warn = LogLevel(stringValue: "[⚠️]")
-    public static let error = LogLevel(stringValue: "[‼️]")
-    public static let severe = LogLevel(stringValue: "[🔥]")
+    public static let debug = LogLevel(stringValue: "[💬]", rawValue: 0)
+    public static let verbose = LogLevel(stringValue: "[🔬]", rawValue: 1)
+    public static let info = LogLevel(stringValue: "[ℹ️]", rawValue: 2)
+    public static let warn = LogLevel(stringValue: "[⚠️]", rawValue: 3)
+    public static let error = LogLevel(stringValue: "[‼️]", rawValue: 4)
+    public static let severe = LogLevel(stringValue: "[🔥]", rawValue: 5)
 }

@@ -145,27 +145,16 @@ public class Log: NSObject {
     
     private static var logFileURL = getURLForDoc(sdkName + ".txt")
     
-    private class func isLoggingEnabled(for currentEvent: LogLevel) -> Bool {
+    private class func isLoggingEnabled(for currentLevel: LogLevel) -> Bool {
         #if !(DEBUG)
         return false
         #endif
-        let currentLevel = Prebid.shared.logLevel
-        switch currentLevel {
-        case .debug:
-            return true
-        case .verbose:
-            return [ LogLevel.verbose, LogLevel.info, LogLevel.warn, LogLevel.error, LogLevel.severe].contains(currentEvent)
-        case .info:
-            return [ LogLevel.info, LogLevel.warn, LogLevel.error, LogLevel.severe].contains(currentEvent)
-        case .warn:
-            return [ LogLevel.warn, LogLevel.error, LogLevel.severe].contains(currentEvent)
-        case .error:
-            return [ LogLevel.error, LogLevel.severe].contains(currentEvent)
-        case .severe:
-            return [ LogLevel.severe].contains(currentEvent)
-        default:
+        
+        if currentLevel.rawValue < Log.logLevel.rawValue {
             return false
         }
+        
+        return true
     }
     
     private static func getURLForDoc(_ docName: String) -> URL? {
