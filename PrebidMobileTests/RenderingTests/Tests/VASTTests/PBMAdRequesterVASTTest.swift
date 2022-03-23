@@ -151,4 +151,48 @@ class PBMAdRequesterVASTTest: XCTestCase {
         
         self.waitForExpectations(timeout: 3)
     }
+    
+    func testRequestWithMaxDuration() {
+        let adConfiguration = PBMAdConfiguration()
+        adConfiguration.adFormats = [.video]
+        adConfiguration.maxVideoDuration = 1
+                
+        let conn = UtilitiesForTesting.createConnectionForMockedTest()
+        let adLoadManager = MockPBMAdLoadManagerVAST(connection:conn, adConfiguration: adConfiguration)
+        
+        adLoadManager.mock_requestCompletedSuccess = { response in
+            self.vastServerResponse = response
+            self.successfulExpectation?.fulfill()
+        }
+        
+        adLoadManager.mock_requestCompletedFailure = { error in
+            self.failedExpectation?.fulfill()
+        }
+        
+        let requester = PBMAdRequesterVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        requester.adLoadManager = adLoadManager
+        
+        if let data = UtilitiesForTesting.loadFileAsDataFromBundle("inline_with_padding_on_urls.xml") {
+            requester.buildAdsArray(data)
+        }
+        
+        XCTAssertNotNil(self.vastServerResponse)
+        if self.vastServerResponse == nil {
+            return
+        }
+        
+        let vastRequestErrorExpectation = self.expectation(description: "Expected fail due to video duration value that is bigger than max value set in adConfiguration.")
+        
+        let modelMaker = PBMCreativeModelCollectionMakerVAST(serverConnection:conn, adConfiguration: adConfiguration)
+        
+        modelMaker.makeModels(self.vastServerResponse!,
+                              successCallback: { models in
+           XCTFail()
+        },
+                              failureCallback: { error in
+            vastRequestErrorExpectation.fulfill()
+        })
+        
+        self.waitForExpectations(timeout: 3)
+    }
 }
