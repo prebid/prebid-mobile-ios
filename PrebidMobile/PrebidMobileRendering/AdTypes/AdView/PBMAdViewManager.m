@@ -72,12 +72,12 @@
 
 - (BOOL)isAbleToShowCurrentCreative {
     if (!self.currentCreative) {
-        LogError(@"No creative to display");
+        PBMLogError(@"No creative to display");
         return NO;
     }
     
     if ([self isInterstitial] && ![self.adViewManagerDelegate viewControllerForModalPresentation]) {
-        LogError(@"viewControllerForModalPresentation returned nil");
+        PBMLogError(@"viewControllerForModalPresentation returned nil");
         return NO;
     }
     
@@ -91,7 +91,7 @@
     
     UIViewController* viewController = [self.adViewManagerDelegate viewControllerForModalPresentation];
     if (!viewController) {
-        LogError(@"viewControllerForModalPresentation is nil. Check the implementation of Ad View Delegate.");
+        PBMLogError(@"viewControllerForModalPresentation is nil. Check the implementation of Ad View Delegate.");
         return;
     }
     
@@ -112,7 +112,7 @@
     } else {
         UIView* creativeView = self.currentCreative.view;
         if (!creativeView) {
-            LogError(@"Creative has no view");
+            PBMLogError(@"Creative has no view");
             return;
         }
         
@@ -171,7 +171,7 @@
 }
 
 - (void)creativeDidComplete:(PBMAbstractCreative *)creative {
-    LogWhereAmI();
+    PBMLogWhereAmI();
     
     if (!self.adConfiguration.isBuiltInVideo && self.currentCreative.view && self.currentCreative.view.superview) {
         [self.currentCreative.view removeFromSuperview];
@@ -313,7 +313,7 @@
 
 - (void)setupCreative:(PBMAbstractCreative *)creative withThread:(id<PBMNSThreadProtocol>)thread {
     if (!thread.isMainThread) {
-        LogError(@"setupCreative must be called on the main thread");
+        PBMLogError(@"setupCreative must be called on the main thread");
         return;
     }
     

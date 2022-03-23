@@ -104,14 +104,14 @@ static NSString * const PBMPlistExt = @"plist";
     } else {
         UIApplication* uiApplication = [UIApplication sharedApplication];
         if (!uiApplication) {
-            LogWarn(@"[UIApplication sharedApplication] is nil. Potentially running in Unit Test Target.");
+            PBMLogWarn(@"[UIApplication sharedApplication] is nil. Potentially running in Unit Test Target.");
             return;
         }
         
         //Since only one UIApplication can exist at a time it can only be "mocked" by applying a protocol
         //to it that it already conforms to.
         if (![uiApplication conformsToProtocol:@protocol(PBMUIApplicationProtocol)]) {
-            LogError(@"[UIApplication sharedApplication] does not conform to PBMUIApplicationProtocol.");
+            PBMLogError(@"[UIApplication sharedApplication] does not conform to PBMUIApplicationProtocol.");
             return;
         }
         pbmUIApplication = (id<PBMUIApplicationProtocol>)uiApplication;

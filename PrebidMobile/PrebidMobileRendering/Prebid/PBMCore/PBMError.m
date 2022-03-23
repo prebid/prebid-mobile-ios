@@ -47,7 +47,7 @@
 + (BOOL)createError:(NSError *__autoreleasing  _Nullable *)error description:(NSString *)description {
     if (error != NULL) {
         *error = [PBMError errorWithDescription:description];
-        LogError(@"%@", *error);
+        PBMLogError(@"%@", *error);
         return YES;
     }
     return NO;
@@ -56,7 +56,7 @@
 + (BOOL)createError:(NSError *__autoreleasing  _Nullable *)error description:(NSString *)description statusCode:(PBMErrorCode)code {
     if (error != NULL) {
         *error = [PBMError errorWithDescription:description statusCode:code];
-        LogError(@"%@", *error);
+        PBMLogError(@"%@", *error);
         return YES;
     }
     return NO;
@@ -65,7 +65,7 @@
 + (BOOL)createError:(NSError *__autoreleasing  _Nullable *)error message:(NSString *)message type:(PBMErrorType)type {
     if (error != NULL) {
         *error = [PBMError errorWithMessage:message type:type];
-        LogError(@"%@", *error);
+        PBMLogError(@"%@", *error);
         return YES;
     }
     return NO;

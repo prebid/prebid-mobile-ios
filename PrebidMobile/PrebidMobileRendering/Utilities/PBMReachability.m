@@ -42,7 +42,7 @@
 
 #if kShouldPrintReachabilityFlags
 static void PrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char* comment) {
-    LogInfo(@"Reachability Flag Status: %c%c %c%c%c%c%c%c%c %s\n",
+    PBMLogInfo(@"Reachability Flag Status: %c%c %c%c%c%c%c%c%c %s\n",
         (flags & kSCNetworkReachabilityFlagsIsWWAN)               ? 'W' : '-',
         (flags & kSCNetworkReachabilityFlagsReachable)            ? 'R' : '-',
         (flags & kSCNetworkReachabilityFlagsTransientConnection)  ? 't' : '-',

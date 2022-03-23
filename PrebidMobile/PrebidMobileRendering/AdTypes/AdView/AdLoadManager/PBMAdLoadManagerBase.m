@@ -61,7 +61,7 @@
 }
 
 - (void)requestCompletedFailure:(NSError *)error {
-    LogWhereAmI();
+    PBMLogWhereAmI();
     
     [self.adLoadManagerDelegate loadManager:self failedToLoadTransaction:nil error:error];
 }

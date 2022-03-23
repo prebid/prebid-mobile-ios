@@ -262,7 +262,7 @@ static NSString *PBMIsPBMRequestKey = @"PBMIsPBMRequest";
 - (nullable NSMutableURLRequest *)createRequest:(NSString *)strUrl {
     NSURL *url = [NSURL URLWithString:strUrl];
     if (!url) {
-        LogError(@"URL creation failed for string [%@]", strUrl);
+        PBMLogError(@"URL creation failed for string [%@]", strUrl);
         return nil;
     }
 

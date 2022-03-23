@@ -43,12 +43,12 @@
 
 - (void)lock {
     if (self.locked) {
-        LogError(@"Attempting to lock already locked window locker.");
+        PBMLogError(@"Attempting to lock already locked window locker.");
         return;
     }
     UIView * lockingView = [self lockingView] ?: [self buildLockingView];
     if (lockingView == nil) {
-        LogError(@"Failed to create window locking view.");
+        PBMLogError(@"Failed to create window locking view.");
         return;
     }
     self.lockingView = lockingView;
@@ -65,7 +65,7 @@
 
 - (void)unlock {
     if (!self.locked) {
-        LogError(@"Attempting to unlock already unlocked window locker.");
+        PBMLogError(@"Attempting to unlock already unlocked window locker.");
         return;
     }
     [self.lockingView removeFromSuperview];

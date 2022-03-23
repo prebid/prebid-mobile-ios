@@ -72,7 +72,7 @@
 -(void)parseResourceForType:(PBMVastResourceType)type {
     
     if (!self.creative) {
-        LogError(@"No applicable creative");
+        PBMLogError(@"No applicable creative");
         return;
     }
     
@@ -80,7 +80,7 @@
 
     //Bail if unsuccessful
     if (!container) {
-        LogError(@"No applicable container to apply currentElementContent of [%@] to. Type is %ld.",
+        PBMLogError(@"No applicable container to apply currentElementContent of [%@] to. Type is %ld.",
                     self.currentElementContent, (long)type);
         return;
     }
@@ -130,7 +130,7 @@
             case 2: totalSeconds += component.doubleValue * 60 * 60; break; //Hours
                 
             default: {
-                LogError(@"Unable to parse time string: %@", str);
+                PBMLogError(@"Unable to parse time string: %@", str);
                 return 0;
             }
         }
@@ -225,7 +225,7 @@
     else if ([elementName isEqualToString: @"Companion"]) {
         PBMVastCreativeCompanionAds *pbmVastCreativeCompanionAds = (PBMVastCreativeCompanionAds*) self.creative;
         if (!pbmVastCreativeCompanionAds) {
-            LogError(@"Error - expected current creative to be PBMVastCreativeCompanionAds");
+            PBMLogError(@"Error - expected current creative to be PBMVastCreativeCompanionAds");
             return;
         }
         
@@ -243,7 +243,7 @@
     else if ([elementName isEqualToString: @"NonLinear"]) {
         PBMVastCreativeNonLinearAds *pbmVastCreativeNonLinearAds = (PBMVastCreativeNonLinearAds*) self.creative;
         if (!pbmVastCreativeNonLinearAds) {
-            LogError(@"Expected current creative to be PBMVastCreativeNonLinearAds");
+            PBMLogError(@"Expected current creative to be PBMVastCreativeNonLinearAds");
             return;
         }
         
@@ -262,7 +262,7 @@
     else if ([elementName isEqualToString: @"Icon"]) {
         PBMVastCreativeLinear *pbmVastCreativeLinear = (PBMVastCreativeLinear*) self.creative;
         if (!pbmVastCreativeLinear) {
-            LogError(@"Icon found, but current creative is not PBMVastCreativeLinear");
+            PBMLogError(@"Icon found, but current creative is not PBMVastCreativeLinear");
             return;
         }
         
@@ -279,7 +279,7 @@
     else if ([elementName isEqualToString: @"MediaFile"]) {
         PBMVastCreativeLinear *pbmVastCreativeLinear = (PBMVastCreativeLinear*) self.creative;
         if (!pbmVastCreativeLinear) {
-            LogError(@"MediaFile found, but current creative is not PBMVastCreativeLinear");
+            PBMLogError(@"MediaFile found, but current creative is not PBMVastCreativeLinear");
             return;
         }
         
@@ -361,7 +361,7 @@
             self.parsedResponse.vastAbstractAds = ads;
         }
         else {
-            LogError(@"Ad tag ending with no ad object.");
+            PBMLogError(@"Ad tag ending with no ad object.");
         }
         
         self.inlineAd = nil;
@@ -423,7 +423,7 @@
         }
         
         if (!vastTrackingEvents) {
-            LogError(@"No suitable tracking events object found to append contents of Tracking tag to");
+            PBMLogError(@"No suitable tracking events object found to append contents of Tracking tag to");
             return;
         }
         
@@ -452,7 +452,7 @@
             pbmVastCreativeLinear.duration = self.currentElementContent ? [self parseTimeInterval: self.currentElementContent] : 0;
         }
         else {
-            LogError(@"Duration tag found but creative not PBMVastCreativeLinear");
+            PBMLogError(@"Duration tag found but creative not PBMVastCreativeLinear");
         }
     }
     else if ([elementName isEqualToString: @"ClickThrough"]) {
@@ -461,7 +461,7 @@
             pbmVastCreativeLinear.clickThroughURI = self.currentElementContent;
         }
         else {
-            LogError(@"Clickthrough tag found but creative not PBMVastCreativeLinear");
+            PBMLogError(@"Clickthrough tag found but creative not PBMVastCreativeLinear");
         }
     }
     else if ([elementName isEqualToString: @"MediaFile"]) {
@@ -473,7 +473,7 @@
             }
         }
         else {
-            LogError(@"MediaFile tag found but creative not PBMVastCreativeLinear");
+            PBMLogError(@"MediaFile tag found but creative not PBMVastCreativeLinear");
         }
     }
     else if ([elementName isEqualToString: @"StaticResource"]) {
@@ -488,7 +488,7 @@
     else if ([elementName isEqualToString: @"ClickTracking"] || [elementName isEqualToString: @"CustomClick"]) {
         PBMVastCreativeLinear *pbmVastCreativeLinear = (PBMVastCreativeLinear*)self.creative;
         if (!pbmVastCreativeLinear) {
-            LogError(@"%@ tag found but creative not PBMVastCreativeLinear", elementName);
+            PBMLogError(@"%@ tag found but creative not PBMVastCreativeLinear", elementName);
             return;
         }
         [pbmVastCreativeLinear.clickTrackingURIs addObject:_currentElementContent];
@@ -496,7 +496,7 @@
     else if ([elementName isEqualToString: @"IconClickThrough"]) {
         PBMVastCreativeLinear *pbmVastCreativeLinear = (PBMVastCreativeLinear*)self.creative;
         if (!pbmVastCreativeLinear) {
-            LogError(@"IconClickThrough tag found but creative not PBMVastCreativeLinear");
+            PBMLogError(@"IconClickThrough tag found but creative not PBMVastCreativeLinear");
             return;
         }
         
@@ -508,7 +508,7 @@
     else if ([elementName isEqualToString: @"IconClickTracking"]) {
         PBMVastCreativeLinear *pbmVastCreativeLinear = (PBMVastCreativeLinear*)self.creative;
         if (!pbmVastCreativeLinear) {
-            LogError(@"IconClickTracking tag found but creative not PBMVastCreativeLinear");
+            PBMLogError(@"IconClickTracking tag found but creative not PBMVastCreativeLinear");
             return;
         }
         
@@ -520,7 +520,7 @@
     else if ([elementName isEqualToString: @"IconViewTracking"]) {
         PBMVastCreativeLinear *pbmVastCreativeLinear = (PBMVastCreativeLinear*)self.creative;
         if (!pbmVastCreativeLinear) {
-            LogError(@"IconViewTracking tag found but creative not PBMVastCreativeLinear");
+            PBMLogError(@"IconViewTracking tag found but creative not PBMVastCreativeLinear");
             return;
         }
         
@@ -532,7 +532,7 @@
     else if ([elementName isEqualToString: @"CompanionClickThrough"]) {
         PBMVastCreativeCompanionAds *pbmVastCreativeCompanionAds = (PBMVastCreativeCompanionAds*)self.creative;
         if (!pbmVastCreativeCompanionAds) {
-            LogError(@"CompanionClickThrough tag found but creative not PBMVastCreativeCompanionAds");
+            PBMLogError(@"CompanionClickThrough tag found but creative not PBMVastCreativeCompanionAds");
             return;
         }
         
@@ -544,7 +544,7 @@
     else if ([elementName isEqualToString: @"CompanionClickTracking"]) {
         PBMVastCreativeCompanionAds *pbmVastCreativeCompanionAds = (PBMVastCreativeCompanionAds*)self.creative;
         if (!pbmVastCreativeCompanionAds) {
-            LogError(@"CompanionClickTracking tag found but creative not PBMVastCreativeCompanionAds");
+            PBMLogError(@"CompanionClickTracking tag found but creative not PBMVastCreativeCompanionAds");
             return;
         }
         
@@ -556,7 +556,7 @@
     else if ([elementName isEqualToString: @"NonLinearClickThrough"]) {
         PBMVastCreativeNonLinearAds *pbmVastCreativeNonLinearAds = (PBMVastCreativeNonLinearAds*)self.creative;
         if (!pbmVastCreativeNonLinearAds) {
-            LogError(@"NonLinearClickThrough tag found but creative not PBMVastCreativeNonLinearAds");
+            PBMLogError(@"NonLinearClickThrough tag found but creative not PBMVastCreativeNonLinearAds");
             return;
         }
         
@@ -565,13 +565,13 @@
             pbmVastCreativeNonLinearAdsNonLinear.clickThroughURI = self.currentElementContent;
         }
         else {
-            LogError(@"NonLinearClickThrough tag found but no NonLinear objects to append content to");
+            PBMLogError(@"NonLinearClickThrough tag found but no NonLinear objects to append content to");
         }
     }
     else if ([elementName isEqualToString: @"NonLinearClickTracking"]) {
         PBMVastCreativeNonLinearAds *pbmVastCreativeNonLinearAds = (PBMVastCreativeNonLinearAds*)self.creative;
         if (!pbmVastCreativeNonLinearAds) {
-            LogError(@"NonLinearClickTracking tag found but creative not PBMVastCreativeNonLinearAds");
+            PBMLogError(@"NonLinearClickTracking tag found but creative not PBMVastCreativeNonLinearAds");
             return;
         }
         
@@ -580,7 +580,7 @@
             [pbmVastCreativeNonLinearAdsNonLinear.clickTrackingURIs addObject:self.currentElementContent];
         }
         else {
-            LogError(@"NonLinearClickTracking tag found but no NonLinear objects to append content to");
+            PBMLogError(@"NonLinearClickTracking tag found but no NonLinear objects to append content to");
         }
     }
     else if ([elementName isEqualToString: @"VASTAdTagURI"]) {
@@ -591,7 +591,7 @@
         [self.elementPath removeLastObject];
     }
     else {
-        LogError(@"elementPath unexpectedly empty");
+        PBMLogError(@"elementPath unexpectedly empty");
     }
     
     self.currentElementAttributes = nil;

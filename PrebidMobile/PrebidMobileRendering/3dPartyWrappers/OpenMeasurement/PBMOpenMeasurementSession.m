@@ -67,7 +67,7 @@
 
 - (void)setupMainView:(UIView *)mainView {
     if (!self.session) {
-        LogError(@"Measurement Session is missed.");
+        PBMLogError(@"Measurement Session is missed.");
         return;
     }
     
@@ -76,7 +76,7 @@
 
 - (void)start {
     if (!self.session) {
-        LogError(@"Measurement Session is missed.");
+        PBMLogError(@"Measurement Session is missed.");
         return;
     }
     
@@ -85,7 +85,7 @@
 
 - (void)stop {
     if (!self.session) {
-        LogError(@"Measurement Session is missed.");
+        PBMLogError(@"Measurement Session is missed.");
         return;
     }
     
@@ -95,7 +95,7 @@
 
 - (void)addFriendlyObstruction:(nonnull UIView *)friendlyObstruction purpose:(PBMOpenMeasurementFriendlyObstructionPurpose)purpose {
     if (!self.session) {
-        LogError(@"Measurement Session is missed.");
+        PBMLogError(@"Measurement Session is missed.");
         return;
     }
     
@@ -110,7 +110,7 @@
                                    error:&error];
     
     if (error != nil) {
-        LogError(@"%@", [error localizedDescription]);
+        PBMLogError(@"%@", [error localizedDescription]);
     }
 }
 
@@ -123,7 +123,7 @@
                                                     adSessionContext:context
                                                                error:&sessionError];
     if (sessionError) {
-        LogError(@"Unable to create Open Measurement session with error: %@", [sessionError localizedDescription]);
+        PBMLogError(@"Unable to create Open Measurement session with error: %@", [sessionError localizedDescription]);
     }
     
     return self.session != nil;

@@ -125,7 +125,7 @@
     @try {
         [self webView:webView handleMRAIDCommand:url];
     } @catch (NSException *exception) {
-        LogWarn(@"%@", [exception reason]);
+        PBMLogWarn(@"%@", [exception reason]);
     }
 }
 
@@ -256,7 +256,7 @@
     }
     
     if (!controller) {
-        LogError(@"There is no controller for presenting system feature.");
+        PBMLogError(@"There is no controller for presenting system feature.");
     }
     
     return controller;
@@ -275,7 +275,7 @@
         @throw [NSException pbmException:[NSString stringWithFormat:@"Could not create URL from string: %@", strURL]];
     }
     
-    LogInfo(@"Attempting to MRAID.open() url %@", strURL);
+    PBMLogInfo(@"Attempting to MRAID.open() url %@", strURL);
     [self.creative handleClickthrough:url];
 }
 
@@ -321,7 +321,7 @@
             //Epanding to a URL
             NSURL *expandURL = [NSURL URLWithString:strExpandURL];
             if (!expandURL) {
-                LogError(@"Could not create expand url to: %@", strExpandURL);
+                PBMLogError(@"Could not create expand url to: %@", strExpandURL);
                 return;
             }
             
@@ -419,7 +419,7 @@
         CGRect frame = [PBMMRAIDController CGRectForResizeProperties:resizeProperties fromView:webView];
         if (CGRectIsInfinite(frame)) {
             NSString *message = @"MRAID ad attempted to resize to an invalid size";
-            LogError(@"%@", message);
+            PBMLogError(@"%@", message);
             [webView MRAID_error:message action:PBMMRAIDActionResize];
             return;
         }
@@ -478,7 +478,7 @@
 }
 
 - (void)handleMRAIDCommandUnload {
-    LogWhereAmI();
+    PBMLogWhereAmI();
     PBMAbstractCreative * const creative = self.creative;
     switch (self.prebidWebView.state) {
         case PBMWebViewStateLoaded: {
@@ -612,7 +612,7 @@
         @strongify(self);
         
         if (error) {
-            LogError(@"Unable to load MRAID video. Error: %@", error);
+            PBMLogError(@"Unable to load MRAID video. Error: %@", error);
             return;
         }
         
@@ -673,7 +673,7 @@
     
     // get the view's absolute position
     if (!fromView.superview) {
-        LogInfo(@"Could not determine a global point");
+        PBMLogInfo(@"Could not determine a global point");
         return CGRectInfinite;
     }
     
@@ -681,7 +681,7 @@
     
     // calc the resized rect based on global offset and resize properties
     CGRect basicRect = CGRectMake((NSInteger)globalPoint.x + properties.offsetX, (NSInteger)globalPoint.y + properties.offsetY, properties.width, properties.height);
-    LogInfo(@"basicRect = %@", NSStringFromCGRect(basicRect));
+    PBMLogInfo(@"basicRect = %@", NSStringFromCGRect(basicRect));
     
     // if offscreen is allowed, return with it
     if (properties.allowOffscreen) {

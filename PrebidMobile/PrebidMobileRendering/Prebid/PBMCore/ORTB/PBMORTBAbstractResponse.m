@@ -55,7 +55,7 @@
     if ([self.ext isKindOfClass:[NSDictionary class]]) {
         return self.ext;
     }
-    LogError(@"Could not convert `%@`  (instance of %@) to PBMJsonDictionary -- please override `extAsJsonDictionary` in child class (%@).", [self.ext description], NSStringFromClass([self.ext class]), NSStringFromClass([self class]));
+    PBMLogError(@"Could not convert `%@`  (instance of %@) to PBMJsonDictionary -- please override `extAsJsonDictionary` in child class (%@).", [self.ext description], NSStringFromClass([self.ext class]), NSStringFromClass([self class]));
     return nil;
 }
 

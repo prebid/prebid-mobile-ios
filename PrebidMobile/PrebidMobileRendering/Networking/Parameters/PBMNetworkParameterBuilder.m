@@ -52,7 +52,7 @@
 
 - (void)buildBidRequest:(PBMORTBBidRequest *)bidRequest {
     if (!(self.ctTelephonyNetworkInfo && bidRequest)) {
-        LogError(@"Invalid properties");
+        PBMLogError(@"Invalid properties");
         return;
     }
     

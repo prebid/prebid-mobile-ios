@@ -63,7 +63,7 @@ static int const PBMSupportOpenMeasurementProtocol = 7;
 
 - (void)buildBidRequest:(PBMORTBBidRequest *)bidRequest {
     if(!bidRequest) {
-        LogError(@"Invalid properties");
+        PBMLogError(@"Invalid properties");
         return;
     }
         

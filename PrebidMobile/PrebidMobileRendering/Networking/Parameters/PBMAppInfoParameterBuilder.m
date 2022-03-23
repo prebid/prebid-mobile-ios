@@ -64,7 +64,7 @@
 
 - (void)buildBidRequest:(PBMORTBBidRequest *)bidRequest {
     if (!(self.bundle && bidRequest)) {
-        LogError(@"Invalid properties");
+        PBMLogError(@"Invalid properties");
         return;
     }
     

@@ -53,7 +53,7 @@
     self.displayView = displayView;
     
     if (!view || !self.displayView) {
-        LogError(@"Attempted to display a nil view");
+        PBMLogError(@"Attempted to display a nil view");
         return;
     }
     

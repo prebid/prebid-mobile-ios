@@ -18,7 +18,7 @@
 #define PBMAssertExt(condition, messageFormat, ...)          \
     NSAssert(condition, messageFormat, ##__VA_ARGS__);    \
     if (!condition) {                                     \
-        LogError(messageFormat, ##__VA_ARGS__);        \
+        PBMLogError(messageFormat, ##__VA_ARGS__);        \
     }
 
 #define PBMAssert(condition)                              \

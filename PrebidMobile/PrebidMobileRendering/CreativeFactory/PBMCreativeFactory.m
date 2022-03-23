@@ -89,7 +89,7 @@
     dispatch_async(_dispatchQueue, ^{
         @strongify(self);
         if (error) {
-            LogInfo(@"PBMCreativeFactory: %@", error.description);
+            PBMLogInfo(@"PBMCreativeFactory: %@", error.description);
             self.finishedCallback(NULL, error);
             return;
         }

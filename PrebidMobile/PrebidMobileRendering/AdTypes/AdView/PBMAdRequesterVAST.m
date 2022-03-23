@@ -74,7 +74,7 @@
 
 - (void)buildVastAdsArray:(NSData *)rawVASTData {
     if (self.adsBuilder) {
-        LogError(@"Loading of VAST is failed. Ads Builder is not intended to be re-used.");
+        PBMLogError(@"Loading of VAST is failed. Ads Builder is not intended to be re-used.");
         return;
     }
     

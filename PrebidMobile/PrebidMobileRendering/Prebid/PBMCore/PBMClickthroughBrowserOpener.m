@@ -77,12 +77,12 @@
 - (BOOL)openURL:(NSURL *)url onClickthroughExitBlock:(nullable PBMVoidBlock)onClickthroughExitBlock {
     NSString * const strURLscheme = [self getURLScheme:url];
     if (!strURLscheme) {
-        LogError(@"Could not determine URL scheme from url: %@", url);
+        PBMLogError(@"Could not determine URL scheme from url: %@", url);
         return NO;
     }
     
     if (![self shouldTryOpenURLScheme:strURLscheme]) {
-        LogError(@"Attempting to open url [%@] in iOS simulator, but simulator does not support url scheme of %@",
+        PBMLogError(@"Attempting to open url [%@] in iOS simulator, but simulator does not support url scheme of %@",
                     url, strURLscheme);
         return NO;
     }
@@ -101,7 +101,7 @@
     
     UIViewController * const viewControllerForPresentingModals = self.viewControllerProvider();
     if (viewControllerForPresentingModals == nil) {
-        LogError(@"self.viewControllerForPresentingModals is nil");
+        PBMLogError(@"self.viewControllerForPresentingModals is nil");
         return NO;
     }
      
@@ -173,7 +173,7 @@
                                                                                  owner:nil
                                                                                options:nil] firstObject];
     if (!clickthroughBrowserView) {
-        LogError(@"Unable to create a ClickthroughBrowserView");
+        PBMLogError(@"Unable to create a ClickthroughBrowserView");
         return NO;
     }
     

@@ -173,17 +173,17 @@
 // - the current isn't already added to the modal somewhere
 - (void)configureSubView {
     if (!self.displayView) {
-        LogError(@"Attempted to display a nil view");
+        PBMLogError(@"Attempted to display a nil view");
         return;
     }
     
     if (!self.contentView) {
-        LogError(@"ContentView not yet set up by InterfaceBuilder. Nothing to add content to");
+        PBMLogError(@"ContentView not yet set up by InterfaceBuilder. Nothing to add content to");
         return;
     }
     
     if ([self.displayView isDescendantOfView:self.view]) {
-        LogError(@"currentDisplayView is already a child of self.view");
+        PBMLogError(@"currentDisplayView is already a child of self.view");
         return;
     }
     

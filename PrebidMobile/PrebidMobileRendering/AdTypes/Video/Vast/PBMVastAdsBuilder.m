@@ -125,7 +125,7 @@ typedef void(^PBMVastAdsBuilderWrapperCompletionBlock)(NSError *);
                     firedNoAdsURI = firedNoAdsURI || [self checkHasNoAdsAndFireURIs:unwrappedVastResponse];
                 }
                 else {
-                    LogError(@"No vastResponse on Wrapper");
+                    PBMLogError(@"No vastResponse on Wrapper");
                 }
             }
         }

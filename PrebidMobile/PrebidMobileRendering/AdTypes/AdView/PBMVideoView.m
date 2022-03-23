@@ -128,7 +128,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)dealloc {
-    LogWhereAmI();
+    PBMLogWhereAmI();
     
     [NSNotificationCenter.defaultCenter removeObserver:self];
     
@@ -161,7 +161,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 #pragma mark - Public
 
 - (void)showMediaFileURL:(NSURL *)mediaFileURL preloadedData:(NSData *)preloadedData {
-    LogWhereAmI();
+    PBMLogWhereAmI();
     PBMAssert(mediaFileURL && preloadedData);
     if (!(mediaFileURL )) {
         return;
@@ -540,10 +540,10 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 #pragma mark - Interface
 
 - (void)startPlayback {
-    LogWhereAmI();
+    PBMLogWhereAmI();
     
     if (!self.avPlayer) {
-        LogError(@"Attempted to display a VideoView with no avPlayer");
+        PBMLogError(@"Attempted to display a VideoView with no avPlayer");
         return;
     }
     
@@ -588,7 +588,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 - (void)pause {
     if (!self.avPlayer) {
-        LogError(@"Attempted to pause a VideoView with no avPlayer");
+        PBMLogError(@"Attempted to pause a VideoView with no avPlayer");
         return;
     }
 
@@ -602,7 +602,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 - (void)resume {
     if (!self.avPlayer) {
-        LogError(@"Attempted to pause a VideoView with no avPlayer");
+        PBMLogError(@"Attempted to pause a VideoView with no avPlayer");
         return;
     }
 
@@ -620,7 +620,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 - (void)stopWithTrackingEvent:(PBMTrackingEvent)trackingEvent {
     if (!self.avPlayer) {
-        LogError(@"No AVPlayer to stop");
+        PBMLogError(@"No AVPlayer to stop");
         return;
     }
     
@@ -651,7 +651,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 // since the video hasn't finished displaying.
 - (void)stopOnCloseButton:(PBMTrackingEvent)trackingEvent {
     if (!self.avPlayer) {
-        LogError(@"No AVPlayer to stop");
+        PBMLogError(@"No AVPlayer to stop");
         return;
     }
     
@@ -747,17 +747,17 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         
         if (self.previousCompletetionPercentage < 0.25 && playbackPercent >= 0.25) {
             [self.eventManager trackEvent:PBMTrackingEventFirstQuartile];
-            LogInfo(@"Video Playback Progress: PBMTrackingEventFirstQuartile");
+            PBMLogInfo(@"Video Playback Progress: PBMTrackingEventFirstQuartile");
         }
 
         if (self.previousCompletetionPercentage < 0.50 && playbackPercent >= 0.50) {
             [self.eventManager trackEvent:PBMTrackingEventMidpoint];
-            LogInfo(@"Video Playback Progress: PBMTrackingEventMidpoint");
+            PBMLogInfo(@"Video Playback Progress: PBMTrackingEventMidpoint");
         }
         
         if (self.previousCompletetionPercentage < 0.75 && playbackPercent >= 0.75) {
             [self.eventManager trackEvent:PBMTrackingEventThirdQuartile];
-            LogInfo(@"Video Playback Progress: PBMTrackingEventThirdQuartile");
+            PBMLogInfo(@"Video Playback Progress: PBMTrackingEventThirdQuartile");
         }
         
         self.previousCompletetionPercentage = playbackPercent;
@@ -792,7 +792,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     [self.eventManager trackStartVideoWithDuration:self.avPlayer.currentItem.asset.duration.value
                                             volume:self.avPlayer.volume];
     
-    LogInfo(@"Video Playback Progress: PBMTrackingEventCreativeView/PBMTrackingEventStart");
+    PBMLogInfo(@"Video Playback Progress: PBMTrackingEventCreativeView/PBMTrackingEventStart");
 }
 
 // pause avPlayer and notify videoViewCompletedDisplay if video reached the VAST Duration
@@ -828,14 +828,14 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         if (self.avPlayer && self.avPlayer.currentItem) {
             switch (self.avPlayer.status) {
                 case AVPlayerStatusReadyToPlay: {
-                    LogInfo(@"readyToPlay");
+                    PBMLogInfo(@"readyToPlay");
                     [self.videoViewDelegate videoViewReadyToDisplay];
                     return;
                 }
                 break;
                     
                 case AVPlayerStatusUnknown : {
-                    LogInfo(@"unknown (This is normal at launch)");
+                    PBMLogInfo(@"unknown (This is normal at launch)");
                     return;
                 }
                 break;

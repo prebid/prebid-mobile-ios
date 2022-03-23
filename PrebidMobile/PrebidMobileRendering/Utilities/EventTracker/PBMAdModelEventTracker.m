@@ -55,7 +55,7 @@
     
     NSArray *urls = self.creativeModel.trackingURLs[eventName];
     if (!urls) {
-        LogInfo(@"No tracking URL(s) for event %@", eventName);
+        PBMLogInfo(@"No tracking URL(s) for event %@", eventName);
         return;
     }
     

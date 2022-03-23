@@ -177,7 +177,7 @@
     [self.superview addConstraints:constraints];
 }
 - (void)LogViewHierarchy {
-    LogInfo(@"**********LOGGING VIEW HIERARCHY**********");
+    PBMLogInfo(@"**********LOGGING VIEW HIERARCHY**********");
     [self logViewHierarchyForView:self depth:0];
 }
 
@@ -189,7 +189,7 @@
         prefix = [prefix stringByAppendingString:@"-"];
     }
     
-    LogInfo(@"%@view = %@ view.constraints: %@", prefix, view, view.constraints);
+    PBMLogInfo(@"%@view = %@ view.constraints: %@", prefix, view, view.constraints);
     
     for (UIView *subview in view.subviews) {
         [self logViewHierarchyForView:subview depth:(depth + 1)];

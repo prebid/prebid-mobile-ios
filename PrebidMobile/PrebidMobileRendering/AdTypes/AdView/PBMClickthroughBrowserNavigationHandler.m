@@ -51,12 +51,12 @@
 // MARK: - WKNavigationDelegate
 
 - (void)webView:(id<PBMWKWebViewCompatible>)webView decidePolicyForNavigationAction:(id<PBMWKNavigationActionCompatible>)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    LogWhereAmI();
+    PBMLogWhereAmI();
 
     //Get the URL
     NSURL *url = navigationAction.request.URL;
     if (!url) {
-        LogError(@"No url for navigation");
+        PBMLogError(@"No url for navigation");
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }

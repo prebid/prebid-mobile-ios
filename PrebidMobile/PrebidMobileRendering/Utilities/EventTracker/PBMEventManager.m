@@ -74,7 +74,7 @@
 
 - (void)unregisterTracker:(id<PBMEventTrackerProtocol>)tracker {
     if (!tracker) {
-        LogError(@"Can't unregister empty event tracker");
+        PBMLogError(@"Can't unregister empty event tracker");
         return;
     }
     

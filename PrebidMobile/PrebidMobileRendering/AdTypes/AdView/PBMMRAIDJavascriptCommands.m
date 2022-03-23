@@ -165,7 +165,7 @@ static NSString * const PBMMRAIDCommandFormatSize = @"%@:%@";
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:supports options:0 error:nil];
     if (!data) {
-        LogError(@"Could not generate support string");
+        PBMLogError(@"Could not generate support string");
         return @"";
     }
     

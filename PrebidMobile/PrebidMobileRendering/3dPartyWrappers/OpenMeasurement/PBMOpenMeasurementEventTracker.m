@@ -45,7 +45,7 @@
 
 - (void)trackEvent:(PBMTrackingEvent)event {
     if (!self.session) {
-        LogError(@"Measurement Session is missed.");
+        PBMLogError(@"Measurement Session is missed.");
         return;
     }
     
@@ -80,7 +80,7 @@
     NSError *error = nil;
     [self.adEvents loadedWithError:&error];
     if (error != nil) {
-        LogError(@"%@", [error localizedDescription]);
+        PBMLogError(@"%@", [error localizedDescription]);
     }
 }
 
@@ -88,7 +88,7 @@
     NSError *error = nil;
     [self.adEvents loadedWithVastProperties:[[OMIDPrebidorgVASTProperties alloc] initWithAutoPlay:parameters.autoPlay position:OMIDPositionStandalone] error:&error];
     if (error != nil) {
-        LogError(@"%@", [error localizedDescription]);
+        PBMLogError(@"%@", [error localizedDescription]);
     }
 }
 
@@ -107,14 +107,14 @@
     NSError *adEventsError;
     self.adEvents = [[OMIDPrebidorgAdEvents alloc] initWithAdSession:self.session error:&adEventsError];
     if (adEventsError) {
-        LogError(@"Open Measurement can't create ad events with error: %@", [adEventsError localizedDescription]);
+        PBMLogError(@"Open Measurement can't create ad events with error: %@", [adEventsError localizedDescription]);
     }
     
     if (self.session.configuration.mediaEventsOwner == OMIDNativeOwner) {
         NSError *videoEventsError;
         self.mediaEvents = [[OMIDPrebidorgMediaEvents alloc] initWithAdSession:self.session error:&videoEventsError];
         if (videoEventsError) {
-            LogError(@"Open Measurement can't create video events with error: %@", [videoEventsError localizedDescription]);
+            PBMLogError(@"Open Measurement can't create video events with error: %@", [videoEventsError localizedDescription]);
         }
     }
 }
@@ -125,7 +125,7 @@
     NSError *impError;
     [self.adEvents impressionOccurredWithError:&impError];
     if (impError) {
-        LogError(@"Open Measurement can't track impression with error: %@", [impError localizedDescription]);
+        PBMLogError(@"Open Measurement can't track impression with error: %@", [impError localizedDescription]);
     }
 }
 

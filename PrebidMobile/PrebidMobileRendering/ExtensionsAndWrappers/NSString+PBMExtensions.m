@@ -35,7 +35,7 @@
                                                                            options:0 //NSRegularExpressionCaseInsensitive
                                                                              error:&error];
     if (error) {
-        LogError(@"Error %@ parsing regex: %@", error.description, strRegex);
+        PBMLogError(@"Error %@ parsing regex: %@", error.description, strRegex);
         return 0;
     }
 
@@ -113,7 +113,7 @@
                                                                            options:0
                                                                              error:&error];
     if (error) {
-        LogError(@"Error %@ parsing regex: %@", error.description, strRegex);
+        PBMLogError(@"Error %@ parsing regex: %@", error.description, strRegex);
         return self;
     }
 

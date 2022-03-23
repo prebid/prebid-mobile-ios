@@ -200,23 +200,23 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
          injectMraidJs:(BOOL)injectMraidJs
    currentThread:(id<PBMNSThreadProtocol>)currentThread {
     if (!html) {
-        LogError(@"Input HTML is nil");
+        PBMLogError(@"Input HTML is nil");
         return;
     }
     
     if (!currentThread.isMainThread) {
-        LogError(@"Attempting to loadHTML on background thread");
+        PBMLogError(@"Attempting to loadHTML on background thread");
     }
     
     @weakify(self);
     [self loadContentWithMRAID:injectMraidJs forExpandContent:NO contentLoader:^{
          @strongify(self);
-         LogInfo(@"loadHTMLString");
+         PBMLogInfo(@"loadHTMLString");
          self.state = PBMWebViewStateLoading;
         
          [self.internalWebView loadHTMLString:html baseURL:nil];
     } onError:^(NSError * _Nullable error) {
-        LogError(@"%@", error.localizedDescription);
+        PBMLogError(@"%@", error.localizedDescription);
     }];
 }
 
@@ -233,7 +233,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 
 - (void)expand:(nonnull NSURL *)url currentThread:(id<PBMNSThreadProtocol>)currentThread {
     if (!url) {
-        LogError(@"Could not expand with nil url");
+        PBMLogError(@"Could not expand with nil url");
         return;
     }
     
@@ -282,7 +282,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
     //If there's no URL, bail
     NSURL *url = navigationAction.request.URL;
     if (!url) {
-        LogWarn(@"No URL found on WKWebView navigation");
+        PBMLogWarn(@"No URL found on WKWebView navigation");
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
@@ -307,7 +307,7 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
 
     //Bail if the state is uninitialized, unloaded, or still loading.
     if (self.state != PBMWebViewStateLoaded) {
-        LogWarn(@"Unexpected state [%@] found on navigation to url: %@", [PBMWebView webViewStateDescription:self.state], url);
+        PBMLogWarn(@"Unexpected state [%@] found on navigation to url: %@", [PBMWebView webViewStateDescription:self.state], url);
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
@@ -321,14 +321,14 @@ static NSString * const KeyPathOutputVolume = @"outputVolume";
             [self.delegate webView:self receivedClickthroughLink:url];
         });
     } else {
-        LogWarn(@"User has not recently tapped. Auto-click suppression is preventing navigation to: %@", url);
+        PBMLogWarn(@"User has not recently tapped. Auto-click suppression is preventing navigation to: %@", url);
     }
     
     decisionHandler(WKNavigationActionPolicyCancel);
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    LogWhereAmI();
+    PBMLogWhereAmI();
     [self pollForDocumentReadyState];
 }
 
@@ -369,7 +369,7 @@ static PBMError *extracted(NSString *errorMessage) {
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
-    LogWhereAmI();
+    PBMLogWhereAmI();
     self.state = PBMWebViewStateUnloaded;
     NSString *errorMessage = [NSString stringWithFormat:@"WebView failed to load. Error description: %@, domain: %@, code: %li, userInfo: %@", error.localizedDescription, error.domain, (long)error.code, error.userInfo];
     PBMError *prebidError = extracted(errorMessage);
@@ -390,7 +390,7 @@ static PBMError *extracted(NSString *errorMessage) {
 #pragma mark - WKScriptMessageHandler
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    LogInfo(@"JS: %@", (NSString *)message.body ?: @"");
+    PBMLogInfo(@"JS: %@", (NSString *)message.body ?: @"");
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -458,7 +458,7 @@ static PBMError *extracted(NSString *errorMessage) {
     [self.internalWebView evaluateJavaScript:mraidScript completionHandler:^(id _Nullable jsRet, NSError * _Nullable error) {
         @strongify(self);
         if (error) {
-            LogError(@"Error injecting MRAID script: %@", error);
+            PBMLogError(@"Error injecting MRAID script: %@", error);
             return;
         }
         
@@ -474,7 +474,7 @@ static PBMError *extracted(NSString *errorMessage) {
         [self.internalWebView evaluateJavaScript:command completionHandler:^(id _Nullable javaScriptString, NSError * _Nullable error) {
             //When the state has finished changing, update our own MRAID state
             if (error) {
-                LogError(@"Error calling %@: %@", command, error.localizedDescription);
+                PBMLogError(@"Error calling %@: %@", command, error.localizedDescription);
                 return;
             }
 
@@ -611,7 +611,7 @@ static PBMError *extracted(NSString *errorMessage) {
 }
 
 - (void)updateMRAIDLayoutInfoWithForceNotification:(BOOL)forceNotification {
-    //LogInfo(@"MRAID_updateLayoutInfo HAS BEEN CALLED");
+    //PBMLogInfo(@"MRAID_updateLayoutInfo HAS BEEN CALLED");
     [self MRAID_updateCurrentPosition:self.frame forceNotification:forceNotification];
     //self.MRAID_onViewableChange(PBMFunctions.isVisible(self))
 }
@@ -630,7 +630,7 @@ static PBMError *extracted(NSString *errorMessage) {
         [self.internalWebView.configuration.userContentController addUserScript:script];
         [self.internalWebView evaluateJavaScript:command completionHandler:^(id _Nullable jsRet, NSError * _Nullable error) {
             if (error) {
-                LogError(@"Error of executing command %@", command);
+                PBMLogError(@"Error of executing command %@", command);
             }
         }];
     } else {
@@ -734,7 +734,7 @@ static PBMError *extracted(NSString *errorMessage) {
     [self.internalWebView.configuration.userContentController addUserScript:script];
     [self.internalWebView evaluateJavaScript:command completionHandler:^(id _Nullable jsRet, NSError * _Nullable error) {
         if (error) {
-            LogError(@"Error getting expand properties: %@", error.localizedDescription);
+            PBMLogError(@"Error getting expand properties: %@", error.localizedDescription);
             completionHandler(nil);
             return;
         }
@@ -760,7 +760,7 @@ static PBMError *extracted(NSString *errorMessage) {
 
 - (void) MRAID_getResizeProperties:(void(^)(PBMMRAIDResizeProperties *))completionHandler {
     if (!completionHandler) {
-        LogError(@"The completionHandler is not provided");
+        PBMLogError(@"The completionHandler is not provided");
         return;
     }
     
@@ -769,7 +769,7 @@ static PBMError *extracted(NSString *errorMessage) {
     [self.internalWebView.configuration.userContentController addUserScript:script];
     [self.internalWebView evaluateJavaScript:command completionHandler:^(id _Nullable jsRet, NSError * _Nullable error) {
         if (error) {
-            LogError(@"Error getting Resize Properties: %@", error.localizedDescription);
+            PBMLogError(@"Error getting Resize Properties: %@", error.localizedDescription);
             completionHandler(nil);
             return;
         }
@@ -805,7 +805,7 @@ static PBMError *extracted(NSString *errorMessage) {
 // @param message - description of the type of error
 // @param action - name of action that caused error
 - (void)MRAID_error:(NSString *)message action:(PBMMRAIDAction)action {
-    LogError(@"Action: [%@] generated error with message [%@]", action, message);
+    PBMLogError(@"Action: [%@] generated error with message [%@]", action, message);
     [self evaluateJavaScript:[PBMMRAIDJavascriptCommands onErrorWithMessage:message action: action]];
 }
     
@@ -869,7 +869,7 @@ static PBMError *extracted(NSString *errorMessage) {
 
 - (void)onStatusBarOrientationChanged {    
     NSString *isPortrait = UIApplication.sharedApplication.statusBarOrientation == UIInterfaceOrientationPortrait ? @"true" : @"false";
-    LogInfo(@"Orientation is portrait: %@", isPortrait);
+    PBMLogInfo(@"Orientation is portrait: %@", isPortrait);
     
     self.internalWebView.scrollView.contentOffset = CGPointMake(0.0, 0.0);
     [self MRAID_updateMaxSize];

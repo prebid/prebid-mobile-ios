@@ -96,7 +96,7 @@
         @strongify(self);
         
         if (error) {
-            LogError(@"%@", error);
+            PBMLogError(@"%@", error);
         }        
         else if (result) {
             NSString *resultString = [NSString stringWithFormat:@"%@", result];

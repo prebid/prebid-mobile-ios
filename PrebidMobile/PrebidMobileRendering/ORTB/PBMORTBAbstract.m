@@ -45,12 +45,12 @@
 // MARK: - Protected
 
 - (nonnull PBMJsonDictionary *)toJsonDictionary {
-    LogError(@"You must override %@ in a subclass", NSStringFromSelector(_cmd));
+    PBMLogError(@"You must override %@ in a subclass", NSStringFromSelector(_cmd));
     return [PBMJsonDictionary new];
 }
 
 - (instancetype)initWithJsonDictionary:(nonnull PBMJsonDictionary *)jsonDictionary {
-    LogError(@"You should not initialize abstract class directly");
+    PBMLogError(@"You should not initialize abstract class directly");
     return [PBMORTBAbstract new];
 }
 

@@ -70,7 +70,7 @@
         if (self.bidRequestError) {
             NSError * const requestError = self.bidRequestError;
             self.bidRequestError = nil;
-            LogInfo(@"[ERROR]: %@", [requestError localizedDescription]);
+            PBMLogInfo(@"[ERROR]: %@", [requestError localizedDescription]);
         }
         self.adSize = adSize;
         self.primaryAdObject = adObject;

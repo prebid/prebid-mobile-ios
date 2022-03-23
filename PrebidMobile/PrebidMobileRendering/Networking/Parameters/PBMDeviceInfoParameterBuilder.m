@@ -76,7 +76,7 @@
 
 - (void)buildBidRequest:(PBMORTBBidRequest *)bidRequest {
     if (!(self.deviceAccessManager && bidRequest)) {
-        LogError(@"Invalid properties");
+        PBMLogError(@"Invalid properties");
         return;
     }
     

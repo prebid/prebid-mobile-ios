@@ -64,7 +64,7 @@
 
 - (void)buildBidRequest:(PBMORTBBidRequest *)bidRequest {   
     if (!(self.bundle && bidRequest)) {
-        LogError(@"Invalid properties");
+        PBMLogError(@"Invalid properties");
         return;
     }
     
@@ -75,7 +75,7 @@
     
     NSString *sourceapp = self.targeting.sourceapp;
     if (!sourceapp) {
-        LogError(@"Info.plist contains SKAdNetwork but sourceapp is nil!");
+        PBMLogError(@"Info.plist contains SKAdNetwork but sourceapp is nil!");
     }
     
     for (PBMORTBImp *imp in bidRequest.imp) {

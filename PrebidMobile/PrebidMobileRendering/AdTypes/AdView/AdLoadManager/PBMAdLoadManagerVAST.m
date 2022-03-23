@@ -51,7 +51,7 @@
 
 - (BOOL)prepareForLoading {
     if (self.adRequester) {
-        LogError(@"Previous load is in progress. Load() ignored.");
+        PBMLogError(@"Previous load is in progress. Load() ignored.");
         return NO;
     }
     self.adRequester = [[PBMAdRequesterVAST alloc] initWithServerConnection:self.connection adConfiguration:self.adConfiguration];
@@ -62,14 +62,14 @@
 }
 
 - (void)requestCompletedSuccess:(PBMAdRequestResponseVAST *)adRequestResponse {
-    LogWhereAmI();
+    PBMLogWhereAmI();
     
     @weakify(self);
     [self.creativeModelCollectionMaker makeModels:adRequestResponse
                                   successCallback: ^(NSArray *creativeModels) {
                                       @strongify(self);
                                       if (!self) {
-                                          LogError(@"PBMAdLoadManager is nil!");
+                                          PBMLogError(@"PBMAdLoadManager is nil!");
                                           return;
                                       }
                                       
@@ -78,7 +78,7 @@
                                   failureCallback: ^(NSError *error) {
                                       @strongify(self);
                                       if (!self) {
-                                          LogError(@"PBMAdLoadManager is nil!");
+                                          PBMLogError(@"PBMAdLoadManager is nil!");
                                           return;
                                       }
                                       

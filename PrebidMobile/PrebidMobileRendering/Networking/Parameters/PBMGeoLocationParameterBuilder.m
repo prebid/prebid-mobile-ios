@@ -54,7 +54,7 @@
         return;;
     }
     if (!(self.locationManager && bidRequest)) {
-        LogError(@"Invalid properties");
+        PBMLogError(@"Invalid properties");
         return;
     }
     

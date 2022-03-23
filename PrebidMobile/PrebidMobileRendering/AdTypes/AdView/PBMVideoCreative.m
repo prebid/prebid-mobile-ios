@@ -100,7 +100,7 @@
 - (void)showAsInterstitialFromRootViewController:(UIViewController *)uiViewController displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {
     NSNumber *videoDuration = self.creativeModel.displayDurationInSeconds;
     if (!videoDuration) {
-        LogWarn(@"Undefined video duration.");
+        PBMLogWarn(@"Undefined video duration.");
         // TODO: Should we return or show with default duration?
         return;
     }
@@ -154,7 +154,7 @@
 - (void)createOpenMeasurementSession {
     
     if (!NSThread.currentThread.isMainThread) {
-        LogError(@"Open Measurement session can only be created on the main thread");
+        PBMLogError(@"Open Measurement session can only be created on the main thread");
         return;
     }
     

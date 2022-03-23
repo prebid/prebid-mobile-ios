@@ -123,7 +123,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                                                                       error:&contextError];
     
     if (contextError) {
-        LogError(@"Unable to create Open Measurement session context with error: %@", [contextError localizedDescription]);
+        PBMLogError(@"Unable to create Open Measurement session context with error: %@", [contextError localizedDescription]);
         return nil;
     }
     
@@ -137,14 +137,14 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                                                                                       error:&configurationError];
     
     if (configurationError) {
-        LogError(@"Unable to create Open Measurement session configuration with error: %@", [configurationError localizedDescription]);
+        PBMLogError(@"Unable to create Open Measurement session configuration with error: %@", [configurationError localizedDescription]);
         return nil;
     }
     
     NSError *sessionError;
     PBMOpenMeasurementSession *session = [[PBMOpenMeasurementSession alloc] initWithContext:context configuration:config];
     if (!session) {
-        LogError(@"Unable to create Open Measurement session with error: %@", [sessionError localizedDescription]);
+        PBMLogError(@"Unable to create Open Measurement session with error: %@", [sessionError localizedDescription]);
         return nil;
     }
     
@@ -157,7 +157,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                      verificationParameters:(PBMVideoVerificationParameters *)verificationParameters {
     
     if (!self.jsLib) {
-        LogError(@"Open Measurement SDK can't work without valid js script");
+        PBMLogError(@"Open Measurement SDK can't work without valid js script");
         return nil;
     }
     
@@ -169,7 +169,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                                                   customReferenceIdentifier:nil
                                                                                       error:&contextError];
     if (contextError) {
-        LogError(@"Unable to create Open Measurement session context with error: %@", [contextError localizedDescription]);
+        PBMLogError(@"Unable to create Open Measurement session context with error: %@", [contextError localizedDescription]);
         return nil;
     }
     
@@ -182,14 +182,14 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                                                                  isolateVerificationScripts:NO
                                                                                                       error:&configurationError];
     if (configurationError) {
-        LogError(@"Unable to create Open Measurement session configuration with error: %@", [configurationError localizedDescription]);
+        PBMLogError(@"Unable to create Open Measurement session configuration with error: %@", [configurationError localizedDescription]);
         return nil;
     }
     
     NSError *sessionError;
     PBMOpenMeasurementSession *session = [[PBMOpenMeasurementSession alloc] initWithContext:context configuration:config];
     if (!session) {
-        LogError(@"Unable to create Open Measurement session with error: %@", [sessionError localizedDescription]);
+        PBMLogError(@"Unable to create Open Measurement session with error: %@", [sessionError localizedDescription]);
         return nil;
     }
     
@@ -204,7 +204,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                                    parameters:(NSString *)verificationParameters {
     
     if (!self.jsLib) {
-        LogError(@"Open Measurement SDK can't work without valid js script");
+        PBMLogError(@"Open Measurement SDK can't work without valid js script");
         return nil;
     }
     
@@ -219,7 +219,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                                                   customReferenceIdentifier:nil
                                                                                       error:&contextError];
     if (contextError) {
-        LogError(@"Unable to create Open Measurement session context with error: %@",
+        PBMLogError(@"Unable to create Open Measurement session context with error: %@",
                     [contextError localizedDescription]);
         return nil;
     }
@@ -233,7 +233,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
   isolateVerificationScripts:NO
                        error:&configurationError];
     if (configurationError) {
-        LogError(@"Unable to create Open Measurement session configuration with error: %@",
+        PBMLogError(@"Unable to create Open Measurement session configuration with error: %@",
                     [configurationError localizedDescription]);
         return nil;
     }
@@ -241,7 +241,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     NSError *sessionError;
     PBMOpenMeasurementSession *session = [[PBMOpenMeasurementSession alloc] initWithContext:context configuration:config];
     if (!session) {
-        LogError(@"Unable to create Open Measurement session with error: %@", [sessionError localizedDescription]);
+        PBMLogError(@"Unable to create Open Measurement session with error: %@", [sessionError localizedDescription]);
         return nil;
     }
     
@@ -258,7 +258,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     BOOL sdkStarted = [[OMIDPrebidorgSDK sharedInstance] activate];
     
     if (!sdkStarted) {
-        LogError(@"Prebid SDK can't initialize Open Measurement SDK with error: %@", [error localizedDescription]);
+        PBMLogError(@"Prebid SDK can't initialize Open Measurement SDK with error: %@", [error localizedDescription]);
     }
     
     self.partner = [[OMIDPrebidorgPartner alloc] initWithName:self.partnerName
@@ -267,7 +267,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
 
 - (void)downloadJSLibWithConnection:(id<PBMServerConnectionProtocol>)connection completion:(nullable PBMVoidBlock)completion {
     if (!connection) {
-        LogError(@"Connection is nil");
+        PBMLogError(@"Connection is nil");
         if (completion) {
             completion();
         }
@@ -286,12 +286,12 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
         });
         
         if (!response) {
-            LogError(@"Unable to load Open Measurement js library.");
+            PBMLogError(@"Unable to load Open Measurement js library.");
             return;
         }
         
         if (response.error) {
-            LogError(@"Unable to load Open Measurement js library with error: %@", [response.error localizedDescription]);
+            PBMLogError(@"Unable to load Open Measurement js library with error: %@", [response.error localizedDescription]);
             return;
         }
         
@@ -303,7 +303,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     [PBMJSLibraryManager sharedManager].bundle = bundle;
     NSString *omScript = [[PBMJSLibraryManager sharedManager] getOMSDKLibrary];
     if (!omScript) {
-        LogError(@"Could not load omsdk.js from file");
+        PBMLogError(@"Could not load omsdk.js from file");
         return;
     }
     
@@ -316,13 +316,13 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
     
     for (PBMVideoVerificationResource *vastResource in vastVerificationParamaters.verificationResources) {
         if (!(vastResource.url && vastResource.vendorKey && vastResource.params)) {
-            LogError(@"Invalid Verification Resource. All properties should be provided. Url: %@, vendorKey: %@, params: %@", vastResource.url, vastResource.vendorKey, vastResource.params);
+            PBMLogError(@"Invalid Verification Resource. All properties should be provided. Url: %@, vendorKey: %@, params: %@", vastResource.url, vastResource.vendorKey, vastResource.params);
             continue;
         }
         
         NSURL *url = [[NSURL alloc] initWithString:vastResource.url];
         if (!url) {
-            LogError(@"The URL for OM Verification Resource is invalid. Url: %@", vastResource.url);
+            PBMLogError(@"The URL for OM Verification Resource is invalid. Url: %@", vastResource.url);
             continue;
         }
         
@@ -331,7 +331,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                                                                                       parameters:vastResource.params];
         
         if (!resource) {
-            LogError(@"Can't create OM Verification Resource. Url: %@, vendorKey: %@, params: %@", vastResource.url, vastResource.vendorKey, vastResource.params);
+            PBMLogError(@"Can't create OM Verification Resource. Url: %@, vendorKey: %@, params: %@", vastResource.url, vastResource.vendorKey, vastResource.params);
             continue;
         }
         
@@ -346,14 +346,14 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                                                      parameters:(NSString *)parameters {
     
     if (!omidJSUrl || !vendorKey || !parameters) {
-        LogError(@"Invalid Verification Resource. All properties should be provided. Url: %@, vendorKey: %@, params: %@",
+        PBMLogError(@"Invalid Verification Resource. All properties should be provided. Url: %@, vendorKey: %@, params: %@",
                     omidJSUrl, vendorKey, parameters);
         return @[];
     }
     
     NSURL *url = [[NSURL alloc] initWithString:omidJSUrl];
     if (!url) {
-        LogError(@"The URL for OM Verification Resource is invalid. Url: %@", omidJSUrl);
+        PBMLogError(@"The URL for OM Verification Resource is invalid. Url: %@", omidJSUrl);
         return @[];
     }
          
@@ -362,7 +362,7 @@ static NSString * const PBMOpenMeasurementCustomRefId   = @"";
                                                                                                   parameters:parameters];
     
     if (!resource) {
-        LogError(@"Can't create OM Verification Resource. Url: %@, vendorKey: %@, params: %@",
+        PBMLogError(@"Can't create OM Verification Resource. Url: %@, vendorKey: %@, params: %@",
                     omidJSUrl, vendorKey, parameters);
         return @[];
     }

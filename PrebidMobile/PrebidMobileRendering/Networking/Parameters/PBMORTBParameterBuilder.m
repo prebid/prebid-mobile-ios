@@ -26,7 +26,7 @@
     NSMutableDictionary<NSString *, NSString *> *ret = [NSMutableDictionary<NSString *, NSString *> new];
     
     if (!bidRequest) {
-        LogError(@"Invalid properties");
+        PBMLogError(@"Invalid properties");
         return ret;
     }
     
@@ -35,7 +35,7 @@
     if (json) {
         ret[PBMParameterKeysOPEN_RTB] = json;
     } else {
-        LogError(@"%@", [error localizedDescription]);
+        PBMLogError(@"%@", [error localizedDescription]);
     }
     
     return ret;

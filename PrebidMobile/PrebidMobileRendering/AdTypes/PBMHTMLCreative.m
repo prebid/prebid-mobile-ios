@@ -204,7 +204,7 @@
 - (void)createOpenMeasurementSession {
     
     if (!NSThread.currentThread.isMainThread) {
-        LogError(@"Open Measurement session can only be created on the main thread");
+        PBMLogError(@"Open Measurement session can only be created on the main thread");
         return;
     }
                     
@@ -229,7 +229,7 @@
     NSError *error;
     NSString *htmlWithMeasurementJS = [self.transaction.measurementWrapper injectJSLib:htmlWithBodyAndHTMLTags error:&error];
     if (error) {
-        LogError(@"PBMWebView can't inject Open Measurement JS lib with error: %@", [error localizedDescription]);
+        PBMLogError(@"PBMWebView can't inject Open Measurement JS lib with error: %@", [error localizedDescription]);
     }
     
     [self.prebidWebView loadHTML:htmlWithMeasurementJS ?: htmlWithBodyAndHTMLTags
@@ -240,13 +240,13 @@
 #pragma mark - PBMWebViewDelegate
 
 - (void)webViewReadyToDisplay:(PBMWebView *)webView {
-    LogInfo(@"PBMWebView is ready to display");
+    PBMLogInfo(@"PBMWebView is ready to display");
     
     [self onResolutionCompleted];
 }
 
 - (void)webView:(PBMWebView *)webView failedToLoadWithError:(NSError *)error {
-    LogError(@"%@", error.localizedDescription);
+    PBMLogError(@"%@", error.localizedDescription);
 }
 
 - (void)webView:(PBMWebView *)webView receivedClickthroughLink:(NSURL *)url {
@@ -256,7 +256,7 @@
 - (void)webView:(PBMWebView *)webView receivedMRAIDLink:(NSURL *)url {
     @try {
         if (![self.view isKindOfClass:[PBMWebView class]]) {
-            LogWarn(@"Could not cast creative view to PBMWebView");
+            PBMLogWarn(@"Could not cast creative view to PBMWebView");
             return;
         }
         
@@ -269,7 +269,7 @@
         }
         [self.MRAIDController webView:webView handleMRAIDURL:url];
     } @catch (NSException *exception) {
-        LogWarn(@"%@", [exception reason]);
+        PBMLogWarn(@"%@", [exception reason]);
     }
 }
 

@@ -29,7 +29,7 @@
 - (void)testLogError {
     [UtilitiesForTesting prepareLogFile];
     
-    LogError(@"Test Log");
+    PBMLogError(@"Test Log");
     
     NSString *log = [Log getLogFileAsString];
     XCTAssert(log);
@@ -40,7 +40,7 @@
 - (void)testLogDebug {
     [UtilitiesForTesting prepareLogFile];
     
-    LogDebug(@"Test Log");
+    PBMLogDebug(@"Test Log");
     
     NSString *log = [Log getLogFileAsString];
     XCTAssert(log);
@@ -51,7 +51,7 @@
 - (void)testLogInfo {
     [UtilitiesForTesting prepareLogFile];
     
-    LogInfo(@"Test Log");
+    PBMLogInfo(@"Test Log");
     
     NSString *log = [Log getLogFileAsString];
     XCTAssert(log);
@@ -62,7 +62,7 @@
 - (void)testLogVerbose {
     [UtilitiesForTesting prepareLogFile];
     
-    LogVerbose(@"Test Log");
+    PBMLogVerbose(@"Test Log");
     
     NSString *log = [Log getLogFileAsString];
     XCTAssert(log);
@@ -73,7 +73,7 @@
 - (void)testLogWarn {
     [UtilitiesForTesting prepareLogFile];
     
-    LogWarn(@"Test Log");
+    PBMLogWarn(@"Test Log");
     
     NSString *log = [Log getLogFileAsString];
     XCTAssert(log);
@@ -84,7 +84,7 @@
 - (void)testLogSevere {
     [UtilitiesForTesting prepareLogFile];
     
-    LogSevere(@"Test Log");
+    PBMLogSevere(@"Test Log");
     
     NSString *log = [Log getLogFileAsString];
     XCTAssert(log);
@@ -95,7 +95,7 @@
 - (void)testLogWhereAmI {
     [UtilitiesForTesting prepareLogFile];
     
-    LogWhereAmI()
+    PBMLogWhereAmI()
     
     NSString *log = [Log getLogFileAsString];
     XCTAssert(log);
