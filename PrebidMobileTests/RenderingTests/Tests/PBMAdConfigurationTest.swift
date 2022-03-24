@@ -37,4 +37,14 @@ class PBMAdConfigurationTest: XCTestCase {
         adConfiguration.forceInterstitialPresentation = nil
         XCTAssertNotNil(adConfiguration.autoRefreshDelay)
     }
+    
+    func testDefaultIsMuted() {
+        let adConfiguration = PBMAdConfiguration()
+        XCTAssertTrue(adConfiguration.isMuted == true)
+    }
+    
+    func testDefaultIsMuteControlsEnabled() {
+        let adConfiguration = PBMAdConfiguration()
+        XCTAssertTrue(adConfiguration.isMuteControlsVisible == true)
+    }
 }
