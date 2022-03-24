@@ -97,6 +97,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL isMuted;
 
+/**
+ This property indicates whether mute controls is visible on the screen.
+ */
+@property (nonatomic, assign) BOOL isMuteControlsVisible;
+
 #pragma mark - Impression Tracking
 
 @property (nonatomic, assign) NSTimeInterval pollFrequency;

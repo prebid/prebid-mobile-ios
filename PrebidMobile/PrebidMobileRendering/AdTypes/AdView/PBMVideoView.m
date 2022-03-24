@@ -40,7 +40,6 @@ static NSString * const PBMAudioSessionObserverKeyVoulume   = @"outputVolume";
 static NSString * const PBMLearnMoreButtonTitle             = @"Learn More";
 static NSString * const PBMWatchAgainButtonTitle            = @"Watch Again";
 
-static BOOL const ENABLE_MUTE_CONTROLS_ON_FULLSCREEN = NO;
 static BOOL const ENABLE_OUTSTREAM_TAP_TO_EXPAND = NO;
 static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
@@ -156,8 +155,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     if (!self.creative.creativeModel.adConfiguration.isInterstitialAd) {
         [self setupTapRecognizer];
     }
-
-    self.muted = self.creative.creativeModel.adConfiguration.isMuted;
+    
+    self.isMuteControlsVisible = self.creative.creativeModel.adConfiguration.isMuteControlsVisible;
 }
 
 #pragma mark - Public
@@ -386,7 +385,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     if (self.muteControlsView) {
         return;
     }
-    if (self.creative.creativeModel.adConfiguration.presentAsInterstitial && !ENABLE_MUTE_CONTROLS_ON_FULLSCREEN) {
+    
+    if (!self.isMuteControlsVisible) {
         return;
     }
     
