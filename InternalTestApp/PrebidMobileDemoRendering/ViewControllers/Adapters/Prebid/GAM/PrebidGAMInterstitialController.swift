@@ -59,6 +59,7 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
                                                     minSizePercentage: CGSize(width: 30, height: 30),
                                                     eventHandler: eventHandler)
         interstitialController?.delegate = self
+        interstitialController?.maxVideoDuration = 30
         if let adFormats = adFormats {
             interstitialController?.adFormats = adFormats
         }

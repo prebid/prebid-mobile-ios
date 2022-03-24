@@ -184,6 +184,7 @@
     adConfiguration.isOptIn = YES;
     adConfiguration.isBuiltInVideo = self.adConfiguration.isBuiltInVideo;
     adConfiguration.clickHandlerOverride = self.adConfiguration.clickHandlerOverride;
+    adConfiguration.maxVideoDuration = self.adConfiguration.maxVideoDuration;
     
     PBMCreativeModel *creativeModel = [[PBMCreativeModel alloc] initWithAdConfiguration:adConfiguration];
     creativeModel.eventTracker = [[PBMAdModelEventTracker alloc] initWithCreativeModel:creativeModel serverConnection:self.serverConnection];
