@@ -156,6 +156,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     if (!self.creative.creativeModel.adConfiguration.isInterstitialAd) {
         [self setupTapRecognizer];
     }
+
+    self.muted = self.creative.creativeModel.adConfiguration.isMuted;
 }
 
 #pragma mark - Public

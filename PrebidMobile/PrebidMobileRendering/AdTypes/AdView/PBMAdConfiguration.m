@@ -77,6 +77,7 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
         self.viewableArea = 1;
         self.viewableDuration = 0;
         self.videoPlacementType = PBMVideoPlacementType_Undefined;
+        self.isMuted = YES;
         self.maxVideoDuration = PBMVideoConstants.DEFAULT_MAX_VIDEO_DURATION;
     }
     
@@ -108,7 +109,8 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
     config.adFormats = self.adFormats;
     config.videoPlacementType = self.videoPlacementType;
     config.clickHandlerOverride = self.clickHandlerOverride;
-    
+    config.isMuted = self.isMuted;
+    config.maxVideoDuration = self.maxVideoDuration;
     return config;
 }
 

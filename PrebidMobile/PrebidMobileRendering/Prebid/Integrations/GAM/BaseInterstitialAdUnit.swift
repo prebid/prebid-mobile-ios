@@ -50,7 +50,12 @@ public class BaseInterstitialAdUnit :
         objc_sync_exit(blocksLockToken)
         return false
     }
-    
+
+    @objc public var isMuted: Bool {
+        get { adUnitConfig.adConfiguration.isMuted }
+        set { adUnitConfig.adConfiguration.isMuted = newValue }
+    }
+
     @objc public var maxVideoDuration: TimeInterval {
         get { adUnitConfig.adConfiguration.maxVideoDuration.doubleValue }
         set { adUnitConfig.adConfiguration.maxVideoDuration = NSNumber(value: newValue) }

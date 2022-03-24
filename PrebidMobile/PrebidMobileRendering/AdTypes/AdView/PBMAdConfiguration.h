@@ -92,6 +92,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) NSNumber* maxVideoDuration;
 
+/**
+ This property indicates whether the ad should run playback with sound or not.
+ */
+@property (nonatomic, assign) BOOL isMuted;
+
 #pragma mark - Impression Tracking
 
 @property (nonatomic, assign) NSTimeInterval pollFrequency;
