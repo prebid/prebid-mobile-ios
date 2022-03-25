@@ -30,19 +30,16 @@ public class BaseInterstitialAdUnit :
         return adLoadFlowController?.bidResponse
     }
     
-    @objc
-    public var configID: String {
+    @objc public var configID: String {
         adUnitConfig.configId
     }
     
-    @objc
-    public var adFormats: Set<AdFormat> {
+    @objc public var adFormats: Set<AdFormat> {
         get { adUnitConfig.adFormats }
         set { adUnitConfig.adFormats = newValue }
     }
      
-    @objc
-    public var isReady: Bool {
+    @objc public var isReady: Bool {
         objc_sync_enter(blocksLockToken)
         if let block = isReadyBlock {
             let res = block()
@@ -53,9 +50,13 @@ public class BaseInterstitialAdUnit :
         objc_sync_exit(blocksLockToken)
         return false
     }
+    
+    @objc public var maxVideoDuration: TimeInterval {
+        get { adUnitConfig.adConfiguration.maxVideoDuration.doubleValue }
+        set { adUnitConfig.adConfiguration.maxVideoDuration = NSNumber(value: newValue) }
+    }
 
-    @objc
-    public weak var delegate: AnyObject?
+    @objc public weak var delegate: AnyObject?
     
     public let adUnitConfig: AdUnitConfig
     
@@ -134,13 +135,11 @@ public class BaseInterstitialAdUnit :
     
     // MARK: - Public Methods
     
-    @objc
-    public func loadAd() {
+    @objc public func loadAd() {
         adLoadFlowController.refresh()
     }
     
-    @objc
-    public func show(from controller: UIViewController) {
+    @objc public func show(from controller: UIViewController) {
         // It is expected from the user to call this method on main thread
         assert(Thread.isMainThread, "Expected to only be called on the main thread");
        

@@ -55,7 +55,11 @@ class PBMConstantsTests: XCTestCase {
     }
     
     func testPBMTimeScale() {
-        XCTAssertEqual(PBMTimeScale.VIDEO_TIMESCALE, 1000)
+        XCTAssertEqual(PBMVideoConstants.VIDEO_TIMESCALE, 1000)
+    }
+    
+    func testPBMDefaultVideoMaxDuration() {
+        XCTAssertEqual(PBMVideoConstants.DEFAULT_MAX_VIDEO_DURATION, 3600)
     }
     
     func testPBMGeoLocationConstants() {
