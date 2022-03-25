@@ -18,7 +18,7 @@ import UIKit
 @objc public enum PrebidHost: Int {
     
     /**
-     URL [https://prebid.adnxs.com/pbs/v1/openrtb2/auction](URL)
+     URL [https://ib.adnxs.com/openrtb2/prebid](URL)
     */
     case Appnexus
     
@@ -31,7 +31,7 @@ import UIKit
 
     func name () -> String {
         switch self {
-        case .Appnexus: return "https://prebid.adnxs.com/pbs/v1/openrtb2/auction"
+        case .Appnexus: return "https://ib.adnxs.com/openrtb2/prebid"
         case .Rubicon: return "https://prebid-server.rubiconproject.com/openrtb2/auction"
         case .Custom: return ""
         }

@@ -65,7 +65,7 @@ static CGFloat const kAdMargin = 10.0f;
 static NSString * _Nonnull const kAppNexusString = @"Xandr";
 static NSString * _Nonnull const kRubiconString = @"Rubicon";
 static NSString * _Nonnull const kCustomString = @"Custom";
-static NSString * _Nonnull const kAppNexusPrebidServerEndpoint = @"https://prebid.adnxs.com/pbs/v1/openrtb2/auction";
+static NSString * _Nonnull const kAppNexusPrebidServerEndpoint = @"https://ib.adnxs.com/openrtb2/prebid";
 static NSString * _Nonnull const kRubiconPrebidServerEndpoint = @"https://prebid-server.rubiconproject.com/openrtb2/auction";
 static NSString * _Nonnull const kCustomPrebidServerEndpoint = @"CustomHostPath";
 
