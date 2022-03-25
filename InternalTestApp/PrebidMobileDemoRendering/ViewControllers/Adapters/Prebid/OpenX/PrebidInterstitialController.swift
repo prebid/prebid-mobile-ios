@@ -55,6 +55,7 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
         interstitialController = InterstitialRenderingAdUnit(configID: prebidConfigId,
                                                        minSizePercentage: CGSize(width: 30, height: 30))
         interstitialController?.delegate = self
+        interstitialController?.maxVideoDuration = 30
         if let adFormats = adFormats {
             interstitialController?.adFormats = adFormats
         }
