@@ -18,7 +18,7 @@ import UIKit
 public class NativeRequest: AdUnit {
     
     public var version: String {
-        get { adUnitConfig.nativeAdConfiguration?.version ?? "1.2"}
+        get { adUnitConfig.nativeAdConfiguration?.version ?? "1.2" }
         set { adUnitConfig.nativeAdConfiguration?.version = newValue }
     }
     
@@ -63,7 +63,7 @@ public class NativeRequest: AdUnit {
     }
     
     public var eventtrackers: [NativeEventTracker]? {
-        get { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.eventtrackers  }
+        get { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.eventtrackers }
         set { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.eventtrackers = newValue }
     }
     
@@ -88,13 +88,13 @@ public class NativeRequest: AdUnit {
         super.adUnitConfig.adFormats = [.native]
     }
     
-    public convenience init(configId: String, assets: Array<NativeAsset>? = nil, eventTrackers: Array<NativeEventTracker>? = nil) {
+    public convenience init(configId: String, assets: [NativeAsset]? = nil, eventTrackers: [NativeEventTracker]? = nil) {
         self.init(configId: configId)
         self.assets = assets
         self.eventtrackers = eventtrackers
     }
     
-    public func addNativeAssets(_ assets: Array<NativeAsset>) {
+    public func addNativeAssets(_ assets: [NativeAsset]) {
         if self.assets != nil {
             self.assets?.append(contentsOf: assets)
         } else {
@@ -102,7 +102,7 @@ public class NativeRequest: AdUnit {
         }
     }
     
-    public func addNativeEventTracker(_ eventTrackers: Array<NativeEventTracker>) {
+    public func addNativeEventTracker(_ eventTrackers: [NativeEventTracker]) {
         if eventtrackers != nil {
             self.eventtrackers?.append(contentsOf: eventTrackers)
         } else {

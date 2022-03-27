@@ -18,14 +18,6 @@ import XCTest
 
 class NativeRequestTests: XCTestCase {
     
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-    
     func testNativeAdUnitCreation() {
         let nativeUnit = NativeRequest(configId: Constants.configID1)
         XCTAssertNotNil(nativeUnit)
@@ -132,10 +124,10 @@ class NativeRequestTests: XCTestCase {
     func testNativeAdExt() {
         let nativeUnit = NativeRequest(configId: Constants.configID1)
         XCTAssertNil(nativeUnit.ext)
-        nativeUnit.ext = 123 as AnyObject
+        nativeUnit.ext = ["key": 123]
         XCTAssertNotNil(nativeUnit.ext)
         let ext = ["key" : "value"]
-        nativeUnit.ext = ext as AnyObject
+        nativeUnit.ext = ext
         if let data = nativeUnit.ext as? [String : String], let value = data["key"] {
             XCTAssertTrue(value == "value")
         }

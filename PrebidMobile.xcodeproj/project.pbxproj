@@ -734,6 +734,7 @@
 		928E5A6E27F0F706000ADA1A /* ContextType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E5A6D27F0F706000ADA1A /* ContextType.swift */; };
 		928E5A7027F0F743000ADA1A /* ContextSubType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E5A6F27F0F743000ADA1A /* ContextSubType.swift */; };
 		928E5A7227F0F799000ADA1A /* PlacementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E5A7127F0F799000ADA1A /* PlacementType.swift */; };
+		928E5A7427F0F84C000ADA1A /* NativeMarkupRequestObjectTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E5A7327F0F84C000ADA1A /* NativeMarkupRequestObjectTest.swift */; };
 		9290549227A417F00091D10D /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9290549127A417F00091D10D /* ImageHelper.swift */; };
 		929638B827AB19DE00D30F3D /* NativeTitleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638B727AB19DE00D30F3D /* NativeTitleTests.swift */; };
 		929638BB27AB200400D30F3D /* NativeImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929638BA27AB200400D30F3D /* NativeImageTests.swift */; };
@@ -1596,6 +1597,7 @@
 		928E5A6D27F0F706000ADA1A /* ContextType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextType.swift; sourceTree = "<group>"; };
 		928E5A6F27F0F743000ADA1A /* ContextSubType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextSubType.swift; sourceTree = "<group>"; };
 		928E5A7127F0F799000ADA1A /* PlacementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementType.swift; sourceTree = "<group>"; };
+		928E5A7327F0F84C000ADA1A /* NativeMarkupRequestObjectTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMarkupRequestObjectTest.swift; sourceTree = "<group>"; };
 		9290549127A417F00091D10D /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
 		929638B727AB19DE00D30F3D /* NativeTitleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeTitleTests.swift; sourceTree = "<group>"; };
 		929638BA27AB200400D30F3D /* NativeImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeImageTests.swift; sourceTree = "<group>"; };
@@ -3083,6 +3085,7 @@
 		9720387A235876F000F8025A /* NativeUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				928E5A7327F0F84C000ADA1A /* NativeMarkupRequestObjectTest.swift */,
 				9720387B2358771600F8025A /* NativeRequestTests.swift */,
 				9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */,
 				9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */,
@@ -3828,6 +3831,7 @@
 				922AFD612737306900732C53 /* PBMModalViewControllerTest.swift in Sources */,
 				925D5E552737F2A900A8A2B5 /* PBMFunctionsPrivateTest.m in Sources */,
 				47D9A4E2F32109B33E75FD2C /* MockBundle.swift in Sources */,
+				928E5A7427F0F84C000ADA1A /* NativeMarkupRequestObjectTest.swift in Sources */,
 				925D5DB72737C60D00A8A2B5 /* PBMBidResponseTransformer+TestExtension.swift in Sources */,
 				922AFCF42736FDD500732C53 /* PBMFunctionsObjCTest.m in Sources */,
 				47D9AC0B7F63CB839FB2C751 /* MockCTCarrier.swift in Sources */,
