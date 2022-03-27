@@ -131,6 +131,10 @@
     if ([self.adConfiguration.adFormats containsObject:AdFormat.video]) {
         [self appendVideoParametersForRequest:bidRequest];
     }
+    
+    if ([self.adConfiguration.adFormats containsObject:AdFormat.native] && self.adConfiguration.adFormats.count == 1) {
+        [self appendNativeParametersForRequest:bidRequest];
+    }
 }
 
 - (void)appendDisplayParametersForRequest:(PBMORTBBidRequest *)bidRequest {

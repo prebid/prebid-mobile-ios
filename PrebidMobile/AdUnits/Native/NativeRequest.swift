@@ -17,18 +17,65 @@ import UIKit
 
 public class NativeRequest: AdUnit {
     
-    var version: String = "1.2"
-    public var context: ContextType?
-    public var contextSubType: ContextSubType?
-    public var placementType: PlacementType?
-    public var placementCount: Int = 1
-    public var sequence: Int  = 0
-    public var assets: Array<NativeAsset>?
-    public var asseturlsupport: Int = 0
-    public var durlsupport: Int = 0
-    public var eventtrackers:Array<NativeEventTracker>?
-    public var privacy: Int = 0
-    public var ext: AnyObject?
+    public var version: String {
+        get { adUnitConfig.nativeAdConfiguration?.version ?? "1.2"}
+        set { adUnitConfig.nativeAdConfiguration?.version = newValue }
+    }
+    
+    public var context: ContextType? {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.context }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.context = newValue }
+    }
+    
+    public var contextSubType: ContextSubType? {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.contextsubtype }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.contextsubtype = newValue }
+    }
+    
+    public var placementType: PlacementType? {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.plcmttype}
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.plcmttype = newValue }
+    }
+    
+    public var placementCount: Int {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.plcmtcnt ?? 1 }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.plcmtcnt = newValue }
+    }
+    
+    public var sequence: Int {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.seq ?? 0 }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.seq = newValue }
+    }
+    
+    public var assets: [NativeAsset]? {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.assets }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.assets = newValue }
+    }
+    
+    public var asseturlsupport: Int {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.aurlsupport ?? 0 }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.aurlsupport = newValue }
+    }
+    
+    public var durlsupport: Int {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.durlsupport ?? 0 }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.durlsupport = newValue }
+    }
+    
+    public var eventtrackers: [NativeEventTracker]? {
+        get { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.eventtrackers  }
+        set { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.eventtrackers = newValue }
+    }
+    
+    public var privacy: Int {
+        get { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.privacy ?? 0  }
+        set { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.privacy = newValue }
+    }
+    
+    public var ext: [String: Any]? {
+        get { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.ext }
+        set { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.ext = newValue }
+    }
     
     public var configId: String {
         get { adUnitConfig.configId }
@@ -36,7 +83,9 @@ public class NativeRequest: AdUnit {
     }
     
     public init(configId: String) {
-        super.init(configId: configId, size: CGSize.zero)   
+        super.init(configId: configId, size: CGSize.zero)
+        super.adUnitConfig.nativeAdConfiguration = NativeAdConfiguration()
+        super.adUnitConfig.adFormats = [.native]
     }
     
     public convenience init(configId: String, assets: Array<NativeAsset>? = nil, eventTrackers: Array<NativeEventTracker>? = nil) {
@@ -60,67 +109,6 @@ public class NativeRequest: AdUnit {
             self.eventtrackers = eventTrackers
         }
     }
-
-    public func getNativeRequestObject() -> [AnyHashable: Any]? {
-        var nativeObject: [AnyHashable:Any] = [:]
-        nativeObject["ver"] = version
-        var requestObject: [AnyHashable:Any] = [:]
-        
-        requestObject["plcmttype"] = placementType?.value
-        requestObject["context"] = context?.value
-        requestObject["contextsubtype"] = contextSubType?.value
-        
-        if (sequence > 0) {
-            requestObject["seq"] = sequence
-        }
-        if (asseturlsupport > 0) {
-            requestObject["aurlsupport"] = asseturlsupport
-        }
-        if (durlsupport > 0) {
-            requestObject["durlsupport"] = durlsupport
-        }
-        if (privacy > 0) {
-            requestObject["privacy"] = privacy
-        }
-        
-        requestObject["ext"] = ext
-        requestObject["plcmtcnt"] = placementCount
-        var idCount: Int = 0
-        if let assets = assets {
-            var assetsObjects:[Any] = []
-            for asset:NativeAsset in assets {
-                if(Prebid.shared.shouldAssignNativeAssetID){
-                    idCount += 1
-                }
-                assetsObjects.append(asset.getAssetObject(id: idCount))
-            }
-            
-            requestObject["assets"] = assetsObjects
-        }
-        
-        if let eventtrackers = eventtrackers, eventtrackers.count > 0 {
-            var eventObjects:[Any] = []
-            for event:NativeEventTracker in eventtrackers {
-                eventObjects.append(event.getEventTracker())
-            }
-            
-            requestObject["eventtrackers"] = eventObjects
-        }
-        
-        do {
-            let nativeData = try JSONSerialization.data(withJSONObject: requestObject, options: .prettyPrinted)
-
-            let stringObject = String.init(data: nativeData, encoding: String.Encoding.utf8)
-            
-            nativeObject["request"] = stringObject
-            
-        } catch let error {
-            Log.error(error.localizedDescription)
-        }
-        
-        return nativeObject
-    }
-
 }
 
 public class ContextType: SingleContainerInt {
@@ -196,8 +184,3 @@ public class PlacementType: SingleContainerInt {
     @objc
     public static let Custom = PlacementType(500)
 }
-
-
-
-
-

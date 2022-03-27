@@ -74,7 +74,7 @@ public class MediationNativeAdUnit : NSObject {
         nativeAdUnit.privacy = privacy
     }
     
-    public func setExt(_ ext: AnyObject) {
+    public func setExt(_ ext: [String: Any]) {
         nativeAdUnit.ext = ext
     }
     
