@@ -165,6 +165,7 @@ NS_SWIFT_NAME(GeoLocationConstants)
 @property (class, readonly) NSArray <NSString *> *urlSchemesForAppStoreAndITunes    NS_SWIFT_NAME(urlSchemesForAppStoreAndITunes);
 @property (class, readonly) NSArray <NSString *> *urlSchemesNotSupportedOnSimulator NS_SWIFT_NAME(urlSchemesNotSupportedOnSimulator);
 @property (class, readonly) NSArray <NSString *> *urlSchemesNotSupportedOnClickthroughBrowser NS_SWIFT_NAME(urlSchemesNotSupportedOnClickthroughBrowser);
+@property (class, readonly) NSNumber *CLOSE_BUTTON_AREA_DEFAULT                    NS_SWIFT_NAME(CLOSE_BUTTON_AREA_DEFAULT);
 
 @end
 

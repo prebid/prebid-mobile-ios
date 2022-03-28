@@ -303,4 +303,8 @@ PBMParameterKeys const PBMParameterKeysOPEN_RTB = @"openrtb";
     return _urlSchemesNotSupportedOnClickthroughBrowser;
 }
 
++(NSNumber *)CLOSE_BUTTON_AREA_DEFAULT {
+    return [[NSNumber alloc] initWithDouble:0.1];
+}
+
 @end
