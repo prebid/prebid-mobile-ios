@@ -29,6 +29,9 @@
 #import "PBMError.h"
 #import "PBMAdModelEventTracker.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 
 @implementation PBMCreativeModelCollectionMakerVAST
 
@@ -54,6 +57,7 @@
 
     if (error) {
         failureCallback(error);
+        return;
     }
     
     successCallback(models);
@@ -163,16 +167,7 @@
         return nil;
     }
     
-    // LEGACY: Sounds weird. Need to use the same ad configuration
-    // Create a new config using it's default: AdFormat = .display
-    PBMAdConfiguration *adConfiguration = [[PBMAdConfiguration alloc] init];
-    
-    adConfiguration.isInterstitialAd = YES;
-    adConfiguration.isOptIn = YES;
-    adConfiguration.isBuiltInVideo = self.adConfiguration.isBuiltInVideo;
-    adConfiguration.clickHandlerOverride = self.adConfiguration.clickHandlerOverride;
-    
-    PBMCreativeModel *creativeModel = [[PBMCreativeModel alloc] initWithAdConfiguration:adConfiguration];
+    PBMCreativeModel *creativeModel = [[PBMCreativeModel alloc] initWithAdConfiguration:self.adConfiguration];
     creativeModel.eventTracker = [[PBMAdModelEventTracker alloc] initWithCreativeModel:creativeModel serverConnection:self.serverConnection];
     creativeModel.verificationParameters = vastAd.verificationParameters;
 
