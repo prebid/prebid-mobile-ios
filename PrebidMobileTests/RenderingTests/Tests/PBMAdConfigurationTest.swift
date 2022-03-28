@@ -43,8 +43,8 @@ class PBMAdConfigurationTest: XCTestCase {
         XCTAssertTrue(adConfiguration.isMuted == true)
     }
     
-    func testDefaultIsMuteControlsEnabled() {
+    func testDefaultIsMuteControlsDisabled() {
         let adConfiguration = PBMAdConfiguration()
-        XCTAssertTrue(adConfiguration.isSoundButtonVisible == true)
+        XCTAssertTrue(adConfiguration.isSoundButtonVisible == false)
     }
 }
