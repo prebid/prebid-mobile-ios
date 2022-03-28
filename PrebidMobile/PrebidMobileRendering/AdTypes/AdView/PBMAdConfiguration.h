@@ -100,7 +100,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  This property indicates whether mute controls is visible on the screen.
  */
-@property (nonatomic, assign) BOOL isMuteControlsVisible;
+@property (nonatomic, assign) BOOL isSoundButtonVisible;
 
 #pragma mark - Impression Tracking
 

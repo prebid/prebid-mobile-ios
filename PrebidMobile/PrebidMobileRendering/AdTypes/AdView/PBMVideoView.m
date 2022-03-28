@@ -156,7 +156,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         [self setupTapRecognizer];
     }
     
-    self.isMuteControlsVisible = self.creative.creativeModel.adConfiguration.isMuteControlsVisible;
+    self.isSoundButtonVisible = self.creative.creativeModel.adConfiguration.isSoundButtonVisible;
 }
 
 #pragma mark - Public
@@ -386,7 +386,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         return;
     }
     
-    if (!self.isMuteControlsVisible) {
+    if (!self.isSoundButtonVisible) {
         return;
     }
     

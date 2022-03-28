@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 // We must use this flag instead of player’s state to prevent double-stopping of the video due to async work of observers.
 @property (nonatomic, assign, readonly) BOOL vastDurationHasEnded;
 
-@property (nonatomic, assign) BOOL isMuteControlsVisible;
+@property (nonatomic, assign) BOOL isSoundButtonVisible;
 
 - (instancetype)initWithEventManager:(PBMEventManager *)eventManager;
 

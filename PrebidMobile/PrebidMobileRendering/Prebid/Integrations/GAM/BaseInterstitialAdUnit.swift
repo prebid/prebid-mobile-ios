@@ -56,9 +56,9 @@ public class BaseInterstitialAdUnit :
         set { adUnitConfig.adConfiguration.isMuted = newValue }
     }
     
-    @objc public var isMuteControlsVisible: Bool {
-        get { adUnitConfig.adConfiguration.isMuteControlsVisible }
-        set { adUnitConfig.adConfiguration.isMuteControlsVisible = newValue }
+    @objc public var isSoundButtonVisible: Bool {
+        get { adUnitConfig.adConfiguration.isSoundButtonVisible }
+        set { adUnitConfig.adConfiguration.isSoundButtonVisible = newValue }
     }
 
     @objc public var maxVideoDuration: TimeInterval {
