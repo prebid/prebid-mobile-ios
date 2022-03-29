@@ -178,7 +178,6 @@ struct TestCaseManager {
     
     // {"configId": ["7e2c753a-2aad-49fb-b3b3-9b18018feb67": params1, "0e04335b-c39a-41f8-8f91-24ff13767dcc": params2]}
     private static var customORTBParams: [String: [String: [String: Any]]] = [:]
-    
     // MARK: - Public Methods
     
     let testCases = TestCaseManager.prebidExamples
@@ -252,7 +251,7 @@ struct TestCaseManager {
             // MARK: ---- Banner (In-App) ----
             
             TestCase(title: "Banner 320x50 (In-App)",
-                     tags: [.banner, .inapp, .server, .mock],
+                     tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -262,11 +261,8 @@ struct TestCaseManager {
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                         
-                if AppConfiguration.shared.useMockServer {
-                    bannerController.prebidConfigId = "mock-banner-320-50"
-                } else {
-                    bannerController.prebidConfigId = "50699c03-0910-477c-b4a4-911dbe2b9d42"
-                }
+                bannerController.prebidConfigId = "imp-prebid-banner-320-50";
+                Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                         
                 adapterVC.setup(adapter: bannerController)
                         
@@ -274,7 +270,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [noBids]",
-                     tags: [.banner, .inapp, .server, .mock],
+                     tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -284,12 +280,8 @@ struct TestCaseManager {
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                         
-                if AppConfiguration.shared.useMockServer {
-                    bannerController.prebidConfigId = "mock-no-bids"
-                } else {
-                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
-                    bannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
-                }
+                    bannerController.prebidConfigId = "imp-prebid-no-bids"
+                         Prebid.shared.storedAuctionResponse="response-prebid-no-bids"
                         
                 adapterVC.setup(adapter: bannerController)
                         
@@ -297,7 +289,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [Items]",
-                     tags: [.banner, .inapp, .mock],
+                     tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -305,7 +297,8 @@ struct TestCaseManager {
                 }
                 
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-banner-items"
+                bannerController.prebidConfigId = "imp-prebid-banner-items"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-items"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -313,7 +306,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [New Tab]",
-                     tags: [.banner, .inapp, .mock],
+                     tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -321,7 +314,8 @@ struct TestCaseManager {
                 }
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-banner-newtab"
+                bannerController.prebidConfigId = "imp-prebid-banner-newtab"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-newtab"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -329,7 +323,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [Incorrect VAST]",
-                     tags: [.banner, .inapp, .mock],
+                     tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -337,7 +331,8 @@ struct TestCaseManager {
                 }
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-banner-incorrect-vast"
+                bannerController.prebidConfigId = "imp-prebid-banner-incorrect-vast"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-incorrec-vast"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -345,7 +340,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [DeepLink+]",
-                     tags: [.banner, .inapp, .mock],
+                     tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -353,7 +348,8 @@ struct TestCaseManager {
                 }
                 
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-banner-deeplink"
+                bannerController.prebidConfigId = "imp-prebid-banner-deeplink"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-deeplink"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -361,7 +357,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [Scrollable]",
-                     tags: [.banner, .inapp, .mock],
+                     tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "ScrollableAdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -369,7 +365,8 @@ struct TestCaseManager {
                 }
                 
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-banner-320-50"
+                bannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -377,7 +374,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 300x250 (In-App)",
-                     tags: [.banner, .inapp, .mock],
+                     tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -385,7 +382,8 @@ struct TestCaseManager {
                 }
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-banner-300-250"
+                bannerController.prebidConfigId = "imp-prebid-banner-300-250"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-300-250"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -393,14 +391,15 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 728x90 (In-App)",
-                     tags: [.banner, .inapp, .mock],
+                     tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-banner-728-90"
+                bannerController.prebidConfigId = "imp-prebid-banner-728-90"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-728-90"
                 bannerController.adSizes = [CGSize(width: 728, height: 90)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -408,14 +407,15 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner Multisize (In-App)",
-                     tags: [.banner, .inapp, .mock],
+                     tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-banner-multisize"
+                bannerController.prebidConfigId = "imp-prebid-banner-multisize"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-multisize"
                 bannerController.adSizes = [CGSize(width: 320, height: 50), CGSize(width: 728, height: 90)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -423,7 +423,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (In-App) ATS",
-                     tags: [.banner, .inapp, .mock],
+                     tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -444,7 +444,8 @@ struct TestCaseManager {
                 ]
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-banner-320-50"
+                bannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -452,14 +453,15 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [SKAdN]",
-                     tags: [.banner, .inapp, .mock],
+                     tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-banner-320-50-skadn"
+                bannerController.prebidConfigId = "imp-prebid-banner-320-50-skadn"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50-skadn"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
 
                 adapterVC.setup(adapter: bannerController)
@@ -468,16 +470,16 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [SKAdN 2.2]",
-                     tags: [.banner, .inapp, .mock],
+                     tags: [.banner, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-banner-320-50-skadn-v22"
+                bannerController.prebidConfigId = "imp-prebid-banner-320-50-skadn-v22"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
-
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50-skadn"
                 adapterVC.setup(adapter: bannerController)
                         
                 setupCustomParams(for: bannerController.prebidConfigId)
@@ -486,7 +488,7 @@ struct TestCaseManager {
             // MARK: ---- Banner (GAM) ----
             
             TestCase(title: "Banner 320x50 (GAM) [OK, AppEvent]",
-                     tags: [.banner, .gam, .server, .mock],
+                     tags: [.banner, .gam, .server, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -496,11 +498,8 @@ struct TestCaseManager {
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
                 gamBannerController.validAdSizes = [kGADAdSizeBanner]
                         
-                if AppConfiguration.shared.useMockServer {
-                    gamBannerController.prebidConfigId = "mock-banner-320-50"
-                } else {
-                    gamBannerController.prebidConfigId = "50699c03-0910-477c-b4a4-911dbe2b9d42"
-                }
+                    gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                         
                 adapterVC.setup(adapter: gamBannerController)
                         
@@ -508,14 +507,15 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (GAM) [OK, GAM Ad]",
-                     tags: [.banner, .gam, .mock],
+                     tags: [.banner, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
-                gamBannerController.prebidConfigId = "mock-banner-320-50"
+                gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner_static"
                 gamBannerController.validAdSizes = [kGADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
@@ -524,7 +524,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (GAM) [noBids, GAM Ad]",
-                     tags: [.banner, .gam, .server, .mock],
+                     tags: [.banner, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -532,12 +532,8 @@ struct TestCaseManager {
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
 
-                if AppConfiguration.shared.useMockServer {
-                    gamBannerController.prebidConfigId = "mock-no-bids"
-                } else {
-                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
-                    gamBannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
-                }
+                    gamBannerController.prebidConfigId = "imp-prebid-no-bids"
+                         Prebid.shared.storedAuctionResponse="response-prebid-no-bids"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner_static"
                 gamBannerController.validAdSizes = [kGADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
@@ -546,14 +542,15 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (GAM) [OK, Random]",
-                     tags: [.banner, .gam, .mock],
+                     tags: [.banner, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
-                gamBannerController.prebidConfigId = "mock-banner-320-50"
+                gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner_random"
                 gamBannerController.validAdSizes = [kGADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
@@ -562,7 +559,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (GAM) [Random, Respective]",
-                     tags: [.banner, .gam, .mock],
+                     tags: [.banner, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -578,7 +575,8 @@ struct TestCaseManager {
                 }
                         
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
-                gamBannerController.prebidConfigId = "mock-banner-320-50"
+                gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
                 gamBannerController.validAdSizes = [kGADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
@@ -587,14 +585,15 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 300x250 (GAM)",
-                     tags: [.banner, .gam, .mock],
+                     tags: [.banner, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
-                gamBannerController.prebidConfigId = "mock-banner-300-250"
+                gamBannerController.prebidConfigId = "imp-prebid-banner-300-250"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-300-250"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_300x250_banner"
                 gamBannerController.validAdSizes = [kGADAdSizeMediumRectangle]
                 adapterVC.setup(adapter: gamBannerController)
@@ -603,14 +602,15 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 728x90 (GAM)",
-                     tags: [.banner, .gam, .mock],
+                     tags: [.banner, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
-                gamBannerController.prebidConfigId = "mock-banner-728-90"
+                gamBannerController.prebidConfigId = "imp-prebid-banner-728-90"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-728-90"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_728x90_banner"
                 gamBannerController.validAdSizes = [kGADAdSizeLeaderboard]
                 adapterVC.setup(adapter: gamBannerController)
@@ -619,14 +619,15 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner Multisize (GAM)",
-                     tags: [.banner, .gam, .mock],
+                     tags: [.banner, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
-                gamBannerController.prebidConfigId = "mock-banner-multisize"
+                gamBannerController.prebidConfigId = "imp-prebid-banner-multisize"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-multisize"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_multisize_banner"
                 gamBannerController.validAdSizes = [kGADAdSizeBanner, kGADAdSizeLeaderboard]
                 adapterVC.setup(adapter: gamBannerController)
@@ -643,7 +644,8 @@ struct TestCaseManager {
                 }
                         
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
-                gamBannerController.prebidConfigId = "50699c03-0910-477c-b4a4-911dbe2b9d42"
+                gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_android_300x250_banner"
                 gamBannerController.validAdSizes = [kGADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
@@ -654,7 +656,7 @@ struct TestCaseManager {
             // MARK: ---- Banner (MoPub) ----
             
             TestCase(title: "Banner 320x50 (MoPub) [OK, OXB Adapter]",
-                     tags: [.banner, .mopub, .server, .mock],
+                     tags: [.banner, .mopub, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -664,11 +666,8 @@ struct TestCaseManager {
                 mopubBannerController.moPubAdUnitId = "0df35635801e4110b65e762a62437698"
                 mopubBannerController.adUnitSize = CGSize(width: 320, height: 50);
                         
-                if AppConfiguration.shared.useMockServer {
-                    mopubBannerController.prebidConfigId = "mock-banner-320-50"
-                } else {
-                    mopubBannerController.prebidConfigId = "50699c03-0910-477c-b4a4-911dbe2b9d42"
-                }
+                    mopubBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                  
                 adapterVC.setup(adapter: mopubBannerController)
                         
@@ -676,14 +675,15 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (MoPub) [OK, Random]",
-                     tags: [.banner, .mopub, .mock],
+                     tags: [.banner, .mopub, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let mopubBannerController = PrebidMoPubBannerController(rootController: adapterVC)
-                mopubBannerController.prebidConfigId = "mock-banner-320-50"
+                mopubBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                 mopubBannerController.moPubAdUnitId = "6f69ef70b52f427fa9a1277337ca72fc"
                 mopubBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 adapterVC.setup(adapter: mopubBannerController)
@@ -692,7 +692,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (MoPub) [noBids, MoPub Ad]",
-                     tags: [.banner, .mopub, .server, .mock],
+                     tags: [.banner, .mopub, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -700,12 +700,8 @@ struct TestCaseManager {
                 }
                 let mopubBannerController = PrebidMoPubBannerController(rootController: adapterVC)
 
-                if AppConfiguration.shared.useMockServer {
-                    mopubBannerController.prebidConfigId = "mock-no-bids"
-                } else {
-                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
-                    mopubBannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
-                }
+                    mopubBannerController.prebidConfigId = "imp-prebid-no-bids"
+                    Prebid.shared.storedAuctionResponse="response-prebid-no-bids"
                 mopubBannerController.moPubAdUnitId = "2b664935d41c4f4f8b8148ae39d22c99"
                 mopubBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 adapterVC.setup(adapter: mopubBannerController)
@@ -714,7 +710,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (MoPub) [Random, Respective]",
-                     tags: [.banner, .mopub, .mock],
+                     tags: [.banner, .mopub, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -730,7 +726,8 @@ struct TestCaseManager {
                 }
 
                 let mopubBannerController = PrebidMoPubBannerController(rootController: adapterVC)
-                mopubBannerController.prebidConfigId = "mock-banner-320-50"
+                mopubBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                 mopubBannerController.moPubAdUnitId = "2b664935d41c4f4f8b8148ae39d22c99"
                 mopubBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 adapterVC.setup(adapter: mopubBannerController)
@@ -739,14 +736,15 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 300x250 (MoPub)",
-                     tags: [.banner, .mopub, .mock],
+                     tags: [.banner, .mopub, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let mopubBannerController = PrebidMoPubBannerController(rootController: adapterVC)
-                mopubBannerController.prebidConfigId = "mock-banner-300-250"
+                mopubBannerController.prebidConfigId = "imp-prebid-banner-300-250"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-300-250"
                 mopubBannerController.moPubAdUnitId = "8ac25e6a5d0f4f9293e6520ccd35a572"
                 mopubBannerController.adUnitSize = CGSize(width: 300, height: 250);
                 adapterVC.setup(adapter: mopubBannerController)
@@ -755,14 +753,15 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 728x90 (MoPub)",
-                     tags: [.banner, .mopub, .mock],
+                     tags: [.banner, .mopub, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let mopubBannerController = PrebidMoPubBannerController(rootController: adapterVC)
-                mopubBannerController.prebidConfigId = "mock-banner-728-90"
+                mopubBannerController.prebidConfigId = "imp-prebid-banner-728-90"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-728-90"
                 mopubBannerController.moPubAdUnitId = "c33fd3d864e94306b2fc698dc88f4f8c"
                 mopubBannerController.adUnitSize = CGSize(width: 728, height: 90);
                 adapterVC.setup(adapter: mopubBannerController)
@@ -771,15 +770,16 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner Multisize (MoPub)",
-                     tags: [.banner, .mopub, .mock],
+                     tags: [.banner, .mopub, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let mopubBannerController = PrebidMoPubBannerController(rootController: adapterVC)
-                mopubBannerController.prebidConfigId = "mock-banner-multisize"
+                mopubBannerController.prebidConfigId = "imp-prebid-banner-multisize"
                 mopubBannerController.moPubAdUnitId = "a64373c094d4461e9521bf3f7b9f39f0"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-multisize"
                 mopubBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 mopubBannerController.additionalAdSizes = [CGSize(width: 728, height: 90)]
                 adapterVC.setup(adapter: mopubBannerController)
@@ -795,7 +795,8 @@ struct TestCaseManager {
                     return
                 }
                 let mopubBannerController = PrebidMoPubBannerController(rootController: adapterVC)
-                mopubBannerController.prebidConfigId = "50699c03-0910-477c-b4a4-911dbe2b9d42"
+                mopubBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                 mopubBannerController.moPubAdUnitId = "062f48338d404485aca738bd70e71878"
                 mopubBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 adapterVC.setup(adapter: mopubBannerController)
@@ -815,7 +816,7 @@ struct TestCaseManager {
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 
                 if AppConfiguration.shared.useMockServer {
-                    interstitialController.prebidConfigId = "mock-display-interstitial-320-480"
+                    interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 } else {
                     interstitialController.prebidConfigId = "5a4b8dcf-f984-4b04-9448-6529908d6cb6"
                 }
@@ -834,7 +835,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    interstitialController.prebidConfigId = "mock-no-bids"
+                    interstitialController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     interstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -851,7 +852,7 @@ struct TestCaseManager {
                 guard let presentationVC = vc as? PrebidPresentationViewController else {
                     return
                 }
-                presentationVC.prebidConfigId = "mock-display-interstitial-320-480"
+                presentationVC.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                         
                 setupCustomParams(for: presentationVC.prebidConfigId)
             }),
@@ -864,7 +865,7 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "mock-display-interstitial-multisize"
+                interstitialController.prebidConfigId = "imp-prebid-display-interstitial-multisize"
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -878,7 +879,7 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "mock-display-interstitial-320-480-skadn"
+                interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480-skadn"
 
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -896,7 +897,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.display, .video]
-                let prebidConfigIds = ["mock-display-interstitial-320-480", "mock-video-interstitial-320-480"]
+                let prebidConfigIds = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480"]
                 interstitialController.prebidConfigId = prebidConfigIds.randomElement() ?? prebidConfigIds[0]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -916,7 +917,7 @@ struct TestCaseManager {
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_html_interstitial"
                         
                 if AppConfiguration.shared.useMockServer {
-                    gamInterstitialController.prebidConfigId = "mock-display-interstitial-320-480"
+                    gamInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 } else {
                     gamInterstitialController.prebidConfigId = "5a4b8dcf-f984-4b04-9448-6529908d6cb6"
                 }
@@ -934,7 +935,7 @@ struct TestCaseManager {
                     return
                 }
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
-                gamInterstitialController.prebidConfigId = "mock-display-interstitial-320-480"
+                gamInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_html_interstitial_random"
                 adapterVC.setup(adapter: gamInterstitialController)
                         
@@ -950,7 +951,7 @@ struct TestCaseManager {
                 }
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    gamInterstitialController.prebidConfigId = "mock-no-bids"
+                    gamInterstitialController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     gamInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -969,7 +970,7 @@ struct TestCaseManager {
                     return
                 }
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
-                gamInterstitialController.prebidConfigId = "mock-display-interstitial-multisize"
+                gamInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-multisize"
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_html_interstitial"
                 adapterVC.setup(adapter: gamInterstitialController)
                         
@@ -1004,7 +1005,7 @@ struct TestCaseManager {
                 let interstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 let gamAdUnitIds = ["/21808260008/prebid_html_interstitial", "/21808260008/prebid_oxb_interstitial_video"]
                 interstitialController.adFormats = [.display, .video]
-                let prebidConfigIds = ["mock-display-interstitial-320-480", "mock-video-interstitial-320-480"]
+                let prebidConfigIds = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480"]
                 interstitialController.prebidConfigId = prebidConfigIds[randomId]
                 interstitialController.gamAdUnitId = gamAdUnitIds[randomId]
                 adapterVC.setup(adapter: interstitialController)
@@ -1025,7 +1026,7 @@ struct TestCaseManager {
                 mopubInterstitialController.moPubAdUnitId = "e979c52714434796909993e21c8fc8da"
                         
                 if AppConfiguration.shared.useMockServer {
-                    mopubInterstitialController.prebidConfigId = "mock-display-interstitial-320-480"
+                    mopubInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 } else {
                     mopubInterstitialController.prebidConfigId = "5a4b8dcf-f984-4b04-9448-6529908d6cb6"
                 }
@@ -1043,7 +1044,7 @@ struct TestCaseManager {
                     return
                 }
                 let mopubInterstitialController = PrebidMoPubInterstitialController(rootController: adapterVC)
-                mopubInterstitialController.prebidConfigId = "mock-display-interstitial-320-480"
+                mopubInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 mopubInterstitialController.moPubAdUnitId = "2c241851044c429f9f4df6ec19b847b6"
                 adapterVC.setup(adapter: mopubInterstitialController)
                         
@@ -1059,7 +1060,7 @@ struct TestCaseManager {
                 }
                 let mopubInterstitialController = PrebidMoPubInterstitialController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    mopubInterstitialController.prebidConfigId = "mock-no-bids"
+                    mopubInterstitialController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     mopubInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -1078,7 +1079,7 @@ struct TestCaseManager {
                     return
                 }
                 let mopubInterstitialController = PrebidMoPubInterstitialController(rootController: adapterVC)
-                mopubInterstitialController.prebidConfigId = "mock-display-interstitial-multisize"
+                mopubInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-multisize"
                 mopubInterstitialController.moPubAdUnitId = "e979c52714434796909993e21c8fc8da"
                 adapterVC.setup(adapter: mopubInterstitialController)
                         
@@ -1113,7 +1114,7 @@ struct TestCaseManager {
                 let interstitialController = PrebidMoPubInterstitialController(rootController: adapterVC)
                 let mopubAdUnitIds = ["5a4b8dcf-f984-4b04-9448-6529908d6cb6", "106bea23b1f744e794646b4b577028a0"]
                 interstitialController.adFormats = [.display, .video]
-                let prebidConfigIds = ["mock-display-interstitial-320-480", "mock-video-interstitial-320-480"]
+                let prebidConfigIds = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480"]
                 interstitialController.prebidConfigId = prebidConfigIds[randomId]
                 interstitialController.moPubAdUnitId = mopubAdUnitIds[randomId]
                 adapterVC.setup(adapter: interstitialController)
@@ -1131,7 +1132,7 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "mock-video-interstitial-320-480"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1147,7 +1148,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    interstitialController.prebidConfigId = "mock-no-bids"
+                    interstitialController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     interstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -1167,7 +1168,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    interstitialController.prebidConfigId = "mock-video-interstitial-320-480-with-end-card"
+                    interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
                 } else {
                     interstitialController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
@@ -1185,7 +1186,7 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "mock-video-interstitial-vertical"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-vertical"
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1200,7 +1201,7 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "mock-video-interstitial-320-480-deeplink"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-deeplink"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1216,7 +1217,7 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "mock-video-interstitial-320-480-skip-offset"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-skip-offset"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1232,7 +1233,7 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "mock-video-interstitial-mp4"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-mp4"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1248,7 +1249,7 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "mock-video-interstitial-m4v"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-m4v"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1264,7 +1265,7 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "mock-video-interstitial-mov"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-mov"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1280,7 +1281,7 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "mock-video-interstitial-mraid-end-card"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-mraid-end-card"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1296,7 +1297,7 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "mock-video-interstitial-320-480-skadn"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-skadn"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1315,7 +1316,7 @@ struct TestCaseManager {
                 }
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    gamInterstitialController.prebidConfigId = "mock-video-interstitial-320-480-with-end-card"
+                    gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
                 } else {
                     gamInterstitialController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
@@ -1334,7 +1335,7 @@ struct TestCaseManager {
                     return
                 }
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
-                gamInterstitialController.prebidConfigId = "mock-video-interstitial-320-480"
+                gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
                 gamInterstitialController.adFormats = [.video]
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_320x480_interstitial_video_random"
                 adapterVC.setup(adapter: gamInterstitialController)
@@ -1351,7 +1352,7 @@ struct TestCaseManager {
                 }
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    gamInterstitialController.prebidConfigId = "mock-no-bids"
+                    gamInterstitialController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     gamInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -1391,7 +1392,7 @@ struct TestCaseManager {
                 }
                 let mopubInterstitialController = PrebidMoPubInterstitialController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    mopubInterstitialController.prebidConfigId = "mock-video-interstitial-320-480-with-end-card"
+                    mopubInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
                 } else {
                     mopubInterstitialController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
@@ -1410,7 +1411,7 @@ struct TestCaseManager {
                     return
                 }
                 let mopubInterstitialController = PrebidMoPubInterstitialController(rootController: adapterVC)
-                mopubInterstitialController.prebidConfigId = "mock-video-interstitial-320-480"
+                mopubInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
                 mopubInterstitialController.adFormats = [.video]
                 mopubInterstitialController.moPubAdUnitId = "106bea23b1f744e794646b4b577028a0"
                 adapterVC.setup(adapter: mopubInterstitialController)
@@ -1427,7 +1428,7 @@ struct TestCaseManager {
                 }
                 let mopubInterstitialController = PrebidMoPubInterstitialController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    mopubInterstitialController.prebidConfigId = "mock-no-bids"
+                    mopubInterstitialController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     mopubInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -1466,7 +1467,7 @@ struct TestCaseManager {
                     return
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-video-outstream"
+                bannerController.prebidConfigId = "imp-prebid-video-outstream"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 bannerController.adFormat = .video
                         
@@ -1484,7 +1485,7 @@ struct TestCaseManager {
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    bannerController.prebidConfigId = "mock-no-bids"
+                    bannerController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     bannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -1509,7 +1510,7 @@ struct TestCaseManager {
                 bannerController.adFormat = .video
                         
                 if AppConfiguration.shared.useMockServer {
-                    bannerController.prebidConfigId = "mock-video-outstream-with-end-card"
+                    bannerController.prebidConfigId = "imp-prebid-video-outstream-with-end-card"
                 } else {
                     bannerController.prebidConfigId = "9007b76d-c73c-49c6-b0a8-1c7890a84b33"
                 }
@@ -1543,7 +1544,7 @@ struct TestCaseManager {
                             return
                         }
                         
-                        var prebidConfigId = "mock-video-outstream"
+                        var prebidConfigId = "imp-prebid-video-outstream"
                         let adSize = CGSize(width: 300, height: 250)
                         let adBannerView = BannerView(frame: CGRect(origin: .zero, size: adSize),
                                                       configID: prebidConfigId,
@@ -1581,7 +1582,7 @@ struct TestCaseManager {
                     return
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-video-outstream-skadn"
+                bannerController.prebidConfigId = "imp-prebid-video-outstream-skadn"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 bannerController.adFormat = .video
                 
@@ -1603,7 +1604,7 @@ struct TestCaseManager {
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_300x250_banner"
                 gamBannerController.validAdSizes = [kGADAdSizeMediumRectangle]
                 gamBannerController.adFormat = .video
-                gamBannerController.prebidConfigId = "mock-video-outstream"
+                gamBannerController.prebidConfigId = "imp-prebid-video-outstream"
                  
                 adapterVC.setup(adapter: gamBannerController)
                         
@@ -1636,7 +1637,7 @@ struct TestCaseManager {
                     return
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
-                gamBannerController.prebidConfigId = "mock-video-outstream"
+                gamBannerController.prebidConfigId = "imp-prebid-video-outstream"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_outstream_video_reandom"
                 gamBannerController.validAdSizes = [kGADAdSizeMediumRectangle]
                 gamBannerController.adFormat = .video
@@ -1654,7 +1655,7 @@ struct TestCaseManager {
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    gamBannerController.prebidConfigId = "mock-no-bids"
+                    gamBannerController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     gamBannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -1692,7 +1693,7 @@ struct TestCaseManager {
                             return
                         }
                         
-                        var prebidConfigId = "mock-video-outstream"
+                        var prebidConfigId = "imp-prebid-video-outstream"
                         let gamAdUnitId = "/21808260008/prebid_oxb_outstream_video_reandom"
                         let validAdSize = kGADAdSizeMediumRectangle
                         let adSize = validAdSize.size
@@ -1736,7 +1737,7 @@ struct TestCaseManager {
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 
                 if AppConfiguration.shared.useMockServer {
-                    rewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                    rewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
                 } else {
                     rewardedAdController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
@@ -1754,7 +1755,7 @@ struct TestCaseManager {
                 }
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    rewardedAdController.prebidConfigId = "mock-no-bids"
+                    rewardedAdController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     rewardedAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -1772,7 +1773,7 @@ struct TestCaseManager {
                     return
                 }
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
-                rewardedAdController.prebidConfigId = "mock-video-rewarded-320-480-without-end-card"
+                rewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-without-end-card"
                 adapterVC.setup(adapter: rewardedAdController)
                         
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
@@ -1786,7 +1787,7 @@ struct TestCaseManager {
                     return
                 }
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
-                rewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                rewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
                 adapterVC.setup(adapter: rewardedAdController)
                         
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
@@ -1805,7 +1806,7 @@ struct TestCaseManager {
                 gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_test"
                         
                 if AppConfiguration.shared.useMockServer {
-                    gamRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                    gamRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
                 } else {
                     gamRewardedAdController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
@@ -1823,7 +1824,7 @@ struct TestCaseManager {
                     return
                 }
                 let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
-                gamRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                gamRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
                 gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_random"
                 adapterVC.setup(adapter: gamRewardedAdController)
                         
@@ -1839,7 +1840,7 @@ struct TestCaseManager {
                 }
                 let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    gamRewardedAdController.prebidConfigId = "mock-no-bids"
+                    gamRewardedAdController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     gamRewardedAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -1858,7 +1859,7 @@ struct TestCaseManager {
                     return
                 }
                 let gamRewardedAdController = PrebidGAMRewardedController(rootController: adapterVC)
-                gamRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480-without-end-card"
+                gamRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-without-end-card"
                 gamRewardedAdController.gamAdUnitId = "/21808260008/prebid_oxb_rewarded_video_test"
                 adapterVC.setup(adapter: gamRewardedAdController)
                         
@@ -1878,7 +1879,7 @@ struct TestCaseManager {
                 mopubRewardedAdController.moPubAdUnitId = "7538cc74d2984c348bc14caafa3e3395"
                         
                 if AppConfiguration.shared.useMockServer {
-                    mopubRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                    mopubRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
                 } else {
                     mopubRewardedAdController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
@@ -1896,7 +1897,7 @@ struct TestCaseManager {
                     return
                 }
                 let mopubRewardedAdController = PrebidMoPubRewardedAdController(rootController: adapterVC)
-                mopubRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                mopubRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
                 mopubRewardedAdController.moPubAdUnitId = "39ed12ae7c8f4cceafb55b698401a15d"
                 adapterVC.setup(adapter: mopubRewardedAdController)
                         
@@ -1912,7 +1913,7 @@ struct TestCaseManager {
                 }
                 let mopubRewardedAdController = PrebidMoPubRewardedAdController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    mopubRewardedAdController.prebidConfigId = "mock-no-bids"
+                    mopubRewardedAdController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     mopubRewardedAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -1931,7 +1932,7 @@ struct TestCaseManager {
                     return
                 }
                 let mopubRewardedAdController = PrebidMoPubRewardedAdController(rootController: adapterVC)
-                mopubRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480-without-end-card"
+                mopubRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-without-end-card"
                 mopubRewardedAdController.moPubAdUnitId = "7538cc74d2984c348bc14caafa3e3395"
                 adapterVC.setup(adapter: mopubRewardedAdController)
                         
@@ -1951,7 +1952,7 @@ struct TestCaseManager {
                 mopubRewardedAdController.moPubAdUnitId = "7538cc74d2984c348bc14caafa3e3395"
                         
                 if AppConfiguration.shared.useMockServer {
-                    mopubRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                    mopubRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
                 } else {
                     mopubRewardedAdController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
@@ -1969,7 +1970,7 @@ struct TestCaseManager {
                     return
                 }
                 let mopubRewardedAdController = PrebidMoPubRewardedVideoController(rootController: adapterVC)
-                mopubRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                mopubRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
                 mopubRewardedAdController.moPubAdUnitId = "39ed12ae7c8f4cceafb55b698401a15d"
                 adapterVC.setup(adapter: mopubRewardedAdController)
                         
@@ -1985,7 +1986,7 @@ struct TestCaseManager {
                 }
                 let mopubRewardedAdController = PrebidMoPubRewardedVideoController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    mopubRewardedAdController.prebidConfigId = "mock-no-bids"
+                    mopubRewardedAdController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     mopubRewardedAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -2004,7 +2005,7 @@ struct TestCaseManager {
                     return
                 }
                 let mopubRewardedAdController = PrebidMoPubRewardedVideoController(rootController: adapterVC)
-                mopubRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480-without-end-card"
+                mopubRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-without-end-card"
                 mopubRewardedAdController.moPubAdUnitId = "7538cc74d2984c348bc14caafa3e3395"
                 adapterVC.setup(adapter: mopubRewardedAdController)
                         
@@ -2021,7 +2022,7 @@ struct TestCaseManager {
                     return
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-mraid-expand-1-part"
+                bannerController.prebidConfigId = "imp-prebid-mraid-expand-1-part"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2036,7 +2037,7 @@ struct TestCaseManager {
                     return
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-mraid-expand-2-part"
+                bannerController.prebidConfigId = "imp-prebid-mraid-expand-2-part"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                  
                 adapterVC.setup(adapter: bannerController)
@@ -2056,7 +2057,7 @@ struct TestCaseManager {
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                         
                 if AppConfiguration.shared.useMockServer {
-                    bannerController.prebidConfigId = "mock-mraid-resize"
+                    bannerController.prebidConfigId = "imp-prebid-mraid-resize"
                 } else {
                     bannerController.prebidConfigId = "758bef6c-a811-497e-8234-9a583daf92e0"
                 }
@@ -2074,7 +2075,7 @@ struct TestCaseManager {
                     return
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-mraid-resize-with-errors"
+                bannerController.prebidConfigId = "imp-prebid-mraid-resize-with-errors"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2089,7 +2090,7 @@ struct TestCaseManager {
                     return
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-mraid-fullscreen"
+                bannerController.prebidConfigId = "imp-prebid-mraid-fullscreen"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2104,7 +2105,7 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                interstitialController.prebidConfigId = "mock-mraid-video-interstitial"
+                interstitialController.prebidConfigId = "imp-prebid-mraid-video-interstitial"
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -2118,7 +2119,7 @@ struct TestCaseManager {
                     return
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-mraid-viewability-compliance"
+                bannerController.prebidConfigId = "imp-prebid-mraid-viewability-compliance"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2134,7 +2135,7 @@ struct TestCaseManager {
                 }
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-mraid-resize-negative-test"
+                bannerController.prebidConfigId = "imp-prebid-mraid-resize-negative-test"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2149,7 +2150,7 @@ struct TestCaseManager {
                     return
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-mraid-load-and-events"
+                bannerController.prebidConfigId = "imp-prebid-mraid-load-and-events"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2164,7 +2165,7 @@ struct TestCaseManager {
                     return
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-mraid-test-properties-3"
+                bannerController.prebidConfigId = "imp-prebid-mraid-test-properties-3"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2179,7 +2180,7 @@ struct TestCaseManager {
                     return
                 }
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-mraid-test-methods-3"
+                bannerController.prebidConfigId = "imp-prebid-mraid-test-methods-3"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2195,7 +2196,7 @@ struct TestCaseManager {
                 }
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-mraid-resize-expandable"
+                bannerController.prebidConfigId = "imp-prebid-mraid-resize-expandable"
                 bannerController.adSizes = [CGSize(width: 300, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2211,7 +2212,7 @@ struct TestCaseManager {
                 }
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
-                bannerController.prebidConfigId = "mock-mraid-resize"
+                bannerController.prebidConfigId = "imp-prebid-mraid-resize"
                 bannerController.adSizes = [CGSize(width: 300, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
@@ -2228,7 +2229,7 @@ struct TestCaseManager {
                     return
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
-                gamBannerController.prebidConfigId = "mock-mraid-expand-1-part"
+                gamBannerController.prebidConfigId = "imp-prebid-mraid-expand-1-part"
                 gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
                 gamBannerController.validAdSizes = [kGADAdSizeBanner]
                 adapterVC.setup(adapter: gamBannerController)
@@ -2246,7 +2247,7 @@ struct TestCaseManager {
                 }
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    gamBannerController.prebidConfigId = "mock-mraid-resize"
+                    gamBannerController.prebidConfigId = "imp-prebid-mraid-resize"
                 } else {
                     gamBannerController.prebidConfigId = "758bef6c-a811-497e-8234-9a583daf92e0"
                 }
@@ -2265,7 +2266,7 @@ struct TestCaseManager {
                     return
                 }
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
-                gamInterstitialController.prebidConfigId = "mock-mraid-video-interstitial"
+                gamInterstitialController.prebidConfigId = "imp-prebid-mraid-video-interstitial"
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_html_interstitial"
                 adapterVC.setup(adapter: gamInterstitialController)
                         
@@ -2282,7 +2283,7 @@ struct TestCaseManager {
                     return
                 }
                 let mopubBannerController = PrebidMoPubBannerController(rootController: adapterVC)
-                mopubBannerController.prebidConfigId = "mock-mraid-expand-1-part"
+                mopubBannerController.prebidConfigId = "imp-prebid-mraid-expand-1-part"
                 mopubBannerController.moPubAdUnitId = "0df35635801e4110b65e762a62437698"
                 mopubBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 adapterVC.setup(adapter: mopubBannerController)
@@ -2299,7 +2300,7 @@ struct TestCaseManager {
                 }
                 let mopubBannerController = PrebidMoPubBannerController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    mopubBannerController.prebidConfigId = "mock-mraid-resize"
+                    mopubBannerController.prebidConfigId = "imp-prebid-mraid-resize"
                 } else {
                     mopubBannerController.prebidConfigId = "758bef6c-a811-497e-8234-9a583daf92e0"
                 }
@@ -2318,7 +2319,7 @@ struct TestCaseManager {
                     return
                 }
                 let mopubInterstitialController = PrebidMoPubInterstitialController(rootController: adapterVC)
-                mopubInterstitialController.prebidConfigId = "mock-mraid-video-interstitial"
+                mopubInterstitialController.prebidConfigId = "imp-prebid-mraid-video-interstitial"
                 mopubInterstitialController.moPubAdUnitId = "e979c52714434796909993e21c8fc8da" // TODO: Create for iOS
                 adapterVC.setup(adapter: mopubInterstitialController)
                         
@@ -2328,7 +2329,7 @@ struct TestCaseManager {
             // MARK: ---- Banner (AdMob) ----
             
             TestCase(title: "Banner 320x50 (AdMob) [OK, OXB Adapter]",
-                     tags: [.banner, .admob, .mock, .server],
+                     tags: [.banner, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2338,11 +2339,8 @@ struct TestCaseManager {
                 admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
                 admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
                         
-                if AppConfiguration.shared.useMockServer {
-                    admobBannerController.prebidConfigId = "mock-banner-320-50"
-                } else {
-                    admobBannerController.prebidConfigId = "50699c03-0910-477c-b4a4-911dbe2b9d42"
-                }
+                    admobBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                  
                 adapterVC.setup(adapter: admobBannerController)
                         
@@ -2350,14 +2348,15 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (AdMob) [OK, Random]",
-                     tags: [.banner, .admob, .mock],
+                     tags: [.banner, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
-                admobBannerController.prebidConfigId = "mock-banner-320-50"
+                admobBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                 admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
                 admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 adapterVC.setup(adapter: admobBannerController)
@@ -2366,7 +2365,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (AdMob) [noBids, AdMob Ad]",
-                     tags: [.banner, .admob, .server, .mock],
+                     tags: [.banner, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2374,12 +2373,8 @@ struct TestCaseManager {
                 }
                 let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
 
-                if AppConfiguration.shared.useMockServer {
-                    admobBannerController.prebidConfigId = "mock-no-bids"
-                } else {
-                    Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
-                    admobBannerController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
-                }
+                    admobBannerController.prebidConfigId = "imp-prebid-no-bids"
+                         Prebid.shared.storedAuctionResponse="response-prebid-no-bids"
                 admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
                 admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 adapterVC.setup(adapter: admobBannerController)
@@ -2388,7 +2383,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 320x50 (AdMob) [Random, Respective]",
-                     tags: [.banner, .admob, .mock],
+                     tags: [.banner, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2404,7 +2399,8 @@ struct TestCaseManager {
                 }
 
                 let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
-                admobBannerController.prebidConfigId = "mock-banner-320-50"
+                admobBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-320-50"
                 admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
                 admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 adapterVC.setup(adapter: admobBannerController)
@@ -2413,14 +2409,15 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner 300x250 (AdMob)",
-                     tags: [.banner, .admob, .mock],
+                     tags: [.banner, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
-                admobBannerController.prebidConfigId = "mock-banner-300-250"
+                admobBannerController.prebidConfigId = "imp-prebid-banner-300-250"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-300-250"
                 admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
                 admobBannerController.adUnitSize = CGSize(width: 300, height: 250);
                 adapterVC.setup(adapter: admobBannerController)
@@ -2429,14 +2426,15 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Banner Adaptive (AdMob)",
-                     tags: [.banner, .admob, .mock],
+                     tags: [.banner, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
                 let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
-                admobBannerController.prebidConfigId = "mock-banner-multisize"
+                admobBannerController.prebidConfigId = "imp-prebid-banner-multisize"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-multisize"
                 admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
                 admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
                 admobBannerController.additionalAdSizes = [CGSize(width: 728, height: 90)]
@@ -2459,7 +2457,7 @@ struct TestCaseManager {
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
                         
                 if AppConfiguration.shared.useMockServer {
-                    admobInterstitialController.prebidConfigId = "mock-display-interstitial-320-480"
+                    admobInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 } else {
                     admobInterstitialController.prebidConfigId = "5a4b8dcf-f984-4b04-9448-6529908d6cb6"
                 }
@@ -2478,7 +2476,7 @@ struct TestCaseManager {
                 }
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    admobInterstitialController.prebidConfigId = "mock-no-bids"
+                    admobInterstitialController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     admobInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -2497,7 +2495,7 @@ struct TestCaseManager {
                     return
                 }
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
-                admobInterstitialController.prebidConfigId = "mock-display-interstitial-320-480"
+                admobInterstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/3383099861"
                 adapterVC.setup(adapter: admobInterstitialController)
                         
@@ -2515,7 +2513,7 @@ struct TestCaseManager {
                 }
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    admobInterstitialController.prebidConfigId = "mock-video-interstitial-320-480"
+                    admobInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
                 } else {
                     admobInterstitialController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
@@ -2534,7 +2532,7 @@ struct TestCaseManager {
                     return
                 }
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
-                admobInterstitialController.prebidConfigId = "mock-video-interstitial-320-480"
+                admobInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
                 admobInterstitialController.adFormats = [.video]
                 admobInterstitialController.adMobAdUnitId = "ca-app-pub-5922967660082475/4527792002"
                 adapterVC.setup(adapter: admobInterstitialController)
@@ -2551,7 +2549,7 @@ struct TestCaseManager {
                 }
                 let admobInterstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    admobInterstitialController.prebidConfigId = "mock-no-bids"
+                    admobInterstitialController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     admobInterstitialController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -2576,7 +2574,7 @@ struct TestCaseManager {
                 let interstitialController = PrebidAdMobInterstitialViewController(rootController: adapterVC)
                 let admobAdUnitIds = ["ca-app-pub-5922967660082475/3383099861", "ca-app-pub-5922967660082475/4527792002"]
                 interstitialController.adFormats = [.display, .video]
-                let prebidConfigIds = ["mock-display-interstitial-320-480", "mock-video-interstitial-320-480"]
+                let prebidConfigIds = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480"]
                 interstitialController.prebidConfigId = prebidConfigIds[randomId]
                 interstitialController.adMobAdUnitId = admobAdUnitIds[randomId]
                 adapterVC.setup(adapter: interstitialController)
@@ -2596,7 +2594,7 @@ struct TestCaseManager {
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
                 admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
                 if AppConfiguration.shared.useMockServer {
-                    admobRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                    admobRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
                 } else {
                     admobRewardedAdController.prebidConfigId = "12f58bc2-b664-4672-8d19-638bcc96fd5c"
                 }
@@ -2615,7 +2613,7 @@ struct TestCaseManager {
                 }
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
                 if AppConfiguration.shared.useMockServer {
-                    admobRewardedAdController.prebidConfigId = "mock-no-bids"
+                    admobRewardedAdController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     admobRewardedAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -2634,7 +2632,7 @@ struct TestCaseManager {
                     return
                 }
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
-                admobRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480"
+                admobRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
                 admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
                 adapterVC.setup(adapter: admobRewardedAdController)
                         
@@ -2649,7 +2647,7 @@ struct TestCaseManager {
                     return
                 }
                 let admobRewardedAdController = PrebidAdMobRewardedViewController(rootController: adapterVC)
-                admobRewardedAdController.prebidConfigId = "mock-video-rewarded-320-480-without-end-card"
+                admobRewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480-without-end-card"
                 admobRewardedAdController.adMobAdUnitId = "ca-app-pub-5922967660082475/7397370641"
                 adapterVC.setup(adapter: admobRewardedAdController)
                         
@@ -2667,7 +2665,7 @@ struct TestCaseManager {
                 }
                 let nativeController = PrebidAdMobNativeViewController(rootController: adapterVC)
                 nativeController.adMobAdUnitId = "ca-app-pub-5922967660082475/8634069303"
-                nativeController.prebidConfigId = "mock-banner-native-styles"
+                nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
                          
@@ -2686,7 +2684,7 @@ struct TestCaseManager {
                 nativeController.adMobAdUnitId = "ca-app-pub-5922967660082475/8634069303"
                          
                 if AppConfiguration.shared.useMockServer {
-                    nativeController.prebidConfigId = "mock-no-bids"
+                    nativeController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.prebidServerAccountId = "1768035c-74d3-4786-b056-13bd41f34bde"
                     nativeController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -2712,7 +2710,7 @@ struct TestCaseManager {
                 nativeAdController.setupNativeAdView(NativeAdViewBox())
 
                 if AppConfiguration.shared.useMockServer {
-                    nativeAdController.prebidConfigId = "mock-banner-native-styles"
+                    nativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
                 } else {
                     // FIXME: Switch the example from QA to the Prod server
                     try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
@@ -2739,7 +2737,7 @@ struct TestCaseManager {
                 let nativeAdController = PrebidNativeAdController(rootController: adapterVC)
                 nativeAdController.setupNativeAdView(NativeAdViewBoxLinks())
 
-                nativeAdController.prebidConfigId = "mock-native-links"
+                nativeAdController.prebidConfigId = "imp-prebid-native-links"
                          
                 nativeAdController.nativeAssets = .defaultNativeRequestAssets
                 nativeAdController.eventTrackers = .defaultNativeEventTrackers
@@ -2760,7 +2758,7 @@ struct TestCaseManager {
 
                 let nativeAdFeedController = PrebidNativeAdFeedController(rootTableViewController: feedVC)
 
-                nativeAdFeedController.prebidConfigId = "mock-banner-native-styles"
+                nativeAdFeedController.prebidConfigId = "imp-prebid-banner-native-styles"
 
                 nativeAdFeedController.nativeAssets = .defaultNativeRequestAssets
                 nativeAdFeedController.eventTrackers = .defaultNativeEventTrackers
@@ -2785,7 +2783,7 @@ struct TestCaseManager {
                 let mopubNativeAdController = PrebidMoPubNativeAdController(rootController: adapterVC)
 
                 if AppConfiguration.shared.useMockServer {
-                    mopubNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                    mopubNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
                 } else {
                     // FIXME: Switch the example from QA to the Prod server
                     try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
@@ -2813,7 +2811,7 @@ struct TestCaseManager {
                 }
 
                 let mopubNativeAdController = PrebidMoPubNativeAdController(rootController: adapterVC)
-                mopubNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                mopubNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
                 mopubNativeAdController.moPubAdUnitId = "dc125bad5c124b0b896ef1407b9dfd86"
                 mopubNativeAdController.adRenderingViewClass = MoPubNativeAdViewWithNib.self
                 mopubNativeAdController.nativeAssets = .defaultNativeRequestAssets
@@ -2833,7 +2831,7 @@ struct TestCaseManager {
                     return
                 }
                 let mopubNativeAdFeedController = PrebidMoPubNativeAdFeedController(rootTableViewController: feedVC)
-                mopubNativeAdFeedController.prebidConfigId = "mock-banner-native-styles"
+                mopubNativeAdFeedController.prebidConfigId = "imp-prebid-banner-native-styles"
                 mopubNativeAdFeedController.moPubAdUnitId = "dc125bad5c124b0b896ef1407b9dfd86"
                 mopubNativeAdFeedController.adRenderingViewClass = MoPubNativeAdView.self
                 mopubNativeAdFeedController.nativeAssets = .defaultNativeRequestAssets
@@ -2855,7 +2853,7 @@ struct TestCaseManager {
                     return
                 }
                 let mopubNativeAdController = PrebidMoPubNativeAdController(rootController: adapterVC)
-                mopubNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                mopubNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
                 mopubNativeAdController.moPubAdUnitId = "fcd2188bcce74b63859b663ed1334763"
                 mopubNativeAdController.adRenderingViewClass = MoPubNativeAdView.self
                 mopubNativeAdController.nativeAssets = .defaultNativeRequestAssets
@@ -2876,7 +2874,7 @@ struct TestCaseManager {
                 let mopubNativeAdController = PrebidMoPubNativeAdController(rootController: adapterVC)
 
                 if AppConfiguration.shared.useMockServer {
-                    mopubNativeAdController.prebidConfigId = "mock-no-bids"
+                    mopubNativeAdController.prebidConfigId = "imp-prebid-no-bids"
                 } else {
                     Prebid.shared.accountID = "1768035c-74d3-4786-b056-13bd41f34bde"
                     mopubNativeAdController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
@@ -2901,7 +2899,7 @@ struct TestCaseManager {
                     return
                 }
                 let mopubNativeAdFeedController = PrebidMoPubNativeAdFeedController(rootTableViewController: feedVC)
-                mopubNativeAdFeedController.prebidConfigId = "mock-no-bids"
+                mopubNativeAdFeedController.prebidConfigId = "imp-prebid-no-bids"
                 mopubNativeAdFeedController.moPubAdUnitId = "3c7add479268476394a1aeae88ee426f"
                 mopubNativeAdFeedController.adRenderingViewClass = MoPubNativeAdView.self
                 mopubNativeAdFeedController.nativeAssets = .defaultNativeRequestAssets
@@ -2927,7 +2925,7 @@ struct TestCaseManager {
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
 
                 if AppConfiguration.shared.useMockServer {
-                    gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                    gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
                 } else {
                     // FIXME: Switch the example from QA to the Prod server
                     try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
@@ -2957,7 +2955,7 @@ struct TestCaseManager {
                 }
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
 
-                gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11982639"]
@@ -2979,7 +2977,7 @@ struct TestCaseManager {
                 }
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
 
-                gamNativeAdController.prebidConfigId = "mock-native-video-with-end-card--dummy"
+                gamNativeAdController.prebidConfigId = "imp-prebid-native-video-with-end-card--dummy"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11982639"]
@@ -3002,7 +3000,7 @@ struct TestCaseManager {
                 }
                 let gamNativeAdController = PrebidGAMNativeAdFeedController(rootTableViewController: feedVC)
 
-                gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
@@ -3029,7 +3027,7 @@ struct TestCaseManager {
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
                            
                 if AppConfiguration.shared.useMockServer {
-                    gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                    gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
                 } else {
                     // FIXME: Switch the example from QA to the Prod server
                     try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
@@ -3058,7 +3056,7 @@ struct TestCaseManager {
                 }
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
                         
-                gamNativeAdController.prebidConfigId = "mock-banner-native-styles"
+                gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit_static"
                 gamNativeAdController.adTypes = [.native]
                         
@@ -3079,7 +3077,7 @@ struct TestCaseManager {
                 }
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
                         
-                gamNativeAdController.prebidConfigId = "mock-native-video-with-end-card--dummy"
+                gamNativeAdController.prebidConfigId = "imp-prebid-native-video-with-end-card--dummy"
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit_static"
                 gamNativeAdController.adTypes = [.native]
                 
