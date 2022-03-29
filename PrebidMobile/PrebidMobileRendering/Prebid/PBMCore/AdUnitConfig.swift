@@ -60,6 +60,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         set {
             if adConfiguration.winningBidAdFormat == .video {
                 Log.warn("'refreshInterval' property is not assignable for Outstream Video ads")
+                _refreshInterval = 0
                 return
             }
             if newValue < 0 {
@@ -267,6 +268,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         }
         
         self.adConfiguration.adFormats = adFormats
-        self.refreshInterval = ((adFormats.contains(.display)) ? refreshIntervalDefault : 0);
+        self.refreshInterval = (adConfiguration.winningBidAdFormat == .video) ? 0 : refreshIntervalDefault;
     }
 }
