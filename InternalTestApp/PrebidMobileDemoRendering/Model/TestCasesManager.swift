@@ -332,7 +332,7 @@ struct TestCaseManager {
                         
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-banner-incorrect-vast"
-                         Prebid.shared.storedAuctionResponse="response-prebid-banner-incorrec-vast"
+                         Prebid.shared.storedAuctionResponse="response-prebid-banner-incorrect-vast"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
                 adapterVC.setup(adapter: bannerController)
                         
