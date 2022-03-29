@@ -35,7 +35,7 @@ class PBMCloseButtonDecoratorTest: XCTestCase {
         let constant = 0.25
         XCTAssertNil(buttonDecorator.button.currentImage)
         buttonDecorator.closeButtonArea = NSNumber(value: constant)
-        let sizeValue: CGFloat = (UIScreen.main.bounds.width - 40) * constant
+        let sizeValue: CGFloat = UIScreen.main.bounds.width * constant
         let buttonSize = CGSize(width: sizeValue, height: sizeValue)
         let resultButtonSize = buttonDecorator.getButtonSize()
         
@@ -45,5 +45,14 @@ class PBMCloseButtonDecoratorTest: XCTestCase {
                             in: Bundle(for: type(of: self)), compatibleWith: nil)
         buttonDecorator.setImage(image!)
         XCTAssertEqual(buttonDecorator.button.currentImage, image)
+    }
+    
+    func testGetButtonConstraintConstant() {
+        let constant = 0.1
+        XCTAssertNil(buttonDecorator.button.currentImage)
+        buttonDecorator.closeButtonArea = NSNumber(value: constant)
+        
+        let expectedConstraintConstant = Int((UIScreen.main.bounds.width * constant) / 2)
+        XCTAssertTrue(expectedConstraintConstant == buttonDecorator.getButtonConstraintConstant())
     }
 }
