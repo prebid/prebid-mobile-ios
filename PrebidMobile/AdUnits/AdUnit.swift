@@ -128,8 +128,9 @@ import ObjectiveC.runtime
             
             if let bidResponse = bidResponse {
                 if (!self.timeOutSignalSent) {
-                    self.handleBidResponse(adObject: adObject, bidResponse: bidResponse)
-                    completion(.prebidDemandFetchSuccess)
+                    self.handleBidResponse(adObject: adObject, bidResponse: bidResponse) { resultCode in
+                        completion(resultCode)
+                    }
                 }
             } else {
                 if (!self.timeOutSignalSent) {
@@ -147,23 +148,26 @@ import ObjectiveC.runtime
         })
     }
     
-    private func handleBidResponse(adObject: AnyObject, bidResponse: BidResponse) {
+    private func handleBidResponse(adObject: AnyObject, bidResponse: BidResponse, completion: (ResultCode) -> Void) {
         Utils.shared.validateAndAttachKeywords (adObject: adObject, bidResponse: bidResponse)
-        
-        if self.adUnitConfig.adFormats.contains(AdFormat.native) {
-            if let winningBid = bidResponse.winningBid {
+        if let winningBid = bidResponse.winningBid {
+            if self.adUnitConfig.adFormats.contains(AdFormat.native) {
                 let expireInterval = TimeInterval(truncating: winningBid.bid.exp ?? CacheManager.cacheManagerExpireInterval as NSNumber)
                 do {
                     if let cacheId = CacheManager.shared.save(content: try winningBid.bid.toJsonString(), expireInterval: expireInterval), !cacheId.isEmpty {
                         if let adObjectDictionary = adObject as? DictionaryContainer<String, String> {
                             adObjectDictionary.dict[PrebidLocalCacheIdKey] = cacheId
+                            completion(.prebidDemandFetchSuccess)
                         }
                     }
                 } catch {
                     Log.error("Error saving bid content to cache: \(error.localizedDescription)")
                 }
             }
+        } else {
+            completion(.prebidDemandNoBids)
         }
+        completion(.prebidUnknownError)
     }
 
     // MARK: - adunit context data aka inventory data (imp[].ext.context.data)
