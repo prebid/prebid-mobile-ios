@@ -39,7 +39,7 @@
     if (self) {
         self.button = [[UIButton alloc] init];
         self.customButtonPosition = CGRectZero;
-        self.buttonPosition = PBMPositionTopRight;
+        self.buttonPosition = PBMPositionInternalTopRight;
     }
     return self;
 }
@@ -104,35 +104,35 @@
     NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.displayView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0];
     
     switch (self.buttonPosition) {
-        case PBMPositionTopLeft:
+        case PBMPositionInternalTopLeft:
             constraints = [NSArray arrayWithObjects:width, height, top, left, nil];
             break;
             
-        case PBMPositionTopRight:
+        case PBMPositionInternalTopRight:
             constraints = [NSArray arrayWithObjects:width, height, top, right, nil];
             break;
             
-        case PBMPositionTopCenter:
+        case PBMPositionInternalTopCenter:
             constraints = [NSArray arrayWithObjects:width, height, top, centerX, nil];
             break;
             
-        case PBMPositionCenter:
+        case PBMPositionInternalCenter:
             constraints = [NSArray arrayWithObjects:width, height, centerY, centerX, nil];
             break;
             
-        case PBMPositionBottomLeft:
+        case PBMPositionInternalBottomLeft:
             constraints = [NSArray arrayWithObjects:width, height, bottom, left, nil];
             break;
             
-        case PBMPositionBottomRight:
+        case PBMPositionInternalBottomRight:
             constraints = [NSArray arrayWithObjects:width, height, bottom, right, nil];
             break;
             
-        case PBMPositionBottomCenter:
+        case PBMPositionInternalBottomCenter:
             constraints = [NSArray arrayWithObjects:width, height, bottom, centerX, nil];
             break;
             
-        case PBMPositionCustom: {
+        case PBMPositionInternalCustom: {
             
             NSLayoutConstraint *customWidth     = [NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:self.customButtonPosition.size.width];
             NSLayoutConstraint *customHeight    = [NSLayoutConstraint constraintWithItem:self.button attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:self.customButtonPosition.size.height];

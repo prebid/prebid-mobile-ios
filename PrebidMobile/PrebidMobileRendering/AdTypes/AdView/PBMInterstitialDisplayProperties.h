@@ -16,16 +16,21 @@
 #import <UIKit/UIKit.h>
 #import "PBMInterstitialLayout.h"
 
+typedef NS_ENUM(NSInteger, PBMPositionInternal) {
+    PBMPositionInternalUndefined    NS_SWIFT_NAME(undefined) = -1,
+    PBMPositionInternalTopLeft      NS_SWIFT_NAME(topLeft),
+    PBMPositionInternalTopCenter    NS_SWIFT_NAME(topCenter),
+    PBMPositionInternalTopRight     NS_SWIFT_NAME(topRight),
+    PBMPositionInternalCenter       NS_SWIFT_NAME(center),
+    PBMPositionInternalBottomLeft   NS_SWIFT_NAME(bottomLeft),
+    PBMPositionInternalBottomCenter NS_SWIFT_NAME(bottomCenter),
+    PBMPositionInternalBottomRight  NS_SWIFT_NAME(bottomRight),
+    PBMPositionInternalCustom       NS_SWIFT_NAME(custom)
+};
+
 typedef NS_ENUM(NSInteger, PBMPosition) {
-    PBMPositionUndefined    NS_SWIFT_NAME(undefined) = -1,
-    PBMPositionTopLeft      NS_SWIFT_NAME(topLeft),
-    PBMPositionTopCenter    NS_SWIFT_NAME(topCenter),
     PBMPositionTopRight     NS_SWIFT_NAME(topRight),
-    PBMPositionCenter       NS_SWIFT_NAME(center),
-    PBMPositionBottomLeft   NS_SWIFT_NAME(bottomLeft),
-    PBMPositionBottomCenter NS_SWIFT_NAME(bottomCenter),
-    PBMPositionBottomRight  NS_SWIFT_NAME(bottomRight),
-    PBMPositionCustom       NS_SWIFT_NAME(custom)
+    PBMPositionTopLeft      NS_SWIFT_NAME(topLeft)
 };
 
 NS_ASSUME_NONNULL_BEGIN

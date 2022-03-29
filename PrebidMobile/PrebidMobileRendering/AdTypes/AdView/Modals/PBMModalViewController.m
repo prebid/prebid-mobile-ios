@@ -43,6 +43,8 @@
 @property (nonatomic, strong) PBMCloseButtonDecorator *closeButtonDecorator;
 @property (nonatomic, assign) PBMInterstitialLayout interstitialLayout;
 
+- (PBMPositionInternal)getInternalPosition:(PBMPosition)position;
+
 @end
 
 #pragma mark - Implementation
@@ -102,6 +104,17 @@
 
 - (PBMInterstitialDisplayProperties *)displayProperties {
     return self.modalState.displayProperties;
+}
+
+#pragma mark - Internal Methods
+
+- (PBMPositionInternal)getInternalPosition:(PBMPosition)position {
+    switch (position) {
+        case PBMPositionTopLeft:
+            return PBMPositionInternalTopLeft;
+        case PBMPositionTopRight:
+            return PBMPositionInternalTopRight;
+    }
 }
 
 #pragma mark - Public Methods
@@ -246,6 +259,7 @@
         self.closeButtonDecorator.isMRAID = webView.isMRAID;        
     }    
     self.closeButtonDecorator.closeButtonArea = self.modalState.adConfiguration.closeButtonArea;
+    self.closeButtonDecorator.buttonPosition = [self getInternalPosition:self.modalState.adConfiguration.closeButtonPosition];
     [self.closeButtonDecorator setImage:[self.displayProperties getCloseButtonImage]];
     [self.closeButtonDecorator addButtonToView:self.view displayView:self.displayView];
     [self setupCloseButtonVisibility];
