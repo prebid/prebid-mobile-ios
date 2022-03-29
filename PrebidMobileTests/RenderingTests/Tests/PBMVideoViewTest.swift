@@ -256,6 +256,29 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
         waitForExpectations(timeout: expectedVideoDuration + expectedStoppedDely + 0.5, handler:nil)
     }
     
+    func testIsMuted() {
+        let adConfig = PBMAdConfiguration()
+        XCTAssertTrue(adConfig.isMuted == true)
+        
+        adConfig.isMuted = false
+        // Expected duration of video small.mp4 is 6 sec
+        let expectedVideoDuration = 6.0
+
+        setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
+        self.videoCreative.creativeModel!.displayDurationInSeconds = expectedVideoDuration as NSNumber
+        
+        //Wait for creativeReady
+        self.expectationCreativeReady = self.expectation(description: "expectationCreativeReady")
+        
+        DispatchQueue.main.async {
+            self.videoCreative?.setupView()
+        }
+        self.waitForExpectations(timeout: 10, handler:nil)
+        
+        self.videoCreative?.display(withRootViewController: UIViewController())
+        XCTAssertTrue(self.videoCreative.videoView.avPlayer.isMuted == false)
+    }
+    
     // MARK: - PBMCreativeDownloadDelegate
     
     func creativeReady(_ creative: PBMAbstractCreative) {
@@ -308,12 +331,12 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
     
     // MARK: - Helper Methods
     
-    private func setupVideoCreative(videoFileURL:String = "http://get_video/small.mp4", localVideoFileName:String = "small.mp4") {
+    private func setupVideoCreative(videoFileURL:String = "http://get_video/small.mp4", localVideoFileName:String = "small.mp4", adConfiguration: PBMAdConfiguration = PBMAdConfiguration()) {
         let rule = MockServerRule(urlNeedle: videoFileURL, mimeType: MockServerMimeType.MP4.rawValue, connectionID: connection.internalID, fileName: localVideoFileName)
         MockServer.shared.resetRules([rule])
         
         //Create model
-        let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration:adConfiguration)
         model.videoFileURL = videoFileURL
         
         self.expectationDownloadCompleted = self.expectation(description: "expectationDownloadCompleted")
