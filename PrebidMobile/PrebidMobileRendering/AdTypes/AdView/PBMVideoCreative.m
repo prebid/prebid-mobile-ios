@@ -88,10 +88,6 @@
 - (void)displayWithRootViewController:(UIViewController *)viewController {
     [super displayWithRootViewController:viewController];
     [self.viewabilityTracker start];
-
-    if (self.creativeModel.adConfiguration.isBuiltInVideo && !self.creativeModel.adConfiguration.presentAsInterstitial) {
-        [self.videoView mute];
-    }
     
     [self.videoView startPlayback];
     [self.videoView PBMAddFillSuperviewConstraints];
@@ -101,7 +97,11 @@
     @weakify(self);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         @strongify(self);
-        [self.videoView unmute];
+        if (self.creativeModel.adConfiguration.isMuted) {
+            [self.videoView mute];
+        } else {
+            [self.videoView unmute];
+        }
     });
     
     //Create a copy of the interstitialDisplayProperties and modify the closeDelay to take the video length into account.

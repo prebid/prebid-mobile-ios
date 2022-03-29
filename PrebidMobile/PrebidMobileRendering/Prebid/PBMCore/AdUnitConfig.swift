@@ -251,6 +251,8 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.isOptIn = self.adConfiguration.isOptIn
         clone.adConfiguration.videoPlacementType = self.adConfiguration.videoPlacementType
         clone.nativeAdConfiguration = self.nativeAdConfiguration
+        clone.adConfiguration.isMuted = self.adConfiguration.isMuted
+        clone.adConfiguration.isSoundButtonVisible = self.adConfiguration.isSoundButtonVisible
         clone.adConfiguration.maxVideoDuration = self.adConfiguration.maxVideoDuration
         clone.sizes = sizes
         clone.refreshInterval = self.refreshInterval
