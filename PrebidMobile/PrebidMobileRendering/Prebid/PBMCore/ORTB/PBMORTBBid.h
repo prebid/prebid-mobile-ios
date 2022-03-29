@@ -125,7 +125,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// [Integer]
 /// Advisory as to the number of seconds the bidder is willing to wait between the auction and the actual impression.
-@property (nonatomic, strong, nullable) NSNumber *wmin;
+@property (nonatomic, strong, nullable) NSNumber *exp;
 
 // Placeholder for bidder-specific extensions to OpenRTB.
 // ext is stored in superclass

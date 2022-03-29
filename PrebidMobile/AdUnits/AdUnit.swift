@@ -28,6 +28,8 @@ import ObjectiveC.runtime
     
     var adUnitConfig: AdUnitConfig
     
+    var bidRequester: PBMBidRequester?
+    
     var adSizes: [CGSize] {
         get { [adUnitConfig.adSize] + (adUnitConfig.additionalSizes ?? []) }
         set {
@@ -76,7 +78,9 @@ import ObjectiveC.runtime
         fetchDemand(adObject: dictContainer) { (resultCode) in
             let dict = dictContainer.dict
 
-            completion(resultCode, dict.count > 0 ? dict : nil)
+            DispatchQueue.main.async {
+                completion(resultCode, dict.count > 0 ? dict : nil)
+            }
         }
     }
 
@@ -113,20 +117,20 @@ import ObjectiveC.runtime
         self.closureAd = completion
         adServerObject = adObject
 
-        let bidRequester = PBMBidRequester(connection: PBMServerConnection.shared,
+        bidRequester = PBMBidRequester(connection: PBMServerConnection.shared,
                                            sdkConfiguration: Prebid.shared,
                                            targeting: Targeting.shared,
                                            adUnitConfiguration: adUnitConfig)
         
-        bidRequester.requestBids { bidResponse, error in
+        bidRequester?.requestBids { [weak self] bidResponse, error in
+            guard let self = self else { return }
             self.didReceiveResponse = true
             
-            if (bidResponse != nil) {
+            if let bidResponse = bidResponse {
                 if (!self.timeOutSignalSent) {
-                    Utils.shared.validateAndAttachKeywords (adObject: adObject, bidResponse: bidResponse!)
+                    self.handleBidResponse(adObject: adObject, bidResponse: bidResponse)
                     completion(.prebidDemandFetchSuccess)
                 }
-
             } else {
                 if (!self.timeOutSignalSent) {
                     completion(PBMError.demandResult(from: error))
@@ -141,6 +145,25 @@ import ObjectiveC.runtime
 
             }
         })
+    }
+    
+    private func handleBidResponse(adObject: AnyObject, bidResponse: BidResponse) {
+        Utils.shared.validateAndAttachKeywords (adObject: adObject, bidResponse: bidResponse)
+        
+        if self.adUnitConfig.adFormats.contains(AdFormat.native) {
+            if let winningBid = bidResponse.winningBid {
+                let expireInterval = TimeInterval(truncating: winningBid.bid.exp ?? CacheManager.cacheManagerExpireInterval as NSNumber)
+                do {
+                    if let cacheId = CacheManager.shared.save(content: try winningBid.bid.toJsonString(), expireInterval: expireInterval), !cacheId.isEmpty {
+                        if let adObjectDictionary = adObject as? DictionaryContainer<String, String> {
+                            adObjectDictionary.dict[PrebidLocalCacheIdKey] = cacheId
+                        }
+                    }
+                } catch {
+                    Log.error("Error saving bid content to cache: \(error.localizedDescription)")
+                }
+            }
+        }
     }
 
     // MARK: - adunit context data aka inventory data (imp[].ext.context.data)

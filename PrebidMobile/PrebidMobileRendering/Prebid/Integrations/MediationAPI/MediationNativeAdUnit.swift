@@ -127,7 +127,7 @@ public class MediationNativeAdUnit : NSObject {
             }
             
             guard let kvResultDict = kvResultDict,
-                  let cacheId = kvResultDict["hb_cache_id_local"],
+                  let cacheId = kvResultDict[PrebidLocalCacheIdKey],
                   CacheManager.shared.isValid(cacheId: cacheId) else {
                       Log.error("\(String(describing: self)): no cache in kvResultDict.")
                       return
