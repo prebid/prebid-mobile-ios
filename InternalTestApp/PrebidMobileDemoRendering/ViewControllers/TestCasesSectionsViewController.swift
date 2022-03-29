@@ -80,8 +80,7 @@ class TestCasesSectionsViewController: UIViewController {
     
     private func setupMockServerSwitch() {
         let currentValue = AppConfiguration.shared.useMockServer
-        mockServerSwitch.setOn(currentValue, animated: false)
-        mockServerSwitch.accessibilityIdentifier = "useMockServerSwitch"
+        
     }
     
     private func setupGDPRSwitch() {
@@ -111,7 +110,7 @@ class TestCasesSectionsViewController: UIViewController {
         return
             collectTags(from: sections, for: sectionsControl.selectedSegmentIndex) +
             collectTags(from: integrations, for: integrationsControl.selectedSegmentIndex) +
-            collectTags(from: connections, for: mockServerSwitch.isOn)
+            collectTags(from: connections, for: false)
     }
     
     private func collectTags(from tags: [TestCaseTag], for index: Int) -> [TestCaseTag] {
