@@ -19,6 +19,10 @@ import XCTest
 class TrackerManagerTests: XCTestCase {
 
     var firedImpressionTrackerExpectation: XCTestExpectation?
+    
+    override func tearDown() {
+        firedImpressionTrackerExpectation = nil
+    }
 
     func testTrackerManagerWithFireTrackerURL() {
         firedImpressionTrackerExpectation = expectation(description: "\(#function)")
