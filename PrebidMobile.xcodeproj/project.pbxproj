@@ -635,6 +635,7 @@
 		922AFD6F2737333A00732C53 /* PBMORTBParameterBuilderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD6E2737333900732C53 /* PBMORTBParameterBuilderTest.swift */; };
 		922AFD712737335C00732C53 /* PBMRewardedVideoCreativeTestCloseDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD702737335C00732C53 /* PBMRewardedVideoCreativeTestCloseDelay.swift */; };
 		922AFD742737340300732C53 /* PrebidTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD732737340300732C53 /* PrebidTest.swift */; };
+		923176F527F2DEC4008FB0D4 /* PBMCloseButtonDecoratorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923176F427F2DEC4008FB0D4 /* PBMCloseButtonDecoratorTest.swift */; };
 		9236A64E272FEAFE00ABBEF4 /* ImpressionTasksExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9236A64D272FEAFE00ABBEF4 /* ImpressionTasksExecutor.swift */; };
 		9236A650272FEC5A00ABBEF4 /* ImpressionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9236A64F272FEC5A00ABBEF4 /* ImpressionTask.swift */; };
 		923B55002744F19600E00C88 /* PrebidMediationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 923B54FF2744F19600E00C88 /* PrebidMediationDelegate.swift */; };
@@ -763,6 +764,7 @@
 		92C85D9627A9DC9D0080BAC5 /* NativeAdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C85D9527A9DC9D0080BAC5 /* NativeAdTests.swift */; };
 		92D43D3E273A80060037DD20 /* mraid.js in Resources */ = {isa = PBXBuildFile; fileRef = 47D9AADC57CCCE64C374E101 /* mraid.js */; };
 		92D8BEB22747B464006BD78E /* MediationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92D8BEB12747B464006BD78E /* MediationConstants.swift */; };
+		92F6720827F252E500EA3B8D /* BaseInterstitialAdUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F6720727F252E500EA3B8D /* BaseInterstitialAdUnitTest.swift */; };
 		9720387C2358771600F8025A /* NativeRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9720387B2358771600F8025A /* NativeRequestTests.swift */; };
 		9743CB84235F1CDB002E2CAA /* NativeAssetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */; };
 		9743CB86235F264B002E2CAA /* NativeEventTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */; };
@@ -1491,6 +1493,7 @@
 		922AFD702737335C00732C53 /* PBMRewardedVideoCreativeTestCloseDelay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMRewardedVideoCreativeTestCloseDelay.swift; sourceTree = "<group>"; };
 		922AFD722737339000732C53 /* PBMVideoCreative+pbmTestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMVideoCreative+pbmTestExtension.h"; sourceTree = "<group>"; };
 		922AFD732737340300732C53 /* PrebidTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidTest.swift; sourceTree = "<group>"; };
+		923176F427F2DEC4008FB0D4 /* PBMCloseButtonDecoratorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMCloseButtonDecoratorTest.swift; sourceTree = "<group>"; };
 		9236A64D272FEAFE00ABBEF4 /* ImpressionTasksExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressionTasksExecutor.swift; sourceTree = "<group>"; };
 		9236A64F272FEC5A00ABBEF4 /* ImpressionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpressionTask.swift; sourceTree = "<group>"; };
 		923B54FF2744F19600E00C88 /* PrebidMediationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMediationDelegate.swift; sourceTree = "<group>"; };
@@ -1625,6 +1628,7 @@
 		92C85D6F27A987260080BAC5 /* NativeEventTrackerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackerResponse.swift; sourceTree = "<group>"; };
 		92C85D9527A9DC9D0080BAC5 /* NativeAdTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdTests.swift; sourceTree = "<group>"; };
 		92D8BEB12747B464006BD78E /* MediationConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediationConstants.swift; sourceTree = "<group>"; };
+		92F6720727F252E500EA3B8D /* BaseInterstitialAdUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseInterstitialAdUnitTest.swift; sourceTree = "<group>"; };
 		9720387B2358771600F8025A /* NativeRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeRequestTests.swift; sourceTree = "<group>"; };
 		9743CB83235F1CDB002E2CAA /* NativeAssetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAssetTests.swift; sourceTree = "<group>"; };
 		9743CB85235F264B002E2CAA /* NativeEventTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeEventTrackerTests.swift; sourceTree = "<group>"; };
@@ -2828,6 +2832,7 @@
 				925D5D7D2737B9BE00A8A2B5 /* SkadnParametersManagerTest.swift */,
 				53EF49E827D61CAC00648F0E /* PBMAgeUtilsTest.swift */,
 				53019E6027E9E40700D509C1 /* LogTest.swift */,
+				923176F427F2DEC4008FB0D4 /* PBMCloseButtonDecoratorTest.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -2948,6 +2953,7 @@
 				925D5E282737EC9400A8A2B5 /* MediationRewardedAdUnitTest.swift */,
 				925D5E2C2737ECEA00A8A2B5 /* PBMWinNotifierTest.swift */,
 				923B5520274536B400E00C88 /* MockMediationUtils.swift */,
+				92F6720727F252E500EA3B8D /* BaseInterstitialAdUnitTest.swift */,
 			);
 			path = Prebid;
 			sourceTree = "<group>";
@@ -3889,6 +3895,7 @@
 				47D9A3EF88B06B204F40463E /* MockPBMCreativeModel.swift in Sources */,
 				922AFD5027372AD900732C53 /* PBMHTMLFormatterTest.swift in Sources */,
 				922AFD5827372BE500732C53 /* PBMLocationManagerTest.swift in Sources */,
+				923176F527F2DEC4008FB0D4 /* PBMCloseButtonDecoratorTest.swift in Sources */,
 				922AFD5F2737304100732C53 /* PBMModalPresentationControllerTest.swift in Sources */,
 				922AFD5627372BB100732C53 /* PBMJSLibraryManagerTest.swift in Sources */,
 				922AFD6D2737331500732C53 /* PBMORTBBidRequestTest.swift in Sources */,
@@ -3915,6 +3922,7 @@
 				925D5D842737BA6600A8A2B5 /* PBMOpenMeasurementWrapperObjcTest.m in Sources */,
 				47D9A18468F57BD786350961 /* mraid.js in Sources */,
 				925D5E162737E77200A8A2B5 /* DemandResponseInfoTest.swift in Sources */,
+				92F6720827F252E500EA3B8D /* BaseInterstitialAdUnitTest.swift in Sources */,
 				925D5D9D2737C2FA00A8A2B5 /* DeviceInfoParameterBuilderTest.swift in Sources */,
 				922AFC9127352C9B00732C53 /* MockPBMWebView.swift in Sources */,
 				922AFCEE2736FC8600732C53 /* XCTest.swift in Sources */,

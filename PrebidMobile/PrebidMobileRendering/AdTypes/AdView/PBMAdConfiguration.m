@@ -80,6 +80,7 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
         self.isMuted = YES;
         self.isSoundButtonVisible = NO;
         self.maxVideoDuration = PBMVideoConstants.DEFAULT_MAX_VIDEO_DURATION;
+        self.closeButtonArea = PBMConstants.CLOSE_BUTTON_AREA_DEFAULT;
     }
     
     return self;
@@ -113,6 +114,8 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
     config.isMuted = self.isMuted;
     config.isSoundButtonVisible = self.isSoundButtonVisible;
     config.maxVideoDuration = self.maxVideoDuration;
+    config.closeButtonArea = self.closeButtonArea;
+
     return config;
 }
 

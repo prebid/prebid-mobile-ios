@@ -102,6 +102,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL isSoundButtonVisible;
 
+/**
+ This property indicates the area which the close button should occupy on the screen.
+ */
+@property (nonatomic, strong) NSNumber* closeButtonArea;
+
 #pragma mark - Impression Tracking
 
 @property (nonatomic, assign) NSTimeInterval pollFrequency;

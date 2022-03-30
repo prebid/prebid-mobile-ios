@@ -37,14 +37,19 @@ class PBMAdConfigurationTest: XCTestCase {
         adConfiguration.forceInterstitialPresentation = nil
         XCTAssertNotNil(adConfiguration.autoRefreshDelay)
     }
-    
+
     func testDefaultIsMuted() {
         let adConfiguration = PBMAdConfiguration()
         XCTAssertTrue(adConfiguration.isMuted == true)
     }
-    
+
     func testDefaultIsMuteControlsDisabled() {
         let adConfiguration = PBMAdConfiguration()
         XCTAssertTrue(adConfiguration.isSoundButtonVisible == false)
+    }
+
+    func testCloseButtonArea() {
+        let adConfiguration = PBMAdConfiguration()
+        XCTAssertEqual(adConfiguration.closeButtonArea, PBMConstants.CLOSE_BUTTON_AREA_DEFAULT)
     }
 }

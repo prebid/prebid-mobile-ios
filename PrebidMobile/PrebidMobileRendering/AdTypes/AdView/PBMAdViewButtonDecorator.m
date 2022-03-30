@@ -47,6 +47,8 @@
 - (void)setImage:(UIImage *)image {
     self.buttonImage = image;
     [self.button setImage:self.buttonImage forState:UIControlStateNormal];
+    self.button.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
+    self.button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
 }
 
 - (void)addButtonToView:(UIView *)view displayView:(UIView *)displayView {

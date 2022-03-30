@@ -15,6 +15,7 @@
 
 #import "PBMCloseButtonDecorator.h"
 #import "PBMMRAIDConstants.h"
+#import "PBMConstants.h"
 
 @implementation PBMCloseButtonDecorator
 
@@ -23,16 +24,22 @@
     if (self) {
         self.isMRAID = NO;
         self.button.accessibilityIdentifier = @"PBM Close";
+        self.closeButtonArea = PBMConstants.CLOSE_BUTTON_AREA_DEFAULT;
     }
     return self;
 }
 
 - (NSInteger)getButtonConstraintConstant {
-    return self.isMRAID ? 0 : 25;
+    CGFloat btnRadius = (UIScreen.mainScreen.bounds.size.width * self.closeButtonArea.doubleValue) / 2;
+    if (btnRadius > 30 || btnRadius < 5) {
+        btnRadius = 15;
+    }
+    return self.isMRAID ? 0 : btnRadius;
 }
 
 - (CGSize)getButtonSize {
-    return self.isMRAID ? CGSizeMake(PBMMRAIDCloseButtonSize.WIDTH, PBMMRAIDCloseButtonSize.HEIGHT) : CGSizeMake(36, 36);
+    CGFloat btnSizeValue = UIScreen.mainScreen.bounds.size.width * self.closeButtonArea.doubleValue;
+    return CGSizeMake(btnSizeValue, btnSizeValue);
 }
 
 @end
