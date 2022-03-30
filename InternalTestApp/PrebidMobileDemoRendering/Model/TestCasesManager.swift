@@ -883,7 +883,7 @@ struct TestCaseManager {
             
             // MARK: ---- Multiformat Interstitial (In-App)
             
-            TestCase(title: "Multiformat Interstitial 320x480 (In-App)",
+            TestCase(title: "Multi-bid Response ",
                      tags: [.interstitial, .video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -895,13 +895,13 @@ struct TestCaseManager {
 
 //                let prebidConfigIds = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480"]
 //                interstitialController.prebidConfigId = prebidConfigIds.randomElement() ?? prebidConfigIds[0]
-                         interstitialController.prebidConfigId="imp-prebid-interstitial-multiformat"
-                         Prebid.shared.storedAuctionResponse="response-prebid-interstitial-multiformat"
 //                         if (interstitialController.prebidConfigId=="imp-prebid-display-interstitial-320-480"){
 //                             Prebid.shared.storedAuctionResponse="response-prebid-display-interstitial-320-480"
 //                         } else {
 //                             Prebid.shared.storedAuctionResponse="response-prebid-video-interstitial-320-480"
 //                         }
+                        interstitialController.prebidConfigId="imp-prebid-interstitial-multiformat"
+                         Prebid.shared.storedAuctionResponse="response-prebid-interstitial-multiformat"
                 adapterVC.setup(adapter: interstitialController)
                          
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -1005,8 +1005,13 @@ struct TestCaseManager {
                 let gamAdUnitIds = ["/21808260008/prebid_html_interstitial", "/21808260008/prebid_oxb_interstitial_video"]
                 interstitialController.adFormats = [.display, .video]
                 let prebidConfigIds = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480"]
-                         Prebid.shared.storedAuctionResponse="response-prebid-interstitial-multiformat"
+                        
                 interstitialController.prebidConfigId = prebidConfigIds[randomId]
+                         if (interstitialController.prebidConfigId=="imp-prebid-display-interstitial-320-480"){
+                             Prebid.shared.storedAuctionResponse="response-prebid-display-interstitial-320-480"
+                         } else {
+                             Prebid.shared.storedAuctionResponse="response-prebid-video-interstitial-320-480"
+                         }
                 interstitialController.gamAdUnitId = gamAdUnitIds[randomId]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1112,8 +1117,13 @@ struct TestCaseManager {
                 let mopubAdUnitIds = ["5a4b8dcf-f984-4b04-9448-6529908d6cb6", "106bea23b1f744e794646b4b577028a0"]
                 interstitialController.adFormats = [.display, .video]
                 let prebidConfigIds = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480"]
-                         Prebid.shared.storedAuctionResponse="response-prebid-interstitial-multiformat"
+                         
                 interstitialController.prebidConfigId = prebidConfigIds[randomId]
+                         if (interstitialController.prebidConfigId=="imp-prebid-display-interstitial-320-480"){
+                             Prebid.shared.storedAuctionResponse="response-prebid-display-interstitial-320-480"
+                         } else {
+                             Prebid.shared.storedAuctionResponse="response-prebid-video-interstitial-320-480"
+                         }
                 interstitialController.moPubAdUnitId = mopubAdUnitIds[randomId]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -2567,7 +2577,13 @@ struct TestCaseManager {
                 let admobAdUnitIds = ["ca-app-pub-5922967660082475/3383099861", "ca-app-pub-5922967660082475/4527792002"]
                 interstitialController.adFormats = [.display, .video]
                 let prebidConfigIds = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480"]
+                         
                 interstitialController.prebidConfigId = prebidConfigIds[randomId]
+                         if (interstitialController.prebidConfigId=="imp-prebid-display-interstitial-320-480"){
+                             Prebid.shared.storedAuctionResponse="response-prebid-display-interstitial-320-480"
+                         } else {
+                             Prebid.shared.storedAuctionResponse="response-prebid-video-interstitial-320-480"
+                         }
                 interstitialController.adMobAdUnitId = admobAdUnitIds[randomId]
                 adapterVC.setup(adapter: interstitialController)
                         
