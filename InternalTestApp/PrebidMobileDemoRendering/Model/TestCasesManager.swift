@@ -883,7 +883,7 @@ struct TestCaseManager {
             
             // MARK: ---- Multiformat Interstitial (In-App)
             
-            TestCase(title: "Multiformat Interstitial 320x480 (In-App)",
+            TestCase(title: "Multi-bid Response ",
                      tags: [.interstitial, .video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -893,13 +893,15 @@ struct TestCaseManager {
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.display, .video]
 
-                let prebidConfigIds = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480"]
-                interstitialController.prebidConfigId = prebidConfigIds.randomElement() ?? prebidConfigIds[0]
-                         if (interstitialController.prebidConfigId=="imp-prebid-display-interstitial-320-480"){
-                             Prebid.shared.storedAuctionResponse="response-prebid-display-interstitial-320-480"
-                         } else {
-                             Prebid.shared.storedAuctionResponse="response-prebid-video-interstitial-320-480"
-                         }
+//                let prebidConfigIds = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480"]
+//                interstitialController.prebidConfigId = prebidConfigIds.randomElement() ?? prebidConfigIds[0]
+//                         if (interstitialController.prebidConfigId=="imp-prebid-display-interstitial-320-480"){
+//                             Prebid.shared.storedAuctionResponse="response-prebid-display-interstitial-320-480"
+//                         } else {
+//                             Prebid.shared.storedAuctionResponse="response-prebid-video-interstitial-320-480"
+//                         }
+                        interstitialController.prebidConfigId="imp-prebid-interstitial-multiformat"
+                         Prebid.shared.storedAuctionResponse="response-prebid-interstitial-multiformat"
                 adapterVC.setup(adapter: interstitialController)
                          
                 setupCustomParams(for: interstitialController.prebidConfigId)
