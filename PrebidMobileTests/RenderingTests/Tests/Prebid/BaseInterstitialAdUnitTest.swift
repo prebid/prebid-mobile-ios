@@ -32,4 +32,12 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         adUnit.closeButtonArea = 0.25
         XCTAssertTrue(adUnit.closeButtonArea == 0.25)
     }
+    
+    func testCloseButtonPosition() {
+        let adUnit = BaseInterstitialAdUnit(configID: "test")
+        XCTAssertEqual(adUnit.closeButtonPosition, .topRight)
+        
+        adUnit.closeButtonPosition = .topLeft
+        XCTAssertEqual(adUnit.adUnitConfig.adConfiguration.closeButtonPosition, .topLeft)
+    }
 }

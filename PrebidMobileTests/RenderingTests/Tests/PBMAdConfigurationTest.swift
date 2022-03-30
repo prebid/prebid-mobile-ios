@@ -52,4 +52,9 @@ class PBMAdConfigurationTest: XCTestCase {
         let adConfiguration = PBMAdConfiguration()
         XCTAssertEqual(adConfiguration.closeButtonArea, PBMConstants.CLOSE_BUTTON_AREA_DEFAULT)
     }
+    
+    func testDefaultCloseButtonPosition() {
+        let adConfiguration = PBMAdConfiguration()
+        XCTAssertTrue(adConfiguration.closeButtonPosition == .topRight)
+    }
 }
