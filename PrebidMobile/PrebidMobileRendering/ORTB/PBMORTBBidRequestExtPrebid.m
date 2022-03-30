@@ -43,6 +43,7 @@
             @"bidders": self.dataBidders,
         };
     };
+
     
     if (self.storedAuctionResponse) {
         ret[@"storedauctionresponse"] = @{@"id":self.storedAuctionResponse};
