@@ -109,13 +109,8 @@ class TestCasesViewController: UIViewController, UITableViewDelegate, UITableVie
         //as it can be changed in any test cases
         Prebid.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
         Prebid.shared.prebidServerAccountId = "0689a263-318d-448b-a3d4-b02e8a709d9d"
-        if AppConfiguration.shared.useMockServer {
-            let _ = try? Prebid.shared.setCustomPrebidServer(url: "https://10.0.2.2:8000/openrtb2/auction")
-            try? Prebid.shared.setCustomPrebidServer(url: "https://10.0.2.2:8000/openrtb2/auction")
-        } else {
-            let _ = try? Prebid.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
-            try? Prebid.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
-        }
+        let _ = try? Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
+        try? Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
         
         example.configurationClosure?(vc)
         
