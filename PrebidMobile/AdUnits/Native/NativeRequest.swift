@@ -33,7 +33,7 @@ public class NativeRequest: AdUnit {
     }
     
     public var placementType: PlacementType? {
-        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.plcmttype}
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.plcmttype }
         set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.plcmttype = newValue }
     }
     
