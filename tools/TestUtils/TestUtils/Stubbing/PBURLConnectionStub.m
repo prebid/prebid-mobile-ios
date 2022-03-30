@@ -71,7 +71,7 @@
 + (PBURLConnectionStub *)stubForStandardBannerWithAdSize:(CGSize)adSize
                                                  content:(NSString *)content {
     PBURLConnectionStub *stub = [[PBURLConnectionStub alloc] init];
-    stub.requestURL = @"https://prebid.adnxs.com/pbs/v1/openrtb2/auction";
+    stub.requestURL = @"https://ib.adnxs.com/openrtb2/prebid";
     stub.responseCode = 200;
     stub.responseBody = [NSJSONSerialization dataWithJSONObject:[[self class] responseForStandardBannerWithAdSize:adSize
                                                                                                           content:content]

@@ -33,7 +33,7 @@ struct Constants {
     static let cpm2 = 0.51
     static let cpm3 = 0.54
     static let BIDDER_NAME = "MockBidder"
-    static let utAdRequestBaseUrl = "https://prebid.adnxs.com/pbs/v1/openrtb2/auction"
+    static let utAdRequestBaseUrl = "https://ib.adnxs.com/openrtb2/prebid"
     
     static let pbsRubiconAccount_id = "1001"
     static let pbsConfigId300x250Rubicon = "1001-1"

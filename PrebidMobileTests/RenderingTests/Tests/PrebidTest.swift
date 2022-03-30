@@ -96,7 +96,7 @@ class PrebidTest: XCTestCase {
         XCTAssertEqual(sdkConfig.prebidServerHost, .Custom)
         
         sdkConfig.prebidServerHost = .Appnexus
-        XCTAssertEqual(try! Host.shared.getHostURL(host:sdkConfig.prebidServerHost), "https://prebid.adnxs.com/pbs/v1/openrtb2/auction")
+        XCTAssertEqual(try! Host.shared.getHostURL(host:sdkConfig.prebidServerHost), "https://ib.adnxs.com/openrtb2/prebid")
         
         let _ = try! Prebid.shared.setCustomPrebidServer(url: "https://10.0.2.2:8000/openrtb2/auction")
         XCTAssertEqual(sdkConfig.prebidServerHost, .Custom)
