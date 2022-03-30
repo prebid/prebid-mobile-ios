@@ -257,7 +257,7 @@ public class Utils: NSObject {
     private func findNativeForDFPCustomTemplateAd(_ dfpCustomAd: AnyObject){
         let isPrebid = dfpCustomAd.string?(forKey: "isPrebid")
         if("1" == isPrebid) {
-            if let hb_cache_id_local = dfpCustomAd.string?(forKey: "hb_cache_id_local"), CacheManager.shared.isValid(cacheId: hb_cache_id_local)
+            if let hb_cache_id_local = dfpCustomAd.string?(forKey: PrebidLocalCacheIdKey), CacheManager.shared.isValid(cacheId: hb_cache_id_local)
             {
                 let ad = NativeAd.create(cacheId: hb_cache_id_local)
                 if (ad != nil) {
@@ -278,7 +278,7 @@ public class Utils: NSObject {
         let properties = mopubObject.value(forKey: "properties") as! Dictionary<String, AnyObject>
         let isPrebid = properties["isPrebid"] as? Bool
         if (isPrebid != nil && isPrebid!) {
-            if let hb_cache_id_local = properties["hb_cache_id_local"] as? String, CacheManager.shared.isValid(cacheId: hb_cache_id_local){
+            if let hb_cache_id_local = properties[PrebidLocalCacheIdKey] as? String, CacheManager.shared.isValid(cacheId: hb_cache_id_local){
                 let ad = NativeAd.create(cacheId: hb_cache_id_local)
                 if (ad != nil){
                     delegate?.nativeAdLoaded(ad: ad!)
