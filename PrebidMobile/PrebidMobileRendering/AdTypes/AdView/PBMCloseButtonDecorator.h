@@ -19,4 +19,6 @@
 
 @property (nonatomic, assign) BOOL isMRAID;
 
+@property (nonatomic, strong, nonnull) NSNumber *closeButtonArea;
+
 @end
