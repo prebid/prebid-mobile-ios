@@ -162,6 +162,7 @@ framework module PrebidMobile {
     header "PBMORTBContentProducer.h"
     header "PBMORTBContentData.h"
     header "PBMORTBContentSegment.h"
+    header "PBMORTBNative.h"
     
     header "NSDictionary+PBMExtensions.h"
     header "NSMutableDictionary+PBMExtensions.h"

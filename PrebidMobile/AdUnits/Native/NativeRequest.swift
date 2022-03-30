@@ -17,18 +17,65 @@ import UIKit
 
 public class NativeRequest: AdUnit {
     
-    var version: String = "1.2"
-    public var context: ContextType?
-    public var contextSubType: ContextSubType?
-    public var placementType: PlacementType?
-    public var placementCount: Int = 1
-    public var sequence: Int  = 0
-    public var assets: Array<NativeAsset>?
-    public var asseturlsupport: Int = 0
-    public var durlsupport: Int = 0
-    public var eventtrackers:Array<NativeEventTracker>?
-    public var privacy: Int = 0
-    public var ext: AnyObject?
+    public var version: String {
+        get { adUnitConfig.nativeAdConfiguration?.version ?? "1.2" }
+        set { adUnitConfig.nativeAdConfiguration?.version = newValue }
+    }
+    
+    public var context: ContextType? {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.context }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.context = newValue }
+    }
+    
+    public var contextSubType: ContextSubType? {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.contextsubtype }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.contextsubtype = newValue }
+    }
+    
+    public var placementType: PlacementType? {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.plcmttype }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.plcmttype = newValue }
+    }
+    
+    public var placementCount: Int {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.plcmtcnt ?? 1 }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.plcmtcnt = newValue }
+    }
+    
+    public var sequence: Int {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.seq ?? 0 }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.seq = newValue }
+    }
+    
+    public var assets: [NativeAsset]? {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.assets }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.assets = newValue }
+    }
+    
+    public var asseturlsupport: Int {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.aurlsupport ?? 0 }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.aurlsupport = newValue }
+    }
+    
+    public var durlsupport: Int {
+        get { adUnitConfig.nativeAdConfiguration?.markupRequestObject.durlsupport ?? 0 }
+        set { adUnitConfig.nativeAdConfiguration?.markupRequestObject.durlsupport = newValue }
+    }
+    
+    public var eventtrackers: [NativeEventTracker]? {
+        get { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.eventtrackers }
+        set { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.eventtrackers = newValue }
+    }
+    
+    public var privacy: Int {
+        get { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.privacy ?? 0  }
+        set { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.privacy = newValue }
+    }
+    
+    public var ext: [String: Any]? {
+        get { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.ext }
+        set { self.adUnitConfig.nativeAdConfiguration?.markupRequestObject.ext = newValue }
+    }
     
     public var configId: String {
         get { adUnitConfig.configId }
@@ -36,16 +83,18 @@ public class NativeRequest: AdUnit {
     }
     
     public init(configId: String) {
-        super.init(configId: configId, size: CGSize.zero)   
+        super.init(configId: configId, size: CGSize.zero)
+        super.adUnitConfig.nativeAdConfiguration = NativeAdConfiguration()
+        super.adUnitConfig.adFormats = [.native]
     }
     
-    public convenience init(configId: String, assets: Array<NativeAsset>? = nil, eventTrackers: Array<NativeEventTracker>? = nil) {
+    public convenience init(configId: String, assets: [NativeAsset]? = nil, eventTrackers: [NativeEventTracker]? = nil) {
         self.init(configId: configId)
         self.assets = assets
         self.eventtrackers = eventtrackers
     }
     
-    public func addNativeAssets(_ assets: Array<NativeAsset>) {
+    public func addNativeAssets(_ assets: [NativeAsset]) {
         if self.assets != nil {
             self.assets?.append(contentsOf: assets)
         } else {
@@ -53,151 +102,11 @@ public class NativeRequest: AdUnit {
         }
     }
     
-    public func addNativeEventTracker(_ eventTrackers: Array<NativeEventTracker>) {
+    public func addNativeEventTracker(_ eventTrackers: [NativeEventTracker]) {
         if eventtrackers != nil {
             self.eventtrackers?.append(contentsOf: eventTrackers)
         } else {
             self.eventtrackers = eventTrackers
         }
     }
-
-    public func getNativeRequestObject() -> [AnyHashable: Any]? {
-        var nativeObject: [AnyHashable:Any] = [:]
-        nativeObject["ver"] = version
-        var requestObject: [AnyHashable:Any] = [:]
-        
-        requestObject["plcmttype"] = placementType?.value
-        requestObject["context"] = context?.value
-        requestObject["contextsubtype"] = contextSubType?.value
-        
-        if (sequence > 0) {
-            requestObject["seq"] = sequence
-        }
-        if (asseturlsupport > 0) {
-            requestObject["aurlsupport"] = asseturlsupport
-        }
-        if (durlsupport > 0) {
-            requestObject["durlsupport"] = durlsupport
-        }
-        if (privacy > 0) {
-            requestObject["privacy"] = privacy
-        }
-        
-        requestObject["ext"] = ext
-        requestObject["plcmtcnt"] = placementCount
-        var idCount: Int = 0
-        if let assets = assets {
-            var assetsObjects:[Any] = []
-            for asset:NativeAsset in assets {
-                if(Prebid.shared.shouldAssignNativeAssetID){
-                    idCount += 1
-                }
-                assetsObjects.append(asset.getAssetObject(id: idCount))
-            }
-            
-            requestObject["assets"] = assetsObjects
-        }
-        
-        if let eventtrackers = eventtrackers, eventtrackers.count > 0 {
-            var eventObjects:[Any] = []
-            for event:NativeEventTracker in eventtrackers {
-                eventObjects.append(event.getEventTracker())
-            }
-            
-            requestObject["eventtrackers"] = eventObjects
-        }
-        
-        do {
-            let nativeData = try JSONSerialization.data(withJSONObject: requestObject, options: .prettyPrinted)
-
-            let stringObject = String.init(data: nativeData, encoding: String.Encoding.utf8)
-            
-            nativeObject["request"] = stringObject
-            
-        } catch let error {
-            Log.error(error.localizedDescription)
-        }
-        
-        return nativeObject
-    }
-
 }
-
-public class ContextType: SingleContainerInt {
-    
-    @objc
-    public static let Content = ContextType(1)
-    
-    @objc
-    public static let Social = ContextType(2)
-    
-    @objc
-    public static let Product = ContextType(3)
-    
-    @objc
-    public static let Custom = ContextType(500)
-    
-}
-
-public class ContextSubType: SingleContainerInt {
-    @objc
-    public static let General = ContextSubType(10)
-
-    @objc
-    public static let Article = ContextSubType(11)
-
-    @objc
-    public static let Video = ContextSubType(12)
-
-    @objc
-    public static let Audio = ContextSubType(13)
-
-    @objc
-    public static let Image = ContextSubType(14)
-
-    @objc
-    public static let UserGenerated = ContextSubType(15)
-
-    @objc
-    public static let Social = ContextSubType(20)
-
-    @objc
-    public static let email = ContextSubType(21)
-
-    @objc
-    public static let chatIM = ContextSubType(22)
-
-    @objc
-    public static let SellingProduct = ContextSubType(30)
-
-    @objc
-    public static let AppStore = ContextSubType(31)
-
-    @objc
-    public static let ReviewSite = ContextSubType(32)
-
-    @objc
-    public static let Custom = ContextSubType(500)
-}
-
-public class PlacementType: SingleContainerInt {
-    @objc
-    public static let FeedContent = PlacementType(1)
-
-    @objc
-    public static let AtomicContent = PlacementType(2)
-
-    @objc
-    public static let OutsideContent = PlacementType(3)
-
-    @objc
-    public static let RecommendationWidget = PlacementType(4)
-
-    @objc
-    public static let Custom = PlacementType(500)
-}
-
-
-
-
-

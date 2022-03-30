@@ -69,7 +69,7 @@
     jsonDictionary[@"h"] = self.h;
     jsonDictionary[@"wratio"] = self.wratio;
     jsonDictionary[@"hratio"] = self.hratio;
-    jsonDictionary[@"wmin"] = self.wmin;
+    jsonDictionary[@"exp"] = self.exp;
     
     [jsonDictionary pbmRemoveEmptyVals];
 }
@@ -109,7 +109,7 @@
     _h = jsonDictionary[@"h"];
     _wratio = jsonDictionary[@"wratio"];
     _hratio = jsonDictionary[@"hratio"];
-    _wmin = jsonDictionary[@"wmin"];
+    _exp = jsonDictionary[@"exp"];
     
     return self;
 }

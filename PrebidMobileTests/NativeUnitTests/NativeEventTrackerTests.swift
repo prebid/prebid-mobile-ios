@@ -18,14 +18,6 @@ import XCTest
 
 class NativeEventTrackerTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
      func testNativeEventType() {
         let eventTracker = NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])
         XCTAssertTrue(eventTracker.event == EventType.Impression)

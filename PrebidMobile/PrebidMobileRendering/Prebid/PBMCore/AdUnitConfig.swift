@@ -44,6 +44,8 @@ public class AdUnitConfig: NSObject, NSCopying {
     public var contextDataDictionary: [String : [String]] {
         extensionData.mapValues { Array($0) }
     }
+    
+    public var nativeAdConfiguration: NativeAdConfiguration? 
 
     // MARK: - Computed Properties
     
@@ -58,6 +60,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         set {
             if adConfiguration.winningBidAdFormat == .video {
                 Log.warn("'refreshInterval' property is not assignable for Outstream Video ads")
+                _refreshInterval = 0
                 return
             }
             if newValue < 0 {
@@ -247,6 +250,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.isInterstitialAd = self.adConfiguration.isInterstitialAd
         clone.adConfiguration.isOptIn = self.adConfiguration.isOptIn
         clone.adConfiguration.videoPlacementType = self.adConfiguration.videoPlacementType
+        clone.nativeAdConfiguration = self.nativeAdConfiguration
         clone.sizes = sizes
         clone.refreshInterval = self.refreshInterval
         clone.minSizePerc = self.minSizePerc
@@ -264,6 +268,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         }
         
         self.adConfiguration.adFormats = adFormats
-        self.refreshInterval = ((adFormats.contains(.display)) ? refreshIntervalDefault : 0);
+        self.refreshInterval = (adConfiguration.winningBidAdFormat == .video) ? 0 : refreshIntervalDefault;
     }
 }
