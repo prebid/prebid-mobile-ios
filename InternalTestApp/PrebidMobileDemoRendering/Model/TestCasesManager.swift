@@ -883,7 +883,7 @@ struct TestCaseManager {
             
             // MARK: ---- Multiformat Interstitial (In-App)
             
-            TestCase(title: "Multi-bid Response ",
+            TestCase(title: "MultiBid Response",
                      tags: [.interstitial, .video, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -902,6 +902,29 @@ struct TestCaseManager {
 //                         }
                         interstitialController.prebidConfigId="imp-prebid-interstitial-multiformat"
                          Prebid.shared.storedAuctionResponse="response-prebid-interstitial-multiformat"
+                adapterVC.setup(adapter: interstitialController)
+                         
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Multiformat Interstitial 320x480 (In-App)",
+                     tags: [.interstitial, .video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.adFormats = [.display, .video]
+
+                let prebidConfigIds = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480"]
+                interstitialController.prebidConfigId = prebidConfigIds.randomElement() ?? prebidConfigIds[0]
+                         if (interstitialController.prebidConfigId=="imp-prebid-display-interstitial-320-480"){
+                             interstitialController.storedAuctionResponse="response-prebid-display-interstitial-320-480"
+                         } else {
+                             interstitialController.storedAuctionResponse="response-prebid-video-interstitial-320-480"
+                         }
+                        
                 adapterVC.setup(adapter: interstitialController)
                          
                 setupCustomParams(for: interstitialController.prebidConfigId)
