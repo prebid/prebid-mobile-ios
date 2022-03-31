@@ -18,6 +18,8 @@ import PrebidMobile
 
 class PrebidNativeAdFeedController: NSObject, PrebidConfigurableController {
     var prebidConfigId = ""
+    var storedAuctionResponse = ""
+
     
     public var nativeAssets: [NativeAsset]?
     public var eventTrackers: [NativeEventTracker]?
@@ -84,6 +86,8 @@ class PrebidNativeAdFeedController: NSObject, PrebidConfigurableController {
     private func loadAd(for cell: FeedAdTableViewCell) {
         
         self.cleanUp(cell: cell)
+        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+
         setupNativeAdUnit(configId: prebidConfigId)
         
         adUnit?.fetchDemand(completion: { [weak self, weak cell] result, kvResultDict in

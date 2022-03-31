@@ -19,6 +19,8 @@ import PrebidMobileGAMEventHandlers
 
 class PrebidGAMNativeAdController: NSObject, AdaptedController {
     public var prebidConfigId = ""
+    var storedAuctionResponse = ""
+
     public var gamAdUnitId = ""
     public var gamCustomTemplateIDs: [String] = []
     public var adTypes: [GADAdLoaderAdType] = []
@@ -98,7 +100,7 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
     
     func loadAd() {
         setupNativeAdUnit()
-        
+        Prebid.shared.storedAuctionResponse=storedAuctionResponse
         adUnit?.fetchDemand(completion: { [weak self] result, kvResultDict in
             guard let self = self else {
                 return

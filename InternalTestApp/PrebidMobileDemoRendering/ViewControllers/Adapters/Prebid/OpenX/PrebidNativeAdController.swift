@@ -20,6 +20,8 @@ import RxSwift
 class PrebidNativeAdController: NSObject, AdaptedController {
     
     public var prebidConfigId = ""
+    var storedAuctionResponse = ""
+
     public var nativeAssets: [NativeAsset]?
     public var eventTrackers: [NativeEventTracker]?
     
@@ -91,7 +93,8 @@ class PrebidNativeAdController: NSObject, AdaptedController {
     
     func loadAd() {
         setupNativeAdUnit(configId: prebidConfigId)
-        
+        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {
                 adUnit?.addContextData(key: dataPair.value, value: dataPair.key)
