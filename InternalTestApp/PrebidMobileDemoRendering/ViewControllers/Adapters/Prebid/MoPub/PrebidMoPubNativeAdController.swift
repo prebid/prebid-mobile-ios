@@ -22,6 +22,8 @@ import PrebidMobileMoPubAdapters
 class PrebidMoPubNativeAdController: NSObject, AdaptedController {
     
     var prebidConfigId = ""
+    var storedAuctionResponse = ""
+
     var moPubAdUnitId = ""
     var adRenderingViewClass: AnyClass?
     
@@ -101,6 +103,7 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController {
     func loadAd() {
         let targeting = MPNativeAdRequestTargeting()
         mediationDelegate = MoPubMediationNativeUtils(targeting: targeting!)
+        Prebid.shared.storedAuctionResponse=storedAuctionResponse
         setupMediationNativeAdUnit(targeting: targeting!)
         adUnit?.fetchDemand(completion: { [weak self] result in
             guard let self = self else {

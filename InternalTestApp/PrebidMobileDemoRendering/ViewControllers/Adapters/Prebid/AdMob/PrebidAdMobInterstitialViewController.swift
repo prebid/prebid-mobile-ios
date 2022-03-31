@@ -21,6 +21,8 @@ import PrebidMobileAdMobAdapters
 class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, PrebidConfigurableController, GADFullScreenContentDelegate {
     
     var prebidConfigId = ""
+    var storedAuctionResponse = ""
+
     var adMobAdUnitId = ""
     
     var adFormats: Set<AdFormat>?
@@ -60,7 +62,7 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: request)
-        
+        Prebid.shared.storedAuctionResponse=storedAuctionResponse
         adUnit = MediationInterstitialAdUnit(configId: prebidConfigId,
                                              minSizePercentage: CGSize(width: 30, height: 30),
                                              mediationDelegate: mediationDelegate!)
