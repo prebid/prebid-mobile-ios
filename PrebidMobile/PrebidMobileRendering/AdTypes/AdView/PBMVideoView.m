@@ -479,7 +479,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         return;
     }
     
-    if (!self.creative.creativeModel.hasCompanionAd) {
+    if (!self.creative.creativeModel.hasCompanionAd || self.creative.creativeModel.adConfiguration.isOptIn) {
         return;
     }
     
