@@ -21,6 +21,8 @@ import PrebidMobileAdMobAdapters
 class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConfigurableController, GADFullScreenContentDelegate {
     
     var prebidConfigId = ""
+    var storedAuctionResponse = ""
+
     var adMobAdUnitId = ""
     
     private weak var adapterViewController: AdapterViewController?
@@ -57,7 +59,7 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
-        
+        Prebid.shared.storedAuctionResponse=storedAuctionResponse
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {

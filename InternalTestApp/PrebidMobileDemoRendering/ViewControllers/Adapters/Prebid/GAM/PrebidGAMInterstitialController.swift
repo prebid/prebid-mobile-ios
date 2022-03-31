@@ -21,6 +21,8 @@ import PrebidMobileGAMEventHandlers
 class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfigurableController, InterstitialAdUnitDelegate {
     
     var prebidConfigId = ""
+    var storedAuctionResponse = ""
+
     var gamAdUnitId = ""
     var adFormats: Set<AdFormat>?
     
@@ -55,6 +57,8 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         let eventHandler = GAMInterstitialEventHandler(adUnitID: gamAdUnitId)
+        
+        Prebid.shared.storedAuctionResponse=storedAuctionResponse
         interstitialController = InterstitialRenderingAdUnit(configID: prebidConfigId,
                                                     minSizePercentage: CGSize(width: 30, height: 30),
                                                     eventHandler: eventHandler)

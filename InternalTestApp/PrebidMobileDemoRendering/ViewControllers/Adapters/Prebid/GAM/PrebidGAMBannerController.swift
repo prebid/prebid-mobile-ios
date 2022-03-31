@@ -23,6 +23,8 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
     var refreshInterval: TimeInterval = 0
     
     var prebidConfigId = ""
+    var storedAuctionResponse = ""
+
     var gamAdUnitId = ""
     var validAdSizes = [GADAdSize]()
     var adFormat: AdFormat?
@@ -62,6 +64,9 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         let adEventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitId, validGADAdSizes: validAdSizes.map(NSValueFromGADAdSize))
+        
+        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+        
         adBannerView = BannerView(configID: prebidConfigId, eventHandler: adEventHandler)
        
         if (refreshInterval > 0) {

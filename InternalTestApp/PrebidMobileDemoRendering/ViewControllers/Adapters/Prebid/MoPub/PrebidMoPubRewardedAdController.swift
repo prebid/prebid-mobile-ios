@@ -22,6 +22,8 @@ import PrebidMobileMoPubAdapters
 class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfigurableController, MPRewardedAdsDelegate {
     
     var prebidConfigId = ""
+    var storedAuctionResponse = ""
+
     var moPubAdUnitId = ""
     
     weak var adapterViewController: AdapterViewController?
@@ -64,7 +66,7 @@ class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfig
         adapterViewController?.activityIndicator.startAnimating()
         
         let bidInfoWrapper = MediationBidInfoWrapper()
-        
+        Prebid.shared.storedAuctionResponse=storedAuctionResponse
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId,
                                          mediationDelegate: MoPubMediationRewardedUtils(bidInfoWrapper: bidInfoWrapper))
         

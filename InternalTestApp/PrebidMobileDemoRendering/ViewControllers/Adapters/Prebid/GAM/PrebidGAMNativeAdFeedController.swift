@@ -21,6 +21,7 @@ import PrebidMobileGAMEventHandlers
 class PrebidGAMNativeAdFeedController: NSObject, PrebidConfigurableController {
     
     var prebidConfigId = ""
+    var storedAuctionResponse = ""
     
     var gamAdUnitId = ""
     var gamCustomTemplateIDs: [String] = []
@@ -73,6 +74,7 @@ class PrebidGAMNativeAdFeedController: NSObject, PrebidConfigurableController {
                 adViewCell.eventTrackers = self.eventTrackers
                 adViewCell.gamCustomTemplateIDs = self.gamCustomTemplateIDs
                 adViewCell.loadAd(configID: self.prebidConfigId,
+                                  storedAuctionResponse: self.storedAuctionResponse,
                                   GAMAdUnitID: self.gamAdUnitId,
                                   rootViewController: self.rootTableViewController!,
                                   adTypes: self.adTypes)
