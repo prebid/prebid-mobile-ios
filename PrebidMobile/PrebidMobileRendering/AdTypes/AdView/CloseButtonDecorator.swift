@@ -20,18 +20,14 @@ public class CloseButtonDecorator: AdViewButtonDecorator {
     
     // MARK: Public proprties
     
-    public var closeButtonArea: Double
-    
     public override init() {
-        closeButtonArea = PBMConstants.CLOSE_BUTTON_AREA_DEFAULT.doubleValue
-        
         super.init()
-        
+        buttonArea = PBMConstants.CLOSE_BUTTON_AREA_DEFAULT.doubleValue
         button.accessibilityIdentifier = "PBMClose"
     }
     
     public override func getButtonConstraintConstant() -> CGFloat {
-        var btnConstraintConstant = (UIScreen.main.bounds.size.width * closeButtonArea) / 2
+        var btnConstraintConstant = (UIScreen.main.bounds.size.width * buttonArea) / 2
         
         if btnConstraintConstant > 30 || btnConstraintConstant < 5 {
             btnConstraintConstant = 15
@@ -41,7 +37,7 @@ public class CloseButtonDecorator: AdViewButtonDecorator {
     }
     
     public override func getButtonSize() -> CGSize {
-        let btnSizeValue = UIScreen.main.bounds.size.width * closeButtonArea
+        let btnSizeValue = UIScreen.main.bounds.size.width * buttonArea
         return CGSize(width: btnSizeValue, height: btnSizeValue)
     }
 }

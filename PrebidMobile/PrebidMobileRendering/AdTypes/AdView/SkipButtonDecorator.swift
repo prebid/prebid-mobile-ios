@@ -19,19 +19,15 @@ import UIKit
 public class SkipButtonDecorator: AdViewButtonDecorator {
     
     // MARK: Public proprties
-    
-    public var skipButtonArea: Double
-    
+        
     public override init() {
-        skipButtonArea = PBMConstants.SKIP_BUTTON_AREA_DEFAULT.doubleValue
-        
         super.init()
-        
+        buttonArea = PBMConstants.SKIP_BUTTON_AREA_DEFAULT.doubleValue
         button.accessibilityIdentifier = "PBMSkip"
     }
     
     public override func getButtonConstraintConstant() -> CGFloat {
-        var btnConstraintConstant = (UIScreen.main.bounds.size.width * skipButtonArea) / 2
+        var btnConstraintConstant = (UIScreen.main.bounds.size.width * buttonArea) / 2
         
         if btnConstraintConstant > 30 || btnConstraintConstant < 5 {
             btnConstraintConstant = 15
@@ -41,7 +37,7 @@ public class SkipButtonDecorator: AdViewButtonDecorator {
     }
     
     public override func getButtonSize() -> CGSize {
-        let btnSizeValue = UIScreen.main.bounds.size.width * skipButtonArea
+        let btnSizeValue = UIScreen.main.bounds.size.width * buttonArea
         return CGSize(width: btnSizeValue, height: btnSizeValue)
     }
 }

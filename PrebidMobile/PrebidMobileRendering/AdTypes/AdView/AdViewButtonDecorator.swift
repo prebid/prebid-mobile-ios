@@ -23,6 +23,7 @@ public class AdViewButtonDecorator: NSObject {
     public var button: UIButton
     public var buttonPosition: Position
     public var customButtonPosition: CGRect
+    public var buttonArea: Double
     
     public var isMRAID: Bool
     
@@ -33,6 +34,7 @@ public class AdViewButtonDecorator: NSObject {
         customButtonPosition = .zero
         buttonPosition = .topRight
         isMRAID = false
+        buttonArea = PBMConstants.BUTTON_AREA_DEFAULT.doubleValue
         super.init()
     }
     

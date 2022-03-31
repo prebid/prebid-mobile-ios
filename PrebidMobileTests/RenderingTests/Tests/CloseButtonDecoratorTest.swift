@@ -34,7 +34,7 @@ class CloseButtonDecoratorTest: XCTestCase {
         //There is no image by default
         let constant = 0.25
         XCTAssertNil(buttonDecorator.button.currentImage)
-        buttonDecorator.closeButtonArea = constant
+        buttonDecorator.buttonArea = constant
         let sizeValue: CGFloat = UIScreen.main.bounds.width * constant
         let buttonSize = CGSize(width: sizeValue, height: sizeValue)
         let resultButtonSize = buttonDecorator.getButtonSize()
@@ -50,7 +50,7 @@ class CloseButtonDecoratorTest: XCTestCase {
     func testGetButtonConstraintConstant() {
         let constant = 0.1
         XCTAssertNil(buttonDecorator.button.currentImage)
-        buttonDecorator.closeButtonArea = constant
+        buttonDecorator.buttonArea = constant
         
         let expectedConstraintConstant = (UIScreen.main.bounds.width * constant) / 2
         XCTAssertTrue(expectedConstraintConstant == buttonDecorator.getButtonConstraintConstant())
