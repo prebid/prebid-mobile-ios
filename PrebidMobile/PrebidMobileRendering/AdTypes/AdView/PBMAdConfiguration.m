@@ -81,7 +81,7 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
         self.isSoundButtonVisible = NO;
         self.maxVideoDuration = PBMVideoConstants.DEFAULT_MAX_VIDEO_DURATION;
         self.closeButtonArea = PBMConstants.CLOSE_BUTTON_AREA_DEFAULT;
-        self.closeButtonPosition = PBMPositionTopRight;
+        self.closeButtonPosition = PositionTopRight;
     }
     
     return self;

@@ -111,7 +111,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  This property indicates the position of the close button on the screen.
  */
-@property (nonatomic, assign) PBMPosition closeButtonPosition;
+@property (nonatomic, assign) Position closeButtonPosition;
 
 #pragma mark - Impression Tracking
 
