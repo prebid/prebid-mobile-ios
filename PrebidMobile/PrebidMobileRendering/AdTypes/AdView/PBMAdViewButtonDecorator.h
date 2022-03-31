@@ -20,7 +20,7 @@
 @interface PBMAdViewButtonDecorator : NSObject
 
 @property (nonatomic, strong, nonnull) UIButton *button;
-@property (nonatomic, assign) PBMPosition buttonPosition;
+@property (nonatomic, assign) Position buttonPosition;
 @property (nonatomic, assign) CGRect customButtonPosition;
 
 @property (nonatomic, copy, nullable) PBMVoidBlock buttonTouchUpInsideBlock;

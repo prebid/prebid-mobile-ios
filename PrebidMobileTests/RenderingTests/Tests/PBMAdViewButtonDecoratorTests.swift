@@ -83,4 +83,8 @@ class PBMAdViewButtonDecoratorTests: XCTestCase {
         buttonDecorator.removeButtonFromSuperview()
         XCTAssertEqual(view.subviews.count, 1)
     }
+    
+    func testDefaultButtonPosition() {
+        XCTAssertTrue(buttonDecorator.buttonPosition == .topRight)
+    }
 }

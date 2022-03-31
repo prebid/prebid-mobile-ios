@@ -19,6 +19,7 @@
 #import "PBMVideoPlacementType.h"
 #import "PBMAutoRefreshCountConfig.h"
 #import "PBMInterstitialLayout.h"
+#import "PBMInterstitialDisplayProperties.h"
 
 @class AdFormat;
 
@@ -106,6 +107,11 @@ NS_ASSUME_NONNULL_BEGIN
  This property indicates the area which the close button should occupy on the screen.
  */
 @property (nonatomic, strong) NSNumber* closeButtonArea;
+
+/**
+ This property indicates the position of the close button on the screen.
+ */
+@property (nonatomic, assign) Position closeButtonPosition;
 
 #pragma mark - Impression Tracking
 

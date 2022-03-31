@@ -254,6 +254,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.isMuted = self.adConfiguration.isMuted
         clone.adConfiguration.isSoundButtonVisible = self.adConfiguration.isSoundButtonVisible
         clone.adConfiguration.maxVideoDuration = self.adConfiguration.maxVideoDuration
+        clone.adConfiguration.closeButtonPosition = self.adConfiguration.closeButtonPosition
         clone.adConfiguration.closeButtonArea = self.adConfiguration.closeButtonArea
         clone.sizes = sizes
         clone.refreshInterval = self.refreshInterval

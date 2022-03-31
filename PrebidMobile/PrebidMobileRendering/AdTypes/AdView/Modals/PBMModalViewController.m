@@ -246,6 +246,7 @@
         self.closeButtonDecorator.isMRAID = webView.isMRAID;        
     }    
     self.closeButtonDecorator.closeButtonArea = self.modalState.adConfiguration.closeButtonArea;
+    self.closeButtonDecorator.buttonPosition = self.modalState.adConfiguration.closeButtonPosition;
     [self.closeButtonDecorator setImage:[self.displayProperties getCloseButtonImage]];
     [self.closeButtonDecorator addButtonToView:self.view displayView:self.displayView];
     [self setupCloseButtonVisibility];

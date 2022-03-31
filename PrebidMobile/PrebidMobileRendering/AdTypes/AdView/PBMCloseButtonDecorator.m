@@ -30,11 +30,11 @@
 }
 
 - (NSInteger)getButtonConstraintConstant {
-    CGFloat btnRadius = (UIScreen.mainScreen.bounds.size.width * self.closeButtonArea.doubleValue) / 2;
-    if (btnRadius > 30 || btnRadius < 5) {
-        btnRadius = 15;
+    CGFloat btnConstraintConstant = (UIScreen.mainScreen.bounds.size.width * self.closeButtonArea.doubleValue) / 2;
+    if (btnConstraintConstant > 30 || btnConstraintConstant < 5) {
+        btnConstraintConstant = 15;
     }
-    return self.isMRAID ? 0 : btnRadius;
+    return self.isMRAID ? 0 : btnConstraintConstant;
 }
 
 - (CGSize)getButtonSize {
