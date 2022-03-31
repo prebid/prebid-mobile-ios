@@ -34,7 +34,9 @@ class PrebidNativeAdFeedController: NSObject, PrebidConfigurableController {
     required init(rootTableViewController: PrebidFeedTableViewController) {
         self.rootTableViewController = rootTableViewController
     }
-    
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
@@ -86,7 +88,7 @@ class PrebidNativeAdFeedController: NSObject, PrebidConfigurableController {
     private func loadAd(for cell: FeedAdTableViewCell) {
         
         self.cleanUp(cell: cell)
-        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
 
         setupNativeAdUnit(configId: prebidConfigId)
         

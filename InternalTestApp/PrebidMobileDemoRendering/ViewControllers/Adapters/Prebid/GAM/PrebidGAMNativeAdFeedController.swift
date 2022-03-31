@@ -38,7 +38,9 @@ class PrebidGAMNativeAdFeedController: NSObject, PrebidConfigurableController {
     required init(rootTableViewController: PrebidFeedTableViewController) {
         self.rootTableViewController = rootTableViewController
     }
-    
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }

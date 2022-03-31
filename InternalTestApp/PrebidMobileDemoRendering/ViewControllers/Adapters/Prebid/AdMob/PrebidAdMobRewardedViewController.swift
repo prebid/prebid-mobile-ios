@@ -49,6 +49,9 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
         super.init()
         setupAdapterController()
     }
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
@@ -59,7 +62,7 @@ class PrebidAdMobRewardedViewController: NSObject, AdaptedController, PrebidConf
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
-        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
         
         if let adUnitContext = AppConfiguration.shared.adUnitContext {

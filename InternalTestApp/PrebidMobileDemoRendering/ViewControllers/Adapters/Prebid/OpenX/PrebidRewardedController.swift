@@ -44,12 +44,14 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
         
         setupAdapterController()
     }
-    
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     // MARK: - Public Methods
     func loadAd() {
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
-        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
 
         rewardedAdController = RewardedAdUnit(configID: prebidConfigId)
         rewardedAdController?.delegate = self

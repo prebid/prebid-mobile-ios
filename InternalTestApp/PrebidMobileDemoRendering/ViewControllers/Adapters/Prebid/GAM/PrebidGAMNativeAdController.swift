@@ -63,7 +63,9 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
         
         nativeAdViewBox.setUpDummyValues()
     }
-    
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     private func fillBannerArea(rootController: AdapterViewController) {
         guard let bannerView = rootController.bannerView else {
             return
@@ -100,7 +102,7 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
     
     func loadAd() {
         setupNativeAdUnit()
-        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         adUnit?.fetchDemand(completion: { [weak self] result, kvResultDict in
             guard let self = self else {
                 return

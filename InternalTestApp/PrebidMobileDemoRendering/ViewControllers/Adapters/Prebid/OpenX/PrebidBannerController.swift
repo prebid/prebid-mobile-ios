@@ -51,7 +51,9 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         
         setupAdapterController()
     }
-    
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     func configurationController() -> BaseConfigurationController? {
         return PrebidBannerConfigurationController(controller: self)
     }
@@ -61,7 +63,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         let size = adSizes[0]
-        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
 
         adBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
                                   configID: prebidConfigId,

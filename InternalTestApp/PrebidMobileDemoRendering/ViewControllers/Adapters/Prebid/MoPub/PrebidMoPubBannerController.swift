@@ -58,7 +58,9 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         
         setupAdapterController()
     }
-    
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     func configurationController() -> BaseConfigurationController? {
         return PrebidBannerConfigurationController(controller: self)
     }
@@ -69,7 +71,7 @@ class PrebidMoPubBannerController: NSObject, AdaptedController, PrebidConfigurab
         
         adBannerView = MPAdView(adUnitId: moPubAdUnitId)
         adBannerView?.delegate = self
-        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         adUnit = MediationBannerAdUnit(configID: prebidConfigId,
                                        size: adUnitSize,
                                        mediationDelegate: MoPubMediationBannerUtils(mopubView: adBannerView!))

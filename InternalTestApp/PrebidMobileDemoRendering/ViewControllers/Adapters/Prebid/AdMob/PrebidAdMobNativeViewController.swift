@@ -54,10 +54,13 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
         self.rootController = rootController
         setupActions(rootController: rootController)
     }
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     
     func loadAd() {
         setUpBannerArea(rootController: rootController!)
-        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         setupMediationNativeAdUnit()
         if let userData = AppConfiguration.shared.userData {
             for dataPair in userData {

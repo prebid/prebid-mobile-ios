@@ -44,7 +44,9 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
         
         setupAdapterController()
     }
-    
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
@@ -53,7 +55,7 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
     func loadAd() {
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
-        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
 
         interstitialController = InterstitialRenderingAdUnit(configID: prebidConfigId,
                                                        minSizePercentage: CGSize(width: 30, height: 30))

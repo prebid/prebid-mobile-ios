@@ -45,7 +45,9 @@ class PrebidNativeAdController: NSObject, AdaptedController {
         self.rootController = rootController
         rootController.showButton.isHidden = true
     }
-    
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     func setupNativeAdView(_ nativeAdViewBox: NativeAdViewBoxProtocol) {
         
         self.nativeAdViewBox = nativeAdViewBox
@@ -93,7 +95,7 @@ class PrebidNativeAdController: NSObject, AdaptedController {
     
     func loadAd() {
         setupNativeAdUnit(configId: prebidConfigId)
-        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
 
         if let adUnitContext = AppConfiguration.shared.adUnitContext {
             for dataPair in adUnitContext {

@@ -55,6 +55,9 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
         setupAdapterController()
     }
     
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     func configurationController() -> BaseConfigurationController? {
         return PrebidBannerConfigurationController(controller: self)
     }
@@ -65,7 +68,7 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
         
         let adEventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitId, validGADAdSizes: validAdSizes.map(NSValueFromGADAdSize))
         
-        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
         adBannerView = BannerView(configID: prebidConfigId, eventHandler: adEventHandler)
        

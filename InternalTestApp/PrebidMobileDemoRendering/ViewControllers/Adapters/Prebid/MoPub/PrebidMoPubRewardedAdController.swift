@@ -51,7 +51,9 @@ class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfig
         
         setupAdapterController()
     }
-    
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
@@ -66,7 +68,7 @@ class PrebidMoPubRewardedAdController: NSObject, AdaptedController, PrebidConfig
         adapterViewController?.activityIndicator.startAnimating()
         
         let bidInfoWrapper = MediationBidInfoWrapper()
-        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId,
                                          mediationDelegate: MoPubMediationRewardedUtils(bidInfoWrapper: bidInfoWrapper))
         
