@@ -20,6 +20,8 @@ import PrebidMobile
 class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigurableController, InterstitialAdUnitDelegate {
     
     var prebidConfigId = ""
+    var storedAuctionResponse = ""
+
     var adFormats: Set<AdFormat>?
     
     private var interstitialController : InterstitialRenderingAdUnit?
@@ -51,7 +53,8 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
     func loadAd() {
         configIdLabel.isHidden = false
         configIdLabel.text = "Config ID: \(prebidConfigId)"
-        
+        Prebid.shared.storedAuctionResponse=storedAuctionResponse
+
         interstitialController = InterstitialRenderingAdUnit(configID: prebidConfigId,
                                                        minSizePercentage: CGSize(width: 30, height: 30))
         interstitialController?.delegate = self
