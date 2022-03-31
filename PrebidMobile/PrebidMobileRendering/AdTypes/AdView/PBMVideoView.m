@@ -63,6 +63,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 @property (nonatomic, weak) UIButton *btnUnmute;
 @property (nonatomic, weak) UIView *muteControlsView;
 
+@property (nonatomic, strong) SkipButtonDecorator *skipButtonDecorator;
+
 #pragma mark Injected Properties
 
 @property (nonatomic, strong) NSData *preloadedData;
@@ -155,6 +157,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     if (!self.creative.creativeModel.adConfiguration.isInterstitialAd) {
         [self setupTapRecognizer];
     }
+    
+    [self setupSkipButton];
     
     self.isSoundButtonVisible = self.creative.creativeModel.adConfiguration.isSoundButtonVisible;
 }
@@ -448,6 +452,49 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     self.btnUnmute.hidden = !muted;
 }
 
+- (void)setupSkipButton {
+    self.skipButtonDecorator = [SkipButtonDecorator new];
+    self.skipButtonDecorator.button.hidden = YES;
+    self.skipButtonDecorator.skipButtonArea = self.creative.creativeModel.adConfiguration.skipButtonArea.doubleValue;
+    self.skipButtonDecorator.buttonPosition = self.creative.creativeModel.adConfiguration.skipButtonPosition;
+    
+    UIImage *skipButtonImage = [UIImage imageNamed:@"PBM_skipButton" inBundle:[PBMFunctions bundleForSDK] compatibleWithTraitCollection:nil];
+    
+    [self.skipButtonDecorator setImage:skipButtonImage];
+    [self.skipButtonDecorator addButtonTo:self displayView:self];
+    
+    @weakify(self);
+    self.skipButtonDecorator.buttonTouchUpInsideBlock = ^{
+        @strongify(self);
+        [self skipButtonTapped];
+    };
+}
+
+- (void)skipButtonTapped {
+    [self completeVideoViewDisplayWith:PBMTrackingEventSkip];
+}
+
+- (void)handleSkipDelay:(NSTimeInterval)skipDelay videoDuration:(NSTimeInterval)videoDuration {
+    if (skipDelay >= videoDuration) {
+        return;
+    }
+    
+    if (!self.creative.creativeModel.hasCompanionAd) {
+        return;
+    }
+    
+    dispatch_time_t dispatchTime = [PBMFunctions dispatchTimeAfterTimeInterval:self.creative.creativeModel.adConfiguration.skipDelay.doubleValue];
+    @weakify(self);
+    dispatch_after(dispatchTime, dispatch_get_main_queue(), ^{
+        @strongify(self);
+        if (self == nil) {
+            return;
+        }
+        
+        self.skipButtonDecorator.button.hidden = NO;
+    });
+}
+
 - (UIButton *)createButtonWithImageName:(NSString *)imageName
                      accessibilityLabel:(NSString *)accessibilityLabel
                                  action:(SEL)action
@@ -563,6 +610,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     [self initTimeObserver];
 
     [self.avPlayer play];
+    
+    [self handleSkipDelay:self.creative.creativeModel.adConfiguration.skipDelay.doubleValue videoDuration:self.creative.creativeModel.displayDurationInSeconds.doubleValue];
 
     if (!self.isPlaybackStarted) {
         self.isPlaybackStarted = YES;
@@ -695,7 +744,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     [self handleDidPlayToEndTime];
 }
 
-- (void)completeVideoViewDisplay {
+- (void)completeVideoViewDisplayWith:(PBMTrackingEvent)trackingEvent {
 
     if (!self.vastDurationHasEnded) {
         self.vastDurationHasEnded = YES;
@@ -723,7 +772,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)handleDidPlayToEndTime {
-    [self completeVideoViewDisplay];
+    [self completeVideoViewDisplayWith:PBMTrackingEventComplete];
 }
 
 /*
@@ -817,7 +866,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     CGFloat playerCurrentTime = CMTimeGetSeconds(currentItem.currentTime);
     if (playerCurrentTime >= vastDuration) {
         [self.avPlayer pause];
-        [self completeVideoViewDisplay];
+        [self completeVideoViewDisplayWith:PBMTrackingEventComplete];
     }
 }
 
@@ -933,4 +982,4 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     }
 }
 
-@end 
+@end

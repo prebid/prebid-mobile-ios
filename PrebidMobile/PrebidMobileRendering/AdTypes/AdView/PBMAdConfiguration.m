@@ -82,6 +82,9 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
         self.maxVideoDuration = PBMVideoConstants.DEFAULT_MAX_VIDEO_DURATION;
         self.closeButtonArea = PBMConstants.CLOSE_BUTTON_AREA_DEFAULT;
         self.closeButtonPosition = PositionTopRight;
+        self.skipButtonArea = PBMConstants.SKIP_BUTTON_AREA_DEFAULT;
+        self.skipButtonPosition = PositionTopRight;
+        self.skipDelay = PBMConstants.SKIP_DELAY_DEFAULT;
     }
     
     return self;
@@ -117,6 +120,10 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
     config.maxVideoDuration = self.maxVideoDuration;
     config.closeButtonArea = self.closeButtonArea;
     config.closeButtonPosition = self.closeButtonPosition;
+    config.skipButtonArea = self.skipButtonArea;
+    config.skipButtonPosition = self.skipButtonPosition;
+    config.skipDelay = self.skipDelay;
+
     return config;
 }
 

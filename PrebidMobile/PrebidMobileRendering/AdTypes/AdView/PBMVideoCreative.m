@@ -277,11 +277,12 @@
 }
 
 - (NSTimeInterval)calculateCloseDelayForPubCloseDelay:(NSTimeInterval)pubCloseDelay {
-    if (self.creativeModel.skipOffset) {
-        return [self.creativeModel.skipOffset doubleValue];
-    }
-    else if (self.creativeModel.adConfiguration.isOptIn) {
+    if (self.creativeModel.adConfiguration.isOptIn || self.creativeModel.hasCompanionAd) {
         return [self.creativeModel.displayDurationInSeconds doubleValue];
+    } else if (self.creativeModel.adConfiguration.skipDelay && self.creativeModel.adConfiguration.skipDelay <= self.creativeModel.displayDurationInSeconds) {
+        return [self.creativeModel.adConfiguration.skipDelay doubleValue];
+    } else if (self.creativeModel.skipOffset) {
+        return [self.creativeModel.skipOffset doubleValue];
     } else {
         const double videoDuration = self.creativeModel.displayDurationInSeconds.doubleValue;
         if (videoDuration <= 0) {

@@ -113,6 +113,21 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) Position closeButtonPosition;
 
+/**
+ This property indicates the area which the skip button should occupy on the screen.
+ */
+@property (nonatomic, strong) NSNumber* skipButtonArea;
+
+/**
+ This property indicates the position of the skip button on the screen.
+ */
+@property (nonatomic, assign) Position skipButtonPosition;
+
+/**
+ This property indicates the number of seconds which should be passed from the start of playback until the skip or close button should be shown.
+ */
+@property (nonatomic, strong) NSNumber* skipDelay;
+
 #pragma mark - Impression Tracking
 
 @property (nonatomic, assign) NSTimeInterval pollFrequency;

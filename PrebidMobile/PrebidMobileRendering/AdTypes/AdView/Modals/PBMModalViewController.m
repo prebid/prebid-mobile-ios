@@ -23,7 +23,6 @@
 #import "PBMOpenMeasurementSession.h"
 #import "PBMFunctions+Private.h"
 #import "UIView+PBMExtensions.h"
-#import "PBMCloseButtonDecorator.h"
 #import "PBMMacros.h"
 #import "PBMModalManager.h"
 #import "PBMWebView.h"
@@ -40,7 +39,7 @@
 
 @property (nonatomic, assign) BOOL preferAppStatusBarHidden;
 
-@property (nonatomic, strong) PBMCloseButtonDecorator *closeButtonDecorator;
+@property (nonatomic, strong) CloseButtonDecorator *closeButtonDecorator;
 @property (nonatomic, assign) PBMInterstitialLayout interstitialLayout;
 
 @end
@@ -142,7 +141,7 @@
 #pragma mark - Internal Methods
 
 - (void)setupCloseButton {
-    self.closeButtonDecorator = [PBMCloseButtonDecorator new];
+    self.closeButtonDecorator = [CloseButtonDecorator new];
     self.closeButtonDecorator.button.hidden = YES;
 }
 
@@ -245,10 +244,10 @@
         PBMWebView *webView = (PBMWebView *)self.modalState.view;
         self.closeButtonDecorator.isMRAID = webView.isMRAID;        
     }    
-    self.closeButtonDecorator.closeButtonArea = self.modalState.adConfiguration.closeButtonArea;
+    self.closeButtonDecorator.closeButtonArea = self.modalState.adConfiguration.closeButtonArea.doubleValue;
     self.closeButtonDecorator.buttonPosition = self.modalState.adConfiguration.closeButtonPosition;
     [self.closeButtonDecorator setImage:[self.displayProperties getCloseButtonImage]];
-    [self.closeButtonDecorator addButtonToView:self.view displayView:self.displayView];
+    [self.closeButtonDecorator addButtonTo:self.view displayView:self.displayView];
     [self setupCloseButtonVisibility];
     
     @weakify(self);
