@@ -16,13 +16,13 @@
 import XCTest
 @testable import PrebidMobile
 
-class PBMCloseButtonDecoratorTest: XCTestCase {
+class CloseButtonDecoratorTest: XCTestCase {
     
-    var buttonDecorator: PBMCloseButtonDecorator!
+    var buttonDecorator: CloseButtonDecorator!
     
     override func setUp() {
         super.setUp()
-        buttonDecorator = PBMCloseButtonDecorator()
+        buttonDecorator = CloseButtonDecorator()
     }
     
     override func tearDown() {
@@ -34,7 +34,7 @@ class PBMCloseButtonDecoratorTest: XCTestCase {
         //There is no image by default
         let constant = 0.25
         XCTAssertNil(buttonDecorator.button.currentImage)
-        buttonDecorator.closeButtonArea = NSNumber(value: constant)
+        buttonDecorator.closeButtonArea = constant
         let sizeValue: CGFloat = UIScreen.main.bounds.width * constant
         let buttonSize = CGSize(width: sizeValue, height: sizeValue)
         let resultButtonSize = buttonDecorator.getButtonSize()
@@ -50,9 +50,9 @@ class PBMCloseButtonDecoratorTest: XCTestCase {
     func testGetButtonConstraintConstant() {
         let constant = 0.1
         XCTAssertNil(buttonDecorator.button.currentImage)
-        buttonDecorator.closeButtonArea = NSNumber(value: constant)
+        buttonDecorator.closeButtonArea = constant
         
-        let expectedConstraintConstant = Int((UIScreen.main.bounds.width * constant) / 2)
+        let expectedConstraintConstant = (UIScreen.main.bounds.width * constant) / 2
         XCTAssertTrue(expectedConstraintConstant == buttonDecorator.getButtonConstraintConstant())
     }
 }

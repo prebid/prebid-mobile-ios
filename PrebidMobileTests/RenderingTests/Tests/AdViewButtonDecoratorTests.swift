@@ -16,13 +16,13 @@
 import XCTest
 @testable import PrebidMobile
 
-class PBMAdViewButtonDecoratorTests: XCTestCase {
+class AdViewButtonDecoratorTests: XCTestCase {
     
-    var buttonDecorator: PBMAdViewButtonDecorator!
+    var buttonDecorator: AdViewButtonDecorator!
     
     override func setUp() {
         super.setUp()
-        buttonDecorator = PBMAdViewButtonDecorator()
+        buttonDecorator = AdViewButtonDecorator()
     }
     
     override func tearDown() {
@@ -68,7 +68,8 @@ class PBMAdViewButtonDecoratorTests: XCTestCase {
         XCTAssertEqual(buttonDecorator.button.allTargets.count, 0)
         
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        buttonDecorator.addButton(to: view, display: view)
+        
+        buttonDecorator.addButton(to: view, displayView: view)
         XCTAssertEqual(buttonDecorator.button.allTargets.count, 1)
         
         let subView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
