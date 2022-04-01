@@ -22,6 +22,8 @@ import PrebidMobileMoPubAdapters
 class PrebidMoPubNativeAdController: NSObject, AdaptedController {
     
     var prebidConfigId = ""
+    var storedAuctionResponse = ""
+
     var moPubAdUnitId = ""
     var adRenderingViewClass: AnyClass?
     
@@ -59,7 +61,9 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController {
         setUpBannerArea(rootController: rootController)
         setupActions(rootController: rootController)
     }
-    
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     private func setUpBannerArea(rootController: AdapterViewController) {
         guard let bannerView = rootController.bannerView else {
             return
@@ -101,6 +105,7 @@ class PrebidMoPubNativeAdController: NSObject, AdaptedController {
     func loadAd() {
         let targeting = MPNativeAdRequestTargeting()
         mediationDelegate = MoPubMediationNativeUtils(targeting: targeting!)
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         setupMediationNativeAdUnit(targeting: targeting!)
         adUnit?.fetchDemand(completion: { [weak self] result in
             guard let self = self else {

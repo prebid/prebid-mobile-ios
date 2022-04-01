@@ -21,6 +21,7 @@ import PrebidMobileMoPubAdapters
 class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConfigurableController, MPInterstitialAdControllerDelegate {
     
     var prebidConfigId = ""
+    var storedAuctionResponse = ""
     var moPubAdUnitId = ""
     var adFormats: Set<AdFormat>?
 
@@ -48,7 +49,9 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
 
         setupAdapterController()
     }
-    
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
@@ -60,7 +63,7 @@ class PrebidMoPubInterstitialController: NSObject, AdaptedController, PrebidConf
         
         interstitialController = MPInterstitialAdController.init(forAdUnitId: self.moPubAdUnitId)
         interstitialController?.delegate = self
-        
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         adUnit = MediationInterstitialAdUnit(configId: prebidConfigId,
                                              minSizePercentage: CGSize(width: 30, height: 30),
                                              mediationDelegate: MoPubMediationInterstitialUtils(mopubController: interstitialController!))

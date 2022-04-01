@@ -21,6 +21,8 @@ import PrebidMobileMoPubAdapters
 class PrebidMoPubRewardedVideoController: NSObject, AdaptedController, PrebidConfigurableController, MPRewardedVideoDelegate {
     
     var prebidConfigId = ""
+    var storedAuctionResponse = ""
+
     var moPubAdUnitId = ""
     
     weak var adapterViewController: AdapterViewController?
@@ -48,7 +50,9 @@ class PrebidMoPubRewardedVideoController: NSObject, AdaptedController, PrebidCon
         
         setupAdapterController()
     }
-    
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
@@ -63,7 +67,7 @@ class PrebidMoPubRewardedVideoController: NSObject, AdaptedController, PrebidCon
         adapterViewController?.activityIndicator.startAnimating()
         
         let bidInfoWrapper = MediationBidInfoWrapper()
-        
+        Prebid.shared.storedAuctionResponse = storedAuctionResponse
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId,
                                          mediationDelegate: MoPubMediationRewardedUtils(bidInfoWrapper: bidInfoWrapper))
         
