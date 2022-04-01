@@ -109,7 +109,6 @@ public class BannerView: UIView,
         
         adUnitConfig = AdUnitConfig(configId: configID, size: adSize)
         self.eventHandler = eventHandler
-        
         super.init(frame: frame)
         accessibilityLabel = PBMAccesibility.bannerView
         
@@ -147,6 +146,7 @@ public class BannerView: UIView,
                 self?.adLoadFlowController?.refresh()
             })
     }
+    
     
     @objc public convenience init(configID: String,
                                   eventHandler: BannerEventHandler) {

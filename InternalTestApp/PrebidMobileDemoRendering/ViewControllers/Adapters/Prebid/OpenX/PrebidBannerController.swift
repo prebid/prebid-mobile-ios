@@ -66,7 +66,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
         Prebid.shared.storedAuctionResponse = storedAuctionResponse
 
         adBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
-                                  configID: prebidConfigId,
+                                  configID: prebidConfigId, 
                                   adSize: size)
         
         if (refreshInterval > 0) {
