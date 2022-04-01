@@ -173,12 +173,20 @@ public class BannerView: UIView,
                   eventHandler: BannerEventHandlerStandalone())
     }
     
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     @objc public func loadAd() {
         adLoadFlowController?.refresh()
+    }
+    
+    @objc public func setStoredAuctionResponse(storedAuction:String){
+        Prebid.shared.storedAuctionResponse = storedAuction
     }
     
     @objc public func stopRefresh() {

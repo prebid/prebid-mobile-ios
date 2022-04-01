@@ -1530,6 +1530,7 @@ struct TestCaseManager {
                     let tableView = feedVC.tableView else {
                     return
                 }
+            
                 feedVC.testCases = [
                     TestCaseManager.createDummyTableCell(for: tableView),
                     TestCaseManager.createDummyTableCell(for: tableView),
@@ -1544,6 +1545,7 @@ struct TestCaseManager {
                         guard videoViewCell.adView == nil else {
                             return
                         }
+                        
                         
                         var prebidConfigId = "imp-prebid-video-outstream"
                         var storedAuctionResponse = "response-prebid-video-outstream"
@@ -1562,7 +1564,7 @@ struct TestCaseManager {
                         }
                         
                         setupCustomParams(for: prebidConfigId)
-                        
+                        adBannerView.setStoredAuctionResponse(storedAuction: storedAuctionResponse)
                         adBannerView.loadAd()
                         
                         videoViewCell.bannerView.addSubview(adBannerView)
@@ -1713,7 +1715,7 @@ struct TestCaseManager {
                         }
                         
                         setupCustomParams(for: prebidConfigId)
-                        
+                        adBannerView.setStoredAuctionResponse(storedAuction: storedAuctionResponse)
                         adBannerView.loadAd()
                         
                         videoViewCell.bannerView.addSubview(adBannerView)
