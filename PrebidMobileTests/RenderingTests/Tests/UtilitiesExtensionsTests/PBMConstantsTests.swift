@@ -70,6 +70,14 @@ class PBMConstantsTests: XCTestCase {
         XCTAssertEqual(PBMConstants.CLOSE_BUTTON_AREA_DEFAULT, 0.1)
     }
     
+    func testSkipButtonAreaConstant() {
+        XCTAssertEqual(PBMConstants.SKIP_BUTTON_AREA_DEFAULT, 0.1)
+    }
+    
+    func testSkipDelayConstant() {
+        XCTAssertEqual(PBMConstants.SKIP_DELAY_DEFAULT, 10)
+    }
+    
     func testPBMSupportedVideoMimeTypes() {
         
         let types = PBMConstants.supportedVideoMimeTypes

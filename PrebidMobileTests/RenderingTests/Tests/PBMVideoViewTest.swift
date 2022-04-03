@@ -279,6 +279,44 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
         XCTAssertTrue(self.videoCreative.videoView.avPlayer.isMuted == false)
     }
     
+    func testSetupSkipButton() {
+        setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
+        guard let videoView = self.videoCreative.videoView else {
+            XCTFail()
+            return
+        }
+        
+        XCTAssertEqual(videoView.skipButtonDecorator.buttonArea, 0.1)
+        XCTAssertEqual(videoView.skipButtonDecorator.buttonPosition, .topRight)
+        XCTAssertEqual(videoView.skipButtonDecorator.button.image(for: .normal), UIImage(named: "PBM_skipButton", in: PBMFunctions.bundleForSDK(), compatibleWith: nil))
+        XCTAssertEqual(videoView.skipButtonDecorator.button.isHidden, true)
+    }
+    
+//    func testHandleSkipDelay() {
+//        let expectation = expectation(description: "Test Skip Button Active")
+//        setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
+//        
+//        guard let videoView = self.videoCreative.videoView else {
+//            XCTFail()
+//            return
+//        }
+//        
+//        self.videoCreative.creativeModel = PBMCreativeModel()
+//        self.videoCreative.creativeModel?.adConfiguration = PBMAdConfiguration()
+//        self.videoCreative.creativeModel?.adConfiguration?.skipDelay = 0
+//        self.videoCreative.creativeModel?.displayDurationInSeconds = 10
+//        
+//        videoView.handleSkipDelay(0, videoDuration: 10)
+//        
+//        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (_) in
+//            if !videoView.skipButtonDecorator.button.isHidden {
+//                expectation.fulfill()
+//            }
+//        }
+//        
+//        waitForExpectations(timeout: 4, handler: nil)
+//    }
+    
     // MARK: - PBMCreativeDownloadDelegate
     
     func creativeReady(_ creative: PBMAbstractCreative) {

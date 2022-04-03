@@ -57,4 +57,19 @@ class PBMAdConfigurationTest: XCTestCase {
         let adConfiguration = PBMAdConfiguration()
         XCTAssertTrue(adConfiguration.closeButtonPosition == .topRight)
     }
+    
+    func testDefaultSkipButtonArea() {
+        let adConfiguration = PBMAdConfiguration()
+        XCTAssertEqual(adConfiguration.skipButtonArea, PBMConstants.SKIP_BUTTON_AREA_DEFAULT)
+    }
+    
+    func testDefaultSkipButtonPosition() {
+        let adConfiguration = PBMAdConfiguration()
+        XCTAssertEqual(adConfiguration.skipButtonPosition, .topRight)
+    }
+    
+    func testDefaultSkipButtonDelay() {
+        let adConfiguration = PBMAdConfiguration()
+        XCTAssertEqual(adConfiguration.skipDelay, PBMConstants.SKIP_DELAY_DEFAULT)
+    }
 }
