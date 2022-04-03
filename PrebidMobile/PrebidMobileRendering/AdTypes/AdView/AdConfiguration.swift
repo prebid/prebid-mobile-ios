@@ -131,6 +131,24 @@ public class AdConfiguration: AutoRefreshCountConfig {
     
     public var viewableDuration = 0
     
+    // MARK: - Auto Refresh
+    
+    public override var autoRefreshDelay: TimeInterval? {
+        set {
+            if let newValue = newValue, newValue > 0 {
+                let clampedValue = PBMFunctions.clampAutoRefresh(newValue)
+                autoRefreshDelay_ = clampedValue
+            } else {
+                autoRefreshDelay_ = nil
+            }
+        }
+        get {
+            return !presentAsInterstitial ? autoRefreshDelay_ : nil
+        }
+    }
+    
+    private var autoRefreshDelay_: TimeInterval?
+    
     public override init() {
         super.init()
         autoRefreshDelay = PBMAutoRefresh.AUTO_REFRESH_DELAY_DEFAULT
@@ -139,18 +157,5 @@ public class AdConfiguration: AutoRefreshCountConfig {
     // MARK: - Other
     
     public var clickHandlerOverride: ((PBMVoidBlock) -> Void)?
-    
-    public override var autoRefreshDelay: TimeInterval? {
-        set {
-            if let newValue = newValue, newValue > 0 {
-                let clampedValue = PBMFunctions.clampAutoRefresh(newValue)
-                self.autoRefreshDelay = clampedValue
-            } else {
-                self.autoRefreshDelay = nil
-            }
-        }
-        get {
-            return !self.presentAsInterstitial ? self.autoRefreshDelay : nil
-        }
-    }
+
 }

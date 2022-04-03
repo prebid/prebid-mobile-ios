@@ -14,6 +14,7 @@
   */
 
 import XCTest
+@testable import PrebidMobile
 
 class AdConfigurationTest: XCTestCase {
     
