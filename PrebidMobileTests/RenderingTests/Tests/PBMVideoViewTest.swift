@@ -292,30 +292,31 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
         XCTAssertEqual(videoView.skipButtonDecorator.button.isHidden, true)
     }
     
-//    func testHandleSkipDelay() {
-//        let expectation = expectation(description: "Test Skip Button Active")
-//        setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
-//        
-//        guard let videoView = self.videoCreative.videoView else {
-//            XCTFail()
-//            return
-//        }
-//        
-//        self.videoCreative.creativeModel = PBMCreativeModel()
-//        self.videoCreative.creativeModel?.adConfiguration = AdConfiguration()
-//        self.videoCreative.creativeModel?.adConfiguration?.skipDelay = 0
-//        self.videoCreative.creativeModel?.displayDurationInSeconds = 10
-//        
-//        videoView.handleSkipDelay(0, videoDuration: 10)
-//        
-//        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (_) in
-//            if !videoView.skipButtonDecorator.button.isHidden {
-//                expectation.fulfill()
-//            }
-//        }
-//        
-//        waitForExpectations(timeout: 4, handler: nil)
-//    }
+    func testHandleSkipDelay() {
+        let expectation = expectation(description: "Test Skip Button Active")
+        setupVideoCreative(videoFileURL: "http://get_video/small.mp4", localVideoFileName: "small.mp4")
+        
+        guard let videoView = self.videoCreative.videoView else {
+            XCTFail()
+            return
+        }
+        
+        self.videoCreative.creativeModel = PBMCreativeModel()
+        self.videoCreative.creativeModel?.adConfiguration = AdConfiguration()
+        self.videoCreative.creativeModel?.adConfiguration?.skipDelay = 1
+        self.videoCreative.creativeModel?.displayDurationInSeconds = 10
+        self.videoCreative.creativeModel?.hasCompanionAd = true
+        
+        videoView.handleSkipDelay(0, videoDuration: 10)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            if !videoView.skipButtonDecorator.button.isHidden {
+                expectation.fulfill()
+            }
+        }
+        
+        waitForExpectations(timeout: 2, handler: nil)
+    }
     
     // MARK: - PBMCreativeDownloadDelegate
     
