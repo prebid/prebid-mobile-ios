@@ -26,6 +26,36 @@ class PBMVideoCreativeTestCloseDelay : XCTestCase {
         let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         model.displayDurationInSeconds = 10
         
+        //if model is opt in or has companion ad - return display duration
+        model.adConfiguration?.isOptIn = true
+        model.hasCompanionAd = true
+        
+        expected = 10
+        actual = calculateCloseDelay(with:model, pubCloseDelay:5)
+        PBMAssertEq(actual, expected)
+        
+        //reset
+        model.adConfiguration?.isOptIn = false
+        model.hasCompanionAd = false
+        
+        //for video without end cart use skip delay
+        model.adConfiguration?.skipDelay = 5
+        expected = 5
+        actual = calculateCloseDelay(with:model, pubCloseDelay:5)
+        PBMAssertEq(actual, expected)
+        
+        //reset
+        model.adConfiguration?.skipDelay = 1000000
+        
+        //if skipOffset is not nil and is less than video duration - use it
+        model.skipOffset = 4
+        expected = 4
+        actual = calculateCloseDelay(with:model, pubCloseDelay:5)
+        PBMAssertEq(actual, expected)
+        
+        //reset
+        model.skipOffset = nil
+        
         //Typical case - pub sets a 5s delay
         expected = 5
         actual = calculateCloseDelay(with:model, pubCloseDelay:5)

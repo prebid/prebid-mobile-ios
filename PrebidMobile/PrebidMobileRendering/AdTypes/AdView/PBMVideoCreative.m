@@ -275,6 +275,7 @@
     return newDisplayProperties;
 }
 
+// TODO: - Clarify the requirements and fix calculation logic
 - (NSTimeInterval)calculateCloseDelayForPubCloseDelay:(NSTimeInterval)pubCloseDelay {
     if (self.creativeModel.adConfiguration.isOptIn || self.creativeModel.hasCompanionAd) {
         return [self.creativeModel.displayDurationInSeconds doubleValue];
