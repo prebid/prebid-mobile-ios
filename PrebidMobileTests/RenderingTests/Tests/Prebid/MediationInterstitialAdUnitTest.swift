@@ -40,9 +40,9 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         let adUnit = MediationInterstitialAdUnit(configId: "prebidConfigId", minSizePercentage: CGSize(width: 30, height: 30), mediationDelegate: mediationDelegate!)
         let adUnitConfig = adUnit.adUnitConfig
         
-        XCTAssertTrue(adUnitConfig.isInterstitial)
+        XCTAssertTrue(adUnitConfig.adConfiguration.isInterstitialAd)
         PBMAssertEq(adUnitConfig.adPosition, .fullScreen)
-        XCTAssertEqual(adUnitConfig.videoPlacementType.rawValue, 5)
+        XCTAssertEqual(adUnitConfig.adConfiguration.videoPlacementType.rawValue, 5)
     }
     
     func testAdObjectSetUpCleanUp() {

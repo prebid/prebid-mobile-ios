@@ -43,7 +43,7 @@ public class RewardedAdUnit: BaseInterstitialAdUnit,
             minSizePerc: minSizePerc,
             eventHandler: eventHandler)
         
-        adUnitConfig.isOptIn = true
+        adUnitConfig.adConfiguration.isOptIn = true
         adFormats = [.video]
     }
     

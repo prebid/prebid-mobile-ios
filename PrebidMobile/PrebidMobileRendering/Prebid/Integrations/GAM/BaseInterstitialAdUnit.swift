@@ -112,10 +112,10 @@ public class BaseInterstitialAdUnit :
                 eventHandler: AnyObject?) {
         
         adUnitConfig = AdUnitConfig(configId: configID)
-        adUnitConfig.isInterstitial = true
+        adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.minSizePerc = minSizePerc
         adUnitConfig.adPosition = .fullScreen
-        adUnitConfig.videoPlacementType = .sliderOrFloating
+        adUnitConfig.adConfiguration.videoPlacementType = .sliderOrFloating
         blocksLockToken = NSObject()
 
         self.eventHandler = eventHandler

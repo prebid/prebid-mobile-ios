@@ -25,10 +25,10 @@ class MediationRewardedAdUnitTest: XCTestCase {
         let adUnit = MediationRewardedAdUnit(configId: "prebidConfigId", mediationDelegate: mediationDelegate)
         let adUnitConfig = adUnit.adUnitConfig
         
-        XCTAssertTrue(adUnitConfig.isInterstitial)
-        XCTAssertTrue(adUnitConfig.isOptIn)
+        XCTAssertTrue(adUnitConfig.adConfiguration.isInterstitialAd)
+        XCTAssertTrue(adUnitConfig.adConfiguration.isOptIn)
         PBMAssertEq(adUnitConfig.adPosition, .fullScreen)
         XCTAssertTrue(adUnitConfig.adFormats.contains(.video))
-        XCTAssertEqual(adUnitConfig.videoPlacementType.rawValue, 5)
+        XCTAssertEqual(adUnitConfig.adConfiguration.videoPlacementType.rawValue, 5)
     }
 }
