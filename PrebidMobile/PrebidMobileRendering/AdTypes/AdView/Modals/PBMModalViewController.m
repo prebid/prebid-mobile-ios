@@ -39,7 +39,7 @@
 
 @property (nonatomic, assign) BOOL preferAppStatusBarHidden;
 
-@property (nonatomic, strong) CloseButtonDecorator *closeButtonDecorator;
+@property (nonatomic, strong) AdViewButtonDecorator *closeButtonDecorator;
 @property (nonatomic, assign) PBMInterstitialLayout interstitialLayout;
 
 @end
@@ -141,7 +141,7 @@
 #pragma mark - Internal Methods
 
 - (void)setupCloseButton {
-    self.closeButtonDecorator = [CloseButtonDecorator new];
+    self.closeButtonDecorator = [AdViewButtonDecorator new];
     self.closeButtonDecorator.button.hidden = YES;
 }
 

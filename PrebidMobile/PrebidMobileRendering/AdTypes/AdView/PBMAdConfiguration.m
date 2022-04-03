@@ -80,9 +80,9 @@ static NSString * const PBMSSCKeyRotatable = @"rotatable";
         self.isMuted = YES;
         self.isSoundButtonVisible = NO;
         self.maxVideoDuration = PBMVideoConstants.DEFAULT_MAX_VIDEO_DURATION;
-        self.closeButtonArea = PBMConstants.CLOSE_BUTTON_AREA_DEFAULT;
+        self.closeButtonArea = PBMConstants.BUTTON_AREA_DEFAULT;
         self.closeButtonPosition = PositionTopRight;
-        self.skipButtonArea = PBMConstants.SKIP_BUTTON_AREA_DEFAULT;
+        self.skipButtonArea = PBMConstants.BUTTON_AREA_DEFAULT;
         self.skipButtonPosition = PositionTopRight;
         self.skipDelay = PBMConstants.SKIP_DELAY_DEFAULT;
     }

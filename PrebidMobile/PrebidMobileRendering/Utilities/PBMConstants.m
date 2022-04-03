@@ -306,14 +306,6 @@ PBMParameterKeys const PBMParameterKeysOPEN_RTB = @"openrtb";
     return [[NSNumber alloc] initWithDouble:0.1];
 }
 
-+(NSNumber *)CLOSE_BUTTON_AREA_DEFAULT {
-    return [[NSNumber alloc] initWithDouble:0.1];
-}
-
-+(NSNumber *)SKIP_BUTTON_AREA_DEFAULT {
-    return [[NSNumber alloc] initWithDouble:0.1];
-}
-
 +(NSNumber *)SKIP_DELAY_DEFAULT {
     return [[NSNumber alloc] initWithDouble:10];
 }

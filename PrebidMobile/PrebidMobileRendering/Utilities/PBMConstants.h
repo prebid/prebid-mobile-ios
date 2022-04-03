@@ -165,8 +165,6 @@ NS_SWIFT_NAME(GeoLocationConstants)
 @property (class, readonly) NSArray <NSString *> *urlSchemesNotSupportedOnSimulator NS_SWIFT_NAME(urlSchemesNotSupportedOnSimulator);
 @property (class, readonly) NSArray <NSString *> *urlSchemesNotSupportedOnClickthroughBrowser NS_SWIFT_NAME(urlSchemesNotSupportedOnClickthroughBrowser);
 @property (class, readonly) NSNumber *BUTTON_AREA_DEFAULT                           NS_SWIFT_NAME(BUTTON_AREA_DEFAULT);
-@property (class, readonly) NSNumber *CLOSE_BUTTON_AREA_DEFAULT                     NS_SWIFT_NAME(CLOSE_BUTTON_AREA_DEFAULT);
-@property (class, readonly) NSNumber *SKIP_BUTTON_AREA_DEFAULT                      NS_SWIFT_NAME(SKIP_BUTTON_AREA_DEFAULT);
 @property (class, readonly) NSNumber *SKIP_DELAY_DEFAULT                            NS_SWIFT_NAME(SKIP_DELAY_DEFAULT);
 
 @end

@@ -30,11 +30,6 @@ class AdViewButtonDecoratorTests: XCTestCase {
         super.tearDown()
     }
     
-    func testGetButtonConstraintConstant() {
-        XCTAssertNotNil(buttonDecorator)
-        XCTAssertEqual(buttonDecorator.getButtonConstraintConstant(), 10)
-    }
-    
     func testButtonTappedAction() {
         XCTAssertNotNil(buttonDecorator)
         let expectation = self.expectation(description: "buttonTappedAction")
@@ -48,19 +43,28 @@ class AdViewButtonDecoratorTests: XCTestCase {
     
     func testGetButtonSize() {
         //There is no image by default
+        let constant = 0.25
         XCTAssertNil(buttonDecorator.button.currentImage)
+        buttonDecorator.buttonArea = constant
+        let sizeValue: CGFloat = UIScreen.main.bounds.width * constant
+        let buttonSize = CGSize(width: sizeValue, height: sizeValue)
+        let resultButtonSize = buttonDecorator.getButtonSize()
         
-        var buttonSize = buttonDecorator.getButtonSize()
+        XCTAssertEqual(resultButtonSize, buttonSize)
         
-        XCTAssertEqual(buttonSize, CGSize(width:10, height:10))
-        
-        //The button size should be equal to the image size
         let image = UIImage(named: "PBM_closeButton",
                             in: Bundle(for: type(of: self)), compatibleWith: nil)
         buttonDecorator.setImage(image!)
-        buttonSize = buttonDecorator.getButtonSize()
-        XCTAssertEqual(buttonSize, image?.size)
         XCTAssertEqual(buttonDecorator.button.currentImage, image)
+    }
+    
+    func testGetButtonConstraintConstant() {
+        let constant = 0.1
+        XCTAssertNil(buttonDecorator.button.currentImage)
+        buttonDecorator.buttonArea = constant
+        
+        let expectedConstraintConstant = (UIScreen.main.bounds.width * constant) / 2
+        XCTAssertTrue(expectedConstraintConstant == buttonDecorator.getButtonConstraintConstant())
     }
     
     func testAddButtonToView() {

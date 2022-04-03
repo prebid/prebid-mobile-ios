@@ -50,7 +50,7 @@ class PBMAdConfigurationTest: XCTestCase {
 
     func testCloseButtonArea() {
         let adConfiguration = PBMAdConfiguration()
-        XCTAssertEqual(adConfiguration.closeButtonArea, PBMConstants.CLOSE_BUTTON_AREA_DEFAULT)
+        XCTAssertEqual(adConfiguration.closeButtonArea, PBMConstants.BUTTON_AREA_DEFAULT)
     }
     
     func testDefaultCloseButtonPosition() {
@@ -60,7 +60,7 @@ class PBMAdConfigurationTest: XCTestCase {
     
     func testDefaultSkipButtonArea() {
         let adConfiguration = PBMAdConfiguration()
-        XCTAssertEqual(adConfiguration.skipButtonArea, PBMConstants.SKIP_BUTTON_AREA_DEFAULT)
+        XCTAssertEqual(adConfiguration.skipButtonArea, PBMConstants.BUTTON_AREA_DEFAULT)
     }
     
     func testDefaultSkipButtonPosition() {

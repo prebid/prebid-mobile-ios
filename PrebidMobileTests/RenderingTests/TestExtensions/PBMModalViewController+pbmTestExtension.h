@@ -15,11 +15,11 @@
 
 #import "PBMModalViewController.h"
 
-@class CloseButtonDecorator;
+@class AdViewButtonDecorator;
 
 @interface PBMModalViewController ()
 
-@property (nonatomic, strong) CloseButtonDecorator *closeButtonDecorator;
+@property (nonatomic, strong) AdViewButtonDecorator *closeButtonDecorator;
 @property (nonatomic, strong) PBMVoidBlock showCloseButtonBlock;
 @property (nonatomic, strong) NSDate *startCloseDelay;
 @property (nonatomic, assign) BOOL preferAppStatusBarHidden;

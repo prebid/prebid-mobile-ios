@@ -71,11 +71,18 @@ public class AdViewButtonDecorator: NSObject {
     }
     
     public func getButtonConstraintConstant() -> CGFloat {
-        10
+        var btnConstraintConstant = (UIScreen.main.bounds.size.width * buttonArea) / 2
+        
+        if btnConstraintConstant > 30 || btnConstraintConstant < 5 {
+            btnConstraintConstant = 15
+        }
+        
+        return isMRAID ? 0 : btnConstraintConstant
     }
     
     public func getButtonSize() -> CGSize {
-        buttonImage?.size ?? CGSize(width: 10, height: 10)
+        let btnSizeValue = UIScreen.main.bounds.size.width * buttonArea
+        return CGSize(width: btnSizeValue, height: btnSizeValue)
     }
     
     public func buttonTappedAction() {
