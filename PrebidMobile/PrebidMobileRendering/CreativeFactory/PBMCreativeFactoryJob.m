@@ -18,7 +18,6 @@
 #import "PBMHTMLCreative.h"
 #import "PBMVideoCreative.h"
 #import "PBMAbstractCreative.h"
-#import "PBMAdConfiguration.h"
 #import "PBMDownloadDataHelper.h"
 #import "PBMTransaction.h"
 #import "PBMMacros.h"
@@ -201,7 +200,7 @@
 }
 
 - (NSTimeInterval)getTimeInterval {
-    PBMAdConfiguration *adConfig = self.creativeModel.adConfiguration;
+    AdConfiguration *adConfig = self.creativeModel.adConfiguration;
     if (adConfig.winningBidAdFormat == AdFormat.video || adConfig.presentAsInterstitial) {
         return Prebid.shared.creativeFactoryTimeoutPreRenderContent;
     } else {

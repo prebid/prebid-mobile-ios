@@ -23,7 +23,7 @@
 @interface PBMVastTransactionFactory() <PBMAdLoadManagerDelegate>
 
 @property (nonatomic, strong, readonly, nonnull) id<PBMServerConnectionProtocol> connection;
-@property (nonatomic, strong, readonly, nonnull) PBMAdConfiguration *adConfiguration;
+@property (nonatomic, strong, readonly, nonnull) AdConfiguration *adConfiguration;
 
 // NOTE: need to call the completion callback only in the main thread
 // use onFinishedWithTransaction
@@ -41,7 +41,7 @@
 // MARK: - Public API
 
 - (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
-                   adConfiguration:(PBMAdConfiguration *)adConfiguration
+                   adConfiguration:(AdConfiguration *)adConfiguration
                           callback:(PBMTransactionFactoryCallback)callback
 {
     if (!(self = [super init])) {

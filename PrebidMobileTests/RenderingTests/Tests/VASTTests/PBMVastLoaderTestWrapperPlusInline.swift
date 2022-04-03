@@ -64,7 +64,7 @@ class PBMVastLoaderTestWrapperPlusInline: XCTestCase {
         //////////////////////////////////////////////////////////////////////////////////
         
         
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         
         let adLoadManager = MockPBMAdLoadManagerVAST(connection:conn, adConfiguration: adConfiguration)
         

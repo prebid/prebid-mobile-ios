@@ -19,7 +19,6 @@
 #import "PBMFunctions+Private.h"
 #import "UIView+PBMExtensions.h"
 
-#import "PBMAdConfiguration.h"
 #import "PBMClickthroughBrowserView.h"
 #import "PBMConstants.h"
 #import "PBMCreativeModel.h"
@@ -279,8 +278,8 @@
 - (NSTimeInterval)calculateCloseDelayForPubCloseDelay:(NSTimeInterval)pubCloseDelay {
     if (self.creativeModel.adConfiguration.isOptIn || self.creativeModel.hasCompanionAd) {
         return [self.creativeModel.displayDurationInSeconds doubleValue];
-    } else if (self.creativeModel.adConfiguration.skipDelay && self.creativeModel.adConfiguration.skipDelay <= self.creativeModel.displayDurationInSeconds) {
-        return [self.creativeModel.adConfiguration.skipDelay doubleValue];
+    } else if (self.creativeModel.adConfiguration.skipDelay && self.creativeModel.adConfiguration.skipDelay <= self.creativeModel.displayDurationInSeconds.doubleValue) {
+        return self.creativeModel.adConfiguration.skipDelay;
     } else if (self.creativeModel.skipOffset) {
         return [self.creativeModel.skipOffset doubleValue];
     } else {

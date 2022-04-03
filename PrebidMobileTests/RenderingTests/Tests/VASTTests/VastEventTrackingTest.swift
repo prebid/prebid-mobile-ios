@@ -61,7 +61,7 @@ class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
         prepareMockServer(connectionID: connection.internalID)
         
         //Create adConfiguration
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]
         adConfiguration.winningBidAdFormat = .video
 
@@ -72,7 +72,7 @@ class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
         self.wait(for: self.expectations, timeout: 15, enforceOrder: false)
     }
 
-    private func loadAndRun(connection: PBMServerConnectionProtocol, adConfiguration: PBMAdConfiguration, modalManager: PBMModalManager) {
+    private func loadAndRun(connection: PBMServerConnectionProtocol, adConfiguration: AdConfiguration, modalManager: PBMModalManager) {
        
         self.vastRequestSuccessfulExpectation = self.expectation(description: "Expected VAST Load to be successful")
         

@@ -52,8 +52,8 @@ public class BaseInterstitialAdUnit :
     }
 
     @objc public var maxVideoDuration: TimeInterval {
-        get { adUnitConfig.adConfiguration.maxVideoDuration.doubleValue }
-        set { adUnitConfig.adConfiguration.maxVideoDuration = NSNumber(value: newValue) }
+        get { adUnitConfig.adConfiguration.maxVideoDuration }
+        set { adUnitConfig.adConfiguration.maxVideoDuration = newValue }
     }
 
     @objc public var isMuted: Bool {
@@ -69,13 +69,13 @@ public class BaseInterstitialAdUnit :
     @objc public var closeButtonArea: Double {
         set {
             if newValue <= 1 && newValue >= 0 {
-                adUnitConfig.adConfiguration.closeButtonArea = NSNumber(value: newValue)
+                adUnitConfig.adConfiguration.closeButtonArea = newValue
             } else {
                 Log.warn("The possible values for close button area value are [0...1]")
             }
         }
 
-        get { adUnitConfig.adConfiguration.closeButtonArea.doubleValue }
+        get { adUnitConfig.adConfiguration.closeButtonArea }
     }
 
     @objc public var closeButtonPosition: Position {

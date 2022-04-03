@@ -27,7 +27,7 @@ public class AdUnitConfig: NSObject, NSCopying {
        
     public var configId: String
     
-    public let adConfiguration = PBMAdConfiguration();
+    public let adConfiguration = AdConfiguration();
     
     public var adFormats: Set<AdFormat> {
         didSet {
@@ -88,7 +88,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         set { adConfiguration.isOptIn = newValue }
     }
     
-    public var videoPlacementType: PBMVideoPlacementType {
+    public var videoPlacementType: VideoPlacementType {
         get { adConfiguration.videoPlacementType }
         set { adConfiguration.videoPlacementType = newValue }
     }

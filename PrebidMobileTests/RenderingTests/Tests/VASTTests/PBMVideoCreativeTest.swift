@@ -47,7 +47,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     }
     
     func testInit() {
-        let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         self.videoCreative = PBMVideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
         
         XCTAssertNotNil(self.videoCreative)
@@ -57,7 +57,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     /*
     func testButtonTouchUpInsideBlock() {
         let vc = UIViewController()
-        let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         self.videoCreative = PBMVideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
         self.videoCreative.viewControllerForPresentingModals = vc
 
@@ -109,7 +109,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         self.videoCreative.videoViewFailedWithError(NSError(domain: "PrebidMobile", code: 123, userInfo: [:]))
 
         //Create model
-        let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         model.videoFileURL = "http://get_video/small.mp4"
         
         //Create PBMVideoCreative and start
@@ -117,7 +117,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         self.videoCreative.creativeResolutionDelegate = self
         self.videoCreative.creativeViewDelegate = self
         
-        let state = PBMModalState(view: PBMVideoView(), adConfiguration:PBMAdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let state = PBMModalState(view: PBMVideoView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
         self.videoCreative.modalManagerDidLeaveApp(state)
         
         waitForExpectations(timeout: 1)
@@ -196,7 +196,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     func testShowAsInterstitial() {
         let expectation = self.expectation(description: "Should push Modal")
         
-        let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         model.displayDurationInSeconds = 5
 
         self.videoCreative = PBMVideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
@@ -220,7 +220,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     func testSkipOffset() {
         let expectation = self.expectation(description: "Should push Modal")
         
-        let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         model.displayDurationInSeconds = 5
         model.skipOffset = 10
         
@@ -245,7 +245,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
     
     func testMeassurementSession() {
         let mockViewController = MockViewController()
-        let mockCreativeModel = MockPBMCreativeModel(adConfiguration: PBMAdConfiguration())
+        let mockCreativeModel = MockPBMCreativeModel(adConfiguration: AdConfiguration())
         
         let measurement = MockMeasurementWrapper()
         
@@ -374,7 +374,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         MockServer.shared.resetRules([rule])
         
         //Create model
-        let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         model.videoFileURL = videoFileURL
         
         //Create and start creative

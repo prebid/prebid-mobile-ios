@@ -41,7 +41,7 @@ class PBMHTMLCreativeTest_Base: XCTestCase, PBMCreativeViewDelegate {
         serverConnection.protocolClasses.add(MockServerURLProtocol.self)
         
         //Set up creative model
-        mockCreativeModel = MockPBMCreativeModel(adConfiguration: PBMAdConfiguration())
+        mockCreativeModel = MockPBMCreativeModel(adConfiguration: AdConfiguration())
         mockCreativeModel.width = 320
         mockCreativeModel.height = 50
         mockCreativeModel.html = "test"

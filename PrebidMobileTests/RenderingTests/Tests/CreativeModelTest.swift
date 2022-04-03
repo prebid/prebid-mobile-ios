@@ -38,7 +38,7 @@ class CreativeModelTest: XCTestCase {
         MockServer.shared.resetRules([rule])
         
         //Track an event
-        let creativeModel = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let creativeModel = PBMCreativeModel(adConfiguration:AdConfiguration())
         creativeModel.trackingURLs[PBMTrackingEventDescription.getDescription(PBMTrackingEvent.impression)] = ["foo://bar.com"]
         
         let eventTracker = PBMAdModelEventTracker(creativeModel: creativeModel, serverConnection: connection)

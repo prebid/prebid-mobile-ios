@@ -257,7 +257,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
     }
     
     func testIsMuted() {
-        let adConfig = PBMAdConfiguration()
+        let adConfig = AdConfiguration()
         XCTAssertTrue(adConfig.isMuted == true)
         
         adConfig.isMuted = false
@@ -302,7 +302,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
 //        }
 //        
 //        self.videoCreative.creativeModel = PBMCreativeModel()
-//        self.videoCreative.creativeModel?.adConfiguration = PBMAdConfiguration()
+//        self.videoCreative.creativeModel?.adConfiguration = AdConfiguration()
 //        self.videoCreative.creativeModel?.adConfiguration?.skipDelay = 0
 //        self.videoCreative.creativeModel?.displayDurationInSeconds = 10
 //        
@@ -369,7 +369,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
     
     // MARK: - Helper Methods
     
-    private func setupVideoCreative(videoFileURL:String = "http://get_video/small.mp4", localVideoFileName:String = "small.mp4", adConfiguration: PBMAdConfiguration = PBMAdConfiguration()) {
+    private func setupVideoCreative(videoFileURL:String = "http://get_video/small.mp4", localVideoFileName:String = "small.mp4", adConfiguration: AdConfiguration = AdConfiguration()) {
         let rule = MockServerRule(urlNeedle: videoFileURL, mimeType: MockServerMimeType.MP4.rawValue, connectionID: connection.internalID, fileName: localVideoFileName)
         MockServer.shared.resetRules([rule])
         

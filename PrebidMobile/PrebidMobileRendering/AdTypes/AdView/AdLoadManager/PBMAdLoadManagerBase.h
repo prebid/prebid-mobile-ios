@@ -15,12 +15,12 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PBMAdConfiguration.h"
 #import "PBMAdLoadManagerDelegate.h"
 #import "PBMAdLoadManagerProtocol.h"
 
 @class PBMModalManager;
 @class PBMCreativeModel;
+@class AdConfiguration;
 
 @protocol PBMServerConnectionProtocol;
 
@@ -29,12 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak, nullable) id<PBMAdLoadManagerDelegate> adLoadManagerDelegate;
 @property (nonatomic, strong) id<PBMServerConnectionProtocol> connection;
-@property (nonatomic, strong) PBMAdConfiguration *adConfiguration;
+@property (nonatomic, strong) AdConfiguration *adConfiguration;
 @property (nonatomic, strong) dispatch_queue_t dispatchQueue;
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
-                   adConfiguration:(PBMAdConfiguration *)adConfiguration NS_DESIGNATED_INITIALIZER;
+                   adConfiguration:(AdConfiguration *)adConfiguration NS_DESIGNATED_INITIALIZER;
 
 - (void)makeCreativesWithCreativeModels:(NSArray<PBMCreativeModel *> *)creativeModels;
 

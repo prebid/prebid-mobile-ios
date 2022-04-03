@@ -39,7 +39,7 @@ class PBMRewardedVideoCreativeTest: XCTestCase, PBMCreativeResolutionDelegate, P
         self.expectationCreativeDidComplete = self.expectation(description: "expectationCreativeDidComplete")
         
         //Create the creative, set the delegate, and fire.
-        let model = PBMCreativeModel(adConfiguration: PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration: AdConfiguration())
         model.videoFileURL = "example.com"
         model.hasCompanionAd = true
         
@@ -56,7 +56,7 @@ class PBMRewardedVideoCreativeTest: XCTestCase, PBMCreativeResolutionDelegate, P
         self.expectationCreativeDidComplete = self.expectation(description: "expectationCreativeDidComplete")
         
         //Create the creative, set the delegate, and fire.
-        let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         model.videoFileURL = "example.com"
         
         let modalManager = PBMModalManagerTest()

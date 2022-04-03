@@ -17,7 +17,6 @@
 #import "PBMCreativeViewabilityTracker.h"
 #import "PBMViewExposureChecker.h"
 #import "PBMCreativeModel.h"
-#import "PBMAdConfiguration.h"
 #import "PBMError.h"
 #import "PBMMacros.h"
 

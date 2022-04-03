@@ -37,7 +37,7 @@ class ParameterBuilderServiceTest : XCTestCase {
         let url = "https://openx.com"
         let publisherName = "Publisher"
         
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         
         let targeting = Targeting.shared
         targeting.parameterDictionary.removeAll()

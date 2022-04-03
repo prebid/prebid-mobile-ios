@@ -19,10 +19,10 @@ import UIKit
 public class InterstitialRenderingAdUnit: BaseInterstitialAdUnit {
     
     @objc public var skipButtonArea: Double {
-        get { adUnitConfig.adConfiguration.skipButtonArea.doubleValue }
+        get { adUnitConfig.adConfiguration.skipButtonArea }
         set {
             if newValue <= 1 && newValue >= 0 {
-                adUnitConfig.adConfiguration.skipButtonArea = NSNumber(value: newValue)
+                adUnitConfig.adConfiguration.skipButtonArea = newValue
             } else {
                 Log.warn("The possible values for skip button area value are [0...1]")
             }
@@ -41,8 +41,8 @@ public class InterstitialRenderingAdUnit: BaseInterstitialAdUnit {
     }
     
     @objc public var skipDelay: Double {
-        get { adUnitConfig.adConfiguration.skipDelay.doubleValue }
-        set { adUnitConfig.adConfiguration.skipDelay = NSNumber(value: newValue) }
+        get { adUnitConfig.adConfiguration.skipDelay }
+        set { adUnitConfig.adConfiguration.skipDelay = newValue }
     }
 
     @objc public init(configID: String) {

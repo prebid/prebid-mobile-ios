@@ -23,7 +23,7 @@ class PBMVideoCreativeTestCloseDelay : XCTestCase {
         var expected:TimeInterval
         var actual:TimeInterval
         
-        let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         model.displayDurationInSeconds = 10
         
         //Typical case - pub sets a 5s delay

@@ -15,7 +15,6 @@
 
 #import "PBMModalManager.h"
 
-#import "PBMAdConfiguration.h"
 #import "PBMVideoView.h"
 #import "PBMDownloadDataHelper.h"
 #import "PBMAbstractCreative.h"

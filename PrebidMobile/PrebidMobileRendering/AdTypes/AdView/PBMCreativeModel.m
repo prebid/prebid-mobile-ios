@@ -24,7 +24,7 @@
 
 #pragma mark - Initialization
 
--(instancetype)initWithAdConfiguration:(PBMAdConfiguration *)adConfiguration {
+-(instancetype)initWithAdConfiguration:(AdConfiguration *)adConfiguration {
     self = [super init];
     if (self) {
         PBMAssert(adConfiguration);

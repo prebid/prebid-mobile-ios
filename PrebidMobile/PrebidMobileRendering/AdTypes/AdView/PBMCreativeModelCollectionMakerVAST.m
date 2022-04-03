@@ -18,7 +18,6 @@
 #import "PBMCreativeModel.h"
 #import "PBMServerResponse.h"
 #import "PBMTrackingEvent.h"
-#import "PBMAdConfiguration.h"
 #import "PBMVastCreativeLinear.h"
 #import "PBMVastInlineAd.h"
 #import "PBMVastParser.h"
@@ -36,7 +35,7 @@
 @implementation PBMCreativeModelCollectionMakerVAST
 
 - (instancetype)initWithServerConnection:(id<PBMServerConnectionProtocol>)pbmServerConnection
-                            adConfiguration:(PBMAdConfiguration *)adConfiguration {
+                            adConfiguration:(AdConfiguration *)adConfiguration {
     self = [super init];
     if (self) {
         self.adConfiguration = adConfiguration;
@@ -137,7 +136,7 @@
         return nil;
     }
 
-    if (creative.duration > self.adConfiguration.maxVideoDuration.doubleValue) {
+    if (creative.duration > self.adConfiguration.maxVideoDuration) {
         NSString *errorMessage = @"Creative duration is bigger than maximum available playback time.";
         [PBMError createError:error description:errorMessage statusCode:PBMErrorCodeGeneral];
         return nil;

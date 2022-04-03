@@ -54,7 +54,7 @@ public class MediationBannerAdUnit : NSObject {
     
     public var videoPlacementType: VideoPlacementType {
         get { VideoPlacementType(rawValue: adUnitConfig.videoPlacementType.rawValue) ?? .undefined }
-        set { adUnitConfig.videoPlacementType = PBMVideoPlacementType(rawValue: newValue.rawValue) ?? .undefined }
+        set { adUnitConfig.videoPlacementType = newValue }
     }
     
     public var refreshInterval: TimeInterval {

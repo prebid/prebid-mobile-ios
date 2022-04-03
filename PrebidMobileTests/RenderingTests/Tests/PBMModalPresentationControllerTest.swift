@@ -29,7 +29,7 @@ class PBMModalPresentationControllerTest: XCTestCase, UIViewControllerTransition
         presentedVC.transitioningDelegate = self;
         
         XCTAssertNil(modalState)
-        modalState = PBMModalState(view: PBMWebView(), adConfiguration:PBMAdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        modalState = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
         XCTAssertNil(modalPresentationController)
         
         expectationPresentationController = self.expectation(description: "expectationPresentationController")

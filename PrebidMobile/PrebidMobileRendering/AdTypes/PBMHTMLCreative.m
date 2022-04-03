@@ -23,7 +23,6 @@
 #import "NSString+PBMExtensions.h"
 #import "UIView+PBMExtensions.h"
 
-#import "PBMAdConfiguration.h"
 #import "PBMClickthroughBrowserView.h"
 #import "PBMConstants.h"
 #import "PBMCreativeModel.h"

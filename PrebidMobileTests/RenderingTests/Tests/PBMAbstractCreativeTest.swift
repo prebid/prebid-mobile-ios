@@ -52,7 +52,7 @@ class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
     
     func testModalManagerDidFinishPop() {
         logToFile = .init()
-        let state = PBMModalState(view: PBMWebView(), adConfiguration:PBMAdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
         self.pbmAbstractCreative.modalManagerDidFinishPop(state)
         let log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.contains(msgAbstractFunctionCalled))
@@ -60,7 +60,7 @@ class PBMAbstractCreativeTest: XCTestCase, PBMCreativeResolutionDelegate {
 
     func testModalManagerDidLeaveApp() {
         logToFile = .init()
-        let state = PBMModalState(view: PBMWebView(), adConfiguration:PBMAdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
         pbmAbstractCreative.modalManagerDidLeaveApp(state)
         let log = Log.getLogFileAsString() ?? ""
         XCTAssertTrue(log.contains(msgAbstractFunctionCalled))

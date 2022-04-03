@@ -16,19 +16,19 @@
 //Superclass
 #import <Foundation/Foundation.h>
 
-#import "PBMAdConfiguration.h"
 #import "PBMAdLoadManagerDelegate.h"
 #import "PBMAdViewManagerDelegate.h"
 #import "PBMCreativeViewDelegate.h"
 
 @class PBMModalManager;
+@class AdConfiguration;
 @protocol PBMModalManagerDelegate;
 @protocol PBMServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMAdViewManager : NSObject <PBMCreativeViewDelegate>
 
-@property (nonatomic, strong) PBMAdConfiguration *adConfiguration;
+@property (nonatomic, strong) AdConfiguration *adConfiguration;
 @property (nonatomic, strong) PBMModalManager *modalManager;
 @property (nonatomic, weak, nullable) id<PBMAdViewManagerDelegate> adViewManagerDelegate;
 @property (nonatomic, assign) BOOL autoDisplayOnLoad;

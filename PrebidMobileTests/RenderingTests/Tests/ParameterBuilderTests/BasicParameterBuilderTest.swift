@@ -40,7 +40,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     func testParameterBuilderBannerAUID() {
         
         //Create Builder
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         adConfiguration.isInterstitialAd = false
         
         let sdkConfiguration = Prebid.mock
@@ -80,7 +80,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     }
     
     func testParameterBuilderExternalBrowser() {
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         
         let sdkConfiguration = Prebid.mock
         sdkConfiguration.useExternalClickthroughBrowser = true
@@ -137,7 +137,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     }
     
     func testParameterBuilderOutstream() {
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]
         adConfiguration.size = CGSize(width: 300, height: 250)
         
@@ -171,7 +171,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     }
     
     func testParameterBuilderCOPPANotSet() {
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         adConfiguration.isInterstitialAd = false
         
         let sdkConfiguration = Prebid.mock
@@ -196,7 +196,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     }
     
     func testParameterBuilderCOPPA(value: NSNumber?, expectedRegValue: NSNumber?) {
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         adConfiguration.isInterstitialAd = false
         
         if let coppa = value {
@@ -218,7 +218,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     }
     
     func testInvalidProperties() {
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         
         let sdkConfiguration = Prebid.mock
         let bidRequest = PBMORTBBidRequest()
@@ -275,7 +275,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
                                    isInterstitial: Bool,
                                    expectedPlacement:Int) {
         
-        var adConfiguration: PBMAdConfiguration
+        var adConfiguration: AdConfiguration
         if (isInterstitial) {
             let adUnit = InterstitialRenderingAdUnit.init(configID: "configId")
             adUnit.adFormats = [.video]
@@ -313,7 +313,7 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     func testParameterBuilderDeprecatedProperties() {
         
         //Create Builder
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         
         targeting.addParam("rab", withName: "foo")
         adConfiguration.isInterstitialAd = false
