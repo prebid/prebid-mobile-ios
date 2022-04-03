@@ -280,7 +280,7 @@
         return [self.creativeModel.displayDurationInSeconds doubleValue];
     } else if (self.creativeModel.adConfiguration.skipDelay && self.creativeModel.adConfiguration.skipDelay <= self.creativeModel.displayDurationInSeconds.doubleValue) {
         return self.creativeModel.adConfiguration.skipDelay;
-    } else if (self.creativeModel.skipOffset) {
+    } else if (self.creativeModel.skipOffset && self.creativeModel.skipOffset <= self.creativeModel.displayDurationInSeconds) {
         return [self.creativeModel.skipOffset doubleValue];
     } else {
         const double videoDuration = self.creativeModel.displayDurationInSeconds.doubleValue;

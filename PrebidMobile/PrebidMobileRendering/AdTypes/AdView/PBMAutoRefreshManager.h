@@ -15,7 +15,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class AutoRefreshCountConfig;
 @class AdConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN

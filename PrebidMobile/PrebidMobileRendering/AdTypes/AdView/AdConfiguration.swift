@@ -18,13 +18,12 @@ import UIKit
 /**
  Contains all the data needed to load an ad.
  */
-
 @objcMembers
 public class AdConfiguration: AutoRefreshCountConfig {
     
     // MARK: - Request
     
-    public var adFormats = Set<AdFormat>()
+    public var adFormats: Set<AdFormat> = [.display]
     
     /**
      Placement type for the video.
