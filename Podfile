@@ -8,10 +8,6 @@ project 'EventHandlers/EventHandlers.xcodeproj'
 project 'Example/PrebidDemo/PrebidDemo.xcodeproj'
 project 'tools/PrebidValidator/Dr.Prebid.xcodeproj'
 
-def mopub_pods
-  pod 'mopub-ios-sdk'
-end
-
 def gma_pods
     pod 'Google-Mobile-Ads-SDK'
 end
@@ -31,16 +27,6 @@ target 'PrebidMobileGAMEventHandlersTests' do
   gma_pods
 end
 
-target 'PrebidMobileMoPubAdapters' do
-  event_handlers_project
-  mopub_pods
-end
-
-target 'PrebidMobileMoPubAdaptersTests' do
-  event_handlers_project
-  mopub_pods
-end
-
 target 'PrebidMobileAdMobAdapters' do
   event_handlers_project
   gma_pods
@@ -55,7 +41,6 @@ def prebid_demo_pods
   use_frameworks!
   
   pod 'Google-Mobile-Ads-SDK'
-  pod 'mopub-ios-sdk'
   pod 'GoogleAds-IMA-iOS-SDK'
 end
 
@@ -84,7 +69,6 @@ end
 def internalTestApp_pods
   pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'xcode12'
   pod 'SVProgressHUD'
-  mopub_pods
   gma_pods
 end
 
