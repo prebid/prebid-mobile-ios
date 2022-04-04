@@ -1333,8 +1333,8 @@ struct TestCaseManager {
                     return
                 }
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
-                    gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
-                         gamInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card"
+                    gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
+                         gamInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
                 gamInterstitialController.adFormats = [.video]
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_interstitial_video"
                 adapterVC.setup(adapter: gamInterstitialController)
@@ -1673,7 +1673,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Video Outstream Feed (GAM)",
-                     tags: [.video, .gam, .mock],
+                     tags: [.video, .gam, .server],
                      exampleVCStoryboardID: "PrebidFeedTableViewController",
                      configurationClosure: { vc in
                         
