@@ -18,7 +18,6 @@
 #import "SDKValidationResponseViewController.h"
 #import "ColorTool.h"
 #import "PBVSharedConstants.h"
-#import "MPInterstitialAdController.h"
 #import "CustomTextView.h"
 @import GoogleMobileAds;
 
@@ -53,9 +52,7 @@
     NSString *adServer = [[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey];
     UILabel *pbmCreativeHTMLTitle = [[UILabel alloc] init];
     pbmCreativeHTMLTitle.frame = CGRectMake(20, 0, self.view.frame.size.width -20, 50);
-    if([adServer isEqualToString:kMoPubString]){
-        pbmCreativeHTMLTitle.text = @"Responded Creative JSON";
-    } else if([adServer isEqualToString: kDFPString]){
+    if([adServer isEqualToString: kDFPString]){
         pbmCreativeHTMLTitle.text = @"Responded Creative HTML";
     }
     [pbmCreativeHTMLTitle setFont:[UIFont systemFontOfSize:18.0 weight:UIFontWeightSemibold]];
@@ -106,12 +103,7 @@
     if ([_validator.getAdObject isKindOfClass: [GAMInterstitialAd class] ]) {
         GAMInterstitialAd *interstitial  = (GAMInterstitialAd *)[_validator getAdObject];
         [interstitial presentFromRootViewController:self];
-    } else if ([_validator.getAdObject isKindOfClass: [MPInterstitialAdController class]]) {
-        MPInterstitialAdController *controller = (MPInterstitialAdController *)_validator.getAdObject;
-        if (controller.ready) {
-            [controller showFromViewController:self];
-        }
-    }
+    } 
 }
 
 - (void)viewDidAppear:(BOOL)animated

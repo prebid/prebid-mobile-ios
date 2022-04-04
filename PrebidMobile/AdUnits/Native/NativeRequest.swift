@@ -17,6 +17,7 @@ import UIKit
 
 public class NativeRequest: AdUnit {
     
+    
     public var version: String {
         get { adUnitConfig.nativeAdConfiguration?.version ?? "1.2" }
         set { adUnitConfig.nativeAdConfiguration?.version = newValue }
@@ -109,4 +110,21 @@ public class NativeRequest: AdUnit {
             self.eventtrackers = eventTrackers
         }
     }
+    
+    public func getNativeRequestObject() -> [AnyHashable: Any]? {
+        guard let markup = try? adUnitConfig.nativeAdConfiguration?.markupRequestObject.toJsonString() else {
+            return nil
+        }
+        
+        let native = PBMORTBNative()
+        
+        native.request = markup
+        
+        if let ver = adUnitConfig.nativeAdConfiguration?.version {
+            native.ver = ver;
+        }
+        
+        return native.toJsonDictionary()
+    }
+
 }

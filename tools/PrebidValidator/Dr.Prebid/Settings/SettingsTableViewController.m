@@ -37,7 +37,6 @@ NSString *__nonnull const kAdFormatVideo = @"Video";
 
 NSString *__nonnull const kAdServerInfoText = @"AdServer Info";
 NSString *__nonnull const kAdServerDFP = @"DFP";
-NSString *__nonnull const kAdServerMoPub = @"MoPub";
 
 NSString *__nonnull const kPrebidServerInfoText = @"Prebid Server Info";
 NSString *__nonnull const kPrebidHostAppnexus = @"Xandr";
@@ -204,10 +203,6 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         SegmentCell *segmentCell = (SegmentCell *) cell;
         if(segmentCell.segmentControl.selectedSegmentIndex == 0){
             [[NSUserDefaults standardUserDefaults] setObject:kAdServerDFP forKey:kAdServerNameKey];
-            
-        } else {
-            [[NSUserDefaults standardUserDefaults] setObject:kAdServerMoPub forKey:kAdServerNameKey];
-            
         }
     }
     
@@ -441,19 +436,14 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         
         if(cell != nil){
             cell.labelText.text = kAdServerLabel;
-            NSArray *adServerItems = @[kAdServerDFP, kAdServerMoPub];
+            NSArray *adServerItems = @[kAdServerDFP];
             [cell.segmentControl setTitle:adServerItems[0] forSegmentAtIndex:0];
-            [cell.segmentControl setTitle:adServerItems[1] forSegmentAtIndex:1];
             [cell.segmentControl addTarget:self action:@selector(adServerChanged:) forControlEvents:UIControlEventValueChanged];
             
-            if([[NSUserDefaults standardUserDefaults] objectForKey:kAdServerNameKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kAdServerNameKey] isEqualToString:@""]){
-                if([[[NSUserDefaults standardUserDefaults] objectForKey:kAdServerNameKey] isEqualToString:kAdServerDFP]){
-                    [cell.segmentControl setSelectedSegmentIndex:0];
-                    
-                } else {
-                    [cell.segmentControl setSelectedSegmentIndex:1];
-                }
-            }
+            [cell.segmentControl setSelectedSegmentIndex:0];
+            // TODO: restore from defaults if new ad server is added
+//            if([[NSUserDefaults standardUserDefaults] objectForKey:kAdServerNameKey] != nil && ![[[NSUserDefaults standardUserDefaults] objectForKey:kAdServerNameKey] isEqualToString:@""]){
+//            }
             
         }
         return cell;
@@ -723,10 +713,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
             }];
             [alert addAction:noButton];
             [self presentViewController:alert animated:YES completion:nil];
-        } else {
-            [[NSUserDefaults standardUserDefaults] setObject:kAdServerMoPub forKey:kAdServerNameKey];
         }
-        
     } else if(adTypeSegment.selectedSegmentIndex == 0){
         [[NSUserDefaults standardUserDefaults] setObject:kAdServerDFP forKey:kAdServerNameKey];
     }

@@ -38,7 +38,6 @@ extern NSString *__nonnull const kPBConfigKey;
 extern NSString *__nonnull const kPBHostKey;
 extern NSString *__nonnull const kNativeRequestKey;
 
-extern NSString *__nonnull const kMoPubString;
 extern NSString *__nonnull const kDFPString;
 
 extern NSString *__nonnull const kAdServerResponseCreative;

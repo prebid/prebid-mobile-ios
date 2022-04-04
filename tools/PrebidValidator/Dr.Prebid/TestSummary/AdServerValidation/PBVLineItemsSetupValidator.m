@@ -14,23 +14,19 @@
  *    limitations under the License.
  */
 
+@import PrebidMobile;
+@import GoogleMobileAds;
+
 #import <Foundation/Foundation.h>
 #import "PBVLineItemsSetupValidator.h"
 #import "LineItemKeywordsManager.h"
 #import "PBVSharedConstants.h"
-#import "MPAdView.h"
-#import "MPInterstitialAdController.h"
-#import "MPInterstitialAdManager.h"
-#import "PBViewTool.h"
 #import "AdServerValidationURLProtocol.h"
 #import "NSURLSessionConfiguration+PBProtocols.h"
 
-@import PrebidMobile;
 
-@interface PBVLineItemsSetupValidator() <MPAdViewDelegate,
-                                         MPInterstitialAdControllerDelegate,
-                                         GADBannerViewDelegate,
-                                        AdServerValidationURLProtocolDelegate>
+@interface PBVLineItemsSetupValidator() <   GADBannerViewDelegate,
+                                            AdServerValidationURLProtocolDelegate>
 @property id adObject;
 @property NSString *requestUUID;
 @property NSString *adServerResponseString;
@@ -114,25 +110,7 @@
         adSize = CGSizeMake(1, 1);
         GADAdSize = kGADAdSizeFluid;
     }
-    if ([adServerName isEqualToString:kMoPubString]) {
-        if ([adFormatName isEqualToString:kBannerString]) {
-            self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
-            MPAdView *adView = [self createMPAdViewWithAdUnitId:adUnitID WithSize:adSize WithKeywords:self.keywords];
-            [adView stopAutomaticallyRefreshingContents]; // forcing on the client side, server side management seems to be broken
-            self.adObject = adView;
-            [adView loadAd];
-        } else if ([adFormatName isEqualToString:kInterstitialString]){
-            self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
-            MPInterstitialAdController *interstitial = [self createMPInterstitialAdControllerWithAdUnitId:adUnitID WithKeywords:self.keywords];
-            self.adObject = interstitial;
-            [interstitial loadAd];
-        } else if ([adFormatName isEqualToString:kNativeString]){
-            self.keywords = [self createUniqueKeywordsWithBidPrice:bidPrice forSize:adSizeString];
-            MPInterstitialAdController *interstitial = [self createMPInterstitialAdControllerWithAdUnitId:adUnitID WithKeywords:self.keywords];
-            self.adObject = interstitial;
-            [interstitial loadAd];
-        }
-    } else if([adServerName isEqualToString:kDFPString]){
+     if([adServerName isEqualToString:kDFPString]){
         if ([adFormatName isEqualToString:kBannerString] || [adFormatName isEqualToString:kNativeString]) {
             GAMBannerView *adView = [self createDFPBannerViewWithAdUnitId:adUnitID WithSize:GADAdSize];
             // hack to attach to screen
@@ -213,66 +191,6 @@
         keywordsString = [keywordsString stringByAppendingString:[formatKeyword stringByAppendingString:@","]];
     }
     return keywordsString;
-}
-
-- (MPAdView *) createMPAdViewWithAdUnitId: (NSString *) adUnitID WithSize: (CGSize)adSize WithKeywords:(NSDictionary *)keywordsDict
-{
-    NSString *keywordsString = [self formatMoPubKeywordStringFromDictionary:keywordsDict];
-    MPAdView *adView = [[MPAdView alloc] initWithAdUnitId:adUnitID
-                                                     size:adSize];
-    adView.delegate = self;
-    CGFloat x = ([UIScreen mainScreen].bounds.size.width - adSize.width) / 2.0;
-    adView.frame = CGRectMake(x, kAdLocationY, adSize.width, adSize.height);
-    [adView setKeywords:keywordsString];
-    return adView;
-}
-
-- (MPInterstitialAdController *) createMPInterstitialAdControllerWithAdUnitId: (NSString *) adUnitID WithKeywords:(NSDictionary *) keywordsDict
-{
-    NSString *keywords = [self formatMoPubKeywordStringFromDictionary:keywordsDict];
-    Class MPInterstitialClass = [MPInterstitialAdController class];
-    SEL initMethodSel = NSSelectorFromString(@"initWithAdUnitId:");
-    id interstitial = [MPInterstitialClass alloc];
-    if ([interstitial respondsToSelector:initMethodSel]) {
-        NSMethodSignature *methSig = [interstitial methodSignatureForSelector:initMethodSel];
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methSig];
-        [invocation setSelector:initMethodSel];
-        [invocation setTarget:interstitial];
-        [invocation setArgument:&adUnitID atIndex:2];
-        [invocation invoke];
-        [(MPInterstitialAdController *)interstitial setKeywords:keywords];
-        [(MPInterstitialAdController *)interstitial setDelegate:self];
-    }
-    return interstitial;
-}
-
-- (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
-{
- 
-    if (self.adServerResponseString != nil && ( [self.adServerResponseString containsString:@"pbm.js"] || [self.adServerResponseString containsString:@"creative.js"])) {
-        [self.delegate adServerRespondedWithPrebidCreative];
-    } else {
-        [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
-    }
-}
-
-- (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial
-{
-    [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
-}
-
--(void)adViewDidLoadAd:(MPAdView *)view
-{
-    if (self.adServerResponseString != nil && ([self.adServerResponseString containsString:@"pbm.js"] || [self.adServerResponseString containsString:@"creative.js"])) {
-        [self.delegate adServerRespondedWithPrebidCreative];
-    } else {
-        [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
-    }
-}
-
-- (void)adViewDidFailToLoadAd:(MPAdView *)view
-{
-    [self.delegate adServerDidNotRespondWithPrebidCreative:nil];
 }
 
 - (UIViewController *)viewControllerForPresentingModalView

@@ -80,11 +80,9 @@ UITableViewDelegate>
     
     if([self.requestString isEqualToString:@""] || [self.postDataString isEqualToString:@""])
         return;
-    if([[[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey] isEqualToString:kMoPubString]){
-            [self performSelectorOnMainThread:@selector(prettyJson:) withObject:self.postDataString waitUntilDone:YES];
-    } else {
-        self.postData = self.postDataString;
-    }
+    
+    self.postData = self.postDataString;
+    
         if (self.requestString != nil) {
             NSMutableDictionary *keywordsDict = [[NSMutableDictionary alloc] init];
             if ([self.requestString containsString:@"ads.mopub.com/m/ad"]) {

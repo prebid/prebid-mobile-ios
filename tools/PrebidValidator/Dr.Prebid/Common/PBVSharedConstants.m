@@ -38,7 +38,6 @@ NSString *__nonnull const kPBHostKey = @"host";
 NSString *__nonnull const kPBCustomHostKey = @"customHost";
 NSString *__nonnull const kNativeRequestKey = @"nativeRequest";
 
-NSString *__nonnull const kMoPubString = @"MoPub";
 NSString *__nonnull const kDFPString = @"DFP";
 
 NSString *__nonnull const kAdServerResponseCreative = @"";
