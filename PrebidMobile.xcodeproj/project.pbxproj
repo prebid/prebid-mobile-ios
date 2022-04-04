@@ -582,7 +582,7 @@
 		922AFD0A273712E200732C53 /* MRAIDJavascriptCommandsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD09273712E200732C53 /* MRAIDJavascriptCommandsTests.swift */; };
 		922AFD0C2737159800732C53 /* PBMViewExposureTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD0B2737159800732C53 /* PBMViewExposureTest.swift */; };
 		922AFD0E273715F600732C53 /* PBMAbstractCreativeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD0D273715F600732C53 /* PBMAbstractCreativeTest.swift */; };
-		922AFD112737179500732C53 /* PBMAdConfigurationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD102737179500732C53 /* PBMAdConfigurationTest.swift */; };
+		922AFD112737179500732C53 /* AdConfigurationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD102737179500732C53 /* AdConfigurationTest.swift */; };
 		922AFD13273718B400732C53 /* PBMAdUnitConfigTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD12273718B400732C53 /* PBMAdUnitConfigTest.swift */; };
 		922AFD152737192300732C53 /* AdViewButtonDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922AFD142737192300732C53 /* AdViewButtonDecoratorTests.swift */; };
 		922AFD1627371A2D00732C53 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5BC376ED271F1CFE00444D5E /* images.xcassets */; };
@@ -1428,7 +1428,7 @@
 		922AFD0B2737159800732C53 /* PBMViewExposureTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMViewExposureTest.swift; sourceTree = "<group>"; };
 		922AFD0D273715F600732C53 /* PBMAbstractCreativeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMAbstractCreativeTest.swift; sourceTree = "<group>"; };
 		922AFD0F273716FA00732C53 /* PBMAbstractCreative+PBMTestExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PBMAbstractCreative+PBMTestExtension.h"; sourceTree = "<group>"; };
-		922AFD102737179500732C53 /* PBMAdConfigurationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMAdConfigurationTest.swift; sourceTree = "<group>"; };
+		922AFD102737179500732C53 /* AdConfigurationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdConfigurationTest.swift; sourceTree = "<group>"; };
 		922AFD12273718B400732C53 /* PBMAdUnitConfigTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMAdUnitConfigTest.swift; sourceTree = "<group>"; };
 		922AFD142737192300732C53 /* AdViewButtonDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewButtonDecoratorTests.swift; sourceTree = "<group>"; };
 		922AFD1727371A5200732C53 /* PBMAutoRefreshManagerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBMAutoRefreshManagerTest.swift; sourceTree = "<group>"; };
@@ -2757,7 +2757,7 @@
 				922AFD072737127800732C53 /* ModalManagerTest.swift */,
 				922AFD09273712E200732C53 /* MRAIDJavascriptCommandsTests.swift */,
 				922AFD0D273715F600732C53 /* PBMAbstractCreativeTest.swift */,
-				922AFD102737179500732C53 /* PBMAdConfigurationTest.swift */,
+				922AFD102737179500732C53 /* AdConfigurationTest.swift */,
 				922AFD12273718B400732C53 /* PBMAdUnitConfigTest.swift */,
 				922AFD142737192300732C53 /* AdViewButtonDecoratorTests.swift */,
 				922AFD1727371A5200732C53 /* PBMAutoRefreshManagerTest.swift */,
@@ -3763,7 +3763,7 @@
 				922AFD4D27372A2F00732C53 /* PBMHTMLCreativeTest.swift in Sources */,
 				922AFD5427372B6900732C53 /* PBMInterstitialLayoutConfiguratorTest.swift in Sources */,
 				929638C527ABB64400D30F3D /* NativeAdMarkupAssetTests.swift in Sources */,
-				922AFD112737179500732C53 /* PBMAdConfigurationTest.swift in Sources */,
+				922AFD112737179500732C53 /* AdConfigurationTest.swift in Sources */,
 				922AFCC727353B6300732C53 /* MockServer.m in Sources */,
 				922AFD13273718B400732C53 /* PBMAdUnitConfigTest.swift in Sources */,
 				922AFD47273729B700732C53 /* PBMHTMLCreativeTest_MRAIDResize.swift in Sources */,

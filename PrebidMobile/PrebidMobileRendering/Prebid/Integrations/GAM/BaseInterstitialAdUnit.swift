@@ -67,26 +67,13 @@ public class BaseInterstitialAdUnit :
     }
 
     @objc public var closeButtonArea: Double {
-        set {
-            if newValue <= 1 && newValue >= 0 {
-                adUnitConfig.adConfiguration.closeButtonArea = newValue
-            } else {
-                Log.warn("The possible values for close button area value are [0...1]")
-            }
-        }
-
         get { adUnitConfig.adConfiguration.closeButtonArea }
+        set { adUnitConfig.adConfiguration.closeButtonArea = newValue }
     }
 
     @objc public var closeButtonPosition: Position {
         get { adUnitConfig.adConfiguration.closeButtonPosition }
-        set {
-            if ![Position.topRight, Position.topLeft].contains(newValue) {
-                Log.warn("There are two options available for close button posiiton for now: topLeft anf topRight.")
-                return
-            }
-            adUnitConfig.adConfiguration.closeButtonPosition = newValue
-        }
+        set { adUnitConfig.adConfiguration.closeButtonPosition = newValue }
     }
 
     @objc public weak var delegate: AnyObject?

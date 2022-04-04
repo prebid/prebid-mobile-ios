@@ -100,22 +100,61 @@ public class AdConfiguration: AutoRefreshCountConfig {
     /**
      This property indicates the area which the close button should occupy on the screen.
      */
-    public var closeButtonArea = PBMConstants.BUTTON_AREA_DEFAULT.doubleValue
+    public var closeButtonArea: Double {
+        set {
+            if newValue <= 1 && newValue >= 0 {
+                _closeButtonArea = newValue
+            } else {
+                Log.warn("The possible values for close button area value are [0...1]")
+            }
+        }
+        get { _closeButtonArea }
+    }
     
     /**
      This property indicates the position of the close button on the screen.
      */
-    public var closeButtonPosition = Position.topRight
+    public var closeButtonPosition: Position {
+        set {
+            if ![Position.topRight, Position.topLeft].contains(newValue) {
+                Log.warn("There are two options available for close button posiiton for now: topLeft anf topRight.")
+                return
+            }
+            _closeButtonPosition = newValue
+        }
+        
+        get { _closeButtonPosition }
+    }
     
     /**
      This property indicates the area which the skip button should occupy on the screen.
      */
-    public var skipButtonArea = PBMConstants.BUTTON_AREA_DEFAULT.doubleValue
+    public var skipButtonArea: Double {
+        set {
+            if newValue <= 1 && newValue >= 0 {
+                _skipButtonArea = newValue
+            } else {
+                Log.warn("The possible values for skip button area value are [0...1]")
+            }
+        }
+        
+        get { _skipButtonArea }
+    }
     
     /**
      This property indicates the position of the skip button on the screen.
      */
-    public var skipButtonPosition = Position.topRight
+    public var skipButtonPosition: Position {
+        set {
+            if ![Position.topRight, Position.topLeft].contains(newValue) {
+                Log.warn("There are two options available for skip button posiiton for now: topLeft anf topRight.")
+                return
+            }
+            _skipButtonPosition = newValue
+        }
+        
+        get { _skipButtonPosition }
+    }
     
     /**
      This property indicates the number of seconds which should be passed from the start of playback until the skip or close button should be shown.
@@ -136,25 +175,27 @@ public class AdConfiguration: AutoRefreshCountConfig {
         set {
             if let newValue = newValue, newValue > 0 {
                 let clampedValue = PBMFunctions.clampAutoRefresh(newValue)
-                autoRefreshDelay_ = clampedValue
+                _autoRefreshDelay = clampedValue
             } else {
-                autoRefreshDelay_ = nil
+                _autoRefreshDelay = nil
             }
         }
         get {
-            return !presentAsInterstitial ? autoRefreshDelay_ : nil
+            return !presentAsInterstitial ? _autoRefreshDelay : nil
         }
-    }
-    
-    private var autoRefreshDelay_: TimeInterval?
-    
-    public override init() {
-        super.init()
-        autoRefreshDelay = PBMAutoRefresh.AUTO_REFRESH_DELAY_DEFAULT
     }
     
     // MARK: - Other
     
     public var clickHandlerOverride: ((PBMVoidBlock) -> Void)?
-
+    
+    // MARK: Private properties
+    
+    private var _autoRefreshDelay: TimeInterval? = PBMAutoRefresh.AUTO_REFRESH_DELAY_DEFAULT
+    
+    private var _closeButtonArea = PBMConstants.BUTTON_AREA_DEFAULT.doubleValue
+    private var _closeButtonPosition = Position.topRight
+    
+    private var _skipButtonArea = PBMConstants.BUTTON_AREA_DEFAULT.doubleValue
+    private var _skipButtonPosition = Position.topRight
 }

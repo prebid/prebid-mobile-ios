@@ -20,24 +20,12 @@ public class InterstitialRenderingAdUnit: BaseInterstitialAdUnit {
     
     @objc public var skipButtonArea: Double {
         get { adUnitConfig.adConfiguration.skipButtonArea }
-        set {
-            if newValue <= 1 && newValue >= 0 {
-                adUnitConfig.adConfiguration.skipButtonArea = newValue
-            } else {
-                Log.warn("The possible values for skip button area value are [0...1]")
-            }
-        }
+        set { adUnitConfig.adConfiguration.skipButtonArea = newValue }
     }
     
     @objc public var skipButtonPosition: Position {
         get { adUnitConfig.adConfiguration.skipButtonPosition }
-        set {
-            if ![Position.topRight, Position.topLeft].contains(newValue) {
-                Log.warn("There are two options available for skip button posiiton for now: topLeft anf topRight.")
-                return
-            }
-            adUnitConfig.adConfiguration.skipButtonPosition = newValue
-        }
+        set { adUnitConfig.adConfiguration.skipButtonPosition = newValue }
     }
     
     @objc public var skipDelay: Double {
