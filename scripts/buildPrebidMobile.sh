@@ -80,7 +80,7 @@ pod install --repo-update
 
 echo -e "\n\n${GREEN}BUILD PREBID MOBILE${NC}\n\n"
 
-schemes=("PrebidMobile" "PrebidMobileGAMEventHandlers" "PrebidMobileMoPubAdapters")
+schemes=("PrebidMobile" "PrebidMobileGAMEventHandlers")
 
 for(( n=0; n<${#schemes[@]}; n++ ))
 do
