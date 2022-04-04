@@ -199,7 +199,6 @@ extension BaseUITestCase {
         // Note: order defines search priority during the detection
         case inapp = "In-App"
         case gam    = "GAM"
-        case mopub  = "MoPub"
     }
     private func detect<T: RawRepresentable & CaseIterable>(from exampleTitle: String) -> T? where T.RawValue == String {
         if let rawVal = T

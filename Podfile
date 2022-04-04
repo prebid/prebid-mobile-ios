@@ -78,6 +78,13 @@ target 'InternalTestApp' do
   internalTestApp_pods
 end
 
+target 'InternalTestAppTests' do
+  use_frameworks!
+  project 'InternalTestApp/InternalTestApp.xcodeproj'
+  internalTestApp_pods
+  pod 'Google-Mobile-Ads-SDK'
+end
+
 target 'OpenXMockServer' do
   use_frameworks!
   project 'InternalTestApp/InternalTestApp.xcodeproj'
