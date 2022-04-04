@@ -70,7 +70,7 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
         
         Prebid.shared.storedAuctionResponse = storedAuctionResponse
         
-        adBannerView = BannerView(configID: prebidConfigId, eventHandler: adEventHandler)
+        adBannerView = BannerView(configID: prebidConfigId,  eventHandler: adEventHandler)
        
         if (refreshInterval > 0) {
             adBannerView?.refreshInterval = refreshInterval

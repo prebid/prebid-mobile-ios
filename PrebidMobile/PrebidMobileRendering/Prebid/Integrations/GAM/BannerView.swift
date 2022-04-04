@@ -109,7 +109,6 @@ public class BannerView: UIView,
         
         adUnitConfig = AdUnitConfig(configId: configID, size: adSize)
         self.eventHandler = eventHandler
-        
         super.init(frame: frame)
         accessibilityLabel = PBMAccesibility.bannerView
         
@@ -148,6 +147,7 @@ public class BannerView: UIView,
             })
     }
     
+    
     @objc public convenience init(configID: String,
                                   eventHandler: BannerEventHandler) {
         
@@ -173,12 +173,20 @@ public class BannerView: UIView,
                   eventHandler: BannerEventHandlerStandalone())
     }
     
+    deinit {
+        Prebid.shared.storedAuctionResponse = nil
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     @objc public func loadAd() {
         adLoadFlowController?.refresh()
+    }
+    
+    @objc public func setStoredAuctionResponse(storedAuction:String){
+        Prebid.shared.storedAuctionResponse = storedAuction
     }
     
     @objc public func stopRefresh() {
