@@ -11,12 +11,9 @@
 @import PrebidMobile;
 @import GoogleMobileAds;
 @import PrebidMobileGAMEventHandlers;
-@import PrebidMobileMoPubAdapters;
 @import PrebidMobileAdMobAdapters;
 
-@import MoPubSDK;
-
-@interface RenderingBannerViewController () <BannerViewDelegate, MPAdViewDelegate>
+@interface RenderingBannerViewController () <BannerViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *adView;
 
@@ -25,8 +22,6 @@
 
 @property (strong, nullable) BannerView *bannerView;
 @property (strong, nullable) MediationBannerAdUnit *mopubBannerAdUnit;
-
-@property (strong, nullable) MPAdView *mopubBannerView;
 
 // AdMob
 @property (nonatomic, strong) GADBannerView *gadBannerView;
@@ -50,7 +45,6 @@
     switch (self.integrationKind) {
         case IntegrationKind_InApp          : [self loadInAppBanner]            ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingBanner]     ; break;
-        case IntegrationKind_RenderingMoPub : [self loadMoPubRenderingBanner]   ; break;
         case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingBanner]   ; break;
 
         default:
@@ -107,21 +101,6 @@
     [self.adView addSubview:self.bannerView];
 }
 
-- (void)loadMoPubRenderingBanner {
-    self.mopubBannerView = [[MPAdView alloc] initWithAdUnitId:@"0df35635801e4110b65e762a62437698" size:self.size];
-    self.mopubBannerView.delegate = self;
-    [self.adView addSubview:self.mopubBannerView];
-    
-    MoPubMediationBannerUtils *mediationDelegate = [[MoPubMediationBannerUtils alloc] initWithMopubView:self.mopubBannerView];
-    self.mopubBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"50699c03-0910-477c-b4a4-911dbe2b9d42"
-                                                                        size:self.size
-                                                           mediationDelegate:mediationDelegate];
-    
-    [self.mopubBannerAdUnit fetchDemandWithCompletion:^(ResultCode result) {
-        [self.mopubBannerView loadAd];
-    }];
-}
-
 - (void)loadAdMobRenderingBanner {
     self.gadBannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
     self.gadBannerView.adUnitID = @"ca-app-pub-5922967660082475/9483570409";
@@ -151,20 +130,6 @@
 
 - (void)bannerView:(BannerView *)bannerView didFailToReceiveAdWith:(NSError *)error {
     NSLog(@"InApp bannerView:didFailToReceiveAdWith: %@", [error localizedDescription]);
-}
-
-#pragma mark - MPAdViewDelegate
-
-- (UIViewController *)viewControllerForPresentingModalView {
-    return self;
-}
-
-- (void)adViewDidLoadAd:(MPAdView *)view adSize:(CGSize)adSize {
-    NSLog(@"MoPub adViewDidLoadAd:");
-}
-
-- (void)adView:(MPAdView *)view didFailToLoadAdWithError:(NSError *)error {
-    NSLog(@"MoPub adView:didFailToLoadAdWithError: %@", [error localizedDescription]);
 }
 
 @end

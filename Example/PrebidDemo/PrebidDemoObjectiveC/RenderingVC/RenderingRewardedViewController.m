@@ -10,13 +10,11 @@
 
 @import PrebidMobile;
 @import PrebidMobileGAMEventHandlers;
-@import PrebidMobileMoPubAdapters;
 @import PrebidMobileAdMobAdapters;
 
-@import MoPubSDK;
 @import GoogleMobileAds;
 
-@interface RenderingRewardedViewController () <RewardedAdUnitDelegate, MPRewardedAdsDelegate, InterstitialAdUnitDelegate, MPInterstitialAdControllerDelegate, GADFullScreenContentDelegate>
+@interface RenderingRewardedViewController () <RewardedAdUnitDelegate, InterstitialAdUnitDelegate, GADFullScreenContentDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *adView;
 
@@ -40,7 +38,6 @@
     switch (self.integrationKind) {
         case IntegrationKind_InApp          : [self loadInAppRewarded]              ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingRewarded]       ; break;
-        case IntegrationKind_RenderingMoPub : [self loadMoPubRenderingRewarded]     ; break;
         case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingRewarded]     ; break;
         default:
             break;
@@ -86,27 +83,6 @@
     [self.rewardedAdUnit loadAd];
 }
 
-- (void)loadMoPubRenderingRewarded {
-    
-    MediationBidInfoWrapper *bidInfoWrapper = [[MediationBidInfoWrapper alloc] init];
-    
-    MoPubMediationRewardedUtils *mediationDelegate = [[MoPubMediationRewardedUtils alloc] initWithBidInfoWrapper:bidInfoWrapper];
-    
-    self.mopubRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:@"12f58bc2-b664-4672-8d19-638bcc96fd5c"
-                                                                mediationDelegate: mediationDelegate];
-    
-    [self.mopubRewardedAdUnit fetchDemandWithCompletion: ^(ResultCode result) {
-        [MPRewardedAds setDelegate:self forAdUnitId:@"7538cc74d2984c348bc14caafa3e3395"];
-        
-        [MPRewardedAds loadRewardedAdWithAdUnitID:@"7538cc74d2984c348bc14caafa3e3395"
-                                         keywords:bidInfoWrapper.keywords
-                                 userDataKeywords:nil
-                                       customerId:@"testCustomerId"
-                                mediationSettings:@[]
-                                      localExtras:bidInfoWrapper.localExtras];
-    }];
-}
-
 - (void)loadAdMobRenderingRewarded {
     GADRequest *request = [GADRequest new];
     AdMobMediationRewardedUtils *mediationDelegate = [[AdMobMediationRewardedUtils alloc] initWithGadRequest:request];
@@ -137,18 +113,6 @@
 
 - (void)rewardedAd:(RewardedAdUnit *)rewardedAd didFailToReceiveAdWithError:(NSError *)error {
     NSLog(@"InApp rewardedAddidFailToReceiveAdWithError: %@", [error localizedDescription]);
-}
-
-#pragma mark - MPRewardedAdsDelegate
-
-- (void)rewardedAdDidLoadForAdUnitID:(NSString *)adUnitID {
-    [MPRewardedAds presentRewardedAdForAdUnitID:adUnitID
-                             fromViewController:self
-                                     withReward:nil];
-}
-
-- (void)rewardedAdDidFailToLoadForAdUnitID:(NSString *)adUnitID error:(NSError *)error {
-    NSLog(@"MoPub rewardedAdDidFailToLoadForAdUnitID: %@", [error localizedDescription]);
 }
 
 #pragma mark - GADFullScreenContentDelegate
