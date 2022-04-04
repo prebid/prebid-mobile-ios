@@ -87,57 +87,6 @@ class PrebidBannerUITest: RepeatedUITestCase {
         }
     }
     
-    /*
-     This test case deals with the MoPub ad unit 2b664935d41c4f4f8b8148ae39d22c99
-     which shows either normal banner (when the prebid server returns a bid)
-     or just an HTML-banner with the text "No Bids Banner"
-     It runs with the 'random no bids' mock-server mode:
-     */
-    func testRandomNoBidsMoPub() {
-        repeatTesting(times: 7) {
-            navigateToExamplesSection()
-            navigateToExample("Banner 320x50 (MoPub) [Random, Respective]")
-
-            
-            let reloadButton = app.buttons["[Reload]"]
-            var isAdLoaded = false
-            var isNoBidsBannerLoaded = false
-            
-            for _ in 0...7 {
-                waitMoPubAd()
-            
-                let views = app.descendants(matching: .webView)
-                viewsLoop: for view in views.allElementsBoundByAccessibilityElement {
-                    if view.identifier == "PBMInternalWebViewAccessibilityIdentifier" {
-                        isAdLoaded = true
-                        break
-                    }
-                    let staticTexts = view.descendants(matching: .staticText)
-                    for text in staticTexts.allElementsBoundByIndex {
-                        if text.label == "No Bids Banner" {
-                            isNoBidsBannerLoaded = true
-                            break viewsLoop;
-                        }
-                    }
-                }
-                
-                //we have got both cases
-                if isAdLoaded && isNoBidsBannerLoaded {
-                    break
-                }
-                
-                reloadButton.tap()
-            }
-            
-            //Move back to call MockServer's /api/cancel_random_no_bids
-            let backButton = app.buttons["Back"]
-            backButton.tap()
-            
-            XCTAssertTrue(isAdLoaded)
-            XCTAssertTrue(isNoBidsBannerLoaded)
-        }
-    }
-    
     func testRandomNoBidsGAM() {
         repeatTesting(times: 7) {
             navigateToExamplesSection()

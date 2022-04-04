@@ -54,24 +54,6 @@ class PrebidServerUITests: AdsLoaderUITestCase {
         checkBannerLoadResult(exampleName: "Banner 320x50 (GAM) [Vanilla Prebid Order]")
     }
     
-    func testMoPubBanner() {
-        checkBannerLoadResult(exampleName: "Banner 320x50 (MoPub) [OK, OXB Adapter]",
-                              adapterBased: true,
-                              callbacks: mopubBannerCallbacks)
-    }
-    
-    func testMoPubBanner_NoBids() {
-        checkBannerLoadResult(exampleName: "Banner 320x50 (MoPub) [noBids, MoPub Ad]",
-                              adapterBased: true,
-                              callbacks: mopubBannerCallbacks)
-    }
-    
-    func testMoPubBanner_VanillaPrebidOrder() {
-           checkBannerLoadResult(exampleName: "Banner 320x50 (MoPub) [Vanilla Prebid Order]",
-                                 adapterBased: true,
-                                 callbacks: mopubBannerCallbacks)
-    }
-    
     // MARK: - MRAID
     
     func testBannerMRAID() {
@@ -80,12 +62,6 @@ class PrebidServerUITests: AdsLoaderUITestCase {
     
     func testMRAID_Resize_GAM() {
         checkBannerLoadResult(exampleName: "MRAID 2.0: Resize (GAM)")
-    }
-    
-    func testMRAID_Resize_MoPub() {
-        checkBannerLoadResult(exampleName: "MRAID 2.0: Resize (MoPub)",
-                                     adapterBased: true,
-                                     callbacks: mopubBannerCallbacks)
     }
     
     // MARK: - Interstitials
@@ -109,21 +85,6 @@ class PrebidServerUITests: AdsLoaderUITestCase {
     
     func testGAMInterstitial_Display_VanillaPrebidOrder() {
            checkInterstitialLoadResult(exampleName: "Display Interstitial 320x480 (GAM) [Vanilla Prebid Order]")
-    }
-    
-    func testMoPubInterstitial_Display_320x480() {
-        checkInterstitialLoadResult(exampleName: "Display Interstitial 320x480 (MoPub) [OK, OXB Adapter]",
-                                    callbacks: mopubInterstitialCallbacks)
-    }
-    
-    func testMoPubInterstitial_Display_320x480_NoBids() {
-        checkInterstitialLoadResult(exampleName: "Display Interstitial 320x480 (MoPub) [noBids, MoPub Ad]",
-                                    callbacks: mopubInterstitialCallbacks)
-    }
-    
-    func testMoPubInterstitial_Display_VanillaPrebidOrder() {
-        checkInterstitialLoadResult(exampleName: "Display Interstitial 320x480 (MoPub) [Vanilla Prebid Order]",
-                                    callbacks: mopubInterstitialCallbacks)
     }
     
     // MARK: - Video
@@ -169,21 +130,6 @@ class PrebidServerUITests: AdsLoaderUITestCase {
         checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 (GAM) [Vanilla Prebid Order]")
     }
     
-    func testMoPubInterstitial_Video() {
-        checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 (MoPub) [OK, OXB Adapter]",
-                                    callbacks: mopubInterstitialCallbacks)
-    }
-    
-    func testMoPubInterstitial_Video_NoBids() {
-        checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 (MoPub) [noBids, MoPub Ad]",
-                                    callbacks: mopubInterstitialCallbacks)
-    }
-    
-    func testMoPubInterstitial_Video_VanillaPrebidOrder() {
-        checkInterstitialLoadResult(exampleName: "Video Interstitial 320x480 (MoPub) [Vanilla Prebid Order]",
-                                    callbacks: mopubInterstitialCallbacks)
-    }
-    
     // MARK: - Rewarded Video
     
     func testRewardedVideo() {
@@ -201,25 +147,5 @@ class PrebidServerUITests: AdsLoaderUITestCase {
     
     func testGAMRewarded_noBids_gamAd() {
         checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 (GAM) [noBids, GAM Ad]")
-    }
-    
-    func testMoPubRewarded() {
-        checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 (MoPub) [OK, OXB Adapter]",
-                                callbacks: mopubRewardedCallbacks)
-    }
-    
-    func testMoPubRewarded_noBids() {
-        checkRewardedLoadResult(exampleName: "Video Rewarded 320x480 (MoPub) [noBids, MoPub Ad]",
-                                callbacks: mopubRewardedCallbacks)
-    }
-    
-    func testMoPubRewarded_DeprecatedAPI() {
-        checkRewardedLoadResult(exampleName: "[Deprecated API] Video Rewarded 320x480 (MoPub) [OK, OXB Adapter]",
-                                callbacks: mopubRewardedCallbacks)
-    }
-    
-    func testMoPubRewarded_noBids_DeprecatedAPI() {
-        checkRewardedLoadResult(exampleName: "[Deprecated API] Video Rewarded 320x480 (MoPub) [noBids, MoPub Ad]",
-                                callbacks: mopubRewardedCallbacks)
     }
 }
