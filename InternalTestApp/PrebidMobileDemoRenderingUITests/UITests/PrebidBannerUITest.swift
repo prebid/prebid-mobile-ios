@@ -223,11 +223,4 @@ class PrebidBannerUITest: RepeatedUITestCase {
         let adFailedToLoadButton = app.buttons["adViewDidFailToLoadAd called"]
         waitForEnabled(element: adReceivedButton, failElement: adFailedToLoadButton, waitSeconds: waitingTimeout)
     }
-    
-    private func waitMoPubAd() {
-        let adReceivedButton = app.buttons["adViewDidLoadAd called"]
-        let adFailedToLoadButton = app.buttons["adViewDidFail called"]
-        waitForEnabled(element: adReceivedButton, failElement: adFailedToLoadButton, waitSeconds: waitingTimeout)
-    }
-
 }

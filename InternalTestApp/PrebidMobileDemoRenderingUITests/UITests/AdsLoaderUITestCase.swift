@@ -127,16 +127,6 @@ class AdsLoaderUITestCase: RepeatedUITestCase {
                                     file: file,
                                     line: line)
     }
-    
-    func mopubBannerCallbacks(ok: Bool) -> String {
-        return ok ? "adViewDidLoadAd" : "adViewDidFail"
-    }
-    func mopubInterstitialCallbacks(ok: Bool) -> String {
-        return ok ? "interstitialDidLoadAd" : "interstitialDidFail"
-    }
-    func mopubRewardedCallbacks(ok: Bool) -> String {
-        return ok ? "rewardedVideoAdDidLoad" : "rewardedVideoAdDidFailToLoad"
-    }
 
     private static func defaultBannerCallbacks(ok: Bool) -> String {
         return ok ? "adViewDidReceiveAd" : "adViewDidFailToLoadAd"
