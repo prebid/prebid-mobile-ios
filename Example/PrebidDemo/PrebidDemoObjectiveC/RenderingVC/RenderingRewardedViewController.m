@@ -19,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIView *adView;
 
 @property (strong, nullable) RewardedAdUnit *rewardedAdUnit;
-@property (strong, nullable) MediationRewardedAdUnit *mopubRewardedAdUnit;
 
 // AdMob
 @property (strong, nullable) MediationRewardedAdUnit *admobRewardedAdUnit;

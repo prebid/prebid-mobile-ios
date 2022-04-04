@@ -20,8 +20,6 @@
 
 // In-App
 @property (strong, nullable) InterstitialRenderingAdUnit *interstitialAdUnit;
-// MoPub
-@property (strong, nullable) MediationInterstitialAdUnit *mopubInterstitialAdUnit;
 // AdMob
 @property (strong, nullable) MediationInterstitialAdUnit *admobInterstitialAdUnit;
 @property (strong, nullable) GADInterstitialAd *interstitial;

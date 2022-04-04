@@ -60,7 +60,6 @@ class BannerController:
 
     // Prebid Rendering
     private var prebidBannerView: BannerView!               // (In-App and GAM)
-    private var prebidMoPubAdUnit: MediationBannerAdUnit!   // (MoPub)
     
     // AdMob
     private var gadBanner: GADBannerView!

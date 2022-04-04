@@ -36,7 +36,6 @@ class RewardedVideoController:
     private let amRequest = GAMRequest()
     
     private var rewardedAdUnit: RewardedAdUnit!
-    public var mopubRewardedAdUnit: MediationRewardedAdUnit!
     public var admobRewardedAdUnit: MediationRewardedAdUnit!
     
     private let amRubiconAdUnitId = "/5300653/test_adunit_vast_rewarded-video_pavliuchyk"

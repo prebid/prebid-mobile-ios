@@ -21,7 +21,6 @@
 @property (nonatomic) CGRect frame;
 
 @property (strong, nullable) BannerView *bannerView;
-@property (strong, nullable) MediationBannerAdUnit *mopubBannerAdUnit;
 
 // AdMob
 @property (nonatomic, strong) GADBannerView *gadBannerView;

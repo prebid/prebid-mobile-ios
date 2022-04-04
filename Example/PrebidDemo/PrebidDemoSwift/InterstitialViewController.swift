@@ -47,7 +47,6 @@ class InterstitialViewController:
     
     // In-App
     private var renderingInterstitial: InterstitialRenderingAdUnit!
-    private var renderingMoPubInterstitial: MediationInterstitialAdUnit!
     
     // AdMob Rendering
     private var gadRequest = GADRequest()
