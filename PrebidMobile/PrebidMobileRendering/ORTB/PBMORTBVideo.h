@@ -119,8 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
 //2 Auto-Play Sound Off
 //3 Click-to-Play
 //4 Mouse-Over
-//Note: playbackmethod is not supported
-//@property (nonatomic, copy, readonly) NSArray<NSNumber *> *playbackmethod;
+@property (nonatomic, strong, nullable) NSArray<NSNumber *> *playbackmethod;
 
 //The event that causes playback to end. Refer to List 5.11:
 //1) On Video Completion or when Terminated by User

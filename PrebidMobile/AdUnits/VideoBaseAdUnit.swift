@@ -13,12 +13,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-import Foundation
-
+import UIKit
 
 public class VideoBaseAdUnit: AdUnit {
 
-    public var parameters: Parameters?
+    public var parameters: Parameters? {
+        get { adUnitConfig.videoParameters }
+        set { adUnitConfig.videoParameters = newValue }
+    }
+    
+    public override init(configId: String, size: CGSize?) {
+        super.init(configId: configId, size: size)
+        parameters = Parameters()
+        parameters?.placement = 5
+    }
 
     //MARK: - Parameters class
     
@@ -27,25 +35,19 @@ public class VideoBaseAdUnit: AdUnit {
     public class Parameters: NSObject {
         
         /// List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.
-        @objc
-        public var api: [Signals.Api]?
+        @objc public var api: [Signals.Api]?
 
         /// Maximum bit rate in Kbps.
-        @objc
-        public var maxBitrate: SingleContainerInt?
+        @objc public var maxBitrate: SingleContainerInt?
         
         /// Maximum bit rate in Kbps.
-        @objc
-        public var minBitrate: SingleContainerInt?
+        @objc public var minBitrate: SingleContainerInt?
         
         /// Maximum video ad duration in seconds.
-        @objc
-        public var maxDuration: SingleContainerInt?
+        @objc public var maxDuration: SingleContainerInt?
         
-
         /// Minimum video ad duration in seconds.
-        @objc
-        public var minDuration: SingleContainerInt?
+        @objc public var minDuration: SingleContainerInt?
         
         /**
         Content MIME types supported
@@ -54,24 +56,40 @@ public class VideoBaseAdUnit: AdUnit {
         * "video/mp4"
         * "video/x-ms-wmv"
         */
-        @objc
-        public var mimes: [String]?
+        @objc public var mimes: [String]?
         
         /// Allowed playback methods. If none specified, assume all are allowed.
-        @objc
-        public var playbackMethod: [Signals.PlaybackMethod]?
+        @objc public var playbackMethod: [Signals.PlaybackMethod]?
         
         /// Array of supported video bid response protocols.
-        @objc
-        public var protocols: [Signals.Protocols]?
+        @objc public var protocols: [Signals.Protocols]?
         
         /// Indicates the start delay in seconds for pre-roll, mid-roll, or post-roll ad placements.
-        @objc
-        public var startDelay: Signals.StartDelay?
+        @objc public var startDelay: Signals.StartDelay?
         
         /// Placement type for the impression.
-        @objc
-        public var placement: Signals.Placement?
+        @objc public var placement: Signals.Placement?
         
+        @objc public var linearity: SingleContainerInt?
+        
+        // MARK: - Helpers
+        
+        @objc public var rawAPI: [Int]? {
+            get {
+                api?.toIntArray()
+            }
+        }
+        
+        @objc public var rawPlaybackMethod: [Int]? {
+            get {
+                playbackMethod?.toIntArray()
+            }
+        }
+        
+        @objc public var rawProtocols: [Int]? {
+            get {
+                protocols?.toIntArray()
+            }
+        }
     }
 }

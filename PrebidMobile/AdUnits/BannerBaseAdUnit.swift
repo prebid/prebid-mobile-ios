@@ -15,7 +15,10 @@ import Foundation
 
 public class BannerBaseAdUnit: AdUnit {
 
-    public var parameters: Parameters?
+    public var parameters: Parameters? {
+        get { adUnitConfig.bannerParameters }
+        set { adUnitConfig.bannerParameters = newValue }
+    }
 
     //MARK: - Parameters class
     
@@ -24,8 +27,14 @@ public class BannerBaseAdUnit: AdUnit {
     public class Parameters: NSObject {
 
         /// List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.
-        @objc
-        public var api: [Signals.Api]?
+        @objc public var api: [Signals.Api]?
 
+        // MARK: - Helpers
+        
+        @objc public var rawAPI: [Int]? {
+            get {
+                api?.toIntArray()
+            }
+        }
     }
 }
