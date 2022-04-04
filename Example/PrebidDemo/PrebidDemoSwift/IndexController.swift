@@ -20,12 +20,10 @@ import UIKit
 enum IntegrationKind: String, CaseIterable {
     
     case originalGAM    = "GAM"
-    case originalMoPub  = "MoPub"
     case originalAdMob = "AdMob"
     
     case inApp          = "In-App"
     case renderingGAM   = "GAM (R)"
-    case renderingMoPub = "MoPub (R)"
     case renderingAdMob = "AdMob (R)"
     
     case undefined      = "Undefined"
@@ -118,20 +116,13 @@ class IndexController: UIViewController {
     }
     
     func updateCasesList(for integrationKind: IntegrationKind) {
-        let isMoPub =   integrationKind == .originalMoPub ||
-                        integrationKind == .renderingMoPub
         
         let isRendering =   integrationKind == .inApp ||
-                            integrationKind == .renderingMoPub ||
                             integrationKind == .renderingGAM
-        
-        bannerVideo.isHidden    = isMoPub
-        
+                
         bannerNative.isHidden   = isRendering
         inAppNative.isHidden    = isRendering
         instreamVideo.isHidden  = isRendering
-        
-        
     }
 
 }

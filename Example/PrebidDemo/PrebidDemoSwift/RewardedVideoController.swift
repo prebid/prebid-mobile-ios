@@ -19,16 +19,12 @@ import Foundation
 
 import GoogleMobileAds
 import PrebidMobile
-import MoPubSDK
 import PrebidMobileGAMEventHandlers
-import PrebidMobileMoPubAdapters
 import PrebidMobileAdMobAdapters
 
 class RewardedVideoController:
         UIViewController,
-        MPRewardedVideoDelegate,
         RewardedAdUnitDelegate,
-        MPRewardedAdsDelegate,
         GADFullScreenContentDelegate {
     
     @IBOutlet var adServerLabel: UILabel!
@@ -55,11 +51,9 @@ class RewardedVideoController:
         
         switch integrationKind {
         case .originalGAM       : setupAndLoadGAMRewardedVideo()
-        case .originalMoPub     : setupAndLoadMPRewardedVideo()
         case .originalAdMob     : print("TODO: Add Example")
         case .inApp             : setupAndLoadInAppRewarded()
         case .renderingGAM      : setupAndLoadGAMRenderingRewarded()
-        case .renderingMoPub    : setupAndLoadMoPubRenderingRewardedVideo()
         case .renderingAdMob    : setupAndLoadAdMobRenderingRewardedVideo()
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
@@ -70,12 +64,6 @@ class RewardedVideoController:
         loadGAMRewardedVideo()
     }
     
-    func setupAndLoadMPRewardedVideo() {
-        setupPBRubiconRewardedVideo()
-        setupMPRubiconRewardedVideo()
-        loadMPRewardedVideo()
-    }
-    
     func setupAndLoadInAppRewarded() {
         setupOpenXPrebid()
         loadInAppRewardedVideo()
@@ -84,11 +72,6 @@ class RewardedVideoController:
     func setupAndLoadGAMRenderingRewarded() {
         setupOpenXPrebid()
         loadGAMRenderingRewardedVideo()
-    }
-    
-    func setupAndLoadMoPubRenderingRewardedVideo() {
-        setupOpenXPrebid()
-        loadMoPubRenderingRewardedVideo()
     }
     
     func setupAndLoadAdMobRenderingRewardedVideo() {
@@ -129,12 +112,6 @@ class RewardedVideoController:
         try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
     }
     
-    //Setup AdServer
-    
-    func setupMPRubiconRewardedVideo() {
-        MPRewardedVideo.setDelegate(self, forAdUnitId: mpRubiconAdUnitId)
-    }
-    
     // MARK: Load Ad
     
     func loadGAMRewardedVideo() {
@@ -161,20 +138,6 @@ class RewardedVideoController:
         }
     }
     
-    func loadMPRewardedVideo() {
-        
-        adUnit.fetchDemand { [weak self] (resultCode: ResultCode, targetingDict: [String : String]?) in
-            print("Prebid demand fetch for mopub \(resultCode.name())")
-            
-            guard let targetingDict = targetingDict else {
-                return
-            }
-            
-            let keywords = Utils.shared.convertDictToMoPubKeywords(dict: targetingDict)
-            MPRewardedVideo.loadAd(withAdUnitID: self?.mpRubiconAdUnitId, keywords: keywords, userDataKeywords: nil, location: nil, mediationSettings: nil)
-        }
-    }
-    
     func loadInAppRewardedVideo() {
         rewardedAdUnit = RewardedAdUnit(configID: "12f58bc2-b664-4672-8d19-638bcc96fd5c")
         rewardedAdUnit.delegate = self
@@ -188,28 +151,6 @@ class RewardedVideoController:
         rewardedAdUnit.delegate = self
         
         rewardedAdUnit.loadAd()
-    }
-    
-    func loadMoPubRenderingRewardedVideo() {
-        
-        let bidInfoWrapper = MediationBidInfoWrapper()
-        
-        mopubRewardedAdUnit = MediationRewardedAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c",
-                                                      mediationDelegate: MoPubMediationRewardedUtils(bidInfoWrapper: bidInfoWrapper))
-
-        mopubRewardedAdUnit.fetchDemand { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            
-            MPRewardedAds.setDelegate(self, forAdUnitId: "7538cc74d2984c348bc14caafa3e3395")
-            MPRewardedAds.loadRewardedAd(withAdUnitID: "7538cc74d2984c348bc14caafa3e3395",
-                                         keywords: bidInfoWrapper.keywords as String?,
-                                         userDataKeywords: nil,
-                                         customerId: "testCustomerId",
-                                         mediationSettings: [],
-                                         localExtras: bidInfoWrapper.localExtras)
-        }
     }
     
     func loadAdMobRenderingRewardedVideo() {
@@ -233,28 +174,6 @@ class RewardedVideoController:
                 }
             }
         }
-    }
-
-    // MARK: - MPRewardedVideoDelegate
-    
-    func rewardedVideoAdDidLoad(forAdUnitID adUnitID: String!) {
-        MPRewardedVideo.presentAd(forAdUnitID: adUnitID, from: self, with: nil)
-    }
-    
-    func rewardedVideoAdDidFailToLoad(forAdUnitID adUnitID: String!, error: Error!) {
-        print("rewardedVideoAdDidFailToLoad:\(error.localizedDescription)")
-    }
-    
-    // MARK: - MPRewardedAdsDelegate
-    
-    func rewardedAdDidLoad(forAdUnitID adUnitID: String!) {
-        MPRewardedAds.presentRewardedAd(forAdUnitID: adUnitID,
-                                        from: self,
-                                        with: nil)
-    }
-    
-    func rewardedAdDidFailToLoad(forAdUnitID adUnitID: String!, error: Error!) {
-        print("rewardedAdDidFailToLoad with error: \(error.localizedDescription)")
     }
     
     // MARK: - RewardedAdUnitDelegate

@@ -17,7 +17,6 @@ import UIKit
 import PrebidMobile
 import CoreLocation
 import GoogleMobileAds
-import MoPubSDK
 import PrebidMobileGAMEventHandlers
 import PrebidMobileAdMobAdapters
 #if canImport(AppTrackingTransparency)
@@ -62,12 +61,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AdMobUtils.initializeGAD()
         GAMUtils.shared.initializeGAM()
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
-        sdkConfig.globalMediationSettings = []
-
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {
-
-        }
 
         coreLocation = CLLocationManager()
         coreLocation?.requestWhenInUseAuthorization()
