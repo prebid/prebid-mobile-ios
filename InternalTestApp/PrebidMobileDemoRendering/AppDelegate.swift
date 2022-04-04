@@ -15,11 +15,9 @@
 
 import UIKit
 import CoreLocation
-import MoPubSDK
 import GoogleMobileAds
 
 import PrebidMobile
-import PrebidMobileMoPubAdapters
 import PrebidMobileAdMobAdapters
 import PrebidMobileGAMEventHandlers
 
@@ -96,12 +94,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         processArgumentsParser.parseProcessArguments(ProcessInfo.processInfo.arguments)
        
-        // MoPub
-        let mopubConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "0cde6f47aa6842e49c8575492cf9ee3f")
-        mopubConfig.loggingLevel = .info
-        mopubConfig.additionalNetworks = [PrebidMoPubAdapterConfiguration.self]
-        MoPub.sharedInstance().initializeSdk(with: mopubConfig, completion: GlobalVars.reactiveMoPubInitFlag.markSdkInitialized)
-
         // AdMob
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as! String]
         GADMobileAds.sharedInstance().start { (status) in

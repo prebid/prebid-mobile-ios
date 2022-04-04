@@ -17,6 +17,5 @@ import Foundation
 
 enum GlobalVars {
     static let reactiveGAMInitFlag = ReactiveSdkInitFlag()
-    static let reactiveMoPubInitFlag = ReactiveSdkInitFlag()
 }
 
