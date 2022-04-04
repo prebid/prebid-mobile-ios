@@ -815,8 +815,8 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 
-                    interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
-                         interstitialController.storedAuctionResponse="response-prebid-display-interstitial-320-480"
+                interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
+                interstitialController.storedAuctionResponse="response-prebid-display-interstitial-320-480"
                  
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -831,8 +831,8 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                    interstitialController.prebidConfigId = "imp-prebid-no-bids"
-                         interstitialController.storedAuctionResponse="response-prebid-no-bids"
+                interstitialController.prebidConfigId = "imp-prebid-no-bids"
+                interstitialController.storedAuctionResponse="response-prebid-no-bids"
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -860,7 +860,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-multisize"
-                         interstitialController.storedAuctionResponse="response-prebid-display-interstitial-multisize"
+                interstitialController.storedAuctionResponse="response-prebid-display-interstitial-multisize"
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -875,7 +875,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480-skadn"
-                         interstitialController.storedAuctionResponse="response-prebid-display-interstitial-320-480-skadn"
+                interstitialController.storedAuctionResponse="response-prebid-display-interstitial-320-480-skadn"
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -893,8 +893,8 @@ struct TestCaseManager {
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.adFormats = [.display, .video]
 
-                        interstitialController.prebidConfigId="imp-prebid-interstitial-multiformat"
-                         interstitialController.storedAuctionResponse="response-prebid-interstitial-multiformat"
+                interstitialController.prebidConfigId="imp-prebid-interstitial-multiformat"
+                interstitialController.storedAuctionResponse="response-prebid-interstitial-multiformat"
                 adapterVC.setup(adapter: interstitialController)
                          
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -1150,7 +1150,7 @@ struct TestCaseManager {
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
                          
-                         interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1165,8 +1165,8 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                    interstitialController.prebidConfigId = "imp-prebid-no-bids"
-                         interstitialController.storedAuctionResponse = "response-prebid-no-bids"
+                interstitialController.prebidConfigId = "imp-prebid-no-bids"
+                interstitialController.storedAuctionResponse = "response-prebid-no-bids"
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1181,8 +1181,8 @@ struct TestCaseManager {
                     return
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
-                    interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
-                         interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card"
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card"
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1198,7 +1198,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-vertical"
-                         interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-vertical"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-vertical"
                 interstitialController.adFormats = [.video]
                 adapterVC.setup(adapter: interstitialController)
                         
@@ -1214,7 +1214,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-deeplink"
-                         interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-deeplink"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-deeplink"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1231,7 +1231,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-skip-offset"
-                         interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-skip-offset"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-skip-offset"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1248,7 +1248,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-mp4"
-                         interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-mp4"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-mp4"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1265,7 +1265,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-m4v"
-                         interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-m4v"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-m4v"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1282,7 +1282,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-mov"
-                         interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-mov"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-mov"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1315,7 +1315,7 @@ struct TestCaseManager {
                 }
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-skadn"
-                         interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-skadn"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-skadn"
                 interstitialController.adFormats = [.video]
                 
                 adapterVC.setup(adapter: interstitialController)
@@ -1351,7 +1351,7 @@ struct TestCaseManager {
                 }
                 let gamInterstitialController = PrebidGAMInterstitialController(rootController: adapterVC)
                 gamInterstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
-                         gamInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
+                gamInterstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480"
                 gamInterstitialController.adFormats = [.video]
                 gamInterstitialController.gamAdUnitId = "/21808260008/prebid_oxb_320x480_interstitial_video_random"
                 adapterVC.setup(adapter: gamInterstitialController)
