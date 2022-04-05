@@ -48,7 +48,7 @@ class AdUnitSuccessorTests: XCTestCase {
         //given
         let bannerAdUnit = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
         
-        let parameters = BannerAdUnit.Parameters()
+        let parameters = BannerParameters()
         parameters.api = [Signals.Api.VPAID_1, Signals.Api.VPAID_2]
         
         bannerAdUnit.parameters = parameters
@@ -133,7 +133,7 @@ class AdUnitSuccessorTests: XCTestCase {
     
     private func checkVideoParametersHelper(_ videoBaseAdUnit: VideoBaseAdUnit) {
         
-        let parameters = VideoAdUnit.Parameters()
+        let parameters = VideoParameters()
         parameters.api = [Signals.Api.VPAID_1, Signals.Api.VPAID_2]
         parameters.maxBitrate = 1500
         parameters.minBitrate = 300

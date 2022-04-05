@@ -261,7 +261,7 @@ class InterstitialViewController:
         
         let adUnit = VideoInterstitialAdUnit(configId: "1001-1")
         adUnit.adFormats = [.video]
-        let parameters = VideoBaseAdUnit.Parameters()
+        let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
         
         parameters.protocols = [Signals.Protocols.VAST_2_0]

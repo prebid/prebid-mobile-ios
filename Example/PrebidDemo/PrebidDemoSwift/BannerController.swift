@@ -181,7 +181,7 @@ class BannerController:
         
         let bannerAdUnit = BannerAdUnit(configId: configId, size: CGSize(width: width, height: height))
         
-        let parameters = BannerAdUnit.Parameters()
+        let parameters = BannerParameters()
 
         parameters.api = [Signals.Api.MRAID_2]
         
@@ -311,7 +311,7 @@ class BannerController:
 
         let adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: width, height: height))
 
-        let parameters = VideoBaseAdUnit.Parameters()
+        let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
 
         parameters.protocols = [Signals.Protocols.VAST_2_0]

@@ -15,26 +15,8 @@ import Foundation
 
 public class BannerBaseAdUnit: AdUnit {
 
-    public var parameters: Parameters? {
+    public var parameters: BannerParameters? {
         get { adUnitConfig.bannerParameters }
         set { adUnitConfig.bannerParameters = newValue }
-    }
-
-    //MARK: - Parameters class
-    
-    /// Describes an [OpenRTB](https://www.iab.com/wp-content/uploads/2016/03/OpenRTB-API-Specification-Version-2-5-FINAL.pdf) banner object
-    @objc(PBBannerAdUnitParameters)
-    public class Parameters: NSObject {
-
-        /// List of supported API frameworks for this impression. If an API is not explicitly listed, it is assumed not to be supported.
-        @objc public var api: [Signals.Api]?
-
-        // MARK: - Helpers
-        
-        @objc public var rawAPI: [Int]? {
-            get {
-                api?.toIntArray()
-            }
-        }
     }
 }

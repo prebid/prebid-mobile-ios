@@ -25,7 +25,7 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     @IBOutlet weak var playButton: UIButton!
     
     var integrationKind: IntegrationKind = .undefined
-    let parameters = VideoBaseAdUnit.Parameters()
+    let parameters = VideoParameters()
     var adUnitID: String!
     
     private var adUnit: VideoAdUnit!

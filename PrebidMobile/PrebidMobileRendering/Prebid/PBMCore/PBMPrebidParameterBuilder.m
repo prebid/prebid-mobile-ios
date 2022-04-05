@@ -143,7 +143,7 @@
                     nextBanner.format = formats;
                 }
                 
-                PBBannerAdUnitParameters *bannerParameters = self.adConfiguration.bannerParameters;
+                BannerParameters *bannerParameters = self.adConfiguration.bannerParameters;
                 if (bannerParameters) {
                     nextBanner.api = bannerParameters.rawAPI;
                 }
@@ -160,7 +160,7 @@
                     nextVideo.h = primarySize.h;
                 }
                 
-                PBVideoAdUnitParameters *videoParameters = self.adConfiguration.videoParameters;
+                VideoParameters *videoParameters = self.adConfiguration.videoParameters;
                 
                 if (videoParameters) {
                     nextVideo.api = self.adConfiguration.videoParameters.rawAPI;
