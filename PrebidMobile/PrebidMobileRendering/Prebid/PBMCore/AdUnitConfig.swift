@@ -77,12 +77,6 @@ public class AdUnitConfig: NSObject, NSCopying {
             }
         }
     }
-    
-    /// Describes an OpenRTB banner object
-    public var bannerParameters: BannerParameters?
-
-    /// Describes an OpenRTB video object
-    public var videoParameters: VideoParameters?
 
     // MARK: - Public Methods
     

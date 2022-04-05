@@ -28,6 +28,18 @@ public class BannerView: UIView,
     
     // MARK: - Public Properties
     
+    /// OpenRTB banner object request parameters
+    @objc public var bannerParameters: BannerParameters? {
+        get { adUnitConfig.adConfiguration.bannerParameters }
+        set { adUnitConfig.adConfiguration.bannerParameters = newValue }
+    }
+    
+    /// OpenRTB video object request parameters
+    @objc public var videoParameters: VideoParameters? {
+        get { adUnitConfig.adConfiguration.videoParameters }
+        set { adUnitConfig.adConfiguration.videoParameters = newValue }
+    }
+    
     public var lastBidResponse: BidResponse? {
         adLoadFlowController?.bidResponse
     }

@@ -143,7 +143,7 @@
                     nextBanner.format = formats;
                 }
                 
-                BannerParameters *bannerParameters = self.adConfiguration.bannerParameters;
+                BannerParameters *bannerParameters = self.adConfiguration.adConfiguration.bannerParameters;
                 if (bannerParameters) {
                     nextBanner.api = bannerParameters.rawAPI;
                 }
@@ -160,10 +160,10 @@
                     nextVideo.h = primarySize.h;
                 }
                 
-                VideoParameters *videoParameters = self.adConfiguration.videoParameters;
+                VideoParameters *videoParameters = self.adConfiguration.adConfiguration.videoParameters;
                 
                 if (videoParameters) {
-                    nextVideo.api = self.adConfiguration.videoParameters.rawAPI;
+                    nextVideo.api = self.adConfiguration.adConfiguration.videoParameters.rawAPI;
                     nextVideo.maxbitrate = [NSNumber numberWithInteger:videoParameters.maxBitrate.value];
                     nextVideo.minbitrate = [NSNumber numberWithInteger:videoParameters.minBitrate.value];
                     nextVideo.maxduration = [NSNumber numberWithInteger:videoParameters.maxDuration.value];

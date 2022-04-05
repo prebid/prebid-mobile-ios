@@ -18,8 +18,8 @@ import UIKit
 public class VideoBaseAdUnit: AdUnit {
 
     public var parameters: VideoParameters? {
-        get { adUnitConfig.videoParameters }
-        set { adUnitConfig.videoParameters = newValue }
+        get { adUnitConfig.adConfiguration.videoParameters }
+        set { adUnitConfig.adConfiguration.videoParameters = newValue }
     }
     
     public override init(configId: String, size: CGSize?) {

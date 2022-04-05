@@ -30,6 +30,15 @@ public class AdConfiguration: AutoRefreshCountConfig {
      */
     public var videoPlacementType = VideoPlacementType.undefined
     
+    /**
+     Describes an OpenRTB banner object
+     */
+    public var bannerParameters: BannerParameters?
+    /**
+     Describes an OpenRTB video object
+     */
+    public var videoParameters: VideoParameters?
+    
     // MARK: - Interstitial
     
     /**
