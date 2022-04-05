@@ -221,7 +221,7 @@ class VideoCreativeDelegateTest: XCTestCase, PBMCreativeResolutionDelegate, PBMC
         let expectation = self.expectation(description: "Should push Modal")
         
         let model = PBMCreativeModel(adConfiguration:AdConfiguration())
-        model.displayDurationInSeconds = 5
+        model.displayDurationInSeconds = 10
         model.skipOffset = 10
         
         self.videoCreative = PBMVideoCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction(), videoData: Data())
