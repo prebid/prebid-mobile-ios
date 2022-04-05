@@ -14,7 +14,6 @@
  */
 
 #import "AppDelegate.h"
-#import "MoPub.h"
 
 @import PrebidMobile;
 @import GoogleMobileAds;
@@ -42,11 +41,6 @@
     Prebid.shared.externalUserIdArray = externalUserIdArray;
     
     [GAMUtils.shared initializeGAM];
-
-    // Override point for customization after application launch.
-    MPMoPubConfiguration *sdkConfig = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"a935eac11acd416f92640411234fbba6"];
-    sdkConfig.globalMediationSettings = @[];
-    [MoPub.sharedInstance initializeSdkWithConfiguration:sdkConfig completion:nil];
 
     [AdMobUtils initializeGAD];
     return YES;

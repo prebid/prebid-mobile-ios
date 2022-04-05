@@ -35,10 +35,8 @@ enum TestCaseTag : String, Comparable {
     
     
     //SDK (Integration)
-//    case inapp = " In-App"
     case inapp  = "In-App"
     case gam    = "GAM"
-    case mopub  = "MoPub"
     case admob = "AdMob"
     
     // MARK: - Group
@@ -51,7 +49,7 @@ enum TestCaseTag : String, Comparable {
     }
     
     static var integrations: [TestCaseTag] {
-        return [.inapp, .gam, .mopub, .admob]
+        return [.inapp, .gam, .admob]
     }
     
     // MARK: - Util methods

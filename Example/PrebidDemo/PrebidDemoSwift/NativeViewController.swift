@@ -9,12 +9,10 @@
 import UIKit
 
 import PrebidMobile
-
 import GoogleMobileAds
 
-import MoPubSDK
 
-class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDelegate {
+class NativeViewController: UIViewController, GADBannerViewDelegate {
 
     var nativeUnit: NativeRequest!
     
@@ -24,7 +22,6 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
     
     var eventTrackers: NativeEventTracker!
     var dfpNativeAdUnit: GAMBannerView!
-    var mopubNativeAdUnit: MPAdView!
     let request = GAMRequest()
     
     override func viewDidLoad() {
@@ -38,15 +35,11 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
         switch integrationKind {
         case .originalGAM:
             loadDFPNative()
-        case .originalMoPub:
-            loadMoPubNative()
         case .originalAdMob:
             print("TODO: Add Example")
         case .inApp:
             print("TODO: Add Example")
         case .renderingGAM:
-            print("TODO: Add Example")
-        case .renderingMoPub:
             print("TODO: Add Example")
         case .renderingAdMob:
             print("TODO: Add Example")
@@ -99,25 +92,6 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
                 }
             }
         }
-        
-        func loadMoPubNative() {
-            
-            mopubNativeAdUnit = MPAdView(adUnitId: "037a743e5d184129ab79c941240efff8")
-            mopubNativeAdUnit.frame = CGRect(x: 0, y: 0, width: 300, height: 580)
-            mopubNativeAdUnit.delegate = self
-            mopubNativeAdUnit.backgroundColor = .green
-            nativeView.addSubview(mopubNativeAdUnit)
-
-            if(nativeUnit != nil){
-                // Do any additional setup after loading the view, typically from a nib.
-                nativeUnit.fetchDemand(adObject: mopubNativeAdUnit) { (resultCode: ResultCode) in
-                    print("Prebid demand fetch for mopub \(resultCode.name())")
-
-                    self.mopubNativeAdUnit!.loadAd()
-                }
-            }
-
-        }
 
         override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
@@ -152,15 +126,4 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
         func viewControllerForPresentingModalView() -> UIViewController! {
             return self
         }
-        
-        func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
-            
-            view.sizeToFit()
-            
-        }
-        
-        func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
-            print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
-        }
-
 }

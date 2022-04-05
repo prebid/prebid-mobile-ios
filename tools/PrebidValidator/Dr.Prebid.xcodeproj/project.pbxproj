@@ -72,7 +72,6 @@
 		F54C7F5321484AD500025B23 /* test-full-sdk.html in Resources */ = {isa = PBXBuildFile; fileRef = F54C7F5221484AD500025B23 /* test-full-sdk.html */; };
 		F54C7F5A2149804300025B23 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F54C7F592149804300025B23 /* IntroViewController.m */; };
 		F553098220E53CF500A7B552 /* AdServerValidationURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F553098120E53CF500A7B552 /* AdServerValidationURLProtocol.m */; };
-		F56AE891209A3809000CE29F /* PBViewTool.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE88F209A3808000CE29F /* PBViewTool.m */; };
 		F56AE894209A383B000CE29F /* PBVLineItemsSetupValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */; };
 		F5944B3C21B87F9C00E04A34 /* NSURLSessionConfiguration+PBProtocols.m in Sources */ = {isa = PBXBuildFile; fileRef = F5944B3B21B87F9C00E04A34 /* NSURLSessionConfiguration+PBProtocols.m */; };
 		F59C6B632126123F00A5B8AE /* PBVPrebidSDKValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F59C6B532126123E00A5B8AE /* PBVPrebidSDKValidator.m */; };
@@ -99,13 +98,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 60D792FB217E229B0080F428;
 			remoteInfo = PrebidMobileTests;
-		};
-		FA282EB22327ECD800C9D477 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FA12E520231FD3BD00CAA05B /* PrebidMobile.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FA29A3F2232255DF00F13F61;
-			remoteInfo = PrebidMobileCore;
 		};
 		FAC9E2062327EFB000113B04 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -239,8 +231,6 @@
 		F54C7F592149804300025B23 /* IntroViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		F54C7F5B2149804F00025B23 /* IntroViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		F553098120E53CF500A7B552 /* AdServerValidationURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdServerValidationURLProtocol.m; sourceTree = "<group>"; };
-		F56AE88F209A3808000CE29F /* PBViewTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBViewTool.m; sourceTree = "<group>"; };
-		F56AE890209A3809000CE29F /* PBViewTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBViewTool.h; sourceTree = "<group>"; };
 		F56AE892209A383A000CE29F /* PBVLineItemsSetupValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBVLineItemsSetupValidator.m; sourceTree = "<group>"; };
 		F56AE893209A383B000CE29F /* PBVLineItemsSetupValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBVLineItemsSetupValidator.h; sourceTree = "<group>"; };
 		F5944B3A21B87F4E00E04A34 /* NSURLSessionConfiguration+PBProtocols.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURLSessionConfiguration+PBProtocols.h"; sourceTree = "<group>"; };
@@ -431,8 +421,6 @@
 				609172F520F686A8001B94A8 /* HelpViewController.m */,
 				60CFB25B2097820D006FCF7C /* PBVSharedConstants.h */,
 				60CFB2AC2097820D006FCF7C /* PBVSharedConstants.m */,
-				F56AE890209A3809000CE29F /* PBViewTool.h */,
-				F56AE88F209A3808000CE29F /* PBViewTool.m */,
 				60CFB2802097820D006FCF7C /* QRCodeReaderViewController */,
 				F533B16D21349D09001977C2 /* ColorTool.m */,
 				F533B16F21349D16001977C2 /* ColorTool.h */,
@@ -524,7 +512,6 @@
 			children = (
 				FA12E526231FD3BD00CAA05B /* PrebidMobile.framework */,
 				FA12E528231FD3BD00CAA05B /* PrebidMobileTests.xctest */,
-				FA282EB32327ECD800C9D477 /* PrebidMobile.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -607,13 +594,6 @@
 			remoteRef = FA12E527231FD3BD00CAA05B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		FA282EB32327ECD800C9D477 /* PrebidMobile.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = PrebidMobile.framework;
-			remoteRef = FA282EB22327ECD800C9D477 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -669,18 +649,14 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-				"${BUILT_PRODUCTS_DIR}/mopub-ios-sdk/MoPubSDK.framework",
 				"${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds.framework",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/mopub-ios-sdk/Core/OMSDK_Mopub.framework/OMSDK_Mopub",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MoPubSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OMSDK_Mopub.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -725,7 +701,6 @@
 				60924F1F21484A650019DD12 /* DemandHeaderCell.m in Sources */,
 				60CFB2C52097820D006FCF7C /* QRCodeReader.m in Sources */,
 				607999C121B727E700EE3007 /* ToolReachability.m in Sources */,
-				F56AE891209A3809000CE29F /* PBViewTool.m in Sources */,
 				60A2CC342123554200EA6ACF /* SectionCell.m in Sources */,
 				609172F320F53C74001B94A8 /* IdCell.m in Sources */,
 				60A2CC2A2121B71200EA6ACF /* TestSummaryViewController.m in Sources */,

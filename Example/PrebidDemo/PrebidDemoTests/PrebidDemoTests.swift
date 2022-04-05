@@ -14,7 +14,6 @@
  */
 
 import XCTest
-import MoPubSDK
 import GoogleMobileAds
 import WebKit
 import TestUtils
@@ -26,10 +25,8 @@ class PrebidDemoTests: XCTestCase {
     var viewController: IndexController?
     var loadSuccesfulException: XCTestExpectation?
     var timeoutForRequest: TimeInterval = 0.0
-    var mopubInterstitial: MPInterstitialAdController?
     var nativeUnit : NativeRequest!
     var dfpNativeAdUnit: GAMBannerView!
-    var mopubNativeAdUnit: MPAdView!
     
     override func setUp() {
         StubbingHandler.shared.turnOff()
@@ -45,10 +42,8 @@ class PrebidDemoTests: XCTestCase {
 
     override func tearDown() {
         loadSuccesfulException = nil
-        mopubInterstitial = nil
         nativeUnit = nil
         dfpNativeAdUnit = nil
-        mopubNativeAdUnit = nil
     }
     
     func setUpAppNexus() {
@@ -84,16 +79,6 @@ class PrebidDemoTests: XCTestCase {
         dfpNativeAdUnit.delegate = self
         dfpNativeAdUnit.backgroundColor = .green
         viewController?.view.addSubview(dfpNativeAdUnit)
-    }
-    
-    func loadMopubNative(){
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_NATIVE_ADUNIT_ID_APPNEXUS)
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        mopubNativeAdUnit = MPAdView(adUnitId: Constants.MOPUB_NATIVE_ADUNIT_ID_APPNEXUS)
-        mopubNativeAdUnit?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        mopubNativeAdUnit?.delegate = self
-        viewController?.view.addSubview(mopubNativeAdUnit!)
     }
     
     // FIXME: Disabled because of the resultCode: Prebid Server did not return bids
@@ -501,261 +486,6 @@ class PrebidDemoTests: XCTestCase {
         XCTAssertEqual(2, fetchDemandCount)
     }
 
-    // FIXME: Disabled because of the resultCode: Prebid Server did not return bids
-    func testAppNexusMoPubBannerSanityAppCheckTest() {
-        loadSuccesfulException = expectation(description: "\(#function)")
-        
-        timeoutForRequest = 20.0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
-        mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        mopubBanner?.delegate = self
-        viewController?.view.addSubview(mopubBanner!)
-        bannerUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            if resultCode == .prebidDemandFetchSuccess {
-                XCTAssertNotNil(mopubBanner!.keywords)
-                if let keywords = mopubBanner?.keywords{
-                    XCTAssertNotNil(keywords.contains("hb_pb"))
-                }
-                mopubBanner!.loadAd()
-            } else {
-                XCTFail("resultCode:\(resultCode.name())")
-                self.loadSuccesfulException?.fulfill()
-            }
-        }
-        
-        waitForExpectations(timeout: timeoutForRequest, handler: nil)
-    }
-    
-    // FIXME: Disabled because of incorrect HTML creative size
-    func testRubiconMoPubBannerSanityAppCheckTest() {
-        
-        //given
-        setUpAppRubicon()
-        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
-        loadSuccesfulException = expectation(description: "\(#function)")
-        
-        timeoutForRequest = 20.0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
-        mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        mopubBanner?.delegate = self
-        viewController?.view.addSubview(mopubBanner!)
-        
-        //when
-        bannerUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            if resultCode == .prebidDemandFetchSuccess {
-                mopubBanner!.loadAd()
-            } else {
-                XCTFail("resultCode:\(resultCode.name())")
-                self.loadSuccesfulException?.fulfill()
-            }
-        }
-        
-        waitForExpectations(timeout: timeoutForRequest, handler: nil)
-        
-        //then
-        XCTAssertNotNil(mopubBanner!.keywords)
-        if let keywords = mopubBanner?.keywords{
-            XCTAssertNotNil(keywords.contains("hb_pb"))
-        }
-        
-        XCTAssertNil(prebidCreativeError)
-        XCTAssertNotNil(prebidCreativeSize)
-    }
-
-    func testMopubBannerWithoutAutoRefresh() {
-        var fetchDemandCount = 0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
-        mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        bannerUnit.fetchDemand(adObject: mopubBanner!) { (_) in
-            fetchDemandCount += 1
-        }
-        wait(31)
-        XCTAssertEqual(1, fetchDemandCount)
-    }
-
-    func testMopubBannerWithInvalidAutoRefresh() {
-        var fetchDemandCount = 0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
-        bannerUnit.setAutoRefreshMillis(time: 20000)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
-        mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        bannerUnit.fetchDemand(adObject: mopubBanner!) { (_) in
-            fetchDemandCount += 1
-        }
-        wait(31)
-        XCTAssertEqual(1, fetchDemandCount)
-    }
-
-    func testMopubBannerWithValidAutoRefresh() {
-        var fetchDemandCount = 0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
-        bannerUnit.setAutoRefreshMillis(time: 30000)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
-        mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        bannerUnit.fetchDemand(adObject: mopubBanner!) { (_) in
-            fetchDemandCount += 1
-        }
-        wait(31)
-        XCTAssertEqual(2, fetchDemandCount)
-    }
-
-    // FIXME: Disabled because of incorrect HTML creative size
-    func testMoPubInterstitialSanityAppCheckTest() {
-        loadSuccesfulException = expectation(description: "\(#function)")
-        setUpAppRubicon()
-        Prebid.shared.storedAuctionResponse = "1001-rubicon-300x250"
-        timeoutForRequest = 20.0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_RUBICON)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_RUBICON)
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_RUBICON)
-        mopubInterstitial?.delegate = self
-        interstitialUnit.fetchDemand(adObject: mopubInterstitial!) { (resultCode: ResultCode) in
-            if resultCode == .prebidDemandFetchSuccess {
-
-                self.mopubInterstitial?.loadAd()
-            } else {
-                XCTFail("resultCode:\(resultCode.name())")
-                self.loadSuccesfulException?.fulfill()
-            }
-        }
-        
-        waitForExpectations(timeout: timeoutForRequest, handler: nil)
-        
-        //then
-        XCTAssertNotNil(self.mopubInterstitial!.keywords)
-        if let keywords = self.mopubInterstitial?.keywords{
-            XCTAssertNotNil(keywords.contains("hb_pb"))
-        }
-        
-        XCTAssertNil(prebidCreativeError)
-        XCTAssertNotNil(prebidCreativeSize)
-    }
-    
-    func testMopubInterstitialWithoutAutoRefresh() {
-        var fetchDemandCount = 0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
-        interstitialUnit.fetchDemand(adObject: mopubInterstitial!) { (_) in
-             fetchDemandCount += 1
-        }
-        wait(31)
-        XCTAssertEqual(1, fetchDemandCount)
-    }
-
-    func testMopubInterstitialWithInvalidAutoRefresh() {
-        var fetchDemandCount = 0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
-        interstitialUnit.setAutoRefreshMillis(time: 20000)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
-        interstitialUnit.fetchDemand(adObject: mopubInterstitial!) { (_) in
-            fetchDemandCount += 1
-        }
-        wait(31)
-        XCTAssertEqual(1, fetchDemandCount)
-    }
-
-    func testMopubInterstitialWithValidAutoRefresh() {
-        var fetchDemandCount = 0
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
-        interstitialUnit.setAutoRefreshMillis(time: 30000)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        mopubInterstitial = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
-        interstitialUnit.fetchDemand(adObject: mopubInterstitial!) { (_) in
-            fetchDemandCount += 1
-        }
-        wait(31)
-        XCTAssertEqual(2, fetchDemandCount)
-    }
-    
-    // FIXME: Disabled because of the resultCode: Prebid Server did not return bids
-    func testMopubNativeSanityAppCheckTest() {
-        //given
-        loadSuccesfulException = expectation(description: "\(#function)")
-        
-        timeoutForRequest = 30.0
-        loadNativeAssets()
-        loadMopubNative()
-        nativeUnit.fetchDemand(adObject: mopubNativeAdUnit!) { (resultCode: ResultCode) in
-            if resultCode == .prebidDemandFetchSuccess {
-                self.mopubNativeAdUnit!.loadAd()
-            } else {
-                XCTFail("resultCode:\(resultCode.name())")
-                self.loadSuccesfulException?.fulfill()
-            }
-        }
-        
-        waitForExpectations(timeout: timeoutForRequest, handler: nil)
-        
-        //then
-        XCTAssertNotNil(self.mopubNativeAdUnit!.keywords)
-        if let keywords = self.mopubNativeAdUnit?.keywords{
-            XCTAssertNotNil(keywords.contains("hb_pb"))
-        }
-    }
-    
-    func testMopubNativeWithoutAutoRefresh() {
-        var fetchDemandCount = 0
-        loadNativeAssets()
-        loadMopubNative()
-        nativeUnit.fetchDemand(adObject: mopubNativeAdUnit!) { (resultCode: ResultCode) in
-            fetchDemandCount += 1
-        }
-        wait(31)
-        XCTAssertEqual(1, fetchDemandCount)
-    }
-    
-    func testMopubNativeWithInvalidAutoRefresh() {
-        var fetchDemandCount = 0
-        loadNativeAssets()
-        nativeUnit.setAutoRefreshMillis(time: 20000)
-        loadMopubNative()
-        nativeUnit.fetchDemand(adObject: mopubNativeAdUnit!) { (resultCode: ResultCode) in
-            fetchDemandCount += 1
-        }
-        wait(31)
-        XCTAssertEqual(1, fetchDemandCount)
-    }
-    
-    func testMopubNativeWithValidAutoRefresh() {
-        var fetchDemandCount = 0
-        loadNativeAssets()
-        nativeUnit.setAutoRefreshMillis(time: 30000)
-        loadMopubNative()
-        nativeUnit.fetchDemand(adObject: mopubNativeAdUnit!) { (resultCode: ResultCode) in
-            fetchDemandCount += 1
-        }
-        wait(31)
-        XCTAssertEqual(2, fetchDemandCount)
-    }
-
     func testAutoRefreshWith2MinThenDisable() {
         var fetchDemandCount = 0
         let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
@@ -970,20 +700,6 @@ class PrebidDemoTests: XCTestCase {
         targeting.setYearOfBirth(yob: 2018)
         let value = Targeting.shared.yearOfBirth
         XCTAssertTrue((value == 2018))
-
-        let adUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
-
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
-        mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        adUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, .prebidDemandFetchSuccess, "expected:Success instead of:\(String(describing: resultCode.name))")
-            self.loadSuccesfulException?.fulfill()
-        }
-        
-        waitForExpectations(timeout: timeoutForRequest, handler: nil)
     }
 
     func testYOBWith1989() {
@@ -996,20 +712,6 @@ class PrebidDemoTests: XCTestCase {
         targeting.setYearOfBirth(yob: 1989)
         let value = Targeting.shared.yearOfBirth
         XCTAssertTrue((value == 1989))
-
-        let adUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_RUBICON, size: CGSize(width: 300, height: 250))
-
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_RUBICON)
-        mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        adUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, .prebidDemandFetchSuccess, "expected:Success instead of:\(String(describing: resultCode.name))")
-            self.loadSuccesfulException?.fulfill()
-        }
-        
-        waitForExpectations(timeout: timeoutForRequest, handler: nil)
     }
 
     func testAppNexusKeyValueTargeting() {
@@ -1020,42 +722,6 @@ class PrebidDemoTests: XCTestCase {
 
         timeoutForRequest = 20.0
         let adUnit = BannerAdUnit(configId: "67bac530-9832-4f78-8c94-fbf88ac7bd14", size: CGSize(width: 300, height: 250))
-        
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6")
-        mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        adUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
-            self.loadSuccesfulException?.fulfill()
-        }
-        
-        waitForExpectations(timeout: timeoutForRequest, handler: nil)
-
-    }
-
-    func testAppNexusKeyValueTargeting2() {
-        loadSuccesfulException = expectation(description: "\(#function)")
-        
-        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
-        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
-
-        timeoutForRequest = 20.0
-        let adUnit = BannerAdUnit(configId: "67bac530-9832-4f78-8c94-fbf88ac7bd14", size: CGSize(width: 300, height: 250))
-
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6")
-        mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        adUnit.fetchDemand(adObject: mopubBanner!) { (resultCode: ResultCode) in
-            XCTAssertEqual(resultCode, .prebidDemandNoBids)
-            self.loadSuccesfulException?.fulfill()
-        }
-        
-        waitForExpectations(timeout: timeoutForRequest, handler: nil)
-
     }
 
     func testDFPCustomKeywords() {
@@ -1088,40 +754,6 @@ class PrebidDemoTests: XCTestCase {
             }
             request.customTargeting = ["key1": "", "key2": "value1", "key3": "value3"]
 
-        }
-        
-        waitForExpectations(timeout: timeoutForRequest, handler: nil)
-    }
-
-    func testMoPubCustomKeywords() {
-        loadSuccesfulException = expectation(description: "\(#function)")
-        
-        var fetchCount = 0
-        timeoutForRequest = 60.0
-        let bannerUnit = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
-        bannerUnit.setAutoRefreshMillis(time: 30000)
-        let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
-        sdkConfig.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig) {}
-        let mopubBanner = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
-        mopubBanner?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        mopubBanner?.keywords = "key1:value1,key2:value2"
-        bannerUnit.fetchDemand(adObject: mopubBanner!) { (_) in
-            fetchCount += 1
-            XCTAssertNotNil(mopubBanner?.keywords)
-            let keywords = mopubBanner?.keywords
-            let keywordsArray = keywords!.components(separatedBy: ",")
-            if fetchCount == 1 {
-                XCTAssertTrue(keywordsArray.contains("key1:value1"))
-                XCTAssertTrue(keywordsArray.contains("key2:value2"))
-            } else {
-                XCTAssertFalse(keywordsArray.contains("key1:value1"))
-                XCTAssertFalse(keywordsArray.contains("key2:value2"))
-                XCTAssertTrue(keywordsArray.contains("key1:value2"))
-                XCTAssertTrue(keywordsArray.contains("key2:value1"))
-                self.loadSuccesfulException?.fulfill()
-            }
-            mopubBanner?.keywords = "key1:value2,key2:value1"
         }
         
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
@@ -1169,211 +801,6 @@ class PrebidDemoTests: XCTestCase {
         waitForExpectations(timeout: timeoutForRequest, handler: nil)
     }
 
-    func testMultipleAdUnitsAllDemandFetched() {
-        setUpAppNexus()
-        var fetchDemandCount = 0
-        let bannerUnit1 = BannerAdUnit(configId: "7cd2c7c8-cebe-4206-b5a4-97b9e840729e", size: CGSize(width: 320, height: 50))
-        let sdkConfig1 = MPMoPubConfiguration(adUnitIdForAppInitialization: "9a8c2ccd3dae405bb925397d35eed8f9")
-        sdkConfig1.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig1) {}
-        let mopubBanner1 = MPAdView(adUnitId: "9a8c2ccd3dae405bb925397d35eed8f9")
-        mopubBanner1?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        mopubBanner1?.delegate = self
-        viewController?.view.addSubview(mopubBanner1!)
-        bannerUnit1.fetchDemand(adObject: mopubBanner1!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
-            fetchDemandCount += 1
-        }
-
-        let bannerUnit2 = BannerAdUnit(configId: "525a5fee-ffbb-4f16-935d-3717c56e7aeb", size: CGSize(width: 320, height: 50))
-        let sdkConfig2 = MPMoPubConfiguration(adUnitIdForAppInitialization: "50564379db734ebbb347849221a1081e")
-        sdkConfig2.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig2) {}
-        let mopubBanner2 = MPAdView(adUnitId: "50564379db734ebbb347849221a1081e")
-        mopubBanner2?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        mopubBanner2?.delegate = self
-        viewController?.view.addSubview(mopubBanner2!)
-        bannerUnit2.fetchDemand(adObject: mopubBanner2!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
-            fetchDemandCount += 1
-        }
-
-        let bannerUnit3 = BannerAdUnit(configId: "511c39f2-b527-41af-811a-adac6911bdfc", size: CGSize(width: 300, height: 250))
-        let sdkConfig3 = MPMoPubConfiguration(adUnitIdForAppInitialization: "5ff9556b05964e65b684ec54013df59d")
-        sdkConfig3.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig3) {}
-        let mopubBanner3 = MPAdView(adUnitId: "5ff9556b05964e65b684ec54013df59d")
-        mopubBanner3?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        mopubBanner3?.delegate = self
-        viewController?.view.addSubview(mopubBanner3!)
-        bannerUnit3.fetchDemand(adObject: mopubBanner3!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
-            fetchDemandCount += 1
-        }
-
-        let bannerUnit4 = BannerAdUnit(configId: "42ad4418-9b36-4e39-ae54-2f7a13ad8616", size: CGSize(width: 300, height: 250))
-        let sdkConfig4 = MPMoPubConfiguration(adUnitIdForAppInitialization: "c5c9267bcf6247cb91a116d1ef6c7487")
-        sdkConfig4.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig4) {}
-        let mopubBanner4 = MPAdView(adUnitId: "c5c9267bcf6247cb91a116d1ef6c7487")
-        mopubBanner4?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        mopubBanner4?.delegate = self
-        viewController?.view.addSubview(mopubBanner4!)
-        bannerUnit4.fetchDemand(adObject: mopubBanner4!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
-            fetchDemandCount += 1
-        }
-
-        let bannerUnit5 = BannerAdUnit(configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", size: CGSize(width: 300, height: 250))
-        let sdkConfig5 = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
-        sdkConfig5.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig5) {}
-        let mopubBanner5 = MPAdView(adUnitId: "a935eac11acd416f92640411234fbba6")
-        mopubBanner5?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        mopubBanner5?.delegate = self
-        viewController?.view.addSubview(mopubBanner5!)
-        bannerUnit5.fetchDemand(adObject: mopubBanner5!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
-            fetchDemandCount += 1
-        }
-
-        let interstitialUnit6 = InterstitialAdUnit(configId: "625c6125-f19e-4d5b-95c5-55501526b2a4")
-        let sdkConfig6 = MPMoPubConfiguration(adUnitIdForAppInitialization: "2829868d308643edbec0795977f17437")
-        sdkConfig6.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig6) {}
-        let mopubInterstitial6 = MPInterstitialAdController(forAdUnitId: "2829868d308643edbec0795977f17437")
-        
-        interstitialUnit6.fetchDemand(adObject: mopubInterstitial6!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
-            fetchDemandCount += 1
-        }
-
-        let interstitialUnit7 = InterstitialAdUnit(configId: "bde00f49-0a1b-483a-9716-e2dd427b794c")
-        let sdkConfig7 = MPMoPubConfiguration(adUnitIdForAppInitialization: "c3fca03154a540bfa7f0971fb984e3e8")
-        sdkConfig7.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig7) {}
-        let mopubInterstitial7 = MPInterstitialAdController(forAdUnitId: "c3fca03154a540bfa7f0971fb984e3e8")
-        interstitialUnit7.fetchDemand(adObject: mopubInterstitial7!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
-            fetchDemandCount += 1
-        }
-
-        let interstitialUnit8 = InterstitialAdUnit(configId: "6ceca3d4-f5b8-4717-b4d9-178843f873f8")
-        let sdkConfig8 = MPMoPubConfiguration(adUnitIdForAppInitialization: "12ecf78eb8314f8bb36192a6286adc56")
-        sdkConfig8.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig8) {}
-        let mopubInterstitial8 = MPInterstitialAdController(forAdUnitId: "12ecf78eb8314f8bb36192a6286adc56")
-        interstitialUnit8.fetchDemand(adObject: mopubInterstitial8!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
-            fetchDemandCount += 1
-        }
-
-        let interstitialUnit9 = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
-        let sdkConfig9 = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
-        sdkConfig9.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig9) {}
-        let mopubInterstitial9 = MPInterstitialAdController(forAdUnitId: Constants.MOPUB_INTERSTITIAL_ADUNIT_ID_APPNEXUS)
-        interstitialUnit9.fetchDemand(adObject: mopubInterstitial9!) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
-            fetchDemandCount += 1
-        }
-
-        let interstitialUnit = InterstitialAdUnit(configId: Constants.PBS_CONFIG_ID_INTERSTITIAL_APPNEXUS)
-        let request = GAMRequest()
-        GAMInterstitialAd.load(withAdManagerAdUnitID: "/5300653/test_adunit_interstitial_pavliuchyk_prebid-server.qa.rubiconproject.com", request: request, completionHandler: self.interstitialCallback)
-
-        interstitialUnit.fetchDemand(adObject: request) { (resultCode: ResultCode) in
-            XCTAssert(resultCode == .prebidDemandFetchSuccess || resultCode == .prebidDemandNoBids, resultCode.name())
-            fetchDemandCount += 1
-        }
-        
-        loadNativeAssets()
-        loadDFPNative()
-        nativeUnit.fetchDemand(adObject: dfpNativeAdUnit!) { (resultCode: ResultCode) in
-            fetchDemandCount += 1
-        }
-        
-        loadNativeAssets()
-        loadDFPNative()
-        nativeUnit.fetchDemand(adObject: dfpNativeAdUnit!) { (resultCode: ResultCode) in
-            fetchDemandCount += 1
-        }
-        
-        loadNativeAssets()
-        loadDFPNative()
-        nativeUnit.fetchDemand(adObject: dfpNativeAdUnit!) { (resultCode: ResultCode) in
-            fetchDemandCount += 1
-        }
-        
-        loadNativeAssets()
-        loadDFPNative()
-        nativeUnit.fetchDemand(adObject: dfpNativeAdUnit!) { (resultCode: ResultCode) in
-            fetchDemandCount += 1
-        }
-        
-        loadNativeAssets()
-        loadDFPNative()
-        nativeUnit.fetchDemand(adObject: dfpNativeAdUnit!) { (resultCode: ResultCode) in
-            fetchDemandCount += 1
-        }
-        
-        wait(15)
-        XCTAssertEqual(15, fetchDemandCount)
-    }
-
-    func testSameConfigIdOnDifferentAdObjects() {
-        var fetchDemandCount = 0
-        let bannerUnit1 = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
-        let sdkConfig1 = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
-        sdkConfig1.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig1) {}
-        let mopubBanner1 = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
-        mopubBanner1?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        mopubBanner1?.delegate = self
-        viewController?.view.addSubview(mopubBanner1!)
-        bannerUnit1.fetchDemand(adObject: mopubBanner1!) { (resultCode: ResultCode) in
-            if resultCode == .prebidDemandNoBids {
-                fetchDemandCount += 1
-            } else {
-                XCTAssertEqual(resultCode, .prebidDemandFetchSuccess)
-                XCTAssertNotNil(mopubBanner1!.keywords)
-                let keywords = mopubBanner1!.keywords
-                if let keywordsArray = keywords?.components(separatedBy: ",") {
-                    XCTAssertEqual(10, keywordsArray.count)
-                    XCTAssertTrue (keywordsArray.contains("hb_pb:0.50"))
-                    XCTAssertTrue (keywords!.contains("hb_cache_id:"))
-                    fetchDemandCount += 1
-                }
-            }
-        }
-
-        let bannerUnit2 = BannerAdUnit(configId: Constants.PBS_CONFIG_ID_300x250_APPNEXUS, size: CGSize(width: 300, height: 250))
-        let sdkConfig2 = MPMoPubConfiguration(adUnitIdForAppInitialization: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
-        sdkConfig2.globalMediationSettings = []
-        MoPub.sharedInstance().initializeSdk(with: sdkConfig2) {}
-        let mopubBanner2 = MPAdView(adUnitId: Constants.MOPUB_BANNER_ADUNIT_ID_300x250_APPNEXUS)
-        mopubBanner2?.frame = CGRect(x: 20, y: 100, width: 300, height: 250)
-        mopubBanner2?.delegate = self
-        viewController?.view.addSubview(mopubBanner2!)
-        bannerUnit2.fetchDemand(adObject: mopubBanner2!) { (resultCode: ResultCode) in
-            if resultCode == .prebidDemandNoBids {
-                fetchDemandCount += 1
-            } else {
-                XCTAssertEqual(resultCode, .prebidDemandFetchSuccess, resultCode.name())
-                XCTAssertNotNil(mopubBanner2?.keywords)
-                let keywords = mopubBanner2?.keywords
-                if let keywordsArray = keywords?.components(separatedBy: ",") {
-                    XCTAssertEqual(10, keywordsArray.count)
-                    XCTAssertTrue (keywordsArray.contains("hb_pb:0.50"))
-                    XCTAssertTrue (keywords!.contains("hb_cache_id:"))
-                    fetchDemandCount += 1
-                }
-            }
-        }
-
-        wait(5)
-        XCTAssertEqual(2, fetchDemandCount)
-    }
     
     //MARK: - AM Interstitial
     func interstitialCallback(_ ad: GAMInterstitialAd?, _ error: Error?) {
@@ -1445,49 +872,6 @@ class PrebidDemoTests: XCTestCase {
         return result
     }
 
-}
-
-// MARK: - MPAdViewDelegate
-
-extension PrebidDemoTests: MPAdViewDelegate {
-    func viewControllerForPresentingModalView() -> UIViewController! {
-        return viewController
-    }
-    
-    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
-        print("adViewDidReceiveAd")
-        didLoadAdByAdServerHelper(view: view)
-    }
-
-    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
-        print("adViewDidFail")
-        loadSuccesfulException = nil
-    }
-}
-
-// MARK: - MPInterstitialAdControllerDelegate
-
-extension PrebidDemoTests: MPInterstitialAdControllerDelegate {
-    func interstitialDidLoadAd(_ interstitial: MPInterstitialAdController!) {
-        print("interstitialDidLoadAd")
-        if (self.mopubInterstitial?.ready ?? true) {
-            self.mopubInterstitial?.show(from: viewController)
-        }
-    }
-    
-    func interstitialDidFail(toLoadAd interstitial: MPInterstitialAdController!, withError error: Error!) {
-        print("interstitialDidFail")
-        loadSuccesfulException = nil
-    }
-    
-    func interstitialWillPresent(_ interstitial: MPInterstitialAdController!) {
-        print("interstitialWillPresent")
-    }
-    
-    func interstitialDidPresent(_ interstitial: MPInterstitialAdController!) {
-        print("interstitialDidPresent")
-        didLoadAdByAdServerHelper(view: self.viewController!.presentedViewController!.view)
-    }
 }
 
 // MARK: - GADBannerViewDelegate

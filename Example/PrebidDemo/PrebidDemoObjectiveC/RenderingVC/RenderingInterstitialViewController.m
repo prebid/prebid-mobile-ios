@@ -10,21 +10,16 @@
 
 @import PrebidMobile;
 @import PrebidMobileGAMEventHandlers;
-@import PrebidMobileMoPubAdapters;
 @import PrebidMobileAdMobAdapters;
 
-@import MoPubSDK;
 @import GoogleMobileAds;
 
-@interface RenderingInterstitialViewController () <InterstitialAdUnitDelegate, MPInterstitialAdControllerDelegate, GADFullScreenContentDelegate>
+@interface RenderingInterstitialViewController () <InterstitialAdUnitDelegate, GADFullScreenContentDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *adView;
 
 // In-App
 @property (strong, nullable) InterstitialRenderingAdUnit *interstitialAdUnit;
-// MoPub
-@property (strong, nullable) MediationInterstitialAdUnit *mopubInterstitialAdUnit;
-@property (strong, nullable) MPInterstitialAdController *mopubInterstitial;
 // AdMob
 @property (strong, nullable) MediationInterstitialAdUnit *admobInterstitialAdUnit;
 @property (strong, nullable) GADInterstitialAd *interstitial;
@@ -42,7 +37,6 @@
     switch (self.integrationKind) {
         case IntegrationKind_InApp          : [self loadInAppInterstitial]            ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingInterstitial]     ; break;
-        case IntegrationKind_RenderingMoPub : [self loadMoPubRenderingInterstitial]   ; break;
         case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingInterstitial]   ; break;
             
         default:
@@ -109,27 +103,6 @@
     [self.interstitialAdUnit loadAd];
 }
 
-- (void)loadMoPubRenderingInterstitial {
-    
-    if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
-        self.mopubInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"e979c52714434796909993e21c8fc8da"];
-        self.mopubInterstitial.delegate = self;
-        MoPubMediationInterstitialUtils *mediationDelegate = [[MoPubMediationInterstitialUtils alloc] initWithMopubController:self.mopubInterstitial];
-        self.mopubInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"5a4b8dcf-f984-4b04-9448-6529908d6cb6"
-                                                                           mediationDelegate:mediationDelegate];
-    } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
-        self.mopubInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"7e3146fc0c744afebc8547a4567da895"];
-        self.mopubInterstitial.delegate = self;
-        MoPubMediationInterstitialUtils *mediationDelegate = [[MoPubMediationInterstitialUtils alloc] initWithMopubController:self.mopubInterstitial];
-        self.mopubInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"12f58bc2-b664-4672-8d19-638bcc96fd5c"
-                                                                           mediationDelegate:mediationDelegate];
-    }
-    
-    [self.mopubInterstitialAdUnit fetchDemandWithCompletion:^(ResultCode result) {
-        [self.mopubInterstitial loadAd];
-    }];
-}
-
 - (void)loadAdMobRenderingInterstitial {
     GADRequest *request = [GADRequest new];
     AdMobMediationInterstitialUtils *mediationDelegate = [[AdMobMediationInterstitialUtils alloc] initWithGadRequest:request];
@@ -170,16 +143,6 @@
 
 - (void)interstitial:(InterstitialRenderingAdUnit *)interstitial didFailToReceiveAdWithError:(NSError *)error {
     NSLog(@"InApp interstitial:didFailToReceiveAdWith: %@", [error localizedDescription]);
-}
-
-#pragma mark - MPInterstitialAdControllerDelegate
-
-- (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial {
-    [interstitial showFromViewController:self];
-}
-
-- (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial withError:(NSError *)error {
-    NSLog(@"MoPub interstitialDidFailToLoadAd: %@", [error localizedDescription]);
 }
 
 #pragma mark - GADFullScreenContentDelegate

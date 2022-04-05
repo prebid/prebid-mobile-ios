@@ -41,11 +41,9 @@
     self = [super init];
     if (self) {
         self.requestString = requestString;
-        if([[[NSUserDefaults standardUserDefaults] stringForKey:kAdServerNameKey] isEqualToString:kMoPubString]){
-            [self performSelectorOnMainThread:@selector(prettyJson:) withObject:postData waitUntilDone:YES];
-        } else {
-            self.postData = postData;
-        }
+      
+        self.postData = postData;
+        
         if (self.requestString != nil) {
             NSMutableDictionary *keywordsDict = [[NSMutableDictionary alloc] init];
             if ([self.requestString containsString:@"ads.mopub.com/m/ad"]) {

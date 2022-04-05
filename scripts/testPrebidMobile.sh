@@ -75,19 +75,6 @@ else
     exit 1
 fi
 
-echo -e "\n${GREEN}Running PrebidMobileMoPubAdapters unit tests${NC} \n"
-xcodebuild test \
-    -workspace PrebidMobile.xcworkspace  \
-    -scheme "PrebidMobileMoPubAdaptersTests" \
-    -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' | xcpretty --color --test
-
-if [[ ${PIPESTATUS[0]} == 0 ]]; then
-    echo "✅ PrebidMobileMoPubAdapters Unit Tests Passed"
-else
-    echo "🔴 PrebidMobileMoPubAdapters Unit Tests Failed"
-    exit 1
-fi
-
 echo -e "\n${GREEN}Running PrebidMobileAdMobAdapters unit tests${NC} \n"
 xcodebuild test -workspace PrebidMobile.xcworkspace  -scheme "PrebidMobileAdMobAdaptersTests" -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max,OS=latest' | xcpretty -f `xcpretty-travis-formatter` --color --test
 

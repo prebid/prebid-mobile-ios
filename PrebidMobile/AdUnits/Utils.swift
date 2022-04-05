@@ -40,6 +40,8 @@ public class Utils: NSObject {
     private let GAD_CUSTOM_NATIVE_AD = "GADCustomNativeAd"
     private let INNNER_HTML_SCRIPT = "document.body.innerHTML"
 
+    
+    @available(*, deprecated, message: "MoPub is not available anymore. Use Prebid MAX adapters instead.")
     @objc
     public func convertDictToMoPubKeywords(dict: Dictionary<String, String>) -> String {
         return dict.toString(entrySeparator: ",", keyValueSeparator: ":")

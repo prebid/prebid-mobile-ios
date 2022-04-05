@@ -15,7 +15,6 @@ limitations under the License.
 
 import UIKit
 import GoogleMobileAds
-import MoPubSDK
 import PrebidMobile
 
 class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GADCustomNativeAdLoaderDelegate {
@@ -25,8 +24,6 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
     
     //MARK: : Properties
     var adLoader: GADAdLoader?
-    var mpNative:MPNativeAdRequest?
-    var mpAd: MPNativeAd?
     var nativeAd:NativeAd?
     var nativeAdView: NativeAdView?
     var nativeUnit: NativeRequest!
@@ -47,15 +44,11 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
         switch integrationKind {
         case .originalGAM:
             setupAndLoadNativeInAppForDFP()
-        case .originalMoPub:
-            setupAndLoadNativeInAppForMoPub()
         case .originalAdMob:
             print("TODO: Add Example")
         case .inApp:
             print("TODO: Add Example")
         case .renderingGAM:
-            print("TODO: Add Example")
-        case .renderingMoPub:
             print("TODO: Add Example")
         case .renderingAdMob:
             print("TODO: Add Example")
@@ -68,11 +61,6 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
     func setupAndLoadNativeInAppForDFP() {
         setupPBNativeInApp(host: .Appnexus, accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0", configId: "25e17008-5081-4676-94d5-923ced4359d3")
         loadNativeInAppForDFP()
-    }
-
-    func setupAndLoadNativeInAppForMoPub() {
-        setupPBNativeInApp(host: .Appnexus, accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0", configId: "25e17008-5081-4676-94d5-923ced4359d3")
-        loadNativeInAppForMoPub()
     }
     
     func setupPBNativeInApp(host: PrebidHost, accountId: String, configId: String) {
@@ -119,33 +107,6 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
             self.nativeAdView = NativeAdView
             NativeAdView.frame = CGRect(x: 0, y: 0, width: self.adContainerView.frame.size.width, height: 150 + self.screenWidth * 400 / 600)
             self.adContainerView.addSubview(NativeAdView)
-        }
-    }
-    
-    //MARK: Prebid NativeAd MoPub
-    func loadNativeInAppForMoPub(){
-        let settings: MPStaticNativeAdRendererSettings = MPStaticNativeAdRendererSettings.init()
-        let config:MPNativeAdRendererConfiguration = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)
-        self.mpNative = MPNativeAdRequest.init(adUnitIdentifier: "2674981035164b2db5ef4b4546bf3d49", rendererConfigurations: [config])
-
-        let targeting:MPNativeAdRequestTargeting = MPNativeAdRequestTargeting.init()
-        self.mpNative?.targeting = targeting
-        
-        nativeUnit.fetchDemand(adObject: mpNative!) { [weak self] (resultCode: ResultCode) in
-            print("Prebid demand fetch for AdManager \(resultCode.name())")
-            self?.callMoPub(self?.mpNative)
-        }
-    }
-    
-    func callMoPub(_ mpNative: MPNativeAdRequest?){
-        if let mpNative = mpNative{
-            mpNative.start(completionHandler: { (request, response, error)->Void in
-                if error == nil {
-                    self.mpAd = response!
-                    Utils.shared.delegate = self
-                    Utils.shared.findNative(adObject: response!)
-                }
-            })
         }
     }
     
@@ -218,33 +179,6 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
         nativeAdView?.sponsoredLabel.text = nativeAd?.sponsoredBy
     }
     
-    func renderMoPubNativeAd( ) {
-        if let mpAd = mpAd, let properties = mpAd.properties {
-            nativeAdView?.titleLabel.text = properties["title"] as? String
-            nativeAdView?.bodyLabel.text = properties["text"] as? String
-            if let iconString = properties["iconimage"] as? String, let iconUrl = URL(string: iconString) {
-                DispatchQueue.global().async {
-                    let data = try? Data(contentsOf: iconUrl)
-                    DispatchQueue.main.async {
-                        if data != nil {
-                            self.nativeAdView?.iconImageView.image = UIImage(data:data!)
-                        }
-                    }
-                }
-            }
-            if let imageString = properties["mainimage"] as? String,let imageUrl = URL(string: imageString) {
-                DispatchQueue.global().async {
-                    let data = try? Data(contentsOf: imageUrl)
-                    DispatchQueue.main.async {
-                        if data != nil {
-                            self.nativeAdView?.mainImageView.image = UIImage(data:data!)
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
     //MARK: : Helper functions
     
     func registerNativeInAppView(){
@@ -277,13 +211,9 @@ extension NativeInAppViewController : NativeAdDelegate{
     }
     
     func nativeAdNotFound() {
-        if (integrationKind == .originalMoPub) {
-            renderMoPubNativeAd( )
-        }else {
-            print("nativeAdNotFound")
-        }
-        
+        print("nativeAdNotFound")
     }
+    
     func nativeAdNotValid() {
         print("nativeAdNotValid")
     }

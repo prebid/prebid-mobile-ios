@@ -61,9 +61,6 @@ class TabViewController: UITabBarController {
         let allExamples = testCasesManager.testCases
         let filteredExamples: () -> [TestCase] = {
             var result = allExamples
-            if !GlobalVars.reactiveMoPubInitFlag.sdkInitialized {
-                result = result.filter { !$0.tags.contains(.mopub) }
-            }
             if !GlobalVars.reactiveGAMInitFlag.sdkInitialized {
                 result = result.filter { !$0.tags.contains(.gam) }
             }
@@ -73,12 +70,6 @@ class TabViewController: UITabBarController {
         controller.examples = filteredExamples()
         controller.navigationItem.title = navBarTitle
         
-        if !GlobalVars.reactiveMoPubInitFlag.sdkInitialized {
-            GlobalVars.reactiveMoPubInitFlag.onSdkInitialized {
-                controller.examples = filteredExamples()
-                controller.tableView?.reloadData()
-            }
-        }
         if !GlobalVars.reactiveGAMInitFlag.sdkInitialized {
             GlobalVars.reactiveGAMInitFlag.onSdkInitialized {
                 controller.examples = filteredExamples()

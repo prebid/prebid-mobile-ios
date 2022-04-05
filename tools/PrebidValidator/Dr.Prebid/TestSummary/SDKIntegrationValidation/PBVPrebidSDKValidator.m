@@ -14,23 +14,19 @@
  *    limitations under the License.
  */
 
+@import PrebidMobile;
+@import GoogleMobileAds;
+
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 #import "PBVPrebidSDKValidator.h"
 #import "PBVSharedConstants.h"
-#import "MPAdView.h"
-#import "MPWebView.h"
 #import <WebKit/WebKit.h>
-#import "MPInterstitialAdController.h"
 #import <GoogleMobileAds/GAMBannerView.h>
-#import "PBViewTool.h"
 #import "SDKValidationURLProtocol.h"
 #import "AppDelegate.h"
 
-@import PrebidMobile;
-
-@interface PBVPrebidSDKValidator() <MPAdViewDelegate,
-                                    MPInterstitialAdControllerDelegate,
-                                    GADBannerViewDelegate,
+@interface PBVPrebidSDKValidator() <GADBannerViewDelegate,
                                     SDKValidationURLProtocolDelegate>
 @property (nonatomic, readwrite) CLLocationManager *locationManager;
 @property Boolean initialPrebidServerRequestReceived;
@@ -43,8 +39,6 @@
 @property (nonatomic, strong) AdUnit *adUnit;
 @property (nonatomic, strong) GAMBannerView *dfpView;
 @property (nonatomic, strong) GAMRequest *request;
-@property (nonatomic, strong) MPAdView *mopubAdView;
-@property (nonatomic, strong) MPInterstitialAdController *mopubInterstitial;
 @end
 
 @implementation PBVPrebidSDKValidator
@@ -114,13 +108,7 @@
         //TODO: use it for testing
 //        Prebid.shared.storedAuctionResponse = @"1001-rubicon-300x250";
         
-        if ([adServerName isEqualToString:kMoPubString]) {
-                if ([host isEqualToString:kAppNexusString]) {
-                    Prebid.shared.prebidServerHost = PrebidHostAppnexus;
-                } else if ([host isEqualToString:kRubiconString]) {
-                    Prebid.shared.prebidServerHost = PrebidHostRubicon;
-                }
-        } else if([adServerName isEqualToString:kDFPString]){
+        if([adServerName isEqualToString:kDFPString]){
                 if ([host isEqualToString:kAppNexusString]) {
                     Prebid.shared.prebidServerHost = PrebidHostAppnexus;
                 } else if ([host isEqualToString:kRubiconString]) {
@@ -156,28 +144,7 @@
         [self.delegate bidReceivedAndCached:NO];
     }
     // Create ad unit
-    if ([adServerName isEqualToString:kMoPubString]){
-        if ([adFormatName isEqualToString:kBannerString]){
-            NSArray *widthHeight = [adSizeString componentsSeparatedByString:@"x"];
-            double width = [widthHeight[0] doubleValue];
-            double height = [widthHeight[1] doubleValue];
-            self.mopubAdView = [[MPAdView alloc] initWithAdUnitId:adUnitID
-                                                         size:CGSizeMake(width, height)];
-            [self.mopubAdView stopAutomaticallyRefreshingContents];
-            self.mopubAdView.delegate = self;
-            [self.adUnit fetchDemandWithAdObject:self.mopubAdView completion:^(enum ResultCode result) {
-                [self.mopubAdView loadAd];
-            }];
-            
-        } else if([adFormatName isEqualToString:kInterstitialString]){
-            self.mopubInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:adUnitID];
-            self.mopubInterstitial.delegate = self;
-            [self.adUnit fetchDemandWithAdObject:self.mopubInterstitial completion:^(enum ResultCode result) {
-                [self.mopubInterstitial loadAd];
-            }];
-        }
-            
-    } else if ([adServerName isEqualToString:kDFPString]) {
+    if ([adServerName isEqualToString:kDFPString]) {
         if ([adFormatName isEqualToString:kBannerString]) {
             NSArray *widthHeight = [adSizeString componentsSeparatedByString:@"x"];
             double width = [widthHeight[0] doubleValue];
@@ -261,41 +228,7 @@
     [self.delegate adServerResponseContainsPBMCreative:NO];
 }
 
-#pragma mark - MoPub delegate
-- (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
-{
-    if ([self.adServerResponse containsString:@"pbm.js"] || [self.adServerResponse containsString:@"creative.js"]) {
-        [self.delegate adServerResponseContainsPBMCreative:YES];
-    } else {
-        [self.delegate adServerResponseContainsPBMCreative:NO];
-    }
-}
 
-- (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial
-{
-    [self.delegate adServerResponseContainsPBMCreative:NO];
-}
-
-- (UIViewController *)viewControllerForPresentingModalView
-{
-    return (UIViewController *)self.delegate; // this should work since we don't test click through here.
-}
-
-- (void)adViewDidLoadAd:(MPAdView *)view
-{
-    [PBViewTool checkMPAdViewContainsPBMAd:view withCompletionHandler:^(BOOL result) {
-        if( result) {
-            [self.delegate adServerResponseContainsPBMCreative:YES];
-        } else
-        {
-            [self.delegate adServerResponseContainsPBMCreative:NO];
-        }
-    }];
-}
-- (void)adViewDidFailToLoadAd:(MPAdView *)view
-{
-    [self.delegate adServerResponseContainsPBMCreative:NO];
-}
 
 #pragma mark - SDKValidationURLProtocolDelegate
 - (void)willInterceptPrebidServerRequest

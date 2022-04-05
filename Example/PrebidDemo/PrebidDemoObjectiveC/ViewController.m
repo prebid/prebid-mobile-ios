@@ -18,22 +18,17 @@
 @import PrebidMobileAdMobAdapters;
 
 #import "ViewController.h"
-#import "MoPub.h"
 #import "PrebidDemoObjectiveC-Swift.h"
 
-@interface ViewController () <GADBannerViewDelegate, MPAdViewDelegate, MPInterstitialAdControllerDelegate, GAMBannerAdLoaderDelegate, GADCustomNativeAdLoaderDelegate, NativeAdDelegate, NativeAdEventDelegate>
+@interface ViewController () <GADBannerViewDelegate, GAMBannerAdLoaderDelegate, GADCustomNativeAdLoaderDelegate, NativeAdDelegate, NativeAdEventDelegate>
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UIView *adContainerView;
 
 @property (nonatomic, strong) GAMBannerView *dfpView;
 @property (nonatomic, strong) GAMRequest *request;
-@property (nonatomic, strong) MPAdView *mopubAdView;
-@property (nonatomic, strong) MPInterstitialAdController *mopubInterstitial;
 @property (nonatomic, strong) BannerAdUnit *bannerUnit;
 @property (nonatomic, strong) InterstitialAdUnit *interstitialUnit;
 @property (nonatomic, strong) GADAdLoader *adLoader;
-@property (nonatomic, strong) MPNativeAdRequest *mpNative;
-@property (nonatomic, strong) MPNativeAd *mpAd;
 @property (nonatomic, strong) NativeAd *prebidNativeAd;
 @property (nonatomic, strong) NativeAdView *nativeAdView;
 @property (nonatomic, strong) NativeRequest *nativeUnit;
@@ -69,24 +64,18 @@
         self.adContainerView.hidden = true;
         if (self.adServer == IntegrationKind_OriginalGAM) {
             [self loadDFPBanner];
-        } else if (self.adServer == IntegrationKind_OriginalMoPub) {
-            [self loadMoPubBanner];
         }
     } else if (self.adUnit == IntegrationAdFormat_Interstitial) {
         self.bannerView.hidden = false;
         self.adContainerView.hidden = true;
         if (self.adServer == IntegrationKind_OriginalGAM) {
             [self loadDFPInterstitial];
-        } else if (self.adServer == IntegrationKind_OriginalMoPub) {
-            [self loadMoPubInterstitial];
         }
     } else if (self.adUnit == IntegrationAdFormat_NativeInApp) {
         self.bannerView.hidden = true;
         self.adContainerView.hidden = false;
         if (self.adServer == IntegrationKind_OriginalGAM) {
             [self loadDFPPrebidNative];
-        } else if (self.adServer == IntegrationKind_OriginalMoPub) {
-            [self loadMopubPrebidNative];
         }
     }
     // Do any additional setup after loading the view, typically from a nib.
@@ -132,39 +121,6 @@
         }];
 
     }];
-}
-    
--(void) loadMoPubBanner {
-    
-    MPMoPubConfiguration *configuration = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"a935eac11acd416f92640411234fbba6"];
-    
-    [[MoPub sharedInstance] initializeSdkWithConfiguration:configuration completion:^{
-        
-    }];
-    self.mopubAdView = [[MPAdView alloc] initWithAdUnitId:@"a935eac11acd416f92640411234fbba6" size:CGSizeMake(300, 250)];
-    self.mopubAdView.delegate = self;
-    
-    [self.bannerView addSubview:self.mopubAdView];
-    
-    // Do any additional setup after loading the view, typically from a nib.
-    [self.bannerUnit fetchDemandWithAdObject:self.mopubAdView completion:^(enum ResultCode result) {
-        NSLog(@"Prebid demand result %ld", (long)result);
-        [self.mopubAdView loadAd];
-    }];
-}
-    
--(void) loadMoPubInterstitial {
-    
-    MPMoPubConfiguration *configuration = [[MPMoPubConfiguration alloc] initWithAdUnitIdForAppInitialization:@"2829868d308643edbec0795977f17437"];
-    [[MoPub sharedInstance] initializeSdkWithConfiguration:configuration completion:nil];
-    self.mopubInterstitial = [MPInterstitialAdController interstitialAdControllerForAdUnitId:@"2829868d308643edbec0795977f17437"];
-    self.mopubInterstitial.delegate = self;
-    [self.interstitialUnit fetchDemandWithAdObject:self.mopubInterstitial completion:^(enum ResultCode result) {
-        NSLog(@"Prebid demand result %ld", (long)result);
-        [self.mopubInterstitial loadAd];
-    }];
-    
-    
 }
 
 -(void) enableCOPPA {
@@ -229,60 +185,6 @@
 
 - (void)bannerView:(GADBannerView *)bannerView didFailToReceiveAdWithError:(NSError *)error {
     NSLog(@"adView:didFailToReceiveAdWithError: %@", error.localizedDescription);
-}
-
-
-
-#pragma mark :- Mopub delegates
-- (void) adViewDidLoadAd:(MPAdView *)view {
-    NSLog(@"Ad received");
-}
-
-- (UIViewController *)viewControllerForPresentingModalView {
-    return self;
-}
-
-- (void)interstitialDidLoadAd:(MPInterstitialAdController *)interstitial
-{
-    NSLog(@"Ad ready");
-    if (self.mopubInterstitial.ready) {
-        [self.mopubInterstitial showFromViewController:self];
-    }
-}
-- (void)interstitialDidFailToLoadAd:(MPInterstitialAdController *)interstitial
-{
-    NSLog(@"Ad not ready");
-}
-
-#pragma mark Prebid NativeAd MoPub
-
--(void) loadMopubPrebidNative {
-    [self removePreviousAds];
-    [self createPrebidNativeView];
-    [self loadNativeAssets];
-    MPStaticNativeAdRendererSettings *settings = [[MPStaticNativeAdRendererSettings alloc] init];
-    MPNativeAdRendererConfiguration *config = [MPStaticNativeAdRenderer rendererConfigurationWithRendererSettings:settings];
-    self.mpNative = [MPNativeAdRequest requestWithAdUnitIdentifier:@"2674981035164b2db5ef4b4546bf3d49" rendererConfigurations:@[config]];
-
-    MPNativeAdRequestTargeting *targeting = [MPNativeAdRequestTargeting targeting];
-    self.mpNative.targeting = targeting;
-
-    [self.nativeUnit fetchDemandWithAdObject:self.mpNative completion:^(enum ResultCode resultCode) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-              [self loadMoPub:self.mpNative];
-          });
-    }];
-
-}
-
--(void) loadMoPub:(MPNativeAdRequest *)mpNative{
-    [mpNative startWithCompletionHandler:^(MPNativeAdRequest *request, MPNativeAd *response, NSError *error) {
-        if (error == nil) {
-            self.mpAd = response;
-            Utils.shared.delegate = self;
-            [Utils.shared findNativeWithAdObject:self.mpAd];
-        }
-    }];
 }
 
 #pragma mark Prebid NativeAd DFP

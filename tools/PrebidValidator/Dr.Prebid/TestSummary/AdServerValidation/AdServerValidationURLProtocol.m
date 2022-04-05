@@ -15,7 +15,6 @@
  */
 
 #import "AdServerValidationURLProtocol.h"
-#import "MPURLRequest.h"
 
 @interface AdServerValidationURLProtocol () <NSURLConnectionDelegate>
 @property (nonatomic, strong) NSURLConnection *connection;

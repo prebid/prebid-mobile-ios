@@ -204,7 +204,7 @@ public class MediationBannerAdUnit : NSObject {
         
         bidRequester?.requestBids(completion: { bidResponse, error in
             // Note: we have to run the completion on the main thread since
-            // the handlePrebidResponse changes the MoPub object which is UIView
+            // the handlePrebidResponse changes the Primary SDK Object which is UIView
             // This point to switch the context to the main thread looks the most accurate.
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
