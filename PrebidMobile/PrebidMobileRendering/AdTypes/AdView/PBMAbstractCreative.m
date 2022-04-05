@@ -18,7 +18,6 @@
 
 #import "PBMAbstractCreative+Protected.h"
 #import "PBMAbstractCreative.h"
-#import "PBMAdConfiguration.h"
 #import "PBMClickthroughBrowserOpener.h"
 #import "PBMCreativeModel.h"
 #import "PBMCreativeResolutionDelegate.h"

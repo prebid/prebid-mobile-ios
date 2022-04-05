@@ -62,6 +62,8 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
         interstitialController?.maxVideoDuration = 30
         interstitialController?.closeButtonArea = 0.1
         interstitialController?.closeButtonPosition = .topRight
+        interstitialController?.skipButtonArea = 0.1
+        interstitialController?.skipDelay = 5
         if let adFormats = adFormats {
             interstitialController?.adFormats = adFormats
         }

@@ -69,7 +69,7 @@ class VideoEventsTest : XCTestCase, PBMCreativeViewDelegate, PBMVideoViewDelegat
         MockServer.shared.resetRules([ruleVAST, ruleVideo])
         
         //Create adConfiguration
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]
         adConfiguration.winningBidAdFormat = .video
         //        adConfiguration.domain = "foo.com/inline"

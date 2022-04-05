@@ -41,7 +41,7 @@ class PBMMRAIDControllerTest_Base: XCTestCase, PBMCreativeViewDelegate {
         self.serverConnection.protocolClasses.add(MockServerURLProtocol.self)
         
         //Set up creative model
-        self.mockCreativeModel = MockPBMCreativeModel(adConfiguration: PBMAdConfiguration())
+        self.mockCreativeModel = MockPBMCreativeModel(adConfiguration: AdConfiguration())
         self.mockCreativeModel.width = 320
         self.mockCreativeModel.height = 50
         self.mockCreativeModel.html = "test"

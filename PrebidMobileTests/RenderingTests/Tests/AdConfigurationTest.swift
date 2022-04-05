@@ -14,11 +14,12 @@
   */
 
 import XCTest
+@testable import PrebidMobile
 
-class PBMAdConfigurationTest: XCTestCase {
+class AdConfigurationTest: XCTestCase {
     
     func testIsInterstitialDisablesAutoRefresh() {
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         XCTAssertNotNil(adConfiguration.autoRefreshDelay)
         
         // Setting an auto refresh value for an interstitial should always result in `nil`.
@@ -39,22 +40,37 @@ class PBMAdConfigurationTest: XCTestCase {
     }
 
     func testDefaultIsMuted() {
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         XCTAssertTrue(adConfiguration.isMuted == true)
     }
 
     func testDefaultIsMuteControlsDisabled() {
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         XCTAssertTrue(adConfiguration.isSoundButtonVisible == false)
     }
 
     func testCloseButtonArea() {
-        let adConfiguration = PBMAdConfiguration()
-        XCTAssertEqual(adConfiguration.closeButtonArea, PBMConstants.CLOSE_BUTTON_AREA_DEFAULT)
+        let adConfiguration = AdConfiguration()
+        XCTAssertEqual(adConfiguration.closeButtonArea, PBMConstants.BUTTON_AREA_DEFAULT.doubleValue)
     }
     
     func testDefaultCloseButtonPosition() {
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         XCTAssertTrue(adConfiguration.closeButtonPosition == .topRight)
+    }
+    
+    func testDefaultSkipButtonArea() {
+        let adConfiguration = AdConfiguration()
+        XCTAssertEqual(adConfiguration.skipButtonArea, PBMConstants.BUTTON_AREA_DEFAULT.doubleValue)
+    }
+    
+    func testDefaultSkipButtonPosition() {
+        let adConfiguration = AdConfiguration()
+        XCTAssertEqual(adConfiguration.skipButtonPosition, .topRight)
+    }
+    
+    func testDefaultSkipButtonDelay() {
+        let adConfiguration = AdConfiguration()
+        XCTAssertEqual(adConfiguration.skipDelay, PBMConstants.SKIP_DELAY_DEFAULT.doubleValue)
     }
 }

@@ -17,7 +17,6 @@
 #import "PBMCreativeViewabilityTracker.h"
 #import "PBMViewExposureChecker.h"
 #import "PBMCreativeModel.h"
-#import "PBMAdConfiguration.h"
 #import "PBMError.h"
 #import "PBMMacros.h"
 
@@ -25,10 +24,11 @@
 #import "PBMWeakTimerTargetBox.h"
 #import "UIView+PBMExtensions.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #ifdef DEBUG
     #import "Prebid+TestExtension.h"
-    #import "PrebidMobileSwiftHeaders.h"
-    #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
 
 @interface PBMCreativeViewabilityTracker()

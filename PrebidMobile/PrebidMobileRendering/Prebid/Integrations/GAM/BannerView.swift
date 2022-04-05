@@ -57,8 +57,8 @@ public class BannerView: UIView,
     }
     
     @objc public var videoPlacementType: VideoPlacementType {
-        get { VideoPlacementType(rawValue: adUnitConfig.videoPlacementType.rawValue) ?? .undefined }
-        set { adUnitConfig.videoPlacementType = PBMVideoPlacementType(rawValue: newValue.rawValue) ?? .undefined }
+        get { adUnitConfig.adConfiguration.videoPlacementType }
+        set { adUnitConfig.adConfiguration.videoPlacementType = newValue }
     }
     
     @objc public weak var delegate: BannerViewDelegate?

@@ -15,7 +15,7 @@
 
 #import "PBMTransactionFactoryCallback.h"
 
-@class PBMAdConfiguration;
+@class AdConfiguration;
 @protocol PBMServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PBMVastTransactionFactory : NSObject
 
 - (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
-                   adConfiguration:(PBMAdConfiguration *)adConfiguration
+                   adConfiguration:(AdConfiguration *)adConfiguration
                           callback:(PBMTransactionFactoryCallback)callback;
 
 - (BOOL)loadWithAdMarkup:(NSString *)adMarkup;

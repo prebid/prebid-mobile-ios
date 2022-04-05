@@ -14,9 +14,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "PBMAutoRefreshCountConfig.h"
 
-@class PBMAdConfiguration;
+@class AdConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 

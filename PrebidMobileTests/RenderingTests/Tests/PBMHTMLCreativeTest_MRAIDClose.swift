@@ -34,7 +34,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
         let mockWebView = MockPBMWebView();
         mockWebView.isViewable = true
 
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         adConfiguration.isInterstitialAd = true
         
         let model = PBMCreativeModel(adConfiguration: adConfiguration)
@@ -78,7 +78,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
         let mockWebView = MockPBMWebView();
         mockWebView.isViewable = true
         
-        let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         model.html = "<html>test html</html>"
 
         let htmlCreative =  PBMHTMLCreative(
@@ -92,7 +92,7 @@ class PBMHTMLCreativeTest_MRAIDClose: XCTestCase, PBMCreativeViewDelegate {
         htmlCreative.creativeViewDelegate = self
         
         let mockVC = MockViewController()
-        let state = PBMModalState(view: mockWebView, adConfiguration:PBMAdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let state = PBMModalState(view: mockWebView, adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
         htmlCreative.modalManager!.pushModal(state, fromRootViewController:mockVC, animated:true, shouldReplace:false, completionHandler:nil)
         
         htmlCreative.setupView()

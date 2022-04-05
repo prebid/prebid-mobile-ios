@@ -44,7 +44,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
         
         MockServer.shared.resetRules([ruleInline])
         
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         
         let adLoadManager = MockPBMAdLoadManagerVAST(connection:conn, adConfiguration: adConfiguration)
         
@@ -75,7 +75,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
         vastServerResponse = nil
         
         let conn = PBMServerConnection()
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         
         let adLoadManager = MockPBMAdLoadManagerVAST(connection:conn, adConfiguration: adConfiguration)
         
@@ -101,8 +101,8 @@ class PBMAdRequesterVASTTest: XCTestCase {
     }
     
     func testVastLoaderFacade () {
-        //Make an PBMAdConfiguration
-        let adConfiguration = PBMAdConfiguration()
+        //Make an AdConfiguration
+        let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]
         
         self.successfulExpectation = self.expectation(description: "Expected VAST Load to be successful")
@@ -153,7 +153,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
     }
     
     func testRequestWithMaxDuration() {
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]
         adConfiguration.maxVideoDuration = 1
                 

@@ -21,7 +21,6 @@ framework module PrebidMobile {
     // Enums
     header "PBMErrorCode.h"
     header "PBMErrorType.h"
-    header "PBMVideoPlacementType.h"
     
     // PBMCore
     header "PBMBidRequester.h"
@@ -49,7 +48,6 @@ framework module PrebidMobile {
     header "NSDictionary+PBMORTBNativeExt.h"
 
     header "PBMViewControllerProvider.h"
-    header "PBMCreativeClickHandlerBlock.h"
     header "PBMVoidBlock.h"
     
     header "PBMErrorFamily.h"
@@ -60,8 +58,6 @@ framework module PrebidMobile {
     header "PBMAdViewManagerDelegate.h"
     header "PBMAdDetails.h"
     header "PBMTransaction.h"
-    header "PBMAdConfiguration.h"
-    header "PBMAutoRefreshCountConfig.h"
     header "PBMInterstitialLayout.h"
     header "PBMServerConnectionProtocol.h"
     

@@ -19,7 +19,6 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 
 #import "PBMAbstractCreative.h"
-#import "PBMAdConfiguration.h"
 #import "PBMCreativeModel.h"
 #import "PBMError.h"
 #import "PBMFunctions+Private.h"

@@ -15,11 +15,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PBMAdConfiguration.h"
 #import "PBMParameterBuilderProtocol.h"
 
 @class Prebid;
 @class Targeting;
+@class AdConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMBasicParameterBuilder : NSObject <PBMParameterBuilder>
@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, readonly) NSString *rewardedVideoValue;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithAdConfiguration:(PBMAdConfiguration *)adConfiguration
+- (instancetype)initWithAdConfiguration:(AdConfiguration *)adConfiguration
                        sdkConfiguration:(Prebid *)sdkConfiguration
                              sdkVersion:(NSString *)sdkVersion
                               targeting:(Targeting *)targeting NS_DESIGNATED_INITIALIZER;

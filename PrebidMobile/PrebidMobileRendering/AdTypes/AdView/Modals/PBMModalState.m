@@ -17,9 +17,12 @@
 #import "PBMWebView.h"
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @interface PBMModalState ()
 
-@property (nonatomic, strong, nullable, readwrite) PBMAdConfiguration *adConfiguration;
+@property (nonatomic, strong, nullable, readwrite) AdConfiguration *adConfiguration;
 @property (nonatomic, strong, nullable, readwrite) PBMInterstitialDisplayProperties *displayProperties;
 @property (nonatomic, strong, nullable, readwrite) UIView *view;
 @property (nonatomic, copy, nullable, readwrite) PBMModalStatePopHandler onStatePopFinished;
@@ -40,7 +43,7 @@
 #pragma mark - Initialization
 
 + (nonnull instancetype)modalStateWithView:(nonnull UIView *)view
-                           adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
+                           adConfiguration:(nullable AdConfiguration *)adConfiguration
                          displayProperties:(nullable PBMInterstitialDisplayProperties *)displayProperties
                         onStatePopFinished:(nullable PBMModalStatePopHandler)onStatePopFinished
                          onStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)onStateHasLeftApp
@@ -56,7 +59,7 @@
 }
 
 + (nonnull instancetype)modalStateWithView:(nonnull UIView *)view
-                           adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
+                           adConfiguration:(nullable AdConfiguration *)adConfiguration
                          displayProperties:(nullable PBMInterstitialDisplayProperties *)displayProperties
                         onStatePopFinished:(nullable PBMModalStatePopHandler)onStatePopFinished
                          onStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)onStateHasLeftApp
@@ -73,7 +76,7 @@
 }
 
 + (nonnull instancetype)modalStateWithView:(nonnull UIView *)view
-                           adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
+                           adConfiguration:(nullable AdConfiguration *)adConfiguration
                          displayProperties:(nullable PBMInterstitialDisplayProperties *)displayProperties
                         onStatePopFinished:(nullable PBMModalStatePopHandler)onStatePopFinished
                          onStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)onStateHasLeftApp
@@ -91,7 +94,7 @@
 }
 
 + (nonnull instancetype)modalStateWithView:(nonnull UIView *)view
-                           adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
+                           adConfiguration:(nullable AdConfiguration *)adConfiguration
                          displayProperties:(nullable PBMInterstitialDisplayProperties *)displayProperties
                         onStatePopFinished:(nullable PBMModalStatePopHandler)onStatePopFinished
                          onStateHasLeftApp:(nullable PBMModalStateAppLeavingHandler)onStateHasLeftApp

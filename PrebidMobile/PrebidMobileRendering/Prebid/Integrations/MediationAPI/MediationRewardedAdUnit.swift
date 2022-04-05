@@ -23,7 +23,7 @@ public class MediationRewardedAdUnit : MediationBaseInterstitialAdUnit {
     public override init(configId: String, mediationDelegate: PrebidMediationDelegate) {
         super.init(configId: configId, mediationDelegate: mediationDelegate)
         
-        adUnitConfig.isOptIn = true
+        adUnitConfig.adConfiguration.isOptIn = true
         adUnitConfig.adFormats = [.video]
     }
 }

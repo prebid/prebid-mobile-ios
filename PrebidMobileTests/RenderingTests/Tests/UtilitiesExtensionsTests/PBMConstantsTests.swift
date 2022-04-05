@@ -66,8 +66,12 @@ class PBMConstantsTests: XCTestCase {
         XCTAssertEqual(GeoLocationConstants.DISTANCE_FILTER, 50.0)
     }
     
-    func testCloseButtonAreaConstant() {
-        XCTAssertEqual(PBMConstants.CLOSE_BUTTON_AREA_DEFAULT, 0.1)
+    func testButtonAreaConstant() {
+        XCTAssertEqual(PBMConstants.BUTTON_AREA_DEFAULT, 0.1)
+    }
+    
+    func testSkipDelayConstant() {
+        XCTAssertEqual(PBMConstants.SKIP_DELAY_DEFAULT, 10)
     }
     
     func testPBMSupportedVideoMimeTypes() {

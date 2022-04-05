@@ -57,7 +57,7 @@ class ModalManagerTestDisplayInInterstitial: XCTestCase {
         //Push a view. Expect that the mock VC will be asked to present a ModalViewController and that afterwards the stack will be size 1
         var expectationPushModalCompletionManager = self.expectation(description: "expectationPushModalCompletionManager")
         
-        var state = PBMModalState(view: PBMWebView(), adConfiguration:PBMAdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: { [weak self] poppedState in
+        var state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: { [weak self] poppedState in
             self?.modalManagerDidFinishPop(poppedState)
         }, onStateHasLeftApp: { [weak self] leavingState in
             self?.modalManagerDidLeaveApp(leavingState)
@@ -72,7 +72,7 @@ class ModalManagerTestDisplayInInterstitial: XCTestCase {
         
         //Push another view. Expect stack size to be 2
         expectationPushModalCompletionManager = self.expectation(description: "expectationPushModalCompletionManager")
-        state = PBMModalState(view: PBMWebView(),adConfiguration:PBMAdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: { [weak self] poppedState in
+        state = PBMModalState(view: PBMWebView(),adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: { [weak self] poppedState in
             self?.modalManagerDidFinishPop(poppedState)
         }, onStateHasLeftApp: { [weak self] leavingState in
             self?.modalManagerDidLeaveApp(leavingState)
@@ -118,7 +118,7 @@ class ModalManagerTestDisplayInInterstitial: XCTestCase {
         //Push a view.
         var expectationPushModalCompletionManager = self.expectation(description: "expectationPushModalCompletionManager")
         var state = PBMModalState(view: PBMWebView(),
-                                  adConfiguration:PBMAdConfiguration(),
+                                  adConfiguration:AdConfiguration(),
                                   displayProperties:PBMInterstitialDisplayProperties(),
                                   onStatePopFinished: { [weak self] poppedState in
             self?.modalManagerDidFinishPop(poppedState)
@@ -139,7 +139,7 @@ class ModalManagerTestDisplayInInterstitial: XCTestCase {
         //Push another view. Expect stack size to be 2
         expectationPushModalCompletionManager = self.expectation(description: "expectationPushModalCompletionManager")
         state = PBMModalState(view: PBMWebView(),
-                              adConfiguration:PBMAdConfiguration(),
+                              adConfiguration:AdConfiguration(),
                               displayProperties:PBMInterstitialDisplayProperties(),
                               onStatePopFinished: { [weak self] poppedState in
             self?.modalManagerDidFinishPop(poppedState)
@@ -180,7 +180,7 @@ class ModalManagerTestDisplayInInterstitial: XCTestCase {
         //Push a view. Expect that the mock VC will be asked to present a ModalViewController and that afterwards the stack will be size 1
         var expectationPushModalCompletionManager = self.expectation(description: "expectationPushModalCompletionManager")
         
-        let state = PBMModalState(view: PBMWebView(), adConfiguration:PBMAdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(),
+        let state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(),
                                   onStatePopFinished: { [weak self] poppedState in
             self?.modalManagerDidFinishPop(poppedState)
         }, onStateHasLeftApp: { [weak self] leavingState in
@@ -220,7 +220,7 @@ class ModalManagerTestDisplayInInterstitial: XCTestCase {
         
         let expectationPushModalCompletionManager = self.expectation(description: "expectationPushModalCompletionManager")
         
-        let state = PBMModalState(view: PBMWebView(), adConfiguration:PBMAdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(),
+        let state = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(),
                                   onStatePopFinished: { [weak self] poppedState in
             self?.modalManagerDidFinishPop(poppedState)
         }, onStateHasLeftApp: { [weak self] leavingState in
@@ -244,7 +244,7 @@ class ModalManagerTestDisplayInInterstitial: XCTestCase {
 class ModalManagerTestPresentationType : XCTestCase {
     
     func testPresentModalViewController() {
-        let defaultState = PBMModalState(view: PBMWebView(), adConfiguration:PBMAdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let defaultState = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
         XCTAssertEqual(defaultState.mraidState, .notEnabled)
         presentationFrom(defaultState) { controller in
             XCTAssertTrue(controller!.isMember(of: PBMModalViewController.self))
@@ -252,7 +252,7 @@ class ModalManagerTestPresentationType : XCTestCase {
     }
     
     func testPresentNonModalViewController() {
-        let resizedState = PBMModalState(view: PBMWebView(), adConfiguration:PBMAdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let resizedState = PBMModalState(view: PBMWebView(), adConfiguration:AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
         resizedState.mraidState = PBMMRAIDState.resized
         XCTAssertEqual(resizedState.mraidState, .resized)
         presentationFrom(resizedState) { controller in

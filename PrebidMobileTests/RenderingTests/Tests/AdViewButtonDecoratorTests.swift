@@ -16,13 +16,13 @@
 import XCTest
 @testable import PrebidMobile
 
-class PBMCloseButtonDecoratorTest: XCTestCase {
+class AdViewButtonDecoratorTests: XCTestCase {
     
-    var buttonDecorator: PBMCloseButtonDecorator!
+    var buttonDecorator: AdViewButtonDecorator!
     
     override func setUp() {
         super.setUp()
-        buttonDecorator = PBMCloseButtonDecorator()
+        buttonDecorator = AdViewButtonDecorator()
     }
     
     override func tearDown() {
@@ -30,11 +30,22 @@ class PBMCloseButtonDecoratorTest: XCTestCase {
         super.tearDown()
     }
     
+    func testButtonTappedAction() {
+        XCTAssertNotNil(buttonDecorator)
+        let expectation = self.expectation(description: "buttonTappedAction")
+        buttonDecorator.buttonTouchUpInsideBlock = {
+            expectation.fulfill()
+        }
+        
+        buttonDecorator.buttonTappedAction()
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
     func testGetButtonSize() {
         //There is no image by default
         let constant = 0.25
         XCTAssertNil(buttonDecorator.button.currentImage)
-        buttonDecorator.closeButtonArea = NSNumber(value: constant)
+        buttonDecorator.buttonArea = constant
         let sizeValue: CGFloat = UIScreen.main.bounds.width * constant
         let buttonSize = CGSize(width: sizeValue, height: sizeValue)
         let resultButtonSize = buttonDecorator.getButtonSize()
@@ -50,9 +61,35 @@ class PBMCloseButtonDecoratorTest: XCTestCase {
     func testGetButtonConstraintConstant() {
         let constant = 0.1
         XCTAssertNil(buttonDecorator.button.currentImage)
-        buttonDecorator.closeButtonArea = NSNumber(value: constant)
+        buttonDecorator.buttonArea = constant
         
-        let expectedConstraintConstant = Int((UIScreen.main.bounds.width * constant) / 2)
+        let expectedConstraintConstant = (UIScreen.main.bounds.width * constant) / 2
         XCTAssertTrue(expectedConstraintConstant == buttonDecorator.getButtonConstraintConstant())
+    }
+    
+    func testAddButtonToView() {
+        
+        XCTAssertEqual(buttonDecorator.button.allTargets.count, 0)
+        
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        
+        buttonDecorator.addButton(to: view, displayView: view)
+        XCTAssertEqual(buttonDecorator.button.allTargets.count, 1)
+        
+        let subView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        view.addSubview(subView)
+        buttonDecorator.bringButtonToFront()
+        XCTAssertEqual(view.subviews.count, 2)
+        XCTAssertEqual(buttonDecorator.button, view.subviews.last)
+        
+        buttonDecorator.sendSubviewToBack()
+        XCTAssertEqual(buttonDecorator.button, view.subviews.first)
+        
+        buttonDecorator.removeButtonFromSuperview()
+        XCTAssertEqual(view.subviews.count, 1)
+    }
+    
+    func testDefaultButtonPosition() {
+        XCTAssertTrue(buttonDecorator.buttonPosition == .topRight)
     }
 }

@@ -174,7 +174,7 @@ class PBMHTMLCreativeTest_PublicAPI: PBMHTMLCreativeTest_Base {
             expectationSessionStart,
         ]
         
-        let pbmCreativeModel = PBMCreativeModel(adConfiguration: PBMAdConfiguration())
+        let pbmCreativeModel = PBMCreativeModel(adConfiguration: AdConfiguration())
         pbmCreativeModel.displayDurationInSeconds = 30
         pbmCreativeModel.html = "<html>test html</html>"
         
@@ -273,7 +273,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
         pbmServerConnection.protocolClasses.add(MockServerURLProtocol.self)
         
         //Test
-        let pbmCreativeModel = PBMCreativeModel(adConfiguration: PBMAdConfiguration())
+        let pbmCreativeModel = PBMCreativeModel(adConfiguration: AdConfiguration())
         pbmCreativeModel.displayDurationInSeconds = 30
         pbmCreativeModel.html = "<html>test html</html>"
 
@@ -367,7 +367,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
             return true
         }
         
-        let pbmCreativeModel = PBMCreativeModel(adConfiguration: PBMAdConfiguration())
+        let pbmCreativeModel = PBMCreativeModel(adConfiguration: AdConfiguration())
         let mockWebView = MockPBMWebView()
         htmlCreative = MockPBMHTMLCreative(
             creativeModel: pbmCreativeModel,
@@ -383,7 +383,7 @@ class PBMHTMLCreativeTest : XCTestCase, PBMCreativeResolutionDelegate, PBMCreati
     }
 
     func testHasVastTag() {
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         let pbmCreativeModel = PBMCreativeModel(adConfiguration: adConfiguration)
         self.htmlCreative = MockPBMHTMLCreative(creativeModel: pbmCreativeModel, transaction: UtilitiesForTesting.createEmptyTransaction())
 

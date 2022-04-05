@@ -82,7 +82,7 @@ typealias JsonDictionary = [String:Any]
     
     class func createEmptyTransaction() -> PBMTransaction {
         let connection = PBMServerConnection()
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         
         let transaction = PBMTransaction(serverConnection:connection,
                                          adConfiguration:adConfiguration,
@@ -97,7 +97,7 @@ typealias JsonDictionary = [String:Any]
     }
     
     class func createHTMLCreative(withView: Bool = true) -> PBMAbstractCreative {
-        let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         model.html = "<html>test html</html>"
         
         let creative = UtilitiesForTesting.createHTMLCreative(with: model)
@@ -125,7 +125,7 @@ typealias JsonDictionary = [String:Any]
     
     class func createTransactionWithHTMLCreative(withView:Bool = false) -> PBMTransaction {
         let connection = PBMServerConnection()
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         adConfiguration.winningBidAdFormat = .display
         
         let model = PBMCreativeModel(adConfiguration:adConfiguration)
@@ -144,7 +144,7 @@ typealias JsonDictionary = [String:Any]
     
     class func createTransactionWithHTMLCreativeWithParams(
         connection: PBMServerConnectionProtocol,
-        configuration: PBMAdConfiguration) -> PBMTransaction {
+        configuration: AdConfiguration) -> PBMTransaction {
             let model = PBMCreativeModel(adConfiguration:configuration)
             
             model.html = "<html>test html</html>"
@@ -161,7 +161,7 @@ typealias JsonDictionary = [String:Any]
             return transaction;
         }
     
-    class func createDummyTransaction(for adConfiguration: PBMAdConfiguration) -> PBMTransaction {
+    class func createDummyTransaction(for adConfiguration: AdConfiguration) -> PBMTransaction {
         let connection = getMockedServerConnection()
         let model = PBMCreativeModel(adConfiguration: adConfiguration)
         
