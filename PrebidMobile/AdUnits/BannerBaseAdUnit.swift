@@ -12,7 +12,6 @@ limitations under the License.
 
 import Foundation
 
-
 public class BannerBaseAdUnit: AdUnit {
 
     public var parameters: BannerParameters? {

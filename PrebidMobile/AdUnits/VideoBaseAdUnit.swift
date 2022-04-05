@@ -26,5 +26,6 @@ public class VideoBaseAdUnit: AdUnit {
         super.init(configId: configId, size: size)
         parameters = VideoParameters()
         parameters?.placement = 5
+        adUnitConfig.adFormats = [.video]
     }
 }
