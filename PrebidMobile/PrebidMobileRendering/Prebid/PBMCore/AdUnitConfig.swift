@@ -84,21 +84,6 @@ public class AdUnitConfig: NSObject, NSCopying {
     /// Describes an OpenRTB video object
     public var videoParameters: VideoBaseAdUnit.Parameters?
 
-    public var isInterstitial: Bool {
-        get { adConfiguration.isInterstitialAd }
-        set { adConfiguration.isInterstitialAd = newValue }
-    }
-        
-    public var isOptIn: Bool {
-        get { adConfiguration.isOptIn }
-        set { adConfiguration.isOptIn = newValue }
-    }
-    
-    public var videoPlacementType: VideoPlacementType {
-        get { adConfiguration.videoPlacementType }
-        set { adConfiguration.videoPlacementType = newValue }
-    }
-    
     // MARK: - Public Methods
     
     public convenience init(configId: String) {
