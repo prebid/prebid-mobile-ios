@@ -39,6 +39,9 @@
 		928310092775FF7600D28142 /* AdMobUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928310082775FF7600D28142 /* AdMobUtilsTest.swift */; };
 		9285B46627AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285B46527AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift */; };
 		92A2380D27731B48000157AA /* AdMobUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A2380C27731B48000157AA /* AdMobUtils.swift */; };
+		92C1346327FC6B4900F96387 /* PrebidMobileMAXAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C1345B27FC6B4900F96387 /* PrebidMobileMAXAdapters.framework */; };
+		92C1346827FC6B4900F96387 /* PrebidMobileMAXAdaptersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C1346727FC6B4900F96387 /* PrebidMobileMAXAdaptersTests.swift */; };
+		92C1346927FC6B4900F96387 /* PrebidMobileMAXAdapters.h in Headers */ = {isa = PBXBuildFile; fileRef = 92C1345D27FC6B4900F96387 /* PrebidMobileMAXAdapters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92C474ED2795B57F00C26E27 /* AdMobMediationRewardedUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C474EC2795B57E00C26E27 /* AdMobMediationRewardedUtils.swift */; };
 		92C474F52795E1A600C26E27 /* PrebidAdMobMediationBaseAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C474F42795E1A600C26E27 /* PrebidAdMobMediationBaseAdapter.swift */; };
 		92C474F92795ECDF00C26E27 /* PrebidAdMobEventExtras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C474F82795ECDF00C26E27 /* PrebidAdMobEventExtras.swift */; };
@@ -63,6 +66,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 34B64D5B24F7E41600FDD9F4;
 			remoteInfo = OpenXApolloGAMEventHandlers;
+		};
+		92C1346427FC6B4900F96387 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 34B64D4324F7D95800FDD9F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 92C1345A27FC6B4900F96387;
+			remoteInfo = PrebidMobileMAXAdapters;
 		};
 		92F4389F27688E8600FDC950 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -119,6 +129,10 @@
 		928310082775FF7600D28142 /* AdMobUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobUtilsTest.swift; sourceTree = "<group>"; };
 		9285B46527AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobVideoInterstitialAdapter.swift; sourceTree = "<group>"; };
 		92A2380C27731B48000157AA /* AdMobUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobUtils.swift; sourceTree = "<group>"; };
+		92C1345B27FC6B4900F96387 /* PrebidMobileMAXAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobileMAXAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		92C1345D27FC6B4900F96387 /* PrebidMobileMAXAdapters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMobileMAXAdapters.h; sourceTree = "<group>"; };
+		92C1346227FC6B4900F96387 /* PrebidMobileMAXAdaptersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrebidMobileMAXAdaptersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		92C1346727FC6B4900F96387 /* PrebidMobileMAXAdaptersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMobileMAXAdaptersTests.swift; sourceTree = "<group>"; };
 		92C474EC2795B57E00C26E27 /* AdMobMediationRewardedUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobMediationRewardedUtils.swift; sourceTree = "<group>"; };
 		92C474F42795E1A600C26E27 /* PrebidAdMobMediationBaseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobMediationBaseAdapter.swift; sourceTree = "<group>"; };
 		92C474F82795ECDF00C26E27 /* PrebidAdMobEventExtras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobEventExtras.swift; sourceTree = "<group>"; };
@@ -161,6 +175,21 @@
 			files = (
 				5BCCF2102732D1B10046CCFC /* PrebidMobile.framework in Frameworks */,
 				C3E45723C24D15415F4FAB0C /* Pods_PrebidMobileGAMEventHandlers.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92C1345827FC6B4900F96387 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92C1345F27FC6B4900F96387 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92C1346327FC6B4900F96387 /* PrebidMobileMAXAdapters.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +279,8 @@
 				3405F946250A555800268A77 /* PrebidMobileGAMEventHandlersTests */,
 				92F4389727688E8600FDC950 /* PrebidMobileAdMobAdapters */,
 				92F438A127688E8600FDC950 /* PrebidMobileAdMobAdaptersTests */,
+				92C1345C27FC6B4900F96387 /* PrebidMobileMAXAdapters */,
+				92C1346627FC6B4900F96387 /* PrebidMobileMAXAdaptersTests */,
 				34B64D4D24F7D95800FDD9F4 /* Products */,
 				C9E3CE99A87F745FB5BFAA17 /* Pods */,
 				3386E5027DFDA876BC9AC49B /* Frameworks */,
@@ -263,6 +294,8 @@
 				3405F945250A555800268A77 /* PrebidMobileGAMEventHandlersTests.xctest */,
 				92F4389627688E8600FDC950 /* PrebidMobileAdMobAdapters.framework */,
 				92F4389D27688E8600FDC950 /* PrebidMobileAdMobAdaptersTests.xctest */,
+				92C1345B27FC6B4900F96387 /* PrebidMobileMAXAdapters.framework */,
+				92C1346227FC6B4900F96387 /* PrebidMobileMAXAdaptersTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -302,6 +335,22 @@
 				5BF8E790263C400F00341EE4 /* GADCustomNativeAdWrapper.swift */,
 			);
 			path = Boxes;
+			sourceTree = "<group>";
+		};
+		92C1345C27FC6B4900F96387 /* PrebidMobileMAXAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				92C1345D27FC6B4900F96387 /* PrebidMobileMAXAdapters.h */,
+			);
+			path = PrebidMobileMAXAdapters;
+			sourceTree = "<group>";
+		};
+		92C1346627FC6B4900F96387 /* PrebidMobileMAXAdaptersTests */ = {
+			isa = PBXGroup;
+			children = (
+				92C1346727FC6B4900F96387 /* PrebidMobileMAXAdaptersTests.swift */,
+			);
+			path = PrebidMobileMAXAdaptersTests;
 			sourceTree = "<group>";
 		};
 		92F4389727688E8600FDC950 /* PrebidMobileAdMobAdapters */ = {
@@ -368,6 +417,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		92C1345627FC6B4900F96387 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92C1346927FC6B4900F96387 /* PrebidMobileMAXAdapters.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		92F4389127688E8600FDC950 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -418,6 +475,42 @@
 			productReference = 34B64D5C24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		92C1345A27FC6B4900F96387 /* PrebidMobileMAXAdapters */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92C1346E27FC6B4900F96387 /* Build configuration list for PBXNativeTarget "PrebidMobileMAXAdapters" */;
+			buildPhases = (
+				92C1345627FC6B4900F96387 /* Headers */,
+				92C1345727FC6B4900F96387 /* Sources */,
+				92C1345827FC6B4900F96387 /* Frameworks */,
+				92C1345927FC6B4900F96387 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PrebidMobileMAXAdapters;
+			productName = PrebidMobileMAXAdapters;
+			productReference = 92C1345B27FC6B4900F96387 /* PrebidMobileMAXAdapters.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		92C1346127FC6B4900F96387 /* PrebidMobileMAXAdaptersTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 92C1346F27FC6B4900F96387 /* Build configuration list for PBXNativeTarget "PrebidMobileMAXAdaptersTests" */;
+			buildPhases = (
+				92C1345E27FC6B4900F96387 /* Sources */,
+				92C1345F27FC6B4900F96387 /* Frameworks */,
+				92C1346027FC6B4900F96387 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				92C1346527FC6B4900F96387 /* PBXTargetDependency */,
+			);
+			name = PrebidMobileMAXAdaptersTests;
+			productName = PrebidMobileMAXAdaptersTests;
+			productReference = 92C1346227FC6B4900F96387 /* PrebidMobileMAXAdaptersTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		92F4389527688E8600FDC950 /* PrebidMobileAdMobAdapters */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 92F438A927688E8600FDC950 /* Build configuration list for PBXNativeTarget "PrebidMobileAdMobAdapters" */;
@@ -463,7 +556,7 @@
 		34B64D4324F7D95800FDD9F4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = Prebid;
 				TargetAttributes = {
@@ -474,6 +567,12 @@
 					34B64D5B24F7E41600FDD9F4 = {
 						CreatedOnToolsVersion = 11.6;
 						LastSwiftMigration = 1240;
+					};
+					92C1345A27FC6B4900F96387 = {
+						CreatedOnToolsVersion = 13.3;
+					};
+					92C1346127FC6B4900F96387 = {
+						CreatedOnToolsVersion = 13.3;
 					};
 					92F4389527688E8600FDC950 = {
 						CreatedOnToolsVersion = 13.1;
@@ -502,6 +601,8 @@
 				3405F944250A555800268A77 /* PrebidMobileGAMEventHandlersTests */,
 				92F4389527688E8600FDC950 /* PrebidMobileAdMobAdapters */,
 				92F4389C27688E8600FDC950 /* PrebidMobileAdMobAdaptersTests */,
+				92C1345A27FC6B4900F96387 /* PrebidMobileMAXAdapters */,
+				92C1346127FC6B4900F96387 /* PrebidMobileMAXAdaptersTests */,
 			);
 		};
 /* End PBXProject section */
@@ -515,6 +616,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		34B64D5A24F7E41600FDD9F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92C1345927FC6B4900F96387 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92C1346027FC6B4900F96387 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -697,6 +812,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		92C1345727FC6B4900F96387 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		92C1345E27FC6B4900F96387 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				92C1346827FC6B4900F96387 /* PrebidMobileMAXAdaptersTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		92F4389227688E8600FDC950 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -735,6 +865,11 @@
 			isa = PBXTargetDependency;
 			target = 34B64D5B24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers */;
 			targetProxy = 3405F94B250A555800268A77 /* PBXContainerItemProxy */;
+		};
+		92C1346527FC6B4900F96387 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 92C1345A27FC6B4900F96387 /* PrebidMobileMAXAdapters */;
+			targetProxy = 92C1346427FC6B4900F96387 /* PBXContainerItemProxy */;
 		};
 		92F438A027688E8600FDC950 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -993,6 +1128,108 @@
 			};
 			name = Release;
 		};
+		92C1346A27FC6B4900F96387 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = L9295BF929;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Prebid. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.PrebidMobileMAXAdapters;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		92C1346B27FC6B4900F96387 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = L9295BF929;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Prebid. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.PrebidMobileMAXAdapters;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		92C1346C27FC6B4900F96387 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L9295BF929;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.PrebidMobileMAXAdaptersTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		92C1346D27FC6B4900F96387 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L9295BF929;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.prebid.mobile.PrebidMobileMAXAdaptersTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		92F438A527688E8600FDC950 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9E2E8204E1C52CBA0D87C56C /* Pods-PrebidMobileAdMobAdapters.debug.xcconfig */;
@@ -1147,6 +1384,24 @@
 			buildConfigurations = (
 				34B64D6224F7E41600FDD9F4 /* Debug */,
 				34B64D6324F7E41600FDD9F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		92C1346E27FC6B4900F96387 /* Build configuration list for PBXNativeTarget "PrebidMobileMAXAdapters" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92C1346A27FC6B4900F96387 /* Debug */,
+				92C1346B27FC6B4900F96387 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		92C1346F27FC6B4900F96387 /* Build configuration list for PBXNativeTarget "PrebidMobileMAXAdaptersTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				92C1346C27FC6B4900F96387 /* Debug */,
+				92C1346D27FC6B4900F96387 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
