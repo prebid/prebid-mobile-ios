@@ -74,7 +74,7 @@ class PrebidVideoInterstitialUITest: RepeatedUITestCase {
             openVideo(title: videoInterstitialTitle)
             
             let videoCloseBtn = app.buttons["PBMCloseButton"]
-            waitForHittable(element: videoCloseBtn, waitSeconds: 5)
+            waitForHittable(element: videoCloseBtn, waitSeconds: 10)
             
             // The close button should disappear
             // It means the video has closed automatically

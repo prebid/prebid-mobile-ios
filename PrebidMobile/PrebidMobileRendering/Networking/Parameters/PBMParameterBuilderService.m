@@ -16,7 +16,6 @@
 #import <MapKit/MapKit.h>
 
 #import "PBMAgeUtils.h"
-#import "PBMAdConfiguration.h"
 #import "PBMAppInfoParameterBuilder.h"
 #import "PBMBasicParameterBuilder.h"
 #import "PBMDeviceAccessManager.h"
@@ -40,11 +39,11 @@
 
 @implementation PBMParameterBuilderService
 
-+ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull PBMAdConfiguration *)adConfiguration {
++ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull AdConfiguration *)adConfiguration {
     return [self buildParamsDictWithAdConfiguration:adConfiguration extraParameterBuilders:nil];
 }
 
-+ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull PBMAdConfiguration *)adConfiguration extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders {
++ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull AdConfiguration *)adConfiguration extraParameterBuilders:(nullable NSArray<id<PBMParameterBuilder> > *)extraParameterBuilders {
     return [self buildParamsDictWithAdConfiguration:adConfiguration
                                              bundle:NSBundle.mainBundle
                                  pbmLocationManager:PBMLocationManager.shared
@@ -60,7 +59,7 @@
 
 // Input parameters validation: certain parameter will be validated in particular builder.
 // In such case, even if some parameter is invalid all other builders will work.
-+ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull PBMAdConfiguration *)adConfiguration
++ (nonnull NSDictionary<NSString* , NSString *> *)buildParamsDictWithAdConfiguration:(nonnull AdConfiguration *)adConfiguration
                                                                               bundle:(nonnull id<PBMBundleProtocol>)bundle
                                                                   pbmLocationManager:(nonnull PBMLocationManager *)pbmLocationManager
                                                               pbmDeviceAccessManager:(nonnull PBMDeviceAccessManager *)pbmDeviceAccessManager

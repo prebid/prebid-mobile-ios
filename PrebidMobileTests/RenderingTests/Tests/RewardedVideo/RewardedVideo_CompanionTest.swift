@@ -174,9 +174,9 @@ class RewardedVideo_CompanionTest: XCTestCase  {
         }
     }
     
-    func initAdConfiguration() -> PBMAdConfiguration {
+    func initAdConfiguration() -> AdConfiguration {
         //Create adConfiguration
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]
         
         adConfiguration.isInterstitialAd = true

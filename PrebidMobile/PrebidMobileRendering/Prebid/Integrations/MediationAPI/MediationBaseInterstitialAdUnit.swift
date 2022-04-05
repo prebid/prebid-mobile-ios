@@ -32,9 +32,9 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     init(configId: String, mediationDelegate: PrebidMediationDelegate) {
         self.mediationDelegate = mediationDelegate
         adUnitConfig = AdUnitConfig(configId: configId)
-        adUnitConfig.isInterstitial = true
+        adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
-        adUnitConfig.videoPlacementType = .sliderOrFloating
+        adUnitConfig.adConfiguration.videoPlacementType = .sliderOrFloating
     }
     
     public func fetchDemand(completion: ((ResultCode)->Void)?) {

@@ -21,19 +21,20 @@
 @class WKWebView;
 @class UIView;
 @class PBMModalManager;
-@class PBMAdConfiguration;
+@class AdConfiguration;
 @class PBMCreativeModel;
 @class PBMAbstractCreative;
 @class PBMAdDetails;
 @class PBMOpenMeasurementSession;
 @class PBMOpenMeasurementWrapper;
+@class AdConfiguration;
 
 @protocol PBMServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
 @interface PBMTransaction : NSObject
 
-@property (nonatomic, readonly, nonnull) PBMAdConfiguration *adConfiguration; // If need to change use resetAdConfiguration
+@property (nonatomic, readonly, nonnull) AdConfiguration *adConfiguration; // If need to change use resetAdConfiguration
 @property (nonatomic, strong) NSMutableArray<PBMAbstractCreative *> *creatives;
 @property (nonatomic, strong) NSArray<PBMCreativeModel *> *creativeModels;
 @property (nonatomic, strong, nullable) PBMOpenMeasurementSession *measurementSession;
@@ -49,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithServerConnection:(id<PBMServerConnectionProtocol>)connection
-                         adConfiguration:(PBMAdConfiguration *)adConfiguration
+                         adConfiguration:(AdConfiguration *)adConfiguration
                                   models:(NSArray<PBMCreativeModel *> *)creativeModels NS_DESIGNATED_INITIALIZER;
 
 - (void)startCreativeFactory;
@@ -57,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable PBMAbstractCreative *)getFirstCreative;
 - (nullable PBMAbstractCreative *)getCreativeAfter:(PBMAbstractCreative *)creative;
 - (nullable NSString*)revenueForCreativeAfter:(PBMAbstractCreative *)creative;
-- (void)resetAdConfiguration:(PBMAdConfiguration *)adConfiguration;
+- (void)resetAdConfiguration:(AdConfiguration *)adConfiguration;
 
 @end
 NS_ASSUME_NONNULL_END

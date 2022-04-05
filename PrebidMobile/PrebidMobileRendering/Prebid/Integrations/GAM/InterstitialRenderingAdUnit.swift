@@ -17,6 +17,21 @@ import UIKit
 
 @objcMembers
 public class InterstitialRenderingAdUnit: BaseInterstitialAdUnit {
+    
+    @objc public var skipButtonArea: Double {
+        get { adUnitConfig.adConfiguration.skipButtonArea }
+        set { adUnitConfig.adConfiguration.skipButtonArea = newValue }
+    }
+    
+    @objc public var skipButtonPosition: Position {
+        get { adUnitConfig.adConfiguration.skipButtonPosition }
+        set { adUnitConfig.adConfiguration.skipButtonPosition = newValue }
+    }
+    
+    @objc public var skipDelay: Double {
+        get { adUnitConfig.adConfiguration.skipDelay }
+        set { adUnitConfig.adConfiguration.skipDelay = newValue }
+    }
 
     @objc public init(configID: String) {
         super.init(configID: configID,

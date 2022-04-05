@@ -22,7 +22,6 @@
 
 //Imports
 #import "PBMAbstractCreative.h"
-#import "PBMAdConfiguration.h"
 #import "PBMAdDetails.h"
 #import "PBMAdLoadManagerBase.h"
 #import "PBMAdLoadManagerProtocol.h"
@@ -108,7 +107,6 @@
 #import "PBMVideoViewDelegate.h"
 #import "PBMWebView.h"
 #import "PBMWebViewDelegate.h"
-#import "PBMCloseButtonDecorator.h"
 #import "PBMAdRequestResponseVAST.h"
 #import "PBMCircularProgressBarLayer.h"
 #import "PBMInterstitialLayoutConfigurator.h"

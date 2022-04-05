@@ -15,9 +15,12 @@
 
 #import "PBMInterstitialLayoutConfigurator.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @implementation PBMInterstitialLayoutConfigurator
 
-+ (void)configurePropertiesWithAdConfiguration:(PBMAdConfiguration *)adConfiguration displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {
++ (void)configurePropertiesWithAdConfiguration:(AdConfiguration *)adConfiguration displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {
     PBMInterstitialLayout layout = adConfiguration.interstitialLayout;
     if (layout && layout != PBMInterstitialLayoutUndefined) {
         displayProperties.interstitialLayout = layout;

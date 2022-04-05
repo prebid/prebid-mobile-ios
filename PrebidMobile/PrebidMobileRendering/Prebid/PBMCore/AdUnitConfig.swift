@@ -27,7 +27,7 @@ public class AdUnitConfig: NSObject, NSCopying {
        
     public var configId: String
     
-    public let adConfiguration = PBMAdConfiguration();
+    public let adConfiguration = AdConfiguration();
     
     public var adFormats: Set<AdFormat> {
         didSet {
@@ -44,8 +44,8 @@ public class AdUnitConfig: NSObject, NSCopying {
     public var contextDataDictionary: [String : [String]] {
         extensionData.mapValues { Array($0) }
     }
-    
-    public var nativeAdConfiguration: NativeAdConfiguration? 
+
+    public var nativeAdConfiguration: NativeAdConfiguration?
 
     // MARK: - Computed Properties
     
@@ -76,21 +76,6 @@ public class AdUnitConfig: NSObject, NSCopying {
                 }
             }
         }
-    }
-    
-    public var isInterstitial: Bool {
-        get { adConfiguration.isInterstitialAd }
-        set { adConfiguration.isInterstitialAd = newValue }
-    }
-        
-    public var isOptIn: Bool {
-        get { adConfiguration.isOptIn }
-        set { adConfiguration.isOptIn = newValue }
-    }
-    
-    public var videoPlacementType: PBMVideoPlacementType {
-        get { adConfiguration.videoPlacementType }
-        set { adConfiguration.videoPlacementType = newValue }
     }
     
     // MARK: - Public Methods
@@ -251,6 +236,14 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.isOptIn = self.adConfiguration.isOptIn
         clone.adConfiguration.videoPlacementType = self.adConfiguration.videoPlacementType
         clone.nativeAdConfiguration = self.nativeAdConfiguration
+        clone.adConfiguration.isMuted = self.adConfiguration.isMuted
+        clone.adConfiguration.isSoundButtonVisible = self.adConfiguration.isSoundButtonVisible
+        clone.adConfiguration.maxVideoDuration = self.adConfiguration.maxVideoDuration
+        clone.adConfiguration.closeButtonPosition = self.adConfiguration.closeButtonPosition
+        clone.adConfiguration.closeButtonArea = self.adConfiguration.closeButtonArea
+        clone.adConfiguration.skipButtonArea = self.adConfiguration.skipButtonArea
+        clone.adConfiguration.skipButtonPosition = self.adConfiguration.skipButtonPosition
+        clone.adConfiguration.skipDelay = self.adConfiguration.skipDelay
         clone.sizes = sizes
         clone.refreshInterval = self.refreshInterval
         clone.minSizePerc = self.minSizePerc

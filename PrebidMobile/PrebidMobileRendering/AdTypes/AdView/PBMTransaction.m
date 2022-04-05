@@ -16,7 +16,6 @@
 #import "PBMTransaction.h"
 
 #import "PBMAbstractCreative.h"
-#import "PBMAdConfiguration.h"
 #import "PBMCreativeFactory.h"
 #import "PBMCreativeModel.h"
 #import "PBMError.h"
@@ -27,10 +26,13 @@
 
 #import "PBMMacros.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 @interface PBMTransaction()
 
 @property (nonatomic, strong) id<PBMServerConnectionProtocol> serverConnection;
-@property (nonatomic, strong) PBMAdConfiguration *adConfiguration;
+@property (nonatomic, strong) AdConfiguration *adConfiguration;
 @property (nonatomic, strong) PBMCreativeFactory *creativeFactory;
 
 @end
@@ -38,7 +40,7 @@
 @implementation PBMTransaction
 
 - (instancetype)initWithServerConnection:(id<PBMServerConnectionProtocol>)connection
-                         adConfiguration:(PBMAdConfiguration*)adConfiguration
+                         adConfiguration:(AdConfiguration*)adConfiguration
                                   models:(NSArray<PBMCreativeModel *> *)creativeModels {
     self = [super init];
     if (self) {
@@ -130,7 +132,7 @@
         nil;
 }
 
-- (void)resetAdConfiguration:(PBMAdConfiguration *)adConfiguration {
+- (void)resetAdConfiguration:(AdConfiguration *)adConfiguration {
     self.adConfiguration = adConfiguration;
     for (PBMCreativeModel *creativeModel in self.creativeModels) {
         creativeModel.adConfiguration = adConfiguration;

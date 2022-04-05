@@ -43,8 +43,8 @@ class PBMVastLoaderMultiWrapperTest: XCTestCase {
         
         conn.protocolClasses.add(MockServerURLProtocol.self)
         
-        //Make an PBMAdConfiguration
-        let adConfiguration = PBMAdConfiguration()
+        //Make an AdConfiguration
+        let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]
         
         let adLoadManager = MockPBMAdLoadManagerVAST(connection:conn, adConfiguration: adConfiguration)

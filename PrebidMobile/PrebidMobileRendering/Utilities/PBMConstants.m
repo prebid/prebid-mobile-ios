@@ -208,12 +208,16 @@ PBMParameterKeys const PBMParameterKeysOPEN_RTB = @"openrtb";
 @end
 
 
-#pragma mark - PBMTimeScale
+#pragma mark - PBMVideoConstants
 
-@implementation PBMTimeScale
+@implementation PBMVideoConstants
 
 +(NSInteger)VIDEO_TIMESCALE {
     return 1000;
+}
+
++(NSNumber *)DEFAULT_MAX_VIDEO_DURATION {
+    return [[NSNumber alloc] initWithDouble:3600];
 }
 
 @end
@@ -296,6 +300,14 @@ PBMParameterKeys const PBMParameterKeysOPEN_RTB = @"openrtb";
         ];
     });
     return _urlSchemesNotSupportedOnClickthroughBrowser;
+}
+
++(NSNumber *)BUTTON_AREA_DEFAULT {
+    return [[NSNumber alloc] initWithDouble:0.1];
+}
+
++(NSNumber *)SKIP_DELAY_DEFAULT {
+    return [[NSNumber alloc] initWithDouble:10];
 }
 
 @end

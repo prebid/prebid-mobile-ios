@@ -55,11 +55,23 @@ class PBMConstantsTests: XCTestCase {
     }
     
     func testPBMTimeScale() {
-        XCTAssertEqual(PBMTimeScale.VIDEO_TIMESCALE, 1000)
+        XCTAssertEqual(PBMVideoConstants.VIDEO_TIMESCALE, 1000)
+    }
+    
+    func testPBMDefaultVideoMaxDuration() {
+        XCTAssertEqual(PBMVideoConstants.DEFAULT_MAX_VIDEO_DURATION, 3600)
     }
     
     func testPBMGeoLocationConstants() {
         XCTAssertEqual(GeoLocationConstants.DISTANCE_FILTER, 50.0)
+    }
+    
+    func testButtonAreaConstant() {
+        XCTAssertEqual(PBMConstants.BUTTON_AREA_DEFAULT, 0.1)
+    }
+    
+    func testSkipDelayConstant() {
+        XCTAssertEqual(PBMConstants.SKIP_DELAY_DEFAULT, 10)
     }
     
     func testPBMSupportedVideoMimeTypes() {

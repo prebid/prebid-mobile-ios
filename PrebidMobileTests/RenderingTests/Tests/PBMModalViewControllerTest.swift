@@ -45,7 +45,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
         
         // contentView
         
-        controller.setupState(PBMModalState(view: UIView(), adConfiguration: PBMAdConfiguration(), displayProperties:nil, onStatePopFinished: nil, onStateHasLeftApp: nil))
+        controller.setupState(PBMModalState(view: UIView(), adConfiguration: AdConfiguration(), displayProperties:nil, onStatePopFinished: nil, onStateHasLeftApp: nil))
         controller.contentView = nil
         XCTAssertTrue(controller.isRotationEnabled)
         
@@ -89,7 +89,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
         let displayProperties = PBMInterstitialDisplayProperties()
         displayProperties.closeDelayLeft = testDelay
         
-        let modalState = PBMModalState(view: UIView(), adConfiguration: PBMAdConfiguration(), displayProperties:displayProperties, onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let modalState = PBMModalState(view: UIView(), adConfiguration: AdConfiguration(), displayProperties:displayProperties, onStatePopFinished: nil, onStateHasLeftApp: nil)
         controller.modalState = modalState
         
         let expectationShowCloseButton = self.expectation(description: "expectationShowCloseButton")
@@ -141,7 +141,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
         let displayProperties = PBMInterstitialDisplayProperties()
         displayProperties.closeDelayLeft = 3
         
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         adConfiguration.isOptIn = true
         
         let modalState = PBMModalState(view: UIView(), adConfiguration: adConfiguration, displayProperties:displayProperties, onStatePopFinished: nil, onStateHasLeftApp: nil)
@@ -159,7 +159,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
         expectation = self.expectation(description: "expectation modalViewControllerCloseButtonTapped")
         
         let controller = PBMModalViewController()
-        controller.setupState(PBMModalState(view: UIView(), adConfiguration: PBMAdConfiguration(), displayProperties:nil, onStatePopFinished: nil, onStateHasLeftApp: nil))
+        controller.setupState(PBMModalState(view: UIView(), adConfiguration: AdConfiguration(), displayProperties:nil, onStatePopFinished: nil, onStateHasLeftApp: nil))
         
         XCTAssertNotNil(controller.closeButtonDecorator.button)
         XCTAssertFalse(controller.closeButtonDecorator.button.isHidden)
@@ -174,7 +174,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
         let displayProperties = PBMInterstitialDisplayProperties()
         displayProperties.closeDelayLeft = 1
         
-        let modalState = PBMModalState(view: UIView(), adConfiguration: PBMAdConfiguration(), displayProperties:displayProperties, onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let modalState = PBMModalState(view: UIView(), adConfiguration: AdConfiguration(), displayProperties:displayProperties, onStatePopFinished: nil, onStateHasLeftApp: nil)
         
         let controller = PBMModalViewController()
         controller.modalState = modalState
@@ -197,7 +197,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
         webView.isRotationEnabled = false
         let view = UIView()
         view.addSubview(webView)
-        let modalState = PBMModalState(view: view, adConfiguration: PBMAdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let modalState = PBMModalState(view: view, adConfiguration: AdConfiguration(), displayProperties:PBMInterstitialDisplayProperties(), onStatePopFinished: nil, onStateHasLeftApp: nil)
         
         let controller = PBMModalViewController()
         XCTAssertTrue(controller.isRotationEnabled)
@@ -208,7 +208,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
     
     func testConfigureDisplayView() {
         let controller = PBMModalViewController()
-        controller.setupState(PBMModalState(view: UIView(), adConfiguration: PBMAdConfiguration(), displayProperties:nil, onStatePopFinished: nil, onStateHasLeftApp: nil))
+        controller.setupState(PBMModalState(view: UIView(), adConfiguration: AdConfiguration(), displayProperties:nil, onStatePopFinished: nil, onStateHasLeftApp: nil))
         var displayView = controller.displayView
         let contentView = controller.contentView
         
@@ -222,7 +222,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
         displayProperties.contentFrame = CGRect(x: 0, y: 0, width: width, height: height)
         let view = UIView()
         
-        controller.setupState(PBMModalState(view: view, adConfiguration: PBMAdConfiguration(), displayProperties:displayProperties, onStatePopFinished: nil, onStateHasLeftApp: nil))
+        controller.setupState(PBMModalState(view: view, adConfiguration: AdConfiguration(), displayProperties:displayProperties, onStatePopFinished: nil, onStateHasLeftApp: nil))
         
         displayView = controller.displayView
         XCTAssertEqual(displayView?.backgroundColor, UIColor.clear)
@@ -248,7 +248,7 @@ class PBMModalViewControllerTest: XCTestCase, PBMModalViewControllerDelegate {
         let displayProperties = PBMInterstitialDisplayProperties()
         displayProperties.closeDelayLeft = closeButtonDelay
         
-        let modalState = PBMModalState(view: UIView(), adConfiguration: PBMAdConfiguration(), displayProperties:displayProperties, onStatePopFinished: nil, onStateHasLeftApp: nil)
+        let modalState = PBMModalState(view: UIView(), adConfiguration: AdConfiguration(), displayProperties:displayProperties, onStatePopFinished: nil, onStateHasLeftApp: nil)
         controller.modalState = modalState
         
         let expectationShowCloseButtonInitial = self.expectation(description: "expectationShowCloseButtonInitial")

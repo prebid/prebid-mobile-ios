@@ -29,7 +29,7 @@
 // Note: properties below are marked with 'readwrite' for UnitTests to be able to write 'nil' into them.
 // TODO: Prove that 'init' arguments are never nil; convert to 'readonly'; remove redundant checks and tests.
 
-@property (nonatomic, strong, readwrite) PBMAdConfiguration *adConfiguration;
+@property (nonatomic, strong, readwrite) AdConfiguration *adConfiguration;
 @property (nonatomic, strong, readwrite) Prebid *sdkConfiguration;
 @property (nonatomic, strong, readwrite) Targeting *targeting;
 @property (nonatomic, copy, readwrite) NSString *sdkVersion;
@@ -76,7 +76,7 @@
 
 #pragma mark - Initialization
 
-- (instancetype)initWithAdConfiguration:(PBMAdConfiguration *)adConfiguration
+- (instancetype)initWithAdConfiguration:(AdConfiguration *)adConfiguration
                        sdkConfiguration:(Prebid *)sdkConfiguration
                              sdkVersion:(NSString *)sdkVersion
                               targeting:(Targeting *)targeting
@@ -156,7 +156,7 @@
 
     PBMORTBVideo * const videoObj = [[PBMORTBVideo alloc] init];
     
-    if (self.adConfiguration.videoPlacementType != PBMVideoPlacementType_Undefined) {
+    if (self.adConfiguration.videoPlacementType != VideoPlacementTypeUndefined) {
         videoObj.placement = @(self.adConfiguration.videoPlacementType);
     }
     [bidRequest.imp firstObject].video = videoObj;

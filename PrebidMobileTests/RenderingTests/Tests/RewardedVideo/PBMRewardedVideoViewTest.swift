@@ -159,7 +159,7 @@ class PBMRewardedVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCr
         MockServer.shared.resetRules([rule])
         
         //Create model
-        let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         model.videoFileURL = videoFileURL
         model.displayDurationInSeconds = 6
         model.adConfiguration?.isOptIn = true

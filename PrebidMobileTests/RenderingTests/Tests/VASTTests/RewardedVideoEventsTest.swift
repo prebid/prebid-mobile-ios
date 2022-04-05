@@ -256,9 +256,9 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
         ]
     }
     
-    func initAdConfiguration() -> PBMAdConfiguration {
+    func initAdConfiguration() -> AdConfiguration {
         //Create adConfiguration
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]
         adConfiguration.isInterstitialAd = true
         adConfiguration.isOptIn = true

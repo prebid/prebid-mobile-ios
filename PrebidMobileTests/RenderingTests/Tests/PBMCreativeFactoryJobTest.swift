@@ -24,7 +24,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         
         let connection = PBMServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
-        let model = PBMCreativeModel(adConfiguration: PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration: AdConfiguration())
         
         let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in
             if error != nil {
@@ -67,7 +67,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         
         let connection = PBMServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
-        let model = PBMCreativeModel(adConfiguration: PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration: AdConfiguration())
         
         let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in
             if error != nil {
@@ -89,7 +89,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         
         let connection = PBMServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
-        let model = PBMCreativeModel(adConfiguration: PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration: AdConfiguration())
         
         let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in
             if job.state == PBMCreativeFactoryJobStateSuccess && error == nil {
@@ -113,7 +113,7 @@ class PBMCreativeFactoryJobTest: XCTestCase {
         
         let connection = PBMServerConnection()
         let transaction = UtilitiesForTesting.createEmptyTransaction()
-        let model = PBMCreativeModel(adConfiguration: PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration: AdConfiguration())
         
         let finishedCallback = { (job: PBMCreativeFactoryJob, error: Error?) in
             if (error != nil) {

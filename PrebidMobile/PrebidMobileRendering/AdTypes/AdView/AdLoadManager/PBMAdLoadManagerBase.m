@@ -37,7 +37,7 @@
 @implementation PBMAdLoadManagerBase
 
 - (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
-                   adConfiguration:(PBMAdConfiguration *)adConfiguration {
+                   adConfiguration:(AdConfiguration *)adConfiguration {
     self = [super init];
     if (self) {
         PBMAssert(connection);

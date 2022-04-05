@@ -25,8 +25,8 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     
     /// Sets a video interstitial ad unit as an opt-in video
     @objc public var isOptIn: Bool {
-        get { adConfiguration.isOptIn }
-        set { adConfiguration.isOptIn = newValue }
+        get { adConfiguration.adConfiguration.isOptIn }
+        set { adConfiguration.adConfiguration.isOptIn = newValue }
     }
     
     @objc public weak var loadingDelegate: InterstitialControllerLoadingDelegate?
@@ -49,7 +49,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     
     @objc public convenience init(bid: Bid, configId: String) {
         let adConfig = AdUnitConfig(configId: configId)
-        adConfig.isInterstitial = true
+        adConfig.adConfiguration.isInterstitialAd = true
         self.init(bid: bid, adConfiguration: adConfig)
     }
     
@@ -182,7 +182,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
                                          modalManagerDelegate: nil)
         adViewManager?.adViewManagerDelegate = self
         adViewManager?.adConfiguration.isInterstitialAd = true
-        adViewManager?.adConfiguration.isOptIn = adConfiguration.isOptIn
+        adViewManager?.adConfiguration.isOptIn = adConfiguration.adConfiguration.isOptIn
         adViewManager?.handleExternalTransaction(transaction)
     }
 }

@@ -51,7 +51,7 @@ class PBMInterstitialLayoutConfiguratorTest: XCTestCase {
     
     func testDefaultAdConfiguration() {
         let displayProperties = PBMInterstitialDisplayProperties()
-        let adConfig = PBMAdConfiguration()
+        let adConfig = AdConfiguration()
         XCTAssertEqual(displayProperties.interstitialLayout.rawValue, PBMInterstitialLayout.undefined.rawValue)
         
         PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
@@ -62,7 +62,7 @@ class PBMInterstitialLayoutConfiguratorTest: XCTestCase {
     
     func testAdConfigurationWithSetLayout() {
         let displayProperties = PBMInterstitialDisplayProperties()
-        let adConfig = PBMAdConfiguration()
+        let adConfig = AdConfiguration()
         
         adConfig.interstitialLayout = .portrait
         PBMInterstitialLayoutConfigurator.configureProperties(with: adConfig, displayProperties: displayProperties)
@@ -87,7 +87,7 @@ class PBMInterstitialLayoutConfiguratorTest: XCTestCase {
     
     func testAdConfigurationNoLayoutWithSize() {
         let displayProperties = PBMInterstitialDisplayProperties()
-        let adConfig = PBMAdConfiguration()
+        let adConfig = AdConfiguration()
         
         //test portrait size
         adConfig.size = CGSize(width: 360, height: 480)

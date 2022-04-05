@@ -15,7 +15,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "PBMAdConfiguration.h"
 #import "PBMConstants.h"
 #import "PBMCreativeFactory.h"
 

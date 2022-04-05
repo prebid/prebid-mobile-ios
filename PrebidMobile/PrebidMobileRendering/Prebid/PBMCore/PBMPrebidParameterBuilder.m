@@ -60,7 +60,7 @@
     
     NSSet<AdFormat *> *adFormats = self.adConfiguration.adConfiguration.adFormats;
     BOOL const isHTML = ([adFormats containsObject:AdFormat.display]);
-    BOOL const isInterstitial = self.adConfiguration.isInterstitial;
+    BOOL const isInterstitial = self.adConfiguration.adConfiguration.isInterstitialAd;
     
     bidRequest.requestID = [NSUUID UUID].UUIDString;
     bidRequest.extPrebid.storedRequestID        = self.sdkConfiguration.accountID;
@@ -133,7 +133,7 @@
         nextImp.impID = [NSUUID UUID].UUIDString;
         nextImp.extPrebid.storedRequestID = self.adConfiguration.configId;
         nextImp.extPrebid.storedAuctionResponse = Prebid.shared.storedAuctionResponse;
-        nextImp.extPrebid.isRewardedInventory = self.adConfiguration.isOptIn;
+        nextImp.extPrebid.isRewardedInventory = self.adConfiguration.adConfiguration.isOptIn;
         nextImp.extContextData = self.adConfiguration.contextDataDictionary.mutableCopy;
         nextImp.extContextData[@"adslot"] = [self.adConfiguration getPbAdSlot];
         for (AdFormat* adFormat in adFormats) {

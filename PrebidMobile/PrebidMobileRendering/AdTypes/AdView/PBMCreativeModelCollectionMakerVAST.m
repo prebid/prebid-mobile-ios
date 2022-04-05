@@ -18,7 +18,6 @@
 #import "PBMCreativeModel.h"
 #import "PBMServerResponse.h"
 #import "PBMTrackingEvent.h"
-#import "PBMAdConfiguration.h"
 #import "PBMVastCreativeLinear.h"
 #import "PBMVastInlineAd.h"
 #import "PBMVastParser.h"
@@ -36,7 +35,7 @@
 @implementation PBMCreativeModelCollectionMakerVAST
 
 - (instancetype)initWithServerConnection:(id<PBMServerConnectionProtocol>)pbmServerConnection
-                            adConfiguration:(PBMAdConfiguration *)adConfiguration {
+                            adConfiguration:(AdConfiguration *)adConfiguration {
     self = [super init];
     if (self) {
         self.adConfiguration = adConfiguration;
@@ -91,12 +90,11 @@
         return nil;
     }
     
-    PBMCreativeModel *creativeModel = [self createCreativeModelWithAd:vastAd creative:creative mediaFile:bestMediaFile];
+    PBMCreativeModel *creativeModel = [self createCreativeModelWithAd:vastAd creative:creative mediaFile:bestMediaFile error:error];
     if (creativeModel == nil) {
-        errorMessage = @"Error creating CreativeModel";
-        [PBMError createError:error description:errorMessage statusCode:PBMErrorCodeUndefined];
         return nil;
     }
+
     [creatives addObject:creativeModel];
     
     // Creative the Companion Ads creative model
@@ -129,8 +127,21 @@
 
 - (PBMCreativeModel *)createCreativeModelWithAd:(PBMVastInlineAd *)vastAd
                                        creative:(PBMVastCreativeLinear *)creative
-                                      mediaFile:(PBMVastMediaFile *)mediaFile {
-   
+                                      mediaFile:(PBMVastMediaFile *)mediaFile
+                                          error:(NSError **)error {
+
+    if (!creative.duration || creative.duration <= 0) {
+        NSString *errorMessage = @"Creative duration is invalid";
+        [PBMError createError:error description:errorMessage statusCode:PBMErrorCodeGeneral];
+        return nil;
+    }
+
+    if (creative.duration > self.adConfiguration.maxVideoDuration) {
+        NSString *errorMessage = @"Creative duration is bigger than maximum available playback time.";
+        [PBMError createError:error description:errorMessage statusCode:PBMErrorCodeGeneral];
+        return nil;
+    }
+
     PBMCreativeModel *creativeModel = [[PBMCreativeModel alloc] initWithAdConfiguration:self.adConfiguration];
     creativeModel.eventTracker = [[PBMAdModelEventTracker alloc] initWithCreativeModel:creativeModel serverConnection:self.serverConnection];
     creativeModel.verificationParameters = vastAd.verificationParameters;

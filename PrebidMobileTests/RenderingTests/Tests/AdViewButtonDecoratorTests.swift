@@ -16,23 +16,18 @@
 import XCTest
 @testable import PrebidMobile
 
-class PBMAdViewButtonDecoratorTests: XCTestCase {
+class AdViewButtonDecoratorTests: XCTestCase {
     
-    var buttonDecorator: PBMAdViewButtonDecorator!
+    var buttonDecorator: AdViewButtonDecorator!
     
     override func setUp() {
         super.setUp()
-        buttonDecorator = PBMAdViewButtonDecorator()
+        buttonDecorator = AdViewButtonDecorator()
     }
     
     override func tearDown() {
         buttonDecorator = nil
         super.tearDown()
-    }
-    
-    func testGetButtonConstraintConstant() {
-        XCTAssertNotNil(buttonDecorator)
-        XCTAssertEqual(buttonDecorator.getButtonConstraintConstant(), 10)
     }
     
     func testButtonTappedAction() {
@@ -48,19 +43,28 @@ class PBMAdViewButtonDecoratorTests: XCTestCase {
     
     func testGetButtonSize() {
         //There is no image by default
+        let constant = 0.25
         XCTAssertNil(buttonDecorator.button.currentImage)
+        buttonDecorator.buttonArea = constant
+        let sizeValue: CGFloat = UIScreen.main.bounds.width * constant
+        let buttonSize = CGSize(width: sizeValue, height: sizeValue)
+        let resultButtonSize = buttonDecorator.getButtonSize()
         
-        var buttonSize = buttonDecorator.getButtonSize()
+        XCTAssertEqual(resultButtonSize, buttonSize)
         
-        XCTAssertEqual(buttonSize, CGSize(width:10, height:10))
-        
-        //The button size should be equal to the image size
         let image = UIImage(named: "PBM_closeButton",
                             in: Bundle(for: type(of: self)), compatibleWith: nil)
         buttonDecorator.setImage(image!)
-        buttonSize = buttonDecorator.getButtonSize()
-        XCTAssertEqual(buttonSize, image?.size)
         XCTAssertEqual(buttonDecorator.button.currentImage, image)
+    }
+    
+    func testGetButtonConstraintConstant() {
+        let constant = 0.1
+        XCTAssertNil(buttonDecorator.button.currentImage)
+        buttonDecorator.buttonArea = constant
+        
+        let expectedConstraintConstant = (UIScreen.main.bounds.width * constant) / 2
+        XCTAssertTrue(expectedConstraintConstant == buttonDecorator.getButtonConstraintConstant())
     }
     
     func testAddButtonToView() {
@@ -68,7 +72,8 @@ class PBMAdViewButtonDecoratorTests: XCTestCase {
         XCTAssertEqual(buttonDecorator.button.allTargets.count, 0)
         
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        buttonDecorator.addButton(to: view, display: view)
+        
+        buttonDecorator.addButton(to: view, displayView: view)
         XCTAssertEqual(buttonDecorator.button.allTargets.count, 1)
         
         let subView = UIView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
@@ -82,5 +87,9 @@ class PBMAdViewButtonDecoratorTests: XCTestCase {
         
         buttonDecorator.removeButtonFromSuperview()
         XCTAssertEqual(view.subviews.count, 1)
+    }
+    
+    func testDefaultButtonPosition() {
+        XCTAssertTrue(buttonDecorator.buttonPosition == .topRight)
     }
 }

@@ -13,10 +13,16 @@
  limitations under the License.
  */
 
-#import "PBMVoidBlock.h"
+import Foundation
 
-NS_ASSUME_NONNULL_BEGIN
-
-typedef void (^PBMCreativeClickHandlerBlock)(PBMVoidBlock onClickthroughExitBlock);
-
-NS_ASSUME_NONNULL_END
+@objc public enum Position: Int {
+    case undefined = -1
+    case topLeft
+    case topCenter
+    case topRight
+    case center
+    case bottomLeft
+    case bottomCenter
+    case bottomRight
+    case custom
+}

@@ -20,7 +20,7 @@ import XCTest
 class SupportedProtocolsParameterBuilderTest : XCTestCase {
     
     func testParameterBuilder() {
-        let adConfiguration = PBMAdConfiguration()
+        let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.display]
         
         //Run the Builder

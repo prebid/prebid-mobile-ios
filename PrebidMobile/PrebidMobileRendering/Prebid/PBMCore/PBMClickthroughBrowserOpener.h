@@ -15,13 +15,13 @@
 
 #import "PBMURLOpenAttempterBlock.h"
 #import "PBMViewControllerProvider.h"
-#import "PBMAdConfiguration.h"
 #import "PBMVoidBlock.h"
 #import "PBMModalManager.h"
 #import "PBMModalState.h"
 #import "PBMOpenMeasurementSession.h"
 
 @class Prebid;
+@class AdConfiguration;
 
 typedef PBMOpenMeasurementSession * _Nullable (^PBMOpenMeasurementSessionProvider)(void);
 
@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PBMClickthroughBrowserOpener : NSObject
 
 - (instancetype)initWithSDKConfiguration:(Prebid *)sdkConfiguration
-                         adConfiguration:(nullable PBMAdConfiguration *)adConfiguration
+                         adConfiguration:(nullable AdConfiguration *)adConfiguration
                             modalManager:(PBMModalManager *)modalManager
                   viewControllerProvider:(PBMViewControllerProvider)viewControllerProvider
               measurementSessionProvider:(PBMOpenMeasurementSessionProvider)measurementSessionProvider

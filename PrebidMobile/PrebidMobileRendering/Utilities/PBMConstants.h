@@ -140,10 +140,10 @@ NS_SWIFT_NAME(ParseKey)
 @end
 
 
-//TODO: Move to Video
-@interface PBMTimeScale : NSObject
+@interface PBMVideoConstants : NSObject
 
 @property (class, readonly) NSInteger VIDEO_TIMESCALE                   NS_SWIFT_NAME(VIDEO_TIMESCALE);
+@property (class, readonly) NSNumber *DEFAULT_MAX_VIDEO_DURATION        NS_SWIFT_NAME(DEFAULT_MAX_VIDEO_DURATION);
 
 @end
 
@@ -164,6 +164,8 @@ NS_SWIFT_NAME(GeoLocationConstants)
 @property (class, readonly) NSArray <NSString *> *urlSchemesForAppStoreAndITunes    NS_SWIFT_NAME(urlSchemesForAppStoreAndITunes);
 @property (class, readonly) NSArray <NSString *> *urlSchemesNotSupportedOnSimulator NS_SWIFT_NAME(urlSchemesNotSupportedOnSimulator);
 @property (class, readonly) NSArray <NSString *> *urlSchemesNotSupportedOnClickthroughBrowser NS_SWIFT_NAME(urlSchemesNotSupportedOnClickthroughBrowser);
+@property (class, readonly) NSNumber *BUTTON_AREA_DEFAULT                           NS_SWIFT_NAME(BUTTON_AREA_DEFAULT);
+@property (class, readonly) NSNumber *SKIP_DELAY_DEFAULT                            NS_SWIFT_NAME(SKIP_DELAY_DEFAULT);
 
 @end
 

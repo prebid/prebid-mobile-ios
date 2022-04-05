@@ -19,7 +19,6 @@
 #import "PBMFunctions+Private.h"
 #import "UIView+PBMExtensions.h"
 
-#import "PBMAdConfiguration.h"
 #import "PBMClickthroughBrowserView.h"
 #import "PBMConstants.h"
 #import "PBMCreativeModel.h"
@@ -88,27 +87,20 @@
 - (void)displayWithRootViewController:(UIViewController *)viewController {
     [super displayWithRootViewController:viewController];
     [self.viewabilityTracker start];
-
-    if (self.creativeModel.adConfiguration.isBuiltInVideo && !self.creativeModel.adConfiguration.presentAsInterstitial) {
-        [self.videoView mute];
-    }
     
     [self.videoView startPlayback];
     [self.videoView PBMAddFillSuperviewConstraints];
 }
 
-- (void)showAsInterstitialFromRootViewController:(UIViewController *)uiViewController displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {
-    NSNumber *videoDuration = self.creativeModel.displayDurationInSeconds;
-    if (!videoDuration) {
-        PBMLogWarn(@"Undefined video duration.");
-        // TODO: Should we return or show with default duration?
-        return;
-    }
-    
+- (void)showAsInterstitialFromRootViewController:(UIViewController *)uiViewController displayProperties:(PBMInterstitialDisplayProperties *)displayProperties {  
     @weakify(self);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         @strongify(self);
-        [self.videoView unmute];
+        if (self.creativeModel.adConfiguration.isMuted) {
+            [self.videoView mute];
+        } else {
+            [self.videoView unmute];
+        }
     });
     
     //Create a copy of the interstitialDisplayProperties and modify the closeDelay to take the video length into account.
@@ -283,12 +275,14 @@
     return newDisplayProperties;
 }
 
+// TODO: - Clarify the requirements and fix calculation logic
 - (NSTimeInterval)calculateCloseDelayForPubCloseDelay:(NSTimeInterval)pubCloseDelay {
-    if (self.creativeModel.skipOffset) {
-        return [self.creativeModel.skipOffset doubleValue];
-    }
-    else if (self.creativeModel.adConfiguration.isOptIn) {
+    if (self.creativeModel.adConfiguration.isOptIn || self.creativeModel.hasCompanionAd) {
         return [self.creativeModel.displayDurationInSeconds doubleValue];
+    } else if (self.creativeModel.adConfiguration.skipDelay && self.creativeModel.adConfiguration.skipDelay <= self.creativeModel.displayDurationInSeconds.doubleValue) {
+        return self.creativeModel.adConfiguration.skipDelay;
+    } else if (self.creativeModel.skipOffset && self.creativeModel.skipOffset.doubleValue <= self.creativeModel.displayDurationInSeconds.doubleValue) {
+        return [self.creativeModel.skipOffset doubleValue];
     } else {
         const double videoDuration = self.creativeModel.displayDurationInSeconds.doubleValue;
         if (videoDuration <= 0) {

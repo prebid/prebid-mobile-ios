@@ -370,7 +370,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     //MARK: Utility methods
     @discardableResult private func setUpDelegateTests () -> PBMHTMLCreative {
         // create an ad with one creative
-        let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         model.html = "<html>test html</html>"
         let testCreative = PBMHTMLCreative(creativeModel:model, transaction:UtilitiesForTesting.createEmptyTransaction())
         testCreative.view = PBMWebView()

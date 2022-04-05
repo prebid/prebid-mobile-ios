@@ -18,7 +18,7 @@
 #import "PBMAdLoadManagerDelegate.h"
 #import "PBMTransactionDelegate.h"
 
-@class PBMAdConfiguration;
+@class AdConfiguration;
 @protocol PBMServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
-                   adConfiguration:(PBMAdConfiguration *)adConfiguration;
+                   adConfiguration:(AdConfiguration *)adConfiguration;
 
 @end
 NS_ASSUME_NONNULL_END

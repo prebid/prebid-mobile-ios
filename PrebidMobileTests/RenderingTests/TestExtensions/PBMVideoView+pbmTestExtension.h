@@ -19,8 +19,10 @@
 @interface PBMVideoView ()
 
 @property (nonatomic, weak, nullable) PBMVideoCreative *creative;
+@property (nonatomic, strong) AdViewButtonDecorator * _Nonnull skipButtonDecorator;
 
 - (void)updateControls;
 - (CGFloat)requiredVideoDuration;
+- (void)handleSkipDelay:(NSTimeInterval)skipDelay videoDuration:(NSTimeInterval)videoDuration;
 
 @end

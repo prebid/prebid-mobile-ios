@@ -23,7 +23,7 @@ class PBMRewardedVideoCreativeTestCloseDelay : XCTestCase {
         let expected: TimeInterval = 10
         var actual: TimeInterval
         
-        let model = PBMCreativeModel(adConfiguration:PBMAdConfiguration())
+        let model = PBMCreativeModel(adConfiguration:AdConfiguration())
         model.adConfiguration?.isOptIn = true
         model.displayDurationInSeconds = 10
         

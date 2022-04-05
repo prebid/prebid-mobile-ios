@@ -30,19 +30,16 @@ public class BaseInterstitialAdUnit :
         return adLoadFlowController?.bidResponse
     }
     
-    @objc
-    public var configID: String {
+    @objc public var configID: String {
         adUnitConfig.configId
     }
     
-    @objc
-    public var adFormats: Set<AdFormat> {
+    @objc public var adFormats: Set<AdFormat> {
         get { adUnitConfig.adFormats }
         set { adUnitConfig.adFormats = newValue }
     }
      
-    @objc
-    public var isReady: Bool {
+    @objc public var isReady: Bool {
         objc_sync_enter(blocksLockToken)
         if let block = isReadyBlock {
             let res = block()
@@ -54,8 +51,32 @@ public class BaseInterstitialAdUnit :
         return false
     }
 
-    @objc
-    public weak var delegate: AnyObject?
+    @objc public var maxVideoDuration: TimeInterval {
+        get { adUnitConfig.adConfiguration.maxVideoDuration }
+        set { adUnitConfig.adConfiguration.maxVideoDuration = newValue }
+    }
+
+    @objc public var isMuted: Bool {
+        get { adUnitConfig.adConfiguration.isMuted }
+        set { adUnitConfig.adConfiguration.isMuted = newValue }
+    }
+
+    @objc public var isSoundButtonVisible: Bool {
+        get { adUnitConfig.adConfiguration.isSoundButtonVisible }
+        set { adUnitConfig.adConfiguration.isSoundButtonVisible = newValue }
+    }
+
+    @objc public var closeButtonArea: Double {
+        get { adUnitConfig.adConfiguration.closeButtonArea }
+        set { adUnitConfig.adConfiguration.closeButtonArea = newValue }
+    }
+
+    @objc public var closeButtonPosition: Position {
+        get { adUnitConfig.adConfiguration.closeButtonPosition }
+        set { adUnitConfig.adConfiguration.closeButtonPosition = newValue }
+    }
+
+    @objc public weak var delegate: AnyObject?
     
     public let adUnitConfig: AdUnitConfig
     
@@ -78,10 +99,10 @@ public class BaseInterstitialAdUnit :
                 eventHandler: AnyObject?) {
         
         adUnitConfig = AdUnitConfig(configId: configID)
-        adUnitConfig.isInterstitial = true
+        adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.minSizePerc = minSizePerc
         adUnitConfig.adPosition = .fullScreen
-        adUnitConfig.videoPlacementType = .sliderOrFloating
+        adUnitConfig.adConfiguration.videoPlacementType = .sliderOrFloating
         blocksLockToken = NSObject()
 
         self.eventHandler = eventHandler
@@ -134,13 +155,11 @@ public class BaseInterstitialAdUnit :
     
     // MARK: - Public Methods
     
-    @objc
-    public func loadAd() {
+    @objc public func loadAd() {
         adLoadFlowController.refresh()
     }
     
-    @objc
-    public func show(from controller: UIViewController) {
+    @objc public func show(from controller: UIViewController) {
         // It is expected from the user to call this method on main thread
         assert(Thread.isMainThread, "Expected to only be called on the main thread");
        
