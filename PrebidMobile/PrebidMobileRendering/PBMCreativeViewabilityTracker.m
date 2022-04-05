@@ -24,10 +24,11 @@
 #import "PBMWeakTimerTargetBox.h"
 #import "UIView+PBMExtensions.h"
 
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
+
 #ifdef DEBUG
     #import "Prebid+TestExtension.h"
-    #import "PrebidMobileSwiftHeaders.h"
-    #import <PrebidMobile/PrebidMobile-Swift.h>
 #endif
 
 @interface PBMCreativeViewabilityTracker()
