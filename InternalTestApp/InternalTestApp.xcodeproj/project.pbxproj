@@ -51,7 +51,6 @@
 		5B5830A120B436E7002B2596 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5830A020B436E7002B2596 /* JavaScriptCore.framework */; };
 		5B5830A320B436F1002B2596 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5830A220B436F1002B2596 /* MessageUI.framework */; };
 		5B5830A720B43704002B2596 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5830A620B43703002B2596 /* Social.framework */; };
-		5B5830A920B4370D002B2596 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5830A820B4370D002B2596 /* StoreKit.framework */; };
 		5B5830AB20B43717002B2596 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5830AA20B43717002B2596 /* SystemConfiguration.framework */; };
 		5B5830AD20B4371F002B2596 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5830AC20B4371F002B2596 /* WebKit.framework */; };
 		5B5830AF20B43727002B2596 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5830AE20B43727002B2596 /* WatchConnectivity.framework */; };
@@ -253,7 +252,6 @@
 		5B5830A220B436F1002B2596 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		5B5830A420B436FB002B2596 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		5B5830A620B43703002B2596 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		5B5830A820B4370D002B2596 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5B5830AA20B43717002B2596 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5B5830AC20B4371F002B2596 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		5B5830AE20B43727002B2596 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
@@ -367,7 +365,6 @@
 				92C833D627B3C9EA00B99AC6 /* PrebidMobile.framework in Frameworks */,
 				9262A8AC27720DE6009441A3 /* OpenXMockServer.framework in Frameworks */,
 				5B5830AB20B43717002B2596 /* SystemConfiguration.framework in Frameworks */,
-				5B5830A920B4370D002B2596 /* StoreKit.framework in Frameworks */,
 				5B5830A720B43704002B2596 /* Social.framework in Frameworks */,
 				5B5830A320B436F1002B2596 /* MessageUI.framework in Frameworks */,
 				5B5830A120B436E7002B2596 /* JavaScriptCore.framework in Frameworks */,
@@ -496,7 +493,6 @@
 				5B5830AE20B43727002B2596 /* WatchConnectivity.framework */,
 				5B5830AC20B4371F002B2596 /* WebKit.framework */,
 				5B5830AA20B43717002B2596 /* SystemConfiguration.framework */,
-				5B5830A820B4370D002B2596 /* StoreKit.framework */,
 				5B5830A620B43703002B2596 /* Social.framework */,
 				5B5830A420B436FB002B2596 /* MobileCoreServices.framework */,
 				5B5830A220B436F1002B2596 /* MessageUI.framework */,
