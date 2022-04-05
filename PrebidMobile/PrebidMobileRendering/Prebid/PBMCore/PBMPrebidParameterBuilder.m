@@ -164,15 +164,15 @@
                 
                 if (videoParameters) {
                     nextVideo.api = self.adConfiguration.videoParameters.rawAPI;
-                    nextVideo.maxbitrate = [NSNumber numberWithLong:videoParameters.maxBitrate.value];
-                    nextVideo.minbitrate = [NSNumber numberWithLong:videoParameters.minBitrate.value];
-                    nextVideo.maxduration = [NSNumber numberWithLong:videoParameters.maxDuration.value];
-                    nextVideo.minduration = [NSNumber numberWithLong:videoParameters.minDuration.value];
+                    nextVideo.maxbitrate = [NSNumber numberWithInteger:videoParameters.maxBitrate.value];
+                    nextVideo.minbitrate = [NSNumber numberWithInteger:videoParameters.minBitrate.value];
+                    nextVideo.maxduration = [NSNumber numberWithInteger:videoParameters.maxDuration.value];
+                    nextVideo.minduration = [NSNumber numberWithInteger:videoParameters.minDuration.value];
                     nextVideo.mimes = videoParameters.mimes;
                     nextVideo.playbackmethod = videoParameters.rawPlaybackMethod;
                     nextVideo.protocols = videoParameters.rawProtocols;
-                    nextVideo.startdelay = [NSNumber numberWithLong:videoParameters.startDelay.value];
-                    nextVideo.placement = [NSNumber numberWithLong:videoParameters.placement.value];
+                    nextVideo.startdelay = [NSNumber numberWithInteger:videoParameters.startDelay.value];
+                    nextVideo.placement = [NSNumber numberWithInteger:videoParameters.placement.value];
                 }
                 
                 if (self.adConfiguration.adPosition != AdPositionUndefined) {
