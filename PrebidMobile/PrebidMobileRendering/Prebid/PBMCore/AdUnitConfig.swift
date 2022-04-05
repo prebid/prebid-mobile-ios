@@ -94,7 +94,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         set { adConfiguration.isOptIn = newValue }
     }
     
-    public var videoPlacementType: PBMVideoPlacementType {
+    public var videoPlacementType: VideoPlacementType {
         get { adConfiguration.videoPlacementType }
         set { adConfiguration.videoPlacementType = newValue }
     }
