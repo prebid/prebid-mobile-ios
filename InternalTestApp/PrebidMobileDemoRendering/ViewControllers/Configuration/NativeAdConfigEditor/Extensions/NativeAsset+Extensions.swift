@@ -32,6 +32,6 @@ extension Array where Self.Element == NativeAsset {
         
         let sponsored = NativeAssetData(type: DataAsset.sponsored, required: true)
         
-        return [icon,title,image,body,cta,sponsored]
+        return [title,icon,image,sponsored,body,cta]
     }
 }

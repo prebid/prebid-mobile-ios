@@ -2634,7 +2634,7 @@ struct TestCaseManager {
             // MARK: ---- Native (AdMob) ----
             
             TestCase(title: "Native Ad (AdMob) [OK, OXB Adapter]",
-                     tags: [.native, .admob, .mock],
+                     tags: [.native, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2643,6 +2643,7 @@ struct TestCaseManager {
                 let nativeController = PrebidAdMobNativeViewController(rootController: adapterVC)
                 nativeController.adMobAdUnitId = "ca-app-pub-5922967660082475/8634069303"
                 nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
+                nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
                          
@@ -2651,7 +2652,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Native Ad (AdMob) [noBids, GADNativeAd]",
-                     tags: [.native, .admob, .mock, .server],
+                     tags: [.native, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2660,13 +2661,9 @@ struct TestCaseManager {
                 let nativeController = PrebidAdMobNativeViewController(rootController: adapterVC)
                 nativeController.adMobAdUnitId = "ca-app-pub-5922967660082475/8634069303"
                          
-                if AppConfiguration.shared.useMockServer {
-                    nativeController.prebidConfigId = "imp-prebid-no-bids"
-                } else {
-                    Prebid.shared.prebidServerAccountId = "1768035c-74d3-4786-b056-13bd41f34bde"
-                    nativeController.prebidConfigId = "28259226-68de-49f8-88d6-f0f2fab846e3"
-                }
-                         
+                nativeController.prebidConfigId = "imp-prebid-no-bids"
+                
+                nativeController.storedAuctionResponse = "imp-prebid-no-bids"
                 nativeController.nativeAssets = .defaultNativeRequestAssets
                 nativeController.eventTrackers = .defaultNativeEventTrackers
                          
@@ -2677,7 +2674,7 @@ struct TestCaseManager {
             // MARK: ---- Native (In-App) ----
             
             TestCase(title: "Native Ad (In-App)",
-                     tags: [.native, .inapp, .server, .mock],
+                     tags: [.native, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2686,16 +2683,8 @@ struct TestCaseManager {
                 let nativeAdController = PrebidNativeAdController(rootController: adapterVC)
                 nativeAdController.setupNativeAdView(NativeAdViewBox())
 
-                if AppConfiguration.shared.useMockServer {
-                    nativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
-                } else {
-                    // FIXME: Switch the example from QA to the Prod server
-                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-                    Prebid.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
-                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-                    Prebid.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
-                    nativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
-                }
+                nativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
+                nativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
 
                 nativeAdController.nativeAssets = .defaultNativeRequestAssets
                 nativeAdController.eventTrackers = .defaultNativeEventTrackers
@@ -2705,7 +2694,7 @@ struct TestCaseManager {
             }),
 
             TestCase(title: "Native Ad Links (In-App)",
-                     tags: [.native, .inapp, .mock],
+                     tags: [.native, .inapp, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2715,7 +2704,7 @@ struct TestCaseManager {
                 nativeAdController.setupNativeAdView(NativeAdViewBoxLinks())
 
                 nativeAdController.prebidConfigId = "imp-prebid-native-links"
-                         
+                nativeAdController.storedAuctionResponse = "response-prebid-native-links"
                 nativeAdController.nativeAssets = .defaultNativeRequestAssets
                 nativeAdController.eventTrackers = .defaultNativeEventTrackers
 
@@ -2725,7 +2714,7 @@ struct TestCaseManager {
             }),
 
             TestCase(title: "Native Ad Feed (In-App)",
-                     tags: [.native, .inapp, .mock],
+                     tags: [.native, .inapp, .server],
                      exampleVCStoryboardID: "PrebidFeedTableViewController",
                      configurationClosure: { vc in
 
@@ -2736,7 +2725,7 @@ struct TestCaseManager {
                 let nativeAdFeedController = PrebidNativeAdFeedController(rootTableViewController: feedVC)
 
                 nativeAdFeedController.prebidConfigId = "imp-prebid-banner-native-styles"
-
+                nativeAdFeedController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 nativeAdFeedController.nativeAssets = .defaultNativeRequestAssets
                 nativeAdFeedController.eventTrackers = .defaultNativeEventTrackers
 
@@ -2893,7 +2882,7 @@ struct TestCaseManager {
             // MARK: ---- Native (GAM, CustomTemplate) ----
 
             TestCase(title: "Native Ad Custom Templates (GAM) [OK, NativeAd]",
-                     tags: [.native, .gam, .mock, .server],
+                     tags: [.native, .gam,.server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2901,16 +2890,8 @@ struct TestCaseManager {
                 }
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
 
-                if AppConfiguration.shared.useMockServer {
-                    gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
-                } else {
-                    // FIXME: Switch the example from QA to the Prod server
-                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-                    Prebid.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
-                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-                    Prebid.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
-                    gamNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
-                }
+                gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
+                gamNativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
@@ -2924,7 +2905,7 @@ struct TestCaseManager {
             }),
 
             TestCase(title: "Native Ad (GAM) [OK, GADNativeCustomTemplateAd]",
-                     tags: [.native, .gam, .mock],
+                     tags: [.native, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2933,6 +2914,7 @@ struct TestCaseManager {
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
 
                 gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
+                gamNativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11982639"]
@@ -2946,7 +2928,7 @@ struct TestCaseManager {
             }),
 
             TestCase(title: "Native Ad (GAM) [noBids, GADNativeCustomTemplateAd]",
-                     tags: [.native, .gam, .mock],
+                     tags: [.native, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -2955,6 +2937,7 @@ struct TestCaseManager {
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
 
                 gamNativeAdController.prebidConfigId = "imp-prebid-native-video-with-end-card--dummy"
+                gamNativeAdController.storedAuctionResponse = "response-prebid-video-with-end-card"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11982639"]
@@ -2968,7 +2951,7 @@ struct TestCaseManager {
             }),
 
             TestCase(title: "Native Ad Feed (GAM) [OK, NativeAd]",
-                     tags: [.native, .gam, .mock],
+                     tags: [.native, .gam, .server],
                      exampleVCStoryboardID: "PrebidFeedTableViewController",
                      configurationClosure: { vc in
 
@@ -2978,6 +2961,7 @@ struct TestCaseManager {
                 let gamNativeAdController = PrebidGAMNativeAdFeedController(rootTableViewController: feedVC)
 
                 gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
+                gamNativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
                 gamNativeAdController.adTypes = [.customNative]
                 gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
@@ -2995,7 +2979,7 @@ struct TestCaseManager {
             // MARK: ---- Native (GAM, Unified) ----
 
             TestCase(title: "Native Ad Unified Ad (GAM) [OK, NativeAd]",
-                     tags: [.native, .gam, .mock, .server],
+                     tags: [.native, .gam,.server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -3003,16 +2987,8 @@ struct TestCaseManager {
                 }
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
                            
-                if AppConfiguration.shared.useMockServer {
-                    gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
-                } else {
-                    // FIXME: Switch the example from QA to the Prod server
-                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-                    Prebid.shared.accountID = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
-                    try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.qa.openx.net/openrtb2/auction")
-                    Prebid.shared.prebidServerAccountId = "08efa38c-b6b4-48c4-adc0-bcb791caa791"
-                    gamNativeAdController.prebidConfigId = "51fe68ba-aff2-401e-9e15-f3ed89d5c036"
-                }
+                gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
+                gamNativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit"
                 gamNativeAdController.adTypes = [.native]
                         
@@ -3025,7 +3001,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Native Ad (GAM) [OK, GADUnifiedNativeAd]",
-                     tags: [.native, .gam, .mock],
+                     tags: [.native, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -3034,6 +3010,7 @@ struct TestCaseManager {
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
                         
                 gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
+                gamNativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit_static"
                 gamNativeAdController.adTypes = [.native]
                         
@@ -3046,7 +3023,7 @@ struct TestCaseManager {
             }),
             
             TestCase(title: "Native Ad (GAM) [noBids, GADUnifiedNativeAd]",
-                     tags: [.native, .gam, .mock],
+                     tags: [.native, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
                 guard let adapterVC = vc as? AdapterViewController else {
@@ -3055,6 +3032,7 @@ struct TestCaseManager {
                 let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
                         
                 gamNativeAdController.prebidConfigId = "imp-prebid-native-video-with-end-card--dummy"
+                gamNativeAdController.storedAuctionResponse = "response-prebid-video-with-end-card"
                 gamNativeAdController.gamAdUnitId = "/21808260008/unified_native_ad_unit_static"
                 gamNativeAdController.adTypes = [.native]
                 
