@@ -92,11 +92,6 @@ public class AdConfiguration: AutoRefreshCountConfig {
     public var winningBidAdFormat: AdFormat?
     
     /**
-     This property indicates the maximum available playback time in seconds.
-     */
-    public var maxVideoDuration: TimeInterval = PBMVideoConstants.DEFAULT_MAX_VIDEO_DURATION.doubleValue
-    
-    /**
      This property indicates whether the ad should run playback with sound or not.
      */
     public var isMuted = true

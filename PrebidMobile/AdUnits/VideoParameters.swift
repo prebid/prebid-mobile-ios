@@ -76,4 +76,11 @@ public class VideoParameters: NSObject {
             protocols?.toIntArray()
         }
     }
+    
+    // MARK: - Init
+    
+    public override init() {
+        super.init()
+        maxDuration = SingleContainerInt(integerLiteral: PBMVideoConstants.DEFAULT_MAX_VIDEO_DURATION.intValue)
+    }
 }

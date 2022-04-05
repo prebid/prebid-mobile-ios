@@ -63,11 +63,6 @@ public class BaseInterstitialAdUnit :
         return false
     }
 
-    @objc public var maxVideoDuration: TimeInterval {
-        get { adUnitConfig.adConfiguration.maxVideoDuration }
-        set { adUnitConfig.adConfiguration.maxVideoDuration = newValue }
-    }
-
     @objc public var isMuted: Bool {
         get { adUnitConfig.adConfiguration.isMuted }
         set { adUnitConfig.adConfiguration.isMuted = newValue }

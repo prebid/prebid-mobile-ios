@@ -136,7 +136,7 @@
         return nil;
     }
 
-    if (creative.duration > self.adConfiguration.maxVideoDuration) {
+    if (creative.duration > self.adConfiguration.videoParameters.maxDuration.value) {
         NSString *errorMessage = @"Creative duration is bigger than maximum available playback time.";
         [PBMError createError:error description:errorMessage statusCode:PBMErrorCodeGeneral];
         return nil;
