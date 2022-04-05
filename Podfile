@@ -12,6 +12,10 @@ def gma_pods
     pod 'Google-Mobile-Ads-SDK'
 end
 
+def applovin_pods
+    pod 'AppLovinSDK'
+end
+
 def event_handlers_project
   project 'EventHandlers/EventHandlers.xcodeproj'
   use_frameworks!
@@ -20,21 +24,27 @@ end
 target 'PrebidMobileGAMEventHandlers' do
   event_handlers_project
   gma_pods
-end
 
-target 'PrebidMobileGAMEventHandlersTests' do
-  event_handlers_project
-  gma_pods
+  target 'PrebidMobileGAMEventHandlersTests' do
+    inherit! :search_paths
+  end
 end
 
 target 'PrebidMobileAdMobAdapters' do
   event_handlers_project
   gma_pods
+
+  target 'PrebidMobileAdMobAdaptersTests' do
+    inherit! :search_paths
+  end
 end
 
-target 'PrebidMobileAdMobAdaptersTests' do
+target 'PrebidMobileMAXAdapters' do
   event_handlers_project
-  gma_pods
+  applovin_pods
+  target 'PrebidMobileMAXAdaptersTests' do
+    inherit! :search_paths
+  end
 end
 
 def prebid_demo_pods
