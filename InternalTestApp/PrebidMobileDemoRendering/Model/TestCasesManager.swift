@@ -19,7 +19,6 @@ import UIKit
 import GoogleMobileAds
 import PrebidMobileGAMEventHandlers
 
-import OpenXMockServer
 import PrebidMobile
 
 let nativeStylesCreative = """
@@ -566,13 +565,7 @@ struct TestCaseManager {
                     return
                 }
                         
-                let mockServer = PBMMockServer()
-                mockServer.setRandomNoBids();
-                        
-                adapterVC.postActionClosure = {
-                    let mockServer = PBMMockServer()
-                    mockServer.cancelRandomNoBids();
-                }
+                
                         
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
@@ -1864,13 +1857,7 @@ struct TestCaseManager {
                     return
                 }
                         
-                let mockServer = PBMMockServer()
-                mockServer.setRandomNoBids();
-                        
-                adapterVC.postActionClosure = {
-                    let mockServer = PBMMockServer()
-                    mockServer.cancelRandomNoBids();
-                }
+                
 
                 let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
                 admobBannerController.prebidConfigId = "imp-prebid-banner-320-50"

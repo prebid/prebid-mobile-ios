@@ -16,7 +16,6 @@
 import XCTest
 
 class BaseUITestCase: XCTestCase {
-    var useMockServerOnSetup = false
     
     private var appLifebox: AppLifebox!
     
@@ -34,30 +33,15 @@ class BaseUITestCase: XCTestCase {
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
         
-        appLifebox = constructApp(useMockServer: useMockServerOnSetup)
+        appLifebox = constructApp()
     }
     
     override func tearDown() {
-        useMockServerOnSetup = false
         appLifebox = nil
         super.tearDown()
     }
     
-    func switchToMockServerIfNeeded () {
-        let useMockServerButton = app.switches["useMockServerSwitch"]
-        waitForHittable(element: useMockServerButton, waitSeconds: 10)
-        if !useMockServerButton.isOn {
-            useMockServerButton.tap()
-        }
-    }
     
-    func switchToPrebidXServerIfNeeded() {
-        let useMockServerButton = app.switches["useMockServerSwitch"]
-        waitForHittable(element: useMockServerButton, waitSeconds: 10)
-        if useMockServerButton.isOn {
-            useMockServerButton.tap()
-        }
-    }
     
     func disableGDPRIfNeeded() {
         let enableGDPRButton = app.switches["GDPRSwitch"]

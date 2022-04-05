@@ -138,12 +138,9 @@ extension XCTestCase {
         private var interruptionMonitor: NSObjectProtocol?
         private var removeMonitorClosure: (NSObjectProtocol) -> ()
         
-        init(useMockServer: Bool = false, addMonitorClosure: (String, @escaping (XCUIElement) -> Bool) -> NSObjectProtocol?, removeMonitorClosure: @escaping (NSObjectProtocol) -> ()) {
+        init(addMonitorClosure: (String, @escaping (XCUIElement) -> Bool) -> NSObjectProtocol?, removeMonitorClosure: @escaping (NSObjectProtocol) -> ()) {
             app = XCUIApplication()
-            if useMockServer {
-                app.launchArguments.append("-KeyUseMockServer")
-                app.launchArguments.append("true")
-            }
+    
             
             app.launchArguments.append("-keyUITests")
             
@@ -168,8 +165,8 @@ extension XCTestCase {
         }
     }
     
-    func constructApp(useMockServer: Bool = false) -> AppLifebox {
-        return AppLifebox(useMockServer: useMockServer, addMonitorClosure: self.addUIInterruptionMonitor, removeMonitorClosure: self.removeUIInterruptionMonitor)
+    func constructApp() -> AppLifebox {
+        return AppLifebox( addMonitorClosure: self.addUIInterruptionMonitor, removeMonitorClosure: self.removeUIInterruptionMonitor)
     }
     
     // MARK: - Private Helpers (failing)

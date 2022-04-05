@@ -24,7 +24,6 @@ class PrebidVideoInterstitialUITest: RepeatedUITestCase {
     let videoInterstitialEndCardTitle = "Video Interstitial 320x480 with End Card (In-App)"
     
     override func setUp() {
-        useMockServerOnSetup = true
         super.setUp()
     }
     

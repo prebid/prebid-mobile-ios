@@ -42,7 +42,6 @@ class TestCasesSectionsViewController: UIViewController {
 
         setupSegmentedControl(sectionsControl, with: sections)
         setupSegmentedControl(integrationsControl, with: integrations)
-        setupMockServerSwitch()
         
         setupGDPRSwitch()
         
@@ -50,14 +49,7 @@ class TestCasesSectionsViewController: UIViewController {
             self.tagChangedCallback?(self.collectTags())
         }
         
-        AppConfiguration.shared.useMockServerObservable
-            .subscribe(onNext: { [weak self] _ in
-                guard let strongSelf = self else {
-                    return
-                }
-                strongSelf.tagChangedCallback?(strongSelf.collectTags())
-            })
-            .disposed(by: disposeBag)
+        
     }
     
     // MARK: - Public
@@ -78,10 +70,7 @@ class TestCasesSectionsViewController: UIViewController {
     
     // MARK: - Private Methods
     
-    private func setupMockServerSwitch() {
-        let currentValue = AppConfiguration.shared.useMockServer
-        
-    }
+    
     
     private func setupGDPRSwitch() {
         let currentValue = AppConfiguration.shared.isGDPREnabled
@@ -140,9 +129,6 @@ class TestCasesSectionsViewController: UIViewController {
         configCallback?(configurableButton.isSelected)
     }
     
-    @IBAction func onMockServerSwitchAction(sender: UISwitch) {
-        AppConfiguration.shared.useMockServer = sender.isOn
-    }
     
     @IBAction func onGdprSwitchAction(sender: UISwitch) {
         print("GDPR: \(sender.isOn)")

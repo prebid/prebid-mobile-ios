@@ -43,10 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Set up SDK.
         Prebid.initializeSDK()
                 
-        // Set up MockServer
-        processArgumentsParser.addOption("useMockServer", fireOnce: true) { params in
-            AppConfiguration.shared.useMockServer = true
-        }
+        
         
         processArgumentsParser.addOption("AD_POSITION", paramsCount: 1, fireOnce: true) { params in
             if let adPositionInt = Int(params[0]), let adPosition = AdPosition(rawValue: adPositionInt) {

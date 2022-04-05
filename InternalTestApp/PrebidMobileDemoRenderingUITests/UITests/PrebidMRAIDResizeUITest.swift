@@ -32,7 +32,6 @@ class PrebidMRAIDResizeUITest: RepeatedUITestCase {
     private let title = "MRAID 2.0: Resize (In-App)"
     
     override func setUp() {
-        useMockServerOnSetup = true
         super.setUp()
     }
     

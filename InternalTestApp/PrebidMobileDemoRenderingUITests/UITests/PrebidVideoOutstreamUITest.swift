@@ -24,7 +24,6 @@ class PrebidVideoOutstreamUITest: RepeatedUITestCase {
     let videoOutstreamEndCardTitle = "Video Outstream with End Card (In-App)"
     
     override func setUp() {
-        useMockServerOnSetup = true
         super.setUp()
     }
     

@@ -24,7 +24,6 @@ class PrebidRewardedVideoUITest: RepeatedUITestCase {
     let videoRewardedEndCardTitle = "Video Rewarded 320x480 (In-App)"
     
     override func setUp() {
-        useMockServerOnSetup = true
         super.setUp()
     }
     

@@ -24,7 +24,6 @@ class PrebidMRAIDFullScreenUITest: RepeatedUITestCase {
     private let title = "MRAID 2.0: Fullscreen (In-App)"
     
     override func setUp() {
-        useMockServerOnSetup = true
         super.setUp()
     }
     

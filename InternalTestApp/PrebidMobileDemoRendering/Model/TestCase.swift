@@ -24,7 +24,6 @@ enum TestCaseTag : String, Comparable {
     
     //Connection
     case server = "📡"
-    case mock = "🎭"
     
     //Appearance
     case banner = "Banner"
@@ -41,7 +40,7 @@ enum TestCaseTag : String, Comparable {
     
     // MARK: - Group
     static var connections: [TestCaseTag] {
-        return [.mock, .server]
+        return [ .server]
     }
     
     static var appearance: [TestCaseTag] {

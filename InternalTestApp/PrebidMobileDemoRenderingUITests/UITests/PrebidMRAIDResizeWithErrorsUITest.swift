@@ -21,7 +21,6 @@ class PrebidMRAIDResizeWithErrorsUITest: RepeatedUITestCase {
     private let waitingTimeout = 10.0
     
     override func setUp() {
-        useMockServerOnSetup = true
         super.setUp()
     }
     
