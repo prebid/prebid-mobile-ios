@@ -19,6 +19,11 @@ import ObjectiveC.runtime
         get { adUnitConfig.getPbAdSlot()}
         set { adUnitConfig.setPbAdSlot(newValue) }
     }
+    
+    public var adFormats: Set<AdFormat> {
+        get { adUnitConfig.adFormats }
+        set { adUnitConfig.adFormats = newValue }
+    }
 
     private static let PB_MIN_RefreshTime = 30000.0
 
