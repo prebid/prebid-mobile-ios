@@ -65,8 +65,8 @@ class PrebidGAMInterstitialController: NSObject, AdaptedController, PrebidConfig
                                                     minSizePercentage: CGSize(width: 30, height: 30),
                                                     eventHandler: eventHandler)
         interstitialController?.delegate = self
-        adConfiguration.videoParameters = VideoParameters()
-        adConfiguration.videoParameters?.maxDuration = SingleContainerInt(integerLiteral: 30)
+        interstitialController?.videoParameters = VideoParameters()
+        interstitialController?.videoParameters?.maxDuration = SingleContainerInt(integerLiteral: 30)
         interstitialController?.closeButtonArea = 0.1
         interstitialController?.closeButtonPosition = .topRight
         interstitialController?.skipButtonArea = 0.1

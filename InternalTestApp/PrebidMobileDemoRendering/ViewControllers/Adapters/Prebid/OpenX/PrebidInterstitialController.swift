@@ -60,8 +60,8 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
         interstitialController = InterstitialRenderingAdUnit(configID: prebidConfigId,
                                                        minSizePercentage: CGSize(width: 30, height: 30))
         interstitialController?.delegate = self
-        adConfiguration.videoParameters = VideoParameters()
-        adConfiguration.videoParameters?.maxDuration = SingleContainerInt(integerLiteral: 1)
+        interstitialController?.videoParameters = VideoParameters()
+        interstitialController?.videoParameters?.maxDuration = SingleContainerInt(integerLiteral: 1)
         interstitialController?.closeButtonArea = 0.1
         interstitialController?.skipDelay = 5
         interstitialController?.skipButtonArea = 0.1

@@ -80,7 +80,8 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
             adBannerView?.adFormat = adFormat
             
             if adFormat == .video  {
-                adBannerView?.videoPlacementType = AppConfiguration.shared.videoPlacementType ?? .inBanner
+                adBannerView?.videoParameters = VideoParameters()
+                adBannerView?.videoParameters?.placement = AppConfiguration.shared.videoPlacementType ?? .InBanner
             }
         }
         if let adPosition = AppConfiguration.shared.adPosition {

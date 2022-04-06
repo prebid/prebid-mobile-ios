@@ -340,7 +340,7 @@ class BannerController:
         
         prebidBannerView.adFormat = .video
         prebidBannerView.videoParameters = VideoParameters()
-        prebidBannerView.videoParameters?.placement = .inBanner
+        prebidBannerView.videoParameters?.placement = .InBanner
                                 
         prebidBannerView.delegate = self
         
