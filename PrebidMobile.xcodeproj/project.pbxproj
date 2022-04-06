@@ -107,7 +107,6 @@
 		5BC378CD271F1CFF00444D5E /* NSTimer+PBMScheduledTimerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC3766D271F1CFD00444D5E /* NSTimer+PBMScheduledTimerFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC378CE271F1CFF00444D5E /* PBMTouchDownRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3766E271F1CFD00444D5E /* PBMTouchDownRecognizer.m */; };
 		5BC378CF271F1CFF00444D5E /* UIWindow+PBMExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC3766F271F1CFD00444D5E /* UIWindow+PBMExtensions.m */; };
-		5BC378D0271F1CFF00444D5E /* VideoPlacementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37670271F1CFD00444D5E /* VideoPlacementType.swift */; };
 		5BC378D1271F1CFF00444D5E /* PBMErrorType.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37671271F1CFD00444D5E /* PBMErrorType.m */; };
 		5BC378D2271F1CFF00444D5E /* PBMORTBBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC37673271F1CFD00444D5E /* PBMORTBBanner.h */; };
 		5BC378D3271F1CFF00444D5E /* PBMORTBAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC37674271F1CFD00444D5E /* PBMORTBAbstract.m */; };
@@ -4189,7 +4188,6 @@
 				5BC37A53271F1D0000444D5E /* Bid.swift in Sources */,
 				5BC37ADC271F1D0100444D5E /* PBMTrackingRecord.m in Sources */,
 				92989656275FEA3100D3C174 /* PBMORTBContentSegment.m in Sources */,
-				5BC378D0271F1CFF00444D5E /* VideoPlacementType.swift in Sources */,
 				92C3A83827F98B9700DC05E9 /* AdConfiguration.swift in Sources */,
 				5BC37ABD271F1D0000444D5E /* PBMOpenMeasurementEventTracker.m in Sources */,
 				5BC37927271F1CFF00444D5E /* PBMFunctions.m in Sources */,
