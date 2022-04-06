@@ -153,13 +153,7 @@
 }
 
 - (void)appendVideoParametersForRequest:(PBMORTBBidRequest *)bidRequest {
-
-    PBMORTBVideo * const videoObj = [[PBMORTBVideo alloc] init];
-    
-    if (self.adConfiguration.videoParameters.placement) {
-        videoObj.placement = @(self.adConfiguration.videoParameters.placement.value);
-    }
-    [bidRequest.imp firstObject].video = videoObj;
+    [bidRequest.imp firstObject].video = [[PBMORTBVideo alloc] init];
 }
 
 - (void)appendNativeParametersForRequest:(PBMORTBBidRequest *)bidRequest {

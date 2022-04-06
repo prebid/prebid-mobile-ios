@@ -153,7 +153,7 @@
                 }
             } else if (adFormat == AdFormat.video) {
                 PBMORTBVideo * const nextVideo = nextImp.video;
-                nextVideo.linearity = @(1); // -> linear/in-steam
+                
                 if (formats.count) {
                     PBMORTBFormat * const primarySize = (PBMORTBFormat *)formats[0];
                     nextVideo.w = primarySize.w;
@@ -173,6 +173,7 @@
                     nextVideo.protocols = videoParameters.rawProtocols;
                     nextVideo.startdelay = [NSNumber numberWithInteger:videoParameters.startDelay.value];
                     nextVideo.placement = [NSNumber numberWithInteger:videoParameters.placement.value];
+                    nextVideo.linearity = [NSNumber numberWithInteger:videoParameters.linearity.value];
                 }
                 
                 if (self.adConfiguration.adPosition != AdPositionUndefined) {

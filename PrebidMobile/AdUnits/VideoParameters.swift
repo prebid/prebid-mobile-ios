@@ -55,6 +55,7 @@ public class VideoParameters: NSObject {
     /// Placement type for the impression.
     public var placement: Signals.Placement?
     
+    /// Indicates if the impression must be linear, nonlinear, etc. If none specified, assume all are allowed.
     public var linearity: SingleContainerInt?
     
     // MARK: - Helpers
@@ -75,12 +76,5 @@ public class VideoParameters: NSObject {
         get {
             protocols?.toIntArray()
         }
-    }
-    
-    // MARK: - Init
-    
-    public override init() {
-        super.init()
-        maxDuration = SingleContainerInt(integerLiteral: PBMVideoConstants.DEFAULT_MAX_VIDEO_DURATION.intValue)
     }
 }

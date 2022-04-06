@@ -44,8 +44,6 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         adUnitConfig = AdUnitConfig(configId: configId)
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
-        adUnitConfig.adConfiguration.videoParameters = VideoParameters()
-        adUnitConfig.adConfiguration.videoParameters?.placement = .Slider
     }
     
     public func fetchDemand(completion: ((ResultCode)->Void)?) {

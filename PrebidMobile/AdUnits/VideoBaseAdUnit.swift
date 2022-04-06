@@ -24,8 +24,6 @@ public class VideoBaseAdUnit: AdUnit {
     
     public override init(configId: String, size: CGSize?) {
         super.init(configId: configId, size: size)
-        parameters = VideoParameters()
-        parameters?.placement = 5
         adUnitConfig.adFormats = [.video]
     }
 }
