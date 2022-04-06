@@ -50,12 +50,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 AppConfiguration.shared.adPosition = adPosition
             }
         }
-      // TODO: - Make placementType as enum
-//        processArgumentsParser.addOption("VIDEO_PLACEMENT_TYPE", paramsCount: 1, fireOnce: true) { params in
-//            if let placementTypeInt = Int(params[0]), let placementType = VideoPlacementType(rawValue: placementTypeInt) {
-//                AppConfiguration.shared.videoPlacementType = placementType
-//            }
-//        }
+    
+        processArgumentsParser.addOption("VIDEO_PLACEMENT_TYPE", paramsCount: 1, fireOnce: true) { params in
+            if let placementTypeInt = Int(params[0]), let placementType = Signals.Placement.getPlacementByRawValue(placementTypeInt) {
+                AppConfiguration.shared.videoPlacementType = placementType
+            }
+        }
         
         processArgumentsParser.addOption("-keyUITests", fireOnce: true) { params in
             //Speed up UI tests by disabling animation

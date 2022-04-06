@@ -272,5 +272,22 @@ public class Signals: NSObject {
         @objc
         public static let Floating = Placement(5)
         
+        @objc public static func getPlacementByRawValue(_ value: Int) -> Signals.Placement? {
+            switch value {
+            case 1:
+                return Signals.Placement.InStream
+            case 2:
+                return Signals.Placement.InBanner
+            case 3:
+                return Signals.Placement.InArticle
+            case 4:
+                return Signals.Placement.InFeed
+            case 5:
+                // TODO: Multiple cases for one raw value. Probable solution - make one case for interstitial, slider and floating
+                return Signals.Placement.Interstitial
+            default:
+                return nil
+            }
+        }
     }
 }
