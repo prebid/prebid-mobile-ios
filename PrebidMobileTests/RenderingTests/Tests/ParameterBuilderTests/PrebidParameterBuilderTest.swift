@@ -154,6 +154,19 @@ class PrebidParameterBuilderTest: XCTestCase {
         adUnitConfig.adFormats = [.video]
         adUnitConfig.adPosition = .header
         
+        let parameters = VideoParameters()
+        parameters.linearity = 1
+        parameters.placement = .Interstitial
+        parameters.api = [Signals.Api.MRAID_1]
+        parameters.minDuration = 1
+        parameters.maxDuration = 10
+        parameters.minBitrate = 1
+        parameters.maxBitrate = 10
+        parameters.protocols = [Signals.Protocols.VAST_1_0]
+        parameters.startDelay = Signals.StartDelay.GenericMidRoll
+        
+        adUnitConfig.adConfiguration.videoParameters = parameters
+        
         let bidRequest = PBMORTBBidRequest()
         
         PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
@@ -174,8 +187,16 @@ class PrebidParameterBuilderTest: XCTestCase {
         }
         
         PBMAssertEq(video.linearity, 1)
+        PBMAssertEq(video.placement, 5)
         PBMAssertEq(video.w, 320)
         PBMAssertEq(video.h, 50)
+        PBMAssertEq(video.api, [3])
+        PBMAssertEq(video.minduration, 1)
+        PBMAssertEq(video.maxduration, 10)
+        PBMAssertEq(video.minbitrate, 1)
+        PBMAssertEq(video.maxbitrate, 10)
+        PBMAssertEq(video.protocols, [1])
+        PBMAssertEq(video.startdelay, -1)
         XCTAssertEqual(video.pos.intValue, AdPosition.header.rawValue)
         XCTAssertEqual(video.pos.intValue, 4)
     }

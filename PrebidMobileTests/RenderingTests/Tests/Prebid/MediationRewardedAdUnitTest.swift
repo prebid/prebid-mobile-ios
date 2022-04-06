@@ -29,6 +29,5 @@ class MediationRewardedAdUnitTest: XCTestCase {
         XCTAssertTrue(adUnitConfig.adConfiguration.isOptIn)
         PBMAssertEq(adUnitConfig.adPosition, .fullScreen)
         XCTAssertTrue(adUnitConfig.adFormats.contains(.video))
-        XCTAssertEqual(adUnitConfig.adConfiguration.videoParameters?.placement?.value, 5)
     }
 }

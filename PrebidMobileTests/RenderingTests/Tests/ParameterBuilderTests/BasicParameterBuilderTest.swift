@@ -104,6 +104,10 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         let adUnit = InterstitialRenderingAdUnit.init(configID: "configId")
         adUnit.adFormats = [.video]
         let adConfiguration = adUnit.adUnitConfig.adConfiguration
+        let parameters = VideoParameters()
+        parameters.placement = .Interstitial
+        parameters.linearity = 1
+        adConfiguration.videoParameters = parameters
         
         //Run the Builder
         let sdkConfiguration = Prebid.mock
@@ -131,7 +135,6 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
         PBMAssertEq(video.protocols, [2,5])
-        PBMAssertEq(video.placement, 5)
         PBMAssertEq(video.delivery!, [3])
         PBMAssertEq(video.pos, 7)
     }
@@ -263,12 +266,8 @@ class PBMBasicParameterBuilderTest: XCTestCase {
                                        expectedPlacement: 0)
         
         self.testParameterBuilderVideo(placement: nil,
-                                       isInterstitial: false,
-                                       expectedPlacement: 4)
-        
-        self.testParameterBuilderVideo(placement: nil,
                                        isInterstitial: true,
-                                       expectedPlacement: 5)
+                                       expectedPlacement: 0)
     }
     
     func testParameterBuilderVideo(placement: Signals.Placement?,
@@ -278,10 +277,15 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         var adConfiguration: AdConfiguration
         if (isInterstitial) {
             let adUnit = InterstitialRenderingAdUnit.init(configID: "configId")
+            adUnit.videoParameters = VideoParameters()
             adUnit.adFormats = [.video]
+            if let placement = placement {
+                adUnit.videoParameters?.placement = placement
+            }
             adConfiguration = adUnit.adUnitConfig.adConfiguration
         } else {
             let adUnit = BannerView.init(frame: CGRect.zero, configID: "configId", adSize: CGSize.zero)
+            adUnit.videoParameters = VideoParameters()
             adUnit.adFormat = .video
             if let placement = placement {
                 adUnit.videoParameters?.placement = placement
@@ -307,7 +311,6 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         } else {
             PBMAssertEq(video.placement?.intValue, expectedPlacement)
         }
-        
     }
     
     func testParameterBuilderDeprecatedProperties() {
