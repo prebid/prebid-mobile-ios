@@ -42,7 +42,7 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         
         XCTAssertTrue(adUnitConfig.adConfiguration.isInterstitialAd)
         PBMAssertEq(adUnitConfig.adPosition, .fullScreen)
-        XCTAssertEqual(adUnitConfig.adConfiguration.videoPlacementType.rawValue, 5)
+        XCTAssertEqual(adUnitConfig.adConfiguration.videoParameters?.placement?.value, 5)
     }
     
     func testAdObjectSetUpCleanUp() {

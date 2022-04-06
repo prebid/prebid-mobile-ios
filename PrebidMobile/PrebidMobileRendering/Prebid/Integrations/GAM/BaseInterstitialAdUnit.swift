@@ -26,13 +26,11 @@ public class BaseInterstitialAdUnit :
     
     // MARK: - Public Properties
     
-    /// OpenRTB banner object request parameters
     @objc public var bannerParameters: BannerParameters? {
         get { adUnitConfig.adConfiguration.bannerParameters }
         set { adUnitConfig.adConfiguration.bannerParameters = newValue }
     }
     
-    /// OpenRTB video object request parameters
     @objc public var videoParameters: VideoParameters? {
         get { adUnitConfig.adConfiguration.videoParameters }
         set { adUnitConfig.adConfiguration.videoParameters = newValue }
@@ -109,7 +107,8 @@ public class BaseInterstitialAdUnit :
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.minSizePerc = minSizePerc
         adUnitConfig.adPosition = .fullScreen
-        adUnitConfig.adConfiguration.videoPlacementType = .sliderOrFloating
+        adUnitConfig.adConfiguration.videoParameters = VideoParameters()
+        adUnitConfig.adConfiguration.videoParameters?.placement = .Slider
         blocksLockToken = NSObject()
 
         self.eventHandler = eventHandler

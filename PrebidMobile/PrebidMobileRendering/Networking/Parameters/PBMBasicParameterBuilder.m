@@ -156,8 +156,8 @@
 
     PBMORTBVideo * const videoObj = [[PBMORTBVideo alloc] init];
     
-    if (self.adConfiguration.videoPlacementType != VideoPlacementTypeUndefined) {
-        videoObj.placement = @(self.adConfiguration.videoPlacementType);
+    if (self.adConfiguration.videoParameters.placement) {
+        videoObj.placement = @(self.adConfiguration.videoParameters.placement.value);
     }
     [bidRequest.imp firstObject].video = videoObj;
 }

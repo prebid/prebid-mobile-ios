@@ -258,20 +258,20 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     }
     
     func testParameterBuilderVideoPlacement() {
-        self.testParameterBuilderVideo(placement: .undefined,
+        self.testParameterBuilderVideo(placement: nil,
                                        isInterstitial: false,
                                        expectedPlacement: 0)
         
-        self.testParameterBuilderVideo(placement: .inFeed,
+        self.testParameterBuilderVideo(placement: nil,
                                        isInterstitial: false,
                                        expectedPlacement: 4)
         
-        self.testParameterBuilderVideo(placement: .undefined,
+        self.testParameterBuilderVideo(placement: nil,
                                        isInterstitial: true,
                                        expectedPlacement: 5)
     }
     
-    func testParameterBuilderVideo(placement: VideoPlacementType,
+    func testParameterBuilderVideo(placement: Signals.Placement?,
                                    isInterstitial: Bool,
                                    expectedPlacement:Int) {
         
@@ -283,8 +283,8 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         } else {
             let adUnit = BannerView.init(frame: CGRect.zero, configID: "configId", adSize: CGSize.zero)
             adUnit.adFormat = .video
-            if (placement != .undefined) {
-                adUnit.videoPlacementType = placement
+            if let placement = placement {
+                adUnit.videoParameters?.placement = placement
             }
             adConfiguration = adUnit.adUnitConfig.adConfiguration
         }

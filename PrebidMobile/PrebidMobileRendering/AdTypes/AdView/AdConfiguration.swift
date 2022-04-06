@@ -26,14 +26,10 @@ public class AdConfiguration: AutoRefreshCountConfig {
     public var adFormats: Set<AdFormat> = [.display]
     
     /**
-     Placement type for the video.
-     */
-    public var videoPlacementType = VideoPlacementType.undefined
-    
-    /**
      Describes an OpenRTB banner object
      */
     public var bannerParameters: BannerParameters?
+    
     /**
      Describes an OpenRTB video object
      */

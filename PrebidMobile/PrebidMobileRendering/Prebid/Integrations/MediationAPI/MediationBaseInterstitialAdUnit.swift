@@ -17,6 +17,16 @@ import Foundation
 @objcMembers
 public class MediationBaseInterstitialAdUnit : NSObject {
     
+    public var bannerParameters: BannerParameters? {
+        get { adUnitConfig.adConfiguration.bannerParameters }
+        set { adUnitConfig.adConfiguration.bannerParameters = newValue }
+    }
+    
+    public var videoParameters: VideoParameters? {
+        get { adUnitConfig.adConfiguration.videoParameters }
+        set { adUnitConfig.adConfiguration.videoParameters = newValue }
+    }
+    
     let adUnitConfig: AdUnitConfig
     
     public var configId: String {
@@ -34,7 +44,8 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         adUnitConfig = AdUnitConfig(configId: configId)
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
-        adUnitConfig.adConfiguration.videoPlacementType = .sliderOrFloating
+        adUnitConfig.adConfiguration.videoParameters = VideoParameters()
+        adUnitConfig.adConfiguration.videoParameters?.placement = .Slider
     }
     
     public func fetchDemand(completion: ((ResultCode)->Void)?) {

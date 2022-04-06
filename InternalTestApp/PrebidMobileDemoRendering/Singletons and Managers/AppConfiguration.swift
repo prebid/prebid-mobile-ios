@@ -31,7 +31,7 @@ final class AppConfiguration: NSObject {
     }
     
     var adPosition: AdPosition?
-    var videoPlacementType: VideoPlacementType?
+    var videoPlacementType: Signals.Placement?
     var adUnitContext: [(key: String, value: String)]?
     var userData: [(key: String, value: String)]?
     var appContentData: [(key: String, value: String)]?

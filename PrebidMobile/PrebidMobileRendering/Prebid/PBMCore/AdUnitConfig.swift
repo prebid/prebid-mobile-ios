@@ -234,7 +234,6 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.adFormats = self.adConfiguration.adFormats
         clone.adConfiguration.isInterstitialAd = self.adConfiguration.isInterstitialAd
         clone.adConfiguration.isOptIn = self.adConfiguration.isOptIn
-        clone.adConfiguration.videoPlacementType = self.adConfiguration.videoPlacementType
         clone.nativeAdConfiguration = self.nativeAdConfiguration
         clone.adConfiguration.bannerParameters = clone.adConfiguration.bannerParameters
         clone.adConfiguration.videoParameters = clone.adConfiguration.videoParameters
