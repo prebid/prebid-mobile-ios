@@ -20,7 +20,6 @@ class PrebidInterstitialUITest: RepeatedUITestCase {
     private let waitingTimeout = 5.0
     
     override func setUp() {
-        useMockServerOnSetup = true
         super.setUp()
     }
     

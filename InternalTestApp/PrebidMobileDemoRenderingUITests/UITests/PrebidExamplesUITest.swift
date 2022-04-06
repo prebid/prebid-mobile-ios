@@ -18,10 +18,8 @@ import UIKit
 class PrebidExamplesUITest: AdsLoaderUITestCase {
     
     override func setUp() {
-        useMockServerOnSetup = true
         super.setUp()
         
-        switchToMockServerIfNeeded()
     }
     
     // MARK: - Banners (In-App)

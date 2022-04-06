@@ -66,7 +66,6 @@ class PrebidMRAIDResizeExpandableUITest: RepeatedUITestCase {
     private let title = "MRAID OX: Resize (Expandable) (In-App)"
     
     override func setUp() {
-        useMockServerOnSetup = true
         super.setUp()
     }
     

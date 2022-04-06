@@ -39,10 +39,11 @@ class FeedGAMAdTableViewCell: UITableViewCell {
     private weak var rootController: UIViewController?
     
     func loadAd(configID: String,
+                storedAuctionResponse: String,
                 GAMAdUnitID: String,
                 rootViewController: UIViewController,
                 adTypes: [GADAdLoaderAdType]) {
-        
+        Prebid.shared.storedAuctionResponse=storedAuctionResponse
         setupNativeAdUnit(configId: configID)
         self.rootController = rootViewController
         

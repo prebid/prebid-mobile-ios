@@ -30,7 +30,6 @@ class PrebidMRAID3UITest: RepeatedUITestCase {
     ]
     
     override func setUp() {
-        useMockServerOnSetup = true
         super.setUp()
     }
     

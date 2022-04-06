@@ -19,6 +19,8 @@ import PrebidMobile
 class PrebidPresentationViewController: UIViewController {
     
     var prebidConfigId: String!
+    var storedAuctionResponse = ""
+
     
     var navigationVC: UINavigationController?
     var isLoaded = false
@@ -39,6 +41,7 @@ class PrebidPresentationViewController: UIViewController {
             
             let interstitialController = PrebidInterstitialController(rootController: adapterVC!)
             interstitialController.prebidConfigId = prebidConfigId
+            interstitialController.storedAuctionResponse = storedAuctionResponse
             adapterVC?.setup(adapter: interstitialController)
             
             navigationVC = UINavigationController(rootViewController: adapterVC!)

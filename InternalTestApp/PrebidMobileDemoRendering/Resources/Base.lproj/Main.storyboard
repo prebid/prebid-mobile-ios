@@ -133,26 +133,14 @@
                                     <action selector="onConfigureTapped:" destination="LVH-wa-RTM" eventType="touchUpInside" id="eek-70-NuM"/>
                                 </connections>
                             </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gaV-lw-CXD">
-                                <rect key="frame" x="16" y="80" width="51" height="31"/>
-                                <connections>
-                                    <action selector="onMockServerSwitchActionWithSender:" destination="LVH-wa-RTM" eventType="valueChanged" id="6XC-8c-alh"/>
-                                </connections>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Mock Server" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iCA-pK-ctb">
-                                <rect key="frame" x="73" y="87.5" width="104" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yy8-PI-le3" userLabel="GDPR Switch">
-                                <rect key="frame" x="185" y="80" width="51" height="31"/>
+                                <rect key="frame" x="20" y="80" width="51" height="31"/>
                                 <connections>
                                     <action selector="onGdprSwitchActionWithSender:" destination="LVH-wa-RTM" eventType="valueChanged" id="7pl-5t-CLN"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enable GDPR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qim-PS-zyR" userLabel="GDPR">
-                                <rect key="frame" x="242" y="85" width="80" height="21"/>
+                                <rect key="frame" x="77" y="85" width="80" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="FvB-lz-wzY"/>
                                 </constraints>
@@ -169,20 +157,15 @@
                             <constraint firstItem="Qim-PS-zyR" firstAttribute="top" secondItem="U5N-K1-CMO" secondAttribute="bottom" constant="10" id="AOW-l2-2uW"/>
                             <constraint firstItem="Qim-PS-zyR" firstAttribute="centerY" secondItem="AT3-rL-Eal" secondAttribute="centerY" id="AlK-RY-RTQ"/>
                             <constraint firstItem="cUH-0V-2aH" firstAttribute="top" secondItem="EZ1-pF-hnb" secondAttribute="top" constant="8" id="Aud-28-4bO"/>
-                            <constraint firstItem="AT3-rL-Eal" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iCA-pK-ctb" secondAttribute="trailing" constant="8" symbolic="YES" id="Iwy-UR-xgG"/>
+                            <constraint firstItem="yy8-PI-le3" firstAttribute="leading" secondItem="EZ1-pF-hnb" secondAttribute="leading" constant="20" id="FnA-yO-wIO"/>
                             <constraint firstItem="U5N-K1-CMO" firstAttribute="trailing" secondItem="cUH-0V-2aH" secondAttribute="trailing" id="J0a-dB-APe"/>
                             <constraint firstItem="Qim-PS-zyR" firstAttribute="baseline" secondItem="AT3-rL-Eal" secondAttribute="firstBaseline" id="ZmH-jw-MBg"/>
-                            <constraint firstItem="gaV-lw-CXD" firstAttribute="leading" secondItem="cUH-0V-2aH" secondAttribute="leading" id="aDT-4f-IAN"/>
+                            <constraint firstItem="yy8-PI-le3" firstAttribute="centerY" secondItem="Qim-PS-zyR" secondAttribute="centerY" id="a40-rU-WyG"/>
                             <constraint firstItem="Qim-PS-zyR" firstAttribute="leading" secondItem="yy8-PI-le3" secondAttribute="trailing" constant="8" id="aKE-lK-9Cb"/>
                             <constraint firstItem="U5N-K1-CMO" firstAttribute="top" secondItem="cUH-0V-2aH" secondAttribute="bottom" constant="5" id="d1D-Qk-YmV"/>
-                            <constraint firstItem="yy8-PI-le3" firstAttribute="centerY" secondItem="gaV-lw-CXD" secondAttribute="centerY" id="fHK-wh-ffQ"/>
-                            <constraint firstItem="iCA-pK-ctb" firstAttribute="leading" secondItem="gaV-lw-CXD" secondAttribute="trailing" constant="8" id="mvF-Qo-md4"/>
                             <constraint firstItem="Qim-PS-zyR" firstAttribute="centerY" secondItem="AT3-rL-Eal" secondAttribute="centerY" id="n5P-gf-DVj"/>
-                            <constraint firstItem="yy8-PI-le3" firstAttribute="leading" secondItem="iCA-pK-ctb" secondAttribute="trailing" constant="8" id="oOR-kZ-E48"/>
-                            <constraint firstItem="gaV-lw-CXD" firstAttribute="top" secondItem="U5N-K1-CMO" secondAttribute="bottom" constant="5" id="pjO-d9-SlP"/>
                             <constraint firstItem="cUH-0V-2aH" firstAttribute="leading" secondItem="oKy-H5-p5v" secondAttribute="leadingMargin" id="qYR-gx-bVO"/>
                             <constraint firstItem="AT3-rL-Eal" firstAttribute="top" secondItem="U5N-K1-CMO" secondAttribute="bottom" constant="6" id="vty-9q-avN"/>
-                            <constraint firstItem="iCA-pK-ctb" firstAttribute="centerY" secondItem="gaV-lw-CXD" secondAttribute="centerY" id="y2W-iH-bnJ"/>
                             <constraint firstItem="U5N-K1-CMO" firstAttribute="leading" secondItem="cUH-0V-2aH" secondAttribute="leading" id="zHQ-wA-3If"/>
                         </constraints>
                     </view>
@@ -190,7 +173,6 @@
                         <outlet property="configurableButton" destination="AT3-rL-Eal" id="3di-ag-zMc"/>
                         <outlet property="gdprSwitch" destination="yy8-PI-le3" id="fKP-21-49d"/>
                         <outlet property="integrationsControl" destination="U5N-K1-CMO" id="Eo9-jl-l9b"/>
-                        <outlet property="mockServerSwitch" destination="gaV-lw-CXD" id="RkW-Q7-EEX"/>
                         <outlet property="sectionsControl" destination="cUH-0V-2aH" id="fPD-e4-WjF"/>
                     </connections>
                 </viewController>

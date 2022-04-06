@@ -68,7 +68,6 @@ class PrebidMRAID3MethodsUITest: RepeatedUITestCase {
     private var mode: ExamplePageInfo.Mode = .default
     
     override func setUp() {
-        useMockServerOnSetup = true
         super.setUp()
     }
     
