@@ -17,6 +17,7 @@
 #import "PBMORTBAbstract+Protected.h"
 
 #import "PBMORTBBidExtPrebidCache.h"
+#import "PBMORTBExtPrebidPassthrough.h"
 
 @implementation PBMORTBBidExtPrebid
 
@@ -33,6 +34,19 @@
     _targeting = jsonDictionary[@"targeting"];
     _type = jsonDictionary[@"type"];
     
+    NSArray * const passthroughDics = jsonDictionary[@"passthrough"];
+    _passthrough = nil;
+    if (passthroughDics) {
+        NSMutableArray * const newPassthrough = [[NSMutableArray alloc] initWithCapacity:passthroughDics.count];
+        for(PBMJsonDictionary *nextDic in passthroughDics) {
+            PBMORTBExtPrebidPassthrough * const nextPassthrough = [[PBMORTBExtPrebidPassthrough alloc] initWithJsonDictionary:nextDic];
+            if (nextPassthrough) {
+                [newPassthrough addObject:nextPassthrough];
+            }
+        }
+        _passthrough = newPassthrough;
+    }
+    
     return self;
 }
 
@@ -42,6 +56,12 @@
     ret[@"cache"] = [self.cache toJsonDictionary];
     ret[@"targeting"] = self.targeting;
     ret[@"type"] = self.type;
+    
+    NSMutableArray * const passthroughDicArr = [[NSMutableArray alloc] initWithCapacity:self.passthrough.count];
+    for(PBMORTBExtPrebidPassthrough *nextPassthrough in self.passthrough) {
+        [passthroughDicArr addObject:[nextPassthrough toJsonDictionary]];
+    }
+    ret[@"passthrough"] = passthroughDicArr;
     
     [ret pbmRemoveEmptyVals];
     

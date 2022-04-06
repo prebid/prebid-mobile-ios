@@ -15,18 +15,25 @@
 
 #import "PBMORTBAbstract.h"
 
-@class PBMORTBBidExtPrebidCache;
-@class PBMORTBExtPrebidPassthrough;
-
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMORTBBidExtPrebid : PBMORTBAbstract
+@interface PBMORTBAdConfiguration: PBMORTBAbstract
 
-@property (nonatomic, strong, nullable) PBMORTBBidExtPrebidCache *cache;
-@property (nonatomic, copy, nullable) NSDictionary<NSString *, NSString *> *targeting;
-@property (nonatomic, copy, nullable) NSString *type;
-@property (nonatomic, copy, nullable) NSArray<PBMORTBExtPrebidPassthrough *> *passthrough;
+@property (nonatomic, copy, nullable) NSNumber *maxVideoDuration;
+
+@property (nonatomic, copy, nullable) NSNumber *isMuted;
+
+@property (nonatomic, copy, nullable) NSNumber *closeButtonArea;
+
+@property (nonatomic, copy, nullable) NSString *closeButtonPosition;
+
+@property (nonatomic, copy, nullable) NSNumber *skipButtonArea;
+
+@property (nonatomic, copy, nullable) NSString *skipButtonPosition;
+
+@property (nonatomic, copy, nullable) NSNumber *skipDelay;
 
 @end
 
 NS_ASSUME_NONNULL_END
+
