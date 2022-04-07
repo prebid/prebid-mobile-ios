@@ -67,6 +67,8 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
             print("TODO: Add Example")
         case .renderingAdMob:
             print("TODO: Add Example")
+        case .renderingMAX:
+            print("TODO: Add Example")
         case .undefined:
             assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }

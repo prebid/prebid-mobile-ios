@@ -38,6 +38,7 @@
         case IntegrationKind_InApp          : [self loadInAppRewarded]              ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingRewarded]       ; break;
         case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingRewarded]     ; break;
+        case IntegrationKind_RenderingMAX   : break;
         default:
             break;
     }

@@ -45,6 +45,7 @@
         case IntegrationKind_InApp          : [self loadInAppBanner]            ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingBanner]     ; break;
         case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingBanner]   ; break;
+        case IntegrationKind_RenderingMAX   : break;
 
         default:
             break;

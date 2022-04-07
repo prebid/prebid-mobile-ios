@@ -65,6 +65,7 @@ class InterstitialViewController:
         case .inApp             : setupAndLoadInAppInterstitial()
         case .renderingGAM      : setupAndLoadGAMRenderingInterstitial()
         case .renderingAdMob    : setupAndLoadAdMobRenderingInterstitial()
+        case .renderingMAX      : print("TODO: Add Example")
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }

@@ -54,6 +54,7 @@ class RewardedVideoController:
         case .inApp             : setupAndLoadInAppRewarded()
         case .renderingGAM      : setupAndLoadGAMRenderingRewarded()
         case .renderingAdMob    : setupAndLoadAdMobRenderingRewardedVideo()
+        case .renderingMAX      : print("TODO: Add Example")
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }
