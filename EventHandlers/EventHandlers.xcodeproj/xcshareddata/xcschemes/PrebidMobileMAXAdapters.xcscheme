@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1310"
+   LastUpgradeVersion = "1330"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -9,14 +9,14 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "923B55082745286000E00C88"
-               BuildableName = "PrebidMobileMoPubAdaptersTests.xctest"
-               BlueprintName = "PrebidMobileMoPubAdaptersTests"
+               BlueprintIdentifier = "92C1345A27FC6B4900F96387"
+               BuildableName = "PrebidMobileMAXAdapters.framework"
+               BlueprintName = "PrebidMobileMAXAdapters"
                ReferencedContainer = "container:EventHandlers.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "923B55082745286000E00C88"
-               BuildableName = "PrebidMobileMoPubAdaptersTests.xctest"
-               BlueprintName = "PrebidMobileMoPubAdaptersTests"
+               BlueprintIdentifier = "92C1346127FC6B4900F96387"
+               BuildableName = "PrebidMobileMAXAdaptersTests.xctest"
+               BlueprintName = "PrebidMobileMAXAdaptersTests"
                ReferencedContainer = "container:EventHandlers.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -60,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "923B55082745286000E00C88"
-            BuildableName = "PrebidMobileMoPubAdaptersTests.xctest"
-            BlueprintName = "PrebidMobileMoPubAdaptersTests"
+            BlueprintIdentifier = "92C1345A27FC6B4900F96387"
+            BuildableName = "PrebidMobileMAXAdapters.framework"
+            BlueprintName = "PrebidMobileMAXAdapters"
             ReferencedContainer = "container:EventHandlers.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
