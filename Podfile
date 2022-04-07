@@ -24,27 +24,32 @@ end
 target 'PrebidMobileGAMEventHandlers' do
   event_handlers_project
   gma_pods
+end
 
-  target 'PrebidMobileGAMEventHandlersTests' do
-    inherit! :search_paths
-  end
+target 'PrebidMobileGAMEventHandlersTests' do
+  event_handlers_project
+  gma_pods
 end
 
 target 'PrebidMobileAdMobAdapters' do
   event_handlers_project
   gma_pods
 
-  target 'PrebidMobileAdMobAdaptersTests' do
-    inherit! :search_paths
-  end
+end
+
+target 'PrebidMobileAdMobAdaptersTests' do
+  event_handlers_project
+  gma_pods
 end
 
 target 'PrebidMobileMAXAdapters' do
   event_handlers_project
   applovin_pods
-  target 'PrebidMobileMAXAdaptersTests' do
-    inherit! :search_paths
-  end
+end
+
+target 'PrebidMobileMAXAdaptersTests' do
+  event_handlers_project
+  applovin_pods
 end
 
 def prebid_demo_pods
