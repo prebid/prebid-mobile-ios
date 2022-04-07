@@ -45,6 +45,10 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Prebid.shared.shouldAssignNativeAssetID = true
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =
+       ["f2a7d257f84db8b1c4d7dd441323ad98"]
+        
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
             setupAndLoadNativeInAppForDFP()
@@ -57,18 +61,18 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
     
     //MARK: Setup NativeAd
     func setupAndLoadNativeInAppForDFP() {
-        setupPBNativeInApp(host: .Appnexus, accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0", configId: "25e17008-5081-4676-94d5-923ced4359d3")
+        setupPBNativeInApp(host: .Custom, accountId: "9325", configId: "24659163")
         loadNativeInAppForDFP()
     }
 
     func setupAndLoadNativeInAppForMoPub() {
-        setupPBNativeInApp(host: .Appnexus, accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0", configId: "25e17008-5081-4676-94d5-923ced4359d3")
+        setupPBNativeInApp(host: .Custom, accountId: "9325", configId: "24659163")
         loadNativeInAppForMoPub()
     }
     
     func setupPBNativeInApp(host: PrebidHost, accountId: String, configId: String) {
-        Prebid.shared.prebidServerHost = host
-        Prebid.shared.prebidServerAccountId = accountId
+//        Prebid.shared.prebidServerHost = host
+//        Prebid.shared.prebidServerAccountId = accountId
         
         createNativeInAppView()
         loadNativeAssets(configId)
@@ -149,7 +153,7 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
     }
     
     func callDFP(_ dfpRequest: GAMRequest){
-        adLoader = GADAdLoader(adUnitID: "/19968336/Abhas_test_native_native_adunit",
+        adLoader = GADAdLoader(adUnitID: "/19968336/PSP_M22_Abhishek_Native",
                                rootViewController: self,
                                adTypes: [ GADAdLoaderAdType.gamBanner, GADAdLoaderAdType.customNative],
                                options: [ ])
@@ -166,13 +170,14 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
     func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
         print("Prebid GADAdLoader failed \(error)")
     }
+    
     func validBannerSizes(for adLoader: GADAdLoader) -> [NSValue] {
-        return [NSValueFromGADAdSize(kGADAdSizeBanner)]
+        return [NSValueFromGADAdSize(GADAdSizeBanner)];
     }
     
     //MARK: GADCustomNativeAdLoaderDelegate
     func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
-        return ["11963183"]
+        return ["12103713"]
     }
     
     func adLoader(_ adLoader: GADAdLoader, didReceive customNativeAd: GADCustomNativeAd) {

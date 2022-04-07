@@ -93,13 +93,13 @@
     NSString *adUnitID = [[NSUserDefaults standardUserDefaults] stringForKey:kAdUnitIdKey];
     NSString *bidPrice = [[NSUserDefaults standardUserDefaults] stringForKey:kBidPriceKey];
         
-    GADAdSize GADAdSize = kGADAdSizeInvalid;
+    GADAdSize GADAdSize = GADAdSizeInvalid;
     CGSize adSize = CGSizeZero;
     if ([adSizeString isEqualToString:kSizeString320x50]) {
-        GADAdSize = kGADAdSizeBanner;
+        GADAdSize = GADAdSizeBanner;
         adSize = CGSizeMake(320, 50);
     } else if ([adSizeString isEqualToString:kSizeString300x250]) {
-        GADAdSize = kGADAdSizeMediumRectangle;
+        GADAdSize = GADAdSizeMediumRectangle;
         adSize = CGSizeMake(300, 250);
     } else if ([adSizeString isEqualToString:kSizeString320x480]) {
         adSize = CGSizeMake(320, 480);
@@ -109,10 +109,10 @@
         GADAdSize = GADAdSizeFromCGSize(adSize);
     } else if ([adSizeString isEqualToString:kSizeString320x100]) {
         adSize = CGSizeMake(320, 100);
-        GADAdSize = kGADAdSizeLargeBanner;
+        GADAdSize = GADAdSizeLargeBanner;
     } else if ([adSizeString isEqualToString:kSizeString1x1]) {
         adSize = CGSizeMake(1, 1);
-        GADAdSize = kGADAdSizeFluid;
+        GADAdSize = GADAdSizeFluid;
     }
     if ([adServerName isEqualToString:kMoPubString]) {
         if ([adFormatName isEqualToString:kBannerString]) {

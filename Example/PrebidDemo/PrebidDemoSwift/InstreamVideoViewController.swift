@@ -38,7 +38,7 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
 
     var contentPlayhead: IMAAVPlayerContentPlayhead?
     
-    static let kTestAppContentUrl_MP4 = "https://storage.googleapis.com/gvabox/media/samples/stock.mp4"
+    static let kTestAppContentUrl_MP4 = ""//"https://storage.googleapis.com/gvabox/media/samples/stock.mp4"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,34 +119,36 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
     
     //Setup PB
     func setupPBAppNexusInStreamVideo() {
-        setupPB(host: .Appnexus, accountId: "aecd6ef7-b992-4e99-9bb8-65e2d984e1dd", storedResponse: "")
+//        setupPB(host: .Cus, accountId: "9325", storedResponse: "")
 
-        let videoAdUnit = VideoAdUnit(configId: "2c0af852-a55d-49dc-a5ca-ef7e141f73cc", size: CGSize(width: 1,height: 1))
+        let videoAdUnit = VideoAdUnit(configId: "24659163", size: CGSize(width: 1,height: 1))
         videoAdUnit.parameters = parameters
         adUnit = videoAdUnit
     }
     
     func setupPBRubiconInStreamVideo() {
-        setupPB(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
+//        setupPB(host: .Appnexus, accountId: "9325", storedResponse: "sample_video_response")
         
-        let videoAdUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: 1, height: 1))
+        let videoAdUnit = VideoAdUnit(configId: "24574726", size: CGSize(width: 1, height: 1))
         videoAdUnit.parameters = parameters
         adUnit = videoAdUnit
     }
     
     func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
-        Prebid.shared.prebidServerHost = host
-        Prebid.shared.prebidServerAccountId = accountId
-        Prebid.shared.storedAuctionResponse = storedResponse
+        Prebid.shared.prebidServerHost = .Custom
+        try!
+        Prebid.shared.setCustomPrebidServer(url: "https://ib.adnxs.com/openrtb2/prebid")
+        Prebid.shared.prebidServerAccountId = "9325"
+        
     }
 
     //Setup AdServer
     func setupAMAppNexusInstreamVideo() {
-        adUnitID = "/19968336/Punnaghai_Instream_Video1"
+        adUnitID = "/19968336/PSP_M29_Abhishek_Video"
     }
     
     func setupAMRubiconInstreamVideo() {
-        adUnitID = "/5300653/test_adunit_vast_pavliuchyk"
+        adUnitID = "/5300653/PSP_M29_Abhishek_Video"
     }
     
     func loadAMInStreamVideo() {

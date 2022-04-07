@@ -20,6 +20,10 @@
 #import "PBVSharedConstants.h"
 #import "IntroViewController.h"
 #import "MoPub.h"
+@import GoogleMobileAds;
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
+#import <AdSupport/AdSupport.h>
+
 
 @interface AppDelegate ()
 
@@ -43,6 +47,10 @@
         self.window.rootViewController = introController;
     }
     
+//    GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers =  @[ @"e07018120ad6e54c228b3ac007556822" ];
+    [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
+//    GADMobileAds.sharedInstance().start()
+    
     self.nativeRequest = [[NativeRequest alloc] initWithConfigId:@"123"];
     NativeAssetImage *mainImage = [[NativeAssetImage alloc] initWithMinimumWidth:90 minimumHeight:90 required:YES];
     mainImage.type = ImageAsset.Main;
@@ -55,7 +63,21 @@
     NativeAssetData *data3 = [[NativeAssetData alloc] initWithType:DataAssetCtatext required:YES];
     self.nativeRequest.assets = [NSArray arrayWithObjects:mainImage,iconImage,title,data1,data2,data3, nil];
     
+    [self requestIDFA];
+    
     return YES;
+}
+
+
+- (void)requestIDFA {
+    if (@available(iOS 14, *)) {
+        [ATTrackingManager requestTrackingAuthorizationWithCompletionHandler:^(ATTrackingManagerAuthorizationStatus status) {
+            // Tracking authorization completed. Start loading ads here.
+            // [self loadAd];
+        }];
+    } else {
+        // Fallback on earlier versions
+    }
 }
 
 - (BOOL) isFirstLaunch

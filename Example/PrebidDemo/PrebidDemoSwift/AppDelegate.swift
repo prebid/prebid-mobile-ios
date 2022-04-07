@@ -47,7 +47,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         externalUserIdArray.append(ExternalUserId(source: "sharedid.org", identifier: "111111111111", atype: 1, ext: ["third" : "01ERJWE5FS4RAZKG6SKQ3ZYSKV"]))
         Prebid.shared.externalUserIdArray = externalUserIdArray
 
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =  [ (kGADSimulatorID as! String), "cc7ca766f86b43ab6cdc92bed424069b"]
+
+        
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = ["e07018120ad6e54c228b3ac007556822"]
         GADMobileAds.sharedInstance().start()
         let sdkConfig = MPMoPubConfiguration(adUnitIdForAppInitialization: "a935eac11acd416f92640411234fbba6")
         sdkConfig.globalMediationSettings = []
@@ -66,6 +68,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         }
         #endif
+        
+        
+        Prebid.shared.prebidServerHost = .Custom
+        try!
+        Prebid.shared.setCustomPrebidServer(url: "https://ib.adnxs.com/openrtb2/prebid")
+        Prebid.shared.prebidServerAccountId = "9325"
 
         return true
     }

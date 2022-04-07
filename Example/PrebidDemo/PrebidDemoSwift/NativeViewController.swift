@@ -11,10 +11,10 @@ import UIKit
 import PrebidMobile
 
 import GoogleMobileAds
-
+import GoogleUtilities
 import MoPubSDK
 
-class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDelegate {
+class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDelegate , GADAdSizeDelegate {
 
     var nativeUnit: NativeRequest!
     
@@ -30,8 +30,13 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
-        Prebid.shared.prebidServerAccountId = "bfa84af2-bd16-4d35-96ad-31c6bb888df0"
+        Prebid.shared.shouldAssignNativeAssetID = true
+
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =
+       ["f2a7d257f84db8b1c4d7dd441323ad98"]
+
+//        Prebid.shared.prebidServerHost = PrebidHost.Appnexus
+//        Prebid.shared.prebidServerAccountId = "9325"
         
         loadNativeAssets()
             
@@ -64,8 +69,8 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
             
             let sponsored = NativeAssetData(type: DataAsset.sponsored, required: true)
             
-            nativeUnit = NativeRequest(configId: "25e17008-5081-4676-94d5-923ced4359d3", assets: [icon,title,image,body,cta,sponsored])
-            
+            nativeUnit = NativeRequest(configId: "24659163", assets: [icon,title,image,body,cta,sponsored])
+
             nativeUnit.context = ContextType.Social
             nativeUnit.placementType = PlacementType.FeedContent
             nativeUnit.contextSubType = ContextSubType.Social
@@ -74,14 +79,32 @@ class NativeViewController: UIViewController, GADBannerViewDelegate, MPAdViewDel
             eventTrackers = NativeEventTracker(event: event1, methods: [EventTracking.Image,EventTracking.js])
             nativeUnit.eventtrackers = [eventTrackers]
         }
-        
+            
+    // MARK: - GADAdSizeDelegate
+
+    @objc func adView(_ bannerView: GADBannerView, willChangeAdSizeTo adSize: GADAdSize) {
+      let height = adSize.size.height
+      let width = adSize.size.width
+    }
         func loadDFPNative(){
             
-            dfpNativeAdUnit = GAMBannerView(adSize: kGADAdSizeFluid)
-            dfpNativeAdUnit.adUnitID = "/19968336/Wei_Prebid_Native_Test"
+            dfpNativeAdUnit = GAMBannerView(adSize: GADAdSizeFluid)
+            
+            dfpNativeAdUnit.validAdSizes = [NSValueFromGADAdSize(GADAdSizeFluid),
+                                       NSValueFromGADAdSize(GADAdSizeBanner)]
+            dfpNativeAdUnit.adUnitID = "/19968336/PSP_M22_Abhishek_Native"
             dfpNativeAdUnit.rootViewController = self
             dfpNativeAdUnit.delegate = self
             dfpNativeAdUnit.backgroundColor = .green
+            dfpNativeAdUnit.adSizeDelegate = self
+
+            
+            
+            var frameRect = dfpNativeAdUnit.frame
+            frameRect.size.width = view.bounds.width
+            dfpNativeAdUnit.frame = frameRect
+
+            
             nativeView.addSubview(dfpNativeAdUnit)
             if(nativeUnit != nil){
                 nativeUnit.fetchDemand(adObject: self.request) { [weak self] (resultCode: ResultCode) in

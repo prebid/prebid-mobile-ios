@@ -502,7 +502,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         if(cell != nil){
             cell.lblIDText.text = kAdUnitIdText;
             if (self.adUnitID == nil || [self.adUnitID isEqualToString:@""]) {
-                cell.lblId.text = @"ie: /0000/xxxx/000/xxxx";
+                cell.lblId.text = @"/19968336/PSP_M23_Abhishek_Banner";
                 [cell.lblId setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.65 alpha:1.0]];
                 [cell.lblIDText setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
                 
@@ -561,7 +561,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
            
                 cell.lblIDText.text = kPBCustomHostText;
                 if (self.customHost == nil || [self.customHost isEqualToString:@""]) {
-                    cell.lblId.text = @"ie: https://ib.adnxs.com/openrtb2/prebid";
+                    cell.lblId.text = @"https://ib.adnxs.com/openrtb2/prebid";
                     [cell.lblId setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.65 alpha:1.0]];
                     [cell.lblIDText setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
                     
@@ -588,7 +588,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         if(cell != nil){
             cell.lblIDText.text = kPBAccountIDText;
             if (self.accountID == nil || [self.accountID isEqualToString:@""]) {
-                cell.lblId.text = @"ie: 00000-0000-0000-00000-00000-00000";
+                cell.lblId.text = @"9325";
                 [cell.lblId setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.65 alpha:1.0]];
                 [cell.lblIDText setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
                 
@@ -615,7 +615,7 @@ NSString *__nonnull const KPBHostLabel = @"Server Host";
         if(cell != nil){
             cell.lblIDText.text = kPBConfigIDText;
             if (self.configID == nil || [self.configID isEqualToString:@""]) {
-                cell.lblId.text = @"ie: 00000-0000-0000-00000-00000-00000";
+                cell.lblId.text = @"24574726";
                 [cell.lblId setTextColor:[UIColor colorWithRed:0.65 green:0.65 blue:0.65 alpha:1.0]];
                 [cell.lblIDText setTextColor:[UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.0]];
                 

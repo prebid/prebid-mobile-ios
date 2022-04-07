@@ -43,12 +43,14 @@ class InterstitialViewController: UIViewController, MPInterstitialAdControllerDe
         if (adServerName == "DFP") {
             print("entered \(adServerName) loop" )
             
-            switch bannerFormat {
-            case .html:
-                setupAndLoadAMInterstitial()
-            case .vast:
-                setupAndLoadAMInterstitialVAST()
-            }
+            setupAndLoadAMInterstitial()
+
+//            switch bannerFormat {
+//            case .html:
+//                setupAndLoadAMInterstitial()
+//            case .vast:
+//                setupAndLoadAMInterstitialVAST()
+//            }
 
         } else if (adServerName == "MoPub") {
             print("entered \(adServerName) loop" )
@@ -67,7 +69,7 @@ class InterstitialViewController: UIViewController, MPInterstitialAdControllerDe
         setupPBRubiconInterstitial()
 
         //Xandr "/19968336/PrebidMobileValidator_Interstitial"
-        loadAMInterstitial("/5300653/pavliuchyk_test_adunit_1x1_puc")
+        loadAMInterstitial("/19968336/PSP_M24_Abhishek_Interstitial")
     }
     
     func setupAndLoadMPInterstitial() {
@@ -78,11 +80,11 @@ class InterstitialViewController: UIViewController, MPInterstitialAdControllerDe
     
     //Setup PB
     func setupPBAppNexusInterstitial() {
-        setupPBInterstitial(host: .Appnexus, accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0", configId: "625c6125-f19e-4d5b-95c5-55501526b2a4", storedResponse: "")
+        setupPBInterstitial(host: .Appnexus, accountId: "9325", configId: "24574726", storedResponse: "")
     }
 
     func setupPBRubiconInterstitial() {
-        setupPBInterstitial(host: .Rubicon, accountId: "1001", configId: "1001-1", storedResponse: "1001-rubicon-300x250")
+        setupPBInterstitial(host: .Rubicon, accountId: "9325", configId: "24574726", storedResponse: "")
     }
     
     func setupPBInterstitial(host: PrebidHost, accountId: String, configId: String, storedResponse: String) {
@@ -96,8 +98,10 @@ class InterstitialViewController: UIViewController, MPInterstitialAdControllerDe
     }
     
     func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
-        Prebid.shared.prebidServerHost = host
-        Prebid.shared.prebidServerAccountId = accountId
+        Prebid.shared.prebidServerHost = .Custom
+        try!
+        Prebid.shared.setCustomPrebidServer(url: "https://ib.adnxs.com/openrtb2/prebid")
+        Prebid.shared.prebidServerAccountId = "9325"
         Prebid.shared.storedAuctionResponse = storedResponse
     }
     

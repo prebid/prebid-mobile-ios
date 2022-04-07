@@ -26,7 +26,7 @@ enum BannerFormat: Int {
     case vast
 }
 
-class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegate {
+class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegate  {
 
    @IBOutlet var appBannerView: UIView!
 
@@ -37,8 +37,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
     private var adUnit: AdUnit!
     
-    private let amRequest = GAMRequest()
-    private var amBanner: GAMBannerView!
+    private let amRequest = GADRequest()
+    private var amBanner: GADBannerView!
     
     private var mpBanner: MPAdView!
 
@@ -78,8 +78,8 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
         let width = 300
         let height = 250
         
-        setupPBRubiconBanner(width: width, height: height)
-        setupAMRubiconBanner(width: width, height: height)
+        setupPBAppNexusBanner(width: width, height: height)
+        setupAMAppNexusBanner(width: width, height: height)
         loadAMBanner()
     }
 
@@ -95,7 +95,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
     //setup PB
     func setupPBAppNexusBanner(width: Int, height: Int) {
-        setupPBBanner(host: .Appnexus, accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0", configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45", storedResponse: "", width: width, height: height)
+        setupPBBanner(host: .Custom, accountId: "9325", configId: "24574726", storedResponse: "", width: width, height: height)
     }
 
     func setupPBRubiconBanner(width: Int, height: Int) {
@@ -120,14 +120,23 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     }
 
     func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
-        Prebid.shared.prebidServerHost = host
-        Prebid.shared.prebidServerAccountId = accountId
+        Prebid.shared.prebidServerHost = .Custom
+        try!
+        Prebid.shared.setCustomPrebidServer(url: "https://ib.adnxs.com/openrtb2/prebid")
+        Prebid.shared.prebidServerAccountId = "9325"
         Prebid.shared.storedAuctionResponse = storedResponse
     }
 
     //Setup AdServer
     func setupAMAppNexusBanner(width: Int, height: Int) {
-        setupAMBanner(width: width, height: height, adUnitId: "/19968336/PrebidMobileValidator_Banner_All_Sizes")
+//        setupAMBanner(width: width, height: height, adUnitId: "/19968336/PrebidMobileValidator_Banner_All_Sizes")
+        setupAMBanner(width: width, height: height, adUnitId: "/19968336/PSP_M23_Abhishek_Banner")
+
+        //        setupAMBanner(width: width, height: height, adUnitId: "/19968336/PSP-AB-BannerAd")
+//                setupAMBanner(width: width, height: height, adUnitId: "/19968336/9455226_abhishek")
+//                        setupAMBanner(width: width, height: height, adUnitId: "/19968336/PSP_M22_Abhishek")
+
+//        setupAMBanner(width: width, height: height, adUnitId: "/19968336/PSP_M22_Banner_ad_unit")
     }
 
     func setupAMRubiconBanner(width: Int, height: Int) {
@@ -137,7 +146,7 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     func setupAMBanner(width: Int, height:Int, adUnitId: String) {
         let customAdSize = GADAdSizeFromCGSize(CGSize(width: width, height: height))
         
-        amBanner = GAMBannerView(adSize: customAdSize)
+        amBanner = GADBannerView(adSize: customAdSize)
         amBanner.adUnitID = adUnitId
     }
 
@@ -165,13 +174,14 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
     
     //Load
     func loadAMBanner() {
-        print("Google Mobile Ads SDK version: \(GADMobileAds.sharedInstance().sdkVersion)")
+//        print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
         
         amBanner.backgroundColor = .red
         amBanner.rootViewController = self
         amBanner.delegate = self
         appBannerView.addSubview(amBanner)
 
+        
         adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: ResultCode) in
             print("Prebid demand fetch for AdManager \(resultCode.name())")
             self?.amBanner.load(self?.amRequest)
@@ -270,15 +280,16 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
     //MARK: - GADBannerViewDelegate
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("adViewDidReceiveAd")
-        
+        print("bannerViewDidReceiveAd adViewDidReceiveAd")
         AdViewUtils.findPrebidCreativeSize(bannerView,
                                             success: { (size) in
-                                                guard let bannerView = bannerView as? GAMBannerView else {
+                                                guard let bannerView = bannerView as? GADBannerView else {
                                                     return
                                                 }
 
-                                                bannerView.resize(GADAdSizeFromCGSize(size))
+                                
+            
+//                                                bannerView.resize(GADAdSizeFromCGSize(size))
 
         },
                                             failure: { (error) in
@@ -286,10 +297,33 @@ class BannerController: UIViewController, GADBannerViewDelegate, MPAdViewDelegat
 
         })
     }
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+//        print("adViewDidReceiveAd")
+//
+//        AdViewUtils.findPrebidCreativeSize(bannerView,
+//                                            success: { (size) in
+//                                                guard let bannerView = bannerView as? GADBannerView else {
+//                                                    return
+//                                                }
+//
+//
+//
+////                                                bannerView.resize(GADAdSizeFromCGSize(size))
+//
+//        },
+//                                            failure: { (error) in
+//                                                print("error: \(error)")
+//
+//        })
+    }
 
+    
     func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
     }
+//    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+//        print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+//    }
 
     //MARK: - MPAdViewDelegate
     func viewControllerForPresentingModalView() -> UIViewController! {

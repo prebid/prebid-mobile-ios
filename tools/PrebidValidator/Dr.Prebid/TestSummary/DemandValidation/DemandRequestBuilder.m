@@ -16,6 +16,9 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <AdSupport/AdSupport.h>
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
 @import PrebidMobile;
 
 

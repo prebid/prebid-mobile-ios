@@ -212,7 +212,7 @@
                 }];
             }];
         } else if ([adFormatName isEqualToString:kNativeString]) {
-            self.dfpView = [[GAMBannerView alloc] initWithAdSize:kGADAdSizeFluid];
+            self.dfpView = [[GAMBannerView alloc] initWithAdSize:GADAdSizeBanner];
             self.dfpView.adUnitID = adUnitID;
             self.dfpView.delegate = self;
             self.dfpView.rootViewController = (UIViewController *)_delegate;

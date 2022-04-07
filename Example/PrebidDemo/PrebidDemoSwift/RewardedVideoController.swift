@@ -32,11 +32,12 @@ class RewardedVideoController: UIViewController, MPRewardedVideoDelegate {
     
     private let amRequest = GAMRequest()
     
-    private let amRubiconAdUnitId = "/5300653/test_adunit_vast_rewarded-video_pavliuchyk"
+    private let amRubiconAdUnitId = "/19968336/PSP_M29_Abhishek_Video"
     private let mpRubiconAdUnitId = "46d2ebb3ccd340b38580b5d3581c6434"
     
     override func viewDidLoad() {
-        
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = ["f2a7d257f84db8b1c4d7dd441323ad98"]
+
         adServerLabel.text = adServerName
         
         if (adServerName == "DFP") {
@@ -60,10 +61,10 @@ class RewardedVideoController: UIViewController, MPRewardedVideoDelegate {
     //Setup PB
     func setupPBRubiconRewardedVideo() {
 
-        setupPB(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
+//        setupPB(host: .Appnexus, accountId: "9325", storedResponse: "")
 
-        let adUnit = RewardedVideoAdUnit(configId: "1001-1")
-        
+        let adUnit = RewardedVideoAdUnit(configId: "24659163")
+
         let parameters = VideoBaseAdUnit.Parameters()
         parameters.mimes = ["video/mp4"]
         
@@ -80,9 +81,9 @@ class RewardedVideoController: UIViewController, MPRewardedVideoDelegate {
     }
     
     func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
-        Prebid.shared.prebidServerHost = host
-        Prebid.shared.prebidServerAccountId = accountId
-        Prebid.shared.storedAuctionResponse = storedResponse
+//        Prebid.shared.prebidServerHost = .Appnexus
+//        Prebid.shared.prebidServerAccountId = "9325"
+//        Prebid.shared.storedAuctionResponse = storedResponse
     }
     
     //Setup AdServer
