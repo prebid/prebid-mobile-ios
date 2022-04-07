@@ -25,6 +25,10 @@
 		9205E49127B561A9003DCCCC /* TestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49027B561A9003DCCCC /* TestExtensions.swift */; };
 		9205E49427B5622B003DCCCC /* XCTestCase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49327B5622B003DCCCC /* XCTestCase+Extensions.swift */; };
 		9205E49627B563B4003DCCCC /* StubbingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9205E49527B563B4003DCCCC /* StubbingHandler.swift */; };
+		924F663227FECDD100C8DAF7 /* PrebidMobileMAXAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924F663127FECDD100C8DAF7 /* PrebidMobileMAXAdapters.framework */; };
+		924F663327FECDD100C8DAF7 /* PrebidMobileMAXAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 924F663127FECDD100C8DAF7 /* PrebidMobileMAXAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		924F663627FECDDA00C8DAF7 /* PrebidMobileMAXAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924F663527FECDDA00C8DAF7 /* PrebidMobileMAXAdapters.framework */; };
+		924F663727FECDDA00C8DAF7 /* PrebidMobileMAXAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 924F663527FECDDA00C8DAF7 /* PrebidMobileMAXAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9292C6B7506986A7F501E561 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 022C426932D62F4F7C3973DB /* Pods_PrebidDemoObjectiveC.framework */; };
 		929638E827AC276B00D30F3D /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5BD98F0B273EC0D00030ACC3 /* PrebidMobileGAMEventHandlers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		929638EC27AC278600D30F3D /* PrebidMobileGAMEventHandlers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 929638EB27AC278600D30F3D /* PrebidMobileGAMEventHandlers.framework */; };
@@ -107,6 +111,7 @@
 				92C833E027B3CB3600B99AC6 /* PrebidMobile.framework in Embed Frameworks */,
 				929638E827AC276B00D30F3D /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
 				92F438CA2768B23C00FDC950 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
+				924F663327FECDD100C8DAF7 /* PrebidMobileMAXAdapters.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,6 +125,7 @@
 				92C833E227B3CB4700B99AC6 /* PrebidMobile.framework in Embed Frameworks */,
 				929638F527AC27B900D30F3D /* PrebidMobileGAMEventHandlers.framework in Embed Frameworks */,
 				92F438C72768983500FDC950 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
+				924F663727FECDDA00C8DAF7 /* PrebidMobileMAXAdapters.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -166,6 +172,8 @@
 		9205E49027B561A9003DCCCC /* TestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestExtensions.swift; sourceTree = "<group>"; };
 		9205E49327B5622B003DCCCC /* XCTestCase+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extensions.swift"; sourceTree = "<group>"; };
 		9205E49527B563B4003DCCCC /* StubbingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbingHandler.swift; sourceTree = "<group>"; };
+		924F663127FECDD100C8DAF7 /* PrebidMobileMAXAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMAXAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		924F663527FECDDA00C8DAF7 /* PrebidMobileMAXAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMAXAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		929638EB27AC278600D30F3D /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		929638ED27AC278C00D30F3D /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		929638EF27AC279D00D30F3D /* Pods_PrebidDemoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_PrebidDemoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,6 +229,7 @@
 				929638EC27AC278600D30F3D /* PrebidMobileGAMEventHandlers.framework in Frameworks */,
 				92C833DF27B3CB3600B99AC6 /* PrebidMobile.framework in Frameworks */,
 				92F438C62768982700FDC950 /* PrebidMobileAdMobAdapters.framework in Frameworks */,
+				924F663227FECDD100C8DAF7 /* PrebidMobileMAXAdapters.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +250,7 @@
 				9292C6B7506986A7F501E561 /* Pods_PrebidDemoObjectiveC.framework in Frameworks */,
 				92C833E127B3CB4700B99AC6 /* PrebidMobile.framework in Frameworks */,
 				92F438C92768B23100FDC950 /* PrebidMobileAdMobAdapters.framework in Frameworks */,
+				924F663627FECDDA00C8DAF7 /* PrebidMobileMAXAdapters.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +319,8 @@
 		99D7F73A394177471348CDD1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				924F663527FECDDA00C8DAF7 /* PrebidMobileMAXAdapters.framework */,
+				924F663127FECDD100C8DAF7 /* PrebidMobileMAXAdapters.framework */,
 				929638F327AC27AF00D30F3D /* PrebidMobileMoPubAdapters.framework */,
 				929638F127AC27AA00D30F3D /* PrebidMobileGAMEventHandlers.framework */,
 				929638EF27AC279D00D30F3D /* Pods_PrebidDemoSwift.framework */,
