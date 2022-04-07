@@ -803,6 +803,7 @@
 				5B6EB00C2122CAA400C5B072 /* Frameworks */,
 				5B6EB00D2122CAA400C5B072 /* Resources */,
 				0163900BBA5F053F055F3A03 /* [CP] Embed Pods Frameworks */,
+				D1F74D555EAC12CAB8036FD4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -824,6 +825,7 @@
 				93FED9C11A376EFE009A6E9F /* Resources */,
 				802528B749910E5695D54FCF /* [CP] Embed Pods Frameworks */,
 				9262A8AE27720DE6009441A3 /* Embed Frameworks */,
+				2604B52EFD0A1C8698F645F8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1007,6 +1009,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		2604B52EFD0A1C8698F645F8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp-resources.sh",
+				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-11.3.2/AppLovinSDKResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppLovinSDKResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		484200C8E7CBBACB19DC5AB3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1101,6 +1121,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D1F74D555EAC12CAB8036FD4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests-resources.sh",
+				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-11.3.2/AppLovinSDKResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppLovinSDKResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

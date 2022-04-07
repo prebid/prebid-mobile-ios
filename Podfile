@@ -50,8 +50,10 @@ end
 def prebid_demo_pods
   use_frameworks!
   
-  pod 'Google-Mobile-Ads-SDK'
   pod 'GoogleAds-IMA-iOS-SDK'
+
+  gma_pods
+  applovin_pods
 end
 
 target 'PrebidDemoSwift' do
@@ -79,6 +81,8 @@ end
 def internalTestApp_pods
   pod 'Eureka', :git => 'https://github.com/xmartlabs/Eureka.git', :branch => 'xcode12'
   pod 'SVProgressHUD'
+  
+  applovin_pods
   gma_pods
 end
 

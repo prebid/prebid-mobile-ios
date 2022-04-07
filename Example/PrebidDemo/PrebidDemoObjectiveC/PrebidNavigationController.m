@@ -143,6 +143,8 @@
             viewController.integrationKind = IntegrationKind_RenderingAdMob;
             [self.navigationController pushViewController:viewController animated:YES];
         }
+    } else if (indexPath.section == IntegrationKind_RenderingMAX) {
+        // TODO: Add Example
     }
 }
 @end

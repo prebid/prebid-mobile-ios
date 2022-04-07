@@ -25,6 +25,7 @@ enum IntegrationKind: String, CaseIterable {
     case inApp          = "In-App"
     case renderingGAM   = "GAM (R)"
     case renderingAdMob = "AdMob (R)"
+    case renderingMAX   = "MAX (R)"
     
     case undefined      = "Undefined"
 }

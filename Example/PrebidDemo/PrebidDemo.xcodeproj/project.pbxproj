@@ -431,6 +431,7 @@
 				FA12E4B2231EB04100CAA05B /* Resources */,
 				25B4BD384BAB9E1EB9B93687 /* [CP] Embed Pods Frameworks */,
 				5BF6905F27737AEC00AABA45 /* Embed Frameworks */,
+				3AB4D549E0D6645D30F2FE73 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -471,6 +472,7 @@
 				FA12E4F4231EB99D00CAA05B /* Resources */,
 				FD168A4AF9F3CB4BB568552E /* [CP] Embed Pods Frameworks */,
 				5BF6906727737AF900AABA45 /* Embed Frameworks */,
+				30659BD74BC316D1C6C8C714 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -597,6 +599,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		30659BD74BC316D1C6C8C714 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoObjectiveC/Pods-PrebidDemoObjectiveC-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoObjectiveC/Pods-PrebidDemoObjectiveC-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoObjectiveC/Pods-PrebidDemoObjectiveC-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3AB4D549E0D6645D30F2FE73 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8F2BB7DE6F598C4B8C1369A7 /* [CP] Check Pods Manifest.lock */ = {

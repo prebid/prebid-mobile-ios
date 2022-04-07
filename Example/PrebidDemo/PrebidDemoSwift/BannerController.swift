@@ -80,6 +80,8 @@ class BannerController:
             case .inApp             : setupAndLoadInAppBanner()
             case .renderingGAM      : setupAndLoadGAMRendering()
             case .renderingAdMob    : setupAndLoadAdMobRendering()
+            case .renderingMAX      : print("TODO: Add Example")
+            
             case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
         
