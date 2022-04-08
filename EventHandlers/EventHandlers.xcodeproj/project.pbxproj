@@ -40,6 +40,8 @@
 		9281F68527A82C38004F18EC /* AdMobMediationUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281F68427A82C38004F18EC /* AdMobMediationUtilsTest.swift */; };
 		928310092775FF7600D28142 /* AdMobUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928310082775FF7600D28142 /* AdMobUtilsTest.swift */; };
 		9285B46627AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285B46527AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift */; };
+		9289873A280026460062BFAA /* PrebidMAXMediationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92898739280026460062BFAA /* PrebidMAXMediationAdapter.swift */; };
+		9289873C280028570062BFAA /* MAXConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9289873B280028570062BFAA /* MAXConstants.swift */; };
 		92A2380D27731B48000157AA /* AdMobUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A2380C27731B48000157AA /* AdMobUtils.swift */; };
 		92C1346327FC6B4900F96387 /* PrebidMobileMAXAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C1345B27FC6B4900F96387 /* PrebidMobileMAXAdapters.framework */; };
 		92C1346827FC6B4900F96387 /* PrebidMobileMAXAdaptersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C1346727FC6B4900F96387 /* PrebidMobileMAXAdaptersTests.swift */; };
@@ -137,6 +139,8 @@
 		928310072775FF7500D28142 /* PrebidMobileAdMobAdaptersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileAdMobAdaptersTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		928310082775FF7600D28142 /* AdMobUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobUtilsTest.swift; sourceTree = "<group>"; };
 		9285B46527AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobVideoInterstitialAdapter.swift; sourceTree = "<group>"; };
+		92898739280026460062BFAA /* PrebidMAXMediationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrebidMAXMediationAdapter.swift; path = ../../../../../../../../Dropbox/PrebidMAXMediationAdapter.swift; sourceTree = "<group>"; };
+		9289873B280028570062BFAA /* MAXConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXConstants.swift; sourceTree = "<group>"; };
 		92A2380C27731B48000157AA /* AdMobUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobUtils.swift; sourceTree = "<group>"; };
 		92C1345B27FC6B4900F96387 /* PrebidMobileMAXAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobileMAXAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C1345D27FC6B4900F96387 /* PrebidMobileMAXAdapters.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrebidMobileMAXAdapters.h; sourceTree = "<group>"; };
@@ -357,6 +361,8 @@
 			isa = PBXGroup;
 			children = (
 				92C1345D27FC6B4900F96387 /* PrebidMobileMAXAdapters.h */,
+				92898739280026460062BFAA /* PrebidMAXMediationAdapter.swift */,
+				9289873B280028570062BFAA /* MAXConstants.swift */,
 			);
 			path = PrebidMobileMAXAdapters;
 			sourceTree = "<group>";
@@ -594,6 +600,7 @@
 					};
 					92C1345A27FC6B4900F96387 = {
 						CreatedOnToolsVersion = 13.3;
+						LastSwiftMigration = 1330;
 					};
 					92C1346127FC6B4900F96387 = {
 						CreatedOnToolsVersion = 13.3;
@@ -918,6 +925,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9289873C280028570062BFAA /* MAXConstants.swift in Sources */,
+				9289873A280026460062BFAA /* PrebidMAXMediationAdapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1236,6 +1245,7 @@
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1270,6 +1280,7 @@
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1301,6 +1312,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 237DEA65BB4F321230D3A510 /* Pods-PrebidMobileMAXAdaptersTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1322,6 +1334,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8E4C768ECDDB294B3CC3CF48 /* Pods-PrebidMobileMAXAdaptersTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
