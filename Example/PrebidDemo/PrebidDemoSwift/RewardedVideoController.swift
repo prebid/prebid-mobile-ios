@@ -86,7 +86,7 @@ class RewardedVideoController:
 
         let adUnit = RewardedVideoAdUnit(configId: "1001-1")
         
-        let parameters = VideoBaseAdUnit.Parameters()
+        let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
         
         parameters.protocols = [Signals.Protocols.VAST_2_0]

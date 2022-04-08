@@ -155,7 +155,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
     func testRequestWithMaxDuration() {
         let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]
-        adConfiguration.maxVideoDuration = 1
+        adConfiguration.videoParameters.maxDuration = SingleContainerInt(integerLiteral: 1)
                 
         let conn = UtilitiesForTesting.createConnectionForMockedTest()
         let adLoadManager = MockPBMAdLoadManagerVAST(connection:conn, adConfiguration: adConfiguration)

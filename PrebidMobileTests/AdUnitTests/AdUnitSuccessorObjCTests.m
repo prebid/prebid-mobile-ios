@@ -55,13 +55,13 @@ NSString * const configId = @"1001-1";
     //given
     BannerAdUnit *bannerAdUnit = [[BannerAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45" size:CGSizeMake(300, 250)];
     
-    PBBannerAdUnitParameters* parameters = [[PBBannerAdUnitParameters alloc] init];
+    BannerParameters* parameters = [[BannerParameters alloc] init];
     parameters.api = @[PBApi.VPAID_1, PBApi.VPAID_2];
     
     bannerAdUnit.parameters = parameters;
     
     //when
-    PBBannerAdUnitParameters* testedBannerParameters = bannerAdUnit.parameters;
+    BannerParameters* testedBannerParameters = bannerAdUnit.parameters;
     
     //then
     XCTAssertNotNil(testedBannerParameters);
@@ -119,7 +119,7 @@ NSString * const configId = @"1001-1";
 }
 
 - (void)checkVideoParametersHelper: (VideoBaseAdUnit*) videoBaseAdUnit {
-    PBVideoAdUnitParameters *parameters = [[PBVideoAdUnitParameters alloc] init];
+    VideoParameters *parameters = [[VideoParameters alloc] init];
     
     parameters.api = @[PBApi.VPAID_1, PBApi.VPAID_2];
     parameters.maxBitrate = [[SingleContainerInt alloc] initWithIntegerLiteral: 1500];
@@ -133,7 +133,7 @@ NSString * const configId = @"1001-1";
     videoBaseAdUnit.parameters = parameters;
     
     //when
-    PBVideoAdUnitParameters* testedParameters = videoBaseAdUnit.parameters;
+    VideoParameters* testedParameters = videoBaseAdUnit.parameters;
     
     //then
     XCTAssertNotNil(testedParameters.api);

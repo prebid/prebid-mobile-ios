@@ -70,6 +70,10 @@
         ret[@"api"] = self.api;
     }
     
+    if (self.playbackmethod > 0) {
+        ret[@"playbackmethod"] = self.playbackmethod;
+    }
+    
     ret = [ret pbmCopyWithoutEmptyVals];
     
     return ret;

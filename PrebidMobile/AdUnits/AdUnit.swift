@@ -19,7 +19,7 @@ import ObjectiveC.runtime
         get { adUnitConfig.getPbAdSlot()}
         set { adUnitConfig.setPbAdSlot(newValue) }
     }
-
+    
     private static let PB_MIN_RefreshTime = 30000.0
 
     var identifier: String

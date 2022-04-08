@@ -216,10 +216,6 @@ PBMParameterKeys const PBMParameterKeysOPEN_RTB = @"openrtb";
     return 1000;
 }
 
-+(NSNumber *)DEFAULT_MAX_VIDEO_DURATION {
-    return [[NSNumber alloc] initWithDouble:3600];
-}
-
 @end
 
 

@@ -28,6 +28,14 @@ public class BannerView: UIView,
     
     // MARK: - Public Properties
     
+    @objc public var bannerParameters: BannerParameters {
+        get { adUnitConfig.adConfiguration.bannerParameters }
+    }
+    
+    @objc public var videoParameters: VideoParameters {
+        get { adUnitConfig.adConfiguration.videoParameters }
+    }
+    
     public var lastBidResponse: BidResponse? {
         adLoadFlowController?.bidResponse
     }
@@ -54,11 +62,6 @@ public class BannerView: UIView,
     @objc public var adPosition: AdPosition {
         get { adUnitConfig.adPosition }
         set { adUnitConfig.adPosition = newValue }
-    }
-    
-    @objc public var videoPlacementType: VideoPlacementType {
-        get { adUnitConfig.adConfiguration.videoPlacementType }
-        set { adUnitConfig.adConfiguration.videoPlacementType = newValue }
     }
     
     @objc public weak var delegate: BannerViewDelegate?

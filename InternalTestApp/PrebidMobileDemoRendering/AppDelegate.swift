@@ -50,9 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 AppConfiguration.shared.adPosition = adPosition
             }
         }
-        
+    
         processArgumentsParser.addOption("VIDEO_PLACEMENT_TYPE", paramsCount: 1, fireOnce: true) { params in
-            if let placementTypeInt = Int(params[0]), let placementType = VideoPlacementType(rawValue: placementTypeInt) {
+            if let placementTypeInt = Int(params[0]), let placementType = Signals.Placement.getPlacementByRawValue(placementTypeInt) {
                 AppConfiguration.shared.videoPlacementType = placementType
             }
         }

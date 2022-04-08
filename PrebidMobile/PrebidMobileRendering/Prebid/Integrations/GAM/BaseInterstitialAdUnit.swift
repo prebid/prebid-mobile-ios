@@ -26,6 +26,14 @@ public class BaseInterstitialAdUnit :
     
     // MARK: - Public Properties
     
+    @objc public var bannerParameters: BannerParameters {
+        get { adUnitConfig.adConfiguration.bannerParameters }
+    }
+    
+    @objc public var videoParameters: VideoParameters {
+        get { adUnitConfig.adConfiguration.videoParameters }
+    }
+    
     public var lastBidResponse: BidResponse? {
         return adLoadFlowController?.bidResponse
     }
@@ -49,11 +57,6 @@ public class BaseInterstitialAdUnit :
         
         objc_sync_exit(blocksLockToken)
         return false
-    }
-
-    @objc public var maxVideoDuration: TimeInterval {
-        get { adUnitConfig.adConfiguration.maxVideoDuration }
-        set { adUnitConfig.adConfiguration.maxVideoDuration = newValue }
     }
 
     @objc public var isMuted: Bool {
@@ -102,7 +105,6 @@ public class BaseInterstitialAdUnit :
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.minSizePerc = minSizePerc
         adUnitConfig.adPosition = .fullScreen
-        adUnitConfig.adConfiguration.videoPlacementType = .sliderOrFloating
         blocksLockToken = NSObject()
 
         self.eventHandler = eventHandler

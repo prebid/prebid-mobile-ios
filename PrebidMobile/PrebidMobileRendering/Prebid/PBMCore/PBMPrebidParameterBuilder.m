@@ -142,17 +142,71 @@
                 if (formats) {
                     nextBanner.format = formats;
                 }
+                
+                BannerParameters *bannerParameters = self.adConfiguration.adConfiguration.bannerParameters;
+                
+                if (bannerParameters.api && bannerParameters.api.count > 0) {
+                    nextBanner.api = bannerParameters.rawAPI;
+                }
+                
                 if (self.adConfiguration.adPosition != AdPositionUndefined) {
                     nextBanner.pos = @(self.adConfiguration.adPosition);
                 }
             } else if (adFormat == AdFormat.video) {
                 PBMORTBVideo * const nextVideo = nextImp.video;
-                nextVideo.linearity = @(1); // -> linear/in-steam
+                
                 if (formats.count) {
                     PBMORTBFormat * const primarySize = (PBMORTBFormat *)formats[0];
                     nextVideo.w = primarySize.w;
                     nextVideo.h = primarySize.h;
                 }
+                
+                VideoParameters *videoParameters = self.adConfiguration.adConfiguration.videoParameters;
+                                
+                if (videoParameters.api && videoParameters.api.count > 0) {
+                    nextVideo.api = videoParameters.rawAPI;
+                }
+                
+                if (videoParameters.maxBitrate) {
+                    nextVideo.maxbitrate = [NSNumber numberWithInteger:videoParameters.maxBitrate.value];
+                }
+                
+                if (videoParameters.minBitrate) {
+                    nextVideo.minbitrate = [NSNumber numberWithInteger:videoParameters.minBitrate.value];
+                }
+                
+                if (videoParameters.maxDuration) {
+                    nextVideo.maxduration = [NSNumber numberWithInteger:videoParameters.maxDuration.value];
+                }
+                
+                if (videoParameters.minDuration) {
+                    nextVideo.minduration = [NSNumber numberWithInteger:videoParameters.minDuration.value];
+                }
+                
+                if (videoParameters.mimes && videoParameters.mimes.count > 0) {
+                    nextVideo.mimes = videoParameters.mimes;
+                }
+                
+                if (videoParameters.playbackMethod && videoParameters.playbackMethod.count > 0) {
+                    nextVideo.playbackmethod = videoParameters.rawPlaybackMethod;
+                }
+                
+                if (videoParameters.protocols && videoParameters.protocols.count > 0) {
+                    nextVideo.protocols = videoParameters.rawProtocols;
+                }
+                
+                if (videoParameters.startDelay) {
+                    nextVideo.startdelay = [NSNumber numberWithInteger:videoParameters.startDelay.value];
+                }
+                
+                if (videoParameters.placement) {
+                    nextVideo.placement = [NSNumber numberWithInteger:videoParameters.placement.value];
+                }
+                
+                if (videoParameters.linearity) {
+                    nextVideo.linearity = [NSNumber numberWithInteger:videoParameters.linearity.value];
+                }
+                
                 if (self.adConfiguration.adPosition != AdPositionUndefined) {
                     nextVideo.pos = @(self.adConfiguration.adPosition);
                 }

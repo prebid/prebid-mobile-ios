@@ -26,9 +26,14 @@ public class AdConfiguration: AutoRefreshCountConfig {
     public var adFormats: Set<AdFormat> = [.display]
     
     /**
-     Placement type for the video.
+     Describes an OpenRTB banner object
      */
-    public var videoPlacementType = VideoPlacementType.undefined
+    public lazy var bannerParameters = BannerParameters()
+    
+    /**
+     Describes an OpenRTB video object
+     */
+    public lazy var videoParameters = VideoParameters()
     
     // MARK: - Interstitial
     
@@ -81,11 +86,6 @@ public class AdConfiguration: AutoRefreshCountConfig {
      This property indicated winning bid ad format (ext.prebid.type)
      */
     public var winningBidAdFormat: AdFormat?
-    
-    /**
-     This property indicates the maximum available playback time in seconds.
-     */
-    public var maxVideoDuration: TimeInterval = PBMVideoConstants.DEFAULT_MAX_VIDEO_DURATION.doubleValue
     
     /**
      This property indicates whether the ad should run playback with sound or not.

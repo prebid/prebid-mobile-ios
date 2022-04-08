@@ -104,6 +104,10 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         let adUnit = InterstitialRenderingAdUnit.init(configID: "configId")
         adUnit.adFormats = [.video]
         let adConfiguration = adUnit.adUnitConfig.adConfiguration
+        let parameters = VideoParameters()
+        parameters.placement = .Interstitial
+        parameters.linearity = 1
+        adConfiguration.videoParameters = parameters
         
         //Run the Builder
         let sdkConfiguration = Prebid.mock
@@ -131,7 +135,6 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
         PBMAssertEq(video.protocols, [2,5])
-        PBMAssertEq(video.placement, 5)
         PBMAssertEq(video.delivery!, [3])
         PBMAssertEq(video.pos, 7)
     }
@@ -258,20 +261,16 @@ class PBMBasicParameterBuilderTest: XCTestCase {
     }
     
     func testParameterBuilderVideoPlacement() {
-        self.testParameterBuilderVideo(placement: .undefined,
+        self.testParameterBuilderVideo(placement: nil,
                                        isInterstitial: false,
                                        expectedPlacement: 0)
         
-        self.testParameterBuilderVideo(placement: .inFeed,
-                                       isInterstitial: false,
-                                       expectedPlacement: 4)
-        
-        self.testParameterBuilderVideo(placement: .undefined,
+        self.testParameterBuilderVideo(placement: nil,
                                        isInterstitial: true,
-                                       expectedPlacement: 5)
+                                       expectedPlacement: 0)
     }
     
-    func testParameterBuilderVideo(placement: VideoPlacementType,
+    func testParameterBuilderVideo(placement: Signals.Placement?,
                                    isInterstitial: Bool,
                                    expectedPlacement:Int) {
         
@@ -279,12 +278,15 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         if (isInterstitial) {
             let adUnit = InterstitialRenderingAdUnit.init(configID: "configId")
             adUnit.adFormats = [.video]
+            if let placement = placement {
+                adUnit.videoParameters.placement = placement
+            }
             adConfiguration = adUnit.adUnitConfig.adConfiguration
         } else {
             let adUnit = BannerView.init(frame: CGRect.zero, configID: "configId", adSize: CGSize.zero)
             adUnit.adFormat = .video
-            if (placement != .undefined) {
-                adUnit.videoPlacementType = placement
+            if let placement = placement {
+                adUnit.videoParameters.placement = placement
             }
             adConfiguration = adUnit.adUnitConfig.adConfiguration
         }
@@ -307,7 +309,6 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         } else {
             PBMAssertEq(video.placement?.intValue, expectedPlacement)
         }
-        
     }
     
     func testParameterBuilderDeprecatedProperties() {

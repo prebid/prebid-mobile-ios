@@ -77,7 +77,7 @@ public class AdUnitConfig: NSObject, NSCopying {
             }
         }
     }
-    
+
     // MARK: - Public Methods
     
     public convenience init(configId: String) {
@@ -234,11 +234,11 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.adFormats = self.adConfiguration.adFormats
         clone.adConfiguration.isInterstitialAd = self.adConfiguration.isInterstitialAd
         clone.adConfiguration.isOptIn = self.adConfiguration.isOptIn
-        clone.adConfiguration.videoPlacementType = self.adConfiguration.videoPlacementType
         clone.nativeAdConfiguration = self.nativeAdConfiguration
+        clone.adConfiguration.bannerParameters = self.adConfiguration.bannerParameters
+        clone.adConfiguration.videoParameters = self.adConfiguration.videoParameters
         clone.adConfiguration.isMuted = self.adConfiguration.isMuted
         clone.adConfiguration.isSoundButtonVisible = self.adConfiguration.isSoundButtonVisible
-        clone.adConfiguration.maxVideoDuration = self.adConfiguration.maxVideoDuration
         clone.adConfiguration.closeButtonPosition = self.adConfiguration.closeButtonPosition
         clone.adConfiguration.closeButtonArea = self.adConfiguration.closeButtonArea
         clone.adConfiguration.skipButtonArea = self.adConfiguration.skipButtonArea

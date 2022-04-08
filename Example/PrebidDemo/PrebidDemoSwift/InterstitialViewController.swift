@@ -260,7 +260,7 @@ class InterstitialViewController:
         setupPB(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
         
         let adUnit = VideoInterstitialAdUnit(configId: "1001-1")
-        let parameters = VideoBaseAdUnit.Parameters()
+        let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
         
         parameters.protocols = [Signals.Protocols.VAST_2_0]

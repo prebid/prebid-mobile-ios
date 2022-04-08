@@ -58,10 +58,6 @@ class PBMConstantsTests: XCTestCase {
         XCTAssertEqual(PBMVideoConstants.VIDEO_TIMESCALE, 1000)
     }
     
-    func testPBMDefaultVideoMaxDuration() {
-        XCTAssertEqual(PBMVideoConstants.DEFAULT_MAX_VIDEO_DURATION, 3600)
-    }
-    
     func testPBMGeoLocationConstants() {
         XCTAssertEqual(GeoLocationConstants.DISTANCE_FILTER, 50.0)
     }
