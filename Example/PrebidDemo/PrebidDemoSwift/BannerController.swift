@@ -122,9 +122,10 @@ class BannerController:
     }
     
     func setupAndLoadGAMBanner() {
-        setupRubiconBanner(width: width, height: height)
-        setupGAMBannerRubicon(width: width, height: height)
+        setupBannerAdUnit()
         
+        setupGAMBanner(width: 320, height: 50, adUnitId: "/21808260008/prebid_demo_app_original_api_banner")
+
         loadGAMBanner()
     }
     
@@ -159,29 +160,12 @@ class BannerController:
     
     // MARK: Setup PBS
     
-    func setupAppNexusBanner(width: Int, height: Int) {
-        setupBannerAdUnit(host: .Appnexus,
-                          accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0",
-                          configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45",
-                          storedResponse: "",
-                          width: width, height: height)
-    }
-
-    func setupRubiconBanner(width: Int, height: Int) {
-        setupBannerAdUnit(host: .Rubicon,
-                          accountId: "1001",
-                          configId: "1001-1",
-                          storedResponse: "1001-rubicon-300x250",
-                          width: width, height: height)
-    }
-    
-    func setupBannerAdUnit(host: PrebidHost, accountId: String, configId: String, storedResponse: String, width: Int, height: Int) {
+    func setupBannerAdUnit() {
         
-        setupPrebidServer(host: host,
-                          accountId: accountId,
-                          storedResponse: storedResponse)
+        setupPrebidServer()
         
-        let bannerAdUnit = BannerAdUnit(configId: configId, size: CGSize(width: width, height: height))
+        let bannerAdUnit = BannerAdUnit(configId: "imp-prebid-banner-320-50",
+                                        size: CGSize(width: 320, height: 50))
         
         let parameters = BannerParameters()
 
@@ -195,10 +179,8 @@ class BannerController:
         toggleRefreshButton.isHidden = false
     }
 
-    func setupPrebidServer(host: PrebidHost, accountId: String, storedResponse: String) {
-        Prebid.shared.prebidServerHost = host
-        Prebid.shared.prebidServerAccountId = accountId
-        Prebid.shared.storedAuctionResponse = storedResponse
+    func setupPrebidServer() {
+        setupPrebidRenderingBanner()
     }
     
     // MARK: Setup PBS Rendering
@@ -311,7 +293,7 @@ class BannerController:
 
     func setupPBRubiconBannerVAST(width: Int, height: Int) {
 
-        setupPrebidServer(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
+        setupPrebidServer()
 
         let adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: width, height: height))
 
