@@ -162,7 +162,6 @@ class PrebidParameterBuilderTest: XCTestCase {
         parameters.maxDuration = 10
         parameters.minBitrate = 1
         parameters.maxBitrate = 10
-        parameters.protocols = [Signals.Protocols.VAST_1_0]
         parameters.startDelay = Signals.StartDelay.GenericMidRoll
         
         adUnitConfig.adConfiguration.videoParameters = parameters
@@ -195,8 +194,11 @@ class PrebidParameterBuilderTest: XCTestCase {
         PBMAssertEq(video.maxduration, 10)
         PBMAssertEq(video.minbitrate, 1)
         PBMAssertEq(video.maxbitrate, 10)
-        PBMAssertEq(video.protocols, [1])
+        PBMAssertEq(video.protocols, [2, 5])
         PBMAssertEq(video.startdelay, -1)
+        PBMAssertEq(video.mimes, PBMConstants.supportedVideoMimeTypes)
+        PBMAssertEq(video.playbackend, 2)
+        PBMAssertEq(video.delivery, [3])
         XCTAssertEqual(video.pos.intValue, AdPosition.header.rawValue)
         XCTAssertEqual(video.pos.intValue, 4)
     }
