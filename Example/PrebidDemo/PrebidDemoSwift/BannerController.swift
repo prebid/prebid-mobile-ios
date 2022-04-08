@@ -189,7 +189,7 @@ class BannerController:
         Prebid.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
         try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
         
-        Prebid.shared.storedAuctionResponse = "response-prebid-banner-320-50"
+        Prebid.shared.storedAuctionResponse = "response-prebid-banner-320-50-original"
     }
 
     // MARK: Setup AdServer - GAM
