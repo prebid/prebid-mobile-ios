@@ -235,8 +235,8 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.adConfiguration.isInterstitialAd = self.adConfiguration.isInterstitialAd
         clone.adConfiguration.isOptIn = self.adConfiguration.isOptIn
         clone.nativeAdConfiguration = self.nativeAdConfiguration
-        clone.adConfiguration.bannerParameters = clone.adConfiguration.bannerParameters
-        clone.adConfiguration.videoParameters = clone.adConfiguration.videoParameters
+        clone.adConfiguration.bannerParameters = self.adConfiguration.bannerParameters
+        clone.adConfiguration.videoParameters = self.adConfiguration.videoParameters
         clone.adConfiguration.isMuted = self.adConfiguration.isMuted
         clone.adConfiguration.isSoundButtonVisible = self.adConfiguration.isSoundButtonVisible
         clone.adConfiguration.closeButtonPosition = self.adConfiguration.closeButtonPosition
