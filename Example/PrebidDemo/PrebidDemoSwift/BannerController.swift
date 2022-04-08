@@ -339,8 +339,7 @@ class BannerController:
                               adSize: CGSize(width: 300, height: 250))
         
         prebidBannerView.adFormat = .video
-        prebidBannerView.videoParameters = VideoParameters()
-        prebidBannerView.videoParameters?.placement = .InBanner
+        prebidBannerView.videoParameters.placement = .InBanner
                                 
         prebidBannerView.delegate = self
         

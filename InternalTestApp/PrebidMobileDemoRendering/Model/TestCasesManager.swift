@@ -1217,8 +1217,7 @@ struct TestCaseManager {
                         let adBannerView = BannerView(frame: CGRect(origin: .zero, size: adSize),configID: prebidConfigId,adSize: adSize)
                         
                         adBannerView.adFormat = .video
-                        adBannerView.videoParameters = VideoParameters()
-                        adBannerView.videoParameters?.placement = .InFeed
+                        adBannerView.videoParameters.placement = .InFeed
                         adBannerView.delegate = feedVC
                         adBannerView.accessibilityIdentifier = "PrebidBannerView"
                         
@@ -1369,8 +1368,7 @@ struct TestCaseManager {
                         let adEventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitId, validGADAdSizes: [NSValueFromGADAdSize(validAdSize)])
                         let adBannerView = BannerView(configID: prebidConfigId,eventHandler: adEventHandler)
                         adBannerView.adFormat = .video
-                        adBannerView.videoParameters = VideoParameters()
-                        adBannerView.videoParameters?.placement = .InFeed
+                        adBannerView.videoParameters.placement = .InFeed
                         adBannerView.delegate = feedVC
                         adBannerView.accessibilityIdentifier = "PrebidBannerView"
                         

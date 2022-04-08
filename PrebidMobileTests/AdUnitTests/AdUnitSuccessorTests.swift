@@ -57,7 +57,7 @@ class AdUnitSuccessorTests: XCTestCase {
         let testedBannerParameters = bannerAdUnit.parameters
         
         //then
-        guard let bannerparameters = testedBannerParameters, let api = bannerparameters.api else {
+        guard let api = testedBannerParameters.api else {
             XCTFail("parsing fail")
             return
         }
@@ -147,21 +147,20 @@ class AdUnitSuccessorTests: XCTestCase {
         videoBaseAdUnit.parameters = parameters
         
         //when
-        let testedVideoParameters = videoBaseAdUnit.parameters
+        let videoParameters = videoBaseAdUnit.parameters
         
         //then
-        guard let videoParameters = testedVideoParameters,
-            let api = videoParameters.api,
-            let maxBitrate = videoParameters.maxBitrate,
-            let minBitrate = videoParameters.minBitrate,
-            let maxDuration = videoParameters.maxDuration,
-            let minDuration = videoParameters.minDuration,
-            let mimes = videoParameters.mimes,
-            let playbackMethod = videoParameters.playbackMethod,
-            let protocols = videoParameters.protocols,
-            let startDelay = videoParameters.startDelay else {
-                XCTFail("parsing fail")
-                return
+        guard let api = videoParameters.api,
+              let maxBitrate = videoParameters.maxBitrate,
+              let minBitrate = videoParameters.minBitrate,
+              let maxDuration = videoParameters.maxDuration,
+              let minDuration = videoParameters.minDuration,
+              let mimes = videoParameters.mimes,
+              let playbackMethod = videoParameters.playbackMethod,
+              let protocols = videoParameters.protocols,
+              let startDelay = videoParameters.startDelay else {
+            XCTFail("parsing fail")
+            return
         }
         
         XCTAssertEqual(2, api.count)

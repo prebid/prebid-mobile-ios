@@ -14,7 +14,7 @@ import Foundation
 
 public class BannerBaseAdUnit: AdUnit {
 
-    public var parameters: BannerParameters? {
+    public var parameters: BannerParameters {
         get { adUnitConfig.adConfiguration.bannerParameters }
         set { adUnitConfig.adConfiguration.bannerParameters = newValue }
     }

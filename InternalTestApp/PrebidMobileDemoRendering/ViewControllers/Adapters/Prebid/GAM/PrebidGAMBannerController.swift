@@ -80,8 +80,7 @@ class PrebidGAMBannerController: NSObject, AdaptedController, PrebidConfigurable
             adBannerView?.adFormat = adFormat
             
             if adFormat == .video {
-                adBannerView?.videoParameters = VideoParameters()
-                adBannerView?.videoParameters?.placement = AppConfiguration.shared.videoPlacementType ?? .InBanner
+                adBannerView?.videoParameters.placement = AppConfiguration.shared.videoPlacementType ?? .InBanner
             }
         }
        

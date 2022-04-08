@@ -17,7 +17,7 @@ import UIKit
 
 public class VideoBaseAdUnit: AdUnit {
 
-    public var parameters: VideoParameters? {
+    public var parameters: VideoParameters {
         get { adUnitConfig.adConfiguration.videoParameters }
         set { adUnitConfig.adConfiguration.videoParameters = newValue }
     }
