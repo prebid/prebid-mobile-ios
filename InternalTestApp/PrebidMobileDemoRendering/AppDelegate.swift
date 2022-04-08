@@ -16,10 +16,12 @@
 import UIKit
 import CoreLocation
 import GoogleMobileAds
+import AppLovinSDK
 
 import PrebidMobile
 import PrebidMobileAdMobAdapters
 import PrebidMobileGAMEventHandlers
+import PrebidMobileMAXAdapters
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -101,6 +103,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GAMUtils.shared.initializeGAM()
         
         AdMobUtils.initializeGAD()
+        
+        ALSdk.shared()?.mediationProvider = "max"
+        ALSdk.shared()?.userIdentifier = "USER_ID"
+        ALSdk.shared()?.initializeSdk { (configuration: ALSdkConfiguration) in
+            Log.info(String(describing: ALSdk.shared()?.isInitialized))
+        }
         
         // Prebid Rendering Configs
         Prebid.shared.logLevel = .info

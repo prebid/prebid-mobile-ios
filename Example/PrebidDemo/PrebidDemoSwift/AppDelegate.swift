@@ -17,8 +17,10 @@ import UIKit
 import PrebidMobile
 import CoreLocation
 import GoogleMobileAds
+import AppLovinSDK
 import PrebidMobileGAMEventHandlers
 import PrebidMobileAdMobAdapters
+import PrebidMobileMAXAdapters
 #if canImport(AppTrackingTransparency)
 import AppTrackingTransparency
 #endif
@@ -61,6 +63,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AdMobUtils.initializeGAD()
         GAMUtils.shared.initializeGAM()
+        
+        ALSdk.shared()?.mediationProvider = "max"
+        ALSdk.shared()?.userIdentifier = "USER_ID"
+        ALSdk.shared()?.initializeSdk { (configuration: ALSdkConfiguration) in
+            Log.info(String(describing: ALSdk.shared()?.isInitialized))
+        }
 
         coreLocation = CLLocationManager()
         coreLocation?.requestWhenInUseAuthorization()
