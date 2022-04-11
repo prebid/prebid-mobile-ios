@@ -10,10 +10,8 @@
 
 @import PrebidMobile;
 @import GoogleMobileAds;
-@import AppLovinSDK;
 @import PrebidMobileGAMEventHandlers;
 @import PrebidMobileAdMobAdapters;
-@import PrebidMobileMAXAdapters;
 
 @interface RenderingBannerViewController () <BannerViewDelegate>
 
@@ -26,14 +24,9 @@
 
 // AdMob
 @property (nonatomic, strong) GADBannerView *gadBannerView;
-@property (nonatomic, strong) AdMobMediationBannerUtils *admobMediationDelegate;
+@property (nonatomic, strong) AdMobMediationBannerUtils *mediationDelegate;
 @property (nonatomic, strong) GADRequest *gadRequest;
 @property (nonatomic, strong) MediationBannerAdUnit *admobBannerAdUnit;
-
-// MAX
-@property (nonatomic, strong) MAAdView *maxBannerView;
-@property (nonatomic, strong) MAXMediationBannerUtils *maxMediationDelegate;
-@property (nonatomic, strong) MediationBannerAdUnit *maxBannerAdUnit;
 
 @end
 
@@ -52,7 +45,7 @@
         case IntegrationKind_InApp          : [self loadInAppBanner]            ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingBanner]     ; break;
         case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingBanner]   ; break;
-        case IntegrationKind_RenderingMAX   : [self loadMAXRenderingBanner]     ; break;
+        case IntegrationKind_RenderingMAX   : break;
 
         default:
             break;
@@ -112,34 +105,17 @@
     self.gadBannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
     self.gadBannerView.adUnitID = @"ca-app-pub-5922967660082475/9483570409";
     self.gadRequest = [GADRequest new];
-    self.admobMediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest bannerView:self.gadBannerView];
-    self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"50699c03-0910-477c-b4a4-911dbe2b9d42" size:self.size mediationDelegate:self.admobMediationDelegate];
+    self.mediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest bannerView:self.gadBannerView];
+    self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"50699c03-0910-477c-b4a4-911dbe2b9d42" size:self.size mediationDelegate:self.mediationDelegate];
     
     [self.admobBannerAdUnit fetchDemandWithCompletion:^(ResultCode result) {
         GADCustomEventExtras *extras = [GADCustomEventExtras new];
-        NSDictionary *prebidExtras = [self.admobMediationDelegate getEventExtras];
+        NSDictionary *prebidExtras = [self.mediationDelegate getEventExtras];
         NSString *prebidExtrasLabel = AdMobConstants.PrebidAdMobEventExtrasLabel;
         [extras setExtras:prebidExtras forLabel: prebidExtrasLabel];
         [self.gadRequest registerAdNetworkExtras:extras];
         [self.gadBannerView loadRequest:self.gadRequest];
     }];
-    
-    [self.adView addSubview:self.gadBannerView];
-}
-
-- (void)loadMAXRenderingBanner {
-    self.maxBannerView = [[MAAdView alloc] initWithAdUnitIdentifier:@"5f111f4bcd0f58ca"];
-    self.maxMediationDelegate = [[MAXMediationBannerUtils alloc] initWithAdView:self.maxBannerView];
-    self.maxBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"50699c03-0910-477c-b4a4-911dbe2b9d42" size:self.size mediationDelegate:self.maxMediationDelegate];
-    
-    [self.maxBannerAdUnit fetchDemandWithCompletion:^(ResultCode result) {
-        if (result != ResultCodePrebidDemandFetchSuccess) {
-            return;
-        }
-        [self.maxBannerView loadAd];
-    }];
-    
-    [self.adView addSubview:self.maxBannerView];
 }
 
 #pragma mark - BannerViewDelegate
