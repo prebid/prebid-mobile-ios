@@ -21,6 +21,12 @@ extension PrebidMAXMediationAdapter: MAAdViewAdapter, DisplayViewLoadingDelegate
 
     public func loadAdViewAd(for parameters: MAAdapterResponseParameters, adFormat: MAAdFormat, andNotify delegate: MAAdViewAdapterDelegate) {
         bannerDelegate = delegate
+        
+        guard let serverParameter = parameters.serverParameters[MAXCustomParametersKey] as? [String: String] else {
+            let error = MAAdapterError(nsError: MAXAdaptersError.noServerParameter)
+            bannerDelegate?.didFailToLoadAdViewAdWithError(error)
+            return
+        }
                 
         guard let bid = parameters.localExtraParameters[PBMMediationAdUnitBidKey] as? Bid else {
             let error = MAAdapterError(nsError: MAXAdaptersError.noBidInLocalExtraParameters)
@@ -28,13 +34,13 @@ extension PrebidMAXMediationAdapter: MAAdViewAdapter, DisplayViewLoadingDelegate
             return
         }
         
-        guard let serverParameter = parameters.serverParameters[MAXCustomParametersKey] as? [String: String] else {
-            let error = MAAdapterError(nsError: MAXAdaptersError.noServerParameter)
+        guard let targetingInfo = bid.targetingInfo else {
+            let error = MAAdapterError(nsError: MAXAdaptersError.noTargetingInfoInBid)
             bannerDelegate?.didFailToLoadAdViewAdWithError(error)
             return
         }
         
-        guard MAXUtils.isServerParameterInTargetingInfo(serverParameter, bid.targetingInfo) else {
+        guard MAXUtils.isServerParameterInTargetingInfo(serverParameter, targetingInfo) else {
             let error = MAAdapterError(nsError: MAXAdaptersError.wrongServerParameter)
             bannerDelegate?.didFailToLoadAdViewAdWithError(error)
             return

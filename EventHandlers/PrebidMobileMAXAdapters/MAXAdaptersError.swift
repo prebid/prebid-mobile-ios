@@ -16,7 +16,7 @@
 import Foundation
 
 enum MAXAdaptersError {
-    case noKeywordsInLocalExtraParameters
+    case noTargetingInfoInBid
     case noServerParameter
     case wrongServerParameter
     case noBidInLocalExtraParameters
@@ -27,12 +27,12 @@ extension MAXAdaptersError: LocalizedError {
     
     public var errorDescription: String? {
         switch self {
-        case .noKeywordsInLocalExtraParameters:
-            return "There is no user keywords in local extra parameters"
+        case .noTargetingInfoInBid:
+            return "There is no targeting info in bid"
         case .noServerParameter:
             return "There is no server parameter in local extra parameters"
         case .wrongServerParameter:
-            return "User keywords don't contain server parameter"
+            return "Targeting info doesn't contain server parameter"
         case .noBidInLocalExtraParameters:
             return "Bid object is absent in the local extra parameters"
         case .noConfigIdInLocalExtraParameters:

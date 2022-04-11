@@ -20,14 +20,14 @@ import AppLovinSDK
 @objcMembers
 public class MAXUtils: NSObject {
     
-    static func isServerParameterInTargetingInfo(_ serverParametersDictionary: [String: String]?, _ targetingInfoDictionary: [String: String]?) -> Bool {
+    static func isServerParameterInTargetingInfo(_ serverParametersDictionary: [String: String], _ targetingInfoDictionary: [String: String]) -> Bool {
         
-        guard let serverParametersDictionary = serverParametersDictionary, !serverParametersDictionary.isEmpty else {
+        guard !serverParametersDictionary.isEmpty else {
             Log.warn("Server parameters dictionary is empty")
             return false
         }
         
-        guard let targetingInfoDictionary = targetingInfoDictionary, !targetingInfoDictionary.isEmpty else {
+        guard !targetingInfoDictionary.isEmpty else {
             Log.warn("Targeting info dictionary is empty")
             return false
         }
