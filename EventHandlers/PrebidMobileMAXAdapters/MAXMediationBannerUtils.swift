@@ -22,6 +22,9 @@ public class MAXMediationBannerUtils: NSObject, PrebidMediationDelegate {
     
     public var adView: MAAdView
     
+    private var configIdKey = ""
+    private var extrasObjectKey = ""
+    
     public init(adView: MAAdView) {
         self.adView = adView
         super.init()
@@ -30,6 +33,8 @@ public class MAXMediationBannerUtils: NSObject, PrebidMediationDelegate {
     public func setUpAdObject(configId: String, configIdKey: String,
                               targetingInfo: [String: String], extrasObject: Any?,
                               extrasObjectKey: String) -> Bool {
+        self.configIdKey = configIdKey
+        self.extrasObjectKey = extrasObjectKey
         
         adView.setLocalExtraParameterForKey(configIdKey, value: configId)
         adView.setLocalExtraParameterForKey(extrasObjectKey, value: extrasObject)
@@ -38,7 +43,8 @@ public class MAXMediationBannerUtils: NSObject, PrebidMediationDelegate {
     }
     
     public func cleanUpAdObject() {
-        
+        adView.setLocalExtraParameterForKey(configIdKey, value: nil)
+        adView.setLocalExtraParameterForKey(extrasObjectKey, value: nil)
     }
     
     public func getAdView() -> UIView? {
