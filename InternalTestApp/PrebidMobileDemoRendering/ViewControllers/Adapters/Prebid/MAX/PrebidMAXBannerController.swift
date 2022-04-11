@@ -35,6 +35,7 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
     var adUnitSize = CGSize()
 
     private var adBannerView: MAAdView?
+    private var prebidBanner: PBMDisplayView?
     
     private var adUnit: MediationBannerAdUnit?
     private var mediationDelegate: MAXMediationBannerUtils?
