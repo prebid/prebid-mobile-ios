@@ -17,8 +17,6 @@ import UIKit
 import PrebidMobile
 import AppLovinSDK
 
-public let PBMVCForModalPresentationKey = "PBM_MODAL_VC"
-
 @objcMembers
 public class MAXMediationBannerUtils: NSObject, PrebidMediationDelegate {
     

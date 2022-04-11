@@ -96,6 +96,7 @@
 		92700C8F273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7A273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift */; };
 		92700C90273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7B273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift */; };
 		92700C91273C029F0006E9FA /* PrebidExamplesUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */; };
+		9289873F28003C250062BFAA /* PrebidMAXBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9289873E28003C250062BFAA /* PrebidMAXBannerController.swift */; };
 		929638FB27AC27FC00D30F3D /* OpenXMockServer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92ABD58C279DA7E200AFDFF6 /* AdMobNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABD58A279DA7E200AFDFF6 /* AdMobNativeAdView.swift */; };
 		92ABD58D279DA7E200AFDFF6 /* AdMobNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92ABD58B279DA7E200AFDFF6 /* AdMobNativeAdView.xib */; };
@@ -296,6 +297,7 @@
 		92700C7A273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAID3MethodsUITest.swift; sourceTree = "<group>"; };
 		92700C7B273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAIDResizeWithErrorsUITest.swift; sourceTree = "<group>"; };
 		92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidExamplesUITest.swift; sourceTree = "<group>"; };
+		9289873E28003C250062BFAA /* PrebidMAXBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMAXBannerController.swift; sourceTree = "<group>"; };
 		92ABD58A279DA7E200AFDFF6 /* AdMobNativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdMobNativeAdView.swift; sourceTree = "<group>"; };
 		92ABD58B279DA7E200AFDFF6 /* AdMobNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdMobNativeAdView.xib; sourceTree = "<group>"; };
 		92C475112796FF8400C26E27 /* PrebidAdMobNativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobNativeViewController.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 				AC4F254A25E0112C0095C601 /* NativeAdViewBoxProtocol.swift */,
 				92E92500276B2986002B57F3 /* AdMob */,
 				3493021A2473F2FB004A6086 /* GAM */,
+				9289873D28003BFE0062BFAA /* MAX */,
 				3493022024740BD8004A6086 /* OpenX */,
 			);
 			path = Prebid;
@@ -652,6 +655,14 @@
 				92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */,
 			);
 			path = UITests;
+			sourceTree = "<group>";
+		};
+		9289873D28003BFE0062BFAA /* MAX */ = {
+			isa = PBXGroup;
+			children = (
+				9289873E28003C250062BFAA /* PrebidMAXBannerController.swift */,
+			);
+			path = MAX;
 			sourceTree = "<group>";
 		};
 		92ABD589279DA7E200AFDFF6 /* NativeView */ = {
@@ -1199,6 +1210,7 @@
 				34E5698A237DB96900B47B01 /* UtilitiesViewController.swift in Sources */,
 				92ABD58C279DA7E200AFDFF6 /* AdMobNativeAdView.swift in Sources */,
 				34BA95FE249CBF05006AE372 /* PrebidGAMInterstitialController.swift in Sources */,
+				9289873F28003C250062BFAA /* PrebidMAXBannerController.swift in Sources */,
 				34BAD451239547420042DB33 /* IABConsentHelper.swift in Sources */,
 				92102C7227B11B67003F12B2 /* PrebidNativeAdController.swift in Sources */,
 				926CBF20278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift in Sources */,

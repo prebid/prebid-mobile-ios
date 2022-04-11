@@ -77,6 +77,7 @@ class PrebidAdMobBannerViewController:
         
         setupAdapterController()
     }
+    
     deinit {
         Prebid.shared.storedAuctionResponse = nil
     }
