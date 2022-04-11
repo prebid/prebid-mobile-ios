@@ -59,8 +59,6 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
         switch integrationKind {
         case .originalGAM:
             setupAndLoadAMInstreamVideo()
-        case .originalAdMob:
-            print("TODO: Add Example")
         case .inApp:
             print("TODO: Add Example")
         case .renderingGAM:

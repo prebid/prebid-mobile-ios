@@ -2195,7 +2195,9 @@
 		5BC3772D271F1CFE00444D5E /* AdView */ = {
 			isa = PBXGroup;
 			children = (
+				92C3A83727F98B9700DC05E9 /* AdConfiguration.swift */,
 				5BC37778271F1CFE00444D5E /* AdLoadManager */,
+				5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */,
 				925A641527317A39009E72F9 /* HiddenWebViewManager.swift */,
 				5BC37745271F1CFE00444D5E /* Modals */,
 				5BC3776E271F1CFE00444D5E /* PBMAbstractCreative.h */,
@@ -2248,10 +2250,8 @@
 				5BC37740271F1CFE00444D5E /* PBMWebViewDelegate.h */,
 				5BC37782271F1CFE00444D5E /* PBMWKNavigationActionCompatible.h */,
 				5BC3776F271F1CFE00444D5E /* PBMWKWebViewCompatible.h */,
-				5BC3777F271F1CFE00444D5E /* WKWebView+PBMWKWebViewCompatible.h */,
-				5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */,
-				92C3A83727F98B9700DC05E9 /* AdConfiguration.swift */,
 				92EE5A0C27F9D292003D7691 /* Position.swift */,
+				5BC3777F271F1CFE00444D5E /* WKWebView+PBMWKWebViewCompatible.h */,
 				9247FEFD2808175E00ACD84A /* VideoControlsConfiguration.swift */,
 			);
 			path = AdView;

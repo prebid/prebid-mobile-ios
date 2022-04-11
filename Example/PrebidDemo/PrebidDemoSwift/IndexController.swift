@@ -20,7 +20,6 @@ import UIKit
 enum IntegrationKind: String, CaseIterable {
     
     case originalGAM    = "GAM"
-    case originalAdMob = "AdMob"
     
     case inApp          = "In-App"
     case renderingGAM   = "GAM (R)"
@@ -119,11 +118,14 @@ class IndexController: UIViewController {
     func updateCasesList(for integrationKind: IntegrationKind) {
         
         let isRendering =   integrationKind == .inApp ||
-                            integrationKind == .renderingGAM
+                            integrationKind == .renderingGAM ||
+                            integrationKind == .renderingAdMob
                 
         bannerNative.isHidden   = isRendering
         inAppNative.isHidden    = isRendering
         instreamVideo.isHidden  = isRendering
+        
+        bannerVideo.isHidden = integrationKind == .renderingAdMob
     }
 
 }

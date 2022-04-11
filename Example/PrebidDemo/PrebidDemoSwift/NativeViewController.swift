@@ -35,8 +35,6 @@ class NativeViewController: UIViewController, GADBannerViewDelegate {
         switch integrationKind {
         case .originalGAM:
             loadDFPNative()
-        case .originalAdMob:
-            print("TODO: Add Example")
         case .inApp:
             print("TODO: Add Example")
         case .renderingGAM:

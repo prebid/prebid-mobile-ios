@@ -50,7 +50,6 @@ class RewardedVideoController:
         
         switch integrationKind {
         case .originalGAM       : setupAndLoadGAMRewardedVideo()
-        case .originalAdMob     : print("TODO: Add Example")
         case .inApp             : setupAndLoadInAppRewarded()
         case .renderingGAM      : setupAndLoadGAMRenderingRewarded()
         case .renderingAdMob    : setupAndLoadAdMobRenderingRewardedVideo()

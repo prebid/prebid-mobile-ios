@@ -61,7 +61,6 @@ class InterstitialViewController:
         
         switch integrationKind {
         case .originalGAM       : setupAndLoadGAM()
-        case .originalAdMob     : print("There is no way to integrate original API with AdMob")
         case .inApp             : setupAndLoadInAppInterstitial()
         case .renderingGAM      : setupAndLoadGAMRenderingInterstitial()
         case .renderingAdMob    : setupAndLoadAdMobRenderingInterstitial()
