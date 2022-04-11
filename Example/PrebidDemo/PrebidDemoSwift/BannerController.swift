@@ -18,9 +18,11 @@ import UIKit
 import PrebidMobile
 
 import GoogleMobileAds
+import AppLovinSDK
 
 import PrebidMobileGAMEventHandlers
 import PrebidMobileAdMobAdapters
+import PrebidMobileMAXAdapters
 
 enum AdFormat: Int {
     case html
@@ -30,8 +32,10 @@ enum AdFormat: Int {
 class BannerController:
         UIViewController,
         GADBannerViewDelegate,      // GMA SDK
-        BannerViewDelegate          // Prebid Rendering
+        BannerViewDelegate,         // Prebid Rendering
+        MAAdViewAdDelegate          // Applovin MAX
 {
+    
     // MARK: - UI Properties
     
     @IBOutlet var appBannerView: UIView!
@@ -65,7 +69,12 @@ class BannerController:
     private var gadBanner: GADBannerView!
     private let gadRequest = GADRequest()
     private var prebidAdMobMediaitonAdUnit: MediationBannerAdUnit!
-    private var mediationDelegate: AdMobMediationBannerUtils!
+    private var admobMediationDelegate: AdMobMediationBannerUtils!
+    
+    // MAX
+    private var maxBannerView: MAAdView!
+    private var prebidMAXAdUnit: MediationBannerAdUnit!
+    private var maxMediationDelegate: MAXMediationBannerUtils!
         
     // MARK: - UIViewController
 
@@ -80,7 +89,7 @@ class BannerController:
             case .inApp             : setupAndLoadInAppBanner()
             case .renderingGAM      : setupAndLoadGAMRendering()
             case .renderingAdMob    : setupAndLoadAdMobRendering()
-            case .renderingMAX      : print("TODO: Add Example")
+            case .renderingMAX      : setupAndLoadMAXRendering()
             
             case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
@@ -155,6 +164,13 @@ class BannerController:
         
         setupAdMobBanner(adUnitId: "ca-app-pub-5922967660082475/9483570409", width: 320, height: 50)
         loadAdMobRenderingBanner()
+    }
+    
+    func setupAndLoadMAXRendering() {
+        setupOpenxRenderingBanner()
+        
+        setupMAXBanner(adUnitId: "5f111f4bcd0f58ca", width: 320, height: 50)
+        loadMAXRenderingBanner()
     }
     
     // MARK: Setup PBS
@@ -232,6 +248,13 @@ class BannerController:
         gadBanner.adUnitID = adUnitId
     }
     
+    // MARK: Setup AdServer - MAX
+    
+    func setupMAXBanner(adUnitId: String, width: Int, height: Int) {
+        maxBannerView = MAAdView(adUnitIdentifier: adUnitId)
+        maxBannerView.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
+    }
+    
     // MARK: Load
     
     func loadGAMBanner() {
@@ -286,17 +309,38 @@ class BannerController:
         
         let size = CGSize(width: 320, height: 50)
         
-        mediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: gadBanner)
-        prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: "50699c03-0910-477c-b4a4-911dbe2b9d42", size: size, mediationDelegate: mediationDelegate)
+        admobMediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: gadBanner)
+        prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: "50699c03-0910-477c-b4a4-911dbe2b9d42", size: size, mediationDelegate: admobMediationDelegate)
         
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
             let extras = GADCustomEventExtras()
-            let prebidExtras = self?.mediationDelegate.getEventExtras()
+            let prebidExtras = self?.admobMediationDelegate.getEventExtras()
             extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
             self?.gadRequest.register(extras)
             self?.gadBanner.load(self?.gadRequest)
         }
         
+    }
+    
+    func loadMAXRenderingBanner() {
+        maxBannerView.delegate = self
+        appBannerView.addSubview(maxBannerView)
+        maxBannerView.backgroundColor = .red
+        
+        let size = CGSize(width: 320, height: 50)
+        
+        maxMediationDelegate = MAXMediationBannerUtils(adView: maxBannerView)
+        prebidMAXAdUnit = MediationBannerAdUnit(configID: "50699c03-0910-477c-b4a4-911dbe2b9d42", size: size, mediationDelegate: maxMediationDelegate)
+        
+        prebidMAXAdUnit.fetchDemand { [weak self] result in
+            print(result.name())
+            
+            if result != .prebidDemandFetchSuccess {
+                return
+            }
+            
+            self?.maxBannerView.loadAd()
+        }
     }
 
     //MARK: Banner VAST
@@ -428,7 +472,7 @@ class BannerController:
         print(">>>>>  \(error.localizedDescription)")
     }
 
-    //MARK: - GADBannerViewDelegate
+    // MARK: - GADBannerViewDelegate
     
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("adViewDidReceiveAd")
@@ -450,5 +494,41 @@ class BannerController:
 
     func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+
+    // MARK: - MAAdViewAdDelegate
+        
+    func didLoad(_ ad: MAAd) {
+        print("didLoad(_ ad: MAAd)")
+    }
+    
+    func didFailToLoadAd(forAdUnitIdentifier adUnitIdentifier: String, withError error: MAError) {
+        print("didFailToLoadAd(forAdUnitIdentifier adUnitIdentifier: String, withError error: MAError)")
+        print(error.message)
+    }
+    
+    func didDisplay(_ ad: MAAd) {
+        print("didFailToLoadAd(forAdUnitIdentifier adUnitIdentifier: String, withError error: MAError)")
+    }
+    
+    func didHide(_ ad: MAAd) {
+        print("didHide(_ ad: MAAd)")
+    }
+    
+    func didClick(_ ad: MAAd) {
+        print("didClick(_ ad: MAAd)")
+    }
+    
+    func didFail(toDisplay ad: MAAd, withError error: MAError) {
+        print("didFail(toDisplay ad: MAAd, withError error: MAError)")
+        print(error.message)
+    }
+    
+    func didExpand(_ ad: MAAd) {
+        print("didExpand(_ ad: MAAd)")
+    }
+    
+    func didCollapse(_ ad: MAAd) {
+        print("didCollapse(_ ad: MAAd)")
     }
 }
