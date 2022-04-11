@@ -2371,6 +2371,116 @@ struct TestCaseManager {
                         
                 setupCustomParams(for: gamNativeAdController.prebidConfigId)
             }),
+            
+            // MARK: ---- Banner (MAX) ----
+            
+            TestCase(title: "Banner 320x50 (MAX) [OK, OXB Adapter]",
+                     tags: [.banner, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
+                maxBannerController.maxAdUnitId = "5f111f4bcd0f58ca"
+                maxBannerController.adUnitSize = CGSize(width: 320, height: 50);
+                        
+                maxBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                maxBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
+                 
+                adapterVC.setup(adapter: maxBannerController)
+                        
+                setupCustomParams(for: maxBannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner 320x50 (MAX) [noBids, No Ad]",
+                     tags: [.banner, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
+
+                maxBannerController.prebidConfigId = "imp-prebid-no-bids"
+                maxBannerController.storedAuctionResponse = "response-prebid-no-bids"
+                maxBannerController.maxAdUnitId = "5f111f4bcd0f58ca"
+                maxBannerController.adUnitSize = CGSize(width: 320, height: 50);
+                adapterVC.setup(adapter: maxBannerController)
+                        
+                setupCustomParams(for: maxBannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner 320x50 (MAX) [OK, Random]",
+                     tags: [.banner, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
+                maxBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                maxBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
+                maxBannerController.maxAdUnitId = "5f111f4bcd0f58ca"
+                maxBannerController.adUnitSize = CGSize(width: 320, height: 50);
+                adapterVC.setup(adapter: maxBannerController)
+                        
+                setupCustomParams(for: maxBannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner 320x50 (MAX) [Random, Respective]",
+                     tags: [.banner, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                        
+                let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
+                maxBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                maxBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
+                maxBannerController.maxAdUnitId = "5f111f4bcd0f58ca"
+                maxBannerController.adUnitSize = CGSize(width: 320, height: 50);
+                adapterVC.setup(adapter: maxBannerController)
+                        
+                setupCustomParams(for: maxBannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner 300x250 (MAX)",
+                     tags: [.banner, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
+                maxBannerController.prebidConfigId = "imp-prebid-banner-300-250"
+                maxBannerController.storedAuctionResponse = "response-prebid-banner-300-250"
+                maxBannerController.maxAdUnitId = "7715f9965a065152"
+                maxBannerController.adUnitSize = CGSize(width: 300, height: 250);
+                adapterVC.setup(adapter: maxBannerController)
+                        
+                setupCustomParams(for: maxBannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner Adaptive (MAX)",
+                     tags: [.banner, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
+                maxBannerController.prebidConfigId = "imp-prebid-banner-multisize"
+                maxBannerController.storedAuctionResponse = "response-prebid-banner-multisize"
+                maxBannerController.maxAdUnitId = "5f111f4bcd0f58ca"
+                maxBannerController.adUnitSize = CGSize(width: 320, height: 50);
+                maxBannerController.additionalAdSizes = [CGSize(width: 728, height: 90)]
+                maxBannerController.isAdaptive = true
+                adapterVC.setup(adapter: maxBannerController)
+                        
+                setupCustomParams(for: maxBannerController.prebidConfigId)
+            }),
         ]
     }()
     
