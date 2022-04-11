@@ -90,7 +90,7 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
             adBannerView?.setExtraParameterForKey("adaptive_banner", value: "true")
         }
         
-        mediationDelegate = MAXMediationBannerUtils(adView: adBannerView!, viewControllerForModalPresentation: rootController!)
+        mediationDelegate = MAXMediationBannerUtils(adView: adBannerView!)
         
         adUnit = MediationBannerAdUnit(configID: prebidConfigId, size: adUnitSize, mediationDelegate: mediationDelegate!)
         
@@ -236,8 +236,8 @@ extension PrebidMAXBannerController: MAAdViewAdDelegate {
         resetEvents()
         didLoadAdButton.isEnabled = true
         reloadButton.isEnabled = true
-        rootController?.bannerView.constraints.first { $0.firstAttribute == .width }?.constant = adUnitSize.width
-        rootController?.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = adUnitSize.height
+        rootController?.bannerView.constraints.first { $0.firstAttribute == .width }?.constant = ad.size.width
+        rootController?.bannerView.constraints.first { $0.firstAttribute == .height }?.constant = ad.size.height
     }
     
     func didFailToLoadAd(forAdUnitIdentifier adUnitIdentifier: String, withError error: MAError) {
@@ -246,8 +246,8 @@ extension PrebidMAXBannerController: MAAdViewAdDelegate {
         resetEvents()
         reloadButton.isEnabled = true
         didFailToLoadAdButton.isEnabled = true
-
-        adUnit?.adObjectDidFailToLoadAd(adObject: adBannerView!, with: error as! Error)
+        let nsError = NSError(domain: "MAX", code: error.code.rawValue, userInfo: [NSLocalizedDescriptionKey: error.message])
+        adUnit?.adObjectDidFailToLoadAd(adObject: adBannerView!, with: nsError)
     }
     
     func didFail(toDisplay ad: MAAd, withError error: MAError) {

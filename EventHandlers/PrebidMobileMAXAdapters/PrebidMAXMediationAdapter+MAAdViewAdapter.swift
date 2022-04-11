@@ -21,9 +21,9 @@ extension PrebidMAXMediationAdapter: MAAdViewAdapter, DisplayViewLoadingDelegate
 
     public func loadAdViewAd(for parameters: MAAdapterResponseParameters, adFormat: MAAdFormat, andNotify delegate: MAAdViewAdapterDelegate) {
         bannerDelegate = delegate
-        
-        guard let keywords = parameters.localExtraParameters[PBMMediationTargetingInfoKey] as? [String: String] else {
-            let error = MAAdapterError(nsError: MAXAdaptersError.noKeywordsInLocalExtraParameters)
+                
+        guard let bid = parameters.localExtraParameters[PBMMediationAdUnitBidKey] as? Bid else {
+            let error = MAAdapterError(nsError: MAXAdaptersError.noBidInLocalExtraParameters)
             bannerDelegate?.didFailToLoadAdViewAdWithError(error)
             return
         }
@@ -34,14 +34,8 @@ extension PrebidMAXMediationAdapter: MAAdViewAdapter, DisplayViewLoadingDelegate
             return
         }
         
-        guard MAXUtils.isServerParameterInKeywordsDictionary(serverParameter, keywords) else {
+        guard MAXUtils.isServerParameterInKeywordsDictionary(serverParameter, bid.targetingInfo) else {
             let error = MAAdapterError(nsError: MAXAdaptersError.wrongServerParameter)
-            bannerDelegate?.didFailToLoadAdViewAdWithError(error)
-            return
-        }
-        
-        guard let bid = parameters.localExtraParameters[PBMMediationAdUnitBidKey] as? Bid else {
-            let error = MAAdapterError(nsError: MAXAdaptersError.noBidInLocalExtraParameters)
             bannerDelegate?.didFailToLoadAdViewAdWithError(error)
             return
         }
@@ -52,16 +46,15 @@ extension PrebidMAXMediationAdapter: MAAdViewAdapter, DisplayViewLoadingDelegate
             return
         }
         
-        viewControllerForModalPresentation = parameters.localExtraParameters[PBMVCForModalPresentationKey] as? UIViewController
-        
         let frame = CGRect(origin: .zero, size: bid.size)
-        
         displayView = PBMDisplayView(frame: frame, bid: bid, configId: configId)
         displayView?.interactionDelegate = self
         displayView?.loadingDelegate = self
         
         displayView?.displayAd()
     }
+    
+    // MARK: - DisplayViewLoadingDelegate
     
     public func displayViewDidLoadAd(_ displayView: PBMDisplayView) {
         bannerDelegate?.didLoadAd(forAdView: displayView)
@@ -72,12 +65,14 @@ extension PrebidMAXMediationAdapter: MAAdViewAdapter, DisplayViewLoadingDelegate
         bannerDelegate?.didFailToLoadAdViewAdWithError(maError)
     }
     
+    // MARK: DisplayViewInteractionDelegate
+    
     public func trackImpression(for displayView: PBMDisplayView) {
         
     }
     
     public func viewControllerForModalPresentation(from displayView: PBMDisplayView) -> UIViewController? {
-        return viewControllerForModalPresentation
+        return UIApplication.shared.windows.first?.rootViewController
     }
     
     public func didLeaveApp(from displayView: PBMDisplayView) {

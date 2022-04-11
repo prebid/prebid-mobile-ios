@@ -21,11 +21,9 @@ import AppLovinSDK
 public class MAXMediationBannerUtils: NSObject, PrebidMediationDelegate {
     
     public var adView: MAAdView
-    public var viewControllerForModalPresentation: UIViewController
     
-    public init(adView: MAAdView, viewControllerForModalPresentation: UIViewController) {
+    public init(adView: MAAdView) {
         self.adView = adView
-        self.viewControllerForModalPresentation = viewControllerForModalPresentation
         super.init()
     }
     
@@ -35,8 +33,6 @@ public class MAXMediationBannerUtils: NSObject, PrebidMediationDelegate {
         
         adView.setLocalExtraParameterForKey(configIdKey, value: configId)
         adView.setLocalExtraParameterForKey(extrasObjectKey, value: extrasObject)
-        adView.setLocalExtraParameterForKey(PBMMediationTargetingInfoKey, value: targetingInfo)
-        adView.setLocalExtraParameterForKey(PBMVCForModalPresentationKey, value: viewControllerForModalPresentation)
         
         return true
     }

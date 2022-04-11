@@ -20,21 +20,21 @@ import AppLovinSDK
 @objcMembers
 public class MAXUtils: NSObject {
     
-    static func isServerParameterInKeywordsDictionary(_ serverParametersDictionary: [String: String], _ keywordsDictionary: [String: String]) -> Bool {
+    static func isServerParameterInKeywordsDictionary(_ serverParametersDictionary: [String: String]?, _ targetingInfoDictionary: [String: String]?) -> Bool {
         
-        guard !serverParametersDictionary.isEmpty else {
-            Log.warn("Empty server parameter.")
+        guard let serverParametersDictionary = serverParametersDictionary, !serverParametersDictionary.isEmpty else {
+            Log.warn("Server parameters dictionary is empty")
             return false
         }
         
-        guard !keywordsDictionary.isEmpty else {
-            Log.warn("Empty user keywords.")
+        guard let targetingInfoDictionary = targetingInfoDictionary, !targetingInfoDictionary.isEmpty else {
+            Log.warn("Targeting info dictionary is empty")
             return false
         }
         
         for parameter in serverParametersDictionary {
-            if keywordsDictionary[parameter.key] != parameter.value {
-                Log.warn("Server parameter is absent in user keywords.")
+            if targetingInfoDictionary[parameter.key] != parameter.value {
+                Log.warn("Server parameter \(parameter.key):\(parameter.value) is absent in targeting info")
                 return false
             }
         }
