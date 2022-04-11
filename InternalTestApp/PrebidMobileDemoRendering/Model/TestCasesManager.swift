@@ -2446,7 +2446,6 @@ struct TestCaseManager {
                 setupCustomParams(for: maxBannerController.prebidConfigId)
             }),
             
-            // FIXME: - Test case does not work properly
             TestCase(title: "Banner 300x250 (MAX)",
                      tags: [.banner, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -2457,7 +2456,7 @@ struct TestCaseManager {
                 let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
                 maxBannerController.prebidConfigId = "imp-prebid-banner-300-250"
                 maxBannerController.storedAuctionResponse = "response-prebid-banner-300-250"
-                maxBannerController.maxAdUnitId = "5f111f4bcd0f58ca"
+                maxBannerController.maxAdUnitId = "7715f9965a065152"
                 maxBannerController.adUnitSize = CGSize(width: 300, height: 250);
                 adapterVC.setup(adapter: maxBannerController)
                         
