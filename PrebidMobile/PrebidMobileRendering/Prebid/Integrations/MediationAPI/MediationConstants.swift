@@ -17,5 +17,4 @@ import Foundation
 
 public let PBMMediationAdUnitBidKey                 = "PBM_BID"
 public let PBMMediationConfigIdKey                  = "PBM_CONFIG_ID"
-public let PBMMediationTargetingInfoKey             = "PBM_TARGETING_INFO"
 public let PBMMediationAdNativeResponseKey          = "PBM_NATIVE_RESPONSE"
