@@ -31,12 +31,12 @@ fileprivate let storedImpVideoBanner = "imp-prebid-video-outstream"
 fileprivate let storedResponseDisplayBannerOriginal = "response-prebid-banner-320-50-original"
 fileprivate let storedResponseDisplayBannerRendering = "response-prebid-banner-320-50"
 
-fileprivate let storedResponseDisplayVideoOriginal = "response-prebid-video-outstream"
+fileprivate let storedResponseVideoBanner = "response-prebid-video-outstream"
 
 // GAM
 
 fileprivate let gamAdUnitDisplayBannerOriginal = "/21808260008/prebid_demo_app_original_api_banner"
-fileprivate let gamAdUnitVideoBannerOrigianal = "/21808260008/prebid-demo-original-api-video-banner"
+fileprivate let gamAdUnitVideoBannerOriginal = "/21808260008/prebid-demo-original-api-video-banner"
 
 fileprivate let gamAdUnitDisplayBannerRendering = "/21808260008/prebid_oxb_320x50_banner"
 fileprivate let gamAdUnitVideoBannerRendering = "/21808260008/prebid_oxb_300x250_banner"
@@ -299,14 +299,14 @@ class BannerController:
         setupGAMBannerVAST(width: 300, height: 250)
         
         setupGAMBanner(width: 300, height: 250,
-                       adUnitId: gamAdUnitVideoBannerOrigianal)
+                       adUnitId: gamAdUnitVideoBannerOriginal)
         
         loadGAMBanner()
     }
 
     func setupGAMBannerVAST(width: Int, height: Int) {
         // TODO: actualize stored response for this case
-        setupPrebidServer(storedResponse: storedResponseDisplayVideoOriginal)
+        setupPrebidServer(storedResponse: storedResponseVideoBanner)
 
         let adUnit = VideoAdUnit(configId: storedImpVideoBanner, size: CGSize(width: width, height: height))
 
@@ -328,7 +328,7 @@ class BannerController:
     }
     
     func loadInAppVideoBanner() {
-        setupPrebidServer(storedResponse: storedResponseDisplayVideoOriginal)
+        setupPrebidServer(storedResponse: storedResponseVideoBanner)
         
         let size = CGSize(width: 300, height: 250)
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
@@ -348,7 +348,7 @@ class BannerController:
     func loadGAMRenderingVideoBanner() {
         let size = CGSize(width: 300, height: 250)
         
-        setupPrebidServer(storedResponse: storedResponseDisplayVideoOriginal)
+        setupPrebidServer(storedResponse: storedResponseVideoBanner)
         
         let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitVideoBannerRendering, validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),

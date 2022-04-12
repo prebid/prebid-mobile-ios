@@ -22,6 +22,27 @@ import GoogleMobileAds
 import PrebidMobileGAMEventHandlers
 import PrebidMobileAdMobAdapters
 
+// Stored Impressions
+fileprivate let storedImpDisplayInterstitial            = "imp-prebid-display-interstitial-320-480"
+fileprivate let storedImpVideoInterstitial              = "imp-prebid-video-interstitial-320-480"
+
+// Stored Responses
+fileprivate let storedResponseDisplayInterstitial       = "response-prebid-display-interstitial-320-480"
+fileprivate let storedResponseVideoInterstitial         = "response-prebid-video-interstitial-320-480"
+
+// GAM
+
+fileprivate let gamAdUnitDisplayInterstitialOriginal    = "/21808260008/prebid-demo-app-original-api-display-interstitial"
+fileprivate let gamAdUnitVideoInterstitialOriginal      = "/21808260008/prebid-demo-app-original-api-video-interstitial"
+
+fileprivate let gamAdUnitDisplayInterstitialRendering   = "/21808260008/prebid_oxb_html_interstitial"
+fileprivate let gamAdUnitVideoInterstitialRendering     = "/21808260008/prebid_oxb_interstitial_video"
+
+// AdMob
+
+fileprivate let adMobAdUnitDisplayInterstitial          = "ca-app-pub-5922967660082475/3383099861"
+
+
 class InterstitialViewController:
     UIViewController,
     InterstitialAdUnitDelegate,
@@ -64,7 +85,6 @@ class InterstitialViewController:
         case .inApp             : setupAndLoadInAppInterstitial()
         case .renderingGAM      : setupAndLoadGAMRenderingInterstitial()
         case .renderingAdMob    : setupAndLoadAdMobRenderingInterstitial()
-        case .renderingMAX      : print("TODO: Add Example")
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }
@@ -81,15 +101,14 @@ class InterstitialViewController:
     }
     
     func setupAndLoadAMInterstitial() {
-        setupPBRubiconInterstitial()
+        setupPrebidServer(storedResponse: storedResponseDisplayInterstitial)
 
-        //Xandr "/19968336/PrebidMobileValidator_Interstitial"
-        loadAMInterstitial("/5300653/pavliuchyk_test_adunit_1x1_puc")
+        adUnit = InterstitialAdUnit(configId: storedImpDisplayInterstitial)
+   
+        loadAMInterstitial(gamAdUnitDisplayInterstitialOriginal)
     }
     
     func setupAndLoadInAppInterstitial() {
-        setupOpenxRendering()
-        
         switch adFormat {
         case .html:
             loadInAppInterstitial()
@@ -99,8 +118,6 @@ class InterstitialViewController:
     }
     
     func setupAndLoadGAMRenderingInterstitial() {
-        setupOpenxRendering()
-        
         switch adFormat {
         case .html:
             loadGAMRenderingInterstitial()
@@ -110,46 +127,21 @@ class InterstitialViewController:
     }
     
     func setupAndLoadAdMobRenderingInterstitial() {
-        setupOpenxRendering()
-        
         switch adFormat {
         case .html:
-            loadAdMobRenderingInterstitial()
+            loadAdMobRenderingDisplayInterstitial()
         case .vast:
             loadAdMobRenderingVideoInterstitial()
         }
     }
     
-    //Setup PB
-    func setupPBAppNexusInterstitial() {
-        setupPBInterstitial(host: .Appnexus, accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0", configId: "625c6125-f19e-4d5b-95c5-55501526b2a4", storedResponse: "")
-    }
-
-    func setupPBRubiconInterstitial() {
-        setupPBInterstitial(host: .Rubicon, accountId: "1001", configId: "1001-1", storedResponse: "1001-rubicon-300x250")
-    }
+    // Setup Prebid
     
-    func setupPBInterstitial(host: PrebidHost, accountId: String, configId: String, storedResponse: String) {
-        setupPB(host: host, accountId: accountId, storedResponse: storedResponse)
-        
-        adUnit = InterstitialAdUnit(configId: configId)
-        
-//        Advanced interstitial support
-//        adUnit = InterstitialAdUnit(configId: "625c6125-f19e-4d5b-95c5-55501526b2a4", minWidthPerc: 50, minHeightPerc: 70)
-
-    }
-    
-    func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
-        Prebid.shared.prebidServerHost = host
-        Prebid.shared.prebidServerAccountId = accountId
-        Prebid.shared.storedAuctionResponse = storedResponse
-    }
-    
-    //Setup AdServer
-        
-    func setupOpenxRendering() {
+    func setupPrebidServer(storedResponse: String) {
         Prebid.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
-        try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
+        try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
+
+        Prebid.shared.storedAuctionResponse = storedResponse
     }
     
     // MARK: - Load
@@ -170,32 +162,37 @@ class InterstitialViewController:
     }
             
     func loadInAppInterstitial() {
-        renderingInterstitial = InterstitialRenderingAdUnit(configID: "5a4b8dcf-f984-4b04-9448-6529908d6cb6")
+        setupPrebidServer(storedResponse: storedResponseDisplayInterstitial)
+        
+        renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpDisplayInterstitial)
         renderingInterstitial.delegate = self
         
         renderingInterstitial.loadAd()
     }
     
     func loadGAMRenderingInterstitial() {
-        let eventHandler = GAMInterstitialEventHandler(adUnitID: "/21808260008/prebid_oxb_html_interstitial")
-        renderingInterstitial = InterstitialRenderingAdUnit(configID: "5a4b8dcf-f984-4b04-9448-6529908d6cb6", eventHandler: eventHandler)
+        setupPrebidServer(storedResponse: storedResponseDisplayInterstitial)
+
+        let eventHandler = GAMInterstitialEventHandler(adUnitID: gamAdUnitDisplayInterstitialRendering)
+        renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpDisplayInterstitial, eventHandler: eventHandler)
         renderingInterstitial.delegate = self
         
         renderingInterstitial.loadAd()
     }
     
     // AdMob
-    func loadAdMobRenderingInterstitial() {
+    func loadAdMobRenderingDisplayInterstitial() {
+        setupPrebidServer(storedResponse: storedResponseDisplayInterstitial)
         
         mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: self.gadRequest)
-        admobAdUnit = MediationInterstitialAdUnit(configId: "5a4b8dcf-f984-4b04-9448-6529908d6cb6", mediationDelegate: mediationDelegate!)
+        admobAdUnit = MediationInterstitialAdUnit(configId: storedImpDisplayInterstitial, mediationDelegate: mediationDelegate!)
         admobAdUnit?.fetchDemand(completion: { [weak self]result in
             let extras = GADCustomEventExtras()
             let prebidExtras = self?.mediationDelegate!.getEventExtras()
             extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
             self?.gadRequest.register(extras)
             
-            GADInterstitialAd.load(withAdUnitID: "ca-app-pub-5922967660082475/3383099861", request: self?.gadRequest) { [weak self] ad, error in
+            GADInterstitialAd.load(withAdUnitID: adMobAdUnitDisplayInterstitial, request: self?.gadRequest) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
                     Log.error(error.localizedDescription)
@@ -209,15 +206,17 @@ class InterstitialViewController:
     }
     
     func loadAdMobRenderingVideoInterstitial() {
+        setupPrebidServer(storedResponse: storedResponseVideoInterstitial)
+
         mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: self.gadRequest)
-        admobAdUnit = MediationInterstitialAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c", mediationDelegate: mediationDelegate!)
+        admobAdUnit = MediationInterstitialAdUnit(configId: storedImpVideoInterstitial, mediationDelegate: mediationDelegate!)
         admobAdUnit?.fetchDemand(completion: { [weak self]result in
             let extras = GADCustomEventExtras()
             let prebidExtras = self?.mediationDelegate!.getEventExtras()
             extras.setExtras(prebidExtras, forLabel: AdMobConstants.PrebidAdMobEventExtrasLabel)
             self?.gadRequest.register(extras)
             
-            GADInterstitialAd.load(withAdUnitID: "ca-app-pub-5922967660082475/3383099861", request: self?.gadRequest) { [weak self] ad, error in
+            GADInterstitialAd.load(withAdUnitID: adMobAdUnitDisplayInterstitial, request: self?.gadRequest) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
                     Log.error(error.localizedDescription)
@@ -233,34 +232,10 @@ class InterstitialViewController:
     //MARK: - Interstitial VAST
     
     func setupAndLoadAMInterstitialVAST() {
-        setupPBRubiconInterstitialVAST()
-        loadAMInterstitial("/5300653/test_adunit_vast_pavliuchyk")
-    }
-    
-    func loadInAppVideoInterstitial() {
-        renderingInterstitial = InterstitialRenderingAdUnit(configID: "12f58bc2-b664-4672-8d19-638bcc96fd5c")
-        renderingInterstitial.adFormats = [.video]
-        renderingInterstitial.delegate = self
-        
-        renderingInterstitial.loadAd()
-    }
-    
-    func loadGAMRenderingVideoInterstitial() {
-        let eventHandler = GAMInterstitialEventHandler(adUnitID: "/21808260008/prebid_oxb_interstitial_video")
-        renderingInterstitial = InterstitialRenderingAdUnit(configID: "12f58bc2-b664-4672-8d19-638bcc96fd5c", eventHandler: eventHandler)
-        renderingInterstitial.adFormats = [.video]
-        renderingInterstitial.delegate = self
-        
-        renderingInterstitial.loadAd()
-    }
-    
-    //Setup PB
-    
-    func setupPBRubiconInterstitialVAST() {
-        setupPB(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
-        
-        let adUnit = VideoInterstitialAdUnit(configId: "1001-1")
-        let parameters = VideoParameters()
+        setupPrebidServer(storedResponse: storedResponseVideoInterstitial)
+
+        let adUnit = VideoInterstitialAdUnit(configId: storedImpVideoInterstitial)
+        let parameters = VideoBaseAdUnit.Parameters()
         parameters.mimes = ["video/mp4"]
         
         parameters.protocols = [Signals.Protocols.VAST_2_0]
@@ -272,6 +247,29 @@ class InterstitialViewController:
         adUnit.parameters = parameters
         
         self.adUnit = adUnit
+        
+        loadAMInterstitial(gamAdUnitVideoInterstitialOriginal)
+    }
+    
+    func loadInAppVideoInterstitial() {
+        setupPrebidServer(storedResponse: storedResponseVideoInterstitial)
+        
+        renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpVideoInterstitial)
+        renderingInterstitial.adFormats = [.video]
+        renderingInterstitial.delegate = self
+        
+        renderingInterstitial.loadAd()
+    }
+    
+    func loadGAMRenderingVideoInterstitial() {
+        setupPrebidServer(storedResponse: storedResponseVideoInterstitial)
+
+        let eventHandler = GAMInterstitialEventHandler(adUnitID: gamAdUnitVideoInterstitialRendering)
+        renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpVideoInterstitial, eventHandler: eventHandler)
+        renderingInterstitial.adFormats = [.video]
+        renderingInterstitial.delegate = self
+        
+        renderingInterstitial.loadAd()
     }
     
     // MARK: - InterstitialAdUnitDelegate
