@@ -42,7 +42,7 @@ extension PrebidMAXMediationAdapter: MAAdViewAdapter, DisplayViewLoadingDelegate
             return
         }
         
-        guard MAXUtils.isServerParameterInTargetingInfo(serverParameter, targetingInfo) else {
+        guard MediationUtils.isServerParameterDictInTargetingInfoDict(serverParameter, targetingInfo) else {
             let error = MAAdapterError(nsError: MAXAdaptersError.wrongServerParameter)
             bannerDelegate?.didFailToLoadAdViewAdWithError(error)
             return

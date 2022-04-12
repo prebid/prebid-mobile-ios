@@ -45,7 +45,7 @@ public class PrebidAdMobBannerAdapter:
             return
         }
         
-        guard AdMobUtils.isServerParameterInKeywords(serverParameter, keywords) else {
+        guard MediationUtils.isServerParameterInTargetingInfo(serverParameter, keywords) else {
             let error = AdMobAdaptersError.wrongServerParameter
             delegate?.customEventBanner(self, didFailAd: error)
             return

@@ -50,7 +50,7 @@ public class PrebidAdMobVideoInterstitialAdapter:
             return
         }
         
-        guard AdMobUtils.isServerParameterInKeywords(serverParameter, keywords) else {
+        guard MediationUtils.isServerParameterInTargetingInfo(serverParameter, keywords) else {
             let error = AdMobAdaptersError.wrongServerParameter
             delegate?.customEventInterstitial(self, didFailAd: error)
             return

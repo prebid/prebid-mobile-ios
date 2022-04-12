@@ -45,7 +45,7 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
             return
         }
         
-        guard MAXUtils.isServerParameterInTargetingInfo(serverParameter, targetingInfo) else {
+        guard MediationUtils.isServerParameterDictInTargetingInfoDict(serverParameter, targetingInfo) else {
             let error = MAAdapterError(nsError: MAXAdaptersError.wrongServerParameter)
             interstitialDelegate?.didFailToLoadInterstitialAdWithError(error)
             return
@@ -95,7 +95,7 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
             return
         }
         
-        guard MAXUtils.isServerParameterInTargetingInfo(serverParameter, targetingInfo) else {
+        guard MediationUtils.isServerParameterDictInTargetingInfoDict(serverParameter, targetingInfo) else {
             let error = MAAdapterError(nsError: MAXAdaptersError.wrongServerParameter)
             rewardedDelegate?.didFailToLoadRewardedAdWithError(error)
             return

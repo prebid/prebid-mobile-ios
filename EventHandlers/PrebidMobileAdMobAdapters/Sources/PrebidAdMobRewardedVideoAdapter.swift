@@ -58,7 +58,7 @@ public class PrebidAdMobRewardedVideoAdapter:
             return
         }
         
-        guard AdMobUtils.isServerParameterInKeywordsDictionary(serverParameter, keywords) else {
+        guard MediationUtils.isServerParameterInTargetingInfoDict(serverParameter, keywords) else {
             let error = AdMobAdaptersError.wrongServerParameter
             delegate = completionHandler(nil, error)
             return

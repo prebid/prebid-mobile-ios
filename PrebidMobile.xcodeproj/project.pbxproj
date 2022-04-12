@@ -723,6 +723,8 @@
 		92664567272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m in Sources */ = {isa = PBXBuildFile; fileRef = 92664566272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m */; };
 		92664569272AB9120064F7BD /* SkadnEventTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92664568272AB9120064F7BD /* SkadnEventTracker.swift */; };
 		9266456B272AB9610064F7BD /* SkadnParametersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266456A272AB9610064F7BD /* SkadnParametersManager.swift */; };
+		927ADB2428057B31006EB8D5 /* MediationUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927ADB2328057B31006EB8D5 /* MediationUtils.swift */; };
+		927ADB2728058196006EB8D5 /* MediationUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927ADB2628058196006EB8D5 /* MediationUtilsTest.swift */; };
 		9285B46C27AAC9C1009BD3D3 /* NativeAdMarkupTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285B46B27AAC9C1009BD3D3 /* NativeAdMarkupTest.swift */; };
 		928E5A6E27F0F706000ADA1A /* ContextType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E5A6D27F0F706000ADA1A /* ContextType.swift */; };
 		928E5A7027F0F743000ADA1A /* ContextSubType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928E5A6F27F0F743000ADA1A /* ContextSubType.swift */; };
@@ -939,7 +941,6 @@
 		5BC3766D271F1CFD00444D5E /* NSTimer+PBMScheduledTimerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+PBMScheduledTimerFactory.h"; sourceTree = "<group>"; };
 		5BC3766E271F1CFD00444D5E /* PBMTouchDownRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMTouchDownRecognizer.m; sourceTree = "<group>"; };
 		5BC3766F271F1CFD00444D5E /* UIWindow+PBMExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+PBMExtensions.m"; sourceTree = "<group>"; };
-		5BC37670271F1CFD00444D5E /* VideoPlacementType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlacementType.swift; sourceTree = "<group>"; };
 		5BC37671271F1CFD00444D5E /* PBMErrorType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMErrorType.m; sourceTree = "<group>"; };
 		5BC37673271F1CFD00444D5E /* PBMORTBBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMORTBBanner.h; sourceTree = "<group>"; };
 		5BC37674271F1CFD00444D5E /* PBMORTBAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMORTBAbstract.m; sourceTree = "<group>"; };
@@ -1584,6 +1585,8 @@
 		92664566272AB5DD0064F7BD /* PBMORTBSkadnFidelity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PBMORTBSkadnFidelity.m; sourceTree = "<group>"; };
 		92664568272AB9120064F7BD /* SkadnEventTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnEventTracker.swift; sourceTree = "<group>"; };
 		9266456A272AB9610064F7BD /* SkadnParametersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkadnParametersManager.swift; sourceTree = "<group>"; };
+		927ADB2328057B31006EB8D5 /* MediationUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediationUtils.swift; sourceTree = "<group>"; };
+		927ADB2628058196006EB8D5 /* MediationUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediationUtilsTest.swift; sourceTree = "<group>"; };
 		9285B46B27AAC9C1009BD3D3 /* NativeAdMarkupTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdMarkupTest.swift; sourceTree = "<group>"; };
 		928E5A6D27F0F706000ADA1A /* ContextType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextType.swift; sourceTree = "<group>"; };
 		928E5A6F27F0F743000ADA1A /* ContextSubType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextSubType.swift; sourceTree = "<group>"; };
@@ -2515,6 +2518,7 @@
 				5BC3786A271F1CFF00444D5E /* MediationInterstitialAdUnit.swift */,
 				923B54FF2744F19600E00C88 /* PrebidMediationDelegate.swift */,
 				92D8BEB12747B464006BD78E /* MediationConstants.swift */,
+				927ADB2328057B31006EB8D5 /* MediationUtils.swift */,
 			);
 			path = MediationAPI;
 			sourceTree = "<group>";
@@ -2673,7 +2677,6 @@
 				5BC376A6271F1CFD00444D5E /* Prebid+TestExtension.m */,
 				5BC376FB271F1CFE00444D5E /* ServerSideConfiguration */,
 				5BC376A9271F1CFE00444D5E /* Utilities */,
-				5BC37670271F1CFD00444D5E /* VideoPlacementType.swift */,
 				5BC378A7271F1CFF00444D5E /* WKNavigationAction+PBMWKNavigationActionCompatible.h */,
 				92664568272AB9120064F7BD /* SkadnEventTracker.swift */,
 				9266456A272AB9610064F7BD /* SkadnParametersManager.swift */,
@@ -2933,11 +2936,8 @@
 				925D5E172737E7D200A8A2B5 /* PBMErrorTest.swift */,
 				925D5E1B2737E89400A8A2B5 /* PBMORTBTest.swift */,
 				925D5E1D2737E8BF00A8A2B5 /* PBMBaseInterstitialAdUnit_DelegationTest.swift */,
-				925D5E212737EA1E00A8A2B5 /* MediationBannerAdUnitTest.swift */,
-				925D5E262737EC5E00A8A2B5 /* MediationInterstitialAdUnitTest.swift */,
-				925D5E282737EC9400A8A2B5 /* MediationRewardedAdUnitTest.swift */,
+				927ADB2528058170006EB8D5 /* MediationAPI */,
 				925D5E2C2737ECEA00A8A2B5 /* PBMWinNotifierTest.swift */,
-				923B5520274536B400E00C88 /* MockMediationUtils.swift */,
 				92F6720727F252E500EA3B8D /* BaseInterstitialAdUnitTest.swift */,
 			);
 			path = Prebid;
@@ -3027,6 +3027,18 @@
 				925D5E7B2737F66000A8A2B5 /* PBMVASTFailToLoadTest.swift */,
 			);
 			path = VASTTests;
+			sourceTree = "<group>";
+		};
+		927ADB2528058170006EB8D5 /* MediationAPI */ = {
+			isa = PBXGroup;
+			children = (
+				925D5E212737EA1E00A8A2B5 /* MediationBannerAdUnitTest.swift */,
+				925D5E262737EC5E00A8A2B5 /* MediationInterstitialAdUnitTest.swift */,
+				925D5E282737EC9400A8A2B5 /* MediationRewardedAdUnitTest.swift */,
+				923B5520274536B400E00C88 /* MockMediationUtils.swift */,
+				927ADB2628058196006EB8D5 /* MediationUtilsTest.swift */,
+			);
+			path = MediationAPI;
 			sourceTree = "<group>";
 		};
 		929638B927AB1FE900D30F3D /* NativeAssetObjectsTests */ = {
@@ -3771,6 +3783,7 @@
 				922AFD112737179500732C53 /* AdConfigurationTest.swift in Sources */,
 				922AFCC727353B6300732C53 /* MockServer.m in Sources */,
 				922AFD13273718B400732C53 /* PBMAdUnitConfigTest.swift in Sources */,
+				927ADB2728058196006EB8D5 /* MediationUtilsTest.swift in Sources */,
 				922AFD47273729B700732C53 /* PBMHTMLCreativeTest_MRAIDResize.swift in Sources */,
 				922AFCFD27370D8100732C53 /* PBMMRAIDControllerObjCTest.m in Sources */,
 				925D5E142737E74D00A8A2B5 /* PBMBidResponseTransformerTest.swift in Sources */,
@@ -4037,6 +4050,7 @@
 				5BC378FC271F1CFF00444D5E /* PBMORTBDevice.m in Sources */,
 				5BC37A98271F1D0000444D5E /* PBMBannerAdLoader.m in Sources */,
 				5BC37935271F1D0000444D5E /* PBMAdModelEventTracker.m in Sources */,
+				927ADB2428057B31006EB8D5 /* MediationUtils.swift in Sources */,
 				5BC3791B271F1CFF00444D5E /* PBMFunctions+Testing.m in Sources */,
 				5BC378AC271F1CFF00444D5E /* Gender.swift in Sources */,
 				5BC37932271F1D0000444D5E /* PBMEventManager.m in Sources */,

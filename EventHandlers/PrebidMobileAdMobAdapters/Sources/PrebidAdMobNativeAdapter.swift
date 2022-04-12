@@ -41,7 +41,7 @@ public class PrebidAdMobNativeAdapter:
             return
         }
         
-        guard AdMobUtils.isServerParameterInKeywords(serverParameter, keywords) else {
+        guard MediationUtils.isServerParameterInTargetingInfo(serverParameter, keywords) else {
             let error = AdMobAdaptersError.wrongServerParameter
             delegate?.customEventNativeAd(self, didFailToLoadWithError: error)
             return
