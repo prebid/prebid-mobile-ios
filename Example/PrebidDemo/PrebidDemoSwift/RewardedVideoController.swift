@@ -22,6 +22,22 @@ import PrebidMobile
 import PrebidMobileGAMEventHandlers
 import PrebidMobileAdMobAdapters
 
+// Stored Impressions
+fileprivate let storedImpVideoRewarded                  = "imp-prebid-video-rewarded-320-480"
+
+// Stored Responses
+fileprivate let storedResponseVideoRewarded             = "response-prebid-video-rewarded-320-480"
+
+// GAM
+
+fileprivate let gamAdUnitVideoRewardedOriginal      = "/21808260008/prebid-demo-app-original-api-video-interstitial"
+
+fileprivate let gamAdUnitVideoRewardedRendering     = "/21808260008/prebid_oxb_rewarded_video_test"
+
+// AdMob
+
+fileprivate let adMobAdUnitDisplayInterstitial          = "ca-app-pub-5922967660082475/7397370641"
+
 class RewardedVideoController:
         UIViewController,
         RewardedAdUnitDelegate,
@@ -37,11 +53,7 @@ class RewardedVideoController:
     
     private var rewardedAdUnit: RewardedAdUnit!
     public var admobRewardedAdUnit: MediationRewardedAdUnit!
-    
-    private let amRubiconAdUnitId = "/5300653/test_adunit_vast_rewarded-video_pavliuchyk"
-    private let mpRubiconAdUnitId = "46d2ebb3ccd340b38580b5d3581c6434"
-    private let admobPrebidAdUnitId = "ca-app-pub-5922967660082475/7397370641"
-        
+            
     private var gadRewardedAd: GADRewardedAd?
     
     override func viewDidLoad() {
@@ -53,56 +65,43 @@ class RewardedVideoController:
         case .inApp             : setupAndLoadInAppRewarded()
         case .renderingGAM      : setupAndLoadGAMRenderingRewarded()
         case .renderingAdMob    : setupAndLoadAdMobRenderingRewardedVideo()
-        case .renderingMAX      : print("TODO: Add Example")
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }
     
     func setupAndLoadGAMRewardedVideo() {
-        setupPBRubiconRewardedVideo()
+        setupPrebidServer(storedResponse: storedResponseVideoRewarded)
+        
         loadGAMRewardedVideo()
     }
     
     func setupAndLoadInAppRewarded() {
-        setupOpenXPrebid()
+        setupPrebidServer(storedResponse: storedResponseVideoRewarded)
         loadInAppRewardedVideo()
     }
     
     func setupAndLoadGAMRenderingRewarded() {
-        setupOpenXPrebid()
+        setupPrebidServer(storedResponse: storedResponseVideoRewarded)
         loadGAMRenderingRewardedVideo()
     }
     
     func setupAndLoadAdMobRenderingRewardedVideo() {
-        setupOpenXPrebid()
+        setupPrebidServer(storedResponse: storedResponseVideoRewarded)
         loadAdMobRenderingRewardedVideo()
     }
         
     // MARK: - Setup Servers
     
-    func setupPBRubiconRewardedVideo() {
-
-        setupPB(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
-
-        let adUnit = RewardedVideoAdUnit(configId: "1001-1")
-        
-        let parameters = VideoParameters()
-        parameters.mimes = ["video/mp4"]
-        
-        parameters.protocols = [Signals.Protocols.VAST_2_0]
-        // parameters.protocols = [Signals.Protocols(2)]
-        
-        parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
-        //parameters.playbackMethod = [Signals.PlaybackMethod(2)]
-        
-        adUnit.parameters = parameters
-        
-        self.adUnit = adUnit
-    }
-    
     func setupPB(host: PrebidHost, accountId: String, storedResponse: String) {
         Prebid.shared.prebidServerHost = host
         Prebid.shared.prebidServerAccountId = accountId
+        Prebid.shared.storedAuctionResponse = storedResponse
+    }
+    
+    func setupPrebidServer(storedResponse: String) {
+        Prebid.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
+
         Prebid.shared.storedAuctionResponse = storedResponse
     }
     
@@ -115,6 +114,21 @@ class RewardedVideoController:
     
     func loadGAMRewardedVideo() {
         
+        let adUnit = RewardedVideoAdUnit(configId: storedImpVideoRewarded)
+        
+        let parameters = VideoBaseAdUnit.Parameters()
+        parameters.mimes = ["video/mp4"]
+        
+        parameters.protocols = [Signals.Protocols.VAST_2_0]
+        // parameters.protocols = [Signals.Protocols(2)]
+        
+        parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
+        //parameters.playbackMethod = [Signals.PlaybackMethod(2)]
+        
+        adUnit.parameters = parameters
+        
+        self.adUnit = adUnit
+        
         adUnit.fetchDemand(adObject: self.amRequest) { [weak self] (resultCode: ResultCode) in
             
             guard let self = self else {
@@ -122,7 +136,7 @@ class RewardedVideoController:
                 return
             }
             
-            GADRewardedAd.load(withAdUnitID: self.amRubiconAdUnitId, request: self.amRequest) { (ad, error) in
+            GADRewardedAd.load(withAdUnitID: gamAdUnitVideoRewardedOriginal, request: self.amRequest) { (ad, error) in
                 if let error = error {
                     print("loadAMRewardedVideo failed:\(error)")
                 } else if let ad = ad {
@@ -138,15 +152,15 @@ class RewardedVideoController:
     }
     
     func loadInAppRewardedVideo() {
-        rewardedAdUnit = RewardedAdUnit(configID: "12f58bc2-b664-4672-8d19-638bcc96fd5c")
+        rewardedAdUnit = RewardedAdUnit(configID: storedImpVideoRewarded)
         rewardedAdUnit.delegate = self
         
         rewardedAdUnit.loadAd()
     }
     
     func loadGAMRenderingRewardedVideo() {
-        let eventHandler = GAMRewardedAdEventHandler(adUnitID: "/21808260008/prebid_oxb_rewarded_video_test")
-        rewardedAdUnit = RewardedAdUnit(configID: "12f58bc2-b664-4672-8d19-638bcc96fd5c", eventHandler: eventHandler)
+        let eventHandler = GAMRewardedAdEventHandler(adUnitID: gamAdUnitVideoRewardedRendering)
+        rewardedAdUnit = RewardedAdUnit(configID: storedImpVideoRewarded, eventHandler: eventHandler)
         rewardedAdUnit.delegate = self
         
         rewardedAdUnit.loadAd()
@@ -155,10 +169,10 @@ class RewardedVideoController:
     func loadAdMobRenderingRewardedVideo() {
         let request = GADRequest()
         let mediationDelegate = AdMobMediationRewardedUtils(gadRequest: request)
-        admobRewardedAdUnit = MediationRewardedAdUnit(configId: "12f58bc2-b664-4672-8d19-638bcc96fd5c", mediationDelegate: mediationDelegate)
+        admobRewardedAdUnit = MediationRewardedAdUnit(configId: storedImpVideoRewarded, mediationDelegate: mediationDelegate)
         admobRewardedAdUnit.fetchDemand { [weak self] result in
             guard let self = self else { return }
-            GADRewardedAd.load(withAdUnitID: self.admobPrebidAdUnitId, request: request) { [weak self] ad, error in
+            GADRewardedAd.load(withAdUnitID: adMobAdUnitDisplayInterstitial, request: request) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
                     Log.error(error.localizedDescription)
