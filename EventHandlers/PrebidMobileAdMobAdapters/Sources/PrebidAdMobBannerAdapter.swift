@@ -45,7 +45,7 @@ public class PrebidAdMobBannerAdapter:
             return
         }
         
-        guard AdMobUtils.isServerParameterInKeywords(serverParameter, keywords) else {
+        guard MediationUtils.isServerParameterInTargetingInfo(serverParameter, keywords) else {
             let error = AdMobAdaptersError.wrongServerParameter
             delegate?.customEventBanner(self, didFailAd: error)
             return
@@ -91,12 +91,12 @@ public class PrebidAdMobBannerAdapter:
     
     // MARK: - PBMDisplayViewInteractionDelegate
     
-    public func trackImpression(for displayView: PBMDisplayView) {
+    public func trackImpression(forDisplayView: PBMDisplayView) {
         //Impressions will be tracked automatically
         //unless enableAutomaticImpressionAndClickTracking = NO
     }
     
-    public func viewControllerForModalPresentation(from displayView: PBMDisplayView) -> UIViewController? {
+    public func viewControllerForModalPresentation(fromDisplayView: PBMDisplayView) -> UIViewController? {
         return delegate?.viewControllerForPresentingModalView
     }
     

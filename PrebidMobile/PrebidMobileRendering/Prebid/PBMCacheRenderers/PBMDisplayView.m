@@ -98,7 +98,7 @@
 // MARK: - PBMAdViewManagerDelegate protocol
 
 - (UIViewController *)viewControllerForModalPresentation {
-    return [self.interactionDelegate viewControllerForModalPresentationFrom:self];
+    return [self.interactionDelegate viewControllerForModalPresentationFromDisplayView:self];
 }
 
 - (void)adLoaded:(PBMAdDetails *)pbmAdDetails {
@@ -115,7 +115,7 @@
 }
 
 - (void)adDidDisplay {
-    [self.interactionDelegate trackImpressionFor:self];
+    [self.interactionDelegate trackImpressionForDisplayView:self];
 }
 
 - (void)adWasClicked {

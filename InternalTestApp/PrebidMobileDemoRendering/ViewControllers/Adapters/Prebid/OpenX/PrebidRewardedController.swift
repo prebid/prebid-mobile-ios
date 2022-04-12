@@ -44,9 +44,11 @@ class PrebidRewardedController: NSObject, AdaptedController, RewardedAdUnitDeleg
         
         setupAdapterController()
     }
+    
     deinit {
         Prebid.shared.storedAuctionResponse = nil
     }
+    
     // MARK: - Public Methods
     func loadAd() {
         configIdLabel.isHidden = false
