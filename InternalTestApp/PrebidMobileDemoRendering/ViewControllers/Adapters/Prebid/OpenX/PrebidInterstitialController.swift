@@ -44,9 +44,11 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
         
         setupAdapterController()
     }
+    
     deinit {
         Prebid.shared.storedAuctionResponse = nil
     }
+    
     func configurationController() -> BaseConfigurationController? {
         return BaseConfigurationController(controller: self)
     }
@@ -66,6 +68,7 @@ class PrebidInterstitialController: NSObject, AdaptedController, PrebidConfigura
         interstitialController?.skipButtonArea = 0.1
         interstitialController?.skipButtonPosition = .topRight
         interstitialController?.closeButtonPosition = .topRight
+        
         if let adFormats = adFormats {
             interstitialController?.adFormats = adFormats
         }
