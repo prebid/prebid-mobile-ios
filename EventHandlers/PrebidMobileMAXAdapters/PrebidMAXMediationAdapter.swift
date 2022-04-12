@@ -23,8 +23,19 @@ public let MAXCustomParametersKey = "custom_parameters"
 public class PrebidMAXMediationAdapter: ALMediationAdapter {
     
     // MARK: - Banner
+    
     public weak var bannerDelegate: MAAdViewAdapterDelegate?
     public var displayView: PBMDisplayView?
+    
+    // MARK: - Interstitial
+    
+    public weak var interstitialDelegate: MAInterstitialAdapterDelegate?
+    public var interstitialController: InterstitialController?
+    public var interstitialAdAvailable = false
+    
+    // MARK: - Rewarded
+    
+    public weak var rewardedDelegate: MARewardedAdapterDelegate?
     
     public override func initialize(with parameters: MAAdapterInitializationParameters, completionHandler: @escaping (MAAdapterInitializationStatus, String?) -> Void) {
         Prebid.initializeSDK()
@@ -41,5 +52,10 @@ public class PrebidMAXMediationAdapter: ALMediationAdapter {
     public override func destroy() {
         bannerDelegate = nil
         displayView = nil
+        
+        interstitialDelegate = nil
+        interstitialController = nil
+        
+        rewardedDelegate = nil
     }
 }

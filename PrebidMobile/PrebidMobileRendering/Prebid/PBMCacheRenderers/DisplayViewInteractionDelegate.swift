@@ -19,9 +19,9 @@ import UIKit
 
 @objc public protocol DisplayViewInteractionDelegate where Self: NSObject {
 
-    func trackImpression(for displayView:PBMDisplayView)
+    func trackImpression(forDisplayView:PBMDisplayView)
     
-    func viewControllerForModalPresentation(from displayView: PBMDisplayView) -> UIViewController?
+    func viewControllerForModalPresentation(fromDisplayView: PBMDisplayView) -> UIViewController?
     
     func didLeaveApp(from displayView: PBMDisplayView)
     

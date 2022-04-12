@@ -103,7 +103,7 @@ public class PrebidAdMobRewardedVideoAdapter:
     }
     
     // MARK: - InterstitialControllerInteractionDelegate
-    public func trackImpression(for interstitialController: InterstitialController) {
+    public func trackImpression(forInterstitialController: InterstitialController) {
         //Impressions will be tracked automatically
         //unless enableAutomaticImpressionAndClickTracking = NO
     }
@@ -136,7 +136,7 @@ public class PrebidAdMobRewardedVideoAdapter:
         delegate?.didRewardUser(with: reward)
     }
     
-    public func viewControllerForModalPresentation(from interstitialController: InterstitialController) -> UIViewController? {
+    public func viewControllerForModalPresentation(fromInterstitialController: InterstitialController) -> UIViewController? {
         return rootViewController
     }
 }

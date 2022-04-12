@@ -18,6 +18,8 @@ import PrebidMobile
 import AppLovinSDK
 
 extension PrebidMAXMediationAdapter: MAAdViewAdapter, DisplayViewLoadingDelegate, DisplayViewInteractionDelegate {
+    
+    // MARK: - MAAdViewAdapter
 
     public func loadAdViewAd(for parameters: MAAdapterResponseParameters, adFormat: MAAdFormat, andNotify delegate: MAAdViewAdapterDelegate) {
         bannerDelegate = delegate
@@ -73,11 +75,11 @@ extension PrebidMAXMediationAdapter: MAAdViewAdapter, DisplayViewLoadingDelegate
     
     // MARK: DisplayViewInteractionDelegate
     
-    public func trackImpression(for displayView: PBMDisplayView) {
+    public func trackImpression(forDisplayView: PBMDisplayView) {
         
     }
     
-    public func viewControllerForModalPresentation(from displayView: PBMDisplayView) -> UIViewController? {
+    public func viewControllerForModalPresentation(fromDisplayView: PBMDisplayView) -> UIViewController? {
         return UIApplication.shared.windows.first?.rootViewController
     }
     
