@@ -46,6 +46,10 @@
 		9281F68527A82C38004F18EC /* AdMobMediationUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9281F68427A82C38004F18EC /* AdMobMediationUtilsTest.swift */; };
 		9285B46627AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9285B46527AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift */; };
 		9289873C280028570062BFAA /* MAXConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9289873B280028570062BFAA /* MAXConstants.swift */; };
+		9298652328058B7A007A2F34 /* PrebidMAXMediationAdapter+MANativeAdAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9298652228058B7A007A2F34 /* PrebidMAXMediationAdapter+MANativeAdAdapter.swift */; };
+		9298652728058F9B007A2F34 /* PrebidMAUnifiedNativeAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9298652628058F9B007A2F34 /* PrebidMAUnifiedNativeAd.swift */; };
+		92986529280598F8007A2F34 /* MAXUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92986528280598F8007A2F34 /* MAXUtils.swift */; };
+		9298652B280601F8007A2F34 /* MAXMediationNativeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9298652A280601F8007A2F34 /* MAXMediationNativeUtils.swift */; };
 		929D2639280450D300C61E8D /* PrebidMAXMediationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929D2638280450D300C61E8D /* PrebidMAXMediationAdapter.swift */; };
 		92A2380D27731B48000157AA /* AdMobUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A2380C27731B48000157AA /* AdMobUtils.swift */; };
 		92C1346327FC6B4900F96387 /* PrebidMobileMAXAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C1345B27FC6B4900F96387 /* PrebidMobileMAXAdapters.framework */; };
@@ -149,6 +153,10 @@
 		928310072775FF7500D28142 /* PrebidMobileAdMobAdaptersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PrebidMobileAdMobAdaptersTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		9285B46527AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobVideoInterstitialAdapter.swift; sourceTree = "<group>"; };
 		9289873B280028570062BFAA /* MAXConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXConstants.swift; sourceTree = "<group>"; };
+		9298652228058B7A007A2F34 /* PrebidMAXMediationAdapter+MANativeAdAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PrebidMAXMediationAdapter+MANativeAdAdapter.swift"; sourceTree = "<group>"; };
+		9298652628058F9B007A2F34 /* PrebidMAUnifiedNativeAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMAUnifiedNativeAd.swift; sourceTree = "<group>"; };
+		92986528280598F8007A2F34 /* MAXUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXUtils.swift; sourceTree = "<group>"; };
+		9298652A280601F8007A2F34 /* MAXMediationNativeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MAXMediationNativeUtils.swift; sourceTree = "<group>"; };
 		929D2638280450D300C61E8D /* PrebidMAXMediationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMAXMediationAdapter.swift; sourceTree = "<group>"; };
 		92A2380C27731B48000157AA /* AdMobUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobUtils.swift; sourceTree = "<group>"; };
 		92C1345B27FC6B4900F96387 /* PrebidMobileMAXAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PrebidMobileMAXAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -372,10 +380,14 @@
 				9289873B280028570062BFAA /* MAXConstants.swift */,
 				924530842800A948006AB6AF /* MAXMediationBannerUtils.swift */,
 				92221CE22804B113005DF671 /* MAXMediationInterstitialUtils.swift */,
+				9298652A280601F8007A2F34 /* MAXMediationNativeUtils.swift */,
 				92221CE62804BC0B005DF671 /* MAXMediationRewardedlUtils.swift */,
+				92986528280598F8007A2F34 /* MAXUtils.swift */,
+				9298652628058F9B007A2F34 /* PrebidMAUnifiedNativeAd.swift */,
 				929D2638280450D300C61E8D /* PrebidMAXMediationAdapter.swift */,
 				9245308A2800C34D006AB6AF /* PrebidMAXMediationAdapter+MAAdViewAdapter.swift */,
 				92221CDC2804A0C3005DF671 /* PrebidMAXMediationAdapter+MAInterstitialAdapter+MARewardedAdapter.swift */,
+				9298652228058B7A007A2F34 /* PrebidMAXMediationAdapter+MANativeAdAdapter.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -953,14 +965,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9298652B280601F8007A2F34 /* MAXMediationNativeUtils.swift in Sources */,
 				924530892800B86B006AB6AF /* MAXAdaptersError.swift in Sources */,
 				92221CDD2804A0C3005DF671 /* PrebidMAXMediationAdapter+MAInterstitialAdapter+MARewardedAdapter.swift in Sources */,
 				929D2639280450D300C61E8D /* PrebidMAXMediationAdapter.swift in Sources */,
 				92221CE32804B113005DF671 /* MAXMediationInterstitialUtils.swift in Sources */,
+				9298652728058F9B007A2F34 /* PrebidMAUnifiedNativeAd.swift in Sources */,
 				9289873C280028570062BFAA /* MAXConstants.swift in Sources */,
+				9298652328058B7A007A2F34 /* PrebidMAXMediationAdapter+MANativeAdAdapter.swift in Sources */,
 				924530852800A948006AB6AF /* MAXMediationBannerUtils.swift in Sources */,
 				9245308B2800C34D006AB6AF /* PrebidMAXMediationAdapter+MAAdViewAdapter.swift in Sources */,
 				92221CE72804BC0B005DF671 /* MAXMediationRewardedlUtils.swift in Sources */,
+				92986529280598F8007A2F34 /* MAXUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

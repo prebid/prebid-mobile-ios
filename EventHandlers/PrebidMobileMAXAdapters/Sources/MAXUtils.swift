@@ -14,8 +14,18 @@
   */
 
 import Foundation
+import PrebidMobile
+import AppLovinSDK
 
-public let PBMMediationAdUnitBidKey                 = "PBM_BID"
-public let PBMMediationConfigIdKey                  = "PBM_CONFIG_ID"
-public let PBMMediationTargetingInfoKey             = "PBM_TARGETING_INFO"
-public let PBMMediationAdNativeResponseKey          = "PBM_NATIVE_RESPONSE"
+@objcMembers
+public class MAXUtils: NSObject {
+    
+    public static func findNative(_ extras: [AnyHashable: Any]) -> Result<PrebidMAUnifiedNativeAd, Error> {
+        switch MediationNativeUtils.findNative(in: extras) {
+        case .success(let nativeAd):
+            return .success(PrebidMAUnifiedNativeAd(nativeAd: nativeAd))
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+}
