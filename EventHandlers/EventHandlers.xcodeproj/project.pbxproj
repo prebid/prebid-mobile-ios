@@ -316,7 +316,7 @@
 				92F4389727688E8600FDC950 /* PrebidMobileAdMobAdapters */,
 				92F438A127688E8600FDC950 /* PrebidMobileAdMobAdaptersTests */,
 				92C1345C27FC6B4900F96387 /* PrebidMobileMAXAdapters */,
-				92C1346627FC6B4900F96387 /* PrebidMobileMAXAdaptersTests */,
+				9298653F2806D242007A2F34 /* PrebidMobileMAXAdaptersTests */,
 				34B64D4D24F7D95800FDD9F4 /* Products */,
 				C9E3CE99A87F745FB5BFAA17 /* Pods */,
 				3386E5027DFDA876BC9AC49B /* Frameworks */,
@@ -414,6 +414,13 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		9298653F2806D242007A2F34 /* PrebidMobileMAXAdaptersTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PrebidMobileMAXAdaptersTests;
+			sourceTree = "<group>";
+		};
 		92C1345C27FC6B4900F96387 /* PrebidMobileMAXAdapters */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,13 +428,6 @@
 				92C1345D27FC6B4900F96387 /* PrebidMobileMAXAdapters.h */,
 			);
 			path = PrebidMobileMAXAdapters;
-			sourceTree = "<group>";
-		};
-		92C1346627FC6B4900F96387 /* PrebidMobileMAXAdaptersTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PrebidMobileMAXAdaptersTests;
 			sourceTree = "<group>";
 		};
 		92F4389727688E8600FDC950 /* PrebidMobileAdMobAdapters */ = {
