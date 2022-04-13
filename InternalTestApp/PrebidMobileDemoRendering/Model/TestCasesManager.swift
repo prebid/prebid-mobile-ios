@@ -2670,6 +2670,46 @@ struct TestCaseManager {
                         
                 setupCustomParams(for: maxRewardedAdController.prebidConfigId)
             }),
+            
+            // MARK: ---- Native (MAX) ----
+            
+            TestCase(title: "Native Ad (MAX) [OK, OXB Adapter]",
+                     tags: [.native, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let nativeController = PrebidMAXNativeController(rootController: adapterVC)
+                nativeController.maxAdUnitId = "f4c3d8281ebf3c39"
+                nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
+                nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
+                nativeController.nativeAssets = .defaultNativeRequestAssets
+                nativeController.eventTrackers = .defaultNativeEventTrackers
+                         
+                adapterVC.setup(adapter: nativeController)
+                setupCustomParams(for: nativeController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Native Ad (MAX) [noBids, GADNativeAd]",
+                     tags: [.native, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                let nativeController = PrebidMAXNativeController(rootController: adapterVC)
+                nativeController.maxAdUnitId = "f4c3d8281ebf3c39"
+                nativeController.prebidConfigId = "imp-prebid-no-bids"
+                nativeController.storedAuctionResponse = "imp-prebid-no-bids"
+                nativeController.nativeAssets = .defaultNativeRequestAssets
+                nativeController.eventTrackers = .defaultNativeEventTrackers
+                         
+                adapterVC.setup(adapter: nativeController)
+                setupCustomParams(for: nativeController.prebidConfigId)
+            }),
         ]
     }()
     
