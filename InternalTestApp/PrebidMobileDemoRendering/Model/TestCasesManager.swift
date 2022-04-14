@@ -2692,7 +2692,7 @@ struct TestCaseManager {
                 setupCustomParams(for: nativeController.prebidConfigId)
             }),
             
-            TestCase(title: "Native Ad (MAX) [noBids, GADNativeAd]",
+            TestCase(title: "Native Ad (MAX) [noBids, No Ad]",
                      tags: [.native, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
