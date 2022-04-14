@@ -243,8 +243,8 @@
         PBMWebView *webView = (PBMWebView *)self.modalState.view;
         self.closeButtonDecorator.isMRAID = webView.isMRAID;        
     }    
-    self.closeButtonDecorator.buttonArea = self.modalState.adConfiguration.closeButtonArea;
-    self.closeButtonDecorator.buttonPosition = self.modalState.adConfiguration.closeButtonPosition;
+    self.closeButtonDecorator.buttonArea = self.modalState.adConfiguration.videoControlsConfig.closeButtonArea;
+    self.closeButtonDecorator.buttonPosition = self.modalState.adConfiguration.videoControlsConfig.closeButtonPosition;
     [self.closeButtonDecorator setImage:[self.displayProperties getCloseButtonImage]];
     [self.closeButtonDecorator addButtonTo:self.view displayView:self.displayView];
     [self setupCloseButtonVisibility];

@@ -96,7 +96,7 @@
     @weakify(self);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         @strongify(self);
-        if (self.creativeModel.adConfiguration.isMuted) {
+        if (self.creativeModel.adConfiguration.videoControlsConfig.isMuted) {
             [self.videoView mute];
         } else {
             [self.videoView unmute];
@@ -279,8 +279,8 @@
 - (NSTimeInterval)calculateCloseDelayForPubCloseDelay:(NSTimeInterval)pubCloseDelay {
     if (self.creativeModel.adConfiguration.isOptIn || self.creativeModel.hasCompanionAd) {
         return [self.creativeModel.displayDurationInSeconds doubleValue];
-    } else if (self.creativeModel.adConfiguration.skipDelay && self.creativeModel.adConfiguration.skipDelay <= self.creativeModel.displayDurationInSeconds.doubleValue) {
-        return self.creativeModel.adConfiguration.skipDelay;
+    } else if (self.creativeModel.adConfiguration.videoControlsConfig.skipDelay && self.creativeModel.adConfiguration.videoControlsConfig.skipDelay <= self.creativeModel.displayDurationInSeconds.doubleValue) {
+        return self.creativeModel.adConfiguration.videoControlsConfig.skipDelay;
     } else if (self.creativeModel.skipOffset && self.creativeModel.skipOffset.doubleValue <= self.creativeModel.displayDurationInSeconds.doubleValue) {
         return [self.creativeModel.skipOffset doubleValue];
     } else {

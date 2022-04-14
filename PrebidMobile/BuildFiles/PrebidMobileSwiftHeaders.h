@@ -28,6 +28,7 @@
 // Bid
 #import "PBMORTBBid.h"
 #import "PBMORTBBidExt.h"
+#import "PBMORTBAdConfiguration.h"
 #import "PBMRawBidResponse.h"
 #import "PBMLocationManager.h"
 #import "Log+Extensions.h"

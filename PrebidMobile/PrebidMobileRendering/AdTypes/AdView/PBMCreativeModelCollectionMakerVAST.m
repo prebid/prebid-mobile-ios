@@ -135,9 +135,13 @@
         [PBMError createError:error description:errorMessage statusCode:PBMErrorCodeGeneral];
         return nil;
     }
-
-    if (self.adConfiguration.videoParameters.maxDuration.value && creative.duration > self.adConfiguration.videoParameters.maxDuration.value) {
-        NSString *errorMessage = @"Creative duration is bigger than maximum available playback time.";
+    
+    if (self.adConfiguration.videoControlsConfig.maxVideoDuration && creative.duration > self.adConfiguration.videoControlsConfig.maxVideoDuration.doubleValue) {
+        NSString *errorMessage = @"Creative duration is bigger than maximum available playback time obtained from server response.";
+        [PBMError createError:error description:errorMessage statusCode:PBMErrorCodeGeneral];
+        return nil;
+    } else if (self.adConfiguration.videoParameters.maxDuration.value && creative.duration > self.adConfiguration.videoParameters.maxDuration.value) {
+        NSString *errorMessage = @"Creative duration is bigger than maximum available playback time set by the user.";
         [PBMError createError:error description:errorMessage statusCode:PBMErrorCodeGeneral];
         return nil;
     }

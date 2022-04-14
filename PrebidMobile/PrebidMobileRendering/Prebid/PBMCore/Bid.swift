@@ -59,6 +59,11 @@ public class Bid: NSObject {
         AdFormat.allCases.filter { $0.stringEquivalent == bid.ext.prebid?.type }.first
     }
     
+    /// Prebid video ad configuration
+    @objc public var videoAdConfiguration: PBMORTBAdConfiguration? {
+        bid.ext.prebid?.passthrough?.filter { $0.type == "prebidmobilesdk" }.first?.adConfiguration
+    }
+    
     /// Returns YES if this bid is intented for display.
     @objc public var isWinning: Bool {
         guard let targetingInfo = self.targetingInfo else {

@@ -25,4 +25,15 @@ import Foundation
     case bottomCenter
     case bottomRight
     case custom
+    
+    public static func getPositionByStringLiteral(_ stringValue: String) -> Position? {
+        switch stringValue {
+        case "topleft":
+            return .topLeft
+        case "topright":
+            return .topRight
+        default:
+            return nil
+        }
+    }
 }

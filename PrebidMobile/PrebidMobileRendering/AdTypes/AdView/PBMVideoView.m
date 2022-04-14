@@ -159,7 +159,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     
     [self setupSkipButton];
     
-    self.isSoundButtonVisible = self.creative.creativeModel.adConfiguration.isSoundButtonVisible;
+    self.isSoundButtonVisible = self.creative.creativeModel.adConfiguration.videoControlsConfig.isSoundButtonVisible;
 }
 
 #pragma mark - Public
@@ -454,8 +454,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 - (void)setupSkipButton {
     self.skipButtonDecorator = [AdViewButtonDecorator new];
     self.skipButtonDecorator.button.hidden = YES;
-    self.skipButtonDecorator.buttonArea = self.creative.creativeModel.adConfiguration.skipButtonArea;
-    self.skipButtonDecorator.buttonPosition = self.creative.creativeModel.adConfiguration.skipButtonPosition;
+    self.skipButtonDecorator.buttonArea = self.creative.creativeModel.adConfiguration.videoControlsConfig.skipButtonArea;
+    self.skipButtonDecorator.buttonPosition = self.creative.creativeModel.adConfiguration.videoControlsConfig.skipButtonPosition;
     
     UIImage *skipButtonImage = [UIImage imageNamed:@"PBM_skipButton" inBundle:[PBMFunctions bundleForSDK] compatibleWithTraitCollection:nil];
     
@@ -482,7 +482,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         return;
     }
     
-    dispatch_time_t dispatchTime = [PBMFunctions dispatchTimeAfterTimeInterval:self.creative.creativeModel.adConfiguration.skipDelay];
+    dispatch_time_t dispatchTime = [PBMFunctions dispatchTimeAfterTimeInterval:self.creative.creativeModel.adConfiguration.videoControlsConfig.skipDelay];
     @weakify(self);
     dispatch_after(dispatchTime, dispatch_get_main_queue(), ^{
         @strongify(self);
@@ -610,7 +610,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
     [self.avPlayer play];
     
-    [self handleSkipDelay:self.creative.creativeModel.adConfiguration.skipDelay videoDuration:self.creative.creativeModel.displayDurationInSeconds.doubleValue];
+    [self handleSkipDelay:self.creative.creativeModel.adConfiguration.videoControlsConfig.skipDelay videoDuration:self.creative.creativeModel.displayDurationInSeconds.doubleValue];
 
     if (!self.isPlaybackStarted) {
         self.isPlaybackStarted = YES;

@@ -57,7 +57,10 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         guard transactionFactory == nil else {
             return
         }
+        
         adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
+        adConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.videoAdConfiguration)
+        
         transactionFactory = PBMTransactionFactory(bid: bid,
                                                    adConfiguration: adConfiguration,
                                                    connection: PBMServerConnection.shared,

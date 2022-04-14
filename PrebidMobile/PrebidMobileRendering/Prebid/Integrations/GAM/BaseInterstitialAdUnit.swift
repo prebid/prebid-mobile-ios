@@ -60,23 +60,23 @@ public class BaseInterstitialAdUnit :
     }
 
     @objc public var isMuted: Bool {
-        get { adUnitConfig.adConfiguration.isMuted }
-        set { adUnitConfig.adConfiguration.isMuted = newValue }
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isMuted }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isMuted = newValue }
     }
 
     @objc public var isSoundButtonVisible: Bool {
-        get { adUnitConfig.adConfiguration.isSoundButtonVisible }
-        set { adUnitConfig.adConfiguration.isSoundButtonVisible = newValue }
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
     }
 
     @objc public var closeButtonArea: Double {
-        get { adUnitConfig.adConfiguration.closeButtonArea }
-        set { adUnitConfig.adConfiguration.closeButtonArea = newValue }
+        get { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonArea }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonArea = newValue }
     }
 
     @objc public var closeButtonPosition: Position {
-        get { adUnitConfig.adConfiguration.closeButtonPosition }
-        set { adUnitConfig.adConfiguration.closeButtonPosition = newValue }
+        get { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition = newValue }
     }
 
     @objc public weak var delegate: AnyObject?
@@ -98,8 +98,8 @@ public class BaseInterstitialAdUnit :
     // MARK: - Public Methods
     
     required public init(configID: String,
-                minSizePerc: NSValue?,
-                eventHandler: AnyObject?) {
+                         minSizePerc: NSValue?,
+                         eventHandler: AnyObject?) {
         
         adUnitConfig = AdUnitConfig(configId: configID)
         adUnitConfig.adConfiguration.isInterstitialAd = true
