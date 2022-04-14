@@ -258,9 +258,9 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
     
     func testIsMuted() {
         let adConfig = AdConfiguration()
-        XCTAssertTrue(adConfig.isMuted == true)
+        XCTAssertTrue(adConfig.videoControlsConfig.isMuted == true)
         
-        adConfig.isMuted = false
+        adConfig.videoControlsConfig.isMuted = false
         // Expected duration of video small.mp4 is 6 sec
         let expectedVideoDuration = 6.0
 
@@ -303,7 +303,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
         
         self.videoCreative.creativeModel = PBMCreativeModel()
         self.videoCreative.creativeModel?.adConfiguration = AdConfiguration()
-        self.videoCreative.creativeModel?.adConfiguration?.skipDelay = 1
+        self.videoCreative.creativeModel?.adConfiguration?.videoControlsConfig.skipDelay = 1
         self.videoCreative.creativeModel?.displayDurationInSeconds = 10
         self.videoCreative.creativeModel?.hasCompanionAd = true
         

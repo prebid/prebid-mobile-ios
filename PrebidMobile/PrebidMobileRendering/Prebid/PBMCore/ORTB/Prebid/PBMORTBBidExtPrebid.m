@@ -44,7 +44,9 @@
                 [newPassthrough addObject:nextPassthrough];
             }
         }
-        _passthrough = newPassthrough;
+        if (newPassthrough.count > 0) {
+            _passthrough = newPassthrough;
+        }
     }
     
     return self;
@@ -61,7 +63,10 @@
     for(PBMORTBExtPrebidPassthrough *nextPassthrough in self.passthrough) {
         [passthroughDicArr addObject:[nextPassthrough toJsonDictionary]];
     }
-    ret[@"passthrough"] = passthroughDicArr;
+    
+    if (passthroughDicArr.count > 0) {
+        ret[@"passthrough"] = passthroughDicArr;
+    }
     
     [ret pbmRemoveEmptyVals];
     

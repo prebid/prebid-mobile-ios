@@ -38,6 +38,6 @@ class BaseInterstitialAdUnitTest: XCTestCase {
         XCTAssertEqual(adUnit.closeButtonPosition, .topRight)
         
         adUnit.closeButtonPosition = .topLeft
-        XCTAssertEqual(adUnit.adUnitConfig.adConfiguration.closeButtonPosition, .topLeft)
+        XCTAssertEqual(adUnit.adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition, .topLeft)
     }
 }
