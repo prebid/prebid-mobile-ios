@@ -63,25 +63,13 @@ public class AdMobMediationNativeUtils: NSObject, PrebidMediationDelegate {
     
     public static func findNative(_ extras: [AnyHashable : Any],
                                   completion: @escaping (Result<PrebidMediatedUnifiedNativeAd, Error>) -> Void) {
-        guard let response = extras[PBMMediationAdNativeResponseKey] as? [String: AnyObject] else {
-            let error = PBMError.error(description: "The bid response dictionary is absent in the extras")
+    
+        switch MediationNativeUtils.findNative(in: extras) {  
+        case .success(let nativeAd):
+            let admobUnifiedAd = PrebidMediatedUnifiedNativeAd(nativeAd: nativeAd)
+            completion(.success(admobUnifiedAd))
+        case .failure(let error):
             completion(.failure(error))
-            return
         }
-        
-        guard let cacheId = response[PrebidLocalCacheIdKey] as? String else {
-            let error = PBMError.error(description: "No cache id in bid response dictionary")
-            completion(.failure(error))
-            return
-        }
-        
-        guard let nativeAd = NativeAd.create(cacheId: cacheId) else {
-            let error = AdMobAdaptersError.noAd
-            completion(.failure(error))
-            return
-        }
-        
-        let admobUnifiedAd = PrebidMediatedUnifiedNativeAd(nativeAd: nativeAd)
-        completion(.success(admobUnifiedAd))
     }
 }
