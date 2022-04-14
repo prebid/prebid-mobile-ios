@@ -24,25 +24,25 @@ import PrebidMobileAdMobAdapters
 
 
 // Stored Impressions
-fileprivate let storedImpDisplayBanner = "imp-prebid-banner-320-50"
-fileprivate let storedImpVideoBanner = "imp-prebid-video-outstream"
+fileprivate let storedImpDisplayBanner              = "imp-prebid-banner-320-50"
+fileprivate let storedImpVideoBanner                = "imp-prebid-video-outstream"
 
 // Stored Responses
-fileprivate let storedResponseDisplayBanner = "response-prebid-banner-320-50"
+fileprivate let storedResponseDisplayBanner         = "response-prebid-banner-320-50"
 
-fileprivate let storedResponseVideoBanner = "response-prebid-video-outstream"
+fileprivate let storedResponseVideoBanner           = "response-prebid-video-outstream"
 
 // GAM
 
-fileprivate let gamAdUnitDisplayBannerOriginal = "/21808260008/prebid_demo_app_original_api_banner"
-fileprivate let gamAdUnitVideoBannerOriginal = "/21808260008/prebid-demo-original-api-video-banner"
+fileprivate let gamAdUnitDisplayBannerOriginal      = "/21808260008/prebid_demo_app_original_api_banner"
+fileprivate let gamAdUnitVideoBannerOriginal        = "/21808260008/prebid-demo-original-api-video-banner"
 
-fileprivate let gamAdUnitDisplayBannerRendering = "/21808260008/prebid_oxb_320x50_banner"
-fileprivate let gamAdUnitVideoBannerRendering = "/21808260008/prebid_oxb_300x250_banner"
+fileprivate let gamAdUnitDisplayBannerRendering     = "/21808260008/prebid_oxb_320x50_banner"
+fileprivate let gamAdUnitVideoBannerRendering       = "/21808260008/prebid_oxb_300x250_banner"
 
 // AdMob
 
-fileprivate let adMobAdUnitDisplayBannerOriginal = "ca-app-pub-5922967660082475/9483570409"
+fileprivate let adMobAdUnitDisplayBannerOriginal    = "ca-app-pub-5922967660082475/9483570409"
 
 
 enum AdFormat: Int {

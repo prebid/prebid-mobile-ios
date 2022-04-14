@@ -23,10 +23,10 @@ import PrebidMobileGAMEventHandlers
 import PrebidMobileAdMobAdapters
 
 // Stored Impressions
-fileprivate let storedImpVideoRewarded                  = "imp-prebid-video-rewarded-320-480"
+fileprivate let storedImpVideoRewarded              = "imp-prebid-video-rewarded-320-480"
 
 // Stored Responses
-fileprivate let storedResponseVideoRewarded             = "response-prebid-video-rewarded-320-480"
+fileprivate let storedResponseVideoRewarded         = "response-prebid-video-rewarded-320-480"
 
 // GAM
 
@@ -36,7 +36,7 @@ fileprivate let gamAdUnitVideoRewardedRendering     = "/21808260008/prebid_oxb_r
 
 // AdMob
 
-fileprivate let adMobAdUnitDisplayInterstitial          = "ca-app-pub-5922967660082475/7397370641"
+fileprivate let adMobAdUnitDisplayInterstitial      = "ca-app-pub-5922967660082475/7397370641"
 
 class RewardedVideoController:
         UIViewController,
