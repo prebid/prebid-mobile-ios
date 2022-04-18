@@ -26,7 +26,7 @@ class PrebidBannerController: NSObject, AdaptedController, PrebidConfigurableBan
     var adSizes = [CGSize]()
     var adFormat: AdFormat?
     
-    var adBannerView : BannerView?
+    var adBannerView: BannerView?
     
     weak var rootController: AdapterViewController?
     

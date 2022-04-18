@@ -31,7 +31,7 @@ class Dispatcher: NSObject {
 
     var timer: Timer?
 
-    var delegate: DispatcherDelegate!
+    weak var delegate: DispatcherDelegate!
 
     var repeatInSeconds: Double = 0
     
