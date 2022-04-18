@@ -140,7 +140,7 @@
 }
 
 - (BOOL)isPlaybackFinished {
-    return self.videoView.vastDurationHasEnded;
+    return self.videoView.isPlaybackFinished;
 }
 
 - (void)createOpenMeasurementSession {
