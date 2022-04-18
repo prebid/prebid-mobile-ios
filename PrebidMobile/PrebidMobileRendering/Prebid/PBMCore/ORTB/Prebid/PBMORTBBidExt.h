@@ -18,6 +18,10 @@
 @class PBMORTBBidExtPrebid;
 @class PBMORTBBidExtSkadn;
 
+#if DEBUG
+@class PBMORTBExtPrebidPassthrough;
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PBMORTBBidExt : PBMORTBAbstract
@@ -26,6 +30,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSDictionary *bidder;
 
 @property (nonatomic, strong, nullable) PBMORTBBidExtSkadn *skadn;
+
+// This part is dedicating to test server-side ad configurations.
+// Need to be removed when ext.prebid.passthrough will be available.
+#if DEBUG
+@property (nonatomic, copy, nullable) NSArray<PBMORTBExtPrebidPassthrough *> *passthrough;
+#endif
 
 @end
 

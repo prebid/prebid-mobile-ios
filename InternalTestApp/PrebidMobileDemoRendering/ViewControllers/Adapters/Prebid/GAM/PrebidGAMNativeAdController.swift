@@ -228,6 +228,7 @@ extension PrebidGAMNativeAdController: GADNativeAdLoaderDelegate {
                     let adView = nibObjects.first as? UnifiedNativeAdView
                 else {
                     assert(false, "Could not load nib file for adView")
+                    return
                 }
                 
                 self.setAdView(adView)

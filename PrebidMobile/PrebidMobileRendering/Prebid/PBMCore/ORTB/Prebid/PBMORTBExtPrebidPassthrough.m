@@ -26,7 +26,7 @@
 
     _type = jsonDictionary[@"type"];
     
-    PBMJsonDictionary * const adConfigDic = jsonDictionary[@"adConfiguration"];
+    PBMJsonDictionary * const adConfigDic = jsonDictionary[@"adconfiguration"];
     
     if (adConfigDic) {
         _adConfiguration = [[PBMORTBAdConfiguration alloc] initWithJsonDictionary:adConfigDic];
