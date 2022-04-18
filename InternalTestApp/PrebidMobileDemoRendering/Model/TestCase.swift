@@ -37,6 +37,7 @@ enum TestCaseTag : String, Comparable {
     case inapp  = "In-App"
     case gam    = "GAM"
     case admob = "AdMob"
+    case max = "MAX"
     
     // MARK: - Group
     static var connections: [TestCaseTag] {
@@ -48,7 +49,7 @@ enum TestCaseTag : String, Comparable {
     }
     
     static var integrations: [TestCaseTag] {
-        return [.inapp, .gam, .admob]
+        return [.inapp, .gam, .admob, .max]
     }
     
     // MARK: - Util methods

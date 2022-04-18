@@ -45,6 +45,7 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
     public var screenWidth: CGFloat {
         return UIScreen.main.bounds.width
     }
+    
     public var screenHeight: CGFloat {
         return UIScreen.main.bounds.height
     }
@@ -54,6 +55,7 @@ class PrebidAdMobNativeViewController: NSObject, AdaptedController, GADNativeAdL
         self.rootController = rootController
         setupActions(rootController: rootController)
     }
+    
     deinit {
         Prebid.shared.storedAuctionResponse = nil
     }

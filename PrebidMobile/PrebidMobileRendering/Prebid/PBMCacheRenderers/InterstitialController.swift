@@ -91,7 +91,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
     
     @objc public func viewControllerForModalPresentation() -> UIViewController? {
         if let interactionDelegate = interactionDelegate {
-            return interactionDelegate.viewControllerForModalPresentation(from: self)
+            return interactionDelegate.viewControllerForModalPresentation(fromInterstitialController: self)
         } else {
             return nil
         }

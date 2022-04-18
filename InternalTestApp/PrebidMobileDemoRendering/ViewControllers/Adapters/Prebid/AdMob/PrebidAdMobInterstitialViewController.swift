@@ -52,6 +52,7 @@ class PrebidAdMobInterstitialViewController: NSObject, AdaptedController, Prebid
         
         setupAdapterController()
     }
+    
     deinit {
         Prebid.shared.storedAuctionResponse = nil
     }

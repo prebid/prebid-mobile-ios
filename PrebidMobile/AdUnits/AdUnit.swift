@@ -158,6 +158,7 @@ import ObjectiveC.runtime
                         if let adObjectDictionary = adObject as? DictionaryContainer<String, String> {
                             adObjectDictionary.dict[PrebidLocalCacheIdKey] = cacheId
                             completion(.prebidDemandFetchSuccess)
+                            return
                         }
                     }
                 } catch {
@@ -166,6 +167,7 @@ import ObjectiveC.runtime
             }
         } else {
             completion(.prebidDemandNoBids)
+            return
         }
         completion(.prebidUnknownError)
     }

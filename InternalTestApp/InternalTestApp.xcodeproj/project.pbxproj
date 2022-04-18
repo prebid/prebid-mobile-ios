@@ -71,6 +71,10 @@
 		92102C6427B0FE2F003F12B2 /* FeedGAMAdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC812BEE2600E57100370A33 /* FeedGAMAdTableViewCell.swift */; };
 		92102C7227B11B67003F12B2 /* PrebidNativeAdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3461834325A5EA6800783A2C /* PrebidNativeAdController.swift */; };
 		92102C7327B11DE1003F12B2 /* PrebidNativeAdFeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF3557F25CD8C3000B9C8E5 /* PrebidNativeAdFeedController.swift */; };
+		92221CE12804AF5B005DF671 /* PrebidMAXInterstitialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92221CE02804AF5B005DF671 /* PrebidMAXInterstitialController.swift */; };
+		92221CE52804BBB6005DF671 /* PrebidMAXRewardedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92221CE42804BBB6005DF671 /* PrebidMAXRewardedController.swift */; };
+		924F662F27FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924F662E27FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework */; };
+		924F663027FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 924F662E27FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9262A8AC27720DE6009441A3 /* OpenXMockServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; };
 		926CBF20278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926CBF1F278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift */; };
 		92700C7D273C029F0006E9FA /* PrebidMRAID3UITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */; };
@@ -93,7 +97,10 @@
 		92700C8F273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7A273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift */; };
 		92700C90273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7B273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift */; };
 		92700C91273C029F0006E9FA /* PrebidExamplesUITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */; };
+		9289873F28003C250062BFAA /* PrebidMAXBannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9289873E28003C250062BFAA /* PrebidMAXBannerController.swift */; };
 		929638FB27AC27FC00D30F3D /* OpenXMockServer.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D086806B2398088A00E70E60 /* OpenXMockServer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9298653528060337007A2F34 /* MAXNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9298653328060337007A2F34 /* MAXNativeAdView.xib */; };
+		92986537280604E4007A2F34 /* PrebidMAXNativeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92986536280604E4007A2F34 /* PrebidMAXNativeController.swift */; };
 		92ABD58C279DA7E200AFDFF6 /* AdMobNativeAdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ABD58A279DA7E200AFDFF6 /* AdMobNativeAdView.swift */; };
 		92ABD58D279DA7E200AFDFF6 /* AdMobNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92ABD58B279DA7E200AFDFF6 /* AdMobNativeAdView.xib */; };
 		92C475122796FF8400C26E27 /* PrebidAdMobNativeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C475112796FF8400C26E27 /* PrebidAdMobNativeViewController.swift */; };
@@ -183,6 +190,7 @@
 				929638FB27AC27FC00D30F3D /* OpenXMockServer.framework in Embed Frameworks */,
 				92C833D727B3C9EA00B99AC6 /* PrebidMobile.framework in Embed Frameworks */,
 				92F438B82768954400FDC950 /* PrebidMobileAdMobAdapters.framework in Embed Frameworks */,
+				924F663027FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,6 +276,9 @@
 		5C11D97034E668BBFDD0DDCA /* Pods_InternalTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InternalTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6400E1CF82B20C2CD2343158 /* Pods-OpenXMockServer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenXMockServer.debug.xcconfig"; path = "../prebid-mobile-ios/Pods/Target Support Files/Pods-OpenXMockServer/Pods-OpenXMockServer.debug.xcconfig"; sourceTree = "<group>"; };
 		7A70CB4CE2A2D31CA1B2C357 /* Pods-InternalTestAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InternalTestAppTests.debug.xcconfig"; path = "../prebid-mobile-ios/Pods/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		92221CE02804AF5B005DF671 /* PrebidMAXInterstitialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMAXInterstitialController.swift; sourceTree = "<group>"; };
+		92221CE42804BBB6005DF671 /* PrebidMAXRewardedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMAXRewardedController.swift; sourceTree = "<group>"; };
+		924F662E27FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMAXAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		926CBF1F278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobInterstitialViewController.swift; sourceTree = "<group>"; };
 		92700C67273C029F0006E9FA /* PrebidMRAID3UITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAID3UITest.swift; sourceTree = "<group>"; };
 		92700C68273C029F0006E9FA /* XCTestCaseExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestCaseExt.swift; sourceTree = "<group>"; };
@@ -290,6 +301,9 @@
 		92700C7A273C029F0006E9FA /* PrebidMRAID3MethodsUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAID3MethodsUITest.swift; sourceTree = "<group>"; };
 		92700C7B273C029F0006E9FA /* PrebidMRAIDResizeWithErrorsUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidMRAIDResizeWithErrorsUITest.swift; sourceTree = "<group>"; };
 		92700C7C273C029F0006E9FA /* PrebidExamplesUITest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrebidExamplesUITest.swift; sourceTree = "<group>"; };
+		9289873E28003C250062BFAA /* PrebidMAXBannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMAXBannerController.swift; sourceTree = "<group>"; };
+		9298653328060337007A2F34 /* MAXNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MAXNativeAdView.xib; sourceTree = "<group>"; };
+		92986536280604E4007A2F34 /* PrebidMAXNativeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidMAXNativeController.swift; sourceTree = "<group>"; };
 		92ABD58A279DA7E200AFDFF6 /* AdMobNativeAdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdMobNativeAdView.swift; sourceTree = "<group>"; };
 		92ABD58B279DA7E200AFDFF6 /* AdMobNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdMobNativeAdView.xib; sourceTree = "<group>"; };
 		92C475112796FF8400C26E27 /* PrebidAdMobNativeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrebidAdMobNativeViewController.swift; sourceTree = "<group>"; };
@@ -363,6 +377,7 @@
 				5BD84735252F23E80092AF74 /* CoreServices.framework in Frameworks */,
 				5B5830AD20B4371F002B2596 /* WebKit.framework in Frameworks */,
 				92C833D627B3C9EA00B99AC6 /* PrebidMobile.framework in Frameworks */,
+				924F662F27FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework in Frameworks */,
 				9262A8AC27720DE6009441A3 /* OpenXMockServer.framework in Frameworks */,
 				5B5830AB20B43717002B2596 /* SystemConfiguration.framework in Frameworks */,
 				5B5830A720B43704002B2596 /* Social.framework in Frameworks */,
@@ -416,6 +431,7 @@
 				AC4F254A25E0112C0095C601 /* NativeAdViewBoxProtocol.swift */,
 				92E92500276B2986002B57F3 /* AdMob */,
 				3493021A2473F2FB004A6086 /* GAM */,
+				9289873D28003BFE0062BFAA /* MAX */,
 				3493022024740BD8004A6086 /* OpenX */,
 			);
 			path = Prebid;
@@ -482,6 +498,7 @@
 		5B2ECE432072637900A4FB48 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				924F662E27FECD9000C8DAF7 /* PrebidMobileMAXAdapters.framework */,
 				92C833DC27B3CA8E00B99AC6 /* PrebidMobileAdMobAdapters.framework */,
 				92C833DA27B3CA8700B99AC6 /* PrebidMobileMoPubAdapters.framework */,
 				92C833D827B3CA8000B99AC6 /* PrebidMobileGAMEventHandlers.framework */,
@@ -644,6 +661,18 @@
 			path = UITests;
 			sourceTree = "<group>";
 		};
+		9289873D28003BFE0062BFAA /* MAX */ = {
+			isa = PBXGroup;
+			children = (
+				9298653328060337007A2F34 /* MAXNativeAdView.xib */,
+				9289873E28003C250062BFAA /* PrebidMAXBannerController.swift */,
+				92221CE02804AF5B005DF671 /* PrebidMAXInterstitialController.swift */,
+				92221CE42804BBB6005DF671 /* PrebidMAXRewardedController.swift */,
+				92986536280604E4007A2F34 /* PrebidMAXNativeController.swift */,
+			);
+			path = MAX;
+			sourceTree = "<group>";
+		};
 		92ABD589279DA7E200AFDFF6 /* NativeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,6 +828,7 @@
 				5B6EB00C2122CAA400C5B072 /* Frameworks */,
 				5B6EB00D2122CAA400C5B072 /* Resources */,
 				0163900BBA5F053F055F3A03 /* [CP] Embed Pods Frameworks */,
+				D1F74D555EAC12CAB8036FD4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -820,6 +850,7 @@
 				93FED9C11A376EFE009A6E9F /* Resources */,
 				802528B749910E5695D54FCF /* [CP] Embed Pods Frameworks */,
 				9262A8AE27720DE6009441A3 /* Embed Frameworks */,
+				2604B52EFD0A1C8698F645F8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -951,6 +982,7 @@
 			files = (
 				92ABD58D279DA7E200AFDFF6 /* AdMobNativeAdView.xib in Resources */,
 				5B1BDB802100D59000B46B43 /* Main.storyboard in Resources */,
+				9298653528060337007A2F34 /* MAXNativeAdView.xib in Resources */,
 				5B1BDB882100D6EA00B46B43 /* Images.xcassets in Resources */,
 				AC27E9E624D9A69A000CD7EC /* FeedAdTableViewCell.xib in Resources */,
 				5B1BDB7F2100D59000B46B43 /* LaunchScreen.xib in Resources */,
@@ -1001,6 +1033,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2604B52EFD0A1C8698F645F8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp-resources.sh",
+				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-11.3.2/AppLovinSDKResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppLovinSDKResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InternalTestApp/Pods-InternalTestApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		484200C8E7CBBACB19DC5AB3 /* [CP] Check Pods Manifest.lock */ = {
@@ -1099,6 +1149,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D1F74D555EAC12CAB8036FD4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests-resources.sh",
+				"${PODS_ROOT}/AppLovinSDK/applovin-ios-sdk-11.3.2/AppLovinSDKResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppLovinSDKResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InternalTestAppTests/Pods-InternalTestAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1151,6 +1219,9 @@
 				34E5698A237DB96900B47B01 /* UtilitiesViewController.swift in Sources */,
 				92ABD58C279DA7E200AFDFF6 /* AdMobNativeAdView.swift in Sources */,
 				34BA95FE249CBF05006AE372 /* PrebidGAMInterstitialController.swift in Sources */,
+				92221CE52804BBB6005DF671 /* PrebidMAXRewardedController.swift in Sources */,
+				92986537280604E4007A2F34 /* PrebidMAXNativeController.swift in Sources */,
+				9289873F28003C250062BFAA /* PrebidMAXBannerController.swift in Sources */,
 				34BAD451239547420042DB33 /* IABConsentHelper.swift in Sources */,
 				92102C7227B11B67003F12B2 /* PrebidNativeAdController.swift in Sources */,
 				926CBF20278C8CD200E07BF2 /* PrebidAdMobInterstitialViewController.swift in Sources */,
@@ -1191,6 +1262,7 @@
 				5B3EEDDF2101EA9200BAA0C4 /* TestCasesViewController.swift in Sources */,
 				92F9A5D227A15D04007B0B17 /* NativeAdViewBoxLinks.swift in Sources */,
 				34FC0CF624ADD5640045553E /* PrebidGAMRewardedController.swift in Sources */,
+				92221CE12804AF5B005DF671 /* PrebidMAXInterstitialController.swift in Sources */,
 				5B8EB5EF22676914003CC15C /* DummyTableViewCell.swift in Sources */,
 				5B3EEDCB2101D1AF00BAA0C4 /* AboutViewController.swift in Sources */,
 				92F9A5D127A15BD1007B0B17 /* NativeAdViewBoxProtocol.swift in Sources */,

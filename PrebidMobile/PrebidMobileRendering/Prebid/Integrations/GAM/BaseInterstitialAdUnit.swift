@@ -278,7 +278,7 @@ public class BaseInterstitialAdUnit :
     
     // MARK: - InterstitialControllerInteractionDelegate
     
-    public func trackImpression(for interstitialController: InterstitialController) {
+    public func trackImpression(forInterstitialController: InterstitialController) {
         DispatchQueue.main.async {
             self.callEventHandler_trackImpression()
         }
@@ -307,7 +307,7 @@ public class BaseInterstitialAdUnit :
         
     }
     
-    public func viewControllerForModalPresentation(from interstitialController: InterstitialController) -> UIViewController? {
+    public func viewControllerForModalPresentation(fromInterstitialController: InterstitialController) -> UIViewController? {
         return targetController
     }
     

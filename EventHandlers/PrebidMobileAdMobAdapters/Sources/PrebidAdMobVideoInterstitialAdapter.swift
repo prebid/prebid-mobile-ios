@@ -50,7 +50,7 @@ public class PrebidAdMobVideoInterstitialAdapter:
             return
         }
         
-        guard AdMobUtils.isServerParameterInKeywords(serverParameter, keywords) else {
+        guard MediationUtils.isServerParameterInTargetingInfo(serverParameter, keywords) else {
             let error = AdMobAdaptersError.wrongServerParameter
             delegate?.customEventInterstitial(self, didFailAd: error)
             return
@@ -107,12 +107,12 @@ public class PrebidAdMobVideoInterstitialAdapter:
     
     // MARK: - InterstitialControllerInteractionDelegate
     
-    public func trackImpression(for interstitialController: InterstitialController) {
+    public func trackImpression(forInterstitialController: InterstitialController) {
         //Impressions will be tracked automatically
         //unless enableAutomaticImpressionAndClickTracking = NO
     }
     
-    public func viewControllerForModalPresentation(from interstitialController: InterstitialController) -> UIViewController? {
+    public func viewControllerForModalPresentation(fromInterstitialController: InterstitialController) -> UIViewController? {
         return rootViewController
     }
     

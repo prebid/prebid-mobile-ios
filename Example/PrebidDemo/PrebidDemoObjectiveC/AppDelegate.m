@@ -17,8 +17,10 @@
 
 @import PrebidMobile;
 @import GoogleMobileAds;
+@import AppLovinSDK;
 @import PrebidMobileGAMEventHandlers;
 @import PrebidMobileAdMobAdapters;
+@import PrebidMobileMAXAdapters;
 
 @interface AppDelegate ()
 
@@ -43,6 +45,12 @@
     [GAMUtils.shared initializeGAM];
 
     [AdMobUtils initializeGAD];
+    
+    [ALSdk shared].mediationProvider = @"max";
+    [ALSdk shared].userIdentifier = @"USER_ID";
+    [[ALSdk shared] initializeSdkWithCompletionHandler:^(ALSdkConfiguration *configuration) {
+        PBMLogInfo(@"%@", ALSdk.shared.isInitialized ? @"YES" : @"NO");
+    }];
     return YES;
 }
 

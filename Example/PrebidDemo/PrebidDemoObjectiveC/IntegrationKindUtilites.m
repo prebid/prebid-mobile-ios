@@ -18,7 +18,8 @@
         [NSNumber numberWithInteger:IntegrationKind_OriginalAdMob],
         [NSNumber numberWithInteger:IntegrationKind_InApp],
         [NSNumber numberWithInteger:IntegrationKind_RenderingGAM],
-        [NSNumber numberWithInteger:IntegrationKind_RenderingAdMob]
+        [NSNumber numberWithInteger:IntegrationKind_RenderingAdMob],
+        [NSNumber numberWithInteger:IntegrationKind_RenderingMAX]
     ];
 }
 
@@ -28,7 +29,8 @@
         [NSNumber numberWithInteger:IntegrationKind_OriginalAdMob]      : @"Original AdMob",
         [NSNumber numberWithInteger:IntegrationKind_InApp]              : @"In-App",
         [NSNumber numberWithInteger:IntegrationKind_RenderingGAM]       : @"Rendering GAM",
-        [NSNumber numberWithInteger:IntegrationKind_RenderingAdMob]     : @"Rendering AdMob"
+        [NSNumber numberWithInteger:IntegrationKind_RenderingAdMob]     : @"Rendering AdMob",
+        [NSNumber numberWithInteger:IntegrationKind_RenderingMAX]       : @"Rendering MAX"
     };
 }
 
@@ -78,7 +80,8 @@
     return
         integrationKind == IntegrationKind_InApp ||
         integrationKind == IntegrationKind_RenderingGAM ||
-        integrationKind == IntegrationKind_RenderingAdMob;
+        integrationKind == IntegrationKind_RenderingAdMob ||
+        integrationKind == IntegrationKind_RenderingMAX;
 }
 
 @end

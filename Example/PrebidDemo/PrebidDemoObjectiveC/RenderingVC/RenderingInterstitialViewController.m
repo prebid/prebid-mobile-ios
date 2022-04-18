@@ -38,6 +38,7 @@
         case IntegrationKind_InApp          : [self loadInAppInterstitial]            ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingInterstitial]     ; break;
         case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingInterstitial]   ; break;
+        case IntegrationKind_RenderingMAX   : break;
             
         default:
             break;
