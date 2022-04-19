@@ -65,6 +65,7 @@ class RewardedVideoController:
         case .inApp             : setupAndLoadInAppRewarded()
         case .renderingGAM      : setupAndLoadGAMRenderingRewarded()
         case .renderingAdMob    : setupAndLoadAdMobRenderingRewardedVideo()
+        case .renderingMAX      : print("TODO")
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }
@@ -111,7 +112,7 @@ class RewardedVideoController:
         
         let adUnit = RewardedVideoAdUnit(configId: storedImpVideoRewarded)
         
-        let parameters = VideoBaseAdUnit.Parameters()
+        let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
         
         parameters.protocols = [Signals.Protocols.VAST_2_0]

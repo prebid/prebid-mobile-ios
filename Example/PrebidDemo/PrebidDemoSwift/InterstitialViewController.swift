@@ -85,6 +85,7 @@ class InterstitialViewController:
         case .inApp             : setupAndLoadInAppInterstitial()
         case .renderingGAM      : setupAndLoadGAMRenderingInterstitial()
         case .renderingAdMob    : setupAndLoadAdMobRenderingInterstitial()
+        case .renderingMAX      : print("TODO")
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }
@@ -235,7 +236,7 @@ class InterstitialViewController:
         setupPrebidServer(storedResponse: storedResponseVideoInterstitial)
 
         let adUnit = VideoInterstitialAdUnit(configId: storedImpVideoInterstitial)
-        let parameters = VideoBaseAdUnit.Parameters()
+        let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
         
         parameters.protocols = [Signals.Protocols.VAST_2_0]
