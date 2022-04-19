@@ -71,8 +71,8 @@ extension NativeAdViewBoxLinks {
     func renderNativeAd(_ nativeAd: NativeAd) {
         linkRootButton.setTitle(nativeAd.callToAction, for: .normal)
         deepLinkOkButton.setTitle(nativeAd.text, for: .normal)
-    
         sponsoredButton.setTitle(nativeAd.sponsoredBy ?? "", for: .normal)
+        ratingButton.setTitle(nativeAd.dataObjects(of: .rating).first?.value, for: .normal)
     }
     
     func registerViews(_ nativeAd: NativeAd) {

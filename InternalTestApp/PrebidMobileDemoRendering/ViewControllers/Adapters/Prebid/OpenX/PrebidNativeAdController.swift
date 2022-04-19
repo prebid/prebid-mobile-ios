@@ -45,9 +45,12 @@ class PrebidNativeAdController: NSObject, AdaptedController {
         self.rootController = rootController
         rootController.showButton.isHidden = true
     }
+    
     deinit {
         Prebid.shared.storedAuctionResponse = nil
+        Prebid.shared.shouldAssignNativeAssetID = false
     }
+    
     func setupNativeAdView(_ nativeAdViewBox: NativeAdViewBoxProtocol) {
         
         self.nativeAdViewBox = nativeAdViewBox

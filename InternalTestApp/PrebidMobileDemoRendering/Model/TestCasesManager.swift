@@ -2217,10 +2217,17 @@ struct TestCaseManager {
                 }
                 let nativeAdController = PrebidNativeAdController(rootController: adapterVC)
                 nativeAdController.setupNativeAdView(NativeAdViewBoxLinks())
-
                 nativeAdController.prebidConfigId = "imp-prebid-native-links"
                 nativeAdController.storedAuctionResponse = "response-prebid-native-links"
-                nativeAdController.nativeAssets = .defaultNativeRequestAssets
+                         
+                Prebid.shared.shouldAssignNativeAssetID = true
+                         
+                let sponsored = NativeAssetData(type: .sponsored, required: true)
+                let rating = NativeAssetData(type: .rating, required: true)
+                let desc = NativeAssetData(type: .description, required: true)
+                let cta = NativeAssetData(type: .ctatext, required: true)
+                         
+                nativeAdController.nativeAssets = [sponsored, desc, rating, cta]
                 nativeAdController.eventTrackers = .defaultNativeEventTrackers
 
                 adapterVC.setup(adapter: nativeAdController)
