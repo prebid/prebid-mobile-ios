@@ -28,7 +28,7 @@
     _closeButtonArea = jsonDictionary[@"closebuttonarea"];
     _closeButtonPosition = jsonDictionary[@"closebuttonposition"];
     _skipButtonArea = jsonDictionary[@"skipbuttonarea"];
-    _skipButtonPosition = jsonDictionary[@"skipButtonPossition"];
+    _skipButtonPosition = jsonDictionary[@"skipbuttonposition"];
     _skipDelay = jsonDictionary[@"skipdelay"];
     
     return self;

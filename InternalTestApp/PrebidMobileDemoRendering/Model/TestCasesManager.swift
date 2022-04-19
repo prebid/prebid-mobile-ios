@@ -905,6 +905,22 @@ struct TestCaseManager {
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
+            
+            TestCase(title: "Video Interstitial With Ad Configuration With End Card 320x480 (In-App)",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card-with-ad-configuration"
+                interstitialController.adFormats = [.video]
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
 
             TestCase(title: "Video Interstitial 320x480 (In-App) [noBids]",
                      tags: [.video, .inapp, .server],
