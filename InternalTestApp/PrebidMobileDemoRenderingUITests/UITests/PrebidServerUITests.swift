@@ -32,7 +32,7 @@ class PrebidServerUITests: AdsLoaderUITestCase {
     func testBannerWithGDPR() {
         enableGDPRIfNeeded()
         checkBannerLoadResult(exampleName: "Banner 320x50 (In-App)",
-                              expectFailure: true)
+                              expectFailure: false)
     }
     
     func testInAppBanner_noBids() {

@@ -80,7 +80,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 @property (atomic, assign) NSInteger requestedDataLength;
 
 @property (nonatomic, assign) BOOL isPlaybackStarted;
-@property (nonatomic, assign) BOOL vastDurationHasEnded;
+@property (nonatomic, assign) BOOL isPlaybackFinished;
 
 @end
 
@@ -147,7 +147,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)setupWithEventManager:(PBMEventManager *)eventManager {
-    self.vastDurationHasEnded = NO;
+    self.isPlaybackFinished = NO;
     self.showLearnMore = NO;
     self.isPlaybackStarted = NO;
     self.eventManager = eventManager;
@@ -159,7 +159,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
     
     [self setupSkipButton];
     
-    self.isSoundButtonVisible = self.creative.creativeModel.adConfiguration.isSoundButtonVisible;
+    self.isSoundButtonVisible = self.creative.creativeModel.adConfiguration.videoControlsConfig.isSoundButtonVisible;
 }
 
 #pragma mark - Public
@@ -454,8 +454,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 - (void)setupSkipButton {
     self.skipButtonDecorator = [AdViewButtonDecorator new];
     self.skipButtonDecorator.button.hidden = YES;
-    self.skipButtonDecorator.buttonArea = self.creative.creativeModel.adConfiguration.skipButtonArea;
-    self.skipButtonDecorator.buttonPosition = self.creative.creativeModel.adConfiguration.skipButtonPosition;
+    self.skipButtonDecorator.buttonArea = self.creative.creativeModel.adConfiguration.videoControlsConfig.skipButtonArea;
+    self.skipButtonDecorator.buttonPosition = self.creative.creativeModel.adConfiguration.videoControlsConfig.skipButtonPosition;
     
     UIImage *skipButtonImage = [UIImage imageNamed:@"PBM_skipButton" inBundle:[PBMFunctions bundleForSDK] compatibleWithTraitCollection:nil];
     
@@ -470,6 +470,8 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)skipButtonTapped {
+    [self.skipButtonDecorator removeButtonFromSuperview];
+    [self.avPlayer pause];
     [self completeVideoViewDisplayWith:PBMTrackingEventSkip];
 }
 
@@ -478,11 +480,11 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         return;
     }
     
-    if (!self.creative.creativeModel.hasCompanionAd || self.creative.creativeModel.adConfiguration.isOptIn) {
+    if (!self.creative.creativeModel.hasCompanionAd || self.creative.creativeModel.adConfiguration.isOptIn || self.creative.creativeModel.adConfiguration.isBuiltInVideo) {
         return;
     }
     
-    dispatch_time_t dispatchTime = [PBMFunctions dispatchTimeAfterTimeInterval:self.creative.creativeModel.adConfiguration.skipDelay];
+    dispatch_time_t dispatchTime = [PBMFunctions dispatchTimeAfterTimeInterval:self.creative.creativeModel.adConfiguration.videoControlsConfig.skipDelay];
     @weakify(self);
     dispatch_after(dispatchTime, dispatch_get_main_queue(), ^{
         @strongify(self);
@@ -558,7 +560,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)btnWatchAgainClick {
-    self.vastDurationHasEnded = NO;
+    self.isPlaybackFinished = NO;
 
     [self.avPlayer seekToTime:kCMTimeZero toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
     [self.avPlayer play];
@@ -610,7 +612,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
     [self.avPlayer play];
     
-    [self handleSkipDelay:self.creative.creativeModel.adConfiguration.skipDelay videoDuration:self.creative.creativeModel.displayDurationInSeconds.doubleValue];
+    [self handleSkipDelay:self.creative.creativeModel.adConfiguration.videoControlsConfig.skipDelay videoDuration:self.creative.creativeModel.displayDurationInSeconds.doubleValue];
 
     if (!self.isPlaybackStarted) {
         self.isPlaybackStarted = YES;
@@ -642,7 +644,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         return;
     }
 
-    if (self.avPlayer.error || self.vastDurationHasEnded) {
+    if (self.avPlayer.error || self.isPlaybackFinished) {
         return;
     }
     
@@ -656,7 +658,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
         return;
     }
 
-    if (self.avPlayer.error || self.vastDurationHasEnded) {
+    if (self.avPlayer.error || self.isPlaybackFinished) {
         return;
     }
     
@@ -745,9 +747,9 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 
 - (void)completeVideoViewDisplayWith:(PBMTrackingEvent)trackingEvent {
 
-    if (!self.vastDurationHasEnded) {
-        self.vastDurationHasEnded = YES;
-        [self.eventManager trackEvent:PBMTrackingEventComplete];
+    if (!self.isPlaybackFinished ) {
+        self.isPlaybackFinished = YES;
+        [self.eventManager trackEvent:trackingEvent];
     }
     
     [self.videoViewDelegate videoViewCompletedDisplay];
@@ -771,6 +773,10 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 }
 
 - (void)handleDidPlayToEndTime {
+    if (self.isPlaybackFinished) {
+        return;
+    }
+    
     [self completeVideoViewDisplayWith:PBMTrackingEventComplete];
 }
 
@@ -848,7 +854,7 @@ static CGSize const MUTE_BUTTON_SIZE = { 24, 24 };
 // pause avPlayer and notify videoViewCompletedDisplay if video reached the VAST Duration
 - (void)stopAdIfNeeded {
     
-    if (self.vastDurationHasEnded) {
+    if (self.isPlaybackFinished) {
         return;
     }
     

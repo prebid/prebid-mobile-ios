@@ -237,13 +237,7 @@ public class AdUnitConfig: NSObject, NSCopying {
         clone.nativeAdConfiguration = self.nativeAdConfiguration
         clone.adConfiguration.bannerParameters = self.adConfiguration.bannerParameters
         clone.adConfiguration.videoParameters = self.adConfiguration.videoParameters
-        clone.adConfiguration.isMuted = self.adConfiguration.isMuted
-        clone.adConfiguration.isSoundButtonVisible = self.adConfiguration.isSoundButtonVisible
-        clone.adConfiguration.closeButtonPosition = self.adConfiguration.closeButtonPosition
-        clone.adConfiguration.closeButtonArea = self.adConfiguration.closeButtonArea
-        clone.adConfiguration.skipButtonArea = self.adConfiguration.skipButtonArea
-        clone.adConfiguration.skipButtonPosition = self.adConfiguration.skipButtonPosition
-        clone.adConfiguration.skipDelay = self.adConfiguration.skipDelay
+        clone.adConfiguration.videoControlsConfig = self.adConfiguration.videoControlsConfig
         clone.sizes = sizes
         clone.refreshInterval = self.refreshInterval
         clone.minSizePerc = self.minSizePerc

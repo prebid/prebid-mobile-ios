@@ -889,6 +889,38 @@ struct TestCaseManager {
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
+            
+            TestCase(title: "Video Interstitial With Ad Configuration 320x480 (In-App)",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-ad-configuration"
+                interstitialController.adFormats = [.video]
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Interstitial With Ad Configuration With End Card 320x480 (In-App)",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-with-end-card"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-with-end-card-with-ad-configuration"
+                interstitialController.adFormats = [.video]
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
 
             TestCase(title: "Video Interstitial 320x480 (In-App) [noBids]",
                      tags: [.video, .inapp, .server],
@@ -1450,6 +1482,23 @@ struct TestCaseManager {
                 let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
                 rewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
                 rewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480"
+                adapterVC.setup(adapter: rewardedAdController)
+                        
+                setupCustomParams(for: rewardedAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Rewarded With Ad Configuration 320x480 (In-App)",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let rewardedAdController = PrebidRewardedController(rootController: adapterVC)
+                
+                rewardedAdController.prebidConfigId = "imp-prebid-video-rewarded-320-480"
+                
+                rewardedAdController.storedAuctionResponse = "response-prebid-video-rewarded-320-480-with-ad-configuration"
                 adapterVC.setup(adapter: rewardedAdController)
                         
                 setupCustomParams(for: rewardedAdController.prebidConfigId)
@@ -2168,10 +2217,17 @@ struct TestCaseManager {
                 }
                 let nativeAdController = PrebidNativeAdController(rootController: adapterVC)
                 nativeAdController.setupNativeAdView(NativeAdViewBoxLinks())
-
                 nativeAdController.prebidConfigId = "imp-prebid-native-links"
                 nativeAdController.storedAuctionResponse = "response-prebid-native-links"
-                nativeAdController.nativeAssets = .defaultNativeRequestAssets
+                         
+                Prebid.shared.shouldAssignNativeAssetID = true
+                         
+                let sponsored = NativeAssetData(type: .sponsored, required: true)
+                let rating = NativeAssetData(type: .rating, required: true)
+                let desc = NativeAssetData(type: .description, required: true)
+                let cta = NativeAssetData(type: .ctatext, required: true)
+                         
+                nativeAdController.nativeAssets = [sponsored, desc, rating, cta]
                 nativeAdController.eventTrackers = .defaultNativeEventTrackers
 
                 adapterVC.setup(adapter: nativeAdController)

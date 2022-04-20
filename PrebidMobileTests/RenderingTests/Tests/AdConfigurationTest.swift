@@ -38,39 +38,4 @@ class AdConfigurationTest: XCTestCase {
         adConfiguration.forceInterstitialPresentation = nil
         XCTAssertNotNil(adConfiguration.autoRefreshDelay)
     }
-
-    func testDefaultIsMuted() {
-        let adConfiguration = AdConfiguration()
-        XCTAssertTrue(adConfiguration.isMuted == true)
-    }
-
-    func testDefaultIsMuteControlsDisabled() {
-        let adConfiguration = AdConfiguration()
-        XCTAssertTrue(adConfiguration.isSoundButtonVisible == false)
-    }
-
-    func testCloseButtonArea() {
-        let adConfiguration = AdConfiguration()
-        XCTAssertEqual(adConfiguration.closeButtonArea, PBMConstants.BUTTON_AREA_DEFAULT.doubleValue)
-    }
-    
-    func testDefaultCloseButtonPosition() {
-        let adConfiguration = AdConfiguration()
-        XCTAssertTrue(adConfiguration.closeButtonPosition == .topRight)
-    }
-    
-    func testDefaultSkipButtonArea() {
-        let adConfiguration = AdConfiguration()
-        XCTAssertEqual(adConfiguration.skipButtonArea, PBMConstants.BUTTON_AREA_DEFAULT.doubleValue)
-    }
-    
-    func testDefaultSkipButtonPosition() {
-        let adConfiguration = AdConfiguration()
-        XCTAssertEqual(adConfiguration.skipButtonPosition, .topRight)
-    }
-    
-    func testDefaultSkipButtonDelay() {
-        let adConfiguration = AdConfiguration()
-        XCTAssertEqual(adConfiguration.skipDelay, PBMConstants.SKIP_DELAY_DEFAULT.doubleValue)
-    }
 }

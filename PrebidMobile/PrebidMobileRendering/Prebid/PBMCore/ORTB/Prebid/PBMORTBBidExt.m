@@ -19,6 +19,10 @@
 #import "PBMORTBBidExtPrebid.h"
 #import "PBMORTBBidExtSkadn.h"
 
+#if DEBUG
+#import "PBMORTBExtPrebidPassthrough.h"
+#endif
+
 @implementation PBMORTBBidExt
 
 - (instancetype)initWithJsonDictionary:(PBMJsonDictionary *)jsonDictionary {
@@ -38,6 +42,23 @@
         _skadn = [[PBMORTBBidExtSkadn alloc] initWithJsonDictionary:skadnDict];
     }
     
+    #if DEBUG
+    NSArray * const passthroughDics = jsonDictionary[@"passthrough"];
+    _passthrough = nil;
+    if (passthroughDics) {
+        NSMutableArray * const newPassthrough = [[NSMutableArray alloc] initWithCapacity:passthroughDics.count];
+        for(PBMJsonDictionary *nextDic in passthroughDics) {
+            PBMORTBExtPrebidPassthrough * const nextPassthrough = [[PBMORTBExtPrebidPassthrough alloc] initWithJsonDictionary:nextDic];
+            if (nextPassthrough) {
+                [newPassthrough addObject:nextPassthrough];
+            }
+        }
+        if (newPassthrough.count > 0) {
+            _passthrough = newPassthrough;
+        }
+    }
+    #endif
+    
     return self;
 }
 
@@ -47,6 +68,17 @@
     ret[@"bidder"] = self.bidder;
     ret[@"prebid"] = [self.prebid toJsonDictionary];
     ret[@"skadn"] = [self.skadn toJsonDictionary];
+    
+    #if DEBUG
+    NSMutableArray * const passthroughDicArr = [[NSMutableArray alloc] initWithCapacity:self.passthrough.count];
+    for(PBMORTBExtPrebidPassthrough *nextPassthrough in self.passthrough) {
+        [passthroughDicArr addObject:[nextPassthrough toJsonDictionary]];
+    }
+    
+    if (passthroughDicArr.count > 0) {
+        ret[@"passthrough"] = passthroughDicArr;
+    }
+    #endif
     
     [ret pbmRemoveEmptyVals];
     

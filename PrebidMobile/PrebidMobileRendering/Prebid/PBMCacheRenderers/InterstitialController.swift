@@ -57,7 +57,16 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         guard transactionFactory == nil else {
             return
         }
+        
         adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
+        adConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.videoAdConfiguration)
+        
+        // This part is dedicating to test server-side ad configurations.
+        // Need to be removed when ext.prebid.passthrough will be available.
+        #if DEBUG
+        adConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.testVideoAdConfiguration)
+        #endif
+        
         transactionFactory = PBMTransactionFactory(bid: bid,
                                                    adConfiguration: adConfiguration,
                                                    connection: PBMServerConnection.shared,

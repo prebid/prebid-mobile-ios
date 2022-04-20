@@ -142,7 +142,7 @@ public class AdViewButtonDecorator: NSObject {
     }
     
     // MARK: - Private properties
-    private var displayView: UIView?
+    private weak var displayView: UIView?
     private var buttonImage: UIImage?
     private var activeConstraints: [NSLayoutConstraint]?
 }

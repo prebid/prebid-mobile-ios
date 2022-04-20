@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Indicates that video reached the VAST Duration
 // We must use this flag instead of player’s state to prevent double-stopping of the video due to async work of observers.
-@property (nonatomic, assign, readonly) BOOL vastDurationHasEnded;
+@property (nonatomic, assign, readonly) BOOL isPlaybackFinished;
 
 @property (nonatomic, assign) BOOL isSoundButtonVisible;
 

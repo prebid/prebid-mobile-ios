@@ -39,13 +39,13 @@ class PBMVideoCreativeTestCloseDelay : XCTestCase {
         model.hasCompanionAd = false
         
         //for video without end cart use skip delay
-        model.adConfiguration?.skipDelay = 5
+        model.adConfiguration?.videoControlsConfig.skipDelay = 5
         expected = 5
         actual = calculateCloseDelay(with:model, pubCloseDelay:5)
         PBMAssertEq(actual, expected)
         
         //reset
-        model.adConfiguration?.skipDelay = 1000000
+        model.adConfiguration?.videoControlsConfig.skipDelay = 1000000
         
         //if skipOffset is not nil and is less than video duration - use it
         model.skipOffset = 4

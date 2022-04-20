@@ -15,18 +15,17 @@
 
 #import "PBMORTBAbstract.h"
 
-@class PBMORTBBidExtPrebidCache;
-@class PBMORTBExtPrebidPassthrough;
+@class PBMORTBAdConfiguration;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PBMORTBBidExtPrebid : PBMORTBAbstract
+@interface PBMORTBExtPrebidPassthrough: PBMORTBAbstract
 
-@property (nonatomic, strong, nullable) PBMORTBBidExtPrebidCache *cache;
-@property (nonatomic, copy, nullable) NSDictionary<NSString *, NSString *> *targeting;
 @property (nonatomic, copy, nullable) NSString *type;
-@property (nonatomic, copy, nullable) NSArray<PBMORTBExtPrebidPassthrough *> *passthrough;
+
+@property (nonatomic, strong, nullable) PBMORTBAdConfiguration *adConfiguration;
 
 @end
 
 NS_ASSUME_NONNULL_END
+
