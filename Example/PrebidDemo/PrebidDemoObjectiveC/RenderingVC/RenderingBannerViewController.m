@@ -67,46 +67,45 @@
 
 - (void)initRendering {
     Prebid.shared.accountID = @"0689a263-318d-448b-a3d4-b02e8a709d9d";
-    [Prebid.shared setCustomPrebidServerWithUrl:@"https://prebid.openx.net/openrtb2/auction" error:nil];
+    Prebid.shared.storedAuctionResponse = @"response-prebid-banner-320-50";
+    [Prebid.shared setCustomPrebidServerWithUrl:@"https://prebid-server-test-j.prebid.org/openrtb2/auction" error:nil];
     
     [NSUserDefaults.standardUserDefaults setValue:@"123" forKey:@"IABTCF_CmpSdkID"];
     [NSUserDefaults.standardUserDefaults setValue:@"0" forKey:@"IABTCF_gdprApplies"];
 }
 
 - (void)loadInAppBanner {
-    
     self.bannerView = [[BannerView alloc] initWithFrame:self.frame
-                                               configID:@"50699c03-0910-477c-b4a4-911dbe2b9d42"
+                                               configID:@"imp-prebid-banner-320-50"
                                                  adSize:self.size];
     
-    [self.bannerView loadAd];
     self.bannerView.delegate = self;
-    
     [self.adView addSubview:self.bannerView];
+    [self.bannerView loadAd];
 }
 
 - (void)loadGAMRenderingBanner {
-    
     GAMBannerEventHandler *eventHandler = [[GAMBannerEventHandler alloc] initWithAdUnitID:@"/21808260008/prebid_oxb_320x50_banner"
                                                                           validGADAdSizes:@[[NSValue valueWithCGSize:self.size]]];
     
     self.bannerView = [[BannerView alloc] initWithFrame:self.frame
-                                               configID:@"50699c03-0910-477c-b4a4-911dbe2b9d42"
+                                               configID:@"imp-prebid-banner-320-50"
                                                  adSize:self.size
                                            eventHandler:eventHandler];
-    
-    [self.bannerView loadAd];
     self.bannerView.delegate = self;
-    
     [self.adView addSubview:self.bannerView];
+    [self.bannerView loadAd];
 }
 
 - (void)loadAdMobRenderingBanner {
     self.gadBannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
     self.gadBannerView.adUnitID = @"ca-app-pub-5922967660082475/9483570409";
+    self.gadBannerView.rootViewController = self;
+    
     self.gadRequest = [GADRequest new];
+    
     self.mediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest bannerView:self.gadBannerView];
-    self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"50699c03-0910-477c-b4a4-911dbe2b9d42" size:self.size mediationDelegate:self.mediationDelegate];
+    self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"imp-prebid-banner-320-50" size:self.size mediationDelegate:self.mediationDelegate];
     
     [self.admobBannerAdUnit fetchDemandWithCompletion:^(ResultCode result) {
         GADCustomEventExtras *extras = [GADCustomEventExtras new];
@@ -114,6 +113,7 @@
         NSString *prebidExtrasLabel = AdMobConstants.PrebidAdMobEventExtrasLabel;
         [extras setExtras:prebidExtras forLabel: prebidExtrasLabel];
         [self.gadRequest registerAdNetworkExtras:extras];
+        [self.adView addSubview:self.gadBannerView];
         [self.gadBannerView loadRequest:self.gadRequest];
     }];
 }

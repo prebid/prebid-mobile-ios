@@ -59,7 +59,7 @@
 
 - (void)initRendering {
     Prebid.shared.accountID = @"0689a263-318d-448b-a3d4-b02e8a709d9d";
-    [Prebid.shared setCustomPrebidServerWithUrl:@"https://prebid.openx.net/openrtb2/auction" error:nil];
+    [Prebid.shared setCustomPrebidServerWithUrl:@"https://prebid-server-test-j.prebid.org/openrtb2/auction" error:nil];
     
     [NSUserDefaults.standardUserDefaults setValue:@"123" forKey:@"IABTCF_CmpSdkID"];
     [NSUserDefaults.standardUserDefaults setValue:@"0" forKey:@"IABTCF_gdprApplies"];
@@ -68,10 +68,11 @@
 - (void)loadInAppInterstitial {
     
     if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
-        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"5a4b8dcf-f984-4b04-9448-6529908d6cb6"];
-       
+        Prebid.shared.storedAuctionResponse = @"response-prebid-display-interstitial-320-480";
+        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"imp-prebid-display-interstitial-320-480"];
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
-        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"12f58bc2-b664-4672-8d19-638bcc96fd5c"];
+        Prebid.shared.storedAuctionResponse = @"response-prebid-video-interstitial-320-480";
+        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"imp-prebid-video-interstitial-320-480"];
         self.interstitialAdUnit.adFormats = [[NSSet alloc] initWithArray:@[AdFormat.video]];
     }
     
@@ -83,17 +84,18 @@
 - (void)loadGAMRenderingInterstitial {
     
     if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
-
-        GAMInterstitialEventHandler *eventHandler = [[GAMInterstitialEventHandler alloc] initWithAdUnitID:@"/21808260008/prebid_oxb_html_interstitial"];
+        Prebid.shared.storedAuctionResponse = @"response-prebid-display-interstitial-320-480";
+        GAMInterstitialEventHandler *eventHandler = [[GAMInterstitialEventHandler alloc] initWithAdUnitID:@"/21808260008/prebid-demo-app-original-api-display-interstitial"];
         
-        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"5a4b8dcf-f984-4b04-9448-6529908d6cb6"
+        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"imp-prebid-display-interstitial-320-480"
                                                                       minSizePercentage:CGSizeMake(30, 30)
                                                                            eventHandler:eventHandler];
 
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
-        GAMInterstitialEventHandler *eventHandler = [[GAMInterstitialEventHandler alloc] initWithAdUnitID:@"/21808260008/prebid_oxb_interstitial_video"];
+        Prebid.shared.storedAuctionResponse = @"response-prebid-video-interstitial-320-480";
+        GAMInterstitialEventHandler *eventHandler = [[GAMInterstitialEventHandler alloc] initWithAdUnitID:@"/21808260008/prebid-demo-app-original-api-video-interstitial"];
         
-        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"12f58bc2-b664-4672-8d19-638bcc96fd5c"
+        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"imp-prebid-video-interstitial-320-480"
                                                                       minSizePercentage:CGSizeMake(30, 30)
                                                                            eventHandler:eventHandler];
         self.interstitialAdUnit.adFormats = [[NSSet alloc] initWithArray:@[AdFormat.video]];
@@ -108,11 +110,13 @@
     GADRequest *request = [GADRequest new];
     AdMobMediationInterstitialUtils *mediationDelegate = [[AdMobMediationInterstitialUtils alloc] initWithGadRequest:request];
     if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
-        self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"5a4b8dcf-f984-4b04-9448-6529908d6cb6"
+        Prebid.shared.storedAuctionResponse = @"response-prebid-display-interstitial-320-480";
+        self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"imp-prebid-display-interstitial-320-480"
                                                                            mediationDelegate:mediationDelegate];
 
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
-        self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"12f58bc2-b664-4672-8d19-638bcc96fd5c"
+        Prebid.shared.storedAuctionResponse = @"response-prebid-video-interstitial-320-480";
+        self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"imp-prebid-video-interstitial-320-480"
                                                                            mediationDelegate:mediationDelegate];
     }
     

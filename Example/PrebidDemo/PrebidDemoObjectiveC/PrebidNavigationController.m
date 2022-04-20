@@ -71,10 +71,10 @@
     return cell;
 }
 
--(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString * storyboardName = @"Main";
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-    if (indexPath.section == IntegrationKind_OriginalGAM || indexPath.section == IntegrationKind_OriginalAdMob) {
+    if (indexPath.section == IntegrationKind_OriginalGAM) {
         ViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"viewController"];
         NSNumber *num = (NSNumber *) self.integrationsList[indexPath.section];
         viewController.adServer = (IntegrationKind) [num intValue];

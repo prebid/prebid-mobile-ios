@@ -48,9 +48,6 @@
     // [[Prebid shared] setCustomPrebidServerWithUrl:@"" error:&err];
     // if(err == nil)
     
-    self.bannerUnit = [[BannerAdUnit alloc] initWithConfigId:@"6ace8c7d-88c0-4623-8117-75bc3f0a2e45" size:CGSizeMake(300, 250)];
-    self.interstitialUnit = [[InterstitialAdUnit alloc] initWithConfigId:@"625c6125-f19e-4d5b-95c5-55501526b2a4"];
-    
 //    Advanced interstitial support
 //    self.interstitialUnit = [[InterstitialAdUnit alloc] initWithConfigId:@"625c6125-f19e-4d5b-95c5-55501526b2a4" minWidthPerc:50 minHeightPerc:70];
     
@@ -81,18 +78,35 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
     
--(void) viewDidDisappear:(BOOL)animated{
+-(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self.bannerUnit stopAutoRefresh];
 }
-    
-    
--(void) loadDFPBanner {
-    
+
+-(void)setupPrebidServerWith:(NSString *)storedResponse {
+    Prebid.shared.accountID = @"0689a263-318d-448b-a3d4-b02e8a709d9d";
+    [Prebid.shared setCustomPrebidServerWithUrl:@"https://prebid-server-test-j.prebid.org/openrtb2/auction" error:nil];
+    Prebid.shared.storedAuctionResponse = storedResponse;
+}
+
+-(void)setupBannerAdUnit {
+    [self setupPrebidServerWith:@"response-prebid-banner-320-50"];
+    self.bannerUnit = [[BannerAdUnit alloc] initWithConfigId:@"imp-prebid-banner-320-50" size:CGSizeMake(320, 50)];
     [self.bannerUnit setAutoRefreshMillisWithTime:35000];
-    self.dfpView = [[GAMBannerView alloc] initWithAdSize:kGADAdSizeMediumRectangle];
+}
+
+-(void)setupInterstitialAdUnit {
+    [self setupPrebidServerWith:@"response-prebid-display-interstitial-320-480"];
+    
+    self.interstitialUnit = [[InterstitialAdUnit alloc] initWithConfigId:@"imp-prebid-display-interstitial-320-480"];
+}
+    
+-(void)loadDFPBanner {
+    [self setupBannerAdUnit];
+    
+    self.dfpView = [[GAMBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(CGSizeMake(320, 50))];
+    self.dfpView.adUnitID = @"/21808260008/prebid_demo_app_original_api_banner";
     self.dfpView.rootViewController = self;
-    self.dfpView.adUnitID = @"/19968336/PrebidMobileValidator_Banner_All_Sizes";
     self.dfpView.delegate = self;
     [self.bannerView addSubview:self.dfpView];
     self.dfpView.backgroundColor = [UIColor redColor];
@@ -106,28 +120,27 @@
     }];
 }
     
--(void) loadDFPInterstitial {
-    
+-(void)loadDFPInterstitial {
+    [self setupInterstitialAdUnit];
     self.request = [[GAMRequest alloc] init];
     [self.interstitialUnit fetchDemandWithAdObject:self.request completion:^(enum ResultCode result) {
         NSLog(@"Prebid demand result %ld", (long)result);
 
-        [GAMInterstitialAd loadWithAdManagerAdUnitID:@"/19968336/PrebidMobileValidator_Interstitial" request:self.request completionHandler:^(GAMInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
+        [GAMInterstitialAd loadWithAdManagerAdUnitID: @"/21808260008/prebid-demo-app-original-api-display-interstitial" request:self.request completionHandler:^(GAMInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"Failed to load interstitial ad with error: %@", [error localizedDescription]);
                 return;
             }
             [interstitialAd presentFromRootViewController:self];
         }];
-
     }];
 }
 
--(void) enableCOPPA {
+-(void)enableCOPPA {
     Targeting.shared.coppa = @(1);
 }
 
--(void) addFirstPartyData:(AdUnit *)adUnit {
+-(void)addFirstPartyData:(AdUnit *)adUnit {
     //Access Control List
     [Targeting.shared addBidderToAccessControlList: Prebid.bidderNameAppNexus];
     [Targeting.shared addUserDataWithKey:@"globalUserDataKey1" value:@"globalUserDataValue1"];
@@ -158,11 +171,11 @@
     [adUnit addContextKeyword:@"adunitContextKeywordValue2"];
 }
 
--(void) setStoredResponse {
+-(void)setStoredResponse {
     Prebid.shared.storedAuctionResponse = @"111122223333";
 }
 
--(void) setRequestTimeoutMillis {
+-(void)setRequestTimeoutMillis {
     Prebid.shared.timeoutMillis = 5000;
 }
 
@@ -189,7 +202,7 @@
 
 #pragma mark Prebid NativeAd DFP
 
--(void) loadDFPPrebidNative {
+-(void)loadDFPPrebidNative {
     [self removePreviousAds];
     [self createPrebidNativeView];
     [self loadNativeAssets];
@@ -202,7 +215,7 @@
 
 }
 
--(void) loadDFP:(GAMRequest *)dfpRequest{
+-(void)loadDFP:(GAMRequest *)dfpRequest{
     self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:@"/19968336/Abhas_test_native_native_adunit" rootViewController:self adTypes:@[kGADAdLoaderAdTypeGAMBanner, kGADAdLoaderAdTypeCustomNative] options:@[]];
     self.adLoader.delegate = self;
     [self.adLoader loadRequest:dfpRequest];
@@ -210,7 +223,7 @@
 
 #pragma mark :- Native functions
 
--(void) createPrebidNativeView{
+-(void)createPrebidNativeView{
     UINib *adNib = [UINib nibWithNibName:@"NativeAdView" bundle:[NSBundle bundleForClass:[self class]]];
     NSArray *array = [adNib instantiateWithOwner:self options:nil];
     _nativeAdView = [array firstObject];
@@ -218,12 +231,12 @@
     [_adContainerView addSubview:_nativeAdView];
 }
 
--(void) registerPrebidNativeView{
+-(void)registerPrebidNativeView{
     self.prebidNativeAd.delegate = self;
     [self.prebidNativeAd registerViewWithView:self.nativeAdView clickableViews:@[self.nativeAdView.callToActionButton]];
 }
 
--(void) loadNativeAssets{
+-(void)loadNativeAssets{
     NativeAssetImage *image = [[NativeAssetImage alloc] initWithMinimumWidth:200 minimumHeight:200 required:true];
     image.type = ImageAsset.Main;
 
@@ -243,7 +256,7 @@
     self.nativeUnit.contextSubType = ContextSubType.Social;
 }
 
--(void) removePreviousAds{
+-(void)removePreviousAds{
     if (_nativeAdView != nil) {
         _nativeAdView.iconImageView = nil;
         _nativeAdView.mainImageView = nil;
@@ -260,7 +273,7 @@
 
 #pragma mark :- Rendering Prebid Native
 
--(void) renderPrebidNativeAd{
+-(void)renderPrebidNativeAd{
     self.nativeAdView.titleLabel.text = self.prebidNativeAd.title;
     self.nativeAdView.bodyLabel.text = self.prebidNativeAd.text;
     dispatch_async(dispatch_get_global_queue(0,0), ^{

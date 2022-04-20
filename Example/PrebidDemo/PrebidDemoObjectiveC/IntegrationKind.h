@@ -11,7 +11,6 @@
 
 typedef NS_ENUM(NSUInteger, IntegrationKind) {
     IntegrationKind_OriginalGAM,
-    IntegrationKind_OriginalAdMob,
     
     IntegrationKind_InApp,
     IntegrationKind_RenderingGAM,

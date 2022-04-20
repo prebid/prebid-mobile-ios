@@ -15,7 +15,6 @@
 + (NSArray *)IntegrationKindAllCases {
     return @[
         [NSNumber numberWithInteger:IntegrationKind_OriginalGAM],
-        [NSNumber numberWithInteger:IntegrationKind_OriginalAdMob],
         [NSNumber numberWithInteger:IntegrationKind_InApp],
         [NSNumber numberWithInteger:IntegrationKind_RenderingGAM],
         [NSNumber numberWithInteger:IntegrationKind_RenderingAdMob],
@@ -26,7 +25,6 @@
 + (NSDictionary *)IntegrationKindDescr {
     return @{
         [NSNumber numberWithInteger:IntegrationKind_OriginalGAM]        : @"Original GAM",
-        [NSNumber numberWithInteger:IntegrationKind_OriginalAdMob]      : @"Original AdMob",
         [NSNumber numberWithInteger:IntegrationKind_InApp]              : @"In-App",
         [NSNumber numberWithInteger:IntegrationKind_RenderingGAM]       : @"Rendering GAM",
         [NSNumber numberWithInteger:IntegrationKind_RenderingAdMob]     : @"Rendering AdMob",
