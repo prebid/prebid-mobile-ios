@@ -246,6 +246,9 @@ class BannerController:
                                 
         prebidBannerView.delegate = self
         
+        appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = prebidBannerView.adUnitConfig.adSize.width
+        appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = prebidBannerView.adUnitConfig.adSize.height
+        
         appBannerView.addSubview(prebidBannerView)
         
         prebidBannerView.loadAd()
@@ -264,6 +267,9 @@ class BannerController:
                                 
         prebidBannerView.delegate = self
         
+        appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = prebidBannerView.adUnitConfig.adSize.width
+        appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = prebidBannerView.adUnitConfig.adSize.height
+        
         appBannerView.addSubview(prebidBannerView)
         
         prebidBannerView.loadAd()
@@ -271,6 +277,10 @@ class BannerController:
     
     func loadAdMobRenderingBanner() {
         gadBanner.delegate = self
+        
+        appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = gadBanner.adSize.size.width
+        appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = gadBanner.adSize.size.height
+        
         appBannerView.addSubview(gadBanner)
         gadBanner.backgroundColor = .red
         gadBanner.rootViewController = self
@@ -338,6 +348,9 @@ class BannerController:
                                 
         prebidBannerView.delegate = self
         
+        appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = prebidBannerView.adUnitConfig.adSize.width
+        appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = prebidBannerView.adUnitConfig.adSize.height
+        
         appBannerView.addSubview(prebidBannerView)
         
         prebidBannerView.loadAd()
@@ -356,6 +369,9 @@ class BannerController:
                                 
         prebidBannerView.delegate = self
         prebidBannerView.adFormat = .video
+        
+        appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = prebidBannerView.adUnitConfig.adSize.width
+        appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = prebidBannerView.adUnitConfig.adSize.height
         
         appBannerView.addSubview(prebidBannerView)
         
