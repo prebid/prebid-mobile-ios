@@ -35,6 +35,7 @@
 + (NSArray *)IntegrationAdFormatAllCases {
     return @[
         [NSNumber numberWithInteger:IntegrationAdFormat_Banner],
+        [NSNumber numberWithInteger:IntegrationAdFormat_BannerVideo],
         [NSNumber numberWithInteger:IntegrationAdFormat_Interstitial],
         [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideo],
         [NSNumber numberWithInteger:IntegrationAdFormat_Rewarded],
@@ -45,6 +46,7 @@
 + (NSDictionary *)IntegrationAdFormatDescr {
     return @{
         [NSNumber numberWithInteger:IntegrationAdFormat_Banner]             : @"Banner",
+        [NSNumber numberWithInteger:IntegrationAdFormat_BannerVideo]        : @"Banner Video",
         [NSNumber numberWithInteger:IntegrationAdFormat_Interstitial]       : @"Interstitial",
         [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideo]  : @"Interstitial Video",
         [NSNumber numberWithInteger:IntegrationAdFormat_Rewarded]           : @"Rewarded",
@@ -68,6 +70,7 @@
 + (NSArray *)IntegrationAdFormatRendering {
     return @[
         [NSNumber numberWithInteger:IntegrationAdFormat_Banner],
+        [NSNumber numberWithInteger:IntegrationAdFormat_BannerVideo],
         [NSNumber numberWithInteger:IntegrationAdFormat_Interstitial],
         [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideo],
         [NSNumber numberWithInteger:IntegrationAdFormat_Rewarded],

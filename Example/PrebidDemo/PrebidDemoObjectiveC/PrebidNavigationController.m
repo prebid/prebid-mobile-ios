@@ -85,6 +85,12 @@
         if (integrationAdFormat == IntegrationAdFormat_Banner) {
             RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
             viewController.integrationKind = IntegrationKind_InApp;
+            viewController.integrationAdFormat = IntegrationAdFormat_Banner;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (integrationAdFormat == IntegrationAdFormat_BannerVideo) {
+            RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
+            viewController.integrationKind = IntegrationKind_InApp;
+            viewController.integrationAdFormat = IntegrationAdFormat_BannerVideo;
             [self.navigationController pushViewController:viewController animated:YES];
         } else if (integrationAdFormat == IntegrationAdFormat_Interstitial) {
             RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
@@ -106,6 +112,12 @@
         if (integrationAdFormat == IntegrationAdFormat_Banner) {
             RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
             viewController.integrationKind = IntegrationKind_RenderingGAM;
+            viewController.integrationAdFormat = IntegrationAdFormat_Banner;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (integrationAdFormat == IntegrationAdFormat_BannerVideo) {
+            RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
+            viewController.integrationKind = IntegrationKind_RenderingGAM;
+            viewController.integrationAdFormat = IntegrationAdFormat_BannerVideo;
             [self.navigationController pushViewController:viewController animated:YES];
         } else if (integrationAdFormat == IntegrationAdFormat_Interstitial) {
             RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
@@ -127,6 +139,12 @@
         if (integrationAdFormat == IntegrationAdFormat_Banner) {
             RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
             viewController.integrationKind = IntegrationKind_RenderingAdMob;
+            viewController.integrationAdFormat = IntegrationAdFormat_Banner;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (integrationAdFormat == IntegrationAdFormat_BannerVideo) {
+            RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
+            viewController.integrationKind = IntegrationKind_RenderingAdMob;
+            viewController.integrationAdFormat = IntegrationAdFormat_BannerVideo;
             [self.navigationController pushViewController:viewController animated:YES];
         } else if (integrationAdFormat == IntegrationAdFormat_Interstitial) {
             RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];

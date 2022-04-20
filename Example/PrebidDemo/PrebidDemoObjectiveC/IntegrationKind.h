@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger, IntegrationKind) {
 
 typedef NS_ENUM(NSUInteger, IntegrationAdFormat) {
     IntegrationAdFormat_Banner,
+    IntegrationAdFormat_BannerVideo,
     
     IntegrationAdFormat_Interstitial,
     IntegrationAdFormat_InterstitialVideo,
