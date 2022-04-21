@@ -17,6 +17,12 @@ import UIKit
 import GoogleInteractiveMediaAds
 import PrebidMobile
 
+fileprivate let storedImpVideo      = "imp-prebid-video-interstitial-320-480"
+fileprivate let storedResponseVideo = "response-prebid-video-interstitial-320-480"
+
+fileprivate let gamAdUnitVideo  = "/21808260008/prebid_oxb_interstitial_video"
+
+
 class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAdsManagerDelegate {
     
     @IBOutlet var adServerLabel: UILabel!
@@ -59,8 +65,6 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
         switch integrationKind {
         case .originalGAM:
             setupAndLoadAMInstreamVideo()
-        case .originalAdMob:
-            print("TODO: Add Example")
         case .inApp:
             print("TODO: Add Example")
         case .renderingGAM:
@@ -115,10 +119,27 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
 //        setupAMAppNexusInstreamVideo()
         
         //Rubicon
-        setupPBRubiconInStreamVideo()
-        setupAMRubiconInstreamVideo()
+//        setupPBRubiconInStreamVideo()
+//        setupAMRubiconInstreamVideo()
+        
+        setupPrebidServer()
+        
+        let videoAdUnit = VideoAdUnit(configId: storedImpVideo, size: CGSize(width: 1,height: 1))
+        videoAdUnit.parameters = parameters
+        adUnit = videoAdUnit
+        
+        adUnitID = gamAdUnitVideo
         
         loadAMInStreamVideo()
+    }
+    
+    // Setup Prebid
+    
+    func setupPrebidServer() {
+        Prebid.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
+
+        Prebid.shared.storedAuctionResponse = storedResponseVideo
     }
 
     func setupVideoParameters() {
@@ -167,7 +188,7 @@ class InstreamVideoViewController: UIViewController, IMAAdsLoaderDelegate, IMAAd
             print("prebid keys")
             if (ResultCode == .prebidDemandFetchSuccess){
                 do {
-                    let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(adUnitID: self.adUnitID, adSlotSizes: [.Size640x480,.Size400x300], customKeywords: prebidKeys!)
+                    let adServerTag = try IMAUtils.shared.generateInstreamUriForGAM(adUnitID: self.adUnitID, adSlotSizes: [.Size320x480], customKeywords: prebidKeys!)
                     let adDisplayContainer = IMAAdDisplayContainer(adContainer: self.appInstreamView, viewController: self)
                     // Create an ad request with our ad tag, display container, and optional user context.
                     let request = IMAAdsRequest(adTagUrl: adServerTag, adDisplayContainer: adDisplayContainer, contentPlayhead: nil, userContext: nil)

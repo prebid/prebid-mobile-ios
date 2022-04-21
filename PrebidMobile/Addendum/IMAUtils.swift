@@ -21,10 +21,14 @@ import Foundation
     
     case Size640x480
     
+    case Size320x480
+    
     func size () -> String {
         switch self {
         case .Size400x300: return "400x300"
         case .Size640x480: return "640x480"
+        case .Size320x480: return "320x480"
+
         }
     }
 }

@@ -44,8 +44,6 @@ class NativeInAppViewController: UIViewController, GAMBannerAdLoaderDelegate, GA
         switch integrationKind {
         case .originalGAM:
             setupAndLoadNativeInAppForDFP()
-        case .originalAdMob:
-            print("TODO: Add Example")
         case .inApp:
             print("TODO: Add Example")
         case .renderingGAM:

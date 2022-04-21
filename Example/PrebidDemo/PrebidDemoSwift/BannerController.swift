@@ -22,6 +22,29 @@ import GoogleMobileAds
 import PrebidMobileGAMEventHandlers
 import PrebidMobileAdMobAdapters
 
+
+// Stored Impressions
+fileprivate let storedImpDisplayBanner              = "imp-prebid-banner-320-50"
+fileprivate let storedImpVideoBanner                = "imp-prebid-video-outstream"
+
+// Stored Responses
+fileprivate let storedResponseDisplayBanner         = "response-prebid-banner-320-50"
+
+fileprivate let storedResponseVideoBanner           = "response-prebid-video-outstream"
+
+// GAM
+
+fileprivate let gamAdUnitDisplayBannerOriginal      = "/21808260008/prebid_demo_app_original_api_banner"
+fileprivate let gamAdUnitVideoBannerOriginal        = "/21808260008/prebid-demo-original-api-video-banner"
+
+fileprivate let gamAdUnitDisplayBannerRendering     = "/21808260008/prebid_oxb_320x50_banner"
+fileprivate let gamAdUnitVideoBannerRendering       = "/21808260008/prebid_oxb_300x250_banner"
+
+// AdMob
+
+fileprivate let adMobAdUnitDisplayBannerOriginal    = "ca-app-pub-5922967660082475/9483570409"
+
+
 enum AdFormat: Int {
     case html
     case vast
@@ -45,9 +68,6 @@ class BannerController:
     var integrationKind : IntegrationKind = .undefined
     
     // MARK: - Private Properties
-    
-    let width = 300
-    let height = 250
     
     // Prebid Original
     private var prebidAdUnit: AdUnit!
@@ -76,7 +96,6 @@ class BannerController:
         
         switch integrationKind {
             case .originalGAM       : setupAndLoadGAM()
-            case .originalAdMob     : print("There is no way to integrate AdMob with original SDK")
             case .inApp             : setupAndLoadInAppBanner()
             case .renderingGAM      : setupAndLoadGAMRendering()
             case .renderingAdMob    : setupAndLoadAdMobRendering()
@@ -89,7 +108,6 @@ class BannerController:
 
 //        enableCOPPA()
 //        addFirstPartyData(adUnit: prebidAdUnit)
-//        setStoredResponse()
 //        setRequestTimeoutMillis()
 //        enablePbsDebug()
     }
@@ -122,15 +140,15 @@ class BannerController:
     }
     
     func setupAndLoadGAMBanner() {
-        setupRubiconBanner(width: width, height: height)
-        setupGAMBannerRubicon(width: width, height: height)
+        setupBannerAdUnit()
         
+        setupGAMBanner(width: 320, height: 50,
+                       adUnitId: gamAdUnitDisplayBannerOriginal)
+
         loadGAMBanner()
     }
     
     func setupAndLoadInAppBanner() {
-        setupOpenxRenderingBanner()
-        
         switch bannerFormat {
         case .html:
             loadInAppBanner()
@@ -140,8 +158,6 @@ class BannerController:
     }
     
     func setupAndLoadGAMRendering() {
-        setupOpenxRenderingBanner()
-        
         switch bannerFormat {
         case .html:
             loadGAMRenderingBanner()
@@ -151,37 +167,23 @@ class BannerController:
     }
     
     func setupAndLoadAdMobRendering() {
-        setupOpenxRenderingBanner()
         
-        setupAdMobBanner(adUnitId: "ca-app-pub-5922967660082475/9483570409", width: 320, height: 50)
+        setupPrebidServer(storedResponse: storedResponseDisplayBanner)
+
+        setupAdMobBanner(adUnitId: adMobAdUnitDisplayBannerOriginal,
+                         width: 320, height: 50)
+        
         loadAdMobRenderingBanner()
     }
     
     // MARK: Setup PBS
     
-    func setupAppNexusBanner(width: Int, height: Int) {
-        setupBannerAdUnit(host: .Appnexus,
-                          accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0",
-                          configId: "6ace8c7d-88c0-4623-8117-75bc3f0a2e45",
-                          storedResponse: "",
-                          width: width, height: height)
-    }
-
-    func setupRubiconBanner(width: Int, height: Int) {
-        setupBannerAdUnit(host: .Rubicon,
-                          accountId: "1001",
-                          configId: "1001-1",
-                          storedResponse: "1001-rubicon-300x250",
-                          width: width, height: height)
-    }
-    
-    func setupBannerAdUnit(host: PrebidHost, accountId: String, configId: String, storedResponse: String, width: Int, height: Int) {
+    func setupBannerAdUnit() {
         
-        setupPrebidServer(host: host,
-                          accountId: accountId,
-                          storedResponse: storedResponse)
+        setupPrebidServer(storedResponse: storedResponseDisplayBanner)
         
-        let bannerAdUnit = BannerAdUnit(configId: configId, size: CGSize(width: width, height: height))
+        let bannerAdUnit = BannerAdUnit(configId: storedImpDisplayBanner,
+                                        size: CGSize(width: 320, height: 50))
         
         let parameters = BannerParameters()
 
@@ -195,28 +197,14 @@ class BannerController:
         toggleRefreshButton.isHidden = false
     }
 
-    func setupPrebidServer(host: PrebidHost, accountId: String, storedResponse: String) {
-        Prebid.shared.prebidServerHost = host
-        Prebid.shared.prebidServerAccountId = accountId
-        Prebid.shared.storedAuctionResponse = storedResponse
-    }
-    
-    // MARK: Setup PBS Rendering
-    
-    func setupOpenxRenderingBanner() {
+    func setupPrebidServer(storedResponse: String) {
         Prebid.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
-        try! Prebid.shared.setCustomPrebidServer(url: "https://prebid.openx.net/openrtb2/auction")
+        try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
+
+        Prebid.shared.storedAuctionResponse = storedResponse
     }
 
     // MARK: Setup AdServer - GAM
-    
-    func setupGAMBannerAppNexus(width: Int, height: Int) {
-        setupGAMBanner(width: width, height: height, adUnitId: "/19968336/PrebidMobileValidator_Banner_All_Sizes")
-    }
-
-    func setupGAMBannerRubicon(width: Int, height: Int) {
-        setupGAMBanner(width: width, height: height, adUnitId: "/5300653/pavliuchyk_test_adunit_1x1_puc")
-    }
 
     func setupGAMBanner(width: Int, height:Int, adUnitId: String) {
         let customAdSize = GADAdSizeFromCGSize(CGSize(width: width, height: height))
@@ -249,9 +237,11 @@ class BannerController:
     }
     
     func loadInAppBanner() {
-        let size = CGSize(width: width, height: height)
+        setupPrebidServer(storedResponse: storedResponseDisplayBanner)
+
+        let size = CGSize(width: 320, height: 50)
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
-                              configID: "50699c03-0910-477c-b4a4-911dbe2b9d42",
+                              configID: storedImpDisplayBanner,
                               adSize: CGSize(width: 320, height: 50))
                                 
         prebidBannerView.delegate = self
@@ -262,11 +252,13 @@ class BannerController:
     }
     
     func loadGAMRenderingBanner() {
-        let size = CGSize(width: width, height: height)
+        setupPrebidServer(storedResponse: storedResponseDisplayBanner)
+
+        let size = CGSize(width: 320, height: 50)
         
-        let eventHandler = GAMBannerEventHandler(adUnitID: "/21808260008/prebid_oxb_320x50_banner", validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
+        let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitDisplayBannerRendering, validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
-                              configID: "50699c03-0910-477c-b4a4-911dbe2b9d42",
+                              configID: storedImpDisplayBanner,
                               adSize: CGSize(width: 320, height: 50),
                               eventHandler: eventHandler)
                                 
@@ -287,7 +279,7 @@ class BannerController:
         let size = CGSize(width: 320, height: 50)
         
         mediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: gadBanner)
-        prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: "50699c03-0910-477c-b4a4-911dbe2b9d42", size: size, mediationDelegate: mediationDelegate)
+        prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpDisplayBanner, size: size, mediationDelegate: mediationDelegate)
         
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
             let extras = GADCustomEventExtras()
@@ -302,16 +294,19 @@ class BannerController:
     //MARK: Banner VAST
     
     func setupAndLoadGAMBannerVAST() {
-        setupPBRubiconBannerVAST(width: width, height: height)
-        setupAMRubiconBannerVAST(width: width, height: height)
+        setupGAMBannerVAST(width: 300, height: 250)
+        
+        setupGAMBanner(width: 300, height: 250,
+                       adUnitId: gamAdUnitVideoBannerOriginal)
+        
         loadGAMBanner()
     }
 
-    func setupPBRubiconBannerVAST(width: Int, height: Int) {
+    func setupGAMBannerVAST(width: Int, height: Int) {
+        // TODO: actualize stored response for this case
+        setupPrebidServer(storedResponse: storedResponseVideoBanner)
 
-        setupPrebidServer(host: .Rubicon, accountId: "1001", storedResponse: "sample_video_response")
-
-        let adUnit = VideoAdUnit(configId: "1001-1", size: CGSize(width: width, height: height))
+        let adUnit = VideoAdUnit(configId: storedImpVideoBanner, size: CGSize(width: width, height: height))
 
         let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
@@ -329,15 +324,13 @@ class BannerController:
 
         self.prebidAdUnit = adUnit
     }
-
-    func setupAMRubiconBannerVAST(width: Int, height: Int) {
-        setupGAMBanner(width: width, height: height, adUnitId: "/5300653/test_adunit_vast_pavliuchyk")
-    }
     
     func loadInAppVideoBanner() {
+        setupPrebidServer(storedResponse: storedResponseVideoBanner)
+        
         let size = CGSize(width: 300, height: 250)
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
-                              configID: "9007b76d-c73c-49c6-b0a8-1c7890a84b33",
+                              configID: storedImpVideoBanner,
                               adSize: CGSize(width: 300, height: 250))
         
         prebidBannerView.adFormat = .video
@@ -353,9 +346,11 @@ class BannerController:
     func loadGAMRenderingVideoBanner() {
         let size = CGSize(width: 300, height: 250)
         
-        let eventHandler = GAMBannerEventHandler(adUnitID: "/21808260008/prebid_oxb_300x250_banner", validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
+        setupPrebidServer(storedResponse: storedResponseVideoBanner)
+        
+        let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitVideoBannerRendering, validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
-                              configID: "9007b76d-c73c-49c6-b0a8-1c7890a84b33",
+                              configID: storedImpVideoBanner,
                               adSize: CGSize(width: 300, height: 250),
                               eventHandler: eventHandler)
                                 
@@ -400,10 +395,6 @@ class BannerController:
         //adunit context keywords
         adUnit.addContextKeyword("adunitContextKeywordValue1")
         adUnit.addContextKeyword("adunitContextKeywordValue2")
-    }
-    
-    func setStoredResponse() {
-        Prebid.shared.storedAuctionResponse = "111122223333"
     }
     
     func setRequestTimeoutMillis() {
