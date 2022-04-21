@@ -106,6 +106,7 @@ public class PrebidAdMobBannerAdapter:
     
     public func willPresentModal(from displayView: PBMDisplayView) {
         delegate?.customEventBannerWillPresentModal(self)
+        delegate?.customEventBannerWasClicked(self)
     }
     
     public func didDismissModal(from displayView: PBMDisplayView) {

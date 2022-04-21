@@ -50,7 +50,6 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
     private let didLoadAdButton = EventReportContainer()
     private let didFailToLoadAdButton = EventReportContainer()
     private let didFailToDisplayButton = EventReportContainer()
-    private let didDisplayAdButton = EventReportContainer()
     private let didHideAdButton = EventReportContainer()
     private let didExpandAdButton = EventReportContainer()
     private let didCollapseAdButton = EventReportContainer()
@@ -181,7 +180,6 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
         rootController?.setupAction(didLoadAdButton, "didLoadAd called")
         rootController?.setupAction(didFailToLoadAdButton, "didFailToLoadAd called")
         rootController?.setupAction(didFailToDisplayButton, "didFailToDisplay called")
-        rootController?.setupAction(didDisplayAdButton, "didDisplayAd called")
         rootController?.setupAction(didHideAdButton, "didHideAd called")
         rootController?.setupAction(didExpandAdButton, "didExpandAd called")
         rootController?.setupAction(didCollapseAdButton, "didCollapseAd called")
@@ -198,7 +196,6 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
         didLoadAdButton.isEnabled = false
         didFailToLoadAdButton.isEnabled = false
         didFailToDisplayButton.isEnabled = false
-        didDisplayAdButton.isEnabled = false
         didHideAdButton.isEnabled = false
         didExpandAdButton.isEnabled = false
         didCollapseAdButton.isEnabled = false
@@ -225,6 +222,8 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
     
     @objc private func stopRefresh() {
         stopRefreshButton.isEnabled = false
+        reloadButton.isEnabled = false
+        adBannerView?.stopAutoRefresh()
         adUnit?.stopRefresh()
     }
 }
@@ -261,7 +260,7 @@ extension PrebidMAXBannerController: MAAdViewAdDelegate {
     }
     
     func didDisplay(_ ad: MAAd) {
-        didDisplayAdButton.isEnabled = true
+        // This method is deprecated for banner. It is used in full-screen ad only
     }
     
     func didHide(_ ad: MAAd) {

@@ -88,10 +88,12 @@ extension PrebidMAXMediationAdapter: MAAdViewAdapter, DisplayViewLoadingDelegate
     }
     
     public func willPresentModal(from displayView: PBMDisplayView) {
-        
+        bannerDelegate?.didClickAdViewAd()
+        bannerDelegate?.didExpandAdViewAd()
     }
     
     public func didDismissModal(from displayView: PBMDisplayView) {
         bannerDelegate?.didHideAdViewAd()
+        bannerDelegate?.didCollapseAdViewAd()
     }
 }

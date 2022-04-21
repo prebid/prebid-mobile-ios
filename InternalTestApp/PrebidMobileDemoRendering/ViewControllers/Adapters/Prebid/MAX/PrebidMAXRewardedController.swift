@@ -42,8 +42,6 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
     private let didDisplayAdButton = EventReportContainer()
     private let didHideAdButton = EventReportContainer()
     private let didClickAdButton = EventReportContainer()
-    private let didStartRewardedVideoButton = EventReportContainer()
-    private let didCompleteRewardedVideoButton = EventReportContainer()
     private let didRewardUserButton = EventReportContainer()
     
     private let configIdLabel = UILabel()
@@ -72,6 +70,7 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         rewarded = MARewardedAd.shared(withAdUnitIdentifier: maxAdUnitId)
+        rewarded?.delegate = self
         
         mediationDelegate = MAXMediationRewardedUtils(rewardedAd: rewarded!)
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
@@ -106,7 +105,6 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
                 return
             }
             
-            self.rewarded?.delegate = self
             self.rewarded?.load()
         }
     }
@@ -135,8 +133,6 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
         adapterViewController?.setupAction(didDisplayAdButton, "didDisplayAd called")
         adapterViewController?.setupAction(didHideAdButton, "didHideAd called")
         adapterViewController?.setupAction(didClickAdButton, "didClickAd called")
-        adapterViewController?.setupAction(didStartRewardedVideoButton, "didStartRewardedVideo called")
-        adapterViewController?.setupAction(didCompleteRewardedVideoButton, "didCompleteRewardedVideo called")
         adapterViewController?.setupAction(didRewardUserButton, "didRewardUser called")
     }
     
@@ -148,8 +144,6 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
         didDisplayAdButton.isEnabled = false
         didHideAdButton.isEnabled = false
         didClickAdButton.isEnabled = false
-        didStartRewardedVideoButton.isEnabled = false
-        didCompleteRewardedVideoButton.isEnabled = false
         didRewardUserButton.isEnabled = false
     }
 }
@@ -185,11 +179,11 @@ extension PrebidMAXRewardedController: MARewardedAdDelegate {
     }
     
     func didStartRewardedVideo(for ad: MAAd) {
-        didStartRewardedVideoButton.isEnabled = true
+        
     }
     
     func didCompleteRewardedVideo(for ad: MAAd) {
-        didCompleteRewardedVideoButton.isEnabled = true
+        
     }
     
     func didRewardUser(for ad: MAAd, with reward: MAReward) {

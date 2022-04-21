@@ -62,6 +62,6 @@ extension PrebidMAXMediationAdapter: MANativeAdAdapter, NativeAdEventDelegate {
     }
     
     public func adDidLogImpression(ad: NativeAd) {
-        
+        nativeDelegate?.didDisplayNativeAd(withExtraInfo: nil)
     }
 }

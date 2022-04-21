@@ -69,6 +69,7 @@ class PrebidMAXInterstitialController: NSObject, AdaptedController, PrebidConfig
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         interstitial = MAInterstitialAd(adUnitIdentifier: maxAdUnitId)
+        interstitial?.delegate = self
         
         mediationDelegate = MAXMediationInterstitialUtils(interstitialAd: interstitial!)
         adUnit = MediationInterstitialAdUnit(configId: prebidConfigId,
@@ -109,7 +110,6 @@ class PrebidMAXInterstitialController: NSObject, AdaptedController, PrebidConfig
                 return
             }
             
-            self.interstitial?.delegate = self
             self.interstitial?.load()
         }
     }
