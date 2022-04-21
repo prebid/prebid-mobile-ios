@@ -222,6 +222,8 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
     
     @objc private func stopRefresh() {
         stopRefreshButton.isEnabled = false
+        reloadButton.isEnabled = false
+        adBannerView?.stopAutoRefresh()
         adUnit?.stopRefresh()
     }
 }
