@@ -70,6 +70,7 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
         configIdLabel.text = "Config ID: \(prebidConfigId)"
         
         rewarded = MARewardedAd.shared(withAdUnitIdentifier: maxAdUnitId)
+        rewarded?.delegate = self
         
         mediationDelegate = MAXMediationRewardedUtils(rewardedAd: rewarded!)
         adUnit = MediationRewardedAdUnit(configId: prebidConfigId, mediationDelegate: mediationDelegate!)
@@ -104,7 +105,6 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
                 return
             }
             
-            self.rewarded?.delegate = self
             self.rewarded?.load()
         }
     }
