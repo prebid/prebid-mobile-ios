@@ -311,15 +311,15 @@
 		34B64D4224F7D95800FDD9F4 = {
 			isa = PBXGroup;
 			children = (
-				34B64D5D24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers */,
-				3405F946250A555800268A77 /* PrebidMobileGAMEventHandlersTests */,
+				3386E5027DFDA876BC9AC49B /* Frameworks */,
+				C9E3CE99A87F745FB5BFAA17 /* Pods */,
 				92F4389727688E8600FDC950 /* PrebidMobileAdMobAdapters */,
 				92F438A127688E8600FDC950 /* PrebidMobileAdMobAdaptersTests */,
+				34B64D5D24F7E41600FDD9F4 /* PrebidMobileGAMEventHandlers */,
+				3405F946250A555800268A77 /* PrebidMobileGAMEventHandlersTests */,
 				92C1345C27FC6B4900F96387 /* PrebidMobileMAXAdapters */,
-				9298653F2806D242007A2F34 /* PrebidMobileMAXAdaptersTests */,
+				533101B72811478A00D95B5C /* PrebidMobileMAXAdaptersTests */,
 				34B64D4D24F7D95800FDD9F4 /* Products */,
-				C9E3CE99A87F745FB5BFAA17 /* Pods */,
-				3386E5027DFDA876BC9AC49B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -373,6 +373,13 @@
 			path = Boxes;
 			sourceTree = "<group>";
 		};
+		533101B72811478A00D95B5C /* PrebidMobileMAXAdaptersTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PrebidMobileMAXAdaptersTests;
+			sourceTree = "<group>";
+		};
 		927ADB28280583AF006EB8D5 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,13 +419,6 @@
 				9285B46527AAC5B1009BD3D3 /* PrebidAdMobVideoInterstitialAdapter.swift */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		9298653F2806D242007A2F34 /* PrebidMobileMAXAdaptersTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PrebidMobileMAXAdaptersTests;
 			sourceTree = "<group>";
 		};
 		92C1345C27FC6B4900F96387 /* PrebidMobileMAXAdapters */ = {

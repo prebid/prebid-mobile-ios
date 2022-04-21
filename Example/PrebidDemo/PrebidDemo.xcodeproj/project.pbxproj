@@ -146,7 +146,6 @@
 		398C46797E3B11F6932E9BDA /* Pods-PrebidDemoPod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPod.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPod/Pods-PrebidDemoPod.debug.xcconfig"; sourceTree = "<group>"; };
 		3C3DD5560D8F19EE9F2158E7 /* Pods-PrebidDemoSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift/Pods-PrebidDemoSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		5197A13C51AEAF0782B64F40 /* Pods-PrebidDemoPodCoreTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoPodCoreTests.debug.xcconfig"; path = "Target Support Files/Pods-PrebidDemoPodCoreTests/Pods-PrebidDemoPodCoreTests.debug.xcconfig"; sourceTree = "<group>"; };
-		533101A42810795700D95B5C /* DemoConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoConstants.h; sourceTree = "<group>"; };
 		55EA1793258A4B187A300E8E /* Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift-PrebidDemoSwiftTests/Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		5BA4CF6C273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BA4CF6D273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -427,7 +426,6 @@
 				FA12E507231EB99E00CAA05B /* main.m */,
 				5BD7989627425B4900CE9385 /* IntegrationKindUtilites.h */,
 				5BD7989727425B4900CE9385 /* IntegrationKindUtilites.m */,
-				533101A42810795700D95B5C /* DemoConstants.h */,
 			);
 			path = PrebidDemoObjectiveC;
 			sourceTree = "<group>";
