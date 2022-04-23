@@ -13,16 +13,14 @@ import GoogleMobileAds
 
 fileprivate let nativeStoredImpression = "imp-prebid-banner-native-styles"
 
-
 class NativeViewController: UIViewController, GADBannerViewDelegate {
+    
+    @IBOutlet var nativeView: UIView!
     
     var nativeUnit: NativeRequest!
     
     var integrationKind: IntegrationKind = .undefined
     
-    @IBOutlet var nativeView: UIView!
-    
-    var eventTrackers: NativeEventTracker!
     var dfpNativeAdUnit: GAMBannerView!
     let request = GAMRequest()
     
@@ -57,33 +55,16 @@ class NativeViewController: UIViewController, GADBannerViewDelegate {
     }
     
     func loadNativeAssets(){
-        
-        let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 50, required: true)
-        image.type = ImageAsset.Main
-        
-        let icon = NativeAssetImage(minimumWidth: 20, minimumHeight: 20, required: true)
-        icon.type = ImageAsset.Icon
-        
-        let title = NativeAssetTitle(length: 90, required: true)
-        
-        let body = NativeAssetData(type: DataAsset.description, required: true)
-        
-        let cta = NativeAssetData(type: DataAsset.ctatext, required: true)
-        
-        let sponsored = NativeAssetData(type: DataAsset.sponsored, required: true)
-        
-        nativeUnit = NativeRequest(configId: nativeStoredImpression, assets: [title,icon,image,sponsored,body,cta])
+        nativeUnit = NativeRequest(configId: nativeStoredImpression, assets: .defaultNativeRequestAssets)
         
         nativeUnit.context = ContextType.Social
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
         
-        let event1 = EventType.Impression
-        eventTrackers = NativeEventTracker(event: event1, methods: [EventTracking.Image,EventTracking.js])
-        nativeUnit.eventtrackers = [eventTrackers]
+        nativeUnit.eventtrackers = .defaultEventTrackers
     }
     
-    func loadDFPNative(){
+    func loadDFPNative() {
         dfpNativeAdUnit = GAMBannerView(adSize: kGADAdSizeFluid)
         dfpNativeAdUnit.adUnitID = "/21808260008/unified_native_ad_unit"
         dfpNativeAdUnit.rootViewController = self
@@ -114,8 +95,7 @@ class NativeViewController: UIViewController, GADBannerViewDelegate {
             print("error: \(error)");
             
         })
-        
-        //TODO: ask about adViewDidReceiveAd(_ bannerView: DFPBannerView)
+         
         self.dfpNativeAdUnit.resize(bannerView.adSize)
         nativeView.constraints.first { $0.firstAttribute == .width }?.constant = bannerView.adSize.size.width
         nativeView.constraints.first { $0.firstAttribute == .height }?.constant = bannerView.adSize.size.height

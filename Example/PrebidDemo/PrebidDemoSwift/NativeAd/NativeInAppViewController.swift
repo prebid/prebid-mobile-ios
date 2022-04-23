@@ -1,17 +1,17 @@
 /*   Copyright 2019-2020 Prebid.org, Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
 
 import UIKit
 import GoogleMobileAds
@@ -27,12 +27,23 @@ fileprivate let gamRenderingNativeAdUnitId = "/21808260008/apollo_custom_templat
 fileprivate let admobRenderingNativeAdUnitId = "ca-app-pub-5922967660082475/8634069303"
 
 class NativeInAppViewController: UIViewController {
-
+    
     @IBOutlet weak var adContainerView: UIView!
     
     var adLoader: GADAdLoader?
     var nativeAd: NativeAd?
-    var nativeAdView: NativeAdView?
+    
+    lazy var defaultAdViewSize = CGSize(width: adContainerView.frame.size.width, height: 150 + screenWidth * 400 / 600)
+    
+    var nativeAdRenderer: NativeAdRenderer? {
+        didSet {
+            nativeAd = nil
+            if let nativeAdRenderer = nativeAdRenderer {
+                self.adContainerView.addSubview(nativeAdRenderer.nativeAdView)
+            }
+        }
+    }
+    
     var nativeUnit: NativeRequest!
     var eventTrackers: NativeEventTracker!
     var integrationKind: IntegrationKind = .undefined
@@ -41,25 +52,6 @@ class NativeInAppViewController: UIViewController {
     var mediationDelegate: AdMobMediationNativeUtils!
     var admobMediationNativeAdUnit: MediationNativeAdUnit!
     
-    var defaultNativeRequestAssets: [NativeAsset] {
-        let image = NativeAssetImage(minimumWidth: 200, minimumHeight: 50, required: true)
-        image.type = ImageAsset.Main
-        
-        let icon = NativeAssetImage(minimumWidth: 20, minimumHeight: 20, required: true)
-        icon.type = ImageAsset.Icon
-        
-        let title = NativeAssetTitle(length: 90, required: true)
-        let body = NativeAssetData(type: DataAsset.description, required: true)
-        let cta = NativeAssetData(type: DataAsset.ctatext, required: true)
-        let sponsored = NativeAssetData(type: DataAsset.sponsored, required: true)
-        
-        return [title,icon,image,sponsored,body,cta]
-    }
-    
-    var defaultEventTrackers: [NativeEventTracker] {
-       [NativeEventTracker(event: EventType.Impression, methods: [EventTracking.Image,EventTracking.js])]
-    }
-
     public var screenWidth: CGFloat {
         return UIScreen.main.bounds.width
     }
@@ -93,41 +85,42 @@ class NativeInAppViewController: UIViewController {
     func setupPrebidServer(storedResponse: String) {
         Prebid.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
         try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
-
+        
         Prebid.shared.storedAuctionResponse = storedResponse
     }
     
     func setupNativeAdUnit(_ configId: String) {
-        nativeUnit = NativeRequest(configId: configId, assets: defaultNativeRequestAssets)
+        nativeUnit = NativeRequest(configId: configId, assets: .defaultNativeRequestAssets)
         
         nativeUnit.context = ContextType.Social
         nativeUnit.placementType = PlacementType.FeedContent
         nativeUnit.contextSubType = ContextSubType.Social
-    
-        nativeUnit.eventtrackers = defaultEventTrackers
+        
+        nativeUnit.eventtrackers = .defaultEventTrackers
     }
     
     func setupAdMobMediationNativeAdUnit(_ configId: String) {
         gadRequest = GADRequest()
         mediationDelegate = AdMobMediationNativeUtils(gadRequest: gadRequest)
         admobMediationNativeAdUnit = MediationNativeAdUnit(configId: nativeStoredImpression,
-                                                      mediationDelegate: mediationDelegate)
-        admobMediationNativeAdUnit.addNativeAssets(defaultNativeRequestAssets)
+                                                           mediationDelegate: mediationDelegate)
+        admobMediationNativeAdUnit.addNativeAssets(.defaultNativeRequestAssets)
         admobMediationNativeAdUnit.setContextType(.Social)
         admobMediationNativeAdUnit.setPlacementType(.FeedContent)
         admobMediationNativeAdUnit.setContextSubType(.Social)
         
-        admobMediationNativeAdUnit.addEventTracker(defaultEventTrackers)
+        admobMediationNativeAdUnit.addEventTracker(.defaultEventTrackers)
     }
     
     // In-App
     func setupAndLoadNativeRenderingInApp() {
+        nativeAdRenderer = nil
         setupPrebidServer(storedResponse: nativeStoredResponse)
         setupNativeAdUnit(nativeStoredImpression)
-        loadNativeInAppAd()
+        loadNativeRenderingInAppAd()
     }
     
-    func loadNativeInAppAd() {
+    func loadNativeRenderingInAppAd() {
         nativeUnit.fetchDemand { [weak self] result, kvResultDict in
             guard let self = self else {
                 return
@@ -141,15 +134,15 @@ class NativeInAppViewController: UIViewController {
                 return
             }
             
-            self.createNativeInAppView()
+            self.nativeAdRenderer = NativeAdRenderer(size: self.defaultAdViewSize)
             self.nativeAd = nativeAd
-            self.registerNativeInAppView()
-            self.renderNativeInAppAd()
+            self.nativeAdRenderer?.renderNativeInAppAd(with: nativeAd)
         }
     }
     
     // Rendering GAM
     func setupAndLoadNativeRenderingGAM() {
+        nativeAdRenderer = nil
         setupPrebidServer(storedResponse: nativeStoredResponse)
         setupNativeAdUnit(nativeStoredImpression)
         loadNativeRenderingGAM()
@@ -171,6 +164,7 @@ class NativeInAppViewController: UIViewController {
     
     // Rendering AdMob
     func setupAndLoadNativeRenderingAdMob() {
+        nativeAdRenderer = nil
         setupPrebidServer(storedResponse: nativeStoredResponse)
         setupAdMobMediationNativeAdUnit(nativeStoredImpression)
         loadNativeRenderingAdMob()
@@ -202,93 +196,6 @@ class NativeInAppViewController: UIViewController {
         setupNativeAdUnit(configId)
     }
     
-    func createNativeInAppView(){
-        removePreviousAds()
-        let adNib = UINib(nibName: "NativeAdView", bundle: Bundle(for: type(of: self)))
-        let array = adNib.instantiate(withOwner: self, options: nil)
-        if let nativeAdView = array.first as? NativeAdView {
-            self.nativeAdView = nativeAdView
-            nativeAdView.frame = CGRect(x: 0, y: 0, width: self.adContainerView.frame.size.width, height: 150 + self.screenWidth * 400 / 600)
-            self.adContainerView.addSubview(nativeAdView)
-        }
-    }
-    
-    func renderNativeInAppAd() {
-        nativeAdView?.titleLabel.text = nativeAd?.title
-        nativeAdView?.bodyLabel.text = nativeAd?.text
-        
-        if let iconString = nativeAd?.iconUrl {
-            ImageHelper.downloadImageAsync(iconString) { result in
-                if case let .success(icon) = result {
-                    DispatchQueue.main.async {
-                        self.nativeAdView?.iconImageView.image = icon
-                    }
-                }
-            }
-        }
-        
-        if let imageString = nativeAd?.imageUrl {
-            ImageHelper.downloadImageAsync(imageString) { result in
-                if case let .success(image) = result {
-                    DispatchQueue.main.async {
-                        self.nativeAdView?.mainImageView.image = image
-                    }
-                }
-            }
-        }
-        
-        nativeAdView?.callToActionButton.setTitle(nativeAd?.callToAction, for: .normal)
-        nativeAdView?.sponsoredLabel.text = nativeAd?.sponsoredBy
-    }
-    
-    func renderCustomTemplateAd(_ customTemplateAd: GADCustomNativeAd) {
-        nativeAdView?.titleLabel.text = customTemplateAd.string(forKey: "title")
-        nativeAdView?.bodyLabel.text = customTemplateAd.string(forKey: "text")
-        
-        nativeAdView?.callToActionButton.setTitle(customTemplateAd.string(forKey: "cta"), for: .normal)
-        nativeAdView?.sponsoredLabel.text = customTemplateAd.string(forKey: "sponsoredBy")
-        
-        if let imageString = customTemplateAd.string(forKey: "imgUrl") {
-            ImageHelper.downloadImageAsync(imageString) { result in
-                if case let .success(image) = result {
-                    DispatchQueue.main.async {
-                        self.nativeAdView?.mainImageView.image = image
-                    }
-                }
-            }
-        }
-        
-        if let iconString = customTemplateAd.string(forKey: "iconUrl") {
-            ImageHelper.downloadImageAsync(iconString) { result in
-                if case let .success(icon) = result {
-                    DispatchQueue.main.async {
-                        self.nativeAdView?.iconImageView.image = icon
-                    }
-                }
-            }
-        }
-        
-        nativeAdView?.bodyLabel.numberOfLines = 0
-     }
-    
-    func renderGADNativeAd(_ gadAd: GADNativeAd) {
-        nativeAdView?.titleLabel.text = gadAd.headline
-        nativeAdView?.bodyLabel.text = gadAd.body
-        
-        nativeAdView?.callToActionButton.setTitle(gadAd.callToAction ?? "", for: .normal)
-        nativeAdView?.sponsoredLabel.text = gadAd.advertiser
-        
-        if let adIcon = gadAd.icon {
-            self.nativeAdView?.iconImageView.image = adIcon.image
-        }
-        
-        if let adImage = gadAd.images?.first {
-            self.nativeAdView?.mainImageView.image = adImage.image
-        }
-
-        nativeAdView?.bodyLabel.numberOfLines = 0
-    }
-    
     func setupAndLoadNativeInAppForDFP() {
         setupPBNativeInApp(host: .Appnexus, accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0", configId: "25e17008-5081-4676-94d5-923ced4359d3")
         loadNativeInAppForDFP()
@@ -309,32 +216,48 @@ class NativeInAppViewController: UIViewController {
         adLoader?.delegate  = self
         adLoader?.load(dfpRequest)
     }
-    
-    //MARK: Helper functions
-    
-    func registerNativeInAppView() {
-        nativeAd?.delegate = self
-        if let nativeAdView = nativeAdView {
-            nativeAd?.registerView(view: nativeAdView, clickableViews: [nativeAdView.callToActionButton])
-        }
+}
+
+// MARK: - NativeAdDelegate
+
+extension NativeInAppViewController: NativeAdDelegate {
+    func nativeAdLoaded(ad: NativeAd) {
+        print("nativeAdLoaded")
+        nativeAd = ad
+        nativeAdRenderer = NativeAdRenderer(size: defaultAdViewSize)
+        nativeAdRenderer?.renderNativeInAppAd(with: ad)
     }
     
-    func removePreviousAds() {
-        if nativeAdView != nil {
-            nativeAdView?.iconImageView = nil
-            nativeAdView?.mainImageView = nil
-            nativeAdView!.removeFromSuperview()
-            nativeAdView = nil
-        }
-        if nativeAd != nil {
-            nativeAd = nil
-        }
+    func nativeAdNotFound() {
+        print("nativeAdNotFound")
+    }
+    
+    func nativeAdNotValid() {
+        print("nativeAdNotValid")
     }
 }
 
+// MARK: - NativeAdEventDelegate
+
+extension NativeInAppViewController: NativeAdEventDelegate {
+    func adDidExpire(ad:NativeAd){
+        print("adDidExpire")
+    }
+    
+    func adWasClicked(ad:NativeAd){
+        print("adWasClicked")
+    }
+    
+    func adDidLogImpression(ad:NativeAd){
+        print("adDidLogImpression")
+    }
+}
+
+// MARK: - GAMBannerAdLoaderDelegate
+
 extension NativeInAppViewController: GAMBannerAdLoaderDelegate {
     func adLoader(_ adLoader: GADAdLoader, didReceive bannerView: GAMBannerView) {
-        nativeAdView?.addSubview(bannerView)
+        nativeAdRenderer?.nativeAdView.addSubview(bannerView)
     }
     
     func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
@@ -345,6 +268,8 @@ extension NativeInAppViewController: GAMBannerAdLoaderDelegate {
         return [NSValueFromGADAdSize(kGADAdSizeBanner)]
     }
 }
+
+// MARK: - GADCustomNativeAdLoaderDelegate
 
 extension NativeInAppViewController: GADCustomNativeAdLoaderDelegate {
     func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
@@ -360,14 +285,13 @@ extension NativeInAppViewController: GADCustomNativeAdLoaderDelegate {
             
             switch result {
             case .success(let nativeAd):
-                self.createNativeInAppView()
                 self.nativeAd = nativeAd
-                registerNativeInAppView()
-                renderNativeInAppAd()
+                nativeAdRenderer = NativeAdRenderer(size: defaultAdViewSize)
+                nativeAdRenderer?.renderNativeInAppAd(with: nativeAd)
             case .failure(let error):
                 if error == GAMEventHandlerError.nonPrebidAd {
-                    self.createNativeInAppView()
-                    self.renderCustomTemplateAd(customNativeAd)
+                    nativeAdRenderer = NativeAdRenderer(size: defaultAdViewSize)
+                    nativeAdRenderer?.renderCustomTemplateAd(with: customNativeAd)
                 }
             }
         } else {
@@ -377,43 +301,12 @@ extension NativeInAppViewController: GADCustomNativeAdLoaderDelegate {
     }
 }
 
+// MARK: - GADNativeAdLoaderDelegate
+
 extension NativeInAppViewController: GADNativeAdLoaderDelegate {
     func adLoader(_ adLoader: GADAdLoader, didReceive nativeAd: GADNativeAd) {
-        createNativeInAppView()
-        nativeAdView?.nativeAd = nativeAd
-        renderGADNativeAd(nativeAd)
-    }
-}
-
-extension NativeInAppViewController: NativeAdDelegate {
-    
-    func nativeAdLoaded(ad: NativeAd) {
-        print("nativeAdLoaded")
-        nativeAd = ad
-        registerNativeInAppView()
-        renderNativeInAppAd()
-    }
-    
-    func nativeAdNotFound() {
-        print("nativeAdNotFound")
-    }
-    
-    func nativeAdNotValid() {
-        print("nativeAdNotValid")
-    }
-}
-
-extension NativeInAppViewController: NativeAdEventDelegate {
-    
-    func adDidExpire(ad:NativeAd){
-        print("adDidExpire")
-    }
-    
-    func adWasClicked(ad:NativeAd){
-        print("adWasClicked")
-    }
-    
-    func adDidLogImpression(ad:NativeAd){
-        print("adDidLogImpression")
+        nativeAdRenderer = NativeAdRenderer(size: defaultAdViewSize)
+        nativeAdRenderer?.nativeAdView.nativeAd = nativeAd
+        nativeAdRenderer?.renderGADNativeAd(with: nativeAd)
     }
 }
