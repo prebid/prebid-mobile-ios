@@ -112,6 +112,27 @@ class NativeInAppViewController: UIViewController {
         admobMediationNativeAdUnit.addEventTracker(.defaultEventTrackers)
     }
     
+    // Original GAM
+    
+    func setupAndLoadNativeInAppForDFP() {
+        setupPrebidServer(storedResponse: nativeStoredResponse)
+        setupNativeAdUnit(nativeStoredImpression)
+        loadNativeInAppForDFP()
+    }
+    
+    func loadNativeInAppForDFP(){
+        let dfpRequest = GAMRequest()
+        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: ResultCode) in
+            guard let self = self else { return }
+            self.adLoader = GADAdLoader(adUnitID: gamRenderingNativeAdUnitId,
+                                   rootViewController: self,
+                                   adTypes: [GADAdLoaderAdType.customNative],
+                                   options: [])
+            self.adLoader?.delegate  = self
+            self.adLoader?.load(dfpRequest)
+        }
+    }
+    
     // In-App
     func setupAndLoadNativeRenderingInApp() {
         nativeAdRenderer = nil
@@ -188,34 +209,6 @@ class NativeInAppViewController: UIViewController {
             self.adLoader?.load(self.gadRequest)
         }
     }
-    
-    func setupPBNativeInApp(host: PrebidHost, accountId: String, configId: String) {
-        Prebid.shared.prebidServerHost = host
-        Prebid.shared.prebidServerAccountId = accountId
-        
-        setupNativeAdUnit(configId)
-    }
-    
-    func setupAndLoadNativeInAppForDFP() {
-        setupPBNativeInApp(host: .Appnexus, accountId: "bfa84af2-bd16-4d35-96ad-31c6bb888df0", configId: "25e17008-5081-4676-94d5-923ced4359d3")
-        loadNativeInAppForDFP()
-    }
-    
-    func loadNativeInAppForDFP(){
-        let dfpRequest = GAMRequest()
-        nativeUnit.fetchDemand(adObject: dfpRequest) { [weak self] (resultCode: ResultCode) in
-            self?.callDFP(dfpRequest)
-        }
-    }
-    
-    func callDFP(_ dfpRequest: GAMRequest){
-        adLoader = GADAdLoader(adUnitID: "/19968336/Abhas_test_native_native_adunit",
-                               rootViewController: self,
-                               adTypes: [ GADAdLoaderAdType.gamBanner, GADAdLoaderAdType.customNative],
-                               options: [ ])
-        adLoader?.delegate  = self
-        adLoader?.load(dfpRequest)
-    }
 }
 
 // MARK: - NativeAdDelegate
@@ -253,34 +246,19 @@ extension NativeInAppViewController: NativeAdEventDelegate {
     }
 }
 
-// MARK: - GAMBannerAdLoaderDelegate
-
-extension NativeInAppViewController: GAMBannerAdLoaderDelegate {
-    func adLoader(_ adLoader: GADAdLoader, didReceive bannerView: GAMBannerView) {
-        nativeAdRenderer?.nativeAdView.addSubview(bannerView)
-    }
-    
-    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
-        print("Prebid GADAdLoader failed \(error)")
-    }
-    
-    func validBannerSizes(for adLoader: GADAdLoader) -> [NSValue] {
-        return [NSValueFromGADAdSize(kGADAdSizeBanner)]
-    }
-}
-
 // MARK: - GADCustomNativeAdLoaderDelegate
 
 extension NativeInAppViewController: GADCustomNativeAdLoaderDelegate {
+    
     func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
         if adLoader.adUnitID == gamRenderingNativeAdUnitId {
             return ["11934135"]
         }
-        return ["11963183"]
+        return []
     }
     
     func adLoader(_ adLoader: GADAdLoader, didReceive customNativeAd: GADCustomNativeAd) {
-        if adLoader.adUnitID == gamRenderingNativeAdUnitId {
+        if integrationKind == .renderingGAM {
             let result = GAMUtils.shared.findCustomNativeAd(for: customNativeAd)
             
             switch result {
@@ -298,6 +276,10 @@ extension NativeInAppViewController: GADCustomNativeAdLoaderDelegate {
             Utils.shared.delegate = self
             Utils.shared.findNative(adObject: customNativeAd)
         }
+    }
+    
+    func adLoader(_ adLoader: GADAdLoader, didFailToReceiveAdWithError error: Error) {
+        print("Prebid GADAdLoader failed \(error)")
     }
 }
 
