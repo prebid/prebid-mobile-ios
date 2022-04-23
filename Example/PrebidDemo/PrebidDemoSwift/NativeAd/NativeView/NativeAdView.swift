@@ -14,8 +14,12 @@ limitations under the License.
 */
 
 import UIKit
+import GoogleMobileAds
 
-public class NativeAdView: UIView {
+// Native Ad View inherits from GADNativeAdView in order to support
+// clicks in AdMob rendering native case
+
+public class NativeAdView: GADNativeAdView {
 
     @IBOutlet public weak var iconImageView: UIImageView!
     @IBOutlet public weak var mainImageView: UIImageView!
@@ -24,4 +28,19 @@ public class NativeAdView: UIView {
     @IBOutlet public weak var callToActionButton: UIButton!
     @IBOutlet public weak var sponsoredLabel: UILabel!
 
+    public var admobNativeAd: GADNativeAd? {
+        didSet {
+            super.nativeAd = admobNativeAd
+        }
+    }
+    
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        super.iconView = iconImageView
+        super.imageView = mainImageView
+        super.headlineView = titleLabel
+        super.bodyView = bodyLabel
+        super.callToActionView = callToActionButton
+        super.advertiserView = advertiserView
+    }
 }

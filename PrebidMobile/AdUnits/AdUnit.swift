@@ -118,9 +118,9 @@ import ObjectiveC.runtime
         adServerObject = adObject
 
         bidRequester = PBMBidRequester(connection: PBMServerConnection.shared,
-                                           sdkConfiguration: Prebid.shared,
-                                           targeting: Targeting.shared,
-                                           adUnitConfiguration: adUnitConfig)
+                                       sdkConfiguration: Prebid.shared,
+                                       targeting: Targeting.shared,
+                                       adUnitConfiguration: adUnitConfig)
         
         bidRequester?.requestBids { [weak self] bidResponse, error in
             guard let self = self else { return }
