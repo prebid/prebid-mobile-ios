@@ -15,16 +15,20 @@
 
 import UIKit
 import GoogleMobileAds
+import AppLovinSDK
+
 import PrebidMobile
 
 import PrebidMobileGAMEventHandlers
 import PrebidMobileAdMobAdapters
+import PrebidMobileMAXAdapters
 
 fileprivate let nativeStoredImpression = "imp-prebid-banner-native-styles"
 fileprivate let nativeStoredResponse = "response-prebid-banner-native-styles"
 
 fileprivate let gamRenderingNativeAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
 fileprivate let admobRenderingNativeAdUnitId = "ca-app-pub-5922967660082475/8634069303"
+fileprivate let maxRenderingNativeAdUnitId = "52e66b26792f28ca"
 
 class NativeInAppViewController: UIViewController {
     
@@ -52,6 +56,11 @@ class NativeInAppViewController: UIViewController {
     var mediationDelegate: AdMobMediationNativeUtils!
     var admobMediationNativeAdUnit: MediationNativeAdUnit!
     
+    private var maxMediationNativeAdUnit: MediationNativeAdUnit!
+    private var maxMediationDelegate: MAXMediationNativeUtils!
+    private var maxNativeAdLoader: MANativeAdLoader!
+    private var maxLoadedNativeAd: MAAd!
+    
     public var screenWidth: CGFloat {
         return UIScreen.main.bounds.width
     }
@@ -72,7 +81,7 @@ class NativeInAppViewController: UIViewController {
         case .renderingAdMob:
             setupAndLoadNativeRenderingAdMob()
         case .renderingMAX:
-            print("TODO: Add Example")
+            setupAndLoadNativeRenderingMAX()
         case .undefined:
             assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
@@ -209,6 +218,50 @@ class NativeInAppViewController: UIViewController {
             self.adLoader?.load(self.gadRequest)
         }
     }
+    
+    // Rendering MAX
+    func setupAndLoadNativeRenderingMAX() {
+        nativeAdRenderer = nil
+        setupPrebidServer(storedResponse: nativeStoredResponse)
+        setupMAXMediationNativeAdUnit(nativeStoredImpression)
+        loadNativeRenderingMAX()
+    }
+    
+    func setupMAXMediationNativeAdUnit(_ configId: String) {
+        maxNativeAdLoader = MANativeAdLoader(adUnitIdentifier: maxRenderingNativeAdUnitId)
+        maxNativeAdLoader.nativeAdDelegate = self
+        maxMediationDelegate = MAXMediationNativeUtils(nativeAdLoader: maxNativeAdLoader)
+        maxMediationNativeAdUnit = MediationNativeAdUnit(configId: configId, mediationDelegate: maxMediationDelegate)
+        
+        maxMediationNativeAdUnit.addNativeAssets(.defaultNativeRequestAssets)
+        maxMediationNativeAdUnit.setContextType(.Social)
+        maxMediationNativeAdUnit.setPlacementType(.FeedContent)
+        maxMediationNativeAdUnit.setContextSubType(.Social)
+        maxMediationNativeAdUnit.addEventTracker(.defaultEventTrackers)
+    }
+    
+    func loadNativeRenderingMAX() {
+        maxMediationNativeAdUnit.fetchDemand { [weak self] result in
+            self?.maxNativeAdLoader.loadAd(into: self?.createMAXAndBindNativeAdView())
+        }
+    }
+    
+    private func createMAXAndBindNativeAdView() -> MANativeAdView {
+        let nativeAdViewNib = UINib(nibName: "MAXNativeAdView", bundle: Bundle.main)
+        let nativeAdView = nativeAdViewNib.instantiate(withOwner: nil, options: nil).first! as! MANativeAdView?
+        
+        let adViewBinder = MANativeAdViewBinder.init(builderBlock: { (builder) in
+            builder.iconImageViewTag = 1
+            builder.titleLabelTag = 2
+            builder.bodyLabelTag = 3
+            builder.advertiserLabelTag = 4
+            builder.callToActionButtonTag = 5
+            builder.mediaContentViewTag = 123
+        })
+        
+        nativeAdView!.bindViews(with: adViewBinder)
+        return nativeAdView!
+    }
 }
 
 // MARK: - NativeAdDelegate
@@ -290,5 +343,34 @@ extension NativeInAppViewController: GADNativeAdLoaderDelegate {
         nativeAdRenderer = NativeAdRenderer(size: defaultAdViewSize)
         nativeAdRenderer?.nativeAdView.nativeAd = nativeAd
         nativeAdRenderer?.renderGADNativeAd(with: nativeAd)
+    }
+}
+
+// MARK: - MANativeAdDelegate
+
+extension NativeInAppViewController: MANativeAdDelegate {
+    func didLoadNativeAd(_ nativeAdView: MANativeAdView?, for ad: MAAd) {
+        if let nativeAd = maxLoadedNativeAd {
+            maxNativeAdLoader?.destroy(nativeAd)
+        }
+
+        adContainerView.backgroundColor = .clear
+        
+        maxLoadedNativeAd = ad
+        nativeAdView?.translatesAutoresizingMaskIntoConstraints = false
+        adContainerView.addSubview(nativeAdView!)
+        
+        adContainerView.heightAnchor.constraint(equalTo: nativeAdView!.heightAnchor).isActive = true
+        adContainerView.topAnchor.constraint(equalTo: nativeAdView!.topAnchor).isActive = true
+        adContainerView.leftAnchor.constraint(equalTo: nativeAdView!.leftAnchor).isActive = true
+        adContainerView.rightAnchor.constraint(equalTo: nativeAdView!.rightAnchor).isActive = true
+    }
+    
+    func didFailToLoadNativeAd(forAdUnitIdentifier adUnitIdentifier: String, withError error: MAError) {
+        Log.error(error.message)
+    }
+    
+    func didClickNativeAd(_ ad: MAAd) {
+        print("didClickNativeAd(_ ad: MAAd)")
     }
 }

@@ -19,6 +19,7 @@
 		53AA0C9528143F9F00D8A742 /* NativeAsset+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C9428143F9F00D8A742 /* NativeAsset+Extensions.swift */; };
 		53AA0C982814415D00D8A742 /* NativeEventTrackers+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C972814415D00D8A742 /* NativeEventTrackers+Extensions.swift */; };
 		53AA0C9A281441CA00D8A742 /* NativeAdRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C99281441CA00D8A742 /* NativeAdRenderer.swift */; };
+		53AA0CA22815DC1700D8A742 /* MAXNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53AA0CA02815DC1700D8A742 /* MAXNativeAdView.xib */; };
 		5BD798952742483700CE9385 /* RenderingInterstitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD798942742483700CE9385 /* RenderingInterstitialViewController.m */; };
 		5BD7989827425B4900CE9385 /* IntegrationKindUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD7989727425B4900CE9385 /* IntegrationKindUtilites.m */; };
 		5BD7989B2742A9C500CE9385 /* RenderingRewardedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD798992742A9C400CE9385 /* RenderingRewardedViewController.m */; };
@@ -152,6 +153,7 @@
 		53AA0C9428143F9F00D8A742 /* NativeAsset+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeAsset+Extensions.swift"; sourceTree = "<group>"; };
 		53AA0C972814415D00D8A742 /* NativeEventTrackers+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeEventTrackers+Extensions.swift"; sourceTree = "<group>"; };
 		53AA0C99281441CA00D8A742 /* NativeAdRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdRenderer.swift; sourceTree = "<group>"; };
+		53AA0CA02815DC1700D8A742 /* MAXNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MAXNativeAdView.xib; sourceTree = "<group>"; };
 		55EA1793258A4B187A300E8E /* Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift-PrebidDemoSwiftTests/Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		5BA4CF6C273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BA4CF6D273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -279,6 +281,7 @@
 		38018903255AC4FC0089CA84 /* NativeView */ = {
 			isa = PBXGroup;
 			children = (
+				53AA0CA02815DC1700D8A742 /* MAXNativeAdView.xib */,
 				38018905255AC5560089CA84 /* NativeAdView.swift */,
 				38018906255AC5560089CA84 /* NativeAdView.xib */,
 			);
@@ -580,6 +583,7 @@
 				FA12E4BE231EB04200CAA05B /* Assets.xcassets in Resources */,
 				38018909255AC5560089CA84 /* NativeAdView.xib in Resources */,
 				FA12E4BC231EB04100CAA05B /* Main.storyboard in Resources */,
+				53AA0CA22815DC1700D8A742 /* MAXNativeAdView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
