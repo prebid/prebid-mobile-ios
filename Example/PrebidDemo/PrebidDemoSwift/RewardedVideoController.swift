@@ -71,6 +71,7 @@ class RewardedVideoController:
         case .inApp             : setupAndLoadInAppRewardedVideo()
         case .renderingGAM      : setupAndLoadGAMRenderingRewardedVideo()
         case .renderingAdMob    : setupAndLoadAdMobRenderingRewardedVideo()
+        // To run this example you should create your own MAX ad unit.
         case .renderingMAX      : setupAndLoadMAXRenderingRewardedVideo()
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }

@@ -107,6 +107,7 @@ class BannerController:
         case .inApp             : setupAndLoadInAppBanner()
         case .renderingGAM      : setupAndLoadGAMRendering()
         case .renderingAdMob    : setupAndLoadAdMobRendering()
+        // To run this example you should create your own MAX ad unit.
         case .renderingMAX      : setupAndLoadMAXRendering()
             
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")

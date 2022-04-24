@@ -133,11 +133,13 @@ import ObjectiveC.runtime
                             Utils.shared.validateAndAttachKeywords (adObject: adObject, bidResponse: bidResponse)
                         }
                         completion(resultCode)
+                        return
                     }
                 }
             } else {
                 if (!self.timeOutSignalSent) {
                     completion(PBMError.demandResult(from: error))
+                    return
                 }
             }
         }
@@ -146,7 +148,7 @@ import ObjectiveC.runtime
             if (!self.didReceiveResponse) {
                 self.timeOutSignalSent = true
                 completion(.prebidDemandTimedOut)
-
+                return
             }
         })
     }

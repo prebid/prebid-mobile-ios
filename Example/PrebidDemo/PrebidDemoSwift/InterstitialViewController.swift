@@ -93,6 +93,7 @@ class InterstitialViewController:
         case .inApp             : setupAndLoadInAppInterstitial()
         case .renderingGAM      : setupAndLoadGAMRenderingInterstitial()
         case .renderingAdMob    : setupAndLoadAdMobRenderingInterstitial()
+        // To run this example you should create your own MAX ad unit.
         case .renderingMAX      : setupAndLoadMAXRenderingInterstitial()
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
@@ -173,6 +174,11 @@ class InterstitialViewController:
                       print("Failed to load interstitial ad with error: \(error.localizedDescription)")
                       return
                 } else if let ad = ad {
+                    do {
+                        print(try ad.canPresent(fromRootViewController: self!))
+                    } catch {
+                        
+                    }
                     ad.present(fromRootViewController: self!)
                 }
             }

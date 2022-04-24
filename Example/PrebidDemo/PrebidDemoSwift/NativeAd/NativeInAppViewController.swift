@@ -80,6 +80,7 @@ class NativeInAppViewController: UIViewController {
             setupAndLoadNativeRenderingGAM()
         case .renderingAdMob:
             setupAndLoadNativeRenderingAdMob()
+        // To run this example you should create your own MAX ad unit.
         case .renderingMAX:
             setupAndLoadNativeRenderingMAX()
         case .undefined:
