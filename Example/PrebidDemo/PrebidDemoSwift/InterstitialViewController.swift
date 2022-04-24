@@ -18,9 +18,11 @@ import UIKit
 import PrebidMobile
 
 import GoogleMobileAds
+import AppLovinSDK
 
 import PrebidMobileGAMEventHandlers
 import PrebidMobileAdMobAdapters
+import PrebidMobileMAXAdapters
 
 // Stored Impressions
 fileprivate let storedImpDisplayInterstitial            = "imp-prebid-display-interstitial-320-480"
@@ -31,7 +33,6 @@ fileprivate let storedResponseDisplayInterstitial       = "response-prebid-displ
 fileprivate let storedResponseVideoInterstitial         = "response-prebid-video-interstitial-320-480"
 
 // GAM
-
 fileprivate let gamAdUnitDisplayInterstitialOriginal    = "/21808260008/prebid-demo-app-original-api-display-interstitial"
 fileprivate let gamAdUnitVideoInterstitialOriginal      = "/21808260008/prebid-demo-app-original-api-video-interstitial"
 
@@ -39,14 +40,16 @@ fileprivate let gamAdUnitDisplayInterstitialRendering   = "/21808260008/prebid_o
 fileprivate let gamAdUnitVideoInterstitialRendering     = "/21808260008/prebid_oxb_interstitial_video"
 
 // AdMob
-
 fileprivate let adMobAdUnitDisplayInterstitial          = "ca-app-pub-5922967660082475/3383099861"
 
+// MAX
+fileprivate let maxAdUnitDisplayInterstitial            = "8b3b31b990417275"
 
 class InterstitialViewController:
     UIViewController,
     InterstitialAdUnitDelegate,
-    GADFullScreenContentDelegate {
+    GADFullScreenContentDelegate,
+    MAAdDelegate {
 
     // MARK: - UI Properties
     
@@ -75,6 +78,11 @@ class InterstitialViewController:
     private var admobAdUnit: MediationInterstitialAdUnit?
     private var mediationDelegate: AdMobMediationInterstitialUtils?
     
+    // MAX
+    private var maxAdUnit: MediationInterstitialAdUnit!
+    private var maxMediationDelegate: MAXMediationInterstitialUtils!
+    private var maxInterstitial: MAInterstitialAd!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -85,7 +93,7 @@ class InterstitialViewController:
         case .inApp             : setupAndLoadInAppInterstitial()
         case .renderingGAM      : setupAndLoadGAMRenderingInterstitial()
         case .renderingAdMob    : setupAndLoadAdMobRenderingInterstitial()
-        case .renderingMAX      : print("TODO")
+        case .renderingMAX      : setupAndLoadMAXRenderingInterstitial()
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }
@@ -133,6 +141,15 @@ class InterstitialViewController:
             loadAdMobRenderingDisplayInterstitial()
         case .vast:
             loadAdMobRenderingVideoInterstitial()
+        }
+    }
+    
+    func setupAndLoadMAXRenderingInterstitial() {
+        switch adFormat {
+        case .html:
+            loadMAXRenderingDisplayInterstitial()
+        case .vast:
+            loadMAXRenderingVideoInterstitial()
         }
     }
     
@@ -230,6 +247,32 @@ class InterstitialViewController:
         })
     }
     
+    // MAX
+    func loadMAXRenderingDisplayInterstitial() {
+        setupPrebidServer(storedResponse: storedResponseDisplayInterstitial)
+        maxInterstitial = MAInterstitialAd(adUnitIdentifier: maxAdUnitDisplayInterstitial)
+        maxMediationDelegate = MAXMediationInterstitialUtils(interstitialAd: maxInterstitial)
+        maxAdUnit = MediationInterstitialAdUnit(configId: storedImpDisplayInterstitial,
+                                                mediationDelegate: maxMediationDelegate)
+        
+        maxAdUnit.fetchDemand(completion: { result in
+            self.maxInterstitial.delegate = self
+            self.maxInterstitial.load()
+        })
+    }
+    
+    func loadMAXRenderingVideoInterstitial() {
+        setupPrebidServer(storedResponse: storedResponseVideoInterstitial)
+        maxInterstitial = MAInterstitialAd(adUnitIdentifier: maxAdUnitDisplayInterstitial)
+        maxMediationDelegate = MAXMediationInterstitialUtils(interstitialAd: maxInterstitial)
+        maxAdUnit = MediationInterstitialAdUnit(configId: storedImpVideoInterstitial, mediationDelegate: maxMediationDelegate)
+        
+        maxAdUnit.fetchDemand(completion: { result in
+            self.maxInterstitial.delegate = self
+            self.maxInterstitial.load()
+        })
+    }
+    
     //MARK: - Interstitial VAST
     
     func setupAndLoadAMInterstitialVAST() {
@@ -299,5 +342,31 @@ class InterstitialViewController:
     
     func adDidRecordImpression(_ ad: GADFullScreenPresentingAd) {
         Log.info("adDidRecordImpression called")
+    }
+    
+    // MARK: - MAAdDelegate
+    
+    func didLoad(_ ad: MAAd) {
+       print("didLoad(_ ad: MAAd)")
+    }
+    
+    func didFailToLoadAd(forAdUnitIdentifier adUnitIdentifier: String, withError error: MAError) {
+        Log.error(error.message)
+    }
+    
+    func didFail(toDisplay ad: MAAd, withError error: MAError) {
+        Log.error(error.message)
+    }
+    
+    func didDisplay(_ ad: MAAd) {
+        print("didDisplay(_ ad: MAAd)")
+    }
+    
+    func didHide(_ ad: MAAd) {
+        print("didHide(_ ad: MAAd)")
+    }
+    
+    func didClick(_ ad: MAAd) {
+        print("didClick(_ ad: MAAd)")
     }
 }
