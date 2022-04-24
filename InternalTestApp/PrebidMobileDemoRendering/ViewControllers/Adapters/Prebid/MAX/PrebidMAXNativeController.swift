@@ -91,9 +91,8 @@ class PrebidMAXNativeController: NSObject, AdaptedController {
         nativeAdUnit.fetchDemand { [weak self] result in
             guard let self = self else { return }
             
-            guard result == .prebidDemandFetchSuccess else {
+            if result != .prebidDemandFetchSuccess else {
                 self.fetchDemandFailedButton.isEnabled = true
-                return
             }
             
             self.nativeAdLoader?.loadAd(into: self.createNativeAdView())
