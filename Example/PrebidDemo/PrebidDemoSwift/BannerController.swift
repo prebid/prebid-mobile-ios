@@ -467,7 +467,8 @@ class BannerController:
     }
     
     func bannerView(_ bannerView: BannerView, didReceiveAdWithAdSize adSize: CGSize) {
-        
+        appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = adSize.width
+        appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = adSize .height
     }
     
     func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {
@@ -492,6 +493,9 @@ class BannerController:
             print("error: \(error)")
             
         })
+        
+        appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = bannerView.adSize.size.width
+        appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = bannerView.adSize.size.height
     }
     
     func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {

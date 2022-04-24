@@ -174,11 +174,6 @@ class InterstitialViewController:
                       print("Failed to load interstitial ad with error: \(error.localizedDescription)")
                       return
                 } else if let ad = ad {
-                    do {
-                        print(try ad.canPresent(fromRootViewController: self!))
-                    } catch {
-                        
-                    }
                     ad.present(fromRootViewController: self!)
                 }
             }
