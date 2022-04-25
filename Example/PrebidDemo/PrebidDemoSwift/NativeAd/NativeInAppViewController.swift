@@ -125,6 +125,7 @@ class NativeInAppViewController: UIViewController {
     // Original GAM
     
     func setupAndLoadNativeInAppForDFP() {
+        nativeAdRenderer = nil
         setupPrebidServer(storedResponse: nativeStoredResponse)
         setupNativeAdUnit(nativeStoredImpression)
         loadNativeInAppForDFP()
@@ -287,15 +288,15 @@ extension NativeInAppViewController: NativeAdDelegate {
 // MARK: - NativeAdEventDelegate
 
 extension NativeInAppViewController: NativeAdEventDelegate {
-    func adDidExpire(ad:NativeAd){
+    func adDidExpire(ad: NativeAd){
         print("adDidExpire")
     }
     
-    func adWasClicked(ad:NativeAd){
+    func adWasClicked(ad: NativeAd){
         print("adWasClicked")
     }
     
-    func adDidLogImpression(ad:NativeAd){
+    func adDidLogImpression(ad: NativeAd){
         print("adDidLogImpression")
     }
 }
