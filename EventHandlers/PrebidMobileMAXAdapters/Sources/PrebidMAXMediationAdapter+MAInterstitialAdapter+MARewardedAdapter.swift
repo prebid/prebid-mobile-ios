@@ -61,6 +61,14 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
         interstitialController?.loadingDelegate = self
         interstitialController?.interactionDelegate = self
         
+        if let videoAdConfig = parameters.localExtraParameters[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
+            interstitialController?.videoControlsConfig = videoAdConfig
+        }
+
+        if let videoParameters = parameters.localExtraParameters[PBMMediationVideoParameters] as? VideoParameters {
+            interstitialController?.videoParameters = videoParameters
+        }
+        
         interstitialController?.loadAd()
     }
     
@@ -111,6 +119,14 @@ extension PrebidMAXMediationAdapter: MAInterstitialAdapter,
         interstitialController?.loadingDelegate = self
         interstitialController?.interactionDelegate = self
         interstitialController?.isOptIn = true
+        
+        if let videoAdConfig = parameters.localExtraParameters[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
+            interstitialController?.videoControlsConfig = videoAdConfig
+        }
+        
+        if let videoParameters = parameters.localExtraParameters[PBMMediationVideoParameters] as? VideoParameters {
+            interstitialController?.videoParameters = videoParameters
+        }
         
         interstitialController?.loadAd()
     }

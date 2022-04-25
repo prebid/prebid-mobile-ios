@@ -164,7 +164,9 @@ public class MediationBaseInterstitialAdUnit : NSObject {
             let adObjectSetupDictionary: [String: Any] = [
                 PBMMediationConfigIdKey: configId,
                 PBMMediationTargetingInfoKey: targetingInfo,
-                PBMMediationAdUnitBidKey: winningBid
+                PBMMediationAdUnitBidKey: winningBid,
+                PBMMediationVideoAdConfiguration: self.adUnitConfig.adConfiguration.videoControlsConfig,
+                PBMMediationVideoParameters: self.adUnitConfig.adConfiguration.videoParameters
             ]
             
             if mediationDelegate.setUpAdObject(with: adObjectSetupDictionary) {

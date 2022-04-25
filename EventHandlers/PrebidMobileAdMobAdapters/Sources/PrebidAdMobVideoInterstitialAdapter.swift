@@ -78,6 +78,15 @@ public class PrebidAdMobVideoInterstitialAdapter:
         interstitialController?.loadingDelegate = self
         interstitialController?.interactionDelegate = self
         interstitialController?.adFormats = [.video]
+        
+        if let videoAdConfig = eventExtras[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
+            interstitialController?.videoControlsConfig = videoAdConfig
+        }
+        
+        if let videoParameters = eventExtras[PBMMediationVideoParameters] as? VideoParameters {
+            interstitialController?.videoParameters = videoParameters
+        }
+        
         interstitialController?.loadAd()
     }
     
