@@ -203,22 +203,18 @@
 #pragma mark Prebid NativeAd DFP
 
 -(void)loadDFPPrebidNative {
+    [self setupPrebidServerWith:@"response-prebid-banner-native-styles"];
     [self removePreviousAds];
     [self createPrebidNativeView];
     [self loadNativeAssets];
     GAMRequest *dfpRequest = [[GAMRequest alloc] init];
     [self.nativeUnit fetchDemandWithAdObject:dfpRequest completion:^(enum ResultCode result) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self loadDFP:dfpRequest];
+            self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:@"/21808260008/apollo_custom_template_native_ad_unit" rootViewController:self adTypes:@[kGADAdLoaderAdTypeCustomNative] options:@[]];
+            self.adLoader.delegate = self;
+            [self.adLoader loadRequest:dfpRequest];
         });
     }];
-
-}
-
--(void)loadDFP:(GAMRequest *)dfpRequest{
-    self.adLoader = [[GADAdLoader alloc] initWithAdUnitID:@"/19968336/Abhas_test_native_native_adunit" rootViewController:self adTypes:@[kGADAdLoaderAdTypeGAMBanner, kGADAdLoaderAdTypeCustomNative] options:@[]];
-    self.adLoader.delegate = self;
-    [self.adLoader loadRequest:dfpRequest];
 }
 
 #pragma mark :- Native functions
@@ -250,7 +246,7 @@
     
     self.eventTrackers = [[NativeEventTracker alloc] initWithEvent:EventType.Impression methods:@[EventTracking.Image, EventTracking.js]];
 
-    self.nativeUnit = [[NativeRequest alloc] initWithConfigId:@"25e17008-5081-4676-94d5-923ced4359d3" assets:@[icon,title,image,body,cta,sponsored] eventTrackers:@[self.eventTrackers]];
+    self.nativeUnit = [[NativeRequest alloc] initWithConfigId:@"imp-prebid-banner-native-styles" assets:@[title, icon, image, sponsored, body, cta] eventTrackers:@[self.eventTrackers]];
     self.nativeUnit.context = ContextType.Social;
     self.nativeUnit.placementType = PlacementType.FeedContent;
     self.nativeUnit.contextSubType = ContextSubType.Social;
@@ -314,7 +310,7 @@
 
 - (NSArray<NSString *> *)customNativeAdFormatIDsForAdLoader:(GADAdLoader *)adLoader
 {
-    return @[@"11963183"];
+    return @[@"11934135"];
 }
 
 - (void)adLoader:(GADAdLoader *)adLoader didReceiveCustomNativeAd:(GADCustomNativeAd *)customNativeAd
