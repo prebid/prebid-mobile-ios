@@ -9,11 +9,13 @@
 #import "RenderingBannerViewController.h"
 
 @import PrebidMobile;
-@import GoogleMobileAds;
-@import AppLovinSDK;
+
 @import PrebidMobileGAMEventHandlers;
 @import PrebidMobileAdMobAdapters;
 @import PrebidMobileMAXAdapters;
+
+@import GoogleMobileAds;
+@import AppLovinSDK;
 
 @interface RenderingBannerViewController () <BannerViewDelegate>
 

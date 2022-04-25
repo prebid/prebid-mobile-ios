@@ -9,20 +9,28 @@
 #import "RenderingInterstitialViewController.h"
 
 @import PrebidMobile;
+
 @import PrebidMobileGAMEventHandlers;
 @import PrebidMobileAdMobAdapters;
+@import PrebidMobileMAXAdapters;
 
 @import GoogleMobileAds;
+@import AppLovinSDK;
 
-@interface RenderingInterstitialViewController () <InterstitialAdUnitDelegate, GADFullScreenContentDelegate>
+@interface RenderingInterstitialViewController () <InterstitialAdUnitDelegate, GADFullScreenContentDelegate, MAAdDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *adView;
 
 // In-App
 @property (strong, nullable) InterstitialRenderingAdUnit *interstitialAdUnit;
+
 // AdMob
 @property (strong, nullable) MediationInterstitialAdUnit *admobInterstitialAdUnit;
 @property (strong, nullable) GADInterstitialAd *interstitial;
+
+// MAX
+@property (strong, nullable) MediationInterstitialAdUnit *maxInterstitialAdUnit;
+@property (strong, nullable) MAInterstitialAd *maxInterstitial;
 
 @end
 
@@ -30,7 +38,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     [self initRendering];
     
@@ -38,22 +45,12 @@
         case IntegrationKind_InApp          : [self loadInAppInterstitial]            ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingInterstitial]     ; break;
         case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingInterstitial]   ; break;
-        case IntegrationKind_RenderingMAX   : break;
+        case IntegrationKind_RenderingMAX   : [self loadMAXRenderingInterstitial]     ; break;
             
         default:
             break;
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mar - Load Ad
 
@@ -90,7 +87,7 @@
         self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"imp-prebid-display-interstitial-320-480"
                                                                       minSizePercentage:CGSizeMake(30, 30)
                                                                            eventHandler:eventHandler];
-
+        
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
         Prebid.shared.storedAuctionResponse = @"response-prebid-video-interstitial-320-480";
         GAMInterstitialEventHandler *eventHandler = [[GAMInterstitialEventHandler alloc] initWithAdUnitID:@"/21808260008/prebid-demo-app-original-api-video-interstitial"];
@@ -113,7 +110,7 @@
         Prebid.shared.storedAuctionResponse = @"response-prebid-display-interstitial-320-480";
         self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"imp-prebid-display-interstitial-320-480"
                                                                            mediationDelegate:mediationDelegate];
-
+        
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
         Prebid.shared.storedAuctionResponse = @"response-prebid-video-interstitial-320-480";
         self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"imp-prebid-video-interstitial-320-480"
@@ -137,6 +134,26 @@
             self.interstitial.fullScreenContentDelegate = self;
             [self.interstitial presentFromRootViewController:self];
         }];
+    }];
+}
+
+- (void)loadMAXRenderingInterstitial {
+    self.maxInterstitial = [[MAInterstitialAd alloc] initWithAdUnitIdentifier:@"8b3b31b990417275"];
+    MAXMediationInterstitialUtils* maxMediationDelegate = [[MAXMediationInterstitialUtils alloc] initWithInterstitialAd:self.maxInterstitial];
+    if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
+        Prebid.shared.storedAuctionResponse = @"response-prebid-display-interstitial-320-480";
+        self.maxInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"imp-prebid-display-interstitial-320-480"
+                                                                         mediationDelegate:maxMediationDelegate];
+        
+    } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
+        Prebid.shared.storedAuctionResponse = @"response-prebid-video-interstitial-320-480";
+        self.maxInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"imp-prebid-video-interstitial-320-480"
+                                                                         mediationDelegate:maxMediationDelegate];
+    }
+    
+    [self.maxInterstitialAdUnit fetchDemandWithCompletion:^(ResultCode result) {
+        self.maxInterstitial.delegate = self;
+        [self.maxInterstitial loadAd];
     }];
 }
 
@@ -170,6 +187,32 @@
 
 - (void)adDidRecordImpression:(id<GADFullScreenPresentingAd>)ad {
     NSLog(@"adDidRecordImpression");
+}
+
+#pragma mark - MAAdDelegate
+
+- (void)didClickAd:(nonnull MAAd *)ad {
+    NSLog(@"didClickAd:(nonnull MAAd *)ad");
+}
+
+- (void)didDisplayAd:(nonnull MAAd *)ad {
+    NSLog(@"didDisplayAd:(nonnull MAAd *)ad");
+}
+
+- (void)didFailToDisplayAd:(nonnull MAAd *)ad withError:(nonnull MAError *)error {
+    NSLog(@"didFailToPresentFullScreenContentWithError: %@", error.message);
+}
+
+- (void)didFailToLoadAdForAdUnitIdentifier:(nonnull NSString *)adUnitIdentifier withError:(nonnull MAError *)error {
+    NSLog(@"didFailToPresentFullScreenContentWithError: %@", error.message);
+}
+
+- (void)didHideAd:(nonnull MAAd *)ad {
+    NSLog(@"didHideAd:(nonnull MAAd *)ad");
+}
+
+- (void)didLoadAd:(nonnull MAAd *)ad {
+    NSLog(@"didLoadAd:(nonnull MAAd *)ad");
 }
 
 @end
