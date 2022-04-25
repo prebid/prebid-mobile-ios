@@ -41,7 +41,6 @@ class NativeInAppViewController: UIViewController {
     
     var nativeAdRenderer: NativeAdRenderer? {
         didSet {
-            nativeAd = nil
             if let nativeAdRenderer = nativeAdRenderer {
                 self.adContainerView.addSubview(nativeAdRenderer.nativeAdView)
             }
@@ -273,7 +272,7 @@ extension NativeInAppViewController: NativeAdDelegate {
         print("nativeAdLoaded")
         nativeAd = ad
         nativeAdRenderer = NativeAdRenderer(size: defaultAdViewSize)
-        nativeAdRenderer?.renderNativeInAppAd(with: ad)
+        nativeAdRenderer?.renderNativeInAppAd(with: self.nativeAd!)
     }
     
     func nativeAdNotFound() {
