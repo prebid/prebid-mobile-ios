@@ -124,6 +124,5 @@ class IndexController: UIViewController {
                 
         bannerNative.isHidden   = isRendering
         instreamVideo.isHidden  = isRendering
-        bannerVideo.isHidden = [IntegrationKind.renderingAdMob, IntegrationKind.renderingMAX].contains(integrationKind)
     }
 }
