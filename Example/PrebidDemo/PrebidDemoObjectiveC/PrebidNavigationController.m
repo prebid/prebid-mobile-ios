@@ -162,7 +162,32 @@
             [self.navigationController pushViewController:viewController animated:YES];
         }
     } else if (indexPath.section == IntegrationKind_RenderingMAX) {
-        // TODO: Add Example
+        IntegrationAdFormat integrationAdFormat = [IntegrationKindUtilites.IntegrationAdFormatRendering[indexPath.row] intValue];
+        if (integrationAdFormat == IntegrationAdFormat_Banner) {
+            RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
+            viewController.integrationKind = IntegrationKind_RenderingMAX;
+            viewController.integrationAdFormat = IntegrationAdFormat_Banner;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (integrationAdFormat == IntegrationAdFormat_BannerVideo) {
+            RenderingBannerViewController * viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingBannerVC"];
+            viewController.integrationKind = IntegrationKind_RenderingMAX;
+            viewController.integrationAdFormat = IntegrationAdFormat_BannerVideo;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (integrationAdFormat == IntegrationAdFormat_Interstitial) {
+            RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
+            viewController.integrationKind = IntegrationKind_RenderingMAX;
+            viewController.integrationAdFormat = IntegrationAdFormat_Interstitial;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
+            RenderingInterstitialViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingInterstitialVC"];
+            viewController.integrationKind = IntegrationKind_RenderingMAX;
+            viewController.integrationAdFormat = IntegrationAdFormat_InterstitialVideo;
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else if (integrationAdFormat == IntegrationAdFormat_Rewarded) {
+            RenderingRewardedViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"RenderingRewardedVC"];
+            viewController.integrationKind = IntegrationKind_RenderingMAX;
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
     }
 }
 @end

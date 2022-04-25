@@ -10,8 +10,10 @@
 
 @import PrebidMobile;
 @import GoogleMobileAds;
+@import AppLovinSDK;
 @import PrebidMobileGAMEventHandlers;
 @import PrebidMobileAdMobAdapters;
+@import PrebidMobileMAXAdapters;
 
 @interface RenderingBannerViewController () <BannerViewDelegate>
 
@@ -24,9 +26,14 @@
 
 // AdMob
 @property (nonatomic, strong) GADBannerView *gadBannerView;
-@property (nonatomic, strong) AdMobMediationBannerUtils *mediationDelegate;
+@property (nonatomic, strong) AdMobMediationBannerUtils *admobMediationDelegate;
 @property (nonatomic, strong) GADRequest *gadRequest;
 @property (nonatomic, strong) MediationBannerAdUnit *admobBannerAdUnit;
+
+// MAX
+@property (nonatomic, strong) MAAdView *maxBannerView;
+@property (nonatomic, strong) MAXMediationBannerUtils *maxMediationDelegate;
+@property (nonatomic, strong) MediationBannerAdUnit *maxBannerAdUnit;
 
 @end
 
@@ -34,7 +41,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.size = CGSizeMake(320, 50);
     self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
@@ -45,23 +51,14 @@
         case IntegrationKind_InApp          : [self loadInAppBanner]            ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingBanner]     ; break;
         case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingBanner]   ; break;
-        case IntegrationKind_RenderingMAX   : break;
-
+        // To run this example you should create your own MAX ad unit.
+        case IntegrationKind_RenderingMAX   : [self loadMAXBanner]              ; break;
+            
         default:
             break;
     }
     
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mar - Load Ad
 
@@ -152,16 +149,16 @@
         self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
         self.gadBannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
         self.gadRequest = [GADRequest new];
-        self.mediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest bannerView:self.gadBannerView];
-        self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"imp-prebid-banner-320-50" size:self.size mediationDelegate:self.mediationDelegate];
+        self.admobMediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest bannerView:self.gadBannerView];
+        self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"imp-prebid-banner-320-50" size:self.size mediationDelegate:self.admobMediationDelegate];
     } else if (self.integrationAdFormat == IntegrationAdFormat_BannerVideo) {
         Prebid.shared.storedAuctionResponse = @"response-prebid-video-outstream";
         self.size = CGSizeMake(300, 250);
         self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
         self.gadBannerView = [[GADBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(self.size)];
         self.gadRequest = [GADRequest new];
-        self.mediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest bannerView:self.gadBannerView];
-        self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"imp-prebid-video-outstream" size:self.size mediationDelegate:self.mediationDelegate];
+        self.admobMediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest bannerView:self.gadBannerView];
+        self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"imp-prebid-video-outstream" size:self.size mediationDelegate:self.admobMediationDelegate];
     }
     
     self.gadBannerView.adUnitID = @"ca-app-pub-5922967660082475/9483570409";
@@ -179,12 +176,57 @@
     
     [self.admobBannerAdUnit fetchDemandWithCompletion:^(ResultCode result) {
         GADCustomEventExtras *extras = [GADCustomEventExtras new];
-        NSDictionary *prebidExtras = [self.mediationDelegate getEventExtras];
+        NSDictionary *prebidExtras = [self.admobMediationDelegate getEventExtras];
         NSString *prebidExtrasLabel = AdMobConstants.PrebidAdMobEventExtrasLabel;
         [extras setExtras:prebidExtras forLabel: prebidExtrasLabel];
         [self.gadRequest registerAdNetworkExtras:extras];
         [self.adView addSubview:self.gadBannerView];
         [self.gadBannerView loadRequest:self.gadRequest];
+    }];
+}
+
+- (void)loadMAXBanner {
+    if(self.integrationAdFormat == IntegrationAdFormat_Banner) {
+        Prebid.shared.storedAuctionResponse = @"response-prebid-banner-320-50";
+        self.size = CGSizeMake(320, 50);
+        self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
+        
+        self.maxBannerView = [[MAAdView alloc] initWithAdUnitIdentifier:@"be91247472f4cd02"];
+        self.maxMediationDelegate = [[MAXMediationBannerUtils alloc] initWithAdView:self.maxBannerView];
+        self.maxBannerView.frame = self.frame;
+        [self.maxBannerView setHidden:false];
+        self.maxBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"imp-prebid-banner-320-50"
+                                                                          size:self.size
+                                                             mediationDelegate:self.maxMediationDelegate];
+        [self.adView addSubview:self.maxBannerView];
+    } else if (self.integrationAdFormat == IntegrationAdFormat_BannerVideo) {
+        Prebid.shared.storedAuctionResponse = @"response-prebid-video-outstream";
+        self.size = CGSizeMake(300, 250);
+        self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
+        
+        self.maxBannerView = [[MAAdView alloc] initWithAdUnitIdentifier:@"566a26093516d59b"];
+        self.maxBannerView.frame = self.frame;
+        [self.maxBannerView setHidden:false];
+        self.maxMediationDelegate = [[MAXMediationBannerUtils alloc] initWithAdView:self.maxBannerView];
+        self.maxBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"imp-prebid-video-outstream"
+                                                                          size:self.size
+                                                             mediationDelegate:self.maxMediationDelegate];
+        
+        [self.adView addSubview:self.maxBannerView];
+    }
+    
+    for (NSLayoutConstraint* constraint in self.adView.constraints) {
+        if (constraint.firstAttribute == NSLayoutAttributeHeight) {
+            constraint.constant = self.maxBannerView.frame.size.height;
+        }
+
+        if (constraint.firstAttribute == NSLayoutAttributeWidth) {
+            constraint.constant = self.maxBannerView.frame.size.width;
+        }
+    }
+    
+    [self.maxBannerAdUnit fetchDemandWithCompletion:^(ResultCode result) {
+        [self.maxBannerView loadAd];
     }];
 }
 
