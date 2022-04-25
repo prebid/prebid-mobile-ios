@@ -7,6 +7,7 @@
 //
 
 #import "RenderingBannerViewController.h"
+#import "ObjCDemoConstants.h"
 
 @import PrebidMobile;
 
@@ -44,9 +45,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.size = CGSizeMake(320, 50);
-    self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
-    
     [self initRendering];
     
     switch (self.integrationKind) {
@@ -65,114 +63,109 @@
 #pragma mar - Load Ad
 
 - (void)initRendering {
-    Prebid.shared.accountID = @"0689a263-318d-448b-a3d4-b02e8a709d9d";
-    [Prebid.shared setCustomPrebidServerWithUrl:@"https://prebid-server-test-j.prebid.org/openrtb2/auction" error:nil];
+    Prebid.shared.accountID = ObjCDemoConstants.kPrebidAccountId;
+    [Prebid.shared setCustomPrebidServerWithUrl:ObjCDemoConstants.kPrebidAWSServerURL error:nil];
     
     [NSUserDefaults.standardUserDefaults setValue:@"123" forKey:@"IABTCF_CmpSdkID"];
     [NSUserDefaults.standardUserDefaults setValue:@"0" forKey:@"IABTCF_gdprApplies"];
+    
+    if (self.integrationAdFormat == IntegrationAdFormat_Banner) {
+        Prebid.shared.storedAuctionResponse = ObjCDemoConstants.kBannerDisplayStoredResponse;
+        self.size = CGSizeMake(320, 50);
+    } else if (self.integrationAdFormat == IntegrationAdFormat_BannerVideo) {
+        Prebid.shared.storedAuctionResponse = ObjCDemoConstants.kBannerVideoStoredResponse;
+        self.size = CGSizeMake(300, 250);
+    }
+    
+    self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
 }
 
 - (void)loadInAppBanner {
     if (self.integrationAdFormat == IntegrationAdFormat_Banner) {
-        self.size = CGSizeMake(320, 50);
-        self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
-        Prebid.shared.storedAuctionResponse = @"response-prebid-banner-320-50";
         self.bannerView = [[BannerView alloc] initWithFrame:self.frame
-                                                   configID:@"imp-prebid-banner-320-50"
+                                                   configID:ObjCDemoConstants.kBannerDisplayStoredImpression
                                                      adSize:self.size];
     } else if (self.integrationAdFormat == IntegrationAdFormat_BannerVideo) {
-        self.size = CGSizeMake(300, 250);
-        self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
-        Prebid.shared.storedAuctionResponse = @"response-prebid-video-outstream";
         self.bannerView = [[BannerView alloc] initWithFrame:self.frame
-                                                   configID:@"imp-prebid-video-outstream"
+                                                   configID:ObjCDemoConstants.kBannerVideoStoredImpression
                                                      adSize:self.size];
     }
     
+    [self.adView addSubview:self.bannerView];
+    
     for (NSLayoutConstraint* constraint in self.adView.constraints) {
         if (constraint.firstAttribute == NSLayoutAttributeHeight) {
-            constraint.constant = self.bannerView.adUnitConfig.adSize.height;
+            constraint.constant = self.size.height;
         }
         
         if (constraint.firstAttribute == NSLayoutAttributeWidth) {
-            constraint.constant = self.bannerView.adUnitConfig.adSize.width;
+            constraint.constant = self.size.width;
         }
     }
     
     self.bannerView.delegate = self;
-    [self.adView addSubview:self.bannerView];
     [self.bannerView loadAd];
 }
 
 - (void)loadGAMRenderingBanner {
+    GAMBannerEventHandler *eventHandler = [[GAMBannerEventHandler alloc] initWithAdUnitID:ObjCDemoConstants.kGAMBannerAdUnitId
+                                                                          validGADAdSizes:@[[NSValue valueWithCGSize:self.size]]];
     if (self.integrationAdFormat == IntegrationAdFormat_Banner) {
-        self.size = CGSizeMake(320, 50);
-        self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
-        Prebid.shared.storedAuctionResponse = @"response-prebid-banner-320-50";
-        GAMBannerEventHandler *eventHandler = [[GAMBannerEventHandler alloc] initWithAdUnitID:@"/21808260008/prebid_oxb_320x50_banner"
-                                                                              validGADAdSizes:@[[NSValue valueWithCGSize:self.size]]];
-        
         self.bannerView = [[BannerView alloc] initWithFrame:self.frame
-                                                   configID:@"imp-prebid-banner-320-50"
+                                                   configID:ObjCDemoConstants.kBannerDisplayStoredImpression
                                                      adSize:self.size
                                                eventHandler:eventHandler];
     } else if (self.integrationAdFormat == IntegrationAdFormat_BannerVideo) {
-        self.size = CGSizeMake(300, 250);
-        self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
-        Prebid.shared.storedAuctionResponse = @"response-prebid-video-outstream";
-        GAMBannerEventHandler *eventHandler = [[GAMBannerEventHandler alloc] initWithAdUnitID:@"/21808260008/prebid_oxb_300x250_banner"
-                                                                              validGADAdSizes:@[[NSValue valueWithCGSize:self.size]]];
-        
         self.bannerView = [[BannerView alloc] initWithFrame:self.frame
-                                                   configID:@"imp-prebid-video-outstream"
+                                                   configID:ObjCDemoConstants.kBannerVideoStoredImpression
                                                      adSize:self.size
                                                eventHandler:eventHandler];
     }
     
+    [self.adView addSubview:self.bannerView];
+    
     for (NSLayoutConstraint* constraint in self.adView.constraints) {
         if (constraint.firstAttribute == NSLayoutAttributeHeight) {
-            constraint.constant = self.bannerView.adUnitConfig.adSize.height;
+            constraint.constant = self.size.height;
         }
         
         if (constraint.firstAttribute == NSLayoutAttributeWidth) {
-            constraint.constant = self.bannerView.adUnitConfig.adSize.width;
+            constraint.constant = self.size.width;
         }
     }
     
     self.bannerView.delegate = self;
-    [self.adView addSubview:self.bannerView];
     [self.bannerView loadAd];
 }
 
 - (void)loadAdMobRenderingBanner {
+    self.gadRequest = [GADRequest new];
     if(self.integrationAdFormat == IntegrationAdFormat_Banner) {
-        Prebid.shared.storedAuctionResponse = @"response-prebid-banner-320-50";
-        self.size = CGSizeMake(320, 50);
-        self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
         self.gadBannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
-        self.gadRequest = [GADRequest new];
-        self.admobMediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest bannerView:self.gadBannerView];
-        self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"imp-prebid-banner-320-50" size:self.size mediationDelegate:self.admobMediationDelegate];
+        self.admobMediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest
+                                                                                 bannerView:self.gadBannerView];
+        self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:ObjCDemoConstants.kBannerDisplayStoredImpression
+                                                                            size:self.size
+                                                               mediationDelegate:self.admobMediationDelegate];
     } else if (self.integrationAdFormat == IntegrationAdFormat_BannerVideo) {
-        Prebid.shared.storedAuctionResponse = @"response-prebid-video-outstream";
-        self.size = CGSizeMake(300, 250);
-        self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
         self.gadBannerView = [[GADBannerView alloc] initWithAdSize:GADAdSizeFromCGSize(self.size)];
-        self.gadRequest = [GADRequest new];
-        self.admobMediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest bannerView:self.gadBannerView];
-        self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"imp-prebid-video-outstream" size:self.size mediationDelegate:self.admobMediationDelegate];
+        self.admobMediationDelegate = [[AdMobMediationBannerUtils alloc] initWithGadRequest:self.gadRequest
+                                                                                 bannerView:self.gadBannerView];
+        self.admobBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:ObjCDemoConstants.kBannerVideoStoredImpression
+                                                                            size:self.size
+                                                               mediationDelegate:self.admobMediationDelegate];
     }
     
-    self.gadBannerView.adUnitID = @"ca-app-pub-5922967660082475/9483570409";
+    self.gadBannerView.adUnitID = ObjCDemoConstants.kAdMobBannerAdUnitId;
     self.gadBannerView.rootViewController = self;
     
     for (NSLayoutConstraint* constraint in self.adView.constraints) {
         if (constraint.firstAttribute == NSLayoutAttributeHeight) {
-            constraint.constant = self.gadBannerView.adSize.size.height;
+            constraint.constant = self.size.height;
         }
         
         if (constraint.firstAttribute == NSLayoutAttributeWidth) {
-            constraint.constant = self.gadBannerView.adSize.size.width;
+            constraint.constant = self.size.width;
         }
     }
     
@@ -189,41 +182,32 @@
 
 - (void)loadMAXBanner {
     if(self.integrationAdFormat == IntegrationAdFormat_Banner) {
-        Prebid.shared.storedAuctionResponse = @"response-prebid-banner-320-50";
-        self.size = CGSizeMake(320, 50);
-        self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
-        
-        self.maxBannerView = [[MAAdView alloc] initWithAdUnitIdentifier:@"be91247472f4cd02"];
+        self.maxBannerView = [[MAAdView alloc] initWithAdUnitIdentifier:ObjCDemoConstants.kMAXBannerAdUnitId];
         self.maxMediationDelegate = [[MAXMediationBannerUtils alloc] initWithAdView:self.maxBannerView];
-        self.maxBannerView.frame = self.frame;
-        [self.maxBannerView setHidden:false];
-        self.maxBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"imp-prebid-banner-320-50"
+        self.maxBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:ObjCDemoConstants.kBannerDisplayStoredImpression
                                                                           size:self.size
                                                              mediationDelegate:self.maxMediationDelegate];
-        [self.adView addSubview:self.maxBannerView];
     } else if (self.integrationAdFormat == IntegrationAdFormat_BannerVideo) {
-        Prebid.shared.storedAuctionResponse = @"response-prebid-video-outstream";
-        self.size = CGSizeMake(300, 250);
-        self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
-        
-        self.maxBannerView = [[MAAdView alloc] initWithAdUnitIdentifier:@"566a26093516d59b"];
-        self.maxBannerView.frame = self.frame;
-        [self.maxBannerView setHidden:false];
+        self.maxBannerView = [[MAAdView alloc] initWithAdUnitIdentifier:ObjCDemoConstants.kMAXMRECAdUnitId];
         self.maxMediationDelegate = [[MAXMediationBannerUtils alloc] initWithAdView:self.maxBannerView];
-        self.maxBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:@"imp-prebid-video-outstream"
+        self.maxBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:ObjCDemoConstants.kBannerVideoStoredImpression
                                                                           size:self.size
                                                              mediationDelegate:self.maxMediationDelegate];
         
-        [self.adView addSubview:self.maxBannerView];
     }
+    
+    self.maxBannerView.frame = self.frame;
+    [self.maxBannerView setHidden:false];
+    
+    [self.adView addSubview:self.maxBannerView];
     
     for (NSLayoutConstraint* constraint in self.adView.constraints) {
         if (constraint.firstAttribute == NSLayoutAttributeHeight) {
-            constraint.constant = self.maxBannerView.frame.size.height;
+            constraint.constant = self.size.height;
         }
-
+        
         if (constraint.firstAttribute == NSLayoutAttributeWidth) {
-            constraint.constant = self.maxBannerView.frame.size.width;
+            constraint.constant = self.size.width;
         }
     }
     

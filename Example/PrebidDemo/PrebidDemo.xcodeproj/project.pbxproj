@@ -20,6 +20,7 @@
 		53AA0C982814415D00D8A742 /* NativeEventTrackers+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C972814415D00D8A742 /* NativeEventTrackers+Extensions.swift */; };
 		53AA0C9A281441CA00D8A742 /* NativeAdRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0C99281441CA00D8A742 /* NativeAdRenderer.swift */; };
 		53AA0CA22815DC1700D8A742 /* MAXNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53AA0CA02815DC1700D8A742 /* MAXNativeAdView.xib */; };
+		53AA0CAB2816A6CC00D8A742 /* ObjCDemoConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 53AA0CAA2816A6CC00D8A742 /* ObjCDemoConstants.m */; };
 		5BD798952742483700CE9385 /* RenderingInterstitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD798942742483700CE9385 /* RenderingInterstitialViewController.m */; };
 		5BD7989827425B4900CE9385 /* IntegrationKindUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD7989727425B4900CE9385 /* IntegrationKindUtilites.m */; };
 		5BD7989B2742A9C500CE9385 /* RenderingRewardedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD798992742A9C400CE9385 /* RenderingRewardedViewController.m */; };
@@ -154,6 +155,8 @@
 		53AA0C972814415D00D8A742 /* NativeEventTrackers+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NativeEventTrackers+Extensions.swift"; sourceTree = "<group>"; };
 		53AA0C99281441CA00D8A742 /* NativeAdRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdRenderer.swift; sourceTree = "<group>"; };
 		53AA0CA02815DC1700D8A742 /* MAXNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MAXNativeAdView.xib; sourceTree = "<group>"; };
+		53AA0CA92816A6B000D8A742 /* ObjCDemoConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjCDemoConstants.h; sourceTree = "<group>"; };
+		53AA0CAA2816A6CC00D8A742 /* ObjCDemoConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjCDemoConstants.m; sourceTree = "<group>"; };
 		55EA1793258A4B187A300E8E /* Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig"; path = "Target Support Files/Pods-PrebidDemoSwift-PrebidDemoSwiftTests/Pods-PrebidDemoSwift-PrebidDemoSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		5BA4CF6C273AE27E00197C62 /* PrebidMobileGAMEventHandlers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileGAMEventHandlers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5BA4CF6D273AE27E00197C62 /* PrebidMobileMoPubAdapters.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PrebidMobileMoPubAdapters.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -438,6 +441,8 @@
 				FA12E507231EB99E00CAA05B /* main.m */,
 				5BD7989627425B4900CE9385 /* IntegrationKindUtilites.h */,
 				5BD7989727425B4900CE9385 /* IntegrationKindUtilites.m */,
+				53AA0CA92816A6B000D8A742 /* ObjCDemoConstants.h */,
+				53AA0CAA2816A6CC00D8A742 /* ObjCDemoConstants.m */,
 			);
 			path = PrebidDemoObjectiveC;
 			sourceTree = "<group>";
@@ -783,6 +788,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53AA0CAB2816A6CC00D8A742 /* ObjCDemoConstants.m in Sources */,
 				5BD798952742483700CE9385 /* RenderingInterstitialViewController.m in Sources */,
 				5BD7989827425B4900CE9385 /* IntegrationKindUtilites.m in Sources */,
 				5BD7989B2742A9C500CE9385 /* RenderingRewardedViewController.m in Sources */,

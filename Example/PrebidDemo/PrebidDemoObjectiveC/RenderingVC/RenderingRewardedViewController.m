@@ -7,6 +7,7 @@
 //
 
 #import "RenderingRewardedViewController.h"
+#import "ObjCDemoConstants.h"
 
 @import PrebidMobile;
 
@@ -37,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     [self initRendering];
     
     switch (self.integrationKind) {
@@ -54,27 +55,26 @@
 #pragma mar - Load Ad
 
 - (void)initRendering {
-    Prebid.shared.accountID = @"0689a263-318d-448b-a3d4-b02e8a709d9d";
-    Prebid.shared.storedAuctionResponse = @"response-prebid-video-rewarded-320-480";
-    [Prebid.shared setCustomPrebidServerWithUrl:@"https://prebid-server-test-j.prebid.org/openrtb2/auction" error:nil];
+    Prebid.shared.accountID = ObjCDemoConstants.kPrebidAccountId;
+    [Prebid.shared setCustomPrebidServerWithUrl:ObjCDemoConstants.kPrebidAWSServerURL error:nil];
+    
+    Prebid.shared.storedAuctionResponse = ObjCDemoConstants.kRewardedStoredResponse;
     
     [NSUserDefaults.standardUserDefaults setValue:@"123" forKey:@"IABTCF_CmpSdkID"];
     [NSUserDefaults.standardUserDefaults setValue:@"0" forKey:@"IABTCF_gdprApplies"];
 }
 
 - (void)loadInAppRewarded {
-    self.rewardedAdUnit = [[RewardedAdUnit alloc] initWithConfigID:@"imp-prebid-video-rewarded-320-480"];
+    self.rewardedAdUnit = [[RewardedAdUnit alloc] initWithConfigID:ObjCDemoConstants.kRewardedStoredImpression];
     self.rewardedAdUnit.delegate = self;
-    
     [self.rewardedAdUnit loadAd];
 }
 
 - (void)loadGAMRenderingRewarded {
-    GAMRewardedAdEventHandler *eventHandler = [[GAMRewardedAdEventHandler alloc] initWithAdUnitID:@"/21808260008/prebid_oxb_rewarded_video_test"];
-    self.rewardedAdUnit = [[RewardedAdUnit alloc] initWithConfigID:@"imp-prebid-video-rewarded-320-480"
+    GAMRewardedAdEventHandler *eventHandler = [[GAMRewardedAdEventHandler alloc] initWithAdUnitID:ObjCDemoConstants.kGAMRewardedAdUnitId];
+    self.rewardedAdUnit = [[RewardedAdUnit alloc] initWithConfigID:ObjCDemoConstants.kRewardedStoredImpression
                                                       eventHandler:eventHandler];
     self.rewardedAdUnit.delegate = self;
-    
     [self.rewardedAdUnit loadAd];
 }
 
@@ -82,15 +82,18 @@
     GADRequest *request = [GADRequest new];
     AdMobMediationRewardedUtils *mediationDelegate = [[AdMobMediationRewardedUtils alloc] initWithGadRequest:request];
     
-    self.admobRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:@"imp-prebid-video-rewarded-320-480"
-                                                                   mediationDelegate:mediationDelegate];
+    self.admobRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:ObjCDemoConstants.kRewardedStoredImpression
+                                                               mediationDelegate:mediationDelegate];
     
     [self.admobRewardedAdUnit fetchDemandWithCompletion:^(ResultCode result) {
-        [GADRewardedAd loadWithAdUnitID:@"ca-app-pub-5922967660082475/7397370641" request:request completionHandler:^(GADRewardedAd * _Nullable gadRewarded, NSError * _Nullable error) {
+        [GADRewardedAd loadWithAdUnitID:ObjCDemoConstants.kAdMobRewardedAdUnitId
+                                request:request
+                      completionHandler:^(GADRewardedAd * _Nullable gadRewarded, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"AdMob rewarded failed: %@", [error localizedDescription]);
                 return;
             }
+            
             self.gadRewarded = gadRewarded;
             self.gadRewarded.fullScreenContentDelegate = self;
             [self.gadRewarded presentFromRootViewController:self userDidEarnRewardHandler:^{
@@ -101,11 +104,11 @@
 }
 
 - (void)loadMAXRenderingRewarded {
-    self.maxRewarded = [MARewardedAd sharedWithAdUnitIdentifier:@"10f03680c163fb96"];
+    self.maxRewarded = [MARewardedAd sharedWithAdUnitIdentifier:ObjCDemoConstants.kMAXRewardedAdUnitId];
     
     MAXMediationRewardedUtils *maxMediationDelegate = [[MAXMediationRewardedUtils alloc] initWithRewardedAd:self.maxRewarded];
-    self.maxRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:@"imp-prebid-video-rewarded-320-480" mediationDelegate:maxMediationDelegate];
-    
+    self.maxRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:ObjCDemoConstants.kRewardedStoredImpression
+                                                             mediationDelegate:maxMediationDelegate];
     [self.maxRewardedAdUnit fetchDemandWithCompletion:^(ResultCode result) {
         self.maxRewarded.delegate = self;
         [self.maxRewarded loadAd];

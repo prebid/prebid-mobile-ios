@@ -7,6 +7,7 @@
 //
 
 #import "RenderingInterstitialViewController.h"
+#import "ObjCDemoConstants.h"
 
 @import PrebidMobile;
 
@@ -45,7 +46,7 @@
         case IntegrationKind_InApp          : [self loadInAppInterstitial]            ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingInterstitial]     ; break;
         case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingInterstitial]   ; break;
-        // To run this example you should create your own MAX ad unit.
+            // To run this example you should create your own MAX ad unit.
         case IntegrationKind_RenderingMAX   : [self loadMAXRenderingInterstitial]     ; break;
             
         default:
@@ -56,21 +57,23 @@
 #pragma mar - Load Ad
 
 - (void)initRendering {
-    Prebid.shared.accountID = @"0689a263-318d-448b-a3d4-b02e8a709d9d";
-    [Prebid.shared setCustomPrebidServerWithUrl:@"https://prebid-server-test-j.prebid.org/openrtb2/auction" error:nil];
+    Prebid.shared.accountID = ObjCDemoConstants.kPrebidAccountId;
+    [Prebid.shared setCustomPrebidServerWithUrl:ObjCDemoConstants.kPrebidAWSServerURL error:nil];
     
     [NSUserDefaults.standardUserDefaults setValue:@"123" forKey:@"IABTCF_CmpSdkID"];
     [NSUserDefaults.standardUserDefaults setValue:@"0" forKey:@"IABTCF_gdprApplies"];
+    if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
+        Prebid.shared.storedAuctionResponse = ObjCDemoConstants.kInterstitialDisplayStoredResponse;
+    } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
+        Prebid.shared.storedAuctionResponse = ObjCDemoConstants.kInterstitialVideoStoredResponse;
+    }
 }
 
 - (void)loadInAppInterstitial {
-    
     if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
-        Prebid.shared.storedAuctionResponse = @"response-prebid-display-interstitial-320-480";
-        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"imp-prebid-display-interstitial-320-480"];
+        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:ObjCDemoConstants.kInterstitialDisplayStoredImpression];
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
-        Prebid.shared.storedAuctionResponse = @"response-prebid-video-interstitial-320-480";
-        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"imp-prebid-video-interstitial-320-480"];
+        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:ObjCDemoConstants.kInterstitialVideoStoredImpression];
         self.interstitialAdUnit.adFormats = [[NSSet alloc] initWithArray:@[AdFormat.video]];
     }
     
@@ -80,20 +83,17 @@
 }
 
 - (void)loadGAMRenderingInterstitial {
-    
     if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
-        Prebid.shared.storedAuctionResponse = @"response-prebid-display-interstitial-320-480";
-        GAMInterstitialEventHandler *eventHandler = [[GAMInterstitialEventHandler alloc] initWithAdUnitID:@"/21808260008/prebid-demo-app-original-api-display-interstitial"];
+        GAMInterstitialEventHandler *eventHandler = [[GAMInterstitialEventHandler alloc] initWithAdUnitID:ObjCDemoConstants.kGAMInterstitialDisplayAdUnitId];
         
-        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"imp-prebid-display-interstitial-320-480"
+        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:ObjCDemoConstants.kInterstitialDisplayStoredImpression
                                                                       minSizePercentage:CGSizeMake(30, 30)
                                                                            eventHandler:eventHandler];
         
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
-        Prebid.shared.storedAuctionResponse = @"response-prebid-video-interstitial-320-480";
-        GAMInterstitialEventHandler *eventHandler = [[GAMInterstitialEventHandler alloc] initWithAdUnitID:@"/21808260008/prebid-demo-app-original-api-video-interstitial"];
+        GAMInterstitialEventHandler *eventHandler = [[GAMInterstitialEventHandler alloc] initWithAdUnitID:ObjCDemoConstants.kGAMInterstitialVideoAdUnitId];
         
-        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:@"imp-prebid-video-interstitial-320-480"
+        self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:ObjCDemoConstants.kInterstitialVideoStoredImpression
                                                                       minSizePercentage:CGSizeMake(30, 30)
                                                                            eventHandler:eventHandler];
         self.interstitialAdUnit.adFormats = [[NSSet alloc] initWithArray:@[AdFormat.video]];
@@ -108,13 +108,11 @@
     GADRequest *request = [GADRequest new];
     AdMobMediationInterstitialUtils *mediationDelegate = [[AdMobMediationInterstitialUtils alloc] initWithGadRequest:request];
     if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
-        Prebid.shared.storedAuctionResponse = @"response-prebid-display-interstitial-320-480";
-        self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"imp-prebid-display-interstitial-320-480"
+        self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:ObjCDemoConstants.kInterstitialDisplayStoredImpression
                                                                            mediationDelegate:mediationDelegate];
         
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
-        Prebid.shared.storedAuctionResponse = @"response-prebid-video-interstitial-320-480";
-        self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"imp-prebid-video-interstitial-320-480"
+        self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:ObjCDemoConstants.kInterstitialVideoStoredImpression
                                                                            mediationDelegate:mediationDelegate];
     }
     
@@ -124,7 +122,7 @@
         NSString *prebidExtrasLabel = AdMobConstants.PrebidAdMobEventExtrasLabel;
         [extras setExtras:prebidExtras forLabel: prebidExtrasLabel];
         [request registerAdNetworkExtras:extras];
-        [GADInterstitialAd loadWithAdUnitID:@"ca-app-pub-5922967660082475/3383099861"
+        [GADInterstitialAd loadWithAdUnitID:ObjCDemoConstants.kAdMobInterstitialAdUnitId
                                     request:request
                           completionHandler:^(GADInterstitialAd * _Nullable interstitialAd, NSError * _Nullable error) {
             if (error) {
@@ -139,16 +137,14 @@
 }
 
 - (void)loadMAXRenderingInterstitial {
-    self.maxInterstitial = [[MAInterstitialAd alloc] initWithAdUnitIdentifier:@"8b3b31b990417275"];
+    self.maxInterstitial = [[MAInterstitialAd alloc] initWithAdUnitIdentifier:ObjCDemoConstants.kMAXInterstitialAdUnitId];
     MAXMediationInterstitialUtils* maxMediationDelegate = [[MAXMediationInterstitialUtils alloc] initWithInterstitialAd:self.maxInterstitial];
     if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
-        Prebid.shared.storedAuctionResponse = @"response-prebid-display-interstitial-320-480";
-        self.maxInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"imp-prebid-display-interstitial-320-480"
+        self.maxInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:ObjCDemoConstants.kInterstitialDisplayStoredImpression
                                                                          mediationDelegate:maxMediationDelegate];
         
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
-        Prebid.shared.storedAuctionResponse = @"response-prebid-video-interstitial-320-480";
-        self.maxInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:@"imp-prebid-video-interstitial-320-480"
+        self.maxInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:ObjCDemoConstants.kInterstitialVideoStoredImpression
                                                                          mediationDelegate:maxMediationDelegate];
     }
     
@@ -217,5 +213,3 @@
 }
 
 @end
-
-
