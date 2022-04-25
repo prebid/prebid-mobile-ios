@@ -90,37 +90,37 @@ public class MediationBannerAdUnit : NSObject {
     
     // MARK: - App Content
     
-    @objc public func setAppContent(_ appContent: PBMORTBAppContent) {
+    public func setAppContent(_ appContent: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContent)
     }
     
-    @objc public func clearAppContent() {
+    public func clearAppContent() {
         adUnitConfig.clearAppContent()
     }
     
-    @objc public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
+    public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
         adUnitConfig.addAppContentData(dataObjects)
     }
-
-    @objc public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
+    
+    public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
         adUnitConfig.removeAppContentData(dataObject)
     }
     
-    @objc public func clearAppContentDataObjects() {
+    public func clearAppContentDataObjects() {
         adUnitConfig.clearAppContentData()
     }
     
     // MARK: - User Data
     
-    @objc public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
+    public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)
     }
     
-    @objc public func removeUserData(_ userDataObject: PBMORTBContentData) {
+    public func removeUserData(_ userDataObject: PBMORTBContentData) {
         adUnitConfig.removeUserData(userDataObject)
     }
     
-    @objc public func clearUserData() {
+    public func clearUserData() {
         adUnitConfig.clearUserData()
     }
     
@@ -144,8 +144,8 @@ public class MediationBannerAdUnit : NSObject {
             guard let self = self,
                   self.lastAdView != nil,
                   let completion = self.lastCompletion else {
-                      return
-                  }
+                return
+            }
             
             self.fetchDemand(connection: PBMServerConnection.shared,
                              sdkConfiguration: Prebid.shared,
@@ -230,7 +230,7 @@ public class MediationBannerAdUnit : NSObject {
         guard let adObject = adView else {
             return false
         }
-
+        
         return adObject.pbmIsVisible()
     }
     
@@ -243,17 +243,19 @@ public class MediationBannerAdUnit : NSObject {
     private func handlePrebidResponse(response: BidResponse) {
         var demandResult = ResultCode.prebidDemandNoBids
         
-        if self.adView != nil,
-           let winningBid = response.winningBid {
-            if mediationDelegate.setUpAdObject(configId: configID,
-                                               configIdKey: PBMMediationConfigIdKey,
-                                               targetingInfo: winningBid.targetingInfo ?? [:],
-                                               extrasObject: winningBid,
-                                               extrasObjectKey: PBMMediationAdUnitBidKey) {
+        if self.adView != nil, let winningBid = response.winningBid, let targetingInfo = response.targetingInfo {
+            
+            let adObjectSetupDictionary: [String: Any] = [
+                PBMMediationConfigIdKey: configID,
+                PBMMediationTargetingInfoKey: targetingInfo,
+                PBMMediationAdUnitBidKey: winningBid
+            ]
+            
+            if mediationDelegate.setUpAdObject(with: adObjectSetupDictionary) {
                 demandResult = .prebidDemandFetchSuccess
             } else {
                 demandResult = .prebidWrongArguments
-            }
+            }    
         } else {
             Log.error("The winning bid is absent in response!")
         }
@@ -272,8 +274,8 @@ public class MediationBannerAdUnit : NSObject {
         
         guard let adObject = self .adView,
               let completion = self.completion else {
-                  return
-              }
+            return
+        }
         
         lastAdView = adObject
         lastCompletion = completion

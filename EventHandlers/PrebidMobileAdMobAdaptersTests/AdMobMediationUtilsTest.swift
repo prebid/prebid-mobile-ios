@@ -27,11 +27,11 @@ class AdMobMediationUtilsTest: XCTestCase {
         
         gadRequest.keywords = testInitialKeywords
         let mediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: GADBannerView())
-        guard mediationDelegate.setUpAdObject(configId: "testConfigId",
-                                              configIdKey: "testConfigIdKey",
-                                              targetingInfo: ["test": "test"],
-                                              extrasObject: nil,
-                                              extrasObjectKey: "testExtrasObjectKey") else {
+        let mediationValues: [String: Any] = [PBMMediationConfigIdKey: "testConfigId",
+                                         PBMMediationTargetingInfoKey: ["test":"test"],
+                                             PBMMediationAdUnitBidKey: "testExtrasObjectKey"]
+        
+        guard mediationDelegate.setUpAdObject(with: mediationValues) else {
             XCTFail()
             return
         }
@@ -52,11 +52,10 @@ class AdMobMediationUtilsTest: XCTestCase {
         
         gadRequest.keywords = testInitialKeywords
         let mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: gadRequest)
-        guard mediationDelegate.setUpAdObject(configId: "testConfigId",
-                                              configIdKey: "testConfigIdKey",
-                                              targetingInfo: ["test": "test"],
-                                              extrasObject: nil,
-                                              extrasObjectKey: "testExtrasObjectKey") else {
+        let mediationValues: [String: Any] = [PBMMediationConfigIdKey: "testConfigId",
+                                         PBMMediationTargetingInfoKey: ["test":"test"],
+                                             PBMMediationAdUnitBidKey: "testExtrasObjectKey"]
+        guard mediationDelegate.setUpAdObject(with: mediationValues) else {
             XCTFail()
             return
         }
@@ -77,11 +76,36 @@ class AdMobMediationUtilsTest: XCTestCase {
         
         gadRequest.keywords = testInitialKeywords
         let mediationDelegate = AdMobMediationRewardedUtils(gadRequest: gadRequest)
-        guard mediationDelegate.setUpAdObject(configId: "testConfigId",
-                                              configIdKey: "testConfigIdKey",
-                                              targetingInfo: ["test": "test"],
-                                              extrasObject: nil,
-                                              extrasObjectKey: "testExtrasObjectKey") else {
+        let mediationValues: [String: Any] = [PBMMediationConfigIdKey: "testConfigId",
+                                         PBMMediationTargetingInfoKey: ["test":"test"],
+                                             PBMMediationAdUnitBidKey: "testExtrasObjectKey"]
+        
+        guard mediationDelegate.setUpAdObject(with: mediationValues) else {
+            XCTFail()
+            return
+        }
+        
+        testInitialKeywords.forEach { keyword in
+            if !mediationDelegate.gadRequest.keywords!.contains(where: { value in
+                let stringValue = value as? String
+                return stringValue == keyword
+            }) {
+                XCTFail()
+            }
+        }
+    }
+    
+    func testCorrectNativeAdObjectSetUp() {
+        let gadRequest = GADRequest()
+        let testInitialKeywords = ["existingKey:existingValue"]
+        
+        gadRequest.keywords = testInitialKeywords
+        let mediationDelegate = AdMobMediationNativeUtils(gadRequest: gadRequest)
+        let mediationValues: [String: Any] = [PBMMediationConfigIdKey: "testConfigId",
+                                         PBMMediationTargetingInfoKey: ["test": "test"],
+                                      PBMMediationAdNativeResponseKey: "testExtrasObjectKey"]
+        
+        guard mediationDelegate.setUpAdObject(with: mediationValues) else {
             XCTFail()
             return
         }
