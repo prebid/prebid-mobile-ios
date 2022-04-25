@@ -45,6 +45,7 @@
         case IntegrationKind_InApp          : [self loadInAppInterstitial]            ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingInterstitial]     ; break;
         case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingInterstitial]   ; break;
+        // To run this example you should create your own MAX ad unit.
         case IntegrationKind_RenderingMAX   : [self loadMAXRenderingInterstitial]     ; break;
             
         default:
@@ -200,11 +201,11 @@
 }
 
 - (void)didFailToDisplayAd:(nonnull MAAd *)ad withError:(nonnull MAError *)error {
-    NSLog(@"didFailToPresentFullScreenContentWithError: %@", error.message);
+    NSLog(@"didFailToDisplayAd: %@", error.message);
 }
 
 - (void)didFailToLoadAdForAdUnitIdentifier:(nonnull NSString *)adUnitIdentifier withError:(nonnull MAError *)error {
-    NSLog(@"didFailToPresentFullScreenContentWithError: %@", error.message);
+    NSLog(@"didFailToLoadAdForAdUnitIdentifier: %@", error.message);
 }
 
 - (void)didHideAd:(nonnull MAAd *)ad {

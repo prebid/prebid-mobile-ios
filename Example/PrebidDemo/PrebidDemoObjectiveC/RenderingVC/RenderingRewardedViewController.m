@@ -9,12 +9,15 @@
 #import "RenderingRewardedViewController.h"
 
 @import PrebidMobile;
+
 @import PrebidMobileGAMEventHandlers;
 @import PrebidMobileAdMobAdapters;
+@import PrebidMobileMAXAdapters;
 
 @import GoogleMobileAds;
+@import AppLovinSDK;
 
-@interface RenderingRewardedViewController () <RewardedAdUnitDelegate, InterstitialAdUnitDelegate, GADFullScreenContentDelegate>
+@interface RenderingRewardedViewController () <RewardedAdUnitDelegate, InterstitialAdUnitDelegate, GADFullScreenContentDelegate, MARewardedAdDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *adView;
 
@@ -22,7 +25,11 @@
 
 // AdMob
 @property (strong, nullable) MediationRewardedAdUnit *admobRewardedAdUnit;
-@property (strong, nullable) GADRewardedAd *rewardedAd;
+@property (strong, nullable) GADRewardedAd *gadRewarded;
+
+// MAX
+@property (strong, nullable) MediationRewardedAdUnit *maxRewardedAdUnit;
+@property (strong, nullable) MARewardedAd *maxRewarded;
 
 @end
 
@@ -30,7 +37,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 
     [self initRendering];
     
@@ -38,21 +44,12 @@
         case IntegrationKind_InApp          : [self loadInAppRewarded]              ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingRewarded]       ; break;
         case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingRewarded]     ; break;
-        case IntegrationKind_RenderingMAX   : break;
+        // To run this example you should create your own MAX ad unit.
+        case IntegrationKind_RenderingMAX   : [self loadMAXRenderingRewarded]       ; break;
         default:
             break;
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mar - Load Ad
 
@@ -89,17 +86,29 @@
                                                                    mediationDelegate:mediationDelegate];
     
     [self.admobRewardedAdUnit fetchDemandWithCompletion:^(ResultCode result) {
-        [GADRewardedAd loadWithAdUnitID:@"ca-app-pub-5922967660082475/7397370641" request:request completionHandler:^(GADRewardedAd * _Nullable rewardedAd, NSError * _Nullable error) {
+        [GADRewardedAd loadWithAdUnitID:@"ca-app-pub-5922967660082475/7397370641" request:request completionHandler:^(GADRewardedAd * _Nullable gadRewarded, NSError * _Nullable error) {
             if (error) {
                 NSLog(@"AdMob rewarded failed: %@", [error localizedDescription]);
                 return;
             }
-            self.rewardedAd = rewardedAd;
-            self.rewardedAd.fullScreenContentDelegate = self;
-            [self.rewardedAd presentFromRootViewController:self userDidEarnRewardHandler:^{
+            self.gadRewarded = gadRewarded;
+            self.gadRewarded.fullScreenContentDelegate = self;
+            [self.gadRewarded presentFromRootViewController:self userDidEarnRewardHandler:^{
                 NSLog(@"Reward user");
             }];
         }];
+    }];
+}
+
+- (void)loadMAXRenderingRewarded {
+    self.maxRewarded = [MARewardedAd sharedWithAdUnitIdentifier:@"10f03680c163fb96"];
+    
+    MAXMediationRewardedUtils *maxMediationDelegate = [[MAXMediationRewardedUtils alloc] initWithRewardedAd:self.maxRewarded];
+    self.maxRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:@"imp-prebid-video-rewarded-320-480" mediationDelegate:maxMediationDelegate];
+    
+    [self.maxRewardedAdUnit fetchDemandWithCompletion:^(ResultCode result) {
+        self.maxRewarded.delegate = self;
+        [self.maxRewarded loadAd];
     }];
 }
 
@@ -133,6 +142,44 @@
 
 - (void)adDidRecordImpression:(id<GADFullScreenPresentingAd>)ad {
     NSLog(@"adDidRecordImpression");
+}
+
+#pragma mark - MARewardedAdDelegate
+
+- (void)didClickAd:(nonnull MAAd *)ad {
+    NSLog(@"didClickAd:(nonnull MAAd *)ad");
+}
+
+- (void)didDisplayAd:(nonnull MAAd *)ad {
+    NSLog(@"didDisplayAd:(nonnull MAAd *)ad");
+}
+
+- (void)didFailToDisplayAd:(nonnull MAAd *)ad withError:(nonnull MAError *)error {
+    NSLog(@"didFailToDisplayAd: %@", error.message);
+}
+
+- (void)didFailToLoadAdForAdUnitIdentifier:(nonnull NSString *)adUnitIdentifier withError:(nonnull MAError *)error {
+    NSLog(@"didFailToLoadAdForAdUnitIdentifier: %@", error.message);
+}
+
+- (void)didHideAd:(nonnull MAAd *)ad {
+    NSLog(@"didHideAd:(nonnull MAAd *)ad");
+}
+
+- (void)didLoadAd:(nonnull MAAd *)ad {
+    NSLog(@"didLoadAd:(nonnull MAAd *)ad");
+}
+
+- (void)didRewardUserForAd:(nonnull MAAd *)ad withReward:(nonnull MAReward *)reward {
+    NSLog(@"didRewardUserForAd:(nonnull MAAd *)ad");
+}
+
+- (void)didStartRewardedVideoForAd:(nonnull MAAd *)ad {
+    // Not supported.
+}
+
+- (void)didCompleteRewardedVideoForAd:(nonnull MAAd *)ad {
+    // Not supported.
 }
 
 @end
