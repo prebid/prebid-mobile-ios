@@ -29,6 +29,7 @@
     _delivery = @[@(3)];
     _pos = @(7);
     _api = @[];
+    _linearity = @(1);
     
     return self;
 }

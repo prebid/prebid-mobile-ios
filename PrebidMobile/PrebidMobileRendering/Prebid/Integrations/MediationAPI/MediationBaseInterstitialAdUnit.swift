@@ -21,7 +21,7 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         get { adUnitConfig.adConfiguration.bannerParameters }
     }
     
-    public var videoParameters: VideoParameters? {
+    public var videoParameters: VideoParameters {
         get { adUnitConfig.adConfiguration.videoParameters }
     }
     
@@ -62,6 +62,8 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         adUnitConfig = AdUnitConfig(configId: configId)
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
+        super.init()
+        videoParameters.placement = .Interstitial
     }
     
     public func fetchDemand(completion: ((ResultCode)->Void)?) {

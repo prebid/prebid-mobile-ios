@@ -111,6 +111,8 @@ public class BaseInterstitialAdUnit :
 
         super.init()
         
+        videoParameters.placement = .Interstitial
+        
         let adLoader = PBMInterstitialAdLoader(delegate: self)
         callEventHandler_setLoadingDelegate(adLoader)
         
