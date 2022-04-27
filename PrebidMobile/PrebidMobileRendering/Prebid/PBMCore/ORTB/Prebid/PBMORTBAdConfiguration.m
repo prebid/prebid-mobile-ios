@@ -42,7 +42,7 @@
     ret[@"closebuttonarea"] = self.closeButtonArea;
     ret[@"closebuttonposition"] = self.closeButtonPosition;
     ret[@"skipbuttonarea"] = self.skipButtonArea;
-    ret[@"skipButtonPossition"] = self.skipButtonPosition;
+    ret[@"skipbuttonposition"] = self.skipButtonPosition;
     ret[@"skipdelay"] = self.maxVideoDuration;
     
     [ret pbmRemoveEmptyVals];
