@@ -28,7 +28,7 @@ extension Prebid {
     
     static func reset() {
         Prebid.shared.prebidServerHost = PrebidHost.Custom
-        Prebid.shared.accountID = ""
+        Prebid.shared.prebidServerAccountId = ""
         
         Prebid.shared.timeoutMillis = 2000
         

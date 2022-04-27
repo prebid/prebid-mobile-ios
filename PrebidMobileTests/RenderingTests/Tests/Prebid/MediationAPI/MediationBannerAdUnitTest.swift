@@ -27,7 +27,7 @@ class MediationBannerAdUnitTest: XCTestCase {
     private func getSDKConfiguration() -> Prebid {
         let config = Prebid.mock
         try! config.setCustomPrebidServer(url: Prebid.devintServerURL)
-        config.accountID = Prebid.devintAccountID
+        config.prebidServerAccountId = Prebid.devintAccountID
         return config
     }
     

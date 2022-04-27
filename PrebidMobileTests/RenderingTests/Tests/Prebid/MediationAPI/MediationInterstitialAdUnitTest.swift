@@ -22,7 +22,7 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         let config = Prebid.mock
         //        config.serverURL = Prebid.devintServerURL
         try! config.setCustomPrebidServer(url: Prebid.devintServerURL)
-        config.accountID = Prebid.devintAccountID
+        config.prebidServerAccountId = Prebid.devintAccountID
         return config
     }()
     private let targeting = Targeting.shared

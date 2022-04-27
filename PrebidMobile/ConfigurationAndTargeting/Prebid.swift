@@ -78,8 +78,6 @@ public class Prebid: NSObject {
         }
     }
     
-    public var accountID: String
-    
     public var timeoutMillis: Int {
         didSet {
             timeoutMillisDynamic = NSNumber(value: timeoutMillis)
@@ -164,9 +162,7 @@ public class Prebid: NSObject {
     
     // MARK: - Private Methods
     
-    override init() {
-        accountID  = ""
-        
+    override init() { 
         timeoutMillis = defaultTimeoutMillis
     }
 }

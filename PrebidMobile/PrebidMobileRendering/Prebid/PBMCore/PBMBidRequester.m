@@ -171,7 +171,7 @@
     if ([self isInvalidID:self.adUnitConfiguration.configId]) {
         return [PBMError prebidInvalidConfigId];
     }
-    if ([self isInvalidID:self.sdkConfiguration.accountID]) {
+    if ([self isInvalidID:self.sdkConfiguration.prebidServerAccountId]) {
         return [PBMError prebidInvalidAccountId];
     }
     return nil;

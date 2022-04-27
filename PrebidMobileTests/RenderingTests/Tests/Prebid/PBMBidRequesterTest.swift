@@ -25,7 +25,7 @@ class PBMBidRequesterTest: XCTestCase {
         super.setUp()
         sdkConfiguration = Prebid.mock
         try! sdkConfiguration.setCustomPrebidServer(url: Prebid.devintServerURL)
-        sdkConfiguration.accountID = Prebid.devintAccountID
+        sdkConfiguration.prebidServerAccountId = Prebid.devintAccountID
     }
     
     override func tearDown() {
@@ -66,7 +66,7 @@ class PBMBidRequesterTest: XCTestCase {
                                         targeting: targeting,
                                         adUnitConfiguration: adUnitConfig)
         
-        sdkConfiguration.accountID = " \t \t  "
+        sdkConfiguration.prebidServerAccountId = " \t \t  "
         
         let exp = expectation(description: "exp")
         
@@ -90,7 +90,7 @@ class PBMBidRequesterTest: XCTestCase {
                                         targeting: targeting,
                                         adUnitConfiguration: adUnitConfig)
         
-        sdkConfiguration.accountID = accountID
+        sdkConfiguration.prebidServerAccountId = accountID
         
         let exp = expectation(description: "exp")
         

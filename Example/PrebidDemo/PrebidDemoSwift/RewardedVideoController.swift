@@ -111,7 +111,7 @@ class RewardedVideoController:
     }
     
     func setupPrebidServer(storedResponse: String) {
-        Prebid.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        Prebid.shared.prebidServerAccountId = "0689a263-318d-448b-a3d4-b02e8a709d9d"
         try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
 
         Prebid.shared.storedAuctionResponse = storedResponse

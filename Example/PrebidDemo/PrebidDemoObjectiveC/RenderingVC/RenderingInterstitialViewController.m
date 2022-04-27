@@ -46,7 +46,7 @@
         case IntegrationKind_InApp          : [self loadInAppInterstitial]            ; break;
         case IntegrationKind_RenderingGAM   : [self loadGAMRenderingInterstitial]     ; break;
         case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingInterstitial]   ; break;
-            // To run this example you should create your own MAX ad unit.
+        // To run this example you should create your own MAX ad unit.
         case IntegrationKind_RenderingMAX   : [self loadMAXRenderingInterstitial]     ; break;
             
         default:
@@ -57,7 +57,7 @@
 #pragma mar - Load Ad
 
 - (void)initRendering {
-    Prebid.shared.accountID = ObjCDemoConstants.kPrebidAccountId;
+    Prebid.shared.prebidServerAccountId = ObjCDemoConstants.kPrebidAccountId;
     [Prebid.shared setCustomPrebidServerWithUrl:ObjCDemoConstants.kPrebidAWSServerURL error:nil];
     
     [NSUserDefaults.standardUserDefaults setValue:@"123" forKey:@"IABTCF_CmpSdkID"];
@@ -89,7 +89,7 @@
         self.interstitialAdUnit = [[InterstitialRenderingAdUnit alloc] initWithConfigID:ObjCDemoConstants.kInterstitialDisplayStoredImpression
                                                                       minSizePercentage:CGSizeMake(30, 30)
                                                                            eventHandler:eventHandler];
-        
+
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
         GAMInterstitialEventHandler *eventHandler = [[GAMInterstitialEventHandler alloc] initWithAdUnitID:ObjCDemoConstants.kGAMInterstitialVideoAdUnitId];
         
@@ -110,7 +110,7 @@
     if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
         self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:ObjCDemoConstants.kInterstitialDisplayStoredImpression
                                                                            mediationDelegate:mediationDelegate];
-        
+
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
         self.admobInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:ObjCDemoConstants.kInterstitialVideoStoredImpression
                                                                            mediationDelegate:mediationDelegate];
@@ -142,12 +142,12 @@
     if (self.integrationAdFormat == IntegrationAdFormat_Interstitial) {
         self.maxInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:ObjCDemoConstants.kInterstitialDisplayStoredImpression
                                                                          mediationDelegate:maxMediationDelegate];
-        
+
     } else if (self.integrationAdFormat == IntegrationAdFormat_InterstitialVideo) {
         self.maxInterstitialAdUnit = [[MediationInterstitialAdUnit alloc] initWithConfigId:ObjCDemoConstants.kInterstitialVideoStoredImpression
                                                                          mediationDelegate:maxMediationDelegate];
     }
-    
+
     [self.maxInterstitialAdUnit fetchDemandWithCompletion:^(ResultCode result) {
         self.maxInterstitial.delegate = self;
         [self.maxInterstitial loadAd];
