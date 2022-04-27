@@ -260,7 +260,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
         let adConfig = AdConfiguration()
         XCTAssertTrue(adConfig.videoControlsConfig.isMuted == false)
         
-        adConfig.videoControlsConfig.isMuted = false
+        adConfig.videoControlsConfig.isMuted = true
         // Expected duration of video small.mp4 is 6 sec
         let expectedVideoDuration = 6.0
 
@@ -276,7 +276,7 @@ class PBMVideoViewTest: XCTestCase, PBMCreativeResolutionDelegate, PBMCreativeVi
         self.waitForExpectations(timeout: 10, handler:nil)
         
         self.videoCreative?.display(withRootViewController: UIViewController())
-        XCTAssertTrue(self.videoCreative.videoView.avPlayer.isMuted == false)
+        XCTAssertTrue(self.videoCreative.videoView.avPlayer.isMuted == true)
     }
     
     func testSetupSkipButton() {
