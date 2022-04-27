@@ -78,6 +78,14 @@ public class PrebidAdMobRewardedVideoAdapter:
         interstitialController?.adFormats = [.video]
         interstitialController?.isOptIn = true
         
+        if let videoAdConfig = prebidExtras.additionalParameters[PBMMediationVideoAdConfiguration] as? VideoControlsConfiguration {
+            interstitialController?.videoControlsConfig = videoAdConfig
+        }
+        
+        if let videoParameters = prebidExtras.additionalParameters[PBMMediationVideoParameters] as? VideoParameters {
+            interstitialController?.videoParameters = videoParameters
+        }
+        
         interstitialController?.loadAd()
     }
     

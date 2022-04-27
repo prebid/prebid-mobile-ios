@@ -31,7 +31,6 @@ class PBMORTBBidRequestTest: XCTestCase {
         checkInt(PBMORTBVideo(), property: "w")
         checkInt(PBMORTBVideo(), property: "h")
         checkInt(PBMORTBVideo(), property: "startdelay")
-        checkInt(PBMORTBVideo(), property: "linearity")
         checkInt(PBMORTBVideo(), property: "minbitrate")
         checkInt(PBMORTBVideo(), property: "maxbitrate")
         

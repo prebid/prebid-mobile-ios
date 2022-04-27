@@ -19,7 +19,7 @@ import XCTest
 class VideoControlsConfigTests: XCTestCase {
     func testDefaultIsMuted() {
         let adConfiguration = VideoControlsConfiguration()
-        XCTAssertTrue(adConfiguration.isMuted == true)
+        XCTAssertTrue(adConfiguration.isMuted == false)
     }
 
     func testDefaultIsMuteControlsDisabled() {

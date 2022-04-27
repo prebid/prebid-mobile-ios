@@ -63,11 +63,11 @@
     BOOL const isInterstitial = self.adConfiguration.adConfiguration.isInterstitialAd;
     
     bidRequest.requestID = [NSUUID UUID].UUIDString;
-    bidRequest.extPrebid.storedRequestID        = self.sdkConfiguration.accountID;
+    bidRequest.extPrebid.storedRequestID        = self.sdkConfiguration.prebidServerAccountId;
     bidRequest.extPrebid.storedAuctionResponse  = Prebid.shared.storedAuctionResponse;
     bidRequest.extPrebid.dataBidders            = self.targeting.accessControlList;
     bidRequest.extPrebid.storedBidResponses     = [Prebid.shared getStoredBidResponses];
-    bidRequest.app.publisher.publisherID        = self.sdkConfiguration.accountID;
+    bidRequest.app.publisher.publisherID        = self.sdkConfiguration.prebidServerAccountId;
     
     bidRequest.app.ver          = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
     bidRequest.device.pxratio   = @([UIScreen mainScreen].scale);

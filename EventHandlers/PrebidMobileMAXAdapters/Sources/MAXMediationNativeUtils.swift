@@ -22,34 +22,29 @@ public class MAXMediationNativeUtils: NSObject, PrebidMediationDelegate {
     
     public var nativeAdLoader: MANativeAdLoader
     
-    private var configIdKey = ""
-    private var extrasObjectKey = ""
+    var mediationValues: [String: Any]?
     
     public init(nativeAdLoader: MANativeAdLoader) {
         self.nativeAdLoader = nativeAdLoader
         super.init()
     }
     
-    public func setUpAdObject(configId: String, configIdKey: String,
-                              targetingInfo: [String: String], extrasObject: Any?,
-                              extrasObjectKey: String) -> Bool {
-        self.configIdKey = configIdKey
-        self.extrasObjectKey = extrasObjectKey
-        
-        nativeAdLoader.setLocalExtraParameterForKey(configIdKey, value: configId)
-        nativeAdLoader.setLocalExtraParameterForKey(extrasObjectKey, value: extrasObject)
-        nativeAdLoader.setLocalExtraParameterForKey(PBMMediationTargetingInfoKey, value: targetingInfo)
+    public func setUpAdObject(with values: [String: Any]) -> Bool {
+        mediationValues = values
+        values.forEach { key, value in
+            nativeAdLoader.setLocalExtraParameterForKey(key, value: value)
+        }
         
         return true
     }
     
     public func cleanUpAdObject() {
-        nativeAdLoader.setLocalExtraParameterForKey(configIdKey, value: nil)
-        nativeAdLoader.setLocalExtraParameterForKey(extrasObjectKey, value: nil)
+        mediationValues?.forEach({ key, _ in
+            nativeAdLoader.setLocalExtraParameterForKey(key, value: nil)
+        })
     }
     
     public func getAdView() -> UIView? {
         return nil
     }
-    
 }

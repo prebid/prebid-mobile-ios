@@ -28,7 +28,7 @@ public class VideoControlsConfiguration: NSObject {
      This property indicates whether the ad should run playback with sound or not.
      Obtained from the field ext,prebid.passthrough[].adConfiguration.ismuted or set by user.
      */
-    public var isMuted: Bool = true
+    public var isMuted: Bool = false
     
     /**
      This property indicates the area which the close button should occupy on the screen.

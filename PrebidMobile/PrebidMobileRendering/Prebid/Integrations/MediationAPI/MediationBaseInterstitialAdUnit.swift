@@ -21,8 +21,28 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         get { adUnitConfig.adConfiguration.bannerParameters }
     }
     
-    public var videoParameters: VideoParameters? {
+    public var videoParameters: VideoParameters {
         get { adUnitConfig.adConfiguration.videoParameters }
+    }
+    
+    public var isMuted: Bool {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isMuted }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isMuted = newValue }
+    }
+
+    public var isSoundButtonVisible: Bool {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.isSoundButtonVisible = newValue }
+    }
+
+    public var closeButtonArea: Double {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonArea }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonArea = newValue }
+    }
+
+    public var closeButtonPosition: Position {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.closeButtonPosition = newValue }
     }
     
     let adUnitConfig: AdUnitConfig
@@ -42,6 +62,8 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         adUnitConfig = AdUnitConfig(configId: configId)
         adUnitConfig.adConfiguration.isInterstitialAd = true
         adUnitConfig.adPosition = .fullScreen
+        super.init()
+        videoParameters.placement = .Interstitial
     }
     
     public func fetchDemand(completion: ((ResultCode)->Void)?) {
@@ -71,37 +93,37 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     
     // MARK: - App Content
     
-    @objc public func setAppContent(_ appContent: PBMORTBAppContent) {
+    public func setAppContent(_ appContent: PBMORTBAppContent) {
         adUnitConfig.setAppContent(appContent)
     }
     
-    @objc public func clearAppContent() {
+    public func clearAppContent() {
         adUnitConfig.clearAppContent()
     }
     
-    @objc public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
+    public func addAppContentData(_ dataObjects: [PBMORTBContentData]) {
         adUnitConfig.addAppContentData(dataObjects)
     }
 
-    @objc public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
+    public func removeAppContentDataObject(_ dataObject: PBMORTBContentData) {
         adUnitConfig.removeAppContentData(dataObject)
     }
     
-    @objc public func clearAppContentDataObjects() {
+    public func clearAppContentDataObjects() {
         adUnitConfig.clearAppContentData()
     }
     
     // MARK: - User Data
     
-    @objc public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
+    public func addUserData(_ userDataObjects: [PBMORTBContentData]) {
         adUnitConfig.addUserData(userDataObjects)
     }
     
-    @objc public func removeUserData(_ userDataObject: PBMORTBContentData) {
+    public func removeUserData(_ userDataObject: PBMORTBContentData) {
         adUnitConfig.removeUserData(userDataObject)
     }
     
-    @objc public func clearUserData() {
+    public func clearUserData() {
         adUnitConfig.clearUserData()
     }
     
@@ -140,19 +162,27 @@ public class MediationBaseInterstitialAdUnit : NSObject {
     private func handleBidResponse(_ bidResponse: BidResponse) {
         var demandResult = ResultCode.prebidDemandNoBids
         
-        if let winningBid = bidResponse.winningBid,
-           let targetingInfo = winningBid.targetingInfo {
+        if let winningBid = bidResponse.winningBid, let targetingInfo = winningBid.targetingInfo {
+            var adObjectSetupDictionary: [String: Any] = [
+                PBMMediationConfigIdKey: configId,
+                PBMMediationTargetingInfoKey: targetingInfo,
+                PBMMediationAdUnitBidKey: winningBid
+            ]
             
-            if mediationDelegate.setUpAdObject(configId: configId,
-                                               configIdKey: PBMMediationConfigIdKey,
-                                               targetingInfo: targetingInfo,
-                                               extrasObject: winningBid,
-                                               extrasObjectKey: PBMMediationAdUnitBidKey) {
+            if adUnitConfig.adConfiguration.winningBidAdFormat == .video {
+                // Append video specific configurations
+                let videoSetupDictionary: [String: Any] = [
+                    PBMMediationVideoAdConfiguration: self.adUnitConfig.adConfiguration.videoControlsConfig,
+                    PBMMediationVideoParameters: self.adUnitConfig.adConfiguration.videoParameters
+                ]
+                adObjectSetupDictionary.merge(videoSetupDictionary, uniquingKeysWith: { $1 })
+            }
+            
+            if mediationDelegate.setUpAdObject(with: adObjectSetupDictionary) {
                 demandResult = .prebidDemandFetchSuccess
             } else {
                 demandResult = .prebidWrongArguments
-            }
-            
+            }   
         } else {
             Log.error("The winning bid is absent in response!")
         }

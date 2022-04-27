@@ -20,6 +20,7 @@ import PrebidMobile
 public let MockMediationAdUnitBidKey           = "PBM_BID"
 public let MockMediationConfigIdKey            = "PBM_CONFIG_ID"
 public let MockMediationAdNativeResponseKey    = "PBM_NATIVE_RESPONSE"
+public let MockMediationTargetingInfoKey       = "PBM_TARGETING_INFO"
 
 fileprivate let keywordsSeparator              = ","
 fileprivate let HBKeywordPrefix                = "hb_"
@@ -46,7 +47,7 @@ class MockMediationUtils: PrebidMediationDelegate {
         let keywords = removeHBKeywordsFrom(adKeywords)
         adObject.keywords = keywords
         
-        let HBKeys = [MockMediationAdUnitBidKey, MockMediationConfigIdKey, MockMediationAdNativeResponseKey]
+        let HBKeys = [MockMediationAdUnitBidKey, MockMediationConfigIdKey, MockMediationAdNativeResponseKey, MockMediationTargetingInfoKey]
         let extras = adExtras.filter {
             guard let key = $0.key as? String else { return true }
             return !HBKeys.contains(key)
@@ -55,24 +56,16 @@ class MockMediationUtils: PrebidMediationDelegate {
         adObject.localExtras = extras
     }
     
-    public func setUpAdObject(configId:String,
-                              configIdKey: String,
-                              targetingInfo: [String : String],
-                              extrasObject:Any?,
-                              extrasObjectKey: String) -> Bool {
+    public func setUpAdObject(with values: [String: Any]) -> Bool {
     
         let extras = adObject.localExtras ?? [:]
         let adKeywords = adObject.keywords ?? ""
         
         //Pass our objects via the localExtra property
-        var mutableExtras = extras
-        mutableExtras[extrasObjectKey] = extrasObject
-        mutableExtras[configIdKey] = configId
-        
-        adObject.localExtras = mutableExtras
+        adObject.localExtras = extras.merging(values, uniquingKeysWith: { $1})
         
         //Setup bid targeting keyword
-        if targetingInfo.count > 0 {
+        if let targetingInfo = values[MockMediationTargetingInfoKey] as? [String: String], targetingInfo.count > 0 {
             let bidKeywords = keywordsFrom(targetingInfo)
             let keywords = adKeywords.isEmpty ? bidKeywords : adKeywords + "," + bidKeywords
             adObject.keywords = keywords

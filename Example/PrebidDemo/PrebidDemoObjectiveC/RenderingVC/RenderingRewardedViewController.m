@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [self initRendering];
     
     switch (self.integrationKind) {
@@ -55,9 +55,9 @@
 #pragma mar - Load Ad
 
 - (void)initRendering {
-    Prebid.shared.accountID = ObjCDemoConstants.kPrebidAccountId;
+    Prebid.shared.prebidServerAccountId = ObjCDemoConstants.kPrebidAccountId;
     [Prebid.shared setCustomPrebidServerWithUrl:ObjCDemoConstants.kPrebidAWSServerURL error:nil];
-    
+
     Prebid.shared.storedAuctionResponse = ObjCDemoConstants.kRewardedStoredResponse;
     
     [NSUserDefaults.standardUserDefaults setValue:@"123" forKey:@"IABTCF_CmpSdkID"];
@@ -93,7 +93,7 @@
                 NSLog(@"AdMob rewarded failed: %@", [error localizedDescription]);
                 return;
             }
-            
+
             self.gadRewarded = gadRewarded;
             self.gadRewarded.fullScreenContentDelegate = self;
             [self.gadRewarded presentFromRootViewController:self userDidEarnRewardHandler:^{
@@ -105,7 +105,7 @@
 
 - (void)loadMAXRenderingRewarded {
     self.maxRewarded = [MARewardedAd sharedWithAdUnitIdentifier:ObjCDemoConstants.kMAXRewardedAdUnitId];
-    
+
     MAXMediationRewardedUtils *maxMediationDelegate = [[MAXMediationRewardedUtils alloc] initWithRewardedAd:self.maxRewarded];
     self.maxRewardedAdUnit = [[MediationRewardedAdUnit alloc] initWithConfigId:ObjCDemoConstants.kRewardedStoredImpression
                                                              mediationDelegate:maxMediationDelegate];

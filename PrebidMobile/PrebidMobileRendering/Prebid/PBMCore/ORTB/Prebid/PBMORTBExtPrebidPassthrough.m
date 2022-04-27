@@ -40,7 +40,7 @@
     
     ret[@"type"] = self.type;
     
-    ret[@"adConfiguration"] = [self.adConfiguration toJsonDictionary];
+    ret[@"adconfiguration"] = [self.adConfiguration toJsonDictionary];
     
     [ret pbmRemoveEmptyVals];
     

@@ -53,7 +53,7 @@
         case IntegrationKind_RenderingAdMob : [self loadAdMobRenderingBanner]   ; break;
         // To run this example you should create your own MAX ad unit.
         case IntegrationKind_RenderingMAX   : [self loadMAXBanner]              ; break;
-            
+
         default:
             break;
     }
@@ -63,12 +63,12 @@
 #pragma mar - Load Ad
 
 - (void)initRendering {
-    Prebid.shared.accountID = ObjCDemoConstants.kPrebidAccountId;
+    Prebid.shared.prebidServerAccountId = ObjCDemoConstants.kPrebidAccountId;
     [Prebid.shared setCustomPrebidServerWithUrl:ObjCDemoConstants.kPrebidAWSServerURL error:nil];
     
     [NSUserDefaults.standardUserDefaults setValue:@"123" forKey:@"IABTCF_CmpSdkID"];
     [NSUserDefaults.standardUserDefaults setValue:@"0" forKey:@"IABTCF_gdprApplies"];
-    
+
     if (self.integrationAdFormat == IntegrationAdFormat_Banner) {
         Prebid.shared.storedAuctionResponse = ObjCDemoConstants.kBannerDisplayStoredResponse;
         self.size = CGSizeMake(320, 50);
@@ -76,7 +76,7 @@
         Prebid.shared.storedAuctionResponse = ObjCDemoConstants.kBannerVideoStoredResponse;
         self.size = CGSizeMake(300, 250);
     }
-    
+
     self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
 }
 
@@ -90,19 +90,19 @@
                                                    configID:ObjCDemoConstants.kBannerVideoStoredImpression
                                                      adSize:self.size];
     }
-    
+
     [self.adView addSubview:self.bannerView];
     
     for (NSLayoutConstraint* constraint in self.adView.constraints) {
         if (constraint.firstAttribute == NSLayoutAttributeHeight) {
             constraint.constant = self.size.height;
         }
-        
+
         if (constraint.firstAttribute == NSLayoutAttributeWidth) {
             constraint.constant = self.size.width;
         }
     }
-    
+
     self.bannerView.delegate = self;
     [self.bannerView loadAd];
 }
@@ -123,17 +123,17 @@
     }
     
     [self.adView addSubview:self.bannerView];
-    
+
     for (NSLayoutConstraint* constraint in self.adView.constraints) {
         if (constraint.firstAttribute == NSLayoutAttributeHeight) {
             constraint.constant = self.size.height;
         }
-        
+
         if (constraint.firstAttribute == NSLayoutAttributeWidth) {
             constraint.constant = self.size.width;
         }
     }
-    
+
     self.bannerView.delegate = self;
     [self.bannerView loadAd];
 }
@@ -155,15 +155,15 @@
                                                                             size:self.size
                                                                mediationDelegate:self.admobMediationDelegate];
     }
-    
+
     self.gadBannerView.adUnitID = ObjCDemoConstants.kAdMobBannerAdUnitId;
     self.gadBannerView.rootViewController = self;
-    
+
     for (NSLayoutConstraint* constraint in self.adView.constraints) {
         if (constraint.firstAttribute == NSLayoutAttributeHeight) {
             constraint.constant = self.size.height;
         }
-        
+
         if (constraint.firstAttribute == NSLayoutAttributeWidth) {
             constraint.constant = self.size.width;
         }
@@ -193,24 +193,24 @@
         self.maxBannerAdUnit = [[MediationBannerAdUnit alloc] initWithConfigID:ObjCDemoConstants.kBannerVideoStoredImpression
                                                                           size:self.size
                                                              mediationDelegate:self.maxMediationDelegate];
-        
+
     }
-    
+
     self.maxBannerView.frame = self.frame;
     [self.maxBannerView setHidden:false];
-    
+
     [self.adView addSubview:self.maxBannerView];
-    
+
     for (NSLayoutConstraint* constraint in self.adView.constraints) {
         if (constraint.firstAttribute == NSLayoutAttributeHeight) {
             constraint.constant = self.size.height;
         }
-        
+
         if (constraint.firstAttribute == NSLayoutAttributeWidth) {
             constraint.constant = self.size.width;
         }
     }
-    
+
     [self.maxBannerAdUnit fetchDemandWithCompletion:^(ResultCode result) {
         [self.maxBannerView loadAd];
     }];

@@ -29,6 +29,16 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         set { adConfiguration.adConfiguration.isOptIn = newValue }
     }
     
+    @objc public var videoControlsConfig: VideoControlsConfiguration {
+        get { adConfiguration.adConfiguration.videoControlsConfig }
+        set { adConfiguration.adConfiguration.videoControlsConfig = newValue }
+    }
+    
+    @objc public var videoParameters: VideoParameters {
+        get { adConfiguration.adConfiguration.videoParameters }
+        set { adConfiguration.adConfiguration.videoParameters = newValue }
+    }
+    
     @objc public weak var loadingDelegate: InterstitialControllerLoadingDelegate?
     @objc public weak var interactionDelegate: InterstitialControllerInteractionDelegate?
     
@@ -59,7 +69,7 @@ public class InterstitialController: NSObject, PBMAdViewManagerDelegate {
         }
         
         adConfiguration.adConfiguration.winningBidAdFormat = bid.adFormat
-        adConfiguration.adConfiguration.videoControlsConfig.initialize(with: bid.videoAdConfiguration)
+        videoControlsConfig.initialize(with: bid.videoAdConfiguration)
         
         // This part is dedicating to test server-side ad configurations.
         // Need to be removed when ext.prebid.passthrough will be available.

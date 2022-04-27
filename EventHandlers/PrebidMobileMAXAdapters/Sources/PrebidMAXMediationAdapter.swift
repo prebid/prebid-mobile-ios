@@ -43,6 +43,7 @@ public class PrebidMAXMediationAdapter: ALMediationAdapter {
     
     public override func initialize(with parameters: MAAdapterInitializationParameters, completionHandler: @escaping (MAAdapterInitializationStatus, String?) -> Void) {
         Prebid.initializeSDK()
+        super.initialize(with: parameters, completionHandler: completionHandler)
     }
     
     public override var sdkVersion: String {
@@ -61,5 +62,8 @@ public class PrebidMAXMediationAdapter: ALMediationAdapter {
         interstitialController = nil
         
         rewardedDelegate = nil
+        
+        nativeDelegate = nil
+        super.destroy()
     }
 }

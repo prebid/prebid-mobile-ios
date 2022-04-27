@@ -22,29 +22,26 @@ public class MAXMediationRewardedUtils: NSObject, PrebidMediationDelegate {
     
     public var rewardedAd: MARewardedAd
     
-    private var configIdKey = ""
-    private var extrasObjectKey = ""
+    var mediationValues: [String: Any]?
     
     public init(rewardedAd: MARewardedAd) {
         self.rewardedAd = rewardedAd
         super.init()
     }
     
-    public func setUpAdObject(configId: String, configIdKey: String,
-                              targetingInfo: [String: String], extrasObject: Any?,
-                              extrasObjectKey: String) -> Bool {
-        self.configIdKey = configIdKey
-        self.extrasObjectKey = extrasObjectKey
-        
-        rewardedAd.setLocalExtraParameterForKey(configIdKey, value: configId)
-        rewardedAd.setLocalExtraParameterForKey(extrasObjectKey, value: extrasObject)
+    public func setUpAdObject(with values: [String: Any]) -> Bool {
+        mediationValues = values
+        values.forEach { key, value in
+            rewardedAd.setLocalExtraParameterForKey(key, value: value)
+        }
         
         return true
     }
     
     public func cleanUpAdObject() {
-        rewardedAd.setLocalExtraParameterForKey(configIdKey, value: nil)
-        rewardedAd.setLocalExtraParameterForKey(extrasObjectKey, value: nil)
+        mediationValues?.forEach({ key, _ in
+            rewardedAd.setLocalExtraParameterForKey(key, value: nil)
+        })
     }
     
     public func getAdView() -> UIView? {

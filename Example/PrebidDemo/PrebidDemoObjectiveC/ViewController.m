@@ -83,7 +83,7 @@
 }
 
 -(void)setupPrebidServerWith:(NSString *)storedResponse {
-    Prebid.shared.accountID = ObjCDemoConstants.kPrebidAccountId;
+    Prebid.shared.prebidServerAccountId = ObjCDemoConstants.kPrebidAccountId;
     [Prebid.shared setCustomPrebidServerWithUrl:ObjCDemoConstants.kPrebidAWSServerURL error:nil];
     Prebid.shared.storedAuctionResponse = storedResponse;
 }

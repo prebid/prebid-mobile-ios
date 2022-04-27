@@ -22,29 +22,25 @@ public class MAXMediationInterstitialUtils: NSObject, PrebidMediationDelegate {
     
     public var interstitialAd: MAInterstitialAd
     
-    private var configIdKey = ""
-    private var extrasObjectKey = ""
+    var mediationValues: [String: Any]?
     
     public init(interstitialAd: MAInterstitialAd) {
         self.interstitialAd = interstitialAd
         super.init()
     }
     
-    public func setUpAdObject(configId: String, configIdKey: String,
-                              targetingInfo: [String: String], extrasObject: Any?,
-                              extrasObjectKey: String) -> Bool {
-        self.configIdKey = configIdKey
-        self.extrasObjectKey = extrasObjectKey
-        
-        interstitialAd.setLocalExtraParameterForKey(configIdKey, value: configId)
-        interstitialAd.setLocalExtraParameterForKey(extrasObjectKey, value: extrasObject)
-        
+    public func setUpAdObject(with values: [String: Any]) -> Bool {
+        mediationValues = values
+        values.forEach { key, value in
+            interstitialAd.setLocalExtraParameterForKey(key, value: value)
+        }
         return true
     }
     
     public func cleanUpAdObject() {
-        interstitialAd.setLocalExtraParameterForKey(configIdKey, value: nil)
-        interstitialAd.setLocalExtraParameterForKey(extrasObjectKey, value: nil)
+        mediationValues?.forEach({ key, _ in
+            interstitialAd.setLocalExtraParameterForKey(key, value: nil)
+        })
     }
     
     public func getAdView() -> UIView? {

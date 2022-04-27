@@ -32,18 +32,10 @@ public class AdMobMediationBannerUtils: NSObject, PrebidMediationDelegate {
         super.init()
     }
     
-    public func setUpAdObject(configId: String,
-                              configIdKey: String,
-                              targetingInfo: [String : String],
-                              extrasObject: Any?,
-                              extrasObjectKey: String) -> Bool {
-        
-        eventExtras = AdMobUtils.buildExtras(configId: configId,
-                                             configIdKey: configIdKey,
-                                             extrasObject: extrasObject,
-                                             extrasObjectKey: extrasObjectKey)
-        
-        gadRequest.keywords = AdMobUtils.buildKeywords(existingKeywords: gadRequest.keywords, targetingInfo: targetingInfo)
+    public func setUpAdObject(with values: [String: Any]) -> Bool {
+        eventExtras = values.isEmpty ? nil : values
+        gadRequest.keywords = AdMobUtils.buildKeywords(existingKeywords: gadRequest.keywords,
+                                                       targetingInfo: values[PBMMediationTargetingInfoKey] as? [String: String])
         
         return true
     }

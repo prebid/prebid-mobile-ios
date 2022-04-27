@@ -22,7 +22,7 @@ class MediationInterstitialAdUnitTest: XCTestCase {
         let config = Prebid.mock
         //        config.serverURL = Prebid.devintServerURL
         try! config.setCustomPrebidServer(url: Prebid.devintServerURL)
-        config.accountID = Prebid.devintAccountID
+        config.prebidServerAccountId = Prebid.devintAccountID
         return config
     }()
     private let targeting = Targeting.shared
@@ -68,7 +68,7 @@ class MediationInterstitialAdUnitTest: XCTestCase {
             XCTAssertTrue(resultKeywords.contains("hb_pb:0.10"))
             
             let resultExtras: [AnyHashable : Any] = self!.adObject!.localExtras!
-            XCTAssertEqual(resultExtras.count, 2)
+            XCTAssertEqual(resultExtras.count, 3)
             XCTAssertEqual(resultExtras[MockMediationConfigIdKey] as? String, configId)
             let bid = resultExtras[MockMediationAdUnitBidKey] as! NSObject
             XCTAssertTrue(bid.isKind(of: Bid.self))

@@ -30,17 +30,11 @@ public class AdMobUtils: NSObject {
             .filter { !$0.hasPrefix(HBKeywordPrefix) }
     }
     
-    static func buildExtras(configId: String,
-                            configIdKey: String,
-                            extrasObject: Any?,
-                            extrasObjectKey: String) -> [AnyHashable: Any]? {
-        var extras = [AnyHashable: Any]()
-        extras[configIdKey] = configId
-        extras[extrasObjectKey] = extrasObject
-        return !extras.isEmpty ? extras : nil
-    }
-    
-    static func buildKeywords(existingKeywords: [Any]?, targetingInfo: [String: String]) -> [Any]? {
+    static func buildKeywords(existingKeywords: [Any]?, targetingInfo: [String: String]?) -> [Any]? {
+        guard let targetingInfo = targetingInfo else {
+            return nil
+        }
+        
         let prebidKeywords = targetingInfo.map { $0 + ":" + $1 }
         if let existingKeywords = existingKeywords, !existingKeywords.isEmpty {
             let joinedKeywords = existingKeywords + prebidKeywords

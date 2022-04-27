@@ -1,11 +1,11 @@
 /*   Copyright 2018-2019 Prebid.org, Inc.
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -61,13 +61,13 @@ class BannerController:
     // MARK: - UI Properties
     
     @IBOutlet var appBannerView: UIView!
-    
+
     @IBOutlet var adServerLabel: UILabel!
     
     @IBOutlet var toggleRefreshButton: UIButton!
-    
+
     // MARK: - Public Properties
-    
+
     var bannerFormat    : AdFormat = .html
     var integrationKind : IntegrationKind = .undefined
     
@@ -81,7 +81,7 @@ class BannerController:
     private var gamBanner: GAMBannerView!
     
     private var isRefreshEnabled = true
-    
+
     // Prebid Rendering
     private var prebidBannerView: BannerView!               // (In-App and GAM)
     
@@ -90,14 +90,14 @@ class BannerController:
     private let gadRequest = GADRequest()
     private var prebidAdMobMediaitonAdUnit: MediationBannerAdUnit!
     private var mediationDelegate: AdMobMediationBannerUtils!
-    
+
     // MAX
     private var maxAdBannerView: MAAdView!
     private var maxAdUnit: MediationBannerAdUnit!
     private var maxMediationDelegate: MAXMediationBannerUtils!
-    
+
     // MARK: - UIViewController
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -115,25 +115,25 @@ class BannerController:
         }
         
         toggleRefreshButton.addTarget(self, action: #selector(toggleRefresh), for: .touchUpInside)
-        
+
         //        enableCOPPA()
         //        addFirstPartyData(adUnit: prebidAdUnit)
         //        setRequestTimeoutMillis()
         //        enablePbsDebug()
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         // important to remove the time instance
         prebidAdUnit?.stopAutoRefresh()
     }
     
     func setupPrebidServer(storedResponse: String) {
-        Prebid.shared.accountID = "0689a263-318d-448b-a3d4-b02e8a709d9d"
+        Prebid.shared.prebidServerAccountId = "0689a263-318d-448b-a3d4-b02e8a709d9d"
         try! Prebid.shared.setCustomPrebidServer(url: "https://prebid-server-test-j.prebid.org/openrtb2/auction")
-        
+
         Prebid.shared.storedAuctionResponse = storedResponse
     }
-        
+
     func setupAndLoadGAM() {
         switch bannerFormat {
         case .html:
@@ -184,7 +184,7 @@ class BannerController:
             loadMAXRenderingBannerVideo()
         }
     }
-        
+
     func setupBannerAdUnit() {
         setupPrebidServer(storedResponse: storedResponseDisplayBanner)
         
@@ -192,7 +192,7 @@ class BannerController:
                                         size: CGSize(width: 320, height: 50))
         
         let parameters = BannerParameters()
-        
+
         parameters.api = [Signals.Api.MRAID_2]
         
         bannerAdUnit.parameters = parameters
@@ -202,38 +202,38 @@ class BannerController:
         bannerAdUnit.setAutoRefreshMillis(time: 30000)
         toggleRefreshButton.isHidden = false
     }
-    
+
     func setupGAMBannerVAST(width: Int, height: Int) {
         // TODO: actualize stored response for this case
         setupPrebidServer(storedResponse: storedResponseVideoBanner)
-        
+
         let adUnit = VideoAdUnit(configId: storedImpVideoBanner, size: CGSize(width: width, height: height))
-        
+
         let parameters = VideoParameters()
         parameters.mimes = ["video/mp4"]
-        
+
         parameters.protocols = [Signals.Protocols.VAST_2_0]
         // parameters.protocols = [Signals.Protocols(2)]
-        
+
         parameters.playbackMethod = [Signals.PlaybackMethod.AutoPlaySoundOff]
         // parameters.playbackMethod = [Signals.PlaybackMethod(2)]
-        
+
         parameters.placement = Signals.Placement.InBanner
         // parameters.placement = Signals.Placement(2)
-        
+
         adUnit.parameters = parameters
-        
+
         self.prebidAdUnit = adUnit
     }
-    
+
     // MARK: Setup AdServer - GAM
-    
+
     func setupGAMBanner(width: Int, height: Int, adUnitId: String) {
         let customAdSize = GADAdSizeFromCGSize(CGSize(width: width, height: height))
         
         gamBanner = GAMBannerView(adSize: customAdSize)
         gamBanner.adUnitID = adUnitId
-        
+
         appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = CGFloat(width)
         appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = CGFloat(height)
     }
@@ -246,25 +246,25 @@ class BannerController:
         gadBanner.delegate = self
         gadBanner.backgroundColor = .red
         gadBanner.rootViewController = self
-        
+
         appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = CGFloat(width)
         appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = CGFloat(height)
-        
+
         appBannerView.addSubview(gadBanner)
     }
-    
+
     // MARK: Setup AdServer - MAX
-    
+
     func setupMAXBanner(adUnitId: String, width: Int, height: Int) {
         maxAdBannerView = MAAdView(adUnitIdentifier: adUnitId)
         maxAdBannerView.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
         maxAdBannerView.backgroundColor = .red
         maxAdBannerView.delegate = self
         maxAdBannerView.isHidden = false
-        
+
         appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = CGFloat(width)
         appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = CGFloat(height)
-        
+
         appBannerView.addSubview(maxAdBannerView)
     }
     
@@ -286,38 +286,38 @@ class BannerController:
     
     func loadInAppBanner() {
         setupPrebidServer(storedResponse: storedResponseDisplayBanner)
-        
+
         let size = CGSize(width: 320, height: 50)
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
                                       configID: storedImpDisplayBanner,
                                       adSize: CGSize(width: 320, height: 50))
-        
+
         prebidBannerView.delegate = self
         
         appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = prebidBannerView.adUnitConfig.adSize.width
         appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = prebidBannerView.adUnitConfig.adSize.height
-        
+
         appBannerView.addSubview(prebidBannerView)
-        
+
         prebidBannerView.loadAd()
     }
-    
+
     func loadInAppVideoBanner() {
         setupPrebidServer(storedResponse: storedResponseVideoBanner)
-        
+
         let size = CGSize(width: 300, height: 250)
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
                                       configID: storedImpVideoBanner,
                                       adSize: CGSize(width: 300, height: 250))
-        
+
         prebidBannerView.adFormat = .video
         prebidBannerView.videoParameters.placement = .InBanner
-        
+
         prebidBannerView.delegate = self
-        
+
         appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = prebidBannerView.adUnitConfig.adSize.width
         appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = prebidBannerView.adUnitConfig.adSize.height
-        
+
         appBannerView.addSubview(prebidBannerView)
         
         prebidBannerView.loadAd()
@@ -325,44 +325,44 @@ class BannerController:
     
     func loadGAMRenderingBanner() {
         setupPrebidServer(storedResponse: storedResponseDisplayBanner)
-        
+
         let size = CGSize(width: 320, height: 50)
         
         let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitDisplayBannerRendering,
                                                  validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
-        
+
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
                                       configID: storedImpDisplayBanner,
                                       adSize: CGSize(width: 320, height: 50),
                                       eventHandler: eventHandler)
-        
+
         prebidBannerView.delegate = self
         
         appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = prebidBannerView.adUnitConfig.adSize.width
         appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = prebidBannerView.adUnitConfig.adSize.height
-        
+
         appBannerView.addSubview(prebidBannerView)
-        
+
         prebidBannerView.loadAd()
     }
-    
+
     func loadGAMRenderingVideoBanner() {
         let size = CGSize(width: 300, height: 250)
-        
+
         setupPrebidServer(storedResponse: storedResponseVideoBanner)
-        
+
         let eventHandler = GAMBannerEventHandler(adUnitID: gamAdUnitVideoBannerRendering, validGADAdSizes: [kGADAdSizeBanner].map(NSValueFromGADAdSize))
         prebidBannerView = BannerView(frame: CGRect(origin: .zero, size: size),
                                       configID: storedImpVideoBanner,
                                       adSize: CGSize(width: 300, height: 250),
                                       eventHandler: eventHandler)
-        
+
         prebidBannerView.delegate = self
         prebidBannerView.adFormat = .video
-        
+
         appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = prebidBannerView.adUnitConfig.adSize.width
         appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = prebidBannerView.adUnitConfig.adSize.height
-        
+
         appBannerView.addSubview(prebidBannerView)
         
         prebidBannerView.loadAd()
@@ -389,12 +389,12 @@ class BannerController:
     func loadAdMobRenderingBannerVideo() {
         setupPrebidServer(storedResponse: storedResponseVideoBanner)
         setupAdMobBanner(adUnitId: adMobAdUnitDisplayBannerRendering, width: 300, height: 250)
-        
+
         let size = CGSize(width: 300, height: 250)
         
         mediationDelegate = AdMobMediationBannerUtils(gadRequest: gadRequest, bannerView: gadBanner)
         prebidAdMobMediaitonAdUnit = MediationBannerAdUnit(configID: storedImpVideoBanner, size: size, mediationDelegate: mediationDelegate)
-        
+
         prebidAdMobMediaitonAdUnit.fetchDemand { [weak self] result in
             let extras = GADCustomEventExtras()
             let prebidExtras = self?.mediationDelegate.getEventExtras()
@@ -403,26 +403,26 @@ class BannerController:
             self?.gadBanner.load(self?.gadRequest)
         }
     }
-    
+
     func loadMAXRenderingBanner() {
         setupPrebidServer(storedResponse: storedResponseDisplayBanner)
         setupMAXBanner(adUnitId: maxAdUnitBannerRendering, width: 320, height: 50)
-        
+
         let size = CGSize(width: 320, height: 50)
-        
+
         maxMediationDelegate = MAXMediationBannerUtils(adView: maxAdBannerView)
         maxAdUnit = MediationBannerAdUnit(configID: storedImpDisplayBanner, size: size,
                                           mediationDelegate: maxMediationDelegate)
-        
+
         maxAdUnit.fetchDemand { [weak self] result in
             self?.maxAdBannerView.loadAd()
         }
     }
-    
+
     func loadMAXRenderingBannerVideo() {
         setupPrebidServer(storedResponse: storedResponseVideoBanner)
         setupMAXBanner(adUnitId: maxAdUnitMRECRendering, width: 300, height: 250)
-        
+
         let size = CGSize(width: 300, height: 250)
         
         maxMediationDelegate = MAXMediationBannerUtils(adView: maxAdBannerView)
@@ -472,7 +472,7 @@ class BannerController:
     func setRequestTimeoutMillis() {
         Prebid.shared.timeoutMillis = 5000
     }
-    
+
     func enablePbsDebug() {
         Prebid.shared.pbsDebug = true
     }
@@ -486,7 +486,7 @@ class BannerController:
             prebidAdUnit?.stopAutoRefresh()
         }
     }
-    
+
     // MARK: - BannerViewDelegate
     
     func bannerViewPresentationController() -> UIViewController? {
@@ -501,7 +501,7 @@ class BannerController:
     func bannerView(_ bannerView: BannerView, didFailToReceiveAdWith error: Error) {
         print(">>>>>  \(error.localizedDescription)")
     }
-    
+
     //MARK: - GADBannerViewDelegate
     
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
@@ -512,59 +512,59 @@ class BannerController:
             guard let bannerView = bannerView as? GAMBannerView else {
                 return
             }
-            
+
             bannerView.resize(GADAdSizeFromCGSize(size))
-            
+
         },
                                            failure: { (error) in
             print("error: \(error)")
-            
+
         })
-        
+
         appBannerView.constraints.first { $0.firstAttribute == .width }?.constant = bannerView.adSize.size.width
         appBannerView.constraints.first { $0.firstAttribute == .height }?.constant = bannerView.adSize.size.height
     }
-    
+
     func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
         print("adView:didFailToReceiveAdWithError: \(error.localizedDescription)")
     }
-    
+
     // MARK: - MAAdViewAdDelegate
-    
+
     func didLoad(_ ad: MAAd) {
 
     }
-    
+
     func didFailToLoadAd(forAdUnitIdentifier adUnitIdentifier: String, withError error: MAError) {
         Log.error(error.message)
-        
+
         let nsError = NSError(domain: "MAX", code: error.code.rawValue, userInfo: [NSLocalizedDescriptionKey: error.message])
         maxAdUnit?.adObjectDidFailToLoadAd(adObject: maxAdBannerView!, with: nsError)
     }
-    
+
     func didFail(toDisplay ad: MAAd, withError error: MAError) {
         Log.error(error.message)
-        
+
         let nsError = NSError(domain: "MAX", code: error.code.rawValue, userInfo: [NSLocalizedDescriptionKey: error.message])
         maxAdUnit?.adObjectDidFailToLoadAd(adObject: maxAdBannerView!, with: nsError)
     }
-    
+
     func didDisplay(_ ad: MAAd) {
         print("didDisplay(_ ad: MAAd)")
     }
-    
+
     func didHide(_ ad: MAAd) {
         print("didHide(_ ad: MAAd)")
     }
-    
+
     func didExpand(_ ad: MAAd) {
         print("didExpand(_ ad: MAAd)")
     }
-    
+
     func didCollapse(_ ad: MAAd) {
         print("didCollapse(_ ad: MAAd)")
     }
-    
+
     func didClick(_ ad: MAAd) {
         print("didClick(_ ad: MAAd)")
     }

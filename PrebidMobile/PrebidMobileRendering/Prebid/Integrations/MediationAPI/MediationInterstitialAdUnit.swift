@@ -31,6 +31,21 @@ public class MediationInterstitialAdUnit : MediationBaseInterstitialAdUnit {
         set { adUnitConfig.additionalSizes = newValue }
     }
     
+    public var skipButtonArea: Double {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.skipButtonArea }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.skipButtonArea = newValue }
+    }
+    
+    public var skipButtonPosition: Position {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.skipButtonPosition }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.skipButtonPosition = newValue }
+    }
+    
+    public var skipDelay: Double {
+        get { adUnitConfig.adConfiguration.videoControlsConfig.skipDelay }
+        set { adUnitConfig.adConfiguration.videoControlsConfig.skipDelay = newValue }
+    }
+    
     // MARK: - Public Methods
     
     public override convenience init(configId: String, mediationDelegate: PrebidMediationDelegate) {

@@ -62,7 +62,7 @@ class PBMBannerViewTest: XCTestCase {
     func testAccountErrorPropagation() {
         let testID = "auid"
         
-        Prebid.shared.accountID = ""
+        Prebid.shared.prebidServerAccountId = ""
         let primarySize = CGSize(width: 320, height: 50)
         
         let bannerView = MockBannerView(frame: CGRect(origin: .zero, size: primarySize), configID: testID, adSize: primarySize, eventHandler: BannerEventHandlerStandalone())

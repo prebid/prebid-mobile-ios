@@ -146,12 +146,14 @@ public class MediationNativeAdUnit : NSObject {
             fetchDemandInfo[PrebidLocalCacheIdKey] = cacheId as AnyObject
             
             var fetchDemandResult = ResultCode.prebidWrongArguments
+            
+            let adObjectSetupDictionary: [String: Any] = [
+                PBMMediationConfigIdKey: self.configID,
+                PBMMediationTargetingInfoKey: kvResultDict,
+                PBMMediationAdNativeResponseKey: fetchDemandInfo
+            ]
         
-            if self.mediationDelegate.setUpAdObject(configId: self.configID,
-                                                    configIdKey: PBMMediationConfigIdKey,
-                                                    targetingInfo: kvResultDict,
-                                                    extrasObject: fetchDemandInfo,
-                                                    extrasObjectKey: PBMMediationAdNativeResponseKey) {
+            if self.mediationDelegate.setUpAdObject(with: adObjectSetupDictionary) {
                 fetchDemandResult = .prebidDemandFetchSuccess
             }
             

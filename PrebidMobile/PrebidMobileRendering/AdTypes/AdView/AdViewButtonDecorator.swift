@@ -41,6 +41,8 @@ public class AdViewButtonDecorator: NSObject {
     public func setImage(_ image: UIImage) {
         buttonImage = image
         button.setImage(buttonImage, for: .normal)
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
     }
     
     public func addButton(to view: UIView, displayView: UIView) {

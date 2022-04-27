@@ -85,7 +85,7 @@ class PrebidTest: XCTestCase {
     
     func testResetShared() {
         let firstConfig = Prebid.shared
-        firstConfig.accountID = "test"
+        firstConfig.prebidServerAccountId = "test"
         Prebid.reset()
         
         checkInitialValue(sdkConfiguration: firstConfig)
@@ -286,7 +286,7 @@ class PrebidTest: XCTestCase {
         
         // Prebid-specific
         
-        XCTAssertEqual(sdkConfiguration.accountID, "")
+        XCTAssertEqual(sdkConfiguration.prebidServerAccountId, "")
         XCTAssertEqual(sdkConfiguration.prebidServerHost, .Custom)
     }
 }
