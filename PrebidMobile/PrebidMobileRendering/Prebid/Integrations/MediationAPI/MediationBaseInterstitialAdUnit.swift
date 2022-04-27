@@ -163,13 +163,20 @@ public class MediationBaseInterstitialAdUnit : NSObject {
         var demandResult = ResultCode.prebidDemandNoBids
         
         if let winningBid = bidResponse.winningBid, let targetingInfo = winningBid.targetingInfo {
-            let adObjectSetupDictionary: [String: Any] = [
+            var adObjectSetupDictionary: [String: Any] = [
                 PBMMediationConfigIdKey: configId,
                 PBMMediationTargetingInfoKey: targetingInfo,
-                PBMMediationAdUnitBidKey: winningBid,
-                PBMMediationVideoAdConfiguration: self.adUnitConfig.adConfiguration.videoControlsConfig,
-                PBMMediationVideoParameters: self.adUnitConfig.adConfiguration.videoParameters
+                PBMMediationAdUnitBidKey: winningBid
             ]
+            
+            if adUnitConfig.adConfiguration.winningBidAdFormat == .video {
+                // Append video specific configurations
+                let videoSetupDictionary: [String: Any] = [
+                    PBMMediationVideoAdConfiguration: self.adUnitConfig.adConfiguration.videoControlsConfig,
+                    PBMMediationVideoParameters: self.adUnitConfig.adConfiguration.videoParameters
+                ]
+                adObjectSetupDictionary.merge(videoSetupDictionary, uniquingKeysWith: { $1 })
+            }
             
             if mediationDelegate.setUpAdObject(with: adObjectSetupDictionary) {
                 demandResult = .prebidDemandFetchSuccess

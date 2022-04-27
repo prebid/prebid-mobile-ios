@@ -68,7 +68,7 @@ class MediationInterstitialAdUnitTest: XCTestCase {
             XCTAssertTrue(resultKeywords.contains("hb_pb:0.10"))
             
             let resultExtras: [AnyHashable : Any] = self!.adObject!.localExtras!
-            XCTAssertEqual(resultExtras.count, 2)
+            XCTAssertEqual(resultExtras.count, 3)
             XCTAssertEqual(resultExtras[MockMediationConfigIdKey] as? String, configId)
             let bid = resultExtras[MockMediationAdUnitBidKey] as! NSObject
             XCTAssertTrue(bid.isKind(of: Bid.self))
