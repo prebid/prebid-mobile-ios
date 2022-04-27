@@ -63,7 +63,7 @@
 #pragma mar - Load Ad
 
 - (void)initRendering {
-    Prebid.shared.accountID = ObjCDemoConstants.kPrebidAccountId;
+    Prebid.shared.prebidServerAccountId = ObjCDemoConstants.kPrebidAccountId;
     [Prebid.shared setCustomPrebidServerWithUrl:ObjCDemoConstants.kPrebidAWSServerURL error:nil];
     
     [NSUserDefaults.standardUserDefaults setValue:@"123" forKey:@"IABTCF_CmpSdkID"];
