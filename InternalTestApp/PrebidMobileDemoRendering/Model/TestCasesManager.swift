@@ -2549,7 +2549,7 @@ struct TestCaseManager {
                 setupCustomParams(for: maxBannerController.prebidConfigId)
             }),
             
-            TestCase(title: "Banner 320x50 (MAX) [noBids, No Ad]",
+            TestCase(title: "Banner 320x50 (MAX) [noBids, MAX Ad]",
                      tags: [.banner, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2656,7 +2656,7 @@ struct TestCaseManager {
                 setupCustomParams(for: maxInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Display Interstitial 320x480 (MAX) [noBids, No Ad]",
+            TestCase(title: "Display Interstitial 320x480 (MAX) [noBids, MAX Ad]",
                      tags: [.interstitial, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2758,7 +2758,7 @@ struct TestCaseManager {
                 setupCustomParams(for: maxInterstitialController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Interstitial 320x480 (MAX) [noBids, No Ad]",
+            TestCase(title: "Video Interstitial 320x480 (MAX) [noBids, MAX Ad]",
                      tags: [.video, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2833,7 +2833,7 @@ struct TestCaseManager {
                 setupCustomParams(for: maxRewardedAdController.prebidConfigId)
             }),
             
-            TestCase(title: "Video Rewarded 320x480 (MAX) [noBids, No Ad]",
+            TestCase(title: "Video Rewarded 320x480 (MAX) [noBids, MAX Ad]",
                      tags: [.video, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
@@ -2902,7 +2902,7 @@ struct TestCaseManager {
                 setupCustomParams(for: nativeController.prebidConfigId)
             }),
             
-            TestCase(title: "Native Ad (MAX) [noBids, No Ad]",
+            TestCase(title: "Native Ad (MAX) [noBids, MAX Ad]",
                      tags: [.native, .max, .server],
                      exampleVCStoryboardID: "AdapterViewController",
                      configurationClosure: { vc in
