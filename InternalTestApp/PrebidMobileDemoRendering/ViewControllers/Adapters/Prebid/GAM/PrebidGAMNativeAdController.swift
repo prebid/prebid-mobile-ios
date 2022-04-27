@@ -63,9 +63,11 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
         
         nativeAdViewBox.setUpDummyValues()
     }
+    
     deinit {
         Prebid.shared.storedAuctionResponse = nil
     }
+    
     private func fillBannerArea(rootController: AdapterViewController) {
         guard let bannerView = rootController.bannerView else {
             return
@@ -103,6 +105,23 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
     func loadAd() {
         setupNativeAdUnit()
         Prebid.shared.storedAuctionResponse = storedAuctionResponse
+        
+        if let userData = AppConfiguration.shared.userData {
+            for dataPair in userData {
+                let appData = PBMORTBContentData()
+                appData.ext = [dataPair.key: dataPair.value]
+                self.adUnit?.addUserData([appData])
+            }
+        }
+        
+        if let appData = AppConfiguration.shared.appContentData {
+            for dataPair in appData {
+                let appData = PBMORTBContentData()
+                appData.ext = [dataPair.key: dataPair.value]
+                self.adUnit?.addAppContentData([appData])
+            }
+        }
+        
         adUnit?.fetchDemand(completion: { [weak self] result, kvResultDict in
             guard let self = self else {
                 return
@@ -112,22 +131,6 @@ class PrebidGAMNativeAdController: NSObject, AdaptedController {
                 self.fetchDemandSuccessButton.isEnabled = true
             } else {
                 self.fetchDemandFailedButton.isEnabled = true
-            }
-            
-            if let userData = AppConfiguration.shared.userData {
-                for dataPair in userData {
-                    let appData = PBMORTBContentData()
-                    appData.ext = [dataPair.key: dataPair.value]
-                    self.adUnit?.addUserData([appData])
-                }
-            }
-            
-            if let appData = AppConfiguration.shared.appContentData {
-                for dataPair in appData {
-                    let appData = PBMORTBContentData()
-                    appData.ext = [dataPair.key: dataPair.value]
-                    self.adUnit?.addAppContentData([appData])
-                }
             }
             
             let dfpRequest = GAMRequest()
@@ -158,7 +161,6 @@ extension PrebidGAMNativeAdController: GADCustomNativeAdLoaderDelegate {
     
     func customNativeAdFormatIDs(for adLoader: GADAdLoader) -> [String] {
         return gamCustomTemplateIDs
-
     }
     
     func adLoader(_ adLoader: GADAdLoader, didReceive nativeCustomTemplateAd: GADCustomNativeAd) {

@@ -117,15 +117,12 @@ class IndexController: UIViewController {
     
     func updateCasesList(for integrationKind: IntegrationKind) {
         
-        let isRendering =   integrationKind == .inApp ||
-                            integrationKind == .renderingGAM ||
-                            integrationKind == .renderingAdMob
+        let isRendering = integrationKind == .inApp ||
+                          integrationKind == .renderingGAM ||
+                          integrationKind == .renderingAdMob ||
+                          integrationKind == .renderingMAX
                 
         bannerNative.isHidden   = isRendering
-        inAppNative.isHidden    = isRendering
         instreamVideo.isHidden  = isRendering
-        
-        bannerVideo.isHidden = integrationKind == .renderingAdMob
     }
-
 }

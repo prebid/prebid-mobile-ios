@@ -35,15 +35,12 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
     var adUnitSize = CGSize()
 
     private var adBannerView: MAAdView?
-    private var prebidBanner: PBMDisplayView?
-    
     private var adUnit: MediationBannerAdUnit?
     private var mediationDelegate: MAXMediationBannerUtils?
     
     private let reloadButton = ThreadCheckingButton()
     private let stopRefreshButton = ThreadCheckingButton()
     private let configIdLabel = UILabel()
-    
     
     private let fetchDemandFailedButton = EventReportContainer()
     
@@ -137,7 +134,6 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
             if result != .prebidDemandFetchSuccess {
                 self.fetchDemandFailedButton.isEnabled = true
                 self.reloadButton.isEnabled = true
-                return
             }
             
             adBannerView.translatesAutoresizingMaskIntoConstraints = false
@@ -213,7 +209,6 @@ class PrebidMAXBannerController: NSObject, AdaptedController, PrebidConfigurable
             if result != .prebidDemandFetchSuccess {
                 self?.fetchDemandFailedButton.isEnabled = true
                 self?.reloadButton.isEnabled = true
-                return
             }
             
             self?.adBannerView?.loadAd()

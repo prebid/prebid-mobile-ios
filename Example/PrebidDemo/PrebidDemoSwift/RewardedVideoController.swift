@@ -15,12 +15,14 @@ limitations under the License.
 
 
 import UIKit
-import Foundation
 
 import GoogleMobileAds
+import AppLovinSDK
+
 import PrebidMobile
 import PrebidMobileGAMEventHandlers
 import PrebidMobileAdMobAdapters
+import PrebidMobileMAXAdapters
 
 // Stored Impressions
 fileprivate let storedImpVideoRewarded              = "imp-prebid-video-rewarded-320-480"
@@ -29,19 +31,20 @@ fileprivate let storedImpVideoRewarded              = "imp-prebid-video-rewarded
 fileprivate let storedResponseVideoRewarded         = "response-prebid-video-rewarded-320-480"
 
 // GAM
-
 fileprivate let gamAdUnitVideoRewardedOriginal      = "/21808260008/prebid-demo-app-original-api-video-interstitial"
-
 fileprivate let gamAdUnitVideoRewardedRendering     = "/21808260008/prebid_oxb_rewarded_video_test"
 
 // AdMob
+fileprivate let adMobAdUnitRewardedId               = "ca-app-pub-5922967660082475/7397370641"
 
-fileprivate let adMobAdUnitDisplayInterstitial      = "ca-app-pub-5922967660082475/7397370641"
+// MAX
+fileprivate let maxAdUnitRewardedId                 = "10f03680c163fb96"
 
 class RewardedVideoController:
         UIViewController,
         RewardedAdUnitDelegate,
-        GADFullScreenContentDelegate {
+        GADFullScreenContentDelegate,
+        MARewardedAdDelegate {
     
     @IBOutlet var adServerLabel: UILabel!
     
@@ -56,32 +59,35 @@ class RewardedVideoController:
             
     private var gadRewardedAd: GADRewardedAd?
     
+    private var maxRewarded: MARewardedAd!
+    private var maxRewardedAdUnit: MediationRewardedAdUnit!
+    
     override func viewDidLoad() {
         
         adServerLabel.text = integrationKind.rawValue
         
         switch integrationKind {
         case .originalGAM       : setupAndLoadGAMRewardedVideo()
-        case .inApp             : setupAndLoadInAppRewarded()
-        case .renderingGAM      : setupAndLoadGAMRenderingRewarded()
+        case .inApp             : setupAndLoadInAppRewardedVideo()
+        case .renderingGAM      : setupAndLoadGAMRenderingRewardedVideo()
         case .renderingAdMob    : setupAndLoadAdMobRenderingRewardedVideo()
-        case .renderingMAX      : print("TODO")
+        // To run this example you should create your own MAX ad unit.
+        case .renderingMAX      : setupAndLoadMAXRenderingRewardedVideo()
         case .undefined         : assertionFailure("The integration kind is: \(integrationKind.rawValue)")
         }
     }
     
     func setupAndLoadGAMRewardedVideo() {
         setupPrebidServer(storedResponse: storedResponseVideoRewarded)
-        
         loadGAMRewardedVideo()
     }
     
-    func setupAndLoadInAppRewarded() {
+    func setupAndLoadInAppRewardedVideo() {
         setupPrebidServer(storedResponse: storedResponseVideoRewarded)
         loadInAppRewardedVideo()
     }
     
-    func setupAndLoadGAMRenderingRewarded() {
+    func setupAndLoadGAMRenderingRewardedVideo() {
         setupPrebidServer(storedResponse: storedResponseVideoRewarded)
         loadGAMRenderingRewardedVideo()
     }
@@ -89,6 +95,11 @@ class RewardedVideoController:
     func setupAndLoadAdMobRenderingRewardedVideo() {
         setupPrebidServer(storedResponse: storedResponseVideoRewarded)
         loadAdMobRenderingRewardedVideo()
+    }
+    
+    func setupAndLoadMAXRenderingRewardedVideo() {
+        setupPrebidServer(storedResponse: storedResponseVideoRewarded)
+        loadMAXRenderingRewardedVideo()
     }
         
     // MARK: - Setup Servers
@@ -138,7 +149,7 @@ class RewardedVideoController:
                 } else if let ad = ad {
                     
                     ad.present(fromRootViewController: self, userDidEarnRewardHandler: {
-                        let reward = ad.adReward
+                        _ = ad.adReward
                         // TODO: Reward the user.
                       })
 
@@ -168,7 +179,7 @@ class RewardedVideoController:
         admobRewardedAdUnit = MediationRewardedAdUnit(configId: storedImpVideoRewarded, mediationDelegate: mediationDelegate)
         admobRewardedAdUnit.fetchDemand { [weak self] result in
             guard let self = self else { return }
-            GADRewardedAd.load(withAdUnitID: adMobAdUnitDisplayInterstitial, request: request) { [weak self] ad, error in
+            GADRewardedAd.load(withAdUnitID: adMobAdUnitRewardedId, request: request) { [weak self] ad, error in
                 guard let self = self else { return }
                 if let error = error {
                     Log.error(error.localizedDescription)
@@ -182,6 +193,17 @@ class RewardedVideoController:
                     })
                 }
             }
+        }
+    }
+    
+    func loadMAXRenderingRewardedVideo() {
+        maxRewarded = MARewardedAd.shared(withAdUnitIdentifier: maxAdUnitRewardedId)
+        let mediationDelegate = MAXMediationRewardedUtils(rewardedAd: maxRewarded)
+        maxRewardedAdUnit = MediationRewardedAdUnit(configId: storedImpVideoRewarded, mediationDelegate: mediationDelegate)
+        
+        maxRewardedAdUnit.fetchDemand { [weak self] result in
+            self?.maxRewarded.delegate = self
+            self?.maxRewarded.load()
         }
     }
     
@@ -215,5 +237,43 @@ class RewardedVideoController:
     
     func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
         print("adDidDismissFullScreenContent")
+    }
+    
+    // MARK: - MARewardedAdDelegate
+    
+    func didLoad(_ ad: MAAd) {
+        print("didLoad(_ ad: MAAd)")
+    }
+    
+    func didFailToLoadAd(forAdUnitIdentifier adUnitIdentifier: String, withError error: MAError) {
+        Log.error(error.message)
+    }
+    
+    func didFail(toDisplay ad: MAAd, withError error: MAError) {
+        Log.error(error.message)
+    }
+    
+    func didDisplay(_ ad: MAAd) {
+        print("didDisplay(_ ad: MAAd)")
+    }
+    
+    func didHide(_ ad: MAAd) {
+        print("didHide(_ ad: MAAd)")
+    }
+    
+    func didClick(_ ad: MAAd) {
+        print("didClick(_ ad: MAAd)")
+    }
+    
+    func didStartRewardedVideo(for ad: MAAd) {
+        // This delegate is not supported.
+    }
+    
+    func didCompleteRewardedVideo(for ad: MAAd) {
+        // This delegate is not supported.
+    }
+    
+    func didRewardUser(for ad: MAAd, with reward: MAReward) {
+        print("didRewardUser(for ad: MAAd, with reward: MAReward)")
     }
 }

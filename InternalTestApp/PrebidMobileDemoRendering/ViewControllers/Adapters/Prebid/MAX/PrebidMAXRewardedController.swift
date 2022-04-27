@@ -100,9 +100,8 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
         adUnit?.fetchDemand { [weak self] result in
             guard let self = self else { return }
             
-            guard result == .prebidDemandFetchSuccess else {
+            if result != .prebidDemandFetchSuccess {
                 self.fetchDemandFailedButton.isEnabled = true
-                return
             }
             
             self.rewarded?.load()

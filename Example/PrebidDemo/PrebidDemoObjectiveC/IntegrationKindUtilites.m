@@ -15,7 +15,6 @@
 + (NSArray *)IntegrationKindAllCases {
     return @[
         [NSNumber numberWithInteger:IntegrationKind_OriginalGAM],
-        [NSNumber numberWithInteger:IntegrationKind_OriginalAdMob],
         [NSNumber numberWithInteger:IntegrationKind_InApp],
         [NSNumber numberWithInteger:IntegrationKind_RenderingGAM],
         [NSNumber numberWithInteger:IntegrationKind_RenderingAdMob],
@@ -26,7 +25,6 @@
 + (NSDictionary *)IntegrationKindDescr {
     return @{
         [NSNumber numberWithInteger:IntegrationKind_OriginalGAM]        : @"Original GAM",
-        [NSNumber numberWithInteger:IntegrationKind_OriginalAdMob]      : @"Original AdMob",
         [NSNumber numberWithInteger:IntegrationKind_InApp]              : @"In-App",
         [NSNumber numberWithInteger:IntegrationKind_RenderingGAM]       : @"Rendering GAM",
         [NSNumber numberWithInteger:IntegrationKind_RenderingAdMob]     : @"Rendering AdMob",
@@ -37,6 +35,7 @@
 + (NSArray *)IntegrationAdFormatAllCases {
     return @[
         [NSNumber numberWithInteger:IntegrationAdFormat_Banner],
+        [NSNumber numberWithInteger:IntegrationAdFormat_BannerVideo],
         [NSNumber numberWithInteger:IntegrationAdFormat_Interstitial],
         [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideo],
         [NSNumber numberWithInteger:IntegrationAdFormat_Rewarded],
@@ -47,6 +46,7 @@
 + (NSDictionary *)IntegrationAdFormatDescr {
     return @{
         [NSNumber numberWithInteger:IntegrationAdFormat_Banner]             : @"Banner",
+        [NSNumber numberWithInteger:IntegrationAdFormat_BannerVideo]        : @"Banner Video",
         [NSNumber numberWithInteger:IntegrationAdFormat_Interstitial]       : @"Interstitial",
         [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideo]  : @"Interstitial Video",
         [NSNumber numberWithInteger:IntegrationAdFormat_Rewarded]           : @"Rewarded",
@@ -70,6 +70,7 @@
 + (NSArray *)IntegrationAdFormatRendering {
     return @[
         [NSNumber numberWithInteger:IntegrationAdFormat_Banner],
+        [NSNumber numberWithInteger:IntegrationAdFormat_BannerVideo],
         [NSNumber numberWithInteger:IntegrationAdFormat_Interstitial],
         [NSNumber numberWithInteger:IntegrationAdFormat_InterstitialVideo],
         [NSNumber numberWithInteger:IntegrationAdFormat_Rewarded],

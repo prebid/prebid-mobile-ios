@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Oj-qG-uCu">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -175,7 +175,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RMV-Sg-y3F">
-                                <rect key="frame" x="37.5" y="54" width="300" height="559"/>
+                                <rect key="frame" x="2" y="54" width="371" height="559"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                         </subviews>
@@ -183,7 +183,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="RMV-Sg-y3F" firstAttribute="top" secondItem="QKV-Tv-nlJ" secondAttribute="top" constant="10" id="9cf-Fd-nx4"/>
-                            <constraint firstItem="RMV-Sg-y3F" firstAttribute="leading" secondItem="QKV-Tv-nlJ" secondAttribute="leading" constant="37.5" id="Ku5-Wf-cmr"/>
+                            <constraint firstItem="QKV-Tv-nlJ" firstAttribute="trailing" secondItem="RMV-Sg-y3F" secondAttribute="trailing" constant="2" id="BZR-Pa-z3F"/>
+                            <constraint firstItem="RMV-Sg-y3F" firstAttribute="leading" secondItem="QKV-Tv-nlJ" secondAttribute="leading" constant="2" id="fmP-ww-ZtN"/>
                             <constraint firstItem="RMV-Sg-y3F" firstAttribute="centerX" secondItem="Bh5-l7-3oV" secondAttribute="centerX" id="sUL-mH-7Wn"/>
                             <constraint firstItem="RMV-Sg-y3F" firstAttribute="centerY" secondItem="Bh5-l7-3oV" secondAttribute="centerY" id="uIa-ue-Ysy"/>
                         </constraints>
