@@ -30,7 +30,8 @@ fileprivate let storedImpVideoInterstitial              = "imp-prebid-video-inte
 
 // Stored Responses
 fileprivate let storedResponseDisplayInterstitial       = "response-prebid-display-interstitial-320-480"
-fileprivate let storedResponseVideoInterstitial         = "response-prebid-video-interstitial-320-480"
+fileprivate let storedResponseOriginalVideoInterstitial = "response-prebid-video-interstitial-320-480-original-api"
+fileprivate let storedResponseRenderingVideoInterstitial = "response-prebid-video-interstitial-320-480"
 
 // GAM
 fileprivate let gamAdUnitDisplayInterstitialOriginal    = "/21808260008/prebid-demo-app-original-api-display-interstitial"
@@ -72,7 +73,7 @@ class InterstitialViewController:
     // In-App
     private var renderingInterstitial: InterstitialRenderingAdUnit!
     
-    // AdMob 
+    // AdMob
     private var gadRequest = GADRequest()
     private var interstitial: GADInterstitialAd?
     private var admobAdUnit: MediationInterstitialAdUnit?
@@ -225,7 +226,7 @@ class InterstitialViewController:
     }
     
     func loadAdMobRenderingVideoInterstitial() {
-        setupPrebidServer(storedResponse: storedResponseVideoInterstitial)
+        setupPrebidServer(storedResponse: storedResponseRenderingVideoInterstitial)
 
         mediationDelegate = AdMobMediationInterstitialUtils(gadRequest: self.gadRequest)
         admobAdUnit = MediationInterstitialAdUnit(configId: storedImpVideoInterstitial, mediationDelegate: mediationDelegate!)
@@ -263,7 +264,7 @@ class InterstitialViewController:
     }
     
     func loadMAXRenderingVideoInterstitial() {
-        setupPrebidServer(storedResponse: storedResponseVideoInterstitial)
+        setupPrebidServer(storedResponse: storedResponseRenderingVideoInterstitial)
         maxInterstitial = MAInterstitialAd(adUnitIdentifier: maxAdUnitDisplayInterstitial)
         maxMediationDelegate = MAXMediationInterstitialUtils(interstitialAd: maxInterstitial)
         maxAdUnit = MediationInterstitialAdUnit(configId: storedImpVideoInterstitial, mediationDelegate: maxMediationDelegate)
@@ -277,7 +278,7 @@ class InterstitialViewController:
     //MARK: - Interstitial VAST
     
     func setupAndLoadAMInterstitialVAST() {
-        setupPrebidServer(storedResponse: storedResponseVideoInterstitial)
+        setupPrebidServer(storedResponse: storedResponseOriginalVideoInterstitial)
 
         let adUnit = VideoInterstitialAdUnit(configId: storedImpVideoInterstitial)
         let parameters = VideoParameters()
@@ -297,7 +298,7 @@ class InterstitialViewController:
     }
     
     func loadInAppVideoInterstitial() {
-        setupPrebidServer(storedResponse: storedResponseVideoInterstitial)
+        setupPrebidServer(storedResponse: storedResponseRenderingVideoInterstitial)
         
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpVideoInterstitial)
         renderingInterstitial.adFormats = [.video]
@@ -307,7 +308,7 @@ class InterstitialViewController:
     }
     
     func loadGAMRenderingVideoInterstitial() {
-        setupPrebidServer(storedResponse: storedResponseVideoInterstitial)
+        setupPrebidServer(storedResponse: storedResponseRenderingVideoInterstitial)
 
         let eventHandler = GAMInterstitialEventHandler(adUnitID: gamAdUnitVideoInterstitialRendering)
         renderingInterstitial = InterstitialRenderingAdUnit(configID: storedImpVideoInterstitial, eventHandler: eventHandler)
