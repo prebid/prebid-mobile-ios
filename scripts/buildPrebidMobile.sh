@@ -75,8 +75,8 @@ printf "\nBITCODE_FLAG: $BITCODE_FLAG\n"
 
 echo -e "\n\n${GREEN}INSTALL PODS${NC}\n\n"
 
-gem install cocoapods --user-install
-pod install --repo-update
+#gem install cocoapods --user-install
+#pod install --repo-update
 
 echo -e "\n\n${GREEN}BUILD PREBID MOBILE${NC}\n\n"
 

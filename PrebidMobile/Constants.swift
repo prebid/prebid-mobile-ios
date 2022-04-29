@@ -16,7 +16,7 @@
 import UIKit
 
 public let PrebidLocalCacheIdKey = "hb_cache_id_local"
-public let PREBID_VERSION = "1.14.0-beta1"
+public let PREBID_VERSION = "2.0.0"
 
 extension String {
 
