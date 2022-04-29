@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobileGAMEventHandlers"
-  s.version      = "1.14.0-beta1"
+  s.version      = "2.0.0"
   s.summary      = "The bridge between PrebidMobile SDK and GMA SDK."
 
   s.description  = "GAM Event Handlers manages rendering of Prebid or GAM ads respectively to the winning bid."
@@ -29,13 +29,12 @@ Pod::Spec.new do |s|
   s.platform     	= :ios, "10.0"
   s.swift_version 	= '5.0'
   s.source       	= { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
-  s.xcconfig 		= {
-:LIBRARY_SEARCH_PATHS => '$(inherited)',
-:OTHER_CFLAGS => '$(inherited)',
-:OTHER_LDFLAGS => '$(inherited)',
-:HEADER_SEARCH_PATHS => '$(inherited)',
-:FRAMEWORK_SEARCH_PATHS => '$(inherited)'
-}
+  s.xcconfig 		= { :LIBRARY_SEARCH_PATHS => '$(inherited)', 
+  						:OTHER_CFLAGS => '$(inherited)',
+						:OTHER_LDFLAGS => '$(inherited)',
+						:HEADER_SEARCH_PATHS => '$(inherited)',
+						:FRAMEWORK_SEARCH_PATHS => '$(inherited)'
+					  }
 
   s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s', 
                             'VALID_ARCHS[sdk=iphoneos*]': 'arm64 armv7',
@@ -49,7 +48,7 @@ Pod::Spec.new do |s|
   s.source_files = 'EventHandlers/PrebidMobileGAMEventHandlers/**/*.{h,m,swift}'
   s.static_framework = true
 
-  s.dependency 'PrebidMobile', '1.14.0-beta1'
+  s.dependency 'PrebidMobile', '2.0.0'
   s.dependency 'Google-Mobile-Ads-SDK'
 
 end

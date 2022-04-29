@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobileMAXAdapters"
-  s.version      = "1.14.0-beta1"
-  s.summary      = "The bridge between PrebidMobile SDK and ApplovinSDK."
+  s.version      = "2.0.0"
+  s.summary      = "The bridge between PrebidMobile SDK and Applovin MAX SDK."
 
-  s.description  = "MAX Adapters manages rendering of Prebid or Applovin ads respectively to the winning bid."
+  s.description  = "MAX Adapters manages rendering of Prebid or MAX ads respectively to the winning bid."
   s.homepage     = "https://www.prebid.org"
 
 
@@ -35,7 +35,7 @@ Pod::Spec.new do |s|
 						:OTHER_LDFLAGS => '$(inherited)',
 						:HEADER_SEARCH_PATHS => '$(inherited)',
 						:FRAMEWORK_SEARCH_PATHS => '$(inherited)'
-}
+					  }
 
   s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s', 
                             'VALID_ARCHS[sdk=iphoneos*]': 'arm64 armv7',
@@ -49,7 +49,7 @@ Pod::Spec.new do |s|
   s.source_files = 'EventHandlers/PrebidMobileMAXAdapters/**/*.{h,m,swift}'
   s.static_framework = true
 
-  s.dependency 'PrebidMobile', '1.14.0-beta1'
+  s.dependency 'PrebidMobile', '2.0.0'
   s.dependency 'AppLovinSDK'
 
 end

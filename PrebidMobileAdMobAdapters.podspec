@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
 
   s.name         = "PrebidMobileAdMobAdapters"
-  s.version      = "1.14.0-beta1"
-  s.summary      = "The bridge between PrebidMobile SDK and MoPub SDK."
+  s.version      = "2.0.0"
+  s.summary      = "The bridge between PrebidMobile SDK and GMA SDK."
 
   s.description  = "AdMob Adatpers manages rendering of Prebid ads in the case of integration with AdMob as a Primary Ad Server."
   s.homepage     = "https://www.prebid.org"
@@ -25,17 +25,16 @@ Pod::Spec.new do |s|
     LICENSE
     }
 
-  s.author             = { "Prebid.org, Inc." => "info@prebid.org" }
-  s.platform     = :ios, "10.0"
+  s.author        = { "Prebid.org, Inc." => "info@prebid.org" }
+  s.platform      = :ios, "10.0"
   s.swift_version = '5.0'
-  s.source       = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
-  s.xcconfig = {
-:LIBRARY_SEARCH_PATHS => '$(inherited)',
-:OTHER_CFLAGS => '$(inherited)',
-:OTHER_LDFLAGS => '$(inherited)',
-:HEADER_SEARCH_PATHS => '$(inherited)',
-:FRAMEWORK_SEARCH_PATHS => '$(inherited)'
-}
+  s.source        = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
+  s.xcconfig      = { :LIBRARY_SEARCH_PATHS => '$(inherited)',
+				 	  :OTHER_CFLAGS => '$(inherited)',
+				      :OTHER_LDFLAGS => '$(inherited)',
+				      :HEADER_SEARCH_PATHS => '$(inherited)',
+				      :FRAMEWORK_SEARCH_PATHS => '$(inherited)'
+				    }
 
   s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s', 
                             'VALID_ARCHS[sdk=iphoneos*]': 'arm64 armv7',
@@ -44,13 +43,13 @@ Pod::Spec.new do |s|
   s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s', 
                              'VALID_ARCHS[sdk=iphoneos*]': 'arm64 armv7',
                              'VALID_ARCHS[sdk=iphonesimulator*]': 'x86_64 arm64'
-                          }
+                           }
 
   s.source_files = 'EventHandlers/PrebidMobileAdMobAdapters/**/*.{h,m,swift}'
 
   s.static_framework = true
 
-  s.dependency 'PrebidMobile', '1.14.0-beta1'
+  s.dependency 'PrebidMobile', '2.0.0'
   s.dependency 'Google-Mobile-Ads-SDK', '8.5.0'
 
 end
