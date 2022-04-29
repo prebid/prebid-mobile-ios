@@ -27,16 +27,16 @@ Pod::Spec.new do |s|
     LICENSE
     }
 
-  s.author             = { "Prebid.org, Inc." => "info@prebid.org" }
+  s.author            	   = { "Prebid.org, Inc." => "info@prebid.org" }
   s.platform     	   = :ios, "10.0"
   s.swift_version 	   = '5.0'
   s.source      	   = { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
   s.xcconfig 		   = { :LIBRARY_SEARCH_PATHS => '$(inherited)',
-						   :OTHER_CFLAGS => '$(inherited)',
-						   :OTHER_LDFLAGS => '$(inherited)',
-						   :HEADER_SEARCH_PATHS => '$(inherited)',
-						   :FRAMEWORK_SEARCH_PATHS => '$(inherited)'
-						 }
+			       :OTHER_CFLAGS => '$(inherited)',
+			       :OTHER_LDFLAGS => '$(inherited)',
+			       :HEADER_SEARCH_PATHS => '$(inherited)',
+			       :FRAMEWORK_SEARCH_PATHS => '$(inherited)'
+			     }
   s.requires_arc = true
 
   s.frameworks = [ 'UIKit', 

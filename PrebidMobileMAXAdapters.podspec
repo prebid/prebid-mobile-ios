@@ -25,17 +25,16 @@ Pod::Spec.new do |s|
     LICENSE
     }
 
-  s.author			= { "Prebid.org, Inc." => "info@prebid.org" }
+  s.author		= { "Prebid.org, Inc." => "info@prebid.org" }
   s.platform     	= :ios, "10.0"
   s.swift_version 	= '5.0'
   s.source       	= { :git => "https://github.com/prebid/prebid-mobile-ios.git", :tag => "#{s.version}" }
-  s.xcconfig 		= {
-						:LIBRARY_SEARCH_PATHS => '$(inherited)',
-						:OTHER_CFLAGS => '$(inherited)',
-						:OTHER_LDFLAGS => '$(inherited)',
-						:HEADER_SEARCH_PATHS => '$(inherited)',
-						:FRAMEWORK_SEARCH_PATHS => '$(inherited)'
-					  }
+  s.xcconfig 		= { :LIBRARY_SEARCH_PATHS => '$(inherited)',
+			    :OTHER_CFLAGS => '$(inherited)',
+			    :OTHER_LDFLAGS => '$(inherited)',
+			    :HEADER_SEARCH_PATHS => '$(inherited)',
+			    :FRAMEWORK_SEARCH_PATHS => '$(inherited)'
+			  }
 
   s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64 arm64e armv7 armv7s', 
                             'VALID_ARCHS[sdk=iphoneos*]': 'arm64 armv7',
