@@ -189,10 +189,6 @@
           sdkConfiguration:(Prebid *)sdkConfiguration
          completionHandler:(void (^)(BOOL success))completion
                     onExit:(PBMVoidBlock)onClickthroughExitBlock {
-    self.hiddenWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
-    HiddenWebViewManager *webViewManager = [[HiddenWebViewManager alloc] initWithWebView:self.hiddenWebView landingPageString:url.absoluteString];
-    [self.hiddenWebView setHidden:YES];
-    [webViewManager openHiddenWebView];
     
     if (self.creativeModel.adConfiguration.clickHandlerOverride != nil) {
         completion(YES);
@@ -203,7 +199,8 @@
     PBMJsonDictionary * skadnetProductParameters = [SkadnParametersManager getSkadnProductParametersFor:self.transaction.skadInfo];
     
     if (skadnetProductParameters) {
-        clickthroughOpened = [self handleProductClickthrough:skadnetProductParameters
+        clickthroughOpened = [self handleProductClickthrough:url
+                                               productParams:skadnetProductParameters
                                                       onExit:onClickthroughExitBlock];
     } else {
         
@@ -307,9 +304,14 @@
     return [clickthroughOpener openURL:url onClickthroughExitBlock:onClickthroughExitBlock];
 }
 
-- (BOOL)handleProductClickthrough:(NSDictionary<NSString *, id> *)productParams
-                           onExit:(nonnull PBMVoidBlock)onClickthroughExitBlock
-{
+- (BOOL)handleProductClickthrough:(NSURL*)url
+                    productParams:(NSDictionary<NSString *, id> *)productParams
+                           onExit:(nonnull PBMVoidBlock)onClickthroughExitBlock {
+    self.hiddenWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
+    HiddenWebViewManager *webViewManager = [[HiddenWebViewManager alloc] initWithWebView:self.hiddenWebView landingPageString:url.absoluteString];
+    [self.hiddenWebView setHidden:YES];
+    [webViewManager openHiddenWebView];
+    
     if (!self.viewControllerForPresentingModals) {
         PBMLogError(@"self.viewControllerForPresentingModals is nil");
         return NO;
