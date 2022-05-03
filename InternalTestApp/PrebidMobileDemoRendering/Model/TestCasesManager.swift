@@ -2834,16 +2834,18 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let randomId = [0, 1].randomElement() ?? 0
                 let interstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
-                let maxAdUnitIds = ["5f111f4bcd0f58ca", "78f9d445b8a1add7"]
                 interstitialController.adFormats = [.display, .video]
                 let prebidStoredAuctionResponses = ["response-prebid-display-interstitial-320-480", "response-prebid-video-interstitial-320-480"]
                          
-                interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
+                let prebidStoredImps = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480", ]
+                         
+                interstitialController.prebidConfigId = prebidStoredImps[randomId]
                          
                 interstitialController.storedAuctionResponse = prebidStoredAuctionResponses[randomId]
-                interstitialController.maxAdUnitId = maxAdUnitIds[randomId]
+                interstitialController.maxAdUnitId = "78f9d445b8a1add7"
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)

@@ -22,6 +22,7 @@
 
 @class PBMModalManager;
 @class AdConfiguration;
+@class AdFormat;
 @protocol PBMModalManagerDelegate;
 @protocol PBMServerConnectionProtocol;
 
