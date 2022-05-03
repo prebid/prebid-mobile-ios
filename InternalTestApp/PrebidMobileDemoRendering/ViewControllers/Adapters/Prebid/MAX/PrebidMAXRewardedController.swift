@@ -121,7 +121,8 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
     }
     
     private func setupShowButton() {
-        adapterViewController?.showButton.isHidden = true
+        adapterViewController?.showButton.isEnabled = false
+        adapterViewController?.showButton.addTarget(self, action:#selector(self.showButtonClicked), for: .touchUpInside)
     }
     
     private func setupActions() {
@@ -145,12 +146,20 @@ class PrebidMAXRewardedController: NSObject, AdaptedController, PrebidConfigurab
         didClickAdButton.isEnabled = false
         didRewardUserButton.isEnabled = false
     }
+    
+    @IBAction func showButtonClicked() {
+        if let rewarded = rewarded, rewarded.isReady {
+            adapterViewController?.showButton.isEnabled = false
+            rewarded.show()
+        }
+    }
 }
 
 extension PrebidMAXRewardedController: MARewardedAdDelegate {
     func didLoad(_ ad: MAAd) {
         resetEvents()
         didLoadAdButton.isEnabled = true
+        adapterViewController?.showButton.isEnabled = true
     }
     
     func didFailToLoadAd(forAdUnitIdentifier adUnitIdentifier: String, withError error: MAError) {

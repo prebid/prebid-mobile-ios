@@ -478,7 +478,7 @@ struct TestCaseManager {
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-banner-320-50-skadn-v22"
                 bannerController.adSizes = [CGSize(width: 320, height: 50)]
-                bannerController.storedAuctionResponse = "response-prebid-banner-320-50-skadn"
+                bannerController.storedAuctionResponse = "response-prebid-banner-320-50-skadn-v22"
                 adapterVC.setup(adapter: bannerController)
                         
                 setupCustomParams(for: bannerController.prebidConfigId)
@@ -719,6 +719,21 @@ struct TestCaseManager {
                 let interstitialController = PrebidInterstitialController(rootController: adapterVC)
                 interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480-skadn"
                 interstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480-skadn"
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Display Interstitial 320x480 (In-App) [SKAdN 2.2]",
+                     tags: [.interstitial, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480-skadn"
+                interstitialController.storedAuctionResponse = "response-prebid-display-interstitial-320-480-skadn-v22"
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)
@@ -1089,6 +1104,23 @@ struct TestCaseManager {
                 setupCustomParams(for: interstitialController.prebidConfigId)
             }),
             
+            TestCase(title: "Video Interstitial 320x480 (In-App) [SKAdN 2.2]",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let interstitialController = PrebidInterstitialController(rootController: adapterVC)
+                interstitialController.prebidConfigId = "imp-prebid-video-interstitial-320-480-skadn"
+                interstitialController.storedAuctionResponse = "response-prebid-video-interstitial-320-480-skadn-v22"
+                interstitialController.adFormats = [.video]
+                
+                adapterVC.setup(adapter: interstitialController)
+                        
+                setupCustomParams(for: interstitialController.prebidConfigId)
+            }),
+            
             // MARK: ---- Video Interstitial (GAM) ----
             
             TestCase(title: "Video Interstitial 320x480 (GAM) [OK, AppEvent]",
@@ -1318,6 +1350,24 @@ struct TestCaseManager {
                 let bannerController = PrebidBannerController(rootController: adapterVC)
                 bannerController.prebidConfigId = "imp-prebid-video-outstream-skadn"
                          bannerController.storedAuctionResponse = "response-prebid-video-outstream-skadn"
+                bannerController.adSizes = [CGSize(width: 300, height: 250)]
+                bannerController.adFormat = .video
+                
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Video Outstream (In-App) [SKAdN 2.2]",
+                     tags: [.video, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.prebidConfigId = "imp-prebid-video-outstream-skadn"
+                bannerController.storedAuctionResponse = "response-prebid-video-outstream-skadn-v22"
                 bannerController.adSizes = [CGSize(width: 300, height: 250)]
                 bannerController.adFormat = .video
                 
@@ -2784,16 +2834,18 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
                 let randomId = [0, 1].randomElement() ?? 0
                 let interstitialController = PrebidMAXInterstitialController(rootController: adapterVC)
-                let maxAdUnitIds = ["5f111f4bcd0f58ca", "78f9d445b8a1add7"]
                 interstitialController.adFormats = [.display, .video]
                 let prebidStoredAuctionResponses = ["response-prebid-display-interstitial-320-480", "response-prebid-video-interstitial-320-480"]
                          
-                interstitialController.prebidConfigId = "imp-prebid-display-interstitial-320-480"
+                let prebidStoredImps = ["imp-prebid-display-interstitial-320-480", "imp-prebid-video-interstitial-320-480", ]
+                         
+                interstitialController.prebidConfigId = prebidStoredImps[randomId]
                          
                 interstitialController.storedAuctionResponse = prebidStoredAuctionResponses[randomId]
-                interstitialController.maxAdUnitId = maxAdUnitIds[randomId]
+                interstitialController.maxAdUnitId = "78f9d445b8a1add7"
                 adapterVC.setup(adapter: interstitialController)
                         
                 setupCustomParams(for: interstitialController.prebidConfigId)

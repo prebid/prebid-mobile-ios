@@ -821,6 +821,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		537F460928213AE300DFB735 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = FA9E5E0C2649420C0049B214;
+			remoteInfo = TestUtils;
+		};
 		FA7998982637161100B746EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 60D792E9217E229A0080F428 /* Project object */;
@@ -833,13 +840,6 @@
 			containerPortal = FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = FA9E5E0D2649420C0049B214;
-			remoteInfo = TestUtils;
-		};
-		FA85F9BA2649470800B8BE72 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = FA9E5E0C2649420C0049B214;
 			remoteInfo = TestUtils;
 		};
 /* End PBXContainerItemProxy section */
@@ -1650,8 +1650,6 @@
 		FA5AD5E32271FA4100C8F274 /* ConstantsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantsTest.swift; sourceTree = "<group>"; };
 		FA85F9B4264946FC00B8BE72 /* TestUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TestUtils.xcodeproj; path = ../tools/TestUtils/TestUtils.xcodeproj; sourceTree = "<group>"; };
 		FA9D7F2622E8A83D006FCBEF /* AdViewUtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewUtilsTests.swift; sourceTree = "<group>"; };
-		FA9E5E1D264944630049B214 /* TestUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TestUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA9E5E2F264945210049B214 /* TestUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TestUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA29903242D1C27002ACBF2 /* TargetingObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TargetingObjCTests.m; sourceTree = "<group>"; };
 		FAA2990724322962002ACBF2 /* PrebidObjcTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrebidObjcTests.m; sourceTree = "<group>"; };
 		FAA2990924334E96002ACBF2 /* AdUnitSuccessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdUnitSuccessorTests.swift; sourceTree = "<group>"; };
@@ -2713,8 +2711,6 @@
 		6062B19A218243FA00CE1BA3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FA9E5E2F264945210049B214 /* TestUtils.framework */,
-				FA9E5E1D264944630049B214 /* TestUtils.framework */,
 				5BC37B01271FF8C400444D5E /* OMSDK_Prebidorg.framework */,
 				6062B19B218243FA00CE1BA3 /* CoreLocation.framework */,
 			);
@@ -3565,7 +3561,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				FA85F9BB2649470800B8BE72 /* PBXTargetDependency */,
+				537F460A28213AE300DFB735 /* PBXTargetDependency */,
 				FA7998992637161100B746EF /* PBXTargetDependency */,
 			);
 			name = PrebidMobileTests;
@@ -4256,15 +4252,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		537F460A28213AE300DFB735 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TestUtils;
+			targetProxy = 537F460928213AE300DFB735 /* PBXContainerItemProxy */;
+		};
 		FA7998992637161100B746EF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FAAA00BC2322733E009DC7D6 /* PrebidMobile */;
 			targetProxy = FA7998982637161100B746EF /* PBXContainerItemProxy */;
-		};
-		FA85F9BB2649470800B8BE72 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TestUtils;
-			targetProxy = FA85F9BA2649470800B8BE72 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

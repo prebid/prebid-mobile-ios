@@ -126,7 +126,8 @@ class PrebidMAXInterstitialController: NSObject, AdaptedController, PrebidConfig
     }
     
     private func setupShowButton() {
-        adapterViewController?.showButton.isHidden = true
+        adapterViewController?.showButton.isEnabled = false
+        adapterViewController?.showButton.addTarget(self, action:#selector(self.showButtonClicked), for: .touchUpInside)
     }
     
     private func setupActions() {
@@ -148,12 +149,20 @@ class PrebidMAXInterstitialController: NSObject, AdaptedController, PrebidConfig
         didHideAdButton.isEnabled = false
         didClickAdButton.isEnabled = false
     }
+    
+    @IBAction func showButtonClicked() {
+        if let interstitial = interstitial, interstitial.isReady {
+            adapterViewController?.showButton.isEnabled = false
+            interstitial.show()
+        }
+    }
 }
 
 extension PrebidMAXInterstitialController: MAAdDelegate {
     func didLoad(_ ad: MAAd) {
         resetEvents()
         didLoadAdButton.isEnabled = true
+        adapterViewController?.showButton.isEnabled = true
     }
     
     func didFailToLoadAd(forAdUnitIdentifier adUnitIdentifier: String, withError error: MAError) {

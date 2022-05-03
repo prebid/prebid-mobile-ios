@@ -113,16 +113,14 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         waitForExpectations(timeout: 3, handler: nil)
     }
     
-    func testShowWithoutAuto() {
+    func testShowWithoutAutoForInterstitial() {
         // setup expectations; nil those that should not be called
         adLoadedExpectation = expectation(description: "Expected a delegate function adLoaded to fire")
         
         //Force viewability
         Prebid.forcedIsViewable = true
 
-        // turn off autoDisplay and then alert the adViewManager that the ad is ready
-        adViewManager.autoDisplayOnLoad = false
-        adViewManager.handleExternalTransaction(UtilitiesForTesting.createTransactionWithHTMLCreative(withView: true))
+        adViewManager.handleExternalTransaction(UtilitiesForTesting.createTransactionWithHTMLCreative(withView: true, isInterstitial: true))
         
         XCTAssertNotNil(adViewManager.externalTransaction)
 

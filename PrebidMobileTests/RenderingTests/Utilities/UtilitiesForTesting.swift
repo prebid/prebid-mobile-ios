@@ -123,10 +123,11 @@ typealias JsonDictionary = [String:Any]
         return creative
     }
     
-    class func createTransactionWithHTMLCreative(withView:Bool = false) -> PBMTransaction {
+    class func createTransactionWithHTMLCreative(withView:Bool = false, isInterstitial: Bool = false) -> PBMTransaction {
         let connection = PBMServerConnection()
         let adConfiguration = AdConfiguration()
         adConfiguration.winningBidAdFormat = .display
+        adConfiguration.isInterstitialAd = isInterstitial
         
         let model = PBMCreativeModel(adConfiguration:adConfiguration)
         model.html = "<html>test html</html>"
