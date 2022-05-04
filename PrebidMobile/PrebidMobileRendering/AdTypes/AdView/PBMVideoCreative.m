@@ -248,8 +248,8 @@
     [self close];
     
     //Creative presented as Interstitial
-    [self.creativeViewDelegate creativeInterstitialDidClose:self];
     [self.creativeViewDelegate creativeDidComplete:self];
+    [self.creativeViewDelegate creativeInterstitialDidClose:self];
 }
 
 - (void)modalManagerDidLeaveApp:(PBMModalState*)state {

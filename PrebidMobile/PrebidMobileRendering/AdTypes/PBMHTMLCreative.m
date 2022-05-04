@@ -301,21 +301,17 @@
         return;
     }
     
-    // EndCard?
-    if (self.creativeModel.adConfiguration.isOptIn) {
+    // EndCard
+    if (self.creativeModel.isCompanionAd) {
         // Dismiss parent VideoCreative
         PBMVoidBlock dismissParent = [self.transaction getFirstCreative].dismissInterstitialModalState;
         if (dismissParent) {
             dismissParent();
         }
-        
-        // FIXME: this return leads to the wrong behaviour for rewarded ads with EndCard.
-        // delegate's method creativeDidComplete is not called
-        return;
     }
     
-    [self.creativeViewDelegate creativeReadyToReimplant:self];
     if (self.MRAIDController) {
+        [self.creativeViewDelegate creativeReadyToReimplant:self];
         [self.MRAIDController updateForClose:self.creativeModel.adConfiguration.presentAsInterstitial];
     }
 
