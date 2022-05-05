@@ -131,7 +131,6 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         
         // setup expecations; nil those that won't be needed
         nilExpectations()
-//        displayViewExpectation = expectation(description: "Expected a delegate function creativeReadyForImmediateDisplay to fire")
         viewControllerForModalPresentationExpectation = expectation(description: "Expected a viewControllerForModalPresentationExpectation delegate to fire")
         // One call to check isAbleToShowCurrentCreative and one
         // to showAsInterstitialFromRootViewController
@@ -239,6 +238,8 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         adViewWasClickedExpectation = expectation(description: "Expected a delegate function adViewWasClicked to fire")
         interstitialDisplayPropertiesExpectation = expectation(description: "Expected a delegate function interstitialDisplayProperties to fire")
         viewControllerForModalPresentationExpectation = expectation(description: "Expected a viewControllerForModalPresentationExpectation delegate to fire")
+        // One call to check isAbleToShowCurrentCreative and one
+        // to showAsInterstitialFromRootViewController
         viewControllerForModalPresentationExpectation?.expectedFulfillmentCount = 2
         // call the adViewManager delegate method.
         adViewManager.currentCreative = testCreative
