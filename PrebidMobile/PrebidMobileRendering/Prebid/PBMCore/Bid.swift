@@ -78,7 +78,7 @@ public class Bid: NSObject {
             return false
         }
 
-        for markerKey in ["hb_pb", "hb_bidder", "hb_cache_id"] {
+        for markerKey in ["hb_pb", "hb_bidder", "hb_size"] {
             if targetingInfo[markerKey] == nil {
                 return false
             }

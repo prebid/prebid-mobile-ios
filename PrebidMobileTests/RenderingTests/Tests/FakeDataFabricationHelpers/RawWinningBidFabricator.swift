@@ -29,6 +29,7 @@ extension RawWinningBidFabricator {
             "hb_pb": "\(NSString(format: "%4.2f", price))",
             "hb_bidder": bidder,
             "hb_cache_id": cacheID,
+            "hb_size": "300x250"
         ]
         return rawBid
     }

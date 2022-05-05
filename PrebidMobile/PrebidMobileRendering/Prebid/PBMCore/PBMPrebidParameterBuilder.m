@@ -67,8 +67,15 @@
     bidRequest.extPrebid.storedAuctionResponse  = Prebid.shared.storedAuctionResponse;
     bidRequest.extPrebid.dataBidders            = self.targeting.accessControlList;
     bidRequest.extPrebid.storedBidResponses     = [Prebid.shared getStoredBidResponses];
-    bidRequest.app.publisher.publisherID        = self.sdkConfiguration.prebidServerAccountId;
     
+    if (Prebid.shared.useCacheForReportingWithRenderingAPI) {
+        PBMMutableJsonDictionary * const cache = [PBMMutableJsonDictionary new];
+        cache[@"bids"] = [PBMMutableJsonDictionary new];
+        cache[@"vastxml"] = [PBMMutableJsonDictionary new];
+        bidRequest.extPrebid.cache = cache;
+    }
+    
+    bidRequest.app.publisher.publisherID        = self.sdkConfiguration.prebidServerAccountId;
     bidRequest.app.ver          = [NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
     bidRequest.device.pxratio   = @([UIScreen mainScreen].scale);
     bidRequest.source.tid       = [NSUUID UUID].UUIDString;

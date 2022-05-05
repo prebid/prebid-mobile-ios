@@ -25,11 +25,9 @@
         return ret;
     }
     
-    PBMMutableJsonDictionary * const cache = [PBMMutableJsonDictionary new];
-    ret[@"cache"] = cache;
-    
-    cache[@"bids"] = [PBMMutableJsonDictionary new];
-    cache[@"vastxml"] = [PBMMutableJsonDictionary new];
+    if (self.cache) {
+        ret[@"cache"] = self.cache;
+    }
     
     PBMMutableJsonDictionary * const storedRequest = [PBMMutableJsonDictionary new];
     ret[@"storedrequest"] = storedRequest;
