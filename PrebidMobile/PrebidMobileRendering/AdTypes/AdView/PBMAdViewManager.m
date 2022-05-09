@@ -320,6 +320,7 @@
     PBMTransaction * const transaction = self.currentTransaction;
     self.currentCreative.view.hidden = YES;
     self.currentCreative = creative;
+    self.adConfiguration = creative.creativeModel.adConfiguration;
     self.autoDisplayOnLoad = !self.currentCreative.creativeModel.adConfiguration.isInterstitialAd;
     if (self.autoDisplayOnLoad || self.currentCreative != [transaction getFirstCreative]) {
         [self show];

@@ -19,7 +19,8 @@ import XCTest
 @testable import PrebidMobile
 
 class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
-
+    
+    weak var viewControllerForModalPresentationExpectation: XCTestExpectation?
     weak var displayViewExpectation: XCTestExpectation?
     weak var interstitialDisplayPropertiesExpectation: XCTestExpectation?
     weak var adLoadedExpectation: XCTestExpectation?
@@ -66,6 +67,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         adDidCollapseExpectation = nil
         adDidExpandExpectation = nil
         adDidLeaveAppExpectation = nil
+        viewControllerForModalPresentationExpectation = nil
     }
 
     override func tearDown() {
@@ -102,6 +104,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         adLoadedExpectation = expectation(description: "adLoadedExpectation")
         displayViewExpectation = expectation(description: "displayViewExpectation")
         adDidDisplayExpectation = expectation(description: "adDidDisplayExpectation")
+        viewControllerForModalPresentationExpectation = expectation(description: "Expected a viewControllerForModalPresentationExpectation delegate to fire")
         
         //Force viewability
         Prebid.forcedIsViewable = true
@@ -119,16 +122,20 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         
         //Force viewability
         Prebid.forcedIsViewable = true
-
+        
         adViewManager.handleExternalTransaction(UtilitiesForTesting.createTransactionWithHTMLCreative(withView: true, isInterstitial: true))
         
         XCTAssertNotNil(adViewManager.externalTransaction)
-
+        
         waitForExpectations(timeout: 3, handler: nil)
         
         // setup expecations; nil those that won't be needed
         nilExpectations()
-        displayViewExpectation = expectation(description: "Expected a delegate function creativeReadyForImmediateDisplay to fire")
+        viewControllerForModalPresentationExpectation = expectation(description: "Expected a viewControllerForModalPresentationExpectation delegate to fire")
+        // One call to check isAbleToShowCurrentCreative and one
+        // to showAsInterstitialFromRootViewController
+        viewControllerForModalPresentationExpectation?.expectedFulfillmentCount = 2
+        interstitialDisplayPropertiesExpectation = expectation(description: "Expected a delegate function interstitialDisplayProperties to fire")
         adDidDisplayExpectation = expectation(description: "adDidDisplayExpectation")
         // call show
         adViewManager.show()
@@ -141,6 +148,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         adLoadedExpectation = expectation(description: "adLoadedExpectation")
         displayViewExpectation = expectation(description: "displayViewExpectation")
         adDidDisplayExpectation = expectation(description: "adDidDisplayExpectation")
+        viewControllerForModalPresentationExpectation = expectation(description: "Expected a viewControllerForModalPresentationExpectation delegate to fire")
         
         //Force viewability
         Prebid.forcedIsViewable = true
@@ -177,6 +185,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         adLoadedExpectation = expectation(description: "Expected a delegate function adLoaded to fire")
         displayViewExpectation = expectation(description: "displayViewExpectation #1")
         adDidDisplayExpectation = expectation(description: "adDidDisplayExpectation")
+        viewControllerForModalPresentationExpectation = expectation(description: "Expected a viewControllerForModalPresentationExpectation delegate to fire")
         
         //Force viewability
         Prebid.forcedIsViewable = true
@@ -228,7 +237,10 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
         // setup expectations
         adViewWasClickedExpectation = expectation(description: "Expected a delegate function adViewWasClicked to fire")
         interstitialDisplayPropertiesExpectation = expectation(description: "Expected a delegate function interstitialDisplayProperties to fire")
-        
+        viewControllerForModalPresentationExpectation = expectation(description: "Expected a viewControllerForModalPresentationExpectation delegate to fire")
+        // One call to check isAbleToShowCurrentCreative and one
+        // to showAsInterstitialFromRootViewController
+        viewControllerForModalPresentationExpectation?.expectedFulfillmentCount = 2
         // call the adViewManager delegate method.
         adViewManager.currentCreative = testCreative
         adViewManager.creativeViewWasClicked(testCreative)
@@ -305,6 +317,7 @@ class AdViewManagerTest: XCTestCase, PBMAdViewManagerDelegate {
     //MARK: PBMAdViewManagerDelegate
     
     func viewControllerForModalPresentation() -> UIViewController? {
+        fulfillOrFail(viewControllerForModalPresentationExpectation, "viewControllerForModalPresentationExpectation")
         return UIViewController()
     }
     
