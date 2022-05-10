@@ -18,6 +18,7 @@
 
 #import "PBMORTBBidExtPrebidCache.h"
 #import "PBMORTBExtPrebidPassthrough.h"
+#import "PBMORTBExtPrebidEvents.h"
 
 @implementation PBMORTBBidExtPrebid
 
@@ -49,6 +50,12 @@
         }
     }
     
+    PBMJsonDictionary * const eventsDic = jsonDictionary[@"events"];
+    
+    if (eventsDic) {
+        _events = [[PBMORTBExtPrebidEvents alloc] initWithJsonDictionary:eventsDic];
+    }
+    
     return self;
 }
 
@@ -67,6 +74,8 @@
     if (passthroughDicArr.count > 0) {
         ret[@"passthrough"] = passthroughDicArr;
     }
+    
+    ret[@"events"] = [self.events toJsonDictionary];
     
     [ret pbmRemoveEmptyVals];
     

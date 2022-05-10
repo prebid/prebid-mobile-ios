@@ -154,6 +154,7 @@ framework module PrebidMobile {
     header "PBMORTBAdConfiguration.h"
     header "PBMORTBBidExtSkadn.h"
     header "PBMORTBSkadnFidelity.h"
+    header "PBMORTBExtPrebidEvents.h"
     header "PBMORTBMacrosHelper.h"
     
     header "PBMORTBAppContent.h"
