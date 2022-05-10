@@ -28,6 +28,7 @@
 @class PBMOpenMeasurementSession;
 @class PBMOpenMeasurementWrapper;
 @class AdConfiguration;
+@class Bid;
 
 @protocol PBMServerConnectionProtocol;
 
@@ -40,11 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) PBMOpenMeasurementSession *measurementSession;
 @property (nonatomic, strong) PBMOpenMeasurementWrapper *measurementWrapper;
 
-/**
- SKAdNetwork parameters about an App Store product.
- Used in the StoreKit
- */
-@property (nonatomic, strong, nullable) PBMORTBBidExtSkadn *skadInfo;
+@property (nonatomic, strong, nullable) Bid *bid;
 
 @property (atomic, weak, nullable) id<PBMTransactionDelegate> delegate;
 

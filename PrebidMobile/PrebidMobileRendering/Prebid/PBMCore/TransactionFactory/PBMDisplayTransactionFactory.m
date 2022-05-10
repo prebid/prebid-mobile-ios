@@ -99,9 +99,6 @@
                                                         adConfiguration:self.adConfiguration.adConfiguration
                                                                  models:creativeModels];
     self.transaction.delegate = self;
-    if (self.bid.skadn) {
-        self.transaction.skadInfo = self.bid.skadn;
-    }
     [self.transaction startCreativeFactory];
 }
 

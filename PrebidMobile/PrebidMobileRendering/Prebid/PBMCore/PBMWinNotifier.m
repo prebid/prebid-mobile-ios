@@ -64,11 +64,14 @@
     NSString * const uuidUrl = [PBMWinNotifier cacheUrlFromTargeting:bid.targetingInfo idKey:@"hb_uuid"];
     NSString * const cacheUrl = [PBMWinNotifier cacheUrlFromTargeting:bid.targetingInfo idKey:@"hb_cache_id"];
     
+    NSString * const winEventUrl = bid.events.win;
+    
     PBMAdMarkupStringHandler chainedNotifications = adMarkupConsumer;
     chainedNotifications = chainNotificationAction(bid.nurl, chainedNotifications);
     chainedNotifications = chainNotificationAction(uuidUrl, chainedNotifications);
     chainedNotifications = chainNotificationAction(cacheUrl, chainedNotifications);
-    
+    // track win event
+    chainedNotifications = chainNotificationAction(winEventUrl, chainedNotifications);
     chainedNotifications(bid.adm); // launch chained events
 }
 

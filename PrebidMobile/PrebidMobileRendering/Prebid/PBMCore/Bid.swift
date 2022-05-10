@@ -50,6 +50,10 @@ public class Bid: NSObject {
         bid.ext.prebid?.targeting
     }
     
+    /**
+     SKAdNetwork parameters about an App Store product.
+     Used in the StoreKit
+     */
     @objc public var skadn: PBMORTBBidExtSkadn? {
         return bid.ext.skadn
     }
@@ -90,6 +94,10 @@ public class Bid: NSObject {
             }
         }
         return true
+    }
+    
+    @objc public var events: PBMORTBExtPrebidEvents? {
+        bid.ext.prebid?.events
     }
     
     @objc public private(set) var bid: PBMORTBBid<PBMORTBBidExt>
