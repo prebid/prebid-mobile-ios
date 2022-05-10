@@ -30,6 +30,7 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     override func tearDown() {
         UtilitiesForTesting.resetTargeting(targeting)
+        Prebid.reset()
     }
     
     func testAdPositionHeader() {
