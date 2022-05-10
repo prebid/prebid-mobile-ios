@@ -77,8 +77,14 @@ public class Bid: NSObject {
         guard let targetingInfo = self.targetingInfo else {
             return false
         }
+        
+        var winningBidMarkers = ["hb_pb", "hb_bidder", "hb_size"]
+        
+        if Prebid.shared.useCacheForReportingWithRenderingAPI {
+            winningBidMarkers.append("hb_cache_id")
+        }
 
-        for markerKey in ["hb_pb", "hb_bidder", "hb_size"] {
+        for markerKey in winningBidMarkers {
             if targetingInfo[markerKey] == nil {
                 return false
             }

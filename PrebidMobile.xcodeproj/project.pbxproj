@@ -65,6 +65,7 @@
 		47D9AFFB2F592206309C5FF0 /* ACJInterstitial.json in Resources */ = {isa = PBXBuildFile; fileRef = 47D9ADF3B4DA145410B2AFF6 /* ACJInterstitial.json */; };
 		53019E6127E9E40700D509C1 /* LogTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53019E6027E9E40700D509C1 /* LogTest.swift */; };
 		531CF21927E8FC1B005E5ABE /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531CF21827E8FC1B005E5ABE /* LogLevel.swift */; };
+		533135C6282A869800AA1E4D /* BidTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533135C5282A869800AA1E4D /* BidTest.swift */; };
 		5388F32627F46A7F00319FE4 /* AdViewButtonDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */; };
 		53E3910E27FCD60800DBA2F7 /* VideoParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */; };
 		53E45A0327FCD09C0095C0B2 /* BannerParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */; };
@@ -907,6 +908,7 @@
 		47D9AFC2B7BDC0ABEDC5FC65 /* 320x50.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 320x50.jpg; sourceTree = "<group>"; };
 		53019E6027E9E40700D509C1 /* LogTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogTest.swift; sourceTree = "<group>"; };
 		531CF21827E8FC1B005E5ABE /* LogLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
+		533135C5282A869800AA1E4D /* BidTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidTest.swift; sourceTree = "<group>"; };
 		5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewButtonDecorator.swift; sourceTree = "<group>"; };
 		53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoParameters.swift; sourceTree = "<group>"; };
 		53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerParameters.swift; sourceTree = "<group>"; };
@@ -2959,6 +2961,7 @@
 				927ADB2528058170006EB8D5 /* MediationAPI */,
 				925D5E2C2737ECEA00A8A2B5 /* PBMWinNotifierTest.swift */,
 				92F6720727F252E500EA3B8D /* BaseInterstitialAdUnitTest.swift */,
+				533135C5282A869800AA1E4D /* BidTest.swift */,
 			);
 			path = Prebid;
 			sourceTree = "<group>";
@@ -3940,6 +3943,7 @@
 				925D5E162737E77200A8A2B5 /* DemandResponseInfoTest.swift in Sources */,
 				92F6720827F252E500EA3B8D /* BaseInterstitialAdUnitTest.swift in Sources */,
 				925D5D9D2737C2FA00A8A2B5 /* DeviceInfoParameterBuilderTest.swift in Sources */,
+				533135C6282A869800AA1E4D /* BidTest.swift in Sources */,
 				922AFC9127352C9B00732C53 /* MockPBMWebView.swift in Sources */,
 				922AFCEE2736FC8600732C53 /* XCTest.swift in Sources */,
 				925D5E2D2737ECEA00A8A2B5 /* PBMWinNotifierTest.swift in Sources */,
