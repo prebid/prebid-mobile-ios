@@ -66,6 +66,20 @@ public class NativeAdMarkup: NSObject, JsonDecodable {
     /// This object is a placeholder that may contain custom JSON agreed to by the parties to support flexibility beyond the standard defined in this specification
     public var ext: [String: Any]?
     
+    convenience public init?(jsonString: String?) {
+        guard let jsonString = jsonString, !jsonString.isEmpty else {
+            Log.warn("The native ad markup json string is empty")
+            return nil
+        }
+        
+        guard let jsonDic = Utils.shared.getDictionaryFromString(jsonString) else {
+            Log.warn("The native ad markup json string can't be parsed")
+            return nil
+        }
+        
+        self.init(jsonDictionary: jsonDic)
+    }
+    
     public required init(jsonDictionary: [String: Any]) {
         guard !jsonDictionary.isEmpty else {
             Log.warn("The native ad markup json dicitonary is empty")

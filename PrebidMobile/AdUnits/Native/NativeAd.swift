@@ -39,6 +39,8 @@ import UIKit
     //Click Handling
     private var gestureRecognizerRecords = [NativeAdGestureRecognizerRecord]()
     
+    private var bid: Bid
+    
     // MARK: - Array getters
     
     @objc public var titles: [NativeTitle] {
@@ -94,22 +96,32 @@ import UIKit
     }
     
     public static func create(cacheId: String) -> NativeAd? {
-        
-        guard let bidInfo = CacheManager.shared.get(cacheId: cacheId),
-              let response = Utils.shared.getDictionaryFromString(bidInfo),
-              let adm = Utils.shared.getDictionary(from: response["adm"])
-        else {
-            Log.error("Invalid native contents")
+        guard let bidString = CacheManager.shared.get(cacheId: cacheId),
+              let bidDic = Utils.shared.getDictionaryFromString(bidString) else {
+            Log.error("No bid response for provided cache id.")
             return nil
         }
-        let ad = NativeAd()
-        let nativeAdMarkup = NativeAdMarkup(jsonDictionary: adm)
+        
+        guard let rawBid = PBMORTBBid<PBMORTBBidExt>(jsonDictionary: bidDic, extParser: { extDic in
+            return PBMORTBBidExt.init(jsonDictionary: extDic)
+        }) else {
+            return nil
+        }
+        
+        let ad = NativeAd(bid: Bid(bid: rawBid))
+        
+        guard let nativeAdMarkup = NativeAdMarkup(jsonString: ad.bid.adm) else {
+            Log.warn("Can't retrieve native ad markup from bid response.")
+            return nil
+        }
+        
         ad.nativeAdMarkup = nativeAdMarkup
         CacheManager.shared.delegate = ad
         return ad
     }
     
-    private override init() {
+    private init(bid: Bid) {
+        self.bid = bid
         super.init()
     }
     
@@ -201,6 +213,10 @@ import UIKit
             Log.debug("Firing impression trackers")
             fireEventTrackers()
             viewabilityTimer?.invalidate()
+            // firing impression event
+            if let impURL = bid.events?.imp {
+                PBMServerConnection.shared.fireAndForget(impURL)
+            }
             impressionHasBeenTracked = true
         }
     }

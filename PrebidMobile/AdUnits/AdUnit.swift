@@ -159,6 +159,11 @@ import ObjectiveC.runtime
     private func handleBidResponse(adObject: AnyObject, bidResponse: BidResponse, completion: (ResultCode) -> Void) {
         if let winningBid = bidResponse.winningBid {
             if self.adUnitConfig.adFormats.contains(AdFormat.native) {
+                // track win event
+                if let winURL = bidResponse.winningBid?.events?.win {
+                    PBMServerConnection.shared.fireAndForget(winURL)
+                }
+                
                 let expireInterval = TimeInterval(truncating: winningBid.bid.exp ?? CacheManager.cacheManagerExpireInterval as NSNumber)
                 do {
                     if let cacheId = CacheManager.shared.save(content: try winningBid.bid.toJsonString(), expireInterval: expireInterval), !cacheId.isEmpty {
