@@ -265,7 +265,28 @@ struct TestCaseManager {
                         
                 adapterVC.setup(adapter: bannerController)
                         
-               setupCustomParams(for: bannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner Events 320x50 (In-App)",
+                     tags: [.banner, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Prebid.shared.prebidServerAccountId = "prebid-stored-request-enabled-events"
+                
+                let bannerController = PrebidBannerController(rootController: adapterVC)
+                bannerController.adSizes = [CGSize(width: 320, height: 50)]
+                        
+                bannerController.prebidConfigId = "imp-prebid-banner-320-50";
+                bannerController.storedAuctionResponse = "response-prebid-banner-320-50"
+                        
+                adapterVC.setup(adapter: bannerController)
+                        
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [noBids]",
@@ -284,7 +305,7 @@ struct TestCaseManager {
                         
                 adapterVC.setup(adapter: bannerController)
                         
-               setupCustomParams(for: bannerController.prebidConfigId)
+                setupCustomParams(for: bannerController.prebidConfigId)
             }),
             
             TestCase(title: "Banner 320x50 (In-App) [Items]",
@@ -505,6 +526,28 @@ struct TestCaseManager {
                 setupCustomParams(for: gamBannerController.prebidConfigId)
             }),
             
+            TestCase(title: "Banner 320x50 Events (GAM) [OK, AppEvent]",
+                     tags: [.banner, .gam, .server, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Prebid.shared.prebidServerAccountId = "prebid-stored-request-enabled-events"
+                         
+                let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
+                gamBannerController.gamAdUnitId = "/21808260008/prebid_oxb_320x50_banner"
+                gamBannerController.validAdSizes = [kGADAdSizeBanner]
+                        
+                gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
+                        
+                adapterVC.setup(adapter: gamBannerController)
+                        
+                setupCustomParams(for: gamBannerController.prebidConfigId)
+            }),
+            
             TestCase(title: "Banner 320x50 (GAM) [OK, GAM Ad]",
                      tags: [.banner, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -564,9 +607,6 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
-                        
-                
-                        
                 let gamBannerController = PrebidGAMBannerController(rootController: adapterVC)
                 gamBannerController.prebidConfigId = "imp-prebid-banner-320-50"
                 gamBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
@@ -1966,6 +2006,28 @@ struct TestCaseManager {
                 setupCustomParams(for: admobBannerController.prebidConfigId)
             }),
             
+            TestCase(title: "Banner 320x50 Events (AdMob) [OK, OXB Adapter]",
+                     tags: [.banner, .admob, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Prebid.shared.prebidServerAccountId = "prebid-stored-request-enabled-events"
+                         
+                let admobBannerController = PrebidAdMobBannerViewController(rootController: adapterVC)
+                admobBannerController.adMobAdUnitId = "ca-app-pub-5922967660082475/9483570409"
+                admobBannerController.adUnitSize = CGSize(width: 320, height: 50);
+                        
+                admobBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                admobBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
+                 
+                adapterVC.setup(adapter: admobBannerController)
+                        
+                setupCustomParams(for: admobBannerController.prebidConfigId)
+            }),
+            
             TestCase(title: "Banner 320x50 (AdMob) [OK, Random]",
                      tags: [.banner, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -2320,6 +2382,27 @@ struct TestCaseManager {
                 setupCustomParams(for: nativeController.prebidConfigId)
             }),
             
+            TestCase(title: "Native Ad Events (AdMob) [OK, OXB Adapter]",
+                     tags: [.native, .admob, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Prebid.shared.prebidServerAccountId = "prebid-stored-request-enabled-events"
+                         
+                let nativeController = PrebidAdMobNativeViewController(rootController: adapterVC)
+                nativeController.adMobAdUnitId = "ca-app-pub-5922967660082475/8634069303"
+                nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
+                nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
+                nativeController.nativeAssets = .defaultNativeRequestAssets
+                nativeController.eventTrackers = .defaultNativeEventTrackers
+                         
+                adapterVC.setup(adapter: nativeController)
+                setupCustomParams(for: nativeController.prebidConfigId)
+            }),
+            
             TestCase(title: "Native Ad (AdMob) [noBids, GADNativeAd]",
                      tags: [.native, .admob, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -2349,6 +2432,29 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                let nativeAdController = PrebidNativeAdController(rootController: adapterVC)
+                nativeAdController.setupNativeAdView(NativeAdViewBox())
+
+                nativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
+                nativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
+
+                nativeAdController.nativeAssets = .defaultNativeRequestAssets
+                nativeAdController.eventTrackers = .defaultNativeEventTrackers
+                adapterVC.setup(adapter: nativeAdController)
+
+                setupCustomParams(for: nativeAdController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Native Ad Events (In-App)",
+                     tags: [.native, .inapp, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Prebid.shared.prebidServerAccountId = "prebid-stored-request-enabled-events"
+                         
                 let nativeAdController = PrebidNativeAdController(rootController: adapterVC)
                 nativeAdController.setupNativeAdView(NativeAdViewBox())
 
@@ -2438,6 +2544,32 @@ struct TestCaseManager {
                 setupCustomParams(for: gamNativeAdController.prebidConfigId)
             }),
 
+            
+            TestCase(title: "Native Ad Custom Templates Events (GAM) [OK, NativeAd]",
+                     tags: [.native, .gam,.server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Prebid.shared.prebidServerAccountId = "prebid-stored-request-enabled-events"
+                         
+                let gamNativeAdController = PrebidGAMNativeAdController(rootController: adapterVC)
+
+                gamNativeAdController.prebidConfigId = "imp-prebid-banner-native-styles"
+                gamNativeAdController.storedAuctionResponse = "response-prebid-banner-native-styles"
+                gamNativeAdController.gamAdUnitId = "/21808260008/apollo_custom_template_native_ad_unit"
+                gamNativeAdController.adTypes = [.customNative]
+                gamNativeAdController.gamCustomTemplateIDs = ["11934135"]
+
+                gamNativeAdController.nativeAssets = .defaultNativeRequestAssets
+                gamNativeAdController.eventTrackers = .defaultNativeEventTrackers
+
+                adapterVC.setup(adapter: gamNativeAdController)
+
+                setupCustomParams(for: gamNativeAdController.prebidConfigId)
+            }),
             TestCase(title: "Native Ad (GAM) [OK, GADNativeCustomTemplateAd]",
                      tags: [.native, .gam, .server],
                      exampleVCStoryboardID: "AdapterViewController",
@@ -2587,6 +2719,28 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
+                maxBannerController.maxAdUnitId = "5f111f4bcd0f58ca"
+                maxBannerController.adUnitSize = CGSize(width: 320, height: 50);
+                        
+                maxBannerController.prebidConfigId = "imp-prebid-banner-320-50"
+                maxBannerController.storedAuctionResponse = "response-prebid-banner-320-50"
+                 
+                adapterVC.setup(adapter: maxBannerController)
+                        
+                setupCustomParams(for: maxBannerController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Banner 320x50 Events (MAX) [OK, OXB Adapter]",
+                     tags: [.banner, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Prebid.shared.prebidServerAccountId = "prebid-stored-request-enabled-events"
+                         
                 let maxBannerController = PrebidMAXBannerController(rootController: adapterVC)
                 maxBannerController.maxAdUnitId = "5f111f4bcd0f58ca"
                 maxBannerController.adUnitSize = CGSize(width: 320, height: 50);
@@ -2942,6 +3096,27 @@ struct TestCaseManager {
                 guard let adapterVC = vc as? AdapterViewController else {
                     return
                 }
+                         
+                let nativeController = PrebidMAXNativeController(rootController: adapterVC)
+                nativeController.maxAdUnitId = "f4c3d8281ebf3c39"
+                nativeController.prebidConfigId = "imp-prebid-banner-native-styles"
+                nativeController.storedAuctionResponse = "response-prebid-banner-native-styles"
+                nativeController.nativeAssets = .defaultNativeRequestAssets
+                nativeController.eventTrackers = .defaultNativeEventTrackers
+                         
+                adapterVC.setup(adapter: nativeController)
+                setupCustomParams(for: nativeController.prebidConfigId)
+            }),
+            
+            TestCase(title: "Native Ad Events (MAX) [OK, OXB Adapter]",
+                     tags: [.native, .max, .server],
+                     exampleVCStoryboardID: "AdapterViewController",
+                     configurationClosure: { vc in
+                guard let adapterVC = vc as? AdapterViewController else {
+                    return
+                }
+                         
+                Prebid.shared.prebidServerAccountId = "prebid-stored-request-enabled-events"
                          
                 let nativeController = PrebidMAXNativeController(rootController: adapterVC)
                 nativeController.maxAdUnitId = "f4c3d8281ebf3c39"
