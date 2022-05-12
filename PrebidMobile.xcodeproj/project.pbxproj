@@ -68,6 +68,7 @@
 		533135C6282A869800AA1E4D /* BidTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533135C5282A869800AA1E4D /* BidTest.swift */; };
 		5388F32627F46A7F00319FE4 /* AdViewButtonDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */; };
 		53D934FF282CE62E0092E243 /* AgeUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D934FE282CE62E0092E243 /* AgeUtils.swift */; };
+		53D93505282CEA900092E243 /* DateFormatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D93504282CEA900092E243 /* DateFormatService.swift */; };
 		53E3910E27FCD60800DBA2F7 /* VideoParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */; };
 		53E45A0327FCD09C0095C0B2 /* BannerParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */; };
 		53EF49E927D61CAC00648F0E /* AgeUtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EF49E827D61CAC00648F0E /* AgeUtilsTest.swift */; };
@@ -173,7 +174,6 @@
 		5BC37913271F1CFF00444D5E /* PBMDownloadDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376B5271F1CFE00444D5E /* PBMDownloadDataHelper.m */; };
 		5BC37914271F1CFF00444D5E /* PBMCircularProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376B6271F1CFE00444D5E /* PBMCircularProgressBarView.m */; };
 		5BC37915271F1CFF00444D5E /* PBMCircularProgressBarLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376B7271F1CFE00444D5E /* PBMCircularProgressBarLayer.h */; };
-		5BC37916271F1CFF00444D5E /* PBMDateFormatService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376B8271F1CFE00444D5E /* PBMDateFormatService.m */; };
 		5BC37917271F1CFF00444D5E /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376B9271F1CFE00444D5E /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC37918271F1CFF00444D5E /* PBMUserAgentService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376BA271F1CFE00444D5E /* PBMUserAgentService.h */; };
 		5BC37919271F1CFF00444D5E /* PBMUserConsentDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376BB271F1CFE00444D5E /* PBMUserConsentDataManager.m */; };
@@ -209,7 +209,6 @@
 		5BC3793B271F1D0000444D5E /* PBMVoidBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DE271F1CFE00444D5E /* PBMVoidBlock.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC3793C271F1D0000444D5E /* PBMUserConsentDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376DF271F1CFE00444D5E /* PBMUserConsentDataManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BC3793D271F1D0000444D5E /* PBMUserAgentService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376E0271F1CFE00444D5E /* PBMUserAgentService.m */; };
-		5BC3793E271F1D0000444D5E /* PBMDateFormatService.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376E1271F1CFE00444D5E /* PBMDateFormatService.h */; };
 		5BC3793F271F1D0000444D5E /* PBMCircularProgressBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BC376E2271F1CFE00444D5E /* PBMCircularProgressBarLayer.m */; };
 		5BC37940271F1D0000444D5E /* PBMCircularProgressBarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376E3271F1CFE00444D5E /* PBMCircularProgressBarView.h */; };
 		5BC37941271F1D0000444D5E /* PBMReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BC376E4271F1CFE00444D5E /* PBMReachability.h */; };
@@ -910,6 +909,7 @@
 		533135C5282A869800AA1E4D /* BidTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BidTest.swift; sourceTree = "<group>"; };
 		5388F32527F46A7F00319FE4 /* AdViewButtonDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewButtonDecorator.swift; sourceTree = "<group>"; };
 		53D934FE282CE62E0092E243 /* AgeUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeUtils.swift; sourceTree = "<group>"; };
+		53D93504282CEA900092E243 /* DateFormatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatService.swift; sourceTree = "<group>"; };
 		53E3910D27FCD60800DBA2F7 /* VideoParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoParameters.swift; sourceTree = "<group>"; };
 		53E45A0227FCD09C0095C0B2 /* BannerParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerParameters.swift; sourceTree = "<group>"; };
 		53EF49E827D61CAC00648F0E /* AgeUtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeUtilsTest.swift; sourceTree = "<group>"; };
@@ -1015,7 +1015,6 @@
 		5BC376B5271F1CFE00444D5E /* PBMDownloadDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDownloadDataHelper.m; sourceTree = "<group>"; };
 		5BC376B6271F1CFE00444D5E /* PBMCircularProgressBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMCircularProgressBarView.m; sourceTree = "<group>"; };
 		5BC376B7271F1CFE00444D5E /* PBMCircularProgressBarLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMCircularProgressBarLayer.h; sourceTree = "<group>"; };
-		5BC376B8271F1CFE00444D5E /* PBMDateFormatService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMDateFormatService.m; sourceTree = "<group>"; };
 		5BC376B9271F1CFE00444D5E /* PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PBMDeepLinkPlusHelper+PBMExternalLinkHandler.h"; sourceTree = "<group>"; };
 		5BC376BA271F1CFE00444D5E /* PBMUserAgentService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMUserAgentService.h; sourceTree = "<group>"; };
 		5BC376BB271F1CFE00444D5E /* PBMUserConsentDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMUserConsentDataManager.m; sourceTree = "<group>"; };
@@ -1052,7 +1051,6 @@
 		5BC376DE271F1CFE00444D5E /* PBMVoidBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMVoidBlock.h; sourceTree = "<group>"; };
 		5BC376DF271F1CFE00444D5E /* PBMUserConsentDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMUserConsentDataManager.h; sourceTree = "<group>"; };
 		5BC376E0271F1CFE00444D5E /* PBMUserAgentService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMUserAgentService.m; sourceTree = "<group>"; };
-		5BC376E1271F1CFE00444D5E /* PBMDateFormatService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMDateFormatService.h; sourceTree = "<group>"; };
 		5BC376E2271F1CFE00444D5E /* PBMCircularProgressBarLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBMCircularProgressBarLayer.m; sourceTree = "<group>"; };
 		5BC376E3271F1CFE00444D5E /* PBMCircularProgressBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMCircularProgressBarView.h; sourceTree = "<group>"; };
 		5BC376E4271F1CFE00444D5E /* PBMReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBMReachability.h; sourceTree = "<group>"; };
@@ -2022,8 +2020,6 @@
 				5BC376B6271F1CFE00444D5E /* PBMCircularProgressBarView.m */,
 				5BC376B4271F1CFE00444D5E /* PBMConstants.h */,
 				5BC376CD271F1CFE00444D5E /* PBMConstants.m */,
-				5BC376E1271F1CFE00444D5E /* PBMDateFormatService.h */,
-				5BC376B8271F1CFE00444D5E /* PBMDateFormatService.m */,
 				5BC376CC271F1CFE00444D5E /* PBMDeepLinkPlus.h */,
 				5BC376B3271F1CFE00444D5E /* PBMDeepLinkPlus.m */,
 				5BC376E6271F1CFE00444D5E /* PBMDeepLinkPlusHelper.h */,
@@ -2064,6 +2060,7 @@
 				5BC376B2271F1CFE00444D5E /* PBMWindowLocker.m */,
 				5BC376AD271F1CFE00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.h */,
 				5BC376C5271F1CFE00444D5E /* PBMWKScriptMessageHandlerLeakAvoider.m */,
+				53D93504282CEA900092E243 /* DateFormatService.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -3416,7 +3413,6 @@
 				5BC3795F271F1D0000444D5E /* PBMVastCreativeNonLinearAds.h in Headers */,
 				5BC37986271F1D0000444D5E /* PBMClickthroughBrowserView+NavigationHandler.h in Headers */,
 				5BC379D8271F1D0000444D5E /* PBMDisplayView+InternalState.h in Headers */,
-				5BC3793E271F1D0000444D5E /* PBMDateFormatService.h in Headers */,
 				5BC37A6B271F1D0000444D5E /* PBMORTBNoBidReason.h in Headers */,
 				5BC3799A271F1D0000444D5E /* PBMModalViewController.h in Headers */,
 				5BC37A9C271F1D0000444D5E /* PBMAdLoaderProtocol.h in Headers */,
@@ -4010,7 +4006,6 @@
 				5BC37990271F1D0000444D5E /* PBMVideoCreative.m in Sources */,
 				FAEE4D2A262DC2B200AD9966 /* IMAUtils.swift in Sources */,
 				5BC379E0271F1D0000444D5E /* DisplayViewInteractionDelegate.swift in Sources */,
-				5BC37916271F1CFF00444D5E /* PBMDateFormatService.m in Sources */,
 				5BC37AA5271F1D0000444D5E /* MediationBaseInterstitialAdUnit.swift in Sources */,
 				5BC3797D271F1D0000444D5E /* PBMHTMLFormatter.m in Sources */,
 				9236A64E272FEAFE00ABBEF4 /* ImpressionTasksExecutor.swift in Sources */,
@@ -4137,6 +4132,7 @@
 				5BC37A85271F1D0000444D5E /* BannerEventLoadingDelegate.swift in Sources */,
 				5BC37A8D271F1D0000444D5E /* InterstitialRenderingAdUnit.swift in Sources */,
 				5BC379C0271F1D0000444D5E /* PBMInterstitialDisplayProperties.m in Sources */,
+				53D93505282CEA900092E243 /* DateFormatService.swift in Sources */,
 				5BC378AF271F1CFF00444D5E /* PBMNetworkType.m in Sources */,
 				5BC3793D271F1D0000444D5E /* PBMUserAgentService.m in Sources */,
 				924F661E27FDBC3100C8DAF7 /* PBMORTBExtPrebidPassthrough.m in Sources */,

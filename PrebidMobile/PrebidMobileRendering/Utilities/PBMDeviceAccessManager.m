@@ -21,8 +21,10 @@
 #import "PBMDeviceAccessManager.h"
 #import "PBMDeviceAccessManagerKeys.h"
 #import "PBMFunctions+Private.h"
-#import "PBMDateFormatService.h"
 #include <sys/sysctl.h>
+
+#import "PrebidMobileSwiftHeaders.h"
+#import <PrebidMobile/PrebidMobile-Swift.h>
 
 #pragma mark - PBMAddEventViewController
 
@@ -404,7 +406,7 @@ static EKEventStore * eventStore = nil;
     newEvent.title = description;
     newEvent.location = location;
     
-    NSDate *theDate = [[PBMDateFormatService shared] formatISO8601ForString:start];
+    NSDate *theDate = [[DateFormatService shared] formatISO8601For:start];
     if (!theDate) {
         if (completion) {
             completion(false, @"Invalid start time");
@@ -416,7 +418,7 @@ static EKEventStore * eventStore = nil;
     newEvent.startDate = theDate;
     
     if (!end) {
-        NSDate *endDate = [[PBMDateFormatService shared] formatISO8601ForString:end];
+        NSDate *endDate = [[DateFormatService shared] formatISO8601For:end];
         if (endDate) {
             newEvent.endDate = endDate;
         } else {
@@ -435,7 +437,7 @@ static EKEventStore * eventStore = nil;
     }
     
     if (reminder) {
-        NSDate *theReminderDate = [[PBMDateFormatService shared] formatISO8601ForString:reminder];
+        NSDate *theReminderDate = [[DateFormatService shared] formatISO8601For:reminder];
         if (theReminderDate) {
             [newEvent addAlarm:[EKAlarm alarmWithAbsoluteDate:theReminderDate]];
         } else {
@@ -486,7 +488,7 @@ static EKEventStore * eventStore = nil;
     }
     
     NSString *expiresString = dict[PBMDeviceAccessManagerKeys.EXPIRES];
-    NSDate* expiresDate = [[PBMDateFormatService shared] formatISO8601ForString:expiresString];
+    NSDate* expiresDate = [[DateFormatService shared] formatISO8601For:expiresString];
     EKRecurrenceEnd *expires = expiresDate ? [EKRecurrenceEnd recurrenceEndWithEndDate:expiresDate] : nil;
     
     NSArray<NSNumber *> *diw = dict[PBMDeviceAccessManagerKeys.DAYS_IN_WEEK];
