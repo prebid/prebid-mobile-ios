@@ -72,7 +72,7 @@ class RewardedVideoEventsTest : XCTestCase, PBMCreativeViewDelegate {
         
         //Create CreativeModel
         
-        let adLoadManager = MockPBMAdLoadManagerVAST(connection:connection, adConfiguration: self.initAdConfiguration())
+        let adLoadManager = MockPBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection:connection, adConfiguration: self.initAdConfiguration())
         
         adLoadManager.mock_requestCompletedSuccess = { response in
             self.vastServerResponse = response

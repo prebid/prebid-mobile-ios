@@ -42,7 +42,7 @@ class PBMVastLoaderTestOMVerificationOneInline: XCTestCase {
         let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]
         
-        let adLoadManager = MockPBMAdLoadManagerVAST(connection:conn, adConfiguration: adConfiguration)
+        let adLoadManager = MockPBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection:conn, adConfiguration: adConfiguration)
         
         adLoadManager.mock_requestCompletedSuccess = { response in
             self.requestCompletedSuccess(response)

@@ -46,7 +46,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
         
         let adConfiguration = AdConfiguration()
         
-        let adLoadManager = MockPBMAdLoadManagerVAST(connection:conn, adConfiguration: adConfiguration)
+        let adLoadManager = MockPBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection:conn, adConfiguration: adConfiguration)
         
         adLoadManager.mock_requestCompletedSuccess = { response in
             self.vastServerResponse = response
@@ -77,7 +77,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
         let conn = PBMServerConnection()
         let adConfiguration = AdConfiguration()
         
-        let adLoadManager = MockPBMAdLoadManagerVAST(connection:conn, adConfiguration: adConfiguration)
+        let adLoadManager = MockPBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection:conn, adConfiguration: adConfiguration)
         
         adLoadManager.mock_requestCompletedSuccess = { response in
             self.vastServerResponse = response
@@ -108,7 +108,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
         self.successfulExpectation = self.expectation(description: "Expected VAST Load to be successful")
         
         let conn = UtilitiesForTesting.createConnectionForMockedTest()
-        let adLoadManager = MockPBMAdLoadManagerVAST(connection:conn, adConfiguration: adConfiguration)
+        let adLoadManager = MockPBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection:conn, adConfiguration: adConfiguration)
         
         adLoadManager.mock_requestCompletedSuccess = { response in
             self.vastServerResponse = response
@@ -158,7 +158,7 @@ class PBMAdRequesterVASTTest: XCTestCase {
         adConfiguration.videoParameters.maxDuration = SingleContainerInt(integerLiteral: 1)
                 
         let conn = UtilitiesForTesting.createConnectionForMockedTest()
-        let adLoadManager = MockPBMAdLoadManagerVAST(connection:conn, adConfiguration: adConfiguration)
+        let adLoadManager = MockPBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection:conn, adConfiguration: adConfiguration)
         
         adLoadManager.mock_requestCompletedSuccess = { response in
             self.vastServerResponse = response

@@ -18,15 +18,15 @@ import XCTest
 
 @testable import PrebidMobile
 
-class MockInterstitialAdUnit: InterstitialRenderingAdUnit, WinningBidResponseFabricator {
+class MockInterstitialAdUnit: InterstitialRenderingAdUnit {
     override var lastBidResponse: BidResponse? {
-        return makeWinningBidResponse(bidPrice: 0.85)
+        return WinningBidResponseFabricator.makeWinningBidResponse(bidPrice: 0.85)
     }
 }
 
-class MockRewardedAdUnit: RewardedAdUnit, WinningBidResponseFabricator {
+class MockRewardedAdUnit: RewardedAdUnit {
     override var lastBidResponse: BidResponse? {
-        return makeWinningBidResponse(bidPrice: 0.85)
+        return WinningBidResponseFabricator.makeWinningBidResponse(bidPrice: 0.85)
     }
 }
 
