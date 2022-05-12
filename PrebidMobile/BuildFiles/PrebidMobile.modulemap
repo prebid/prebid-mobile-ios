@@ -111,6 +111,7 @@ framework module PrebidMobile {
     header "PBMOpenMeasurementSession.h"
     header "PBMVideoVerificationParameters.h"
     header "PBMEventTrackerProtocol.h"
+    header "PBMEventManager.h"
     header "PBMOpenMeasurementFriendlyObstructionPurpose.h"
     header "PBMTrackingEvent.h"
     

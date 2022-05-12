@@ -38,5 +38,5 @@
 #import "PBMInterstitialAdLoaderDelegate.h"
 
 #import "PBMEventTrackerProtocol.h"
-
+#import "PBMEventManager.h"
 #import "PBMInterstitialDisplayProperties.h"
