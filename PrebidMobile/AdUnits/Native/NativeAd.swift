@@ -39,7 +39,7 @@ import UIKit
     //Click Handling
     private var gestureRecognizerRecords = [NativeAdGestureRecognizerRecord]()
     
-    private var impURL: String?
+    private let eventManager = PBMEventManager()
     
     // MARK: - Array getters
     
@@ -108,12 +108,16 @@ import UIKit
             return nil
         }
 
-        // track win event
         if let winURL = rawBid.ext.prebid?.events?.win {
             PBMServerConnection.shared.fireAndForget(winURL)
         }
         
         let ad = NativeAd()
+        
+        if let impURL = rawBid.ext.prebid?.events?.imp {
+            let internalImpressionEventTracker = InternalEventTracker(url: impURL, expectedEventType: .impression)
+            ad.eventManager.registerTracker(internalImpressionEventTracker)
+        }
         
         guard let nativeAdMarkup = NativeAdMarkup(jsonString: rawBid.adm) else {
             Log.warn("Can't retrieve native ad markup from bid response.")
@@ -217,10 +221,7 @@ import UIKit
             Log.debug("Firing impression trackers")
             fireEventTrackers()
             viewabilityTimer?.invalidate()
-            // firing impression event
-            if let impURL = impURL {
-                PBMServerConnection.shared.fireAndForget(impURL)
-            }
+            eventManager.trackEvent(PBMTrackingEvent.impression)
             impressionHasBeenTracked = true
         }
     }
