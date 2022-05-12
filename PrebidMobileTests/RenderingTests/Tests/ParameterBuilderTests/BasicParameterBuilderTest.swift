@@ -154,51 +154,13 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         adUnit = InterstitialRenderingAdUnit.init(configID: "configId", eventHandler: InterstitialEventHandlerStandalone())
         checkDefaultParametersForAdUnit(adConfiguration: adUnit.adUnitConfig.adConfiguration)
-    }
-    
-    func checkDefaultParametersForAdUnit(adConfiguration: AdConfiguration) {
-        let sdkConfiguration = Prebid.mock
         
-        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
-                                               sdkConfiguration:sdkConfiguration,
-                                               sdkVersion:"MOCK_SDK_VERSION",
-                                               targeting: targeting)
+        var mediationAdUnit = MediationInterstitialAdUnit.init(configId: "configId", mediationDelegate: MockMediationUtils(adObject: MockAdObject()))
         
-        let bidRequest = PBMORTBBidRequest()
-        builder.build(bidRequest)
+        checkDefaultParametersForAdUnit(adConfiguration: mediationAdUnit.adUnitConfig.adConfiguration)
         
-        //Check that this is counted as an interstitial
-        PBMAssertEq(bidRequest.imp.count, 1)
-        guard let imp = bidRequest.imp.first else {
-            XCTFail("No Imp object!")
-            return
-        }
-        
-        PBMAssertEq(imp.instl, 1)
-        
-        // Multiformat is default for interstitial ad unit
-        guard let banner = imp.banner else {
-            XCTFail("No banner object!")
-            return
-        }
-        
-        guard let video = imp.video else {
-            XCTFail("No video object!")
-            return
-        }
-        
-        // default values for banner object
-        XCTAssertEqual(banner.api, [])
-        XCTAssertEqual(banner.format, [])
-        
-        // default values for video object
-        XCTAssertEqual(video.mimes, PBMConstants.supportedVideoMimeTypes)
-        XCTAssertEqual(video.protocols, [2, 5])
-        XCTAssertEqual(video.playbackend, 2)
-        XCTAssertEqual(video.delivery, [3])
-        XCTAssertEqual(video.pos, 7)
-        XCTAssertEqual(video.api, [])
-        XCTAssertEqual(video.linearity, 1)
+        mediationAdUnit = MediationInterstitialAdUnit.init(configId: "configId", minSizePercentage: CGSize.zero, mediationDelegate: MockMediationUtils(adObject: MockAdObject()))
+        checkDefaultParametersForAdUnit(adConfiguration: mediationAdUnit.adUnitConfig.adConfiguration)
     }
     
     func testParameterBuilderOutstream() {
@@ -393,5 +355,52 @@ class PBMBasicParameterBuilderTest: XCTestCase {
         
         //Check Regs
         XCTAssertNil(bidRequest.regs.coppa)
+    }
+    
+    // MARK: - Helpers
+    
+    func checkDefaultParametersForAdUnit(adConfiguration: AdConfiguration) {
+        let sdkConfiguration = Prebid.mock
+        
+        let builder = PBMBasicParameterBuilder(adConfiguration:adConfiguration,
+                                               sdkConfiguration:sdkConfiguration,
+                                               sdkVersion:"MOCK_SDK_VERSION",
+                                               targeting: targeting)
+        
+        let bidRequest = PBMORTBBidRequest()
+        builder.build(bidRequest)
+        
+        //Check that this is counted as an interstitial
+        PBMAssertEq(bidRequest.imp.count, 1)
+        guard let imp = bidRequest.imp.first else {
+            XCTFail("No Imp object!")
+            return
+        }
+        
+        PBMAssertEq(imp.instl, 1)
+        
+        // Multiformat is default for interstitial ad unit
+        guard let banner = imp.banner else {
+            XCTFail("No banner object!")
+            return
+        }
+        
+        guard let video = imp.video else {
+            XCTFail("No video object!")
+            return
+        }
+        
+        // default values for banner object
+        XCTAssertEqual(banner.api, [])
+        XCTAssertEqual(banner.format, [])
+        
+        // default values for video object
+        XCTAssertEqual(video.mimes, PBMConstants.supportedVideoMimeTypes)
+        XCTAssertEqual(video.protocols, [2, 5])
+        XCTAssertEqual(video.playbackend, 2)
+        XCTAssertEqual(video.delivery, [3])
+        XCTAssertEqual(video.pos, 7)
+        XCTAssertEqual(video.api, [])
+        XCTAssertEqual(video.linearity, 1)
     }
 }
