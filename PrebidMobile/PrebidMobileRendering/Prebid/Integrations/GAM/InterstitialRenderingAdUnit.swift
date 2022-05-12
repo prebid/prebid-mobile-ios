@@ -37,6 +37,7 @@ public class InterstitialRenderingAdUnit: BaseInterstitialAdUnit {
         super.init(configID: configID,
                    minSizePerc: nil,
                    eventHandler: InterstitialEventHandlerStandalone())
+        adUnitConfig.adConfiguration.adFormats = [.display, .video]
     }
 
     @objc public init(configID: String, minSizePercentage: CGSize) {
@@ -44,20 +45,23 @@ public class InterstitialRenderingAdUnit: BaseInterstitialAdUnit {
             configID: configID,
             minSizePerc: NSValue(cgSize: minSizePercentage),
             eventHandler: InterstitialEventHandlerStandalone())
+        adUnitConfig.adConfiguration.adFormats = [.display, .video]
     }
 
-    @objc public init(configID: String, minSizePercentage:CGSize, eventHandler: AnyObject) {
+    @objc public init(configID: String, minSizePercentage: CGSize, eventHandler: AnyObject) {
         super.init(
             configID: configID,
             minSizePerc: NSValue(cgSize: minSizePercentage),
             eventHandler: eventHandler)
+        adUnitConfig.adConfiguration.adFormats = [.display, .video]
     }
     
-    @objc required init(configID:String, minSizePerc: NSValue?, eventHandler:AnyObject?) {
+    @objc required init(configID: String, minSizePerc: NSValue?, eventHandler: AnyObject?) {
         super.init(
             configID: configID,
             minSizePerc: minSizePerc,
             eventHandler: eventHandler)
+        adUnitConfig.adConfiguration.adFormats = [.display, .video]
     }
     
     // MARK: - Protected overrides
