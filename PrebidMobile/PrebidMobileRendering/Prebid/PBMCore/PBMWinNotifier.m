@@ -71,7 +71,9 @@
     chainedNotifications = chainNotificationAction(uuidUrl, chainedNotifications);
     chainedNotifications = chainNotificationAction(cacheUrl, chainedNotifications);
     // track win event
-    chainedNotifications = chainNotificationAction(winEventUrl, chainedNotifications);
+    if (winEventUrl) {
+        chainedNotifications = chainNotificationAction(winEventUrl, chainedNotifications);
+    }
     chainedNotifications(bid.adm); // launch chained events
 }
 

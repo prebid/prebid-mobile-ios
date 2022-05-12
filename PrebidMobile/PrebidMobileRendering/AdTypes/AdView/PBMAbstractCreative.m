@@ -426,7 +426,9 @@
     [self onWillTrackImpression];
     [self.eventManager trackEvent:PBMTrackingEventImpression];
     // track imp event
-    [PBMServerConnection.shared fireAndForget:self.transaction.bid.events.imp];
+    if (self.transaction.bid.events.imp) {
+        [PBMServerConnection.shared fireAndForget:self.transaction.bid.events.imp];
+    }
 }
 
 @end
