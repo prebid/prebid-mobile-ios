@@ -28,7 +28,7 @@
 @class PBMOpenMeasurementSession;
 @class PBMOpenMeasurementWrapper;
 @class AdConfiguration;
-@class Bid;
+@class PBMORTBBidExtSkadn;
 
 @protocol PBMServerConnectionProtocol;
 
@@ -41,7 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) PBMOpenMeasurementSession *measurementSession;
 @property (nonatomic, strong) PBMOpenMeasurementWrapper *measurementWrapper;
 
-@property (nonatomic, strong, nullable) Bid *bid;
+@property (nonatomic, strong, nullable) PBMORTBBidExtSkadn *skadnInfo;
+@property (nonatomic, strong, nullable) NSString *impURL;
 
 @property (atomic, weak, nullable) id<PBMTransactionDelegate> delegate;
 

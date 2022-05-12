@@ -19,6 +19,7 @@
 #import "PBMTransactionDelegate.h"
 
 @class AdConfiguration;
+@class Bid;
 @protocol PBMServerConnectionProtocol;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -27,8 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id<PBMAdLoadManagerDelegate> adLoadManagerDelegate;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
-                   adConfiguration:(AdConfiguration *)adConfiguration;
+- (instancetype)initWithBid:(Bid *)bid
+                 connection:(id<PBMServerConnectionProtocol>)connection
+            adConfiguration:(AdConfiguration *)adConfiguration;
 
 @end
 NS_ASSUME_NONNULL_END

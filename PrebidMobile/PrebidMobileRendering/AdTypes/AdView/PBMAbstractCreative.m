@@ -77,15 +77,21 @@
         }
         
         if(@available(iOS 14.5, *)) {
-            if (self.transaction.bid.skadn) {
-                SKAdImpression *imp = [SkadnParametersManager getSkadnImpressionFor:self.transaction.bid.skadn];
+            if (self.transaction.skadnInfo) {
+                SKAdImpression *imp = [SkadnParametersManager getSkadnImpressionFor:self.transaction.skadnInfo];
                 if (imp) {
                     SkadnEventTracker *skadnTracker = [[SkadnEventTracker alloc] initWith:imp];
                     [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) skadnTracker];
                 }
             }
         }
-
+        
+        NSString *impURL = self.transaction.impURL;
+        
+        if (impURL) {
+            InternalEventTracker *impEventTracker = [[InternalEventTracker alloc] initWithUrl:impURL expectedEventType:PBMTrackingEventImpression];
+            [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) impEventTracker];
+        }
     }
 
     return self;
@@ -196,7 +202,7 @@
         return;
     }
     BOOL clickthroughOpened = NO;
-    PBMJsonDictionary * skadnetProductParameters = [SkadnParametersManager getSkadnProductParametersFor:self.transaction.bid.skadn];
+    PBMJsonDictionary * skadnetProductParameters = [SkadnParametersManager getSkadnProductParametersFor:self.transaction.skadnInfo];
     
     if (skadnetProductParameters) {
         clickthroughOpened = [self handleProductClickthrough:url
@@ -425,10 +431,6 @@
     [self.creativeViewDelegate creativeDidDisplay:self];
     [self onWillTrackImpression];
     [self.eventManager trackEvent:PBMTrackingEventImpression];
-    // track imp event
-    if (self.transaction.bid.events.imp) {
-        [PBMServerConnection.shared fireAndForget:self.transaction.bid.events.imp];
-    }
 }
 
 @end
