@@ -13,18 +13,21 @@
  limitations under the License.
  */
 
-#import "PBMAgeUtils.h"
+import Foundation
 
-@implementation PBMAgeUtils
+@objcMembers
+public class AgeUtils: NSObject {
+    
+    static func isYOBValid(_ yob: Int) -> Bool {        
+        let date = Date()
+        let calendar = Calendar.current
 
-+ (BOOL)isYOBValid:(NSInteger)yob {
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
-    NSInteger year = [components year];
-    if(yob <= 1900 || yob >= year) {
-        return NO;
-    } else {
-        return YES;
+        let year = calendar.component(.year, from: date)
+
+        if (yob <= 1900 || yob >= year) {
+            return false
+        } else {
+            return true
+        }
     }
 }
-
-@end

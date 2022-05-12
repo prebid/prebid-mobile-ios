@@ -170,5 +170,4 @@ framework module PrebidMobile {
     header "PBMInterstitialAdLoader.h"
     header "PBMInterstitialAdLoaderDelegate.h"
     
-    header "PBMAgeUtils.h"
 }
