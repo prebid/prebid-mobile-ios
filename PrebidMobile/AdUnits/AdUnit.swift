@@ -66,6 +66,9 @@ import ObjectiveC.runtime
         adUnitConfig = AdUnitConfig(configId: configId, size: size ?? CGSize.zero)
         identifier = UUID.init().uuidString
         super.init()
+        
+        // PBS should cache the bid for original api.
+        Prebid.shared.useCacheForReportingWithRenderingAPI = true
     }
 
     //TODO: dynamic is used by tests

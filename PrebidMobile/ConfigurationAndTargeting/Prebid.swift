@@ -90,6 +90,12 @@ public class Prebid: NSObject {
 
     // MARK: - Public Properties (SDK)
     
+    
+    //Indicates whether the PBS should cache the bid for the rendering API.
+    //If the value is true the SDK will make the cache request in order to report
+    //the impression event respectively to the legacy analytic setup.
+    public var useCacheForReportingWithRenderingAPI = false
+    
     //Controls how long each creative has to load before it is considered a failure.
     public var creativeFactoryTimeout: TimeInterval = 6.0
 

@@ -47,7 +47,7 @@ public class Targeting: NSObject {
      * This method set the year of birth value
      */
     public func setYearOfBirth(yob: Int) {
-        if PBMAgeUtils.isYOBValid(yob) {
+        if AgeUtils.isYOBValid(yob) {
             yearofbirth = yob
         } else {
             Log.error("Incorrect birth year. It will be ignored.")

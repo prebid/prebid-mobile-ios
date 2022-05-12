@@ -20,16 +20,18 @@ protocol RawWinningBidFabricator {
 }
 
 extension RawWinningBidFabricator {
-    func makeRawWinningBid(price: Double, bidder: String, cacheID: String) -> PBMORTBBid<PBMORTBBidExt> {
+    func makeRawWinningBid(price: Double, bidder: String?, cacheID: String?) -> PBMORTBBid<PBMORTBBidExt> {
         let rawBid = PBMORTBBid<PBMORTBBidExt>()
         rawBid.price = NSNumber(value: price)
         rawBid.ext = .init()
         rawBid.ext.prebid = .init()
         rawBid.ext.prebid?.targeting = [
             "hb_pb": "\(NSString(format: "%4.2f", price))",
-            "hb_bidder": bidder,
-            "hb_cache_id": cacheID,
+            "hb_size": "300x250"
         ]
+        
+        rawBid.ext.prebid?.targeting!["hb_bidder"] = bidder
+        rawBid.ext.prebid?.targeting!["hb_cache_id"] = cacheID
         return rawBid
     }
 }

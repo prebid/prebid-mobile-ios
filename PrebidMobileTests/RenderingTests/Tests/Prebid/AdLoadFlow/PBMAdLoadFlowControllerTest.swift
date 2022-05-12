@@ -21,6 +21,12 @@ import XCTest
 class PBMAdLoadFlowControllerTest: XCTestCase {
     private typealias CompositeMock = PBMAdLoadFlowControllerTest_CompositeMock
     
+    override func setUp() {
+        super.setUp()
+        
+        Prebid.reset()
+    }
+    
     func testNoImmediateCalls() {
         let compositeMock = CompositeMock(expectedCalls: [])
         let flowController = PBMAdLoadFlowController(bidRequesterFactory: compositeMock.mockRequesterFactory,

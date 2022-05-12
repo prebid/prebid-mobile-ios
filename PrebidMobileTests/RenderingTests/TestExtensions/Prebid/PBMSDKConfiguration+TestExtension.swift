@@ -32,6 +32,8 @@ extension Prebid {
         
         Prebid.shared.timeoutMillis = 2000
         
+        Prebid.shared.useCacheForReportingWithRenderingAPI = false
+        
         Prebid.forcedIsViewable = false
         Prebid.shared.clearCustomHeaders()
         Prebid.shared.clearStoredBidResponses()

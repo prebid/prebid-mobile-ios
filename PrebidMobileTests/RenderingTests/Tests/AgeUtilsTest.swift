@@ -13,14 +13,23 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
+import Foundation
+import XCTest
 
-NS_ASSUME_NONNULL_BEGIN
+@testable import PrebidMobile
 
-@interface PBMAgeUtils: NSObject
-
-+ (BOOL)isYOBValid:(NSInteger)yob;
-
-@end
-
-NS_ASSUME_NONNULL_END
+class AgeUtilsTest: XCTestCase {
+    
+    func testIsYOBValid() {
+        let age = 1985
+        XCTAssertTrue(AgeUtils.isYOBValid(age))
+    }
+    
+    func testIsYOBValidWrong() {
+        let age1 = 1800
+        XCTAssertFalse(AgeUtils.isYOBValid(age1))
+        
+        let age2 = 2100
+        XCTAssertFalse(AgeUtils.isYOBValid(age2))
+    }
+}

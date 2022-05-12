@@ -31,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) NSArray<NSDictionary<NSString *, NSString*> *> *storedBidResponses;
 
+@property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, id> *cache;
+
 @end
 
 NS_ASSUME_NONNULL_END

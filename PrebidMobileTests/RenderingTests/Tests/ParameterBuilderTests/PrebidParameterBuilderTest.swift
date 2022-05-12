@@ -23,12 +23,14 @@ class PrebidParameterBuilderTest: XCTestCase {
     
     override func setUp() {
         super.setUp()
+
         targeting = Targeting.shared
         UtilitiesForTesting.resetTargeting(targeting)
     }
     
     override func tearDown() {
         UtilitiesForTesting.resetTargeting(targeting)
+        Prebid.reset()
     }
     
     func testAdPositionHeader() {
@@ -464,5 +466,88 @@ class PrebidParameterBuilderTest: XCTestCase {
         ]
 
         XCTAssertEqual(bidRequest.extPrebid.storedBidResponses, resultStoredBidResponses)
+    }
+    
+    func testDefaultCaching() {
+        XCTAssertFalse(sdkConfiguration.useCacheForReportingWithRenderingAPI)
+        let bidRequest = PBMORTBBidRequest()
+
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+
+        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
+                                 sdkConfiguration: sdkConfiguration,
+                                 sdkVersion: "MOCK_SDK_VERSION",
+                                 targeting: targeting)
+            .build(bidRequest)
+
+        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting,
+                                  userAgentService: MockUserAgentService())
+            .build(bidRequest)
+        
+        guard bidRequest.extPrebid.cache == nil else {
+            XCTFail("Cache should be nil by default.")
+            return
+        }
+    }
+    
+    func testEnableCaching() {
+        sdkConfiguration.useCacheForReportingWithRenderingAPI = true
+        let bidRequest = PBMORTBBidRequest()
+
+        let configId = "b6260e2b-bc4c-4d10-bdb5-f7bdd62f5ed4"
+        let adUnitConfig = AdUnitConfig(configId: configId, size: CGSize(width: 320, height: 50))
+
+        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
+                                 sdkConfiguration: sdkConfiguration,
+                                 sdkVersion: "MOCK_SDK_VERSION",
+                                 targeting: targeting)
+            .build(bidRequest)
+
+        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting,
+                                  userAgentService: MockUserAgentService())
+            .build(bidRequest)
+        
+        guard let cache = bidRequest.extPrebid.cache else {
+            XCTFail("Cache shouldn't be nil if useCacheForReportingWithRenderingAPI is turned on.")
+            return
+        }
+        
+        XCTAssertNotNil(cache["bids"])
+        XCTAssertNotNil(cache["vastxml"])
+    }
+    
+    func testCachingForOriginalAPI() {
+        // This should not impact on caching the bid in original api
+        sdkConfiguration.useCacheForReportingWithRenderingAPI = false
+        
+        let adUnit = AdUnit(configId: "test", size: CGSize(width: 320, height: 50))
+        let bidRequest = PBMORTBBidRequest()
+        
+        let adUnitConfig = adUnit.adUnitConfig
+        
+        PBMBasicParameterBuilder(adConfiguration: adUnitConfig.adConfiguration,
+                                 sdkConfiguration: sdkConfiguration,
+                                 sdkVersion: "MOCK_SDK_VERSION",
+                                 targeting: targeting)
+            .build(bidRequest)
+
+        PBMPrebidParameterBuilder(adConfiguration: adUnitConfig,
+                                  sdkConfiguration: sdkConfiguration,
+                                  targeting: targeting,
+                                  userAgentService: MockUserAgentService())
+            .build(bidRequest)
+        
+        guard let cache = bidRequest.extPrebid.cache else {
+            XCTFail("Cache shouldn't be nil for original api.")
+            return
+        }
+        
+        XCTAssertNotNil(cache["bids"])
+        XCTAssertNotNil(cache["vastxml"])
     }
 }
