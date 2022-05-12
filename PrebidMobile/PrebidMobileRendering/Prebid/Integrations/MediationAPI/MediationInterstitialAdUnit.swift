@@ -58,8 +58,6 @@ public class MediationInterstitialAdUnit : MediationBaseInterstitialAdUnit {
         if let size = minSizePercentage {
             adUnitConfig.minSizePerc = NSValue(cgSize: size)
         }
-        
-        adUnitConfig.adConfiguration.adFormats = [.display, .video]
     }
     
     // MARK: - Computed Properties
