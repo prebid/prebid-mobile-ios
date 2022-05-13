@@ -39,6 +39,8 @@ import UIKit
     //Click Handling
     private var gestureRecognizerRecords = [NativeAdGestureRecognizerRecord]()
     
+    private let eventManager = EventManager()
+    
     // MARK: - Array getters
     
     @objc public var titles: [NativeTitle] {
@@ -94,16 +96,42 @@ import UIKit
     }
     
     public static func create(cacheId: String) -> NativeAd? {
-        
-        guard let bidInfo = CacheManager.shared.get(cacheId: cacheId),
-              let response = Utils.shared.getDictionaryFromString(bidInfo),
-              let adm = Utils.shared.getDictionary(from: response["adm"])
-        else {
-            Log.error("Invalid native contents")
+        guard let bidString = CacheManager.shared.get(cacheId: cacheId),
+              let bidDic = Utils.shared.getDictionaryFromString(bidString) else {
+            Log.error("No bid response for provided cache id.")
             return nil
         }
+        
+        guard let rawBid = PBMORTBBid<PBMORTBBidExt>(jsonDictionary: bidDic, extParser: { extDic in
+            return PBMORTBBidExt.init(jsonDictionary: extDic)
+        }) else {
+            return nil
+        }
+        
         let ad = NativeAd()
-        let nativeAdMarkup = NativeAdMarkup(jsonDictionary: adm)
+        
+        let internalEventTracker = PrebidServerEventTracker()
+        
+        if let impURL = rawBid.ext.prebid?.events?.imp {
+            let impEvent = ServerEvent(url: impURL, expectedEventType: .impression)
+            internalEventTracker.addServerEvents([impEvent])
+        }
+        
+        if let winURL = rawBid.ext.prebid?.events?.win {
+            let winEvent = ServerEvent(url: winURL, expectedEventType: .prebidWin)
+            internalEventTracker.addServerEvents([winEvent])
+        }
+        
+        ad.eventManager.registerTracker(internalEventTracker)
+        
+        // Track win event immediately
+        ad.eventManager.trackEvent(.prebidWin)
+        
+        guard let nativeAdMarkup = NativeAdMarkup(jsonString: rawBid.adm) else {
+            Log.warn("Can't retrieve native ad markup from bid response.")
+            return nil
+        }
+        
         ad.nativeAdMarkup = nativeAdMarkup
         CacheManager.shared.delegate = ad
         return ad
@@ -201,6 +229,7 @@ import UIKit
             Log.debug("Firing impression trackers")
             fireEventTrackers()
             viewabilityTimer?.invalidate()
+            eventManager.trackEvent(PBMTrackingEvent.impression)
             impressionHasBeenTracked = true
         }
     }

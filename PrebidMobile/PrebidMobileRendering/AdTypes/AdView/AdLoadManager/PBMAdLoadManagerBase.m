@@ -36,12 +36,13 @@
 
 @implementation PBMAdLoadManagerBase
 
-- (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
-                   adConfiguration:(AdConfiguration *)adConfiguration {
+- (instancetype)initWithBid:(Bid *)bid
+                 connection:(id<PBMServerConnectionProtocol>)connection
+            adConfiguration:(AdConfiguration *)adConfiguration {
     self = [super init];
     if (self) {
         PBMAssert(connection);
-        
+        self.bid = bid;
         self.connection = connection;
         self.adConfiguration = adConfiguration;
         self.dispatchQueue = dispatch_queue_create("PBMAdLoadManager", NULL);
@@ -55,6 +56,11 @@
     self.currentTransaction = [[PBMTransaction alloc] initWithServerConnection:self.connection
                                                                adConfiguration:self.adConfiguration
                                                                         models:creativeModels];
+    
+    self.currentTransaction.skadnInfo = self.bid.skadn;
+    self.currentTransaction.impURL = self.bid.events.imp;
+    self.currentTransaction.winURL = self.bid.events.win;
+    
     self.currentTransaction.delegate = self;
     
     [self.currentTransaction startCreativeFactory];

@@ -41,7 +41,7 @@ class PBMVASTFailToLoadTest: XCTestCase, PBMAdLoadManagerDelegate {
         let adConfiguration = AdConfiguration()
         adConfiguration.adFormats = [.video]
         
-        let adLoadManager = PBMAdLoadManagerVAST(connection: conn, adConfiguration: AdConfiguration())
+        let adLoadManager = PBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection: conn, adConfiguration: AdConfiguration())
         adLoadManager.adLoadManagerDelegate = self
         adLoadManager.adConfiguration = adConfiguration
         

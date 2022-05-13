@@ -24,7 +24,6 @@
 #import "PBMCreativeModel.h"
 #import "PBMDownloadDataHelper.h"
 #import "PBMError.h"
-#import "PBMEventManager.h"
 #import "PBMFunctions.h"
 #import "PBMOpenMeasurementWrapper.h"
 #import "PBMOpenMeasurementSession.h"
@@ -156,7 +155,9 @@
     if (self.transaction.measurementSession) {
         [self.videoView addFriendlyObstructionsToMeasurementSession:self.transaction.measurementSession];
         [self.transaction.measurementSession start];
-        [self.eventManager registerTracker:self.transaction.measurementSession.eventTracker];
+        if (self.transaction.measurementSession.eventTracker) {
+            [self.eventManager registerTracker:self.transaction.measurementSession.eventTracker];
+        }
         [self.eventManager trackVideoAdLoaded:[PBMVideoVerificationParameters new]];
     }
 }

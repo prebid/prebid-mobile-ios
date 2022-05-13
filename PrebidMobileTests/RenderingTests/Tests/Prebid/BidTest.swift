@@ -17,7 +17,7 @@ import XCTest
 
 @testable import PrebidMobile
 
-class BidTest: XCTestCase, RawWinningBidFabricator {
+class BidTest: XCTestCase {
     
     override func tearDown() {
         super.tearDown()
@@ -29,14 +29,14 @@ class BidTest: XCTestCase, RawWinningBidFabricator {
     // But publisher can set useCacheForReportingWithRenderingAPI to true
     // in order to add hb_cache_id to winning bid markers.
     func testWinningBidRendering() {
-        let rawBid = makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: nil)
+        let rawBid = RawWinningBidFabricator.makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: nil)
         let bid = Bid(bid: rawBid)
         XCTAssertTrue(bid.isWinning)
     }
     
     func testNoWinningBidRendering() {
         Prebid.shared.useCacheForReportingWithRenderingAPI = true
-        let rawBid = makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: nil)
+        let rawBid = RawWinningBidFabricator.makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: nil)
         let bid = Bid(bid: rawBid)
         XCTAssertFalse(bid.isWinning)
     }

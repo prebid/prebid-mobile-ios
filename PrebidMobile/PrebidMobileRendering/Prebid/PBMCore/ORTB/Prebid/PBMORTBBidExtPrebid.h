@@ -17,6 +17,7 @@
 
 @class PBMORTBBidExtPrebidCache;
 @class PBMORTBExtPrebidPassthrough;
+@class PBMORTBExtPrebidEvents;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSDictionary<NSString *, NSString *> *targeting;
 @property (nonatomic, copy, nullable) NSString *type;
 @property (nonatomic, copy, nullable) NSArray<PBMORTBExtPrebidPassthrough *> *passthrough;
+@property (nonatomic, strong, nullable) PBMORTBExtPrebidEvents *events;
 
 @end
 

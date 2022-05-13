@@ -14,8 +14,9 @@
   */
 
 import XCTest
+@testable import PrebidMobile
 
-class PBMEventManagerTest: XCTestCase {
+class EventManagerTest: XCTestCase {
     
     private var trackersCount = 0
     
@@ -27,7 +28,7 @@ class PBMEventManagerTest: XCTestCase {
     
     func testRegisterUnregister() {
         
-        let creativeTracker = PBMEventManager()
+        let creativeTracker = EventManager()
         XCTAssertNotNil(creativeTracker.trackers)
         XCTAssertEqual(creativeTracker.trackers?.count, 0)
         
@@ -62,7 +63,7 @@ class PBMEventManagerTest: XCTestCase {
     }
     
     func testSupportAllProtocol() {
-        let creativeTracker = PBMEventManager()
+        let creativeTracker = EventManager()
         
         let exp = expectation(description:"expectation")
         exp.expectedFulfillmentCount = 4
@@ -121,5 +122,15 @@ class PBMEventManagerTest: XCTestCase {
         }
         
         return eventTracker;
+    }
+}
+
+extension EventManager {
+    var mirror: Mirror {
+        Mirror(reflecting: self)
+    }
+    
+    var trackers: [PBMEventTrackerProtocol]? {
+        mirror.descendant("trackers") as? [PBMEventTrackerProtocol]
     }
 }

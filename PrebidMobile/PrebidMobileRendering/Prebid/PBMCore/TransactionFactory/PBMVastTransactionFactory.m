@@ -24,6 +24,7 @@
 
 @property (nonatomic, strong, readonly, nonnull) id<PBMServerConnectionProtocol> connection;
 @property (nonatomic, strong, readonly, nonnull) AdConfiguration *adConfiguration;
+@property (nonatomic, strong, readonly, nonnull) Bid *bid;
 
 // NOTE: need to call the completion callback only in the main thread
 // use onFinishedWithTransaction
@@ -40,13 +41,16 @@
 
 // MARK: - Public API
 
-- (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
-                   adConfiguration:(AdConfiguration *)adConfiguration
-                          callback:(PBMTransactionFactoryCallback)callback
+- (instancetype)initWithBid:(Bid *)bid
+                 connection:(id<PBMServerConnectionProtocol>)connection
+            adConfiguration:(AdConfiguration *)adConfiguration
+                   callback:(PBMTransactionFactoryCallback)callback
 {
     if (!(self = [super init])) {
         return nil;
     }
+    
+    _bid = bid;
     _adConfiguration = adConfiguration;
     _connection = connection;
     _callback = [callback copy];
@@ -80,8 +84,9 @@
 }
 
 - (BOOL)loadVASTTransaction:(NSString *)adMarkup {
-    self.vastLoadManager = [[PBMAdLoadManagerVAST alloc] initWithConnection:self.connection
-                                                            adConfiguration:self.adConfiguration];
+    self.vastLoadManager = [[PBMAdLoadManagerVAST alloc] initWithBid:self.bid
+                                                          connection:self.connection
+                                                     adConfiguration:self.adConfiguration];
     self.vastLoadManager.adLoadManagerDelegate = self;
     [self.vastLoadManager loadFromString:adMarkup];
     return YES;

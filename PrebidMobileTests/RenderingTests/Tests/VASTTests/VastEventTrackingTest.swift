@@ -76,7 +76,7 @@ class VastEventTrackingTest : XCTestCase, PBMCreativeViewDelegate {
        
         self.vastRequestSuccessfulExpectation = self.expectation(description: "Expected VAST Load to be successful")
         
-        let adLoadManager = MockPBMAdLoadManagerVAST(connection:connection, adConfiguration: adConfiguration)
+        let adLoadManager = MockPBMAdLoadManagerVAST(bid: RawWinningBidFabricator.makeWinningBid(price: 0.1, bidder: "bidder", cacheID: "cache-id"), connection:connection, adConfiguration: adConfiguration)
         
         adLoadManager.mock_requestCompletedSuccess = { response in
             self.vastServerRespose = response

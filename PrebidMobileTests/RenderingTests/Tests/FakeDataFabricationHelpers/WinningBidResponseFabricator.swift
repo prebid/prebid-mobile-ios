@@ -18,15 +18,11 @@ import XCTest
 
 @testable import PrebidMobile
 
-protocol WinningBidResponseFabricator: RawWinningBidFabricator {
-    // see extension below
-}
-
-extension WinningBidResponseFabricator {
-    func makeWinningBidResponse(bidPrice: Double) -> BidResponse {
+public class WinningBidResponseFabricator {
+    static func makeWinningBidResponse(bidPrice: Double) -> BidResponse {
         let rawBidResponse = PBMORTBBidResponse<PBMORTBBidResponseExt, NSDictionary, PBMORTBBidExt>()
         rawBidResponse.seatbid = [.init()]
-        let rawWinningBid = makeRawWinningBid(price: bidPrice, bidder: "some bidder", cacheID: "some-cache-id")
+        let rawWinningBid = RawWinningBidFabricator.makeRawWinningBid(price: bidPrice, bidder: "some bidder", cacheID: "some-cache-id")
         rawBidResponse.seatbid![0].bid = [rawWinningBid]
         let bidResponse = BidResponse(jsonDictionary: rawBidResponse.toJsonDictionary() as NSDictionary)
         XCTAssertNotNil(bidResponse.winningBid)

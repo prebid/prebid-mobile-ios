@@ -68,7 +68,6 @@
     chainedNotifications = chainNotificationAction(bid.nurl, chainedNotifications);
     chainedNotifications = chainNotificationAction(uuidUrl, chainedNotifications);
     chainedNotifications = chainNotificationAction(cacheUrl, chainedNotifications);
-    
     chainedNotifications(bid.adm); // launch chained events
 }
 

@@ -98,10 +98,12 @@
     self.transaction = [[PBMTransaction alloc] initWithServerConnection:self.connection
                                                         adConfiguration:self.adConfiguration.adConfiguration
                                                                  models:creativeModels];
+    
+    self.transaction.skadnInfo = self.bid.skadn;
+    self.transaction.impURL = self.bid.events.imp;
+    self.transaction.winURL = self.bid.events.win;
+    
     self.transaction.delegate = self;
-    if (self.bid.skadn) {
-        self.transaction.skadInfo = self.bid.skadn;
-    }
     [self.transaction startCreativeFactory];
 }
 

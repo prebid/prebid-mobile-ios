@@ -52,6 +52,8 @@ typedef NS_ENUM(NSInteger, PBMTrackingEvent) {
     PBMTrackingEventError,
     
     PBMTrackingEventLoaded,
+    
+    PBMTrackingEventPrebidWin
 };
 
 

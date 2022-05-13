@@ -21,6 +21,7 @@
 @class PBMModalManager;
 @class PBMCreativeModel;
 @class AdConfiguration;
+@class Bid;
 
 @protocol PBMServerConnectionProtocol;
 
@@ -30,11 +31,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id<PBMAdLoadManagerDelegate> adLoadManagerDelegate;
 @property (nonatomic, strong) id<PBMServerConnectionProtocol> connection;
 @property (nonatomic, strong) AdConfiguration *adConfiguration;
+@property (nonatomic, strong) Bid *bid;
 @property (nonatomic, strong) dispatch_queue_t dispatchQueue;
 
 - (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithConnection:(id<PBMServerConnectionProtocol>)connection
-                   adConfiguration:(AdConfiguration *)adConfiguration NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithBid:(Bid *)bid
+                 connection:(id<PBMServerConnectionProtocol>)connection
+            adConfiguration:(AdConfiguration *)adConfiguration NS_DESIGNATED_INITIALIZER;
 
 - (void)makeCreativesWithCreativeModels:(NSArray<PBMCreativeModel *> *)creativeModels;
 

@@ -17,9 +17,9 @@ import XCTest
 
 @testable import PrebidMobile
 
-class DemandResponseInfoTest: XCTestCase, RawWinningBidFabricator {
+class DemandResponseInfoTest: XCTestCase {
     private func makeWinningBid() -> Bid {
-        let rawBid = makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: "some-cache-id")
+        let rawBid = RawWinningBidFabricator.makeRawWinningBid(price: 0.75, bidder: "some bidder", cacheID: "some-cache-id")
         let bid = Bid(bid: rawBid)
         XCTAssert(bid.isWinning)
         return bid

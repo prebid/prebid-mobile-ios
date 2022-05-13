@@ -19,7 +19,6 @@
 #import "PBMAdLoadManagerProtocol.h"
 #import "PBMAutoRefreshManager.h"
 #import "PBMCreativeModel.h"
-#import "PBMEventManager.h"
 #import "PBMFunctions+Private.h"
 #import "PBMInterstitialLayoutConfigurator.h"
 #import "PBMModalManager.h"

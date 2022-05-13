@@ -17,7 +17,7 @@ import XCTest
 
 @testable import PrebidMobile
 
-class PBMBaseAdUnitTest: XCTestCase, WinningBidResponseFabricator {
+class PBMBaseAdUnitTest: XCTestCase {
     func testDesignatedInit_noBlockCalled() {
         let configID = "some-base-config-ID"
         
@@ -42,7 +42,7 @@ class PBMBaseAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         let bidPrice = 0.85
         let expectedAdMarkup = "<b>Some ad markup</b>"
         
-        let bidResponse = makeWinningBidResponse(bidPrice: bidPrice)
+        let bidResponse = WinningBidResponseFabricator.makeWinningBidResponse(bidPrice: bidPrice)
         
         let requesterCreated = expectation(description: "requester created")
         let winNotNotified = expectation(description: "win not notified")
@@ -157,7 +157,7 @@ class PBMBaseAdUnitTest: XCTestCase, WinningBidResponseFabricator {
         let bidPrice = 0.85
         let expectedAdMarkup = "<b>Some ad markup</b>"
         
-        let bidResponse = makeWinningBidResponse(bidPrice: bidPrice)
+        let bidResponse = WinningBidResponseFabricator.makeWinningBidResponse(bidPrice: bidPrice)
         
         let requesterCreated = expectation(description: "requester created")
         let requestCompleted = expectation(description: "request completed")

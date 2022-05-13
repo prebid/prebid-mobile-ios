@@ -91,9 +91,10 @@
 }
 
 - (BOOL)loadVASTTransaction:(NSString *)adMarkup {
-    PBMVastTransactionFactory * const factory = [[PBMVastTransactionFactory alloc] initWithConnection:self.connection
-                                                                                      adConfiguration:self.adConfiguration.adConfiguration
-                                                                                             callback:self.callbackForProperFactory];
+    PBMVastTransactionFactory * const factory = [[PBMVastTransactionFactory alloc] initWithBid:self.bid
+                                                                                    connection:self.connection
+                                                                               adConfiguration:self.adConfiguration.adConfiguration
+                                                                                      callback:self.callbackForProperFactory];
     self.currentFactory = factory;
     return [factory loadWithAdMarkup:adMarkup];
 }
@@ -108,9 +109,6 @@
 
 - (void)onFinishedWithTransaction:(PBMTransaction *)transaction error:(NSError *)error {
     self.currentFactory = nil;
-    if (self.bid.skadn) {
-        transaction.skadInfo = self.bid.skadn;
-    }
     self.callback(transaction, error);
 }
 

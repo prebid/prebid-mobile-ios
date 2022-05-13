@@ -13,23 +13,16 @@
  limitations under the License.
  */
 
-#import "PBMTransactionFactoryCallback.h"
+import Foundation
 
-@class AdConfiguration;
-@class Bid;
-@protocol PBMServerConnectionProtocol;
-
-NS_ASSUME_NONNULL_BEGIN
-
-@interface PBMVastTransactionFactory : NSObject
-
-- (instancetype)initWithBid:(Bid *)bid
-                 connection:(id<PBMServerConnectionProtocol>)connection
-            adConfiguration:(AdConfiguration *)adConfiguration
-                   callback:(PBMTransactionFactoryCallback)callback;
-
-- (BOOL)loadWithAdMarkup:(NSString *)adMarkup;
-
-@end
-
-NS_ASSUME_NONNULL_END
+@objcMembers
+public class ServerEvent: NSObject {
+    
+    var url: String
+    var expectedEventType: PBMTrackingEvent
+    
+    public init(url: String, expectedEventType: PBMTrackingEvent) {
+        self.url = url
+        self.expectedEventType = expectedEventType
+    }
+}

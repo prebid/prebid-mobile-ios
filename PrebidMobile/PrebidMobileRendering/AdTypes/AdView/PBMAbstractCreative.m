@@ -24,7 +24,6 @@
 #import "PBMCreativeViewabilityTracker.h"
 #import "PBMDeepLinkPlusHelper.h"
 #import "PBMDeferredModalState.h"
-#import "PBMEventManager.h"
 #import "PBMFunctions+Private.h"
 #import "PBMFunctions.h"
 #import "PBMInterstitialDisplayProperties.h"
@@ -44,7 +43,7 @@
 @interface PBMAbstractCreative() <SKStoreProductViewControllerDelegate>
 
 @property (nonatomic, weak, readwrite) PBMTransaction *transaction;
-@property (nonatomic, strong, readwrite) PBMEventManager *eventManager;
+@property (nonatomic, strong, readwrite) EventManager *eventManager;
 @property (nonatomic, copy, nullable, readwrite) PBMVoidBlock dismissInterstitialModalState;
 
 @property (nonatomic, assign) BOOL adWasShown;
@@ -69,7 +68,7 @@
         self.transaction = transaction;
         self.dispatchQueue = dispatch_queue_create("PBMAbstractCreative", NULL);
 
-        self.eventManager = [PBMEventManager new];
+        self.eventManager = [EventManager new];
         if (creativeModel.eventTracker) {
             [self.eventManager registerTracker: (id<PBMEventTrackerProtocol>)creativeModel.eventTracker];
         } else {
@@ -77,15 +76,37 @@
         }
         
         if(@available(iOS 14.5, *)) {
-            if (self.transaction.skadInfo) {
-                SKAdImpression *imp = [SkadnParametersManager getSkadnImpressionFor:self.transaction.skadInfo];
+            if (self.transaction.skadnInfo) {
+                SKAdImpression *imp = [SkadnParametersManager getSkadnImpressionFor:self.transaction.skadnInfo];
                 if (imp) {
                     SkadnEventTracker *skadnTracker = [[SkadnEventTracker alloc] initWith:imp];
                     [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) skadnTracker];
                 }
             }
         }
-
+        
+        PrebidServerEventTracker *internalEventTracker = [[PrebidServerEventTracker alloc] initWithServerEvents:@[]];
+        
+        NSString *impURL = self.transaction.impURL;
+        
+        if (impURL) {
+            ServerEvent *impEvent = [[ServerEvent alloc] initWithUrl:impURL expectedEventType:PBMTrackingEventImpression];
+            [internalEventTracker addServerEvents:@[impEvent]];
+        }
+        
+        NSString *winURL = self.transaction.winURL;
+        
+        if (winURL) {
+            ServerEvent *winEvent = [[ServerEvent alloc] initWithUrl:winURL expectedEventType:PBMTrackingEventPrebidWin];
+            [internalEventTracker addServerEvents:@[winEvent]];
+        }
+        
+        if (internalEventTracker.serverEvents.count > 0) {
+            [self.eventManager registerTracker:(id<PBMEventTrackerProtocol>) internalEventTracker];
+        }
+        
+        // Track win event immediately
+        [self.eventManager trackEvent:PBMTrackingEventPrebidWin];
     }
 
     return self;
@@ -196,7 +217,7 @@
         return;
     }
     BOOL clickthroughOpened = NO;
-    PBMJsonDictionary * skadnetProductParameters = [SkadnParametersManager getSkadnProductParametersFor:self.transaction.skadInfo];
+    PBMJsonDictionary * skadnetProductParameters = [SkadnParametersManager getSkadnProductParametersFor:self.transaction.skadnInfo];
     
     if (skadnetProductParameters) {
         clickthroughOpened = [self handleProductClickthrough:url
@@ -420,7 +441,9 @@
 }
 
 - (void)onAdDisplayed {
-    [self.eventManager registerTracker:self.transaction.measurementSession.eventTracker];
+    if (self.transaction.measurementSession.eventTracker) {
+        [self.eventManager registerTracker:self.transaction.measurementSession.eventTracker];
+    }
 
     [self.creativeViewDelegate creativeDidDisplay:self];
     [self onWillTrackImpression];

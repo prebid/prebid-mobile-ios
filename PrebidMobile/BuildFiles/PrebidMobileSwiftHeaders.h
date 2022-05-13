@@ -28,6 +28,8 @@
 // Bid
 #import "PBMORTBBid.h"
 #import "PBMORTBBidExt.h"
+#import "PBMORTBBidExtPrebid.h"
+#import "PBMORTBExtPrebidEvents.h"
 #import "PBMORTBAdConfiguration.h"
 #import "PBMRawBidResponse.h"
 #import "PBMLocationManager.h"
@@ -36,5 +38,4 @@
 #import "PBMInterstitialAdLoaderDelegate.h"
 
 #import "PBMEventTrackerProtocol.h"
-
 #import "PBMInterstitialDisplayProperties.h"

@@ -13,24 +13,16 @@
  limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
-
-#import "PBMAdLoadManagerDelegate.h"
-#import "PBMTransactionDelegate.h"
-
-@class AdConfiguration;
-@class Bid;
-@protocol PBMServerConnectionProtocol;
+#import "PBMORTBAbstract.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@protocol PBMAdLoadManagerProtocol <NSObject, PBMTransactionDelegate>
 
-@property (nonatomic, weak, nullable) id<PBMAdLoadManagerDelegate> adLoadManagerDelegate;
+@interface PBMORTBExtPrebidEvents : PBMORTBAbstract
 
-- (instancetype)init NS_UNAVAILABLE;
-- (instancetype)initWithBid:(Bid *)bid
-                 connection:(id<PBMServerConnectionProtocol>)connection
-            adConfiguration:(AdConfiguration *)adConfiguration;
+@property (nonatomic, copy, nullable) NSString *win;
+
+@property (nonatomic, copy, nullable) NSString *imp;
 
 @end
+
 NS_ASSUME_NONNULL_END
