@@ -23,7 +23,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class PBMAbstractCreative;
-@class PBMEventManager;
 @class PBMModalManager;
 @class PBMWebView;
 @class PBMMRAIDCommand;

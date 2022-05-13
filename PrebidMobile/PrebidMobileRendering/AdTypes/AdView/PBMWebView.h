@@ -20,9 +20,9 @@
 #import "PBMConstants.h"
 #import "PBMWebViewDelegate.h"
 #import "PBMExposureChangeDelegate.h"
-#import "PBMEventManager.h"
 #import "PBMOpenMeasurementWrapper.h"
 #import "PBMMRAIDConstants.h"
+#import "PBMCreativeModel.h"
 
 @class Targeting;
 @class PBMAbstractCreative;

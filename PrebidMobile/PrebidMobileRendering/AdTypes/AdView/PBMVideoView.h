@@ -20,7 +20,7 @@
 #import "PBMCircularProgressBarView.h"
 #import "PBMTrackingEvent.h"
 
-@class PBMEventManager;
+@class EventManager;
 @class PBMVideoModel;
 @class PBMCreativeModel;
 @class PBMVideoCreative;
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL isSoundButtonVisible;
 
-- (instancetype)initWithEventManager:(PBMEventManager *)eventManager;
+- (instancetype)initWithEventManager:(EventManager *)eventManager;
 
 - (instancetype)initWithCreative:(PBMVideoCreative *)creative;
 

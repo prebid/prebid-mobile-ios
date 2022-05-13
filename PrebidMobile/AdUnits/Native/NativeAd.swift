@@ -39,7 +39,7 @@ import UIKit
     //Click Handling
     private var gestureRecognizerRecords = [NativeAdGestureRecognizerRecord]()
     
-    private let eventManager = PBMEventManager()
+    private let eventManager = EventManager()
     
     // MARK: - Array getters
     

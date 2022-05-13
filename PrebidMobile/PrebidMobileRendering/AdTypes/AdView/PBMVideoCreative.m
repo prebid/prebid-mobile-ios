@@ -24,7 +24,6 @@
 #import "PBMCreativeModel.h"
 #import "PBMDownloadDataHelper.h"
 #import "PBMError.h"
-#import "PBMEventManager.h"
 #import "PBMFunctions.h"
 #import "PBMOpenMeasurementWrapper.h"
 #import "PBMOpenMeasurementSession.h"
